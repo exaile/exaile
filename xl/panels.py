@@ -492,7 +492,7 @@ class CollectionPanel(object):
         if self.keyword != None: 
             self.connect_id = gobject.timeout_add(500, self.__run_expand)
 
-    def __append_info(self, node, songs=None):
+    def __append_info(self, node, songs=None, unknown=False):
         """
             Appends all related info and organizes the tree based on self.order
             Only the very last item of self.order will be a child node
@@ -500,6 +500,7 @@ class CollectionPanel(object):
 
         order_nodes = xl.common.idict()
         order = []
+        last_songs = []
         for field in self.order:
             if field == "track": continue
             order.append(field)
@@ -510,11 +511,19 @@ class CollectionPanel(object):
         for track in songs:
             parent = node
             string = ""
+            first_pass = True
             for field in order:
                 node_for = order_nodes[field]
                 if field == "track": continue
                 info = getattr(track, field)
-                if info == "": info = "Unknown"
+                if info == "": 
+                    if not unknown and first_pass:
+                        last_songs.append(track)
+                        continue
+                    else:
+                        info = "Unknown"
+
+                first_pass = False
                 if field == "title":
                     n = self.model.append(parent, [self.track_image,
                         track])
@@ -531,6 +540,10 @@ class CollectionPanel(object):
                         if info == "track": info = track
                         node_for[string] = parent
                     else: parent = node_for[string]
+
+        # if this is the first pass, append the unknown tracks to the end
+        if not unknown:
+            self.__append_info(node, last_songs, True)
 
 class iPodPlaylist(object):
     """

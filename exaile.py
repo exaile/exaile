@@ -168,6 +168,7 @@ class ExaileWindow(object):
         if self.ipod_panel:
             self.status.set_first(
                 _("Scanning ipod..."))
+            xlmisc.finish()
             self.ipod_panel.load_tree('refresh')
             self.status.set_first(None)
  

@@ -542,8 +542,7 @@ class TracksListCtrl(gtk.VBox):
         rows = self.db.select("SELECT playlist_name FROM playlists ORDER BY"
             " playlist_name")
         for row in rows:
-            pm.append(row[0], lambda *e: 
-                self.exaile.playlists_panel.add_items_to_playlist(row[0]))
+            pm.append(row[0], self.exaile.playlists_panel.add_items_to_playlist)
 
         tpm.append_menu(_("Add to Playlist"), pm)
         em = xlmisc.Menu()

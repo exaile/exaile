@@ -217,7 +217,7 @@ class CollectionPanel(object):
             " playlist_name")
 
         for row in rows:
-            pm.append(row[0], lambda *e: self.__add_to_playlist(row[0]))
+            pm.append(row[0], self.__add_to_playlist)
 
         menu.append_menu(_("Add to Playlist"), pm)
         self.queue_item = menu.append(_("Queue Items"), self.__append_items)
@@ -228,10 +228,11 @@ class CollectionPanel(object):
             self.__append_items)
         self.menu = menu
 
-    def __add_to_playlist(self, playlist):
+    def __add_to_playlist(self, widget, event):
         """
             Adds items to the playlist
         """
+        playlist = widget.get_child().get_label()
         items = self.__append_items(None, None, True)
         self.exaile.playlists_panel.add_items_to_playlist(playlist, items)
 

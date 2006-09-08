@@ -7,6 +7,7 @@ LDFLAGS += `pkg-config --libs gtk+-2.0 pygtk-2.0`
 
 mmkeys.so: mmkeyspy.o mmkeys.o mmkeysmodule.o
 	$(CC) $(LDFLAGS) -shared $^ -o $@
+	strip mmkeys.so
 
 DEFS=`pkg-config --variable=defsdir pygtk-2.0`
 

@@ -9,8 +9,8 @@ Package: exaile
 Architecture: any
 Depends: ${shlibs:Depends}, python-pysqlite2, 
  libgstreamer0.10-0, gstreamer0.10-plugins-base, gstreamer0.10-plugins-good, 
- python-gst0.10, gstreamer0.10-esd, gstreamer0.10-alsa,  
+ python-gst0.10, gstreamer0.10-esd, gstreamer0.10-alsa, python2.4,
  python2.4-gtk2, python-glade2, python2.4-dbus, python-pyvorbis
 Recommends: gstreamer-0.10-plugins-ugly, python2.4-gnome-extras, python-cddb
 Description: Exaile Media Player!
- Exaile is a media player aiming to be similar to KDE's AmaroK, but for GTK+.
+ A media player aiming to be similar to KDE's AmaroK, but for GTK+.

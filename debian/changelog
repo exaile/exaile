@@ -1,0 +1,67 @@
+exaile (0.2.2) stable; urgency=low
+  * fixed the popup menu in the collection tab
+
+ -- Adam Olsen <synic@jbother.org>  Wed, 6 Sep  2006 21:15:34 -0700
+
+exaile (0.2.1) unstable; urgency=low
+
+  * very minor bugfixes
+  * fixed a logo problem that reflected the wrong version of exaile
+
+ -- Adam Olsen <synic@jbother.org>  Tue, 6 Sep  2006 15:41:25 -0700
+
+exaile (0.2) unstable; urgency=low
+    
+  * selection bug fixes in the collection panel
+  * path fixes that would prevent tracks with unicode in the path from playing
+
+ -- Adam Olsen <synic@jbother.org>  Tue, 6 Sep  2006 07:25:25 -0700
+  
+exaile (0.2b5) unstable; urgency=low
+
+  * Some threading bugs fixed
+  * .mpc support and general gstreamer metadata fixes
+  * python-pymad and python-pyogg deps removed
+  * Using pathname2url to escape files located on disk
+
+ -- Adam Olsen <synic@jbother.org>  Wed, 16 Aug  2006 17:31:01 -0700
+
+exaile (0.2b4) unstable; urgency=low
+
+  * Fixed some bugs regarding drag and drop
+  * Allow for drag and drop reordering
+  * Dropped python-pymad from required, added to recommended
+
+ -- Adam Olsen <synic@jbother.org>  Thu, 27 June 2006 15:16:01 -0700
+
+exaile (0.2b3) unstable; urgency=low
+    
+  * Completely converted from using wxPython to pygtk
+  * removed wx dependancy
+  * added option cdrom drive and cddb support
+
+ -- Adam Olsen <synic@jbother.org>  Mon, 24 June 2006 07:07:01 -0700
+
+exaile (0.2b2) unstable; urgency=low
+  
+  * iPod write support
+  * Drag & Drop support
+  * wma file support
+  * removed the track information update from the track timer (caused high cpu
+    useage)
+  * Updated artwork, exaile now tries to use the current gtk theme icons
+  * Removed PIL dependancy
+
+ -- Adam Olsen <synic@jbother.org>  Tue, 22 June 2006 11:10:01 -0600
+
+exaile (0.2b) unstable; urgency=low
+  
+  * Updating the deb file
+
+ -- Adam Olsen <synic@jbother.org>  Tue, 6 June 2006 15:38:55 -0600
+
+exaile (0.1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Adam Olsen <synic@jbother.org>  Tue, 23 May 2006 14:07:33 -0600

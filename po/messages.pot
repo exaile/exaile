@@ -1,0 +1,909 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-21 15:52-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: exaile.py:120 exaile.glade.h:51
+msgid "Exaile!"
+msgstr ""
+
+#: exaile.py:159 exaile.py:1019 exaile.py:1047 xl/panels.py:1497
+#: xl/panels.py:1564 exaile.glade.h:88
+msgid "Playlist"
+msgstr ""
+
+#: exaile.py:165
+msgid "Scanning ipod..."
+msgstr ""
+
+#: exaile.py:175
+msgid ""
+"You have not specified any search directories for your music library. You "
+"may do so now, or choose to do it later.  If you want to do it later, you "
+"can manager your library search directories by going to Tools->Library "
+"Manager.  Do you want to choose your library directories now?"
+msgstr ""
+
+#: exaile.py:363
+msgid "Queue"
+msgstr ""
+
+#: exaile.py:390
+msgid "Blacklist"
+msgstr ""
+
+#: exaile.py:475
+msgid "Last"
+msgstr ""
+
+#: exaile.py:544
+msgid ""
+"Blacklisting the selected tracks will prevent them from being added to the "
+"library on rescan.  Are you sure you want to continue?"
+msgstr ""
+
+#: exaile.py:563 xl/panels.py:244
+msgid ""
+"Are you sure you want to permanently remove the selected tracks from disk?"
+msgstr ""
+
+#: exaile.py:702
+msgid "Loading library from database..."
+msgstr ""
+
+#: exaile.py:770 exaile.py:1578
+msgid "Submitting to Last.fm..."
+msgstr ""
+
+#: exaile.py:832
+msgid "No covers found."
+msgstr ""
+
+#: exaile.py:896
+msgid "Fetching cover art from Amazon..."
+msgstr ""
+
+#: exaile.py:945
+msgid "View Full Image"
+msgstr ""
+
+#: exaile.py:947
+msgid "Fetch from Amazon"
+msgstr ""
+
+#: exaile.py:949
+msgid "Search Amazon"
+msgstr ""
+
+#: exaile.py:951
+msgid "Set Custom Image"
+msgstr ""
+
+#: exaile.py:963
+msgid "Fetching from amazon..."
+msgstr ""
+
+#: exaile.py:977
+msgid "Choose an image"
+msgstr ""
+
+#: exaile.py:1372 exaile.py:1420
+msgid "Choose a file"
+msgstr ""
+
+#: exaile.py:1385
+msgid "Populating playlist..."
+msgstr ""
+
+#: exaile.py:1461
+msgid "Enter the address"
+msgstr ""
+
+#: exaile.py:1475
+msgid "Audio Disc"
+msgstr ""
+
+#: exaile.py:1517
+msgid "Scanning collection..."
+msgstr ""
+
+#: xl/panels.py:104
+msgid "Finished scanning collection."
+msgstr ""
+
+#: xl/panels.py:112
+msgid "Scanning..."
+msgstr ""
+
+#: xl/panels.py:183 xl/panels.py:1459
+msgid "Append to Playlist"
+msgstr ""
+
+#: xl/panels.py:185
+msgid "Queue Items"
+msgstr ""
+
+#: xl/panels.py:187
+msgid "Blacklist Selected"
+msgstr ""
+
+#: xl/panels.py:189
+msgid "Delete Selected"
+msgstr ""
+
+#: xl/panels.py:256
+msgid "Are you sure you want to blacklist the selected tracks?"
+msgstr ""
+
+#: xl/panels.py:362
+msgid "iPod Collection"
+msgstr ""
+
+#: xl/panels.py:491 exaile.glade.h:82
+msgid "Open Playlist"
+msgstr ""
+
+#: xl/panels.py:493
+msgid "Rename"
+msgstr ""
+
+#: xl/panels.py:495 xl/trackslist.py:463
+msgid "Remove"
+msgstr ""
+
+#: xl/panels.py:497
+msgid "Create Paylist"
+msgstr ""
+
+#: xl/panels.py:501
+msgid "Update Covers"
+msgstr ""
+
+#: xl/panels.py:525 xl/panels.py:926
+msgid "Are you sure you want to permanently delete the selectedplaylist?"
+msgstr ""
+
+#: xl/panels.py:547
+msgid "Enter the new name for the playlist"
+msgstr ""
+
+#: xl/panels.py:548
+msgid "Rename Playlist"
+msgstr ""
+
+#: xl/panels.py:563
+msgid "Enter a name for the new playlist"
+msgstr ""
+
+#: xl/panels.py:563 xl/panels.py:998 xl/trackslist.py:448 exaile.glade.h:73
+msgid "New Playlist"
+msgstr ""
+
+#: xl/panels.py:621
+msgid "Writing iTunes database..."
+msgstr ""
+
+#: xl/panels.py:669
+msgid ""
+"This action will write all album art in the Exaile database to your iPod "
+"(overwriting any existing album art).  Are you sure you want to continue?"
+msgstr ""
+
+#: xl/panels.py:684
+msgid "Updating covers on iPod..."
+msgstr ""
+
+#: xl/panels.py:707
+msgid "Writing iPod database..."
+msgstr ""
+
+#: xl/panels.py:739
+msgid "There is a transfer in progress. Please wait for it to complete."
+msgstr ""
+
+#: xl/panels.py:997
+msgid "Enter the name you want for your new playlist"
+msgstr ""
+
+#: xl/panels.py:1008
+msgid "Playlist already exists."
+msgstr ""
+
+#: xl/panels.py:1111
+msgid "Shoutcast Stations"
+msgstr ""
+
+#: xl/panels.py:1202
+msgid "Reload Streams"
+msgstr ""
+
+#: xl/panels.py:1207 xl/panels.py:1221
+msgid "Add Stream to Station"
+msgstr ""
+
+#: xl/panels.py:1209
+msgid "Delete this Station"
+msgstr ""
+
+#: xl/panels.py:1245
+msgid "Are you sure you want to permanently delete the selectedstation?"
+msgstr ""
+
+#: xl/panels.py:1292
+msgid "Add Station"
+msgstr ""
+
+#: xl/panels.py:1293
+msgid "Station Name:"
+msgstr ""
+
+#: xl/panels.py:1294
+msgid "Description:"
+msgstr ""
+
+#: xl/panels.py:1295
+msgid "URL:"
+msgstr ""
+
+#: xl/panels.py:1306
+msgid "Station name already exists."
+msgstr ""
+
+#: xl/panels.py:1353 xl/panels.py:1354
+msgid "Enter the name of the station"
+msgstr ""
+
+#: xl/panels.py:1364
+msgid "Station already exists."
+msgstr ""
+
+#: xl/track.py:148
+msgid "Lyrics provided by http://www.leoslyrics.com"
+msgstr ""
+
+#: xl/track.py:264
+msgid "Title: "
+msgstr ""
+
+#: xl/track.py:265 exaile.glade.h:19
+msgid "Artist:"
+msgstr ""
+
+#: xl/track.py:266 exaile.glade.h:12
+msgid "Album:"
+msgstr ""
+
+#: xl/track.py:268
+msgid "Track Number:"
+msgstr ""
+
+#: xl/track.py:269 exaile.glade.h:139
+msgid "Year:"
+msgstr ""
+
+#: xl/track.py:270 exaile.glade.h:57
+msgid "Genre:"
+msgstr ""
+
+#: xl/track.py:271
+msgid "Bitrate:"
+msgstr ""
+
+#: xl/track.py:272
+msgid "User Rating:"
+msgstr ""
+
+#: xl/track.py:273
+msgid "System Rating:"
+msgstr ""
+
+#: xl/track.py:274
+msgid "Playcount:"
+msgstr ""
+
+#: xl/track.py:275
+msgid "Location: "
+msgstr ""
+
+#: xl/track.py:310 xl/trackslist.py:434 exaile.glade.h:60
+msgid "Information"
+msgstr ""
+
+#: xl/track.py:322
+msgid "Statistics"
+msgstr ""
+
+#: xl/track.py:326 xl/trackslist.py:183 xl/trackslist.py:188 exaile.glade.h:14
+msgid "Artist"
+msgstr ""
+
+#: xl/track.py:331 xl/trackslist.py:183 xl/trackslist.py:189 exaile.glade.h:9
+msgid "Album"
+msgstr ""
+
+#: xl/track.py:333 exaile.glade.h:70
+msgid "Lyrics"
+msgstr ""
+
+#: xl/track.py:335
+msgid "Tablature"
+msgstr ""
+
+#: xl/track.py:432
+msgid "Some errors occurred"
+msgstr ""
+
+#: xl/trackslist.py:183 xl/trackslist.py:187 xl/trackslist.py:587
+#: xl/trackslist.py:591 exaile.glade.h:119
+msgid "Title"
+msgstr ""
+
+#: xl/trackslist.py:183 xl/trackslist.py:190 xl/trackslist.py:350
+#: exaile.glade.h:66
+msgid "Length"
+msgstr ""
+
+#: xl/trackslist.py:184 xl/trackslist.py:191 xl/trackslist.py:431
+#: exaile.glade.h:99
+msgid "Rating"
+msgstr ""
+
+#: xl/trackslist.py:184 xl/trackslist.py:192 exaile.glade.h:138
+msgid "Year"
+msgstr ""
+
+#: xl/trackslist.py:184 xl/trackslist.py:193 exaile.glade.h:56
+msgid "Genre"
+msgstr ""
+
+#: xl/trackslist.py:410
+msgid "Queue Track(s)"
+msgstr ""
+
+#: xl/trackslist.py:411
+msgid "Dequeue Track(s)"
+msgstr ""
+
+#: xl/trackslist.py:416
+msgid "Edit Information"
+msgstr ""
+
+#: xl/trackslist.py:422
+msgid "Clear"
+msgstr ""
+
+#: xl/trackslist.py:432
+msgid "Edit Track(s)"
+msgstr ""
+
+#: xl/trackslist.py:451
+msgid "Add to Playlist"
+msgstr ""
+
+#: xl/trackslist.py:455
+msgid "Remove from Playlist"
+msgstr ""
+
+#: xl/trackslist.py:460
+msgid "Blacklist Track(s)"
+msgstr ""
+
+#: xl/trackslist.py:462
+msgid "Delete Track(s)"
+msgstr ""
+
+#: xl/trackslist.py:560
+msgid "Remove from Blacklist"
+msgstr ""
+
+#: xl/trackslist.py:587 xl/trackslist.py:593 exaile.glade.h:49
+msgid "Description"
+msgstr ""
+
+#: xl/trackslist.py:587 xl/trackslist.py:594 exaile.glade.h:69
+msgid "Location"
+msgstr ""
+
+#: xl/trackslist.py:588 exaile.glade.h:68
+msgid "Listeners"
+msgstr ""
+
+#: xl/trackslist.py:588 xl/trackslist.py:592 xl/trackslist.py:595
+#: exaile.glade.h:22
+msgid "Bitrate"
+msgstr ""
+
+#: xl/trackslist.py:621
+msgid "Remove from playlist"
+msgstr ""
+
+#: xl/trackslist.py:632
+msgid "New Station"
+msgstr ""
+
+#: xl/trackslist.py:635
+msgid "Add to Saved Stations"
+msgstr ""
+
+#: xl/tracks.py:244
+msgid "Could not open audio disc"
+msgstr ""
+
+#: xl/xlmisc.py:259
+msgid "Play"
+msgstr ""
+
+#: xl/xlmisc.py:260 exaile.glade.h:75
+msgid "Next"
+msgstr ""
+
+#: xl/xlmisc.py:261 exaile.glade.h:93
+msgid "Previous"
+msgstr ""
+
+#: xl/xlmisc.py:263
+msgid "Quit"
+msgstr ""
+
+#: xl/xlmisc.py:513
+msgid "Close this tab"
+msgstr ""
+
+#: xl/xlmisc.py:976
+msgid "Enter the search text"
+msgstr ""
+
+#: xl/xlmisc.py:982
+msgid "Searching for "
+msgstr ""
+
+#: xl/xlmisc.py:1059
+msgid "Sorry, no covers were found."
+msgstr ""
+
+#: xl/xlmisc.py:1149
+msgid "Add a directory"
+msgstr ""
+
+#: xl/xlmisc.py:1151 exaile.glade.h:24
+msgid "Cancel"
+msgstr ""
+
+#: xl/xlmisc.py:1151
+msgid "Choose"
+msgstr ""
+
+#: exaile.glade.h:1
+msgid "               "
+msgstr ""
+
+#: exaile.glade.h:2
+msgid "(c) 2006"
+msgstr ""
+
+#: exaile.glade.h:3
+msgid "0 Covers to fetch"
+msgstr ""
+
+#: exaile.glade.h:4
+msgid "0/0"
+msgstr ""
+
+#: exaile.glade.h:5
+msgid "0:00"
+msgstr ""
+
+#: exaile.glade.h:6
+msgid "<b>Appearance</b>"
+msgstr ""
+
+#: exaile.glade.h:7
+msgid "Add Playlist"
+msgstr ""
+
+#: exaile.glade.h:8
+msgid "Add Saved Station"
+msgstr ""
+
+#: exaile.glade.h:10
+msgid "Album Art Collector"
+msgstr ""
+
+#: exaile.glade.h:11
+msgid "Album Information"
+msgstr ""
+
+#: exaile.glade.h:13
+msgid "Appearance"
+msgstr ""
+
+#: exaile.glade.h:15
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre"
+msgstr ""
+
+#: exaile.glade.h:18
+msgid "Artist Information"
+msgstr ""
+
+#: exaile.glade.h:20
+msgid "Attempt to fetch cover art from Amazon automatically"
+msgstr ""
+
+#: exaile.glade.h:21
+msgid "Background Color:"
+msgstr ""
+
+#: exaile.glade.h:23
+msgid "Blacklist Manager"
+msgstr ""
+
+#: exaile.glade.h:25
+msgid "Clear Playlist"
+msgstr ""
+
+#: exaile.glade.h:26
+msgid "Clear Queue"
+msgstr ""
+
+#: exaile.glade.h:27
+msgid "Collection"
+msgstr ""
+
+#: exaile.glade.h:28
+msgid "Columns"
+msgstr ""
+
+#: exaile.glade.h:29
+msgid "Connect to iPod/Refresh"
+msgstr ""
+
+#: exaile.glade.h:30
+msgid ""
+"Copyright (C) 2006 Adam Olsen\n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 1, or (at your option)\n"
+"any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
+msgstr ""
+
+#: exaile.glade.h:45
+msgid "Cover Finder"
+msgstr ""
+
+#: exaile.glade.h:46
+msgid "Custom Playlists:"
+msgstr ""
+
+#: exaile.glade.h:47
+msgid "Debug Window"
+msgstr ""
+
+#: exaile.glade.h:48
+msgid "Delete Selected Playlist"
+msgstr ""
+
+#: exaile.glade.h:50
+msgid "Exaile"
+msgstr ""
+
+#: exaile.glade.h:52
+msgid "Export Playlist"
+msgstr ""
+
+#: exaile.glade.h:53
+msgid "File"
+msgstr ""
+
+#: exaile.glade.h:54
+msgid "Files"
+msgstr ""
+
+#: exaile.glade.h:55
+msgid "Filter:"
+msgstr ""
+
+#: exaile.glade.h:58
+msgid "Go To Playling Track"
+msgstr ""
+
+#: exaile.glade.h:59
+msgid "Help"
+msgstr ""
+
+#: exaile.glade.h:61
+msgid "Jump to current song on track change"
+msgstr ""
+
+#: exaile.glade.h:62
+msgid "Large Text Font:"
+msgstr ""
+
+#: exaile.glade.h:63
+msgid "Last.fm"
+msgstr ""
+
+#: exaile.glade.h:64
+msgid "Last.fm Password:"
+msgstr ""
+
+#: exaile.glade.h:65
+msgid "Last.fm Username:"
+msgstr ""
+
+#: exaile.glade.h:67
+msgid "Library Manager"
+msgstr ""
+
+#: exaile.glade.h:71
+msgid "Mount Point: "
+msgstr ""
+
+#: exaile.glade.h:72
+msgid "Multi Text Entry Dialog"
+msgstr ""
+
+#: exaile.glade.h:74
+msgid "New Search"
+msgstr ""
+
+#: exaile.glade.h:76
+msgid "Next Track"
+msgstr ""
+
+#: exaile.glade.h:77
+msgid "Not Playing"
+msgstr ""
+
+#: exaile.glade.h:78
+msgid "OK"
+msgstr ""
+
+#: exaile.glade.h:79
+msgid "OSD"
+msgstr ""
+
+#: exaile.glade.h:80
+msgid "Open Disc"
+msgstr ""
+
+#: exaile.glade.h:81
+msgid "Open Media"
+msgstr ""
+
+#: exaile.glade.h:83
+msgid "Open URL"
+msgstr ""
+
+#: exaile.glade.h:84
+msgid "Open last playlist on startup"
+msgstr ""
+
+#: exaile.glade.h:85
+msgid "Play/Pause"
+msgstr ""
+
+#: exaile.glade.h:86
+msgid "Playback"
+msgstr ""
+
+#: exaile.glade.h:87
+msgid "Playback Sink:"
+msgstr ""
+
+#: exaile.glade.h:89
+msgid "Playlist Tab Placement:"
+msgstr ""
+
+#: exaile.glade.h:90
+msgid "Playlists"
+msgstr ""
+
+#: exaile.glade.h:91
+msgid "Popup"
+msgstr ""
+
+#: exaile.glade.h:92
+msgid "Preferences"
+msgstr ""
+
+#: exaile.glade.h:94
+msgid "Previous Track"
+msgstr ""
+
+#: exaile.glade.h:95
+msgid "Question:"
+msgstr ""
+
+#: exaile.glade.h:96
+msgid "Queue Manager"
+msgstr ""
+
+#: exaile.glade.h:97
+msgid "Radio"
+msgstr ""
+
+#: exaile.glade.h:98
+msgid "Radio Stations"
+msgstr ""
+
+#: exaile.glade.h:100
+msgid "Refresh"
+msgstr ""
+
+#: exaile.glade.h:101
+msgid "Regular Tracks"
+msgstr ""
+
+#: exaile.glade.h:102
+msgid "Remove Saved Station"
+msgstr ""
+
+#: exaile.glade.h:103
+msgid "Repeat"
+msgstr ""
+
+#: exaile.glade.h:104
+msgid "Rescan Collection"
+msgstr ""
+
+#: exaile.glade.h:105
+msgid "Save"
+msgstr ""
+
+#: exaile.glade.h:106
+msgid "Search"
+msgstr ""
+
+#: exaile.glade.h:107
+msgid "Settings"
+msgstr ""
+
+#: exaile.glade.h:108
+msgid "Show On Screen Display"
+msgstr ""
+
+#: exaile.glade.h:109
+msgid "Show Tray Icon"
+msgstr ""
+
+#: exaile.glade.h:110
+msgid "Show splash screen on startup"
+msgstr ""
+
+#: exaile.glade.h:111
+msgid "Shuffle"
+msgstr ""
+
+#: exaile.glade.h:112
+msgid "Small Text Font:"
+msgstr ""
+
+#: exaile.glade.h:113
+msgid "Smart Playlists:"
+msgstr ""
+
+#: exaile.glade.h:114
+msgid "Start"
+msgstr ""
+
+#: exaile.glade.h:115
+msgid "Stop Playback"
+msgstr ""
+
+#: exaile.glade.h:116
+msgid "Stopped"
+msgstr ""
+
+#: exaile.glade.h:117
+msgid "Submit played tracks to last.fm on startup"
+msgstr ""
+
+#: exaile.glade.h:118
+msgid "Text Color:"
+msgstr ""
+
+#: exaile.glade.h:120
+msgid "Title:"
+msgstr ""
+
+#: exaile.glade.h:121
+msgid "Tools"
+msgstr ""
+
+#: exaile.glade.h:122
+msgid ""
+"Top\n"
+"Left\n"
+"Right\n"
+"Bottom"
+msgstr ""
+
+#: exaile.glade.h:126
+msgid "Track Editor"
+msgstr ""
+
+#: exaile.glade.h:127
+msgid "Track Number"
+msgstr ""
+
+#: exaile.glade.h:128
+msgid "Track:"
+msgstr ""
+
+#: exaile.glade.h:129
+msgid "Up One Directory"
+msgstr ""
+
+#: exaile.glade.h:130
+msgid ""
+"Use Gconf Settings\n"
+"alsasink\n"
+"ossink\n"
+"esdsink"
+msgstr ""
+
+#: exaile.glade.h:134
+msgid "View"
+msgstr ""
+
+#: exaile.glade.h:135
+msgid "Volume"
+msgstr ""
+
+#: exaile.glade.h:136
+msgid "Window Height:"
+msgstr ""
+
+#: exaile.glade.h:137
+msgid "Window Width:"
+msgstr ""
+
+#: exaile.glade.h:140
+msgid "_Cancel"
+msgstr ""
+
+#: exaile.glade.h:141
+msgid "_Hide"
+msgstr ""
+
+#: exaile.glade.h:142
+msgid "iPod"
+msgstr ""
+
+#: exaile.glade.h:143
+msgid "message"
+msgstr ""
+
+#: exaile.glade.h:144
+msgid "on some album"
+msgstr ""
+
+#: exaile.glade.h:146
+msgid "translator-credits"
+msgstr ""

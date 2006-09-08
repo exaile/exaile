@@ -1,0 +1,689 @@
+# Copyright (C) 2006 Adam Olsen.
+# Adam Olsen <synic@jbother.org>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Exaile 0.2b\n"
+"POT-Creation-Date: 2006-06-10 09:54+MDT\n"
+"PO-Revision-Date: 2006-06-11 17:21+0900\n"
+"Last-Translator: darehanl <darehanl@gmail.com>\n"
+"Language-Team: Korean <ubuntu-ko@lists.ubuntu.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: exaile.py:132
+msgid "Exaile!"
+msgstr "Exaile!"
+
+#: exaile.py:185
+msgid "Loading library from database..."
+msgstr "데이터베이스에서 음악목록을 읽는 중..."
+
+#: exaile.py:197 exaile.py:975 exaile.py:998 exaile.py:1371
+msgid "Playlist"
+msgstr "재생 목록"
+
+#: exaile.py:204
+msgid "Scanning ipod..."
+msgstr "iPod 검색 중..."
+
+#: exaile.py:210
+msgid ""
+"You have not specified any search directories for your music library. You "
+"may do so now, or choose to do it later.  If you want to do it later, you "
+"can manager your library search directories by going to Tools->Library "
+"Manager.  Do you want to choose your library directories now?"
+msgstr ""
+"음악목록에서 사용할 디렉트리를 지정하지 않았습니다. 이 디렉토리들을 지금 "
+"지정하거나, 나중에 지정할 수 있습니다. 나중에 지정하고자 할 경우 도구 -> "
+"음악목록 관리자에서 음악목록 디렉토리를 지정할 수 있습니다. 이 디렉토리들을 "
+"지금 지정하시겠습니까?"
+
+#: exaile.py:215
+msgid "Library Settings"
+msgstr "음악목록 설정"
+
+#: exaile.py:245
+msgid "Exaile Media Player"
+msgstr "Exaile 미디어 플레이어"
+
+#: exaile.py:255
+msgid "Last"
+msgstr "이전 목록"
+
+#: exaile.py:336
+msgid ""
+"Blacklisting the selected tracks will prevent them from being added to the "
+"library on rescan.  Are you sure you want to continue?"
+msgstr ""
+"선택하신 트랙을 블랙리스트에 추가하면 이 트랙들은 음악목록을 갱신할 때 "
+"추가되지 않습니다. 계속하시겠습니까?"
+
+#: exaile.py:347
+msgid "Are you sure you want to permanently delete the selected tracks?"
+msgstr ""
+"선택하신 트랙을 삭제하시겠습니까?"
+
+#: exaile.py:584 exaile.py:1736
+msgid "Submitting to Last.fm..."
+msgstr "last.fm에 업로드 중..."
+
+#: exaile.py:649
+msgid "No covers found."
+msgstr "표지그림이 없습니다."
+
+#: exaile.py:708
+msgid "Fetching cover art from Amazon..."
+msgstr "Amazon에서 표지그림을 받아오는 중..."
+
+#: exaile.py:756
+msgid "Filter:   "
+msgstr "필터: "
+
+#: exaile.py:763 xl/panels.py:251
+msgid "Search"
+msgstr "검색"
+
+#: exaile.py:801
+msgid "0:00  "
+msgstr "0:00  "
+
+#: exaile.py:826
+msgid "View Full Image"
+msgstr "원래 크기로 보기"
+
+#: exaile.py:828
+msgid "Fetch from Amazon"
+msgstr "Amazon에서 받아오기"
+
+#: exaile.py:830
+msgid "Search Amazon"
+msgstr "Amazon 검색"
+
+#: exaile.py:834
+msgid "Set Custom Image"
+msgstr "직접 표지그림 설정"
+
+#: exaile.py:849
+msgid "Fetching from amazon..."
+msgstr "Amazon에서 받아오는 중..."
+
+#: exaile.py:858
+msgid "Choose an image"
+msgstr "표지그림 선택"
+
+#: exaile.py:934 xl/track.py:327 xl/xlmisc.py:69 xl/xlmisc.py:236
+#: xl/xlmisc.py:933
+msgid "Close"
+msgstr "닫기"
+
+#: exaile.py:937
+msgid "Save Playlist"
+msgstr "재생목록 저장하기"
+
+#: exaile.py:940 exaile.py:1506 xl/trackslist.py:442
+msgid "New Playlist"
+msgstr "새 재생목록"
+
+#: exaile.py:949 exaile.py:950 xl/panels.py:844 xl/panels.py:845
+msgid "Enter the name of the playlist"
+msgstr "재생목록의 이름 입력"
+
+#: exaile.py:1374
+msgid "Populating playlist..."
+msgstr "재생목록을 구성하는 중..."
+
+#: exaile.py:1410
+msgid "Choose a file"
+msgstr "파일명 입력"
+
+#: exaile.py:1433
+msgid "Stream"
+msgstr "스트리밍"
+
+#: exaile.py:1446 exaile.py:1447
+msgid "Enter the address"
+msgstr "주소 입력"
+
+#: exaile.py:1507
+msgid "Open Media"
+msgstr "미디어 파일 열기"
+
+#: exaile.py:1508
+msgid "Open Url"
+msgstr "URL 열기"
+
+#: exaile.py:1511
+msgid "Open Playlist"
+msgstr "재생목록 열기"
+
+#: exaile.py:1512
+msgid "Export Playlist"
+msgstr "재생목록을 파일로 저장하기"
+
+#: exaile.py:1519
+msgid "&Exit"
+msgstr "종료(_E)"
+
+#: exaile.py:1522
+msgid "&File"
+msgstr "파일(_F)"
+
+#: exaile.py:1525
+msgid "&Goto Playing Track"
+msgstr "현재 트랙으로(_G)"
+
+#: exaile.py:1527
+msgid "&Toggle Sidebar"
+msgstr "사이드바(_T)"
+
+#: exaile.py:1531
+msgid "&View"
+msgstr "보기(_V)"
+
+#: exaile.py:1534
+msgid "&Library Manager"
+msgstr "음악목록 관리자(_L)"
+
+#: exaile.py:1537
+msgid "&Rescan Collection"
+msgstr "음악목록 갱신하기(_R)"
+
+#: exaile.py:1540
+msgid "Fetch all Covers"
+msgstr "모든 표지그림 받아오기"
+
+#: exaile.py:1545
+msgid "&Blacklist Selected"
+msgstr "블랙리스트에 추가(_B)"
+
+#: exaile.py:1547
+msgid "&Manage Blacklist"
+msgstr "블랙리스트 관리하기(_M)"
+
+#: exaile.py:1550
+msgid "&Clear Queue"
+msgstr "예약목록 지우기"
+
+#: exaile.py:1552 xl/xlmisc.py:615
+msgid "Queue Manager"
+msgstr "예약목록 관리자"
+
+#: exaile.py:1557
+msgid "&Tools"
+msgstr "도구(_T}"
+
+#: exaile.py:1561
+msgid "Shuffle"
+msgstr "셔플기능"
+
+#: exaile.py:1563
+msgid "Repeat"
+msgstr "반복기능"
+
+#: exaile.py:1568 xl/prefs.py:317
+msgid "Preferences"
+msgstr "설정"
+
+#: exaile.py:1572
+msgid "&Settings"
+msgstr "환경설정(_S)"
+
+#: exaile.py:1576
+msgid "Hotkey Mapping"
+msgstr "바로가기"
+
+#: exaile.py:1582
+msgid "About"
+msgstr "정보"
+
+#: exaile.py:1584
+msgid "&Help"
+msgstr "도움말(_H)"
+
+#: exaile.py:1619
+msgid "Blacklist"
+msgstr "블랙리스트"
+
+#: exaile.py:1665
+msgid "Scanning library..."
+msgstr "음악목록 검색 중"
+
+#: xl/panels.py:312
+msgid "Append to Playlist"
+msgstr "재생목록에 추가하기"
+
+#: xl/panels.py:313
+msgid "Queue Items"
+msgstr "예약하기"
+
+#: xl/panels.py:433
+msgid "iPod Collection"
+msgstr "iPod 목록"
+
+#: xl/panels.py:722
+msgid "Smart Playlists:"
+msgstr "자동 재생목록:"
+
+#: xl/panels.py:730
+msgid "Custom Playlists:"
+msgstr "사용자 재생목록:"
+
+#: xl/panels.py:759
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr "선택하신 재생목록을 삭제하시겠습니까?"
+
+#: xl/panels.py:772 xl/panels.py:1064
+msgid "Please wait until scan is complete to delete a playlist."
+msgstr "검색이 끝난 후에 재생목록을 삭제하십시오."
+
+#: xl/panels.py:853
+msgid "Playlist already exists."
+msgstr "재생목록이 이미 있습니다."
+
+#: xl/panels.py:862
+msgid "Please wait until scan is complete before attempting to add a playlist"
+msgstr "검색이 끝난 후에 새 재생목록을 추가하십시오."
+
+#: xl/panels.py:891
+msgid "Please wait until scan is complete to modify playlists."
+msgstr "검색이 끝난 후에 재생목록을 수정하십시오."
+
+#: xl/panels.py:996
+msgid "Reload Streams"
+msgstr "스트림 갱신하기"
+
+#: xl/panels.py:1002 xl/panels.py:1015
+#, fuzzy
+msgid "Add Stream to Station"
+msgstr "스테이션에 스트림 추가하기"
+
+#: xl/panels.py:1003
+#, fuzzy
+msgid "Delete this Station"
+msgstr "스테이션 제거하기"
+
+#: xl/panels.py:1048
+msgid "Are you sure you want to permanently delete the selected station?"
+msgstr "선택하신 스테이션을 삭제하겠습니까?"
+
+#: xl/panels.py:1103
+msgid "Add Station"
+msgstr "스테이션 추가하기"
+
+#: xl/panels.py:1104
+msgid "Station Name:"
+msgstr "스테이션 이름:"
+
+#: xl/panels.py:1105
+msgid "Description:"
+msgstr "설명:"
+
+#: xl/panels.py:1106
+msgid "URL:"
+msgstr "URL:"
+
+#: xl/panels.py:1114
+msgid "Station name already exists."
+msgstr "이미 존재하는 스테이션 이름입니다."
+
+#: xl/panels.py:1129 xl/panels.py:1193
+msgid "Please wait until scan is complete before attempting to add a station"
+msgstr "검색이 끝난 후에 스테이션을 추가하십시오."
+
+#: xl/panels.py:1172 xl/panels.py:1173
+msgid "Enter the name of the station"
+msgstr "스테이션 이름을 입력하십시오"
+
+#: xl/panels.py:1181
+msgid "Station already exists."
+msgstr "이미 존재하는 스테이션입니다."
+
+#: xl/panels.py:1223
+msgid "Please wait until scan is complete to modify stations."
+msgstr "검색이 끝난 후에 스테이션을 추가하십시오."
+
+#: xl/panels.py:1276
+msgid "Append Tracks"
+msgstr "트랙 추가하기"
+
+#: xl/prefs.py:44
+msgid "Show splash screen on startup"
+msgstr "시작할 때 스플래시 화면을 봅니다"
+
+#: xl/prefs.py:48
+msgid "Show Tray Icon"
+msgstr "트레이 아이콘을 봅니다"
+
+#: xl/prefs.py:53
+msgid "Attempt to fetch cover art from Amazon automatically"
+msgstr "Amazon에서 자동으로 표지그림을 받아오도록 합니다"
+
+#: xl/prefs.py:58
+msgid "Jump to current song on track change"
+msgstr "트랙이 바뀔 경우 현재 트랙으로"
+
+#: xl/prefs.py:64
+msgid "Open last playlist on startup"
+msgstr "Exaile 시작시 마지막으로 재생했던 재생목록을 엽니다"
+
+#: xl/prefs.py:108
+msgid ""
+"iPod support is unavailable.\n"
+"Please install the python-gpod library to enable."
+msgstr ""
+"iPod 지원기능이 없습니다.\n"
+"python-gpod 라이브러리를 설치하십시오."
+
+#: xl/prefs.py:115
+msgid "Mount Point: "
+msgstr "마운트 포인트"
+
+#: xl/prefs.py:123
+msgid "Submit played tracks to last.fm on startup"
+msgstr "Exaile 시작시 재생한 트랙을 last.fm에 올립니다"
+
+#: xl/prefs.py:159
+msgid "Last.fm username: "
+msgstr "Last.fm 사용자명: "
+
+#: xl/prefs.py:165
+msgid "Last.fm password: "
+msgstr "Last.fm 비밀번호: "
+
+#: xl/prefs.py:207
+#, fuzzy
+msgid "Playback Sink:  "
+msgstr "음원재생 싱크:  "
+
+#: xl/prefs.py:250
+msgid "Show On Screen Display"
+msgstr "On Screen Display를 봅니다"
+
+#: xl/prefs.py:309
+msgid " Categories"
+msgstr " 범주"
+
+#: xl/prefs.py:319
+msgid "General"
+msgstr "일반"
+
+#: xl/prefs.py:321
+msgid "Advanced"
+msgstr "고급"
+
+#: xl/prefs.py:341
+msgid " Preferences"
+msgstr "환경설정"
+
+#: xl/prefs.py:353 xl/track.py:416 xl/xlmisc.py:743 xl/xlmisc.py:1045
+msgid "Cancel"
+msgstr "취소"
+
+#: xl/prefs.py:355 xl/xlmisc.py:608 xl/xlmisc.py:746 xl/xlmisc.py:1049
+#: xl/xlmisc.py:1146
+msgid "Ok"
+msgstr "확인"
+
+#: xl/track.py:339
+msgid "Statistics"
+msgstr "통계"
+
+#: xl/track.py:340 xl/trackslist.py:78
+msgid "Artist"
+msgstr "음악가"
+
+#: xl/track.py:341 xl/trackslist.py:79
+msgid "Album"
+msgstr "앨범"
+
+#: xl/track.py:342
+msgid "Lyrics"
+msgstr "가사"
+
+#: xl/track.py:343
+msgid "Tablature"
+msgstr "태블래처"
+
+#: xl/track.py:344
+msgid "Information"
+msgstr "정보"
+
+#: xl/track.py:364
+msgid "Track Properties"
+msgstr "트랙 등록정보"
+
+#: xl/track.py:387
+msgid "Title: "
+msgstr "제목: "
+
+#: xl/track.py:390
+msgid "Artist: "
+msgstr "음악가: "
+
+#: xl/track.py:392
+msgid "Album: "
+msgstr "앨범명: "
+
+#: xl/track.py:394
+msgid "Genre: "
+msgstr "장르: "
+
+#: xl/track.py:401
+msgid "  Track #:  "
+msgstr "  트랙번호: "
+
+#: xl/track.py:407
+msgid "Year: "
+msgstr "연도: "
+
+#: xl/track.py:420
+msgid "Save"
+msgstr "저장하기"
+
+#: xl/track.py:474 xl/trackslist.py:512
+msgid "Some errors occurred"
+msgstr "오류가 발생했습니다"
+
+#: xl/trackslist.py:77 xl/trackslist.py:603
+msgid "Title"
+msgstr "제목"
+
+#: xl/trackslist.py:80
+msgid "Length"
+msgstr "길이"
+
+#: xl/trackslist.py:81 xl/trackslist.py:339
+msgid "Rating"
+msgstr "평가"
+
+#: xl/trackslist.py:82
+msgid "Year"
+msgstr "연도"
+
+#: xl/trackslist.py:83
+msgid "Genre"
+msgstr "장르"
+
+#: xl/trackslist.py:300
+msgid "Queue Track(s)"
+msgstr "트랙 예약하기"
+
+#: xl/trackslist.py:302
+msgid "Deqeue Track(s)"
+msgstr "트랙 예약에서 빼기"
+
+#: xl/trackslist.py:308 xl/trackslist.py:341 xl/trackslist.py:353
+msgid "Track Information"
+msgstr "트랙 정보"
+
+#: xl/trackslist.py:314
+msgid "Edit Title"
+msgstr "제목 수정하기"
+
+#: xl/trackslist.py:316
+msgid "Edit Artist"
+msgstr "음악가 수정하기"
+
+#: xl/trackslist.py:318
+msgid "Edit Album"
+msgstr "앨범명 수정하기"
+
+#: xl/trackslist.py:320
+msgid "Edit Genre"
+msgstr "장르 수정하기"
+
+#: xl/trackslist.py:322
+msgid "Edit Year"
+msgstr "연도 수정하기"
+
+#: xl/trackslist.py:324
+msgid "Edit"
+msgstr "수정하기"
+
+#: xl/trackslist.py:329
+msgid "Clear"
+msgstr "지우기"
+
+#: xl/trackslist.py:346 xl/trackslist.py:624
+msgid "Remove from Playlist"
+msgstr "재생목록에서 제거하기"
+
+#: xl/trackslist.py:350
+msgid "Delete Track(s)"
+msgstr "트랙 제거하기"
+
+#: xl/trackslist.py:393
+msgid "Please wait for scan to complete before updating ratings"
+msgstr "검색이 끝난 후에 평가를 수정하십시오"
+
+#: xl/trackslist.py:447
+msgid "Add to Playlist"
+msgstr "재생목록에 추가하기"
+
+#: xl/trackslist.py:465 xl/trackslist.py:466
+msgid "Enter the new value for this field"
+msgstr "이 항목의 새 값을 입력하십시오"
+
+#: xl/trackslist.py:475
+msgid "Writing tags..."
+msgstr "태그들을 쓰는 중..."
+
+#: xl/trackslist.py:551
+msgid "Remove from Blacklist"
+msgstr "블랙리스트에서 제거하기"
+
+#: xl/trackslist.py:604
+msgid "Description"
+msgstr "설명"
+
+#: xl/trackslist.py:605
+msgid "Location"
+msgstr "위치"
+
+#: xl/trackslist.py:606
+msgid "Listeners"
+msgstr "Listeners"
+
+#: xl/trackslist.py:607
+msgid "Bitrate"
+msgstr "비트레이트"
+
+#: xl/trackslist.py:664
+msgid "New Station"
+msgstr "새 스테이션 추가하기"
+
+#: xl/trackslist.py:669
+msgid "Add to Saved Stations"
+msgstr "저장된 스테이션에 추가하기"
+
+#: xl/xlmisc.py:46
+msgid "Cover Fetcher"
+msgstr "표기그림 받기 기능"
+
+#: xl/xlmisc.py:56
+msgid " covers to fetch."
+msgstr " 개 남았습니다."
+
+#: xl/xlmisc.py:67
+msgid "Start"
+msgstr "시작"
+
+#: xl/xlmisc.py:226
+msgid "Debug Window"
+msgstr "디버그창"
+
+#: xl/xlmisc.py:740
+msgid "New Search"
+msgstr "새 검색"
+
+#: xl/xlmisc.py:767
+msgid "Enter the search text"
+msgstr "검색 문구를 입력하십시오"
+
+#: xl/xlmisc.py:768
+msgid "Search Text"
+msgstr "검색 문구"
+
+#: xl/xlmisc.py:773
+msgid "Searching for "
+msgstr "검색 중 "
+
+#: xl/xlmisc.py:799
+msgid "Could not save cover, database is in use."
+msgstr "데이터베이스가 사용중이므로 표지그림을 저장할 수 없습니다."
+
+#: xl/xlmisc.py:860
+msgid "Sorry, no covers were found."
+msgstr "표지그림을 찾을 수 없습니다."
+
+#: xl/xlmisc.py:884
+msgid "Library Manager"
+msgstr "음악목록 관리자"
+
+#: xl/xlmisc.py:923
+msgid "Add"
+msgstr "추가하기"
+
+#: xl/xlmisc.py:926
+msgid "Remove"
+msgstr "제거하기"
+
+#: xl/xlmisc.py:935
+msgid "Apply"
+msgstr "적용"
+
+#: xl/xlmisc.py:965
+msgid "Choose a directory to add to your library"
+msgstr "음악목록에 추가할 디렉토리를 선택하십시오"
+
+#: xl/xlmisc.py:1010
+msgid "Play"
+msgstr "재생"
+
+#: xl/xlmisc.py:1011
+msgid "Pause"
+msgstr "일시정지"
+
+#: xl/xlmisc.py:1014
+msgid "Next Track"
+msgstr "다음"
+
+#: xl/xlmisc.py:1015
+msgid "Previous Track"
+msgstr "이전"
+
+#: xl/xlmisc.py:1017
+msgid "Quit"
+msgstr "종료"
+
+#: xl/xlmisc.py:1090
+msgid "You must fill in all fields."
+msgstr "모든 항목을 채워야합니다."
+
+#: xl/xlmisc.py:1115 xl/xlmisc.py:1119
+msgid "Hotkey Bindings"
+msgstr "키보드 바로가기"

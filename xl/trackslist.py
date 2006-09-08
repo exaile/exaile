@@ -535,6 +535,17 @@ class TracksListCtrl(gtk.VBox):
         self.queue = tpm.append(_("Queue Track(s)"), self.exaile.on_queue)
         self.dequeue = tpm.append(_("Dequeue Track(s)"), self.exaile.on_dequeue)
 
+        pm = xlmisc.Menu()
+        self.new_playlist = pm.append(_("New Playlist"),
+            self.exaile.playlists_panel.on_add_playlist)
+        pm.append_separator()
+        rows = self.db.select("SELECT playlist_name FROM playlists ORDER BY"
+            " playlist_name")
+        for row in rows:
+            pm.append(row[0], lambda *e: 
+                self.exaile.playlists_panel.add_items_to_playlist(row[0]))
+
+        tpm.append_menu(_("Add to Playlist"), pm)
         em = xlmisc.Menu()
 
         em.append(_("Edit Information"), lambda e, f:

@@ -205,7 +205,7 @@ class CollectionPanel(object):
             Creates the popup menu for this tree
         """
         menu = xlmisc.Menu()
-        self.append = menu.append(_("Append to Playlist"),
+        self.append = menu.append(_("Append to Current"),
             self.__append_items)
         self.queue_item = menu.append(_("Queue Items"), self.__append_items)
         menu.append_separator()
@@ -1354,7 +1354,7 @@ class PlaylistsPanel(object):
             self.custom.append(name)
 
             if type(widget) == gtk.MenuItem:
-                self.add_items_to_playlist(name, self.exaile.tracks)
+                self.add_items_to_playlist(name)
             return name
         else: return None
 

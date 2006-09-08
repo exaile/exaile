@@ -511,16 +511,17 @@ class CollectionPanel(object):
         for track in songs:
             parent = node
             string = ""
+            first = True
             for field in order:
                 node_for = order_nodes[field]
                 if field == "track": continue
                 info = getattr(track, field)
                 if info == "": 
-                    if unknown:
+                    if not unknown and first:
                         last_songs.append(track)
-                        continue
-                    else:
-                        info = "Unknown"
+                        break
+                    info = "Unknown"
+                first = False
                 if field == "title":
                     n = self.model.append(parent, [self.track_image,
                         track])
@@ -537,6 +538,10 @@ class CollectionPanel(object):
                         if info == "track": info = track
                         node_for[string] = parent
                     else: parent = node_for[string]
+
+        # make sure "Unknown" items end up at the end of the list
+        if not unknown and last_songs:
+            self.__append_info(self.root, last_songs, True)
 
 class iPodPlaylist(object):
     """

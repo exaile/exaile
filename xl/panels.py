@@ -332,7 +332,7 @@ class CollectionPanel(object):
             return
 
         if item == self.new_playlist:
-            self.on_add_playlist(None, None, add)
+            self.exaile.playlists_panel.on_add_playlist(item, None, add)
             return
 
         t = trackslist.TracksListCtrl
@@ -392,7 +392,7 @@ class CollectionPanel(object):
                 self.ipod_menu.popup(None, None, None,
                     event.button, event.time)
                 return True
-
+            self.create_popup()
             self.menu.popup(None, None, None, event.button, event.time)
             if selection.count_selected_rows() <= 1: return False
             return True
@@ -1271,12 +1271,13 @@ class PlaylistsPanel(object):
             then does so if they choose 'Yes'
         """
 
+        playlist = self.custom.get_selection()
+        if not playlist: return
         dialog = gtk.MessageDialog(self.exaile.window, 
             gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, 
             _("Are you sure you want to permanently delete the selected"
             " playlist?"))
         if dialog.run() == gtk.RESPONSE_YES:
-            playlist = self.custom.get_selection()
             if not playlist: return
             self.db.execute("DELETE FROM playlists WHERE playlist_name=?",
                 (playlist,))
@@ -1395,6 +1396,7 @@ class PlaylistsPanel(object):
         for track in tracks:
             self.db.execute("REPLACE INTO playlist_items( playlist, path ) " \
                 "VALUES( ?, ? )", (playlist, track.loc))
+        self.db.commit()
 
 class CustomWrapper(object):
     """

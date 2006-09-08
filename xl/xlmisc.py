@@ -601,6 +601,7 @@ class ListBox(object):
         """
         selection = self.list.get_selection()
         (model, iter) = selection.get_selected()
+        if not iter: return None
         return model.get_value(iter, 0)
 
 class NotebookTab(gtk.HBox):

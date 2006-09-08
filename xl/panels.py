@@ -207,6 +207,19 @@ class CollectionPanel(object):
         menu = xlmisc.Menu()
         self.append = menu.append(_("Append to Current"),
             self.__append_items)
+
+        pm = xlmisc.Menu()
+        self.new_playlist = pm.append(_("Add to Playlist"),
+            self.__append_items)
+        pm.append_separator()
+
+        rows = self.db.select("SELECT playlist_name FROM playlists ORDER BY"
+            " playlist_name")
+
+        for row in rows:
+            pm.append(row[0], lambda *e: self.__add_to_playlist(row[0]))
+
+        menu.append_menu(_("Add to Playlist"), pm)
         self.queue_item = menu.append(_("Queue Items"), self.__append_items)
         menu.append_separator()
         self.blacklist = menu.append(_("Blacklist Selected"),
@@ -214,6 +227,13 @@ class CollectionPanel(object):
         self.remove = menu.append(_("Delete Selected"), 
             self.__append_items)
         self.menu = menu
+
+    def __add_to_playlist(self, playlist):
+        """
+            Adds items to the playlist
+        """
+        items = self.__append_items(None, None, True)
+        self.exaile.playlists_panel.add_items_to_playlist(playlist, items)
 
     def drag_get_data(self, treeview, context, selection, target_id, etime):
         """
@@ -309,6 +329,10 @@ class CollectionPanel(object):
             if self.exaile.tracks: 
                 self.exaile.tracks.set_songs(self.exaile.songs)
             self.load_tree()
+            return
+
+        if item == self.new_playlist:
+            self.on_add_playlist(None, None, add)
             return
 
         t = trackslist.TracksListCtrl
@@ -1227,6 +1251,7 @@ class PlaylistsPanel(object):
         uris = selection.get_uris()
         songs = tracks.TrackData()
         for l in uris:
+            l = urllib.unquote(l)
             if l.find("ipod://") > -1:
                 error += "Could not add ipod track \"%s\" to library " \
                     "playlist\n" % l
@@ -1328,7 +1353,7 @@ class PlaylistsPanel(object):
 
         self.custom.set_rows(playlists)
 
-    def on_add_playlist(self, widget, event=None):
+    def on_add_playlist(self, widget, event=None, items=None):
         """
             Adds a playlist to the database
         """
@@ -1354,7 +1379,7 @@ class PlaylistsPanel(object):
             self.custom.append(name)
 
             if type(widget) == gtk.MenuItem:
-                self.add_items_to_playlist(name)
+                self.add_items_to_playlist(name, items)
             return name
         else: return None
 

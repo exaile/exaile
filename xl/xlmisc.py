@@ -17,7 +17,7 @@
 import time
 import trackslist, tracks, covers, md5, threading, re
 import sys, httplib, urlparse, os, os.path, urllib, media
-import common, traceback
+import common, traceback, gc
 from pysqlite2.dbapi2 import OperationalError
 import cStringIO
 from gettext import gettext as _
@@ -1393,7 +1393,6 @@ class ImageWidget(gtk.Image):
             Initializes the image
         """
         gtk.Image.__init__(self)
-        self.pixbuf = None
         self.loc = ''
 
     def set_image_size(self, width, height):
@@ -1407,11 +1406,11 @@ class ImageWidget(gtk.Image):
             Sets the image
         """
         self.loc = image
-        self.pixbuf = gtk.gdk.pixbuf_new_from_file(image)
-        scaled = self.pixbuf.scale_simple(self.size[0], self.size[1],
+        pixbuf = gtk.gdk.pixbuf_new_from_file(image)
+        scaled = pixbuf.scale_simple(self.size[0], self.size[1],
             gtk.gdk.INTERP_BILINEAR)
         self.set_from_pixbuf(scaled)
-        self.show()
+        scaled = pixbuf = None
 
 class StatusBar(object):
     """

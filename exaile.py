@@ -890,7 +890,6 @@ class ExaileWindow(object):
             Fetches the cover from the database.  If it can't be found
             there it fetches it from amazon
         """
-
         w = self.cover_width
         if not popup:
             self.cover.set_image("images%snocover.png" % os.sep)
@@ -1168,6 +1167,7 @@ class ExaileWindow(object):
 
         trackslist.update_queued(self)
         xl.track.update_info(self.playlists_nb, track)
+        gc.collect()
 
     def show_popup(self):
         """

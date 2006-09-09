@@ -201,7 +201,7 @@ class Preferences(object):
         self.popup = None
         self.osd_settings = xlmisc.get_popup_settings(self.exaile.settings)
         settings = self.exaile.settings
-        self.xml = gtk.glade.XML('exaile.glade', 'PreferencesDialog')
+        self.xml = gtk.glade.XML('exaile.glade', 'PreferencesDialog', 'exaile')
         xml = self.xml
         self.window = self.xml.get_widget('PreferencesDialog')
         self.window.set_transient_for(parent.window)

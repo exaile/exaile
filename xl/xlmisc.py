@@ -408,7 +408,7 @@ class CoverFetcher(object):
         """
         self.exaile = parent
         self.db = self.exaile.db
-        xml = gtk.glade.XML('exaile.glade', 'CoverFetcher')
+        xml = gtk.glade.XML('exaile.glade', 'CoverFetcher', 'exaile')
         self.dialog = xml.get_widget('CoverFetcher')
         self.dialog.set_transient_for(parent.window)
         self.progress = xml.get_widget('fetcher_progress')
@@ -656,7 +656,7 @@ class DebugDialog(object):
             Initializes the dialog
         """
         self.exaile = parent
-        xml = gtk.glade.XML('exaile.glade', 'DebugDialog')
+        xml = gtk.glade.XML('exaile.glade', 'DebugDialog', 'exaile')
         self.dialog = xml.get_widget('DebugDialog')
         self.dialog.set_transient_for(self.exaile.window)
         self.view = xml.get_widget('debug_textview')
@@ -1025,7 +1025,7 @@ class AboutDialog(gtk.Dialog):
         """
             Initializes the dialog
         """
-        xml = gtk.glade.XML('exaile.glade', 'AboutDialog')
+        xml = gtk.glade.XML('exaile.glade', 'AboutDialog', 'exaile')
         self.dialog = xml.get_widget('AboutDialog')
         logo = gtk.gdk.pixbuf_new_from_file('images%sexailelogo.png' % os.sep)
         self.dialog.set_logo(logo)
@@ -1041,7 +1041,7 @@ class CoverWindow(object):
         """
             Initializes and shows the cover
         """
-        xml = gtk.glade.XML('exaile.glade', 'CoverWindow')
+        xml = gtk.glade.XML('exaile.glade', 'CoverWindow', 'exaile')
         window = xml.get_widget('CoverWindow')
         box = xml.get_widget('cw_box')
         pixbuf = gtk.gdk.pixbuf_new_from_file(cover)
@@ -1062,7 +1062,7 @@ class TextEntryDialog(object):
             Initializes the dialog
         """
         self.parent = parent
-        xml = gtk.glade.XML('exaile.glade', 'TextEntryDialog')
+        xml = gtk.glade.XML('exaile.glade', 'TextEntryDialog', 'exaile')
         self.dialog = xml.get_widget('TextEntryDialog')
         xml.get_widget('ted_question_label').set_label(message)
         self.dialog.set_title(title)
@@ -1110,7 +1110,7 @@ class CoverFrame(object):
         """
             Expects the parent control, a track, an an optional search string
         """
-        self.xml = gtk.glade.XML('exaile.glade', 'CoverFrame')
+        self.xml = gtk.glade.XML('exaile.glade', 'CoverFrame', 'exaile')
         self.window = self.xml.get_widget('CoverFrame')
         self.window.set_title("%s - %s" % (track.artist, track.album))
         self.window.set_transient_for(parent.window)
@@ -1257,7 +1257,7 @@ class LibraryManager(object):
         """
         self.exaile = exaile
         self.xml = gtk.glade.XML('exaile.glade', 'LibraryManager')
-        self.dialog = self.xml.get_widget('LibraryManager')
+        self.dialog = self.xml.get_widget('LibraryManager', 'exaile')
         self.list = ListBox(self.xml.get_widget('lm_list_box'))
         self.dialog.set_transient_for(exaile.window)
         self.xml.get_widget('lm_add_button').connect('clicked',
@@ -1339,7 +1339,7 @@ class MultiTextEntryDialog(object):
         will not close.
     """
     def __init__(self, parent, title):
-        xml = gtk.glade.XML('exaile.glade', 'MultiTextEntryDialog')
+        xml = gtk.glade.XML('exaile.glade', 'MultiTextEntryDialog', 'exaile')
 
         self.dialog = xml.get_widget('MultiTextEntryDialog')
         self.dialog.set_transient_for(parent)
@@ -1543,7 +1543,7 @@ class PopupWindow(object):
         """
         self.exaile = exaile
         self.draggable = draggable
-        self.xml = gtk.glade.XML('exaile.glade', 'PopupWindow')
+        self.xml = gtk.glade.XML('exaile.glade', 'PopupWindow', 'exaile')
         self.window = self.xml.get_widget('PopupWindow')
         self.__timeout = None
         self.start_timer = start_timer

@@ -358,7 +358,7 @@ class TrackEditor(object):
         """
         self.exaile = exaile
         self.db = exaile.db
-        self.xml = gtk.glade.XML('exaile.glade', 'TrackEditorDialog')
+        self.xml = gtk.glade.XML('exaile.glade', 'TrackEditorDialog', 'exaile')
         self.dialog = self.xml.get_widget('TrackEditorDialog')
         self.dialog.set_transient_for(self.exaile.window)
 

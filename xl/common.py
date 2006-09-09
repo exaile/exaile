@@ -143,7 +143,7 @@ def scrolledMessageDialog(parent, message, title):
     """
         Shows a message dialog with a message in a TextView
     """
-    xml = gtk.glade.XML('exaile.glade', 'ScrolledMessageDialog')
+    xml = gtk.glade.XML('exaile.glade', 'ScrolledMessageDialog', 'exaile')
     dialog = xml.get_widget('ScrolledMessageDialog')
     dialog.set_title(title)
     view = xml.get_widget('smd_text_view')

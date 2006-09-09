@@ -24,9 +24,13 @@ import gtk, gtk.glade, pango
 import sys, os, re, random, fileinput, gc, urllib, md5
 import os.path, traceback, thread, gettext, time
 import locale, tempfile
+
+# set up gettext for translations
 locale.setlocale(locale.LC_ALL, '')
 from gettext import gettext as _
-gettext.install("exaile", "./po", unicode=1)
+gettext.bindtextdomain('exaile', 'po')
+gettext.textdomain('exaile')
+
 from pysqlite2 import dbapi2 as sqlite
 from optparse import OptionParser
 

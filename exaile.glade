@@ -37,7 +37,7 @@
 	  <child>
 	    <widget class="GtkMenuItem" id="file_menu">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">File</property>
+	      <property name="label" translatable="yes">_File</property>
 	      <property name="use_underline">True</property>
 
 	      <child>
@@ -46,13 +46,13 @@
 		  <child>
 		    <widget class="GtkImageMenuItem" id="new_item">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">New Playlist</property>
+		      <property name="label" translatable="yes">_New Playlist</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_new_item_activate" last_modification_time="Tue, 11 Jul 2006 06:31:40 GMT"/>
 		      <accelerator key="N" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image223">
+			<widget class="GtkImage" id="image244">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-new</property>
 			  <property name="icon_size">1</property>
@@ -68,13 +68,13 @@
 		  <child>
 		    <widget class="GtkImageMenuItem" id="open_item">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Open Media</property>
+		      <property name="label" translatable="yes">_Open Media</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_open_item_activate" last_modification_time="Tue, 11 Jul 2006 06:31:40 GMT"/>
 		      <accelerator key="O" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image224">
+			<widget class="GtkImage" id="image245">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-open</property>
 			  <property name="icon_size">1</property>
@@ -90,12 +90,12 @@
 		  <child>
 		    <widget class="GtkImageMenuItem" id="open_url_item">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Open URL</property>
+		      <property name="label" translatable="yes">Open _URL</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_open_url_activate" last_modification_time="Tue, 11 Jul 2006 06:31:40 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image225">
+			<widget class="GtkImage" id="image246">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-network</property>
 			  <property name="icon_size">1</property>
@@ -111,12 +111,12 @@
 		  <child>
 		    <widget class="GtkImageMenuItem" id="open_disc_item">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Open Disc</property>
+		      <property name="label" translatable="yes">Open _Disc</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_open_disc_item_activate" last_modification_time="Thu, 20 Jul 2006 21:18:04 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image226">
+			<widget class="GtkImage" id="image247">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-cdrom</property>
 			  <property name="icon_size">1</property>
@@ -132,12 +132,12 @@
 		  <child>
 		    <widget class="GtkImageMenuItem" id="import_directory_item">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Import Directory</property>
+		      <property name="label" translatable="yes">_Import Directory</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_import_directory_item_activate" last_modification_time="Thu, 07 Sep 2006 22:44:57 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image227">
+			<widget class="GtkImage" id="image248">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-go-down</property>
 			  <property name="icon_size">1</property>
@@ -164,7 +164,7 @@
 		      <signal name="activate" handler="on_open_playlist_activate" last_modification_time="Tue, 11 Jul 2006 06:31:40 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image228">
+			<widget class="GtkImage" id="image249">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-open</property>
 			  <property name="icon_size">1</property>
@@ -185,7 +185,7 @@
 		      <signal name="activate" handler="on_export_playlist_activate" last_modification_time="Tue, 11 Jul 2006 06:31:40 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image229">
+			<widget class="GtkImage" id="image250">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-save</property>
 			  <property name="icon_size">1</property>
@@ -220,7 +220,7 @@
 	  <child>
 	    <widget class="GtkMenuItem" id="view_menu">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">View</property>
+	      <property name="label" translatable="yes">_View</property>
 	      <property name="use_underline">True</property>
 
 	      <child>
@@ -248,7 +248,7 @@
 			  <child>
 			    <widget class="GtkMenuItem" id="track_artist_item">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Artist Information</property>
+			      <property name="label" translatable="yes">_Artist Information</property>
 			      <property name="use_underline">True</property>
 			      <signal name="activate" handler="on_track_artist_item_activate" last_modification_time="Fri, 21 Jul 2006 21:19:36 GMT"/>
 			      <accelerator key="E" modifiers="GDK_CONTROL_MASK" signal="activate"/>
@@ -258,7 +258,7 @@
 			  <child>
 			    <widget class="GtkMenuItem" id="track_album_item">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Album Information</property>
+			      <property name="label" translatable="yes">Album _Information</property>
 			      <property name="use_underline">True</property>
 			      <signal name="activate" handler="on_track_album_item_activate" last_modification_time="Fri, 21 Jul 2006 21:19:36 GMT"/>
 			    </widget>
@@ -267,7 +267,7 @@
 			  <child>
 			    <widget class="GtkMenuItem" id="track_lyrics_item">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Lyrics</property>
+			      <property name="label" translatable="yes">_Lyrics</property>
 			      <property name="use_underline">True</property>
 			      <signal name="activate" handler="on_track_lyrics_item_activate" last_modification_time="Fri, 21 Jul 2006 21:19:36 GMT"/>
 			      <accelerator key="L" modifiers="GDK_CONTROL_MASK" signal="activate"/>
@@ -281,7 +281,7 @@
 		  <child>
 		    <widget class="GtkMenuItem" id="columns_menu">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Columns</property>
+		      <property name="label" translatable="yes">_Columns</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_columns_menu_activate" last_modification_time="Mon, 17 Jul 2006 01:42:26 GMT"/>
 
@@ -385,7 +385,7 @@
 		  <child>
 		    <widget class="GtkMenuItem" id="action_log_item">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Action Log</property>
+		      <property name="label" translatable="yes">Action _Log</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_action_log_item_activate" last_modification_time="Mon, 21 Aug 2006 21:06:27 GMT"/>
 		      <accelerator key="D" modifiers="GDK_CONTROL_MASK" signal="activate"/>
@@ -399,7 +399,7 @@
 	  <child>
 	    <widget class="GtkMenuItem" id="tools_menu">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">Tools</property>
+	      <property name="label" translatable="yes">_Tools</property>
 	      <property name="use_underline">True</property>
 
 	      <child>
@@ -408,7 +408,7 @@
 		  <child>
 		    <widget class="GtkMenuItem" id="library_manager">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Library Manager</property>
+		      <property name="label" translatable="yes">Library _Manager</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_library_manager_activate" last_modification_time="Tue, 11 Jul 2006 06:34:38 GMT"/>
 		    </widget>
@@ -417,7 +417,7 @@
 		  <child>
 		    <widget class="GtkMenuItem" id="rescan_collection">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Rescan Collection</property>
+		      <property name="label" translatable="yes">_Rescan Collection</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_rescan_collection_activate" last_modification_time="Tue, 11 Jul 2006 06:34:38 GMT"/>
 		    </widget>
@@ -426,7 +426,7 @@
 		  <child>
 		    <widget class="GtkMenuItem" id="fetch_covers_item">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Album Art Collector</property>
+		      <property name="label" translatable="yes">_Album Art Collector</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_fetch_all_covers_activate" last_modification_time="Tue, 11 Jul 2006 06:34:38 GMT"/>
 		    </widget>
@@ -441,7 +441,7 @@
 		  <child>
 		    <widget class="GtkMenuItem" id="blacklist_manager_item">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Blacklist Manager</property>
+		      <property name="label" translatable="yes">_Blacklist Manager</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_blacklist_manager_activate" last_modification_time="Tue, 11 Jul 2006 06:34:38 GMT"/>
 		    </widget>
@@ -456,7 +456,7 @@
 		  <child>
 		    <widget class="GtkMenuItem" id="clear_queue_item">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Clear Queue</property>
+		      <property name="label" translatable="yes">_Clear Queue</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_clear_queue_activate" last_modification_time="Tue, 11 Jul 2006 06:34:38 GMT"/>
 		    </widget>
@@ -465,7 +465,7 @@
 		  <child>
 		    <widget class="GtkMenuItem" id="queue_manager_item">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Queue Manager</property>
+		      <property name="label" translatable="yes">_Queue Manager</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_queue_manager_activate" last_modification_time="Tue, 11 Jul 2006 06:34:38 GMT"/>
 		      <accelerator key="M" modifiers="GDK_CONTROL_MASK" signal="activate"/>
@@ -481,13 +481,13 @@
 		  <child>
 		    <widget class="GtkImageMenuItem" id="clear_playlist_item">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Clear Playlist</property>
+		      <property name="label" translatable="yes">Cl_ear Playlist</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_clear_playlist_item_activate" last_modification_time="Thu, 07 Sep 2006 11:36:46 GMT"/>
 		      <accelerator key="C" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image230">
+			<widget class="GtkImage" id="image251">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-clear</property>
 			  <property name="icon_size">1</property>
@@ -503,7 +503,7 @@
 		  <child>
 		    <widget class="GtkMenuItem" id="close_playlist_item">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Close Playlist</property>
+		      <property name="label" translatable="yes">Cl_ose Playlist</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_close_playlist_item_activate" last_modification_time="Thu, 07 Sep 2006 11:37:05 GMT"/>
 		      <accelerator key="W" modifiers="GDK_CONTROL_MASK" signal="activate"/>
@@ -517,7 +517,7 @@
 	  <child>
 	    <widget class="GtkMenuItem" id="settings">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">Settings</property>
+	      <property name="label" translatable="yes">_Settings</property>
 	      <property name="use_underline">True</property>
 
 	      <child>
@@ -526,7 +526,7 @@
 		  <child>
 		    <widget class="GtkCheckMenuItem" id="shuffle">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Shuffle</property>
+		      <property name="label" translatable="yes">_Shuffle</property>
 		      <property name="use_underline">True</property>
 		      <property name="active">False</property>
 		      <signal name="activate" handler="on_shuffle_activate" last_modification_time="Tue, 11 Jul 2006 06:35:26 GMT"/>
@@ -536,7 +536,7 @@
 		  <child>
 		    <widget class="GtkCheckMenuItem" id="repeat">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Repeat</property>
+		      <property name="label" translatable="yes">_Repeat</property>
 		      <property name="use_underline">True</property>
 		      <property name="active">False</property>
 		      <signal name="activate" handler="on_repeat_activate" last_modification_time="Tue, 11 Jul 2006 06:35:26 GMT"/>
@@ -565,7 +565,7 @@
 	  <child>
 	    <widget class="GtkMenuItem" id="help">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">Help</property>
+	      <property name="label" translatable="yes">_Help</property>
 	      <property name="use_underline">True</property>
 
 	      <child>

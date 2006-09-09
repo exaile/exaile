@@ -60,7 +60,7 @@ class ExaileWindow(object):
         """
             Initializes the main Exaile window
         """
-        self.xml = gtk.glade.XML('exaile.glade', 'ExaileWindow')
+        self.xml = gtk.glade.XML('exaile.glade', 'ExaileWindow', 'exaile')
         self.window = self.xml.get_widget('ExaileWindow')
         media.exaile_instance = self
 
@@ -94,7 +94,7 @@ class ExaileWindow(object):
             image = gtk.Image()
             image.set_from_file("images%ssplash.png" % os.sep)
 
-            xml = gtk.glade.XML('exaile.glade', 'SplashScreen')
+            xml = gtk.glade.XML('exaile.glade', 'SplashScreen', 'exaile')
             splash_screen = xml.get_widget('SplashScreen')
             box = xml.get_widget('splash_box')
             box.pack_start(image, True, True)
@@ -1106,6 +1106,7 @@ class ExaileWindow(object):
             self.new_page()
 
         self.tracks.set_songs(tracks.TrackData())
+        self.playlist_songs = self.tracks.songs
     
     def on_search(self, widget=None, event=None): 
         """

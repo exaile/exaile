@@ -336,9 +336,7 @@ class CollectionPanel(object):
             self.exaile.playlists_panel.on_add_playlist(item, None, add)
             return
 
-        t = trackslist.TracksListCtrl
-
-        self.exaile.append_songs(add, queue, True, t)
+        self.exaile.append_songs(add, queue, True)
 
     def button_pressed(self, widget, event):
         """

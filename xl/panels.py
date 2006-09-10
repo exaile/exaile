@@ -113,7 +113,7 @@ class CollectionPanel(object):
             gobject.source_remove(self.key_id)
             self.key_id = None
 
-        self.key_id = gobject.timeout_add(500, self.on_search)
+        self.key_id = gobject.timeout_add(50, self.on_search)
 
     def update_progress(self, percent):
         """
@@ -513,7 +513,7 @@ class CollectionPanel(object):
         if self.connect_id: gobject.source_remove(self.connect_id)
         self.connect_id = None
         if self.keyword != None: 
-            self.connect_id = gobject.timeout_add(500, self.__run_expand)
+            self.connect_id = gobject.timeout_add(50, self.__run_expand)
 
     def __append_info(self, node, songs=None, unknown=False):
         """

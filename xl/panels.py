@@ -146,7 +146,11 @@ class CollectionPanel(object):
             of the tree until the matched node is found
         """
         self.keyword = self.filter.get_text()
-        self.load_tree()
+
+        if isinstance(self, iPodPanel):
+            self.load_tree(None, False)
+        else:
+            self.load_tree()
 
     def __run_expand(self):
         """
@@ -183,7 +187,8 @@ class CollectionPanel(object):
             else:
                 if isinstance(track, AlbumWrapper):
                     track = track.name
-                if track.lower().find(keyword.lower()) > -1:
+                if not isinstance(track, iPodPlaylist) and \
+                    track.lower().find(keyword.lower()) > -1:
                     self.__expand_to_top(parent)
             iter = self.model.iter_next(iter)
             if not iter: break
@@ -817,7 +822,7 @@ class iPodPanel(CollectionPanel):
             self.open_playlist)
         self.rename = self.ipod_menu.append(_("Rename"),
             self.rename_playlist)
-        self.remove_playlist = self.ipod_menu.append(_("Remove"),
+        self.rm_playlist = self.ipod_menu.append(_("Remove"),
             self.remove_playlist)
         self.create = self.ipod_menu.append(_("Create Paylist"),
             self.create_playlist)

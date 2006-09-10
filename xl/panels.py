@@ -76,7 +76,8 @@ class CollectionPanel(object):
         self.track_image = gtk.gdk.pixbuf_new_from_file('images%strack.png' % 
             os.sep)
         self.ipod_image = xlmisc.get_icon('gnome-dev-ipod')
-        self.genre_image = self.exaile.window.render_icon('gtk-yes', gtk.ICON_SIZE_SMALL_TOOLBAR)
+        self.genre_image = gtk.gdk.pixbuf_new_from_file('images%sgenre.png' %
+            os.sep)
         self.iplaylist_image = gtk.gdk.pixbuf_new_from_file('images%splaylist.png' % os.sep)
         self.connect_id = None
         self.setup_widgets()

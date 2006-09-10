@@ -1637,6 +1637,7 @@ class ExaileWindow(object):
         for i in range(self.playlists_nb.get_n_pages()):
             page = self.playlists_nb.get_nth_page(i)
             title = self.playlists_nb.get_tab_label(page).title
+            if not isinstance(page, trackslist.TracksListCtrl): continue
             songs = page.songs
             h = open("%s%ssaved%splaylist%.4d.m3u" % 
                 (SETTINGS_DIR, os.sep, os.sep, i), "w")

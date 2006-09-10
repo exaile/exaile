@@ -748,6 +748,10 @@ class iPodPanel(CollectionPanel):
                     song.ipod_track(), -1)
             else:
                 song = self.exaile.all_songs.for_path(url)
+                if not song:
+                     song = tracks.read_track(self.db, self.exaile.all_songs, url)
+                     if not song: continue
+
                 ipod_song = self.get_song_on_ipod(song)
                 if ipod_song:
                     if not playlist: continue

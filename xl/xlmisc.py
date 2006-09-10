@@ -610,6 +610,7 @@ class NotebookTab(gtk.HBox):
     """
     def __init__(self, exaile, title, page):
         gtk.HBox.__init__(self, False, 5)
+        self.title = title
         self.pack_start(self.wrapper(gtk.Label(title)), 
             False, False)
         self.tips = gtk.Tooltips()
@@ -1257,7 +1258,7 @@ class LibraryManager(object):
         """
         self.exaile = exaile
         self.xml = gtk.glade.XML('exaile.glade', 'LibraryManager')
-        self.dialog = self.xml.get_widget('LibraryManager', 'exaile')
+        self.dialog = self.xml.get_widget('LibraryManager')
         self.list = ListBox(self.xml.get_widget('lm_list_box'))
         self.dialog.set_transient_for(exaile.window)
         self.xml.get_widget('lm_add_button').connect('clicked',
@@ -1640,7 +1641,7 @@ class PopupWindow(object):
             cover = 'images%snocover.png' % os.sep
 
         self.cover.set_image(cover)
-        self.window.show()
+        self.window.show_all()
 
         if self.start_timer: 
             self.__timeout = gobject.timeout_add(4000, self.window.hide)

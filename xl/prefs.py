@@ -245,6 +245,7 @@ class Preferences(object):
         simple_settings = ({
             'use_splash': (CheckPrefsItem, True),
             'fetch_covers': (CheckPrefsItem, True),
+            'save_queue': (CheckPrefsItem, True),
             'ensure_visible': (CheckPrefsItem, True),
             'art_filenames': (PrefsItem, 
                 'cover.jpg folder.jpg .folder.jpg album.jpg art.jpg'),

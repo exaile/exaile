@@ -178,8 +178,7 @@ class ExaileWindow(object):
  
         self.window.show_all()
         self.load_songs()
-        if self.settings.get_boolean('open_last', False):
-            self.__load_last_playlist()
+        self.__load_last_playlist()
         
         if not self.playlists_nb.get_n_pages():
             self.new_page(_("Playlist"))
@@ -516,12 +515,34 @@ class ExaileWindow(object):
         """
             Loads the playlist that was in the player on last exit
         """
+        dir = "%s%ssaved" % (SETTINGS_DIR, os.sep)
+        if not os.path.isdir(dir):
+            return
 
-        if not os.path.isfile("%s%ssaved_playlist.m3u" %
-            (SETTINGS_DIR, os.sep)): return
-        self.new_page(_("Last"))
-        self.import_m3u("%s%ssaved_playlist.m3u" %
-            (SETTINGS_DIR, os.sep))
+        if self.settings.get_boolean("open_last", False):
+            files = os.listdir(dir)
+            for file in files:
+                if not file.endswith(".m3u"): continue
+                h = open("%s%s%s" % (dir, os.sep, file))
+                line = h.readline()
+                h.close()
+                title = "Playlist"
+                m = re.search('^# PLAYLIST: (.*)$', line)
+                if m:
+                    title = m.group(1)
+
+                self.import_m3u("%s%s%s" % (dir, os.sep, file), title=title)
+
+        # load queue
+        if self.settings.get_boolean('save_queue', False):
+            if os.path.isfile("%s%squeued.save" % (dir, os.sep)):
+                h = open("%s%squeued.save" % (dir, os.sep))
+                for line in h.readlines():
+                    line = line.strip()
+                    song = self.all_songs.for_path(line)
+                    if song:
+                        self.queued.append(song)
+                h.close()
 
     def append_songs(self, songs, queue=False, play=True, title="Playlist"): 
         """
@@ -1337,7 +1358,7 @@ class ExaileWindow(object):
         self.update_track_information()
         self.progress.set_value(0)
 
-    def import_m3u(self, path, play=False): 
+    def import_m3u(self, path, play=False, title=None): 
         """
             Imports a playlist file, regardless of it's location (it can be
             a local file (ie, file:///somefile.m3u) or online.
@@ -1387,6 +1408,10 @@ class ExaileWindow(object):
                     xlmisc.log_exception()
             first = False
 
+        if title: name = title
+        if not songs: 
+            self.status.set_first(None)
+            return
         self.new_page(name, songs) 
 
         if isinstance(play, media.StreamTrack):
@@ -1597,12 +1622,36 @@ class ExaileWindow(object):
         for thread in self.thread_pool:
             thread.done = True
 
-        h = open("%s%ssaved_playlist.m3u" % (SETTINGS_DIR, os.sep), "w")
-        for track in self.playlist_songs:
-            try:
-                h.write("%s\n" % track.loc)
-            except: pass
-        h.close()
+        dir = "%s%ssaved" % (SETTINGS_DIR, os.sep)
+        if not os.path.isdir(dir):
+            os.mkdir(dir)
+
+        # delete all current saved playlists
+        for file in os.listdir(dir):
+            if file.endswith(".m3u"):
+                os.unlink("%s%s%s" % (dir, os.sep, file))
+
+        if os.path.isfile("%s%squeued.save" % (dir, os.sep)):
+            os.unlink("%s%squeued.save" % (dir, os.sep))
+
+        for i in range(self.playlists_nb.get_n_pages()):
+            page = self.playlists_nb.get_nth_page(i)
+            title = self.playlists_nb.get_tab_label(page).title
+            songs = page.songs
+            h = open("%s%ssaved%splaylist%d.m3u" % 
+                (SETTINGS_DIR, os.sep, os.sep, i), "w")
+            h.write("# PLAYLIST: %s\n" % title)
+            for song in songs:
+                h.write("%s\n" % song.loc)
+
+            h.close()
+
+        # save queued tracks
+        if self.queued:
+            h = open("%s%squeued.save" % (dir, os.sep), "w")
+            for song in self.queued:
+                h.write("%s\n" % song.loc)
+            h.close()
         self.db.commit()
 
         sys.exit(0)

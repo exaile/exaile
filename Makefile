@@ -34,7 +34,6 @@ install: make-install-dirs mmkeys.so
 	install -m 644 images/default_theme/*.png \
 	$(DESTDIR)$(PREFIX)/share/exaile/images/default_theme
 	install -m 644 po/*.po $(DESTDIR)$(PREFIX)/share/exaile/po
-	install -m 755 po/fmt.py $(DESTDIR)/$(PREFIX)/share/exaile/po
 	cd $(DESTDIR)/$(PREFIX)/share/exaile/po && python fmt.py && rm *.po && cd $(CWD)
 	install -m 644 xl/*.py $(DESTDIR)$(PREFIX)/share/exaile/xl
 	install -m 644 images/largeicon.png \

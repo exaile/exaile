@@ -789,7 +789,7 @@ class ExaileWindow(object):
             Updates the seeker position, the "now playing" title, and
             submits the track to last.fm when appropriate
         """
-        self.status.set_track_count("%d/%d tracks" % (len(self.songs),
+        self.status.set_track_count("%d showing, %d in collection" % (len(self.songs),
             len(self.all_songs)))   
         track = self.current_track
         if track == None: return True
@@ -1638,7 +1638,7 @@ class ExaileWindow(object):
             page = self.playlists_nb.get_nth_page(i)
             title = self.playlists_nb.get_tab_label(page).title
             songs = page.songs
-            h = open("%s%ssaved%splaylist%d.m3u" % 
+            h = open("%s%ssaved%splaylist%.4d.m3u" % 
                 (SETTINGS_DIR, os.sep, os.sep, i), "w")
             h.write("# PLAYLIST: %s\n" % title)
             for song in songs:

@@ -409,18 +409,24 @@ class CoverFetcher(object):
         self.exaile = parent
         self.db = self.exaile.db
         xml = gtk.glade.XML('exaile.glade', 'CoverFetcher', 'exaile')
+        self.icons = xml.get_widget('cover_icon_view')
+
+        self.model = gtk.ListStore(str, gtk.gdk.Pixbuf)
+        self.icons.set_model(self.model)
+        self.icons.set_text_column(0)
+        self.icons.set_pixbuf_column(1)
         self.dialog = xml.get_widget('CoverFetcher')
         self.dialog.set_transient_for(parent.window)
         self.progress = xml.get_widget('fetcher_progress')
         self.label = xml.get_widget('fetcher_label')
-        xml.get_widget('fetcher_hide_button').connect('clicked',
-            lambda *e: self.dialog.hide())
+
         xml.get_widget('fetcher_cancel_button').connect('clicked',
             self.__cancel)
         self.stopstart = xml.get_widget('fetcher_stop_button')
         self.stopstart.connect('clicked', self.toggle_running)
 
         self.current = 0
+        self.dialog.show_all()
         self.total = self.calculate_total()
         self.label.set_label("%s covers left." % self.total)
 
@@ -451,6 +457,7 @@ class CoverFetcher(object):
         """
         if not self.artists:
             self.label.set_label("All Covers have been Fetched.")
+            self.stopstart.set_sensitive(False)
             return
         self.artist = self.artists[0]
         if CoverFetcher.stopped: return
@@ -498,6 +505,16 @@ class CoverFetcher(object):
                         self.artist))
                 except:
                     log_exception()
+
+                image = "%s%scovers%s%s" % (self.exaile.get_settings_dir(),
+                    os.sep, os.sep, cover['md5'] + ".jpg")
+                image = gtk.gdk.pixbuf_new_from_file(image)
+                image = image.scale_simple(60, 60, 
+                    gtk.gdk.INTERP_BILINEAR)
+                
+                if self.found.has_key("%s - %s" % (self.artist.lower(), self.album.lower())):
+                    iter = self.found["%s - %s" % (self.artist.lower(), self.album.lower())] 
+                    self.model.set_value(iter, 1, image)
                 break
 
         if self.stopped: return
@@ -513,19 +530,43 @@ class CoverFetcher(object):
             "ORDER BY artist, album")
         self.needs = dict()
 
+        self.found = dict()
+        count = 0
         for (artist, album) in all:
             if not self.needs.has_key(artist):
                 self.needs[artist] = []
             if album in self.needs[artist]: continue
             row = self.db.read_one("albums", "image",
                 "artist=? AND album=?", (artist, album))
-            if not row:
+
+            image = "images%snocover.png" % os.sep
+            if not row or not row[0]:
                 self.db.execute("INSERT INTO albums(artist, " \
                 "album) VALUES( ?, ? " \
                 ")", (artist, album))
-            elif row[0]: 
+                self.needs[artist].append(album)
+            elif row[0].find("nocover") > -1:
+                self.needs[artist].append(album)
+            elif row[0] and row[0].find("nocover") == -1: 
+                image = "%s%scovers%s%s" % (self.exaile.get_settings_dir(),
+                    os.sep, os.sep, row[0])
+
+            if self.found.has_key("%s - %s" % (artist.lower(), album.lower())):
                 continue
-            self.needs[artist].append(album)
+
+            image = gtk.gdk.pixbuf_new_from_file(image)
+            image = image.scale_simple(60, 60, 
+                gtk.gdk.INTERP_BILINEAR)
+
+            title = "%s - %s" % (artist, album)
+            if len(title) > 10:
+                title = title[0:10] + "..."
+            self.found["%s - %s" % (artist.lower(), album.lower())] = \
+                self.model.append([title, image])
+            if count >= 50: 
+                count = 0
+                finish()
+            count += 1
 
         count = 0
         for k, v in self.needs.iteritems():
@@ -1425,6 +1466,7 @@ class StatusBar(object):
         self.exaile = exaile
         self.xml = exaile.xml
         self.first_label = self.xml.get_widget('status_pos_1')
+        self.second_label = self.xml.get_widget('status_pos_2')
         self.track_count_label = self.xml.get_widget('track_count_label')
 
     def set_track_count(self, count):

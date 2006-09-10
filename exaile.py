@@ -519,7 +519,7 @@ class ExaileWindow(object):
         if not os.path.isdir(dir):
             return
 
-        if self.settings.get_boolean("open_last", False):
+        if self.settings.get_boolean("open_last", True):
             files = os.listdir(dir)
             for file in files:
                 if not file.endswith(".m3u"): continue
@@ -534,7 +534,7 @@ class ExaileWindow(object):
                 self.import_m3u("%s%s%s" % (dir, os.sep, file), title=title)
 
         # load queue
-        if self.settings.get_boolean('save_queue', False):
+        if self.settings.get_boolean('save_queue', True):
             if os.path.isfile("%s%squeued.save" % (dir, os.sep)):
                 h = open("%s%squeued.save" % (dir, os.sep))
                 for line in h.readlines():

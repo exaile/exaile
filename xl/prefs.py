@@ -182,7 +182,7 @@ class Preferences(object):
     """
     order = ('General', 'Advanced')
     items = ({'General':
-                ('Appearance',
+                ('Miscellaneous',
                 'OSD',
                 'Last.fm'),
             'Advanced':
@@ -249,7 +249,7 @@ class Preferences(object):
             'ensure_visible': (CheckPrefsItem, True),
             'art_filenames': (PrefsItem, 
                 'cover.jpg folder.jpg .folder.jpg album.jpg art.jpg'),
-            'open_last': (CheckPrefsItem, False),
+            'open_last': (CheckPrefsItem, True),
             'use_popup': (CheckPrefsItem, True),
             'osd_w': (PrefsItem, '400', self.osd_adjust_size),
             'osd_h': (PrefsItem, '80', self.osd_adjust_size),

@@ -282,7 +282,7 @@ class Track(object):
         """
         try:
             rate = int(self._bitrate) / 1000
-            if rate: return "%dkhz" % rate
+            if rate: return "%dk" % rate
             else: return ""
         except:
             return self._bitrate
@@ -694,7 +694,7 @@ class RadioTrack(StreamTrack):
         """
         self._bitrate = str(self._bitrate)
         self._bitrate = re.sub("\D", "", self._bitrate)
-        if self._bitrate: return "%skhz"  % self._bitrate
+        if self._bitrate: return "%sk"  % self._bitrate
         else: return ""
 
     def set_bitrate(self, rate):

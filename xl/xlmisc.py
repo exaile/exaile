@@ -652,7 +652,13 @@ class NotebookTab(gtk.HBox):
     def __init__(self, exaile, title, page):
         gtk.HBox.__init__(self, False, 5)
         self.title = title
-        self.pack_start(self.wrapper(gtk.Label(title)), 
+        self.label = gtk.Label(title)
+        
+        box = gtk.EventBox()
+        box.connect('button_press_event',
+            self.close_tab)
+        box.add(self.label)
+        self.pack_start(self.wrapper(box), 
             False, False)
         self.tips = gtk.Tooltips()
 
@@ -671,20 +677,43 @@ class NotebookTab(gtk.HBox):
             Wraps the specified widget in an event box
         """
         if close: 
-            box = gtk.EventBox()
-            self.tips.set_tip(box, _("Close this tab"))
-            box.connect('button_press_event', self.close_tab)
-            box.add(widget)
-        else: box = widget
-        return box
+            self.box = gtk.EventBox()
+            self.tips.set_tip(self.box, _("Close this tab"))
+            self.box.connect('button_press_event', self.close_tab)
+            self.box.add(widget)
+        else: self.box = widget
+        return self.box
+
+    def __rename(self, widget, event):
+        """
+            Renames the tab
+        """
+        dialog = TextEntryDialog(self.exaile.window, 
+            _("Enter the new name for this playlist"), _("Rename playlist"))
+        if dialog.run() == gtk.RESPONSE_OK:
+            name = dialog.get_value()
+            self.title = name
+            self.label.set_label(name)
+        dialog.destroy()
+
+    def create_menu(self):
+        """
+            Creates the popup menu for this tab
+        """
+        menu = Menu()
+        menu.append(_("Rename"), self.__rename)
+        menu.append(_("Close"), lambda *e:
+            self.exaile.close_page(self.page))
+        self.menu = menu
 
     def close_tab(self, tab, event):
         """
             Closes the tab
         """
         if event.button == 3:
-            pass
-        else:
+            self.create_menu()
+            self.menu.popup(None, None, None, event.button, event.time)
+        elif tab == self.box:
             self.exaile.close_page(self.page)
 
 class DebugDialog(object):

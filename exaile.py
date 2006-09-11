@@ -71,6 +71,7 @@ class ExaileWindow(object):
         self.timer_count = 0
         self.current_track = None
         self.played = []
+        self.mon = None
         self.all_songs = tracks.TrackData()
         self.songs = tracks.TrackData()
         self.playlist_songs = tracks.TrackData()
@@ -85,7 +86,7 @@ class ExaileWindow(object):
         self.playing = False
         self.next = None
         self.thread_pool = []
-        self.pop_count = 0
+        self.dir_queue = []
         self.debug_dialog = xlmisc.DebugDialog(self)
         self.col_menus = dict()
         self.setup_col_menus('track', trackslist.TracksListCtrl.col_map)
@@ -754,6 +755,7 @@ class ExaileWindow(object):
         xlmisc.finish()
         if not updating:
             self.all_songs = tracks.load_tracks(self.db, self.all_songs)
+            self.setup_gamin()
         self.status.set_first(None)
 
         self.collection_panel.songs = self.all_songs
@@ -761,15 +763,66 @@ class ExaileWindow(object):
         if not updating:
             xlmisc.log("loading songs")
             self.playlists_panel.load_playlists()
+            self.collection_panel.load_tree(True)
             
-        self.collection_panel.load_tree(True)
-
         if len(sys.argv) > 1 and sys.argv[1] and \
             not sys.argv[1].startswith("-"):
             if sys.argv[1].endswith(".m3u") or sys.argv[1].endswith(".pls"):
                 self.import_m3u(sys.argv[1], True)
             else:
                 if not self.tracks: self.new_page("Last", [])
+
+    def setup_gamin(self, skip_prefs=False):
+        """
+            Sets up gamin to monitor directories for changes
+        """
+        if not self.settings.get_boolean('watch_directories', False) \
+            and not skip_prefs: return
+        if not GAMIN_AVAIL:
+            print "Gamin not available, not watching directories"
+            return
+    
+        xlmisc.log("Setting up directory monitoring with gamin...")
+
+        self.mon = gamin.WatchMonitor()
+
+        items = []
+        tmp = self.settings.get("search_paths", "").split(":")
+        for i in tmp:
+            if i != "": items.append(i)
+
+        for item in items:
+            for root, dirs, files in os.walk(item):
+                for dir in dirs:
+                    dir = os.path.join(root, dir)
+                    self.mon.watch_directory(dir, lambda path, event, dir=dir:
+                        self.directory_changed(dir, path, event))      
+        self.mon.handle_events()
+
+    def directory_changed(self, directory, path, event):
+        """
+            Called when a changes happens in a directory
+        """
+        if event != 8 and event != 9:
+            if os.path.isdir(os.path.join(directory, path)) and event == 5:
+                self.mon.watch_directory(os.path.join(directory, path), 
+                    lambda path, event, dir=os.path.join(directory, path):
+                    self.directory_changed(dir, path, event))
+                print "Dir changed event on %s" % os.path.join(directory,
+                    path)
+
+            self.dir_queue.append(directory)
+
+    def run_dir_queue(self):
+        """
+            Runs one directory in the dir queue
+        """
+        if not self.dir_queue: return
+        item = self.dir_queue.pop(0)
+        print "Running gamin queued item %s" % item
+
+        tracks.populate(self, self.db,
+            (item,), self.__on_library_update)
     
     def update_songs(self, songs=None, set=True): 
         """
@@ -792,14 +845,13 @@ class ExaileWindow(object):
         self.status.set_track_count("%d showing, %d in collection" % (len(self.songs),
             len(self.all_songs)))   
         track = self.current_track
+        if GAMIN_AVAIL and self.mon:
+            self.mon.handle_events()
+
+        # run the gamin changes queue
+        self.run_dir_queue()
         if track == None: return True
-
         duration = track.duration * gst.SECOND
-        if self.pop_count >= 2500:
-            self.__on_library_rescan(None)
-            self.pop_count = 0
-
-        self.pop_count += 1
 
         # update the progress bar/label
         value = track.current_position()
@@ -1757,6 +1809,12 @@ try:
     IPOD_AVAIL = True
 except ImportError:
     IPOD_AVAIL = False
+
+try:
+    import gamin
+    GAMIN_AVAIL = True
+except ImportError:
+    GAMIN_AVAIL = False
 
 def main(): 
     """

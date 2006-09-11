@@ -244,6 +244,8 @@ class Preferences(object):
 
         simple_settings = ({
             'use_splash': (CheckPrefsItem, True),
+            'watch_directories': (CheckPrefsItem, False, None,
+                self.__setup_gamin),
             'fetch_covers': (CheckPrefsItem, True),
             'save_queue': (CheckPrefsItem, True),
             'ensure_visible': (CheckPrefsItem, True),
@@ -291,6 +293,14 @@ class Preferences(object):
 
         thread.start_new_thread(media.get_scrobbler_session,
             (self.exaile, user, password, True))
+        return True
+
+    def __setup_gamin(self, widget):
+        """
+            Sets up gamin if needs be
+        """
+        if widget.get_active() and not self.exaile.mon:
+            self.exaile.setup_gamin(True)
         return True
 
     def setup_tabs(self, widget, *p):

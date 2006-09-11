@@ -382,7 +382,7 @@ class ExaileWindow(object):
         if self.key_id:
             gobject.source_remove(self.key_id)
 
-        self.key_id = gobject.timeout_add(50, self.on_search)
+        self.key_id = gobject.timeout_add(150, self.on_search)
 
     def __on_clear_queue(self, *e):
         """

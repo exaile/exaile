@@ -46,6 +46,7 @@ class TrackData(list):
         """
             Adds a track to the list
         """
+        if not track: return
         self.paths[track.loc] = track
         list.append(self, track)
 

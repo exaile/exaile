@@ -696,6 +696,13 @@ class NotebookTab(gtk.HBox):
             self.label.set_label(name)
         dialog.destroy()
 
+    def __save_playlist(self, widget, event):
+        """
+            Saves a playlist
+        """
+        songs = self.page.songs
+        self.exaile.playlists_panel.on_add_playlist(widget, None, songs)
+
     def create_menu(self):
         """
             Creates the popup menu for this tab
@@ -704,6 +711,11 @@ class NotebookTab(gtk.HBox):
         menu.append(_("Rename"), self.__rename)
         menu.append(_("Close"), lambda *e:
             self.exaile.close_page(self.page))
+
+        if not isinstance(self.page, trackslist.QueueManager) and \
+            not isinstance(self.page, trackslist.BlacklistedTracksList):
+            menu.append(_("Save Playlist"), self.__save_playlist)
+            
         self.menu = menu
 
     def close_tab(self, tab, event):

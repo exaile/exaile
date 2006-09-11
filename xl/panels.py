@@ -114,7 +114,7 @@ class CollectionPanel(object):
             gobject.source_remove(self.key_id)
             self.key_id = None
 
-        self.key_id = gobject.timeout_add(50, self.on_search)
+        self.key_id = gobject.timeout_add(150, self.on_search)
 
     def update_progress(self, percent):
         """
@@ -519,7 +519,7 @@ class CollectionPanel(object):
         if self.connect_id: gobject.source_remove(self.connect_id)
         self.connect_id = None
         if self.keyword != None: 
-            self.connect_id = gobject.timeout_add(50, self.__run_expand)
+            self.connect_id = gobject.timeout_add(150, self.__run_expand)
 
     def __append_info(self, node, songs=None, unknown=False):
         """
@@ -1403,6 +1403,7 @@ class PlaylistsPanel(object):
         if tracks == None: tracks = self.exaile.tracks.get_selected_tracks()
 
         for track in tracks:
+            if isinstance(track, media.StreamTrack): continue
             self.db.execute("REPLACE INTO playlist_items( playlist, path ) " \
                 "VALUES( ?, ? )", (playlist, track.loc))
         self.db.commit()

@@ -372,10 +372,9 @@ class PopulateThread(threading.Thread):
 
         directories = self.directories
         directories = [unicode(x) for x in directories]
-        self.db.execute("DELETE FROM directories")
         for path in directories:
             mod = os.path.getmtime(path)
-            self.db.execute("INSERT INTO directories( path, modified ) "
+            self.db.execute("REPLACE INTO directories( path, modified ) "
                 "VALUES( ?, ? )", (path, mod))
 
         update_func = self.update_func

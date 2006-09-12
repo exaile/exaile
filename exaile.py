@@ -759,6 +759,7 @@ class ExaileWindow(object):
         self.status.set_first(None)
 
         self.collection_panel.songs = self.all_songs
+        self.collection_panel.track_cache = dict()
 
         if not updating:
             xlmisc.log("loading songs")

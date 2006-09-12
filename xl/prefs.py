@@ -187,7 +187,8 @@ class Preferences(object):
                 'Last.fm'),
             'Advanced':
                 ('iPod',
-                'Playback')
+                'Playback',
+                'Streamripper')
             })
     def __init__(self, parent):
         """
@@ -223,6 +224,7 @@ class Preferences(object):
 
         self.xml.get_widget('prefs_ok_button').connect('clicked',
             self.ok)
+        self.label = self.xml.get_widget('prefs_frame_label')
 
         self.model = gtk.TreeStore(str, int)
 
@@ -244,6 +246,9 @@ class Preferences(object):
 
         simple_settings = ({
             'use_splash': (CheckPrefsItem, True),
+            'use_streamripper': (CheckPrefsItem, False),
+            'streamripper_save_location': (DirPrefsItem, os.getenv("HOME")),
+            'streamripper_relay_port': (PrefsItem, '8000'),
             'watch_directories': (CheckPrefsItem, False, None,
                 self.__setup_gamin),
             'fetch_covers': (CheckPrefsItem, True),
@@ -401,6 +406,9 @@ class Preferences(object):
         if self.model.iter_has_child(iter): return
         index = self.model.get_value(iter, 1)
         self.nb.set_current_page(index)
+        page = self.nb.get_nth_page(index)
+        title = self.nb.get_tab_label(page)
+        self.label.set_markup("<b>%s</b>" % title.get_label())
         if index == 1: 
             self.osd_settings = xlmisc.get_popup_settings(self.exaile.settings)
             self.display_popup()

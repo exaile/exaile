@@ -5,7 +5,6 @@ all: build
 	@echo "Type: 'make install' now"
 
 build: mmkeys.so
-	cd po && python fmt.py && cd ..
 
 mmkeys.so:
 	cd mmkeys && make mmkeys.so && cd ..

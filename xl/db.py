@@ -60,7 +60,7 @@ class DBManager(object):
             m = re.search("changes(\d+)\.sql", file)
             if not m: continue
             ver = int(m.group(1))
-            file = "changes%d.sql" % ver
+            file = "changes%.4d.sql" % ver
             if ver > version:
                 self.import_sql("%s/%s" % (path, file))
 

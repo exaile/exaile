@@ -791,6 +791,18 @@ class ExaileWindow(object):
         for i in tmp:
             if i != "": items.append(i)
 
+        # check directories for changes since the last time we ran
+        scan = []
+        for item in items:
+            for root, dirs, files in os.walk(item):
+                for dir in dirs:
+                    dir = os.path.join(root, dir)
+                    mod = os.path.getmtime(dir)
+                    row = self.db.read_one('directories', 'path, modified',
+                        'path=?', (dir,))
+                    if not row or int(row[1]) != mod:
+                        scan.append(dir)
+
         for item in items:
             for root, dirs, files in os.walk(item):
                 for dir in dirs:
@@ -798,6 +810,9 @@ class ExaileWindow(object):
                     self.mon.watch_directory(dir, lambda path, event, dir=dir:
                         self.directory_changed(dir, path, event))      
         self.mon.handle_events()
+        if scan:
+            xlmisc.log("Scanning new directories...")
+            self.update_library(scan)
 
     def directory_changed(self, directory, path, event):
         """
@@ -808,10 +823,16 @@ class ExaileWindow(object):
                 self.mon.watch_directory(os.path.join(directory, path), 
                     lambda path, event, dir=os.path.join(directory, path):
                     self.directory_changed(dir, path, event))
-                print "Dir changed event on %s" % os.path.join(directory,
+                mod = os.path.getmtime(os.path.join(directory, path))
+                self.db.execute("REPLACE INTO directories( path, modified ) "
+                    "VALUES( ?, ? )", (os.path.join(directory, path), mod))
+                print "Dir created event on %s" % os.path.join(directory,
                     path)
 
+            mod = os.path.getmtime(directory)
             self.dir_queue.append(directory)
+            self.db.execute("UPDATE directories SET modified=? "
+                "WHERE path=?", (mod, directory))
 
     def run_dir_queue(self):
         """

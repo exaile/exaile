@@ -839,6 +839,14 @@ class ExaileWindow(object):
             Runs one directory in the dir queue
         """
         if not self.dir_queue: return
+        new = []
+
+        # remove dups
+        for item in self.dir_queue:
+            if not item in new:
+                new.append(item)
+
+        self.dir_queue = new
         item = self.dir_queue.pop(0)
         print "Running gamin queued item %s" % item
 

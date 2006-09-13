@@ -553,8 +553,16 @@ class StreamTrack(Track):
             savedir = settings.get('streamripper_save_location',
                 os.getenv('HOME'))
             port = settings.get_int('streamripper_relay_port', 8000)
-            outfile = exaile_instance.get_settings_dir() + "/shoutcast.out"
-            self.streamripper_out = open(outfile, "a+")
+            outfile = exaile_instance.get_settings_dir() + "/streamripper.out"
+            self.streamripper_out = open(outfile, "a+", 0)
+            self.streamripper_out.write("Streamripper log file started: %s\n" %
+                time.strftime("%c", time.localtime()))
+            self.streamripper_out.write(
+                "-------------------------------------------------\n\n\n")
+
+            if settings.get_boolean("kill_streamripper", True):
+                xlmisc.log("Killing any current streamripper processes")
+                os.system("killall -9 streamripper")
 
             sub = subprocess.Popen(['streamripper', self.loc, '-r', str(port),
                 '-d', savedir], stderr=self.streamripper_out)

@@ -273,6 +273,7 @@ class Preferences(object):
                 self.__check_streamripper),
             'streamripper_save_location': (DirPrefsItem, os.getenv("HOME")),
             'streamripper_relay_port': (PrefsItem, '8000'),
+            'kill_streamripper': (CheckPrefsItem, True),
             'watch_directories': (CheckPrefsItem, False, None,
                 self.__setup_gamin),
             'fetch_covers': (CheckPrefsItem, True),

@@ -355,6 +355,24 @@ class ExaileWindow(object):
         self.xml.get_widget('import_directory_item').connect('activate',
             lambda *e: self.__import_directory())
 
+        self.xml.get_widget('streamripper_log_item').connect('activate',
+            lambda *e: self.__streamripper_log())
+
+    def __streamripper_log(self):
+        """
+            Views the streamripper log, if it's available
+        """
+        file = SETTINGS_DIR + "/streamripper.out"
+        if not os.path.isfile(file):
+            common.error(self.window, _("No streamripper log available"))
+            return
+
+        h = open(file)
+        data = h.read()
+        h.close()
+
+        common.scrolledMessageDialog(self.window, data, _("Streamripper Log"))
+
     def __import_directory(self):
         """
             Imports a single directory into the database

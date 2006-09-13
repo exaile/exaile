@@ -52,7 +52,7 @@
 		      <accelerator key="N" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image251">
+			<widget class="GtkImage" id="image272">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-new</property>
 			  <property name="icon_size">1</property>
@@ -74,7 +74,7 @@
 		      <accelerator key="O" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image252">
+			<widget class="GtkImage" id="image273">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-open</property>
 			  <property name="icon_size">1</property>
@@ -95,7 +95,7 @@
 		      <signal name="activate" handler="on_open_url_activate" last_modification_time="Tue, 11 Jul 2006 06:31:40 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image253">
+			<widget class="GtkImage" id="image274">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-network</property>
 			  <property name="icon_size">1</property>
@@ -116,7 +116,7 @@
 		      <signal name="activate" handler="on_open_disc_item_activate" last_modification_time="Thu, 20 Jul 2006 21:18:04 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image254">
+			<widget class="GtkImage" id="image275">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-cdrom</property>
 			  <property name="icon_size">1</property>
@@ -137,7 +137,7 @@
 		      <signal name="activate" handler="on_import_directory_item_activate" last_modification_time="Thu, 07 Sep 2006 22:44:57 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image255">
+			<widget class="GtkImage" id="image276">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-go-down</property>
 			  <property name="icon_size">1</property>
@@ -164,7 +164,7 @@
 		      <signal name="activate" handler="on_open_playlist_activate" last_modification_time="Tue, 11 Jul 2006 06:31:40 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image256">
+			<widget class="GtkImage" id="image277">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-open</property>
 			  <property name="icon_size">1</property>
@@ -185,7 +185,7 @@
 		      <signal name="activate" handler="on_export_playlist_activate" last_modification_time="Tue, 11 Jul 2006 06:31:40 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image257">
+			<widget class="GtkImage" id="image278">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-save</property>
 			  <property name="icon_size">1</property>
@@ -383,12 +383,34 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkMenuItem" id="action_log_item">
+		    <widget class="GtkMenuItem" id="logs1">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Action _Log</property>
+		      <property name="label" translatable="yes">_Logs</property>
 		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="on_action_log_item_activate" last_modification_time="Mon, 21 Aug 2006 21:06:27 GMT"/>
-		      <accelerator key="D" modifiers="GDK_CONTROL_MASK" signal="activate"/>
+
+		      <child>
+			<widget class="GtkMenu" id="logs1_menu">
+
+			  <child>
+			    <widget class="GtkMenuItem" id="action_log_item">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Action _Log</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_action_log_item_activate" last_modification_time="Mon, 21 Aug 2006 21:06:27 GMT"/>
+			      <accelerator key="D" modifiers="GDK_CONTROL_MASK" signal="activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="streamripper_log_item">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Stream Ripper Log</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_streamripper_log_item_activate" last_modification_time="Wed, 13 Sep 2006 13:10:36 GMT"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
 		    </widget>
 		  </child>
 		</widget>
@@ -487,7 +509,7 @@
 		      <accelerator key="C" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image258">
+			<widget class="GtkImage" id="image279">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-clear</property>
 			  <property name="icon_size">1</property>
@@ -3164,7 +3186,7 @@ Genre</property>
 </widget>
 
 <widget class="GtkDialog" id="ScrolledMessageDialog">
-  <property name="width_request">400</property>
+  <property name="width_request">500</property>
   <property name="height_request">300</property>
   <property name="title" translatable="yes">message</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
@@ -3356,7 +3378,7 @@ Genre</property>
 </widget>
 
 <widget class="GtkDialog" id="PreferencesDialog">
-  <property name="width_request">600</property>
+  <property name="width_request">620</property>
   <property name="height_request">420</property>
   <property name="visible">True</property>
   <property name="title" translatable="yes">Preferences</property>
@@ -4628,10 +4650,6 @@ esdsink</property>
 				      <property name="fill">False</property>
 				    </packing>
 				  </child>
-
-				  <child>
-				    <placeholder/>
-				  </child>
 				</widget>
 				<packing>
 				  <property name="padding">0</property>
@@ -4699,10 +4717,6 @@ esdsink</property>
 				      <property name="fill">False</property>
 				    </packing>
 				  </child>
-
-				  <child>
-				    <placeholder/>
-				  </child>
 				</widget>
 				<packing>
 				  <property name="padding">0</property>
@@ -4713,13 +4727,28 @@ esdsink</property>
 			    </widget>
 			    <packing>
 			      <property name="padding">0</property>
-			      <property name="expand">True</property>
-			      <property name="fill">True</property>
+			      <property name="expand">False</property>
+			      <property name="fill">False</property>
 			    </packing>
 			  </child>
 
 			  <child>
-			    <placeholder/>
+			    <widget class="GtkCheckButton" id="prefs_kill_streamripper">
+			      <property name="visible">True</property>
+			      <property name="can_focus">True</property>
+			      <property name="label" translatable="yes">Kill any current streamripper process before starting a new one</property>
+			      <property name="use_underline">True</property>
+			      <property name="relief">GTK_RELIEF_NORMAL</property>
+			      <property name="focus_on_click">True</property>
+			      <property name="active">False</property>
+			      <property name="inconsistent">False</property>
+			      <property name="draw_indicator">True</property>
+			    </widget>
+			    <packing>
+			      <property name="padding">0</property>
+			      <property name="expand">False</property>
+			      <property name="fill">False</property>
+			    </packing>
 			  </child>
 
 			  <child>

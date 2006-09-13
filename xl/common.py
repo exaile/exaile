@@ -148,7 +148,13 @@ def scrolledMessageDialog(parent, message, title):
     dialog.set_title(title)
     view = xml.get_widget('smd_text_view')
     view.get_buffer().set_text(message)
+
     dialog.set_transient_for(parent)
+    buf = view.get_buffer()
+    char = buf.get_char_count()
+    iter = buf.get_iter_at_offset(char)
+    dialog.show_all()
+    view.scroll_to_iter(iter, 0)
     dialog.run()
     dialog.destroy()
 

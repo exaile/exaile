@@ -26,6 +26,12 @@ try:
 except:
     IPOD_AVAILABLE = False
 
+try:
+    import gamin
+    GAMIN_AVAIL = True
+except ImportError:
+    GAMIN_AVAIL = False
+
 settings = None
 xml = None
 
@@ -274,7 +280,7 @@ class Preferences(object):
             'streamripper_save_location': (DirPrefsItem, os.getenv("HOME")),
             'streamripper_relay_port': (PrefsItem, '8000'),
             'kill_streamripper': (CheckPrefsItem, True),
-            'watch_directories': (CheckPrefsItem, False, None,
+            'watch_directories': (CheckPrefsItem, False, self.__check_gamin,
                 self.__setup_gamin),
             'fetch_covers': (CheckPrefsItem, True),
             'save_queue': (CheckPrefsItem, True),
@@ -312,6 +318,18 @@ class Preferences(object):
             else: done = None
             item = c(setting, default, change, done)
             self.fields.append(item)
+
+    def __check_gamin(self, widget):
+        """
+            Make sure gamin is availabe
+        """
+        if widget.get_active():
+            if not GAMIN_AVAIL:
+                common.error(self.exaile.window,
+                    _("Cannot watch directories for changes. "
+                    "Install python2.4-gamin to use this feature."))
+                widget.set_active(False)
+                return False
 
     def __check_streamripper(self, widget):
         """

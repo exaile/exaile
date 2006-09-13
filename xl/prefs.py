@@ -282,6 +282,7 @@ class Preferences(object):
             'kill_streamripper': (CheckPrefsItem, True),
             'watch_directories': (CheckPrefsItem, False, self.__check_gamin,
                 self.__setup_gamin),
+            'watch_exclude_dirs': (PrefsItem, 'incomplete'),
             'fetch_covers': (CheckPrefsItem, True),
             'save_queue': (CheckPrefsItem, True),
             'ensure_visible': (CheckPrefsItem, True),

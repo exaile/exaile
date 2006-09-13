@@ -837,6 +837,13 @@ class ExaileWindow(object):
         """
             Called when a changes happens in a directory
         """
+        # if it matches the exclude directories, ignore it
+        items = self.settings.get('watch_exclude_dirs', 'incomplete').split()
+        for item in items:
+            if item and (directory.find(item) > -1
+                or path == item):
+                return
+
         if event != 8 and event != 9:
             if os.path.isdir(os.path.join(directory, path)) and event == 5:
                 self.mon.watch_directory(os.path.join(directory, path), 

@@ -1036,6 +1036,15 @@ class BrowserWindow(gtk.VBox):
         rel = re.compile('<(style|img|script)[^<]*[^>]*>',
             re.DOTALL|re.IGNORECASE)
         text = rel.sub('', text)
+
+        # this one might be temporary.  It's to clean out some php errors that
+        # lyrc.com.ar probably doesn't know about because their background is
+        # black and this warning is also black
+        rel = re.compile('<noscript>.*?</noscript>',
+            re.DOTALL|re.IGNORECASE)
+        text = rel.sub('', text)
+        # end possible temporary solution
+
         rel = re.compile('<\/?font[^>]*>', re.DOTALL|re.IGNORECASE)
         text = rel.sub('', text)
         text = re.sub('bgcolor="[^"]*"', '', text)

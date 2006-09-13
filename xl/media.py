@@ -397,6 +397,8 @@ class Track(object):
             loc = self.loc
             if not isinstance(self, StreamTrack):
                 loc = urllib.quote(str(loc))
+            else:
+                if self.stream_loc: loc = self.stream_loc
             player.set_property("uri", "%s%s" % (prefix, loc))
             self.next_func = next_func
             self.submitting = False
@@ -526,7 +528,7 @@ class StreamTrack(Track):
         self.type = 'stream'
         self.streamripper_pid = None
         self.streamripper_out = None
-        self.actual_loc = ''
+        self.stream_loc = ''
     
     def play(self, next_func=None):
         """
@@ -543,7 +545,6 @@ class StreamTrack(Track):
         next_func = thread.next_func
 
         self.last_audio_sink = audio_sink
-        self.actual_loc = self.loc
 
         # set up streamripper if needed
         if exaile_instance.settings.get_boolean('use_streamripper'):
@@ -568,7 +569,7 @@ class StreamTrack(Track):
 
             # wait half a second to make sure streamripper has started up
             time.sleep(.5)
-            self.loc = "http://localhost:%d" % port
+            self.stream_loc = "http://localhost:%d" % port
 
         if not self.is_paused():
             self.start_time = time.time()
@@ -589,7 +590,7 @@ class StreamTrack(Track):
         if self.streamripper_pid:
             os.system("kill -9 %d" % self.streamripper_pid)
             self.streamripper_out.close()
-            self.loc = self.actual_loc
+            self.stream_loc = None
         self.start_time = 0
         Track.stop(self)
 

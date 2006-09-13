@@ -380,7 +380,6 @@ class TracksListCtrl(gtk.VBox):
     # sort functions courtesy of listen (http://listengnome.free.fr), which
     # are in turn, courtesy of quodlibet.  Obviously the Quodlibet authors are
     # a lot smarter than I am :)
-
     def set_sort_by(self, column):
         """
             Sets the sort column
@@ -579,7 +578,8 @@ class TracksListCtrl(gtk.VBox):
                 item = rm.append(string, self.__update_rating,
                     None, i)
 
-            em.append_menu(_("Rating"), rm)
+            em.append_menu(_("Rating"), rm
+)
             tpm.append_menu(_("Edit Track(s)"), em)
 
         info = tpm.append(_("Information"), self.get_track_information)

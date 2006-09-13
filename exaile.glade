@@ -4829,7 +4829,7 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.</property>
 </widget>
 
 <widget class="GtkDialog" id="CoverFetcher">
-  <property name="width_request">630</property>
+  <property name="width_request">636</property>
   <property name="height_request">400</property>
   <property name="visible">True</property>
   <property name="title" translatable="yes">Album Art Collector</property>

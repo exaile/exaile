@@ -1716,6 +1716,8 @@ class ExaileWindow(object):
         if os.path.isfile("%s%squeued.save" % (dir, os.sep)):
             os.unlink("%s%squeued.save" % (dir, os.sep))
 
+        if self.current_track: self.current_track.stop()
+
         for i in range(self.playlists_nb.get_n_pages()):
             page = self.playlists_nb.get_nth_page(i)
             title = self.playlists_nb.get_tab_label(page).title

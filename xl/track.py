@@ -292,6 +292,8 @@ class RadioTrackStatsTab(TrackStatsTab):
 
         location = gtk.Entry()
         location.set_text(track.loc)
+        if track.actual_loc:
+            location.set_text(track.actual_loc)
         location.set_editable(False)
         self.append_info(_("Location: "), location)
         self.append_info(_("Bitrate: "), track.bitrate)

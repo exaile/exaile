@@ -17,9 +17,9 @@
 import thread, os, os.path, string
 from xl import tracks, xlmisc, media
 from gettext import gettext as _
-import pygtk
+import pygtk, common
 pygtk.require('2.0')
-import gtk, gtk.glade, pango
+import gtk, gtk.glade, pango, subprocess
 try:
     import gpod
     IPOD_AVAILABLE = True
@@ -90,7 +90,7 @@ class CheckPrefsItem(PrefsItem):
         PrefsItem.__init__(self, name, default, change, done)
 
     def setup_change(self):
-        self.widget.connect('toggle',
+        self.widget.connect('toggled',
             self.change)
 
     def set_pref(self):
@@ -143,6 +143,29 @@ class FontButtonPrefsItem(ColorButtonPrefsItem):
         if self.done and not self.do_don(): return False
         font = self.widget.get_font_name()
         settings[self.name] = font
+        return True
+
+class DirPrefsItem(PrefsItem):
+    """
+        Directory chooser button
+    """
+    def __init__(self, name, default, change=None, done=None):
+        PrefsItem.__init__(self, name, default, change, done)
+
+    def setup_change(self):
+        pass
+
+    def set_pref(self):
+        """
+            Sets the current directory
+        """
+        directory = settings.get(self.name, self.default)
+        self.widget.set_filename(directory)
+
+    def apply(self):
+        if self.done and not self.do_done(): return False
+        directory = self.widget.get_filename()
+        settings[self.name] = directory
         return True
 
 class ComboPrefsItem(PrefsItem):
@@ -246,7 +269,8 @@ class Preferences(object):
 
         simple_settings = ({
             'use_splash': (CheckPrefsItem, True),
-            'use_streamripper': (CheckPrefsItem, False),
+            'use_streamripper': (CheckPrefsItem, False,
+                self.__check_streamripper),
             'streamripper_save_location': (DirPrefsItem, os.getenv("HOME")),
             'streamripper_relay_port': (PrefsItem, '8000'),
             'watch_directories': (CheckPrefsItem, False, None,
@@ -287,6 +311,19 @@ class Preferences(object):
             else: done = None
             item = c(setting, default, change, done)
             self.fields.append(item)
+
+    def __check_streamripper(self, widget):
+        """
+            Make sure that streamripper can be found on the system
+        """
+        if widget.get_active():
+            try:
+                ret = subprocess.call(['streamripper'], stdout=-1, stderr=-1)
+            except OSError:
+                common.error(self.exaile.window, _("Sorry, the 'streamripper'"
+                    " executable could not be found in your path"))
+                widget.set_active(False)
+                return False
 
     def setup_lastfm(self, widget):
         """

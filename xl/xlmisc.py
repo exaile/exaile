@@ -559,8 +559,8 @@ class CoverFetcher(object):
                 gtk.gdk.INTERP_BILINEAR)
 
             title = "%s - %s" % (artist, album)
-            if len(title) > 10:
-                title = title[0:10] + "..."
+            if len(title) > 15:
+                title = title[0:17] + "..."
             self.found["%s - %s" % (artist.lower(), album.lower())] = \
                 self.model.append([title, image])
             if count >= 50: 

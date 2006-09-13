@@ -16,7 +16,8 @@
 
 
 import mutagen, mutagen.id3, mutagen.flac, mutagen.oggvorbis
-import mutagen.mp3
+import mutagen.mp3, subprocess, common
+from gettext import gettext as _
 import sys, time, re, os.path, os
 import httplib
 from traceback import print_exc
@@ -523,6 +524,9 @@ class StreamTrack(Track):
         self.track = ""
         self.start_time = 0
         self.type = 'stream'
+        self.streamripper_pid = None
+        self.streamripper_out = None
+        self.actual_loc = ''
     
     def play(self, next_func=None):
         """
@@ -539,6 +543,33 @@ class StreamTrack(Track):
         next_func = thread.next_func
 
         self.last_audio_sink = audio_sink
+        self.actual_loc = self.loc
+
+        # set up streamripper if needed
+        if exaile_instance.settings.get_boolean('use_streamripper'):
+            settings = exaile_instance.settings 
+            xlmisc.log("Using streamripper to play location: %s" % self.loc)
+            savedir = settings.get('streamripper_save_location',
+                os.getenv('HOME'))
+            port = settings.get_int('streamripper_relay_port', 8000)
+            outfile = exaile_instance.get_settings_dir() + "/shoutcast.out"
+            self.streamripper_out = open(outfile, "a+")
+
+            sub = subprocess.Popen(['streamripper', self.loc, '-r', str(port),
+                '-d', savedir], stderr=self.streamripper_out)
+            ret = sub.poll()
+
+            xlmisc.log("Streamripper return value was %s" % ret)
+            if ret != None:
+                common.error(exaile_instance.window, _("There was an error"
+                    " executing streamripper."))
+                return
+            self.streamripper_pid = sub.pid
+
+            # wait half a second to make sure streamripper has started up
+            time.sleep(.5)
+            self.loc = "http://localhost:%d" % port
+
         if not self.is_paused():
             self.start_time = time.time()
         Track.play(self, next_func)
@@ -555,6 +586,10 @@ class StreamTrack(Track):
         """
             Stops playback
         """
+        if self.streamripper_pid:
+            os.system("kill -9 %d" % self.streamripper_pid)
+            self.streamripper_out.close()
+            self.loc = self.actual_loc
         self.start_time = 0
         Track.stop(self)
 
@@ -621,6 +656,7 @@ class RadioTrack(StreamTrack):
 
         self.location = self.loc
         self.uri = self.loc
+        self.streamripper_pid = None
         if not isinstance(self, PodcastTrack):
             self.album = self.location
 

@@ -652,7 +652,7 @@ class TracksListCtrl(gtk.VBox):
                     "artist": fields[0],
                     "title": fields[1],
                     "url": fields[2],
-                    "bitrate": fields[3].replace("khz", "")
+                    "bitrate": fields[3].replace("k", "")
                 })
 
                 track = tracks.RadioTrack(info)

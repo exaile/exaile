@@ -410,6 +410,7 @@ class CoverFetcher(object):
         self.db = self.exaile.db
         xml = gtk.glade.XML('exaile.glade', 'CoverFetcher', 'exaile')
         self.icons = xml.get_widget('cover_icon_view')
+        self.icons.set_columns(4)
 
         self.model = gtk.ListStore(str, gtk.gdk.Pixbuf)
         self.icons.set_model(self.model)
@@ -427,6 +428,7 @@ class CoverFetcher(object):
 
         self.current = 0
         self.dialog.show_all()
+        finish()
         self.total = self.calculate_total()
         self.label.set_label("%s covers left." % self.total)
 
@@ -541,7 +543,7 @@ class CoverFetcher(object):
 
             image = "images%snocover.png" % os.sep
             if not row or not row[0]:
-                self.db.execute("INSERT INTO albums(artist, " \
+                self.db.execute("REPLACE INTO albums(artist, " \
                 "album) VALUES( ?, ? " \
                 ")", (artist, album))
                 self.needs[artist].append(album)
@@ -563,7 +565,7 @@ class CoverFetcher(object):
                 title = title[0:17] + "..."
             self.found["%s - %s" % (artist.lower(), album.lower())] = \
                 self.model.append([title, image])
-            if count >= 50: 
+            if count >= 30: 
                 count = 0
                 finish()
             count += 1
@@ -572,7 +574,6 @@ class CoverFetcher(object):
         for k, v in self.needs.iteritems():
             count += len(v)
 
-        
         self.artists = self.needs.keys()
         self.artists.sort()
 

@@ -908,6 +908,11 @@ class ExaileWindow(object):
         if track == None: return True
         duration = track.duration * gst.SECOND
 
+        # check to see if streamripper died (if applicable)
+        if isinstance(track, media.StreamTrack) and \
+            track.is_playing():
+            track.check_streamripper_pid()
+
         # update the progress bar/label
         value = track.current_position()
         if duration == -1:

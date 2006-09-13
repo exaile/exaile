@@ -567,6 +567,7 @@ class StreamTrack(Track):
             sub = subprocess.Popen(['streamripper', self.loc, '-r', str(port),
                 '-d', savedir], stderr=self.streamripper_out)
             ret = sub.poll()
+            self.streamripper = sub
 
             xlmisc.log("Streamripper return value was %s" % ret)
             if ret != None:
@@ -582,6 +583,17 @@ class StreamTrack(Track):
         if not self.is_paused():
             self.start_time = time.time()
         Track.play(self, next_func)
+
+    def check_streamripper_pid(self):
+        """
+            If we're using streamripper, make sure it didn't die.
+        """
+        if self.streamripper_pid:
+            if self.streamripper.poll() != None:
+                common.error(exaile_instance.window, _("Streamripper "
+                    "died unexpectedly."))
+                self.stop()
+                exaile_instance.on_next()
 
     def get_duration(self):
         """

@@ -1988,6 +1988,7 @@ class RadioPanel(object):
             playlist = item.get_child().get_text()
 
         for track in tracks:
+            if not isinstance(track, media.StreamTrack): continue
             self.db.execute("REPLACE INTO radio_items( radio, title, url, "
                 "description, bitrate ) " \
                 "VALUES( ?, ?, ?, ?, ? )",

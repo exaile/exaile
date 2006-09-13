@@ -534,19 +534,36 @@ class TracksListCtrl(gtk.VBox):
 
         self.queue = tpm.append(_("Queue Track(s)"), self.exaile.on_queue)
         self.dequeue = tpm.append(_("Dequeue Track(s)"), self.exaile.on_dequeue)
+        songs = self.get_selected_tracks()
 
-        pm = xlmisc.Menu()
-        self.new_playlist = pm.append(_("New Playlist"),
-            self.exaile.playlists_panel.on_add_playlist)
-        pm.append_separator()
-        rows = self.db.select("SELECT playlist_name FROM playlists ORDER BY"
-            " playlist_name")
-        for row in rows:
-            pm.append(row[0], self.exaile.playlists_panel.add_items_to_playlist)
+        if not isinstance(songs[0], media.StreamTrack):
+            pm = xlmisc.Menu()
+            self.new_playlist = pm.append(_("New Playlist"),
+                self.exaile.playlists_panel.on_add_playlist)
+            pm.append_separator()
+            rows = self.db.select("SELECT playlist_name FROM playlists ORDER BY"
+                " playlist_name")
+            for row in rows:
+                pm.append(row[0], self.exaile.playlists_panel.add_items_to_playlist)
 
-        tpm.append_menu(_("Add to Playlist"), pm)
+            tpm.append_menu(_("Add to Playlist"), pm)
+
+        else:
+            self.playlists_menu = xlmisc.Menu()
+            all = self.db.select("SELECT radio_name FROM radio "
+                "ORDER BY radio_name")
+            for row in all:
+                i = self.playlists_menu.append(row[0],
+                    self.exaile.radio_panel.add_items_to_station)
+
+            self.playlists_menu.append_separator()
+            self.new_playlist = self.playlists_menu.append(_("New Station"),
+                self.exaile.radio_panel.on_add_to_station)
+
+            tpm.append_menu(_("Add to Saved Stations"),
+                self.playlists_menu)
+
         em = xlmisc.Menu()
-
         em.append(_("Edit Information"), lambda e, f:
             track.TrackEditor(self.exaile, self))
 

@@ -831,7 +831,7 @@ class GSTTrack(Track):
             time //= gst.SECOND
             self._len = time
 
-            exaile_instance.tracks.queue_draw()
+            if exaile_instance.tracks: exaile_instance.tracks.queue_draw()
         except gst.QueryError:
             xlmisc.log_exception()
             pass

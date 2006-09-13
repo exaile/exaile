@@ -43,7 +43,7 @@ install: make-install-dirs mmkeys.so
 	755 exaile
 
 clean:
-	rm mmkeys.so
+	-rm mmkeys.so
 	cd mmkeys && make clean && cd ..
 	find . -name "*.pyc" -exec rm {} \;
 	find . -name "*.pyo" -exec rm {} \;

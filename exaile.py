@@ -473,7 +473,7 @@ class ExaileWindow(object):
             if self.cover.loc.find('nocover') > -1: return
             track = self.current_track
             
-            xlmisc.CoverWindow(self, self.cover.loc, "%s by %s" %
+            xlmisc.CoverWindow(self.window, self.cover.loc, "%s by %s" %
                 (track.album, track.artist))
         elif event.button == 3:
             if not self.current_track: return

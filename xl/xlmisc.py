@@ -429,6 +429,8 @@ class CoverFetcher(object):
         self.model = gtk.ListStore(str, gtk.gdk.Pixbuf, object)
         self.icons.set_model(self.model)
         self.icons.set_item_width(90)
+        self.artists = None
+        self.go = False
         self.icons.set_text_column(0)
         self.icons.set_pixbuf_column(1)
         self.icons.connect('item-activated',
@@ -453,6 +455,8 @@ class CoverFetcher(object):
         finish()
         self.total = self.calculate_total()
         self.label.set_label("%s covers left." % self.total)
+        if self.go:
+            self.toggle_running(None)
 
     def __cancel(self, event):
         """
@@ -466,6 +470,11 @@ class CoverFetcher(object):
             Toggles the running state of the fetcher
         """
         if CoverFetcher.stopped:
+            if not self.artists:
+                self.go = True
+                self.stopstart.set_label("Stop")
+                return
+                
             CoverFetcher.stopped = False
             self.stopstart.set_label("Stop")
             self.fetch_next()
@@ -1181,7 +1190,7 @@ class CoverWindow(object):
     """
         Shows the fullsize cover in a window
     """
-    def __init__(self, exaile, cover, title=''):
+    def __init__(self, parent, cover, title=''):
         """
             Initializes and shows the cover
         """
@@ -1194,7 +1203,7 @@ class CoverWindow(object):
         image.set_size_request(pixbuf.get_width(), pixbuf.get_height())
         box.pack_start(image)
         window.set_title(title)
-        window.set_transient_for(exaile.window)
+        window.set_transient_for(parent)
         window.show_all()
 
 class TextEntryDialog(object):

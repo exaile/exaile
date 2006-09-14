@@ -505,7 +505,8 @@ class CollectionPanel(object):
         else: self.all = all
 
         if self.track_cache.has_key("%s %s" % (where, self.keyword)) \
-            and self.track_cache["%s %s" % (where, self.keyword)]:
+            and self.track_cache["%s %s" % (where, self.keyword)] and \
+            not isinstance(self, iPodPanel):
             songs = self.track_cache["%s %s" % (where, self.keyword)]
         else:
             songs = xl.tracks.search_tracks(self.exaile, self.db,
@@ -733,9 +734,11 @@ class iPodPanel(CollectionPanel):
             common.error(self.exaile.window, _("Not connected to iPod"))
             return
         path = self.tree.get_path_at_pos(x, y)
-        iter = self.model.get_iter(path[0])
-        object = self.model.get_value(iter, 1)
-        if isinstance(object, iPodPlaylist):
+
+        if path:
+            iter = self.model.get_iter(path[0])
+            object = self.model.get_value(iter, 1)
+        if isinstance(object, iPodPlaylist) and path:
             playlist = object
             print "Playlist %s" % playlist.name
         else:

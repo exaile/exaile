@@ -454,9 +454,9 @@ class TracksListCtrl(gtk.VBox):
             cellr.set_property('text', item.podcast_duration)
             return
 
-        l = item.duration
-        tup = time.localtime(l)
-        text = "%s:%02d" % (tup[4], tup[5])
+        seconds = item.duration
+        text = "%s:%02d" % (seconds / 60, seconds % 60)
+
         if isinstance(item, media.StreamTrack):
             text = ''
 

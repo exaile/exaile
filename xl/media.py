@@ -547,7 +547,8 @@ class StreamTrack(Track):
         self.last_audio_sink = audio_sink
 
         # set up streamripper if needed
-        if exaile_instance.settings.get_boolean('use_streamripper'):
+        if not self.is_paused() and \
+            exaile_instance.settings.get_boolean('use_streamripper'):
             settings = exaile_instance.settings 
             xlmisc.log("Using streamripper to play location: %s" % self.loc)
             savedir = settings.get('streamripper_save_location',

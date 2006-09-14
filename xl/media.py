@@ -556,12 +556,11 @@ class StreamTrack(Track):
         if not self.is_paused() and \
             exaile_instance.settings.get_boolean('use_streamripper'):
             settings = exaile_instance.settings 
-            xlmisc.log("Using streamripper to play location: %s" % self.loc)
             savedir = settings.get('streamripper_save_location',
                 os.getenv('HOME'))
             port = settings.get_int('streamripper_relay_port', 8000)
             outfile = exaile_instance.get_settings_dir() + "/streamripper.out"
-            self.streamripper_out = open(outfile, "a+", 0)
+            self.streamripper_out = open(outfile, "w+", 0)
             self.streamripper_out.write("Streamripper log file started: %s\n" %
                 time.strftime("%c", time.localtime()))
             self.streamripper_out.write(
@@ -577,6 +576,7 @@ class StreamTrack(Track):
             self.streamripper = sub
 
             xlmisc.log("Streamripper return value was %s" % ret)
+            xlmisc.log("Using streamripper to play location: %s" % self.loc)
             if ret != None:
                 common.error(exaile_instance.window, _("There was an error"
                     " executing streamripper."))

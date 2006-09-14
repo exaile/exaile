@@ -471,7 +471,10 @@ class ExaileWindow(object):
         """
         if event.type == gtk.gdk._2BUTTON_PRESS:
             if self.cover.loc.find('nocover') > -1: return
-            xlmisc.CoverWindow(self, self.cover.loc)
+            track = self.current_track
+            
+            xlmisc.CoverWindow(self, self.cover.loc, "%s by %s" %
+                (track.album, track.artist))
         elif event.button == 3:
             if not self.current_track: return
             self.cover_menu.popup(None, None, None, 

@@ -1560,6 +1560,10 @@ class RadioPanel(object):
                 self.cmenu.popup(None, None, None,
                     event.button, event.time)
             else:
+                if object == "Saved Stations" or \
+                    object == "Podcasts" or \
+                    object == "Shoutcast Stations":
+                    return
                 self.menu.popup(None, None, None,
                     event.button, event.time)
             
@@ -1691,6 +1695,7 @@ class RadioPanel(object):
             self.tree.expand_row(self.model.get_path(self.podcast), False)
 
             self.__refresh_podcast(name, item)
+        dialog.destroy()
 
     def __refresh_podcast(self, path, item):
         """

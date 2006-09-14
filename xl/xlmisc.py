@@ -396,6 +396,21 @@ def get_cover_fetcher(exaile):
     FETCHER = CoverFetcher(exaile)
     return FETCHER
 
+class CoverWrapper(object):
+    """
+        Wraps a cover object
+    """
+    def __init__(self, artist, album, location):
+        self.artist = artist
+        self.album = album
+        self.location = location
+
+    def __str__(self):
+        title = "%s - %s" % (self.artist, self.album)
+        if len(title) > 12:
+            title = title[0:10] + "..."
+        return title
+
 class CoverFetcher(object):
     """
         Fetches all covers in the library
@@ -410,12 +425,19 @@ class CoverFetcher(object):
         self.db = self.exaile.db
         xml = gtk.glade.XML('exaile.glade', 'CoverFetcher', 'exaile')
         self.icons = xml.get_widget('cover_icon_view')
-        self.icons.set_columns(4)
 
-        self.model = gtk.ListStore(str, gtk.gdk.Pixbuf)
+        self.model = gtk.ListStore(str, gtk.gdk.Pixbuf, object)
         self.icons.set_model(self.model)
+        self.icons.set_item_width(90)
         self.icons.set_text_column(0)
         self.icons.set_pixbuf_column(1)
+        self.icons.connect('item-activated',
+            self.__item_activated)
+        self.status = xml.get_widget('cover_status_bar')
+        self.icons.connect('motion-notify-event',
+            self.__mouse_move)
+        self.icons.connect('leave-notify-event',
+            lambda *e: self.status.set_label(''))
         self.dialog = xml.get_widget('CoverFetcher')
         self.dialog.set_transient_for(parent.window)
         self.progress = xml.get_widget('fetcher_progress')
@@ -510,12 +532,15 @@ class CoverFetcher(object):
 
                 image = "%s%scovers%s%s" % (self.exaile.get_settings_dir(),
                     os.sep, os.sep, cover['md5'] + ".jpg")
+                loc = image
                 image = gtk.gdk.pixbuf_new_from_file(image)
-                image = image.scale_simple(60, 60, 
+                image = image.scale_simple(80, 80, 
                     gtk.gdk.INTERP_BILINEAR)
                 
                 if self.found.has_key("%s - %s" % (self.artist.lower(), self.album.lower())):
                     iter = self.found["%s - %s" % (self.artist.lower(), self.album.lower())] 
+                    object = self.model.get_value(iter, 2)
+                    object.location = loc
                     self.model.set_value(iter, 1, image)
                 break
 
@@ -523,6 +548,34 @@ class CoverFetcher(object):
         self.current = self.current + 1
         self.progress.set_fraction(float(self.current) / float(self.total))
         self.fetch_next()
+
+    def __mouse_move(self, widget, event):
+        """
+            Called when the mouse moves in the icon view
+        """
+        x, y = event.get_coords()
+        x = int(x)
+        y = int(y)
+
+        path = self.icons.get_path_at_pos(x, y)
+        if not path: 
+            self.status.set_label('')
+            return
+
+        iter = self.model.get_iter(path)
+        object = self.model.get_value(iter, 2)
+
+        self.status.set_markup("<b>%s by %s</b>" % (object.album,
+            object.artist))
+
+    def __item_activated(self, iconview, path):
+        """
+            Called when an icon is double clicked
+        """
+        iter = self.model.get_iter(path)
+        object = self.model.get_value(iter, 2)
+        CoverWindow(self.dialog, object.location, "%s by %s" % (object.album,
+            object.artist))
 
     def calculate_total(self):
         """
@@ -556,15 +609,13 @@ class CoverFetcher(object):
             if self.found.has_key("%s - %s" % (artist.lower(), album.lower())):
                 continue
 
+            title = CoverWrapper(artist, album, image)
             image = gtk.gdk.pixbuf_new_from_file(image)
-            image = image.scale_simple(60, 60, 
+            image = image.scale_simple(80, 80, 
                 gtk.gdk.INTERP_BILINEAR)
 
-            title = "%s - %s" % (artist, album)
-            if len(title) > 15:
-                title = title[0:17] + "..."
             self.found["%s - %s" % (artist.lower(), album.lower())] = \
-                self.model.append([title, image])
+                self.model.append([title, image, title])
             if count >= 30: 
                 count = 0
                 finish()
@@ -1130,7 +1181,7 @@ class CoverWindow(object):
     """
         Shows the fullsize cover in a window
     """
-    def __init__(self, exaile, cover):
+    def __init__(self, exaile, cover, title=''):
         """
             Initializes and shows the cover
         """
@@ -1142,8 +1193,8 @@ class CoverWindow(object):
         image.set_from_file(cover)
         image.set_size_request(pixbuf.get_width(), pixbuf.get_height())
         box.pack_start(image)
+        window.set_title(title)
         window.set_transient_for(exaile.window)
-        window.set_title(exaile.current_track.album)
         window.show_all()
 
 class TextEntryDialog(object):

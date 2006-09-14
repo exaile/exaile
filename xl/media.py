@@ -441,7 +441,13 @@ class Track(object):
         """
         if player == None: return
         self.playing = 2
-        player.set_state(gst.STATE_PAUSED)
+
+        # we don't actually pause streams, they are stopped.  If streamripper
+        # was involved, it will continue to download the stream normally
+        if isinstance(self, StreamTrack):
+            player.set_state(gst.STATE_NULL)
+        else:
+            player.set_state(gst.STATE_PAUSED)
 
     def stop(self):
         """

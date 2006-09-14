@@ -612,6 +612,7 @@ class StreamTrack(Track):
             os.system("kill -9 %d" % self.streamripper_pid)
             self.streamripper_out.close()
             self.stream_loc = None
+            self.streamripper_pid = None
         self.start_time = 0
         Track.stop(self)
 

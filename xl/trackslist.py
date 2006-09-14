@@ -535,7 +535,7 @@ class TracksListCtrl(gtk.VBox):
         self.dequeue = tpm.append(_("Dequeue Track(s)"), self.exaile.on_dequeue)
         songs = self.get_selected_tracks()
 
-        if not isinstance(songs[0], media.StreamTrack):
+        if not songs or not isinstance(songs[0], media.StreamTrack):
             pm = xlmisc.Menu()
             self.new_playlist = pm.append(_("New Playlist"),
                 self.exaile.playlists_panel.on_add_playlist)

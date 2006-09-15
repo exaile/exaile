@@ -479,6 +479,9 @@ class Preferences(object):
             Shows the OSD window
         """
         if self.popup:  
+            (x, y) = self.popup.window.get_position()
+            self.osd_settings['osd_x'] = x
+            self.osd_settings['osd_y'] = y
             self.popup.window.destroy()
         self.popup = xlmisc.PopupWindow(self.exaile, self.osd_settings,
             False, True)

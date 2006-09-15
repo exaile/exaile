@@ -906,8 +906,11 @@ class ExaileWindow(object):
         if GAMIN_AVAIL and self.mon:
             self.mon.handle_events()
 
-        # run the gamin changes queue
-        self.run_dir_queue()
+        # run the gamin changes queue every 4 laps
+        if self.timer_count % 4 == 0:
+            self.run_dir_queue()
+
+        self.timer_count += 1
         if track == None: return True
         duration = track.duration * gst.SECOND
 
@@ -941,6 +944,7 @@ class ExaileWindow(object):
             if track.submit_to_scrobbler():
                 track.submitting = True
                 self.status.set_first(_("Submitting to Last.fm..."), 2000)
+
         return True
 
     def update_track_information(self, event=None):

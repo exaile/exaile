@@ -1920,6 +1920,7 @@ def main():
         track.find_and_delete_dups(options.dups)
         sys.exit(0)
 
+    quit = False
     if not options.new and not "win" in sys.platform:
         try:
             bus = dbus.SessionBus()
@@ -1935,15 +1936,16 @@ def main():
             elif options.stream: iface.play_file(options.stream)
             elif options.query:
 
-                print iface.Query()
+                print iface.query()
                 #if track == None: print "status: stopped"
                 #else: print track.full_status()
+            elif len(sys.argv) > 1 and not sys.argv[1].startswith("--"):
+                iface.play_file(sys.argv[1])
             else:
-                if len(sys.argv) > 1:
-                    iface.play_file(sys.argv[1])
-            sys.exit(0)
+                print "You have entered an invalid option"
+                sys.exit(0)
         except SystemExit:
-            sys.exit(0)
+            return
         except dbus.DBusException:
             print "***** You can safely ignore the above error."
             # dbus service is not running, so we just skip this part
@@ -1971,6 +1973,8 @@ def main():
 if __name__ == "__main__": 
     try:
         main()
+    except SystemExit:
+        pass
     except: 
         traceback.print_exc()
         xlmisc.log_exception()

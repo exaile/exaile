@@ -70,6 +70,7 @@ class ExaileWindow(object):
         self.database_connect()
         self.timer_count = 0
         self.current_track = None
+        self.gamin_watched = []
         self.played = []
         self.mon = None
         self.all_songs = tracks.TrackData()
@@ -831,6 +832,7 @@ class ExaileWindow(object):
                     dir = os.path.join(root, dir)
                     self.mon.watch_directory(dir, lambda path, event, dir=dir:
                         self.directory_changed(dir, path, event))      
+                    self.gamin_watched.append(dir)
         self.mon.handle_events()
         if scan:
             xlmisc.log("Scanning new directories...")
@@ -853,10 +855,12 @@ class ExaileWindow(object):
                     lambda path, event, dir=os.path.join(directory, path):
                     self.directory_changed(dir, path, event))
                 mod = os.path.getmtime(os.path.join(directory, path))
+                self.gamin_watched.append(os.path.join(directory, path))
                 self.db.execute("REPLACE INTO directories( path, modified ) "
                     "VALUES( ?, ? )", (os.path.join(directory, path), mod))
                 print "Dir created event on %s" % os.path.join(directory,
                     path)
+                return
 
             mod = os.path.getmtime(directory)
             self.dir_queue.append(directory)
@@ -1733,6 +1737,13 @@ class ExaileWindow(object):
         """
             Saves the current playlist and exits
         """
+        if self.gamin_watched and self.mon:
+            for item in self.gamin_watched:
+                self.mon.stop_watch(item)
+
+        if self.mon:
+            self.mon.disconnect()
+
         if self.tray_icon and widget == self.window:
             self.window.hide()
             return True
@@ -1928,32 +1939,29 @@ def main():
     if not options.new and not "win" in sys.platform:
         try:
             bus = dbus.SessionBus()
-            remote_object = bus.get_object("org.exaile.DBusInterface",
-                "/DBusInterfaceObject")
-            iface = dbus.Interface(remote_object, "org.exaile.DBusInterface")
-            iface.test_service("testing dbus service")
-            if options.next: iface.next_track()
-            elif options.prev: iface.prev_track()
-            elif options.stop: iface.stop()
-            elif options.play: iface.play()
-            elif options.guiquery: iface.popup()
-            elif options.stream: iface.play_file(options.stream)
-            elif options.query:
+            if xlmisc.test_dbus(bus, 'org.exaile.DBusInterface'):
+                remote_object = bus.get_object("org.exaile.DBusInterface",
+                    "/DBusInterfaceObject")
+                iface = dbus.Interface(remote_object, "org.exaile.DBusInterface")
+                iface.test_service("testing dbus service")
+                if options.next: iface.next_track()
+                elif options.prev: iface.prev_track()
+                elif options.stop: iface.stop()
+                elif options.play: iface.play()
+                elif options.guiquery: iface.popup()
+                elif options.stream: iface.play_file(options.stream)
+                elif options.query:
 
-                print iface.query()
-                #if track == None: print "status: stopped"
-                #else: print track.full_status()
-            elif len(sys.argv) > 1 and not sys.argv[1].startswith("--"):
-                iface.play_file(sys.argv[1])
-            else:
-                print "You have entered an invalid option"
+                    print iface.query()
+                    #if track == None: print "status: stopped"
+                    #else: print track.full_status()
+                elif len(sys.argv) > 1 and not sys.argv[1].startswith("--"):
+                    iface.play_file(sys.argv[1])
+                else:
+                    print "You have entered an invalid option"
                 sys.exit(0)
         except SystemExit:
             return
-        except dbus.DBusException:
-            print "***** You can safely ignore the above error."
-            # dbus service is not running, so we just skip this part
-            pass
         except:
             xlmisc.log_exception()
 

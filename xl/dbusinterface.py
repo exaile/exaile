@@ -88,6 +88,8 @@ class DBusInterfaceObject(dbus.service.Object):
         """
             Returns information about the currently playing track
         """
+        if not self.exaile.current_track:
+            return "No track playing"
         return self.exaile.current_track.full_status()
 
     @dbus.service.method("org.exaile.DBusInterface")

@@ -832,7 +832,7 @@ class ExaileWindow(object):
                     dir = os.path.join(root, dir)
                     self.mon.watch_directory(dir, lambda path, event, dir=dir:
                         self.directory_changed(dir, path, event))      
-                    self.mon.handle_events()
+                    self.mon.handle_one_event()
                     self.gamin_watched.append(dir)
         self.mon.handle_events()
         if scan:

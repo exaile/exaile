@@ -828,7 +828,7 @@ class iPodPanel(CollectionPanel):
             self.rename_playlist)
         self.rm_playlist = self.ipod_menu.append(_("Remove"),
             self.remove_playlist)
-        self.create = self.ipod_menu.append(_("Create Paylist"),
+        self.create = self.ipod_menu.append(_("Create Playlist"),
             self.create_playlist)
 
         self.blacklist.set_sensitive(False)
@@ -946,9 +946,10 @@ class iPodPanel(CollectionPanel):
             _("Writing iPod database..."))
         xlmisc.finish()
         if self.connected and self.itdb:
-            gobject.idle_add(gpod.itdb_write, self.itdb, None)
+            gpod.itdb_write(self.itdb, None)
 
         gobject.idle_add(self.exaile.status.set_first, None)
+        xlmisc.log("Done writing iTunes database")
         if reload: gobject.idle_add(self.load_tree, False, False)
 
     def delete_tracks(self, tracks):
@@ -1212,6 +1213,7 @@ class iPodPanel(CollectionPanel):
         """
 
         if connect: self.connect_ipod()
+        xlmisc.log("Loading iPod collection tree")
         CollectionPanel.load_tree(self, event)
 
 class PlaylistsPanel(object):

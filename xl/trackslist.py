@@ -533,6 +533,7 @@ class TracksListCtrl(gtk.VBox):
 
         self.queue = tpm.append(_("Queue Track(s)"), self.exaile.on_queue)
         self.dequeue = tpm.append(_("Dequeue Track(s)"), self.exaile.on_dequeue)
+        tpm.append_separator()
         songs = self.get_selected_tracks()
 
         if not songs or not isinstance(songs[0], media.StreamTrack):
@@ -562,8 +563,7 @@ class TracksListCtrl(gtk.VBox):
             tpm.append_menu(_("Add to Saved Stations"),
                 self.playlists_menu)
 
-        em = xlmisc.Menu()
-        em.append(_("Edit Information"), lambda e, f:
+        tpm.append(_("Edit Track(s)"), lambda e, f:
             track.TrackEditor(self.exaile, self))
 
         if not ipod:
@@ -578,11 +578,11 @@ class TracksListCtrl(gtk.VBox):
                 item = rm.append(string, self.__update_rating,
                     None, i)
 
-            em.append_menu(_("Rating"), rm
+            tpm.append_menu(_("Rating"), rm
 )
-            tpm.append_menu(_("Edit Track(s)"), em)
 
         info = tpm.append(_("Information"), self.get_track_information)
+        tpm.append_separator()
 
         rm = xlmisc.Menu()
         self.remove_tracks = rm.append(_("Remove from Playlist"),

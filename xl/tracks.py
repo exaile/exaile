@@ -371,9 +371,12 @@ class PopulateThread(threading.Thread):
         PopulateThread.running = True
 
         directories = self.directories
-        directories = [unicode(x) for x in directories]
+        directories = [x.decode('utf-8', 'replace') for x in directories]
         for path in directories:
-            mod = os.path.getmtime(path)
+            try:
+                mod = os.path.getmtime(path)
+            except OSError:
+                continue
             self.db.execute("REPLACE INTO directories( path, modified ) "
                 "VALUES( ?, ? )", (path, mod))
 

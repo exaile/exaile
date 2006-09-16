@@ -827,13 +827,11 @@ class ExaileWindow(object):
                         scan.append(dir)
 
         for item in items:
-            for root, dirs, files in os.walk(item):
-                for dir in dirs:
-                    dir = os.path.join(root, dir)
-                    self.mon.watch_directory(dir, lambda path, event, dir=dir:
-                        self.directory_changed(dir, path, event))      
-                    self.mon.handle_one_event()
-                    self.gamin_watched.append(dir)
+            self.mon.watch_directory(item, lambda path, event, dir=item:
+                self.directory_changed(dir, path, event))      
+
+            self.gamin_watched.append(item)
+
         self.mon.handle_events()
         if scan:
             xlmisc.log("Scanning new directories...")
@@ -849,6 +847,13 @@ class ExaileWindow(object):
             if item and (directory.find(item) > -1
                 or path == item):
                 return
+
+        d = os.path.join(directory, path)
+        if os.path.isdir(d) and not d in self.gamin_watched:
+            self.mon.watch_directory(d, lambda path, event, dir=d:
+                self.directory_changed(dir, path, event))
+            self.gamin_watched.append(d)
+            return
 
         if event != 8 and event != 9:
             if os.path.isdir(os.path.join(directory, path)) and event == 5:

@@ -1927,6 +1927,14 @@ Genre</property>
 		  </child>
 
 		  <child>
+		    <placeholder/>
+		  </child>
+
+		  <child>
+		    <placeholder/>
+		  </child>
+
+		  <child>
 		    <widget class="GtkHScale" id="track_slider">
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>

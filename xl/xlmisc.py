@@ -1375,7 +1375,7 @@ class CoverFrame(object):
         self.cover.set_image("%s%scovers%s%s" % (self.exaile.get_settings_dir(),
             os.sep, os.sep, c.filename()))
 
-        self.window.show()
+        self.window.show_all()
 
     def __covers_fetched(self, covers):
         """
@@ -1388,7 +1388,7 @@ class CoverFrame(object):
             self.covers = []
             self.next.set_sensitive(False)
             self.ok.set_sensitive(False)
-            self.window.show()
+            self.window.show_all()
             return
 
         if len(covers) > 1: self.next.set_sensitive(True)

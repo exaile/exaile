@@ -123,7 +123,7 @@ class ExaileWindow(object):
         volume_image = xlmisc.get_icon('stock_volume', gtk.ICON_SIZE_BUTTON)
         image = gtk.Image()
         image.set_from_pixbuf(volume_image)
-        
+
         volume_box = self.xml.get_widget('volume_box')
         self.volume = xlmisc.VolumeControl(image,
             self.__on_volume_set)

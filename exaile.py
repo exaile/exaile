@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-__version__ = '0.2.2'
+__version__ = '0.2.4svn'
 import traceback
 import pygtk
 pygtk.require('2.0')
@@ -1656,10 +1656,12 @@ class ExaileWindow(object):
             url.lower().endswith(".pls"):
             self.import_m3u(url, True)
             return
+        elif url.find("://") == -1:
+            track = tracks.read_track(self.db, self.all_songs, url)
+        else:
+            info = ({'url': url})
+            track = media.RadioTrack(info)
 
-        info = ({'url': url})
-
-        track = media.RadioTrack(info)
         self.append_songs(tracks.TrackData((track, )))
         self.play_track(track)
 

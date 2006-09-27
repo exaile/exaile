@@ -1967,6 +1967,10 @@ def main():
         track.find_and_delete_dups(options.dups)
         sys.exit(0)
 
+    running_checks = ('next', 'prev', 'stop', 'play', 'guiquery', 'get_title',
+        'get_artist', 'get_album', 'get_length', 'current_position',
+        'inc_vol', 'dec_vol', 'query')
+
     quit = False
     if not options.new and not "win" in sys.platform:
         try:
@@ -2010,6 +2014,13 @@ def main():
             return
         except:
             xlmisc.log_exception()
+
+    # check passed arguments for options that require exaile to currently be
+    # running
+    for check in running_checks:
+        if getattr(options, check):
+            print "No running Exaile instance found."
+            sys.exit(1)
 
     random.seed()
     fr = False

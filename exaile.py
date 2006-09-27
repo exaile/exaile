@@ -16,12 +16,21 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 __version__ = '0.2.4svn'
-import traceback
+import traceback, sys
+
+# find out if they are asking for help
+HELP = False
+for val in sys.argv:
+    if val == '-h' or val == '--help': HELP = True
+
+if '-h' in sys.argv: sys.argv.remove('-h')
+if '--help' in sys.argv: sys.argv.remove('--help')
+
 import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade, pango
 
-import sys, os, re, random, fileinput, gc, urllib, md5
+import os, re, random, fileinput, gc, urllib, md5
 import os.path, traceback, thread, gettext, time
 import locale, tempfile
 
@@ -1945,6 +1954,10 @@ def main():
     p.add_option("--new", dest="new", action="store_true",
         default=False, help="Start new instance")
     p.add_option("--settings", dest="settings", help="Settings Directory")
+
+    if HELP:
+        p.print_help()
+        sys.exit(0)
 
     options, args = p.parse_args()
     if options.settings:

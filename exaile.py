@@ -126,7 +126,7 @@ class ExaileWindow(object):
 
         volume_box = self.xml.get_widget('volume_box')
         self.volume = xlmisc.VolumeControl(image,
-            self.__on_volume_set)
+            self.on_volume_set)
         volume_box.pack_start(self.volume, False, False)
         self.volume.slider.set_value(self.settings.get_float('volume', 1) *
             100)
@@ -1267,7 +1267,7 @@ class ExaileWindow(object):
         self.songs = tracks.search(self.tracks.playlist_songs, keyword)
         self.tracks.set_songs(self.songs, False)
 
-    def __on_volume_set(self): 
+    def on_volume_set(self): 
         """
             Sets the volume based on the slider position
         """
@@ -1929,7 +1929,18 @@ def main():
 
     p.add_option("--gui-query", dest="guiquery", action="store_true",
         default=False, help="Show a popup of the currently playing track")
-
+    p.add_option("--get-title", dest="get_title", action="store_true",
+        default=False, help="Print the title of current track")
+    p.add_option("--get-album", dest="get_album", action="store_true",
+        default=False, help="Print the album of current track")
+    p.add_option("--get-artist", dest="get_artist", action="store_true",
+        default=False, help="Print the artist of current track")
+    p.add_option("--get-length", dest="get_length", action="store_true",
+        default=False, help="Print the length of current track")
+    p.add_option("--current-position", dest="current_position", action="store_true",
+        default=False, help="Print the position inside the current track as a percentage")
+    p.add_option("-i","--increase_vol", dest="inc_vol",action="store", type="int",metavar="VOL",help="Increases the volume by VOL")
+    p.add_option("-l","--decrease_vol", dest="dec_vol",action="store",type="int",metavar="VOL",help="Decreases the volume by VOL")
     p.add_option("--stream", dest="stream", help="Stream URL")
     p.add_option("--new", dest="new", action="store_true",
         default=False, help="Start new instance")
@@ -1958,6 +1969,20 @@ def main():
                 elif options.play: iface.play()
                 elif options.guiquery: iface.popup()
                 elif options.stream: iface.play_file(options.stream)
+                elif options.get_title:
+                    print iface.get_title()
+                elif options.get_artist:
+                    print iface.get_artist()
+                elif options.get_album:
+                    print iface.get_album()
+                elif options.get_length:
+                    print iface.get_length()
+                elif options.current_position:
+                    print iface.current_position()
+                elif options.inc_vol:
+                    iface.increase_volume(options.inc_vol)
+                elif options.dec_vol:
+                    iface.decrease_volume(options.dec_vol)
                 elif options.query:
 
                     print iface.query()

@@ -98,3 +98,84 @@ class DBusInterfaceObject(dbus.service.Object):
             Shows a popup window with information about the current track
         """
         self.exaile.show_popup()
+
+    @dbus.service.method("org.exaile.DBusInterface")
+    def get_title(self):
+        """
+            Returns the title of the playing track
+        """
+        if not self.exaile.current_track:
+            return ""
+        return self.exaile.current_track.get_title()
+
+    @dbus.service.method("org.exaile.DBusInterface")
+    def get_album(self):
+        """
+            Returns the album of the playing track
+        """
+        if not self.exaile.current_track:
+            return ""
+        return self.exaile.current_track.album
+
+    @dbus.service.method("org.exaile.DBusInterface")
+    def get_artist(self):
+        """
+            Returns the artist of the playing track
+        """
+        if not self.exaile.current_track:
+            return ""
+        return self.exaile.current_track.artist
+
+    @dbus.service.method("org.exaile.DBusInterface")
+    def get_length(self):
+        """
+            Returns the length of the playing track
+        """
+        if not self.exaile.current_track:
+            return ""
+        return self.exaile.current_track.length
+
+
+    @dbus.service.method("org.exaile.DBusInterface")
+    def current_position(self):
+        """
+            Returns the position inside the current track as a percentage
+        """
+        if not self.exaile.current_track:
+            return 0
+        return self.exaile.current_track.current_position()
+
+    @dbus.service.method("org.exaile.DBusInterface")
+    def status(self):
+        """
+            Returns if the player is paused or playing
+        """
+        if not self.exaile.current_track:
+            return "No track playing"
+        return self.exaile.current_track.status()
+
+    @dbus.service.method("org.exaile.DBusInterface")
+    def popup(self):
+        """
+            Shows a popup window with information about the current track
+        """
+        self.exaile.show_popup()
+
+    @dbus.service.method("org.exaile.DBusInterface")
+    def increase_volume(self,vol):
+        """ 
+            Increases the volume by vol
+        """
+        vol = vol + self.exaile.volume.slider.get_value()
+        self.exaile.volume.slider.set_value(vol)
+        self.exaile.on_volume_set()
+
+    @dbus.service.method("org.exaile.DBusInterface")
+    def decrease_volume(self,vol):
+        """ 
+            dereases the volume by vol
+        """
+        vol = self.exaile.volume.slider.get_value() - vol
+        self.exaile.volume.slider.set_value(vol)
+        self.exaile.on_volume_set()
+

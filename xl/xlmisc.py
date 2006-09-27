@@ -724,7 +724,7 @@ class NotebookTab(gtk.HBox):
         self.tips = gtk.Tooltips()
 
         image = gtk.Image()
-        image.set_from_file('images%sclose.png' % os.sep)
+        image.set_from_stock('gtk-close', 'menu')
         self.pack_start(self.wrapper(image, True), False, False)
         self.page = page
         self.nb = exaile.playlists_nb

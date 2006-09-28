@@ -1,6 +1,12 @@
 exaile (0.2.4) stable; urgency=low
   * use gamin to monitor directories
   * removed automatic reload of collection tree on scan
+  * integrate streamripper
+  * fixed options, made --help work
+  * all open playlists can now be reopened when exaile opens
+  * fixed some problems with the OSD preferences
+  * renaming of open tabs
+  * switched lyrics servers to lyrc.com.ar
 
  -- Adam Olsen <arolsen@gmail.com>  Mon, 11 Sep  2006 17:04:00 -0700
 

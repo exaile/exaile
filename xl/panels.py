@@ -506,7 +506,7 @@ class CollectionPanel(object):
 
         if self.track_cache.has_key("%s %s" % (where, self.keyword)) \
             and self.track_cache["%s %s" % (where, self.keyword)] and \
-            not isinstance(self, iPodPanel):
+            not self.ipod:
             songs = self.track_cache["%s %s" % (where, self.keyword)]
         else:
             songs = xl.tracks.search_tracks(self.exaile, self.db,

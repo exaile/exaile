@@ -1343,6 +1343,7 @@ class ExaileWindow(object):
         """
             Sets up menus
         """
+        return
         self.shuffle = self.xml.get_widget('shuffle')
         self.shuffle.set_active(self.settings.get_boolean('shuffle', False))
         self.shuffle.connect('toggled', self.toggle_mode, 'shuffle')

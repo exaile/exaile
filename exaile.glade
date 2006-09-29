@@ -1707,9 +1707,9 @@ Genre</property>
 			      <property name="spacing">0</property>
 
 			      <child>
-				<widget class="GtkLabel" id="asdfaasd">
+				<widget class="GtkLabel" id="label44">
 				  <property name="visible">True</property>
-				  <property name="label" translatable="yes">Rating:  </property>
+				  <property name="label" translatable="yes">Rating: </property>
 				  <property name="use_underline">False</property>
 				  <property name="use_markup">False</property>
 				  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1732,7 +1732,7 @@ Genre</property>
 			      </child>
 
 			      <child>
-				<widget class="GtkComboBox" id="combobox1">
+				<widget class="GtkComboBox" id="rating_combo">
 				  <property name="height_request">32</property>
 				  <property name="visible">True</property>
 				  <property name="items" translatable="yes">1
@@ -1758,6 +1758,7 @@ Genre</property>
 				  <property name="width_request">32</property>
 				  <property name="height_request">32</property>
 				  <property name="visible">True</property>
+				  <property name="tooltip" translatable="yes">Shuffle</property>
 				  <property name="can_focus">True</property>
 				  <property name="label" translatable="yes"></property>
 				  <property name="use_underline">True</property>
@@ -1778,6 +1779,7 @@ Genre</property>
 				  <property name="width_request">32</property>
 				  <property name="height_request">32</property>
 				  <property name="visible">True</property>
+				  <property name="tooltip" translatable="yes">Repeat</property>
 				  <property name="can_focus">True</property>
 				  <property name="label" translatable="yes"></property>
 				  <property name="use_underline">True</property>

@@ -368,6 +368,23 @@ class ExaileWindow(object):
         self.xml.get_widget('streamripper_log_item').connect('activate',
             lambda *e: self.__streamripper_log())
 
+        self.rating_combo = self.xml.get_widget('rating_combo')
+        self.rating_combo.set_active(0)
+        self.rating_combo.set_sensitive(False)
+        self.rating_combo.connect('changed', self.__set_rating)
+
+    def __set_rating(self, combo):
+        """
+            Sets the user rating of a track
+        """
+        track = self.current_track
+        if not track: return
+
+        rating = combo.get_active() + 1
+        track.rating = rating
+        self.db.execute("UPDATE tracks SET user_rating=? WHERE path=?",
+            (rating, track.loc))
+
     def __streamripper_log(self):
         """
             Views the streamripper log, if it's available
@@ -930,7 +947,11 @@ class ExaileWindow(object):
             self.run_dir_queue()
 
         self.timer_count += 1
-        if track == None: return True
+
+        if track == None: 
+            self.rating_combo.set_active(0)
+            self.rating_combo.set_sensitive(False)
+            return True
         duration = track.duration * gst.SECOND
 
         # check to see if streamripper died (if applicable)
@@ -1003,6 +1024,18 @@ class ExaileWindow(object):
 
         if self.tray_icon:
             self.tray_icon.set_tooltip(self.window.get_title())
+
+        rating = track.user_rating
+        if rating <= 0: rating = 0
+        self.rating_combo.set_active(rating - 1)
+
+        row = self.db.select("SELECT path FROM tracks WHERE path=?",
+            (track.loc, ))
+        if not row:
+            self.rating_combo.set_active(0)
+            self.rating_combo.set_sensitive(False)
+        else:
+            self.rating_combo.set_sensitive(True)
 
     def __update_rating(self, track, **info): 
         """
@@ -1343,14 +1376,23 @@ class ExaileWindow(object):
         """
             Sets up menus
         """
-        return
-        self.shuffle = self.xml.get_widget('shuffle')
+        self.shuffle = self.xml.get_widget('shuffle_button')
         self.shuffle.set_active(self.settings.get_boolean('shuffle', False))
         self.shuffle.connect('toggled', self.toggle_mode, 'shuffle')
 
-        self.repeat = self.xml.get_widget('repeat')
+        shuffle_image = xlmisc.get_icon('stock_shuffle', gtk.ICON_SIZE_BUTTON)
+        image = gtk.Image()
+        image.set_from_pixbuf(shuffle_image)
+        self.shuffle.set_image(image)
+
+        self.repeat = self.xml.get_widget('repeat_button')
         self.repeat.set_active(self.settings.get_boolean('repeat', False))
         self.repeat.connect('toggled', self.toggle_mode, 'repeat')
+
+        repeat_image = xlmisc.get_icon('stock_repeat', gtk.ICON_SIZE_BUTTON)
+        image = gtk.Image()
+        image.set_from_pixbuf(repeat_image)
+        self.repeat.set_image(image)
 
     def toggle_mode(self, item, param):
         """

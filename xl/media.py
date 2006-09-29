@@ -175,7 +175,7 @@ class Track(object):
         self.modified = modified
         self.blacklisted = blacklisted
         self.rating = user_rating
-
+        self.user_rating = user_rating
 
     def ipod_track(self):
         """
@@ -301,7 +301,7 @@ class Track(object):
             Sets the rating
         """
         self._rating = rating
-    
+        self.user_rating = rating
 
     def get_title(self): 
         """
@@ -315,13 +315,11 @@ class Track(object):
         except:
             return self._title
     
-
     def set_title(self, value): 
         """
             Sets the title
         """
         self._title = value
-    
 
     def get_len(self): 
         """

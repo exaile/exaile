@@ -569,10 +569,7 @@ class TracksListCtrl(gtk.VBox):
         if not ipod:
             rm = xlmisc.Menu()
             self.rating_ids = []
-            clear = rm.append(_("Clear"), self.__update_rating,
-                'gtk-clear', -1)
 
-            rm.append_separator()
             for i in range(0, 8):
                 string = "* " * (i + 1)
                 item = rm.append(string, self.__update_rating,
@@ -608,7 +605,7 @@ class TracksListCtrl(gtk.VBox):
             Updates the rating based on which menu id was clicked
         """
         text = widget.child.get_label()
-        rating = 0
+        rating = 1
         if text.find('*') > -1:
             rating = len(text) / 2
 

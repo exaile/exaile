@@ -1185,6 +1185,7 @@ class AboutDialog(gtk.Dialog):
         self.dialog.set_version(str(version))
         self.dialog.set_transient_for(parent)
         self.dialog.run()
+        self.dialog.destroy()
 
 class CoverWindow(object):
     """

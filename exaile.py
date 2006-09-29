@@ -1538,6 +1538,8 @@ class ExaileWindow(object):
 
         self.update_track_information()
         self.progress.set_value(0)
+        self.rating_combo.set_active(0)
+        self.rating_combo.set_sensitive(False)
 
     def import_m3u(self, path, play=False, title=None): 
         """

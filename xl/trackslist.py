@@ -319,6 +319,8 @@ class TracksListCtrl(gtk.VBox):
                 index = self.songs.index(track)
                 path = (index,)
                 self.songs.remove(track)
+                if track in self.playlist_songs:
+                    self.playlist_songs.remove(track)
                 iter = model.get_iter(path)
                 model.remove(iter)
 

@@ -716,6 +716,7 @@ class NotebookTab(gtk.HBox):
         self.label = gtk.Label(title)
         
         box = gtk.EventBox()
+        box.set_visible_window(False)
         box.connect('button_press_event',
             self.close_tab)
         box.add(self.label)
@@ -739,6 +740,7 @@ class NotebookTab(gtk.HBox):
         """
         if close: 
             self.box = gtk.EventBox()
+            self.box.set_visible_window(False)
             self.tips.set_tip(self.box, _("Close this tab"))
             self.box.connect('button_press_event', self.close_tab)
             self.box.add(widget)

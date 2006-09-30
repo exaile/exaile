@@ -996,7 +996,6 @@ class ExaileWindow(object):
         self.progress_label = self.xml.get_widget('progress_label')
         self.artist_label = self.xml.get_widget('artist_label')
         if track == None:
-            #self.progress.SetValue(0)
             self.progress_label.set_label('0:00')
             self.title_label.set_label('Not Playing')
             self.artist_label.set_label('Stopped')
@@ -1026,7 +1025,7 @@ class ExaileWindow(object):
             self.tray_icon.set_tooltip(self.window.get_title())
 
         rating = track.user_rating
-        if rating <= 0: rating = 0
+        if rating <= 0 or not rating: rating = 0
         self.rating_combo.set_active(rating - 1)
 
         row = self.db.select("SELECT path FROM tracks WHERE path=?",

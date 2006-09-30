@@ -1206,7 +1206,7 @@ class CoverWindow(object):
         image.set_size_request(pixbuf.get_width(), pixbuf.get_height())
         box.pack_start(image)
         window.set_title(title)
-        window.set_transient_for(parent)
+        window.set_transient_for(parent.window)
         window.show_all()
 
 class TextEntryDialog(object):

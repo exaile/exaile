@@ -500,7 +500,7 @@ class ExaileWindow(object):
             if self.cover.loc.find('nocover') > -1: return
             track = self.current_track
             
-            xlmisc.CoverWindow(self.window, self.cover.loc, "%s by %s" %
+            xlmisc.CoverWindow(self, self.cover.loc, "%s by %s" %
                 (track.album, track.artist))
         elif event.button == 3:
             if not self.current_track: return
@@ -1350,7 +1350,7 @@ class ExaileWindow(object):
         if track.type != 'stream' and self.settings.get('fetch_covers', True):
             self.__fetch_cover(track)
 
-        if self.settings.get_boolean("use_popup", True): self.show_popup()
+        self.show_popup()
         self.tracks.queue_draw()
 
         if self.settings.get_boolean('ensure_visible', False):
@@ -1364,6 +1364,7 @@ class ExaileWindow(object):
         """
             Shows a popup window with information about the current track
         """
+        if not self.settings.get_boolean("use_popup", True): return
         track = self.current_track
         if not track: return
         pop = xlmisc.get_popup(self, xlmisc.get_popup_settings(self.settings))

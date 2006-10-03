@@ -2040,6 +2040,7 @@ class FilesPanel(object):
             self.entry_activate)
         self.xml.get_widget('files_refresh_button').connect('clicked',
             self.refresh)
+        self.counter = 0
 
         pb = gtk.CellRendererPixbuf()
         text = gtk.CellRendererText()
@@ -2098,6 +2099,7 @@ class FilesPanel(object):
         """
             Appends recursively the selected directory/files
         """
+        self.exaile.status.set_first(_("Scanning and adding files..."))
         selection = self.tree.get_selection()
         (model, paths) = selection.get_selected_rows()
 
@@ -2109,6 +2111,9 @@ class FilesPanel(object):
                 self.__append_recursive(value)
             else:
                 self.row_activated(None)
+        
+        self.counter = 0
+        self.exaile.status.set_first(None)
 
     def __append_recursive(self, dir):
         """
@@ -2124,6 +2129,11 @@ class FilesPanel(object):
                         os.path.join(root, f))
                     if tr:
                         songs.append(tr)
+                if self.counter >= 15:
+                    xlmisc.finish()
+                    self.counter = 0
+                else:
+                    self.counter += 1
 
         if songs:
             self.exaile.append_songs(songs, title=_("Playlist"))

@@ -2102,24 +2102,31 @@ class FilesPanel(object):
         self.exaile.status.set_first(_("Scanning and adding files..."))
         selection = self.tree.get_selection()
         (model, paths) = selection.get_selected_rows()
+        songs = tracks.TrackData()
 
         for path in paths:
             iter = self.model.get_iter(path)
             value = model.get_value(iter, 1)
             value = "%s%s%s" % (self.current, os.sep, value)
+            (stuff, ext) = os.path.splitext(value)
             if os.path.isdir(value):
-                self.__append_recursive(value)
-            else:
-                self.row_activated(None)
-        
+                self.__append_recursive(songs, value)
+            elif ext in media.SUPPORTED_MEDIA:
+                tr = tracks.read_track(self.exaile.db,
+                    self.exaile.all_songs,
+                    value)
+                if tr:
+                    songs.append(tr)
+
+        if songs:
+            self.exaile.append_songs(songs, title=_("Playlist"))
         self.counter = 0
         self.exaile.status.set_first(None)
 
-    def __append_recursive(self, dir):
+    def __append_recursive(self, songs, dir):
         """
             Appends recursively
         """
-        songs = tracks.TrackData()
         for root, dirs, files in os.walk(dir):
             for f in files:
                 (stuff, ext) = os.path.splitext(f)
@@ -2134,9 +2141,6 @@ class FilesPanel(object):
                     self.counter = 0
                 else:
                     self.counter += 1
-
-        if songs:
-            self.exaile.append_songs(songs, title=_("Playlist"))
 
     def refresh(self, widget):
         """

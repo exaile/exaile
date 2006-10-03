@@ -922,7 +922,7 @@ class ExaileWindow(object):
         print "Running gamin queued item %s" % item
 
         tracks.populate(self, self.db,
-            (item,), self.__on_library_update)
+            (item,), self.__on_library_update, False)
     
     def update_songs(self, songs=None, set=True): 
         """
@@ -1788,8 +1788,9 @@ class ExaileWindow(object):
             self.status.set_first(_("Scanning collection..."))
         else:
             self.status.set_first(_("Importing directory..."))
+
         tracks.populate(self, self.db,
-            items, self.__on_library_update)
+            items, self.__on_library_update, False, not single)
 
     def __on_library_update(self, percent): 
         """

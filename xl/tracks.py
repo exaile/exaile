@@ -347,7 +347,8 @@ class PopulateThread(threading.Thread):
     """
     running = False
 
-    def __init__(self, exaile, db, directories, update_func, quick=False):
+    def __init__(self, exaile, db, directories, update_func, quick=False,
+        delete=True):
         """
             Expects an exaile instance, the location of the database file,
             the directories to search, the function to call as reading
@@ -360,7 +361,7 @@ class PopulateThread(threading.Thread):
         self.update_func = update_func
         self.done = False
         self.quick = quick
-
+        self.delete = delete
 
     def run(self):
         """
@@ -437,18 +438,21 @@ class PopulateThread(threading.Thread):
         if self.quick: num = -2
         gobject.idle_add(update_func, -2) 
 
-        if included:
+        if included and self.delete:
+            xlmisc.log("Keeping %d track paths in the database" %
+                len(included))
             where = " AND path!=".join(["\"%s\"" % track.loc for 
                 track in included])
             db.execute("DELETE FROM tracks WHERE path!=%s" % where)
 
         PopulateThread.running = False
 
-def populate(exaile, db, directories, update_func, quick=False):
+def populate(exaile, db, directories, update_func, quick=False, delete=True):
     """
         Runs the populate thread
     """
-    thread = PopulateThread(exaile, db, directories, update_func, quick)
+    thread = PopulateThread(exaile, db, directories, update_func, quick,
+        delete)
     exaile.thread_pool.append(thread)
     thread.start()
 

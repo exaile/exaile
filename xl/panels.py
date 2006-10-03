@@ -2253,3 +2253,4 @@ class FilesPanel(object):
             self.history = self.history[:self.i + 1]
             self.history.append(self.current)
             self.i = len(self.history) - 1
+            self.next.set_sensitive(False)

@@ -440,7 +440,7 @@ class PopulateThread(threading.Thread):
         if included:
             where = " AND path!=".join(["\"%s\"" % track.loc for 
                 track in included])
-            db.execute("DELETE FROM tracks WHERE %s" % where)
+            db.execute("DELETE FROM tracks WHERE path!=%s" % where)
 
         PopulateThread.running = False
 

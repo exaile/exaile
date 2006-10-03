@@ -1767,6 +1767,7 @@ class ExaileWindow(object):
         """
             Rescans the library for newly added tracks
         """
+        print self.settings['search_paths']
 
         items = []
         tmp = self.settings.get("search_paths", "").split(":")

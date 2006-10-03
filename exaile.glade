@@ -1526,7 +1526,7 @@ Genre</property>
 
 		  <child>
 		    <widget class="GtkFrame" id="frame2">
-		      <property name="border_width">1</property>
+		      <property name="border_width">2</property>
 		      <property name="visible">True</property>
 		      <property name="label_xalign">0</property>
 		      <property name="label_yalign">0.5</property>
@@ -1864,6 +1864,7 @@ Genre</property>
 
 	      <child>
 		<widget class="GtkNotebook" id="playlists_nb">
+		  <property name="border_width">2</property>
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
 		  <property name="show_tabs">True</property>
@@ -1933,6 +1934,7 @@ Genre</property>
 
 	      <child>
 		<widget class="GtkHBox" id="hbox2">
+		  <property name="border_width">2</property>
 		  <property name="visible">True</property>
 		  <property name="homogeneous">False</property>
 		  <property name="spacing">0</property>

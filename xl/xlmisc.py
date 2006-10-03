@@ -455,7 +455,7 @@ class CoverFetcher(object):
         self.dialog.show_all()
         finish()
         self.total = self.calculate_total()
-        self.label.set_label("%s covers left." % self.total)
+        self.label.set_label("%s covers left to collect." % self.total)
         if self.go:
             self.toggle_running(None)
 
@@ -1207,7 +1207,7 @@ class CoverWindow(object):
         image.set_size_request(pixbuf.get_width(), pixbuf.get_height())
         box.pack_start(image)
         window.set_title(title)
-        window.set_transient_for(parent.window)
+        window.set_transient_for(parent)
         window.show_all()
 
 class TextEntryDialog(object):

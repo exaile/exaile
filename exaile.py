@@ -158,15 +158,8 @@ class ExaileWindow(object):
         self.setup_menus()
 
         pos = self.settings.get_int("mainw_sash_pos", 200)
+        self.setup_location()
 
-        width = self.settings.get_int("mainw_width", 640)
-        height = self.settings.get_int("mainw_height", 475)
-
-        x = self.settings.get_int("mainw_x", 10)
-        y = self.settings.get_int("mainw_y", 10)
-
-        self.window.resize(width, height)
-        self.window.move(x, y)
         media.set_volume(self.settings.get_float("volume", 1))
 
         self.splitter = self.xml.get_widget('splitter')
@@ -206,6 +199,19 @@ class ExaileWindow(object):
             dialog.destroy()
             if result == gtk.RESPONSE_YES:
                 self.show_library_manager()
+
+    def setup_location(self):
+        """
+            Sets up the location and size of the window based on settings
+        """
+        width = self.settings.get_int("mainw_width", 640)
+        height = self.settings.get_int("mainw_height", 475)
+
+        x = self.settings.get_int("mainw_x", 10)
+        y = self.settings.get_int("mainw_y", 10)
+
+        self.window.resize(width, height)
+        self.window.move(x, y)
 
     def setup_col_menus(self, pref, map):
         """

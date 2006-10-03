@@ -347,6 +347,7 @@ class TrayIcon(object):
         elif event.button == 1: 
             if not self.exaile.window.get_property('visible'):
                 self.exaile.window.show_all()
+                self.exaile.setup_location()
             else:
                 self.exaile.window.hide()
 

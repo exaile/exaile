@@ -1501,7 +1501,7 @@ class ExaileWindow(object):
     def play(self, treeview=None, path=None, column=None): 
         """
             Called when someone double clicks on a track or presses the play
-            button.  If the track is already playing, it is paused
+            button.  If the track is already playing, it is restarted
         """
         
         self.stop()

@@ -139,7 +139,21 @@ class TracksListCtrl(gtk.VBox):
             Called when data is recieved
         """
         model = tv.get_model()
-        loc = selection.get_uris()
+        loc = list(selection.get_uris())
+        counter = 0
+        self.exaile.status.set_first(_("Adding tracks to current playlist"))
+
+        # first, check to see if they dropped a folder
+        copy = loc[:]
+        for l in copy:
+            l = urllib.unquote(l)
+            if os.path.isdir(l.replace("file://", "")):
+                # in this case, it is a folder
+                for root, dirs, files in os.walk(l.replace("file://", '')):
+                    for file in files:
+                        (stuff, ext) = os.path.splitext(file)
+                        if ext.lower() in media.SUPPORTED_MEDIA:
+                            loc.append(urllib.quote(os.path.join(root, file)))
 
         drop_info = tv.get_dest_row_at_pos(x, y)
         if drop_info:
@@ -150,6 +164,7 @@ class TracksListCtrl(gtk.VBox):
                 first = False
             else:
                 first = True
+
 
             for l in loc:
                 l = l.replace("file://", "")
@@ -172,6 +187,11 @@ class TracksListCtrl(gtk.VBox):
                 else:
                     iter = self.model.insert_after(iter, [song, None, song.track, song.title, song.artist,
                         song.album, song.length, song.rating, song.year, song.genre, song.bitrate])
+                if counter >= 20:
+                    xlmisc.finish()
+                    counter = 0
+                else:
+                    counter += 1
 
         else:
             for l in loc:
@@ -189,11 +209,17 @@ class TracksListCtrl(gtk.VBox):
                 if song in self.songs: continue
                 if song: self.append_song(song)
 
+                if counter >= 20:
+                    xlmisc.finish()
+                    counter = 0
+                else:
+                    counter += 1
+
         if context.action == gtk.gdk.ACTION_MOVE:
             context.finish(True, True, etime)
         self.update_songs()
         self.exaile.update_songs(None, False)
-        return 
+        self.exaile.status.set_first(None)
 
     def update_songs(self):
         """

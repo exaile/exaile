@@ -383,7 +383,9 @@ class CollectionPanel(object):
                 if selection.path_is_selected(path[0]): 
                     if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
                         selection.unselect_path(path[0])
-                    return True
+                        return True
+                    else:
+                        return False
                 elif not event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
                     return False
                 return False       
@@ -2087,7 +2089,9 @@ class FilesPanel(object):
             if selection.path_is_selected(path[0]): 
                 if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
                     selection.unselect_path(path[0])
-                return True
+                    return True
+                else:
+                    return False
             elif not event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
                 return False
             return False       

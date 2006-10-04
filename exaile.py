@@ -1386,19 +1386,9 @@ class ExaileWindow(object):
         self.shuffle.set_active(self.settings.get_boolean('shuffle', False))
         self.shuffle.connect('toggled', self.toggle_mode, 'shuffle')
 
-        shuffle_image = xlmisc.get_icon('stock_shuffle', gtk.ICON_SIZE_BUTTON)
-        image = gtk.Image()
-        image.set_from_pixbuf(shuffle_image)
-        self.shuffle.set_image(image)
-
         self.repeat = self.xml.get_widget('repeat_button')
         self.repeat.set_active(self.settings.get_boolean('repeat', False))
         self.repeat.connect('toggled', self.toggle_mode, 'repeat')
-
-        repeat_image = xlmisc.get_icon('stock_repeat', gtk.ICON_SIZE_BUTTON)
-        image = gtk.Image()
-        image.set_from_pixbuf(repeat_image)
-        self.repeat.set_image(image)
 
     def toggle_mode(self, item, param):
         """

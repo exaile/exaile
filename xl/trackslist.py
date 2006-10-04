@@ -178,7 +178,7 @@ class TracksListCtrl(gtk.VBox):
                         song = tracks.read_track(None, self.exaile.all_songs,
                             l)
 
-                if song in self.songs: continue
+                if not song or song in self.songs: continue
 
                 if not first:
                     first = True
@@ -206,7 +206,7 @@ class TracksListCtrl(gtk.VBox):
                         song = tracks.read_track(None, self.exaile.all_songs,
                             l)
 
-                if song in self.songs: continue
+                if not song or song in self.songs: continue
                 if song: self.append_song(song)
 
                 if counter >= 20:

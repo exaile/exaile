@@ -2068,8 +2068,27 @@ class FilesPanel(object):
         self.load_directory(os.getenv('HOME'), False)
         self.tree.connect('row-activated', self.row_activated)
         self.tree.connect('button-press-event', self.button_press)
+        targets = [('text/uri-list', 0, 0)]
+        self.tree.connect('drag_data_get', self.drag_get_data)
+        self.tree.drag_source_set(gtk.gdk.BUTTON1_MASK, targets,
+            gtk.gdk.ACTION_MOVE)
         self.menu = xlmisc.Menu()
         self.menu.append(_("Append to Playlist"), self.append)
+
+    def drag_get_data(self, treeview, context, sel, target_id, etime):
+        """
+            Called when a drag source wants data for this drag operation
+        """
+        selection = self.tree.get_selection()
+        (model, paths) = selection.get_selected_rows()
+        uris = []
+        for path in paths:
+            iter = self.model.get_iter(path)
+            value = self.model.get_value(iter, 1)
+            value = "%s%s%s" % (self.current, os.sep, value)
+            uris.append(urllib.quote(value))
+
+        sel.set_uris(uris)
 
     def button_press(self, widget, event):
         """

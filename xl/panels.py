@@ -762,8 +762,7 @@ class iPodPanel(CollectionPanel):
                      if not song: continue
 
                 ipod_song = self.get_song_on_ipod(song)
-                if ipod_song:
-                    if not playlist: continue
+                if ipod_song and playlist:
                     gpod.itdb_playlist_add_track(playlist.playlist,
                         ipod_song.ipod_track(), -1)
                     update = True
@@ -792,9 +791,7 @@ class iPodPanel(CollectionPanel):
         queue = self.queue.songs
         error = ""
         for song in songs:
-            if song in queue: continue
             if self.get_song_on_ipod(song):
-
                 error += "'%s' already on iPod\n" % str(song)
                 continue
 

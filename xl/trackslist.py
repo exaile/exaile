@@ -166,20 +166,24 @@ class TracksListCtrl(gtk.VBox):
                 first = True
 
 
-            for l in loc:
-                l = l.replace("file://", "")
-                l = urllib.unquote(l)
-                if l.find("ipod://") > -1:
-                    song = self.exaile.ipod_panel.get_song(
-                        l.replace("ipod://", ""))
-                else:
-                    song = self.exaile.all_songs.for_path(l)
-                    if not song:
-                        song = tracks.read_track(None, self.exaile.all_songs,
-                            l)
+        for l in loc:
+            l = l.replace("file://", "")
+            l = urllib.unquote(l)
+            if l.find("ipod://") > -1:
+                song = self.exaile.ipod_panel.get_song(
+                    l.replace("ipod://", ""))
+            else:
+                song = self.exaile.all_songs.for_path(l)
+                if not song:
+                    song = tracks.read_track(None, self.exaile.all_songs,
+                        l)
 
-                if not song or song in self.songs: continue
+            if not song or song in self.songs: continue
 
+            if not drop_info:
+                # if there's no drop info, just add it to the end
+                if song: self.append_song(song)
+            else:
                 if not first:
                     first = True
                     iter = self.model.insert_before(iter, [song, None, song.track, song.title, song.artist,
@@ -193,27 +197,6 @@ class TracksListCtrl(gtk.VBox):
                 else:
                     counter += 1
 
-        else:
-            for l in loc:
-                l = l.replace("file://", "")
-                l = urllib.unquote(l)
-                if l.find("ipod://") > -1:
-                    song = self.exaile.ipod_panel.get_song(
-                        l.replace("ipod://", ""))
-                else:
-                    song = self.exaile.all_songs.for_path(l)
-                    if not song:
-                        song = tracks.read_track(None, self.exaile.all_songs,
-                            l)
-
-                if not song or song in self.songs: continue
-                if song: self.append_song(song)
-
-                if counter >= 20:
-                    xlmisc.finish()
-                    counter = 0
-                else:
-                    counter += 1
 
         if context.action == gtk.gdk.ACTION_MOVE:
             context.finish(True, True, etime)

@@ -767,14 +767,20 @@ class NotebookTab(gtk.HBox):
         songs = self.page.songs
         self.exaile.playlists_panel.on_add_playlist(widget, None, songs)
 
+    def __do_close(self, widget, event):
+        """
+            Closes the tab
+        """
+        self.menu.hide()
+        self.exaile.close_page(self.page)
+
     def create_menu(self):
         """
             Creates the popup menu for this tab
         """
         menu = Menu()
         menu.append(_("Rename"), self.__rename)
-        menu.append(_("Close"), lambda *e:
-            self.exaile.close_page(self.page))
+        menu.append(_("Close"), self.__do_close)
 
         if not isinstance(self.page, trackslist.QueueManager) and \
             not isinstance(self.page, trackslist.BlacklistedTracksList):
@@ -786,7 +792,8 @@ class NotebookTab(gtk.HBox):
         """
             Closes the tab
         """
-        if event.button == 3:
+        if event and event.button == 3:
+            if tab != self: return
             self.create_menu()
             self.menu.popup(None, None, None, event.button, event.time)
         elif tab == self.box:

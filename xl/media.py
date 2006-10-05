@@ -575,6 +575,8 @@ class StreamTrack(Track):
 
             xlmisc.log("Streamripper return value was %s" % ret)
             xlmisc.log("Using streamripper to play location: %s" % self.loc)
+            exaile_instance.status.set_first("Streamripping location: %s" %
+                self.loc, 4000)
             if ret != None:
                 common.error(exaile_instance.window, _("There was an error"
                     " executing streamripper."))

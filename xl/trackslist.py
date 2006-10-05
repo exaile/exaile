@@ -333,6 +333,11 @@ class TracksListCtrl(gtk.VBox):
                 iter = model.get_iter(path)
                 model.remove(iter)
 
+            if pathlist:
+                path = pathlist[0]
+                if path[0] >= len(self.songs): path = (path[0] - 1,)
+                selection.select_path(path)
+
     def setup_columns(self):
         """
             Sets up the columns for this table

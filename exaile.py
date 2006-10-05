@@ -1288,10 +1288,11 @@ class ExaileWindow(object):
 
         if self.playlists_nb.get_n_pages() == 0:
             self.new_page(_("Playlist"))
-            return
+            return False
 
         num = nb.get_current_page()
         self.__page_changed(nb, None, num)
+        return False
 
     def __clear_playlist(self, widget): 
         """

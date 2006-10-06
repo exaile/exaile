@@ -628,6 +628,10 @@ class CoverFetcher(object):
                 self.model.append([title, image, title])
             if count >= 30: 
                 count = 0
+                t = 0
+                for k, v in self.needs.iteritems():
+                    t += len(v)
+                self.label.set_label("%s covers left to collect." % t)
                 finish()
             count += 1
 

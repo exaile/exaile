@@ -427,10 +427,11 @@ class ExaileWindow(object):
         if xlmisc.DebugDialog.debug:
             xlmisc.DebugDialog.debug.dialog.show()
 
-    def __live_search(self, *e):
+    def __live_search(self, widget, event):
         """
             Simulates live search of tracks
         """
+        if event.keyval == 65293: return # ignore enter
         if self.key_id:
             gobject.source_remove(self.key_id)
 
@@ -1306,7 +1307,7 @@ class ExaileWindow(object):
         self.tracks.set_songs(tracks.TrackData())
         self.playlist_songs = self.tracks.songs
     
-    def on_search(self, widget=None, event=None, query_error=True): 
+    def on_search(self, widget=None, event=None, custom=True): 
         """
             Called when something is typed into the filter box
         """
@@ -1314,7 +1315,7 @@ class ExaileWindow(object):
         keyword = self.tracks_filter.get_text()
         if keyword == "": keyword = None
         self.songs = tracks.search(self, self.tracks.playlist_songs, keyword,
-            query_error=query_error)
+            custom=custom)
         self.tracks.set_songs(self.songs, False)
 
     def on_volume_set(self): 

@@ -61,16 +61,16 @@ class TrackData(list):
 
         return None
 
-def search(exaile, all, keyword=None, query_error=True):
+def search(exaile, all, keyword=None, custom=True):
     """
         Searches tracks for a specified pattern
     """
     if not keyword: return all
 
-    if keyword.lower().startswith("where ") or \
-        keyword.lower().startswith("q: "):
+    if (keyword.lower().startswith("where ") or \
+        keyword.lower().startswith("q: ")) and custom:
         return search_tracks(exaile.window, exaile.db, 
-            TrackData(all), keyword, None, None, query_error)
+            TrackData(all), keyword, None, None)
         
     new = TrackData()
 
@@ -84,15 +84,13 @@ def search(exaile, all, keyword=None, query_error=True):
 
     return new
 
-def search_tracks(parent, db, all, keyword=None, playlist=None, w=None,
-    query_error=False):
+def search_tracks(parent, db, all, keyword=None, playlist=None, w=None):
     """
         Searches the database for a specific pattern and returns the tracks
         represented by this pattern
     """
     items = []
     where = ""
-    custom_query = False
     if keyword != None and w:
         w = w.replace(" WHERE ", " AND ")
         where = ' WHERE (title LIKE "%%' + keyword + \
@@ -105,7 +103,6 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None,
                 if keyword.startswith("q:") or keyword.lower().startswith("where"):
                     xlmisc.log("SQL query started")
                     where = re.sub("^(q:|where) ", "WHERE ", keyword.lower())
-                    custom_query = True
 
             if playlist != None:
                 rows = db.select("SELECT path FROM playlist_items WHERE playlist=?",
@@ -139,7 +136,6 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None,
         cur = db.db.cursor()
         cur.execute(query)
     except Exception, e:
-        if custom_query and not query_error: return TrackData()
         common.error(parent, "Query Error: " + e.args[0])
         raise e
 

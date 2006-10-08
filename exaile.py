@@ -377,7 +377,7 @@ class ExaileWindow(object):
         self.rating_combo = self.xml.get_widget('rating_combo')
         self.rating_combo.set_active(0)
         self.rating_combo.set_sensitive(False)
-        self.rating_combo.connect('changed', self.__set_rating)
+        self.rating_signal = self.rating_combo.connect('changed', self.__set_rating)
 
     def __set_rating(self, combo):
         """
@@ -390,6 +390,8 @@ class ExaileWindow(object):
         track.rating = rating
         self.db.execute("UPDATE tracks SET user_rating=? WHERE path=?",
             (rating, track.loc))
+
+        print "Set rating to %d for track %s" % (rating, track)
 
     def __streamripper_log(self):
         """
@@ -999,6 +1001,7 @@ class ExaileWindow(object):
         """
             Updates track status information
         """
+        self.rating_combo.disconnect(self.rating_signal)
         track = self.current_track
 
         self.progress_label = self.xml.get_widget('progress_label')
@@ -1007,6 +1010,9 @@ class ExaileWindow(object):
             self.progress_label.set_label('0:00')
             self.title_label.set_label('Not Playing')
             self.artist_label.set_label('Stopped')
+
+            self.rating_signal = self.rating_combo.connect('changed',
+                self.__set_rating)
             return
 
         album = track.album
@@ -1038,11 +1044,15 @@ class ExaileWindow(object):
 
         row = self.db.select("SELECT path FROM tracks WHERE path=?",
             (track.loc, ))
+
         if not row:
             self.rating_combo.set_active(0)
             self.rating_combo.set_sensitive(False)
         else:
             self.rating_combo.set_sensitive(True)
+
+        self.rating_signal = self.rating_combo.connect('changed',
+            self.__set_rating)
 
     def __update_rating(self, track, **info): 
         """
@@ -1538,8 +1548,6 @@ class ExaileWindow(object):
 
         self.update_track_information()
         self.progress.set_value(0)
-        self.rating_combo.set_active(0)
-        self.rating_combo.set_sensitive(False)
 
     def import_m3u(self, path, play=False, title=None): 
         """

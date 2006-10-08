@@ -344,7 +344,6 @@ def read_track(db, current, path, skipmod=False, ipod=False):
     if not tr.title: tr.title = ""
     if not tr.album: tr.album = ""
     if not tr.artist: tr.artist = ""
-    if tr.rating is None: tr.rating = 2
 
     return tr
 

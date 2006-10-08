@@ -61,11 +61,17 @@ class TrackData(list):
 
         return None
 
-def search(all, keyword=None):
+def search(exaile, all, keyword=None, query_error=True):
     """
         Searches tracks for a specified pattern
     """
     if not keyword: return all
+
+    if keyword.lower().startswith("where ") or \
+        keyword.lower().startswith("q: "):
+        return search_tracks(exaile.window, exaile.db, 
+            TrackData(all), keyword, None, None, query_error)
+        
     new = TrackData()
 
     for track in all:
@@ -78,14 +84,16 @@ def search(all, keyword=None):
 
     return new
 
-def search_tracks(parent, db, all, keyword=None, playlist=None, w=None):
+def search_tracks(parent, db, all, keyword=None, playlist=None, w=None,
+    query_error=False):
     """
         Searches the database for a specific pattern and returns the tracks
         represented by this pattern
     """
     items = []
     where = ""
-    if keyword != None:
+    custom_query = False
+    if keyword != None and w:
         w = w.replace(" WHERE ", " AND ")
         where = ' WHERE (title LIKE "%%' + keyword + \
             '%%" OR artist LIKE "%%' + keyword + \
@@ -96,7 +104,8 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None):
             if keyword != None:
                 if keyword.startswith("q:") or keyword.lower().startswith("where"):
                     xlmisc.log("SQL query started")
-                    where = re.sub("^(q:|where)", "WHERE ", keyword.lower())
+                    where = re.sub("^(q:|where) ", "WHERE ", keyword.lower())
+                    custom_query = True
 
             if playlist != None:
                 rows = db.select("SELECT path FROM playlist_items WHERE playlist=?",
@@ -130,6 +139,7 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None):
         cur = db.db.cursor()
         cur.execute(query)
     except Exception, e:
+        if custom_query and not query_error: return TrackData()
         common.error(parent, "Query Error: " + e.args[0])
         raise e
 

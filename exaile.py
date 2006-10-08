@@ -434,7 +434,8 @@ class ExaileWindow(object):
         if self.key_id:
             gobject.source_remove(self.key_id)
 
-        self.key_id = gobject.timeout_add(150, self.on_search)
+        self.key_id = gobject.timeout_add(150, self.on_search, None, None,
+            False)
 
     def __on_clear_queue(self, *e):
         """
@@ -1305,14 +1306,15 @@ class ExaileWindow(object):
         self.tracks.set_songs(tracks.TrackData())
         self.playlist_songs = self.tracks.songs
     
-    def on_search(self, widget=None, event=None): 
+    def on_search(self, widget=None, event=None, query_error=True): 
         """
             Called when something is typed into the filter box
         """
 
         keyword = self.tracks_filter.get_text()
         if keyword == "": keyword = None
-        self.songs = tracks.search(self.tracks.playlist_songs, keyword)
+        self.songs = tracks.search(self, self.tracks.playlist_songs, keyword,
+            query_error=query_error)
         self.tracks.set_songs(self.songs, False)
 
     def on_volume_set(self): 

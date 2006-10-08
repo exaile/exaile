@@ -154,6 +154,9 @@ class TracksListCtrl(gtk.VBox):
         """
             Called when data is recieved
         """
+        self.list.unset_rows_drag_dest()
+        self.list.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, gtk.gdk.ACTION_MOVE)
+
         model = tv.get_model()
         loc = list(selection.get_uris())
         counter = 0

@@ -1853,3 +1853,4 @@ def test_dbus(bus, interface):
     dbus_iface = dbus.Interface(obj, 'org.freedesktop.DBus') 
     avail = dbus_iface.ListNames() 
     return interface in avail
+

@@ -89,16 +89,17 @@ class TracksListCtrl(gtk.VBox):
         """
             Sets up drag and drop
         """
-        targets = [("text/uri-list", 0, 0)]
+        self.targets = [("text/uri-list", 0, 0)]
         self.list.drag_source_set(
-            gtk.gdk.BUTTON1_MASK, targets,
+            gtk.gdk.BUTTON1_MASK, self.targets,
             gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
 
-        self.list.drag_dest_set(gtk.DEST_DEFAULT_ALL, targets, gtk.gdk.ACTION_MOVE)
+        self.list.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, gtk.gdk.ACTION_MOVE)
         self.list.connect('drag_data_received', self.drag_data_received)
         self.__dragging = False
         self.list.connect('drag_begin', self.__drag_begin)
         self.list.connect('drag_end', self.__drag_end)
+        self.list.connect('drag_motion', self.__drag_motion)
         self.list.connect('button_release_event', self.__button_release)
         self.list.drag_source_set_icon_stock('gtk-dnd')
 
@@ -123,16 +124,31 @@ class TracksListCtrl(gtk.VBox):
             Called when the dnd is ended
         """
         self.__dragging = False
+        self.list.unset_rows_drag_dest()
+        self.list.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, gtk.gdk.ACTION_MOVE)
 
     def __drag_begin(self, list, context):
         """
             Called when dnd is started
         """
         self.__dragging = True
+
+        context.drag_abort(gtk.get_current_event_time())
         selection = self.list.get_selection()
         if selection.count_selected_rows() > 1:
             self.list.drag_source_set_icon_stock('gtk-dnd-multiple')
         else: self.list.drag_source_set_icon_stock('gtk-dnd')
+        return False
+
+    def __drag_motion(self, treeview, context, x, y, timestamp):
+        """
+            Called when a row is dragged over this treeview
+        """
+        self.list.enable_model_drag_dest(self.targets,
+            gtk.gdk.ACTION_DEFAULT)
+        info = treeview.get_dest_row_at_pos(x, y)
+        if not info: return
+        treeview.set_drag_dest_row(info[0], info[1])
 
     def drag_data_received(self, tv, context, x, y, selection, info, etime):
         """

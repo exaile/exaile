@@ -313,7 +313,7 @@ def read_track(db, current, path, skipmod=False, ipod=False):
             if tr.artist.lower()[:4] == "the ":
                 # it's a "the" track.  strip "the " and mark it
                 the_track = tr.artist[:4]
-                tr._artist = tr.artist[4:]
+                tr.artist = tr.artist[4:]
                 tr.the_track = the_track
 
             if db:
@@ -347,6 +347,8 @@ def read_track(db, current, path, skipmod=False, ipod=False):
             return None
 
         tr.set_info(*row)
+
+
         tr.read_from_db = True
 
     if not tr.title: tr.title = ""
@@ -422,7 +424,7 @@ class PopulateThread(threading.Thread):
                 if not temp:
                     if not already_added(tr, added): self.exaile.all_songs.append(tr)
                 elif not isinstance(temp, media.StreamTrack):
-                    for field in ('title', 'track', 'artist',
+                    for field in ('title', 'track', '_artist',
                         'album', 'genre', 'year'):
                         setattr(temp, field, getattr(tr, field))
                 already_added(tr, added)

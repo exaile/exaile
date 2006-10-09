@@ -226,6 +226,8 @@ class TracksListCtrl(gtk.VBox):
                     counter = 0
                 else:
                     counter += 1
+            if not song in self.playlist_songs:
+                self.playlist_songs.append(song)
 
 
         if context.action == gtk.gdk.ACTION_MOVE:

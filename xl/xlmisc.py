@@ -1219,10 +1219,21 @@ class CoverWindow(object):
         image = gtk.Image()
         image.set_from_file(cover)
         image.set_size_request(pixbuf.get_width(), pixbuf.get_height())
-        box.pack_start(image)
+        eventbox = gtk.EventBox()
+        eventbox.add(image)
+        box.pack_start(eventbox)
+
+        eventbox.connect('button_press_event', self.__button_press)
         window.set_title(title)
         window.set_transient_for(parent)
         window.show_all()
+        self.window = window
+
+    def __button_press(self, widget, event):
+        """
+            Called when someone clicks on the event box
+        """
+        self.window.destroy()
 
 class TextEntryDialog(object):
     """

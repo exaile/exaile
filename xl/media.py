@@ -1119,7 +1119,7 @@ class FLACTrack(Track):
 
         self.artist = self.get_tag(f, "artist")
         self.album = self.get_tag(f, "album")
-        self.track = self.get_tag(f, "track")
+        self.track = self.get_tag(f, "tracknumber")
         self.title = self.get_tag(f, "title")
         self.genre = self.get_tag(f, "genre")
         self.year = self.get_tag(f, "date")

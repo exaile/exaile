@@ -160,7 +160,8 @@ class TracksListCtrl(gtk.VBox):
         model = tv.get_model()
         loc = list(selection.get_uris())
         counter = 0
-        self.exaile.status.set_first(_("Adding tracks to current playlist"))
+        self.exaile.status.set_first(_("Scanning and adding tracks to current playlist..."))
+        xlmisc.finish()
 
         # first, check to see if they dropped a folder
         copy = loc[:]

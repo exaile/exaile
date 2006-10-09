@@ -723,7 +723,7 @@ Genre</property>
 			  <property name="can_focus">True</property>
 			  <property name="headers_visible">False</property>
 			  <property name="rules_hint">False</property>
-			  <property name="reorderable">True</property>
+			  <property name="reorderable">False</property>
 			  <property name="enable_search">True</property>
 			  <property name="fixed_height_mode">False</property>
 			  <property name="hover_selection">False</property>
@@ -1739,7 +1739,7 @@ Genre</property>
 				  <property name="spacing">0</property>
 
 				  <child>
-				    <widget class="GtkLabel" id="label44">
+				    <widget class="GtkLabel" id="rating_label">
 				      <property name="visible">True</property>
 				      <property name="label" translatable="yes">Rating: </property>
 				      <property name="use_underline">False</property>

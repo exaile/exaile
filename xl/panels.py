@@ -436,15 +436,18 @@ class CollectionPanel(object):
             col.set_attributes(pb, pixbuf=0)
             self.tree.append_column(col)
             col.set_cell_data_func(cell, self.track_data_func)
-            targets = [('text/uri-list', 0, 0)]
+            self.targets = [('text/uri-list', 0, 0)]
             self.tree.connect('drag_data_get', self.drag_get_data)
-            self.tree.drag_source_set(gtk.gdk.BUTTON1_MASK, targets,
+            self.tree.connect('drag_begin', self.__drag_begin)
+            self.tree.connect('drag_end', self.__drag_end)
+            self.tree.connect('drag_motion', self.__drag_motion)
+            self.tree.drag_source_set(gtk.gdk.BUTTON1_MASK, self.targets,
                 gtk.gdk.ACTION_MOVE)
+            self.tree.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, 
+                gtk.gdk.ACTION_MOVE)
+            self.tree.drag_source_set_icon_stock('gtk-dnd')
 
             if isinstance(self, iPodPanel):
-                self.tree.enable_model_drag_dest(targets,
-                    gtk.gdk.ACTION_DEFAULT)
-
                 self.tree.connect('drag-data-received', 
                     self.drag_data_received)
 
@@ -523,6 +526,38 @@ class CollectionPanel(object):
         self.connect_id = None
         if self.keyword != None: 
             self.connect_id = gobject.timeout_add(150, self.__run_expand)
+
+    def __drag_end(self, list, context):
+        """
+            Called when the dnd is ended
+        """
+        self.__dragging = False
+        self.tree.unset_rows_drag_dest()
+        self.tree.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, gtk.gdk.ACTION_MOVE)
+
+    def __drag_begin(self, list, context):
+        """
+            Called when dnd is started
+        """
+        self.__dragging = True
+
+        context.drag_abort(gtk.get_current_event_time())
+        selection = self.tree.get_selection()
+        if selection.count_selected_rows() > 1:
+            self.tree.drag_source_set_icon_stock('gtk-dnd-multiple')
+        else: self.tree.drag_source_set_icon_stock('gtk-dnd')
+        return False
+
+    def __drag_motion(self, treeview, context, x, y, timestamp):
+        """
+            Called when a row is dragged over this treeview
+        """
+        if not isinstance(self, iPodPanel): return
+        self.tree.enable_model_drag_dest(self.targets,
+            gtk.gdk.ACTION_DEFAULT)
+        info = treeview.get_dest_row_at_pos(x, y)
+        if not info: return
+        treeview.set_drag_dest_row(info[0], info[1])
 
     def __append_info(self, node, songs=None, unknown=False):
         """
@@ -702,6 +737,7 @@ class iPodTransferQueue(gtk.VBox):
             Called when a track is dropped in the transfer queue
         """
         # just pass it on to the iPodPanel
+
         self.panel.drag_data_received(tv, context, x, y, selection, info,
             etime)
 
@@ -732,6 +768,8 @@ class iPodPanel(CollectionPanel):
         """
             When tracks are dragged to this list
         """
+        self.tree.unset_rows_drag_dest()
+        self.tree.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, gtk.gdk.ACTION_MOVE)
         if not self.connected:
             common.error(self.exaile.window, _("Not connected to iPod"))
             return

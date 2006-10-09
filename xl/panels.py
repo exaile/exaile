@@ -443,11 +443,11 @@ class CollectionPanel(object):
             self.tree.connect('drag_motion', self.__drag_motion)
             self.tree.drag_source_set(gtk.gdk.BUTTON1_MASK, self.targets,
                 gtk.gdk.ACTION_MOVE)
-            self.tree.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, 
-                gtk.gdk.ACTION_MOVE)
             self.tree.drag_source_set_icon_stock('gtk-dnd')
 
             if isinstance(self, iPodPanel):
+                self.tree.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, 
+                    gtk.gdk.ACTION_MOVE)
                 self.tree.connect('drag-data-received', 
                     self.drag_data_received)
 

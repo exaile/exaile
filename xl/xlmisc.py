@@ -1223,7 +1223,7 @@ class CoverWindow(object):
         eventbox.add(image)
         box.pack_start(eventbox)
 
-        eventbox.connect('button_press_event', self.__button_press)
+        eventbox.connect('button_release_event', self.__button_press)
         window.set_title(title)
         window.set_transient_for(parent)
         window.show_all()

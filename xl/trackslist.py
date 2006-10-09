@@ -94,7 +94,8 @@ class TracksListCtrl(gtk.VBox):
             gtk.gdk.BUTTON1_MASK, self.targets,
             gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
 
-        self.list.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, gtk.gdk.ACTION_MOVE)
+        self.list.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, 
+            gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_DEFAULT)
         self.list.connect('drag_data_received', self.drag_data_received)
         self.__dragging = False
         self.list.connect('drag_begin', self.__drag_begin)
@@ -125,7 +126,8 @@ class TracksListCtrl(gtk.VBox):
         """
         self.__dragging = False
         self.list.unset_rows_drag_dest()
-        self.list.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, gtk.gdk.ACTION_MOVE)
+        self.list.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, 
+            gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
 
     def __drag_begin(self, list, context):
         """
@@ -155,12 +157,15 @@ class TracksListCtrl(gtk.VBox):
             Called when data is recieved
         """
         self.list.unset_rows_drag_dest()
-        self.list.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, gtk.gdk.ACTION_MOVE)
+        self.list.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets,
+            gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
 
         model = tv.get_model()
         loc = list(selection.get_uris())
         counter = 0
-        self.exaile.status.set_first(_("Scanning and adding tracks to current playlist..."))
+
+        if context.action != gtk.gdk.ACTION_MOVE:
+            self.exaile.status.set_first(_("Scanning and adding tracks to current playlist..."))
         xlmisc.finish()
 
         # first, check to see if they dropped a folder

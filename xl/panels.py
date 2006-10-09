@@ -442,12 +442,12 @@ class CollectionPanel(object):
             self.tree.connect('drag_end', self.__drag_end)
             self.tree.connect('drag_motion', self.__drag_motion)
             self.tree.drag_source_set(gtk.gdk.BUTTON1_MASK, self.targets,
-                gtk.gdk.ACTION_MOVE)
+                gtk.gdk.ACTION_COPY)
             self.tree.drag_source_set_icon_stock('gtk-dnd')
 
             if isinstance(self, iPodPanel):
                 self.tree.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, 
-                    gtk.gdk.ACTION_MOVE)
+                    gtk.gdk.ACTION_COPY)
                 self.tree.connect('drag-data-received', 
                     self.drag_data_received)
 
@@ -533,7 +533,7 @@ class CollectionPanel(object):
         """
         self.__dragging = False
         self.tree.unset_rows_drag_dest()
-        self.tree.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, gtk.gdk.ACTION_MOVE)
+        self.tree.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, gtk.gdk.ACTION_COPY)
 
     def __drag_begin(self, list, context):
         """
@@ -769,7 +769,7 @@ class iPodPanel(CollectionPanel):
             When tracks are dragged to this list
         """
         self.tree.unset_rows_drag_dest()
-        self.tree.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, gtk.gdk.ACTION_MOVE)
+        self.tree.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, gtk.gdk.ACTION_COPY)
         if not self.connected:
             common.error(self.exaile.window, _("Not connected to iPod"))
             return
@@ -2109,7 +2109,7 @@ class FilesPanel(object):
         targets = [('text/uri-list', 0, 0)]
         self.tree.connect('drag_data_get', self.drag_get_data)
         self.tree.drag_source_set(gtk.gdk.BUTTON1_MASK, targets,
-            gtk.gdk.ACTION_MOVE)
+            gtk.gdk.ACTION_COPY)
         self.menu = xlmisc.Menu()
         self.menu.append(_("Append to Playlist"), self.append)
 

@@ -313,7 +313,7 @@ def read_track(db, current, path, skipmod=False, ipod=False):
             if tr.artist.lower()[:4] == "the ":
                 # it's a "the" track.  strip "the " and mark it
                 the_track = tr.artist[:4]
-                tr.artist = tr.artist[4:]
+                tr._artist = tr.artist[4:]
                 tr.the_track = the_track
 
             if db:

@@ -1118,6 +1118,9 @@ class BrowserWindow(gtk.VBox):
         rel = re.compile('<noscript>.*?</noscript>',
             re.DOTALL|re.IGNORECASE)
         text = rel.sub('', text)
+        rel = re.compile('<table.*?</table>',
+            re.DOTALL|re.IGNORECASE)
+        text = rel.sub('<br>', text)
         # end possible temporary solution
 
         rel = re.compile('<\/?font[^>]*>', re.DOTALL|re.IGNORECASE)

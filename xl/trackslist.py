@@ -165,7 +165,8 @@ class TracksListCtrl(gtk.VBox):
         counter = 0
 
         if context.action != gtk.gdk.ACTION_MOVE:
-            self.exaile.status.set_first(_("Scanning and adding tracks to current playlist..."))
+            self.exaile.status.set_first(
+            _("Scanning and adding tracks to current playlist..."))
         xlmisc.finish()
 
         # first, check to see if they dropped a folder
@@ -211,11 +212,15 @@ class TracksListCtrl(gtk.VBox):
             else:
                 if not first:
                     first = True
-                    iter = self.model.insert_before(iter, [song, None, song.track, song.title, song.artist,
-                        song.album, song.length, song.rating, song.year, song.genre, song.bitrate])
+                    iter = self.model.insert_before(iter, [song, None, 
+                        song.track, song.title, song.artist, song.album, 
+                        song.length, song.rating, song.year, song.genre, 
+                        song.bitrate])
                 else:
-                    iter = self.model.insert_after(iter, [song, None, song.track, song.title, song.artist,
-                        song.album, song.length, song.rating, song.year, song.genre, song.bitrate])
+                    iter = self.model.insert_after(iter, [song, None, 
+                        song.track, song.title, song.artist,
+                        song.album, song.length, song.rating, song.year, 
+                        song.genre, song.bitrate])
                 if counter >= 20:
                     xlmisc.finish()
                     counter = 0
@@ -537,9 +542,9 @@ class TracksListCtrl(gtk.VBox):
         """
             Updates the track at "iter"
         """
-        self.model.insert_after(iter, [song, None, song.track, song.title, song.artist,
-            song.album, song.length, song.rating, song.year, song.genre,
-            song.bitrate])
+        self.model.insert_after(iter, [song, None, song.track, song.title,  
+            song.artist, song.album, song.length, song.rating, song.year, 
+            song.genre, song.bitrate])
         self.model.remove(iter)
 
     def refresh_row(self, song):

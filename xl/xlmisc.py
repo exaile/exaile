@@ -1120,7 +1120,7 @@ class BrowserWindow(gtk.VBox):
         text = rel.sub('', text)
         rel = re.compile('<table.*?</table>',
             re.DOTALL|re.IGNORECASE)
-        text = rel.sub('<br><hr>', text)
+        text = rel.sub('<br><hr><br>', text)
         # end possible temporary solution
 
         rel = re.compile('<\/?font[^>]*>', re.DOTALL|re.IGNORECASE)

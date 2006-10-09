@@ -294,7 +294,7 @@ def read_track(db, current, path, skipmod=False, ipod=False):
     if db:
         row = db.read_one("tracks", "path, title, artist, album, " 
             "genre, track, length, bitrate, year, modified, user_rating, "  
-            "blacklisted", "path=?", (path,))
+            "blacklisted, the_track", "path=?", (path,))
 
     if skipmod and not row: return None
 
@@ -309,16 +309,24 @@ def read_track(db, current, path, skipmod=False, ipod=False):
             tr.read_tag()
 
             tr.read_from_db = False
+            the_track = ""
+            if tr.artist.lower()[:4] == "the ":
+                # it's a "the" track.  strip "the " and mark it
+                the_track = tr.artist[:4]
+                tr.artist = tr.artist[4:]
+                tr.the_track = the_track
+
             if db:
                 db.update("tracks",
                     {
                         "path": tr.loc,
                         "title": tr.title,
-                        "artist": tr.artist,
+                        "artist": tr._artist,
                         "album": tr.album,
                         "genre": tr.genre,
                         "track": tr.track,
                         "length": tr.duration,
+                        "the_track": the_track,
                         "bitrate": tr.bitrate,
                         "blacklisted": tr.blacklisted,
                         "year": tr.year,
@@ -354,7 +362,7 @@ class PopulateThread(threading.Thread):
     running = False
 
     def __init__(self, exaile, db, directories, update_func, quick=False,
-        delete=True):
+        delete=True, load_tree=False):
         """
             Expects an exaile instance, the location of the database file,
             the directories to search, the function to call as reading
@@ -368,6 +376,7 @@ class PopulateThread(threading.Thread):
         self.done = False
         self.quick = quick
         self.delete = delete
+        self.load_tree = load_tree
 
     def run(self):
         """
@@ -441,7 +450,7 @@ class PopulateThread(threading.Thread):
         db.commit()
 
         num = -1
-        if self.quick: num = -2
+        if self.quick or not self.load_tree: num = -2
         gobject.idle_add(update_func, -2) 
 
         if included and self.delete:
@@ -453,12 +462,13 @@ class PopulateThread(threading.Thread):
 
         PopulateThread.running = False
 
-def populate(exaile, db, directories, update_func, quick=False, delete=True):
+def populate(exaile, db, directories, update_func, quick=False, delete=True,
+    load_tree=False):
     """
         Runs the populate thread
     """
     thread = PopulateThread(exaile, db, directories, update_func, quick,
-        delete)
+        delete, load_tree)
     exaile.thread_pool.append(thread)
     thread.start()
 

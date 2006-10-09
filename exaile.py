@@ -926,7 +926,8 @@ class ExaileWindow(object):
         print "Running gamin queued item %s" % item
 
         tracks.populate(self, self.db,
-            (item,), self.__on_library_update, False)
+            (item,), self.__on_library_update, False, 
+            load_tree=False)
     
     def update_songs(self, songs=None, set=True): 
         """
@@ -1762,15 +1763,6 @@ class ExaileWindow(object):
         if not self.tracks: return
         self.tracks.ensure_visible(self.current_track)
 
-    def __OnClearQueue(self, event): 
-        """
-            Clears the queue
-        """
-
-        self.queued = []
-        if self.tracks: self.tracks.Refresh()
-        xlmisc.update_queued(self)
-
     def __on_library_rescan(self, widget=None, event=None, data=None): 
         """
             Rescans the library for newly added tracks
@@ -1792,7 +1784,8 @@ class ExaileWindow(object):
             self.status.set_first(_("Importing directory..."))
 
         tracks.populate(self, self.db,
-            items, self.__on_library_update, False, not single)
+            items, self.__on_library_update, False, not single,
+            load_tree=True)
 
     def __on_library_update(self, percent): 
         """
@@ -1801,7 +1794,7 @@ class ExaileWindow(object):
         self.collection_panel.update_progress(percent)
         
         if percent < 0:
-            self.load_songs(True)
+            self.load_songs(percent==-1)
 
     def on_quit(self, widget=None, event=None): 
         """

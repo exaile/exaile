@@ -1109,6 +1109,7 @@ class iPodPanel(CollectionPanel):
         for line in file("sql/db.sql"):
             line = line.strip()
             self.db.execute(line, [], True)
+        self.db.check_version("sql", echo=False)
         self.db.commit()
 
         if not self.itdb: 
@@ -1136,22 +1137,30 @@ class iPodPanel(CollectionPanel):
             loc = self.mount + track.ipod_path.replace(":", "/")
             try:
                 loc = unicode(loc)
+
+                # check for "the" tracks
+                artist = track.artist
+                the_track = ""
+                if artist and artist.lower()[:4] == "the ":
+                    the_track = artist[:4]
+                    artist = artist[4:]
                 self.db.execute("REPLACE INTO tracks( path, " \
                     "title, artist, album, track, length," \
-                    "bitrate, genre, year, user_rating ) " \
+                    "bitrate, genre, year, user_rating, the_track ) " \
                     "VALUES( ?, ?, ?, ?, ?, ?, ?, " \
-                    "?, ?, ? )",
+                    "?, ?, ?, ? )",
 
                     (loc,
                     unicode(track.title),
-                    unicode(track.artist),
+                    unicode(artist),
                     unicode(track.album),
                     unicode(track.track_nr),
                     unicode(track.tracklen / 1000),
                     unicode(track.bitrate),
                     unicode(track.genre),
                     unicode(track.year),
-                    unicode(track.rating)       ), True)
+                    unicode(track.rating),
+                    the_track), True)
 
                 itrack = track
                 track = xl.tracks.read_track(self.db, None, loc, True, True)

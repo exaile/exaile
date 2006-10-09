@@ -427,6 +427,12 @@ class TrackEditor(object):
                 track.track = self.track_entry.get_text()
 
             track.artist = self.artist_entry.get_text()
+            
+            # find out if it's a "the" track
+            if track.artist.lower()[:4] == "the ":
+                track.the_track = track.artist[4:]
+                track.artist = track.artist[:4]
+
             track.album = self.album_entry.get_text()
             track.genre = self.genre_entry.get_text()
             track.year = self.year_entry.get_text()

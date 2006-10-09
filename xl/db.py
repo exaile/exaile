@@ -45,7 +45,7 @@ class DBManager(object):
         self._cursor = self.db.cursor()
         self.timer.start()
 
-    def check_version(self, path):
+    def check_version(self, path, echo=True):
         """
             Checks the database version and updates it if necessary
         """
@@ -62,6 +62,8 @@ class DBManager(object):
             ver = int(m.group(1))
             file = "changes%.4d.sql" % ver
             if ver > version:
+                if echo:
+                    xlmisc.log("Importing sql changes file %s" % file)
                 self.import_sql("%s/%s" % (path, file))
 
     def import_sql(self, file):
@@ -69,7 +71,7 @@ class DBManager(object):
             Imports an SQL file
         """
         for line in fileinput.input(file):
-            self.execute(line)
+            self._exec(line)
         self.db.commit()
                      
     def cursor(self):

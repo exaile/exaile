@@ -131,14 +131,14 @@ class Track(object):
     def __init__(self, loc="", title="", artist="",  
         album="", genre="",
         track=0, length=0, bitrate=0, year="", 
-        modified=0, user_rating=0, blacklisted=0):
+        modified=0, user_rating=0, blacklisted=0, the_track=''):
         """
             Loads an initializes the tag information
             Expects the path to the track as an argument
         """
         self.set_info(loc, title, artist, album, genre,
             track, length, bitrate, year, modified, user_rating, 
-            blacklisted)
+            blacklisted, the_track)
 
         self.time_played = 0
         self.read_from_db = False
@@ -149,7 +149,7 @@ class Track(object):
 
     def set_info(self, loc="", title="", artist="",
         album="", genre="", track=0, length=0, bitrate=0, year="", 
-        modified=0, user_rating=0, blacklisted=0):
+        modified=0, user_rating=0, blacklisted=0, the_track=''):
         """
             Sets track information
         """
@@ -176,6 +176,7 @@ class Track(object):
         self.blacklisted = blacklisted
         self.rating = user_rating
         self.user_rating = user_rating
+        self.the_track = the_track
 
     def ipod_track(self):
         """
@@ -320,6 +321,18 @@ class Track(object):
             Sets the title
         """
         self._title = value
+
+    def set_artist(self, value):
+        """
+            Sets the artist
+        """
+        self._artist = value
+
+    def get_artist(self):
+        """
+            Gets the artist
+        """
+        return "%s%s" % (self.the_track, self._artist)
 
     def get_len(self): 
         """
@@ -501,6 +514,7 @@ class Track(object):
         self._bitrate = rate
 
     title = property(get_title, set_title)
+    artist = property(get_artist, set_artist)
     length = property(get_len, set_len)
     position = property(get_position)
     duration = property(get_duration)

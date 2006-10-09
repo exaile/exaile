@@ -1420,7 +1420,9 @@ class ExaileWindow(object):
         if self.tracks == None: return
 
         track = self.tracks.get_next_track(self.current_track)
-        if not track: track = self.tracks.get_songs()[0]
+        if not track: 
+            if not self.tracks.get_songs(): return
+            track = self.tracks.get_songs()[0]
 
 
         if self.next != None and not self.queued:

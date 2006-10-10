@@ -1953,6 +1953,11 @@ class RadioPanel(object):
 
         if response == gtk.RESPONSE_OK:
             (name, desc, url) = dialog.get_values()
+            if not name or not url:
+                common.error(self.exaile.window, _("The 'Name' and 'URL'"
+                    " fields are required"))
+                self.on_add_station(widget)
+                return
 
             c = self.db.record_count("radio", "radio_name=?",
                 (name,))

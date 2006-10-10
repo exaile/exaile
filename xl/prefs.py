@@ -291,7 +291,7 @@ class Preferences(object):
             'open_last': (CheckPrefsItem, True),
             'use_popup': (CheckPrefsItem, True),
             'osd_w': (PrefsItem, '400', self.osd_adjust_size),
-            'osd_h': (PrefsItem, '80', self.osd_adjust_size),
+            'osd_h': (PrefsItem, '95', self.osd_adjust_size),
             'lastfm_user': (PrefsItem, ''),
             'lastfm_pass': (PrefsItem, '', None, self.setup_lastfm),
             'ipod_mount': (PrefsItem, '/media/ipod'),

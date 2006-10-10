@@ -1845,7 +1845,7 @@ def get_popup_settings(settings):
     info['osd_bgcolor'] = settings.get("osd_bgcolor", "#567ea2")
     info['osd_textcolor'] = settings.get("osd_textcolor", "#ffffff")
     info['osd_w'] = settings.get_int("osd_w", 400)
-    info['osd_h'] = settings.get_int("osd_h", 83)
+    info['osd_h'] = settings.get_int("osd_h", 95)
     info['osd_y'] = settings.get_int("osd_y", 0)
     info['osd_x'] = settings.get_int("osd_x", 0)
     info['osd_large_text_font'] = settings.get("osd_large_text_font", 

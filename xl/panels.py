@@ -763,6 +763,7 @@ class iPodPanel(CollectionPanel):
         self.transferring = False
         self.write_lock = threading.Lock()
         self.queue = None
+        self.ipod_track_count = self.xml.get_widget('ipod_track_count')
 
     def drag_data_received(self, tv, context, x, y, selection, info, etime):
         """
@@ -824,9 +825,9 @@ class iPodPanel(CollectionPanel):
                 "Please wait for it to complete."))
             return
         if not self.queue:
-            self.box = self.xml.get_widget('ipod_box')
+            self.queue_box = self.xml.get_widget('ipod_queue_box')
             self.queue = iPodTransferQueue(self)
-            self.box.pack_start(self.queue, False, False)
+            self.queue_box.pack_start(self.queue, False, False)
 
         queue = self.queue.songs
         error = ""
@@ -1113,9 +1114,13 @@ class iPodPanel(CollectionPanel):
         self.db.commit()
 
         if not self.itdb: 
-            connected = False
+            self.connected = False
             self.all = []
             self.list_dict = dict()
+            self.ipod_track_count.set_label(_("Not connected"))
+            if event and event != 'refresh':
+                common.error(self.exaile.window, _("Error connecting to "
+                    "iPod"))
             return False
         if not os.path.isdir(self.exaile_dir):
             os.mkdir(self.exaile_dir)
@@ -1257,10 +1262,12 @@ class iPodPanel(CollectionPanel):
         """
             Loads the tree (and connects to the ipod if refresh was pressed)
         """
-
-        if connect: self.connect_ipod()
+        if connect: self.connect_ipod(event)
         xlmisc.log("Loading iPod collection tree")
         CollectionPanel.load_tree(self, event)
+        self.ipod_track_count.set_label("%d tracks" % len(self.all))
+        if not self.connected:
+            self.ipod_track_count.set_label(_("Not connected"))
 
 class PlaylistsPanel(object):
     """ 

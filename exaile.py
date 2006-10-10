@@ -16,7 +16,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 __version__ = '0.2.5svn'
-import traceback, sys
+import traceback, sys, gobject
+gobject.threads_init()
 import xl.options, xl.dbusinterface
 EXAILE_OPTIONS = xl.dbusinterface.get_options()
 

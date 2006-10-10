@@ -17,6 +17,11 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 __version__ = '0.2.5svn'
 import traceback, sys
+import xl.options, xl.dbusinterface
+EXAILE_OPTIONS = xl.dbusinterface.get_options()
+
+DBUS_EXIT = xl.dbusinterface.test(EXAILE_OPTIONS)
+import gobject
 
 # find out if they are asking for help
 HELP = False
@@ -26,22 +31,9 @@ for val in sys.argv:
 if '-h' in sys.argv: sys.argv.remove('-h')
 if '--help' in sys.argv: sys.argv.remove('--help')
 
-if not "win" in sys.platform:
-    import gobject
-    gobject.threads_init()
-    try:
-        DBUS_AVAIL = True
-        import dbus, xl.dbusinterface
-        OPTIONS = xl.dbusinterface.get_options()
-        if xl.dbusinterface.test(OPTIONS): sys.exit(0)
-    except ImportError:
-        DBUS_AVAIL = False
-        pass
-
-import pygtk, pygst
+import pygtk
 pygtk.require('2.0')
-pygst.require('0.10')
-import gtk, gtk.glade, pango, gst
+import gtk, gtk.glade, pango, dbus
 
 import os, re, random, fileinput, gc, urllib, md5
 import os.path, traceback, thread, gettext, time
@@ -127,12 +119,11 @@ class ExaileWindow(object):
             gobject.timeout_add(2500, splash_screen.destroy) 
         
         # connect to dbus
-        if not "win" in sys.platform and DBUS_AVAIL:
+        if not "win" in sys.platform:
             try:
                 session_bus = dbus.SessionBus()
                 name = dbus.service.BusName("org.exaile.DBusInterface", bus=session_bus)
                 object = xl.dbusinterface.DBusInterfaceObject(name, self)
-                xlmisc.log("Started DBus Interface")
             except dbus.DBusException:
                 xlmisc.log("Could not connect to dbus session bus.  "
                     "dbus will be unavailable.")
@@ -976,7 +967,7 @@ class ExaileWindow(object):
             self.rating_combo.set_active(0)
             self.rating_combo.set_sensitive(False)
             return True
-        duration = track.duration * gst.SECOND
+        duration = track.duration * 1000000000 # this is gst.SECOND
 
         # check to see if streamripper died (if applicable)
         if isinstance(track, media.StreamTrack) and \
@@ -989,7 +980,7 @@ class ExaileWindow(object):
             real = 0
         else:
             real = value * duration / 100
-        seconds = real / gst.SECOND
+        seconds = real / 1000000000 # this is gst.SECOND
         self.progress.set_value(value)
         self.progress_label = self.xml.get_widget('progress_label')
 
@@ -1944,8 +1935,6 @@ def first_run():
             xlmisc.log("Couldn't create music database.")
             xlmisc.log_exception()
 
-
-
 # try to import mmkeys and gtk to allow support for the multimedia keys
 try:
     import mmkeys
@@ -1972,8 +1961,8 @@ def main():
         Everything dispatches from this main function
     """
     global SETTINGS_DIR
+    p = EXAILE_OPTIONS
 
-    p = OPTIONS
     if HELP:
         p.print_help()
         sys.exit(0)
@@ -1990,28 +1979,32 @@ def main():
         'get_artist', 'get_album', 'get_length', 'current_position',
         'inc_vol', 'dec_vol', 'query')
 
+
     # check passed arguments for options that require exaile to currently be
     # running
-    for check in running_checks:
-        if getattr(options, check):
-            print "No running Exaile instance found."
-            sys.exit(1)
+    if not DBUS_EXIT:
+        for check in running_checks:
+            if getattr(options, check):
+                print "No running Exaile instance found."
+                sys.exit(1)
 
-    random.seed()
-    fr = False
-    if not os.path.isdir(SETTINGS_DIR) or not \
-        os.path.isfile("%s%smusic.db" % (SETTINGS_DIR, os.sep)):
-        first_run()
-        fr = True
+        random.seed()
+        fr = False
+        if not os.path.isdir(SETTINGS_DIR) or not \
+            os.path.isfile("%s%smusic.db" % (SETTINGS_DIR, os.sep)):
+            first_run()
+            fr = True
 
 
-    check_dirs()
-    if options.stream: sys.argv[1] = options.stream
-    
-    exaile = ExaileWindow(fr)
+        check_dirs()
+        if options.stream: sys.argv[1] = options.stream
+        
+        exaile = ExaileWindow(fr)
 
-    if MMKEYS_AVAIL:
-        xlmisc.log("mmkeys are available.")
+        if MMKEYS_AVAIL:
+            xlmisc.log("mmkeys are available.")
+    else:
+        sys.exit(0)
     gtk.main()
 
 if __name__ == "__main__": 

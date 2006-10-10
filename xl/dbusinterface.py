@@ -15,11 +15,11 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import sys, traceback
-from optparse import OptionParser
 import dbus
 import dbus.service
+import dbus.glib
 import gobject
-gobject.threads_init()
+from optparse import OptionParser
 
 class DBusInterfaceObject(dbus.service.Object):
     """
@@ -188,11 +188,11 @@ def test_dbus(bus, interface):
 
 def test(p):
     """
-        Checks for a currently running exaile instance, and passes commands to
-        it
+        Tests to see if the dbus service is running, and if it is, call
+        methods on the service
     """
-    options, args = p.parse_args()
-    if not options.new and not "win" in sys.platform:
+    (options, args) = p.parse_args()
+    if not options.new:
         try:
             bus = dbus.SessionBus()
             if test_dbus(bus, 'org.exaile.DBusInterface'):
@@ -234,13 +234,13 @@ def test(p):
             return True
         except:
             traceback.print_exc()
-            return True
+            True
 
     return False
 
 def get_options():
     """
-        Creates the option parser object
+        Get the options for exaile
     """
     usage = "usage: %prog [options]"
     p = OptionParser(usage=usage)
@@ -271,10 +271,8 @@ def get_options():
         default=False, help="Print the length of current track")
     p.add_option("--current-position", dest="current_position", action="store_true",
         default=False, help="Print the position inside the current track as a percentage")
-    p.add_option("-i","--increase_vol", dest="inc_vol",action="store", type="int",
-        metavar="VOL",help="Increases the volume by VOL")
-    p.add_option("-l","--decrease_vol", dest="dec_vol",action="store",type="int",
-        metavar="VOL",help="Decreases the volume by VOL")
+    p.add_option("-i","--increase_vol", dest="inc_vol",action="store", type="int",metavar="VOL",help="Increases the volume by VOL")
+    p.add_option("-l","--decrease_vol", dest="dec_vol",action="store",type="int",metavar="VOL",help="Decreases the volume by VOL")
     p.add_option("--stream", dest="stream", help="Stream URL")
     p.add_option("--new", dest="new", action="store_true",
         default=False, help="Start new instance")

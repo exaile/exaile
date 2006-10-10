@@ -1854,9 +1854,3 @@ def get_popup_settings(settings):
         "Sans 8");
 
     return info
-
-try:
-    import dbus
-    DBUS_AVAIL = True
-except:
-    DBUS_AVAIL = False

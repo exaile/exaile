@@ -1860,11 +1860,3 @@ try:
     DBUS_AVAIL = True
 except:
     DBUS_AVAIL = False
-
-def test_dbus(bus, interface):
-    if not DBUS_AVAIL: return False
-    obj = bus.get_object('org.freedesktop.DBus', '/org/freedesktop/DBus') 
-    dbus_iface = dbus.Interface(obj, 'org.freedesktop.DBus') 
-    avail = dbus_iface.ListNames() 
-    return interface in avail
-

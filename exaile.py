@@ -26,9 +26,22 @@ for val in sys.argv:
 if '-h' in sys.argv: sys.argv.remove('-h')
 if '--help' in sys.argv: sys.argv.remove('--help')
 
-import pygtk
+if not "win" in sys.platform:
+    import gobject
+    gobject.threads_init()
+    try:
+        DBUS_AVAIL = True
+        import dbus, xl.dbusinterface
+        OPTIONS = xl.dbusinterface.get_options()
+        if xl.dbusinterface.test(OPTIONS): sys.exit(0)
+    except ImportError:
+        DBUS_AVAIL = False
+        pass
+
+import pygtk, pygst
 pygtk.require('2.0')
-import gtk, gtk.glade, pango
+pygst.require('0.10')
+import gtk, gtk.glade, pango, gst
 
 import os, re, random, fileinput, gc, urllib, md5
 import os.path, traceback, thread, gettext, time
@@ -41,7 +54,6 @@ gettext.bindtextdomain('exaile', 'po')
 gettext.textdomain('exaile')
 
 from pysqlite2 import dbapi2 as sqlite
-from optparse import OptionParser
 
 ## Find out the location of exaile's working directory, and go there
 basedir = os.path.dirname(os.path.realpath(__file__))
@@ -115,11 +127,12 @@ class ExaileWindow(object):
             gobject.timeout_add(2500, splash_screen.destroy) 
         
         # connect to dbus
-        if not "win" in sys.platform:
+        if not "win" in sys.platform and DBUS_AVAIL:
             try:
                 session_bus = dbus.SessionBus()
                 name = dbus.service.BusName("org.exaile.DBusInterface", bus=session_bus)
                 object = xl.dbusinterface.DBusInterfaceObject(name, self)
+                xlmisc.log("Started DBus Interface")
             except dbus.DBusException:
                 xlmisc.log("Could not connect to dbus session bus.  "
                     "dbus will be unavailable.")
@@ -1931,14 +1944,7 @@ def first_run():
             xlmisc.log("Couldn't create music database.")
             xlmisc.log_exception()
 
-if not "win" in sys.platform:
-    import gobject, gst
-    try:
-        import dbus
-    except ImportError:
-        pass
-    gobject.threads_init()
-    import xl.dbusinterface
+
 
 # try to import mmkeys and gtk to allow support for the multimedia keys
 try:
@@ -1967,42 +1973,7 @@ def main():
     """
     global SETTINGS_DIR
 
-    usage = "usage: %prog [options]"
-    p = OptionParser(usage=usage)
-    p.add_option("-d", "--duplicates", dest="dups",
-        metavar="DIR",
-        help="Finds and deletes all duplicate tracks (based on their md5 sum)")
-    p.add_option("-n", "--next", dest="next", action="store_true",
-        default=False, help="Play the next track")
-    p.add_option("-p", "--prev", dest="prev", action="store_true",
-        default=False,   help="Play the previous track")
-    p.add_option("-s", "--stop", dest="stop", action="store_true",
-        default=False, help="Stop playback")
-    p.add_option("-a", "--play", dest="play", action="store_true",
-        default=False, help="Play or Pause")
-
-    p.add_option("-q", "--query", dest="query", action="store_true",
-        default=False, help="Query player")
-
-    p.add_option("--gui-query", dest="guiquery", action="store_true",
-        default=False, help="Show a popup of the currently playing track")
-    p.add_option("--get-title", dest="get_title", action="store_true",
-        default=False, help="Print the title of current track")
-    p.add_option("--get-album", dest="get_album", action="store_true",
-        default=False, help="Print the album of current track")
-    p.add_option("--get-artist", dest="get_artist", action="store_true",
-        default=False, help="Print the artist of current track")
-    p.add_option("--get-length", dest="get_length", action="store_true",
-        default=False, help="Print the length of current track")
-    p.add_option("--current-position", dest="current_position", action="store_true",
-        default=False, help="Print the position inside the current track as a percentage")
-    p.add_option("-i","--increase_vol", dest="inc_vol",action="store", type="int",metavar="VOL",help="Increases the volume by VOL")
-    p.add_option("-l","--decrease_vol", dest="dec_vol",action="store",type="int",metavar="VOL",help="Decreases the volume by VOL")
-    p.add_option("--stream", dest="stream", help="Stream URL")
-    p.add_option("--new", dest="new", action="store_true",
-        default=False, help="Start new instance")
-    p.add_option("--settings", dest="settings", help="Settings Directory")
-
+    p = OPTIONS
     if HELP:
         p.print_help()
         sys.exit(0)
@@ -2018,50 +1989,6 @@ def main():
     running_checks = ('next', 'prev', 'stop', 'play', 'guiquery', 'get_title',
         'get_artist', 'get_album', 'get_length', 'current_position',
         'inc_vol', 'dec_vol', 'query')
-
-    quit = False
-    if not options.new and not "win" in sys.platform:
-        try:
-            bus = dbus.SessionBus()
-            if xlmisc.test_dbus(bus, 'org.exaile.DBusInterface'):
-                remote_object = bus.get_object("org.exaile.DBusInterface",
-                    "/DBusInterfaceObject")
-                iface = dbus.Interface(remote_object, "org.exaile.DBusInterface")
-                iface.test_service("testing dbus service")
-                if options.next: iface.next_track()
-                elif options.prev: iface.prev_track()
-                elif options.stop: iface.stop()
-                elif options.play: iface.play()
-                elif options.guiquery: iface.popup()
-                elif options.stream: iface.play_file(options.stream)
-                elif options.get_title:
-                    print iface.get_title()
-                elif options.get_artist:
-                    print iface.get_artist()
-                elif options.get_album:
-                    print iface.get_album()
-                elif options.get_length:
-                    print iface.get_length()
-                elif options.current_position:
-                    print iface.current_position()
-                elif options.inc_vol:
-                    iface.increase_volume(options.inc_vol)
-                elif options.dec_vol:
-                    iface.decrease_volume(options.dec_vol)
-                elif options.query:
-
-                    print iface.query()
-                    #if track == None: print "status: stopped"
-                    #else: print track.full_status()
-                elif len(sys.argv) > 1 and not sys.argv[1].startswith("--"):
-                    iface.play_file(sys.argv[1])
-                else:
-                    print "You have entered an invalid option"
-                sys.exit(0)
-        except SystemExit:
-            return
-        except:
-            xlmisc.log_exception()
 
     # check passed arguments for options that require exaile to currently be
     # running

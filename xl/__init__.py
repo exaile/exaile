@@ -15,4 +15,5 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 __all__ = ['tracks', 'config', 'covers', 'db',
-	'common', 'trackslist', 'panels', 'xlmisc', 'prefs', 'track', 'media']
+	'common', 'trackslist', 'panels', 'xlmisc', 'prefs', 'track', 'media',
+    'dbusinterface']

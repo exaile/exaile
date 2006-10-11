@@ -259,6 +259,7 @@ class ExaileWindow(object):
         """
         self.window.connect('configure_event', self.__on_resize)
         self.window.connect('delete_event', self.on_quit)
+        self.queue_count_label = self.xml.get_widget('queue_count_label')
 
         # for multimedia keys
         if MMKEYS_AVAIL:
@@ -607,6 +608,8 @@ class ExaileWindow(object):
                     if song:
                         self.queued.append(song)
                 h.close()
+
+            trackslist.update_queued(self)
 
     def append_songs(self, songs, queue=False, play=True, title="Playlist"): 
         """
@@ -966,8 +969,6 @@ class ExaileWindow(object):
         self.timer_count += 1
 
         if track == None: 
-            self.rating_combo.set_active(0)
-            self.rating_combo.set_sensitive(False)
             return True
         duration = track.duration * 1000000000 # this is gst.SECOND
 
@@ -1017,6 +1018,8 @@ class ExaileWindow(object):
             self.progress_label.set_label('0:00')
             self.title_label.set_label('Not Playing')
             self.artist_label.set_label('Stopped')
+            self.rating_combo.set_active(0)
+            self.rating_combo.set_sensitive(False)
 
             self.rating_signal = self.rating_combo.connect('changed',
                 self.__set_rating)

@@ -260,6 +260,8 @@ class ExaileWindow(object):
         self.window.connect('configure_event', self.__on_resize)
         self.window.connect('delete_event', self.on_quit)
         self.queue_count_label = self.xml.get_widget('queue_count_label')
+        self.xml.get_widget('queue_count_box').connect('button-release-event',
+            lambda *e: self.show_queue_manager())
 
         # for multimedia keys
         if MMKEYS_AVAIL:

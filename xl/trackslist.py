@@ -869,6 +869,7 @@ class QueueManager(TracksListCtrl):
             self.exaile.queued.remove(track)
 
         self.set_songs(self.exaile.queued)
+        update_queued(self.exaile)
 
     def clear_queue(self, item):
         """
@@ -878,6 +879,7 @@ class QueueManager(TracksListCtrl):
             self.exaile.queued.pop()
 
         self.set_songs(self.exaile.queued)
+        update_queued(self.exaile)
 
     def image(self, i):
         """

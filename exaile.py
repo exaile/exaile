@@ -1052,6 +1052,7 @@ class ExaileWindow(object):
 
         rating = track.user_rating
         if rating <= 0 or not rating: rating = 0
+        print 'Setting rating to %d' % rating
         self.rating_combo.set_active(rating - 1)
 
         row = self.db.select("SELECT path FROM tracks WHERE path=?",

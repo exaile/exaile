@@ -217,7 +217,8 @@ class Preferences(object):
             'Advanced':
                 ('iPod',
                 'Playback',
-                'Streamripper')
+                'Streamripper',
+                'Locale')
             })
     def __init__(self, parent):
         """
@@ -306,7 +307,9 @@ class Preferences(object):
             'osd_bgcolor': (ColorButtonPrefsItem, '#567ea2',
                 self.osd_colorpicker),
             'use_tray': (CheckPrefsItem, True, None, self.setup_tray),
-            'tab_placement': (ComboPrefsItem, 'Top', None, self.setup_tabs)
+            'tab_placement': (ComboPrefsItem, 'Top', None, self.setup_tabs),
+            'amazon_locale': (PrefsItem, 'us'),
+            'wikipedia_locale': (PrefsItem, 'us'),
         })
 
         for setting, value in simple_settings.iteritems():

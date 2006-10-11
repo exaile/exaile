@@ -25,7 +25,7 @@ __revision__ = ".01"
 SERVER = "xml.amazon.com"
 KEY = "15VDQG80MCS2K1W2VRR2"
 QUERY = "/onca/xml3?t=webservices-20&dev-t=%s&mode=music&type=lite&" % (KEY) + \
-    "locale=us&page=1&f=xml&KeywordSearch="
+    "locale={locale}&page=1&f=xml&KeywordSearch="
 PATTERN = re.compile("http://images\.amazon\.com/images/(.*?LZ+\.jpg)")
 IMAGE_SERVER = "images.amazon.com";
 IMAGE_QUERY = "/images/";
@@ -60,7 +60,7 @@ class CoverFetcherThread(threading.Thread):
     """
         Fetches all covers for a search string
     """
-    def __init__(self, search_string, _done_func, fetch_all=False): 
+    def __init__(self, search_string, _done_func, fetch_all=False, locale='us'): 
         """
             Constructor expects a search string and a function to call
             when it's _done
@@ -71,6 +71,7 @@ class CoverFetcherThread(threading.Thread):
         self._done = False
         self._done_func = _done_func
         self.search_string = search_string
+        self.locale = locale
         self.fetch_all = fetch_all
     
 
@@ -96,7 +97,8 @@ class CoverFetcherThread(threading.Thread):
 
         if self._done: return
         try:
-            string = QUERY + urllib.quote(self.search_string)
+            query = QUERY.replace("{locale}", self.locale)
+            string = query + urllib.quote(self.search_string)
         except KeyError:
             string = ""
         try:

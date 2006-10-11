@@ -1057,7 +1057,10 @@ class ExaileWindow(object):
             self.rating_combo.set_active(0)
             self.rating_combo.set_sensitive(False)
         else:
-            rating = row[1]
+            if len(row) > 1:
+                rating = row[1]
+            else:
+                rating = 2
             if rating <= 0 or rating == '' or rating is None: 
                 rating = 0
             self.rating_combo.set_active(rating - 1)
@@ -1147,9 +1150,10 @@ class ExaileWindow(object):
         self.stop_cover_thread()
 
         if self.settings.get_boolean("fetch_art", True):
+            locale = self.settings.get('amazon_locale', 'en')
             self.cover_thread = covers.CoverFetcherThread("%s - %s" %
                 (track.artist, track.album),
-                self.__got_covers)
+                self.__got_covers, locale=locale)
 
             self.status.set_first(_("Fetching cover art from Amazon..."))
             self.cover_thread.start()

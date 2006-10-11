@@ -282,7 +282,7 @@ def read_audio_disc(exaile):
 
     return songs
 
-def read_track(db, current, path, skipmod=False, ipod=False):
+def read_track(db, current, path, skipmod=False, ipod=False, adddb=True):
     """
         Reads a track, either from the database, or from it's metadata
     """
@@ -316,7 +316,7 @@ def read_track(db, current, path, skipmod=False, ipod=False):
                 tr.artist = tr.artist[4:]
                 tr.the_track = the_track
 
-            if db:
+            if db and adddb:
                 db.update("tracks",
                     {
                         "path": tr.loc,

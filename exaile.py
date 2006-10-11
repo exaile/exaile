@@ -1600,7 +1600,8 @@ class ExaileWindow(object):
                     if first == True and play:
                         play = tr
                 else:
-                    tr = tracks.read_track(self.db, self.all_songs, p)
+                    tr = tracks.read_track(self.db, self.all_songs, p,
+                        adddb=False)
                     
                 if isinstance(tr, media.StreamTrack):
                     name = "Stream"
@@ -1675,7 +1676,8 @@ class ExaileWindow(object):
                     if count >= 10:
                         xlmisc.finish()
                         count = 0
-                    tr = tracks.read_track(None, self.all_songs, path)
+                    tr = tracks.read_track(self.exaile.db, self.all_songs, path, 
+                        adddb=False)
 
                     count = count + 1
                     if tr:
@@ -1733,7 +1735,8 @@ class ExaileWindow(object):
             self.import_m3u(url, True)
             return
         elif url.find("://") == -1:
-            track = tracks.read_track(self.db, self.all_songs, url)
+            track = tracks.read_track(self.db, self.all_songs, url,
+                adddb=False)
         else:
             info = ({'url': url})
             track = media.RadioTrack(info)

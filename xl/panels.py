@@ -2180,6 +2180,7 @@ class FilesPanel(object):
         if not path: return True
         if event.button == 3:
             self.menu.popup(None, None, None, event.button, event.time)
+            return True
 
         if selection.count_selected_rows() <= 1: return False
         else: 
@@ -2212,7 +2213,7 @@ class FilesPanel(object):
             elif ext in media.SUPPORTED_MEDIA:
                 tr = tracks.read_track(self.exaile.db,
                     self.exaile.all_songs,
-                    value)
+                    value, adddb=False)
                 if tr:
                     songs.append(tr)
 
@@ -2231,7 +2232,7 @@ class FilesPanel(object):
                 if ext in media.SUPPORTED_MEDIA:
                     tr = tracks.read_track(self.exaile.db,
                         self.exaile.all_songs,
-                        os.path.join(root, f))
+                        os.path.join(root, f), adddb=False)
                     if tr:
                         songs.append(tr)
                 if self.counter >= 15:
@@ -2306,7 +2307,7 @@ class FilesPanel(object):
                     self.exaile.import_m3u(dir, True)
                 else:
                     tr = tracks.read_track(self.exaile.db, self.exaile.all_songs,
-                        dir)
+                        dir, adddb=False)
                     if tr:
                         self.exaile.append_songs((tr, ), title=_('Playlist'))
 

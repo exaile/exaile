@@ -201,8 +201,8 @@ class TracksListCtrl(gtk.VBox):
             else:
                 song = self.exaile.all_songs.for_path(l)
                 if not song:
-                    song = tracks.read_track(None, self.exaile.all_songs,
-                        l)
+                    song = tracks.read_track(self.exaile.db, self.exaile.all_songs,
+                        l, adddb=False)
 
             if not song or song in self.songs: continue
 

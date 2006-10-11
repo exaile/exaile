@@ -1851,6 +1851,7 @@ class ExaileWindow(object):
                 (SETTINGS_DIR, os.sep, os.sep, i), "w")
             h.write("# PLAYLIST: %s\n" % title)
             for song in songs:
+                if isinstance(song, media.PodcastTrack): continue
                 h.write("%s\n" % song.loc)
 
             h.close()

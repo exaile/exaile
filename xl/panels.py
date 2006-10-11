@@ -1810,6 +1810,8 @@ class RadioPanel(object):
             title = self.get_val(item, 'title')
             link = self.get_val(item, 'link')
             desc = self.get_val(item, 'description')
+
+            desc = self.clean_desc(desc)
             enc = self.get_child(item, 'enclosure')
             date = self.get_val(item, 'pubDate')
             if enc:
@@ -1824,6 +1826,23 @@ class RadioPanel(object):
 
         self.db.db.commit()
         gobject.timeout_add(500, self.__open_podcast, PodcastWrapper(description, path))
+
+    def clean_desc(self, desc):
+        """ 
+            Cleans description of html, and shortens it to 70 chars
+        """
+        reg = re.compile("<[^>]*>", re.IGNORECASE|re.DOTALL)
+        desc = reg.sub('', desc)
+        reg = re.compile("\n", re.IGNORECASE|re.DOTALL)
+        desc = reg.sub('', desc)
+
+        desc = re.sub("\s+", " ", desc)
+
+        if len(desc) > 70: add = "..."
+        else: add = ''
+
+        desc = desc[:70] + add
+        return desc
 
     def get_child(self, node, name):
         """ 

@@ -1090,6 +1090,7 @@ class BrowserWindow(gtk.VBox):
         if not self.nostyles:
             if self.history and thread.history:
                 self.back.set_sensitive(True)
+                self.next.set_sensitive(False)
 
     def replace(self, match):
         """

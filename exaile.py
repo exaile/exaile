@@ -1829,8 +1829,9 @@ class ExaileWindow(object):
         if self.mon:
             self.mon.disconnect()
 
+        self.window.hide()
+        xlmisc.finish()
         if self.tray_icon and widget == self.window:
-            self.window.hide()
             return True
 
         self.stop_cover_thread()

@@ -1524,7 +1524,17 @@ class PodcastQueueThread(threading.Thread):
             hin = urllib.urlopen(song.loc)
             hout = open(download_path, "w+")
 
-            hout.write(hin.read())
+            while True:
+                data = hin.read(1024)
+                if not data: break
+                hout.write(data)
+                if self.stopped:
+                    hout.close()
+                    os.unlink(download_path)
+                    break
+
+            if stopped: break
+
             hin.close()
             hout.close()
 

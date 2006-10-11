@@ -18,7 +18,7 @@
 __version__ = '0.2.5svn'
 import traceback, sys, gobject
 gobject.threads_init()
-import xl.options, xl.dbusinterface
+import xl.dbusinterface
 EXAILE_OPTIONS = xl.dbusinterface.get_options()
 
 DBUS_EXIT = xl.dbusinterface.test(EXAILE_OPTIONS)

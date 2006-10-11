@@ -307,7 +307,6 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True):
                 return None
 
             tr.read_tag()
-            tr.user_rating = 2
 
             tr.read_from_db = False
             the_track = ""

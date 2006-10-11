@@ -1050,18 +1050,18 @@ class ExaileWindow(object):
         if self.tray_icon:
             self.tray_icon.set_tooltip(self.window.get_title())
 
-        rating = track.user_rating
-        if rating <= 0 or not rating: rating = 0
-        print 'Setting rating to %d' % rating
-        self.rating_combo.set_active(rating - 1)
-
-        row = self.db.select("SELECT path FROM tracks WHERE path=?",
+        row = self.db.select("SELECT path, user_rating FROM tracks WHERE path=?",
             (track.loc, ))
 
         if not row:
             self.rating_combo.set_active(0)
             self.rating_combo.set_sensitive(False)
         else:
+            rating = row[1]
+            if rating <= 0 or rating == '' or rating is None: 
+                rating = 0
+            self.rating_combo.set_active(rating - 1)
+            track.user_rating = rating
             self.rating_combo.set_sensitive(True)
 
         self.rating_signal = self.rating_combo.connect('changed',

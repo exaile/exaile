@@ -795,7 +795,6 @@ class PodcastTrack(RadioTrack):
         """
             Initialize
         """
-        self.podcast_duration = info['podcast_duration'] 
         self.download_path = info['download_path']
         self.real_url = info['url']
         RadioTrack.__init__(self, info)

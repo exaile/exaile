@@ -1546,6 +1546,10 @@ class PodcastQueueThread(threading.Thread):
 
             if temp:
                 song.set_len(temp.duration)
+                self.panel.exaile.db.execute(
+                    "UPDATE podcast_items SET length=? WHERE podcast_path=?"
+                    " AND path=?", (temp.duration, song.podcast_path, song.loc))
+                self.panel.exaile.db.commit()
                 if song.podcast_artist:
                     song.artist = song.podcast_artist
 
@@ -1813,7 +1817,7 @@ class RadioPanel(object):
                 'album': desc,
                 'url': row[0],
                 'year': year, 
-                'podcast_duration': row[3]
+                'length': row[3]
             })
 
             (download_path, downloaded) = \
@@ -1827,6 +1831,8 @@ class RadioPanel(object):
                 info['download_path'] = download_path
 
             song = media.PodcastTrack(info)
+            song.length = row[3]
+            song.podcast_path = wrapper.path
             songs.append(song)
             if add_item:
                 song.podcast_artist = row[2] 

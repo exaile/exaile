@@ -1499,6 +1499,143 @@ class PodcastWrapper(object):
         """
         return self.name
 
+class PodcastQueueThread(threading.Thread):
+    """
+        Downloads podcasts in the queue one by one
+    """
+    def __init__(self, transfer_queue, panel):
+        """ 
+            Initializes the transfer
+        """
+        threading.Thread.__init__(self)
+        self.transfer_queue = transfer_queue
+        self.panel = panel
+        self.queue = transfer_queue.queue
+        self.stopped = False
+
+    def run(self):
+        """
+            Actually runs the thread
+        """
+        for song in self.queue: 
+            (download_path, downloaded) = \
+                self.panel.get_podcast_download_path(song.loc)
+            if self.stopped: break
+            hin = urllib.urlopen(song.loc)
+            hout = open(download_path, "w+")
+
+            hout.write(hin.read())
+            hin.close()
+            hout.close()
+
+            self.transfer_queue.downloaded += 1
+            gobject.idle_add(self.transfer_queue.update_progress)
+            song.download_path = download_path
+            temp = tracks.read_track(None, None, download_path, False, False,
+                False)
+
+            if temp:
+                song.set_len(temp.duration)
+                if song.podcast_artist:
+                    song.artist = song.podcast_artist
+
+            gobject.idle_add(self.transfer_queue.update_song, song)
+            xlmisc.log("Downloaded podcast %s" % song.loc)
+
+        gobject.idle_add(self.transfer_queue.die)
+
+class PodcastTransferQueue(gtk.VBox):
+    """
+        Represents the podcasts that should be downloaded
+    """
+    def __init__(self, panel):
+        """
+            Starts the transfer queue
+        """
+        gtk.VBox.__init__(self)
+        self.panel = panel
+
+        self.label = gtk.Label(_("Downloading Podcasts"))
+        self.label.set_alignment(0, 0)
+
+        self.pack_start(self.label)
+        self.progress = gtk.ProgressBar()
+        
+        vert = gtk.HBox()
+        vert.set_spacing(3)
+        vert.pack_start(self.progress, True, True)
+        
+        button = gtk.Button()
+        image = gtk.Image()
+        image.set_from_stock('gtk-stop', 
+            gtk.ICON_SIZE_SMALL_TOOLBAR)
+        button.set_image(image)
+
+        vert.pack_end(button, False, False)
+        button.connect('clicked', self.__stop)
+
+        self.pack_start(vert)
+
+        self.downloaded = 0
+        self.total = 0
+        self.queue = []
+        self.queue_thread = None
+        panel.podcast_download_box.pack_start(self)
+        self.show_all()
+
+    def __stop(self, widget):
+        """
+            Stops the download queue
+        """
+        if self.queue_thread:
+            self.queue_thread.stopped = True
+
+        self.label.set_label(_("Stopping..."))
+
+    def update_song(self, song):
+        """ 
+            Updates song information in the display
+        """
+        nb = self.panel.exaile.playlists_nb
+        for i in range(nb.get_n_pages()):
+            page = nb.get_nth_page(i)
+            if isinstance(page, trackslist.TracksListCtrl):
+                for item in page.songs:
+                    if item == song:
+                        page.refresh_row(song)
+
+    def update_progress(self):
+        """ 
+            Update the progress bar with the percent of downloaded items
+        """
+        if self.total:
+            total = float(self.total)
+            down = float(self.downloaded)
+            percent = down / total
+            self.progress.set_fraction(percent)
+
+        self.label.set_label("%d of %d downloaded" % (self.downloaded,
+            self.total))
+
+    def append(self, song):
+        """
+            Appends an item to the queue
+        """
+        self.queue.append(song)
+        self.total += 1
+        self.update_progress()
+        if not self.queue_thread:
+            self.queue_thread = PodcastQueueThread(self, self.panel)
+            self.queue_thread.start()
+
+    def die(self):
+        """
+            Removes the download queue
+        """
+        self.hide()
+        self.panel.podcast_download_box.remove(self)
+        self.panel.podcast_queue = None
+
 class RadioPanel(object):
     """
         Displays a list of saved radio stations, and scans shoutcast for a
@@ -1588,6 +1725,9 @@ class RadioPanel(object):
             self.on_add_station)
         self.xml.get_widget('radio_remove_button').connect('clicked',
             self.__remove_station)
+        self.podcast_download_box = \
+            self.xml.get_widget('podcast_download_box')
+        self.podcast_queue = None
         self.setup_menus()
 
     def button_pressed(self, widget, event):
@@ -1649,7 +1789,8 @@ class RadioPanel(object):
 
         desc = row[0]
         rows = self.db.select("SELECT path, title, description, length, "
-            "pub_date FROM podcast_items WHERE podcast_path=?", 
+            "pub_date FROM podcast_items WHERE podcast_path=? ORDER BY id ASC"
+            " LIMIT 5", 
             (wrapper.path,))
 
         songs = tracks.TrackData()
@@ -1664,10 +1805,49 @@ class RadioPanel(object):
                 'year': year, 
                 'podcast_duration': row[3]
             })
+
+            (download_path, downloaded) = \
+                self.get_podcast_download_path(row[0])
+            add_item = False
+            if not downloaded:
+                info['artist'] = "Not downloaded"
+                info['download_path'] = ''
+                add_item = True
+            else:
+                info['download_path'] = download_path
+
             song = media.PodcastTrack(info)
             songs.append(song)
+            if add_item:
+                song.podcast_artist = row[2] 
+                self.add_podcast_to_queue(song)
+            else:
+                song.podcast_artist = None
 
         self.exaile.new_page(wrapper.name, songs)
+
+    def add_podcast_to_queue(self, song):
+        """
+            Add to podcast transfer queue
+        """
+        if not self.podcast_queue:
+            self.podcast_queue = PodcastTransferQueue(self)
+        self.podcast_queue.append(song)
+
+    def get_podcast_download_path(self, loc):
+        """
+            Gets the location of the downloaded pocast item
+        """
+        (path, ext) = os.path.splitext(loc)
+        hash = md5.new(loc).hexdigest()
+        savepath = "%s%s%s" % (self.exaile.get_settings_dir(),
+            os.sep, 'podcasts')
+        if not os.path.isdir(savepath):
+            os.mkdir(savepath, 0777)
+
+        file = "%s%s%s%s" % (savepath, os.sep, hash, ext)
+        if os.path.isfile(file): return file, True
+        else: return file, False
 
     def cell_data_func(self, column, cell, model, iter, user_data=None):
         """
@@ -1797,8 +1977,7 @@ class RadioPanel(object):
         if not pub_date: pub_date = ""
         image = self.get_val(root, 'image')
         if not image: image = ""
-        self.db.execute("DELETE FROM podcast_items WHERE podcast_path=?",
-            (path,))
+
         self.db.execute("UPDATE podcasts SET title=?, "
             "pub_date=?, description=?, image=? WHERE"
             " path=?", (title, pub_date,
@@ -1819,10 +1998,19 @@ class RadioPanel(object):
                 length = enc[0].getAttribute('duration')
                 loc = enc[0].getAttribute("url")
 
-            self.db.execute("INSERT INTO podcast_items( podcast_path, "
-                "path, pub_date, description, size, title, length ) VALUES( "
-                "?, ?, ?, ?, ?, ?, ? )", 
-                (path, loc, date, desc, size, title, length)) 
+            row = self.db.select("SELECT path FROM podcast_items WHERE "
+                "podcast_path=? AND path=?", (path, loc))
+
+            self.db.update("podcast_items",
+                {
+                    "podcast_path": path,
+                    "path": loc,
+                    "pub_date": date,
+                    "description": desc,
+                    "size": size,
+                    "title": title,
+                    "length": length,
+                }, "path=? AND podcast_path=?", (loc, path), not row)
 
         self.db.db.commit()
         gobject.timeout_add(500, self.__open_podcast, PodcastWrapper(description, path))

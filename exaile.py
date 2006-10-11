@@ -1366,6 +1366,11 @@ class ExaileWindow(object):
         """
             Plays a track, gets the cover art, and sets up the context panel
         """
+        if isinstance(track, media.PodcastTrack):
+            if not track.download_path:
+                common.error(self.window, _("Podcast has not yet been "
+                    "downloaded"))
+                return
         track.play(self.on_next)
         self.play_button.set_image(self.get_pause_image())
         self.current_track = track
@@ -1677,7 +1682,7 @@ class ExaileWindow(object):
                     if count >= 10:
                         xlmisc.finish()
                         count = 0
-                    tr = tracks.read_track(self.exaile.db, self.all_songs, path, 
+                    tr = tracks.read_track(self.db, self.all_songs, path, 
                         adddb=False)
 
                     count = count + 1
@@ -1982,9 +1987,17 @@ def main():
     options, args = p.parse_args()
     if options.settings:
         SETTINGS_DIR = options.settings
-    if options.dups:
+    elif options.dups:
         xlmisc.log("Searching for duplicates in: %s" % options.dups)
         track.find_and_delete_dups(options.dups)
+        sys.exit(0)
+    elif options.cleanversion:
+        db = sqlite.connect(os.getenv("HOME") + "/.exaile/music.db")
+        cur = db.cursor()
+        cur.execute("UPDATE version SET version=0")
+        cur.close()
+        db.commit()
+        print "Database version reset."
         sys.exit(0)
 
     running_checks = ('next', 'prev', 'stop', 'play', 'guiquery', 'get_title',

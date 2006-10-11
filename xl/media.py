@@ -796,6 +796,8 @@ class PodcastTrack(RadioTrack):
             Initialize
         """
         self.podcast_duration = info['podcast_duration'] 
+        self.download_path = info['download_path']
+        self.real_url = info['url']
         RadioTrack.__init__(self, info)
         self.type = 'podcast'
 
@@ -804,6 +806,40 @@ class PodcastTrack(RadioTrack):
             Do nothing
         """
         pass
+
+    def play(self, next_func=None):
+        """
+            Tries to play the podcast
+        """
+        self.loc = self.download_path
+        RadioTrack.play(self, next_func)
+
+    def stop(self):
+        """
+            Stops playback of the track
+        """
+        self.loc = self.real_url
+        RadioTrack.stop(self)
+
+    def get_len(self): 
+        """
+            Returns the length of the track in the format minutes:seconds
+        """
+
+        l = self._len
+        tup = time.localtime(float(l))
+
+        return "%s:%02d" % (tup[4], tup[5])
+    
+
+    def set_len(self, value): 
+        """
+            Sets the length
+        """
+        if value == "": value = 0
+        self._len = value
+
+    length = property(get_len, set_len)
 
 class GSTTrack(Track):
     """

@@ -277,4 +277,5 @@ def get_options():
     p.add_option("--new", dest="new", action="store_true",
         default=False, help="Start new instance")
     p.add_option("--settings", dest="settings", help="Settings Directory")
+    p.add_option("--cleanversion", dest="cleanversion", action="store_true")
     return p

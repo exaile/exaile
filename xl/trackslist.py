@@ -499,7 +499,7 @@ class TracksListCtrl(gtk.VBox):
         item = model.get_value(iter, 0)
 
         if isinstance(item, media.PodcastTrack):
-            cellr.set_property('text', item.podcast_duration)
+            cellr.set_property('text', item.length)
             return
 
         seconds = item.duration

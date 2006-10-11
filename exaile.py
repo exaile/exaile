@@ -763,7 +763,7 @@ class ExaileWindow(object):
         self.tracks.queue_draw()
         trackslist.update_queued(self)
 
-    def on_queue(self, item, param): 
+    def on_queue(self, item, param, toggle=True): 
         """
             Queues the selected tracks to be played after the current lineup
         """
@@ -772,7 +772,8 @@ class ExaileWindow(object):
         first = True
         for track in songs:
             if track in self.queued:
-                pass
+                if toggle:
+                    self.queued.remove(track)
             elif first and track.is_playing():
                 pass
             else:

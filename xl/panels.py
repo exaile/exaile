@@ -1533,7 +1533,7 @@ class PodcastQueueThread(threading.Thread):
                     os.unlink(download_path)
                     break
 
-            if stopped: break
+            if self.stopped: break
 
             hin.close()
             hout.close()
@@ -1588,7 +1588,7 @@ class PodcastTransferQueue(gtk.VBox):
 
         self.downloaded = 0
         self.total = 0
-        self.queue = []
+        self.queue = tracks.TrackData()
         self.queue_thread = None
         panel.podcast_download_box.pack_start(self)
         self.show_all()
@@ -1842,7 +1842,9 @@ class RadioPanel(object):
         """
         if not self.podcast_queue:
             self.podcast_queue = PodcastTransferQueue(self)
-        self.podcast_queue.append(song)
+
+        if not song.loc in self.podcast_queue.queue.paths:
+            self.podcast_queue.append(song)
 
     def get_podcast_download_path(self, loc):
         """

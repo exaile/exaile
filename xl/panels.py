@@ -2016,7 +2016,7 @@ class RadioPanel(object):
                 length = enc[0].getAttribute('duration')
                 loc = enc[0].getAttribute("url")
 
-            row = self.db.select("SELECT path FROM podcast_items WHERE "
+            row = self.db.read_one("podcast_items", "path", 
                 "podcast_path=? AND path=?", (path, loc))
 
             self.db.update("podcast_items",
@@ -2028,7 +2028,7 @@ class RadioPanel(object):
                     "size": size,
                     "title": title,
                     "length": length,
-                }, "path=? AND podcast_path=?", (loc, path), not row)
+                }, "path=? AND podcast_path=?", (loc, path), row == None)
 
         self.db.db.commit()
         gobject.timeout_add(500, self.__open_podcast, PodcastWrapper(description, path))

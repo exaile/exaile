@@ -1050,17 +1050,13 @@ class ExaileWindow(object):
         if self.tray_icon:
             self.tray_icon.set_tooltip(self.window.get_title())
 
-        row = self.db.select("SELECT path, user_rating FROM tracks WHERE path=?",
-            (track.loc, ))
+        row = self.db.read_one("tracks", "path, user_rating", "path=?", (track.loc,))
 
         if not row:
             self.rating_combo.set_active(0)
             self.rating_combo.set_sensitive(False)
         else:
-            if len(row) > 1:
-                rating = row[1]
-            else:
-                rating = 2
+            rating = row[1]
             if rating <= 0 or rating == '' or rating is None: 
                 rating = 0
             self.rating_combo.set_active(rating - 1)

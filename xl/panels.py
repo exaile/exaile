@@ -1804,7 +1804,7 @@ class RadioPanel(object):
         desc = row[0]
         rows = self.db.select("SELECT path, title, description, length, "
             "pub_date FROM podcast_items WHERE podcast_path=? ORDER BY id ASC"
-            " LIMIT 5", 
+            " LIMIT 10", 
             (wrapper.path,))
 
         songs = tracks.TrackData()

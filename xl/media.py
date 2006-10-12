@@ -797,6 +797,7 @@ class PodcastTrack(RadioTrack):
         """
         self.download_path = info['download_path']
         self.real_url = info['url']
+        self.size = long(info['size'])
         RadioTrack.__init__(self, info)
         self.type = 'podcast'
 

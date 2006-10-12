@@ -1524,14 +1524,21 @@ class PodcastQueueThread(threading.Thread):
             hin = urllib.urlopen(song.loc)
             hout = open(download_path, "w+")
 
+            count = 0
             while True:
                 data = hin.read(1024)
+                self.transfer_queue.downloaded_bytes += len(data)
+                if count >= 10:
+                    gobject.idle_add(self.transfer_queue.update_progress)
+                    count = 0
                 if not data: break
                 hout.write(data)
                 if self.stopped:
                     hout.close()
                     os.unlink(download_path)
                     break
+
+                count += 1
 
             if self.stopped: break
 
@@ -1592,7 +1599,9 @@ class PodcastTransferQueue(gtk.VBox):
         self.pack_start(vert)
 
         self.downloaded = 0
+        self.downloaded_bytes = 0
         self.total = 0
+        self.total_bytes = 0
         self.queue = tracks.TrackData()
         self.queue_thread = None
         panel.podcast_download_box.pack_start(self)
@@ -1623,9 +1632,9 @@ class PodcastTransferQueue(gtk.VBox):
         """ 
             Update the progress bar with the percent of downloaded items
         """
-        if self.total:
-            total = float(self.total)
-            down = float(self.downloaded)
+        if self.total_bytes:
+            total = float(self.total_bytes)
+            down = float(self.downloaded_bytes)
             percent = down / total
             self.progress.set_fraction(percent)
 
@@ -1638,6 +1647,7 @@ class PodcastTransferQueue(gtk.VBox):
         """
         self.queue.append(song)
         self.total += 1
+        self.total_bytes += song.size
         self.update_progress()
         if not self.queue_thread:
             self.queue_thread = PodcastQueueThread(self, self.panel)
@@ -1804,7 +1814,7 @@ class RadioPanel(object):
 
         desc = row[0]
         rows = self.db.select("SELECT path, title, description, length, "
-            "pub_date FROM podcast_items WHERE podcast_path=? ORDER BY id ASC"
+            "pub_date, size FROM podcast_items WHERE podcast_path=? ORDER BY id ASC"
             " LIMIT 10", 
             (wrapper.path,))
 
@@ -1818,7 +1828,8 @@ class RadioPanel(object):
                 'album': desc,
                 'url': row[0],
                 'year': year, 
-                'length': row[3]
+                'length': row[3], 
+                'size': row[5]
             })
 
             (download_path, downloaded) = \

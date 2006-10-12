@@ -980,17 +980,17 @@ class MP3Track(Track):
         """
             Reads all id3 tags from the file
         """
+        info = mutagen.mp3.MP3(self.loc)
+        self.length = info.info.length
+        self.bitrate = info.info.bitrate
         try:
             id3 = mutagen.id3.ID3(self.loc)
-            info = mutagen.mp3.MP3(self.loc)
             self.title = self.get_tag(id3, "TIT2")
             self.artist = self.get_tag(id3, "TPE1")
             self.album = self.get_tag(id3, "TALB")
             self.genre = self.get_tag(id3, "TCON")
             self.track = self.get_tag(id3, "TRCK")
             self.year = self.get_tag(id3, "TDRC")
-            self.length = info.info.length
-            self.bitrate = info.info.bitrate
 
         except OverflowError:
             pass

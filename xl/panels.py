@@ -1522,7 +1522,10 @@ class PodcastQueueThread(threading.Thread):
                 self.panel.get_podcast_download_path(song.loc)
             if self.stopped: break
             hin = urllib.urlopen(song.loc)
-            hout = open(download_path, "w+")
+
+            temp_path = "%s%spodcasts%sdownloading" % \
+                (self.panel.exaile.get_settings_dir(), os.sep, os.sep)
+            hout = open(temp_path, "w+")
 
             count = 0
             while True:
@@ -1535,15 +1538,16 @@ class PodcastQueueThread(threading.Thread):
                 hout.write(data)
                 if self.stopped:
                     hout.close()
-                    os.unlink(download_path)
+                    os.unlink(temp_path)
                     break
 
                 count += 1
 
-            if self.stopped: break
-
             hin.close()
             hout.close()
+
+            os.rename(temp_path, download_path)
+            if self.stopped: break
 
             self.transfer_queue.downloaded += 1
             gobject.idle_add(self.transfer_queue.update_progress)

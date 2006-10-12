@@ -126,6 +126,7 @@ def strdate_to_time(date):
                 "%B %d %Y %H:%M:%S",#without day, full month
                 "%b %d %Y",#only date , short month
                 "%B %d %Y",#only date , full month
+                "%Y-%m-%d %H:%M:%S",
                 ]
     for format in formats:
         try:

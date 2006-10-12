@@ -1,6 +1,13 @@
-exiale (0.2.5) dapper; urgency=low
+exaile (0.2.5) dapper; urgency=low
   * many drag and drop tweaks
   * drag and drop now works from the file panel
+  * podcasts now have to be downloaded before they can be played
+  * added "repeat" and "shuffle" checkboxes above playback controls
+  * added rating dropdown for current playing track above playlist
+  * added queue count indicator to the right of toggle boxes
+  * added locale switcher to preferences
+
+ -- Adam Olsen <arolsen@gmail.com>  Thu, 12 Oct  2006 08:11:00 -7000
 
 exaile (0.2.4) stable; urgency=low
   * use gamin to monitor directories

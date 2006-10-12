@@ -1821,8 +1821,8 @@ class RadioPanel(object):
 
         desc = row[0]
         rows = self.db.select("SELECT path, title, description, length, "
-            "pub_date, size FROM podcast_items WHERE podcast_path=? ORDER BY id ASC"
-            " LIMIT 10", 
+            "pub_date, size FROM podcast_items WHERE podcast_path=? ORDER BY"
+            " pub_date DESC LIMIT 10", 
             (wrapper.path,))
 
         songs = tracks.TrackData()
@@ -1834,7 +1834,7 @@ class RadioPanel(object):
                 'artist': row[2],
                 'album': desc,
                 'url': row[0],
-                'year': year, 
+                'year': row[4], 
                 'length': row[3], 
                 'size': row[5]
             })
@@ -2039,6 +2039,9 @@ class RadioPanel(object):
 
             row = self.db.read_one("podcast_items", "path", 
                 "podcast_path=? AND path=?", (path, loc))
+
+            t = common.strdate_to_time(date)
+            date = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(t))
 
             self.db.update("podcast_items",
                 {

@@ -8,6 +8,4 @@
 -- * Adds an id to sort by in the podcast_items table
 -------------------------------------------------------------------------------
 ALTER TABLE tracks ADD the_track DEFAULT '';
-DROP TABLE podcast_items;
-CREATE TABLE podcast_items( id INTEGER NOT NULL PRIMARY KEY, podcast_path TEXT, path TEXT, title TEXT, pub_date TEXT, description TEXT, size INT, length TEXT );
 UPDATE version SET version=3;

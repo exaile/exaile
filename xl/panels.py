@@ -1574,6 +1574,7 @@ class PodcastTransferQueue(gtk.VBox):
 
         self.pack_start(self.label)
         self.progress = gtk.ProgressBar()
+        self.progress.set_text(_("Downloading..."))
         
         vert = gtk.HBox()
         vert.set_spacing(3)
@@ -2003,6 +2004,7 @@ class RadioPanel(object):
             description, image, path))
 
         self.model.set_value(iter, 1, PodcastWrapper(title, path))
+        root_title = title
         items = root.getElementsByTagName('item')
         for item in items:
             title = self.get_val(item, 'title')
@@ -2032,7 +2034,7 @@ class RadioPanel(object):
                 }, "path=? AND podcast_path=?", (loc, path), row == None,
                 immediate=True)
 
-        gobject.timeout_add(500, self.__open_podcast, PodcastWrapper(description, path))
+        gobject.timeout_add(500, self.__open_podcast, PodcastWrapper(root_title, path))
 
     def clean_desc(self, desc):
         """ 

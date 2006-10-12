@@ -18,6 +18,8 @@ import sys, traceback
 import dbus
 import dbus.service
 import dbus.glib
+
+dbus.glib.threads_init()
 import gobject
 from optparse import OptionParser
 

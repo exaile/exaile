@@ -518,7 +518,7 @@ class ExaileWindow(object):
             if self.cover.loc.find('nocover') > -1: return
             track = self.current_track
             
-            xlmisc.CoverWindow(self.window, self.cover.loc, "%s by %s" %
+            xlmisc.CoverWindow(self, self.cover.loc, "%s by %s" %
                 (track.album, track.artist))
         elif event.button == 3:
             if not self.current_track: return
@@ -1225,16 +1225,16 @@ class ExaileWindow(object):
             Called when one of the menu items in the album cover popup is
             selected
         """
-        if item == self.cover_full:
-            xlmisc.CoverWindow(self, self.cover.loc)
-        elif item == self.cover_fetch:
+        if item == self.cover_fetch:
             self.status.set_first(_("Fetching from amazon..."))
             xlmisc.CoverFrame(self, self.current_track)
         elif item == self.cover_search:
             xlmisc.CoverFrame(self, self.current_track, True)
         elif item == "showcover" or item == self.cover_full:
             if self.cover.loc.find("nocover") > -1: return
-            xlmisc.CoverWindow(self, self.cover.loc)
+            track = self.current_track
+            xlmisc.CoverWindow(self, self.cover.loc, "%s by %s" %
+                (track.album, track.artist))
         elif item == self.cover_custom:
             track = self.current_track
             wildcard = ['*.jpg', '*.jpeg', '*.gif', '*.png', '*.*'] 

@@ -699,11 +699,21 @@ class iPodTransferQueue(gtk.VBox):
             if cover:
                 gpod.itdb_track_set_thumbnails(track, cover)
 
-            gpod.itdb_cp_track_to_ipod(track, str(song.loc), None)
+            loc = str(song.loc)
+            if song.type == 'podcast':
+                loc = str(song.download_path)
+
+            gpod.itdb_cp_track_to_ipod(track, loc, None)
+
             gpod.itdb_track_add(self.itdb, track, -1)
             mpl = gpod.itdb_playlist_mpl(self.itdb)
+            if song.type == 'podcast':
+                xlmisc.log("Using podcasts for %s" % song)
+                mpl = gpod.itdb_playlist_podcasts(self.itdb)
+
             gpod.itdb_playlist_add_track(mpl, track, -1)
-            if song.ipod_playlist:
+            if song.ipod_playlist and not \
+                gpod.itdb_playlist_is_podcasts(song.ipod_playlist.playlist):
                 gpod.itdb_playlist_add_track(song.ipod_playlist.playlist,
                     track, -1)
                 song.ipod_playlist = None
@@ -798,6 +808,10 @@ class iPodPanel(CollectionPanel):
                     song.ipod_track(), -1)
             else:
                 song = self.exaile.all_songs.for_path(url)
+                # check to see if it's a podcast
+                if not song:
+                    song = self.exaile.radio_panel.get_podcast(url)
+
                 if not song:
                      song = tracks.read_track(self.db, self.exaile.all_songs, url)
                      if not song: continue
@@ -1711,6 +1725,7 @@ class RadioPanel(object):
         col.set_attributes(icon, pixbuf=0)
         col.set_cell_data_func(text, self.cell_data_func)
         self.tree.append_column(col)
+        self.podcasts = {}
 
         self.model = gtk.TreeStore(gtk.gdk.Pixbuf, object)
         self.tree.set_model(self.model)
@@ -1853,6 +1868,7 @@ class RadioPanel(object):
             song.length = row[3]
             song.podcast_path = wrapper.path
             songs.append(song)
+            self.podcasts[song.url] = song
             if add_item:
                 song.podcast_artist = row[2] 
                 self.add_podcast_to_queue(song)
@@ -1860,6 +1876,14 @@ class RadioPanel(object):
                 song.podcast_artist = None
 
         self.exaile.new_page(str(wrapper), songs)
+
+    def get_podcast(self, url):
+        """
+            Returns the podcast for the specified url
+        """
+        if self.podcasts.has_key(url):
+            return self.podcasts[url]
+        else: return None
 
     def add_podcast_to_queue(self, song):
         """

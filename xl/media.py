@@ -195,7 +195,10 @@ class Track(object):
         try: track.year = int(self.year)
         except: pass
 
-        info = os.stat(self.loc)
+        if self.type != 'podcast':
+            info = os.stat(self.loc)
+        else:
+            info = os.stat(self.download_path)
         track.size = info[6]
 
         track.time_added = int(time.time()) + 2082844800

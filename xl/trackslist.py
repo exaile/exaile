@@ -377,7 +377,7 @@ class TracksListCtrl(gtk.VBox):
                 if track in self.playlist_songs:
                     self.playlist_songs.remove(track)
 
-            if pathlist:
+            if pathlist and self.songs:
                 path = pathlist[0]
                 if path[0] >= len(self.songs): path = (path[0] - 1,)
                 selection.select_path(path)
@@ -537,6 +537,7 @@ class TracksListCtrl(gtk.VBox):
         """
             Sets the songs in this table (expects a list of tracks)
         """
+        self.songs = tracks.TrackData()
         self.model.clear()
         if update_playlist: self.playlist_songs = songs
         for song in songs:

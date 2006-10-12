@@ -1334,6 +1334,7 @@ class ExaileWindow(object):
             self.new_page()
 
         self.tracks.set_songs(tracks.TrackData())
+        self.tracks.playlist_songs = self.tracks.songs
         self.playlist_songs = self.tracks.songs
     
     def on_search(self, widget=None, event=None, custom=True): 

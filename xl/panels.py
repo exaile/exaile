@@ -1546,7 +1546,8 @@ class PodcastQueueThread(threading.Thread):
             hin.close()
             hout.close()
 
-            os.rename(temp_path, download_path)
+            if os.path.isfile(temp_path):
+                os.rename(temp_path, download_path)
             if self.stopped: break
 
             self.transfer_queue.downloaded += 1
@@ -1586,6 +1587,7 @@ class PodcastTransferQueue(gtk.VBox):
         self.pack_start(self.label)
         self.progress = gtk.ProgressBar()
         self.progress.set_text(_("Downloading..."))
+        self.progress.set_size_request(-1, 24)
         
         vert = gtk.HBox()
         vert.set_spacing(3)
@@ -1596,6 +1598,7 @@ class PodcastTransferQueue(gtk.VBox):
         image.set_from_stock('gtk-stop', 
             gtk.ICON_SIZE_SMALL_TOOLBAR)
         button.set_image(image)
+        button.set_size_request(32, 32)
 
         vert.pack_end(button, False, False)
         button.connect('clicked', self.__stop)

@@ -1278,6 +1278,12 @@ class TextEntryDialog(object):
         """
         return self.entry.get_text()
 
+    def set_value(self, value):
+        """
+            Sets the value of the text
+        """
+        self.entry.set_text(value)
+
     def destroy(self):
         """
             Destroys the dialog
@@ -1332,6 +1338,7 @@ class CoverFrame(object):
         """
         dialog = TextEntryDialog(self.exaile.window,
             _("Enter the search text"), _("Enter the search text"))
+        dialog.set_value(self.last_search)
         result = dialog.run()
         dialog.dialog.hide()
         if result == gtk.RESPONSE_OK:

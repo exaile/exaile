@@ -340,6 +340,20 @@ class TracksListCtrl(gtk.VBox):
 
         selection.set_uris(loc)
 
+    def get_iter(self, song):
+        """
+            Returns the path for a song
+        """
+        iter = self.model.get_iter_first()
+        while True:
+            s = self.model.get_value(iter, 0)
+            if s == song: return iter
+
+            iter = self.model.iter_next(iter)
+            if not iter: break
+
+        return None
+
     def key_released(self, widget, event):
         """
             Called when someone presses a key
@@ -357,13 +371,11 @@ class TracksListCtrl(gtk.VBox):
                 delete.append(track)
 
             for track in delete:
-                index = self.songs.index(track)
-                path = (index,)
+                iter = self.get_iter(track)
+                model.remove(iter)
                 self.songs.remove(track)
                 if track in self.playlist_songs:
                     self.playlist_songs.remove(track)
-                iter = model.get_iter(path)
-                model.remove(iter)
 
             if pathlist:
                 path = pathlist[0]
@@ -529,7 +541,6 @@ class TracksListCtrl(gtk.VBox):
         if update_playlist: self.playlist_songs = songs
         for song in songs:
             self.append_song(song)
-        self.songs = songs
 
     def append_song(self, song):
         """

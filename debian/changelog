@@ -6,6 +6,7 @@ exaile (0.2.5) dapper; urgency=low
   * added rating dropdown for current playing track above playlist
   * added queue count indicator to the right of toggle boxes
   * added locale switcher to preferences
+  * added dbus.glib.init_threads() which fixed issues on Gentoo
 
  -- Adam Olsen <arolsen@gmail.com>  Thu, 12 Oct  2006 08:11:00 -7000
 

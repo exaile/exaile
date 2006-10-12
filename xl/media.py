@@ -565,7 +565,7 @@ class StreamTrack(Track):
         self.last_audio_sink = audio_sink
 
         # set up streamripper if needed
-        if not self.is_paused() and \
+        if self.type != 'podcast' and not self.is_paused() and \
             exaile_instance.settings.get_boolean('use_streamripper'):
             settings = exaile_instance.settings 
             savedir = settings.get('streamripper_save_location',

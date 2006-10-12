@@ -710,9 +710,13 @@ class ExaileWindow(object):
 
                     else:
                         try:
-                            os.remove(track.loc)
+                            if track.type == 'podcast':
+                                if track.download_path:
+                                    os.remove(track.download_path)
+                            else:
+                                os.remove(track.loc)
                         except OSError:
-                            common.error(self, "Could not delete '%s' - "\
+                            common.error(self.window, "Could not delete '%s' - "\
                                 "perhaps you do not have permissions to do so?"
                                 % track.loc)
                     db.execute("DELETE FROM tracks WHERE path=?", (track.loc,))

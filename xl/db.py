@@ -168,12 +168,16 @@ class DBManager(object):
         if name != "MainThread": cur.close()
         return row
 
-    def update(self, table, vals, where, args, new=False):
+    def update(self, table, vals, where, args, new=False, immediate=False):
         """
             Updates the database based on the query... or, if the specified row
             does not currently exist in the database, a new row is created
         """
-        gobject.idle_add(self._update, table, vals, where, args, new)
+        if not immediate:
+            gobject.idle_add(self._update, table, vals, where, args, new)
+        else:
+            self._update(table, vals, where, args, new)
+            self.db.commit()
 
     def _update(self, table, vals, where, args, new=False): 
         """

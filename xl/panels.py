@@ -1840,7 +1840,7 @@ class RadioPanel(object):
             else:
                 song.podcast_artist = None
 
-        self.exaile.new_page(wrapper.name, songs)
+        self.exaile.new_page(str(wrapper), songs)
 
     def add_podcast_to_queue(self, song):
         """
@@ -1984,6 +1984,7 @@ class RadioPanel(object):
             Parses the xml from the podcast and stores the information to the
             database
         """
+        path = str(path)
         xml = minidom.parseString(xml).documentElement
         root = xml.getElementsByTagName('channel')[0]
 
@@ -2014,7 +2015,7 @@ class RadioPanel(object):
             if enc:
                 size = enc[0].getAttribute('length')
                 length = enc[0].getAttribute('duration')
-                loc = enc[0].getAttribute("url")
+                loc = str(enc[0].getAttribute("url"))
 
             row = self.db.read_one("podcast_items", "path", 
                 "podcast_path=? AND path=?", (path, loc))
@@ -2028,9 +2029,9 @@ class RadioPanel(object):
                     "size": size,
                     "title": title,
                     "length": length,
-                }, "path=? AND podcast_path=?", (loc, path), row == None)
+                }, "path=? AND podcast_path=?", (loc, path), row == None,
+                immediate=True)
 
-        self.db.db.commit()
         gobject.timeout_add(500, self.__open_podcast, PodcastWrapper(description, path))
 
     def clean_desc(self, desc):

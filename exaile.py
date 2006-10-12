@@ -426,6 +426,8 @@ class ExaileWindow(object):
         response = dialog.run()
         if response == gtk.RESPONSE_OK:
             path = dialog.get_filename()
+            if not self.settings.has_key('search_paths'):
+                self.settings['search_paths'] = ''
             self.settings['search_paths'] += ":" + path
             self.update_library((path,), True)
         dialog.destroy()

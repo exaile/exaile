@@ -630,7 +630,7 @@ class TracksListCtrl(gtk.VBox):
 
         # edit specific common fields
         for menu_item in ('title', 'artist', 'album', 'genre', 'year'):
-            item = em.append("Edit %s" % menu_item.capitalize,
+            item = em.append("Edit %s" % menu_item.capitalize(),
                 self.__edit_field, data=menu_item)
 
         em.append_separator()
@@ -661,7 +661,7 @@ class TracksListCtrl(gtk.VBox):
             'gtk-delete', 'delete')
         tpm.append_menu(_("Remove"), rm)
 
-    def __edit_field(self, widget, event, data):
+    def __edit_field(self, widget, data):
         """
             Edits one field in a list of tracks
         """
@@ -670,14 +670,15 @@ class TracksListCtrl(gtk.VBox):
         text = getattr(songs[0], data)
 
         dialog = xlmisc.TextEntryDialog(self.exaile.window, 
-            "Enter the %s for the selected track(s)" % data.capitalize,
-            "Edit %s" % data.capitalize)
+            "Enter the %s for the selected track(s)" % data.capitalize(),
+            "Edit %s" % data.capitalize())
         dialog.set_value(text)
 
-        if dialog.run() == gtk.RESULT_OK:
+        if dialog.run() == gtk.RESPONSE_OK:
+            value = dialog.get_value()
             errors = ''
-            for song in tracks:
-                setattr(song, data)
+            for song in songs:
+                setattr(song, data, value)
                 try:
                     song.write_tag(self.db)
                 except xlmisc.MetaIOException, e: 

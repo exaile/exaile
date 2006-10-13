@@ -423,14 +423,29 @@ class ExaileWindow(object):
         dialog = gtk.FileChooserDialog(_("Add a directory"),
             self.window, gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER,
             (_("Cancel"), gtk.RESPONSE_CANCEL, _("Choose"), gtk.RESPONSE_OK))
+
+        check = gtk.CheckButton(_("Add tracks to current playlist after importing"))
+        dialog.set_extra_widget(check)
+
         response = dialog.run()
         if response == gtk.RESPONSE_OK:
             path = dialog.get_filename()
             if not self.settings.has_key('search_paths'):
                 self.settings['search_paths'] = ''
             self.settings['search_paths'] += ":" + path
-            self.update_library((path,), True)
+
+            done_func = None
+            if check.get_active():
+                done_func = self.__after_import
+            self.update_library((path,), True, done_func=done_func)
         dialog.destroy()
+
+    def __after_import(self, songs):
+        """
+            Adds songs that have just been imported to the current playlist
+            after importing a directory
+        """
+        self.append_songs(tracks.TrackData(songs), play=False)
 
     def __show_debug_dialog(self):
         """
@@ -1803,7 +1818,7 @@ class ExaileWindow(object):
 
         if len(items): self.update_library(items)
     
-    def update_library(self, items, single=False): 
+    def update_library(self, items, single=False, done_func=None): 
         """
             Updates the library
         """
@@ -1814,9 +1829,9 @@ class ExaileWindow(object):
 
         tracks.populate(self, self.db,
             items, self.__on_library_update, False, not single,
-            load_tree=True)
+            load_tree=True, done_func=done_func)
 
-    def __on_library_update(self, percent): 
+    def __on_library_update(self, percent, songs=None, done_func=None): 
         """
             Scans the library
         """
@@ -1824,6 +1839,9 @@ class ExaileWindow(object):
         
         if percent < 0:
             self.load_songs(percent==-1)
+
+        if done_func:
+            done_func(songs)
 
     def on_quit(self, widget=None, event=None): 
         """

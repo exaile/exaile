@@ -364,7 +364,7 @@ class PopulateThread(threading.Thread):
     running = False
 
     def __init__(self, exaile, db, directories, update_func, quick=False,
-        delete=True, load_tree=False):
+        delete=True, load_tree=False, done_func=None):
         """
             Expects an exaile instance, the location of the database file,
             the directories to search, the function to call as reading
@@ -379,6 +379,7 @@ class PopulateThread(threading.Thread):
         self.quick = quick
         self.delete = delete
         self.load_tree = load_tree
+        self.done_func = done_func
 
     def run(self):
         """
@@ -411,6 +412,11 @@ class PopulateThread(threading.Thread):
         included = []
         added = dict()
 
+        # found_tracks will hold /all/ tracks found in this import, regardless
+        # of if they have already been previously imported or not.  They will
+        # be handed to the "done_func"
+        found_tracks = []
+
         for loc in paths:
             try:
                 modified = os.stat(loc).st_mtime
@@ -427,6 +433,7 @@ class PopulateThread(threading.Thread):
                     for field in ('title', 'track', '_artist',
                         'album', 'genre', 'year'):
                         setattr(temp, field, getattr(tr, field))
+                found_tracks.append(tr)
                 already_added(tr, added)
                 included.append(tr)
 
@@ -453,7 +460,7 @@ class PopulateThread(threading.Thread):
 
         num = -1
         if self.quick or not self.load_tree: num = -2
-        gobject.idle_add(update_func, -2) 
+        gobject.idle_add(update_func, -2, found_tracks, self.done_func) 
 
         if included and self.delete:
             xlmisc.log("Keeping %d track paths in the database" %
@@ -465,12 +472,12 @@ class PopulateThread(threading.Thread):
         PopulateThread.running = False
 
 def populate(exaile, db, directories, update_func, quick=False, delete=True,
-    load_tree=False):
+    load_tree=False, done_func=None):
     """
         Runs the populate thread
     """
     thread = PopulateThread(exaile, db, directories, update_func, quick,
-        delete, load_tree)
+        delete, load_tree, done_func)
     exaile.thread_pool.append(thread)
     thread.start()
 

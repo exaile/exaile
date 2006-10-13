@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import os, re, os.path, copy, traceback
+import os, re, os.path, copy, traceback, gc
 import common, media, db, config, trackslist
 import sys, md5, xlmisc, gobject
 import thread, threading, urllib
@@ -418,9 +418,9 @@ class PopulateThread(threading.Thread):
         xlmisc.log("File count: %d" % total)
 
         db = self.db
+        db.execute("UPDATE tracks SET included=0")
         count = 0; commit_count = 0
         update_queue = dict()
-        included = []
         added = dict()
 
         # found_tracks will hold /all/ tracks found in this import, regardless
@@ -446,7 +446,8 @@ class PopulateThread(threading.Thread):
                         setattr(temp, field, getattr(tr, field))
                 found_tracks.append(tr)
                 already_added(tr, added)
-                included.append(tr)
+                db.execute("UPDATE tracks SET included=1 WHERE path=?",
+                    (loc,))
 
             except OperationalError:
                 continue
@@ -473,12 +474,8 @@ class PopulateThread(threading.Thread):
         if self.quick or not self.load_tree: num = -2
         gobject.idle_add(update_func, -2, found_tracks, self.done_func) 
 
-        if included and self.delete:
-            xlmisc.log("Keeping %d track paths in the database" %
-                len(included))
-            where = " AND path!=".join(["\"%s\"" % track.loc for 
-                track in included])
-            db.execute("DELETE FROM tracks WHERE path!=%s" % where)
+        if self.delete:
+            db.execute("DELETE FROM tracks WHERE included=0")
 
         PopulateThread.running = False
 

@@ -7,4 +7,5 @@
 --   - panel
 -------------------------------------------------------------------------------
 ALTER TABLE tracks ADD the_track DEFAULT '';
+ALTER TABLE tracks ADD included DEFAULT 0;
 UPDATE version SET version=3;

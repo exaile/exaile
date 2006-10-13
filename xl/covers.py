@@ -99,7 +99,6 @@ class CoverFetcherThread(threading.Thread):
         try:
             query = QUERY.replace("{locale}", self.locale)
             string = query + urllib.quote(self.search_string)
-            print string
         except KeyError:
             string = ""
         try:

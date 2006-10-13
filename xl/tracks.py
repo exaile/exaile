@@ -29,6 +29,10 @@ from pysqlite2 import dbapi2 as sqlite
 from pysqlite2.dbapi2 import OperationalError
 from media import *
 
+READ_FIELDS = "path, title, artist, album, "  \
+    "genre, track, length, bitrate, year, modified, user_rating, " \
+    "blacklisted, the_track"
+
 class TrackData(list):
     """
         Represents a list of tracks
@@ -177,12 +181,12 @@ def load_tracks(db, current=None):
 
     tracks = TrackData()
     count = 0
-    for row in db.select("SELECT path FROM tracks WHERE blacklisted=0 ORDER"
-        " BY artist, album, track, title"):
+    for row in db.select("SELECT %s FROM tracks WHERE blacklisted=0 ORDER"
+        " BY artist, album, track, title" % READ_FIELDS):
         if not os.path.isfile(row[0]): 
             continue
 
-        t = read_track(db, current, row[0], True)
+        t = read_track(db, current, row, True)
 
         if already_added(t, added): continue
 
@@ -286,19 +290,26 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True):
     """
         Reads a track, either from the database, or from it's metadata
     """
+
+    row = None
+
+    # if path was passed in as a list, the correct fields have probably
+    # already been loaded from the database
+    if type(path) is list or type(path) is tuple:
+        row = path
+        path = row[0]
+    # else, we read the row from the database
+    else:
+        if db:
+            row = db.read_one("tracks", READ_FIELDS, "path=?", (path,))
+
     if not os.path.isfile(path): return None
     (f, ext) = os.path.splitext(path)
 
-    mod = os.stat(os.path.join(path)).st_mtime
-    row = None
-    if db:
-        row = db.read_one("tracks", "path, title, artist, album, " 
-            "genre, track, length, bitrate, year, modified, user_rating, "  
-            "blacklisted, the_track", "path=?", (path,))
-
     if skipmod and not row: return None
 
-    if (not row or row[9] != mod) and not skipmod:
+    mod = os.stat(os.path.join(path)).st_mtime
+    if not skipmod and (not row or row[9] != mod):
         try:
             if media.FORMAT.has_key(ext.lower()):
                 ttype = media.FORMAT[ext.lower()]

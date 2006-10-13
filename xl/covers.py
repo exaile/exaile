@@ -26,8 +26,8 @@ SERVER = "xml.amazon.com"
 KEY = "15VDQG80MCS2K1W2VRR2"
 QUERY = "/onca/xml3?t=webservices-20&dev-t=%s&mode=music&type=lite&" % (KEY) + \
     "locale={locale}&page=1&f=xml&KeywordSearch="
-PATTERN = re.compile("http://images\.amazon\.com/images/(.*?LZ+\.jpg)")
-IMAGE_SERVER = "images.amazon.com";
+PATTERN = re.compile("http://images([^.]*)\.amazon\.com/images/(.*?LZ+\.jpg)")
+IMAGE_SERVER = "images{locale}.amazon.com";
 IMAGE_QUERY = "/images/";
 
 """
@@ -89,8 +89,8 @@ class CoverFetcherThread(threading.Thread):
             Actually connects and fetches the covers
         """
         global SERVER
-        SERVER = config.settings.get("amazon_server", 
-            "xml.amazon.com")
+        if self.locale != 'en':
+            SERVER = "webservices.amazon.%s" % self.locale
 
         xlmisc.log("cover thread started")
         conn = httplib.HTTPConnection(SERVER)
@@ -99,6 +99,7 @@ class CoverFetcherThread(threading.Thread):
         try:
             query = QUERY.replace("{locale}", self.locale)
             string = query + urllib.quote(self.search_string)
+            print string
         except KeyError:
             string = ""
         try:
@@ -122,15 +123,16 @@ class CoverFetcherThread(threading.Thread):
         while not self._done:
             m = PATTERN.search(page)
             if m == None: break
-            page = re.sub("http://images\.amazon\.com/images/%s" % \
-                m.group(1), "", page)
+            page = re.sub("http://images[^.]*\.amazon\.com/images/%s" % \
+                m.group(2), "", page)
             if self._done: return
 
             cover = Cover()
+            image_server = IMAGE_SERVER.replace("{locale}", m.group(1))
 
-            conn = httplib.HTTPConnection(IMAGE_SERVER)
+            conn = httplib.HTTPConnection(image_server)
             try:
-                conn.request("GET", IMAGE_QUERY + m.group(1))
+                conn.request("GET", IMAGE_QUERY + m.group(2))
             except urrlib2.URLError:
                 continue
             response = conn.getresponse()

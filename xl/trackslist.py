@@ -31,7 +31,7 @@ class TracksListCtrl(gtk.VBox):
     col_items = ['', "#",
         _("Title"), _("Artist"), _("Album"), _("Length"),
         _("Rating"), _("Year"), _("Genre"), _("Bitrate")]
-    col_map = ({
+    col_map = {
         '#': 'track',
         _('Title'): 'title',
         _('Artist'): 'artist',
@@ -41,7 +41,7 @@ class TracksListCtrl(gtk.VBox):
         _('Year'): 'year',
         _('Genre'): 'genre',
         _('Bitrate'): 'bitrate'
-        })
+        }
     prep = "track"
     default_sizes = [30, 30, 200, 150, 150, 50, 80, 50, 100, 30]
 
@@ -626,7 +626,14 @@ class TracksListCtrl(gtk.VBox):
 
         em.append(_("Edit Information"), lambda e, f:
             track.TrackEditor(self.exaile, self))
+        em.append_separator()
 
+        # edit specific common fields
+        for menu_item in ('title', 'artist', 'album', 'genre', 'year'):
+            item = em.append("Edit %s" % menu_item.capitalize,
+                self.__edit_field, data=menu_item)
+
+        em.append_separator()
         if not ipod:
             rm = xlmisc.Menu()
             self.rating_ids = []
@@ -653,6 +660,40 @@ class TracksListCtrl(gtk.VBox):
         rm.append(_("Delete Track(s)"), self.exaile.delete_tracks,
             'gtk-delete', 'delete')
         tpm.append_menu(_("Remove"), rm)
+
+    def __edit_field(self, widget, event, data):
+        """
+            Edits one field in a list of tracks
+        """
+        songs = self.get_selected_tracks()
+        if not songs: return
+        text = getattr(songs[0], data)
+
+        dialog = xlmisc.TextEntryDialog(self.exaile.window, 
+            "Enter the %s for the selected track(s)" % data.capitalize,
+            "Edit %s" % data.capitalize)
+        dialog.set_value(text)
+
+        if dialog.run() == gtk.RESULT_OK:
+            errors = ''
+            for song in tracks:
+                setattr(song, data)
+                try:
+                    song.write_tag(self.db)
+                except xlmisc.MetaIOException, e: 
+                    errors += e.reason + "\n"
+                except:
+                    errors += "Could not write tag for %s\n" % song.loc
+                    xlmisc.log_exception()
+
+                xlmisc.finish()
+                self.refresh_row(song)
+
+            if errors:
+                common.scrolledMessageDialog(self.exaile.window,
+                   errors, "Error writing tags")                    
+            
+        dialog.destroy()
 
     def get_track_information(self, widget, event=None):
         """

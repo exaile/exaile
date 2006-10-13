@@ -427,12 +427,18 @@ class ExaileWindow(object):
         check = gtk.CheckButton(_("Add tracks to current playlist after importing"))
         dialog.set_extra_widget(check)
 
+        items = []
+        tmp = self.settings.get("search_paths", "").split(":")
+        for i in tmp:
+            if i != "": items.append(i)
+
         response = dialog.run()
         if response == gtk.RESPONSE_OK:
             path = dialog.get_filename()
-            if not self.settings.has_key('search_paths'):
-                self.settings['search_paths'] = ''
-            self.settings['search_paths'] += ":" + path
+            if not path in items:
+                items.append(path)
+
+            self.settings['search_paths'] = ':'.join(items)
 
             done_func = None
             if check.get_active():

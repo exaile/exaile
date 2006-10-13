@@ -153,59 +153,6 @@ class CollectionPanel(object):
         else:
             self.load_tree()
 
-    def __run_expand(self):
-        """
-            Expands items in the tree to the node that matches the keyword
-        """
-        xlmisc.log("Exanding")
-
-        iter = self.model.get_iter_first()
-        if not iter: return
-        while True:
-            self.__expand_items(iter, self.keyword.lower())
-            iter = self.model.iter_next(iter)
-            if not iter: break
-
-    def __expand_items(self, parent, keyword):
-        """
-            Expands items in the tree to the node that matches the keyword
-        """
-        iter = self.model.iter_children(parent)
-        if not iter: return
-        while True:
-            if self.model.iter_has_child(iter):
-                self.__expand_items(iter, keyword)
-
-            track = self.model.get(iter, 1)[0]
-
-            if isinstance(track, media.Track):
-                items = ('title', 'album', 'artist')
-                for item in items:
-                    val = str(getattr(track, item))
-                    if val.lower().find(keyword.lower()) > -1:
-                        self.__expand_to_top(parent)
-                        break
-            else:
-                if isinstance(track, AlbumWrapper):
-                    track = track.name
-                if not isinstance(track, iPodPlaylist) and \
-                    track.lower().find(keyword.lower()) > -1:
-                    self.__expand_to_top(parent)
-            iter = self.model.iter_next(iter)
-            if not iter: break
-
-    def __expand_to_top(self, iter):
-        """
-            Expands rows
-        """
-        parent = self.model.iter_parent(iter)
-        if parent:
-            path = self.model.get_path(parent)
-            self.tree.expand_row(path, False)
-
-        path = self.model.get_path(iter)
-        self.tree.expand_row(path, False)
-
     def create_popup(self):
         """
             Creates the popup menu for this tree
@@ -524,8 +471,6 @@ class CollectionPanel(object):
 
         if self.connect_id: gobject.source_remove(self.connect_id)
         self.connect_id = None
-        if self.keyword != None: 
-            self.connect_id = gobject.timeout_add(150, self.__run_expand)
 
     def __drag_end(self, list, context):
         """
@@ -577,6 +522,7 @@ class CollectionPanel(object):
 
         for track in songs:
             parent = node
+            last_parent = None
             string = ""
             first = True
             for field in order:
@@ -589,6 +535,7 @@ class CollectionPanel(object):
                         break
                     info = "Unknown"
                 first = False
+
                 if field == "title":
                     n = self.model.append(parent, [self.track_image,
                         track])
@@ -605,6 +552,12 @@ class CollectionPanel(object):
                         if info == "track": info = track
                         node_for[string] = parent
                     else: parent = node_for[string]
+
+                if self.keyword and last_parent:
+                    if str(info).lower().find(self.keyword.lower()) > -1:
+                        self.tree.expand_to_path(self.model.get_path(
+                            last_parent))
+                last_parent = parent
 
         # make sure "Unknown" items end up at the end of the list
         if not unknown and last_songs:

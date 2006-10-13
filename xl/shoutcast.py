@@ -32,7 +32,7 @@ def parse_genre(genre, stations, url=None, func=None):
     """
     if url == None:
         url = "http://www.shoutcast.com/directory/" \
-            "index.phtml?sgenre=%s&numresult=500" % genre
+            "index.phtml?sgenre=%s&numresult=500" % urllib.quote(genre)
     h = urllib.urlopen(url)
     data = h.read().replace("\n", " ")
     h.close()

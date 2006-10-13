@@ -445,7 +445,23 @@ class ExaileWindow(object):
             Adds songs that have just been imported to the current playlist
             after importing a directory
         """
-        self.append_songs(tracks.TrackData(songs), play=False)
+        songs = tracks.TrackData(songs)
+
+        # create an sql query based on all of the paths that were found.
+        # this way we can order them by track number to make sure they
+        # are added to the playlist as they are sorted in the album
+        add = ["path=\"%s\"" % x.loc.replace('"', r'\"') for x in songs]
+        where = " OR ".join(add)
+        cur = self.db.cursor()
+        add = tracks.TrackData()
+        rows = self.db.select("SELECT path FROM tracks WHERE %s ORDER BY artist, " \
+            "album, track, title" % where)
+
+        for row in rows:
+            song = songs.for_path(row[0])
+            add.append(song)
+
+        self.append_songs(add, play=False)
 
     def __show_debug_dialog(self):
         """

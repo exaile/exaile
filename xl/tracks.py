@@ -191,7 +191,7 @@ def load_tracks(db, current=None):
         if already_added(t, added): continue
 
         tracks.append(t)
-        if count >= 10:
+        if count >= 20:
             xlmisc.finish()
             count = 0
 

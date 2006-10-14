@@ -213,6 +213,7 @@ class Preferences(object):
     items = ({'General':
                 ('Miscellaneous',
                 'OSD',
+                'Library',
                 'Last.fm'),
             'Advanced':
                 ('iPod',
@@ -310,6 +311,8 @@ class Preferences(object):
             'tab_placement': (ComboPrefsItem, 'Top', None, self.setup_tabs),
             'amazon_locale': (PrefsItem, 'en'),
             'wikipedia_locale': (PrefsItem, 'en'),
+            'scan_interval': (PrefsItem, '25', None,
+                self.setup_scan_interval),
         })
 
         for setting, value in simple_settings.iteritems():
@@ -322,6 +325,28 @@ class Preferences(object):
             else: done = None
             item = c(setting, default, change, done)
             self.fields.append(item)
+
+    def setup_scan_interval(self, widget):
+        """
+            Makes sure the scan interval is valid, and starts it over with the
+            new time value
+        """
+        value = widget.get_text()
+
+        try:    
+            value = float(value)
+
+            if value < 1:
+                common.error(self.exaile.window, "Library scan interval must "
+                    "be at least 1 minute.")
+                return False
+        except ValueError:  
+            common.error(self.exaile.window, "%s is an invalid value "
+                "for the library rescan interval" % value)
+            return False
+
+        self.exaile.start_scan_interval(value)
+        return True
 
     def __check_gamin(self, widget):
         """

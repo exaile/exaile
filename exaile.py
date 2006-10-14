@@ -102,6 +102,7 @@ class ExaileWindow(object):
         self.next = None
         self.thread_pool = []
         self.dir_queue = []
+        self.scan_timer = None
         self.debug_dialog = xlmisc.DebugDialog(self)
         self.col_menus = dict()
         self.setup_col_menus('track', trackslist.TracksListCtrl.col_map)
@@ -204,6 +205,28 @@ class ExaileWindow(object):
             dialog.destroy()
             if result == gtk.RESPONSE_YES:
                 self.show_library_manager()
+
+        interval = self.settings.get_float('scan_interval', '25')
+        if interval:
+            self.start_scan_interval(interval)
+
+    def start_scan_interval(self, value):
+        """
+            Starts the scan timer with the specified value in minutes, or 0 to
+            disable
+        """
+        if not value and self.scan_timer:
+            self.scan_timer.stop()
+            self.scan_timer = None
+            return
+
+        if not self.scan_timer:
+            self.scan_timer = xlmisc.MiscTimer(lambda:
+                self.__on_library_rescan(load_tree=False), 1) 
+
+        self.scan_timer.stop()
+        self.scan_timer.time = int(value * 60 * 60)
+        self.scan_timer.start()
 
     def setup_location(self):
         """
@@ -1829,7 +1852,8 @@ class ExaileWindow(object):
         if not self.tracks: return
         self.tracks.ensure_visible(self.current_track)
 
-    def __on_library_rescan(self, widget=None, event=None, data=None): 
+    def __on_library_rescan(self, widget=None, event=None, data=None,
+        load_tree=True): 
         """
             Rescans the library for newly added tracks
         """
@@ -1838,7 +1862,7 @@ class ExaileWindow(object):
         for i in tmp:
             if i != "": items.append(i)
 
-        if len(items): self.update_library(items)
+        if len(items): self.update_library(items, load_tree=load_tree)
     
     def update_library(self, items, single=False, done_func=None): 
         """
@@ -1851,7 +1875,7 @@ class ExaileWindow(object):
 
         tracks.populate(self, self.db,
             items, self.__on_library_update, False, not single,
-            load_tree=True, done_func=done_func)
+            load_tree=load_tree, done_func=done_func)
 
     def __on_library_update(self, percent, songs=None, done_func=None): 
         """

@@ -82,11 +82,8 @@ class TracksListCtrl(gtk.VBox):
 
         self.show()
 
-        if not self.type == 'blacklist':
-            self.setup_dragging()
-
-        if self.type == 'track':
-            self.setup_events()
+        self.setup_dragging()
+        self.setup_events()
 
     def setup_dragging(self):
         """
@@ -876,6 +873,12 @@ class QueueManager(TracksListCtrl):
         buttons.show_all()
 
         self.set_songs(self.exaile.queued)
+
+    def show_tracks_popup(self, button, event):
+        """
+            Overridden method of TracksListCtrl.  Does nothing at all
+        """
+        pass
 
     def move_down(self, widget):
         """

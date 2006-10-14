@@ -227,7 +227,7 @@ class ExaileWindow(object):
                 self.__on_library_rescan(load_tree=False), 1) 
 
         self.scan_timer.stop()
-        self.scan_timer.time = int(value * 60 * 60)
+        self.scan_timer.time = int(value * 60 * 60 * 1000)
         self.scan_timer.start()
 
     def setup_location(self):

@@ -215,9 +215,11 @@ class ExaileWindow(object):
             Starts the scan timer with the specified value in minutes, or 0 to
             disable
         """
-        if not value and self.scan_timer:
-            self.scan_timer.stop()
-            self.scan_timer = None
+        if not value:
+            if self.scan_timer:
+                self.scan_timer.stop()
+                self.scan_timer = None
+            xlmisc.log("Scan timer is disabled.")
             return
 
         if not self.scan_timer:
@@ -1864,7 +1866,8 @@ class ExaileWindow(object):
 
         if len(items): self.update_library(items, load_tree=load_tree)
     
-    def update_library(self, items, single=False, done_func=None): 
+    def update_library(self, items, single=False, done_func=None,
+        load_tree=True): 
         """
             Updates the library
         """

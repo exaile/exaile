@@ -336,7 +336,7 @@ class Preferences(object):
         try:    
             value = float(value)
 
-            if value < 1:
+            if value < 1 and value != 0:
                 common.error(self.exaile.window, "Library scan interval must "
                     "be at least 1 minute.")
                 return False

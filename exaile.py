@@ -527,7 +527,7 @@ class ExaileWindow(object):
         nb = self.playlists_nb
         for i in range(0, nb.get_n_pages()):
             page = nb.get_nth_page(i)
-            if isinstance(page, trackslist.QueueManager):
+            if page.type == 'queue':
                 nb.set_current_page(i)
                 return
         page = trackslist.QueueManager(self)
@@ -550,7 +550,7 @@ class ExaileWindow(object):
 
         for i in range(0, nb.get_n_pages()):
             page = nb.get_nth_page(i)
-            if isinstance(page, trackslist.BlacklistedTracksList):
+            if page.type == 'blacklist':
                 nb.set_current_page(i)
                 page.set_songs(songs)
                 return
@@ -1929,7 +1929,7 @@ class ExaileWindow(object):
         for i in range(self.playlists_nb.get_n_pages()):
             page = self.playlists_nb.get_nth_page(i)
             title = self.playlists_nb.get_tab_label(page).title
-            if not isinstance(page, trackslist.TracksListCtrl): continue
+            if page.type != 'track': continue
             songs = page.songs
             h = open("%s%ssaved%splaylist%.4d.m3u" % 
                 (SETTINGS_DIR, os.sep, os.sep, i), "w")

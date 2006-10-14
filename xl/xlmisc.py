@@ -784,11 +784,11 @@ class NotebookTab(gtk.HBox):
             Creates the popup menu for this tab
         """
         menu = Menu()
-        menu.append(_("Rename"), self.__rename)
+        if self.page.type == 'track':
+            menu.append(_("Rename"), self.__rename)
         menu.append(_("Close"), self.__do_close)
 
-        if not isinstance(self.page, trackslist.QueueManager) and \
-            not isinstance(self.page, trackslist.BlacklistedTracksList):
+        if self.page.type == 'track':
             menu.append(_("Save Playlist"), self.__save_playlist)
             
         self.menu = menu

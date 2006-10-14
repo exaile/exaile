@@ -43,6 +43,7 @@ class TracksListCtrl(gtk.VBox):
         _('Bitrate'): 'bitrate'
         }
     prep = "track"
+    type = 'track'
     default_sizes = [30, 30, 200, 150, 150, 50, 80, 50, 100, 30]
 
     def __init__(self, exaile, queue=False):
@@ -81,8 +82,10 @@ class TracksListCtrl(gtk.VBox):
 
         self.show()
 
-        if not queue and not isinstance(self, BlacklistedTracksList):
+        if not self.type == 'blacklist':
             self.setup_dragging()
+
+        if self.type == 'track':
             self.setup_events()
 
     def setup_dragging(self):
@@ -102,6 +105,7 @@ class TracksListCtrl(gtk.VBox):
         self.list.connect('drag_end', self.__drag_end)
         self.list.connect('drag_motion', self.__drag_motion)
         self.list.connect('button_release_event', self.__button_release)
+        self.list.connect('drag_data_get', self.drag_get_data)
         self.list.drag_source_set_icon_stock('gtk-dnd')
 
     def __button_release(self, button, event):
@@ -233,7 +237,8 @@ class TracksListCtrl(gtk.VBox):
         if context.action == gtk.gdk.ACTION_MOVE:
             context.finish(True, True, etime)
         self.update_songs()
-        self.exaile.update_songs(None, False)
+        if self.type != 'queue':
+            self.exaile.update_songs(None, False)
         self.exaile.status.set_first(None)
 
     def update_songs(self):
@@ -311,12 +316,12 @@ class TracksListCtrl(gtk.VBox):
         self.list.connect('row-activated', self.exaile.play)
         self.list.connect('button_press_event', self.show_tracks_popup)
         self.list.connect('key_release_event', self.key_released)
-        self.list.connect('drag_data_get', self.drag_get_data)
 
     def drag_get_data(self, treeview, context, selection, target_id, etime):
         """
             Called when a drag source wants data for this drag operation
         """
+
         loc = []
         delete = []
         sel = self.list.get_selection()
@@ -417,12 +422,14 @@ class TracksListCtrl(gtk.VBox):
                 width = self.exaile.settings.get_int(name, 
                     self.default_sizes[count - 1])
                 col.set_fixed_width(width)
-                if count > 1:
-                    col.connect('clicked', self.set_sort_by)
+
+                if self.type != 'queue':
+                    if count > 1:
+                        col.connect('clicked', self.set_sort_by)
+                    col.set_sort_column_id(count)
+                    col.set_reorderable(True)
+                    col.set_resizable(True)
                 col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
-                col.set_sort_column_id(count)
-                col.set_reorderable(True)
-                col.set_resizable(True)
                 self.list.append_column(col)
             count = count + 1
         self.list.connect('focus_out_event', self.tree_lost_focus)
@@ -799,6 +806,7 @@ class BlacklistedTracksList(TracksListCtrl):
         Shows a list of blacklisted tracks
     """
     blacklist = None
+    type = 'blacklist'
     def __init__(self, exaile):
         """
             Initializes the tracks list
@@ -837,6 +845,7 @@ class QueueManager(TracksListCtrl):
     """
         Represents all tracks present in the queue
     """
+    type = 'queue'
     def __init__(self, exaile):
         """
             Initializes the queue manager
@@ -947,6 +956,19 @@ class QueueManager(TracksListCtrl):
             sorting
         """
         TracksListCtrl.set_songs(self, songs)
+
+    def drag_data_received(self, tv, context, x, y, selection, info, etime):
+        """
+            Proxy to recieved dragged items.  Calls the parent class, then
+            updates the queue order based on the new order of the tracks
+        """
+        TracksListCtrl.drag_data_received(self, tv, context, x, y, selection, 
+            info, etime)
+        self.exaile.queued = []
+        for song in self.songs:
+            self.exaile.queued.append(song)
+
+        update_queued(self.exaile)
 
 def update_queued(exaile):
     """ 

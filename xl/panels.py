@@ -22,6 +22,7 @@ from xml.dom import minidom
 from pysqlite2.dbapi2 import OperationalError
 from pysqlite2 import dbapi2 as sqlite
 from gettext import gettext as _
+from popen2 import popen3 as popen
 import pygtk
 pygtk.require('2.0')
 import gtk, gobject
@@ -341,6 +342,7 @@ class CollectionPanel(object):
             iter = self.model.get_iter(path[0])
             object = self.model.get_value(iter, 1)
             if isinstance(object, iPodPlaylist):
+                self.create_ipod_menu(object.root)
                 selection.unselect_all()
                 selection.select_path(path[0])
                 self.ipod_menu.popup(None, None, None,
@@ -567,12 +569,13 @@ class iPodPlaylist(object):
     """
         Container for iPod playlist
     """
-    def __init__(self, playlist):
+    def __init__(self, playlist, root=False):
         """
             requires an gpod playlist object
         """
         self.playlist = playlist
         self.name = playlist.name
+        self.root = root
 
     def __str__(self):
         """
@@ -704,6 +707,47 @@ class iPodTransferQueue(gtk.VBox):
         self.panel.drag_data_received(tv, context, x, y, selection, info,
             etime)
 
+class iPodPropertiesDialog(object):
+    """
+        Shows information regarding the ipod
+    """
+    def __init__(self, exaile, panel):
+        """
+            Initializes the panel
+        """
+        self.exaile = exaile
+        self.panel = panel
+        xml = gtk.glade.XML("exaile.glade", "iPodPropertiesDialog", "exaile")
+        self.dialog = xml.get_widget('iPodPropertiesDialog')
+        self.image = xml.get_widget('ipod_properties_image')
+        self.image.set_from_file('images%sipod.png' % os.sep)
+        self.dialog.set_transient_for(exaile.window)
+        self.progress = xml.get_widget('ipod_properties_progress')
+        self.space_total = xml.get_widget('ipod_properties_space_total')
+        self.space_used = xml.get_widget('ipod_properties_space_used')
+        self.space_free = xml.get_widget('ipod_properties_space_free')
+        self.model = xml.get_widget('ipod_properties_model')
+
+        (type, total, used) = panel.get_space_info()
+        model = panel.get_model()
+
+        self.model.set_label(model)
+
+        if type:
+            self.space_total.set_label("%.1f%s total" % (total, type))
+            self.space_used.set_label("%.1f%s used" % (used, type))
+            free = total - used
+            self.space_free.set_label("%.1f%s free" % (free, type))
+
+            frac = used / total
+            percent = int(frac * 100)
+            self.progress.set_fraction(frac)
+            self.progress.set_text("%s%%" % percent)
+
+        self.dialog.show_all()
+        self.dialog.run()
+        self.dialog.destroy()
+
 class iPodPanel(CollectionPanel):
     """
         Represents the entire ipod collection in a tree
@@ -822,15 +866,17 @@ class iPodPanel(CollectionPanel):
             self.queue.destroy()
             self.queue = None
 
-    def create_ipod_menu(self):
+    def create_ipod_menu(self, root=False):
         """
             Creates the ipod menu
         """
         self.ipod_menu = xlmisc.Menu()
         self.open = self.ipod_menu.append(_("Open Playlist"),
             self.open_playlist)
-        self.rename = self.ipod_menu.append(_("Rename"),
-            self.rename_playlist)
+
+        if not root:
+            self.rename = self.ipod_menu.append(_("Rename"),
+                self.rename_playlist)
         self.rm_playlist = self.ipod_menu.append(_("Remove"),
             self.remove_playlist)
         self.create = self.ipod_menu.append(_("Create Playlist"),
@@ -841,10 +887,19 @@ class iPodPanel(CollectionPanel):
         item.show()
         item.connect('activate', self.update_covers)
         self.menu.insert(item, 2)
+        if root:
+            self.ipod_menu.append_separator()
+            self.ipod_menu.append("Properties", self.__ipod_properties)
+
+    def __ipod_properties(self, widget, event=None):
+        """
+            Shows the ipod properties dialog
+        """
+        iPodPropertiesDialog(self.exaile, self)
 
     def create_popup(self):
         """
-            Creates the popup menu"
+            Creates the popup menu
         """
         CollectionPanel.create_popup(self)
         self.create_ipod_menu()
@@ -1056,6 +1111,68 @@ class iPodPanel(CollectionPanel):
         return "%s%scovers%s%s" % (self.exaile.get_settings_dir(), os.sep,
             os.sep, str(row[0]))
 
+    # this code is derived from Listen code (http://listen-gnome.free.fr)
+    # Thanks!
+    def get_model(self):
+        """
+            Returns model information about the iPod
+        """
+        model = 'Unknown'
+        path = os.path.join(self.mount, 'iPod_Control', 'Device', 'SysInfo')
+        if os.path.isfile(path):
+            h = open(path)
+            for line in h:
+                if line.split(':')[0] == 'boardHwSwInterfaceRev':
+                    mcode = line.split(' ')[1]
+
+                    if mcode == '0x00010000':
+                        model = '1G'
+                    elif mcode == '0x00020000':
+                        model = '2G'
+                    elif mcode == '0x00030001':
+                        model = '3G'
+                    elif mcode == '0x00040013':
+                        model = '1G Mini'
+                    elif mcode == '0x00050013':
+                        model = '4G'
+                    elif mcode == '0x00060000':
+                        model = 'Photo'
+                    elif mcode == '0x00060004':
+                        model = 'Color'
+                    elif mcode == '0x00070002':
+                        model = '2G Mini'
+                    elif mcode == '0x000B0005':
+                        model = '5G'
+                    elif mcode == '0x000C0005':
+                        model = 'Nano'
+                    elif mcode == '0x000C0006':
+                        model = 'Nano'
+                    else:
+                        model = 'Unknown'
+        return model
+
+    def get_space_info(self):
+        """
+            Returns the total space and used space on the ipod
+        """
+        h = popen("df -h")
+        lines = h[0].readlines()[1:]
+        
+        for line in lines:
+            line = line.strip()
+            (device, total, used, avail, percent, mountpoint) = \
+                re.split("\s+", line)
+            if mountpoint == self.mount:
+                type = 'G'
+                if total.find("M") > -1:
+                    type = "M"
+
+                total = float(total.replace(type, ''))
+                used = float(used.replace(type, ''))
+                return type, total, used
+
+        return None, None, None
+
     def connect_ipod(self, event=None):
         """
             Connects to the iPod and loads all the tracks on it
@@ -1095,7 +1212,7 @@ class iPodPanel(CollectionPanel):
 
         for playlist in gpod.sw_get_playlists(self.itdb):
             if playlist.type == 1:
-                self.lists.insert(0, iPodPlaylist(playlist))
+                self.lists.insert(0, iPodPlaylist(playlist, True))
             else:
                 self.lists.append(iPodPlaylist(playlist))
             self.db.execute("INSERT INTO playlists(playlist_name) VALUES(?)",

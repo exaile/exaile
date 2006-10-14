@@ -4,6 +4,7 @@
 <glade-project>
   <name>Exaile</name>
   <program_name>exaile</program_name>
+  <source_directory></source_directory>
   <pixmaps_directory>images</pixmaps_directory>
   <gnome_support>FALSE</gnome_support>
 </glade-project>

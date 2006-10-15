@@ -1228,7 +1228,7 @@ class CoverWindow(object):
 
         eventbox.connect('button_release_event', self.__button_press)
         window.set_title(title)
-        window.set_transient_for(parent.window)
+        window.set_transient_for(parent)
         window.show_all()
         self.window = window
 

@@ -582,7 +582,7 @@ class ExaileWindow(object):
             if self.cover.loc.find('nocover') > -1: return
             track = self.current_track
             
-            xlmisc.CoverWindow(self, self.cover.loc, "%s by %s" %
+            xlmisc.CoverWindow(self.window, self.cover.loc, "%s by %s" %
                 (track.album, track.artist))
         elif event.button == 3:
             if not self.current_track: return
@@ -820,6 +820,7 @@ class ExaileWindow(object):
             if error:
                 common.scrolledMessageDialog(self.window,
                     error, _("The following errors did occur"))
+            self.collection_panel.track_cache = dict()
             self.tracks.set_songs(self.songs)
             if blacklisting: self.show_blacklist_manager(False)
             self.on_search()
@@ -1297,7 +1298,7 @@ class ExaileWindow(object):
         elif item == "showcover" or item == self.cover_full:
             if self.cover.loc.find("nocover") > -1: return
             track = self.current_track
-            xlmisc.CoverWindow(self, self.cover.loc, "%s by %s" %
+            xlmisc.CoverWindow(self.window, self.cover.loc, "%s by %s" %
                 (track.album, track.artist))
         elif item == self.cover_custom:
             track = self.current_track

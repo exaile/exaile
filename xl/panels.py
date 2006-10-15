@@ -283,6 +283,7 @@ class CollectionPanel(object):
 
             if self.exaile.tracks: 
                 self.exaile.tracks.set_songs(self.exaile.songs)
+            self.track_cache = dict()
             self.load_tree()
             return
 

@@ -837,6 +837,7 @@ class BlacklistedTracksList(TracksListCtrl):
                 self.exaile.all_songs.append(track)
 
         self.set_songs(self.exaile.songs)
+        self.exaile.collection_panel.track_cache = dict()
 
 class QueueManager(TracksListCtrl):
     """

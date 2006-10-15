@@ -1830,7 +1830,11 @@ class PopupWindow(object):
         if self.__timeout:
             gobject.source_remove(self.__timeout)
             self.window.hide()
-        self.title.set_markup(title)
+        
+        text = "<span font_desc='%s' foreground='%s'>%s</span>" % \
+            (self.settings['osd_text_font'], self.settings['osd_textcolor'],
+            title)
+        self.title.set_markup(text)
 
         if cover == None:
             cover = 'images%snocover.png' % os.sep
@@ -1862,5 +1866,9 @@ def get_popup_settings(settings):
     info['osd_x'] = settings.get_int("osd_x", 0)
     info['osd_display_text'] = settings.get('osd_display_text', 
         prefs.TEXT_VIEW_DEFAULT)
+    info['osd_text_font'] = settings.get('osd_text_font',
+        'Sans 10')
+    info['osd_textcolor'] = settings.get('osd_textcolor',
+        '#ffffff')
 
     return info

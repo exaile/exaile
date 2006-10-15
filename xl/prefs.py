@@ -34,9 +34,9 @@ except ImportError:
 
 settings = None
 xml = None
-TEXT_VIEW_DEFAULT = """<span font_desc='Sans Bold 14' foreground='white'>{title}</span>
-<span font_desc='Sans 10' foreground='white'>{artist}
-on {album} - [{length}]</span>"""
+TEXT_VIEW_DEFAULT = """<span size='x-large'><b>{title}</b></span>
+{artist}
+on <i>{album}</i> - [{length}]"""
 
 class PrefsItem(object):
     """
@@ -353,6 +353,10 @@ class Preferences(object):
             'audio_sink': (ComboPrefsItem, 'Use GConf Settings'),
             'osd_bgcolor': (ColorButtonPrefsItem, '#567ea2',
                 self.osd_colorpicker),
+            'osd_textcolor': (ColorButtonPrefsItem, '#ffffff',
+                self.osd_colorpicker),
+            'osd_text_font': (FontButtonPrefsItem, 'Sans 10',
+                self.osd_fontpicker),
             'use_tray': (CheckPrefsItem, True, None, self.setup_tray),
             'tab_placement': (ComboPrefsItem, 'Top', None, self.setup_tabs),
             'amazon_locale': (PrefsItem, 'en'),
@@ -492,6 +496,14 @@ class Preferences(object):
             return
         
         self.osd_settings[name] = val
+        self.display_popup()
+
+    def osd_fontpicker(self, widget, name):
+        """
+            Gets the font from the font picker, and re-sets up the OSD window
+        """
+
+        self.osd_settings[name] = widget.get_font_name()
         self.display_popup()
 
     def osd_colorpicker(self, widget, name):

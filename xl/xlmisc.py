@@ -613,7 +613,7 @@ class CoverFetcher(object):
                 ")", (artist, album))
                 self.needs[artist].append(album)
             elif row[0].find("nocover") > -1:
-                self.needs[artist].append(album)
+                pass
             elif row[0] and row[0].find("nocover") == -1: 
                 image = "%s%scovers%s%s" % (self.exaile.get_settings_dir(),
                     os.sep, os.sep, row[0])

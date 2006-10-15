@@ -168,6 +168,15 @@ def error(parent, message):
     dialog.run()
     dialog.destroy()
 
+def info(parent, message):
+    """
+        Shows an info dialog
+    """
+    dialog = gtk.MessageDialog(parent, gtk.DIALOG_MODAL, gtk.MESSAGE_INFO,
+        gtk.BUTTONS_OK, message)
+    dialog.run()
+    dialog.destroy()
+
 def yes_no_dialog(parent, message):
     """
         Shows a question dialog and returns the result

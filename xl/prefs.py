@@ -559,7 +559,7 @@ class Preferences(object):
             self.popup.window.destroy()
 
         if not self.warning_shown:
-            common.error(self.window,
+            common.info(self.window,
                 _("Move the OSD window to the location you want it to "
                 "appear when listening"))
             self.warning_shown = True

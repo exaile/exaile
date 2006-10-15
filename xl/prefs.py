@@ -261,15 +261,12 @@ class Preferences(object):
     """
     order = ('General', 'Advanced')
     items = ({'General':
-                ('Miscellaneous',
+                ('Library',
                 'OSD',
-                'Library',
                 'Last.fm'),
             'Advanced':
                 ('iPod',
-                'Playback',
-                'Streamripper',
-                'Locale')
+                'Streamripper'),
             })
     def __init__(self, parent):
         """
@@ -296,7 +293,7 @@ class Preferences(object):
         text = gtk.CellRendererText()
         col = gtk.TreeViewColumn('Preferences', text, text=0)
         self.tree.append_column(col)
-        self.tree.connect('button_press_event',
+        self.tree.connect('button_release_event',
             self.switch_pane)
 
         self.xml.get_widget('prefs_cancel_button').connect('clicked',
@@ -315,14 +312,15 @@ class Preferences(object):
         count = 0
         for header in self.order:
             items = self.items[header]
-            node = self.model.append(None, [header, 0]) 
+            node = self.model.append(None, [header, count]) 
+            count += 1
             for item in items:
                 self.model.append(node, [item, count])
                 count += 1
             self.tree.expand_row(self.model.get_path(node), False)
 
         selection = self.tree.get_selection()
-        selection.select_path((0,0))
+        selection.select_path((0,))
         xml.get_widget('prefs_lastfm_pass').set_invisible_char('*')
         xml.get_widget('prefs_audio_sink').set_active(0)
         self.text_display = PrefsTextViewItem('osd_display_text',
@@ -522,19 +520,15 @@ class Preferences(object):
         """
             Switches a pane
         """
-        (x, y) = event.get_coords()
-        x = int(x); y = int(y)
-        
-        path = self.tree.get_path_at_pos(x, y)
-        if not path: return
-        iter = self.model.get_iter(path[0])
-        if self.model.iter_has_child(iter): return
+        selection = self.tree.get_selection()
+        (model, iter) = selection.get_selected()
+        if not iter: return
         index = self.model.get_value(iter, 1)
         self.nb.set_current_page(index)
         page = self.nb.get_nth_page(index)
         title = self.nb.get_tab_label(page)
         self.label.set_markup("<b>%s</b>" % title.get_label())
-        if index == 1: 
+        if index == 2: 
             self.osd_settings = xlmisc.get_popup_settings(self.exaile.settings)
             self.display_popup()
         else:

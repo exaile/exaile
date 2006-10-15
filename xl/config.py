@@ -52,9 +52,9 @@ class Config(dict):
         if key in self: value = self[key]
         if value == None:
             value = default
-            v = value
-            if value == True: v = "true"
-
+            
+        if type(value) == str or type(value) == unicode:
+            value = value.replace(r"\n", "\n")
         return value
 
     def get_int(self, key, default=0):
@@ -107,7 +107,8 @@ class Config(dict):
         """
         handle = open(self.loc, "w+")
         for key, value in self.iteritems():
-            handle.write("%s = %s\n" % (key, value))
+            handle.write("%s = %s\n" % (key, 
+                str(value).replace("\n", r"\n")))
 
         handle.close()
     

@@ -1476,7 +1476,10 @@ class ExaileWindow(object):
         if not track: return
         pop = xlmisc.get_popup(self, xlmisc.get_popup_settings(self.settings))
         cover = self.__fetch_cover(track, 1)
-        pop.show_popup(track.title, track.album, track.artist,
+
+        text_display = self.settings.get('osd_display_text',
+            xl.prefs.TEXT_VIEW_DEFAULT)
+        pop.show_track_popup(track, text_display,
             cover)
 
     def setup_menus(self):

@@ -21,6 +21,7 @@ import common, traceback, gc
 from pysqlite2.dbapi2 import OperationalError
 import cStringIO
 from gettext import gettext as _
+import prefs
 
 opener = urllib.FancyURLopener()
 opener.addheaders.pop(0)
@@ -1747,16 +1748,7 @@ class PopupWindow(object):
         self.box = self.xml.get_widget('image_box')
         self.window.modify_bg(gtk.STATE_NORMAL, color)
         self.title = self.xml.get_widget('popup_title_label')
-        self.title.set_attributes(self.get_font_info(settings['osd_textcolor'],
-            settings['osd_large_text_font']))
 
-        attr = self.get_font_info(settings['osd_textcolor'],
-            settings['osd_small_text_font'])
-
-        self.artist = self.xml.get_widget('popup_artist_label')
-        self.artist.set_attributes(attr)
-        self.album = self.xml.get_widget('popup_album_label')
-        self.album.set_attributes(attr)
         self.window.set_size_request(settings['osd_w'], settings['osd_h'])
         self.cover = ImageWidget()
         self.box.pack_start(self.cover, False, False)
@@ -1815,20 +1807,30 @@ class PopupWindow(object):
         0, 600))
         return attr
 
-    def show_popup(self, title, album, artist, cover):
+    def show_track_popup(self, track, text, cover):
+        """
+            Shows a popup specific to a track
+        """
+        for item in ('title', 'artist', 'album', 'length', 'track', 'bitrate',
+            'genre', 'year'):
+            try:
+                value = getattr(track, item)
+                if type(value) != str and type(value) != unicode:
+                    value = unicode(value)
+                text = text.replace("{%s}" % item, value)
+            except AttributeError:
+                pass
+
+        self.show_popup(text, cover)
+
+    def show_popup(self, title, cover):
         """
             Displays the popup for 4 seconds
         """
-        if not title: title = "Unknown"
-        if not album: album = "Unknown Album"
-        if not artist: artist = "Unknown Artist"
-
         if self.__timeout:
             gobject.source_remove(self.__timeout)
             self.window.hide()
-        self.title.set_label(title)
-        self.album.set_label(album)
-        self.artist.set_label(artist)
+        self.title.set_markup(title)
 
         if cover == None:
             cover = 'images%snocover.png' % os.sep
@@ -1854,14 +1856,11 @@ def get_popup(exaile, settings):
 def get_popup_settings(settings):
     info = dict()
     info['osd_bgcolor'] = settings.get("osd_bgcolor", "#567ea2")
-    info['osd_textcolor'] = settings.get("osd_textcolor", "#ffffff")
     info['osd_w'] = settings.get_int("osd_w", 400)
     info['osd_h'] = settings.get_int("osd_h", 95)
     info['osd_y'] = settings.get_int("osd_y", 0)
     info['osd_x'] = settings.get_int("osd_x", 0)
-    info['osd_large_text_font'] = settings.get("osd_large_text_font", 
-        "Sans 14");
-    info['osd_small_text_font'] = settings.get("osd_small_text_font", 
-        "Sans 8");
+    info['osd_display_text'] = settings.get('osd_display_text', 
+        prefs.TEXT_VIEW_DEFAULT)
 
     return info

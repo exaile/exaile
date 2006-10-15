@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import thread, os, os.path, string
-from xl import tracks, xlmisc, media
+import tracks, xlmisc, media
 from gettext import gettext as _
 import pygtk, common
 pygtk.require('2.0')
@@ -34,6 +34,9 @@ except ImportError:
 
 settings = None
 xml = None
+TEXT_VIEW_DEFAULT = """<span font_desc='Sans Bold 14' foreground='white'>{title}</span>
+<span font_desc='Sans 10' foreground='white'>{artist}
+on {album} - [{length}]</span>"""
 
 class PrefsItem(object):
     """
@@ -86,6 +89,53 @@ class PrefsItem(object):
         """
         if self.done and not self.do_done(): return False
         settings[self.name] = self.widget.get_text()
+        return True
+
+class PrefsTextViewItem(PrefsItem):
+    """
+        Represents a gtk.TextView
+    """
+    def __init__(self, name, default, change=None, done=None):
+        """
+            Initializes the object
+        """
+        PrefsItem.__init__(self, name, default, change, done)
+
+    def setup_change(self):
+        """
+            Detects changes in this widget
+        """
+        self.widget.connect('focus-out-event',
+            self.change, self.name, self.get_all_text())
+
+    def get_all_text(self):
+        """
+            Returns the value of the text buffer
+        """
+        buf = self.widget.get_buffer()
+        start = buf.get_start_iter()
+        end = buf.get_end_iter()
+        return buf.get_text(start, end)
+
+    def set_pref(self):
+        """
+            Sets the value of this widget
+        """
+        self.widget.get_buffer().set_text(str(settings.get(self.name,
+            self.default)))
+
+    def do_done(self):
+        """
+            Calls the done function
+        """
+        return self.done(self.widget)
+
+    def apply(self):    
+        """
+            Applies the setting
+        """
+        if self.done and not self.do_done(): return False
+        settings[self.name] = self.get_all_text()
         return True
        
 class CheckPrefsItem(PrefsItem):
@@ -230,6 +280,7 @@ class Preferences(object):
 
         self.exaile = parent
         self.fields = []
+        self.warning_shown = False
         self.popup = None
         self.osd_settings = xlmisc.get_popup_settings(self.exaile.settings)
         settings = self.exaile.settings
@@ -274,6 +325,9 @@ class Preferences(object):
         selection.select_path((0,0))
         xml.get_widget('prefs_lastfm_pass').set_invisible_char('*')
         xml.get_widget('prefs_audio_sink').set_active(0)
+        self.text_display = PrefsTextViewItem('osd_display_text',
+            TEXT_VIEW_DEFAULT, self.display_popup)
+        self.fields.append(self.text_display)
 
         simple_settings = ({
             'use_splash': (CheckPrefsItem, True),
@@ -299,12 +353,6 @@ class Preferences(object):
             'ipod_mount': (PrefsItem, '/media/ipod'),
             'as_submit_ipod': (CheckPrefsItem, False), 
             'audio_sink': (ComboPrefsItem, 'Use GConf Settings'),
-            'osd_large_text_font': (FontButtonPrefsItem, 'Sans 14',
-                self.osd_fontpicker),
-            'osd_small_text_font': (FontButtonPrefsItem, 'Sans 9',
-                self.osd_fontpicker),
-            'osd_textcolor': (ColorButtonPrefsItem, '#ffffff',
-                self.osd_colorpicker),
             'osd_bgcolor': (ColorButtonPrefsItem, '#567ea2',
                 self.osd_colorpicker),
             'use_tray': (CheckPrefsItem, True, None, self.setup_tray),
@@ -459,14 +507,6 @@ class Preferences(object):
         self.osd_settings[name] = string
         self.display_popup()
 
-    def osd_fontpicker(self, widget, name):
-        """
-            Gets the font from the font picker, and re-sets up the OSD window
-        """
-
-        self.osd_settings[name] = widget.get_font_name()
-        self.display_popup()
-
     def cancel(self):
         """
             Closes the preferences dialog, ensuring that the osd popup isn't
@@ -502,7 +542,7 @@ class Preferences(object):
                 self.popup.window.destroy()
                 self.popup = None
 
-    def display_popup(self):
+    def display_popup(self, *e):
         """
             Shows the OSD window
         """
@@ -511,14 +551,30 @@ class Preferences(object):
             self.osd_settings['osd_x'] = x
             self.osd_settings['osd_y'] = y
             self.popup.window.destroy()
+
+        if not self.warning_shown:
+            common.error(self.window,
+                _("Move the OSD window to the location you want it to "
+                "appear when listening"))
+            self.warning_shown = True
         self.popup = xlmisc.PopupWindow(self.exaile, self.osd_settings,
             False, True)
-        self.popup.show_popup('On Screen Display', ' ',
-            'Drag this window to the desired position', 
+
+        track = BlankClass() 
+        for item in ('title', 'artist', 'album', 'length', 'track', 'bitrate',
+            'genre', 'year'):
+            setattr(track, item, item)
+
+        self.popup.show_track_popup(track, self.text_display.get_all_text(), 
             'images%snocover.png' % os.sep)       
+
+        return False
 
     def run(self):
         """
             Runs the dialog
         """
         self.window.show_all()
+
+class BlankClass(object):
+    pass

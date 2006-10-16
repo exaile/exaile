@@ -1821,6 +1821,7 @@ class PopupWindow(object):
             except AttributeError:
                 pass
 
+        text = text.replace("&", "&amp;")
         self.show_popup(text, cover)
 
     def show_popup(self, title, cover):

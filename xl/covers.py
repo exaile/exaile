@@ -91,6 +91,8 @@ class CoverFetcherThread(threading.Thread):
         global SERVER
         if self.locale != 'us' and self.locale != 'en':
             SERVER = "webservices.amazon.%s" % self.locale
+        if self.locale == 'uk':
+            SERVER = "webservices.amazon.co.uk"
 
         xlmisc.log("cover thread started")
         conn = httplib.HTTPConnection(SERVER)

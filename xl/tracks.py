@@ -436,6 +436,9 @@ class PopulateThread(threading.Thread):
                 temp = self.exaile.all_songs.for_path(loc)
                 
                 tr = read_track(db, self.exaile.all_songs, loc)
+                if tr:
+                    db.execute("UPDATE tracks SET included=1 WHERE path=?",
+                        (loc,))
                 if not tr or tr.blacklisted: continue
                 
                 if not temp:
@@ -446,8 +449,6 @@ class PopulateThread(threading.Thread):
                         setattr(temp, field, getattr(tr, field))
                 found_tracks.append(tr)
                 already_added(tr, added)
-                db.execute("UPDATE tracks SET included=1 WHERE path=?",
-                    (loc,))
 
             except OperationalError:
                 continue

@@ -89,7 +89,7 @@ class CoverFetcherThread(threading.Thread):
             Actually connects and fetches the covers
         """
         global SERVER
-        if self.locale != 'en':
+        if self.locale != 'us' and self.locale != 'en':
             SERVER = "webservices.amazon.%s" % self.locale
 
         xlmisc.log("cover thread started")

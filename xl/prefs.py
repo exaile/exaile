@@ -359,7 +359,7 @@ class Preferences(object):
                 self.osd_fontpicker),
             'use_tray': (CheckPrefsItem, True, None, self.setup_tray),
             'tab_placement': (ComboPrefsItem, 'Top', None, self.setup_tabs),
-            'amazon_locale': (PrefsItem, 'en'),
+            'amazon_locale': (PrefsItem, 'us'),
             'wikipedia_locale': (PrefsItem, 'en'),
             'scan_interval': (PrefsItem, '25', None,
                 self.setup_scan_interval),

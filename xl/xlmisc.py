@@ -509,7 +509,7 @@ class CoverFetcher(object):
             del self.needs[self.artist]
             self.artists.remove(self.artist)
 
-        locale = self.exaile.settings.get('amazon_locale', 'en')
+        locale = self.exaile.settings.get('amazon_locale', 'us')
         self.cover_thread = covers.CoverFetcherThread("%s - %s" %
             (self.artist, self.album),
             self.__got_covers, locale=locale)
@@ -1329,7 +1329,7 @@ class CoverFrame(object):
         self.last_search = "%s - %s" % (track.artist, track.album)
 
         if not search:
-            locale = self.exaile.settings.get('amazon_locale', 'en')
+            locale = self.exaile.settings.get('amazon_locale', 'us')
             covers.CoverFetcherThread("%s - %s" % (track.artist, track.album),
                 self.__covers_fetched, locale=locale).start()
         else:
@@ -1350,7 +1350,7 @@ class CoverFrame(object):
                 _("Searching for ") + self.last_search + "...")
             self.window.hide()
 
-            locale = self.exaile.settings.get('amazon_locale', 'en')
+            locale = self.exaile.settings.get('amazon_locale', 'us')
             covers.CoverFetcherThread(self.last_search,
                 self.__covers_fetched, True, locale=locale).start()
 

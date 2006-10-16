@@ -34,7 +34,7 @@ except ImportError:
 
 settings = None
 xml = None
-TEXT_VIEW_DEFAULT = """<span size='x-large'><b>{title}</b></span>
+TEXT_VIEW_DEFAULT = """<big><b>{title}</b></big>
 {artist}
 on <i>{album}</i> - [{length}]"""
 

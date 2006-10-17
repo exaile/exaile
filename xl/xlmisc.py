@@ -1796,17 +1796,6 @@ class PopupWindow(object):
         self.window.move(int(event.x_root - self.__start[0]),
             int(event.y_root - self.__start[1]))
 
-    def get_font_info(self, color, font):
-        """
-            Gets pango attributes for the specific arguments
-        """
-        attr = pango.AttrList()
-        attr.change(pango.AttrFontDesc(pango.FontDescription(font), 0, 600))
-        color = pango.Color(color)
-        attr.change(pango.AttrForeground(color.red, color.green, color.blue,
-        0, 600))
-        return attr
-
     def show_track_popup(self, track, text, cover):
         """
             Shows a popup specific to a track

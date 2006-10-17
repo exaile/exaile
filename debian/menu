@@ -1,0 +1,3 @@
+?package(exaile):needs="X11" section="Apps/Sound"\
+  title="Exaile" command="/usr/bin/exaile" \
+  icon="/usr/share/pixmaps/exaile.png"

@@ -1,0 +1,5 @@
+# Compulsory line, this is a version 3 file
+version=3
+
+# Examine a Webserver directory
+http://www.exaile.org/files/exaile_(.*)\.tar\.gz

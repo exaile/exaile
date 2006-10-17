@@ -9,6 +9,9 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
+
+
+
 CFLAGS = -Wall -g
 
 ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
@@ -34,7 +37,7 @@ build-stamp: configure-stamp
 	$(MAKE)
 	#docbook-to-man debian/exaile.sgml > exaile.1
 
-	touch build-stamp
+	touch $@
 
 clean:
 	dh_testdir
@@ -53,18 +56,18 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/exaile.
-	$(MAKE) install PREFIX=$(CURDIR)/debian/exaile/usr
+	$(MAKE) install DESTDIR=$(CURDIR)/debian/exaile
 
 
 # Build architecture-independent files here.
-binary-indep: binary 
+binary-indep: build install
 # We have nothing to do by default.
 
 # Build architecture-dependent files here.
-binary: build install
+binary-arch: build install
 	dh_testdir
 	dh_testroot
-	dh_installchangelogs 
+	dh_installchangelogs changelog
 	dh_installdocs
 	dh_installexamples
 #	dh_install
@@ -74,13 +77,16 @@ binary: build install
 #	dh_installemacsen
 #	dh_installpam
 #	dh_installmime
+#	dh_python
 #	dh_installinit
 #	dh_installcron
 #	dh_installinfo
+	dh_installman exaile.1
+	dh_link
+	dh_strip
 	dh_compress
 	dh_fixperms
 #	dh_perl
-#	dh_python
 #	dh_makeshlibs
 	dh_installdeb
 	dh_shlibdeps
@@ -88,4 +94,5 @@ binary: build install
 	dh_md5sums
 	dh_builddeb
 
+binary: binary-indep binary-arch
 .PHONY: build clean binary-indep binary-arch binary install configure

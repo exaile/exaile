@@ -1,17 +1,27 @@
 Source: exaile
-Section: devel
+Section: sound
 Priority: optional
-Maintainer: Adam Olsen <synic@jbother.org>
-Build-Depends: debhelper (>= 4.0.0), libgtk2.0-dev, python2.4-dev
-Standards-Version: 3.6.2
+Maintainer: François Févotte <francois.fevotte@ensta.org>
+Build-Depends: debhelper (>= 5), libgtk2.0-dev, python2.4-dev, python-gtk2-dev
+Standards-Version: 3.7.2
 
 Package: exaile
 Architecture: any
-Depends: ${shlibs:Depends}, python-pysqlite2, 
+Depends: ${shlibs:Depends}, python-pysqlite2,
  libgstreamer0.10-0, gstreamer0.10-plugins-base, gstreamer0.10-plugins-good, 
  python-gst0.10, gstreamer0.10-esd, gstreamer0.10-alsa, python2.4,
  python2.4-gtk2, python-glade2, python2.4-dbus, python-pyvorbis
-Recommends: gstreamer-0.10-plugins-ugly, python2.4-gnome-extras, python-cddb,
+Recommends: gstreamer0.10-plugins-ugly, python2.4-gnome-extras, python-cddb,
  streamripper
-Description: Exaile Media Player!
- A media player aiming to be similar to KDE's AmaroK, but for GTK+.
+Description: an AmaroK-like media player
+ Exaile is a media player aiming to be similar to KDE's AmaroK, but for 
+ GTK+. It incorporates many of the cool things from AmaroK (and other 
+ media players) like automatic fetching of album art, handling of large 
+ libraries, lyrics fetching, artist/album information via the wikipedia, 
+ last.fm support, optional iPod support (assuming you have python-gpod 
+ installed).
+ In addition, Exaile also includes a built in shoutcast directory 
+ browser, tabbed playlists (so you can have more than one playlist open 
+ at a time), blacklisting of tracks (so they don't get scanned into your 
+ library), downloading of guitar tablature from fretplay.com, and 
+ submitting played tracks on your iPod to last.fm.

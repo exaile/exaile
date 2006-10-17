@@ -966,6 +966,7 @@ class BrowserWindow(gtk.VBox):
         self.set_border_width(5)
         self.set_spacing(3)
         self.nostyles = nostyles
+        self.action_count = 0
 
         if not nostyles:
             top = gtk.HBox()
@@ -1015,7 +1016,10 @@ class BrowserWindow(gtk.VBox):
             self.t = ThreadRunner(self.load_url)
             self.t.history = False
             self.t.url = url
+            self.t.action_count = self.action_count
             self.t.start()
+            if not self.nostyles:
+                self.entry.set_sensitive(False)
 
     def set_text(self, text):
         """
@@ -1087,6 +1091,8 @@ class BrowserWindow(gtk.VBox):
         f = opener.open(url)
         data = f.read()
         f.close()
+
+        if self.action_count != thread.action_count: return
         self.page_loaded(url, data, True)
 
         if not self.nostyles:
@@ -1173,6 +1179,9 @@ class BrowserWindow(gtk.VBox):
         gobject.idle_add(self.view.set_document, self.doc)
         gobject.idle_add(self.view.queue_draw)
 
+        if not self.nostyles:
+            gobject.idle_add(self.entry.set_sensitive, True)
+
     def link_clicked(self, document, link, history=True):
         """
             Link clicked
@@ -1186,8 +1195,12 @@ class BrowserWindow(gtk.VBox):
         self.t.stopped = True
         self.t = ThreadRunner(self.load_url)
         self.t.url = link
+        self.action_count += 1
+        self.t.action_count = self.action_count
         self.t.history = history
         self.t.start()
+        if not self.nostyles:
+            self.entry.set_sensitive(False)
 
 class AboutDialog(gtk.Dialog):
     """

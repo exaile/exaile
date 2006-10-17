@@ -155,46 +155,9 @@ class LyricsTab(gtk.VBox):
         print search
         self.lyrics.t = xlmisc.ThreadRunner(self.lyrics.load_url)
         self.lyrics.t.history = False
+        self.lyrics.t.action_count = self.text.action_count
         self.lyrics.t.url = search
         self.lyrics.t.start()
-
-#    def search_complete(self, url, text):
-#        """
-#            Called when the search is completed
-#        """
-#        self.write_cache(text)
-#        if self.track != self.panel.track: return
-#        self.lyrics.protocol = "http://"
-#        self.lyrics.page_loaded(url, text, True)
-
-#    def write_cache(self, text):
-#        """
-#            Writes a cache file
-#        """
-#        h = open(self.cache_file, 'w')
-#        h.write(text)
-#        h.close()
-
-#    def fetch_url(self, path, params, func):
-#        """
-#            Fetches the selected url from cache, or if not present in the 
-#            cache, it fetches from leoslyrics
-#        """
-#        self.server = "lyrc.com.ar"
-#        params = urlencode(params)
-#        path = "%s?%s" % (path, params)
-#        self.cache_file = "%s/%s?%s" % (self.server, path, params)
-#        self.cache_file = "%s%scache%slyrics_%s.txt" % (
-#            self.exaile.get_settings_dir(),
-#            os.sep, os.sep, md5.new(self.cache_file).hexdigest())
-
-#        if os.path.isfile(self.cache_file):
-#            h = open(self.cache_file, 'r')
-#            data = h.read()
-#            h.close()
-#            func('', data)
-#        else:
-#            xlmisc.URLFetcher(self.server, path, func).start()
 
 class WikipediaTab(gtk.HBox):
     """

@@ -56,6 +56,7 @@ class Scrobbler(object):
         self.client = client
         self.version = version
         self.md5 = None
+
     def handshake(self):
         if self.user == "" or self.password == "": return
         url = self.url+"?"+urllib.urlencode({
@@ -73,21 +74,26 @@ class Scrobbler(object):
             return self.uptodate(result[1:])
         if result[0].startswith("FAILED"):
             return self.failed(result)
-    def uptodate(self,lines):
+
+    def uptodate(self, lines):
         self.md5 = re.sub("\n$","",lines[0])
         self.submiturl = re.sub("\n$","",lines[1])
         self.interval(lines[2])
-    def baduser(self,lines):
+
+    def baduser(self, lines):
         xlmisc.log("Bad user")
-    def failed(self,lines):
+
+    def failed(self, lines):
         xlmisc.log(lines[0])
         self.interval(lines[1])
-    def interval(self,line):
+
+    def interval(self, line):
         match = re.match("INTERVAL (\d+)",line)
         if match is not None:
             xlmisc.log("[audioscrobbler] Sleeping for " + match.group(1) + " secs")
             time.sleep(int(match.group(1)))
-    def submit(self,tracks):
+
+    def submit(self, tracks):
         if self.md5 == None: return
         xlmisc.log("[audioscrobbler] Submitting")
         md5response = md5.md5(md5.md5(self.password).hexdigest()+self.md5
@@ -110,4 +116,3 @@ class Scrobbler(object):
             self.failed([results[0],"INTERVAL 0"])
         self.exaile.status.set_first("Failed to submit track to "
             "last.fm.", 2500)
-

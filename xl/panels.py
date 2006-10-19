@@ -2131,6 +2131,7 @@ class RadioPanel(object):
                 size = enc[0].getAttribute('length')
                 length = enc[0].getAttribute('duration')
                 loc = str(enc[0].getAttribute("url"))
+            else: continue
 
             row = self.db.read_one("podcast_items", "path", 
                 "podcast_path=? AND path=?", (path, loc))

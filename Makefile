@@ -16,7 +16,6 @@ make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/share/pixmaps
 	mkdir -p $(DESTDIR)$(PREFIX)/share/applications
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile
-	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/mutagen
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/images
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/images/default_theme
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/xl
@@ -28,7 +27,6 @@ install: make-install-dirs mmkeys.so
 	install -m 644 exaile.glade $(DESTDIR)$(PREFIX)/share/exaile
 	install -m 644 sql/*.sql $(DESTDIR)$(PREFIX)/share/exaile/sql
 	install -m 644 mmkeys.so $(DESTDIR)$(PREFIX)/share/exaile
-	install -m 644 mutagen/*.py $(DESTDIR)$(PREFIX)/share/exaile/mutagen
 	install -m 644 images/*.png $(DESTDIR)$(PREFIX)/share/exaile/images
 	install -m 644 images/default_theme/*.png \
 	$(DESTDIR)$(PREFIX)/share/exaile/images/default_theme

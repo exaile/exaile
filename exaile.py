@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python2.4
 
 # Copyright (C) 2006 Adam Olsen
 #

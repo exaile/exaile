@@ -123,23 +123,44 @@ class CollectionPanel(object):
         """
         if percent <= -1:
             self.scan_label.hide()
+            self.progress_box.hide()
             self.progress.hide()
+            self.stop_button.hide()
             self.showing = False
             self.exaile.status.set_first(_("Finished scanning collection."),
                 2000)
 
         else:
-            self.showing = True
             if not self.scan_label:
                 self.progress = gtk.ProgressBar()
-                self.box.pack_end(self.progress, False, False)
+                self.progress_box = gtk.HBox(spacing=2)
+                self.stop_button = gtk.Button()
+                image = gtk.Image()
+                image.set_from_stock('gtk-stop', gtk.ICON_SIZE_SMALL_TOOLBAR)
+                self.stop_button.set_image(image)
+                self.stop_button.connect('clicked', self.__stop_scan)
+                self.progress_box.pack_start(self.progress, True, True)
+                self.progress_box.pack_start(self.stop_button, False, False)
+
+                self.box.pack_end(self.progress_box, False, False)
                 self.scan_label = gtk.Label(_("Scanning..."))
                 self.scan_label.set_alignment(0, 0)
                 self.box.pack_end(self.scan_label, False, False)
-
-            self.scan_label.show()
-            self.progress.show()
+           
+            if not self.showing:
+                self.showing = True
+                self.progress.show()
+                self.stop_button.show()
+                self.progress_box.show_all()
+                self.scan_label.show()
             self.progress.set_fraction(percent)
+
+    def __stop_scan(self, widget):
+        """
+            Stops the library scan
+        """
+        if tracks.PopulateThread.running:
+            tracks.PopulateThread.stopped = True
 
     def on_search(self, widget=None, event=None):
         """

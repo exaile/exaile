@@ -373,6 +373,7 @@ class PopulateThread(threading.Thread):
         Reads all the tracks in the library and adds them to the database
     """
     running = False
+    stopped = False
 
     def __init__(self, exaile, db, directories, update_func, quick=False,
         delete=True, load_tree=False, done_func=None):
@@ -399,6 +400,7 @@ class PopulateThread(threading.Thread):
         xlmisc.log("Running is %s" % PopulateThread.running)
         if PopulateThread.running: return
         PopulateThread.running = True
+        PopulateThread.stopped = False
 
         directories = self.directories
         directories = [x.decode('utf-8', 'replace') for x in directories]
@@ -426,9 +428,12 @@ class PopulateThread(threading.Thread):
         # found_tracks will hold /all/ tracks found in this import, regardless
         # of if they have already been previously imported or not.  They will
         # be handed to the "done_func"
-        found_tracks = []
+        self.found_tracks = []
 
         for loc in paths:
+            if PopulateThread.stopped:
+                self.stop()
+                return
             try:
                 modified = os.stat(loc).st_mtime
                 size = os.stat(loc).st_size
@@ -447,7 +452,7 @@ class PopulateThread(threading.Thread):
                     for field in ('title', 'track', '_artist',
                         'album', 'genre', 'year'):
                         setattr(temp, field, getattr(tr, field))
-                found_tracks.append(tr)
+                self.found_tracks.append(tr)
                 already_added(tr, added)
 
             except OperationalError:
@@ -467,18 +472,30 @@ class PopulateThread(threading.Thread):
                 percent = float(count / total)
                 gobject.idle_add(update_func, percent)
 
+        if PopulateThread.stopped:
+            self.stop()
+            return
         xlmisc.log("Count is now: %d" % count)
         if self.done: return
         db.commit()
-
-        num = -1
-        if self.quick or not self.load_tree: num = -2
-        gobject.idle_add(update_func, -2, found_tracks, self.done_func) 
 
         if self.delete:
             db.execute("DELETE FROM tracks WHERE included=0")
 
         PopulateThread.running = False
+
+    def stop(self):
+        """
+            Stops the thread
+        """
+        num = -1
+        if self.quick or not self.load_tree: num = -2
+        tracks = self.found_tracks
+        if PopulateThread.stopped:
+            tracks = None
+        gobject.idle_add(self.update_func, -2, tracks, 
+            self.done_func) 
+        PopulateThread.stopped = False
 
 def populate(exaile, db, directories, update_func, quick=False, delete=True,
     load_tree=False, done_func=None):

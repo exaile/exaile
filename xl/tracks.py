@@ -475,6 +475,7 @@ class PopulateThread(threading.Thread):
         if PopulateThread.stopped:
             self.stop()
             return
+        self.stop()
         xlmisc.log("Count is now: %d" % count)
         if self.done: return
         db.commit()

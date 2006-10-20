@@ -154,7 +154,7 @@ class ExaileWindow(object):
         user = self.settings.get("lastfm_user", "")
         password = self.settings.get("lastfm_pass", "")
         thread.start_new_thread(media.get_scrobbler_session,
-            (self, user, password))
+            (user, password))
 
         self.playlists_nb = self.xml.get_widget('playlists_nb')
         self.set_tab_placement()

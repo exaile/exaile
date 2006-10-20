@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import xl.tracks, os, sys, md5, random, db, tracks, xlmisc
-import common, trackslist, shoutcast, scrobbler
+import common, trackslist, shoutcast
 import media, time, thread, re, copy, threading
 import urllib
 from xml.dom import minidom
@@ -23,7 +23,7 @@ from pysqlite2.dbapi2 import OperationalError
 from pysqlite2 import dbapi2 as sqlite
 from gettext import gettext as _
 from popen2 import popen3 as popen
-import pygtk
+import pygtk, audioscrobbler
 pygtk.require('2.0')
 import gtk, gobject
 random.seed()
@@ -1359,10 +1359,26 @@ class iPodPanel(CollectionPanel):
             xlmisc.log("No tracks to submit.")
             return
 
-        thread.start_new_thread(scrobbler.submit, (submit,))
+        thread.start_new_thread(self.__submit, (scrobbler, submit))
         self.update_log()
         xlmisc.log("All tracks have been submitted from iPod, log has been updated.")
 
+    def __submit(self, scrobbler, submit):
+        """
+            Submits played tracks to Last.fm
+        """
+        for track in submit:
+            lt = time.localtime(track.time_played - 2082845972)
+            date = "%02d-%02d-%02d %02d:%02d:%02d" % (lt[0], lt[1], lt[2],
+                lt[3], lt[4], lt[5])
+            try:
+                scrobbler(artist_name=track.artist,
+                    song_title=track.title,
+                    length=track.duration,
+                    date_played=date,
+                    album=track.album)
+            except:
+                xlmisc.log_exception()
 
     def load_tree(self, event=None, connect=True):
         """

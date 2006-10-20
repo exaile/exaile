@@ -37,7 +37,7 @@ tag_bin = gst.element_factory_make("playbin")
 tag_bus = tag_bin.get_bus()
 tag_bus.add_signal_watch()
 
-import scrobbler, thread, urllib
+import audioscrobbler, thread, urllib
 
 try:
     import gpod
@@ -48,7 +48,7 @@ SCROBBLER_SESSION = None
 
 ## this sets up the supported types
 
-def get_scrobbler_session(exaile=None, username="", password="", new=False): 
+def get_scrobbler_session(username="", password="", new=False): 
     """
         If there is no audio scrobbler session, one is created and returned,
         else the current one is returned
@@ -57,14 +57,14 @@ def get_scrobbler_session(exaile=None, username="", password="", new=False):
 
     if (SCROBBLER_SESSION == None or new) and \
         (username != "" and password != ""):
-        SCROBBLER_SESSION = scrobbler.Scrobbler(exaile, username, password,
-            client="exa")
+        SCROBBLER_SESSION = audioscrobbler.AudioScrobblerPost(username=username, 
+            password=password, client_name='exa')
         try:
-            SCROBBLER_SESSION.handshake()
-        except SyntaxError:
-            xlmisc.log_exception()
-            return None
+            SCROBBLER_SESSION.auth()
         except:
+            xlmisc.log_exception()
+            gobject.idle_add(exaile_instance.status.set_first,
+                _("Error logging into Last.fm."), 3000)
             return None
     return SCROBBLER_SESSION
 
@@ -508,7 +508,31 @@ class Track(object):
         session = get_scrobbler_session()
         if not session: return
         self.submitting = True
-        thread.start_new_thread(session.submit,([self],))
+        exaile_instance.status.set_first(_("Sumitting track to Last.fm..."),
+            3000)
+        thread.start_new_thread(self.__submit, (session,))
+
+    def __submit(self, session):
+        """
+            Actually submits the track to audioscrobbler
+        """
+        len = self.duration
+        lt = time.gmtime(time.time())
+
+        date = "%02d-%02d-%02d %02d:%02d:%02d" % (lt[0], lt[1], lt[2],
+            lt[3], lt[4], lt[5])
+
+        try:
+            session(artist_name=self.artist,
+                song_title=self.title,
+                length=self.duration,
+                date_played=date,
+                album=self.album)
+
+        except:
+            xlmisc.log_exception()
+            gobject.idle_add(exaile_instance.status.set_first, 
+                _("Failed to submit track to Last.fm."), 3000)
 
     def set_bitrate(self, rate):
         """

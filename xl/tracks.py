@@ -482,8 +482,6 @@ class PopulateThread(threading.Thread):
         if self.delete:
             db.execute("DELETE FROM tracks WHERE included=0")
 
-        PopulateThread.running = False
-
     def stop(self):
         """
             Stops the thread
@@ -496,6 +494,7 @@ class PopulateThread(threading.Thread):
         gobject.idle_add(self.update_func, -2, tracks, 
             self.done_func) 
         PopulateThread.stopped = False
+        PopulateThread.running = False
 
 def populate(exaile, db, directories, update_func, quick=False, delete=True,
     load_tree=False, done_func=None):

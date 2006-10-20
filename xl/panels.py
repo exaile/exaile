@@ -1374,7 +1374,7 @@ class iPodPanel(CollectionPanel):
             try:
                 scrobbler(artist_name=track.artist,
                     song_title=track.title,
-                    length=track.duration,
+                    length=track.tracklen / 1000,
                     date_played=date,
                     album=track.album)
             except:

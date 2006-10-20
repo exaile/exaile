@@ -59,6 +59,7 @@ def get_scrobbler_session(username="", password="", new=False):
         (username != "" and password != ""):
         SCROBBLER_SESSION = audioscrobbler.AudioScrobblerPost(username=username, 
             password=password, client_name='exa')
+        SCROBBLER_SESSION.verbose = True
         try:
             SCROBBLER_SESSION.auth()
         except:
@@ -525,7 +526,7 @@ class Track(object):
         try:
             session(artist_name=self.artist,
                 song_title=self.title,
-                length=self.duration,
+                length=int(self.duration),
                 date_played=date,
                 album=self.album)
 

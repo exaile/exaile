@@ -17,7 +17,7 @@
 import os, re, os.path, copy, traceback, gc
 import common, media, db, config, trackslist
 import sys, md5, xlmisc, gobject
-import thread, threading, urllib
+import thread, threading, urllib, audioscrobbler
 
 try:    
     import DiscID, CDDB
@@ -32,6 +32,25 @@ from media import *
 READ_FIELDS = "path, title, artist, album, "  \
     "genre, track, length, bitrate, year, modified, user_rating, " \
     "blacklisted, the_track"
+
+def get_suggested_songs(exaile, db, song):
+    """
+        Finds and returns 5 suggested songs from last.fm
+    """
+    lastfm = audioscrobbler.AudioScrobblerQuery(artist=song.artist)
+
+    songs = TrackData()
+    for artist in lastfm.similar():
+        row = db.read_one('tracks', 'path', 'artist=?', 
+            (unicode(artist.name),))
+        if row and row[0]:
+            song = exaile.all_songs.for_path(row[0])
+            if song and not song in exaile.songs:
+                songs.append(song)
+
+        if len(songs) >= 5: return songs
+
+    return songs    
 
 class TrackData(list):
     """

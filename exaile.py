@@ -1467,7 +1467,23 @@ class ExaileWindow(object):
 
         trackslist.update_queued(self)
         xl.track.update_info(self.playlists_nb, track)
+
+        # if we're in dynamic mode, find some tracks to add
+        if self.dynamic.get_active():
+            thread.start_new_thread(self.get_suggested_songs, tuple())
+
         gc.collect()
+
+    def get_suggested_songs(self):
+        """
+            Gets suggested tracks from last.fm
+        """
+        if not self.tracks or not self.current_track: return
+        songs = tracks.get_suggested_songs(self, self.db, self.current_track)
+        for song in songs:
+            gobject.idle_add(self.tracks.append_song, song)
+
+        gobject.idle_add(self.update_songs)
 
     def show_popup(self):
         """
@@ -1495,6 +1511,10 @@ class ExaileWindow(object):
         self.repeat = self.xml.get_widget('repeat_button')
         self.repeat.set_active(self.settings.get_boolean('repeat', False))
         self.repeat.connect('toggled', self.toggle_mode, 'repeat')
+
+        self.dynamic = self.xml.get_widget('dynamic_button')
+        self.dynamic.set_active(self.settings.get_boolean('dynamic', False))
+        self.dynamic.connect('toggled', self.toggle_mode, 'dynamic')
 
     def toggle_mode(self, item, param):
         """

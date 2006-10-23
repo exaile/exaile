@@ -66,8 +66,12 @@ class Config(dict):
         if value == None:
             value = default
 
-        return int(value)
-    
+        try:
+            value = int(value)
+        except ValueError:
+            value = 0
+
+        return value
 
     def get_float(self, key, default=0): 
         """

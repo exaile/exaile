@@ -11,7 +11,7 @@ Depends: ${shlibs:Depends}, python-pysqlite2,
  libgstreamer0.10-0, gstreamer0.10-plugins-base, gstreamer0.10-plugins-good, 
  python-gst0.10, gstreamer0.10-esd, gstreamer0.10-alsa, python2.4,
  python2.4-gtk2, python-glade2, python2.4-dbus, python-pyvorbis,
- python-mutagen
+ python-mutagen, python2.4-elementtree
 Recommends: gstreamer0.10-plugins-ugly, python2.4-gnome-extras, python-cddb,
  streamripper
 Description: an AmaroK-like media player

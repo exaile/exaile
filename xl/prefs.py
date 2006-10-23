@@ -228,7 +228,9 @@ class ComboPrefsItem(PrefsItem):
     """
         combo box
     """
-    def __init__(self, name, default, change=None, done=None):
+    def __init__(self, name, default, change=None, done=None, 
+        use_index=False):
+        self.use_index = use_index
         PrefsItem.__init__(self, name, default, change, done)
 
     def setup_change(self):
@@ -237,6 +239,11 @@ class ComboPrefsItem(PrefsItem):
 
     def set_pref(self):
         item = settings.get(self.name, self.default)
+
+        if self.use_index:
+            index = settings.get_int(self.name, self.default)
+            self.widget.set_active(index)
+            return
 
         model = self.widget.get_model()
         iter = model.get_iter_first()
@@ -252,7 +259,11 @@ class ComboPrefsItem(PrefsItem):
 
     def apply(self):
         if self.done and not self.do_done(): return False
-        settings[self.name] = self.widget.get_active_text()
+
+        if self.use_index:
+            settings[self.name] = self.widget.get_active()
+        else:
+            settings[self.name] = self.widget.get_active_text()
         return True
 
 class Preferences(object):
@@ -326,6 +337,8 @@ class Preferences(object):
         self.text_display = PrefsTextViewItem('osd_display_text',
             TEXT_VIEW_DEFAULT, self.display_popup)
         self.fields.append(self.text_display)
+        self.fields.append(ComboPrefsItem('tab_placement',
+            0, None, self.setup_tabs, use_index=True))
 
         simple_settings = ({
             'use_splash': (CheckPrefsItem, True),
@@ -358,7 +371,6 @@ class Preferences(object):
             'osd_text_font': (FontButtonPrefsItem, 'Sans 10',
                 self.osd_fontpicker),
             'use_tray': (CheckPrefsItem, True, None, self.setup_tray),
-            'tab_placement': (ComboPrefsItem, 'Top', None, self.setup_tabs),
             'amazon_locale': (PrefsItem, 'us'),
             'wikipedia_locale': (PrefsItem, 'en'),
             'scan_interval': (PrefsItem, '25', None,
@@ -432,7 +444,7 @@ class Preferences(object):
         password = widget.get_text()
 
         thread.start_new_thread(media.get_scrobbler_session,
-            (self.exaile, user, password, True))
+            (user, password, True))
         return True
 
     def __setup_gamin(self, widget):
@@ -448,8 +460,8 @@ class Preferences(object):
             Sets up tab placement for the playlists tab
         """
 
-        text = widget.get_active_text()
-        self.exaile.set_tab_placement(text)
+        index = widget.get_active()
+        self.exaile.set_tab_placement(index)
         return True
 
     def ok(self, widget):

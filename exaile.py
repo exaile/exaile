@@ -614,13 +614,13 @@ class ExaileWindow(object):
             Sets the placement of the tabs on the playlists notebook
         """
         if not setting:
-            p = self.settings.get('tab_placement', 'Top')
+            p = self.settings.get_int('tab_placement', 0)
         else: p = setting
         s = gtk.POS_LEFT
-        if p == 'Top': s = gtk.POS_TOP
-        elif p == 'Right': s = gtk.POS_RIGHT
-        elif p == 'Left': s = gtk.POS_LEFT
-        elif p == 'Bottom': s = gtk.POS_BOTTOM
+        if p == 0: s = gtk.POS_TOP
+        elif p == 1: s = gtk.POS_RIGHT
+        elif p == 2: s = gtk.POS_LEFT
+        elif p == 3: s = gtk.POS_BOTTOM
 
         self.playlists_nb.set_tab_pos(s)
 

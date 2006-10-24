@@ -1482,8 +1482,18 @@ class ExaileWindow(object):
             Gets suggested tracks from last.fm
         """
         if not self.tracks or not self.current_track: return
+
+        played = 0
+        for song in self.songs:
+            if song in self.played:
+                played += 1
+
+        count = 5 - (len(self.songs) - played)
+        xlmisc.log("suggested song count is %d" % count)
+        if count <= 0: count = 1
+
         songs = tracks.get_suggested_songs(self, self.db, 
-            self.current_track, self.songs)
+            self.current_track, self.songs, count)
         for song in songs:
             gobject.idle_add(self.tracks.append_song, song)
 

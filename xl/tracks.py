@@ -33,7 +33,7 @@ READ_FIELDS = "path, title, artist, album, "  \
     "genre, track, length, bitrate, year, modified, user_rating, " \
     "blacklisted, the_track"
 
-def get_suggested_songs(exaile, db, song, s):
+def get_suggested_songs(exaile, db, song, s, count=10):
     """
         Finds and returns 10 suggested songs from last.fm
     """
@@ -54,7 +54,7 @@ def get_suggested_songs(exaile, db, song, s):
                 if song and not song in exaile.songs:
                     songs.append(song)
 
-            if len(songs) >= 10: return songs
+            if len(songs) >= count: return songs
 
     return songs    
 

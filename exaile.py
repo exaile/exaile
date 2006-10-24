@@ -38,7 +38,7 @@ import gtk, gtk.glade, pango, dbus
 
 import os, re, random, fileinput, gc, urllib, md5
 import os.path, traceback, thread, gettext, time
-import locale, tempfile
+import locale, tempfile, subprocess
 
 # set up gettext for translations
 locale.setlocale(locale.LC_ALL, '')
@@ -85,6 +85,8 @@ class ExaileWindow(object):
         self.timer_count = 0
         self.current_track = None
         self.gamin_watched = []
+        self.streamripper_pid = None
+        self.streamripper_out = None
         self.played = []
         self.mon = None
         self.all_songs = tracks.TrackData()
@@ -299,6 +301,9 @@ class ExaileWindow(object):
         self.play_button = self.xml.get_widget('play_button')
         self.play_button.connect('clicked', self.toggle_pause)
 
+        self.record_button = self.xml.get_widget('record_button')
+        self.record_button.connect('button_release_event', self.toggle_record)
+
         self.stop_button = self.xml.get_widget('stop_button')
         self.stop_button.connect('clicked', self.stop)
 
@@ -411,6 +416,64 @@ class ExaileWindow(object):
         self.rating_combo.set_active(0)
         self.rating_combo.set_sensitive(False)
         self.rating_signal = self.rating_combo.connect('changed', self.__set_rating)
+
+    def toggle_record(self, widget, event=None):
+        """
+            Toggles streamripper
+        """
+        if not self.streamripper_pid:
+            track = self.current_track
+            if not track or not isinstance(track, media.StreamTrack):
+                common.error(self.window, _("You can only record streams"))
+                widget.set_active(False)
+                return True
+            
+            # check to see that streamripper is on the system
+            try:
+                ret = subprocess.call(['streamripper'], stdout=-1, stderr=-1)
+            except OSError:
+                common.error(exaile.window, _("Sorry, the 'streamripper'"
+                    " executable could not be found in your path"))
+                widget.set_active(False)
+                return True
+
+            savedir = self.settings.get('streamripper_save_location',
+                os.getenv("HOME"))
+            outfile = self.get_settings_dir() + "/streamripper.log"
+
+            self.streamripper_out = open(outfile, "w+", 0)
+            self.streamripper_out.write("Streamripper log file started: %s\n" %
+                time.strftime("%c", time.localtime()))
+            self.streamripper_out.write(
+                "-------------------------------------------------\n\n\n")
+
+            if self.settings.get_boolean("kill_streamripper", True):
+                xlmisc.log("Killing any current streamripper processes")
+                os.system("killall -9 streamripper")
+
+            sub = subprocess.Popen(['streamripper', track.loc, 
+                '-d', savedir], stderr=self.streamripper_out)
+            ret = sub.poll()
+            self.streamripper = sub
+
+            xlmisc.log("Streamripper return value was %s" % ret)
+            xlmisc.log("Using streamripper to play location: %s" % track.loc)
+            self.status.set_first("Streamripping location: %s..." %
+                track.loc, 4000)
+            if ret != None:
+                common.error(self.window, _("There was an error"
+                    " executing streamripper."))
+                return True
+            self.streamripper_pid = sub.pid
+
+            return False
+        else:
+            if not self.streamripper_pid:
+                common.error(self.window, _("Streamripper is not running."))
+            os.system("kill -9 %d" % self.streamripper_pid)
+            self.streamripper_pid = None
+
+        return False
 
     def __set_rating(self, combo):
         """
@@ -1042,11 +1105,6 @@ class ExaileWindow(object):
         if track == None: 
             return True
         duration = track.duration * 1000000000 # this is gst.SECOND
-
-        # check to see if streamripper died (if applicable)
-        if isinstance(track, media.StreamTrack) and \
-            track.is_playing():
-            track.check_streamripper_pid()
 
         # update the progress bar/label
         value = track.current_position()

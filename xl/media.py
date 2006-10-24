@@ -592,57 +592,9 @@ class StreamTrack(Track):
 
         self.last_audio_sink = audio_sink
 
-        # set up streamripper if needed
-        if self.type != 'podcast' and not self.is_paused() and \
-            exaile_instance.settings.get_boolean('use_streamripper'):
-            settings = exaile_instance.settings 
-            savedir = settings.get('streamripper_save_location',
-                os.getenv('HOME'))
-            port = settings.get_int('streamripper_relay_port', 8000)
-            outfile = exaile_instance.get_settings_dir() + "/streamripper.out"
-            self.streamripper_out = open(outfile, "w+", 0)
-            self.streamripper_out.write("Streamripper log file started: %s\n" %
-                time.strftime("%c", time.localtime()))
-            self.streamripper_out.write(
-                "-------------------------------------------------\n\n\n")
-
-            if settings.get_boolean("kill_streamripper", True):
-                xlmisc.log("Killing any current streamripper processes")
-                os.system("killall -9 streamripper")
-
-            sub = subprocess.Popen(['streamripper', self.loc, '-r', str(port),
-                '-d', savedir], stderr=self.streamripper_out)
-            ret = sub.poll()
-            self.streamripper = sub
-
-            xlmisc.log("Streamripper return value was %s" % ret)
-            xlmisc.log("Using streamripper to play location: %s" % self.loc)
-            exaile_instance.status.set_first("Streamripping location: %s..." %
-                self.loc, 4000)
-            if ret != None:
-                common.error(exaile_instance.window, _("There was an error"
-                    " executing streamripper."))
-                return
-            self.streamripper_pid = sub.pid
-
-            # wait half a second to make sure streamripper has started up
-            time.sleep(.5)
-            self.stream_loc = "http://localhost:%d" % port
-
         if not self.is_paused():
             self.start_time = time.time()
         Track.play(self, next_func)
-
-    def check_streamripper_pid(self):
-        """
-            If we're using streamripper, make sure it didn't die.
-        """
-        if self.streamripper_pid:
-            if self.streamripper.poll() != None:
-                common.error(exaile_instance.window, _("Streamripper "
-                    "died unexpectedly."))
-                self.stop()
-                exaile_instance.on_next()
 
     def get_duration(self):
         """
@@ -651,18 +603,6 @@ class StreamTrack(Track):
         t = timetype(0)
         t.stream = True
         return t
-
-    def stop(self):
-        """
-            Stops playback
-        """
-        if self.streamripper_pid:
-            os.system("kill -9 %d" % self.streamripper_pid)
-            self.streamripper_out.close()
-            self.stream_loc = None
-            self.streamripper_pid = None
-        self.start_time = 0
-        Track.stop(self)
 
     def get_length(self):
         """

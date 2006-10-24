@@ -342,10 +342,7 @@ class Preferences(object):
 
         simple_settings = ({
             'use_splash': (CheckPrefsItem, True),
-            'use_streamripper': (CheckPrefsItem, False,
-                self.__check_streamripper),
             'streamripper_save_location': (DirPrefsItem, os.getenv("HOME")),
-            'streamripper_relay_port': (PrefsItem, '8000'),
             'kill_streamripper': (CheckPrefsItem, True),
             'watch_directories': (CheckPrefsItem, False, self.__check_gamin,
                 self.__setup_gamin),
@@ -419,19 +416,6 @@ class Preferences(object):
                 common.error(self.exaile.window,
                     _("Cannot watch directories for changes. "
                     "Install python2.4-gamin to use this feature."))
-                widget.set_active(False)
-                return False
-
-    def __check_streamripper(self, widget):
-        """
-            Make sure that streamripper can be found on the system
-        """
-        if widget.get_active():
-            try:
-                ret = subprocess.call(['streamripper'], stdout=-1, stderr=-1)
-            except OSError:
-                common.error(self.exaile.window, _("Sorry, the 'streamripper'"
-                    " executable could not be found in your path"))
                 widget.set_active(False)
                 return False
 

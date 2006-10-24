@@ -16,7 +16,7 @@
 
 import os, re, os.path, copy, traceback, gc
 import common, media, db, config, trackslist
-import sys, md5, xlmisc, gobject
+import sys, md5, xlmisc, gobject, random
 import thread, threading, urllib, audioscrobbler
 
 try:    
@@ -38,6 +38,7 @@ def get_suggested_songs(exaile, db, song, s):
         Finds and returns 10 suggested songs from last.fm
     """
     new = s[:]
+    random.shuffle(new)
     new.insert(0, song)
     songs = TrackData()
 

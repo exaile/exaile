@@ -33,13 +33,15 @@ READ_FIELDS = "path, title, artist, album, "  \
     "genre, track, length, bitrate, year, modified, user_rating, " \
     "blacklisted, the_track"
 
-def get_suggested_songs(exaile, db, s):
+def get_suggested_songs(exaile, db, song, s):
     """
         Finds and returns 10 suggested songs from last.fm
     """
+    new = s[:]
+    new.insert(0, song)
     songs = TrackData()
 
-    for song in s:
+    for song in new:
         xlmisc.log("Fetching suggested tracks for %s" % song.artist)
         lastfm = audioscrobbler.AudioScrobblerQuery(artist=song.artist)
 

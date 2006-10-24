@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import os, threading, httplib, xlmisc, md5, re, common
-import media
+import media, gc
 from urllib import urlencode
 from gettext import gettext as _
 
@@ -60,6 +60,7 @@ class TablatureTab(gtk.VBox):
         self.set_spacing(3)
         self.exaile = panel.exaile
         self.panel = panel
+        self.stopped = False
 
         text = gtk.TextView()
         text.set_editable(False)
@@ -107,7 +108,8 @@ class TablatureTab(gtk.VBox):
         """
             Called when the text has been fetched.
         """
-        if self.track != self.panel.track: return
+        if self.track != self.panel.track or \
+            self.stopped: return
         m = self.REGEX.search(text)
         if m:
             text = m.group(1)
@@ -117,11 +119,18 @@ class TablatureTab(gtk.VBox):
         if text.find("Error 302") > -1:
             text = "Tablature not found."
         xlmisc.log(self.cache_file)
-        if self.track != self.panel.track: return
+        if self.track != self.panel.track or \
+            self.stopped: return
         self.text.set_text(text)
         h = open(self.cache_file, 'w')
         h.write(text)
         h.close()            
+
+    def close_page(self):   
+        """
+            Called when this tab is closed
+        """
+        self.stopped = True
 
 class LyricsTab(gtk.VBox):
     """
@@ -159,6 +168,12 @@ class LyricsTab(gtk.VBox):
         self.lyrics.t.url = search
         self.lyrics.t.start()
 
+    def close_page(self):
+        """
+            Called when this tab is closed
+        """
+        self.text.stopped = True
+
 class WikipediaTab(gtk.HBox):
     """
         Shows a wikipedia page
@@ -168,9 +183,15 @@ class WikipediaTab(gtk.HBox):
             Initializes the panel
         """
         gtk.HBox.__init__(self)
-        browser = xlmisc.BrowserWindow(exaile, url)
-        self.pack_start(browser, True, True)
+        self.browser = xlmisc.BrowserWindow(exaile, url)
+        self.pack_start(self.browser, True, True)
         self.show_all()
+
+    def close_page(self):
+        """
+            called when this tab is closed
+        """
+        self.browser.stopped = True
 
 class TrackStatsTab(gtk.HBox):
     """
@@ -237,6 +258,12 @@ class TrackStatsTab(gtk.HBox):
             self.right.pack_start(label, False, False)
         else:
             self.right.pack_start(string, False, True)
+
+    def close_page(self):
+        """
+            Called when this tab is closed
+        """
+        pass
 
 class RadioTrackStatsTab(TrackStatsTab):
     """
@@ -311,6 +338,17 @@ class TrackInformation(gtk.Notebook):
             self.append_page(TablatureTab(self, track),
                 gtk.Label(_("Tablature")))
         self.show_all()
+
+    def close_page(self):
+        """
+            Called when this tab in the notebook is closed
+        """
+        for i in range(self.get_n_pages()):
+            page = self.get_nth_page(i)
+            page.close_page()
+
+        self.destroy()
+        gc.collect()
 
 class TrackEditor(object):
     """

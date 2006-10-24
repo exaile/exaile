@@ -85,6 +85,12 @@ class TracksListCtrl(gtk.VBox):
         self.setup_dragging()
         self.setup_events()
 
+    def close_page(self):
+        """
+            Called when this page in the notebook is closed
+        """
+        pass
+
     def setup_dragging(self):
         """
             Sets up drag and drop

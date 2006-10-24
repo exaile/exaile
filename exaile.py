@@ -1369,12 +1369,15 @@ class ExaileWindow(object):
         nb = self.playlists_nb
         if not page:
             i = self.playlists_nb.get_current_page()
+            page = self.playlists_nb.get_nth_page(i)
+            page.close_page()
             if i > -1:
                 self.playlists_nb.remove_page(i)
         else:
             for i in range(0, nb.get_n_pages()):
                 p = nb.get_nth_page(i)
                 if p == page:
+                    page.close_page()
                     nb.remove_page(i)
                     break
 

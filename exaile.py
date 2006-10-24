@@ -499,7 +499,7 @@ class ExaileWindow(object):
         """
             Views the streamripper log, if it's available
         """
-        file = SETTINGS_DIR + "/streamripper.out"
+        file = SETTINGS_DIR + "/streamripper.log"
         if not os.path.isfile(file):
             common.error(self.window, _("No streamripper log available"))
             return

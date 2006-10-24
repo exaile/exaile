@@ -1713,6 +1713,11 @@ class ExaileWindow(object):
         """
             Stops playback
         """
+        if self.streameripper_pid:
+            os.system("kill -9 %d" % self.streamripper_pid)
+            self.streamripper_pid = None
+
+        self.record_button.set_active(False)
         self.status.set_first(None)
         self.cover.set_image("images%snocover.png" % os.sep)
         self.stop_cover_thread()
@@ -2004,6 +2009,7 @@ class ExaileWindow(object):
         if self.tray_icon and widget == self.window:
             return True
 
+        self.stop()
         self.stop_cover_thread()
         for thread in self.thread_pool:
             thread.done = True

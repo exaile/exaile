@@ -1713,7 +1713,7 @@ class ExaileWindow(object):
         """
             Stops playback
         """
-        if self.streameripper_pid:
+        if self.streamripper_pid:
             os.system("kill -9 %d" % self.streamripper_pid)
             self.streamripper_pid = None
 

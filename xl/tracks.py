@@ -33,22 +33,25 @@ READ_FIELDS = "path, title, artist, album, "  \
     "genre, track, length, bitrate, year, modified, user_rating, " \
     "blacklisted, the_track"
 
-def get_suggested_songs(exaile, db, song):
+def get_suggested_songs(exaile, db, s):
     """
-        Finds and returns 5 suggested songs from last.fm
+        Finds and returns 10 suggested songs from last.fm
     """
-    lastfm = audioscrobbler.AudioScrobblerQuery(artist=song.artist)
-
     songs = TrackData()
-    for artist in lastfm.similar():
-        row = db.read_one('tracks', 'path', 'artist=?', 
-            (unicode(artist.name),))
-        if row and row[0]:
-            song = exaile.all_songs.for_path(row[0])
-            if song and not song in exaile.songs:
-                songs.append(song)
 
-        if len(songs) >= 5: return songs
+    for song in s:
+        xlmisc.log("Fetching suggested tracks for %s" % song.artist)
+        lastfm = audioscrobbler.AudioScrobblerQuery(artist=song.artist)
+
+        for artist in lastfm.similar():
+            row = db.read_one('tracks', 'path', 'artist=?', 
+                (unicode(artist.name),))
+            if row and row[0]:
+                song = exaile.all_songs.for_path(row[0])
+                if song and not song in exaile.songs:
+                    songs.append(song)
+
+            if len(songs) >= 10: return songs
 
     return songs    
 

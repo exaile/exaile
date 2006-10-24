@@ -572,8 +572,6 @@ class StreamTrack(Track):
         self.track = ""
         self.start_time = 0
         self.type = 'stream'
-        self.streamripper_pid = None
-        self.streamripper_out = None
         self.stream_loc = ''
     
     def play(self, next_func=None):
@@ -603,6 +601,13 @@ class StreamTrack(Track):
         t = timetype(0)
         t.stream = True
         return t
+
+    def stop(self):
+        """
+            Stops playback of the stream
+        """
+        self.stream_loc = None
+        Track.stop(self)
 
     def get_length(self):
         """

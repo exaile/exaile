@@ -428,8 +428,8 @@ class ExaileWindow(object):
         """
             Toggles streamripper
         """
+        track = self.current_track
         if not self.streamripper_pid:
-            track = self.current_track
             if not track: return True
             if not isinstance(track, media.StreamTrack):
                 common.error(self.window, _("You can only record streams"))
@@ -438,6 +438,8 @@ class ExaileWindow(object):
 
             savedir = self.settings.get('streamripper_save_location',
                 os.getenv("HOME"))
+            port = self.settings.get_int('streamripper_relay_port',
+                8000)
             outfile = self.get_settings_dir() + "/streamripper.log"
 
             self.streamripper_out = open(outfile, "w+", 0)
@@ -450,8 +452,9 @@ class ExaileWindow(object):
                 xlmisc.log("Killing any current streamripper processes")
                 os.system("killall -9 streamripper")
 
-            sub = subprocess.Popen(['streamripper', track.loc, 
-                '-d', savedir], stderr=self.streamripper_out)
+            track.stop()
+            sub = subprocess.Popen(['streamripper', track.loc, '-r',
+                str(port), '-d', savedir], stderr=self.streamripper_out)
             ret = sub.poll()
             self.streamripper = sub
 
@@ -464,12 +467,16 @@ class ExaileWindow(object):
                     " executing streamripper."))
                 return True
             self.streamripper_pid = sub.pid
+            track.stream_url = "http://localhost:%d" % port
+            track.play(self.on_next)
 
             return False
         else:
             if not self.streamripper_pid:
                 common.error(self.window, _("Streamripper is not running."))
             os.system("kill -9 %d" % self.streamripper_pid)
+            track.stop()
+            track.play(self.on_next)
             self.streamripper_pid = None
 
         return False

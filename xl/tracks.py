@@ -27,7 +27,7 @@ except:
 
 from pysqlite2 import dbapi2 as sqlite
 from pysqlite2.dbapi2 import OperationalError
-from media import *
+import media
 
 READ_FIELDS = "path, title, artist, album, "  \
     "genre, track, length, bitrate, year, modified, user_rating, " \

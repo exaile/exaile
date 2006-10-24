@@ -43,6 +43,7 @@ def get_suggested_songs(exaile, db, song, s, count=10):
     songs = TrackData()
 
     for song in new:
+        if not song.artist: continue
         xlmisc.log("Fetching suggested tracks for %s" % song.artist)
         lastfm = audioscrobbler.AudioScrobblerQuery(artist=song.artist)
 

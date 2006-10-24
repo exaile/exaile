@@ -304,6 +304,13 @@ class ExaileWindow(object):
         self.record_button = self.xml.get_widget('record_button')
         self.record_button.connect('button_release_event', self.toggle_record)
 
+        # check to see that streamripper is on the system
+        try:
+            ret = subprocess.call(['streamripper'], stdout=-1, stderr=-1)
+        except OSError:
+            self.record_button.destroy()
+            xlmisc.log("Streamripper not found")
+
         self.stop_button = self.xml.get_widget('stop_button')
         self.stop_button.connect('clicked', self.stop)
 
@@ -423,17 +430,9 @@ class ExaileWindow(object):
         """
         if not self.streamripper_pid:
             track = self.current_track
-            if not track or not isinstance(track, media.StreamTrack):
+            if not track: return True
+            if not isinstance(track, media.StreamTrack):
                 common.error(self.window, _("You can only record streams"))
-                widget.set_active(False)
-                return True
-            
-            # check to see that streamripper is on the system
-            try:
-                ret = subprocess.call(['streamripper'], stdout=-1, stderr=-1)
-            except OSError:
-                common.error(exaile.window, _("Sorry, the 'streamripper'"
-                    " executable could not be found in your path"))
                 widget.set_active(False)
                 return True
 

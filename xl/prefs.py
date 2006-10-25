@@ -565,7 +565,7 @@ class Preferences(object):
 
         track = BlankClass() 
         for item in ('title', 'artist', 'album', 'length', 'track', 'bitrate',
-            'genre', 'year'):
+            'genre', 'year', 'rating'):
             setattr(track, item, item)
 
         self.popup.show_track_popup(track, self.text_display.get_all_text(), 

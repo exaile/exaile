@@ -1818,7 +1818,7 @@ class PopupWindow(object):
             Shows a popup specific to a track
         """
         for item in ('title', 'artist', 'album', 'length', 'track', 'bitrate',
-            'genre', 'year'):
+            'genre', 'year', 'rating'):
             try:
                 value = getattr(track, item)
                 if type(value) != str and type(value) != unicode:

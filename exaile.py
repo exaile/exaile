@@ -1272,7 +1272,8 @@ class ExaileWindow(object):
 
         cover = self.fetch_from_fs(track)
         if cover:
-            self.cover.set_image(cover)
+            if popup: return cover
+            else: self.cover.set_image(cover)
             return
 
         if popup != None: return "images%snocover.png" % os.sep

@@ -193,7 +193,7 @@ class WikipediaTab(gtk.HBox):
         """
         self.browser.stopped = True
 
-class TrackStatsTab(gtk.HBox):
+class TrackStatsTab(gtk.Table):
     """
         Track Statistics
     """
@@ -201,16 +201,13 @@ class TrackStatsTab(gtk.HBox):
         """
             Initializes the tab
         """
-        gtk.HBox.__init__(self)
+        gtk.Table.__init__(self, 12, 2, False) # initialize 12 rows
         self.set_border_width(5)
-        self.db = exaile.db
+        self.set_row_spacings(3)
 
-        self.left = gtk.VBox()
-        self.left.set_spacing(3)
-        self.pack_start(self.left, False, False)
-        self.right = gtk.VBox()
-        self.right.set_spacing(3)
-        self.pack_start(self.right, True, False)
+        self.db = exaile.db
+        self.bottom = 0
+
         self.setup_information(track)
 
         self.show_all()
@@ -249,15 +246,20 @@ class TrackStatsTab(gtk.HBox):
         attr.change(pango.AttrWeight(pango.WEIGHT_BOLD, 0, 800))
         label.set_attributes(attr)
 
-        self.left.pack_start(label, False, False)
+        self.attach(label, 0, 1, self.bottom, self.bottom +1,
+            gtk.EXPAND | gtk.FILL, gtk.FILL)
 
         if isinstance(string, unicode) or isinstance(string, str):
             label = gtk.Label(string)
             label.set_alignment(0, 0)
             label.set_line_wrap(True)
-            self.right.pack_start(label, False, False)
+            self.attach(label, 1, 2, self.bottom, self.bottom + 1,
+                gtk.EXPAND | gtk.FILL, gtk.FILL)
         else:
-            self.right.pack_start(string, False, True)
+            self.attach(string, 1, 2, self.bottom, self.bottom + 1,
+                gtk.EXPAND | gtk.FILL, gtk.FILL)
+
+        self.bottom += 1;
 
     def close_page(self):
         """
@@ -300,6 +302,7 @@ class TrackInformation(gtk.Notebook):
 
         self.setup_tabs(track)
         self.show_all()
+        self.type = 'information'
 
         self.exaile.playlists_nb.append_page(self, xlmisc.NotebookTab(exaile,
             _("Information"), self))

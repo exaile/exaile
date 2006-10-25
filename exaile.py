@@ -1558,6 +1558,12 @@ class ExaileWindow(object):
 
         songs = tracks.get_suggested_songs(self, self.db, 
             self.current_track, self.songs, count)
+
+        if not songs:
+            gobject.idle_add(self.status.set_first, "Could not find any"
+            " suggested songs", 4000)
+            return
+
         for song in songs:
             gobject.idle_add(self.tracks.append_song, song)
 

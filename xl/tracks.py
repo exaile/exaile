@@ -381,7 +381,7 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True):
         return current.for_path(path)
     else:
         if ipod:
-            tr = iPodTrack(row[0])
+            tr = media.iPodTrack(row[0])
         elif media.FORMAT.has_key(ext.lower()):
             ttype = media.FORMAT[ext.lower()]
             tr = ttype(row[0])

@@ -45,17 +45,22 @@ def get_suggested_songs(exaile, db, song, s, count=10):
     for song in new:
         if not song.artist: continue
         xlmisc.log("Fetching suggested tracks for %s" % song.artist)
-        lastfm = audioscrobbler.AudioScrobblerQuery(artist=song.artist)
+        try:
+            lastfm = audioscrobbler.AudioScrobblerQuery(artist=song.artist)
 
-        for artist in lastfm.similar():
-            row = db.read_one('tracks', 'path', 'artist=?', 
-                (unicode(artist.name),))
-            if row and row[0]:
-                song = exaile.all_songs.for_path(row[0])
-                if song and not song in exaile.songs:
-                    songs.append(song)
+            for artist in lastfm.similar():
+                row = db.read_one('tracks', 'path', 'artist=?', 
+                    (unicode(artist.name),))
+                if row and row[0]:
+                    song = exaile.all_songs.for_path(row[0])
+                    if song and not song in exaile.songs:
+                        songs.append(song)
 
-            if len(songs) >= count: return songs
+                if len(songs) >= count: return songs
+        except audioscrobbler.AudioScrobblerError:
+            pass
+        except:
+            xlmisc.log_exception()
 
     return songs    
 

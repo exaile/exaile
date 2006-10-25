@@ -1561,7 +1561,7 @@ class ExaileWindow(object):
         for song in songs:
             gobject.idle_add(self.tracks.append_song, song)
 
-        gobject.idle_add(self.update_songs, None, True)
+        gobject.idle_add(self.update_songs, None, False)
 
     def show_popup(self):
         """

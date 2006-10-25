@@ -557,16 +557,10 @@ class TracksListCtrl(gtk.VBox):
         """
             Adds a song to this view
         """
-        selection = self.list.get_selection()
-        (model, paths) = selection.get_selected_rows()
-
         self.model.append([song, None, song.track, song.title, song.artist,
             song.album, song.length, song.rating, song.year, song.genre,
             song.bitrate])
         if not song in self.songs: self.songs.append(song)
-        if paths:
-            for path in paths:
-                selection.select_path(path)
 
     def update_iter(self, iter, song):
         """

@@ -1608,15 +1608,48 @@ class ImageWidget(gtk.Image):
         """
         self.size = (width, height)
 
-    def set_image(self, image):
+    def set_image(self, image, fill=False):
         """
             Sets the image
         """
         self.loc = image
+        width, height = self.size[0], self.size[1]
+
+        pixmap = gtk.gdk.Pixmap(None, self.size[0], self.size[1], 24)
+        colormap = gtk.gdk.colormap_get_system()
+        black = colormap.alloc_color(0, 0, 0)
+        white = colormap.alloc_color(65535, 65535, 65535)
+        pixmap.set_colormap(colormap)
+        gc = pixmap.new_gc(foreground=black, background=black)
+        pixmap.draw_rectangle(gc, True, 0, 0, self.size[0], self.size[1])
+
+
         pixbuf = gtk.gdk.pixbuf_new_from_file(image)
-        scaled = pixbuf.scale_simple(self.size[0], self.size[1],
-            gtk.gdk.INTERP_BILINEAR)
-        self.set_from_pixbuf(scaled)
+        w, h = pixbuf.get_width(), pixbuf.get_height()
+        neww, newh = w, h     
+
+        if fill or neww == newh:
+            neww, newh = width, height
+        elif neww > newh:
+            ratio = float(neww) / float(newh)
+            neww = width
+            newh = int(neww / ratio)
+        else:
+            ratio = float(newh) / float(neww)
+            newh = height
+            neww = int(newh / ratio)
+
+        x = width / 2 - neww / 2
+        y = height / 2 - newh / 2
+
+        pixbuf = pixbuf.scale_simple(neww, newh, gtk.gdk.INTERP_BILINEAR)
+        pixmap.draw_pixbuf(gc, pixbuf, 0, 0, x, y, neww, newh)
+
+        pb = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8, 
+            self.size[0], self.size[1])
+        pb = pb.get_from_drawable(pixmap, colormap, 0, 0, 0, 0, 
+            self.size[0], self.size[1])
+        self.set_from_pixbuf(pb)
         scaled = pixbuf = None
 
 class StatusBar(object):

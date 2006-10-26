@@ -108,6 +108,7 @@ class CollectionPanel(object):
         self.key_id = None
         self.search_button = self.xml.get_widget('%s_search_button' %
             self.name)
+        self.filter.set_sensitive(False)
         self.search_button.connect('clicked', self.on_search)
         self.create_popup()
 
@@ -508,6 +509,7 @@ class CollectionPanel(object):
 
         if self.connect_id: gobject.source_remove(self.connect_id)
         self.connect_id = None
+        self.filter.set_sensitive(True)
 
     def __drag_end(self, list, context):
         """

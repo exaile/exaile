@@ -1562,17 +1562,41 @@ class ExaileWindow(object):
         if count <= 0: count = 1
 
         songs = tracks.get_suggested_songs(self, self.db, 
-            self.current_track, self.songs, count)
+            self.current_track, self.songs, count, self.__add_suggested)
+
+    def __add_suggested(self, artists, count):
+        """
+            adds suggested tracks that were fetched
+        """
+        songs = tracks.TrackData()
+        for artist in artists:
+            rows = self.db.select("SELECT path FROM tracks WHERE artist=?",
+                (unicode(artist),))
+            if rows:
+                search_songs = []
+                for row in rows:
+                    song = self.all_songs.for_path(row[0])
+                    if song:
+                        search_songs.append(song)
+
+                if search_songs:
+                    random.shuffle(search_songs)
+                    song = search_songs[0]
+                    if not song in self.tracks.songs \
+                        and not song in self.played and not \
+                        song in self.queued:
+                        songs.append(song)
+
+            if len(songs) >= count: break
 
         if not songs:
-            gobject.idle_add(self.status.set_first, "Could not find any"
+            self.status.set_first("Could not find any"
             " suggested songs", 4000)
-            return
 
         for song in songs:
-            gobject.idle_add(self.tracks.append_song, song)
+            self.tracks.append_song(song)
 
-        gobject.idle_add(self.update_songs, None, False)
+        self.update_songs(None, False)
 
     def show_popup(self):
         """

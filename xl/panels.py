@@ -280,6 +280,7 @@ class CollectionPanel(object):
 
         if return_only: return add
 
+        ipod_delete = []
         if item == self.remove:
             result = common.yes_no_dialog(self.exaile.window,
                 _("Are you sure you want to permanently remove the " \
@@ -287,7 +288,10 @@ class CollectionPanel(object):
 
             if result != gtk.RESPONSE_YES: return
             for track in add:
-                os.remove(track.loc)
+                if track.type == 'ipod':
+                    ipod_delete.append(track)
+                else:
+                    os.remove(track.loc)
 
             self.db.execute("DELETE FROM tracks WHERE %s" % where)
             self.db.execute("DELETE FROM playlist_items WHERE %s" % where)
@@ -310,7 +314,10 @@ class CollectionPanel(object):
             if self.exaile.tracks: 
                 self.exaile.tracks.set_songs(self.exaile.songs)
             self.track_cache = dict()
-            self.load_tree()
+            if ipod_delete:
+                self.exaile.ipod_panel.delete_tracks(ipod_delete)
+            else:
+                self.load_tree()
             return
 
         if item == self.new_playlist:
@@ -1054,12 +1061,10 @@ class iPodPanel(CollectionPanel):
 
         for track in tracks:
             track = track.ipod_track()
-            file = gpod.itdb_filename_on_ipod(track)
-            if file != None:
-                os.unlink(file)
             for playlist in gpod.sw_get_playlists(self.itdb):
                 if gpod.itdb_playlist_contains_track(playlist, track):
                     gpod.itdb_playlist_remove_track(playlist, track)
+
             gpod.itdb_track_unlink(track)
         self.save_database()            
 

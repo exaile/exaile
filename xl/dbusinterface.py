@@ -257,10 +257,8 @@ def get_options():
         default=False, help="Stop playback")
     p.add_option("-a", "--play", dest="play", action="store_true",
         default=False, help="Play or Pause")
-
     p.add_option("-q", "--query", dest="query", action="store_true",
         default=False, help="Query player")
-
     p.add_option("--gui-query", dest="guiquery", action="store_true",
         default=False, help="Show a popup of the currently playing track")
     p.add_option("--get-title", dest="get_title", action="store_true",
@@ -273,8 +271,10 @@ def get_options():
         default=False, help="Print the length of current track")
     p.add_option("--current-position", dest="current_position", action="store_true",
         default=False, help="Print the position inside the current track as a percentage")
-    p.add_option("-i","--increase_vol", dest="inc_vol",action="store", type="int",metavar="VOL",help="Increases the volume by VOL")
-    p.add_option("-l","--decrease_vol", dest="dec_vol",action="store",type="int",metavar="VOL",help="Decreases the volume by VOL")
+    p.add_option("-i","--increase_vol", dest="inc_vol",action="store", 
+        type="int",metavar="VOL",help="Increases the volume by VOL")
+    p.add_option("-l","--decrease_vol", dest="dec_vol",action="store",
+        type="int",metavar="VOL",help="Decreases the volume by VOL")
     p.add_option("--stream", dest="stream", help="Stream URL")
     p.add_option("--new", dest="new", action="store_true",
         default=False, help="Start new instance")

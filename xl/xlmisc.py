@@ -1614,11 +1614,14 @@ class ImageWidget(gtk.Image):
         """
         self.loc = image
         pixbuf = gtk.gdk.pixbuf_new_from_file(image)
-        wscale = float(pixbuf.get_width()) / self.size[0]
-        hscale = float(pixbuf.get_height()) / self.size[1]
-        scale = max(wscale, hscale)
-        scaled = pixbuf.scale_simple(int(pixbuf.get_width() / scale),
-            int(pixbuf.get_height() / scale), gtk.gdk.INTERP_BILINEAR)        
+        width, height = self.size
+        if not fill:
+            origw = float(pixbuf.get_width())
+            origh = float(pixbuf.get_height())
+            scale = min(width / origw, height / origh)
+            width = int(origw * scale)
+            height = int(origh * scale)
+        scaled = pixbuf.scale_simple(width, height, gtk.gdk.INTERP_BILINEAR)
         self.set_from_pixbuf(scaled)
 
         scaled = pixbuf = None

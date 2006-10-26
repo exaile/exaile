@@ -16,7 +16,7 @@
 
 
 import sys, re
-from pysqlite2.dbapi2 import OperationalError
+from sqlite3.dbapi2 import OperationalError
 import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade

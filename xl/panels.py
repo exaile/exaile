@@ -19,8 +19,8 @@ import common, trackslist, shoutcast
 import media, time, thread, re, copy, threading
 import urllib
 from xml.dom import minidom
-from pysqlite2.dbapi2 import OperationalError
-from pysqlite2 import dbapi2 as sqlite
+from sqlite3.dbapi2 import OperationalError
+from sqlite3 import dbapi2 as sqlite
 from gettext import gettext as _
 from popen2 import popen3 as popen
 import pygtk, audioscrobbler

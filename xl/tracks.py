@@ -25,8 +25,13 @@ try:
 except:
     CDDB_AVAIL = False
 
-from sqlite3 import dbapi2 as sqlite
-from sqlite3.dbapi2 import OperationalError
+try:
+    from sqlite3 import dbapi2 as sqlite
+    from sqlite3.dbapi2 import OperationalError
+except ImportError:
+    from pysqlite2 import dbapi2 as sqlite
+    from pysqlite2.dbapi2 import OperationalError
+
 import media
 
 READ_FIELDS = "path, title, artist, album, "  \

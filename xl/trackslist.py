@@ -18,7 +18,6 @@ import sys, os, re, random, fileinput, media
 import xlmisc, common, track, tracks
 import copy, time, urllib
 from gettext import gettext as _
-from sqlite3.dbapi2 import OperationalError
 import pygtk
 pygtk.require('2.0')
 import gtk

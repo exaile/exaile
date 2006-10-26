@@ -18,7 +18,7 @@ import time
 import trackslist, tracks, covers, md5, threading, re
 import sys, httplib, urlparse, os, os.path, urllib, media
 import common, traceback, gc
-from sqlite3.dbapi2 import OperationalError
+
 import cStringIO
 from gettext import gettext as _
 import prefs

@@ -46,7 +46,11 @@ from gettext import gettext as _
 gettext.bindtextdomain('exaile', 'po')
 gettext.textdomain('exaile')
 
-from sqlite3 import dbapi2 as sqlite
+try:
+    # python2.5
+    from sqlite3 import dbapi2 as sqlite
+except ImportError:
+    from pysqlite2 import dbapi2 as sqlite
 
 ## Find out the location of exaile's working directory, and go there
 basedir = os.path.dirname(os.path.realpath(__file__))

@@ -1354,7 +1354,22 @@ class ExaileWindow(object):
             self.__cover_menu_activate)
         self.cover_custom = menu.append(_("Set Custom Image"),
             self.__cover_menu_activate)
+        self.remove_cover = menu.append(_("Remove Cover"),
+            self.__remove_cover)
         self.cover_menu = menu
+
+    def __remove_cover(self, item, param=None):
+        """
+            removes the cover art for the current track
+        """
+        track = self.current_track
+        if not track: return
+
+        cur = self.db.cursor()
+        cur.execute("UPDATE albums SET image='nocover' WHERE album=? AND "
+            "artist=?", (track.album, track.artist))
+        cur.close()
+        self.cover.set_image("images%snocover.png" % os.sep)
 
     def __cover_menu_activate(self, item, user_param=None): 
         """

@@ -470,9 +470,6 @@ class PopulateThread(threading.Thread):
                 self.stop()
                 return
             try:
-                modified = os.stat(loc).st_mtime
-                size = os.stat(loc).st_size
-
                 temp = self.exaile.all_songs.for_path(loc)
                 
                 tr = read_track(db, self.exaile.all_songs, loc)

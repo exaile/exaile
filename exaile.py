@@ -756,7 +756,6 @@ class ExaileWindow(object):
             Adds songs to the current playlist
         """
         if queue: play = False
-
         if len(self.playlist_songs) == 0:
             self.playlist_songs = tracks.TrackData()
 
@@ -1782,7 +1781,7 @@ class ExaileWindow(object):
         self.update_track_information()
         self.progress.set_value(0)
 
-    def import_m3u(self, path, play=False, title=None, newtab=False): 
+    def import_m3u(self, path, play=False, title=None, newtab=True): 
         """
             Imports a playlist file, regardless of it's location (it can be
             a local file (ie, file:///somefile.m3u) or online.
@@ -1797,9 +1796,11 @@ class ExaileWindow(object):
 
         first = True
         songs = tracks.TrackData()
-        name = "Playlist"
+        (path, ext) = os.path.splitext(path)
+        name = os.path.basename(path).replace("_", " ")
         t = trackslist.TracksListCtrl 
 
+        count = 0
         for line in f.readlines():
             line = line.strip()
             if line.startswith("#") or line == "[playlist]": continue
@@ -1826,18 +1827,21 @@ class ExaileWindow(object):
                     name = "Stream"
 
             if tr:
-                try:
-                    songs.append(tr)
-                except:
-                    traceback.print_exc()
-                    xlmisc.log_exception()
+                songs.append(tr)
+
+            if count >= 10:
+                xlmisc.finish()
+                count = 0
+
+            count += 1
             first = False
+        
 
         if title: name = title
         if not songs: 
             self.status.set_first(None)
             return
-
+        
         if newtab:
             self.new_page(name, songs)
         else:
@@ -1890,7 +1894,6 @@ class ExaileWindow(object):
         dialog.hide()
 
         if result == gtk.RESPONSE_OK:
-            self.new_page()
             paths = dialog.get_filenames()
             self.last_open_dir = dialog.get_current_folder()
             self.status.set_first(_("Populating playlist..."))
@@ -1913,7 +1916,10 @@ class ExaileWindow(object):
                     self.import_m3u(path, newtab=new_tab.get_active())
 
             if songs:
-                self.append_songs(songs)
+                if new_tab.get_active():
+                    self.new_page(_("Playlist"), songs)
+                else:
+                    self.append_songs(songs)
 
             self.status.set_first(None)
 

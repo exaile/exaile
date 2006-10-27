@@ -499,6 +499,8 @@ class ExaileWindow(object):
             (rating, track.loc))
 
         print "Set rating to %d for track %s" % (rating, track)
+        if self.tracks:
+            self.tracks.refresh_row(track)
 
     def __streamripper_log(self):
         """

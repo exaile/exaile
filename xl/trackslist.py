@@ -41,9 +41,21 @@ class TracksListCtrl(gtk.VBox):
         _('Genre'): 'genre',
         _('Bitrate'): 'bitrate'
         }
+    size_map = {
+        '': 30,
+        '#': 30,
+        _('Title'): 200,
+        _('Artist'): 150,
+        _('Album'): 150,
+        _('Length'): 50,
+        _('Rating'): 80,
+        _('Year'): 50,
+        _('Genre'): 100,
+        _('Bitrate'): 30
+    }
+
     prep = "track"
     type = 'track'
-    default_sizes = [30, 30, 200, 150, 150, 50, 80, 50, 100, 30]
 
     def __init__(self, exaile, queue=False):
         """
@@ -218,15 +230,11 @@ class TracksListCtrl(gtk.VBox):
             else:
                 if not first:
                     first = True
-                    iter = self.model.insert_before(iter, [song, None, 
-                        song.track, song.title, song.artist, song.album, 
-                        song.length, song.rating, song.year, song.genre, 
-                        song.bitrate])
+                    ar = self.get_ar(song)
+                    iter = self.model.insert_before(iter, ar)
                 else:
-                    iter = self.model.insert_after(iter, [song, None, 
-                        song.track, song.title, song.artist,
-                        song.album, song.length, song.rating, song.year, 
-                        song.genre, song.bitrate])
+                    ar = self.get_ar(song)
+                    iter = self.model.insert_after(iter, ar)
                 if counter >= 20:
                     xlmisc.finish()
                     counter = 0
@@ -396,9 +404,18 @@ class TracksListCtrl(gtk.VBox):
 
         self._col_count = 0
         self._length_id = -1
-        count = 1
-        for name in self.col_items:
+        cols = self.exaile.settings.get("col_order", ":".join(self.col_items))
+        cols = cols.split(':')
+        for col in self.col_items:
+            if not col in cols:
+                cols.append(col)
 
+        self.append_map = []
+        for col in cols:
+            if col:
+                self.append_map.append(self.col_map[col])
+        count = 1
+        for name in cols:
             # get cell renderer
             if count == 1:
                 cellr = gtk.CellRendererPixbuf()
@@ -407,22 +424,23 @@ class TracksListCtrl(gtk.VBox):
 
             show = self.exaile.settings.get_boolean("show_%s_col_%s" %
                 (self.prep, name), True)
+
             if count == 1 or show:
-                if count == 1:
+                if name == '' :
                     col = gtk.TreeViewColumn(name, cellr, pixbuf=count)
                 else:
                     col = gtk.TreeViewColumn(name, cellr, text=count)
 
-                if count == 1:
+                if name == '':
                     col.set_cell_data_func(cellr, self.icon_data_func)
                 if name == _("Length"):
                     col.set_cell_data_func(cellr, self.length_data_func)
                 if name == "#":
                     col.set_cell_data_func(cellr, self.track_data_func)
 
-                name = name + "_%scol_width" % self.prep
-                width = self.exaile.settings.get_int(name, 
-                    self.default_sizes[count - 1])
+                setting_name = name + "_%scol_width" % self.prep
+                width = self.exaile.settings.get_int(setting_name, 
+                    self.size_map[name])
                 col.set_fixed_width(width)
 
                 if self.type != 'queue':
@@ -494,9 +512,13 @@ class TracksListCtrl(gtk.VBox):
         """
             Called when the tree loses focus... to save column widths
         """
+        cols = []
         for col in self.list.get_columns():
             name = col.get_title() + "_%scol_width" % self.prep
+            cols.append(col.get_title())
             self.exaile.settings[name] = col.get_width()
+
+        self.exaile.settings['col_order'] = ":".join(cols)
 
     def icon_data_func(self, col, cellr, model, iter):
         """
@@ -552,22 +574,30 @@ class TracksListCtrl(gtk.VBox):
         for song in songs:
             self.append_song(song)
 
+    def get_ar(self, song):
+        """
+            Creates the array to be added to the model in the correct order
+        """
+        ar = [song, None]
+        for field in self.append_map:
+            ar.append(getattr(song, field))
+        return ar
+
     def append_song(self, song):
         """
             Adds a song to this view
         """
-        self.model.append([song, None, song.track, song.title, song.artist,
-            song.album, song.length, song.rating, song.year, song.genre,
-            song.bitrate])
+        ar = self.get_ar(song)
+
+        self.model.append(ar)
         if not song in self.songs: self.songs.append(song)
 
     def update_iter(self, iter, song):
         """
             Updates the track at "iter"
         """
-        self.model.insert_after(iter, [song, None, song.track, song.title,  
-            song.artist, song.album, song.length, song.rating, song.year, 
-            song.genre, song.bitrate])
+        ar = self.get_ar(song)
+        self.model.insert_after(iter, ar)
         self.model.remove(iter)
 
     def refresh_row(self, song):

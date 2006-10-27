@@ -1533,7 +1533,7 @@ class ExaileWindow(object):
             self.__fetch_cover(track)
 
         self.show_popup()
-        self.tracks.queue_draw()
+        if self.tracks: self.tracks.queue_draw()
 
         if self.settings.get_boolean('ensure_visible', False):
             self.goto_current()
@@ -1841,7 +1841,7 @@ class ExaileWindow(object):
         if newtab:
             self.new_page(name, songs)
         else:
-            self.append_songs(songs)
+            self.append_songs(songs, play=False)
 
         if isinstance(play, media.StreamTrack):
             self.stop()

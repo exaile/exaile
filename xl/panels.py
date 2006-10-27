@@ -74,7 +74,7 @@ class CollectionPanel(object):
         self.tree = None
         self.keyword = None
         self.track_cache = dict()
-        self.stopped = False
+        self.start_count = 0
         self.ipod = False
         self.artist_image = gtk.gdk.pixbuf_new_from_file('images%sartist.png' %
             os.sep)
@@ -175,7 +175,7 @@ class CollectionPanel(object):
             of the tree until the matched node is found
         """
         self.keyword = self.filter.get_text()
-        self.stopped = True
+        self.start_count += 1
         if isinstance(self, iPodPanel):
             self.load_tree(None, False)
         else:
@@ -406,7 +406,7 @@ class CollectionPanel(object):
             that will expand each node until a node that matches the keyword
             is found
         """
-        self.stopped = False
+        self.current_start_count = self.start_count
         if not self.tree:
             self.tree = self.xml.get_widget('%s_tree' % self.name)
             self.tree.connect('button_press_event',
@@ -503,6 +503,7 @@ class CollectionPanel(object):
                 all, self.keyword, None, where)
         self.track_cache["%s %s" % (where, self.keyword)] = songs
 
+        if self.current_start_count != self.start_count: return
         self.__append_info(self.root, songs)
         if isinstance(self, iPodPanel) and self.root:
             self.tree.expand_row(self.model.get_path(self.root), False)
@@ -559,13 +560,9 @@ class CollectionPanel(object):
         for field in order:
             order_nodes[field] = xl.common.idict()
 
-        count = 0
         for track in songs:
-            if self.stopped: return
-            if count >= 700:
-                xlmisc.finish()
-                count = 0
-            count += 1
+            if self.current_start_count != self.start_count: return
+
             parent = node
             last_parent = None
             string = ""

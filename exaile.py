@@ -40,6 +40,7 @@ import os, re, random, fileinput, gc, urllib, md5
 import os.path, traceback, thread, gettext, time
 import locale, tempfile, subprocess
 
+
 # set up gettext for translations
 locale.setlocale(locale.LC_ALL, '')
 from gettext import gettext as _
@@ -1781,7 +1782,7 @@ class ExaileWindow(object):
         self.update_track_information()
         self.progress.set_value(0)
 
-    def import_m3u(self, path, play=False, title=None): 
+    def import_m3u(self, path, play=False, title=None, newtab=False): 
         """
             Imports a playlist file, regardless of it's location (it can be
             a local file (ie, file:///somefile.m3u) or online.
@@ -1836,7 +1837,11 @@ class ExaileWindow(object):
         if not songs: 
             self.status.set_first(None)
             return
-        self.new_page(name, songs) 
+
+        if newtab:
+            self.new_page(name, songs)
+        else:
+            self.append_songs(songs)
 
         if isinstance(play, media.StreamTrack):
             self.stop()
@@ -1874,6 +1879,9 @@ class ExaileWindow(object):
 
         dialog = gtk.FileChooserDialog(_("Choose a file"), self.window,
             buttons=('Open', gtk.RESPONSE_OK, 'Cancel', gtk.RESPONSE_CANCEL))
+
+        new_tab = gtk.CheckButton(_("Open in new tab"))
+        dialog.set_extra_widget(new_tab)
         dialog.set_current_folder(self.get_last_dir())
         dialog.set_filter(filter)
         if item != self.open_playlist_item: dialog.set_select_multiple(True)
@@ -1886,6 +1894,7 @@ class ExaileWindow(object):
             paths = dialog.get_filenames()
             self.last_open_dir = dialog.get_current_folder()
             self.status.set_first(_("Populating playlist..."))
+            songs = tracks.TrackData()
 
             count = 0
             for path in paths:
@@ -1899,13 +1908,12 @@ class ExaileWindow(object):
 
                     count = count + 1
                     if tr:
-                        try:
-                            gobject.idle_add(self.append_songs, (tr,), False,
-                                True)
-                        except:
-                            xlmisc.log_exception()
+                        songs.append(tr)
                 if ext in (".m3u", ".pls"):
-                    self.import_m3u(path)
+                    self.import_m3u(path, newtab=new_tab.get_active())
+
+            if songs:
+                self.append_songs(songs)
 
             self.status.set_first(None)
 

@@ -214,6 +214,8 @@ def test(p):
                     print iface.get_artist()
                 elif options.get_album:
                     print iface.get_album()
+                elif options.show_version:
+                    print exaile.__version__
                 elif options.get_length:
                     print iface.get_length()
                 elif options.current_position:
@@ -280,4 +282,5 @@ def get_options():
         default=False, help="Start new instance")
     p.add_option("--settings", dest="settings", help="Settings Directory")
     p.add_option("--cleanversion", dest="cleanversion", action="store_true")
+    p.add_option("--version", dest="show_version", action="store_true")
     return p

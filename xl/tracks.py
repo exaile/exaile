@@ -198,11 +198,10 @@ def already_added(t, added):
         Checks to see if an md5 hash of the title, artist, album has already
         been added to the list of tracks
     """
-    size = os.stat(t.loc).st_size
     if not t.title: t.title = ""
     if not t.album: t.album = ""
     if not t.artist: t.artist = ""
-    h = "%s - %s - %s - %s" % (size, t.title, t.album, t.artist)
+    h = "%s - %s - %s" % (t.title, t.album, t.artist)
 
     if added.has_key(h): return True
     added[h] = 1

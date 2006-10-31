@@ -70,6 +70,8 @@ class TracksListCtrl(gtk.VBox):
         self.songs = tracks.TrackData()
         self.model = gtk.ListStore(object, gtk.gdk.Pixbuf, int, str, str, str,
             str, str, str, str, str)
+        self.model_blank = gtk.ListStore(object, gtk.gdk.Pixbuf, int, str, str, str,
+            str, str, str, str, str)
         self.list.set_model(self.model)
         self.scroll = gtk.ScrolledWindow()
         self.scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
@@ -471,6 +473,7 @@ class TracksListCtrl(gtk.VBox):
         """
             Sets the sort column
         """
+        return # this is here until we are sure we don't need these functions
         title = column.get_title()
         for col in self.list.get_columns():
             if column.get_title() == col.get_title():
@@ -570,9 +573,12 @@ class TracksListCtrl(gtk.VBox):
         """
         self.songs = tracks.TrackData()
         self.model.clear()
+        self.list.set_model(self.model_blank)
         if update_playlist: self.playlist_songs = songs
         for song in songs:
             self.append_song(song)
+
+        self.list.set_model(self.model)
 
     def get_ar(self, song):
         """
@@ -811,7 +817,7 @@ class TracksListCtrl(gtk.VBox):
                     "bitrate": fields[3].replace("k", "")
                 })
 
-                track = tracks.RadioTrack(info)
+                track = media.RadioTrack(info)
                 songs.append(track)
         except:
             xlmisc.log_exception()

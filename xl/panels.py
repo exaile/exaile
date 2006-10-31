@@ -443,8 +443,9 @@ class CollectionPanel(object):
             self.tracks_cache = dict()
 
         self.model = gtk.TreeStore(gtk.gdk.Pixbuf, object)
+        self.model_blank = gtk.TreeStore(gtk.gdk.Pixbuf, object)
 
-        self.tree.set_model(self.model)
+        self.tree.set_model(self.model_blank)
         self.root = None
     
         if isinstance(self, iPodPanel) and self.lists:
@@ -504,6 +505,7 @@ class CollectionPanel(object):
         self.track_cache["%s %s" % (where, self.keyword)] = songs
 
         if self.current_start_count != self.start_count: return
+
         self.__append_info(self.root, songs)
         if isinstance(self, iPodPanel) and self.root:
             self.tree.expand_row(self.model.get_path(self.root), False)
@@ -511,6 +513,7 @@ class CollectionPanel(object):
         if self.connect_id: gobject.source_remove(self.connect_id)
         self.connect_id = None
         self.filter.set_sensitive(True)
+        self.tree.set_model(self.model)
 
     def __drag_end(self, list, context):
         """

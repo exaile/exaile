@@ -19,7 +19,14 @@ import sys, re
 import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade
-import locale, time
+import locale, time, threading
+
+def threaded(f):
+    def wrapper(*args):
+        t = threading.Thread(target=f, args=args)
+        t.start()
+
+    return wrapper
 
 class idict(dict): 
     """

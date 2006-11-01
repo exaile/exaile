@@ -782,13 +782,13 @@ class ExaileWindow(object):
                 num = len(self.queued)
 
         # update the current playlist
-        self.update_songs(self.playlist_songs)
-        trackslist.update_queued(self)
+        gobject.idle_add(self.update_songs, self.playlist_songs)
+        gobject.idle_add(trackslist.update_queued, self)
         if not play: return
 
         track = self.current_track
         if track != None and (track.is_playing() or track.is_paused): return
-        self.play_track(songs[0])
+        gobject.idle_add(self.play_track, songs[0])
 
     def on_blacklist(self, item, event):
         """
@@ -1084,7 +1084,8 @@ class ExaileWindow(object):
         tracks.populate(self, self.db,
             (item,), self.__on_library_update, False, 
             load_tree=False)
-    
+   
+    @common.threaded
     def update_songs(self, songs=None, set=True): 
         """
             Sets the songs and playlist songs
@@ -1095,7 +1096,7 @@ class ExaileWindow(object):
 
         if not self.tracks: return
 
-        if set: self.tracks.set_songs(songs)
+        if set: gobject.idle_add(self.tracks.set_songs, songs)
 
     def __timer_update(self, event=None): 
         """
@@ -1446,7 +1447,8 @@ class ExaileWindow(object):
         self.tracks.playlist_songs = songs 
         tab = xlmisc.NotebookTab(self, title, self.tracks)
         self.playlists_nb.append_page(self.tracks, tab)
-        self.playlists_nb.set_current_page(self.playlists_nb.get_n_pages() - 1)
+        self.playlists_nb.set_current_page( 
+            self.playlists_nb.get_n_pages() - 1)
         self.update_songs(songs)
 
     def close_page(self, page=None): 

@@ -546,6 +546,7 @@ class CollectionPanel(object):
         if not info: return
         treeview.set_drag_dest_row(info[0], info[1])
 
+    @common.threaded
     def __append_info(self, node, songs=None, unknown=False):
         """
             Appends all related info and organizes the tree based on self.order
@@ -610,6 +611,10 @@ class CollectionPanel(object):
         self.tree.set_model(self.model)
         for path in expanded_paths:
             self.tree.expand_to_path(path)
+
+        gobject.idle_add(self.tree.set_model, self.model)
+        for path in expanded_paths:
+            gobject.idle_add(self.tree.expand_to_path, path)
 
 class iPodPlaylist(object):
     """

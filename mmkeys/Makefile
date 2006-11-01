@@ -1,6 +1,6 @@
 # Copyright 2004 Joe Wreschnig. Released under the terms of the GNU GPL.
 
-PYTHON_DIR = `python -c "import sys; print sys.path[2].replace('lib', 'include')"`
+PYTHON_DIR = /usr/include/python2.4
 
 CFLAGS += -fPIC -O2 `pkg-config --cflags gtk+-2.0 pygtk-2.0` -I$(PYTHON_DIR)
 LDFLAGS += `pkg-config --libs gtk+-2.0 pygtk-2.0`

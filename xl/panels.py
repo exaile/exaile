@@ -513,7 +513,6 @@ class CollectionPanel(object):
         if self.connect_id: gobject.source_remove(self.connect_id)
         self.connect_id = None
         self.filter.set_sensitive(True)
-        self.tree.set_model(self.model)
 
     def __drag_end(self, list, context):
         """
@@ -563,6 +562,7 @@ class CollectionPanel(object):
         for field in order:
             order_nodes[field] = xl.common.idict()
 
+        expanded_paths = []
         for track in songs:
             if self.current_start_count != self.start_count: return
 
@@ -600,13 +600,16 @@ class CollectionPanel(object):
 
                 if self.keyword and last_parent:
                     if str(info).lower().find(self.keyword.lower()) > -1:
-                        self.tree.expand_to_path(self.model.get_path(
+                        expanded_paths.append(self.model.get_path(
                             last_parent))
                 last_parent = parent
 
         # make sure "Unknown" items end up at the end of the list
         if not unknown and last_songs:
             self.__append_info(self.root, last_songs, True)
+        self.tree.set_model(self.model)
+        for path in expanded_paths:
+            self.tree.expand_to_path(path)
 
 class iPodPlaylist(object):
     """

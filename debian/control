@@ -10,7 +10,8 @@ Architecture: any
 Depends: ${shlibs:Depends}, libgstreamer0.10-0, gstreamer0.10-plugins-base, 
  gstreamer0.10-plugins-good, python-gst0.10, gstreamer0.10-esd, 
  gstreamer0.10-alsa, python2.5, python2.4-gtk2, python-glade2, 
- python2.4-dbus, python-pyvorbis, python-mutagen
+ python2.4-dbus, python-pyvorbis, python-mutagen, python-pysqlite2,
+ python-elementtree
 Recommends: gstreamer0.10-plugins-ugly, python2.4-gnome-extras, python-cddb,
  streamripper
 Description: an Amarok-like media player

@@ -608,9 +608,6 @@ class CollectionPanel(object):
         # make sure "Unknown" items end up at the end of the list
         if not unknown and last_songs:
             self.__append_info(self.root, last_songs, True)
-        self.tree.set_model(self.model)
-        for path in expanded_paths:
-            self.tree.expand_to_path(path)
 
         gobject.idle_add(self.tree.set_model, self.model)
         for path in expanded_paths:

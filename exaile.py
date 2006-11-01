@@ -974,9 +974,11 @@ class ExaileWindow(object):
             (SETTINGS_DIR, os.sep), start_timer=False)
 
         if not updating:
+            xlmisc.log("loading tracks...")
             self.all_songs = tracks.load_tracks(collection_db, 
                 self.all_songs)
             gobject.idle_add(self.setup_gamin)
+            xlmisc.log("done loading tracks...")
         gobject.idle_add(self.status.set_first, None)
 
         self.collection_panel.songs = self.all_songs

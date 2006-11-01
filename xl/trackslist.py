@@ -67,6 +67,7 @@ class TracksListCtrl(gtk.VBox):
         self.exaile = exaile
         self.list = gtk.TreeView()
         self.list.set_rules_hint(True)
+        self.list.set_enable_search(False)
         self.songs = tracks.TrackData()
         self.model = gtk.ListStore(object, gtk.gdk.Pixbuf, int, str, str, str,
             str, str, str, str, str)
@@ -376,11 +377,11 @@ class TracksListCtrl(gtk.VBox):
             Called when someone presses a key
         """
 
+        selection = self.list.get_selection()
+        (model, pathlist) = selection.get_selected_rows()
+
         # delete key
         if event.keyval == 65535:
-            selection = self.list.get_selection()
-            (model, pathlist) = selection.get_selected_rows()
-
             delete = []
             for path in pathlist:
                 iter = model.get_iter(path)
@@ -398,6 +399,17 @@ class TracksListCtrl(gtk.VBox):
                 path = pathlist[0]
                 if path[0] >= len(self.songs): path = (path[0] - 1,)
                 selection.select_path(path)
+        elif event.keyval == 113: # the 'q' key
+            for path in pathlist:
+                iter = model.get_iter(path)
+                track = model.get_value(iter, 0)
+                if not track in self.exaile.queued:
+                    self.exaile.queued.append(track)
+                else:
+                    self.exaile.queued.remove(track)
+
+            update_queued(self.exaile)
+            self.queue_draw()
 
     def setup_columns(self):
         """

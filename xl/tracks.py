@@ -330,12 +330,15 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True):
         if db:
             row = db.read_one("tracks", READ_FIELDS, "path=?", (path,))
 
-    if not os.path.isfile(path): return None
+    #if not os.path.isfile(path): return None
     (f, ext) = os.path.splitext(path)
 
     if skipmod and not row: return None
 
-    mod = os.stat(os.path.join(path)).st_mtime
+    if not skipmod:
+        mod = os.stat(os.path.join(path)).st_mtime
+    else:
+        mod = 0
     if not skipmod and (not row or row[9] != mod):
         try:
             if media.FORMAT.has_key(ext.lower()):

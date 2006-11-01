@@ -19,9 +19,12 @@
 __version__ = '0.2.5svn'
 import traceback, sys, gobject
 gobject.threads_init()
+
+# this stuff is done first so that only the modules required to connect to an
+# already loaded exaile (if available) are loaded.  This helps with the speed
+# of remote commands, like --next, --prev
 import xl.dbusinterface
 EXAILE_OPTIONS = xl.dbusinterface.get_options()
-
 DBUS_EXIT = xl.dbusinterface.test(EXAILE_OPTIONS)
 import gobject
 
@@ -40,7 +43,6 @@ import gtk, gtk.glade, pango, dbus
 import os, re, random, fileinput, gc, urllib, md5
 import os.path, traceback, thread, gettext, time
 import locale, tempfile, subprocess
-
 
 # set up gettext for translations
 locale.setlocale(locale.LC_ALL, '')

@@ -449,7 +449,7 @@ class TracksListCtrl(gtk.VBox):
                     if count > 1:
                         col.connect('clicked', self.set_sort_by)
                     col.set_sort_column_id(count)
-                    col.set_reorderable(True)
+#                    col.set_reorderable(True)
                     col.set_resizable(True)
                 col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
                 self.list.append_column(col)
@@ -473,7 +473,6 @@ class TracksListCtrl(gtk.VBox):
         """
             Sets the sort column
         """
-        return # this is here until we are sure we don't need these functions
         title = column.get_title()
         for col in self.list.get_columns():
             if column.get_title() == col.get_title():
@@ -535,7 +534,7 @@ class TracksListCtrl(gtk.VBox):
         elif item in self.exaile.queued:
             index = self.exaile.queued.index(item)
             image = xlmisc.get_text_icon(self.exaile.window,
-                str(index + 1), 20, 20)
+                str(index + 1), 18, 18)
         cellr.set_property('pixbuf', image)
 
     def length_data_func(self, col, cellr, model, iter):

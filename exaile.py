@@ -960,30 +960,35 @@ class ExaileWindow(object):
             (SETTINGS_DIR, os.sep))
         self.db.check_version("sql")
 
+    @common.threaded
     def load_songs(self, updating=False): 
         """
             Loads the entire library from the database
         """
 
-        self.status.set_first(_("Loading library from database..."))
-        xlmisc.finish()
+        gobject.idle_add(self.status.set_first, 
+            _("Loading library from database..."))
+        collection_db = db.DBManager("%s%smusic.db" % 
+            (SETTINGS_DIR, os.sep), start_timer=False)
+
         if not updating:
-            self.all_songs = tracks.load_tracks(self.db, self.all_songs)
-            self.setup_gamin()
-        self.status.set_first(None)
+            self.all_songs = tracks.load_tracks(collection_db, 
+                self.all_songs)
+            gobject.idle_add(self.setup_gamin)
+        gobject.idle_add(self.status.set_first, None)
 
         self.collection_panel.songs = self.all_songs
         self.collection_panel.track_cache = dict()
 
         if not updating:
             xlmisc.log("loading songs")
-            self.playlists_panel.load_playlists()
-            self.collection_panel.load_tree(True)
+            gobject.idle_add(self.playlists_panel.load_playlists)
+            gobject.idle_add(self.collection_panel.load_tree, True)
             
         if len(sys.argv) > 1 and sys.argv[1] and \
             not sys.argv[1].startswith("-"):
             if sys.argv[1].endswith(".m3u") or sys.argv[1].endswith(".pls"):
-                self.import_m3u(sys.argv[1], True)
+                gobject.idle_add(self.import_m3u, sys.argv[1], True)
             else:
                 if not self.tracks: self.new_page("Last", [])
 

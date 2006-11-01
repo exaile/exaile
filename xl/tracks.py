@@ -214,7 +214,6 @@ def load_tracks(db, current=None):
     added = dict()
 
     tracks = TrackData()
-    count = 0
     for row in db.select("SELECT %s FROM tracks WHERE blacklisted=0 ORDER"
         " BY artist, album, track, title" % READ_FIELDS):
         if not os.path.isfile(row[0]): 
@@ -225,12 +224,6 @@ def load_tracks(db, current=None):
         if already_added(t, added): continue
 
         tracks.append(t)
-        if count >= 20:
-            xlmisc.finish()
-            count = 0
-
-        count += 1
-
     
     return tracks
 

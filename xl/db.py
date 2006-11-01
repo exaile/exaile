@@ -26,7 +26,7 @@ class DBManager(object):
     """
         Manages the database connection
     """
-    def __init__(self, db_loc):
+    def __init__(self, db_loc, start_timer=True):
         """
             Initializes and connects to the database
         """
@@ -46,7 +46,7 @@ class DBManager(object):
             cur.close()
         
         self._cursor = self.db.cursor()
-        self.timer.start()
+        if start_timer: self.timer.start()
 
     def check_version(self, path, echo=True):
         """

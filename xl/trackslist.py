@@ -403,6 +403,9 @@ class TracksListCtrl(gtk.VBox):
                 path = pathlist[0]
                 if path[0] >= len(self.songs): path = (path[0] - 1,)
                 selection.select_path(path)
+
+            if self.type == 'queue':
+                update_queued(self.exaile)
         elif event.keyval == 113: # the 'q' key
             for path in pathlist:
                 iter = model.get_iter(path)

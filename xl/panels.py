@@ -121,7 +121,7 @@ class CollectionPanel(object):
             gobject.source_remove(self.key_id)
             self.key_id = None
 
-        self.key_id = gobject.timeout_add(150, self.on_search)
+        self.key_id = gobject.timeout_add(700, self.on_search)
 
     def update_progress(self, percent):
         """

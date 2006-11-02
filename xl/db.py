@@ -17,8 +17,10 @@
 import sys, threading, xlmisc, re, os, fileinput
 try:
     from sqlite3 import dbapi2 as sqlite
+    from sqlite3.dbapi2 import OperationalError
 except ImportError:
     from pysqlite2 import dbapi2 as sqlite
+    from pysqlite2.dbapi2 import OperationalError
 from traceback import print_exc
 import gobject
 

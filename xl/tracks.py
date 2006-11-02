@@ -18,6 +18,7 @@ import os, re, os.path, copy, traceback, gc
 import common, media, db, config, trackslist
 import sys, md5, xlmisc, gobject, random
 import thread, threading, urllib, audioscrobbler
+import dbusinterface
 
 try:    
     import DiscID, CDDB
@@ -198,6 +199,8 @@ def already_added(t, added):
         Checks to see if an md5 hash of the title, artist, album has already
         been added to the list of tracks
     """
+
+    if dbusinterface.options.testing: return False
     if not t.title: t.title = ""
     if not t.album: t.album = ""
     if not t.artist: t.artist = ""
@@ -389,12 +392,7 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True):
 
         tr.set_info(*row)
 
-
         tr.read_from_db = True
-
-    if not tr.title: tr.title = ""
-    if not tr.album: tr.album = ""
-    if not tr.artist: tr.artist = ""
 
     return tr
 

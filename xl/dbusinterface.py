@@ -23,6 +23,8 @@ dbus.glib.threads_init()
 import gobject
 from optparse import OptionParser
 
+options = None
+
 class DBusInterfaceObject(dbus.service.Object):
     """
         A DBus service for exaile
@@ -193,6 +195,8 @@ def test(p):
         Tests to see if the dbus service is running, and if it is, call
         methods on the service
     """
+
+    global options
     (options, args) = p.parse_args()
     if not options.new:
         try:
@@ -283,4 +287,5 @@ def get_options():
     p.add_option("--settings", dest="settings", help="Settings Directory")
     p.add_option("--cleanversion", dest="cleanversion", action="store_true")
     p.add_option("--version", dest="show_version", action="store_true")
+    p.add_option("--testing", dest="testing", action="store_true")
     return p

@@ -403,9 +403,6 @@ class TracksListCtrl(gtk.VBox):
                 path = pathlist[0]
                 if path[0] >= len(self.songs): path = (path[0] - 1,)
                 selection.select_path(path)
-
-            if self.type == 'queue':
-                update_queued(self.exaile)
         elif event.keyval == 113: # the 'q' key
             for path in pathlist:
                 iter = model.get_iter(path)
@@ -802,6 +799,7 @@ class TracksListCtrl(gtk.VBox):
                         selection.unselect_path(path[0])
                     return True
                 elif not event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
+                    print 'test?1'
                     return True
                 return False
         self.setup_tracks_menu()

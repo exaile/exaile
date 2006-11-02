@@ -1522,7 +1522,13 @@ class LibraryManager(object):
             removes a path from the list
         """
         item = self.list.get_selection()
+        index = self.list.rows.index(item)
         self.list.remove(item)
+        selection = self.list.list.get_selection()
+        if index >= len(self.list.rows):
+            selection.select_path(index - 1)
+        else:
+            selection.select_path(index)
 
     def __on_add(self, widget):
         """

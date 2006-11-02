@@ -327,6 +327,22 @@ class CollectionPanel(object):
 
         self.exaile.append_songs(add, queue, True)
 
+    def button_release(self, widget, event):
+        """
+            Called when a button is released
+        """
+        if event.button != 1 or self.__dragging: return True
+        if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
+            return True
+        selection = self.tree.get_selection()
+        x, y = event.get_coords()
+        x = int(x); y = int(y)
+
+        path = self.tree.get_path_at_pos(x, y)
+        if not path: return False
+        selection.unselect_all()
+        selection.select_path(path[0])
+
     def button_pressed(self, widget, event):
         """
             Called when someone clicks on the tree
@@ -366,12 +382,10 @@ class CollectionPanel(object):
                 if selection.path_is_selected(path[0]): 
                     if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
                         selection.unselect_path(path[0])
-                        return True
-                    else:
-                        return False
+                    return True
                 elif not event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
-                    return False
-                return False       
+                    return True
+                return False  
 
         else:
             iter = self.model.get_iter(path[0])
@@ -400,6 +414,9 @@ class CollectionPanel(object):
         else:
             cell.set_property('text', str(object))
 
+    def drag_data_received(self, tv, context, x, y, selection, info, etime):
+        pass
+
     def load_tree(self, event=None):
         """
             Builds the tree.  If self.keyword is not None, it will start a timer
@@ -409,8 +426,7 @@ class CollectionPanel(object):
         self.current_start_count = self.start_count
         if not self.tree:
             self.tree = self.xml.get_widget('%s_tree' % self.name)
-            self.tree.connect('button_press_event',
-                self.button_pressed)
+
             selection = self.tree.get_selection()
             selection.set_mode(gtk.SELECTION_MULTIPLE)
             pb = gtk.CellRendererPixbuf()
@@ -429,13 +445,17 @@ class CollectionPanel(object):
             self.tree.drag_source_set(gtk.gdk.BUTTON1_MASK, self.targets,
                 gtk.gdk.ACTION_COPY)
             self.tree.drag_source_set_icon_stock('gtk-dnd')
+            self.__dragging = False
 
             if isinstance(self, iPodPanel):
                 self.tree.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, 
                     gtk.gdk.ACTION_COPY)
                 self.tree.connect('drag-data-received', 
                     self.drag_data_received)
-
+            self.tree.connect('button_press_event',
+                self.button_pressed)
+            self.tree.connect('button_release_event', 
+                self.button_release)
         # clear out the tracks if this is a first time load or the refresh
         # button is pressed
         if event: 
@@ -542,7 +562,7 @@ class CollectionPanel(object):
         """
             Called when a row is dragged over this treeview
         """
-        if not isinstance(self, iPodPanel): return
+#        if not isinstance(self, iPodPanel): return
         self.tree.enable_model_drag_dest(self.targets,
             gtk.gdk.ACTION_DEFAULT)
         info = treeview.get_dest_row_at_pos(x, y)
@@ -1903,6 +1923,8 @@ class RadioPanel(object):
         self.tree.connect('row-expanded', self.__on_expanded)
         self.tree.connect('row-collapsed', self.__on_collapsed)
         self.tree.connect('button-press-event', self.button_pressed)
+        self.tree.connect('button-release-event', self.button_release)
+        self.__dragging = False
         self.xml.get_widget('radio_add_button').connect('clicked',
             self.on_add_station)
         self.xml.get_widget('radio_remove_button').connect('clicked',
@@ -1911,6 +1933,22 @@ class RadioPanel(object):
             self.xml.get_widget('podcast_download_box')
         self.podcast_queue = None
         self.setup_menus()
+
+    def button_release(self, widget, event):
+        """
+            Called when a button is released
+        """
+        if event.button != 1 or self.__dragging: return True
+        if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
+            return True
+        selection = self.tree.get_selection()
+        x, y = event.get_coords()
+        x = int(x); y = int(y)
+
+        path = self.tree.get_path_at_pos(x, y)
+        if not path: return False
+        selection.unselect_all()
+        selection.select_path(path[0])
 
     def button_pressed(self, widget, event):
         """
@@ -2535,13 +2573,31 @@ class FilesPanel(object):
 
         self.load_directory(os.getenv('HOME'), False)
         self.tree.connect('row-activated', self.row_activated)
-        self.tree.connect('button-press-event', self.button_press)
         targets = [('text/uri-list', 0, 0)]
         self.tree.connect('drag_data_get', self.drag_get_data)
         self.tree.drag_source_set(gtk.gdk.BUTTON1_MASK, targets,
             gtk.gdk.ACTION_COPY)
         self.menu = xlmisc.Menu()
         self.menu.append(_("Append to Playlist"), self.append)
+        self.tree.connect('button-press-event', self.button_press)
+        self.tree.connect('button-release-event', self.button_release)
+        self.__dragging = False
+
+    def button_release(self, widget, event):
+        """
+            Called when a button is released
+        """
+        if event.button != 1 or self.__dragging: return True
+        if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
+            return True
+        selection = self.tree.get_selection()
+        x, y = event.get_coords()
+        x = int(x); y = int(y)
+
+        path = self.tree.get_path_at_pos(x, y)
+        if not path: return False
+        selection.unselect_all()
+        selection.select_path(path[0])
 
     def drag_get_data(self, treeview, context, sel, target_id, etime):
         """
@@ -2571,18 +2627,15 @@ class FilesPanel(object):
         if event.button == 3:
             self.menu.popup(None, None, None, event.button, event.time)
             return True
-
         if selection.count_selected_rows() <= 1: return False
         else: 
             if selection.path_is_selected(path[0]): 
                 if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
                     selection.unselect_path(path[0])
-                    return True
-                else:
-                    return False
+                return True
             elif not event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
-                return False
-            return False       
+                return True
+            return False
 
     def append(self, widget, event):
         """

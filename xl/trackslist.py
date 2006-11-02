@@ -83,8 +83,12 @@ class TracksListCtrl(gtk.VBox):
         selection.set_mode(gtk.SELECTION_MULTIPLE)
         self.playimg = self.exaile.window.render_icon('gtk-media-play',
             gtk.ICON_SIZE_SMALL_TOOLBAR)
+        self.playimg = self.playimg.scale_simple(18, 18,
+            gtk.gdk.INTERP_BILINEAR)
         self.pauseimg = self.exaile.window.render_icon('gtk-media-pause',
             gtk.ICON_SIZE_SMALL_TOOLBAR)
+        self.pauseimg = self.pauseimg.scale_simple(18, 18,
+            gtk.gdk.INTERP_BILINEAR)
 
         self.db = exaile.db
         self.inited = False

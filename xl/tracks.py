@@ -330,7 +330,7 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True):
         if db:
             row = db.read_one("tracks", READ_FIELDS, "path=?", (path,))
 
-    #if not os.path.isfile(path): return None
+    if not os.path.isfile(path): return None
     (f, ext) = os.path.splitext(path)
 
     if skipmod and not row: return None

@@ -579,6 +579,7 @@ class TracksListCtrl(gtk.VBox):
         for col in columns:
             self.list.remove_column(col)
 
+        self.tree_lost_focus(None, None)
         self.setup_columns()
         self.list.queue_draw()
 

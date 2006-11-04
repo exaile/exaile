@@ -403,7 +403,7 @@ class PopulateThread(threading.Thread):
     running = False
     stopped = False
 
-    def __init__(self, exaile, db, directories, update_func, quick=False,
+    def __init__(self, exaile, db, directories, update_func, 
         delete=True, load_tree=False, done_func=None):
         """
             Expects an exaile instance, the location of the database file,
@@ -416,7 +416,6 @@ class PopulateThread(threading.Thread):
         self.directories = directories
         self.update_func = update_func
         self.done = False
-        self.quick = quick
         self.delete = delete
         self.load_tree = load_tree
         self.done_func = done_func
@@ -512,22 +511,22 @@ class PopulateThread(threading.Thread):
         """
             Stops the thread
         """
-        num = -1
-        if self.quick or not self.load_tree: num = -2
+        num = -2
+        if not self.load_tree: num = -1
         tracks = self.found_tracks
         if PopulateThread.stopped:
             tracks = None
-        gobject.idle_add(self.update_func, -2, tracks, 
+        gobject.idle_add(self.update_func, num, tracks, 
             self.done_func) 
         PopulateThread.stopped = False
         PopulateThread.running = False
 
-def populate(exaile, db, directories, update_func, quick=False, delete=True,
+def populate(exaile, db, directories, update_func, delete=True,
     load_tree=False, done_func=None):
     """
         Runs the populate thread
     """
-    thread = PopulateThread(exaile, db, directories, update_func, quick,
+    thread = PopulateThread(exaile, db, directories, update_func, 
         delete, load_tree, done_func)
     exaile.thread_pool.append(thread)
     thread.start()

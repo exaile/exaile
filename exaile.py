@@ -501,7 +501,7 @@ class ExaileWindow(object):
         self.db.execute("UPDATE tracks SET user_rating=? WHERE path=?",
             (rating, track.loc))
 
-        print "Set rating to %d for track %s" % (rating, track)
+        xlmisc.log("Set rating to %d for track %s" % (rating, track))
         if self.tracks:
             self.tracks.refresh_row(track)
 
@@ -547,7 +547,7 @@ class ExaileWindow(object):
             done_func = None
             if check.get_active():
                 done_func = self.__after_import
-            self.update_library((path,), True, done_func=done_func)
+            self.update_library((path,), done_func=done_func, load_tree=False)
         dialog.destroy()
 
     def __after_import(self, songs):
@@ -967,7 +967,6 @@ class ExaileWindow(object):
         """
             Loads the entire library from the database
         """
-
         gobject.idle_add(self.status.set_first, 
             _("Loading library from database..."))
         collection_db = db.DBManager("%s%smusic.db" % 
@@ -1003,7 +1002,7 @@ class ExaileWindow(object):
         if not self.settings.get_boolean('watch_directories', False) \
             and not skip_prefs: return
         if not GAMIN_AVAIL:
-            print "Gamin not available, not watching directories"
+            xlmisc.log("Gamin not available, not watching directories")
             return
     
         xlmisc.log("Setting up directory monitoring with gamin...")
@@ -1065,8 +1064,7 @@ class ExaileWindow(object):
                 self.gamin_watched.append(os.path.join(directory, path))
                 self.db.execute("REPLACE INTO directories( path, modified ) "
                     "VALUES( ?, ? )", (os.path.join(directory, path), mod))
-                print "Dir created event on %s" % os.path.join(directory,
-                    path)
+                xlmisc.log("Dir created event on %s" % os.path.join(directory, path))
                 return
 
             mod = os.path.getmtime(directory)
@@ -1088,7 +1086,7 @@ class ExaileWindow(object):
 
         self.dir_queue = new
         item = self.dir_queue.pop(0)
-        print "Running gamin queued item %s" % item
+        xlmisc.log("Running gamin queued item %s" % item)
 
         tracks.populate(self, self.db,
             (item,), self.__on_library_update, False, 
@@ -2052,18 +2050,15 @@ class ExaileWindow(object):
 
         if len(items): self.update_library(items, load_tree=load_tree)
     
-    def update_library(self, items, single=False, done_func=None,
+    def update_library(self, items, done_func=None,
         load_tree=True): 
         """
             Updates the library
         """
-        if not single:
-            self.status.set_first(_("Scanning collection..."))
-        else:
-            self.status.set_first(_("Importing directory..."))
+        self.status.set_first(_("Scanning collection..."))
 
         tracks.populate(self, self.db,
-            items, self.__on_library_update, False, not single,
+            items, self.__on_library_update, False,
             load_tree=load_tree, done_func=done_func)
 
     def __on_library_update(self, percent, songs=None, done_func=None): 
@@ -2073,6 +2068,7 @@ class ExaileWindow(object):
         self.collection_panel.update_progress(percent)
         
         if percent < 0:
+            self.db.db.commit()
             self.load_songs(percent==-1)
 
         if done_func:

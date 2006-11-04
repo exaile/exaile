@@ -635,8 +635,8 @@ class CollectionPanel(object):
             gobject.idle_add(self.tree.expand_to_path, path)
 
         if isinstance(self, iPodPanel) and self.root:
-            self.tree.expand_row(self.model.get_path(self.root), False)
-            self.tree.expand_row(self.model.get_path(self.iroot), False)
+            gobject.idle_add(self.tree.expand_rowl, self.model.get_path(self.root), False)
+            gobject.idle_add(self.tree.expand_row, self.model.get_path(self.iroot), False)
 
 class iPodPlaylist(object):
     """
@@ -2583,7 +2583,6 @@ class FilesPanel(object):
             gtk.gdk.ACTION_COPY)
         self.menu = xlmisc.Menu()
         self.menu.append(_("Append to Playlist"), self.append)
-
         self.tree.connect('button-press-event', self.button_press)
         self.tree.connect('button-release-event', self.button_release)
         self.__dragging = False

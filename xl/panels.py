@@ -478,7 +478,6 @@ class CollectionPanel(object):
                 item = self.model.append(self.iroot, [self.iplaylist_image, playlist])
 
             self.root = self.model.append(self.root, [self.ipod_image, _("iPod Collection")])
-            self.tree.expand_row(self.model.get_path(self.iroot), False)
 
         self.order = tuple()
         self.image_map = ({
@@ -530,8 +529,7 @@ class CollectionPanel(object):
         if self.current_start_count != self.start_count: return
 
         self.__append_info(self.root, songs)
-        if isinstance(self, iPodPanel) and self.root:
-            self.tree.expand_row(self.model.get_path(self.root), False)
+
 
         if self.connect_id: gobject.source_remove(self.connect_id)
         self.connect_id = None
@@ -635,6 +633,10 @@ class CollectionPanel(object):
         gobject.idle_add(self.tree.set_model, self.model)
         for path in expanded_paths:
             gobject.idle_add(self.tree.expand_to_path, path)
+
+        if isinstance(self, iPodPanel) and self.root:
+            self.tree.expand_row(self.model.get_path(self.root), False)
+            self.tree.expand_row(self.model.get_path(self.iroot), False)
 
 class iPodPlaylist(object):
     """
@@ -2575,13 +2577,22 @@ class FilesPanel(object):
         self.tree.connect('row-activated', self.row_activated)
         targets = [('text/uri-list', 0, 0)]
         self.tree.connect('drag_data_get', self.drag_get_data)
+        self.tree.connect('drag_begin', self.__drag_begin)
+        self.tree.connect('drag_end', self.__drag_end)
         self.tree.drag_source_set(gtk.gdk.BUTTON1_MASK, targets,
             gtk.gdk.ACTION_COPY)
         self.menu = xlmisc.Menu()
         self.menu.append(_("Append to Playlist"), self.append)
+<<<<<<< .working
         self.tree.connect('button-press-event', self.button_press)
         self.tree.connect('button-release-event', self.button_release)
         self.__dragging = False
+=======
+        self.tree.connect('button-press-event', self.button_press)
+        self.tree.connect('button-release-event', self.button_release)
+        self.__dragging = False
+        self.targets = [('text/uri-list', 0, 0)]
+>>>>>>> .merge-right.r1645
 
     def button_release(self, widget, event):
         """
@@ -2613,6 +2624,27 @@ class FilesPanel(object):
             uris.append(urllib.quote(value))
 
         sel.set_uris(uris)
+
+    def __drag_begin(self, list, context):
+        """
+            Called when dnd is started
+        """
+        self.__dragging = True
+
+        context.drag_abort(gtk.get_current_event_time())
+        selection = self.tree.get_selection()
+        if selection.count_selected_rows() > 1:
+            self.tree.drag_source_set_icon_stock('gtk-dnd-multiple')
+        else: self.tree.drag_source_set_icon_stock('gtk-dnd')
+        return False
+
+    def __drag_end(self, list, context):
+        """
+            Called when the dnd is ended
+        """
+        self.__dragging = False
+        self.tree.unset_rows_drag_dest()
+        self.tree.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, gtk.gdk.ACTION_COPY)
 
     def button_press(self, widget, event):
         """

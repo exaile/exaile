@@ -1,3 +1,8 @@
+exaile (0.2.5b) edgy; urgency=low
+  * beta release
+
+ -- Adam Olsen <arolsen@gmail.com>  Thu, 2 Nov 2006 15:19:00 -0700
+
 exaile (0.2.4-1) unstable; urgency=low
 
   * Initial debianization (Closes: #392828)

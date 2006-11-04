@@ -69,11 +69,7 @@ class TracksListCtrl(gtk.VBox):
         self.list.set_rules_hint(True)
         self.list.set_enable_search(False)
         self.songs = tracks.TrackData()
-        self.model = gtk.ListStore(object, gtk.gdk.Pixbuf, int, str, str, str,
-            str, str, str, str, str)
-        self.model_blank = gtk.ListStore(object, gtk.gdk.Pixbuf, int, str, str, str,
-            str, str, str, str, str)
-        self.list.set_model(self.model)
+
         self.scroll = gtk.ScrolledWindow()
         self.scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         self.scroll.add(self.list)
@@ -415,6 +411,23 @@ class TracksListCtrl(gtk.VBox):
             update_queued(self.exaile)
             self.queue_draw()
 
+    def setup_model(self, map):
+        """
+            Gets the array to build the two models
+        """
+        ar = [object, gtk.gdk.Pixbuf]
+
+        for item in map:
+            if item == "track":
+                ar.append(int)
+            else:
+                ar.append(str)
+
+        self.model = gtk.ListStore(*ar)
+        self.model_blank = gtk.ListStore(*ar)
+        self.list.set_model(self.model)
+        self.set_songs(self.songs)
+
     def setup_columns(self):
         """
             Sets up the columns for this table
@@ -432,6 +445,9 @@ class TracksListCtrl(gtk.VBox):
         for col in cols:
             if col:
                 self.append_map.append(self.col_map[col])
+
+        self.setup_model(self.append_map)
+
         count = 1
         for name in cols:
             # get cell renderer

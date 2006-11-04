@@ -2583,16 +2583,11 @@ class FilesPanel(object):
             gtk.gdk.ACTION_COPY)
         self.menu = xlmisc.Menu()
         self.menu.append(_("Append to Playlist"), self.append)
-<<<<<<< .working
-        self.tree.connect('button-press-event', self.button_press)
-        self.tree.connect('button-release-event', self.button_release)
-        self.__dragging = False
-=======
+
         self.tree.connect('button-press-event', self.button_press)
         self.tree.connect('button-release-event', self.button_release)
         self.__dragging = False
         self.targets = [('text/uri-list', 0, 0)]
->>>>>>> .merge-right.r1645
 
     def button_release(self, widget, event):
         """

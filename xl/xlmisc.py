@@ -594,7 +594,7 @@ class CoverFetcher(object):
             Finds the albums that need a cover
         """
         all = self.db.select("SELECT artist, album FROM tracks WHERE blacklisted=0"
-            "ORDER BY artist, album")
+            " ORDER BY artist, album")
         self.needs = dict()
 
         self.found = dict()

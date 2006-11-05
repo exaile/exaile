@@ -1,9 +1,9 @@
 -- Initial database schema file for Exaile
 CREATE TABLE tracks( path TEXT NOT NULL, 
-    title VARCHAR(200) COLLATE NOCASE, 
-    artist VARCHAR(200) COLLATE NOCASE, 
-    album VARCHAR(200) COLLATE NOCASE, 
-    genre VARCHAR(30) COLLATE NOCASE, 
+    title VARCHAR(200), 
+    artist VARCHAR(200), 
+    album VARCHAR(200), 
+    genre VARCHAR(30), 
     year VARCHAR(30), 
     track INT, 
     length INT, 
@@ -21,10 +21,10 @@ CREATE TABLE tracks( path TEXT NOT NULL,
 
 -- this table is for ipod tracks
 CREATE TABLE ipod_tracks( path TEXT NOT NULL, 
-    title VARCHAR(200) COLLATE NOCASE, 
-    artist VARCHAR(200) COLLATE NOCASE, 
-    album VARCHAR(200) COLLATE NOCASE, 
-    genre VARCHAR(30) COLLATE NOCASE, 
+    title VARCHAR(200), 
+    artist VARCHAR(200), 
+    album VARCHAR(200), 
+    genre VARCHAR(30), 
     year VARCHAR(30), 
     track INT, 
     length INT, 
@@ -40,23 +40,23 @@ CREATE TABLE ipod_tracks( path TEXT NOT NULL,
     the_track VARCHAR(40) DEFAULT '', 
     included INT DEFAULT 0, PRIMARY KEY( path(255) ) );
 
-CREATE TABLE albums( artist VARCHAR(200) NOT NULL COLLATE NOCASE, 
-    album VARCHAR(200) NOT NULL COLLATE NOCASE, 
+CREATE TABLE albums( artist VARCHAR(200) NOT NULL, 
+    album VARCHAR(200) NOT NULL, 
     image VARCHAR(40), 
     large_image VARCHAR(40), 
     amazon_code VARCHAR(40), 
     genre VARCHAR(30), 
     PRIMARY KEY( artist, album ) );
 
-CREATE TABLE playlists( playlist_name VARCHAR(30) COLLATE NOCASE NOT NULL PRIMARY KEY );
+CREATE TABLE playlists( playlist_name VARCHAR(30) NOT NULL PRIMARY KEY );
 
-CREATE TABLE playlist_items( playlist VARCHAR(30) NOT NULL COLLATE NOCASE, 
+CREATE TABLE playlist_items( playlist VARCHAR(30) NOT NULL, 
     path TEXT NOT NULL, 
     PRIMARY KEY( playlist, path(255) ) );
 
-CREATE TABLE radio( radio_name VARCHAR(30) NOT NULL COLLATE NOCASE PRIMARY KEY );
+CREATE TABLE radio( radio_name VARCHAR(30) NOT NULL PRIMARY KEY );
 
-CREATE TABLE radio_items( radio VARCHAR(30) NOT NULL COLLATE NOCASE,
+CREATE TABLE radio_items( radio VARCHAR(30) NOT NULL,
     title VARCHAR(100), 
     description VARCHAR(100), 
     url TEXT NOT NULL, 

@@ -158,7 +158,6 @@ class DBManager(object):
         lines = []
         for line in open(file):
             if not line.startswith("--"):
-                line = line.replace("COLLATE NOCASE", "")
                 lines.append(line)
 
         data = "".join(lines)
@@ -175,7 +174,7 @@ class DBManager(object):
         """
             Converts a line to the current db spec
         """
-        if self.type == 'pgsql':
+        if self.type == 'pgsql' or self.type == 'sqlite':
             m = re.search("PRIMARY KEY\((.*)\)\s?\);", line)
             if m:
                 args = m.group(1)

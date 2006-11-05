@@ -128,9 +128,10 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None,
     where = ""
     if keyword != None and w:
         w = w.replace(" WHERE ", " AND ")
-        where = ' WHERE (title LIKE "%%' + keyword + \
-            '%%" OR artist LIKE "%%' + keyword + \
-            '%%" OR album LIKE "%%' + keyword + '%%") '
+        keyword = keyword.lower()
+        where = ' WHERE (LOWER(title) LIKE "%%' + keyword + \
+            '%%" OR LOWER(artist) LIKE "%%' + keyword + \
+            '%%" OR LOWER(album) LIKE "%%' + keyword + '%%") '
 
     if w == None:
         if keyword != None or playlist != None:

@@ -19,19 +19,13 @@ import common, media, db, config, trackslist
 import sys, md5, xlmisc, gobject, random
 import thread, threading, urllib, audioscrobbler
 import dbusinterface
+from db import DBOperationalError
 
 try:    
     import DiscID, CDDB
     CDDB_AVAIL = True
 except:
     CDDB_AVAIL = False
-
-try:
-    from sqlite3 import dbapi2 as sqlite
-    from sqlite3.dbapi2 import OperationalError
-except ImportError:
-    from pysqlite2 import dbapi2 as sqlite
-    from pysqlite2.dbapi2 import OperationalError
 
 import media
 
@@ -124,7 +118,8 @@ def search(exaile, all, keyword=None, custom=True):
 
     return new
 
-def search_tracks(parent, db, all, keyword=None, playlist=None, w=None):
+def search_tracks(parent, db, all, keyword=None, playlist=None, w=None,
+    ipod=False):
     """
         Searches the database for a specific pattern and returns the tracks
         represented by this pattern
@@ -145,7 +140,7 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None):
                     where = re.sub("^(q:|where) ", "WHERE ", keyword.lower())
 
             if playlist != None:
-                rows = db.select("SELECT path FROM playlist_items WHERE playlist=?",
+                rows = db.select("SELECT path FROM playlist_items WHERE playlist=%s" % db.p,
                     (playlist,))
 
                 for row in rows:
@@ -166,7 +161,9 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None):
     tracks = TrackData() 
 
     rows = []
-    query = "SELECT path FROM tracks %s ORDER BY " % (where) + \
+    table = "tracks"
+    if ipod: table = "ipod_tracks"
+    query = "SELECT path FROM ipod_tracks %s ORDER BY " % (where) + \
         "artist, album, track, title"
     if w != None:
         query = w
@@ -331,7 +328,9 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True):
     # else, we read the row from the database
     else:
         if db:
-            row = db.read_one("tracks", READ_FIELDS, "path=?", (path,))
+            if ipod: table = "ipod_tracks"
+            else: table = "tracks"
+            row = db.read_one(table, READ_FIELDS, "path=%s" % db.p, (path,))
 
     if not os.path.isfile(path): return None
     (f, ext) = os.path.splitext(path)
@@ -375,7 +374,7 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True):
                         "blacklisted": tr.blacklisted,
                         "year": tr.year,
                         "modified": mod
-                    }, "path=?", (path,), row == None)
+                    }, "path=%s" % db.p, (path,), row == None)
 
         except:
             xlmisc.log_exception()
@@ -437,7 +436,7 @@ class PopulateThread(threading.Thread):
             except OSError:
                 continue
             self.db.execute("REPLACE INTO directories( path, modified ) "
-                "VALUES( ?, ? )", (path, mod))
+                "VALUES( %s, %s )" % (self.db.p, self.db.p), (path, mod))
 
         update_func = self.update_func
         gobject.idle_add(update_func, 0.001)
@@ -466,8 +465,8 @@ class PopulateThread(threading.Thread):
                 
                 tr = read_track(db, self.exaile.all_songs, loc)
                 if tr:
-                    db.execute("UPDATE tracks SET included=1 WHERE path=?",
-                        (loc,))
+                    db.execute("UPDATE tracks SET included=1 WHERE path=%s" %
+                    db.p, (loc,))
                 if not tr or tr.blacklisted: continue
                 
                 if not temp:
@@ -479,7 +478,7 @@ class PopulateThread(threading.Thread):
                 self.found_tracks.append(tr)
                 already_added(tr, added)
 
-            except OperationalError:
+            except DBOperationalError:
                 continue
             except OSError:
                 continue

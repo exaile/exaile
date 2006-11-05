@@ -14,30 +14,65 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import sys, threading, xlmisc, re, os, fileinput
+import sys, threading, re, os, fileinput
 try:
     from sqlite3 import dbapi2 as sqlite
-    from sqlite3.dbapi2 import OperationalError
+    SQLITE_AVAIL = True
 except ImportError:
-    from pysqlite2 import dbapi2 as sqlite
-    from pysqlite2.dbapi2 import OperationalError
+    try:
+        from pysqlite2 import dbapi2 as sqlite
+        SQLITE_AVAIL = True
+    except ImportError:
+        SQLITE_AVAIL = False
+
+try:
+    import MySQLdb
+    MYSQL_AVAIL = True
+    ProgrammingError = MySQLdb.ProgrammingError
+except ImportError:
+    MYSQL_AVAIL = False
+
 from traceback import print_exc
 import gobject
+
+class DBOperationalError(Exception):
+    
+    
+    def __init__(self, message):
+        """ Create a new DBOperationalError
+
+            :Parameters:
+                - `message`: The message that will be displayed to the user
+        """
+        self.message = message
+    
+    def __repr__(self):
+        msg = "%s: %s"
+        return msg % (self.__class__.__name__, self.message,)
+    
+    def __str__(self):
+        return self.__repr__()
 
 class DBManager(object):
     """
         Manages the database connection
     """
-    def __init__(self, db_loc, start_timer=True):
+    def __init__(self, db_loc='', start_timer=True, type='sqlite', **args):
         """
             Initializes and connects to the database
         """
-        self.db = sqlite.connect(db_loc)
+        
+        self.type = type
         self.db_loc = db_loc
-        self.pool = dict()
-        self.timer = xlmisc.MiscTimer(self.commit, 2 * 60 * 60)
+        self.args = args
+        self.db = self.__get_db()
 
-        if db_loc != ":memory:":
+        self.pool = dict()
+        self.timer_id = None
+        if start_timer:
+            self.timer_id = gobject.timeout_add(2 * 60 * 60, self.commit)
+
+        if type == 'sqlite': 
             cur = self.db.cursor()
             cur.execute("PRAGMA synchronize=OFF")
             cur.execute("PRAGMA count_changes=0")
@@ -48,14 +83,46 @@ class DBManager(object):
             cur.close()
         
         self._cursor = self.db.cursor()
-        if start_timer: self.timer.start()
+
+    def __get_db(self):
+        """
+            Returns a connection
+        """
+        if self.type == 'sqlite':
+            self.p = "?"
+            if not SQLITE_AVAIL:
+                raise DBOperationalError("SQLite driver is not available")
+            try:
+               db = sqlite.connect(self.db_loc)
+            except sqlite.OperationalError, e:
+                raise DBOperationalError(str(e))
+        else:
+            self.p = "%s"
+            if not MYSQL_AVAIL: 
+                raise DBOperationalError("MySQL driver is not available")
+            try:
+                db = MySQLdb.Connect(**self.args)
+            except MySQLdb.OperationalError, e:
+                raise DBOperationalError(str(e))
+
+        return db
+
+    def close(self):
+        """
+            Closes the connection
+        """
+        if self.type == 'mysql':
+            self.db.close()
+
+        if self.timer_id:
+            gobject.source_remove(self.timer_id)
 
     def check_version(self, path, echo=True):
         """
             Checks the database version and updates it if necessary
         """
         version = 0
-        row = self.read_one("version", "version", "1", tuple())
+        row = self.read_one("db_version", "version", "1", tuple())
         if row:
             version = int(row[0])
 
@@ -75,8 +142,19 @@ class DBManager(object):
         """
             Imports an SQL file
         """
-        for line in fileinput.input(file):
-            self._exec(line)
+        lines = []
+        for line in open(file):
+            if not line.startswith("--"):
+                line = line.replace("COLLATE NOCASE", "")
+                lines.append(line)
+
+        data = "".join(lines)
+        data = data.replace("\n", " ")
+        lines = data.split(";")
+
+        for line in lines:
+            if line.strip():
+                self._exec(line)
         self.db.commit()
                      
     def cursor(self):
@@ -111,9 +189,14 @@ class DBManager(object):
             select operations.  If you want to do a large select, use
             DBManager.realcursor()
         """
-        cur = self._cursor
+        name = threading.currentThread().getName()
+        if name == "MainThread": cur = self._cursor
+        else: cur = self._get_from_pool().cursor()
         cur.execute(query, args)
-        return cur.fetchall()
+        all = cur.fetchall()
+        if name != "MainThread": cur.close()
+
+        return all
 
     def realcursor(self):
         """
@@ -151,7 +234,7 @@ class DBManager(object):
         name = threading.currentThread().getName()
         if name == "MainThread": return self.db
         if not self.pool.has_key(name):
-            db = sqlite.connect(self.db_loc)
+            db = self.__get_db()
             self.pool[name] = db
 
         db = self.pool[name]

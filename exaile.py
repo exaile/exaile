@@ -50,12 +50,6 @@ from gettext import gettext as _
 gettext.bindtextdomain('exaile', 'po')
 gettext.textdomain('exaile')
 
-try:
-    # python2.5
-    from sqlite3 import dbapi2 as sqlite
-except ImportError:
-    from pysqlite2 import dbapi2 as sqlite
-
 ## Find out the location of exaile's working directory, and go there
 basedir = os.path.dirname(os.path.realpath(__file__))
 if not os.path.exists(os.path.join(basedir, "exaile.py")):
@@ -78,7 +72,7 @@ class ExaileWindow(object):
 
     cover_width = 100
 
-    def __init__(self, first_run = False): 
+    def __init__(self, options, first_run = False): 
         """
             Initializes the main Exaile window
         """
@@ -88,6 +82,7 @@ class ExaileWindow(object):
 
         self.settings = config.Config("%s%ssettings.ini" % (SETTINGS_DIR,
             os.sep))
+        self.options = options
         config.settings = self.settings
         self.database_connect()
         self.timer_count = 0
@@ -497,8 +492,8 @@ class ExaileWindow(object):
 
         rating = combo.get_active() + 1
         track.rating = rating
-        self.db.execute("UPDATE tracks SET user_rating=? WHERE path=?",
-            (rating, track.loc))
+        self.db.execute("UPDATE tracks SET user_rating=%s WHERE path=%s" %
+            (self.db.p, self.db.p), (rating, track.loc))
 
         xlmisc.log("Set rating to %d for track %s" % (rating, track))
         if self.tracks:
@@ -860,7 +855,8 @@ class ExaileWindow(object):
                             common.error(self.window, "Could not delete '%s' - "\
                                 "perhaps you do not have permissions to do so?"
                                 % track.loc)
-                    db.execute("DELETE FROM tracks WHERE path=?", (track.loc,))
+                    db.execute("DELETE FROM tracks WHERE path=%s" % self.db.p, 
+                        (track.loc,))
                 else:
                     playlist = self.tracks.playlist
                     if isinstance(track, media.iPodTrack) and not blacklisting: 
@@ -880,15 +876,15 @@ class ExaileWindow(object):
                                 t = "playlist"; p = "path"
 
                             self.db.execute("DELETE FROM %s_items WHERE "
-                                "%s=? AND %s=?" % (t, p, t),
-                                (track.loc, playlist))
+                                "%s=%s AND %s=%s" % (t, p, t),
+                                (track.loc, self.db.p, playlist, self.db.p))
                         if blacklisting:
                             if isinstance(track, media.iPodTrack):
                                 error += "'%s' could not be blacklisted (iPod" \
                                     " track).\n" % str(track)
                             else:
                                 self.db.execute("UPDATE tracks SET blacklisted=1 "
-                                    "WHERE path=?", (track.loc,))
+                                    "WHERE path=%s" % self.db.p, (track.loc,))
 
             if ipod_delete:
                 self.ipod_panel.delete_tracks(ipod_delete)
@@ -953,12 +949,105 @@ class ExaileWindow(object):
 
         self.files_panel = panels.FilesPanel(self)
 
+    def get_database(self):
+        """
+            Returns a new database connection
+        """
+        if self.settings['db_type'] == 'sqlite':
+            database = db.DBManager("%s%smusic.db" % (SETTINGS_DIR,
+                os.sep))
+        elif self.settings['db_type'] == 'mysql':
+            database = db.DBManager(type='mysql',
+                user=self.settings.get('db_user', ''),
+                passwd=self.settings.get('db_passwd', ''),
+                host=self.settings.get('db_host', 'localhost'),
+                db=self.settings.get('db_name', ''))
+
+        return database
+
+    def __show_db_config(self):
+        """
+            Shows the database configuration dialog
+        """
+        dialog = xlmisc.DBConfigurationDialog(self.window)
+        items = ('type', 'user', 'passwd', 'host', 'name')
+        for item in items:
+            val = self.settings.get("db_%s" % item, '')
+            func = getattr(dialog, "set_%s" %item)
+            func(val)
+
+        result = dialog.run()
+        dialog.dialog.hide()
+        if result == gtk.RESPONSE_OK:
+            for item in items:
+                func = getattr(dialog, "get_%s" % item)
+                self.settings["db_%s" % item] = func()
+        else:
+            sys.exit(0)
+
+        dialog.destroy()
+
     def database_connect(self):
         """
-            Connects to the sqlite database
+            Connects to the database
         """
-        self.db = db.DBManager("%s%smusic.db" %
-            (SETTINGS_DIR, os.sep))
+        if self.options.db_config:
+            self.__show_db_config()
+        if not self.settings.has_key('db_type'):
+            self.settings['db_type'] = 'sqlite'
+
+        if self.settings['db_type'] != 'sqlite' and \
+            self.settings['db_type'] != 'mysql':
+                common.error(self.window, _("Invalid database driver "
+                    "specified."))
+                del self.settings['db_type']
+                sys.exit(1)
+
+        if self.settings['db_type'] == 'sqlite':
+            im = False
+            if not os.path.isfile("%s%smusic.db" % (SETTINGS_DIR,
+                os.sep)):
+                    im = True
+            try:
+                self.db = self.get_database()
+            except db.DBOperationalError, e:
+                common.error(self.window, _("Error connecting to sqlite: %s" %
+                    str(e)))
+                sys.exit(1)
+            if im:
+                try:
+                    self.db.import_sql("sql/db.sql")
+                except db.DBOperationalError, e:
+                    common.error(self.window, "Error "
+                        "creating collection database: %s" % (str(e)))
+                    sys.exit(1)
+        elif self.settings['db_type'] == 'mysql':
+
+            try:
+                self.db = self.get_database()
+            except db.DBOperationalError, e:
+                common.error(self.window, _("Error connecting to mysql: %s" %
+                    str(e)))
+                sys.exit(1)
+
+            try:
+                self.db._cursor.execute("SELECT * FROM tracks")
+            except db.ProgrammingError, e:
+                if e.args[0] == 1146:
+                    try:
+                        self.db.import_sql("sql/db.sql")
+                    except db.DBOperationalError:   
+                        common.error(self.window, _("Error creating database"
+                            " schema %s" % str(e)))
+                        sys.exit(1)
+                else:
+                    self.db = None
+
+        if not self.db:
+            common.error(self.window, _("Unknown error connecting to "
+                "database"))
+            sys.exit(1)
+
         self.db.check_version("sql")
 
     @common.threaded
@@ -968,12 +1057,10 @@ class ExaileWindow(object):
         """
         gobject.idle_add(self.status.set_first, 
             _("Loading library from database..."))
-        collection_db = db.DBManager("%s%smusic.db" % 
-            (SETTINGS_DIR, os.sep), start_timer=False)
 
         if not updating:
             xlmisc.log("loading tracks...")
-            self.all_songs = tracks.load_tracks(collection_db, 
+            self.all_songs = tracks.load_tracks(self.db, 
                 self.all_songs)
             gobject.idle_add(self.setup_gamin)
             xlmisc.log("done loading tracks...")
@@ -1022,7 +1109,7 @@ class ExaileWindow(object):
                     dir = os.path.join(root, dir)
                     mod = os.path.getmtime(dir)
                     row = self.db.read_one('directories', 'path, modified',
-                        'path=?', (dir,))
+                        'path=%s' % self.db.p, (dir,))
                     if not row or int(row[1]) != mod:
                         scan.append(dir)
 
@@ -1063,14 +1150,15 @@ class ExaileWindow(object):
                 mod = os.path.getmtime(os.path.join(directory, path))
                 self.gamin_watched.append(os.path.join(directory, path))
                 self.db.execute("REPLACE INTO directories( path, modified ) "
-                    "VALUES( ?, ? )", (os.path.join(directory, path), mod))
+                    "VALUES( %s, %s )" % (self.db.p, self.db.p), 
+                    (os.path.join(directory, path), mod))
                 xlmisc.log("Dir created event on %s" % os.path.join(directory, path))
                 return
 
             mod = os.path.getmtime(directory)
             self.dir_queue.append(directory)
-            self.db.execute("UPDATE directories SET modified=? "
-                "WHERE path=?", (mod, directory))
+            self.db.execute("UPDATE directories SET modified=%s "
+                "WHERE path=%s" % (self.db.p, self.db.p), (mod, directory))
 
     def run_dir_queue(self):
         """
@@ -1198,7 +1286,8 @@ class ExaileWindow(object):
         if self.tray_icon:
             self.tray_icon.set_tooltip(self.window.get_title())
 
-        row = self.db.read_one("tracks", "path, user_rating", "path=?", (track.loc,))
+        row = self.db.read_one("tracks", "path, user_rating", "path=%s" % self.db.p, 
+            (track.loc,))
 
         if not row:
             self.rating_combo.set_active(0)
@@ -1225,8 +1314,8 @@ class ExaileWindow(object):
 
         update_string = ", ".join(update_string)
 
-        self.db.execute("UPDATE tracks SET %s WHERE path=?" % update_string,
-            (track.loc,))
+        self.db.execute("UPDATE tracks SET %s WHERE path=%s" % (update_string,
+            self.db.p), (track.loc,))
 
     def __got_covers(self, covers): 
         """
@@ -1237,9 +1326,9 @@ class ExaileWindow(object):
         if len(covers) == 0:
             self.status.set_first(_("No covers found."), 2000)
             track = self.current_track
-            self.db.execute("UPDATE albums SET image=? WHERE album=? " \
-                "AND artist=?", ('nocover', track.album,
-                track.artist))
+            self.db.execute("UPDATE albums SET image=%s WHERE album=%s " \
+                "AND artist=%s" % (self.db.p, self.db.p, self.db.p), 
+                ('nocover', track.album, track.artist))
 
         # loop through all of the covers that have been found
         for cover in covers:
@@ -1249,8 +1338,9 @@ class ExaileWindow(object):
                 self.cover.set_image(cover['filename'])
 
                 track = self.current_track
-                self.db.execute("UPDATE albums SET image=? WHERE album=? " \
-                    "AND artist=?", (cover['md5'] + ".jpg", track.album,
+                self.db.execute("UPDATE albums SET image=%s WHERE album=%s " \
+                    "AND artist=%s" % (self.db.p, self.db.p, self.db.p), 
+                    (cover['md5'] + ".jpg", track.album,
                     track.artist))
                 break
    
@@ -1266,7 +1356,8 @@ class ExaileWindow(object):
 
         # check to see if a cover already exists
         row = self.db.read_one("albums", "image",
-            "artist=? AND album=?", (track.artist, track.album))
+            "artist=%s AND album=%s" % (self.db.p, self.db.p), 
+            (track.artist, track.album))
 
         if row != None and row[0] != "" and row[0] != None:
             if row[0] == "nocover": 
@@ -1375,8 +1466,8 @@ class ExaileWindow(object):
         if not track: return
 
         cur = self.db.cursor()
-        cur.execute("UPDATE albums SET image='nocover' WHERE album=? AND "
-            "artist=?", (track.album, track.artist))
+        cur.execute("UPDATE albums SET image='nocover' WHERE album=%s AND "
+            "artist=%s" % (self.db.p, self.db.p), (track.album, track.artist))
         cur.close()
         self.cover.set_image("images%snocover.png" % os.sep)
 
@@ -1428,14 +1519,15 @@ class ExaileWindow(object):
                 xlmisc.log(newname)
                 row = self.db.read_one("albums", 
                     "artist, album, genre, image",
-                    "artist=? AND album=?",
+                    "artist=%s AND album=%s" % (self.db.p, self.db.p),
                     (track.artist, track.album))
 
                 self.db.update("albums",
                     { "artist": track.artist,
                     "album": track.album,
                     "image": newname,
-                    "genre": track.genre }, "artist=? AND album=?",
+                    "genre": track.genre }, "artist=%s AND album=%s" %
+                    (self.db.p, self.db.p),
                     (track.artist, track.album), row == None)
 
                 if track == self.current_track:
@@ -1548,12 +1640,13 @@ class ExaileWindow(object):
         self.played.append(track)
 
         c = self.db.record_count("albums",
-            "artist=? AND album=?",
+            "artist=%s AND album=%s" % (self.db.p, self.db.p),
             (track.artist, track.album))
         if c <= 0:
             self.db.execute("INSERT INTO albums(artist, " \
-            "album, genre) VALUES( ?, ?, " \
-            "? )", (track.artist, track.album, track.genre))
+            "album, genre) VALUES( %s, %s, " \
+            "%s )" % (self.db.p, self.db.p, self.db.p), 
+            (track.artist, track.album, track.genre))
 
         if track.type != 'stream' and self.settings.get('fetch_covers', True):
             self.__fetch_cover(track)
@@ -1597,8 +1690,8 @@ class ExaileWindow(object):
         """
         songs = tracks.TrackData()
         for artist in artists:
-            rows = self.db.select("SELECT path FROM tracks WHERE artist=?",
-                (unicode(artist),))
+            rows = self.db.select("SELECT path FROM tracks WHERE artist=%s" %
+                self.db.p, (unicode(artist),))
             if rows:
                 search_songs = []
                 for row in rows:
@@ -2200,19 +2293,6 @@ def first_run():
     except:
         print "Could not create settings directory"
 
-    if not os.path.isfile("%s%smusic.db" % (SETTINGS_DIR, os.sep)):
-        try:
-            db = sqlite.connect("%s%smusic.db" % (SETTINGS_DIR, os.sep),
-                isolation_level=None)
-            cur = db.cursor()
-            for line in fileinput.input("sql/db.sql"):
-                cur.execute(line)
-
-            
-        except:
-            xlmisc.log("Couldn't create music database.")
-            xlmisc.log_exception()
-
 # try to import mmkeys and gtk to allow support for the multimedia keys
 try:
     import mmkeys
@@ -2252,14 +2332,6 @@ def main():
         xlmisc.log("Searching for duplicates in: %s" % options.dups)
         track.find_and_delete_dups(options.dups)
         sys.exit(0)
-    elif options.cleanversion:
-        db = sqlite.connect(os.getenv("HOME") + "/.exaile/music.db")
-        cur = db.cursor()
-        cur.execute("UPDATE version SET version=0")
-        cur.close()
-        db.commit()
-        print "Database version reset."
-        sys.exit(0)
 
     running_checks = ('next', 'prev', 'stop', 'play', 'guiquery', 'get_title',
         'get_artist', 'get_album', 'get_length', 'current_position',
@@ -2276,8 +2348,7 @@ def main():
 
         random.seed()
         fr = False
-        if not os.path.isdir(SETTINGS_DIR) or not \
-            os.path.isfile("%s%smusic.db" % (SETTINGS_DIR, os.sep)):
+        if not os.path.isdir(SETTINGS_DIR):
             first_run()
             fr = True
 
@@ -2285,7 +2356,7 @@ def main():
         check_dirs()
         if options.stream: sys.argv[1] = options.stream
         
-        exaile = ExaileWindow(fr)
+        exaile = ExaileWindow(options, fr)
 
         if MMKEYS_AVAIL:
             xlmisc.log("mmkeys are available.")

@@ -487,8 +487,9 @@ class Track(object):
         if db:
             mod = os.stat(self.loc).st_mtime
 
-            db.execute("UPDATE tracks SET title=?, artist=?, " \
-                "album=?, genre=?, year=?, modified=?, track=? WHERE path=?",
+            db.execute("UPDATE tracks SET title=%s, artist=%s, " \
+                "album=%s, genre=%s, year=%s, modified=%s, track=%s WHERE path=%s" % 
+                common.tup(db.p, 8),
                 (self.title, self.artist, self.album, self.genre,
                 self.year, mod, self.track, self.loc))
 

@@ -791,7 +791,8 @@ class TracksListCtrl(gtk.VBox):
 
         cur = self.db.cursor()
         for track in self.get_selected_tracks():
-            self.db.execute("UPDATE tracks SET user_rating=? WHERE path=?",
+            self.db.execute("UPDATE tracks SET user_rating=%s WHERE path=%s" %
+                (self.db.p, self.db.p),
                 (rating, track.loc))
             track.rating = rating
             self.refresh_row(track)
@@ -816,7 +817,6 @@ class TracksListCtrl(gtk.VBox):
                         selection.unselect_path(path[0])
                     return True
                 elif not event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
-                    print 'test?1'
                     return True
                 return False
         self.setup_tracks_menu()
@@ -906,7 +906,8 @@ class BlacklistedTracksList(TracksListCtrl):
             self.playlist_songs.remove(track)
             try: self.exaile.songs.remove(track)
             except: pass
-            self.db.execute("UPDATE tracks SET blacklisted=0 WHERE path=?", (track.loc,))
+            self.db.execute("UPDATE tracks SET blacklisted=0 WHERE path=%s" % self.db.p, 
+                (track.loc,))
             if not track in self.exaile.all_songs:
                 self.exaile.all_songs.append(track)
 

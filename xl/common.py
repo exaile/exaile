@@ -21,6 +21,17 @@ pygtk.require('2.0')
 import gtk, gtk.glade
 import locale, time, threading
 
+def tup(self, string, num):
+    """
+        returns a tuple with the first char of the string repeated 
+        the number of times after the first char:
+        ie: 5e would result in ('e', 'e', 'e', 'e', 'e')
+    """
+    a = []
+    for i in range(num):
+        a.append(string)
+    return tuple(a)    
+
 def threaded(f):
     def wrapper(*args):
         t = threading.Thread(target=f, args=args)

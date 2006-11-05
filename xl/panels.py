@@ -20,11 +20,6 @@ import media, time, thread, re, copy, threading
 import urllib
 from xml.dom import minidom
 
-try:
-    from sqlite3 import dbapi2 as sqlite
-except ImportError:
-    from pysqlite2 import dbapi2 as sqlite
-
 from gettext import gettext as _
 from popen2 import popen3 as popen
 import pygtk, audioscrobbler
@@ -273,8 +268,10 @@ class CollectionPanel(object):
         where = " OR ".join(add)
         cur = self.db.cursor()
         add = tracks.TrackData()
-        rows = self.db.select("SELECT path FROM tracks WHERE %s ORDER BY artist, " \
-            "album, track, title" % where)
+        table = "tracks"
+        if self.ipod: table = "ipod_tracks"
+        rows = self.db.select("SELECT path FROM %s WHERE %s ORDER BY artist, " \
+            "album, track, title" % (table, where))
 
         for row in rows:
             add.append(self.all.for_path(row[0]))
@@ -294,14 +291,14 @@ class CollectionPanel(object):
                 else:
                     os.remove(track.loc)
 
-            self.db.execute("DELETE FROM tracks WHERE %s" % where)
+            self.db.execute("DELETE FROM %s WHERE %s" % (table, where))
             self.db.execute("DELETE FROM playlist_items WHERE %s" % where)
 
         if item == self.blacklist:
             result = common.yes_no_dialog(self.exaile.window,
                 _("Are you sure you want to blacklist the selected tracks?"))
             if result != gtk.RESPONSE_YES: return
-            self.db.execute("UPDATE tracks SET blacklisted=1 WHERE %s" % where)
+            self.db.execute("UPDATE %s SET blacklisted=1 WHERE %s" % (table, where))
             
         if item == self.blacklist or item == self.remove:
             for track in add:
@@ -523,13 +520,12 @@ class CollectionPanel(object):
                 songs = self.track_cache["%s %s" % (where, self.keyword)]
             else:
                 songs = xl.tracks.search_tracks(self.exaile, self.db,
-                    all, self.keyword, None, where)
+                    all, self.keyword, None, where, ipod=self.ipod)
         self.track_cache["%s %s" % (where, self.keyword)] = songs
 
         if self.current_start_count != self.start_count: return
 
         self.__append_info(self.root, songs)
-
 
         if self.connect_id: gobject.source_remove(self.connect_id)
         self.connect_id = None
@@ -834,6 +830,7 @@ class iPodPanel(CollectionPanel):
         CollectionPanel.__init__(self, exaile)
 
         self.all = xl.tracks.TrackData()
+        self.db = exaile.db
         self.ipod = True
         self.connected = False
         if not IPOD_AVAILABLE: return
@@ -1176,7 +1173,7 @@ class iPodPanel(CollectionPanel):
         """
         db = self.exaile.db
         row = db.read_one("albums", "image", 
-            "artist=? AND album=? AND image!=''",
+            "artist=%s AND album=%s AND image!=''" % (self.db.p, self.db.p),
             (track.artist, track.album))
         if not row or row[0] == '': return None
         return "%s%scovers%s%s" % (self.exaile.get_settings_dir(), os.sep,
@@ -1258,15 +1255,7 @@ class iPodPanel(CollectionPanel):
 
         self.exaile_dir = "%s/iPod_Control/exaile" % self.mount
         self.log_file = "%s/lastfm.log" % self.exaile_dir
-
-        self.db = db.DBManager(":memory:")
         self.lists = []
-
-        for line in file("sql/db.sql"):
-            line = line.strip()
-            self.db.execute(line, [], True)
-        self.db.check_version("sql", echo=False)
-        self.db.commit()
 
         if not self.itdb: 
             self.connected = False
@@ -1280,19 +1269,21 @@ class iPodPanel(CollectionPanel):
         if not os.path.isdir(self.exaile_dir):
             os.mkdir(self.exaile_dir)
         self.all = xl.tracks.TrackData()
+        ## clear out ipod information from database
+        self.db.execute("DELETE FROM ipod_tracks")
 
         for playlist in gpod.sw_get_playlists(self.itdb):
             if playlist.type == 1:
                 self.lists.insert(0, iPodPlaylist(playlist, True))
             else:
                 self.lists.append(iPodPlaylist(playlist))
-            self.db.execute("INSERT INTO playlists(playlist_name) VALUES(?)",
-                (playlist.name,), True)
             for track in gpod.sw_get_playlist_tracks(playlist):
                 loc = self.mount + track.ipod_path.replace(":", "/")
-                self.db.execute("REPLACE INTO playlist_items(playlist, "
-                    "path) VALUES( ?, ? )", (playlist.name, loc), True)
 
+        left = []
+        for i in range(10):
+            left.append('%s')
+        left = ", ".join(left)
         for track in gpod.sw_get_tracks(self.itdb):
             loc = self.mount + track.ipod_path.replace(":", "/")
             try:
@@ -1304,11 +1295,10 @@ class iPodPanel(CollectionPanel):
                 if artist and artist.lower()[:4] == "the ":
                     the_track = artist[:4]
                     artist = artist[4:]
-                self.db.execute("REPLACE INTO tracks( path, " \
+                self.db.execute("REPLACE INTO ipod_tracks( path, " \
                     "title, artist, album, track, length," \
                     "bitrate, genre, year, user_rating, the_track ) " \
-                    "VALUES( ?, ?, ?, ?, ?, ?, ?, " \
-                    "?, ?, ?, ? )",
+                    "VALUES( %s ) " % left, 
 
                     (loc,
                     unicode(track.title),
@@ -1332,7 +1322,7 @@ class iPodPanel(CollectionPanel):
             except UnicodeDecodeError:
                 continue
 
-        self.db.commit()
+        self.db.db.commit()
         self.connected = True
         if self.exaile.settings.get_boolean('as_submit_ipod', False):
             self.submit_tracks()
@@ -1517,10 +1507,10 @@ class PlaylistsPanel(object):
             " playlist?"))
         if dialog.run() == gtk.RESPONSE_YES:
             if not playlist: return
-            self.db.execute("DELETE FROM playlists WHERE playlist_name=?",
-                (playlist,))
-            self.db.execute("DELETE FROM playlist_items WHERE playlist=?",
-                (playlist,))
+            self.db.execute("DELETE FROM playlists WHERE playlist_name=%s" %
+                self.db.p, (playlist,))
+            self.db.execute("DELETE FROM playlist_items WHERE playlist=%s" %
+            self.db.p, (playlist,))
             self.db.commit()
             
             self.custom.remove(playlist)
@@ -1604,15 +1594,15 @@ class PlaylistsPanel(object):
         if result == gtk.RESPONSE_OK:
             name = dialog.get_value()
             if name == "": return None
-            c = self.db.record_count("playlists", "playlist_name=?",
-                (name,))
+            c = self.db.record_count("playlists", "playlist_name=%s" %
+                self.db.p, (name,))
 
             if c > 0:
                 common.error(self.exaile.window, _("Playlist already exists."))
                 return name
 
-            self.db.execute("INSERT INTO playlists(playlist_name) VALUES(?)",
-                (name,))
+            self.db.execute("INSERT INTO playlists(playlist_name) VALUES(%s)"
+                % self.db.p, (name,))
             self.db.commit()
                 
             self.custom.append(name)
@@ -1634,7 +1624,7 @@ class PlaylistsPanel(object):
         for track in tracks:
             if isinstance(track, media.StreamTrack): continue
             self.db.execute("REPLACE INTO playlist_items( playlist, path ) " \
-                "VALUES( ?, ? )", (playlist, track.loc))
+                "VALUES( %s, %s )" % (self.db.p, self.db.p), (playlist, track.loc))
         self.db.commit()
 
 class CustomWrapper(object):
@@ -1730,8 +1720,9 @@ class PodcastQueueThread(threading.Thread):
             if temp:
                 song.set_len(temp.duration)
                 self.panel.exaile.db.execute(
-                    "UPDATE podcast_items SET length=? WHERE podcast_path=?"
-                    " AND path=?", (temp.duration, song.podcast_path, song.loc))
+                    "UPDATE podcast_items SET length=%s WHERE podcast_path=%s"
+                    " AND path=%s" % (self.db.p, self.db.p, self.db.p), 
+                    (temp.duration, song.podcast_path, song.loc))
                 self.panel.exaile.db.commit()
                 if song.podcast_artist:
                     song.artist = song.podcast_artist
@@ -2005,14 +1996,14 @@ class RadioPanel(object):
         """
             Opens a podcast
         """
-        row = self.db.read_one("podcasts", "description", "path=?",
-            (wrapper.path, ))
+        row = self.db.read_one("podcasts", "description", "path=%s" %
+            self.db.p, (wrapper.path, ))
         if not row: return
 
         desc = row[0]
         rows = self.db.select("SELECT path, title, description, length, "
-            "pub_date, size FROM podcast_items WHERE podcast_path=? ORDER BY"
-            " pub_date DESC LIMIT 10", 
+            "pub_date, size FROM podcast_items WHERE podcast_path=%s ORDER BY"
+            " pub_date DESC LIMIT 10" % self.db.p, 
             (wrapper.path,))
 
         songs = tracks.TrackData()
@@ -2155,14 +2146,15 @@ class RadioPanel(object):
         if dialog.run() == gtk.RESPONSE_OK:
             name = dialog.get_value()
             dialog.destroy()
-            if self.db.record_count("podcasts", "path=?", 
+            if self.db.record_count("podcasts", "path=%s" % self.db.p, 
                 (name, )):
                 common.error(self.exaile.window, 
                     _("A podcast with that url already"
                     " exists"))
                 return
 
-            self.db.execute("INSERT INTO podcasts( path ) VALUES( ? )", (name,))
+            self.db.execute("INSERT INTO podcasts( path ) VALUES( %s )" % self.db.p, 
+                (name,))
 
             item = self.model.append(self.podcast,
                 [self.track, PodcastWrapper("Fetching...", name)])
@@ -2215,9 +2207,9 @@ class RadioPanel(object):
         image = self.get_val(root, 'image')
         if not image: image = ""
 
-        self.db.execute("UPDATE podcasts SET title=?, "
-            "pub_date=?, description=?, image=? WHERE"
-            " path=?", (title, pub_date,
+        self.db.execute("UPDATE podcasts SET title=%s, "
+            "pub_date=%s, description=%s, image=%s WHERE"
+            " path=%s" % common.tup(self.db.p, 6), (title, pub_date,
             description, image, path))
 
         self.model.set_value(iter, 1, PodcastWrapper(title, path))
@@ -2238,7 +2230,8 @@ class RadioPanel(object):
             else: continue
 
             row = self.db.read_one("podcast_items", "path", 
-                "podcast_path=? AND path=?", (path, loc))
+                "podcast_path=%s AND path=%s" % (self.db.p, self.db.p), 
+                (path, loc))
 
             t = common.strdate_to_time(date)
             date = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(t))
@@ -2252,7 +2245,8 @@ class RadioPanel(object):
                     "size": size,
                     "title": title,
                     "length": length,
-                }, "path=? AND podcast_path=?", (loc, path), row == None,
+                }, "path=%s AND podcast_path=%s" % (self.db.p, self.db.p), 
+                (loc, path), row == None,
                 immediate=True)
 
         gobject.timeout_add(500, self.__open_podcast, PodcastWrapper(root_title, path))
@@ -2310,10 +2304,10 @@ class RadioPanel(object):
             gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO,
             _("Are you sure you want to delete this podcast?"))
         if dialog.run() == gtk.RESPONSE_YES:
-            self.db.execute("DELETE FROM podcasts WHERE path=?",
+            self.db.execute("DELETE FROM podcasts WHERE path=%s" % self.db.p,
                 (object.path,))
-            self.db.execute("DELETE FROM podcast_items WHERE podcast_path=?",
-                (object.path,))
+            self.db.execute("DELETE FROM podcast_items WHERE podcast_path=%s"
+                % self.db.p, (object.path,))
 
             self.model.remove(iter)
             self.tree.queue_draw()
@@ -2338,7 +2332,8 @@ class RadioPanel(object):
             (stream, desc) = dialog.get_values()
 
             self.db.execute("REPLACE INTO radio_items(radio, url, "
-                "title, description) VALUES( ?, ?, ?, ?)",
+                "title, description) VALUES( %s, %s, %s, %s)" % 
+                common.tup(self.db.p, 4),
                 (station, stream, desc, desc))
             
     def __remove_station(self, item, event=None):
@@ -2359,10 +2354,10 @@ class RadioPanel(object):
         dialog.destroy()
 
         if result == gtk.RESPONSE_YES:
-            self.db.execute("DELETE FROM radio WHERE radio_name=?",
-                (name,))
-            self.db.execute("DELETE FROM radio_items WHERE radio=?",
-                (name,))
+            self.db.execute("DELETE FROM radio WHERE radio_name=%s" %
+                self.db.p, (name,))
+            self.db.execute("DELETE FROM radio_items WHERE radio=%s" %
+                self.db.p, (name,))
 
             self.model.remove(iter)
             self.tree.queue_draw()
@@ -2372,7 +2367,7 @@ class RadioPanel(object):
             Opens a station
         """
         all = self.db.select("SELECT title, description, url, bitrate FROM "
-            "radio_items WHERE radio=?", (playlist,))
+            "radio_items WHERE radio=%s" % self.db.p, (playlist,))
 
         songs = xl.tracks.TrackData()
         tracks = trackslist.TracksListCtrl(self.exaile)
@@ -2415,18 +2410,19 @@ class RadioPanel(object):
                 self.on_add_station(widget)
                 return
 
-            c = self.db.record_count("radio", "radio_name=?",
+            c = self.db.record_count("radio", "radio_name=%s" % self.db.p,
                 (name,))
 
             if c > 0:
                 common.error(self.exaile.window, _("Station name already exists."))
                 return
 
-            self.db.execute("INSERT INTO radio(radio_name) VALUES(?)",
-                (name,))
+            self.db.execute("INSERT INTO radio(radio_name) VALUES(%s)" %
+                self.db.p, (name,))
             self.db.execute("INSERT INTO radio_items(radio, url, title, "
                 "description) VALUES("
-                "?, ?, ?, ?)", (name, url, desc, desc))
+                "%s, %s, %s, %s)" % common.tup(self.db.p, 5), 
+                (name, url, desc, desc))
             
             item = self.model.append(self.custom, [self.track, 
                 CustomWrapper(name)])
@@ -2474,15 +2470,15 @@ class RadioPanel(object):
         if result == gtk.RESPONSE_OK:
             name = dialog.get_value()
             if name == "": return
-            c = self.db.record_count("radio", "radio_name=?",
+            c = self.db.record_count("radio", "radio_name=%s" % self.db.tup,
                 (name,))
 
             if c > 0:
                 common.error(self, _("Station already exists."))
                 return
 
-            self.db.execute("INSERT INTO radio(radio_name) VALUES(?)",
-                (name,))
+            self.db.execute("INSERT INTO radio(radio_name) VALUES(%s)" %
+                self.db.p, (name,))
             self.db.commit()
             
             self.model.append(self.custom, [self.track, CustomWrapper(name)])
@@ -2508,7 +2504,7 @@ class RadioPanel(object):
             if not isinstance(track, media.StreamTrack): continue
             self.db.execute("REPLACE INTO radio_items( radio, title, url, "
                 "description, bitrate ) " \
-                "VALUES( ?, ?, ?, ?, ? )",
+                "VALUES( %s, %s, %s, %s, %s )" % common.tup(self.db.p, 5),
                 (playlist, track.title, track.loc,
                 track.artist, track.bitrate))
             self.db.commit()

@@ -216,7 +216,8 @@ class TrackStatsTab(gtk.Table):
         """
             Adds the specific information fields for this track
         """
-        row = self.db.read_one("tracks", "plays, rating", "path=?", (track.loc,))
+        row = self.db.read_one("tracks", "plays, rating", "path=%s" % self.db.p, 
+            (track.loc,))
 
         playcount = 0
         rating = 0

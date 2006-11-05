@@ -524,9 +524,9 @@ class CoverFetcher(object):
         """
         if self.stopped: return
         if len(covers) == 0:
-            self.db.execute("UPDATE albums SET image=? WHERE album=? " \
-                "AND artist=?", ('nocover', self.album,
-                self.artist))
+            self.db.execute("UPDATE albums SET image=%s WHERE album=%s " \
+                "AND artist=%s" % (self.db.p, self.db.p, self.db.p), 
+                ('nocover', self.album, self.artist))
             
         # loop through all of the covers that have been found
         for cover in covers:
@@ -536,9 +536,9 @@ class CoverFetcher(object):
                 log(cover['filename'])
 
                 try:
-                    self.db.execute("UPDATE albums SET image=? WHERE album=? " \
-                        "AND artist=?", (cover['md5'] + ".jpg", self.album,
-                        self.artist))
+                    self.db.execute("UPDATE albums SET image=%s WHERE album=%s " \
+                        "AND artist=%s" % (self.db.p, self.db.p, self.db.p), 
+                        (cover['md5'] + ".jpg", self.album, self.artist))
                 except:
                     log_exception()
 
@@ -604,13 +604,14 @@ class CoverFetcher(object):
                 self.needs[artist] = []
             if album in self.needs[artist]: continue
             row = self.db.read_one("albums", "image",
-                "artist=? AND album=?", (artist, album))
+                "artist=%s AND album=%s" % (self.db.p, self.db.p), 
+                (artist, album))
 
             image = "images%snocover.png" % os.sep
             if not row or not row[0]:
                 self.db.execute("REPLACE INTO albums(artist, " \
-                "album) VALUES( ?, ? " \
-                ")", (artist, album))
+                "album) VALUES( %s, %s " \
+                ")" % (self.db.p, self.db.p), (artist, album))
                 self.needs[artist].append(album)
             elif row[0].find("nocover") > -1:
                 pass
@@ -1375,14 +1376,15 @@ class CoverFrame(object):
         cover = self.covers[self.current]
         row = self.db.read_one(
             "albums", "artist, album, genre, image",
-            "artist=? AND album=?",
+            "artist=%s AND album=%s" % (self.db.p, self.db.p),
             (track.artist, track.album))
 
         self.db.update("albums",
             { "artist": track.artist,
             "album": track.album,
             "image": cover.filename(),
-            "genre": track.genre }, "artist=? AND album=?",
+            "genre": track.genre }, "artist=%s AND album=%s" % 
+            (self.db.p, self.db.p),
             (track.artist, track.album), row == None)
 
         if track == self.exaile.current_track:
@@ -1752,6 +1754,89 @@ class MiscTimer(object):
         self.func()
         if self.runonce: return False
         else: return True
+
+class DBConfigurationDialog(object):
+    """
+        A dialog for configuring databases
+    """
+    def __init__(self, parent):
+        """
+            Initializes the dialog
+        """
+        xml = gtk.glade.XML('exaile.glade', 'DBConfigurationDialog', 'exaile')
+
+        self.dialog = xml.get_widget('DBConfigurationDialog')
+        self.type = xml.get_widget('prefs_db_type')
+        self.dialog.set_transient_for(parent)
+        self.host = xml.get_widget('prefs_db_host')
+        self.type.connect('changed', lambda *e: self.__changed_type())
+        self.user = xml.get_widget('prefs_db_user')
+        self.passwd = xml.get_widget('prefs_db_passwd')
+        self.name = xml.get_widget('prefs_db_name')
+
+    def __changed_type(self):
+        type = self.get_type()
+        items = ('host', 'user', 'passwd', 'name')
+        for item in items:
+            widget = getattr(self, item)
+            widget.set_sensitive(type=='mysql')
+
+    def set_user(self, user):
+        self.user.set_text(user)
+
+    def set_host(self, host):
+        self.host.set_text(host)
+
+    def set_passwd(self, passwd):
+        self.passwd.set_text(passwd)
+
+    def set_name(self, name):
+        self.name.set_text(name)
+
+    def get_type(self):
+        return self.type.get_active_text().lower()
+
+    def get_host(self):
+        return self.host.get_text()
+
+    def get_user(self):
+        return self.user.get_text()
+
+    def get_passwd(self):
+        return self.passwd.get_text()
+
+    def get_name(self):
+        return self.name.get_text()
+
+    def set_type(self, type):
+        """
+            Sets the type of the database
+        """
+        model = self.type.get_model()
+        iter = model.get_iter_first()
+        index = 0
+        while True:
+            value = model.get_value(iter, 0)
+            if not type or value.lower() == type.lower():
+                break
+
+            iter = model.iter_next(iter)
+            if not iter: break
+            index += 1
+
+        self.type.set_active(index)
+
+    def run(self):
+        """
+            Runs the dialog
+        """
+        return self.dialog.run()
+
+    def destroy(self):
+        """
+            destroys the dialog
+        """
+        self.dialog.destroy()
 
 class PopupWindow(object):
     """

@@ -17,7 +17,7 @@
 import time
 import trackslist, tracks, covers, md5, threading, re
 import sys, httplib, urlparse, os, os.path, urllib, media
-import common, traceback, gc
+import common, traceback, gc, xl.db
 
 import cStringIO
 from gettext import gettext as _
@@ -609,7 +609,7 @@ class CoverFetcher(object):
 
             image = "images%snocover.png" % os.sep
             if not row or not row[0]:
-                self.db.execute("REPLACE INTO albums(artist, " \
+                self.db.execute("INSERT INTO albums(artist, " \
                 "album) VALUES( %s, %s " \
                 ")" % (self.db.p, self.db.p), (artist, album))
                 self.needs[artist].append(album)
@@ -1764,7 +1764,8 @@ class DBConfigurationDialog(object):
             Initializes the dialog
         """
         xml = gtk.glade.XML('exaile.glade', 'DBConfigurationDialog', 'exaile')
-
+    
+        self.parent = parent
         self.dialog = xml.get_widget('DBConfigurationDialog')
         self.type = xml.get_widget('prefs_db_type')
         self.dialog.set_transient_for(parent)
@@ -1776,10 +1777,23 @@ class DBConfigurationDialog(object):
 
     def changed_type(self):
         type = self.get_type()
+
+        if type == 'MySQL' and not xl.db.MYSQL_AVAIL:
+            common.error(self.parent, _("Driver for that database "
+                "is not available"))
+            self.type.set_active(0)
+            return
+
+        if type == 'PostgreSQL' and not xl.db.PGSQL_AVAIL:
+            common.error(self.parent, _("Driver for that database "
+                "is not available"))
+            self.type.set_active(0)
+            return
+            
         items = ('host', 'user', 'passwd', 'name')
         for item in items:
             widget = getattr(self, item)
-            widget.set_sensitive(type=='MySQL')
+            widget.set_sensitive(type!='SQLite')
 
     def set_user(self, user):
         self.user.set_text(user)

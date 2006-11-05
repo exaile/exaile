@@ -6611,7 +6611,8 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.</property>
 	      <property name="visible">True</property>
 	      <property name="can_focus">True</property>
 	      <property name="items" translatable="yes">SQLite
-MySQL</property>
+MySQL
+PostgreSQL</property>
 	      <property name="add_tearoffs">False</property>
 	      <property name="focus_on_click">True</property>
 	    </widget>

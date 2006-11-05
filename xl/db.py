@@ -32,6 +32,13 @@ try:
 except ImportError:
     MYSQL_AVAIL = False
 
+try:
+    import pyPgSQL.PgSQL
+    PGSQL_AVAIL = True
+    PostgresOperationalError = pyPgSQL.PgSQL.OperationalError
+except:
+    PGSQL_AVAIL = False
+
 from traceback import print_exc
 import gobject
 
@@ -96,6 +103,12 @@ class DBManager(object):
                db = sqlite.connect(self.db_loc)
             except sqlite.OperationalError, e:
                 raise DBOperationalError(str(e))
+        elif self.type == 'pgsql':
+            self.p = "%s"
+            if not PGSQL_AVAIL:
+                raise DBOperationalError("PostgreSQL driver is not available")
+
+            db = pyPgSQL.PgSQL.connect(**self.args)
         else:
             self.p = "%s"
             if not MYSQL_AVAIL: 
@@ -122,7 +135,7 @@ class DBManager(object):
             Checks the database version and updates it if necessary
         """
         version = 0
-        row = self.read_one("db_version", "version", "1", tuple())
+        row = self.read_one("db_version", "version", "1=1", tuple())
         if row:
             version = int(row[0])
 
@@ -154,9 +167,22 @@ class DBManager(object):
 
         for line in lines:
             if line.strip():
+                line = self.sanitize(line + ";")
                 self._exec(line)
         self.db.commit()
-                     
+
+    def sanitize(self, line):
+        """
+            Converts a line to the current db spec
+        """
+        if self.type == 'pgsql':
+            m = re.search("PRIMARY KEY\((.*)\)\s?\);", line)
+            if m:
+                args = m.group(1)
+                args = re.sub("\(.*?\)", "", args)
+                line = re.sub("PRIMARY KEY\((.*)\)\s?\);",
+                    "PRIMARY KEY( %s ) );" % args, line)
+        return line 
     def cursor(self):
         """
             Returns a db cursor
@@ -192,6 +218,7 @@ class DBManager(object):
         name = threading.currentThread().getName()
         if name == "MainThread": cur = self._cursor
         else: cur = self._get_from_pool().cursor()
+
         cur.execute(query, args)
         all = cur.fetchall()
         if name != "MainThread": cur.close()
@@ -279,29 +306,32 @@ class DBManager(object):
             values = []
             for key in keys:
                 val = vals[key]
-                if not isinstance(val, str):
-                    val = str(val)
+                if not isinstance(val, str) or not isinstance(val, unicode):
+                    val = unicode(val)
 
                 val = val.decode("utf-8", 'replace')
-                val = val.replace("\"", "\"\"")
-                values.append('"%s"' % val)
+                values.append(val)
 
             left = ", ".join(keys)
-            right = ", ".join(values)
-
-            query = "REPLACE INTO %s( %s ) VALUES( %s )" % (table, left, right)
+            right = ", ".join([self.p for x in keys])
+            query = "INSERT INTO %s( %s ) VALUES( %s )" % (table, left, right)
             try:
-                cur.execute(query)
-            except OperationalError:
+                cur.execute(query, tuple(values))
+            except Exception, e:
                 print "Error on: %s" % query
+                print e
             return
         else:
             values = []
+            keys = []
             for k, v in vals.iteritems():
 
                 if not isinstance(v, str): v = str(v)
                 v = v.decode("utf-8", 'replace')
-                values.append("%s=\"%s\" " % (k, v.replace('"', r'""')))
+                keys.append("%s=%s " % (k, self.p))
+                values.append(v)
 
-            query = "UPDATE %s SET %s WHERE %s" % (table, ", ".join(values), where)
+            args = values.extend(args)
+
+            query = "UPDATE %s SET %s WHERE %s" % (table, ", ".join(keys), where)
             cur.execute(query, args)

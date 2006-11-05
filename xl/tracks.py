@@ -164,7 +164,7 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None,
     table = "tracks"
     if ipod: table = "ipod_tracks"
     query = "SELECT path FROM %s %s ORDER BY " % (table, where) + \
-        "artist, album, track, title"
+        "LOWER(artist), LOWER(album), track, title"
     if w != None:
         query = w
         query = re.sub("FROM (\w+) ", r"FROM \1 " + where, query)
@@ -218,11 +218,11 @@ def load_tracks(db, current=None):
 
     tracks = TrackData()
     for row in db.select("SELECT %s FROM tracks WHERE blacklisted=0 ORDER"
-        " BY artist, album, track, title" % READ_FIELDS):
+        " BY LOWER(artist), LOWER(album), track, title" % READ_FIELDS):
         if not os.path.isfile(row[0]): 
             continue
 
-        t = read_track(db, current, row, True)
+        t = read_track(db, current, None, True, row=row)
 
         if already_added(t, added): continue
 
@@ -316,17 +316,15 @@ def read_audio_disc(exaile):
 
     return songs
 
-def read_track(db, current, path, skipmod=False, ipod=False, adddb=True):
+def read_track(db, current, path, skipmod=False, ipod=False, adddb=True,
+    row=None):
     """
         Reads a track, either from the database, or from it's metadata
     """
 
-    row = None
-
     # if path was passed in as a list, the correct fields have probably
     # already been loaded from the database
-    if type(path) is list or type(path) is tuple:
-        row = path
+    if not row is None:
         path = row[0]
     # else, we read the row from the database
     else:
@@ -373,7 +371,7 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True):
                         "track": tr.track,
                         "length": tr.duration,
                         "the_track": the_track,
-                        "bitrate": tr.bitrate,
+                        "bitrate": tr._bitrate,
                         "blacklisted": tr.blacklisted,
                         "year": tr.year,
                         "modified": mod
@@ -433,12 +431,13 @@ class PopulateThread(threading.Thread):
 
         directories = self.directories
         directories = [x.decode('utf-8', 'replace') for x in directories]
+        self.db.execute("DELETE FROM directories")
         for path in directories:
             try:
                 mod = os.path.getmtime(path)
             except OSError:
                 continue
-            self.db.execute("REPLACE INTO directories( path, modified ) "
+            self.db.execute("INSERT INTO directories( path, modified ) "
                 "VALUES( %s, %s )" % (self.db.p, self.db.p), (path, mod))
 
         update_func = self.update_func

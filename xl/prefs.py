@@ -393,7 +393,7 @@ class Preferences(object):
         """
             Shows the database configuration dialog
         """
-        self.exaile.show_db_config()
+        self.exaile.show_db_config(prefs=True)
         self.db_button.set_label(self.exaile.settings.get('db_type', 'SQLite'))
 
     def setup_scan_interval(self, widget):

@@ -252,29 +252,34 @@ class CollectionPanel(object):
         if item == self.queue_item: queue = True
         selection = self.tree.get_selection()
         (model, paths) = selection.get_selected_rows()
-        add = [] 
+        found = [] 
         for path in paths:
             iter = self.model.get_iter(path)
             if self.model.iter_has_child(iter):
-                self.append_recursive(iter, add, queue)
+                self.append_recursive(iter, found, queue)
             else:
                 track = self.model.get_value(iter, 1)
-                add.append(track.loc)
+                found.append(track.loc)
 
         # create an sql query based on all of the paths that were found.
         # this way we can order them by track number to make sure they
         # are added to the playlist as they are sorted in the album
-        add = ["path=\"%s\"" % x.replace('"', r'\"') for x in add]
-        where = " OR ".join(add)
-        cur = self.db.cursor()
-        add = tracks.TrackData()
-        table = "tracks"
-        if self.ipod: table = "ipod_tracks"
-        rows = self.db.select("SELECT path FROM %s WHERE %s ORDER BY artist, " \
-            "album, track, title" % (table, where))
+#        add = ["path=%s" % self.db.p for x in found]
+#        where = " OR ".join(add)
+#        cur = self.db.cursor()
+#        add = tracks.TrackData()
+#        table = "tracks"
+#        if self.ipod: table = "ipod_tracks"
+#        rows = self.db.select("SELECT path FROM %s WHERE %s ORDER BY artist, " \
+#            "album, track, title" % (table, where), found)
 
-        for row in rows:
-            add.append(self.all.for_path(row[0]))
+#        for row in rows:
+#            add.append(self.all.for_path(row[0]))
+
+        add = tracks.TrackData()
+
+        for row in found:
+            add.append(self.all.for_path(row))
 
         if return_only: return add
 
@@ -489,7 +494,7 @@ class CollectionPanel(object):
         if self.choice.get_active() == 2:
             self.order = ('genre', 'artist', 'album', 'track', 'title')
             where = "SELECT path FROM tracks WHERE blacklisted=0 ORDER BY " \
-                "genre, track, title"
+                "LOWER(genre), track, title"
 
         if self.choice.get_active() == 0:
             self.order = ('artist', 'album', 'track', 'title')
@@ -501,7 +506,7 @@ class CollectionPanel(object):
             self.order = ('album', 'track', 'title')
             where = "SELECT path, album, track, title FROM tracks " \
                 "WHERE blacklisted=0 ORDER BY " \
-                "album, track, artist, title"
+                "LOWER(album), track, LOWER(artist), title"
 
         # save the active view setting
         self.exaile.settings['active_view'] = self.choice.get_active()
@@ -1624,7 +1629,7 @@ class PlaylistsPanel(object):
 
         for track in tracks:
             if isinstance(track, media.StreamTrack): continue
-            self.db.execute("REPLACE INTO playlist_items( playlist, path ) " \
+            self.db.execute("INSERT INTO playlist_items( playlist, path ) " \
                 "VALUES( %s, %s )" % (self.db.p, self.db.p), (playlist, track.loc))
         self.db.commit()
 
@@ -2332,7 +2337,7 @@ class RadioPanel(object):
         if result == gtk.RESPONSE_OK:
             (stream, desc) = dialog.get_values()
 
-            self.db.execute("REPLACE INTO radio_items(radio, url, "
+            self.db.execute("INSERT INTO radio_items(radio, url, "
                 "title, description) VALUES( %s, %s, %s, %s)" % 
                 common.tup(self.db.p, 4),
                 (station, stream, desc, desc))
@@ -2503,7 +2508,7 @@ class RadioPanel(object):
 
         for track in tracks:
             if not isinstance(track, media.StreamTrack): continue
-            self.db.execute("REPLACE INTO radio_items( radio, title, url, "
+            self.db.execute("INSERT INTO radio_items( radio, title, url, "
                 "description, bitrate ) " \
                 "VALUES( %s, %s, %s, %s, %s )" % common.tup(self.db.p, 5),
                 (playlist, track.title, track.loc,

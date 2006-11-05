@@ -966,6 +966,12 @@ class ExaileWindow(object):
                 passwd=self.settings.get('db_passwd', ''),
                 host=self.settings.get('db_host', 'localhost'),
                 db=self.settings.get('db_name', ''))
+        elif self.settings['db_type'] == 'PostgreSQL':
+            database = db.DBManager(type='pgsql',
+                user=self.settings.get('db_user', ''),
+                password=self.settings.get('db_passwd', ''),
+                host=self.settings.get('db_host', ''),
+                database=self.settings.get('db_name', ''))
 
         return database
 
@@ -1006,51 +1012,48 @@ class ExaileWindow(object):
             self.settings['db_type'] = 'SQLite'
 
         if self.settings['db_type'] != 'SQLite' and \
-            self.settings['db_type'] != 'MySQL':
+            self.settings['db_type'] != 'MySQL' and \
+            self.settings['db_type'] != 'PostgreSQL':
                 common.error(self.window, _("Invalid database driver "
                     "specified."))
                 del self.settings['db_type']
                 sys.exit(1)
 
-        if self.settings['db_type'] == 'SQLite':
-            im = False
-            if not os.path.isfile("%s%smusic.db" % (SETTINGS_DIR,
-                os.sep)):
-                    im = True
+        im = False
+        if not os.path.isfile("%s%smusic.db" % (SETTINGS_DIR,
+            os.sep)):
+                im = True
+        try:
+            self.db = self.get_database()
+        except db.DBOperationalError, e:
+            common.error(self.window, _("Error connecting to database: %s" %
+                str(e)))
+            sys.exit(1)
+        if im and self.settings['db_type'] == 'SQLite':
             try:
-                self.db = self.get_database()
+                self.db.import_sql("sql/db.sql")
             except db.DBOperationalError, e:
-                common.error(self.window, _("Error connecting to sqlite: %s" %
-                    str(e)))
+                common.error(self.window, "Error "
+                    "creating collection database: %s" % (str(e)))
                 sys.exit(1)
+
+        if self.settings['db_type'] == 'MySQL' or \
+            self.settings['db_type'] == 'PostgreSQL':
+            im = False
+            try:
+                self.db._cursor.execute("SELECT * FROM tracks")
+            except db.ProgrammingError:
+                im = True
+            except db.PostgresOperationalError:
+                im = True
+
             if im:
                 try:
                     self.db.import_sql("sql/db.sql")
-                except db.DBOperationalError, e:
-                    common.error(self.window, "Error "
-                        "creating collection database: %s" % (str(e)))
+                except Exception, e:
+                    common.error(self.window, _("Error creating "
+                        "database schema: %s" % str(e)))
                     sys.exit(1)
-        elif self.settings['db_type'] == 'MySQL':
-
-            try:
-                self.db = self.get_database()
-            except db.DBOperationalError, e:
-                common.error(self.window, _("Error connecting to mysql: %s" %
-                    str(e)))
-                sys.exit(1)
-
-            try:
-                self.db._cursor.execute("SELECT * FROM tracks")
-            except db.ProgrammingError, e:
-                if e.args[0] == 1146:
-                    try:
-                        self.db.import_sql("sql/db.sql")
-                    except db.DBOperationalError:   
-                        common.error(self.window, _("Error creating database"
-                            " schema %s" % str(e)))
-                        sys.exit(1)
-                else:
-                    self.db = None
 
         if not self.db:
             common.error(self.window, _("Unknown error connecting to "
@@ -1158,7 +1161,7 @@ class ExaileWindow(object):
                     self.directory_changed(dir, path, event))
                 mod = os.path.getmtime(os.path.join(directory, path))
                 self.gamin_watched.append(os.path.join(directory, path))
-                self.db.execute("REPLACE INTO directories( path, modified ) "
+                self.db.execute("INSERT INTO directories( path, modified ) "
                     "VALUES( %s, %s )" % (self.db.p, self.db.p), 
                     (os.path.join(directory, path), mod))
                 xlmisc.log("Dir created event on %s" % os.path.join(directory, path))
@@ -2237,7 +2240,7 @@ class ExaileWindow(object):
             for song in self.queued:
                 h.write("%s\n" % song.loc)
             h.close()
-        self.db.commit()
+        self.db.db.commit()
         last_active = self.playlists_nb.get_current_page()
         self.settings['last_active'] = last_active
 

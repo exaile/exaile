@@ -453,6 +453,7 @@ class TrackEditor(object):
                 errors.append("Unknown error writing tag for %s" % track.loc)
                 xlmisc.log_exception()
 
+        self.exaile.db.db.commit()
         if errors:
             message = ""
             count = 1

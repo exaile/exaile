@@ -1541,6 +1541,7 @@ class ExaileWindow(object):
                         (self.get_settings_dir(), os.sep, os.sep,
                         newname))
 
+    @common.synchronized
     def new_page(self, title=_("Playlist"), songs=None):
         """
             Create a new tab with the included title with the specified type

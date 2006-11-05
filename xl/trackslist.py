@@ -481,7 +481,7 @@ class TracksListCtrl(gtk.VBox):
                     if count > 1:
                         col.connect('clicked', self.set_sort_by)
                     col.set_sort_column_id(count)
-#                    col.set_reorderable(True)
+                    col.set_reorderable(True)
                     col.set_resizable(True)
                 col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
                 self.list.append_column(col)

@@ -1324,10 +1324,10 @@ class CoverFrame(object):
         self.track = track
         self.db = parent.db
         self.prev = self.xml.get_widget('cover_back_button')
-        self.prev.connect('clicked', self.prev)
+        self.prev.connect('clicked', self.go_prev)
         self.prev.set_sensitive(False)
         self.next = self.xml.get_widget('cover_forward_button')
-        self.next.connect('clicked', self.next)
+        self.next.connect('clicked', self.go_next)
         self.xml.get_widget('cover_newsearch_button').connect('clicked',
             self.new_search)
         self.xml.get_widget('cover_cancel_button').connect('clicked',
@@ -1394,7 +1394,7 @@ class CoverFrame(object):
                 cover.filename()))
         self.window.destroy()
 
-    def next(self, widget):
+    def go_next(self, widget):
         """
             Shows the next cover
         """
@@ -1406,7 +1406,7 @@ class CoverFrame(object):
         if self.current - 1 >= 0:
             self.prev.set_sensitive(True)
 
-    def prev(self, widget):
+    def go_prev(self, widget):
         """
             Shows the previous cover
         """

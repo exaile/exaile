@@ -192,10 +192,7 @@ class ExaileWindow(object):
             self.status.set_first(None)
  
         self.window.show_all()
-        self.load_songs()
-        
-        if not self.playlists_nb.get_n_pages():
-            self.new_page(_("Playlist"))
+        self.load_songs(False, True)
 
         if first_run:
             dialog = gtk.MessageDialog(self.window, gtk.DIALOG_MODAL,
@@ -749,6 +746,13 @@ class ExaileWindow(object):
                 h.close()
 
             trackslist.update_queued(self)
+        last_active = self.settings.get_int('last_active', -1)
+        if last_active > -1:
+            xlmisc.log("Last active playlist: %d" % last_active)
+            self.playlists_nb.set_current_page(last_active)
+        
+        if not self.playlists_nb.get_n_pages():
+            self.new_page(_("Playlist"))
 
     def append_songs(self, songs, queue=False, play=True, title="Playlist"): 
         """
@@ -1051,7 +1055,7 @@ class ExaileWindow(object):
         self.db.check_version("sql")
 
     @common.threaded
-    def load_songs(self, updating=False): 
+    def load_songs(self, updating=False, first_run=False): 
         """
             Loads the entire library from the database
         """
@@ -1080,7 +1084,7 @@ class ExaileWindow(object):
                 gobject.idle_add(self.import_m3u, sys.argv[1], True)
             else:
                 if not self.tracks: self.new_page("Last", [])
-        gobject.idle_add(self.__load_last_playlist)
+        if first_run: gobject.idle_add(self.__load_last_playlist)
 
     def setup_gamin(self, skip_prefs=False):
         """
@@ -1185,13 +1189,14 @@ class ExaileWindow(object):
         """
             Sets the songs and playlist songs
         """
-        if not songs: songs = self.tracks.songs
+        tracks = self.tracks
+        if not songs: songs = tracks.songs
         self.songs = songs
         self.playlist_songs = songs
 
-        if not self.tracks: return
+        if not tracks: return
 
-        if set: gobject.idle_add(self.tracks.set_songs, songs)
+        if set: gobject.idle_add(tracks.set_songs, songs)
 
     def __timer_update(self, event=None): 
         """
@@ -2227,6 +2232,8 @@ class ExaileWindow(object):
                 h.write("%s\n" % song.loc)
             h.close()
         self.db.commit()
+        last_active = self.playlists_nb.get_current_page()
+        self.settings['last_active'] = last_active
 
         sys.exit(0)
 

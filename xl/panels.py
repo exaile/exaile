@@ -489,19 +489,19 @@ class CollectionPanel(object):
         if self.choice.get_active() == 2:
             self.order = ('genre', 'artist', 'album', 'track', 'title')
             where = "SELECT path FROM tracks WHERE blacklisted=0 ORDER BY " \
-                "genre, track, title COLLATE NOCASE"
+                "genre, track, title"
 
         if self.choice.get_active() == 0:
             self.order = ('artist', 'album', 'track', 'title')
             where = "SELECT path, %s FROM tracks WHERE " \
-                "blacklisted=0 ORDER BY %s COLLATE NOCASE" % \
+                "blacklisted=0 ORDER BY %s" % \
                 (", ".join(self.order), ", ".join(self.order))
 
         if self.choice.get_active() == 1:
             self.order = ('album', 'track', 'title')
             where = "SELECT path, album, track, title FROM tracks " \
                 "WHERE blacklisted=0 ORDER BY " \
-                "album, track, artist, title COLLATE NOCASE"
+                "album, track, artist, title"
 
         # save the active view setting
         self.exaile.settings['active_view'] = self.choice.get_active()

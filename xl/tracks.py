@@ -170,10 +170,13 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None,
         query = re.sub("FROM (\w+) ", r"FROM \1 " + where, query)
 
     try:
+#        if db.type == 'mysql':
+#            query = query.replace("%%", "%")
         cur = db.db.cursor()
         cur.execute(query)
     except Exception, e:
-        common.error(parent, "Query Error: " + e.args[0])
+        xlmisc.log(query)
+        common.error(parent.window, "Query Error: " + str(e))
         raise e
 
     for row in cur:

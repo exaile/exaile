@@ -1554,7 +1554,7 @@ class PlaylistsPanel(object):
                 songs.append(song)
 
             random.shuffle(songs)
-            songs = songs[0:100]
+            songs = tracks.TrackData(songs[0:100])
 
         if smart != "Random 100":
             songs = xl.tracks.search_tracks(self, self.db,

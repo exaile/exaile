@@ -154,7 +154,7 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None,
                     return tracks
                     
         else:
-            new = []
+            new = TrackData() 
             for track in all:
                 new.append(track)
             return new

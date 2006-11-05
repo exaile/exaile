@@ -102,7 +102,7 @@ class ExaileWindow(object):
         self.playlists_menu = None
         self.history = []
         self.cover_thread = None
-        self.timer = xlmisc.MiscTimer(self.__timer_update, 1000)
+        self.timer = xlmisc.MiscTimer(self.timer_update, 1000)
         self.playing = False
         self.next = None
         self.thread_pool = []
@@ -163,9 +163,9 @@ class ExaileWindow(object):
 
         self.playlists_nb = self.xml.get_widget('playlists_nb')
         self.set_tab_placement()
-        self.__setup_left()
-        self.__setup_right()
-        self.__connect_events()
+        self.setup_left()
+        self.setup_right()
+        self.connect_events()
         self.setup_menus()
 
         pos = self.settings.get_int("mainw_sash_pos", 200)
@@ -174,12 +174,12 @@ class ExaileWindow(object):
         media.set_volume(self.settings.get_float("volume", 1))
 
         self.splitter = self.xml.get_widget('splitter')
-        self.splitter.connect('move_handle', self.__on_resize)
+        self.splitter.connect('move_handle', self.on_resize)
 
         self.status = xlmisc.StatusBar(self)
 
         self.playlists_nb.connect('switch-page',
-            self.__page_changed)
+            self.page_changed)
         self.playlists_nb.remove_page(0)
 
         self.timer.start()
@@ -225,7 +225,7 @@ class ExaileWindow(object):
 
         if not self.scan_timer:
             self.scan_timer = xlmisc.MiscTimer(lambda:
-                self.__on_library_rescan(load_tree=False), 1) 
+                self.on_library_rescan(load_tree=False), 1) 
 
         self.scan_timer.stop()
         self.scan_timer.time = int(value * 60 * 60 * 1000)
@@ -269,7 +269,7 @@ class ExaileWindow(object):
             if isinstance(page, trackslist.TracksListCtrl):
                 page.update_col_settings()
 
-    def __page_changed(self, nb, page, num):
+    def page_changed(self, nb, page, num):
         """
             Called when the user switches pages
         """
@@ -279,11 +279,11 @@ class ExaileWindow(object):
             self.tracks = page
             self.update_songs(page.songs, False)
 
-    def __connect_events(self):
+    def connect_events(self):
         """
             Connects events to the various widgets
         """
-        self.window.connect('configure_event', self.__on_resize)
+        self.window.connect('configure_event', self.on_resize)
         self.window.connect('delete_event', self.on_quit)
         self.queue_count_label = self.xml.get_widget('queue_count_label')
         self.xml.get_widget('queue_count_box').connect('button-release-event',
@@ -317,11 +317,11 @@ class ExaileWindow(object):
         self.quit_item.connect('activate', self.on_quit)
 
         self.progress = self.xml.get_widget('track_slider')
-        self.progress.connect('change_value', self.__seek)
+        self.progress.connect('change_value', self.seek)
 
         self.clear_button = self.xml.get_widget('clear_button')
         self.clear_button.connect('clicked', lambda *e:
-            self.__clear_playlist(None))
+            self.clear_playlist(None))
 
         self.next_button = self.xml.get_widget('next_button')
         self.next_button.connect('clicked', lambda e: self.on_next())
@@ -329,17 +329,17 @@ class ExaileWindow(object):
         self.previous_button = self.xml.get_widget('prev_button')
         self.previous_button.connect('clicked', self.on_previous)
 
-        self.cover_box.connect('button_press_event', self.__cover_clicked)
+        self.cover_box.connect('button_press_event', self.cover_clicked)
 
         self.tracks_filter = self.xml.get_widget('tracks_filter')
         self.tracks_filter.connect('activate', self.on_search)
-        self.tracks_filter.connect('key-release-event', self.__live_search)
+        self.tracks_filter.connect('key-release-event', self.live_search)
         self.key_id = None
         self.search_button = self.xml.get_widget('search_button')
         self.search_button.connect('clicked', self.on_search)
 
         self.rescan_collection = self.xml.get_widget('rescan_collection')
-        self.rescan_collection.connect('activate', self.__on_library_rescan)
+        self.rescan_collection.connect('activate', self.on_library_rescan)
 
         self.library_item = self.xml.get_widget('library_manager')
         self.library_item.connect('activate', lambda e:
@@ -354,13 +354,13 @@ class ExaileWindow(object):
             self.show_blacklist_manager())
 
         self.xml.get_widget('clear_button').connect('clicked',
-            self.__clear_playlist)
+            self.clear_playlist)
 
         self.xml.get_widget('preferences_item').connect('activate',
             lambda e: prefs.Preferences(self).run())
 
         self.clear_queue_item = self.xml.get_widget('clear_queue_item')
-        self.clear_queue_item.connect('activate', self.__on_clear_queue)
+        self.clear_queue_item.connect('activate', self.on_clear_queue)
 
         self.goto_current_item = self.xml.get_widget('goto_current_item')
         self.goto_current_item.connect('activate', self.goto_current)
@@ -372,56 +372,56 @@ class ExaileWindow(object):
             lambda *e: self.new_page())
 
         self.open_item = self.xml.get_widget('open_item')
-        self.open_item.connect('activate', self.__on_add_media)
+        self.open_item.connect('activate', self.on_add_media)
 
         self.open_playlist_item = self.xml.get_widget('open_playlist_item')
-        self.open_playlist_item.connect('activate', self.__on_add_media)
+        self.open_playlist_item.connect('activate', self.on_add_media)
 
         self.xml.get_widget('export_playlist_item').connect('activate',
-            self.__export_playlist)
+            self.export_playlist)
 
         self.xml.get_widget('open_url_item').connect('activate',
-            self.__open_url)
+            self.open_url)
 
         self.fetch_item = self.xml.get_widget('fetch_covers_item')
         self.fetch_item.connect('activate',
-            self.__fetch_covers)
+            self.fetch_covers)
 
 
         self.open_disc_item = self.xml.get_widget('open_disc_item')
         self.open_disc_item.connect('activate',
-            self.__open_disc)
+            self.open_disc)
         self.open_disc_item.set_sensitive(tracks.CDDB_AVAIL)
 
         self.xml.get_widget('track_artist_item').connect('activate',
-            lambda *e: self.__jump_to(1))
+            lambda *e: self.jump_to(1))
 
         self.xml.get_widget('track_album_item').connect('activate',
-            lambda *e: self.__jump_to(2))
+            lambda *e: self.jump_to(2))
 
         self.xml.get_widget('track_lyrics_item').connect('activate',
-            lambda *e: self.__jump_to(3))
+            lambda *e: self.jump_to(3))
 
         action_log_item = self.xml.get_widget('action_log_item')
         action_log_item.connect('activate',
-            lambda *e: self.__show_debug_dialog()) 
+            lambda *e: self.show_debug_dialog()) 
 
         self.xml.get_widget('clear_playlist_item').connect('activate',
-            lambda *e: self.__clear_playlist(None))
+            lambda *e: self.clear_playlist(None))
 
         self.xml.get_widget('close_playlist_item').connect('activate',
             lambda *e: self.close_page())
             
         self.xml.get_widget('import_directory_item').connect('activate',
-            lambda *e: self.__import_directory())
+            lambda *e: self.import_directory())
 
         self.xml.get_widget('streamripper_log_item').connect('activate',
-            lambda *e: self.__streamripper_log())
+            lambda *e: self.streamripper_log())
 
         self.rating_combo = self.xml.get_widget('rating_combo')
         self.rating_combo.set_active(0)
         self.rating_combo.set_sensitive(False)
-        self.rating_signal = self.rating_combo.connect('changed', self.__set_rating)
+        self.rating_signal = self.rating_combo.connect('changed', self.set_rating)
 
     def toggle_record(self, widget, event=None):
         """
@@ -480,7 +480,7 @@ class ExaileWindow(object):
 
         return False
 
-    def __set_rating(self, combo):
+    def set_rating(self, combo):
         """
             Sets the user rating of a track
         """
@@ -496,7 +496,7 @@ class ExaileWindow(object):
         if self.tracks:
             self.tracks.refresh_row(track)
 
-    def __streamripper_log(self):
+    def streamripper_log(self):
         """
             Views the streamripper log, if it's available
         """
@@ -511,7 +511,7 @@ class ExaileWindow(object):
 
         common.scrolledMessageDialog(self.window, data, _("Streamripper Log"))
 
-    def __import_directory(self):
+    def import_directory(self):
         """
             Imports a single directory into the database
         """
@@ -537,11 +537,11 @@ class ExaileWindow(object):
 
             done_func = None
             if check.get_active():
-                done_func = self.__after_import
+                done_func = self.after_import
             self.update_library((path,), done_func=done_func, load_tree=False)
         dialog.destroy()
 
-    def __after_import(self, songs):
+    def after_import(self, songs):
         """
             Adds songs that have just been imported to the current playlist
             after importing a directory
@@ -564,14 +564,14 @@ class ExaileWindow(object):
 
         self.append_songs(add, play=False)
 
-    def __show_debug_dialog(self):
+    def show_debug_dialog(self):
         """
             Shows the debug dialog if it has been initialized
         """
         if xlmisc.DebugDialog.debug:
             xlmisc.DebugDialog.debug.dialog.show()
 
-    def __live_search(self, widget, event):
+    def live_search(self, widget, event):
         """
             Simulates live search of tracks
         """
@@ -582,7 +582,7 @@ class ExaileWindow(object):
         self.key_id = gobject.timeout_add(700, self.on_search, None, None,
             False)
 
-    def __on_clear_queue(self, *e):
+    def on_clear_queue(self, *e):
         """
             Called when someone wants to clear the queue
         """
@@ -641,10 +641,10 @@ class ExaileWindow(object):
         response = dialog.run()
         dialog.dialog.hide()
         if response == gtk.RESPONSE_APPLY:
-            self.__on_library_rescan()
+            self.on_library_rescan()
         dialog.destroy()
 
-    def __cover_clicked(self, widget, event):
+    def cover_clicked(self, widget, event):
         """
             Called when the cover is clicked on
         """
@@ -712,7 +712,7 @@ class ExaileWindow(object):
             self.tray_icon.icon.destroy()
             self.tray_icon = None
 
-    def __load_last_playlist(self): 
+    def load_last_playlist(self): 
         """
             Loads the playlist that was in the player on last exit
         """
@@ -935,7 +935,7 @@ class ExaileWindow(object):
         self.tracks.queue_draw()
         trackslist.update_queued(self)
 
-    def __setup_left(self): 
+    def setup_left(self): 
         """
             Sets up the left panel
         """
@@ -957,10 +957,10 @@ class ExaileWindow(object):
         """
             Returns a new database connection
         """
-        if self.settings['db_type'] == 'sqlite':
+        if self.settings['db_type'] == 'SQLite':
             database = db.DBManager("%s%smusic.db" % (SETTINGS_DIR,
                 os.sep))
-        elif self.settings['db_type'] == 'mysql':
+        elif self.settings['db_type'] == 'MySQL':
             database = db.DBManager(type='mysql',
                 user=self.settings.get('db_user', ''),
                 passwd=self.settings.get('db_passwd', ''),
@@ -969,7 +969,7 @@ class ExaileWindow(object):
 
         return database
 
-    def __show_db_config(self):
+    def show_db_config(self, prefs=False):
         """
             Shows the database configuration dialog
         """
@@ -986,8 +986,13 @@ class ExaileWindow(object):
             for item in items:
                 func = getattr(dialog, "get_%s" % item)
                 self.settings["db_%s" % item] = func()
+
+            # if this was called from the preferences dialog
+            if prefs:
+                common.info(self.window, _("You must restart exaile for these"
+                    " changes to take effect"))
         else:
-            sys.exit(0)
+            if not prefs: sys.exit(0)
 
         dialog.destroy()
 
@@ -996,18 +1001,18 @@ class ExaileWindow(object):
             Connects to the database
         """
         if self.options.db_config:
-            self.__show_db_config()
+            self.show_db_config()
         if not self.settings.has_key('db_type'):
-            self.settings['db_type'] = 'sqlite'
+            self.settings['db_type'] = 'SQLite'
 
-        if self.settings['db_type'] != 'sqlite' and \
-            self.settings['db_type'] != 'mysql':
+        if self.settings['db_type'] != 'SQLite' and \
+            self.settings['db_type'] != 'MySQL':
                 common.error(self.window, _("Invalid database driver "
                     "specified."))
                 del self.settings['db_type']
                 sys.exit(1)
 
-        if self.settings['db_type'] == 'sqlite':
+        if self.settings['db_type'] == 'SQLite':
             im = False
             if not os.path.isfile("%s%smusic.db" % (SETTINGS_DIR,
                 os.sep)):
@@ -1025,7 +1030,7 @@ class ExaileWindow(object):
                     common.error(self.window, "Error "
                         "creating collection database: %s" % (str(e)))
                     sys.exit(1)
-        elif self.settings['db_type'] == 'mysql':
+        elif self.settings['db_type'] == 'MySQL':
 
             try:
                 self.db = self.get_database()
@@ -1084,7 +1089,7 @@ class ExaileWindow(object):
                 gobject.idle_add(self.import_m3u, sys.argv[1], True)
             else:
                 if not self.tracks: self.new_page("Last", [])
-        if first_run: gobject.idle_add(self.__load_last_playlist)
+        if first_run: gobject.idle_add(self.load_last_playlist)
 
     def setup_gamin(self, skip_prefs=False):
         """
@@ -1181,7 +1186,7 @@ class ExaileWindow(object):
         xlmisc.log("Running gamin queued item %s" % item)
 
         tracks.populate(self, self.db,
-            (item,), self.__on_library_update, False, 
+            (item,), self.on_library_update, False, 
             load_tree=False)
    
     @common.threaded
@@ -1198,7 +1203,7 @@ class ExaileWindow(object):
 
         if set: gobject.idle_add(tracks.set_songs, songs)
 
-    def __timer_update(self, event=None): 
+    def timer_update(self, event=None): 
         """
             Fired every half second.
             Updates the seeker position, the "now playing" title, and
@@ -1240,7 +1245,7 @@ class ExaileWindow(object):
 
         if not track.submitting and (seconds > 240 or value > 50) \
             and track.get_scrobbler_session() != None:
-            self.__update_rating(track, plays="plays + 1",
+            self.update_rating(track, plays="plays + 1",
                 rating="rating + 1")
             if track.submit_to_scrobbler():
                 track.submitting = True
@@ -1265,7 +1270,7 @@ class ExaileWindow(object):
             self.rating_combo.set_sensitive(False)
 
             self.rating_signal = self.rating_combo.connect('changed',
-                self.__set_rating)
+                self.set_rating)
             return
 
         album = track.album
@@ -1306,9 +1311,9 @@ class ExaileWindow(object):
             self.rating_combo.set_sensitive(True)
 
         self.rating_signal = self.rating_combo.connect('changed',
-            self.__set_rating)
+            self.set_rating)
 
-    def __update_rating(self, track, **info): 
+    def update_rating(self, track, **info): 
         """
             Adds one to the "plays" of this track
         """
@@ -1322,7 +1327,7 @@ class ExaileWindow(object):
         self.db.execute("UPDATE tracks SET %s WHERE path=%s" % (update_string,
             self.db.p), (track.loc,))
 
-    def __got_covers(self, covers): 
+    def got_covers(self, covers): 
         """
             Gets called when all covers have been downloaded from amazon
         """
@@ -1349,7 +1354,7 @@ class ExaileWindow(object):
                     track.artist))
                 break
    
-    def __fetch_cover(self, track, popup=None): 
+    def fetch_cover(self, track, popup=None): 
         """
             Fetches the cover from the database.  If it can't be found
             there it fetches it from amazon
@@ -1394,7 +1399,7 @@ class ExaileWindow(object):
             locale = self.settings.get('amazon_locale', 'en')
             self.cover_thread = covers.CoverFetcherThread("%s - %s" %
                 (track.artist, track.album),
-                self.__got_covers, locale=locale)
+                self.got_covers, locale=locale)
 
             self.status.set_first(_("Fetching cover art from Amazon..."))
             self.cover_thread.start()
@@ -1427,7 +1432,7 @@ class ExaileWindow(object):
             self.cover_thread.abort()
             self.cover_thread = None
     
-    def __setup_right(self): 
+    def setup_right(self): 
         """
             Sets up the right side of the sash (this is the playlist area)
         """
@@ -1444,26 +1449,26 @@ class ExaileWindow(object):
         attr.change(pango.AttrWeight(pango.WEIGHT_BOLD, 0, 800))
         attr.change(pango.AttrSize(12500, 0, 600))
         self.title_label.set_attributes(attr)
-        self.__setup_cover_menu()
+        self.setup_cover_menu()
 
-    def __setup_cover_menu(self):
+    def setup_cover_menu(self):
         """
             Sets up the menu for when the user right clicks on the album cover
         """
         menu = xlmisc.Menu()
         self.cover_full = menu.append(_("View Full Image"),
-            self.__cover_menu_activate)
+            self.cover_menu_activate)
         self.cover_fetch = menu.append(_("Fetch from Amazon"),
-            self.__cover_menu_activate)
+            self.cover_menu_activate)
         self.cover_search = menu.append(_("Search Amazon"),
-            self.__cover_menu_activate)
+            self.cover_menu_activate)
         self.cover_custom = menu.append(_("Set Custom Image"),
-            self.__cover_menu_activate)
+            self.cover_menu_activate)
         self.remove_cover = menu.append(_("Remove Cover"),
-            self.__remove_cover)
+            self.remove_cover)
         self.cover_menu = menu
 
-    def __remove_cover(self, item, param=None):
+    def remove_cover(self, item, param=None):
         """
             removes the cover art for the current track
         """
@@ -1476,7 +1481,7 @@ class ExaileWindow(object):
         cur.close()
         self.cover.set_image("images%snocover.png" % os.sep)
 
-    def __cover_menu_activate(self, item, user_param=None): 
+    def cover_menu_activate(self, item, user_param=None): 
         """
             Called when one of the menu items in the album cover popup is
             selected
@@ -1582,10 +1587,10 @@ class ExaileWindow(object):
             return False
 
         num = nb.get_current_page()
-        self.__page_changed(nb, None, num)
+        self.page_changed(nb, None, num)
         return False
 
-    def __clear_playlist(self, widget): 
+    def clear_playlist(self, widget): 
         """
             Clears the current playlist
         """
@@ -1618,7 +1623,7 @@ class ExaileWindow(object):
         media.set_volume(float(self.volume.slider.get_value()) / 100.0)
         self.settings['volume'] = self.volume.slider.get_value() / 100.0
 
-    def __seek(self, range, scroll, value): 
+    def seek(self, range, scroll, value): 
         """
             Seeks in the current track
         """
@@ -1656,7 +1661,7 @@ class ExaileWindow(object):
             (track.artist, track.album, track.genre))
 
         if track.type != 'stream' and self.settings.get('fetch_covers', True):
-            self.__fetch_cover(track)
+            self.fetch_cover(track)
 
         self.show_popup()
         if self.tracks: self.tracks.queue_draw()
@@ -1689,9 +1694,9 @@ class ExaileWindow(object):
         if count <= 0: count = 1
 
         songs = tracks.get_suggested_songs(self, self.db, 
-            self.current_track, self.songs, count, self.__add_suggested)
+            self.current_track, self.songs, count, self.add_suggested)
 
-    def __add_suggested(self, artists, count):
+    def add_suggested(self, artists, count):
         """
             adds suggested tracks that were fetched
         """
@@ -1733,7 +1738,7 @@ class ExaileWindow(object):
         track = self.current_track
         if not track: return
         pop = xlmisc.get_popup(self, xlmisc.get_popup_settings(self.settings))
-        cover = self.__fetch_cover(track, 1)
+        cover = self.fetch_cover(track, 1)
 
         text_display = self.settings.get('osd_display_text',
             xl.prefs.TEXT_VIEW_DEFAULT)
@@ -1784,7 +1789,7 @@ class ExaileWindow(object):
 
         if self.current_track != None:
             if self.current_track.current_position() < 50:
-                self.__update_rating(self.current_track, rating="rating - 1")
+                self.update_rating(self.current_track, rating="rating - 1")
             self.history.append(self.current_track)
 
         # for queued tracks
@@ -1995,7 +2000,7 @@ class ExaileWindow(object):
             self.last_open_dir = os.getenv("HOME")
         return self.last_open_dir
 
-    def __on_add_media(self, item, event=None): 
+    def on_add_media(self, item, event=None): 
         """
             Adds media to the current selected tab regardless of whether or
             not they are contained in the library
@@ -2053,7 +2058,7 @@ class ExaileWindow(object):
 
             self.status.set_first(None)
 
-    def __export_playlist(self, item): 
+    def export_playlist(self, item): 
         """
             Exports the current selected playlist as a .m3u file
         """
@@ -2106,7 +2111,7 @@ class ExaileWindow(object):
         self.append_songs(tracks.TrackData((track, )))
         self.play_track(track)
 
-    def __open_url(self, event): 
+    def open_url(self, event): 
         """
             Prompts for a url to open
         """
@@ -2119,7 +2124,7 @@ class ExaileWindow(object):
             path = dialog.get_value()
             self.stream(path)
 
-    def __open_disc(self, widget):
+    def open_disc(self, widget):
         """
             Opens an audio disc
         """
@@ -2127,7 +2132,7 @@ class ExaileWindow(object):
         if not songs: return
         self.new_page(_("Audio Disc"), songs)
 
-    def __fetch_covers(self, event):
+    def fetch_covers(self, event):
         """
             Fetches all covers
         """
@@ -2141,7 +2146,7 @@ class ExaileWindow(object):
         if not self.tracks: return
         self.tracks.ensure_visible(self.current_track)
 
-    def __on_library_rescan(self, widget=None, event=None, data=None,
+    def on_library_rescan(self, widget=None, event=None, data=None,
         load_tree=True): 
         """
             Rescans the library for newly added tracks
@@ -2161,10 +2166,10 @@ class ExaileWindow(object):
         self.status.set_first(_("Scanning collection..."))
 
         tracks.populate(self, self.db,
-            items, self.__on_library_update, False,
+            items, self.on_library_update, False,
             load_tree=load_tree, done_func=done_func)
 
-    def __on_library_update(self, percent, songs=None, done_func=None): 
+    def on_library_update(self, percent, songs=None, done_func=None): 
         """
             Scans the library
         """
@@ -2238,7 +2243,7 @@ class ExaileWindow(object):
 
         sys.exit(0)
 
-    def __on_resize(self, widget, event): 
+    def on_resize(self, widget, event): 
         """
             Saves the current size and position
         """
@@ -2253,7 +2258,7 @@ class ExaileWindow(object):
             self.settings['mainw_sash_pos'] = sash
         return False
 
-    def __submit_to_scrobbler(self, event=None): 
+    def submit_to_scrobbler(self, event=None): 
         """
             Submits this track to audioscrobbler, regardless of how long the
             track has actually been playing
@@ -2265,7 +2270,7 @@ class ExaileWindow(object):
             self.current_track.submit_to_scrobbler()
             self.status.set_first(_("Submitting to Last.fm..."), 2000)
     
-    def __jump_to(self, index):
+    def jump_to(self, index):
         """
             Show the a specific page in the track information tab about
             the current track

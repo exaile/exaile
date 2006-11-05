@@ -190,7 +190,7 @@ class VolumeControl(gtk.EventBox):
         if child: button.add(child)
         self.add(button)
         self.func = func
-        button.connect('clicked', self.__clicked)
+        button.connect('clicked', self.clicked)
         self.show_all()
 
         window = self.__window = gtk.Window(gtk.WINDOW_POPUP)
@@ -201,21 +201,21 @@ class VolumeControl(gtk.EventBox):
 
         hscale = gtk.VScale(gtk.Adjustment(0, 0, 120))
         hscale.set_size_request(*(self._req))
-        window.connect('button-press-event', self.__button)
-        hscale.connect('key-press-event', self.__key)
+        window.connect('button-press-event', self.button)
+        hscale.connect('key-press-event', self.key)
         hscale.set_draw_value(False)
         hscale.set_update_policy(gtk.UPDATE_CONTINUOUS)
         self.scale = hscale
         window.add(frame)
         frame.add(hscale)
         self.connect('scroll-event', self.scroll, hscale)
-        self.__window.connect('scroll-event', self.__window_scroll)
+        self.__window.connect('scroll-event', self.scroll)
         self.scale.connect_object('scroll-event', self.emit, 'scroll-event')
         self.scale.connect('change-value', lambda *e: func())
         self.scale.set_inverted(True)
         self.slider = self.scale
 
-    def __window_scroll(self, window, event):
+    def window_scroll(self, window, event):
         """
             Called when a scroll event occurs
         """
@@ -233,7 +233,7 @@ class VolumeControl(gtk.EventBox):
         """
         return widget and widget.get_ancestor(gtk.Window)
 
-    def __clicked(self, button):
+    def clicked(self, button):
         """
             called when the user clicks the volumn button
         """
@@ -282,20 +282,20 @@ class VolumeControl(gtk.EventBox):
         self.slider.set_value(v)
         self.func()
 
-    def __button(self, widget, ev):
+    def button(self, widget, ev):
         """
             if the mouse gets clicked outside of the slider, hide this control    
         """
-        self.__popup_hide()
+        self.popup_hide()
 
-    def __key(self, hscale, ev):
+    def key(self, hscale, ev):
         """
             Hide the slider if enter, space or escape are pressed
         """
         if ev.string in ["\n", "\r", " ", "\x1b"]: # enter, space, escape
-            self.__popup_hide()
+            self.popup_hide()
 
-    def __popup_hide(self):
+    def popup_hide(self):
         """
             Hides the slider
         """
@@ -436,10 +436,10 @@ class CoverFetcher(object):
         self.icons.set_text_column(0)
         self.icons.set_pixbuf_column(1)
         self.icons.connect('item-activated',
-            self.__item_activated)
+            self.item_activated)
         self.status = xml.get_widget('cover_status_bar')
         self.icons.connect('motion-notify-event',
-            self.__mouse_move)
+            self.mouse_move)
         self.icons.connect('leave-notify-event',
             lambda *e: self.status.set_label(''))
         self.dialog = xml.get_widget('CoverFetcher')
@@ -448,7 +448,7 @@ class CoverFetcher(object):
         self.label = xml.get_widget('fetcher_label')
 
         xml.get_widget('fetcher_cancel_button').connect('clicked',
-            self.__cancel)
+            self.cancel)
         self.stopstart = xml.get_widget('fetcher_stop_button')
         self.stopstart.connect('clicked', self.toggle_running)
 
@@ -460,7 +460,7 @@ class CoverFetcher(object):
         if self.go:
             self.toggle_running(None)
 
-    def __cancel(self, event):
+    def cancel(self, event):
         """
             Closes the dialog
         """
@@ -512,12 +512,12 @@ class CoverFetcher(object):
         locale = self.exaile.settings.get('amazon_locale', 'us')
         self.cover_thread = covers.CoverFetcherThread("%s - %s" %
             (self.artist, self.album),
-            self.__got_covers, locale=locale)
+            self.got_covers, locale=locale)
         self.cover_thread.start()
         self.label.set_label("%s left: %s by %s" % 
             ((self.total - self.current), self.album, self.artist))
 
-    def __got_covers(self, covers):
+    def got_covers(self, covers):
         """
             Called when the fetcher thread has gotten all the covers for this
             album
@@ -561,7 +561,7 @@ class CoverFetcher(object):
         self.progress.set_fraction(float(self.current) / float(self.total))
         self.fetch_next()
 
-    def __mouse_move(self, widget, event):
+    def mouse_move(self, widget, event):
         """
             Called when the mouse moves in the icon view
         """
@@ -580,7 +580,7 @@ class CoverFetcher(object):
         self.status.set_markup("<b>%s by %s</b>" % (object.album,
             object.artist))
 
-    def __item_activated(self, iconview, path):
+    def item_activated(self, iconview, path):
         """
             Called when an icon is double clicked
         """
@@ -755,7 +755,7 @@ class NotebookTab(gtk.HBox):
         else: self.box = widget
         return self.box
 
-    def __rename(self, widget, event):
+    def rename(self, widget, event):
         """
             Renames the tab
         """
@@ -767,14 +767,14 @@ class NotebookTab(gtk.HBox):
             self.label.set_label(name)
         dialog.destroy()
 
-    def __save_playlist(self, widget, event):
+    def save_playlist(self, widget, event):
         """
             Saves a playlist
         """
         songs = self.page.songs
         self.exaile.playlists_panel.on_add_playlist(widget, None, songs)
 
-    def __do_close(self, widget, event):
+    def do_close(self, widget, event):
         """
             Closes the tab
         """
@@ -787,11 +787,11 @@ class NotebookTab(gtk.HBox):
         """
         menu = Menu()
         if self.page.type == 'track':
-            menu.append(_("Rename"), self.__rename)
-        menu.append(_("Close"), self.__do_close)
+            menu.append(_("Rename"), self.rename)
+        menu.append(_("Close"), self.do_close)
 
         if self.page.type == 'track':
-            menu.append(_("Save Playlist"), self.__save_playlist)
+            menu.append(_("Save Playlist"), self.save_playlist)
             
         self.menu = menu
 
@@ -825,11 +825,11 @@ class DebugDialog(object):
         self.log_file = None
         xml.get_widget('debug_ok_button').connect('clicked', 
             lambda *e: self.dialog.hide())
-        self.dialog.connect('delete_event', self.__destroy)
+        self.dialog.connect('delete_event', self.destroy)
         
         DebugDialog.debug = self
 
-    def __destroy(self, *e):
+    def destroy(self, *e):
         """
             Called when the users clicks on the close button
         """
@@ -1240,13 +1240,13 @@ class CoverWindow(object):
         eventbox.add(image)
         box.pack_start(eventbox)
 
-        eventbox.connect('button_release_event', self.__button_press)
+        eventbox.connect('button_release_event', self.button_press)
         window.set_title(title)
         window.set_transient_for(parent)
         window.show_all()
         self.window = window
 
-    def __button_press(self, widget, event):
+    def button_press(self, widget, event):
         """
             Called when someone clicks on the event box
         """
@@ -1324,17 +1324,17 @@ class CoverFrame(object):
         self.track = track
         self.db = parent.db
         self.prev = self.xml.get_widget('cover_back_button')
-        self.prev.connect('clicked', self.__prev)
+        self.prev.connect('clicked', self.prev)
         self.prev.set_sensitive(False)
         self.next = self.xml.get_widget('cover_forward_button')
-        self.next.connect('clicked', self.__next)
+        self.next.connect('clicked', self.next)
         self.xml.get_widget('cover_newsearch_button').connect('clicked',
-            self.__new_search)
+            self.new_search)
         self.xml.get_widget('cover_cancel_button').connect('clicked',
             lambda *e: self.window.destroy())
         self.ok = self.xml.get_widget('cover_ok_button')
         self.ok.connect('clicked',
-            self.__ok)
+            self.ok)
         self.box = self.xml.get_widget('cover_image_box')
         self.cover = ImageWidget()
         self.cover.set_image_size(350, 350)
@@ -1345,11 +1345,11 @@ class CoverFrame(object):
         if not search:
             locale = self.exaile.settings.get('amazon_locale', 'us')
             covers.CoverFetcherThread("%s - %s" % (track.artist, track.album),
-                self.__covers_fetched, locale=locale).start()
+                self.covers_fetched, locale=locale).start()
         else:
-            self.__new_search()
+            self.new_search()
 
-    def __new_search(self, widget=None):
+    def new_search(self, widget=None):
         """
             Creates a new search string
         """
@@ -1366,9 +1366,9 @@ class CoverFrame(object):
 
             locale = self.exaile.settings.get('amazon_locale', 'us')
             covers.CoverFetcherThread(self.last_search,
-                self.__covers_fetched, True, locale=locale).start()
+                self.covers_fetched, True, locale=locale).start()
 
-    def __ok(self, widget=None):
+    def ok(self, widget=None):
         """
             Chooses the current cover and saves it to the database
         """
@@ -1394,32 +1394,32 @@ class CoverFrame(object):
                 cover.filename()))
         self.window.destroy()
 
-    def __next(self, widget):
+    def next(self, widget):
         """
             Shows the next cover
         """
         if self.current + 1 >= len(self.covers): return
         self.current = self.current + 1
-        self.__show_cover(self.covers[self.current])
+        self.show_cover(self.covers[self.current])
         if self.current + 1 >= len(self.covers):
             self.next.set_sensitive(False)
         if self.current - 1 >= 0:
             self.prev.set_sensitive(True)
 
-    def __prev(self, widget):
+    def prev(self, widget):
         """
             Shows the previous cover
         """
         if self.current - 1 < 0: return
         self.current = self.current - 1
-        self.__show_cover(self.covers[self.current])
+        self.show_cover(self.covers[self.current])
 
         if self.current + 1 < len(self.covers):
             self.next.set_sensitive(True)
         if self.current - 1 < 0:
             self.prev.set_sensitive(False)
 
-    def __show_cover(self, c):
+    def show_cover(self, c):
         """
             Shows the current cover
         """
@@ -1433,7 +1433,7 @@ class CoverFrame(object):
 
         self.window.show_all()
 
-    def __covers_fetched(self, covers):
+    def covers_fetched(self, covers):
         """
             Called when the cover fetcher thread has fetched all covers
         """
@@ -1454,7 +1454,7 @@ class CoverFrame(object):
         self.covers = covers
         self.current = 0
 
-        self.__show_cover(self.covers[self.current])
+        self.show_cover(self.covers[self.current])
 
 class LibraryManager(object):
     """
@@ -1470,14 +1470,14 @@ class LibraryManager(object):
         self.list = ListBox(self.xml.get_widget('lm_list_box'))
         self.dialog.set_transient_for(exaile.window)
         self.xml.get_widget('lm_add_button').connect('clicked',
-            self.__on_add)
+            self.on_add)
         self.xml.get_widget('lm_remove_button').connect('clicked',
-            self.__on_remove)
+            self.on_remove)
 
         self.xml.get_widget('lm_cancel_button').connect('clicked',
             lambda e: self.dialog.response(gtk.RESPONSE_CANCEL))
         self.xml.get_widget('lm_apply_button').connect('clicked',
-            self.__on_apply)
+            self.on_apply)
 
         items = exaile.settings.get("search_paths", "").split(":")
         self.items = []
@@ -1512,14 +1512,14 @@ class LibraryManager(object):
         """
         return self.items
 
-    def __on_apply(self, widget):
+    def on_apply(self, widget):
         """
             Saves the paths in the dialog, and updates the library
         """
         self.exaile.settings['search_paths'] = ":".join(self.list.rows)
         self.dialog.response(gtk.RESPONSE_APPLY)
 
-    def __on_remove(self, widget):
+    def on_remove(self, widget):
         """
             removes a path from the list
         """
@@ -1532,7 +1532,7 @@ class LibraryManager(object):
         else:
             selection.select_path(index)
 
-    def __on_add(self, widget):
+    def on_add(self, widget):
         """
             Adds a path to the list
         """
@@ -1769,17 +1769,17 @@ class DBConfigurationDialog(object):
         self.type = xml.get_widget('prefs_db_type')
         self.dialog.set_transient_for(parent)
         self.host = xml.get_widget('prefs_db_host')
-        self.type.connect('changed', lambda *e: self.__changed_type())
+        self.type.connect('changed', lambda *e: self.changed_type())
         self.user = xml.get_widget('prefs_db_user')
         self.passwd = xml.get_widget('prefs_db_passwd')
         self.name = xml.get_widget('prefs_db_name')
 
-    def __changed_type(self):
+    def changed_type(self):
         type = self.get_type()
         items = ('host', 'user', 'passwd', 'name')
         for item in items:
             widget = getattr(self, item)
-            widget.set_sensitive(type=='mysql')
+            widget.set_sensitive(type=='MySQL')
 
     def set_user(self, user):
         self.user.set_text(user)
@@ -1794,7 +1794,7 @@ class DBConfigurationDialog(object):
         self.name.set_text(name)
 
     def get_type(self):
-        return self.type.get_active_text().lower()
+        return self.type.get_active_text()
 
     def get_host(self):
         return self.host.get_text()

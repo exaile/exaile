@@ -117,19 +117,19 @@ class TracksListCtrl(gtk.VBox):
         self.list.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, 
             gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_DEFAULT)
         self.list.connect('drag_data_received', self.drag_data_received)
-        self.__dragging = False
-        self.list.connect('drag_begin', self.__drag_begin)
-        self.list.connect('drag_end', self.__drag_end)
-        self.list.connect('drag_motion', self.__drag_motion)
-        self.list.connect('button_release_event', self.__button_release)
+        self.dragging = False
+        self.list.connect('drag_begin', self.drag_begin)
+        self.list.connect('drag_end', self.drag_end)
+        self.list.connect('drag_motion', self.drag_motion)
+        self.list.connect('button_release_event', self.button_release)
         self.list.connect('drag_data_get', self.drag_get_data)
         self.list.drag_source_set_icon_stock('gtk-dnd')
 
-    def __button_release(self, button, event):
+    def button_release(self, button, event):
         """
             Called when a button is released
         """
-        if event.button != 1 or self.__dragging: return True
+        if event.button != 1 or self.dragging: return True
         if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
             return True
         selection = self.list.get_selection()
@@ -141,20 +141,20 @@ class TracksListCtrl(gtk.VBox):
         selection.unselect_all()
         selection.select_path(path[0])
 
-    def __drag_end(self, list, context):
+    def drag_end(self, list, context):
         """
             Called when the dnd is ended
         """
-        self.__dragging = False
+        self.dragging = False
         self.list.unset_rows_drag_dest()
         self.list.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, 
             gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
 
-    def __drag_begin(self, list, context):
+    def drag_begin(self, list, context):
         """
             Called when dnd is started
         """
-        self.__dragging = True
+        self.dragging = True
 
         context.drag_abort(gtk.get_current_event_time())
         selection = self.list.get_selection()
@@ -163,7 +163,7 @@ class TracksListCtrl(gtk.VBox):
         else: self.list.drag_source_set_icon_stock('gtk-dnd')
         return False
 
-    def __drag_motion(self, treeview, context, x, y, timestamp):
+    def drag_motion(self, treeview, context, x, y, timestamp):
         """
             Called when a row is dragged over this treeview
         """
@@ -708,7 +708,7 @@ class TracksListCtrl(gtk.VBox):
         # edit specific common fields
         for menu_item in ('title', 'artist', 'album', 'genre', 'year'):
             item = em.append("Edit %s" % menu_item.capitalize(),
-                self.__edit_field, data=menu_item)
+                self.edit_field, data=menu_item)
 
         em.append_separator()
         if not ipod:
@@ -717,7 +717,7 @@ class TracksListCtrl(gtk.VBox):
 
             for i in range(0, 8):
                 string = "* " * (i + 1)
-                item = rm.append(string, self.__update_rating,
+                item = rm.append(string, self.update_rating,
                     None, i)
 
             em.append_menu(_("Rating"), rm
@@ -738,7 +738,7 @@ class TracksListCtrl(gtk.VBox):
             'gtk-delete', 'delete')
         tpm.append_menu(_("Remove"), rm)
 
-    def __edit_field(self, widget, data):
+    def edit_field(self, widget, data):
         """
             Edits one field in a list of tracks
         """
@@ -780,7 +780,7 @@ class TracksListCtrl(gtk.VBox):
         t = self.get_selected_track()
         track.show_information(self.exaile, t)
 
-    def __update_rating(self, widget, event):
+    def update_rating(self, widget, event):
         """
             Updates the rating based on which menu id was clicked
         """
@@ -890,9 +890,9 @@ class BlacklistedTracksList(TracksListCtrl):
         """
         TracksListCtrl.setup_tracks_menu(self, True)
         self.deblacklist = self.tpm.append(_("Remove from Blacklist"), 
-            self.__de_blacklist)
+            self.de_blacklist)
 
-    def __de_blacklist(self, item, event):
+    def de_blacklist(self, item, event):
         """
             Removes items from the blacklist
         """

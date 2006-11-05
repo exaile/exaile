@@ -512,9 +512,9 @@ class Track(object):
         self.submitting = True
         exaile_instance.status.set_first(_("Sumitting track to Last.fm..."),
             3000)
-        thread.start_new_thread(self.__submit, (session,))
+        thread.start_new_thread(self.submit, (session,))
 
-    def __submit(self, session):
+    def submit(self, session):
         """
             Actually submits the track to audioscrobbler
         """

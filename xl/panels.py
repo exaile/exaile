@@ -99,7 +99,7 @@ class CollectionPanel(object):
         self.filter = self.xml.get_widget('%s_search' % self.name)
         self.filter.connect('activate', self.on_search)
         self.filter.connect('key-release-event',
-            self.__key_release)
+            self.key_release)
         self.key_id = None
         self.search_button = self.xml.get_widget('%s_search_button' %
             self.name)
@@ -107,7 +107,7 @@ class CollectionPanel(object):
         self.search_button.connect('clicked', self.on_search)
         self.create_popup()
 
-    def __key_release(self, *e):
+    def key_release(self, *e):
         """
             Called when someone releases a key.
             Sets up a timer to simulate live-search
@@ -139,7 +139,7 @@ class CollectionPanel(object):
                 image = gtk.Image()
                 image.set_from_stock('gtk-stop', gtk.ICON_SIZE_SMALL_TOOLBAR)
                 self.stop_button.set_image(image)
-                self.stop_button.connect('clicked', self.__stop_scan)
+                self.stop_button.connect('clicked', self.stop_scan)
                 self.progress_box.pack_start(self.progress, True, True)
                 self.progress_box.pack_start(self.stop_button, False, False)
 
@@ -156,7 +156,7 @@ class CollectionPanel(object):
                 self.scan_label.show()
             self.progress.set_fraction(percent)
 
-    def __stop_scan(self, widget):
+    def stop_scan(self, widget):
         """
             Stops the library scan
         """
@@ -182,41 +182,41 @@ class CollectionPanel(object):
         """
         menu = xlmisc.Menu()
         self.append = menu.append(_("Append to Current"),
-            self.__append_items)
+            self.append_items)
 
         pm = xlmisc.Menu()
         self.new_playlist = pm.append(_("Add to Playlist"),
-            self.__append_items)
+            self.append_items)
         pm.append_separator()
 
         rows = self.db.select("SELECT playlist_name FROM playlists ORDER BY"
             " playlist_name")
 
         for row in rows:
-            pm.append(row[0], self.__add_to_playlist)
+            pm.append(row[0], self.add_to_playlist)
 
         menu.append_menu(_("Add to Playlist"), pm)
-        self.queue_item = menu.append(_("Queue Items"), self.__append_items)
+        self.queue_item = menu.append(_("Queue Items"), self.append_items)
         menu.append_separator()
         self.blacklist = menu.append(_("Blacklist Selected"),
-            self.__append_items)
+            self.append_items)
         self.remove = menu.append(_("Delete Selected"), 
-            self.__append_items)
+            self.append_items)
         self.menu = menu
 
-    def __add_to_playlist(self, widget, event):
+    def add_to_playlist(self, widget, event):
         """
             Adds items to the playlist
         """
         playlist = widget.get_child().get_label()
-        items = self.__append_items(None, None, True)
+        items = self.append_items(None, None, True)
         self.exaile.playlists_panel.add_items_to_playlist(playlist, items)
 
     def drag_get_data(self, treeview, context, selection, target_id, etime):
         """
             Called when a drag source wants data for this drag operation
         """
-        loc = self.__append_items(None, None, True)
+        loc = self.append_items(None, None, True)
 
         if isinstance(self, iPodPanel):
             loc = ["ipod://%s" % urllib.quote(l.loc) for l in loc]
@@ -225,7 +225,7 @@ class CollectionPanel(object):
 
         selection.set_uris(loc)
 
-    def __append_recursive(self, iter, add, queue=False):
+    def append_recursive(self, iter, add, queue=False):
         """
             Appends items recursively to the added songs list.  If this
             is a genre, artist, or album, it will search into each one and
@@ -234,7 +234,7 @@ class CollectionPanel(object):
         iter = self.model.iter_children(iter)        
         while True:
             if self.model.iter_has_child(iter):
-                self.__append_recursive(iter, add, queue)
+                self.append_recursive(iter, add, queue)
             else:
                 track = self.model.get_value(iter, 1)
                 add.append(track.loc)
@@ -242,7 +242,7 @@ class CollectionPanel(object):
             iter = self.model.iter_next(iter)
             if not iter: break
 
-    def __append_items(self, item=None, event=None, return_only=False):
+    def append_items(self, item=None, event=None, return_only=False):
         """
             Adds items to the songs list based on what is selected in the tree
             The songs are then added to a playlist, queued, removed, or 
@@ -256,7 +256,7 @@ class CollectionPanel(object):
         for path in paths:
             iter = self.model.get_iter(path)
             if self.model.iter_has_child(iter):
-                self.__append_recursive(iter, add, queue)
+                self.append_recursive(iter, add, queue)
             else:
                 track = self.model.get_value(iter, 1)
                 add.append(track.loc)
@@ -359,7 +359,7 @@ class CollectionPanel(object):
                 iter = self.model.get_iter(path[0])
                 object = self.model.get_value(iter, 1)
                 if isinstance(object, AlbumWrapper):
-                    self.__append_items()
+                    self.append_items()
                     return
 
             for path in paths:
@@ -370,7 +370,7 @@ class CollectionPanel(object):
                 elif isinstance(object, iPodPlaylist):
                     self.open_playlist()
                 else:
-                    self.__append_items() 
+                    self.append_items() 
             return False
 
         if event.button != 3: 
@@ -436,9 +436,9 @@ class CollectionPanel(object):
             col.set_cell_data_func(cell, self.track_data_func)
             self.targets = [('text/uri-list', 0, 0)]
             self.tree.connect('drag_data_get', self.drag_get_data)
-            self.tree.connect('drag_begin', self.__drag_begin)
-            self.tree.connect('drag_end', self.__drag_end)
-            self.tree.connect('drag_motion', self.__drag_motion)
+            self.tree.connect('drag_begin', self.drag_begin)
+            self.tree.connect('drag_end', self.drag_end)
+            self.tree.connect('drag_motion', self.drag_motion)
             self.tree.drag_source_set(gtk.gdk.BUTTON1_MASK, self.targets,
                 gtk.gdk.ACTION_COPY)
             self.tree.drag_source_set_icon_stock('gtk-dnd')
@@ -525,13 +525,13 @@ class CollectionPanel(object):
 
         if self.current_start_count != self.start_count: return
 
-        self.__append_info(self.root, songs)
+        self.append_info(self.root, songs)
 
         if self.connect_id: gobject.source_remove(self.connect_id)
         self.connect_id = None
         self.filter.set_sensitive(True)
 
-    def __drag_end(self, list, context):
+    def drag_end(self, list, context):
         """
             Called when the dnd is ended
         """
@@ -539,7 +539,7 @@ class CollectionPanel(object):
         self.tree.unset_rows_drag_dest()
         self.tree.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, gtk.gdk.ACTION_COPY)
 
-    def __drag_begin(self, list, context):
+    def drag_begin(self, list, context):
         """
             Called when dnd is started
         """
@@ -552,7 +552,7 @@ class CollectionPanel(object):
         else: self.tree.drag_source_set_icon_stock('gtk-dnd')
         return False
 
-    def __drag_motion(self, treeview, context, x, y, timestamp):
+    def drag_motion(self, treeview, context, x, y, timestamp):
         """
             Called when a row is dragged over this treeview
         """
@@ -564,7 +564,7 @@ class CollectionPanel(object):
         treeview.set_drag_dest_row(info[0], info[1])
 
     @common.threaded
-    def __append_info(self, node, songs=None, unknown=False):
+    def append_info(self, node, songs=None, unknown=False):
         """
             Appends all related info and organizes the tree based on self.order
             Only the very last item of self.order will be a child node
@@ -624,7 +624,7 @@ class CollectionPanel(object):
 
         # make sure "Unknown" items end up at the end of the list
         if not unknown and last_songs:
-            self.__append_info(self.root, last_songs, True)
+            self.append_info(self.root, last_songs, True)
 
         gobject.idle_add(self.tree.set_model, self.model)
         for path in expanded_paths:
@@ -959,9 +959,9 @@ class iPodPanel(CollectionPanel):
         self.menu.insert(item, 2)
         if root:
             self.ipod_menu.append_separator()
-            self.ipod_menu.append("Properties", self.__ipod_properties)
+            self.ipod_menu.append("Properties", self.ipod_properties)
 
-    def __ipod_properties(self, widget, event=None):
+    def ipod_properties(self, widget, event=None):
         """
             Shows the ipod properties dialog
         """
@@ -1097,7 +1097,7 @@ class iPodPanel(CollectionPanel):
             gpod.itdb_track_unlink(track)
         self.save_database()            
 
-    def __append_covers_recursive(self, iter, add):
+    def append_covers_recursive(self, iter, add):
         """
             Appends items recursively to the added songs list.  If this
             is a genre, artist, or album, it will search into each one and
@@ -1108,7 +1108,7 @@ class iPodPanel(CollectionPanel):
         while True:
             object = self.model.get_value(iter, 1)
             if self.model.iter_has_child(iter):
-                self.__append_covers_recursive(iter, add)
+                self.append_covers_recursive(iter, add)
             elif isinstance(object, media.Track):
                 add.append(object)
             iter = self.model.iter_next(iter)
@@ -1139,7 +1139,7 @@ class iPodPanel(CollectionPanel):
             object = self.model.get_value(iter, 1)
 
             if self.model.iter_has_child(iter):
-                self.__append_covers_recursive(iter, add)
+                self.append_covers_recursive(iter, add)
                 continue
             elif isinstance(object, media.Track):
                 add.append(object)
@@ -1398,11 +1398,11 @@ class iPodPanel(CollectionPanel):
             xlmisc.log("No tracks to submit.")
             return
 
-        thread.start_new_thread(self.__submit, (scrobbler, submit))
+        thread.start_new_thread(self.submit, (scrobbler, submit))
         self.update_log()
         xlmisc.log("All tracks have been submitted from iPod, log has been updated.")
 
-    def __submit(self, scrobbler, submit):
+    def submit(self, scrobbler, submit):
         """
             Submits played tracks to Last.fm
         """
@@ -1454,11 +1454,11 @@ class PlaylistsPanel(object):
         self.custom.list.connect('drag_data_received', self.drag_data_received)
 
         self.smart.list.connect('row-activated', self.load_smart)
-        self.custom.list.connect('row-activated', self.__open_playlist)
+        self.custom.list.connect('row-activated', self.open_playlist)
         self.xml.get_widget('playlists_add_button').connect('clicked', 
             self.on_add_playlist)
         self.xml.get_widget('playlists_remove_button').connect('clicked',
-            self.__remove_playlist)
+            self.remove_playlist)
 
     def drag_data_received(self, tv, context, x, y, selection, info, etime):
         """
@@ -1493,7 +1493,7 @@ class PlaylistsPanel(object):
 
         self.add_items_to_playlist(playlist, songs)
 
-    def __remove_playlist(self, widget):
+    def remove_playlist(self, widget):
         """
             Asks if the user really wants to delete the selected playlist, and
             then does so if they choose 'Yes'
@@ -1556,7 +1556,7 @@ class PlaylistsPanel(object):
 
         self.exaile.new_page(self.smart.get_selection(), songs)
 
-    def __open_playlist(self, widget, tracks, tra):
+    def open_playlist(self, widget, tracks, tra):
         """
             Opens a playlist
         """
@@ -1763,7 +1763,7 @@ class PodcastTransferQueue(gtk.VBox):
         button.set_size_request(32, 32)
 
         vert.pack_end(button, False, False)
-        button.connect('clicked', self.__stop)
+        button.connect('clicked', self.stop)
 
         self.pack_start(vert)
 
@@ -1776,7 +1776,7 @@ class PodcastTransferQueue(gtk.VBox):
         panel.podcast_download_box.pack_start(self)
         self.show_all()
 
-    def __stop(self, widget):
+    def stop(self, widget):
         """
             Stops the download queue
         """
@@ -1913,15 +1913,15 @@ class RadioPanel(object):
         self.tree.expand_row(self.model.get_path(self.podcast), False)
         self.tree.expand_row(self.model.get_path(sc), False)
         self.tree.queue_draw()
-        self.tree.connect('row-expanded', self.__on_expanded)
-        self.tree.connect('row-collapsed', self.__on_collapsed)
+        self.tree.connect('row-expanded', self.on_expanded)
+        self.tree.connect('row-collapsed', self.on_collapsed)
         self.tree.connect('button-press-event', self.button_pressed)
         self.tree.connect('button-release-event', self.button_release)
         self.__dragging = False
         self.xml.get_widget('radio_add_button').connect('clicked',
             self.on_add_station)
         self.xml.get_widget('radio_remove_button').connect('clicked',
-            self.__remove_station)
+            self.remove_station)
         self.podcast_download_box = \
             self.xml.get_widget('podcast_download_box')
         self.podcast_queue = None
@@ -1986,13 +1986,13 @@ class RadioPanel(object):
                 return
 
             if isinstance(object, CustomWrapper):
-                self.__open_station(object.name)
+                self.open_station(object.name)
             elif isinstance(object, PodcastWrapper):
-                self.__open_podcast(object)
+                self.open_podcast(object)
             else:
-                self.__fetch_streams()
+                self.fetch_streams()
 
-    def __open_podcast(self, wrapper):
+    def open_podcast(self, wrapper):
         """
             Opens a podcast
         """
@@ -2086,7 +2086,7 @@ class RadioPanel(object):
         else:
             cell.set_property('text', str(object))
             
-    def __on_collapsed(self, tree, iter, path):
+    def on_collapsed(self, tree, iter, path):
         """
             Called when someone collapses a tree item
         """
@@ -2095,7 +2095,7 @@ class RadioPanel(object):
         self.model.set_value(iter, 0, self.folder)
         self.tree.queue_draw()
 
-    def __on_expanded(self, tree, iter, path):
+    def on_expanded(self, tree, iter, path):
         """
             Called when someone collapses a tree item
         """
@@ -2112,21 +2112,21 @@ class RadioPanel(object):
         """
         self.menu = xlmisc.Menu()
         rel = self.menu.append(_("Reload Streams"), lambda e, f:
-            self.__fetch_streams(True))
+            self.fetch_streams(True))
 
         # custom playlist menu
         self.cmenu = xlmisc.Menu()
         self.add = self.cmenu.append(_("Add Stream to Station"), 
-            self.__add_url_to_station)
+            self.add_url_to_station)
         self.delete = self.cmenu.append(_("Delete this Station"),
-            self.__remove_station)
+            self.remove_station)
 
         self.podmenu = xlmisc.Menu()
-        self.podmenu.append(_("Add Feed"), self.__on_add_podcast)
-        self.podmenu.append(_("Refresh Feed"), self.__refresh_feed)
-        self.podmenu.append(_("Delete Feed"), self.__delete_podcast)
+        self.podmenu.append(_("Add Feed"), self.on_add_podcast)
+        self.podmenu.append(_("Refresh Feed"), self.refresh_feed)
+        self.podmenu.append(_("Delete Feed"), self.delete_podcast)
 
-    def __refresh_feed(self, widget, event):
+    def refresh_feed(self, widget, event):
         """
             Refreshes a feed
         """
@@ -2134,9 +2134,9 @@ class RadioPanel(object):
         (model, iter) = selection.get_selected()
         object = self.model.get_value(iter, 1)
         if isinstance(object, PodcastWrapper):
-            self.__refresh_podcast(object.path, iter)
+            self.refresh_podcast(object.path, iter)
 
-    def __on_add_podcast(self, widget, event):
+    def on_add_podcast(self, widget, event):
         """
             Called when a request to add a podcast is made
         """
@@ -2160,19 +2160,19 @@ class RadioPanel(object):
                 [self.track, PodcastWrapper("Fetching...", name)])
             self.tree.expand_row(self.model.get_path(self.podcast), False)
 
-            self.__refresh_podcast(name, item)
+            self.refresh_podcast(name, item)
         dialog.destroy()
 
-    def __refresh_podcast(self, path, item):
+    def refresh_podcast(self, path, item):
         """
             Refreshes a podcast
         """
-        thread = xlmisc.ThreadRunner(self.__fetch_podcast_xml)
+        thread = xlmisc.ThreadRunner(self.fetch_podcast_xml)
         thread.path = path
         thread.item = item
         thread.start()
 
-    def __fetch_podcast_xml(self, thread):
+    def fetch_podcast_xml(self, thread):
         """
             Fetches the podcast xml
         """
@@ -2187,9 +2187,9 @@ class RadioPanel(object):
                 _("Could not read feed."))
             return
 
-        gobject.idle_add(self.__parse_podcast_xml, path, item, xml)
+        gobject.idle_add(self.parse_podcast_xml, path, item, xml)
 
-    def __parse_podcast_xml(self, path, iter, xml):
+    def parse_podcast_xml(self, path, iter, xml):
         """
             Parses the xml from the podcast and stores the information to the
             database
@@ -2249,7 +2249,7 @@ class RadioPanel(object):
                 (loc, path), row == None,
                 immediate=True)
 
-        gobject.timeout_add(500, self.__open_podcast, PodcastWrapper(root_title, path))
+        gobject.timeout_add(500, self.open_podcast, PodcastWrapper(root_title, path))
 
     def clean_desc(self, desc):
         """ 
@@ -2274,7 +2274,7 @@ class RadioPanel(object):
         """
         return node.getElementsByTagName(name)
 
-    def __get_value(self, node):
+    def get_value(self, node):
         if hasattr(node, "firstChild") and node.firstChild:
             return node.firstChild.nodeValue
         else:
@@ -2287,11 +2287,11 @@ class RadioPanel(object):
         """
         node = self.get_child(node, name)
         if node:
-            return self.__get_value(node[0])
+            return self.get_value(node[0])
         else:
             return ""
             
-    def __delete_podcast(self, widget, event):
+    def delete_podcast(self, widget, event):
         """ 
             Removes a podcast
         """
@@ -2314,7 +2314,7 @@ class RadioPanel(object):
             
         dialog.destroy()
 
-    def __add_url_to_station(self, item, event):
+    def add_url_to_station(self, item, event):
         """
             Adds a url to an existing station
         """
@@ -2336,7 +2336,7 @@ class RadioPanel(object):
                 common.tup(self.db.p, 4),
                 (station, stream, desc, desc))
             
-    def __remove_station(self, item, event=None):
+    def remove_station(self, item, event=None):
         """
             Removes a saved station
         """
@@ -2362,7 +2362,7 @@ class RadioPanel(object):
             self.model.remove(iter)
             self.tree.queue_draw()
 
-    def __open_station(self, playlist):
+    def open_station(self, playlist):
         """
             Opens a station
         """
@@ -2430,7 +2430,7 @@ class RadioPanel(object):
             self.tree.expand_row(path, False)
 
 
-    def __fetch_streams(self, rel=False):
+    def fetch_streams(self, rel=False):
         """
             Loads streams from a station.
             If the station hasn't been loaded or "rel" is True,
@@ -2573,8 +2573,8 @@ class FilesPanel(object):
         self.tree.connect('row-activated', self.row_activated)
         targets = [('text/uri-list', 0, 0)]
         self.tree.connect('drag_data_get', self.drag_get_data)
-        self.tree.connect('drag_begin', self.__drag_begin)
-        self.tree.connect('drag_end', self.__drag_end)
+        self.tree.connect('drag_begin', self.drag_begin)
+        self.tree.connect('drag_end', self.drag_end)
         self.tree.drag_source_set(gtk.gdk.BUTTON1_MASK, targets,
             gtk.gdk.ACTION_COPY)
         self.menu = xlmisc.Menu()
@@ -2615,7 +2615,7 @@ class FilesPanel(object):
 
         sel.set_uris(uris)
 
-    def __drag_begin(self, list, context):
+    def drag_begin(self, list, context):
         """
             Called when dnd is started
         """
@@ -2628,7 +2628,7 @@ class FilesPanel(object):
         else: self.tree.drag_source_set_icon_stock('gtk-dnd')
         return False
 
-    def __drag_end(self, list, context):
+    def drag_end(self, list, context):
         """
             Called when the dnd is ended
         """
@@ -2674,7 +2674,7 @@ class FilesPanel(object):
             value = "%s%s%s" % (self.current, os.sep, value)
             (stuff, ext) = os.path.splitext(value)
             if os.path.isdir(value):
-                self.__append_recursive(songs, value)
+                self.append_recursive(songs, value)
             elif ext in media.SUPPORTED_MEDIA:
                 tr = tracks.read_track(self.exaile.db,
                     self.exaile.all_songs,
@@ -2687,7 +2687,7 @@ class FilesPanel(object):
         self.counter = 0
         self.exaile.status.set_first(None)
 
-    def __append_recursive(self, songs, dir):
+    def append_recursive(self, songs, dir):
         """
             Appends recursively
         """

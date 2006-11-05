@@ -315,6 +315,9 @@ class Preferences(object):
         self.xml.get_widget('prefs_ok_button').connect('clicked',
             self.ok)
         self.label = self.xml.get_widget('prefs_frame_label')
+        self.db_button = self.xml.get_widget('prefs_database_button')
+        self.db_button.set_label(self.exaile.settings.get('db_type', 'SQLite'))
+        self.db_button.connect('clicked', self.show_db_config)
 
         self.model = gtk.TreeStore(str, int)
 
@@ -345,8 +348,8 @@ class Preferences(object):
             'streamripper_save_location': (DirPrefsItem, os.getenv("HOME")),
             'kill_streamripper': (CheckPrefsItem, True),
             'streamripper_relay_port': (PrefsItem, 8000),
-            'watch_directories': (CheckPrefsItem, False, self.__check_gamin,
-                self.__setup_gamin),
+            'watch_directories': (CheckPrefsItem, False, self.check_gamin,
+                self.setup_gamin),
             'watch_exclude_dirs': (PrefsItem, 'incomplete'),
             'fetch_covers': (CheckPrefsItem, True),
             'save_queue': (CheckPrefsItem, True),
@@ -386,6 +389,13 @@ class Preferences(object):
             item = c(setting, default, change, done)
             self.fields.append(item)
 
+    def show_db_config(self, widget):
+        """
+            Shows the database configuration dialog
+        """
+        self.exaile.show_db_config()
+        self.db_button.set_label(self.exaile.settings.get('db_type', 'SQLite'))
+
     def setup_scan_interval(self, widget):
         """
             Makes sure the scan interval is valid, and starts it over with the
@@ -408,7 +418,7 @@ class Preferences(object):
         self.exaile.start_scan_interval(value)
         return True
 
-    def __check_gamin(self, widget):
+    def check_gamin(self, widget):
         """
             Make sure gamin is availabe
         """
@@ -432,7 +442,7 @@ class Preferences(object):
             (user, password, True))
         return True
 
-    def __setup_gamin(self, widget):
+    def setup_gamin(self, widget):
         """
             Sets up gamin if needs be
         """

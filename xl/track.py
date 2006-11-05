@@ -372,7 +372,7 @@ class TrackEditor(object):
         self.songs = tracks.get_selected_tracks()
         track = self.songs[0]
         self.count = len(self.songs)
-        self.__get_widgets()
+        self.get_widgets()
 
 
         self.artist_entry.set_text(track.artist)
@@ -392,11 +392,11 @@ class TrackEditor(object):
             self.track_entry.set_text(str(num))
 
         self.cancel.connect('clicked', lambda e: self.dialog.destroy())
-        self.save.connect('clicked', self.__save)
+        self.save.connect('clicked', self.save)
 
         self.dialog.show()
 
-    def __get_widgets(self):
+    def get_widgets(self):
         """
             Gets all widgets from the glade definition file
         """
@@ -413,7 +413,7 @@ class TrackEditor(object):
         self.cancel = xml.get_widget('te_cancel_button')
         self.save = xml.get_widget('te_save_button')
 
-    def __save(self, widget):
+    def save(self, widget):
         """
             Writes the information to the tracks.  Called when the user clicks
             save

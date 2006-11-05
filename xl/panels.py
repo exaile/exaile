@@ -519,7 +519,7 @@ class CollectionPanel(object):
                 not self.ipod:
                 songs = self.track_cache["%s %s" % (where, self.keyword)]
             else:
-                songs = xl.tracks.search_tracks(self.exaile, self.db,
+                songs = xl.tracks.search_tracks(self.exaile.window, self.db,
                     all, self.keyword, None, where, ipod=self.ipod)
         self.track_cache["%s %s" % (where, self.keyword)] = songs
 
@@ -1161,7 +1161,7 @@ class iPodPanel(CollectionPanel):
         """
             Loads a playlist from the iPod
         """
-        tracks = xl.tracks.search_tracks(self.exaile, self.db, self.all, None,
+        tracks = xl.tracks.search_tracks(self.exaile.window, self.db, self.all, None,
             str(playlist))
 
         self.exaile.new_page(playlist.name, tracks)
@@ -1281,8 +1281,8 @@ class iPodPanel(CollectionPanel):
                 loc = self.mount + track.ipod_path.replace(":", "/")
 
         left = []
-        for i in range(10):
-            left.append('%s')
+        for i in range(11):
+            left.append(self.db.p)
         left = ", ".join(left)
         for track in gpod.sw_get_tracks(self.itdb):
             loc = self.mount + track.ipod_path.replace(":", "/")

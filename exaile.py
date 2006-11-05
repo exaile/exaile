@@ -1598,6 +1598,7 @@ class ExaileWindow(object):
         """
 
         keyword = self.tracks_filter.get_text()
+        if keyword.startswith("where ") and not widget: return
         if keyword == "": keyword = None
         self.songs = tracks.search(self, self.tracks.playlist_songs, keyword,
             custom=custom)

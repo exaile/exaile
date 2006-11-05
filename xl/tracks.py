@@ -163,7 +163,7 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None,
     rows = []
     table = "tracks"
     if ipod: table = "ipod_tracks"
-    query = "SELECT path FROM ipod_tracks %s ORDER BY " % (where) + \
+    query = "SELECT path FROM %s %s ORDER BY " % (table, where) + \
         "artist, album, track, title"
     if w != None:
         query = w
@@ -176,7 +176,7 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None,
         cur.execute(query)
     except Exception, e:
         xlmisc.log(query)
-        common.error(parent.window, "Query Error: " + str(e))
+        common.error(parent, "Query Error: " + str(e))
         raise e
 
     for row in cur:

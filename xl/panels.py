@@ -1270,7 +1270,8 @@ class iPodPanel(CollectionPanel):
             os.mkdir(self.exaile_dir)
         self.all = xl.tracks.TrackData()
         ## clear out ipod information from database
-        self.db.execute("DELETE FROM ipod_tracks")
+        cur = self.db._cursor
+        cur.execute("DELETE FROM ipod_tracks")
 
         for playlist in gpod.sw_get_playlists(self.itdb):
             if playlist.type == 1:
@@ -1295,7 +1296,7 @@ class iPodPanel(CollectionPanel):
                 if artist and artist.lower()[:4] == "the ":
                     the_track = artist[:4]
                     artist = artist[4:]
-                self.db.execute("REPLACE INTO ipod_tracks( path, " \
+                cur.execute("INSERT INTO ipod_tracks( path, " \
                     "title, artist, album, track, length," \
                     "bitrate, genre, year, user_rating, the_track ) " \
                     "VALUES( %s ) " % left, 
@@ -1310,7 +1311,7 @@ class iPodPanel(CollectionPanel):
                     unicode(track.genre),
                     unicode(track.year),
                     unicode(track.rating),
-                    the_track), True)
+                    the_track))
 
                 itrack = track
                 track = xl.tracks.read_track(self.db, None, loc, True, True)
@@ -2470,7 +2471,7 @@ class RadioPanel(object):
         if result == gtk.RESPONSE_OK:
             name = dialog.get_value()
             if name == "": return
-            c = self.db.record_count("radio", "radio_name=%s" % self.db.tup,
+            c = self.db.record_count("radio", "radio_name=%s" % self.db.p,
                 (name,))
 
             if c > 0:

@@ -181,7 +181,7 @@ class DBManager(object):
             cur.execute(query, args)
         except:
             print query
-	    print_exc()
+            print_exc()
 
     def select(self, query, args=[]):
         """

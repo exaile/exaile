@@ -3,7 +3,7 @@ CREATE TABLE tracks( path VARCHAR(255) NOT NULL PRIMARY KEY, title VARCHAR(100)
     COLLATE NOCASE, artist VARCHAR(50) COLLATE NOCASE, album VARCHAR(50) COLLATE NOCASE, 
     genre VARCHAR(10) COLLATE NOCASE, year VARCHAR(10), track INT, length INT, bitrate INT, 
     size INT, modified INT, tags MEDIUMTEXT, plays INT DEFAULT 0, rating INT DEFAULT 0, 
-    user_rating INT DEFAULT 2, last_played DATE, blacklisted INT DEFAULT 0,
+    user_rating INT DEFAULT 2, last_played DATETIME, blacklisted INT DEFAULT 0,
     the_track VARCHAR(40) DEFAULT '', included TINYINT DEFAULT 0 );
 
 -- this table is for ipod tracks

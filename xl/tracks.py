@@ -431,7 +431,6 @@ class PopulateThread(threading.Thread):
         PopulateThread.stopped = False
 
         directories = self.directories
-        directories = [x.decode('utf-8', 'replace') for x in directories]
         self.db.execute("DELETE FROM directories")
         for path in directories:
             try:

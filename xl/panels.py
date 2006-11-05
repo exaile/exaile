@@ -635,7 +635,7 @@ class CollectionPanel(object):
             gobject.idle_add(self.tree.expand_to_path, path)
 
         if isinstance(self, iPodPanel) and self.root:
-            gobject.idle_add(self.tree.expand_rowl, self.model.get_path(self.root), False)
+            gobject.idle_add(self.tree.expand_row, self.model.get_path(self.root), False)
             gobject.idle_add(self.tree.expand_row, self.model.get_path(self.iroot), False)
 
 class iPodPlaylist(object):

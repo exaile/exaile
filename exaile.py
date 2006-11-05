@@ -198,7 +198,6 @@ class ExaileWindow(object):
  
         self.window.show_all()
         self.load_songs()
-        self.__load_last_playlist()
         
         if not self.playlists_nb.get_n_pages():
             self.new_page(_("Playlist"))
@@ -994,6 +993,7 @@ class ExaileWindow(object):
                 gobject.idle_add(self.import_m3u, sys.argv[1], True)
             else:
                 if not self.tracks: self.new_page("Last", [])
+        gobject.idle_add(self.__load_last_playlist)
 
     def setup_gamin(self, skip_prefs=False):
         """
@@ -1672,9 +1672,10 @@ class ExaileWindow(object):
 
         track = self.tracks.get_next_track(self.current_track)
         if not track: 
-            if not self.tracks.get_songs(): return
-            track = self.tracks.get_songs()[0]
-
+            if not self.tracks.get_songs(): 
+                if not self.queued: return
+            else: 
+                track = self.tracks.get_songs()[0]
 
         if self.next != None and not self.queued:
             track = self.tracks.get_next_track(self.next)
@@ -1691,6 +1692,8 @@ class ExaileWindow(object):
             if self.next == None:
                 self.next = self.current_track
             track = self.queued[0]
+            if not track in self.tracks.songs:
+                self.tracks.append_song(track)
             self.queued = self.queued[1:len(self.queued)]
             xlmisc.log("Playing queued track '%s'" % track)
 

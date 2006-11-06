@@ -957,21 +957,22 @@ class ExaileWindow(object):
         """
             Returns a new database connection
         """
-        if self.settings['db_type'] == 'SQLite':
-            database = db.DBManager("%s%smusic.db" % (SETTINGS_DIR,
-                os.sep))
-        elif self.settings['db_type'] == 'MySQL':
-            database = db.DBManager(type='mysql',
-                user=self.settings.get('db_user', ''),
-                passwd=self.settings.get('db_passwd', ''),
-                host=self.settings.get('db_host', 'localhost'),
-                db=self.settings.get('db_name', ''))
-        elif self.settings['db_type'] == 'PostgreSQL':
-            database = db.DBManager(type='pgsql',
-                user=self.settings.get('db_user', ''),
+        type = self.settings.get("db_type", "SQLite").lower()
+        if type == 'postgresql': type = 'pgsql'
+
+        try:
+            host = self.settings.get('db_host', 'localhost')
+            if type == 'sqlite': 
+                host = "%s%smusic.db" % (SETTINGS_DIR, os.sep)
+            database = db.DBManager(type=type,
+                username=self.settings.get('db_user', ''),
                 password=self.settings.get('db_passwd', ''),
-                host=self.settings.get('db_host', ''),
+                host=host,
                 database=self.settings.get('db_name', ''))
+        except db.DBOperationalError, e:
+            common.error(self.window, _("Could not connect "
+                "to database: %s" % str(e)))
+            return None
 
         return database
 

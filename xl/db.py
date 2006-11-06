@@ -64,14 +64,18 @@ class DBManager(object):
     """
         Manages the database connection
     """
-    def __init__(self, db_loc='', start_timer=True, type='sqlite', **args):
+    def __init__(self, type='sqlite', username='',
+        host='localhost', password='', database='', start_timer=True):
         """
             Initializes and connects to the database
         """
         
         self.type = type
-        self.db_loc = db_loc
-        self.args = args
+        self.db_loc = host
+        self.username = username
+        self.host = host
+        self.password = password
+        self.database = database
         self.db = self.__get_db()
 
         self.pool = dict()
@@ -108,13 +112,15 @@ class DBManager(object):
             if not PGSQL_AVAIL:
                 raise DBOperationalError("PostgreSQL driver is not available")
 
-            db = pyPgSQL.PgSQL.connect(**self.args)
+            db = pyPgSQL.PgSQL.connect(host=self.host, user=self.username,
+                password=self.password, database=self.database)
         else:
             self.p = "%s"
             if not MYSQL_AVAIL: 
                 raise DBOperationalError("MySQL driver is not available")
             try:
-                db = MySQLdb.Connect(**self.args)
+                db = MySQLdb.Connect(user=self.username, passwd=self.password,
+                    host=self.host, db=self.database)
             except MySQLdb.OperationalError, e:
                 raise DBOperationalError(str(e))
 

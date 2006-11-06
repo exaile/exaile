@@ -16,7 +16,7 @@
 import os
 
 def name(file):
-    return os.path.basename(file)
+    return os.path.basename(file.replace('.pyc', '.py'))
 
 class Plugin(object):
     """

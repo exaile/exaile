@@ -33,7 +33,6 @@ class CoverDisplay(gtk.Window):
     def __init__(self, exaile, geometry=''):
         self.exaile = exaile
         self.geometry = geometry
-        self.cover = ''
         self.init_gtk()
     
     def init_gtk(self):
@@ -79,14 +78,13 @@ class CoverDisplay(gtk.Window):
             Called by the plugin chain when a new track starts playing
         """
         newcover = self.exaile.cover.loc
+        print "play track was called"
         
         print newcover
-        if newcover != self.cover:
-            self.cover = newcover
-            if newcover.find('nocover') == -1:
-                self.display(newcover)
-            else:
-                self.display(None)
+        if newcover.find('nocover') == -1:
+            self.display(newcover)
+        else:
+            self.display(None)
         return True
 
     def stop_track(self, track):

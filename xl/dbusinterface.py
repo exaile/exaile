@@ -160,6 +160,13 @@ class DBusInterfaceObject(dbus.service.Object):
         return self.exaile.current_track.status()
 
     @dbus.service.method("org.exaile.DBusInterface")
+    def get_cover_path(self):
+        """
+            Returns the path to the cover image of the playing track
+        """
+        return self.exaile.cover.loc
+
+    @dbus.service.method("org.exaile.DBusInterface")
     def popup(self):
         """
             Shows a popup window with information about the current track

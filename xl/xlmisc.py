@@ -1334,7 +1334,7 @@ class CoverFrame(object):
             lambda *e: self.window.destroy())
         self.ok = self.xml.get_widget('cover_ok_button')
         self.ok.connect('clicked',
-            self.ok)
+            self.on_ok)
         self.box = self.xml.get_widget('cover_image_box')
         self.cover = ImageWidget()
         self.cover.set_image_size(350, 350)
@@ -1368,7 +1368,7 @@ class CoverFrame(object):
             covers.CoverFetcherThread(self.last_search,
                 self.covers_fetched, True, locale=locale).start()
 
-    def ok(self, widget=None):
+    def on_ok(self, widget=None):
         """
             Chooses the current cover and saves it to the database
         """

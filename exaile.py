@@ -1813,9 +1813,7 @@ class ExaileWindow(object):
         else:
             # for shuffle mode
             if self.shuffle.get_active():
-                if len(self.played) == len(self.songs):
-                    self.played = []
-                    if not self.repeat.get_active(): return
+
                 count = 0
                 while True:
                     if len(self.songs) == 0: return
@@ -1824,6 +1822,14 @@ class ExaileWindow(object):
                     track = self.tracks.songs[current_index]
                     if count >= 500 or track not in \
                         self.played:
+
+                        if track in self.played:
+                            for track in self.tracks.songs:
+                                if not track in self.played:
+                                    break
+                            self.played = [] # all songs have been played
+                            if not self.repeat.get_active():
+                                return
                         break
 
                     count = count + 1

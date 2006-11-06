@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-import os
+import os, gtk
 
 def name(file):
     return os.path.basename(file.replace('.pyc', '.py'))
@@ -57,3 +57,24 @@ class Event(object):
         """
         if self.calls.has_key(call):
             del self.calls[call]
+
+class PluginConfigDialog(gtk.Dialog):
+    """
+        A generic plugin configuration dialog
+    """
+    def __init__(self, parent, plugin):
+        """
+            Initializes the dialog
+        """
+        gtk.Dialog.__init__(self, "Plugin Configuration", parent)
+        self.add_button("gtk-cancel", gtk.RESPONSE_CANCEL)
+        self.add_button("gtk-ok", gtk.RESPONSE_OK)
+
+        self.main = self.child
+        self.main.set_spacing(3)
+
+        label = gtk.Label("<b>%s Configuration</b>" %
+            plugin)
+        label.set_markup(label.get_label())
+        self.main.pack_start(label, False, False)
+

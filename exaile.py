@@ -59,7 +59,7 @@ sys.path.insert(0, basedir)
 os.chdir(basedir)
 
 from xl import *
-import plugins.manager, plugins
+import plugins.manager, plugins, plugins.gui
 
 sys_var = "HOME"
 if os.sys.platform.startswith("win"): sys_var = "USERPROFILE"
@@ -194,7 +194,14 @@ class ExaileWindow(object):
  
         self.window.show_all()
         self.pmanager = plugins.manager.Manager(self) 
-        self.pmanager.load_plugins("%s%splugins" % (SETTINGS_DIR, os.sep))
+        enabled_plugins = []
+        for k, v in self.settings.iteritems():
+            if k.find("_plugin_enabled") > -1:
+                if v == 'true':
+                    enabled_plugins.append(k.replace("_plugin_enabled", ""))
+
+        self.pmanager.load_plugins("%s%splugins" % (SETTINGS_DIR, os.sep),
+            enabled_plugins)
         self.load_songs(False, True)
 
         if first_run:
@@ -213,6 +220,7 @@ class ExaileWindow(object):
         interval = self.settings.get_float('scan_interval', '25')
         if interval:
             self.start_scan_interval(interval)
+
 
     def start_scan_interval(self, value):
         """
@@ -318,6 +326,9 @@ class ExaileWindow(object):
 
         self.quit_item = self.xml.get_widget('quit_item')
         self.quit_item.connect('activate', self.on_quit)
+
+        self.plugins_item = self.xml.get_widget('plugins_item')
+        self.plugins_item.connect('activate', self.show_plugin_manager)
 
         self.progress = self.xml.get_widget('track_slider')
         self.progress.connect('change_value', self.seek)
@@ -425,6 +436,20 @@ class ExaileWindow(object):
         self.rating_combo.set_active(0)
         self.rating_combo.set_sensitive(False)
         self.rating_signal = self.rating_combo.connect('changed', self.set_rating)
+
+    def show_plugin_manager(self, *e):
+        """
+            Shows the plugin manager
+        """
+        manager = plugins.gui.PluginManager(self.window, self.pmanager,
+            self.update_plugin)
+
+    def update_plugin(self, plugin):
+        """
+            Sets whether or not a plugin is enabled
+        """
+        self.settings['%s_plugin_enabled' % plugin.FILE_NAME] = \
+            plugin.PLUGIN_ENABLED
 
     def toggle_record(self, widget, event=None):
         """
@@ -1338,6 +1363,12 @@ class ExaileWindow(object):
                 cover.save("%s%scovers" % (SETTINGS_DIR, os.sep))
                 xlmisc.log(cover['filename'])
                 self.cover.set_image(cover['filename'])
+
+                # PLUGIN: tell plugins the cover was found
+                event = plugins.Event()
+                event.add_call('cover_found', (self.current_track,
+                    cover['filename']))
+                self.pmanager.fire_event(event)
 
                 track = self.current_track
                 self.db.execute("UPDATE albums SET image=%s WHERE album=%s " \

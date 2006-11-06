@@ -17,14 +17,16 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-PLUGIN_NAME = "desktopcover"
-PLUGIN_AUTHORS = ["Johannes Sasongko <sasongko@gmail.com", 
-    "Adam Olsen arolsen@gmail.com"]
+PLUGIN_NAME = "Desktop Cover"
+PLUGIN_AUTHORS = ["Johannes Sasongko <sasongko@gmail.com>", 
+    "Adam Olsen <arolsen@gmail.com>"]
 
 PLUGIN_VERSION = "0.1"
 PLUGIN_DESCRIPTION = "Displays the current album cover on the desktop"
+PLUGIN_ENABLED = False
+PLUGIN_ICON = None
 
-import gtk, re, gobject
+import gtk, re, gobject, xl.common
 import plugins
 
 PLUGIN = None
@@ -69,7 +71,9 @@ class CoverDisplay(gtk.Window):
             self.h = None
         
         if x and y:
-            gtk.Window.parse_geometry(self, self.geometry)
+            x = int(x.replace("+", ''))
+            y = int(y.replace("+", ''))
+            self.move(x, y)
         else:
             self.set_position(gtk.WIN_POS_CENTER_ALWAYS)
     
@@ -116,15 +120,102 @@ def initialize(exaile):
     """
         Inizializes the plugin
     """
-    global PLUGIN
+    global PLUGIN, SETTINGS
+    SETTINGS = exaile.settings
     print "%s_geometry" % \
         plugins.name(__file__)
+
     geometry = exaile.settings.get("%s_geometry" % 
         plugins.name(__file__), "150x150")
     print "Cover geometry: %s" % geometry
     PLUGIN = CoverDisplay(exaile, geometry)
 
     return True
+
+def configure():
+    """
+        Called when a configure request is called
+    """
+    if not PLUGIN: return
+    settings = SETTINGS
+    geometry = settings.get('%s_geometry' % plugins.name(__file__), '150x150')
+
+    dialog = plugins.PluginConfigDialog(PLUGIN.exaile.window, PLUGIN_NAME)
+    box = dialog.main
+    table = gtk.Table(4, 2)
+    table.set_row_spacings(2)
+    table.set_col_spacings(2)
+
+    match = re.match(
+            '^=?(?:(\d+)?(?:[Xx](\d+))?)?'
+            '(?:([+-])(\d+)?(?:([+-])(\d+))?)?$',
+            geometry)
+    if not match:
+        w, h, px, x, py, y = '150', '150', '+', '0', '+', '0'
+    else:
+        w, h, px, x, py, y = match.groups()
+
+    if not w: w = '150'
+    if not h: h = '150'
+    if not px or px == '+': px = ''
+    if not py or py == '+': py = ''
+    if x == '': x = ''
+    if y == '': y = ''
+
+    y = "%s%s" % (py, y)
+    x = "%s%s" % (px, x)
+    boxes = dict()
+    items = ('Width:w', 'Height:h', 'X:x', 'Y:y')
+    bottom = 0
+    for item in items:
+        (name, prop) = item.split(':')
+        label = gtk.Label("%s:    " % name)
+        label.set_alignment(0, 0)
+
+        table.attach(label, 0, 1, bottom, bottom + 1,
+            gtk.EXPAND|gtk.FILL, gtk.FILL)
+        field = gtk.Entry()
+        field.set_text(locals()[prop])
+        field.set_max_length(5)
+        table.attach(field, 1, 2, bottom, bottom + 1,
+            gtk.EXPAND|gtk.FILL, gtk.FILL)
+        boxes[prop] = field
+        bottom += 1
+
+    box.pack_start(table, False, False)
+    box.pack_start(gtk.Label("Leave X and Y empty to center"),
+        False, False)
+    dialog.show_all()
+
+    result = dialog.run()
+    dialog.hide()
+    if result == gtk.RESPONSE_OK:
+        new = dict()
+        for item in items:
+            (name, item) = item.split(':')
+            val = boxes[item].get_text()
+            if val:
+                try:    
+                    int(val)
+                except ValueError:
+                    xl.common.error(PLUGIN.exaile.window, _("Invalid "
+                        "setting for %s" % item.upper()))
+                    return
+
+            new[item] = val
+
+        for item in ('x', 'y'):
+            if new[item] and new[item].find("-") <= -1:
+                new[item] = "+%s" % new[item]
+
+        settings["%s_geometry" % plugins.name(__file__)] = \
+            "%sx%s%s%s" % (new['w'], new['h'], new['x'], new['y'])
+        PLUGIN.geometry = settings["%s_geometry" % plugins.name(__file__)] = \
+            "%sx%s%s%s" % (new['w'], new['h'], new['x'], new['y'])
+        PLUGIN.parse_geometry()
+        print "New settings: %s" % settings["%s_geometry" %
+            plugins.name(__file__)]
+
 
 def play_track(track):
     """
@@ -139,6 +230,13 @@ def stop_track(track):
     """
     if PLUGIN:
         PLUGIN.stop_track(track)
+
+def cover_found(track, location):
+    """
+        called when a cover was found for the current track
+    """
+    if PLUGIN:
+        PLUGIN.play_track(track)
 
 def destroy():
     """

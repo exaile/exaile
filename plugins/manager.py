@@ -28,7 +28,7 @@ class Manager(object):
         self.plugins = []
         self.parent = parent
 
-    def load_plugins(self, dir=''):
+    def load_plugins(self, dir, enabled):
         """
             Loads all plugins in a specified directory
         """
@@ -48,6 +48,9 @@ class Manager(object):
                     self.plugins.append(plugin)
                     print "Plugin %s, version %s inizilaized" % \
                         (plugin.PLUGIN_NAME, plugin.PLUGIN_VERSION)
+                    plugin.FILE_NAME = file.replace('.pyc', '.py')
+                    if file.replace(".pyc", ".py") in enabled:
+                        plugin.PLUGIN_ENABLED = True
                 except Exception, e:
                     print "Failed to load plugin"
                     traceback.print_exc()
@@ -57,6 +60,7 @@ class Manager(object):
             Fires an event to all plugins
         """
         for plugin in self.plugins:
+            if not plugin.PLUGIN_ENABLED: continue
             for method, args in event.calls.iteritems():
                 func = getattr(plugin, method)
                 if func and callable(func):

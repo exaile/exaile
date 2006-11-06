@@ -52,7 +52,7 @@
 		      <accelerator key="N" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image288">
+			<widget class="GtkImage" id="image309">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-new</property>
 			  <property name="icon_size">1</property>
@@ -74,7 +74,7 @@
 		      <accelerator key="O" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image289">
+			<widget class="GtkImage" id="image310">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-open</property>
 			  <property name="icon_size">1</property>
@@ -95,7 +95,7 @@
 		      <signal name="activate" handler="on_open_url_activate" last_modification_time="Tue, 11 Jul 2006 06:31:40 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image290">
+			<widget class="GtkImage" id="image311">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-network</property>
 			  <property name="icon_size">1</property>
@@ -116,7 +116,7 @@
 		      <signal name="activate" handler="on_open_disc_item_activate" last_modification_time="Thu, 20 Jul 2006 21:18:04 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image291">
+			<widget class="GtkImage" id="image312">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-cdrom</property>
 			  <property name="icon_size">1</property>
@@ -137,7 +137,7 @@
 		      <signal name="activate" handler="on_import_directory_item_activate" last_modification_time="Thu, 07 Sep 2006 22:44:57 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image292">
+			<widget class="GtkImage" id="image313">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-go-down</property>
 			  <property name="icon_size">1</property>
@@ -164,7 +164,7 @@
 		      <signal name="activate" handler="on_open_playlist_activate" last_modification_time="Tue, 11 Jul 2006 06:31:40 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image293">
+			<widget class="GtkImage" id="image314">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-open</property>
 			  <property name="icon_size">1</property>
@@ -185,7 +185,7 @@
 		      <signal name="activate" handler="on_export_playlist_activate" last_modification_time="Tue, 11 Jul 2006 06:31:40 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image294">
+			<widget class="GtkImage" id="image315">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-save</property>
 			  <property name="icon_size">1</property>
@@ -235,7 +235,7 @@
 		      <accelerator key="G" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image295">
+			<widget class="GtkImage" id="image316">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-jump-to</property>
 			  <property name="icon_size">1</property>
@@ -447,7 +447,7 @@
 		      <signal name="activate" handler="on_library_manager_activate" last_modification_time="Tue, 11 Jul 2006 06:34:38 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image296">
+			<widget class="GtkImage" id="image317">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-home</property>
 			  <property name="icon_size">1</property>
@@ -507,7 +507,7 @@
 		      <signal name="activate" handler="on_clear_queue_activate" last_modification_time="Tue, 11 Jul 2006 06:34:38 GMT"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image297">
+			<widget class="GtkImage" id="image318">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-clear</property>
 			  <property name="icon_size">1</property>
@@ -545,7 +545,7 @@
 		      <accelerator key="C" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image298">
+			<widget class="GtkImage" id="image319">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-clear</property>
 			  <property name="icon_size">1</property>
@@ -571,6 +571,27 @@
 		  <child>
 		    <widget class="GtkSeparatorMenuItem" id="separator8">
 		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="plugins_item">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Plugins</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_plugins_item_activate" last_modification_time="Mon, 06 Nov 2006 21:38:47 GMT"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image320">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-execute</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
 		    </widget>
 		  </child>
 

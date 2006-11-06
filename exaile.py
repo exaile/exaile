@@ -59,6 +59,7 @@ sys.path.insert(0, basedir)
 os.chdir(basedir)
 
 from xl import *
+import plugins.manager, plugins
 
 sys_var = "HOME"
 if os.sys.platform.startswith("win"): sys_var = "USERPROFILE"
@@ -192,6 +193,8 @@ class ExaileWindow(object):
             self.status.set_first(None)
  
         self.window.show_all()
+        self.pmanager = plugins.manager.Manager(self) 
+        self.pmanager.load_plugins("%s%splugins" % (SETTINGS_DIR, os.sep))
         self.load_songs(False, True)
 
         if first_run:
@@ -1680,6 +1683,10 @@ class ExaileWindow(object):
         if self.dynamic.get_active():
             thread.start_new_thread(self.get_suggested_songs, tuple())
 
+        # PLUGIN: send plugins events of this playing track
+        event = plugins.Event()
+        event.add_call('play_track', (track,))
+        self.pmanager.fire_event(event)
         gc.collect()
 
     def get_suggested_songs(self):
@@ -1915,7 +1922,13 @@ class ExaileWindow(object):
         self.window.set_title("Exaile!")
 
         track = self.current_track
-        if track != None: track.stop()
+        if track != None: 
+            track.stop()
+            # PLUGIN: alert plugins that this track has stopped playing
+            event = plugins.Event()
+            event.add_call('stop_track', (track,))
+            self.pmanager.fire_event(event)
+
         if event != None:
             self.played = []
             self.current_track = None

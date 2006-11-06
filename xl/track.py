@@ -392,7 +392,7 @@ class TrackEditor(object):
             self.track_entry.set_text(str(num))
 
         self.cancel.connect('clicked', lambda e: self.dialog.destroy())
-        self.save.connect('clicked', self.save)
+        self.save.connect('clicked', self.on_save)
 
         self.dialog.show()
 
@@ -413,7 +413,7 @@ class TrackEditor(object):
         self.cancel = xml.get_widget('te_cancel_button')
         self.save = xml.get_widget('te_save_button')
 
-    def save(self, widget):
+    def on_save(self, widget):
         """
             Writes the information to the tracks.  Called when the user clicks
             save

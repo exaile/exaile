@@ -491,32 +491,36 @@ class CollectionPanel(object):
 
         if self.keyword == "": self.keyword = None
 
+        table = 'tracks'
+        if self.ipod: table = 'ipod_tracks'
         if self.choice.get_active() == 2:
             self.order = ('genre', 'artist', 'album', 'track', 'title')
-            where = "SELECT path FROM tracks WHERE blacklisted=0 ORDER BY " \
-                "LOWER(genre), track, title"
+            where = "SELECT path FROM %s WHERE blacklisted=0 ORDER BY " \
+                "LOWER(genre), track, title" % table
 
         if self.choice.get_active() == 0:
             self.order = ('artist', 'album', 'track', 'title')
-            where = "SELECT path, %s FROM tracks WHERE " \
+            where = "SELECT path, %s FROM %s WHERE " \
                 "blacklisted=0 ORDER BY %s" % \
-                (", ".join(self.order), ", ".join(self.order))
+                (", ".join(["LOWER(%s)" % x for x in self.order]), table,
+                ", ".join(self.order))
 
         if self.choice.get_active() == 1:
             self.order = ('album', 'track', 'title')
-            where = "SELECT path, album, track, title FROM tracks " \
+            where = "SELECT path, album, track, title FROM %s " \
                 "WHERE blacklisted=0 ORDER BY " \
-                "LOWER(album), track, LOWER(artist), title"
+                "LOWER(album), track, LOWER(artist), title" % table
 
         # save the active view setting
         self.exaile.settings['active_view'] = self.choice.get_active()
 
         all = self.exaile.all_songs
 
-        if self.ipod: all = self.all
+        if self.ipod: 
+            all = self.all
         else: self.all = all
 
-        if not self.keyword:
+        if not self.keyword and not self.ipod:
             songs = all
         else:
             if self.track_cache.has_key("%s %s" % (where, self.keyword)) \

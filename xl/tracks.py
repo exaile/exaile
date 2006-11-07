@@ -166,13 +166,12 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None,
     if ipod: table = "ipod_tracks"
     query = "SELECT path FROM %s %s ORDER BY " % (table, where) + \
         "LOWER(artist), LOWER(album), track, title"
+
     if w != None:
         query = w
         query = re.sub("FROM (\w+) ", r"FROM \1 " + where, query)
 
     try:
-#        if db.type == 'mysql':
-#            query = query.replace("%%", "%")
         cur = db.db.cursor()
         cur.execute(query)
     except Exception, e:
@@ -180,8 +179,7 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None,
         common.error(parent, "Query Error: " + str(e))
         raise e
 
-    for row in cur:
-
+    for row in cur.fetchall():
         track = all.for_path(row[0])
         if track == None:
             pass

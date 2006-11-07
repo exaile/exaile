@@ -44,13 +44,11 @@ class Manager(object):
                         print "%s is not a plugin, skipping" % file
                         continue
 
-                    if not plugin.initialize(self.parent): continue
-                    self.plugins.append(plugin)
-                    print "Plugin %s, version %s inizilaized" % \
-                        (plugin.PLUGIN_NAME, plugin.PLUGIN_VERSION)
                     plugin.FILE_NAME = file.replace('.pyc', '.py')
                     if file.replace(".pyc", ".py") in enabled:
-                        plugin.PLUGIN_ENABLED = True
+                        if plugin.initialize(self.parent):
+                            plugin.PLUGIN_ENABLED = True
+                    self.plugins.append(plugin)
                 except Exception, e:
                     print "Failed to load plugin"
                     traceback.print_exc()

@@ -1849,7 +1849,7 @@ Genre</property>
 			      </child>
 
 			      <child>
-				<widget class="GtkHBox" id="hbox42">
+				<widget class="GtkHBox" id="rating_toolbar">
 				  <property name="visible">True</property>
 				  <property name="homogeneous">False</property>
 				  <property name="spacing">0</property>

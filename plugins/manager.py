@@ -42,10 +42,11 @@ class Manager(object):
                     if not hasattr(plugin, "PLUGIN_NAME"):
                         continue
 
-                    print "Plugins '%s' version '%s' loaded successfully" % \
-                        (plugin.PLUGIN_NAME, plugin.PLUGIN_VERSION)
                     if plugin.PLUGIN_NAME in self.loaded: continue
                     self.loaded.append(plugin.PLUGIN_NAME)
+                    
+                    print "Plugins '%s' version '%s' loaded successfully" % \
+                        (plugin.PLUGIN_NAME, plugin.PLUGIN_VERSION)
 
                     plugin.FILE_NAME = file
                     if file in enabled:

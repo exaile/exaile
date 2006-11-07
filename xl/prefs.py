@@ -277,7 +277,7 @@ class Preferences(object):
                 'Last.fm'),
             'Advanced':
                 ('iPod',
-                'Streamripper'),
+                ),
             })
     def __init__(self, parent):
         """
@@ -345,9 +345,6 @@ class Preferences(object):
 
         simple_settings = ({
             'use_splash': (CheckPrefsItem, True),
-            'streamripper_save_location': (DirPrefsItem, os.getenv("HOME")),
-            'kill_streamripper': (CheckPrefsItem, True),
-            'streamripper_relay_port': (PrefsItem, 8000),
             'watch_directories': (CheckPrefsItem, False, self.check_gamin,
                 self.setup_gamin),
             'watch_exclude_dirs': (PrefsItem, 'incomplete'),

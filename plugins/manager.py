@@ -27,6 +27,7 @@ class Manager(object):
         """
         self.plugins = []
         self.parent = parent
+        self.loaded = []
 
     def load_plugins(self, dir, enabled):
         """
@@ -37,15 +38,17 @@ class Manager(object):
         for file in os.listdir(dir):
             if file.endswith('.py'):
                 try:
-                    print "Attempting to load plugin: %s" % file
-
                     plugin = __import__(re.sub('\.pyc?$', '', file))
-                    if not getattr(plugin, "PLUGIN_NAME"):
-                        print "%s is not a plugin, skipping" % file
+                    if not hasattr(plugin, "PLUGIN_NAME"):
                         continue
 
-                    plugin.FILE_NAME = file.replace('.pyc', '.py')
-                    if file.replace(".pyc", ".py") in enabled:
+                    print "Plugins '%s' version '%s' loaded successfully" % \
+                        (plugin.PLUGIN_NAME, plugin.PLUGIN_VERSION)
+                    if plugin.PLUGIN_NAME in self.loaded: continue
+                    self.loaded.append(plugin.PLUGIN_NAME)
+
+                    plugin.FILE_NAME = file
+                    if file in enabled:
                         if plugin.initialize(self.parent):
                             plugin.PLUGIN_ENABLED = True
                     self.plugins.append(plugin)

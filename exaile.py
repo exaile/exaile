@@ -89,8 +89,6 @@ class ExaileWindow(object):
         self.timer_count = 0
         self.current_track = None
         self.gamin_watched = []
-        self.streamripper_pid = None
-        self.streamripper_out = None
         self.played = []
         self.mon = None
         self.all_songs = tracks.TrackData()
@@ -200,6 +198,7 @@ class ExaileWindow(object):
                 if v == 'true':
                     enabled_plugins.append(k.replace("_plugin_enabled", ""))
 
+        self.pmanager.load_plugins("%s%splugins" % (basedir, os.sep), enabled_plugins)
         self.pmanager.load_plugins("%s%splugins" % (SETTINGS_DIR, os.sep),
             enabled_plugins)
         self.load_songs(False, True)
@@ -311,16 +310,6 @@ class ExaileWindow(object):
         self.play_button = self.xml.get_widget('play_button')
         self.play_button.connect('clicked', self.toggle_pause)
 
-        self.record_button = self.xml.get_widget('record_button')
-        self.record_button.connect('button_release_event', self.toggle_record)
-
-        # check to see that streamripper is on the system
-        try:
-            ret = subprocess.call(['streamripper'], stdout=-1, stderr=-1)
-        except OSError:
-            self.record_button.destroy()
-            xlmisc.log("Streamripper not found")
-
         self.stop_button = self.xml.get_widget('stop_button')
         self.stop_button.connect('clicked', self.stop)
 
@@ -429,9 +418,6 @@ class ExaileWindow(object):
         self.xml.get_widget('import_directory_item').connect('activate',
             lambda *e: self.import_directory())
 
-        self.xml.get_widget('streamripper_log_item').connect('activate',
-            lambda *e: self.streamripper_log())
-
         self.rating_combo = self.xml.get_widget('rating_combo')
         self.rating_combo.set_active(0)
         self.rating_combo.set_sensitive(False)
@@ -451,63 +437,6 @@ class ExaileWindow(object):
         self.settings['%s_plugin_enabled' % plugin.FILE_NAME] = \
             plugin.PLUGIN_ENABLED
 
-    def toggle_record(self, widget, event=None):
-        """
-            Toggles streamripper
-        """
-        track = self.current_track
-        if not self.streamripper_pid:
-            if not track: return True
-            if not isinstance(track, media.StreamTrack):
-                common.error(self.window, _("You can only record streams"))
-                widget.set_active(False)
-                return True
-
-            savedir = self.settings.get('streamripper_save_location',
-                os.getenv("HOME"))
-            port = self.settings.get_int('streamripper_relay_port',
-                8000)
-            outfile = self.get_settings_dir() + "/streamripper.log"
-
-            self.streamripper_out = open(outfile, "w+", 0)
-            self.streamripper_out.write("Streamripper log file started: %s\n" %
-                time.strftime("%c", time.localtime()))
-            self.streamripper_out.write(
-                "-------------------------------------------------\n\n\n")
-
-            if self.settings.get_boolean("kill_streamripper", True):
-                xlmisc.log("Killing any current streamripper processes")
-                os.system("killall -9 streamripper")
-
-            track.stop()
-            sub = subprocess.Popen(['streamripper', track.loc, '-r',
-                str(port), '-d', savedir], stderr=self.streamripper_out)
-            ret = sub.poll()
-            self.streamripper = sub
-
-            xlmisc.log("Streamripper return value was %s" % ret)
-            xlmisc.log("Using streamripper to play location: %s" % track.loc)
-            self.status.set_first("Streamripping location: %s..." %
-                track.loc, 4000)
-            if ret != None:
-                common.error(self.window, _("There was an error"
-                    " executing streamripper."))
-                return True
-            self.streamripper_pid = sub.pid
-            track.stream_url = "http://localhost:%d" % port
-            track.play(self.on_next)
-
-            return False
-        else:
-            if not self.streamripper_pid:
-                common.error(self.window, _("Streamripper is not running."))
-            os.system("kill -9 %d" % self.streamripper_pid)
-            track.stop()
-            track.play(self.on_next)
-            self.streamripper_pid = None
-
-        return False
-
     def set_rating(self, combo):
         """
             Sets the user rating of a track
@@ -523,21 +452,6 @@ class ExaileWindow(object):
         xlmisc.log("Set rating to %d for track %s" % (rating, track))
         if self.tracks:
             self.tracks.refresh_row(track)
-
-    def streamripper_log(self):
-        """
-            Views the streamripper log, if it's available
-        """
-        file = SETTINGS_DIR + "/streamripper.log"
-        if not os.path.isfile(file):
-            common.error(self.window, _("No streamripper log available"))
-            return
-
-        h = open(file)
-        data = h.read()
-        h.close()
-
-        common.scrolledMessageDialog(self.window, data, _("Streamripper Log"))
 
     def import_directory(self):
         """
@@ -1923,11 +1837,6 @@ class ExaileWindow(object):
         """
             Stops playback
         """
-        if self.streamripper_pid:
-            os.system("kill -9 %d" % self.streamripper_pid)
-            self.streamripper_pid = None
-
-        self.record_button.set_active(False)
         self.status.set_first(None)
         self.cover.set_image("images%snocover.png" % os.sep)
         self.stop_cover_thread()

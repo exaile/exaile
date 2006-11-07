@@ -16,7 +16,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import plugins, time, os, gtk, subprocess
+import plugins, time, os, gtk, subprocess, xl.media
 
 PLUGIN_NAME = "Serpentine Plugin"
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
@@ -34,7 +34,9 @@ def launch_serpentine(button):
     if tracks:
         songs = tracks.songs
         if songs:
-            ar = [song.loc for song in songs]
+            ar = [song.loc for song in songs if not isinstance(song,
+                xl.media.StreamTrack)]
+            if not ar: return
             args = ['serpentine', '-o']
             args.extend(ar)
             subprocess.Popen(args, stdout=-1,

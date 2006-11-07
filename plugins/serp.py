@@ -45,7 +45,7 @@ def initialize(exaile):
     try:
         ret = subprocess.call(['serpentine', '-h'], stdout=-1, stderr=-1)
     except OSError:
-        print "serpentine not found"
+        raise Exception("Serpentine was not found")
         return False
 
     EXAILE = exaile
@@ -60,7 +60,8 @@ def initialize(exaile):
     return True
 
 def destroy():
-    if not BUTTON or not PLUGIN_ENABLED: return
+    global BUTTON
+    if not BUTTON: return
     EXAILE.xml.get_widget('rating_toolbar').remove(BUTTON)
     BUTTON.hide()
     BUTTON.destroy()

@@ -2215,7 +2215,7 @@ class RadioPanel(object):
 
         self.db.execute("UPDATE podcasts SET title=%s, "
             "pub_date=%s, description=%s, image=%s WHERE"
-            " path=%s" % common.tup(self.db.p, 6), (title, pub_date,
+            " path=%s" % common.tup(self.db.p, 5), (title, pub_date,
             description, image, path))
 
         self.model.set_value(iter, 1, PodcastWrapper(title, path))

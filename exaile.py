@@ -2280,7 +2280,7 @@ class ExaileWindow(object):
         last_active = self.playlists_nb.get_current_page()
         self.settings['last_active'] = last_active
 
-        sys.exit(0)
+        gtk.main_quit()
 
     def on_resize(self, widget, event): 
         """

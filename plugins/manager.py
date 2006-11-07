@@ -62,6 +62,7 @@ class Manager(object):
         for plugin in self.plugins:
             if not plugin.PLUGIN_ENABLED: continue
             for method, args in event.calls.iteritems():
+                if not hasattr(plugin, method): continue
                 func = getattr(plugin, method)
                 if func and callable(func):
                     func(*args)

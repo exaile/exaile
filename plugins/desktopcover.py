@@ -39,7 +39,6 @@ class CoverDisplay(gtk.Window):
     
     def init_gtk(self):
         gtk.Window.__init__(self)
-        self.connect('destroy', gtk.main_quit)
         self.set_accept_focus(False)
         self.set_decorated(False)
         self.set_keep_below(True)
@@ -52,7 +51,6 @@ class CoverDisplay(gtk.Window):
         self.add(self.img)
         
         self.parse_geometry()
-        self.show_all()
     
     def parse_geometry(self):
         match = re.match(
@@ -73,8 +71,10 @@ class CoverDisplay(gtk.Window):
         if x and y:
             x = int(x.replace("+", ''))
             y = int(y.replace("+", ''))
+            self.show_all()
             self.move(x, y)
         else:
+            print "No x and y"
             self.set_position(gtk.WIN_POS_CENTER_ALWAYS)
     
     def play_track(self, track):
@@ -120,7 +120,8 @@ def initialize(exaile):
     """
         Inizializes the plugin
     """
-    global PLUGIN, SETTINGS
+    global PLUGIN, SETTINGS, EXAILE
+    EXAILE = exaile
     SETTINGS = exaile.settings
     print "%s_geometry" % \
         plugins.name(__file__)
@@ -136,6 +137,7 @@ def configure():
     """
         Called when a configure request is called
     """
+    global PLUGIN
     if not PLUGIN: return
     settings = SETTINGS
     geometry = settings.get('%s_geometry' % plugins.name(__file__), '150x150')
@@ -159,8 +161,8 @@ def configure():
     if not h: h = '150'
     if not px or px == '+': px = ''
     if not py or py == '+': py = ''
-    if x == '': x = ''
-    if y == '': y = ''
+    if x == '' or x is None: x = ''
+    if y == '' or y is None: y = ''
 
     y = "%s%s" % (py, y)
     x = "%s%s" % (px, x)
@@ -210,12 +212,17 @@ def configure():
 
         settings["%s_geometry" % plugins.name(__file__)] = \
             "%sx%s%s%s" % (new['w'], new['h'], new['x'], new['y'])
-        PLUGIN.geometry = settings["%s_geometry" % plugins.name(__file__)] = \
+        geometry = settings["%s_geometry" % plugins.name(__file__)] = \
             "%sx%s%s%s" % (new['w'], new['h'], new['x'], new['y'])
-        PLUGIN.parse_geometry()
+        PLUGIN.destroy()
+        PLUGIN = CoverDisplay(EXAILE, geometry)
+        track = EXAILE.current_track
+
+        if not track: return
+        if track and track.is_playing() or track.is_paused():
+            PLUGIN.play_track(track)
         print "New settings: %s" % settings["%s_geometry" %
             plugins.name(__file__)]
-
 
 def play_track(track):
     """

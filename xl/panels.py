@@ -1725,6 +1725,7 @@ class PodcastQueueThread(threading.Thread):
 
             if temp:
                 song.set_len(temp.duration)
+                self.db = self.panel.exaile.db
                 self.panel.exaile.db.execute(
                     "UPDATE podcast_items SET length=%s WHERE podcast_path=%s"
                     " AND path=%s" % (self.db.p, self.db.p, self.db.p), 

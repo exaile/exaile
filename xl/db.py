@@ -333,10 +333,10 @@ class DBManager(object):
 
                 if not isinstance(v, str): v = str(v)
                 v = v.decode("utf-8", 'replace')
-                keys.append("%s=%s " % (k, self.p))
+                keys.append("%s=%s" % (k, self.p))
                 values.append(v)
 
-            args = values.extend(args)
+            values.extend(args)
 
             query = "UPDATE %s SET %s WHERE %s" % (table, ", ".join(keys), where)
-            cur.execute(query, args)
+            cur.execute(query, values)

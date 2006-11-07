@@ -5346,7 +5346,10 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.</property>
   <property name="wrap_license">False</property>
   <property name="website">http://www.exaile.org</property>
-  <property name="authors">Adam Olsen (arolsen@gmail.com)</property>
+  <property name="authors">Adam Olsen &lt;arolsen@gmail.com&gt;
+
+Thanks to:
+Johannes Sasongko &lt;sasongko@gmail.com&gt;</property>
   <property name="artists">Aron Homberg</property>
   <property name="translator_credits" translatable="yes" comments="TRANSLATORS: Replace this string with your names, one name per line.">translator-credits</property>
 </widget>

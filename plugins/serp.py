@@ -29,6 +29,7 @@ PLUGIN_ICON = w.render_icon('gtk-cdrom', gtk.ICON_SIZE_MENU)
 
 EXAILE = None
 BUTTON = None
+TIPS = gtk.Tooltips()
 
 def launch_serpentine(button):
     tracks = EXAILE.tracks
@@ -53,6 +54,7 @@ def initialize(exaile):
 
     EXAILE = exaile
     BUTTON = gtk.Button()
+    TIPS.set_tip(BUTTON, "Burn current playlist with Serpentine")
     image = gtk.Image()
     image.set_from_stock('gtk-cdrom', gtk.ICON_SIZE_SMALL_TOOLBAR)
     BUTTON.set_image(image)

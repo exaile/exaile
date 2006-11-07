@@ -89,7 +89,7 @@ class Menu(gtk.Menu):
             item = gtk.MenuItem(label)
             self.label = item.get_child()
 
-        item.connect('activate', callback, data)
+        if callback: item.connect('activate', callback, data)
         gtk.Menu.append(self, item)
         item.show_all()
         return item

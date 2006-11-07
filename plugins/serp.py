@@ -29,23 +29,31 @@ PLUGIN_ICON = w.render_icon('gtk-cdrom', gtk.ICON_SIZE_MENU)
 
 EXAILE = None
 BUTTON = None
+MENU_ITEM = None
 TIPS = gtk.Tooltips()
 
-def launch_serpentine(button):
-    tracks = EXAILE.tracks
-    if tracks:
+def launch_serpentine(button, songs=None):
+    if not songs:
+        tracks = EXAILE.tracks
+        if not tracks: return
         songs = tracks.songs
-        if songs:
-            ar = [song.loc for song in songs if not isinstance(song,
-                xl.media.StreamTrack)]
-            if not ar: return
-            args = ['serpentine', '-o']
-            args.extend(ar)
-            subprocess.Popen(args, stdout=-1,
-                stderr=-1)
+
+    if songs:
+        ar = [song.loc for song in songs if not isinstance(song,
+            xl.media.StreamTrack)]
+        if not ar: return
+        args = ['serpentine', '-o']
+        args.extend(ar)
+        subprocess.Popen(args, stdout=-1,
+            stderr=-1)
+
+def burn_selected(widget, event):
+    tracks = EXAILE.tracks
+    if not tracks: return
+    launch_serpentine(None, tracks.get_selected_tracks())
 
 def initialize(exaile):
-    global EXAILE, BUTTON
+    global EXAILE, BUTTON, MENU_ITEM
     try:
         ret = subprocess.call(['serpentine', '-h'], stdout=-1, stderr=-1)
     except OSError:
@@ -62,11 +70,20 @@ def initialize(exaile):
 
     EXAILE.xml.get_widget('rating_toolbar').pack_start(BUTTON)
     BUTTON.show()
+
+    menu = EXAILE.plugins_menu
+    MENU_ITEM = menu.append("Burn Selected", burn_selected)
+        
     return True
 
 def destroy():
-    global BUTTON
+    global BUTTON, MENU_ITEM
     if not BUTTON: return
+    
+    menu = EXAILE.plugins_menu
+    if MENU_ITEM and MENU_ITEM in menu:
+        menu.remove(MENU_ITEM)
+    MENU_ITEM = None
     EXAILE.xml.get_widget('rating_toolbar').remove(BUTTON)
     BUTTON.hide()
     BUTTON.destroy()

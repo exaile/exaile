@@ -900,7 +900,11 @@ class ExaileWindow(object):
         except db.DBOperationalError, e:
             common.error(self.window, _("Could not connect "
                 "to database: %s" % str(e)))
-            return None
+            sys.exit(1)
+        except Exception, e:
+            common.error(self.window, _("Unknown error connecting "
+                "to database:\n%s" % str(e)))
+            sys.exit(1)
 
         return database
 
@@ -966,8 +970,8 @@ class ExaileWindow(object):
                     "creating collection database: %s" % (str(e)))
                 sys.exit(1)
 
-        if self.settings['db_type'] == 'MySQL' or \
-            self.settings['db_type'] == 'PostgreSQL':
+        if (self.settings['db_type'] == 'MySQL' or \
+            self.settings['db_type'] == 'PostgreSQL') and self.db:
             im = False
             try:
                 self.db._cursor.execute("SELECT * FROM tracks")

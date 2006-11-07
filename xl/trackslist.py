@@ -92,6 +92,8 @@ class TracksListCtrl(gtk.VBox):
         self.ipod = False
         self.playlist = None
         self.dragging = False
+        self.tpm = None
+        self.plugins_item = None
         self.setup_columns()
 
         self.show()
@@ -666,6 +668,11 @@ class TracksListCtrl(gtk.VBox):
         self.ipod = ipod
 
         tpm = xlmisc.Menu()
+
+        # if the menu already exists, remove the plugins menu from it
+        if self.plugins_item:
+            self.plugins_item.remove_submenu()
+            
         self.tpm = tpm
 
         self.queue = tpm.append(_("Toggle Queue"), self.exaile.on_queue)
@@ -740,7 +747,9 @@ class TracksListCtrl(gtk.VBox):
         # plugins menu items
         if self.exaile.plugins_menu.get_children():
             tpm.append_separator()
-            tpm.append_menu(_("Plugins"), self.exaile.plugins_menu)
+
+            self.plugins_item = tpm.append(_("Plugins"), None, 'gtk-execute')
+            self.plugins_item.set_submenu(self.exaile.plugins_menu)
 
     def edit_field(self, widget, data):
         """

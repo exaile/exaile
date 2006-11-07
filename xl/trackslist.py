@@ -291,6 +291,7 @@ class TracksListCtrl(gtk.VBox):
         if not song in self.songs: return None
         index = self.songs.index(song)
         path = (index + 1,)
+        print path
         try:
             iter = self.model.get_iter(path)
         except ValueError:

@@ -1718,10 +1718,9 @@ class ExaileWindow(object):
 
         track = self.tracks.get_next_track(self.current_track)
         if not track: 
-            if not self.tracks.get_songs(): 
+            if not self.tracks.get_songs():
                 if not self.queued: return
-            else: 
-                track = self.tracks.get_songs()[0]
+            else: track = self.tracks.get_songs()[0]
 
         if self.next != None and not self.queued:
             track = self.tracks.get_next_track(self.next)
@@ -1850,9 +1849,9 @@ class ExaileWindow(object):
         if track != None: 
             track.stop()
             # PLUGIN: alert plugins that this track has stopped playing
-            event = plugins.Event()
-            event.add_call('stop_track', (track,))
-            self.pmanager.fire_event(event)
+            e = plugins.Event()
+            e.add_call('stop_track', (track,))
+            self.pmanager.fire_event(e)
 
         if event != None:
             self.played = []

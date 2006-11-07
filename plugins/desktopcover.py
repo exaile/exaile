@@ -51,6 +51,7 @@ class CoverDisplay(gtk.Window):
         self.add(self.img)
         
         self.parse_geometry()
+        self.show_all()
     
     def parse_geometry(self):
         match = re.match(
@@ -69,10 +70,7 @@ class CoverDisplay(gtk.Window):
             self.h = None
         
         if x and y:
-            x = int(x.replace("+", ''))
-            y = int(y.replace("+", ''))
-            self.show_all()
-            self.move(x, y)
+            gtk.Window.parse_geometry(self, self.geometry)
         else:
             print "No x and y"
             self.set_position(gtk.WIN_POS_CENTER_ALWAYS)

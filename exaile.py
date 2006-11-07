@@ -110,6 +110,7 @@ class ExaileWindow(object):
         self.debug_dialog = xlmisc.DebugDialog(self)
         self.col_menus = dict()
         self.setup_col_menus('track', trackslist.TracksListCtrl.col_map)
+        self.plugins_menu = xlmisc.Menu()
 
         if self.settings.get_boolean("use_splash", True):
             image = gtk.Image()

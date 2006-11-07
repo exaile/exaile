@@ -291,7 +291,6 @@ class TracksListCtrl(gtk.VBox):
         if not song in self.songs: return None
         index = self.songs.index(song)
         path = (index + 1,)
-        print path
         try:
             iter = self.model.get_iter(path)
         except ValueError:
@@ -721,8 +720,7 @@ class TracksListCtrl(gtk.VBox):
                 item = rm.append(string, self.update_rating,
                     None, i)
 
-            em.append_menu(_("Rating"), rm
-)
+            em.append_menu(_("Rating"), rm)
         tpm.append_menu(_("Edit Track(s)"), em)
         info = tpm.append(_("Information"), self.get_track_information)
         tpm.append_separator()
@@ -738,6 +736,11 @@ class TracksListCtrl(gtk.VBox):
         rm.append(_("Delete Track(s)"), self.exaile.delete_tracks,
             'gtk-delete', 'delete')
         tpm.append_menu(_("Remove"), rm)
+
+        # plugins menu items
+        if self.exaile.plugins_menu.get_children():
+            tpm.append_separator()
+            tpm.append_menu(_("Plugins"), self.exaile.plugins_menu)
 
     def edit_field(self, widget, data):
         """

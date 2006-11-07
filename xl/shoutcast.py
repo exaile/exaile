@@ -103,13 +103,15 @@ class ShoutcastThread(threading.Thread):
             if len(self.add):
                 songs = self.tracks.songs
                 for track in self.add:
-                    songs.append(media.RadioTrack(track))
+                    if not track['url'] in songs.paths:
+                        songs.append(media.RadioTrack(track))
                 self.tracks.set_songs(songs)
             self.tracks.exaile.status.set_first(None)
             self.tracks.save(self.genre)
             self.tracks.playlist_songs = self.tracks.songs
         elif self.count <= 60:
-            self.tracks.append_song(media.RadioTrack(track))
+            if not track['url'] in self.tracks.songs.paths:
+                self.tracks.append_song(media.RadioTrack(track))
         else:
             self.add.append(track)
 

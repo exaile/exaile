@@ -946,7 +946,7 @@ class TracksListCtrl(gtk.VBox):
                                 "perhaps you do not have permissions to do so?"
                                 % track.loc)
                     table = 'tracks'
-                    track.type == 'ipod': table = 'ipod_tracks'
+                    if track.type == 'ipod': table = 'ipod_tracks'
                     db.execute("DELETE FROM %s WHERE path=%s" % (table, self.db.p), 
                         (track.loc,))
                 else:

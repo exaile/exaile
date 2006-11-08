@@ -670,7 +670,7 @@
 			    <widget class="GtkImage" id="image29">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-refresh</property>
-			      <property name="icon_size">2</property>
+			      <property name="icon_size">4</property>
 			      <property name="xalign">0.5</property>
 			      <property name="yalign">0.5</property>
 			      <property name="xpad">0</property>
@@ -1058,7 +1058,7 @@ Genre</property>
 			    <widget class="GtkImage" id="image28">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-refresh</property>
-			      <property name="icon_size">2</property>
+			      <property name="icon_size">4</property>
 			      <property name="xalign">0.5</property>
 			      <property name="yalign">0.5</property>
 			      <property name="xpad">0</property>
@@ -1424,7 +1424,7 @@ Genre</property>
 			    <widget class="GtkImage" id="image43">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-refresh</property>
-			      <property name="icon_size">2</property>
+			      <property name="icon_size">4</property>
 			      <property name="xalign">0.5</property>
 			      <property name="yalign">0.5</property>
 			      <property name="xpad">0</property>
@@ -1451,7 +1451,7 @@ Genre</property>
 			    <widget class="GtkImage" id="image46">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-go-up</property>
-			      <property name="icon_size">2</property>
+			      <property name="icon_size">4</property>
 			      <property name="xalign">0.5</property>
 			      <property name="yalign">0.5</property>
 			      <property name="xpad">0</property>
@@ -1479,7 +1479,7 @@ Genre</property>
 			    <widget class="GtkImage" id="image44">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-go-back</property>
-			      <property name="icon_size">2</property>
+			      <property name="icon_size">4</property>
 			      <property name="xalign">0.5</property>
 			      <property name="yalign">0.5</property>
 			      <property name="xpad">0</property>
@@ -1507,7 +1507,7 @@ Genre</property>
 			    <widget class="GtkImage" id="image45">
 			      <property name="visible">True</property>
 			      <property name="stock">gtk-go-forward</property>
-			      <property name="icon_size">2</property>
+			      <property name="icon_size">4</property>
 			      <property name="xalign">0.5</property>
 			      <property name="yalign">0.5</property>
 			      <property name="xpad">0</property>

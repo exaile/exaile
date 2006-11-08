@@ -482,9 +482,10 @@ class TracksListCtrl(gtk.VBox):
                 if self.type != 'queue':
                     if count > 1:
                         col.connect('clicked', self.set_sort_by)
-                    col.set_sort_column_id(count)
+                        col.set_clickable(True)
                     col.set_reorderable(True)
                     col.set_resizable(True)
+                    col.set_sort_indicator(False)
                 col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
                 self.list.append_column(col)
             count = count + 1
@@ -508,6 +509,7 @@ class TracksListCtrl(gtk.VBox):
             Sets the sort column
         """
         title = column.get_title()
+        count = 0
         for col in self.list.get_columns():
             if column.get_title() == col.get_title():
                 order = column.get_sort_order()
@@ -528,6 +530,8 @@ class TracksListCtrl(gtk.VBox):
             Resorts all songs
         """
         attr, reverse = self.get_sort_by()
+        
+        if attr == 'track': attr = 'album'
         s = [(getattr(track, attr), track) for track in self.songs]
         s.sort()
         if reverse: s.reverse()
@@ -606,13 +610,21 @@ class TracksListCtrl(gtk.VBox):
             Sets the songs in this table (expects a list of tracks)
         """
         self.songs = tracks.TrackData()
+
+        # save sort indicators, because they get reset when you set the model
+        indicators = {}
         self.model.clear()
+        for col in self.list.get_columns():
+            indicators[col.get_title()] = col.get_sort_indicator()
+
         self.list.set_model(self.model_blank)
         if update_playlist: self.playlist_songs = songs
         for song in songs:
             self.append_song(song)
 
         self.list.set_model(self.model)
+        for col in self.list.get_columns():
+            col.set_sort_indicator(indicators[col.get_title()])
 
     def get_ar(self, song):
         """

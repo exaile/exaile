@@ -723,112 +723,12 @@ class ExaileWindow(object):
             Blacklists tracks (they will not be added to the library on
             collection scan
         """
+        if not self.tracks: return
         result = common.yes_no_dialog(self.window, _("Blacklisting the selected "
             "tracks will prevent them from being added to the library on"
             " rescan.  Are you sure you want to continue?"))
         if result == gtk.RESPONSE_YES:
-            self.delete_tracks(None, 'blacklist')
-
-    def delete_tracks(self, event, type): 
-        """
-            Deletes tracks, or just removes them from the playlist
-        """
-        deleting = False
-        blacklisting = False
-        if type == 'delete': deleting = True
-        if type == 'blacklist': blacklisting = True
-        delete = []
-        ipod_delete = []
-        ipod = False
-        delete_confirmed = False
-        if deleting:
-            result = common.yes_no_dialog(self.window, _("Are you sure "
-            "you want to permanently remove the selected tracks from disk?"))
-            if result == gtk.RESPONSE_YES: delete_confirmed = True
-            else: return
-
-        error = ""
-
-        if not deleting or delete_confirmed:
-            tracks = self.tracks.get_selected_tracks()
-            for track in tracks:
-                delete.append(track)
-
-            while len(delete) > 0:
-                track = delete.pop()
-                self.playlist_songs.remove(track)
-
-                # I use exceptions here because the "in" operator takes
-                # time that I'm sure has to be repeated in the "remove" method
-                # (or at least the "index" method is called, which probably
-                # ends up looping until it finds it anyway
-                try: self.songs.remove(track)
-                except ValueError: pass
-
-                if deleting or blacklisting:
-                    try: self.all_songs.remove(track)
-                    except ValueError: pass
-
-                if deleting:
-                    xlmisc.log("Deleting %s" % track.loc)
-                    db = self.db
-                    if isinstance(track, media.iPodTrack):
-                        ipod_delete.append(track)
-                        db = self.ipod_panel.db
-
-                    else:
-                        try:
-                            if track.type == 'podcast':
-                                if track.download_path:
-                                    os.remove(track.download_path)
-                            else:
-                                os.remove(track.loc)
-                        except OSError:
-                            common.error(self.window, "Could not delete '%s' - "\
-                                "perhaps you do not have permissions to do so?"
-                                % track.loc)
-                    db.execute("DELETE FROM tracks WHERE path=%s" % self.db.p, 
-                        (track.loc,))
-                else:
-                    playlist = self.tracks.playlist
-                    if isinstance(track, media.iPodTrack) and not blacklisting: 
-                        track = track.itrack
-                        if not self.ipod_panel.connected: continue
-                        ipod = True
-                        try:
-                            self.ipod_panel.songs.remove(track)
-                        except:
-                            pass
-                    else:
-                        if playlist != None:
-                            if isinstance(track,
-                                media.StreamTrack):
-                                t = "radio"; p = "url"
-                            else:
-                                t = "playlist"; p = "path"
-
-                            self.db.execute("DELETE FROM %s_items WHERE "
-                                "%s=%s AND %s=%s" % (t, p, t),
-                                (track.loc, self.db.p, playlist, self.db.p))
-                        if blacklisting:
-                            if isinstance(track, media.iPodTrack):
-                                error += "'%s' could not be blacklisted (iPod" \
-                                    " track).\n" % str(track)
-                            else:
-                                self.db.execute("UPDATE tracks SET blacklisted=1 "
-                                    "WHERE path=%s" % self.db.p, (track.loc,))
-
-            if ipod_delete:
-                self.ipod_panel.delete_tracks(ipod_delete)
-            if ipod:
-                self.ipod_panel.save_database()
-            if error:
-                common.scrolledMessageDialog(self.window,
-                    error, _("The following errors did occur"))
-            self.collection_panel.track_cache = dict()
-            self.tracks.set_songs(self.songs)
-            if blacklisting: self.show_blacklist_manager(False)
-            self.on_search()
+            self.tracks.delete_tracks(None, 'blacklist')
 
     def on_dequeue(self, item, param): 
         """

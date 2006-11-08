@@ -1127,7 +1127,7 @@ class ExaileWindow(object):
         else:
             self.window.set_title("Exaile: playing %s from %s by %s" %
                 (track.title, album, artist))
-            self.artist_label.set_label("from %s by %s" % (album, artist))
+            self.artist_label.set_label("from %s\nby %s" % (album, artist))
 
         if self.tray_icon:
             self.tray_icon.set_tooltip(self.window.get_title())

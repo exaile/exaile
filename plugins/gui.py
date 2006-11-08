@@ -115,7 +115,7 @@ class PluginManager(object):
         if not iter: return
 
         plugin = model.get_value(iter, 3)
-        plugin.configure()
+        plugin.configure(self.manager.parent)
                
     def row_selected(self, *e):
         """

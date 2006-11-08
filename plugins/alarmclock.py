@@ -27,17 +27,18 @@ so be sure you have the music you want to hear in your playlist"""
 
 PLUGIN_ENABLED = False
 PLUGIN = None
+SETTINGS = None
 TIMER_ID = None
 RANG = dict()
 
-def configure():
+def configure(exaile):
     """
         Configures the time to ring
     """
-    alarm_time = SETTINGS.get("%s_alarm_time" % plugins.name(__file__), "12:30")
+    alarm_time = exaile.settings.get("%s_alarm_time" % plugins.name(__file__), "12:30")
     (hours, minutes) = alarm_time.split(":")
 
-    dialog = plugins.PluginConfigDialog(EXAILE.window, PLUGIN_NAME)
+    dialog = plugins.PluginConfigDialog(exaile.window, PLUGIN_NAME)
     hbox = gtk.HBox()
     hbox.pack_start(gtk.Label("Alarm Time:  "), False, False)
     hour = gtk.SpinButton(gtk.Adjustment(1, step_incr=1))
@@ -58,7 +59,8 @@ def configure():
     if result == gtk.RESPONSE_OK:
         hour = hour.get_value()
         minute = minute.get_value()
-        SETTINGS["%s_alarm_time" % plugins.name(__file__)] = "%02d:%02d" % (hour,
+        exaile.settings["%s_alarm_time" % 
+            plugins.name(__file__)] = "%02d:%02d" % (hour,
             minute)
 
 def timeout_cb():

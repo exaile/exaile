@@ -131,16 +131,15 @@ def initialize(exaile):
 
     return True
 
-def configure():
+def configure(exaile):
     """
         Called when a configure request is called
     """
     global PLUGIN
-    if not PLUGIN: return
-    settings = SETTINGS
+    settings = exaile.settings
     geometry = settings.get('%s_geometry' % plugins.name(__file__), '150x150')
 
-    dialog = plugins.PluginConfigDialog(PLUGIN.exaile.window, PLUGIN_NAME)
+    dialog = plugins.PluginConfigDialog(exaile.window, PLUGIN_NAME)
     box = dialog.main
     table = gtk.Table(4, 2)
     table.set_row_spacings(2)
@@ -198,7 +197,7 @@ def configure():
                 try:    
                     int(val)
                 except ValueError:
-                    xl.common.error(PLUGIN.exaile.window, _("Invalid "
+                    xl.common.error(exaile.window, _("Invalid "
                         "setting for %s" % item.upper()))
                     return
 
@@ -212,13 +211,14 @@ def configure():
             "%sx%s%s%s" % (new['w'], new['h'], new['x'], new['y'])
         geometry = settings["%s_geometry" % plugins.name(__file__)] = \
             "%sx%s%s%s" % (new['w'], new['h'], new['x'], new['y'])
-        PLUGIN.destroy()
-        PLUGIN = CoverDisplay(EXAILE, geometry)
-        track = EXAILE.current_track
+        if PLUGIN:
+            PLUGIN.destroy()
+            PLUGIN = CoverDisplay(exaile, geometry)
+        track = exaile.current_track
 
         if not track: return
         if track and track.is_playing() or track.is_paused():
-            PLUGIN.play_track(track)
+            if PLUGIN: PLUGIN.play_track(track)
         print "New settings: %s" % settings["%s_geometry" %
             plugins.name(__file__)]
 

@@ -34,11 +34,11 @@ STREAMRIPPER_PID = None
 STREAMRIPPER_OUT = None
 CURRENT_TRACK = None
 
-def configure():
+def configure(exaile):
     """
         Shows the configuration dialog for streamripper
     """
-    dialog = plugins.PluginConfigDialog(EXAILE.window, PLUGIN_NAME)
+    dialog = plugins.PluginConfigDialog(exaile.window, PLUGIN_NAME)
     table = gtk.Table(2, 2)
     table.set_row_spacings(2)
     bottom = 0
@@ -47,7 +47,7 @@ def configure():
 
     table.attach(label, 0, 1, bottom, bottom + 1)
 
-    location = SETTINGS.get("%s_save_location" % plugins.name(__file__),
+    location = exaile.settings.get("%s_save_location" % plugins.name(__file__),
         os.getenv("HOME"))
     save_loc = gtk.FileChooserButton("Location")
     save_loc.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
@@ -60,7 +60,7 @@ def configure():
     label.set_alignment(0.0, 0.0)
     table.attach(label, 0, 1, bottom, bottom + 1)
 
-    port = SETTINGS.get("%s_relay_port" % plugins.name(__file__), '8000')
+    port = exaile.settings.get("%s_relay_port" % plugins.name(__file__), '8000')
     port_entry = gtk.Entry()
     port_entry.set_text(port)
     port_entry.set_max_length(6)
@@ -72,9 +72,9 @@ def configure():
     result = dialog.run()
     dialog.hide()
     if result == gtk.RESPONSE_OK:
-        SETTINGS["%s_save_location" % plugins.name(__file__)] = \
+        exaile.settings["%s_save_location" % plugins.name(__file__)] = \
             save_loc.get_current_folder()
-        SETTINGS["%s_relay_port" % plugins.name(__file__)] = \
+        exaile.settings["%s_relay_port" % plugins.name(__file__)] = \
             port_entry.get_text()
 
 def toggle_record(widget, event=None):

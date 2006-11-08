@@ -30,18 +30,18 @@ DEFAULT_BODY = '{artist}\n<i>on {album}</i>'
 EXAILE = None
 pynotify.init('exailenotify')
 
-def configure():
+def configure(exaile):
     """
         Shows a configuration dialog that allows you to change the summary and
         body of the notification popup
     """
-    settings = EXAILE.settings
+    settings = exaile.settings
     summary = settings.get('%s_summary' % plugins.name(__file__),
         DEFAULT_SUMMARY)
     body = settings.get('%s_body' % plugins.name(__file__), 
         DEFAULT_BODY)
 
-    dialog = plugins.PluginConfigDialog(EXAILE.window, PLUGIN_NAME)
+    dialog = plugins.PluginConfigDialog(exaile.window, PLUGIN_NAME)
     main = dialog.child
     label = gtk.Label("Notification Summary:")
     label.set_alignment(0.0, 0.0)

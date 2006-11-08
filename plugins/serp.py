@@ -72,7 +72,7 @@ def initialize():
     try:
         ret = subprocess.call(['serpentine', '-h'], stdout=-1, stderr=-1)
     except OSError:
-        common.error(APP.window, "Serpentine was not found in your $PATH. "
+        raise plugins.PluginInitException("Serpentine was not found in your $PATH. "
             "Disabling the serpentine plugin.")
         return False
 

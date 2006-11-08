@@ -18,7 +18,16 @@
 
 import pygtk, manager
 pygtk.require('2.0')
-import gtk, gtk.glade, gobject, sys, os
+import gtk, gtk.glade, gobject, sys, os, plugins
+
+def show_error(parent, message): 
+    """
+        Shows an error dialog
+    """
+    dialog = gtk.MessageDialog(parent, gtk.DIALOG_MODAL, gtk.MESSAGE_ERROR,
+        gtk.BUTTONS_OK, message)
+    dialog.run()
+    dialog.destroy()
 
 class PluginManager(object):
     """
@@ -93,9 +102,13 @@ class PluginManager(object):
         model[path][2] = not model[path][2]
         plugin.PLUGIN_ENABLED = model[path][2]
         if plugin.PLUGIN_ENABLED:
-            if not plugin.initialize():
-                PLUGIN_ENABLED = False
-                print "Error inizializing plugin"
+            try:
+                if not plugin.initialize():
+                    PLUGIN_ENABLED = False
+                    print "Error inizializing plugin"
+                    model[path][2] = False
+            except plugins.PluginInitException, e:
+                show_error(self.parent, str(e))
                 model[path][2] = False
         else:
             plugin.destroy()

@@ -78,3 +78,9 @@ class PluginConfigDialog(gtk.Dialog):
         label.set_markup(label.get_label())
         self.main.pack_start(label, False, False)
 
+class PluginInitException(Exception):
+    """
+        Called when a plugin can't be enabled
+    """
+    def __init__(self, message):
+        Exception.__init__(self, message)

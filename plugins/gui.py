@@ -93,7 +93,7 @@ class PluginManager(object):
         model[path][2] = not model[path][2]
         plugin.PLUGIN_ENABLED = model[path][2]
         if plugin.PLUGIN_ENABLED:
-            if not plugin.initialize(self.manager.parent):
+            if not plugin.initialize():
                 PLUGIN_ENABLED = False
                 print "Error inizializing plugin"
                 model[path][2] = False

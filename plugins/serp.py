@@ -17,6 +17,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import plugins, time, os, gtk, subprocess, xl.media
+from xl import common
 
 PLUGIN_NAME = "Serpentine Plugin"
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
@@ -71,7 +72,8 @@ def initialize():
     try:
         ret = subprocess.call(['serpentine', '-h'], stdout=-1, stderr=-1)
     except OSError:
-        raise Exception("Serpentine was not found")
+        common.error(APP.window, "Serpentine was not found in your $PATH. "
+            "Disabling the serpentine plugin.")
         return False
 
     BUTTON = gtk.Button()

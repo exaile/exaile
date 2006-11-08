@@ -147,7 +147,8 @@ def initialize():
     try:
         subprocess.call(['streamripper'], stdout=-1, stderr=-1)
     except OSError:
-        print "Streamripper is not available, disabling streamripper plugin"
+        common.error(APP.window, "Streamripper is not available, "
+            "disabling streamripper plugin")
         return False
 
     APP = exaile

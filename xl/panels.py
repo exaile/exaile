@@ -862,6 +862,7 @@ class iPodPanel(CollectionPanel):
             return
         path = self.tree.get_path_at_pos(x, y)
 
+        object = None
         if path:
             iter = self.model.get_iter(path[0])
             object = self.model.get_value(iter, 1)

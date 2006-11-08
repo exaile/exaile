@@ -78,12 +78,21 @@ def configure():
             summary_entry.get_text()
 
 def initialize(exaile):
+    """
+        Initializes the plugin. 
+        In this plugin, not much needs to be done except for set up the
+        globals
+    """
     global EXAILE
     EXAILE = exaile
 
     return True
 
 def play_track(track):
+    """
+        Called when a track starts playing.
+        Displays a notification via notification daemon
+    """
     settings = EXAILE.settings
 
     vals = dict()
@@ -111,4 +120,7 @@ def play_track(track):
     notify.show()
 
 def destroy():
+    """
+        No cleanup needs to be done for this plugin
+    """
     pass

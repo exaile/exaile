@@ -62,6 +62,11 @@ def configure():
             minute)
 
 def timeout_cb():
+    """
+        Called every two seconds.  If the plugin is not enabled, it does
+        nothing.  If the current time matches the time specified, it starts
+        playing
+    """
     if not PLUGIN_ENABLED: return True
     alarm_time = SETTINGS.get("%s_alarm_time" % plugins.name(__file__), "")
     if not alarm_time: return True
@@ -79,6 +84,9 @@ def timeout_cb():
     return True
 
 def initialize(exaile):
+    """
+        Starts the timer
+    """
     global TIMER_ID, SETTINGS, EXAILE
     EXAILE = exaile
     SETTINGS = exaile.settings
@@ -86,6 +94,9 @@ def initialize(exaile):
     return True
 
 def destroy():
+    """
+        Stops the timer for this plugin
+    """
     if TIMER_ID:
         gobject.source_remove(TIMER_ID)
 

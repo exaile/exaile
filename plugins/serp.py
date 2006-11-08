@@ -34,6 +34,11 @@ MENU_ITEM = None
 TIPS = gtk.Tooltips()
 
 def launch_serpentine(button, songs=None):
+    """
+        Launches serpentine with the specified songs as options.  If no songs
+        are specified, it gets all of the songs in the currently selected
+        playlist
+    """
     if not songs:
         tracks = EXAILE.tracks
         if not tracks: return
@@ -49,11 +54,19 @@ def launch_serpentine(button, songs=None):
             stderr=-1)
 
 def burn_selected(widget, event):
+    """
+        Launches serpentine with the selected tracks as options
+    """
     tracks = EXAILE.tracks
     if not tracks: return
     launch_serpentine(None, tracks.get_selected_tracks())
 
 def initialize(exaile):
+    """
+        Adds the "burn" button to the ratings toolbar (top right), and adds
+        the menu item for burning the selected tracks to the plugins context
+        menu
+    """
     global EXAILE, BUTTON, MENU_ITEM
     try:
         ret = subprocess.call(['serpentine', '-h'], stdout=-1, stderr=-1)
@@ -78,6 +91,10 @@ def initialize(exaile):
     return True
 
 def destroy():
+    """
+        Removes the context menu, and removes the button from the ratings
+        toolbar
+    """
     global BUTTON, MENU_ITEM
     if not BUTTON: return
     

@@ -165,6 +165,10 @@ def initialize(exaile):
     return True
 
 def stop():
+    """
+        Stops streamripper by killing it if it's still running, and closes the
+        log file
+    """
     global STREAMRIPPER_OUT, STREAMRIPPER_PID
     if BUTTON:  
         BUTTON.set_active(False)
@@ -186,6 +190,10 @@ def stop_track(track):
     stop()
 
 def destroy():
+    """
+        Called when the plugin is disabled.  If streamripper is currently
+        running, kill it and restart the track without using streamripper
+    """
     global BUTTON, CURRENT_TRACK
     stop()
     if CURRENT_TRACK:

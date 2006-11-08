@@ -118,9 +118,8 @@ def initialize():
     """
         Inizializes the plugin
     """
-    global PLUGIN, SETTINGS, EXAILE
+    global PLUGIN, SETTINGS, APP
     exaile = APP
-    EXAILE = exaile
     SETTINGS = exaile.settings
     print "%s_geometry" % \
         plugins.name(__file__)

@@ -27,7 +27,7 @@ button.destroy()
 DEFAULT_SUMMARY = '{title}'
 DEFAULT_BODY = '{artist}\n<i>on {album}</i>'
 
-EXAILE = None
+APP = None
 pynotify.init('exailenotify')
 
 def configure():
@@ -84,9 +84,6 @@ def initialize():
         In this plugin, not much needs to be done except for set up the
         globals
     """
-    global EXAILE
-    EXAILE = APP
-
     return True
 
 def play_track(track):
@@ -94,7 +91,7 @@ def play_track(track):
         Called when a track starts playing.
         Displays a notification via notification daemon
     """
-    settings = EXAILE.settings
+    settings = APP.settings
 
     vals = dict()
     vals['summary'] = settings.get('%s_summary' % plugins.name(__file__),
@@ -115,7 +112,7 @@ def play_track(track):
                 trackback.print_exc()
 
     notify = pynotify.Notification(vals['summary'], vals['body'])
-    pixbuf = gtk.gdk.pixbuf_new_from_file(EXAILE.cover.loc)
+    pixbuf = gtk.gdk.pixbuf_new_from_file(APP.cover.loc)
     pixbuf = pixbuf.scale_simple(50, 50, gtk.gdk.INTERP_BILINEAR)
     notify.set_icon_from_pixbuf(pixbuf)
     notify.show()

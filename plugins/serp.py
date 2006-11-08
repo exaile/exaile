@@ -28,7 +28,7 @@ w = gtk.Button()
 PLUGIN_ICON = w.render_icon('gtk-cdrom', gtk.ICON_SIZE_MENU)
 w.destroy()
 
-EXAILE = None
+APP = None
 BUTTON = None
 MENU_ITEM = None
 TIPS = gtk.Tooltips()
@@ -40,7 +40,7 @@ def launch_serpentine(button, songs=None):
         playlist
     """
     if not songs:
-        tracks = EXAILE.tracks
+        tracks = APP.tracks
         if not tracks: return
         songs = tracks.songs
 
@@ -57,7 +57,7 @@ def burn_selected(widget, event):
     """
         Launches serpentine with the selected tracks as options
     """
-    tracks = EXAILE.tracks
+    tracks = APP.tracks
     if not tracks: return
     launch_serpentine(None, tracks.get_selected_tracks())
 
@@ -67,15 +67,13 @@ def initialize():
         the menu item for burning the selected tracks to the plugins context
         menu
     """
-    global EXAILE, BUTTON, MENU_ITEM
-    exaile = APP
+    global APP, BUTTON, MENU_ITEM
     try:
         ret = subprocess.call(['serpentine', '-h'], stdout=-1, stderr=-1)
     except OSError:
         raise Exception("Serpentine was not found")
         return False
 
-    EXAILE = exaile
     BUTTON = gtk.Button()
     TIPS.set_tip(BUTTON, "Burn current playlist with Serpentine")
     image = gtk.Image()
@@ -84,10 +82,10 @@ def initialize():
     BUTTON.set_size_request(32, 32)
     BUTTON.connect('clicked', launch_serpentine)
 
-    EXAILE.xml.get_widget('rating_toolbar').pack_start(BUTTON)
+    APP.xml.get_widget('rating_toolbar').pack_start(BUTTON)
     BUTTON.show()
 
-    menu = EXAILE.plugins_menu
+    menu = APP.plugins_menu
     MENU_ITEM = menu.append("Burn Selected", burn_selected, 'gtk-cdrom')
         
     return True
@@ -100,11 +98,11 @@ def destroy():
     global BUTTON, MENU_ITEM
     if not BUTTON: return
     
-    menu = EXAILE.plugins_menu
+    menu = APP.plugins_menu
     if MENU_ITEM and MENU_ITEM in menu:
         menu.remove(MENU_ITEM)
     MENU_ITEM = None
-    EXAILE.xml.get_widget('rating_toolbar').remove(BUTTON)
+    APP.xml.get_widget('rating_toolbar').remove(BUTTON)
     BUTTON.hide()
     BUTTON.destroy()
     BUTTON = None

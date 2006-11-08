@@ -28,7 +28,7 @@ button = gtk.Button()
 PLUGIN_ICON = button.render_icon('gtk-media-record', gtk.ICON_SIZE_MENU)
 button.destroy()
 PLUGIN = None
-EXAILE = None
+APP = None
 BUTTON = None
 STREAMRIPPER_PID = None
 STREAMRIPPER_OUT = None
@@ -83,11 +83,11 @@ def toggle_record(widget, event=None):
         Toggles streamripper
     """
     global STREAMRIPPER_PID, STREAMRIPPER_OUT, CURRENT_TRACK
-    track = EXAILE.current_track
+    track = APP.current_track
     if not STREAMRIPPER_PID:
         if not track: return True
         if not isinstance(track, media.StreamTrack):
-            common.error(EXAILE.window, "You can only record streams")
+            common.error(APP.window, "You can only record streams")
             widget.set_active(False)
             return True
 
@@ -96,7 +96,7 @@ def toggle_record(widget, event=None):
             os.getenv("HOME"))
         port = SETTINGS.get_int('%s_relay_port' % plugins.name(__file__),
             8000)
-        outfile = EXAILE.get_settings_dir() + "/streamripper.log"
+        outfile = APP.get_settings_dir() + "/streamripper.log"
 
         STREAMRIPPER_OUT = open(outfile, "w+", 0)
         STREAMRIPPER_OUT.write("Streamripper log file started: %s\n" %
@@ -115,25 +115,25 @@ def toggle_record(widget, event=None):
 
         xlmisc.log("Streamripper return value was %s" % ret)
         xlmisc.log("Using streamripper to play location: %s" % track.loc)
-        EXAILE.status.set_first("Streamripping location: %s..." %
+        APP.status.set_first("Streamripping location: %s..." %
             track.loc, 4000)
         if ret != None:
-            common.error(EXAILE.window, _("There was an error"
+            common.error(APP.window, _("There was an error"
                 " executing streamripper."))
             return True
         STREAMRIPPER_PID = sub.pid
         track.stream_url = "http://localhost:%d" % port
-        track.play(EXAILE.on_next)
+        track.play(APP.on_next)
         CURRENT_TRACK = track
 
         return False
     else:
         if not STREAMRIPPER_PID:
-            common.error(EXAILE.window, _("Streamripper is not running."))
+            common.error(APP.window, _("Streamripper is not running."))
         os.system("kill -9 %d" % STREAMRIPPER_PID)
         track.stop()
         CURRENT_TRACK = None
-        track.play(EXAILE.on_next)
+        track.play(APP.on_next)
         STREAMRIPPER_PID = None
 
     return False
@@ -142,7 +142,7 @@ def initialize():
     """
         Checks for streamripper, initializes the plugin
     """
-    global EXAILE, SETTINGS, BUTTON
+    global APP, SETTINGS, BUTTON
     exaile = APP
     try:
         subprocess.call(['streamripper'], stdout=-1, stderr=-1)
@@ -150,7 +150,7 @@ def initialize():
         print "Streamripper is not available, disabling streamripper plugin"
         return False
 
-    EXAILE = exaile
+    APP = exaile
     SETTINGS = exaile.settings
     BUTTON = gtk.ToggleButton()
     BUTTON.connect('button-release-event', toggle_record)
@@ -158,7 +158,7 @@ def initialize():
     image.set_from_stock('gtk-media-record', gtk.ICON_SIZE_SMALL_TOOLBAR)
     BUTTON.set_image(image)
 
-    toolbar = EXAILE.xml.get_widget('play_toolbar')
+    toolbar = APP.xml.get_widget('play_toolbar')
     toolbar.pack_start(BUTTON, False, False)
     toolbar.reorder_child(BUTTON, 3)
 
@@ -202,10 +202,10 @@ def destroy():
         CURRENT_TRACK.stream_url = None
         if CURRENT_TRACK.is_playing():
             CURRENT_TRACK.stop()
-            CURRENT_TRACK.play(EXAILE.on_next)
+            CURRENT_TRACK.play(APP.on_next)
         CURRENT_TRACK = None
     if not BUTTON: return
-    toolbar = EXAILE.xml.get_widget('play_toolbar')
+    toolbar = APP.xml.get_widget('play_toolbar')
     toolbar.remove(BUTTON)
     BUTTON.hide()
     BUTTON.destroy()

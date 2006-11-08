@@ -78,9 +78,9 @@ def timeout_cb():
     if alarm_time == current:
         check = time.strftime("%m %d %Y %H:%M")
         if RANG.has_key(check): return True
-        track = EXAILE.current_track
+        track = APP.current_track
         if track and (track.is_playing() or track.is_paused()): return True
-        EXAILE.play()
+        APP.play()
 
         RANG[check] = True
 
@@ -90,9 +90,8 @@ def initialize():
     """
         Starts the timer
     """
-    global TIMER_ID, SETTINGS, EXAILE
+    global TIMER_ID, SETTINGS, APP
     exaile = APP
-    EXAILE = exaile
     SETTINGS = exaile.settings
     TIMER_ID = gobject.timeout_add(2000, timeout_cb)
     return True

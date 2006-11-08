@@ -30,11 +30,12 @@ DEFAULT_BODY = '{artist}\n<i>on {album}</i>'
 EXAILE = None
 pynotify.init('exailenotify')
 
-def configure(exaile):
+def configure():
     """
         Shows a configuration dialog that allows you to change the summary and
         body of the notification popup
     """
+    exaile = APP
     settings = exaile.settings
     summary = settings.get('%s_summary' % plugins.name(__file__),
         DEFAULT_SUMMARY)
@@ -77,14 +78,14 @@ def configure(exaile):
         settings['%s_summary' % plugins.name(__file__)] = \
             summary_entry.get_text()
 
-def initialize(exaile):
+def initialize():
     """
         Initializes the plugin. 
         In this plugin, not much needs to be done except for set up the
         globals
     """
     global EXAILE
-    EXAILE = exaile
+    EXAILE = APP
 
     return True
 

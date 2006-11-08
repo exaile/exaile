@@ -114,11 +114,12 @@ class CoverDisplay(gtk.Window):
                     width, height, gtk.gdk.INTERP_BILINEAR)
         self.img.set_from_pixbuf(pixbuf)
 
-def initialize(exaile):
+def initialize():
     """
         Inizializes the plugin
     """
     global PLUGIN, SETTINGS, EXAILE
+    exaile = APP
     EXAILE = exaile
     SETTINGS = exaile.settings
     print "%s_geometry" % \
@@ -131,11 +132,12 @@ def initialize(exaile):
 
     return True
 
-def configure(exaile):
+def configure():
     """
         Called when a configure request is called
     """
     global PLUGIN
+    exaile = APP
     settings = exaile.settings
     geometry = settings.get('%s_geometry' % plugins.name(__file__), '150x150')
 

@@ -31,10 +31,11 @@ SETTINGS = None
 TIMER_ID = None
 RANG = dict()
 
-def configure(exaile):
+def configure():
     """
         Configures the time to ring
     """
+    exaile = APP
     alarm_time = exaile.settings.get("%s_alarm_time" % plugins.name(__file__), "12:30")
     (hours, minutes) = alarm_time.split(":")
 
@@ -85,11 +86,12 @@ def timeout_cb():
 
     return True
 
-def initialize(exaile):
+def initialize():
     """
         Starts the timer
     """
     global TIMER_ID, SETTINGS, EXAILE
+    exaile = APP
     EXAILE = exaile
     SETTINGS = exaile.settings
     TIMER_ID = gobject.timeout_add(2000, timeout_cb)

@@ -34,10 +34,11 @@ STREAMRIPPER_PID = None
 STREAMRIPPER_OUT = None
 CURRENT_TRACK = None
 
-def configure(exaile):
+def configure():
     """
         Shows the configuration dialog for streamripper
     """
+    exaile = APP
     dialog = plugins.PluginConfigDialog(exaile.window, PLUGIN_NAME)
     table = gtk.Table(2, 2)
     table.set_row_spacings(2)
@@ -137,11 +138,12 @@ def toggle_record(widget, event=None):
 
     return False
 
-def initialize(exaile):
+def initialize():
     """
         Checks for streamripper, initializes the plugin
     """
     global EXAILE, SETTINGS, BUTTON
+    exaile = APP
     try:
         subprocess.call(['streamripper'], stdout=-1, stderr=-1)
     except OSError:

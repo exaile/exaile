@@ -21,12 +21,12 @@ class Manager(object):
         Plugin manager. 
         Manages loading plugins, and sending events to them
     """
-    def __init__(self, parent):
+    def __init__(self, app):
         """
             Initializes the manager
         """
         self.plugins = []
-        self.parent = parent
+        self.app = app
         self.loaded = []
 
     def load_plugins(self, dir, enabled):
@@ -49,8 +49,9 @@ class Manager(object):
                         (plugin.PLUGIN_NAME, plugin.PLUGIN_VERSION)
 
                     plugin.FILE_NAME = file
+                    plugin.APP = self.app
                     if file in enabled:
-                        if plugin.initialize(self.parent):
+                        if plugin.initialize():
                             plugin.PLUGIN_ENABLED = True
                     self.plugins.append(plugin)
                 except Exception, e:

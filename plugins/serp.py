@@ -61,13 +61,14 @@ def burn_selected(widget, event):
     if not tracks: return
     launch_serpentine(None, tracks.get_selected_tracks())
 
-def initialize(exaile):
+def initialize():
     """
         Adds the "burn" button to the ratings toolbar (top right), and adds
         the menu item for burning the selected tracks to the plugins context
         menu
     """
     global EXAILE, BUTTON, MENU_ITEM
+    exaile = APP
     try:
         ret = subprocess.call(['serpentine', '-h'], stdout=-1, stderr=-1)
     except OSError:

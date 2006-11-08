@@ -78,7 +78,7 @@ def initialize(exaile):
     BUTTON = gtk.Button()
     TIPS.set_tip(BUTTON, "Burn current playlist with Serpentine")
     image = gtk.Image()
-    image.set_from_stock('gtk-cdrom', gtk.ICON_SIZE_SMALL_TOOLBAR)
+    image.set_from_stock('gtk-cdrom', gtk.ICON_SIZE_BUTTON)
     BUTTON.set_image(image)
     BUTTON.set_size_request(32, 32)
     BUTTON.connect('clicked', launch_serpentine)

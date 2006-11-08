@@ -26,6 +26,7 @@ installed"""
 PLUGIN_ENABLED = False
 button = gtk.Button()
 PLUGIN_ICON = button.render_icon('gtk-media-record', gtk.ICON_SIZE_MENU)
+button.destroy()
 PLUGIN = None
 EXAILE = None
 BUTTON = None

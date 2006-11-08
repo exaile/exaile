@@ -26,6 +26,7 @@ PLUGIN_DESCRIPTION = "Opens the songs in the current playlist for burning in" \
 PLUGIN_ENABLED = False
 w = gtk.Button()
 PLUGIN_ICON = w.render_icon('gtk-cdrom', gtk.ICON_SIZE_MENU)
+w.destroy()
 
 EXAILE = None
 BUTTON = None

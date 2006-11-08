@@ -932,7 +932,7 @@ class TracksListCtrl(gtk.VBox):
                 if deleting:
                     xlmisc.log("Deleting %s" % track.loc)
                     db = self.db
-                    if track.type == 'ipod'
+                    if track.type == 'ipod':
                         ipod_delete.append(track)
                     else:
                         try:

@@ -971,7 +971,7 @@ class TracksListCtrl(gtk.VBox):
                                 "%s=%s AND %s=%s" % (t, p, t),
                                 (track.loc, self.db.p, playlist, self.db.p))
                         if blacklisting:
-                            if track.type == 'ipod'
+                            if track.type == 'ipod':
                                 error += "'%s' could not be blacklisted (iPod" \
                                     " track).\n" % str(track)
                             else:

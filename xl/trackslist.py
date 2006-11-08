@@ -932,7 +932,7 @@ class TracksListCtrl(gtk.VBox):
                 if deleting:
                     xlmisc.log("Deleting %s" % track.loc)
                     db = self.db
-                    if isinstance(track, media.iPodTrack):
+                    if track.type == 'ipod'
                         ipod_delete.append(track)
                     else:
                         try:
@@ -945,11 +945,13 @@ class TracksListCtrl(gtk.VBox):
                             common.error(self.exaile.window, "Could not delete '%s' - "\
                                 "perhaps you do not have permissions to do so?"
                                 % track.loc)
-                    db.execute("DELETE FROM tracks WHERE path=%s" % self.db.p, 
+                    table = 'tracks'
+                    track.type == 'ipod': table = 'ipod_tracks'
+                    db.execute("DELETE FROM %s WHERE path=%s" % (table, self.db.p), 
                         (track.loc,))
                 else:
                     playlist = self.playlist
-                    if isinstance(track, media.iPodTrack) and not blacklisting: 
+                    if track.type == 'ipod' and not blacklisting: 
                         track = track.itrack
                         if not self.exaile.ipod_panel.connected: continue
                         ipod = True
@@ -969,7 +971,7 @@ class TracksListCtrl(gtk.VBox):
                                 "%s=%s AND %s=%s" % (t, p, t),
                                 (track.loc, self.db.p, playlist, self.db.p))
                         if blacklisting:
-                            if isinstance(track, media.iPodTrack):
+                            if track.type == 'ipod'
                                 error += "'%s' could not be blacklisted (iPod" \
                                     " track).\n" % str(track)
                             else:

@@ -1687,7 +1687,6 @@ class ExaileWindow(object):
         self.play_track(track)
         self.current_track = track
     
-
     def on_previous(self, widget=None, event=None): 
         """
             Plays the previous track in the history

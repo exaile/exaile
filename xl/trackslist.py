@@ -675,21 +675,22 @@ class TracksListCtrl(gtk.VBox):
             
         self.tpm = tpm
 
-        self.queue = tpm.append(_("Toggle Queue"), self.exaile.on_queue)
+        self.queue = tpm.append(_("Toggle Queue"), self.exaile.on_queue,
+            'gtk-media-play')
         tpm.append_separator()
         songs = self.get_selected_tracks()
 
         if not songs or not isinstance(songs[0], media.StreamTrack):
             pm = xlmisc.Menu()
             self.new_playlist = pm.append(_("New Playlist"),
-                self.exaile.playlists_panel.on_add_playlist)
+                self.exaile.playlists_panel.on_add_playlist, 'gtk-new')
             pm.append_separator()
             rows = self.db.select("SELECT playlist_name FROM playlists ORDER BY"
                 " playlist_name")
             for row in rows:
                 pm.append(row[0], self.exaile.playlists_panel.add_items_to_playlist)
 
-            tpm.append_menu(_("Add to Playlist"), pm)
+            tpm.append_menu(_("Add to Playlist"), pm, 'gtk-add')
 
         else:
             self.playlists_menu = xlmisc.Menu()
@@ -701,15 +702,15 @@ class TracksListCtrl(gtk.VBox):
 
             self.playlists_menu.append_separator()
             self.new_playlist = self.playlists_menu.append(_("New Station"),
-                self.exaile.radio_panel.on_add_to_station)
+                self.exaile.radio_panel.on_add_to_station, 'gtk-new')
 
             tpm.append_menu(_("Add to Saved Stations"),
-                self.playlists_menu)
+                self.playlists_menu, 'gtk-add')
 
         em = xlmisc.Menu()
 
         em.append(_("Edit Information"), lambda e, f:
-            track.TrackEditor(self.exaile, self))
+            track.TrackEditor(self.exaile, self), 'gtk-edit')
         em.append_separator()
 
         # edit specific common fields
@@ -728,8 +729,9 @@ class TracksListCtrl(gtk.VBox):
                     None, i)
 
             em.append_menu(_("Rating"), rm)
-        tpm.append_menu(_("Edit Track(s)"), em)
-        info = tpm.append(_("Information"), self.get_track_information)
+        tpm.append_menu(_("Edit Track(s)"), em, 'gtk-edit')
+        info = tpm.append(_("Information"), self.get_track_information,
+            'gtk-info')
         tpm.append_separator()
 
         rm = xlmisc.Menu()
@@ -742,7 +744,7 @@ class TracksListCtrl(gtk.VBox):
 
         rm.append(_("Delete Track(s)"), self.exaile.delete_tracks,
             'gtk-delete', 'delete')
-        tpm.append_menu(_("Remove"), rm)
+        tpm.append_menu(_("Remove"), rm, 'gtk-delete')
 
         # plugins menu items
         if self.exaile.plugins_menu.get_children():

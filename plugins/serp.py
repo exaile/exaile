@@ -72,7 +72,7 @@ def initialize(exaile):
     BUTTON.show()
 
     menu = EXAILE.plugins_menu
-    MENU_ITEM = menu.append("Burn Selected", burn_selected)
+    MENU_ITEM = menu.append("Burn Selected", burn_selected, 'gtk-cdrom')
         
     return True
 

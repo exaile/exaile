@@ -80,7 +80,7 @@ class Menu(gtk.Menu):
             hbox.set_spacing(5)
             item.add(hbox)
             image = gtk.image_new_from_stock(stock_id,
-                gtk.ICON_SIZE_SMALL_TOOLBAR)
+                gtk.ICON_SIZE_MENU)
             hbox.pack_start(image, False, True)
             label = gtk.Label(label)
             label.set_alignment(0, 0)
@@ -101,10 +101,14 @@ class Menu(gtk.Menu):
         gtk.Menu.append(self, item)
         item.show_all()
 
-    def append_menu(self, label, menu):
+    def append_menu(self, label, menu, stock_id=None):
         """
             Appends a submenu
         """
+        if stock_id:
+            item = self.append(label, None, stock_id)
+            item.set_submenu(menu)
+            return item
 
         item = gtk.MenuItem(label)
         item.set_submenu(menu)

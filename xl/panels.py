@@ -845,7 +845,7 @@ class iPodPanel(CollectionPanel):
         if not IPOD_AVAILABLE: return
 
         self.transfer_queue = None
-        self.all = []
+        self.all = tracks.TrackData()
         self.transferring = False
         self.write_lock = threading.Lock()
         self.queue = None

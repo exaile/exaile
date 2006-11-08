@@ -1216,6 +1216,11 @@ class ExaileWindow(object):
                 cover = self.fetch_from_fs(track)
                 if cover:
                     self.cover.set_image(cover)
+                    # PLUGIN: tell plugins the cover was found
+                    event = plugins.Event()
+                    event.add_call('cover_found', (self.current_track,
+                        cover))
+                    self.pmanager.fire_event(event)
                     return
                 return "images%snocover.png" % os.sep
             if os.path.isfile("%s%scovers%s%s" %

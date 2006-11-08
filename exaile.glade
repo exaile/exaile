@@ -660,6 +660,8 @@
 
 		      <child>
 			<widget class="GtkButton" id="col_refresh_button">
+			  <property name="width_request">32</property>
+			  <property name="height_request">32</property>
 			  <property name="visible">True</property>
 			  <property name="tooltip" translatable="yes">Refresh</property>
 			  <property name="can_focus">True</property>
@@ -1048,6 +1050,8 @@ Genre</property>
 
 		      <child>
 			<widget class="GtkButton" id="ipod_refresh_button">
+			  <property name="width_request">32</property>
+			  <property name="height_request">32</property>
 			  <property name="visible">True</property>
 			  <property name="tooltip" translatable="yes">Connect to iPod/Refresh</property>
 			  <property name="can_focus">True</property>
@@ -1414,6 +1418,8 @@ Genre</property>
 
 		      <child>
 			<widget class="GtkButton" id="files_refresh_button">
+			  <property name="width_request">32</property>
+			  <property name="height_request">32</property>
 			  <property name="visible">True</property>
 			  <property name="tooltip" translatable="yes">Refresh</property>
 			  <property name="can_focus">True</property>
@@ -1468,6 +1474,8 @@ Genre</property>
 
 		      <child>
 			<widget class="GtkButton" id="files_back_button">
+			  <property name="width_request">32</property>
+			  <property name="height_request">32</property>
 			  <property name="visible">True</property>
 			  <property name="sensitive">False</property>
 			  <property name="tooltip" translatable="yes">Previous</property>

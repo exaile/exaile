@@ -80,6 +80,7 @@ def initialize(exaile):
     image = gtk.Image()
     image.set_from_stock('gtk-cdrom', gtk.ICON_SIZE_SMALL_TOOLBAR)
     BUTTON.set_image(image)
+    BUTTON.set_size_request(32, 32)
     BUTTON.connect('clicked', launch_serpentine)
 
     EXAILE.xml.get_widget('rating_toolbar').pack_start(BUTTON)

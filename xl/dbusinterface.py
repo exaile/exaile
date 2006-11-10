@@ -191,6 +191,18 @@ class DBusInterfaceObject(dbus.service.Object):
         self.exaile.volume.slider.set_value(vol)
         self.exaile.on_volume_set()
 
+    @dbus.service.method("org.exaile.DBusInterface")
+    def toggle_visibility(self):
+        """
+            Toggle the main window's visibility
+        """
+        if not self.exaile.window.get_property('visible'):
+            self.exaile.window.show_all()
+            self.exaile.setup_location()
+        else:
+           self.exaile.window.hide()
+
+
 def test_dbus(bus, interface):
     obj = bus.get_object('org.freedesktop.DBus', '/org/freedesktop/DBus') 
     dbus_iface = dbus.Interface(obj, 'org.freedesktop.DBus') 
@@ -243,6 +255,7 @@ def test(p):
                 elif len(sys.argv) > 1 and not sys.argv[1].startswith("--"):
                     iface.play_file(sys.argv[1])
                 else:
+                    iface.toggle_visibility()
                     print "You have entered an invalid option"
                 return True
         except SystemExit:

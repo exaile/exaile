@@ -38,7 +38,7 @@ try:
     PostgresOperationalError = pyPgSQL.PgSQL.OperationalError
 except:
     PGSQL_AVAIL = False
-
+sqlite.enable_shared_cache(True)
 from traceback import print_exc
 import gobject
 
@@ -86,6 +86,7 @@ class DBManager(object):
         cur.execute("PRAGMA cache_size=4000")
         cur.execute("PRAGMA temp_store=MEMORY")
         cur.execute("PRAGMA fullsync=0")
+        cur.execute("PRAGMA cast_sensitive_like=0")
         cur.close()
         
     def __get_db(self):
@@ -93,9 +94,8 @@ class DBManager(object):
             Returns a connection
         """
         try:
-            db = sqlite.connect(self.db_loc,
-            detect_types=sqlite.PARSE_DECLTYPES, check_same_thread=False,
-                timeout=10.0)
+            db = sqlite.connect(self.db_loc, check_same_thread=False,
+                timeout=20)
         except sqlite.OperationalError, e:
             raise DBOperationalError(str(e))
 

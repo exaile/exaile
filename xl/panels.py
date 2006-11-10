@@ -20,6 +20,11 @@ import media, time, thread, re, copy, threading
 import urllib
 from xml.dom import minidom
 
+try:
+    from pysqlite2 import dbapi2 as sqlite
+except ImportError:
+    from sqlite3 import dbapi2 as sqlite
+
 from gettext import gettext as _
 from popen2 import popen3 as popen
 import pygtk, audioscrobbler
@@ -1697,8 +1702,11 @@ class PlaylistsPanel(object):
                 common.error(self.exaile.window, _("Playlist already exists."))
                 return name
 
-            self.db.execute("INSERT INTO playlists(name) VALUES(?)", (name,))
-            self.db.commit()
+            try:
+                self.db.execute("INSERT INTO playlists(name) VALUES(?)", (name,))
+                self.db.commit()
+            except sqlite3.IntegrityError:
+                pass
                 
             self.custom.append(name)
 

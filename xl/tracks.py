@@ -572,7 +572,7 @@ class PopulateThread(threading.Thread):
                 if tr:
                     path_id = get_column_id(cur, 'paths', 'name', loc)
                     cur.execute("UPDATE tracks SET included=1 WHERE path=?",
-                    (path_id,))
+                        (path_id,))
                 if not tr or tr.blacklisted: continue
                 
                 if not temp:

@@ -16,7 +16,7 @@
 
 import sys, os, re, random, fileinput, media
 import xlmisc, common, track, tracks
-import copy, time, urllib
+import copy, time, urllib, xl.tracks
 from gettext import gettext as _
 import pygtk
 pygtk.require('2.0')
@@ -925,13 +925,12 @@ class TracksListCtrl(gtk.VBox):
 
         if not deleting or delete_confirmed:
             tracks = self.get_selected_tracks()
-            path_id = tracks.get_column_id(cur, 'paths', 'name', track.loc)
             for track in tracks:
                 delete.append(track)
 
             while len(delete) > 0:
                 track = delete.pop()
-                path_id = trac
+                path_id = xl.tracks.get_column_id(cur, 'paths', 'name', track.loc)
                 self.exaile.playlist_songs.remove(track)
                 try: self.songs.remove(track)
                 except ValueError: pass

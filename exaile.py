@@ -1753,6 +1753,7 @@ class ExaileWindow(object):
         
 
         cur.close()
+        self.db.commit()
         if title: name = title
         if not songs: 
             self.status.set_first(None)

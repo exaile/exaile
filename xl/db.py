@@ -93,7 +93,9 @@ class DBManager(object):
             Returns a connection
         """
         try:
-            db = sqlite.connect(self.db_loc)
+            db = sqlite.connect(self.db_loc,
+            detect_types=sqlite.PARSE_DECLTYPES, check_same_thread=False,
+                timeout=10.0)
         except sqlite.OperationalError, e:
             raise DBOperationalError(str(e))
 

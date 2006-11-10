@@ -593,8 +593,10 @@ class PopulateThread(threading.Thread):
 
             count = count + (1 * 1.0)
             commit_count += 1
-            if commit_count >= 50:
+            if commit_count >= 20:
                 db.commit()
+                cur.close()
+                cur = db.cursor()
                 commit_count = 0
 
             if total != 0 and (count % 3) == 0.0:
@@ -618,6 +620,7 @@ class PopulateThread(threading.Thread):
         """
             Stops the thread
         """
+        self.db.commit()
         num = -2
         if not self.load_tree: num = -1
         tracks = self.found_tracks

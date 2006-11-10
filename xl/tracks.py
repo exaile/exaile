@@ -20,6 +20,7 @@ import sys, md5, xlmisc, gobject, random
 import thread, threading, urllib, audioscrobbler
 import dbusinterface
 from db import DBOperationalError
+from pysqlite2.dbapi2 import IntegrityError
 
 try:    
     import DiscID, CDDB
@@ -125,13 +126,17 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None,
         represented by this pattern
     """
     items = []
+    args = []
     where = ""
     if keyword != None and w:
-        w = w.replace(" WHERE ", " AND ")
+        regex = re.compile("\s+WHERE\s", re.DOTALL)
+        w = regex.sub(" AND ", w)
         keyword = keyword.lower()
         where = ' WHERE (LOWER(title) LIKE "%%' + keyword + \
-            '%%" OR LOWER(artist) LIKE "%%' + keyword + \
-            '%%" OR LOWER(album) LIKE "%%' + keyword + '%%") '
+            '%%" OR LOWER(artists.name) LIKE "%%' + keyword + \
+            '%%" OR LOWER(albums.name) LIKE "%%' + keyword + '%%") AND ' \
+            '(paths.id=tracks.path AND artists.id=tracks.artist AND ' \
+            'albums.id=tracks.album)'
 
     if w == None:
         if keyword != None or playlist != None:
@@ -141,8 +146,15 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None,
                     where = re.sub("^(q:|where) ", "WHERE ", keyword.lower())
 
             if playlist != None:
-                rows = db.select("SELECT path FROM playlist_items WHERE playlist=%s" % db.p,
-                    (playlist,))
+                rows = db.select("""
+                    SELECT 
+                        paths.name 
+                    FROM playlist_items,paths,playlists
+                    WHERE 
+                        playlists.name=? AND 
+                        playlist_items.playlist=playlists.id AND 
+                    paths.id=playlist_items.path
+                """, (playlist,))
 
                 for row in rows:
                     items.append(row[0])
@@ -162,14 +174,22 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None,
     tracks = TrackData() 
 
     rows = []
-    table = "tracks"
-    if ipod: table = "ipod_tracks"
-    query = "SELECT path FROM %s %s ORDER BY " % (table, where) + \
-        "LOWER(artist), LOWER(album), track, title"
+    query = """
+        SELECT 
+            paths.name 
+        FROM tracks,paths,artists,albums %s 
+        ORDER BY 
+            LOWER(artists.name), 
+            LOWER(albums.name), 
+            track, 
+            title
+        """ % where
 
     if w != None:
         query = w
-        query = re.sub("FROM (\w+) ", r"FROM \1 " + where, query)
+        if keyword:
+            regex = re.compile("FROM\s+(.*?)\s+AND", re.DOTALL)
+            query = regex.sub(r"FROM \1 %s AND" % where, query)
 
     try:
         cur = db.db.cursor()
@@ -216,8 +236,34 @@ def load_tracks(db, current=None):
     added = dict()
 
     tracks = TrackData()
-    for row in db.select("SELECT %s FROM tracks WHERE blacklisted=0 ORDER"
-        " BY LOWER(artist), LOWER(album), track, title" % READ_FIELDS):
+    for row in db.select("""
+        SELECT 
+            paths.name, 
+            title, 
+            artists.name, 
+            albums.name, 
+            tracks.genre, 
+            track, 
+            length, 
+            bitrate, 
+            year, 
+            modified, 
+            user_rating, 
+            blacklisted, 
+            the_track 
+        FROM tracks, paths, artists, albums 
+        WHERE 
+            (
+                paths.id=tracks.path AND 
+                artists.id = tracks.artist AND 
+                albums.id = tracks.album) AND 
+                blacklisted=0 
+        ORDER BY 
+            LOWER(artists.name), 
+            LOWER(albums.name), 
+            track, 
+            title
+        """):
         if not os.path.isfile(row[0]): 
             continue
 
@@ -315,12 +361,43 @@ def read_audio_disc(exaile):
 
     return songs
 
+def get_column_id(cur, table, col, value):
+    """
+        Gets a column id for inserting the specific col into the specific
+        table
+    """
+    try:
+        cur.execute("INSERT INTO %s( %s ) VALUES( ? )" % (table, col),
+            (value,))
+    except IntegrityError:
+        pass
+
+    cur.execute("SELECT id FROM %s WHERE name=?" % table, (value,))
+    row = cur.fetchone()
+    if not row: return None
+    return row[0]
+
+def get_album_id(cur, artist_id, album):
+    try:
+        cur.execute("INSERT INTO albums( artist, name ) VALUES( ?, ? )", 
+            (artist_id, album))
+    except IntegrityError:
+        pass
+
+    cur.execute("SELECT id FROM albums WHERE artist=? AND name=?", 
+        (artist_id, album))
+    row = cur.fetchone()
+    if not row: return None
+    return row[0]
+
 def read_track(db, current, path, skipmod=False, ipod=False, adddb=True,
-    row=None):
+    row=None, cursor=None):
     """
         Reads a track, either from the database, or from it's metadata
     """
 
+    if not cursor: cur = db.cursor()
+    else: cur = cursor
     # if path was passed in as a list, the correct fields have probably
     # already been loaded from the database
     if not row is None:
@@ -328,9 +405,31 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True,
     # else, we read the row from the database
     else:
         if db:
-            if ipod: table = "ipod_tracks"
-            else: table = "tracks"
-            row = db.read_one(table, READ_FIELDS, "path=%s" % db.p, (path,))
+            cur.execute("""
+                SELECT 
+                    paths.name, 
+                    title, 
+                    artists.name, 
+                    albums.name, 
+                    tracks.genre,
+                    track, 
+                    length, 
+                    bitrate, 
+                    year, 
+                    modified, 
+                    user_rating, 
+                    blacklisted, 
+                    the_track 
+                FROM tracks,paths,artists,albums 
+                WHERE 
+                    (
+                        paths.id=tracks.path AND 
+                        artists.id=tracks.artist AND 
+                        albums.id=tracks.album
+                    ) 
+                    AND paths.name=? 
+                """, (path,))
+            row = cur.fetchone()
 
     if not os.path.isfile(path): return None
     (f, ext) = os.path.splitext(path)
@@ -359,13 +458,17 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True,
                 tr.artist = tr.artist[4:]
                 tr.the_track = the_track
 
+            path_id = get_column_id(cur, 'paths', 'name', tr.loc)
+            artist_id = get_column_id(cur, 'artists', 'name', tr._artist)
+            album_id = get_album_id(cur, artist_id, tr.album)
+
             if db and adddb:
                 db.update("tracks",
                     {
-                        "path": tr.loc,
+                        "path": path_id,
                         "title": tr.title,
-                        "artist": tr._artist,
-                        "album": tr.album,
+                        "artist": artist_id,
+                        "album": album_id,
                         "genre": tr.genre,
                         "track": tr.track,
                         "length": tr.duration,
@@ -374,7 +477,7 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True,
                         "blacklisted": tr.blacklisted,
                         "year": tr.year,
                         "modified": mod
-                    }, "path=%s" % db.p, (path,), row == None)
+                    }, "path=?", (path,), row == None)
 
         except:
             xlmisc.log_exception()
@@ -393,6 +496,7 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True,
 
         tr.read_from_db = True
 
+    if not cursor: cur.close()
     return tr
 
 class PopulateThread(threading.Thread):
@@ -429,14 +533,16 @@ class PopulateThread(threading.Thread):
         PopulateThread.stopped = False
 
         directories = self.directories
-        self.db.execute("DELETE FROM directories")
+        db = self.db
+        cur = self.db.cursor()
+        cur.execute("DELETE FROM directories")
         for path in directories:
             try:
                 mod = os.path.getmtime(path)
             except OSError:
                 continue
-            self.db.execute("INSERT INTO directories( path, modified ) "
-                "VALUES( %s, %s )" % (self.db.p, self.db.p), (path, mod))
+            cur.execute("INSERT INTO directories( path, modified ) "
+                "VALUES( ?, ? )", (path, mod))
 
         update_func = self.update_func
         gobject.idle_add(update_func, 0.001)
@@ -445,8 +551,7 @@ class PopulateThread(threading.Thread):
         total = len(paths)
         xlmisc.log("File count: %d" % total)
 
-        db = self.db
-        db.execute("UPDATE tracks SET included=0")
+        cur.execute("UPDATE tracks SET included=0")
         count = 0; commit_count = 0
         update_queue = dict()
         added = dict()
@@ -463,10 +568,11 @@ class PopulateThread(threading.Thread):
             try:
                 temp = self.exaile.all_songs.for_path(loc)
                 
-                tr = read_track(db, self.exaile.all_songs, loc)
+                tr = read_track(db, self.exaile.all_songs, loc, cursor=cur)
                 if tr:
-                    db.execute("UPDATE tracks SET included=1 WHERE path=%s" %
-                    db.p, (loc,))
+                    path_id = get_column_id(cur, 'paths', 'name', loc)
+                    cur.execute("UPDATE tracks SET included=1 WHERE path=?",
+                    (path_id,))
                 if not tr or tr.blacklisted: continue
                 
                 if not temp:
@@ -501,10 +607,12 @@ class PopulateThread(threading.Thread):
         self.stop()
         xlmisc.log("Count is now: %d" % count)
         if self.done: return
-        db.commit()
 
         if self.delete:
-            db.execute("DELETE FROM tracks WHERE included=0")
+            cur.execute("DELETE FROM tracks WHERE included=0")
+        cur.close()
+        db.commit()
+        self.db._close_thread()
 
     def stop(self):
         """

@@ -64,65 +64,38 @@ class DBManager(object):
     """
         Manages the database connection
     """
-    def __init__(self, type='sqlite', username='',
-        host='localhost', password='', database='', start_timer=True):
+    def __init__(self, db_loc, start_timer=True):
         """
             Initializes and connects to the database
         """
         
         self.type = type
-        self.db_loc = host
-        self.username = username
-        self.host = host
-        self.password = password
-        self.database = database
+        self.db_loc = db_loc
         self.db = self.__get_db()
 
         self.pool = dict()
         self.timer_id = None
+        self.p = '?'
         if start_timer:
             self.timer_id = gobject.timeout_add(2 * 60 * 60, self.commit)
 
-        if type == 'sqlite': 
-            cur = self.db.cursor()
-            cur.execute("PRAGMA synchronize=OFF")
-            cur.execute("PRAGMA count_changes=0")
-            cur.execute("PRAGMA auto_vacuum=1")
-            cur.execute("PRAGMA cache_size=4000")
-            cur.execute("PRAGMA temp_store=MEMORY")
-            cur.execute("PRAGMA fullsync=0")
-            cur.close()
+        cur = self.db.cursor()
+        cur.execute("PRAGMA synchronize=OFF")
+        cur.execute("PRAGMA count_changes=0")
+        cur.execute("PRAGMA auto_vacuum=1")
+        cur.execute("PRAGMA cache_size=4000")
+        cur.execute("PRAGMA temp_store=MEMORY")
+        cur.execute("PRAGMA fullsync=0")
+        cur.close()
         
-        self._cursor = self.db.cursor()
-
     def __get_db(self):
         """
             Returns a connection
         """
-        if self.type == 'sqlite':
-            self.p = "?"
-            if not SQLITE_AVAIL:
-                raise DBOperationalError("SQLite driver is not available")
-            try:
-               db = sqlite.connect(self.db_loc)
-            except sqlite.OperationalError, e:
-                raise DBOperationalError(str(e))
-        elif self.type == 'pgsql':
-            self.p = "%s"
-            if not PGSQL_AVAIL:
-                raise DBOperationalError("PostgreSQL driver is not available")
-
-            db = pyPgSQL.PgSQL.connect(host=self.host, user=self.username,
-                password=self.password, database=self.database)
-        else:
-            self.p = "%s"
-            if not MYSQL_AVAIL: 
-                raise DBOperationalError("MySQL driver is not available")
-            try:
-                db = MySQLdb.Connect(user=self.username, passwd=self.password,
-                    host=self.host, db=self.database)
-            except MySQLdb.OperationalError, e:
-                raise DBOperationalError(str(e))
+        try:
+            db = sqlite.connect(self.db_loc)
+        except sqlite.OperationalError, e:
+            raise DBOperationalError(str(e))
 
         return db
 
@@ -172,47 +145,29 @@ class DBManager(object):
 
         for line in lines:
             if line.strip():
-                line = self.sanitize(line + ";")
-                self._exec(line)
+                self.execute(line)
         self.db.commit()
 
-    def sanitize(self, line):
-        """
-            Converts a line to the current db spec
-        """
-        if self.type == 'pgsql' or self.type == 'sqlite':
-            m = re.search("PRIMARY KEY\((.*)\)\s?\);", line)
-            if m:
-                args = m.group(1)
-                args = re.sub("\(.*?\)", "", args)
-                line = re.sub("PRIMARY KEY\((.*)\)\s?\);",
-                    "PRIMARY KEY( %s ) );" % args, line)
-        return line 
     def cursor(self):
         """
             Returns a db cursor
         """
-        return self._cursor
+        db = self._get_from_pool()
+        return db.cursor()
 
-
-    def execute(self, query, args=[], now=False):
+    def execute(self, query, args=None):
         """
             Executes a query
         """
-        if now: self._exec(query, args)
-        else: gobject.idle_add(self._exec, query, args)
-
-    def _exec(self, query, args=None):
-        """
-            Executes a query
-        """
+        db = self._get_from_pool()
+        cur = db.cursor()
         if not args: args = []
         try:
-            cur = self._cursor
             cur.execute(query, args)
         except:
             print query
             print_exc()
+        cur.close()
 
     def select(self, query, args=[]):
         """
@@ -220,13 +175,11 @@ class DBManager(object):
             select operations.  If you want to do a large select, use
             DBManager.realcursor()
         """
-        name = threading.currentThread().getName()
-        if name == "MainThread": cur = self._cursor
-        else: cur = self._get_from_pool().cursor()
-
+        db = self._get_from_pool()
+        cur = db.cursor()
         cur.execute(query, args)
         all = cur.fetchall()
-        if name != "MainThread": cur.close()
+        cur.close()
 
         return all
 
@@ -249,15 +202,10 @@ class DBManager(object):
 
     def commit(self):
         """
-            Queues a commit in the main event thread
-        """
-        gobject.idle_add(self._commit)
-
-    def _commit(self):
-        """
             Commits the database
         """
-        self.db.commit()
+        db = self._get_from_pool()
+        db.commit()
 
     def _get_from_pool(self):
         """
@@ -268,43 +216,45 @@ class DBManager(object):
         if not self.pool.has_key(name):
             db = self.__get_db()
             self.pool[name] = db
+            print "Created db for thread %s" % name
+            print self.pool
 
         db = self.pool[name]
         return db
+
+    def _close_thread(self):
+        """
+            Closes the db in the pool for the current thread
+        """
+        name = threading.currentThread().getName()
+        if name == "MainThread": return
+        if self.pool.has_key(name):
+            self.pool[name].close()
+            del self.pool[name]
+            print "Closed db for thread %s" % name
 
     def read_one(self, table, items, where, args):
         """
             Returns the first row matched for the query in the database
         """
-        name = threading.currentThread().getName()
-        if name == "MainThread": cur = self._cursor
-        else: cur = self._get_from_pool().cursor()
+        db = self._get_from_pool()
+        cur = db.cursor()
         query = "SELECT %s FROM %s WHERE %s LIMIT 1" % \
            (items, table, where)
 
         cur.execute(query, args)   
         row = cur.fetchone()
 
-        if name != "MainThread": cur.close()
+        cur.close()
         return row
 
-    def update(self, table, vals, where, args, new=False, immediate=False):
+    def update(self, table, vals, where, args, new=False): 
         """
             Updates the database based on the query... or, if the specified row
             does not currently exist in the database, a new row is created
         """
-        if not immediate:
-            gobject.idle_add(self._update, table, vals, where, args, new)
-        else:
-            self._update(table, vals, where, args, new)
-            self.db.commit()
-
-    def _update(self, table, vals, where, args, new=False): 
-        """
-            Updates the database based on the query... or, if the specified row
-            does not currently exist in the database, a new row is created
-        """
-        cur = self._cursor
+        db = self._get_from_pool()
+        cur = db.cursor()
 
         if new:
             keys = vals.keys()
@@ -318,7 +268,7 @@ class DBManager(object):
                 values.append(val)
 
             left = ", ".join(keys)
-            right = ", ".join([self.p for x in keys])
+            right = ", ".join(['?' for x in keys])
             query = "INSERT INTO %s( %s ) VALUES( %s )" % (table, left, right)
             try:
                 cur.execute(query, tuple(values))
@@ -333,10 +283,12 @@ class DBManager(object):
 
                 if not isinstance(v, str): v = str(v)
                 v = v.decode("utf-8", 'replace')
-                keys.append("%s=%s" % (k, self.p))
+                keys.append("%s=?" % k)
                 values.append(v)
 
             values.extend(args)
 
             query = "UPDATE %s SET %s WHERE %s" % (table, ", ".join(keys), where)
             cur.execute(query, values)
+
+        cur.close()

@@ -315,9 +315,6 @@ class Preferences(object):
         self.xml.get_widget('prefs_ok_button').connect('clicked',
             self.ok)
         self.label = self.xml.get_widget('prefs_frame_label')
-        self.db_button = self.xml.get_widget('prefs_database_button')
-        self.db_button.set_label(self.exaile.settings.get('db_type', 'SQLite'))
-        self.db_button.connect('clicked', self.show_db_config)
 
         self.model = gtk.TreeStore(str, int)
 
@@ -385,13 +382,6 @@ class Preferences(object):
             else: done = None
             item = c(setting, default, change, done)
             self.fields.append(item)
-
-    def show_db_config(self, widget):
-        """
-            Shows the database configuration dialog
-        """
-        self.exaile.show_db_config(prefs=True)
-        self.db_button.set_label(self.exaile.settings.get('db_type', 'SQLite'))
 
     def setup_scan_interval(self, widget):
         """

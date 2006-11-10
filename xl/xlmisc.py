@@ -527,10 +527,12 @@ class CoverFetcher(object):
             album
         """
         if self.stopped: return
+        cur = self.db.cursor()
+        artist_id = tracks.get_column_id(cur, 'artists', 'name', self.artist)
+        album_id = tracks.get_album_id(cur, artist_id, self.album)
         if len(covers) == 0:
-            self.db.execute("UPDATE albums SET image=%s WHERE album=%s " \
-                "AND artist=%s" % (self.db.p, self.db.p, self.db.p), 
-                ('nocover', self.album, self.artist))
+            cur.execute("UPDATE albums SET image=? WHERE id=?",
+                ('nocover', album_id,))
             
         # loop through all of the covers that have been found
         for cover in covers:
@@ -540,9 +542,8 @@ class CoverFetcher(object):
                 log(cover['filename'])
 
                 try:
-                    self.db.execute("UPDATE albums SET image=%s WHERE album=%s " \
-                        "AND artist=%s" % (self.db.p, self.db.p, self.db.p), 
-                        (cover['md5'] + ".jpg", self.album, self.artist))
+                    cur.execute("UPDATE albums SET image=? WHERE id=?", 
+                        (cover['md5'] + ".jpg", album_id))
                 except:
                     log_exception()
 
@@ -560,6 +561,7 @@ class CoverFetcher(object):
                     self.model.set_value(iter, 1, image)
                 break
 
+        cur.close()
         if self.stopped: return
         self.current = self.current + 1
         self.progress.set_fraction(float(self.current) / float(self.total))
@@ -597,31 +599,27 @@ class CoverFetcher(object):
         """
             Finds the albums that need a cover
         """
-        all = self.db.select("SELECT artist, album FROM tracks WHERE blacklisted=0"
-            " ORDER BY artist, album")
+        all = self.db.select("SELECT artists.name, albums.name, albums.image "
+            "FROM tracks,albums,artists WHERE blacklisted=0 AND type=0 AND ( "
+            "artists.id=tracks.artist AND albums.id=tracks.album) "
+            " ORDER BY artists.name, albums.name")
         self.needs = dict()
 
         self.found = dict()
         count = 0
-        for (artist, album) in all:
+        for (artist, album, image) in all:
             if not self.needs.has_key(artist):
                 self.needs[artist] = []
             if album in self.needs[artist]: continue
-            row = self.db.read_one("albums", "image",
-                "artist=%s AND album=%s" % (self.db.p, self.db.p), 
-                (artist, album))
 
-            image = "images%snocover.png" % os.sep
-            if not row or not row[0]:
-                self.db.execute("INSERT INTO albums(artist, " \
-                "album) VALUES( %s, %s " \
-                ")" % (self.db.p, self.db.p), (artist, album))
+            if not image:
                 self.needs[artist].append(album)
-            elif row[0].find("nocover") > -1:
+                image = "images%snocover.png" % os.sep
+            elif image.find("nocover") > -1:
                 pass
-            elif row[0] and row[0].find("nocover") == -1: 
+            elif image.find("nocover") == -1: 
                 image = "%s%scovers%s%s" % (self.exaile.get_settings_dir(),
-                    os.sep, os.sep, row[0])
+                    os.sep, os.sep, image)
 
             if self.found.has_key("%s - %s" % (artist.lower(), album.lower())):
                 continue
@@ -1378,18 +1376,12 @@ class CoverFrame(object):
         """
         track = self.track
         cover = self.covers[self.current]
-        row = self.db.read_one(
-            "albums", "artist, album, genre, image",
-            "artist=%s AND album=%s" % (self.db.p, self.db.p),
-            (track.artist, track.album))
+        cur = self.db.cursor()
+        artist_id = tracks.get_column_id(cur, 'artists', 'name', track.artist)
+        album_id = tracks.get_album_id(cur, artist_id, track.album)
 
-        self.db.update("albums",
-            { "artist": track.artist,
-            "album": track.album,
-            "image": cover.filename(),
-            "genre": track.genre }, "artist=%s AND album=%s" % 
-            (self.db.p, self.db.p),
-            (track.artist, track.album), row == None)
+        cur.execute("UPDATE albums SET image=? WHERE id=?", (cover.filename(),
+            album_id))
 
         if track == self.exaile.current_track:
             self.exaile.stop_cover_thread()

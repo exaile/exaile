@@ -486,12 +486,17 @@ class Track(object):
 
         if db:
             mod = os.stat(self.loc).st_mtime
+            cur = db.cursor()
+            artist_id = tracks.get_column_id(cur, 'artists', 'name',
+                self.artist)
+            album_id = tracks.get_albumn_id(cur, artist_id, self.album)
+            path_id = tracks.get_column_id(cur, 'paths', 'name', self.loc)
 
-            db.execute("UPDATE tracks SET title=%s, artist=%s, " \
-                "album=%s, genre=%s, year=%s, modified=%s, track=%s WHERE path=%s" % 
-                common.tup(db.p, 8),
-                (self.title, self.artist, self.album, self.genre,
-                self.year, mod, self.track, self.loc))
+            cur.execute("UPDATE tracks SET title=?, artist=?, " \
+                "album=?, genre=?, year=?, modified=?, track=? WHERE path=?",
+                (self.title, artist_id, album_id, self.genre,
+                self.year, mod, self.track, path_id))
+            cur.close()
 
     def __str__(self):
         """

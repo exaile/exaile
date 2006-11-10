@@ -785,72 +785,15 @@ class ExaileWindow(object):
         """
             Returns a new database connection
         """
-        type = self.settings.get("db_type", "SQLite").lower()
-        if type == 'postgresql': type = 'pgsql'
-
-        try:
-            host = self.settings.get('db_host', 'localhost')
-            if type == 'sqlite': 
-                host = "%s%smusic.db" % (SETTINGS_DIR, os.sep)
-            database = db.DBManager(type=type,
-                username=self.settings.get('db_user', ''),
-                password=self.settings.get('db_passwd', ''),
-                host=host,
-                database=self.settings.get('db_name', ''))
-        except db.DBOperationalError, e:
-            common.error(self.window, _("Could not connect "
-                "to database: %s" % str(e)))
-            sys.exit(1)
-        except Exception, e:
-            common.error(self.window, _("Unknown error connecting "
-                "to database:\n%s" % str(e)))
-            sys.exit(1)
+        loc = "%s%smusic.db" % (SETTINGS_DIR, os.sep)
+        database = db.DBManager(loc)
 
         return database
-
-    def show_db_config(self, prefs=False):
-        """
-            Shows the database configuration dialog
-        """
-        dialog = xlmisc.DBConfigurationDialog(self.window)
-        items = ('type', 'user', 'passwd', 'host', 'name')
-        for item in items:
-            val = self.settings.get("db_%s" % item, '')
-            func = getattr(dialog, "set_%s" %item)
-            func(val)
-
-        result = dialog.run()
-        dialog.dialog.hide()
-        if result == gtk.RESPONSE_OK:
-            for item in items:
-                func = getattr(dialog, "get_%s" % item)
-                self.settings["db_%s" % item] = func()
-
-            # if this was called from the preferences dialog
-            if prefs:
-                common.info(self.window, _("You must restart exaile for these"
-                    " changes to take effect"))
-        else:
-            if not prefs: sys.exit(0)
-
-        dialog.destroy()
 
     def database_connect(self):
         """
             Connects to the database
         """
-        if self.options.db_config:
-            self.show_db_config()
-        if not self.settings.has_key('db_type'):
-            self.settings['db_type'] = 'SQLite'
-
-        if self.settings['db_type'] != 'SQLite' and \
-            self.settings['db_type'] != 'MySQL' and \
-            self.settings['db_type'] != 'PostgreSQL':
-                common.error(self.window, _("Invalid database driver "
-                    "specified."))
-                del self.settings['db_type']
-                sys.exit(1)
 
         im = False
         if not os.path.isfile("%s%smusic.db" % (SETTINGS_DIR,
@@ -862,36 +805,13 @@ class ExaileWindow(object):
             common.error(self.window, _("Error connecting to database: %s" %
                 str(e)))
             sys.exit(1)
-        if im and self.settings['db_type'] == 'SQLite':
+        if im:
             try:
                 self.db.import_sql("sql/db.sql")
             except db.DBOperationalError, e:
                 common.error(self.window, "Error "
                     "creating collection database: %s" % (str(e)))
                 sys.exit(1)
-
-        if (self.settings['db_type'] == 'MySQL' or \
-            self.settings['db_type'] == 'PostgreSQL') and self.db:
-            im = False
-            try:
-                self.db._cursor.execute("SELECT * FROM tracks")
-            except db.ProgrammingError:
-                im = True
-            except db.PostgresOperationalError:
-                im = True
-
-            if im:
-                try:
-                    self.db.import_sql("sql/db.sql")
-                except Exception, e:
-                    common.error(self.window, _("Error creating "
-                        "database schema: %s" % str(e)))
-                    sys.exit(1)
-
-        if not self.db:
-            common.error(self.window, _("Unknown error connecting to "
-                "database"))
-            sys.exit(1)
 
         self.db.check_version("sql")
 
@@ -907,6 +827,7 @@ class ExaileWindow(object):
             xlmisc.log("loading tracks...")
             self.all_songs = tracks.load_tracks(self.db, 
                 self.all_songs)
+            self.db._close_thread()
             gobject.idle_add(self.setup_gamin)
             xlmisc.log("done loading tracks...")
         gobject.idle_add(self.status.set_first, None)
@@ -1167,14 +1088,16 @@ class ExaileWindow(object):
         """
             Gets called when all covers have been downloaded from amazon
         """
+        track = self.current_track
+        cur = self.db.cursor()
+        artist_id = tracks.get_column_id(cur, 'artists', 'name', track.artist)
+        album_id = tracks.get_album_id(cur, artist_id, track.album)
 
         self.status.set_first(None)
         if len(covers) == 0:
             self.status.set_first(_("No covers found."), 2000)
-            track = self.current_track
-            self.db.execute("UPDATE albums SET image=%s WHERE album=%s " \
-                "AND artist=%s" % (self.db.p, self.db.p, self.db.p), 
-                ('nocover', track.album, track.artist))
+            cur.execute("UPDATE albums SET image='nocover' WHERE id=?",
+                (album_id,))
 
         # loop through all of the covers that have been found
         for cover in covers:
@@ -1189,13 +1112,14 @@ class ExaileWindow(object):
                     cover['filename']))
                 self.pmanager.fire_event(event)
 
-                track = self.current_track
-                self.db.execute("UPDATE albums SET image=%s WHERE album=%s " \
-                    "AND artist=%s" % (self.db.p, self.db.p, self.db.p), 
-                    (cover['md5'] + ".jpg", track.album,
-                    track.artist))
+                cur.execute("UPDATE albums SET image=? WHERE id=?",
+                    (cover['md5'] + ".jpg", album_id))
+                
                 break
    
+        cur.close()
+        self.db.commit()
+
     def fetch_cover(self, track, popup=None): 
         """
             Fetches the cover from the database.  If it can't be found
@@ -1205,11 +1129,14 @@ class ExaileWindow(object):
         if not popup:
             self.cover.set_image("images%snocover.png" % os.sep)
         if track == None: return
+        cur = self.db.cursor()
+        artist_id = tracks.get_column_id(cur, 'artists', 'name', track.artist)
+        album_id = tracks.get_album_id(cur, artist_id, track.album)
 
         # check to see if a cover already exists
-        row = self.db.read_one("albums", "image",
-            "artist=%s AND album=%s" % (self.db.p, self.db.p), 
-            (track.artist, track.album))
+        cur.execute("SELECT image FROM albums WHERE id=?", (album_id,))
+        row = cur.fetchone()
+        cur.close()
 
         if row != None and row[0] != "" and row[0] != None:
             if row[0] == "nocover": 
@@ -1243,7 +1170,7 @@ class ExaileWindow(object):
         self.stop_cover_thread()
 
         if self.settings.get_boolean("fetch_art", True):
-            locale = self.settings.get('amazon_locale', 'en')
+            locale = self.settings.get('amazon_locale', 'us')
             self.cover_thread = covers.CoverFetcherThread("%s - %s" %
                 (track.artist, track.album),
                 self.got_covers, locale=locale)
@@ -1498,14 +1425,10 @@ class ExaileWindow(object):
         self.update_track_information()
         self.played.append(track)
 
-        c = self.db.record_count("albums",
-            "artist=%s AND album=%s" % (self.db.p, self.db.p),
-            (track.artist, track.album))
-        if c <= 0:
-            self.db.execute("INSERT INTO albums(artist, " \
-            "album, genre) VALUES( %s, %s, " \
-            "%s )" % (self.db.p, self.db.p, self.db.p), 
-            (track.artist, track.album, track.genre))
+        cur = self.db.cursor()
+        artist_id = tracks.get_column_id(cur, 'artists', 'name', track.artist)
+        tracks.get_album_id(cur, artist_id, track.album)
+        cur.close()
 
         if track.type != 'stream' and self.settings.get('fetch_covers', True):
             self.fetch_cover(track)
@@ -1790,6 +1713,7 @@ class ExaileWindow(object):
         (path, ext) = os.path.splitext(path)
         name = os.path.basename(path).replace("_", " ")
         t = trackslist.TracksListCtrl 
+        cur = self.db.cursor()
 
         count = 0
         for line in f.readlines():
@@ -1812,7 +1736,7 @@ class ExaileWindow(object):
                         play = tr
                 else:
                     tr = tracks.read_track(self.db, self.all_songs, p,
-                        adddb=False)
+                        adddb=False, cursor=cur)
                     
                 if isinstance(tr, media.StreamTrack):
                     name = "Stream"
@@ -1828,6 +1752,7 @@ class ExaileWindow(object):
             first = False
         
 
+        cur.close()
         if title: name = title
         if not songs: 
             self.status.set_first(None)

@@ -295,6 +295,5 @@ def get_options():
     p.add_option("--cleanversion", dest="cleanversion", action="store_true")
     p.add_option("--version", dest="show_version", action="store_true")
     p.add_option("--testing", dest="testing", action="store_true")
-    p.add_option("--db-config", dest="db_config", action="store_true",
-        help="Show database configuration dialog on startup")
+
     return p

@@ -697,8 +697,8 @@ class TracksListCtrl(gtk.VBox):
             self.new_playlist = pm.append(_("New Playlist"),
                 self.exaile.playlists_panel.on_add_playlist, 'gtk-new')
             pm.append_separator()
-            rows = self.db.select("SELECT playlist_name FROM playlists ORDER BY"
-                " playlist_name")
+            rows = self.db.select("SELECT name FROM playlists ORDER BY"
+                " name")
             for row in rows:
                 pm.append(row[0], self.exaile.playlists_panel.add_items_to_playlist)
 
@@ -706,8 +706,8 @@ class TracksListCtrl(gtk.VBox):
 
         else:
             self.playlists_menu = xlmisc.Menu()
-            all = self.db.select("SELECT radio_name FROM radio "
-                "ORDER BY radio_name")
+            all = self.db.select("SELECT name FROM radio "
+                "ORDER BY name")
             for row in all:
                 i = self.playlists_menu.append(row[0],
                     self.exaile.radio_panel.add_items_to_station)
@@ -846,6 +846,9 @@ class TracksListCtrl(gtk.VBox):
                 elif not event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
                     return True
                 return False
+
+        if not selection.count_selected_rows():
+            selection.select_path(path[0])
         self.setup_tracks_menu()
 
         ipod = self.ipod
@@ -916,16 +919,19 @@ class TracksListCtrl(gtk.VBox):
             "you want to permanently remove the selected tracks from disk?"))
             if result == gtk.RESPONSE_YES: delete_confirmed = True
             else: return
+        cur = self.db.cursor()
 
         error = ""
 
         if not deleting or delete_confirmed:
             tracks = self.get_selected_tracks()
+            path_id = tracks.get_column_id(cur, 'paths', 'name', track.loc)
             for track in tracks:
                 delete.append(track)
 
             while len(delete) > 0:
                 track = delete.pop()
+                path_id = trac
                 self.exaile.playlist_songs.remove(track)
                 try: self.songs.remove(track)
                 except ValueError: pass
@@ -957,10 +963,7 @@ class TracksListCtrl(gtk.VBox):
                             common.error(self.exaile.window, "Could not delete '%s' - "\
                                 "perhaps you do not have permissions to do so?"
                                 % track.loc)
-                    table = 'tracks'
-                    if track.type == 'ipod': table = 'ipod_tracks'
-                    db.execute("DELETE FROM %s WHERE path=%s" % (table, self.db.p), 
-                        (track.loc,))
+                    cur.execute("DELETE FROM tracks WHERE path=?", (path_id,))
                 else:
                     playlist = self.playlist
                     if track.type == 'ipod' and not blacklisting: 
@@ -979,17 +982,20 @@ class TracksListCtrl(gtk.VBox):
                             else:
                                 t = "playlist"; p = "path"
 
-                            self.db.execute("DELETE FROM %s_items WHERE "
-                                "%s=%s AND %s=%s" % (t, p, t),
-                                (track.loc, self.db.p, playlist, self.db.p))
+                            playlist_id = tracks.get_column_id(cur, t, 'name',
+                                playlist)
+                            cur.execute("DELETE FROM %s_items WHERE "
+                                "path=? AND %s=?" % (t, t),
+                                (path_id, playlist_id))
                         if blacklisting:
                             if track.type == 'ipod':
                                 error += "'%s' could not be blacklisted (iPod" \
                                     " track).\n" % str(track)
                             else:
-                                self.db.execute("UPDATE tracks SET blacklisted=1 "
-                                    "WHERE path=%s" % self.db.p, (track.loc,))
+                                cur.execute("UPDATE tracks SET blacklisted=1 "
+                                    "WHERE path=?", (path_kd,))
 
+            cur.close()
             if ipod_delete:
                 self.exaile.ipod_panel.delete_tracks(ipod_delete)
             if ipod:
@@ -1031,16 +1037,19 @@ class BlacklistedTracksList(TracksListCtrl):
         remove = []
         for track in tracks:
             remove.append(track)
+        cur = self.db.cursor()
 
         for track in remove:
             self.playlist_songs.remove(track)
             try: self.exaile.songs.remove(track)
             except: pass
-            self.db.execute("UPDATE tracks SET blacklisted=0 WHERE path=%s" % self.db.p, 
-                (track.loc,))
+            path_id = tracks.get_column_id(cur, 'paths', 'name', track.loc)
+            cur.execute("UPDATE tracks SET blacklisted=0 WHERE path=?",
+                (path_kd,)) 
             if not track in self.exaile.all_songs:
                 self.exaile.all_songs.append(track)
 
+        cur.close()
         self.set_songs(self.exaile.songs)
         self.exaile.collection_panel.track_cache = dict()
 

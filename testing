@@ -1,0 +1,28 @@
+* check version number
+* check library scan
+* check preferences items
+
+[playlists]
+* check adding to playlist by dragging
+* check adding to playlist by right clicking
+* check add playlist with plus button
+* check removing playlist with minus button
+
+[radio]
+* check adding radio with plus button
+* check adding radio by right clicking on tracks
+* check adding to radio by right clicking on tracks
+* check removing radio by right clicking on it
+* check removing radio by clicking on minus button
+
+[trackslist]
+* check sorting and playing without shuffle and clicking next
+* check sorting
+* check reordering columns
+* check changing column sizes
+
+[cover]
+* check cover search
+* check removing cover
+* check double clicking on cover
+* check album art collector

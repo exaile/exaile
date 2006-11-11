@@ -1441,6 +1441,12 @@ class ExaileWindow(object):
         event = plugins.Event()
         event.add_call('play_track', (track,))
         self.pmanager.fire_event(event)
+
+        track.last_played = time.strftime("%Y-%m-%d %H:%M:%S",
+            time.localtime())
+        self.db.execute("UPDATE tracks SET last_played=? WHERE "
+            " tracks.path=paths.id AND paths.name=?", (track.last_played,
+            track.loc))
         gc.collect()
 
     def get_suggested_songs(self):
@@ -1467,8 +1473,9 @@ class ExaileWindow(object):
         """
         songs = tracks.TrackData()
         for artist in artists:
-            rows = self.db.select("SELECT path FROM tracks WHERE artist=%s" %
-                self.db.p, (unicode(artist),))
+            rows = self.db.select("SELECT paths.name FROM artists,tracks,paths WHERE " 
+                "tracks.path=paths.id AND artists.id=tracks.artist AND "
+                "artists.name=?", (unicode(artist),))
             if rows:
                 search_songs = []
                 for row in rows:

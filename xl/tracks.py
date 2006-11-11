@@ -494,7 +494,7 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True,
 
             if db and adddb:
                 if not row:
-                    tr.time_added = time.strftime("%m-%d-%Y %H:%M:%Y", 
+                    tr.time_added = time.strftime("%Y-%m-%d %H:%M:%Y", 
                         time.localtime())
                 path_id = get_column_id(db, 'paths', 'name', tr.loc)
                 artist_id = get_column_id(db, 'artists', 'name', tr.artist)

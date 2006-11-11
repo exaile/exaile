@@ -88,13 +88,24 @@ class DBManager(object):
         cur.execute("PRAGMA fullsync=0")
         cur.execute("PRAGMA cast_sensitive_like=0")
         cur.close()
+        self._cursor = self.db.cursor()
+        print "Initial cursor!!", self._cursor
+
+    def cursor(self, new=False):   
+        """
+            Returns the write cursor
+        """
+        if new:
+            return self._get_from_pool().cursor()
+        else:
+            return self._cursor
         
     def __get_db(self):
         """
             Returns a connection
         """
         try:
-            db = sqlite.connect(self.db_loc, check_same_thread=False,
+            db = sqlite.connect(self.db_loc, check_same_thread=True,
                 timeout=20)
         except sqlite.OperationalError, e:
             raise DBOperationalError(str(e))
@@ -105,9 +116,6 @@ class DBManager(object):
         """
             Closes the connection
         """
-        if self.type == 'mysql':
-            self.db.close()
-
         if self.timer_id:
             gobject.source_remove(self.timer_id)
 
@@ -150,26 +158,22 @@ class DBManager(object):
                 self.execute(line)
         self.db.commit()
 
-    def cursor(self):
-        """
-            Returns a db cursor
-        """
-        db = self._get_from_pool()
-        return db.cursor()
-
     def execute(self, query, args=None):
+        """
+            Executes a query on the main event loop
+        """
+        if threading.currentThread().getName() == 'MainThread':
+            self._execute(query, args)
+        else:
+            gobject.idle_add(self._execute, query, args)
+        
+    def _execute(self, query, args=None):
         """
             Executes a query
         """
-        db = self._get_from_pool()
-        cur = db.cursor()
+        cur = self._cursor
         if not args: args = []
-        try:
-            cur.execute(query, args)
-        except:
-            print query
-            print_exc()
-        cur.close()
+        cur.execute(query, args)
 
     def select(self, query, args=[]):
         """
@@ -206,8 +210,10 @@ class DBManager(object):
         """
             Commits the database
         """
-        db = self._get_from_pool()
-        db.commit()
+        if threading.currentThread().getName() == 'MainThread':
+            self.db.commit()
+        else:
+            gobject.idle_add(self.db.commit)
 
     def _get_from_pool(self):
         """
@@ -239,8 +245,7 @@ class DBManager(object):
         """
             Returns the first row matched for the query in the database
         """
-        db = self._get_from_pool()
-        cur = db.cursor()
+        cur = self.db.cursor()
         query = "SELECT %s FROM %s WHERE %s LIMIT 1" % \
            (items, table, where)
 
@@ -250,13 +255,21 @@ class DBManager(object):
         cur.close()
         return row
 
-    def update(self, table, vals, where, args, new=False): 
+    def update(self, table, vals, where, args, new=False):
+        """
+            Updates a table or creates a new row
+        """
+        if threading.currentThread().getName() == 'MainThread':
+            self._update(table, vals, where, args, new)
+        else:
+            gobject.idle_add(self._update, table, vals, where, args, new)
+
+    def _update(self, table, vals, where, args, new=False): 
         """
             Updates the database based on the query... or, if the specified row
             does not currently exist in the database, a new row is created
         """
-        db = self._get_from_pool()
-        cur = db.cursor()
+        cur = self._cursor
 
         if new:
             keys = vals.keys()
@@ -271,7 +284,7 @@ class DBManager(object):
 
             left = ", ".join(keys)
             right = ", ".join(['?' for x in keys])
-            query = "INSERT INTO %s( %s ) VALUES( %s )" % (table, left, right)
+            query = "REPLACE INTO %s( %s ) VALUES( %s )" % (table, left, right)
             try:
                 cur.execute(query, tuple(values))
             except Exception, e:
@@ -292,5 +305,3 @@ class DBManager(object):
 
             query = "UPDATE %s SET %s WHERE %s" % (table, ", ".join(keys), where)
             cur.execute(query, values)
-
-        cur.close()

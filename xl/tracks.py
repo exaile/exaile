@@ -18,7 +18,7 @@ import os, re, os.path, copy, traceback, gc
 import common, media, db, config, trackslist
 import sys, md5, xlmisc, gobject, random
 import thread, threading, urllib, audioscrobbler
-import dbusinterface
+import dbusinterface, xl.db
 from db import DBOperationalError
 from pysqlite2.dbapi2 import IntegrityError
 
@@ -192,7 +192,7 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None,
             query = regex.sub(r"FROM \1 %s AND" % where, query)
 
     try:
-        cur = db.db.cursor()
+        cur = db.realcursor()
         cur.execute(query)
     except Exception, e:
         xlmisc.log(query)
@@ -233,6 +233,12 @@ def load_tracks(db, current=None):
     """
         Loads all tracks currently stored in the database
     """
+    global ALBUMS
+
+    items = ('PATHS', 'ARTISTS', 'RADIO', 'PLAYLISTS')
+    for item in items:
+        globals()[item] = dict()
+    ALBUMS = {}
     added = dict()
 
     tracks = TrackData()
@@ -272,7 +278,20 @@ def load_tracks(db, current=None):
         if already_added(t, added): continue
 
         tracks.append(t)
-    
+    cur = db.cursor(new=True)
+
+    for item in items:
+        cur.execute("SELECT id, name FROM %s" % item.lower())
+        rows = cur.fetchall()
+        for row in rows:
+            globals()[item][row[1]] = row[0]
+
+    cur.execute("SELECT artist, name, id FROM albums")
+    rows = cur.fetchall()
+    for row in rows:
+        ALBUMS["%d - %s" % (row[0], row[1])] = row[2]
+
+    cur.close()
     return tracks
 
 def scan_dir(directory, matches, files):
@@ -361,43 +380,56 @@ def read_audio_disc(exaile):
 
     return songs
 
-def get_column_id(cur, table, col, value):
+@common.synchronized
+def get_column_id(db, table, col, value):
     """
         Gets a column id for inserting the specific col into the specific
         table
     """
-    try:
-        cur.execute("INSERT INTO %s( %s ) VALUES( ? )" % (table, col),
-            (value,))
-    except IntegrityError:
-        pass
+    cols = globals()[table.upper()]
+    if cols.has_key(value):
+        return cols[value]
 
-    cur.execute("SELECT id FROM %s WHERE name=?" % table, (value,))
-    row = cur.fetchone()
-    if not row: return None
-    return row[0]
+    vals = cols.values()
+    vals.sort()
+    if not vals:
+        index = 1
+    else:
+        index = vals[len(vals) - 1]
+        index += 1
+    cols[value] = index
+#    print "Couldn't find an id for \"%s\" so we used %d" % (value, index)
 
-def get_album_id(cur, artist_id, album):
-    try:
-        cur.execute("INSERT INTO albums( artist, name ) VALUES( ?, ? )", 
-            (artist_id, album))
-    except IntegrityError:
-        pass
+    db.execute("INSERT INTO %s( id, %s ) VALUES( ?, ? )" % (table, col), 
+        (index, value,))
+    return index
 
-    cur.execute("SELECT id FROM albums WHERE artist=? AND name=?", 
-        (artist_id, album))
-    row = cur.fetchone()
-    if not row: return None
-    return row[0]
+@common.synchronized
+def get_album_id(db, artist_id, album):
+    cols = ALBUMS
+    if cols.has_key("%d - %s" % (artist_id, album)):
+        return cols["%d - %s" % (artist_id, album)]
+
+    vals = cols.values()
+    vals.sort()
+    if not vals:
+        index = 1
+    else:
+        index = vals[len(vals) - 1]
+        index += 1
+
+    cols["%d - %s" % (artist_id, album)] = index
+    db.execute("INSERT INTO albums( id, artist, name ) VALUES( ?, ?, ?)",
+        (index, artist_id, album))
+    return index
 
 def read_track(db, current, path, skipmod=False, ipod=False, adddb=True,
-    row=None, cursor=None):
+    row=None):
     """
         Reads a track, either from the database, or from it's metadata
     """
 
-    if not cursor: cur = db.cursor()
-    else: cur = cursor
+    cur = db.cursor(new=True)
     # if path was passed in as a list, the correct fields have probably
     # already been loaded from the database
     if not row is None:
@@ -452,17 +484,18 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True,
 
             tr.read_from_db = False
             the_track = ""
-            if tr.artist.lower()[:4] == "the ":
-                # it's a "the" track.  strip "the " and mark it
-                the_track = tr.artist[:4]
-                tr.artist = tr.artist[4:]
-                tr.the_track = the_track
-
-            path_id = get_column_id(cur, 'paths', 'name', tr.loc)
-            artist_id = get_column_id(cur, 'artists', 'name', tr._artist)
-            album_id = get_album_id(cur, artist_id, tr.album)
+#            if tr.artist.lower()[:4] == "the ":
+#                 it's a "the" track.  strip "the " and mark it
+#                the_track = tr.artist[:4]
+#                tr.artist = tr.artist[4:]
+#                tr.the_track = the_track
 
             if db and adddb:
+
+                path_id = get_column_id(db, 'paths', 'name', tr.loc)
+                artist_id = get_column_id(db, 'artists', 'name', tr._artist)
+                album_id = get_album_id(db, artist_id, tr.album)
+
                 db.update("tracks",
                     {
                         "path": path_id,
@@ -480,6 +513,7 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True,
                     }, "path=?", (path,), row == None)
 
         except:
+            print 'fags'
             xlmisc.log_exception()
     elif current != None and current.for_path(path):
         return current.for_path(path)
@@ -495,8 +529,8 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True,
         tr.set_info(*row)
 
         tr.read_from_db = True
+    cur.close()
 
-    if not cursor: cur.close()
     return tr
 
 class PopulateThread(threading.Thread):
@@ -535,13 +569,13 @@ class PopulateThread(threading.Thread):
         directories = self.directories
         db = self.db
         cur = self.db.cursor()
-        cur.execute("DELETE FROM directories")
+        self.db.execute("DELETE FROM directories")
         for path in directories:
             try:
                 mod = os.path.getmtime(path)
             except OSError:
                 continue
-            cur.execute("INSERT INTO directories( path, modified ) "
+                db.execute("INSERT INTO directories( path, modified ) "
                 "VALUES( ?, ? )", (path, mod))
 
         update_func = self.update_func
@@ -551,7 +585,7 @@ class PopulateThread(threading.Thread):
         total = len(paths)
         xlmisc.log("File count: %d" % total)
 
-        cur.execute("UPDATE tracks SET included=0")
+        db.execute("UPDATE tracks SET included=0")
         count = 0; commit_count = 0
         update_queue = dict()
         added = dict()
@@ -568,10 +602,10 @@ class PopulateThread(threading.Thread):
             try:
                 temp = self.exaile.all_songs.for_path(loc)
                 
-                tr = read_track(db, self.exaile.all_songs, loc, cursor=cur)
+                tr = read_track(db, self.exaile.all_songs, loc)
                 if tr:
-                    path_id = get_column_id(cur, 'paths', 'name', loc)
-                    cur.execute("UPDATE tracks SET included=1 WHERE path=?",
+                    path_id = get_column_id(db, 'paths', 'name', loc)
+                    db.execute("UPDATE tracks SET included=1 WHERE path=?",
                         (path_id,))
                 if not tr or tr.blacklisted: continue
                 
@@ -594,9 +628,7 @@ class PopulateThread(threading.Thread):
             count = count + (1 * 1.0)
             commit_count += 1
             if commit_count >= 20:
-                db.commit()
-                cur.close()
-                cur = db.cursor()
+#                db.commit()
                 commit_count = 0
 
             if total != 0 and (count % 3) == 0.0:
@@ -611,10 +643,8 @@ class PopulateThread(threading.Thread):
         if self.done: return
 
         if self.delete:
-            cur.execute("DELETE FROM tracks WHERE included=0")
-        cur.close()
+            db.execute("DELETE FROM tracks WHERE included=0")
         db.commit()
-        self.db._close_thread()
 
     def stop(self):
         """

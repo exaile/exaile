@@ -17,6 +17,7 @@ CREATE TABLE tracks( path INT NOT NULL,
     rating INT DEFAULT 0, 
     user_rating INT DEFAULT 2, 
     last_played TIMESTAMP, 
+    time_added TIMESTAMP,
     blacklisted INT DEFAULT 0,
     type TINYINT DEFAULT 0,
     the_track VARCHAR(40) DEFAULT '', 
@@ -25,12 +26,14 @@ CREATE INDEX album_index ON tracks(album);
 CREATE INDEX artist_index ON tracks(artist);
 
 CREATE TABLE artists( id INTEGER NOT NULL PRIMARY KEY,
-    name VARCHAR(50) NOT NULL );
+    name VARCHAR(50) NOT NULL UNIQUE );
 
 CREATE TABLE albums( id INTEGER NOT NULL PRIMARY KEY,
     artist INT NOT NULL, 
     name VARCHAR(50) NOT NULL, 
     image VARCHAR(40));
+
+CREATE UNIQUE INDEX albums_artist ON albums(artist, name);
 
 CREATE UNIQUE INDEX album_artist_index ON albums( artist, name );
 

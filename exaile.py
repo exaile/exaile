@@ -787,6 +787,7 @@ class ExaileWindow(object):
         """
         loc = "%s%smusic.db" % (SETTINGS_DIR, os.sep)
         database = db.DBManager(loc)
+        print "Called once!!"
 
         return database
 
@@ -1089,14 +1090,13 @@ class ExaileWindow(object):
             Gets called when all covers have been downloaded from amazon
         """
         track = self.current_track
-        cur = self.db.cursor()
-        artist_id = tracks.get_column_id(cur, 'artists', 'name', track.artist)
-        album_id = tracks.get_album_id(cur, artist_id, track.album)
+        artist_id = tracks.get_column_id(self.db, 'artists', 'name', track.artist)
+        album_id = tracks.get_album_id(self.db, artist_id, track.album)
 
         self.status.set_first(None)
         if len(covers) == 0:
             self.status.set_first(_("No covers found."), 2000)
-            cur.execute("UPDATE albums SET image='nocover' WHERE id=?",
+            self.db.execute("UPDATE albums SET image='nocover' WHERE id=?",
                 (album_id,))
 
         # loop through all of the covers that have been found
@@ -1112,14 +1112,11 @@ class ExaileWindow(object):
                     cover['filename']))
                 self.pmanager.fire_event(event)
 
-                cur.execute("UPDATE albums SET image=? WHERE id=?",
+                self.db.execute("UPDATE albums SET image=? WHERE id=?",
                     (cover['md5'] + ".jpg", album_id))
                 
                 break
    
-        cur.close()
-        self.db.commit()
-
     def fetch_cover(self, track, popup=None): 
         """
             Fetches the cover from the database.  If it can't be found
@@ -1129,14 +1126,11 @@ class ExaileWindow(object):
         if not popup:
             self.cover.set_image("images%snocover.png" % os.sep)
         if track == None: return
-        cur = self.db.cursor()
-        artist_id = tracks.get_column_id(cur, 'artists', 'name', track.artist)
-        album_id = tracks.get_album_id(cur, artist_id, track.album)
+        artist_id = tracks.get_column_id(self.db, 'artists', 'name', track.artist)
+        album_id = tracks.get_album_id(self.db, artist_id, track.album)
 
         # check to see if a cover already exists
-        cur.execute("SELECT image FROM albums WHERE id=?", (album_id,))
-        row = cur.fetchone()
-        cur.close()
+        row = self.db.read_one("albums", "image", 'id=?', (album_id,))
 
         if row != None and row[0] != "" and row[0] != None:
             if row[0] == "nocover": 
@@ -1252,7 +1246,6 @@ class ExaileWindow(object):
         cur = self.db.cursor()
         cur.execute("UPDATE albums SET image='nocover' WHERE album=%s AND "
             "artist=%s" % (self.db.p, self.db.p), (track.album, track.artist))
-        cur.close()
         self.cover.set_image("images%snocover.png" % os.sep)
 
     def cover_menu_activate(self, item, user_param=None): 
@@ -1425,10 +1418,8 @@ class ExaileWindow(object):
         self.update_track_information()
         self.played.append(track)
 
-        cur = self.db.cursor()
-        artist_id = tracks.get_column_id(cur, 'artists', 'name', track.artist)
-        tracks.get_album_id(cur, artist_id, track.album)
-        cur.close()
+        artist_id = tracks.get_column_id(self.db, 'artists', 'name', track.artist)
+        tracks.get_album_id(self.db, artist_id, track.album)
 
         if track.type != 'stream' and self.settings.get('fetch_covers', True):
             self.fetch_cover(track)
@@ -1713,7 +1704,6 @@ class ExaileWindow(object):
         (path, ext) = os.path.splitext(path)
         name = os.path.basename(path).replace("_", " ")
         t = trackslist.TracksListCtrl 
-        cur = self.db.cursor()
 
         count = 0
         for line in f.readlines():
@@ -1736,7 +1726,7 @@ class ExaileWindow(object):
                         play = tr
                 else:
                     tr = tracks.read_track(self.db, self.all_songs, p,
-                        adddb=False, cursor=cur)
+                        adddb=False)
                     
                 if isinstance(tr, media.StreamTrack):
                     name = "Stream"
@@ -1750,9 +1740,7 @@ class ExaileWindow(object):
 
             count += 1
             first = False
-        
 
-        cur.close()
         self.db.commit()
         if title: name = title
         if not songs: 

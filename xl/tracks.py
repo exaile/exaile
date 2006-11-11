@@ -18,7 +18,7 @@ import os, re, os.path, copy, traceback, gc
 import common, media, db, config, trackslist
 import sys, md5, xlmisc, gobject, random
 import thread, threading, urllib, audioscrobbler
-import dbusinterface, xl.db
+import dbusinterface, xl.db, time
 from db import DBOperationalError
 from pysqlite2.dbapi2 import IntegrityError
 
@@ -451,7 +451,8 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True,
                     modified, 
                     user_rating, 
                     blacklisted, 
-                    the_track 
+                    the_track,
+                    time_added
                 FROM tracks,paths,artists,albums 
                 WHERE 
                     (
@@ -484,16 +485,19 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True,
 
             tr.read_from_db = False
             the_track = ""
-#            if tr.artist.lower()[:4] == "the ":
-#                 it's a "the" track.  strip "the " and mark it
-#                the_track = tr.artist[:4]
-#                tr.artist = tr.artist[4:]
-#                tr.the_track = the_track
+            # it's a "the" track.  strip "the " and mark it
+            if tr.artist.lower()[:4] == "the ":
+                the_track = tr.artist[:4]
+                tr.artist = tr.artist[4:]
+                tr.the_track = the_track
+
 
             if db and adddb:
-
+                if not row:
+                    tr.time_added = time.strftime("%m-%d-%Y %H:%M:%Y", 
+                        time.localtime())
                 path_id = get_column_id(db, 'paths', 'name', tr.loc)
-                artist_id = get_column_id(db, 'artists', 'name', tr._artist)
+                artist_id = get_column_id(db, 'artists', 'name', tr.artist)
                 album_id = get_album_id(db, artist_id, tr.album)
 
                 db.update("tracks",
@@ -509,11 +513,11 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True,
                         "bitrate": tr._bitrate,
                         "blacklisted": tr.blacklisted,
                         "year": tr.year,
-                        "modified": mod
+                        "modified": mod,
+                        "time_added": tr.time_added
                     }, "path=?", (path,), row == None)
 
         except:
-            print 'fags'
             xlmisc.log_exception()
     elif current != None and current.for_path(path):
         return current.for_path(path)

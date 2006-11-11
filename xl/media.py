@@ -132,14 +132,14 @@ class Track(object):
     def __init__(self, loc="", title="", artist="",  
         album="", genre="",
         track=0, length=0, bitrate=0, year="", 
-        modified=0, user_rating=0, blacklisted=0, the_track=''):
+        modified=0, user_rating=0, blacklisted=0, the_track='', time_added=''):
         """
             Loads an initializes the tag information
             Expects the path to the track as an argument
         """
         self.set_info(loc, title, artist, album, genre,
             track, length, bitrate, year, modified, user_rating, 
-            blacklisted, the_track)
+            blacklisted, the_track, time_added)
 
         self.time_played = 0
         self.read_from_db = False
@@ -150,7 +150,8 @@ class Track(object):
 
     def set_info(self, loc="", title="", artist="",
         album="", genre="", track=0, length=0, bitrate=0, year="", 
-        modified=0, user_rating=0, blacklisted=0, the_track=''):
+        modified=0, user_rating=0, blacklisted=0, the_track='', 
+        time_added=''):
         """
             Sets track information
         """
@@ -178,6 +179,7 @@ class Track(object):
         self.rating = user_rating
         self.user_rating = user_rating
         self.the_track = the_track
+        self.time_added = ''
 
     def ipod_track(self):
         """
@@ -823,13 +825,11 @@ class GSTTrack(Track):
         Generic gstreamer track. Use only if the format isn't currently
         supported in mutagen (this method is slower)
     """
-    def __init__(self, loc="", title="", artist="", album="", genre="",
-        track=0, length=0, bitrate=0, year=""):
+    def __init__(self, *args):
         """
             Initializes the track"
         """
-        Track.__init__(self, loc, title, artist, album, genre, track,
-            length, bitrate, year)
+        Track.__init__(self, *args) 
 
         self.done = False
         self.eos = False
@@ -900,13 +900,11 @@ class MP3Track(Track):
 
     SDI = dict([(v, k) for k, v in IDS.iteritems()])
 
-    def __init__(self, loc="", title="", artist="", album="", genre="",
-        track=0, length=0, bitrate=0, year=""):
+    def __init__(self, *args):
         """
             Initializes the track
         """
-        Track.__init__(self, loc, title, artist, album, genre, track,
-            length, bitrate, year)
+        Track.__init__(self, *args)
 
     def write_tag(self, db=None):
         """
@@ -980,13 +978,11 @@ class MP3Track(Track):
 
 class iPodTrack(MP3Track):
 
-    def __init__(self, loc="", title="", artist="", album="", genre="",
-        track=0, length=0, bitrate=0, year=""):
+    def __init__(self, *args):
         """
             Initializes the track
         """
-        Track.__init__(self, loc, title, artist, album, genre, track,
-            length, bitrate, year)
+        Track.__init__(self, *args)
 
         self.itrack = None
         self.type = 'ipod'
@@ -1047,13 +1043,11 @@ class OGGTrack(Track):
     """
         Represents an OGG/Vorbis track
     """
-    def __init__(self, loc="", title="", artist="", album="", genre="",
-        track=0, length=0, bitrate=0, year=""):
+    def __init__(self, *args):
         """
             Initializes the track
         """
-        Track.__init__(self, loc, title, artist, album, genre, track,
-            length, bitrate, year)
+        Track.__init__(self, *args)
 
     def get_tag(self, f, tag):
         """
@@ -1106,13 +1100,11 @@ class FLACTrack(Track):
     """
         Represents an FLAC (non-lossy) track
     """
-    def __init__(self, loc="", title="", artist="", album="", genre="",
-        track=0, length=0, bitrate=0, year=""):
+    def __init__(self, *args):
         """
             Initializes the track
         """
-        Track.__init__(self, loc, title, artist, album, genre, track,
-            length, bitrate, year)
+        Track.__init__(self, *args)
 
     def get_tag(self, flac, tag):
         """

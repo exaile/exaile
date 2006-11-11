@@ -1519,7 +1519,7 @@ class PlaylistsPanel(object):
         The playlists panel 
     """
     SMART_PLAYLISTS = ("Entire Library", "Highest Rated", "Top 100", "Most Played",
-        "Least Played", "Random 100", "Rating > 5", "Rating > 3")
+        "Least Played", "Random 100", "Rating > 5", "Rating > 3", "Newest 100")
 
     def __init__(self, exaile):
         """
@@ -1635,6 +1635,11 @@ class PlaylistsPanel(object):
             w = "SELECT paths.name FROM paths,tracks WHERE " \
                 "tracks.path=paths.id AND user_rating > 3 " \
                 "ORDER BY artist, album, track"
+        elif smart == "Newest 100":
+            w = "SELECT paths.name FROM paths,tracks WHERE " \
+                "tracks.path=paths.id AND time_added!='' " \
+                "ORDER BY time_added DESC " \
+                "LIMIT 100"
         elif smart == "Random 100":
             w = "SELECT paths.name FROM tracks,paths WHERE " \
                 "paths.id=tracks.path"

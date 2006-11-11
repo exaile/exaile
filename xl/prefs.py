@@ -359,6 +359,7 @@ class Preferences(object):
             'ipod_mount': (PrefsItem, '/media/ipod'),
             'as_submit_ipod': (CheckPrefsItem, False), 
             'audio_sink': (ComboPrefsItem, 'Use GConf Settings'),
+            'osd_tray': (CheckPrefsItem, True),
             'osd_bgcolor': (ColorButtonPrefsItem, '#567ea2',
                 self.osd_colorpicker),
             'osd_textcolor': (ColorButtonPrefsItem, '#ffffff',

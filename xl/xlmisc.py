@@ -331,7 +331,8 @@ class TrayIcon(object):
             self.button_pressed)
         self.box.connect('scroll-event',
             self.exaile.volume.scroll)
-        self.box.connect('enter-notify-event', lambda *e: self.exaile.show_popup())
+        self.box.connect('enter-notify-event', lambda *e: 
+            self.exaile.show_popup(tray=True))
         self.icon.show_all()
 
     def button_pressed(self, item, event, data=None):
@@ -1877,6 +1878,7 @@ class PopupWindow(object):
         self.cover.set_image_size(settings['osd_h'] - 8, settings['osd_h'] - 8)
         self.event.connect('button_press_event', self.start_dragging)
         self.event.connect('button_release_event', self.stop_dragging)
+        self.__handler = None
 
     def start_dragging(self, widget, event):
         """
@@ -1896,7 +1898,8 @@ class PopupWindow(object):
             Called when the user stops dragging the mouse
         """
         global POPUP
-        self.window.disconnect(self.__handler)
+        if self.__handler: self.window.disconnect(self.__handler)
+        self.__handler = None
         if self.start_timer:
             self.__timeout = gobject.timeout_add(4000, self.window.hide)
         settings = self.exaile.settings

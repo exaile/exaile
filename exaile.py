@@ -1495,11 +1495,13 @@ class ExaileWindow(object):
 
         self.update_songs(None, False)
 
-    def show_popup(self):
+    def show_popup(self, tray=False):
         """
             Shows a popup window with information about the current track
         """
         if not self.settings.get_boolean("use_popup", True): return
+        if tray:
+            if not self.settings.get_boolean('osd_tray', True): return
         track = self.current_track
         if not track: return
         pop = xlmisc.get_popup(self, xlmisc.get_popup_settings(self.settings))

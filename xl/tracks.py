@@ -263,8 +263,9 @@ def load_tracks(db, current=None):
             (
                 paths.id=tracks.path AND 
                 artists.id = tracks.artist AND 
-                albums.id = tracks.album) AND 
-                blacklisted=0 
+                albums.id = tracks.album
+            ) AND 
+            blacklisted=0 
         ORDER BY 
             LOWER(artists.name), 
             LOWER(albums.name), 

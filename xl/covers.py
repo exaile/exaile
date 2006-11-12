@@ -68,6 +68,7 @@ class CoverFetcherThread(threading.Thread):
 
         xlmisc.log("new thread created with %s" % search_string)
         threading.Thread.__init__(self)
+        self.setDaemon(True)
         self._done = False
         self._done_func = _done_func
         self.search_string = search_string

@@ -104,10 +104,6 @@ def toggle_record(widget, event=None):
         STREAMRIPPER_OUT.write(
             "-------------------------------------------------\n\n\n")
 
-        if SETTINGS.get_boolean("kill_streamripper", True):
-            xlmisc.log("Killing any current streamripper processes")
-            os.system("killall -9 streamripper")
-
         track.stop()
         sub = subprocess.Popen(['streamripper', track.loc, '-r',
             str(port), '-d', savedir], stderr=STREAMRIPPER_OUT)

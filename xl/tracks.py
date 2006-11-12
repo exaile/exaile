@@ -30,9 +30,11 @@ except:
 
 import media
 
-READ_FIELDS = "path, title, artist, album, "  \
-    "genre, track, length, bitrate, year, modified, user_rating, " \
-    "blacklisted, the_track"
+def the_cutter(field):
+    """
+        Cuts "THE " off of the beginning of any field for better sorting
+    """
+    return re.sub("^the ", "", field.lower())
 
 def get_suggested_songs(exaile, db, song, s, count, done_func):
     """
@@ -267,7 +269,7 @@ def load_tracks(db, current=None):
             ) AND 
             blacklisted=0 
         ORDER BY 
-            LOWER(artists.name), 
+            THE_CUTTER(artists.name), 
             LOWER(albums.name), 
             track, 
             title
@@ -545,6 +547,7 @@ class PopulateThread(threading.Thread):
         """
         threading.Thread.__init__(self)
         self.db = db
+        self.setDaemon(True)
         self.exaile = exaile
         self.directories = directories
         self.update_func = update_func

@@ -787,8 +787,7 @@ class ExaileWindow(object):
         """
         loc = "%s%smusic.db" % (SETTINGS_DIR, os.sep)
         database = db.DBManager(loc)
-        print "Called once!!"
-
+        database.add_function_create(('THE_CUTTER', 1, tracks.the_cutter))
         return database
 
     def database_connect(self):

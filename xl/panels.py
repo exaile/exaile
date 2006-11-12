@@ -548,7 +548,7 @@ class CollectionPanel(object):
                         artists.id=tracks.artist
                     ) 
                 ORDER BY 
-                    LOWER(artists.name), 
+                    THE_CUTTER(artists.name), 
                     LOWER(albums.name), 
                     track, 
                     title
@@ -573,7 +573,7 @@ class CollectionPanel(object):
                 ORDER BY 
                     LOWER(albums.name), 
                     track, 
-                    LOWER(artists.name), 
+                    THE_CUTTER(artists.name), 
                     title
             """
 
@@ -1332,6 +1332,7 @@ class iPodPanel(CollectionPanel):
         self.exaile_dir = "%s/iPod_Control/exaile" % self.mount
         self.log_file = "%s/lastfm.log" % self.exaile_dir
         self.db = db.DBManager(":memory:")
+        self.db.add_function_create(('THE_CUTTER', 1, tracks.the_cutter))
         self.db.import_sql("sql/db.sql")
         self.db.check_version("sql")
         self.lists = []
@@ -1376,7 +1377,7 @@ class iPodPanel(CollectionPanel):
 
                 cur.execute("INSERT INTO tracks(path, " \
                     "title, artist, album, track, length," \
-                    "bitrate, genre, year, user_rating, the_track ) " \
+                    "bitrate, genre, year, user_rating ) " \
                     "VALUES( %s ) " % left, 
 
                     (path_id,
@@ -1388,8 +1389,7 @@ class iPodPanel(CollectionPanel):
                     unicode(track.bitrate),
                     unicode(track.genre),
                     unicode(track.year),
-                    unicode(track.rating),
-                    the_track))
+                    unicode(track.rating)))
 
                 itrack = track
                 track = xl.tracks.read_track(self.db, None, loc, True, True,

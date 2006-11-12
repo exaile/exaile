@@ -76,6 +76,7 @@ class DBManager(object):
         self.pool = dict()
         self.timer_id = None
         self.p = '?'
+        self.functions = []
         if start_timer:
             self.timer_id = gobject.timeout_add(2 * 60 * 60, self.commit)
 
@@ -90,6 +91,13 @@ class DBManager(object):
         cur.close()
         self._cursor = self.db.cursor()
         print "Initial cursor!!", self._cursor
+
+    def add_function_create(self, tup):
+        """
+            Adds a function that will be created in all pooled dbs
+        """
+        self.db.create_function(tup[0], tup[1], tup[2])
+        self.functions.append(tup)
 
     def cursor(self, new=False):   
         """
@@ -223,6 +231,8 @@ class DBManager(object):
         if name == "MainThread": return self.db
         if not self.pool.has_key(name):
             db = self.__get_db()
+            for tup in self.functions:
+                db.create_function(tup[0], tup[1], tup[2])
             self.pool[name] = db
             print "Created db for thread %s" % name
             print self.pool

@@ -34,7 +34,11 @@ def the_cutter(field):
     """
         Cuts "THE " off of the beginning of any field for better sorting
     """
-    return re.sub("^the ", "", field.lower())
+    field = field.lower()
+    if field.find("the ") == 0:
+        return field.replace("the ", "", 1)
+    else:
+        return field
 
 def get_suggested_songs(exaile, db, song, s, count, done_func):
     """

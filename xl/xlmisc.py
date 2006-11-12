@@ -542,7 +542,7 @@ class CoverFetcher(object):
                 log(cover['filename'])
 
                 try:
-                    cur.execute("UPDATE albums SET image=? WHERE id=?", 
+                    self.db.execute("UPDATE albums SET image=? WHERE id=?", 
                         (cover['md5'] + ".jpg", album_id))
                 except:
                     log_exception()

@@ -1348,6 +1348,8 @@ class iPodPanel(CollectionPanel):
             return False
         if not os.path.isdir(self.exaile_dir):
             os.mkdir(self.exaile_dir)
+        for item in ('PATHS', 'ALBUMS', 'ARTISTS'):
+            setattr(tracks, 'IPOD_%s' % item, {})
         self.all = xl.tracks.TrackData()
         ## clear out ipod information from database
         self.db.execute("DELETE FROM tracks WHERE type=1")
@@ -1361,21 +1363,21 @@ class iPodPanel(CollectionPanel):
                 loc = self.mount + track.ipod_path.replace(":", "/")
 
         left = []
-        for i in range(11):
-            left.append(self.db.p)
+        for i in range(10):
+            left.append('?')
         left = ", ".join(left)
-        cur = self.db.cursor()
         for track in gpod.sw_get_tracks(self.itdb):
             loc = self.mount + track.ipod_path.replace(":", "/")
             try:
                 loc = unicode(loc)
 
-                path_id = tracks.get_column_id(self.db, 'paths', 'name', loc)
+                path_id = tracks.get_column_id(self.db, 'paths', 'name', loc,
+                    ipod=True)
                 artist_id = tracks.get_column_id(self.db, 'artists', 'name', 
-                    track.artist)
-                album_id = tracks.get_album_id(self.db, artist_id, track.album)
+                    track.artist, ipod=True)
+                album_id = tracks.get_album_id(self.db, artist_id, track.album, ipod=True)
 
-                cur.execute("INSERT INTO tracks(path, " \
+                self.db.execute("INSERT INTO tracks(path, " \
                     "title, artist, album, track, length," \
                     "bitrate, genre, year, user_rating ) " \
                     "VALUES( %s ) " % left, 
@@ -1392,14 +1394,15 @@ class iPodPanel(CollectionPanel):
                     unicode(track.rating)))
 
                 itrack = track
-                track = xl.tracks.read_track(self.db, None, loc, True, True,
-                    cursor=cur)
+                track = xl.tracks.read_track(self.db, None, loc, True, True)
+                   
                 if not track: continue
                 track.itrack = itrack
                 
                 self.all.append(track)
 
             except UnicodeDecodeError:
+                traceback.print_exc()
                 continue
 
         self.db.commit()

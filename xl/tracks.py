@@ -385,12 +385,15 @@ def read_audio_disc(exaile):
     return songs
 
 @common.synchronized
-def get_column_id(db, table, col, value):
+def get_column_id(db, table, col, value, ipod=False):
     """
         Gets a column id for inserting the specific col into the specific
         table
     """
+    if not value: value = ''
     cols = globals()[table.upper()]
+    if ipod:
+        cols = globals()["IPOD_%s" % table.upper()]
     if cols.has_key(value):
         return cols[value]
 
@@ -408,8 +411,10 @@ def get_column_id(db, table, col, value):
     return index
 
 @common.synchronized
-def get_album_id(db, artist_id, album):
+def get_album_id(db, artist_id, album, ipod=False):
     cols = ALBUMS
+    if ipod:
+        cols = IPOD_ALBUMS
     if cols.has_key("%d - %s" % (artist_id, album)):
         return cols["%d - %s" % (artist_id, album)]
 
@@ -422,6 +427,7 @@ def get_album_id(db, artist_id, album):
         index += 1
 
     cols["%d - %s" % (artist_id, album)] = index
+    if not album: album = ''
     db.execute("INSERT INTO albums( id, artist, name ) VALUES( ?, ?, ?)",
         (index, artist_id, album))
     return index
@@ -432,7 +438,6 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True,
         Reads a track, either from the database, or from it's metadata
     """
 
-    cur = db.cursor(new=True)
     # if path was passed in as a list, the correct fields have probably
     # already been loaded from the database
     if not row is None:
@@ -440,7 +445,7 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True,
     # else, we read the row from the database
     else:
         if db:
-            cur.execute("""
+            rows = db.select("""
                 SELECT 
                     paths.name, 
                     title, 
@@ -464,7 +469,10 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True,
                     ) 
                     AND paths.name=? 
                 """, (path,))
-            row = cur.fetchone()
+            if not rows:
+                row = None
+            else:
+                row = rows[0]
 
     if not os.path.isfile(path): return None
     (f, ext) = os.path.splitext(path)
@@ -491,9 +499,10 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True,
                 if not row:
                     tr.time_added = time.strftime("%Y-%m-%d %H:%M:%Y", 
                         time.localtime())
-                path_id = get_column_id(db, 'paths', 'name', tr.loc)
-                artist_id = get_column_id(db, 'artists', 'name', tr.artist)
-                album_id = get_album_id(db, artist_id, tr.album)
+                path_id = get_column_id(db, 'paths', 'name', tr.loc, ipod=ipod)
+                artist_id = get_column_id(db, 'artists', 'name', tr.artist,
+                    ipod=ipod)
+                album_id = get_album_id(db, artist_id, tr.album, ipod=ipod)
 
                 db.update("tracks",
                     {
@@ -509,7 +518,7 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True,
                         "year": tr.year,
                         "modified": mod,
                         "time_added": tr.time_added
-                    }, "path=?", (path,), row == None)
+                    }, "path=?", (path_id,), row == None)
 
         except:
             xlmisc.log_exception()
@@ -527,7 +536,6 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True,
         tr.set_info(*row)
 
         tr.read_from_db = True
-    cur.close()
 
     return tr
 

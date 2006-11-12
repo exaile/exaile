@@ -184,13 +184,6 @@ class ExaileWindow(object):
 
         self.timer.start()
 
-        if self.ipod_panel:
-            self.status.set_first(
-                _("Scanning ipod..."))
-            xlmisc.finish()
-            self.ipod_panel.load_tree('refresh')
-            self.status.set_first(None)
- 
         self.window.show_all()
         self.pmanager = plugins.manager.Manager(self) 
         enabled_plugins = []
@@ -848,6 +841,12 @@ class ExaileWindow(object):
             else:
                 if not self.tracks: self.new_page("Last", [])
         if first_run: gobject.idle_add(self.load_last_playlist)
+
+        if self.ipod_panel:
+            gobject.idle_add(self.status.set_first,
+                _("Scanning ipod..."))
+            gobject.idle_add(self.ipod_panel.load_tree, 'refresh')
+            gobject.idle_add(self.status.set_first, None)
 
     def setup_gamin(self, skip_prefs=False):
         """

@@ -135,6 +135,11 @@ class CollectionPanel(object):
             self.showing = False
             self.exaile.status.set_first(_("Finished scanning collection."),
                 2000)
+            self.scan_label.destroy()
+            self.progress_box.destroy()
+            self.stop_button.destroy()
+            self.progress.destroy()
+            self.scan_label = None
 
         else:
             if not self.scan_label:

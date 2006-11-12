@@ -818,9 +818,11 @@ class TracksListCtrl(gtk.VBox):
 
         cur = self.db.cursor()
         for track in self.get_selected_tracks():
-            self.db.execute("UPDATE tracks SET user_rating=%s WHERE path=%s" %
-                (self.db.p, self.db.p),
-                (rating, track.loc))
+            
+            path_id = tracks.get_column_id(self.db, 'paths', 'name',
+                track.loc)
+            self.db.execute("UPDATE tracks SET user_rating=? WHERE path=?",
+                (rating, path_id)) 
             track.rating = rating
             self.refresh_row(track)
 

@@ -447,8 +447,9 @@ class ExaileWindow(object):
 
         rating = combo.get_active() + 1
         track.rating = rating
-        self.db.execute("UPDATE tracks SET user_rating=%s WHERE path=%s" %
-            (self.db.p, self.db.p), (rating, track.loc))
+        path_id = tracks.get_column_id(self.db, 'paths', 'name', track.loc)
+        self.db.execute("UPDATE tracks SET user_rating=? WHERE path=?", 
+            (rating, path_id))
 
         xlmisc.log("Set rating to %d for track %s" % (rating, track))
         if self.tracks:

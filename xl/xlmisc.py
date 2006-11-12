@@ -528,11 +528,10 @@ class CoverFetcher(object):
             album
         """
         if self.stopped: return
-        cur = self.db.cursor()
-        artist_id = tracks.get_column_id(cur, 'artists', 'name', self.artist)
-        album_id = tracks.get_album_id(cur, artist_id, self.album)
+        artist_id = tracks.get_column_id(self.db, 'artists', 'name', self.artist)
+        album_id = tracks.get_album_id(self.db, artist_id, self.album)
         if len(covers) == 0:
-            cur.execute("UPDATE albums SET image=? WHERE id=?",
+            self.db.execute("UPDATE albums SET image=? WHERE id=?",
                 ('nocover', album_id,))
             
         # loop through all of the covers that have been found
@@ -562,7 +561,6 @@ class CoverFetcher(object):
                     self.model.set_value(iter, 1, image)
                 break
 
-        cur.close()
         if self.stopped: return
         self.current = self.current + 1
         self.progress.set_fraction(float(self.current) / float(self.total))
@@ -1377,11 +1375,10 @@ class CoverFrame(object):
         """
         track = self.track
         cover = self.covers[self.current]
-        cur = self.db.cursor()
-        artist_id = tracks.get_column_id(cur, 'artists', 'name', track.artist)
-        album_id = tracks.get_album_id(cur, artist_id, track.album)
+        artist_id = tracks.get_column_id(self.db, 'artists', 'name', track.artist)
+        album_id = tracks.get_album_id(self.db, artist_id, track.album)
 
-        cur.execute("UPDATE albums SET image=? WHERE id=?", (cover.filename(),
+        self.db.execute("UPDATE albums SET image=? WHERE id=?", (cover.filename(),
             album_id))
 
         if track == self.exaile.current_track:

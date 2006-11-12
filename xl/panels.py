@@ -1248,9 +1248,12 @@ class iPodPanel(CollectionPanel):
             Gets the location of the album art
         """
         db = self.exaile.db
-        row = db.read_one("albums", "image", 
-            "artist=%s AND album=%s AND image!=''" % (self.db.p, self.db.p),
-            (track.artist, track.album))
+        cur = db.realcursor()
+        cur.execute("SELECT image FROM tracks,albums,paths WHERE paths.name=?"
+            " AND paths.id=tracks.path AND albums.id=tracks.album",
+            (track.loc,))
+        row = cur.fetchone()
+        cur.close()
         if not row or row[0] == '': return None
         return "%s%scovers%s%s" % (self.exaile.get_settings_dir(), os.sep,
             os.sep, str(row[0]))

@@ -16,7 +16,7 @@
 
 
 import mutagen, mutagen.id3, mutagen.flac, mutagen.oggvorbis
-import mutagen.mp3, subprocess, common
+import mutagen.mp3, subprocess, common, tracks
 from gettext import gettext as _
 import sys, time, re, os.path, os
 import httplib
@@ -488,7 +488,7 @@ class Track(object):
             mod = os.stat(self.loc).st_mtime
             artist_id = tracks.get_column_id(db, 'artists', 'name',
                 self.artist)
-            album_id = tracks.get_albumn_id(db, artist_id, self.album)
+            album_id = tracks.get_album_id(db, artist_id, self.album)
             path_id = tracks.get_column_id(db, 'paths', 'name', self.loc)
 
             db.execute("UPDATE tracks SET title=?, artist=?, " \

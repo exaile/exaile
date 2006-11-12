@@ -20,7 +20,6 @@ CREATE TABLE tracks( path INT NOT NULL,
     time_added DATETIME,
     blacklisted INT DEFAULT 0,
     type TINYINT DEFAULT 0,
-    the_track VARCHAR(40) DEFAULT '', 
     included INT DEFAULT 0, PRIMARY KEY( path ) );
 CREATE INDEX album_index ON tracks(album);
 CREATE INDEX artist_index ON tracks(artist);

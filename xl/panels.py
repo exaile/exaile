@@ -1369,12 +1369,6 @@ class iPodPanel(CollectionPanel):
             try:
                 loc = unicode(loc)
 
-                # check for "the" tracks
-                artist = track.artist
-                the_track = ""
-                if artist and artist.lower()[:4] == "the ":
-                    the_track = artist[:4]
-                    artist = artist[4:]
                 path_id = tracks.get_column_id(self.db, 'paths', 'name', loc)
                 artist_id = tracks.get_column_id(self.db, 'artists', 'name', 
                     track.artist)

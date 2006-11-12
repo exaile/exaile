@@ -257,7 +257,7 @@ def load_tracks(db, current=None):
             modified, 
             user_rating, 
             blacklisted, 
-            the_track 
+            time_added
         FROM tracks, paths, artists, albums 
         WHERE 
             (
@@ -400,7 +400,6 @@ def get_column_id(db, table, col, value):
         index = vals[len(vals) - 1]
         index += 1
     cols[value] = index
-#    print "Couldn't find an id for \"%s\" so we used %d" % (value, index)
 
     db.execute("INSERT INTO %s( id, %s ) VALUES( ?, ? )" % (table, col), 
         (index, value,))
@@ -453,7 +452,6 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True,
                     modified, 
                     user_rating, 
                     blacklisted, 
-                    the_track,
                     time_added
                 FROM tracks,paths,artists,albums 
                 WHERE 
@@ -486,13 +484,6 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True,
             tr.read_tag()
 
             tr.read_from_db = False
-            the_track = ""
-            # it's a "the" track.  strip "the " and mark it
-            if tr.artist.lower()[:4] == "the ":
-                the_track = tr.artist[:4]
-                tr.artist = tr.artist[4:]
-                tr.the_track = the_track
-
 
             if db and adddb:
                 if not row:
@@ -511,7 +502,6 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True,
                         "genre": tr.genre,
                         "track": tr.track,
                         "length": tr.duration,
-                        "the_track": the_track,
                         "bitrate": tr._bitrate,
                         "blacklisted": tr.blacklisted,
                         "year": tr.year,

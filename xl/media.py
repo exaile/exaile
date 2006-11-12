@@ -132,14 +132,14 @@ class Track(object):
     def __init__(self, loc="", title="", artist="",  
         album="", genre="",
         track=0, length=0, bitrate=0, year="", 
-        modified=0, user_rating=0, blacklisted=0, the_track='', time_added=''):
+        modified=0, user_rating=0, blacklisted=0, time_added=''):
         """
             Loads an initializes the tag information
             Expects the path to the track as an argument
         """
         self.set_info(loc, title, artist, album, genre,
             track, length, bitrate, year, modified, user_rating, 
-            blacklisted, the_track, time_added)
+            blacklisted, time_added)
 
         self.time_played = 0
         self.read_from_db = False
@@ -150,8 +150,7 @@ class Track(object):
 
     def set_info(self, loc="", title="", artist="",
         album="", genre="", track=0, length=0, bitrate=0, year="", 
-        modified=0, user_rating=0, blacklisted=0, the_track='', 
-        time_added=''):
+        modified=0, user_rating=0, blacklisted=0, time_added=''):
         """
             Sets track information
         """
@@ -178,7 +177,6 @@ class Track(object):
         self.blacklisted = blacklisted
         self.rating = user_rating
         self.user_rating = user_rating
-        self.the_track = the_track
         self.time_added = ''
 
     def ipod_track(self):
@@ -338,7 +336,7 @@ class Track(object):
         """
             Gets the artist
         """
-        return "%s%s" % (self.the_track, self._artist)
+        return self._artist
 
     def get_len(self): 
         """
@@ -488,10 +486,10 @@ class Track(object):
 
         if db:
             mod = os.stat(self.loc).st_mtime
-            artist_id = tracks.get_column_id(cur, 'artists', 'name',
+            artist_id = tracks.get_column_id(db, 'artists', 'name',
                 self.artist)
-            album_id = tracks.get_albumn_id(cur, artist_id, self.album)
-            path_id = tracks.get_column_id(cur, 'paths', 'name', self.loc)
+            album_id = tracks.get_albumn_id(db, artist_id, self.album)
+            path_id = tracks.get_column_id(db, 'paths', 'name', self.loc)
 
             db.execute("UPDATE tracks SET title=?, artist=?, " \
                 "album=?, genre=?, year=?, modified=?, track=? WHERE path=?",

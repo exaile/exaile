@@ -1444,9 +1444,10 @@ class ExaileWindow(object):
 
         track.last_played = time.strftime("%Y-%m-%d %H:%M:%S",
             time.localtime())
-        self.db.execute("UPDATE tracks SET last_played=? WHERE "
-            " tracks.path=paths.id AND paths.name=?", (track.last_played,
-            track.loc))
+
+        path_id = tracks.get_column_id(self.db, 'paths', 'name', track.loc)
+        self.db.execute("UPDATE tracks SET last_played=? WHERE path=?",
+            (track.last_played, track.loc))
         gc.collect()
 
     def get_suggested_songs(self):

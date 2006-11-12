@@ -90,7 +90,6 @@ class DBManager(object):
         cur.execute("PRAGMA cast_sensitive_like=0")
         cur.close()
         self._cursor = self.db.cursor()
-        print "Initial cursor!!", self._cursor
 
     def add_function_create(self, tup):
         """

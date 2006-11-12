@@ -1656,7 +1656,8 @@ class ExaileWindow(object):
         track = self.tracks.get_selected_track()
         if not track: 
             if self.tracks.songs:
-                track = self.tracks.songs[0]
+                self.on_next()
+                return
             else: return
 
         if track in self.queued: del self.queued[self.queued.index(track)]

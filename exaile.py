@@ -1242,9 +1242,11 @@ class ExaileWindow(object):
         track = self.current_track
         if not track: return
 
-        cur = self.db.cursor()
-        cur.execute("UPDATE albums SET image='nocover' WHERE album=%s AND "
-            "artist=%s" % (self.db.p, self.db.p), (track.album, track.artist))
+        artist_id = tracks.get_artist_id(self.db, 'artists', 'name',
+            track.artist)
+        album_id = tracks.get_album_id(self.db, artist_id, track.album)
+
+        db.execute("UPDATE albums SET image='nocover' WHERE id=?", (album_id,))
         self.cover.set_image("images%snocover.png" % os.sep)
 
     def cover_menu_activate(self, item, user_param=None): 

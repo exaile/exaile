@@ -314,7 +314,8 @@ class ExaileWindow(object):
         self.plugins_item.connect('activate', self.show_plugin_manager)
 
         self.progress = self.xml.get_widget('track_slider')
-        self.progress.connect('change_value', self.seek)
+        self.progress.connect('change-value', self.seek)
+        self.progress.connect('scroll-event', self.seek_move)
 
         self.clear_button = self.xml.get_widget('clear_button')
         self.clear_button.connect('clicked', lambda *e:
@@ -1403,6 +1404,18 @@ class ExaileWindow(object):
 
         media.set_volume(float(self.volume.slider.get_value()) / 100.0)
         self.settings['volume'] = self.volume.slider.get_value() / 100.0
+
+    def seek_move(self, widget, ev):
+        """
+            Called when someone clicks on the slider
+        """
+        v = self.progress.get_value()
+        if ev.direction == gtk.gdk.SCROLL_LEFT: v += 8
+        else: v -= 8
+
+        if v < 0: v = 0
+        elif v > 100: v = 100
+        self.progress.set_value(v)
 
     def seek(self, range, scroll, value): 
         """

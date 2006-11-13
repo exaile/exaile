@@ -363,17 +363,15 @@ class CollectionPanel(object):
         selection.unselect_all()
         selection.select_path(path[0])
 
-    def button_pressed(self, widget, event):
+    def button_press(self, widget, event):
         """
             Called when someone clicks on the tree
         """
         selection = self.tree.get_selection()
-        (x, y) = event.get_coords()
-        x = int(x)
-        y = int(y)
-        path = self.tree.get_path_at_pos(x, y)
-        if not path: return True
 
+        (x, y) = event.get_coords()
+        x = int(x); y = int(y)
+        path = self.tree.get_path_at_pos(x, y)
         if event.type == gtk.gdk._2BUTTON_PRESS:
             (model, paths) = selection.get_selected_rows()
 
@@ -396,31 +394,19 @@ class CollectionPanel(object):
                     self.append_items() 
             return False
 
-        if event.button != 3: 
-            if selection.count_selected_rows() <= 1: return False
-            else: 
-                if selection.path_is_selected(path[0]): 
-                    if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
-                        selection.unselect_path(path[0])
-                    return True
-                elif not event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
-                    return True
-                return False  
-
-        else:
-            iter = self.model.get_iter(path[0])
-            object = self.model.get_value(iter, 1)
-            if isinstance(object, iPodPlaylist):
-                self.create_ipod_menu(object.root)
-                selection.unselect_all()
-                selection.select_path(path[0])
-                self.ipod_menu.popup(None, None, None,
-                    event.button, event.time)
-                return True
-            self.create_popup()
-            self.menu.popup(None, None, None, event.button, event.time)
-            if selection.count_selected_rows() <= 1: return False
+        iter = self.model.get_iter(path[0])
+        object = self.model.get_value(iter, 1)
+        if isinstance(object, iPodPlaylist):
+            self.create_ipod_menu(object.root)
+            selection.unselect_all()
+            selection.select_path(path[0])
+            self.ipod_menu.popup(None, None, None,
+                event.button, event.time)
             return True
+        self.create_popup()
+        self.menu.popup(None, None, None, event.button, event.time)
+        if selection.count_selected_rows() <= 1: return False
+        return True
 
     def track_data_func(self, column, cell, model, iter, user_data=None):
         """
@@ -445,7 +431,15 @@ class CollectionPanel(object):
         """
         self.current_start_count = self.start_count
         if not self.tree:
-            self.tree = self.xml.get_widget('%s_tree' % self.name)
+            self.tree = xlmisc.DragTreeView(self, self.ipod)
+            self.tree.set_headers_visible(False)
+            container = self.xml.get_widget('%s_box' % self.name)
+            scroll = gtk.ScrolledWindow()
+            scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+            scroll.add(self.tree)
+            scroll.set_shadow_type(gtk.SHADOW_IN)
+            container.pack_start(scroll, True, True)
+            container.show_all()
 
             selection = self.tree.get_selection()
             selection.set_mode(gtk.SELECTION_MULTIPLE)
@@ -457,25 +451,7 @@ class CollectionPanel(object):
             col.set_attributes(pb, pixbuf=0)
             self.tree.append_column(col)
             col.set_cell_data_func(cell, self.track_data_func)
-            self.targets = [('text/uri-list', 0, 0)]
-            self.tree.connect('drag_data_get', self.drag_get_data)
-            self.tree.connect('drag_begin', self.drag_begin)
-            self.tree.connect('drag_end', self.drag_end)
-            self.tree.connect('drag_motion', self.drag_motion)
-            self.tree.drag_source_set(gtk.gdk.BUTTON1_MASK, self.targets,
-                gtk.gdk.ACTION_COPY)
-            self.tree.drag_source_set_icon_stock('gtk-dnd')
-            self.__dragging = False
 
-            if isinstance(self, iPodPanel):
-                self.tree.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, 
-                    gtk.gdk.ACTION_COPY)
-                self.tree.connect('drag-data-received', 
-                    self.drag_data_received)
-            self.tree.connect('button_press_event',
-                self.button_pressed)
-            self.tree.connect('button_release_event', 
-                self.button_release)
         # clear out the tracks if this is a first time load or the refresh
         # button is pressed
         if event: 
@@ -605,38 +581,6 @@ class CollectionPanel(object):
         if self.connect_id: gobject.source_remove(self.connect_id)
         self.connect_id = None
         self.filter.set_sensitive(True)
-
-    def drag_end(self, list, context):
-        """
-            Called when the dnd is ended
-        """
-        self.__dragging = False
-        self.tree.unset_rows_drag_dest()
-        self.tree.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, gtk.gdk.ACTION_COPY)
-
-    def drag_begin(self, list, context):
-        """
-            Called when dnd is started
-        """
-        self.__dragging = True
-
-        context.drag_abort(gtk.get_current_event_time())
-        selection = self.tree.get_selection()
-        if selection.count_selected_rows() > 1:
-            self.tree.drag_source_set_icon_stock('gtk-dnd-multiple')
-        else: self.tree.drag_source_set_icon_stock('gtk-dnd')
-        return False
-
-    def drag_motion(self, treeview, context, x, y, timestamp):
-        """
-            Called when a row is dragged over this treeview
-        """
-#        if not isinstance(self, iPodPanel): return
-        self.tree.enable_model_drag_dest(self.targets,
-            gtk.gdk.ACTION_DEFAULT)
-        info = treeview.get_dest_row_at_pos(x, y)
-        if not info: return
-        treeview.set_drag_dest_row(info[0], info[1])
 
     @common.threaded
     def append_info(self, node, songs=None, unknown=False):
@@ -2636,7 +2580,16 @@ class FilesPanel(object):
         self.xml = exaile.xml
         self.history = [os.getenv('HOME')]
 
-        self.tree = self.xml.get_widget('files_tree')
+        self.tree = xlmisc.DragTreeView(self, False)
+        self.tree.set_headers_visible(False)
+        container = self.xml.get_widget('files_box')
+        self.scroll = gtk.ScrolledWindow()
+        self.scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        self.scroll.add(self.tree)
+        self.scroll.set_shadow_type(gtk.SHADOW_IN)
+        container.pack_start(self.scroll, True, True)
+        container.show_all()
+
         self.model = gtk.ListStore(gtk.gdk.Pixbuf, str, str)
         self.tree.set_model(self.model)
         selection = self.tree.get_selection()
@@ -2682,34 +2635,8 @@ class FilesPanel(object):
 
         self.load_directory(os.getenv('HOME'), False)
         self.tree.connect('row-activated', self.row_activated)
-        targets = [('text/uri-list', 0, 0)]
-        self.tree.connect('drag_data_get', self.drag_get_data)
-        self.tree.connect('drag_begin', self.drag_begin)
-        self.tree.connect('drag_end', self.drag_end)
-        self.tree.drag_source_set(gtk.gdk.BUTTON1_MASK, targets,
-            gtk.gdk.ACTION_COPY)
         self.menu = xlmisc.Menu()
         self.menu.append(_("Append to Playlist"), self.append)
-        self.tree.connect('button-press-event', self.button_press)
-        self.tree.connect('button-release-event', self.button_release)
-        self.__dragging = False
-        self.targets = [('text/uri-list', 0, 0)]
-
-    def button_release(self, widget, event):
-        """
-            Called when a button is released
-        """
-        if event.button != 1 or self.__dragging: return True
-        if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
-            return True
-        selection = self.tree.get_selection()
-        x, y = event.get_coords()
-        x = int(x); y = int(y)
-
-        path = self.tree.get_path_at_pos(x, y)
-        if not path: return False
-        selection.unselect_all()
-        selection.select_path(path[0])
 
     def drag_get_data(self, treeview, context, sel, target_id, etime):
         """
@@ -2726,49 +2653,15 @@ class FilesPanel(object):
 
         sel.set_uris(uris)
 
-    def drag_begin(self, list, context):
-        """
-            Called when dnd is started
-        """
-        self.__dragging = True
-
-        context.drag_abort(gtk.get_current_event_time())
-        selection = self.tree.get_selection()
-        if selection.count_selected_rows() > 1:
-            self.tree.drag_source_set_icon_stock('gtk-dnd-multiple')
-        else: self.tree.drag_source_set_icon_stock('gtk-dnd')
-        return False
-
-    def drag_end(self, list, context):
-        """
-            Called when the dnd is ended
-        """
-        self.__dragging = False
-        self.tree.unset_rows_drag_dest()
-        self.tree.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, gtk.gdk.ACTION_COPY)
-
     def button_press(self, widget, event):
         """
             Called to show the menu when someone right clicks
         """
         selection = self.tree.get_selection()
-        (x, y) = event.get_coords()
-        x = int(x)
-        y = int(y)
-        path = self.tree.get_path_at_pos(x, y)
-        if not path: return True
         if event.button == 3:
             self.menu.popup(None, None, None, event.button, event.time)
             return True
         if selection.count_selected_rows() <= 1: return False
-        else: 
-            if selection.path_is_selected(path[0]): 
-                if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
-                    selection.unselect_path(path[0])
-                return True
-            elif not event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
-                return True
-            return False
 
     def append(self, widget, event):
         """

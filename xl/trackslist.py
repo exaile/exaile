@@ -65,7 +65,7 @@ class TracksListCtrl(gtk.VBox):
         """
         gtk.VBox.__init__(self)
         self.exaile = exaile
-        self.list = gtk.TreeView()
+        self.list = xlmisc.DragTreeView(self)
         self.list.set_rules_hint(True)
         self.list.set_enable_search(False)
         self.songs = tracks.TrackData()
@@ -91,14 +91,12 @@ class TracksListCtrl(gtk.VBox):
         self.queue = queue
         self.ipod = False
         self.playlist = None
-        self.dragging = False
         self.tpm = None
         self.plugins_item = None
         self.setup_columns()
 
         self.show()
 
-        self.setup_dragging()
         self.setup_events()
 
     def close_page(self):
@@ -107,80 +105,13 @@ class TracksListCtrl(gtk.VBox):
         """
         pass
 
-    def setup_dragging(self):
-        """
-            Sets up drag and drop
-        """
-        self.targets = [("text/uri-list", 0, 0)]
-        self.list.drag_source_set(
-            gtk.gdk.BUTTON1_MASK, self.targets,
-            gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
-
-        self.list.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, 
-            gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_DEFAULT)
-        self.list.connect('drag_data_received', self.drag_data_received)
-        self.dragging = False
-        self.list.connect('drag_begin', self.drag_begin)
-        self.list.connect('drag_end', self.drag_end)
-        self.list.connect('drag_motion', self.drag_motion)
-        self.list.connect('button_release_event', self.button_release)
-        self.list.connect('drag_data_get', self.drag_get_data)
-        self.list.drag_source_set_icon_stock('gtk-dnd')
-
-    def button_release(self, button, event):
-        """
-            Called when a button is released
-        """
-        if event.button != 1 or self.dragging: return True
-        if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
-            return True
-        selection = self.list.get_selection()
-        x, y = event.get_coords()
-        x = int(x); y = int(y)
-
-        path = self.list.get_path_at_pos(x, y)
-        if not path: return False
-        selection.unselect_all()
-        selection.select_path(path[0])
-
-    def drag_end(self, list, context):
-        """
-            Called when the dnd is ended
-        """
-        self.dragging = False
-        self.list.unset_rows_drag_dest()
-        self.list.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, 
-            gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
-
-    def drag_begin(self, list, context):
-        """
-            Called when dnd is started
-        """
-        self.dragging = True
-
-        context.drag_abort(gtk.get_current_event_time())
-        selection = self.list.get_selection()
-        if selection.count_selected_rows() > 1:
-            self.list.drag_source_set_icon_stock('gtk-dnd-multiple')
-        else: self.list.drag_source_set_icon_stock('gtk-dnd')
-        return False
-
-    def drag_motion(self, treeview, context, x, y, timestamp):
-        """
-            Called when a row is dragged over this treeview
-        """
-        self.list.enable_model_drag_dest(self.targets,
-            gtk.gdk.ACTION_DEFAULT)
-        info = treeview.get_dest_row_at_pos(x, y)
-        if not info: return
-        treeview.set_drag_dest_row(info[0], info[1])
-
     def drag_data_received(self, tv, context, x, y, selection, info, etime):
         """
             Called when data is recieved
         """
         self.list.unset_rows_drag_dest()
-        self.list.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets,
+        self.list.drag_dest_set(gtk.DEST_DEFAULT_ALL, 
+            self.list.targets,
             gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
 
         model = tv.get_model()
@@ -329,7 +260,6 @@ class TracksListCtrl(gtk.VBox):
             Sets up various events
         """
         self.list.connect('row-activated', self.exaile.play)
-        self.list.connect('button_press_event', self.show_tracks_popup)
         self.list.connect('key_release_event', self.key_released)
 
     def drag_get_data(self, treeview, context, selection, target_id, etime):
@@ -826,31 +756,13 @@ class TracksListCtrl(gtk.VBox):
             track.rating = rating
             self.refresh_row(track)
 
-    def show_tracks_popup(self, button, event):
+    def button_press(self, button, event):
         """
             The popup menu that is displayed when you right click in the
             playlist
         """
+        if not event.button == 3: return
         selection = self.list.get_selection()
-        (x, y) = event.get_coords()
-        x = int(x)
-        y = int(y)
-        path = self.list.get_path_at_pos(x, y)
-        if not path: return True
-
-        if event.button != 3: 
-            if selection.count_selected_rows() <= 1: return False
-            else: 
-                if selection.path_is_selected(path[0]): 
-                    if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
-                        selection.unselect_path(path[0])
-                    return True
-                elif not event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
-                    return True
-                return False
-
-        if not selection.count_selected_rows():
-            selection.select_path(path[0])
         self.setup_tracks_menu()
 
         ipod = self.ipod
@@ -1090,7 +1002,7 @@ class QueueManager(TracksListCtrl):
 
         self.set_songs(self.exaile.queued)
 
-    def show_tracks_popup(self, button, event):
+    def button_press(self, button, event):
         """
             Overridden method of TracksListCtrl.  Does nothing at all
         """

@@ -1749,103 +1749,6 @@ class MiscTimer(object):
         if self.runonce: return False
         else: return True
 
-class DBConfigurationDialog(object):
-    """
-        A dialog for configuring databases
-    """
-    def __init__(self, parent):
-        """
-            Initializes the dialog
-        """
-        xml = gtk.glade.XML('exaile.glade', 'DBConfigurationDialog', 'exaile')
-    
-        self.parent = parent
-        self.dialog = xml.get_widget('DBConfigurationDialog')
-        self.type = xml.get_widget('prefs_db_type')
-        self.dialog.set_transient_for(parent)
-        self.host = xml.get_widget('prefs_db_host')
-        self.type.connect('changed', lambda *e: self.changed_type())
-        self.user = xml.get_widget('prefs_db_user')
-        self.passwd = xml.get_widget('prefs_db_passwd')
-        self.name = xml.get_widget('prefs_db_name')
-
-    def changed_type(self):
-        type = self.get_type()
-
-        if type == 'MySQL' and not xl.db.MYSQL_AVAIL:
-            common.error(self.parent, _("Driver for that database "
-                "is not available"))
-            self.type.set_active(0)
-            return
-
-        if type == 'PostgreSQL' and not xl.db.PGSQL_AVAIL:
-            common.error(self.parent, _("Driver for that database "
-                "is not available"))
-            self.type.set_active(0)
-            return
-            
-        items = ('host', 'user', 'passwd', 'name')
-        for item in items:
-            widget = getattr(self, item)
-            widget.set_sensitive(type!='SQLite')
-
-    def set_user(self, user):
-        self.user.set_text(user)
-
-    def set_host(self, host):
-        self.host.set_text(host)
-
-    def set_passwd(self, passwd):
-        self.passwd.set_text(passwd)
-
-    def set_name(self, name):
-        self.name.set_text(name)
-
-    def get_type(self):
-        return self.type.get_active_text()
-
-    def get_host(self):
-        return self.host.get_text()
-
-    def get_user(self):
-        return self.user.get_text()
-
-    def get_passwd(self):
-        return self.passwd.get_text()
-
-    def get_name(self):
-        return self.name.get_text()
-
-    def set_type(self, type):
-        """
-            Sets the type of the database
-        """
-        model = self.type.get_model()
-        iter = model.get_iter_first()
-        index = 0
-        while True:
-            value = model.get_value(iter, 0)
-            if not type or value.lower() == type.lower():
-                break
-
-            iter = model.iter_next(iter)
-            if not iter: break
-            index += 1
-
-        self.type.set_active(index)
-
-    def run(self):
-        """
-            Runs the dialog
-        """
-        return self.dialog.run()
-
-    def destroy(self):
-        """
-            destroys the dialog
-        """
-        self.dialog.destroy()
-
 class PopupWindow(object):
     """
         A popup window to show information on the current playing track
@@ -1983,3 +1886,114 @@ def get_popup_settings(settings):
         '#ffffff')
 
     return info
+
+class DragTreeView(gtk.TreeView):
+    """
+        A TextView that does easy dragging/selecting/popup menu
+    """
+    def __init__(self, cont, receive=True):
+        """
+            Initializes the tree and sets up the various callbacks
+        """
+        gtk.TreeView.__init__(self)
+        self.cont = cont
+
+        self.targets = [("text/uri-list", 0, 0)]
+        self.drag_source_set(
+            gtk.gdk.BUTTON1_MASK, self.targets,
+            gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
+
+        self.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, 
+            gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_DEFAULT)
+        if receive:
+            self.connect('drag_data_received', 
+                self.cont.drag_data_received)
+        self.receive = receive
+        self.dragging = False
+        self.connect('drag_begin', self.drag_begin)
+        self.connect('drag_end', self.drag_end)
+        self.connect('drag_motion', self.drag_motion)
+        self.connect('button_release_event', self.button_release)
+        self.connect('button_press_event', self.button_press)
+        self.connect('drag_data_get', self.cont.drag_get_data)
+        self.drag_source_set_icon_stock('gtk-dnd')
+
+    def button_release(self, button, event):
+        """
+            Called when a button is released
+        """
+        if event.button != 1 or self.dragging: return True
+        if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
+            return True
+        selection = self.get_selection()
+        x, y = event.get_coords()
+        x = int(x); y = int(y)
+
+        path = self.get_path_at_pos(x, y)
+        if not path: return False
+        selection.unselect_all()
+        selection.select_path(path[0])
+
+    def drag_end(self, list, context):
+        """
+            Called when the dnd is ended
+        """
+        self.dragging = False
+        self.unset_rows_drag_dest()
+        self.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, 
+            gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
+
+    def drag_begin(self, list, context):
+        """
+            Called when dnd is started
+        """
+        self.dragging = True
+
+        context.drag_abort(gtk.get_current_event_time())
+        selection = self.get_selection()
+        if selection.count_selected_rows() > 1:
+            self.drag_source_set_icon_stock('gtk-dnd-multiple')
+        else: self.drag_source_set_icon_stock('gtk-dnd')
+        return False
+
+    def drag_motion(self, treeview, context, x, y, timestamp):
+        """
+            Called when a row is dragged over this treeview
+        """
+        if not self.receive:
+            return
+        self.enable_model_drag_dest(self.targets,
+            gtk.gdk.ACTION_DEFAULT)
+        info = treeview.get_dest_row_at_pos(x, y)
+        if not info: return
+        treeview.set_drag_dest_row(info[0], info[1])
+
+    def button_press(self, button, event):
+        """
+            The popup menu that is displayed when you right click in the
+            playlist
+        """
+        selection = self.get_selection()
+        (x, y) = event.get_coords()
+        x = int(x)
+        y = int(y)
+        path = self.get_path_at_pos(x, y)
+        if not path: return True
+            
+        if event.button != 3: 
+            if event.type == gtk.gdk._2BUTTON_PRESS:
+                self.cont.button_press(button, event)
+
+            if selection.count_selected_rows() <= 1: return False
+            else: 
+                if selection.path_is_selected(path[0]): 
+                    if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
+                        selection.unselect_path(path[0])
+                    return True
+                elif not event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
+                    return True
+                return False
+
+        if not selection.count_selected_rows():
+            selection.select_path(path[0])
+        self.cont.button_press(button, event)

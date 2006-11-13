@@ -866,7 +866,8 @@ class iPodPanel(CollectionPanel):
             When tracks are dragged to this list
         """
         self.tree.unset_rows_drag_dest()
-        self.tree.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, gtk.gdk.ACTION_COPY)
+        self.tree.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.tree.targets, 
+            gtk.gdk.ACTION_COPY)
         if not self.connected:
             common.error(self.exaile.window, _("Not connected to iPod"))
             return
@@ -878,7 +879,7 @@ class iPodPanel(CollectionPanel):
             object = self.model.get_value(iter, 1)
         if isinstance(object, iPodPlaylist) and path:
             playlist = object
-            print "Playlist %s" % playlist.name
+            xlmisc.log("Playlist %s" % playlist.name)
         else:
             playlist = None
 
@@ -1295,7 +1296,7 @@ class iPodPanel(CollectionPanel):
             return False
         if not os.path.isdir(self.exaile_dir):
             os.mkdir(self.exaile_dir)
-        for item in ('PATHS', 'ALBUMS', 'ARTISTS'):
+        for item in ('PATHS', 'ALBUMS', 'ARTISTS', 'PLAYLISTS'):
             setattr(tracks, 'IPOD_%s' % item, {})
         self.all = xl.tracks.TrackData()
         ## clear out ipod information from database
@@ -1306,8 +1307,14 @@ class iPodPanel(CollectionPanel):
                 self.lists.insert(0, iPodPlaylist(playlist, True))
             else:
                 self.lists.append(iPodPlaylist(playlist))
+            playlist_id = tracks.get_column_id(self.db, 'PLAYLISTS', 'name',
+                playlist.name, True)
             for track in gpod.sw_get_playlist_tracks(playlist):
                 loc = self.mount + track.ipod_path.replace(":", "/")
+                path_id = tracks.get_column_id(self.db, 'paths', 'name', loc,
+                    True)
+                self.db.execute("REPLACE INTO playlist_items(playlist, path) "
+                    "VALUES( ?, ? )", (playlist_id, path_id))
 
         left = []
         for i in range(10):

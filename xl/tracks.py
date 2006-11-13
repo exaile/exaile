@@ -300,6 +300,7 @@ def load_tracks(db, current=None):
         ALBUMS["%d - %s" % (row[0], row[1])] = row[2]
 
     cur.close()
+    db._close_thread()
     return tracks
 
 def scan_dir(directory, matches, files):
@@ -318,8 +319,6 @@ def count_files(directories):
     """
     paths = []
     for dir in directories:
-        dir = str(dir)
-        xlmisc.log(dir)
         try:
             for root, dirs, files in os.walk(dir):
                 for f in files:
@@ -580,14 +579,17 @@ class PopulateThread(threading.Thread):
         directories = self.directories
         db = self.db
         cur = self.db.cursor()
-        self.db.execute("DELETE FROM directories")
         for path in directories:
-            try:
-                mod = os.path.getmtime(path)
-            except OSError:
-                continue
-                db.execute("INSERT INTO directories( path, modified ) "
-                "VALUES( ?, ? )", (path, mod))
+            for root, dirs, files in os.walk(path):
+                for dir in dirs:
+                    path_id = get_column_id(self.db, 'paths', 'name',
+                        os.path.join(root, dir))
+                    try:
+                        mod = os.path.getmtime(os.path.join(root, dir))
+                    except OSError:
+                        continue
+                    db.execute("REPLACE INTO directories( path, modified ) "
+                        "VALUES( ?, ? )", (path_id, mod))
 
         update_func = self.update_func
         gobject.idle_add(update_func, 0.001)
@@ -661,6 +663,7 @@ class PopulateThread(threading.Thread):
         """
             Stops the thread
         """
+        self.db._close_thread()
         self.db.commit()
         num = -2
         if not self.load_tree: num = -1

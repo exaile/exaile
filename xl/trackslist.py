@@ -932,7 +932,7 @@ class TracksListCtrl(gtk.VBox):
 
             while len(delete) > 0:
                 track = delete.pop()
-                path_id = xl.tracks.get_column_id(cur, 'paths', 'name', track.loc)
+                path_id = xl.tracks.get_column_id(self.db, 'paths', 'name', track.loc)
                 self.exaile.playlist_songs.remove(track)
                 try: self.songs.remove(track)
                 except ValueError: pass
@@ -983,7 +983,7 @@ class TracksListCtrl(gtk.VBox):
                             else:
                                 t = "playlist"; p = "path"
 
-                            playlist_id = tracks.get_column_id(cur, t, 'name',
+                            playlist_id = tracks.get_column_id(self.db, t, 'name',
                                 playlist)
                             cur.execute("DELETE FROM %s_items WHERE "
                                 "path=? AND %s=?" % (t, t),

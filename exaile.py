@@ -852,6 +852,7 @@ class ExaileWindow(object):
         """
             Sets up gamin to monitor directories for changes
         """
+        self.db.db.commit()
         if not self.settings.get_boolean('watch_directories', False) \
             and not skip_prefs: return
         if not GAMIN_AVAIL:
@@ -869,17 +870,26 @@ class ExaileWindow(object):
 
         # check directories for changes since the last time we ran
         scan = []
+        cur = self.db.cursor()
         for item in items:
             for root, dirs, files in os.walk(item):
                 for dir in dirs:
                     dir = os.path.join(root, dir)
                     mod = os.path.getmtime(dir)
-                    row = self.db.read_one('directories', 'path, modified',
-                        'path=%s' % self.db.p, (dir,))
+                    cur.execute("SELECT paths.name, modified FROM "
+                        "directories,paths WHERE directories.path=paths.id "
+                        "AND paths.name=?", (dir,))
+                    row = cur.fetchone()
                     if not row or int(row[1]) != mod:
+                        path_id = tracks.get_column_id(self.db, 'paths',
+                            'name', dir)
+                        self.db.execute("REPLACE INTO directories( path, "
+                            "modified) VALUES( ?, ? )", (path_id, mod))
                         scan.append(dir)
 
+
         for item in items:
+            if item in self.gamin_watched: continue
             self.mon.watch_directory(item, lambda path, event, dir=item:
                 self.directory_changed(dir, path, event))      
 
@@ -909,22 +919,25 @@ class ExaileWindow(object):
             return
 
         if event != 8 and event != 9:
+            path_id = tracks.get_column_id(self.db, 'paths', 'name', 
+                os.path.join(directory, path))
+
             if os.path.isdir(os.path.join(directory, path)) and event == 5:
                 self.mon.watch_directory(os.path.join(directory, path), 
                     lambda path, event, dir=os.path.join(directory, path):
                     self.directory_changed(dir, path, event))
                 mod = os.path.getmtime(os.path.join(directory, path))
                 self.gamin_watched.append(os.path.join(directory, path))
-                self.db.execute("INSERT INTO directories( path, modified ) "
-                    "VALUES( %s, %s )" % (self.db.p, self.db.p), 
-                    (os.path.join(directory, path), mod))
+
+                self.db.execute("REPLACE INTO directories( path, modified ) "
+                    "VALUES( ?, ? )", (path_id, mod))
                 xlmisc.log("Dir created event on %s" % os.path.join(directory, path))
                 return
 
             mod = os.path.getmtime(directory)
             self.dir_queue.append(directory)
-            self.db.execute("UPDATE directories SET modified=%s "
-                "WHERE path=%s" % (self.db.p, self.db.p), (mod, directory))
+            self.db.execute("UPDATE directories SET modified=? "
+                "WHERE path=?", (mod, path_id))
 
     def run_dir_queue(self):
         """
@@ -1970,7 +1983,10 @@ class ExaileWindow(object):
         """
         if self.gamin_watched and self.mon:
             for item in self.gamin_watched:
-                self.mon.stop_watch(item)
+                try:
+                    self.mon.stop_watch(item)
+                except gamin.GaminException:
+                    pass
 
         if self.mon:
             self.mon.disconnect()

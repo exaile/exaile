@@ -562,7 +562,8 @@ class CollectionPanel(object):
             all = self.all
         else: self.all = all
 
-        if not self.keyword and not self.ipod:
+        if not self.keyword and not self.ipod and \
+            self.choice.get_active() == 0:
             songs = all
         else:
             if self.track_cache.has_key("%s %s" % (where, self.keyword)) \

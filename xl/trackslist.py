@@ -425,8 +425,7 @@ class TracksListCtrl(gtk.VBox):
                     col.set_sort_indicator(False)
 
                 if not resizable:
-                    if name == _("Title") or name == _("Artist") or name \
-                        == _("Album"):
+                    if name == _("Title"):
                         col.set_expand(True)
                         col.set_fixed_width(1)
                         col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)

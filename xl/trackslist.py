@@ -20,14 +20,15 @@ import copy, time, urllib, xl.tracks
 from gettext import gettext as _
 import pygtk
 pygtk.require('2.0')
-import gtk
+import gtk, pango
 
 
 class TracksListCtrl(gtk.VBox):
     """
         Represents the track/playlist table
     """
-    col_items = ['', "#",
+    default_columns = ('#', 'Title', 'Album', 'Artist', 'Length')
+    col_items = ["#",
         _("Title"), _("Artist"), _("Album"), _("Length"),
         _("Rating"), _("Year"), _("Genre"), _("Bitrate")]
     col_map = {
@@ -42,7 +43,6 @@ class TracksListCtrl(gtk.VBox):
         _('Bitrate'): 'bitrate'
         }
     size_map = {
-        '': 30,
         '#': 30,
         _('Title'): 200,
         _('Artist'): 150,
@@ -380,25 +380,29 @@ class TracksListCtrl(gtk.VBox):
 
         self.setup_model(self.append_map)
 
-        count = 1
+        count = 2
         for name in cols:
+            if not self.size_map.has_key(name): continue
             # get cell renderer
-            if count == 1:
-                cellr = gtk.CellRendererPixbuf()
-            else:
-                cellr = gtk.CellRendererText()
+            cellr = gtk.CellRendererText()
+            mapval = self.col_map 
 
             show = self.exaile.settings.get_boolean("show_%s_col_%s" %
                 (self.prep, name), True)
 
-            if count == 1 or show:
-                if name == '' :
-                    col = gtk.TreeViewColumn(name, cellr, pixbuf=count)
+            if count == 2 or show:
+                if count == 2:
+                    pb = gtk.CellRendererPixbuf()
+                    pb.set_fixed_size(20, 20)
+                    col = gtk.TreeViewColumn(name)
+                    col.pack_start(pb, True)
+                    col.pack_start(cellr, False)
+                    col.set_attributes(cellr, text=count)
+                    col.set_attributes(pb, pixbuf=1)
+                    col.set_cell_data_func(pb, self.icon_data_func)
                 else:
                     col = gtk.TreeViewColumn(name, cellr, text=count)
 
-                if name == '':
-                    col.set_cell_data_func(cellr, self.icon_data_func)
                 if name == _("Length"):
                     col.set_cell_data_func(cellr, self.length_data_func)
                 if name == "#":
@@ -409,17 +413,52 @@ class TracksListCtrl(gtk.VBox):
                     self.size_map[name])
                 col.set_fixed_width(width)
 
+                resizable = self.exaile.settings.get_boolean('resizable_cols',
+                    False)
+
                 if self.type != 'queue':
-                    if count > 1:
-                        col.connect('clicked', self.set_sort_by)
-                        col.set_clickable(True)
+                    col.connect('clicked', self.set_sort_by)
+                    col.connect('notify::width', self.set_column_width)
+                    col.set_clickable(True)
                     col.set_reorderable(True)
-                    col.set_resizable(True)
+                    col.set_resizable(False)
                     col.set_sort_indicator(False)
-                col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+
+                if not resizable:
+                    if name == _("Title"):
+                        col.set_expand(True)
+                        col.set_fixed_width(1)
+                        col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+                        cellr.set_property('ellipsize', pango.ELLIPSIZE_END)
+                    else:
+                        col.set_sizing(gtk.TREE_VIEW_COLUMN_GROW_ONLY)
+                else:
+                    col.set_resizable(True)
+                    col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+
                 self.list.append_column(col)
             count = count + 1
-        self.list.connect('focus_out_event', self.tree_lost_focus)
+        self.changed_id = self.list.connect('columns-changed', self.column_changed)
+
+    def column_changed(self, stuff1, stuff2=None):
+        """
+            Called when columns are reordered
+        """
+        self.list.disconnect(self.changed_id)
+        cols = []
+        for col in self.list.get_columns():
+            cols.append(col.get_title())
+            self.list.remove_column(col)
+
+        self.exaile.settings['col_order'] = ":".join(cols)
+        self.setup_columns()
+
+    def set_column_width(self, col, stuff=None):
+        """
+            Called when the user resizes a column
+        """
+        name = col.get_title() + "_%scol_width" % self.prep
+        self.exaile.settings[name] = col.get_width()
 
     def track_data_func(self, col, cell, model, iter):
         """
@@ -432,8 +471,7 @@ class TracksListCtrl(gtk.VBox):
             cell.set_property('text', item.track)
 
     # sort functions courtesy of listen (http://listengnome.free.fr), which
-    # are in turn, courtesy of quodlibet.  Obviously the Quodlibet authors are
-    # a lot smarter than I am :)
+    # are in turn, courtesy of quodlibet.  
     def set_sort_by(self, column):
         """
             Sets the sort column
@@ -478,18 +516,6 @@ class TracksListCtrl(gtk.VBox):
                     col.get_sort_order() == gtk.SORT_DESCENDING)
         return 'album', False
             
-    def tree_lost_focus(self, widget, event):
-        """
-            Called when the tree loses focus... to save column widths
-        """
-        cols = []
-        for col in self.list.get_columns():
-            name = col.get_title() + "_%scol_width" % self.prep
-            cols.append(col.get_title())
-            self.exaile.settings[name] = col.get_width()
-
-        self.exaile.settings['col_order'] = ":".join(cols)
-
     def icon_data_func(self, col, cellr, model, iter):
         """
             sets track icon
@@ -527,11 +553,12 @@ class TracksListCtrl(gtk.VBox):
         """
             Updates the settings for a specific column
         """
+        self.list.disconnect(self.changed_id)
         columns = self.list.get_columns()
         for col in columns:
             self.list.remove_column(col)
 
-        self.tree_lost_focus(None, None)
+#        self.tree_lost_focus(None, None)
         self.setup_columns()
         self.list.queue_draw()
 

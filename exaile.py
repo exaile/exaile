@@ -252,6 +252,25 @@ class ExaileWindow(object):
         """
             Fetches the view column menus from the glade xml definition
         """
+        self.resizable_cols = self.xml.get_widget('cols_resizable_item')
+        self.not_resizable_cols = \
+            self.xml.get_widget('cols_not_resizable_item')
+        self.resizable_cols.set_active(self.settings.get_boolean('resizable_cols',
+            False))
+        self.resizable_cols.connect('activate', self.activate_cols_resizable)
+        self.not_resizable_cols.connect('activate',
+            self.activate_cols_resizable)
+
+        # setup up default shown columns
+        if not self.settings.get_boolean('trackslist_defaults_set', False):
+            self.settings.set_boolean('trackslist_defaults_set', True)
+            for col in trackslist.TracksListCtrl.col_items:
+                self.settings.set_boolean('show_%s_col_%s' %
+                    (pref, col), False)
+            for col in trackslist.TracksListCtrl.default_columns:
+                self.settings.set_boolean('show_%s_col_%s' %
+                    (pref, col), True)
+
         self.col_menus[pref] = dict()
         for k, v in map.iteritems():
             self.col_menus[v] = self.xml.get_widget('%s_%s_col' % (pref,
@@ -262,6 +281,18 @@ class ExaileWindow(object):
             self.col_menus[v].set_active(show)
             self.col_menus[v].connect('activate', 
                 self.change_column_settings, 'show_%s_col_%s' % (pref, k))
+
+    def activate_cols_resizable(self, widget, event=None):
+        """
+            Called when the user chooses whether or not columns can be
+            resizable
+        """
+        self.settings.set_boolean('resizable_cols',
+            self.resizable_cols.get_active())
+        for i in range(0, self.playlists_nb.get_n_pages()):
+            page = self.playlists_nb.get_nth_page(i)
+            if isinstance(page, trackslist.TracksListCtrl):
+                page.update_col_settings()
 
     def change_column_settings(self, item, data):
         """
@@ -640,7 +671,7 @@ class ExaileWindow(object):
         """
         dir = "%s%ssaved" % (SETTINGS_DIR, os.sep)
         if not os.path.isdir(dir):
-            return
+            os.mkdir(dir, 0744)
 
         if self.settings.get_boolean("open_last", True):
             files = os.listdir(dir)

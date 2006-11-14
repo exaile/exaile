@@ -998,6 +998,7 @@ class BrowserWindow(gtk.VBox):
         self.doc = gtkhtml2.Document()
         scroll = gtk.ScrolledWindow()
         scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        scroll.set_shadow_type(gtk.SHADOW_IN)
         self.doc.open_stream('text/html')
         self.doc.write_stream('<html><body><b>Loading requested'
             ' information...</b></body></html>')

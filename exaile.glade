@@ -744,6 +744,31 @@ Genre</property>
 		      <property name="spacing">2</property>
 
 		      <child>
+			<widget class="GtkLabel" id="label82">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Search:</property>
+			  <property name="use_underline">False</property>
+			  <property name="use_markup">False</property>
+			  <property name="justify">GTK_JUSTIFY_LEFT</property>
+			  <property name="wrap">False</property>
+			  <property name="selectable">False</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+			  <property name="width_chars">-1</property>
+			  <property name="single_line_mode">False</property>
+			  <property name="angle">0</property>
+			</widget>
+			<packing>
+			  <property name="padding">0</property>
+			  <property name="expand">False</property>
+			  <property name="fill">False</property>
+			</packing>
+		      </child>
+
+		      <child>
 			<widget class="GtkEntry" id="col_search">
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
@@ -759,22 +784,6 @@ Genre</property>
 			  <property name="padding">0</property>
 			  <property name="expand">True</property>
 			  <property name="fill">True</property>
-			</packing>
-		      </child>
-
-		      <child>
-			<widget class="GtkButton" id="col_search_button">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Search</property>
-			  <property name="use_underline">True</property>
-			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
-			</widget>
-			<packing>
-			  <property name="padding">0</property>
-			  <property name="expand">False</property>
-			  <property name="fill">False</property>
 			</packing>
 		      </child>
 		    </widget>
@@ -1108,6 +1117,31 @@ Genre</property>
 		      <property name="spacing">2</property>
 
 		      <child>
+			<widget class="GtkLabel" id="label83">
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes">Search:</property>
+			  <property name="use_underline">False</property>
+			  <property name="use_markup">False</property>
+			  <property name="justify">GTK_JUSTIFY_LEFT</property>
+			  <property name="wrap">False</property>
+			  <property name="selectable">False</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+			  <property name="width_chars">-1</property>
+			  <property name="single_line_mode">False</property>
+			  <property name="angle">0</property>
+			</widget>
+			<packing>
+			  <property name="padding">0</property>
+			  <property name="expand">False</property>
+			  <property name="fill">False</property>
+			</packing>
+		      </child>
+
+		      <child>
 			<widget class="GtkEntry" id="ipod_search">
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
@@ -1123,22 +1157,6 @@ Genre</property>
 			  <property name="padding">0</property>
 			  <property name="expand">True</property>
 			  <property name="fill">True</property>
-			</packing>
-		      </child>
-
-		      <child>
-			<widget class="GtkButton" id="ipod_search_button">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Search</property>
-			  <property name="use_underline">True</property>
-			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
-			</widget>
-			<packing>
-			  <property name="padding">0</property>
-			  <property name="expand">False</property>
-			  <property name="fill">False</property>
 			</packing>
 		      </child>
 		    </widget>
@@ -1682,7 +1700,7 @@ Genre</property>
 			  <child>
 			    <widget class="GtkLabel" id="filter_label">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Filter:</property>
+			      <property name="label" translatable="yes">Search:</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">False</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1724,19 +1742,7 @@ Genre</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkButton" id="search_button">
-			      <property name="visible">True</property>
-			      <property name="can_focus">True</property>
-			      <property name="label" translatable="yes">Search</property>
-			      <property name="use_underline">True</property>
-			      <property name="relief">GTK_RELIEF_NORMAL</property>
-			      <property name="focus_on_click">True</property>
-			    </widget>
-			    <packing>
-			      <property name="padding">0</property>
-			      <property name="expand">False</property>
-			      <property name="fill">False</property>
-			    </packing>
+			    <placeholder/>
 			  </child>
 			</widget>
 			<packing>

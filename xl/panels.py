@@ -106,10 +106,7 @@ class CollectionPanel(object):
         self.filter.connect('key-release-event',
             self.key_release)
         self.key_id = None
-        self.search_button = self.xml.get_widget('%s_search_button' %
-            self.name)
         self.filter.set_sensitive(False)
-        self.search_button.connect('clicked', self.on_search)
         self.create_popup()
 
     def key_release(self, *e):

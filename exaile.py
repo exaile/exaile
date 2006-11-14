@@ -363,8 +363,6 @@ class ExaileWindow(object):
         self.tracks_filter.connect('activate', self.on_search)
         self.tracks_filter.connect('key-release-event', self.live_search)
         self.key_id = None
-        self.search_button = self.xml.get_widget('search_button')
-        self.search_button.connect('clicked', self.on_search)
 
         self.rescan_collection = self.xml.get_widget('rescan_collection')
         self.rescan_collection.connect('activate', self.on_library_rescan)

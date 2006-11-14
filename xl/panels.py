@@ -894,6 +894,13 @@ class iPodPanel(CollectionPanel):
                 song = self.get_song(url.replace("ipod://", ""))
                 gpod.itdb_playlist_add_track(playlist.playlist,
                     song.ipod_track(), -1)
+                playlist_id = tracks.get_column_id(self.db, 'playlist',
+                    'name', playlist.name, True)
+                path_id = tracks.get_column_id(self.db, 'paths', 'name',
+                    song.loc, True)
+                self.db.execute("REPLACE INTO playlist_items( playlist, path)"
+                    " VALUES( ?, ? )", (playlist_id, path_id))
+
             else:
                 song = self.exaile.all_songs.for_path(url)
                 # check to see if it's a podcast

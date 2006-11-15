@@ -1128,12 +1128,16 @@ class iPodPanel(CollectionPanel):
         """
             Removes items from an iPod playlist
         """
-        playlist = self.list_dict[playlist]
+        playlist = playlist.playlist
+        playlist_id = tracks.get_column_id(self.db, 'playlists', 'name',
+            playlist.name, True)
         for track in tracks:
-            track = track.ipod_track()
-            gpod.itdb_playlist_remove(playlist, track)
+            path_id = tracks.get_column_id(self.db, 'paths', 'name', 
+                self.mount + track.ipod_path.replace(":", "/"))
+            self.db.execute("DELETE FROM playlist_items WHERE playlist=? "
+                "AND path=?", (playlist_id, path_id))
 
-        self.save_database()
+            gpod.itdb_playlist_remove_track(playlist, track)
 
     def delete_tracks(self, tracks):
         """
@@ -1148,7 +1152,6 @@ class iPodPanel(CollectionPanel):
                     gpod.itdb_playlist_remove_track(playlist, track)
 
             gpod.itdb_track_unlink(track)
-        self.save_database()            
 
     def append_covers_recursive(self, iter, add):
         """
@@ -1316,11 +1319,11 @@ class iPodPanel(CollectionPanel):
         self.db.import_sql("sql/db.sql")
         self.db.check_version("sql")
         self.lists = []
+        self.list_dict = dict()
 
         if not self.itdb: 
             self.connected = False
             self.all = tracks.TrackData()
-            self.list_dict = dict()
             self.ipod_track_count.set_label(_("Not connected"))
             if event and event != 'refresh':
                 common.error(self.exaile.window, _("Error connecting to "

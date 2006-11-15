@@ -314,6 +314,13 @@ class ExaileWindow(object):
             self.tracks = page
             self.update_songs(page.songs, False)
 
+    def queue_count_clicked(self, *e):
+        """
+            Called when the user clicks the queue count label
+        """
+        if self.queue_count_label.get_label(): 
+            self.show_queue_manager()
+
     def connect_events(self):
         """
             Connects events to the various widgets
@@ -322,7 +329,7 @@ class ExaileWindow(object):
         self.window.connect('delete_event', self.on_quit)
         self.queue_count_label = self.xml.get_widget('queue_count_label')
         self.xml.get_widget('queue_count_box').connect('button-release-event',
-            lambda *e: self.show_queue_manager())
+            self.queue_count_clicked)
 
         # for multimedia keys
         if MMKEYS_AVAIL:

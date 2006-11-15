@@ -1018,6 +1018,14 @@ class iPodPanel(CollectionPanel):
             dialog.destroy()
             if result == gtk.RESPONSE_YES:
                 gpod.itdb_playlist_remove(playlist.playlist)
+                playlist_id = tracks.get_column_id(self.db, 'playlists',
+                    'name', playlist.name, True)
+                self.db.execute("DELETE FROM playlists WHERE id=?",
+                    (playlist_id,))
+                self.db.execute("DELETE FROM playlist_items WHERE playlist=?",
+                    (playlist_id,))
+                if self.list_dict.has_key(playlist.name):
+                    del self.list_dict[playlist.name]
                 self.model.remove(iter) 
                 self.save_database(False)
                 self.tree.queue_draw()
@@ -1040,8 +1048,13 @@ class iPodPanel(CollectionPanel):
             dialog.destroy()
             if result == gtk.RESPONSE_OK:
                 name = str(dialog.get_value())
+                self.db.execute("UPDATE playlists SET name=? WHERE name=?", 
+                    (name, playlist.playlist.name))
+                if self.list_dict.has_key(playlist.name):
+                    del self.list_dict[playlist.name]
                 playlist.playlist.name = name
                 playlist.name = name
+                self.list_dict[name] = playlist
                 self.save_database()
                 self.tree.queue_draw()
 
@@ -1060,6 +1073,9 @@ class iPodPanel(CollectionPanel):
             gpod.itdb_playlist_add(self.itdb, playlist, -1)
             item = self.model.append(self.iroot, [self.iplaylist_image,
                 iPodPlaylist(playlist)])
+            playlist_id = tracks.get_column_id(self.db, 'playlists', 'name',
+                name, True)
+            self.list_dict[name] = playlist
             self.save_database(False)
 
     def open_playlist(self, tree=None, widget=None):
@@ -1107,6 +1123,17 @@ class iPodPanel(CollectionPanel):
         gobject.idle_add(self.exaile.status.set_first, None)
         xlmisc.log("Done writing iTunes database")
         if reload: gobject.idle_add(self.load_tree, False, False)
+
+    def remove_from_playlist(self, tracks, playlist):
+        """
+            Removes items from an iPod playlist
+        """
+        playlist = self.list_dict[playlist]
+        for track in tracks:
+            track = track.ipod_track()
+            gpod.itdb_playlist_remove(playlist, track)
+
+        self.save_database()
 
     def delete_tracks(self, tracks):
         """
@@ -1312,6 +1339,7 @@ class iPodPanel(CollectionPanel):
                 self.lists.insert(0, iPodPlaylist(playlist, True))
             else:
                 self.lists.append(iPodPlaylist(playlist))
+            self.list_dict[playlist.name] = playlist
             playlist_id = tracks.get_column_id(self.db, 'PLAYLISTS', 'name',
                 playlist.name, True)
             for track in gpod.sw_get_playlist_tracks(playlist):

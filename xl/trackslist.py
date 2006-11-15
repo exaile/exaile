@@ -259,7 +259,8 @@ class TracksListCtrl(gtk.VBox):
         """
             Sets up various events
         """
-        self.list.connect('row-activated', self.exaile.play)
+        if self.type != 'queue':
+            self.list.connect('row-activated', self.exaile.play)
         self.list.connect('key_release_event', self.key_released)
 
     def drag_get_data(self, treeview, context, selection, target_id, etime):
@@ -331,7 +332,7 @@ class TracksListCtrl(gtk.VBox):
                 path = pathlist[0]
                 if path[0] >= len(self.songs): path = (path[0] - 1,)
                 selection.select_path(path)
-        elif event.keyval == 113: # the 'q' key
+        elif event.keyval == 113 and self.type != 'queue': # the 'q' key
             for path in pathlist:
                 iter = model.get_iter(path)
                 track = model.get_value(iter, 0)
@@ -425,7 +426,8 @@ class TracksListCtrl(gtk.VBox):
                     col.set_sort_indicator(False)
 
                 if not resizable:
-                    if name == _("Title"):
+                    if name == _("Title") or name == _("Artist") or name == \
+                        _("Album"):
                         col.set_expand(True)
                         col.set_fixed_width(1)
                         col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
@@ -853,6 +855,7 @@ class TracksListCtrl(gtk.VBox):
         if type == 'blacklist': blacklisting = True
         delete = []
         ipod_delete = []
+        ipod_remove_playlist = []
         ipod = False
         delete_confirmed = False
         if deleting:
@@ -904,12 +907,15 @@ class TracksListCtrl(gtk.VBox):
                                 "perhaps you do not have permissions to do so?"
                                 % track.loc)
                     cur.execute("DELETE FROM tracks WHERE path=?", (path_id,))
-                else:
+                else: 
+                    # execute if this is "remove from playlist" or "blacklist"
                     playlist = self.playlist
                     if track.type == 'ipod' and not blacklisting: 
                         track = track.itrack
                         if not self.exaile.ipod_panel.connected: continue
                         ipod = True
+                        if playlist:
+                            ipod_remove_playlist.append(track)
                         try:
                             self.exaile.ipod_panel.songs.remove(track)
                         except:
@@ -938,6 +944,9 @@ class TracksListCtrl(gtk.VBox):
             cur.close()
             if ipod_delete:
                 self.exaile.ipod_panel.delete_tracks(ipod_delete)
+            if ipod_remove_playlist:
+                self.exaile.ipod_panel.remove_from_playlist(ipod_remove_playlist,
+                    playlist)
             if ipod:
                 self.exaile.ipod_panel.save_database()
             if error:

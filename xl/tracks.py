@@ -323,7 +323,7 @@ def count_files(directories):
             for root, dirs, files in os.walk(dir):
                 for f in files:
                     (stuff, ext) = os.path.splitext(f)
-                    if ext in media.SUPPORTED_MEDIA:
+                    if ext.lower() in media.SUPPORTED_MEDIA:
                         paths.append(os.path.join(root, f).decode("utf-8",
                             'replace'))
         except:

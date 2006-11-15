@@ -411,7 +411,7 @@ class Track(object):
 
             loc = self.loc
             if not isinstance(self, StreamTrack):
-                loc = urllib.quote(str(loc))
+                loc = urllib.quote(loc.encode(sys.getfilesystemencoding()))
             else:
                 if self.stream_loc: loc = self.stream_loc
             player.set_property("uri", "%s%s" % (prefix, loc))

@@ -298,6 +298,7 @@ class ExaileWindow(object):
         """
             Changes column view settings
         """
+        print "setting %s to %s" % (data, item.get_active())
         self.settings.set_boolean(data, item.get_active())
         for i in range(0, self.playlists_nb.get_n_pages()):
             page = self.playlists_nb.get_nth_page(i)

@@ -382,6 +382,7 @@ class TracksListCtrl(gtk.VBox):
         self.setup_model(self.append_map)
 
         count = 2
+        first = False
         for name in cols:
             if not self.size_map.has_key(name): continue
             # get cell renderer
@@ -391,8 +392,9 @@ class TracksListCtrl(gtk.VBox):
             show = self.exaile.settings.get_boolean("show_%s_col_%s" %
                 (self.prep, name), True)
 
-            if count == 2 or show:
-                if count == 2:
+            if show:
+                if not first:
+                    first = True
                     pb = gtk.CellRendererPixbuf()
                     pb.set_fixed_size(20, 20)
                     col = gtk.TreeViewColumn(name)

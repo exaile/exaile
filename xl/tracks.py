@@ -320,12 +320,11 @@ def count_files(directories):
     paths = []
     for dir in directories:
         try:
-            for root, dirs, files in os.walk(dir):
+            for root, dirs, files in os.walk(unicode(dir)):
                 for f in files:
                     (stuff, ext) = os.path.splitext(f)
                     if ext.lower() in media.SUPPORTED_MEDIA:
-                        paths.append(os.path.join(root, f).decode("utf-8",
-                            'replace'))
+                        paths.append(unicode(os.path.join(root, f)))
         except:
             pass
 
@@ -588,7 +587,7 @@ class PopulateThread(threading.Thread):
         xlmisc.log("File count: %d" % total)
 
         db.execute("UPDATE tracks SET included=0")
-        count = 0; commit_count = 0
+        count = 0
         update_queue = dict()
         added = dict()
 
@@ -628,10 +627,6 @@ class PopulateThread(threading.Thread):
                 xlmisc.log_exception()
 
             count = count + (1 * 1.0)
-            commit_count += 1
-            if commit_count >= 20:
-#                db.commit()
-                commit_count = 0
 
             if total != 0 and (count % 3) == 0.0:
                 percent = float(count / total)

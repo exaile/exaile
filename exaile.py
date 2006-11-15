@@ -929,6 +929,7 @@ class ExaileWindow(object):
             xlmisc.log("Scanning new directories...")
             self.update_library(scan)
 
+    @common.synchronized
     def directory_changed(self, directory, path, event):
         """
             Called when a changes happens in a directory
@@ -1336,19 +1337,17 @@ class ExaileWindow(object):
                 handle.write(data)
                 handle.close()
 
-                xlmisc.log(newname)
-                row = self.db.read_one("albums", 
-                    "artist, album, genre, image",
-                    "artist=%s AND album=%s" % (self.db.p, self.db.p),
-                    (track.artist, track.album))
+                path_id = tracks.get_column_id(self.db, 'paths', 'name',
+                    track.loc)
+                artist_id = tracks.get_column_id(self.db, 'artists', 'name',
+                    track.artist)
+                album_id  = tracks.get_album_id(self.db, artist_id,
+                    track.album)
 
-                self.db.update("albums",
-                    { "artist": track.artist,
-                    "album": track.album,
-                    "image": newname,
-                    "genre": track.genre }, "artist=%s AND album=%s" %
-                    (self.db.p, self.db.p),
-                    (track.artist, track.album), row == None)
+                xlmisc.log(newname)
+
+                self.db.execute("UPDATE albums SET image=? WHERE id=?",
+                    (newname, album_id))
 
                 if track == self.current_track:
                     self.stop_cover_thread()
@@ -1432,7 +1431,6 @@ class ExaileWindow(object):
 
         media.set_volume(float(self.volume.slider.get_value()) / 100.0)
         self.settings['volume'] = self.volume.slider.get_value() / 100.0
-
 
     def seek(self, range, scroll, value): 
         """

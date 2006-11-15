@@ -1997,4 +1997,4 @@ class DragTreeView(gtk.TreeView):
 
         if not selection.count_selected_rows():
             selection.select_path(path[0])
-        self.cont.button_press(button, event)
+        return self.cont.button_press(button, event)

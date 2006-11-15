@@ -405,7 +405,7 @@ class TracksListCtrl(gtk.VBox):
 
                 if name == _("Length"):
                     col.set_cell_data_func(cellr, self.length_data_func)
-                if name == "#":
+                elif name == "#":
                     col.set_cell_data_func(cellr, self.track_data_func)
 
                 setting_name = name + "_%scol_width" % self.prep
@@ -440,7 +440,7 @@ class TracksListCtrl(gtk.VBox):
             count = count + 1
         self.changed_id = self.list.connect('columns-changed', self.column_changed)
 
-    def column_changed(self, stuff1, stuff2=None):
+    def column_changed(self, *e):
         """
             Called when columns are reordered
         """

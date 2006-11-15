@@ -142,9 +142,12 @@ def get_icon(id, size=gtk.ICON_SIZE_BUTTON):
     """
     theme = gtk.icon_theme_get_default()
     try:
-        return theme.load_icon(id, size, gtk.ICON_LOOKUP_NO_SVG)
+        icon = theme.load_icon(id, size, gtk.ICON_LOOKUP_NO_SVG)
+        if icon: return icon
     except gobject.GError:
-       return gtk.gdk.pixbuf_new_from_file('images%sdefault_theme%s%s.png' 
+        pass
+    
+    return gtk.gdk.pixbuf_new_from_file('images%sdefault_theme%s%s.png' 
         % (os.sep, os.sep, id))
 
 class ThreadRunner(threading.Thread):

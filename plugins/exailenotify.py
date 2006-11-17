@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import gtk, pynotify, plugins, traceback
+import gtk, pynotify, plugins, traceback, cgi
 
 PLUGIN_NAME = "LibNotify Plugin"
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
@@ -106,6 +106,9 @@ def play_track(track):
                 value = getattr(track, item)
                 if type(value) != str and type(value) != unicode:
                     value = unicode(value)
+
+                # escape html entities
+                value = cgi.escape(value)
 
                 vals[k] = vals[k].replace("{%s}" % item, value)
             except AttributeError:

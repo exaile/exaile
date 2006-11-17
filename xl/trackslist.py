@@ -502,7 +502,6 @@ class TracksListCtrl(gtk.VBox):
         """
         attr, reverse = self.get_sort_by()
         
-        if attr == 'track': attr = 'album'
         s = [(getattr(track, attr), track) for track in self.songs]
         s.sort()
         if reverse: s.reverse()

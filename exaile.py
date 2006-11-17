@@ -1368,6 +1368,14 @@ class ExaileWindow(object):
         """
             Create a new tab with the included title with the specified type
         """
+        # if there is currently only one tab, and it's an empty "Playlist"
+        # tab, remove it before adding this new one
+        if self.playlists_nb.get_n_pages() == 1:
+            page = self.playlists_nb.get_nth_page(0)
+            tab = self.playlists_nb.get_tab_label(page)
+            if tab.title == _("Playlist") and self.tracks and not \
+                self.tracks.songs:
+                self.playlists_nb.remove_page(0)
         
         if not songs: songs = tracks.TrackData()
         self.tracks = trackslist.TracksListCtrl(self)

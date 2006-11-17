@@ -26,6 +26,13 @@ import pygst
 pygst.require("0.10")
 import gst, gst.interfaces, gobject
 
+# for wmainfo support
+try:
+    import lib.wmainfo
+    WMAINFO_AVAIL = True
+except ImportError: 
+    WMAINFO_AVIAL = False
+
 # FORMAT and SUPPORTED_MEDIA are set up at the end of this file
 FORMAT = dict()
 exaile_instance = None
@@ -1144,10 +1151,41 @@ class FLACTrack(Track):
 
         Track.write_tag(self, db)
 
+class WMATrack(Track):
+    def __init__(self, *args):
+        """
+            Initializes the track
+        """
+        Track.__init__(self, *args)
+
+    def get_tag(self, inf, name):
+        if inf.tags.has_key(name):
+            return inf.tags[name]
+        else:
+            return ''
+
+    def read_tag(self, db=None):
+        inf = lib.wmainfo.WmaInfo(self.loc)
+
+        self.length = inf.info["playtime_seconds"]
+        self.bitrate = inf.info["max_bitrate"]
+        self.artist = self.get_tag(inf, 'Author')
+        self.album = self.get_tag(inf, 'AlbumTitle')
+        self.title = self.get_tag(inf, 'Title') 
+        self.genre = ""
+        self.track = self.get_tag(inf, 'TrackNumber')
+        self.year = self.get_tag(inf, 'Year')
+
+    def write_tag(self, db=None):
+        raise MetaIOException("Track %s: writing metadata to this filetype is"
+            " not currently supported." % self.loc)
+
 # sets up the formats dict
 for format in ('.mpc', '.m4a', '.aac', '.m4b', '.wma'):
     FORMAT[format] = GSTTrack
 FORMAT['.flac'] = FLACTrack
 FORMAT['.ogg'] = OGGTrack
 FORMAT['.mp3'] = MP3Track
+if WMAINFO_AVAIL:
+    FORMAT['.wma'] = WMATrack
 SUPPORTED_MEDIA = FORMAT.keys()

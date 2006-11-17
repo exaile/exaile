@@ -2624,7 +2624,7 @@ class FilesPanel(object):
         self.history = [os.getenv('HOME')]
 
         self.tree = xlmisc.DragTreeView(self, False)
-        self.tree.set_headers_visible(False)
+        self.tree.set_headers_visible(True)
         container = self.xml.get_widget('files_box')
         self.scroll = gtk.ScrolledWindow()
         self.scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)

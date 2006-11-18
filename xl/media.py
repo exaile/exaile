@@ -31,7 +31,7 @@ try:
     import lib.wmainfo
     WMAINFO_AVAIL = True
 except ImportError: 
-    WMAINFO_AVIAL = False
+    WMAINFO_AVAIL = False
 
 # FORMAT and SUPPORTED_MEDIA are set up at the end of this file
 FORMAT = dict()

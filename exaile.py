@@ -174,7 +174,8 @@ class ExaileWindow(object):
         media.set_volume(self.settings.get_float("volume", 1))
 
         self.splitter = self.xml.get_widget('splitter')
-        self.splitter.connect('move_handle', self.on_resize)
+        self.splitter.connect('notify::position', self.on_resize)
+        self.splitter.set_position(pos)
 
         self.status = xlmisc.StatusBar(self)
 

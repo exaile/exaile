@@ -177,140 +177,6 @@ class ThreadRunner(threading.Thread):
             self.lock.release()
             print 'released lock'
 
-# this class is taken from Quodlibet's code, which is in turn based on
-# rhythmbox's code
-# thanks Joe Wreschnig, Mihcael Urman
-class VolumeControl(gtk.EventBox):
-    """
-        A volume control slider
-    """
-    _req = (26, 170)
-    UP = [gtk.gdk.SCROLL_UP, gtk.gdk.SCROLL_LEFT]
-
-    def __init__(self, child, func):
-        """
-            Initializes the widget
-        """
-        gtk.EventBox.__init__(self)
-        button = gtk.Button()
-        button.set_size_request(32, 32)
-        if child: button.add(child)
-        self.add(button)
-        self.func = func
-        button.connect('clicked', self.clicked)
-        self.show_all()
-
-        window = self.__window = gtk.Window(gtk.WINDOW_POPUP)
-
-        frame = gtk.Frame()
-        frame.set_border_width(0)
-        frame.set_shadow_type(gtk.SHADOW_OUT)
-
-        hscale = gtk.VScale(gtk.Adjustment(0, 0, 120))
-        hscale.set_size_request(*(self._req))
-        window.connect('button-press-event', self.button)
-        hscale.connect('key-press-event', self.key)
-        hscale.set_draw_value(False)
-        hscale.set_update_policy(gtk.UPDATE_CONTINUOUS)
-        self.scale = hscale
-        window.add(frame)
-        frame.add(hscale)
-        self.connect('scroll-event', self.scroll, hscale)
-        self.__window.connect('scroll-event', self.scroll)
-        self.scale.connect_object('scroll-event', self.emit, 'scroll-event')
-        self.scale.connect('change-value', lambda *e: func())
-        self.scale.set_inverted(True)
-        self.slider = self.scale
-
-    def window_scroll(self, window, event):
-        """
-            Called when a scroll event occurs
-        """
-        self.emit('scroll-event', event)
-
-    def _move_to(self, x, y, w, h, ww, wh, pad=3):
-        """
-            Moves the control to the correct location'
-        """
-        return ((x + (w - ww)//2), y + h + pad)
-
-    def get_top_parent(self, widget):
-        """
-            Returns the top widget
-        """
-        return widget and widget.get_ancestor(gtk.Window)
-
-    def clicked(self, button):
-        """
-            called when the user clicks the volumn button
-        """
-        if self.__window.get_property('visible'): return
-        self.__window.child.show_all()
-        self.__window.size_request()
-        x, y = self.child.window.get_origin()
-        w, h = self.child.window.get_size()        
-        ww, wh = self.__window.child.parent.get_size()
-        sx, sy = self._move_to(x, y - 208, w, h, ww, wh, pad=3)
-        self.__window.set_transient_for(self.get_top_parent(self))
-        self.__window.move(sx, sy)
-        self.__window.show()
-        self.__window.grab_focus()
-        self.__window.grab_add()
-        pointer = gtk.gdk.pointer_grab(
-            self.__window.window, True,
-            gtk.gdk.BUTTON_PRESS_MASK |
-            gtk.gdk.BUTTON_RELEASE_MASK |
-            gtk.gdk.BUTTON_MOTION_MASK |
-            gtk.gdk.POINTER_MOTION_MASK |
-            gtk.gdk.SCROLL_MASK, None, None, gtk.get_current_event_time())
-        keyboard = gtk.gdk.keyboard_grab(
-            self.__window.window, True, gtk.get_current_event_time())
-
-        if pointer != gtk.gdk.GRAB_SUCCESS or keyboard != gtk.gdk.GRAB_SUCCESS:
-            self.__window.grab_remove()
-            self.__window.hide()
-
-            if pointer == gtk.gdk.GRAB_SUCCESS:
-                gtk.gdk.pointer_ungrab(gtk.get_current_event_time())
-            if keyboard == gtk.gdk.GRAB_SUCCESS:
-                gtk.gdk.keyboark_ungrab(gtk.get_current_event_time())
-
-    def scroll(self, widget, ev, hscale=None):
-        """
-            Called when a scroll event occurs (I'm assuming with the scroll
-            wheel on the mouse)
-        """
-        v = self.slider.get_value()
-        if ev.direction in self.UP: v += 8
-        else: v -= 8
-
-        if v < 0: v = 0
-        elif v > 120: v = 120
-        self.slider.set_value(v)
-        self.func()
-
-    def button(self, widget, ev):
-        """
-            if the mouse gets clicked outside of the slider, hide this control    
-        """
-        self.popup_hide()
-
-    def key(self, hscale, ev):
-        """
-            Hide the slider if enter, space or escape are pressed
-        """
-        if ev.string in ["\n", "\r", " ", "\x1b"]: # enter, space, escape
-            self.popup_hide()
-
-    def popup_hide(self):
-        """
-            Hides the slider
-        """
-        self.__window.grab_remove()
-        gtk.gdk.pointer_ungrab(gtk.get_current_event_time())
-        gtk.gdk.keyboard_ungrab(gtk.get_current_event_time())
-        self.__window.hide()
-
 class TrayIcon(object):
     """
         System tray icon
@@ -333,10 +199,26 @@ class TrayIcon(object):
         self.box.connect('button_press_event',
             self.button_pressed)
         self.box.connect('scroll-event',
-            self.exaile.volume.scroll)
+            self.scroll)
         self.box.connect('enter-notify-event', lambda *e: 
             self.exaile.show_popup(tray=True))
         self.icon.show_all()
+
+    def scroll(self, widget, ev):
+        """
+            Called when the user scrolls their mouse wheel over the tray icon
+        """
+        v = self.exaile.volume.get_value()
+        if ev.direction == gtk.gdk.SCROLL_RIGHT:
+            v += 8
+        else:
+            v -= 8
+
+        if v < 0: v = 0
+        elif v > 120: v = 120
+
+        self.exaile.volume.set_value(v)
+        self.exaile.on_volume_set()
 
     def button_pressed(self, item, event, data=None):
         """

@@ -144,11 +144,9 @@ class ExaileWindow(object):
         image = gtk.Image()
         image.set_from_pixbuf(volume_image)
 
-        volume_box = self.xml.get_widget('volume_box')
-        self.volume = xlmisc.VolumeControl(image,
-            self.on_volume_set)
-        volume_box.pack_start(self.volume, False, False)
-        self.volume.slider.set_value(self.settings.get_float('volume', 1) *
+        self.volume = self.xml.get_widget('volume_slider')
+        self.volume.connect('change-value', lambda *e: self.on_volume_set())
+        self.volume.set_value(self.settings.get_float('volume', 1) *
             100)
         if self.settings.get_boolean("use_tray", True): 
             self.setup_tray()
@@ -1446,8 +1444,8 @@ class ExaileWindow(object):
             Sets the volume based on the slider position
         """
 
-        media.set_volume(float(self.volume.slider.get_value()) / 100.0)
-        self.settings['volume'] = self.volume.slider.get_value() / 100.0
+        media.set_volume(float(self.volume.get_value()) / 100.0)
+        self.settings['volume'] = self.volume.get_value() / 100.0
 
     def seek(self, range, scroll, value): 
         """

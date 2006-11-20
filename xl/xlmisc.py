@@ -618,7 +618,7 @@ class CoverFetcher(object):
                 self.needs[artist].append(album)
                 image = "images%snocover.png" % os.sep
             elif image.find("nocover") > -1:
-                pass
+                continue
             elif image.find("nocover") == -1: 
                 image = "%s%scovers%s%s" % (self.exaile.get_settings_dir(),
                     os.sep, os.sep, image)

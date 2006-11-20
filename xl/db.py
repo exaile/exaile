@@ -112,8 +112,7 @@ class DBManager(object):
             Returns a connection
         """
         try:
-            db = sqlite.connect(self.db_loc, check_same_thread=True,
-                timeout=20)
+            db = sqlite.connect(self.db_loc, check_same_thread=True)
         except sqlite.OperationalError, e:
             raise DBOperationalError(str(e))
 

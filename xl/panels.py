@@ -333,6 +333,7 @@ class CollectionPanel(object):
             self.track_cache = dict()
             if ipod_delete:
                 self.exaile.ipod_panel.delete_tracks(ipod_delete)
+                self.save_database()
             else:
                 self.load_tree()
             return
@@ -846,14 +847,12 @@ class iPodPanel(CollectionPanel):
         """
         CollectionPanel.__init__(self, exaile)
 
-        self.all = xl.tracks.TrackData()
         self.db = exaile.db
         self.ipod = True
         self.connected = False
         if not IPOD_AVAILABLE: return
 
         self.transfer_queue = None
-        self.all = tracks.TrackData()
         self.transferring = False
         self.write_lock = threading.Lock()
         self.queue = None
@@ -1320,6 +1319,7 @@ class iPodPanel(CollectionPanel):
         self.db.check_version("sql")
         self.lists = []
         self.list_dict = dict()
+        self.all = xl.tracks.TrackData()
 
         if not self.itdb: 
             self.connected = False

@@ -98,6 +98,7 @@ class CoverDisplay(gtk.Window):
     def display(self, cover):
         if cover == None:
             self.img.clear()
+            self.hide()
             return
         
         pixbuf = gtk.gdk.pixbuf_new_from_file(cover)
@@ -113,6 +114,7 @@ class CoverDisplay(gtk.Window):
             pixbuf = pixbuf.scale_simple(
                     width, height, gtk.gdk.INTERP_BILINEAR)
         self.img.set_from_pixbuf(pixbuf)
+        self.show_all()
 
 def initialize():
     """

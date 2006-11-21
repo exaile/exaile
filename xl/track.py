@@ -379,6 +379,7 @@ class TrackEditor(object):
         self.album_entry.set_text(track.album)
         self.genre_entry.set_text(track.genre)
         self.year_entry.set_text(track.year)
+        self.disc_id_entry.set_text(str(track.disc_id))
 
         if self.count > 1:
             self.title_entry.hide()
@@ -410,6 +411,7 @@ class TrackEditor(object):
         self.year_entry = xml.get_widget('te_year_entry')
         self.track_label = xml.get_widget('te_track_label')
         self.track_entry = xml.get_widget('te_track_entry')
+        self.disc_id_entry = xml.get_widget('te_disc_id_entry')
         self.cancel = xml.get_widget('te_cancel_button')
         self.save = xml.get_widget('te_save_button')
 
@@ -434,14 +436,10 @@ class TrackEditor(object):
 
             track.artist = self.artist_entry.get_text()
             
-            # find out if it's a "the" track
-            if track.artist.lower()[:4] == "the ":
-                track.the_track = track.artist[4:]
-                track.artist = track.artist[:4]
-
             track.album = self.album_entry.get_text()
             track.genre = self.genre_entry.get_text()
             track.year = self.year_entry.get_text()
+            track.disc_id = self.disc_id_entry.get_text()
             try:
                 db = self.exaile.db
                 if isinstance(track, media.iPodTrack):

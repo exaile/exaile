@@ -137,7 +137,7 @@ class Track(object):
     """
 
     def __init__(self, loc="", title="", artist="",  
-        album="", genre="",
+        album="", disc_id=0, genre="",
         track=0, length=0, bitrate=0, year="", 
         modified=0, user_rating=0, blacklisted=0, time_added=''):
         """
@@ -156,7 +156,7 @@ class Track(object):
         self.type = 'track'
 
     def set_info(self, loc="", title="", artist="",
-        album="", genre="", track=0, length=0, bitrate=0, year="", 
+        album="", disc_id=-1, genre="", track=0, length=0, bitrate=0, year="", 
         modified=0, user_rating=0, blacklisted=0, time_added=''):
         """
             Sets track information
@@ -167,6 +167,7 @@ class Track(object):
         self._title = title
         self.artist = artist
         self.album = album
+        self.disc_id = disc_id
 
         # attempt to set the track number as an integer
         try:
@@ -499,8 +500,8 @@ class Track(object):
             path_id = tracks.get_column_id(db, 'paths', 'name', self.loc)
 
             db.execute("UPDATE tracks SET title=?, artist=?, " \
-                "album=?, genre=?, year=?, modified=?, track=? WHERE path=?",
-                (self.title, artist_id, album_id, self.genre,
+                "album=?, disc_id=?, genre=?, year=?, modified=?, track=? WHERE path=?",
+                (self.title, artist_id, album_id, self.disc_id, self.genre,
                 self.year, mod, self.track, path_id))
 
     def __str__(self):
@@ -924,12 +925,22 @@ class MP3Track(Track):
             id3.delall(id3name)
 
         for k, v in self.IDS.iteritems():
+            if k == 'TRCK': continue
             try:
                 frame = mutagen.id3.Frames[k](encoding=3,
                     text=unicode(getattr(self, v)))
                 id3.loaded_frame(frame)
             except:
                 xlmisc.log_exception()
+
+        if self.track > -1:
+            track = "%s" % self.track
+            if self.disc_id > -1:
+                track = "%s/%s" % (track, self.disc_id)
+
+            frame = mutagen.id3.Frames['TRCK'](encoding=3,
+                text=track)
+            id3.loaded_frame(frame)
 
         id3.save(self.loc)
         Track.write_tag(self, db)
@@ -938,23 +949,12 @@ class MP3Track(Track):
         """
             Reads a specific id3 tag from the file, and formats it
         """
-        tag = id3.get(t)
-        if tag == None: return ""
-        else:
-            if t == "TRCK":
-                # parse track information out... they are usually stored in
-                # the format "track/all"
-                track = str(tag)
-                b = track.find("/")
-                if b > -1:
-                    tag = track[0:b]
-                    return int(tag)
+        if not id3.has_key(t): return ""
+        text = str(id3[t])
 
-            text = unicode(tag.text[len(tag.text) - 1])
-
-            # get rid of any newlines
-            text = text.replace("\n", " ").replace("\r", " ")
-            return text
+        # get rid of any newlines
+        text = text.replace("\n", " ").replace("\r", " ")
+        return text
 
     def read_tag(self):
         """
@@ -969,7 +969,21 @@ class MP3Track(Track):
             self.artist = self.get_tag(id3, "TPE1")
             self.album = self.get_tag(id3, "TALB")
             self.genre = self.get_tag(id3, "TCON")
-            self.track = self.get_tag(id3, "TRCK")
+
+            try:
+                # get track/disc id
+                track = self.get_tag(id3, "TRCK")
+                if track.find('/') > -1:
+                    (self.track, self.disc_id) = track.split('/')
+                    self.track = int(self.track)
+                    self.disc_id = int(self.disc_id)
+                else:
+                    self.track = int(track)
+
+            except ValueError:
+                self.track = -1
+                self.disc_id = -1
+
             self.year = self.get_tag(id3, "TDRC")
 
         except OverflowError:
@@ -1023,7 +1037,7 @@ class iPodTrack(MP3Track):
             Track.write_tag(self, db)
 
 
-    def read_track(self):
+    def read_tag(self):
         """
             Reads the track
         """
@@ -1078,6 +1092,7 @@ class OGGTrack(Track):
         com['title'] = self.title
         com['genre'] = self.genre
         com['tracknumber'] = str(self.track)
+        com['tracktotal'] = str(self.disc_id)
         com['date'] = str(self.year)
         com.save(self.loc)
         Track.write_tag(self, db)
@@ -1099,6 +1114,7 @@ class OGGTrack(Track):
         self.title = self.get_tag(f, "title")
         self.genre = self.get_tag(f, "genre")
         self.track = self.get_tag(f, "tracknumber")
+        self.disc_id = self.get_tag(f, "tracktotal")
         self.year = self.get_tag(f, "date")
 
 class FLACTrack(Track):
@@ -1130,6 +1146,7 @@ class FLACTrack(Track):
         self.artist = self.get_tag(f, "artist")
         self.album = self.get_tag(f, "album")
         self.track = self.get_tag(f, "tracknumber")
+        self.disc_id = self.get_tag(f, 'tracktotal')
         self.title = self.get_tag(f, "title")
         self.genre = self.get_tag(f, "genre")
         self.year = self.get_tag(f, "date")
@@ -1144,6 +1161,7 @@ class FLACTrack(Track):
         f.vc['artist'] = self.artist
         f.vc['album'] = self.album
         f.vc['title'] = self.title
+        f.vc['tracktotal'] = self.disc_id
         f.vc['genre'] = self.genre
         f.vc['track'] = str(self.track)
         f.vc['date'] = str(self.year)

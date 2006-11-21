@@ -111,6 +111,7 @@ class ExaileWindow(object):
         self.col_menus = dict()
         self.setup_col_menus('track', trackslist.TracksListCtrl.col_map)
         self.plugins_menu = xlmisc.Menu()
+        self.rewind_track = 0
 
         if self.settings.get_boolean("use_splash", True):
             image = gtk.Image()
@@ -1034,6 +1035,7 @@ class ExaileWindow(object):
             self.run_dir_queue()
 
         self.timer_count += 1
+        self.rewind_track += 1
 
         if track == None: 
             return True
@@ -1513,6 +1515,7 @@ class ExaileWindow(object):
         self.db.execute("UPDATE tracks SET last_played=? WHERE path=?",
             (track.last_played, track.loc))
         gc.collect()
+        self.rewind_track = 0
 
     def get_suggested_songs(self):
         """
@@ -1684,6 +1687,17 @@ class ExaileWindow(object):
         """
             Plays the previous track in the history
         """
+
+        # if the current track has been playing for 5 seconds, just restart it
+        if self.rewind_track >= 6:
+            track = self.current_track
+            if track:
+                track.stop()
+                track.play(self.on_next)
+                self.rewind = 0
+            return
+
+        # otherwise go back in the history
         if len(self.history) > 0:
             self.stop()
             track = self.history.pop()

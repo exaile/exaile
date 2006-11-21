@@ -16,7 +16,7 @@
 
 
 import mutagen, mutagen.id3, mutagen.flac, mutagen.oggvorbis
-import mutagen.mp3, subprocess, common, tracks
+import mutagen.mp3, mutagen.m4a, subprocess, common, tracks
 from gettext import gettext as _
 import sys, time, re, os.path, os
 import httplib
@@ -233,7 +233,8 @@ class Track(object):
             elif nick == "track number": self._track = tags[tag]
 
         if isinstance(self, StreamTrack): self.album = self.loc
-        exaile_instance.tracks.queue_draw()
+        if exaile_instance.tracks:
+            exaile_instance.tracks.queue_draw()
 
     def on_message(self, bus, message, reading_tag=False):
         """
@@ -1198,12 +1199,68 @@ class WMATrack(Track):
         raise MetaIOException("Track %s: writing metadata to this filetype is"
             " not currently supported." % self.loc)
 
+class M4ATrack(Track):
+    def __init__(self, *args):
+        """
+            Initializes the track
+        """
+        Track.__init__(self, *args)
+
+    def get_tag(self, f, name):
+        name = "\xa9%s" % name
+        if not f.has_key(name):
+            return ""
+        else: return f[name]
+
+    def set_tag(self, f, name, value):
+        name = "\xa9%s" % name
+        f[name] = value
+
+    def write_tag(self, db=None):
+        f = mutagen.m4a.M4A(self.loc)
+
+        try:
+            f['trkn'] = (int(self.track), f['trkn'][1])
+            f['disk'] = (int(self.disc_id), f['disk'][1])
+        except:
+            xlmisc.log_exception()
+
+        self.set_tag(f, 'nam', self.title)
+        self.set_tag(f, 'ART', self.artist)
+        self.set_tag(f, 'alb', self.album)
+        self.set_tag(f, 'gen', self.genre)
+
+        f.save()
+
+    def read_tag(self, db=None):
+        f = mutagen.m4a.M4A(self.loc)
+        self.length = f.info.length
+        self.bitrate = f.info.bitrate
+        
+        self.title = self.get_tag(f, 'nam')
+        self.artist = self.get_tag(f, 'ART')
+        self.album = self.get_tag(f, 'alb')
+        self.genre = self.get_tag(f, 'gen')
+        try:
+            self.track = f['trkn'][0]
+        except:
+            self.track = -1
+
+        try:
+            self.disc_id = f['disk'][0]
+        except:
+            self.disc_id = -1
+
+        self.year = self.get_tag(f, 'day')
+
+
 # sets up the formats dict
-for format in ('.mpc', '.m4a', '.aac', '.m4b', '.wma'):
+for format in ('.mpc', '.aac', '.m4b', '.wma'):
     FORMAT[format] = GSTTrack
 FORMAT['.flac'] = FLACTrack
 FORMAT['.ogg'] = OGGTrack
 FORMAT['.mp3'] = MP3Track
+FORMAT['.m4a'] = M4ATrack
 if WMAINFO_AVAIL:
     FORMAT['.wma'] = WMATrack
 SUPPORTED_MEDIA = FORMAT.keys()

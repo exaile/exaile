@@ -38,6 +38,21 @@ try:
 except:
     IPOD_AVAILABLE = False
 
+# smart playlist criterion
+#CRITERIA = [
+#        (_('Artist', [
+#            (_('is'), (EntryField, lambda x:
+#                'artists.name="%s"' % x)),
+#            (_('contains'), (EntryField, lambda x:
+#                'artists.name LIKE "%%%s%%"' % x)),
+#            ]),
+#        (_('Artist'), [
+#            (_('is'), (EntryField, lambda x:
+#                'albums.name="%s"' % x)),
+#            (_('contains'), (EntryField, lambda x: ''))
+#        ])
+#    ]
+
 class AlbumWrapper(object):
     """
         Wraps an album

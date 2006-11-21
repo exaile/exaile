@@ -876,7 +876,14 @@ class ExaileWindow(object):
                 gobject.idle_add(self.import_m3u, sys.argv[1], True)
             else:
                 if not self.tracks: self.new_page("Last", [])
-        if first_run: gobject.idle_add(self.load_last_playlist)
+        if first_run: 
+            gobject.idle_add(self.load_last_playlist)
+            if len(sys.argv) > 1 and not sys.argv[1].startswith("--"):
+                f = sys.argv[1]
+                if f.endswith('.m3u') or f.endswith('.pls'):
+                    self.import_m3u(f, True)
+                else:
+                    gobject.idle_add(self.stream, f)
 
         if self.ipod_panel:
             gobject.idle_add(self.status.set_first,
@@ -1946,7 +1953,10 @@ class ExaileWindow(object):
             info = ({'url': url})
             track = media.RadioTrack(info)
 
-        self.append_songs(tracks.TrackData((track, )))
+        if not songs: return
+        songs = tracks.TrackData((track, ))
+
+        self.append_songs(songs)
         self.play_track(track)
 
     def open_url(self, event): 

@@ -1777,7 +1777,7 @@ class DragTreeView(gtk.TreeView):
     """
         A TextView that does easy dragging/selecting/popup menu
     """
-    def __init__(self, cont, receive=True):
+    def __init__(self, cont, receive=True, source=True):
         """
             Initializes the tree and sets up the various callbacks
         """
@@ -1785,13 +1785,15 @@ class DragTreeView(gtk.TreeView):
         self.cont = cont
 
         self.targets = [("text/uri-list", 0, 0)]
-        self.drag_source_set(
-            gtk.gdk.BUTTON1_MASK, self.targets,
-            gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
 
-        self.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, 
-            gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_DEFAULT)
+        if source:
+            self.drag_source_set(
+                gtk.gdk.BUTTON1_MASK, self.targets,
+                gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
+
         if receive:
+            self.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, 
+                gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_DEFAULT)
             self.connect('drag_data_received', 
                 self.cont.drag_data_received)
         self.receive = receive
@@ -1801,8 +1803,10 @@ class DragTreeView(gtk.TreeView):
         self.connect('drag_motion', self.drag_motion)
         self.connect('button_release_event', self.button_release)
         self.connect('button_press_event', self.button_press)
-        self.connect('drag_data_get', self.cont.drag_get_data)
-        self.drag_source_set_icon_stock('gtk-dnd')
+
+        if source:
+            self.connect('drag_data_get', self.cont.drag_get_data)
+            self.drag_source_set_icon_stock('gtk-dnd')
 
     def button_release(self, button, event):
         """

@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import xl.tracks, os, sys, md5, random, db, tracks, xlmisc
-import common, trackslist, shoutcast
+import common, trackslist, shoutcast, filtergui
 import media, time, thread, re, copy, threading
 import urllib
 from xml.dom import minidom
@@ -1506,6 +1506,22 @@ class iPodPanel(CollectionPanel):
         if not self.connected:
             self.ipod_track_count.set_label(_("Not connected"))
 
+class SmartPlaylist(object):
+    def __init__(self, name, sql):
+        self.name = name
+        self.sql = sql
+
+    def __str__(self):
+        return self.name
+
+class CustomPlaylist(object):
+    def __init__(self, name, id):
+        self.name = name
+        self.id = id
+
+    def __str__(self):
+        return self.name
+
 class PlaylistsPanel(object):
     """ 
         The playlists panel 
@@ -1520,38 +1536,202 @@ class PlaylistsPanel(object):
         self.exaile = exaile
         self.db = self.exaile.db
         self.xml = exaile.xml
+        container = self.xml.get_widget('playlists_box')
 
-        self.custom = xlmisc.ListBox(self.xml.get_widget('custom_playlists'))
-        targets = [('text/uri-list', 0, 0)]
-        self.smart = xlmisc.ListBox(self.xml.get_widget('smart_playlists'), 
-            self.SMART_PLAYLISTS)
-        self.custom.list.enable_model_drag_dest(targets,
-            gtk.gdk.ACTION_DEFAULT)
-        self.custom.list.connect('drag_data_received', self.drag_data_received)
+        self.targets = [('text/uri-list', 0, 0)]
+        self.tree = xlmisc.DragTreeView(self, True, False)
+        self.tree.connect('row-activated', self.open_playlist)
+        self.tree.set_headers_visible(False)
 
-        self.smart.list.connect('row-activated', self.load_smart)
-        self.custom.list.connect('row-activated', self.open_playlist)
-        self.xml.get_widget('playlists_add_button').connect('clicked', 
-            self.on_add_playlist)
-        self.xml.get_widget('playlists_remove_button').connect('clicked',
-            self.remove_playlist)
+        self.scroll = gtk.ScrolledWindow()
+        self.scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        self.scroll.add(self.tree)
+        self.scroll.set_shadow_type(gtk.SHADOW_IN)
+        container.pack_start(self.scroll, True, True)
+        container.show_all()
+        self.model = gtk.TreeStore(gtk.gdk.Pixbuf, str, object)
+
+        pb = gtk.CellRendererPixbuf()
+        cell = gtk.CellRendererText()
+        col = gtk.TreeViewColumn('Text')
+        col.pack_start(pb, False)
+        col.pack_start(cell, True)
+        col.set_attributes(pb, pixbuf=0)
+        col.set_attributes(cell, text=1)
+        self.tree.append_column(col)
+
+        self.tree.set_model(self.model)
+        self.open_folder = xlmisc.get_icon('gnome-fs-directory-accept')
+        self.playlist_image = gtk.gdk.pixbuf_new_from_file('images%splaylist.png' % os.sep)
+        self.smart = self.model.append(None, [self.open_folder, _("Smart"
+            " Playlists"), None])
+        self.smart_dict = {
+            'Entire Library': "SELECT paths.name FROM artists, albums, tracks, paths WHERE " \
+                "paths.id=tracks.path AND artists.id=tracks.artist AND " \
+                "albums.id=tracks.albums ORDER BY LOWER(artists.name), " \
+                "THE_CUTTER(albums.name)",
+
+            'Top 100': "SELECT paths.name FROM tracks,paths WHERE " \
+                "paths.id=tracks.path ORDER BY rating " \
+                "DESC LIMIT 100",
+
+            'Highest Rated': "SELECT paths.name FROM tracks,paths WHERE " \
+                "tracks.path=paths.id " \
+                "ORDER BY user_rating DESC " \
+                "LIMIT 100",
+
+            'Most Played': "SELECT paths.name FROM paths, tracks WHERE " \
+                "tracks.path=paths.id ORDER " \
+                "BY plays DESC LIMIT 100",
+
+            'Least Played': "SELECT paths.name FROM paths, tracks WHERE " \
+                "paths.id=tracks.path ORDER " \
+                "BY plays ASC LIMIT 100",
+
+            'Rating > 5': "SELECT paths.name FROM paths, tracks, artists, " \
+                "albums " \
+                "WHERE tracks.path=paths.id AND albums.id=tracks.album AND " \
+                "artists.id=tracks.artist " \
+                "AND user_rating > 5 " \
+                "ORDER BY LOWER(artists.name), THE_CUTTER(albums.name), track",
+            
+            'Rating > 3': "SELECT paths.name FROM paths,tracks,artists,albums WHERE " \
+                "tracks.path=paths.id AND albums.id=tracks.album AND " \
+                "artists.id=tracks.artist AND user_rating > 3 " \
+                "ORDER BY LOWER(artists.name), LOWER(albums.name), track", 
+
+            'Newest 100': "SELECT paths.name FROM paths,tracks WHERE " \
+                "tracks.path=paths.id AND time_added!='' " \
+                "ORDER BY time_added DESC " \
+                "LIMIT 100",
+
+            'Random 100': "SELECT paths.name FROM tracks,paths WHERE " \
+                "paths.id=tracks.path"
+        }
+
+        self.model.append(self.smart, [self.playlist_image, 'Entire Library',
+            SmartPlaylist('Entire Library', self.smart_dict[
+            'Entire Library'])])
+
+        self.builtin = self.model.append(self.smart, [self.open_folder,
+            'Built In', None])
+
+        items = ('Top 100', 'Highest Rated', 'Most Played',
+            'Least Played', 'Rating > 5', 'Rating > 3', 'Newest 100', 'Random'
+            ' 100')
+
+        for name in items:
+            sql = self.smart_dict[name]
+            self.model.append(self.builtin, [self.playlist_image, name, 
+                SmartPlaylist(name, sql)]) 
+        
+        self.custom = self.model.append(None, [self.open_folder,
+            _("Custom Playlists"), None])
+        
+        self.tree.expand_all()
+        self.setup_menu()
+
+    def setup_menu(self):
+        """ 
+            Sets up the popup menu for the playlist tree
+        """
+        self.menu = xlmisc.Menu()
+        self.menu.append('Add Playlist', self.on_add_playlist, 'gtk-add')
+        self.menu.append('Add Smart Playlist', self.on_add_smart_playlist, 
+            'gtk-add')
+        self.menu.append_separator()
+        self.remove_item = self.menu.append('Delete Playlist', 
+            self.remove_playlist,
+            'gtk-remove')
+
+    def on_add_smart_playlist(self, widget, event):
+        """
+            Adds a smart playlist
+        """
+        dialog = filtergui.FilterDialog('Add Smart Playlist',
+        [
+            # name
+            ('Year', [
+                # name - field class/factory -  result generator
+                ('is', (filtergui.EntryField, lambda x: 'Year = %d' % int(x))),
+                ('is between', (
+                    lambda: filtergui.EntryLabelEntryField('and'),
+                    lambda x, y:
+                        'Year BETWEEN %s AND %s' % (int(x), int(y)))),
+            ]),
+        ])
+
+        dialog.set_transient_for(self.exaile.window)
+        dialog.run()
+        dialog.destroy()
+        common.info(self.exaile.window, "This doesn't actually work yet :)")
+
+    def button_press(self, widget, event):
+        """
+            Called when the user clicks on the tree
+        """
+        selection = self.tree.get_selection()
+        x, y = event.get_coords()
+        x = int(x); y = int(y)
+        delete_enabled = False
+        if self.tree.get_path_at_pos(x, y):
+            (path, col, x, y) = self.tree.get_path_at_pos(x, y)
+            iter = self.model.get_iter(path)
+            obj = self.model.get_value(iter, 2)
+            if isinstance(obj, CustomPlaylist):
+                delete_enabled = True
+
+        self.remove_item.set_sensitive(delete_enabled)
+
+        if event.button == 3:
+            self.menu.popup(None, None, None, event.button, event.time)
+
+    def open_playlist(self, tree, path, col):
+        """
+            Called when the user double clicks on a tree item
+        """
+        iter = self.model.get_iter(path)
+        obj = self.model.get_value(iter, 2)
+        if isinstance(obj, SmartPlaylist):
+            name = obj.name
+            sql = obj.sql
+
+            if name == 'Entire Library':    
+                songs = self.exaile.all_songs
+            elif name == 'Random 100':
+                songs = tracks.TrackData()
+                for song in self.exaile.all_songs:
+                    songs.append(song)
+
+                random.shuffle(songs)
+                songs = tracks.TrackData(songs[:100])
+            else:
+                songs = xl.tracks.search_tracks(self.exaile.window, 
+                    self.db,
+                    self.exaile.all_songs, None, None, sql)
+
+            self.exaile.new_page(name, songs)
+
+        elif isinstance(obj, CustomPlaylist):
+            playlist = obj.name
+            self.playlist_songs = xl.tracks.search_tracks(self, self.db,
+                self.exaile.all_songs, None, playlist)
+            self.exaile.new_page(playlist, self.playlist_songs)
+            self.exaile.on_search()
+            self.exaile.tracks.playlist = playlist
 
     def drag_data_received(self, tv, context, x, y, selection, info, etime):
         """
             Called when someone drags tracks to the smart playlists panel
         """
+        path = self.tree.get_path_at_pos(x, y)
         error = ""
-        path = self.custom.list.get_path_at_pos(x, y)
-        if not path: playlist = self.on_add_playlist(None)
-        else:
-            iter = self.custom.store.get_iter(path[0])
-            if not iter:
-                playlist = self.on_add_playlist(None) 
-                if not playlist: return True
-            else:
-                playlist = self.custom.store.get_value(iter, 0)
+        if not path: return
+        iter = self.model.get_iter(path[0])
+        obj = self.model.get_value(iter, 2)
+        if not isinstance(obj, CustomPlaylist): return
+        xlmisc.log("Adding tracks to playlist %s" % obj.name)
 
-        if not playlist: return True
         uris = selection.get_uris()
         songs = tracks.TrackData()
         for l in uris:
@@ -1567,23 +1747,25 @@ class PlaylistsPanel(object):
             common.scrolledMessageDialog(self.exaile.window,
                 error, _("The following errors did occur"))
 
-        self.add_items_to_playlist(playlist, songs)
+        self.add_items_to_playlist(obj.name, songs)
 
-    def remove_playlist(self, widget):
+    def remove_playlist(self, item, event):
         """
             Asks if the user really wants to delete the selected playlist, and
             then does so if they choose 'Yes'
         """
+        selection = self.tree.get_selection()
+        (model, iter) = selection.get_selected()
 
-        playlist = self.custom.get_selection()
-        if not playlist: return
+        obj = model.get_value(iter, 2)
+        if not isinstance(obj, CustomPlaylist): return
+
         dialog = gtk.MessageDialog(self.exaile.window, 
             gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, 
             _("Are you sure you want to permanently delete the selected"
             " playlist?"))
         if dialog.run() == gtk.RESPONSE_YES:
-            if not playlist: return
-    
+            playlist = obj.name 
             p_id = tracks.get_column_id(self.db, 'playlists', 'name', playlist)
             self.db.execute("DELETE FROM playlists WHERE id=?", (p_id,))
             self.db.execute("DELETE FROM playlist_items WHERE playlist=?",
@@ -1592,87 +1774,18 @@ class PlaylistsPanel(object):
                 del tracks.PLAYLISTS[playlist]
             self.db.commit()
             
-            self.custom.remove(playlist)
+            self.model.remove(iter)
         dialog.destroy()
-
-    def load_smart(self, widget=None, path=None, column=None):
-        """
-            Loads a smart playlist
-        """
-        smart = self.smart.get_selection()
-
-        w = None
-        if smart == "Top 100":
-            w = "SELECT paths.name FROM tracks,paths WHERE " \
-                "paths.id=tracks.path ORDER BY rating " \
-                "DESC LIMIT 100"
-        elif smart == "Highest Rated":
-            w = "SELECT paths.name FROM tracks,paths WHERE " \
-                "tracks.path=paths.id " \
-                "ORDER BY user_rating DESC " \
-                "LIMIT 100"
-        elif smart == "Most Played":
-            w = "SELECT paths.name FROM paths, tracks WHERE " \
-                "tracks.path=paths.id ORDER " \
-                "BY plays DESC LIMIT 100"
-        elif smart == "Least Played":
-            w = "SELECT paths.name FROM paths, tracks WHERE " \
-                "paths.id=tracks.path ORDER " \
-                "BY plays ASC LIMIT 100"
-        elif smart == "Rating > 5":
-            w = "SELECT paths.name FROM paths, tracks WHERE tracks.path=paths.id " \
-                "AND user_rating > 5 " \
-                "ORDER BY artist, album, track"
-        elif smart == "Rating > 3":
-            w = "SELECT paths.name FROM paths,tracks WHERE " \
-                "tracks.path=paths.id AND user_rating > 3 " \
-                "ORDER BY artist, album, track"
-        elif smart == "Newest 100":
-            w = "SELECT paths.name FROM paths,tracks WHERE " \
-                "tracks.path=paths.id AND time_added!='' " \
-                "ORDER BY time_added DESC " \
-                "LIMIT 100"
-        elif smart == "Random 100":
-            w = "SELECT paths.name FROM tracks,paths WHERE " \
-                "paths.id=tracks.path"
-            songs = tracks.TrackData()
-            for song in self.exaile.all_songs:
-                songs.append(song)
-
-            random.shuffle(songs)
-            songs = tracks.TrackData(songs[0:100])
-
-        if smart != "Random 100":
-            songs = xl.tracks.search_tracks(self, self.db,
-                self.exaile.all_songs, None, None, w)
-
-        self.exaile.new_page(self.smart.get_selection(), songs)
-
-    def open_playlist(self, widget, tracks, tra):
-        """
-            Opens a playlist
-        """
-        playlist = self.custom.get_selection()
-
-        xlmisc.log("Loading playlist %s" % playlist)
-        self.playlist_songs = xl.tracks.search_tracks(self, self.db,
-            self.exaile.all_songs, None, playlist)
-        self.exaile.new_page(playlist, self.playlist_songs)
-        self.exaile.on_search()
-        self.exaile.tracks.playlist = playlist
 
     def load_playlists(self):
         """
             Loads all playlists and adds them to the list
         """
-        rows = self.db.select("SELECT name FROM playlists " \
-            "ORDER BY name")
-
-        playlists = []
+        rows = self.db.select("SELECT name, id FROM playlists WHERE type=0")
         for row in rows:
-            playlists.append(row[0])
-
-        self.custom.set_rows(playlists)
+            self.model.append(self.custom, [self.playlist_image, row[0],
+                CustomPlaylist(row[0], row[1])])
+        self.tree.expand_all()
 
     def on_add_playlist(self, widget, event=None, items=None):
         """
@@ -1695,7 +1808,9 @@ class PlaylistsPanel(object):
             playlist_id = tracks.get_column_id(self.db, 'playlists', 'name',
                 name)
                 
-            self.custom.append(name)
+            self.model.append(self.custom, [self.playlist_image, name,
+                CustomPlaylist(name, playlist_id)])
+            self.tree.expand_all()
 
             if type(widget) == gtk.MenuItem:
                 self.add_items_to_playlist(name, items)

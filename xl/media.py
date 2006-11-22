@@ -16,7 +16,7 @@
 
 
 import mutagen, mutagen.id3, mutagen.flac, mutagen.oggvorbis
-import mutagen.mp3, mutagen.m4a, subprocess, common, tracks
+import mutagen.mp3, subprocess, common, tracks
 from gettext import gettext as _
 import sys, time, re, os.path, os
 import httplib
@@ -25,6 +25,12 @@ import urllib, xlmisc
 import pygst
 pygst.require("0.10")
 import gst, gst.interfaces, gobject
+
+try:
+    import mutagen.m4a
+    M4A_AVAIL = True
+except ImportError:
+    M4A_AVAIL = False
 
 # for wmainfo support
 try:
@@ -1255,12 +1261,13 @@ class M4ATrack(Track):
 
 
 # sets up the formats dict
-for format in ('.mpc', '.aac', '.m4b', '.wma'):
+for format in ('.mpc', '.aac', '.m4a', '.m4b', '.wma'):
     FORMAT[format] = GSTTrack
 FORMAT['.flac'] = FLACTrack
 FORMAT['.ogg'] = OGGTrack
 FORMAT['.mp3'] = MP3Track
-FORMAT['.m4a'] = M4ATrack
+if M4A_AVAIL:
+    FORMAT['.m4a'] = M4ATrack
 if WMAINFO_AVAIL:
     FORMAT['.wma'] = WMATrack
 SUPPORTED_MEDIA = FORMAT.keys()

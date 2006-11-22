@@ -434,7 +434,7 @@ class TracksListCtrl(gtk.VBox):
                         col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
                         cellr.set_property('ellipsize', pango.ELLIPSIZE_END)
                     else:
-                        col.set_sizing(gtk.TREE_VIEW_COLUMN_GROW_ONLY)
+                        col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
                 else:
                     col.set_resizable(True)
                     col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
@@ -939,7 +939,7 @@ class TracksListCtrl(gtk.VBox):
                                     " track).\n" % str(track)
                             else:
                                 cur.execute("UPDATE tracks SET blacklisted=1 "
-                                    "WHERE path=?", (path_kd,))
+                                    "WHERE path=?", (path_id,))
 
             cur.close()
             if ipod_delete:

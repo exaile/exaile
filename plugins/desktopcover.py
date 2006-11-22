@@ -99,7 +99,7 @@ class CoverDisplay(gtk.Window):
     def display(self, cover):
         if cover == None:
             self.img.clear()
-            self.iconify()
+            self.hide()
             return
         
         pixbuf = gtk.gdk.pixbuf_new_from_file(cover)
@@ -120,7 +120,7 @@ class CoverDisplay(gtk.Window):
             self.first = False
             self.show_all()
         else:
-            self.present()
+            self.show()
 
 def initialize():
     """

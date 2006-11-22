@@ -209,10 +209,11 @@ class TrayIcon(object):
             Called when the user scrolls their mouse wheel over the tray icon
         """
         v = self.exaile.volume.get_value()
-        if ev.direction == gtk.gdk.SCROLL_RIGHT:
-            v += 8
+        if ev.direction == gtk.gdk.SCROLL_RIGHT or ev.direction == \
+            gtk.gdk.SCROLL_UP:
+            v += 5
         else:
-            v -= 8
+            v -= 5
 
         if v < 0: v = 0
         elif v > 120: v = 120

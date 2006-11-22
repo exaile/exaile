@@ -48,6 +48,7 @@ CREATE TABLE playlist_items( playlist INT NOT NULL,
 CREATE TABLE smart_playlist_items( playlist INT NOT NULL,
     operator VARCHAR(40) NOT NULL,
     col VARCHAR(255) NOT NULL, 
+    value VARCHAR(255) NOT NULL,
     PRIMARY KEY( playlist, col ) );
 
 CREATE TABLE radio( id INTEGER NOT NULL PRIMARY KEY,

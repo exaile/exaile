@@ -64,9 +64,9 @@ class PluginManager(object):
         col = gtk.TreeViewColumn("Plugin")
         col.pack_start(pb, False)
         col.pack_start(text, False)
-        col.set_fixed_width(152)
         col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
-        col.set_resizable(True)
+        col.set_fixed_width(1)
+        col.set_expand(True)
         col.set_attributes(pb, pixbuf=0)
         col.set_attributes(text, text=1)
 
@@ -75,8 +75,9 @@ class PluginManager(object):
         text = gtk.CellRendererToggle()
         text.set_property('activatable', True)
         text.connect('toggled', self.toggle_cb, self.model)
-        col = gtk.TreeViewColumn("", text)
+        col = gtk.TreeViewColumn("Enabled", text)
         col.add_attribute(text, 'active', 2)
+        col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
         self.list.append_column(col)
 
         for plugin in manager.plugins:

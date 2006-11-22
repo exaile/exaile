@@ -854,7 +854,8 @@ class GSTTrack(Track):
         """
         Track.on_message(self, bus, message, True)
         if message.type == gst.MESSAGE_TAG:
-            exaile_instance.tracks.queue_draw() 
+            if exaile_instance.tracks:
+                exaile_instance.tracks.queue_draw() 
             self.is_tagged = True
         elif message.type == gst.MESSAGE_EOS:
             self.eos = True

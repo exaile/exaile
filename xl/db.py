@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import sys, threading, re, os, fileinput
+import sys, threading, re, os, fileinput, traceback
 try:
     from sqlite3 import dbapi2 as sqlite
     SQLITE_AVAIL = True
@@ -38,7 +38,8 @@ try:
     PostgresOperationalError = pyPgSQL.PgSQL.OperationalError
 except:
     PGSQL_AVAIL = False
-sqlite.enable_shared_cache(True)
+#sqlite.enable_shared_cache(True)
+
 from traceback import print_exc
 import gobject
 
@@ -179,7 +180,11 @@ class DBManager(object):
         """
         cur = self._cursor
         if not args: args = []
-        cur.execute(query, args)
+        try:
+            cur.execute(query, args)
+        except:
+            traceback.print_exc()
+            print query, args
 
     def select(self, query, args=[]):
         """

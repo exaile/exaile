@@ -1968,8 +1968,8 @@ class ExaileWindow(object):
             info = ({'url': url})
             track = media.RadioTrack(info)
 
-        if not songs: return
         songs = tracks.TrackData((track, ))
+        if not songs: return
 
         self.append_songs(songs)
         self.play_track(track)

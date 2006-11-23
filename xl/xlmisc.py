@@ -1767,6 +1767,10 @@ class PopupWindow(object):
             except AttributeError:
                 pass
 
+        text = text.replace("{volume}", "%d%%" %
+            self.exaile.get_volume_percent())
+        text = text.replace("\\{", "{")
+        text = text.replace("\\}", "}")
         text = text.replace("&", "&amp;")
         self.show_popup(text, cover)
 

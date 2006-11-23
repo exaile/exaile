@@ -566,7 +566,10 @@ class Preferences(object):
             'genre', 'year', 'rating'):
             setattr(track, item, item)
 
-        self.popup.show_track_popup(track, self.text_display.get_all_text(), 
+        display_text = self.text_display.get_all_text()
+        display_text = display_text.replace("{volume}", "\\{volume\\}")
+
+        self.popup.show_track_popup(track, display_text, 
             'images%snocover.png' % os.sep)       
 
         return False

@@ -13,7 +13,7 @@ Depends: ${shlibs:Depends}, libgstreamer0.10-0, gstreamer0.10-plugins-base,
  python2.4-dbus, python-pyvorbis, python-mutagen, python-pysqlite2,
  python-elementtree
 Recommends: gstreamer0.10-plugins-ugly, python2.4-gnome-extras, python-cddb,
- streamripper
+ streamripper, sexy-python
 Description: an AmaroK-like media player
  Exaile is a media player aiming to be similar to KDE's AmaroK, but for 
  GTK+. It incorporates many of the cool things from AmaroK (and other 

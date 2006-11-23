@@ -116,10 +116,11 @@ class CollectionPanel(object):
             self.load_tree)
         self.xml.get_widget('%s_combo_box' % self.name).connect('changed',
             self.load_tree)
-        self.filter = self.xml.get_widget('%s_search' % self.name)
+        self.filter = xlmisc.ClearEntry(self.key_release)
+        self.xml.get_widget('%s_filter_box' % 
+            self.name).pack_start(self.filter.entry,
+            True, True)
         self.filter.connect('activate', self.on_search)
-        self.filter.connect('key-release-event',
-            self.key_release)
         self.key_id = None
         self.filter.set_sensitive(False)
         self.create_popup()

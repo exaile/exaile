@@ -586,9 +586,11 @@ Genre</property>
                           </packing>
                         </child>
                         <child>
-                          <widget class="GtkEntry" id="col_search">
+                          <widget class="GtkHBox" id="col_filter_box">
                             <property name="visible">True</property>
-                            <property name="can_focus">True</property>
+                            <child>
+                              <placeholder/>
+                            </child>
                           </widget>
                           <packing>
                             <property name="position">1</property>
@@ -707,9 +709,11 @@ Genre</property>
                           </packing>
                         </child>
                         <child>
-                          <widget class="GtkEntry" id="ipod_search">
+                          <widget class="GtkHBox" id="ipod_filter_box">
                             <property name="visible">True</property>
-                            <property name="can_focus">True</property>
+                            <child>
+                              <placeholder/>
+                            </child>
                           </widget>
                           <packing>
                             <property name="position">1</property>
@@ -1150,9 +1154,11 @@ Genre</property>
                               </packing>
                             </child>
                             <child>
-                              <widget class="GtkEntry" id="tracks_filter">
+                              <widget class="GtkHBox" id="tracks_filter_box">
                                 <property name="visible">True</property>
-                                <property name="can_focus">True</property>
+                                <child>
+                                  <placeholder/>
+                                </child>
                               </widget>
                               <packing>
                                 <property name="position">1</property>

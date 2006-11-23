@@ -367,9 +367,11 @@ class ExaileWindow(object):
 
         self.cover_box.connect('button_press_event', self.cover_clicked)
 
-        self.tracks_filter = self.xml.get_widget('tracks_filter')
+        self.tracks_filter = xlmisc.ClearEntry(self.live_search)
+        self.xml.get_widget('tracks_filter_box').pack_start(
+            self.tracks_filter.entry,
+            True, True)
         self.tracks_filter.connect('activate', self.on_search)
-        self.tracks_filter.connect('key-release-event', self.live_search)
         self.key_id = None
 
         self.rescan_collection = self.xml.get_widget('rescan_collection')
@@ -530,11 +532,10 @@ class ExaileWindow(object):
         if xlmisc.DebugDialog.debug:
             xlmisc.DebugDialog.debug.dialog.show()
 
-    def live_search(self, widget, event):
+    def live_search(self, *e):
         """
             Simulates live search of tracks
         """
-        if event.keyval == 65293: return # ignore enter
         if self.key_id:
             gobject.source_remove(self.key_id)
 

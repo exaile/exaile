@@ -176,7 +176,7 @@ class ColorButtonPrefsItem(PrefsItem):
     def apply(self):
         if self.done and not self.do_done(): return False
         color = self.widget.get_color()
-        string = "#%x%x%x" % (color.red / 257, color.green / 257, 
+        string = "#%.2x%.2x%.2x" % (color.red / 257, color.green / 257, 
             color.blue / 257)
         settings[self.name] = string
         return True

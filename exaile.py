@@ -494,6 +494,7 @@ class ExaileWindow(object):
         dialog = gtk.FileChooserDialog(_("Add a directory"),
             self.window, gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER,
             (_("Cancel"), gtk.RESPONSE_CANCEL, _("Choose"), gtk.RESPONSE_OK))
+        dialog.set_current_folder(self.get_last_dir())
 
         check = gtk.CheckButton(_("Add tracks to current playlist after importing"))
         dialog.set_extra_widget(check)

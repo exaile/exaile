@@ -1742,11 +1742,11 @@ class PlaylistsPanel(object):
         """
         path = self.tree.get_path_at_pos(x, y)
         error = ""
-        if not path: return
-        iter = self.model.get_iter(path[0])
-        obj = self.model.get_value(iter, 2)
-        if not isinstance(obj, CustomPlaylist): return
-        xlmisc.log("Adding tracks to playlist %s" % obj.name)
+        if path: 
+            iter = self.model.get_iter(path[0])
+            obj = self.model.get_value(iter, 2)
+        else:
+            obj = None
 
         uris = selection.get_uris()
         songs = tracks.TrackData()
@@ -1759,6 +1759,11 @@ class PlaylistsPanel(object):
                 song = self.exaile.all_songs.for_path(l)
                 if song: songs.append(song)
 
+        if not isinstance(obj, CustomPlaylist): 
+            self.on_add_playlist(self.remove_item, items=songs)
+            return
+
+        xlmisc.log("Adding tracks to playlist %s" % obj.name)
         if error:
             common.scrolledMessageDialog(self.exaile.window,
                 error, _("The following errors did occur"))

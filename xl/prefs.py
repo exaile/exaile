@@ -506,7 +506,7 @@ class Preferences(object):
             Shows a colorpicker
         """
         color = widget.get_color()
-        string = "#%x%x%x" % (color.red / 257, color.green / 257, 
+        string = "#%.2x%.2x%.2x" % (color.red / 257, color.green / 257, 
             color.blue / 257)
 
         self.osd_settings[name] = string

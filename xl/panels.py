@@ -2226,15 +2226,18 @@ class RadioPanel(object):
         """
             Opens a podcast
         """
-        row = self.db.read_one("podcasts", "description", "path=%s" %
-            self.db.p, (wrapper.path, ))
+        podcast_path_id = tracks.get_column_id(self.db, 'paths', 'name',
+            wrapper.path)
+        row = self.db.read_one("podcasts", "description", "path=?", 
+            (podcast_path_id, ))
         if not row: return
 
         desc = row[0]
-        rows = self.db.select("SELECT path, title, description, length, "
-            "pub_date, size FROM podcast_items WHERE podcast_path=%s ORDER BY"
-            " pub_date DESC LIMIT 10" % self.db.p, 
-            (wrapper.path,))
+        rows = self.db.select("SELECT paths.name, title, description, length, "
+            "pub_date, size FROM podcast_items, paths WHERE podcast_path=? "
+            "AND paths.id=podcast_items.path ORDER BY"
+            " pub_date DESC LIMIT 10", 
+            (podcast_path_id,))
 
         songs = tracks.TrackData()
         for row in rows:
@@ -2384,6 +2387,7 @@ class RadioPanel(object):
                 return
 
             self.db.execute("INSERT INTO podcasts( path ) VALUES( ? )", (name,))
+            self.db.commit()
 
             item = self.model.append(self.podcast,
                 [self.track, PodcastWrapper("Fetching...", name)])
@@ -2477,6 +2481,8 @@ class RadioPanel(object):
                     "length": length,
                 }, "path=? AND podcast_path=?", 
                 (loc_id, path_id), row == None)
+
+        self.db.commit()
 
         gobject.timeout_add(500, self.open_podcast, PodcastWrapper(root_title, path))
 

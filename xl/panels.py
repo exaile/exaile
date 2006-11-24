@@ -2228,6 +2228,8 @@ class RadioPanel(object):
         """
         podcast_path_id = tracks.get_column_id(self.db, 'paths', 'name',
             wrapper.path)
+
+        xlmisc.log("Opening podcast %s" % wrapper.name)
         row = self.db.read_one("podcasts", "description", "path=?", 
             (podcast_path_id, ))
         if not row: return
@@ -2386,7 +2388,8 @@ class RadioPanel(object):
                     " exists"))
                 return
 
-            self.db.execute("INSERT INTO podcasts( path ) VALUES( ? )", (name,))
+            self.db.execute("INSERT INTO podcasts( path ) VALUES( ? )",
+                (path_id,))
             self.db.commit()
 
             item = self.model.append(self.podcast,
@@ -2452,6 +2455,7 @@ class RadioPanel(object):
         for item in items:
             title = self.get_val(item, 'title')
             link = self.get_val(item, 'link')
+            print title, link
             desc = self.get_val(item, 'description')
 
             desc = self.clean_desc(desc)

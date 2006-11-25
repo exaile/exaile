@@ -35,8 +35,6 @@ CREATE TABLE albums( id INTEGER NOT NULL PRIMARY KEY,
 
 CREATE UNIQUE INDEX albums_artist ON albums(artist, name);
 
-CREATE UNIQUE INDEX album_artist_index ON albums( artist, name );
-
 CREATE TABLE playlists( id INTEGER NOT NULL PRIMARY KEY, 
     name VARCHAR(30) NOT NULL UNIQUE, 
     type TINYINT DEFAULT 0 );

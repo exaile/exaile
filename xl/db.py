@@ -70,7 +70,6 @@ class DBManager(object):
             Initializes and connects to the database
         """
         
-        self.type = type
         self.db_loc = db_loc
         self.db = self.__get_db()
 

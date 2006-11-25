@@ -331,6 +331,7 @@ class ExaileWindow(object):
         self.queue_count_label = self.xml.get_widget('queue_count_label')
         self.xml.get_widget('queue_count_box').connect('button-release-event',
             self.queue_count_clicked)
+        self.progress_label = self.xml.get_widget('progress_label')
 
         # for multimedia keys
         if MMKEYS_AVAIL:
@@ -351,6 +352,7 @@ class ExaileWindow(object):
 
         self.plugins_item = self.xml.get_widget('plugins_item')
         self.plugins_item.connect('activate', self.show_plugin_manager)
+        self.view_menu = self.xml.get_widget('view_menu')
 
         self.progress = self.xml.get_widget('track_slider')
         self.progress.connect('change-value', self.seek)
@@ -1078,7 +1080,6 @@ class ExaileWindow(object):
         self.rating_combo.disconnect(self.rating_signal)
         track = self.current_track
 
-        self.progress_label = self.xml.get_widget('progress_label')
         self.artist_label = self.xml.get_widget('artist_label')
         if track == None:
             self.progress_label.set_label('0:00')
@@ -1467,7 +1468,7 @@ class ExaileWindow(object):
             self.progress.set_value(0)
             return
         duration = self.current_track.duration
-        real = long(self.progress.get_value() * duration / 100)
+        real = long(range.get_value() * duration / 100)
         self.current_track.seek(real)
         self.current_track.submitting = True
 
@@ -1722,6 +1723,9 @@ class ExaileWindow(object):
             self.play_button.set_image(self.get_play_image())
             track.pause()
         if self.tracks: self.tracks.queue_draw()
+        event = plugins.Event()
+        event.add_call('pause_toggled', (self.current_track,))
+        self.pmanager.fire_event(event)
     
     def play(self, treeview=None, path=None, column=None): 
         """
@@ -2048,6 +2052,8 @@ class ExaileWindow(object):
         
         if percent < 0:
             self.db.db.commit()
+            self.db._cursor.close()
+            self.db._cursor = self.db.realcursor()
             self.load_songs(percent==-1)
 
         if done_func:

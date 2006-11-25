@@ -19,7 +19,7 @@ import trackslist, tracks, covers, md5, threading, re
 import sys, httplib, urlparse, os, os.path, urllib, media
 import common, traceback, gc, xl.db
 
-import cStringIO
+import cStringIO, plugins
 from gettext import gettext as _
 import prefs
 
@@ -283,6 +283,9 @@ class TrayIcon(object):
                 self.label.set_label(_("Pause"))
             self.menu.popup(None, None, None, event.button, event.time)
         elif event.button == 1: 
+            event = plugins.Event()
+            event.add_call('toggle_hide', (None,))
+            if not self.exaile.pmanager.fire_event(event): return
             if not self.exaile.window.get_property('visible'):
                 self.exaile.window.show_all()
                 self.exaile.setup_location()

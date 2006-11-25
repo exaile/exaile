@@ -653,6 +653,7 @@ class PopulateThread(threading.Thread):
         """
         self.db._close_thread()
         self.db.commit()
+
         num = -2
         if not self.load_tree: num = -1
         tracks = self.found_tracks

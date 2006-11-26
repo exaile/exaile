@@ -15,7 +15,8 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-import gtk, plugins, gobject
+import gtk, plugins, gobject, pango
+from xl import xlmisc
 
 PLUGIN_NAME = "Mini Mode"
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
@@ -38,14 +39,30 @@ class MiniWindow(gtk.Window):
         self.set_title("Exaile!")
         self.set_icon(APP.window.get_icon())
 
-        main = gtk.VBox()
-        main.set_spacing(2)
-        main.set_border_width(2)
+        main = gtk.HBox()
+        main.set_border_width(6)
+        main.set_spacing(3)
+        self.cover_box = gtk.EventBox()
+        self.cover = xlmisc.ImageWidget()
+        self.cover_box.connect('button_press_event', APP.cover_clicked)
+        self.cover_box.add(self.cover)
+        main.pack_start(self.cover_box, False)
 
-        self.title_label = gtk.Label()
-        self.title_label.set_markup("<b>Now Playing</b>")
-        self.title_label.set_alignment(0.0, 0.0)
-        main.pack_start(self.title_label)
+        content_box = gtk.VBox()
+        content_box.set_spacing(2)
+        content_box.set_border_width(3)
+
+        self.model = gtk.ListStore(str, object)
+        self.title_box = gtk.ComboBox(self.model)
+        cell = gtk.CellRendererText()
+        cell.set_property('ellipsize', pango.ELLIPSIZE_END)
+    
+        self.title_box.pack_start(cell, True)
+        self.title_box.add_attribute(cell, 'text', 0)
+        self.title_id = \
+            self.title_box.connect('changed', self.change_track)
+
+        content_box.pack_start(self.title_box)
         artist_box = gtk.HBox()
 
         self.artist_label = gtk.Label("Artist")
@@ -54,7 +71,7 @@ class MiniWindow(gtk.Window):
         self.volume_label.set_alignment(1.0, 0.0)
         artist_box.pack_start(self.artist_label, True)
         artist_box.pack_end(self.volume_label, False)
-        main.pack_start(artist_box)
+        content_box.pack_start(artist_box)
 
         box = gtk.HBox()
         box.set_spacing(2)
@@ -72,16 +89,54 @@ class MiniWindow(gtk.Window):
         self.seeker.set_draw_value(False)
         self.seeker.set_size_request(200, -1)
         self.seeker.connect('change-value', APP.seek)
-        box.pack_start(self.seeker, True, True)
-        self.pos_label = gtk.Label("0:00")
-        box.pack_start(self.pos_label, False)
-        main.pack_start(box)
+        box.pack_start(self.seeker, False)
+        self.pos_label = gtk.Label("      0:00")
+        box.pack_end(self.pos_label, True)
+        content_box.pack_start(box)
         self.connect('delete-event', self.on_quit)
         self.connect('configure-event', self.on_move)
+
+        main.pack_start(content_box, True, True)
 
         self.add(main)
         self.set_resizable(False)
         self.first = False
+
+    def change_track(self, combo):
+        """
+            Called when the user uses the title combo to pick a new song
+        """
+        iter = self.title_box.get_active_iter()
+        APP.stop()
+        song = self.model.get_value(iter, 1)
+        APP.play_track(song)
+
+    def setup_title_box(self):
+        """
+            Populates the title box and selects the currently playing track
+        """
+        self.model.clear()
+        count = 0
+        current = APP.current_track
+        songs = APP.songs
+        for song in songs:
+            self.model.append([song.title, song])
+            if current == song:
+                self.title_box.disconnect(self.title_id)
+                self.title_box.set_active(count)
+                self.title_id = self.title_box.connect('changed',
+                    self.change_track)
+            count += 1
+
+        self.title_box.set_model(self.model)
+
+    def set_cover(self):
+        """
+            Sets the cover image, width, and height according to Exaile's
+            cover image width and height
+        """
+        self.cover.set_image_size(90, 90)
+        self.cover.set_image(APP.cover.loc)
 
     def on_move(self, *e):
         (x, y) = self.get_position()
@@ -99,6 +154,7 @@ class MiniWindow(gtk.Window):
     def show_window(self):
         if not self.first:
             self.first = True
+            self.set_cover()
             self.show_all()
         else:
             self.show()
@@ -109,6 +165,7 @@ class MiniWindow(gtk.Window):
         y = settings.get_int("%s_y" % plugins.name(__file__),
             10)
         self.move(x, y)
+        self.setup_title_box()
 
     def on_prev(self, button):
         APP.on_previous()
@@ -122,8 +179,9 @@ class MiniWindow(gtk.Window):
         APP.stop()
         self.timeout_cb()
         self.play.set_image(APP.get_play_image())
-        self.title_label.set_markup("<b>Stopped</b>")
         self.artist_label.set_label("Stopped")
+        self.set_cover()
+        self.setup_title_box()
 
     def on_next(self, button):
         APP.on_next()
@@ -154,15 +212,13 @@ class MiniWindow(gtk.Window):
     def timeout_cb(self):
         self.seeker.set_value(APP.progress.get_value())
         self.pos_label.set_label(APP.progress_label.get_label())
+        self.set_title(APP.window.get_title())
 
         track = APP.current_track
         self.volume_label.set_label("Vol: %s%%" % APP.get_volume_percent())
         if not track:
-            self.title_label.set_markup("<b>Stopped</b>")
             self.artist_label.set_label("Stopped")
         else:
-
-            self.title_label.set_markup("<b>%s</b>" % track.title)
             self.artist_label.set_label("by %s" % track.artist)
             
         return True
@@ -172,6 +228,11 @@ def pause_toggled(track):
 
 def play_track(track):
     PLUGIN.pause_toggled()
+    PLUGIN.set_cover()
+    PLUGIN.setup_title_box()
+
+def cover_found(track, location):
+    PLUGIN.set_cover()
 
 def toggle_minimode(*e):
     global MM_ACTIVE 

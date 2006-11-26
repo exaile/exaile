@@ -1559,6 +1559,8 @@ class ImageWidget(gtk.Image):
             scale = min(width / origw, height / origh)
             width = int(origw * scale)
             height = int(origh * scale)
+        self.width = width
+        self.height = height
         scaled = pixbuf.scale_simple(width, height, gtk.gdk.INTERP_BILINEAR)
         self.set_from_pixbuf(scaled)
 

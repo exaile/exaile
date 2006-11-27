@@ -33,6 +33,18 @@ MM_ACTIVE = False
 
 CONS = plugins.SignalContainer()
 
+def toggle_minimode(*e):
+    global MM_ACTIVE 
+    if not PLUGIN.get_property("visible"):
+        PLUGIN.show_window()
+        APP.window.hide()
+        MM_ACTIVE = True
+    else:
+        PLUGIN.hide()
+        MM_ACTIVE = False
+        APP.window.show()
+    print "Minimode toggled"
+
 class MiniWindow(gtk.Window):
     def __init__(self):
         gtk.Window.__init__(self)
@@ -92,10 +104,12 @@ class MiniWindow(gtk.Window):
         box.pack_start(stop, False)
         next = self.create_button('gtk-media-next', self.on_next)
         box.pack_start(next, False)
+        mm = self.create_button('gtk-fullscreen', toggle_minimode)
+        box.pack_start(mm, False)
 
         self.seeker = gtk.HScale(gtk.Adjustment(0, 0, 100, 1, 5, 0))
         self.seeker.set_draw_value(False)
-        self.seeker.set_size_request(200, -1)
+        self.seeker.set_size_request(170, -1)
         self.seeker_id = self.seeker.connect('change-value', APP.seek)
         box.pack_start(self.seeker, True, True)
         self.pos_label = gtk.Label("      0:00")
@@ -133,7 +147,7 @@ class MiniWindow(gtk.Window):
         blank = gtk.ListStore(str, object)
         self.title_box.set_model(blank)
         self.model.clear()
-        count = 0
+        count = 0; select = -1
         current = APP.current_track
         if current:
             select = 0
@@ -232,7 +246,7 @@ class MiniWindow(gtk.Window):
         button = gtk.Button()
         button.connect('clicked', func)
         image = gtk.Image()
-        image.set_from_stock(stock_id, gtk.ICON_SIZE_SMALL_TOOLBAR)
+        image.set_from_stock(stock_id, gtk.ICON_SIZE_MENU)
         button.set_image(image)
 
         return button
@@ -265,17 +279,6 @@ def play_track(exaile, track):
 def stop_track(exaile, track):
     PLUGIN.on_stop()
 
-def toggle_minimode(*e):
-    global MM_ACTIVE 
-    if not PLUGIN.get_property("visible"):
-        PLUGIN.show_window()
-        APP.window.hide()
-        MM_ACTIVE = True
-    else:
-        PLUGIN.hide()
-        MM_ACTIVE = False
-        APP.window.show()
-    print "Minimode toggled"
 
 def toggle_hide(*args):
     if not MM_ACTIVE: return False

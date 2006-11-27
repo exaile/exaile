@@ -37,13 +37,13 @@ class CoverDisplay(gtk.Window):
         gtk.Window.__init__(self)
         self.exaile = exaile
         self.geometry = geometry
-        self.init_gtk()
         self.first = False
+        self.init_gtk(False)
         self.img = gtk.Image()
         self.add(self.img)
         self.show_all()
     
-    def init_gtk(self):
+    def init_gtk(self, show=True):
         self.set_accept_focus(False)
         self.set_decorated(False)
         self.set_keep_below(True)
@@ -54,11 +54,12 @@ class CoverDisplay(gtk.Window):
         
         self.parse_geometry()
 
-        if not self.first:
-            self.first = True
-            self.show_all()
-        else:
-            self.show()
+        if show:
+            if not self.first:
+                self.first = True
+                self.show_all()
+            else:
+                self.show()
     
     def parse_geometry(self):
         match = re.match(

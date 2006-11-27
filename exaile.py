@@ -112,6 +112,7 @@ class ExaileWindow(object):
         self.setup_col_menus('track', trackslist.TracksListCtrl.col_map)
         self.plugins_menu = xlmisc.Menu()
         self.rewind_track = 0
+        self.volume_id = None
 
         if self.settings.get_boolean("use_splash", True):
             image = gtk.Image()
@@ -146,7 +147,8 @@ class ExaileWindow(object):
         image.set_from_pixbuf(volume_image)
 
         self.volume = self.xml.get_widget('volume_slider')
-        self.volume.connect('change-value', lambda *e: self.on_volume_set())
+        self.volume_id = \
+            self.volume.connect('change-value', self.on_volume_set)
         self.volume.set_value(self.settings.get_float('volume', 1) *
             100)
         if self.settings.get_boolean("use_tray", True): 
@@ -1451,13 +1453,17 @@ class ExaileWindow(object):
             custom=custom)
         self.tracks.set_songs(self.songs, False)
 
-    def on_volume_set(self): 
+    def on_volume_set(self, range, scroll, value): 
         """
             Sets the volume based on the slider position
         """
 
-        media.set_volume(float(self.volume.get_value()) / 100.0)
-        self.settings['volume'] = self.volume.get_value() / 100.0
+        media.set_volume(float(value) / 100.0)
+        self.settings['volume'] = value / 100.0
+        self.volume.disconnect(self.volume_id)
+        self.volume.set_value(value)
+        self.volume_id = self.volume.connect('change-value',
+            self.on_volume_set)
 
     def seek(self, range, scroll, value): 
         """

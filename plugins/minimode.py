@@ -68,12 +68,16 @@ class MiniWindow(gtk.Window):
         content_box.pack_start(self.title_box)
         artist_box = gtk.HBox()
 
-        self.artist_label = gtk.Label("Artist")
+        self.artist_label = gtk.Label("Stopped")
         self.artist_label.set_alignment(0.0, 0.0)
-        self.volume_label = gtk.Label("Vol: 0%")
-        self.volume_label.set_alignment(1.0, 0.0)
         artist_box.pack_start(self.artist_label, True)
-        artist_box.pack_end(self.volume_label, False)
+        self.volume_slider = gtk.HScale(gtk.Adjustment(0, 0, 120, 1, 5, 0))
+        self.volume_slider.set_draw_value(False)
+        self.volume_slider.set_size_request(100, -1)
+        self.volume_slider.connect('change-value', APP.on_volume_set)
+        artist_box.pack_end(gtk.Label("+"), False)
+        artist_box.pack_end(self.volume_slider, False)
+        artist_box.pack_end(gtk.Label("-"), False)
         content_box.pack_start(artist_box)
 
         box = gtk.HBox()
@@ -140,6 +144,7 @@ class MiniWindow(gtk.Window):
         self.title_box.set_active(0)
         self.title_id = self.title_box.connect('changed',
             self.change_track)
+        self.title_box.set_sensitive(len(self.model) > 0)
 
     def cover_changed(self, cover, location):
         """
@@ -168,6 +173,7 @@ class MiniWindow(gtk.Window):
         else:
             self.show()
 
+        self.volume_slider.set_value(APP.volume.get_value())
         settings = APP.settings
         x = settings.get_int("%s_x" % plugins.name(__file__),   
             10)

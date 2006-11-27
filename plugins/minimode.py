@@ -248,7 +248,7 @@ class MiniWindow(gtk.Window):
         image = gtk.Image()
         image.set_from_stock(stock_id, gtk.ICON_SIZE_MENU)
         button.set_image(image)
-        button.set_size_request(30, 30)
+        button.set_size_request(28, 28)
 
         return button
 
@@ -258,9 +258,9 @@ class MiniWindow(gtk.Window):
             self.play.set_image(APP.get_play_image())
         else:
             if track.is_paused():
-                self.play.set_image(APP.get_play_image())
+                self.play.set_image(APP.get_play_image(gtk.ICON_SIZE_MENU))
             else:
-                self.play.set_image(APP.get_pause_image())
+                self.play.set_image(APP.get_pause_image(gtk.ICON_SIZE_MENU))
         self.artist_label.set_label("by %s" % track.artist)
         self.set_title(APP.window.get_title())
 

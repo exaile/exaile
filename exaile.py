@@ -632,19 +632,17 @@ class ExaileWindow(gobject.GObject):
             self.cover_menu.popup(None, None, None, 
                 event.button, event.time)
 
-    def get_play_image(self):
+    def get_play_image(self, size=gtk.ICON_SIZE_SMALL_TOOLBAR):
         """
             Returns a play image
         """
-        return gtk.image_new_from_stock('gtk-media-play',
-            gtk.ICON_SIZE_SMALL_TOOLBAR)
+        return gtk.image_new_from_stock('gtk-media-play', size)
 
-    def get_pause_image(self):
+    def get_pause_image(self, size=gtk.ICON_SIZE_SMALL_TOOLBAR):
         """
             Returns a pause image
         """
-        return gtk.image_new_from_stock('gtk-media-pause', 
-            gtk.ICON_SIZE_SMALL_TOOLBAR)
+        return gtk.image_new_from_stock('gtk-media-pause', size)
 
     def get_settings_dir(self): 
         """

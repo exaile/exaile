@@ -84,10 +84,11 @@ class MiniWindow(gtk.Window):
         self.artist_label.set_alignment(0.0, 0.0)
         self.artist_label.set_ellipsize(pango.ELLIPSIZE_END)
         artist_box.pack_start(self.artist_label, True)
-        self.volume_slider = gtk.HScale(gtk.Adjustment(0, 0, 120, 1, 5, 0))
+        self.volume_slider = gtk.HScale(gtk.Adjustment(0, 0, 120, 1, 10, 0))
         self.volume_slider.set_draw_value(False)
         self.volume_slider.set_size_request(100, -1)
         self.volume_id = self.volume_slider.connect('change-value', APP.on_volume_set)
+        self.volume_slider.connect('scroll-event', self.volume_scroll)
         artist_box.pack_end(gtk.Label("+"), False)
         artist_box.pack_end(self.volume_slider, False)
         artist_box.pack_end(gtk.Label("-"), False)
@@ -123,6 +124,23 @@ class MiniWindow(gtk.Window):
         self.add(main)
         self.set_resizable(False)
         self.first = False
+
+    def volume_scroll(self, widget, ev):
+        """
+            Called when the user scrolls their mouse wheel over the tray icon
+        """
+        v = self.volume_slider.get_value()
+        if ev.direction == gtk.gdk.SCROLL_RIGHT or ev.direction == \
+            gtk.gdk.SCROLL_UP:
+            v += 8
+        else:
+            v -= 8
+
+        if v < 0: v = 0
+        elif v > 120: v = 120
+        APP.on_volume_set(self.volume_slider, None, v)
+        self.volume_slider.set_value(v)
+        return True
 
     def volume_changed(self, exaile, value):
         self.volume_slider.disconnect(self.volume_id)

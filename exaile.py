@@ -157,6 +157,7 @@ class ExaileWindow(gobject.GObject):
         self.volume = self.xml.get_widget('volume_slider')
         self.volume_id = \
             self.volume.connect('change-value', self.on_volume_set)
+        self.volume.connect('scroll-event', self.volume_scroll)
         self.volume.set_value(self.settings.get_float('volume', 1) *
             100)
         if self.settings.get_boolean("use_tray", True): 
@@ -1448,6 +1449,23 @@ class ExaileWindow(gobject.GObject):
             custom=custom)
         self.tracks.set_songs(self.songs, False)
 
+    def volume_scroll(self, widget, ev):
+        """
+            Called when the user scrolls their mouse wheel over the tray icon
+        """
+        v = widget.get_value()
+        if ev.direction == gtk.gdk.SCROLL_RIGHT or ev.direction == \
+            gtk.gdk.SCROLL_UP:
+            v += 9
+        else:
+            v -= 9
+
+        if v < 0: v = 0
+        elif v > 120: v = 120
+
+        self.on_volume_set(self.volume, None, v)
+        return True
+
     def on_volume_set(self, range, scroll, value): 
         """
             Sets the volume based on the slider position
@@ -1457,7 +1475,7 @@ class ExaileWindow(gobject.GObject):
         self.settings['volume'] = value / 100.0
         self.emit('volume-changed', value)        
         self.volume.disconnect(self.volume_id)
-        self.volume.set_value(value / 100.0)
+        self.volume.set_value(value)
         self.volume_id = self.volume.connect('change-value',
             self.on_volume_set)
 

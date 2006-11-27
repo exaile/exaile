@@ -270,7 +270,7 @@ class TrayIcon(gobject.GObject):
         elif v > 120: v = 120
 
         self.exaile.volume.set_value(v)
-        self.exaile.on_volume_set()
+        self.exaile.on_volume_set(self.exaile.volume, None, v)
 
     def button_pressed(self, item, event, data=None):
         """

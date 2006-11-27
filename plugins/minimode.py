@@ -75,7 +75,7 @@ class MiniWindow(gtk.Window):
         self.volume_slider = gtk.HScale(gtk.Adjustment(0, 0, 120, 1, 5, 0))
         self.volume_slider.set_draw_value(False)
         self.volume_slider.set_size_request(100, -1)
-        self.volume_slider.connect('change-value', APP.on_volume_set)
+        self.volume_id = self.volume_slider.connect('change-value', APP.on_volume_set)
         artist_box.pack_end(gtk.Label("+"), False)
         artist_box.pack_end(self.volume_slider, False)
         artist_box.pack_end(gtk.Label("-"), False)
@@ -96,7 +96,7 @@ class MiniWindow(gtk.Window):
         self.seeker = gtk.HScale(gtk.Adjustment(0, 0, 100, 1, 5, 0))
         self.seeker.set_draw_value(False)
         self.seeker.set_size_request(200, -1)
-        self.seeker.connect('change-value', APP.seek)
+        self.seeker_id = self.seeker.connect('change-value', APP.seek)
         box.pack_start(self.seeker, True, True)
         self.pos_label = gtk.Label("      0:00")
         box.pack_end(self.pos_label, False)
@@ -109,6 +109,12 @@ class MiniWindow(gtk.Window):
         self.add(main)
         self.set_resizable(False)
         self.first = False
+
+    def volume_changed(self, exaile, value):
+        self.volume_slider.disconnect(self.volume_id)
+        self.volume_slider.set_value(value / 100.0)
+        self.volume_id = self.volume_slider.connect('change-value',
+            APP.on_volume_set)
 
     def change_track(self, combo):
         """
@@ -135,7 +141,8 @@ class MiniWindow(gtk.Window):
             select = -1
             current = APP.songs[0] 
 
-        self.model.append([current.title, current])
+        if current:  
+            self.model.append([current.title, current])
 
         if len(APP.songs) > 50:
             next = current
@@ -306,15 +313,20 @@ def initialize():
     CONS.connect(APP.cover, 'image-changed', PLUGIN.cover_changed)
     CONS.connect(APP, 'play-track', play_track)
     CONS.connect(APP, 'stop-track', stop_track)
+    CONS.connect(APP, 'volume-changed', PLUGIN.volume_changed)
 
     if APP.tray_icon:
         CONS.connect(APP.tray_icon, 'toggle-hide', toggle_hide)
     return True
 
 def destroy():
-    global PLUGIN, MENU_ITEM, ACCEL_GROUP, MENU_ITEM
+    global PLUGIN, MENU_ITEM, ACCEL_GROUP, MENU_ITEM, TIMER_ID
 
     CONS.disconnect_all()
+
+    if TIMER_ID:
+        gobject.source_remove(TIMER_ID)
+        TIMER_ID = None
 
     if PLUGIN:
         PLUGIN.destroy()

@@ -1457,8 +1457,9 @@ class ExaileWindow(gobject.GObject):
 
         media.set_volume(float(value) / 100.0)
         self.settings['volume'] = value / 100.0
+        self.emit('volume-changed', value)        
         self.volume.disconnect(self.volume_id)
-        self.volume.set_value(value)
+        self.volume.set_value(value / 100.0)
         self.volume_id = self.volume.connect('change-value',
             self.on_volume_set)
 
@@ -1474,6 +1475,7 @@ class ExaileWindow(gobject.GObject):
         real = long(range.get_value() * duration / 100)
         self.current_track.seek(real)
         self.current_track.submitting = True
+        self.emit('seek', real)
 
     def play_track(self, track): 
         """

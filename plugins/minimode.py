@@ -136,12 +136,13 @@ class MiniWindow(gtk.Window):
         count = 0
         current = APP.current_track
         if current:
-            select = 1
+            select = 0
         elif APP.songs:
             select = -1
             current = APP.songs[0] 
 
         if current:  
+            count += 1
             self.model.append([current.title, current])
 
         if len(APP.songs) > 50:

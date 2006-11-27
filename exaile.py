@@ -1700,7 +1700,7 @@ class ExaileWindow(gobject.GObject):
             if track:
                 track.stop()
                 track.play(self.on_next)
-                self.rewind = 0
+                self.rewind_track = 0
             return
 
         # otherwise go back in the history

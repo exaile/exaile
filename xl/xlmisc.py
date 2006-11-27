@@ -1533,6 +1533,10 @@ class ImageWidget(gtk.Image):
     """
         Custom resizeable image widget
     """
+    __gsignals__ = {
+        'image-changed': (gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (str,))
+    }
+
     def __init__(self):
         """
             Initializes the image
@@ -1565,6 +1569,7 @@ class ImageWidget(gtk.Image):
         self.set_from_pixbuf(scaled)
 
         scaled = pixbuf = None
+        self.emit('image-changed', image)
 
 class StatusBar(object):
     """

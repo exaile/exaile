@@ -31,6 +31,7 @@ MENU_ITEM = None
 ACCEL_GROUP = None
 TIMER_ID = None
 MM_ACTIVE = False
+COVER_ID = None
 
 class MiniWindow(gtk.Window):
     def __init__(self):
@@ -44,6 +45,8 @@ class MiniWindow(gtk.Window):
         main.set_spacing(3)
         self.cover_box = gtk.EventBox()
         self.cover = xlmisc.ImageWidget()
+        self.cover.set_image_size(90, 90)
+        self.cover.set_image(APP.cover.loc)
         self.cover_box.connect('button_press_event', APP.cover_clicked)
         self.cover_box.add(self.cover)
         main.pack_start(self.cover_box, False)
@@ -107,36 +110,43 @@ class MiniWindow(gtk.Window):
             Called when the user uses the title combo to pick a new song
         """
         iter = self.title_box.get_active_iter()
-        APP.stop()
-        song = self.model.get_value(iter, 1)
-        APP.play_track(song)
+        if iter:
+            song = self.model.get_value(iter, 1)
+            APP.stop()
+            APP.play_track(song)
 
     def setup_title_box(self):
         """
             Populates the title box and selects the currently playing track
         """
+        blank = gtk.ListStore(str, object)
+        self.title_box.set_model(blank)
         self.model.clear()
         count = 0
         current = APP.current_track
-        songs = APP.songs
-        for song in songs:
-            self.model.append([song.title, song])
-            if current == song:
-                self.title_box.disconnect(self.title_id)
-                self.title_box.set_active(count)
-                self.title_id = self.title_box.connect('changed',
-                    self.change_track)
+        next = current
+        if current:
+            self.model.append([current.title, current])
+
+        while True:
+            next = APP.tracks.get_next_track(next)
+            if not next: break
+            self.model.append([next.title, next])
             count += 1
+            if count >= 50: break
 
         self.title_box.set_model(self.model)
+        self.title_box.disconnect(self.title_id)
+        self.title_box.set_active(0)
+        self.title_id = self.title_box.connect('changed',
+            self.change_track)
 
-    def set_cover(self):
+    def cover_changed(self, cover, location):
         """
             Sets the cover image, width, and height according to Exaile's
             cover image width and height
         """
-        self.cover.set_image_size(90, 90)
-        self.cover.set_image(APP.cover.loc)
+        self.cover.set_image(location)
 
     def on_move(self, *e):
         (x, y) = self.get_position()
@@ -154,7 +164,6 @@ class MiniWindow(gtk.Window):
     def show_window(self):
         if not self.first:
             self.first = True
-            self.set_cover()
             self.show_all()
         else:
             self.show()
@@ -175,13 +184,14 @@ class MiniWindow(gtk.Window):
         APP.toggle_pause()
         self.timeout_cb()
 
-    def on_stop(self, button):
-        APP.stop()
+    def on_stop(self, button=None):
+        if button: APP.stop(True)
         self.timeout_cb()
         self.play.set_image(APP.get_play_image())
         self.artist_label.set_label("Stopped")
-        self.set_cover()
         self.setup_title_box()
+        self.artist_label.set_label("Stopped")
+        self.set_title(APP.window.get_title())
 
     def on_next(self, button):
         APP.on_next()
@@ -208,18 +218,12 @@ class MiniWindow(gtk.Window):
                 self.play.set_image(APP.get_play_image())
             else:
                 self.play.set_image(APP.get_pause_image())
+        self.artist_label.set_label("by %s" % track.artist)
+        self.set_title(APP.window.get_title())
 
     def timeout_cb(self):
         self.seeker.set_value(APP.progress.get_value())
         self.pos_label.set_label(APP.progress_label.get_label())
-        self.set_title(APP.window.get_title())
-
-        track = APP.current_track
-        self.volume_label.set_label("Vol: %s%%" % APP.get_volume_percent())
-        if not track:
-            self.artist_label.set_label("Stopped")
-        else:
-            self.artist_label.set_label("by %s" % track.artist)
             
         return True
 
@@ -228,11 +232,10 @@ def pause_toggled(track):
 
 def play_track(track):
     PLUGIN.pause_toggled()
-    PLUGIN.set_cover()
     PLUGIN.setup_title_box()
 
-def cover_found(track, location):
-    PLUGIN.set_cover()
+def stop_track(track):
+    PLUGIN.on_stop()
 
 def toggle_minimode(*e):
     global MM_ACTIVE 
@@ -280,10 +283,15 @@ def initialize():
     APP.view_menu.get_submenu().append(MENU_ITEM)
     MENU_ITEM.show()
     PLUGIN.add_accel_group(ACCEL_GROUP)
+    COVER_ID = APP.cover.connect('image-changed', PLUGIN.cover_changed)
     return True
 
 def destroy():
-    global PLUGIN, MENU_ITEM, ACCEL_GROUP, MENU_ITEM
+    global PLUGIN, MENU_ITEM, ACCEL_GROUP, MENU_ITEM, COVER_ID
+
+    if COVER_ID:
+        gobject.source_remove(COVER_ID)
+        COVER_ID = None
 
     if TIMER_ID:
         gobject.source_remove(TIMER_ID)

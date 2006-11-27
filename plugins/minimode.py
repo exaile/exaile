@@ -129,24 +129,32 @@ class MiniWindow(gtk.Window):
         count = 0
         current = APP.current_track
         if current:
-            select = True
+            select = 1
         elif APP.songs:
-            select = False
+            select = -1
             current = APP.songs[0] 
 
         self.model.append([current.title, current])
-        next = current
 
-        while True:
-            next = APP.tracks.get_next_track(next)
-            if not next: break
-            self.model.append([next.title, next])
-            count += 1
-            if count >= 50: break
+        if len(APP.songs) > 50:
+            next = current
+
+            while True:
+                next = APP.tracks.get_next_track(next)
+                if not next: break
+                self.model.append([next.title, next])
+                count += 1
+                if count >= 50: break
+        else:
+            for song in APP.songs:
+                if song == current and APP.current_track:
+                    select = count
+                self.model.append([song.title, song])
+                count += 1
 
         self.title_box.set_model(self.model)
         self.title_box.disconnect(self.title_id)
-        if select: self.title_box.set_active(0)
+        if select > -1: self.title_box.set_active(select)
         self.title_id = self.title_box.connect('changed',
             self.change_track)
         self.title_box.set_sensitive(len(self.model) > 0)

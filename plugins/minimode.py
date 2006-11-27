@@ -128,9 +128,14 @@ class MiniWindow(gtk.Window):
         self.model.clear()
         count = 0
         current = APP.current_track
-        next = current
         if current:
-            self.model.append([current.title, current])
+            select = True
+        elif APP.songs:
+            select = False
+            current = APP.songs[0] 
+
+        self.model.append([current.title, current])
+        next = current
 
         while True:
             next = APP.tracks.get_next_track(next)
@@ -141,7 +146,7 @@ class MiniWindow(gtk.Window):
 
         self.title_box.set_model(self.model)
         self.title_box.disconnect(self.title_id)
-        self.title_box.set_active(0)
+        if select: self.title_box.set_active(0)
         self.title_id = self.title_box.connect('changed',
             self.change_track)
         self.title_box.set_sensitive(len(self.model) > 0)

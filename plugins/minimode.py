@@ -114,7 +114,7 @@ class MiniWindow(gtk.Window):
         box.pack_start(self.seeker, True, True)
         self.pos_label = gtk.Label("      0:00")
         box.pack_end(self.pos_label, False)
-        content_box.pack_start(box)
+        content_box.pack_start(box, False)
         self.connect('delete-event', self.on_quit)
         self.connect('configure-event', self.on_move)
 
@@ -248,6 +248,7 @@ class MiniWindow(gtk.Window):
         image = gtk.Image()
         image.set_from_stock(stock_id, gtk.ICON_SIZE_MENU)
         button.set_image(image)
+        button.set_size_request(30, 30)
 
         return button
 

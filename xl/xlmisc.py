@@ -19,6 +19,7 @@ import trackslist, tracks, covers, md5, threading, re
 import sys, httplib, urlparse, os, os.path, urllib, media
 import common, traceback, gc, xl.db, gobject
 
+
 import cStringIO, plugins
 from gettext import gettext as _
 import prefs
@@ -1951,3 +1952,85 @@ class DragTreeView(gtk.TreeView):
         if not selection.count_selected_rows():
             selection.select_path(path[0])
         return self.cont.button_press(button, event)
+
+class PlaylistParser(object):
+    def __init__(self,name):
+
+        self.name = name
+        self.url = []
+
+    def add_url(self,url):
+        try: 
+            url = list(urlparse.urlsplit(url))
+        except:
+            pass
+
+        if not url[0]:
+            url[0] = 'file'
+        self.url.append(url)
+
+    def get_urls(self):
+        return self.url
+
+    def get_full(self):
+        return [urlparse.urlunsplit(u) for u in self.url]
+
+
+    def get_name(self):
+        return self.name
+
+    def parse_file(self,filename):
+        raise NotImplementedError
+
+class M3UParser(PlaylistParser):
+    
+    def __init__(self,name,filename = None):
+        super(M3UParser,self).__init__(name)
+        if filename:
+            self.parse_file(filename)
+
+    def parse_file(self,filename):
+
+        file = urllib.urlopen(filename)
+
+        for line in file.readlines():
+            line = line.strip()
+            if line[0] == "#" or line == '' : continue
+            if urlparse.urlsplit(line)[0]:
+                url = line
+            else:
+                if not os.path.isabs(line): # m3u entries can be relative paths
+                    url = os.path.dirname(filename) + os.path.sep + line
+                else:
+                    url = line
+            self.add_url(url)
+        return True
+
+class PlsParser(PlaylistParser):
+    def __init__(self,name,filename = None):
+        super(PlsParser,self).__init__(name)
+        if filename:
+            self.parse_file(filename)
+
+    def parse_file(self,filename):
+
+        (path,file) = os.path.split(filename)
+        file = urllib.urlopen(filename)
+
+        rgx = re.compile('[Ff]ile ?\d+ ?=(.+)')
+        for line in file.readlines():
+            line = line.strip() 
+            if rgx.match(line):
+                rg = rgx.match(line).group(1).strip()
+                if urlparse.urlsplit(rg)[0]:
+                    url = rg
+                else:
+                    if not os.path.isabs(rg): # m3u entries can be relative paths
+                        url = os.path.dirname(filename) + os.path.sep + rg
+                    else:
+                        url = rg
+                self.add_url(url)
+        return True
+   
+
+

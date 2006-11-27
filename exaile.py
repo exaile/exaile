@@ -40,7 +40,7 @@ import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade, pango, dbus
 
-import os, re, random, fileinput, gc, urllib, md5
+import os, re, random, fileinput, gc, urllib, md5, urlparse
 import os.path, traceback, thread, gettext, time
 import locale, tempfile, subprocess
 
@@ -1784,41 +1784,42 @@ class ExaileWindow(gobject.GObject):
             a local file (ie, file:///somefile.m3u) or online.
         """
         xlmisc.log("Importing %s" % path)
-        (p, f) = os.path.split(path)
         self.status.set_first("Importing playlist...")
         xlmisc.finish()
 
-        if path.find("://") == -1: path = "file://%s" % path
-        f = urllib.urlopen(path)
+        url = list(urlparse.urlsplit(path))
+        if not url[0]: #local file
+            url [0] = 'file'
+            url [2] = os.path.abspath(os.path.expanduser(url[2]))
+        path = urlparse.urlunsplit(url)
+
+        name = os.path.basename(os.path.splitext(url[2])[1]).replace("_", " ")
+        file = urllib.urlopen(path)
+
+        
+        if file.readline().strip() == '[playlist]':
+            file.close()
+            playlist = xlmisc.PlsParser(name,path)
+        else:
+            file.close()
+            playlist = xlmisc.M3UParser(name,path)
 
         first = True
         songs = tracks.TrackData()
-        (path, ext) = os.path.splitext(path)
-        name = os.path.basename(path).replace("_", " ")
-        t = trackslist.TracksListCtrl 
+        t = trackslist.TracksListCtrl
 
         count = 0
-        for line in f.readlines():
-            line = line.strip()
-            if line.startswith("#") or line == "[playlist]": continue
-            if line.find("=") > -1:
-                if not line.startswith("File"): continue
-                line = re.sub("File\d+=", "", line)
-
-            p = "%s%s%s" % (p, os.sep, line)
-
-            if line.startswith(os.sep) or p.find("://") != -1: p = line
-
-            if self.all_songs.for_path(p):
-                tr = self.all_songs.for_path(p)
-            else:
-                if p.find("://") != -1:
-                    tr = media.RadioTrack({'url': p})
-                    if first == True and play:
-                        play = tr
+        for url in playlist.get_urls():
+            if url[0] == 'file':
+                if self.all_songs.for_path(url[2]):
+                    tr = self.all_songs.for_path(url[2])
                 else:
-                    tr = tracks.read_track(self.db, self.all_songs, p,
-                        adddb=False)
+                    tr = tracks.read_track(self.db, self.all_songs, url[2], adddb=False)
+                  
+            else:
+                tr = media.RadioTrack({'url':urlparse.urlunsplit(url)})
+                if first and play:
+                    play = tr
                     
                 if isinstance(tr, media.StreamTrack):
                     name = "Stream"

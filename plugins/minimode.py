@@ -315,6 +315,7 @@ def initialize():
     CONS.connect(APP, 'play-track', play_track)
     CONS.connect(APP, 'stop-track', stop_track)
     CONS.connect(APP, 'volume-changed', PLUGIN.volume_changed)
+    CONS.connect(APP, 'pause-toggled', pause_toggled)
 
     if APP.tray_icon:
         CONS.connect(APP.tray_icon, 'toggle-hide', toggle_hide)

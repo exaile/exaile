@@ -21,7 +21,7 @@ from xl import xlmisc
 PLUGIN_NAME = "Mini Mode"
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
 PLUGIN_VERSION = '0.1'
-PLUGIN_DESCRIPTION = r"""Allows for a mini mode window.\nMini Mode is activated
+PLUGIN_DESCRIPTION = r"""Allows for a mini mode window.\n\nMini Mode is activated
 by pressing CTRL+ALT+M"""
 PLUGIN_ENABLED = False
 PLUGIN_ICON = None

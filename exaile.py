@@ -661,8 +661,8 @@ class ExaileWindow(gobject.GObject):
         else: p = setting
         s = gtk.POS_LEFT
         if p == 0: s = gtk.POS_TOP
-        elif p == 1: s = gtk.POS_RIGHT
-        elif p == 2: s = gtk.POS_LEFT
+        elif p == 1: s = gtk.POS_LEFT
+        elif p == 2: s = gtk.POS_RIGHT
         elif p == 3: s = gtk.POS_BOTTOM
 
         self.playlists_nb.set_tab_pos(s)

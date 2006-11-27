@@ -41,15 +41,9 @@ class CoverDisplay(gtk.Window):
         self.init_gtk(False)
         self.img = gtk.Image()
         self.add(self.img)
-        self.show_all()
     
     def init_gtk(self, show=True):
-        self.set_accept_focus(False)
-        self.set_decorated(False)
-        self.set_keep_below(True)
-        self.set_resizable(False)
-        self.set_skip_pager_hint(True)
-        self.set_skip_taskbar_hint(True)
+
         self.stick()
         
         self.parse_geometry()
@@ -60,7 +54,13 @@ class CoverDisplay(gtk.Window):
                 self.show_all()
             else:
                 self.show()
-    
+        self.set_accept_focus(False)
+        self.set_decorated(False)
+        self.set_keep_below(True)
+        self.set_resizable(False)
+        self.set_skip_pager_hint(True)
+        self.set_skip_taskbar_hint(True)
+
     def parse_geometry(self):
         match = re.match(
                 '^=?(?:(\d+)?(?:[Xx](\d+))?)?'

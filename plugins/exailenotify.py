@@ -28,6 +28,7 @@ DEFAULT_SUMMARY = '{title}'
 DEFAULT_BODY = '{artist}\n<i>on {album}</i>'
 
 APP = None
+PLAY_ID = None
 pynotify.init('exailenotify')
 
 def configure():
@@ -78,15 +79,7 @@ def configure():
         settings['%s_summary' % plugins.name(__file__)] = \
             summary_entry.get_text()
 
-def initialize():
-    """
-        Initializes the plugin. 
-        In this plugin, not much needs to be done except for set up the
-        globals
-    """
-    return True
-
-def play_track(track):
+def play_track(exaile, track):
     """
         Called when a track starts playing.
         Displays a notification via notification daemon
@@ -120,8 +113,21 @@ def play_track(track):
     notify.set_icon_from_pixbuf(pixbuf)
     notify.show()
 
+def initialize():
+    """
+        Initializes the plugin. 
+        In this plugin, not much needs to be done except for set up the
+        globals
+    """
+    global PLAY_ID
+    PLAY_ID = APP.connect('play-track', play_track)
+    return True
+
 def destroy():
     """
         No cleanup needs to be done for this plugin
     """
-    pass
+    global PLAY_ID
+    if PLAY_ID:
+        APP.disconnect(PLAY_ID)
+        PLAY_ID = None

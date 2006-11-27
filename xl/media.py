@@ -137,7 +137,7 @@ class timetype(long):
         long.__init__(self, num)
         self.stream = False
 
-class Track(object): 
+class Track(gobject.GObject): 
     """
         Represents a generic single track
     """
@@ -150,6 +150,7 @@ class Track(object):
             Loads an initializes the tag information
             Expects the path to the track as an argument
         """
+        gobject.GObject.__init__(self)
         self.set_info(loc, title, artist, album, genre,
             track, length, bitrate, year, modified, user_rating, 
             blacklisted, time_added)

@@ -29,9 +29,9 @@ PLUGIN_ICON = None
 PLUGIN = None
 MENU_ITEM = None
 ACCEL_GROUP = None
-TIMER_ID = None
 MM_ACTIVE = False
-COVER_ID = None
+
+CONS = plugins.SignalContainer()
 
 class MiniWindow(gtk.Window):
     def __init__(self):
@@ -246,14 +246,14 @@ class MiniWindow(gtk.Window):
             
         return True
 
-def pause_toggled(track):
+def pause_toggled(exaile, track):
     PLUGIN.pause_toggled()
 
-def play_track(track):
+def play_track(exaile, track):
     PLUGIN.pause_toggled()
     PLUGIN.setup_title_box()
 
-def stop_track(track):
+def stop_track(exaile, track):
     PLUGIN.on_stop()
 
 def toggle_minimode(*e):
@@ -269,13 +269,13 @@ def toggle_minimode(*e):
     print "Minimode toggled"
 
 def toggle_hide(*args):
-    if not MM_ACTIVE: return True
+    if not MM_ACTIVE: return False
 
     if PLUGIN.get_property("visible"):
         PLUGIN.hide()
     else: PLUGIN.show_window()
 
-    return False
+    return True
 
 def pass_func(*args):
     global MM_ACTIVE 
@@ -302,19 +302,18 @@ def initialize():
     APP.view_menu.get_submenu().append(MENU_ITEM)
     MENU_ITEM.show()
     PLUGIN.add_accel_group(ACCEL_GROUP)
-    COVER_ID = APP.cover.connect('image-changed', PLUGIN.cover_changed)
+    CONS.connect(APP.cover, 'image-changed', PLUGIN.cover_changed)
+    CONS.connect(APP, 'play-track', play_track)
+    CONS.connect(APP, 'stop-track', stop_track)
+
+    if APP.tray_icon:
+        CONS.connect(APP.tray_icon, 'toggle-hide', toggle_hide)
     return True
 
 def destroy():
-    global PLUGIN, MENU_ITEM, ACCEL_GROUP, MENU_ITEM, COVER_ID
+    global PLUGIN, MENU_ITEM, ACCEL_GROUP, MENU_ITEM
 
-    if COVER_ID:
-        gobject.source_remove(COVER_ID)
-        COVER_ID = None
-
-    if TIMER_ID:
-        gobject.source_remove(TIMER_ID)
-        TIMER_ID = None
+    CONS.disconnect_all()
 
     if PLUGIN:
         PLUGIN.destroy()

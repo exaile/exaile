@@ -33,6 +33,7 @@ BUTTON = None
 STREAMRIPPER_PID = None
 STREAMRIPPER_OUT = None
 CURRENT_TRACK = None
+CONS = plugins.SignalContainer()
 
 def configure():
     """
@@ -134,6 +135,31 @@ def toggle_record(widget, event=None):
 
     return False
 
+def stop():
+    """
+        Stops streamripper by killing it if it's still running, and closes the
+        log file
+    """
+    global STREAMRIPPER_OUT, STREAMRIPPER_PID
+    if BUTTON:  
+        BUTTON.set_active(False)
+    if STREAMRIPPER_OUT:
+        try:
+            STREAMRIPPER_OUT.close()
+        except OSError:
+            pass
+        STREAMRIPPER_OUT = None
+
+    if STREAMRIPPER_PID:
+        os.system("kill -9 %d" % STREAMRIPPER_PID)
+        STREAMRIPPER_PID = None
+
+def stop_track(exaile, track):
+    """
+        Called when playback has stopped on a track
+    """
+    stop()
+
 def initialize():
     """
         Checks for streamripper, initializes the plugin
@@ -158,35 +184,11 @@ def initialize():
     toolbar = APP.xml.get_widget('play_toolbar')
     toolbar.pack_start(BUTTON, False, False)
     toolbar.reorder_child(BUTTON, 3)
+    CONS.connect(APP, 'stop-track', stop_track)
 
     BUTTON.show()
 
     return True
-
-def stop():
-    """
-        Stops streamripper by killing it if it's still running, and closes the
-        log file
-    """
-    global STREAMRIPPER_OUT, STREAMRIPPER_PID
-    if BUTTON:  
-        BUTTON.set_active(False)
-    if STREAMRIPPER_OUT:
-        try:
-            STREAMRIPPER_OUT.close()
-        except OSError:
-            pass
-        STREAMRIPPER_OUT = None
-
-    if STREAMRIPPER_PID:
-        os.system("kill -9 %d" % STREAMRIPPER_PID)
-        STREAMRIPPER_PID = None
-
-def stop_track(track):
-    """
-        Called when playback has stopped on a track
-    """
-    stop()
 
 def destroy():
     """
@@ -207,3 +209,4 @@ def destroy():
     BUTTON.hide()
     BUTTON.destroy()
     BUTTON = None
+    CONS.disconnect_all()

@@ -17,7 +17,7 @@
 import time
 import trackslist, tracks, covers, md5, threading, re
 import sys, httplib, urlparse, os, os.path, urllib, media
-import common, traceback, gc, xl.db
+import common, traceback, gc, xl.db, gobject
 
 import cStringIO, plugins
 from gettext import gettext as _
@@ -223,14 +223,18 @@ class ThreadRunner(threading.Thread):
             self.lock.release()
             print 'released lock'
 
-class TrayIcon(object):
+class TrayIcon(gobject.GObject):
     """
         System tray icon
     """
+    __gsignals__ = {
+        'toggle-hide': (gobject.SIGNAL_RUN_LAST, bool, tuple())
+    }
     def __init__(self, exaile):
         """
             Initializes the tray icon
         """
+        gobject.GObject.__init__(self)
         self.exaile = exaile
 
         self.tips = gtk.Tooltips()
@@ -283,9 +287,7 @@ class TrayIcon(object):
                 self.label.set_label(_("Pause"))
             self.menu.popup(None, None, None, event.button, event.time)
         elif event.button == 1: 
-            event = plugins.Event()
-            event.add_call('toggle_hide', (None,))
-            if not self.exaile.pmanager.fire_event(event): return
+            if self.emit('toggle-hide'): return
             if not self.exaile.window.get_property('visible'):
                 self.exaile.window.show_all()
                 self.exaile.setup_location()
@@ -1534,7 +1536,8 @@ class ImageWidget(gtk.Image):
         Custom resizeable image widget
     """
     __gsignals__ = {
-        'image-changed': (gobject.SIGNAL_RUN_LAST, gobject.TYPE_NONE, (str,))
+        'image-changed': (gobject.SIGNAL_RUN_LAST, 
+            gobject.TYPE_NONE, (str,))
     }
 
     def __init__(self):

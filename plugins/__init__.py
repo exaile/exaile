@@ -34,29 +34,20 @@ class Plugin(object):
     def destroy(self):
         pass
 
-class Event(object):
-    """
-        Base event class
-    """
-
+class SignalContainer(object):
     def __init__(self):
-        """
-            Initializes the event
-        """
-        self.calls = dict()
+        self.obj = {}
 
-    def add_call(self, call, args):
-        """
-            Adds a call that this plugin will invoke
-        """
-        self.calls[call] = args
+    def connect(self, object, signal, func, *args):
+        if not self.obj.has_key(object):
+            self.obj[object] = []
+        self.obj[object].append(object.connect(signal, func, *args))
 
-    def remove_call(self, call):
-        """
-            Removes a call from this event
-        """
-        if self.calls.has_key(call):
-            del self.calls[call]
+    def disconnect_all(self):
+        for key in self.obj.keys():
+            for item in self.obj[key]:
+                self.obj[key].disconnect(item)
+            del self.obj[key]
 
 class PluginConfigDialog(gtk.Dialog):
     """

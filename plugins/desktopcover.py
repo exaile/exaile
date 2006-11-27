@@ -27,19 +27,23 @@ PLUGIN_ENABLED = False
 PLUGIN_ICON = None
 
 import gtk, re, gobject, xl.common
-import plugins
+import plugins, gobject
 
 PLUGIN = None
+CON = plugins.SignalContainer()
 
 class CoverDisplay(gtk.Window):
     def __init__(self, exaile, geometry=''):
+        gtk.Window.__init__(self)
         self.exaile = exaile
         self.geometry = geometry
         self.init_gtk()
         self.first = True
+        self.img = gtk.Image()
+        self.add(self.img)
+        self.show_all()
     
     def init_gtk(self):
-        gtk.Window.__init__(self)
         self.set_accept_focus(False)
         self.set_decorated(False)
         self.set_keep_below(True)
@@ -47,9 +51,6 @@ class CoverDisplay(gtk.Window):
         self.set_skip_pager_hint(True)
         self.set_skip_taskbar_hint(True)
         self.stick()
-        
-        self.img = gtk.Image()
-        self.add(self.img)
         
         self.parse_geometry()
         self.show_all()
@@ -76,21 +77,19 @@ class CoverDisplay(gtk.Window):
             print "No x and y"
             self.set_position(gtk.WIN_POS_CENTER_ALWAYS)
     
-    def play_track(self, track):
+    def play_track(self, exaile=None, track=None):
         """
             Called by the plugin chain when a new track starts playing
         """
         newcover = self.exaile.cover.loc
-        print "play track was called"
         
-        print newcover
         if newcover.find('nocover') == -1:
             self.display(newcover)
         else:
             self.display(None)
         return True
 
-    def stop_track(self, track):
+    def stop_track(self, exaile, track):
         """
             Called when playing of a track stops
         """
@@ -115,29 +114,8 @@ class CoverDisplay(gtk.Window):
             pixbuf = pixbuf.scale_simple(
                     width, height, gtk.gdk.INTERP_BILINEAR)
         self.img.set_from_pixbuf(pixbuf)
-
-        if self.first:
-            self.first = False
-            self.show_all()
-        else:
-            self.show()
-
-def initialize():
-    """
-        Inizializes the plugin
-    """
-    global PLUGIN, SETTINGS, APP
-    exaile = APP
-    SETTINGS = exaile.settings
-    print "%s_geometry" % \
-        plugins.name(__file__)
-
-    geometry = exaile.settings.get("%s_geometry" % 
-        plugins.name(__file__), "150x150")
-    print "Cover geometry: %s" % geometry
-    PLUGIN = CoverDisplay(exaile, geometry)
-
-    return True
+    
+        self.init_gtk()
 
 def configure():
     """
@@ -231,33 +209,51 @@ def configure():
         print "New settings: %s" % settings["%s_geometry" %
             plugins.name(__file__)]
 
-def play_track(track):
+def play_track(exaile, track):
     """
         Called when a track starts playing
     """
     if PLUGIN:
         PLUGIN.play_track(track)
 
-def stop_track(track):
+def stop_track(exaile, track):
     """
         Called when a track stops playing
     """
     if PLUGIN:
         PLUGIN.stop_track(track)
 
-def cover_found(track, location):
+def initialize():
     """
-        called when a cover was found for the current track
+        Inizializes the plugin
     """
-    if PLUGIN:
-        PLUGIN.play_track(track)
+    global PLUGIN, SETTINGS, APP
+    exaile = APP
+    SETTINGS = exaile.settings
+    print "%s_geometry" % \
+        plugins.name(__file__)
+
+    geometry = exaile.settings.get("%s_geometry" % 
+        plugins.name(__file__), "150x150")
+    print "Cover geometry: %s" % geometry
+    PLUGIN = CoverDisplay(exaile, geometry)
+
+    CON.connect(APP, 'play-track', PLUGIN.play_track)
+    CON.connect(APP, 'stop-track', PLUGIN.stop_track)
+    CON.connect(APP.cover, 'image-changed', PLUGIN.play_track)
+
+    return True
 
 def destroy():
     """
         Destroys the plugin
     """
-    global PLUGIN
+    global PLUGIN, PLAY_ID, STOP_ID, COVER_ID
+
+    CON.disconnect_all()
+
     if PLUGIN:
         PLUGIN.destroy()
+
 
     PLUGIN = None

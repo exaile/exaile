@@ -66,17 +66,25 @@ if os.sys.platform.startswith("win"): sys_var = "USERPROFILE"
 gtk.window_set_default_icon_from_file("images%sicon.png"% os.sep)
 SETTINGS_DIR = "%s%s%s" % (os.getenv(sys_var), os.sep, ".exaile")
 
-class ExaileWindow(object): 
+class ExaileWindow(gobject.GObject): 
     """
         The main interface class
     """
+    __gsignals__ = {
+        'play-track': (gobject.SIGNAL_RUN_LAST, None, (media.Track,)),
+        'stop-track': (gobject.SIGNAL_RUN_LAST, None, (media.Track,)),
+        'volume-changed': (gobject.SIGNAL_RUN_LAST, None, (int,)),
+        'seek': (gobject.SIGNAL_RUN_LAST, None, (int,)),
+        'pause-toggled': (gobject.SIGNAL_RUN_LAST, None, (media.Track,))
+    }
 
-    cover_width = 100
 
     def __init__(self, options, first_run = False): 
         """
             Initializes the main Exaile window
         """
+        gobject.GObject.__init__(self)
+        self.cover_width = 100
         self.xml = gtk.glade.XML('exaile.glade', 'ExaileWindow', 'exaile')
         self.window = self.xml.get_widget('ExaileWindow')
         media.exaile_instance = self
@@ -1169,12 +1177,6 @@ class ExaileWindow(object):
                 xlmisc.log(cover['filename'])
                 self.cover.set_image(cover['filename'])
 
-                # PLUGIN: tell plugins the cover was found
-                event = plugins.Event()
-                event.add_call('cover_found', (self.current_track,
-                    cover['filename']))
-                self.pmanager.fire_event(event)
-
                 self.db.execute("UPDATE albums SET image=? WHERE id=?",
                     (cover['md5'] + ".jpg", album_id))
                 
@@ -1200,11 +1202,6 @@ class ExaileWindow(object):
                 cover = self.fetch_from_fs(track)
                 if cover:
                     self.cover.set_image(cover)
-                    # PLUGIN: tell plugins the cover was found
-                    event = plugins.Event()
-                    event.add_call('cover_found', (self.current_track,
-                        cover))
-                    self.pmanager.fire_event(event)
                     return
                 return "images%snocover.png" % os.sep
             if os.path.isfile("%s%scovers%s%s" %
@@ -1513,9 +1510,7 @@ class ExaileWindow(object):
             thread.start_new_thread(self.get_suggested_songs, tuple())
 
         # PLUGIN: send plugins events of this playing track
-        event = plugins.Event()
-        event.add_call('play_track', (track,))
-        self.pmanager.fire_event(event)
+        self.emit('play-track', track)
 
         track.last_played = time.strftime("%Y-%m-%d %H:%M:%S",
             time.localtime())
@@ -1729,9 +1724,7 @@ class ExaileWindow(object):
             self.play_button.set_image(self.get_play_image())
             track.pause()
         if self.tracks: self.tracks.queue_draw()
-        event = plugins.Event()
-        event.add_call('pause_toggled', (self.current_track,))
-        self.pmanager.fire_event(event)
+        self.emit('pause-toggled', self.current_track)
     
     def play(self, treeview=None, path=None, column=None): 
         """
@@ -1773,9 +1766,7 @@ class ExaileWindow(object):
         if track != None: 
             track.stop()
             # PLUGIN: alert plugins that this track has stopped playing
-            e = plugins.Event()
-            e.add_call('stop_track', (track,))
-            self.pmanager.fire_event(e)
+            self.emit('stop-track', track)
 
         if event != None:
             self.played = []

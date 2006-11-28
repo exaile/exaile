@@ -1835,7 +1835,10 @@ class ExaileWindow(gobject.GObject):
                     tr = tracks.read_track(self.db, self.all_songs, url[2], adddb=False)
                   
             else:
-                tr = media.RadioTrack({'url':urlparse.urlunsplit(url)})
+                tr = media.RadioTrack({
+                    'url':urlparse.urlunsplit(url),
+                    'title':'Radio Stream'
+                    })
                 if first and play:
                     play = tr
                     

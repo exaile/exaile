@@ -18,11 +18,11 @@
 import gtk, plugins, gobject, pango
 from xl import xlmisc
 
-PLUGIN_NAME = "Mini Mode"
+PLUGIN_NAME = "Better Mini Mode"
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
 PLUGIN_VERSION = '0.1'
 PLUGIN_DESCRIPTION = r"""Allows for a mini mode window.\n\nMini Mode is activated
-by pressing CTRL+ALT+M"""
+by pressing CTRL+ALT+B"""
 PLUGIN_ENABLED = False
 PLUGIN_ICON = None
 
@@ -51,80 +51,63 @@ class MiniWindow(gtk.Window):
 
         self.set_title("Exaile!")
         self.set_icon(APP.window.get_icon())
+        self.set_decorated(False)
 
-        main = gtk.HBox()
-        main.set_border_width(6)
-        main.set_spacing(3)
-        self.cover_box = gtk.EventBox()
-        self.cover = xlmisc.ImageWidget()
-        self.cover.set_image_size(90, 90)
-        self.cover.set_image(APP.cover.loc)
-        self.cover_box.connect('button_press_event', APP.cover_clicked)
-        self.cover_box.add(self.cover)
-        main.pack_start(self.cover_box, False)
 
-        content_box = gtk.VBox()
-        content_box.set_spacing(2)
-        content_box.set_border_width(3)
+        main = gtk.VBox()
+        main.set_border_width(3)
+        self.tlabel = gtk.Label("")
+        self.tlabel.set_size_request(120, 10)
+        self.tlabel.set_alignment(0.0, 0.5)
+#        main.pack_start(self.tlabel)
+
+        bbox = gtk.HBox()
+
+        prev = self.create_button('gtk-media-previous', self.on_prev)
+        bbox.pack_start(prev, False)
+
+        self.play = self.create_button('gtk-media-play', self.on_play)
+        bbox.pack_start(self.play, False)
+
+        self.next = self.create_button('gtk-media-next', self.on_next)
+        bbox.pack_start(self.next)
 
         self.model = gtk.ListStore(str, object)
         self.title_box = gtk.ComboBox(self.model)
+        self.title_box.modify_font(pango.FontDescription('Normal 5'))
         cell = gtk.CellRendererText()
         cell.set_property('ellipsize', pango.ELLIPSIZE_END)
     
         self.title_box.pack_start(cell, True)
+        self.title_box.set_size_request(170, 28)
         self.title_box.add_attribute(cell, 'text', 0)
         self.title_id = \
             self.title_box.connect('changed', self.change_track)
+        bbox.pack_start(self.title_box, False)
 
-        content_box.pack_start(self.title_box)
-        artist_box = gtk.HBox()
+        self.seeker = gtk.HScale(gtk.Adjustment(0, 0, 100, 1, 5, 0))
+        self.seeker.set_draw_value(False)
+        self.seeker.set_size_request(150, -1)
+        self.seeker_id = self.seeker.connect('change-value', APP.seek)
+        bbox.pack_start(self.seeker, False)
 
-        self.artist_label = gtk.Label("Stopped")
-        self.artist_label.set_alignment(0.0, 0.0)
-        self.artist_label.set_ellipsize(pango.ELLIPSIZE_END)
-        artist_box.pack_start(self.artist_label, True)
         self.volume_slider = gtk.HScale(gtk.Adjustment(0, 0, 120, 1, 10, 0))
         self.volume_slider.set_draw_value(False)
         self.volume_slider.set_size_request(100, -1)
         self.volume_id = self.volume_slider.connect('change-value', APP.on_volume_set)
         self.volume_slider.connect('scroll-event', self.volume_scroll)
-        artist_box.pack_end(gtk.Label("+"), False)
-        artist_box.pack_end(self.volume_slider, False)
-        artist_box.pack_end(gtk.Label("-"), False)
-        content_box.pack_start(artist_box)
+        bbox.pack_start(gtk.Label("-"), False)
+        bbox.pack_start(self.volume_slider, False)
+        bbox.pack_start(gtk.Label("+"), False)
 
-        box = gtk.HBox()
-        box.set_spacing(2)
-        prev = self.create_button('gtk-media-previous', self.on_prev)
-        box.pack_start(prev, False)
-        self.play = self.create_button('gtk-media-play', self.on_play)
-
-        box.pack_start(self.play, False)
-        stop = self.create_button('gtk-media-stop', self.on_stop)
-        box.pack_start(stop, False)
-        next = self.create_button('gtk-media-next', self.on_next)
-        box.pack_start(next, False)
         mm = self.create_button('gtk-fullscreen', toggle_minimode)
-        box.pack_start(mm, False)
+        bbox.pack_start(mm, False)
 
-        self.seeker = gtk.HScale(gtk.Adjustment(0, 0, 100, 1, 5, 0))
-        self.seeker.set_draw_value(False)
-        self.seeker.set_size_request(170, -1)
-        self.seeker_id = self.seeker.connect('change-value', APP.seek)
-        box.pack_start(self.seeker, True, True)
-        self.pos_label = gtk.Label("0:00")
-        self.pos_label.set_alignment(1.0, 0.5)
-        self.pos_label.set_size_request(40, 0)
-        box.pack_end(self.pos_label, False)
-        content_box.pack_start(box, False)
-        self.connect('delete-event', self.on_quit)
-        self.connect('configure-event', self.on_move)
-
-        main.pack_start(content_box, True, True)
+        main.pack_start(bbox)
 
         self.add(main)
-        self.set_resizable(False)
+
+        self.connect('configure-event', self.on_move)
         self.first = False
 
     def volume_scroll(self, widget, ev):
@@ -207,7 +190,7 @@ class MiniWindow(gtk.Window):
             Sets the cover image, width, and height according to Exaile's
             cover image width and height
         """
-        self.cover.set_image(location)
+#        self.cover.set_image(location)
 
     def on_move(self, *e):
         (x, y) = self.get_position()
@@ -250,8 +233,9 @@ class MiniWindow(gtk.Window):
         if button: APP.stop(True)
         self.timeout_cb()
         self.play.set_image(APP.get_play_image(gtk.ICON_SIZE_MENU))
-        self.artist_label.set_label("Stopped")
+#        self.artist_label.set_label("Stopped")
         self.setup_title_box()
+#        self.artist_label.set_label("Stopped")
         self.set_title(APP.window.get_title())
 
     def on_next(self, button):
@@ -280,12 +264,12 @@ class MiniWindow(gtk.Window):
                 self.play.set_image(APP.get_play_image(gtk.ICON_SIZE_MENU))
             else:
                 self.play.set_image(APP.get_pause_image(gtk.ICON_SIZE_MENU))
-        self.artist_label.set_label("by %s" % track.artist)
+#        self.artist_label.set_label("by %s" % track.artist)
         self.set_title(APP.window.get_title())
 
     def timeout_cb(self):
         self.seeker.set_value(APP.progress.get_value())
-        self.pos_label.set_label(APP.progress_label.get_label())
+#        self.pos_label.set_label(APP.progress_label.get_label())
             
         return True
 
@@ -323,7 +307,7 @@ def initialize():
     PLUGIN = MiniWindow()
     TIMER_ID = gobject.timeout_add(1000, PLUGIN.timeout_cb)
     ACCEL_GROUP = gtk.AccelGroup()
-    key, mod = gtk.accelerator_parse("<Control><Alt>M")
+    key, mod = gtk.accelerator_parse("<Control><Alt>B")
     ACCEL_GROUP.connect_group(key, mod, gtk.ACCEL_VISIBLE, pass_func)
 
     APP.window.add_accel_group(ACCEL_GROUP)
@@ -334,7 +318,7 @@ def initialize():
     APP.view_menu.get_submenu().append(MENU_ITEM)
     MENU_ITEM.show()
     PLUGIN.add_accel_group(ACCEL_GROUP)
-    CONS.connect(APP.cover, 'image-changed', PLUGIN.cover_changed)
+#    CONS.connect(APP.cover, 'image-changed', PLUGIN.cover_changed)
     CONS.connect(APP, 'play-track', play_track)
     CONS.connect(APP, 'stop-track', stop_track)
     CONS.connect(APP, 'volume-changed', PLUGIN.volume_changed)

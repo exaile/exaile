@@ -46,7 +46,7 @@ class SignalContainer(object):
     def disconnect_all(self):
         for key in self.obj.keys():
             for item in self.obj[key]:
-                self.obj[key].disconnect(item)
+                key.disconnect(item)
             del self.obj[key]
 
 class PluginConfigDialog(gtk.Dialog):

@@ -74,12 +74,12 @@ class MiniWindow(gtk.Window):
 
         self.model = gtk.ListStore(str, object)
         self.title_box = gtk.ComboBox(self.model)
-        self.title_box.modify_font(pango.FontDescription('Normal 5'))
         cell = gtk.CellRendererText()
+        cell.set_property('font-desc', pango.FontDescription('Normal 8'))
         cell.set_property('ellipsize', pango.ELLIPSIZE_END)
     
         self.title_box.pack_start(cell, True)
-        self.title_box.set_size_request(170, 28)
+        self.title_box.set_size_request(170, 26)
         self.title_box.add_attribute(cell, 'text', 0)
         self.title_id = \
             self.title_box.connect('changed', self.change_track)
@@ -251,7 +251,7 @@ class MiniWindow(gtk.Window):
         image = gtk.Image()
         image.set_from_stock(stock_id, gtk.ICON_SIZE_MENU)
         button.set_image(image)
-        button.set_size_request(28, 28)
+        button.set_size_request(26, 26)
 
         return button
 

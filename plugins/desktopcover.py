@@ -46,8 +46,10 @@ class CoverDisplay(gtk.Window):
 
         self.stick()
         
+        self.set_skip_taskbar_hint(True)
         self.parse_geometry()
 
+        self.set_skip_taskbar_hint(True)
         if show:
             if not self.first:
                 self.first = True
@@ -59,8 +61,8 @@ class CoverDisplay(gtk.Window):
         self.set_keep_below(True)
         self.set_resizable(False)
         self.set_skip_pager_hint(True)
-        self.set_skip_taskbar_hint(True)
 
+        self.set_skip_taskbar_hint(True)
     def parse_geometry(self):
         match = re.match(
                 '^=?(?:(\d+)?(?:[Xx](\d+))?)?'

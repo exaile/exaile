@@ -2767,7 +2767,9 @@ class FilesPanel(object):
         self.exaile = exaile
         self.db = exaile.db
         self.xml = exaile.xml
-        self.history = [os.getenv('HOME')]
+        self.first_dir = self.exaile.settings.get('files_panel_dir',
+            os.getenv('HOME'))
+        self.history = [self.first_dir]
 
         self.tree = xlmisc.DragTreeView(self, False)
         self.tree.set_headers_visible(True)
@@ -2822,7 +2824,7 @@ class FilesPanel(object):
         col.set_attributes(text, text=2)
         self.tree.append_column(col)
 
-        self.load_directory(os.getenv('HOME'), False)
+        self.load_directory(self.first_dir, False)
         self.tree.connect('row-activated', self.row_activated)
         self.menu = xlmisc.Menu()
         self.menu.append(_("Append to Playlist"), self.append)
@@ -2973,6 +2975,7 @@ class FilesPanel(object):
         """
             Loads a directory into the files view
         """
+        self.exaile.settings['files_panel_dir'] = dir
         self.current = dir
         directories = []
         files = []

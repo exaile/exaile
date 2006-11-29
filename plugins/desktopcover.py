@@ -46,23 +46,21 @@ class CoverDisplay(gtk.Window):
 
         self.stick()
         
-        self.set_skip_taskbar_hint(True)
         self.parse_geometry()
 
-        self.set_skip_taskbar_hint(True)
         if show:
             if not self.first:
                 self.first = True
                 self.show_all()
             else:
-                self.show()
+                self.deiconify()
         self.set_accept_focus(False)
         self.set_decorated(False)
         self.set_keep_below(True)
         self.set_resizable(False)
         self.set_skip_pager_hint(True)
-
         self.set_skip_taskbar_hint(True)
+
     def parse_geometry(self):
         match = re.match(
                 '^=?(?:(\d+)?(?:[Xx](\d+))?)?'
@@ -106,7 +104,7 @@ class CoverDisplay(gtk.Window):
     def display(self, cover):
         if cover == None:
             self.img.clear()
-            self.hide()
+            self.iconify()
             return
         
         pixbuf = gtk.gdk.pixbuf_new_from_file(cover)

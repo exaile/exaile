@@ -220,6 +220,7 @@ class MiniWindow(gtk.Window):
             10)
         self.move(x, y)
         self.setup_title_box()
+        self.stick()
 
     def on_prev(self, button):
         APP.on_previous()

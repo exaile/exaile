@@ -280,11 +280,11 @@ class TrayIcon(gobject.GObject):
             track = self.exaile.current_track
             if not track or not track.is_playing():
                 self.image.set_from_stock('gtk-media-play',
-                    gtk.ICON_SIZE_SMALL_TOOLBAR)
+                    gtk.ICON_SIZE_MENU)
                 self.label.set_label(_("Play"))
             elif track.is_playing():
                 self.image.set_from_stock('gtk-media-pause',
-                    gtk.ICON_SIZE_SMALL_TOOLBAR)
+                    gtk.ICON_SIZE_MENU)
                 self.label.set_label(_("Pause"))
             self.menu.popup(None, None, None, event.button, event.time)
         elif event.button == 1: 
@@ -303,7 +303,7 @@ class TrayIcon(gobject.GObject):
 
         self.image = gtk.Image()
         self.image.set_from_stock('gtk-media-play',
-            gtk.ICON_SIZE_SMALL_TOOLBAR)
+            gtk.ICON_SIZE_MENU)
         self.label = gtk.Label(_("Play"))
         self.label.set_alignment(0, 0)
 
@@ -319,6 +319,12 @@ class TrayIcon(gobject.GObject):
         self.menu.append(_("Next"), self.exaile.on_next, 'gtk-media-next')
         self.menu.append(_("Previous"), self.exaile.on_previous,
             'gtk-media-previous')
+        self.menu.append_separator()
+        self.menu.append(_("Preferences"), 
+            lambda e, a: prefs.Preferences(self.exaile).run(),
+            'gtk-preferences')
+        self.menu.append(_("Plugins"), self.exaile.show_plugin_manager,
+            'gtk-execute')
         self.menu.append_separator()
         self.menu.append(_("Quit"), self.exaile.on_quit, 'gtk-quit')
 

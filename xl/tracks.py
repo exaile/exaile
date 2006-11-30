@@ -305,15 +305,6 @@ def load_tracks(db, current=None):
     db._close_thread()
     return tracks
 
-def scan_dir(directory, matches, files):
-    for file in os.listdir(directory):
-        if os.path.isdir("%s%s%s" % (directory, os.sep, file)):
-            scan_dir("%s%s%s" % (directory, os.sep, file))
-        else:
-            (stuff, ext) = os.path.splitext(file)
-            if ext in matches:
-                files.append("%s%s%s" % (directory, os.sep, file))
-
 def scan_dir(dir, files=None, exts=()):
     """
         Scans a directory recursively

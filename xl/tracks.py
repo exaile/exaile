@@ -324,11 +324,11 @@ def scan_dir(dir, files=None, exts=()):
     try:
         to_scan = os.listdir(dir)
     except OSError:
-        return
+        return files
 
     for file in to_scan:
         try:
-            file = os.path.join(dir, file)
+            file = unicode(os.path.join(dir, file))
         except:
             traceback.print_exc()
             continue

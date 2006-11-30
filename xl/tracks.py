@@ -321,7 +321,12 @@ def scan_dir(dir, files=None, exts=()):
     if files is None: 
         files = []
 
-    for file in os.listdir(dir):
+    try:
+        to_scan = os.listdir(dir)
+    except OSError:
+        return
+
+    for file in to_scan:
         try:
             file = os.path.join(dir, file)
         except:

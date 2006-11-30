@@ -30,7 +30,7 @@ def tup(string, num):
     a = []
     for i in range(num):
         a.append(string)
-    return tuple(a)    
+    return tuple(a)
 
 def threaded(f):
     def wrapper(*args):

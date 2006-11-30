@@ -329,8 +329,11 @@ def scan_dir(dir, files=None, exts=()):
     for file in to_scan:
         try:
             file = unicode(os.path.join(dir, file))
+        except UnicodeDecodeError:
+            xlmisc.log("Error decoding filename %s" % file)
+            continue
         except:
-            traceback.print_exc()
+            xlmisc.log_exception()
             continue
 
         if os.path.isdir(file) and not \

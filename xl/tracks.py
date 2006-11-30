@@ -314,6 +314,13 @@ def scan_dir(directory, matches, files):
             if ext in matches:
                 files.append("%s%s%s" % (directory, os.sep, file))
 
+def walk_error(error):
+    """
+        Called when an error is encountered when walking
+    """
+    xlmisc.log("Error encountered when reading %s" % error.filename)
+    print error
+
 def count_files(directories):
     """
         Recursively counts the number of supported files in the specified
@@ -321,14 +328,11 @@ def count_files(directories):
     """
     paths = []
     for dir in directories:
-        try:
-            for root, dirs, files in os.walk(unicode(dir)):
-                for f in files:
-                    (stuff, ext) = os.path.splitext(f)
-                    if ext.lower() in media.SUPPORTED_MEDIA:
-                        paths.append(unicode(os.path.join(root, f)))
-        except:
-            xlmisc.log_exception()
+        for root, dirs, files in os.walk(unicode(dir), onerror=walk_error):
+            for f in files:
+                (stuff, ext) = os.path.splitext(f)
+                if ext.lower() in media.SUPPORTED_MEDIA:
+                    paths.append(unicode(os.path.join(root, f)))
 
     return paths
 

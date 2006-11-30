@@ -103,7 +103,8 @@ class MiniWindow(gtk.Window):
         bbox.pack_start(self.seeker, False)
 
         self.pos_label = gtk.Label("0:00")
-        self.pos_label.set_size_request(30, -1)
+        self.pos_label.set_size_request(40, -1)
+        self.pos_label.set_alignment(0.0, .5)
         bbox.pack_start(self.pos_label)
 
 #        self.volume_slider = gtk.HScale(gtk.Adjustment(0, 0, 120, 1, 10, 0))

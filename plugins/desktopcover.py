@@ -53,7 +53,7 @@ class CoverDisplay(gtk.Window):
                 self.first = True
                 self.show_all()
             else:
-                self.deiconify()
+                self.set_property('visible', True)
         self.set_accept_focus(False)
         self.set_decorated(False)
         self.set_keep_below(True)
@@ -104,7 +104,7 @@ class CoverDisplay(gtk.Window):
     def display(self, cover):
         if cover == None:
             self.img.clear()
-            self.iconify()
+            self.set_property('visible', False)
             return
         
         pixbuf = gtk.gdk.pixbuf_new_from_file(cover)

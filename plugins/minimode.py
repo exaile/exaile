@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Copyright (C) 2006 Johannes Sasongko <sasongko@gmail.com>
+# Copyright (C) 2006 Adam Olsen <arolsen@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,11 +18,11 @@
 import gtk, plugins, gobject, pango
 from xl import xlmisc
 
-PLUGIN_NAME = "Better Mini Mode"
+PLUGIN_NAME = "Mini Mode"
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
 PLUGIN_VERSION = '0.1'
-PLUGIN_DESCRIPTION = r"""Allows for a mini mode window.\n\nMini Mode is activated
-by pressing CTRL+ALT+B"""
+PLUGIN_DESCRIPTION = r"""Super groovy mini mode window!\n\nMini Mode is activated
+by pressing CTRL+ALT+M"""
 PLUGIN_ENABLED = False
 PLUGIN_ICON = None
 
@@ -34,6 +34,9 @@ MM_ACTIVE = False
 CONS = plugins.SignalContainer()
 
 def toggle_minimode(*e):
+    """
+        Toggles Minimode
+    """
     global MM_ACTIVE 
     if not PLUGIN.get_property("visible"):
         PLUGIN.show_window()
@@ -46,13 +49,19 @@ def toggle_minimode(*e):
     print "Minimode toggled"
 
 class MiniWindow(gtk.Window):
+    """
+        The main minimode window
+    """
     def __init__(self):
+        """
+            Initializes the minimode window
+        """
         gtk.Window.__init__(self)
 
         self.set_title("Exaile!")
         self.set_icon(APP.window.get_icon())
         self.set_decorated(False)
-
+        self.tips = gtk.Tooltips()
 
         main = gtk.VBox()
         main.set_border_width(3)
@@ -61,14 +70,17 @@ class MiniWindow(gtk.Window):
         self.tlabel.set_alignment(0.0, 0.5)
 
         bbox = gtk.HBox()
+        bbox.set_spacing(3)
 
-        prev = self.create_button('gtk-media-previous', self.on_prev)
+        prev = self.create_button('gtk-media-previous', self.on_prev,
+            'Previous')
         bbox.pack_start(prev, False)
 
-        self.play = self.create_button('gtk-media-play', self.on_play)
+        self.play = self.create_button('gtk-media-play', self.on_play,
+            'Play/Pause')
         bbox.pack_start(self.play, False)
 
-        self.next = self.create_button('gtk-media-next', self.on_next)
+        self.next = self.create_button('gtk-media-next', self.on_next, 'Next')
         bbox.pack_start(self.next)
 
         self.model = gtk.ListStore(str, object)
@@ -90,16 +102,22 @@ class MiniWindow(gtk.Window):
         self.seeker_id = self.seeker.connect('change-value', APP.seek)
         bbox.pack_start(self.seeker, False)
 
-        self.volume_slider = gtk.HScale(gtk.Adjustment(0, 0, 120, 1, 10, 0))
-        self.volume_slider.set_draw_value(False)
-        self.volume_slider.set_size_request(100, -1)
-        self.volume_id = self.volume_slider.connect('change-value', APP.on_volume_set)
-        self.volume_slider.connect('scroll-event', self.volume_scroll)
-        bbox.pack_start(gtk.Label("-"), False)
-        bbox.pack_start(self.volume_slider, False)
-        bbox.pack_start(gtk.Label("+"), False)
+        self.pos_label = gtk.Label("0:00")
+        self.pos_label.set_size_request(30, -1)
+        bbox.pack_start(self.pos_label)
 
-        mm = self.create_button('gtk-fullscreen', toggle_minimode)
+#        self.volume_slider = gtk.HScale(gtk.Adjustment(0, 0, 120, 1, 10, 0))
+#        self.volume_slider.set_draw_value(False)
+#        self.volume_slider.set_size_request(100, -1)
+#        self.volume_id = self.volume_slider.connect('change-value', APP.on_volume_set)
+#        self.volume_slider.connect('scroll-event', self.volume_scroll)
+
+#        bbox.pack_start(gtk.Label("-"), False)
+#        bbox.pack_start(self.volume_slider, False)
+#        bbox.pack_start(gtk.Label("+"), False)
+
+        mm = self.create_button('gtk-fullscreen', toggle_minimode, 'Restore'
+            ' Regular View')
         bbox.pack_start(mm, False)
 
         main.pack_start(bbox)
@@ -127,6 +145,9 @@ class MiniWindow(gtk.Window):
         return True
 
     def volume_changed(self, exaile, value):
+        """
+            Handles the "volume-changed" signal from ExaileWindow
+        """
         self.volume_slider.disconnect(self.volume_id)
         self.volume_slider.set_value(value / 100.0)
         self.volume_id = self.volume_slider.connect('change-value',
@@ -145,6 +166,11 @@ class MiniWindow(gtk.Window):
     def setup_title_box(self):
         """
             Populates the title box and selects the currently playing track
+
+            The combobox will be populated with all the tracks in the current
+            playlist, UNLESS there are more than 50 songs in the playlist.  In
+            that case, only the current song and the next 50 upcoming tracks
+            are displayed.
         """
         blank = gtk.ListStore(str, object)
         self.title_box.set_model(blank)
@@ -157,6 +183,8 @@ class MiniWindow(gtk.Window):
             select = -1
             current = APP.songs[0] 
 
+        # if there are more than 50 songs in the current playlist, then only
+        # display the next 50 tracks
         if len(APP.songs) > 50:
             if current:  
                 count += 1
@@ -170,6 +198,8 @@ class MiniWindow(gtk.Window):
                 self.model.append([next.title, next])
                 count += 1
                 if count >= 50: break
+
+        # otherwise, display all songs in the current playlist
         else:
             for song in APP.songs:
                 if song == current and APP.current_track:
@@ -184,34 +214,28 @@ class MiniWindow(gtk.Window):
             self.change_track)
         self.title_box.set_sensitive(len(self.model) > 0)
 
-    def cover_changed(self, cover, location):
-        """
-            Sets the cover image, width, and height according to Exaile's
-            cover image width and height
-        """
-#        self.cover.set_image(location)
-
     def on_move(self, *e):
+        """
+            Saves the position of the minimode window if it is moved
+        """
         (x, y) = self.get_position()
         settings = APP.settings
         settings['%s_x' % plugins.name(__file__)] = x
         settings['%s_y' % plugins.name(__file__)] = y
 
-    def on_quit(self, widget=None, event=None):
-        if widget == self and APP.tray_icon:
-            self.hide()
-            return True
-        else:
-            return APP.on_quit(widget, event)
-
     def show_window(self):
+        """
+            Gets the last position from the settings, and then
+            displays the mimimode window
+        """
+
         if not self.first:
             self.first = True
             self.show_all()
         else:
             self.show()
 
-        self.volume_slider.set_value(APP.volume.get_value())
+#        self.volume_slider.set_value(APP.volume.get_value())
         settings = APP.settings
         x = settings.get_int("%s_x" % plugins.name(__file__),   
             10)
@@ -222,27 +246,41 @@ class MiniWindow(gtk.Window):
         self.stick()
 
     def on_prev(self, button):
+        """
+            Called when the user presses the previous button
+        """
+
         APP.on_previous()
         self.timeout_cb()
 
     def on_play(self, button):
+        """
+            Called when the user clicks the play button
+        """
+
         APP.toggle_pause()
         self.timeout_cb()
 
     def on_stop(self, button=None):
+        """
+            Called when the user clicks the stop button
+        """
+
         if button: APP.stop(True)
         self.timeout_cb()
         self.play.set_image(APP.get_play_image(gtk.ICON_SIZE_MENU))
-#        self.artist_label.set_label("Stopped")
         self.setup_title_box()
-#        self.artist_label.set_label("Stopped")
         self.set_title(APP.window.get_title())
 
     def on_next(self, button):
+        """ 
+            Called when the user clicks the next button
+        """
+        
         APP.on_next()
         self.timeout_cb()
 
-    def create_button(self, stock_id, func):
+    def create_button(self, stock_id, func, tip):
         """
             Creates a little button
         """
@@ -252,10 +290,15 @@ class MiniWindow(gtk.Window):
         image.set_from_stock(stock_id, gtk.ICON_SIZE_MENU)
         button.set_image(image)
         button.set_size_request(26, 26)
+        self.tips.set_tip(button, tip)
 
         return button
 
     def pause_toggled(self):
+        """
+            Called when pause is toggled
+        """
+
         track = APP.current_track
         if not track:
             self.play.set_image(APP.get_play_image(gtk.ICON_SIZE_MENU))
@@ -264,12 +307,11 @@ class MiniWindow(gtk.Window):
                 self.play.set_image(APP.get_play_image(gtk.ICON_SIZE_MENU))
             else:
                 self.play.set_image(APP.get_pause_image(gtk.ICON_SIZE_MENU))
-#        self.artist_label.set_label("by %s" % track.artist)
         self.set_title(APP.window.get_title())
 
     def timeout_cb(self):
+        self.pos_label.set_label(APP.progress_label.get_label())
         self.seeker.set_value(APP.progress.get_value())
-#        self.pos_label.set_label(APP.progress_label.get_label())
             
         return True
 
@@ -282,7 +324,6 @@ def play_track(exaile, track):
 
 def stop_track(exaile, track):
     PLUGIN.on_stop()
-
 
 def toggle_hide(*args):
     if not MM_ACTIVE: return False
@@ -307,7 +348,7 @@ def initialize():
     PLUGIN = MiniWindow()
     TIMER_ID = gobject.timeout_add(1000, PLUGIN.timeout_cb)
     ACCEL_GROUP = gtk.AccelGroup()
-    key, mod = gtk.accelerator_parse("<Control><Alt>B")
+    key, mod = gtk.accelerator_parse("<Control><Alt>M")
     ACCEL_GROUP.connect_group(key, mod, gtk.ACCEL_VISIBLE, pass_func)
 
     APP.window.add_accel_group(ACCEL_GROUP)
@@ -318,10 +359,9 @@ def initialize():
     APP.view_menu.get_submenu().append(MENU_ITEM)
     MENU_ITEM.show()
     PLUGIN.add_accel_group(ACCEL_GROUP)
-#    CONS.connect(APP.cover, 'image-changed', PLUGIN.cover_changed)
     CONS.connect(APP, 'play-track', play_track)
     CONS.connect(APP, 'stop-track', stop_track)
-    CONS.connect(APP, 'volume-changed', PLUGIN.volume_changed)
+#    CONS.connect(APP, 'volume-changed', PLUGIN.volume_changed)
     CONS.connect(APP, 'pause-toggled', pause_toggled)
 
     if APP.tray_icon:

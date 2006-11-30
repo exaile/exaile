@@ -318,10 +318,8 @@ def scan_dir(dir, files=None, exts=()):
     """
         Scans a directory recursively
     """
-    r = False
     if files is None: 
         files = []
-        r = True
 
     for file in os.listdir(dir):
         try:
@@ -342,8 +340,7 @@ def scan_dir(dir, files=None, exts=()):
             traceback.print_exc()
             continue
 
-    if r:
-        return files     
+    return files     
 
 def count_files(directories):
     """

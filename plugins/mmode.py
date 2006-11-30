@@ -59,7 +59,6 @@ class MiniWindow(gtk.Window):
         self.tlabel = gtk.Label("")
         self.tlabel.set_size_request(120, 10)
         self.tlabel.set_alignment(0.0, 0.5)
-#        main.pack_start(self.tlabel)
 
         bbox = gtk.HBox()
 
@@ -158,11 +157,11 @@ class MiniWindow(gtk.Window):
             select = -1
             current = APP.songs[0] 
 
-        if current:  
-            count += 1
-            self.model.append([current.title, current])
-
         if len(APP.songs) > 50:
+            if current:  
+                count += 1
+                self.model.append([current.title, current])
+
             next = current
 
             while True:

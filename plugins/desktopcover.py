@@ -35,6 +35,7 @@ CON = plugins.SignalContainer()
 class CoverDisplay(gtk.Window):
     def __init__(self, exaile, geometry=''):
         gtk.Window.__init__(self)
+        self.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_SPLASHSCREEN)
         self.exaile = exaile
         self.geometry = geometry
         self.first = False
@@ -44,16 +45,15 @@ class CoverDisplay(gtk.Window):
     
     def init_gtk(self, show=True):
 
-        self.stick()
-        
-        self.parse_geometry()
-
         if show:
             if not self.first:
                 self.first = True
                 self.show_all()
             else:
                 self.set_property('visible', True)
+
+        self.stick()
+        self.parse_geometry()
         self.set_accept_focus(False)
         self.set_decorated(False)
         self.set_keep_below(True)

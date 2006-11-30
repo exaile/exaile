@@ -321,11 +321,14 @@ def count_files(directories):
     """
     paths = []
     for dir in directories:
-        for root, dirs, files in os.walk(unicode(dir)):
-            for f in files:
-                (stuff, ext) = os.path.splitext(f)
-                if ext.lower() in media.SUPPORTED_MEDIA:
-                    paths.append(unicode(os.path.join(root, f)))
+        try:
+            for root, dirs, files in os.walk(unicode(dir)):
+                for f in files:
+                    (stuff, ext) = os.path.splitext(f)
+                    if ext.lower() in media.SUPPORTED_MEDIA:
+                        paths.append(unicode(os.path.join(root, f)))
+        except:
+            xlmisc.log_exception()
 
     return paths
 

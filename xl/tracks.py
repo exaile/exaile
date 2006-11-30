@@ -314,12 +314,36 @@ def scan_dir(directory, matches, files):
             if ext in matches:
                 files.append("%s%s%s" % (directory, os.sep, file))
 
-def walk_error(error):
+def scan_dir(dir, files=None, exts=()):
     """
-        Called when an error is encountered when walking
+        Scans a directory recursively
     """
-    xlmisc.log("Error encountered when reading %s" % error.filename)
-    print error
+    r = False
+    if files is None: 
+        files = []
+        r = True
+
+    for file in os.listdir(dir):
+        try:
+            file = os.path.join(dir, file)
+        except:
+            traceback.print_exc()
+            continue
+
+        if os.path.isdir(file) and not \
+            os.path.islink(file):
+                scan_dir(file, files, exts)
+       
+        try:
+            (stuff, ext) = os.path.splitext(file)
+            if ext.lower() in exts:
+                files.append(file)
+        except:
+            traceback.print_exc()
+            continue
+
+    if r:
+        return files     
 
 def count_files(directories):
     """
@@ -328,11 +352,7 @@ def count_files(directories):
     """
     paths = []
     for dir in directories:
-        for root, dirs, files in os.walk(unicode(dir), onerror=walk_error):
-            for f in files:
-                (stuff, ext) = os.path.splitext(f)
-                if ext.lower() in media.SUPPORTED_MEDIA:
-                    paths.append(unicode(os.path.join(root, f)))
+        paths.extend(scan_dir(dir, exts=media.SUPPORTED_MEDIA))
 
     return paths
 

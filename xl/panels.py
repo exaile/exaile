@@ -19,6 +19,7 @@ import common, trackslist, shoutcast, filtergui
 import media, time, thread, re, copy, threading
 import urllib
 from xml.dom import minidom
+from filtergui import MultiEntryField, EntryField
 
 try:
     from pysqlite2 import dbapi2 as sqlite
@@ -38,20 +39,68 @@ try:
 except:
     IPOD_AVAILABLE = False
 
-# smart playlist criterion
-#CRITERIA = [
-#        (_('Artist', [
-#            (_('is'), (EntryField, lambda x:
-#                'artists.name="%s"' % x)),
-#            (_('contains'), (EntryField, lambda x:
-#                'artists.name LIKE "%%%s%%"' % x)),
-#            ]),
-#        (_('Artist'), [
-#            (_('is'), (EntryField, lambda x:
-#                'albums.name="%s"' % x)),
-#            (_('contains'), (EntryField, lambda x: ''))
-#        ])
-#    ]
+N_ = lambda x: x
+
+class EntrySecondsField(MultiEntryField):
+	def __init__(self, result_generator):
+		MultiEntryField.__init__(self, result_generator, n=1,
+				labels=(None, _('seconds')),
+				widths=(50,))
+
+class EntryAndEntryField(MultiEntryField):
+	def __init__(self, result_generator):
+		MultiEntryField.__init__(self, result_generator, n=2,
+				labels=(None, _('and'), None),
+				widths=(50, 50))
+
+CRITERIA = [
+		(N_('Artist'), [
+			(N_('is'), (EntryField, lambda x:
+				'artist = "%s"' % x)),
+			(N_('contains'), (EntryField, lambda x:
+				'artist LIKE "%%%s%%"' % x)),
+			]),
+		(N_('Genre'), [
+			(N_('is'), (EntryField, lambda x:
+				'genre = "%s"' % x)),
+			(N_('contains'), (EntryField, lambda x:
+				'genre LIKE "%%%s%%"' % x)),
+			]),
+		(N_('Rating'), [
+			(N_('at least'), (EntryField, lambda x:
+				'user_rating >= %s' % x)),
+			(N_('at most'), (EntryField, lambda x:
+				'user_rating <= %s' % x)),
+			(N_('between'), (EntryAndEntryField, lambda x, y:
+				'user_rating BETWEEN %s AND %s' % (x, y))),
+			]),
+		(N_('Year'), [
+			(N_('before'), (EntryField, lambda x:
+				'year < %s' % x)),
+			(N_('after'), (EntryField, lambda x:
+				'year > %s' % x)),
+			(N_('between'), (EntryAndEntryField, lambda x, y:
+				'year BETWEEN %s AND %s' % (x, y))),
+			]),
+		(N_('Length'), [
+			(N_('at least'), (EntrySecondsField, lambda x:
+				'length >= %s' % x)),
+			(N_('at most'), (EntrySecondsField, lambda x:
+				'length <= %s' % x)),
+			]),
+		]
+
+def get_sql(crit1, crit2, filter):
+    filter = eval(filter)
+
+    sql = None
+    for item1 in CRITERIA:
+        if item1[0] == crit1:
+            for item2 in item1[1]:
+                if item2[0] == crit2:
+                    sql = item2[1][1](*filter)
+
+    return sql
 
 class AlbumWrapper(object):
     """
@@ -1523,6 +1572,14 @@ class iPodPanel(CollectionPanel):
             self.ipod_track_count.set_label(_("Not connected"))
 
 class SmartPlaylist(object):
+    def __init__(self, name, id):
+        self.name = name
+        self.id = id
+
+    def __str__(self):
+        return self.name
+
+class BuiltinPlaylist(object):
     def __init__(self, name, sql):
         self.name = name
         self.sql = sql
@@ -1626,7 +1683,7 @@ class PlaylistsPanel(object):
         }
 
         self.model.append(self.smart, [self.playlist_image, 'Entire Library',
-            SmartPlaylist('Entire Library', self.smart_dict[
+            BuiltinPlaylist('Entire Library', self.smart_dict[
             'Entire Library'])])
 
         self.builtin = self.model.append(self.smart, [self.open_folder,
@@ -1639,7 +1696,7 @@ class PlaylistsPanel(object):
         for name in items:
             sql = self.smart_dict[name]
             self.model.append(self.builtin, [self.playlist_image, name, 
-                SmartPlaylist(name, sql)]) 
+                BuiltinPlaylist(name, sql)]) 
         
         self.custom = self.model.append(None, [self.open_folder,
             _("Custom Playlists"), None])
@@ -1664,23 +1721,44 @@ class PlaylistsPanel(object):
         """
             Adds a smart playlist
         """
-        dialog = filtergui.FilterDialog('Add Smart Playlist',
-        [
-            # name
-            ('Year', [
-                # name - field class/factory -  result generator
-                ('is', (filtergui.EntryField, lambda x: 'Year = %d' % int(x))),
-                ('is between', (
-                    lambda: filtergui.EntryLabelEntryField('and'),
-                    lambda x, y:
-                        'Year BETWEEN %s AND %s' % (int(x), int(y)))),
-            ]),
-        ])
+        dialog = filtergui.FilterDialog('Add Smart Playlist', CRITERIA)
 
         dialog.set_transient_for(self.exaile.window)
-        dialog.run()
+        result = dialog.run()
+        dialog.hide()
+        if result == gtk.RESPONSE_ACCEPT:
+            name = dialog.get_name()
+            if not name: 
+                common.error(self.exaile.window, _("You did not enter a "
+                    "name for your playlist"))
+                return
+            row = self.db.read_one('playlists', 'name', 'name=?', (name,))
+            if row:
+                common.error(self.exaile.window, _("That playlist name "
+                    "is already taken."))
+                return
+
+            self.db.execute("INSERT INTO playlists( name, type ) VALUES( "
+                " ?, 1 )", (name,))
+            row = self.db.read_one('playlists', 'id', 'name=?', (name,))
+            playlist_id = row[0]
+
+            count = 0
+            for c, v in dialog.get_state():
+                if type(v) != list:
+                    v = list((v,))
+                self.db.execute("INSERT INTO smart_playlist_items( "
+                    "playlist, line, crit1, crit2, filter ) VALUES( "
+                    " ?, ?, ?, ?, ? )", (playlist_id, count, c[0], c[1],
+                    repr(v)))
+                count += 1
+
+            self.db.commit()
+
+            self.model.append(self.smart, [self.playlist_image, name, 
+                SmartPlaylist(name, playlist_id)])
+
         dialog.destroy()
-        common.info(self.exaile.window, "This doesn't actually work yet :)")
 
     def button_press(self, widget, event):
         """
@@ -1694,7 +1772,8 @@ class PlaylistsPanel(object):
             (path, col, x, y) = self.tree.get_path_at_pos(x, y)
             iter = self.model.get_iter(path)
             obj = self.model.get_value(iter, 2)
-            if isinstance(obj, CustomPlaylist):
+            if isinstance(obj, CustomPlaylist) or \
+                isinstance(obj, SmartPlaylist):
                 delete_enabled = True
 
         self.remove_item.set_sensitive(delete_enabled)
@@ -1708,7 +1787,7 @@ class PlaylistsPanel(object):
         """
         iter = self.model.get_iter(path)
         obj = self.model.get_value(iter, 2)
-        if isinstance(obj, SmartPlaylist):
+        if isinstance(obj, BuiltinPlaylist):
             name = obj.name
             sql = obj.sql
 
@@ -1728,6 +1807,9 @@ class PlaylistsPanel(object):
 
             self.exaile.new_page(name, songs)
 
+        elif isinstance(obj, SmartPlaylist):
+            self.open_smart_playlist(obj.name, obj.id)
+
         elif isinstance(obj, CustomPlaylist):
             playlist = obj.name
             self.playlist_songs = xl.tracks.search_tracks(self, self.db,
@@ -1735,6 +1817,42 @@ class PlaylistsPanel(object):
             self.exaile.new_page(playlist, self.playlist_songs)
             self.exaile.on_search()
             self.exaile.tracks.playlist = playlist
+
+    def open_smart_playlist(self, name, id):
+        """
+            Opens a smart playlist
+        """
+        rows = self.db.select("SELECT crit1, crit2, filter FROM "
+            "smart_playlist_items WHERE playlist=? ORDER BY line", (id,))
+
+        where = []
+        andor = " AND "
+        for row in rows:
+            print row
+            sql = get_sql(row[0], row[1], row[2])
+            if sql:
+                where.append(sql)
+
+        sql = """
+            SELECT paths.name 
+                FROM tracks,paths,artists,albums 
+            WHERE 
+                (
+                    paths.id=tracks.path AND 
+                    artists.id=tracks.artist AND 
+                    albums.id=tracks.album
+                ) 
+                AND (%s) 
+                ORDER BY 
+                    LOWER(artists.name),
+                    THE_CUTTER(albums.name), 
+                    track, title
+            """ % andor.join(where)
+        xlmisc.log(sql)
+        songs = xl.tracks.search_tracks(self.exaile.window,
+            self.db, self.exaile.all_songs, None, None, sql)
+
+        self.exaile.new_page(name, songs)
 
     def drag_data_received(self, tv, context, x, y, selection, info, etime):
         """
@@ -1779,7 +1897,8 @@ class PlaylistsPanel(object):
         (model, iter) = selection.get_selected()
 
         obj = model.get_value(iter, 2)
-        if not isinstance(obj, CustomPlaylist): return
+        if not isinstance(obj, CustomPlaylist) or \
+            not isinstance(obj, SmartPlaylist): return
 
         dialog = gtk.MessageDialog(self.exaile.window, 
             gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, 
@@ -1789,7 +1908,11 @@ class PlaylistsPanel(object):
             playlist = obj.name 
             p_id = tracks.get_column_id(self.db, 'playlists', 'name', playlist)
             self.db.execute("DELETE FROM playlists WHERE id=?", (p_id,))
-            self.db.execute("DELETE FROM playlist_items WHERE playlist=?",
+
+            table = 'playlist_items'
+            if isinstance(obj, SmartPlaylist):
+                table = 'smart_playlist_items':
+            self.db.execute("DELETE FROM %s WHERE playlist=?" % table,
                 (p_id,))
             if tracks.PLAYLISTS.has_key(playlist):
                 del tracks.PLAYLISTS[playlist]
@@ -1802,10 +1925,15 @@ class PlaylistsPanel(object):
         """
             Loads all playlists and adds them to the list
         """
-        rows = self.db.select("SELECT name, id FROM playlists WHERE type=0")
+        rows = self.db.select("SELECT name, id, type FROM playlists ORDER BY"
+            " name")
         for row in rows:
-            self.model.append(self.custom, [self.playlist_image, row[0],
-                CustomPlaylist(row[0], row[1])])
+            if not row[2]:
+                self.model.append(self.custom, [self.playlist_image, row[0],
+                    CustomPlaylist(row[0], row[1])])
+            elif row[2] == 1:
+                self.model.append(self.smart, [self.playlist_image, row[0],
+                    SmartPlaylist(row[0], row[1])])
         self.tree.expand_all()
 
     def on_add_playlist(self, widget, event=None, items=None):

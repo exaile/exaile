@@ -43,6 +43,16 @@ class FilterDialog(gtk.Dialog):
             gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
             gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
 
+        top = gtk.HBox()
+        top.set_border_width(5)
+        top.set_spacing(5)
+
+        top.pack_start(gtk.Label(gettext("Name") + ":"), False)
+        self.name_entry = gtk.Entry()
+        top.pack_start(self.name_entry)
+        self.vbox.pack_start(top)
+        top.show_all()
+
         self.filter = f = FilterWidget(criteria)
         f.add_row()
         f.set_border_width(5)
@@ -59,6 +69,18 @@ class FilterDialog(gtk.Dialog):
         align.add(btn)
         self.vbox.pack_start(align, False)
         align.show_all()
+
+    def get_name(self):
+        """
+            Returns the text in the name_entry
+        """
+        return self.name_entry.get_text()
+
+    def set_name(self, name):
+        """
+            Sets the text in the name_entry
+        """
+        self.name_entry.set_text(name)
 
     def get_result(self):
         """Return the user's input as a list of filter criteria.

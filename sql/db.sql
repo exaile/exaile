@@ -37,6 +37,7 @@ CREATE UNIQUE INDEX albums_artist ON albums(artist, name);
 
 CREATE TABLE playlists( id INTEGER NOT NULL PRIMARY KEY, 
     name VARCHAR(30) NOT NULL UNIQUE, 
+    andor VARCHAR(10) NULL,
     type TINYINT DEFAULT 0 );
 
 CREATE TABLE playlist_items( playlist INT NOT NULL,
@@ -44,10 +45,10 @@ CREATE TABLE playlist_items( playlist INT NOT NULL,
     PRIMARY KEY( playlist, path ) );
 
 CREATE TABLE smart_playlist_items( playlist INT NOT NULL,
-    operator VARCHAR(40) NOT NULL,
-    col VARCHAR(255) NOT NULL, 
-    value VARCHAR(255) NOT NULL,
-    PRIMARY KEY( playlist, col ) );
+    line INT NOT NULL,
+    crit1 VARCHAR(50) NOT NULL,
+    crit2 VARCHAR(50) NOT NULL,
+    filter VARCHAR(50) NOT NULL );
 
 CREATE TABLE radio( id INTEGER NOT NULL PRIMARY KEY,
     name VARCHAR(30) NOT NULL UNIQUE );

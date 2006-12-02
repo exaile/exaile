@@ -1236,6 +1236,7 @@ Genre</property>
                     <property name="can_focus">True</property>
                     <property name="border_width">2</property>
                     <property name="show_border">False</property>
+                    <property name="scrollable">True</property>
                     <child>
                       <widget class="GtkScrolledWindow" id="scrolledwindow1">
                         <property name="visible">True</property>

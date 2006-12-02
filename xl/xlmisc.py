@@ -659,46 +659,48 @@ class ListBox(object):
         if not iter: return None
         return model.get_value(iter, 0)
 
-class NotebookTab(gtk.HBox):
+gtk.rc_parse_string("""
+    style "thinWidget" {
+        xthickness = 0
+        ythickness = 0
+    }
+    widget "*.tabCloseButton" style "thinWidget"
+    """)
+class NotebookTab(gtk.EventBox):
     """
         Shows a close image on a notebook tab
     """
-    def __init__(self, exaile, title, page):
-        gtk.HBox.__init__(self, False, 5)
-        self.title = title
-        self.label = gtk.Label(title)
-        
-        box = gtk.EventBox()
-        box.set_visible_window(False)
-        box.connect('button_press_event',
-            self.close_tab)
-        box.add(self.label)
-        self.pack_start(self.wrapper(box), 
-            False, False)
-        self.tips = gtk.Tooltips()
 
-        image = gtk.Image()
-        image.set_from_stock('gtk-close', 'menu')
-        self.pack_start(self.wrapper(image, True), False, False)
+    def __init__(self, exaile, title, page):
+        gtk.EventBox.__init__(self)
+        self.set_visible_window(False)
+        self.connect('button_press_event', self.on_button_press)
+        
+        self.exaile = exaile
+        self.title = title
         self.page = page
         self.nb = exaile.playlists_nb
-        self.exaile = exaile
-        self.connect('button_press_event',
-            self.close_tab)
+        self.tips = gtk.Tooltips()
+        
+        self.hbox = hbox = gtk.HBox(False, 5)
+        self.add(hbox)
+        
+        self.label = gtk.Label(title)
+        hbox.pack_start(self.label, False, False)
+        
+        self.button = btn = gtk.Button()
+        btn.set_name('tabCloseButton')
+        btn.set_relief(gtk.RELIEF_NONE)
+        btn.set_focus_on_click(False)
+        btn.connect('clicked', self.do_close)
+        btn.connect('button_press_event', self.on_button_press)
+        self.tips.set_tip(btn, _("Close this tab"))
+        image = gtk.Image()
+        image.set_from_stock('gtk-close', gtk.ICON_SIZE_MENU)
+        btn.add(image)
+        hbox.pack_start(btn, False, False)
+        
         self.show_all()
-
-    def wrapper(self, widget, close=False):
-        """
-            Wraps the specified widget in an event box
-        """
-        if close: 
-            self.box = gtk.EventBox()
-            self.box.set_visible_window(False)
-            self.tips.set_tip(self.box, _("Close this tab"))
-            self.box.connect('button_press_event', self.close_tab)
-            self.box.add(widget)
-        else: self.box = widget
-        return self.box
 
     def rename(self, widget, event):
         """
@@ -719,11 +721,10 @@ class NotebookTab(gtk.HBox):
         songs = self.page.songs
         self.exaile.playlists_panel.on_add_playlist(widget, None, songs)
 
-    def do_close(self, widget, event):
+    def do_close(self, *args):
         """
             Closes the tab
         """
-        self.menu.hide()
         self.exaile.close_page(self.page)
 
     def create_menu(self):
@@ -740,16 +741,14 @@ class NotebookTab(gtk.HBox):
             
         self.menu = menu
 
-    def close_tab(self, tab, event):
+    def on_button_press(self, widget, event):
         """
-            Closes the tab
+            Shows menu when user right-clicks on tab
         """
-        if event and event.button == 3:
-            if tab != self: return
+        if event.button == 3:
             self.create_menu()
             self.menu.popup(None, None, None, event.button, event.time)
-        elif tab == self.box:
-            self.exaile.close_page(self.page)
+        return False
 
 class DebugDialog(object):
     """

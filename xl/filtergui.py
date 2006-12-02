@@ -21,6 +21,8 @@ They resemble the configuration dialogs of Evolution's mail filters
 and Rhythmbox's automatic playlists.
 """
 
+from gettext import gettext
+
 import gtk
 
 class FilterDialog(gtk.Dialog):
@@ -42,13 +44,13 @@ class FilterDialog(gtk.Dialog):
             gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
 
         self.filter = f = FilterWidget(criteria)
-        f.add_criterion()
+        f.add_row()
         f.set_border_width(5)
         self.vbox.pack_start(f)
         f.show()
 
         btn = gtk.Button()
-        btn.connect('clicked', lambda *x: self.filter.add_criterion())
+        btn.connect('clicked', lambda *x: self.filter.add_row())
         btn.set_border_width(5)
         image = gtk.Image()
         image.set_from_stock(gtk.STOCK_ADD, gtk.ICON_SIZE_BUTTON)
@@ -59,8 +61,26 @@ class FilterDialog(gtk.Dialog):
         align.show_all()
 
     def get_result(self):
-        """Return the user's input as a list of strings."""
+        """Return the user's input as a list of filter criteria.
+        
+        See FilterWidget.get_result.
+        """
+        # TODO: display error message
         return self.filter.get_result()
+
+    def get_state(self):
+        """Return the filter state.
+        
+        See FilterWidget.get_state.
+        """
+        return self.filter.get_state()
+
+    def set_state(self, state):
+        """Set the filter state.
+        
+        See FilterWidget.set_state.
+        """
+        self.filter.set_state(state)
 
 class FilterWidget(gtk.Table):
     """Widget to filter a list of items.
@@ -70,22 +90,21 @@ class FilterWidget(gtk.Table):
 
     Attributes:
     - criteria: see example
-    - applied_criteria:
-      list of (criterion, remove_btn, remove_btn_handler_id)
-    - n: number of criteria
+    - rows: list of (criterion, remove_btn, remove_btn_handler_id)
+    - n: number of rows
 
     Example of criteria:
 
         [
             # name
-            ('Year', [
+            (N_('Year'), [
                 # name - field class/factory -  result generator
-                ('is', (EntryField, lambda x: 'Year = %d' % int(x))),
-                ('is between', (
-                    lambda: EntryLabelEntryField('and'),
+                (N_('is'), (EntryField, lambda x: 'Year=%d' % int(x))),
+                (N_('is between'), (
+                    lambda x: EntryLabelEntryField(x, _('and')),
                     lambda x, y:
                         'Year BETWEEN %s AND %s' % (int(x), int(y)))),
-                ('is this year', (NothingField,
+                (N_('is this year'), (NothingField,
                     lambda: time.localtime()[0])),
             ]),
         ]
@@ -96,7 +115,11 @@ class FilterWidget(gtk.Table):
             def __init__(self, result_generator):
                 pass
             def get_result(self):
-                return ''
+                return object
+            def get_state(self):
+                return object
+            def set_state(self, state):
+                pass
     """
 
     def __init__(self, criteria):
@@ -110,16 +133,16 @@ class FilterWidget(gtk.Table):
         self.set_col_spacings(10)
         self.set_row_spacings(2)
         self.criteria = criteria
-        self.applied_criteria = []
+        self.rows = []
         self.n = 0
 
     def get_result(self):
-        """Return a list of strings produced by the criterion objects.
+        """Return a list of results produced by the criterion objects.
         """
-        return [f[0].get_result() for f in self.applied_criteria]
+        return [f[0].get_result() for f in self.rows]
 
-    def add_criterion(self):
-        """Add a new criterion object."""
+    def add_row(self):
+        """Add a new criteria row."""
 
         criterion = Criterion(self.criteria)
         criterion.show()
@@ -129,7 +152,7 @@ class FilterWidget(gtk.Table):
         image.set_from_stock(gtk.STOCK_REMOVE, gtk.ICON_SIZE_BUTTON)
         remove_btn.add(image)
         remove_btn_handler_id = remove_btn.connect(
-            'clicked', self._removed, self.n)
+            'clicked', lambda x: self.remove_row(self.n))
         remove_btn.show_all()
 
         self.attach(criterion, 0, 1, self.n, self.n + 1,
@@ -137,15 +160,14 @@ class FilterWidget(gtk.Table):
         self.attach(remove_btn, 1, 2, self.n, self.n + 1,
             gtk.FILL, gtk.SHRINK)
 
-        self.applied_criteria.append(
-            (criterion, remove_btn, remove_btn_handler_id))
+        self.rows.append((criterion, remove_btn, remove_btn_handler_id))
         self.n += 1
 
-    def _removed(self, button, row):
-        """Called when a Remove button is activated."""
-        ac = self.applied_criteria
-        for iRow in xrange(row, len(ac)):
-            crit, btn, handler = ac[iRow]
+    def remove_row(self, row):
+        """Remove a criteria row."""
+        rows = self.rows
+        for iRow in xrange(row, len(rows)):
+            crit, btn, handler = rows[iRow]
             self.remove(crit)
             self.remove(btn)
             btn.disconnect(handler)
@@ -155,53 +177,118 @@ class FilterWidget(gtk.Table):
                 self.attach(btn, 1, 2, iRow - 1, iRow,
                     gtk.FILL, gtk.SHRINK)
                 handler = btn.connect('clicked', self._removed, iRow - 1)
-                ac[iRow - 1] = crit, btn, handler
+                rows[iRow - 1] = crit, btn, handler
         self.n -= 1
-        del ac[self.n]
+        del rows[self.n]
         if self.n:
             self.resize(self.n, 2)
+
+    def get_state(self):
+        """Return the filter state.
+
+        See set_state for the state format.
+        """
+        state = []
+        for row in self.rows:
+            state.append(row[0].get_state())
+            state[-1][0].reverse() # reverse so it reads more nicely
+        return state
+
+    def set_state(self, state):
+        """Set the filter state.
+
+        Format:
+
+            [
+                ( [criterion1_1, criterion1_2, ...], filter1 ),
+                ( [criterion2_1, criterion2_2, ...], filter2 ),
+                ...
+            ]
+        """
+        n_present = len(self.rows)
+        n_required = len(state)
+        for i in xrange(n_present, n_required):
+            self.add_row()
+        for i in xrange(n_present, n_required, -1):
+            self.remove_row(i)
+        for i, cstate in enumerate(state):
+            cstate[0].reverse() # reverse so it becomes a stack
+            self.rows[i][0].set_state(cstate)
 
 class Criterion(gtk.HBox):
     """Widget representing one filter criterion.
 
-    It consists of one combo box and either another criterion object
-    or a field object.
+    It contains either:
+    - one combo box and another criterion object, or
+    - a field object.
     """
 
-    def __init__(self, choices):
+    def __init__(self, subcriteria):
         """Create a criterion object.
 
         Parameters:
-        - choices: a list of possible criterion choices;
+        - subcriteria: a list of possible subcriteria;
           see criteria in FilterWidget
         """
         gtk.HBox.__init__(self, spacing=5)
-        if isinstance(choices, tuple):
-            field_class, result_generator = choices
+        if isinstance(subcriteria, tuple):
+            field_class, result_generator = subcriteria
             self.child = field_class(result_generator)
         else:
             self.combo = combo = gtk.combo_box_new_text()
-            self.choices = choices
-            for choice in choices:
-                combo.append_text(choice[0])
+            self.subcriteria = subcriteria
+            for subc in subcriteria:
+                combo.append_text(gettext(subc[0]))
             combo.set_active(0)
-            combo.connect('changed', self._changed)
+            combo.connect('changed', self._combo_changed)
             combo.show()
             self.pack_start(combo, False)
-            self.child = Criterion(choices[0][1])
+            self.child = Criterion(subcriteria[0][1])
         self.child.show()
         self.pack_start(self.child)
 
-    def _changed(self, widget):
+    def _combo_changed(self, widget):
         """Called when the combo box changes its value."""
         self.remove(self.child)
-        self.child = Criterion(self.choices[self.combo.get_active()][1])
+        self.child = Criterion(self.subcriteria[self.combo.get_active()][1])
         self.pack_start(self.child)
         self.child.show()
 
     def get_result(self):
-        """Return the result of the field descendant object."""
+        """Return the result from the field object."""
         return self.child.get_result()
+
+    def get_state(self):
+        """Return the criterion state.
+
+        See set_state for the state format.
+        """
+        state = self.child.get_state()
+        if isinstance(self.child, Criterion):
+            state[0].append(self.subcriteria[self.combo.get_active()][0])
+        else:
+            state = ([], state)
+        return state
+
+    def set_state(self, state):
+        """Set the criterion state.
+
+        Format:
+
+            ([..., grandchild_state, child_state, self_state], filter)
+
+        Note the reverse order of the list. This is to give the
+        impression of it being a stack responding to pop().
+        """
+        if isinstance(self.child, Criterion):
+            text = state[0].pop()
+            for i, subc in enumerate(self.subcriteria):
+                if subc[0] == text:
+                    self.combo.set_active(i)
+                    break
+            self.child.set_state(state)
+        else:
+            self.child.set_state(state[1])
 
 # Sample fields
 
@@ -214,33 +301,32 @@ class MultiEntryField(gtk.HBox):
         self.entries = []
         for iEntry in xrange(n):
             entry = gtk.Entry()
-            try:
+            if iEntry < len(widths):
                 w = widths[iEntry]
-            except:
-                w = None
-            if w:
-                entry.set_size_request(w, -1)
+                if w is not None:
+                    entry.set_size_request(w, -1)
             self.entries.append(entry)
-            try:
-                s = labels[iEntry]
-            except:
-                s = None
-            if s:
-                l = gtk.Label(s)
-                self.pack_start(l, False)
-                l.show()
+            if iEntry < len(labels):
+                txt = labels[iEntry]
+                if txt is not None:
+                    l = gtk.Label(txt)
+                    self.pack_start(l, False)
+                    l.show()
             self.pack_start(entry)
             entry.show()
-        try:
-            s = labels[n]
-        except:
-            s = None
-        if s:
-            l = gtk.Label(s)
-            self.pack_start(l, False)
-            l.show()
+        if n < len(labels):
+            txt = labels[n]
+            if txt is not None:
+                l = gtk.Label(txt)
+                self.pack_start(l, False)
+                l.show()
     def get_result(self):
-        return self.generate_result(*(e.get_text() for e in self.entries))
+        return self.generate_result(*self.get_state())
+    def get_state(self):
+        return [e.get_text() for e in self.entries]
+    def set_state(self, state):
+        for i, e in enumerate(self.entries):
+            e.set_text(state[i])
 
 class EntryField(gtk.Entry):
     def __init__(self, result_generator):
@@ -248,9 +334,13 @@ class EntryField(gtk.Entry):
         self.generate_result = result_generator
     def get_result(self):
         return self.generate_result(self.get_text())
+    def get_state(self):
+        return self.get_text()
+    def set_state(self, state):
+        self.set_text(state)
 
-class EntryAndEntryField(MultiEntryField):
-    def __init__(self, result_generator):
+class EntryLabelEntryField(MultiEntryField):
+    def __init__(self, result_generator, label):
         MultiEntryField.__init__(self, result_generator, n=2,
-            labels=(None, 'and', None),
+            labels=(None, label, None),
             widths=(50, 50))

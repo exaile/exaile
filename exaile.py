@@ -145,8 +145,8 @@ class ExaileWindow(gobject.GObject):
                 xlmisc.log("Could not connect to dbus session bus.  "
                     "dbus will be unavailable.")
 
-        media.set_audio_sink(self.settings.get('audio_sink', 'Use GConf'
-            'settings'))
+        media.set_audio_sink(self.settings.get('audio_sink', 'Use GConf '
+            'Settings'))
 
         self.tray_icon = None
 

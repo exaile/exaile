@@ -90,10 +90,17 @@ def set_audio_sink(sink):
     if "win" in sys.platform: return
     if not sink:
         sink = "GConf"
-    if sink.lower().find("gconf") > -1: 
-        audio_sink = gst.parse_launch("gconfaudiosink") 
-    else: 
+    lowsink = sink.lower()
+    if lowsink.find("auto") > -1:
+        sink = "autoaudiosink"
+    elif lowsink.find("gconf") > -1:
+        sink = "gconfaudiosink"
+    try:
         audio_sink = gst.element_factory_make(sink)
+    except gst.PluginNotFoundError:
+        xlmisc.log("Sink '%s' not found, trying autoaudiosink" %
+            sink)
+        audio_sink = gst.element_factory_make("autoaudiosink")
     player.set_property("audio-sink", audio_sink)
 
 

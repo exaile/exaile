@@ -3053,9 +3053,10 @@ on {album} - {length}</property>
                                 <child>
                                   <widget class="GtkComboBox" id="prefs_audio_sink">
                                     <property name="visible">True</property>
-                                    <property name="items" translatable="yes">Use GConf Settings
+                                    <property name="items" translatable="yes">Automatic
+Use GConf Settings
 alsasink
-osdsink
+osssink
 esdsink</property>
                                   </widget>
                                 </child>

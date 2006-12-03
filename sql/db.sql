@@ -37,7 +37,8 @@ CREATE UNIQUE INDEX albums_artist ON albums(artist, name);
 
 CREATE TABLE playlists( id INTEGER NOT NULL PRIMARY KEY, 
     name VARCHAR(30) NOT NULL UNIQUE, 
-    andor VARCHAR(10) NULL,
+    matchany BINARY DEFAULT 0,
+    count INT DEFAULT 0,
     type TINYINT DEFAULT 0 );
 
 CREATE TABLE playlist_items( playlist INT NOT NULL,

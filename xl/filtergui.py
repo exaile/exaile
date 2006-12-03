@@ -59,16 +59,34 @@ class FilterDialog(gtk.Dialog):
         self.vbox.pack_start(f)
         f.show()
 
+        bottom = gtk.HBox()
+        bottom.set_border_width(5)
+        self.match_any = gtk.CheckButton(gettext('Match any of the criteria'))
+        bottom.pack_start(self.match_any)
+
         btn = gtk.Button()
         btn.connect('clicked', lambda *x: self.filter.add_row())
-        btn.set_border_width(5)
         image = gtk.Image()
         image.set_from_stock(gtk.STOCK_ADD, gtk.ICON_SIZE_BUTTON)
         btn.add(image)
         align = gtk.Alignment(xalign=1)
         align.add(btn)
-        self.vbox.pack_start(align, False)
+        bottom.pack_end(align)
+        self.vbox.pack_start(bottom)
+        bottom.show_all()
         align.show_all()
+
+    def get_match_any(self):
+        """
+            Returns true if this dialog should match any of the criteria
+        """
+        return self.match_any.get_active()
+
+    def set_match_any(self, any):
+        """
+            Sets whether this dialog should match any of the criteria or not
+        """
+        self.match_any.set_active(any)
 
     def get_name(self):
         """

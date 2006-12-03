@@ -56,9 +56,15 @@ class EntryAndEntryField(MultiEntryField):
 CRITERIA = [
 		(N_('Artist'), [
 			(N_('is'), (EntryField, lambda x:
-				'artist = "%s"' % x)),
+				'artists.name = "%s"' % x)),
 			(N_('contains'), (EntryField, lambda x:
-				'artist LIKE "%%%s%%"' % x)),
+				'artists.name LIKE "%%%s%%"' % x)),
+			]),
+		(N_('Album'), [
+			(N_('is'), (EntryField, lambda x:
+				'albums.name = "%s"' % x)),
+			(N_('contains'), (EntryField, lambda x:
+				'albums.name LIKE "%%%s%%"' % x)),
 			]),
 		(N_('Genre'), [
 			(N_('is'), (EntryField, lambda x:
@@ -1622,7 +1628,6 @@ class PlaylistsPanel(object):
         self.scroll.set_shadow_type(gtk.SHADOW_IN)
         container.pack_start(self.scroll, True, True)
         container.show_all()
-        self.model = gtk.TreeStore(gtk.gdk.Pixbuf, str, object)
 
         pb = gtk.CellRendererPixbuf()
         cell = gtk.CellRendererText()
@@ -1633,9 +1638,16 @@ class PlaylistsPanel(object):
         col.set_attributes(cell, text=1)
         self.tree.append_column(col)
 
+    def load_playlists(self):
+        """
+            Loads the playlists
+        """
+        self.model = gtk.TreeStore(gtk.gdk.Pixbuf, str, object)
         self.tree.set_model(self.model)
         self.open_folder = xlmisc.get_icon('gnome-fs-directory-accept')
         self.playlist_image = gtk.gdk.pixbuf_new_from_file('images%splaylist.png' % os.sep)
+        self.smart_image = self.exaile.window.render_icon('gtk-execute',
+            gtk.ICON_SIZE_MENU)
         self.smart = self.model.append(None, [self.open_folder, _("Smart"
             " Playlists"), None])
         self.smart_dict = {
@@ -1701,6 +1713,16 @@ class PlaylistsPanel(object):
         self.custom = self.model.append(None, [self.open_folder,
             _("Custom Playlists"), None])
         
+        rows = self.db.select("SELECT name, id, type FROM playlists ORDER BY"
+            " name")
+        for row in rows:
+            if not row[2]:
+                self.model.append(self.custom, [self.playlist_image, row[0],
+                    CustomPlaylist(row[0], row[1])])
+            elif row[2] == 1:
+                self.model.append(self.smart, [self.smart_image, row[0],
+                    SmartPlaylist(row[0], row[1])])
+
         self.tree.expand_all()
         self.setup_menu()
 
@@ -1713,9 +1735,76 @@ class PlaylistsPanel(object):
         self.menu.append('Add Smart Playlist', self.on_add_smart_playlist, 
             'gtk-add')
         self.menu.append_separator()
+        self.edit_item = self.menu.append('Edit', self.edit_playlist, 'gtk-edit')
+        self.menu.append_separator()
         self.remove_item = self.menu.append('Delete Playlist', 
             self.remove_playlist,
             'gtk-remove')
+
+    def edit_playlist(self, item, event):
+        """
+            Edits a playlist
+        """
+        selection = self.tree.get_selection()
+        (model, iter) = selection.get_selected()
+
+        obj = model.get_value(iter, 2)
+        if not isinstance(obj, SmartPlaylist): return
+        row = self.db.read_one('playlists', 'matchany', 
+            'id=?', (obj.id,))
+
+        dialog = filtergui.FilterDialog('Edit Playlist', CRITERIA)
+        dialog.set_transient_for(self.exaile.window)
+
+        dialog.set_name(obj.name)
+        dialog.set_match_any(row[0])
+
+        state = []
+        rows = self.db.select('SELECT crit1, crit1, filter FROM '
+            'smart_playlist_items WHERE playlist=? ORDER BY line',
+            (obj.id,))
+
+        for row in rows:
+            left = [row[0], row[1]]
+            filter = eval(row[2])
+            if len(filter) == 1:
+                filter = filter[0]
+            state.append([left, filter])
+
+        dialog.set_state(state)
+
+        result = dialog.run()
+        dialog.hide()
+        if result == gtk.RESPONSE_ACCEPT:
+            name = dialog.get_name()
+            if name != obj.name:
+                row = self.db.read_one('playlists', 'matchany', 
+                    'name=?', (name,))
+                if row:
+                    common.error(self.exaile.window, _("That playlist name "
+                        "is already taken."))
+                    return
+            matchany = dialog.get_match_any()
+            self.db.execute('UPDATE playlists SET name=?, matchany=? WHERE '
+                'id=?', (name, matchany, obj.id))
+            self.db.execute('DELETE FROM smart_playlist_items WHERE '
+                'playlist=?', (obj.id,))
+
+            count = 0
+            for c, v in dialog.get_state():
+                if type(v) != list:
+                    v = list((v,))
+                self.db.execute("INSERT INTO smart_playlist_items( "
+                    "playlist, line, crit1, crit2, filter ) VALUES( "
+                    " ?, ?, ?, ?, ? )", (obj.id, count, c[0], c[1],
+                    repr(v)))
+                count += 1
+
+            self.db.commit()
+            self.model.set_value(iter, 1, name)
+            self.model.set_value(iter, 2, SmartPlaylist(name, obj.id))
+
+        dialog.destroy()
 
     def on_add_smart_playlist(self, widget, event):
         """
@@ -1728,6 +1817,7 @@ class PlaylistsPanel(object):
         dialog.hide()
         if result == gtk.RESPONSE_ACCEPT:
             name = dialog.get_name()
+            matchany = dialog.get_match_any()
             if not name: 
                 common.error(self.exaile.window, _("You did not enter a "
                     "name for your playlist"))
@@ -1738,8 +1828,8 @@ class PlaylistsPanel(object):
                     "is already taken."))
                 return
 
-            self.db.execute("INSERT INTO playlists( name, type ) VALUES( "
-                " ?, 1 )", (name,))
+            self.db.execute("INSERT INTO playlists( name, type, matchany "
+                ") VALUES( ?, 1, ? )", (name, matchany))
             row = self.db.read_one('playlists', 'id', 'name=?', (name,))
             playlist_id = row[0]
 
@@ -1755,7 +1845,7 @@ class PlaylistsPanel(object):
 
             self.db.commit()
 
-            self.model.append(self.smart, [self.playlist_image, name, 
+            self.model.append(self.smart, [self.smart_image, name, 
                 SmartPlaylist(name, playlist_id)])
 
         dialog.destroy()
@@ -1768,15 +1858,20 @@ class PlaylistsPanel(object):
         x, y = event.get_coords()
         x = int(x); y = int(y)
         delete_enabled = False
+        edit_enabled = False
         if self.tree.get_path_at_pos(x, y):
             (path, col, x, y) = self.tree.get_path_at_pos(x, y)
             iter = self.model.get_iter(path)
             obj = self.model.get_value(iter, 2)
+            self.edit_item.set_sensitive(edit_enabled)
             if isinstance(obj, CustomPlaylist) or \
                 isinstance(obj, SmartPlaylist):
                 delete_enabled = True
+            if isinstance(obj, SmartPlaylist):
+                edit_enabled = True
 
         self.remove_item.set_sensitive(delete_enabled)
+        self.edit_item.set_sensitive(edit_enabled)
 
         if event.button == 3:
             self.menu.popup(None, None, None, event.button, event.time)
@@ -1822,11 +1917,13 @@ class PlaylistsPanel(object):
         """
             Opens a smart playlist
         """
+        row = self.db.read_one('playlists', 'matchany', 'id=?', (id,))
         rows = self.db.select("SELECT crit1, crit2, filter FROM "
             "smart_playlist_items WHERE playlist=? ORDER BY line", (id,))
 
         where = []
         andor = " AND "
+        if row[0]: andor = ' OR '
         for row in rows:
             print row
             sql = get_sql(row[0], row[1], row[2])
@@ -1911,7 +2008,7 @@ class PlaylistsPanel(object):
 
             table = 'playlist_items'
             if isinstance(obj, SmartPlaylist):
-                table = 'smart_playlist_items':
+                table = 'smart_playlist_items'
             self.db.execute("DELETE FROM %s WHERE playlist=?" % table,
                 (p_id,))
             if tracks.PLAYLISTS.has_key(playlist):
@@ -1920,21 +2017,6 @@ class PlaylistsPanel(object):
             
             self.model.remove(iter)
         dialog.destroy()
-
-    def load_playlists(self):
-        """
-            Loads all playlists and adds them to the list
-        """
-        rows = self.db.select("SELECT name, id, type FROM playlists ORDER BY"
-            " name")
-        for row in rows:
-            if not row[2]:
-                self.model.append(self.custom, [self.playlist_image, row[0],
-                    CustomPlaylist(row[0], row[1])])
-            elif row[2] == 1:
-                self.model.append(self.smart, [self.playlist_image, row[0],
-                    SmartPlaylist(row[0], row[1])])
-        self.tree.expand_all()
 
     def on_add_playlist(self, widget, event=None, items=None):
         """

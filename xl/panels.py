@@ -1760,7 +1760,7 @@ class PlaylistsPanel(object):
         dialog.set_match_any(row[0])
 
         state = []
-        rows = self.db.select('SELECT crit1, crit1, filter FROM '
+        rows = self.db.select('SELECT crit1, crit2, filter FROM '
             'smart_playlist_items WHERE playlist=? ORDER BY line',
             (obj.id,))
 
@@ -1769,7 +1769,9 @@ class PlaylistsPanel(object):
             filter = eval(row[2])
             if len(filter) == 1:
                 filter = filter[0]
-            state.append([left, filter])
+            state.append((left, filter))
+
+        print repr(state)
 
         dialog.set_state(state)
 

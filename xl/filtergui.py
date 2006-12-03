@@ -289,8 +289,10 @@ class Criterion(gtk.HBox):
 
     def _combo_changed(self, widget):
         """Called when the combo box changes its value."""
+        state = self.child.get_state() 
         self.remove(self.child)
         self.child = Criterion(self.subcriteria[self.combo.get_active()][1])
+        self.child.set_state(state)
         self.pack_start(self.child)
         self.child.show()
 
@@ -377,6 +379,8 @@ class EntryField(gtk.Entry):
     def get_state(self):
         return self.get_text()
     def set_state(self, state):
+        if type(state) == list or type(state) == tuple:
+            state = state[0]
         self.set_text(state)
 
 class EntryLabelEntryField(MultiEntryField):

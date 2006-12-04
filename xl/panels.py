@@ -167,6 +167,16 @@ CRITERIA = [
             (N_('not in the last'), (SpinDateField, 
                 lambda x: day_calc(x, 'last_played', '<'))),
             ])
+        (N_('Location'), [
+            (N_('is'), (EntryField, lambda x:
+                'paths.name = "%s"' % x)),
+            (N_('is not'), (EntryField, lambda x:
+                'paths.name != "%s"' % x)),
+            (N_('contains'), (EntryField, lambda x:
+                'paths.name LIKE "%%%s%%"' % x)),
+            (N_('does not contain'), (EntryField, lambda x:
+                'paths.name NOT LIKE "%%%s%%"' % x)),
+            ])
         ]
 
 class AlbumWrapper(object):

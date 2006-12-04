@@ -40,9 +40,12 @@ except ImportError:
 
 try:
     import egg.trayicon
-    TRAY_AVAILABLE = True
+    USE_TRAY = 'egg'
 except ImportError:
-    TRAY_AVAILABLE = False
+    if gtk.check_version(2, 10, 0) is None:
+        USE_TRAY = 'gtk'
+    else:
+        USE_TRAY = None
 
 try:
     import sexy
@@ -224,7 +227,7 @@ class ThreadRunner(threading.Thread):
             self.lock.release()
             print 'released lock'
 
-class TrayIcon(gobject.GObject):
+class BaseTrayIcon(gobject.GObject):
     """
         System tray icon
     """
@@ -237,63 +240,7 @@ class TrayIcon(gobject.GObject):
         """
         gobject.GObject.__init__(self)
         self.exaile = exaile
-
-        self.tips = gtk.Tooltips()
-        self.icon = egg.trayicon.TrayIcon('Exaile!')
-        self.box = gtk.EventBox()
-        self.icon.add(self.box)
-
-        image = gtk.Image()
-        image.set_from_file('images%strayicon.png' % os.sep)
-        self.box.add(image)
         self.setup_menu()
-        self.box.connect('button_press_event',
-            self.button_pressed)
-        self.box.connect('scroll-event',
-            self.scroll)
-        self.box.connect('enter-notify-event', lambda *e: 
-            self.exaile.show_popup(tray=True))
-        self.icon.show_all()
-
-    def scroll(self, widget, ev):
-        """
-            Called when the user scrolls their mouse wheel over the tray icon
-        """
-        v = self.exaile.volume.get_value()
-        if ev.direction == gtk.gdk.SCROLL_RIGHT or ev.direction == \
-            gtk.gdk.SCROLL_UP:
-            v += 5
-        else:
-            v -= 5
-
-        if v < 0: v = 0
-        elif v > 120: v = 120
-
-        self.exaile.volume.set_value(v)
-        self.exaile.on_volume_set(self.exaile.volume, None, v)
-
-    def button_pressed(self, item, event, data=None):
-        """
-            Called when someone clicks on the icon
-        """
-        if event.button == 3:
-            track = self.exaile.current_track
-            if not track or not track.is_playing():
-                self.image.set_from_stock('gtk-media-play',
-                    gtk.ICON_SIZE_MENU)
-                self.label.set_label(_("Play"))
-            elif track.is_playing():
-                self.image.set_from_stock('gtk-media-pause',
-                    gtk.ICON_SIZE_MENU)
-                self.label.set_label(_("Pause"))
-            self.menu.popup(None, None, None, event.button, event.time)
-        elif event.button == 1: 
-            if self.emit('toggle-hide'): return
-            if not self.exaile.window.get_property('visible'):
-                self.exaile.window.show_all()
-                self.exaile.setup_location()
-            else:
-                self.exaile.window.hide()
 
     def setup_menu(self):
         """
@@ -328,11 +275,116 @@ class TrayIcon(gobject.GObject):
         self.menu.append_separator()
         self.menu.append(_("Quit"), self.exaile.on_quit, 'gtk-quit')
 
-    def set_tooltip(self, tip):
+    def update_menu(self):
+        track = self.exaile.current_track
+        if not track or not track.is_playing():
+            self.image.set_from_stock('gtk-media-play',
+                gtk.ICON_SIZE_MENU)
+            self.label.set_label(_("Play"))
+        elif track.is_playing():
+            self.image.set_from_stock('gtk-media-pause',
+                gtk.ICON_SIZE_MENU)
+            self.label.set_label(_("Pause"))
+
+    def toggle_exaile_visibility(self):
+        if self.emit('toggle-hide'): return
+        if not self.exaile.window.get_property('visible'):
+            self.exaile.window.show_all()
+            self.exaile.setup_location()
+        else:
+            self.exaile.window.hide()
+
+    def set_tooltip(self, tip): # to be overridden
         """
             Sets the tooltip for the tray icon
         """
+        pass
+
+    def destroy(self): # to be overridden
+        pass
+
+class EggTrayIcon(BaseTrayIcon):
+    def __init__(self, exaile):
+        BaseTrayIcon.__init__(self, exaile)
+
+        self.tips = gtk.Tooltips()
+        self.icon = egg.trayicon.TrayIcon('Exaile!')
+        self.box = gtk.EventBox()
+        self.icon.add(self.box)
+
+        image = gtk.Image()
+        image.set_from_file('images%strayicon.png' % os.sep)
+        self.box.add(image)
+        self.box.connect('button_press_event',
+            self.button_pressed)
+        self.box.connect('scroll-event',
+            self.scroll)
+        self.box.connect('enter-notify-event', lambda *e: 
+            self.exaile.show_popup(tray=True))
+        self.icon.show_all()
+
+    def scroll(self, widget, ev):
+        """
+            Called when the user scrolls their mouse wheel over the tray icon
+        """
+        v = self.exaile.volume.get_value()
+        if ev.direction == gtk.gdk.SCROLL_RIGHT or ev.direction == \
+            gtk.gdk.SCROLL_UP:
+            v += 5
+        else:
+            v -= 5
+
+        if v < 0: v = 0
+        elif v > 120: v = 120
+
+        self.exaile.volume.set_value(v)
+        self.exaile.on_volume_set(self.exaile.volume, None, v)
+
+    def button_pressed(self, item, event, data=None):
+        """
+            Called when someone clicks on the icon
+        """
+        if event.button == 3:
+            self.update_menu()
+            self.menu.popup(None, None, None, event.button, event.time)
+        elif event.button == 1: 
+            self.toggle_exaile_visibility()
+
+    def set_tooltip(self, tip):
         self.tips.set_tip(self.icon, tip)
+
+    def destroy(self):
+        self.icon.destroy()
+
+class GtkTrayIcon(BaseTrayIcon):
+    def __init__(self, exaile):
+        BaseTrayIcon.__init__(self, exaile)
+        self.icon = icon = gtk.StatusIcon()
+        icon.set_tooltip('Exaile!')
+        icon.set_from_file('images%strayicon.png' % os.sep)
+        icon.connect('activate', self.activated)
+        icon.connect('popup-menu', self.popup)
+
+    def activated(self, icon):
+        self.toggle_exaile_visibility()
+
+    def popup(self, icon, button, time):
+        self.update_menu()
+        self.menu.popup(None, None, gtk.status_icon_position_menu,
+            button, time, self.icon)
+
+    def set_tooltip(self, tip):
+        self.icon.set_tooltip(tip)
+
+    def destroy(self):
+        self.icon.destroy()
+
+if USE_TRAY == 'egg':
+    TrayIcon = EggTrayIcon
+elif USE_TRAY == 'gtk':
+    TrayIcon = GtkTrayIcon
+else:
+    TrayIcon = None
 
 FETCHER = None
 def get_cover_fetcher(exaile):

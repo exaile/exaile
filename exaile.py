@@ -670,8 +670,8 @@ class ExaileWindow(gobject.GObject):
         """
             Sets up the tray icon
         """
-        if not xlmisc.TRAY_AVAILABLE:
-            xlmisc.log("Sorry, egg.trayicon is NOT available")
+        if not xlmisc.USE_TRAY:
+            xlmisc.log("Sorry, tray icon is NOT available")
             return
         if self.tray_icon: return
         self.tray_icon = xlmisc.TrayIcon(self)
@@ -681,7 +681,7 @@ class ExaileWindow(gobject.GObject):
             Removes the tray icon
         """
         if self.tray_icon:
-            self.tray_icon.icon.destroy()
+            self.tray_icon.destroy()
             self.tray_icon = None
 
     def load_last_playlist(self): 

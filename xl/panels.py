@@ -41,11 +41,11 @@ except:
 
 N_ = lambda x: x
 
-def day_calc(x, field, symbol='<='):
-    seconds = x * 86400
+def day_calc(x, field, symbol='>='):
+    seconds = int(x) * 86400
     t = time.time() - seconds
     t = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(t))
-    return "%s %s %s" % (field, symbol, t)
+    return "%s %s '%s'" % (field, symbol, t)
 
 class EntrySecondsField(MultiEntryField):
 	def __init__(self, result_generator):

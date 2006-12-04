@@ -664,17 +664,13 @@ class CollectionPanel(object):
             all = self.all
         else: self.all = all
 
-        if not self.keyword and not self.ipod and \
-            self.choice.get_active() == 0:
-            songs = all
+        if self.track_cache.has_key("%s %s" % (where, self.keyword)) \
+            and self.track_cache["%s %s" % (where, self.keyword)] and \
+            not self.ipod:
+            songs = self.track_cache["%s %s" % (where, self.keyword)]
         else:
-            if self.track_cache.has_key("%s %s" % (where, self.keyword)) \
-                and self.track_cache["%s %s" % (where, self.keyword)] and \
-                not self.ipod:
-                songs = self.track_cache["%s %s" % (where, self.keyword)]
-            else:
-                songs = xl.tracks.search_tracks(self.exaile.window, self.db,
-                    all, self.keyword, None, where, ipod=self.ipod)
+            songs = xl.tracks.search_tracks(self.exaile.window, self.db,
+                all, self.keyword, None, where, ipod=self.ipod)
         self.track_cache["%s %s" % (where, self.keyword)] = songs
 
         if self.current_start_count != self.start_count: return

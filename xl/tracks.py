@@ -123,7 +123,6 @@ def search(exaile, all, keyword=None, custom=True):
             v = getattr(track, attribute)
             if v.lower().find(keyword.lower()) > -1:
                 if not track in new: new.append(track)
-
     return new
 
 def search_tracks(parent, db, all, keyword=None, playlist=None, w=None,
@@ -147,10 +146,6 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None,
 
     if w == None:
         if keyword != None or playlist != None:
-            if keyword != None:
-                if keyword.startswith("q:") or keyword.lower().startswith("where"):
-                    xlmisc.log("SQL query started")
-                    where = re.sub("^(q:|where) ", "WHERE ", keyword.lower())
 
             if playlist != None:
                 rows = db.select("""

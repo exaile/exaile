@@ -41,6 +41,12 @@ except:
 
 N_ = lambda x: x
 
+def day_calc(x, field, symbol='<='):
+    seconds = x * 86400
+    t = time.time() - seconds
+    t = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(t))
+    return "%s %s %s" % (field, symbol, t)
+
 class EntrySecondsField(MultiEntryField):
 	def __init__(self, result_generator):
 		MultiEntryField.__init__(self, result_generator, n=1,
@@ -52,6 +58,12 @@ class EntryAndEntryField(MultiEntryField):
 		MultiEntryField.__init__(self, result_generator, n=2,
 				labels=(None, _('and'), None),
 				widths=(50, 50))
+
+class EntryDaysField(MultiEntryField):
+    def __init__(self, result_generator):
+        MultiEntryField.__init__(self, result_generator, n=1,
+            labels=(None, _('days')),
+                widths=(50,))
 
 CRITERIA = [
 		(N_('Artist'), [
@@ -94,7 +106,20 @@ CRITERIA = [
 			(N_('at most'), (EntrySecondsField, lambda x:
 				'length <= %s' % x)),
 			]),
-		]
+        (N_('Date Added'), [
+            (N_('in the last'), (EntryDaysField, 
+                lambda x: day_calc(x, 'time_added'))),
+            (N_('not in the last'), (EntryDaysField, 
+                lambda x: day_calc(x, 'time_added', '<'))),
+            ]),
+        (N_('Last Played'), [
+            (N_('in the last'), (EntryDaysField, 
+                lambda x: day_calc(x, 'last_played'))),
+            (N_('not in the last'), (EntryDaysField, 
+                lambda x: day_calc(x, 'last_played', '<'))),
+            ])
+        ]
+
 
 def get_sql(crit1, crit2, filter):
     filter = eval(filter)

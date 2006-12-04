@@ -292,7 +292,7 @@ class Criterion(gtk.HBox):
         state = self.child.get_state() 
         self.remove(self.child)
         self.child = Criterion(self.subcriteria[self.combo.get_active()][1])
-        self.child.set_state(state)
+        if state: self.child.set_state(state)
         self.pack_start(self.child)
         self.child.show()
 
@@ -330,7 +330,8 @@ class Criterion(gtk.HBox):
                     break
             self.child.set_state(state)
         else:
-            self.child.set_state(state[1])
+            if len(state) > 1: 
+                self.child.set_state(state[1])
 
 # Sample fields
 
@@ -368,7 +369,7 @@ class MultiEntryField(gtk.HBox):
         return [e.get_text() for e in self.entries]
     def set_state(self, state):
         for i, e in enumerate(self.entries):
-            e.set_text(state[i])
+            if len(state) > i: e.set_text(state[i])
 
 class EntryField(gtk.Entry):
     def __init__(self, result_generator):

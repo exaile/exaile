@@ -166,7 +166,7 @@ CRITERIA = [
                 lambda x: day_calc(x, 'last_played'))),
             (N_('not in the last'), (SpinDateField, 
                 lambda x: day_calc(x, 'last_played', '<'))),
-            ])
+            ]),
         (N_('Location'), [
             (N_('is'), (EntryField, lambda x:
                 'paths.name = "%s"' % x)),

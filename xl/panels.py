@@ -620,6 +620,7 @@ class CollectionPanel(object):
                     ) 
                 ORDER BY 
                     LOWER(genre), 
+                    disc_id,
                     track, 
                     title
             """
@@ -644,6 +645,7 @@ class CollectionPanel(object):
                 ORDER BY 
                     THE_CUTTER(artists.name), 
                     LOWER(albums.name), 
+                    disc_id,
                     track, 
                     title
             """
@@ -666,6 +668,7 @@ class CollectionPanel(object):
                     )
                 ORDER BY 
                     LOWER(albums.name), 
+                    disc_id,
                     track, 
                     THE_CUTTER(artists.name), 
                     title

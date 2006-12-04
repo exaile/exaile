@@ -183,6 +183,7 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None,
         ORDER BY 
             LOWER(artists.name), 
             LOWER(albums.name), 
+            disc_id,
             track, 
             title
         """ % where

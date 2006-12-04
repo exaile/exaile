@@ -89,6 +89,10 @@ class SpinRating(filtergui.SpinLabelField):
         filtergui.SpinLabelField.__init__(self, result_generator, '',
             8)
 
+class SpinNothing(filtergui.SpinLabelField):
+    def __init__(self, result_generator):
+        filtergui.SpinLabelField.__init__(self, result_generator, '')
+
 CRITERIA = [
 		(N_('Artist'), [
 			(N_('is'), (EntryField, lambda x:
@@ -108,11 +112,23 @@ CRITERIA = [
 			(N_('contains'), (EntryField, lambda x:
 				'genre LIKE "%%%s%%"' % x)),
 			]),
-		(N_('Rating'), [
+		(N_('User Rating'), [
 			(N_('at least'), (SpinRating, lambda x:
 				'user_rating >= %s' % x)),
 			(N_('at most'), (SpinRating, lambda x:
 				'user_rating <= %s' % x))]),
+		(N_('System Rating'), [
+			(N_('at least'), (SpinRating, lambda x:
+				'rating >= %s' % x)),
+			(N_('at most'), (SpinRating, lambda x:
+				'rating <= %s' % x))
+            ]),
+        (N_('Number of Plays'), [
+            (N_('at least'), (SpinNothing, lambda x:
+                'plays >= %s' % x)),
+            (N_('at most'), (SpinNothing, lambda x:
+                'plays <= %s' %x))
+            ]),
 		(N_('Year'), [
 			(N_('before'), (EntryField, lambda x:
 				'year < %s' % x)),

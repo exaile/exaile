@@ -1934,7 +1934,9 @@ class DragTreeView(gtk.TreeView):
         """
             Called when a button is released
         """
-        if event.button != 1 or self.dragging: return True
+        if event.button != 1 or self.dragging: 
+            self.dragging = False
+            return True
         if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
             return True
         selection = self.get_selection()

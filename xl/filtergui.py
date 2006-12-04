@@ -192,7 +192,7 @@ class FilterWidget(gtk.Table):
         image.set_from_stock(gtk.STOCK_REMOVE, gtk.ICON_SIZE_BUTTON)
         remove_btn.add(image)
         remove_btn_handler_id = remove_btn.connect(
-            'clicked', lambda x: self.remove_row(self.n))
+            'clicked', self.__remove_clicked, self.n)
         remove_btn.show_all()
 
         self.attach(criterion, 0, 1, self.n, self.n + 1,
@@ -216,12 +216,16 @@ class FilterWidget(gtk.Table):
                     gtk.EXPAND | gtk.FILL, gtk.SHRINK)
                 self.attach(btn, 1, 2, iRow - 1, iRow,
                     gtk.FILL, gtk.SHRINK)
-                handler = btn.connect('clicked', self._removed, iRow - 1)
+                handler = btn.connect(
+                    'clicked', self.__remove_clicked, iRow - 1)
                 rows[iRow - 1] = crit, btn, handler
         self.n -= 1
         del rows[self.n]
         if self.n:
             self.resize(self.n, 2)
+
+    def __remove_clicked(self, widget, data):
+        self.remove_row(data)
 
     def get_state(self):
         """Return the filter state.
@@ -250,7 +254,7 @@ class FilterWidget(gtk.Table):
         for i in xrange(n_present, n_required):
             self.add_row()
         for i in xrange(n_present, n_required, -1):
-            self.remove_row(i)
+            self.remove_row(i - 1) # i is one less than n
         for i, cstate in enumerate(state):
             cstate[0].reverse() # reverse so it becomes a stack
             self.rows[i][0].set_state(cstate)

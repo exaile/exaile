@@ -393,3 +393,69 @@ class EntryLabelEntryField(MultiEntryField):
         MultiEntryField.__init__(self, result_generator, n=2,
             labels=(None, label, None),
             widths=(50, 50))
+
+class SpinLabelField(gtk.HBox):
+    def __init__(self, result_generator, label='', top=99999):
+        gtk.HBox.__init__(self, spacing=5)
+        self.generate_result = result_generator
+        self.spin = gtk.SpinButton(gtk.Adjustment(0, 0, top, 1, 0, 0))
+        self.pack_start(self.spin)
+        self.pack_start(gtk.Label(label))
+        self.show_all()
+    def get_state(self):
+        return self.spin.get_value()
+    def set_state(self, state):
+        if type(state) == list or type(state) == tuple:
+            state = state[0]
+        try:
+            self.spin.set_value(int(state))
+        except ValueError:
+            pass
+
+    def get_result(self):
+        return self.generate_result(self.spin.get_value())
+
+class SpinButtonAndComboField(gtk.HBox):
+    def __init__(self, result_generator, items=()):
+        gtk.HBox.__init__(self, spacing=5)
+        self.generate_result = result_generator
+
+        adjustment = gtk.Adjustment(0, 0, 99999, 1, 0, 0)
+        self.entry = gtk.SpinButton(adjustment=adjustment)
+        self.pack_start(self.entry)
+
+        self.combo = gtk.combo_box_new_text()
+        for item in items:
+            self.combo.append_text(item)
+        self.combo.set_active(0)
+        self.pack_start(self.combo)
+        self.show_all()
+
+    def get_result(self):
+        return self.generate_result(*self.get_state())
+
+    def set_state(self, state):
+        if type(state) != tuple and type(state) != list:
+            return
+
+        print state
+
+        try:
+            self.entry.set_value(int(state[0]))
+        except ValueError:
+            pass
+        count = 0
+        model = self.combo.get_model()
+        iter = model.get_iter_first()
+        while True:
+            text = model.get_value(iter, 0)
+            if text == state[1]:
+                self.combo.set_active(count)
+
+            count += 1
+            iter = model.iter_next(iter)
+            if not iter: break
+
+    def get_state(self):
+        return [self.entry.get_value(), 
+            self.combo.get_active_text()]

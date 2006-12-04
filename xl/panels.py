@@ -41,8 +41,16 @@ except:
 
 N_ = lambda x: x
 
-def day_calc(x, field, symbol='>='):
-    seconds = int(x) * 86400
+def day_calc(x, inc, field, symbol='>='):
+    values = {
+        'seconds': 1,
+        'minutes': 60,
+        'hours': 60 * 60,
+        'days': 60 * 60 * 24,
+        'weeks': 60 * 60 * 24 * 7
+    }
+
+    seconds = int(x) * values[inc]
     t = time.time() - seconds
     t = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(t))
     return "%s %s '%s'" % (field, symbol, t)
@@ -65,6 +73,22 @@ class EntryDaysField(MultiEntryField):
             labels=(None, _('days')),
                 widths=(50,))
 
+DATE_FIELDS = (_('seconds'), _('minutes'), _('hours'), _('days'), _('weeks'))
+class SpinDateField(filtergui.SpinButtonAndComboField):
+    def __init__(self, result_generator):
+        filtergui.SpinButtonAndComboField.__init__(self, 
+            result_generator, DATE_FIELDS)
+
+class SpinSecondsField(filtergui.SpinLabelField):
+    def __init__(self, result_generator):
+        filtergui.SpinLabelField.__init__(self, result_generator, 
+            _('seconds'))
+
+class SpinRating(filtergui.SpinLabelField):
+    def __init__(self, result_generator):
+        filtergui.SpinLabelField.__init__(self, result_generator, '',
+            8)
+
 CRITERIA = [
 		(N_('Artist'), [
 			(N_('is'), (EntryField, lambda x:
@@ -85,13 +109,10 @@ CRITERIA = [
 				'genre LIKE "%%%s%%"' % x)),
 			]),
 		(N_('Rating'), [
-			(N_('at least'), (EntryField, lambda x:
+			(N_('at least'), (SpinRating, lambda x:
 				'user_rating >= %s' % x)),
-			(N_('at most'), (EntryField, lambda x:
-				'user_rating <= %s' % x)),
-			(N_('between'), (EntryAndEntryField, lambda x, y:
-				'user_rating BETWEEN %s AND %s' % (x, y))),
-			]),
+			(N_('at most'), (SpinRating, lambda x:
+				'user_rating <= %s' % x))]),
 		(N_('Year'), [
 			(N_('before'), (EntryField, lambda x:
 				'year < %s' % x)),
@@ -101,37 +122,24 @@ CRITERIA = [
 				'year BETWEEN %s AND %s' % (x, y))),
 			]),
 		(N_('Length'), [
-			(N_('at least'), (EntrySecondsField, lambda x:
+			(N_('at least'), (SpinSecondsField, lambda x:
 				'length >= %s' % x)),
-			(N_('at most'), (EntrySecondsField, lambda x:
+			(N_('at most'), (SpinSecondsField, lambda x:
 				'length <= %s' % x)),
 			]),
         (N_('Date Added'), [
-            (N_('in the last'), (EntryDaysField, 
-                lambda x: day_calc(x, 'time_added'))),
-            (N_('not in the last'), (EntryDaysField, 
-                lambda x: day_calc(x, 'time_added', '<'))),
+            (N_('in the last'), (SpinDateField, 
+                lambda x, i: day_calc(x, i, 'time_added'))),
+            (N_('not in the last'), (SpinDateField, 
+                lambda x, i: day_calc(x, i, 'time_added', '<'))),
             ]),
         (N_('Last Played'), [
-            (N_('in the last'), (EntryDaysField, 
+            (N_('in the last'), (SpinDateField, 
                 lambda x: day_calc(x, 'last_played'))),
-            (N_('not in the last'), (EntryDaysField, 
+            (N_('not in the last'), (SpinDateField, 
                 lambda x: day_calc(x, 'last_played', '<'))),
             ])
         ]
-
-
-def get_sql(crit1, crit2, filter):
-    filter = eval(filter)
-
-    sql = None
-    for item1 in CRITERIA:
-        if item1[0] == crit1:
-            for item2 in item1[1]:
-                if item2[0] == crit2:
-                    sql = item2[1][1](*filter)
-
-    return sql
 
 class AlbumWrapper(object):
     """
@@ -1951,11 +1959,19 @@ class PlaylistsPanel(object):
         where = []
         andor = " AND "
         if row[0]: andor = ' OR '
+
+        state = []
+
         for row in rows:
-            print row
-            sql = get_sql(row[0], row[1], row[2])
-            if sql:
-                where.append(sql)
+            left = [row[0], row[1]]
+            filter = eval(row[2])
+            if len(filter) == 1:
+                filter = filter[0]
+            state.append((left, filter))
+
+        filter = filtergui.FilterWidget(CRITERIA)
+        filter.set_state(state)
+        where = filter.get_result()
 
         sql = """
             SELECT paths.name 

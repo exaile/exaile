@@ -97,20 +97,32 @@ CRITERIA = [
 		(N_('Artist'), [
 			(N_('is'), (EntryField, lambda x:
 				'artists.name = "%s"' % x)),
+            (N_('is not'), (EntryField, lambda x:
+                'artists.name != "%s"' % x)),
 			(N_('contains'), (EntryField, lambda x:
 				'artists.name LIKE "%%%s%%"' % x)),
+            (N_('does not contain'), (EntryField, lambda x:
+                'artists.name NOT LIKE "%%%s%%"' % x)),
 			]),
 		(N_('Album'), [
 			(N_('is'), (EntryField, lambda x:
 				'albums.name = "%s"' % x)),
+            (N_('is not'), (EntryField, lambda x:
+                'albums.name != "%s"' % x)),
 			(N_('contains'), (EntryField, lambda x:
 				'albums.name LIKE "%%%s%%"' % x)),
+            (N_('does not contain'), (EntryField, lambda x:
+                'albums.name NOT LIKE "%%%s%%"' % x)),
 			]),
 		(N_('Genre'), [
 			(N_('is'), (EntryField, lambda x:
 				'genre = "%s"' % x)),
+            (N_('is not'), (EntryField, lambda x:
+                'genre != "%s"' % x)),
 			(N_('contains'), (EntryField, lambda x:
 				'genre LIKE "%%%s%%"' % x)),
+            (N_('does not contain'), (EntryField, lambda x:
+                'genre NOT LIKE "%%%s%%"' %x)),
 			]),
 		(N_('User Rating'), [
 			(N_('at least'), (SpinRating, lambda x:
@@ -2052,7 +2064,7 @@ class PlaylistsPanel(object):
         (model, iter) = selection.get_selected()
 
         obj = model.get_value(iter, 2)
-        if not isinstance(obj, CustomPlaylist) or \
+        if not isinstance(obj, CustomPlaylist) and \
             not isinstance(obj, SmartPlaylist): return
 
         dialog = gtk.MessageDialog(self.exaile.window, 

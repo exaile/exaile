@@ -2919,6 +2919,7 @@ class RadioPanel(object):
 
             track = media.RadioTrack(info)
             songs.append(track)
+        tracks.playlist = playlist
         tracks.set_songs(songs)
         tracks.queue_draw()
 

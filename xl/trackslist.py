@@ -927,10 +927,13 @@ class TracksListCtrl(gtk.VBox):
                                 media.StreamTrack):
                                 t = "radio"; p = "url"
                             else:
-                                t = "playlist"; p = "path"
+                                t = "playlists"; p = "path"
 
-                            playlist_id = tracks.get_column_id(self.db, t, 'name',
+                            playlist_id = xl.tracks.get_column_id(self.db, t, 'name',
                                 playlist)
+
+                            if t == 'playlists':
+                                t = 'playlist'
                             cur.execute("DELETE FROM %s_items WHERE "
                                 "path=? AND %s=?" % (t, t),
                                 (path_id, playlist_id))

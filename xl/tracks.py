@@ -376,7 +376,8 @@ def read_audio_disc(exaile):
     """
         Reads track information from an audio CD
     """
-    disc = DiscID.open()
+    device = exaile.settings.get('cd_device', '/dev/cdrom')
+    disc = DiscID.open(device)
     try:
         info = DiscID.disc_id(disc)
     except:

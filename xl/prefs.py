@@ -358,6 +358,7 @@ class Preferences(object):
             'lastfm_pass': (PrefsItem, '', None, self.setup_lastfm),
             'ipod_mount': (PrefsItem, '/media/ipod'),
             'as_submit_ipod': (CheckPrefsItem, False), 
+            'cd_device': (PrefsItem, '/dev/cdrom'),
             'audio_sink': (ComboPrefsItem, 'Use GConf Settings'),
             'osd_tray': (CheckPrefsItem, True),
             'osd_bgcolor': (ColorButtonPrefsItem, '#567ea2',

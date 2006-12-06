@@ -102,7 +102,7 @@ class DBusInterfaceObject(dbus.service.Object):
         """
             Shows a popup window with information about the current track
         """
-        self.exaile.show_popup()
+        self.exaile.show_osd()
 
     @dbus.service.method("org.exaile.DBusInterface")
     def get_title(self):
@@ -171,7 +171,7 @@ class DBusInterfaceObject(dbus.service.Object):
         """
             Shows a popup window with information about the current track
         """
-        self.exaile.show_popup()
+        self.exaile.show_osd()
 
     @dbus.service.method("org.exaile.DBusInterface")
     def increase_volume(self,vol):

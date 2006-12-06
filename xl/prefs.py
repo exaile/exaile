@@ -290,7 +290,7 @@ class Preferences(object):
         self.fields = []
         self.warning_shown = False
         self.popup = None
-        self.osd_settings = xlmisc.get_popup_settings(self.exaile.settings)
+        self.osd_settings = xlmisc.get_osd_settings(self.exaile.settings)
         settings = self.exaile.settings
         self.xml = gtk.glade.XML('exaile.glade', 'PreferencesDialog', 'exaile')
         xml = self.xml
@@ -536,7 +536,7 @@ class Preferences(object):
         title = self.nb.get_tab_label(page)
         self.label.set_markup("<b>%s</b>" % title.get_label())
         if index == 2: 
-            self.osd_settings = xlmisc.get_popup_settings(self.exaile.settings)
+            self.osd_settings = xlmisc.get_osd_settings(self.exaile.settings)
             self.display_popup()
         else:
             if self.popup:
@@ -558,7 +558,7 @@ class Preferences(object):
                 _("Move the OSD window to the location you want it to "
                 "appear when listening"))
             self.warning_shown = True
-        self.popup = xlmisc.PopupWindow(self.exaile, self.osd_settings,
+        self.popup = xlmisc.OSDWindow(self.exaile, self.osd_settings,
             False, True)
 
         track = BlankClass() 
@@ -569,7 +569,7 @@ class Preferences(object):
         display_text = self.text_display.get_all_text()
         display_text = display_text.replace("{volume}", "\\{volume\\}")
 
-        self.popup.show_track_popup(track, display_text, 
+        self.popup.show_track_osd(track, display_text, 
             'images%snocover.png' % os.sep)       
 
         return False

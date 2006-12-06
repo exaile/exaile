@@ -1514,7 +1514,7 @@ class ExaileWindow(gobject.GObject):
         if track.type != 'stream' and self.settings.get('fetch_covers', True):
             self.fetch_cover(track)
 
-        self.show_popup()
+        self.show_osd()
         if self.tracks: self.tracks.queue_draw()
 
         if self.settings.get_boolean('ensure_visible', False):
@@ -1592,7 +1592,7 @@ class ExaileWindow(gobject.GObject):
 
         self.update_songs(None, False)
 
-    def show_popup(self, tray=False):
+    def show_osd(self, tray=False):
         """
             Shows a popup window with information about the current track
         """
@@ -1601,12 +1601,12 @@ class ExaileWindow(gobject.GObject):
             if not self.settings.get_boolean('osd_tray', True): return
         track = self.current_track
         if not track: return
-        pop = xlmisc.get_popup(self, xlmisc.get_popup_settings(self.settings))
+        pop = xlmisc.get_osd(self, xlmisc.get_osd_settings(self.settings))
         cover = self.fetch_cover(track, 1)
 
         text_display = self.settings.get('osd_display_text',
             xl.prefs.TEXT_VIEW_DEFAULT)
-        pop.show_track_popup(track, text_display,
+        pop.show_track_osd(track, text_display,
             cover)
 
     def setup_menus(self):

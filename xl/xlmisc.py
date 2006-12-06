@@ -320,7 +320,7 @@ class EggTrayIcon(BaseTrayIcon):
         self.box.connect('scroll-event',
             self.scroll)
         self.box.connect('enter-notify-event', lambda *e: 
-            self.exaile.show_popup(tray=True))
+            self.exaile.show_osd(tray=True))
         self.icon.show_all()
 
     def scroll(self, widget, ev):
@@ -1753,7 +1753,7 @@ class MiscTimer(object):
         if self.runonce: return False
         else: return True
 
-class PopupWindow(object):
+class OSDWindow(object):
     """
         A popup window to show information on the current playing track
     """
@@ -1763,8 +1763,8 @@ class PopupWindow(object):
         """
         self.exaile = exaile
         self.draggable = draggable
-        self.xml = gtk.glade.XML('exaile.glade', 'PopupWindow', 'exaile')
-        self.window = self.xml.get_widget('PopupWindow')
+        self.xml = gtk.glade.XML('exaile.glade', 'OSDWindow', 'exaile')
+        self.window = self.xml.get_widget('OSDWindow')
         self.__timeout = None
         self.start_timer = start_timer
 
@@ -1815,7 +1815,7 @@ class PopupWindow(object):
         settings['osd_h'] = h
         settings['osd_w'] = w
     
-        POPUP = PopupWindow(self.exaile, get_popup_settings(settings))
+        POPUP = OSDWindow(self.exaile, get_osd_settings(settings))
 
     def dragging(self, widget, event):
         """
@@ -1824,7 +1824,7 @@ class PopupWindow(object):
         self.window.move(int(event.x_root - self.__start[0]),
             int(event.y_root - self.__start[1]))
 
-    def show_track_popup(self, track, text, cover):
+    def show_track_osd(self, track, text, cover):
         """
             Shows a popup specific to a track
         """
@@ -1843,9 +1843,9 @@ class PopupWindow(object):
         text = text.replace("\\{", "{")
         text = text.replace("\\}", "}")
         text = text.replace("&", "&amp;")
-        self.show_popup(text, cover)
+        self.show_osd(text, cover)
 
-    def show_popup(self, title, cover):
+    def show_osd(self, title, cover):
         """
             Displays the popup for 4 seconds
         """
@@ -1868,18 +1868,18 @@ class PopupWindow(object):
             self.__timeout = gobject.timeout_add(4000, self.window.hide)
 
 POPUP = None
-def get_popup(exaile, settings):
+def get_osd(exaile, settings):
     """
         Gets a popup instance
     """
     global POPUP
     
     if not POPUP:
-        POPUP = PopupWindow(exaile, settings)
+        POPUP = OSDWindow(exaile, settings)
 
     return POPUP
 
-def get_popup_settings(settings):
+def get_osd_settings(settings):
     info = dict()
     info['osd_bgcolor'] = settings.get("osd_bgcolor", "#567ea2")
     info['osd_w'] = settings.get_int("osd_w", 400)

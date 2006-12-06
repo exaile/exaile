@@ -44,6 +44,10 @@ try:
 except ImportError:
     if gtk.check_version(2, 10, 0) is None:
         USE_TRAY = 'gtk'
+        try:
+            icon = gtk.StatusIcon()
+        except AttributeError:
+            USE_TRAY = None
     else:
         USE_TRAY = None
 

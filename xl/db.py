@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import sys, threading, re, os, fileinput, traceback
+import sys, threading, re, os, fileinput, traceback, xlmisc
 try:
     from sqlite3 import dbapi2 as sqlite
     SQLITE_AVAIL = True

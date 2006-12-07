@@ -20,7 +20,7 @@ import sys, httplib, urlparse, os, os.path, urllib, media
 import common, traceback, gc, xl.db, gobject
 
 
-import cStringIO, plugins
+import cStringIO
 from gettext import gettext as _
 import prefs
 

@@ -109,11 +109,6 @@ def search(exaile, all, keyword=None, custom=True):
     """
     if not keyword: return all
 
-    if (keyword.lower().startswith("where ") or \
-        keyword.lower().startswith("q: ")) and custom:
-        return search_tracks(exaile.window, exaile.db, 
-            TrackData(all), keyword, None, None)
-        
     new = TrackData()
 
     for track in all:

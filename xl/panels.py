@@ -425,8 +425,8 @@ class CollectionPanel(object):
 #        for row in rows:
 #            add.append(self.all.for_path(row[0]))
 
-        add = tracks.TrackData()
 
+        add = tracks.TrackData()
         for row in found:
             add.append(self.all.for_path(row))
 
@@ -627,7 +627,7 @@ class CollectionPanel(object):
 
         if self.choice.get_active() == 2:
             self.order = ('genre', 'artist', 'album', 'track', 'title')
-            where = """
+            self.where = """
                 SELECT 
                     paths.name, 
                     artists.name, 
@@ -649,7 +649,7 @@ class CollectionPanel(object):
 
         if self.choice.get_active() == 0:
             self.order = ('artist', 'album', 'track', 'title')
-            where = """
+            self.where = """
                 SELECT 
                     paths.name, 
                     artists.name, 
@@ -674,7 +674,7 @@ class CollectionPanel(object):
 
         if self.choice.get_active() == 1:
             self.order = ('album', 'track', 'title')
-            where = """
+            self.where = """
                 SELECT 
                     paths.name, 
                     albums.name, 
@@ -701,18 +701,17 @@ class CollectionPanel(object):
 
         all = self.exaile.all_songs
 
-        if self.ipod: 
+        if self.name == 'ipod' or self.name == 'device': 
             all = self.all
         else: self.all = all
 
-        if self.track_cache.has_key("%s %s" % (where, self.keyword)) \
-            and self.track_cache["%s %s" % (where, self.keyword)] and \
+        if self.track_cache.has_key("%s %s" % (self.where, self.keyword)) \
+            and self.track_cache["%s %s" % (self.where, self.keyword)] and \
             not self.ipod:
-            songs = self.track_cache["%s %s" % (where, self.keyword)]
+            songs = self.track_cache["%s %s" % (self.where, self.keyword)]
         else:
-            songs = xl.tracks.search_tracks(self.exaile.window, self.db,
-                all, self.keyword, None, where, ipod=self.ipod)
-        self.track_cache["%s %s" % (where, self.keyword)] = songs
+            songs = self.search_tracks(self.keyword, self.all)
+        self.track_cache["%s %s" % (self.where, self.keyword)] = songs
 
         if self.current_start_count != self.start_count: return
 
@@ -721,6 +720,13 @@ class CollectionPanel(object):
         if self.connect_id: gobject.source_remove(self.connect_id)
         self.connect_id = None
         self.filter.set_sensitive(True)
+
+    def search_tracks(self, keyword, all):
+        """
+            Searches for songs
+        """
+        return xl.tracks.search_tracks(self.exaile.window, self.db, all,
+            self.keyword, None, self.where, ipod=self.ipod)
 
     @common.threaded
     def append_info(self, node, songs=None, unknown=False):
@@ -793,6 +799,33 @@ class CollectionPanel(object):
             gobject.idle_add(self.tree.expand_row, self.model.get_path(self.root), False)
             gobject.idle_add(self.tree.expand_row, self.model.get_path(self.iroot), False)
 
+class DevicePanel(CollectionPanel):
+    """
+        Collection panel that allows for different collection drivers
+    """
+    name = 'device'
+    def __init__(self, exaile):
+        CollectionPanel.__init__(self, exaile)
+        self.driver = None
+        self.all = tracks.TrackData()
+
+    def connect(self, driver):
+        try:
+            driver.connect(self)
+            self.driver = driver
+        except:
+            self.driver = None
+            common.error(self.exaile.window, _("Error and stuff"))
+            
+        self.load_tree()
+
+    def search_tracks(self, keyword, all=None):
+        if not self.driver: self.all = tracks.TrackData()
+        self.all = self.driver.search_tracks(keyword, all)
+        return self.all
+
+    def get_song(self, loc):
+        return self.all.for_path(loc)
 
 class iPodPlaylist(object):
     """

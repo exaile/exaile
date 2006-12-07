@@ -824,6 +824,7 @@ class ExaileWindow(gobject.GObject):
             self.side_notebook.remove_page(2)
 
         self.files_panel = panels.FilesPanel(self)
+        self.device_panel = panels.DevicePanel(self)
 
     def get_database(self):
         """
@@ -1828,7 +1829,8 @@ class ExaileWindow(gobject.GObject):
 
         count = 0
         for url in playlist.get_urls():
-            if url[0] == 'file':
+            if url[0] == 'device': continue
+            elif url[0] == 'file':
                 if self.all_songs.for_path(url[2]):
                     tr = self.all_songs.for_path(url[2])
                 else:

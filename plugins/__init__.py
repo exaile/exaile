@@ -14,6 +14,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 import os, gtk
+import xl, xl.media
+
+class DriverTrack(xl.media.Track):
+    def __init__(self, *args):
+        xl.media.Track.__init__(self, *args)
 
 def name(file):
     return os.path.basename(file.replace('.pyc', '.py'))

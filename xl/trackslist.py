@@ -149,7 +149,10 @@ class TracksListCtrl(gtk.VBox):
         for l in loc:
             l = l.replace("file://", "")
             l = urllib.unquote(l)
-            if l.find("ipod://") > -1:
+
+            if l.find('device://') > -1:
+                song = self.exaile.device_panel.get_song(l)
+            elif l.find("ipod://") > -1:
                 song = self.exaile.ipod_panel.get_song(
                     l.replace("ipod://", ""))
             else:

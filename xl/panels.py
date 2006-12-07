@@ -793,6 +793,7 @@ class CollectionPanel(object):
             gobject.idle_add(self.tree.expand_row, self.model.get_path(self.root), False)
             gobject.idle_add(self.tree.expand_row, self.model.get_path(self.iroot), False)
 
+
 class iPodPlaylist(object):
     """
         Container for iPod playlist

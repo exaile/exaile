@@ -721,7 +721,7 @@ class ExaileWindow(gobject.GObject):
         last_active = self.settings.get_int('last_active', -1)
         if last_active > -1:
             xlmisc.log("Last active playlist: %d" % last_active)
-            self.playlists_nb.set_current_page(last_active)
+            gobject.timeout_add(500, self.playlists_nb.set_current_page, last_active)
         
         if not self.playlists_nb.get_n_pages():
             self.new_page(_("Playlist"))

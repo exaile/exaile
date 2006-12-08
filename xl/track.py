@@ -250,8 +250,9 @@ class TrackStatsTab(gtk.Table):
         self.attach(label, 0, 1, self.bottom, self.bottom +1,
             gtk.EXPAND | gtk.FILL, gtk.FILL)
 
-        if isinstance(string, unicode) or isinstance(string, str):
-            label = gtk.Label(string)
+        if isinstance(string, unicode) or isinstance(string, str) or \
+            isinstance(string, int):
+            label = gtk.Label(unicode(string))
             label.set_alignment(0, 0)
             label.set_line_wrap(True)
             self.attach(label, 1, 2, self.bottom, self.bottom + 1,

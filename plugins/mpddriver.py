@@ -94,6 +94,13 @@ class MPDDriver(object):
                 APP.current_track.playing = 2
             APP.update_track_information()
 
+        songs = tracks.TrackData()
+        for item in self.mpd.playlistinfo():
+            song = self.all.for_path('device://%s' % item.file)
+            songs.append(song)
+
+        APP.new_page("MPD Playlist", songs)
+
     def load_tracks(self):
         songs = tracks.TrackData()
         for mtrack in self.mpd.listallinfo():

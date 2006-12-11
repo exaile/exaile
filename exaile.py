@@ -423,9 +423,6 @@ class ExaileWindow(gobject.GObject):
         self.open_item = self.xml.get_widget('open_item')
         self.open_item.connect('activate', self.on_add_media)
 
-        self.open_playlist_item = self.xml.get_widget('open_playlist_item')
-        self.open_playlist_item.connect('activate', self.on_add_media)
-
         self.xml.get_widget('export_playlist_item').connect('activate',
             self.export_playlist)
 

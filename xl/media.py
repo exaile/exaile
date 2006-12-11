@@ -1,3 +1,4 @@
+# encoding: utf-8
 # Copyright (C) 2006 Adam Olsen 
 #
 # This program is free software; you can redistribute it and/or modify
@@ -1226,13 +1227,13 @@ class M4ATrack(Track):
         Track.__init__(self, *args)
 
     def get_tag(self, f, name):
-        name = u"\xa9%s" % name
+        name = "\xa9%s" % name
         if not f.has_key(name):
             return ""
         else: return f[name]
 
     def set_tag(self, f, name, value):
-        name = u"\xa9%s" % name
+        name = "\xa9%s" % name
         f[name] = value
 
     def write_tag(self, db=None):

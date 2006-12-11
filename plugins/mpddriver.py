@@ -34,8 +34,10 @@ class MPDTrack(plugins.DriverTrack):
         plugins.DriverTrack.__init__(self, *info)
         self.mpd_track = None
         self.mpd = MPD
+        self.next = None
 
-    def play(self, next_func=None):
+    def play(self, next_func=None): 
+        if next_func: self.next = next_func
 
         if not self.is_paused():
             self.mpd.clear()
@@ -81,6 +83,8 @@ class MPDDriver(object):
         self.mpd = mpdclient2.connect()
         MPD = self.mpd
         status = self.mpd.status()
+        self.mpd.random(0)
+        self.mpd.repeat(0)
         self.all = self.load_tracks()
         APP.device_panel.all = self.all
         if status.state == 'play' or status.state == 'pause':
@@ -133,6 +137,16 @@ class MPDDriver(object):
     def ping(self):
         if self.mpd:
             self.mpd.ping()
+
+        # check to see if the current track has stopped, and if it has, go to
+        # the next track
+        track = APP.current_track
+        if track is not None:
+            if track.is_playing():
+                status = self.mpd.status()
+                if not status.has_key('time'):
+                    if track.next:
+                        track.next()
         return True
 
 def initialize():

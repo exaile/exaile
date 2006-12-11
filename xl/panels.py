@@ -2013,8 +2013,20 @@ class PlaylistsPanel(object):
 
         elif isinstance(obj, CustomPlaylist):
             playlist = obj.name
-            self.playlist_songs = xl.tracks.search_tracks(self, self.db,
-                self.exaile.all_songs, None, playlist)
+            playlist_id = tracks.get_column_id(self.db, 'playlists', 'name', playlist)
+
+            rows = self.db.select('SELECT paths.name FROM playlist_items,paths '
+                'WHERE playlist_items.path=paths.id AND playlist=?',
+                (playlist_id,))
+
+            songs = tracks.TrackData()
+            for row in rows:
+                tr = tracks.read_track(self.db, self.exaile.all_songs, row[0],
+                    adddb=False, skipmod=True)
+                if tr:
+                    songs.append(tr)
+
+            self.playlist_songs = songs
             self.exaile.new_page(playlist, self.playlist_songs)
             self.exaile.on_search()
             self.exaile.tracks.playlist = playlist
@@ -3196,9 +3208,7 @@ class FilesPanel(object):
             if os.path.isdir(value):
                 self.append_recursive(songs, value)
             elif ext in media.SUPPORTED_MEDIA:
-                tr = tracks.read_track(self.exaile.db,
-                    self.exaile.all_songs,
-                    value, adddb=False)
+                tr = self.get_track(os.path.join(root, f))
                 if tr:
                     songs.append(tr)
 
@@ -3206,6 +3216,16 @@ class FilesPanel(object):
             self.exaile.append_songs(songs, title=_("Playlist"))
         self.counter = 0
         self.exaile.status.set_first(None)
+
+    def get_track(self, path):
+        """
+            Gets a track
+        """
+        tr = self.exaile.all_songs.for_path(path)
+        if not tr:
+            tr = tracks.read_track(self.exaile.db, self.exaile.all_songs,
+                path, adddb=False)
+        return tr
 
     def append_recursive(self, songs, dir):
         """
@@ -3215,9 +3235,7 @@ class FilesPanel(object):
             for f in files:
                 (stuff, ext) = os.path.splitext(f)
                 if ext in media.SUPPORTED_MEDIA:
-                    tr = tracks.read_track(self.exaile.db,
-                        self.exaile.all_songs,
-                        os.path.join(root, f), adddb=False)
+                    tr = self.get_track(os.path.join(root, f))
                     if tr:
                         songs.append(tr)
                 if self.counter >= 15:

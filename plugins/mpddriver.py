@@ -141,7 +141,7 @@ class MPDDriver(object):
         # check to see if the current track has stopped, and if it has, go to
         # the next track
         track = APP.current_track
-        if track is not None:
+        if isinstance(track, MPDTrack):
             if track.is_playing():
                 status = self.mpd.status()
                 if not status.has_key('time'):

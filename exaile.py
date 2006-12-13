@@ -866,7 +866,6 @@ class ExaileWindow(gobject.GObject):
                 self.db.add_function_create(('THE_CUTTER', 1, 
                     tracks.the_cutter))
             except:
-                traceback.print_exc()
                 pass # db is ok, continue!                
 
         self.db.check_version("sql")

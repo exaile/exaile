@@ -422,7 +422,6 @@ class TrackEditor(object):
             save
         """
         errors = []
-        ipod = False
         for track in self.songs:
             xlmisc.finish()
 
@@ -430,7 +429,6 @@ class TrackEditor(object):
                 errors.append("Could not write track %s" % track.loc)
                 continue
 
-            if isinstance(track, media.iPodTrack): ipod = True
             if self.count == 1:
                 track.title = self.title_entry.get_text()
                 track.track = self.track_entry.get_text()
@@ -443,8 +441,6 @@ class TrackEditor(object):
             track.disc_id = self.disc_id_entry.get_text()
             try:
                 db = self.exaile.db
-                if isinstance(track, media.iPodTrack):
-                    db = self.exaile.ipod_panel.db
                 track.write_tag(db)
             except media.MetaIOException, ex:
                 errors.append(ex.reason)
@@ -464,7 +460,3 @@ class TrackEditor(object):
                 " occurred"))    
         else:
             self.dialog.destroy()
-
-        if ipod:
-            self.exaile.ipod_panel.save_database()
-        self.exaile.tracks.set_songs(self.tracks.songs)

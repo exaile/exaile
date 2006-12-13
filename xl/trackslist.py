@@ -89,7 +89,6 @@ class TracksListCtrl(gtk.VBox):
         self.db = exaile.db
         self.inited = False
         self.queue = queue
-        self.ipod = False
         self.playlist = None
         self.tpm = None
         self.plugins_item = None
@@ -152,9 +151,6 @@ class TracksListCtrl(gtk.VBox):
 
             if l.find('device://') > -1:
                 song = self.exaile.device_panel.get_song(l)
-            elif l.find("ipod://") > -1:
-                song = self.exaile.ipod_panel.get_song(
-                    l.replace("ipod://", ""))
             else:
                 song = self.exaile.all_songs.for_path(l)
                 if not song:
@@ -279,8 +275,8 @@ class TracksListCtrl(gtk.VBox):
             iter = self.model.get_iter(path)
             song = self.model.get_value(iter, 0) 
 
-            if isinstance(song, media.iPodTrack):
-                loc.append("ipod://%s" % urllib.quote(str(song.loc)))
+            if isinstance(song, media.DeviceTrack):
+                loc.append("device://%s" % urllib.quote(str(song.loc)))
             else:
                 loc.append(urllib.quote(str(song.loc)))
             delete.append(song)
@@ -636,12 +632,10 @@ class TracksListCtrl(gtk.VBox):
         for path in paths:
             selection.select_path(path)
 
-    def setup_tracks_menu(self, ipod=False):
+    def setup_tracks_menu(self):
         """
             Sets up the popup menu for the tracks list
         """
-        self.ipod = ipod
-
         tpm = xlmisc.Menu()
 
         # if the menu already exists, remove the plugins menu from it
@@ -694,16 +688,15 @@ class TracksListCtrl(gtk.VBox):
                 self.edit_field, data=menu_item)
 
         em.append_separator()
-        if not ipod:
-            rm = xlmisc.Menu()
-            self.rating_ids = []
+        rm = xlmisc.Menu()
+        self.rating_ids = []
 
-            for i in range(0, 8):
-                string = "* " * (i + 1)
-                item = rm.append(string, self.update_rating,
-                    None, i)
+        for i in range(0, 8):
+            string = "* " * (i + 1)
+            item = rm.append(string, self.update_rating,
+                None, i)
 
-            em.append_menu(_("Rating"), rm)
+        em.append_menu(_("Rating"), rm)
         tpm.append_menu(_("Edit Track(s)"), em, 'gtk-edit')
         info = tpm.append(_("Information"), self.get_track_information,
             'gtk-info')
@@ -714,8 +707,7 @@ class TracksListCtrl(gtk.VBox):
             self.delete_tracks, None, 'remove')
         self.playlists_menu = None
 
-        if not ipod:
-            rm.append(_("Blacklist Track(s)"), self.exaile.on_blacklist)
+        rm.append(_("Blacklist Track(s)"), self.exaile.on_blacklist)
 
         rm.append(_("Delete Track(s)"), self.delete_tracks,
             'gtk-delete', 'delete')
@@ -798,8 +790,6 @@ class TracksListCtrl(gtk.VBox):
         selection = self.list.get_selection()
         self.setup_tracks_menu()
 
-        ipod = self.ipod
-
         self.tpm.popup(None, None, None, 0, gtk.get_current_event_time())
         if selection.count_selected_rows() <= 1: return False
         else: return True
@@ -858,9 +848,6 @@ class TracksListCtrl(gtk.VBox):
         if type == 'delete': deleting = True
         if type == 'blacklist': blacklisting = True
         delete = []
-        ipod_delete = []
-        ipod_remove_playlist = []
-        ipod = False
         delete_confirmed = False
         if deleting:
             result = common.yes_no_dialog(self.exaile.window, _("Are you sure "
@@ -897,65 +884,40 @@ class TracksListCtrl(gtk.VBox):
                 if deleting:
                     xlmisc.log("Deleting %s" % track.loc)
                     db = self.db
-                    if track.type == 'ipod':
-                        ipod_delete.append(track)
-                    else:
-                        try:
-                            if track.type == 'podcast':
-                                if track.download_path:
-                                    os.remove(track.download_path)
-                            else:
-                                os.remove(track.loc)
-                        except OSError:
-                            common.error(self.exaile.window, "Could not delete '%s' - "\
-                                "perhaps you do not have permissions to do so?"
-                                % track.loc)
+                    try:
+                        if track.type == 'podcast':
+                            if track.download_path:
+                                os.remove(track.download_path)
+                        else:
+                            os.remove(track.loc)
+                    except OSError:
+                        common.error(self.exaile.window, "Could not delete '%s' - "\
+                            "perhaps you do not have permissions to do so?"
+                            % track.loc)
                     cur.execute("DELETE FROM tracks WHERE path=?", (path_id,))
                 else: 
                     # execute if this is "remove from playlist" or "blacklist"
                     playlist = self.playlist
-                    if track.type == 'ipod' and not blacklisting: 
-                        track = track.itrack
-                        if not self.exaile.ipod_panel.connected: continue
-                        ipod = True
-                        if playlist:
-                            ipod_remove_playlist.append(track)
-                        try:
-                            self.exaile.ipod_panel.songs.remove(track)
-                        except:
-                            pass
-                    else:
-                        if playlist != None:
-                            if isinstance(track,
-                                media.StreamTrack):
-                                t = "radio"; p = "url"
-                            else:
-                                t = "playlists"; p = "path"
+                    if playlist != None:
+                        if isinstance(track,
+                            media.StreamTrack):
+                            t = "radio"; p = "url"
+                        else:
+                            t = "playlists"; p = "path"
 
-                            playlist_id = xl.tracks.get_column_id(self.db, t, 'name',
-                                playlist)
+                        playlist_id = xl.tracks.get_column_id(self.db, t, 'name',
+                            playlist)
 
-                            if t == 'playlists':
-                                t = 'playlist'
-                            cur.execute("DELETE FROM %s_items WHERE "
-                                "path=? AND %s=?" % (t, t),
-                                (path_id, playlist_id))
-                        if blacklisting:
-                            if track.type == 'ipod':
-                                error += "'%s' could not be blacklisted (iPod" \
-                                    " track).\n" % str(track)
-                            else:
-                                cur.execute("UPDATE tracks SET blacklisted=1 "
-                                    "WHERE path=?", (path_id,))
+                        if t == 'playlists':
+                            t = 'playlist'
+                        cur.execute("DELETE FROM %s_items WHERE "
+                            "path=? AND %s=?" % (t, t),
+                            (path_id, playlist_id))
+                    if blacklisting:
+                        cur.execute("UPDATE tracks SET blacklisted=1 "
+                            "WHERE path=?", (path_id,))
 
             cur.close()
-            if ipod_delete:
-                self.exaile.ipod_panel.delete_tracks(ipod_delete)
-            if ipod_remove_playlist:
-                self.exaile.ipod_panel.remove_from_playlist(ipod_remove_playlist,
-                    playlist)
-            if ipod:
-                self.exaile.ipod_panel.save_database()
             if error:
                 common.scrolledMessageDialog(self.exaile.window,
                     error, _("The following errors did occur"))

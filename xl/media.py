@@ -1016,69 +1016,6 @@ class MP3Track(Track):
         except: 
             xlmisc.log_exception()
 
-class iPodTrack(MP3Track):
-
-    def __init__(self, *args):
-        """
-            Initializes the track
-        """
-        Track.__init__(self, *args)
-
-        self.itrack = None
-        self.type = 'ipod'
-
-    def ipod_track(self):
-        """
-            Returns the ipod track
-        """
-        return self.itrack
-
-    def write_tag(self, db=None):
-        """
-            Not implemented quite yet
-        """
-        if self.itrack:
-            t = self.itrack
-            t.artist = str(self.artist)
-            t.album = str(self.album)
-            t.genre = str(self.genre)
-            t.title = str(self.title)
-
-            try:
-                t.year = int(self.year)
-            except ValueError:
-                pass
-
-            try:
-                t.track_nr = int(self.track)
-            except ValueError:
-                pass
-
-        if db:
-            Track.write_tag(self, db)
-
-
-    def read_tag(self):
-        """
-            Reads the track
-        """
-        pass
-
-    def get_rating(self): 
-        """
-            Gets the rating
-        """
-        # this is an approximate conversion from the iPod's rating system
-        return "* " * int(self._rating / 14) 
-    
-    def set_rating(self, rating):
-        """
-            Sets the rating
-        """
-        self._rating = rating
-
-    rating = property(get_rating, set_rating)
-
 class OGGTrack(Track):
     """
         Represents an OGG/Vorbis track
@@ -1273,6 +1210,9 @@ class M4ATrack(Track):
 
         self.year = self.get_tag(f, 'day')
 
+class DeviceTrack(Track):
+    def __init__(self, *args):
+        Track.__init__(self, *args)
 
 # sets up the formats dict
 for format in ('.mpc', '.aac', '.m4a', '.m4b', '.wma'):

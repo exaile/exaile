@@ -120,8 +120,7 @@ def search(exaile, all, keyword=None, custom=True):
                 if not track in new: new.append(track)
     return new
 
-def search_tracks(parent, db, all, keyword=None, playlist=None, w=None,
-    ipod=False):
+def search_tracks(parent, db, all, keyword=None, playlist=None, w=None):
     """
         Searches the database for a specific pattern and returns the tracks
         represented by this pattern
@@ -401,15 +400,13 @@ def read_audio_disc(exaile):
     return songs
 
 @common.synchronized
-def get_column_id(db, table, col, value, ipod=False):
+def get_column_id(db, table, col, value):
     """
         Gets a column id for inserting the specific col into the specific
         table
     """
     if not value: value = ''
     cols = globals()[table.upper()]
-    if ipod:
-        cols = globals()["IPOD_%s" % table.upper()]
     if cols.has_key(value):
         return cols[value]
 
@@ -427,10 +424,8 @@ def get_column_id(db, table, col, value, ipod=False):
     return index
 
 @common.synchronized
-def get_album_id(db, artist_id, album, ipod=False):
+def get_album_id(db, artist_id, album):
     cols = ALBUMS
-    if ipod:
-        cols = IPOD_ALBUMS
     if cols.has_key("%d - %s" % (artist_id, album)):
         return cols["%d - %s" % (artist_id, album)]
 
@@ -448,7 +443,7 @@ def get_album_id(db, artist_id, album, ipod=False):
         (index, artist_id, album))
     return index
 
-def read_track(db, current, path, skipmod=False, ipod=False, adddb=True,
+def read_track(db, current, path, skipmod=False, adddb=True,
     row=None):
     """
         Reads a track, either from the database, or from it's metadata
@@ -516,10 +511,9 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True,
                 if not row:
                     tr.time_added = time.strftime("%Y-%m-%d %H:%M:%Y", 
                         time.localtime())
-                path_id = get_column_id(db, 'paths', 'name', tr.loc, ipod=ipod)
-                artist_id = get_column_id(db, 'artists', 'name', tr.artist,
-                    ipod=ipod)
-                album_id = get_album_id(db, artist_id, tr.album, ipod=ipod)
+                path_id = get_column_id(db, 'paths', 'name', tr.loc)
+                artist_id = get_column_id(db, 'artists', 'name', tr.artist)
+                album_id = get_album_id(db, artist_id, tr.album)
 
                 db.update("tracks",
                     {
@@ -543,9 +537,7 @@ def read_track(db, current, path, skipmod=False, ipod=False, adddb=True,
     elif current != None and current.for_path(path):
         return current.for_path(path)
     else:
-        if ipod:
-            tr = media.iPodTrack(row[0])
-        elif media.FORMAT.has_key(ext.lower()):
+        if media.FORMAT.has_key(ext.lower()):
             ttype = media.FORMAT[ext.lower()]
             tr = ttype(row[0])
         else:

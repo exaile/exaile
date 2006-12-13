@@ -812,14 +812,6 @@ class ExaileWindow(gobject.GObject):
         self.collection_panel = panels.CollectionPanel(self)
         self.radio_panel = panels.RadioPanel(self)
         self.side_notebook = self.xml.get_widget('side_notebook')
-
-        try:
-            import gpod
-            self.ipod_panel = panels.iPodPanel(self)
-        except ImportError:
-            self.ipod_panel = None
-            self.side_notebook.remove_page(2)
-
         self.files_panel = panels.FilesPanel(self)
         self.device_panel = panels.DevicePanel(self)
 
@@ -909,12 +901,6 @@ class ExaileWindow(gobject.GObject):
                     self.import_m3u(f, True)
                 else:
                     gobject.idle_add(self.stream, f)
-
-        if self.ipod_panel:
-            gobject.idle_add(self.status.set_first,
-                _("Scanning ipod..."))
-            gobject.idle_add(self.ipod_panel.load_tree, 'refresh')
-            gobject.idle_add(self.status.set_first, None)
 
     def setup_gamin(self, skip_prefs=False):
         """

@@ -216,13 +216,11 @@ class CollectionPanel(object):
         self.keyword = None
         self.track_cache = dict()
         self.start_count = 0
-        self.ipod = False
         self.artist_image = gtk.gdk.pixbuf_new_from_file('images%sartist.png' %
             os.sep)
         self.album_image = self.exaile.window.render_icon('gtk-cdrom', gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.track_image = gtk.gdk.pixbuf_new_from_file('images%strack.png' % 
             os.sep)
-        self.ipod_image = xlmisc.get_icon('gnome-dev-ipod')
         self.genre_image = gtk.gdk.pixbuf_new_from_file('images%sgenre.png' %
             os.sep)
         self.iplaylist_image = gtk.gdk.pixbuf_new_from_file('images%splaylist.png' % os.sep)
@@ -320,10 +318,7 @@ class CollectionPanel(object):
         """
         self.keyword = self.filter.get_text()
         self.start_count += 1
-        if isinstance(self, iPodPanel):
-            self.load_tree(None, False)
-        else:
-            self.load_tree()
+        self.load_tree()
 
     def create_popup(self):
         """
@@ -367,8 +362,8 @@ class CollectionPanel(object):
         """
         loc = self.append_items(None, None, True)
 
-        if isinstance(self, iPodPanel):
-            loc = ["ipod://%s" % urllib.quote(l.loc) for l in loc]
+        if isinstance(self, DevicePanel):
+            loc = ["device://%s" % urllib.quote(l.loc) for l in loc]
         else:
             loc = [urllib.quote(str(l.loc)) for l in loc]
 
@@ -410,29 +405,12 @@ class CollectionPanel(object):
                 track = self.model.get_value(iter, 1)
                 found.append(track.loc)
 
-        # create an sql query based on all of the paths that were found.
-        # this way we can order them by track number to make sure they
-        # are added to the playlist as they are sorted in the album
-#        add = ["path=%s" % self.db.p for x in found]
-#        where = " OR ".join(add)
-#        cur = self.db.cursor()
-#        add = tracks.TrackData()
-#        table = "tracks"
-#        if self.ipod: table = "ipod_tracks"
-#        rows = self.db.select("SELECT path FROM %s WHERE %s ORDER BY artist, " \
-#            "album, track, title" % (table, where), found)
-
-#        for row in rows:
-#            add.append(self.all.for_path(row[0]))
-
-
         add = tracks.TrackData()
         for row in found:
             add.append(self.all.for_path(row))
 
         if return_only: return add
 
-        ipod_delete = []
         if item == self.remove:
             result = common.yes_no_dialog(self.exaile.window,
                 _("Are you sure you want to permanently remove the " \
@@ -440,10 +418,7 @@ class CollectionPanel(object):
 
             if result != gtk.RESPONSE_YES: return
             for track in add:
-                if track.type == 'ipod':
-                    ipod_delete.append(track)
-                else:
-                    os.remove(track.loc)
+                os.remove(track.loc)
 
             for track in add:
                 path_id = tracks.get_column_id(self.db, 'paths', 'name',
@@ -473,11 +448,7 @@ class CollectionPanel(object):
             if self.exaile.tracks: 
                 self.exaile.tracks.set_songs(self.exaile.songs)
             self.track_cache = dict()
-            if ipod_delete:
-                self.exaile.ipod_panel.delete_tracks(ipod_delete)
-                self.save_database()
-            else:
-                self.load_tree()
+            self.load_tree()
             return
 
         if item == self.new_playlist:
@@ -528,21 +499,13 @@ class CollectionPanel(object):
                 object = self.model.get_value(iter, 1)
                 if self.model.iter_has_child(iter):
                     self.tree.expand_row(path, False)
-                elif isinstance(object, iPodPlaylist):
-                    self.open_playlist()
                 else:
                     self.append_items() 
             return False
 
         iter = self.model.get_iter(path[0])
         object = self.model.get_value(iter, 1)
-        if isinstance(object, iPodPlaylist):
-            self.create_ipod_menu(object.root)
-            selection.unselect_all()
-            selection.select_path(path[0])
-            self.ipod_menu.popup(None, None, None,
-                event.button, event.time)
-            return True
+
         self.create_popup()
         self.menu.popup(None, None, None, event.button, event.time)
         if selection.count_selected_rows() <= 1: return False
@@ -553,9 +516,7 @@ class CollectionPanel(object):
             Called when the tree needs a value for column 1
         """
         object = model.get_value(iter, 1)
-        if isinstance(object, iPodPlaylist):
-            cell.set_property('text', str(object))
-        elif isinstance(object, media.Track):
+        if isinstance(object, media.Track):
             cell.set_property('text', str(object.title))
         else:
             cell.set_property('text', str(object))
@@ -571,7 +532,7 @@ class CollectionPanel(object):
         """
         self.current_start_count = self.start_count
         if not self.tree:
-            self.tree = xlmisc.DragTreeView(self, self.ipod)
+            self.tree = xlmisc.DragTreeView(self)
             self.tree.set_headers_visible(False)
             container = self.xml.get_widget('%s_box' % self.name)
             scroll = gtk.ScrolledWindow()
@@ -604,17 +565,6 @@ class CollectionPanel(object):
         self.tree.set_model(self.model_blank)
         self.root = None
     
-        if isinstance(self, iPodPanel) and self.lists:
-            root_playlist = self.lists[0]
-            other = self.lists[1:]
-
-            self.iroot = self.model.append(self.root, [self.ipod_image, root_playlist])
-
-            for playlist in other:
-                item = self.model.append(self.iroot, [self.iplaylist_image, playlist])
-
-            self.root = self.model.append(self.root, [self.ipod_image, _("iPod Collection")])
-
         self.order = tuple()
         self.image_map = ({
             "artist": self.artist_image,
@@ -701,13 +651,10 @@ class CollectionPanel(object):
 
         all = self.exaile.all_songs
 
-        if self.name == 'ipod' or self.name == 'device': 
-            all = self.all
-        else: self.all = all
+        self.all = all
 
         if self.track_cache.has_key("%s %s" % (self.where, self.keyword)) \
-            and self.track_cache["%s %s" % (self.where, self.keyword)] and \
-            not self.ipod:
+            and self.track_cache["%s %s" % (self.where, self.keyword)]:
             songs = self.track_cache["%s %s" % (self.where, self.keyword)]
         else:
             songs = self.search_tracks(self.keyword, self.all)
@@ -726,7 +673,7 @@ class CollectionPanel(object):
             Searches for songs
         """
         return xl.tracks.search_tracks(self.exaile.window, self.db, all,
-            self.keyword, None, self.where, ipod=self.ipod)
+            self.keyword, None, self.where)
 
     @common.threaded
     def append_info(self, node, songs=None, unknown=False):
@@ -795,13 +742,15 @@ class CollectionPanel(object):
         for path in expanded_paths:
             gobject.idle_add(self.tree.expand_to_path, path)
 
-        if isinstance(self, iPodPanel) and self.root:
-            gobject.idle_add(self.tree.expand_row, self.model.get_path(self.root), False)
-            gobject.idle_add(self.tree.expand_row, self.model.get_path(self.iroot), False)
-
 class EmptyDriver(object):
     def search_tracks(self, *e):
         return tracks.TrackData()
+
+    def disconnect(self):
+        pass
+
+    def connect(self, *e):
+        pass
 
 class DevicePanel(CollectionPanel):
     """
@@ -908,860 +857,6 @@ class DevicePanel(CollectionPanel):
 
     def get_song(self, loc):
         return self.all.for_path(loc)
-
-class iPodPlaylist(object):
-    """
-        Container for iPod playlist
-    """
-    def __init__(self, playlist, root=False):
-        """
-            requires an gpod playlist object
-        """
-        self.playlist = playlist
-        self.name = playlist.name
-        self.root = root
-
-    def __str__(self):
-        """
-            Returns the playlist name
-        """
-        return self.playlist.name
-
-class iPodTransferQueue(gtk.VBox):
-    """ 
-        Shows tracks that are waiting to be transferred to the iPod
-    """
-    def __init__(self, panel):
-        """
-            Initializes the queue
-        """
-        gtk.VBox.__init__(self)
-        self.panel = panel
-        self.set_border_width(0)
-        self.set_spacing(3)
-        self.set_size_request(-1, 250)
-        self.songs = []
-
-        label = gtk.Label(_("Transfer Queue"))
-        label.set_alignment(0, .50)
-        self.pack_start(label, False, True)
-
-        scroll = gtk.ScrolledWindow()
-        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        view = gtk.TreeView()
-        scroll.add(view)
-        scroll.set_shadow_type(gtk.SHADOW_IN)
-        self.list = xlmisc.ListBox(view)
-        self.pack_start(scroll, True, True)
-
-        self.progress = gtk.ProgressBar()
-        self.pack_start(self.progress, False, False)
-
-        buttons = gtk.HBox()
-        buttons.set_spacing(3)
-        self.clear = gtk.Button()
-        image = gtk.Image()
-        image.set_from_stock('gtk-clear', gtk.ICON_SIZE_SMALL_TOOLBAR)
-        self.clear.set_image(image)
-        self.transfer = gtk.Button(_("Transfer"))
-        buttons.pack_end(self.transfer, False, False)
-        buttons.pack_end(self.clear, False, False)
-        self.clear.connect('clicked',
-            self.on_clear)
-        self.transfer.connect('clicked', self.start_transfer)
-
-        self.pack_start(buttons, False, False)
-        targets = [('text/uri-list', 0, 0)]
-        self.list.list.drag_dest_set(gtk.DEST_DEFAULT_ALL, targets,
-            gtk.gdk.ACTION_COPY)
-        self.list.list.connect('drag_data_received', self.drag_data_received)
-
-    def on_clear(self, widget):
-        """
-            Clears the queue
-        """
-        self.panel.queue = None
-        self.hide()
-        self.destroy()
-
-    def start_transfer(self, widget):
-        """
-            Runs the transfer
-        """
-        self.itdb = self.panel.itdb
-        count = 0
-        songs = [song for song in self.list.rows]
-        total = len(self.list.rows)
-        for song in songs:
-            track = song.ipod_track()
-            cover = self.panel.get_cover_location(song)
-            track.itdb = self.itdb
-            if cover:
-                gpod.itdb_track_set_thumbnails(track, cover)
-
-            loc = str(song.loc)
-            if song.type == 'podcast':
-                loc = str(song.download_path)
-
-            gpod.itdb_cp_track_to_ipod(track, loc, None)
-
-            gpod.itdb_track_add(self.itdb, track, -1)
-            mpl = gpod.itdb_playlist_mpl(self.itdb)
-            if song.type == 'podcast':
-                xlmisc.log("Using podcasts for %s" % song)
-                mpl = gpod.itdb_playlist_podcasts(self.itdb)
-
-            gpod.itdb_playlist_add_track(mpl, track, -1)
-            if song.ipod_playlist and not \
-                gpod.itdb_playlist_is_podcasts(song.ipod_playlist.playlist):
-                gpod.itdb_playlist_add_track(song.ipod_playlist.playlist,
-                    track, -1)
-                song.ipod_playlist = None
-
-            count += 1
-            self.update_progress(song, float(count) /
-                float(total))
-            xlmisc.finish()
-
-        self.panel.transferring = None
-        xlmisc.finish()
-
-        self.on_clear(None)
-        self.panel.exaile.status.set_first(_("Writing iPod"
-            " database..."))
-
-        xlmisc.finish()
-        gpod.itdb_write(self.itdb, None)
-        self.panel.exaile.status.set_first(None)
-        self.panel.load_tree()
-
-    def update_progress(self, song, percent):
-        """
-            Updates the progress of the transfer
-        """
-        self.list.remove(song)
-        self.progress.set_fraction(percent)
-
-    def drag_data_received(self, tv, context, x, y, selection, info, etime):
-        """ 
-            Called when a track is dropped in the transfer queue
-        """
-        # just pass it on to the iPodPanel
-
-        self.panel.drag_data_received(tv, context, x, y, selection, info,
-            etime)
-
-class iPodPropertiesDialog(object):
-    """
-        Shows information regarding the ipod
-    """
-    def __init__(self, exaile, panel):
-        """
-            Initializes the panel
-        """
-        self.exaile = exaile
-        self.panel = panel
-        xml = gtk.glade.XML("exaile.glade", "iPodPropertiesDialog", "exaile")
-        self.dialog = xml.get_widget('iPodPropertiesDialog')
-        self.image = xml.get_widget('ipod_properties_image')
-        self.image.set_from_file('images%sipod.png' % os.sep)
-        self.dialog.set_transient_for(exaile.window)
-        self.progress = xml.get_widget('ipod_properties_progress')
-        self.space_total = xml.get_widget('ipod_properties_space_total')
-        self.space_used = xml.get_widget('ipod_properties_space_used')
-        self.space_free = xml.get_widget('ipod_properties_space_free')
-        self.model = xml.get_widget('ipod_properties_model')
-
-        (type, total, used) = panel.get_space_info()
-        model = panel.get_model()
-
-        self.model.set_label(model)
-
-        if type:
-            self.space_total.set_label("%.1f%s total" % (total, type))
-            self.space_used.set_label("%.1f%s used" % (used, type))
-            free = total - used
-            self.space_free.set_label("%.1f%s free" % (free, type))
-
-            frac = used / total
-            percent = int(frac * 100)
-            self.progress.set_fraction(frac)
-            self.progress.set_text("%s%%" % percent)
-
-        self.dialog.show_all()
-        self.dialog.run()
-        self.dialog.destroy()
-
-class iPodPanel(CollectionPanel):
-    """
-        Represents the entire ipod collection in a tree
-    """
-    name = 'ipod'
-    def __init__(self, exaile):
-        """
-            Initializes the ipod collection panel. Expects a parent and exaile
-            object
-        """
-        CollectionPanel.__init__(self, exaile)
-
-        self.db = exaile.db
-        self.ipod = True
-        self.connected = False
-        if not IPOD_AVAILABLE: return
-
-        self.transfer_queue = None
-        self.transferring = False
-        self.write_lock = threading.Lock()
-        self.queue = None
-        self.ipod_track_count = self.xml.get_widget('ipod_track_count')
-
-    def drag_data_received(self, tv, context, x, y, selection, info, etime):
-        """
-            When tracks are dragged to this list
-        """
-        self.tree.unset_rows_drag_dest()
-        self.tree.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.tree.targets, 
-            gtk.gdk.ACTION_COPY)
-        if not self.connected:
-            common.error(self.exaile.window, _("Not connected to iPod"))
-            return
-        path = self.tree.get_path_at_pos(x, y)
-
-        object = None
-        if path:
-            iter = self.model.get_iter(path[0])
-            object = self.model.get_value(iter, 1)
-        if isinstance(object, iPodPlaylist) and path:
-            playlist = object
-            xlmisc.log("Playlist %s" % playlist.name)
-        else:
-            playlist = None
-
-        loc = selection.get_uris()
-        songs = tracks.TrackData()
-        update = False
-        for url in loc:
-            url = urllib.unquote(url)
-            if url.find("ipod://") > -1:
-                if not playlist: continue
-                update = True
-                song = self.get_song(url.replace("ipod://", ""))
-                gpod.itdb_playlist_add_track(playlist.playlist,
-                    song.ipod_track(), -1)
-                playlist_id = tracks.get_column_id(self.db, 'playlist',
-                    'name', playlist.name, True)
-                path_id = tracks.get_column_id(self.db, 'paths', 'name',
-                    song.loc, True)
-                self.db.execute("REPLACE INTO playlist_items( playlist, path)"
-                    " VALUES( ?, ? )", (playlist_id, path_id))
-
-            else:
-                song = self.exaile.all_songs.for_path(url)
-                # check to see if it's a podcast
-                if not song:
-                    song = self.exaile.radio_panel.get_podcast(url)
-
-                if not song:
-                     song = tracks.read_track(self.db, self.exaile.all_songs, url)
-                     if not song: continue
-
-                ipod_song = self.get_song_on_ipod(song)
-                if ipod_song and playlist:
-                    gpod.itdb_playlist_add_track(playlist.playlist,
-                        ipod_song.ipod_track(), -1)
-                    update = True
-                else:
-                    if not song: continue
-                    songs.append(song)
-
-        if songs:
-            self.add_to_transfer_queue(songs, playlist)
-        elif update:
-            self.save_database(True)
-    
-    def add_to_transfer_queue(self, songs, playlist=None):
-        """
-            Adds the specified songs to the transfer queue
-        """
-        if self.transferring:
-            common.error(self.exaile.window, _("There is a transfer in progress. "
-                "Please wait for it to complete."))
-            return
-        if not self.queue:
-            self.queue_box = self.xml.get_widget('ipod_queue_box')
-            self.queue = iPodTransferQueue(self)
-            self.queue_box.pack_start(self.queue, False, False)
-
-        queue = self.queue.songs
-        error = ""
-        for song in songs:
-            if self.get_song_on_ipod(song):
-                error += "'%s' already on iPod\n" % str(song)
-                continue
-
-            if not song.loc.lower().endswith(".mp3") or song.type == 'stream':
-                error += "'%s' is not a supported iPod format\n" % str(song)
-                continue
-
-            song.ipod_playlist = playlist
-            queue.append(song)
-
-        if error:
-            common.scrolledMessageDialog(self.exaile.window,
-                error, _("The following errors did occur"))
-
-        self.queue.list.set_rows(queue)
-        if queue:
-            self.queue.show_all()
-        else:
-            self.queue.hide()
-            self.queue.destroy()
-            self.queue = None
-
-    def create_ipod_menu(self, root=False):
-        """
-            Creates the ipod menu
-        """
-        self.ipod_menu = xlmisc.Menu()
-        self.open = self.ipod_menu.append(_("Open Playlist"),
-            self.open_playlist)
-
-        if not root:
-            self.rename = self.ipod_menu.append(_("Rename"),
-                self.rename_playlist)
-        self.rm_playlist = self.ipod_menu.append(_("Remove"),
-            self.remove_playlist)
-        self.create = self.ipod_menu.append(_("Create Playlist"),
-            self.create_playlist)
-
-        self.blacklist.set_sensitive(False)
-        item = gtk.MenuItem(label=_("Update Covers"))
-        item.show()
-        item.connect('activate', self.update_covers)
-        self.menu.insert(item, 2)
-        if root:
-            self.ipod_menu.append_separator()
-            self.ipod_menu.append("Properties", self.ipod_properties)
-
-    def ipod_properties(self, widget, event=None):
-        """
-            Shows the ipod properties dialog
-        """
-        iPodPropertiesDialog(self.exaile, self)
-
-    def create_popup(self):
-        """
-            Creates the popup menu
-        """
-        CollectionPanel.create_popup(self)
-        self.create_ipod_menu()
-
-    def remove_playlist(self, item, event):
-        """
-            Removes a playlist from the ipod
-        """
-        selection = self.tree.get_selection()
-        (model, paths) = selection.get_selected_rows()
-        for path in paths:
-            iter = model.get_iter(path)
-            playlist = model.get_value(iter, 1)
-
-            dialog = gtk.MessageDialog(self.exaile.window, 
-                gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, 
-                _("Are you sure you want to permanently delete the selected"
-                " playlist?"))
-            result = dialog.run()
-            dialog.destroy()
-            if result == gtk.RESPONSE_YES:
-                gpod.itdb_playlist_remove(playlist.playlist)
-                playlist_id = tracks.get_column_id(self.db, 'playlists',
-                    'name', playlist.name, True)
-                self.db.execute("DELETE FROM playlists WHERE id=?",
-                    (playlist_id,))
-                self.db.execute("DELETE FROM playlist_items WHERE playlist=?",
-                    (playlist_id,))
-                if self.list_dict.has_key(playlist.name):
-                    del self.list_dict[playlist.name]
-                self.model.remove(iter) 
-                self.save_database(False)
-                self.tree.queue_draw()
-            break
-
-    def rename_playlist(self, item, event):
-        """
-            Renames a playlist on the ipod
-        """
-        selection = self.tree.get_selection()
-        (model, paths) = selection.get_selected_rows()
-        for path in paths:
-            iter = model.get_iter(path)
-            playlist = model.get_value(iter, 1)
-
-            dialog = xlmisc.TextEntryDialog(self.exaile.window, 
-                _("Enter the new name for the playlist"), 
-                _("Rename Playlist"))
-            result = dialog.run()
-            dialog.destroy()
-            if result == gtk.RESPONSE_OK:
-                name = str(dialog.get_value())
-                self.db.execute("UPDATE playlists SET name=? WHERE name=?", 
-                    (name, playlist.playlist.name))
-                if self.list_dict.has_key(playlist.name):
-                    del self.list_dict[playlist.name]
-                playlist.playlist.name = name
-                playlist.name = name
-                self.list_dict[name] = playlist
-                self.save_database()
-                self.tree.queue_draw()
-
-    def create_playlist(self, item, event):
-        """
-            Creates a new playlist on the ipod
-        """
-        dialog = xlmisc.TextEntryDialog(self.exaile.window, 
-            _("Enter a name for the new playlist"), _("New Playlist"))
-        result = dialog.run()
-        dialog.dialog.hide()
-        if result == gtk.RESPONSE_OK:
-            name = str(dialog.get_value())
-            playlist = gpod.itdb_playlist_new(name, False)
-            self.lists.append(iPodPlaylist(playlist))
-            gpod.itdb_playlist_add(self.itdb, playlist, -1)
-            item = self.model.append(self.iroot, [self.iplaylist_image,
-                iPodPlaylist(playlist)])
-            playlist_id = tracks.get_column_id(self.db, 'playlists', 'name',
-                name, True)
-            self.list_dict[name] = playlist
-            self.save_database(False)
-
-    def open_playlist(self, tree=None, widget=None):
-        """
-            Opens the selected playlist
-        """
-        selection = self.tree.get_selection()
-        (model, paths) = selection.get_selected_rows()
-        for path in paths:
-            iter = self.model.get_iter(path)
-            object = self.model.get_value(iter, 1)
-            if isinstance(object, iPodPlaylist):
-                self.load_playlist(object)
-
-    def get_song_on_ipod(self, song, playlist=None):
-        """
-            Gets the song on the iPod
-        """
-        for s in self.all:
-            if s.title != song.title:
-                continue
-            elif s.artist != song.artist:
-                continue
-            elif s.album != song.album:
-                continue
-            elif s.duration != song.duration:
-                continue
-            elif s.title != song.title:
-                continue
-            else:
-                return s
-
-        return None
-
-    def save_database(self, reload=True):
-        """
-            Writes the itunes database
-        """
-        gobject.idle_add(self.exaile.status.set_first, 
-            _("Writing iPod database..."))
-        xlmisc.finish()
-        if self.connected and self.itdb:
-            gpod.itdb_write(self.itdb, None)
-
-        gobject.idle_add(self.exaile.status.set_first, None)
-        xlmisc.log("Done writing iTunes database")
-        if reload: gobject.idle_add(self.load_tree, False, False)
-
-    def remove_from_playlist(self, tracks, playlist):
-        """
-            Removes items from an iPod playlist
-        """
-        playlist = playlist.playlist
-        playlist_id = tracks.get_column_id(self.db, 'playlists', 'name',
-            playlist.name, True)
-        for track in tracks:
-            path_id = tracks.get_column_id(self.db, 'paths', 'name', 
-                self.mount + track.ipod_path.replace(":", "/"))
-            self.db.execute("DELETE FROM playlist_items WHERE playlist=? "
-                "AND path=?", (playlist_id, path_id))
-
-            gpod.itdb_playlist_remove_track(playlist, track)
-
-    def delete_tracks(self, tracks):
-        """
-            Deletes tracks from the iPod
-        """
-        if not self.connected or not self.itdb: return
-
-        for track in tracks:
-            track = track.ipod_track()
-            for playlist in gpod.sw_get_playlists(self.itdb):
-                if gpod.itdb_playlist_contains_track(playlist, track):
-                    gpod.itdb_playlist_remove_track(playlist, track)
-
-            gpod.itdb_track_unlink(track)
-
-    def append_covers_recursive(self, iter, add):
-        """
-            Appends items recursively to the added songs list.  If this
-            is a genre, artist, or album, it will search into each one and
-            all of the tracks contained
-        """
-        iter = self.model.iter_children(iter)
-
-        while True:
-            object = self.model.get_value(iter, 1)
-            if self.model.iter_has_child(iter):
-                self.append_covers_recursive(iter, add)
-            elif isinstance(object, media.Track):
-                add.append(object)
-            iter = self.model.iter_next(iter)
-            if not iter: break
-
-    def update_covers(self, widget):
-        """
-            Updates all cover art on the iPod
-        """
-
-        dialog = gtk.MessageDialog(self.exaile.window, 
-            gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, 
-            _("This action will write all album art in the Exaile database to"
-            " your iPod (overwriting any existing album art).  Are you sure"
-            " you want to continue?"))
-        result = dialog.run()
-        dialog.destroy()
-
-        if result != gtk.RESPONSE_YES: return
-
-        self.exaile.status.set_first(_("Updating covers on"
-            " iPod..."))
-        selection = self.tree.get_selection()
-        (modle, paths) = selection.get_selected_rows()
-        add = []
-        for path in paths:
-            iter = self.model.get_iter(path)
-            object = self.model.get_value(iter, 1)
-
-            if self.model.iter_has_child(iter):
-                self.append_covers_recursive(iter, add)
-                continue
-            elif isinstance(object, media.Track):
-                add.append(object)
-
-        for track in add:
-            cover = self.get_cover_location(track)
-            if cover:
-                gpod.itdb_track_set_thumbnails(track.ipod_track(), cover)
-                xlmisc.log("Updated cover for %s by %s" % (track.title,
-                    track.artist))
-
-        xlmisc.finish()
-        self.exaile.status.set_first(_("Writing iPod "
-            "database..."))
-        gpod.itdb_write(self.itdb, None)
-        self.exaile.status.set_first(None)
-
-    def load_playlist(self, playlist):
-        """
-            Loads a playlist from the iPod
-        """
-        tracks = xl.tracks.search_tracks(self.exaile.window, self.db, self.all, None,
-            str(playlist))
-
-        self.exaile.new_page(playlist.name, tracks)
-        self.exaile.tracks.playlist = playlist
-
-    def get_cover_location(self, track):
-        """
-            Gets the location of the album art
-        """
-        db = self.exaile.db
-        cur = db.realcursor()
-        cur.execute("SELECT image FROM tracks,albums,paths WHERE paths.name=?"
-            " AND paths.id=tracks.path AND albums.id=tracks.album",
-            (track.loc,))
-        row = cur.fetchone()
-        cur.close()
-        if not row or row[0] == '': return None
-        return "%s%scovers%s%s" % (self.exaile.get_settings_dir(), os.sep,
-            os.sep, str(row[0]))
-
-    # this code is derived from Listen code (http://listen-gnome.free.fr)
-    # Thanks!
-    def get_model(self):
-        """
-            Returns model information about the iPod
-        """
-        model = 'Unknown'
-        path = os.path.join(self.mount, 'iPod_Control', 'Device', 'SysInfo')
-        if os.path.isfile(path):
-            h = open(path)
-            for line in h:
-                if line.split(':')[0] == 'boardHwSwInterfaceRev':
-                    mcode = line.split(' ')[1]
-
-                    if mcode == '0x00010000':
-                        model = '1G'
-                    elif mcode == '0x00020000':
-                        model = '2G'
-                    elif mcode == '0x00030001':
-                        model = '3G'
-                    elif mcode == '0x00040013':
-                        model = '1G Mini'
-                    elif mcode == '0x00050013':
-                        model = '4G'
-                    elif mcode == '0x00060000':
-                        model = 'Photo'
-                    elif mcode == '0x00060004':
-                        model = 'Color'
-                    elif mcode == '0x00070002':
-                        model = '2G Mini'
-                    elif mcode == '0x000B0005':
-                        model = '5G'
-                    elif mcode == '0x000C0005':
-                        model = 'Nano'
-                    elif mcode == '0x000C0006':
-                        model = 'Nano'
-                    else:
-                        model = 'Unknown'
-        return model
-
-    def get_space_info(self):
-        """
-            Returns the total space and used space on the ipod
-        """
-        h = popen("df -h")
-        lines = h[0].readlines()[1:]
-        
-        for line in lines:
-            line = line.strip()
-            (device, total, used, avail, percent, mountpoint) = \
-                re.split("\s+", line)
-            if mountpoint == self.mount:
-                type = 'G'
-                if total.find("M") > -1:
-                    type = "M"
-
-                total = float(total.replace(type, ''))
-                used = float(used.replace(type, ''))
-                return type, total, used
-
-        return None, None, None
-
-    def connect_ipod(self, event=None):
-        """
-            Connects to the iPod and loads all the tracks on it
-        """
-        if self.transferring:
-            common.error(self.exaile.window, _("There is a transfer in progress. "
-                "Please wait for it to complete."))
-            return
-        self.mount = self.exaile.settings.get("ipod_mount", "/media/ipod")
-        self.mount = str(self.mount)
-        self.itdb = gpod.itdb_parse(self.mount, None)
-
-        self.exaile_dir = "%s/iPod_Control/exaile" % self.mount
-        self.log_file = "%s/lastfm.log" % self.exaile_dir
-        self.db = db.DBManager(":memory:")
-        self.db.add_function_create(('THE_CUTTER', 1, tracks.the_cutter))
-        self.db.import_sql("sql/db.sql")
-        self.db.check_version("sql")
-        self.lists = []
-        self.list_dict = dict()
-        self.all = xl.tracks.TrackData()
-
-        if not self.itdb: 
-            self.connected = False
-            self.all = tracks.TrackData()
-            self.ipod_track_count.set_label(_("Not connected"))
-            if event and event != 'refresh':
-                common.error(self.exaile.window, _("Error connecting to "
-                    "iPod"))
-            return False
-        if not os.path.isdir(self.exaile_dir):
-            os.mkdir(self.exaile_dir)
-        for item in ('PATHS', 'ALBUMS', 'ARTISTS', 'PLAYLISTS'):
-            setattr(tracks, 'IPOD_%s' % item, {})
-        self.all = xl.tracks.TrackData()
-        ## clear out ipod information from database
-        self.db.execute("DELETE FROM tracks WHERE type=1")
-
-        for playlist in gpod.sw_get_playlists(self.itdb):
-            if playlist.type == 1:
-                self.lists.insert(0, iPodPlaylist(playlist, True))
-            else:
-                self.lists.append(iPodPlaylist(playlist))
-            self.list_dict[playlist.name] = playlist
-            playlist_id = tracks.get_column_id(self.db, 'PLAYLISTS', 'name',
-                playlist.name, True)
-            for track in gpod.sw_get_playlist_tracks(playlist):
-                loc = self.mount + track.ipod_path.replace(":", "/")
-                path_id = tracks.get_column_id(self.db, 'paths', 'name', loc,
-                    True)
-                self.db.execute("REPLACE INTO playlist_items(playlist, path) "
-                    "VALUES( ?, ? )", (playlist_id, path_id))
-
-        left = []
-        for i in range(10):
-            left.append('?')
-        left = ", ".join(left)
-        for track in gpod.sw_get_tracks(self.itdb):
-            loc = self.mount + track.ipod_path.replace(":", "/")
-            try:
-                loc = unicode(loc)
-
-                path_id = tracks.get_column_id(self.db, 'paths', 'name', loc,
-                    ipod=True)
-                artist_id = tracks.get_column_id(self.db, 'artists', 'name', 
-                    track.artist, ipod=True)
-                album_id = tracks.get_album_id(self.db, artist_id, track.album, ipod=True)
-
-                self.db.execute("INSERT INTO tracks(path, " \
-                    "title, artist, album, track, length," \
-                    "bitrate, genre, year, user_rating ) " \
-                    "VALUES( %s ) " % left, 
-
-                    (path_id,
-                    unicode(track.title),
-                    unicode(artist_id),
-                    unicode(album_id),
-                    unicode(track.track_nr),
-                    unicode(track.tracklen / 1000),
-                    unicode(track.bitrate),
-                    unicode(track.genre),
-                    unicode(track.year),
-                    unicode(track.rating)))
-
-                itrack = track
-                track = xl.tracks.read_track(self.db, None, loc, True, True)
-                   
-                if not track: continue
-                track.itrack = itrack
-                
-                self.all.append(track)
-
-            except UnicodeDecodeError:
-                traceback.print_exc()
-                continue
-
-        self.db.commit()
-        self.connected = True
-        if self.exaile.settings.get_boolean('as_submit_ipod', False):
-            self.submit_tracks()
-
-    def get_song(self, loc):
-        """
-            Returns a track for a location
-        """
-        return self.all.for_path(loc)
-
-    def update_log(self):
-        """
-            Updating played tracks log on the iPod
-        """
-        xlmisc.log("Updating log...")
-        try:
-            handle = open(self.log_file, "w")
-        except IOError:
-            return
-        for track in gpod.sw_get_tracks(self.itdb):
-            if track.playcount:
-                handle.write("%d\t%d\t%d\t%d\n" % (track.id, track.playcount,
-                    track.playcount2, track.time_played))
-
-        handle.close()
-
-    def submit_tracks(self):
-        """
-            Submits tracks that have been played on the iPod since the last
-            log update
-        """
-        user = self.exaile.settings.get('lastfm_user', '')
-        password = self.exaile.settings.get('lastfm_pass', '')
-        if not user or not password: return
-
-        xlmisc.log("Submitting tracks from iPod...")
-        info = dict()
-
-        try:
-            handle = open(self.log_file)
-            for line in handle.readlines():
-                line = line.strip()
-                (id, playcount, p2, played) = line.split("\t")
-                info[id] = played
-
-
-            handle.close()
-        except IOError:
-            pass
-
-        scrobbler = xl.media.get_scrobbler_session()
-        if not scrobbler: return
-        tracks = dict()
-
-        for track in gpod.sw_get_tracks(self.itdb):
-            if (not str(track.id) in info and
-                track.playcount > 0) or (str(track.id) in info and
-                str(track.time_played) != info[str(track.id)]):
-
-                tracks[float(str(track.time_played) + "." + 
-                    str(track.id))] = track
-
-        submit = []
-        keys = tracks.keys()
-        keys.sort()
-        for key in keys:
-            track = tracks[key]
-            lt = time.localtime(track.time_played - 2082845972)
-            date = "%02d-%02d-%02d %02d:%02d:%02d" % (lt[0], lt[1], lt[2],
-                lt[3], lt[4], lt[5])
-            xlmisc.log("submitting %s by %s played %s" % (track.title, track.artist,
-                date))
-            submit.append(track)
-
-        if not len(submit):
-            xlmisc.log("No tracks to submit.")
-            return
-
-        thread.start_new_thread(self.submit, (scrobbler, submit))
-        self.update_log()
-        xlmisc.log("All tracks have been submitted from iPod, log has been updated.")
-
-    def submit(self, scrobbler, submit):
-        """
-            Submits played tracks to Last.fm
-        """
-        for track in submit:
-            lt = time.localtime(track.time_played - 2082845972)
-            date = "%02d-%02d-%02d %02d:%02d:%02d" % (lt[0], lt[1], lt[2],
-                lt[3], lt[4], lt[5])
-            try:
-                scrobbler(artist_name=track.artist,
-                    song_title=track.title,
-                    length=track.tracklen / 1000,
-                    date_played=date,
-                    album=track.album)
-            except:
-                xlmisc.log_exception()
-
-    def load_tree(self, event=None, connect=True):
-        """
-            Loads the tree (and connects to the ipod if refresh was pressed)
-        """
-        if connect: self.connect_ipod(event)
-        xlmisc.log("Loading iPod collection tree")
-        CollectionPanel.load_tree(self, event)
-        self.ipod_track_count.set_label("%d tracks" % len(self.all))
-        if not self.connected:
-            self.ipod_track_count.set_label(_("Not connected"))
 
 class SmartPlaylist(object):
     def __init__(self, name, id):
@@ -2175,9 +1270,8 @@ class PlaylistsPanel(object):
         songs = tracks.TrackData()
         for l in uris:
             l = urllib.unquote(l)
-            if l.find("ipod://") > -1:
-                error += "Could not add ipod track \"%s\" to library " \
-                    "playlist\n" % l
+            if l.find("device://") > -1:
+                continue
             else:
                 song = self.exaile.all_songs.for_path(l)
                 if song: songs.append(song)

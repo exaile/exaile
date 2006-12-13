@@ -443,7 +443,6 @@ class CoverFetcher(object):
         self.icons.connect('leave-notify-event',
             lambda *e: self.status.set_label(''))
         self.dialog = xml.get_widget('CoverFetcher')
-        self.dialog.set_transient_for(parent.window)
         self.progress = xml.get_widget('fetcher_progress')
         self.label = xml.get_widget('fetcher_label')
 

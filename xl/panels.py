@@ -2099,7 +2099,7 @@ class RadioPanel(object):
 
         dialog = gtk.MessageDialog(self.exaile.window, 
             gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, 
-            _("Are you sure you want to permanently delete the selected"
+            _("Are you sure you want to permanently delete the selected "
             "station?"))
         result = dialog.run()
         dialog.destroy()

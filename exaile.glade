@@ -3244,138 +3244,6 @@ Johannes Sasongko &lt;sasongko@gmail.com&gt;</property>
       </widget>
     </child>
   </widget>
-  <widget class="GtkDialog" id="CoverFetcher">
-    <property name="width_request">636</property>
-    <property name="height_request">450</property>
-    <property name="visible">True</property>
-    <property name="title" translatable="yes">Album Art Collector</property>
-    <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
-    <child internal-child="vbox">
-      <widget class="GtkVBox" id="dialog-vbox8">
-        <property name="visible">True</property>
-        <child>
-          <widget class="GtkScrolledWindow" id="scrolledwindow14">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-            <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-            <property name="shadow_type">GTK_SHADOW_IN</property>
-            <child>
-              <widget class="GtkViewport" id="viewport1">
-                <property name="visible">True</property>
-                <child>
-                  <widget class="GtkHBox" id="hbox37">
-                    <property name="visible">True</property>
-                    <child>
-                      <widget class="GtkScrolledWindow" id="scrolledwindow15">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-                        <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-                        <property name="shadow_type">GTK_SHADOW_IN</property>
-                        <child>
-                          <widget class="GtkIconView" id="cover_icon_view">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                          </widget>
-                        </child>
-                      </widget>
-                    </child>
-                  </widget>
-                </child>
-              </widget>
-            </child>
-          </widget>
-          <packing>
-            <property name="position">2</property>
-          </packing>
-        </child>
-        <child>
-          <widget class="GtkVBox" id="vbox23">
-            <property name="visible">True</property>
-            <property name="border_width">5</property>
-            <property name="spacing">3</property>
-            <child>
-              <widget class="GtkHBox" id="hbox40">
-                <property name="visible">True</property>
-                <child>
-                  <widget class="GtkLabel" id="fetcher_label">
-                    <property name="visible">True</property>
-                    <property name="xalign">0</property>
-                    <property name="label" translatable="yes">0 Covers to fetch</property>
-                  </widget>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                  </packing>
-                </child>
-                <child>
-                  <widget class="GtkLabel" id="cover_status_bar">
-                    <property name="visible">True</property>
-                    <property name="xalign">1</property>
-                  </widget>
-                  <packing>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-              </widget>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-              </packing>
-            </child>
-            <child>
-              <widget class="GtkProgressBar" id="fetcher_progress">
-                <property name="visible">True</property>
-                <property name="pulse_step">0.10000000149011612</property>
-              </widget>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </widget>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">3</property>
-          </packing>
-        </child>
-        <child internal-child="action_area">
-          <widget class="GtkHButtonBox" id="dialog-action_area8">
-            <property name="visible">True</property>
-            <property name="layout_style">GTK_BUTTONBOX_END</property>
-            <child>
-              <widget class="GtkButton" id="fetcher_cancel_button">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="can_default">True</property>
-                <property name="label" translatable="yes">_Close</property>
-                <property name="use_underline">True</property>
-              </widget>
-            </child>
-            <child>
-              <widget class="GtkButton" id="fetcher_stop_button">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="can_default">True</property>
-                <property name="label" translatable="yes">Start</property>
-                <property name="use_underline">True</property>
-              </widget>
-              <packing>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </widget>
-          <packing>
-            <property name="expand">False</property>
-            <property name="pack_type">GTK_PACK_END</property>
-          </packing>
-        </child>
-      </widget>
-    </child>
-  </widget>
   <widget class="GtkWindow" id="CoverFrame">
     <property name="width_request">352</property>
     <property name="height_request">349</property>
@@ -3901,6 +3769,144 @@ PostgreSQL</property>
           <packing>
             <property name="expand">False</property>
             <property name="pack_type">GTK_PACK_END</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+  <widget class="GtkWindow" id="CoverFetcher">
+    <property name="width_request">540</property>
+    <property name="height_request">390</property>
+    <property name="title" translatable="yes">Album Art</property>
+    <property name="window_position">GTK_WIN_POS_CENTER</property>
+    <child>
+      <widget class="GtkVBox" id="vbox4">
+        <property name="visible">True</property>
+        <child>
+          <widget class="GtkScrolledWindow" id="scrolledwindow14">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="border_width">3</property>
+            <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+            <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+            <property name="shadow_type">GTK_SHADOW_IN</property>
+            <child>
+              <widget class="GtkViewport" id="viewport1">
+                <property name="visible">True</property>
+                <child>
+                  <widget class="GtkHBox" id="hbox37">
+                    <property name="visible">True</property>
+                    <child>
+                      <widget class="GtkScrolledWindow" id="scrolledwindow15">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+                        <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+                        <property name="shadow_type">GTK_SHADOW_IN</property>
+                        <child>
+                          <widget class="GtkIconView" id="cover_icon_view">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                          </widget>
+                        </child>
+                      </widget>
+                    </child>
+                  </widget>
+                </child>
+              </widget>
+            </child>
+          </widget>
+        </child>
+        <child>
+          <widget class="GtkVBox" id="vbox23">
+            <property name="visible">True</property>
+            <property name="border_width">5</property>
+            <property name="spacing">3</property>
+            <child>
+              <widget class="GtkHBox" id="hbox40">
+                <property name="visible">True</property>
+                <child>
+                  <widget class="GtkLabel" id="fetcher_label">
+                    <property name="visible">True</property>
+                    <property name="xalign">0</property>
+                    <property name="label" translatable="yes">0 Covers to fetch</property>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="GtkLabel" id="cover_status_bar">
+                    <property name="visible">True</property>
+                    <property name="xalign">1</property>
+                  </widget>
+                  <packing>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkProgressBar" id="fetcher_progress">
+                <property name="visible">True</property>
+                <property name="pulse_step">0.10000000149011612</property>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkHButtonBox" id="hbuttonbox1">
+            <property name="visible">True</property>
+            <property name="border_width">3</property>
+            <property name="layout_style">GTK_BUTTONBOX_END</property>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <widget class="GtkButton" id="fetcher_stop_button">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="can_default">True</property>
+                <property name="label" translatable="yes">Start</property>
+                <property name="use_underline">True</property>
+              </widget>
+              <packing>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkButton" id="fetcher_cancel_button">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="can_default">True</property>
+                <property name="label" translatable="yes">_Close</property>
+                <property name="use_underline">True</property>
+              </widget>
+              <packing>
+                <property name="pack_type">GTK_PACK_END</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">2</property>
           </packing>
         </child>
       </widget>

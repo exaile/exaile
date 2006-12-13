@@ -855,6 +855,20 @@ class ExaileWindow(gobject.GObject):
                     "creating collection database: %s" % (str(e)))
                 sys.exit(1)
 
+        # here we check for the "version" table.  If it's there, it's an old
+        # style (0.2.6) database, so we upgrade it
+        else:
+            try:
+                cur = self.db.realcursor()
+                cur.execute('SELECT version FROM version')
+                cur.close()
+                self.db = db.convert_to027(self.db.db_loc)
+                self.db.add_function_create(('THE_CUTTER', 1, 
+                    tracks.the_cutter))
+            except:
+                traceback.print_exc()
+                pass # db is ok, continue!                
+
         self.db.check_version("sql")
 
     @common.threaded

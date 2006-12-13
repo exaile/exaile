@@ -50,7 +50,7 @@ class Manager(object):
 
                     plugin.FILE_NAME = file
                     plugin.APP = self.app
-                    if file in enabled:
+                    if file in enabled or plugin.PLUGIN_ENABLED:
                         if plugin.initialize():
                             plugin.PLUGIN_ENABLED = True
                     self.plugins.append(plugin)

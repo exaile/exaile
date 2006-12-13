@@ -15,6 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import sys, threading, re, os, fileinput, traceback, xlmisc
+import tempfile
 try:
     from sqlite3 import dbapi2 as sqlite
     SQLITE_AVAIL = True
@@ -317,3 +318,71 @@ class DBManager(object):
 
             query = "UPDATE %s SET %s WHERE %s" % (table, ", ".join(keys), where)
             cur.execute(query, values)
+
+def insert_id(cur):
+    cur.execute('SELECT LAST_INSERT_ROWID()')
+    row = cur.fetchone()
+    return row[0]
+
+## Exaile specific code, for converting a 0.2.6 database to a 0.2.7
+## hopefully we can remove it soon...
+def get_column_id(cur, table, col, value):
+    cur.execute('SELECT id FROM %s WHERE %s=?' % (table, col), (value,))
+    row = cur.fetchone()
+    if not row:
+        cur.execute('INSERT INTO %s(%s) VALUES(?)' % (table, col), (value,))
+        return insert_id(cur) 
+    else: return row[0]
+
+def get_album_id(cur, artist_id, album):
+    cur.execute('SELECT id FROM albums WHERE artist=? AND name=?', (artist_id,
+        album))
+
+    row = cur.fetchone()
+    if not row:
+        cur.execute('INSERT INTO albums(artist, name) VALUES(?, ?)',
+            (artist_id, album))
+        return insert_id(cur)
+    else: return row[0]
+    
+def convert_to027(loc):
+    (h, name) = tempfile.mkstemp()
+    os.rename(loc, name)
+
+    print name, loc
+    old = DBManager(name)
+    db = DBManager(loc)
+    db.import_sql('sql/db.sql')
+
+    oldcur = old.realcursor()
+    new = db.realcursor()
+
+    # convert tracks
+    oldcur.execute('SELECT path, artist, album, title, genre, year, track, '
+        'length, bitrate, modified, tags, plays, rating, user_rating, '
+        'blacklisted FROM tracks')
+    
+    # tracks
+    for row in oldcur.fetchall():
+        row = list(row)
+        row[0] = get_column_id(new, 'paths', 'name', row[0])
+        row[1] = get_column_id(new, 'artists', 'name', row[1])
+        row[2] = get_album_id(new, row[1], row[2])
+
+        new.execute('INSERT INTO tracks(path, artist, album, title, genre, year, track, '
+            'length, bitrate, modified, tags, plays, rating, user_rating, '
+            'blacklisted) VALUES(%s)' % ','.join(['?' for x in row]), row)
+
+    # album images
+    oldcur.execute('SELECT image, artist, album FROM albums WHERE image IS NOT'
+        ' NULL AND image!="" AND image NOT LIKE "%%nocover%%"')
+
+    for row in oldcur.fetchall():
+        artist_id = get_column_id(new, 'artists', 'name', row[1])
+        album_id = get_album_id(new, artist_id, row[2])
+        new.execute('UPDATE albums SET image=? WHERE artist=? AND id=?',
+            (row[0], artist_id, album_id))
+
+    new.close()
+    db.db.commit()
+    return db

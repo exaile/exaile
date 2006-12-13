@@ -37,17 +37,12 @@ try:
     GNOME_EXTRAS_AVAIL = True
 except ImportError:
     GNOME_EXTRAS_AVAIL = False
-
 try:
     import egg.trayicon
     USE_TRAY = 'egg'
 except ImportError:
-    if gtk.check_version(2, 10, 0) is None:
+    if hasattr(gtk, 'StatusIcon'):
         USE_TRAY = 'gtk'
-        try:
-            icon = gtk.StatusIcon()
-        except AttributeError:
-            USE_TRAY = None
     else:
         USE_TRAY = None
 

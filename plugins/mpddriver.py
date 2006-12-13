@@ -79,7 +79,7 @@ class MPDDriver(object):
         self.mpd = None
 
     def connect(self, stuff):
-        global MPD
+        global MPD, TIMER_ID
         self.mpd = mpdclient2.connect()
         MPD = self.mpd
         status = self.mpd.status()
@@ -104,6 +104,15 @@ class MPDDriver(object):
             songs.append(song)
 
         APP.new_page("MPD Playlist", songs)
+        TIMER_ID = gobject.timeout_add(1000, self.ping)
+
+    def disconnect(self):
+        """
+            Disconnects the driver
+        """
+        if TIMER_ID:
+            gobject.source_remove(TIMER_ID)
+            TIMER_ID = None
 
     def load_tracks(self):
         songs = tracks.TrackData()
@@ -153,14 +162,14 @@ def initialize():
     global TIMER_ID, PLUGIN
     
     PLUGIN = MPDDriver()
-    APP.device_panel.connect(PLUGIN)
-
-    TIMER_ID = gobject.timeout_add(1000, PLUGIN.ping)
+    APP.device_panel.add_driver(PLUGIN, PLUGIN_NAME)
 
     return True
 
 def destroy():
     global TIMER_ID, PLUGIN
+
+    APP.device_panel.remove_driver(PLUGIN)
 
     if TIMER_ID:
         gobject.source_remove(TIMER_ID)

@@ -799,6 +799,10 @@ class CollectionPanel(object):
             gobject.idle_add(self.tree.expand_row, self.model.get_path(self.root), False)
             gobject.idle_add(self.tree.expand_row, self.model.get_path(self.iroot), False)
 
+class EmptyDriver(object):
+    def search_tracks(self, *e):
+        return tracks.TrackData()
+
 class DevicePanel(CollectionPanel):
     """
         Collection panel that allows for different collection drivers
@@ -807,7 +811,85 @@ class DevicePanel(CollectionPanel):
     def __init__(self, exaile):
         CollectionPanel.__init__(self, exaile)
         self.driver = None
+        self.drivers = {}
         self.all = tracks.TrackData()
+        self.tree = xlmisc.DragTreeView(self, True)
+        self.tree.set_headers_visible(False)
+
+        self.chooser = self.xml.get_widget('device_driver_chooser')
+        self.change_id = self.chooser.connect('changed', self.change_driver)
+
+        self.store = gtk.ListStore(str, object)
+        cell = gtk.CellRendererText()
+        self.chooser.pack_start(cell)
+        self.chooser.add_attribute(cell, 'text', 0)
+        self.chooser.set_model(self.store)
+
+        container = self.xml.get_widget('%s_box' % self.name)
+
+        scroll = gtk.ScrolledWindow()
+        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        scroll.add(self.tree)
+        scroll.set_shadow_type(gtk.SHADOW_IN)
+        container.pack_start(scroll, True, True)
+        container.show_all()
+
+        selection = self.tree.get_selection()
+        selection.set_mode(gtk.SELECTION_MULTIPLE)
+        pb = gtk.CellRendererPixbuf()
+        cell = gtk.CellRendererText()
+        col = gtk.TreeViewColumn('Text')
+        col.pack_start(pb, False)
+        col.pack_start(cell, True)
+        col.set_attributes(pb, pixbuf=0)
+        self.tree.append_column(col)
+        col.set_cell_data_func(cell, self.track_data_func)
+        self.update_drivers()
+        self.chooser.set_active(0)
+
+    def change_driver(self, combo):
+        """
+            Changes the current driver
+        """
+        if self.driver:
+            self.driver.disconnect()
+
+        iter = self.chooser.get_active_iter()
+        driver = self.store.get_value(iter, 1)
+        if not isinstance(driver, EmptyDriver):
+            driver.connect(self)
+        self.driver = driver
+        self.load_tree()
+
+    def update_drivers(self):
+        """
+            Updates the driver list
+        """
+        count = 1
+        select = 0
+        self.store.clear()
+        self.store.append(['None', EmptyDriver()])
+
+        for k, v in self.drivers.iteritems():
+            if k == self.driver:
+                select = count
+
+            self.store.append([v, k])            
+
+        if select > 0:
+            self.chooser.disconnect(self.change_id)
+            self.chooser.set_active(select)
+            self.change_id = self.chooser.connect('changed', self.change_driver)
+
+    def add_driver(self, driver, name):
+        if not self.drivers.has_key(driver):
+            self.drivers[driver] = name
+        self.update_drivers()
+
+    def remove_driver(self, driver):
+        if self.drivers.has_key(driver):
+            del self.drivers[driver]
+        self.update_drivers()
 
     def connect(self, driver):
         try:

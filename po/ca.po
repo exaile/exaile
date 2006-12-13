@@ -1,0 +1,1460 @@
+# translation of ca.po to Spanish
+# Copyright (C) 2006 THE Exaile'S COPYRIGHT Adam Olsen (arolsen@gmail.com)
+# This file is distributed under the same license as the Exaile package.
+# Josep Jaume Rey (josepjaume@gmail.com)
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Exaile 0.2.5svn\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-12-13 11:19-0700\n"
+"PO-Revision-Date: 2006-12-12 22:15+0100\n"
+"Last-Translator: Josep Jaume <josepjaume@gmail.com>\n"
+"Language-Team: Catalan <ca@dodds.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: exaile.py:166 exaile.glade.h:87
+msgid "Exaile!"
+msgstr "Exaile!"
+
+#: exaile.py:214
+msgid ""
+"You have not specified any search directories for your music library. You "
+"may do so now, or choose to do it later.  If you want to do it later, you "
+"can manage your library search directories by going to Tools->Library "
+"Manager.  Do you want to choose your library directories now?"
+msgstr ""
+"No has especificat cap directori de cerca per la teva llibreria de música. "
+"Ho pots fer ara, o escollir fer-ho després. Si vols fer-ho després, pots "
+"manipular els directoris de cerca de la biblioteca anant a Eines->Biblioteca-"
+">Manager. Vols escollir els directoris per la biblioteca ara?"
+
+#: exaile.py:504 xl/xlmisc.py:1528
+msgid "Add a directory"
+msgstr "Afegir un directori"
+
+#: exaile.py:506 xl/xlmisc.py:1530 exaile.glade.h:53
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: exaile.py:506 xl/xlmisc.py:1530
+msgid "Choose"
+msgstr "Escollir"
+
+#: exaile.py:509
+#, fuzzy
+msgid "Add tracks to current playlist after importing"
+msgstr "Cercant i afegint pistes a la llista de reproducció actual..."
+
+#: exaile.py:575
+msgid "Queue"
+msgstr "Afegir a la cua"
+
+#: exaile.py:602
+msgid "Blacklist"
+msgstr "Llista negra"
+
+#: exaile.py:724 exaile.py:1388 exaile.py:1397 exaile.py:1432 exaile.py:1952
+#: xl/panels.py:3298 xl/panels.py:3397 exaile.glade.h:119
+msgid "Playlist"
+msgstr "Llista de traducció"
+
+#: exaile.py:768
+msgid ""
+"Blacklisting the selected tracks will prevent them from being added to the "
+"library on rescan.  Are you sure you want to continue?"
+msgstr ""
+"Les pistes afegides a la llista negra no seran tingudes en compte per afegir-"
+"se a la biblioteca a la següent passada. Estàs segur de que vols continuar?"
+
+#: exaile.py:847
+#, fuzzy, python-format
+msgid "Error connecting to database: %s"
+msgstr "Hi ha hagut un error connectant amb l'iPod"
+
+#: exaile.py:880
+msgid "Loading library from database..."
+msgstr "Carregant biblioteca des de la base de dades..."
+
+#: exaile.py:916
+msgid "Scanning ipod..."
+msgstr "Escannejant iPod"
+
+#: exaile.py:1093 exaile.py:2183
+msgid "Submitting to Last.fm..."
+msgstr "Remitint a Last.fm..."
+
+#: exaile.py:1180
+msgid "No covers found."
+msgstr "No s'ha trobat cobertes."
+
+#: exaile.py:1243
+msgid "Fetching cover art from Amazon..."
+msgstr "Descarregant coberta des d'Amazon..."
+
+#: exaile.py:1298
+msgid "View Full Image"
+msgstr "Veure imatge en tamany natural"
+
+#: exaile.py:1300
+msgid "Fetch from Amazon"
+msgstr "Recuperar d'Amazon"
+
+#: exaile.py:1302
+msgid "Search Amazon"
+msgstr "Cerca des d'Amazon"
+
+#: exaile.py:1304
+msgid "Set Custom Image"
+msgstr "Seleccionar imatge personalitzada"
+
+#: exaile.py:1306
+#, fuzzy
+msgid "Remove Cover"
+msgstr "Esborrar"
+
+#: exaile.py:1330
+msgid "Fetching from amazon..."
+msgstr "Descarregant des d'Amazon..."
+
+#: exaile.py:1346
+msgid "Choose an image"
+msgstr "Escollir una imatge"
+
+#: exaile.py:1514
+msgid "Podcast has not yet been downloaded"
+msgstr "El Podcast encara no ha estat descarregat..."
+
+#: exaile.py:1916 exaile.py:1967
+msgid "Choose a file"
+msgstr "Selecciona un arxiu"
+
+#: exaile.py:1919
+msgid "Open in new tab"
+msgstr ""
+
+#: exaile.py:1931
+msgid "Populating playlist..."
+msgstr "Poblant la llista de reproducció..."
+
+#: exaile.py:2026
+msgid "Enter the address"
+msgstr "Afegeix l'adreça"
+
+#: exaile.py:2040
+msgid "Audio Disc"
+msgstr "Disc d'àudio"
+
+#: exaile.py:2073
+msgid "Scanning collection..."
+msgstr "Escannejant la col·lecció"
+
+#: xl/filtergui.py:50
+#, fuzzy
+msgid "Name"
+msgstr "Reanomenar"
+
+#: xl/filtergui.py:64
+msgid "Match any of the criteria"
+msgstr ""
+
+#: xl/fruit.py:28 xl/panels.py:61 xl/panels.py:76 xl/panels.py:85
+msgid "seconds"
+msgstr ""
+
+#: xl/fruit.py:34 xl/panels.py:67
+msgid "and"
+msgstr ""
+
+#: xl/fruit.py:49 xl/panels.py:97 xl/track.py:333 xl/trackslist.py:32
+#: xl/trackslist.py:37 xl/trackslist.py:48 xl/trackslist.py:434
+#: exaile.glade.h:38
+msgid "Artist"
+msgstr "Artista"
+
+#: xl/fruit.py:50 xl/fruit.py:56 xl/panels.py:98 xl/panels.py:108
+#: xl/panels.py:118 xl/panels.py:171
+msgid "is"
+msgstr ""
+
+#: xl/fruit.py:52 xl/fruit.py:58 xl/panels.py:102 xl/panels.py:112
+#: xl/panels.py:122 xl/panels.py:175
+msgid "contains"
+msgstr ""
+
+#: xl/fruit.py:55 xl/panels.py:117 xl/trackslist.py:33 xl/trackslist.py:42
+#: xl/trackslist.py:53 exaile.glade.h:92
+msgid "Genre"
+msgstr "Gènere"
+
+#: xl/fruit.py:61 xl/trackslist.py:33 xl/trackslist.py:40 xl/trackslist.py:51
+#: xl/trackslist.py:706 exaile.glade.h:129
+msgid "Rating"
+msgstr "Valoració"
+
+#: xl/fruit.py:62 xl/fruit.py:78 xl/panels.py:128 xl/panels.py:133
+#: xl/panels.py:139 xl/panels.py:153
+#, fuzzy
+msgid "at least"
+msgstr "Crear llista de reproducció"
+
+#: xl/fruit.py:64 xl/fruit.py:80 xl/panels.py:130 xl/panels.py:135
+#: xl/panels.py:141 xl/panels.py:155
+msgid "at most"
+msgstr ""
+
+#: xl/fruit.py:66 xl/fruit.py:74 xl/panels.py:149
+msgid "between"
+msgstr ""
+
+#: xl/fruit.py:69 xl/panels.py:144 xl/trackslist.py:33 xl/trackslist.py:41
+#: xl/trackslist.py:52 exaile.glade.h:168
+msgid "Year"
+msgstr "Any"
+
+#: xl/fruit.py:70 xl/panels.py:145
+#, fuzzy
+msgid "before"
+msgstr "Actualitzar"
+
+#: xl/fruit.py:72 xl/panels.py:147
+#, fuzzy
+msgid "after"
+msgstr "Transferir"
+
+#: xl/fruit.py:77 xl/panels.py:152 xl/trackslist.py:32 xl/trackslist.py:39
+#: xl/trackslist.py:50 xl/trackslist.py:412 exaile.glade.h:102
+msgid "Length"
+msgstr "Llargada"
+
+#: xl/media.py:82
+msgid "Error logging into Last.fm."
+msgstr ""
+
+#: xl/media.py:540
+#, fuzzy
+msgid "Sumitting track to Last.fm..."
+msgstr "Remitint a Last.fm..."
+
+#: xl/media.py:564
+#, fuzzy
+msgid "Failed to submit track to Last.fm."
+msgstr "Remitint a Last.fm..."
+
+#: xl/panels.py:73 xl/panels.py:76
+msgid "days"
+msgstr ""
+
+#: xl/panels.py:76
+msgid "minutes"
+msgstr ""
+
+#: xl/panels.py:76
+msgid "hours"
+msgstr ""
+
+#: xl/panels.py:76
+msgid "weeks"
+msgstr ""
+
+#: xl/panels.py:100 xl/panels.py:110 xl/panels.py:120 xl/panels.py:173
+msgid "is not"
+msgstr ""
+
+#: xl/panels.py:104 xl/panels.py:114 xl/panels.py:124 xl/panels.py:177
+msgid "does not contain"
+msgstr ""
+
+#: xl/panels.py:107 xl/track.py:337 xl/trackslist.py:32 xl/trackslist.py:38
+#: xl/trackslist.py:49 xl/trackslist.py:435 exaile.glade.h:32
+msgid "Album"
+msgstr "Àlbum"
+
+#: xl/panels.py:127
+#, fuzzy
+msgid "User Rating"
+msgstr "Valoració de l'usuari: "
+
+#: xl/panels.py:132
+#, fuzzy
+msgid "System Rating"
+msgstr "Valoració del sistema: "
+
+#: xl/panels.py:138
+msgid "Number of Plays"
+msgstr ""
+
+#: xl/panels.py:158
+msgid "Date Added"
+msgstr ""
+
+#: xl/panels.py:159 xl/panels.py:165
+msgid "in the last"
+msgstr ""
+
+#: xl/panels.py:161 xl/panels.py:167
+msgid "not in the last"
+msgstr ""
+
+#: xl/panels.py:164
+msgid "Last Played"
+msgstr ""
+
+#: xl/panels.py:170
+#, fuzzy
+msgid "Location"
+msgstr "Ubicació: "
+
+#: xl/panels.py:275
+msgid "Finished scanning collection."
+msgstr "S'ha acabat d'escannejar la col·lecció"
+
+#: xl/panels.py:296
+msgid "Scanning..."
+msgstr "Cercant..."
+
+#: xl/panels.py:333
+msgid "Append to Current"
+msgstr "Afegir a la llista de reproducció actual"
+
+#: xl/panels.py:337 xl/panels.py:347 xl/trackslist.py:668
+msgid "Add to Playlist"
+msgstr "Agregar a la llista de reproducció"
+
+#: xl/panels.py:348
+msgid "Queue Items"
+msgstr "Posar elements a la cua"
+
+#: xl/panels.py:350
+msgid "Blacklist Selected"
+msgstr "Llista negra seleccionada"
+
+#: xl/panels.py:352
+msgid "Delete Selected"
+msgstr "Esborrar seleccionats"
+
+#: xl/panels.py:438 xl/trackslist.py:866
+msgid ""
+"Are you sure you want to permanently remove the selected tracks from disk?"
+msgstr "Segur que vols eliminar permanentment els arxius del disc?"
+
+#: xl/panels.py:456
+msgid "Are you sure you want to blacklist the selected tracks?"
+msgstr "Estàs segur que vols posar els arxius seleccionats a la llista negra?"
+
+#: xl/panels.py:616
+msgid "iPod Collection"
+msgstr "Col·lecció iPod"
+
+#: xl/panels.py:900
+msgid "Error and stuff"
+msgstr ""
+
+#: xl/panels.py:945
+msgid "Transfer Queue"
+msgstr "Posar transferències a la cua"
+
+#: xl/panels.py:966
+msgid "Transfer"
+msgstr "Transferir"
+
+#: xl/panels.py:1030 xl/panels.py:1374 xl/panels.py:1467
+msgid "Writing iPod database..."
+msgstr "Escrivint a la base de dades de l'iPod..."
+
+#: xl/panels.py:1126
+msgid "Not connected to iPod"
+msgstr "No hi ha connexió amb l'iPod"
+
+#: xl/panels.py:1187 xl/panels.py:1564
+msgid "There is a transfer in progress. Please wait for it to complete."
+msgstr "Hi ha una transferència en progrés. Siusplau, espera a que acabi."
+
+#: xl/panels.py:1211 xl/panels.py:2192 xl/trackslist.py:961
+msgid "The following errors did occur"
+msgstr "Hi ha hagut els següents errors:"
+
+#: xl/panels.py:1226
+msgid "Open Playlist"
+msgstr "Obrir llista de reproducció"
+
+#: xl/panels.py:1230 xl/xlmisc.py:787
+msgid "Rename"
+msgstr "Reanomenar"
+
+#: xl/panels.py:1232 xl/trackslist.py:722
+msgid "Remove"
+msgstr "Esborrar"
+
+#: xl/panels.py:1234
+msgid "Create Playlist"
+msgstr "Crear llista de reproducció"
+
+#: xl/panels.py:1238
+msgid "Update Covers"
+msgstr "Actualitzar cobertes"
+
+#: xl/panels.py:1271 xl/panels.py:2210
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr ""
+"Estàs segur que vols eliminar permanentment la llista de reproducció "
+"seleccionada?"
+
+#: xl/panels.py:1301
+msgid "Enter the new name for the playlist"
+msgstr "Introdueix el nou nom per la llista de reproducció"
+
+#: xl/panels.py:1302
+msgid "Rename Playlist"
+msgstr "Reanomenar llista de reproducció"
+
+#: xl/panels.py:1322
+msgid "Enter a name for the new playlist"
+msgstr "Introdueix un nom nou per la llista de reproducció"
+
+#: xl/panels.py:1322 xl/panels.py:2235 xl/trackslist.py:660
+msgid "New Playlist"
+msgstr "Nova llista de reproducció"
+
+#: xl/panels.py:1436
+msgid ""
+"This action will write all album art in the Exaile database to your iPod "
+"(overwriting any existing album art).  Are you sure you want to continue?"
+msgstr ""
+"Aquesta acció desarà totes les caràtules de la base de dades de l'Exaile al "
+"teu iPod (sobreescrivint les cobertes ja existents). Estàs segur que vols "
+"continuar?"
+
+#: xl/panels.py:1444
+msgid "Updating covers on iPod..."
+msgstr "Actualitzar caràtules de l'iPod..."
+
+#: xl/panels.py:1584 xl/panels.py:1764 exaile.glade.h:111
+msgid "Not connected"
+msgstr "No connectat"
+
+#: xl/panels.py:1586
+msgid "Error connecting to iPod"
+msgstr "Hi ha hagut un error connectant amb l'iPod"
+
+#: xl/panels.py:1837
+#, fuzzy
+msgid "Smart Playlists"
+msgstr "Llista de reproducció intel·ligent"
+
+#: xl/panels.py:1900
+#, fuzzy
+msgid "Custom Playlists"
+msgstr "Llistes de reproducció personalitzades:"
+
+#: xl/panels.py:1972 xl/panels.py:2015
+#, fuzzy
+msgid "That playlist name is already taken."
+msgstr "La llista ja existeix"
+
+#: xl/panels.py:2010
+#, fuzzy
+msgid "You did not enter a name for your playlist"
+msgstr "Introdueix un nom nou per la llista de reproducció"
+
+#: xl/panels.py:2234
+msgid "Enter the name you want for your new playlist"
+msgstr "Escriu un nom nou per a la llista de reproducció"
+
+#: xl/panels.py:2244
+msgid "Playlist already exists."
+msgstr "La llista ja existeix"
+
+#: xl/panels.py:2393
+msgid "Downloading Podcasts"
+msgstr "Descarregant Podcasts"
+
+#: xl/panels.py:2398
+msgid "Downloading..."
+msgstr "Descarregant..."
+
+#: xl/panels.py:2433
+msgid "Stopping..."
+msgstr "Parant..."
+
+#: xl/panels.py:2553
+msgid "Shoutcast Stations"
+msgstr "Estacions de Shoutcast"
+
+#: xl/panels.py:2767
+msgid "Reload Streams"
+msgstr "Recarregar Streams"
+
+#: xl/panels.py:2772 xl/panels.py:2983
+msgid "Add Stream to Station"
+msgstr "Afegir Stream a l'estació"
+
+#: xl/panels.py:2774
+msgid "Delete this Station"
+msgstr "Esborrar estació"
+
+#: xl/panels.py:2778
+msgid "Add Feed"
+msgstr "Afegir Feed"
+
+#: xl/panels.py:2779
+msgid "Refresh Feed"
+msgstr "Actualitzar Feed"
+
+#: xl/panels.py:2780
+msgid "Delete Feed"
+msgstr "Esborrar Feed"
+
+#: xl/panels.py:2796
+msgid "Enter the location of the podcast"
+msgstr "Introdueix la ubicació del podcast"
+
+#: xl/panels.py:2797
+msgid "Add a podcast"
+msgstr "Afegir un podcast"
+
+#: xl/panels.py:2805
+msgid "A podcast with that url already exists"
+msgstr "Ja existeix un podcast amb aquesta URL"
+
+#: xl/panels.py:2841
+msgid "Could not read feed."
+msgstr "No es pot llegir el feed"
+
+#: xl/panels.py:2963
+msgid "Are you sure you want to delete this podcast?"
+msgstr "Estàs segur de que vols esborrar aquest podcast?"
+
+#: xl/panels.py:3008
+msgid "Are you sure you want to permanently delete the selectedstation?"
+msgstr "Estàs segur de que vols esborrar permanentment l'estació seleccionada?"
+
+#: xl/panels.py:3059
+msgid "Add Station"
+msgstr "Afegir estació"
+
+#: xl/panels.py:3060
+msgid "Station Name:"
+msgstr "Nom de l'estació:"
+
+#: xl/panels.py:3061
+msgid "Description:"
+msgstr "Descripció:"
+
+#: xl/panels.py:3062
+msgid "URL:"
+msgstr "URL:"
+
+#: xl/panels.py:3069
+msgid "The 'Name' and 'URL' fields are required"
+msgstr "Els camps 'Nom' i 'URL' són necessaris"
+
+#: xl/panels.py:3077
+msgid "Station name already exists."
+msgstr "El nom d'estació ja existeix"
+
+#: xl/panels.py:3124 xl/panels.py:3125
+msgid "Enter the name of the station"
+msgstr "Escriu el nom de l'estació"
+
+#: xl/panels.py:3135
+msgid "Station already exists."
+msgstr "L'estació ja existeix"
+
+#: xl/panels.py:3249
+msgid "Append to Playlist"
+msgstr "Afegir a la llista de reproducció"
+
+#: xl/panels.py:3280
+msgid "Scanning and adding files..."
+msgstr "Cercant i afegint arxius..."
+
+#: xl/prefs.py:417
+msgid ""
+"Cannot watch directories for changes. Install python2.4-gamin to use this "
+"feature."
+msgstr ""
+"No es poden trobar canvis als directoris. Instala python-2.4-gamin per "
+"utilitzar aquesta funcionalitat."
+
+#: xl/prefs.py:559
+msgid ""
+"Move the OSD window to the location you want it to appear when listening"
+msgstr ""
+
+#: xl/track.py:227 xl/track.py:284
+msgid "Title: "
+msgstr "Títol: "
+
+#: xl/track.py:228 exaile.glade.h:42
+msgid "Artist:"
+msgstr "Artista: "
+
+#: xl/track.py:229 exaile.glade.h:36
+msgid "Album:"
+msgstr "Àlbum: "
+
+#: xl/track.py:231
+msgid "Track Number:"
+msgstr "Número de pista: "
+
+#: xl/track.py:232 exaile.glade.h:169
+msgid "Year:"
+msgstr "Any: "
+
+#: xl/track.py:233 exaile.glade.h:93
+msgid "Genre:"
+msgstr "Gènere: "
+
+#: xl/track.py:234
+msgid "Bitrate:"
+msgstr "Bitrate: "
+
+#: xl/track.py:235
+msgid "User Rating:"
+msgstr "Valoració de l'usuari: "
+
+#: xl/track.py:236
+msgid "System Rating:"
+msgstr "Valoració del sistema: "
+
+#: xl/track.py:237
+msgid "Playcount:"
+msgstr "Reproduccions:"
+
+#: xl/track.py:238 xl/track.py:290
+msgid "Location: "
+msgstr "Ubicació: "
+
+#: xl/track.py:285
+msgid "Description: "
+msgstr "Descripció: "
+
+#: xl/track.py:291
+msgid "Bitrate: "
+msgstr "Bitrate: "
+
+#: xl/track.py:310 xl/trackslist.py:708 exaile.glade.h:96
+msgid "Information"
+msgstr "Informació"
+
+#: xl/track.py:324 xl/track.py:326
+msgid "Statistics"
+msgstr "Estadístiques"
+
+#: xl/track.py:342
+msgid "Lyrics"
+msgstr "Lletres"
+
+#: xl/track.py:344
+msgid "Tablature"
+msgstr "Contingut"
+
+#: xl/track.py:463
+msgid "Some errors occurred"
+msgstr "Hi ha hagut alguns errors"
+
+#: xl/tracks.py:379
+msgid "Could not open audio disc"
+msgstr "No s'ha pogut obrir el disc d'àudio"
+
+#: xl/trackslist.py:32 xl/trackslist.py:36 xl/trackslist.py:47
+#: xl/trackslist.py:434 exaile.glade.h:152
+msgid "Title"
+msgstr "Títol"
+
+#: xl/trackslist.py:33 xl/trackslist.py:43 xl/trackslist.py:54
+#: exaile.glade.h:51
+msgid "Bitrate"
+msgstr "Bitrate"
+
+#: xl/trackslist.py:123
+msgid "Scanning and adding tracks to current playlist..."
+msgstr "Cercant i afegint pistes a la llista de reproducció actual..."
+
+#: xl/trackslist.py:653
+msgid "Toggle Queue"
+msgstr "Activa/desactiva cua"
+
+#: xl/trackslist.py:679
+msgid "New Station"
+msgstr "Nova estació"
+
+#: xl/trackslist.py:682
+msgid "Add to Saved Stations"
+msgstr "Agregar a estacions desades"
+
+#: xl/trackslist.py:687
+msgid "Edit Information"
+msgstr "Editar informació"
+
+#: xl/trackslist.py:707
+msgid "Edit Track(s)"
+msgstr "Editar pista/es"
+
+#: xl/trackslist.py:713
+msgid "Remove from Playlist"
+msgstr "Eliminar de la llista de reproducció"
+
+#: xl/trackslist.py:718
+msgid "Blacklist Track(s)"
+msgstr "Pista/es a la llista negra"
+
+#: xl/trackslist.py:720
+msgid "Delete Track(s)"
+msgstr "Esborrar pista/es"
+
+#: xl/trackslist.py:728 xl/xlmisc.py:272 exaile.glade.h:122
+msgid "Plugins"
+msgstr ""
+
+#: xl/trackslist.py:984
+msgid "Remove from Blacklist"
+msgstr "Eliminar de la llista negra"
+
+#: xl/xlmisc.py:253 xl/xlmisc.py:282
+msgid "Play"
+msgstr "Reproduir"
+
+#: xl/xlmisc.py:265 exaile.glade.h:108
+msgid "Next"
+msgstr "Següent"
+
+#: xl/xlmisc.py:266 exaile.glade.h:125
+msgid "Previous"
+msgstr "Anterior"
+
+#: xl/xlmisc.py:269 exaile.glade.h:124
+msgid "Preferences"
+msgstr "Preferències"
+
+#: xl/xlmisc.py:275
+msgid "Quit"
+msgstr "Sortir"
+
+#: xl/xlmisc.py:286
+msgid "Pause"
+msgstr "Pausar"
+
+#: xl/xlmisc.py:748
+msgid "Close this tab"
+msgstr "Tancar aquesta pestanya"
+
+#: xl/xlmisc.py:761
+msgid "Enter the new name for this playlist"
+msgstr "Escriu el nou nom per aquesta llista de reproducció"
+
+#: xl/xlmisc.py:761
+msgid "Rename playlist"
+msgstr "Reanomenar llista de reproducció"
+
+#: xl/xlmisc.py:788
+msgid "Close"
+msgstr "Tancar"
+
+#: xl/xlmisc.py:791
+msgid "Save Playlist"
+msgstr "Desar llista de reproducció"
+
+#: xl/xlmisc.py:1353
+msgid "Enter the search text"
+msgstr "Escriu el text a cercar"
+
+#: xl/xlmisc.py:1360
+msgid "Searching for "
+msgstr "Cercar per"
+
+#: xl/xlmisc.py:1432
+msgid "Sorry, no covers were found."
+msgstr "No s'ha trobat cap caràtula"
+
+#: exaile.glade.h:1
+msgid "               "
+msgstr "               "
+
+#: exaile.glade.h:2
+msgid "(c) 2006"
+msgstr "(c)·2006"
+
+#: exaile.glade.h:3
+msgid "(minutes, use 0 to disable)"
+msgstr ""
+
+#: exaile.glade.h:4
+msgid "+"
+msgstr ""
+
+#: exaile.glade.h:5
+msgid "-"
+msgstr ""
+
+#: exaile.glade.h:6
+msgid "/dev/cdrom"
+msgstr ""
+
+#: exaile.glade.h:7
+msgid "0"
+msgstr ""
+
+#: exaile.glade.h:8
+msgid "0 Covers to fetch"
+msgstr "0 caràtules a descarregar"
+
+#: exaile.glade.h:9
+msgid "0/0"
+msgstr "0/0"
+
+#: exaile.glade.h:10
+msgid "0:00"
+msgstr "0:00"
+
+#: exaile.glade.h:11
+msgid ""
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5\n"
+"6\n"
+"7\n"
+"8"
+msgstr ""
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5\n"
+"6\n"
+"7\n"
+"8"
+
+#: exaile.glade.h:19
+msgid "<b>Miscellaneous</b>"
+msgstr "<b>Varis</b>"
+
+#: exaile.glade.h:20
+msgid "<b>Model:</b>        "
+msgstr ""
+
+#: exaile.glade.h:21
+msgid "<b>Space:</b>"
+msgstr ""
+
+#: exaile.glade.h:22
+msgid ""
+"<b>{Title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+
+#: exaile.glade.h:25
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+
+#: exaile.glade.h:28
+msgid "Action Log"
+msgstr "Registre d'accions"
+
+#: exaile.glade.h:29
+msgid "Action _Log"
+msgstr "_Registre d'accions"
+
+#: exaile.glade.h:30
+msgid "Add Saved Station"
+msgstr "Agregar a estacions desades"
+
+#: exaile.glade.h:31
+msgid "Advanced"
+msgstr ""
+
+#: exaile.glade.h:33
+msgid "Album Art Collector"
+msgstr "Col·lecció de caràtules"
+
+#: exaile.glade.h:34
+msgid "Album _Information"
+msgstr "_Informació de l'àlbum"
+
+#: exaile.glade.h:35
+msgid "Album art filenames (separated by spaces):"
+msgstr "Noms dels arxius de caràtules (separats per espais)"
+
+#: exaile.glade.h:37
+#, fuzzy
+msgid "Amazon Locale:"
+msgstr "Amazon·Locale:    "
+
+#: exaile.glade.h:39
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre"
+msgstr ""
+"Artista\n"
+"Àlbum\n"
+"Gènere"
+
+#: exaile.glade.h:43
+msgid "Attempt to fetch cover art from Amazon automatically"
+msgstr "Intentar descarregar caràtules d'Amazon automàticament"
+
+#: exaile.glade.h:44
+#, fuzzy
+msgid ""
+"Automatic\n"
+"Use GConf Settings\n"
+"alsasink\n"
+"osssink\n"
+"esdsink"
+msgstr ""
+"Utilitzar els ajustos de Gconf\n"
+"alsasink\n"
+"osssink\n"
+"esdsink"
+
+#: exaile.glade.h:49
+msgid "Autosize"
+msgstr ""
+
+#: exaile.glade.h:50
+msgid "Background Color:"
+msgstr "Color de fons:"
+
+#: exaile.glade.h:52
+msgid "CD Device:"
+msgstr ""
+
+#: exaile.glade.h:54
+msgid "Cl_ear Playlist"
+msgstr "Netejar la L_lista de reproducció"
+
+#: exaile.glade.h:55
+msgid "Cl_ose Playlist"
+msgstr "_Tancar llista de reproducció"
+
+#: exaile.glade.h:56
+msgid "Clear Playlist"
+msgstr "Netejar llista de reproducció"
+
+#: exaile.glade.h:57
+msgid "Collection"
+msgstr "Colecció"
+
+#: exaile.glade.h:58
+msgid "Connect to iPod/Refresh"
+msgstr "Connectar amb l'iPod/refrescar"
+
+#: exaile.glade.h:59
+msgid ""
+"Copyright (C) 2006 Adam Olsen\n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 1, or (at your option)\n"
+"any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
+msgstr ""
+
+#: exaile.glade.h:74
+msgid "Cover Finder"
+msgstr "Cercar caràtula"
+
+#: exaile.glade.h:75
+msgid "Database Configuration"
+msgstr ""
+
+#: exaile.glade.h:76
+msgid "Database Host:"
+msgstr ""
+
+#: exaile.glade.h:77
+msgid "Database Name:"
+msgstr ""
+
+#: exaile.glade.h:78
+#, fuzzy
+msgid "Database Password:"
+msgstr "Mot de pas Last.fm"
+
+#: exaile.glade.h:79
+msgid "Database Type: "
+msgstr ""
+
+#: exaile.glade.h:80
+#, fuzzy
+msgid "Database Username:     "
+msgstr "Usuari Last.fm"
+
+#: exaile.glade.h:81
+msgid "Devices"
+msgstr ""
+
+#: exaile.glade.h:82
+msgid "Directories excluded by watch (separated by spaces):"
+msgstr "Directoris exclosos (separats per espais)"
+
+#: exaile.glade.h:83
+#, fuzzy
+msgid "Disc Number:"
+msgstr "Número de pista: "
+
+#: exaile.glade.h:84
+msgid "Display OSD when hovering over tray icon"
+msgstr ""
+
+#: exaile.glade.h:85
+msgid "Display Text:"
+msgstr ""
+
+#: exaile.glade.h:86
+#, fuzzy
+msgid "Dynamic Playlist"
+msgstr "Reanomenar llista de reproducció"
+
+#: exaile.glade.h:88
+msgid "Export Playlist"
+msgstr "Exportar la llista de reproducció"
+
+#: exaile.glade.h:89
+msgid "Fetches similar tracks from last.fm"
+msgstr ""
+
+#: exaile.glade.h:90
+msgid "Files"
+msgstr "Arxius"
+
+#: exaile.glade.h:91
+#, fuzzy
+msgid "General"
+msgstr "Gènere"
+
+#: exaile.glade.h:94
+msgid "Go To Playing Track"
+msgstr "Anar a la pista actual"
+
+#: exaile.glade.h:95
+msgid "Hint: see http://www.exaile.org/markup.html for examples"
+msgstr ""
+
+#: exaile.glade.h:97
+msgid "Input Required"
+msgstr ""
+
+#: exaile.glade.h:98
+msgid "Jump to current song on track change"
+msgstr "Saltar a la cançó actual"
+
+#: exaile.glade.h:99
+msgid "Last.fm"
+msgstr "Last.fm"
+
+#: exaile.glade.h:100
+msgid "Last.fm Password:"
+msgstr "Mot de pas Last.fm"
+
+#: exaile.glade.h:101
+#, fuzzy
+msgid "Last.fm Username:  "
+msgstr "Usuari Last.fm"
+
+#: exaile.glade.h:103
+#, fuzzy
+msgid "Library"
+msgstr "Administrar biblioteca"
+
+#: exaile.glade.h:104
+msgid "Library Manager"
+msgstr "Administrar biblioteca"
+
+#: exaile.glade.h:105
+msgid "Library _Manager"
+msgstr "Ad_ministrar biblioteca"
+
+#: exaile.glade.h:106
+msgid "Mount Point: "
+msgstr "Punt de muntatge: "
+
+#: exaile.glade.h:107
+msgid "New Search"
+msgstr "Nova cerca"
+
+#: exaile.glade.h:109
+msgid "Next Track"
+msgstr "Pista següent"
+
+#: exaile.glade.h:110
+msgid "Not Playing"
+msgstr "No reproduïnt"
+
+#: exaile.glade.h:112
+msgid "OK"
+msgstr "Ok"
+
+#: exaile.glade.h:113
+msgid "OSD"
+msgstr "OSD"
+
+#: exaile.glade.h:114
+msgid "Open _Disc"
+msgstr "Obrir _Disc"
+
+#: exaile.glade.h:115
+msgid "Open _URL"
+msgstr "Obrir _URL"
+
+#: exaile.glade.h:116
+msgid "Open last playlist on startup"
+msgstr "Obrir l'última llista en arrencar"
+
+#: exaile.glade.h:117
+msgid "Play/Pause"
+msgstr "Reproduïr/Pausa"
+
+#: exaile.glade.h:118
+#, fuzzy
+msgid "Playback Sink:   "
+msgstr "Rebost de reproducció"
+
+#: exaile.glade.h:120
+msgid "Playlist Tab Placement:"
+msgstr "Posició de la pestanya de reproducció:"
+
+#: exaile.glade.h:121
+msgid "Playlists"
+msgstr "Llista de reproducció"
+
+#: exaile.glade.h:123
+msgid "Popup"
+msgstr "Popup"
+
+#: exaile.glade.h:126
+msgid "Previous Track"
+msgstr "Pista anterior"
+
+#: exaile.glade.h:127
+msgid "Question:"
+msgstr "Pregunta:"
+
+#: exaile.glade.h:128
+msgid "Radio"
+msgstr "Ràdio"
+
+#: exaile.glade.h:130
+msgid "Rating: "
+msgstr "Valoració: "
+
+#: exaile.glade.h:131
+msgid "Refresh"
+msgstr "Actualitzar"
+
+#: exaile.glade.h:132
+msgid "Remove Saved Station"
+msgstr "Eliminar estació desada"
+
+#: exaile.glade.h:133
+msgid "Repeat"
+msgstr "Repetir"
+
+#: exaile.glade.h:134
+msgid "Resizable"
+msgstr ""
+
+#: exaile.glade.h:135
+msgid ""
+"SQLite\n"
+"MySQL\n"
+"PostgreSQL"
+msgstr ""
+
+#: exaile.glade.h:138
+msgid "Save"
+msgstr "Desar"
+
+#: exaile.glade.h:139
+msgid "Save queue status"
+msgstr "Desar estat de la cua"
+
+#: exaile.glade.h:140
+msgid "Scan for new music every: "
+msgstr ""
+
+#: exaile.glade.h:141
+#, fuzzy
+msgid "Search:"
+msgstr "Cerca"
+
+#: exaile.glade.h:142
+msgid "Show On Screen Display"
+msgstr "Mostrar visualització en pantalla"
+
+#: exaile.glade.h:143
+msgid "Show Tray Icon"
+msgstr "Mostrar icona a la safata de sistema"
+
+#: exaile.glade.h:144
+msgid "Show splash screen on startup"
+msgstr "Mostrar pantalla de presentació en iniciar"
+
+#: exaile.glade.h:145
+msgid "Shuffle"
+msgstr "Aleatori"
+
+#: exaile.glade.h:146
+msgid "Start"
+msgstr "Començar"
+
+#: exaile.glade.h:147
+msgid "Stop Playback"
+msgstr "Parar reproducció"
+
+#: exaile.glade.h:148
+msgid "Stopped"
+msgstr "Parat"
+
+#: exaile.glade.h:149
+msgid "Submit played tracks to last.fm on startup"
+msgstr "Enviar llistes reproduïdes a last.fm en iniciar"
+
+#: exaile.glade.h:150
+#, fuzzy
+msgid "Text Color"
+msgstr "Color del text:"
+
+#: exaile.glade.h:151
+#, fuzzy
+msgid "Text Font:"
+msgstr "Tipus de lletra gran:"
+
+#: exaile.glade.h:153
+msgid "Title:"
+msgstr "Títol:"
+
+#: exaile.glade.h:154
+msgid ""
+"Top\n"
+"Left\n"
+"Right\n"
+"Bottom"
+msgstr ""
+"Amunt\n"
+"Esquerra\n"
+"Dreta\n"
+"Avall"
+
+#: exaile.glade.h:158
+msgid "Track Editor"
+msgstr "Editor de pistes"
+
+#: exaile.glade.h:159
+msgid "Track Number"
+msgstr "Número de pista"
+
+#: exaile.glade.h:160
+msgid "Track:"
+msgstr "Pista:"
+
+#: exaile.glade.h:161
+msgid "Unknown"
+msgstr ""
+
+#: exaile.glade.h:162
+msgid "Up One Directory"
+msgstr "Pujar un directori"
+
+#: exaile.glade.h:163
+msgid "Vol:"
+msgstr ""
+
+#: exaile.glade.h:164
+msgid "Watch directories for new songs (requires gamin)"
+msgstr "Cercar noves cançons als directoris (requereix gamin)"
+
+#: exaile.glade.h:165
+#, fuzzy
+msgid "Wikipedia Locale"
+msgstr "Wikipedia Locale:"
+
+#: exaile.glade.h:166
+msgid "Window Height:"
+msgstr "Alçada de la finestra:"
+
+#: exaile.glade.h:167
+msgid "Window Width:"
+msgstr "Amplada de la finestra:"
+
+#: exaile.glade.h:170
+msgid "_Album Art Collector"
+msgstr "Col·lecció de c_aràtules"
+
+#: exaile.glade.h:171
+msgid "_Artist Information"
+msgstr "Informació de l'_Artista"
+
+#: exaile.glade.h:172
+msgid "_Blacklist Manager"
+msgstr "_Administrar llista negra"
+
+#: exaile.glade.h:173
+msgid "_Clear Queue"
+msgstr "Netejar _Cues"
+
+#: exaile.glade.h:174
+msgid "_Close"
+msgstr "_Tancar"
+
+#: exaile.glade.h:175
+msgid "_Columns"
+msgstr "_Columnes"
+
+#: exaile.glade.h:176
+msgid "_File"
+msgstr "_Arxiu"
+
+#: exaile.glade.h:177
+msgid "_Help"
+msgstr "_Ajuda"
+
+#: exaile.glade.h:178
+msgid "_Import Directory"
+msgstr "_Importar Directori"
+
+#: exaile.glade.h:179
+msgid "_Logs"
+msgstr "_Registres"
+
+#: exaile.glade.h:180
+msgid "_Lyrics"
+msgstr "_Lletres"
+
+#: exaile.glade.h:181
+msgid "_New Playlist"
+msgstr "_Nova Llista de reproducció"
+
+#: exaile.glade.h:182
+msgid "_Open Media"
+msgstr "_Obrir"
+
+#: exaile.glade.h:183
+msgid "_Queue Manager"
+msgstr "_Administrador de cues"
+
+#: exaile.glade.h:184
+msgid "_Rescan Collection"
+msgstr "_Re-escannejar col·lecció"
+
+#: exaile.glade.h:185
+msgid "_Tools"
+msgstr "_Eines"
+
+#: exaile.glade.h:186
+msgid "_View"
+msgstr "_Veure"
+
+#: exaile.glade.h:187
+msgid "iPod"
+msgstr "iPod"
+
+#: exaile.glade.h:188
+#, fuzzy
+msgid "iPod Information"
+msgstr "Informació"
+
+#: exaile.glade.h:189
+msgid "localhost"
+msgstr ""
+
+#: exaile.glade.h:190
+msgid "message"
+msgstr "missatge"
+
+#: exaile.glade.h:192
+msgid "translator-credits"
+msgstr "Traduït per Josep Jaume Reyhttp://jj.microcervols.net"
+
+#~ msgid "No streamripper log available"
+#~ msgstr "No hi ha cap registre de streamripper disponible."
+
+#~ msgid "Streamripper Log"
+#~ msgstr "Registre Streamripper"
+
+#~ msgid "Importing directory..."
+#~ msgstr "Important un directori"
+
+#~ msgid "There was an error executing streamripper."
+#~ msgstr "Hi ha hagut un error mentre s'executava l'streamripper."
+
+#~ msgid "Streamripper died unexpectedly."
+#~ msgstr "El procés streamripper ha mort de manera inesperada"
+
+#~ msgid "Sorry, the 'streamripper' executable could not be found in your path"
+#~ msgstr "Ho sentim, l'executable 'streamripper' no es pot trobar al teu path"
+
+#~ msgid "8000"
+#~ msgstr "8000"
+
+#~ msgid "Add Playlist"
+#~ msgstr "Agregar llista de reproducció"
+
+#~ msgid "Delete Selected Playlist"
+#~ msgstr "Esborrar la llista de reproducció seleccionada"
+
+#~ msgid "Exaile"
+#~ msgstr "Exaile"
+
+#~ msgid "Filter:"
+#~ msgstr "Filtre:"
+
+#~ msgid "Kill any current streamripper process before starting a new one"
+#~ msgstr "Elimina qualsevol procés streamripper abans d'obrir-ne un de nou"
+
+#~ msgid "Locale"
+#~ msgstr "Locale"
+
+#~ msgid "Miscellaneous"
+#~ msgstr "Varis"
+
+#~ msgid "Multi Text Entry Dialog"
+#~ msgstr "Diàleg d'entrada multi-camp"
+
+#~ msgid "Playback"
+#~ msgstr "Reproducció"
+
+#~ msgid "Relay Port:"
+#~ msgstr "Port de redirecció:"
+
+#~ msgid "Save Location:     "
+#~ msgstr "Desar Ubicació:     "
+
+#~ msgid "Select A Directory"
+#~ msgstr "Selecciona un directori"
+
+#~ msgid "Small Text Font:"
+#~ msgstr "Tipus de lletra petit:"
+
+#~ msgid "Streamripper"
+#~ msgstr "Streamripper"
+
+#~ msgid "Use streamripper to relay and save streams"
+#~ msgstr "Utilitzar streamripper per desar i reproduir streams"
+
+#~ msgid "_Stream Ripper Log"
+#~ msgstr "Registre de l'streamripper"
+
+#~ msgid "on some album"
+#~ msgstr "en algun àlbum"
+
+#~ msgid "us"
+#~ msgstr "ca"

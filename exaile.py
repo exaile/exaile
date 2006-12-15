@@ -1907,10 +1907,8 @@ class ExaileWindow(gobject.GObject):
         """
         types = media.SUPPORTED_MEDIA
         wildcard = ['*%s' % t for t in types]
+        wildcard.extend(['.pls', '.m3u'])
         wildcard.append('*')
-
-        if item == self.open_playlist_item:
-            wildcard = ['*.m3u', '*.pls', '*']
 
         filter = gtk.FileFilter()
         for pattern in wildcard:
@@ -1923,7 +1921,7 @@ class ExaileWindow(gobject.GObject):
         dialog.set_extra_widget(new_tab)
         dialog.set_current_folder(self.get_last_dir())
         dialog.set_filter(filter)
-        if item != self.open_playlist_item: dialog.set_select_multiple(True)
+        dialog.set_select_multiple(True)
 
         result = dialog.run()
         dialog.hide()

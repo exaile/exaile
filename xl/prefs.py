@@ -20,11 +20,6 @@ from gettext import gettext as _
 import pygtk, common
 pygtk.require('2.0')
 import gtk, gtk.glade, pango, subprocess
-try:
-    import gpod
-    IPOD_AVAILABLE = True
-except:
-    IPOD_AVAILABLE = False
 
 try:
     import gamin
@@ -276,8 +271,7 @@ class Preferences(object):
                 'OSD',
                 'Last.fm'),
             'Advanced':
-                ('iPod',
-                ),
+                '',
             })
     def __init__(self, parent):
         """
@@ -356,8 +350,6 @@ class Preferences(object):
             'osd_h': (PrefsItem, '95', self.osd_adjust_size),
             'lastfm_user': (PrefsItem, ''),
             'lastfm_pass': (PrefsItem, '', None, self.setup_lastfm),
-            'ipod_mount': (PrefsItem, '/media/ipod'),
-            'as_submit_ipod': (CheckPrefsItem, False), 
             'cd_device': (PrefsItem, '/dev/cdrom'),
             'audio_sink': (ComboPrefsItem, 'Use GConf Settings'),
             'osd_tray': (CheckPrefsItem, True),

@@ -326,11 +326,11 @@ class CollectionPanel(object):
         """
         menu = xlmisc.Menu()
         self.append = menu.append(_("Append to Current"),
-            self.append_items)
+            self.append_to_playlist)
 
         pm = xlmisc.Menu()
         self.new_playlist = pm.append(_("Add to Playlist"),
-            self.append_items)
+            self.add_items_to_playlist)
         pm.append_separator()
 
         rows = self.db.select("SELECT name FROM playlists ORDER BY"
@@ -340,12 +340,13 @@ class CollectionPanel(object):
             pm.append(row[0], self.add_to_playlist)
 
         menu.append_menu(_("Add to Playlist"), pm)
-        self.queue_item = menu.append(_("Queue Items"), self.append_items)
+        self.queue_item = menu.append(_("Queue Items"),
+            self.append_to_playlist)
         menu.append_separator()
         self.blacklist = menu.append(_("Blacklist Selected"),
-            self.append_items)
+            self.remove_items)
         self.remove = menu.append(_("Delete Selected"), 
-            self.append_items)
+            self.remove_items)
         self.menu = menu
 
     def add_to_playlist(self, widget, event):
@@ -353,23 +354,25 @@ class CollectionPanel(object):
             Adds items to the playlist
         """
         playlist = widget.get_child().get_label()
-        items = self.append_items(None, None, True)
+        items = self.get_selected_items()
         self.exaile.playlists_panel.add_items_to_playlist(playlist, items)
 
     def drag_get_data(self, treeview, context, selection, target_id, etime):
         """
             Called when a drag source wants data for this drag operation
         """
-        loc = self.append_items(None, None, True)
+        loc = self.get_selected_items()
 
         if isinstance(self, DevicePanel):
-            loc = ["device://%s" % urllib.quote(l.loc) for l in loc]
+            driver_name = self.get_driver_name()
+            loc = ["device_%s://%s" % (driver_name, 
+                urllib.quote(l.loc)) for l in loc]
         else:
             loc = [urllib.quote(str(l.loc)) for l in loc]
-
+            
         selection.set_uris(loc)
 
-    def append_recursive(self, iter, add, queue=False):
+    def append_recursive(self, iter, add):
         """
             Appends items recursively to the added songs list.  If this
             is a genre, artist, or album, it will search into each one and
@@ -378,7 +381,7 @@ class CollectionPanel(object):
         iter = self.model.iter_children(iter)        
         while True:
             if self.model.iter_has_child(iter):
-                self.append_recursive(iter, add, queue)
+                self.append_recursive(iter, add)
             else:
                 track = self.model.get_value(iter, 1)
                 add.append(track.loc)
@@ -386,21 +389,18 @@ class CollectionPanel(object):
             iter = self.model.iter_next(iter)
             if not iter: break
 
-    def append_items(self, item=None, event=None, return_only=False):
+    def get_selected_items(self):
         """
-            Adds items to the songs list based on what is selected in the tree
-            The songs are then added to a playlist, queued, removed, or 
-            blacklisted, depending on which menu item was clicked
+            Finds all the selected tracks
         """
-        queue = False
-        if item == self.queue_item: queue = True
+
         selection = self.tree.get_selection()
         (model, paths) = selection.get_selected_rows()
         found = [] 
         for path in paths:
             iter = self.model.get_iter(path)
             if self.model.iter_has_child(iter):
-                self.append_recursive(iter, found, queue)
+                self.append_recursive(iter, found)
             else:
                 track = self.model.get_value(iter, 1)
                 found.append(track.loc)
@@ -409,7 +409,15 @@ class CollectionPanel(object):
         for row in found:
             add.append(self.all.for_path(row))
 
-        if return_only: return add
+        return add
+
+    def remove_items(self, item, event):
+        """
+            Removes or blacklists tracks
+        """
+
+        add = self.get_selected_items() 
+        device_delete = []
 
         if item == self.remove:
             result = common.yes_no_dialog(self.exaile.window,
@@ -421,6 +429,9 @@ class CollectionPanel(object):
                 os.remove(track.loc)
 
             for track in add:
+                if isinstance(track, media.DeviceTrack):
+                    device_delete.append(track)
+                    continue
                 path_id = tracks.get_column_id(self.db, 'paths', 'name',
                     track.loc)
                 self.db.execute("DELETE FROM tracks WHERE path=?", (path_id,))
@@ -432,30 +443,36 @@ class CollectionPanel(object):
             if result != gtk.RESPONSE_YES: 
                 return
             for track in add:
+                if isinstance(track, media.DeviceTrack):
+                    continue
                 path_id = tracks.get_column_id(self.db, 'paths', 'name',
                     track.loc)
                 self.db.execute("UPDATE tracks SET blacklisted=1 WHERE ?", (path_id,))
             
-        if item == self.blacklist or item == self.remove:
-            for track in add:
-                try: self.exaile.all_songs.remove(track)
-                except: pass
-                try: self.exaile.songs.remove(track)
-                except: pass
-                try: self.exaile.playlist_songs.remove(track)
-                except: pass
+        for track in add:
+            try: self.exaile.all_songs.remove(track)
+            except: pass
+            try: self.exaile.songs.remove(track)
+            except: pass
+            try: self.exaile.playlist_songs.remove(track)
+            except: pass
 
-            if self.exaile.tracks: 
-                self.exaile.tracks.set_songs(self.exaile.songs)
-            self.track_cache = dict()
-            self.load_tree()
-            return
+        if device_delete:   
+            self.delete_tracks(device_delete)
 
-        if item == self.new_playlist:
-            self.exaile.playlists_panel.on_add_playlist(item, None, add)
-            return
+        if self.exaile.tracks: 
+            self.exaile.tracks.set_songs(self.exaile.songs)
+        self.track_cache = dict()
+        self.load_tree()
 
+    def add_items_to_playlist(self, *e):
 
+        add = self.get_selected_items()
+        self.exaile.playlists_panel.on_add_playlist(item, None, add)
+
+    def append_to_playlist(self, item, event):
+        add = self.get_selected_items()
+        queue = (item == self.queue_item)
         self.exaile.append_songs(add, queue, True)
 
     def button_release(self, widget, event):
@@ -491,7 +508,7 @@ class CollectionPanel(object):
                 iter = self.model.get_iter(path[0])
                 object = self.model.get_value(iter, 1)
                 if isinstance(object, AlbumWrapper):
-                    self.append_items()
+                    self.append_to_playlist()
                     return
 
             for path in paths:
@@ -500,7 +517,7 @@ class CollectionPanel(object):
                 if self.model.iter_has_child(iter):
                     self.tree.expand_row(path, False)
                 else:
-                    self.append_items() 
+                    self.append_to_playlist() 
             return False
 
         iter = self.model.get_iter(path[0])
@@ -523,6 +540,12 @@ class CollectionPanel(object):
 
     def drag_data_received(self, tv, context, x, y, selection, info, etime):
         pass
+
+    def get_initial_root(self, model):
+        """
+            gets the initial root node
+        """
+        return None
 
     def load_tree(self, event=None):
         """
@@ -563,7 +586,7 @@ class CollectionPanel(object):
         self.model_blank = gtk.TreeStore(gtk.gdk.Pixbuf, object)
 
         self.tree.set_model(self.model_blank)
-        self.root = None
+        self.root = self.get_initial_root(self.model)
     
         self.order = tuple()
         self.image_map = ({
@@ -667,6 +690,10 @@ class CollectionPanel(object):
         if self.connect_id: gobject.source_remove(self.connect_id)
         self.connect_id = None
         self.filter.set_sensitive(True)
+        if self.root:
+            path = self.model.get_path(self.root)
+            if path: gobject.timeout_add(500, self.tree.expand_row, path,
+                False)
 
     def search_tracks(self, keyword, all):
         """
@@ -743,14 +770,149 @@ class CollectionPanel(object):
             gobject.idle_add(self.tree.expand_to_path, path)
 
 class EmptyDriver(object):
+    def __init__(self):
+        self.all = tracks.TrackData()
+
     def search_tracks(self, *e):
-        return tracks.TrackData()
+        return self.all
 
     def disconnect(self):
         pass
 
     def connect(self, *e):
         pass
+
+class DeviceTransferQueue(gtk.VBox):
+    """ 
+        Shows tracks that are waiting to be transferred to the iPod
+    """
+    def __init__(self, panel):
+        """
+            Initializes the queue
+        """
+        gtk.VBox.__init__(self)
+        self.panel = panel
+        self.set_border_width(0)
+        self.set_spacing(3)
+        self.set_size_request(-1, 250)
+        self.songs = []
+
+        label = gtk.Label(_("Transfer Queue"))
+        label.set_alignment(0, .50)
+        self.pack_start(label, False, True)
+
+        scroll = gtk.ScrolledWindow()
+        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        view = gtk.TreeView()
+        scroll.add(view)
+        scroll.set_shadow_type(gtk.SHADOW_IN)
+        self.list = xlmisc.ListBox(view)
+        self.pack_start(scroll, True, True)
+
+        self.progress = gtk.ProgressBar()
+        self.pack_start(self.progress, False, False)
+
+        buttons = gtk.HBox()
+        buttons.set_spacing(3)
+        self.clear = gtk.Button()
+        image = gtk.Image()
+        image.set_from_stock('gtk-clear', gtk.ICON_SIZE_SMALL_TOOLBAR)
+        self.clear.set_image(image)
+        self.transfer = gtk.Button(_("Transfer"))
+        buttons.pack_end(self.transfer, False, False)
+        buttons.pack_end(self.clear, False, False)
+        self.clear.connect('clicked',
+            self.on_clear)
+        self.transfer.connect('clicked', self.start_transfer)
+
+        self.pack_start(buttons, False, False)
+        targets = [('text/uri-list', 0, 0)]
+        self.list.list.drag_dest_set(gtk.DEST_DEFAULT_ALL, targets,
+            gtk.gdk.ACTION_COPY)
+        self.list.list.connect('drag_data_received', self.drag_data_received)
+
+    def on_clear(self, widget):
+        """
+            Clears the queue
+        """
+        self.panel.queue = None
+        self.hide()
+        self.destroy()
+
+    def start_transfer(self, widget):
+        """
+            Runs the transfer
+        """
+        self.itdb = self.panel.itdb
+        count = 0
+        songs = [song for song in self.list.rows]
+        total = len(self.list.rows)
+        for song in songs:
+            track = song.ipod_track()
+            cover = self.panel.get_cover_location(song)
+            track.itdb = self.itdb
+            if cover:
+                gpod.itdb_track_set_thumbnails(track, cover)
+
+            loc = str(song.loc)
+            if song.type == 'podcast':
+                loc = str(song.download_path)
+
+            gpod.itdb_cp_track_to_ipod(track, loc, None)
+
+            gpod.itdb_track_add(self.itdb, track, -1)
+            mpl = gpod.itdb_playlist_mpl(self.itdb)
+            if song.type == 'podcast':
+                xlmisc.log("Using podcasts for %s" % song)
+                mpl = gpod.itdb_playlist_podcasts(self.itdb)
+
+            gpod.itdb_playlist_add_track(mpl, track, -1)
+            if song.ipod_playlist and not \
+                gpod.itdb_playlist_is_podcasts(song.ipod_playlist.playlist):
+                gpod.itdb_playlist_add_track(song.ipod_playlist.playlist,
+                    track, -1)
+                song.ipod_playlist = None
+
+            count += 1
+            self.update_progress(song, float(count) /
+                float(total))
+            xlmisc.finish()
+
+        self.panel.transferring = None
+        xlmisc.finish()
+
+        self.on_clear(None)
+        self.panel.exaile.status.set_first(_("Writing iPod"
+            " database..."))
+
+        xlmisc.finish()
+        gpod.itdb_write(self.itdb, None)
+        self.panel.exaile.status.set_first(None)
+        self.panel.load_tree()
+
+    def update_progress(self, song, percent):
+        """
+            Updates the progress of the transfer
+        """
+        self.list.remove(song)
+        self.progress.set_fraction(percent)
+
+    def drag_data_received(self, tv, context, x, y, selection, info, etime):
+        """ 
+            Called when a track is dropped in the transfer queue
+        """
+        # just pass it on to the iPodPanel
+
+        self.panel.drag_data_received(tv, context, x, y, selection, info,
+            etime)
+
+class DeviceDragItem(object):
+    def __init__(self, track, target):
+        self.track = track
+        self.target = target
+
+    def __str__(self):
+        return str(self.track)
 
 class DevicePanel(CollectionPanel):
     """
@@ -762,10 +924,11 @@ class DevicePanel(CollectionPanel):
         self.driver = None
         self.drivers = {}
         self.all = tracks.TrackData()
-        self.tree = xlmisc.DragTreeView(self, True)
+        self.tree = xlmisc.DragTreeView(self, True, True)
         self.tree.set_headers_visible(False)
 
         self.chooser = self.xml.get_widget('device_driver_chooser')
+        self.track_count = self.xml.get_widget('device_track_count')
         self.change_id = self.chooser.connect('changed', self.change_driver)
 
         self.store = gtk.ListStore(str, object)
@@ -781,6 +944,7 @@ class DevicePanel(CollectionPanel):
         scroll.add(self.tree)
         scroll.set_shadow_type(gtk.SHADOW_IN)
         container.pack_start(scroll, True, True)
+        container.reorder_child(scroll, 3)
         container.show_all()
 
         selection = self.tree.get_selection()
@@ -793,8 +957,75 @@ class DevicePanel(CollectionPanel):
         col.set_attributes(pb, pixbuf=0)
         self.tree.append_column(col)
         col.set_cell_data_func(cell, self.track_data_func)
-        self.update_drivers()
+        self.update_drivers(True)
+        self.transferring = False
+        self.connected = False
+        self.queue = None
         self.chooser.set_active(0)
+
+    def get_initial_root(self, model):
+        if self.driver is not None and hasattr(self.driver, 
+            'get_initial_root'):
+            return getattr(self.driver, 'get_initial_root')(model)
+        else:
+            return None
+
+    def drag_data_received(self, tv, context, x, y, selection, info, etime):
+        self.tree.unset_rows_drag_dest()
+        self.tree.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.tree.targets, 
+            gtk.gdk.ACTION_COPY)
+        if not self.connected:
+            common.error(self.exaile.window, _("Not connected to any media"
+                " device"))
+            return
+        path = self.tree.get_path_at_pos(x, y)
+
+        target = None
+        if path:
+            iter = self.model.get_iter(path[0])
+            target = self.model.get_value(iter, 1)
+
+        loc = selection.get_uris()
+        items = []
+        for url in loc:
+            url = urllib.unquote(url)
+            m = re.search(r'^device_(\w+)://', url)
+            if m:
+                song = self.get_song(url)
+            else:
+                song = self.exaile.all_songs.for_path(url)
+
+            if song:
+                items.append(DeviceDragItem(song, target))
+
+        if items:
+            self.add_to_transfer_queue(items)
+
+    def add_to_transfer_queue(self, items):
+        """
+            Adds to the device transfer queue
+        """
+        if self.transferring:
+            common.error(self.exaile.window, _("There is a transfer "
+                "currently in progress.  Please wait for it to "
+                "finish"))
+            return
+
+        if not self.queue:
+            self.queue_box = self.xml.get_widget('device_queue_box')
+            self.queue = DeviceTransferQueue(self)
+            self.queue_box.pack_start(self.queue, False, False)
+
+        queue = self.queue.songs
+        queue.extend(items)
+
+        self.queue.list.set_rows(queue)
+        if queue:
+            self.queue.show_all()
+        else:
+            self.queue.hide()
+            self.queue.destroy()
+            self.queue = None
 
     def change_driver(self, combo):
         """
@@ -807,13 +1038,17 @@ class DevicePanel(CollectionPanel):
         driver = self.store.get_value(iter, 1)
         if not isinstance(driver, EmptyDriver):
             driver.connect(self)
+            self.connected = True
         self.driver = driver
+        self.track_count.set_label("%d tracks" % len(driver.all))
         self.load_tree()
 
-    def update_drivers(self):
+    def update_drivers(self, initial=False):
         """
             Updates the driver list
         """
+        if not initial:
+            self.exaile.show_device_panel(len(self.drivers) > 0)
         count = 1
         select = 0
         self.store.clear()
@@ -852,11 +1087,15 @@ class DevicePanel(CollectionPanel):
 
     def search_tracks(self, keyword, all=None):
         if not self.driver: self.all = tracks.TrackData()
-        self.all = self.driver.search_tracks(keyword, all)
+        else: self.all = self.driver.search_tracks(keyword, all)
         return self.all
 
+    def get_driver_name(self):
+        if not self.driver: return None
+        return self.driver.name
+
     def get_song(self, loc):
-        return self.all.for_path(loc)
+        return self.all.for_path(loc.replace('device_%s://' % self.driver.name, ''))
 
 class SmartPlaylist(object):
     def __init__(self, name, id):
@@ -1270,7 +1509,8 @@ class PlaylistsPanel(object):
         songs = tracks.TrackData()
         for l in uris:
             l = urllib.unquote(l)
-            if l.find("device://") > -1:
+            m = re.search(r'^device_(\w+)://', l)
+            if m:
                 continue
             else:
                 song = self.exaile.all_songs.for_path(l)

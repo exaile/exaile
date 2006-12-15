@@ -144,12 +144,11 @@ class TracksListCtrl(gtk.VBox):
             else:
                 first = True
 
-
         for l in loc:
             l = l.replace("file://", "")
             l = urllib.unquote(l)
-
-            if l.find('device://') > -1:
+            m = re.search(r'^device_(\w+)://', l)
+            if m:
                 song = self.exaile.device_panel.get_song(l)
             else:
                 song = self.exaile.all_songs.for_path(l)
@@ -276,7 +275,8 @@ class TracksListCtrl(gtk.VBox):
             song = self.model.get_value(iter, 0) 
 
             if isinstance(song, media.DeviceTrack):
-                loc.append("device://%s" % urllib.quote(str(song.loc)))
+                device_name = self.exaile.device_panel.get_driver_name()
+                loc.append("device_%s://%s" % (device_name, urllib.quote(str(song.loc))))
             else:
                 loc.append(urllib.quote(str(song.loc)))
             delete.append(song)

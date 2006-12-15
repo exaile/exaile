@@ -814,6 +814,24 @@ class ExaileWindow(gobject.GObject):
         self.side_notebook = self.xml.get_widget('side_notebook')
         self.files_panel = panels.FilesPanel(self)
         self.device_panel = panels.DevicePanel(self)
+        self.device_panel_widget = self.side_notebook.get_nth_page(4)
+        self.device_panel_label = self.side_notebook.get_tab_label(
+            self.device_panel_widget)
+
+        self.side_notebook.remove_page(-1)
+        self.device_panel_showing = False
+
+    def show_device_panel(self, show):
+        """
+            Toggles whether or not the device panel is showing
+        """
+        if not self.device_panel_showing and show:
+            self.side_notebook.append_page(self.device_panel_widget,
+                self.device_panel_label)
+        elif self.device_panel_showing and not show:
+            self.side_notebook.remove_page(-1)
+
+        self.device_panel_showing = show
 
     def get_database(self):
         """

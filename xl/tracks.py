@@ -400,13 +400,13 @@ def read_audio_disc(exaile):
     return songs
 
 @common.synchronized
-def get_column_id(db, table, col, value):
+def get_column_id(db, table, col, value, prep=''):
     """
         Gets a column id for inserting the specific col into the specific
         table
     """
     if not value: value = ''
-    cols = globals()[table.upper()]
+    cols = globals()['%s%s' % (prep, table.upper())]
     if cols.has_key(value):
         return cols[value]
 
@@ -424,8 +424,8 @@ def get_column_id(db, table, col, value):
     return index
 
 @common.synchronized
-def get_album_id(db, artist_id, album):
-    cols = ALBUMS
+def get_album_id(db, artist_id, album, prep=''):
+    cols = globals()['%sALBUMS' % prep]
     if cols.has_key("%d - %s" % (artist_id, album)):
         return cols["%d - %s" % (artist_id, album)]
 

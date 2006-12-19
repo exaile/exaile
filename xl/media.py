@@ -27,6 +27,7 @@ import pygst
 pygst.require("0.10")
 import gst, gst.interfaces, gobject
 
+mutagen.id3.EncodedTextSpec.encodings.append(('cp1251','x00'))
 try:
     import mutagen.m4a
     M4A_AVAIL = True

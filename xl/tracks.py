@@ -390,6 +390,7 @@ def read_audio_disc(exaile):
 
         minus = info[i + 3] / 75
         song = media.CDTrack(str(i + 1), length=length)
+        song.length = length
         total += length
         song.track = i + 1
         songs.append(song)

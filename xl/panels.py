@@ -470,7 +470,7 @@ class CollectionPanel(object):
         add = self.get_selected_items()
         self.exaile.playlists_panel.on_add_playlist(item, None, add)
 
-    def append_to_playlist(self, item, event):
+    def append_to_playlist(self, item=None, event=None):
         add = self.get_selected_items()
         queue = (item == self.queue_item)
         self.exaile.append_songs(add, queue, True)

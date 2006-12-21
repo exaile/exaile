@@ -178,18 +178,16 @@ class DBusInterfaceObject(dbus.service.Object):
         """ 
             Increases the volume by vol
         """
-        vol = vol + self.exaile.volume.slider.get_value()
-        self.exaile.volume.slider.set_value(vol)
-        self.exaile.on_volume_set()
+        vol = vol + self.exaile.volume.get_value()
+        self.exaile.volume.set_value(vol)
 
     @dbus.service.method("org.exaile.DBusInterface")
     def decrease_volume(self,vol):
         """ 
             dereases the volume by vol
         """
-        vol = self.exaile.volume.slider.get_value() - vol
-        self.exaile.volume.slider.set_value(vol)
-        self.exaile.on_volume_set()
+        vol = self.exaile.volume.get_value() - vol
+        self.exaile.volume.set_value(vol)
 
     @dbus.service.method("org.exaile.DBusInterface")
     def toggle_visibility(self):

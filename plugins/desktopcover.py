@@ -123,6 +123,55 @@ class CoverDisplay(gtk.Window):
     
         self.init_gtk()
 
+def play_track(exaile, track):
+    """
+        Called when a track starts playing
+    """
+    if PLUGIN:
+        PLUGIN.play_track(track)
+
+def stop_track(exaile, track):
+    """
+        Called when a track stops playing
+    """
+    if PLUGIN:
+        PLUGIN.stop_track(track)
+
+def initialize():
+    """
+        Inizializes the plugin
+    """
+    global PLUGIN, SETTINGS, APP
+    exaile = APP
+    SETTINGS = exaile.settings
+    print "%s_geometry" % \
+        plugins.name(__file__)
+
+    geometry = exaile.settings.get("%s_geometry" % 
+        plugins.name(__file__), "150x150")
+    print "Cover geometry: %s" % geometry
+    PLUGIN = CoverDisplay(exaile, geometry)
+
+    CON.connect(APP, 'play-track', PLUGIN.play_track)
+    CON.connect(APP, 'stop-track', PLUGIN.stop_track)
+    CON.connect(APP.cover, 'image-changed', PLUGIN.play_track)
+
+    return True
+
+def destroy():
+    """
+        Destroys the plugin
+    """
+    global PLUGIN, PLAY_ID, STOP_ID, COVER_ID
+
+    CON.disconnect_all()
+
+    if PLUGIN:
+        PLUGIN.destroy()
+
+
+    PLUGIN = None
+
 def configure():
     """
         Called when a configure request is called
@@ -204,9 +253,9 @@ def configure():
             "%sx%s%s%s" % (new['w'], new['h'], new['x'], new['y'])
         geometry = settings["%s_geometry" % plugins.name(__file__)] = \
             "%sx%s%s%s" % (new['w'], new['h'], new['x'], new['y'])
-        if PLUGIN:
-            PLUGIN.destroy()
-            PLUGIN = CoverDisplay(exaile, geometry)
+            
+        destroy()
+        initialize()
         track = exaile.current_track
 
         if not track: return
@@ -214,52 +263,3 @@ def configure():
             if PLUGIN: PLUGIN.play_track(track)
         print "New settings: %s" % settings["%s_geometry" %
             plugins.name(__file__)]
-
-def play_track(exaile, track):
-    """
-        Called when a track starts playing
-    """
-    if PLUGIN:
-        PLUGIN.play_track(track)
-
-def stop_track(exaile, track):
-    """
-        Called when a track stops playing
-    """
-    if PLUGIN:
-        PLUGIN.stop_track(track)
-
-def initialize():
-    """
-        Inizializes the plugin
-    """
-    global PLUGIN, SETTINGS, APP
-    exaile = APP
-    SETTINGS = exaile.settings
-    print "%s_geometry" % \
-        plugins.name(__file__)
-
-    geometry = exaile.settings.get("%s_geometry" % 
-        plugins.name(__file__), "150x150")
-    print "Cover geometry: %s" % geometry
-    PLUGIN = CoverDisplay(exaile, geometry)
-
-    CON.connect(APP, 'play-track', PLUGIN.play_track)
-    CON.connect(APP, 'stop-track', PLUGIN.stop_track)
-    CON.connect(APP.cover, 'image-changed', PLUGIN.play_track)
-
-    return True
-
-def destroy():
-    """
-        Destroys the plugin
-    """
-    global PLUGIN, PLAY_ID, STOP_ID, COVER_ID
-
-    CON.disconnect_all()
-
-    if PLUGIN:
-        PLUGIN.destroy()
-
-
-    PLUGIN = None

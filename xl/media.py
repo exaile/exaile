@@ -1122,7 +1122,7 @@ class FLACTrack(Track):
         f.vc['title'] = self.title
         f.vc['tracktotal'] = self.disc_id
         f.vc['genre'] = self.genre
-        f.vc['track'] = str(self.track)
+        f.vc['tracknumber'] = str(self.track)
         f.vc['date'] = str(self.year)
         f.save()
 

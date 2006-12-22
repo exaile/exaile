@@ -606,12 +606,13 @@ class CollectionPanel(object):
                     artists.name, 
                     track, 
                     title 
-                FROM tracks, paths, artists 
+                FROM tracks, paths, artists, albums 
                 WHERE 
                     blacklisted=0 AND 
                     (
                         paths.id=tracks.path AND 
-                        artists.id=tracks.artist
+                        artists.id=tracks.artist AND 
+                        albums.id=tracks.album
                     ) 
                 ORDER BY 
                     LOWER(genre), 

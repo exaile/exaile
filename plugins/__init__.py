@@ -76,3 +76,25 @@ class PluginInitException(Exception):
     """
     def __init__(self, message):
         Exception.__init__(self, message)
+
+class DeviceDriver(object):
+    def get_initial_root(self):
+        return None
+
+    def connect(self):
+        return True
+
+    def search_tracks(self):
+        return []
+
+    def put_item(self, item):
+        pass
+
+    def disconnect(self):
+        pass
+
+    def get_item(self):
+        pass
+
+    def transfer_done(self):
+        pass

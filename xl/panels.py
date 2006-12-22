@@ -840,56 +840,27 @@ class DeviceTransferQueue(gtk.VBox):
         self.hide()
         self.destroy()
 
+    @common.threaded
     def start_transfer(self, widget):
         """
             Runs the transfer
         """
-        self.itdb = self.panel.itdb
-        count = 0
-        songs = [song for song in self.list.rows]
+        gobject.idle_add(self.panel.exaile.status.set_first, "Starting "
+            "transfer...", 3000)
+        items = self.list.rows
         total = len(self.list.rows)
-        for song in songs:
-            track = song.ipod_track()
-            cover = self.panel.get_cover_location(song)
-            track.itdb = self.itdb
-            if cover:
-                gpod.itdb_track_set_thumbnails(track, cover)
+        self.panel.transferring = True
+        driver = self.panel.driver
+        for i, var in enumerate(items):
+            driver.put_item(var)
+            per = float(i) / float(total)
+            per = int(per * 100)
+            gobject.idle_add(self.update_progress, var, per)
 
-            loc = str(song.loc)
-            if song.type == 'podcast':
-                loc = str(song.download_path)
-
-            gpod.itdb_cp_track_to_ipod(track, loc, None)
-
-            gpod.itdb_track_add(self.itdb, track, -1)
-            mpl = gpod.itdb_playlist_mpl(self.itdb)
-            if song.type == 'podcast':
-                xlmisc.log("Using podcasts for %s" % song)
-                mpl = gpod.itdb_playlist_podcasts(self.itdb)
-
-            gpod.itdb_playlist_add_track(mpl, track, -1)
-            if song.ipod_playlist and not \
-                gpod.itdb_playlist_is_podcasts(song.ipod_playlist.playlist):
-                gpod.itdb_playlist_add_track(song.ipod_playlist.playlist,
-                    track, -1)
-                song.ipod_playlist = None
-
-            count += 1
-            self.update_progress(song, float(count) /
-                float(total))
-            xlmisc.finish()
-
-        self.panel.transferring = None
-        xlmisc.finish()
-
-        self.on_clear(None)
-        self.panel.exaile.status.set_first(_("Writing iPod"
-            " database..."))
-
-        xlmisc.finish()
-        gpod.itdb_write(self.itdb, None)
-        self.panel.exaile.status.set_first(None)
-        self.panel.load_tree()
+        gobject.idle_add(self.progress.set_value, 100)
+        gobject.idle_add(self.panel.exaile.status.set_first, "Finishing"
+            " transfer...", 3000)
+        gobject.idle_add(self.panel.transfer_done)
 
     def update_progress(self, song, percent):
         """
@@ -1024,6 +995,16 @@ class DevicePanel(CollectionPanel):
         if queue:
             self.queue.show_all()
         else:
+            self.queue.hide()
+            self.queue.destroy()
+            self.queue = None
+
+    def transfer_done(self):
+        """
+            called when the transfer is complete
+        """
+        self.driver.transfer_done()
+        if self.queue:
             self.queue.hide()
             self.queue.destroy()
             self.queue = None

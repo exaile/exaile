@@ -854,10 +854,10 @@ class DeviceTransferQueue(gtk.VBox):
         for i, var in enumerate(items):
             driver.put_item(var)
             per = float(i) / float(total)
-            per = int(per * 100)
             gobject.idle_add(self.update_progress, var, per)
+            print "set percent to %s" % per
 
-        gobject.idle_add(self.progress.set_value, 100)
+        gobject.idle_add(self.progress.set_fraction, 100)
         gobject.idle_add(self.panel.exaile.status.set_first, "Finishing"
             " transfer...", 3000)
         gobject.idle_add(self.panel.transfer_done)
@@ -901,7 +901,8 @@ class DevicePanel(CollectionPanel):
 
         self.chooser = self.xml.get_widget('device_driver_chooser')
         self.track_count = self.xml.get_widget('device_track_count')
-        self.change_id = self.chooser.connect('changed', self.change_driver)
+        self.connect_button = self.xml.get_widget('device_connect_button')
+        self.connect_button.connect('clicked', self.change_driver)
 
         self.store = gtk.ListStore(str, object)
         cell = gtk.CellRendererText()
@@ -1015,18 +1016,30 @@ class DevicePanel(CollectionPanel):
             self.queue = None
         self.transferring = None
 
-    def change_driver(self, combo):
+    def change_driver(self, button):
         """
             Changes the current driver
         """
-        if self.driver:
+        if self.connected:
             self.driver.disconnect()
+            self.driver = EmptyDriver()
+            self.connected = False
+            img = gtk.Image()
+            img.set_from_stock('gtk-connect', gtk.ICON_SIZE_BUTTON)
+            self.track_count.set_label("%d tracks" % len(driver.all))
+            self.load_tree()
+            self.connect_button.set_image(img)
+            return
 
         iter = self.chooser.get_active_iter()
         driver = self.store.get_value(iter, 1)
         if not isinstance(driver, EmptyDriver):
             driver.connect(self)
             self.connected = True
+            img = gtk.Image()
+            img.set_from_stock('gtk-disconnect', 
+                gtk.ICON_SIZE_BUTTON)
+            self.connect_button.set_image(img)
         self.driver = driver
         self.track_count.set_label("%d tracks" % len(driver.all))
         self.load_tree()

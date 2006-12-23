@@ -6,7 +6,7 @@ PLUGIN_NAME = "iPod Device Driver"
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
 PLUGIN_VERSION = '0.2'
 PLUGIN_DESCRIPTION = r"""iPod Driver for the Devices Panel"""
-PLUGIN_ENABLED = True
+PLUGIN_ENABLED = False
 PLUGIN_ICON = None
 
 PLUGIN = None
@@ -130,6 +130,7 @@ class iPodDriver(plugins.DeviceDriver):
             Transfers a track to the ipod
         """
         (song, target) = (item.track, item.target)
+        print "Transferring %s %s" % (song, type(song))
         if not isinstance(song, iPodTrack): return
         track = song.ipod_track()
         cover = self.get_cover_location(song)

@@ -497,6 +497,7 @@ def read_track(db, current, path, skipmod=False, adddb=True,
     else:
         mod = 0
     if not skipmod and (not row or row[9] != mod):
+        print 'test'
         try:
             if media.FORMAT.has_key(ext.lower()):
                 ttype = media.FORMAT[ext.lower()]

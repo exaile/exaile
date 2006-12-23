@@ -847,17 +847,21 @@ class DeviceTransferQueue(gtk.VBox):
         """
         gobject.idle_add(self.panel.exaile.status.set_first, "Starting "
             "transfer...", 3000)
-        items = self.list.rows
+        items = self.list.rows[:]
         total = len(self.list.rows)
         self.panel.transferring = True
         driver = self.panel.driver
-        for i, var in enumerate(items):
-            driver.put_item(var)
-            per = float(i) / float(total)
-            gobject.idle_add(self.update_progress, var, per)
+        count = 0
+        while True:
+            if not items: break
+            item = items.pop()
+            driver.put_item(item)
+            per = float(count) / float(total)
+            count += 1
+            gobject.idle_add(self.update_progress, item, per)
             print "set percent to %s" % per
 
-        gobject.idle_add(self.progress.set_fraction, 100)
+        gobject.idle_add(self.progress.set_fraction, 1)
         gobject.idle_add(self.panel.exaile.status.set_first, "Finishing"
             " transfer...", 3000)
         gobject.idle_add(self.panel.transfer_done)
@@ -1025,8 +1029,8 @@ class DevicePanel(CollectionPanel):
             self.driver = EmptyDriver()
             self.connected = False
             img = gtk.Image()
-            img.set_from_stock('gtk-connect', gtk.ICON_SIZE_BUTTON)
-            self.track_count.set_label("%d tracks" % len(driver.all))
+            img.set_from_stock('gtk-disconnect', gtk.ICON_SIZE_BUTTON)
+            self.track_count.set_label("0 tracks")
             self.load_tree()
             self.connect_button.set_image(img)
             return
@@ -1037,7 +1041,7 @@ class DevicePanel(CollectionPanel):
             driver.connect(self)
             self.connected = True
             img = gtk.Image()
-            img.set_from_stock('gtk-disconnect', 
+            img.set_from_stock('gtk-connect', 
                 gtk.ICON_SIZE_BUTTON)
             self.connect_button.set_image(img)
         self.driver = driver

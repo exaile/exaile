@@ -1,4 +1,4 @@
-import gtk, plugins, gobject
+import gtk, plugins, gobject, re, time
 from xl import tracks, db, media, common, xlmisc
 import xl, os
 
@@ -131,8 +131,8 @@ class iPodDriver(plugins.DeviceDriver):
         """
         (song, target) = (item.track, item.target)
         print "Transferring %s %s" % (song, type(song))
-        if not isinstance(song, iPodTrack): return
-        track = song.ipod_track()
+        if not isinstance(song, media.MP3Track): return
+        track = self.get_ipod_track(song)
         cover = self.get_cover_location(song)
         track.itdb = self.itdb
         if cover:
@@ -145,8 +145,43 @@ class iPodDriver(plugins.DeviceDriver):
         mpl = gpod.itdb_playlist_mpl(self.itdb)
         gpod.itdb_playlist_add_track(mpl, track, -1)
 
-        if target:
+        if isinstance(target, iPodPlaylist):
             gpod.itdb_playlist_add_track(target.playlist, track, -1)
+
+    def find_dup(self, s):
+        """
+            Finds if the song is already on the ipod
+        """
+        items = ('artist', 'album', 'title')
+
+    def get_ipod_track(self, song):
+        """
+            Returns an ipod compatable track
+        """
+        track = gpod.itdb_track_new()
+        track.title = str(song.title)
+        track.album = str(song.album)
+        track.artist = str(song.artist)
+        track.tracklen = song.duration * 1000
+
+        try: track.bitrate = int(song._bitrate)
+        except: pass
+        try: track.track_nr = int(song.track)
+        except: pass
+        try: track.year = int(song.year)
+        except: pass
+
+        if song.type != 'podcast':
+            info = os.stat(song.loc)
+        else:
+            info = os.stat(re.sub(r'^device_\w+://', '', song.download_path))
+        track.size = info[6]
+
+        track.time_added = int(time.time()) + 2082844800
+        track.time_modified = track.time_added
+        track.genre = str(song.genre)
+
+        return track 
 
     def transfer_done(self):
         gpod.itdb_write(self.itdb, None)
@@ -156,12 +191,12 @@ class iPodDriver(plugins.DeviceDriver):
             Gets the location of the album art
         """
         db = APP.db
-        cur = db.realcursor()
-        cur.execute("SELECT image FROM tracks,albums,paths WHERE paths.name=?"
+        
+        rows = db.select("SELECT image FROM tracks,albums,paths WHERE paths.name=?"
             " AND paths.id=tracks.path AND albums.id=tracks.album",
             (track.loc,))
-        row = cur.fetchone()
-        cur.close()
+        if not rows: return None
+        row = rows[0]
         if not row or row[0] == '': return None
         return "%s%scovers%s%s" % (APP.get_settings_dir(), os.sep,
             os.sep, str(row[0]))

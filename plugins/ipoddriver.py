@@ -131,6 +131,7 @@ class iPodDriver(plugins.DeviceDriver):
         """
         (song, target) = (item.track, item.target)
         print "Transferring %s %s" % (song, type(song))
+        if self.find_dup(song): return
         if not isinstance(song, media.MP3Track): return
         track = self.get_ipod_track(song)
         cover = self.get_cover_location(song)
@@ -148,11 +149,25 @@ class iPodDriver(plugins.DeviceDriver):
         if isinstance(target, iPodPlaylist):
             gpod.itdb_playlist_add_track(target.playlist, track, -1)
 
-    def find_dup(self, s):
+    def find_dup(self, song):
         """
             Finds if the song is already on the ipod
         """
-        items = ('artist', 'album', 'title')
+        for s in self.all:
+            if s.title != song.title:
+                continue
+            elif s.artist != song.artist:
+                continue
+            elif s.album != song.album:
+                continue
+            elif s.duration != song.duration:
+                continue
+            elif s.title != song.title:
+                continue
+            else:
+                return True
+
+        return False
 
     def get_ipod_track(self, song):
         """

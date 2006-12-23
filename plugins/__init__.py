@@ -87,14 +87,8 @@ class DeviceDriver(object):
     def search_tracks(self):
         return []
 
-    def put_item(self, item):
-        pass
-
     def disconnect(self):
         pass
 
     def get_item(self):
-        pass
-
-    def transfer_done(self):
         pass

@@ -980,7 +980,7 @@ class DevicePanel(CollectionPanel):
         if not hasattr(self.driver, 'put_item'):
             common.error(self.exaile.window, _("The current device "
                 " does not support transferring music."))
-                return
+            return
         if self.transferring:
             common.error(self.exaile.window, _("There is a transfer "
                 "currently in progress.  Please wait for it to "

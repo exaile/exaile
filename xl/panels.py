@@ -2739,11 +2739,17 @@ class FilesPanel(object):
         """
             Loads a directory into the files view
         """
+        try:
+            paths = os.listdir(dir)
+        except OSError:
+            dir = os.getenv('HOME')
+            paths = os.listdir(dir)
+
         self.exaile.settings['files_panel_dir'] = dir
         self.current = dir
         directories = []
         files = []
-        for path in os.listdir(dir):
+        for path in paths:
             if path.startswith('.'): continue
             full = "%s%s%s" % (dir, os.sep, path)
             if os.path.isdir(full):

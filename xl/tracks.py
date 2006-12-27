@@ -287,9 +287,13 @@ def load_tracks(db, current=None):
             globals()[item][row[1]] = row[0]
 
     cur.execute("SELECT artist, name, id FROM albums")
-    rows = cur.fetchall()
-    for row in rows:
-        ALBUMS["%d - %s" % (row[0], row[1])] = row[2]
+    try:
+        while True:
+            row = cur.fetchone()
+            if not row: break
+            ALBUMS["%d - %s" % (row[0], row[1])] = row[2]
+    except:
+        xlmisc.log_exception()
 
     cur.close()
     db._close_thread()

@@ -42,6 +42,8 @@ class Config(dict):
         except:
             xlmisc.log("Error reading settings file, using defaults.")
 
+        self.dirty = False
+
     def get(self, key, default=None):
         """
             Gets a value from the settings.  If default is passed, and the value
@@ -109,12 +111,14 @@ class Config(dict):
         """
             Saves the settings
         """
-        handle = open(self.loc, "w+")
-        for key, value in self.iteritems():
-            handle.write("%s = %s\n" % (key, 
-                str(value).replace("\n", r"\n")))
+        if self.dirty:
+            handle = open(self.loc, "w+")
+            for key, value in self.iteritems():
+                handle.write("%s = %s\n" % (key, 
+                    str(value).replace("\n", r"\n")))
 
-        handle.close()
+            handle.close()
+            self.dirty = False
     
 
     def __setitem__(self, key, value): 
@@ -125,4 +129,4 @@ class Config(dict):
             self.set_boolean(key, value)
         else:
             dict.__setitem__(self, key, value)
-        self.save()
+        self.dirty = True

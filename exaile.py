@@ -1058,9 +1058,10 @@ class ExaileWindow(gobject.GObject):
         if GAMIN_AVAIL and self.mon:
             self.mon.handle_events()
 
-        # run the gamin changes queue every 4 laps
+        # run the gamin changes queue and flush configuration every 4 laps
         if self.timer_count % 4 == 0:
             self.run_dir_queue()
+            self.settings.save()
 
         self.timer_count += 1
         self.rewind_track += 1

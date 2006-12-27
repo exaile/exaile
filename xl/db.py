@@ -195,10 +195,19 @@ class DBManager(object):
         db = self._get_from_pool()
         cur = db.cursor()
         cur.execute(query, args)
-        all = cur.fetchall()
+        rows = []
+
+        while True:
+            try:
+                row = cur.fechone()
+                if not row: break
+                rows.append(row)
+            except:
+                xlmisc.log_exception()
+
         cur.close()
 
-        return all
+        return rows
 
     def realcursor(self):
         """

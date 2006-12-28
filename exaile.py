@@ -829,7 +829,8 @@ class ExaileWindow(gobject.GObject):
             self.side_notebook.append_page(self.device_panel_widget,
                 self.device_panel_label)
         elif self.device_panel_showing and not show:
-            self.side_notebook.remove_page(-1)
+            self.side_notebook.remove_page(
+                self.side_notebook.page_num(self.device_panel_widget))
 
         self.device_panel_showing = show
 
@@ -1088,11 +1089,11 @@ class ExaileWindow(gobject.GObject):
         else:
             self.progress_label.set_label("%d:%02d" % (seconds / 60, seconds % 60))
 
-        if not track.submitting and (seconds > 240 or value > 50) \
-            and track.get_scrobbler_session() != None:
+        if not track.submitting and (seconds > 240 or value > 50): 
             self.update_rating(track, plays="plays + 1",
                 rating="rating + 1")
-            if track.submit_to_scrobbler():
+            if track.submit_to_scrobbler() and \
+                track.get_scrobbler_session() != None:
                 track.submitting = True
                 self.status.set_first(_("Submitting to Last.fm..."), 2000)
 

@@ -2591,14 +2591,9 @@ class FilesPanel(object):
         """
             Called when a drag source wants data for this drag operation
         """
-        selection = self.tree.get_selection()
-        (model, paths) = selection.get_selected_rows()
-        uris = []
-        for path in paths:
-            iter = self.model.get_iter(path)
-            value = self.model.get_value(iter, 1)
-            value = "%s%s%s" % (self.current, os.sep, value)
-            uris.append(urllib.quote(value))
+
+        songs = self.get_selected_songs()
+        uris = [song.loc for song in songs]
 
         sel.set_uris(uris)
 
@@ -2613,10 +2608,17 @@ class FilesPanel(object):
         if selection.count_selected_rows() <= 1: return False
 
     def append(self, widget, event):
+        self.exaile.status.set_first(_("Scanning and adding files..."))
+        songs = self.get_selected_songs()
+        if songs:
+            self.exaile.append_songs(songs, title=_("Playlist"))
+        self.counter = 0
+        self.exaile.status.set_first(None)
+
+    def get_selected_songs(self):
         """
             Appends recursively the selected directory/files
         """
-        self.exaile.status.set_first(_("Scanning and adding files..."))
         selection = self.tree.get_selection()
         (model, paths) = selection.get_selected_rows()
         songs = tracks.TrackData()
@@ -2629,14 +2631,19 @@ class FilesPanel(object):
             if os.path.isdir(value):
                 self.append_recursive(songs, value)
             elif ext in media.SUPPORTED_MEDIA:
-                tr = self.get_track(os.path.join(root, f))
+                tr = self.get_track(value)
                 if tr:
                     songs.append(tr)
 
         if songs:
-            self.exaile.append_songs(songs, title=_("Playlist"))
-        self.counter = 0
-        self.exaile.status.set_first(None)
+            # sort the songs
+            ar = [(song.artist, song.album, song.track, song) for song in
+                songs]
+            ar.sort()
+            songs = [item[3] for item in ar]
+            return songs
+        else:
+            return None
 
     def get_track(self, path):
         """
@@ -2644,6 +2651,7 @@ class FilesPanel(object):
         """
         tr = self.exaile.all_songs.for_path(path)
         if not tr:
+            print path
             tr = tracks.read_track(self.exaile.db, self.exaile.all_songs,
                 path, adddb=False)
         return tr
@@ -2652,11 +2660,13 @@ class FilesPanel(object):
         """
             Appends recursively
         """
-        for root, dirs, files in os.walk(dir):
-            for f in files:
-                (stuff, ext) = os.path.splitext(f)
+        for file in os.listdir(dir):
+            if os.path.isdir(os.path.join(dir, file)):
+                self.append_recursive(songs, os.path.join(dir, file))
+            else:
+                (stuff, ext) = os.path.splitext(file)
                 if ext in media.SUPPORTED_MEDIA:
-                    tr = self.get_track(os.path.join(root, f))
+                    tr = self.get_track(os.path.join(dir, file))
                     if tr:
                         songs.append(tr)
                 if self.counter >= 15:

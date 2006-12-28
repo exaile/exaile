@@ -199,7 +199,7 @@ class DBManager(object):
 
         while True:
             try:
-                row = cur.fechone()
+                row = cur.fetchone()
                 if not row: break
                 rows.append(row)
             except:

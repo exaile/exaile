@@ -368,6 +368,7 @@ class TrackEditor(object):
         self.xml = gtk.glade.XML('exaile.glade', 'TrackEditorDialog', 'exaile')
         self.dialog = self.xml.get_widget('TrackEditorDialog')
         self.dialog.set_transient_for(self.exaile.window)
+        self.action_area = self.xml.get_widget('track_editor_action_area')
 
         self.tracks = tracks
         self.songs = tracks.get_selected_tracks()

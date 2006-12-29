@@ -376,7 +376,7 @@ class GtkTrayIcon(BaseTrayIcon):
         self.icon.set_tooltip(tip)
 
     def destroy(self):
-        self.icon.destroy()
+        self.icon.set_visible(False)
 
 if USE_TRAY == 'egg':
     TrayIcon = EggTrayIcon

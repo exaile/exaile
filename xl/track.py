@@ -335,13 +335,13 @@ class TrackInformation(gtk.Notebook):
                 album = album.replace(" ", "_")
                 self.append_page(WikipediaTab(self.exaile, album),
                     gtk.Label(_("Album")))
+                self.append_page(LyricsTab(self.exaile, self, track),
+                    gtk.Label(_("Lyrics")))
+                self.append_page(TablatureTab(self, track),
+                    gtk.Label(_("Tablature")))
             else:
                 xlmisc.log("gnome-extras not available.  Not showing artist or"
                     " album information")
-            self.append_page(LyricsTab(self.exaile, self, track),
-                gtk.Label(_("Lyrics")))
-            self.append_page(TablatureTab(self, track),
-                gtk.Label(_("Tablature")))
         self.show_all()
 
     def close_page(self):

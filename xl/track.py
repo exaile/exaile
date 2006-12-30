@@ -340,8 +340,8 @@ class TrackInformation(gtk.Notebook):
                 self.append_page(TablatureTab(self, track),
                     gtk.Label(_("Tablature")))
             else:
-                xlmisc.log("gnome-extras not available.  Not showing artist or"
-                    " album information")
+                xlmisc.log("gnome-extras not available.  Showing basic"
+                    " track information only")
         self.show_all()
 
     def close_page(self):

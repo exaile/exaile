@@ -16,7 +16,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-__version__ = '0.2.7b'
+__version__ = '0.2.8b'
 import traceback, sys, gobject
 gobject.threads_init()
 
@@ -35,6 +35,9 @@ for val in sys.argv:
 
 if '-h' in sys.argv: sys.argv.remove('-h')
 if '--help' in sys.argv: sys.argv.remove('--help')
+if '--version' in sys.argv:
+    print "Exaile version:", __version__
+    sys.exit(0)
 
 import pygtk
 pygtk.require('2.0')
@@ -225,6 +228,11 @@ class ExaileWindow(gobject.GObject):
         if interval:
             self.start_scan_interval(interval)
 
+    def get_version(self):
+        """
+            Returns the version of Exaile
+        """
+        return __version__
 
     def start_scan_interval(self, value):
         """

@@ -200,6 +200,10 @@ class DBusInterfaceObject(dbus.service.Object):
         else:
            self.exaile.window.hide()
 
+    @dbus.service.method("org.exaile.DBusInterface")
+    def get_version(self):
+        return self.exaile.get_version()
+
 
 def test_dbus(bus, interface):
     obj = bus.get_object('org.freedesktop.DBus', '/org/freedesktop/DBus') 
@@ -236,7 +240,7 @@ def test(p):
                 elif options.get_album:
                     print iface.get_album()
                 elif options.show_version:
-                    print exaile.__version__
+                    print iface.get_version()
                 elif options.get_length:
                     print iface.get_length()
                 elif options.current_position:

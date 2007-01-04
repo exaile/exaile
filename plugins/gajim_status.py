@@ -35,7 +35,7 @@ CON = plugins.SignalContainer()
 
 
 def generate_message(track, paused=False):
-    message = "Music: %s - %s" % (track.artist, track.title)
+    message = '♪ "%s" by %s ♪' % (track.title, track.artist)
     if paused:
         message += " [paused]"
     return message

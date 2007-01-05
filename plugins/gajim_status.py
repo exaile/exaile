@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# encoding=utf-8
 
 # gajim_status - changes Gajim status message according to what you are listening now.
 # Copyright (C) 2006 Andrey Fedoseev <andrey.fedoseev@gmail.com>

@@ -206,9 +206,10 @@ class TrackStatsTab(gtk.Table):
         self.set_row_spacings(3)
 
         self.db = exaile.db
-        self.bottom = 0
+        self.n_rows = 0
 
         self.setup_information(track)
+        self.resize(self.n_rows, 2)
 
         self.show_all()
 
@@ -247,7 +248,7 @@ class TrackStatsTab(gtk.Table):
         attr.change(pango.AttrWeight(pango.WEIGHT_BOLD, 0, 800))
         label.set_attributes(attr)
 
-        self.attach(label, 0, 1, self.bottom, self.bottom +1,
+        self.attach(label, 0, 1, self.n_rows, self.n_rows +1,
             gtk.EXPAND | gtk.FILL, gtk.FILL)
 
         if isinstance(string, unicode) or isinstance(string, str) or \
@@ -255,13 +256,14 @@ class TrackStatsTab(gtk.Table):
             label = gtk.Label(unicode(string))
             label.set_alignment(0, 0)
             label.set_line_wrap(True)
-            self.attach(label, 1, 2, self.bottom, self.bottom + 1,
+            label.set_selectable(True)
+            self.attach(label, 1, 2, self.n_rows, self.n_rows + 1,
                 gtk.EXPAND | gtk.FILL, gtk.FILL)
         else:
-            self.attach(string, 1, 2, self.bottom, self.bottom + 1,
+            self.attach(string, 1, 2, self.n_rows, self.n_rows + 1,
                 gtk.EXPAND | gtk.FILL, gtk.FILL)
 
-        self.bottom += 1;
+        self.n_rows += 1;
 
     def close_page(self):
         """

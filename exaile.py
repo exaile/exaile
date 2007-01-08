@@ -78,7 +78,9 @@ class ExaileWindow(gobject.GObject):
         'stop-track': (gobject.SIGNAL_RUN_LAST, None, (media.Track,)),
         'volume-changed': (gobject.SIGNAL_RUN_LAST, None, (int,)),
         'seek': (gobject.SIGNAL_RUN_LAST, None, (int,)),
-        'pause-toggled': (gobject.SIGNAL_RUN_LAST, None, (media.Track,))
+        'pause-toggled': (gobject.SIGNAL_RUN_LAST, None, (media.Track,)),
+        'quit': (gobject.SIGNAL_RUN_LAST, None, ()),
+        'last-playlist-loaded': (gobject.SIGNAL_RUN_LAST, None, ())
     }
 
 
@@ -730,6 +732,10 @@ class ExaileWindow(gobject.GObject):
         
         if not self.playlists_nb.get_n_pages():
             self.new_page(_("Playlist"))
+
+        # PLUGIN: send plugins event when the last playlist is loaded
+        self.emit('last-playlist-loaded')
+
 
     def append_songs(self, songs, queue=False, play=True, title="Playlist"): 
         """
@@ -2106,6 +2112,8 @@ class ExaileWindow(gobject.GObject):
         """
             Saves the current playlist and exits
         """
+        # PLUGIN: send plugins event before quitting
+        self.emit('quit')
         if self.gamin_watched and self.mon:
             for item in self.gamin_watched:
                 try:

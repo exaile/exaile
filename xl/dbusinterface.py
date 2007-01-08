@@ -87,7 +87,6 @@ class DBusInterfaceObject(dbus.service.Object):
         """
         self.exaile.play()
 
-
     @dbus.service.method("org.exaile.DBusInterface")
     def query(self):
         """
@@ -241,6 +240,7 @@ def test(p):
                     print iface.get_album()
                 elif options.show_version:
                     print iface.get_version()
+                    sys.exit(0)
                 elif options.get_length:
                     print iface.get_length()
                 elif options.current_position:

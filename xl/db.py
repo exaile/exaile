@@ -16,6 +16,7 @@
 
 import sys, threading, re, os, fileinput, traceback, xlmisc
 import tempfile
+import shutil
 try:
     from sqlite3 import dbapi2 as sqlite
     SQLITE_AVAIL = True
@@ -356,7 +357,7 @@ def get_album_id(cur, artist_id, album):
     
 def convert_to027(loc):
     (h, name) = tempfile.mkstemp()
-    os.rename(loc, name)
+    shutil.move(loc, name)
 
     print name, loc
     old = DBManager(name)

@@ -393,6 +393,21 @@ def convert_to027(loc):
         new.execute('UPDATE albums SET image=? WHERE artist=? AND id=?',
             (row[0], artist_id, album_id))
 
+    # playlists
+    oldcur.execute('SELECT playlist_name FROM playlists')
+    playlists = oldcur.fetchall()
+    oldcur.execute('SELECT playlist, path FROM playlist_items')
+    playlist_items = oldcur.fetchall()
+ 
+    for playlist in playlists:
+        playlist_id = get_column_id(new, 'playlists', 'name', playlist[0])
+        for item in playlist_items:
+            if item[0] == playlist[0]:
+                path_id = get_column_id(new, 'paths', 'name', item[1])
+                new.execute(
+                    "INSERT INTO playlist_items(playlist, path) VALUES(?, ?)",
+                    (playlist_id, path_id))
+
     new.close()
     db.db.commit()
     return db

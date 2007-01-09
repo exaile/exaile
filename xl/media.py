@@ -183,9 +183,9 @@ class VideoArea(gtk.DrawingArea):
 VIDEO_WIDGET = None
 
 def restart_gstreamer():
-    player.set_state(gst.STATE_NULL)
     track = exaile_instance.current_track
     if track: track.stop()
+    player.set_state(gst.STATE_NULL)
     setup_gstreamer()
 
     set_audio_sink(exaile_instance.settings.get('audio_sink', 'Use '

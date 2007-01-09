@@ -368,6 +368,9 @@ class ExaileWindow(gobject.GObject):
         self.stop_button = self.xml.get_widget('stop_button')
         self.stop_button.connect('clicked', self.stop)
 
+        self.xml.get_widget('show_visualizations_item').connect('activate', 
+            media.show_visualizations)
+
         self.quit_item = self.xml.get_widget('quit_item')
         self.quit_item.connect('activate', self.on_quit)
 

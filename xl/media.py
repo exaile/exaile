@@ -25,7 +25,7 @@ from traceback import print_exc
 import urllib, xlmisc
 import pygst
 pygst.require("0.10")
-import gst, gst.interfaces, gobject
+import gst, gst.interfaces, gobject, gtk
 
 try:
     import mutagen.m4a
@@ -47,6 +47,7 @@ exaile_instance = None
 player = gst.element_factory_make("playbin")
 bus = player.get_bus()
 bus.add_signal_watch()
+bus.enable_sync_message_emission()
 tag_bin = gst.element_factory_make("playbin")
 tag_bus = tag_bin.get_bus()
 tag_bus.add_signal_watch()
@@ -118,6 +119,78 @@ def get_volume():
         Returns the current volume level
     """
     return player.get_property("volume")
+
+# VideoWidget and VideoArea code taken from Listen media player
+# http://listen-gnome.free.fr
+class VideoWidget(gtk.Window):
+    def __init__(self, parent):
+        gtk.Window.__init__(self)
+#        self.set_transient_for(parent)
+        self.imagesink = None
+        self.area = VideoArea()
+        self.add(self.area)
+        self.resize(700, 500)
+        self.loaded = False
+        self.connect('delete_event', self.on_delete)
+        self.set_title(_("Exaile Media Player"))
+
+    def on_delete(self, *e):
+        """
+            Called when the window is closed
+        """
+        global VIDEO_WIDGET
+        player.set_property('video-sink', None)
+        player.set_property('vis-plugin', None)
+        self.hide()
+        VIDEO_WIDGET = None
+        return True
+
+    def set_sink(self, sink):
+        self.imagesink = sink
+        self.set_window_id()
+        self.area.set_sink(sink)
+
+        """
+        workaround to launch the visualisation on startup
+        And prevent the "Xerror GC bad" problem when visualisation start and widget not completey realize
+        """
+        if not self.loaded:
+            self.child.do_expose_event(None)
+            self.loaded = True
+        self.show_all()
+
+    def set_window_id(self):
+        self.imagesink.set_xwindow_id(self.child.window.xid)
+
+class VideoArea(gtk.DrawingArea):
+    def __init__(self,imagesink=None):
+        gtk.DrawingArea.__init__(self)
+        self.unset_flags(gtk.DOUBLE_BUFFERED)
+        self.imagesink = imagesink
+
+    def set_sink(self,imagesink):
+        self.imagesink = imagesink
+
+    def do_expose_event(self, event):
+        if self.imagesink:
+            self.imagesink.expose()
+            return False
+        else:
+            return True
+
+VIDEO_WIDGET = None
+def show_visualizations(*e):
+    """
+        Shows the visualizations window
+    """
+    global VIDEO_WIDGET
+    print type(exaile_instance.window)
+    VIDEO_WIDGET = VideoWidget(exaile_instance.window)
+    VIDEO_WIDGET.show_all()
+    video_sink = gst.element_factory_make('xvimagesink')
+    vis = gst.element_factory_make('goom')
+    player.set_property('video-sink', video_sink)
+    player.set_property('vis-plugin', vis)
 
 class MetaIOException(Exception):
     """
@@ -420,7 +493,14 @@ class Track(gobject.GObject):
         """
         if self.next_func:
             gobject.idle_add(self.next_func)
-    
+
+    def on_sync_message(self, bus, message):
+        """
+            Syncs up the visualization window
+        """
+        if message.structure.get_name() == 'prepare-xwindow-id' and \
+            VIDEO_WIDGET:
+            VIDEO_WIDGET.set_sink(message.src)
 
     def play(self,  next_func=None): 
         """
@@ -430,6 +510,8 @@ class Track(gobject.GObject):
 
         if not self.is_paused():
             self.connections.append(bus.connect('message', self.on_message))
+            self.connections.append(bus.connect('sync-message::element',
+                self.on_sync_message))
             if self.type != 'stream': prefix = "file://"
             else: prefix = ""
 

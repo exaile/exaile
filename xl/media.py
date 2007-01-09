@@ -143,7 +143,7 @@ class VideoWidget(gtk.Window):
         """
         global VIDEO_WIDGET
         self.hide()
-#        VIDEO_WIDGET = None
+        VIDEO_WIDGET = None
         return True
 
     def set_sink(self, sink):

@@ -63,7 +63,6 @@ except ImportError:
     pass
 
 SCROBBLER_SESSION = None
-CREATE_NEW_PLAYBIN = False
 
 ## this sets up the supported types
 
@@ -142,10 +141,9 @@ class VideoWidget(gtk.Window):
         """
             Called when the window is closed
         """
-        global VIDEO_WIDGET, CREATE_NEW_PLAYBIN
+        global VIDEO_WIDGET
         self.hide()
 #        VIDEO_WIDGET = None
-        CREATE_NEW_PLAYBIN = True
         return True
 
     def set_sink(self, sink):
@@ -188,32 +186,39 @@ def show_visualizations(*e):
         Shows the visualizations window
     """
     global VIDEO_WIDGET
-    if not VIDEO_WIDGET: 
-        VIDEO_WIDGET = VideoWidget(exaile_instance.window)
-        video_sink = gst.element_factory_make('xvimagesink')
-        vis = gst.element_factory_make('goom')
-        player.set_property('video-sink', video_sink)
-        player.set_property('vis-plugin', vis)
-    VIDEO_WIDGET.show_all()
+    if VIDEO_WIDGET:
+        VIDEO_WIDGET.hide()
     track = exaile_instance.current_track
+    play_track = False
+    position = 0
     if track is not None and track.is_playing():
         try:
             position = player.query_position(gst.FORMAT_TIME)[0] 
         except gst.QueryError:
             position = 0
         track.stop()
+        play_track = True
 
-#        xlmisc.log("Player position is %d" % position)
-#        event = gst.event_new_seek(
-#            1.0, gst.FORMAT_TIME, gst.SEEK_FLAG_FLUSH | gst.SEEK_FLAG_ACCURATE,
-#            gst.SEEK_TYPE_SET, position, gst.SEEK_TYPE_NONE, 0)
-        track.play(track.next_func)
-#        if not isinstance(track, StreamTrack) and position:
-#            
-#            xlmisc.log("Seeking to new position")
-#            track.pause()
-#            gobject.idle_add(player.send_event, event)
-#            gobject.idle_add(track.play, track.next_func)
+    player.set_state(gst.STATE_NULL)
+    setup_gstreamer()
+    set_audio_sink(exaile_instance.settings.get('audio_sink', 'Use '
+        'GConf Settings'))
+
+    VIDEO_WIDGET = VideoWidget(exaile_instance.window)
+    video_sink = gst.element_factory_make('xvimagesink')
+    vis = gst.element_factory_make('goom')
+    player.set_property('video-sink', video_sink)
+    player.set_property('vis-plugin', vis)
+    VIDEO_WIDGET.show_all()
+
+
+    xlmisc.log("Player position is %d" % position)
+    event = gst.event_new_seek(
+        1.0, gst.FORMAT_TIME, gst.SEEK_FLAG_FLUSH | gst.SEEK_FLAG_ACCURATE,
+        gst.SEEK_TYPE_SET, position, gst.SEEK_TYPE_NONE, 0)
+    if play_track: track.play(track.next_func)
+    if not isinstance(track, StreamTrack) and position:
+        track.seek(position / gst.SECOND)
 
 class MetaIOException(Exception):
     """
@@ -523,23 +528,17 @@ class Track(gobject.GObject):
         """
         if message.structure.get_name() == 'prepare-xwindow-id' and \
             VIDEO_WIDGET:
+            xlmisc.log("Prepare window was called")
             VIDEO_WIDGET.set_sink(message.src)
 
     def play(self,  next_func=None): 
         """
             Starts playback of the track
         """
-        global CREATE_NEW_PLAYBIN
-
         self.last_audio_sink = audio_sink
-        if CREATE_NEW_PLAYBIN:
-            player.set_state(gst.STATE_NULL)
-            setup_gstreamer()
-            set_audio_sink(exaile_instance.settings.get('audio_sink', 'Use '
-                'GConf Settings'))
-            CREATE_NEW_PLAYBIN = False
 
         if not self.is_paused():
+            xlmisc.log("Connecting with bus %s" % bus)
             self.connections.append(bus.connect('message', self.on_message))
             self.connections.append(bus.connect('sync-message::element',
                 self.on_sync_message))

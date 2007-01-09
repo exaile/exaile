@@ -144,6 +144,7 @@ class VideoWidget(gtk.Window):
         global VIDEO_WIDGET
         self.hide()
         VIDEO_WIDGET = None
+        restart_gstreamer()
         return True
 
     def set_sink(self, sink):
@@ -181,6 +182,16 @@ class VideoArea(gtk.DrawingArea):
 
 VIDEO_WIDGET = None
 
+def restart_gstreamer():
+    player.set_state(gst.STATE_NULL)
+    track = exaile_instance.current_track
+    if track: track.stop()
+    setup_gstreamer()
+
+    set_audio_sink(exaile_instance.settings.get('audio_sink', 'Use '
+        'GConf Settings'))
+    if track: track.play(track.next_func)
+
 def show_visualizations(*e):
     """
         Shows the visualizations window
@@ -199,10 +210,7 @@ def show_visualizations(*e):
         track.stop()
         play_track = True
 
-    player.set_state(gst.STATE_NULL)
-    setup_gstreamer()
-    set_audio_sink(exaile_instance.settings.get('audio_sink', 'Use '
-        'GConf Settings'))
+    restart_gstreamer()
 
     VIDEO_WIDGET = VideoWidget(exaile_instance.window)
     video_sink = gst.element_factory_make('xvimagesink')

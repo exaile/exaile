@@ -1186,8 +1186,9 @@ class ExaileWindow(gobject.GObject):
 
         update_string = ", ".join(update_string)
 
-        self.db.execute("UPDATE tracks SET %s WHERE path=%s" % (update_string,
-            self.db.p), (track.loc,))
+        path_id = tracks.get_column_id('paths', 'name', track.loc)
+        self.db.execute("UPDATE tracks SET %s WHERE path=?" % update_string, 
+            (path_id,))
 
     def got_covers(self, covers): 
         """

@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import os, threading, httplib, xlmisc, md5, re, common
+import os, threading, httplib, xlmisc, md5, re, common, xl.tracks
 import media, gc
 from urllib import urlencode
 from gettext import gettext as _
@@ -217,8 +217,9 @@ class TrackStatsTab(gtk.Table):
         """
             Adds the specific information fields for this track
         """
-        row = self.db.read_one("tracks", "plays, rating", "path=%s" % self.db.p, 
-            (track.loc,))
+        path_id = xl.tracks.get_column_id(self.db, 'paths', 'name', track.loc)
+        row = self.db.read_one("tracks", "plays, rating", "path=?", 
+            (path_id,))
 
         playcount = 0
         rating = 0

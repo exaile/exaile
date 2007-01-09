@@ -971,7 +971,7 @@ class MP3Track(Track):
             Reads a specific id3 tag from the file, and formats it
         """
         if not id3.has_key(t): return ""
-        text = str(id3[t])
+        text = unicode(id3[t])
 
         # get rid of any newlines
         text = text.replace("\n", " ").replace("\r", " ")

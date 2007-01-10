@@ -32,6 +32,8 @@ import pygtk
 pygtk.require('2.0')
 import gtk, gobject, pango
 
+from gtk.gdk import SCROLL_LEFT, SCROLL_RIGHT, SCROLL_UP, SCROLL_DOWN
+
 try:
     import gtkhtml2
     GNOME_EXTRAS_AVAIL = True
@@ -326,18 +328,23 @@ class EggTrayIcon(BaseTrayIcon):
         """
             Called when the user scrolls their mouse wheel over the tray icon
         """
-        v = self.exaile.volume.get_value()
-        if ev.direction == gtk.gdk.SCROLL_RIGHT or ev.direction == \
-            gtk.gdk.SCROLL_UP:
-            v += 5
+        if ev.direction in [SCROLL_LEFT, SCROLL_RIGHT]:
+            ev.state = gtk.gdk.SHIFT_MASK
+        if ev.state & gtk.gdk.SHIFT_MASK:
+            if ev.direction in [SCROLL_UP, SCROLL_LEFT]: self.exaile.on_previous()
+            elif ev.direction in [SCROLL_DOWN, SCROLL_RIGHT]: self.exaile.on_next()
         else:
-            v -= 5
+            v = self.exaile.volume.get_value()
+            if ev.direction in [SCROLL_RIGHT, SCROLL_UP]:
+                v += 5
+            else:
+                v -= 5
 
-        if v < 0: v = 0
-        elif v > 120: v = 120
+            if v < 0: v = 0
+            elif v > 120: v = 120
 
-        self.exaile.volume.set_value(v)
-        self.exaile.on_volume_set(self.exaile.volume, None, v)
+            self.exaile.volume.set_value(v)
+            self.exaile.on_volume_set(self.exaile.volume, None, v)
 
     def button_pressed(self, item, event, data=None):
         """
@@ -346,6 +353,8 @@ class EggTrayIcon(BaseTrayIcon):
         if event.button == 3:
             self.update_menu()
             self.menu.popup(None, None, None, event.button, event.time)
+        elif event.button == 2:
+            self.exaile.toggle_pause()
         elif event.button == 1: 
             self.toggle_exaile_visibility()
 

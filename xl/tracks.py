@@ -520,9 +520,9 @@ def read_track(db, current, path, skipmod=False, adddb=True,
                 if not row:
                     tr.time_added = time.strftime("%Y-%m-%d %H:%M:%Y", 
                         time.localtime())
-                path_id = get_column_id(db, 'paths', 'name', tr.loc)
-                artist_id = get_column_id(db, 'artists', 'name', tr.artist)
-                album_id = get_album_id(db, artist_id, tr.album)
+                path_id = get_column_id(db, 'paths', 'name', unicode(tr.loc))
+                artist_id = get_column_id(db, 'artists', 'name', unicode(tr.artist))
+                album_id = get_album_id(db, artist_id, unicode(tr.album))
 
                 db.update("tracks",
                     {

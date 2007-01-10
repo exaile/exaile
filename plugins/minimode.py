@@ -22,7 +22,8 @@ PLUGIN_NAME = "Mini Mode"
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
 PLUGIN_VERSION = '0.1'
 PLUGIN_DESCRIPTION = r"""Super groovy mini mode window!\n\nMini Mode is activated
-by pressing CTRL+ALT+M"""
+by pressing CTRL+ALT+M\n\nYou can move the window in most cases by
+ALT+drag"""
 PLUGIN_ENABLED = False
 PLUGIN_ICON = None
 

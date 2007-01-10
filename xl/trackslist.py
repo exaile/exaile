@@ -502,10 +502,10 @@ class TracksListCtrl(gtk.VBox):
         """
         attr, reverse = self.get_sort_by()
         
-        s = [(getattr(track, attr), getattr(track, 'track'), 
+        s = [(getattr(track, attr), getattr(track,'artist'), getattr(track,'album'), getattr(track, 'track'), 
             track) for track in self.songs]
         s.sort(reverse=reverse)
-        self.songs = [track[2] for track in s]
+        self.songs = [track[4] for track in s]
         self.set_songs(self.songs)
 
     def get_sort_by(self):

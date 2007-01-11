@@ -90,10 +90,10 @@ class CoverFetcherThread(threading.Thread):
             Actually connects and fetches the covers
         """
         global SERVER
-        if self.locale != 'us' and self.locale != 'en':
-            SERVER = "webservices.amazon.%s" % self.locale
-        elif self.locale == 'uk' or self.locale == 'jp':
+        if self.locale in ('jp', 'uk'):
             SERVER = "webservices.amazon.co.%s" % self.locale
+        elif self.locale not in ('en', 'us'):
+            SERVER = "webservices.amazon.%s" % self.locale
 
         xlmisc.log("cover thread started")
         conn = httplib.HTTPConnection(SERVER)

@@ -232,20 +232,28 @@ def test(p):
                 elif options.play: iface.play()
                 elif options.guiquery: iface.popup()
                 elif options.stream: iface.play_file(options.stream)
-                elif options.get_title:
+
+                do_exit = False
+                if options.get_title:
                     print iface.get_title()
-                elif options.get_artist:
+                    do_exit = True
+                if options.get_artist:
                     print iface.get_artist()
-                elif options.get_album:
+                    do_exit = True
+                if options.get_album:
                     print iface.get_album()
-                elif options.show_version:
+                    do_exit = True
+                if options.show_version:
                     print iface.get_version()
+                    do_exit = True
                     sys.exit(0)
-                elif options.get_length:
+                if options.get_length:
                     print iface.get_length()
-                elif options.current_position:
+                    do_exit = True
+                if options.current_position:
                     print iface.current_position()
-                elif options.inc_vol:
+                    do_exit = True
+                if options.inc_vol:
                     iface.increase_volume(options.inc_vol)
                 elif options.dec_vol:
                     iface.decrease_volume(options.dec_vol)
@@ -256,7 +264,7 @@ def test(p):
                     #else: print track.full_status()
                 elif len(sys.argv) > 1 and not sys.argv[1].startswith("--"):
                     iface.play_file(sys.argv[1])
-                else:
+                elif not do_exit:
                     iface.toggle_visibility()
                     print "You have entered an invalid option"
                 return True

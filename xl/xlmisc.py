@@ -201,33 +201,6 @@ def get_icon(id, size=gtk.ICON_SIZE_BUTTON):
     return gtk.gdk.pixbuf_new_from_file('images%sdefault_theme%s%s.png' 
         % (os.sep, os.sep, id))
 
-class ThreadRunner(threading.Thread):
-    """
-        Runs operations in a thread
-    """
-    def __init__(self, run_func, end_func=None, *funcparams):
-        """
-            Expects a start function and an end function
-        """
-        threading.Thread.__init__(self)
-        self.params = funcparams
-        self.run_func = run_func
-        self.end_func = end_func
-        self.stopped = False
-        self.lock = None
-
-    def run(self):
-        """
-            Runs the thread
-        """
-        if self.lock: self.lock.acquire()
-        if self.stopped: return
-        self.run_func(self)
-        if self.end_func: self.end_func(self)
-        if self.lock: 
-            self.lock.release()
-            print 'released lock'
-
 class BaseTrayIcon(gobject.GObject):
     """
         System tray icon
@@ -1018,11 +991,7 @@ class BrowserWindow(gtk.VBox):
         self.current = 0
 
         if url:
-            self.t = ThreadRunner(self.load_url)
-            self.t.history = False
-            self.t.url = url
-            self.t.action_count = self.action_count
-            self.t.start()
+            self.load_url(url, self.action_count, False)
             if not self.nostyles:
                 self.entry.set_sensitive(False)
 
@@ -1071,16 +1040,16 @@ class BrowserWindow(gtk.VBox):
         if len(self.history):
             self.next.set_sensitive(True)
 
-    def load_url(self, thread):
+    @common.threaded
+    def load_url(self, url, action_count, history=False):
         """
             Loads a URL, either from the cache, or from the website specified
         """
 
-        if thread.history:
+        if history:
             self.history = self.history[:self.current + 1]
-            self.history.append(thread.url)
+            self.history.append(url)
             self.current = len(self.history) - 1
-        url = thread.url
         info = urlparse.urlparse(url)
         self.protocol = info[0]
         self.server = info[1]
@@ -1097,11 +1066,11 @@ class BrowserWindow(gtk.VBox):
         data = f.read()
         f.close()
 
-        if self.action_count != thread.action_count: return
+        if self.action_count != action_count: return
         self.page_loaded(url, data, True)
 
         if not self.nostyles:
-            if self.history and thread.history:
+            if self.history and history:
                 self.back.set_sensitive(True)
                 self.next.set_sensitive(False)
 
@@ -1197,13 +1166,8 @@ class BrowserWindow(gtk.VBox):
             ' information...</b></body></html>')
         self.doc.close_stream()
         self.view.set_document(self.doc)
-        self.t.stopped = True
-        self.t = ThreadRunner(self.load_url)
-        self.t.url = link
         self.action_count += 1
-        self.t.action_count = self.action_count
-        self.t.history = history
-        self.t.start()
+        self.load_url(link, self.action_count, history)
         if not self.nostyles:
             self.entry.set_sensitive(False)
 

@@ -721,20 +721,11 @@ class StreamTrack(Track):
         self.type = 'stream'
         self.stream_loc = ''
     
+    @common.threaded
     def play(self, next_func=None):
         """
             Starts playback in a thread
         """
-        thread = xlmisc.ThreadRunner(self._play)
-        thread.next_func = next_func
-        thread.start()
-
-    def _play(self, thread):
-        """
-            Starts playback of the track
-        """
-        next_func = thread.next_func
-
         self.last_audio_sink = audio_sink
 
         if not self.is_paused():
@@ -848,21 +839,11 @@ class RadioTrack(StreamTrack):
         """
         return StreamTrack.get_duration(self)
 
+    @common.threaded
     def play(self, next_func=None):
         """
             Starts playback in a thread
         """
-        thread = xlmisc.ThreadRunner(self._play)
-        thread.next_func = next_func
-        thread.start()
-
-    def _play(self, thread):
-        """
-            Plays the track.  If the "url" is a .m3u or .pls, it reads the
-            file until it finds the first valid url, and uses that as
-            the location of the track
-        """
-        next_func = thread.next_func
         if self.loc.endswith(".pls") or self.loc.endswith(".m3u"):
             t = self.title
             self.title = "Opening URL..."

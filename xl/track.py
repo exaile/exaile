@@ -162,11 +162,7 @@ class LyricsTab(gtk.VBox):
 
         search = "http://lyrc.com.ar/en/tema1en.php?%s" % urlencode(params)
         print search
-        self.lyrics.t = xlmisc.ThreadRunner(self.lyrics.load_url)
-        self.lyrics.t.history = False
-        self.lyrics.t.action_count = self.text.action_count
-        self.lyrics.t.url = search
-        self.lyrics.t.start()
+        self.lyrics.load_url(search, self.text.action_count, False)
 
     def close_page(self):
         """

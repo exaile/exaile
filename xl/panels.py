@@ -2156,21 +2156,11 @@ class RadioPanel(object):
             self.refresh_podcast(name, item)
         dialog.destroy()
 
+    @common.threaded
     def refresh_podcast(self, path, item):
         """
             Refreshes a podcast
         """
-        thread = xlmisc.ThreadRunner(self.fetch_podcast_xml)
-        thread.path = path
-        thread.item = item
-        thread.start()
-
-    def fetch_podcast_xml(self, thread):
-        """
-            Fetches the podcast xml
-        """
-        path = thread.path
-        item = thread.item
         try:
             h = urllib.urlopen(path)
             xml = h.read()

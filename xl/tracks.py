@@ -350,11 +350,12 @@ def count_files(directories):
 
     return paths
 
-def get_cddb_info(thread):
+@common.threaded
+def get_cddb_info(songs, disc_id, exaile):
     """
         Fetches cddb info about an audio cd
     """
-    (status, info) = CDDB.query(thread.disc_id)
+    (status, info) = CDDB.query(disc_id)
     if status in (210, 211):
         info = info[0]
         status = 200
@@ -362,17 +363,17 @@ def get_cddb_info(thread):
 
     (status, info) = CDDB.read(info['category'], info['disc_id'])
     title = info['DTITLE'].split(" / ")
-    for i in range(thread.disc_id[1]):
-        thread.songs[i].title = info['TTITLE' + `i`].decode('iso-8859-15',
+    for i in range(disc_id[1]):
+        songs[i].title = info['TTITLE' + `i`].decode('iso-8859-15',
             'replace')
-        thread.songs[i].album = title[1].decode('iso-8859-15', 'replace')
-        thread.songs[i].artist = title[0].decode('iso-8859-15', 'replace')
-        thread.songs[i].year = info['EXTD'].replace("YEAR: ", "")
-        thread.songs[i].genre = info['DGENRE']
+        songs[i].album = title[1].decode('iso-8859-15', 'replace')
+        songs[i].artist = title[0].decode('iso-8859-15', 'replace')
+        songs[i].year = info['EXTD'].replace("YEAR: ", "")
+        songs[i].genre = info['DGENRE']
 
-    songs = thread.exaile.tracks.songs
+    songs = exaile.tracks.songs
 
-    gobject.idle_add(thread.exaile.tracks.set_songs, songs)
+    gobject.idle_add(exaile.tracks.set_songs, songs)
 
 def read_audio_disc(exaile):
     """
@@ -386,9 +387,6 @@ def read_audio_disc(exaile):
         common.error(exaile.window, _("Could not open audio disc"))
         return None
     minus = 0; total = 0
-    thread = xlmisc.ThreadRunner(get_cddb_info)
-    thread.disc_id = info
-    thread.exaile = exaile
 
     songs = TrackData()
     for i in range(info[1]):
@@ -403,8 +401,7 @@ def read_audio_disc(exaile):
         song.track = i + 1
         songs.append(song)
 
-    thread.songs = songs
-    thread.start()
+    get_cddb_info(songs, disc_id, exaile)
 
     return songs
 

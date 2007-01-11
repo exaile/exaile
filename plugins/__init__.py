@@ -78,7 +78,7 @@ class PluginInitException(Exception):
         Exception.__init__(self, message)
 
 class DeviceDriver(object):
-    def get_initial_root(self):
+    def get_initial_root(self, model):
         return None
 
     def connect(self):

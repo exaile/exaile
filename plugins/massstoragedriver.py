@@ -1,4 +1,5 @@
-import plugins, media, tracks, xlmisc, os, xl
+from xl import media, tracks, xlmisc, db
+import os, xl, plugins
 
 PLUGIN_NAME = "Mass Storage Driver"
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
@@ -54,12 +55,13 @@ class MassStorageDriver(plugins.DeviceDriver):
 
         files = tracks.scan_dir(str(self.mount), exts=media.SUPPORTED_MEDIA)
         for i, loc in enumerate(files):
-            tr = tracks.read_track(self.db, self.all, loc,
-                track_type=MassStorageTrack)
-            if not tr: self.all.append(tr)
+            tr = tracks.read_track(self.db, self.all, loc)
+            if tr: self.all.append(tr)
 
             if float(i) % 500 == 0:
                 self.db.commit()
+
+        self.db.commit()
 
     def search_tracks(self, keyword, all):
         return tracks.search_tracks(self.exaile.window, self.db, self.all,

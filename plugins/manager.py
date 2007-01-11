@@ -15,6 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import os, re, traceback, sys, plugins
+import pkg_resources
 
 class Manager(object):
     """
@@ -59,6 +60,42 @@ class Manager(object):
                 except Exception, e:
                     print "Failed to load plugin"
                     traceback.print_exc()
+
+        # beginnings of egg support
+        pkg_env = pkg_resources.Environment([dir])
+        print "Checking in %s for egg plugins" % dir
+        print pkg_env
+        for name in pkg_env:
+            print name
+            egg = pkg_env[name][0]
+            for n in egg.get_entry_map('exaile.plugins'):
+                p = None
+                try:
+                    egg.activate()
+                    entry_point = egg.get_entry_info('exaile.plugins', n)
+                    plugin = entry_point.load()
+                
+                    if plugin.PLUGIN_NAME in self.loaded: continue
+                    self.loaded.append(plugin.PLUGIN_NAME)
+                    print "Plugins '%s' version '%s' loaded successfully" % \
+                        (plugin.PLUGIN_NAME, plugin.PLUGIN_VERSION)
+                
+                    plugin.FILE_NAME = entry_point.module_name
+                    plugin.APP = self.app
+                    file = entry_point.module_name
+                    p = plugin()
+
+                    if file in enabled or plugin.PLUGIN_ENABLED:
+                        p.initialize()
+                        plugin.PLUGIN_ENABLED = True
+                    self.plugins.append(p)
+                except plugins.PluginInitException, e:
+                    if p: self.plugins.append(p)
+                except Exception, e:
+                    print "Failed to load plugin"
+                    traceback.print_exc()
+
+            
 
     def fire_event(self, event):
         """

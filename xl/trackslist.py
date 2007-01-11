@@ -229,6 +229,20 @@ class TracksListCtrl(gtk.VBox):
         if not iter: return None
         return self.model.get_value(iter, 0)
 
+    def get_previous_track(self, song):
+        """
+            Gets the previous track
+        """
+        if not song in self.songs: return None
+        index = self.songs.index(song)
+        path = (index - 1,)
+        try:
+            iter = self.model.get_iter(path)
+        except ValueError:
+            return None
+        if not iter: return None
+        return self.model.get_value(iter, 0)
+
     def get_selected_track(self):
         """
             Returns the selected track

@@ -1754,12 +1754,14 @@ class ExaileWindow(gobject.GObject):
                 self.rewind_track = 0
             return
 
-        # otherwise go back in the history
         if len(self.history) > 0:
             self.stop()
+            
             track = self.history.pop()
             self.play_track(track)
             self.current_track = track
+        else:
+            track = self.tracks.get_previous_track(self.current_track)
 
     def toggle_pause(self, widget=None, event=None):
         """

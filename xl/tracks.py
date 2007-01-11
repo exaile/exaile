@@ -650,6 +650,11 @@ class PopulateThread(threading.Thread):
                 percent = float(count / total)
                 gobject.idle_add(update_func, percent)
 
+            # periodical commit
+            if count % 1500 == 0:
+                xlmisc.log("Committing 1500 scanned tracks...")
+                db.commit()
+
         if PopulateThread.stopped:
             self.stop()
             return

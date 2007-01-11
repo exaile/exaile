@@ -866,7 +866,7 @@ class RadioTrack(StreamTrack):
             self.title = t
             exaile_instance.tracks.queue_draw()
 
-        StreamTrack._play(self, thread)
+        StreamTrack.play(self, next_func)
 
     def get_bitrate(self):
         """

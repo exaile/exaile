@@ -80,7 +80,12 @@ class ExaileWindow(gobject.GObject):
         'seek': (gobject.SIGNAL_RUN_LAST, None, (int,)),
         'pause-toggled': (gobject.SIGNAL_RUN_LAST, None, (media.Track,)),
         'quit': (gobject.SIGNAL_RUN_LAST, None, ()),
-        'last-playlist-loaded': (gobject.SIGNAL_RUN_LAST, None, ())
+        'last-playlist-loaded': (gobject.SIGNAL_RUN_LAST, None, ()),
+
+        # called when the title label is changed (sometimes it changes when
+        # the track hasn't changed, for example when you're listening to a
+        # shoutcast stream)
+        'track-information-updated': (gobject.SIGNAL_RUN_LAST, None, ())
     }
 
 
@@ -1174,6 +1179,7 @@ class ExaileWindow(gobject.GObject):
 
         self.rating_signal = self.rating_combo.connect('changed',
             self.set_rating)
+        self.emit('track-information-updated')
 
     def update_rating(self, track, **info): 
         """

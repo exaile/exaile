@@ -43,21 +43,12 @@ def set_gajim_status(message):
     status = INTERFACE.get_status()
     INTERFACE.change_status(status, message)
 
-
-def play_track(exaile, track):
-    """
-        Called when a track starts playing
-    """
-    if PLUGIN_ENABLED:
+def track_information_updated(arg):
+    print arg
+    track = APP.current_track
+    if PLUGIN_ENABLED and track:
         message = generate_message(track)
         set_gajim_status(message)
-
-def stop_track(exaile, track):
-    """
-        Called when a track stops playing
-    """
-    if PLUGIN_ENABLED:
-        set_gajim_status("")
 
 def pause_toggle(exaile, track):
     """
@@ -83,9 +74,9 @@ def initialize():
         '/org/gajim/dbus/RemoteObject'),
         'org.gajim.dbus.RemoteInterface')
 
-    CON.connect(APP, 'play-track', play_track)
+    CON.connect(APP, 'track-information-updated', 
+        track_information_updated)
     CON.connect(APP, 'pause-toggled', pause_toggle)
-    CON.connect(APP, 'stop-track', stop_track)
 
     return True
 

@@ -325,9 +325,13 @@ def scan_dir(dir, files=None, exts=()):
             xlmisc.log_exception()
             continue
 
-        if os.path.isdir(file) and not \
-            os.path.islink(file):
-                scan_dir(file, files, exts)
+        try:
+            if os.path.isdir(file) and not \
+                os.path.islink(file):
+                    scan_dir(file, files, exts)
+        except:
+            xlmisc.log("Error scanning %s" % file)
+            traceback.print_exc()
        
         try:
             (stuff, ext) = os.path.splitext(file)

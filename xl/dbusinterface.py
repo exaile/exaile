@@ -88,6 +88,13 @@ class DBusInterfaceObject(dbus.service.Object):
         self.exaile.play()
 
     @dbus.service.method("org.exaile.DBusInterface")
+    def play_pause(self):
+        """
+            Toggle Play or Pause
+        """
+        self.exaile.toggle_pause()
+
+    @dbus.service.method("org.exaile.DBusInterface")
     def query(self):
         """
             Returns information about the currently playing track
@@ -230,6 +237,7 @@ def test(p):
                 elif options.prev: iface.prev_track()
                 elif options.stop: iface.stop()
                 elif options.play: iface.play()
+                elif options.play_pause: iface.play_pause()
                 elif options.guiquery: iface.popup()
                 elif options.stream: iface.play_file(options.stream)
 
@@ -292,7 +300,9 @@ def get_options():
     p.add_option("-s", "--stop", dest="stop", action="store_true",
         default=False, help="Stop playback")
     p.add_option("-a", "--play", dest="play", action="store_true",
-        default=False, help="Play or Pause")
+        default=False, help="Play")
+    p.add_option("-t", "--play-pause", dest="play_pause", action="store_true",
+        default=False, help="Toggle Play or Pause")
     p.add_option("-q", "--query", dest="query", action="store_true",
         default=False, help="Query player")
     p.add_option("--gui-query", dest="guiquery", action="store_true",

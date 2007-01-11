@@ -44,7 +44,6 @@ def set_gajim_status(message):
     INTERFACE.change_status(status, message)
 
 def track_information_updated(arg):
-    print arg
     track = APP.current_track
     if PLUGIN_ENABLED and track:
         message = generate_message(track)

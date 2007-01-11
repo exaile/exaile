@@ -454,7 +454,7 @@ def get_album_id(db, artist_id, album, prep=''):
     return index
 
 def read_track(db, current, path, skipmod=False, adddb=True,
-    row=None):
+    row=None, track_type=None):
     """
         Reads a track, either from the database, or from it's metadata
     """
@@ -547,7 +547,9 @@ def read_track(db, current, path, skipmod=False, adddb=True,
     elif current != None and current.for_path(path):
         return current.for_path(path)
     else:
-        if media.FORMAT.has_key(ext.lower()):
+        if track_type:
+            tr = track_type(row[0])
+        elif media.FORMAT.has_key(ext.lower()):
             ttype = media.FORMAT[ext.lower()]
             tr = ttype(row[0])
         else:

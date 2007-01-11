@@ -293,7 +293,8 @@ class iPodDriver(plugins.DeviceDriver):
                     unicode(track.rating)))
 
                 itrack = track
-                track = xl.tracks.read_track(self.db, None, loc, True, True)
+                track = xl.tracks.read_track(self.db, None, loc, True, True, 
+                    track_type=iPodTrack)
                    
                 if not track: continue
                 track.itrack = itrack

@@ -28,9 +28,6 @@ PLUGIN_ICON = None
 
 import plugins, dbus
 
-interface = dbus.Interface(dbus.SessionBus().get_object('org.gajim.dbus',
-        '/org/gajim/dbus/RemoteObject'),
-        'org.gajim.dbus.RemoteInterface')
 
 CON = plugins.SignalContainer()
 
@@ -43,8 +40,8 @@ def generate_message(track, paused=False):
 
 
 def set_gajim_status(message):
-    status = interface.get_status()
-    interface.change_status(status, message)
+    status = INTERFACE.get_status()
+    INTERFACE.change_status(status, message)
 
 
 def play_track(exaile, track):
@@ -78,9 +75,13 @@ def initialize():
     """
         Inizializes the plugin
     """
-    global SETTINGS, APP
+    global SETTINGS, APP, INTERFACE
     exaile = APP
     SETTINGS = exaile.settings
+
+    INTERFACE = dbus.Interface(dbus.SessionBus().get_object('org.gajim.dbus',
+        '/org/gajim/dbus/RemoteObject'),
+        'org.gajim.dbus.RemoteInterface')
 
     CON.connect(APP, 'play-track', play_track)
     CON.connect(APP, 'pause-toggled', pause_toggle)

@@ -1967,11 +1967,6 @@ class RadioPanel(object):
             
         elif event.type == gtk.gdk._2BUTTON_PRESS:
 
-            if model.iter_has_child(iter):
-                path = self.model.get_path(iter)
-                self.tree.expand_row(path, False)
-                return
-
             if isinstance(object, CustomWrapper):
                 self.open_station(object.name)
             elif isinstance(object, PodcastWrapper):

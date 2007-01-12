@@ -1,5 +1,5 @@
 from xl import media, tracks, xlmisc, db, common
-import os, xl, plugins, gobject
+import os, xl, plugins, gobject, gtk
 
 PLUGIN_NAME = "Mass Storage Driver"
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
@@ -9,6 +9,36 @@ PLUGIN_ENABLED = False
 PLUGIN_ICON = None
 
 PLUGIN = None
+
+def configure():
+    """
+        Shows the configuration dialog
+    """
+    exaile = APP
+    dialog = plugins.PluginConfigDialog(exaile.window, PLUGIN_NAME)
+    table = gtk.Table(1, 2)
+    table.set_row_spacings(2)
+    bottom = 0
+    label = gtk.Label("Mount Point:      ")
+    label.set_alignment(0.0, 0.5)
+
+    table.attach(label, 0, 1, bottom, bottom + 1)
+
+    location = exaile.settings.get("%s_mount" % plugins.name(__file__),
+        "/mnt/device")
+
+    loc_entry = gtk.Entry()
+    loc_entry.set_text(location)
+    table.attach(loc_entry, 1, 2, bottom, bottom + 1, gtk.SHRINK)
+
+    dialog.child.pack_start(table)
+    dialog.show_all()
+
+    result = dialog.run()
+    dialog.hide()
+    if result == gtk.RESPONSE_OK:
+        exaile.settings["%s_mount" % plugins.name(__file__)] = \
+            loc_entry.get_text()
 
 class MassStorageTrack(media.DeviceTrack):
     """
@@ -54,7 +84,7 @@ class MassStorageDriver(plugins.DeviceDriver):
         """
 
         self.mount = self.exaile.settings.get("%s_mount" %
-            plugins.name(__file__), "/home/synic/fruity")
+            plugins.name(__file__), "/mnt/device")
 
         for item in ('PATHS', 'ALBUMS', 'ARTISTS', 'PLAYLISTS'):
             setattr(tracks, 'MASS_STORAGE_%s' % item, {})

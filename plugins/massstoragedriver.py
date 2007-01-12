@@ -114,8 +114,9 @@ class MassStorageDriver(plugins.DeviceDriver):
             if tr: 
                 temp = MassStorageTrack(tr.loc)
                 for field in ('title', 'track', '_artist',
-                    'album', 'genre', 'year'):
+                    'album', 'genre', 'year', 'bitrate'):
                     setattr(temp, field, getattr(tr, field))
+                    temp.length = tr.duration
                 self.all.append(temp)
 
             if float(i) % 500 == 0:

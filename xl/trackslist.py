@@ -863,6 +863,8 @@ class TracksListCtrl(gtk.VBox):
         if type == 'blacklist': blacklisting = True
         delete = []
         delete_confirmed = False
+
+        device_delete = []
         if deleting:
             result = common.yes_no_dialog(self.exaile.window, _("Are you sure "
             "you want to permanently remove the selected tracks from disk?"))
@@ -897,6 +899,11 @@ class TracksListCtrl(gtk.VBox):
 
                 if deleting:
                     xlmisc.log("Deleting %s" % track.loc)
+
+                    if isinstance(track, media.DeviceTrack):
+                        xlmisc.log("Device track detected")
+                        device_delete.append(track)
+                        continue
                     db = self.db
                     try:
                         if track.type == 'podcast':
@@ -939,6 +946,8 @@ class TracksListCtrl(gtk.VBox):
             self.set_songs(self.songs)
             if blacklisting: self.exaile.show_blacklist_manager(False)
             self.exaile.on_search()
+            if device_delete:
+                self.exaile.device_panel.remove_tracks(device_delete)
 
 class BlacklistedTracksList(TracksListCtrl):
     """

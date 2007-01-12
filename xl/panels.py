@@ -458,7 +458,7 @@ class CollectionPanel(object):
             except: pass
 
         if device_delete:   
-            self.delete_tracks(device_delete)
+            self.remove_tracks(device_delete)
 
         if self.exaile.tracks: 
             self.exaile.tracks.set_songs(self.exaile.songs)
@@ -942,6 +942,17 @@ class DevicePanel(CollectionPanel):
         self.queue = None
         self.chooser.set_active(0)
 
+    def remove_tracks(self, tracks):
+        """ 
+            Removes tracks from the current device
+        """
+        if not hasattr(self.driver, 'remove_tracks'):
+            common.error(self.exaile.window, _("This device does "
+                "not support removing tracks"))
+            return
+
+        self.driver.remove_tracks(tracks)
+
     def get_initial_root(self, model):
         if self.driver is not None and hasattr(self.driver, 
             'get_initial_root'):
@@ -1083,19 +1094,34 @@ class DevicePanel(CollectionPanel):
     def connect(self, driver):
         self.track_count.set_label("Connecting...")
         try:
-            driver.connect(self, self.on_connect_complete)
+            driver.connect(self)
         except:
             common.error(self.exaile.window, _("Error and stuff"))
             xlmisc.log_exception()
             self.on_connect_complete(None)
+
+    def on_error(self, error):
+        """
+            Called when there is an error in a device driver during connect
+        """
+        common.error(self.exaile.window, error)
+        self.on_connect_complete(None)
         
     def on_connect_complete(self, driver):
         """ 
             Called when the connection is complete
         """
         self.driver = driver
-        self.track_count.set_label("%d tracks" % len(driver.all))
-        self.connected = True
+        if not self.driver:
+            self.driver = EmptyDriver()
+            self.connected = False
+            img = gtk.Image()
+            img.set_from_stock('gtk-disconnect', gtk.ICON_SIZE_BUTTON)
+            self.connect_button.set_image(img)
+        else:
+            self.connected = True
+        self.track_count.set_label("%d tracks" % len(self.driver.all))
+
         self.load_tree()
 
     def search_tracks(self, keyword, all=None):

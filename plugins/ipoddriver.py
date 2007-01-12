@@ -262,17 +262,17 @@ class iPodDriver(plugins.DeviceDriver):
         return "%s%scovers%s%s" % (APP.get_settings_dir(), os.sep,
             os.sep, str(row[0]))
 
-    def connect(self, panel, done_func):
+    def connect(self, panel):
         self.db = db.DBManager(":memory:")
         self.db.add_function_create(("THE_CUTTER", 1, tracks.the_cutter))
         self.db.import_sql('sql/db.sql')
         self.db.check_version('sql')
         self.db.db.commit()
 
-        self._connect(panel, done_func)
+        self._connect(panel)
 
     @common.threaded
-    def _connect(self, panel, done_func):
+    def _connect(self, panel):
         """
             Connects to the ipod
         """
@@ -289,7 +289,7 @@ class iPodDriver(plugins.DeviceDriver):
         if not self.itdb: 
             self.connected = False
             self.all = tracks.TrackData()
-            common.error(self.exaile.window, "Error connecting to "
+            gobject.idle_add(panel.on_error, "Error connecting to "
                 "iPod")
             return False
 
@@ -360,7 +360,7 @@ class iPodDriver(plugins.DeviceDriver):
 
         self.db.commit()
         self.connected = True
-        gobject.idle_add(done_func, self)
+        gobject.idle_add(panel.on_connect_complete, self)
 
     def search_tracks(self, keyword):
         return tracks.search_tracks(self.exaile.window, self.db, self.all,

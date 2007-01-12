@@ -86,17 +86,17 @@ class MassStorageDriver(plugins.DeviceDriver):
         self.exaile = APP
         self.dp = APP.device_panel
 
-    def connect(self, panel, done_func):
+    def connect(self, panel):
         self.db = db.DBManager(":memory:")
         self.db.add_function_create(("THE_CUTTER", 1, tracks.the_cutter))
         self.db.import_sql('sql/db.sql')
         self.db.check_version('sql')
         self.db.db.commit()
 
-        self._connect(panel, done_func)
+        self._connect(panel)
 
     @common.threaded
-    def _connect(self, panel, done_func):
+    def _connect(self, panel):
         """
             Connects and scans the device
         """
@@ -123,7 +123,7 @@ class MassStorageDriver(plugins.DeviceDriver):
 
         self.db.commit()
         print 'we have connected, and scanned %d files!' % len(files)
-        gobject.idle_add(done_func, self)
+        gobject.idle_add(panel.on_connect_complete, self)
 
     def search_tracks(self, keyword):
         songs = tracks.search_tracks(self.exaile.window, self.db, self.all,

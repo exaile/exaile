@@ -7,7 +7,9 @@ PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
 PLUGIN_VERSION = '0.2'
 PLUGIN_DESCRIPTION = r"""iPod Driver for the Devices Panel"""
 PLUGIN_ENABLED = False
-PLUGIN_ICON = None
+button = gtk.Button()
+PLUGIN_ICON = button.render_icon('gnome-dev-ipod', gtk.ICON_SIZE_MENU)
+button.destroy()
 
 PLUGIN = None
 
@@ -16,6 +18,37 @@ try:
     IPOD_AVAIL = True
 except ImportError:
     IPOD_AVAIL = False
+
+def configure():
+    """
+        Shows the configuration dialog
+    """
+    exaile = APP
+    dialog = plugins.PluginConfigDialog(exaile.window, PLUGIN_NAME)
+    table = gtk.Table(1, 2)
+    table.set_row_spacings(2)
+    bottom = 0
+    label = gtk.Label("Mount Point:      ")
+    label.set_alignment(0.0, 0.5)
+
+    table.attach(label, 0, 1, bottom, bottom + 1)
+
+    location = exaile.settings.get("%s_ipod_mount" % plugins.name(__file__),
+        "/media/ipod")
+
+    loc_entry = gtk.FileChooserButton("Location")
+    loc_entry.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
+    loc_entry.set_current_folder(location)
+    table.attach(loc_entry, 1, 2, bottom, bottom + 1, gtk.SHRINK)
+
+    dialog.child.pack_start(table)
+    dialog.show_all()
+
+    result = dialog.run()
+    dialog.hide()
+    if result == gtk.RESPONSE_OK:
+        exaile.settings["%s_ipod_mount" % plugins.name(__file__)] = \
+            loc_entry.get_current_folder()
 
 class iPodTrack(media.DeviceTrack):
 

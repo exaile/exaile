@@ -27,8 +27,9 @@ def configure():
     location = exaile.settings.get("%s_mount" % plugins.name(__file__),
         "/mnt/device")
 
-    loc_entry = gtk.Entry()
-    loc_entry.set_text(location)
+    loc_entry = gtk.FileChooserButton("Location")
+    loc_entry.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
+    loc_entry.set_current_folder(location)
     table.attach(loc_entry, 1, 2, bottom, bottom + 1, gtk.SHRINK)
 
     dialog.child.pack_start(table)
@@ -38,7 +39,7 @@ def configure():
     dialog.hide()
     if result == gtk.RESPONSE_OK:
         exaile.settings["%s_mount" % plugins.name(__file__)] = \
-            loc_entry.get_text()
+            loc_entry.get_current_folder()
 
 class MassStorageTrack(media.DeviceTrack):
     """

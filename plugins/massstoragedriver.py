@@ -18,7 +18,7 @@
 from xl import media, tracks, xlmisc, db, common
 import os, xl, plugins, gobject, gtk
 
-PLUGIN_NAME = "Mass Storage Driver"
+PLUGIN_NAME = "Test Mass Storage Driver"
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
 PLUGIN_VERSION = '0.1'
 PLUGIN_DESCRIPTION = r"""Mass Storage Driver for the Devices Panel"""
@@ -86,31 +86,19 @@ class MassStorageDriver(plugins.DeviceDriver):
         self.exaile = APP
         self.dp = APP.device_panel
 
-    def connect(self, panel):
-        self.db = db.DBManager(":memory:")
-        self.db.add_function_create(("THE_CUTTER", 1, tracks.the_cutter))
-        self.db.import_sql('sql/db.sql')
-        self.db.check_version('sql')
-        self.db.db.commit()
-
-        self._connect(panel)
-
     @common.threaded
-    def _connect(self, panel):
+    def connect(self, panel):
         """
             Connects and scans the device
         """
 
         self.mount = self.exaile.settings.get("%s_mount" %
             plugins.name(__file__), "/mnt/device")
-
-        for item in ('PATHS', 'ALBUMS', 'ARTISTS', 'PLAYLISTS'):
-            setattr(tracks, 'MASS_STORAGE_%s' % item, {})
-        self.all = xl.tracks.TrackData()
+        self.all = tracks.TrackData()
 
         files = tracks.scan_dir(str(self.mount), exts=media.SUPPORTED_MEDIA)
         for i, loc in enumerate(files):
-            tr = tracks.read_track(self.db, self.all, loc, prep='MASS_STORAGE_')
+            tr = tracks.read_track(None, self.all, loc, adddb=False)
             if tr: 
                 temp = MassStorageTrack(tr.loc)
                 for field in ('title', 'track', '_artist',
@@ -119,20 +107,23 @@ class MassStorageDriver(plugins.DeviceDriver):
                     temp.length = tr.duration
                 self.all.append(temp)
 
-            if float(i) % 500 == 0:
-                self.db.commit()
-
-        self.db.commit()
         print 'we have connected, and scanned %d files!' % len(files)
         gobject.idle_add(panel.on_connect_complete, self)
 
     def search_tracks(self, keyword):
-        songs = tracks.search_tracks(self.exaile.window, self.db, self.all,
-            self.dp.keyword, None, self.dp.where)
-        xlmisc.log("There were %d tracks found" % len(songs))
 
-        print type(songs[0])
-        return songs
+        if keyword:
+            check = []
+            for track in self.all:
+                for item in ('artist', 'album', 'title'):
+                    attr = getattr(track, item)
+                    if attr.lower().find(keyword.lower()) > -1:
+                        check.append(track) 
+        else:
+            check = self.all
+        new = [(a.artist, a.album, a.track, a.title, a) for a in check]
+        new.sort()
+        return tracks.TrackData([a[4] for a in new])
 
     def disconnect(self):
         pass

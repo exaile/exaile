@@ -1,3 +1,20 @@
+#!/usr/bin/env python
+# Copyright (C) 2006 Adam Olsen <arolsen@gmail.com>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
 import gtk, plugins, gobject, re, time
 from xl import tracks, db, media, common, xlmisc
 import xl, os
@@ -56,7 +73,7 @@ class iPodTrack(media.DeviceTrack):
         """
             Initializes the track
         """
-        plugins.DriverTrack.__init__(self, *args)
+        media.DeviceTrack.__init__(self, *args)
 
         self.itrack = None
         self.type = 'ipod'
@@ -78,15 +95,11 @@ class iPodTrack(media.DeviceTrack):
             t.genre = str(self.genre)
             t.title = str(self.title)
 
-            try:
-                t.year = int(self.year)
-            except ValueError:
-                pass
+            try: t.year = int(self.year)
+            except ValueError: pass
 
-            try:
-                t.track_nr = int(self.track)
-            except ValueError:
-                pass
+            try: t.track_nr = int(self.track)
+            except ValueError: pass
 
         if db:
             plugins.DriverTrack.write_tag(self, db)
@@ -249,8 +262,17 @@ class iPodDriver(plugins.DeviceDriver):
         return "%s%scovers%s%s" % (APP.get_settings_dir(), os.sep,
             os.sep, str(row[0]))
 
-    @common.threaded
     def connect(self, panel, done_func):
+        self.db = db.DBManager(":memory:")
+        self.db.add_function_create(("THE_CUTTER", 1, tracks.the_cutter))
+        self.db.import_sql('sql/db.sql')
+        self.db.check_version('sql')
+        self.db.db.commit()
+
+        self._connect(panel, done_func)
+
+    @common.threaded
+    def _connect(self, panel, done_func):
         """
             Connects to the ipod
         """
@@ -259,10 +281,7 @@ class iPodDriver(plugins.DeviceDriver):
 
         self.mount = str(self.mount)
         self.itdb = gpod.itdb_parse(self.mount, None)
-        self.db = db.DBManager(":memory:")
-        self.db.add_function_create(('THE_CUTTER', 1, tracks.the_cutter))
-        self.db.import_sql("sql/db.sql")
-        self.db.check_version("sql")
+
         self.lists = []
         self.list_dict = dict()
         self.all = xl.tracks.TrackData()

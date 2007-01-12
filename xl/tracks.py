@@ -188,6 +188,7 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None):
             regex = re.compile("FROM\s+(.*?)\s+AND", re.DOTALL)
             query = regex.sub(r"FROM \1 %s AND" % where, query)
 
+
     try:
         cur = db.realcursor()
         cur.execute(query)
@@ -454,7 +455,7 @@ def get_album_id(db, artist_id, album, prep=''):
     return index
 
 def read_track(db, current, path, skipmod=False, adddb=True,
-    row=None, track_type=None):
+    row=None, track_type=None, prep=''):
     """
         Reads a track, either from the database, or from it's metadata
     """
@@ -521,9 +522,11 @@ def read_track(db, current, path, skipmod=False, adddb=True,
                 if not row:
                     tr.time_added = time.strftime("%Y-%m-%d %H:%M:%Y", 
                         time.localtime())
-                path_id = get_column_id(db, 'paths', 'name', unicode(tr.loc))
-                artist_id = get_column_id(db, 'artists', 'name', unicode(tr.artist))
-                album_id = get_album_id(db, artist_id, unicode(tr.album))
+                path_id = get_column_id(db, 'paths', 'name', unicode(tr.loc),
+                    prep=prep)
+                artist_id = get_column_id(db, 'artists', 'name', unicode(tr.artist), prep=prep)
+                album_id = get_album_id(db, artist_id, unicode(tr.album),
+                    prep=prep)
 
                 db.update("tracks",
                     {

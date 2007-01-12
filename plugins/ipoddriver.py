@@ -216,7 +216,8 @@ class iPodDriver(plugins.DeviceDriver):
         return "%s%scovers%s%s" % (APP.get_settings_dir(), os.sep,
             os.sep, str(row[0]))
 
-    def connect(self, wooters):
+    @common.threaded
+    def connect(self, panel, done_func):
         """
             Connects to the ipod
         """
@@ -307,8 +308,9 @@ class iPodDriver(plugins.DeviceDriver):
 
         self.db.commit()
         self.connected = True
+        gobject.idle_add(done_func, self)
 
-    def search_tracks(self, keyword, all):
+    def search_tracks(self, keyword):
         return tracks.search_tracks(self.exaile.window, self.db, self.all,
             self.dp.keyword, None, self.dp.where)
     

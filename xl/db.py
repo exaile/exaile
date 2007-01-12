@@ -114,7 +114,7 @@ class DBManager(object):
             Returns a connection
         """
         try:
-            db = sqlite.connect(self.db_loc, check_same_thread=True)
+            db = sqlite.connect(self.db_loc, check_same_thread=False)
         except sqlite.OperationalError, e:
             raise DBOperationalError(str(e))
 
@@ -241,7 +241,7 @@ class DBManager(object):
             Returns a database connection specific to the current thread
         """
         name = threading.currentThread().getName()
-        if name == "MainThread": return self.db
+        if name == "MainThread" or self.db_loc == ":memory:": return self.db
         if not self.pool.has_key(name):
             db = self.__get_db()
             for tup in self.functions:

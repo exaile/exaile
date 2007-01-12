@@ -234,7 +234,7 @@ class CollectionPanel(object):
         self.box = self.xml.get_widget('%s_box' % self.name)
         self.choice = self.xml.get_widget('%s_combo_box' % self.name)
 
-        active = self.exaile.settings.get_int('active_view', 0)
+        active = self.exaile.settings.get_int('%s_active_view' % self.name, 0)
         self.choice.set_active(active)
         self.xml.get_widget('%s_refresh_button' % self.name).connect('clicked',
             self.load_tree)
@@ -580,7 +580,7 @@ class CollectionPanel(object):
         # button is pressed
         if event: 
             print "Clearing tracks cache"
-            self.tracks_cache = dict()
+            self.track_cache = dict()
 
         self.model = gtk.TreeStore(gtk.gdk.Pixbuf, object)
         self.model_blank = gtk.TreeStore(gtk.gdk.Pixbuf, object)
@@ -673,9 +673,11 @@ class CollectionPanel(object):
         # save the active view setting
         self.exaile.settings['active_view'] = self.choice.get_active()
 
-        all = self.exaile.all_songs
-
-        self.all = all
+        if not isinstance(self, DevicePanel):
+            all = self.exaile.all_songs
+            self.all = all
+        else:
+            self.all = None
 
         if self.track_cache.has_key("%s %s" % (self.where, self.keyword)) \
             and self.track_cache["%s %s" % (self.where, self.keyword)]:
@@ -1031,22 +1033,18 @@ class DevicePanel(CollectionPanel):
             img = gtk.Image()
             img.set_from_stock('gtk-disconnect', gtk.ICON_SIZE_BUTTON)
             self.track_count.set_label("0 tracks")
-            self.load_tree()
+            self.load_tree(True)
             self.connect_button.set_image(img)
             return
 
         iter = self.chooser.get_active_iter()
         driver = self.store.get_value(iter, 1)
         if not isinstance(driver, EmptyDriver):
-            driver.connect(self)
-            self.connected = True
+            self.connect(driver)
             img = gtk.Image()
             img.set_from_stock('gtk-connect', 
                 gtk.ICON_SIZE_BUTTON)
             self.connect_button.set_image(img)
-        self.driver = driver
-        self.track_count.set_label("%d tracks" % len(driver.all))
-        self.load_tree()
 
     def update_drivers(self, initial=False):
         """
@@ -1069,6 +1067,8 @@ class DevicePanel(CollectionPanel):
             self.chooser.disconnect(self.change_id)
             self.chooser.set_active(select)
             self.change_id = self.chooser.connect('changed', self.change_driver)
+        else:
+            self.chooser.set_active(0)
 
     def add_driver(self, driver, name):
         if not self.drivers.has_key(driver):
@@ -1081,18 +1081,26 @@ class DevicePanel(CollectionPanel):
         self.update_drivers()
 
     def connect(self, driver):
+        self.track_count.set_label("Connecting...")
         try:
-            driver.connect(self)
-            self.driver = driver
+            driver.connect(self, self.on_connect_complete)
         except:
-            self.driver = None
             common.error(self.exaile.window, _("Error and stuff"))
-            
+            xlmisc.log_exception()
+            self.on_connect_complete(None)
+        
+    def on_connect_complete(self, driver):
+        """ 
+            Called when the connection is complete
+        """
+        self.driver = driver
+        self.track_count.set_label("%d tracks" % len(driver.all))
+        self.connected = True
         self.load_tree()
 
     def search_tracks(self, keyword, all=None):
         if not self.driver: self.all = tracks.TrackData()
-        else: self.all = self.driver.search_tracks(keyword, all)
+        else: self.all = self.driver.search_tracks(keyword)
         return self.all
 
     def get_driver_name(self):

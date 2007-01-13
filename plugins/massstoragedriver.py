@@ -18,7 +18,7 @@
 from xl import media, tracks, xlmisc, db, common
 import os, xl, plugins, gobject, gtk
 
-PLUGIN_NAME = "Test Mass Storage Driver"
+PLUGIN_NAME = "Mass Storage Driver"
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
 PLUGIN_VERSION = '0.1'
 PLUGIN_DESCRIPTION = r"""Mass Storage Driver for the Devices Panel"""

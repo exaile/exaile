@@ -252,6 +252,7 @@ class ExailePlayer(GSTPlayer):
         xlmisc.log('Could not find a stream location')
 
     def play_track(self, track):
+        self.stop(False)
         if track.loc.endswith('.pls') or track.loc.endswith('.m3u'):
             self.find_stream_uri(track)
             return

@@ -178,7 +178,7 @@ class MiniWindow(gtk.Window):
         self.title_box.set_model(blank)
         self.model.clear()
         count = 0; select = -1
-        current = APP.current_track
+        current = APP.player.current
         if current:
             select = 0
         elif APP.songs:
@@ -204,7 +204,7 @@ class MiniWindow(gtk.Window):
         # otherwise, display all songs in the current playlist
         else:
             for song in APP.songs:
-                if song == current and APP.current_track:
+                if song == current and APP.player.current:
                     select = count
                 self.model.append([song.title, song])
                 count += 1
@@ -301,11 +301,11 @@ class MiniWindow(gtk.Window):
             Called when pause is toggled
         """
 
-        track = APP.current_track
+        track = APP.player.current
         if not track:
             self.play.set_image(APP.get_play_image(gtk.ICON_SIZE_MENU))
         else:
-            if track.is_paused():
+            if APP.player.is_paused():
                 self.play.set_image(APP.get_play_image(gtk.ICON_SIZE_MENU))
             else:
                 self.play.set_image(APP.get_pause_image(gtk.ICON_SIZE_MENU))

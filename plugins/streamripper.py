@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import gtk, plugins, subprocess, os, time
+import gtk, plugins, subprocess, os, time, gst
 from xl import common, media, xlmisc
 PLUGIN_NAME = "Streamripper!"
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
@@ -84,7 +84,7 @@ def toggle_record(widget, event=None):
         Toggles streamripper
     """
     global STREAMRIPPER_PID, STREAMRIPPER_OUT, CURRENT_TRACK
-    track = APP.current_track
+    track = APP.player.current
     if not STREAMRIPPER_PID:
         if not track: return True
         if not isinstance(track, media.StreamTrack):
@@ -105,8 +105,11 @@ def toggle_record(widget, event=None):
         STREAMRIPPER_OUT.write(
             "-------------------------------------------------\n\n\n")
 
-        track.stop()
-        sub = subprocess.Popen(['streamripper', track.loc, '-r',
+        APP.player.playbin.set_state(gst.STATE_NULL)
+        xlmisc.log('real location: %s' %
+            APP.player.playbin.get_property('uri'))
+        sub = subprocess.Popen(['streamripper',
+            APP.player.playbin.get_property('uri'), '-r',
             str(port), '-d', savedir], stderr=STREAMRIPPER_OUT)
         ret = sub.poll()
 
@@ -119,8 +122,11 @@ def toggle_record(widget, event=None):
                 " executing streamripper."))
             return True
         STREAMRIPPER_PID = sub.pid
-        track.stream_url = "http://localhost:%d" % port
-        track.play(APP.on_next)
+
+        xlmisc.log('Proxy location: http://localhost:%d' % port)
+        APP.player.playbin.set_property('uri', "http://localhost:%d" % port)
+        time.sleep(1)
+        APP.player.playbin.set_state(gst.STATE_PLAYING)
         CURRENT_TRACK = track
 
         return False
@@ -128,9 +134,9 @@ def toggle_record(widget, event=None):
         if not STREAMRIPPER_PID:
             common.error(APP.window, _("Streamripper is not running."))
         os.system("kill -9 %d" % STREAMRIPPER_PID)
-        track.stop()
+        APP.player.playbin.set_state(gst.STATE_READY)
         CURRENT_TRACK = None
-        track.play(APP.on_next)
+        APP.player.play_track(track)
         STREAMRIPPER_PID = None
 
     return False

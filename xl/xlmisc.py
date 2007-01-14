@@ -1348,7 +1348,7 @@ class CoverFrame(object):
         self.db.execute("UPDATE albums SET image=? WHERE id=?", (cover.filename(),
             album_id))
 
-        if track == self.exaile.current_track:
+        if track == self.exaile.player.current:
             self.exaile.stop_cover_thread()
             self.exaile.cover.set_image("%s%scovers%s%s" %
                 (self.exaile.get_settings_dir(), os.sep, os.sep,

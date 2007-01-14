@@ -16,4 +16,4 @@
 
 __all__ = ['tracks', 'config', 'covers', 'db',
 	'common', 'trackslist', 'panels', 'xlmisc', 'prefs', 'track', 'media',
-    'dbusinterface']
+    'dbusinterface', 'player']

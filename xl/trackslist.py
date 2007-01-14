@@ -539,10 +539,14 @@ class TracksListCtrl(gtk.VBox):
 
         item = model.get_value(iter, 0)
         image = None
-        if item.is_playing(): image = self.playimg 
-        elif item.is_paused(): image = self.pauseimg
-        elif item in self.exaile.queued:
-            index = self.exaile.queued.index(item)
+
+        if item == self.exaile.player.current:
+            if self.exaile.player.is_playing():
+                image = self.playimg
+            elif self.exaile.player.is_paused():
+                image = self.pauseimg
+        elif item in self.exaile.player.queued:
+            index = self.exaile.player.queued.index(item)
             image = xlmisc.get_text_icon(self.exaile.window,
                 str(index + 1), 18, 18)
         cellr.set_property('pixbuf', image)
@@ -1123,9 +1127,9 @@ class QueueManager(TracksListCtrl):
         """
         TracksListCtrl.drag_data_received(self, tv, context, x, y, selection, 
             info, etime)
-        self.exaile.queued = []
+        self.exaile.player.queued = []
         for song in self.songs:
-            self.exaile.queued.append(song)
+            self.exaile.player.queued.append(song)
 
         update_queued(self.exaile)
 
@@ -1139,8 +1143,8 @@ def update_queued(exaile):
         if isinstance(page, QueueManager):
             page.set_songs(exaile.queued)
 
-    if exaile.queued:
+    if exaile.player.queued:
         exaile.queue_count_label.set_label("%d track(s) queued" % 
-            len(exaile.queued))
+            len(exaile.player.queued))
     else:
         exaile.queue_count_label.set_label("")

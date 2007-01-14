@@ -63,6 +63,7 @@ os.chdir(basedir)
 
 from xl import *
 import plugins.manager, plugins, plugins.gui
+import gst
 
 sys_var = "HOME"
 if os.sys.platform.startswith("win"): sys_var = "USERPROFILE"
@@ -105,23 +106,16 @@ class ExaileWindow(gobject.GObject):
         config.settings = self.settings
         self.database_connect()
         self.timer_count = 0
-        self.current_track = None
         self.gamin_watched = []
-        self.played = []
         self.mon = None
         self.all_songs = tracks.TrackData()
         self.songs = tracks.TrackData()
         self.playlist_songs = tracks.TrackData()
-        self.queued = []
-        self.queue_images = []
-        self.last_track = None
         self.tracks = None
         self.playlists_menu = None
-        self.history = []
         self.cover_thread = None
         self.timer = xlmisc.MiscTimer(self.timer_update, 1000)
         self.playing = False
-        self.next = None
         self.thread_pool = []
         self.dir_queue = []
         self.scan_timer = None
@@ -131,6 +125,8 @@ class ExaileWindow(gobject.GObject):
         self.plugins_menu = xlmisc.Menu()
         self.rewind_track = 0
         self.volume_id = None
+        self.player = player.ExailePlayer(self)
+        self.player.tag_func = self.tag_callback
 
         if self.settings.get_boolean("use_splash", True):
             image = gtk.Image()
@@ -155,7 +151,7 @@ class ExaileWindow(gobject.GObject):
                 xlmisc.log("Could not connect to dbus session bus.  "
                     "dbus will be unavailable.")
 
-        media.set_audio_sink(self.settings.get('audio_sink', 'Use GConf '
+        self.player.set_audio_sink(self.settings.get('audio_sink', 'Use GConf '
             'Settings'))
 
         self.tray_icon = None
@@ -234,6 +230,22 @@ class ExaileWindow(gobject.GObject):
         interval = self.settings.get_float('scan_interval', '25')
         if interval:
             self.start_scan_interval(interval)
+
+    def tag_callback(self, tags):
+        """
+            Called when a tag is found in a stream
+        """
+        track = self.player.current
+        if not track or not track.type == 'stream': return
+        for tag in tags.keys():
+            nick = gst.tag_get_nick(tag)
+            if nick == 'bitrate': track.bitrate = int(tags[tag])/1000
+            elif nick == 'comment': track.artist = tags[tag]
+            elif nick == 'title': track.title = tags[tag]
+            xlmisc.log('%s: %s' % (gst.tag_get_nick(tag), tags[tag]))           
+
+        self.tracks.refresh_row(track)
+        self.update_track_information()
 
     def get_version(self):
         """
@@ -502,7 +514,7 @@ class ExaileWindow(gobject.GObject):
         """
             Sets the user rating of a track
         """
-        track = self.current_track
+        track = self.player.current
         if not track: return
 
         rating = combo.get_active() + 1
@@ -575,7 +587,7 @@ class ExaileWindow(gobject.GObject):
         """
             Called when someone wants to clear the queue
         """
-        self.queued = []
+        self.player.queued = []
         if not self.tracks: return
         self.tracks.queue_draw()
 
@@ -639,12 +651,12 @@ class ExaileWindow(gobject.GObject):
         """
         if event.type == gtk.gdk._2BUTTON_PRESS:
             if self.cover.loc.find('nocover') > -1: return
-            track = self.current_track
+            track = self.player.current
             
             xlmisc.CoverWindow(self.window, self.cover.loc, "%s by %s" %
                 (track.album, track.artist))
         elif event.button == 3:
-            if not self.current_track: return
+            if not self.player.current: return
             self.cover_menu.popup(None, None, None, 
                 event.button, event.time)
 
@@ -729,7 +741,7 @@ class ExaileWindow(gobject.GObject):
                     line = line.strip()
                     song = self.all_songs.for_path(line)
                     if song:
-                        self.queued.append(song)
+                        self.player.queued.append(song)
                 h.close()
 
             trackslist.update_queued(self)
@@ -762,22 +774,22 @@ class ExaileWindow(gobject.GObject):
 
             # if we want to queue this song, make sure it's not already
             # playing and make sure it's not already in the queue
-            if queue and not song in self.queued and not (song.is_playing()
+            if queue and not song in self.player.queued and not (song.is_playing()
                 or song.is_paused()):
 
                 # if there isn't a queue yet, be sure to set which song is
                 # going to be played after the queue is empty
-                if not self.queued and self.current_track:
-                    self.next = self.current_track 
-                self.queued.append(song)
-                num = len(self.queued)
+                if not self.player.queued and self.player.current:
+                    self.next = self.player.current 
+                self.player.queued.append(song)
+                num = len(self.player.queued)
 
         # update the current playlist
         gobject.idle_add(self.update_songs, self.playlist_songs)
         gobject.idle_add(trackslist.update_queued, self)
         if not play: return
 
-        track = self.current_track
+        track = self.player.current
         if track != None and (track.is_playing() or track.is_paused): return
         gobject.idle_add(self.play_track, songs[0])
 
@@ -799,7 +811,7 @@ class ExaileWindow(gobject.GObject):
         """
         tracks = self.tracks.get_selected_tracks()
         for track in tracks:
-            try: self.queued.remove(track)
+            try: self.player.queued.remove(track)
             except ValueError: pass
             
         self.tracks.queue_draw()
@@ -813,13 +825,13 @@ class ExaileWindow(gobject.GObject):
 
         first = True
         for track in songs:
-            if track in self.queued:
+            if track in self.player.queued:
                 if toggle:
-                    self.queued.remove(track)
-            elif first and track.is_playing():
+                    self.player.queued.remove(track)
+            elif first and track == self.player and self.player.is_playing():
                 pass
             else:
-                self.queued.append(track)
+                self.player.queued.append(track)
 
             first = False
 
@@ -1077,7 +1089,7 @@ class ExaileWindow(gobject.GObject):
         """
         self.status.set_track_count("%d showing, %d in collection" % (len(self.songs),
             len(self.all_songs)))   
-        track = self.current_track
+        track = self.player.current
         if GAMIN_AVAIL and self.mon:
             self.mon.handle_events()
 
@@ -1091,15 +1103,17 @@ class ExaileWindow(gobject.GObject):
 
         if track == None: 
             return True
-        duration = track.duration * 1000000000 # this is gst.SECOND
+        duration = track.duration * gst.SECOND
 
         # update the progress bar/label
-        value = track.current_position()
+        value = self.player.get_current_position()
         if duration == -1:
             real = 0
         else:
             real = value * duration / 100
-        seconds = real / 1000000000 # this is gst.SECOND
+        seconds = real / gst.SECOND
+
+
         self.progress.set_value(value)
         self.progress_label = self.xml.get_widget('progress_label')
 
@@ -1126,7 +1140,7 @@ class ExaileWindow(gobject.GObject):
             Updates track status information
         """
         self.rating_combo.disconnect(self.rating_signal)
-        track = self.current_track
+        track = self.player.current
 
         self.artist_label = self.xml.get_widget('artist_label')
         if track == None:
@@ -1200,7 +1214,7 @@ class ExaileWindow(gobject.GObject):
         """
             Gets called when all covers have been downloaded from amazon
         """
-        track = self.current_track
+        track = self.player.current
         artist_id = tracks.get_column_id(self.db, 'artists', 'name', track.artist)
         album_id = tracks.get_album_id(self.db, artist_id, track.album)
 
@@ -1340,7 +1354,7 @@ class ExaileWindow(gobject.GObject):
         """
             removes the cover art for the current track
         """
-        track = self.current_track
+        track = self.player.current
         if not track: return
 
         artist_id = tracks.get_column_id(self.db, 'artists', 'name',
@@ -1357,16 +1371,16 @@ class ExaileWindow(gobject.GObject):
         """
         if item == self.cover_fetch:
             self.status.set_first(_("Fetching from amazon..."))
-            xlmisc.CoverFrame(self, self.current_track)
+            xlmisc.CoverFrame(self, self.player.current)
         elif item == self.cover_search:
-            xlmisc.CoverFrame(self, self.current_track, True)
+            xlmisc.CoverFrame(self, self.player.current, True)
         elif item == "showcover" or item == self.cover_full:
             if self.cover.loc.find("nocover") > -1: return
-            track = self.current_track
+            track = self.player.current
             xlmisc.CoverWindow(self.window, self.cover.loc, "%s by %s" %
                 (track.album, track.artist))
         elif item == self.cover_custom:
-            track = self.current_track
+            track = self.player.current
             wildcard = ['*.jpg', '*.jpeg', '*.gif', '*.png', '*.*'] 
             filter = gtk.FileFilter()
             for pattern in wildcard:
@@ -1407,7 +1421,7 @@ class ExaileWindow(gobject.GObject):
                 self.db.execute("UPDATE albums SET image=? WHERE id=?",
                     (newname, album_id))
 
-                if track == self.current_track:
+                if track == self.player.current:
                     self.stop_cover_thread()
                     self.cover.set_image("%s%scovers%s%s" %
                         (self.get_settings_dir(), os.sep, os.sep,
@@ -1524,14 +1538,14 @@ class ExaileWindow(gobject.GObject):
         """
             Seeks in the current track
         """
-        if not self.current_track or \
-            isinstance(self.current_track, media.StreamTrack):
+        if not self.player.current or \
+            isinstance(self.player.current, media.StreamTrack):
             self.progress.set_value(0)
             return
-        duration = self.current_track.duration
+        duration = self.player.current.duration
         real = long(range.get_value() * duration / 100)
-        self.current_track.seek(real)
-        self.current_track.submitting = True
+        self.player.seek(real)
+        self.player.current.submitting = True
         self.emit('seek', real)
 
     def play_track(self, track): 
@@ -1543,11 +1557,9 @@ class ExaileWindow(gobject.GObject):
                 common.error(self.window, _("Podcast has not yet been "
                     "downloaded"))
                 return
-        track.play(self.on_next)
         self.play_button.set_image(self.get_pause_image())
-        self.current_track = track
+        self.player.current = track
         self.update_track_information()
-        self.played.append(track)
 
         artist_id = tracks.get_column_id(self.db, 'artists', 'name', track.artist)
         tracks.get_album_id(self.db, artist_id, track.album)
@@ -1584,11 +1596,11 @@ class ExaileWindow(gobject.GObject):
         """
             Gets suggested tracks from last.fm
         """
-        if not self.tracks or not self.current_track: return
+        if not self.tracks or not self.player.current: return
 
         played = 0
         for song in self.songs:
-            if song in self.played:
+            if song in self.player.played:
                 played += 1
 
         count = 5 - (len(self.songs) - played)
@@ -1596,7 +1608,7 @@ class ExaileWindow(gobject.GObject):
         if count <= 0: count = 1
 
         songs = tracks.get_suggested_songs(self, self.db, 
-            self.current_track, self.songs, count, self.add_suggested)
+            self.player.current, self.songs, count, self.add_suggested)
 
     def add_suggested(self, artists, count):
         """
@@ -1618,8 +1630,8 @@ class ExaileWindow(gobject.GObject):
                     random.shuffle(search_songs)
                     song = search_songs[0]
                     if not song in self.tracks.songs \
-                        and not song in self.played and not \
-                        song in self.queued:
+                        and not song in self.player.played and not \
+                        song in self.player.queued:
                         songs.append(song)
 
             if len(songs) >= count: break
@@ -1640,7 +1652,7 @@ class ExaileWindow(gobject.GObject):
         if not self.settings.get_boolean("use_popup", True): return
         if tray:
             if not self.settings.get_boolean('osd_tray', True): return
-        track = self.current_track
+        track = self.player.current
         if not track: return
         pop = xlmisc.get_osd(self, xlmisc.get_osd_settings(self.settings))
         cover = self.fetch_cover(track, 1)
@@ -1656,10 +1668,12 @@ class ExaileWindow(gobject.GObject):
         """
         self.shuffle = self.xml.get_widget('shuffle_button')
         self.shuffle.set_active(self.settings.get_boolean('shuffle', False))
+        self.player.shuffle = self.shuffle.get_active()
         self.shuffle.connect('toggled', self.toggle_mode, 'shuffle')
 
         self.repeat = self.xml.get_widget('repeat_button')
         self.repeat.set_active(self.settings.get_boolean('repeat', False))
+        self.player.repeat = self.repeat.get_active()
         self.repeat.connect('toggled', self.toggle_mode, 'repeat')
 
         self.dynamic = self.xml.get_widget('dynamic_button')
@@ -1671,144 +1685,50 @@ class ExaileWindow(gobject.GObject):
             Toggles the settings for the specified playback mode
         """
         self.settings.set_boolean(param, item.get_active())
+        setattr(self.player, param, item.get_active())
 
-    def on_next(self, widget=None, event=None): 
+    def on_next(self, *args): 
         """
             Finds out what track is next and plays it
         """
-
-        self.stop()
-        if self.tracks == None: return
-
-        track = self.tracks.get_next_track(self.current_track)
-        if not track: 
-            if not self.tracks.get_songs():
-                if not self.queued: return
-            else: track = self.tracks.get_songs()[0]
-
-        if self.next != None and not self.queued:
-            track = self.tracks.get_next_track(self.next)
-            if not track: track = self.tracks.get_songs()[0]
-            self.next = None
-
-        if self.current_track != None:
-            if self.current_track.current_position() < 50:
-                self.update_rating(self.current_track, rating="rating - 1")
-            self.history.append(self.current_track)
-
-        # for queued tracks
-        if len(self.queued) > 0:
-            if self.next == None:
-                self.next = self.current_track
-            track = self.queued[0]
-            if not track in self.tracks.songs:
-                self.tracks.append_song(track)
-            self.queued = self.queued[1:len(self.queued)]
-            xlmisc.log("Playing queued track '%s'" % track)
-
-            # if the track isn't currently showing in search results
-            self.play_track(track)
-            self.current_track = track
-            self.played.append(track)
-            return
-        else:
-            # for shuffle mode
-            if self.shuffle.get_active():
-
-                count = 0
-                while True:
-                    if len(self.songs) == 0: return
-                    current_index = \
-                        random.randint(0, len(self.songs) - 1)
-                    track = self.tracks.songs[current_index]
-                    if count >= 500 or track not in \
-                        self.played:
-
-                        if track in self.played:
-                            for track in self.tracks.songs:
-                                if not track in self.played:
-                                    break
-                            self.played = [] # all songs have been played
-                            if not self.repeat.get_active():
-                                return
-                        break
-
-                    count = count + 1
-
-        if not self.shuffle.get_active() and \
-            not self.tracks.get_next_track(self.current_track):
-            if self.repeat.get_active(): 
-                self.current_track = self.tracks.get_songs()[0]
-            else:
-                self.played = []
-                if self.current_track: return
-
-        self.play_track(track)
-        self.current_track = track
+        if self.player.current != None:
+            if self.player.get_current_position() < 50:
+                self.update_rating(self.player.current, rating="rating - 1")
+        self.player.next()
+        self.tracks.queue_draw()
     
     def on_previous(self, widget=None, event=None): 
         """
             Plays the previous track in the history
         """
-
-        # if the current track has been playing for 5 seconds, just restart it
-        if self.rewind_track >= 6:
-            track = self.current_track
-            if track:
-                track.stop()
-                track.play(self.on_next)
-                self.rewind_track = 0
-            return
-
-        if len(self.history) > 0:
-            self.stop()
-            
-            track = self.history.pop()
-            self.play_track(track)
-            self.current_track = track
-        else:
-            track = self.tracks.get_previous_track(self.current_track)
+        self.player.previous()
+        self.tracks.queue_draw()
 
     def toggle_pause(self, widget=None, event=None):
         """
             Pauses the current track
         """
-        track = self.current_track
+        track = self.player.current
         if not track:
             self.play()
             return
 
-        if track.is_paused(): 
+        if self.player.is_paused(): 
             self.play_button.set_image(self.get_pause_image())
-            track.play()
-        elif track.is_playing(): 
+            self.player.toggle_pause()
+        elif self.player.is_playing(): 
             self.play_button.set_image(self.get_play_image())
-            track.pause()
+            self.player.toggle_pause()
         if self.tracks: self.tracks.queue_draw()
-        self.emit('pause-toggled', self.current_track)
+        self.emit('pause-toggled', self.player.current)
     
-    def play(self, treeview=None, path=None, column=None): 
+    def play(self, *args): 
         """
             Called when someone double clicks on a track or presses the play
             button.  If the track is already playing, it is restarted
         """
-        
-        self.stop()
-
-        if self.tracks == None: return
-
-        self.last_played = self.current_track
-        track = self.tracks.get_selected_track()
-        if not track: 
-            if self.tracks.songs:
-                self.on_next()
-                return
-            else: return
-
-        if track in self.queued: del self.queued[self.queued.index(track)]
-        self.current_track = track
-        self.played = []
-        self.play_track(track)
+        self.player.play() 
+        self.play_track(self.player.current)
 
     def stop(self, event=None): 
         """
@@ -1823,15 +1743,15 @@ class ExaileWindow(gobject.GObject):
             self.tray_icon.set_tooltip("Exaile Media Player")
         self.window.set_title("Exaile!")
 
-        track = self.current_track
+        track = self.player.current
         if track != None: 
-            track.stop()
+            self.player.stop()
             # PLUGIN: alert plugins that this track has stopped playing
             self.emit('stop-track', track)
 
         if event != None:
-            self.played = []
-            self.current_track = None
+            self.player.played = []
+            self.player.current = None
 
         self.play_button.set_image(self.get_play_image())
         if self.tracks: self.tracks.queue_draw()
@@ -2080,7 +2000,7 @@ class ExaileWindow(gobject.GObject):
             Ensures that the currently playing track is visible
         """
         if not self.tracks: return
-        self.tracks.ensure_visible(self.current_track)
+        self.tracks.ensure_visible(self.player.current)
 
     def on_library_rescan(self, widget=None, event=None, data=None,
         load_tree=True): 
@@ -2158,7 +2078,7 @@ class ExaileWindow(gobject.GObject):
         if os.path.isfile("%s%squeued.save" % (dir, os.sep)):
             os.unlink("%s%squeued.save" % (dir, os.sep))
 
-        if self.current_track: self.current_track.stop()
+        if self.player.current: self.player.current.stop()
 
         for i in range(self.playlists_nb.get_n_pages()):
             page = self.playlists_nb.get_nth_page(i)
@@ -2175,9 +2095,9 @@ class ExaileWindow(gobject.GObject):
             h.close()
 
         # save queued tracks
-        if self.queued:
+        if self.player.queued:
             h = open("%s%squeued.save" % (dir, os.sep), "w")
-            for song in self.queued:
+            for song in self.player.queued:
                 h.write("%s\n" % song.loc)
             h.close()
         self.db.db.commit()
@@ -2206,11 +2126,11 @@ class ExaileWindow(gobject.GObject):
             Submits this track to audioscrobbler, regardless of how long the
             track has actually been playing
         """
-        track = self.current_track
+        track = self.player.current
         if track == None: return
         if track.get_scrobbler_session() != None:
-            self.current_track.submitting = False
-            self.current_track.submit_to_scrobbler()
+            self.player.current.submitting = False
+            self.player.current.submit_to_scrobbler()
             self.status.set_first(_("Submitting to Last.fm..."), 2000)
     
     def jump_to(self, index):
@@ -2218,7 +2138,7 @@ class ExaileWindow(gobject.GObject):
             Show the a specific page in the track information tab about
             the current track
         """
-        track = self.current_track
+        track = self.player.current
         if not track and not self.tracks: return
         if not track: track = self.tracks.get_selected_track() 
         if not track: return

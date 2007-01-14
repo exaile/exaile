@@ -340,63 +340,6 @@ class Track(gobject.GObject):
 
         return track 
 
-    def found_tag_cb(self, play, src, tags):
-        """
-            Called by gstreamer when metadata is found in the stream
-        """
-        for tag in tags.keys():
-            nick = gst.tag_get_nick(tag)
-            if nick == "genre": self.genre = tags[tag]
-            elif nick == "title": self._title = tags[tag]
-            elif nick == "bitrate": self.bitrate = tags[tag]
-            elif nick == "artist" and isinstance(self, GSTTrack): 
-                self.artist = tags[tag]
-            elif nick == "comment" and isinstance(self, StreamTrack):
-                self.artist = tags[tag]
-            elif nick == "album": self.album = tags[tag]
-            elif nick == "track number": self._track = tags[tag]
-
-        if isinstance(self, StreamTrack): self.album = self.loc
-        if exaile_instance.tracks:
-            exaile_instance.tracks.queue_draw()
-
-    def on_message(self, bus, message, reading_tag=False):
-        """
-            Called when a message occurs from gstreamer
-        """
-        if message.type == gst.MESSAGE_TAG:
-            if isinstance(self, StreamTrack) or isinstance(self, GSTTrack):
-                self.found_tag_cb(None, None, message.parse_tag())
-
-        elif message.type == gst.MESSAGE_EOS and not reading_tag:
-            if not self.is_paused():
-                self.next()    
-
-        return True
-
-    def full_status(self): 
-        """
-            Returns a string representing the status of the current track
-        """
-        status = "playing"
-        if self.is_paused(): status = "paused"
-
-        value = self.current_position()
-        duration = self.duration * gst.SECOND
-
-        if duration == -1:
-            real = 0
-        else:
-            real = value * duration / 100
-        seconds = real / gst.SECOND
-
-        return "status: %s self: %s artist: %s " \
-            "album: %s length: %s position: %%%d [%d:%02d]" % (status,
-                self.title,
-                self.artist, self.album, self.length,
-                value, seconds / 60, seconds % 60)
-    
-
     def set_track(self, t): 
         """
             Sets the track number
@@ -496,132 +439,6 @@ class Track(gobject.GObject):
         """
         return timetype(self._len)
     
-
-    def get_position(self): 
-        """
-            Gets the current position in the track
-        """
-        if self.last_audio_sink == None: return 0
-        if self.playing == 2: return self.last_position
-        try:
-            self.last_position = player.query_position(gst.FORMAT_TIME)[0] 
-        except gst.QueryError:
-            self.last_position = 0
-        return self.last_position
-    
-
-    def current_position(self): 
-        """
-            Gets the current position as a percent
-        """
-        value = 0
-        duration = self.duration * 1000 * 1000 * 1000
-
-        if duration:
-            value = self.position * 100.0 / duration
-
-        return value
-    
-
-    def next(self): 
-        """
-            Called by EOS on the playbin
-        """
-        if self.next_func:
-            gobject.idle_add(self.next_func)
-
-    def on_sync_message(self, bus, message):
-        """
-            Syncs up the visualization window
-        """
-        if message.structure.get_name() == 'prepare-xwindow-id' and \
-            VIDEO_WIDGET:
-            xlmisc.log("Prepare window was called")
-            VIDEO_WIDGET.set_sink(message.src)
-
-    def play(self,  next_func=None): 
-        """
-            Starts playback of the track
-        """
-        self.last_audio_sink = audio_sink
-
-        if not self.is_paused():
-            xlmisc.log("Connecting with bus %s" % bus)
-            self.connections.append(bus.connect('message', self.on_message))
-            self.connections.append(bus.connect('sync-message::element',
-                self.on_sync_message))
-            if self.type != 'stream': prefix = "file://"
-            else: prefix = ""
-
-            loc = self.loc
-            if not isinstance(self, StreamTrack):
-                loc = urllib.quote(loc.encode(sys.getfilesystemencoding()))
-            else:
-                if self.stream_loc: loc = self.stream_loc
-            player.set_property("uri", "%s%s" % (prefix, loc))
-            self.next_func = next_func
-            self.submitting = False
-        self.playing = 1
-        player.set_state(gst.STATE_PLAYING)
-
-    def is_playing(self):
-        """
-            Returns True if the track is playing, False if it is paused or
-            stopped
-        """
-        if self.playing == 1: return True
-        else: return False
-
-    def is_paused(self):
-        """
-            Returns True if the track is paused, False if it is stopped or
-            playing
-        """
-        if self.playing == 2: return True
-        else: return False
-
-    def seek(self, value):
-        """
-            Seeks to a position in the track
-        """
-        if player == None: return
-
-        value = value * gst.SECOND
-        event = gst.event_new_seek(
-            1.0, gst.FORMAT_TIME, gst.SEEK_FLAG_FLUSH | gst.SEEK_FLAG_ACCURATE,
-            gst.SEEK_TYPE_SET, value, gst.SEEK_TYPE_NONE, 0)
-        player.send_event(event)
-        self.last_position = value
-
-    def pause(self):
-        """
-            Pauses the track
-        """
-        if player == None: return
-        self.playing = 2
-
-        # we don't actually pause streams, they are stopped.  If streamripper
-        # was involved, it will continue to download the stream normally
-        if isinstance(self, StreamTrack):
-            player.set_state(gst.STATE_NULL)
-        else:
-            player.set_state(gst.STATE_PAUSED)
-
-    def stop(self):
-        """
-            Stops playback of the track
-        """
-
-        self.playing = 0
-        xlmisc.log("playing has been stopped on '%s'" % self._title)
-        if player == None: return
-        for i in self.connections:
-            bus.disconnect(i)
-        self.connections = []
-
-        player.set_state(gst.STATE_READY)
-        if self.type == 'stream': self.submitting = False
-
     def write_tag(self, db=None):
         """
             Writes the tag information to the database
@@ -691,7 +508,6 @@ class Track(gobject.GObject):
     title = property(get_title, set_title)
     artist = property(get_artist, set_artist)
     length = property(get_len, set_len)
-    position = property(get_position)
     duration = property(get_duration)
     rating = property(get_rating, set_rating)
     bitrate = property(get_bitrate, set_bitrate)
@@ -721,17 +537,6 @@ class StreamTrack(Track):
         self.type = 'stream'
         self.stream_loc = ''
     
-    @common.threaded
-    def play(self, next_func=None):
-        """
-            Starts playback in a thread
-        """
-        self.last_audio_sink = audio_sink
-
-        if not self.is_paused():
-            self.start_time = time.time()
-        Track.play(self, next_func)
-
     def get_duration(self):
         """
             Returns 0 - we don't know the duration of streams
@@ -739,13 +544,6 @@ class StreamTrack(Track):
         t = timetype(0)
         t.stream = True
         return t
-
-    def stop(self):
-        """
-            Stops playback of the stream
-        """
-        self.stream_loc = None
-        Track.stop(self)
 
     def get_length(self):
         """
@@ -773,22 +571,6 @@ class CDTrack(Track):
     def write_tag(self, db=None):
         pass
 
-    def play(self,  next_func=None): 
-        """
-            Starts playback of the track
-        """
-        self.last_audio_sink = audio_sink
-
-        if not self.is_paused():
-            self.connections.append(bus.connect('message', self.on_message))
-            prefix = "cdda://"
-
-            player.set_property("uri", "%s%s" % (prefix, self.loc))
-            self.next_func = next_func
-            self.submitting = False
-        self.playing = 1
-        player.set_state(gst.STATE_PLAYING)
-
 class RadioTrack(StreamTrack):
     """
         Describes a track scanned from a radio stream, like shoutcase
@@ -814,19 +596,6 @@ class RadioTrack(StreamTrack):
         if not isinstance(self, PodcastTrack):
             self.album = self.location
 
-    def found_tag_cb(self, play, src, tags):
-        """
-            Called by gstreamer when metadata is found in the stream
-        """
-        for tag in tags.keys():
-            nick = gst.tag_get_nick(tag)
-            if nick == "bitrate": self.bitrate = int(tags[tag])/1000
-            elif nick == "comment": self.artist = tags[tag]
-            elif nick == "title": self.title = tags[tag]
-            xlmisc.log("%s: %s" % (gst.tag_get_nick(tag), tags[tag]))
-        exaile_instance.tracks.refresh_row(self)
-        exaile_instance.update_track_information()
-
     def current_position(self):
         """
             Returns M/A - we don't know the duration of streams
@@ -838,35 +607,6 @@ class RadioTrack(StreamTrack):
             Returns the duration of the track
         """
         return StreamTrack.get_duration(self)
-
-    @common.threaded
-    def play(self, next_func=None):
-        """
-            Starts playback in a thread
-        """
-        if self.loc.endswith(".pls") or self.loc.endswith(".m3u"):
-            t = self.title
-            self.title = "Opening URL..."
-            exaile_instance.tracks.queue_draw()
-            xlmisc.finish()
-            f = urllib.urlopen(self.uri)
-            loc = ""
-            for line in f.readlines():
-                line = line.strip()
-                if line.startswith("#") or line == "[playlist]": continue
-                if line.find("=") > -1:
-                    if not line.startswith("File"): continue
-                    line = re.sub("File\d+=", "", line)
-                    loc = line
-                    break
-                
-            xlmisc.log("Found location: %s" % loc)
-            self.loc = loc
-            self.location = loc
-            self.title = t
-            exaile_instance.tracks.queue_draw()
-
-        StreamTrack.play(self, next_func)
 
     def get_bitrate(self):
         """
@@ -905,26 +645,6 @@ class PodcastTrack(RadioTrack):
             self.size = 0
         RadioTrack.__init__(self, info)
         self.type = 'podcast'
-
-    def found_tag_cb(self, *params):
-        """
-            Do nothing
-        """
-        pass
-
-    def play(self, next_func=None):
-        """
-            Tries to play the podcast
-        """
-        self.loc = self.download_path
-        RadioTrack.play(self, next_func)
-
-    def stop(self):
-        """
-            Stops playback of the track
-        """
-        self.loc = self.real_url
-        RadioTrack.stop(self)
 
     def get_len(self): 
         """

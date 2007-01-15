@@ -18,7 +18,7 @@ import xl.tracks, os, sys, md5, random, db, tracks, xlmisc
 import common, trackslist, shoutcast, filtergui
 import media, time, thread, re, copy, threading
 import urllib
-from xl import formats
+from xl import media
 from xml.dom import minidom
 from filtergui import MultiEntryField, EntryField
 
@@ -2651,7 +2651,7 @@ class FilesPanel(object):
             (stuff, ext) = os.path.splitext(value)
             if os.path.isdir(value):
                 self.append_recursive(songs, value)
-            elif ext.lower() in formats.SUPPORTED_MEDIA:
+            elif ext.lower() in media.SUPPORTED_MEDIA:
                 tr = self.get_track(value)
                 if tr:
                     songs.append(tr)
@@ -2682,7 +2682,7 @@ class FilesPanel(object):
                 self.append_recursive(songs, os.path.join(dir, file))
             else:
                 (stuff, ext) = os.path.splitext(file)
-                if ext in formats.SUPPORTED_MEDIA:
+                if ext in media.SUPPORTED_MEDIA:
                     tr = self.get_track(os.path.join(dir, file))
                     if tr:
                         songs.append(tr)
@@ -2784,7 +2784,7 @@ class FilesPanel(object):
 
             else:
                 (stuff, ext) = os.path.splitext(path)
-                if ext in formats.formats.keys():
+                if ext in media.SUPPORTED_MEDIA:
                     files.append(path)
 
         directories.sort()

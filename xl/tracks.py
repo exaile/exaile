@@ -21,7 +21,6 @@ import thread, threading, urllib, audioscrobbler
 import dbusinterface, xl.db, time
 from db import DBOperationalError
 from pysqlite2.dbapi2 import IntegrityError
-from xl import formats
 
 try:    
     import DiscID, CDDB
@@ -354,7 +353,7 @@ def count_files(directories):
     """
     paths = []
     for dir in directories:
-        paths.extend(scan_dir(dir, exts=formats.formats.keys()))
+        paths.extend(scan_dir(dir, exts=media.SUPPORTED_MEDIA))
 
     return paths
 
@@ -689,7 +688,7 @@ def find_and_delete_dups(path):
     for root, dirs, files in os.walk(path):
         for f in files:
             (stuff, ext) = os.path.splitext(f)
-            if ext in formats.SUPPORTED_MEDIA:
+            if ext in media.SUPPORTED_MEDIA:
                 handle = open(os.path.join(root, f), "r")
                 h = md5.new(handle.read()).hexdigest()
                 handle.close()

@@ -21,8 +21,6 @@ from gettext import gettext as _
 import pygtk
 pygtk.require('2.0')
 import gtk, pango
-from xl import formats
-
 
 class TracksListCtrl(gtk.VBox):
     """
@@ -132,7 +130,7 @@ class TracksListCtrl(gtk.VBox):
                 for root, dirs, files in os.walk(l.replace("file://", '')):
                     for file in files:
                         (stuff, ext) = os.path.splitext(file)
-                        if ext.lower() in formats.SUPPORTED_MEDIA:
+                        if ext.lower() in media.SUPPORTED_MEDIA:
                             loc.append(urllib.quote(os.path.join(root, file)))
 
         drop_info = tv.get_dest_row_at_pos(x, y)

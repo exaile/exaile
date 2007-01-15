@@ -87,7 +87,7 @@ def toggle_record(widget, event=None):
     track = APP.player.current
     if not STREAMRIPPER_PID:
         if not track: return True
-        if not isinstance(track, media.StreamTrack):
+        if not track.type == 'stream':
             common.error(APP.window, "You can only record streams")
             widget.set_active(False)
             return True

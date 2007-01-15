@@ -54,7 +54,7 @@ def pause_toggle(exaile, track):
         Called when a track stops playing
     """
     if PLUGIN_ENABLED:
-        if track.is_paused():
+        if APP.player.is_paused():
             message = generate_message(track, paused=True)
             set_gajim_status(message)
         else:

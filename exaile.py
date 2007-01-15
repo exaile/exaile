@@ -64,7 +64,7 @@ os.chdir(basedir)
 from xl import *
 from xl import formats
 import plugins.manager, plugins, plugins.gui
-import gst
+import pygst; pygst.require('0.10'); import gst
 
 sys_var = "HOME"
 if os.sys.platform.startswith("win"): sys_var = "USERPROFILE"
@@ -854,6 +854,9 @@ class ExaileWindow(gobject.GObject):
             self.device_panel_widget)
 
         self.side_notebook.remove_page(-1)
+
+        if not gst.registry_get_default().find_plugin('gnomevfs'):
+            self.side_notebook.remove_page(2)
         self.device_panel_showing = False
 
     def show_device_panel(self, show):

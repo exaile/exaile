@@ -1,5 +1,30 @@
 # $Id$
 
+import xlmisc, gobject
+SCROBBLER_SESSION = None
+
+## this sets up the supported types
+
+def get_scrobbler_session(exaile, username="", password="", new=False): 
+    """
+        If there is no audio scrobbler session, one is created and returned,
+        else the current one is returned
+    """
+    global SCROBBLER_SESSION
+
+    if (SCROBBLER_SESSION == None or new) and \
+        (username != "" and password != ""):
+        SCROBBLER_SESSION = AudioScrobblerPost(username=username, 
+            password=password, client_name='exa')
+        SCROBBLER_SESSION.verbose = True
+        try:
+            SCROBBLER_SESSION.auth()
+        except:
+            xlmisc.log_exception()
+            gobject.idle_add(exaile.status.set_first,
+                _("Error logging into Last.fm."), 3000)
+            return None
+    return SCROBBLER_SESSION
 """
 ~~~~~~~~~~~
 PyScrobbler

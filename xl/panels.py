@@ -18,6 +18,7 @@ import xl.tracks, os, sys, md5, random, db, tracks, xlmisc
 import common, trackslist, shoutcast, filtergui
 import media, time, thread, re, copy, threading
 import urllib
+from xl import formats
 from xml.dom import minidom
 from filtergui import MultiEntryField, EntryField
 
@@ -429,7 +430,7 @@ class CollectionPanel(object):
                 os.remove(track.loc)
 
             for track in add:
-                if isinstance(track, media.DeviceTrack):
+                if track.type == 'device':
                     device_delete.append(track)
                     continue
                 path_id = tracks.get_column_id(self.db, 'paths', 'name',
@@ -443,7 +444,7 @@ class CollectionPanel(object):
             if result != gtk.RESPONSE_YES: 
                 return
             for track in add:
-                if isinstance(track, media.DeviceTrack):
+                if track.type == 'device':
                     continue
                 path_id = tracks.get_column_id(self.db, 'paths', 'name',
                     track.loc)
@@ -1476,8 +1477,7 @@ class PlaylistsPanel(object):
 
             songs = tracks.TrackData()
             for row in rows:
-                tr = tracks.read_track(self.db, self.exaile.all_songs, row[0],
-                    adddb=False, skipmod=True)
+                tr = tracks.read_track(self.db, self.exaile.all_songs, row[0])
                 if tr:
                     songs.append(tr)
 
@@ -1640,7 +1640,7 @@ class PlaylistsPanel(object):
         playlist_id = tracks.get_column_id(self.db, 'playlists', 'name', playlist)
 
         for track in songs:
-            if isinstance(track, media.StreamTrack): continue
+            if track.type == 'stream': continue
             path_id = tracks.get_column_id(self.db, 'paths', 'name', track.loc)
             self.db.execute("INSERT INTO playlist_items( playlist, path ) " \
                 "VALUES( ?, ? )", (playlist_id, path_id))
@@ -1691,6 +1691,7 @@ class PodcastQueueThread(threading.Thread):
         self.transfer_queue = transfer_queue
         self.panel = panel
         self.queue = transfer_queue.queue
+        self.setDaemon(True)
         self.stopped = False
 
     def run(self):
@@ -1733,8 +1734,7 @@ class PodcastQueueThread(threading.Thread):
             self.transfer_queue.downloaded += 1
             gobject.idle_add(self.transfer_queue.update_progress)
             song.download_path = download_path
-            temp = tracks.read_track(None, None, download_path, False, False,
-                False)
+            temp = tracks.read_track(None, None, download_path)
 
             if temp:
                 song.set_len(temp.duration)
@@ -2399,11 +2399,13 @@ class RadioPanel(object):
         for row in all:
             info = dict()
             info['artist'] = row[1]
-            info['url'] = row[2]
+            info['loc'] = row[2]
             info['title'] = row[0]
             info['bitrate'] = row[3]
 
-            track = media.RadioTrack(info)
+            track = media.Track()
+            track.set_info(**info)
+            track.type = 'stream'
             songs.append(track)
         tracks.playlist = playlist
         tracks.set_songs(songs)
@@ -2518,7 +2520,7 @@ class RadioPanel(object):
         station_id = tracks.get_column_id(self.db, 'radio', 'name', playlist)
 
         for track in songs:
-            if not isinstance(track, media.StreamTrack): continue
+            if track.type != 'stream': continue
             path_id = tracks.get_column_id(self.db, 'paths', 'name', track.loc)
             try:
                 self.db.execute("INSERT INTO radio_items( radio, title, path, "
@@ -2649,7 +2651,7 @@ class FilesPanel(object):
             (stuff, ext) = os.path.splitext(value)
             if os.path.isdir(value):
                 self.append_recursive(songs, value)
-            elif ext in media.SUPPORTED_MEDIA:
+            elif ext.lower() in formats.SUPPORTED_MEDIA:
                 tr = self.get_track(value)
                 if tr:
                     songs.append(tr)
@@ -2668,11 +2670,7 @@ class FilesPanel(object):
         """
             Gets a track
         """
-        tr = self.exaile.all_songs.for_path(path)
-        if not tr:
-            print path
-            tr = tracks.read_track(self.exaile.db, self.exaile.all_songs,
-                path, adddb=False)
+        tr = tracks.read_track(self.exaile.db, self.exaile.all_songs, path)
         return tr
 
     def append_recursive(self, songs, dir):
@@ -2684,7 +2682,7 @@ class FilesPanel(object):
                 self.append_recursive(songs, os.path.join(dir, file))
             else:
                 (stuff, ext) = os.path.splitext(file)
-                if ext in media.SUPPORTED_MEDIA:
+                if ext in formats.SUPPORTED_MEDIA:
                     tr = self.get_track(os.path.join(dir, file))
                     if tr:
                         songs.append(tr)
@@ -2760,7 +2758,7 @@ class FilesPanel(object):
                     self.exaile.import_m3u(dir, True)
                 else:
                     tr = tracks.read_track(self.exaile.db, self.exaile.all_songs,
-                        dir, adddb=False)
+                        dir)
                     if tr:
                         self.exaile.append_songs((tr, ), title=_('Playlist'))
 
@@ -2786,7 +2784,7 @@ class FilesPanel(object):
 
             else:
                 (stuff, ext) = os.path.splitext(path)
-                if ext in media.SUPPORTED_MEDIA:
+                if ext in formats.formats.keys():
                     files.append(path)
 
         directories.sort()

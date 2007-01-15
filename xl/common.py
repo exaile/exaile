@@ -35,6 +35,7 @@ def tup(string, num):
 def threaded(f):
     def wrapper(*args):
         t = threading.Thread(target=f, args=args)
+        t.setDaemon(True)
         t.start()
 
     return wrapper

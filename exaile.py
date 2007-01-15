@@ -44,7 +44,7 @@ pygtk.require('2.0')
 import gtk, gtk.glade, pango, dbus
 
 import os, re, random, fileinput, gc, urllib, md5, urlparse
-import os.path, traceback, thread, gettext, time
+import os.path, traceback, thread, gettext, time, threading
 import locale, tempfile, subprocess
 
 # set up gettext for translations
@@ -62,6 +62,7 @@ sys.path.insert(0, basedir)
 os.chdir(basedir)
 
 from xl import *
+from xl import formats
 import plugins.manager, plugins, plugins.gui
 import gst
 
@@ -187,7 +188,7 @@ class ExaileWindow(gobject.GObject):
         pos = self.settings.get_int("mainw_sash_pos", 200)
         self.setup_location()
 
-        media.set_volume(self.settings.get_float("volume", 1))
+        self.player.set_volume(self.settings.get_float("volume", 1))
 
         self.splitter = self.xml.get_widget('splitter')
         self.splitter.connect('notify::position', self.on_resize)
@@ -236,16 +237,16 @@ class ExaileWindow(gobject.GObject):
             Called when a tag is found in a stream
         """
         track = self.player.current
-        if not track or not track.type == 'stream': return
+        if not track or not track.type == 'stream': return True
         for tag in tags.keys():
             nick = gst.tag_get_nick(tag)
             if nick == 'bitrate': track.bitrate = int(tags[tag])/1000
             elif nick == 'comment': track.artist = tags[tag]
             elif nick == 'title': track.title = tags[tag]
             xlmisc.log('%s: %s' % (gst.tag_get_nick(tag), tags[tag]))           
-
         self.tracks.refresh_row(track)
         self.update_track_information()
+        return True
 
     def get_version(self):
         """
@@ -1162,17 +1163,10 @@ class ExaileWindow(gobject.GObject):
         self.title_label.set_label(track.title)
 
         # set up the playing/track labels based on the type of track
-        if isinstance(track, media.RadioTrack):
-            self.artist_label.set_label(track.artist)
-            self.window.set_title("Exaile %s on %s" % (track.title,
-                track.artist))
-        elif isinstance(track, media.StreamTrack):
-            self.window.set_title("Exaile %s" % track.title)
-            self.artist_label.set_label(track.album)
-        else:
-            self.window.set_title("Exaile: playing %s from %s by %s" %
-                (track.title, album, artist))
-            self.artist_label.set_label("from %s\nby %s" % (album, artist))
+
+        self.window.set_title("Exaile: playing %s from %s by %s" %
+            (track.title, album, artist))
+        self.artist_label.set_label("from %s\nby %s" % (album, artist))
 
         if self.tray_icon:
             self.tray_icon.set_tooltip(self.window.get_title())
@@ -1194,6 +1188,7 @@ class ExaileWindow(gobject.GObject):
         self.rating_signal = self.rating_combo.connect('changed',
             self.set_rating)
         self.emit('track-information-updated')
+        return True
 
     def update_rating(self, track, **info): 
         """
@@ -1552,7 +1547,7 @@ class ExaileWindow(gobject.GObject):
         """
             Plays a track, gets the cover art, and sets up the context panel
         """
-        if isinstance(track, media.PodcastTrack):
+        if track.type == 'podcast':
             if not track.download_path:
                 common.error(self.window, _("Podcast has not yet been "
                     "downloaded"))
@@ -1796,19 +1791,16 @@ class ExaileWindow(gobject.GObject):
                 if self.all_songs.for_path(url[2]):
                     tr = self.all_songs.for_path(url[2])
                 else:
-                    tr = tracks.read_track(self.db, self.all_songs, url[2], adddb=False)
+                    tr = tracks.read_track(self.db, self.all_songs, url[2])
                   
             else:
-                tr = media.RadioTrack({
-                    'url':urlparse.urlunsplit(url),
-                    'title':'Radio Stream'
-                    })
+                tr = media.Track(urlparse.urlunsplit(url))
+                tr.type = 'stream'
+                tr.title = "Radio Stream"
+
                 if first and play:
                     play = tr
                     
-                if isinstance(tr, media.StreamTrack):
-                    name = "Stream"
-
             if tr:
                 songs.append(tr)
 
@@ -1830,7 +1822,7 @@ class ExaileWindow(gobject.GObject):
         else:
             self.append_songs(songs, play=False)
 
-        if isinstance(play, media.StreamTrack):
+        if type(play) != bool and play.type == 'stream':
             self.stop()
             self.play_track(play)
 
@@ -1853,7 +1845,7 @@ class ExaileWindow(gobject.GObject):
             Adds media to the current selected tab regardless of whether or
             not they are contained in the library
         """
-        types = media.SUPPORTED_MEDIA
+        types = formats.SUPPORTED_MEDIA
         wildcard = ['*%s' % t for t in types]
         wildcard.extend(['.pls', '.m3u'])
         wildcard.append('*')
@@ -1887,8 +1879,7 @@ class ExaileWindow(gobject.GObject):
                     if count >= 10:
                         xlmisc.finish()
                         count = 0
-                    tr = tracks.read_track(self.db, self.all_songs, path, 
-                        adddb=False)
+                    tr = tracks.read_track(self.db, self.all_songs, path)
 
                     count = count + 1
                     if tr:
@@ -1958,8 +1949,8 @@ class ExaileWindow(gobject.GObject):
             track = tracks.read_track(self.db, self.all_songs, url,
                 adddb=False)
         else:
-            info = ({'url': url})
-            track = media.RadioTrack(info)
+            track = media.Track(url)
+            track.type = 'stream'
 
         songs = tracks.TrackData((track, ))
         if not songs: return
@@ -2089,7 +2080,7 @@ class ExaileWindow(gobject.GObject):
                 (SETTINGS_DIR, os.sep, os.sep, i), "w")
             h.write("# PLAYLIST: %s\n" % title)
             for song in songs:
-                if isinstance(song, media.PodcastTrack): continue
+                if song.type == 'podcast': continue
                 h.write("%s\n" % song.loc)
 
             h.close()
@@ -2103,8 +2094,14 @@ class ExaileWindow(gobject.GObject):
         self.db.db.commit()
         last_active = self.playlists_nb.get_current_page()
         self.settings['last_active'] = last_active
-
+        
         gtk.main_quit()
+        print 'Exiting, bye!'
+        # set a timer.  If we haven't exited after 2 seconds, exit immediately
+
+        gobject.timeout_add(200, os._exit, 0)
+        sys.exit(0)
+
 
     def on_resize(self, widget, event): 
         """

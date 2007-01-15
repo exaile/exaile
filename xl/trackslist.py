@@ -21,6 +21,7 @@ from gettext import gettext as _
 import pygtk
 pygtk.require('2.0')
 import gtk, pango
+from xl import formats
 
 
 class TracksListCtrl(gtk.VBox):
@@ -131,7 +132,7 @@ class TracksListCtrl(gtk.VBox):
                 for root, dirs, files in os.walk(l.replace("file://", '')):
                     for file in files:
                         (stuff, ext) = os.path.splitext(file)
-                        if ext.lower() in media.SUPPORTED_MEDIA:
+                        if ext.lower() in formats.SUPPORTED_MEDIA:
                             loc.append(urllib.quote(os.path.join(root, file)))
 
         drop_info = tv.get_dest_row_at_pos(x, y)
@@ -151,10 +152,7 @@ class TracksListCtrl(gtk.VBox):
             if m:
                 song = self.exaile.device_panel.get_song(l)
             else:
-                song = self.exaile.all_songs.for_path(l)
-                if not song:
-                    song = tracks.read_track(self.exaile.db, self.exaile.all_songs,
-                        l, adddb=False)
+                song = tracks.read_track(self.exaile.db, self.exaile.all_songs, l)
 
             if not song or song in self.songs: continue
 
@@ -176,7 +174,6 @@ class TracksListCtrl(gtk.VBox):
                     counter += 1
             if not song in self.playlist_songs:
                 self.playlist_songs.append(song)
-
 
         if context.action == gtk.gdk.ACTION_MOVE:
             context.finish(True, True, etime)
@@ -288,7 +285,7 @@ class TracksListCtrl(gtk.VBox):
             iter = self.model.get_iter(path)
             song = self.model.get_value(iter, 0) 
 
-            if isinstance(song, media.DeviceTrack):
+            if song.type == 'device':
                 device_name = self.exaile.device_panel.get_driver_name()
                 loc.append("device_%s://%s" % (device_name, urllib.quote(str(song.loc))))
             else:
@@ -557,14 +554,14 @@ class TracksListCtrl(gtk.VBox):
         """
         item = model.get_value(iter, 0)
 
-        if isinstance(item, media.PodcastTrack):
+        if item == 'podcast':
             cellr.set_property('text', item.length)
             return
 
         seconds = item.duration
         text = "%s:%02d" % (seconds / 60, seconds % 60)
 
-        if isinstance(item, media.StreamTrack):
+        if item.type == 'stream':
             text = ''
 
         cellr.set_property('text', text)
@@ -667,7 +664,7 @@ class TracksListCtrl(gtk.VBox):
         tpm.append_separator()
         songs = self.get_selected_tracks()
 
-        if not songs or not isinstance(songs[0], media.StreamTrack):
+        if not songs or not songs[0].type == 'stream':
             pm = xlmisc.Menu()
             self.new_playlist = pm.append(_("New Playlist"),
                 self.exaile.playlists_panel.on_add_playlist, 'gtk-new')
@@ -831,11 +828,14 @@ class TracksListCtrl(gtk.VBox):
                 info = ({
                     "artist": fields[0],
                     "title": fields[1],
-                    "url": fields[2],
+                    "loc": fields[2],
                     "bitrate": fields[3].replace("k", "")
                 })
 
-                track = media.RadioTrack(info)
+                track = media.Track()
+                track.set_info(**info)
+                track.type = 'stream'
+                track.album = info['loc']
                 songs.append(track)
         except:
             xlmisc.log_exception()
@@ -904,7 +904,7 @@ class TracksListCtrl(gtk.VBox):
                 if deleting:
                     xlmisc.log("Deleting %s" % track.loc)
 
-                    if isinstance(track, media.DeviceTrack):
+                    if track.type == 'device':
                         xlmisc.log("Device track detected")
                         device_delete.append(track)
                         continue
@@ -924,8 +924,7 @@ class TracksListCtrl(gtk.VBox):
                     # execute if this is "remove from playlist" or "blacklist"
                     playlist = self.playlist
                     if playlist != None:
-                        if isinstance(track,
-                            media.StreamTrack):
+                        if track.type == 'stream':
                             t = "radio"; p = "url"
                         else:
                             t = "playlists"; p = "path"

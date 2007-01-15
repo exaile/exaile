@@ -53,10 +53,12 @@ def parse_genre(genre, stations, url=None, func=None):
         if not check: continue
         station = new
         s = dict()
-        s['url'] = "http://www.shoutcast.com%s" % station[0]
+        s['loc'] = "http://www.shoutcast.com%s" % station[0]
         s['artist'] = station[1]
         s['title'] = station[2]
         s['bitrate'] = station[4]
+
+        s['album'] = s['loc']
 
         stations.append(s)
         if func:
@@ -83,6 +85,7 @@ class ShoutcastThread(threading.Thread):
         self.tracks = tracks
         self.genre = genre
         self.count = 0
+        self.setDaemon(True)
         self.add = []
 
     def run(self):
@@ -103,15 +106,22 @@ class ShoutcastThread(threading.Thread):
             if len(self.add):
                 songs = self.tracks.songs
                 for track in self.add:
-                    if not track['url'] in songs.paths:
-                        songs.append(media.RadioTrack(track))
+                    if not track['loc'] in songs.paths:
+                        tr = media.Track()
+                        tr.set_info(**track)
+                        tr.type = 'stream'
+                        songs.append(tr)
                 self.tracks.set_songs(songs)
             self.tracks.exaile.status.set_first(None)
             self.tracks.save(self.genre)
             self.tracks.playlist_songs = self.tracks.songs
         elif self.count <= 60:
-            if not track['url'] in self.tracks.songs.paths:
-                self.tracks.append_song(media.RadioTrack(track))
+            if not track['loc'] in self.tracks.songs.paths:
+                tr = media.Track()
+                tr.set_info(**track)
+
+                tr.type = 'stream'
+                self.tracks.append_song(tr)
         else:
             self.add.append(track)
 

@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import pygst
+import pygst, gtk
 pygst.require('0.10')
 import gst, gobject, random, time, urllib, re
 from xl import xlmisc, common
@@ -145,7 +145,7 @@ class GSTPlayer(Player):
             self.bus.disconnect(connection)
         self.connections = []
 
-        self.playbin.set_state(gst.STATE_READY)
+        self.playbin.set_state(gst.STATE_NULL)
 
     def get_position(self):
         """
@@ -246,7 +246,7 @@ class ExailePlayer(GSTPlayer):
 
         if loc:
             xlmisc.log('Found location: %s' % loc)
-            gobject.idle_add(GSTPlayer.play, self, loc)
+            GSTPlayer.play(self, loc)
             return
 
         xlmisc.log('Could not find a stream location')
@@ -356,3 +356,62 @@ class ExailePlayer(GSTPlayer):
         """
         GSTPlayer.stop(self)
         if reset_current: self.current = None
+
+# VideoWidget and VideoArea code taken from Listen media player
+# http://listen-gnome.free.fr
+class VideoWidget(gtk.Window):
+    def __init__(self, parent):
+        gtk.Window.__init__(self)
+#        self.set_transient_for(parent)
+        self.imagesink = None
+        self.area = VideoArea()
+        self.add(self.area)
+        self.resize(700, 500)
+        self.loaded = False
+        self.connect('delete_event', self.on_delete)
+        self.set_title(_("Exaile Media Player"))
+
+    def on_delete(self, *e):
+        """
+            Called when the window is closed
+        """
+        global VIDEO_WIDGET
+        self.hide()
+        VIDEO_WIDGET = None
+        restart_gstreamer()
+        return True
+
+    def set_sink(self, sink):
+        self.imagesink = sink
+
+        self.set_window_id()
+        self.area.set_sink(sink)
+
+        """
+        workaround to launch the visualisation on startup
+        And prevent the "Xerror GC bad" problem when visualisation start and widget not completey realize
+        """
+        if not self.loaded:
+            self.child.do_expose_event(None)
+            self.loaded = True
+
+    def set_window_id(self):
+        self.imagesink.set_xwindow_id(self.child.window.xid)
+
+class VideoArea(gtk.DrawingArea):
+    def __init__(self,imagesink=None):
+        gtk.DrawingArea.__init__(self)
+        self.unset_flags(gtk.DOUBLE_BUFFERED)
+        self.imagesink = imagesink
+
+    def set_sink(self,imagesink):
+        self.imagesink = imagesink
+
+    def do_expose_event(self, event):
+        if self.imagesink:
+            self.imagesink.expose()
+            return False
+        else:
+            return True
+
+VIDEO_WIDGET = None

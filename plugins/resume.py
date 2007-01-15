@@ -26,6 +26,7 @@ def restore_state():
         if APP.tracks:
             songs = APP.tracks.get_songs()
             track = APP.settings.get_int(TRACK)
+            
             if track < len(songs):
                 APP.player.play_track(songs[track])
                 APP.player.current = songs[track]

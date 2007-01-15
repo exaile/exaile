@@ -21,6 +21,7 @@ import thread, threading, urllib, audioscrobbler
 import dbusinterface, xl.db, time
 from db import DBOperationalError
 from pysqlite2.dbapi2 import IntegrityError
+from xl import formats
 
 try:    
     import DiscID, CDDB
@@ -274,7 +275,9 @@ def load_tracks(db, current=None):
         if not os.path.isfile(row[0]): 
             continue
 
-        t = read_track(db, current, None, True, row=row)
+        t = media.Track(*row)
+        path, ext = os.path.splitext(row[0].lower())
+        t.type = ext.replace('.', '')
 
         if already_added(t, added): continue
 
@@ -336,7 +339,7 @@ def scan_dir(dir, files=None, exts=()):
        
         try:
             (stuff, ext) = os.path.splitext(file)
-            if ext.lower() in exts:
+            if ext.lower().replace('.', '') in exts:
                 files.append(file)
         except:
             traceback.print_exc()
@@ -351,7 +354,7 @@ def count_files(directories):
     """
     paths = []
     for dir in directories:
-        paths.extend(scan_dir(dir, exts=media.SUPPORTED_MEDIA))
+        paths.extend(scan_dir(dir, exts=formats.formats.keys()))
 
     return paths
 
@@ -454,115 +457,90 @@ def get_album_id(db, artist_id, album, prep=''):
         (index, artist_id, album))
     return index
 
-def read_track(db, current, path, skipmod=False, adddb=True,
-    row=None, track_type=None, prep=''):
-    """
-        Reads a track, either from the database, or from it's metadata
-    """
+def read_track(db, all, path):
 
-    # if path was passed in as a list, the correct fields have probably
-    # already been loaded from the database
-    if not row is None:
-        path = row[0]
-    # else, we read the row from the database
-    else:
-        if db:
-            rows = db.select("""
-                SELECT 
-                    paths.name, 
-                    title, 
-                    artists.name, 
-                    albums.name, 
-                    disc_id,
-                    tracks.genre,
-                    track, 
-                    length, 
-                    bitrate, 
-                    year, 
-                    modified, 
-                    user_rating, 
-                    blacklisted, 
-                    time_added
-                FROM tracks,paths,artists,albums 
-                WHERE 
-                    (
-                        paths.id=tracks.path AND 
-                        artists.id=tracks.artist AND 
-                        albums.id=tracks.album
-                    ) 
-                    AND paths.name=? 
-                """, (path,))
-            if not rows:
-                row = None
-            else:
-                row = rows[0]
+    if all:
+        tr = all.for_path(path)
+    else: tr = None
+   
+    # if the track is not already read, try the database
+    if not tr:
+        tr = read_track_from_db(db, path)
 
-    if not os.path.isfile(path): return None
-    (f, ext) = os.path.splitext(path)
-
-    if skipmod and not row: return None
-
-    if not skipmod:
-        mod = os.stat(os.path.join(path)).st_mtime
-    else:
-        mod = 0
-    if not skipmod and (not row or row[9] != mod):
-        try:
-            if media.FORMAT.has_key(ext.lower()):
-                ttype = media.FORMAT[ext.lower()]
-                tr = ttype(path)
-            else:
-                return None
-
-            tr.read_tag()
-
-            tr.read_from_db = False
-
-            if db and adddb:
-                if not row:
-                    tr.time_added = time.strftime("%Y-%m-%d %H:%M:%Y", 
-                        time.localtime())
-                path_id = get_column_id(db, 'paths', 'name', unicode(tr.loc),
-                    prep=prep)
-                artist_id = get_column_id(db, 'artists', 'name', unicode(tr.artist), prep=prep)
-                album_id = get_album_id(db, artist_id, unicode(tr.album),
-                    prep=prep)
-
-                db.update("tracks",
-                    {
-                        "path": path_id,
-                        "title": tr.title,
-                        "artist": artist_id,
-                        "album": album_id,
-                        "disc_id": tr.disc_id,
-                        "genre": tr.genre,
-                        "track": tr.track,
-                        "length": tr.duration,
-                        "bitrate": tr._bitrate,
-                        "blacklisted": tr.blacklisted,
-                        "year": tr.year,
-                        "modified": mod,
-                        "time_added": tr.time_added
-                    }, "path=?", (path_id,), row == None)
-
-        except:
-            xlmisc.log_exception()
-    elif current != None and current.for_path(path):
-        return current.for_path(path)
-    else:
-        if track_type:
-            tr = track_type(row[0])
-        elif media.FORMAT.has_key(ext.lower()):
-            ttype = media.FORMAT[ext.lower()]
-            tr = ttype(row[0])
-        else:
-            return None
-
-        tr.set_info(*row)
-
-        tr.read_from_db = True
+    # if it's not in the database, read it from the filesystem
+    if not tr:
+        tr = formats.read_from_path(path)
 
     return tr
+
+def read_track_from_db(db, path):
+    """
+        Reads a track from the database
+    """
+    rows = db.select("""
+        SELECT 
+            paths.name, 
+            title, 
+            artists.name, 
+            albums.name, 
+            disc_id,
+            tracks.genre,
+            track, 
+            length, 
+            bitrate, 
+            year, 
+            modified, 
+            user_rating, 
+            blacklisted, 
+            time_added
+        FROM tracks,paths,artists,albums 
+        WHERE 
+            (
+                paths.id=tracks.path AND 
+                artists.id=tracks.artist AND 
+                albums.id=tracks.album
+            ) 
+            AND paths.name=? 
+        """, (path,))
+
+    if rows:
+        tr = media.Track(*rows[0])
+    else: 
+        tr = None
+
+    if tr:
+        (path, ext) = os.path.splitext(tr.loc.lower())
+        tr.type = ext.replace('.', '')
+
+    return tr
+
+def save_track_to_db(db, tr, new=False, prep=''):
+    if new:
+        tr.time_added = time.strftime("%Y-%m-%d %H:%M:%Y", 
+            time.localtime())
+
+    path_id = get_column_id(db, 'paths', 'name', unicode(tr.loc),
+        prep=prep)
+    artist_id = get_column_id(db, 'artists', 'name', unicode(tr.artist), prep=prep)
+    album_id = get_album_id(db, artist_id, unicode(tr.album),
+        prep=prep)
+
+    db.update("tracks",
+        {
+            "path": path_id,
+            "title": tr.title,
+            "artist": artist_id,
+            "album": album_id,
+            "disc_id": tr.disc_id,
+            "genre": tr.genre,
+            "track": tr.track,
+            "length": tr.duration,
+            "bitrate": tr._bitrate,
+            "blacklisted": tr.blacklisted,
+            "year": tr.year,
+            "modified": tr.modified,
+            "time_added": tr.time_added
+        }, "path=?", (path_id,), new)
 
 class PopulateThread(threading.Thread):
     """
@@ -624,21 +602,26 @@ class PopulateThread(threading.Thread):
                 self.stop()
                 return
             try:
-                temp = self.exaile.all_songs.for_path(loc)
-                
-                tr = read_track(db, self.exaile.all_songs, loc)
+                tr = self.exaile.all_songs.for_path(loc)
+               
+                if not tr:
+                    tr = read_track_from_db(db, loc)
+
+                modified = os.stat(loc).st_mtime
+                if not tr or tr.modified != modified:
+                    new = False
+                    if not tr: new = True
+                    tr = formats.read_from_path(loc)
+                    save_track_to_db(db, tr, new)
+
                 if tr:
                     path_id = get_column_id(db, 'paths', 'name', loc)
                     db.execute("UPDATE tracks SET included=1 WHERE path=?",
                         (path_id,))
                 if not tr or tr.blacklisted: continue
                 
-                if not temp:
+                if not self.exaile.all_songs.for_path(loc):
                     if not already_added(tr, added): self.exaile.all_songs.append(tr)
-                elif not isinstance(temp, media.StreamTrack):
-                    for field in ('title', 'track', '_artist',
-                        'album', 'genre', 'year'):
-                        setattr(temp, field, getattr(tr, field))
                 self.found_tracks.append(tr)
                 already_added(tr, added)
 
@@ -706,7 +689,7 @@ def find_and_delete_dups(path):
     for root, dirs, files in os.walk(path):
         for f in files:
             (stuff, ext) = os.path.splitext(f)
-            if ext in media.SUPPORTED_MEDIA:
+            if ext in formats.SUPPORTED_MEDIA:
                 handle = open(os.path.join(root, f), "r")
                 h = md5.new(handle.read()).hexdigest()
                 handle.close()

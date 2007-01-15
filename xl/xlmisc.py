@@ -904,6 +904,7 @@ class URLFetcher(threading.Thread):
         self.path = path 
 
         print self.server, self.path
+        self.setDaemon(True)
         self.done_func = done_func
 
     def run(self):

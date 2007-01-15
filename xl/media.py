@@ -16,8 +16,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-import mutagen, mutagen.id3, mutagen.flac, mutagen.oggvorbis
-import mutagen.mp3, subprocess, common, tracks
+import subprocess, common, tracks
 from gettext import gettext as _
 import sys, time, re, os.path, os
 import httplib
@@ -40,20 +39,7 @@ try:
 except ImportError: 
     WMAINFO_AVAIL = False
 
-# FORMAT and SUPPORTED_MEDIA are set up at the end of this file
-FORMAT = dict()
 exaile_instance = None
-
-def setup_gstreamer():
-    global player, bus, tag_bin, tag_bus
-    player = gst.element_factory_make("playbin")
-    bus = player.get_bus()
-    bus.add_signal_watch()
-    bus.enable_sync_message_emission()
-    tag_bin = gst.element_factory_make("playbin")
-    tag_bus = tag_bin.get_bus()
-    tag_bus.add_signal_watch()
-setup_gstreamer()
 
 import audioscrobbler, thread, urllib
 
@@ -86,111 +72,6 @@ def get_scrobbler_session(username="", password="", new=False):
                 _("Error logging into Last.fm."), 3000)
             return None
     return SCROBBLER_SESSION
-
-def set_audio_sink(sink): 
-    """
-        Sets the default audio sink
-    """
-    global audio_sink, stream_audio_sink
-    if "win" in sys.platform: return
-    if not sink:
-        sink = "GConf"
-    lowsink = sink.lower()
-    if lowsink.find("auto") > -1:
-        sink = "autoaudiosink"
-    elif lowsink.find("gconf") > -1:
-        sink = "gconfaudiosink"
-    try:
-        audio_sink = gst.element_factory_make(sink)
-    except gst.PluginNotFoundError:
-        xlmisc.log("Sink '%s' not found, trying autoaudiosink" %
-            sink)
-        audio_sink = gst.element_factory_make("autoaudiosink")
-    player.set_property("audio-sink", audio_sink)
-
-
-def set_volume(vol): 
-    """
-        Sets the volume (value between 0 and 1.5)
-    """
-    if "win" in sys.platform: return
-    player.set_property("volume", vol)
-
-
-def get_volume(): 
-    """
-        Returns the current volume level
-    """
-    return player.get_property("volume")
-
-# VideoWidget and VideoArea code taken from Listen media player
-# http://listen-gnome.free.fr
-class VideoWidget(gtk.Window):
-    def __init__(self, parent):
-        gtk.Window.__init__(self)
-#        self.set_transient_for(parent)
-        self.imagesink = None
-        self.area = VideoArea()
-        self.add(self.area)
-        self.resize(700, 500)
-        self.loaded = False
-        self.connect('delete_event', self.on_delete)
-        self.set_title(_("Exaile Media Player"))
-
-    def on_delete(self, *e):
-        """
-            Called when the window is closed
-        """
-        global VIDEO_WIDGET
-        self.hide()
-        VIDEO_WIDGET = None
-        restart_gstreamer()
-        return True
-
-    def set_sink(self, sink):
-        self.imagesink = sink
-
-        self.set_window_id()
-        self.area.set_sink(sink)
-
-        """
-        workaround to launch the visualisation on startup
-        And prevent the "Xerror GC bad" problem when visualisation start and widget not completey realize
-        """
-        if not self.loaded:
-            self.child.do_expose_event(None)
-            self.loaded = True
-
-    def set_window_id(self):
-        self.imagesink.set_xwindow_id(self.child.window.xid)
-
-class VideoArea(gtk.DrawingArea):
-    def __init__(self,imagesink=None):
-        gtk.DrawingArea.__init__(self)
-        self.unset_flags(gtk.DOUBLE_BUFFERED)
-        self.imagesink = imagesink
-
-    def set_sink(self,imagesink):
-        self.imagesink = imagesink
-
-    def do_expose_event(self, event):
-        if self.imagesink:
-            self.imagesink.expose()
-            return False
-        else:
-            return True
-
-VIDEO_WIDGET = None
-
-def restart_gstreamer():
-    track = exaile_instance.current_track
-    if track: track.stop()
-    player.set_state(gst.STATE_NULL)
-    setup_gstreamer()
-
-    set_audio_sink(exaile_instance.settings.get('audio_sink', 'Use '
-        'GConf Settings'))
-    if track: track.play(track.next_func)
 
 def show_visualizations(*e):
     """
@@ -228,18 +109,6 @@ def show_visualizations(*e):
     if not isinstance(track, StreamTrack) and position:
         track.seek(position / gst.SECOND)
 
-class MetaIOException(Exception):
-    """
-        Raised when there is a problem writing metadata to one of the
-        filetypes
-    """
-    def __init__(self, reason):
-        """
-            Initializes the exception with a reason
-        """
-        Exception.__init__(self)
-        self.reason = reason
-
 class timetype(long):
     """
         I am just extending long so that we know when to convert a long to a
@@ -258,30 +127,27 @@ class Track(gobject.GObject):
     """
         Represents a generic single track
     """
-
-    def __init__(self, loc="", title="", artist="",  
-        album="", disc_id=0, genre="",
-        track=0, length=0, bitrate=0, year="", 
-        modified=0, user_rating=0, blacklisted=0, time_added=''):
+    type = 'track'
+    def __init__(self, *args):
         """
             Loads an initializes the tag information
             Expects the path to the track as an argument
         """
         gobject.GObject.__init__(self)
-        self.set_info(loc, title, artist, album, genre,
-            track, length, bitrate, year, modified, user_rating, 
-            blacklisted, time_added)
+        self.set_info(*args)
+
 
         self.time_played = 0
         self.read_from_db = False
         self.blacklisted = 0
-        self.ipod_playlist = None
         self.next_func = None
-        self.type = 'track'
 
-    def set_info(self, loc="", title="", artist="",
-        album="", disc_id=-1, genre="", track=0, length=0, bitrate=0, year="", 
+    def set_info(self,loc="", title="", artist="",  
+        album="", disc_id=0, genre="",
+        track=0, length=0, bitrate=0, year="", 
         modified=0, user_rating=0, blacklisted=0, time_added=''):
+    
+    
         """
             Sets track information
         """
@@ -305,11 +171,12 @@ class Track(gobject.GObject):
         self.genre = genre
         self.submitting = False
         self.last_position = 0
+        self.bitrate = bitrate
         self.modified = modified
         self.blacklisted = blacklisted
         self.rating = user_rating
         self.user_rating = user_rating
-        self.time_added = ''
+        self.time_added = time_added
 
     def ipod_track(self):
         """
@@ -352,6 +219,8 @@ class Track(gobject.GObject):
             attempts to convert the track number to an int, otherwise it
             just returns -1
         """
+        if self.type == 'stream':   
+            return -1
         try:
             return int(self._track)
         except:
@@ -362,6 +231,11 @@ class Track(gobject.GObject):
         """
             Returns the bitrate
         """
+        if self.type == 'stream':
+            if self._bitrate:
+                return "%sk" % self._bitrate
+            else:
+                return ''
         try:
             rate = int(self._bitrate) / 1000
             if rate: return "%dk" % rate
@@ -519,529 +393,3 @@ class Track(gobject.GObject):
         """
         global SCROBBLER_SESSION
         return SCROBBLER_SESSION
-
-class StreamTrack(Track):
-    """
-        Represents a non-local, non-library track
-    """
-    def __init__(self, loc):
-        """
-            Expects the URL and the current exaile instance
-        """
-        Track.__init__(self, loc)
-        self.album = loc
-        self.title = "Stream: %s" % loc
-        self.connections = []
-        self.track = ""
-        self.start_time = 0
-        self.type = 'stream'
-        self.stream_loc = ''
-    
-    def get_duration(self):
-        """
-            Returns 0 - we don't know the duration of streams
-        """
-        t = timetype(0)
-        t.stream = True
-        return t
-
-    def get_length(self):
-        """
-            Returns M/A - we don't know the duration of streams
-        """
-        return "N/A"
-
-    length = property(get_length)
-
-class CDTrack(Track):
-    """
-        Represents a track on an audio cd
-    """
-    def __init__(self, tracknum, length=0):
-        """
-            Initializes the track
-        """
-        Track.__init__(self, tracknum, length=length)
-        self.title = "Track %s" % tracknum
-        self.type = 'cd'
-
-    def read_tag(self):
-        pass
-
-    def write_tag(self, db=None):
-        pass
-
-class RadioTrack(StreamTrack):
-    """
-        Describes a track scanned from a radio stream, like shoutcase
-    """
-    def __init__(self, info):
-        """
-            Expects a dictionary containing information about the track
-
-            At least "url" is required, but the following information can
-            also be passed in the "info" dictionary: description, playing,
-            listeners, bitrate, and location
-        """
-        StreamTrack.__init__(self, info['url'])
-
-        for field in ('artist', 'url', 'bitrate', 
-            'title', 'album', 'year', 'podcast_duration'):
-            if field in info: self.__setattr__(field, info[field])
-            else: self.__setattr__(field, "")
-
-        self.location = self.loc
-        self.uri = self.loc
-        self.streamripper_pid = None
-        if not isinstance(self, PodcastTrack):
-            self.album = self.location
-
-    def current_position(self):
-        """
-            Returns M/A - we don't know the duration of streams
-        """
-        return 0
-
-    def get_duration(self):
-        """
-            Returns the duration of the track
-        """
-        return StreamTrack.get_duration(self)
-
-    def get_bitrate(self):
-        """
-            returns the bitrate of the track
-        """
-        self._bitrate = str(self._bitrate)
-        self._bitrate = re.sub("\D", "", self._bitrate)
-        if self._bitrate: return "%sk"  % self._bitrate
-        else: return ""
-
-    def set_bitrate(self, rate):
-        """
-            sets the bitrate of the track
-        """
-        rate = str(rate)
-        rate = re.sub("\D", "", rate)
-        self._bitrate = rate
-
-    duration = property(get_duration)
-    bitrate = property(get_bitrate, set_bitrate)
-
-class PodcastTrack(RadioTrack):
-    """
-        Podcasts
-    """
-    def __init__(self, info):
-        """
-            Initialize
-        """
-        self.download_path = info['download_path']
-        self.real_url = info['url']
-
-        try:
-            self.size = long(info['size'])
-        except ValueError:  
-            self.size = 0
-        RadioTrack.__init__(self, info)
-        self.type = 'podcast'
-
-    def get_len(self): 
-        """
-            Returns the length of the track in the format minutes:seconds
-        """
-
-        l = self._len
-        tup = time.localtime(float(l))
-
-        return "%s:%02d" % (tup[4], tup[5])
-    
-
-    def set_len(self, value): 
-        """
-            Sets the length
-        """
-        if value == "": value = 0
-        self._len = value
-
-    length = property(get_len, set_len)
-
-class GSTTrack(Track):
-    """
-        Generic gstreamer track. Use only if the format isn't currently
-        supported in mutagen (this method is slower)
-    """
-    def __init__(self, *args):
-        """
-            Initializes the track"
-        """
-        Track.__init__(self, *args) 
-
-        self.done = False
-        self.eos = False
-        self.is_tagged = False
-
-    def on_message_proxy(self, bus, message):
-        """
-            Called by gstreamer on message
-        """
-        Track.on_message(self, bus, message, True)
-        if message.type == gst.MESSAGE_TAG:
-            if exaile_instance.tracks:
-                exaile_instance.tracks.queue_draw() 
-            self.is_tagged = True
-        elif message.type == gst.MESSAGE_EOS:
-            self.eos = True
-
-    def write_tag(self, db=None):
-        """
-            Writes the tags to the database
-        """
-        raise MetaIOException("Track %s: writing metadata to this filetype is"
-            " not currently supported." % self.loc)
-
-    def read_tag(self):
-        """
-            Reads the tag using GStreamer
-        """
-        self.sink = gst.element_factory_make('fakesink')
-        self.connect_id = tag_bus.connect('message', self.on_message_proxy)
-        tag_bin.set_property('audio-sink', self.sink)
-
-        tag_bin.set_property('uri', "file://%s" % self.loc)
-        ret = tag_bin.set_state(gst.STATE_PLAYING)
-        timeout = 10
-        state = None
-        while ret == gst.STATE_CHANGE_ASYNC and timeout > 0 and not self.eos \
-            and not self.is_tagged:
-            ret, state, pending = tag_bin.get_state(gst.SECOND)
-            tag_bus.poll(gst.MESSAGE_TAG, gst.SECOND)
-            timeout -= 1
-
-        try:
-            query = gst.query_new_duration(gst.FORMAT_TIME)
-            tag_bin.query(query)
-            time = query.parse_duration()[1]
-            time //= gst.SECOND
-            self._len = time
-
-            if exaile_instance.tracks: exaile_instance.tracks.queue_draw()
-        except gst.QueryError:
-            xlmisc.log_exception()
-            pass
-
-        tag_bin.set_state(gst.STATE_NULL)
-        tag_bus.disconnect(self.connect_id)
-
-class MP3Track(Track):
-    """
-        An MP3 track
-    """
-    IDS = { "TIT2": "title",
-            "TPE1": "artist",
-            "TALB": "album",
-            "TRCK": "track",
-            "TDRC": "year",
-            "TCON": "genre"
-            }
-
-    SDI = dict([(v, k) for k, v in IDS.iteritems()])
-
-    def __init__(self, *args):
-        """
-            Initializes the track
-        """
-        Track.__init__(self, *args)
-
-    def write_tag(self, db=None):
-        """
-            Writes tags to the file, and optionally saves them to the database
-        """
-        try:
-            id3 = mutagen.id3.ID3(self.loc)
-        except mutagen.id3.ID3NoHeaderError:
-            id3 = mutagen.id3.ID3()
-
-        for key, id3name in self.SDI.items():
-            id3.delall(id3name)
-
-        for k, v in self.IDS.iteritems():
-            if k == 'TRCK': continue
-            try:
-                frame = mutagen.id3.Frames[k](encoding=3,
-                    text=unicode(getattr(self, v)))
-                id3.loaded_frame(frame)
-            except:
-                xlmisc.log_exception()
-
-        if self.track > -1:
-            track = "%s" % self.track
-            if self.disc_id > -1:
-                track = "%s/%s" % (track, self.disc_id)
-
-            frame = mutagen.id3.Frames['TRCK'](encoding=3,
-                text=track)
-            id3.loaded_frame(frame)
-
-        id3.save(self.loc)
-        Track.write_tag(self, db)
-
-    def get_tag(seld, id3, t):
-        """
-            Reads a specific id3 tag from the file, and formats it
-        """
-        if not id3.has_key(t): return ""
-        text = unicode(id3[t])
-
-        # get rid of any newlines
-        text = text.replace("\n", " ").replace("\r", " ")
-        return text
-
-    def read_tag(self):
-        """
-            Reads all id3 tags from the file
-        """
-        info = mutagen.mp3.MP3(self.loc)
-        self.length = info.info.length
-        self.bitrate = info.info.bitrate
-        try:
-            id3 = mutagen.id3.ID3(self.loc)
-            self.title = self.get_tag(id3, "TIT2")
-            self.artist = self.get_tag(id3, "TPE1")
-            self.album = self.get_tag(id3, "TALB")
-            self.genre = self.get_tag(id3, "TCON")
-
-            try:
-                # get track/disc id
-                track = self.get_tag(id3, "TRCK")
-                if track.find('/') > -1:
-                    (self.track, self.disc_id) = track.split('/')
-                    self.track = int(self.track)
-                    self.disc_id = int(self.disc_id)
-                else:
-                    self.track = int(track)
-
-            except ValueError:
-                self.track = -1
-                self.disc_id = -1
-
-            self.year = self.get_tag(id3, "TDRC")
-
-        except OverflowError:
-            pass
-        except mutagen.id3.ID3NoHeaderError:
-            pass
-        except IOError:
-            pass
-        except: 
-            xlmisc.log_exception()
-
-class OGGTrack(Track):
-    """
-        Represents an OGG/Vorbis track
-    """
-    def __init__(self, *args):
-        """
-            Initializes the track
-        """
-        Track.__init__(self, *args)
-
-    def get_tag(self, f, tag):
-        """
-            gets a specific tag and formats it
-        """
-        try:
-            return unicode(f[tag][0])
-        except:
-            return ""
-
-    def write_tag(self, db=None):
-        """
-            Writes all tags to the file, and optionally saves them to the
-            database
-        """
-        try:
-            com = mutagen.oggvorbis.OggVorbis(self.loc)
-        except mutagen.oggvorbis.OggVorbisHeaderError:
-            com = mutagen.oggvorbis.OggVorbis()
-        com.clear()
-        com['artist'] = self.artist
-        com['album'] = self.album
-        com['title'] = self.title
-        com['genre'] = self.genre
-        com['tracknumber'] = str(self.track)
-        com['tracktotal'] = str(self.disc_id)
-        com['date'] = str(self.year)
-        com.save(self.loc)
-        Track.write_tag(self, db)
-
-    def read_tag(self):
-        """
-            Reads all tags from the file
-        """
-        try:
-            f = mutagen.oggvorbis.OggVorbis(self.loc)
-        except mutagen.oggvorbis.OggVorbisHeaderError:
-            return
-
-        self.length = int(f.info.length)
-        self.bitrate = int(f.info.bitrate / 1024)
-
-        self.artist = self.get_tag(f, "artist")
-        self.album = self.get_tag(f, "album")
-        self.title = self.get_tag(f, "title")
-        self.genre = self.get_tag(f, "genre")
-        self.track = self.get_tag(f, "tracknumber")
-        self.disc_id = self.get_tag(f, "tracktotal")
-        self.year = self.get_tag(f, "date")
-
-class FLACTrack(Track):
-    """
-        Represents an FLAC (non-lossy) track
-    """
-    def __init__(self, *args):
-        """
-            Initializes the track
-        """
-        Track.__init__(self, *args)
-
-    def get_tag(self, flac, tag):
-        """
-            gets a specific tag from the file and formats it
-        """
-        try:
-            return unicode(flac[tag][0])
-        except KeyError:
-            return ""
-
-    def read_tag(self):
-        """
-            Reads all tags from the file
-        """
-        f = mutagen.flac.FLAC(self.loc)
-        self.length = int(f.info.length)
-
-        self.artist = self.get_tag(f, "artist")
-        self.album = self.get_tag(f, "album")
-        self.track = self.get_tag(f, "tracknumber")
-        self.disc_id = self.get_tag(f, 'tracktotal')
-        self.title = self.get_tag(f, "title")
-        self.genre = self.get_tag(f, "genre")
-        self.year = self.get_tag(f, "date")
-
-    def write_tag(self, db=None):
-        """
-            Writes all tags to the file
-        """
-        f = mutagen.flac.FLAC(self.loc)
-        if f.vc is None: f.add_vorbiscomment()
-        del(f.vc[:])
-        f.vc['artist'] = self.artist
-        f.vc['album'] = self.album
-        f.vc['title'] = self.title
-        f.vc['tracktotal'] = self.disc_id
-        f.vc['genre'] = self.genre
-        f.vc['tracknumber'] = str(self.track)
-        f.vc['date'] = str(self.year)
-        f.save()
-
-        Track.write_tag(self, db)
-
-class WMATrack(Track):
-    def __init__(self, *args):
-        """
-            Initializes the track
-        """
-        Track.__init__(self, *args)
-
-    def get_tag(self, inf, name):
-        if inf.tags.has_key(name):
-            return inf.tags[name]
-        else:
-            return ''
-
-    def read_tag(self, db=None):
-        inf = lib.wmainfo.WmaInfo(self.loc)
-
-        self.length = inf.info["playtime_seconds"]
-        self.bitrate = inf.info["max_bitrate"]
-        self.artist = self.get_tag(inf, 'Author')
-        self.album = self.get_tag(inf, 'AlbumTitle')
-        self.title = self.get_tag(inf, 'Title') 
-        self.genre = ""
-        self.track = self.get_tag(inf, 'TrackNumber')
-        self.year = self.get_tag(inf, 'Year')
-
-    def write_tag(self, db=None):
-        raise MetaIOException("Track %s: writing metadata to this filetype is"
-            " not currently supported." % self.loc)
-
-class M4ATrack(Track):
-    def __init__(self, *args):
-        """
-            Initializes the track
-        """
-        Track.__init__(self, *args)
-
-    def get_tag(self, f, name):
-        name = "\xa9%s" % name
-        if not f.has_key(name):
-            return ""
-        else: return f[name]
-
-    def set_tag(self, f, name, value):
-        name = "\xa9%s" % name
-        f[name] = value
-
-    def write_tag(self, db=None):
-        f = mutagen.m4a.M4A(self.loc)
-
-        try:
-            f['trkn'] = (int(self.track), f['trkn'][1])
-            f['disk'] = (int(self.disc_id), f['disk'][1])
-        except:
-            xlmisc.log_exception()
-
-        self.set_tag(f, 'nam', self.title)
-        self.set_tag(f, 'ART', self.artist)
-        self.set_tag(f, 'alb', self.album)
-        self.set_tag(f, 'gen', self.genre)
-
-        f.save()
-
-    def read_tag(self, db=None):
-        f = mutagen.m4a.M4A(self.loc)
-        self.length = f.info.length
-        self.bitrate = f.info.bitrate
-        
-        self.title = self.get_tag(f, 'nam')
-        self.artist = self.get_tag(f, 'ART')
-        self.album = self.get_tag(f, 'alb')
-        self.genre = self.get_tag(f, 'gen')
-        try:
-            self.track = f['trkn'][0]
-        except:
-            self.track = -1
-
-        try:
-            self.disc_id = f['disk'][0]
-        except:
-            self.disc_id = -1
-
-        self.year = self.get_tag(f, 'day')
-
-class DeviceTrack(Track):
-    def __init__(self, *args):
-        Track.__init__(self, *args)
-
-# sets up the formats dict
-for format in ('.mpc', '.aac', '.m4a', '.m4b', '.wma'):
-    FORMAT[format] = GSTTrack
-FORMAT['.flac'] = FLACTrack
-FORMAT['.ogg'] = OGGTrack
-FORMAT['.mp3'] = MP3Track
-if M4A_AVAIL:
-    FORMAT['.m4a'] = M4ATrack
-if WMAINFO_AVAIL:
-    FORMAT['.wma'] = WMATrack
-SUPPORTED_MEDIA = FORMAT.keys()

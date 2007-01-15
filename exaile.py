@@ -62,7 +62,7 @@ sys.path.insert(0, basedir)
 os.chdir(basedir)
 
 from xl import *
-from xl import formats
+from xl import media, audioscrobbler
 import plugins.manager, plugins, plugins.gui
 import pygst; pygst.require('0.10'); import gst
 
@@ -175,8 +175,8 @@ class ExaileWindow(gobject.GObject):
         # log in to audio scrobbler
         user = self.settings.get("lastfm_user", "")
         password = self.settings.get("lastfm_pass", "")
-        thread.start_new_thread(media.get_scrobbler_session,
-            (user, password))
+        thread.start_new_thread(audioscrobbler.get_scrobbler_session,
+            (self, user, password))
 
         self.playlists_nb = self.xml.get_widget('playlists_nb')
         self.set_tab_placement()
@@ -1848,7 +1848,7 @@ class ExaileWindow(gobject.GObject):
             Adds media to the current selected tab regardless of whether or
             not they are contained in the library
         """
-        types = formats.SUPPORTED_MEDIA
+        types = media.SUPPORTED_MEDIA
         wildcard = ['*%s' % t for t in types]
         wildcard.extend(['.pls', '.m3u'])
         wildcard.append('*')

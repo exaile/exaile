@@ -1,9 +1,30 @@
 # $Id$
 
-import xlmisc, gobject
+import xlmisc, gobject, common, time, xlmisc
 SCROBBLER_SESSION = None
 
-## this sets up the supported types
+@common.threaded
+def submit_to_scrobbler(exaile, tr):
+    if tr.submitted: return
+    if tr._title == '' or tr._artist == '': return
+   
+    if not SCROBBLER_SESSION: return
+    len = tr.duration
+    lt = time.gmtime(time.time())
+
+    date = "%02d-%02d-%02d %02d:%02d:%02d" % (lt[0], lt[1], lt[2],
+        lt[3], lt[4], lt[5])
+    try:
+        SCROBBLER_SESSION(artist_name=tr.artist,
+            song_title=self.title,
+            length=int(tr.duration),
+            date_played=date,
+            album=tr.album)
+
+    except:
+        xlmisc.log_exception()
+        gobject.idle_add(exaile_instance.status.set_first, 
+            _("Failed to submit track to Last.fm."), 3000)
 
 def get_scrobbler_session(exaile, username="", password="", new=False): 
     """

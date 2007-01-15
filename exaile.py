@@ -1129,13 +1129,12 @@ class ExaileWindow(gobject.GObject):
         else:
             self.progress_label.set_label("%d:%02d" % (seconds / 60, seconds % 60))
 
-        if not track.submitting and (seconds > 240 or value > 50): 
+        if seconds > 240 or value > 50: 
             self.update_rating(track, plays="plays + 1",
                 rating="rating + 1")
-            if track.submit_to_scrobbler() and \
-                track.get_scrobbler_session() != None:
-                track.submitting = True
+            if not track.submitted:
                 self.status.set_first(_("Submitting to Last.fm..."), 2000)
+                audioscrobbler.submit_to_scrobbler(self, track)
 
         return True
 

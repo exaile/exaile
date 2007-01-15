@@ -136,7 +136,7 @@ class Track(gobject.GObject):
         self.year = year
         self.playing = 0
         self.genre = genre
-        self.submitting = False
+        self.submitted = False
         self.last_position = 0
         self.bitrate = bitrate
         self.modified = modified
@@ -303,43 +303,6 @@ class Track(gobject.GObject):
         """
         return "%s from %s by %s" % (self._title, self.album, self.artist)
 
-    def submit_to_scrobbler(self):
-        """
-            Submits this track to last.fm
-        """
-        if self.submitting or self.type == 'stream': return
-
-        if self._title == "" or self.artist == "": return
-
-        session = get_scrobbler_session()
-        if not session: return
-        self.submitting = True
-        exaile_instance.status.set_first(_("Sumitting track to Last.fm..."),
-            3000)
-        thread.start_new_thread(self.submit, (session,))
-
-    def submit(self, session):
-        """
-            Actually submits the track to audioscrobbler
-        """
-        len = self.duration
-        lt = time.gmtime(time.time())
-
-        date = "%02d-%02d-%02d %02d:%02d:%02d" % (lt[0], lt[1], lt[2],
-            lt[3], lt[4], lt[5])
-
-        try:
-            session(artist_name=self.artist,
-                song_title=self.title,
-                length=int(self.duration),
-                date_played=date,
-                album=self.album)
-
-        except:
-            xlmisc.log_exception()
-            gobject.idle_add(exaile_instance.status.set_first, 
-                _("Failed to submit track to Last.fm."), 3000)
-
     def set_bitrate(self, rate):
         """
             Gets the bitrate for this track
@@ -353,10 +316,3 @@ class Track(gobject.GObject):
     rating = property(get_rating, set_rating)
     bitrate = property(get_bitrate, set_bitrate)
     track = property(get_track, set_track)
-
-    def get_scrobbler_session(self):
-        """
-            Returns the current scrobbler session
-        """
-        global SCROBBLER_SESSION
-        return SCROBBLER_SESSION

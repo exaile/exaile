@@ -1,6 +1,7 @@
 # $Id$
 
 import xlmisc, gobject, common, time, xlmisc
+from gettext import gettext as _
 SCROBBLER_SESSION = None
 
 @common.threaded

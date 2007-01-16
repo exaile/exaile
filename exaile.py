@@ -733,7 +733,6 @@ class ExaileWindow(gobject.GObject):
                     title = m.group(1)
 
                 self.import_m3u("%s%s%s" % (dir, os.sep, file), title=title)
-                time.sleep(.5)
 
         # load queue
         if self.settings.get_boolean('save_queue', True):
@@ -952,7 +951,7 @@ class ExaileWindow(gobject.GObject):
             else:
                 if not self.tracks: self.new_page("Last", [])
         if first_run: 
-            gobject.idle_add(self.load_last_playlist)
+            gobject.timeout_add(200, self.load_last_playlist)
             if len(sys.argv) > 1 and not sys.argv[1].startswith("--"):
                 f = sys.argv[1]
                 if f.endswith('.m3u') or f.endswith('.pls'):

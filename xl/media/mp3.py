@@ -76,7 +76,10 @@ def fill_tag_from_path(tr):
                 tr.disc_id = int(tr.disc_id)
             except ValueError: tr.disc_id = -1
         else:
-            tr.track = int(trackinfo)
+            try:
+                tr.track = int(trackinfo)
+            except ValueError:
+                tr.track = -1
 
         tr.year = get_tag(id3, 'TRDC')
 

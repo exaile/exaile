@@ -120,6 +120,8 @@ class ExaileWindow(gobject.GObject):
         self.thread_pool = []
         self.dir_queue = []
         self.scan_timer = None
+        self.seek_id = None
+        self.seeking = False
         self.debug_dialog = xlmisc.DebugDialog(self)
         self.col_menus = dict()
         self.setup_col_menus('track', trackslist.TracksListCtrl.col_map)
@@ -1123,17 +1125,17 @@ class ExaileWindow(gobject.GObject):
             real = value * duration / 100
         seconds = real / gst.SECOND
 
+        if not self.seeking:
+            self.progress.set_value(value)
+            self.progress_label = self.xml.get_widget('progress_label')
 
-        self.progress.set_value(value)
-        self.progress_label = self.xml.get_widget('progress_label')
-
-        if track.type == 'stream':
-            if track.start_time and self.player.is_playing():
-                seconds = time.time() - track.start_time
-                self.progress_label.set_label("%d:%02d" % (seconds / 60, seconds %
-                    60))
-        else:
-            self.progress_label.set_label("%d:%02d" % (seconds / 60, seconds % 60))
+            if track.type == 'stream':
+                if track.start_time and self.player.is_playing():
+                    seconds = time.time() - track.start_time
+                    self.progress_label.set_label("%d:%02d" % (seconds / 60, seconds %
+                        60))
+            else:
+                self.progress_label.set_label("%d:%02d" % (seconds / 60, seconds % 60))
 
         if seconds > 240 or value > 50: 
             self.update_rating(track, plays="plays + 1",
@@ -1547,15 +1549,44 @@ class ExaileWindow(gobject.GObject):
         """
             Seeks in the current track
         """
+
+        if self.seek_id:
+            gobject.source_remove(self.seek_id)
+            self.seeking = False
+            self.seek_id = None
+
         if not self.player.current or \
             self.player.current.type == 'stream':
             self.progress.set_value(0)
             return
+        duration = self.player.current.duration * gst.SECOND
+        if duration == -1:
+            real = 0
+        else:
+            real = value * duration / 100
+        seconds = real / gst.SECOND
+
+        self.progress_label = self.xml.get_widget('progress_label')
+
+        if self.player.current.type == 'stream':
+            if track.start_time and self.player.is_playing():
+                seconds = time.time() - track.start_time
+                self.progress_label.set_label("%d:%02d" % (seconds / 60, seconds %
+                    60))
+        else:
+            self.progress_label.set_label("%d:%02d" % (seconds / 60, seconds % 60))
+
+        self.seek_id = gobject.timeout_add(150, self._seek_cb, range)
+        self.seeking = True
+
+    def _seek_cb(self, range):
+
         duration = self.player.current.duration
         real = long(range.get_value() * duration / 100)
         self.player.seek(real)
         self.player.current.submitted = True
         self.emit('seek', real)
+        self.seeking = False
 
     def play_track(self, track): 
         """

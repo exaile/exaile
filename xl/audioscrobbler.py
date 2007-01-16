@@ -15,13 +15,15 @@ def submit_to_scrobbler(exaile, tr):
 
     date = "%02d-%02d-%02d %02d:%02d:%02d" % (lt[0], lt[1], lt[2],
         lt[3], lt[4], lt[5])
+
+    xlmisc.log('Attempting to submit track %s to last.fm' % tr)
+    tr.submitted = True
     try:
         SCROBBLER_SESSION(artist_name=tr.artist,
             song_title=tr.title,
             length=int(tr.duration),
             date_played=date,
             album=tr.album)
-        tr.submitted = True
     except:
         xlmisc.log_exception()
         gobject.idle_add(exaile.status.set_first, 

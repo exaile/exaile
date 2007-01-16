@@ -28,6 +28,7 @@ def restore_state():
             track = APP.settings.get_int(TRACK)
             
             if track < len(songs):
+                songs[track].submitted = True
                 APP.player.play_track(songs[track])
                 APP.player.current = songs[track]
                 APP.player.seek(APP.settings.get_float(PROGRESS,0.1))

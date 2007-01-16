@@ -753,7 +753,7 @@ class TracksListCtrl(gtk.VBox):
                 setattr(song, data, value)
                 try:
                     media.write_tag(song)    
-                    tracks.save_track_to_db(self.db, track)
+                    tracks.save_track_to_db(self.db, song)
                 except:
                     errors += "Could not write tag for %s\n" % song.loc
                     xlmisc.log_exception()

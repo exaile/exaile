@@ -318,7 +318,7 @@ class TrackInformation(gtk.Notebook):
         for i in range(0, self.get_n_pages()):
             self.remove_page(0)
 
-        if isinstance(track, media.RadioTrack): 
+        if track.type == 'stream': 
             self.append_page(RadioTrackStatsTab(self.exaile, track),
                 gtk.Label(_("Statistics")))
         else:
@@ -442,12 +442,13 @@ class TrackEditor(object):
             try:
                 db = self.exaile.db
                 media.write_tag(track)
-                tracks.save_track_to_db(db, track)
-            except media.MetaIOException, ex:
-                errors.append(ex.reason)
+                xl.tracks.save_track_to_db(db, track)
+                self.exaile.tracks.refresh_row(track)
             except:
                 errors.append("Unknown error writing tag for %s" % track.loc)
                 xlmisc.log_exception()
+
+        self.exaile.tracks.queue_draw()
 
         self.exaile.db.db.commit()
         if errors:

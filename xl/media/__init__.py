@@ -45,7 +45,7 @@ def write_tag(tr):
     """
         Writes a tag
     """
-    (path, ext) = os.path.splitext(uri.lower())
+    (path, ext) = os.path.splitext(tr.loc.lower())
     ext = ext.replace('.', '')
 
     if not formats.has_key(ext):

@@ -1,5 +1,6 @@
 from xl.media import mp3, ogg, flac
-import os.path, gobject, time
+from xl import xlmisc
+import os.path, gobject, time, re
 
 __all__ = ['flac', 'mp3', 'm4a', 'ogg', 'wma']
 
@@ -32,7 +33,8 @@ def read_from_path(uri):
     ext = ext.replace('.', '')
 
     if not formats.has_key(ext):
-        raise Exception('%s format is not understood' % ext)
+        xlmisc.log('%s format is not understood' % ext)
+        return
 
     tr = xl.media.Track(uri)
     tr.type = ext

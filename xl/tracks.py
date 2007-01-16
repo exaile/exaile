@@ -468,7 +468,7 @@ def read_track(db, all, path):
 
     # if it's not in the database, read it from the filesystem
     if not tr:
-        tr = formats.read_from_path(path)
+        tr = media.read_from_path(path)
 
     return tr
 
@@ -610,7 +610,7 @@ class PopulateThread(threading.Thread):
                 if not tr or tr.modified != modified:
                     new = False
                     if not tr: new = True
-                    tr = formats.read_from_path(loc)
+                    tr = media.read_from_path(loc)
                     save_track_to_db(db, tr, new)
 
                 if tr:

@@ -338,7 +338,7 @@ def scan_dir(dir, files=None, exts=()):
        
         try:
             (stuff, ext) = os.path.splitext(file)
-            if ext.lower().replace('.', '') in exts:
+            if ext.lower() in exts:
                 files.append(file)
         except:
             traceback.print_exc()

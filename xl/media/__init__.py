@@ -36,7 +36,7 @@ def read_from_path(uri):
         xlmisc.log('%s format is not understood' % ext)
         return
 
-    tr = xl.media.Track(uri)
+    tr = Track(uri)
     tr.type = ext
     formats[ext].fill_tag_from_path(tr)
     return tr

@@ -346,6 +346,7 @@ class ExailePlayer(GSTPlayer):
 
         if track: self.play_track(track)
         self.current = track
+        self.exaile.tracks.queue_draw()
 
     def previous(self):
         """

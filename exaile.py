@@ -490,7 +490,7 @@ class ExaileWindow(gobject.GObject):
             lambda *e: self.close_page())
             
         self.xml.get_widget('import_directory_item').connect('activate',
-            lambda *e: self.import_directory())
+            lambda *e: self.import_directory(load_tree=True))
 
         self.rating_combo = self.xml.get_widget('rating_combo')
         self.rating_combo.set_active(0)
@@ -528,7 +528,7 @@ class ExaileWindow(gobject.GObject):
         if self.tracks:
             self.tracks.refresh_row(track)
 
-    def import_directory(self):
+    def import_directory(self, load_tree=False):
         """
             Imports a single directory into the database
         """
@@ -556,7 +556,7 @@ class ExaileWindow(gobject.GObject):
             done_func = None
             if check.get_active():
                 done_func = self.after_import
-            self.update_library((path,), done_func=done_func, load_tree=False)
+            self.update_library((path,), done_func=done_func, load_tree=load_tree)
         dialog.destroy()
 
     def after_import(self, songs):

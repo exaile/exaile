@@ -16,7 +16,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-__version__ = '0.2.8b'
+__version__ = '0.2.9b'
 import traceback, sys, gobject
 gobject.threads_init()
 
@@ -502,7 +502,9 @@ class ExaileWindow(gobject.GObject):
             Shows the plugin manager
         """
         manager = plugins.gui.PluginManager(self.window, self.pmanager,
-            self.update_plugin)
+            self.update_plugin,
+            'http://www.exaile.org/cgi-bin/plugins/plugins.py?version=%s' %
+            __version__)
 
     def update_plugin(self, plugin):
         """
@@ -795,7 +797,7 @@ class ExaileWindow(gobject.GObject):
         if not play: return
 
         track = self.player.current
-        if track != None and (track.is_playing() or track.is_paused): return
+        if track != None and (self.player.is_playing() or self.player.is_paused): return
         gobject.idle_add(self.play_track, songs[0])
 
     def on_blacklist(self, item, event):
@@ -1125,8 +1127,8 @@ class ExaileWindow(gobject.GObject):
         self.progress.set_value(value)
         self.progress_label = self.xml.get_widget('progress_label')
 
-        if track.duration.stream:
-            if track.start_time and track.is_playing():
+        if track.type == 'stream':
+            if track.start_time and self.player.is_playing():
                 seconds = time.time() - track.start_time
                 self.progress_label.set_label("%d:%02d" % (seconds / 60, seconds %
                     60))

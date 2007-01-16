@@ -78,8 +78,8 @@ def timeout_cb():
     if alarm_time == current:
         check = time.strftime("%m %d %Y %H:%M")
         if RANG.has_key(check): return True
-        track = APP.current_track
-        if track and (track.is_playing() or track.is_paused()): return True
+        track = APP.player.current
+        if track and (APP.player.is_playing() or APP.player.is_paused()): return True
         APP.play()
 
         RANG[check] = True

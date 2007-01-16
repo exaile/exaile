@@ -99,9 +99,9 @@ class DBusInterfaceObject(dbus.service.Object):
         """
             Returns information about the currently playing track
         """
-        if not self.exaile.current_track:
+        if not self.exaile.player.current:
             return "No track playing"
-        return self.exaile.current_track.full_status()
+        return self.exaile.player.current.full_status()
 
     @dbus.service.method("org.exaile.DBusInterface")
     def popup(self):
@@ -115,36 +115,36 @@ class DBusInterfaceObject(dbus.service.Object):
         """
             Returns the title of the playing track
         """
-        if not self.exaile.current_track:
+        if not self.exaile.player.current:
             return ""
-        return self.exaile.current_track.get_title()
+        return self.exaile.player.current.get_title()
 
     @dbus.service.method("org.exaile.DBusInterface")
     def get_album(self):
         """
             Returns the album of the playing track
         """
-        if not self.exaile.current_track:
+        if not self.exaile.player.current:
             return ""
-        return self.exaile.current_track.album
+        return self.exaile.player.current.album
 
     @dbus.service.method("org.exaile.DBusInterface")
     def get_artist(self):
         """
             Returns the artist of the playing track
         """
-        if not self.exaile.current_track:
+        if not self.exaile.player.current:
             return ""
-        return self.exaile.current_track.artist
+        return self.exaile.player.current.artist
 
     @dbus.service.method("org.exaile.DBusInterface")
     def get_length(self):
         """
             Returns the length of the playing track
         """
-        if not self.exaile.current_track:
+        if not self.exaile.player.current:
             return ""
-        return self.exaile.current_track.length
+        return self.exaile.player.current.length
 
 
     @dbus.service.method("org.exaile.DBusInterface")
@@ -152,18 +152,18 @@ class DBusInterfaceObject(dbus.service.Object):
         """
             Returns the position inside the current track as a percentage
         """
-        if not self.exaile.current_track:
+        if not self.exaile.player.current:
             return 0
-        return self.exaile.current_track.current_position()
+        return self.exaile.player.current.current_position()
 
     @dbus.service.method("org.exaile.DBusInterface")
     def status(self):
         """
             Returns if the player is paused or playing
         """
-        if not self.exaile.current_track:
+        if not self.exaile.player.current:
             return "No track playing"
-        return self.exaile.current_track.status()
+        return self.exaile.player.current.status()
 
     @dbus.service.method("org.exaile.DBusInterface")
     def get_cover_path(self):

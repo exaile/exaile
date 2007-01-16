@@ -256,10 +256,10 @@ def configure():
             
         destroy()
         initialize()
-        track = exaile.current_track
+        track = exaile.player.current
 
         if not track: return
-        if track and track.is_playing() or track.is_paused():
+        if track and APP.player.is_playing() or APP.player.is_paused():
             if PLUGIN: PLUGIN.play_track(track)
         print "New settings: %s" % settings["%s_geometry" %
             plugins.name(__file__)]

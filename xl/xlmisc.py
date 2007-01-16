@@ -250,12 +250,12 @@ class BaseTrayIcon(gobject.GObject):
         self.menu.append(_("Quit"), self.exaile.on_quit, 'gtk-quit')
 
     def update_menu(self):
-        track = self.exaile.current_track
-        if not track or not track.is_playing():
+        track = self.exaile.player.current
+        if not track or not self.exaile.player.is_playing():
             self.image.set_from_stock('gtk-media-play',
                 gtk.ICON_SIZE_MENU)
             self.label.set_label(_("Play"))
-        elif track.is_playing():
+        elif self.exaile.player.is_playing():
             self.image.set_from_stock('gtk-media-pause',
                 gtk.ICON_SIZE_MENU)
             self.label.set_label(_("Pause"))

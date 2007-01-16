@@ -196,7 +196,7 @@ class ExailePlayer(GSTPlayer):
         self.shuffle = False
         self.repeat = False
 
-        self.eof_func = self.next
+        self.eof_func = self.exaile.on_next
         self.current = None
 
     def get_next_queued(self):
@@ -279,6 +279,7 @@ class ExailePlayer(GSTPlayer):
             return
 
         GSTPlayer.play(self, track.loc)
+        track.start_time = time.time()
 
     def play(self):
         """
@@ -346,7 +347,6 @@ class ExailePlayer(GSTPlayer):
 
         if track: self.play_track(track)
         self.current = track
-        self.exaile.tracks.queue_draw()
 
     def previous(self):
         """
@@ -379,6 +379,7 @@ class ExailePlayer(GSTPlayer):
             Stops the currently playing track
         """
         GSTPlayer.stop(self)
+        self.current.start_time = 0
         if reset_current: self.current = None
 
 # VideoWidget and VideoArea code taken from Listen media player

@@ -86,6 +86,7 @@ class Track(gobject.GObject):
         self.read_from_db = False
         self.blacklisted = 0
         self.next_func = None
+        self.start_time = 0
 
     def set_info(self,loc="", title="", artist="",  
         album="", disc_id=0, genre="",
@@ -203,6 +204,28 @@ class Track(gobject.GObject):
         self._rating = rating
         self.user_rating = rating
 
+    def full_status(self): 
+        """
+            Returns a string representing the status of the current track
+        """
+        status = "playing"
+        if self.is_paused(): status = "paused"
+
+        value = self.current_position()
+        duration = self.duration * gst.SECOND
+
+        if duration == -1:
+            real = 0
+        else:
+            real = value * duration / 100
+        seconds = real / gst.SECOND
+
+        return "status: %s self: %s artist: %s " \
+            "album: %s length: %s position: %%%d [%d:%02d]" % (status,
+                self.title,
+                self.artist, self.album, self.length,
+                value, seconds / 60, seconds % 60)
+    
     def get_title(self): 
         """
             Returns the title of the track from the id3 tag

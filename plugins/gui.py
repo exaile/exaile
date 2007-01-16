@@ -18,7 +18,8 @@
 
 import pygtk, manager
 pygtk.require('2.0')
-import gtk, gtk.glade, gobject, sys, os, plugins
+import gtk, gtk.glade, gobject, sys, os, plugins, urllib
+from xl import common, xlmisc
 
 def show_error(parent, message): 
     """
@@ -33,7 +34,7 @@ class PluginManager(object):
     """
         Gui to manage plugins
     """
-    def __init__(self, parent, manager, update):
+    def __init__(self, parent, manager, update, avail_url=''):
         """
             Initializes the manager
             params: parent window, plugin manager
@@ -41,11 +42,13 @@ class PluginManager(object):
         self.parent = parent
         self.update = update
         self.manager = manager
+        self.fetched = False
 
         self.xml = gtk.glade.XML('plugins/plugins.glade',
             'PluginManagerDialog')
         self.dialog = self.xml.get_widget('PluginManagerDialog')
         self.dialog.set_transient_for(parent)
+        self.plugin_nb = self.xml.get_widget('plugin_notebook')
 
         self.list = self.xml.get_widget('plugin_tree')
         self.version_label = self.xml.get_widget('version_label')
@@ -93,7 +96,90 @@ class PluginManager(object):
         self.list.set_model(self.model)
         self.dialog.show_all()
         selection.select_path(0)
+
+        if avail_url: 
+            self.setup_avail_tab()
+            self.avail_url = avail_url
+            self.plugin_nb.connect('switch-page', self.check_fetch_avail)
         self.row_selected()
+
+    def check_fetch_avail(self, *e):
+        """
+            Checks to see if the available plugin list needs to be fetched
+        """
+        if not self.fetched:
+            self.fetch_available_plugins(self.avail_url)
+            xlmisc.log('Fetching available plugin list')
+            self.fetched = True
+
+    @common.threaded
+    def fetch_available_plugins(self, url):
+        """
+            Fetches a plugin list from the specified url
+        """
+        h = urllib.urlopen(url)
+        lines = h.readlines()
+        h.close()
+        gobject.idle_add(self.done_fetching, lines)
+
+    def done_fetching(self, lines):
+
+        for line in lines:
+            line = line.strip()
+            (file, name, version, author, description) = line.split('\t')
+            description = description.replace("\n", " ").replace(r'\n', '\n')
+            icon = self.dialog.render_icon('gtk-execute',
+                gtk.ICON_SIZE_MENU)
+            self.avail_model.append([icon, name, version, author, description])
+
+        selection = self.avail_list.get_selection()
+        selection.select_path(0)
+        self.avail_row_selected()
+
+    def setup_avail_tab(self):
+        """
+            Sets up the "plugins available" tab
+        """
+        self.avail_model = gtk.ListStore(gtk.gdk.Pixbuf, str, str, str, str)
+        self.avail_list = self.xml.get_widget('avail_plugin_tree')
+        self.avail_version_label = self.xml.get_widget('avail_version_label')
+        self.avail_author_label = self.xml.get_widget('avail_author_label')
+        self.avail_name_label = self.xml.get_widget('avail_name_label')
+        self.avail_description = self.xml.get_widget('avail_description_view')
+
+        pb = gtk.CellRendererPixbuf()
+        text = gtk.CellRendererText()
+        col = gtk.TreeViewColumn('Plugin')
+        col.pack_start(pb, False)
+        col.pack_start(text, False)
+#        col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+#        col.set_fixed_width(1)
+        col.set_expand(True)
+        col.set_attributes(pb, pixbuf=0)
+        col.set_attributes(text, text=1)
+        self.avail_list.append_column(col)
+        self.avail_list.set_model(self.avail_model)
+        self.avail_description.get_buffer().set_text("Fetching available "
+            " plugin list...")
+        self.avail_list.connect('button-release-event', self.avail_row_selected)
+
+    def avail_row_selected(self, *e):
+        """
+            Called when a user selects a row in the avialable tab
+        """
+        selection = self.avail_list.get_selection()
+        model, iter = selection.get_selected()
+        if not iter: return
+
+        name = model.get_value(iter, 1)
+        version = model.get_value(iter, 2)
+        author = model.get_value(iter, 3)
+        description = model.get_value(iter, 4)
+
+        self.avail_name_label.set_markup('<b>%s</b>' % name)
+        self.avail_version_label.set_label(version)
+        self.avail_author_label.set_label(author)
+        self.avail_description.get_buffer().set_text(description)
 
     def toggle_cb(self, cell, path, model):
         """

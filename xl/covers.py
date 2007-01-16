@@ -22,7 +22,14 @@ import gobject
 
 __revision__ = ".01"
 
-SERVER = "xml.amazon.com"
+def get_server(locale):
+    if locale in ('en', 'us'):
+        return "xml.amazon.com"
+    elif locale in ('jp', 'uk'):
+        return "webservices.amazon.co.%s" % locale
+    else:
+        return "webservices.amazon.%s" % locale
+
 KEY = "15VDQG80MCS2K1W2VRR2"
 QUERY = "/onca/xml3?t=webservices-20&dev-t=%s&mode=music&type=lite&" % (KEY) + \
     "locale={locale}&page=1&f=xml&KeywordSearch="
@@ -89,14 +96,8 @@ class CoverFetcherThread(threading.Thread):
         """
             Actually connects and fetches the covers
         """
-        global SERVER
-        if self.locale in ('jp', 'uk'):
-            SERVER = "webservices.amazon.co.%s" % self.locale
-        elif self.locale not in ('en', 'us'):
-            SERVER = "webservices.amazon.%s" % self.locale
-
         xlmisc.log("cover thread started")
-        conn = httplib.HTTPConnection(SERVER)
+        conn = httplib.HTTPConnection(get_server(self.locale))
 
         if self._done: return
         try:

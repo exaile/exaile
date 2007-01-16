@@ -20,7 +20,7 @@ def submit_to_scrobbler(exaile, tr):
             length=int(tr.duration),
             date_played=date,
             album=tr.album)
-
+        tr.submitted = True
     except:
         xlmisc.log_exception()
         gobject.idle_add(exaile_instance.status.set_first, 

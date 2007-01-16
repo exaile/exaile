@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import thread, os, os.path, string
-import tracks, xlmisc, media
+import tracks, xlmisc, media, audioscrobbler
 from gettext import gettext as _
 import pygtk, common
 pygtk.require('2.0')
@@ -419,8 +419,8 @@ class Preferences(object):
         user = xml.get_widget('prefs_lastfm_user').get_text()
         password = widget.get_text()
 
-        thread.start_new_thread(media.get_scrobbler_session,
-            (user, password, True))
+        thread.start_new_thread(audioscrobbler.get_scrobbler_session,
+            (self.exaile, user, password, True))
         return True
 
     def setup_gamin(self, widget):

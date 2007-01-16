@@ -1544,7 +1544,7 @@ class ExaileWindow(gobject.GObject):
         duration = self.player.current.duration
         real = long(range.get_value() * duration / 100)
         self.player.seek(real)
-        self.player.current.submitting = True
+        self.player.current.submitted = True
         self.emit('seek', real)
 
     def play_track(self, track): 
@@ -1559,6 +1559,7 @@ class ExaileWindow(gobject.GObject):
         self.play_button.set_image(self.get_pause_image())
         self.player.current = track
         self.update_track_information()
+        track.submitted = False
 
         artist_id = tracks.get_column_id(self.db, 'artists', 'name', track.artist)
         tracks.get_album_id(self.db, artist_id, track.album)
@@ -2122,18 +2123,6 @@ class ExaileWindow(gobject.GObject):
             self.settings['mainw_sash_pos'] = sash
         return False
 
-    def submit_to_scrobbler(self, event=None): 
-        """
-            Submits this track to audioscrobbler, regardless of how long the
-            track has actually been playing
-        """
-        track = self.player.current
-        if track == None: return
-        if track.get_scrobbler_session() != None:
-            self.player.current.submitting = False
-            self.player.current.submit_to_scrobbler()
-            self.status.set_first(_("Submitting to Last.fm..."), 2000)
-    
     def jump_to(self, index):
         """
             Show the a specific page in the track information tab about

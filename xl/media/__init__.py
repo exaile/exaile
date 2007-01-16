@@ -41,42 +41,18 @@ def read_from_path(uri):
     formats[ext].fill_tag_from_path(tr)
     return tr
 
-
-def show_visualizations(*e):
+def write_tag(tr):
     """
-        Shows the visualizations window
+        Writes a tag
     """
-    global VIDEO_WIDGET
-    if VIDEO_WIDGET:
-        VIDEO_WIDGET.hide()
-    track = exaile_instance.current_track
-    play_track = False
-    position = 0
-    if track is not None and track.is_playing():
-        try:
-            position = player.query_position(gst.FORMAT_TIME)[0] 
-        except gst.QueryError:
-            position = 0
-        track.stop()
-        play_track = True
+    (path, ext) = os.path.splitext(uri.lower())
+    ext = ext.replace('.', '')
 
-    restart_gstreamer()
+    if not formats.has_key(ext):
+        raise Exception("Writing metadata to type '%s' is not supported" %
+            ext)
 
-    VIDEO_WIDGET = VideoWidget(exaile_instance.window)
-    video_sink = gst.element_factory_make('xvimagesink')
-    vis = gst.element_factory_make('goom')
-    player.set_property('video-sink', video_sink)
-    player.set_property('vis-plugin', vis)
-    VIDEO_WIDGET.show_all()
-
-
-    xlmisc.log("Player position is %d" % position)
-    event = gst.event_new_seek(
-        1.0, gst.FORMAT_TIME, gst.SEEK_FLAG_FLUSH | gst.SEEK_FLAG_ACCURATE,
-        gst.SEEK_TYPE_SET, position, gst.SEEK_TYPE_NONE, 0)
-    if play_track: track.play(track.next_func)
-    if not isinstance(track, StreamTrack) and position:
-        track.seek(position / gst.SECOND)
+    formats[ext].write_tag(tr)
 
 class timetype(long):
     """

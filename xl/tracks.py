@@ -52,7 +52,7 @@ def get_suggested_songs(exaile, db, song, s, count, done_func):
 
     for song in new:
         if not song.artist: continue
-        if isinstance(song, media.StreamTrack): continue
+        if song.type == 'stream': continue
         xlmisc.log("Fetching suggested tracks for %s" % song.artist)
         try:
             lastfm = audioscrobbler.AudioScrobblerQuery(artist=song.artist)

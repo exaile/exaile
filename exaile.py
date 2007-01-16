@@ -387,7 +387,7 @@ class ExaileWindow(gobject.GObject):
         self.stop_button.connect('clicked', self.stop)
 
         self.xml.get_widget('show_visualizations_item').connect('activate', 
-            media.show_visualizations)
+            lambda *e: player.show_visualizations(self))
 
         self.quit_item = self.xml.get_widget('quit_item')
         self.quit_item.connect('activate', self.on_quit)
@@ -1525,7 +1525,7 @@ class ExaileWindow(gobject.GObject):
             Sets the volume based on the slider position
         """
 
-        media.set_volume(float(value) / 100.0)
+        self.player.set_volume(float(value) / 100.0)
         self.settings['volume'] = value / 100.0
         self.emit('volume-changed', value)        
         self.volume.disconnect(self.volume_id)
@@ -1538,7 +1538,7 @@ class ExaileWindow(gobject.GObject):
             Seeks in the current track
         """
         if not self.player.current or \
-            isinstance(self.player.current, media.StreamTrack):
+            self.player.current.type == 'stream':
             self.progress.set_value(0)
             return
         duration = self.player.current.duration

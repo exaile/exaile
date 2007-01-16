@@ -17,6 +17,7 @@
 import pygst, gtk
 pygst.require('0.10')
 import gst, gobject, random, time, urllib, re
+from gettext import gettext as _
 from xl import xlmisc, common
 random.seed(time.time())
 
@@ -45,6 +46,7 @@ class GSTPlayer(Player):
         self.playbin = gst.element_factory_make('playbin')
         self.bus = self.playbin.get_bus()
         self.bus.add_signal_watch()
+        self.bus.enable_sync_message_emission()
 
         self.audio_sink = None
 
@@ -106,23 +108,42 @@ class GSTPlayer(Player):
 
         if not self.connections and not self.is_paused():
             self.connections.append(self.bus.connect('message', self.on_message))
+            self.connections.append(self.bus.connect('sync-message::element',
+                self.on_sync_message))
 
             if uri.find('://') == -1: uri = 'file://%s' % uri
             self.playbin.set_property('uri', uri)
 
         self.playbin.set_state(gst.STATE_PLAYING)
 
-    def seek(self, value):
+    def on_sync_message(self, bus, message):
+        """
+            called when gstreamer requests a video sync
+        """
+        if message.structure.get_name() == 'prepare-xwindow-id' and \
+            VIDEO_WIDGET:
+            xlmisc.log('Gstreamer requested video sync')
+            VIDEO_WIDGET.set_sink(message.src)
+
+    def seek(self, value, wait=True):
         """
             Seeks to a specified location (in seconds) in the currently
             playing track
         """
-        value *= gst.SECOND
+        value = int(gst.SECOND * value)
+
+        if wait: self.playbin.get_state(timeout=50*gst.MSECOND)
         event = gst.event_new_seek(1.0, gst.FORMAT_TIME,
             gst.SEEK_FLAG_FLUSH|gst.SEEK_FLAG_ACCURATE,
             gst.SEEK_TYPE_SET, value, gst.SEEK_TYPE_NONE, 0)
 
-        self.playbin.send_event(event)
+        res = self.playbin.send_event(event)
+        if res:
+            self.playbin.set_new_stream_time(0L)
+        else:
+            xlmisc.log("Couldn't send seek event")
+        if wait: self.playbin.get_state(timeout=50*gst.MSECOND)
+
         self.last_seek_pos = value
 
     def pause(self):
@@ -333,10 +354,11 @@ class ExailePlayer(GSTPlayer):
 
         # if the current track has been playing for less than 5 seconds, 
         # just restart it
-        if self.exaile.rewind_track >= 6:
+        if self.exaile.rewind_track >= 4:
             track = self.current
             if track:
                 self.stop()
+                self.current = track
                 self.play_track(track)
                 self.exaile.rewind_track = 0
             return
@@ -346,9 +368,10 @@ class ExailePlayer(GSTPlayer):
             track = self.history.pop()
         else:
             track = self.exaile.tracks.get_previous_track(self.current)
+        if not track: track = self.exaile.songs[0]
 
-        self.play_track(track)
         self.current = track
+        self.play_track(track)
 
     def stop(self, reset_current=True):
         """
@@ -360,9 +383,9 @@ class ExailePlayer(GSTPlayer):
 # VideoWidget and VideoArea code taken from Listen media player
 # http://listen-gnome.free.fr
 class VideoWidget(gtk.Window):
-    def __init__(self, parent):
+    def __init__(self, exaile):
         gtk.Window.__init__(self)
-#        self.set_transient_for(parent)
+        self.exaile = exaile
         self.imagesink = None
         self.area = VideoArea()
         self.add(self.area)
@@ -378,7 +401,23 @@ class VideoWidget(gtk.Window):
         global VIDEO_WIDGET
         self.hide()
         VIDEO_WIDGET = None
-        restart_gstreamer()
+
+        track = self.exaile.player.current
+        position = 0
+        if track is not None and self.exaile.player.is_playing():
+            try:
+                position = self.exaile.player.playbin.query_position(gst.FORMAT_TIME)[0] 
+            except gst.QueryError:
+                position = 0
+            self.exaile.player.stop(False)
+            play_track = True
+
+        self.exaile.player.setup_playbin()
+        if track:
+            self.exaile.player.play_track(track)
+            if position and track.type != 'stream':
+                self.exaile.player.seek(float(position / gst.SECOND))
+
         return True
 
     def set_sink(self, sink):
@@ -415,3 +454,38 @@ class VideoArea(gtk.DrawingArea):
             return True
 
 VIDEO_WIDGET = None
+def show_visualizations(exaile):
+    """
+        Shows the visualizations window
+    """
+    global VIDEO_WIDGET
+    if VIDEO_WIDGET:
+        return
+    track = exaile.player.current
+    play_track = False
+    position = 0
+    if track is not None and exaile.player.is_playing():
+        try:
+            position = exaile.player.playbin.query_position(gst.FORMAT_TIME)[0] 
+        except gst.QueryError:
+            position = 0
+        exaile.player.stop(False)
+        play_track = True
+
+    exaile.player.setup_playbin()
+
+    VIDEO_WIDGET = VideoWidget(exaile)
+    video_sink = gst.element_factory_make('xvimagesink')
+    vis = gst.element_factory_make('goom')
+    exaile.player.playbin.set_property('video-sink', video_sink)
+    exaile.player.playbin.set_property('vis-plugin', vis)
+    VIDEO_WIDGET.show_all()
+
+    xlmisc.log("Player position is %d" % (position / gst.SECOND))
+    if track: 
+        exaile.player.play_track(track)
+        exaile.player.current = track
+        if position and track.type != 'stream':
+            exaile.player.seek(position / gst.SECOND, False)
+
+    return True

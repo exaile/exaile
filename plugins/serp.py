@@ -46,8 +46,7 @@ def launch_serpentine(button, songs=None):
         songs = tracks.songs
 
     if songs:
-        ar = [song.loc for song in songs if not isinstance(song,
-            xl.media.StreamTrack)]
+        ar = [song.loc for song in songs if not song.type == 'stream']
         if not ar: return
         args = ['serpentine', '-o']
         args.extend(ar)

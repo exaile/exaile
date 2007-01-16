@@ -752,9 +752,8 @@ class TracksListCtrl(gtk.VBox):
             for song in songs:
                 setattr(song, data, value)
                 try:
-                    song.write_tag(self.db)
-                except media.MetaIOException, e: 
-                    errors += e.reason + "\n"
+                    media.write_tag(song)    
+                    tracks.save_track_to_db(self.db, track)
                 except:
                     errors += "Could not write tag for %s\n" % song.loc
                     xlmisc.log_exception()

@@ -441,7 +441,8 @@ class TrackEditor(object):
             track.disc_id = self.disc_id_entry.get_text()
             try:
                 db = self.exaile.db
-                track.write_tag(db)
+                media.write_tag(track)
+                tracks.save_track_to_db(db, track)
             except media.MetaIOException, ex:
                 errors.append(ex.reason)
             except:

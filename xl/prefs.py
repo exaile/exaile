@@ -359,7 +359,7 @@ class Preferences(object):
                 self.osd_colorpicker),
             'osd_text_font': (FontButtonPrefsItem, 'Sans 10',
                 self.osd_fontpicker),
-            'use_tray': (CheckPrefsItem, True, None, self.setup_tray),
+            'use_tray': (CheckPrefsItem, False, None, self.setup_tray),
             'amazon_locale': (PrefsItem, 'us'),
             'wikipedia_locale': (PrefsItem, 'en'),
             'scan_interval': (PrefsItem, '25', None,

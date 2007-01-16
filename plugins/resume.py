@@ -31,7 +31,7 @@ def restore_state():
                 APP.player.play_track(songs[track])
                 APP.player.current = songs[track]
                 APP.player.seek(APP.settings.get_float(PROGRESS,0.1))
-                APP.tracks.queue_draw()
+                APP.play_track(songs[track])
             elif len(songs) == 0:
                 return True
     

@@ -1576,7 +1576,7 @@ class ExaileWindow(gobject.GObject):
         else:
             self.progress_label.set_label("%d:%02d" % (seconds / 60, seconds % 60))
 
-        self.seek_id = gobject.timeout_add(150, self._seek_cb, range)
+        self.seek_id = gobject.timeout_add(250, self._seek_cb, range)
         self.seeking = True
 
     def _seek_cb(self, range):

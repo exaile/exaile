@@ -128,8 +128,13 @@ class PluginManager(object):
             line = line.strip()
             (file, name, version, author, description) = line.split('\t')
             description = description.replace("\n", " ").replace(r'\n', '\n')
+
             icon = self.dialog.render_icon('gtk-execute',
                 gtk.ICON_SIZE_MENU)
+
+            for plugin in self.manager.plugins:
+                if plugin.PLUGIN_NAME == name and plugin.PLUGIN_ICON:
+                    icon = plugin.PLUGIN_ICON
             self.avail_model.append([icon, name, version, author, description])
 
         selection = self.avail_list.get_selection()

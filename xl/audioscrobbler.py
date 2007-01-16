@@ -16,7 +16,7 @@ def submit_to_scrobbler(exaile, tr):
         lt[3], lt[4], lt[5])
     try:
         SCROBBLER_SESSION(artist_name=tr.artist,
-            song_title=self.title,
+            song_title=tr.title,
             length=int(tr.duration),
             date_played=date,
             album=tr.album)

@@ -344,10 +344,10 @@ class TracksListCtrl(gtk.VBox):
             for path in pathlist:
                 iter = model.get_iter(path)
                 track = model.get_value(iter, 0)
-                if not track in self.exaile.queued:
-                    self.exaile.queued.append(track)
+                if not track in self.exaile.player.queued:
+                    self.exaile.player.queued.append(track)
                 else:
-                    self.exaile.queued.remove(track)
+                    self.exaile.player.queued.remove(track)
 
             update_queued(self.exaile)
             self.queue_draw()
@@ -1029,7 +1029,7 @@ class QueueManager(TracksListCtrl):
         self.pack_start(buttons, False, True)
         buttons.show_all()
 
-        self.set_songs(self.exaile.queued)
+        self.set_songs(self.exaile.player.queued)
 
     def button_press(self, button, event):
         """
@@ -1051,7 +1051,7 @@ class QueueManager(TracksListCtrl):
 
         iter = model.get_iter(paths[0])
 
-        queue = self.exaile.queued
+        queue = self.exaile.player.queued
         item = queue.pop(num)
         num += 1
         if num > len(queue):
@@ -1073,7 +1073,7 @@ class QueueManager(TracksListCtrl):
             pass
         iter = model.get_iter(paths[0])
 
-        queue = self.exaile.queued
+        queue = self.exaile.player.queued
         item = queue.pop(num)
         num -= 1
         if num < 0:
@@ -1089,19 +1089,19 @@ class QueueManager(TracksListCtrl):
         """
         tracks = self.get_selected_tracks()
         for track in tracks:
-            self.exaile.queued.remove(track)
+            self.exaile.player.queued.remove(track)
 
-        self.set_songs(self.exaile.queued)
+        self.set_songs(self.exaile.player.queued)
         update_queued(self.exaile)
 
     def clear_queue(self, item):
         """
             Clears the queue
         """
-        while self.exaile.queued:
-            self.exaile.queued.pop()
+        while self.exaile.player.queued:
+            self.exaile.player.queued.pop()
 
-        self.set_songs(self.exaile.queued)
+        self.set_songs(self.exaile.player.queued)
         update_queued(self.exaile)
 
     def image(self, i):

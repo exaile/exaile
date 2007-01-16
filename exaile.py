@@ -733,6 +733,7 @@ class ExaileWindow(gobject.GObject):
                     title = m.group(1)
 
                 self.import_m3u("%s%s%s" % (dir, os.sep, file), title=title)
+                time.sleep(.5)
 
         # load queue
         if self.settings.get_boolean('save_queue', True):
@@ -749,14 +750,14 @@ class ExaileWindow(gobject.GObject):
         last_active = self.settings.get_int('last_active', -1)
         if last_active > -1:
             xlmisc.log("Last active playlist: %d" % last_active)
-            gobject.timeout_add(500, self.playlists_nb.set_current_page, last_active)
-        
+            gobject.timeout_add(200, self.playlists_nb.set_current_page, last_active)
+
         if not self.playlists_nb.get_n_pages():
             self.new_page(_("Playlist"))
 
         # PLUGIN: send plugins event when the last playlist is loaded
+        xlmisc.log('Last playlist loaded')
         self.emit('last-playlist-loaded')
-
 
     def append_songs(self, songs, queue=False, play=True, title="Playlist"): 
         """
@@ -775,8 +776,8 @@ class ExaileWindow(gobject.GObject):
 
             # if we want to queue this song, make sure it's not already
             # playing and make sure it's not already in the queue
-            if queue and not song in self.player.queued and not (song.is_playing()
-                or song.is_paused()):
+            if queue and not song in self.player.queued and song != \
+                self.player.current:
 
                 # if there isn't a queue yet, be sure to set which song is
                 # going to be played after the queue is empty
@@ -1811,7 +1812,7 @@ class ExaileWindow(gobject.GObject):
             if tr:
                 songs.append(tr)
 
-            if count >= 10:
+            if count >= 100:
                 xlmisc.finish()
                 count = 0
 

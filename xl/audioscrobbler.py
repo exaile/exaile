@@ -23,7 +23,7 @@ def submit_to_scrobbler(exaile, tr):
         tr.submitted = True
     except:
         xlmisc.log_exception()
-        gobject.idle_add(exaile_instance.status.set_first, 
+        gobject.idle_add(exaile.status.set_first, 
             _("Failed to submit track to Last.fm."), 3000)
 
 def get_scrobbler_session(exaile, username="", password="", new=False): 

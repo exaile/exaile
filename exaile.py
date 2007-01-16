@@ -167,7 +167,7 @@ class ExaileWindow(gobject.GObject):
         self.volume.connect('scroll-event', self.volume_scroll)
         self.volume.set_value(self.settings.get_float('volume', 1) *
             100)
-        if self.settings.get_boolean("use_tray", True): 
+        if self.settings.get_boolean("use_tray", False): 
             self.setup_tray()
 
         self.window.set_title(_("Exaile!"))
@@ -1695,6 +1695,7 @@ class ExaileWindow(gobject.GObject):
             if self.player.get_current_position() < 50:
                 self.update_rating(self.player.current, rating="rating - 1")
         self.player.next()
+        self.play_track(self.player.current)
         self.tracks.queue_draw()
     
     def on_previous(self, widget=None, event=None): 
@@ -1702,6 +1703,7 @@ class ExaileWindow(gobject.GObject):
             Plays the previous track in the history
         """
         self.player.previous()
+        self.play_track(self.player.current)
         self.tracks.queue_draw()
 
     def toggle_pause(self, widget=None, event=None):

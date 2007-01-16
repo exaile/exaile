@@ -67,7 +67,7 @@ def configure():
         exaile.settings["%s_ipod_mount" % plugins.name(__file__)] = \
             loc_entry.get_current_folder()
 
-class iPodTrack(media.DeviceTrack):
+class iPodTrack(media.Track):
 
     def __init__(self, *args):
         """
@@ -83,33 +83,6 @@ class iPodTrack(media.DeviceTrack):
             Returns the ipod track
         """
         return self.itrack
-
-    def write_tag(self, db=None):
-        """
-            Not implemented quite yet
-        """
-        if self.itrack:
-            t = self.itrack
-            t.artist = str(self.artist)
-            t.album = str(self.album)
-            t.genre = str(self.genre)
-            t.title = str(self.title)
-
-            try: t.year = int(self.year)
-            except ValueError: pass
-
-            try: t.track_nr = int(self.track)
-            except ValueError: pass
-
-        if db:
-            plugins.DriverTrack.write_tag(self, db)
-
-
-    def read_tag(self):
-        """
-            Reads the track
-        """
-        pass
 
     def get_rating(self): 
         """

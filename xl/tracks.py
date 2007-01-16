@@ -463,7 +463,7 @@ def read_track(db, all, path):
     else: tr = None
    
     # if the track is not already read, try the database
-    if not tr:
+    if not tr and db:
         tr = read_track_from_db(db, path)
 
     # if it's not in the database, read it from the filesystem

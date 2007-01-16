@@ -58,25 +58,6 @@ def configure():
         exaile.settings["%s_mount" % plugins.name(__file__)] = \
             loc_entry.get_current_folder()
 
-class MassStorageTrack(media.DeviceTrack):
-    """
-        Representation of a track on a mass storage device
-    """
-    def __init__(self, *args):
-        """
-            Initializes the track
-        """
-        media.DeviceTrack.__init__(self, *args)
-
-    def write_tag(self, db=None):
-        pass
-
-    def read_tag(self):
-        """ 
-            Reads the track
-        """
-        pass
-
 class MassStorageDriver(plugins.DeviceDriver):
     name = "massstorage"
 
@@ -98,14 +79,9 @@ class MassStorageDriver(plugins.DeviceDriver):
 
         files = tracks.scan_dir(str(self.mount), exts=media.SUPPORTED_MEDIA)
         for i, loc in enumerate(files):
-            tr = tracks.read_track(None, self.all, loc, adddb=False)
-            if tr: 
-                temp = MassStorageTrack(tr.loc)
-                for field in ('title', 'track', '_artist',
-                    'album', 'genre', 'year', 'bitrate'):
-                    setattr(temp, field, getattr(tr, field))
-                    temp.length = tr.duration
-                self.all.append(temp)
+            tr = tracks.read_track(None, self.all, loc)
+            tr.type = 'device'
+            self.all.append(tr)
 
         print 'we have connected, and scanned %d files!' % len(files)
         gobject.idle_add(panel.on_connect_complete, self)

@@ -1,4 +1,5 @@
 import mutagen, mutagen.id3, mutagen.mp3
+from xl import xlmisc
 
 IDS = { "TIT2": "title",
         "TPE1": "artist",
@@ -63,18 +64,19 @@ def fill_tag_from_path(tr):
         tr.album = get_tag(id3, 'TALB')
         tr.genre = get_tag(id3, 'TCON')
 
-        try:
-            trackinfo = get_tag(id3, 'TRCK')
-            if trackinfo.find('/') > -1:
-                tr.track, tr.disc_id = trackinfo.split('/')
-                tr.track = int(tr.track)
-                tr.disc_id = int(tr.disc_id)
-            else:
-                tr.track = int(trackinfo)
+        trackinfo = get_tag(id3, 'TRCK')
+        if trackinfo.find('/') > -1:
+            tr.track, tr.disc_id = trackinfo.split('/')
 
-        except ValueError:
-            tr.track = -1
-            tr.disc_id = -1
+            try:
+                tr.track = int(tr.track)
+            except ValueError: tr.track = -1
+
+            try:
+                tr.disc_id = int(tr.disc_id)
+            except ValueError: tr.disc_id = -1
+        else:
+            tr.track = int(trackinfo)
 
         tr.year = get_tag(id3, 'TRDC')
 

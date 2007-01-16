@@ -720,9 +720,10 @@ class ExaileWindow(gobject.GObject):
         if not os.path.isdir(dir):
             os.mkdir(dir, 0744)
 
+        last_active = self.settings.get_int('last_active', -1)
         if self.settings.get_boolean("open_last", True):
             files = os.listdir(dir)
-            for file in files:
+            for i, file in enumerate(files):
                 if not file.endswith(".m3u"): continue
                 h = open("%s%s%s" % (dir, os.sep, file))
                 line = h.readline()
@@ -732,7 +733,14 @@ class ExaileWindow(gobject.GObject):
                 if m:
                     title = m.group(1)
 
-                self.import_m3u("%s%s%s" % (dir, os.sep, file), title=title)
+                self.import_m3u("%s%s%s" % (dir, os.sep, file), title=title,
+                    set_current=False)
+
+            if last_active > -1:
+                self.playlists_nb.set_current_page(last_active)
+                page = self.playlists_nb.get_nth_page(last_active)
+                self.tracks = page
+                self.update_songs(page.songs, False)
 
         # load queue
         if self.settings.get_boolean('save_queue', True):
@@ -746,10 +754,6 @@ class ExaileWindow(gobject.GObject):
                 h.close()
 
             trackslist.update_queued(self)
-        last_active = self.settings.get_int('last_active', -1)
-        if last_active > -1:
-            xlmisc.log("Last active playlist: %d" % last_active)
-            gobject.timeout_add(200, self.playlists_nb.set_current_page, last_active)
 
         if not self.playlists_nb.get_n_pages():
             self.new_page(_("Playlist"))
@@ -951,7 +955,7 @@ class ExaileWindow(gobject.GObject):
             else:
                 if not self.tracks: self.new_page("Last", [])
         if first_run: 
-            gobject.timeout_add(200, self.load_last_playlist)
+            gobject.timeout_add(700, self.load_last_playlist)
             if len(sys.argv) > 1 and not sys.argv[1].startswith("--"):
                 f = sys.argv[1]
                 if f.endswith('.m3u') or f.endswith('.pls'):
@@ -1427,7 +1431,7 @@ class ExaileWindow(gobject.GObject):
                         newname))
 
     @common.synchronized
-    def new_page(self, title=_("Playlist"), songs=None):
+    def new_page(self, title=_("Playlist"), songs=None, set_current=True):
         """
             Create a new tab with the included title with the specified type
         """
@@ -1442,12 +1446,16 @@ class ExaileWindow(gobject.GObject):
         
         if not songs: songs = tracks.TrackData()
         self.tracks = trackslist.TracksListCtrl(self)
+        t = self.tracks
         self.tracks.playlist_songs = songs 
         tab = xlmisc.NotebookTab(self, title, self.tracks)
         self.playlists_nb.append_page(self.tracks, tab)
-        self.playlists_nb.set_current_page( 
-            self.playlists_nb.get_n_pages() - 1)
-        self.update_songs(songs)
+
+        if set_current:
+            self.playlists_nb.set_current_page( 
+                self.playlists_nb.get_n_pages() - 1)
+            self.update_songs(songs)
+        return t
 
     def close_page(self, page=None): 
         """
@@ -1761,7 +1769,8 @@ class ExaileWindow(gobject.GObject):
         self.update_track_information()
         self.progress.set_value(0)
 
-    def import_m3u(self, path, play=False, title=None, newtab=True): 
+    def import_m3u(self, path, play=False, title=None, newtab=True,
+        set_current=True):
         """
             Imports a playlist file, regardless of it's location (it can be
             a local file (ie, file:///somefile.m3u) or online.
@@ -1825,7 +1834,8 @@ class ExaileWindow(gobject.GObject):
             return
         
         if newtab:
-            self.new_page(name, songs)
+            t = self.new_page(name, songs, set_current=set_current)
+            if not set_current: t.set_songs(songs)
         else:
             self.append_songs(songs, play=False)
 

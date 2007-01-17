@@ -55,7 +55,7 @@ def write_tag(tr):
 def fill_tag_from_path(tr):
     info = mutagen.mp3.MP3(tr.loc)
     tr.length = info.info.length
-    tr.bitrage = info.info.bitrate
+    tr.bitrate = info.info.bitrate
 
     try:    
         id3 = mutagen.id3.ID3(tr.loc)

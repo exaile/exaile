@@ -18,15 +18,15 @@ import pygst, gtk
 pygst.require('0.10')
 import gst, gobject, random, time, urllib, re
 from gettext import gettext as _
-from xl import xlmisc, common
+from xl import xlmisc, common, media
 random.seed(time.time())
 
-class Player(object):
+class Player(gobject.GObject):
     """
         This is the main player interface, other engines will subclass it
     """
     def __init__(self):
-        pass
+        gobject.GObject.__init__(self)
 
 class GSTPlayer(Player):
     """
@@ -185,6 +185,11 @@ class ExailePlayer(GSTPlayer):
     """
         Exaile interface to the GSTPlayer
     """
+    __gsignals__ = {
+        'play-track': (gobject.SIGNAL_RUN_LAST, None, (media.Track,)),
+        'stop-track': (gobject.SIGNAL_RUN_LAST, None, (media.Track,)),
+    }
+
     def __init__(self, exaile):
         GSTPlayer.__init__(self)
         self.exaile = exaile
@@ -279,7 +284,9 @@ class ExailePlayer(GSTPlayer):
             return
 
         GSTPlayer.play(self, track.loc)
+        self.current = track
         track.start_time = time.time()
+        self.emit('play-track', track)
 
     def play(self):
         """

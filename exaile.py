@@ -129,6 +129,7 @@ class ExaileWindow(gobject.GObject):
         self.rewind_track = 0
         self.volume_id = None
         self.player = player.ExailePlayer(self)
+        self.player.connect('play-track', self.play_track)
         self.player.tag_func = self.tag_callback
 
         if self.settings.get_boolean("use_splash", True):
@@ -800,7 +801,7 @@ class ExaileWindow(gobject.GObject):
 
         track = self.player.current
         if track != None and (self.player.is_playing() or self.player.is_paused): return
-        gobject.idle_add(self.play_track, songs[0])
+        gobject.idle_add(self.player.play_track, songs[0])
 
     def on_blacklist(self, item, event):
         """
@@ -1588,7 +1589,7 @@ class ExaileWindow(gobject.GObject):
         self.emit('seek', real)
         self.seeking = False
 
-    def play_track(self, track): 
+    def play_track(self, player, track): 
         """
             Plays a track, gets the cover art, and sets up the context panel
         """
@@ -1736,7 +1737,6 @@ class ExaileWindow(gobject.GObject):
             if self.player.get_current_position() < 50:
                 self.update_rating(self.player.current, rating="rating - 1")
         self.player.next()
-        self.play_track(self.player.current)
         self.tracks.queue_draw()
     
     def on_previous(self, widget=None, event=None): 
@@ -1744,7 +1744,6 @@ class ExaileWindow(gobject.GObject):
             Plays the previous track in the history
         """
         self.player.previous()
-        self.play_track(self.player.current)
         self.tracks.queue_draw()
 
     def toggle_pause(self, widget=None, event=None):
@@ -1771,7 +1770,6 @@ class ExaileWindow(gobject.GObject):
             button.  If the track is already playing, it is restarted
         """
         self.player.play() 
-        self.play_track(self.player.current)
 
     def stop(self, event=None): 
         """
@@ -1874,7 +1872,7 @@ class ExaileWindow(gobject.GObject):
 
         if type(play) != bool and play.type == 'stream':
             self.stop()
-            self.play_track(play)
+            self.player.play_track(play)
 
         self.status.set_first(None)
     
@@ -2006,7 +2004,7 @@ class ExaileWindow(gobject.GObject):
         if not songs: return
 
         self.append_songs(songs)
-        self.play_track(track)
+        self.player.play_track(track)
 
     def open_url(self, event): 
         """

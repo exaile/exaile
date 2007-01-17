@@ -30,7 +30,7 @@ def get_server(locale):
     else:
         return "webservices.amazon.%s" % locale
 
-KEY = "15VDQG80MCS2K1W2VRR2"
+KEY = "15VDQG80MCS2K1W2VRR2" # Adam Olsen's key (synic)
 QUERY = "/onca/xml3?t=webservices-20&dev-t=%s&mode=music&type=lite&" % (KEY) + \
     "locale={locale}&page=1&f=xml&KeywordSearch="
 PATTERN = re.compile("http://images([^.]*)\.amazon\.com/images/(.*?LZ+\.jpg)")
@@ -57,11 +57,9 @@ class Cover(dict):
         handle.write(self['data'])
         handle.close()
         self['filename'] = savepath
-    
 
     def filename(self):
         return "%s.jpg" % self['md5']
-
 
 class CoverFetcherThread(threading.Thread):
     """

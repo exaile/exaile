@@ -1137,7 +1137,7 @@ def update_queued(exaile):
     for i in range(0, nb.get_n_pages()):
         page = nb.get_nth_page(i)
         if isinstance(page, QueueManager):
-            page.set_songs(exaile.queued)
+            page.set_songs(exaile.player.queued)
 
     if exaile.player.queued:
         exaile.queue_count_label.set_label("%d track(s) queued" % 

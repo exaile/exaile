@@ -273,6 +273,8 @@ class ExailePlayer(GSTPlayer):
         if loc:
             xlmisc.log('Found location: %s' % loc)
             track.start_time = time.time()
+
+            self.emit('play-track', track)
             GSTPlayer.play(self, loc)
             return
 

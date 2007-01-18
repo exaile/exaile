@@ -279,7 +279,17 @@ class BaseTrayIcon(gobject.GObject):
         pass
 
     def destroy(self): # to be overridden
-        pass
+        """
+            Unhides the window and removes the tray icon
+
+            The unhiding is done here, while the removal needs to be
+            done in a subclass. Don't forget to call this superclass
+            method when you override it.
+        """
+        self.emit('toggle-hide') # FIXME: should this be vetoable?
+        if not self.exaile.window.get_property('visible'):
+            self.exaile.window.present()
+            self.exaile.setup_location()
 
 class EggTrayIcon(BaseTrayIcon):
     def __init__(self, exaile):
@@ -339,6 +349,7 @@ class EggTrayIcon(BaseTrayIcon):
         self.tips.set_tip(self.icon, tip)
 
     def destroy(self):
+        BaseTrayIcon.destroy(self)
         self.icon.destroy()
 
 class GtkTrayIcon(BaseTrayIcon):
@@ -362,6 +373,7 @@ class GtkTrayIcon(BaseTrayIcon):
         self.icon.set_tooltip(tip)
 
     def destroy(self):
+        BaseTrayIcon.destroy(self)
         self.icon.set_visible(False)
 
 if USE_TRAY == 'egg':

@@ -261,12 +261,16 @@ class BaseTrayIcon(gobject.GObject):
             self.label.set_label(_("Pause"))
 
     def toggle_exaile_visibility(self):
-        if self.emit('toggle-hide'): return
-        if not self.exaile.window.get_property('visible'):
-            self.exaile.window.show_all()
+        w = self.exaile.window
+        if w.is_active(): # focused
+            if self.emit('toggle-hide'): return
+            w.hide()
+        elif w.get_property('visible'): # unfocused
+            w.present()
+        else: # hidden
+            if self.emit('toggle-hide'): return
+            w.present()
             self.exaile.setup_location()
-        else:
-            self.exaile.window.hide()
 
     def set_tooltip(self, tip): # to be overridden
         """

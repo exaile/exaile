@@ -1801,6 +1801,7 @@ class ExaileWindow(gobject.GObject):
 
         self.update_track_information()
         self.progress.set_value(0)
+        self.progress_label.set_label("0:00")
 
     def import_m3u(self, path, play=False, title=None, newtab=True,
         set_current=True):

@@ -2607,6 +2607,7 @@ class FilesPanel(object):
         self.tree.connect('row-activated', self.row_activated)
         self.menu = xlmisc.Menu()
         self.menu.append(_("Append to Playlist"), self.append)
+        self.queue_item = self.menu.append(_("Queue Items"), self.append)
 
     def drag_get_data(self, treeview, context, sel, target_id, etime):
         """
@@ -2632,7 +2633,8 @@ class FilesPanel(object):
         self.exaile.status.set_first(_("Scanning and adding files..."))
         songs = self.get_selected_songs()
         if songs:
-            self.exaile.append_songs(songs, title=_("Playlist"))
+            self.exaile.append_songs(songs, title=_("Playlist"), queue=(widget
+                == self.queue_item))
         self.counter = 0
         self.exaile.status.set_first(None)
 

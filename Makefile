@@ -20,6 +20,7 @@ make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/plugins
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/images/default_theme
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/xl
+	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/xl/media
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/po
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/sql
 
@@ -33,6 +34,7 @@ install: make-install-dirs mmkeys.so
 	$(DESTDIR)$(PREFIX)/share/exaile/images/default_theme
 	install -m 644 po/*.po $(DESTDIR)$(PREFIX)/share/exaile/po
 	install -m 644 xl/*.py $(DESTDIR)$(PREFIX)/share/exaile/xl
+	install -m 644 xl/media/*.py $(DESTDIR)$(PREFIX)/share/exaile/xl/media
 	install -m 644 plugins/*.py $(DESTDIR)$(PREFIX)/share/exaile/plugins
 	install -m 644 plugins/*.glade $(DESTDIR)$(PREFIX)/share/exaile/plugins
 	install -m 644 images/largeicon.png \

@@ -387,6 +387,7 @@ class ExailePlayer(GSTPlayer):
         """
         if self.current: self.current.start_time = 0
         GSTPlayer.stop(self)
+        self.emit('stop-track', self.current)
         if reset_current: self.current = None
 
 # VideoWidget and VideoArea code taken from Listen media player

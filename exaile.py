@@ -130,6 +130,7 @@ class ExaileWindow(gobject.GObject):
         self.volume_id = None
         self.player = player.ExailePlayer(self)
         self.player.connect('play-track', self.play_track)
+        self.player.connect('stop-track', self._stop_cb)
         self.player.tag_func = self.tag_callback
 
         if self.settings.get_boolean("use_splash", True):
@@ -1771,9 +1772,15 @@ class ExaileWindow(gobject.GObject):
         """
         self.player.play() 
 
-    def stop(self, event=None): 
+    def stop(self, *args): 
         """
             Stops playback
+        """
+        self.player.stop()
+
+    def _stop_cb(self, *args):
+        """
+            Called by ExailePlayer when playback stops
         """
         self.status.set_first(None)
         self.cover.set_image("images%snocover.png" % os.sep)
@@ -1786,13 +1793,8 @@ class ExaileWindow(gobject.GObject):
 
         track = self.player.current
         if track != None: 
-            self.player.stop()
             # PLUGIN: alert plugins that this track has stopped playing
             self.emit('stop-track', track)
-
-        if event != None:
-            self.player.played = []
-            self.player.current = None
 
         self.play_button.set_image(self.get_play_image())
         if self.tracks: self.tracks.queue_draw()

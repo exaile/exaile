@@ -1139,7 +1139,7 @@ class ExaileWindow(gobject.GObject):
             else:
                 self.progress_label.set_label("%d:%02d" % (seconds / 60, seconds % 60))
 
-        if seconds > 240 or value > 50: 
+        if (seconds > 240 or value > 50) and track.type != 'stream': 
             self.update_rating(track, plays="plays + 1",
                 rating="rating + 1")
             if not track.submitted:

@@ -718,6 +718,15 @@ class ExaileWindow(gobject.GObject):
             self.tray_icon.destroy()
             self.tray_icon = None
 
+
+    def _load_tab(self, last_active):
+
+        xlmisc.log('Loading page %s' % last_active)
+        self.playlists_nb.set_current_page(last_active)
+        page = self.playlists_nb.get_nth_page(last_active)
+        self.tracks = page
+        self.update_songs(page.songs, False)
+
     def load_last_playlist(self): 
         """
             Loads the playlist that was in the player on last exit
@@ -743,10 +752,8 @@ class ExaileWindow(gobject.GObject):
                     set_current=False)
 
             if last_active > -1:
-                self.playlists_nb.set_current_page(last_active)
-                page = self.playlists_nb.get_nth_page(last_active)
-                self.tracks = page
-                self.update_songs(page.songs, False)
+                gobject.timeout_add(200, self._load_tab, last_active)
+
 
         # load queue
         if self.settings.get_boolean('save_queue', True):
@@ -961,7 +968,7 @@ class ExaileWindow(gobject.GObject):
             else:
                 if not self.tracks: self.new_page("Last", [])
         if first_run: 
-            gobject.timeout_add(700, self.load_last_playlist)
+            gobject.idle_add(self.load_last_playlist)
             if len(sys.argv) > 1 and not sys.argv[1].startswith("--"):
                 f = sys.argv[1]
                 if f.endswith('.m3u') or f.endswith('.pls'):
@@ -2144,7 +2151,9 @@ class ExaileWindow(gobject.GObject):
             h.close()
         self.db.db.commit()
         last_active = self.playlists_nb.get_current_page()
+        print 'Last active is: %d' % last_active
         self.settings['last_active'] = last_active
+        self.settings.save()
         
         gtk.main_quit()
         print 'Exiting, bye!'

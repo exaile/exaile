@@ -289,6 +289,7 @@ class ExailePlayer(GSTPlayer):
         GSTPlayer.play(self, track.loc)
         self.current = track
         self.emit('play-track', track)
+        self.exaile.tracks.queue_draw()
 
     def play(self):
         """

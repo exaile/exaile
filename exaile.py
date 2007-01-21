@@ -1807,6 +1807,7 @@ class ExaileWindow(gobject.GObject):
         self.play_button.set_image(self.get_play_image())
         if self.tracks: self.tracks.queue_draw()
 
+        self.player.current = None
         self.update_track_information()
         self.progress.set_value(0)
         self.progress_label.set_label("0:00")

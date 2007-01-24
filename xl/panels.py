@@ -672,7 +672,7 @@ class CollectionPanel(object):
             """
 
         # save the active view setting
-        self.exaile.settings['active_view'] = self.choice.get_active()
+        self.exaile.settings['%s_active_view' % self.name] = self.choice.get_active()
 
         if not isinstance(self, DevicePanel):
             all = self.exaile.all_songs

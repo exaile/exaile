@@ -318,7 +318,7 @@ class ExailePlayer(GSTPlayer):
     def next(self):
         self.stop(False)
         if self.exaile.tracks == None: return
-        
+       
         track = self.exaile.tracks.get_next_track(self.current)
 
         print 'next track was reported as ', track
@@ -389,9 +389,10 @@ class ExailePlayer(GSTPlayer):
             Stops the currently playing track
         """
         if self.current: self.current.start_time = 0
-        GSTPlayer.stop(self)
-        self.emit('stop-track', self.current)
+        current = self.current
         if reset_current: self.current = None
+        GSTPlayer.stop(self)
+        self.emit('stop-track', current)
 
 # VideoWidget and VideoArea code taken from Listen media player
 # http://listen-gnome.free.fr

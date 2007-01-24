@@ -1156,12 +1156,13 @@ class ExaileWindow(gobject.GObject):
 
         return True
 
-    def update_track_information(self, event=None):
+    def update_track_information(self, track=None):
         """
             Updates track status information
         """
         self.rating_combo.disconnect(self.rating_signal)
-        track = self.player.current
+        if not track:
+            track = self.player.current
 
         self.artist_label = self.xml.get_widget('artist_label')
         if track == None:
@@ -1807,8 +1808,7 @@ class ExaileWindow(gobject.GObject):
         self.play_button.set_image(self.get_play_image())
         if self.tracks: self.tracks.queue_draw()
 
-        self.player.current = None
-        self.update_track_information()
+        self.update_track_information(None)
         self.progress.set_value(0)
         self.progress_label.set_label("0:00")
 

@@ -271,11 +271,11 @@ def load_tracks(db, current=None):
             track, 
             title
         """):
-        if not os.path.isfile(row[0]): 
+        if not os.path.isfile(row[0].encode('utf-8')): 
             continue
 
         t = media.Track(*row)
-        path, ext = os.path.splitext(row[0].lower())
+        path, ext = os.path.splitext(row[0].lower().encode('utf-8'))
         t.type = ext.replace('.', '')
 
         if already_added(t, added): continue

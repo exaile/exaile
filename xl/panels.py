@@ -678,10 +678,7 @@ class CollectionPanel(object):
             all = self.exaile.all_songs
             self.all = all
         else:
-            if not isinstance(self, DevicePanel):
-                all = self.exaile.all_songs
-                self.all = all
-            else:
+            if isinstance(self, DevicePanel):
                 self.all = None
 
         if self.track_cache.has_key("%s %s" % (self.where, self.keyword)) \

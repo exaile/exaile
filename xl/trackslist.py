@@ -477,7 +477,8 @@ class TracksListCtrl(gtk.VBox):
             Track number
         """
         item = model.get_value(iter, 0)
-        if item.track is None or item.track == -1:
+        if item.track is None or item.track == -1 or \
+            item.type == 'podcast':
             cell.set_property('text', '')
         else:
             cell.set_property('text', item.track)

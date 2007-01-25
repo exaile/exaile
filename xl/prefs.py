@@ -269,7 +269,8 @@ class Preferences(object):
     items = ({'General':
                 ('Library',
                 'OSD',
-                'Last.fm'),
+                'Last.fm',
+                'Radio'),
             'Advanced':
                 '',
             })
@@ -364,6 +365,7 @@ class Preferences(object):
             'wikipedia_locale': (PrefsItem, 'en'),
             'scan_interval': (PrefsItem, '25', None,
                 self.setup_scan_interval),
+            'download_feeds': (CheckPrefsItem, True),
         })
 
         for setting, value in simple_settings.iteritems():

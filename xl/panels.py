@@ -2039,27 +2039,35 @@ class RadioPanel(object):
                 'title': row[1],
                 'artist': row[2],
                 'album': desc,
-                'url': row[0],
+                'loc': row[0],
                 'year': row[4], 
                 'length': row[3], 
-                'size': row[5]
             })
+
+            song = media.Track()
+            song.set_info(**info)
+            song.type = 'podcast'
+            song.size = row[5]
 
             (download_path, downloaded) = \
                 self.get_podcast_download_path(row[0])
             add_item = False
-            if not downloaded:
-                info['artist'] = "Not downloaded"
-                info['download_path'] = ''
-                add_item = True
-            else:
-                info['download_path'] = download_path
 
-            song = media.PodcastTrack(info)
+            if not self.exaile.settings.get_boolean('download_feeds', True):
+                add_item = False
+                song.download_path = 1
+            else:
+                if not downloaded:
+                    song.artist = "Not downloaded"
+                    song.download_path = ''
+                    add_item = True
+                else:
+                    song.download_path = download_path
+
             song.length = row[3]
             song.podcast_path = wrapper.path
             songs.append(song)
-            self.podcasts[song.url] = song
+            self.podcasts[song.loc] = song
             if add_item:
                 song.podcast_artist = row[2] 
                 self.add_podcast_to_queue(song)

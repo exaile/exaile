@@ -965,7 +965,7 @@ class BlacklistedTracksList(TracksListCtrl):
         """
             Sets up the popup menu for the tracks list
         """
-        TracksListCtrl.setup_tracks_menu(self, True)
+        TracksListCtrl.setup_tracks_menu(self)
         self.deblacklist = self.tpm.append(_("Remove from Blacklist"), 
             self.de_blacklist)
 
@@ -973,24 +973,22 @@ class BlacklistedTracksList(TracksListCtrl):
         """
             Removes items from the blacklist
         """
-        tracks = self.get_selected_tracks()
+        songs = self.get_selected_tracks()
         cur = self.db.cursor()
         remove = []
-        for track in tracks:
+        for track in songs:
             remove.append(track)
-        cur = self.db.cursor()
 
         for track in remove:
             self.playlist_songs.remove(track)
             try: self.exaile.songs.remove(track)
             except: pass
-            path_id = tracks.get_column_id(cur, 'paths', 'name', track.loc)
+            path_id = tracks.get_column_id(self.db, 'paths', 'name', track.loc)
             cur.execute("UPDATE tracks SET blacklisted=0 WHERE path=?",
-                (path_kd,)) 
+                (path_id,)) 
             if not track in self.exaile.all_songs:
                 self.exaile.all_songs.append(track)
 
-        cur.close()
         self.set_songs(self.exaile.songs)
         self.exaile.collection_panel.track_cache = dict()
 

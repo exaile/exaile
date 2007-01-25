@@ -619,11 +619,21 @@ class ExaileWindow(gobject.GObject):
             Shows the blacklist manager
         """
         nb = self.playlists_nb
-        all = self.db.select("SELECT path FROM tracks WHERE blacklisted=1 ORDER BY " \
-            "artist, album, track, title")
+        all = self.db.select("""
+            SELECT 
+                paths.name, 
+                path 
+            FROM 
+               tracks, paths 
+            WHERE 
+                paths.id=tracks.path AND 
+                blacklisted=1 
+            ORDER BY 
+                artist, album, track, title
+        """)
         songs = []
         for row in all:
-            song = tracks.read_track(self.db, None, row[0], True)
+            song = tracks.read_track(self.db, None, row[0])
             if song: songs.append(song)
 
         for i in range(0, nb.get_n_pages()):

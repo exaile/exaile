@@ -674,11 +674,15 @@ class CollectionPanel(object):
         # save the active view setting
         self.exaile.settings['%s_active_view' % self.name] = self.choice.get_active()
 
-        if not isinstance(self, DevicePanel):
+        if self.name == 'col':
             all = self.exaile.all_songs
             self.all = all
         else:
-            self.all = None
+            if not isinstance(self, DevicePanel):
+                all = self.exaile.all_songs
+                self.all = all
+            else:
+                self.all = None
 
         if self.track_cache.has_key("%s %s" % (self.where, self.keyword)) \
             and self.track_cache["%s %s" % (self.where, self.keyword)]:

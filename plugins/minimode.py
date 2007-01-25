@@ -49,6 +49,36 @@ def toggle_minimode(*e):
         APP.window.show()
     print "Minimode toggled"
 
+def configure():
+    """
+        Configuration for mini mode
+    """
+    exaile = APP
+    settings = exaile.settings
+
+    dialog = plugins.PluginConfigDialog(exaile.window, PLUGIN_NAME)
+    box = dialog.main
+
+    on_top = settings.get_boolean('%s_on_top' % plugins.name(__file__), False)
+    no_taskbar = settings.get_boolean('%s_no_taskbar' %
+        plugins.name(__file__), False)
+
+    on_top_box = gtk.CheckButton('Always on top')
+    no_taskbar_box = gtk.CheckButton('Skip taskbar')
+
+    on_top_box.set_active(on_top)
+    no_taskbar_box.set_active(no_taskbar)
+
+    box.pack_start(on_top_box)
+    box.pack_start(no_taskbar_box)
+    dialog.show_all()
+
+    result = dialog.run()
+    dialog.hide()
+
+    settings['%s_on_top' % plugins.name(__file__)] = on_top_box.get_active()
+    settings['%s_no_taskbar' % plugins.name(__file__)] = no_taskbar_box.get_active()
+
 class MiniWindow(gtk.Window):
     """
         The main minimode window
@@ -246,6 +276,18 @@ class MiniWindow(gtk.Window):
         self.move(x, y)
         self.setup_title_box()
         self.stick()
+
+        if APP.settings.get_boolean('%s_on_top' % plugins.name(__file__),
+            False):
+            self.set_keep_above(True)
+        else:
+            self.set_keep_above(False)
+
+        if APP.settings.get_boolean('%s_no_taskbar' %
+            plugins.name(__file__), False):
+            self.set_property('skip-taskbar-hint', True)
+        else:
+            self.set_property('skip-taskbar-hint', False)
 
     def on_prev(self, button):
         """

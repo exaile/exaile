@@ -2055,9 +2055,11 @@ class RadioPanel(object):
 
             if not self.exaile.settings.get_boolean('download_feeds', True):
                 add_item = False
+
                 song.download_path = 1
             else:
                 if not downloaded:
+
                     song.artist = "Not downloaded"
                     song.download_path = ''
                     add_item = True

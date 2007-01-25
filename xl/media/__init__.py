@@ -1,4 +1,4 @@
-from xl.media import mp3, ogg, flac
+from xl.media import mp3, ogg, flac, m4a
 from xl import xlmisc
 import os.path, gobject, time, re
 
@@ -8,7 +8,8 @@ formats = {
     'mp3':      mp3,
     'mp2':      mp3,
     'ogg':      ogg,
-    'flac':     flac
+    'flac':     flac,
+    'm4a':      m4a
 }
 
 # for m4a support

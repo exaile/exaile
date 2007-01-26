@@ -684,12 +684,15 @@ class CollectionPanel(object):
             else:
                 self.all = None
 
-        if self.track_cache.has_key("%s %s" % (self.where, self.keyword)) \
-            and self.track_cache["%s %s" % (self.where, self.keyword)]:
-            songs = self.track_cache["%s %s" % (self.where, self.keyword)]
-        else:
+        songs = None
+        key = "%s %s" % (self.where, self.keyword)
+        try:
+            songs = self.track_cache[key]
+        except:
+            pass
+        if not songs:
             songs = self.search_tracks(self.keyword, self.all)
-        self.track_cache["%s %s" % (self.where, self.keyword)] = songs
+            self.track_cache[key] = songs
 
         if self.current_start_count != self.start_count: return
 

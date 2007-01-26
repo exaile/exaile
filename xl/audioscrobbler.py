@@ -345,7 +345,7 @@ audioscrobbler_request_host = 'ws.audioscrobbler.com'
 # AudioScrobblerPost configuration settings
 audioscrobbler_post_version = u'1.1'
 audioscrobbler_post_host = 'post.audioscrobbler.com'
-client_name = u'tst'
+client_name = u'exa'
 pyscrobbler_version = u'1.0' # This is set to 1.0 while we use
                              # client_name = u'tst' as we keep getting
                              # UPDATE responses with anything less.
@@ -826,6 +826,8 @@ class AudioScrobblerPost:
         interval = datetime.timedelta(seconds=self.interval)
         if self.last_post is not None and self.last_post + interval > now:
             time.sleep(self.interval)
+
+        xlmisc.log('-AUDIOSCROBBLER- %s' % postdata)
         try:
             url_handle = urllib2.urlopen(req)
         except urllib2.HTTPError, error:

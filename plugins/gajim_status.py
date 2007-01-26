@@ -40,7 +40,10 @@ def generate_message(track, paused=False):
 
 
 def set_gajim_status(message):
-    status = INTERFACE.get_status()
+    try:
+        status = INTERFACE.get_status()
+    except dbus.DBusException:
+        return
     INTERFACE.change_status(status, message)
 
 def track_information_updated(arg):

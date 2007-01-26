@@ -678,7 +678,10 @@ class CollectionPanel(object):
             all = self.exaile.all_songs
             self.all = all
         else:
-            if isinstance(self, DevicePanel):
+            if not isinstance(self, DevicePanel):
+                all = self.exaile.all_songs
+                self.all = all
+            else:
                 self.all = None
 
         if self.track_cache.has_key("%s %s" % (self.where, self.keyword)) \
@@ -2442,14 +2445,14 @@ class RadioPanel(object):
                 self.on_add_station(widget)
                 return
 
-            c = self.db.record_count("radio", "radio=?", (name,))
+            c = self.db.record_count("radio", "name=?", (name,))
 
             if c > 0:
                 common.error(self.exaile.window, _("Station name already exists."))
                 return
             radio_id = tracks.get_column_id(self.db, 'radio', 'name', name)
             path_id = tracks.get_column_id(self.db, 'paths', 'name', url)
-            self.db.execute("INSERT INTO radio_items(radio, url, title, "
+            self.db.execute("INSERT INTO radio_items(radio, path, title, "
                 "description) VALUES( ?, ?, ?, ? )", (radio_id, path_id, desc,
                 desc))
             

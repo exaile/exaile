@@ -55,7 +55,7 @@ CREATE TABLE radio( id INTEGER NOT NULL PRIMARY KEY,
     name VARCHAR(30) NOT NULL UNIQUE );
 
 CREATE TABLE radio_items( radio INT NOT NULL,
-    PATH INT NOT NULL, 
+    path INT NOT NULL, 
     title VARCHAR(100), 
     description VARCHAR(100), 
     bitrate VARCHAR(20), 

@@ -2302,7 +2302,7 @@ if __name__ == "__main__":
     try:
         main()
     except SystemExit:
-        pass
+        raise
     except: 
         traceback.print_exc()
         xlmisc.log_exception()

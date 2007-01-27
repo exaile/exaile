@@ -1,6 +1,6 @@
 # $Id$
 
-import xlmisc, gobject, common, time, xlmisc
+import xlmisc, gobject, common, time, xlmisc, urllib
 from gettext import gettext as _
 SCROBBLER_SESSION = None
 
@@ -815,11 +815,13 @@ class AudioScrobblerPost:
         count = 0
         for track in self.cache[:number]:
             for k in track.keys():
-                params[k % (count,)] = track[k]
+                params[k % (count,)] = urllib.quote_plus(track[k])
         
         self.auth()
         params.update(self.auth_details)
-        postdata = urllib.urlencode(params)
+
+        postdata = '&'.join(['%s=%s' % (k, v) for k, v in params.iteritems()])
+#        postdata = urllib.urlencode(params)
         req = urllib2.Request(url=self.posturl, data=postdata)
         
         now = datetime.datetime.utcnow()

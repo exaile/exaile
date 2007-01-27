@@ -674,14 +674,13 @@ class CollectionPanel(object):
         # save the active view setting
         self.exaile.settings['%s_active_view' % self.name] = self.choice.get_active()
 
+        # if this is a collection panel, don't alter self.all, as this messes
+        # up inheriting from it
         if self.name == 'col':
             all = self.exaile.all_songs
             self.all = all
         else:
-            if not isinstance(self, DevicePanel):
-                all = self.exaile.all_songs
-                self.all = all
-            else:
+            if isinstance(self, DevicePanel):
                 self.all = None
 
         songs = None

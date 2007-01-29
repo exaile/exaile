@@ -111,6 +111,10 @@ def play_track(exaile, track):
     pixbuf = gtk.gdk.pixbuf_new_from_file(APP.cover.loc)
     pixbuf = pixbuf.scale_simple(50, 50, gtk.gdk.INTERP_BILINEAR)
     notify.set_icon_from_pixbuf(pixbuf)
+
+    if exaile.tray_icon:
+        notify.attach_to_widget(exaile.tray_icon.icon)
+
     notify.show()
 
 def initialize():

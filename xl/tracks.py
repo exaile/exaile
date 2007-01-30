@@ -457,7 +457,7 @@ def get_album_id(db, artist_id, album, prep=''):
     return index
 
 def read_track(db, all, path):
-
+    if not os.path.isfile(path): return None
     if all:
         tr = all.for_path(path)
     else: tr = None

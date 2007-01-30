@@ -38,7 +38,12 @@ def read_from_path(uri):
 
     tr = Track(uri)
     tr.type = ext
-    formats[ext].fill_tag_from_path(tr)
+
+    try:
+        formats[ext].fill_tag_from_path(tr)
+    except:
+        xlmisc.log_exception()
+        return None
     return tr
 
 def write_tag(tr):

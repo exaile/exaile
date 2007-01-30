@@ -1110,7 +1110,19 @@ class ExaileWindow(gobject.GObject):
 
         if not tracks: return
 
-        if set: gobject.idle_add(tracks.set_songs, songs)
+        if set: 
+            (path1, path2) = self.tracks.list.get_visible_range()
+
+            scroll_to_end = False
+            if path2[0] == len(self.tracks.songs):
+                scroll_to_end = True
+            gobject.idle_add(tracks.set_songs, songs)
+
+            if scroll_to_end:
+                gobject.idle_add(tracks.list.scroll_to_cell,
+                (len(self.tracks.songs),))
+            else:
+                gobject.idle_add(tracks.list.scroll_to_cell, path1[0]+1)
 
     def timer_update(self, event=None): 
         """

@@ -9,18 +9,17 @@ formats = {
     'mp2':      mp3,
     'ogg':      ogg,
     'flac':     flac,
-    'm4a':      m4a
 }
 
 # for m4a support
 try:
-    from xl.formats import m4a
+    from xl.media import m4a
     formats['m4a'] = m4a
 except ImportError: pass
 
 # for wma support
 try:
-    from xl.formats import wma
+    from xl.media import wma
     formats['wma'] = wma
 except ImportError: pass
 

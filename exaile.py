@@ -1111,7 +1111,9 @@ class ExaileWindow(gobject.GObject):
         if not tracks: return
 
         if set: 
-            (path1, path2) = self.tracks.list.get_visible_range()
+            visible = self.tracks.list.get_visible_range()
+            if not visible: return
+            (path1, path2) = visible
 
             scroll_to_end = False
             if path2[0] == len(self.tracks.songs):

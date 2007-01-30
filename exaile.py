@@ -2107,6 +2107,13 @@ class ExaileWindow(gobject.GObject):
         """
         # PLUGIN: send plugins event before quitting
         self.emit('quit')
+
+
+        self.window.hide()
+        xlmisc.finish()
+        if self.tray_icon and widget == self.window:
+            return True
+
         if self.gamin_watched and self.mon:
             for item in self.gamin_watched:
                 try:
@@ -2116,11 +2123,6 @@ class ExaileWindow(gobject.GObject):
 
         if self.mon:
             self.mon.disconnect()
-
-        self.window.hide()
-        xlmisc.finish()
-        if self.tray_icon and widget == self.window:
-            return True
 
         self.stop()
         self.stop_cover_thread()

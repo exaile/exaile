@@ -1815,9 +1815,9 @@ class ExaileWindow(gobject.GObject):
         """
             Stops playback
         """
-        self.player.stop(False)
+        self.player.stop()
 
-    def _stop_cb(self, *args):
+    def _stop_cb(self, player, track):
         """
             Called by ExailePlayer when playback stops
         """
@@ -1830,8 +1830,7 @@ class ExaileWindow(gobject.GObject):
             self.tray_icon.set_tooltip("Exaile Media Player")
         self.window.set_title("Exaile!")
 
-        track = self.player.current
-        if track != None: 
+        if track:
             # PLUGIN: alert plugins that this track has stopped playing
             self.emit('stop-track', track)
 
@@ -1841,7 +1840,6 @@ class ExaileWindow(gobject.GObject):
         self.update_track_information(None)
         self.progress.set_value(0)
         self.progress_label.set_label("0:00")
-        self.player.current = None
 
     def import_m3u(self, path, play=False, title=None, newtab=True,
         set_current=True):

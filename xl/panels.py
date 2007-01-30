@@ -334,8 +334,8 @@ class CollectionPanel(object):
             self.append_to_playlist)
 
         pm = xlmisc.Menu()
-        self.new_playlist = pm.append(_("Add to Playlist"),
-            self.add_items_to_playlist)
+        self.new_playlist = pm.append(_("New Playlist"),
+            self.add_items_to_playlist, 'gtk-new')
         pm.append_separator()
 
         rows = self.db.select("SELECT name FROM playlists ORDER BY"

@@ -1789,7 +1789,11 @@ class ExaileWindow(gobject.GObject):
             Called when someone double clicks on a track or presses the play
             button.  If the track is already playing, it is restarted
         """
-        self.player.play() 
+        try:
+            self.player.play() 
+        except Exception, e:
+            common.error(self.window, str(e))
+            self.player.stop()
 
     def stop(self, *args): 
         """

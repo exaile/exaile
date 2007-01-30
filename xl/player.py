@@ -16,7 +16,7 @@
 
 import pygst, gtk
 pygst.require('0.10')
-import gst, gobject, random, time, urllib, re
+import gst, gobject, random, time, urllib, re, os
 from gettext import gettext as _
 from xl import xlmisc, common, media
 random.seed(time.time())
@@ -111,7 +111,11 @@ class GSTPlayer(Player):
             self.connections.append(self.bus.connect('sync-message::element',
                 self.on_sync_message))
 
-            if uri.find('://') == -1: uri = 'file://%s' % uri
+            if uri.find('://') == -1: 
+                if not os.path.isfile(uri):
+                    raise Exception('Specified file does not exist')
+
+                uri = 'file://%s' % uri
             self.playbin.set_property('uri', uri)
 
         self.playbin.set_state(gst.STATE_PLAYING)
@@ -275,7 +279,13 @@ class ExailePlayer(GSTPlayer):
             track.start_time = time.time()
 
             self.emit('play-track', track)
-            GSTPlayer.play(self, loc)
+
+            try:
+                GSTPlayer.play(self, loc)
+            except Exception, e:
+                gobject.idle_add(common.error, self.exaile.window, str(e))
+                gobject.idle_add(self.exaile.stop)
+
             return
 
         xlmisc.log('Could not find a stream location')
@@ -286,7 +296,13 @@ class ExailePlayer(GSTPlayer):
             self.find_stream_uri(track)
             return
 
-        GSTPlayer.play(self, track.loc)
+        try:
+            GSTPlayer.play(self, track.loc)
+        except Exception, e:
+            common.error(self.exaile.window, str(e))
+            self.exaile.stop()
+            return
+
         self.current = track
         self.emit('play-track', track)
         self.exaile.tracks.queue_draw()

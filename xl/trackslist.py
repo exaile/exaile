@@ -849,11 +849,15 @@ class TracksListCtrl(gtk.VBox):
         settings = self.exaile.get_settings_dir()
         cache = "%s%s%s" % (settings, os.sep, "cache")
         if not os.path.isdir(cache): os.mkdir(cache)
-        f = open("%s%sradio_%s.tab" % (cache, os.sep, genre), "w")
-        for track in self.songs:
-            f.write("%s\t%s\t%s\t%s\n" % (track.artist, track.title,
-                track.loc, track.bitrate))
-        f.close()
+
+        try:
+            f = open("%s%sradio_%s.tab" % (cache, os.sep, genre), "w")
+            for track in self.songs:
+                f.write("%s\t%s\t%s\t%s\n" % (track.artist, track.title,
+                    track.loc, track.bitrate))
+            f.close()
+        except IOError:
+            xlmisc.log('Could not save station list')
 
     def delete_tracks(self, event, type): 
         """

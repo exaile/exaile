@@ -74,13 +74,13 @@ class Track(gobject.GObject):
         Represents a generic single track
     """
     type = 'track'
-    def __init__(self, *args):
+    def __init__(self, *args, **kwargs):
         """
             Loads an initializes the tag information
             Expects the path to the track as an argument
         """
         gobject.GObject.__init__(self)
-        self.set_info(*args)
+        self.set_info(*args, **kwargs)
 
 
         self.time_played = 0

@@ -21,6 +21,7 @@ import thread, threading, urllib, audioscrobbler
 import dbusinterface, xl.db, time
 from db import DBOperationalError
 from pysqlite2.dbapi2 import IntegrityError
+from gettext import gettext as _
 
 try:    
     import DiscID, CDDB
@@ -358,11 +359,11 @@ def count_files(directories):
     return paths
 
 @common.threaded
-def get_cddb_info(songs, disc_id, exaile):
+def get_cddb_info(songs, disc_info, exaile):
     """
         Fetches cddb info about an audio cd
     """
-    (status, info) = CDDB.query(disc_id)
+    (status, info) = CDDB.query(disc_info)
     if status in (210, 211):
         info = info[0]
         status = 200
@@ -370,7 +371,7 @@ def get_cddb_info(songs, disc_id, exaile):
 
     (status, info) = CDDB.read(info['category'], info['disc_id'])
     title = info['DTITLE'].split(" / ")
-    for i in range(disc_id[1]):
+    for i in range(disc_info[1]):
         songs[i].title = info['TTITLE' + `i`].decode('iso-8859-15',
             'replace')
         songs[i].album = title[1].decode('iso-8859-15', 'replace')
@@ -402,13 +403,14 @@ def read_audio_disc(exaile):
             length = info[i + 3] - total
 
         minus = info[i + 3] / 75
-        song = media.CDTrack(str(i + 1), length=length)
-        song.length = length
+        tracknum = i + 1
+        song = media.Track("cdda://%d" % tracknum, _("Track %d") % tracknum,
+            track=tracknum, length=length)
+        song.type = 'cd'
         total += length
-        song.track = i + 1
         songs.append(song)
 
-    get_cddb_info(songs, disc_id, exaile)
+    get_cddb_info(songs, info, exaile)
 
     return songs
 

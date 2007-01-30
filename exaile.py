@@ -1180,12 +1180,12 @@ class ExaileWindow(gobject.GObject):
 
         return True
 
-    def update_track_information(self, track=None):
+    def update_track_information(self, track=''):
         """
             Updates track status information
         """
         self.rating_combo.disconnect(self.rating_signal)
-        if not track:
+        if track == '':
             track = self.player.current
 
         self.artist_label = self.xml.get_widget('artist_label')
@@ -1813,7 +1813,7 @@ class ExaileWindow(gobject.GObject):
         """
             Stops playback
         """
-        self.player.stop()
+        self.player.stop(False)
 
     def _stop_cb(self, *args):
         """
@@ -1839,6 +1839,7 @@ class ExaileWindow(gobject.GObject):
         self.update_track_information(None)
         self.progress.set_value(0)
         self.progress_label.set_label("0:00")
+        self.player.current = None
 
     def import_m3u(self, path, play=False, title=None, newtab=True,
         set_current=True):

@@ -159,6 +159,7 @@ def stop():
     if STREAMRIPPER_PID:
         os.system("kill -9 %d" % STREAMRIPPER_PID)
         STREAMRIPPER_PID = None
+    
 
 def stop_track(exaile, track):
     """

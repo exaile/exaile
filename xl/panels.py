@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import xl.tracks, os, sys, md5, random, db, tracks, xlmisc
+import xl.tracks, os, sys, md5, random, db, track, tracks, xlmisc
 import common, trackslist, shoutcast, filtergui
 import media, time, thread, re, copy, threading
 import urllib
@@ -206,6 +206,10 @@ class CollectionPanel(object):
             Initializes the collection panel. Expects a parent and exaile
             object
         """
+
+        # FIXME: Refactor get_selected_items to be get_selected_tracks
+        self.get_selected_tracks = self.get_selected_items
+
         self.xml = exaile.xml
         self.exaile = exaile
         self.db = exaile.db
@@ -348,6 +352,11 @@ class CollectionPanel(object):
             self.remove_items)
         self.remove = menu.append(_("Delete Selected"), 
             self.remove_items)
+
+        menu.append_separator()
+        menu.append(_("Edit Information"), lambda e, f:
+            track.TrackEditor(self.exaile, self), 'gtk-edit')
+
         self.menu = menu
 
     def add_to_playlist(self, widget, event):
@@ -466,7 +475,7 @@ class CollectionPanel(object):
         self.track_cache = dict()
         self.load_tree()
 
-    def add_items_to_playlist(self, *e):
+    def add_items_to_playlist(self, item=None, *e):
 
         add = self.get_selected_items()
         self.exaile.playlists_panel.on_add_playlist(item, None, add)

@@ -57,22 +57,22 @@ def day_calc(x, inc, field, symbol='>='):
     return "%s %s '%s'" % (field, symbol, t)
 
 class EntrySecondsField(MultiEntryField):
-	def __init__(self, result_generator):
-		MultiEntryField.__init__(self, result_generator, n=1,
-				labels=(None, _('seconds')),
-				widths=(50,))
+    def __init__(self, result_generator):
+        MultiEntryField.__init__(self, result_generator, n=1,
+            labels=(None, _('seconds')),
+            widths=(50,))
 
 class EntryAndEntryField(MultiEntryField):
-	def __init__(self, result_generator):
-		MultiEntryField.__init__(self, result_generator, n=2,
-				labels=(None, _('and'), None),
-				widths=(50, 50))
+    def __init__(self, result_generator):
+        MultiEntryField.__init__(self, result_generator, n=2,
+            labels=(None, _('and'), None),
+            widths=(50, 50))
 
 class EntryDaysField(MultiEntryField):
     def __init__(self, result_generator):
         MultiEntryField.__init__(self, result_generator, n=1,
             labels=(None, _('days')),
-                widths=(50,))
+            widths=(50,))
 
 DATE_FIELDS = (_('seconds'), _('minutes'), _('hours'), _('days'), _('weeks'))
 class SpinDateField(filtergui.SpinButtonAndComboField):
@@ -95,90 +95,90 @@ class SpinNothing(filtergui.SpinLabelField):
         filtergui.SpinLabelField.__init__(self, result_generator, '')
 
 CRITERIA = [
-		(N_('Artist'), [
-			(N_('is'), (EntryField, lambda x:
-				'artists.name = "%s"' % x)),
-            (N_('is not'), (EntryField, lambda x:
-                'artists.name != "%s"' % x)),
-			(N_('contains'), (EntryField, lambda x:
-				'artists.name LIKE "%%%s%%"' % x)),
-            (N_('does not contain'), (EntryField, lambda x:
-                'artists.name NOT LIKE "%%%s%%"' % x)),
-			]),
-		(N_('Album'), [
-			(N_('is'), (EntryField, lambda x:
-				'albums.name = "%s"' % x)),
-            (N_('is not'), (EntryField, lambda x:
-                'albums.name != "%s"' % x)),
-			(N_('contains'), (EntryField, lambda x:
-				'albums.name LIKE "%%%s%%"' % x)),
-            (N_('does not contain'), (EntryField, lambda x:
-                'albums.name NOT LIKE "%%%s%%"' % x)),
-			]),
-		(N_('Genre'), [
-			(N_('is'), (EntryField, lambda x:
-				'genre = "%s"' % x)),
-            (N_('is not'), (EntryField, lambda x:
-                'genre != "%s"' % x)),
-			(N_('contains'), (EntryField, lambda x:
-				'genre LIKE "%%%s%%"' % x)),
-            (N_('does not contain'), (EntryField, lambda x:
-                'genre NOT LIKE "%%%s%%"' %x)),
-			]),
-		(N_('User Rating'), [
-			(N_('at least'), (SpinRating, lambda x:
-				'user_rating >= %s' % x)),
-			(N_('at most'), (SpinRating, lambda x:
-				'user_rating <= %s' % x))]),
-		(N_('System Rating'), [
-			(N_('at least'), (SpinRating, lambda x:
-				'rating >= %s' % x)),
-			(N_('at most'), (SpinRating, lambda x:
-				'rating <= %s' % x))
-            ]),
-        (N_('Number of Plays'), [
-            (N_('at least'), (SpinNothing, lambda x:
-                'plays >= %s' % x)),
-            (N_('at most'), (SpinNothing, lambda x:
-                'plays <= %s' %x))
-            ]),
-		(N_('Year'), [
-			(N_('before'), (EntryField, lambda x:
-				'year < %s' % x)),
-			(N_('after'), (EntryField, lambda x:
-				'year > %s' % x)),
-			(N_('between'), (EntryAndEntryField, lambda x, y:
-				'year BETWEEN %s AND %s' % (x, y))),
-			]),
-		(N_('Length'), [
-			(N_('at least'), (SpinSecondsField, lambda x:
-				'length >= %s' % x)),
-			(N_('at most'), (SpinSecondsField, lambda x:
-				'length <= %s' % x)),
-			]),
-        (N_('Date Added'), [
-            (N_('in the last'), (SpinDateField, 
-                lambda x, i: day_calc(x, i, 'time_added'))),
-            (N_('not in the last'), (SpinDateField, 
-                lambda x, i: day_calc(x, i, 'time_added', '<'))),
-            ]),
-        (N_('Last Played'), [
-            (N_('in the last'), (SpinDateField, 
-                lambda x: day_calc(x, 'last_played'))),
-            (N_('not in the last'), (SpinDateField, 
-                lambda x: day_calc(x, 'last_played', '<'))),
-            ]),
-        (N_('Location'), [
-            (N_('is'), (EntryField, lambda x:
-                'paths.name = "%s"' % x)),
-            (N_('is not'), (EntryField, lambda x:
-                'paths.name != "%s"' % x)),
-            (N_('contains'), (EntryField, lambda x:
-                'paths.name LIKE "%%%s%%"' % x)),
-            (N_('does not contain'), (EntryField, lambda x:
-                'paths.name NOT LIKE "%%%s%%"' % x)),
-            ])
-        ]
+    (N_('Artist'), [
+        (N_('is'), (EntryField, lambda x:
+            'artists.name = "%s"' % x)),
+        (N_('is not'), (EntryField, lambda x:
+            'artists.name != "%s"' % x)),
+        (N_('contains'), (EntryField, lambda x:
+            'artists.name LIKE "%%%s%%"' % x)),
+        (N_('does not contain'), (EntryField, lambda x:
+            'artists.name NOT LIKE "%%%s%%"' % x)),
+        ]),
+    (N_('Album'), [
+        (N_('is'), (EntryField, lambda x:
+            'albums.name = "%s"' % x)),
+        (N_('is not'), (EntryField, lambda x:
+            'albums.name != "%s"' % x)),
+        (N_('contains'), (EntryField, lambda x:
+            'albums.name LIKE "%%%s%%"' % x)),
+        (N_('does not contain'), (EntryField, lambda x:
+            'albums.name NOT LIKE "%%%s%%"' % x)),
+        ]),
+    (N_('Genre'), [
+        (N_('is'), (EntryField, lambda x:
+            'genre = "%s"' % x)),
+        (N_('is not'), (EntryField, lambda x:
+            'genre != "%s"' % x)),
+        (N_('contains'), (EntryField, lambda x:
+            'genre LIKE "%%%s%%"' % x)),
+        (N_('does not contain'), (EntryField, lambda x:
+            'genre NOT LIKE "%%%s%%"' %x)),
+        ]),
+    (N_('User Rating'), [
+        (N_('at least'), (SpinRating, lambda x:
+            'user_rating >= %s' % x)),
+        (N_('at most'), (SpinRating, lambda x:
+            'user_rating <= %s' % x))]),
+    (N_('System Rating'), [
+        (N_('at least'), (SpinRating, lambda x:
+            'rating >= %s' % x)),
+        (N_('at most'), (SpinRating, lambda x:
+            'rating <= %s' % x))
+        ]),
+    (N_('Number of Plays'), [
+        (N_('at least'), (SpinNothing, lambda x:
+            'plays >= %s' % x)),
+        (N_('at most'), (SpinNothing, lambda x:
+            'plays <= %s' %x))
+        ]),
+    (N_('Year'), [
+        (N_('before'), (EntryField, lambda x:
+            'year < %s' % x)),
+        (N_('after'), (EntryField, lambda x:
+            'year > %s' % x)),
+        (N_('between'), (EntryAndEntryField, lambda x, y:
+            'year BETWEEN %s AND %s' % (x, y))),
+        ]),
+    (N_('Length'), [
+        (N_('at least'), (SpinSecondsField, lambda x:
+            'length >= %s' % x)),
+        (N_('at most'), (SpinSecondsField, lambda x:
+            'length <= %s' % x)),
+        ]),
+    (N_('Date Added'), [
+        (N_('in the last'), (SpinDateField, 
+            lambda x, i: day_calc(x, i, 'time_added'))),
+        (N_('not in the last'), (SpinDateField, 
+            lambda x, i: day_calc(x, i, 'time_added', '<'))),
+        ]),
+    (N_('Last Played'), [
+        (N_('in the last'), (SpinDateField, 
+            lambda x: day_calc(x, 'last_played'))),
+        (N_('not in the last'), (SpinDateField, 
+            lambda x: day_calc(x, 'last_played', '<'))),
+        ]),
+    (N_('Location'), [
+        (N_('is'), (EntryField, lambda x:
+            'paths.name = "%s"' % x)),
+        (N_('is not'), (EntryField, lambda x:
+            'paths.name != "%s"' % x)),
+        (N_('contains'), (EntryField, lambda x:
+            'paths.name LIKE "%%%s%%"' % x)),
+        (N_('does not contain'), (EntryField, lambda x:
+            'paths.name NOT LIKE "%%%s%%"' % x)),
+        ])
+    ]
 
 class AlbumWrapper(object):
     """

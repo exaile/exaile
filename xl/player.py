@@ -208,6 +208,18 @@ class ExailePlayer(GSTPlayer):
         self.eof_func = self.exaile.on_next
         self.current = None
 
+    def toggle_pause(self):
+        """
+            Toggles pause.  If it's a streaming track, it stops the stream and
+            restarts it
+        """
+        if self.is_paused():
+            if self.current.type == 'stream':
+                self.playbin.set_state(gst.STATE_READY)
+                self.playbin.set_state(gst.STATE_PLAYING)
+                return
+        GSTPlayer.toggle_pause(self)
+
     def get_next_queued(self):
         if self.next_track == None:
             self.next_track = self.current

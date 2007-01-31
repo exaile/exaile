@@ -346,7 +346,7 @@ class ExailePlayer(GSTPlayer):
     def next(self):
         self.stop(False)
         if self.exaile.tracks == None: return
-       
+      
         track = self.exaile.tracks.get_next_track(self.current)
 
         print 'next track was reported as ', track
@@ -375,10 +375,11 @@ class ExailePlayer(GSTPlayer):
         if not self.shuffle and \
             not self.exaile.tracks.get_next_track(self.current):
             if self.repeat:
-                self.current = self.tracks.get_songs()[0]
+                self.current = self.exaile.tracks.get_songs()[0]
             else:
                 self.played = []
                 self.current = None
+                return
         
         self.history.append(track)
         self.played.append(track)

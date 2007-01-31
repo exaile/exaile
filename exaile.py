@@ -1184,12 +1184,12 @@ class ExaileWindow(gobject.GObject):
                 self.progress_label.set_label("%d:%02d" % (seconds / 60, seconds % 60))
 
         if (seconds > 240 or value > 50) and track.type != 'stream' and \
-            self.player.is_playing(): 
-            self.update_rating(track, plays="plays + 1",
-                rating="rating + 1")
-            if not track.submitted:
-                self.status.set_first(_("Submitting to Last.fm..."), 2000)
-                audioscrobbler.submit_to_scrobbler(self, track)
+            self.player.is_playing() and not track.submitted: 
+            track.submitted = True
+            self.update_rating(track, plays=1,
+                rating=1)
+            self.status.set_first(_("Submitting to Last.fm..."), 2000)
+            audioscrobbler.submit_to_scrobbler(self, track)
 
         return True
 
@@ -1250,16 +1250,15 @@ class ExaileWindow(gobject.GObject):
         self.emit('track-information-updated')
         return True
 
-    def update_rating(self, track, **info): 
+    def update_rating(self, track, plays = 1, rating = 0): 
         """
             Adds one to the "plays" of this track
         """
 
-        update_string = []
-        for k, v in info.iteritems():
-            update_string.append("%s = %s" % (k, v))
+        update_string = "rating = rating + " + str(rating) + " , " + \
+            "plays = plays + " + str(plays)
 
-        update_string = ", ".join(update_string)
+        xlmisc.log("updated plays " + str(plays) + ", rating "+ str(rating))
 
         path_id = tracks.get_column_id(self.db, 'paths', 'name', track.loc)
         self.db.execute("UPDATE tracks SET %s WHERE path=?" % update_string, 
@@ -1781,7 +1780,7 @@ class ExaileWindow(gobject.GObject):
         """
         if self.player.current != None:
             if self.player.get_current_position() < 50:
-                self.update_rating(self.player.current, rating="rating - 1")
+                self.update_rating(self.player.current, rating=-1)
         self.player.next()
         self.tracks.queue_draw()
     

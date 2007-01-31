@@ -70,6 +70,7 @@ sys_var = "HOME"
 if os.sys.platform.startswith("win"): sys_var = "USERPROFILE"
 gtk.window_set_default_icon_from_file("images%sicon.png"% os.sep)
 SETTINGS_DIR = "%s%s%s" % (os.getenv(sys_var), os.sep, ".exaile")
+GCONF_DIR = "/apps/exaile"
 
 class ExaileWindow(gobject.GObject): 
     """
@@ -101,8 +102,8 @@ class ExaileWindow(gobject.GObject):
         self.window = self.xml.get_widget('ExaileWindow')
         media.exaile_instance = self
 
-        self.settings = config.Config("%s%ssettings.ini" % (SETTINGS_DIR,
-            os.sep))
+        self.settings = config.Config("%s%ssettings.ini" % (SETTINGS_DIR, os.sep))
+
         self.options = options
         config.settings = self.settings
         self.database_connect()
@@ -133,7 +134,7 @@ class ExaileWindow(gobject.GObject):
         self.player.connect('stop-track', self._stop_cb)
         self.player.tag_func = self.tag_callback
 
-        if self.settings.get_boolean("use_splash", True):
+        if self.settings.get_boolean("ui/use_splash", True):
             image = gtk.Image()
             image.set_from_file("images%ssplash.png" % os.sep)
 
@@ -156,7 +157,7 @@ class ExaileWindow(gobject.GObject):
                 xlmisc.log("Could not connect to dbus session bus.  "
                     "dbus will be unavailable.")
 
-        self.player.set_audio_sink(self.settings.get('audio_sink', 'Use GConf '
+        self.player.set_audio_sink(self.settings.get_str('audio_sink', 'Use GConf '
             'Settings'))
 
         self.tray_icon = None
@@ -171,14 +172,14 @@ class ExaileWindow(gobject.GObject):
         self.volume.connect('scroll-event', self.volume_scroll)
         self.volume.set_value(self.settings.get_float('volume', 1) *
             100)
-        if self.settings.get_boolean("use_tray", False): 
+        if self.settings.get_boolean("ui/use_tray", False): 
             self.setup_tray()
 
         self.window.set_title(_("Exaile!"))
 
         # log in to audio scrobbler
-        user = self.settings.get("lastfm_user", "")
-        password = self.settings.get("lastfm_pass", "")
+        user = self.settings.get_str("lastfm/user", "")
+        password = self.settings.get_str("lastfm/pass", "")
         thread.start_new_thread(audioscrobbler.get_scrobbler_session,
             (self, user, password))
 
@@ -189,7 +190,7 @@ class ExaileWindow(gobject.GObject):
         self.connect_events()
         self.setup_menus()
 
-        pos = self.settings.get_int("mainw_sash_pos", 200)
+        pos = self.settings.get_int("ui/mainw_sash_pos", 200)
         self.setup_location()
 
         self.player.set_volume(self.settings.get_float("volume", 1))
@@ -209,10 +210,9 @@ class ExaileWindow(gobject.GObject):
         self.window.show_all()
         self.pmanager = plugins.manager.Manager(self) 
         enabled_plugins = []
-        for k, v in self.settings.iteritems():
-            if k.find("_plugin_enabled") > -1:
-                if v == 'true':
-                    enabled_plugins.append(k.replace("_plugin_enabled", ""))
+        for k, v in self.settings.get_plugins().iteritems():
+            if v:
+                enabled_plugins.append("%s.py" % (k,))
 
         self.pmanager.load_plugins("%s%splugins" % (basedir, os.sep), enabled_plugins)
         self.pmanager.load_plugins("%s%splugins" % (SETTINGS_DIR, os.sep),
@@ -232,7 +232,7 @@ class ExaileWindow(gobject.GObject):
             if result == gtk.RESPONSE_YES:
                 self.show_library_manager()
 
-        interval = self.settings.get_float('scan_interval', '25')
+        interval = self.settings.get_float('scan_interval', 25)
         if interval:
             self.start_scan_interval(interval)
 
@@ -282,11 +282,11 @@ class ExaileWindow(gobject.GObject):
         """
             Sets up the location and size of the window based on settings
         """
-        width = self.settings.get_int("mainw_width", 640)
-        height = self.settings.get_int("mainw_height", 475)
+        width = self.settings.get_int("ui/mainw_width", 640)
+        height = self.settings.get_int("ui/mainw_height", 475)
 
-        x = self.settings.get_int("mainw_x", 10)
-        y = self.settings.get_int("mainw_y", 10)
+        x = self.settings.get_int("ui/mainw_x", 10)
+        y = self.settings.get_int("ui/mainw_y", 10)
 
         self.window.resize(width, height)
         self.window.move(x, y)
@@ -305,25 +305,26 @@ class ExaileWindow(gobject.GObject):
             self.activate_cols_resizable)
 
         # setup up default shown columns
-        if not self.settings.get_boolean('trackslist_defaults_set', False):
-            self.settings.set_boolean('trackslist_defaults_set', True)
-            for col in trackslist.TracksListCtrl.col_items:
-                self.settings.set_boolean('show_%s_col_%s' %
-                    (pref, col), False)
+        if not self.settings.get_boolean('ui/trackslist_defaults_set', False):
+            self.settings.set_boolean('ui/trackslist_defaults_set', True)
+            columns = []
             for col in trackslist.TracksListCtrl.default_columns:
-                self.settings.set_boolean('show_%s_col_%s' %
-                    (pref, col), True)
+                columns.append(col)
+            self.settings.set_list('ui/%s_columns' % (pref,), columns)
 
         self.col_menus[pref] = dict()
+        column_settings = self.settings.get_list('ui/%s_columns' % (pref,))
+
         for k, v in map.iteritems():
             self.col_menus[v] = self.xml.get_widget('%s_%s_col' % (pref,
                 v))
-            show = self.settings.get_boolean("show_%s_col_%s" %
-                (pref, k), True)
+            show = False
+            if k in column_settings:
+                show = True
 
             self.col_menus[v].set_active(show)
             self.col_menus[v].connect('activate', 
-                self.change_column_settings, 'show_%s_col_%s' % (pref, k))
+                self.change_column_settings, {'key': 'ui/%s_columns' % (pref,), 'value': k})
 
     def activate_cols_resizable(self, widget, event=None):
         """
@@ -341,8 +342,19 @@ class ExaileWindow(gobject.GObject):
         """
             Changes column view settings
         """
-        print "setting %s to %s" % (data, item.get_active())
-        self.settings.set_boolean(data, item.get_active())
+        print data
+        columns = self.settings.get_list(data['key'])
+        columns = list(columns)
+        if item.get_active():
+            if data['value'] not in columns:
+                print "adding %s column to %s" % (data['value'], data['key'])
+                columns.append(data['value'])
+        else:
+            if data['value'] in columns:
+                print "removing %s column from %s" % (data['value'], data['key'])
+                columns.remove(data['value'])
+        self.settings.set_list(data['key'], columns)
+
         for i in range(0, self.playlists_nb.get_n_pages()):
             page = self.playlists_nb.get_nth_page(i)
             if isinstance(page, trackslist.TracksListCtrl):
@@ -514,8 +526,7 @@ class ExaileWindow(gobject.GObject):
         """
             Sets whether or not a plugin is enabled
         """
-        self.settings['%s_plugin_enabled' % plugin.FILE_NAME] = \
-            plugin.PLUGIN_ENABLED
+        self.settings.set_boolean("enabled", plugin.PLUGIN_ENABLED, plugin=plugin.FILE_NAME)
 
     def set_rating(self, combo):
         """
@@ -547,7 +558,7 @@ class ExaileWindow(gobject.GObject):
         dialog.set_extra_widget(check)
 
         items = []
-        tmp = self.settings.get("search_paths", "").split(":")
+        tmp = self.settings.get_list("search_paths")
         for i in tmp:
             if i != "": items.append(i)
 
@@ -557,7 +568,7 @@ class ExaileWindow(gobject.GObject):
             if not path in items:
                 items.append(path)
 
-            self.settings['search_paths'] = ':'.join(items)
+            self.settings['search_paths'] = items
 
             done_func = None
             if check.get_active():
@@ -700,7 +711,7 @@ class ExaileWindow(gobject.GObject):
             Sets the placement of the tabs on the playlists notebook
         """
         if not setting:
-            p = self.settings.get_int('tab_placement', 0)
+            p = self.settings.get_int('ui/tab_placement', 0)
         else: p = setting
         s = gtk.POS_LEFT
         if p == 0: s = gtk.POS_TOP
@@ -1002,7 +1013,7 @@ class ExaileWindow(gobject.GObject):
         self.mon = gamin.WatchMonitor()
 
         items = []
-        tmp = self.settings.get("search_paths", "").split(":")
+        tmp = self.settings.get_list("search_paths", "")
         for i in tmp:
             if i != "": items.append(i)
 
@@ -1044,7 +1055,7 @@ class ExaileWindow(gobject.GObject):
             Called when a changes happens in a directory
         """
         # if it matches the exclude directories, ignore it
-        items = self.settings.get('watch_exclude_dirs', 'incomplete').split()
+        items = self.settings.get_list('watch_exclude_dirs', [])
         for item in items:
             if item and (directory.find(item) > -1
                 or path == item):
@@ -1322,7 +1333,7 @@ class ExaileWindow(gobject.GObject):
         self.stop_cover_thread()
 
         if self.settings.get_boolean("fetch_art", True):
-            locale = self.settings.get('amazon_locale', 'us')
+            locale = self.settings.get_str('amazon_locale', 'us')
             self.cover_thread = covers.CoverFetcherThread("%s - %s" %
                 (track.artist, track.album),
                 self.got_covers, locale=locale)
@@ -1336,10 +1347,9 @@ class ExaileWindow(gobject.GObject):
         """
         dir = os.path.dirname(track.loc)
 
-        names = self.settings.get('art_filenames', 
-            'cover.jpg folder.jpg .folder.jpg album.jpg art.jpg')
+        names = self.settings.get_list('art_filenames', 
+            ['cover.jpg', 'folder.jpg', '.folder.jpg', 'album.jpg', 'art.jpg'])
         if not names: return None
-        names = names.split(" ")
 
         for f in names:
             f = f.strip()
@@ -1648,7 +1658,7 @@ class ExaileWindow(gobject.GObject):
         self.show_osd()
         if self.tracks: self.tracks.queue_draw()
 
-        if self.settings.get_boolean('ensure_visible', False):
+        if self.settings.get_boolean('ui/ensure_visible', False):
             self.goto_current()
 
         trackslist.update_queued(self)
@@ -1727,15 +1737,15 @@ class ExaileWindow(gobject.GObject):
         """
             Shows a popup window with information about the current track
         """
-        if not self.settings.get_boolean("use_popup", True): return
+        if not self.settings.get_boolean("osd/enabled", True): return
         if tray:
-            if not self.settings.get_boolean('osd_tray', True): return
+            if not self.settings.get_boolean('osd/tray', True): return
         track = self.player.current
         if not track: return
         pop = xlmisc.get_osd(self, xlmisc.get_osd_settings(self.settings))
         cover = self.fetch_cover(track, 1)
 
-        text_display = self.settings.get('osd_display_text',
+        text_display = self.settings.get_str('osd/display_text',
             xl.prefs.TEXT_VIEW_DEFAULT)
         pop.show_track_osd(track, text_display,
             cover)
@@ -1925,7 +1935,7 @@ class ExaileWindow(gobject.GObject):
         try:
             f = self.last_open_dir
         except:
-            self.last_open_dir = self.settings.get('last_open_dir',
+            self.last_open_dir = self.settings.get_str('last_open_dir',
                 os.getenv('HOME'))
         return self.last_open_dir
 
@@ -2088,7 +2098,7 @@ class ExaileWindow(gobject.GObject):
             Rescans the library for newly added tracks
         """
         items = []
-        tmp = self.settings.get("search_paths", "").split(":")
+        tmp = self.settings.get_list("search_paths", [])
         for i in tmp:
             if i != "": items.append(i)
 
@@ -2201,14 +2211,14 @@ class ExaileWindow(gobject.GObject):
             Saves the current size and position
         """
         (width, height) = self.window.get_size()
-        self.settings['mainw_width'] = width
-        self.settings['mainw_height'] = height
+        self.settings['ui/mainw_width'] = width
+        self.settings['ui/mainw_height'] = height
         (x, y) = self.window.get_position()
-        self.settings['mainw_x'] = x
-        self.settings['mainw_y'] = y
+        self.settings['ui/mainw_x'] = x
+        self.settings['ui/mainw_y'] = y
         if self.splitter.get_position() > 10:
             sash = self.splitter.get_position()
-            self.settings['mainw_sash_pos'] = sash
+            self.settings['ui/mainw_sash_pos'] = sash
         return False
 
     def jump_to(self, index):

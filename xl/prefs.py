@@ -46,7 +46,7 @@ class PrefsItem(object):
             is applied
         """
 
-        self.widget = xml.get_widget('prefs_%s' % name)
+        self.widget = xml.get_widget(('prefs_%s' % name).replace("/", "_"))
         self.name = name
         self.default = default
         self.change = change
@@ -70,7 +70,7 @@ class PrefsItem(object):
         """ 
             Sets the GUI widget up for this preference
         """
-        self.widget.set_text(str(settings.get(self.name, self.default)))
+        self.widget.set_text(str(settings.get_str(self.name, default=self.default)))
 
     def do_done(self):
         """
@@ -83,7 +83,7 @@ class PrefsItem(object):
             applies this setting
         """
         if self.done and not self.do_done(): return False
-        settings[self.name] = self.widget.get_text()
+        settings.set_str(self.name, self.widget.get_text())
         return True
 
 class PrefsTextViewItem(PrefsItem):
@@ -116,8 +116,8 @@ class PrefsTextViewItem(PrefsItem):
         """
             Sets the value of this widget
         """
-        self.widget.get_buffer().set_text(str(settings.get(self.name,
-            self.default)))
+        self.widget.get_buffer().set_text(str(settings.get_str(self.name,
+            default=self.default)))
 
     def do_done(self):
         """
@@ -130,7 +130,7 @@ class PrefsTextViewItem(PrefsItem):
             Applies the setting
         """
         if self.done and not self.do_done(): return False
-        settings[self.name] = self.get_all_text()
+        settings.set_str(self.name, self.get_all_text())
         return True
        
 class CheckPrefsItem(PrefsItem):
@@ -153,6 +153,38 @@ class CheckPrefsItem(PrefsItem):
         settings.set_boolean(self.name, self.widget.get_active())
         return True
 
+class ListPrefsItem(PrefsItem):
+    """
+        A class to represent a space separated list in the preferences window
+    """
+    def __init__(self, name, default, change=None, done=None):
+        PrefsItem.__init__(self, name, default, change, done)
+
+    def set_pref(self):
+        items = settings.get_list(self.name, default=self.default)
+        self.widget.set_text(" ".join(items))
+
+    def apply(self):
+        if self.done and not self.do_done(): return False
+        text = self.widget.get_text()
+        settings.set_list(self.name, text.split(' '))
+        return True
+
+class FloatPrefsItem(PrefsItem):
+    """
+        A class to represent a floating point number in the preferences window
+    """
+    def __init__(self, name, default, change=None, done=None):
+        PrefsItem.__init__(self, name, default, change, done)
+
+    def set_pref(self):
+        self.widget.set_text(str(settings.get_float(self.name, default=self.default)))
+
+    def apply(self):
+        if self.done and not self.do_done(): return False
+        settings.set_float(self.name, float(self.widget.get_text()))
+        return True
+
 class ColorButtonPrefsItem(PrefsItem):
     """
         A class to represent the color button in the prefs window
@@ -166,7 +198,7 @@ class ColorButtonPrefsItem(PrefsItem):
 
     def set_pref(self):
         self.widget.set_color(gtk.gdk.color_parse(
-            settings.get(self.name, self.default)))
+            settings.get_str(self.name, self.default)))
 
     def apply(self):
         if self.done and not self.do_done(): return False
@@ -187,7 +219,7 @@ class FontButtonPrefsItem(ColorButtonPrefsItem):
         self.widget.connect('font-set', self.change, self.name)
 
     def set_pref(self):
-        font = settings.get(self.name, self.default)
+        font = settings.get_str(self.name, self.default)
         self.widget.set_font_name(font)
         
     def apply(self):
@@ -210,7 +242,7 @@ class DirPrefsItem(PrefsItem):
         """
             Sets the current directory
         """
-        directory = settings.get(self.name, self.default)
+        directory = settings.get_str(self.name, self.default)
         self.widget.set_filename(directory)
 
     def apply(self):
@@ -233,7 +265,7 @@ class ComboPrefsItem(PrefsItem):
             self.change)
 
     def set_pref(self):
-        item = settings.get(self.name, self.default)
+        item = settings.get_str(self.name, self.default)
 
         if self.use_index:
             index = settings.get_int(self.name, self.default)
@@ -329,41 +361,41 @@ class Preferences(object):
         selection.select_path((0,))
         xml.get_widget('prefs_lastfm_pass').set_invisible_char('*')
         xml.get_widget('prefs_audio_sink').set_active(0)
-        self.text_display = PrefsTextViewItem('osd_display_text',
+        self.text_display = PrefsTextViewItem('osd/display_text',
             TEXT_VIEW_DEFAULT, self.display_popup)
         self.fields.append(self.text_display)
-        self.fields.append(ComboPrefsItem('tab_placement',
+        self.fields.append(ComboPrefsItem('ui/tab_placement',
             0, None, self.setup_tabs, use_index=True))
 
         simple_settings = ({
-            'use_splash': (CheckPrefsItem, True),
+            'ui/use_splash': (CheckPrefsItem, True),
             'watch_directories': (CheckPrefsItem, False, self.check_gamin,
                 self.setup_gamin),
-            'watch_exclude_dirs': (PrefsItem, 'incomplete'),
+            'watch_exclude_dirs': (ListPrefsItem, []),
             'fetch_covers': (CheckPrefsItem, True),
             'save_queue': (CheckPrefsItem, True),
-            'ensure_visible': (CheckPrefsItem, True),
-            'art_filenames': (PrefsItem, 
-                'cover.jpg folder.jpg .folder.jpg album.jpg art.jpg'),
+            'ui/ensure_visible': (CheckPrefsItem, True),
+            'art_filenames': (ListPrefsItem, 
+                ['cover.jpg', 'folder.jpg', '.folder.jpg', 'album.jpg', 'art.jpg']),
             'open_last': (CheckPrefsItem, True),
-            'use_popup': (CheckPrefsItem, True),
-            'osd_w': (PrefsItem, '400', self.osd_adjust_size),
-            'osd_h': (PrefsItem, '95', self.osd_adjust_size),
-            'lastfm_user': (PrefsItem, ''),
-            'lastfm_pass': (PrefsItem, '', None, self.setup_lastfm),
+            'osd/enabled': (CheckPrefsItem, True),
+            'osd/w': (PrefsItem, '400', self.osd_adjust_size),
+            'osd/h': (PrefsItem, '95', self.osd_adjust_size),
+            'lastfm/user': (PrefsItem, ''),
+            'lastfm/pass': (PrefsItem, '', None, self.setup_lastfm),
             'cd_device': (PrefsItem, '/dev/cdrom'),
             'audio_sink': (ComboPrefsItem, 'Use GConf Settings'),
-            'osd_tray': (CheckPrefsItem, True),
-            'osd_bgcolor': (ColorButtonPrefsItem, '#567ea2',
+            'osd/tray': (CheckPrefsItem, True),
+            'osd/bgcolor': (ColorButtonPrefsItem, '#567ea2',
                 self.osd_colorpicker),
-            'osd_textcolor': (ColorButtonPrefsItem, '#ffffff',
+            'osd/text_color': (ColorButtonPrefsItem, '#ffffff',
                 self.osd_colorpicker),
-            'osd_text_font': (FontButtonPrefsItem, 'Sans 10',
+            'osd/text_font': (FontButtonPrefsItem, 'Sans 10',
                 self.osd_fontpicker),
-            'use_tray': (CheckPrefsItem, False, None, self.setup_tray),
+            'ui/use_tray': (CheckPrefsItem, False, None, self.setup_tray),
             'amazon_locale': (PrefsItem, 'us'),
             'wikipedia_locale': (PrefsItem, 'en'),
-            'scan_interval': (PrefsItem, '25', None,
+            'scan_interval': (FloatPrefsItem, 25, None,
                 self.setup_scan_interval),
             'download_feeds': (CheckPrefsItem, True),
         })
@@ -544,8 +576,8 @@ class Preferences(object):
         """
         if self.popup:  
             (x, y) = self.popup.window.get_position()
-            self.osd_settings['osd_x'] = x
-            self.osd_settings['osd_y'] = y
+            self.osd_settings['osd/x'] = x
+            self.osd_settings['osd/y'] = y
             self.popup.window.destroy()
 
         if not self.warning_shown:

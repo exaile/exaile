@@ -41,8 +41,8 @@ def configure():
 
     table.attach(label, 0, 1, bottom, bottom + 1)
 
-    location = exaile.settings.get("%s_mount" % plugins.name(__file__),
-        "/mnt/device")
+    location = exaile.settings.get_str("mount", plugin=plugins.name(__file__),
+        default="/mnt/device")
 
     loc_entry = gtk.FileChooserButton("Location")
     loc_entry.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
@@ -55,8 +55,8 @@ def configure():
     result = dialog.run()
     dialog.hide()
     if result == gtk.RESPONSE_OK:
-        exaile.settings["%s_mount" % plugins.name(__file__)] = \
-            loc_entry.get_current_folder()
+        exaile.settings.set_str("mount", loc_entry.get_current_folder(),
+            plugin=plugins.name(__file__))
 
 class MassStorageDriver(plugins.DeviceDriver):
     name = "massstorage"
@@ -73,8 +73,8 @@ class MassStorageDriver(plugins.DeviceDriver):
             Connects and scans the device
         """
 
-        self.mount = self.exaile.settings.get("%s_mount" %
-            plugins.name(__file__), "/mnt/device")
+        self.mount = self.exaile.settings.get_str("mount",
+            plugin=plugins.name(__file__), default="/mnt/device")
         self.all = tracks.TrackData()
 
         files = tracks.scan_dir(str(self.mount), exts=media.SUPPORTED_MEDIA)

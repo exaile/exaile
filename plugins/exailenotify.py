@@ -38,10 +38,8 @@ def configure():
     """
     exaile = APP
     settings = exaile.settings
-    summary = settings.get('%s_summary' % plugins.name(__file__),
-        DEFAULT_SUMMARY)
-    body = settings.get('%s_body' % plugins.name(__file__), 
-        DEFAULT_BODY)
+    summary = settings.get_str('summary', default=DEFAULT_SUMMARY, plugin=plugins.name(__file__))
+    body = settings.get_str('body', default=DEFAULT_BODY, plugin=plugins.name(__file__))
 
     dialog = plugins.PluginConfigDialog(exaile.window, PLUGIN_NAME)
     main = dialog.child
@@ -74,10 +72,8 @@ def configure():
         buf = body_view.get_buffer()
         start = buf.get_start_iter()
         end = buf.get_end_iter()
-        settings['%s_body' % plugins.name(__file__)] = \
-            buf.get_text(start, end)
-        settings['%s_summary' % plugins.name(__file__)] = \
-            summary_entry.get_text()
+        settings.set_str('body', buf.get_text(start, end), plugin=plugins.name(__file__))
+        settings.set_str('summary', summary_entry.get_text(), plugin=plugins.name(__file__))
 
 def play_track(exaile, track):
     """
@@ -87,10 +83,8 @@ def play_track(exaile, track):
     settings = APP.settings
 
     vals = dict()
-    vals['summary'] = settings.get('%s_summary' % plugins.name(__file__),
-        DEFAULT_SUMMARY)
-    vals['body'] = settings.get('%s_body' % plugins.name(__file__),
-        DEFAULT_BODY)
+    vals['summary'] = settings.get_str('summary', default=DEFAULT_SUMMARY, plugin=plugins.name(__file__))
+    vals['body'] = settings.get_str('body', default=DEFAULT_BODY, plugin=plugins.name(__file__))
 
     for k, val in vals.iteritems():
         for item in ('title', 'artist', 'album', 'length', 'track', 'bitrate',

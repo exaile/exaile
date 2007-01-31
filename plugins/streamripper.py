@@ -49,8 +49,8 @@ def configure():
 
     table.attach(label, 0, 1, bottom, bottom + 1)
 
-    location = exaile.settings.get("%s_save_location" % plugins.name(__file__),
-        os.getenv("HOME"))
+    location = exaile.settings.get_str("save_location", plugin=plugins.name(__file__),
+        default=os.getenv("HOME"))
     save_loc = gtk.FileChooserButton("Location")
     save_loc.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
     save_loc.set_current_folder(location)
@@ -62,7 +62,7 @@ def configure():
     label.set_alignment(0.0, 0.0)
     table.attach(label, 0, 1, bottom, bottom + 1)
 
-    port = exaile.settings.get("%s_relay_port" % plugins.name(__file__), '8000')
+    port = exaile.settings.get_str("relay_port", plugin=plugins.name(__file__), default='8000')
     port_entry = gtk.Entry()
     port_entry.set_text(port)
     port_entry.set_max_length(6)
@@ -74,10 +74,10 @@ def configure():
     result = dialog.run()
     dialog.hide()
     if result == gtk.RESPONSE_OK:
-        exaile.settings["%s_save_location" % plugins.name(__file__)] = \
-            save_loc.get_current_folder()
-        exaile.settings["%s_relay_port" % plugins.name(__file__)] = \
-            port_entry.get_text()
+        exaile.settings.set_str("save_location", save_loc.get_current_folder(),
+            plugin=plugins.name(__file__))
+        exaile.settings.set_str("relay_port", port_entry.get_text(),
+            plugin=plugins.name(__file__))
 
 def toggle_record(widget, event=None):
     """
@@ -92,11 +92,11 @@ def toggle_record(widget, event=None):
             widget.set_active(False)
             return True
 
-        savedir = SETTINGS.get('%s_save_location' %
-            plugins.name(__file__),
-            os.getenv("HOME"))
-        port = SETTINGS.get_int('%s_relay_port' % plugins.name(__file__),
-            8000)
+        savedir = SETTINGS.get_str('save_location',
+            plugin=plugins.name(__file__),
+            default=os.getenv("HOME"))
+        port = SETTINGS.get_int('relay_port', plugin=plugins.name(__file__),
+            default=8000)
         outfile = APP.get_settings_dir() + "/streamripper.log"
 
         STREAMRIPPER_OUT = open(outfile, "w+", 0)

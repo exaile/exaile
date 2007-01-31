@@ -147,8 +147,8 @@ def initialize():
     print "%s_geometry" % \
         plugins.name(__file__)
 
-    geometry = exaile.settings.get("%s_geometry" % 
-        plugins.name(__file__), "150x150")
+    geometry = exaile.settings.get_str("geometry",
+        plugin=plugins.name(__file__), default="150x150")
     print "Cover geometry: %s" % geometry
     PLUGIN = CoverDisplay(exaile, geometry)
 
@@ -179,7 +179,7 @@ def configure():
     global PLUGIN
     exaile = APP
     settings = exaile.settings
-    geometry = settings.get('%s_geometry' % plugins.name(__file__), '150x150')
+    geometry = settings.get_str('geometry', plugin=plugins.name(__file__), default='150x150')
 
     dialog = plugins.PluginConfigDialog(exaile.window, PLUGIN_NAME)
     box = dialog.main
@@ -249,11 +249,10 @@ def configure():
             if new[item] and new[item].find("-") <= -1:
                 new[item] = "+%s" % new[item]
 
-        settings["%s_geometry" % plugins.name(__file__)] = \
-            "%sx%s%s%s" % (new['w'], new['h'], new['x'], new['y'])
-        geometry = settings["%s_geometry" % plugins.name(__file__)] = \
-            "%sx%s%s%s" % (new['w'], new['h'], new['x'], new['y'])
-            
+        settings.set_str("geometry", "%sx%s%s%s" % (new['w'], new['h'], new['x'], new['y']),
+            plugin=plugins.name(__file__))
+        geometry = "%sx%s%s%s" % (new['w'], new['h'], new['x'], new['y'])
+        
         destroy()
         initialize()
         track = exaile.player.current
@@ -261,5 +260,5 @@ def configure():
         if not track: return
         if track and APP.player.is_playing() or APP.player.is_paused():
             if PLUGIN: PLUGIN.play_track(track)
-        print "New settings: %s" % settings["%s_geometry" %
-            plugins.name(__file__)]
+        print "New settings: %s" % settings.get_str("geometry",
+            plugin=plugins.name(__file__))

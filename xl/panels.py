@@ -239,7 +239,7 @@ class CollectionPanel(object):
         self.box = self.xml.get_widget('%s_box' % self.name)
         self.choice = self.xml.get_widget('%s_combo_box' % self.name)
 
-        active = self.exaile.settings.get_int('%s_active_view' % self.name, 0)
+        active = self.exaile.settings.get_int('ui/%s_active_view' % self.name, 0)
         self.choice.set_active(active)
         self.xml.get_widget('%s_refresh_button' % self.name).connect('clicked',
             self.load_tree)
@@ -681,7 +681,7 @@ class CollectionPanel(object):
             """
 
         # save the active view setting
-        self.exaile.settings['%s_active_view' % self.name] = self.choice.get_active()
+        self.exaile.settings['ui/%s_active_view' % self.name] = self.choice.get_active()
 
         # if this is a collection panel, don't alter self.all, as this messes
         # up inheriting from it
@@ -2571,7 +2571,7 @@ class FilesPanel(object):
         self.exaile = exaile
         self.db = exaile.db
         self.xml = exaile.xml
-        self.first_dir = self.exaile.settings.get('files_panel_dir',
+        self.first_dir = self.exaile.settings.get_str('files_panel_dir',
             os.getenv('HOME'))
         self.history = [self.first_dir]
 
@@ -2823,7 +2823,10 @@ class FilesPanel(object):
             self.model.append([self.directory, d, '-'])
 
         for f in files:
-            info = os.stat("%s%s%s" % (dir, os.sep, f))
+            try:
+                info = os.stat("%s%s%s" % (dir, os.sep, f))
+            except OSError:
+                continue
             size = info[6]
             size = size / 1024
             size = locale.format("%d", size, True) + " KB"

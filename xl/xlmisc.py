@@ -506,7 +506,7 @@ class CoverFetcher(object):
             del self.needs[self.artist]
             self.artists.remove(self.artist)
 
-        locale = self.exaile.settings.get('amazon_locale', 'us')
+        locale = self.exaile.settings.get_str('amazon_locale', 'us')
         self.cover_thread = covers.CoverFetcherThread("%s - %s" %
             (self.artist, self.album),
             self.got_covers, locale=locale)
@@ -1328,7 +1328,7 @@ class CoverFrame(object):
         self.last_search = "%s - %s" % (track.artist, track.album)
 
         if not search:
-            locale = self.exaile.settings.get('amazon_locale', 'us')
+            locale = self.exaile.settings.get_str('amazon_locale', 'us')
             covers.CoverFetcherThread("%s - %s" % (track.artist, track.album),
                 self.covers_fetched, locale=locale).start()
         else:
@@ -1349,7 +1349,7 @@ class CoverFrame(object):
                 _("Searching for ") + self.last_search + "...")
             self.window.hide()
 
-            locale = self.exaile.settings.get('amazon_locale', 'us')
+            locale = self.exaile.settings.get_str('amazon_locale', 'us')
             covers.CoverFetcherThread(self.last_search,
                 self.covers_fetched, True, locale=locale).start()
 
@@ -1457,7 +1457,7 @@ class LibraryManager(object):
         self.xml.get_widget('lm_apply_button').connect('clicked',
             self.on_apply)
 
-        items = exaile.settings.get("search_paths", "").split(":")
+        items = exaile.settings.get_list("search_paths", [])
         self.items = []
         for i in items:
             if i: self.items.append(i)
@@ -1494,7 +1494,7 @@ class LibraryManager(object):
         """
             Saves the paths in the dialog, and updates the library
         """
-        self.exaile.settings['search_paths'] = ":".join(self.list.rows)
+        self.exaile.settings['search_paths'] = self.list.rows
         self.dialog.response(gtk.RESPONSE_APPLY)
 
     def on_remove(self, widget):
@@ -1756,18 +1756,18 @@ class OSDWindow(object):
         self.__timeout = None
         self.start_timer = start_timer
 
-        color = gtk.gdk.color_parse(settings['osd_bgcolor'])
+        color = gtk.gdk.color_parse(settings['osd/bgcolor'])
         self.settings = settings
         self.event = self.xml.get_widget('popup_event_box')
         self.box = self.xml.get_widget('image_box')
         self.window.modify_bg(gtk.STATE_NORMAL, color)
         self.title = self.xml.get_widget('popup_title_label')
 
-        self.window.set_size_request(settings['osd_w'], settings['osd_h'])
+        self.window.set_size_request(settings['osd/w'], settings['osd/h'])
         self.cover = ImageWidget()
         self.box.pack_start(self.cover, False, False)
-        self.window.move(settings['osd_x'], settings['osd_y'])
-        self.cover.set_image_size(settings['osd_h'] - 8, settings['osd_h'] - 8)
+        self.window.move(settings['osd/x'], settings['osd/y'])
+        self.cover.set_image_size(settings['osd/h'] - 8, settings['osd/h'] - 8)
         self.event.connect('button_press_event', self.start_dragging)
         self.event.connect('button_release_event', self.stop_dragging)
         self.__handler = None
@@ -1798,10 +1798,10 @@ class OSDWindow(object):
         (w, h) = self.window.get_size()
         (x, y) = self.window.get_position()
 
-        settings['osd_x'] = x
-        settings['osd_y'] = y
-        settings['osd_h'] = h
-        settings['osd_w'] = w
+        settings['osd/x'] = x
+        settings['osd/y'] = y
+        settings['osd/h'] = h
+        settings['osd/w'] = w
     
         POPUP = OSDWindow(self.exaile, get_osd_settings(settings))
 
@@ -1842,7 +1842,7 @@ class OSDWindow(object):
             self.window.hide()
         
         text = "<span font_desc='%s' foreground='%s'>%s</span>" % \
-            (self.settings['osd_text_font'], self.settings['osd_textcolor'],
+            (self.settings['osd/text_font'], self.settings['osd/text_color'],
             title)
         self.title.set_markup(text)
 
@@ -1869,16 +1869,16 @@ def get_osd(exaile, settings):
 
 def get_osd_settings(settings):
     info = dict()
-    info['osd_bgcolor'] = settings.get("osd_bgcolor", "#567ea2")
-    info['osd_w'] = settings.get_int("osd_w", 400)
-    info['osd_h'] = settings.get_int("osd_h", 95)
-    info['osd_y'] = settings.get_int("osd_y", 0)
-    info['osd_x'] = settings.get_int("osd_x", 0)
-    info['osd_display_text'] = settings.get('osd_display_text', 
+    info['osd/bgcolor'] = settings.get_str("osd/bgcolor", "#567ea2")
+    info['osd/w'] = settings.get_int("osd/w", 400)
+    info['osd/h'] = settings.get_int("osd/h", 95)
+    info['osd/y'] = settings.get_int("osd/y", 0)
+    info['osd/x'] = settings.get_int("osd/x", 0)
+    info['osd/display_text'] = settings.get_str('osd/display_text', 
         prefs.TEXT_VIEW_DEFAULT)
-    info['osd_text_font'] = settings.get('osd_text_font',
+    info['osd/text_font'] = settings.get_str('osd/text_font',
         'Sans 10')
-    info['osd_textcolor'] = settings.get('osd_textcolor',
+    info['osd/text_color'] = settings.get_str('osd/text_color',
         '#ffffff')
 
     return info

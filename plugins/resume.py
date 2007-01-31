@@ -11,10 +11,10 @@ PLUGIN_ICON = None
 PLUGIN = None
 SETTINGS = None
 TIMER_ID = None
-PREFIX = plugins.name(__file__) + "_"
-PLAYING = PREFIX + "playing"
-TRACK = PREFIX + "track"
-PROGRESS = PREFIX + "progress"
+PLUGIN_NAME = plugins.name(__file__)
+PLAYING = "playing"
+TRACK = "track"
+PROGRESS = "progress"
 
 def restore_state():
     """
@@ -22,16 +22,16 @@ def restore_state():
     """
     while gtk.events_pending():
         gtk.main_iteration()
-    if APP.settings.get_boolean(PLAYING, False):
+    if APP.settings.get_boolean(PLAYING, default=False, plugin=PLUGIN_NAME):
         if APP.tracks:
             songs = APP.tracks.get_songs()
-            track = APP.settings.get_int(TRACK)
+            track = APP.settings.get_int(TRACK, plugin=PLUGIN_NAME)
             
             if track < len(songs):
                 songs[track].submitted = True
                 APP.player.play_track(songs[track])
                 APP.player.current = songs[track]
-                APP.player.seek(APP.settings.get_float(PROGRESS,0.1))
+                APP.player.seek(APP.settings.get_float(PROGRESS, default=0.1, plugin=PLUGIN_NAME))
             elif len(songs) == 0:
                 return True
     
@@ -42,15 +42,15 @@ def save_state(sender):
     """
     track = APP.player.current
     if track:
-        APP.settings[PLAYING] = APP.player.is_playing()
+        APP.settings.set_boolean(PLAYING, APP.player.is_playing(), plugin=PLUGIN_NAME)
         if APP.tracks:
             songs = APP.tracks.get_songs()
             if songs:
-                APP.settings[TRACK] = songs.index(track)
-                APP.settings[PROGRESS] = APP.player.get_current_position() * track.duration /\
-                        100.0
+                APP.settings.set_int(TRACK, songs.index(track), plugin=PLUGIN_NAME)
+                APP.settings.set_float(PROGRESS, APP.player.get_current_position() * track.duration /\
+                        100.0, plugin=PLUGIN_NAME)
     else:
-        APP.settings[PLAYING] = False
+        APP.settings.set_boolean(PLAYING, False, plugin=PLUGIN_NAME)
     APP.settings.save()
 
 def initialize():

@@ -3750,7 +3750,7 @@ on {album} - {length}</property>
 			  <property name="spacing">0</property>
 
 			  <child>
-			    <widget class="GtkCheckButton" id="prefs_use_splash">
+			    <widget class="GtkCheckButton" id="prefs_ui_use_splash">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="label" translatable="yes">Show splash screen on startup</property>
@@ -3769,7 +3769,7 @@ on {album} - {length}</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkCheckButton" id="prefs_use_tray">
+			    <widget class="GtkCheckButton" id="prefs_ui_use_tray">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="label" translatable="yes">Show Tray Icon</property>
@@ -3807,7 +3807,7 @@ on {album} - {length}</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkCheckButton" id="prefs_ensure_visible">
+			    <widget class="GtkCheckButton" id="prefs_ui_ensure_visible">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="label" translatable="yes">Jump to current song on track change</property>
@@ -3894,7 +3894,7 @@ on {album} - {length}</property>
 			      </child>
 
 			      <child>
-				<widget class="GtkComboBox" id="prefs_tab_placement">
+				<widget class="GtkComboBox" id="prefs_ui_tab_placement">
 				  <property name="visible">True</property>
 				  <property name="items" translatable="yes">Top
 Left
@@ -4195,7 +4195,7 @@ Bottom</property>
 			  <property name="spacing">3</property>
 
 			  <child>
-			    <widget class="GtkCheckButton" id="prefs_use_popup">
+			    <widget class="GtkCheckButton" id="prefs_osd_enabled">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="label" translatable="yes">Show On Screen Display</property>
@@ -4320,7 +4320,7 @@ Bottom</property>
 			      </child>
 
 			      <child>
-				<widget class="GtkColorButton" id="prefs_osd_textcolor">
+				<widget class="GtkColorButton" id="prefs_osd_text_color">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="use_alpha">False</property>

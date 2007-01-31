@@ -50,8 +50,8 @@ def configure():
 
     table.attach(label, 0, 1, bottom, bottom + 1)
 
-    location = exaile.settings.get("%s_ipod_mount" % plugins.name(__file__),
-        "/media/ipod")
+    location = exaile.settings.get_str("ipod_mount", plugin=plugins.name(__file__),
+        default="/media/ipod")
 
     loc_entry = gtk.FileChooserButton("Location")
     loc_entry.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
@@ -64,8 +64,8 @@ def configure():
     result = dialog.run()
     dialog.hide()
     if result == gtk.RESPONSE_OK:
-        exaile.settings["%s_ipod_mount" % plugins.name(__file__)] = \
-            loc_entry.get_current_folder()
+        exaile.settings.set_str("ipod_mount", loc_entry.get_current_folder(),
+            plugin=plugins.name(__file__))
 
 class iPodTrack(media.Track):
 
@@ -249,8 +249,8 @@ class iPodDriver(plugins.DeviceDriver):
         """
             Connects to the ipod
         """
-        self.mount = self.exaile.settings.get("%s_ipod_mount" % 
-            plugins.name(__file__), "/media/ipod")
+        self.mount = self.exaile.settings.get_str("ipod_mount",
+            plugin=plugins.name(__file__), default="/media/ipod")
 
         self.mount = str(self.mount)
         self.itdb = gpod.itdb_parse(self.mount, None)

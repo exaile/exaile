@@ -59,9 +59,9 @@ def configure():
     dialog = plugins.PluginConfigDialog(exaile.window, PLUGIN_NAME)
     box = dialog.main
 
-    on_top = settings.get_boolean('%s_on_top' % plugins.name(__file__), False)
-    no_taskbar = settings.get_boolean('%s_no_taskbar' %
-        plugins.name(__file__), False)
+    on_top = settings.get_boolean('on_top', plugin=plugins.name(__file__), default=False)
+    no_taskbar = settings.get_boolean('no_taskbar',
+        plugin=plugins.name(__file__), default=False)
 
     on_top_box = gtk.CheckButton('Always on top')
     no_taskbar_box = gtk.CheckButton('Skip taskbar')
@@ -76,8 +76,8 @@ def configure():
     result = dialog.run()
     dialog.hide()
 
-    settings['%s_on_top' % plugins.name(__file__)] = on_top_box.get_active()
-    settings['%s_no_taskbar' % plugins.name(__file__)] = no_taskbar_box.get_active()
+    settings.set_boolean('on_top', on_top_box.get_active(), plugin=plugins.name(__file__))
+    settings.set_boolean('no_taskbar', no_taskbar_box.get_active(), plugin=plugins.name(__file__))
 
 class MiniWindow(gtk.Window):
     """
@@ -252,8 +252,8 @@ class MiniWindow(gtk.Window):
         """
         (x, y) = self.get_position()
         settings = APP.settings
-        settings['%s_x' % plugins.name(__file__)] = x
-        settings['%s_y' % plugins.name(__file__)] = y
+        settings.set_int('x', x, plugin=plugins.name(__file__))
+        settings.set_int('y', y, plugin=plugins.name(__file__))
 
     def show_window(self):
         """
@@ -269,22 +269,22 @@ class MiniWindow(gtk.Window):
 
 #        self.volume_slider.set_value(APP.volume.get_value())
         settings = APP.settings
-        x = settings.get_int("%s_x" % plugins.name(__file__),   
-            10)
-        y = settings.get_int("%s_y" % plugins.name(__file__),
-            10)
+        x = settings.get_int("x", plugin=plugins.name(__file__),   
+            default=10)
+        y = settings.get_int("y", plugin=plugins.name(__file__),
+            default=10)
         self.move(x, y)
         self.setup_title_box()
         self.stick()
 
-        if APP.settings.get_boolean('%s_on_top' % plugins.name(__file__),
-            False):
+        if APP.settings.get_boolean('on_top', plugin=plugins.name(__file__),
+            default=False):
             self.set_keep_above(True)
         else:
             self.set_keep_above(False)
 
-        if APP.settings.get_boolean('%s_no_taskbar' %
-            plugins.name(__file__), False):
+        if APP.settings.get_boolean('no_taskbar',
+            plugin=plugins.name(__file__), default=False):
             self.set_property('skip-taskbar-hint', True)
         else:
             self.set_property('skip-taskbar-hint', False)

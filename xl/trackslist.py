@@ -376,8 +376,7 @@ class TracksListCtrl(gtk.VBox):
 
         self._col_count = 0
         self._length_id = -1
-        cols = self.exaile.settings.get("col_order", ":".join(self.col_items))
-        cols = cols.split(':')
+        cols = self.exaile.settings.get_list("ui/col_order", self.col_items)
         for col in self.col_items:
             if not col in cols:
                 cols.append(col)
@@ -391,14 +390,17 @@ class TracksListCtrl(gtk.VBox):
 
         count = 2
         first = False
+        columns_settings = self.exaile.settings.get_list("ui/%s_columns" % (self.prep,))
+
         for name in cols:
             if not self.size_map.has_key(name): continue
             # get cell renderer
             cellr = gtk.CellRendererText()
             mapval = self.col_map 
 
-            show = self.exaile.settings.get_boolean("show_%s_col_%s" %
-                (self.prep, name), True)
+            show = False
+            if name in columns_settings:
+                show = True
 
             if show:
                 if not first:
@@ -413,13 +415,13 @@ class TracksListCtrl(gtk.VBox):
                     col.set_cell_data_func(pb, self.icon_data_func)
                 else:
                     col = gtk.TreeViewColumn(name, cellr, text=count)
-
+                
                 if name == _("Length"):
                     col.set_cell_data_func(cellr, self.length_data_func)
                 elif name == "#":
                     col.set_cell_data_func(cellr, self.track_data_func)
 
-                setting_name = name + "_%scol_width" % self.prep
+                setting_name = "ui/%scol_width_%s" % (self.prep, name)
                 width = self.exaile.settings.get_int(setting_name, 
                     self.size_map[name])
                 col.set_fixed_width(width)
@@ -462,14 +464,14 @@ class TracksListCtrl(gtk.VBox):
             cols.append(col.get_title())
             self.list.remove_column(col)
 
-        self.exaile.settings['col_order'] = ":".join(cols)
+        self.exaile.settings['ui/col_order'] = cols
         self.setup_columns()
 
     def set_column_width(self, col, stuff=None):
         """
             Called when the user resizes a column
         """
-        name = col.get_title() + "_%scol_width" % self.prep
+        name = "ui/%scol_width_%s" % (self.prep, col.get_title())
         self.exaile.settings[name] = col.get_width()
 
     def track_data_func(self, col, cell, model, iter):

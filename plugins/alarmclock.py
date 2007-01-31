@@ -36,7 +36,7 @@ def configure():
         Configures the time to ring
     """
     exaile = APP
-    alarm_time = exaile.settings.get("%s_alarm_time" % plugins.name(__file__), "12:30")
+    alarm_time = exaile.settings.get_str("alarm_time", plugin=plugins.name(__file__), default="12:30")
     (hours, minutes) = alarm_time.split(":")
 
     dialog = plugins.PluginConfigDialog(exaile.window, PLUGIN_NAME)
@@ -60,9 +60,8 @@ def configure():
     if result == gtk.RESPONSE_OK:
         hour = hour.get_value()
         minute = minute.get_value()
-        exaile.settings["%s_alarm_time" % 
-            plugins.name(__file__)] = "%02d:%02d" % (hour,
-            minute)
+        exaile.settings.set_str("alarm_time", "%02d:%02d" % (hour, minute),
+            plugin=plugins.name(__file__))
 
 def timeout_cb():
     """
@@ -71,7 +70,7 @@ def timeout_cb():
         playing
     """
     if not PLUGIN_ENABLED: return True
-    alarm_time = SETTINGS.get("%s_alarm_time" % plugins.name(__file__), "")
+    alarm_time = SETTINGS.get_str("alarm_time", plugin=plugins.name(__file__), default="")
     if not alarm_time: return True
 
     current = time.strftime("%H:%M", time.localtime())

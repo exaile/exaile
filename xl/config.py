@@ -177,10 +177,15 @@ class XlConfigParser(SafeConfigParser):
         if value == None:
             value = default
         else:
-            try:
-                value = pickle.loads(value)
-            except pickle.UnpicklingError:
-                value = default
+            if value[0:4] == '(lp0':
+                try:
+                    value = pickle.loads(value)
+                except pickle.UnpicklingError:
+                    value = default
+                # this is to get rid of pickled values
+                self.set_list(key, value, plugin)
+            else:
+                value = eval(value)
 
         return value
     
@@ -221,7 +226,7 @@ class XlConfigParser(SafeConfigParser):
         """
             Sets a list
         """
-        self.set(*self.get_section_keyv(key, plugin, pickle.dumps(value)))
+        self.set(*self.get_section_keyv(key, plugin, "%s" % (value,)))
     
     
     def save(self): 
@@ -373,7 +378,7 @@ class Config:
         value = self.config.get(key)
         if value == None:
             return None
-        elif value[0:4] == "(lp0":
+        elif value[0:4] == "(lp0" or re.match("^\[.*\]$", value):
             return self.get_list(key)
         elif re.match("^\d+$", value):
             return self.get_int(key)

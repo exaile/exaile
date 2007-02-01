@@ -16,7 +16,7 @@
 
 import os
 from ConfigParser import SafeConfigParser
-import ConfigParser, pickle
+import ConfigParser
 
 import re
 
@@ -55,7 +55,7 @@ class XlConfigParser(SafeConfigParser):
     def add_section(self, section_name="", plugin=None):
         section_name_str = section_name
         if plugin:
-            section_name_str = "plugin/%s" % (plugin,)
+            section_name_str = "plugin/%s" plugin
 
         try:
             SafeConfigParser.add_section(self, section_name_str)
@@ -66,14 +66,14 @@ class XlConfigParser(SafeConfigParser):
     def get_section_key(self, key, plugin=None):
         plugin_str = plugin
         if plugin:
-            if plugin[-3:] == ".py":
+            if plugin.endswith(".py"):
                 plugin_str = plugin[:-3]
         
         if plugin_str:
             if plugin_str not in self.sections():
                 self.add_section(plugin=plugin_str)
 
-            return ("plugin/%s" % (plugin_str,), key)
+            return ("plugin/%s" % plugin_str, key)
         else:
             split_str = key.split('/', 1)
             if len(split_str) > 1:
@@ -107,7 +107,7 @@ class XlConfigParser(SafeConfigParser):
         value_str = ""
 
         if value == None:
-            value = "%s" % (default,)
+            value = str(default)
 
         return value.replace(r'\n', '\n')
     
@@ -177,15 +177,10 @@ class XlConfigParser(SafeConfigParser):
         if value == None:
             value = default
         else:
-            if value[0:4] == '(lp0':
-                try:
-                    value = pickle.loads(value)
-                except pickle.UnpicklingError:
-                    value = default
-                # this is to get rid of pickled values
-                self.set_list(key, value, plugin)
-            else:
+            try:
                 value = eval(value)
+            except SyntaxError:
+                value = default
 
         return value
     
@@ -197,14 +192,14 @@ class XlConfigParser(SafeConfigParser):
         if value == "true" or value == "True": value = True
         if value == "false" or value == "False": value = False
         
-        self.set(*self.get_section_keyv(key, plugin, "%s" % (value,)))
+        self.set(*self.get_section_keyv(key, plugin, str(value)))
     
     
     def set_str(self, key, value, plugin=None):
         """
             Sets a string
         """
-        value_str = "%s" % (value,)
+        value_str = str(value)
         self.set(*self.get_section_keyv(key, plugin, value_str.replace('\n', r'\n')))
     
     
@@ -212,21 +207,21 @@ class XlConfigParser(SafeConfigParser):
         """
             Sets an int
         """
-        self.set(*self.get_section_keyv(key, plugin, "%s" % (value,)))
+        self.set(*self.get_section_keyv(key, plugin, str(value)))
     
     
     def set_float(self, key, value, plugin=None):
         """
             Sets a float
         """
-        self.set(*self.get_section_keyv(key, plugin, "%s" % (value,)))
+        self.set(*self.get_section_keyv(key, plugin, str(value)))
     
     
     def set_list(self, key, value, plugin=None):
         """
             Sets a list
         """
-        self.set(*self.get_section_keyv(key, plugin, "%s" % (value,)))
+        self.set(*self.get_section_keyv(key, plugin, str(value)))
     
     
     def save(self): 
@@ -304,7 +299,7 @@ class Config:
         sections = self.config.sections()
 
         for section in sections:
-            if section.find('plugin/') > -1:
+            if 'plugin/' in section:
                 plug_sections.append(section)
 
         for plug in plug_sections:
@@ -378,7 +373,7 @@ class Config:
         value = self.config.get(key)
         if value == None:
             return None
-        elif value[0:4] == "(lp0" or re.match("^\[.*\]$", value):
+        elif re.match("^\[.*\]$", value):
             return self.get_list(key)
         elif re.match("^\d+$", value):
             return self.get_int(key)

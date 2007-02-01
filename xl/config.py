@@ -55,7 +55,7 @@ class XlConfigParser(SafeConfigParser):
     def add_section(self, section_name="", plugin=None):
         section_name_str = section_name
         if plugin:
-            section_name_str = "plugin/%s" plugin
+            section_name_str = "plugin/%s" % plugin
 
         try:
             SafeConfigParser.add_section(self, section_name_str)

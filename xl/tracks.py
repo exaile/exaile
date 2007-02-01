@@ -611,6 +611,7 @@ class PopulateThread(threading.Thread):
                     new = False
                     if not tr: new = True
                     tr = media.read_from_path(loc)
+                    if not tr: continue
                     save_track_to_db(db, tr, new)
 
                 if tr:

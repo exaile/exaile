@@ -1,6 +1,6 @@
 from xl.media import mp3, ogg, flac
 from xl import xlmisc
-import os.path, gobject, time, re
+import os.path, gobject, re
 
 __all__ = ['flac', 'mp3', 'm4a', 'ogg', 'wma']
 

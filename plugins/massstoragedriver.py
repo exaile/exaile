@@ -93,7 +93,7 @@ class MassStorageDriver(plugins.DeviceDriver):
             for track in self.all:
                 for item in ('artist', 'album', 'title'):
                     attr = getattr(track, item)
-                    if attr.lower().find(keyword.lower()) > -1:
+                    if keyword.lower() in attr.lower():
                         check.append(track) 
         else:
             check = self.all

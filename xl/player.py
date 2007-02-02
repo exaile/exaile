@@ -111,7 +111,7 @@ class GSTPlayer(Player):
             self.connections.append(self.bus.connect('sync-message::element',
                 self.on_sync_message))
 
-            if uri.find('://') == -1: 
+            if '://' not in uri: 
                 if not os.path.isfile(uri):
                     raise Exception('Specified file does not exist')
 
@@ -280,7 +280,7 @@ class ExailePlayer(GSTPlayer):
             xlmisc.log('Line %d: %s' % (i, line.strip()))
             if line.startswith('#') or line == '[playlist]': 
                 continue
-            if line.find('=') > -1:
+            if '=' in line:
                 if not line.startswith('File'): continue
                 line = re.sub('File\d+=', '', line)
                 loc = line
@@ -331,7 +331,7 @@ class ExailePlayer(GSTPlayer):
 
         track = self.exaile.tracks.get_selected_track()
         if not track:
-            if self.tracks.songs:
+            if self.exaile.tracks.songs:
                 self.next()
                 return
             return

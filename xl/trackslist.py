@@ -783,7 +783,7 @@ class TracksListCtrl(gtk.VBox):
         """
         text = widget.child.get_label()
         rating = 1
-        if text.find('*') > -1:
+        if '*' in text:
             rating = len(text) / 2
 
         cur = self.db.cursor()

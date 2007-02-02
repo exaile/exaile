@@ -212,7 +212,7 @@ class ExaileWindow(gobject.GObject):
         enabled_plugins = []
         for k, v in self.settings.get_plugins().iteritems():
             if v:
-                enabled_plugins.append("%s.py" % (k,))
+                enabled_plugins.append("%s.py" % k)
 
         self.pmanager.load_plugins("%s%splugins" % (basedir, os.sep), enabled_plugins)
         self.pmanager.load_plugins("%s%splugins" % (SETTINGS_DIR, os.sep),
@@ -678,7 +678,7 @@ class ExaileWindow(gobject.GObject):
             Called when the cover is clicked on
         """
         if event.type == gtk.gdk._2BUTTON_PRESS:
-            if self.cover.loc.find('nocover') > -1: return
+            if 'nocover' in self.cover.loc: return
             track = self.player.current
             
             xlmisc.CoverWindow(self.window, self.cover.loc, "%s by %s" %
@@ -1428,7 +1428,7 @@ class ExaileWindow(gobject.GObject):
         elif item == self.cover_search:
             xlmisc.CoverFrame(self, self.player.current, True)
         elif item == "showcover" or item == self.cover_full:
-            if self.cover.loc.find("nocover") > -1: return
+            if "nocover" in self.cover.loc: return
             track = self.player.current
             xlmisc.CoverWindow(self.window, self.cover.loc, "%s by %s" %
                 (track.album, track.artist))
@@ -2043,12 +2043,12 @@ class ExaileWindow(gobject.GObject):
             url.lower().endswith(".pls"):
             self.import_m3u(url, True)
             return
-        elif url.find("://") == -1:
-            track = tracks.read_track(self.db, self.all_songs, url,
-                adddb=False)
-        else:
+        elif "://" in url:
             track = media.Track(url)
             track.type = 'stream'
+        else:
+            track = tracks.read_track(self.db, self.all_songs, url,
+                adddb=False)
 
         songs = tracks.TrackData((track, ))
         if not songs: return

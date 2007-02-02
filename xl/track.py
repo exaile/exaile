@@ -116,7 +116,7 @@ class TablatureTab(gtk.VBox):
             text = re.sub("^\s*", "", text)
         else:
             self.text.set_text("Could not fetch tablature.")
-        if text.find("Error 302") > -1:
+        if "Error 302" in text:
             text = "Tablature not found."
         xlmisc.log(self.cache_file)
         if self.track != self.panel.track or \

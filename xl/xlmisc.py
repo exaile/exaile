@@ -15,12 +15,10 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import time
-import trackslist, tracks, covers, md5, threading, re
+import tracks, covers, md5, threading, re
 import sys, httplib, urlparse, os, os.path, urllib, media
-import common, traceback, gc, xl.db, gobject
+import common, traceback, gobject
 
-
-import cStringIO
 from gettext import gettext as _
 import prefs
 
@@ -603,14 +601,15 @@ class CoverFetcher(object):
                 self.needs[artist] = []
             if album in self.needs[artist]: continue
 
-            if not image:
+            if image:
+                if "nocover" in image:
+                    continue
+                else:
+                    image = "%s%scovers%s%s" % (self.exaile.get_settings_dir(),
+                        os.sep, os.sep, image)
+            else:
                 self.needs[artist].append(album)
                 image = "images%snocover.png" % os.sep
-            elif image.find("nocover") > -1:
-                continue
-            elif image.find("nocover") == -1: 
-                image = "%s%scovers%s%s" % (self.exaile.get_settings_dir(),
-                    os.sep, os.sep, image)
 
             if self.found.has_key("%s - %s" % (artist.lower(), album.lower())):
                 continue
@@ -1097,7 +1096,7 @@ class BrowserWindow(gtk.VBox):
             Called by the re.sub in PageLoaded
         """
         link = match.group(3)
-        if link.find("://") == -1:
+        if "://" not in link:
             char = ""
             if not link.startswith("/"): char = "/"
             link = "%s://%s%s%s" % (self.protocol, self.server, char, link)
@@ -1140,7 +1139,7 @@ class BrowserWindow(gtk.VBox):
             cache
         """
         if not self.nostyles: gobject.idle_add(self.entry.set_text, url)
-        if url.find("http://") == -1: url = "%s://%s" % (self.protocol, url)
+        if "http://" not in url: url = "%s://%s" % (self.protocol, url)
         self.url = url
         cache_file = "%s/browser_%s.html" % (self.cache_dir, 
             md5.new(url).hexdigest())
@@ -1267,7 +1266,7 @@ class TextEntryDialog(object):
         """
         return self.dialog.run()
 
-    def response(self):
+    def response(self): # FIXME
         """
             Shows the dialog and returns the result
         """
@@ -1275,7 +1274,7 @@ class TextEntryDialog(object):
 
     def get_value(self):
         """
-            Returns tthe text value
+            Returns the text value
         """
         return self.entry.get_text()
 

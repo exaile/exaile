@@ -89,10 +89,10 @@ class CoverDisplay(gtk.Window):
         """
         newcover = self.exaile.cover.loc
         
-        if newcover.find('nocover') == -1:
-            self.display(newcover)
-        else:
+        if 'nocover' in newcover:
             self.display(None)
+        else:
+            self.display(newcover)
         return True
 
     def stop_track(self, exaile, track):

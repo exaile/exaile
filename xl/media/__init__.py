@@ -1,4 +1,4 @@
-from xl.media import mp3, ogg, flac, m4a
+from xl.media import mp3, ogg, flac
 from xl import xlmisc
 import os.path, gobject, time, re
 
@@ -129,35 +129,6 @@ class Track(gobject.GObject):
         self.user_rating = user_rating
         self.time_added = time_added
 
-    def ipod_track(self):
-        """
-            Returns an ipod compatable track
-        """
-        track = gpod.itdb_track_new()
-        track.title = str(self.title)
-        track.album = str(self.album)
-        track.artist = str(self.artist)
-        track.tracklen = self.duration * 1000
-
-        try: track.bitrate = int(self._bitrate)
-        except: pass
-        try: track.track_nr = int(self.track)
-        except: pass
-        try: track.year = int(self.year)
-        except: pass
-
-        if self.type != 'podcast':
-            info = os.stat(self.loc)
-        else:
-            info = os.stat(self.download_path)
-        track.size = info[6]
-
-        track.time_added = int(time.time()) + 2082844800
-        track.time_modified = track.time_added
-        track.genre = str(self.genre)
-
-        return track 
-
     def set_track(self, t): 
         """
             Sets the track number
@@ -209,7 +180,7 @@ class Track(gobject.GObject):
         self._rating = rating
         self.user_rating = rating
 
-    def full_status(self): 
+    def full_status(self):
         """
             Returns a string representing the status of the current track
         """

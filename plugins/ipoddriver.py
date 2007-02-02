@@ -190,7 +190,7 @@ class iPodDriver(plugins.DeviceDriver):
 
     def get_ipod_track(self, song):
         """
-            Returns an ipod compatable track
+            Returns an ipod compatible track
         """
         track = gpod.itdb_track_new()
         track.title = str(song.title)

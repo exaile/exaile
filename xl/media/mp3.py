@@ -65,7 +65,7 @@ def fill_tag_from_path(tr):
         tr.genre = get_tag(id3, 'TCON')
 
         trackinfo = get_tag(id3, 'TRCK')
-        if trackinfo.find('/') > -1:
+        if '/' in trackinfo:
             tr.track, tr.disc_id = trackinfo.split('/')
 
             try:

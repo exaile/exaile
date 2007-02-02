@@ -93,7 +93,7 @@ class XlConfigParser(SafeConfigParser):
             value = SafeConfigParser.get(self, *self.get_section_key(key, plugin))
             return value
         except ConfigParser.NoOptionError:
-            return None
+            return default
     
     
     def get_str(self, key, default="", plugin=None):
@@ -102,7 +102,6 @@ class XlConfigParser(SafeConfigParser):
             does not exist in the current settings, the default is returned
         """
         value = self.get(key, plugin=plugin)
-        value_str = ""
 
         if value is None:
             value = str(default)

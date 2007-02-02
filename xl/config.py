@@ -18,8 +18,6 @@ import os
 from ConfigParser import SafeConfigParser
 import ConfigParser
 
-import re
-
 """
     This module provides for easy parsing of configuration files
 """
@@ -106,7 +104,7 @@ class XlConfigParser(SafeConfigParser):
         value = self.get(key, plugin=plugin)
         value_str = ""
 
-        if value == None:
+        if value is None:
             value = str(default)
 
         return value.replace(r'\n', '\n')
@@ -119,7 +117,7 @@ class XlConfigParser(SafeConfigParser):
         """
         value = self.get(key, plugin=plugin)
 
-        if value == None:
+        if value is None:
             value = default
         else:
             try:
@@ -136,7 +134,7 @@ class XlConfigParser(SafeConfigParser):
         """
         value = self.get(key, plugin=plugin)
 
-        if value == None:
+        if value is None:
             value = default
         else:
             try:
@@ -154,7 +152,7 @@ class XlConfigParser(SafeConfigParser):
         """
         value = self.get(key, plugin=plugin)
 
-        if value == None:
+        if value is None:
             value = default
 
         if value == "True" or value == "true":
@@ -174,7 +172,7 @@ class XlConfigParser(SafeConfigParser):
         """
         value = self.get(key, plugin)
 
-        if value == None:
+        if value is None:
             value = default
         else:
             try:
@@ -371,15 +369,32 @@ class Config:
             gets a value
         """
         value = self.config.get(key)
-        if value == None:
+        if value is None:
             return None
-        elif re.match("^\[.*\]$", value):
+        elif _is_list(value):
             return self.get_list(key)
-        elif re.match("^\d+$", value):
+        elif _is_int(value):
             return self.get_int(key)
-        elif re.match("^\d*\.\d+$", value):
+        elif _is_float(value):
             return self.get_float(key)
-        elif re.match("^[Tt]rue|[Ff]alse$", value):
+        elif _is_bool(value):
             return self.get_boolean(key)
         else:
             return self.get_str(key)
+
+def _is_list(s):
+    return s and s[0] == '[' and s[-1] == ']'
+def _is_int(s):
+    try:
+        int(s)
+        return True
+    except ValueError:
+        return False
+def _is_float(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+def _is_bool(s):
+    return s in ('True', 'true', 'False', 'false')

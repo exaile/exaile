@@ -236,11 +236,8 @@ class Track(gobject.GObject):
         """
             Returns the length of the track in the format minutes:seconds
         """
-
-        l = self._len
-        tup = time.localtime(float(l))
-
-        return "%s:%02d" % (tup[4], tup[5])
+        sec = int(round(float(self._len)))
+        return "%s:%02d" % divmod(sec, 60)
     
 
     def set_len(self, value): 

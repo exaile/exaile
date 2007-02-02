@@ -6,7 +6,6 @@ SCROBBLER_SESSION = None
 
 @common.threaded
 def submit_to_scrobbler(exaile, tr):
-    if tr.submitted: return
     if tr._title == '' or tr._artist == '': return
    
     if not SCROBBLER_SESSION: return
@@ -38,6 +37,7 @@ def get_scrobbler_session(exaile, username="", password="", new=False):
 
     if (SCROBBLER_SESSION == None or new) and \
         (username != "" and password != ""):
+        xlmisc.log('Logging in to audioscrobbler')
         SCROBBLER_SESSION = AudioScrobblerPost(username=username, 
             password=password, client_name='exa')
         SCROBBLER_SESSION.verbose = True

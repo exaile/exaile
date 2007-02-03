@@ -154,7 +154,7 @@ class DBusInterfaceObject(dbus.service.Object):
         """
         if not self.exaile.player.current:
             return 0
-        return self.exaile.player.current.current_position()
+        return self.exaile.player.current_position()
 
     @dbus.service.method("org.exaile.DBusInterface")
     def status(self):

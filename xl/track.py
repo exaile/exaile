@@ -351,9 +351,6 @@ class TrackInformation(gtk.Notebook):
             page = self.get_nth_page(i)
             page.close_page()
 
-        self.destroy()
-        gc.collect()
-
 class TrackEditor(object):
     """
         A track properties editor

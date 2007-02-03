@@ -815,7 +815,7 @@ class AudioScrobblerPost:
         count = 0
         for track in self.cache[:number]:
             for k in track.keys():
-                track[k] = urllib.quote(track[k]).replace('-', '%2D')
+                track[k] = urllib.quote(track[k].encode('utf-8'))
                 params[k % (count,)] = track[k]
         
         self.auth()

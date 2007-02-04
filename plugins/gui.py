@@ -55,7 +55,6 @@ class PluginManager(object):
         self.author_label = self.xml.get_widget('author_label')
         self.name_label = self.xml.get_widget('name_label')
         self.description = self.xml.get_widget('description_view')
-        self.list.connect('button-release-event', self.row_selected)
         self.model = gtk.ListStore(gtk.gdk.Pixbuf, str, bool, object)
         self.xml.get_widget('ok_button').connect('clicked',
             lambda *e: self.dialog.destroy())
@@ -93,6 +92,7 @@ class PluginManager(object):
                 plugin.PLUGIN_ENABLED, plugin])
     
         selection = self.list.get_selection()
+	selection.connect('changed', self.row_selected)
         self.list.set_model(self.model)
         self.dialog.show_all()
         selection.select_path(0)
@@ -101,7 +101,6 @@ class PluginManager(object):
             self.setup_avail_tab()
             self.avail_url = avail_url
             self.plugin_nb.connect('switch-page', self.check_fetch_avail)
-        self.row_selected()
 
     def check_fetch_avail(self, *e):
         """
@@ -222,11 +221,10 @@ class PluginManager(object):
         plugin = model.get_value(iter, 3)
         plugin.configure()
                
-    def row_selected(self, *e):
+    def row_selected(self, selection, user_data=None):
         """
             Called when a row is selected
         """
-        selection = self.list.get_selection()
         (model, iter) = selection.get_selected()
         if not iter: return
 

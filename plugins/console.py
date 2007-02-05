@@ -31,7 +31,7 @@ manipulate Exaile."""
 
 PLUGIN_ICON = None
 PLUGIN_ENABLED = False
-BUTTON = None
+MENU_ITEM = None
 TIPS = gtk.Tooltips()
 
 class PyConsole(gtk.Window):
@@ -111,7 +111,7 @@ class PyConsole(gtk.Window):
 
 PLUGIN = None
 
-def show_console(widget):
+def show_console(*args):
     """
         Displays the console
     """
@@ -125,34 +125,28 @@ def show_console(widget):
 def initialize():
     global PLUGIN, BUTTON
 
-    BUTTON = gtk.Button()
-    TIPS.set_tip(BUTTON, "Show Python console")
-    image = gtk.Image()
-    image.set_from_stock('gtk-execute', gtk.ICON_SIZE_BUTTON)
-    BUTTON.set_image(image)
-    BUTTON.set_size_request(32, 32)
-    BUTTON.connect('clicked', show_console)
+    MENU_ITEM = gtk.MenuItem('Show Python Console')
 
-    APP.xml.get_widget('rating_toolbar').pack_start(BUTTON)
-    BUTTON.show()
+    APP.xml.get_widget('tools_menu').get_submenu().append(MENU_ITEM)
+    MENU_ITEM.show()
+    MENU_ITEM.connect('activate', show_console)
 
     return True
 
 def destroy():
-    global PLUGIN
+    global PLUGIN, MENU_ITEM
     if PLUGIN:
         PLUGIN.destroy()
         PLUGIN = None
 
-    if BUTTON:
-        BUTTON.hide()
-        BUTTON.destroy()
-        BUTTON = None
+    if MENU_ITEM:
+        MENU_ITEM.hide()
+        MENU_ITEM.destroy()
+        MENU_ITEM = None
 
 def plugin_destroyed(*args):
     global PLUGIN
     PLUGIN = None
-
 
 if __name__ == '__main__':
     console = PyConsole({})

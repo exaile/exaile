@@ -46,7 +46,6 @@ class GSTPlayer(Player):
         self.playbin = gst.element_factory_make('playbin')
         self.bus = self.playbin.get_bus()
         self.bus.add_signal_watch()
-        self.bus.enable_sync_message_emission()
 
         self.audio_sink = None
 
@@ -290,7 +289,7 @@ class ExailePlayer(GSTPlayer):
             xlmisc.log('Found location: %s' % loc)
             track.start_time = time.time()
 
-            self.emit('play-track', track)
+            gobject.idle_add(self.emit, 'play-track', track)
 
             try:
                 GSTPlayer.play(self, loc)
@@ -502,9 +501,11 @@ def show_visualizations(exaile):
         Shows the visualizations window
     """
     global VIDEO_WIDGET
+    xlmisc.log('Enabling visualizations')
     if VIDEO_WIDGET:
         return
     track = exaile.player.current
+    exaile.player.bus.enable_sync_message_emission()
     play_track = False
     position = 0
     if track is not None and exaile.player.is_playing():

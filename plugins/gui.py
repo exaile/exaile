@@ -92,7 +92,7 @@ class PluginManager(object):
                 plugin.PLUGIN_ENABLED, plugin])
     
         selection = self.list.get_selection()
-	selection.connect('changed', self.row_selected)
+        selection.connect('changed', self.row_selected)
         self.list.set_model(self.model)
         self.dialog.show_all()
         selection.select_path(0)

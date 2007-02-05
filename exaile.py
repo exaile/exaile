@@ -1122,7 +1122,12 @@ class ExaileWindow(gobject.GObject):
         if not tracks: return
 
         if set: 
-            visible = self.tracks.list.get_visible_range()
+            try:
+                visible = self.tracks.list.get_visible_range()
+            except AttributeError:
+                # compatibility with old gtk versions (e.g. in Ubuntu Dapper)
+                # that don't have TreeView.get_visible_range
+                visible = None
             if visible: 
                 (path1, path2) = visible
 

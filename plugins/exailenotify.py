@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import gtk, pynotify, plugins, traceback, cgi
+import gtk, pynotify, plugins, traceback, cgi, os
 
 PLUGIN_NAME = "LibNotify Plugin"
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
@@ -63,6 +63,19 @@ def configure():
     scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
 
     main.pack_start(scroll, True, True)
+
+    show_cover_box = gtk.CheckButton('Show album covers in notification')
+    show_cover_box.set_active(settings.get_boolean('show_covers', default=True,
+        plugin=plugins.name(__file__)))
+
+    attach_to_tray_box = gtk.CheckButton('Attach notification to tray icon '
+        '(if available)')
+    attach_to_tray_box.set_active(settings.get_boolean('attach_to_tray',
+        default=True, plugin=plugins.name(__file__)))
+    main.pack_start(attach_to_tray_box)
+
+
+    main.pack_start(show_cover_box)
     dialog.resize(280, 240)
     dialog.show_all()
 
@@ -74,6 +87,10 @@ def configure():
         end = buf.get_end_iter()
         settings.set_str('body', buf.get_text(start, end), plugin=plugins.name(__file__))
         settings.set_str('summary', summary_entry.get_text(), plugin=plugins.name(__file__))
+        settings.set_boolean('show_covers', show_cover_box.get_active(),
+            plugin=plugins.name(__file__))
+        settings.set_boolean('attach_to_tray',
+            attach_to_tray_box.get_active(), plugin=plugins.name(__file__))
 
 def play_track(exaile, track):
     """
@@ -102,8 +119,15 @@ def play_track(exaile, track):
                 trackback.print_exc()
 
     notify = pynotify.Notification(vals['summary'], vals['body'])
-    pixbuf = gtk.gdk.pixbuf_new_from_file(APP.cover.loc)
-    pixbuf = pixbuf.scale_simple(50, 50, gtk.gdk.INTERP_BILINEAR)
+
+    if settings.get_boolean('show_covers', default=True,
+        plugin=plugins.name(__file__)):
+        pixbuf = gtk.gdk.pixbuf_new_from_file(APP.cover.loc)
+        pixbuf = pixbuf.scale_simple(50, 50, gtk.gdk.INTERP_BILINEAR)
+    else:
+        pixbuf = gtk.gdk.pixbuf_new_from_file('images%sicon.png' % os.sep)
+        pixbuf = pixbuf.scale_simple(50, 50, gtk.gdk.INTERP_BILINEAR)
+
     notify.set_icon_from_pixbuf(pixbuf)
 
     if exaile.tray_icon and settings.get_boolean('attach_to_tray', default=True,

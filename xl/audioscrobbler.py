@@ -16,7 +16,6 @@ def submit_to_scrobbler(exaile, tr):
         lt[3], lt[4], lt[5])
 
     xlmisc.log('Attempting to submit track %s to last.fm' % tr)
-    tr.submitted = True
     try:
         SCROBBLER_SESSION(artist_name=tr.artist,
             song_title=tr.title,

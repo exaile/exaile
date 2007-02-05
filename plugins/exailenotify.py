@@ -125,7 +125,7 @@ def play_track(exaile, track):
         pixbuf = gtk.gdk.pixbuf_new_from_file(APP.cover.loc)
         pixbuf = pixbuf.scale_simple(50, 50, gtk.gdk.INTERP_BILINEAR)
     else:
-        pixbuf = gtk.gdk.pixbuf_new_from_file('images%sicon.png' % os.sep)
+        pixbuf = gtk.gdk.pixbuf_new_from_file('images%slargeicon.png' % os.sep)
         pixbuf = pixbuf.scale_simple(50, 50, gtk.gdk.INTERP_BILINEAR)
 
     notify.set_icon_from_pixbuf(pixbuf)

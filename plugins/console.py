@@ -31,6 +31,8 @@ manipulate Exaile."""
 
 PLUGIN_ICON = None
 PLUGIN_ENABLED = False
+BUTTON = None
+TIPS = gtk.Tooltips()
 
 class PyConsole(gtk.Window):
     def __init__(self, dict):
@@ -63,9 +65,19 @@ class PyConsole(gtk.Window):
         self.entry = entry = gtk.Entry()
         hbox.pack_start(entry)
         entry.connect('activate', self.entry_activated)
+        self.connect('delete_event', self.on_delete)
 
         entry.grab_focus()
         vbox.show_all()
+
+    def on_delete(self, *e):
+        """
+            Called when the user closes the window
+        """
+        global PLUGIN
+        PLUGIN = None
+        self.destroy()
+        return False
 
     def entry_activated(self, entry, user_data=None):
         """
@@ -99,20 +111,45 @@ class PyConsole(gtk.Window):
 
 PLUGIN = None
 
-def initialize():
+def show_console(widget):
+    """
+        Displays the console
+    """
     global PLUGIN
-    PLUGIN = PyConsole({'exaile': APP})
-    PLUGIN.connect('destroy', plugin_destroyed)
-    PLUGIN.show()
+
+    if not PLUGIN:
+        PLUGIN = PyConsole({'exaile': APP})
+
+    PLUGIN.show_all()
+
+def initialize():
+    global PLUGIN, BUTTON
+
+    BUTTON = gtk.Button()
+    TIPS.set_tip(BUTTON, "Show Python console")
+    image = gtk.Image()
+    image.set_from_stock('gtk-execute', gtk.ICON_SIZE_BUTTON)
+    BUTTON.set_image(image)
+    BUTTON.set_size_request(32, 32)
+    BUTTON.connect('clicked', show_console)
+
+    APP.xml.get_widget('rating_toolbar').pack_start(BUTTON)
+    BUTTON.show()
+
     return True
 
 def destroy():
     global PLUGIN
-    PLUGIN.destroy()
-    PLUGIN = None
+    if PLUGIN:
+        PLUGIN.destroy()
+        PLUGIN = None
+
+    if BUTTON:
+        BUTTON.hide()
+        BUTTON.destroy()
+        BUTTON = None
 
 def plugin_destroyed(*args):
-    # TODO: Provide a menu to reshow.
     global PLUGIN
     PLUGIN = None
 

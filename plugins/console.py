@@ -120,7 +120,7 @@ def show_console(widget):
     if not PLUGIN:
         PLUGIN = PyConsole({'exaile': APP})
 
-    PLUGIN.show_all()
+    PLUGIN.present()
 
 def initialize():
     global PLUGIN, BUTTON

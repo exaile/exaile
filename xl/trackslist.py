@@ -718,6 +718,14 @@ class TracksListCtrl(gtk.VBox):
             'gtk-info')
         tpm.append_separator()
 
+        if len(self.get_selected_tracks()) == 1 and self.get_selected_track() \
+            and self.get_selected_track().type == 'lastfm':
+            lfm = xlmisc.Menu()
+            lfm.append('Ban', lambda *e: self.send_lastfm_command('ban'))
+            lfm.append('Love', lambda *e: self.send_lastfm_command('love'))
+            lfm.append('Skip', lambda *e: self.send_lastfm_command('skip'))
+            tpm.append_menu(_("Last.FM Options"))
+
         rm = xlmisc.Menu()
         self.remove_tracks = rm.append(_("Remove from Playlist"),
             self.delete_tracks, None, 'remove')
@@ -735,6 +743,10 @@ class TracksListCtrl(gtk.VBox):
 
             self.plugins_item = tpm.append(_("Plugins"), None, 'gtk-execute')
             self.plugins_item.set_submenu(self.exaile.plugins_menu)
+
+    def send_lastfm_command(self, command):
+        if self.exaile.player.lastfmsrc:
+            self.exaile.player.lastfmsrc.control(command)
 
     def edit_field(self, widget, data):
         """

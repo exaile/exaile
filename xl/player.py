@@ -181,6 +181,7 @@ class LastFMSource(gst.BaseSrc):
             if self.update_func:
                 self.update_func()
 
+    @common.threaded
     def control(self, command):
         """
 	Send control command to last.fm to skip/love/ban the currently
@@ -254,7 +255,6 @@ class GSTPlayer(Player):
         self.bus = self.playbin.get_bus()
         self.bus.add_signal_watch()
         self.audio_sink = None
-        self.lastfm = False
 
     def set_audio_sink(self, sink):
         """
@@ -420,9 +420,15 @@ class ExailePlayer(GSTPlayer):
         self.shuffle = False
         self.repeat = False
         self.last_track = ''
+        self.lastfm_total = 0
 
         self.eof_func = self.exaile.on_next
         self.current = None
+
+    def setup_playbin(self):
+        self.lastfm = False
+        self.lastfmsrc = None
+        GSTPlayer.setup_playbin(self)
 
     def setup_lastfm_playbin(self, user, password):
         """
@@ -453,6 +459,7 @@ class ExailePlayer(GSTPlayer):
 
         self.bus = self.playbin.get_bus()
         self.bus.add_signal_watch()
+        self.lastfm_play_total = 0
 
     def toggle_pause(self):
         """
@@ -512,7 +519,7 @@ class ExailePlayer(GSTPlayer):
         value = 0
         duration = self.current.duration * gst.SECOND
         if duration:
-            value = self.get_position() * 100.0 / duration
+            value = (self.get_position() - self.lastfm_total) * 100.0 / duration
 
         return value
 
@@ -563,13 +570,14 @@ class ExailePlayer(GSTPlayer):
         track.title = info['track']
         if info.has_key('album'): track.album = info['album'] 
         if info.has_key('artist'): track.artist = info['artist']
-        if info.has_key('trackduration'): track.length = info['trackduration']
+        if info.has_key('trackduration'): 
+            track.length = info['trackduration']
+            self.lastfm_play_total += info['trackduration']
         gobject.idle_add(self.exaile.tracks.refresh_row, track)
         gobject.idle_add(self.exaile.tracks.queue_draw)
 
         if info['streaming'] == 'true':
-            gobject.idle_add(self.exaile.update_track_information, '', False)
-            gobject.idle_add(self.exaile.show_osd)
+            gobject.idle_add(self.exaile.play_track, self, track)
 
     @common.threaded
     def play_lastfm_track(self, track):

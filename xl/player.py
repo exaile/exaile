@@ -432,10 +432,7 @@ class ExailePlayer(GSTPlayer):
             Gets current position minus current lastfm play time
         """
         position = GSTPlayer.get_position(self)
-        if self.lastfm_play_total:
-            print position, self.lastfm_play_total
-        if not self.is_paused(): position -= (self.lastfm_play_total *
-            gst.SECOND)
+        if not self.is_paused(): position -= self.lastfm_play_total 
 
         return position
 
@@ -444,13 +441,23 @@ class ExailePlayer(GSTPlayer):
         self.lastfmsrc = None
         GSTPlayer.setup_playbin(self)
 
+    def set_volume(self, volume):
+        if self.lastfmsrc:
+            self.vcontrol.set_property('volume', volume)
+            return
+
+        GSTPlayer.set_volume(self, volume)
+
     def setup_lastfm_playbin(self, user, password):
         """
             Sets up a playbin for playing last.fm radio streams
         """
         xlmisc.log('Creating Last.FM Pipe')
         self.playbin = gst.Pipeline('pipeline')
+        self.vcontrol = gst.element_factory_make('volume')
         self.lastfmsrc = LastFMSource('src', user, password)
+        self.set_volume(self.exaile.settings.get_float("volume", 1))
+
         decoder = gst.element_factory_make('decodebin')
         queue = gst.element_factory_make('queue')
         convert = gst.element_factory_make('audioconvert')
@@ -467,9 +474,11 @@ class ExailePlayer(GSTPlayer):
                     pad.link(apad)
 
         decoder.connect('new-decoded-pad', on_new_decoded_pad)
-        self.playbin.add(self.lastfmsrc, decoder, queue, convert, sink)
+        self.playbin.add(self.lastfmsrc, decoder, convert, queue,
+            self.vcontrol, sink)
         self.lastfmsrc.link(decoder)
-        convert.link(sink)
+        convert.link(self.vcontrol)
+        self.vcontrol.link(sink)
 
         self.bus = self.playbin.get_bus()
         self.bus.add_signal_watch()
@@ -586,8 +595,7 @@ class ExailePlayer(GSTPlayer):
         if info.has_key('artist'): track.artist = info['artist']
         if info.has_key('trackduration'): 
             track.length = info['trackduration']
-            self.lastfm_play_total += self.lastfm_last_length
-            self.lastfm_last_length = info['trackduration']
+            self.lastfm_play_total += self.get_position()
         gobject.idle_add(self.exaile.tracks.refresh_row, track)
         gobject.idle_add(self.exaile.tracks.queue_draw)
 

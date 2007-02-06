@@ -1571,8 +1571,7 @@ class ExaileWindow(gobject.GObject):
             Called when the user scrolls their mouse wheel over the tray icon
         """
         v = widget.get_value()
-        if ev.direction == gtk.gdk.SCROLL_RIGHT or ev.direction == \
-            gtk.gdk.SCROLL_UP:
+        if ev.direction == gtk.gdk.SCROLL_DOWN:
             v -= 9
         else:
             v += 9

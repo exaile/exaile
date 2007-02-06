@@ -423,6 +423,7 @@ class ExailePlayer(GSTPlayer):
         self.last_track = ''
         self.lastfm_play_total = 0
         self.lastfm_last_length = 0
+        self.lastfm_first = True
 
         self.eof_func = self.exaile.on_next
         self.current = None
@@ -453,9 +454,12 @@ class ExailePlayer(GSTPlayer):
             Sets up a playbin for playing last.fm radio streams
         """
         xlmisc.log('Creating Last.FM Pipe')
-        self.playbin = gst.Pipeline('pipeline')
+        
+        gobject.idle_add(self.exaile.status.set_first, 'Preparing Last.FM '
+            'stream, please wait...')
+        self.playbin = gst.Pipeline('lastfm_pipeline')
         self.vcontrol = gst.element_factory_make('volume')
-        self.lastfmsrc = LastFMSource('src', user, password)
+        self.lastfmsrc = LastFMSource('lastfm_src', user, password)
         self.set_volume(self.exaile.settings.get_float("volume", 1))
 
         decoder = gst.element_factory_make('decodebin')
@@ -601,6 +605,10 @@ class ExailePlayer(GSTPlayer):
 
         if info['streaming'] == 'true':
             gobject.idle_add(self.exaile.play_track, self, track)
+
+        if self.lastfm_first:
+            gobject.idle_add(self.exaile.status.set_first, None)
+            self.lastfm_first = False
 
     @common.threaded
     def play_lastfm_track(self, track):

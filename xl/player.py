@@ -261,8 +261,7 @@ class GSTPlayer(Player):
             Sets the audio sink up.  It tries the passed in value, and if that
             doesn't work, it tries autoaudiosink
         """
-        if sink.lower().find("gconf"): sink = 'gconfaudiosink'
-        sink = sink.lower()
+
         self.audio_sink = self._get_audio_sink(sink)
 
         # if the audio_sink is still not set, use a fakesink
@@ -275,6 +274,8 @@ class GSTPlayer(Player):
         """
             Returns the appropriate audio sink
         """
+        if sink.lower().find("gconf"): sink = 'gconfaudiosink'
+        sink = sink.lower()
         try:
             self.audio_sink = gst.element_factory_make(sink)
         except:
@@ -421,7 +422,7 @@ class ExailePlayer(GSTPlayer):
         self.repeat = False
         self.last_track = ''
         self.lastfm_play_total = 0
-        self.lastfm_first = True
+        self.lastfm_last_length = 0
 
         self.eof_func = self.exaile.on_next
         self.current = None
@@ -584,17 +585,14 @@ class ExailePlayer(GSTPlayer):
         if info.has_key('album'): track.album = info['album'] 
         if info.has_key('artist'): track.artist = info['artist']
         if info.has_key('trackduration'): 
-            print 'got track duration, fool', self.lastfm_first
             track.length = info['trackduration']
-            if not self.lastfm_first: 
-                self.lastfm_play_total += info['trackduration']
+            self.lastfm_play_total += self.lastfm_last_length
+            self.lastfm_last_length = info['trackduration']
         gobject.idle_add(self.exaile.tracks.refresh_row, track)
         gobject.idle_add(self.exaile.tracks.queue_draw)
 
         if info['streaming'] == 'true':
             gobject.idle_add(self.exaile.play_track, self, track)
-        self.lastfm_first = False
-        print self.lastfm_first
 
     @common.threaded
     def play_lastfm_track(self, track):

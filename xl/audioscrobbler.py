@@ -7,6 +7,7 @@ SCROBBLER_SESSION = None
 @common.threaded
 def submit_to_scrobbler(exaile, tr):
     if tr._title == '' or tr._artist == '': return
+    if tr.type == 'lastfm': return
    
     if not SCROBBLER_SESSION: return
     len = tr.duration

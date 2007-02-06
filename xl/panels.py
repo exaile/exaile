@@ -1865,6 +1865,13 @@ class PodcastTransferQueue(gtk.VBox):
         self.panel.podcast_download_box.remove(self)
         self.panel.podcast_queue = None
 
+class LastFMWrapper(object):
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return self.name
+
 class RadioPanel(object):
     """
         Displays a list of saved radio stations, and scans shoutcast for a
@@ -1945,9 +1952,15 @@ class RadioPanel(object):
             for sub in genre[1]:
                 self.model.append(node, [self.track, sub])
 
+        self.lastfm = self.model.append(None, [self.open_folder, "Last.FM "
+            "Radio"])
+        self.model.append(self.lastfm, [self.track, LastFMWrapper('Neighbor Radio')]) 
+        self.model.append(self.lastfm, [self.track, LastFMWrapper('Personal Radio')]) 
+
         self.tree.expand_row(self.model.get_path(self.custom), False)
         self.tree.expand_row(self.model.get_path(self.podcast), False)
         self.tree.expand_row(self.model.get_path(sc), False)
+        self.tree.expand_row(self.model.get_path(self.lastfm), False)
         self.tree.queue_draw()
         self.tree.connect('row-expanded', self.on_expanded)
         self.tree.connect('row-collapsed', self.on_collapsed)
@@ -2020,8 +2033,37 @@ class RadioPanel(object):
                 self.open_station(object.name)
             elif isinstance(object, PodcastWrapper):
                 self.open_podcast(object)
+            elif isinstance(object, LastFMWrapper):
+                self.open_lastfm(object)
             else:
                 self.fetch_streams()
+
+    def open_lastfm(self, object):
+        """
+            Opens and plays a last.fm station
+        """
+        station = str(object)
+        user = self.exaile.settings.get_str('lastfm/user', '')
+        password = self.exaile.settings.get_str('lastfm/pass', '')
+
+        if not user or not password:
+            common.error(self.exaile.window, _("You need to have a last.fm "
+                "username and password set in your preferences."))
+            return
+
+        if station == "Neighbor Radio":
+            url = "lastfm://user/%s/neighbours" % user
+        else:
+            url = "lastfm://user/%s/personal" % user
+
+        tr = media.Track(url)
+        tr.type = 'lastfm'
+        tr.track = -1
+        tr.title = station
+        tr.album = "%s's Last.FM %s" % (user, station)
+
+
+        self.exaile.append_songs((tr,))
 
     def open_podcast(self, wrapper):
         """

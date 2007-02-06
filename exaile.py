@@ -1198,7 +1198,7 @@ class ExaileWindow(gobject.GObject):
 
         return True
 
-    def update_track_information(self, track=''):
+    def update_track_information(self, track='', returntrue=True):
         """
             Updates track status information
         """
@@ -1253,7 +1253,7 @@ class ExaileWindow(gobject.GObject):
         self.rating_signal = self.rating_combo.connect('changed',
             self.set_rating)
         self.emit('track-information-updated')
-        return True
+        if returntrue: return True
 
     def update_rating(self, track, plays = 1, rating = 0): 
         """
@@ -1895,13 +1895,13 @@ class ExaileWindow(gobject.GObject):
                 else:
                     tr = tracks.read_track(self.db, self.all_songs, url[2])
                   
-            else:
-                tr = media.Track(urlparse.urlunsplit(url))
-                tr.type = 'stream'
-                tr.title = "Radio Stream"
+            else: continue
+#                tr = media.Track(urlparse.urlunsplit(url))
+#                tr.type = 'stream'
+#                tr.title = "Radio Stream"
 
-                if first and play:
-                    play = tr
+#                if first and play:
+#                    play = tr
                     
             if tr:
                 songs.append(tr)

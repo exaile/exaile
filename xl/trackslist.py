@@ -724,7 +724,7 @@ class TracksListCtrl(gtk.VBox):
             lfm.append('Ban', lambda *e: self.send_lastfm_command('ban'))
             lfm.append('Love', lambda *e: self.send_lastfm_command('love'))
             lfm.append('Skip', lambda *e: self.send_lastfm_command('skip'))
-            tpm.append_menu(_("Last.FM Options"))
+            tpm.append_menu(_("Last.FM Options"), lfm)
 
         rm = xlmisc.Menu()
         self.remove_tracks = rm.append(_("Remove from Playlist"),

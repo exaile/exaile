@@ -1573,9 +1573,9 @@ class ExaileWindow(gobject.GObject):
         v = widget.get_value()
         if ev.direction == gtk.gdk.SCROLL_RIGHT or ev.direction == \
             gtk.gdk.SCROLL_UP:
-            v += 9
-        else:
             v -= 9
+        else:
+            v += 9
 
         if v < 0: v = 0
         elif v > 120: v = 120

@@ -733,6 +733,7 @@ class ExailePlayer(GSTPlayer):
         if reset_current: self.current = None
         GSTPlayer.stop(self)
         self.emit('stop-track', current)
+        self.lastfm_total = 0
         if self.lastfm:
             self.setup_playbin()
             self.lastfm = False

@@ -431,7 +431,11 @@ class ExailePlayer(GSTPlayer):
             Gets current position minus current lastfm play time
         """
         position = GSTPlayer.get_position(self)
-        if not self.is_paused(): position -= self.lastfm_play_total
+        if self.lastfm_play_total:
+            print position, self.lastfm_play_total
+        if not self.is_paused(): position -= (self.lastfm_play_total *
+            gst.SECOND)
+
         return position
 
     def setup_playbin(self):
@@ -580,6 +584,7 @@ class ExailePlayer(GSTPlayer):
         if info.has_key('album'): track.album = info['album'] 
         if info.has_key('artist'): track.artist = info['artist']
         if info.has_key('trackduration'): 
+            print 'got track duration, fool', self.lastfm_first
             track.length = info['trackduration']
             if not self.lastfm_first: 
                 self.lastfm_play_total += info['trackduration']
@@ -588,7 +593,8 @@ class ExailePlayer(GSTPlayer):
 
         if info['streaming'] == 'true':
             gobject.idle_add(self.exaile.play_track, self, track)
-        self.lasftm_first = False
+        self.lastfm_first = False
+        print self.lastfm_first
 
     @common.threaded
     def play_lastfm_track(self, track):

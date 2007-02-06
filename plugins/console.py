@@ -31,8 +31,6 @@ manipulate Exaile."""
 
 PLUGIN_ICON = None
 PLUGIN_ENABLED = False
-MENU_ITEM = None
-TIPS = gtk.Tooltips()
 
 class PyConsole(gtk.Window):
     def __init__(self, dict):
@@ -65,19 +63,9 @@ class PyConsole(gtk.Window):
         self.entry = entry = gtk.Entry()
         hbox.pack_start(entry)
         entry.connect('activate', self.entry_activated)
-        self.connect('delete_event', self.on_delete)
 
         entry.grab_focus()
         vbox.show_all()
-
-    def on_delete(self, *e):
-        """
-            Called when the user closes the window
-        """
-        global PLUGIN
-        PLUGIN = None
-        self.destroy()
-        return False
 
     def entry_activated(self, entry, user_data=None):
         """
@@ -110,27 +98,14 @@ class PyConsole(gtk.Window):
         self.text_view.scroll_to_mark(self.end_mark, 0)
 
 PLUGIN = None
-
-def show_console(*args):
-    """
-        Displays the console
-    """
-    global PLUGIN
-
-    if not PLUGIN:
-        PLUGIN = PyConsole({'exaile': APP})
-
-    PLUGIN.present()
+MENU_ITEM = None
 
 def initialize():
-    global PLUGIN, BUTTON
-
+    global MENU_ITEM
     MENU_ITEM = gtk.MenuItem('Show Python Console')
-
+    MENU_ITEM.connect('activate', show_console)
     APP.xml.get_widget('tools_menu').get_submenu().append(MENU_ITEM)
     MENU_ITEM.show()
-    MENU_ITEM.connect('activate', show_console)
-
     return True
 
 def destroy():
@@ -138,15 +113,22 @@ def destroy():
     if PLUGIN:
         PLUGIN.destroy()
         PLUGIN = None
-
     if MENU_ITEM:
         MENU_ITEM.hide()
         MENU_ITEM.destroy()
         MENU_ITEM = None
 
-def plugin_destroyed(*args):
+def show_console(*args):
+    global PLUGIN
+    if not PLUGIN:
+        PLUGIN = PyConsole({'exaile': APP})
+        PLUGIN.connect('destroy', console_destroyed)
+    PLUGIN.present()
+
+def console_destroyed(*args):
     global PLUGIN
     PLUGIN = None
+
 
 if __name__ == '__main__':
     console = PyConsole({})

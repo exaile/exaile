@@ -745,6 +745,7 @@ class ExaileWindow(gobject.GObject):
         xlmisc.log('Loading page %s' % last_active)
         self.playlists_nb.set_current_page(last_active)
         page = self.playlists_nb.get_nth_page(last_active)
+        if not page: return
         self.tracks = page
         self.update_songs(page.songs, False)
 

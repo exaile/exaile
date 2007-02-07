@@ -2672,11 +2672,33 @@ class FilesPanel(object):
         col.set_attributes(text, text=2)
         self.tree.append_column(col)
 
+        # set up the search entry
+        self.search = self.xml.get_widget('files_search_entry')
+        self.search.connect('key-release-event', self.key_release)
+        self.search.connect('activate', lambda *e: lambda *e:
+            self.load_directory(self.current, history=False,
+            keyword=self.search.get_text()))
+
+        self.key_id = None
+
         self.load_directory(self.first_dir, False)
         self.tree.connect('row-activated', self.row_activated)
         self.menu = xlmisc.Menu()
         self.menu.append(_("Append to Playlist"), self.append)
         self.queue_item = self.menu.append(_("Queue Items"), self.append)
+
+    def key_release(self, *e):
+        """
+            Called when someone releases a key.
+            Sets up a timer to simulate live-search
+        """
+        if self.key_id:
+            gobject.source_remove(self.key_id)
+            self.key_id = None
+
+        self.key_id = gobject.timeout_add(700, lambda *e:
+            self.load_directory(self.current, history=False,
+            keyword=self.search.get_text()))
 
     def drag_get_data(self, treeview, context, sel, target_id, etime):
         """
@@ -2833,7 +2855,7 @@ class FilesPanel(object):
                     if tr:
                         self.exaile.append_songs((tr, ), title=_('Playlist'))
 
-    def load_directory(self, dir, history=True):
+    def load_directory(self, dir, history=True, keyword=None):
         """
             Loads a directory into the files view
         """
@@ -2849,6 +2871,9 @@ class FilesPanel(object):
         files = []
         for path in paths:
             if path.startswith('.'): continue
+
+            if keyword and path.lower().find(keyword.lower()) == -1:
+                continue
             full = "%s%s%s" % (dir, os.sep, path)
             if os.path.isdir(full):
                 directories.append(path)

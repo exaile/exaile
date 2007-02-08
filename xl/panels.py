@@ -2775,7 +2775,7 @@ class FilesPanel(object):
                 self.append_recursive(songs, os.path.join(dir, file))
             else:
                 (stuff, ext) = os.path.splitext(file)
-                if ext in media.SUPPORTED_MEDIA:
+                if ext.lower() in media.SUPPORTED_MEDIA:
                     tr = self.get_track(os.path.join(dir, file))
                     if tr:
                         songs.append(tr)
@@ -2880,7 +2880,7 @@ class FilesPanel(object):
 
             else:
                 (stuff, ext) = os.path.splitext(path)
-                if ext in media.SUPPORTED_MEDIA:
+                if ext.lower() in media.SUPPORTED_MEDIA:
                     files.append(path)
 
         directories.sort()

@@ -1,4 +1,14 @@
 #!/bin/sh
 
+######## CONFIGURATION OPTIONS ########
+#PROGRAM_DIR="/home/username/apps/exaile"      # insert full path to Exaile bin dir
+#######################################
+
+# get the app dir if not already defined
+if [ -z "$PROGRAM_DIR" ]; then
+    PROGRAM_DIR=`dirname "$0"`
+fi
+
+cd ${PROGRAM_DIR}
 python exaile.py $@
-# test
+

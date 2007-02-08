@@ -1962,7 +1962,6 @@ class RadioPanel(object):
         self.tree.expand_row(self.model.get_path(self.custom), False)
         self.tree.expand_row(self.model.get_path(self.podcast), False)
         self.tree.expand_row(self.model.get_path(sc), False)
-        self.tree.expand_row(self.model.get_path(self.lastfm), False)
         self.tree.queue_draw()
         self.tree.connect('row-expanded', self.on_expanded)
         self.tree.connect('row-collapsed', self.on_collapsed)

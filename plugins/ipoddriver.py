@@ -129,6 +129,19 @@ class iPodDriver(plugins.DeviceDriver):
         self.ipod_image = xlmisc.get_icon('gnome-dev-ipod')
         self.iplaylist_image = xlmisc.get_icon('gtk-justify-center')
 
+    def remove_tracks(self, tracks):
+        """ 
+            Removes tracks from the ipod
+        """
+        for track in tracks:
+            track = self.get_ipod_track(track)
+            for playlist in gpod.sw_get_playlists(self.itdb):
+                if gpod.itdb_playlist_contains_track(playlist, track):
+                    gpod.itdb_playlist_remove_track(playlist, track)
+
+            gpod.itdb_track_unlink(track)
+        self.transfer_done()
+
     def get_initial_root(self, model):
         """
             Adds new nodes and returns the one tracks should be added to

@@ -739,13 +739,11 @@ class ExaileWindow(gobject.GObject):
             self.tray_icon.destroy()
             self.tray_icon = None
 
-
     def _load_tab(self, last_active):
 
         xlmisc.log('Loading page %s' % last_active)
         self.playlists_nb.set_current_page(last_active)
         page = self.playlists_nb.get_nth_page(last_active)
-        if not page: return
         self.tracks = page
         self.update_songs(page.songs, False)
 
@@ -1337,7 +1335,7 @@ class ExaileWindow(gobject.GObject):
         if popup != None: return "images%snocover.png" % os.sep
         self.stop_cover_thread()
 
-        if self.settings.get_boolean("fetch_art", True):
+        if self.settings.get_boolean("fetch_covers", True):
             locale = self.settings.get_str('amazon_locale', 'us')
             self.cover_thread = covers.CoverFetcherThread("%s - %s" %
                 (track.artist, track.album),

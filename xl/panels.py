@@ -2675,7 +2675,7 @@ class FilesPanel(object):
         # set up the search entry
         self.search = self.xml.get_widget('files_search_entry')
         self.search.connect('key-release-event', self.key_release)
-        self.search.connect('activate', lambda *e: lambda *e:
+        self.search.connect('activate', lambda *e:
             self.load_directory(self.current, history=False,
             keyword=self.search.get_text()))
 

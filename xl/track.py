@@ -189,7 +189,7 @@ class WikipediaTab(gtk.HBox):
         """
         self.browser.stopped = True
 
-class TrackStatsTab(gtk.Table):
+class TrackStatsTab(gtk.ScrolledWindow):
     """
         Track Statistics
     """
@@ -197,15 +197,19 @@ class TrackStatsTab(gtk.Table):
         """
             Initializes the tab
         """
-        gtk.Table.__init__(self, 12, 2, False) # initialize 12 rows
+        gtk.ScrolledWindow.__init__(self)
+        self.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         self.set_border_width(5)
-        self.set_row_spacings(3)
+
+        self.table = table = gtk.Table(12, 2, False) # initialize 12 rows
+        table.set_row_spacings(3)
+        self.add_with_viewport(table)
 
         self.db = exaile.db
         self.n_rows = 0
 
         self.setup_information(track)
-        self.resize(self.n_rows, 2)
+        table.resize(self.n_rows, 2)
 
         self.show_all()
 
@@ -245,7 +249,7 @@ class TrackStatsTab(gtk.Table):
         attr.change(pango.AttrWeight(pango.WEIGHT_BOLD, 0, 800))
         label.set_attributes(attr)
 
-        self.attach(label, 0, 1, self.n_rows, self.n_rows +1,
+        self.table.attach(label, 0, 1, self.n_rows, self.n_rows +1,
             gtk.EXPAND | gtk.FILL, gtk.FILL)
 
         if isinstance(string, unicode) or isinstance(string, str) or \
@@ -254,10 +258,10 @@ class TrackStatsTab(gtk.Table):
             label.set_alignment(0, 0)
             label.set_line_wrap(True)
             label.set_selectable(True)
-            self.attach(label, 1, 2, self.n_rows, self.n_rows + 1,
+            self.table.attach(label, 1, 2, self.n_rows, self.n_rows + 1,
                 gtk.EXPAND | gtk.FILL, gtk.FILL)
         else:
-            self.attach(string, 1, 2, self.n_rows, self.n_rows + 1,
+            self.table.attach(string, 1, 2, self.n_rows, self.n_rows + 1,
                 gtk.EXPAND | gtk.FILL, gtk.FILL)
 
         self.n_rows += 1;

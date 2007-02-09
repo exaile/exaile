@@ -178,8 +178,9 @@ class ExaileWindow(gobject.GObject):
         self.window.set_title(_("Exaile!"))
 
         # log in to audio scrobbler
-        user = self.settings.get_str("lastfm/user", "")
-        password = self.settings.get_str("lastfm/pass", "")
+        user = self.settings.get_crypted("lastfm/user", "")
+        password = self.settings.get_crypted("lastfm/pass", "")
+
         thread.start_new_thread(audioscrobbler.get_scrobbler_session,
             (self, user, password))
 

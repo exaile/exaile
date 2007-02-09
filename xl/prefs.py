@@ -86,6 +86,22 @@ class PrefsItem(object):
         settings.set_str(self.name, self.widget.get_text())
         return True
 
+class CryptedPrefsItem(PrefsItem):
+    """
+        An encrypted preferences item
+    """
+    def __init__(self, name, default, change=None, done=None):
+        PrefsItem.__init__(self, name, default, change, done)
+
+    def set_pref(self):
+        self.widget.set_text(settings.get_crypted(self.name,
+            default=self.default))
+
+    def apply(self):
+        if self.done and not self.do_done(): return False
+        settings.set_crypted(self.name, self.widget.get_text())
+        return True
+
 class PrefsTextViewItem(PrefsItem):
     """
         Represents a gtk.TextView
@@ -382,7 +398,7 @@ class Preferences(object):
             'osd/w': (PrefsItem, '400', self.osd_adjust_size),
             'osd/h': (PrefsItem, '95', self.osd_adjust_size),
             'lastfm/user': (PrefsItem, ''),
-            'lastfm/pass': (PrefsItem, '', None, self.setup_lastfm),
+            'lastfm/pass': (CryptedPrefsItem, '', None, self.setup_lastfm),
             'cd_device': (PrefsItem, '/dev/cdrom'),
             'audio_sink': (ComboPrefsItem, 'Use GConf Settings'),
             'osd/tray': (CheckPrefsItem, True),

@@ -621,7 +621,7 @@ class ExailePlayer(GSTPlayer):
         if not self.lastfm:
             xlmisc.log('Setting up Last.FM Source')
             user = self.exaile.settings.get_str('lastfm/user', '')
-            password = self.exaile.settings.get_str('lastfm/pass', '')
+            password = self.exaile.settings.get_crypted('lastfm/pass', '')
             self.setup_lastfm_playbin(user, password)
             self.lastfmsrc.set_update_func(self.lastfm_update_func)
 

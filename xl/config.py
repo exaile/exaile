@@ -18,6 +18,10 @@ import os
 from ConfigParser import SafeConfigParser
 import ConfigParser
 
+# ok, I know this isn't secure, but it's better than having passwords in
+# plaintext in the configuration file.
+XOR_KEY = "You're not drunk if you can lie on the floor without hanging on"
+
 """
     This module provides for easy parsing of configuration files
 """
@@ -246,6 +250,50 @@ class Config:
         self.config = XlConfigParser(loc)
         self.loc = loc
 
+    def get_crypted(self, key, default="", plugin=None):
+        """
+            Gets a string from the config file and decrypts it
+        """
+        string = self.config.get_str(key, default, plugin)
+        
+        # convert it from hex
+        new = ''
+        vals = string.split()
+        for val in vals:
+            try:
+                new += chr(int(val, 16))
+            except ValueError:
+                continue
+
+        return self.crypt(new, XOR_KEY)
+
+    def set_crypted(self, key, value, plugin=None):
+        """
+            Encrypts a value and saves it to the configuration file
+        """
+        writestr = self.crypt(value, XOR_KEY)
+
+        hexstr = ''
+        for x in writestr:
+            hexstr = hexstr + "%02X " % ord(x)
+
+        self.config.set_str(key, hexstr, plugin)
+
+    def crypt(self, string, key):
+        """
+            Encrypt/Decrypt a string'
+        """
+
+        kidx = 0
+        cryptstr = ""
+
+        for x in range(len(string)):
+            cryptstr = cryptstr + \
+                chr(ord(string[x]) ^ ord(key[kidx]))
+
+            kidx = (kidx + 1) % len(key)
+
+        return cryptstr
     
     def get_str(self, key, default="", plugin=None):
         """

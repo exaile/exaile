@@ -10,5 +10,5 @@ if [ -z "$PROGRAM_DIR" ]; then
 fi
 
 cd ${PROGRAM_DIR}
-python exaile.py $@
+exec python exaile.py $@
 

@@ -26,6 +26,9 @@ class TracksListCtrl(gtk.VBox):
     """
         Represents the track/playlist table
     """
+    rating_images = []
+    rating_width = 45   # some default value
+    old_r_w = -1
     default_columns = ('#', 'Title', 'Album', 'Artist', 'Length')
     col_items = ["#",
         _("Title"), _("Artist"), _("Album"), _("Length"),
@@ -94,8 +97,30 @@ class TracksListCtrl(gtk.VBox):
         self.setup_columns()
 
         self.show()
+        self.create_rating_images()
 
         self.setup_events()
+
+    def create_rating_images(self):
+        """
+            Called to (re)create the pixmaps used for the Rating column.
+        """
+        if (self.rating_width != self.old_r_w):
+            self.rating_images = []
+        #    print "Rating Width: ", self.rating_width
+            star_size = self.rating_width / 4
+            svg_star = gtk.gdk.pixbuf_new_from_file_at_size("images/star.svg", star_size, star_size)
+            full_image = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, self.rating_width, star_size)
+            full_image.fill(0xffffff00) # transparent white
+            for x in range(0, 4):
+                svg_star.copy_area(0, 0, star_size, star_size, full_image, star_size * x, 0)
+            self.rating_images.insert(0, full_image)
+            for x in range(7, 0, -1):
+                this_image = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, self.rating_width, star_size)
+                this_image.fill(0xffffff00) # transparent white
+                full_image.copy_area(0, 0, int(x * star_size / 2.0), star_size, this_image, 0, 0)
+                self.rating_images.insert(0, this_image)
+            self.old_r_w = self.rating_width
 
     def close_page(self):
         """
@@ -396,8 +421,11 @@ class TracksListCtrl(gtk.VBox):
             if not self.size_map.has_key(name): continue
             # get cell renderer
             cellr = gtk.CellRendererText()
-            mapval = self.col_map 
-
+            if name == _("Rating"):
+                cellr = gtk.CellRendererPixbuf()
+                cellr.set_property("follow-state", False)
+            mapval = self.col_map
+            
             show = False
             if name in columns_settings:
                 show = True
@@ -420,6 +448,9 @@ class TracksListCtrl(gtk.VBox):
                     col.set_cell_data_func(cellr, self.length_data_func)
                 elif name == "#":
                     col.set_cell_data_func(cellr, self.track_data_func)
+                elif name == _("Rating"):
+                    col.set_attributes(cellr, pixbuf=1)
+                    col.set_cell_data_func(cellr, self.rating_data_func)
 
                 setting_name = "ui/%scol_width_%s" % (self.prep, name)
                 width = self.exaile.settings.get_int(setting_name, 
@@ -473,6 +504,9 @@ class TracksListCtrl(gtk.VBox):
         """
         name = "ui/%scol_width_%s" % (self.prep, col.get_title())
         self.exaile.settings[name] = col.get_width()
+        if col.get_title() == _("Rating"):
+            self.rating_width = col.get_width()
+            self.create_rating_images()
 
     def track_data_func(self, col, cell, model, iter):
         """
@@ -548,6 +582,11 @@ class TracksListCtrl(gtk.VBox):
             image = xlmisc.get_text_icon(self.exaile.window,
                 str(index + 1), 18, 18)
         cellr.set_property('pixbuf', image)
+
+    def rating_data_func(self, col, cellr, model, iter):
+        item = model.get_value(iter, 0)
+        idx = len(item.rating) / 2 - 1
+        cellr.set_property('pixbuf', self.rating_images[idx])
 
     def length_data_func(self, col, cellr, model, iter):
         """ 

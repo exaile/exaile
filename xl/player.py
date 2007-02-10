@@ -813,7 +813,7 @@ class VideoWidget(gtk.Window):
         self.exaile.player.setup_playbin()
         xlmisc.finish()
 
-        self.exaile.player.playbin.get_state(timeout=50)
+        self.exaile.player.playbin.get_state(timeout=50*gst.MSECOND)
         if track:
             self.exaile.player.play_track(track)
             if position and track.type != 'stream':
@@ -877,7 +877,7 @@ def show_visualizations(exaile):
     VIDEO_WIDGET = VideoWidget(exaile)
     VIDEO_WIDGET.show_all()
     xlmisc.finish()
-    exaile.player.playbin.get_state(timeout=50)
+    exaile.player.playbin.get_state(timeout=50*gst.MSECOND)
     video_sink = gst.element_factory_make('xvimagesink')
     vis = gst.element_factory_make('goom')
     exaile.player.playbin.set_property('video-sink', video_sink)

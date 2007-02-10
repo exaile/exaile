@@ -2116,7 +2116,7 @@ class ExaileWindow(gobject.GObject):
         self.status.set_first(_("Scanning collection..."))
 
         tracks.populate(self, self.db,
-            items, self.on_library_update, False,
+            items, self.on_library_update, True,
             load_tree=load_tree, done_func=done_func)
 
     def on_library_update(self, percent, songs=None, done_func=None): 

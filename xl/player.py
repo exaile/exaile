@@ -254,35 +254,8 @@ class GSTPlayer(Player):
         self.playbin = gst.element_factory_make('playbin')
         self.bus = self.playbin.get_bus()
         self.bus.add_signal_watch()
+        self.bus.enable_sync_message_emission()
         self.audio_sink = None
-
-    def set_audio_sink(self, sink):
-        """
-            Sets the audio sink up.  It tries the passed in value, and if that
-            doesn't work, it tries autoaudiosink
-        """
-
-        self.audio_sink = self._get_audio_sink(sink)
-
-        # if the audio_sink is still not set, use a fakesink
-        if not self.audio_sink:
-            xlmisc.log('Audio Sink could not be set up.  Using a fakesink '
-               'instead.  Audio will not be available.')
-            self.audio_sink = gst.element_factory_make('fakesink')
-
-    def _get_audio_sink(self, sink):
-        """
-            Returns the appropriate audio sink
-        """
-        if sink.lower().find("gconf"): sink = 'gconfaudiosink'
-        sink = sink.lower()
-        try:
-            self.audio_sink = gst.element_factory_make(sink)
-        except:
-            xlmisc.log_exception()
-            self.audio_sink = gst.element_factory_make('autoaudiosink')
-
-        return self.audio_sink
 
     def set_volume(self, vol):
         """
@@ -428,6 +401,39 @@ class ExailePlayer(GSTPlayer):
         self.eof_func = self.exaile.on_next
         self.current = None
 
+    def set_audio_sink(self, sink=None):
+        """
+            Sets the audio sink up.  It tries the passed in value, and if that
+            doesn't work, it tries autoaudiosink
+        """
+
+        self.audio_sink = self._get_audio_sink(sink)
+
+        # if the audio_sink is still not set, use a fakesink
+        if not self.audio_sink:
+            xlmisc.log('Audio Sink could not be set up.  Using a fakesink '
+               'instead.  Audio will not be available.')
+            self.audio_sink = gst.element_factory_make('fakesink')
+
+        self.playbin.set_property('audio-sink', self.audio_sink)
+
+    def _get_audio_sink(self, sink=None):
+        """
+            Returns the appropriate audio sink
+        """
+
+        if not sink: sink = self.exaile.settings.get_str('audio_sink',
+            'Use GConf Settings')
+        if sink.lower().find("gconf"): sink = 'gconfaudiosink'
+        sink = sink.lower()
+        try:
+            self.audio_sink = gst.element_factory_make(sink)
+        except:
+            xlmisc.log_exception()
+            self.audio_sink = gst.element_factory_make('autoaudiosink')
+
+        return self.audio_sink
+
     def get_position(self):
         """
             Gets current position minus current lastfm play time
@@ -441,6 +447,7 @@ class ExailePlayer(GSTPlayer):
         self.lastfm = False
         self.lastfmsrc = None
         GSTPlayer.setup_playbin(self)
+        self.set_audio_sink
 
     def set_volume(self, volume):
         if self.lastfmsrc:
@@ -852,7 +859,6 @@ def show_visualizations(exaile):
     if VIDEO_WIDGET:
         return
     track = exaile.player.current
-    exaile.player.bus.enable_sync_message_emission()
     play_track = False
     position = 0
     if track is not None and exaile.player.is_playing():
@@ -863,14 +869,14 @@ def show_visualizations(exaile):
         exaile.player.stop(False)
         play_track = True
 
-    exaile.player.setup_playbin()
-
     VIDEO_WIDGET = VideoWidget(exaile)
+    VIDEO_WIDGET.show_all()
+    xlmisc.finish()
+    exaile.player.playbin.get_state(timeout=50)
     video_sink = gst.element_factory_make('xvimagesink')
     vis = gst.element_factory_make('goom')
     exaile.player.playbin.set_property('video-sink', video_sink)
     exaile.player.playbin.set_property('vis-plugin', vis)
-    VIDEO_WIDGET.show_all()
 
     xlmisc.log("Player position is %d" % (position / gst.SECOND))
     if track: 

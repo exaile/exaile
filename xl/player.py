@@ -384,8 +384,8 @@ class ExailePlayer(GSTPlayer):
     }
 
     def __init__(self, exaile):
-        GSTPlayer.__init__(self)
         self.exaile = exaile
+        GSTPlayer.__init__(self)
         self.last_played = None
         self.played = []
         self.queued = []
@@ -448,6 +448,8 @@ class ExailePlayer(GSTPlayer):
         self.lastfmsrc = None
         GSTPlayer.setup_playbin(self)
         self.set_audio_sink
+        self.playbin.set_property('volume',
+            self.exaile.settings.get_float('volume', 1))
 
     def set_volume(self, volume):
         if self.lastfmsrc:

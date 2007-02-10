@@ -811,6 +811,9 @@ class VideoWidget(gtk.Window):
             play_track = True
 
         self.exaile.player.setup_playbin()
+        xlmisc.finish()
+
+        self.exaile.player.playbin.get_state(timeout=50)
         if track:
             self.exaile.player.play_track(track)
             if position and track.type != 'stream':

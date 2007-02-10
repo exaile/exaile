@@ -2046,7 +2046,7 @@ class RadioPanel(object):
         """
         station = str(object)
         user = self.exaile.settings.get_str('lastfm/user', '')
-        password = self.exaile.settings.get_str('lastfm/pass', '')
+        password = self.exaile.settings.get_crypted('lastfm/pass', '')
 
         if not user or not password:
             common.error(self.exaile.window, _("You need to have a last.fm "

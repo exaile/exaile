@@ -614,7 +614,6 @@ class PopulateThread(threading.Thread):
                     if not tr: continue
                     save_track_to_db(db, tr, new)
 
-                if not os.path.isfile(loc): continue
 
                 if tr:
                     path_id = get_column_id(db, 'paths', 'name', loc)

@@ -998,6 +998,10 @@ class ExaileWindow(gobject.GObject):
         """
             Sets up gamin to monitor directories for changes
         """
+        # this section of code commented/blocked because gamin seems to be
+        # very buggy (or I'm using it wrong).  It's causing people to not be
+        # able to launch Exaile at all.
+        return
         self.db.db.commit()
         if not self.settings.get_boolean('watch_directories', False) \
             and not skip_prefs: return

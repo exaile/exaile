@@ -385,9 +385,9 @@ class Preferences(object):
 
         simple_settings = ({
             'ui/use_splash': (CheckPrefsItem, True),
-            'watch_directories': (CheckPrefsItem, False, self.check_gamin,
-                self.setup_gamin),
-            'watch_exclude_dirs': (ListPrefsItem, []),
+#            'watch_directories': (CheckPrefsItem, False, self.check_gamin,
+#                self.setup_gamin),
+#            'watch_exclude_dirs': (ListPrefsItem, []),
             'fetch_covers': (CheckPrefsItem, True),
             'save_queue': (CheckPrefsItem, True),
             'ui/ensure_visible': (CheckPrefsItem, True),

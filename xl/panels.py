@@ -2029,8 +2029,9 @@ class RadioPanel(object):
                     event.button, event.time)
             
         elif event.type == gtk.gdk._2BUTTON_PRESS:
-
-            if isinstance(object, CustomWrapper):
+            if object == 'Last.FM Radio':
+                self.tree.expand_row(path, False)                
+            elif isinstance(object, CustomWrapper):
                 self.open_station(object.name)
             elif isinstance(object, PodcastWrapper):
                 self.open_podcast(object)

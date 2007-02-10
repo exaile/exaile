@@ -37,18 +37,20 @@ class Plugin(object):
 
 class SignalContainer(object):
     def __init__(self):
-        self.obj = {}
+        self.dict = {}
 
-    def connect(self, object, signal, func, *args):
-        if not self.obj.has_key(object):
-            self.obj[object] = []
-        self.obj[object].append(object.connect(signal, func, *args))
+    def connect(self, obj, signal, func, *args):
+        try:
+            conns = self.dict[obj]
+        except KeyError:
+            conns = self.dict[obj] = []
+        conns.append(obj.connect(signal, func, *args))
 
     def disconnect_all(self):
-        for key in self.obj.keys():
-            for item in self.obj[key]:
-                key.disconnect(item)
-            del self.obj[key]
+        for obj, conns in self.dict.iteritems():
+            for conn in conns:
+                obj.disconnect(conn)
+        self.dict = {}
 
 class PluginConfigDialog(gtk.Dialog):
     """

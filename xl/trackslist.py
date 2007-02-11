@@ -33,7 +33,7 @@ class TracksListCtrl(gtk.VBox):
     
     default_columns = ('#', 'Title', 'Album', 'Artist', 'Length')
     col_items = ["#",
-        _("Title"), _("Artist"), _("Album"), _("Length"),
+        _("Title"), _("Artist"), _("Album"), _("Length"), _("Disc"),
         _("Rating"), _("Year"), _("Genre"), _("Bitrate")]
     col_map = {
         '#': 'track',
@@ -41,6 +41,7 @@ class TracksListCtrl(gtk.VBox):
         _('Artist'): 'artist',
         _('Album'): 'album',
         _('Length'): 'length',
+        _('Disc'): 'disc_id',
         _('Rating'): 'rating',
         _('Year'): 'year',
         _('Genre'): 'genre',
@@ -52,6 +53,7 @@ class TracksListCtrl(gtk.VBox):
         _('Artist'): 150,
         _('Album'): 150,
         _('Length'): 50,
+        _('Disc'): 30,
         _('Rating'): 80,
         _('Year'): 50,
         _('Genre'): 100,
@@ -450,6 +452,8 @@ class TracksListCtrl(gtk.VBox):
                     col.set_cell_data_func(cellr, self.length_data_func)
                 elif name == "#":
                     col.set_cell_data_func(cellr, self.track_data_func)
+                elif name == _('Disc'):
+                    col.set_cell_data_func(cellr, self.disc_data_func)
                 elif name == _("Rating"):
                     col.set_attributes(cellr, pixbuf=1)
                     col.set_cell_data_func(cellr, self.rating_data_func)
@@ -509,6 +513,17 @@ class TracksListCtrl(gtk.VBox):
         if col.get_title() == _("Rating"):
             self.rating_width = min(col.get_width(), self.row_height * 4)
             self.create_rating_images()
+
+    def disc_data_func(self, col, cell, model, iter):
+        """
+            formats the disc
+        """
+        item = model.get_value(iter, 0)
+        if item.disc_id is None or item.disc_id == -1 or \
+            item.type == 'podcast':
+            cell.set_property('text', '')
+        else:
+            cell.set_property('text', item.disc_id)
 
     def track_data_func(self, col, cell, model, iter):
         """

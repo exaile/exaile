@@ -18,7 +18,7 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 PLUGIN_NAME = "Desktop Cover"
-PLUGIN_AUTHORS = ["Johannes Sasongko <sasongko@gmail.com>",
+PLUGIN_AUTHORS = ["Johannes Sasongko <sasongko@gmail.com>", 
     "Adam Olsen <arolsen@gmail.com>"]
 
 PLUGIN_VERSION = "0.1"
@@ -26,18 +26,13 @@ PLUGIN_DESCRIPTION = "Displays the current album cover on the desktop"
 PLUGIN_ENABLED = False
 PLUGIN_ICON = None
 
-import re
-import gtk, gobject
-import plugins, xl.common, xl.xlmisc
+import gtk, re, gobject, xl.common
+import plugins, gobject
 
 PLUGIN = None
 CON = plugins.SignalContainer()
 
 class CoverDisplay(gtk.Window):
-    geometry_re = re.compile(
-        '^=?(?:(\d+)?(?:[Xx](\d+))?)?'
-        '(?:([+-])(\d+)?(?:([+-])(\d+))?)?$')
-
     def __init__(self, exaile, geometry=''):
         gtk.Window.__init__(self)
         self.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_SPLASHSCREEN)
@@ -47,14 +42,15 @@ class CoverDisplay(gtk.Window):
         self.init_gtk(False)
         self.img = gtk.Image()
         self.add(self.img)
-
+    
     def init_gtk(self, show=True):
+
         if show:
-            if self.first:
-                self.set_property('visible', True)
-            else:
+            if not self.first:
                 self.first = True
                 self.show_all()
+            else:
+                self.set_property('visible', True)
 
         self.stick()
         self.parse_geometry()
@@ -66,30 +62,33 @@ class CoverDisplay(gtk.Window):
         self.set_skip_taskbar_hint(True)
 
     def parse_geometry(self):
-        match = geometry_re.match(self.geometry)
+        match = re.match(
+                '^=?(?:(\d+)?(?:[Xx](\d+))?)?'
+                '(?:([+-])(\d+)?(?:([+-])(\d+))?)?$',
+                self.geometry)
         if not match:
             raise ValueError('invalid geometry: ' + self.geometry)
         w, h, px, x, py, y = match.groups()
-
+        
         if w and h:
             self.w = int(w)
             self.h = int(h)
         else:
             self.w = None
             self.h = None
-
+        
         if x and y:
             gtk.Window.parse_geometry(self, self.geometry)
         else:
-            xl.xlmisc.log("desktopcover: No x or y")
+            print "No x and y"
             self.set_position(gtk.WIN_POS_CENTER_ALWAYS)
-
+    
     def play_track(self, exaile=None, track=None):
         """
             Called by the plugin chain when a new track starts playing
         """
         newcover = self.exaile.cover.loc
-
+        
         if 'nocover' in newcover:
             self.display(None)
         else:
@@ -101,13 +100,13 @@ class CoverDisplay(gtk.Window):
             Called when playing of a track stops
         """
         self.display(None)
-
+    
     def display(self, cover):
-        if cover is None:
+        if cover == None:
             self.img.clear()
             self.set_property('visible', False)
             return
-
+        
         pixbuf = gtk.gdk.pixbuf_new_from_file(cover)
         width = pixbuf.get_width()
         height = pixbuf.get_height()
@@ -119,10 +118,24 @@ class CoverDisplay(gtk.Window):
             width = int(origw * scale)
             height = int(origh * scale)
             pixbuf = pixbuf.scale_simple(
-                width, height, gtk.gdk.INTERP_BILINEAR)
+                    width, height, gtk.gdk.INTERP_BILINEAR)
         self.img.set_from_pixbuf(pixbuf)
-
+    
         self.init_gtk()
+
+def play_track(exaile, track):
+    """
+        Called when a track starts playing
+    """
+    if PLUGIN:
+        PLUGIN.play_track(track)
+
+def stop_track(exaile, track):
+    """
+        Called when a track stops playing
+    """
+    if PLUGIN:
+        PLUGIN.stop_track(track)
 
 def initialize():
     """
@@ -131,10 +144,12 @@ def initialize():
     global PLUGIN, SETTINGS, APP
     exaile = APP
     SETTINGS = exaile.settings
+    print "%s_geometry" % \
+        plugins.name(__file__)
 
     geometry = exaile.settings.get_str("geometry",
         plugin=plugins.name(__file__), default="150x150")
-    xl.xlmisc.log("Cover geometry: %s" % geometry)
+    print "Cover geometry: %s" % geometry
     PLUGIN = CoverDisplay(exaile, geometry)
 
     CON.connect(APP, 'play-track', PLUGIN.play_track)
@@ -153,6 +168,8 @@ def destroy():
 
     if PLUGIN:
         PLUGIN.destroy()
+
+
     PLUGIN = None
 
 def configure():
@@ -162,8 +179,7 @@ def configure():
     global PLUGIN
     exaile = APP
     settings = exaile.settings
-    geometry = settings.get_str('geometry', default='150x150',
-        plugin=plugins.name(__file__))
+    geometry = settings.get_str('geometry', plugin=plugins.name(__file__), default='150x150')
 
     dialog = plugins.PluginConfigDialog(exaile.window, PLUGIN_NAME)
     box = dialog.main
@@ -171,11 +187,14 @@ def configure():
     table.set_row_spacings(2)
     table.set_col_spacings(2)
 
-    match = geometry_re.match(geometry)
-    if match:
-        w, h, px, x, py, y = match.groups()
-    else:
+    match = re.match(
+            '^=?(?:(\d+)?(?:[Xx](\d+))?)?'
+            '(?:([+-])(\d+)?(?:([+-])(\d+))?)?$',
+            geometry)
+    if not match:
         w, h, px, x, py, y = '150', '150', '+', '0', '+', '0'
+    else:
+        w, h, px, x, py, y = match.groups()
 
     if not w: w = '150'
     if not h: h = '150'
@@ -217,7 +236,7 @@ def configure():
             (name, item) = item.split(':')
             val = boxes[item].get_text()
             if val:
-                try:
+                try:    
                     int(val)
                 except ValueError:
                     xl.common.error(exaile.window, _("Invalid "
@@ -233,7 +252,7 @@ def configure():
         settings.set_str("geometry", "%sx%s%s%s" % (new['w'], new['h'], new['x'], new['y']),
             plugin=plugins.name(__file__))
         geometry = "%sx%s%s%s" % (new['w'], new['h'], new['x'], new['y'])
-
+        
         destroy()
         initialize()
         track = exaile.player.current
@@ -241,5 +260,5 @@ def configure():
         if not track: return
         if track and APP.player.is_playing() or APP.player.is_paused():
             if PLUGIN: PLUGIN.play_track(track)
-        xl.xlmisc.log("desktopcover: New settings: %s" % settings.get_str("geometry",
-            plugin=plugins.name(__file__)))
+        print "New settings: %s" % settings.get_str("geometry",
+            plugin=plugins.name(__file__))

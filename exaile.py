@@ -482,7 +482,6 @@ class ExaileWindow(gobject.GObject):
         self.open_disc_item = self.xml.get_widget('open_disc_item')
         self.open_disc_item.connect('activate',
             self.open_disc)
-        self.open_disc_item.set_sensitive(tracks.CDDB_AVAIL)
 
         self.xml.get_widget('track_artist_item').connect('activate',
             lambda *e: self.jump_to(1))
@@ -2078,6 +2077,10 @@ class ExaileWindow(gobject.GObject):
         """
             Opens an audio disc
         """
+        if not tracks.CDDB_AVAIL:
+            common.error(self.window, _('You need the python-cddb package '
+                ' in order to play audio discs.'))
+            return
         songs = xl.tracks.read_audio_disc(self)
         if not songs: return
         self.new_page(_("Audio Disc"), songs)

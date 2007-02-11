@@ -27,8 +27,10 @@ class TracksListCtrl(gtk.VBox):
         Represents the track/playlist table
     """
     rating_images = []
-    rating_width = 45   # some default value
+    rating_width = 48   # some default value
     old_r_w = -1
+    row_height = 12
+    
     default_columns = ('#', 'Title', 'Album', 'Artist', 'Length')
     col_items = ["#",
         _("Title"), _("Artist"), _("Album"), _("Length"),
@@ -96,18 +98,18 @@ class TracksListCtrl(gtk.VBox):
         self.plugins_item = None
         self.setup_columns()
 
-        self.show()
         self.create_rating_images()
 
+        self.show()
+        
         self.setup_events()
 
     def create_rating_images(self):
         """
             Called to (re)create the pixmaps used for the Rating column.
         """
-        if (self.rating_width != self.old_r_w):
+        if (self.rating_width != self.old_r_w and self.rating_width != 0):
             self.rating_images = []
-        #    print "Rating Width: ", self.rating_width
             star_size = self.rating_width / 4
             svg_star = gtk.gdk.pixbuf_new_from_file_at_size("images/star.svg", star_size, star_size)
             full_image = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, self.rating_width, star_size)
@@ -140,7 +142,7 @@ class TracksListCtrl(gtk.VBox):
         model = tv.get_model()
         loc = list(selection.get_uris())
         counter = 0
-
+ 
         if context.action != gtk.gdk.ACTION_MOVE:
             self.exaile.status.set_first(
             _("Scanning and adding tracks to current playlist..."))
@@ -505,7 +507,7 @@ class TracksListCtrl(gtk.VBox):
         name = "ui/%scol_width_%s" % (self.prep, col.get_title())
         self.exaile.settings[name] = col.get_width()
         if col.get_title() == _("Rating"):
-            self.rating_width = col.get_width()
+            self.rating_width = min(col.get_width(), self.row_height * 4)
             self.create_rating_images()
 
     def track_data_func(self, col, cell, model, iter):

@@ -602,6 +602,8 @@ class TracksListCtrl(gtk.VBox):
 
     def rating_data_func(self, col, cellr, model, iter):
         item = model.get_value(iter, 0)
+        if not item.rating: return
+        print item.rating
         idx = len(item.rating) / 2 - 1
         cellr.set_property('pixbuf', self.rating_images[idx])
 

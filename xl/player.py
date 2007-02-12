@@ -107,6 +107,7 @@ class LastFMSource(gst.BaseSrc):
                   'username': self.user, 'passwordmd5': passw, 'debug':'0'}
 
         result = self._urlopen(url, params)
+
         if result:
             self.params = {}
             for line in result:
@@ -469,12 +470,18 @@ class ExailePlayer(GSTPlayer):
         self.playbin = gst.Pipeline('lastfm_pipeline')
         self.vcontrol = gst.element_factory_make('volume')
         self.lastfmsrc = LastFMSource('lastfm_src', user, password)
+        self.lastfm = True
+        if not self.lastfmsrc.logged:
+            gobject.idle_add(common.error, self.exaile.window, _('Error logging in to Last.FM: '
+                '%s' % self.lastfmsrc.params.get('msg')))
+            self.lastfmsrc = None
+            gobject.idle_add(self.exaile.status.set_first, None)
+            return
         self.set_volume(self.exaile.settings.get_float("volume", 1))
 
         decoder = gst.element_factory_make('decodebin')
         queue = gst.element_factory_make('queue')
         convert = gst.element_factory_make('audioconvert')
-        self.lastfm = True
         sink = self._get_audio_sink(self.exaile.settings.get_str('audio_sink', 'Use GConf '
             'Settings'))
     
@@ -632,6 +639,7 @@ class ExailePlayer(GSTPlayer):
             user = self.exaile.settings.get_str('lastfm/user', '')
             password = self.exaile.settings.get_crypted('lastfm/pass', '')
             self.setup_lastfm_playbin(user, password)
+            if not self.lastfmsrc: return
             self.lastfmsrc.set_update_func(self.lastfm_update_func)
 
         self.lastfmsrc.set_property('uri', track.loc)
@@ -851,10 +859,9 @@ class VideoWidget(gtk.Window):
         self.set_window_id()
         self.area.set_sink(sink)
 
-        """
-        workaround to launch the visualisation on startup
-        And prevent the "Xerror GC bad" problem when visualisation start and widget not completey realize
-        """
+        # workaround to launch the visualisation on startup
+        # And prevent the "Xerror GC bad" problem when 
+        # visualisation start and widget not completey realize
         if not self.loaded:
             self.child.child.do_expose_event(None)
             self.loaded = True

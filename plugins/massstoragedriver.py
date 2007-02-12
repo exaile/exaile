@@ -80,6 +80,7 @@ class MassStorageDriver(plugins.DeviceDriver):
         files = tracks.scan_dir(str(self.mount), exts=media.SUPPORTED_MEDIA)
         for i, loc in enumerate(files):
             tr = tracks.read_track(None, self.all, loc)
+            if not tr: continue
             tr.type = 'device'
             self.all.append(tr)
 

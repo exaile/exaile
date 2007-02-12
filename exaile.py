@@ -742,6 +742,7 @@ class ExaileWindow(gobject.GObject):
         self.playlists_nb.set_current_page(last_active)
         page = self.playlists_nb.get_nth_page(last_active)
         self.tracks = page
+        if not page: return
         self.update_songs(page.songs, False)
 
     def load_last_playlist(self): 
@@ -769,7 +770,7 @@ class ExaileWindow(gobject.GObject):
                     set_current=False)
 
             if last_active > -1:
-                gobject.timeout_add(200, self._load_tab, last_active)
+                gobject.timeout_add(500, self._load_tab, last_active)
 
 
         # load queue

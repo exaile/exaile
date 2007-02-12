@@ -119,6 +119,20 @@ class Menu(gtk.Menu):
 
         self.show()
 
+    def append_image(self, pixbuf, callback, data=None):
+        """
+            Appends a graphic as a menu item
+        """
+        item = gtk.MenuItem()
+        image = gtk.Image()
+        image.set_from_pixbuf(pixbuf)
+        item.add(image)
+        
+        if callback: item.connect('activate', callback, data)
+        gtk.Menu.append(self, item)
+        item.show_all()
+        return item
+
     def append(self, label, callback, stock_id=None, data=None):
         """
             Appends a menu item

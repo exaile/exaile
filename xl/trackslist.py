@@ -764,9 +764,11 @@ class TracksListCtrl(gtk.VBox):
         self.rating_ids = []
 
         for i in range(0, 8):
-            string = "* " * (i + 1)
-            item = rm.append(string, self.update_rating,
-                None, i)
+#            string = "* " * (i + 1)
+#            item = rm.append(string, self.update_rating,
+#                None, i)
+            item = rm.append_image(self.rating_images[i],
+                self.update_rating, i)
 
         em.append_menu(_("Rating"), rm)
         tpm.append_menu(_("Edit Track(s)"), em, 'gtk-edit')
@@ -850,10 +852,11 @@ class TracksListCtrl(gtk.VBox):
         """
             Updates the rating based on which menu id was clicked
         """
-        text = widget.child.get_label()
-        rating = 1
-        if '*' in text:
-            rating = len(text) / 2
+#        text = widget.child.get_label()
+#        rating = 1
+#        if '*' in text:
+#            rating = len(text) / 2
+        rating = event + 1
 
         cur = self.db.cursor()
         for track in self.get_selected_tracks():

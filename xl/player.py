@@ -786,11 +786,35 @@ class VideoWidget(gtk.Window):
         self.exaile = exaile
         self.imagesink = None
         self.area = VideoArea()
-        self.add(self.area)
+        self.is_fullscreen = False
+        self.ebox = gtk.EventBox()
+        self.ebox.add(self.area)
+        self.ebox.connect('button-press-event', self.button_press)
+        self.add(self.ebox)
         self.resize(700, 500)
         self.loaded = False
         self.connect('delete_event', self.on_delete)
         self.set_title(_("Exaile Media Player"))
+
+    def button_press(self, widget, event):
+        """
+            Called when the user clicks on the event box
+        """
+        if event.type == gtk.gdk._2BUTTON_PRESS:
+            self.toggle_fullscreen()
+
+    def toggle_fullscreen(self):
+        """
+            Toggles fullscreen mode
+        """
+        if not self.is_fullscreen:
+            self.is_fullscreen = True
+            self.fullscreen()
+            self.present()
+        else:
+            self.is_fullscreen = False
+            self.unfullscreen()
+            self.present()
 
     def on_delete(self, *e):
         """
@@ -832,11 +856,11 @@ class VideoWidget(gtk.Window):
         And prevent the "Xerror GC bad" problem when visualisation start and widget not completey realize
         """
         if not self.loaded:
-            self.child.do_expose_event(None)
+            self.child.child.do_expose_event(None)
             self.loaded = True
 
     def set_window_id(self):
-        self.imagesink.set_xwindow_id(self.child.window.xid)
+        self.imagesink.set_xwindow_id(self.child.child.window.xid)
 
 class VideoArea(gtk.DrawingArea):
     def __init__(self,imagesink=None):

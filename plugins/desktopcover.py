@@ -1,7 +1,5 @@
-#!/usr/bin/env python
-
 # exailecover - displays Exaile album covers on the desktop
-# Copyright (C) 2006 Johannes Sasongko <sasongko@gmail.com>
+# Copyright (C) 2006-2007 Johannes Sasongko <sasongko@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,244 +19,297 @@ PLUGIN_NAME = "Desktop Cover"
 PLUGIN_AUTHORS = ["Johannes Sasongko <sasongko@gmail.com>", 
     "Adam Olsen <arolsen@gmail.com>"]
 
-PLUGIN_VERSION = "0.1"
+PLUGIN_VERSION = "0.2"
 PLUGIN_DESCRIPTION = "Displays the current album cover on the desktop"
 PLUGIN_ENABLED = False
 PLUGIN_ICON = None
 
-import gtk, re, gobject, xl.common
-import plugins, gobject
+import re
+from gettext import gettext as _
+import gobject, gtk
+import xl.common, plugins
 
 PLUGIN = None
-CON = plugins.SignalContainer()
+CONNS = plugins.SignalContainer()
 
-class CoverDisplay(gtk.Window):
-    def __init__(self, exaile, geometry=''):
-        gtk.Window.__init__(self)
-        self.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_SPLASHSCREEN)
-        self.exaile = exaile
-        self.geometry = geometry
-        self.first = False
-        self.init_gtk(False)
-        self.img = gtk.Image()
-        self.add(self.img)
-    
-    def init_gtk(self, show=True):
+class CoverDisplay:
+    DEFAULT_X = DEFAULT_Y = 0
+    DEFAULT_WIDTH = DEFAULT_HEIGHT = 200
 
-        if show:
-            if not self.first:
-                self.first = True
-                self.show_all()
+    def __init__(self):
+        self.window = wnd = gtk.Window()
+        wnd.set_accept_focus(False)
+        wnd.set_decorated(False)
+        wnd.set_keep_below(True)
+        wnd.set_resizable(False)
+        wnd.set_skip_pager_hint(True)
+        wnd.set_skip_taskbar_hint(True)
+        wnd.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_SPLASHSCREEN)
+        wnd.stick()
+
+        self.x = self.DEFAULT_X
+        self.y = self.DEFAULT_Y
+        self.width = self.DEFAULT_WIDTH
+        self.height = self.DEFAULT_HEIGHT
+        self.cover = None
+        self.use_image_size = True
+        self.set_keep_center()
+
+        self.image = img = gtk.Image()
+        wnd.add(img)
+        img.show()
+
+    def set_keep_center(self, keep_center=True):
+        self.keep_center = keep_center
+        if keep_center:
+            self.window.set_position(gtk.WIN_POS_CENTER_ALWAYS)
+        else:
+            self.window.set_position(gtk.WIN_POS_NONE)
+            self.set_position()
+
+    def set_gravity(self, gravity):
+        self.window.set_gravity(gravity)
+
+    def set_position(self, x=None, y=None):
+        if x is None and y is None:
+            x = self.x
+            y = self.y
+        else:
+            self.x = x
+            self.y = y
+
+        if not self.keep_center:
+            grav = self.window.get_gravity()
+            if grav == gtk.gdk.GRAVITY_NORTH_WEST:
+                xsgn = '+'; ysgn = '+'
+            elif grav == gtk.gdk.GRAVITY_NORTH_EAST:
+                xsgn = '-'; ysgn = '+'
+            elif grav == gtk.gdk.GRAVITY_SOUTH_WEST:
+                xsgn = '+'; ysgn = '-'
+            elif grav == gtk.gdk.GRAVITY_SOUTH_EAST:
+                xsgn = '-'; ysgn = '-'
             else:
-                self.set_property('visible', True)
+                return
+            self.window.parse_geometry('%s%s%s%s' % (xsgn, x, ysgn, y))
 
-        self.stick()
-        self.parse_geometry()
-        self.set_accept_focus(False)
-        self.set_decorated(False)
-        self.set_keep_below(True)
-        self.set_resizable(False)
-        self.set_skip_pager_hint(True)
-        self.set_skip_taskbar_hint(True)
+    def set_size(self, width, height):
+        self.width = width
+        self.height = height
+        if not self.use_image_size:
+            self.display(self.cover)
 
-    def parse_geometry(self):
-        match = re.match(
-                '^=?(?:(\d+)?(?:[Xx](\d+))?)?'
-                '(?:([+-])(\d+)?(?:([+-])(\d+))?)?$',
-                self.geometry)
-        if not match:
-            raise ValueError('invalid geometry: ' + self.geometry)
-        w, h, px, x, py, y = match.groups()
-        
-        if w and h:
-            self.w = int(w)
-            self.h = int(h)
-        else:
-            self.w = None
-            self.h = None
-        
-        if x and y:
-            gtk.Window.parse_geometry(self, self.geometry)
-        else:
-            print "No x and y"
-            self.set_position(gtk.WIN_POS_CENTER_ALWAYS)
-    
-    def play_track(self, exaile=None, track=None):
-        """
-            Called by the plugin chain when a new track starts playing
-        """
-        newcover = self.exaile.cover.loc
-        
-        if 'nocover' in newcover:
-            self.display(None)
-        else:
-            self.display(newcover)
-        return True
-
-    def stop_track(self, exaile, track):
-        """
-            Called when playing of a track stops
-        """
-        self.display(None)
-    
     def display(self, cover):
-        if cover == None:
-            self.img.clear()
-            self.set_property('visible', False)
+        self.cover = cover
+        if cover is None:
+            self.image.clear()
+            self.window.hide()
             return
-        
+
         pixbuf = gtk.gdk.pixbuf_new_from_file(cover)
         width = pixbuf.get_width()
         height = pixbuf.get_height()
-        if self.w is not None and self.h is not None:
+        if not self.use_image_size:
             origw = float(width)
-            origh = float(width)
-            width, height = self.w, self.h
+            origh = float(height)
+            width, height = self.width, self.height
             scale = min(width / origw, height / origh)
             width = int(origw * scale)
             height = int(origh * scale)
-            pixbuf = pixbuf.scale_simple(
-                    width, height, gtk.gdk.INTERP_BILINEAR)
-        self.img.set_from_pixbuf(pixbuf)
-    
-        self.init_gtk()
+            pixbuf = pixbuf.scale_simple(width, height, gtk.gdk.INTERP_BILINEAR)
+        self.image.set_from_pixbuf(pixbuf)
 
-def play_track(exaile, track):
-    """
-        Called when a track starts playing
-    """
-    if PLUGIN:
-        PLUGIN.play_track(track)
+        if not self.window.props.visible:
+            self.window.show()
+        self.set_position()
 
-def stop_track(exaile, track):
-    """
-        Called when a track stops playing
-    """
-    if PLUGIN:
-        PLUGIN.stop_track(track)
+    def destroy(self):
+        self.window.destroy()
+
+class DesktopCoverConfig(plugins.PluginConfigDialog):
+    GRAVITIES = [
+        (_("Northwest"), gtk.gdk.GRAVITY_NORTH_WEST),
+        (_("Northeast"), gtk.gdk.GRAVITY_NORTH_EAST),
+        (_("Southwest"), gtk.gdk.GRAVITY_SOUTH_WEST),
+        (_("Southeast"), gtk.gdk.GRAVITY_SOUTH_EAST),
+    ]
+
+    def __init__(self, exaile, title, plugin, plugin_name):
+        super(type(self), self).__init__(exaile.window, title)
+        self.exaile = exaile
+        settings = exaile.settings
+        self.plugin = plugin
+        self.plugin_name = plugin_name
+
+        table = gtk.Table(6, 2)
+        table.set_border_width(12)
+        table.set_col_spacings(6)
+        self.main.add(table)
+
+        self.position_widgets = position_widgets = []
+        self.size_widgets = size_widgets = []
+
+        n_rows = 0
+
+        self.position_check = check = gtk.CheckButton(_("Manual positioning"))
+        table.attach(check, 0, 2, n_rows, n_rows + 1)
+        check.connect('toggled', self._positioning_toggled)
+        check.set_active(not settings.get_boolean('keep_center',
+            default=True, plugin=plugin_name))
+        n_rows += 1
+
+        label = gtk.Label(_("Gravity"))
+        table.attach(label, 0, 1, n_rows, n_rows + 1)
+        position_widgets.append(label)
+        self.gravity_combo = combo = gtk.combo_box_new_text()
+        table.attach(combo, 1, 2, n_rows, n_rows + 1)
+        position_widgets.append(combo)
+        for grav in self.GRAVITIES:
+            combo.append_text(grav[0])
+        combo.set_active(settings.get_int('gravity', default=0,
+            plugin=plugin_name))
+        n_rows += 1
+
+        label = gtk.Label(_("X offset"))
+        table.attach(label, 0, 1, n_rows, n_rows + 1)
+        position_widgets.append(label)
+        x = settings.get_int('x', default=self.plugin.DEFAULT_X,
+            plugin=plugin_name)
+        adj = gtk.Adjustment(x, 0, 32767, 1, 10, 10)
+        self.x_spin = spin = gtk.SpinButton(adj)
+        table.attach(spin, 1, 2, n_rows, n_rows + 1)
+        position_widgets.append(spin)
+        n_rows += 1
+
+        label = gtk.Label(_("Y offset"))
+        table.attach(label, 0, 1, n_rows, n_rows + 1)
+        position_widgets.append(label)
+        y = settings.get_int('y', default=self.plugin.DEFAULT_Y,
+            plugin=plugin_name)
+        adj = gtk.Adjustment(y, 0, 32767, 1, 10, 10)
+        self.y_spin = spin = gtk.SpinButton(adj)
+        position_widgets.append(spin)
+        table.attach(spin, 1, 2, n_rows, n_rows + 1)
+        n_rows += 1
+
+        self.sizing_check = check = gtk.CheckButton(_("Manual sizing"))
+        table.attach(check, 0, 2, n_rows, n_rows + 1)
+        check.connect('toggled', self._sizing_toggled)
+        check.set_active(not settings.get_boolean('use_image_size',
+            default=True, plugin=plugin_name))
+        n_rows += 1
+
+        label = gtk.Label(_("Width"))
+        table.attach(label, 0, 1, n_rows, n_rows + 1)
+        size_widgets.append(label)
+        w = settings.get_int('width', default=self.plugin.DEFAULT_WIDTH,
+            plugin=plugin_name)
+        adj = gtk.Adjustment(w, 0, 32767, 1, 10, 10)
+        self.width_spin = spin = gtk.SpinButton(adj)
+        table.attach(spin, 1, 2, n_rows, n_rows + 1)
+        size_widgets.append(spin)
+        n_rows += 1
+
+        label = gtk.Label(_("Height"))
+        table.attach(label, 0, 1, n_rows, n_rows + 1)
+        size_widgets.append(label)
+        h = settings.get_int('height', default=self.plugin.DEFAULT_HEIGHT,
+            plugin=plugin_name)
+        adj = gtk.Adjustment(h, 0, 32767, 1, 10, 10)
+        self.height_spin = spin = gtk.SpinButton(adj)
+        table.attach(spin, 1, 2, n_rows, n_rows + 1)
+        size_widgets.append(spin)
+        n_rows += 1
+
+        self._setup_position_widgets()
+        self._setup_size_widgets()
+        table.show_all()
+
+    def run(self):
+        result = super(type(self), self).run()
+        if result != gtk.RESPONSE_OK: return result
+
+        settings = self.exaile.settings
+        plugin = self.plugin
+        plugin_name = self.plugin_name
+
+        keep_center = not self.position_check.get_active()
+        plugin.set_keep_center(keep_center)
+        settings.set_boolean('keep_center', keep_center, plugin=plugin_name)
+
+        gravity = self.gravity_combo.get_active()
+        plugin.set_gravity(self.GRAVITIES[gravity][1])
+        settings.set_int('gravity', gravity, plugin=plugin_name)
+
+        x = self.x_spin.get_value_as_int()
+        y = self.y_spin.get_value_as_int()
+        plugin.set_position(x, y)
+        settings.set_int('x', x, plugin=plugin_name)
+        settings.set_int('y', y, plugin=plugin_name)
+
+        use_image_size = not self.sizing_check.get_active()
+        plugin.use_image_size = use_image_size
+        settings.set_boolean('use_image_size', use_image_size,
+            plugin=plugin_name)
+
+        width = self.width_spin.get_value_as_int()
+        height = self.height_spin.get_value_as_int()
+        plugin.set_size(width, height)
+        settings.set_int('width', width, plugin=plugin_name)
+        settings.set_int('height', height, plugin=plugin_name)
+
+        return result
+
+    def _positioning_toggled(self, check, *data):
+        self._setup_position_widgets(check.get_active())
+
+    def _sizing_toggled(self, check, *data):
+        self._setup_size_widgets(check.get_active())
+
+    def _setup_position_widgets(self, enabled=None):
+        if enabled is None:
+            enabled = not self.exaile.settings.get_boolean('keep_center',
+                default=True, plugin=self.plugin_name)
+        for w in self.position_widgets:
+            w.set_sensitive(enabled)
+
+    def _setup_size_widgets(self, enabled=None):
+        if enabled is None:
+            enabled = not self.exaile.settings.get_boolean('use_image_size',
+                default=True, plugin=self.plugin_name)
+        for w in self.size_widgets:
+            w.set_sensitive(enabled)
 
 def initialize():
-    """
-        Inizializes the plugin
-    """
-    global PLUGIN, SETTINGS, APP
-    exaile = APP
-    SETTINGS = exaile.settings
-    print "%s_geometry" % \
-        plugins.name(__file__)
+    global PLUGIN
+    PLUGIN = CoverDisplay()
 
-    geometry = exaile.settings.get_str("geometry",
-        plugin=plugins.name(__file__), default="150x150")
-    print "Cover geometry: %s" % geometry
-    PLUGIN = CoverDisplay(exaile, geometry)
-
-    CON.connect(APP, 'play-track', PLUGIN.play_track)
-    CON.connect(APP, 'stop-track', PLUGIN.stop_track)
-    CON.connect(APP.cover, 'image-changed', PLUGIN.play_track)
+    CONNS.connect(APP, 'play-track', _cover_changed)
+    CONNS.connect(APP, 'stop-track', _track_stopped)
+    CONNS.connect(APP.cover, 'image-changed', _cover_changed)
 
     return True
 
 def destroy():
-    """
-        Destroys the plugin
-    """
-    global PLUGIN, PLAY_ID, STOP_ID, COVER_ID
-
-    CON.disconnect_all()
-
-    if PLUGIN:
-        PLUGIN.destroy()
-
-
+    global PLUGIN
+    CONNS.disconnect_all()
+    PLUGIN.destroy()
     PLUGIN = None
 
 def configure():
-    """
-        Called when a configure request is called
-    """
-    global PLUGIN
-    exaile = APP
-    settings = exaile.settings
-    geometry = settings.get_str('geometry', plugin=plugins.name(__file__), default='150x150')
+    dialog = DesktopCoverConfig(APP, PLUGIN_NAME, PLUGIN,
+        plugins.name(__file__))
+    dialog.run()
+    dialog.destroy()
 
-    dialog = plugins.PluginConfigDialog(exaile.window, PLUGIN_NAME)
-    box = dialog.main
-    table = gtk.Table(4, 2)
-    table.set_row_spacings(2)
-    table.set_col_spacings(2)
-
-    match = re.match(
-            '^=?(?:(\d+)?(?:[Xx](\d+))?)?'
-            '(?:([+-])(\d+)?(?:([+-])(\d+))?)?$',
-            geometry)
-    if not match:
-        w, h, px, x, py, y = '150', '150', '+', '0', '+', '0'
+def _cover_changed(obj, track):
+    newcover = APP.cover.loc
+    if 'nocover' in newcover:
+        PLUGIN.display(None)
     else:
-        w, h, px, x, py, y = match.groups()
+        PLUGIN.display(newcover)
+    return True
 
-    if not w: w = '150'
-    if not h: h = '150'
-    if not px or px == '+': px = ''
-    if not py or py == '+': py = ''
-    if x == '' or x is None: x = ''
-    if y == '' or y is None: y = ''
+def _track_stopped(obj, track):
+    PLUGIN.display(None)
 
-    y = "%s%s" % (py, y)
-    x = "%s%s" % (px, x)
-    boxes = dict()
-    items = ('Width:w', 'Height:h', 'X:x', 'Y:y')
-    bottom = 0
-    for item in items:
-        (name, prop) = item.split(':')
-        label = gtk.Label("%s:    " % name)
-        label.set_alignment(0, 0)
-
-        table.attach(label, 0, 1, bottom, bottom + 1,
-            gtk.EXPAND|gtk.FILL, gtk.FILL)
-        field = gtk.Entry()
-        field.set_text(locals()[prop])
-        field.set_max_length(5)
-        table.attach(field, 1, 2, bottom, bottom + 1,
-            gtk.EXPAND|gtk.FILL, gtk.FILL)
-        boxes[prop] = field
-        bottom += 1
-
-    box.pack_start(table, False, False)
-    box.pack_start(gtk.Label("Leave X and Y empty to center"),
-        False, False)
-    dialog.show_all()
-
-    result = dialog.run()
-    dialog.hide()
-    if result == gtk.RESPONSE_OK:
-        new = dict()
-        for item in items:
-            (name, item) = item.split(':')
-            val = boxes[item].get_text()
-            if val:
-                try:    
-                    int(val)
-                except ValueError:
-                    xl.common.error(exaile.window, _("Invalid "
-                        "setting for %s" % item.upper()))
-                    return
-
-            new[item] = val
-
-        for item in ('x', 'y'):
-            if new[item] and new[item].find("-") <= -1:
-                new[item] = "+%s" % new[item]
-
-        settings.set_str("geometry", "%sx%s%s%s" % (new['w'], new['h'], new['x'], new['y']),
-            plugin=plugins.name(__file__))
-        geometry = "%sx%s%s%s" % (new['w'], new['h'], new['x'], new['y'])
-        
-        destroy()
-        initialize()
-        track = exaile.player.current
-
-        if not track: return
-        if track and APP.player.is_playing() or APP.player.is_paused():
-            if PLUGIN: PLUGIN.play_track(track)
-        print "New settings: %s" % settings.get_str("geometry",
-            plugin=plugins.name(__file__))
+# vi: et ts=4 sts=4 sw=4

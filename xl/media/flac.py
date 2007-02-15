@@ -10,7 +10,7 @@ def fill_tag_from_path(tr):
     """
         Reads all tags from the file
     """
-    f = mutagen.flac.FLAC(tr.loc)
+    f = mutagen.flac.FLAC(tr.io_loc)
     tr.length = int(f.info.length)
 
     tr.artist = get_tag(f, "artist")
@@ -23,7 +23,7 @@ def fill_tag_from_path(tr):
 
 
 def write_tag(tr):
-    f = mutagen.flac.FLAC(tr.loc)
+    f = mutagen.flac.FLAC(tr.io_loc)
     if f.vc is None: f.add_vorbiscomment()
     del(f.vc[:])
     f.vc['artist'] = tr.artist

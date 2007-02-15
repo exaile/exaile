@@ -23,7 +23,7 @@ def get_tag(id3, t):
 
 def write_tag(tr):
     try:
-        id3 = mutagen.id3.ID3(tr.get_loc_for_io())
+        id3 = mutagen.id3.ID3(tr.io_loc)
     except mutagen.id3.ID3NoHeaderError:
         id3 = mutagen.id3.ID3()
 
@@ -50,15 +50,15 @@ def write_tag(tr):
 
             id3.loaded_frame(frame)
 
-        id3.save(tr.loc)    
+        id3.save(tr.io_loc)    
 
 def fill_tag_from_path(tr):
-    info = mutagen.mp3.MP3(tr.get_loc_for_io())
+    info = mutagen.mp3.MP3(tr.io_loc)
     tr.length = info.info.length
     tr.bitrate = info.info.bitrate
 
     try:    
-        id3 = mutagen.id3.ID3(tr.loc)
+        id3 = mutagen.id3.ID3(tr.io_loc)
         tr.title = get_tag(id3, 'TIT2')
         tr.artist = get_tag(id3, 'TPE1')
         tr.album = get_tag(id3, 'TALB')

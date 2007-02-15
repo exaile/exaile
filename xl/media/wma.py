@@ -7,7 +7,7 @@ def get_tag(inf, name):
         return ''
 
 def fill_tag_from_path(tr):
-    inf = lib.wmainfo.WmaInfo(tr.loc)
+    inf = lib.wmainfo.WmaInfo(tr.io_loc)
 
     tr.length = inf.info["playtime_seconds"]
     tr.bitrate = inf.info["max_bitrate"]

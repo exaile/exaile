@@ -369,3 +369,4 @@ class Track(gobject.GObject):
     track = property(get_track, set_track)
     encoding = property(get_encoding, set_encoding)
     loc = property(get_loc, set_loc)
+    io_loc = property(get_loc_for_io, None)

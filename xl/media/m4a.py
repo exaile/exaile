@@ -16,7 +16,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import mutagen.m4a
+try:
+    import mutagen.mp4
+except ImportError:
+    import mutagen.m4a
 
 def get_tag(f, name):
     name = '\xa9%s' % name
@@ -29,7 +32,7 @@ def set_tag(f, name, value):
     f[name] = value
 
 def fill_tag_from_path(tr):
-    f = mutagen.m4a.M4A(tr.loc)
+    f = mutagen.m4a.M4A(tr.io_loc)
     tr.length = f.info.length
     tr.bitrate = f.info.bitrate
     
@@ -50,7 +53,7 @@ def fill_tag_from_path(tr):
     tr.year = get_tag(f, 'day')
 
 def write_tag(tr):
-    f = mutagen.m4a.M4A(self.loc)
+    f = mutagen.m4a.M4A(self.io_loc)
 
     try:
         f['trkn'] = (int(self.track), f['trkn'][1])

@@ -12,7 +12,7 @@ def get_tag(f, tag):
 
 def write_tag(tr):
     try:
-        com = mutagen.oggvorbis.OggVorbis(tr.loc)
+        com = mutagen.oggvorbis.OggVorbis(tr.io_loc)
     except mutagen.oggvorbis.OggVorbisHeaderError:
         com = mutagen.oggvorbis.OggVorbis()
     com.clear()
@@ -23,14 +23,14 @@ def write_tag(tr):
     com['tracknumber'] = str(tr.track)
     com['tracktotal'] = str(tr.disc_id)
     com['date'] = str(tr.year)
-    com.save(tr.loc)
+    com.save(tr.io_loc)
 
 def fill_tag_from_path(tr):
     """
         Fills the passed in media.Track with tags from the file
     """
     try:
-        f = mutagen.oggvorbis.OggVorbis(tr.loc)
+        f = mutagen.oggvorbis.OggVorbis(tr.io_loc)
     except mutagen.oggvorbis.OggVorbisHeaderError:
         return
 

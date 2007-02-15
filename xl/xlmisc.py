@@ -909,7 +909,7 @@ def log_exception():
     """
         Queues a log event
     """
-    message = traceback.format_exc()
+    message = log_file_and_line() + traceback.format_exc()
     gobject.idle_add(__log_exception, message)
 
 def __log_exception(message):
@@ -919,6 +919,16 @@ def __log_exception(message):
     message = message.split("\n")
     for line in message:
         log(line)
+
+def log_file_and_line():
+    """
+       Logs where we are (function, file name and line number)
+       when log_exception is called... handy for debugging.
+    """
+    co = sys._getframe(2).f_code
+    return "-----------------------\n" \
+           " %s ( %s @ %s):\n" \
+           "-----------------------\n" % (co.co_name, co.co_filename, co.co_firstlineno)
 
 class URLFetcher(threading.Thread):
     """

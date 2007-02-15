@@ -214,15 +214,15 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None):
 
 def already_added(t, added):
     """
-        Checks to see if an md5 hash of the title, artist, album has already
-        been added to the list of tracks
+        Checks to see if an md5 hash of the title, artist, album and path 
+        has already been added to the list of tracks
     """
 
     if dbusinterface.options.testing: return False
     if not t.title: t.title = ""
     if not t.album: t.album = ""
     if not t.artist: t.artist = ""
-    h = "%s - %s - %s" % (t.title, t.album, t.artist)
+    h = "%s - %s - %s - %s" % (t.title, t.album, t.artist, t.loc)
 
     if added.has_key(h): return True
     added[h] = 1
@@ -290,6 +290,7 @@ def load_tracks(db, current=None):
                 if not row: break
                 globals()[item][row[1]] = row[0]
             except: 
+                xlmisc.log_file_and_line()
                 xlmisc.log_exception()
 
     cur.execute("SELECT artist, name, id FROM albums")
@@ -319,7 +320,7 @@ def scan_dir(dir, files=None, exts=()):
 
     for file in to_scan:
         try:
-            file = unicode(os.path.join(dir, file))
+            file = os.path.join(dir, file)
         except UnicodeDecodeError:
             xlmisc.log("Error decoding filename %s" % file)
             continue
@@ -491,7 +492,8 @@ def read_track_from_db(db, path):
             modified, 
             user_rating, 
             blacklisted, 
-            time_added
+            time_added,
+            encoding
         FROM tracks,paths,artists,albums 
         WHERE 
             (
@@ -500,6 +502,7 @@ def read_track_from_db(db, path):
                 albums.id=tracks.album
             ) 
             AND paths.name=? 
+        LIMIT 1
         """, (path,))
 
     if rows:
@@ -510,7 +513,7 @@ def read_track_from_db(db, path):
     if tr:
         (path, ext) = os.path.splitext(tr.loc.lower())
         tr.type = ext.replace('.', '')
-
+    
     return tr
 
 def save_track_to_db(db, tr, new=False, prep=''):
@@ -518,10 +521,10 @@ def save_track_to_db(db, tr, new=False, prep=''):
         tr.time_added = time.strftime("%Y-%m-%d %H:%M:%Y", 
             time.localtime())
 
-    path_id = get_column_id(db, 'paths', 'name', unicode(tr.loc),
+    path_id = get_column_id(db, 'paths', 'name', tr.loc,
         prep=prep)
-    artist_id = get_column_id(db, 'artists', 'name', unicode(tr.artist), prep=prep)
-    album_id = get_album_id(db, artist_id, unicode(tr.album),
+    artist_id = get_column_id(db, 'artists', 'name', tr.artist, prep=prep)
+    album_id = get_album_id(db, artist_id, tr.album,
         prep=prep)
 
     db.update("tracks",
@@ -538,7 +541,8 @@ def save_track_to_db(db, tr, new=False, prep=''):
             "blacklisted": tr.blacklisted,
             "year": tr.year,
             "modified": tr.modified,
-            "time_added": tr.time_added
+            "time_added": tr.time_added,
+            "encoding": tr.encoding
         }, "path=?", (path_id,), new)
 
 class PopulateThread(threading.Thread):
@@ -604,19 +608,18 @@ class PopulateThread(threading.Thread):
                 tr = self.exaile.all_songs.for_path(loc)
                
                 if not tr:
-                    tr = read_track_from_db(db, loc)
+                    tr = read_track_from_db(db, unicode(loc, "latin1"))
 
                 modified = os.stat(loc).st_mtime
                 if not tr or tr.modified != modified:
-                    new = False
                     if not tr: new = True
+                    else: new = False
                     tr = media.read_from_path(loc)
                     if not tr: continue
                     save_track_to_db(db, tr, new)
 
-
                 if tr:
-                    path_id = get_column_id(db, 'paths', 'name', loc)
+                    path_id = get_column_id(db, 'paths', 'name', unicode(loc, "latin1"))
                     db.execute("UPDATE tracks SET included=1 WHERE path=?",
                         (path_id,))
                 if not tr or tr.blacklisted: continue
@@ -627,8 +630,11 @@ class PopulateThread(threading.Thread):
                 already_added(tr, added)
 
             except DBOperationalError:
+                print "DBOperationalError"
                 continue
             except OSError:
+                print "OSError"
+		xlmisc.log_exception()
                 continue
             except Exception, ex:
                 xlmisc.log_exception()

@@ -1,5 +1,6 @@
 from xl.media import mp3, ogg, flac
 from xl import xlmisc
+from mutagen.mp3 import HeaderNotFoundError
 import os.path, gobject, re
 
 __all__ = ['flac', 'mp3', 'm4a', 'ogg', 'wma']
@@ -41,6 +42,8 @@ def read_from_path(uri):
 
     try:
         formats[ext].fill_tag_from_path(tr)
+    except HeaderNotFoundError:
+        print "Possibly corrupt file: " + uri
     except:
         xlmisc.log_exception()
         return None
@@ -96,18 +99,39 @@ class Track(gobject.GObject):
     def set_info(self,loc="", title="", artist="",  
         album="", disc_id=0, genre="",
         track=0, length=0, bitrate=0, year="", 
-        modified=0, user_rating=0, blacklisted=0, time_added=''):
+        modified=0, user_rating=0, blacklisted=0, time_added='', encoding="latin1"):
     
     
         """
             Sets track information
         """
 
-        self.loc = loc
+        # Doesn't matter what charset we use here, as long as we use
+        # the same one when we decode (or encode as it were)
+        if type(loc) is unicode:
+            self._loc = loc
+        else:        
+            self._loc = unicode(loc, "latin1")
+
         self._bitrate = bitrate
-        self._title = title
-        self.artist = artist
-        self.album = album
+
+        # This would be more nicely written using conditional expressions
+        # but that is Python 2.5 only
+	if type(title) is unicode:
+            self._title = title
+        else:
+            self._title = unicode(title, encoding)
+
+        if type(artist) is unicode:
+            self._artist = artist
+        else:
+            self._artist = unicode(artist, encoding)
+
+        if type(album) is unicode:
+            self._album = album
+        else:
+            self._album = unicode(album, encoding)
+
         self.disc_id = disc_id
 
         # attempt to set the track number as an integer
@@ -125,9 +149,10 @@ class Track(gobject.GObject):
         self.bitrate = bitrate
         self.modified = modified
         self.blacklisted = blacklisted
-        self.rating = user_rating
+        self._rating = user_rating
         self.user_rating = user_rating
         self.time_added = time_added
+        self._encoding = encoding
 
     def set_track(self, t): 
         """
@@ -207,30 +232,69 @@ class Track(gobject.GObject):
             Returns the title of the track from the id3 tag
         """
 
-        if self._title == "" and not self.album and not self.artist:
+        if self._title == "":
             return re.sub(".*%s" % os.sep, "", self.loc)
-        try:
-            return self._title.decode("utf-8")
-        except:
+        else:
             return self._title
     
     def set_title(self, value): 
         """
             Sets the title
         """
-        self._title = value
+        if type(value) is unicode:
+            self._title = value
+        else:
+            self._title = unicode(value, self._encoding)
 
     def set_artist(self, value):
         """
             Sets the artist
         """
-        self._artist = value
+        if type(value) is unicode:
+            self._artist = value
+        else:
+            self._artist = unicode(value, self._encoding)
 
     def get_artist(self):
         """
             Gets the artist
         """
         return self._artist
+
+    def set_album(self, value):
+        """
+            Sets the album
+        """
+        if type(value) is unicode:
+            self._album = value
+        else:
+            self._album = unicode(value, self._encoding)
+
+    def get_album(self):
+        """
+            Gets the album
+        """
+        return self._album
+
+    def get_encoding(self):
+        """
+            Gets the encoding used for the metadata
+        """
+        return self._encoding
+
+    def set_encoding(self, value):
+        """
+            Sets the encoding, translating from the previous one
+        """
+        title = self._title.encode(self.encoding)
+        album = self._album.encode(self.encoding)
+        artist = self._artist.encode(self.encoding)
+
+        self._title = unicode(title, value)
+        self._album = unicode(album, value)
+        self._artist = unicode(artist, value)
+
+        self._encoding = value
 
     def get_len(self): 
         """
@@ -283,10 +347,25 @@ class Track(gobject.GObject):
         """
         self._bitrate = rate
 
+    def get_loc(self):
+        return self._loc
+
+    def get_loc_for_io(self):
+        return self._loc.encode("latin1")
+
+    def set_loc(self, value):
+        if type(value) is unicode:
+            self._loc = value
+        else:
+            self._loc = unicode(value, "latin1")
+
     title = property(get_title, set_title)
     artist = property(get_artist, set_artist)
+    album = property(get_album, set_album)
     length = property(get_len, set_len)
     duration = property(get_duration)
     rating = property(get_rating, set_rating)
     bitrate = property(get_bitrate, set_bitrate)
     track = property(get_track, set_track)
+    encoding = property(get_encoding, set_encoding)
+    loc = property(get_loc, set_loc)

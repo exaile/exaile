@@ -19,7 +19,6 @@ CREATE TABLE tracks( path INT NOT NULL,
     user_rating INT DEFAULT 2, 
     last_played DATETIME, 
     time_added DATETIME,
-    encoding VARCHAR(15),
     blacklisted INT DEFAULT 0,
     type TINYINT DEFAULT 0,
     included INT DEFAULT 0, PRIMARY KEY( path ) );

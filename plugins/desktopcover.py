@@ -24,10 +24,9 @@ PLUGIN_DESCRIPTION = "Displays the current album cover on the desktop"
 PLUGIN_ENABLED = False
 PLUGIN_ICON = None
 
-import re
 from gettext import gettext as _
-import gobject, gtk
-import xl.common, plugins
+import gtk
+import plugins
 
 PLUGIN = None
 CONNS = plugins.SignalContainer()
@@ -125,14 +124,14 @@ class CoverDisplay:
     def destroy(self):
         self.window.destroy()
 
-class DesktopCoverConfig(plugins.PluginConfigDialog):
-    GRAVITIES = [
-        (_("Northwest"), gtk.gdk.GRAVITY_NORTH_WEST),
-        (_("Northeast"), gtk.gdk.GRAVITY_NORTH_EAST),
-        (_("Southwest"), gtk.gdk.GRAVITY_SOUTH_WEST),
-        (_("Southeast"), gtk.gdk.GRAVITY_SOUTH_EAST),
-    ]
+GRAVITIES = [
+    (_("Northwest"), gtk.gdk.GRAVITY_NORTH_WEST),
+    (_("Northeast"), gtk.gdk.GRAVITY_NORTH_EAST),
+    (_("Southwest"), gtk.gdk.GRAVITY_SOUTH_WEST),
+    (_("Southeast"), gtk.gdk.GRAVITY_SOUTH_EAST),
+]
 
+class DesktopCoverConfig(plugins.PluginConfigDialog):
     def __init__(self, exaile, title, plugin, plugin_name):
         super(type(self), self).__init__(exaile.window, title)
         self.exaile = exaile
@@ -163,7 +162,7 @@ class DesktopCoverConfig(plugins.PluginConfigDialog):
         self.gravity_combo = combo = gtk.combo_box_new_text()
         table.attach(combo, 1, 2, n_rows, n_rows + 1)
         position_widgets.append(combo)
-        for grav in self.GRAVITIES:
+        for grav in GRAVITIES:
             combo.append_text(grav[0])
         combo.set_active(settings.get_int('gravity', default=0,
             plugin=plugin_name))
@@ -237,7 +236,7 @@ class DesktopCoverConfig(plugins.PluginConfigDialog):
         settings.set_boolean('keep_center', keep_center, plugin=plugin_name)
 
         gravity = self.gravity_combo.get_active()
-        plugin.set_gravity(self.GRAVITIES[gravity][1])
+        plugin.set_gravity(GRAVITIES[gravity][1])
         settings.set_int('gravity', gravity, plugin=plugin_name)
 
         x = self.x_spin.get_value_as_int()
@@ -282,6 +281,24 @@ class DesktopCoverConfig(plugins.PluginConfigDialog):
 def initialize():
     global PLUGIN
     PLUGIN = CoverDisplay()
+
+    settings = APP.settings
+    plugin_name = plugins.name(__file__)
+
+    PLUGIN.set_keep_center(settings.get_boolean('keep_center', default=True,
+        plugin=plugin_name))
+    gravity = settings.get_int('gravity', default=0, plugin=plugin_name)
+    PLUGIN.set_gravity(GRAVITIES[gravity][1])
+    x = settings.get_int('x', default=PLUGIN.DEFAULT_X, plugin=plugin_name)
+    y = settings.get_int('y', default=PLUGIN.DEFAULT_Y, plugin=plugin_name)
+    PLUGIN.set_position(x, y)
+    PLUGIN.use_image_size = settings.get_boolean('use_image_size',
+        default=True, plugin=plugin_name)
+    width = settings.get_int('width', default=PLUGIN.DEFAULT_WIDTH,
+        plugin=plugin_name)
+    height = settings.get_int('height', default=PLUGIN.DEFAULT_HEIGHT,
+        plugin=plugin_name)
+    PLUGIN.set_size(width, height)
 
     CONNS.connect(APP, 'play-track', _cover_changed)
     CONNS.connect(APP, 'stop-track', _track_stopped)

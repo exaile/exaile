@@ -210,6 +210,11 @@ class DBusInterfaceObject(dbus.service.Object):
     def get_version(self):
         return self.exaile.get_version()
 
+    @dbus.service.method("org.exaile.DBusInterface")
+    def set_rating(self, rating):
+        if not self.exaile.player.current: return
+        self.exaile.set_rating(None, rating)
+
 
 def test_dbus(bus, interface):
     obj = bus.get_object('org.freedesktop.DBus', '/org/freedesktop/DBus') 
@@ -242,6 +247,9 @@ def test(p):
                 elif options.stream: iface.play_file(options.stream)
 
                 do_exit = False
+                if options.rating is not None:
+                    iface.set_rating(options.rating)
+                    do_exit = True
                 if options.get_title:
                     print iface.get_title()
                     do_exit = True
@@ -324,6 +332,8 @@ def get_options():
     p.add_option("--stream", dest="stream", help="Stream URL")
     p.add_option("--new", dest="new", action="store_true",
         default=False, help="Start new instance")
+    p.add_option('--set-rating', dest='rating', help='Set rating for current '
+        'song')
     p.add_option("--settings", dest="settings", help="Settings Directory")
     p.add_option("--cleanversion", dest="cleanversion", action="store_true")
     p.add_option("--version", dest="show_version", action="store_true")

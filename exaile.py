@@ -525,14 +525,18 @@ class ExaileWindow(gobject.GObject):
         """
         self.settings.set_boolean("enabled", plugin.PLUGIN_ENABLED, plugin=plugin.FILE_NAME)
 
-    def set_rating(self, combo):
+    def set_rating(self, combo=None, rating=None):
         """
             Sets the user rating of a track
         """
         track = self.player.current
         if not track: return
 
-        rating = combo.get_active() + 1
+        if rating is None:
+            rating = combo.get_active() + 1
+        else:
+            if rating < 0: rating = 0
+            if rating > 8: rating = 8
         track.rating = rating
         path_id = tracks.get_column_id(self.db, 'paths', 'name', track.loc)
         self.db.execute("UPDATE tracks SET user_rating=? WHERE path=?", 

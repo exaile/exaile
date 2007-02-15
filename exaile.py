@@ -535,6 +535,11 @@ class ExaileWindow(gobject.GObject):
         if rating is None:
             rating = combo.get_active() + 1
         else:
+            try:
+                rating = int(rating)
+            except ValueError:
+                xlmisc.log('Invalid rating passed')
+                return
             if rating < 0: rating = 0
             if rating > 8: rating = 8
         track.rating = rating
@@ -574,7 +579,8 @@ class ExaileWindow(gobject.GObject):
             done_func = None
             if check.get_active():
                 done_func = self.after_import
-            self.update_library((path,), done_func=done_func, load_tree=load_tree)
+            self.update_library((path,), done_func=done_func, load_tree=load_tree, 
+                delete=False)
         dialog.destroy()
 
     def after_import(self, songs):
@@ -2117,14 +2123,14 @@ class ExaileWindow(gobject.GObject):
         if len(items): self.update_library(items, load_tree=load_tree)
     
     def update_library(self, items, done_func=None,
-        load_tree=True): 
+        load_tree=True, delete=True): 
         """
             Updates the library
         """
         self.status.set_first(_("Scanning collection..."))
 
         tracks.populate(self, self.db,
-            items, self.on_library_update, True,
+            items, self.on_library_update, delete,
             load_tree=load_tree, done_func=done_func)
 
     def on_library_update(self, percent, songs=None, done_func=None): 

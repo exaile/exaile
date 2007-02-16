@@ -16,10 +16,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-try:
-    import mutagen.mp4
-except ImportError:
-    import mutagen.m4a
+import mutagen.m4a
 
 def get_tag(f, name):
     name = '\xa9%s' % name

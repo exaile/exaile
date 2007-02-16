@@ -39,7 +39,7 @@ class CoverDisplay:
         self.window = wnd = gtk.Window()
         wnd.set_accept_focus(False)
         wnd.set_decorated(False)
-        wnd.set_keep_below(True)
+        #wnd.set_keep_below(True)
         wnd.set_resizable(False)
         wnd.set_skip_pager_hint(True)
         wnd.set_skip_taskbar_hint(True)
@@ -119,6 +119,9 @@ class CoverDisplay:
 
         if not self.window.props.visible:
             self.window.show()
+            # Needs to be set here, possibly a WM bug.
+            # See http://exaile.org/trac/ticket/246
+            self.window.set_keep_below(True)
         self.set_position()
 
     def destroy(self):

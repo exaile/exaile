@@ -1666,7 +1666,7 @@ class ExaileWindow(gobject.GObject):
         artist_id = tracks.get_column_id(self.db, 'artists', 'name', track.artist)
         tracks.get_album_id(self.db, artist_id, track.album)
 
-        if track.type != 'stream' and self.settings.get_boolean('fetch_covers', True):
+        if track.type != 'stream':
             self.fetch_cover(track)
 
         self.show_osd()

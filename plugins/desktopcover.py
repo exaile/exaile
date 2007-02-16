@@ -43,8 +43,7 @@ class CoverDisplay:
         wnd.set_resizable(False)
         wnd.set_skip_pager_hint(True)
         wnd.set_skip_taskbar_hint(True)
-        wnd.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_SPLASHSCREEN)
-        wnd.stick()
+        #wnd.stick()
 
         self.x = self.DEFAULT_X
         self.y = self.DEFAULT_Y
@@ -119,9 +118,8 @@ class CoverDisplay:
 
         if not self.window.props.visible:
             self.window.show()
-            # Needs to be set here, possibly a WM bug.
-            # See http://exaile.org/trac/ticket/246
             self.window.set_keep_below(True)
+            self.window.stick()
         self.set_position()
 
     def destroy(self):

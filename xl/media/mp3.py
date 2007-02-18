@@ -81,7 +81,7 @@ def fill_tag_from_path(tr):
             except ValueError:
                 tr.track = -1
 
-        tr.year = get_tag(id3, 'TRDC')
+        tr.year = get_tag(id3, 'TDRC')
 
     except OverflowError:
         pass

@@ -1220,8 +1220,8 @@ class ExaileWindow(gobject.GObject):
         self.artist_label = self.xml.get_widget('artist_label')
         if track == None:
             self.progress_label.set_label('0:00')
-            self.title_label.set_label('Not Playing')
-            self.artist_label.set_label('Stopped')
+            self.title_label.set_label(_("Not Playing"))
+            self.artist_label.set_label(_("Stopped"))
             self.rating_combo.set_active(0)
             self.rating_combo.set_sensitive(False)
 

@@ -41,8 +41,8 @@ class CoverDisplay:
         wnd.set_decorated(False)
         #wnd.set_keep_below(True)
         wnd.set_resizable(False)
-        wnd.set_skip_pager_hint(True)
-        wnd.set_skip_taskbar_hint(True)
+        #wnd.set_skip_pager_hint(True)
+        #wnd.set_skip_taskbar_hint(True)
         #wnd.stick()
 
         self.x = self.DEFAULT_X
@@ -116,10 +116,14 @@ class CoverDisplay:
             pixbuf = pixbuf.scale_simple(width, height, gtk.gdk.INTERP_BILINEAR)
         self.image.set_from_pixbuf(pixbuf)
 
-        if not self.window.props.visible:
-            self.window.show()
-            self.window.set_keep_below(True)
-            self.window.stick()
+        wnd = self.window
+        if not wnd.props.visible:
+            wnd.show()
+            # Some WMs reset these values.
+            wnd.set_keep_below(True)
+            wnd.set_skip_pager_hint(True)
+            wnd.set_skip_taskbar_hint(True)
+            wnd.stick()
         self.set_position()
 
     def destroy(self):

@@ -16,7 +16,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-__version__ = '0.2.9b'
+__version__ = '0.2.10b'
 import traceback, sys, gobject
 gobject.threads_init()
 

@@ -134,12 +134,17 @@ class iPodDriver(plugins.DeviceDriver):
             Removes tracks from the ipod
         """
         for track in tracks:
+            song = track 
             track = self.get_ipod_track(track)
             for playlist in gpod.sw_get_playlists(self.itdb):
                 if gpod.itdb_playlist_contains_track(playlist, track):
                     gpod.itdb_playlist_remove_track(playlist, track)
 
             gpod.itdb_track_unlink(track)
+            self.all.remove(track)
+            path_id = tracks.get_column_id(self.db, 'paths', 'name', song.loc,
+                prep='IPOD_')
+            self.db.execute('DELETE FROM tracks WHERE path=?', (path_id,))
         self.transfer_done()
 
     def get_initial_root(self, model):
@@ -164,7 +169,7 @@ class iPodDriver(plugins.DeviceDriver):
         (song, target) = (item.track, item.target)
         print "Transferring %s %s" % (song, type(song))
         if self.find_dup(song): return
-        if not isinstance(song, media.MP3Track): return
+        if song.type != 'mp3': return
         track = self.get_ipod_track(song)
         cover = self.get_cover_location(song)
         track.itdb = self.itdb
@@ -180,6 +185,33 @@ class iPodDriver(plugins.DeviceDriver):
 
         if isinstance(target, iPodPlaylist):
             gpod.itdb_playlist_add_track(target.playlist, track, -1)
+
+        # add the song to the database
+        left = []
+        for i in range(10):
+            left.append('?')
+        left = ", ".join(left)
+        path_id = tracks.get_column_id(self.db, 'paths', 'name', song.loc,
+            prep='IPOD_')
+        artist_id = tracks.get_column_id(self.db, 'artists', 'name', 
+            track.artist, prep='IPOD_')
+        album_id = tracks.get_album_id(self.db, artist_id, track.album, prep='IPOD_')
+        self.db.execute("INSERT INTO tracks(path, " \
+            "title, artist, album, track, length," \
+            "bitrate, genre, year, user_rating ) " \
+            "VALUES( %s ) " % left, 
+
+            (path_id,
+            unicode(track.title),
+            unicode(artist_id),
+            unicode(album_id),
+            unicode(track.track_nr),
+            unicode(track.tracklen / 1000),
+            unicode(track.bitrate),
+            unicode(track.genre),
+            unicode(track.year),
+            unicode(track.rating)))
+        self.all.append(song)
 
     def find_dup(self, song):
         """
@@ -273,7 +305,7 @@ class iPodDriver(plugins.DeviceDriver):
         self.all = xl.tracks.TrackData()
 
         if not self.itdb: 
-            self.connected = False
+            elf.connected = False
             self.all = tracks.TrackData()
             gobject.idle_add(panel.on_error, "Error connecting to "
                 "iPod")

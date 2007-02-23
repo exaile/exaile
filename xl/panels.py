@@ -1050,6 +1050,7 @@ class DevicePanel(CollectionPanel):
             self.queue.destroy()
             self.queue = None
         self.transferring = None
+        self.load_tree()
 
     def change_driver(self, button):
         """

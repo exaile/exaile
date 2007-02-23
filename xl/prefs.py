@@ -316,7 +316,7 @@ class Preferences(object):
     order = ('General', 'Advanced')
     items = ({'General':
                 ('Library',
-                'OSD',
+                'Notification',
                 'Last.fm',
                 'Radio'),
             'Advanced':

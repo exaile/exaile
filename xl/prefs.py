@@ -343,26 +343,23 @@ class Preferences(object):
         self.nb = self.xml.get_widget('prefs_nb')
         self.nb.set_show_tabs(False)
 
-        self.tree = self.xml.get_widget('prefs_tree')
-        text = gtk.CellRendererText()
-        col = gtk.TreeViewColumn('Preferences', text, text=0)
-        self.tree.append_column(col)
-        self.tree.connect('button_release_event',
-            self.switch_pane)
-
         self.xml.get_widget('prefs_cancel_button').connect('clicked',
             lambda *e: self.cancel())
         self.xml.get_widget('prefs_apply_button').connect('clicked',
             self.apply)
-
         self.xml.get_widget('prefs_ok_button').connect('clicked',
             self.ok)
+
         self.label = self.xml.get_widget('prefs_frame_label')
 
-        self.model = gtk.TreeStore(str, int)
+        self.tree = self.xml.get_widget('prefs_tree')
+        text = gtk.CellRendererText()
+        col = gtk.TreeViewColumn('Preferences', text, text=0)
+        self.tree.append_column(col)
 
+        self.model = gtk.TreeStore(str, int)
         self.tree.set_model(self.model)
-    
+
         count = 0
         for header in self.order:
             items = self.items[header]
@@ -374,8 +371,10 @@ class Preferences(object):
             self.tree.expand_row(self.model.get_path(node), False)
 
         selection = self.tree.get_selection()
+        selection.connect('changed', self.switch_pane)
         selection.select_path((0,))
-        xml.get_widget('prefs_lastfm_pass').set_invisible_char('*')
+
+        xml.get_widget('prefs_lastfm_pass').set_invisible_char(u'\u25cf')
         xml.get_widget('prefs_audio_sink').set_active(0)
         self.text_display = PrefsTextViewItem('osd/display_text',
             TEXT_VIEW_DEFAULT, self.display_popup)
@@ -566,11 +565,10 @@ class Preferences(object):
         self.window.hide()
         self.window.destroy()
 
-    def switch_pane(self, button, event):
+    def switch_pane(self, selection):
         """
             Switches a pane
         """
-        selection = self.tree.get_selection()
         (model, iter) = selection.get_selected()
         if not iter: return
         index = self.model.get_value(iter, 1)

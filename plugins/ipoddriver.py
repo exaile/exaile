@@ -208,7 +208,7 @@ class iPodDriver(plugins.DeviceDriver):
                 self.transfer_done()
                 self.dp.tree.queue_draw()
 
-    def on_remove_playlist(self): pass
+    def on_remove_playlist(self): 
         selection = self.dp.tree.get_selection()
         (model, paths) = selection.get_selected_rows()
         for path in paths:

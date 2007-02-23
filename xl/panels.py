@@ -534,6 +534,11 @@ class CollectionPanel(object):
         object = self.model.get_value(iter, 1)
 
         self.create_popup()
+
+        if self.name == 'device':
+            self.show_device_panel_menu(widget, event, object)
+            return
+
         self.menu.popup(None, None, None, event.button, event.time)
         if selection.count_selected_rows() <= 1: return False
         return True
@@ -959,6 +964,15 @@ class DevicePanel(CollectionPanel):
         self.connected = False
         self.queue = None
         self.chooser.set_active(0)
+
+    def show_device_panel_menu(self, widget, event, item):
+        """
+            Shows the device panel menu
+        """
+        if self.driver and hasattr(self.driver, 'get_menu'):
+            menu = self.driver.get_menu(item, self.menu)
+
+        menu.popup(None, None, None, event.button, event.time)
 
     def remove_tracks(self, tracks):
         """ 

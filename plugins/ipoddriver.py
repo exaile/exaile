@@ -147,6 +147,95 @@ class iPodDriver(plugins.DeviceDriver):
             self.db.execute('DELETE FROM tracks WHERE path=?', (path_id,))
         self.transfer_done()
 
+    def get_menu(self, item, menu):
+        """
+            Returns the appropriate menu for a specific item
+        """
+        if isinstance(item, iPodPlaylist):
+            menu = xlmisc.Menu()
+            menu.append('Add Playlist', self.on_add_playlist)
+            menu.append('Rename Playlist', self.on_rename_playlist)
+            menu.append('Remove Playlist', self.on_remove_playlist)
+
+        return menu
+
+    def on_add_playlist(self): 
+        """
+            Creates a new playlist on the ipod
+        """
+        dialog = xlmisc.TextEntryDialog(self.exaile.window, 
+            _("Enter a name for the new playlist"), _("New Playlist"))
+        result = dialog.run()
+        dialog.dialog.hide()
+        if result == gtk.RESPONSE_OK:
+            name = str(dialog.get_value())
+            playlist = gpod.itdb_playlist_new(name, False)
+            self.lists.append(iPodPlaylist(playlist))
+            gpod.itdb_playlist_add(self.itdb, playlist, -1)
+            item = self.db.model.append(self.iroot, [self.iplaylist_image,
+                iPodPlaylist(playlist)])
+            playlist_id = tracks.get_column_id(self.db, 'playlists', 'name',
+                name, True)
+            self.list_dict[name] = playlist
+            self.transfer_done()
+
+            self.dp.load_tree()
+
+    def on_rename_playlist(self): 
+        """
+            Renames a playlist on the ipod
+        """
+        selection = self.db.tree.get_selection()
+        (model, paths) = selection.get_selected_rows()
+        for path in paths:
+            iter = model.get_iter(path)
+            playlist = model.get_value(iter, 1)
+
+            dialog = xlmisc.TextEntryDialog(self.exaile.window, 
+                _("Enter the new name for the playlist"), 
+                _("Rename Playlist"))
+            result = dialog.run()
+            dialog.destroy()
+            if result == gtk.RESPONSE_OK:
+                name = str(dialog.get_value())
+                self.db.execute("UPDATE playlists SET name=? WHERE name=?", 
+                    (name, playlist.playlist.name))
+                if self.list_dict.has_key(playlist.name):
+                    del self.list_dict[playlist.name]
+                playlist.playlist.name = name
+                playlist.name = name
+                self.list_dict[name] = playlist
+                self.transfer_done()
+                self.dp.tree.queue_draw()
+
+    def on_remove_playlist(self): pass
+        selection = self.dp.tree.get_selection()
+        (model, paths) = selection.get_selected_rows()
+        for path in paths:
+            iter = model.get_iter(path)
+            playlist = model.get_value(iter, 1)
+
+            dialog = gtk.MessageDialog(self.exaile.window, 
+                gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, 
+                _("Are you sure you want to permanently delete the selected"
+                " playlist?"))
+            result = dialog.run()
+            dialog.destroy()
+            if result == gtk.RESPONSE_YES:
+                gpod.itdb_playlist_remove(playlist.playlist)
+                playlist_id = tracks.get_column_id(self.db, 'playlists',
+                    'name', playlist.name, True)
+                self.db.execute("DELETE FROM playlists WHERE id=?",
+                    (playlist_id,))
+                self.db.execute("DELETE FROM playlist_items WHERE playlist=?",
+                    (playlist_id,))
+                if self.list_dict.has_key(playlist.name):
+                    del self.list_dict[playlist.name]
+                self.dp.model.remove(iter) 
+                self.transfer_done()
+                self.dp.tree.queue_draw()
+            break
+
     def get_initial_root(self, model):
         """
             Adds new nodes and returns the one tracks should be added to
@@ -167,10 +256,15 @@ class iPodDriver(plugins.DeviceDriver):
             Transfers a track to the ipod
         """
         (song, target) = (item.track, item.target)
-        print "Transferring %s %s" % (song, type(song))
+        xlmisc.log("Transferring %s %s" % (song, type(song)))
+
+        # check to see if the track is transferrable
         if self.find_dup(song): return
         if song.type != 'mp3': return
+        if hasattr(song, 'itrack'): return
+
         track = self.get_ipod_track(song)
+        song.itrack = track
         cover = self.get_cover_location(song)
         track.itdb = self.itdb
         if cover:
@@ -253,7 +347,7 @@ class iPodDriver(plugins.DeviceDriver):
         if song.type != 'podcast':
             info = os.stat(song.loc)
         else:
-            info = os.stat(re.sub(r'^device_\w+://', '', song.download_path))
+            info = os.stat(song.download_path)
         track.size = info[6]
 
         track.time_added = int(time.time()) + 2082844800

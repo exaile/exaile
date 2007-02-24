@@ -132,7 +132,10 @@ def play_track(exaile, track):
 
     if exaile.tray_icon and settings.get_boolean('attach_to_tray', default=True,
         plugin=plugins.name(__file__)):
-        notify.attach_to_widget(exaile.tray_icon.icon)
+        if isinstance(exaile.tray_icon, gtk.GtkTrayIcon):
+            notify.set_property('status-icon', exaile.tray_icon.icon)
+        else:
+            notify.attach_to_widget(exaile.tray_icon.icon)
 
     notify.show()
 

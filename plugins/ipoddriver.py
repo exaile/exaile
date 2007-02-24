@@ -399,7 +399,7 @@ class iPodDriver(plugins.DeviceDriver):
         self.all = xl.tracks.TrackData()
 
         if not self.itdb: 
-            elf.connected = False
+            self.connected = False
             self.all = tracks.TrackData()
             gobject.idle_add(panel.on_error, "Error connecting to "
                 "iPod")

@@ -130,12 +130,14 @@ def play_track(exaile, track):
 
     notify.set_icon_from_pixbuf(pixbuf)
 
-    if exaile.tray_icon and settings.get_boolean('attach_to_tray', default=True,
-        plugin=plugins.name(__file__)):
-        if isinstance(exaile.tray_icon, gtk.GtkTrayIcon):
-            notify.set_property('status-icon', exaile.tray_icon.icon)
+    attach_to_tray = settings.get_boolean('attach_to_tray', default=True,
+        plugin=plugins.name(__file__))
+    if attach_to_tray and exaile.tray_icon:
+        icon = exaile.tray_icon.icon
+        if isinstance(icon, gtk.StatusIcon):
+            notify.set_property('status-icon', icon)
         else:
-            notify.attach_to_widget(exaile.tray_icon.icon)
+            notify.attach_to_widget(icon)
 
     notify.show()
 

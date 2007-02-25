@@ -21,6 +21,8 @@ from gettext import gettext as _
 from xl import xlmisc, common, media
 random.seed(time.time())
 
+ASX_REGEX = re.compile(r'href ?= ?([\'"])(.*?)\1', re.DOTALL|re.MULTILINE)
+
 # CREDITS FOR LAST.FM SOURCE:
 # Licensed under the MIT license
 # http://opensource.org/licenses/mit-license.php
@@ -569,6 +571,9 @@ class ExailePlayer(GSTPlayer):
     @common.threaded
     def find_stream_uri(self, track):
         h = urllib.urlopen(track.loc)
+        asx = False
+        if track.loc.lower().endswith('.asx'):
+            asx = True
         loc = ''
 
         for i, line in enumerate(h.readlines()):
@@ -576,11 +581,20 @@ class ExailePlayer(GSTPlayer):
             xlmisc.log('Line %d: %s' % (i, line.strip()))
             if line.startswith('#') or line == '[playlist]': 
                 continue
-            if '=' in line:
-                if not line.startswith('File'): continue
-                line = re.sub('File\d+=', '', line)
-                loc = line
-                break
+
+            # if it's an asx stream
+            if asx:
+                m = ASX_REGEX.search(line)
+                if m:
+                    loc = m.group(2)
+                    break
+                continue
+            else:
+                if '=' in line:
+                    if not line.startswith('File'): continue
+                    line = re.sub('File\d+=', '', line)
+                    loc = line
+                    break
 
         if loc:
             xlmisc.log('Found location: %s' % loc)
@@ -656,7 +670,9 @@ class ExailePlayer(GSTPlayer):
 
     def play_track(self, track):
         self.stop(False)
-        if track.loc.endswith('.pls') or track.loc.endswith('.m3u'):
+        if track.loc.lower().endswith('.pls') or \
+            track.loc.lower().endswith('.m3u') or \
+            track.loc.lower().endswith('.asx'):
             self.find_stream_uri(track)
             return
 

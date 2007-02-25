@@ -305,7 +305,8 @@ class GSTPlayer(Player):
 
             if '://' not in uri: 
                 if not os.path.isfile(uri.encode('latin1')):
-                    raise Exception('Specified file does not exist')
+                    raise Exception('File does not exist: %s' %
+                        uri.encode('latin1'))
 
                 uri = 'file://%s' % uri
             uri = uri.replace('%', '%25')
@@ -378,6 +379,72 @@ class GSTPlayer(Player):
 
         return self.last_position
 
+class ExailePlayerErrorWindow(gtk.Window):
+    """
+        A simple log that will track errors during playback.  
+        This was developed to catch errors like "file was not found" and go to
+        the next song instead of interupting playback
+    """
+    def __init__(self, parent):
+        """
+            Initializes the window
+        """
+        gtk.Window.__init__(self)
+        self.set_title(_('Errors'))
+        self.set_transient_for(parent)
+        self.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+
+        main = gtk.VBox()
+        self.connect('delete_event', self.on_delete)
+        main.set_border_width(3)
+        main.set_spacing(3)
+        label = gtk.Label()
+        label.set_markup(_('<b>The following errors have occurred</b>'))
+        main.pack_start(label, False, False)
+        self.add(main)
+        self.scroll = gtk.ScrolledWindow()
+        self.scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        self.scroll.set_shadow_type(gtk.SHADOW_ETCHED_IN)
+        main.pack_start(self.scroll, True, True)
+
+        self.view = gtk.TextView()
+        self.view.set_editable(False)
+        self.buf = self.view.get_buffer()
+        self.scroll.add(self.view)
+
+        buttons = gtk.HBox()
+        close = gtk.Button(_('Close'))
+        buttons.pack_end(close, False, False)
+        main.pack_start(buttons, False, False)
+
+        close.connect('clicked', lambda *e: self.hide())
+        self.resize(400, 300)
+
+    def log(self, message, timestamp=None):
+        """ 
+            Logs a message
+        """
+
+        if not timestamp: timestamp = time.time()
+        lt = time.localtime(timestamp)
+        text = "[%s] %s\n" % (time.strftime("%H:%M:%S", lt), message)
+        char = self.buf.get_char_count()
+        iter = self.buf.get_iter_at_offset(char + 1)
+
+        self.buf.insert(iter, text)
+
+        char = self.buf.get_char_count()
+        iter = self.buf.get_iter_at_offset(char + 1)
+        self.view.scroll_to_iter(iter, 0)
+
+    def on_delete(self, *e):
+        """
+            Hides the window instead of destroying it
+        """
+        self.hide()
+
+        return True
+
 class ExailePlayer(GSTPlayer):
     """
         Exaile interface to the GSTPlayer
@@ -401,6 +468,7 @@ class ExailePlayer(GSTPlayer):
         self.lastfm_play_total = 0
         self.lastfm_last_length = 0
         self.lastfm_first = True
+        self.error_window = ExailePlayerErrorWindow(self.exaile.window)
 
         self.eof_func = self.exaile.on_next
         self.current = None
@@ -669,17 +737,23 @@ class ExailePlayer(GSTPlayer):
         gobject.idle_add(self.emit, 'play-track', track)
         gobject.idle_add(self.exaile.tracks.queue_draw)
 
-    def play_track(self, track):
+    def play_track(self, track, from_button=False):
+        """
+            Plays a track. If from_button is True, it means the user double
+            clicked on a track or pressed the play button.  In this case if
+            there is an error, playback will be stopped, otherwise, it will
+            move on to the next track
+        """
         self.stop(False)
         if track.loc.lower().endswith('.pls') or \
             track.loc.lower().endswith('.m3u') or \
             track.loc.lower().endswith('.asx'):
             self.find_stream_uri(track)
-            return
+            return True
 
         if track.loc.find('lastfm://') > -1 and not self.lastfm:
             self.play_lastfm_track(track)
-            return
+            return True
 
         if self.lastfm:
             self.setup_playbin()
@@ -687,13 +761,19 @@ class ExailePlayer(GSTPlayer):
         try:
             GSTPlayer.play(self, track.loc)
         except Exception, e:
-            common.error(self.exaile.window, str(e))
-            self.exaile.stop()
-            return
+            self.error_window.log(str(e))
+            self.error_window.show_all()
+            if from_button: self.exaile.stop()
+            else: 
+                self.stop()
+                self.current = track
+                self.next()
+            return False
 
         self.current = track
         self.emit('play-track', track)
         self.exaile.tracks.queue_draw()
+        return True
 
     def play(self):
         """
@@ -717,7 +797,7 @@ class ExailePlayer(GSTPlayer):
 
         self.played = [track]
         self.history.append(track)
-        self.play_track(track)
+        self.play_track(track, from_button=True)
         
     def next(self):
         self.stop(False)
@@ -760,7 +840,9 @@ class ExailePlayer(GSTPlayer):
         self.history.append(track)
         self.played.append(track)
 
-        if track: self.play_track(track)
+        if track: 
+            if not self.play_track(track):
+                return
         self.current = track
 
     def previous(self):

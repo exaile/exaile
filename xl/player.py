@@ -302,7 +302,7 @@ class GSTPlayer(Player):
                 self.on_sync_message))
 
             if '://' not in uri: 
-                if not os.path.isfile(uri):
+                if not os.path.isfile(uri.encode('utf-8')):
                     raise Exception('Specified file does not exist')
 
                 uri = 'file://%s' % uri

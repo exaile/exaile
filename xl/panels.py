@@ -1129,7 +1129,7 @@ class DevicePanel(CollectionPanel):
         try:
             driver.connect(self)
         except:
-            common.error(self.exaile.window, _("Error and stuff"))
+            common.error(self.exaile.window, _("Error connecting to device"))
             xlmisc.log_exception()
             self.on_connect_complete(None)
 

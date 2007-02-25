@@ -117,7 +117,7 @@ class Track(gobject.GObject):
 
         # This would be more nicely written using conditional expressions
         # but that is Python 2.5 only
-	if type(title) is unicode:
+        if type(title) is unicode:
             self._title = title
         else:
             self._title = unicode(title, encoding)

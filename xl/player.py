@@ -302,11 +302,11 @@ class GSTPlayer(Player):
                 self.on_sync_message))
 
             if '://' not in uri: 
-                if not os.path.isfile(uri.encode('utf-8')):
+                if not os.path.isfile(uri.encode('latin1')):
                     raise Exception('Specified file does not exist')
 
                 uri = 'file://%s' % uri
-            self.playbin.set_property('uri', uri)
+            self.playbin.set_property('uri', uri.encode('latin1'))
 
         self.playbin.set_state(gst.STATE_PLAYING)
 

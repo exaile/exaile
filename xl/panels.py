@@ -378,8 +378,8 @@ class CollectionPanel(object):
             loc = ["device_%s://%s" % (driver_name, 
                 urllib.quote(l.loc)) for l in loc]
         else:
-            loc = [urllib.quote(str(l.loc)) for l in loc]
-            
+            loc = [urllib.quote(l.loc.encode('latin1')) for l in loc]
+        
         selection.set_uris(loc)
 
     def append_recursive(self, iter, add):
@@ -2721,7 +2721,7 @@ class FilesPanel(object):
         """
 
         songs = self.get_selected_songs()
-        uris = [song.loc for song in songs]
+        uris = [urllib.quote(song.loc.encode('latin1')) for song in songs]
 
         sel.set_uris(uris)
 

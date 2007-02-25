@@ -22,6 +22,8 @@ import gobject
 
 __revision__ = ".01"
 
+#LOCALES = ['ca', 'de', 'fr', 'jp', 'uk', 'us']
+
 def get_server(locale):
     if locale in ('en', 'us'):
         return "xml.amazon.com"
@@ -30,15 +32,20 @@ def get_server(locale):
     else:
         return "webservices.amazon.%s" % locale
 
+def get_encoding(locale):
+    if locale == 'jp':
+        return 'utf-8'
+    else:
+        return 'iso-8859-1'
+
 KEY = "15VDQG80MCS2K1W2VRR2" # Adam Olsen's key (synic)
 QUERY = "/onca/xml3?t=webservices-20&dev-t=%s&mode=music&type=lite&" % (KEY) + \
     "locale={locale}&page=1&f=xml&KeywordSearch="
-PATTERN = re.compile("http://images([^.]*)\.amazon\.com/images/(.*?LZ+\.jpg)")
-IMAGE_SERVER = "images{locale}.amazon.com";
-IMAGE_QUERY = "/images/";
+IMAGE_PATTERN = re.compile(
+    r"http://(images(?:-\w\w)?\.amazon\.com)(/images/.*?LZ+\.jpg)")
 
 """
-    Fetches album covers from amazon
+    Fetches album covers from Amazon.com
 """
 
 class Cover(dict):
@@ -84,7 +91,7 @@ class CoverFetcherThread(threading.Thread):
     def abort(self):
         """
             Aborts the download thread. Note that this does not happen
-            immediately, but happens when the thread is done blocking on it's
+            immediately, but happens when the thread is done blocking on its
             current operation
         """
         self._done = True
@@ -100,7 +107,11 @@ class CoverFetcherThread(threading.Thread):
         if self._done: return
         try:
             query = QUERY.replace("{locale}", self.locale)
-            string = query + urllib.quote(self.search_string)
+            # FIXME: always UTF-8?
+            search_string = self.search_string.decode('utf-8')
+            search_string = search_string.encode(
+                get_encoding(self.locale), 'replace')
+            string = query + urllib.quote(search_string, '')
         except KeyError:
             string = ""
         try:
@@ -114,27 +125,23 @@ class CoverFetcherThread(threading.Thread):
 
         response = conn.getresponse()
         if response.status != 200:
-            xlmisc.log("Invalid response recieved: %s" % response.status)
+            xlmisc.log("Invalid response received: %s" % response.status)
             gobject.idle_add(self._done_func, [])
             return
 
         page = response.read()
 
         covers = []
-        while not self._done:
-            m = PATTERN.search(page)
-            if m == None: break
-            page = re.sub("http://images[^.]*\.amazon\.com/images/%s" % \
-                m.group(2), "", page)
+        for m in IMAGE_PATTERN.finditer(page):
             if self._done: return
 
             cover = Cover()
-            image_server = IMAGE_SERVER.replace("{locale}", m.group(1))
 
-            conn = httplib.HTTPConnection(image_server)
+            conn = httplib.HTTPConnection(m.group(1))
             try:
-                conn.request("GET", IMAGE_QUERY + m.group(2))
-            except urrlib2.URLError:
+                xlmisc.log("Requesting %s %s" % m.groups())
+                conn.request("GET", m.group(2))
+            except urllib2.URLError:
                 continue
             response = conn.getresponse()
             cover['status'] = response.status
@@ -167,7 +174,7 @@ def done(covers):
 
 if __name__ == "__main__":
     if(len(sys.argv) != 2):
-        print "Useage: %s <search string>" % sys.argv[0]
+        print "Usage: %s <search string>" % sys.argv[0]
         sys.exit(1)
 
     CoverFetcherThread(sys.argv[1], done).start()

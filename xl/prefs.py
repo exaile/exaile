@@ -374,7 +374,7 @@ class Preferences(object):
         selection.connect('changed', self.switch_pane)
         selection.select_path((0,))
 
-        xml.get_widget('prefs_lastfm_pass').set_invisible_char(u'\u25cf')
+        xml.get_widget('prefs_lastfm_pass').set_invisible_char('*')
         xml.get_widget('prefs_audio_sink').set_active(0)
         self.text_display = PrefsTextViewItem('osd/display_text',
             TEXT_VIEW_DEFAULT, self.display_popup)

@@ -153,7 +153,7 @@ class TracksListCtrl(gtk.VBox):
         # first, check to see if they dropped a folder
         copy = loc[:]
         for l in copy:
-            l = urllib.unquote_plus(l)
+            l = urllib.unquote(l)
             if os.path.isdir(l.replace("file://", "")):
                 # in this case, it is a folder
                 for root, dirs, files in os.walk(l.replace("file://", '')):
@@ -174,7 +174,7 @@ class TracksListCtrl(gtk.VBox):
 
         for l in loc:
             l = l.replace("file://", "")
-            l = urllib.unquote_plus(l)
+            l = urllib.unquote(l)
             m = re.search(r'^device_(\w+)://', l)
             if m:
                 song = self.exaile.device_panel.get_song(l)

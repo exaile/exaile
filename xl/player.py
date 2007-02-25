@@ -308,6 +308,7 @@ class GSTPlayer(Player):
                     raise Exception('Specified file does not exist')
 
                 uri = 'file://%s' % uri
+            uri = uri.replace('%', '%25')
             self.playbin.set_property('uri', uri.encode('latin1'))
 
         self.playbin.set_state(gst.STATE_PLAYING)

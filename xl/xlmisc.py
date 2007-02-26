@@ -586,8 +586,8 @@ class CoverFetcher(object):
         iter = self.model.get_iter(path)
         object = self.model.get_value(iter, 2)
 
-        self.status.set_markup("<b>%s by %s</b>" % (object.album,
-            object.artist))
+        self.status.set_markup("<b>" + common.escape_xml("%s by %s" %
+            (object.album, object.artist)) + "</b>")
 
     def item_activated(self, iconview, path):
         """

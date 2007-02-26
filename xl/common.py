@@ -175,6 +175,16 @@ def strdate_to_time(date):
 
     return time.mktime(new_date)
 
+def escape_xml(text):
+    """
+        Replaces &, <, and > with their entity references
+    """
+    # Note: the order is important.
+    table = [('&', '&amp;'), ('<', '&lt;'), ('>', '&gt;')]
+    for old, new in table:
+        text = text.replace(old, new)
+    return text
+
 def scrolledMessageDialog(parent, message, title):
     """
         Shows a message dialog with a message in a TextView

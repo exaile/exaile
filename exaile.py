@@ -2077,8 +2077,7 @@ class ExaileWindow(gobject.GObject):
             track = media.Track(url)
             track.type = 'stream'
         else:
-            track = tracks.read_track(self.db, self.all_songs, url,
-                adddb=False)
+            track = tracks.read_track(self.db, self.all_songs, url)
 
         songs = tracks.TrackData((track, ))
         if not songs: return

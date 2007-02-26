@@ -139,7 +139,6 @@ class CoverFetcherThread(threading.Thread):
 
             conn = httplib.HTTPConnection(m.group(1))
             try:
-                xlmisc.log("Requesting %s %s" % m.groups())
                 conn.request("GET", m.group(2))
             except urllib2.URLError:
                 continue

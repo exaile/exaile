@@ -88,7 +88,8 @@ class ExaileWindow(gobject.GObject):
         # called when the title label is changed (sometimes it changes when
         # the track hasn't changed, for example when you're listening to a
         # shoutcast stream)
-        'track-information-updated': (gobject.SIGNAL_RUN_LAST, None, ())
+        'track-information-updated': (gobject.SIGNAL_RUN_LAST, None, ()),
+        'quit': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
 
 
@@ -2217,6 +2218,9 @@ class ExaileWindow(gobject.GObject):
                 h.write("%s\n" % song.loc)
 
             h.close()
+
+        # PLUGIN: send plugins the quit signal
+        self.emit('quit')
 
         # save queued tracks
         if self.player.queued:

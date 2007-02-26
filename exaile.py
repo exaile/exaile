@@ -1854,7 +1854,6 @@ class ExaileWindow(gobject.GObject):
         """
             Stops playback
         """
-        print 'calling STOP'
         self.player.stop()
 
     def _stop_cb(self, player, track):
@@ -2363,6 +2362,7 @@ def main():
             xlmisc.log("mmkeys are available.")
     else:
         sys.exit(0)
+
     gtk.main()
 
 if __name__ == "__main__": 

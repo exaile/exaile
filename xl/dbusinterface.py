@@ -237,23 +237,6 @@ def test(p):
                 iface = dbus.Interface(remote_object, "org.exaile.DBusInterface")
                 iface.test_service("testing dbus service")
                 do_exit = False
-                if options.next: 
-                    iface.next_track(); sys.exit(0)
-                elif options.prev: 
-                    iface.prev_track(); sys.exit(0)
-                elif options.stop: 
-                    iface.stop(); sys.exit(0)
-                elif options.play: 
-                    iface.play(); sys.exit(0)
-                elif options.play_pause: 
-                    iface.play_pause(); sys.exit(0)
-                elif options.guiquery: 
-                    iface.popup(); do_exit = True
-                elif options.stream: iface.play_file(options.stream)
-
-                if options.rating is not None:
-                    iface.set_rating(options.rating)
-                    do_exit = True
                 if options.get_title:
                     print iface.get_title()
                     do_exit = True
@@ -274,7 +257,18 @@ def test(p):
                     print iface.current_position()
                     do_exit = True
 
-                if options.inc_vol:
+                if options.next: iface.next_track()
+                elif options.prev: iface.prev_track()
+                elif options.stop: iface.stop()
+                elif options.play: iface.play()
+                elif options.play_pause: iface.play_pause()
+                elif options.guiquery: iface.popup()
+                elif options.stream: iface.play_file(options.stream)
+
+                elif options.rating is not None:
+                    iface.set_rating(options.rating)
+                    do_exit = True
+                elif options.inc_vol:
                     iface.increase_volume(options.inc_vol)
                 elif options.dec_vol:
                     iface.decrease_volume(options.dec_vol)
@@ -283,11 +277,13 @@ def test(p):
                     print iface.query()
                     #if track == None: print "status: stopped"
                     #else: print track.full_status()
-                elif len(sys.argv) > 1 and not sys.argv[1].startswith("--"):
+                elif len(sys.argv) > 1 and not sys.argv[1].startswith("-") and \
+                    not do_exit:
                     iface.play_file(sys.argv[1])
                 elif not do_exit:
                     iface.toggle_visibility()
                     print "You have entered an invalid option"
+
                 return True
         except SystemExit:
             return True

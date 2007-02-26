@@ -71,14 +71,12 @@ class DBusInterfaceObject(dbus.service.Object):
         """
         self.exaile.stop()
 
-
     @dbus.service.method("org.exaile.DBusInterface")
     def next_track(self):
         """
             Jumps to the next track
         """
         self.exaile.on_next()
-
 
     @dbus.service.method("org.exaile.DBusInterface")
     def play(self):
@@ -238,15 +236,21 @@ def test(p):
                     "/DBusInterfaceObject")
                 iface = dbus.Interface(remote_object, "org.exaile.DBusInterface")
                 iface.test_service("testing dbus service")
-                if options.next: iface.next_track()
-                elif options.prev: iface.prev_track()
-                elif options.stop: iface.stop()
-                elif options.play: iface.play()
-                elif options.play_pause: iface.play_pause()
-                elif options.guiquery: iface.popup()
+                do_exit = False
+                if options.next: 
+                    iface.next_track(); sys.exit(0)
+                elif options.prev: 
+                    iface.prev_track(); sys.exit(0)
+                elif options.stop: 
+                    iface.stop(); sys.exit(0)
+                elif options.play: 
+                    iface.play(); sys.exit(0)
+                elif options.play_pause: 
+                    iface.play_pause(); sys.exit(0)
+                elif options.guiquery: 
+                    iface.popup(); do_exit = True
                 elif options.stream: iface.play_file(options.stream)
 
-                do_exit = False
                 if options.rating is not None:
                     iface.set_rating(options.rating)
                     do_exit = True
@@ -269,6 +273,7 @@ def test(p):
                 if options.current_position:
                     print iface.current_position()
                     do_exit = True
+
                 if options.inc_vol:
                     iface.increase_volume(options.inc_vol)
                 elif options.dec_vol:

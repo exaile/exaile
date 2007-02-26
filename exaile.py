@@ -412,6 +412,10 @@ class ExaileWindow(gobject.GObject):
 
         self.progress = self.xml.get_widget('track_slider')
         self.progress.connect('change-value', self.seek)
+        self.progress.connect('button-press-event',
+            self.progress_button_pressed)
+        self.progress.connect('button-release-event',
+            self.progress_button_released)
 
         self.clear_button = self.xml.get_widget('clear_button')
         self.clear_button.connect('clicked', lambda *e:
@@ -1648,6 +1652,16 @@ class ExaileWindow(gobject.GObject):
         self.player.current.submitted = True
         self.emit('seek', real)
         self.seeking = False
+
+    def progress_button_pressed(self, progress, event):
+        if event.button == 1:
+            event.button = 2
+            progress.emit('button-press-event', event)
+
+    def progress_button_released(self, progress, event):
+        if event.button == 1:
+            event.button = 2
+            progress.emit('button-release-event', event)
 
     def play_track(self, player, track): 
         """

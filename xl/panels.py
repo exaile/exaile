@@ -517,6 +517,13 @@ class CollectionPanel(object):
             if len(paths) == 1:
                 iter = self.model.get_iter(path[0])
                 object = self.model.get_value(iter, 1)
+
+                # if this is a device panel, check to see if the current
+                # driver wants to handle this object, and if so, return
+                if self.name == 'device':
+                    if self.driver and hasattr(self.driver, 'check_open_item'):
+                        if self.driver.check_open_item(object):
+                            return
                 if isinstance(object, AlbumWrapper):
                     self.append_to_playlist()
                     return

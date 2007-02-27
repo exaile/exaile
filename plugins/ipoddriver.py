@@ -18,6 +18,7 @@
 import gtk, plugins, gobject, re, time
 from xl import tracks, db, media, common, xlmisc
 import xl, os
+from gettext import gettext as _
 
 PLUGIN_NAME = "iPod Device Driver"
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
@@ -159,7 +160,21 @@ class iPodDriver(plugins.DeviceDriver):
 
         return menu
 
-    def on_add_playlist(self): 
+    def check_open_item(self, item):
+        """
+            Checks to see if this is an ipod playlist, and if it is, opens the
+            playlist
+        """
+        if isinstance(item, iPodPlaylist):
+            tracks = xl.tracks.search_tracks(self.exaile.window, self.db,
+                self.all, None, str(item.name)) 
+            self.exaile.new_page(item.name, tracks)
+            self.exaile.tracks.playlist = item.name
+            return True
+
+        return False
+
+    def on_add_playlist(self, *e): 
         """
             Creates a new playlist on the ipod
         """
@@ -172,20 +187,20 @@ class iPodDriver(plugins.DeviceDriver):
             playlist = gpod.itdb_playlist_new(name, False)
             self.lists.append(iPodPlaylist(playlist))
             gpod.itdb_playlist_add(self.itdb, playlist, -1)
-            item = self.db.model.append(self.iroot, [self.iplaylist_image,
+            item = self.dp.model.append(self.iroot, [self.iplaylist_image,
                 iPodPlaylist(playlist)])
             playlist_id = tracks.get_column_id(self.db, 'playlists', 'name',
-                name, True)
+                name, prep='IPOD_')
             self.list_dict[name] = playlist
             self.transfer_done()
 
             self.dp.load_tree()
 
-    def on_rename_playlist(self): 
+    def on_rename_playlist(self, *e): 
         """
             Renames a playlist on the ipod
         """
-        selection = self.db.tree.get_selection()
+        selection = self.dp.tree.get_selection()
         (model, paths) = selection.get_selected_rows()
         for path in paths:
             iter = model.get_iter(path)
@@ -208,7 +223,7 @@ class iPodDriver(plugins.DeviceDriver):
                 self.transfer_done()
                 self.dp.tree.queue_draw()
 
-    def on_remove_playlist(self): 
+    def on_remove_playlist(self, *e): 
         selection = self.dp.tree.get_selection()
         (model, paths) = selection.get_selected_rows()
         for path in paths:
@@ -224,7 +239,7 @@ class iPodDriver(plugins.DeviceDriver):
             if result == gtk.RESPONSE_YES:
                 gpod.itdb_playlist_remove(playlist.playlist)
                 playlist_id = tracks.get_column_id(self.db, 'playlists',
-                    'name', playlist.name, True)
+                    'name', playlist.name, prep='IPOD_')
                 self.db.execute("DELETE FROM playlists WHERE id=?",
                     (playlist_id,))
                 self.db.execute("DELETE FROM playlist_items WHERE playlist=?",

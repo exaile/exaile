@@ -463,7 +463,7 @@ class TracksListCtrl(gtk.VBox):
                     self.size_map[name])
                 col.set_fixed_width(width)
 
-                resizable = self.exaile.settings.get_boolean('resizable_cols',
+                resizable = self.exaile.settings.get_boolean('ui/resizable_cols',
                     False)
 
                 if self.type != 'queue':

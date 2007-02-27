@@ -297,7 +297,7 @@ class ExaileWindow(gobject.GObject):
         self.resizable_cols = self.xml.get_widget('cols_resizable_item')
         self.not_resizable_cols = \
             self.xml.get_widget('cols_not_resizable_item')
-        self.resizable_cols.set_active(self.settings.get_boolean('resizable_cols',
+        self.resizable_cols.set_active(self.settings.get_boolean('ui/resizable_cols',
             False))
         self.resizable_cols.connect('activate', self.activate_cols_resizable)
         self.not_resizable_cols.connect('activate',
@@ -330,7 +330,7 @@ class ExaileWindow(gobject.GObject):
             Called when the user chooses whether or not columns can be
             resizable
         """
-        self.settings.set_boolean('resizable_cols',
+        self.settings.set_boolean('ui/resizable_cols',
             self.resizable_cols.get_active())
         for i in range(0, self.playlists_nb.get_n_pages()):
             page = self.playlists_nb.get_nth_page(i)

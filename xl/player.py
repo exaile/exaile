@@ -639,6 +639,12 @@ class ExailePlayer(GSTPlayer):
 
     @common.threaded
     def find_stream_uri(self, track):
+        """
+            Opens a filename like .pls, .m3u, or .asx and finds the playable
+            streams in them
+        """
+        gobject.idle_add(self.exaile.status.set_first, _("Loading stream "
+            "sources, please wait..."))
         h = urllib.urlopen(track.loc)
         asx = False
         if track.loc.lower().endswith('.asx'):
@@ -665,6 +671,7 @@ class ExailePlayer(GSTPlayer):
                     loc = line
                     break
 
+        gobject.idle_add(self.exaile.status.set_first, None)
         if loc:
             xlmisc.log('Found location: %s' % loc)
             track.start_time = time.time()

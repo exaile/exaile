@@ -483,6 +483,7 @@ class CollectionPanel(object):
     def append_to_playlist(self, item=None, event=None):
         add = self.get_selected_items()
         queue = (item == self.queue_item)
+
         self.exaile.append_songs(add, queue, True)
 
     def button_release(self, widget, event):
@@ -523,10 +524,10 @@ class CollectionPanel(object):
                 if self.name == 'device':
                     if self.driver and hasattr(self.driver, 'check_open_item'):
                         if self.driver.check_open_item(object):
-                            return
+                            return False
                 if isinstance(object, AlbumWrapper):
                     self.append_to_playlist()
-                    return
+                    return False
 
             for path in paths:
                 iter = self.model.get_iter(path)

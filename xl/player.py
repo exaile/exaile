@@ -744,7 +744,7 @@ class ExailePlayer(GSTPlayer):
         gobject.idle_add(self.emit, 'play-track', track)
         gobject.idle_add(self.exaile.tracks.queue_draw)
 
-    def play_track(self, track, from_button=False):
+    def play_track(self, track, from_button=False, ret=True):
         """
             Plays a track. If from_button is True, it means the user double
             clicked on a track or pressed the play button.  In this case if
@@ -756,11 +756,11 @@ class ExailePlayer(GSTPlayer):
             track.loc.lower().endswith('.m3u') or \
             track.loc.lower().endswith('.asx'):
             self.find_stream_uri(track)
-            return True
+            if ret: return True
 
         if track.loc.find('lastfm://') > -1 and not self.lastfm:
             self.play_lastfm_track(track)
-            return True
+            if ret: return True
 
         if self.lastfm:
             self.setup_playbin()
@@ -775,12 +775,12 @@ class ExailePlayer(GSTPlayer):
                 self.stop()
                 self.current = track
                 self.next()
-            return False
+            if ret: return False
 
         self.current = track
         self.emit('play-track', track)
         self.exaile.tracks.queue_draw()
-        return True
+        if ret: return True
 
     def play(self):
         """

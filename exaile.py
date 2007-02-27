@@ -796,8 +796,8 @@ class ExaileWindow(gobject.GObject):
                     set_current=False)
 
             if last_active > -1:
-                gobject.timeout_add(500, self._load_tab, last_active)
-
+                xlmisc.finish()
+                gobject.idle_add(self._load_tab, last_active)
 
         # load queue
         if self.settings.get_boolean('save_queue', True):
@@ -853,7 +853,7 @@ class ExaileWindow(gobject.GObject):
 
         track = self.player.current
         if track != None and (self.player.is_playing() or self.player.is_paused): return
-        gobject.idle_add(self.player.play_track, songs[0])
+        gobject.idle_add(self.player.play_track, songs[0], False, False)
 
     def on_blacklist(self, item, event):
         """
@@ -1012,6 +1012,7 @@ class ExaileWindow(gobject.GObject):
             else:
                 if not self.tracks: self.new_page("Last", [])
         if first_run: 
+            gobject.idle_add(xlmisc.finish)
             gobject.idle_add(self.load_last_playlist)
             if len(sys.argv) > 1 and not sys.argv[1].startswith("--"):
                 f = sys.argv[1]

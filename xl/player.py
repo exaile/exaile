@@ -679,7 +679,7 @@ class ExailePlayer(GSTPlayer):
             gobject.idle_add(self.emit, 'play-track', track)
 
             try:
-                GSTPlayer.play(self, loc)
+                gobject.idle_add(GSTPlayer.play, self, loc)
             except Exception, e:
                 gobject.idle_add(common.error, self.exaile.window, str(e))
                 gobject.idle_add(self.exaile.stop)

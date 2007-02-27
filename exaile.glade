@@ -52,7 +52,7 @@
 		      <accelerator key="N" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image455">
+			<widget class="GtkImage" id="image475">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-new</property>
 			  <property name="icon_size">1</property>
@@ -74,7 +74,7 @@
 		      <accelerator key="O" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image456">
+			<widget class="GtkImage" id="image476">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-open</property>
 			  <property name="icon_size">1</property>
@@ -95,7 +95,7 @@
 		      <signal name="activate" handler="on_open_url_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image457">
+			<widget class="GtkImage" id="image477">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-network</property>
 			  <property name="icon_size">1</property>
@@ -116,7 +116,7 @@
 		      <signal name="activate" handler="on_open_disc_item_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image458">
+			<widget class="GtkImage" id="image478">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-cdrom</property>
 			  <property name="icon_size">1</property>
@@ -137,7 +137,7 @@
 		      <signal name="activate" handler="on_import_directory_item_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image459">
+			<widget class="GtkImage" id="image479">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-go-down</property>
 			  <property name="icon_size">1</property>
@@ -164,7 +164,7 @@
 		      <signal name="activate" handler="on_export_playlist_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image460">
+			<widget class="GtkImage" id="image480">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-save</property>
 			  <property name="icon_size">1</property>
@@ -214,7 +214,7 @@
 		      <accelerator key="G" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image461">
+			<widget class="GtkImage" id="image481">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-jump-to</property>
 			  <property name="icon_size">1</property>
@@ -462,7 +462,7 @@
 		      <signal name="activate" handler="on_library_manager_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image462">
+			<widget class="GtkImage" id="image482">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-home</property>
 			  <property name="icon_size">1</property>
@@ -490,6 +490,15 @@
 		      <property name="label" translatable="yes">_Album Art Collector</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_fetch_all_covers_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="randomize_item">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Randomize Playlist</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_randomize_item_activate" last_modification_time="Tue, 27 Feb 2007 21:12:28 GMT"/>
 		    </widget>
 		  </child>
 
@@ -522,7 +531,7 @@
 		      <signal name="activate" handler="on_clear_queue_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image463">
+			<widget class="GtkImage" id="image483">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-clear</property>
 			  <property name="icon_size">1</property>
@@ -560,7 +569,7 @@
 		      <accelerator key="C" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image464">
+			<widget class="GtkImage" id="image484">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-clear</property>
 			  <property name="icon_size">1</property>
@@ -597,7 +606,7 @@
 		      <signal name="activate" handler="on_plugins_item_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image465">
+			<widget class="GtkImage" id="image485">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-execute</property>
 			  <property name="icon_size">1</property>
@@ -4593,6 +4602,7 @@ on {album} - {length}</property>
 			  <child>
 			    <widget class="GtkLabel" id="label60">
 			      <property name="visible">True</property>
+			      <property name="can_focus">True</property>
 			      <property name="label" translatable="yes">Hint: see http://www.exaile.org/trac/wiki/OSD for examples</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">False</property>

@@ -401,6 +401,9 @@ class ExaileWindow(gobject.GObject):
         self.stop_button = self.xml.get_widget('stop_button')
         self.stop_button.connect('clicked', self.stop)
 
+        self.xml.get_widget('randomize_item').connect('activate', lambda *e:
+            self.randomize_playlist())
+
         self.xml.get_widget('show_visualizations_item').connect('activate', 
             lambda *e: player.show_visualizations(self))
 
@@ -514,6 +517,14 @@ class ExaileWindow(gobject.GObject):
         self.rating_combo.set_active(0)
         self.rating_combo.set_sensitive(False)
         self.rating_signal = self.rating_combo.connect('changed', self.set_rating)
+
+    def randomize_playlist(self):
+        """
+            Randomizes the current playlist
+        """
+        songs = self.tracks.songs
+        random.shuffle(songs)
+        self.tracks.set_songs(songs)
 
     def show_plugin_manager(self, *e):
         """

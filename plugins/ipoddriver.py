@@ -279,6 +279,7 @@ class iPodDriver(plugins.DeviceDriver):
         if hasattr(song, 'itrack'): return
 
         track = self.get_ipod_track(song)
+        if not track: return
         song.itrack = track
         cover = self.get_cover_location(song)
         track.itdb = self.itdb
@@ -346,30 +347,34 @@ class iPodDriver(plugins.DeviceDriver):
         """
             Returns an ipod compatible track
         """
-        track = gpod.itdb_track_new()
-        track.title = str(song.title)
-        track.album = str(song.album)
-        track.artist = str(song.artist)
-        track.tracklen = song.duration * 1000
+        try:
+            track = gpod.itdb_track_new()
+            track.title = str(song.title)
+            track.album = str(song.album)
+            track.artist = str(song.artist)
+            track.tracklen = song.duration * 1000
 
-        try: track.bitrate = int(song._bitrate)
-        except: pass
-        try: track.track_nr = int(song.track)
-        except: pass
-        try: track.year = int(song.year)
-        except: pass
+            try: track.bitrate = int(song._bitrate)
+            except: pass
+            try: track.track_nr = int(song.track)
+            except: pass
+            try: track.year = int(song.year)
+            except: pass
 
-        if song.type != 'podcast':
-            info = os.stat(song.loc)
-        else:
-            info = os.stat(song.download_path)
-        track.size = info[6]
+            if song.type != 'podcast':
+                info = os.stat(song.loc)
+            else:
+                info = os.stat(song.download_path)
+            track.size = info[6]
 
-        track.time_added = int(time.time()) + 2082844800
-        track.time_modified = track.time_added
-        track.genre = str(song.genre)
+            track.time_added = int(time.time()) + 2082844800
+            track.time_modified = track.time_added
+            track.genre = str(song.genre)
 
-        return track 
+            return track 
+        except: 
+            xlmisc.log_exception()
+            return None
 
     def transfer_done(self):
         gpod.itdb_write(self.itdb, None)

@@ -1608,6 +1608,10 @@ class ExaileWindow(gobject.GObject):
         self.emit('volume-changed', value)        
         self.volume.disconnect(self.volume_id)
         self.volume.set_value(value)
+        if not self.window.get_property('visible') and  self.settings.get_boolean("use_popup", True):
+            pop = xlmisc.get_osd(self, xlmisc.get_osd_settings(self.settings))
+            vol_text = "<big><b> Changing volume: %d %% </b></big>" % self.get_volume_percent()
+            pop.show_osd(vol_text, None)
         self.volume_id = self.volume.connect('change-value',
             self.on_volume_set)
 

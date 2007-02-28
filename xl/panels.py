@@ -830,6 +830,8 @@ class DeviceTransferQueue(gtk.VBox):
         self.set_spacing(3)
         self.set_size_request(-1, 250)
         self.songs = []
+        self.transferring = False
+        self.stopped = True
 
         label = gtk.Label(_("Transfer Queue"))
         label.set_alignment(0, .50)
@@ -852,9 +854,16 @@ class DeviceTransferQueue(gtk.VBox):
         image = gtk.Image()
         image.set_from_stock('gtk-clear', gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.clear.set_image(image)
+
+        self.stop = gtk.Button()
+        image = gtk.Image()
+        image.set_from_stock('gtk-stop', gtk.ICON_SIZE_SMALL_TOOLBAR)
+        self.stop.connect('clicked', self.on_stop)
+
         self.transfer = gtk.Button(_("Transfer"))
         buttons.pack_end(self.transfer, False, False)
         buttons.pack_end(self.clear, False, False)
+        buttons.pack_end(self.stop, False, False)
         self.clear.connect('clicked',
             self.on_clear)
         self.transfer.connect('clicked', self.start_transfer)
@@ -865,10 +874,31 @@ class DeviceTransferQueue(gtk.VBox):
             gtk.gdk.ACTION_COPY)
         self.list.list.connect('drag_data_received', self.drag_data_received)
 
+    def check_transfer(self):
+        """
+            Checks to see if a transfer is in progress, and if so, it throws
+            an error
+        """
+        if self.transferring:
+            common.error(self.panel.exaile.window, _('A transfer is in '
+                'progress, please wait for it to stop before attempting '
+                'to perform this operation.'))
+            return False
+
+        return True
+
+    def on_stop(self, *e):
+        """
+            Stops the transfer
+        """
+        self.transferring = False
+        self.stopped = True
+
     def on_clear(self, widget):
         """
             Clears the queue
         """
+        if not self.check_transfer(): return
         self.panel.queue = None
         self.hide()
         self.destroy()
@@ -878,6 +908,9 @@ class DeviceTransferQueue(gtk.VBox):
         """
             Runs the transfer
         """
+        if self.transferring: return
+        self.transferring = True
+        self.stopped = False
         gobject.idle_add(self.panel.exaile.status.set_first, "Starting "
             "transfer...", 3000)
         items = self.list.rows[:]
@@ -886,6 +919,7 @@ class DeviceTransferQueue(gtk.VBox):
         driver = self.panel.driver
         count = 0
         while True:
+            if self.stopped: return
             if not items: break
             item = items.pop()
             driver.put_item(item)
@@ -894,10 +928,12 @@ class DeviceTransferQueue(gtk.VBox):
             gobject.idle_add(self.update_progress, item, per)
             print "set percent to %s" % per
 
+        if self.stopped: return
         gobject.idle_add(self.progress.set_fraction, 1)
         gobject.idle_add(self.panel.exaile.status.set_first, "Finishing"
             " transfer...", 3000)
         gobject.idle_add(self.panel.transfer_done)
+        self.transferring = False
 
     def update_progress(self, song, percent):
         """
@@ -911,7 +947,7 @@ class DeviceTransferQueue(gtk.VBox):
             Called when a track is dropped in the transfer queue
         """
         # just pass it on to the iPodPanel
-
+        if not self.check_transfer(): return
         self.panel.drag_data_received(tv, context, x, y, selection, info,
             etime)
 
@@ -1078,6 +1114,9 @@ class DevicePanel(CollectionPanel):
         """
             Changes the current driver
         """
+        if self.driver and self.queue:
+            if not self.queue.check_transfer():
+                return
         if self.connected:
             self.driver.disconnect()
             self.driver = EmptyDriver()

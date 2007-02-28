@@ -858,6 +858,7 @@ class DeviceTransferQueue(gtk.VBox):
         self.stop = gtk.Button()
         image = gtk.Image()
         image.set_from_stock('gtk-stop', gtk.ICON_SIZE_SMALL_TOOLBAR)
+        self.stop.set_image(image)
         self.stop.connect('clicked', self.on_stop)
 
         self.transfer = gtk.Button(_("Transfer"))

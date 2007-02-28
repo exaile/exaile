@@ -386,6 +386,7 @@ class ExaileWindow(gobject.GObject):
         self.xml.get_widget('queue_count_box').connect('button-release-event',
             self.queue_count_clicked)
         self.progress_label = self.xml.get_widget('progress_label')
+        self.remaining_label = self.xml.get_widget('remaining_label')
 
         # for multimedia keys
         if MMKEYS_AVAIL:
@@ -763,7 +764,10 @@ class ExaileWindow(gobject.GObject):
             self.tray_icon = None
 
     def _load_tab(self, last_active):
-
+        """
+            Selects the last loaded page
+        """
+        xlmisc.finish()
         xlmisc.log('Loading page %s' % last_active)
         self.playlists_nb.set_current_page(last_active)
         page = self.playlists_nb.get_nth_page(last_active)
@@ -1207,14 +1211,18 @@ class ExaileWindow(gobject.GObject):
         if not self.seeking:
             self.progress.set_value(value)
             self.progress_label = self.xml.get_widget('progress_label')
+            self.remaining_label = self.xml.get_widget('remaining_label')
 
             if track.type == 'stream':
                 if track.start_time and self.player.is_playing():
                     seconds = time.time() - track.start_time
-                    self.progress_label.set_label("%d:%02d" % (seconds / 60, seconds %
-                        60))
+                    self.progress_label.set_label("%d:%02d" % (seconds / 60, seconds % 60))
+                    self.remaining_label.set_label('0:00')
+
             else:
+                remaining_seconds = (duration / gst.SECOND) - seconds
                 self.progress_label.set_label("%d:%02d" % (seconds / 60, seconds % 60))
+                self.remaining_label.set_label("%d:%02d" % (remaining_seconds / 60, remaining_seconds % 60 ))
 
         if (seconds > 240 or value > 50) and track.type != 'stream' and \
             self.player.is_playing() and not track.submitted: 
@@ -1237,6 +1245,7 @@ class ExaileWindow(gobject.GObject):
         self.artist_label = self.xml.get_widget('artist_label')
         if track == None:
             self.progress_label.set_label('0:00')
+            self.remaining_label.set_label('0:00')
             self.title_label.set_label(_("Not Playing"))
             self.artist_label.set_label(_("Stopped"))
             self.rating_combo.set_active(0)
@@ -1649,14 +1658,18 @@ class ExaileWindow(gobject.GObject):
         seconds = real / gst.SECOND
 
         self.progress_label = self.xml.get_widget('progress_label')
+        self.remaining_label = self.xml.get_widget('remaining_label')
 
         if self.player.current.type == 'stream':
             if track.start_time and self.player.is_playing():
                 seconds = time.time() - track.start_time
                 self.progress_label.set_label("%d:%02d" % (seconds / 60, seconds %
                     60))
+                self.remaining_label.set_label("0:00")
         else:
-            self.progress_label.set_label("%d:%02d" % (seconds / 60, seconds % 60))
+            remaining_seconds = (duration / gst.SECOND) - seconds
+            self.progress_label.set_label("%d:%02d" % (seconds / 60, seconds % 60)) 
+            self.remaining_label.set_label( "%d:%02d" % (remaining_seconds / 60, remaining_seconds % 60))
 
         self.seek_id = gobject.timeout_add(250, self._seek_cb, range)
         self.seeking = True
@@ -1895,6 +1908,7 @@ class ExaileWindow(gobject.GObject):
         self.update_track_information(None)
         self.progress.set_value(0)
         self.progress_label.set_label("0:00")
+        self.remaining_label.set_label("0:00")
 
     def import_m3u(self, path, play=False, title=None, newtab=True,
         set_current=True):

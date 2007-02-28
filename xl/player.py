@@ -735,7 +735,7 @@ class ExailePlayer(GSTPlayer):
         self.lastfmsrc.set_property('uri', track.loc)
 
         try:
-            GSTPlayer.play(self, track.loc)
+            gobject.idle_add(GSTPlayer.play, self, track.loc)
         except Exception, e:
             gobject.idle_add(common.error, self.exaile.window, str(e))
             gobject.idle_add(self.exaile.stop)

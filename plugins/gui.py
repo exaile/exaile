@@ -233,7 +233,8 @@ class PluginManager(object):
         self.author_label.set_label(", ".join(plugin.PLUGIN_AUTHORS))
         self.description.get_buffer().set_text(plugin.PLUGIN_DESCRIPTION.replace(
             "\n", " ").replace(r'\n', "\n"))
-        self.name_label.set_markup("<b>%s</b>" % plugin.PLUGIN_NAME)
+        self.name_label.set_markup("<b>%s</b>" %
+            common.escape_xml(plugin.PLUGIN_NAME))
         self.configure_button.set_sensitive(hasattr(plugin, 'configure'))
 
 class PluginTest(object):

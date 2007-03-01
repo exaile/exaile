@@ -575,7 +575,8 @@ class Preferences(object):
         self.nb.set_current_page(index)
         page = self.nb.get_nth_page(index)
         title = self.nb.get_tab_label(page)
-        self.label.set_markup("<b>%s</b>" % title.get_label())
+        self.label.set_markup("<b>%s</b>" %
+            common.escape_xml(title.get_label()))
         if index == 2: 
             self.osd_settings = xlmisc.get_osd_settings(self.exaile.settings)
             self.display_popup()

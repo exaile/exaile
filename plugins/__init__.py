@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 import os, gtk
-import xl
+from xl import common
 
 def name(file):
     return os.path.basename(file.replace('.pyc', '.py'))
@@ -68,7 +68,7 @@ class PluginConfigDialog(gtk.Dialog):
         self.main.set_spacing(3)
 
         label = gtk.Label("<b>%s Configuration</b>" %
-            plugin)
+            common.escape_xml(plugin))
         label.set_markup(label.get_label())
         self.main.pack_start(label, False, False)
 

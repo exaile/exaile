@@ -1839,21 +1839,22 @@ class OSDWindow(object):
         """
             Shows a popup specific to a track
         """
+        text = text.replace("&", "&amp;") # we don't allow entity refs here
+
         for item in ('title', 'artist', 'album', 'length', 'track', 'bitrate',
             'genre', 'year', 'rating'):
             try:
                 value = getattr(track, item)
-                if type(value) != str and type(value) != unicode:
-                    value = unicode(value)
-                text = text.replace("{%s}" % item, value)
             except AttributeError:
-                pass
+                continue
+            if not isinstance(value, basestring):
+                value = unicode(value)
+            text = text.replace("{%s}" % item, common.escape_xml(value))
 
         text = text.replace("{volume}", "%d%%" %
             self.exaile.get_volume_percent())
         text = text.replace("\\{", "{")
         text = text.replace("\\}", "}")
-        text = text.replace("&", "&amp;")
         self.show_osd(text, cover)
 
     def show_osd(self, title, cover):

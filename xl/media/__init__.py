@@ -1,15 +1,16 @@
-from xl.media import mp3, ogg, flac
+from xl.media import mp3, ogg, flac, mpc
 from xl import xlmisc
 from mutagen.mp3 import HeaderNotFoundError
 import os.path, gobject, re
 
-__all__ = ['flac', 'mp3', 'm4a', 'ogg', 'wma']
+__all__ = ['flac', 'mp3', 'm4a', 'ogg', 'wma', 'mpc']
 
 formats = {
     'mp3':      mp3,
     'mp2':      mp3,
     'ogg':      ogg,
     'flac':     flac,
+    'mpc':      mpc
 }
 
 # for m4a support

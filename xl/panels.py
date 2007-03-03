@@ -2814,10 +2814,10 @@ class FilesPanel(object):
 
         if songs:
             # sort the songs
-            ar = [(song.artist, song.album, song.track, song) for song in
-                songs]
+            ar = [(song.artist, song.album, song.track, song.title, song)
+                for song in songs]
             ar.sort()
-            songs = [item[3] for item in ar]
+            songs = [item[-1] for item in ar]
             return songs
         else:
             return None

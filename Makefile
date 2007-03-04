@@ -23,6 +23,7 @@ make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/xl/media
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/po
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/sql
+	mkdir -p $(DESTDIR)$(PREFIX)/share/locale
 
 install: make-install-dirs mmkeys.so
 	install -m 644 exaile.py $(DESTDIR)$(PREFIX)/share/exaile
@@ -44,6 +45,8 @@ install: make-install-dirs mmkeys.so
 	cd $(DESTDIR)$(PREFIX)/bin && \
 	ln -sf ../share/exaile/exaile.py exaile && chmod \
 	755 exaile
+	find po -maxdepth 1 -mindepth 1 -type d -exec \
+	  cp -r {} $(DESTDIR)$(PREFIX)/share/locale \;
 
 clean:
 	-rm mmkeys.so

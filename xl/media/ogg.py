@@ -35,7 +35,7 @@ def fill_tag_from_path(tr):
         return
 
     tr.length = int(f.info.length)
-    tr.bitrate = int(f.info.bitrate / 1024)
+    tr.bitrate = int(f.info.bitrate)
 
     tr.artist = get_tag(f, 'artist')
     tr.album = get_tag(f, 'album')

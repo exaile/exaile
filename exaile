@@ -9,6 +9,7 @@ if [ -z "$PROGRAM_DIR" ]; then
     PROGRAM_DIR=`dirname "$0"`
 fi
 
+
 cd ${PROGRAM_DIR}
 exec python exaile.py $@
 

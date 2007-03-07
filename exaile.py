@@ -20,6 +20,7 @@ __version__ = '0.2.9b'
 import traceback, sys, gobject
 gobject.threads_init()
 
+
 # this stuff is done first so that only the modules required to connect to an
 # already loaded exaile (if available) are loaded.  This helps with the speed
 # of remote commands, like --next, --prev

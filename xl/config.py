@@ -14,6 +14,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+"""
+This module provides for easy parsing of configuration files
+"""
+
 import os
 from ConfigParser import SafeConfigParser
 import ConfigParser
@@ -21,10 +25,6 @@ import ConfigParser
 # ok, I know this isn't secure, but it's better than having passwords in
 # plaintext in the configuration file.
 XOR_KEY = "You're not drunk if you can lie on the floor without hanging on"
-
-"""
-    This module provides for easy parsing of configuration files
-"""
 
 class XlConfigParser(SafeConfigParser):
     """
@@ -39,9 +39,25 @@ class XlConfigParser(SafeConfigParser):
         self.loc = loc
 
         if os.path.exists(self.loc):
+            upgrade = False
+            current = 0
             try:
                 self.read(self.loc)
             except ConfigParser.MissingSectionHeaderError:
+                current = 0
+            else:
+                current = self.get_int("config_version", 0)
+
+            files = [] #os.listdir("upgrade")
+            versions = []
+            for file in files:
+                break
+                match = re.match("changes(\d+)\.py", file)
+                if not match: continue
+                num = match.group(1)
+                version = int(num)
+                if version > current:
+                    exec "import upgrade.changes%s as upgrade; upgrade.run()" % num
                 self.add_section("ui")
                 self.add_section("osd")
                 self.add_section("lastfm")

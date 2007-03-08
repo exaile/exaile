@@ -204,6 +204,8 @@ class TracksListCtrl(gtk.VBox):
 
         if context.action == gtk.gdk.ACTION_MOVE:
             context.finish(True, True, etime)
+        else:
+            context.finish(True, False, etime)
         self.update_songs()
         if self.type != 'queue':
             self.exaile.update_songs(None, False)

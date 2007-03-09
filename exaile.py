@@ -1149,11 +1149,12 @@ class ExaileWindow(gobject.GObject):
             Sets the songs and playlist songs
         """
         tracks = self.tracks
-        if not songs: songs = tracks.songs
+        if not tracks:
+            tracks = self.playlists_nb.get_nth_page(0)
+        if not songs and tracks: songs = tracks.songs
         self.songs = songs
         self.playlist_songs = songs
 
-        if not tracks: return
 
         if set: 
             try:

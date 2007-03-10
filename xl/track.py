@@ -329,11 +329,12 @@ class TrackInformation(gtk.Notebook):
             self.append_page(TrackStatsTab(self.exaile, track), gtk.Label(_("Statistics")))
             locale = self.exaile.settings.get_str('wikipedia_locale', 'en')
 
-            if xlmisc.GNOME_EXTRAS_AVAIL:
+            if xlmisc.mozembed:
                 artist = "http://%s.wikipedia.org/wiki/%s" % (locale, track.artist)
                 artist = artist.replace(" ", "_")
                 self.append_page(WikipediaTab(self.exaile, artist),
                     gtk.Label(_("Artist")))
+
                 album = "http://%s.wikipedia.org/wiki/%s" % (locale, track.album)
                 album = album.replace(" ", "_")
                 self.append_page(WikipediaTab(self.exaile, album),

@@ -33,10 +33,11 @@ import gtk, gobject, pango
 from gtk.gdk import SCROLL_LEFT, SCROLL_RIGHT, SCROLL_UP, SCROLL_DOWN
 
 try:
-    import gtkhtml2
-    GNOME_EXTRAS_AVAIL = True
+    from xl import mozembed
 except ImportError:
-    GNOME_EXTRAS_AVAIL = False
+    traceback.print_exc()
+    mozembed = None
+
 try:
     import egg.trayicon
     USE_TRAY = 'egg'
@@ -985,6 +986,7 @@ class BrowserWindow(gtk.VBox):
         self.nostyles = nostyles
         self.action_count = 0
 
+        self.exaile = exaile
         if not nostyles:
             top = gtk.HBox()
             top.set_spacing(3)
@@ -1009,39 +1011,42 @@ class BrowserWindow(gtk.VBox):
             top.pack_start(self.entry, True, True)
             self.pack_start(top, False, True)
 
-        self.view = gtkhtml2.View()
-        self.doc = gtkhtml2.Document()
-        scroll = gtk.ScrolledWindow()
-        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        scroll.set_shadow_type(gtk.SHADOW_IN)
-        self.doc.open_stream('text/html')
-        self.doc.write_stream('<html><body><b>Loading requested'
-            ' information...</b></body></html>')
-        self.doc.close_stream()
-        scroll.add(self.view)
-        self.view.set_document(self.doc)
+        self.view = mozembed.MozClient()
+        self.pack_start(self.view, True, True)
 
-        self.pack_start(scroll, True, True)
+        self.show_all()
+        finish()
+
+        self.view.set_data('<html><body><b>Loading requested'
+            ' information...</b></body></html>', '')
+        exaile.status.set_first('Loading page...')
+        self.view.connect('net-stop', self.on_net_stop)
+        self.view.connect('open-uri', self.link_clicked)
 
         self.cache_dir = '%s%scache' % (exaile.get_settings_dir(), os.sep)
-        self.exaile = exaile
 
         self.server = ''
-        self.history = [url]
-        self.current = 0
 
         if url:
             self.load_url(url, self.action_count, False)
             if not self.nostyles:
                 self.entry.set_sensitive(False)
 
+    def on_net_stop(self, *args):
+        """
+            Called when mozilla is done loading the page
+        """
+        self.exaile.status.set_first(None)
+        if self.nostyles: return
+        self.back.set_sensitive(self.view.can_go_back())
+        self.next.set_sensitive(self.view.can_go_forward())
+
     def set_text(self, text):
         """
-            Sets the html for this page
+            Sets the text of the browser window
+
         """
-        self.doc.open_stream('text/html')
-        self.doc.write_stream('<html><body><b>%s</b></body></html' % text)
-        self.doc.close_stream()
+        self.view.set_data(text, '')
 
     def entry_activate(self, *e):
         """
@@ -1050,37 +1055,26 @@ class BrowserWindow(gtk.VBox):
         url = self.entry.get_text()
         self.link_clicked(self.doc, url)
 
-    def request_url(self, document, url, stream, try_base_uri=True):
-        """
-            Called when the document requests an outside url (images/etc)
-        """
-        h = opener.open(url)
-        stream.write(h.read())
-        h.close()
-
     def on_next(self, widget):
         """
             Goes to the next entry in history
         """
-        self.current += 1 
-        self.link_clicked(self.doc, self.history[self.current], False)
-        if self.current >= len(self.history) - 1:
+        self.view.go_forward()
+        if not self.view.can_go_forward():
             self.next.set_sensitive(False)
-        if len(self.history):
+        if self.view.can_go_back():
             self.back.set_sensitive(True)
             
     def on_back(self, widget):
         """
             Previous entry
         """
-        self.current -= 1
-        self.link_clicked(self.doc, self.history[self.current], False)
-        if self.current == 0:
+        self.view.go_back()
+        if not self.view.can_go_back():
             self.back.set_sensitive(False)
-        if len(self.history):
+        if self.view.can_go_forward():
             self.next.set_sensitive(True)
 
-    @common.threaded
     def load_url(self, url, action_count, history=False):
         """
             Loads a URL, either from the cache, or from the website specified
@@ -1090,29 +1084,12 @@ class BrowserWindow(gtk.VBox):
             self.history = self.history[:self.current + 1]
             self.history.append(url)
             self.current = len(self.history) - 1
-        info = urlparse.urlparse(url)
-        self.protocol = info[0]
-        self.server = info[1]
-        self.path = info[2]
-        cache_file = "%s/browser_%s.html" % (self.cache_dir, md5.new(url).hexdigest())
-        if os.path.isfile(cache_file):
-            h = open(cache_file, 'r')
-            data = h.read()
-            h.close()
-            self.page_loaded(url, data, False)
-            return
 
-        f = opener.open(url)
-        data = f.read()
-        f.close()
-
-        if self.action_count != action_count: return
-        self.page_loaded(url, data, True)
+        self.view.load_url(url)
 
         if not self.nostyles:
-            if self.history and history:
-                self.back.set_sensitive(True)
-                self.next.set_sensitive(False)
+            if self.view.can_go_back(): self.back.set_sensitive(True)
+            if not self.view.can_go_forward(): self.next.set_sensitive(False)
 
     def replace(self, match):
         """
@@ -1196,20 +1173,11 @@ class BrowserWindow(gtk.VBox):
         if not self.nostyles:
             gobject.idle_add(self.entry.set_sensitive, True)
 
-    def link_clicked(self, document, link, history=True):
+    def link_clicked(self, mozembed, url):
         """
             Link clicked
         """
-        self.doc = gtkhtml2.Document()
-        self.doc.open_stream('text/html')
-        self.doc.write_stream('<html><body><b>Loading requested'
-            ' information...</b></body></html>')
-        self.doc.close_stream()
-        self.view.set_document(self.doc)
-        self.action_count += 1
-        self.load_url(link, self.action_count, history)
-        if not self.nostyles:
-            self.entry.set_sensitive(False)
+        return False
 
 class AboutDialog(gtk.Dialog):
     """

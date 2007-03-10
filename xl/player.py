@@ -498,10 +498,12 @@ class ExailePlayer(GSTPlayer):
             'Use GConf Settings')
         sink = sink.lower()
         if "gconf" in sink: sink = 'gconfaudiosink'
+        elif "auto" in sink: sink = 'autoaudiosink'
         try:
             self.audio_sink = gst.element_factory_make(sink)
         except:
-            xlmisc.log_exception()
+            xlmisc.log("Could not create sink %s.  Trying autoaudiosink." %
+                sink)
             self.audio_sink = gst.element_factory_make('autoaudiosink')
 
         return self.audio_sink

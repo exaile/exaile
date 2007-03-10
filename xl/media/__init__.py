@@ -1,4 +1,4 @@
-from xl.media import mp3, ogg, flac
+from xl.media import mp3, ogg, flac, wav
 from xl import xlmisc
 from mutagen.mp3 import HeaderNotFoundError
 import os.path, gobject, re
@@ -10,6 +10,7 @@ formats = {
     'mp2':      mp3,
     'ogg':      ogg,
     'flac':     flac,
+    'wav':      wav
 }
 
 # Optional formats

@@ -1,4 +1,4 @@
-# exailecover - displays Exaile album covers on the desktop
+# desktopcover - displays Exaile album covers on the desktop
 # Copyright (C) 2006-2007 Johannes Sasongko <sasongko@gmail.com>
 #
 # This program is free software; you can redistribute it and/or modify
@@ -25,7 +25,7 @@ PLUGIN_ENABLED = False
 PLUGIN_ICON = None
 
 from gettext import gettext as _
-import gtk
+import gobject, gtk
 import plugins
 
 PLUGIN = None
@@ -39,18 +39,18 @@ class CoverDisplay:
         self.window = wnd = gtk.Window()
         wnd.set_accept_focus(False)
         wnd.set_decorated(False)
-        #wnd.set_keep_below(True)
+        wnd.set_keep_below(True)#
         wnd.set_resizable(False)
-        #wnd.set_skip_pager_hint(True)
-        #wnd.set_skip_taskbar_hint(True)
-        #wnd.stick()
+        wnd.set_skip_pager_hint(True)#
+        wnd.set_skip_taskbar_hint(True)#
+        wnd.stick()#
 
         self.x = self.DEFAULT_X
         self.y = self.DEFAULT_Y
         self.width = self.DEFAULT_WIDTH
         self.height = self.DEFAULT_HEIGHT
         self.cover = None
-        self.use_image_size = True
+        self.set_use_image_size()
         self.set_keep_center()
 
         self.image = img = gtk.Image()
@@ -76,7 +76,7 @@ class CoverDisplay:
             self.x = x
             self.y = y
 
-        if not self.keep_center:
+        if not self.keep_center and self.window.props.visible:
             grav = self.window.get_gravity()
             if grav == gtk.gdk.GRAVITY_NORTH_WEST:
                 xsgn = '+'; ysgn = '+'
@@ -89,6 +89,9 @@ class CoverDisplay:
             else:
                 return
             self.window.parse_geometry('%s%s%s%s' % (xsgn, x, ysgn, y))
+
+    def set_use_image_size(self, use_image_size=True):
+        self.use_image_size = use_image_size
 
     def set_size(self, width, height):
         self.width = width
@@ -117,14 +120,15 @@ class CoverDisplay:
         self.image.set_from_pixbuf(pixbuf)
 
         wnd = self.window
-        if not wnd.props.visible:
+        if wnd.props.visible:
+            self.set_position()
+        else:
             wnd.show()
             # Some WMs reset these values.
-            wnd.set_keep_below(True)
-            wnd.set_skip_pager_hint(True)
-            wnd.set_skip_taskbar_hint(True)
-            wnd.stick()
-        self.set_position()
+            #wnd.set_keep_below(True)
+            #wnd.set_skip_pager_hint(True)
+            #wnd.set_skip_taskbar_hint(True)
+            #wnd.stick()
 
     def destroy(self):
         self.window.destroy()
@@ -229,8 +233,8 @@ class DesktopCoverConfig(plugins.PluginConfigDialog):
         table.show_all()
 
     def run(self):
-        result = super(type(self), self).run()
-        if result != gtk.RESPONSE_OK: return result
+        response = super(type(self), self).run()
+        if response != gtk.RESPONSE_OK: return response
 
         settings = self.exaile.settings
         plugin = self.plugin
@@ -251,7 +255,7 @@ class DesktopCoverConfig(plugins.PluginConfigDialog):
         settings.set_int('y', y, plugin=plugin_name)
 
         use_image_size = not self.sizing_check.get_active()
-        plugin.use_image_size = use_image_size
+        plugin.set_use_image_size(use_image_size)
         settings.set_boolean('use_image_size', use_image_size,
             plugin=plugin_name)
 
@@ -261,7 +265,7 @@ class DesktopCoverConfig(plugins.PluginConfigDialog):
         settings.set_int('width', width, plugin=plugin_name)
         settings.set_int('height', height, plugin=plugin_name)
 
-        return result
+        return response
 
     def _positioning_toggled(self, check, *data):
         self._setup_position_widgets(check.get_active())
@@ -297,17 +301,19 @@ def initialize():
     x = settings.get_int('x', default=PLUGIN.DEFAULT_X, plugin=plugin_name)
     y = settings.get_int('y', default=PLUGIN.DEFAULT_Y, plugin=plugin_name)
     PLUGIN.set_position(x, y)
-    PLUGIN.use_image_size = settings.get_boolean('use_image_size',
-        default=True, plugin=plugin_name)
+    PLUGIN.set_use_image_size(settings.get_boolean('use_image_size',
+        default=True, plugin=plugin_name))
     width = settings.get_int('width', default=PLUGIN.DEFAULT_WIDTH,
         plugin=plugin_name)
     height = settings.get_int('height', default=PLUGIN.DEFAULT_HEIGHT,
         plugin=plugin_name)
     PLUGIN.set_size(width, height)
 
-    CONNS.connect(APP, 'play-track', _cover_changed)
-    CONNS.connect(APP, 'stop-track', _track_stopped)
-    CONNS.connect(APP.cover, 'image-changed', _cover_changed)
+    player = APP.player
+    if player.current and (player.is_playing() or player.is_paused()):
+        _display(APP.cover.loc)
+
+    CONNS.connect(APP.cover, 'image-changed', lambda w, c: _display(c))
 
     return True
 
@@ -323,15 +329,22 @@ def configure():
     dialog.run()
     dialog.destroy()
 
-def _cover_changed(obj, track):
-    newcover = APP.cover.loc
-    if 'nocover' in newcover:
-        PLUGIN.display(None)
-    else:
-        PLUGIN.display(newcover)
-    return True
+STOPPED = None
 
-def _track_stopped(obj, track):
-    PLUGIN.display(None)
+def _display(cover):
+    global STOPPED
+    if 'nocover' in cover:
+        STOPPED = True
+        # Wait to make sure playback is really stopped. This should alleviate
+        # bug #274, but not fix it completely.
+        gobject.timeout_add(200, _set_no_cover)
+    else:
+        STOPPED = False
+        PLUGIN.display(cover)
+
+def _set_no_cover():
+    if STOPPED:
+        PLUGIN.display(None)
+    return False # Stop GLib timeout.
 
 # vi: et ts=4 sts=4 sw=4

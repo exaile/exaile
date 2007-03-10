@@ -496,8 +496,8 @@ class ExailePlayer(GSTPlayer):
 
         if not sink: sink = self.exaile.settings.get_str('audio_sink',
             'Use GConf Settings')
-        if sink.lower().find("gconf"): sink = 'gconfaudiosink'
         sink = sink.lower()
+        if "gconf" in sink: sink = 'gconfaudiosink'
         try:
             self.audio_sink = gst.element_factory_make(sink)
         except:

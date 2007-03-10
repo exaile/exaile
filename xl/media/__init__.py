@@ -12,25 +12,27 @@ formats = {
     'flac':     flac,
 }
 
+# Optional formats
+
 try:
     from xl.media import mpc
-    formats['m4a'] = mpc
+    formats['mpc'] = mpc
 except ImportError: pass
 
-# for m4a support
 try:
     from xl.media import m4a
     formats['m4a'] = m4a
 except ImportError: pass
 
-# for wma support
 try:
     from xl.media import wma
     formats['wma'] = wma
 except ImportError: pass
 
 SUPPORTED_MEDIA = ['.%s' % x for x in formats.keys()]
-# generic functions
+
+# Generic functions
+
 def read_from_path(uri):
     """
         Reads tags from a specified uri

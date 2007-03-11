@@ -64,7 +64,7 @@ sys.path.insert(0, basedir)
 os.chdir(basedir)
 
 from xl import *
-from xl import media, audioscrobbler
+from xl import media, audioscrobbler, equalizer
 import plugins.manager, plugins, plugins.gui
 import pygst; pygst.require('0.10'); import gst
 
@@ -450,6 +450,15 @@ class ExaileWindow(gobject.GObject):
         self.library_item.connect('activate', lambda e:
             self.show_library_manager())
 
+        self.equalizer_item = self.xml.get_widget('equalizer_item')
+        try: # Equalizer element is still not very common 
+            gst.element_factory_make('equalizer')
+        except gst.PluginNotFoundError: # Should probably log this..
+            self.equalizer_item.set_sensitive(False) # Equalizer is not clickable
+        else:
+            self.equalizer_item.connect('activate', lambda e:
+                self.show_equalizer())
+
         self.queue_manager_item = self.xml.get_widget('queue_manager_item')
         self.queue_manager_item.connect('activate', 
             lambda *e: self.show_queue_manager())
@@ -698,6 +707,9 @@ class ExaileWindow(gobject.GObject):
         if response == gtk.RESPONSE_APPLY:
             self.on_library_rescan()
         dialog.destroy()
+
+    def show_equalizer(self):
+        eq = equalizer.EqualizerWindow(self)
 
     def cover_clicked(self, widget, event):
         """

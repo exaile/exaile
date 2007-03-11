@@ -468,6 +468,7 @@ class ExailePlayer(GSTPlayer):
         self.lastfm_play_total = 0
         self.lastfm_last_length = 0
         self.lastfm_first = True
+        self.equalizer = None
         self.error_window = ExailePlayerErrorWindow(self.exaile.window)
 
         self.eof_func = self.exaile.on_next
@@ -500,11 +501,31 @@ class ExailePlayer(GSTPlayer):
         if "gconf" in sink: sink = 'gconfaudiosink'
         elif "auto" in sink: sink = 'autoaudiosink'
         try:
-            self.audio_sink = gst.element_factory_make(sink)
+            asink = gst.element_factory_make(sink)
         except:
             xlmisc.log("Could not create sink %s.  Trying autoaudiosink." %
                 sink)
-            self.audio_sink = gst.element_factory_make('autoaudiosink')
+            asink = gst.element_factory_make('autoaudiosink')
+        sinkbin = gst.Bin()
+
+        try: # Equalizer element is still not very common 
+            self.equalizer = gst.element_factory_make('equalizer')
+        except gst.PluginNotFoundError:
+            print "Warning: Gstreamer equalizer element not found, please install the latest gst-plugins-bad package"
+            self.audiosink = asink
+            return self.audiosink
+        aconv = gst.element_factory_make('audioconvert')
+		
+        sinkbin.add(self.equalizer, aconv, asink)
+        gst.element_link_many(self.equalizer, aconv, asink)
+        sinkpad = self.equalizer.get_static_pad('sink')
+        sinkbin.add_pad(gst.GhostPad('sink', sinkpad))
+
+        self.audio_sink = sinkbin
+
+        self.equalizer.set_property('num-bands', 10)
+        bands = self.exaile.settings.get_list('band-values', [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+        self.equalizer.set_property('band-values', bands)
 
         return self.audio_sink
 

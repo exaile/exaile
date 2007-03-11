@@ -194,7 +194,7 @@ class ExaileWindow(gobject.GObject):
         pos = self.settings.get_int("ui/mainw_sash_pos", 200)
         self.setup_location()
 
-        self.player.set_volume(self.settings.get_float("volume", 1))
+        self.player.set_volume(self.settings.get_float("volume", .7))
 
         self.splitter = self.xml.get_widget('splitter')
         self.splitter.connect('notify::position', self.on_resize)
@@ -1617,7 +1617,7 @@ class ExaileWindow(gobject.GObject):
             v += 9
 
         if v < 0: v = 0
-        elif v > 120: v = 120
+        elif v > 100: v = 100
 
         self.on_volume_set(self.volume, None, v)
         return True

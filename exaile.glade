@@ -1716,7 +1716,7 @@ Genre</property>
 			      <property name="digits">1</property>
 			      <property name="update_policy">GTK_UPDATE_CONTINUOUS</property>
 			      <property name="inverted">False</property>
-			      <property name="adjustment">0 0 120 1 10 0</property>
+			      <property name="adjustment">0 0 100 1 10 0</property>
 			    </widget>
 			    <packing>
 			      <property name="padding">0</property>

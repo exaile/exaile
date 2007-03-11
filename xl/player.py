@@ -523,7 +523,7 @@ class ExailePlayer(GSTPlayer):
         GSTPlayer.setup_playbin(self)
         self.set_audio_sink
         self.playbin.set_property('volume',
-            self.exaile.settings.get_float('volume', 1))
+            self.exaile.settings.get_float('volume', .7))
 
     def set_volume(self, volume):
         if self.lastfmsrc:
@@ -550,7 +550,7 @@ class ExailePlayer(GSTPlayer):
             self.lastfmsrc = None
             gobject.idle_add(self.exaile.status.set_first, None)
             return
-        self.set_volume(self.exaile.settings.get_float("volume", 1))
+        self.set_volume(self.exaile.settings.get_float("volume", .7))
 
         decoder = gst.element_factory_make('decodebin')
         queue = gst.element_factory_make('queue')

@@ -107,7 +107,7 @@ class Track(gobject.GObject):
     def set_info(self,loc="", title="", artist="",  
         album="", disc_id=0, genre="",
         track=0, length=0, bitrate=0, year="", 
-        modified=0, user_rating=0, blacklisted=0, time_added='', encoding="latin1"):
+        modified=0, user_rating=0, blacklisted=0, time_added='', encoding=xlmisc.get_default_encoding()):
     
     
         """
@@ -119,7 +119,7 @@ class Track(gobject.GObject):
         if type(loc) is unicode:
             self._loc = loc
         else:        
-            self._loc = unicode(loc, "latin1")
+            self._loc = unicode(loc, xlmisc.get_default_encoding())
 
         self._bitrate = bitrate
 
@@ -359,13 +359,13 @@ class Track(gobject.GObject):
         return self._loc
 
     def get_loc_for_io(self):
-        return self._loc.encode("latin1")
+        return self._loc.encode(xlmisc.get_default_encoding())
 
     def set_loc(self, value):
         if type(value) is unicode:
             self._loc = value
         else:
-            self._loc = unicode(value, "latin1")
+            self._loc = unicode(value, xlmisc.get_default_encoding())
 
     title = property(get_title, set_title)
     artist = property(get_artist, set_artist)

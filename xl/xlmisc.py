@@ -59,6 +59,9 @@ except ImportError:
     their own file
 """
 
+def get_default_encoding():
+    return 'utf-8'
+
 class ClearEntry(object):
     """
         A gtk.Entry with a clear icon

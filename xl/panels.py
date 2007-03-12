@@ -378,7 +378,7 @@ class CollectionPanel(object):
             loc = ["device_%s://%s" % (driver_name, 
                 urllib.quote(l.loc)) for l in loc]
         else:
-            loc = [urllib.quote(l.loc.encode('latin1')) for l in loc]
+            loc = [urllib.quote(l.loc.encode(xlmisc.get_default_encoding())) for l in loc]
         
         selection.set_uris(loc)
 
@@ -2769,7 +2769,7 @@ class FilesPanel(object):
         """
 
         songs = self.get_selected_songs()
-        uris = [urllib.quote(song.loc.encode('latin1')) for song in songs]
+        uris = [urllib.quote(song.loc.encode(xlmisc.get_default_encoding())) for song in songs]
 
         sel.set_uris(uris)
 

@@ -304,13 +304,13 @@ class GSTPlayer(Player):
                 self.on_sync_message))
 
             if '://' not in uri: 
-                if not os.path.isfile(uri.encode('latin1')):
+                if not os.path.isfile(uri.encode(xlmisc.get_default_encoding())):
                     raise Exception('File does not exist: %s' %
-                        uri.encode('latin1'))
+                        uri.encode(xlmisc.get_default_encoding()))
 
                 uri = 'file://%s' % uri
             uri = uri.replace('%', '%25')
-            self.playbin.set_property('uri', uri.encode('latin1'))
+            self.playbin.set_property('uri', uri.encode(xlmisc.get_default_encoding()))
 
         self.playbin.set_state(gst.STATE_PLAYING)
 

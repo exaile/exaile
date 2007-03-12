@@ -608,7 +608,7 @@ class PopulateThread(threading.Thread):
                 tr = self.exaile.all_songs.for_path(loc)
                
                 if not tr:
-                    tr = read_track_from_db(db, unicode(loc, "latin1"))
+                    tr = read_track_from_db(db, unicode(loc, xlmisc.get_default_encoding()))
 
                 modified = os.stat(loc).st_mtime
                 if not tr or tr.modified != modified:
@@ -619,7 +619,7 @@ class PopulateThread(threading.Thread):
                     save_track_to_db(db, tr, new)
 
                 if tr:
-                    path_id = get_column_id(db, 'paths', 'name', unicode(loc, "latin1"))
+                    path_id = get_column_id(db, 'paths', 'name', unicode(loc, xlmisc.get_default_encoding()))
                     db.execute("UPDATE tracks SET included=1 WHERE path=?",
                         (path_id,))
                 if not tr or tr.blacklisted: continue

@@ -1,2 +1,4 @@
+import xl.xlmisc
+
 def fill_tag_from_path(tr):
-    tr.title = tr.loc.encode('latin1')
+    tr.title = tr.loc.encode(xl.xlmisc.get_default_encoding())

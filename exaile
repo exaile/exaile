@@ -9,7 +9,6 @@ if [ -z "$PROGRAM_DIR" ]; then
     PROGRAM_DIR=`dirname "$0"`
 fi
 
-export LD_LIBRARY_PATH=/usr/lib/firefox
 cd ${PROGRAM_DIR}
-exec python exaile.py $@
+LD_LIBRARY_PATH=/usr/lib/firefox python exaile.py $@
 

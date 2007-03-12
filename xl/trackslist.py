@@ -729,7 +729,7 @@ class TracksListCtrl(gtk.VBox):
             self.new_playlist = pm.append(_("New Playlist"),
                 self.exaile.playlists_panel.on_add_playlist, 'gtk-new')
             pm.append_separator()
-            rows = self.db.select("SELECT name FROM playlists ORDER BY"
+            rows = self.db.select("SELECT name FROM playlists WHERE type=0 ORDER BY"
                 " name")
             for row in rows:
                 pm.append(row[0], self.exaile.playlists_panel.add_items_to_playlist)

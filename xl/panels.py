@@ -338,7 +338,7 @@ class CollectionPanel(object):
             self.add_items_to_playlist, 'gtk-new')
         pm.append_separator()
 
-        rows = self.db.select("SELECT name FROM playlists ORDER BY"
+        rows = self.db.select("SELECT name FROM playlists WHERE type=0 ORDER BY"
             " name")
 
         for row in rows:

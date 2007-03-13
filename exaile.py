@@ -451,13 +451,8 @@ class ExaileWindow(gobject.GObject):
             self.show_library_manager())
 
         self.equalizer_item = self.xml.get_widget('equalizer_item')
-        try: # Equalizer element is still not very common 
-            gst.element_factory_make('equalizer')
-        except gst.PluginNotFoundError: # Should probably log this..
-            self.equalizer_item.set_sensitive(False) # Equalizer is not clickable
-        else:
-            self.equalizer_item.connect('activate', lambda e:
-                self.show_equalizer())
+        self.equalizer_item.connect('activate', lambda e:
+            self.show_equalizer())
 
         self.queue_manager_item = self.xml.get_widget('queue_manager_item')
         self.queue_manager_item.connect('activate', 
@@ -709,6 +704,14 @@ class ExaileWindow(gobject.GObject):
         dialog.destroy()
 
     def show_equalizer(self):
+
+        try: # Equalizer element is still not very common 
+            gst.element_factory_make('equalizer')
+        except gst.PluginNotFoundError: # Should probably log this..
+            common.error(self.window, _('Gstreamer equalizer is not '
+                ' available.  It can be found in gstreamer-plugins-bad '
+                '(currently found in GST CVS).'))
+            return
         eq = equalizer.EqualizerWindow(self)
 
     def cover_clicked(self, widget, event):

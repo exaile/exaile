@@ -629,11 +629,10 @@ class PopulateThread(threading.Thread):
                 already_added(tr, added)
 
             except DBOperationalError:
-                print "DBOperationalError"
+                xlmisc.log_exception()
                 continue
             except OSError:
-                print "OSError"
-		xlmisc.log_exception()
+                xlmisc.log_exception()
                 continue
             except Exception, ex:
                 xlmisc.log_exception()

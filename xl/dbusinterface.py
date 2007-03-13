@@ -99,7 +99,7 @@ class DBusInterfaceObject(dbus.service.Object):
         """
         if not self.exaile.player.current:
             return "No track playing"
-        return self.exaile.player.current.full_status()
+        return self.exaile.player.current.full_status(self.exaile.player)
 
     @dbus.service.method("org.exaile.DBusInterface")
     def popup(self):

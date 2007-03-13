@@ -1,4 +1,7 @@
 from xl.media import mp3, ogg, flac, wav
+import pygst
+pygst.require('0.10')
+import gst
 from xl import xlmisc
 from mutagen.mp3 import HeaderNotFoundError
 import os.path, gobject, re
@@ -213,14 +216,14 @@ class Track(gobject.GObject):
         self._rating = rating
         self.user_rating = rating
 
-    def full_status(self):
+    def full_status(self, player):
         """
             Returns a string representing the status of the current track
         """
         status = "playing"
-        if self.is_paused(): status = "paused"
+        if player.is_paused(): status = "paused"
 
-        value = self.current_position()
+        value = player.get_current_position()
         duration = self.duration * gst.SECOND
 
         if duration == -1:

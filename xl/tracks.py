@@ -20,7 +20,6 @@ import sys, md5, xlmisc, gobject, random
 import thread, threading, urllib, audioscrobbler
 import dbusinterface, xl.db, time
 from db import DBOperationalError
-from pysqlite2.dbapi2 import IntegrityError
 from gettext import gettext as _
 
 try:    

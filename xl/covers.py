@@ -38,7 +38,7 @@ def get_encoding(locale):
     else:
         return 'iso-8859-1'
 
-KEY = "key here." # Adam Olsen's key (synic)
+KEY = "15VDQG80MCS2K1W2VRR2" # Adam Olsen's key (synic)
 QUERY = "/onca/xml3?t=webservices-20&dev-t=%s&mode=music&type=lite&" % (KEY) + \
     "locale={locale}&page=1&f=xml&KeywordSearch="
 IMAGE_PATTERN = re.compile(
@@ -125,6 +125,9 @@ class CoverFetcherThread(threading.Thread):
 
         response = conn.getresponse()
         if response.status != 200:
+            print dir(response)
+            print response.reason
+            print get_server(self.locale), string
             xlmisc.log("Invalid response received: %s" % response.status)
             gobject.idle_add(self._done_func, [])
             return

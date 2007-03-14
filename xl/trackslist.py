@@ -208,7 +208,7 @@ class TracksListCtrl(gtk.VBox):
             context.finish(True, False, etime)
         self.update_songs()
         if self.type != 'queue':
-            self.exaile.update_songs(None, False)
+            self.exaile.update_songs(self.songs, False)
         self.exaile.status.set_first(None)
 
     def update_songs(self):

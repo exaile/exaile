@@ -811,7 +811,10 @@ class ExailePlayer(GSTPlayer):
         """
         self.stop()
 
-        if self.exaile.tracks == None: return
+        if self.exaile.tracks == None: 
+            self.exaile.tracks = self.exaile.playlists_nb.get_nth_page(0)
+            self.exaile.songs = self.exaile.tracks.songs
+            return
 
         self.last_played = self.current
 

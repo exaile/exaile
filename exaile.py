@@ -1345,10 +1345,28 @@ class ExaileWindow(gobject.GObject):
                 xlmisc.log(cover['filename'])
                 self.cover.set_image(cover['filename'])
 
-                self.db.execute("UPDATE albums SET image=? WHERE id=?",
+                self.db.execute("UPDATE albums SET image=?, amazon_image=1 WHERE id=?",
                     (cover['md5'] + ".jpg", album_id))
                 
                 break
+
+    def check_image_age(self, album_id, image):
+        """
+            This checks to see if the image is too old for Amazon's ULA, and
+            if it is, it refetches the image
+        """
+        info = os.stat('%s%scovers%s%s', (SETTINGS_DIR, os.sep, os.sep,
+            image))
+
+        max_time = 30 * 24 * 60 * 60 # 1 month
+        if time.time() - info[9] > max_time:
+            self.status.set_first(_('Current amazon image is too old, '
+                'fetching  a new one'), 2000)
+            self.db.execute('UPDATE albums SET image=NULL, amazon_image=0 '
+                'WHERE id=?', (album_id,))
+            self.fetch_cover(self.player.current)
+            return False
+        return True
    
     def fetch_cover(self, track, popup=None): 
         """
@@ -1363,7 +1381,7 @@ class ExaileWindow(gobject.GObject):
         album_id = tracks.get_album_id(self.db, artist_id, track.album)
 
         # check to see if a cover already exists
-        row = self.db.read_one("albums", "image", 'id=?', (album_id,))
+        row = self.db.read_one("albums", "image, amazon_image", 'id=?', (album_id,))
 
         if row != None and row[0] != "" and row[0] != None:
             if row[0] == "nocover": 
@@ -1377,6 +1395,10 @@ class ExaileWindow(gobject.GObject):
 
                 if popup: return "%s%scovers%s%s" % \
                     (SETTINGS_DIR, os.sep, os.sep, row[0])
+
+                # check to see if we need to recache this image
+                if row[1]:
+                    if not self.check_image_age(album_id, row[0]): return
 
                 self.cover.set_image("%s%scovers%s%s" %
                     (SETTINGS_DIR, os.sep, os.sep, row[0]))

@@ -162,10 +162,6 @@ class ExaileWindow(gobject.GObject):
 
         self.tray_icon = None
 
-        volume_image = xlmisc.get_icon('stock_volume', gtk.ICON_SIZE_BUTTON)
-        image = gtk.Image()
-        image.set_from_pixbuf(volume_image)
-
         self.volume = self.xml.get_widget('volume_slider')
         self.volume_id = \
             self.volume.connect('change-value', self.on_volume_set)

@@ -1350,7 +1350,7 @@ class ExaileWindow(gobject.GObject):
             This checks to see if the image is too old for Amazon's ULA, and
             if it is, it refetches the image
         """
-        info = os.stat('%s%scovers%s%s', (SETTINGS_DIR, os.sep, os.sep,
+        info = os.stat('%s%scovers%s%s' % (SETTINGS_DIR, os.sep, os.sep,
             image))
 
         max_time = 30 * 24 * 60 * 60 # 1 month

@@ -2129,8 +2129,7 @@ class ExaileWindow(gobject.GObject):
             Returns the current volume level as a percent
         """
         vol = self.volume.get_value()
-        percent = float(vol) / 120.0
-        return int(percent * 100)
+        return round(vol)
 
     def stream(self, url): 
         """

@@ -81,7 +81,6 @@ class ExaileWindow(gobject.GObject):
     __gsignals__ = {
         'play-track': (gobject.SIGNAL_RUN_LAST, None, (media.Track,)),
         'stop-track': (gobject.SIGNAL_RUN_LAST, None, (media.Track,)),
-        'volume-changed': (gobject.SIGNAL_RUN_LAST, None, (int,)),
         'seek': (gobject.SIGNAL_RUN_LAST, None, (int,)),
         'pause-toggled': (gobject.SIGNAL_RUN_LAST, None, (media.Track,)),
         'quit': (gobject.SIGNAL_RUN_LAST, None, ()),
@@ -131,7 +130,6 @@ class ExaileWindow(gobject.GObject):
         self.setup_col_menus('track', trackslist.TracksListCtrl.col_map)
         self.plugins_menu = xlmisc.Menu()
         self.rewind_track = 0
-        self.volume_id = None
         self.player = player.ExailePlayer(self)
         self.player.connect('play-track', self.play_track)
         self.player.connect('stop-track', self._stop_cb)
@@ -162,12 +160,15 @@ class ExaileWindow(gobject.GObject):
 
         self.tray_icon = None
 
-        self.volume = self.xml.get_widget('volume_slider')
-        self.volume_id = \
-            self.volume.connect('change-value', self.on_volume_set)
-        self.volume.connect('scroll-event', self.volume_scroll)
-        self.volume.set_value(self.settings.get_float('volume', 1) *
-            100)
+        self.volume = xlmisc.Adjustment(0, 0, 100, 1, 10, 0)
+        self.volume.connect('value-changed', self.__on_volume_changed)
+        self.volume.set_value(self.settings.get_float('volume', .7) * 100)
+
+        vol = self.xml.get_widget('volume_slider')
+        vol.set_adjustment(self.volume)
+        vol.connect('scroll-event', self.__on_volume_scroll)
+        vol.connect('key-press-event', self.__on_volume_key_press)
+
         if self.settings.get_boolean("ui/use_tray", False): 
             self.setup_tray()
 
@@ -189,8 +190,6 @@ class ExaileWindow(gobject.GObject):
 
         pos = self.settings.get_int("ui/mainw_sash_pos", 200)
         self.setup_location()
-
-        self.player.set_volume(self.settings.get_float("volume", .7))
 
         self.splitter = self.xml.get_widget('splitter')
         self.splitter.connect('notify::position', self.on_resize)
@@ -1639,38 +1638,46 @@ class ExaileWindow(gobject.GObject):
             custom=custom)
         self.tracks.set_songs(self.songs, False)
 
-    def volume_scroll(self, widget, ev):
+    def __on_volume_scroll(self, widget, ev):
         """
-            Called when the user scrolls their mouse wheel over the tray icon
+            Called when the user scrolls their mouse wheel over the volume bar
         """
-        v = widget.get_value()
+        # Modify default HScale up/down behaviour.
         if ev.direction == gtk.gdk.SCROLL_DOWN:
-            v -= 9
-        else:
-            v += 9
+            self.volume.page_down()
+            return True
+        elif ev.direction == gtk.gdk.SCROLL_UP:
+            self.volume.page_up()
+            return True
+        return False
 
-        if v < 0: v = 0
-        elif v > 100: v = 100
-
-        self.on_volume_set(self.volume, None, v)
-        return True
-
-    def on_volume_set(self, range, scroll, value): 
+    def __on_volume_key_press(self, widget, ev):
         """
-            Sets the volume based on the slider position
+            Called when the user presses a key when the volume bar is focused
+        """
+        # Modify default HScale up/down behaviour.
+        inc = widget.get_adjustment().props.step_increment
+        if ev.keyval == gtk.keysyms.Down:
+            self.volume.step_down()
+            return True
+        elif ev.keyval == gtk.keysyms.Up:
+            self.volume.step_up()
+            return True
+        return False
+
+    def __on_volume_changed(self, adjustment): 
+        """
+            Called when the volume is changed
         """
 
-        self.player.set_volume(float(value) / 100.0)
-        self.settings['volume'] = value / 100.0
-        self.emit('volume-changed', value)        
-        self.volume.disconnect(self.volume_id)
-        self.volume.set_value(value)
+        value = adjustment.get_value()
+        frac_value = value / 100.0
+        self.player.set_volume(frac_value)
+        self.settings['volume'] = frac_value
         if not self.window.get_property('visible') and  self.settings.get_boolean("use_popup", True):
             pop = xlmisc.get_osd(self, xlmisc.get_osd_settings(self.settings))
             vol_text = "<big><b> Changing volume: %d %% </b></big>" % self.get_volume_percent()
             pop.show_osd(vol_text, None)
-        self.volume_id = self.volume.connect('change-value',
-            self.on_volume_set)
 
     def seek(self, range, scroll, value): 
         """
@@ -2122,7 +2129,7 @@ class ExaileWindow(gobject.GObject):
 
     def get_volume_percent(self):
         """
-            Returns the current volume level as a percent
+            Returns the current volume level as a percentage
         """
         vol = self.volume.get_value()
         return round(vol)

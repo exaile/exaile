@@ -138,10 +138,9 @@ class MiniWindow(gtk.Window):
         self.pos_label.set_alignment(0.0, .5)
         bbox.pack_start(self.pos_label)
 
-#        self.volume_slider = gtk.HScale(gtk.Adjustment(0, 0, 120, 1, 10, 0))
+#        self.volume_slider = gtk.HScale(APP.volume)
 #        self.volume_slider.set_draw_value(False)
 #        self.volume_slider.set_size_request(100, -1)
-#        self.volume_id = self.volume_slider.connect('change-value', APP.on_volume_set)
 #        self.volume_slider.connect('scroll-event', self.volume_scroll)
 
 #        bbox.pack_start(gtk.Label("-"), False)
@@ -163,27 +162,11 @@ class MiniWindow(gtk.Window):
         """
             Called when the user scrolls their mouse wheel over the tray icon
         """
-        v = self.volume_slider.get_value()
-        if ev.direction == gtk.gdk.SCROLL_RIGHT or ev.direction == \
-            gtk.gdk.SCROLL_UP:
-            v += 8
+        if ev.direction in [gtk.gdk.SCROLL_RIGHT, gtk.gdk.SCROLL_UP]:
+            APP.volume.page_up()
         else:
-            v -= 8
-
-        if v < 0: v = 0
-        elif v > 120: v = 120
-        APP.on_volume_set(self.volume_slider, None, v)
-        self.volume_slider.set_value(v)
+            APP.volume.page_down()
         return True
-
-    def volume_changed(self, exaile, value):
-        """
-            Handles the "volume-changed" signal from ExaileWindow
-        """
-        self.volume_slider.disconnect(self.volume_id)
-        self.volume_slider.set_value(value / 100.0)
-        self.volume_id = self.volume_slider.connect('change-value',
-            APP.on_volume_set)
 
     def change_track(self, combo):
         """
@@ -267,7 +250,6 @@ class MiniWindow(gtk.Window):
         else:
             self.show()
 
-#        self.volume_slider.set_value(APP.volume.get_value())
         settings = APP.settings
         x = settings.get_int("x", plugin=plugins.name(__file__),   
             default=10)
@@ -405,7 +387,6 @@ def initialize():
     PLUGIN.add_accel_group(ACCEL_GROUP)
     CONS.connect(APP, 'play-track', play_track)
     CONS.connect(APP, 'stop-track', stop_track)
-#    CONS.connect(APP, 'volume-changed', PLUGIN.volume_changed)
     CONS.connect(APP, 'pause-toggled', pause_toggled)
 
     if APP.tray_icon:

@@ -203,6 +203,23 @@ class Menu(gtk.Menu):
         item.show()
         gtk.Menu.append(self, item)
 
+class Adjustment(gtk.Adjustment):
+    """
+        Custom adjustment with convenience functions
+    """
+    def decrease(self, diff):
+        self.props.value -= diff
+    def increase(self, diff):
+        self.props.value += diff
+    def page_down(self):
+        self.props.value -= self.props.page_increment
+    def page_up(self):
+        self.props.value += self.props.page_increment
+    def step_down(self):
+        self.props.value -= self.props.step_increment
+    def step_up(self):
+        self.props.value += self.props.step_increment
+
 def get_icon(id, size=gtk.ICON_SIZE_BUTTON):
     """
         Returns a stock icon for the specified id and size
@@ -337,17 +354,10 @@ class EggTrayIcon(BaseTrayIcon):
             if ev.direction in [SCROLL_UP, SCROLL_LEFT]: self.exaile.on_previous()
             elif ev.direction in [SCROLL_DOWN, SCROLL_RIGHT]: self.exaile.on_next()
         else:
-            v = self.exaile.volume.get_value()
             if ev.direction in [SCROLL_RIGHT, SCROLL_UP]:
-                v += 5
+                self.exaile.volume.page_up()
             else:
-                v -= 5
-
-            if v < 0: v = 0
-            elif v > 120: v = 120
-
-            self.exaile.volume.set_value(v)
-            self.exaile.on_volume_set(self.exaile.volume, None, v)
+                self.exaile.volume.page_down()
 
     def button_pressed(self, item, event, data=None):
         """

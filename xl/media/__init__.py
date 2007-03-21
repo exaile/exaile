@@ -191,7 +191,10 @@ class Track(gobject.GObject):
         """
         if self.type == 'stream':
             if self._bitrate:
-                return "%sk" % self._bitrate.replace('k', '')
+                try:
+                    return "%sk" % self._bitrate.replace('k', '')
+                except AttributeError:
+                    return self._bitrate
             else:
                 return ''
         try:

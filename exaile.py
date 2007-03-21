@@ -1838,9 +1838,10 @@ class ExaileWindow(gobject.GObject):
         """
             Shows a popup window with information about the current track
         """
-        if not self.settings.get_boolean("osd/enabled", True): return
         if tray:
             if not self.settings.get_boolean('osd/tray', True): return
+        else:
+            if not self.settings.get_boolean("osd/enabled", True): return
         track = self.player.current
         if not track: return
         pop = xlmisc.get_osd(self, xlmisc.get_osd_settings(self.settings))

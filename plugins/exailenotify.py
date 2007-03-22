@@ -27,6 +27,8 @@ button.destroy()
 DEFAULT_SUMMARY = '{title}'
 DEFAULT_BODY = '{artist}\n<i>on {album}</i>'
 
+GTKSTATUSICON_AVAIL = hasattr(gtk, 'StatusIcon')
+
 APP = None
 PLAY_ID = None
 pynotify.init('exailenotify')
@@ -134,10 +136,10 @@ def play_track(exaile, track):
         plugin=plugins.name(__file__))
     if attach_to_tray and exaile.tray_icon:
         icon = exaile.tray_icon.icon
-        if isinstance(icon, gtk.StatusIcon):
-            notify.set_property('status-icon', icon)
-        else:
+        if isinstance(icon, gtk.Widget):
             notify.attach_to_widget(icon)
+        elif GTKSTATUSICON_AVAIL and isinstance(icon, gtk.StatusIcon):
+            notify.set_property('status-icon', icon)
 
     notify.show()
 

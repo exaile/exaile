@@ -27,19 +27,6 @@ except ImportError:
     except ImportError:
         SQLITE_AVAIL = False
 
-try:
-    import MySQLdb
-    MYSQL_AVAIL = True
-    ProgrammingError = MySQLdb.ProgrammingError
-except ImportError:
-    MYSQL_AVAIL = False
-
-try:
-    import pyPgSQL.PgSQL
-    PGSQL_AVAIL = True
-    PostgresOperationalError = pyPgSQL.PgSQL.OperationalError
-except:
-    PGSQL_AVAIL = False
 #sqlite.enable_shared_cache(True)
 
 from traceback import print_exc
@@ -89,7 +76,7 @@ class DBManager(object):
         cur.execute("PRAGMA cache_size=4000")
         cur.execute("PRAGMA temp_store=MEMORY")
         cur.execute("PRAGMA fullsync=0")
-        cur.execute("PRAGMA cast_sensitive_like=0")
+        cur.execute("PRAGMA case_sensitive_like=0")
         cur.close()
         self._cursor = self.db.cursor()
 

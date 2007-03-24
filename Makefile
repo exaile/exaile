@@ -1,10 +1,11 @@
-PREFIX=/usr
-CWD=`pwd` 
+PREFIX ?= /usr/local
+
 all: build 
 	@echo "Done"
 	@echo "Type: 'make install' now"
 
 build: mmkeys.so
+	python -m compileall xl
 
 mmkeys.so:
 	cd mmkeys && make mmkeys.so && cd ..
@@ -12,6 +13,8 @@ mmkeys.so:
 
 make-install-dirs: 
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
+	mkdir -p $(DESTDIR)$(PREFIX)/lib/
+	mkdir -p $(DESTDIR)$(PREFIX)/lib/exaile
 	mkdir -p $(DESTDIR)$(PREFIX)/share/
 	mkdir -p $(DESTDIR)$(PREFIX)/share/pixmaps
 	mkdir -p $(DESTDIR)$(PREFIX)/share/applications
@@ -30,14 +33,16 @@ install: make-install-dirs mmkeys.so
 	install -m 644 exaile.glade $(DESTDIR)$(PREFIX)/share/exaile
 	install -m 644 equalizer.ini $(DESTDIR)$(PREFIX)/share/exaile
 	install -m 644 sql/*.sql $(DESTDIR)$(PREFIX)/share/exaile/sql
-	install -m 644 mmkeys.so $(DESTDIR)$(PREFIX)/share/exaile
+	install -m 644 mmkeys.so $(DESTDIR)$(PREFIX)/lib/exaile
 	install -m 644 images/*.png $(DESTDIR)$(PREFIX)/share/exaile/images
 	install -m 644 images/*.svg $(DESTDIR)$(PREFIX)/share/exaile/images
 	install -m 644 images/default_theme/*.png \
 	$(DESTDIR)$(PREFIX)/share/exaile/images/default_theme
 	install -m 644 po/*.po $(DESTDIR)$(PREFIX)/share/exaile/po
 	install -m 644 xl/*.py $(DESTDIR)$(PREFIX)/share/exaile/xl
+	install -m 644 xl/*.pyc $(DESTDIR)$(PREFIX)/share/exaile/xl
 	install -m 644 xl/media/*.py $(DESTDIR)$(PREFIX)/share/exaile/xl/media
+	install -m 644 xl/media/*.pyc $(DESTDIR)$(PREFIX)/share/exaile/xl/media
 	install -m 644 plugins/*.py $(DESTDIR)$(PREFIX)/share/exaile/plugins
 	install -m 644 plugins/*.glade $(DESTDIR)$(PREFIX)/share/exaile/plugins
 	install -m 644 images/largeicon.png \
@@ -46,8 +51,10 @@ install: make-install-dirs mmkeys.so
 	cd $(DESTDIR)$(PREFIX)/bin && \
 	ln -sf ../share/exaile/exaile.py exaile && chmod \
 	755 exaile
-	find po -maxdepth 1 -mindepth 1 -type d -exec \
-	  cp -r {} $(DESTDIR)$(PREFIX)/share/locale \;
+	for f in `find po -name exaile.mo` ; do \
+	  install -D $$f \
+	    `echo $$f | sed "s|po|$(DESTDIR)$(PREFIX)/share/locale|"` ; \
+	  done
 
 clean:
 	-rm mmkeys.so
@@ -60,4 +67,5 @@ tarball: clean
 	
 uninstall:
 	rm -r $(DESTDIR)$(PREFIX)/share/exaile
+	rm -r $(DESTDIR)$(PREFIX)/lib/exaile
 	rm -r $(DESTDIR)$(PREFIX)/bin/exaile

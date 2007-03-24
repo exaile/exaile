@@ -63,6 +63,11 @@ if not os.path.exists(os.path.join(basedir, "exaile.py")):
 sys.path.insert(0, basedir)
 os.chdir(basedir)
 
+# Add ../../lib/exaile to path
+path_suffix = '/share/exaile'
+if basedir.endswith(path_suffix):
+    sys.path.append(basedir[:-len(path_suffix)] + '/lib/exaile')
+
 from xl import *
 from xl import media, audioscrobbler, equalizer
 import plugins.manager, plugins, plugins.gui

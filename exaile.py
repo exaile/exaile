@@ -706,7 +706,7 @@ class ExaileWindow(gobject.GObject):
     def show_equalizer(self):
 
         try: # Equalizer element is still not very common 
-            gst.element_factory_make('equalizer')
+            gst.element_factory_make('equalizer-10bands')
         except gst.PluginNotFoundError: # Should probably log this..
             common.error(self.window, _('Gstreamer equalizer is not '
                 ' available.  It can be found in gstreamer-plugins-bad '

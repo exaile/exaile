@@ -509,7 +509,7 @@ class ExailePlayer(GSTPlayer):
         sinkbin = gst.Bin()
 
         try: # Equalizer element is still not very common 
-            self.equalizer = gst.element_factory_make('equalizer')
+            self.equalizer = gst.element_factory_make('equalizer-10bands')
         except gst.PluginNotFoundError:
             print "Warning: Gstreamer equalizer element not found, please install the latest gst-plugins-bad package"
             self.audiosink = asink
@@ -523,9 +523,11 @@ class ExailePlayer(GSTPlayer):
 
         self.audio_sink = sinkbin
 
-        self.equalizer.set_property('num-bands', 10)
         bands = self.exaile.settings.get_list('band-values', [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-        self.equalizer.set_property('band-values', bands)
+        i = 0
+        for v in bands:
+            self.equalizer.set_property(('band'+str(i)), v)
+            i = i + 1
 
         return self.audio_sink
 

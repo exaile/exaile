@@ -72,13 +72,12 @@ class EqualizerWindow(object):
             Gets the previous equalizer values from the settings
         """
         self.band_values = self.exaile.settings.get_list('band-values', [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-        if self.equalizer != None:
-            self.equalizer.set_property('band-values', self.band_values)
+        self.apply_band_values()
         self.update_scales()
 
     def update_scales(self):
         """
-            Changes the values of the scales
+            Changes the values of the scales (updates the GUI)
         """
         i = 0
         # We need to block the callback for 'changed' first
@@ -103,8 +102,7 @@ class EqualizerWindow(object):
         self.band_values = []
         for scale in self.scales: #FIXME: Not a very optimal way to do stuff
             self.band_values.append(scale.get_value())
-        if self.equalizer != None:
-            self.equalizer.set_property('band-values', self.band_values)
+        self.apply_band_values()
         self.exaile.settings.set_list('band-values', self.band_values)
         if self.custom == True:
             self.preset_chooser.set_active(0)
@@ -131,8 +129,7 @@ class EqualizerWindow(object):
                     self.band_values = eval(config.get(preset, "value"))
                     self.exaile.settings.set_str('last-preset', name)
 
-        if self.equalizer != None:
-            self.equalizer.set_property('band-values', self.band_values)
+        self.apply_band_values()
         self.exaile.settings.set_list('band-values', self.band_values)
         self.update_scales()
 
@@ -144,3 +141,15 @@ class EqualizerWindow(object):
         for preset in presets:
             self.preset_chooser.append_text(config.get(preset, "name"))
         last_preset = self.exaile.settings.get_str('last-preset')
+        self.custom = True #FIXME: This actually depends on the last_preset value
+
+    def apply_band_values(self):
+        i = 0
+        if self.equalizer != None:
+            for v in self.band_values:
+                self.equalizer.set_property(('band'+str(i)), v)
+                i = i + 1
+            return
+        else:
+            return
+

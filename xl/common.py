@@ -33,14 +33,25 @@ def tup(string, num):
     return tuple(a)
 
 def threaded(f):
+    """
+        A decorator that will make any function run in a new thread
+    """
     def wrapper(*args):
         t = threading.Thread(target=f, args=args)
         t.setDaemon(True)
         t.start()
 
+    wrapper.__name__ = f.__name__
+    wrapper.__dict__ = f.__dict__
+    wrapper.__doc__ = f.__doc__
+
     return wrapper
 
 def synchronized(func):
+    """
+        A decorator to make a function synchronized - which means only one
+        thread is allowed to access it at a time
+    """
     def wrapper(self,*__args,**__kw):
         try:
             rlock = self._sync_lock

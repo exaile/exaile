@@ -1,0 +1,1529 @@
+# translation of Exaile!.
+# Copyright (C) 2007 Adam Olsen
+# This file is distributed under the same license as the Exaile! package.
+# Kayra Akman <ckakman@yahoo.com>, 2007.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Exaile! 0.2.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-03-15 11:37+0200\n"
+"PO-Revision-Date: 2007-03-15 15:58+0200\n"
+"Last-Translator: Kayra Akman <ckakman@yahoo.com>\n"
+"Language-Team: Turkish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: exaile.py:174
+#: exaile.glade.h:104
+msgid "Exaile!"
+msgstr "Exaile!"
+
+#: exaile.py:222
+msgid "You have not specified any search directories for your music library. You may do so now, or choose to do it later.  If you want to do it later, you can manage your library search directories by going to Tools->Library Manager.  Do you want to choose your library directories now?"
+msgstr "Müzik kütüphaneniz için herhangi bir arama dizini belirlemediniz. Şimdi ya da daha sonra belirleyebilirsiniz.  Daha sonra yapmak isterseniz kütüphane arama dizinlerinizi Araçlar > Kütüphane Yöneticisi'nden yönetebilirsiniz.  Kütüphane dizinlerinizi şimdi seçmek istiyor musunuz?"
+
+#: exaile.py:577
+#: xl/xlmisc.py:1511
+msgid "Add a directory"
+msgstr "Klasör ekle"
+
+#: exaile.py:579
+#: xl/xlmisc.py:1513
+#: exaile.glade.h:72
+msgid "Cancel"
+msgstr "İptal"
+
+#: exaile.py:579
+#: xl/xlmisc.py:1513
+msgid "Choose"
+msgstr "Seç"
+
+#: exaile.py:582
+msgid "Add tracks to current playlist after importing"
+msgstr "Aktardıktan sonra parçaları güncel çalma listesine ekle"
+
+#: exaile.py:649
+msgid "Queue"
+msgstr "Kuyruk"
+
+#: exaile.py:686
+msgid "Blacklist"
+msgstr "Kara Liste"
+
+#: exaile.py:707
+msgid "Gstreamer equalizer is not  available.  It can be found in gstreamer-plugins-bad (currently found in GST CVS)."
+msgstr "Gstreamer denkleştiricisi mevcut değil. gstreamer-plugins-bad (halihazırda GST CVS'inde) paketinde bulunmakta."
+
+#: exaile.py:833
+#: exaile.py:1562
+#: exaile.py:1571
+#: exaile.py:1610
+#: exaile.py:2086
+#: xl/panels.py:2790
+#: xl/panels.py:2919
+#: exaile.glade.h:134
+msgid "Playlist"
+msgstr "Çalma Listesi"
+
+#: exaile.py:881
+msgid "Blacklisting the selected tracks will prevent them from being added to the library on rescan.  Are you sure you want to continue?"
+msgstr "Seçili parçaları kara listeye eklemek, tekrar tarama yapıldığında kütüphaneye eklenmelerini engelleyecektir. Devam etmek istediğinize emin misiniz?"
+
+#: exaile.py:974
+#, python-format
+msgid "Error connecting to database: %s"
+msgstr "Veritabanına bağlantıda hata: %s"
+
+#: exaile.py:1006
+msgid "Loading library from database..."
+msgstr "Kütüphane veritabanından yükleniyor..."
+
+#: exaile.py:1246
+msgid "Submitting to Last.fm..."
+msgstr "Last.fm'e bildiriliyor..."
+
+#: exaile.py:1263
+#: exaile.glade.h:126
+msgid "Not Playing"
+msgstr "Çalınmıyor"
+
+#: exaile.py:1264
+#: exaile.glade.h:164
+msgid "Stopped"
+msgstr "Durduruldu"
+
+#: exaile.py:1333
+msgid "No covers found."
+msgstr "Kapak bulunamadı."
+
+#: exaile.py:1359
+msgid "Current amazon image is too old, fetching  a new one"
+msgstr "Mevcur amazon imgesi çok eski, yeni bir tane alınıyor"
+
+#: exaile.py:1418
+msgid "Fetching cover art from Amazon..."
+msgstr "Amazon'dan kapak alınıyor..."
+
+#: exaile.py:1472
+msgid "View Full Image"
+msgstr "İmgeyi Tam Görüntüle"
+
+#: exaile.py:1474
+msgid "Fetch from Amazon"
+msgstr "Amazon'dan Al"
+
+#: exaile.py:1476
+msgid "Search Amazon"
+msgstr "Amazon'da Ara"
+
+#: exaile.py:1478
+msgid "Set Custom Image"
+msgstr "Özel İmge Belirle"
+
+#: exaile.py:1480
+msgid "Remove Cover"
+msgstr "Kapağı Kaldır"
+
+#: exaile.py:1504
+msgid "Fetching from amazon..."
+msgstr "Amazon'dan alınıyor..."
+
+#: exaile.py:1520
+msgid "Choose an image"
+msgstr "Bir imge seçin"
+
+#: exaile.py:1738
+msgid "Podcast has not yet been downloaded"
+msgstr "Podcast henüz indirilmedi"
+
+#: exaile.py:2051
+#: exaile.py:2101
+msgid "Choose a file"
+msgstr "Bir dosya seçin"
+
+#: exaile.py:2054
+msgid "Open in new tab"
+msgstr "Yeni sekmede aç"
+
+#: exaile.py:2066
+msgid "Populating playlist..."
+msgstr "Çalma listesi dolduruluyor..."
+
+#: exaile.py:2158
+msgid "Enter the address"
+msgstr "Adresi girin"
+
+#: exaile.py:2171
+msgid "You need the python-cddb package  in order to play audio discs."
+msgstr "Ses CD'lerini çalabilmek için python-cddb paketini kurmalısınız."
+
+#: exaile.py:2176
+msgid "Audio Disc"
+msgstr "Ses CDsi"
+
+#: exaile.py:2209
+msgid "Scanning collection..."
+msgstr "Koleksiyon taranıyor..."
+
+#: xl/audioscrobbler.py:29
+msgid "Failed to submit track to Last.fm."
+msgstr "Parçayı Last.fm'e bildirirken hata oluştu."
+
+#: xl/audioscrobbler.py:49
+msgid "Error logging into Last.fm."
+msgstr "Last.fm'de oturum açmada hata"
+
+#: xl/filtergui.py:50
+msgid "Name"
+msgstr "Ad"
+
+#: xl/filtergui.py:64
+msgid "Match any of the criteria"
+msgstr "Ölçütlerden herhangi birine eşle"
+
+#: xl/panels.py:62
+#: xl/panels.py:77
+#: xl/panels.py:86
+msgid "seconds"
+msgstr "saniye"
+
+#: xl/panels.py:68
+msgid "and"
+msgstr "ve"
+
+#: xl/panels.py:74
+#: xl/panels.py:77
+msgid "days"
+msgstr "gün"
+
+#: xl/panels.py:77
+msgid "minutes"
+msgstr "dakika"
+
+#: xl/panels.py:77
+msgid "hours"
+msgstr "saat"
+
+#: xl/panels.py:77
+msgid "weeks"
+msgstr "hafta"
+
+#: xl/panels.py:98
+#: xl/track.py:336
+#: xl/trackslist.py:36
+#: xl/trackslist.py:41
+#: xl/trackslist.py:53
+#: xl/trackslist.py:480
+#: exaile.glade.h:57
+msgid "Artist"
+msgstr "Sanatçı"
+
+#: xl/panels.py:99
+#: xl/panels.py:109
+#: xl/panels.py:119
+#: xl/panels.py:172
+msgid "is"
+msgstr "aynı"
+
+#: xl/panels.py:101
+#: xl/panels.py:111
+#: xl/panels.py:121
+#: xl/panels.py:174
+msgid "is not"
+msgstr "farklı"
+
+#: xl/panels.py:103
+#: xl/panels.py:113
+#: xl/panels.py:123
+#: xl/panels.py:176
+msgid "contains"
+msgstr "içerir"
+
+#: xl/panels.py:105
+#: xl/panels.py:115
+#: xl/panels.py:125
+#: xl/panels.py:178
+msgid "does not contain"
+msgstr "içermez"
+
+#: xl/panels.py:108
+#: xl/track.py:341
+#: xl/trackslist.py:36
+#: xl/trackslist.py:42
+#: xl/trackslist.py:54
+#: xl/trackslist.py:481
+#: exaile.glade.h:51
+msgid "Album"
+msgstr "Albüm"
+
+#: xl/panels.py:118
+#: xl/trackslist.py:37
+#: xl/trackslist.py:47
+#: xl/trackslist.py:59
+#: exaile.glade.h:109
+msgid "Genre"
+msgstr "Tür"
+
+#: xl/panels.py:128
+msgid "User Rating"
+msgstr "Kullanıcı Değerlendirmesi"
+
+#: xl/panels.py:129
+#: xl/panels.py:134
+#: xl/panels.py:140
+#: xl/panels.py:154
+msgid "at least"
+msgstr "en az"
+
+#: xl/panels.py:131
+#: xl/panels.py:136
+#: xl/panels.py:142
+#: xl/panels.py:156
+msgid "at most"
+msgstr "en çok"
+
+#: xl/panels.py:133
+msgid "System Rating"
+msgstr "Sistem Değerlendirmesi"
+
+#: xl/panels.py:139
+msgid "Number of Plays"
+msgstr "Çalma Sayısı"
+
+#: xl/panels.py:145
+#: xl/trackslist.py:37
+#: xl/trackslist.py:46
+#: xl/trackslist.py:58
+#: exaile.glade.h:182
+msgid "Year"
+msgstr "Yıl"
+
+#: xl/panels.py:146
+msgid "before"
+msgstr "önce"
+
+#: xl/panels.py:148
+msgid "after"
+msgstr "sonra"
+
+#: xl/panels.py:150
+msgid "between"
+msgstr "arasında"
+
+#: xl/panels.py:153
+#: xl/trackslist.py:36
+#: xl/trackslist.py:43
+#: xl/trackslist.py:55
+#: xl/trackslist.py:453
+#: exaile.glade.h:119
+msgid "Length"
+msgstr "Süre"
+
+#: xl/panels.py:159
+msgid "Date Added"
+msgstr "Ekleme Tarihi"
+
+#: xl/panels.py:160
+#: xl/panels.py:166
+msgid "in the last"
+msgstr "en son"
+
+#: xl/panels.py:162
+#: xl/panels.py:168
+msgid "not in the last"
+msgstr "daha önce"
+
+#: xl/panels.py:165
+msgid "Last Played"
+msgstr "Son Çalma"
+
+#: xl/panels.py:171
+msgid "Location"
+msgstr "Konum"
+
+#: xl/panels.py:278
+msgid "Finished scanning collection."
+msgstr "Koleksiyonu tarama bitti."
+
+#: xl/panels.py:299
+msgid "Scanning..."
+msgstr "Taranıyor..."
+
+#: xl/panels.py:333
+msgid "Append to Current"
+msgstr "Listenin Sonuna Ekle"
+
+#: xl/panels.py:337
+#: xl/panels.py:1688
+#: xl/trackslist.py:729
+msgid "New Playlist"
+msgstr "Yeni Çalma Listesi"
+
+#: xl/panels.py:347
+#: xl/trackslist.py:737
+msgid "Add to Playlist"
+msgstr "Çalma Listesine Ekle"
+
+#: xl/panels.py:348
+#: xl/panels.py:2751
+msgid "Queue Items"
+msgstr "Öğeleri Kuyruğa Ekle"
+
+#: xl/panels.py:351
+msgid "Blacklist Selected"
+msgstr "Seçili Olanları Kara Listeye Al"
+
+#: xl/panels.py:353
+msgid "Delete Selected"
+msgstr "Seçili Olanları Sil"
+
+#: xl/panels.py:357
+#: xl/trackslist.py:756
+msgid "Edit Information"
+msgstr "Bilgileri Düzenle"
+
+#: xl/panels.py:434
+#: xl/trackslist.py:952
+msgid "Are you sure you want to permanently remove the selected tracks from disk?"
+msgstr "Seçili parçaları diskten kalıcı olarak silmek istediğinize emin misiniz?"
+
+#: xl/panels.py:452
+msgid "Are you sure you want to blacklist the selected tracks?"
+msgstr "Seçili parçaları kara listeye almak istediğinize emin misiniz?"
+
+#: xl/panels.py:836
+msgid "Transfer Queue"
+msgstr "Kuyruğu Aktar"
+
+#: xl/panels.py:864
+msgid "Transfer"
+msgstr "Aktarım"
+
+#: xl/panels.py:884
+msgid "A transfer is in progress, please wait for it to stop before attempting to perform this operation."
+msgstr "Sürmekte olan bir aktarım işlemi var, lütfen bu işlemi yapmadan önce aktarımın bitmesini bekleyin."
+
+#: xl/panels.py:1027
+msgid "This device does not support removing tracks"
+msgstr "Bu aygıt parça silme işlemini desteklemiyor"
+
+#: xl/panels.py:1045
+msgid "Not connected to any media device"
+msgstr "Bir ortam aygıtıyla bağlantı yok"
+
+#: xl/panels.py:1076
+msgid "The current device  does not support transferring music."
+msgstr "Bu aygıt müzik aktarımını desteklemiyor."
+
+#: xl/panels.py:1080
+msgid "There is a transfer currently in progress.  Please wait for it to finish"
+msgstr "Şu anda sürmekte olan bir aktarım işlemi var.  Lütfen bitmesini bekleyin"
+
+#: xl/panels.py:1180
+msgid "Error connecting to device"
+msgstr "Aygıta bağlanmada hata"
+
+#: xl/panels.py:1291
+msgid "Smart Playlists"
+msgstr "Akıllı Çalma Listeleri"
+
+#: xl/panels.py:1354
+msgid "Custom Playlists"
+msgstr "Özel Çalma Listeleri"
+
+#: xl/panels.py:1426
+#: xl/panels.py:1469
+msgid "That playlist name is already taken."
+msgstr "Bu çalma listesi adı önceden kullanılmış."
+
+#: xl/panels.py:1464
+msgid "You did not enter a name for your playlist"
+msgstr "Çalma listesi için bir ad girmediniz."
+
+#: xl/panels.py:1645
+#: xl/trackslist.py:1026
+msgid "The following errors did occur"
+msgstr "Aşağıdaki hatalar oluştu"
+
+#: xl/panels.py:1663
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr "Seçili çalma listesini kalıcı olarak silmek istediğinize emin misiniz?"
+
+#: xl/panels.py:1687
+msgid "Enter the name you want for your new playlist"
+msgstr "Yeni çalma listeniz için istediğiniz bir ad girin"
+
+#: xl/panels.py:1697
+msgid "Playlist already exists."
+msgstr "Çalma listesi zaten mevcut."
+
+#: xl/panels.py:1846
+msgid "Downloading Podcasts"
+msgstr "Podcastler İndiriliyor"
+
+#: xl/panels.py:1851
+msgid "Downloading..."
+msgstr "İndiriliyor..."
+
+#: xl/panels.py:1886
+msgid "Stopping..."
+msgstr "Durduruluyor..."
+
+#: xl/panels.py:2013
+msgid "Shoutcast Stations"
+msgstr "Shoutcast İstasyonları"
+
+#: xl/panels.py:2115
+msgid "You need to have a last.fm username and password set in your preferences."
+msgstr "Last.fm kullanıcı adı ve parolanız tercihlerinizde kayıtlı olmalı."
+
+#: xl/panels.py:2267
+msgid "Reload Streams"
+msgstr "<small>0 dB</small>"
+
+#: xl/panels.py:2272
+#: xl/panels.py:2473
+msgid "Add Stream to Station"
+msgstr "İstasyona Stream Ekle"
+
+#: xl/panels.py:2274
+msgid "Delete this Station"
+msgstr "Bu İstasyonu Sil"
+
+#: xl/panels.py:2278
+msgid "Add Feed"
+msgstr "Besleme Ekle"
+
+#: xl/panels.py:2279
+msgid "Refresh Feed"
+msgstr "Beslemeyi Tazele"
+
+#: xl/panels.py:2280
+msgid "Delete Feed"
+msgstr "Beslemeyi Sil"
+
+#: xl/panels.py:2296
+msgid "Enter the location of the podcast"
+msgstr "Podcast konumu girin"
+
+#: xl/panels.py:2297
+msgid "Add a podcast"
+msgstr "Podcast Ekle"
+
+#: xl/panels.py:2305
+msgid "A podcast with that url already exists"
+msgstr "Belirtilen url ile bir podcast zaten mevcut"
+
+#: xl/panels.py:2331
+msgid "Could not read feed."
+msgstr "Besleme okunamadı"
+
+#: xl/panels.py:2453
+msgid "Are you sure you want to delete this podcast?"
+msgstr "Bu podcasti silmek istediğinizden emin misiniz?"
+
+#: xl/panels.py:2498
+msgid "Are you sure you want to permanently delete the selected station?"
+msgstr "Seçili istasyonu kalıcı olarak silmek istediğinizden emin misiniz?"
+
+#: xl/panels.py:2551
+msgid "Add Station"
+msgstr "İstasyon Ekle"
+
+#: xl/panels.py:2552
+msgid "Station Name:"
+msgstr "İstasyon Adı:"
+
+#: xl/panels.py:2553
+#: plugins/plugins.glade:131
+#: plugins/plugins.glade:399
+msgid "Description:"
+msgstr "Açıklama:"
+
+#: xl/panels.py:2554
+msgid "URL:"
+msgstr "URL:"
+
+#: xl/panels.py:2561
+msgid "The 'Name' and 'URL' fields are required"
+msgstr "'Ad' ve 'URL' alanlarının doldurulması zorunlu"
+
+#: xl/panels.py:2569
+msgid "Station name already exists."
+msgstr "Bu istasyon adı zaten mevcut."
+
+#: xl/panels.py:2616
+#: xl/panels.py:2617
+msgid "Enter the name of the station"
+msgstr "İstasyonun adını girin"
+
+#: xl/panels.py:2627
+msgid "Station already exists."
+msgstr "İstasyon zaten mevcut"
+
+#: xl/panels.py:2750
+msgid "Append to Playlist"
+msgstr "Çalma Listesinin Sonuna Ekle"
+
+#: xl/panels.py:2787
+msgid "Scanning and adding files..."
+msgstr "Dosyalar taranıyor ve ekleniyor..."
+
+#: xl/player.py:393
+msgid "Errors"
+msgstr "Hata"
+
+#: xl/player.py:402
+msgid "<b>The following errors have occurred</b>"
+msgstr "<b>Şu hatalar oluştu</b>"
+
+#: xl/player.py:416
+#: xl/xlmisc.py:802
+msgid "Close"
+msgstr "Kapat"
+
+#: xl/player.py:569
+#, python-format
+msgid "Error logging in to Last.FM: %s"
+msgstr "Last.FM'de oturum açmada hata: %s"
+
+#: xl/player.py:669
+msgid "Loading stream sources, please wait..."
+msgstr "Stream kaynakları yükleniyor, lütfen bekleyin..."
+
+#: xl/player.py:937
+msgid "Exaile Media Player"
+msgstr "Exaile Media Player"
+
+#: xl/prefs.py:458
+msgid "Cannot watch directories for changes. Install python2.4-gamin to use this feature."
+msgstr "Değişiklikler için dizinler izlenemiyor. Bu özellik için python2.4-gamin'i kurun."
+
+#: xl/prefs.py:600
+msgid "Move the OSD window to the location you want it to appear when listening"
+msgstr "OSD penceresini dinlerken görünmesini istediğiniz yere taşıyın"
+
+#: xl/track.py:229
+#: xl/track.py:287
+msgid "Title: "
+msgstr "Başlık:"
+
+#: xl/track.py:230
+#: exaile.glade.h:61
+msgid "Artist:"
+msgstr "Sanatçı:"
+
+#: xl/track.py:231
+#: exaile.glade.h:55
+msgid "Album:"
+msgstr "Albüm:"
+
+#: xl/track.py:233
+msgid "Track Number:"
+msgstr "Parça Numarası:"
+
+#: xl/track.py:234
+#: exaile.glade.h:183
+msgid "Year:"
+msgstr "Yıl:"
+
+#: xl/track.py:235
+#: exaile.glade.h:110
+msgid "Genre:"
+msgstr "Tür:"
+
+#: xl/track.py:236
+msgid "Bitrate:"
+msgstr "Bit oranı:"
+
+#: xl/track.py:237
+msgid "User Rating:"
+msgstr "Kullanıcı Değerlendirmesi:"
+
+#: xl/track.py:238
+msgid "System Rating:"
+msgstr "Sistem Değerlendirmesi:"
+
+#: xl/track.py:239
+msgid "Playcount:"
+msgstr "Çalma sayısı:"
+
+#: xl/track.py:240
+#: xl/track.py:293
+msgid "Location: "
+msgstr "Konum: "
+
+#: xl/track.py:288
+msgid "Description: "
+msgstr "Açıklama: "
+
+#: xl/track.py:294
+msgid "Bitrate: "
+msgstr "Bit oranı: "
+
+#: xl/track.py:313
+#: xl/trackslist.py:778
+#: exaile.glade.h:113
+msgid "Information"
+msgstr "Bilgiler"
+
+#: xl/track.py:327
+#: xl/track.py:329
+msgid "Statistics"
+msgstr "İstatistikler"
+
+#: xl/track.py:343
+msgid "Lyrics"
+msgstr "Sözler"
+
+#: xl/track.py:345
+msgid "Tablature"
+msgstr "Tab"
+
+#: xl/track.py:463
+msgid "Some errors occurred"
+msgstr "Bazı hatalar oluştu"
+
+#: xl/tracks.py:393
+msgid "Could not open audio disc"
+msgstr "Ses diski açılamadı"
+
+#: xl/tracks.py:405
+#, python-format
+msgid "Track %d"
+msgstr "Parça %d"
+
+#: xl/trackslist.py:36
+#: xl/trackslist.py:40
+#: xl/trackslist.py:52
+#: xl/trackslist.py:480
+#: exaile.glade.h:167
+msgid "Title"
+msgstr "Başlık"
+
+#: xl/trackslist.py:36
+#: xl/trackslist.py:44
+#: xl/trackslist.py:56
+#: xl/trackslist.py:457
+#: exaile.glade.h:95
+msgid "Disc"
+msgstr "Disk"
+
+#: xl/trackslist.py:37
+#: xl/trackslist.py:45
+#: xl/trackslist.py:57
+#: xl/trackslist.py:430
+#: xl/trackslist.py:459
+#: xl/trackslist.py:515
+#: xl/trackslist.py:776
+#: exaile.glade.h:146
+msgid "Rating"
+msgstr "Değerlendirme"
+
+#: xl/trackslist.py:37
+#: xl/trackslist.py:48
+#: xl/trackslist.py:60
+#: exaile.glade.h:70
+msgid "Bitrate"
+msgstr "Bit oranı"
+
+#: xl/trackslist.py:150
+msgid "Scanning and adding tracks to current playlist..."
+msgstr "Parçalar taranıyor ve çalma listesine ekleniyor..."
+
+#: xl/trackslist.py:722
+msgid "Toggle Queue"
+msgstr "Kuyruğu Değiştir"
+
+#: xl/trackslist.py:748
+msgid "New Station"
+msgstr "Yeni İstasyon"
+
+#: xl/trackslist.py:751
+msgid "Add to Saved Stations"
+msgstr "Kayıtlı İstasyonlara Ekle"
+
+#: xl/trackslist.py:777
+msgid "Edit Track(s)"
+msgstr "Parça(lar)ı Düzenle"
+
+#: xl/trackslist.py:788
+msgid "Last.FM Options"
+msgstr "Last.FM Seçenekleri"
+
+#: xl/trackslist.py:792
+msgid "Remove from Playlist"
+msgstr "Çalma Listesinden Sil"
+
+#: xl/trackslist.py:796
+msgid "Blacklist Track(s)"
+msgstr "Parça(lar)ı Kara Listeye Al"
+
+#: xl/trackslist.py:798
+msgid "Delete Track(s)"
+msgstr "Parça(lar)ı Sil"
+
+#: xl/trackslist.py:800
+msgid "Remove"
+msgstr "Sil"
+
+#: xl/trackslist.py:806
+#: xl/xlmisc.py:263
+#: exaile.glade.h:137
+msgid "Plugins"
+msgstr "Eklentiler"
+
+#: xl/trackslist.py:1051
+msgid "Remove from Blacklist"
+msgstr "Kara Listeden Sil"
+
+#: xl/xlmisc.py:244
+#: xl/xlmisc.py:273
+msgid "Play"
+msgstr "Çal"
+
+#: xl/xlmisc.py:256
+#: exaile.glade.h:124
+msgid "Next"
+msgstr "Sonraki"
+
+#: xl/xlmisc.py:257
+#: exaile.glade.h:141
+msgid "Previous"
+msgstr "Önceki"
+
+#: xl/xlmisc.py:260
+#: exaile.glade.h:140
+msgid "Preferences"
+msgstr "Tercihler"
+
+#: xl/xlmisc.py:266
+msgid "Quit"
+msgstr "Çık"
+
+#: xl/xlmisc.py:277
+msgid "Pause"
+msgstr "Duraklat"
+
+#: xl/xlmisc.py:762
+msgid "Close this tab"
+msgstr "Bu sekmeyi kapa"
+
+#: xl/xlmisc.py:775
+msgid "Enter the new name for this playlist"
+msgstr "Çalma listesi için yeni adı gir"
+
+#: xl/xlmisc.py:775
+msgid "Rename playlist"
+msgstr "Çalma listesini yeniden adlandır"
+
+#: xl/xlmisc.py:801
+msgid "Rename"
+msgstr "Yeniden Adlandır"
+
+#: xl/xlmisc.py:805
+msgid "Save Playlist"
+msgstr "Çalma Listesini Kaydet"
+
+#: xl/xlmisc.py:1336
+msgid "Enter the search text"
+msgstr "Arama metnini girin"
+
+#: xl/xlmisc.py:1343
+msgid "Searching for "
+msgstr "Arama terimi: "
+
+#: xl/xlmisc.py:1415
+msgid "Sorry, no covers were found."
+msgstr "Üzgünüm, hiç kapak bulunamadı."
+
+#: exaile.glade.h:1
+msgid " "
+msgstr "."
+
+#: exaile.glade.h:2
+msgid "     "
+msgstr "....."
+
+#: exaile.glade.h:3
+msgid "        "
+msgstr "        "
+
+#: exaile.glade.h:4
+msgid "           "
+msgstr "           "
+
+#: exaile.glade.h:5
+msgid "               "
+msgstr " "
+
+#: exaile.glade.h:6
+msgid "(c) 2006"
+msgstr "(c) 2006"
+
+#: exaile.glade.h:7
+msgid "(minutes, use 0 to disable)"
+msgstr "(dakika, devre dışı bırakmak için 0 girin)"
+
+#: exaile.glade.h:8
+msgid "+"
+msgstr "+"
+
+#: exaile.glade.h:9
+msgid "-"
+msgstr "-"
+
+#: exaile.glade.h:10
+msgid "/"
+msgstr "/"
+
+#: exaile.glade.h:11
+msgid "/dev/cdrom"
+msgstr "/dev/cdrom"
+
+#: exaile.glade.h:12
+msgid "0"
+msgstr "0"
+
+#: exaile.glade.h:13
+msgid "0 Covers to fetch"
+msgstr "0 Kapak alınacak"
+
+#: exaile.glade.h:14
+msgid "0 tracks"
+msgstr "0 parça"
+
+#: exaile.glade.h:15
+msgid "0/0"
+msgstr "0/0"
+
+#: exaile.glade.h:16
+msgid "0:00"
+msgstr "0:00"
+
+#: exaile.glade.h:17
+msgid ""
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5\n"
+"6\n"
+"7\n"
+"8"
+msgstr ""
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5\n"
+"6\n"
+"7\n"
+"8"
+
+#: exaile.glade.h:25
+msgid "<b>General</b>"
+msgstr "<b>Genel</b>"
+
+#: exaile.glade.h:26
+msgid "<b>Model:</b>        "
+msgstr "<b>Model:</b>        "
+
+#: exaile.glade.h:27
+msgid "<b>Space:</b>"
+msgstr "<b>Boşluk:</b>"
+
+#: exaile.glade.h:28
+msgid ""
+"<b>{Title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{Title}</b>\n"
+"{artist}\n"
+"{album} - {length}"
+
+#: exaile.glade.h:31
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"{album} - {length}"
+
+#: exaile.glade.h:34
+msgid "<small>-20 dB</small>"
+msgstr "<small>-20dB</small>"
+
+#: exaile.glade.h:35
+msgid "<small>0 dB</small>"
+msgstr "<small>0 dB</small>"
+
+#: exaile.glade.h:36
+msgid "<small>20 dB</small>"
+msgstr "<small>20 dB</small>"
+
+#: exaile.glade.h:37
+msgid "<small>200Hz</small>"
+msgstr "<small>200Hz</small>"
+
+#: exaile.glade.h:38
+msgid "<small>20Hz</small>"
+msgstr "<small>20Hz</small>"
+
+#: exaile.glade.h:39
+msgid "<small>20KHz</small>"
+msgstr "<small>20KHz</small>"
+
+#: exaile.glade.h:40
+msgid "<small>2KHz</small>"
+msgstr "<small>2KHz</small>"
+
+#: exaile.glade.h:41
+msgid "<small>4.3KHz</small>"
+msgstr "<small>4.3KHz</small>"
+
+#: exaile.glade.h:42
+msgid "<small>430Hz</small>"
+msgstr "<small>430Hz</small>"
+
+#: exaile.glade.h:43
+msgid "<small>45Hz</small>"
+msgstr "<small>45Hz</small>"
+
+#: exaile.glade.h:44
+msgid "<small>9.3KHz</small>"
+msgstr "<small>9.3KHz</small>"
+
+#: exaile.glade.h:45
+msgid "<small>90Hz</small>"
+msgstr "<small>90Hz</small>"
+
+#: exaile.glade.h:46
+msgid "<small>930Hz</small>"
+msgstr "<small>930Hz</small>"
+
+#: exaile.glade.h:47
+msgid "Action Log"
+msgstr "Eylem Kaydı"
+
+#: exaile.glade.h:48
+msgid "Action _Log"
+msgstr "Eylem _Kaydı"
+
+#: exaile.glade.h:49
+msgid "Add Saved Station"
+msgstr "Kayıtlı İstasyon Ekle"
+
+#: exaile.glade.h:50
+msgid "Advanced"
+msgstr "Gelişmiş"
+
+#: exaile.glade.h:52
+msgid "Album Art"
+msgstr "Albüm Kapağı"
+
+#: exaile.glade.h:53
+msgid "Album _Information"
+msgstr "Albüm _Bilgileri"
+
+#: exaile.glade.h:54
+msgid "Album art filenames (separated by spaces):"
+msgstr "Albüm kapak dosya adları (boşlukla ayrılacak):"
+
+#: exaile.glade.h:56
+msgid "Amazon Locale:"
+msgstr "Amazon Konumu:"
+
+#: exaile.glade.h:58
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre"
+msgstr ""
+"Sanatçı\n"
+"Albüm\n"
+"Tür"
+
+#: exaile.glade.h:62
+msgid "Attempt to fetch cover art from Amazon automatically"
+msgstr "Amazon'dan albüm kapaklarını otomatik olarak almayı dene"
+
+#: exaile.glade.h:63
+msgid ""
+"Automatic\n"
+"Use GConf Settings\n"
+"alsasink\n"
+"osssink\n"
+"esdsink"
+msgstr ""
+"Otomatik\n"
+"GConf Ayarlarını Kullan\n"
+"alsasink\n"
+"osssink\n"
+"esdsink"
+
+#: exaile.glade.h:68
+msgid "Autosize"
+msgstr "Otomatik Boyutlandır"
+
+#: exaile.glade.h:69
+msgid "Background Color:"
+msgstr "Arkaplan Rengi:"
+
+#: exaile.glade.h:71
+msgid "CD Device:"
+msgstr "CD Aygıtı:"
+
+#: exaile.glade.h:73
+msgid "Cl_ear Playlist"
+msgstr "Çalma Listesini _Temizle"
+
+#: exaile.glade.h:74
+msgid "Cl_ose Playlist"
+msgstr "Çalma Listesini _Kapat"
+
+#: exaile.glade.h:75
+msgid "Clear Playlist"
+msgstr "Çalma Listesini Temizle"
+
+#: exaile.glade.h:76
+msgid "Collection"
+msgstr "Koleksiyon"
+
+#: exaile.glade.h:77
+msgid ""
+"Copyright (C) 2006 Adam Olsen\n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 1, or (at your option)\n"
+"any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
+msgstr ""
+
+#: exaile.glade.h:92
+msgid "Cover Finder"
+msgstr "Kapak Bulucu"
+
+#: exaile.glade.h:93
+msgid "Custom"
+msgstr "Özel"
+
+#: exaile.glade.h:94
+msgid "Devices"
+msgstr "Aygıtlar"
+
+#: exaile.glade.h:96
+msgid "Disc Number:"
+msgstr "Disk Numarası:"
+
+#: exaile.glade.h:97
+msgid "Display OSD when hovering over tray icon"
+msgstr "Bildirim alanı simgesinin üzerine gelince OSD'yi göster"
+
+#: exaile.glade.h:98
+msgid "Display Text:"
+msgstr "Gösterilecek Metin:"
+
+#: exaile.glade.h:99
+msgid "Download feeds when opening podcasts"
+msgstr "Podcastler açılırken beslemeleri indir"
+
+#: exaile.glade.h:100
+msgid "Dynamic Playlist"
+msgstr "Dinamik Çalma Listesi"
+
+#: exaile.glade.h:101
+msgid "E_qualizer"
+msgstr "_Denkleştirici"
+
+#: exaile.glade.h:102
+msgid "Equalizer Settings"
+msgstr "Denkleştirici Ayarları"
+
+#: exaile.glade.h:103
+msgid "Exaile"
+msgstr "Exaile"
+
+#: exaile.glade.h:105
+msgid "Export Playlist"
+msgstr "Çalma Listesini Dışa Aktar"
+
+#: exaile.glade.h:106
+msgid "Fetches similar tracks from last.fm"
+msgstr "Last.fm'den benzer parçaları alır"
+
+#: exaile.glade.h:107
+msgid "Files"
+msgstr "Dosyalar"
+
+#: exaile.glade.h:108
+msgid "General"
+msgstr "Genel"
+
+#: exaile.glade.h:111
+msgid "Go To Playing Track"
+msgstr "Çalan Parçaya Git"
+
+#: exaile.glade.h:112
+msgid "Hint: see http://www.exaile.org/trac/wiki/OSD for examples"
+msgstr "İpucu: Örnekler için http://ww.exaile.org/trac/wiki/OSD 'ye bakın"
+
+#: exaile.glade.h:114
+msgid "Input Required"
+msgstr "Girdi Gerekiyor"
+
+#: exaile.glade.h:115
+msgid "Jump to current song on track change"
+msgstr "Parça değişince çalınan parçaya git"
+
+#: exaile.glade.h:116
+msgid "Last.fm"
+msgstr "Last.fm"
+
+#: exaile.glade.h:117
+msgid "Last.fm Password:"
+msgstr "Last.fm Parolası:"
+
+#: exaile.glade.h:118
+msgid "Last.fm Username:  "
+msgstr "Last.fm Kullanıcı Adı:"
+
+#: exaile.glade.h:120
+msgid "Library"
+msgstr "Kütüphane"
+
+#: exaile.glade.h:121
+msgid "Library Manager"
+msgstr "Kütüphane Yöneticisi"
+
+#: exaile.glade.h:122
+msgid "Library _Manager"
+msgstr "Kütüphane _Yöneticisi"
+
+#: exaile.glade.h:123
+msgid "New Search"
+msgstr "Yeni Arama"
+
+#: exaile.glade.h:125
+msgid "Next Track"
+msgstr "Sonraki Parça"
+
+#: exaile.glade.h:127
+msgid "Notification"
+msgstr "Bildirim"
+
+#: exaile.glade.h:128
+msgid "OK"
+msgstr "Tamam"
+
+#: exaile.glade.h:129
+msgid "Open _Disc"
+msgstr "_Disk Aç"
+
+#: exaile.glade.h:130
+msgid "Open _URL"
+msgstr "_URL Aç"
+
+#: exaile.glade.h:131
+msgid "Open last playlist on startup"
+msgstr "Başlangıçta son çalma listesini aç"
+
+#: exaile.glade.h:132
+msgid "Play/Pause"
+msgstr "Çal/Duraklat"
+
+#: exaile.glade.h:133
+msgid "Playback Sink:   "
+msgstr "Çalma Sistemi:   "
+
+#: exaile.glade.h:135
+msgid "Playlist Tab Placement:"
+msgstr "Çalma Listesi Sekme Yerleşimi:"
+
+#: exaile.glade.h:136
+msgid "Playlists"
+msgstr "Çalma Listeleri"
+
+#: exaile.glade.h:138
+msgid "Podcasts"
+msgstr "Podcastler"
+
+#: exaile.glade.h:139
+msgid "Popup"
+msgstr "Popup"
+
+#: exaile.glade.h:142
+msgid "Previous Track"
+msgstr "Önceki Parça"
+
+#: exaile.glade.h:143
+msgid "Question:"
+msgstr "Soru:"
+
+#: exaile.glade.h:144
+msgid "Radio"
+msgstr "Radyo"
+
+#: exaile.glade.h:145
+msgid "Randomize Playlist"
+msgstr "Çalma Listesini Karıştır"
+
+#: exaile.glade.h:147
+msgid "Rating: "
+msgstr "Değerlendirme:"
+
+#: exaile.glade.h:148
+msgid "Refresh"
+msgstr "Tazele"
+
+#: exaile.glade.h:149
+msgid "Remove Saved Station"
+msgstr "Kayıtlı İstasyonu Sil"
+
+#: exaile.glade.h:150
+msgid "Repeat"
+msgstr "Tekrarla"
+
+#: exaile.glade.h:151
+msgid "Resizable"
+msgstr "Boyutlandırılabilir"
+
+#: exaile.glade.h:152
+msgid "Save"
+msgstr "Kaydet"
+
+#: exaile.glade.h:153
+msgid "Save queue status"
+msgstr "Kuyruk durumunu kaydet"
+
+#: exaile.glade.h:154
+msgid "Scan for new music every: "
+msgstr "Yeni müzik şu aralıklarla tara: "
+
+#: exaile.glade.h:155
+msgid "Search:"
+msgstr "Ara:"
+
+#: exaile.glade.h:156
+msgid "Search: "
+msgstr "Ara: "
+
+#: exaile.glade.h:157
+msgid "Show On Screen Display"
+msgstr "Ekran Göstergesi'ni (OSD) etkinleştir"
+
+#: exaile.glade.h:158
+msgid "Show Tray Icon"
+msgstr "Bildirim Alanı Simgesini Göster"
+
+#: exaile.glade.h:159
+msgid "Show Visualizations"
+msgstr "Görselleştirmeleri Göster"
+
+#: exaile.glade.h:160
+msgid "Show splash screen on startup"
+msgstr "Başlarken açılış penceresini göster"
+
+#: exaile.glade.h:161
+msgid "Shuffle"
+msgstr "Karışık"
+
+#: exaile.glade.h:162
+msgid "Start"
+msgstr "Başla"
+
+#: exaile.glade.h:163
+msgid "Stop Playback"
+msgstr "Çalmayı Durdur"
+
+#: exaile.glade.h:165
+msgid "Text Color"
+msgstr "Metin Rengi"
+
+#: exaile.glade.h:166
+msgid "Text Font:"
+msgstr "Yazı Tipi:"
+
+#: exaile.glade.h:168
+msgid "Title:"
+msgstr "Başlık:"
+
+#: exaile.glade.h:169
+msgid ""
+"Top\n"
+"Left\n"
+"Right\n"
+"Bottom"
+msgstr ""
+"Yukarı\n"
+"Sol\n"
+"Sağ\n"
+"Aşağı"
+
+#: exaile.glade.h:173
+msgid "Track Editor"
+msgstr "Parça Düzenleyici"
+
+#: exaile.glade.h:174
+msgid "Track Number"
+msgstr "Parça Numarası"
+
+#: exaile.glade.h:175
+msgid "Track:"
+msgstr "Parça:"
+
+#: exaile.glade.h:176
+msgid "Unknown"
+msgstr "Bilinmeyen"
+
+#: exaile.glade.h:177
+msgid "Up One Directory"
+msgstr "Bir Klasör Yukarı"
+
+#: exaile.glade.h:178
+msgid "Vol:"
+msgstr "Vol:"
+
+#: exaile.glade.h:179
+msgid "Wikipedia Locale:"
+msgstr "Wikipedia Konumu:"
+
+#: exaile.glade.h:180
+msgid "Window Height:"
+msgstr "Pencere Yüksekliği:"
+
+#: exaile.glade.h:181
+msgid "Window Width:"
+msgstr "Pencere Genişliği:"
+
+#: exaile.glade.h:184
+msgid "_Album Art Collector"
+msgstr "_Albüm Kapak Toplayıcısı"
+
+#: exaile.glade.h:185
+msgid "_Artist Information"
+msgstr "_Sanatçı Bilgileri"
+
+#: exaile.glade.h:186
+msgid "_Blacklist Manager"
+msgstr "_Kara Liste Yöneticisi"
+
+#: exaile.glade.h:187
+msgid "_Clear Queue"
+msgstr "_Kuyruğu Temizle"
+
+#: exaile.glade.h:188
+msgid "_Close"
+msgstr "_Kapat"
+
+#: exaile.glade.h:189
+msgid "_Columns"
+msgstr "_Sütunlar"
+
+#: exaile.glade.h:190
+msgid "_File"
+msgstr "_Dosya"
+
+#: exaile.glade.h:191
+msgid "_Help"
+msgstr "_Yardım"
+
+#: exaile.glade.h:192
+msgid "_Import Directory"
+msgstr "_Klasörü İçeri Aktar"
+
+#: exaile.glade.h:193
+msgid "_Logs"
+msgstr "_Kayıtlar"
+
+#: exaile.glade.h:194
+msgid "_Lyrics"
+msgstr "_Sözler"
+
+#: exaile.glade.h:195
+msgid "_New Playlist"
+msgstr "_Yeni Çalma Listesi"
+
+#: exaile.glade.h:196
+msgid "_Open Media"
+msgstr "_Ortam Aç"
+
+#: exaile.glade.h:197
+msgid "_Queue Manager"
+msgstr "_Kuyruk Yöneticisi"
+
+#: exaile.glade.h:198
+msgid "_Rescan Collection"
+msgstr "Koleksiyonu Yeniden _Tara"
+
+#: exaile.glade.h:199
+msgid "_Tools"
+msgstr "_Araçlar"
+
+#: exaile.glade.h:200
+msgid "_View"
+msgstr "_Görünüm"
+
+#: exaile.glade.h:201
+msgid "iPod Information"
+msgstr "iPod Bilgileri"
+
+#: exaile.glade.h:202
+msgid "message"
+msgstr "ileti"
+
+#: exaile.glade.h:204
+msgid "translator-credits"
+msgstr "çevirmenler"
+
+#: plugins/plugins.glade:7
+msgid "Plugin Manager"
+msgstr "Eklenti Yöneticisi"
+
+#: plugins/plugins.glade:70
+#: plugins/plugins.glade:378
+msgid "Authors:"
+msgstr "Yazarlar:"
+
+#: plugins/plugins.glade:83
+#: plugins/plugins.glade:360
+msgid "\n"
+msgstr "\n"
+
+#: plugins/plugins.glade:112
+#: plugins/plugins.glade:337
+msgid "Version:      "
+msgstr "Sürüm:      "
+
+#: plugins/plugins.glade:221
+msgid "Configure"
+msgstr "Yapılandır"
+
+#: plugins/plugins.glade:255
+#: plugins/plugins.glade:462
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Seçili Eklenti Yok</b>"
+
+#: plugins/plugins.glade:275
+msgid "Installed Plugins"
+msgstr "Kurulu Eklentiler"
+
+#: plugins/plugins.glade:483
+msgid "Available Plugins"
+msgstr "Mevcut Eklentiler"
+

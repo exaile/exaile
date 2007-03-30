@@ -2242,16 +2242,16 @@ class ExaileWindow(gobject.GObject):
 
     def on_quit(self, widget=None, event=None): 
         """
-            Saves the current playlist and exits
+            Saves the current playlist and exits.  If user closes the window
+            while tray icon is present, simply hides the window.
         """
-        # PLUGIN: send plugins event before quitting
-        self.emit('quit')
-
-
         self.window.hide()
         xlmisc.finish()
         if self.tray_icon and widget == self.window:
             return True
+
+        # PLUGIN: send plugins event before quitting
+        self.emit('quit')
 
         if self.gamin_watched and self.mon:
             for item in self.gamin_watched:

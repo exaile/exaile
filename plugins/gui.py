@@ -138,7 +138,7 @@ class PluginManager(object):
 
         selection = self.avail_list.get_selection()
         selection.select_path(0)
-        self.avail_row_selected()
+        self.avail_row_selected(selection)
 
     def setup_avail_tab(self):
         """
@@ -165,13 +165,13 @@ class PluginManager(object):
         self.avail_list.set_model(self.avail_model)
         self.avail_description.get_buffer().set_text("Fetching available "
             " plugin list...")
-        self.avail_list.connect('button-release-event', self.avail_row_selected)
+        selection = self.avail_list.get_selection()
+        selection.connect('changed', self.avail_row_selected)
 
-    def avail_row_selected(self, *e):
+    def avail_row_selected(self, selection):
         """
             Called when a user selects a row in the avialable tab
         """
-        selection = self.avail_list.get_selection()
         model, iter = selection.get_selected()
         if not iter: return
 

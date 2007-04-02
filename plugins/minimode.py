@@ -336,8 +336,8 @@ class MiniWindow(gtk.Window):
         self.set_title(APP.window.get_title())
 
     def timeout_cb(self):
-        self.pos_label.set_label(APP.progress_label.get_label())
-        self.seeker.set_value(APP.progress.get_value())
+        self.pos_label.set_label(APP.new_progressbar.get_text())
+        self.seeker.set_value(APP.new_progressbar.get_fraction())
             
         return True
 

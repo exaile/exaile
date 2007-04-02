@@ -335,7 +335,7 @@
 			      <property name="label" translatable="yes">Disc</property>
 			      <property name="use_underline">True</property>
 			      <property name="active">False</property>
-			      <signal name="activate" handler="on_track_disc_col_activate" last_modification_time="Sun, 11 Feb 2007 18:13:18 GMT"/>
+			      <signal name="activate" handler="on_track_disc_col_activate"/>
 			    </widget>
 			  </child>
 
@@ -459,7 +459,7 @@
 		      <property name="visible">True</property>
 		      <property name="label" translatable="yes">E_qualizer</property>
 		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="on_equalizer_activate" last_modification_time="Fri, 16 Feb 2007 16:03:18 GMT"/>
+		      <signal name="activate" handler="on_equalizer_activate"/>
 		    </widget>
 		  </child>
 
@@ -507,7 +507,7 @@
 		      <property name="visible">True</property>
 		      <property name="label" translatable="yes">Randomize Playlist</property>
 		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="on_randomize_item_activate" last_modification_time="Tue, 27 Feb 2007 21:12:28 GMT"/>
+		      <signal name="activate" handler="on_randomize_item_activate"/>
 		    </widget>
 		  </child>
 
@@ -2232,120 +2232,85 @@ Genre</property>
 		  </child>
 
 		  <child>
-		    <widget class="GtkHScale" id="track_slider">
+		    <widget class="GtkVBox" id="vbox42">
 		      <property name="visible">True</property>
-		      <property name="can_focus">True</property>
-		      <property name="draw_value">False</property>
-		      <property name="value_pos">GTK_POS_TOP</property>
-		      <property name="digits">1</property>
-		      <property name="update_policy">GTK_UPDATE_DISCONTINUOUS</property>
-		      <property name="inverted">False</property>
-		      <property name="adjustment">0 0 100 1 2 0</property>
+		      <property name="homogeneous">False</property>
+		      <property name="spacing">0</property>
+
+		      <child>
+			<widget class="GtkLabel" id="label105">
+			  <property name="height_request">6</property>
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes"></property>
+			  <property name="use_underline">False</property>
+			  <property name="use_markup">False</property>
+			  <property name="justify">GTK_JUSTIFY_LEFT</property>
+			  <property name="wrap">False</property>
+			  <property name="selectable">False</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+			  <property name="width_chars">-1</property>
+			  <property name="single_line_mode">False</property>
+			  <property name="angle">0</property>
+			</widget>
+			<packing>
+			  <property name="padding">0</property>
+			  <property name="expand">False</property>
+			  <property name="fill">False</property>
+			</packing>
+		      </child>
+
+		      <child>
+			<widget class="GtkProgressBar" id="new_progressbar">
+			  <property name="height_request">24</property>
+			  <property name="visible">True</property>
+			  <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+			  <property name="orientation">GTK_PROGRESS_LEFT_TO_RIGHT</property>
+			  <property name="fraction">0</property>
+			  <property name="pulse_step">0.10000000149</property>
+			  <property name="text" translatable="yes"></property>
+			  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+			</widget>
+			<packing>
+			  <property name="padding">0</property>
+			  <property name="expand">False</property>
+			  <property name="fill">False</property>
+			</packing>
+		      </child>
+
+		      <child>
+			<widget class="GtkLabel" id="label106">
+			  <property name="height_request">6</property>
+			  <property name="visible">True</property>
+			  <property name="label" translatable="yes"></property>
+			  <property name="use_underline">False</property>
+			  <property name="use_markup">False</property>
+			  <property name="justify">GTK_JUSTIFY_LEFT</property>
+			  <property name="wrap">False</property>
+			  <property name="selectable">False</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+			  <property name="width_chars">-1</property>
+			  <property name="single_line_mode">False</property>
+			  <property name="angle">0</property>
+			</widget>
+			<packing>
+			  <property name="padding">0</property>
+			  <property name="expand">False</property>
+			  <property name="fill">False</property>
+			</packing>
+		      </child>
 		    </widget>
 		    <packing>
-		      <property name="padding">3</property>
+		      <property name="padding">0</property>
 		      <property name="expand">True</property>
 		      <property name="fill">True</property>
-		    </packing>
-		  </child>
-
-		  <child>
-		    <widget class="GtkLabel" id="progress_label">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">0:00</property>
-		      <property name="use_underline">False</property>
-		      <property name="use_markup">False</property>
-		      <property name="justify">GTK_JUSTIFY_LEFT</property>
-		      <property name="wrap">False</property>
-		      <property name="selectable">False</property>
-		      <property name="xalign">0.5</property>
-		      <property name="yalign">0.5</property>
-		      <property name="xpad">2</property>
-		      <property name="ypad">0</property>
-		      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-		      <property name="width_chars">-1</property>
-		      <property name="single_line_mode">False</property>
-		      <property name="angle">0</property>
-		    </widget>
-		    <packing>
-		      <property name="padding">0</property>
-		      <property name="expand">False</property>
-		      <property name="fill">False</property>
-		    </packing>
-		  </child>
-
-		  <child>
-		    <widget class="GtkLabel" id="label85">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">/</property>
-		      <property name="use_underline">False</property>
-		      <property name="use_markup">False</property>
-		      <property name="justify">GTK_JUSTIFY_LEFT</property>
-		      <property name="wrap">False</property>
-		      <property name="selectable">False</property>
-		      <property name="xalign">0.5</property>
-		      <property name="yalign">0.5</property>
-		      <property name="xpad">0</property>
-		      <property name="ypad">0</property>
-		      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-		      <property name="width_chars">-1</property>
-		      <property name="single_line_mode">False</property>
-		      <property name="angle">0</property>
-		    </widget>
-		    <packing>
-		      <property name="padding">0</property>
-		      <property name="expand">False</property>
-		      <property name="fill">False</property>
-		    </packing>
-		  </child>
-
-		  <child>
-		    <widget class="GtkLabel" id="remaining_label">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">0:00</property>
-		      <property name="use_underline">False</property>
-		      <property name="use_markup">False</property>
-		      <property name="justify">GTK_JUSTIFY_LEFT</property>
-		      <property name="wrap">False</property>
-		      <property name="selectable">False</property>
-		      <property name="xalign">0.5</property>
-		      <property name="yalign">0.5</property>
-		      <property name="xpad">2</property>
-		      <property name="ypad">0</property>
-		      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-		      <property name="width_chars">-1</property>
-		      <property name="single_line_mode">False</property>
-		      <property name="angle">0</property>
-		    </widget>
-		    <packing>
-		      <property name="padding">0</property>
-		      <property name="expand">False</property>
-		      <property name="fill">False</property>
-		    </packing>
-		  </child>
-
-		  <child>
-		    <widget class="GtkLabel" id="label86">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes"> </property>
-		      <property name="use_underline">False</property>
-		      <property name="use_markup">False</property>
-		      <property name="justify">GTK_JUSTIFY_LEFT</property>
-		      <property name="wrap">False</property>
-		      <property name="selectable">False</property>
-		      <property name="xalign">0.5</property>
-		      <property name="yalign">0.5</property>
-		      <property name="xpad">0</property>
-		      <property name="ypad">0</property>
-		      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-		      <property name="width_chars">-1</property>
-		      <property name="single_line_mode">False</property>
-		      <property name="angle">0</property>
-		    </widget>
-		    <packing>
-		      <property name="padding">0</property>
-		      <property name="expand">False</property>
-		      <property name="fill">False</property>
 		    </packing>
 		  </child>
 
@@ -5433,7 +5398,7 @@ esdsink</property>
 
 <widget class="GtkAboutDialog" id="AboutDialog">
   <property name="destroy_with_parent">True</property>
-  <property name="name" translatable="yes">Exaile</property>
+  <property name="name">Exaile</property>
   <property name="copyright" translatable="yes">(c) 2006</property>
   <property name="license" translatable="yes">Copyright (C) 2006 Adam Olsen
 
@@ -6451,7 +6416,7 @@ Josip Lisec</property>
 	      <property name="right_attach">1</property>
 	      <property name="top_attach">0</property>
 	      <property name="bottom_attach">1</property>
-	      <property name="x_options">fill</property>
+	      <property name="x_options"></property>
 	      <property name="y_options"></property>
 	    </packing>
 	  </child>
@@ -6479,7 +6444,7 @@ Josip Lisec</property>
 	      <property name="right_attach">3</property>
 	      <property name="top_attach">1</property>
 	      <property name="bottom_attach">2</property>
-	      <property name="x_options">fill</property>
+	      <property name="x_options"></property>
 	      <property name="y_options"></property>
 	    </packing>
 	  </child>
@@ -6507,7 +6472,7 @@ Josip Lisec</property>
 	      <property name="right_attach">4</property>
 	      <property name="top_attach">1</property>
 	      <property name="bottom_attach">2</property>
-	      <property name="x_options">fill</property>
+	      <property name="x_options"></property>
 	      <property name="y_options"></property>
 	    </packing>
 	  </child>
@@ -6535,7 +6500,7 @@ Josip Lisec</property>
 	      <property name="right_attach">5</property>
 	      <property name="top_attach">1</property>
 	      <property name="bottom_attach">2</property>
-	      <property name="x_options">fill</property>
+	      <property name="x_options"></property>
 	      <property name="y_options"></property>
 	    </packing>
 	  </child>
@@ -6563,7 +6528,7 @@ Josip Lisec</property>
 	      <property name="right_attach">6</property>
 	      <property name="top_attach">1</property>
 	      <property name="bottom_attach">2</property>
-	      <property name="x_options">fill</property>
+	      <property name="x_options"></property>
 	      <property name="y_options"></property>
 	    </packing>
 	  </child>
@@ -6591,7 +6556,7 @@ Josip Lisec</property>
 	      <property name="right_attach">7</property>
 	      <property name="top_attach">1</property>
 	      <property name="bottom_attach">2</property>
-	      <property name="x_options">fill</property>
+	      <property name="x_options"></property>
 	      <property name="y_options"></property>
 	    </packing>
 	  </child>
@@ -6619,7 +6584,7 @@ Josip Lisec</property>
 	      <property name="right_attach">8</property>
 	      <property name="top_attach">1</property>
 	      <property name="bottom_attach">2</property>
-	      <property name="x_options">fill</property>
+	      <property name="x_options"></property>
 	      <property name="y_options"></property>
 	    </packing>
 	  </child>
@@ -6647,7 +6612,7 @@ Josip Lisec</property>
 	      <property name="right_attach">10</property>
 	      <property name="top_attach">1</property>
 	      <property name="bottom_attach">2</property>
-	      <property name="x_options">fill</property>
+	      <property name="x_options"></property>
 	      <property name="y_options"></property>
 	    </packing>
 	  </child>
@@ -6675,7 +6640,7 @@ Josip Lisec</property>
 	      <property name="right_attach">9</property>
 	      <property name="top_attach">1</property>
 	      <property name="bottom_attach">2</property>
-	      <property name="x_options">fill</property>
+	      <property name="x_options"></property>
 	      <property name="y_options"></property>
 	    </packing>
 	  </child>
@@ -6703,7 +6668,7 @@ Josip Lisec</property>
 	      <property name="right_attach">11</property>
 	      <property name="top_attach">1</property>
 	      <property name="bottom_attach">2</property>
-	      <property name="x_options">fill</property>
+	      <property name="x_options"></property>
 	      <property name="y_options"></property>
 	    </packing>
 	  </child>
@@ -6731,7 +6696,7 @@ Josip Lisec</property>
 	      <property name="right_attach">2</property>
 	      <property name="top_attach">1</property>
 	      <property name="bottom_attach">2</property>
-	      <property name="x_options">fill</property>
+	      <property name="x_options"></property>
 	      <property name="y_options"></property>
 	    </packing>
 	  </child>
@@ -6752,8 +6717,8 @@ Josip Lisec</property>
 	      <property name="right_attach">6</property>
 	      <property name="top_attach">0</property>
 	      <property name="bottom_attach">1</property>
-	      <property name="x_options">fill</property>
-	      <property name="y_options">fill</property>
+	      <property name="x_options"></property>
+	      <property name="y_options"></property>
 	    </packing>
 	  </child>
 
@@ -6773,8 +6738,8 @@ Josip Lisec</property>
 	      <property name="right_attach">7</property>
 	      <property name="top_attach">0</property>
 	      <property name="bottom_attach">1</property>
-	      <property name="x_options">fill</property>
-	      <property name="y_options">fill</property>
+	      <property name="x_options"></property>
+	      <property name="y_options"></property>
 	    </packing>
 	  </child>
 
@@ -6794,8 +6759,8 @@ Josip Lisec</property>
 	      <property name="right_attach">8</property>
 	      <property name="top_attach">0</property>
 	      <property name="bottom_attach">1</property>
-	      <property name="x_options">fill</property>
-	      <property name="y_options">fill</property>
+	      <property name="x_options"></property>
+	      <property name="y_options"></property>
 	    </packing>
 	  </child>
 
@@ -6815,8 +6780,8 @@ Josip Lisec</property>
 	      <property name="right_attach">9</property>
 	      <property name="top_attach">0</property>
 	      <property name="bottom_attach">1</property>
-	      <property name="x_options">fill</property>
-	      <property name="y_options">fill</property>
+	      <property name="x_options"></property>
+	      <property name="y_options"></property>
 	    </packing>
 	  </child>
 
@@ -6836,8 +6801,8 @@ Josip Lisec</property>
 	      <property name="right_attach">10</property>
 	      <property name="top_attach">0</property>
 	      <property name="bottom_attach">1</property>
-	      <property name="x_options">fill</property>
-	      <property name="y_options">fill</property>
+	      <property name="x_options"></property>
+	      <property name="y_options"></property>
 	    </packing>
 	  </child>
 
@@ -6858,8 +6823,8 @@ Josip Lisec</property>
 	      <property name="right_attach">11</property>
 	      <property name="top_attach">0</property>
 	      <property name="bottom_attach">1</property>
-	      <property name="x_options">fill</property>
-	      <property name="y_options">fill</property>
+	      <property name="x_options"></property>
+	      <property name="y_options"></property>
 	    </packing>
 	  </child>
 
@@ -6879,7 +6844,7 @@ Josip Lisec</property>
 	      <property name="right_attach">2</property>
 	      <property name="top_attach">0</property>
 	      <property name="bottom_attach">1</property>
-	      <property name="x_options">fill</property>
+	      <property name="x_options"></property>
 	    </packing>
 	  </child>
 
@@ -6899,7 +6864,7 @@ Josip Lisec</property>
 	      <property name="right_attach">4</property>
 	      <property name="top_attach">0</property>
 	      <property name="bottom_attach">1</property>
-	      <property name="x_options">fill</property>
+	      <property name="x_options"></property>
 	    </packing>
 	  </child>
 
@@ -6919,7 +6884,7 @@ Josip Lisec</property>
 	      <property name="right_attach">5</property>
 	      <property name="top_attach">0</property>
 	      <property name="bottom_attach">1</property>
-	      <property name="x_options">fill</property>
+	      <property name="x_options"></property>
 	    </packing>
 	  </child>
 
@@ -6939,7 +6904,7 @@ Josip Lisec</property>
 	      <property name="right_attach">3</property>
 	      <property name="top_attach">0</property>
 	      <property name="bottom_attach">1</property>
-	      <property name="x_options">fill</property>
+	      <property name="x_options"></property>
 	    </packing>
 	  </child>
 
@@ -7031,7 +6996,7 @@ Josip Lisec</property>
 	      <property name="right_attach">12</property>
 	      <property name="top_attach">0</property>
 	      <property name="bottom_attach">1</property>
-	      <property name="y_options">fill</property>
+	      <property name="y_options"></property>
 	    </packing>
 	  </child>
 	</widget>

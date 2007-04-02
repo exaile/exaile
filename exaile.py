@@ -387,8 +387,6 @@ class ExaileWindow(gobject.GObject):
         self.queue_count_label = self.xml.get_widget('queue_count_label')
         self.xml.get_widget('queue_count_box').connect('button-release-event',
             self.queue_count_clicked)
-        self.progress_label = self.xml.get_widget('progress_label')
-        self.remaining_label = self.xml.get_widget('remaining_label')
 
         # for multimedia keys
         if MMKEYS_AVAIL:
@@ -417,18 +415,22 @@ class ExaileWindow(gobject.GObject):
         self.plugins_item.connect('activate', self.show_plugin_manager)
         self.view_menu = self.xml.get_widget('view_menu')
 
-        self.progress = self.xml.get_widget('track_slider')
-        self.progress.connect('change-value', self.seek)
-        self.progress.connect('button-press-event',
-            self.progress_button_pressed)
-        self.progress.connect('button-release-event',
-            self.progress_button_released)
+#        self.progress = self.xml.get_widget('track_slider')
+#        self.progress.connect('change-value', self.seek)
+#        self.progress.connect('button-press-event',
+#            self.progress_button_pressed)
+#        self.progress.connect('button-release-event',
+#            self.progress_button_released)
+	
+	self.new_progressbar = self.xml.get_widget('new_progressbar')
+	self.new_progressbar.set_fraction(0)
+	self.new_progressbar.set_text("Not Playing")
+ 	self.new_progressbar.connect('button-press-event', self.seek)
 
         self.clear_button = self.xml.get_widget('clear_button')
-        self.clear_button.connect('clicked', lambda *e:
-            self.clear_playlist(None))
+        self.clear_button.connect('clicked', lambda *e: self.clear_playlist(None))
 
-        self.next_button = self.xml.get_widget('next_button')
+ 	self.next_button = self.xml.get_widget('next_button')
         self.next_button.connect('clicked', lambda e: self.on_next())
 
         self.previous_button = self.xml.get_widget('prev_button')
@@ -1227,20 +1229,18 @@ class ExaileWindow(gobject.GObject):
         seconds = real / gst.SECOND
 
         if not self.seeking:
-            self.progress.set_value(value)
-            self.progress_label = self.xml.get_widget('progress_label')
-            self.remaining_label = self.xml.get_widget('remaining_label')
+	    self.new_progressbar = self.xml.get_widget('new_progressbar')
+            self.new_progressbar.set_fraction(value/100)
 
             if track.type == 'stream':
                 if track.start_time and self.player.is_playing():
                     seconds = time.time() - track.start_time
-                    self.progress_label.set_label("%d:%02d" % (seconds / 60, seconds % 60))
-                    self.remaining_label.set_label('0:00')
+		    self.new_progressbar.set_text("%d:%02d" % (seconds / 60, seconds % 60))
 
             else:
                 remaining_seconds = (duration / gst.SECOND) - seconds
-                self.progress_label.set_label("%d:%02d" % (seconds / 60, seconds % 60))
-                self.remaining_label.set_label("%d:%02d" % (remaining_seconds / 60, remaining_seconds % 60 ))
+		self.new_progressbar.set_text("%d:%02d / %d:%02d" % ((seconds / 60), (seconds % 60), (remaining_seconds / 60), (remaining_seconds % 60) )  )
+
 
         if (seconds > 240 or value > 50) and track.type != 'stream' and \
             self.player.is_playing() and not track.submitted: 
@@ -1262,9 +1262,9 @@ class ExaileWindow(gobject.GObject):
 
         self.artist_label = self.xml.get_widget('artist_label')
         if track == None:
-            self.progress_label.set_label('0:00')
-            self.remaining_label.set_label('0:00')
-            self.title_label.set_label(_("Not Playing"))
+	    self.new_progressbar.set_fraction(0)
+	    self.new_progressbar.set_text("Not Playing")
+ 	    self.title_label.set_label(_("Not Playing"))
             self.artist_label.set_label(_("Stopped"))
             self.rating_combo.set_active(0)
             self.rating_combo.set_sensitive(False)
@@ -1684,11 +1684,14 @@ class ExaileWindow(gobject.GObject):
             vol_text = "<big><b> Changing volume: %d %% </b></big>" % self.get_volume_percent()
             pop.show_osd(vol_text, None)
 
-    def seek(self, range, scroll, value): 
+    def seek(self, progress, event): 
         """
             Seeks in the current track
         """
+	mouse_x, mouse_y = event.get_coords()
+	progress_loc = progress.get_allocation()
 
+	value = mouse_x / progress_loc.width
         if self.seek_id:
             gobject.source_remove(self.seek_id)
             self.seeking = False
@@ -1696,7 +1699,7 @@ class ExaileWindow(gobject.GObject):
 
         if not self.player.current or \
             self.player.current.type == 'stream':
-            self.progress.set_value(0)
+            self.new_progressbar.set_fraction(0)
             return
         duration = self.player.current.duration * gst.SECOND
         if duration == -1:
@@ -1705,41 +1708,12 @@ class ExaileWindow(gobject.GObject):
             real = value * duration / 100
         seconds = real / gst.SECOND
 
-        self.progress_label = self.xml.get_widget('progress_label')
-        self.remaining_label = self.xml.get_widget('remaining_label')
-
-        if self.player.current.type == 'stream':
-            if track.start_time and self.player.is_playing():
-                seconds = time.time() - track.start_time
-                self.progress_label.set_label("%d:%02d" % (seconds / 60, seconds %
-                    60))
-                self.remaining_label.set_label("0:00")
-        else:
-            remaining_seconds = (duration / gst.SECOND) - seconds
-            self.progress_label.set_label("%d:%02d" % (seconds / 60, seconds % 60)) 
-            self.remaining_label.set_label( "%d:%02d" % (remaining_seconds / 60, remaining_seconds % 60))
-
-        self.seek_id = gobject.timeout_add(250, self._seek_cb, range)
-        self.seeking = True
-
-    def _seek_cb(self, range):
-
         duration = self.player.current.duration
-        real = long(range.get_value() * duration / 100)
+        real = long(value * duration)
         self.player.seek(real)
         self.player.current.submitted = True
         self.emit('seek', real)
         self.seeking = False
-
-    def progress_button_pressed(self, progress, event):
-        if event.button == 1:
-            event.button = 2
-            progress.emit('button-press-event', event)
-
-    def progress_button_released(self, progress, event):
-        if event.button == 1:
-            event.button = 2
-            progress.emit('button-release-event', event)
 
     def play_track(self, player, track): 
         """
@@ -1955,9 +1929,8 @@ class ExaileWindow(gobject.GObject):
         if self.tracks: self.tracks.queue_draw()
 
         self.update_track_information(None)
-        self.progress.set_value(0)
-        self.progress_label.set_label("0:00")
-        self.remaining_label.set_label("0:00")
+#        self.progress.set_value(0)
+        self.new_progressbar.set_text("0:00 / 0:00")
 
     def import_m3u(self, path, play=False, title=None, newtab=True,
         set_current=True):

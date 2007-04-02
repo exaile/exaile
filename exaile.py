@@ -638,6 +638,7 @@ class ExaileWindow(gobject.GObject):
             Called when someone wants to clear the queue
         """
         self.player.queued = []
+        self.player.stop_track = -1
         if not self.tracks: return
         self.tracks.queue_draw()
 
@@ -832,6 +833,8 @@ class ExaileWindow(gobject.GObject):
                     if song:
                         self.player.queued.append(song)
                 h.close()
+                if self.settings.get_int('stop_track', -1) > -1:
+                    self.player.stop_track = self.player.queued[self.settings.get_int('stop_track', -1)]
 
             trackslist.update_queued(self)
 
@@ -913,12 +916,36 @@ class ExaileWindow(gobject.GObject):
             if track in self.player.queued:
                 if toggle:
                     self.player.queued.remove(track)
+                if len(self.player.queued) > 0:
+                    self.player.stop_track = self.player.queued[len(self.player.queued) - 1]
+                else:
+                    self.player.stop_track = -1
             elif first and track == self.player and self.player.is_playing():
                 pass
             else:
                 self.player.queued.append(track)
+                if self.player.stop_track > -1:
+                    self.player.stop_track = track;
 
             first = False
+        
+        self.tracks.queue_draw()
+        trackslist.update_queued(self)
+        
+    def on_stop_track(self, item, param, toggle=True): 
+        """
+            Stops playback after the selected track
+        """
+        track = self.tracks.get_selected_track()
+
+        if self.player.stop_track == track:
+            self.player.stop_track = -1
+        else:
+            if not track in self.player.queued:
+                self.player.queued.append(track)
+            else:
+                self.player.queued = self.player.queued[0:self.player.queued.index(track) + 1]
+            self.player.stop_track = track
 
         self.tracks.queue_draw()
         trackslist.update_queued(self)
@@ -2278,6 +2305,10 @@ class ExaileWindow(gobject.GObject):
             for song in self.player.queued:
                 h.write("%s\n" % song.loc)
             h.close()
+            if self.player.stop_track > -1:
+                self.settings.set_int('stop_track', self.player.queued.index(self.player.stop_track))
+            else:
+                self.settings.set_int('stop_track', -1)
         self.db.db.commit()
         last_active = self.playlists_nb.get_current_page()
         print 'Last active is: %d' % last_active

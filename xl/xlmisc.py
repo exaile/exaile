@@ -1669,12 +1669,12 @@ class StatusBar(object):
             gobject.timeout_add(time, self.clear)
 
 BITMAP_CACHE = dict()
-def get_text_icon(widget, text, width, height):
+def get_text_icon(widget, text, width, height, bgcolor='#456eac'):
     """
         Gets a bitmap icon with the specified text, width, and height
     """
-    if BITMAP_CACHE.has_key("%s - %sx%s" % (text, width, height)):
-        return BITMAP_CACHE["%s - %sx%s" % (text, width, height)]
+    if BITMAP_CACHE.has_key("%s - %sx%s - %s" % (text, width, height, bgcolor)):
+        return BITMAP_CACHE["%s - %sx%s - %s" % (text, width, height, bgcolor)]
         
     pixmap = gtk.gdk.Pixmap(None, width, height, 24)
     colormap = gtk.gdk.colormap_get_system()
@@ -1685,7 +1685,7 @@ def get_text_icon(widget, text, width, height):
 
     gc.set_foreground(black)
     pixmap.draw_rectangle(gc, True, 0, 0, width, height)
-    fg = colormap.alloc_color(gtk.gdk.color_parse('#456eac'))
+    fg = colormap.alloc_color(gtk.gdk.color_parse(bgcolor))
     gc.set_foreground(fg)
     pixmap.draw_rectangle(gc, True, 1, 1, width - 2, height - 2)
 
@@ -1705,7 +1705,7 @@ def get_text_icon(widget, text, width, height):
     pixbuf = pixbuf.get_from_drawable(pixmap, colormap, 0, 0, 0,
         0, width, height)
 
-    BITMAP_CACHE["%s - %sx%s" % (text, width, height)] = pixbuf
+    BITMAP_CACHE["%s - %sx%s - %s" % (text, width, height, bgcolor)] = pixbuf
     return pixbuf
 
 

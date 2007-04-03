@@ -2062,7 +2062,7 @@ class ExaileWindow(gobject.GObject):
             filter.add_pattern(pattern)
 
         dialog = gtk.FileChooserDialog(_("Choose a file"), self.window,
-            buttons=('Open', gtk.RESPONSE_OK, 'Cancel', gtk.RESPONSE_CANCEL))
+            buttons=('Cancel', gtk.RESPONSE_CANCEL, 'Open', gtk.RESPONSE_OK))
 
         new_tab = gtk.CheckButton(_("Open in new tab"))
         dialog.set_extra_widget(new_tab)

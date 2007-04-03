@@ -1549,8 +1549,8 @@ class ExaileWindow(gobject.GObject):
                 filter.add_pattern(pattern)
 
             dialog = gtk.FileChooserDialog(_("Choose an image"), self.window,
-                buttons=('Open', gtk.RESPONSE_OK, 'Cancel',
-                gtk.RESPONSE_CANCEL))
+                buttons=('Cancel',
+                gtk.RESPONSE_CANCEL, 'Open', gtk.RESPONSE_OK))
             dialog.set_filter(filter)
             dialog.set_current_folder(self.get_last_dir())
 

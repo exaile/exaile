@@ -421,16 +421,16 @@ class ExaileWindow(gobject.GObject):
 #            self.progress_button_pressed)
 #        self.progress.connect('button-release-event',
 #            self.progress_button_released)
-	
-	self.new_progressbar = self.xml.get_widget('new_progressbar')
-	self.new_progressbar.set_fraction(0)
-	self.new_progressbar.set_text("Not Playing")
- 	self.new_progressbar.connect('button-press-event', self.seek)
+
+        self.new_progressbar = self.xml.get_widget('new_progressbar')
+        self.new_progressbar.set_fraction(0)
+        self.new_progressbar.set_text("Not Playing")
+        self.new_progressbar.connect('button-press-event', self.seek)
 
         self.clear_button = self.xml.get_widget('clear_button')
         self.clear_button.connect('clicked', lambda *e: self.clear_playlist(None))
 
- 	self.next_button = self.xml.get_widget('next_button')
+        self.next_button = self.xml.get_widget('next_button')
         self.next_button.connect('clicked', lambda e: self.on_next())
 
         self.previous_button = self.xml.get_widget('prev_button')
@@ -1256,17 +1256,17 @@ class ExaileWindow(gobject.GObject):
         seconds = real / gst.SECOND
 
         if not self.seeking:
-	    self.new_progressbar = self.xml.get_widget('new_progressbar')
+            self.new_progressbar = self.xml.get_widget('new_progressbar')
             self.new_progressbar.set_fraction(value/100)
 
             if track.type == 'stream':
                 if track.start_time and self.player.is_playing():
                     seconds = time.time() - track.start_time
-		    self.new_progressbar.set_text("%d:%02d" % (seconds / 60, seconds % 60))
+                    self.new_progressbar.set_text("%d:%02d" % (seconds / 60, seconds % 60))
 
             else:
                 remaining_seconds = (duration / gst.SECOND) - seconds
-		self.new_progressbar.set_text("%d:%02d / %d:%02d" % ((seconds / 60), (seconds % 60), (remaining_seconds / 60), (remaining_seconds % 60) )  )
+                self.new_progressbar.set_text("%d:%02d / %d:%02d" % ((seconds / 60), (seconds % 60), (remaining_seconds / 60), (remaining_seconds % 60) )  )
 
 
         if (seconds > 240 or value > 50) and track.type != 'stream' and \
@@ -1289,9 +1289,9 @@ class ExaileWindow(gobject.GObject):
 
         self.artist_label = self.xml.get_widget('artist_label')
         if track == None:
-	    self.new_progressbar.set_fraction(0)
-	    self.new_progressbar.set_text("Not Playing")
- 	    self.title_label.set_label(_("Not Playing"))
+            self.new_progressbar.set_fraction(0)
+            self.new_progressbar.set_text("Not Playing")
+            self.title_label.set_label(_("Not Playing"))
             self.artist_label.set_label(_("Stopped"))
             self.rating_combo.set_active(0)
             self.rating_combo.set_sensitive(False)
@@ -1715,10 +1715,10 @@ class ExaileWindow(gobject.GObject):
         """
             Seeks in the current track
         """
-	mouse_x, mouse_y = event.get_coords()
-	progress_loc = progress.get_allocation()
+        mouse_x, mouse_y = event.get_coords()
+        progress_loc = progress.get_allocation()
 
-	value = mouse_x / progress_loc.width
+        value = mouse_x / progress_loc.width
         if self.seek_id:
             gobject.source_remove(self.seek_id)
             self.seeking = False

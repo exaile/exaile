@@ -2530,7 +2530,8 @@ class RadioPanel(object):
 
         for row in all:
             info = dict()
-            info['artist'] = row[1]
+            info['artist'] = row[2]
+            info['album'] = row[1]
             info['loc'] = row[2]
             info['title'] = row[0]
             info['bitrate'] = row[3]

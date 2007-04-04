@@ -241,18 +241,43 @@ class ExaileWindow(gobject.GObject):
         """
             Called when a tag is found in a stream
         """
+        newsong=False
         track = self.player.current
         if not track or not track.type == 'stream': return True
         for tag in tags.keys():
             nick = gst.tag_get_nick(tag)
             if nick == 'bitrate': track.bitrate = int(tags[tag])/1000
-            elif nick == 'comment': track.artist = tags[tag]
-            elif nick == 'title': track.title = tags[tag]
+            elif nick == 'comment': track.album = tags[tag]
+            elif nick == 'title': 
+                try:
+                    if track.rawtitle != tags[tag]: 
+                        track.rawtitle=tags[tag]
+                        xlmisc.log("different song")
+                        newsong=True
+                except AttributeError:
+                    xlmisc.log("new song")
+                    track.rawtitle=tags[tag]
+                    newsong=True
+                
+                titleArray=(tags[tag]).split('-',2)
+                
+                if len(titleArray) > 0:
+                    track.artist = titleArray[0]
+                else:
+                    track.artist = track.rawtitle
+                if len(titleArray) > 1:
+                    track.title = titleArray[1]
+                else: 
+                    track.title = track.rawtitle
             xlmisc.log('%s: %s' % (gst.tag_get_nick(tag), tags[tag]))           
         self.tracks.refresh_row(track)
         self.update_track_information()
+        print "rawtitle:%s newsong:%s" % (track.title,newsong)
+        if newsong:
+            print "asking to fetch cover"
+            self.fetch_cover(track)
         return True
-
+        
     def get_version(self):
         """
             Returns the version of Exaile
@@ -1351,6 +1376,23 @@ class ExaileWindow(gobject.GObject):
         self.db.execute("UPDATE tracks SET %s WHERE path=?" % update_string, 
             (path_id,))
 
+        
+    def got_stream_cover(self,covers):
+        print "got stream cover"
+        self.status.set_first(None)
+        if len(covers) == 0:
+            self.status.set_first(_("No covers found."), 2000)
+        
+        for cover in covers:
+            if(cover['status'] == 200):
+                savepath="%s%scovers%sstreamCover.jpg" % (SETTINGS_DIR, os.sep, os.sep)
+                handle = open(savepath, "w")
+                handle.write(cover['data'])
+                handle.close()
+                self.cover.set_image(savepath)
+                break
+
+
     def got_covers(self, covers): 
         """
             Gets called when all covers have been downloaded from amazon
@@ -1442,12 +1484,20 @@ class ExaileWindow(gobject.GObject):
 
         if self.settings.get_boolean("fetch_covers", True):
             locale = self.settings.get_str('amazon_locale', 'us')
-            self.cover_thread = covers.CoverFetcherThread("%s - %s" %
-                (track.artist, track.album),
-                self.got_covers, locale=locale)
+            if track.type == 'stream':
+                print "we got a stream type cover fetch"
+                self.cover_thread = covers.CoverFetcherThread("%s %s"\
+                    % (track.artist,track.title),
+                    self.got_stream_cover, locale=locale)
+
+            else:    
+                self.cover_thread = covers.CoverFetcherThread("%s %s" \
+                    % (track.album,track.artist),
+                    self.got_covers, locale=locale)
 
             self.status.set_first(_("Fetching cover art from Amazon..."))
             self.cover_thread.start()
+        
             
     def fetch_from_fs(self, track, event=None):
         """

@@ -324,28 +324,28 @@ class TrackInformation(gtk.Notebook):
 
         if track.type == 'stream': 
             self.append_page(RadioTrackStatsTab(self.exaile, track),
-                gtk.Label(_("Statistics")))
+                gtk.Label(_("Stream Statistics")))
+        
+        self.append_page(TrackStatsTab(self.exaile, track), gtk.Label(_("Statistics")))
+        locale = self.exaile.settings.get_str('wikipedia_locale', 'en')
+        
+        if xlmisc.mozembed:
+            artist = "http://%s.wikipedia.org/wiki/%s" % (locale, track.artist)
+            artist = artist.replace(" ", "_")
+            self.append_page(WikipediaTab(self.exaile, artist),
+                gtk.Label(_("Artist")))
+            
+            album = "http://%s.wikipedia.org/wiki/%s" % (locale, track.album)
+            album = album.replace(" ", "_")
+            self.append_page(WikipediaTab(self.exaile, album),
+                gtk.Label(_("Album")))
+            self.append_page(LyricsTab(self.exaile, self, track),
+                gtk.Label(_("Lyrics")))
+            self.append_page(TablatureTab(self, track),
+                gtk.Label(_("Tablature")))
         else:
-            self.append_page(TrackStatsTab(self.exaile, track), gtk.Label(_("Statistics")))
-            locale = self.exaile.settings.get_str('wikipedia_locale', 'en')
-
-            if xlmisc.mozembed:
-                artist = "http://%s.wikipedia.org/wiki/%s" % (locale, track.artist)
-                artist = artist.replace(" ", "_")
-                self.append_page(WikipediaTab(self.exaile, artist),
-                    gtk.Label(_("Artist")))
-
-                album = "http://%s.wikipedia.org/wiki/%s" % (locale, track.album)
-                album = album.replace(" ", "_")
-                self.append_page(WikipediaTab(self.exaile, album),
-                    gtk.Label(_("Album")))
-                self.append_page(LyricsTab(self.exaile, self, track),
-                    gtk.Label(_("Lyrics")))
-                self.append_page(TablatureTab(self, track),
-                    gtk.Label(_("Tablature")))
-            else:
-                xlmisc.log("gnome-extras not available.  Showing basic"
-                    " track information only")
+            xlmisc.log("gnome-extras not available.  Showing basic"
+                       " track information only")
         self.show_all()
 
     def close_page(self):

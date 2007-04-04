@@ -54,11 +54,12 @@ def parse_genre(genre, stations, url=None, func=None):
         station = new
         s = dict()
         s['loc'] = "http://www.shoutcast.com%s" % station[0]
-        s['artist'] = station[1]
+        s['album'] = station[1]
+        s['album'] = station[1]
         s['title'] = station[2]
         s['bitrate'] = station[4]
 
-        s['album'] = s['loc']
+        s['artist'] = s['loc']
 
         stations.append(s)
         if func:

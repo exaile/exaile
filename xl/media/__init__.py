@@ -194,7 +194,7 @@ class Track(gobject.GObject):
                 try:
                     return "%sk" % self._bitrate.replace('k', '')
                 except AttributeError:
-                    return self._bitrate
+                    return str(self._bitrate) + "k"
             else:
                 return ''
         try:

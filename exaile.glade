@@ -2171,6 +2171,8 @@ Genre</property>
 
 		  <child>
 		    <widget class="GtkButton" id="stop_button">
+		      <property name="width_request">34</property>
+		      <property name="height_request">34</property>
 		      <property name="visible">True</property>
 		      <property name="tooltip" translatable="yes">Stop Playback</property>
 		      <property name="can_focus">True</property>
@@ -2250,6 +2252,7 @@ Genre</property>
 
 		  <child>
 		    <widget class="GtkVBox" id="vbox42">
+		      <property name="height_request">34</property>
 		      <property name="visible">True</property>
 		      <property name="homogeneous">False</property>
 		      <property name="spacing">0</property>

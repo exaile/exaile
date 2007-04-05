@@ -19,6 +19,8 @@
 import plugins, time, os, gtk, subprocess, xl.media
 from xl import common
 
+from urllib import pathname2url
+
 PLUGIN_NAME = "Serpentine Plugin"
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
 PLUGIN_VERSION = '0.1'
@@ -46,7 +48,8 @@ def launch_serpentine(button, songs=None):
         songs = tracks.songs
 
     if songs:
-        ar = [song.loc for song in songs if not song.type == 'stream']
+        ar = ['file://%s' % (pathname2url(song.loc),) \
+                for song in songs if not song.type == 'stream']
         if not ar: return
         args = ['serpentine', '-o']
         args.extend(ar)

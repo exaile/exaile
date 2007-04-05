@@ -69,3 +69,6 @@ uninstall:
 	rm -r $(DESTDIR)$(PREFIX)/share/exaile
 	rm -r $(DESTDIR)$(PREFIX)/lib/exaile
 	rm -r $(DESTDIR)$(PREFIX)/bin/exaile
+	rm  $(DESTDIR)$(PREFIX)/share/applications/exaile.desktop
+	rm  $(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
+	find $(DESTDIR)$(PREFIX)/share/locale -name exaile.mo -exec rm {} \;

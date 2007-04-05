@@ -1756,7 +1756,7 @@ class ExaileWindow(gobject.GObject):
         frac_value = value / 100.0
         self.player.set_volume(frac_value)
         self.settings['volume'] = frac_value
-        if not self.window.get_property('visible') and  self.settings.get_boolean("use_popup", True):
+        if not self.window.get_property('visible') and  self.settings.get_boolean("osd/enabled", True):
             pop = xlmisc.get_osd(self, xlmisc.get_osd_settings(self.settings))
             vol_text = "<big><b> Changing volume: %d %% </b></big>" % self.get_volume_percent()
             pop.show_osd(vol_text, None)

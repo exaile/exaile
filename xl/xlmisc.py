@@ -2047,7 +2047,7 @@ class M3UParser(PlaylistParser):
 
         for line in file.readlines():
             line = line.strip()
-            if line[0] == "#" or line == '' : continue
+            if not line or line[0] == "#": continue
             if urlparse.urlsplit(line)[0]:
                 url = line
             else:

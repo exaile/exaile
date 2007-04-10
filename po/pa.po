@@ -1,0 +1,1286 @@
+# Translation of Exaile to Punjabi
+# Copyright (C) 2007 Adam Olsen
+# This file is distributed under the same license as the Exaile package.
+#
+# A S Alam <aalam@users.sf.net>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: pa\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-01-21 12:51+0530\n"
+"PO-Revision-Date: 2007-01-21 13:07+0530\n"
+"Last-Translator: A S Alam <aalam@users.sf.net>\n"
+"Language-Team: Punjabi <fedora-trans-pa@redhat.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: exaile.py:177 exaile.glade.h:81
+msgid "Exaile!"
+msgstr "ਐਕਾਲੀ"
+
+#: exaile.py:225
+msgid ""
+"You have not specified any search directories for your music library. You "
+"may do so now, or choose to do it later.  If you want to do it later, you "
+"can manage your library search directories by going to Tools->Library "
+"Manager.  Do you want to choose your library directories now?"
+msgstr ""
+
+#: exaile.py:541 xl/xlmisc.py:1517
+msgid "Add a directory"
+msgstr "ਇੱਕ ਡਾਇਰੈਕਟਰੀ ਸ਼ਾਮਿਲ"
+
+#: exaile.py:543 xl/xlmisc.py:1519 exaile.glade.h:54
+msgid "Cancel"
+msgstr "ਰੱਦ ਕਰੋ"
+
+#: exaile.py:543 xl/xlmisc.py:1519
+msgid "Choose"
+msgstr "ਚੁਣੋ"
+
+#: exaile.py:546
+msgid "Add tracks to current playlist after importing"
+msgstr ""
+
+#: exaile.py:612
+msgid "Queue"
+msgstr "ਕਤਾਰ"
+
+#: exaile.py:639
+msgid "Blacklist"
+msgstr "ਬਲੈਕ-ਲਿਸਟ"
+
+#: exaile.py:772 exaile.py:1448 exaile.py:1457 exaile.py:1496 exaile.py:1952
+#: xl/panels.py:2636 xl/panels.py:2765 exaile.glade.h:111
+msgid "Playlist"
+msgstr "ਸੰਗੀਤ-ਸੂਚੀ"
+
+#: exaile.py:820
+msgid ""
+"Blacklisting the selected tracks will prevent them from being added to the "
+"library on rescan.  Are you sure you want to continue?"
+msgstr ""
+
+#: exaile.py:913
+#, python-format
+msgid "Error connecting to database: %s"
+msgstr ""
+
+#: exaile.py:945
+msgid "Loading library from database..."
+msgstr ""
+
+#: exaile.py:1154
+msgid "Submitting to Last.fm..."
+msgstr ""
+
+#: exaile.py:1240
+msgid "No covers found."
+msgstr ""
+
+#: exaile.py:1303
+msgid "Fetching cover art from Amazon..."
+msgstr ""
+
+#: exaile.py:1358
+msgid "View Full Image"
+msgstr "ਪੂਰਾ ਚਿੱਤਰ ਵੇਖੋ"
+
+#: exaile.py:1360
+msgid "Fetch from Amazon"
+msgstr ""
+
+#: exaile.py:1362
+msgid "Search Amazon"
+msgstr ""
+
+#: exaile.py:1364
+msgid "Set Custom Image"
+msgstr "ਕਸਟਮ ਚਿੱਤਰ ਦਿਓ"
+
+#: exaile.py:1366
+msgid "Remove Cover"
+msgstr "ਢੱਕਣ ਹਟਾਓ"
+
+#: exaile.py:1390
+msgid "Fetching from amazon..."
+msgstr ""
+
+#: exaile.py:1406
+msgid "Choose an image"
+msgstr "ਇੱਕ ਚਿੱਤਰ ਚੁਣੋ"
+
+#: exaile.py:1607
+msgid "Podcast has not yet been downloaded"
+msgstr ""
+
+#: exaile.py:1917 exaile.py:1967
+msgid "Choose a file"
+msgstr "ਇੱਕ ਫਾਇਲ ਚੁਣੋ"
+
+#: exaile.py:1920
+msgid "Open in new tab"
+msgstr "ਨਵੀਂ ਟੈਬ 'ਚ ਖੋਲ੍ਹੋ"
+
+#: exaile.py:1932
+msgid "Populating playlist..."
+msgstr ""
+
+#: exaile.py:2026
+msgid "Enter the address"
+msgstr "ਸਿਰਨਾਵਾਂ ਦਿਓ"
+
+#: exaile.py:2040
+msgid "Audio Disc"
+msgstr "ਆਡੀਓ ਡਿਸਕ"
+
+#: exaile.py:2073
+msgid "Scanning collection..."
+msgstr "ਭੰਡਾਰ ਦੀ ਜਾਂਚ ਜਾਰੀ..."
+
+#: xl/audioscrobbler.py:30
+msgid "Failed to submit track to Last.fm."
+msgstr ""
+
+#: xl/audioscrobbler.py:49
+msgid "Error logging into Last.fm."
+msgstr ""
+
+#: xl/filtergui.py:50
+msgid "Name"
+msgstr "ਨਾਂ"
+
+#: xl/filtergui.py:64
+msgid "Match any of the criteria"
+msgstr ""
+
+#: xl/panels.py:62 xl/panels.py:77 xl/panels.py:86
+msgid "seconds"
+msgstr "ਸਕਿੰਟ"
+
+#: xl/panels.py:68
+msgid "and"
+msgstr "ਅਤੇ"
+
+#: xl/panels.py:74 xl/panels.py:77
+msgid "days"
+msgstr "ਦਿਨ"
+
+#: xl/panels.py:77
+msgid "minutes"
+msgstr "ਮਿੰਟ"
+
+#: xl/panels.py:77
+msgid "hours"
+msgstr "ਘੰਟੇ"
+
+#: xl/panels.py:77
+msgid "weeks"
+msgstr "ਹਫ਼ਤੇ"
+
+#: xl/panels.py:98 xl/track.py:332 xl/trackslist.py:31 xl/trackslist.py:36
+#: xl/trackslist.py:47 xl/trackslist.py:439 exaile.glade.h:39
+msgid "Artist"
+msgstr "ਕਲਾਕਾਰ"
+
+#: xl/panels.py:99 xl/panels.py:109 xl/panels.py:119 xl/panels.py:172
+msgid "is"
+msgstr "ਸ਼ਾਮਿਲ"
+
+#: xl/panels.py:101 xl/panels.py:111 xl/panels.py:121 xl/panels.py:174
+msgid "is not"
+msgstr "ਸ਼ਾਮਿਲ ਨਹੀਂ"
+
+#: xl/panels.py:103 xl/panels.py:113 xl/panels.py:123 xl/panels.py:176
+msgid "contains"
+msgstr "ਸ਼ਾਮਿਲ"
+
+#: xl/panels.py:105 xl/panels.py:115 xl/panels.py:125 xl/panels.py:178
+msgid "does not contain"
+msgstr "ਸ਼ਾਮਿਲ ਨਹੀਂ"
+
+#: xl/panels.py:108 xl/track.py:336 xl/trackslist.py:31 xl/trackslist.py:37
+#: xl/trackslist.py:48 xl/trackslist.py:440 exaile.glade.h:33
+msgid "Album"
+msgstr "ਐਲਬਮ"
+
+#: xl/panels.py:118 xl/trackslist.py:32 xl/trackslist.py:41
+#: xl/trackslist.py:52 exaile.glade.h:86
+msgid "Genre"
+msgstr "ਧੁਨ"
+
+#: xl/panels.py:128
+msgid "User Rating"
+msgstr "ਉਪਭੋਗੀ ਰੇਟਿੰਗ"
+
+#: xl/panels.py:129 xl/panels.py:134 xl/panels.py:140 xl/panels.py:154
+msgid "at least"
+msgstr ""
+
+#: xl/panels.py:131 xl/panels.py:136 xl/panels.py:142 xl/panels.py:156
+msgid "at most"
+msgstr ""
+
+#: xl/panels.py:133
+msgid "System Rating"
+msgstr "ਸਿਸਟਮ ਰੇਟਿੰਗ"
+
+#: xl/panels.py:139
+msgid "Number of Plays"
+msgstr "ਚੱਲਣ ਦੀ ਗਿਣਤੀ"
+
+#: xl/panels.py:145 xl/trackslist.py:32 xl/trackslist.py:40
+#: xl/trackslist.py:51 exaile.glade.h:157
+msgid "Year"
+msgstr "ਸਾਲ"
+
+#: xl/panels.py:146
+msgid "before"
+msgstr "ਪਹਿਲਾਂ"
+
+#: xl/panels.py:148
+msgid "after"
+msgstr "ਬਾਅਦ"
+
+#: xl/panels.py:150
+msgid "between"
+msgstr "ਵਿੱਚ"
+
+#: xl/panels.py:153 xl/trackslist.py:31 xl/trackslist.py:38
+#: xl/trackslist.py:49 xl/trackslist.py:417 exaile.glade.h:96
+msgid "Length"
+msgstr "ਲੰਬਾਈ"
+
+#: xl/panels.py:159
+msgid "Date Added"
+msgstr ""
+
+#: xl/panels.py:160 xl/panels.py:166
+msgid "in the last"
+msgstr ""
+
+#: xl/panels.py:162 xl/panels.py:168
+msgid "not in the last"
+msgstr ""
+
+#: xl/panels.py:165
+msgid "Last Played"
+msgstr "ਆਖਰੀ ਸੁਣੇ"
+
+#: xl/panels.py:171
+msgid "Location"
+msgstr "ਟਿਕਾਣਾ"
+
+#: xl/panels.py:274
+msgid "Finished scanning collection."
+msgstr ""
+
+#: xl/panels.py:295
+msgid "Scanning..."
+msgstr "ਜਾਂਚ ਜਾਰੀ ਹੈ..."
+
+#: xl/panels.py:329
+msgid "Append to Current"
+msgstr "ਮੌਜੂਦ 'ਚ ਜੋੜੋ"
+
+#: xl/panels.py:333 xl/panels.py:343 xl/trackslist.py:675
+msgid "Add to Playlist"
+msgstr "ਸੰਗੀਤ-ਸੂਚੀ ਸ਼ਾਮਿਲ"
+
+#: xl/panels.py:344 xl/panels.py:2610
+msgid "Queue Items"
+msgstr "ਇਕਾਈਆਂ ਕਤਾਰ 'ਚ"
+
+#: xl/panels.py:347
+msgid "Blacklist Selected"
+msgstr "ਚੁਣੇ ਬਲੈਕ-ਲਿਸਟ"
+
+#: xl/panels.py:349
+msgid "Delete Selected"
+msgstr "ਚੁਣੀਆਂ ਹਟਾਓ"
+
+#: xl/panels.py:425 xl/trackslist.py:870
+msgid "Are you sure you want to permanently remove the selected tracks from disk?"
+msgstr ""
+
+#: xl/panels.py:443
+msgid "Are you sure you want to blacklist the selected tracks?"
+msgstr ""
+
+#: xl/panels.py:804
+msgid "Transfer Queue"
+msgstr "ਸੰਚਾਰ ਕਤਾਰ"
+
+#: xl/panels.py:825
+msgid "Transfer"
+msgstr "ਤਬਦੀਲ"
+
+#: xl/panels.py:951
+msgid "This device does not support removing tracks"
+msgstr ""
+
+#: xl/panels.py:969
+msgid "Not connected to any media device"
+msgstr ""
+
+#: xl/panels.py:1000
+msgid "The current device  does not support transferring music."
+msgstr ""
+
+#: xl/panels.py:1004
+msgid "There is a transfer currently in progress.  Please wait for it to finish"
+msgstr ""
+
+#: xl/panels.py:1100
+msgid "Error and stuff"
+msgstr ""
+
+#: xl/panels.py:1211
+msgid "Smart Playlists"
+msgstr "ਚੁਸਤ ਸੰਗੀਤ-ਸੂਚੀ"
+
+#: xl/panels.py:1274
+msgid "Custom Playlists"
+msgstr ""
+
+#: xl/panels.py:1346 xl/panels.py:1389
+msgid "That playlist name is already taken."
+msgstr ""
+
+#: xl/panels.py:1384
+msgid "You did not enter a name for your playlist"
+msgstr ""
+
+#: xl/panels.py:1565 xl/trackslist.py:944
+msgid "The following errors did occur"
+msgstr ""
+
+#: xl/panels.py:1583
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr ""
+
+#: xl/panels.py:1607
+msgid "Enter the name you want for your new playlist"
+msgstr ""
+
+#: xl/panels.py:1608 xl/trackslist.py:667
+msgid "New Playlist"
+msgstr "ਨਵੀਂ ਸੰਗੀਤ-ਸੂਚੀ"
+
+#: xl/panels.py:1617
+msgid "Playlist already exists."
+msgstr ""
+
+#: xl/panels.py:1766
+msgid "Downloading Podcasts"
+msgstr ""
+
+#: xl/panels.py:1771
+msgid "Downloading..."
+msgstr "ਡਾਊਨਲੋਡ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ..."
+
+#: xl/panels.py:1806
+msgid "Stopping..."
+msgstr "ਰੋਕਿਆ ਜਾ ਰਿਹਾ ਹੈ ..."
+
+#: xl/panels.py:1926
+msgid "Shoutcast Stations"
+msgstr ""
+
+#: xl/panels.py:2135
+msgid "Reload Streams"
+msgstr ""
+
+#: xl/panels.py:2140 xl/panels.py:2341
+msgid "Add Stream to Station"
+msgstr ""
+
+#: xl/panels.py:2142
+msgid "Delete this Station"
+msgstr ""
+
+#: xl/panels.py:2146
+msgid "Add Feed"
+msgstr ""
+
+#: xl/panels.py:2147
+msgid "Refresh Feed"
+msgstr ""
+
+#: xl/panels.py:2148
+msgid "Delete Feed"
+msgstr "ਖ਼ਬਰਸਾਰ ਹਟਾਓ"
+
+#: xl/panels.py:2164
+msgid "Enter the location of the podcast"
+msgstr ""
+
+#: xl/panels.py:2165
+msgid "Add a podcast"
+msgstr ""
+
+#: xl/panels.py:2173
+msgid "A podcast with that url already exists"
+msgstr ""
+
+#: xl/panels.py:2199
+msgid "Could not read feed."
+msgstr ""
+
+#: xl/panels.py:2321
+msgid "Are you sure you want to delete this podcast?"
+msgstr ""
+
+#: xl/panels.py:2366
+msgid "Are you sure you want to permanently delete the selected station?"
+msgstr ""
+
+#: xl/panels.py:2419
+msgid "Add Station"
+msgstr "ਸਟੇਸ਼ਨ ਜੋੜੋ"
+
+#: xl/panels.py:2420
+msgid "Station Name:"
+msgstr "ਸਟੇਸ਼ਨ ਨਾਂ:"
+
+#: xl/panels.py:2421 plugins/plugins.glade:131 plugins/plugins.glade:399
+msgid "Description:"
+msgstr "ਵੇਰਵਾ:"
+
+#: xl/panels.py:2422
+msgid "URL:"
+msgstr "URL:"
+
+#: xl/panels.py:2429
+msgid "The 'Name' and 'URL' fields are required"
+msgstr ""
+
+#: xl/panels.py:2437
+msgid "Station name already exists."
+msgstr ""
+
+#: xl/panels.py:2484 xl/panels.py:2485
+msgid "Enter the name of the station"
+msgstr "ਸਟੇਸ਼ਨ ਦਾ ਨਾਂ ਦਿਓ"
+
+#: xl/panels.py:2495
+msgid "Station already exists."
+msgstr "ਸਟੇਸ਼ਨ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ।"
+
+#: xl/panels.py:2609
+msgid "Append to Playlist"
+msgstr "ਸੰਗੀਤ-ਸੂਚੀ 'ਚ ਸ਼ਾਮਿਲ"
+
+#: xl/panels.py:2633
+msgid "Scanning and adding files..."
+msgstr "ਫਾਇਲਾਂ ਜਾਂਚੀਆਂ ਅਤੇ ਜੋੜੀਆਂ ਜਾ ਰਹੀਆਂ ਹਨ..."
+
+#: xl/player.py:408
+msgid "Exaile Media Player"
+msgstr "ਐਕਾਲੀ ਮੀਡਿਆ ਪਲੇਅਰ"
+
+#: xl/prefs.py:409
+msgid ""
+"Cannot watch directories for changes. Install python2.4-gamin to use this "
+"feature."
+msgstr ""
+
+#: xl/prefs.py:551
+msgid "Move the OSD window to the location you want it to appear when listening"
+msgstr ""
+
+#: xl/track.py:225 xl/track.py:283
+msgid "Title: "
+msgstr "ਸਿਰਲੇਖ "
+
+#: xl/track.py:226 exaile.glade.h:43
+msgid "Artist:"
+msgstr "ਕਲਾਕਾਰ:"
+
+#: xl/track.py:227 exaile.glade.h:37
+msgid "Album:"
+msgstr "ਐਲਬਮ:"
+
+#: xl/track.py:229
+msgid "Track Number:"
+msgstr "ਟਰੈਕ ਨੰਬਰ:"
+
+#: xl/track.py:230 exaile.glade.h:158
+msgid "Year:"
+msgstr "ਸਾਲ:"
+
+#: xl/track.py:231 exaile.glade.h:87
+msgid "Genre:"
+msgstr "ਧੁਨ:"
+
+#: xl/track.py:232
+msgid "Bitrate:"
+msgstr "ਬਿੱਟਰੇਟ:"
+
+#: xl/track.py:233
+msgid "User Rating:"
+msgstr "ਉਪਭੋਗੀ ਰੇਟਿੰਗ:"
+
+#: xl/track.py:234
+msgid "System Rating:"
+msgstr "ਸਿਸਟਮ ਰੇਟਿੰਗ:"
+
+#: xl/track.py:235
+msgid "Playcount:"
+msgstr "ਚੱਲਣ ਗਿਣਤੀ:  "
+
+#: xl/track.py:236 xl/track.py:289
+msgid "Location: "
+msgstr "ਟਿਕਾਣਾ: "
+
+#: xl/track.py:284
+msgid "Description: "
+msgstr "ਵੇਰਵਾ: "
+
+#: xl/track.py:290
+msgid "Bitrate: "
+msgstr "ਬਿੱਟਰੇਟ: "
+
+#: xl/track.py:309 xl/trackslist.py:714 exaile.glade.h:90
+msgid "Information"
+msgstr "ਜਾਣਕਾਰੀ"
+
+#: xl/track.py:323 xl/track.py:325
+msgid "Statistics"
+msgstr "ਅੰਕੜੇ"
+
+#: xl/track.py:338
+msgid "Lyrics"
+msgstr "ਗੀਤ"
+
+#: xl/track.py:340
+msgid "Tablature"
+msgstr ""
+
+#: xl/track.py:461
+msgid "Some errors occurred"
+msgstr "ਕੁਝ ਗਲਤੀਆਂ ਆਈਆਂ ਹਨ"
+
+#: xl/trackslist.py:31 xl/trackslist.py:35 xl/trackslist.py:46
+#: xl/trackslist.py:439 exaile.glade.h:141
+msgid "Title"
+msgstr "ਸਿਰਲੇਖ"
+
+#: xl/trackslist.py:32 xl/trackslist.py:39 xl/trackslist.py:50
+#: xl/trackslist.py:712 exaile.glade.h:121
+msgid "Rating"
+msgstr "ਰੇਟਿੰਗ"
+
+#: xl/trackslist.py:32 xl/trackslist.py:42 xl/trackslist.py:53
+#: exaile.glade.h:52
+msgid "Bitrate"
+msgstr "ਬਿੱਟਰੇਟ"
+
+#: xl/trackslist.py:121
+msgid "Scanning and adding tracks to current playlist..."
+msgstr ""
+
+#: xl/trackslist.py:660
+msgid "Toggle Queue"
+msgstr ""
+
+#: xl/trackslist.py:686
+msgid "New Station"
+msgstr "ਨਵਾਂ ਸਟੇਸ਼ਨ"
+
+#: xl/trackslist.py:689
+msgid "Add to Saved Stations"
+msgstr ""
+
+#: xl/trackslist.py:694
+msgid "Edit Information"
+msgstr "ਜਾਣਕਾਰੀ ਸੋਧੋ"
+
+#: xl/trackslist.py:713
+msgid "Edit Track(s)"
+msgstr "ਟਰੈਕ ਸੋਧ"
+
+#: xl/trackslist.py:719
+msgid "Remove from Playlist"
+msgstr "ਸੰਗੀਤ-ਸੂਚੀ 'ਚੋਂ ਹਟਾਓ"
+
+#: xl/trackslist.py:723
+msgid "Blacklist Track(s)"
+msgstr "ਟਰੈਕ ਬਲੈਕ-ਲਿਸਟ"
+
+#: xl/trackslist.py:725
+msgid "Delete Track(s)"
+msgstr "ਟਰੈਕ ਹਟਾਓ"
+
+#: xl/trackslist.py:727
+msgid "Remove"
+msgstr "ਹਟਾਓ"
+
+#: xl/trackslist.py:733 xl/xlmisc.py:247 exaile.glade.h:114
+msgid "Plugins"
+msgstr "ਪਲੱਗਇਨ"
+
+#: xl/trackslist.py:969
+msgid "Remove from Blacklist"
+msgstr ""
+
+#: xl/tracks.py:394
+msgid "Could not open audio disc"
+msgstr ""
+
+#: xl/xlmisc.py:228 xl/xlmisc.py:257
+msgid "Play"
+msgstr "ਚਲਾਓ"
+
+#: xl/xlmisc.py:240 exaile.glade.h:101
+msgid "Next"
+msgstr "ਅੱਗੇ"
+
+#: xl/xlmisc.py:241 exaile.glade.h:117
+msgid "Previous"
+msgstr "ਪਿੱਛੇ"
+
+#: xl/xlmisc.py:244 exaile.glade.h:116
+msgid "Preferences"
+msgstr "ਮੇਰੀ ਪਸੰਦ"
+
+#: xl/xlmisc.py:250
+msgid "Quit"
+msgstr "ਬਾਹਰ"
+
+#: xl/xlmisc.py:261
+msgid "Pause"
+msgstr "ਵਿਰਾਮ"
+
+#: xl/xlmisc.py:745
+msgid "Close this tab"
+msgstr "ਇਹ ਟੈਬ ਬੰਦ ਕਰੋ"
+
+#: xl/xlmisc.py:758
+msgid "Enter the new name for this playlist"
+msgstr ""
+
+#: xl/xlmisc.py:758
+msgid "Rename playlist"
+msgstr "ਸੰਗੀਤ-ਸੂਚੀ ਨਾਂ-ਬਦਲੋ"
+
+#: xl/xlmisc.py:784
+msgid "Rename"
+msgstr "ਨਾਂ-ਤਬਦੀਲ"
+
+#: xl/xlmisc.py:785
+msgid "Close"
+msgstr "ਬੰਦ ਕਰੋ"
+
+#: xl/xlmisc.py:788
+msgid "Save Playlist"
+msgstr "ਸੰਗੀਤ-ਸੂਚੀ ਸੰਭਾਲੋ"
+
+#: xl/xlmisc.py:1342
+msgid "Enter the search text"
+msgstr ""
+
+#: xl/xlmisc.py:1349
+msgid "Searching for "
+msgstr ""
+
+#: xl/xlmisc.py:1421
+msgid "Sorry, no covers were found."
+msgstr ""
+
+#: exaile.glade.h:1
+msgid "               "
+msgstr "               "
+
+#: exaile.glade.h:2
+msgid "(c) 2006"
+msgstr "(c) 2006"
+
+#: exaile.glade.h:3
+msgid "(minutes, use 0 to disable)"
+msgstr ""
+
+#: exaile.glade.h:4
+msgid "+"
+msgstr "+"
+
+#: exaile.glade.h:5
+msgid "-"
+msgstr "-"
+
+#: exaile.glade.h:6
+msgid "/dev/cdrom"
+msgstr "/dev/cdrom"
+
+#: exaile.glade.h:7
+msgid "0"
+msgstr "0"
+
+#: exaile.glade.h:8
+msgid "0 Covers to fetch"
+msgstr ""
+
+#: exaile.glade.h:9
+msgid "0 tracks"
+msgstr "0 ਟਰੈਕ"
+
+#: exaile.glade.h:10
+msgid "0/0"
+msgstr "0/0"
+
+#: exaile.glade.h:11
+msgid "0:00"
+msgstr "0:00"
+
+#: exaile.glade.h:12
+msgid ""
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5\n"
+"6\n"
+"7\n"
+"8"
+msgstr ""
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5\n"
+"6\n"
+"7\n"
+"8"
+
+#: exaile.glade.h:20
+msgid "<b>General</b>"
+msgstr "<b>ਸਧਾਰਨ</b>"
+
+#: exaile.glade.h:21
+msgid "<b>Model:</b>        "
+msgstr "<b>ਮਾਡਲ:</b>      "
+
+#: exaile.glade.h:22
+msgid "<b>Space:</b>"
+msgstr "<b>ਸਪੇਸ:</b>"
+
+#: exaile.glade.h:23
+msgid ""
+"<b>{Title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{Title}</b>\n"
+"{artist}\n"
+"{album} - {length}"
+
+#: exaile.glade.h:26
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"{album} - {length}"
+
+#: exaile.glade.h:29
+msgid "Action Log"
+msgstr ""
+
+#: exaile.glade.h:30
+msgid "Action _Log"
+msgstr ""
+
+#: exaile.glade.h:31
+msgid "Add Saved Station"
+msgstr ""
+
+#: exaile.glade.h:32
+msgid "Advanced"
+msgstr "ਤਕਨੀਕੀ"
+
+#: exaile.glade.h:34
+msgid "Album Art"
+msgstr "ਐਲਬਮ ਆਰਟ"
+
+#: exaile.glade.h:35
+msgid "Album _Information"
+msgstr "ਐਲਬਮ ਜਾਣਕਾਰੀ(_I)"
+
+#: exaile.glade.h:36
+msgid "Album art filenames (separated by spaces):"
+msgstr ""
+
+#: exaile.glade.h:38
+msgid "Amazon Locale:"
+msgstr ""
+
+#: exaile.glade.h:40
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre"
+msgstr ""
+"ਕਲਾਕਾਰ\n"
+"ਐਲਬਮ\n"
+"ਧੁਨ"
+
+#: exaile.glade.h:44
+msgid "Attempt to fetch cover art from Amazon automatically"
+msgstr ""
+
+#: exaile.glade.h:45
+msgid ""
+"Automatic\n"
+"Use GConf Settings\n"
+"alsasink\n"
+"osssink\n"
+"esdsink"
+msgstr ""
+
+#: exaile.glade.h:50
+msgid "Autosize"
+msgstr "ਆਟੋ-ਆਕਾਰ"
+
+#: exaile.glade.h:51
+msgid "Background Color:"
+msgstr "ਬੈਕਗਰਾਊਂਡ ਰੰਗ:"
+
+#: exaile.glade.h:53
+msgid "CD Device:"
+msgstr "CD ਜੰਤਰ:"
+
+#: exaile.glade.h:55
+msgid "Cl_ear Playlist"
+msgstr "ਸੰਗੀਤ-ਸੂਚੀ ਸਾਫ਼ ਕਰੋ(_e)"
+
+#: exaile.glade.h:56
+msgid "Cl_ose Playlist"
+msgstr "ਸੰਗੀਤ-ਸੂਚੀ ਬੰਦ ਕਰੋ(_o)"
+
+#: exaile.glade.h:57
+msgid "Clear Playlist"
+msgstr "ਪਲੇਅ-ਲਿਸਟ ਸਾਫ਼ ਕਰੋ"
+
+#: exaile.glade.h:58
+msgid "Collection"
+msgstr "ਭੰਡਾਰ"
+
+#: exaile.glade.h:59
+msgid ""
+"Copyright (C) 2006 Adam Olsen\n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 1, or (at your option)\n"
+"any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
+msgstr ""
+
+#: exaile.glade.h:74
+msgid "Cover Finder"
+msgstr ""
+
+#: exaile.glade.h:75
+msgid "Devices"
+msgstr "ਜੰਤਰ"
+
+#: exaile.glade.h:76
+msgid "Directories excluded by watch (separated by spaces):"
+msgstr ""
+
+#: exaile.glade.h:77
+msgid "Disc Number:"
+msgstr "ਡਿਸਕ ਨੰਬਰ:"
+
+#: exaile.glade.h:78
+msgid "Display OSD when hovering over tray icon"
+msgstr ""
+
+#: exaile.glade.h:79
+msgid "Display Text:"
+msgstr "ਪਾਠ ਵੇਖਾਓ:"
+
+#: exaile.glade.h:80
+msgid "Dynamic Playlist"
+msgstr "ਸਫ਼ਰੀ ਸੰਗੀਤ-ਸੂਚੀ"
+
+#: exaile.glade.h:82
+msgid "Export Playlist"
+msgstr "ਸੰਗੀਤ-ਸੂਚੀ ਨਿਰਯਾਤ"
+
+#: exaile.glade.h:83
+msgid "Fetches similar tracks from last.fm"
+msgstr ""
+
+#: exaile.glade.h:84
+msgid "Files"
+msgstr "ਫਾਇਲਾਂ"
+
+#: exaile.glade.h:85
+msgid "General"
+msgstr "ਸਧਾਰਨ"
+
+#: exaile.glade.h:88
+msgid "Go To Playing Track"
+msgstr "ਪਿਛਲੇ ਟਰੈਕ ਤੇ ਜਾਓ"
+
+#: exaile.glade.h:89
+msgid "Hint: see http://www.exaile.org/markup.html for examples"
+msgstr "ਇਸ਼ਾਰਾ: ਉਦਾਹਰਨ ਲਈ http://www.exaile.org/markup.html ਵੇਖੋ"
+
+#: exaile.glade.h:91
+msgid "Input Required"
+msgstr "ਇੰਪੁੱਟ ਲੋੜੀਦੀ"
+
+#: exaile.glade.h:92
+msgid "Jump to current song on track change"
+msgstr ""
+
+#: exaile.glade.h:93
+msgid "Last.fm"
+msgstr "Last.fm"
+
+#: exaile.glade.h:94
+msgid "Last.fm Password:"
+msgstr "Last.fm ਗੁਪਤ-ਕੋਡ:"
+
+#: exaile.glade.h:95
+msgid "Last.fm Username:  "
+msgstr "Last.fm ਉਪਭੋਗੀ ਨਾਂ  "
+
+#: exaile.glade.h:97
+msgid "Library"
+msgstr "ਲਾਇਬ੍ਰੇਰੀ"
+
+#: exaile.glade.h:98
+msgid "Library Manager"
+msgstr "ਲਾਇਬਰੇਰੀ ਮੈਨੇਜਰ"
+
+#: exaile.glade.h:99
+msgid "Library _Manager"
+msgstr "ਲਾਇਬਰੇਰੀ ਮੈਨੇਜਰ(_M)"
+
+#: exaile.glade.h:100
+msgid "New Search"
+msgstr "ਨਵੀਂ ਖੋਜ"
+
+#: exaile.glade.h:102
+msgid "Next Track"
+msgstr "ਅਗਲਾ ਟਰੈਕ"
+
+#: exaile.glade.h:103
+msgid "Not Playing"
+msgstr "ਚੱਲ ਨਹੀਂ ਰਿਹਾ"
+
+#: exaile.glade.h:104
+msgid "OK"
+msgstr "ਠੀਕ ਹੈ"
+
+#: exaile.glade.h:105
+msgid "OSD"
+msgstr "OSD"
+
+#: exaile.glade.h:106
+msgid "Open _Disc"
+msgstr "ਡਿਸਕ ਖੋਲ੍ਹੋ(_D)"
+
+#: exaile.glade.h:107
+msgid "Open _URL"
+msgstr "_URL ਖੋਲ੍ਹੋ"
+
+#: exaile.glade.h:108
+msgid "Open last playlist on startup"
+msgstr ""
+
+#: exaile.glade.h:109
+msgid "Play/Pause"
+msgstr "ਚਲਾਓ/ਵਿਰਾਮ"
+
+#: exaile.glade.h:110
+msgid "Playback Sink:   "
+msgstr ""
+
+#: exaile.glade.h:112
+msgid "Playlist Tab Placement:"
+msgstr ""
+
+#: exaile.glade.h:113
+msgid "Playlists"
+msgstr "ਸੰਗੀਤ-ਸੂਚੀ"
+
+#: exaile.glade.h:115
+msgid "Popup"
+msgstr "ਪੋਪਅੱਪ"
+
+#: exaile.glade.h:118
+msgid "Previous Track"
+msgstr "ਪਿਛਲਾ ਟਰੈਕ"
+
+#: exaile.glade.h:119
+msgid "Question:"
+msgstr "ਸਵਾਲ:"
+
+#: exaile.glade.h:120
+msgid "Radio"
+msgstr "ਰੇਡੀਓ"
+
+#: exaile.glade.h:122
+msgid "Rating: "
+msgstr "ਰੇਟਿੰਗ:"
+
+#: exaile.glade.h:123
+msgid "Refresh"
+msgstr "ਤਾਜ਼ਾ"
+
+#: exaile.glade.h:124
+msgid "Remove Saved Station"
+msgstr "ਸੰਭਾਲੇ ਸਟੇਸ਼ਨ ਹਟਾਓ"
+
+#: exaile.glade.h:125
+msgid "Repeat"
+msgstr "ਦੁਹਰਾਓ"
+
+#: exaile.glade.h:126
+msgid "Resizable"
+msgstr "ਮੁੜ-ਆਕਾਰ ਯੋਗ"
+
+#: exaile.glade.h:127
+msgid "Save"
+msgstr "ਸੰਭਾਲੋ"
+
+#: exaile.glade.h:128
+msgid "Save queue status"
+msgstr "ਕਤਾਰ ਹਾਲਤ ਸੰਭਾਲੋ"
+
+#: exaile.glade.h:129
+msgid "Scan for new music every: "
+msgstr ""
+
+#: exaile.glade.h:130
+msgid "Search:"
+msgstr "ਖੋਜ:"
+
+#: exaile.glade.h:131
+msgid "Show On Screen Display"
+msgstr "ਆਨ ਸਕਰੀਨ ਡਿਸਪਲੇਅਰ (OSD) ਵੇਖਾਓ"
+
+#: exaile.glade.h:132
+msgid "Show Tray Icon"
+msgstr "ਟਰੇ ਆਈਕਾਨ ਵੇਖਾਓ"
+
+#: exaile.glade.h:133
+msgid "Show Visualizations"
+msgstr ""
+
+#: exaile.glade.h:134
+msgid "Show splash screen on startup"
+msgstr "ਸ਼ੁਰੂ ਸਮੇਂ ਸਵਾਗਤੀ ਝਰੋਖਾ ਵੇਖਾਓ"
+
+#: exaile.glade.h:135
+msgid "Shuffle"
+msgstr "ਰਲਵਾਂ"
+
+#: exaile.glade.h:136
+msgid "Start"
+msgstr "ਸ਼ੁਰੂ"
+
+#: exaile.glade.h:137
+msgid "Stop Playback"
+msgstr "ਪਲੇਅਬੈਕ ਰੋਕੋ"
+
+#: exaile.glade.h:138
+msgid "Stopped"
+msgstr "ਰੁਕਿਆ"
+
+#: exaile.glade.h:139
+msgid "Text Color"
+msgstr "ਪਾਠ ਰੰਗ"
+
+#: exaile.glade.h:140
+msgid "Text Font:"
+msgstr "ਪਾਠ ਫੋਂਟ:"
+
+#: exaile.glade.h:142
+msgid "Title:"
+msgstr "ਸਿਰਲੇਖ:"
+
+#: exaile.glade.h:143
+msgid ""
+"Top\n"
+"Left\n"
+"Right\n"
+"Bottom"
+msgstr ""
+"ਉੱਤੇ\n"
+"ਖੱਬੇ\n"
+"ਸੱਜੇ\n"
+"ਹੇਠਾਂ"
+
+#: exaile.glade.h:147
+msgid "Track Editor"
+msgstr "ਟਰੈਕ ਸੰਪਾਦਕ"
+
+#: exaile.glade.h:148
+msgid "Track Number"
+msgstr "ਟਰੈਕ ਨੰਬਰ"
+
+#: exaile.glade.h:149
+msgid "Track:"
+msgstr "ਟਰੈਕ:"
+
+#: exaile.glade.h:150
+msgid "Unknown"
+msgstr "ਅਣਜਾਣ"
+
+#: exaile.glade.h:151
+msgid "Up One Directory"
+msgstr "ਇੱਕ ਡਾਇਰੈਕਟਰੀ ਉੱਤੇ"
+
+#: exaile.glade.h:152
+msgid "Vol:"
+msgstr "ਆਵਾਜ਼:"
+
+#: exaile.glade.h:153
+msgid "Watch directories for new songs (requires gamin)"
+msgstr ""
+
+#: exaile.glade.h:154
+msgid "Wikipedia Locale:"
+msgstr "ਵੀਕੀਪੀਡਿਆ ਲੋਕੇਲ:"
+
+#: exaile.glade.h:155
+msgid "Window Height:"
+msgstr "ਝਰੋਖਾ ਉਚਾਈ:"
+
+#: exaile.glade.h:156
+msgid "Window Width:"
+msgstr "ਝਰੋਖਾ ਚੌੜਾਈ:"
+
+#: exaile.glade.h:159
+msgid "_Album Art Collector"
+msgstr "ਐਲਬਮ ਆਰਟ ਕੁਲੈਕਟਰ(_A)"
+
+#: exaile.glade.h:160
+msgid "_Artist Information"
+msgstr "ਕਲਾਕਾਰ ਜਾਣਕਾਰੀ(_A)"
+
+#: exaile.glade.h:161
+msgid "_Blacklist Manager"
+msgstr "ਬਲੈਕ-ਲਿਸਟ ਮੈਨੇਜਰ(_B)"
+
+#: exaile.glade.h:162
+msgid "_Clear Queue"
+msgstr "ਕਤਾਰ ਸਾਫ਼ ਕਰੋ(_C)"
+
+#: exaile.glade.h:163
+msgid "_Close"
+msgstr "ਬੰਦ ਕਰੋ(_C)"
+
+#: exaile.glade.h:164
+msgid "_Columns"
+msgstr "ਕਾਲਮ(_C)"
+
+#: exaile.glade.h:165
+msgid "_File"
+msgstr "ਫਾਇਲ(_F)"
+
+#: exaile.glade.h:166
+msgid "_Help"
+msgstr "ਸਹਾਇਤਾ(_H)"
+
+#: exaile.glade.h:167
+msgid "_Import Directory"
+msgstr "ਡਾਇਰੈਕਟਰੀ ਆਯਾਤ(_I)"
+
+#: exaile.glade.h:168
+msgid "_Logs"
+msgstr "ਲਾਗ(_L)"
+
+#: exaile.glade.h:169
+msgid "_Lyrics"
+msgstr "ਬੋਲ(_L)"
+
+#: exaile.glade.h:170
+msgid "_New Playlist"
+msgstr "ਨਵੀਂ ਸੰਗੀਤ-ਸੂਚੀ(_N)"
+
+#: exaile.glade.h:171
+msgid "_Open Media"
+msgstr "ਮੀਡਿਆ ਖੋਲ੍ਹੋ(_O)"
+
+#: exaile.glade.h:172
+msgid "_Queue Manager"
+msgstr "ਕਤਾਰ ਮੈਨੇਜਰ(_Q)"
+
+#: exaile.glade.h:173
+msgid "_Rescan Collection"
+msgstr "ਭੰਡਾਰ ਮੁੜ-ਜਾਂਚ(_R)"
+
+#: exaile.glade.h:174
+msgid "_Tools"
+msgstr "ਸੰਦ(_T)"
+
+#: exaile.glade.h:175
+msgid "_View"
+msgstr "ਵੇਖੋ(_V)"
+
+#: exaile.glade.h:176
+msgid "iPod Information"
+msgstr "iPod ਜਾਣਕਾਰੀ"
+
+#: exaile.glade.h:177
+msgid "message"
+msgstr "ਸੁਨੇਹਾ"
+
+#: exaile.glade.h:179
+msgid "translator-credits"
+msgstr ""
+"ਅਮਨਪਰੀਤ ਸਿੰਘ ਆਲਮ\n"
+"ਪੰਜਾਬ ਲੀਨਕਸ ਤਕਨਾਲੋਜੀ ਦਾ ਉੱਦਮ\n"
+"http://punjabi.sf.net"
+
+#: plugins/plugins.glade:7
+msgid "Plugin Manager"
+msgstr "ਪਲੱਗਇਨ ਮੈਨੇਜਰ"
+
+#: plugins/plugins.glade:70 plugins/plugins.glade:378
+msgid "Authors:"
+msgstr "ਲੇਖਕ:"
+
+#: plugins/plugins.glade:83 plugins/plugins.glade:360
+msgid "\n"
+msgstr "\n"
+
+#: plugins/plugins.glade:112 plugins/plugins.glade:337
+msgid "Version:      "
+msgstr "ਵਰਜਨ:     "
+
+#: plugins/plugins.glade:221
+msgid "Configure"
+msgstr "ਸੰਰਚਨਾ"
+
+#: plugins/plugins.glade:255 plugins/plugins.glade:462
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>ਕੋਈ ਪਲੱਗਇਨ ਨਹੀਂ ਚੁਣੀ</b>"
+
+#: plugins/plugins.glade:275
+msgid "Installed Plugins"
+msgstr "ਇੰਸਟਾਲ ਪਲੱਗਇਨ"
+
+#: plugins/plugins.glade:483
+msgid "Available Plugins"
+msgstr "ਉਪਲੱਬਧ ਪਲੱਗਇਨ"
+

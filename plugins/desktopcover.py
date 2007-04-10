@@ -41,8 +41,10 @@ class CoverDisplay:
         wnd.set_decorated(False)
         #wnd.set_keep_below(True)
         wnd.set_resizable(False)
+        wnd.set_role(__file__)
         wnd.set_skip_pager_hint(True)
         wnd.set_skip_taskbar_hint(True)
+        wnd.set_title("")
         wnd.stick()
 
         self.x = self.DEFAULT_X

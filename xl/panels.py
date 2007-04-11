@@ -1218,11 +1218,19 @@ class DevicePanel(CollectionPanel):
         return self.all.for_path(loc.replace('device_%s://' % self.driver.name, ''))
 
 
+class EmptyRadioDriver(object):
+    """
+        Empty Driver
+    """
+    def __init__(self):
+        pass
+
 class PRadioPanel(object):
     """
         This will be a pluggable radio panel.  Plugins like shoutcast and
         live365 will go here
     """
+    name = 'pradio'
     def __init__(self, exaile):
         """
             Initializes the panel
@@ -1240,12 +1248,14 @@ class PRadioPanel(object):
         col.set_cell_data_func(text, self.cell_data_func)
         self.tree.append_column(col)
         self.podcasts = {}
+        self.drivers = {}
 
         self.model = gtk.TreeStore(gtk.gdk.Pixbuf, object)
         self.tree.set_model(self.model)
 
         self.open_folder = xlmisc.get_icon('gnome-fs-directory-accept')
         self.folder = xlmisc.get_icon('gnome-fs-directory')
+        self.refresh_image = xlmisc.get_icon('gtk-refresh')
 
         self.track = gtk.gdk.pixbuf_new_from_file('images%strack.png' %
             os.sep)
@@ -1268,6 +1278,12 @@ class PRadioPanel(object):
             self.model.append(self.podcast, [self.track, 
                 PodcastWrapper(title, path)])
 
+        self.tree.expand_row(self.model.get_path(self.custom), False)
+        self.tree.expand_row(self.model.get_path(self.podcast), False)
+
+        self.radio_root = self.model.append(None, [self.open_folder, "Radio "
+            "Streams"])
+
     def cell_data_func(self, column, cell, model, iter, user_data=None):
         """
             Called when the tree needs a value for column 1
@@ -1277,6 +1293,24 @@ class PRadioPanel(object):
             cell.set_property('text', str(object))
         else:
             cell.set_property('text', str(object))
+
+    def add_driver(self, driver):
+        """
+            Adds a driver to the list of drivers
+        """
+        if not self.drivers.has_key(driver):
+            node = self.model.append(self.radio_root, [self.folder, driver])
+
+            self.model.append(node, [self.refresh_image, "Loading streams..."])
+            self.drivers[driver] = node
+            self.tree.expand_row(self.model.get_path(self.radio_root), False)
+
+    def remove_driver(self, driver):
+        """
+            Removes a radio driver
+        """
+        if self.drivers.has_key(driver):
+            del self.drivers[driver]
 
 class SmartPlaylist(object):
     def __init__(self, name, id):

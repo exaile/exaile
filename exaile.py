@@ -997,14 +997,7 @@ class ExaileWindow(gobject.GObject):
             self.side_notebook.remove_page(2)
         self.device_panel_showing = False
 
-        page_number = self._find_page_number(_('New Radio'))
         self.pradio_panel = panels.PRadioPanel(self)
-        self.pradio_panel_widget = self.side_notebook.get_nth_page(page_number)
-        self.pradio_panel_label = self.side_notebook.get_tab_label(
-            self.pradio_panel_widget)
-
-        self.side_notebook.remove_page(page_number)
-        self.pradio_panel_showing = False
 
     def _find_page_number(self, text):
         """
@@ -1016,19 +1009,6 @@ class ExaileWindow(gobject.GObject):
             if label.get_text() == text: return i
 
         return 0
-
-    def show_radio_panel(self, show):
-        """
-            Toggles whether or not the new radio panel is showing
-        """
-        if not self.pradio_panel_showing and show:
-            self.side_notebook.append_page(self.pradio_panel_widget,
-                self.pradio_panel_label)
-        elif self.pradio_panel_showing and not show:
-            self.side_notebook.remove_page(
-                self.side_notebook.page_num(self.pradio_panel_widget))
-
-        self.pradio_panel_showing = show
 
     def show_device_panel(self, show):
         """

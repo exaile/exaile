@@ -984,16 +984,51 @@ class ExaileWindow(gobject.GObject):
         self.radio_panel = panels.RadioPanel(self)
         self.side_notebook = self.xml.get_widget('side_notebook')
         self.files_panel = panels.FilesPanel(self)
+
+        page_number = self._find_page_number(_('Devices'))
         self.device_panel = panels.DevicePanel(self)
-        self.device_panel_widget = self.side_notebook.get_nth_page(4)
+        self.device_panel_widget = self.side_notebook.get_nth_page(page_number)
         self.device_panel_label = self.side_notebook.get_tab_label(
             self.device_panel_widget)
 
-        self.side_notebook.remove_page(-1)
+        self.side_notebook.remove_page(page_number)
 
         if not gst.registry_get_default().find_plugin('gnomevfs'):
             self.side_notebook.remove_page(2)
         self.device_panel_showing = False
+
+        page_number = self._find_page_number(_('New Radio'))
+        self.pradio_panel = panels.PRadioPanel(self)
+        self.pradio_panel_widget = self.side_notebook.get_nth_page(page_number)
+        self.pradio_panel_label = self.side_notebook.get_tab_label(
+            self.pradio_panel_widget)
+
+        self.side_notebook.remove_page(page_number)
+        self.pradio_panel_showing = False
+
+    def _find_page_number(self, text):
+        """
+            Finds a specific page number for a label
+        """
+        for i in range(self.side_notebook.get_n_pages()):
+            page = self.side_notebook.get_nth_page(i)
+            label = self.side_notebook.get_tab_label(page)
+            if label.get_text() == text: return i
+
+        return 0
+
+    def show_radio_panel(self, show):
+        """
+            Toggles whether or not the new radio panel is showing
+        """
+        if not self.pradio_panel_showing and show:
+            self.side_notebook.append_page(self.pradio_panel_widget,
+                self.pradio_panel_label)
+        elif self.pradio_panel_showing and not show:
+            self.side_notebook.remove_page(
+                self.side_notebook.page_num(self.pradio_panel_widget))
+
+        self.pradio_panel_showing = show
 
     def show_device_panel(self, show):
         """

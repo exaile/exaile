@@ -1217,6 +1217,67 @@ class DevicePanel(CollectionPanel):
     def get_song(self, loc):
         return self.all.for_path(loc.replace('device_%s://' % self.driver.name, ''))
 
+
+class PRadioPanel(object):
+    """
+        This will be a pluggable radio panel.  Plugins like shoutcast and
+        live365 will go here
+    """
+    def __init__(self, exaile):
+        """
+            Initializes the panel
+        """
+        self.exaile = exaile
+        self.db = exaile.db
+        self.xml = exaile.xml
+        self.tree = self.xml.get_widget('radio_service_tree')
+        icon = gtk.CellRendererPixbuf()
+        text = gtk.CellRendererText()
+        col = gtk.TreeViewColumn('radio')
+        col.pack_start(icon)
+        col.pack_start(text)
+        col.set_attributes(icon, pixbuf=0)
+        col.set_cell_data_func(text, self.cell_data_func)
+        self.tree.append_column(col)
+        self.podcasts = {}
+
+        self.model = gtk.TreeStore(gtk.gdk.Pixbuf, object)
+        self.tree.set_model(self.model)
+
+        self.open_folder = xlmisc.get_icon('gnome-fs-directory-accept')
+        self.folder = xlmisc.get_icon('gnome-fs-directory')
+
+        self.track = gtk.gdk.pixbuf_new_from_file('images%strack.png' %
+            os.sep)
+        self.custom = self.model.append(None, [self.open_folder, "Saved Stations"])
+        self.podcast = self.model.append(None, [self.open_folder, "Podcasts"])
+
+        # load all saved stations from the database
+        rows = self.db.select("SELECT name FROM radio "
+            "ORDER BY name")
+        for row in rows:
+            self.model.append(self.custom, [self.track, CustomWrapper(row[0])])
+
+        # load podcasts
+        rows = self.db.select("SELECT title, paths.name FROM podcasts,paths "
+            "WHERE paths.id=podcasts.path")
+        for row in rows:
+            title = row[0]
+            path = row[1]
+            if not title: title = path
+            self.model.append(self.podcast, [self.track, 
+                PodcastWrapper(title, path)])
+
+    def cell_data_func(self, column, cell, model, iter, user_data=None):
+        """
+            Called when the tree needs a value for column 1
+        """
+        object = model.get_value(iter, 1)
+        if isinstance(object, CustomWrapper):
+            cell.set_property('text', str(object))
+        else:
+            cell.set_property('text', str(object))
+
 class SmartPlaylist(object):
     def __init__(self, name, id):
         self.name = name

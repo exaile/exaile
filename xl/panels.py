@@ -1254,6 +1254,8 @@ class PRadioPanel(object):
         self.tree.set_model(self.model)
 
         self.open_folder = xlmisc.get_icon('gnome-fs-directory-accept')
+        self.track = gtk.gdk.pixbuf_new_from_file('images%strack.png' %
+            os.sep)
         self.folder = xlmisc.get_icon('gnome-fs-directory')
         self.refresh_image = xlmisc.get_icon('gtk-refresh')
 
@@ -1284,6 +1286,22 @@ class PRadioPanel(object):
         self.radio_root = self.model.append(None, [self.open_folder, "Radio "
             "Streams"])
 
+        self.drivers_expanded = {}
+        self.load_nodes = {}
+        self.tree.connect('row-expanded', self.on_row_expand)
+
+    def on_row_expand(self, treeview, iter, path):
+        """
+            Called when the user clicks on a row to expand the stations under
+        """
+        driver = self.model.get_value(iter, 1)
+        if self.drivers.has_key(driver) and not \
+            self.drivers_expanded.has_key(driver):
+            self.drivers_expanded[driver] = 1
+
+            driver.load_streams(self.drivers[driver],
+                self.load_nodes[driver]) 
+
     def cell_data_func(self, column, cell, model, iter, user_data=None):
         """
             Called when the tree needs a value for column 1
@@ -1301,7 +1319,8 @@ class PRadioPanel(object):
         if not self.drivers.has_key(driver):
             node = self.model.append(self.radio_root, [self.folder, driver])
 
-            self.model.append(node, [self.refresh_image, "Loading streams..."])
+            self.load_nodes[driver] = self.model.append(node, 
+                [self.refresh_image, "Loading streams..."])
             self.drivers[driver] = node
             self.tree.expand_row(self.model.get_path(self.radio_root), False)
 

@@ -773,7 +773,7 @@ class NotebookTab(gtk.EventBox):
         image = gtk.Image()
         image.set_from_stock('gtk-close', gtk.ICON_SIZE_MENU)
         btn.add(image)
-        hbox.pack_start(btn, False, False)
+        hbox.pack_end(btn, False, False)
         
         self.show_all()
 

@@ -524,7 +524,7 @@ class ExailePlayer(GSTPlayer):
 
         self.audio_sink = sinkbin
 
-        bands = self.exaile.settings.get_list('band-values', [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+        bands = self.exaile.settings.get_list('equalizer/band-values', [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
         i = 0
         for v in bands:
             self.equalizer.set_property(('band'+str(i)), v)

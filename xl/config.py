@@ -45,6 +45,7 @@ class XlConfigParser(SafeConfigParser):
                 self.add_section("ui")
                 self.add_section("osd")
                 self.add_section("lastfm")
+                self.add_section("equalizer")
 
                 from config_convert import ConvertIniToConf
                 converter = ConvertIniToConf(self, self.loc)
@@ -52,6 +53,7 @@ class XlConfigParser(SafeConfigParser):
         self.add_section("ui")
         self.add_section("osd")
         self.add_section("lastfm")
+        self.add_section("equalizer")
 
 
     def add_section(self, section_name="", plugin=None):

@@ -414,12 +414,9 @@ class ExaileWindow(gobject.GObject):
             self.queue_count_clicked)
 
         # for multimedia keys
-        if MMKEYS_AVAIL:
-            self.keys = mmkeys.MmKeys()
-            self.keys.connect("mm_playpause", lambda e, f: self.toggle_pause())
-            self.keys.connect("mm_stop", lambda e, f: self.stop(1))
-            self.keys.connect("mm_next", lambda e, f: self.on_next())
-            self.keys.connect("mm_prev", lambda e, f: self.on_previous())
+        self.mmkeys = xlmisc.MmKeys('Exaile', self.__on_mmkey)
+        keygrabber = self.mmkeys.grab()
+        xlmisc.log("Using multimedia keys from: " + keygrabber)
 
         self.play_button = self.xml.get_widget('play_button')
         self.play_button.connect('clicked', self.toggle_pause)
@@ -551,6 +548,16 @@ class ExaileWindow(gobject.GObject):
         self.rating_combo.set_active(0)
         self.rating_combo.set_sensitive(False)
         self.rating_signal = self.rating_combo.connect('changed', self.set_rating)
+
+    def __on_mmkey(self, key):
+        if key in ('Play', 'PlayPause', 'Pause'):
+            self.toggle_pause()
+        elif key == 'Stop':
+            self.stop(1)
+        elif key == 'Previous':
+            self.on_previous()
+        elif key == 'Next':
+            self.on_next()
 
     def randomize_playlist(self):
         """
@@ -2440,14 +2447,6 @@ def first_run():
     except:
         print "Could not create settings directory"
 
-# try to import mmkeys and gtk to allow support for the multimedia keys
-try:
-    import mmkeys
-    MMKEYS_AVAIL = True
-except ImportError:
-    xlmisc.log("mmkeys are NOT available")
-    MMKEYS_AVAIL = False
-
 # try to import gpod for iPod support
 try:
     import gpod
@@ -2504,9 +2503,6 @@ def main():
         if options.stream: sys.argv[1] = options.stream
         
         exaile = ExaileWindow(options, fr)
-
-        if MMKEYS_AVAIL:
-            xlmisc.log("mmkeys are available.")
     else:
         sys.exit(0)
 

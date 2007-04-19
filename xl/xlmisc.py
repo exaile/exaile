@@ -110,6 +110,72 @@ def finish(repeat=True):
         gtk.main_iteration()
         if not repeat: break
 
+class MmKeys:
+    """
+        Multimedia key grabber, using GNOME or the mmkeys module.
+
+        Because of how the mmkeys module works, you must keep a reference to the
+        instance of this class, specifically if the grabbing is done through
+        mmkeys.
+    """
+    def __init__(self, application, callback):
+        """
+            Constructor.
+
+            callback is a function that will be called with one of these as
+            argument: 'Play', 'PlayPause', 'Pause', 'Stop', 'Previous', 'Next',
+            or any future GNOME mmkey string.
+        """
+        self.application = application
+        self.callback = callback
+
+    def __del__(self):
+        if self.use == 'gnome':
+            try:
+                self.__gnome.ReleaseMediaPlayerKeys(self.application)
+            except:
+                log_exception()
+
+    def grab(self):
+        """
+            Try to grab multimedia keys.  Returns 'gnome', 'mmkeys', or None.
+        """
+        self.use = self.__use_gnome() or self.__use_mmkeys()
+        return self.use
+
+    def __use_gnome(self):
+        def on_gnome_mmkey(app, key):
+            if app == self.application:
+                self.callback(key)
+
+        try:
+            import dbus
+            bus = dbus.SessionBus()
+            obj = bus.get_object('org.gnome.SettingsDaemon',
+                '/org/gnome/SettingsDaemon')
+            self.__gnome = gnome = dbus.Interface(obj,
+                'org.gnome.SettingsDaemon')
+            gnome.GrabMediaPlayerKeys(self.application, 0)
+            gnome.connect_to_signal('MediaPlayerKeyPressed', on_gnome_mmkey)
+        except:
+            return None
+
+        return 'gnome'
+
+    def __use_mmkeys(self):
+        try:
+            import mmkeys
+        except ImportError:
+            return None
+
+        # Must keep a reference to the object.
+        self.__mmkeys = keys = mmkeys.MmKeys()
+        keys.connect('mm_playpause', lambda e, f: self.callback('PlayPause'))
+        keys.connect('mm_stop', lambda e, f: self.callback('Stop'))
+        keys.connect('mm_prev', lambda e, f: self.callback('Previous'))
+        keys.connect('mm_next', lambda e, f: self.callback('Next'))
+
+        return 'mmkeys'
 
 class Menu(gtk.Menu):
     """

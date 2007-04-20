@@ -416,7 +416,7 @@ class ExaileWindow(gobject.GObject):
         # for multimedia keys
         self.mmkeys = xlmisc.MmKeys('Exaile', self.__on_mmkey)
         keygrabber = self.mmkeys.grab()
-        xlmisc.log("Using multimedia keys from: " + keygrabber)
+        xlmisc.log("Using multimedia keys from: " + `keygrabber`)
 
         self.play_button = self.xml.get_widget('play_button')
         self.play_button.connect('clicked', self.toggle_pause)

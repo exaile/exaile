@@ -2148,8 +2148,8 @@ class PlsParser(PlaylistParser):
                         url = rg
                     else: # relative path
                         url = os.path.dirname(filename) + os.path.sep + rg
-                    url = urllib.
-                url = 'file://' + urllib.quote(url)
+                    url = 'file://' + urllib.quote(url)
+                self.add_url(url)
         return True
    
 

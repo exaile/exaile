@@ -2044,10 +2044,11 @@ class ExaileWindow(gobject.GObject):
         url = list(urlparse.urlsplit(path))
         if not url[0]: #local file
             url [0] = 'file'
-            url [2] = os.path.abspath(os.path.expanduser(url[2]))
-        path = urlparse.urlunsplit(url)
+            url [2] = urllib.quote(os.path.abspath(os.path.expanduser(url[2])))
+            path = urlparse.urlunsplit(url)
 
-        name = os.path.basename(os.path.splitext(url[2])[1]).replace("_", " ")
+        filename = urllib.unquote(url[2])
+        name = os.path.basename(os.path.splitext(filename)[1]).replace("_", " ")
         file = urllib.urlopen(path)
 
         
@@ -2066,10 +2067,8 @@ class ExaileWindow(gobject.GObject):
         for url in playlist.get_urls():
             if url[0] == 'device': continue
             elif url[0] == 'file':
-                if self.all_songs.for_path(url[2]):
-                    tr = self.all_songs.for_path(url[2])
-                else:
-                    tr = tracks.read_track(self.db, self.all_songs, url[2])
+                filename = urllib.unquote(url[2])
+                tr = tracks.read_track(self.db, self.all_songs, filename)
                   
             else: continue
 #                tr = media.Track(urlparse.urlunsplit(url))

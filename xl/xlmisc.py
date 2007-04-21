@@ -2117,10 +2117,11 @@ class M3UParser(PlaylistParser):
             if urlparse.urlsplit(line)[0]:
                 url = line
             else:
-                if not os.path.isabs(line): # m3u entries can be relative paths
-                    url = os.path.dirname(filename) + os.path.sep + line
-                else:
+                if os.path.isabs(line):
                     url = line
+                else: # relative path
+                    url = os.path.dirname(filename) + os.path.sep + line
+                url = 'file://' + urllib.quote(url)
             self.add_url(url)
         return True
 
@@ -2143,11 +2144,12 @@ class PlsParser(PlaylistParser):
                 if urlparse.urlsplit(rg)[0]:
                     url = rg
                 else:
-                    if not os.path.isabs(rg): # m3u entries can be relative paths
-                        url = os.path.dirname(filename) + os.path.sep + rg
-                    else:
+                    if os.path.isabs(rg):
                         url = rg
-                self.add_url(url)
+                    else: # relative path
+                        url = os.path.dirname(filename) + os.path.sep + rg
+                    url = urllib.
+                url = 'file://' + urllib.quote(url)
         return True
    
 

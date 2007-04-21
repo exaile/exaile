@@ -38,17 +38,17 @@ class DBusInterfaceObject(dbus.service.Object):
         self.exaile = exaile
 
 
-    @dbus.service.method("org.exaile.DBusInterface")
-    def play_file(self, f):
+    @dbus.service.method("org.exaile.DBusInterface", "s")
+    def play_file(self, filename):
         """
             Plays the specified file
         """
-        if f.endswith(".m3u") or f.endswith(".pls"):
-            self.exaile.import_m3u(f, True)
-        else: self.exaile.stream(f)
+        if filename.endswith(".m3u") or filename.endswith(".pls"):
+            self.exaile.import_m3u(filename, True)
+        else: self.exaile.stream(filename)
 
 
-    @dbus.service.method("org.exaile.DBusInterface")
+    @dbus.service.method("org.exaile.DBusInterface", "s")
     def test_service(self, arg):
         """
             Just a method to test the service
@@ -92,7 +92,7 @@ class DBusInterfaceObject(dbus.service.Object):
         """
         self.exaile.toggle_pause()
 
-    @dbus.service.method("org.exaile.DBusInterface")
+    @dbus.service.method("org.exaile.DBusInterface", None, "s")
     def query(self):
         """
             Returns information about the currently playing track
@@ -108,7 +108,7 @@ class DBusInterfaceObject(dbus.service.Object):
         """
         self.exaile.show_osd()
 
-    @dbus.service.method("org.exaile.DBusInterface")
+    @dbus.service.method("org.exaile.DBusInterface", None, "s")
     def get_title(self):
         """
             Returns the title of the playing track
@@ -117,7 +117,7 @@ class DBusInterfaceObject(dbus.service.Object):
             return ""
         return self.exaile.player.current.get_title()
 
-    @dbus.service.method("org.exaile.DBusInterface")
+    @dbus.service.method("org.exaile.DBusInterface", None, "s")
     def get_album(self):
         """
             Returns the album of the playing track
@@ -126,7 +126,7 @@ class DBusInterfaceObject(dbus.service.Object):
             return ""
         return self.exaile.player.current.album
 
-    @dbus.service.method("org.exaile.DBusInterface")
+    @dbus.service.method("org.exaile.DBusInterface", None, "s")
     def get_artist(self):
         """
             Returns the artist of the playing track
@@ -135,7 +135,7 @@ class DBusInterfaceObject(dbus.service.Object):
             return ""
         return self.exaile.player.current.artist
 
-    @dbus.service.method("org.exaile.DBusInterface")
+    @dbus.service.method("org.exaile.DBusInterface", None, "s")
     def get_length(self):
         """
             Returns the length of the playing track
@@ -145,7 +145,7 @@ class DBusInterfaceObject(dbus.service.Object):
         return self.exaile.player.current.length
 
 
-    @dbus.service.method("org.exaile.DBusInterface")
+    @dbus.service.method("org.exaile.DBusInterface", None, "y")
     def current_position(self):
         """
             Returns the position inside the current track as a percentage
@@ -154,7 +154,7 @@ class DBusInterfaceObject(dbus.service.Object):
             return 0
         return self.exaile.player.get_current_position()
 
-    @dbus.service.method("org.exaile.DBusInterface")
+    @dbus.service.method("org.exaile.DBusInterface", None, "s")
     def status(self):
         """
             Returns if the player is paused or playing
@@ -163,7 +163,7 @@ class DBusInterfaceObject(dbus.service.Object):
             return "No track playing"
         return self.exaile.player.current.status()
 
-    @dbus.service.method("org.exaile.DBusInterface")
+    @dbus.service.method("org.exaile.DBusInterface", None, "s")
     def get_cover_path(self):
         """
             Returns the path to the cover image of the playing track
@@ -177,14 +177,14 @@ class DBusInterfaceObject(dbus.service.Object):
         """
         self.exaile.show_osd()
 
-    @dbus.service.method("org.exaile.DBusInterface")
+    @dbus.service.method("org.exaile.DBusInterface", "y")
     def increase_volume(self,vol):
         """ 
             Increases the volume by vol
         """
         self.exaile.volume.increase(vol)
 
-    @dbus.service.method("org.exaile.DBusInterface")
+    @dbus.service.method("org.exaile.DBusInterface", "y")
     def decrease_volume(self,vol):
         """ 
             Decreases the volume by vol
@@ -202,11 +202,11 @@ class DBusInterfaceObject(dbus.service.Object):
         else:
            self.exaile.window.hide()
 
-    @dbus.service.method("org.exaile.DBusInterface")
+    @dbus.service.method("org.exaile.DBusInterface", None, "s")
     def get_version(self):
         return self.exaile.get_version()
 
-    @dbus.service.method("org.exaile.DBusInterface")
+    @dbus.service.method("org.exaile.DBusInterface", "y")
     def set_rating(self, rating):
         if not self.exaile.player.current: return
         self.exaile.set_rating(None, rating)

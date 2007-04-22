@@ -1033,6 +1033,7 @@ def show_visualizations(exaile):
     global VIDEO_WIDGET
     xlmisc.log('Enabling visualizations')
     if VIDEO_WIDGET:
+        VIDEO_WIDGET.present()
         return
     track = exaile.player.current
     play_track = False

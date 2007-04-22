@@ -5,7 +5,7 @@ all: build
 	@echo "Type: 'make install' now"
 
 build: mmkeys.so
-	python -m compileall xl
+	python -m compileall xl lib
 
 mmkeys.so:
 	cd mmkeys && make mmkeys.so && cd ..
@@ -24,6 +24,7 @@ make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/images/default_theme
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/xl
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/xl/media
+	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/lib
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/po
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/sql
 	mkdir -p $(DESTDIR)$(PREFIX)/share/locale
@@ -43,6 +44,8 @@ install: make-install-dirs mmkeys.so
 	install -m 644 xl/*.pyc $(DESTDIR)$(PREFIX)/share/exaile/xl
 	install -m 644 xl/media/*.py $(DESTDIR)$(PREFIX)/share/exaile/xl/media
 	install -m 644 xl/media/*.pyc $(DESTDIR)$(PREFIX)/share/exaile/xl/media
+	install -m 644 lib/*.py $(DESTDIR)$(PREFIX)/share/exaile/lib
+	install -m 644 lib/*.pyc $(DESTDIR)$(PREFIX)/share/exaile/lib
 	install -m 644 plugins/*.py $(DESTDIR)$(PREFIX)/share/exaile/plugins
 	install -m 644 plugins/*.glade $(DESTDIR)$(PREFIX)/share/exaile/plugins
 	install -m 644 images/largeicon.png \

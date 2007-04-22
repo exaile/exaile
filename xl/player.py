@@ -986,7 +986,7 @@ class VideoWidget(gtk.Window):
         xlmisc.finish()
 
         self.exaile.player.playbin.get_state(timeout=50*gst.MSECOND)
-        if track:
+        if play_track:
             self.exaile.player.play_track(track)
             if position and track.type != 'stream':
                 self.exaile.player.seek(float(position / gst.SECOND))
@@ -1055,7 +1055,7 @@ def show_visualizations(exaile):
     exaile.player.playbin.set_property('vis-plugin', vis)
 
     xlmisc.log("Player position is %d" % (position / gst.SECOND))
-    if track: 
+    if play_track:
         exaile.player.play_track(track)
         exaile.player.current = track
         if position and track.type != 'stream':

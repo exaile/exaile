@@ -54,6 +54,10 @@ locale.setlocale(locale.LC_ALL, '')
 from gettext import gettext as _
 gettext.bindtextdomain('exaile', 'po')
 gettext.textdomain('exaile')
+# Note also before python 2.3 you need the following if
+# you need translations from non python code (glibc, libglade etc.)
+gtk.glade.bindtextdomain('exaile', '/usr/share/locale')
+# there are other access points to this function
 
 ## Find out the location of exaile's working directory, and go there
 basedir = os.path.dirname(os.path.realpath(__file__))

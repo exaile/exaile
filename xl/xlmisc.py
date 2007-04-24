@@ -38,13 +38,14 @@ except ImportError:
     traceback.print_exc()
     mozembed = None
 
-try:
-    import egg.trayicon
-    USE_TRAY = 'egg'
-except ImportError:
-    if hasattr(gtk, 'StatusIcon'):
-        USE_TRAY = 'gtk'
-    else:
+
+if hasattr(gtk, 'StatusIcon'):
+    USE_TRAY = 'gtk'
+else:
+    try:
+        import egg.trayicon
+        USE_TRAY = 'egg'
+    except ImportError:
         USE_TRAY = None
 
 try:

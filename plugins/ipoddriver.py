@@ -413,6 +413,7 @@ class iPodDriver(plugins.DeviceDriver):
 
         self.mount = str(self.mount)
         self.itdb = gpod.itdb_parse(self.mount, None)
+        self.panel = panel
 
         self.lists = []
         self.list_dict = dict()
@@ -450,10 +451,12 @@ class iPodDriver(plugins.DeviceDriver):
         for i in range(10):
             left.append('?')
         left = ", ".join(left)
+        itracks = []
         for track in gpod.sw_get_tracks(self.itdb):
             loc = self.mount + track.ipod_path.replace(":", "/")
             try:
                 loc = unicode(loc)
+                itracks.append(track)
 
                 path_id = tracks.get_column_id(self.db, 'paths', 'name', loc,
                     prep='IPOD_')
@@ -477,21 +480,27 @@ class iPodDriver(plugins.DeviceDriver):
                     unicode(track.year),
                     unicode(track.rating)))
 
-                itrack = track
-                track = xl.tracks.read_track(self.db, None, loc)
-                   
-                if not track: continue
-                track.itrack = itrack
-                
-                self.all.append(track)
 
             except UnicodeDecodeError:
                 traceback.print_exc()
                 continue
 
-        self.db.commit()
+        gobject.idle_add(self._scan_complete, itracks)
+
+    def _scan_complete(self, itracks):
+        """
+            Called when the iPod scan is complete
+        """
+        self.db.db.commit()
+        for track in itracks:
+            loc = self.mount + track.ipod_path.replace(":", "/")
+            loc = unicode(loc)
+            track = xl.tracks.read_track(self.db, None, loc)
+            if track:
+                self.all.append(track)
+            
         self.connected = True
-        gobject.idle_add(panel.on_connect_complete, self)
+        self.panel.on_connect_complete(self)
 
     def search_tracks(self, keyword):
         return tracks.search_tracks(self.exaile.window, self.db, self.all,

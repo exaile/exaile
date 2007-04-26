@@ -288,6 +288,15 @@ class ExaileWindow(gobject.GObject):
         """
         return __version__
 
+    def get_plugin_location(self):
+        """
+            Returns the location of the plugins
+        """
+        if __version__.find('svn') > -1:
+            return 'trunk'
+        else:
+            return 'branch/%s' % __version__
+
     def start_scan_interval(self, value):
         """
             Starts the scan timer with the specified value in minutes, or 0 to
@@ -577,8 +586,8 @@ class ExaileWindow(gobject.GObject):
         """
         manager = plugins.gui.PluginManager(self.window, self.pmanager,
             self.update_plugin,
-            'http://www.exaile.org/cgi-bin/plugins/plugins.py?version=%s' %
-            __version__)
+            'http://www.exaile.org/cgi-bin/plugins/new_plugins.py?version=%s' %
+            self.get_plugin_location())
 
     def update_plugin(self, plugin):
         """

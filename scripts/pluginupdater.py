@@ -13,6 +13,7 @@ data = urllib.urlopen('http://exaile.org/trac/browser/plugins/%s' %
 
 plugins = plugin_re.findall(data)
 
+
 print "Updating plugin list"
 for plugin in plugins:
     data = \

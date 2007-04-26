@@ -1348,23 +1348,23 @@ class PRadioPanel(object):
         if event.button == 3:
             pass
             # if it's for podcasts
-#            if isinstance(object, PodcastWrapper) or \
-#                object == "Podcasts":
-#                self.podmenu.popup(None, None, None,
-#                    event.button, event.time)
-#                return
+            if isinstance(object, PodcastWrapper) or \
+                object == "Podcasts":
+                self.podmenu.popup(None, None, None,
+                    event.button, event.time)
+                return
 
-#            if model.iter_has_child(iter): return
-#            if isinstance(object, CustomWrapper):
-#                self.cmenu.popup(None, None, None,
-#                    event.button, event.time)
-#            else:
-#                if object == "Saved Stations" or \
-#                    object == "Podcasts" or \
-#                    object == "Shoutcast Stations":
-#                    return
-#                self.menu.popup(None, None, None,
-#                    event.button, event.time)
+            if model.iter_has_child(iter): return
+            if isinstance(object, CustomWrapper):
+                self.cmenu.popup(None, None, None,
+                    event.button, event.time)
+            else:
+                if object == "Saved Stations" or \
+                    object == "Podcasts" or \
+                    object == "Shoutcast Stations":
+                    return
+                self.menu.popup(None, None, None,
+                    event.button, event.time)
             
         elif event.type == gtk.gdk._2BUTTON_PRESS:
             if object == 'Last.FM Radio':
@@ -1425,6 +1425,7 @@ class PRadioPanel(object):
             Removes a radio driver
         """
         if self.drivers.has_key(driver):
+            self.model.remove(self.drivers[driver])
             del self.drivers[driver]
 
     def open_lastfm(self, object):

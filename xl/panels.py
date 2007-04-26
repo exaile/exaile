@@ -1234,6 +1234,9 @@ class PRadioGenre(object):
     def __str__(self):
         return self.name
 
+class PRadioDriver(object):
+    pass
+
 class PRadioPanel(object):
     """
         This will be a pluggable radio panel.  Plugins like shoutcast and
@@ -1353,17 +1356,19 @@ class PRadioPanel(object):
                     event.button, event.time)
                 return
 
-            if model.iter_has_child(iter): return
             if isinstance(object, CustomWrapper):
                 self.cmenu.popup(None, None, None,
                     event.button, event.time)
+
+            elif isinstance(object, PRadioDriver):
+                self.menu.popup(None, None, None, event.button, event.time)
             else:
                 if object == "Saved Stations" or \
                     object == "Podcasts" or \
                     object == "Shoutcast Stations":
                     return
-                self.menu.popup(None, None, None,
-                    event.button, event.time)
+#                self.menu.popup(None, None, None,
+#                    event.button, event.time)
             
         elif event.type == gtk.gdk._2BUTTON_PRESS:
             if object == 'Last.FM Radio':
@@ -1589,8 +1594,8 @@ class PRadioPanel(object):
             shoutcast stations
         """
         self.menu = xlmisc.Menu()
-        rel = self.menu.append(_("Reload Streams"), lambda e, f:
-            self.fetch_streams(True))
+        rel = self.menu.append(_("Refresh"), lambda e, f:
+            self.refresh_streams())
 
         # custom playlist menu
         self.cmenu = xlmisc.Menu()
@@ -1603,6 +1608,33 @@ class PRadioPanel(object):
         self.podmenu.append(_("Add Feed"), self.on_add_podcast)
         self.podmenu.append(_("Refresh Feed"), self.refresh_feed)
         self.podmenu.append(_("Delete Feed"), self.delete_podcast)
+
+    def refresh_streams(self):
+        """
+            Refreshes the streams for the currently selected driver
+        """
+        selection = self.tree.get_selection()
+        (model, iter) = selection.get_selected()
+        object = self.model.get_value(iter, 1)
+        if isinstance(object, PRadioDriver):
+            driver = object
+            self.drivers_expanded[driver] = 1
+            self.clean_node(self.drivers[driver])
+            self.load_nodes[driver] = self.model.append(iter, 
+                [self.refresh_image, "Loading streams..."])
+            driver.load_streams(self.drivers[driver], 
+                self.load_nodes[driver])
+            self.tree.expand_row(self.model.get_path(iter), False)
+
+    def clean_node(self, node):
+        """
+            Cleans a node of all it's children
+        """
+        iter = self.model.iter_children(node)
+        while True:
+            if not iter: break
+            self.model.remove(iter)
+            iter = self.model.iter_children(node)
 
     def refresh_feed(self, widget, event):
         """

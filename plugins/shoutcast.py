@@ -84,7 +84,7 @@ def parse_genre(genre, stations, url=None, func=None):
             "?startat=%s&genre=%s&numresult=500" % (m.group(1), genre), func)
 
 
-class ShoutcastDriver(object):
+class ShoutcastDriver(xl.panels.PRadioDriver):
     """
         Shoutcast Streaming Radio Driver
     """

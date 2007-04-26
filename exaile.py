@@ -992,7 +992,7 @@ class ExaileWindow(gobject.GObject):
         """
         self.playlists_panel = panels.PlaylistsPanel(self)
         self.collection_panel = panels.CollectionPanel(self)
-        self.radio_panel = panels.RadioPanel(self)
+#        self.radio_panel = panels.RadioPanel(self)
         self.side_notebook = self.xml.get_widget('side_notebook')
         self.files_panel = panels.FilesPanel(self)
 

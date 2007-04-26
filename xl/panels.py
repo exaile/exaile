@@ -1225,6 +1225,15 @@ class EmptyRadioDriver(object):
     def __init__(self):
         pass
 
+class PRadioGenre(object):
+    def __init__(self, name, driver=None, extra=None):
+        self.name = name
+        self.extra = extra
+        self.driver = driver
+
+    def __str__(self):
+        return self.name
+
 class PRadioPanel(object):
     """
         This will be a pluggable radio panel.  Plugins like shoutcast and
@@ -1249,6 +1258,7 @@ class PRadioPanel(object):
         self.tree.append_column(col)
         self.podcasts = {}
         self.drivers = {}
+        self.__dragging = False
 
         self.model = gtk.TreeStore(gtk.gdk.Pixbuf, object)
         self.tree.set_model(self.model)
@@ -1289,6 +1299,82 @@ class PRadioPanel(object):
         self.drivers_expanded = {}
         self.load_nodes = {}
         self.tree.connect('row-expanded', self.on_row_expand)
+        self.tree.connect('button-press-event', self.button_pressed)
+        self.tree.connect('button-release-event', self.button_release)
+
+    def button_release(self, widget, event):
+        """
+            Called when a button is released
+        """
+        if event.button != 1 or self.__dragging: return True
+        if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
+            return True
+        selection = self.tree.get_selection()
+        x, y = event.get_coords()
+        x = int(x); y = int(y)
+
+        path = self.tree.get_path_at_pos(x, y)
+        if not path: return False
+        selection.unselect_all()
+        selection.select_path(path[0])
+
+    def button_pressed(self, widget, event):
+        """
+            Called when the user clicks on the tree
+        """
+        selection = self.tree.get_selection()
+        selection.unselect_all()
+        (x, y) = event.get_coords()
+        x = int(x); y = int(y)
+        if not self.tree.get_path_at_pos(x, y): return
+        (path, col, x, y) = self.tree.get_path_at_pos(x, y)
+        selection.select_path(path)
+        model = self.model
+        iter = model.get_iter(path)
+        
+        object = model.get_value(iter, 1)
+        if event.button == 3:
+            pass
+            # if it's for podcasts
+#            if isinstance(object, PodcastWrapper) or \
+#                object == "Podcasts":
+#                self.podmenu.popup(None, None, None,
+#                    event.button, event.time)
+#                return
+
+#            if model.iter_has_child(iter): return
+#            if isinstance(object, CustomWrapper):
+#                self.cmenu.popup(None, None, None,
+#                    event.button, event.time)
+#            else:
+#                if object == "Saved Stations" or \
+#                    object == "Podcasts" or \
+#                    object == "Shoutcast Stations":
+#                    return
+#                self.menu.popup(None, None, None,
+#                    event.button, event.time)
+            
+        elif event.type == gtk.gdk._2BUTTON_PRESS:
+#            if object == 'Last.FM Radio':
+#                self.tree.expand_row(path, False)                
+#            elif isinstance(object, CustomWrapper):
+#                self.open_station(object.name)
+#            elif isinstance(object, PodcastWrapper):
+#                self.open_podcast(object)
+#            elif isinstance(object, LastFMWrapper):
+#                self.open_lastfm(object)
+#            else:
+#                self.fetch_streams()
+            if isinstance(object, PRadioGenre):
+                if object.driver:
+                    tracks = trackslist.TracksListCtrl(self.exaile)
+                    self.exaile.playlists_nb.append_page(tracks,
+                        xlmisc.NotebookTab(self.exaile, str(object), tracks))
+                    self.exaile.playlists_nb.set_current_page(
+                        self.exaile.playlists_nb.get_n_pages() - 1)
+                    self.exaile.tracks = tracks
+                    object.driver.tracks = tracks
+                    object.driver.load_genre(object)
 
     def on_row_expand(self, treeview, iter, path):
         """

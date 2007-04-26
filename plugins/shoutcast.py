@@ -24,7 +24,65 @@ PLUGIN_ENABLED = False
 PLUGIN_ICON = None
 
 PLUGIN = None
-import xl.common, urllib, os, re, gobject
+import xl.common, urllib, os, re, gobject, xl.panels
+from xl import xlmisc
+from xl import media
+
+PLS = re.compile("<a href=\"(/sbin/shoutcast-playlist\.pls\?rn=\d+&file="
+    "filename\.pls)\">.*?<a.*?href=\"[^\"]*\">([^<]*)</a>.*?Now Playing:</font>"
+    "([^<]*)</font>.*?size=\"2\" color=\"\#FFFFFF\">(\d+/\d+)</font>.*?"
+    "size=\"2\" color=\"#FFFFFF\">(\d+)</font>")
+
+NEXT = re.compile("startat=(\d+)\">\[ Next")
+
+def parse_genre(genre, stations, url=None, func=None):
+    """
+        Parses a genre for all streams
+    """
+    if url == None:
+        url = "http://www.shoutcast.com/directory/" \
+            "index.phtml?sgenre=%s&numresult=500" % urllib.quote_plus(str(genre))
+    h = urllib.urlopen(url)
+    data = h.read().replace("\n", " ")
+    h.close()
+    xlmisc.log('read url %s' % url)
+
+    tup = re.findall(PLS, data)
+    for station in tup:
+        new = []
+        check = True
+        # make sure the track information is unicode worthy (I have found that
+        # not all are)
+        for a in station:
+            try:
+                new.append(unicode(a))
+            except:
+                check = False
+
+        if not check: continue
+        station = new
+        s = dict()
+        s['loc'] = "http://www.shoutcast.com%s" % station[0]
+        s['album'] = station[1]
+        s['album'] = station[1]
+        s['title'] = station[2]
+        s['bitrate'] = station[4]
+
+        s['artist'] = s['loc']
+
+        stations.append(s)
+        if func:
+            gobject.idle_add(func, s)
+
+    if len(stations) >= 100:
+        return
+    m = NEXT.search(data)
+    if m != None:
+        # check the next page
+        parse_genre(genre, stations,
+            "http://www.shoutcast.com/directory/index.phtml" \
+            "?startat=%s&genre=%s&numresult=500" % (m.group(1), genre), func)
+
 
 class ShoutcastDriver(object):
     """
@@ -35,6 +93,9 @@ class ShoutcastDriver(object):
         self.folder_icon = panel.folder
         self.note_icon = panel.track
         self.tree = panel.tree
+        self.add = []
+        self.count = 0
+        self
 
     @xl.common.threaded
     def load_streams(self, node, load_node):
@@ -70,10 +131,55 @@ class ShoutcastDriver(object):
 
         self.tree.expand_row(self.model.get_path(node), False)
 
+    @xl.common.threaded
+    def load_genre(self, genre):
+        """
+            Loads the genre specified
+        """
+        self.genre = genre
+        print "genre = ", str(genre)
+        stations = []
+        parse_genre(self.genre, stations, None, self.update)
+        gobject.idle_add(self.update, None)
+
+        xlmisc.log("%d stations were found." % len(stations))
+
+    def update(self, track):
+        """
+            Updates the RadioTracksList with found tracks
+        """
+        if not track:
+            if len(self.add):
+                songs = self.tracks.songs
+                for track in self.add:
+                    if not track['loc'] in songs.paths:
+                        tr = media.Track()
+                        tr.set_info(**track)
+                        tr.type = 'stream'
+                        songs.append(tr)
+                self.tracks.set_songs(songs)
+            self.tracks.exaile.status.set_first(None)
+            self.tracks.save(self.genre)
+            self.tracks.playlist_songs = self.tracks.songs
+        elif self.count <= 60:
+            if not track['loc'] in self.tracks.songs.paths:
+                tr = media.Track()
+                tr.set_info(**track)
+
+                tr.type = 'stream'
+                self.tracks.append_song(tr)
+        else:
+            self.add.append(track)
+
+        self.count += 1
+
     def add_function(self, node, genre, note_icon=False):
         icon = self.folder_icon
-        if note_icon: icon = self.note_icon
-        node = self.model.append(node, [icon, urllib.unquote(genre)])
+        item = urllib.unquote(genre)
+        if note_icon: 
+            icon = self.note_icon
+            item = xl.panels.PRadioGenre(item, self)
+        node = self.model.append(node, [icon, item])
         if not note_icon:
             self.last_node = node
 

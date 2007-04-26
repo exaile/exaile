@@ -1261,6 +1261,7 @@ class PRadioPanel(object):
         self.tree.append_column(col)
         self.podcasts = {}
         self.drivers = {}
+        self.driver_names = {}
         self.__dragging = False
 
         self.model = gtk.TreeStore(gtk.gdk.Pixbuf, object)
@@ -1360,7 +1361,8 @@ class PRadioPanel(object):
                 self.cmenu.popup(None, None, None,
                     event.button, event.time)
 
-            elif isinstance(object, PRadioDriver):
+            elif isinstance(object, PRadioDriver) or isinstance(object,
+                PRadioGenre):
                 self.menu.popup(None, None, None, event.button, event.time)
             else:
                 if object == "Saved Stations" or \
@@ -1391,18 +1393,6 @@ class PRadioPanel(object):
                     object.driver.load_genre(object)
                 return True
 
-    def on_row_expand(self, treeview, iter, path):
-        """
-            Called when the user clicks on a row to expand the stations under
-        """
-        driver = self.model.get_value(iter, 1)
-        if self.drivers.has_key(driver) and not \
-            self.drivers_expanded.has_key(driver):
-            self.drivers_expanded[driver] = 1
-
-            driver.load_streams(self.drivers[driver],
-                self.load_nodes[driver]) 
-
     def cell_data_func(self, column, cell, model, iter, user_data=None):
         """
             Called when the tree needs a value for column 1
@@ -1413,17 +1403,22 @@ class PRadioPanel(object):
         else:
             cell.set_property('text', str(object))
 
-    def add_driver(self, driver):
+    def add_driver(self, driver, name):
         """
             Adds a driver to the list of drivers
         """
         if not self.drivers.has_key(driver):
+            driver.name = name
+            self.driver_names[driver] = name
             node = self.model.append(self.radio_root, [self.folder, driver])
 
             self.load_nodes[driver] = self.model.append(node, 
                 [self.refresh_image, "Loading streams..."])
             self.drivers[driver] = node
             self.tree.expand_row(self.model.get_path(self.radio_root), False)
+            if self.exaile.settings.get_boolean('row_expanded', plugin=name,
+                default=False):
+                self.tree.expand_row(self.model.get_path(node), False)
 
     def remove_driver(self, driver):
         """
@@ -1573,19 +1568,31 @@ class PRadioPanel(object):
         """
             Called when someone collapses a tree item
         """
+        driver = self.model.get_value(iter, 1)
         selection = self.tree.get_selection()
         (model, iter) = selection.get_selected()
         self.model.set_value(iter, 0, self.folder)
         self.tree.queue_draw()
+        self.exaile.settings.set_boolean('row_expanded', False,
+            plugin=self.driver_names[driver])
 
-    def on_expanded(self, tree, iter, path):
+    def on_row_expand(self, treeview, iter, path):
         """
-            Called when someone collapses a tree item
+            Called when the user clicks on a row to expand the stations under
         """
-        selection = self.tree.get_selection()
-        (model, iter) = selection.get_selected()
+        driver = self.model.get_value(iter, 1)
         self.model.set_value(iter, 0, self.open_folder)
         self.tree.queue_draw()
+
+        if not isinstance(driver, PRadioDriver): return
+        if self.drivers.has_key(driver) and not \
+            self.drivers_expanded.has_key(driver):
+            self.drivers_expanded[driver] = 1
+
+            driver.load_streams(self.drivers[driver],
+                self.load_nodes[driver]) 
+        self.exaile.settings.set_boolean('row_expanded', True,
+            plugin=self.driver_names[driver])
 
     def setup_menus(self):
         """
@@ -1625,6 +1632,16 @@ class PRadioPanel(object):
             driver.load_streams(self.drivers[driver], 
                 self.load_nodes[driver], False)
             self.tree.expand_row(self.model.get_path(iter), False)
+        elif isinstance(object, PRadioGenre):
+            if object.driver:
+                tracks = trackslist.TracksListCtrl(self.exaile)
+                self.exaile.playlists_nb.append_page(tracks,
+                    xlmisc.NotebookTab(self.exaile, str(object), tracks))
+                self.exaile.playlists_nb.set_current_page(
+                    self.exaile.playlists_nb.get_n_pages() - 1)
+                self.exaile.tracks = tracks
+                object.driver.tracks = tracks
+                object.driver.load_genre(object, rel=True)
 
     def clean_node(self, node):
         """

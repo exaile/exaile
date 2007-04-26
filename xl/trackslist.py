@@ -890,7 +890,7 @@ class TracksListCtrl(gtk.VBox):
         if selection.count_selected_rows() <= 1: return False
         else: return True
 
-    def load(self, genre):
+    def load(self, genre, plugin):
         """
             Loads the track information from a cache file if it exists.
             If loading it fails, False is returned, else True is returned
@@ -898,7 +898,7 @@ class TracksListCtrl(gtk.VBox):
         settings = self.exaile.get_settings_dir()
         cache = "%s%s%s" % (settings, os.sep, "cache")
         if not os.path.isdir(cache): os.mkdir(cache)
-        f = "%s%sradio_%s.tab" % (cache, os.sep, genre)
+        f = "%s%sradioplugin_%s_%s.tab" % (cache, os.sep, plugin, genre)
         if not os.path.isfile(f): return False
         songs = []
         try:
@@ -907,16 +907,16 @@ class TracksListCtrl(gtk.VBox):
                 line = line.strip()
                 fields = line.split("\t")
                 info = ({
-                    "artist": fields[0],
-                    "title": fields[1],
-                    "loc": fields[2],
-                    "bitrate": fields[3].replace("k", "")
+                    "album": fields[0],
+                    "artist": fields[1],
+                    "title": fields[2],
+                    "loc": fields[3],
+                    "bitrate": fields[4].replace("k", "")
                 })
 
                 track = media.Track()
                 track.set_info(**info)
                 track.type = 'stream'
-                track.album = info['loc']
                 songs.append(track)
         except:
             xlmisc.log_exception()
@@ -925,7 +925,7 @@ class TracksListCtrl(gtk.VBox):
         self.playlist_songs = songs
         return True
 
-    def save(self, genre):
+    def save(self, genre, plugin):
         """
             Saves the track information to a track file.
         """
@@ -934,9 +934,9 @@ class TracksListCtrl(gtk.VBox):
         if not os.path.isdir(cache): os.mkdir(cache)
 
         try:
-            f = open("%s%sradio_%s.tab" % (cache, os.sep, genre), "w")
+            f = open("%s%sradioplugin_%s_%s.tab" % (cache, os.sep, plugin, genre), "w")
             for track in self.songs:
-                f.write("%s\t%s\t%s\t%s\n" % (track.artist, track.title,
+                f.write("%s\t%s\t%s\t%s\t%s\n" % (track.album, track.artist, track.title,
                     track.loc, track.bitrate))
             f.close()
         except IOError:

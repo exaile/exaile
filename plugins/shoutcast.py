@@ -24,7 +24,7 @@ PLUGIN_ENABLED = False
 PLUGIN_ICON = None
 
 PLUGIN = None
-import xl.common, urllib, os, re, gobject, xl.panels
+import xl.common, urllib, os, re, gobject, xl.panels, plugins
 from xl import xlmisc
 from xl import media
 
@@ -146,10 +146,17 @@ class ShoutcastDriver(xl.panels.PRadioDriver):
 
         self.tree.expand_row(self.model.get_path(node), False)
 
-    @xl.common.threaded
-    def load_genre(self, genre):
+    def load_genre(self, genre, rel=False):
         """
             Loads the genre specified
+        """
+        if rel or not APP.tracks.load(genre, PLUGIN_NAME):
+            self.fetch_genre(genre)
+
+    @xl.common.threaded
+    def fetch_genre(self, genre):
+        """
+            Fetches the specified genre from shoutcast
         """
         self.genre = genre
         print "genre = ", str(genre)
@@ -174,7 +181,7 @@ class ShoutcastDriver(xl.panels.PRadioDriver):
                         songs.append(tr)
                 self.tracks.set_songs(songs)
             self.tracks.exaile.status.set_first(None)
-            self.tracks.save(self.genre)
+            self.tracks.save(self.genre, PLUGIN_NAME)
             self.tracks.playlist_songs = self.tracks.songs
         elif self.count <= 60:
             if not track['loc'] in self.tracks.songs.paths:
@@ -210,7 +217,7 @@ def initialize():
     global PLUGIN
 
     PLUGIN = ShoutcastDriver(APP.pradio_panel)
-    APP.pradio_panel.add_driver(PLUGIN)
+    APP.pradio_panel.add_driver(PLUGIN, plugins.name(__file__))
 
     return True
 

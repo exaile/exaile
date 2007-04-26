@@ -1623,7 +1623,7 @@ class PRadioPanel(object):
             self.load_nodes[driver] = self.model.append(iter, 
                 [self.refresh_image, "Loading streams..."])
             driver.load_streams(self.drivers[driver], 
-                self.load_nodes[driver])
+                self.load_nodes[driver], False)
             self.tree.expand_row(self.model.get_path(iter), False)
 
     def clean_node(self, node):

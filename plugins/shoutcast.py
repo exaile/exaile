@@ -95,19 +95,34 @@ class ShoutcastDriver(xl.panels.PRadioDriver):
         self.tree = panel.tree
         self.add = []
         self.count = 0
-        self
+
+    def load_cache(self, cache_file):
+        return open(cache_file).readlines()
+
+    def save_cache(self, cache_file, lines):
+        h = open(cache_file, 'w')
+        for line in lines:
+            h.write("%s\n" % line)
+
+        h.close()
 
     @xl.common.threaded
-    def load_streams(self, node, load_node):
+    def load_streams(self, node, load_node, use_cache=True):
         """
             Loads the shoutcast streams
         """
-        reg = re.compile(r'<OPTION VALUE="TopTen">-=\[Top 25 Streams\]=-(.*?)</SELECT>', re.DOTALL)
+        cache_file = "%s%scache%s%s_radio_plugin.cache" % (APP.get_settings_dir(),
+            os.sep, os.sep, PLUGIN_NAME)
+        if use_cache and os.path.isfile(cache_file):
+            lines = self.load_cache(cache_file)
+        else:
+            reg = re.compile(r'<OPTION VALUE="TopTen">-=\[Top 25 Streams\]=-(.*?)</SELECT>', re.DOTALL)
 
-        data = urllib.urlopen('http://www.shoutcast.com').read()
+            data = urllib.urlopen('http://www.shoutcast.com').read()
 
-        m = reg.search(data)
-        lines = m.group(1).split('\n')
+            m = reg.search(data)
+            lines = m.group(1).split('\n')
+            self.save_cache(cache_file, lines)
 
         gobject.idle_add(self.show_streams, lines, node, load_node)
 

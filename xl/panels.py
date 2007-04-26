@@ -1301,6 +1301,18 @@ class PRadioPanel(object):
         self.tree.connect('row-expanded', self.on_row_expand)
         self.tree.connect('button-press-event', self.button_pressed)
         self.tree.connect('button-release-event', self.button_release)
+        self.tree.connect('row-collapsed', self.on_collapsed)
+        self.tree.connect('button-press-event', self.button_pressed)
+        self.tree.connect('button-release-event', self.button_release)
+        self.__dragging = False
+        self.xml.get_widget('pradio_add_button').connect('clicked',
+            self.on_add_station)
+        self.xml.get_widget('pradio_remove_button').connect('clicked',
+            self.remove_station)
+        self.podcast_download_box = \
+            self.xml.get_widget('ppodcast_download_box')
+        self.podcast_queue = None
+        self.setup_menus()
 
     def button_release(self, widget, event):
         """
@@ -1355,17 +1367,15 @@ class PRadioPanel(object):
 #                    event.button, event.time)
             
         elif event.type == gtk.gdk._2BUTTON_PRESS:
-#            if object == 'Last.FM Radio':
-#                self.tree.expand_row(path, False)                
-#            elif isinstance(object, CustomWrapper):
-#                self.open_station(object.name)
-#            elif isinstance(object, PodcastWrapper):
-#                self.open_podcast(object)
-#            elif isinstance(object, LastFMWrapper):
-#                self.open_lastfm(object)
-#            else:
-#                self.fetch_streams()
-            if isinstance(object, PRadioGenre):
+            if object == 'Last.FM Radio':
+                self.tree.expand_row(path, False)                
+            elif isinstance(object, CustomWrapper):
+                self.open_station(object.name)
+            elif isinstance(object, PodcastWrapper):
+                self.open_podcast(object)
+            elif isinstance(object, LastFMWrapper):
+                self.open_lastfm(object)
+            elif isinstance(object, PRadioGenre):
                 if object.driver:
                     tracks = trackslist.TracksListCtrl(self.exaile)
                     self.exaile.playlists_nb.append_page(tracks,
@@ -1416,6 +1426,569 @@ class PRadioPanel(object):
         """
         if self.drivers.has_key(driver):
             del self.drivers[driver]
+
+    def open_lastfm(self, object):
+        """
+            Opens and plays a last.fm station
+        """
+        station = str(object)
+        user = self.exaile.settings.get_str('lastfm/user', '')
+        password = self.exaile.settings.get_crypted('lastfm/pass', '')
+
+        if not user or not password:
+            common.error(self.exaile.window, _("You need to have a last.fm "
+                "username and password set in your preferences."))
+            return
+
+        if station == "Neighbor Radio":
+            url = "lastfm://user/%s/neighbours" % user
+        else:
+            url = "lastfm://user/%s/personal" % user
+
+        tr = media.Track(url)
+        tr.type = 'lastfm'
+        tr.track = -1
+        tr.title = station
+        tr.album = "%s's Last.FM %s" % (user, station)
+
+
+        self.exaile.append_songs((tr,))
+
+    def open_podcast(self, wrapper):
+        """
+            Opens a podcast
+        """
+        podcast_path_id = tracks.get_column_id(self.db, 'paths', 'name',
+            wrapper.path)
+
+        xlmisc.log("Opening podcast %s" % wrapper.name)
+        row = self.db.read_one("podcasts", "description", "path=?", 
+            (podcast_path_id, ))
+        if not row: return
+
+        desc = row[0]
+        rows = self.db.select("SELECT paths.name, title, description, length, "
+            "pub_date, size FROM podcast_items, paths WHERE podcast_path=? "
+            "AND paths.id=podcast_items.path ORDER BY"
+            " pub_date DESC LIMIT 10", 
+            (podcast_path_id,))
+
+        songs = tracks.TrackData()
+        for row in rows:
+            t = common.strdate_to_time(row[4])
+            year = time.strftime("%x", time.localtime(t))
+            info = ({
+                'title': row[1],
+                'artist': row[2],
+                'album': desc,
+                'loc': row[0],
+                'year': row[4], 
+                'length': row[3], 
+            })
+
+            song = media.Track()
+            song.set_info(**info)
+            song.type = 'podcast'
+            song.size = row[5]
+
+            (download_path, downloaded) = \
+                self.get_podcast_download_path(row[0])
+            add_item = False
+
+            if not self.exaile.settings.get_boolean('download_feeds', True):
+                add_item = False
+
+                song.download_path = 1
+            else:
+                if not downloaded:
+
+                    song.artist = "Not downloaded"
+                    song.download_path = ''
+                    add_item = True
+                else:
+                    song.download_path = download_path
+
+            song.length = row[3]
+            song.podcast_path = wrapper.path
+            songs.append(song)
+            self.podcasts[song.loc] = song
+            if add_item:
+                song.podcast_artist = row[2] 
+                self.add_podcast_to_queue(song)
+            else:
+                song.podcast_artist = None
+
+        self.exaile.new_page(str(wrapper), songs)
+
+    def get_podcast(self, url):
+        """
+            Returns the podcast for the specified url
+        """
+        if self.podcasts.has_key(url):
+            return self.podcasts[url]
+        else: return None
+
+    def add_podcast_to_queue(self, song):
+        """
+            Add to podcast transfer queue
+        """
+        if not self.podcast_queue:
+            self.podcast_queue = PodcastTransferQueue(self)
+
+        if not song.loc in self.podcast_queue.queue.paths:
+            self.podcast_queue.append(song)
+
+    def get_podcast_download_path(self, loc):
+        """
+            Gets the location of the downloaded pocast item
+        """
+        (path, ext) = os.path.splitext(loc)
+        hash = md5.new(loc).hexdigest()
+        savepath = "%s%s%s" % (self.exaile.get_settings_dir(),
+            os.sep, 'podcasts')
+        if not os.path.isdir(savepath):
+            os.mkdir(savepath, 0777)
+
+        file = "%s%s%s%s" % (savepath, os.sep, hash, ext)
+        if os.path.isfile(file): return file, True
+        else: return file, False
+
+    def cell_data_func(self, column, cell, model, iter, user_data=None):
+        """
+            Called when the tree needs a value for column 1
+        """
+        object = model.get_value(iter, 1)
+        if isinstance(object, CustomWrapper):
+            cell.set_property('text', str(object))
+        else:
+            cell.set_property('text', str(object))
+            
+    def on_collapsed(self, tree, iter, path):
+        """
+            Called when someone collapses a tree item
+        """
+        selection = self.tree.get_selection()
+        (model, iter) = selection.get_selected()
+        self.model.set_value(iter, 0, self.folder)
+        self.tree.queue_draw()
+
+    def on_expanded(self, tree, iter, path):
+        """
+            Called when someone collapses a tree item
+        """
+        selection = self.tree.get_selection()
+        (model, iter) = selection.get_selected()
+        self.model.set_value(iter, 0, self.open_folder)
+        self.tree.queue_draw()
+
+    def setup_menus(self):
+        """
+            Create the two different popup menus associated with this tree.
+            There are two menus, one for saved stations, and one for
+            shoutcast stations
+        """
+        self.menu = xlmisc.Menu()
+        rel = self.menu.append(_("Reload Streams"), lambda e, f:
+            self.fetch_streams(True))
+
+        # custom playlist menu
+        self.cmenu = xlmisc.Menu()
+        self.add = self.cmenu.append(_("Add Stream to Station"), 
+            self.add_url_to_station)
+        self.delete = self.cmenu.append(_("Delete this Station"),
+            self.remove_station)
+
+        self.podmenu = xlmisc.Menu()
+        self.podmenu.append(_("Add Feed"), self.on_add_podcast)
+        self.podmenu.append(_("Refresh Feed"), self.refresh_feed)
+        self.podmenu.append(_("Delete Feed"), self.delete_podcast)
+
+    def refresh_feed(self, widget, event):
+        """
+            Refreshes a feed
+        """
+        selection = self.tree.get_selection()
+        (model, iter) = selection.get_selected()
+        object = self.model.get_value(iter, 1)
+        if isinstance(object, PodcastWrapper):
+            self.refresh_podcast(object.path, iter)
+
+    def on_add_podcast(self, widget, event):
+        """
+            Called when a request to add a podcast is made
+        """
+        dialog = xlmisc.TextEntryDialog(self.exaile.window, _("Enter the location of"
+            " the podcast"), _("Add a podcast"))
+
+        if dialog.run() == gtk.RESPONSE_OK:
+            name = dialog.get_value()
+            dialog.destroy()
+            path_id = tracks.get_column_id(self.db, 'paths', 'name', name)
+            if self.db.record_count("podcasts", "path=?", (name, )):
+                common.error(self.exaile.window, 
+                    _("A podcast with that url already"
+                    " exists"))
+                return
+
+            self.db.execute("INSERT INTO podcasts( path ) VALUES( ? )",
+                (path_id,))
+            self.db.commit()
+
+            item = self.model.append(self.podcast,
+                [self.track, PodcastWrapper("Fetching...", name)])
+            self.tree.expand_row(self.model.get_path(self.podcast), False)
+
+            self.refresh_podcast(name, item)
+        dialog.destroy()
+
+    @common.threaded
+    def refresh_podcast(self, path, item):
+        """
+            Refreshes a podcast
+        """
+        try:
+            h = urllib.urlopen(path)
+            xml = h.read()
+            h.close()
+        except IOError:
+            gobject.idle_add(common.error, self.exaile.window, 
+                _("Could not read feed."))
+            return
+
+        gobject.idle_add(self.parse_podcast_xml, path, item, xml)
+
+    def parse_podcast_xml(self, path, iter, xml):
+        """
+            Parses the xml from the podcast and stores the information to the
+            database
+        """
+        path = str(path)
+        xml = minidom.parseString(xml).documentElement
+        root = xml.getElementsByTagName('channel')[0]
+
+        title = self.get_val(root, 'title')
+        description = self.get_val(root, 'description')
+        if not description: description = ""
+        pub_date = self.get_val(root, 'pubDate')
+        print pub_date
+        if not pub_date: pub_date = ""
+        image = self.get_val(root, 'image')
+        if not image: image = ""
+        path_id = tracks.get_column_id(self.db, 'paths', 'name', path)
+
+        self.db.execute("UPDATE podcasts SET title=?, "
+            "pub_date=?, description=?, image=? WHERE"
+            " path=?", (title, pub_date, description, image, path_id))
+
+        self.model.set_value(iter, 1, PodcastWrapper(title, path))
+        root_title = title
+        items = root.getElementsByTagName('item')
+
+        for item in items:
+            title = self.get_val(item, 'title')
+            link = self.get_val(item, 'link')
+            print title, link
+            desc = self.get_val(item, 'description')
+
+            desc = self.clean_desc(desc)
+            enc = self.get_child(item, 'enclosure')
+            date = self.get_val(item, 'pubDate')
+            if enc:
+                size = enc[0].getAttribute('length')
+                length = enc[0].getAttribute('duration')
+                loc = str(enc[0].getAttribute("url"))
+            else: continue
+            loc_id = tracks.get_column_id(self.db, 'paths', 'name', loc)
+
+            row = self.db.read_one("podcast_items", "path", 
+                "podcast_path=? AND path=?", (path_id, loc_id))
+
+            t = common.strdate_to_time(date)
+            date = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(t))
+
+            self.db.update("podcast_items",
+                {
+                    "podcast_path": path_id,
+                    "path": loc_id,
+                    "pub_date": date,
+                    "description": desc,
+                    "size": size,
+                    "title": title,
+                    "length": length,
+                }, "path=? AND podcast_path=?", 
+                (loc_id, path_id), row == None)
+
+        self.db.commit()
+
+        gobject.timeout_add(500, self.open_podcast, PodcastWrapper(root_title, path))
+
+    def clean_desc(self, desc):
+        """ 
+            Cleans description of html, and shortens it to 70 chars
+        """
+        reg = re.compile("<[^>]*>", re.IGNORECASE|re.DOTALL)
+        desc = reg.sub('', desc)
+        reg = re.compile("\n", re.IGNORECASE|re.DOTALL)
+        desc = reg.sub('', desc)
+
+        desc = re.sub("\s+", " ", desc)
+
+        if len(desc) > 70: add = "..."
+        else: add = ''
+
+        desc = desc[:70] + add
+        return desc
+
+    def get_child(self, node, name):
+        """ 
+            Gets a child node
+        """
+        return node.getElementsByTagName(name)
+
+    def get_value(self, node):
+        if hasattr(node, "firstChild") and node.firstChild:
+            return node.firstChild.nodeValue
+        else:
+            return ""
+
+    # the following code stolen from listen
+    def get_val(self, node, name):
+        """
+            Node navigation
+        """
+        node = self.get_child(node, name)
+        if node:
+            return self.get_value(node[0])
+        else:
+            return ""
+            
+    def delete_podcast(self, widget, event):
+        """ 
+            Removes a podcast
+        """
+        selection = self.tree.get_selection()
+        (model, iter) = selection.get_selected()
+        object = self.model.get_value(iter, 1)
+        path_id = tracks.get_column_id(self.db, 'paths', 'name', object.path)
+
+        if not isinstance(object, PodcastWrapper): return
+        dialog = gtk.MessageDialog(self.exaile.window,
+            gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO,
+            _("Are you sure you want to delete this podcast?"))
+        if dialog.run() == gtk.RESPONSE_YES:
+            self.db.execute("DELETE FROM podcasts WHERE path=?", (path_id,))
+            self.db.execute("DELETE FROM podcast_items WHERE podcast_path=?", 
+                (path_id,))
+
+            self.model.remove(iter)
+            self.tree.queue_draw()
+            
+        dialog.destroy()
+
+    def add_url_to_station(self, item, event):
+        """
+            Adds a url to an existing station
+        """
+        selection = self.tree.get_selection()
+        (model, iter) = selection.get_selected()
+        station = model.get_value(iter, 1)
+        
+        dialog = xlmisc.MultiTextEntryDialog(self.exaile.window,
+            _("Add Stream to Station"))
+        dialog.add_field("URL:")
+        dialog.add_field("Description:")
+        result = dialog.run()
+        dialog.dialog.hide()
+        if result == gtk.RESPONSE_OK:
+            (stream, desc) = dialog.get_values()
+
+            self.db.execute("INSERT INTO radio_items(radio, url, "
+                "title, description) VALUES( %s, %s, %s, %s)" % 
+                common.tup(self.db.p, 4),
+                (station, stream, desc, desc))
+            
+    def remove_station(self, item, event=None):
+        """
+            Removes a saved station
+        """
+        selection = self.tree.get_selection()
+        (model, iter) = selection.get_selected()
+        name = model.get_value(iter, 1)
+        if not isinstance(name, CustomWrapper): return
+        name = str(name)
+
+        dialog = gtk.MessageDialog(self.exaile.window, 
+            gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, 
+            _("Are you sure you want to permanently delete the selected "
+            "station?"))
+        result = dialog.run()
+        dialog.destroy()
+        radio_id = tracks.get_column_id(self.db, 'radio', 'name', name)
+
+        if result == gtk.RESPONSE_YES:
+            
+            self.db.execute("DELETE FROM radio WHERE id=?", (radio_id,))
+            self.db.execute("DELETE FROM radio_items WHERE radio=?", (radio_id,))
+            if tracks.RADIO.has_key(name):
+                del tracks.RADIO[name]
+
+            self.model.remove(iter)
+            self.tree.queue_draw()
+
+    def open_station(self, playlist):
+        """
+            Opens a station
+        """
+        all = self.db.select("SELECT title, description, paths.name, bitrate FROM "
+            "radio_items,radio,paths WHERE radio_items.radio=radio.id AND "
+            "paths.id=radio_items.path AND radio.name=?", (playlist,))
+
+        songs = xl.tracks.TrackData()
+        tracks = trackslist.TracksListCtrl(self.exaile)
+        self.exaile.playlists_nb.append_page(tracks,
+            xlmisc.NotebookTab(self.exaile, playlist, tracks))
+        self.exaile.playlists_nb.set_current_page(
+            self.exaile.playlists_nb.get_n_pages() - 1)
+
+        self.exaile.tracks = tracks
+
+        for row in all:
+            info = dict()
+            info['artist'] = row[2]
+            info['album'] = row[1]
+            info['loc'] = row[2]
+            info['title'] = row[0]
+            info['bitrate'] = row[3]
+
+            track = media.Track()
+            track.set_info(**info)
+            track.type = 'stream'
+            songs.append(track)
+        tracks.playlist = playlist
+        tracks.set_songs(songs)
+        tracks.queue_draw()
+
+    def on_add_station(self, widget):
+        """
+            Adds a station
+        """
+        dialog = xlmisc.MultiTextEntryDialog(self.exaile.window, 
+            _("Add Station"))
+        dialog.add_field(_("Station Name:"))
+        dialog.add_field(_("Description:"))
+        dialog.add_field(_("URL:"))
+        response = dialog.run()
+        dialog.dialog.hide()
+
+        if response == gtk.RESPONSE_OK:
+            (name, desc, url) = dialog.get_values()
+            if not name or not url:
+                common.error(self.exaile.window, _("The 'Name' and 'URL'"
+                    " fields are required"))
+                self.on_add_station(widget)
+                return
+
+            c = self.db.record_count("radio", "name=?", (name,))
+
+            if c > 0:
+                common.error(self.exaile.window, _("Station name already exists."))
+                return
+            radio_id = tracks.get_column_id(self.db, 'radio', 'name', name)
+            path_id = tracks.get_column_id(self.db, 'paths', 'name', url)
+            self.db.execute("INSERT INTO radio_items(radio, path, title, "
+                "description) VALUES( ?, ?, ?, ? )", (radio_id, path_id, desc,
+                desc))
+            
+            item = self.model.append(self.custom, [self.track, 
+                CustomWrapper(name)])
+            path = self.model.get_path(self.custom)
+            self.tree.expand_row(path, False)
+
+
+    def fetch_streams(self, rel=False):
+        """
+            Loads streams from a station.
+            If the station hasn't been loaded or "rel" is True,
+            it will be rescanned from
+            shoutcase, otherwise it will be loaded from cache.
+        """
+        selection = self.tree.get_selection()
+        (model, iter) = selection.get_selected()
+
+        genre = self.model.get_value(iter, 1)
+
+        tracks = trackslist.TracksListCtrl(self.exaile)
+        self.exaile.playlists_nb.append_page(tracks,
+            xlmisc.NotebookTab(self.exaile, genre, tracks))
+        self.exaile.playlists_nb.set_current_page(
+            self.exaile.playlists_nb.get_n_pages() - 1)
+        self.exaile.tracks = tracks
+
+        if rel or not tracks.load(genre):
+            try:
+                self.exaile.status.set_first("Loading streams from %s..." %
+                    genre)
+                shoutcast.ShoutcastThread(tracks, genre).start()
+            except:
+                xlmisc.log_exception()
+                self.exaile.status.set_first("Error loading streams.", 2000)
+
+    def on_add_to_station(self, widget, event):
+        """
+            Adds a playlist to the database
+        """
+        dialog = xlmisc.TextEntryDialog(self.exaile.window,
+            _("Enter the name of the station"),
+            _("Enter the name of the station"))
+        result = dialog.run()
+        dialog.dialog.hide()
+        if result == gtk.RESPONSE_OK:
+            name = dialog.get_value()
+            if name == "": return
+            c = self.db.record_count("radio", "name=?",
+                (name,))
+
+            if c > 0:
+                common.error(self, _("Station already exists."))
+                return
+
+            station_id = tracks.get_column_id(self.db, 'radio', 
+                'name', name)
+            
+            self.model.append(self.custom, [self.track, CustomWrapper(name)])
+            self.tree.expand_row(self.model.get_path(self.custom), False)
+
+            self.add_items_to_station(station=name)
+
+    def add_items_to_station(self, item=None, event=None, 
+        ts=None, station=None):
+        """
+            Adds the selected tracks tot he playlist
+        """
+
+        if ts == None: ts = self.exaile.tracks
+        songs = ts.get_selected_tracks()
+
+        if station:
+            playlist = station
+        else:
+            playlist = item.get_child().get_text()
+
+        station_id = tracks.get_column_id(self.db, 'radio', 'name', playlist)
+
+        for track in songs:
+            if track.type != 'stream': continue
+            path_id = tracks.get_column_id(self.db, 'paths', 'name', track.loc)
+            try:
+                self.db.execute("INSERT INTO radio_items( radio, title, path, "
+                    "description, bitrate ) " \
+                    "VALUES( ?, ?, ?, ?, ? )",
+                    (station_id, track.title, path_id,
+                    track.artist, track.bitrate))
+            except sqlite.IntegrityError:
+                pass
+        self.db.commit()
+
 
 class SmartPlaylist(object):
     def __init__(self, name, id):

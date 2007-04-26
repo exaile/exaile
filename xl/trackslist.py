@@ -748,11 +748,11 @@ class TracksListCtrl(gtk.VBox):
                 "ORDER BY name")
             for row in all:
                 i = self.playlists_menu.append(row[0],
-                    self.exaile.radio_panel.add_items_to_station)
+                    self.exaile.pradio_panel.add_items_to_station)
 
             self.playlists_menu.append_separator()
             self.new_playlist = self.playlists_menu.append(_("New Station"),
-                self.exaile.radio_panel.on_add_to_station, 'gtk-new')
+                self.exaile.pradio_panel.on_add_to_station, 'gtk-new')
 
             tpm.append_menu(_("Add to Saved Stations"),
                 self.playlists_menu, 'gtk-add')

@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import xl.tracks, os, sys, md5, random, db, track, tracks, xlmisc
-import common, trackslist, shoutcast, filtergui
+import common, trackslist, filtergui
 import media, time, thread, re, copy, threading
 import urllib
 from xl import media
@@ -2164,35 +2164,6 @@ class PRadioPanel(object):
                 CustomWrapper(name)])
             path = self.model.get_path(self.custom)
             self.tree.expand_row(path, False)
-
-
-    def fetch_streams(self, rel=False):
-        """
-            Loads streams from a station.
-            If the station hasn't been loaded or "rel" is True,
-            it will be rescanned from
-            shoutcase, otherwise it will be loaded from cache.
-        """
-        selection = self.tree.get_selection()
-        (model, iter) = selection.get_selected()
-
-        genre = self.model.get_value(iter, 1)
-
-        tracks = trackslist.TracksListCtrl(self.exaile)
-        self.exaile.playlists_nb.append_page(tracks,
-            xlmisc.NotebookTab(self.exaile, genre, tracks))
-        self.exaile.playlists_nb.set_current_page(
-            self.exaile.playlists_nb.get_n_pages() - 1)
-        self.exaile.tracks = tracks
-
-        if rel or not tracks.load(genre):
-            try:
-                self.exaile.status.set_first("Loading streams from %s..." %
-                    genre)
-                shoutcast.ShoutcastThread(tracks, genre).start()
-            except:
-                xlmisc.log_exception()
-                self.exaile.status.set_first("Error loading streams.", 2000)
 
     def on_add_to_station(self, widget, event):
         """

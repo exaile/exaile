@@ -93,6 +93,8 @@ class MiniWindow(gtk.Window):
         self.set_icon(APP.window.get_icon())
         self.set_decorated(False)
         self.tips = gtk.Tooltips()
+        self.seek_id = None
+        self.seeking = False
 
         main = gtk.VBox()
         main.set_border_width(3)
@@ -130,22 +132,13 @@ class MiniWindow(gtk.Window):
         self.seeker = gtk.HScale(gtk.Adjustment(0, 0, 100, 1, 5, 0))
         self.seeker.set_draw_value(False)
         self.seeker.set_size_request(150, -1)
-        self.seeker_id = self.seeker.connect('change-value', APP.seek)
+        self.seeker_id = self.seeker.connect('change-value', self.seek)
         bbox.pack_start(self.seeker, False)
 
         self.pos_label = gtk.Label("0:00")
         self.pos_label.set_size_request(40, -1)
         self.pos_label.set_alignment(0.0, .5)
         bbox.pack_start(self.pos_label)
-
-#        self.volume_slider = gtk.HScale(APP.volume)
-#        self.volume_slider.set_draw_value(False)
-#        self.volume_slider.set_size_request(100, -1)
-#        self.volume_slider.connect('scroll-event', self.volume_scroll)
-
-#        bbox.pack_start(gtk.Label("-"), False)
-#        bbox.pack_start(self.volume_slider, False)
-#        bbox.pack_start(gtk.Label("+"), False)
 
         mm = self.create_button('gtk-fullscreen', toggle_minimode, 'Restore'
             ' Regular View')
@@ -157,6 +150,28 @@ class MiniWindow(gtk.Window):
 
         self.connect('configure-event', self.on_move)
         self.first = False
+
+    def seek(self, range, scroll, value): 
+        """
+            Seeks in the current track
+        """
+
+        if self.seek_id:
+            gobject.source_remove(self.seek_id)
+            self.seeking = False
+            self.seek_id = None
+
+        self.seek_id = gobject.timeout_add(250, self._seek_cb, range)
+        self.seeking = True
+
+    def _seek_cb(self, range):
+
+        duration = APP.player.current.duration
+        real = long(range.get_value() * duration / 100)
+        APP.player.seek(real)
+        APP.player.current.submitted = True
+        APP.emit('seek', real)
+        self.seeking = False
 
     def volume_scroll(self, widget, ev):
         """
@@ -336,8 +351,12 @@ class MiniWindow(gtk.Window):
         self.set_title(APP.window.get_title())
 
     def timeout_cb(self):
-        self.pos_label.set_label(APP.new_progressbar.get_text())
-        self.seeker.set_value(APP.new_progressbar.get_fraction())
+        text = APP.new_progressbar.get_text()
+        b = text.find(' /')
+        if b > -1:
+            text = text[:b]
+        self.pos_label.set_label(text)
+        self.seeker.set_value(APP.new_progressbar.get_fraction() * 100)
             
         return True
 

@@ -176,9 +176,9 @@ class ShoutcastDriver(object):
     def add_function(self, node, genre, note_icon=False):
         icon = self.folder_icon
         item = urllib.unquote(genre)
+        item = xl.panels.PRadioGenre(item, self)
         if note_icon: 
             icon = self.note_icon
-            item = xl.panels.PRadioGenre(item, self)
         node = self.model.append(node, [icon, item])
         if not note_icon:
             self.last_node = node

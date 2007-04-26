@@ -1346,7 +1346,6 @@ class PRadioPanel(object):
         
         object = model.get_value(iter, 1)
         if event.button == 3:
-            pass
             # if it's for podcasts
             if isinstance(object, PodcastWrapper) or \
                 object == "Podcasts":
@@ -1385,6 +1384,7 @@ class PRadioPanel(object):
                     self.exaile.tracks = tracks
                     object.driver.tracks = tracks
                     object.driver.load_genre(object)
+                return True
 
     def on_row_expand(self, treeview, iter, path):
         """

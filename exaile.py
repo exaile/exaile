@@ -1035,6 +1035,7 @@ class ExaileWindow(gobject.GObject):
         """
             Toggles whether or not the device panel is showing
         """
+        return
         if not self.device_panel_showing and show:
             self.side_notebook.append_page(self.device_panel_widget,
                 self.device_panel_label)

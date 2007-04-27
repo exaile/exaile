@@ -2926,6 +2926,8 @@ class FilesPanel(object):
             Called when the user presses enter in the entry box
         """
         dir = self.entry.get_text()
+        if dir.startswith('~'):
+            dir = os.getenv('HOME', '~') + dir[1:]
         if not os.path.isdir(dir):
             self.entry.set_text(self.current)
             return

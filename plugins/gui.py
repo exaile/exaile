@@ -20,6 +20,7 @@ import pygtk, manager
 pygtk.require('2.0')
 import gtk, gtk.glade, gobject, sys, os, plugins, urllib
 from xl import common, xlmisc
+from gettext import gettext as _
 
 def show_error(parent, message): 
     """
@@ -34,11 +35,12 @@ class PluginManager(object):
     """
         Gui to manage plugins
     """
-    def __init__(self, parent, manager, update, avail_url=''):
+    def __init__(self, app, parent, manager, update, avail_url=''):
         """
             Initializes the manager
             params: parent window, plugin manager
         """
+        self.app = app
         self.parent = parent
         self.update = update
         self.manager = manager
@@ -60,6 +62,8 @@ class PluginManager(object):
             lambda *e: self.dialog.destroy())
         self.configure_button = self.xml.get_widget('configure_button')
         self.configure_button.connect('clicked', self.configure_plugin)
+        self.xml.get_widget('plugin_install_button').connect('clicked',
+            self.install_plugin)
 
         pb = gtk.CellRendererPixbuf()
         text = gtk.CellRendererText()
@@ -102,6 +106,32 @@ class PluginManager(object):
             self.avail_url = avail_url
             self.plugin_nb.connect('switch-page', self.check_fetch_avail)
 
+    def install_plugin(self, *e):
+        """
+            Installs the selected plugin
+        """
+        selection = self.avail_list.get_selection()
+        model, iter = selection.get_selected()
+        if not iter: return
+        file = model.get_value(iter, 5)
+        self.download_plugin(file)
+
+    @common.threaded
+    def download_plugin(self, file):
+        """
+            Downloads the selected plugin 
+        """
+        download_dir = "%s%splugins" % (self.app.get_settings_dir(), os.sep)
+        download_url = "http://www.exaile.org/trac/browser/plugins/%s/%s?format=txt" \
+            % (self.app.get_plugin_location(), file)
+
+        plugin = urllib.urlopen(download_url).read()
+        h = open("%s%s%s" % (download_dir, os.sep, file), 'w')
+        h.write(plugin)
+        h.close()
+        gobject.idle_add(common.info, self.parent, _("Your plugin has been "
+            "installed.  You will need to restart Exaile to use it."))
+
     def check_fetch_avail(self, *e):
         """
             Checks to see if the available plugin list needs to be fetched
@@ -134,7 +164,7 @@ class PluginManager(object):
             for plugin in self.manager.plugins:
                 if plugin.PLUGIN_NAME == name and plugin.PLUGIN_ICON:
                     icon = plugin.PLUGIN_ICON
-            self.avail_model.append([icon, name, version, author, description])
+            self.avail_model.append([icon, name, version, author, description, file])
 
         selection = self.avail_list.get_selection()
         selection.select_path(0)
@@ -144,7 +174,8 @@ class PluginManager(object):
         """
             Sets up the "plugins available" tab
         """
-        self.avail_model = gtk.ListStore(gtk.gdk.Pixbuf, str, str, str, str)
+        self.avail_model = gtk.ListStore(gtk.gdk.Pixbuf, str, str, str, str,
+            str)
         self.avail_list = self.xml.get_widget('avail_plugin_tree')
         self.avail_version_label = self.xml.get_widget('avail_version_label')
         self.avail_author_label = self.xml.get_widget('avail_author_label')

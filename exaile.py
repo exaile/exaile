@@ -584,7 +584,7 @@ class ExaileWindow(gobject.GObject):
         """
             Shows the plugin manager
         """
-        manager = plugins.gui.PluginManager(self.window, self.pmanager,
+        manager = plugins.gui.PluginManager(self, self.window, self.pmanager,
             self.update_plugin,
             'http://www.exaile.org/cgi-bin/plugins/new_plugins.py?version=%s' %
             self.get_plugin_location())

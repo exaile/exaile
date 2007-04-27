@@ -194,7 +194,7 @@ class PluginManager(object):
         col.set_attributes(text, text=1)
         self.avail_list.append_column(col)
         self.avail_list.set_model(self.avail_model)
-        self.avail_description.get_buffer().set_text("Fetching available "
+        self.avail_description.get_buffer().set_text("Fetching available"
             " plugin list...")
         selection = self.avail_list.get_selection()
         selection.connect('changed', self.avail_row_selected)

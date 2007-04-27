@@ -1001,21 +1001,19 @@ class ExaileWindow(gobject.GObject):
         """
         self.playlists_panel = panels.PlaylistsPanel(self)
         self.collection_panel = panels.CollectionPanel(self)
-#        self.radio_panel = panels.RadioPanel(self)
         self.side_notebook = self.xml.get_widget('side_notebook')
         self.files_panel = panels.FilesPanel(self)
 
-        page_number = self._find_page_number(_('Devices'))
+        page_number = self._find_page_number('device_box')
         self.device_panel = panels.DevicePanel(self)
         self.device_panel_widget = self.side_notebook.get_nth_page(page_number)
         self.device_panel_label = self.side_notebook.get_tab_label(
             self.device_panel_widget)
 
-#        self.side_notebook.remove_page(page_number)
+        self.side_notebook.remove_page(page_number)
 
         if not gst.registry_get_default().find_plugin('gnomevfs'):
-            pass
-#            self.side_notebook.remove_page(2)
+            self.side_notebook.remove_page(2)
         self.device_panel_showing = False
 
         self.pradio_panel = panels.PRadioPanel(self)
@@ -1026,8 +1024,7 @@ class ExaileWindow(gobject.GObject):
         """
         for i in range(self.side_notebook.get_n_pages()):
             page = self.side_notebook.get_nth_page(i)
-            label = self.side_notebook.get_tab_label(page)
-            if label.get_text() == text: return i
+            if page.get_name() == text: return i
 
         return 0
 
@@ -1035,7 +1032,6 @@ class ExaileWindow(gobject.GObject):
         """
             Toggles whether or not the device panel is showing
         """
-        return
         if not self.device_panel_showing and show:
             self.side_notebook.append_page(self.device_panel_widget,
                 self.device_panel_label)

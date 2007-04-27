@@ -1373,7 +1373,7 @@ Genre</property>
 	      </child>
 
 	      <child>
-		<widget class="GtkVBox" id="vbox43">
+		<widget class="GtkVBox" id="radio_box">
 		  <property name="border_width">3</property>
 		  <property name="visible">True</property>
 		  <property name="homogeneous">False</property>

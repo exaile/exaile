@@ -213,7 +213,7 @@ class DBusInterfaceObject(dbus.service.Object):
 
     @dbus.service.method("org.exaile.DBusInterface", None, "i")
     def get_rating(self):
-        if not self.exaile.player.current: return None
+        if not self.exaile.player.current: return -1
         return self.exaile.player.current._rating
 
 

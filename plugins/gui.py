@@ -158,6 +158,12 @@ class PluginManager(object):
         """
             Checks to see if the available plugin list needs to be fetched
         """
+        if self.plugin_nb.get_current_page() != 0: return
+        self.avail_version_label.set_text('')
+        self.avail_author_label.set_text('')
+        self.avail_name_label.set_markup('<b>No Plugin Selected</b>')
+        self.avail_description.get_buffer().set_text("Fetching available"
+            " plugin list...")
         self.avail_model.clear()
         self.fetch_available_plugins(self.avail_url)
         xlmisc.log('Fetching available plugin list')

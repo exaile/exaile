@@ -39,32 +39,10 @@ class Manager(object):
         """
             Loads all plugins in a specified directory
         """
-        if not dir in sys.path: sys.path.append(dir)
         if not os.path.isdir(dir): return
         for file in os.listdir(dir):
             if file.endswith('.py'):
-                try:
-                    plugin = __import__(re.sub('\.pyc?$', '', file))
-                    if not hasattr(plugin, "PLUGIN_NAME"):
-                        continue
-
-                    if plugin.PLUGIN_NAME in self.loaded: continue
-                    self.loaded.append(plugin.PLUGIN_NAME)
-                    
-                    print "Plugins '%s' version '%s' loaded successfully" % \
-                        (plugin.PLUGIN_NAME, plugin.PLUGIN_VERSION)
-
-                    plugin.FILE_NAME = file
-                    plugin.APP = self.app
-                    if file in enabled or plugin.PLUGIN_ENABLED:
-                        if plugin.initialize():
-                            plugin.PLUGIN_ENABLED = True
-                    self.plugins.append(plugin)
-                except plugins.PluginInitException, e:
-                    self.plugins.append(plugin)
-                except Exception, e:
-                    print "Failed to load plugin"
-                    traceback.print_exc()
+                self.initialize_plugin(dir, file, enabled)
 
         # load egg files
         if pkg_resources:
@@ -100,6 +78,31 @@ class Manager(object):
                     except Exception, e:
                         print "Failed to load plugin"
                         traceback.print_exc()
+
+    def initialize_plugin(self, dir, file, enabled=None):
+        if not dir in sys.path: sys.path.append(dir)
+        try:
+            plugin = __import__(re.sub('\.pyc?$', '', file))
+            if not hasattr(plugin, "PLUGIN_NAME"):
+                return
+
+            if plugin.PLUGIN_NAME in self.loaded: return
+            self.loaded.append(plugin.PLUGIN_NAME)
+            
+            print "Plugins '%s' version '%s' loaded successfully" % \
+                (plugin.PLUGIN_NAME, plugin.PLUGIN_VERSION)
+
+            plugin.FILE_NAME = file
+            plugin.APP = self.app
+            if (not enabled or file in enabled) or plugin.PLUGIN_ENABLED:
+                if plugin.initialize():
+                    plugin.PLUGIN_ENABLED = True
+            self.plugins.append(plugin)
+        except plugins.PluginInitException, e:
+            self.plugins.append(plugin)
+        except Exception, e:
+            print "Failed to load plugin"
+            traceback.print_exc()
 
     def fire_event(self, event):
         """

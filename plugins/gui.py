@@ -18,7 +18,7 @@
 
 import pygtk, manager
 pygtk.require('2.0')
-import gtk, gtk.glade, gobject, sys, os, plugins, urllib
+import gtk, gtk.glade, gobject, sys, os, plugins, urllib, re
 from xl import common, xlmisc
 from gettext import gettext as _
 
@@ -61,7 +61,8 @@ class PluginManager(object):
             lambda *e: self.dialog.destroy())
         self.configure_button = self.xml.get_widget('configure_button')
         self.configure_button.connect('clicked', self.configure_plugin)
-        self.xml.get_widget('plugin_install_button').connect('clicked',
+        self.plugin_install_button = self.xml.get_widget('plugin_install_button')
+        self.plugin_install_button.connect('clicked',
             self.install_plugin)
         self.xml.get_widget('plugin_uninstall_button').connect('clicked',
             self.uninstall_plugin)
@@ -115,11 +116,23 @@ class PluginManager(object):
         """
             Installs the selected plugin
         """
-        selection = self.avail_list.get_selection()
-        model, iter = selection.get_selected()
-        if not iter: return
-        file = model.get_value(iter, 4)
-        self.download_plugin(file, model, iter)
+        self.plugin_install_button.set_sensitive(False)
+        self.plugin_nb.set_sensitive(False)
+        iter = self.avail_model.get_iter_first()
+        while True:
+            if not iter: break
+
+            checked = self.avail_model.get_value(iter, 5)
+            if checked:
+                file = self.avail_model.get_value(iter, 4)
+                self.download_plugin(file, self.avail_model, iter)
+                return
+
+            iter = self.avail_model.iter_next(iter)
+
+        self.plugin_install_button.set_sensitive(True)
+        self.plugin_nb.set_sensitive(True)
+        self.load_plugin_list()
 
     @common.threaded
     def download_plugin(self, file, model, iter):
@@ -134,18 +147,32 @@ class PluginManager(object):
                 os.mkdir(download_dir, 0777)
             download_url = "http://www.exaile.org/trac/browser/plugins/%s/%s?format=txt" \
                 % (self.app.get_plugin_location(), file)
+            xlmisc.log('Downloading %s from %s' % (file, download_url))
 
             plugin = urllib.urlopen(download_url).read()
             h = open("%s%s%s" % (download_dir, os.sep, file), 'w')
             h.write(plugin)
             h.close()
+        
+            try:
+                _name = re.sub(r'\.pyc?$', '', file)
+                if file in sys.modules:
+                    del sys.modules[file]
+            except Exception, e:
+                xlmisc.log_exception()
+
             gobject.idle_add(self._remove_iter, model, iter)
-            self.manager.initialize_plugin(download_dir, file)
-            gobject.idle_add(self.load_plugin_list)
+            enabled_plugins = []
+            for k, v in self.app.settings.get_plugins().iteritems():
+                if v:
+                    enabled_plugins.append("%s.py" % k)
+            self.manager.initialize_plugin(download_dir, file, enabled_plugins)
+            gobject.idle_add(self.install_plugin)
         except Exception, e:
-            gobject.idle_add(common.error, self.parent, "Your plugin could "
-                "not be installed: %s" % e)
-            traceback.log_exception()
+            model.set_value(iter, 5, False)
+            gobject.idle_add(common.error, self.parent, "%s could "
+                "not be installed: %s" % (file, e))
+            xlmisc.log_exception()
 
     def _remove_iter(self, model, iter):
         """
@@ -196,7 +223,7 @@ class PluginManager(object):
                         found = True
 
             if not found:
-                self.avail_model.append([name, version, author, description, file])
+                self.avail_model.append([name, version, author, description, file, False])
                 check = True
 
         if not check:
@@ -213,7 +240,7 @@ class PluginManager(object):
             Sets up the "plugins available" tab
         """
         self.avail_model = gtk.ListStore(str, str, str, str,
-            str)
+            str, bool)
         self.avail_list = self.xml.get_widget('avail_plugin_tree')
         self.avail_version_label = self.xml.get_widget('avail_version_label')
         self.avail_author_label = self.xml.get_widget('avail_author_label')
@@ -233,6 +260,15 @@ class PluginManager(object):
         col.set_expand(False)
         col.set_attributes(text, text=1)
         self.avail_list.append_column(col)
+
+        text = gtk.CellRendererToggle()
+        text.set_property('activatable', True)
+        text.connect('toggled', self.avail_toggle_cb, self.avail_model)
+        col = gtk.TreeViewColumn("Install", text)
+        col.add_attribute(text, 'active', 5)
+        col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
+        self.avail_list.append_column(col)
+
         self.avail_list.set_model(self.avail_model)
         self.avail_description.get_buffer().set_text("Fetching available"
             " plugin list...")
@@ -255,6 +291,9 @@ class PluginManager(object):
         self.avail_version_label.set_label(version)
         self.avail_author_label.set_label(author)
         self.avail_description.get_buffer().set_text(description)
+
+    def avail_toggle_cb(self, cell, path, model):
+        model[path][5] = not model[path][5]
 
     def toggle_cb(self, cell, path, model):
         """
@@ -299,12 +338,13 @@ class PluginManager(object):
             self.manager.loaded.remove(plugin.PLUGIN_NAME)
 
             try:
+                del sys.modules[re.sub(r'\.pyc?$', '', plugin.FILE_NAME)]
                 os.remove("%s%splugins%s%s" % (self.app.get_settings_dir(), 
                     os.sep, os.sep, plugin.FILE_NAME))
                 os.remove("%s%splugins%s%sc" % (self.app.get_settings_dir(), 
                     os.sep, os.sep, plugin.FILE_NAME))
             except:
-                pass
+                xlmisc.log_exception()
 
     def configure_plugin(self, *e):
         """

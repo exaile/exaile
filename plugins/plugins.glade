@@ -4,6 +4,8 @@
 <glade-interface>
 
 <widget class="GtkDialog" id="PluginManagerDialog">
+  <property name="width_request">635</property>
+  <property name="height_request">470</property>
   <property name="visible">True</property>
   <property name="title" translatable="yes">Plugin Manager</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
@@ -22,6 +24,8 @@
 
   <child internal-child="vbox">
     <widget class="GtkVBox" id="dialog-vbox1">
+      <property name="width_request">630</property>
+      <property name="height_request">470</property>
       <property name="visible">True</property>
       <property name="homogeneous">False</property>
       <property name="spacing">0</property>
@@ -71,7 +75,7 @@
 	      <child>
 		<widget class="GtkScrolledWindow" id="scrolledwindow1">
 		  <property name="border_width">2</property>
-		  <property name="width_request">205</property>
+		  <property name="width_request">230</property>
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
 		  <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
@@ -327,8 +331,6 @@
 				      <child>
 					<widget class="GtkScrolledWindow" id="scrolledwindow2">
 					  <property name="border_width">2</property>
-					  <property name="width_request">360</property>
-					  <property name="height_request">212</property>
 					  <property name="visible">True</property>
 					  <property name="can_focus">True</property>
 					  <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
@@ -653,7 +655,7 @@
 	      <child>
 		<widget class="GtkScrolledWindow" id="scrolledwindow3">
 		  <property name="border_width">2</property>
-		  <property name="width_request">205</property>
+		  <property name="width_request">230</property>
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
 		  <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
@@ -909,8 +911,6 @@
 				      <child>
 					<widget class="GtkScrolledWindow" id="scrolledwindow4">
 					  <property name="border_width">2</property>
-					  <property name="width_request">360</property>
-					  <property name="height_request">212</property>
 					  <property name="visible">True</property>
 					  <property name="can_focus">True</property>
 					  <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>

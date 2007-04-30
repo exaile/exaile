@@ -161,7 +161,7 @@ class PluginManager(object):
             except Exception, e:
                 xlmisc.log_exception()
 
-            gobject.idle_add(self._remove_iter, model, iter)
+            gobject.idle_add(lambda: model.remove(iter))
             enabled_plugins = []
             for k, v in self.app.settings.get_plugins().iteritems():
                 if v:
@@ -173,13 +173,6 @@ class PluginManager(object):
             gobject.idle_add(common.error, self.parent, "%s could "
                 "not be installed: %s" % (file, e))
             xlmisc.log_exception()
-
-    def _remove_iter(self, model, iter):
-        """
-            Removes an iter from a model
-        """
-        model.remove(iter)
-        return False
 
     def check_fetch_avail(self, *e):
         """

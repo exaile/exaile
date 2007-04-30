@@ -1602,7 +1602,7 @@ class PRadioPanel(object):
                     self.exaile.tracks = tracks
                     object.driver.tracks = tracks
                     object.driver.load_genre(object)
-                return True
+            return True
 
     def cell_data_func(self, column, cell, model, iter, user_data=None):
         """

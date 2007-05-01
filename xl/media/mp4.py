@@ -17,9 +17,9 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 try:
-    from mutagen import mp4 as m4a
+    from mutagen.mp4 import MP4 as MP4
 except ImportError:
-    from mutagen import m4a
+    from mutagen.m4a import M4A as MP4
 
 def get_tag(f, name):
     name = '\xa9%s' % name
@@ -32,7 +32,7 @@ def set_tag(f, name, value):
     f[name] = value
 
 def fill_tag_from_path(tr):
-    f = m4a.M4A(tr.io_loc)
+    f = MP4(tr.io_loc)
     tr.length = f.info.length
     tr.bitrate = f.info.bitrate
     
@@ -53,7 +53,7 @@ def fill_tag_from_path(tr):
     tr.year = get_tag(f, 'day')
 
 def write_tag(tr):
-    f = m4a.M4A(self.io_loc)
+    f = MP4(self.io_loc)
 
     try:
         f['trkn'] = (int(self.track), f['trkn'][1])

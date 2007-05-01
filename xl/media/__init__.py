@@ -24,8 +24,8 @@ try:
 except ImportError: pass
 
 try:
-    from xl.media import m4a
-    formats['m4a'] = m4a
+    from xl.media import mp4
+    formats['m4a'] = mp4
 except ImportError: pass
 
 try:

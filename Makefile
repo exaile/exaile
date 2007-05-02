@@ -53,7 +53,7 @@ install: make-install-dirs mmkeys.so
 	$(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
 	install -m 644 exaile.desktop $(DESTDIR)$(PREFIX)/share/applications/
 	cd $(DESTDIR)$(PREFIX)/bin && \
-	/bin/echo -e "#!/bin/sh\ncd $(DESTDIR)$(PREFIX)/share/exaile\nLD_LIBRARY_PATH=$(FIREFOX) python exaile.py" > exaile \
+	/bin/echo -e "#!/bin/sh\ncd $(DESTDIR)$(PREFIX)/share/exaile\nLD_LIBRARY_PATH=$(FIREFOX) python exaile.py \0044\0100" > exaile \
 		&& chmod 755 exaile
 	for f in `find po -name exaile.mo` ; do \
 	  install -D $$f \

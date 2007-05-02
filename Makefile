@@ -52,8 +52,8 @@ install: make-install-dirs mmkeys.so
 	$(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
 	install -m 644 exaile.desktop $(DESTDIR)$(PREFIX)/share/applications/
 	cd $(DESTDIR)$(PREFIX)/bin && \
-	ln -sf ../share/exaile/exaile.py exaile && chmod \
-	755 exaile
+	echo -n "cd $(DESTDIR)$(PREFIX)/share/exaile\nLD_LIBRARY_PATH=/usr/lib/firefox python exaile.py" > exaile \
+		&& chmod 755 exaile
 	for f in `find po -name exaile.mo` ; do \
 	  install -D $$f \
 	    `echo $$f | sed "s|po|$(DESTDIR)$(PREFIX)/share/locale|"` ; \

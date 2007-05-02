@@ -337,7 +337,7 @@ def scan_dir(dir, files=None, exts=()):
        
         try:
             (stuff, ext) = os.path.splitext(file)
-            if ext.lower() in exts:
+            if ext.lower() in exts and not file in files:
                 files.append(file)
         except:
             traceback.print_exc()

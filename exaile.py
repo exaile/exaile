@@ -640,7 +640,13 @@ class ExaileWindow(gobject.GObject):
         response = dialog.run()
         if response == gtk.RESPONSE_OK:
             path = dialog.get_filename()
-            if not path in items:
+
+            check = True
+            for p in items:
+                if p == path: check = False
+                if p.find(path) > -1: check = False
+
+            if check:
                 items.append(path)
 
             self.settings['search_paths'] = items

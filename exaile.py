@@ -1379,7 +1379,8 @@ class ExaileWindow(gobject.GObject):
 #            self.artist_label.set_label("\n\non %s" % track.artist)
 
         if self.tray_icon:
-            self.tray_icon.set_tooltip(self.window.get_title())
+            self.tray_icon.set_tooltip("Playing %s\nfrom %s\nby %s" %
+                (track.title, album, artist))
 
         row = self.db.read_one("tracks, paths", "paths.name, user_rating", 
             "paths.name=? AND paths.id=tracks.path", (track.loc,))

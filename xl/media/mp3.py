@@ -43,10 +43,15 @@ def write_tag(tr):
         if tr.track > -1:
             track = str(tr.track)
             if tr.disc_id > -1:
-                track = "%s/%s" % (track, tr.disc_id)
+                disc = str(tr.disc_id)
 
             frame = mutagen.id3.Frames['TRCK'](encoding=3,
                 text=track)
+
+            id3.loaded_frame(frame)
+
+            frame = mutagen.id3.Frames['TPOS'](encoding=3,
+                text=disc)
 
             id3.loaded_frame(frame)
 
@@ -66,20 +71,22 @@ def fill_tag_from_path(tr):
 
         trackinfo = get_tag(id3, 'TRCK')
         if '/' in trackinfo:
-            tr.track, tr.disc_id = trackinfo.split('/')
+            tr.track, nothing = trackinfo.split('/')
 
             try:
                 tr.track = int(tr.track)
             except ValueError: tr.track = -1
-
-            try:
-                tr.disc_id = int(tr.disc_id)
-            except ValueError: tr.disc_id = -1
         else:
             try:
                 tr.track = int(trackinfo)
             except ValueError:
                 tr.track = -1
+
+        disc = get_tag(id3, 'TPOS')
+        try:
+            tr.disc_id = int(disc)
+        except ValueError:
+            tr.disc_id = -1
 
         tr.year = get_tag(id3, 'TDRC')
 

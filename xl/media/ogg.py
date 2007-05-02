@@ -21,7 +21,7 @@ def write_tag(tr):
     com['title'] = tr.title
     com['genre'] = tr.genre
     com['tracknumber'] = str(tr.track)
-    com['tracktotal'] = str(tr.disc_id)
+    com['discnumber'] = str(tr.disc_id)
     com['date'] = str(tr.year)
     com.save(tr.io_loc)
 
@@ -42,5 +42,5 @@ def fill_tag_from_path(tr):
     tr.title = get_tag(f, 'title')
     tr.genre = get_tag(f, 'genre')
     tr.track = get_tag(f, 'tracknumber')
-    tr.disc_id = get_tag(f, 'tracktotal')
+    tr.disc_id = get_tag(f, 'discnumber')
     tr.year = get_tag(f, 'date')

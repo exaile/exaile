@@ -46,7 +46,7 @@ class PluginManager(object):
         self.manager = manager
 
         self.xml = gtk.glade.XML('plugins/plugins.glade',
-            'PluginManagerDialog')
+            'PluginManagerDialog','exaile')
         self.dialog = self.xml.get_widget('PluginManagerDialog')
         self.dialog.set_transient_for(parent)
         self.plugin_nb = self.xml.get_widget('plugin_notebook')

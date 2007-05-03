@@ -1,0 +1,1488 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Exaile 0.2.10\n"
+"Report-Msgid-Bugs-To: Hsin-lin Cheng <lancetw@gmail.com>\n"
+"POT-Creation-Date: 2007-04-27 15:11+0800\n"
+"PO-Revision-Date: 2007-04-27 17:57+0800\n"
+"Last-Translator: Hsin-lin Cheng <lancetw@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: exaile.py:184 exaile.glade.h:102
+msgid "Exaile!"
+msgstr "Exaile!"
+
+#: exaile.py:230
+msgid ""
+"You have not specified any search directories for your music library. You "
+"may do so now, or choose to do it later.  If you want to do it later, you "
+"can manage your library search directories by going to Tools->Library "
+"Manager.  Do you want to choose your library directories now?"
+msgstr ""
+"你沒有為音樂資料庫指定任何搜尋目錄。你可以現在指定，或選擇稍後再做。"
+"如果你要待會再指定目錄，你可以經由 工具->資料庫管理員 管理你的資料庫"
+"搜尋資料夾。你現在要選擇你的資料庫目錄嗎？"
+
+#: exaile.py:628 xl/xlmisc.py:1588
+msgid "Add a directory"
+msgstr "加入一個目錄"
+
+#: exaile.py:630 xl/xlmisc.py:1590 exaile.glade.h:70
+msgid "Cancel"
+msgstr "取消"
+
+#: exaile.py:630 xl/xlmisc.py:1590
+msgid "Choose"
+msgstr "選擇"
+
+#: exaile.py:633
+msgid "Add tracks to current playlist after importing"
+msgstr "匯入後加到現在的播放清單"
+
+#: exaile.py:701
+msgid "Queue"
+msgstr "佇列"
+
+#: exaile.py:738
+msgid "Blacklist"
+msgstr "黑名單"
+
+#: exaile.py:759
+msgid ""
+"Gstreamer equalizer is not  available.  It can be found in gstreamer-plugins-"
+"bad (currently found in GST CVS)."
+msgstr ""
+"Gstreamer 等化器不可用。Gstreamer 等化器可在 gstreamer-plugins-bad 裡"
+"找到 (目前在 GST CVS 裡)。"
+
+#: exaile.py:887 exaile.py:1678 exaile.py:1687 exaile.py:1726 exaile.py:2183
+#: xl/panels.py:2857 xl/panels.py:2986 exaile.glade.h:134
+msgid "Playlist"
+msgstr "播放清單"
+
+#: exaile.py:935
+msgid ""
+"Blacklisting the selected tracks will prevent them from being added to the "
+"library on rescan.  Are you sure you want to continue?"
+msgstr ""
+"把音軌加入黑名單會讓這些音軌在重新掃描時不會被加入資料庫。"
+"你確定要繼續嗎？"
+
+#: exaile.py:1008 exaile.glade.h:92
+msgid "Devices"
+msgstr "裝置"
+
+#: exaile.py:1067
+#, python-format
+msgid "Error connecting to database: %s"
+msgstr "連接資料庫發生錯誤： %s"
+
+#: exaile.py:1099
+msgid "Loading library from database..."
+msgstr "正在載入資料庫..."
+
+#: exaile.py:1337
+msgid "Submitting to Last.fm..."
+msgstr "提交到 Last.fm..."
+
+#: exaile.py:1354 exaile.glade.h:126
+msgid "Not Playing"
+msgstr "尚未播放"
+
+#: exaile.py:1355 exaile.glade.h:168
+msgid "Stopped"
+msgstr "已停止"
+
+#: exaile.py:1419 exaile.py:1441
+msgid "No covers found."
+msgstr "找不到封面。"
+
+#: exaile.py:1467
+msgid "Current amazon image is too old, fetching  a new one"
+msgstr "當前的 Amazon 圖片太舊了，正在抓新的"
+
+#: exaile.py:1533
+msgid "Fetching cover art from Amazon..."
+msgstr "正在從 Amazon 取得專輯封面..."
+
+#: exaile.py:1588
+msgid "View Full Image"
+msgstr "檢視完整圖片"
+
+#: exaile.py:1590
+msgid "Fetch from Amazon"
+msgstr "從 Amazon 取得封面"
+
+#: exaile.py:1592
+msgid "Search Amazon"
+msgstr "搜尋 Amazon"
+
+#: exaile.py:1594
+msgid "Set Custom Image"
+msgstr "設成自訂圖片"
+
+#: exaile.py:1596
+msgid "Remove Cover"
+msgstr "移除封面"
+
+#: exaile.py:1620
+msgid "Fetching from amazon..."
+msgstr "正在從 Amazon 取得封面..."
+
+#: exaile.py:1636
+msgid "Choose an image"
+msgstr "選擇一張圖片"
+
+#: exaile.py:1836
+msgid "Podcast has not yet been downloaded"
+msgstr "Podcast 還沒有被下載"
+
+#: exaile.py:2148 exaile.py:2198
+msgid "Choose a file"
+msgstr "選擇檔案"
+
+#: exaile.py:2151
+msgid "Open in new tab"
+msgstr "在新分頁中開啟"
+
+#: exaile.py:2163
+msgid "Populating playlist..."
+msgstr "形成播放清單..."
+
+#: exaile.py:2255
+msgid "Enter the address"
+msgstr "輸入地址"
+
+#: exaile.py:2268
+msgid "You need the python-cddb package  in order to play audio discs."
+msgstr "要想播放音訊唱片，你得需要 python-cddb 這個 package。"
+
+#: exaile.py:2273
+msgid "Audio Disc"
+msgstr "音訊唱片"
+
+#: exaile.py:2306
+msgid "Scanning collection..."
+msgstr "正在掃描收藏..."
+
+#: xl/audioscrobbler.py:29
+msgid "Failed to submit track to Last.fm."
+msgstr "提交音軌到 Last.fm 失敗。"
+
+#: xl/audioscrobbler.py:49
+msgid "Error logging into Last.fm."
+msgstr "登入 Last.fm 發生錯誤。"
+
+#: xl/filtergui.py:50
+msgid "Name"
+msgstr "名稱"
+
+#: xl/filtergui.py:64
+msgid "Match any of the criteria"
+msgstr "符合其中任一個條件"
+
+#: xl/panels.py:62 xl/panels.py:77 xl/panels.py:86
+msgid "seconds"
+msgstr "秒"
+
+#: xl/panels.py:68
+msgid "and"
+msgstr "與"
+
+#: xl/panels.py:74 xl/panels.py:77
+msgid "days"
+msgstr "日"
+
+#: xl/panels.py:77
+msgid "minutes"
+msgstr "分"
+
+#: xl/panels.py:77
+msgid "hours"
+msgstr "時"
+
+#: xl/panels.py:77
+msgid "weeks"
+msgstr "週"
+
+#: xl/panels.py:98 xl/track.py:336 xl/trackslist.py:36 xl/trackslist.py:41
+#: xl/trackslist.py:53 xl/trackslist.py:480 exaile.glade.h:55
+msgid "Artist"
+msgstr "演出者"
+
+#: xl/panels.py:99 xl/panels.py:109 xl/panels.py:119 xl/panels.py:172
+msgid "is"
+msgstr "是"
+
+#: xl/panels.py:101 xl/panels.py:111 xl/panels.py:121 xl/panels.py:174
+msgid "is not"
+msgstr "不是"
+
+#: xl/panels.py:103 xl/panels.py:113 xl/panels.py:123 xl/panels.py:176
+msgid "contains"
+msgstr "包含"
+
+#: xl/panels.py:105 xl/panels.py:115 xl/panels.py:125 xl/panels.py:178
+msgid "does not contain"
+msgstr "不包含"
+
+#: xl/panels.py:108 xl/track.py:341 xl/trackslist.py:36 xl/trackslist.py:42
+#: xl/trackslist.py:54 xl/trackslist.py:481 exaile.glade.h:49
+msgid "Album"
+msgstr "專輯"
+
+#: xl/panels.py:118 xl/trackslist.py:37 xl/trackslist.py:47
+#: xl/trackslist.py:59 exaile.glade.h:107
+msgid "Genre"
+msgstr "風格"
+
+#: xl/panels.py:128
+msgid "User Rating"
+msgstr "使用者評等"
+
+#: xl/panels.py:129 xl/panels.py:134 xl/panels.py:140 xl/panels.py:154
+msgid "at least"
+msgstr "至少"
+
+#: xl/panels.py:131 xl/panels.py:136 xl/panels.py:142 xl/panels.py:156
+msgid "at most"
+msgstr "至多"
+
+#: xl/panels.py:133
+msgid "System Rating"
+msgstr "系統評等"
+
+#: xl/panels.py:139
+msgid "Number of Plays"
+msgstr "播放次數"
+
+#: xl/panels.py:145 xl/trackslist.py:37 xl/trackslist.py:46
+#: xl/trackslist.py:58 exaile.glade.h:186
+msgid "Year"
+msgstr "年"
+
+#: xl/panels.py:146
+msgid "before"
+msgstr "之前"
+
+#: xl/panels.py:148
+msgid "after"
+msgstr "之後"
+
+#: xl/panels.py:150
+msgid "between"
+msgstr "之間"
+
+#: xl/panels.py:153 xl/trackslist.py:36 xl/trackslist.py:43
+#: xl/trackslist.py:55 xl/trackslist.py:453 exaile.glade.h:119
+msgid "Length"
+msgstr "長度"
+
+#: xl/panels.py:159
+msgid "Date Added"
+msgstr "加入日期"
+
+#: xl/panels.py:160 xl/panels.py:166
+msgid "in the last"
+msgstr "在最後"
+
+#: xl/panels.py:162 xl/panels.py:168
+msgid "not in the last"
+msgstr "不在最後"
+
+#: xl/panels.py:165
+msgid "Last Played"
+msgstr "上次播放"
+
+#: xl/panels.py:171
+msgid "Location"
+msgstr "位置"
+
+#: xl/panels.py:278
+msgid "Finished scanning collection."
+msgstr "掃描收藏已完成。"
+
+#: xl/panels.py:299
+msgid "Scanning..."
+msgstr "掃描中..."
+
+#: xl/panels.py:333
+msgid "Append to Current"
+msgstr "附加到當前"
+
+#: xl/panels.py:337 xl/panels.py:2693 xl/trackslist.py:735
+msgid "New Playlist"
+msgstr "新增播放清單"
+
+#: xl/panels.py:347 xl/trackslist.py:743
+msgid "Add to Playlist"
+msgstr "加入到播放清單"
+
+#: xl/panels.py:348 xl/panels.py:2818
+msgid "Queue Items"
+msgstr "佇列項目"
+
+#: xl/panels.py:351
+msgid "Blacklist Selected"
+msgstr "已選取的黑名單"
+
+#: xl/panels.py:353
+msgid "Delete Selected"
+msgstr "刪除選取的項目"
+
+#: xl/panels.py:357 xl/trackslist.py:762
+msgid "Edit Information"
+msgstr "編輯資訊"
+
+#: xl/panels.py:434 xl/trackslist.py:958
+msgid ""
+"Are you sure you want to permanently remove the selected tracks from disk?"
+msgstr ""
+"你確定要從磁碟上永久移除選取的音軌？"
+
+#: xl/panels.py:452
+msgid "Are you sure you want to blacklist the selected tracks?"
+msgstr "你確定你要將選取的音軌加入黑名單？"
+
+#: xl/panels.py:836
+msgid "Transfer Queue"
+msgstr "傳輸佇列"
+
+#: xl/panels.py:864
+msgid "Transfer"
+msgstr "傳輸"
+
+#: xl/panels.py:884
+msgid ""
+"A transfer is in progress, please wait for it to stop before attempting to "
+"perform this operation."
+msgstr ""
+"傳輸正在進行，嘗試完成操作前請等待。"
+""
+
+#: xl/panels.py:1027
+msgid "This device does not support removing tracks"
+msgstr "此裝置不支援移除音軌"
+
+#: xl/panels.py:1045
+msgid "Not connected to any media device"
+msgstr "沒有連接到任何媒體裝置"
+
+#: xl/panels.py:1076
+msgid "The current device  does not support transferring music."
+msgstr "目前的裝置不支援音樂傳輸。"
+
+#: xl/panels.py:1080
+msgid ""
+"There is a transfer currently in progress.  Please wait for it to finish"
+msgstr "目前有傳輸正在進行，請等待其完成"
+
+#: xl/panels.py:1180
+msgid "Error connecting to device"
+msgstr "連接裝置發生錯誤"
+
+#: xl/panels.py:1337
+msgid "Downloading Podcasts"
+msgstr "正在下載 Podcasts"
+
+#: xl/panels.py:1342
+msgid "Downloading..."
+msgstr "下載中..."
+
+#: xl/panels.py:1377
+msgid "Stopping..."
+msgstr "停止中..."
+
+#: xl/panels.py:1651
+msgid ""
+"You need to have a last.fm username and password set in your preferences."
+msgstr ""
+"你必須在偏好設定裡設定你在 last.fm 的使用者名稱與密碼。"
+
+#: xl/panels.py:1815 exaile.glade.h:150
+msgid "Refresh"
+msgstr "更新"
+
+#: xl/panels.py:1820 xl/panels.py:2058
+msgid "Add Stream to Station"
+msgstr "加入站台串流"
+
+#: xl/panels.py:1822
+msgid "Delete this Station"
+msgstr "刪除這個站台"
+
+#: xl/panels.py:1826
+msgid "Add Feed"
+msgstr "加入餽流(Feed)"
+
+#: xl/panels.py:1827
+msgid "Refresh Feed"
+msgstr "更新餽流(Feed)"
+
+#: xl/panels.py:1828
+msgid "Delete Feed"
+msgstr "刪除餽流(Feed)"
+
+#: xl/panels.py:1881
+msgid "Enter the location of the podcast"
+msgstr "輸入此 Podcast 的位置"
+
+#: xl/panels.py:1882
+msgid "Add a podcast"
+msgstr "加入 Podcast"
+
+#: xl/panels.py:1890
+msgid "A podcast with that url already exists"
+msgstr "已經存在此 Podcast 的網址"
+
+#: xl/panels.py:1916
+msgid "Could not read feed."
+msgstr "無法讀取餽流(Feed)"
+
+#: xl/panels.py:2038
+msgid "Are you sure you want to delete this podcast?"
+msgstr "你確定要刪除這個 Podcast？"
+
+#: xl/panels.py:2083
+msgid "Are you sure you want to permanently delete the selected station?"
+msgstr "你確定要永久刪除已選擇的站台？"
+
+#: xl/panels.py:2137
+msgid "Add Station"
+msgstr "加入站台"
+
+#: xl/panels.py:2138
+msgid "Station Name:"
+msgstr "站台名稱："
+
+#: xl/panels.py:2139 plugins/plugins.glade:274 plugins/plugins.glade:777
+msgid "Description:"
+msgstr "描述："
+
+#: xl/panels.py:2140
+msgid "URL:"
+msgstr "網址："
+
+#: xl/panels.py:2147
+msgid "The 'Name' and 'URL' fields are required"
+msgstr "「名稱」與「網址」欄位必須填寫"
+
+#: xl/panels.py:2155
+msgid "Station name already exists."
+msgstr "此站台名稱已存在。"
+
+#: xl/panels.py:2173 xl/panels.py:2174
+msgid "Enter the name of the station"
+msgstr "輸入此站台的名稱"
+
+#: xl/panels.py:2184
+msgid "Station already exists."
+msgstr "站台已存在。"
+
+#: xl/panels.py:2296
+msgid "Smart Playlists"
+msgstr "智慧型播放清單"
+
+#: xl/panels.py:2359
+msgid "Custom Playlists"
+msgstr "自訂播放清單"
+
+#: xl/panels.py:2431 xl/panels.py:2474
+msgid "That playlist name is already taken."
+msgstr "此播放清單的名稱已經被使用。"
+
+#: xl/panels.py:2469
+msgid "You did not enter a name for your playlist"
+msgstr "你不為播放清單輸入一個名稱"
+
+#: xl/panels.py:2650 xl/trackslist.py:1034
+msgid "The following errors did occur"
+msgstr "曾發生下列錯誤"
+
+#: xl/panels.py:2668
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr "你確定要永久刪除選取的播放清單？"
+
+#: xl/panels.py:2692
+msgid "Enter the name you want for your new playlist"
+msgstr "輸入你想要的新播放清單名稱"
+
+#: xl/panels.py:2702
+msgid "Playlist already exists."
+msgstr "此播放清單已存在。"
+
+#: xl/panels.py:2817
+msgid "Append to Playlist"
+msgstr "附加到播放清單"
+
+#: xl/panels.py:2854
+msgid "Scanning and adding files..."
+msgstr "正在掃描並加入檔案..."
+
+#: xl/player.py:393
+msgid "Errors"
+msgstr "錯誤"
+
+#: xl/player.py:402
+msgid "<b>The following errors have occurred</b>"
+msgstr "<b>發生以下的錯誤</b>"
+
+#: xl/player.py:416 xl/xlmisc.py:879
+msgid "Close"
+msgstr "關閉"
+
+#: xl/player.py:572
+#, python-format
+msgid "Error logging in to Last.FM: %s"
+msgstr "登入 Last.FM 時發生錯誤：%s"
+
+#: xl/player.py:672
+msgid "Loading stream sources, please wait..."
+msgstr "載入串流來源中，請等待..."
+
+#: xl/player.py:945
+msgid "Exaile Media Player"
+msgstr "Exaile 媒體播放器"
+
+#: xl/prefs.py:458
+msgid ""
+"Cannot watch directories for changes. Install python2.4-gamin to use this "
+"feature."
+msgstr ""
+"無法觀察目錄的改變。安裝 python2.4-gamin 以使用這個介面。"
+
+#: xl/prefs.py:600
+msgid ""
+"Move the OSD window to the location you want it to appear when listening"
+msgstr "移動 OSD 視窗位置到你想要的位置，這會在聽音樂時顯示"
+
+#: xl/track.py:229 xl/track.py:287
+msgid "Title: "
+msgstr "標題： "
+
+#: xl/track.py:230 exaile.glade.h:59
+msgid "Artist:"
+msgstr "演出者："
+
+#: xl/track.py:231 exaile.glade.h:53
+msgid "Album:"
+msgstr "專輯："
+
+#: xl/track.py:233
+msgid "Track Number:"
+msgstr "音軌數："
+
+#: xl/track.py:234 exaile.glade.h:187
+msgid "Year:"
+msgstr "年份："
+
+#: xl/track.py:235 exaile.glade.h:108
+msgid "Genre:"
+msgstr "風格："
+
+#: xl/track.py:236
+msgid "Bitrate:"
+msgstr "位元率："
+
+#: xl/track.py:237
+msgid "User Rating:"
+msgstr "使用者評等："
+
+#: xl/track.py:238
+msgid "System Rating:"
+msgstr "系統評等："
+
+#: xl/track.py:239
+msgid "Playcount:"
+msgstr "播放次數："
+
+#: xl/track.py:240 xl/track.py:293
+msgid "Location: "
+msgstr "位置： "
+
+#: xl/track.py:288
+msgid "Description: "
+msgstr "描述： "
+
+#: xl/track.py:294
+msgid "Bitrate: "
+msgstr "位元率： "
+
+#: xl/track.py:313 xl/trackslist.py:784 exaile.glade.h:113
+msgid "Information"
+msgstr "資訊"
+
+#: xl/track.py:327
+msgid "Stream Statistics"
+msgstr "串流統計"
+
+#: xl/track.py:329
+msgid "Statistics"
+msgstr "統計"
+
+#: xl/track.py:343
+msgid "Lyrics"
+msgstr "歌詞"
+
+#: xl/track.py:345
+msgid "Tablature"
+msgstr "Tablature"
+
+#: xl/track.py:463
+msgid "Some errors occurred"
+msgstr "發生一些錯誤"
+
+#: xl/trackslist.py:36 xl/trackslist.py:40 xl/trackslist.py:52
+#: xl/trackslist.py:480 exaile.glade.h:171
+msgid "Title"
+msgstr "標題"
+
+#: xl/trackslist.py:36 xl/trackslist.py:44 xl/trackslist.py:56
+#: xl/trackslist.py:457 exaile.glade.h:93
+msgid "Disc"
+msgstr "唱片"
+
+#: xl/trackslist.py:37 xl/trackslist.py:45 xl/trackslist.py:57
+#: xl/trackslist.py:430 xl/trackslist.py:459 xl/trackslist.py:515
+#: xl/trackslist.py:782 exaile.glade.h:148
+msgid "Rating"
+msgstr "評等"
+
+#: xl/trackslist.py:37 xl/trackslist.py:48 xl/trackslist.py:60
+#: exaile.glade.h:68
+msgid "Bitrate"
+msgstr "位元率"
+
+#: xl/trackslist.py:150
+msgid "Scanning and adding tracks to current playlist..."
+msgstr "正掃描並加入音軌到當前的播放清單..."
+
+#: xl/trackslist.py:726
+msgid "Toggle Queue"
+msgstr "切換隊列"
+
+#: xl/trackslist.py:728
+msgid "Toggle: Stop after this Track"
+msgstr "切換：在此音軌後停止"
+
+#: xl/trackslist.py:754
+msgid "New Station"
+msgstr "新增站台"
+
+#: xl/trackslist.py:757
+msgid "Add to Saved Stations"
+msgstr "加入到已儲存的站台"
+
+#: xl/trackslist.py:783
+msgid "Edit Track(s)"
+msgstr "編輯音軌"
+
+#: xl/trackslist.py:794
+msgid "Last.FM Options"
+msgstr "Last.FM 選項"
+
+#: xl/trackslist.py:798
+msgid "Remove from Playlist"
+msgstr "從播放清單移除"
+
+#: xl/trackslist.py:802
+msgid "Blacklist Track(s)"
+msgstr "黑名單音軌"
+
+#: xl/trackslist.py:804
+msgid "Delete Track(s)"
+msgstr "刪除音軌"
+
+#: xl/trackslist.py:806
+msgid "Remove"
+msgstr "移除"
+
+#: xl/trackslist.py:812 xl/xlmisc.py:347 exaile.glade.h:139
+msgid "Plugins"
+msgstr "外掛程式"
+
+#: xl/trackslist.py:1059
+msgid "Remove from Blacklist"
+msgstr "從黑名單移除"
+
+#: xl/tracks.py:393
+msgid "Could not open audio disc"
+msgstr "無法開啟音訊唱片"
+
+#: xl/tracks.py:405
+#, python-format
+msgid "Track %d"
+msgstr "音軌 %d"
+
+#: xl/xlmisc.py:328 xl/xlmisc.py:357
+msgid "Play"
+msgstr "播放"
+
+#: xl/xlmisc.py:340 exaile.glade.h:124
+msgid "Next"
+msgstr "下一首"
+
+#: xl/xlmisc.py:341 exaile.glade.h:143
+msgid "Previous"
+msgstr "上一首"
+
+#: xl/xlmisc.py:344 exaile.glade.h:142
+msgid "Preferences"
+msgstr "偏好設定"
+
+#: xl/xlmisc.py:350
+msgid "Quit"
+msgstr "離開"
+
+#: xl/xlmisc.py:361
+msgid "Pause"
+msgstr "暫停"
+
+#: xl/xlmisc.py:839
+msgid "Close this tab"
+msgstr "關閉這個分頁"
+
+#: xl/xlmisc.py:852
+msgid "Enter the new name for this playlist"
+msgstr "為此播放清單輸入一個新名稱"
+
+#: xl/xlmisc.py:852
+msgid "Rename playlist"
+msgstr "重新命名播放清單"
+
+#: xl/xlmisc.py:878
+msgid "Rename"
+msgstr "重新命名"
+
+#: xl/xlmisc.py:882
+msgid "Save Playlist"
+msgstr "儲存播放清單"
+
+#: xl/xlmisc.py:1413
+msgid "Enter the search text"
+msgstr "輸入搜尋字串"
+
+#: xl/xlmisc.py:1420
+msgid "Searching for "
+msgstr "正在搜尋 "
+
+#: xl/xlmisc.py:1492
+msgid "Sorry, no covers were found."
+msgstr "抱歉，找不到封面。"
+
+#: exaile.glade.h:1
+msgid "  "
+msgstr "  "
+
+#: exaile.glade.h:2
+msgid "     "
+msgstr "     "
+
+#: exaile.glade.h:3
+msgid "        "
+msgstr "        "
+
+#: exaile.glade.h:4
+msgid "           "
+msgstr "           "
+
+#: exaile.glade.h:5
+msgid "               "
+msgstr "               "
+
+#: exaile.glade.h:6
+msgid "(c) 2006"
+msgstr "(c) 2006"
+
+#: exaile.glade.h:7
+msgid "(minutes, use 0 to disable)"
+msgstr "(分鐘，輸入 0 停用)"
+
+#: exaile.glade.h:8
+msgid "+"
+msgstr "+"
+
+#: exaile.glade.h:9
+msgid "-"
+msgstr "-"
+
+#: exaile.glade.h:10
+msgid "/dev/cdrom"
+msgstr "/dev/cdrom"
+
+#: exaile.glade.h:11
+msgid "0"
+msgstr "0"
+
+#: exaile.glade.h:12
+msgid "0 Covers to fetch"
+msgstr "取得 0 張封面"
+
+#: exaile.glade.h:13
+msgid "0 tracks"
+msgstr "0 音軌"
+
+#: exaile.glade.h:14
+msgid "0/0"
+msgstr "0/0"
+
+#: exaile.glade.h:15
+msgid ""
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5\n"
+"6\n"
+"7\n"
+"8"
+msgstr ""
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5\n"
+"6\n"
+"7\n"
+"8"
+
+#: exaile.glade.h:23
+msgid "<b>General</b>"
+msgstr "<b>一般</b>"
+
+#: exaile.glade.h:24
+msgid "<b>Model:</b>        "
+msgstr "<b>模式：</b>        "
+
+#: exaile.glade.h:25
+msgid "<b>Space:</b>"
+msgstr "<b>間隔：</b>"
+
+#: exaile.glade.h:26
+msgid ""
+"<b>{Title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{Title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+
+#: exaile.glade.h:29
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+
+#: exaile.glade.h:32
+msgid "<small>-20 dB</small>"
+msgstr "<small>-20 dB</small>"
+
+#: exaile.glade.h:33
+msgid "<small>0 dB</small>"
+msgstr "<small>0 dB</small>"
+
+#: exaile.glade.h:34
+msgid "<small>20 dB</small>"
+msgstr "<small>20 dB</small>"
+
+#: exaile.glade.h:35
+msgid "<small>200Hz</small>"
+msgstr "<small>200Hz</small>"
+
+#: exaile.glade.h:36
+msgid "<small>20Hz</small>"
+msgstr "<small>20Hz</small>"
+
+#: exaile.glade.h:37
+msgid "<small>20KHz</small>"
+msgstr "<small>20KHz</small>"
+
+#: exaile.glade.h:38
+msgid "<small>2KHz</small>"
+msgstr "<small>2KHz</small>"
+
+#: exaile.glade.h:39
+msgid "<small>4.3KHz</small>"
+msgstr "<small>4.3KHz</small>"
+
+#: exaile.glade.h:40
+msgid "<small>430Hz</small>"
+msgstr "<small>430Hz</small>"
+
+#: exaile.glade.h:41
+msgid "<small>45Hz</small>"
+msgstr "<small>45Hz</small>"
+
+#: exaile.glade.h:42
+msgid "<small>9.3KHz</small>"
+msgstr "<small>9.3KHz</small>"
+
+#: exaile.glade.h:43
+msgid "<small>90Hz</small>"
+msgstr "<small>90Hz</small>"
+
+#: exaile.glade.h:44
+msgid "<small>930Hz</small>"
+msgstr "<small>930Hz</small>"
+
+#: exaile.glade.h:45
+msgid "Action Log"
+msgstr "動作紀錄"
+
+#: exaile.glade.h:46
+msgid "Action _Log"
+msgstr "動作紀錄(_L)"
+
+#: exaile.glade.h:47
+msgid "Add Saved Station"
+msgstr "加入已存站台"
+
+#: exaile.glade.h:48
+msgid "Advanced"
+msgstr "進階"
+
+#: exaile.glade.h:50
+msgid "Album Art" 
+msgstr "專輯封面"
+
+#: exaile.glade.h:51
+msgid "Album _Information"
+msgstr "專輯資訊(_I)"
+
+#: exaile.glade.h:52
+msgid "Album art filenames (separated by spaces):"
+msgstr "專輯封面檔名 (以空格隔開)："
+
+#: exaile.glade.h:54
+msgid "Amazon Locale:"
+msgstr "Amazon 語系："
+
+#: exaile.glade.h:56
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre"
+msgstr ""
+"演出者\n"
+"專輯\n"
+"風格"
+
+
+#: exaile.glade.h:60
+msgid "Attempt to fetch cover art from Amazon automatically"
+msgstr "自動嘗試從 Amazon 抓取封面"
+
+#: exaile.glade.h:61
+msgid ""
+"Automatic\n"
+"Use GConf Settings\n"
+"alsasink\n"
+"osssink\n"
+"esdsink"
+msgstr ""
+"自動\n"
+"使用 GConf 設定值\n"
+"alsa\n"
+"oss\n"
+"esd"
+
+#: exaile.glade.h:66
+msgid "Autosize"
+msgstr "自動大小"
+
+#: exaile.glade.h:67
+msgid "Background Color:"
+msgstr "背景顏色："
+
+#: exaile.glade.h:69
+msgid "CD Device:"
+msgstr "CD 裝置："
+
+#: exaile.glade.h:71
+msgid "Cl_ear Playlist"
+msgstr "清除播放清單(_E)"
+
+#: exaile.glade.h:72
+msgid "Cl_ose Playlist"
+msgstr "關閉播放清單(_O)"
+
+#: exaile.glade.h:73
+msgid "Clear Playlist"
+msgstr "清除播放清單"
+
+#: exaile.glade.h:74
+msgid "Collection"
+msgstr "收藏"
+
+#: exaile.glade.h:75
+msgid ""
+"Copyright (C) 2006 Adam Olsen\n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 1, or (at your option)\n"
+"any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
+msgstr ""
+"pyright (C) 2006 Adam Olsen\n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 1, or (at your option)\n"
+"any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
+
+#: exaile.glade.h:90
+msgid "Cover Finder"
+msgstr "封面搜尋器"
+
+#: exaile.glade.h:91
+msgid "Custom"
+msgstr "自訂"
+
+#: exaile.glade.h:94
+msgid "Disc Number:"
+msgstr "唱片數："
+
+#: exaile.glade.h:95
+msgid "Display OSD when hovering over tray icon"
+msgstr "滑鼠停在常駐圖示上時顯示 OSD"
+
+#: exaile.glade.h:96
+msgid "Display Text:"
+msgstr "顯示文字："
+
+#: exaile.glade.h:97
+msgid "Download feeds when opening podcasts"
+msgstr "開啟 Podcasts 時下載餽流(Feed)"
+
+#: exaile.glade.h:98
+msgid "Dynamic Playlist"
+msgstr "動態播放清單"
+
+#: exaile.glade.h:99
+msgid "E_qualizer"
+msgstr "等化器(_Q)"
+
+#: exaile.glade.h:100
+msgid "Equalizer Settings"
+msgstr "等化器設定值"
+
+#: exaile.glade.h:101
+msgid "Exaile Registration Key: purgatorio"
+msgstr "Exaile 註冊碼：purgatorio"
+
+#: exaile.glade.h:103
+msgid "Export Playlist"
+msgstr "匯出播放清單"
+
+#: exaile.glade.h:104
+msgid "Fetches similar tracks from last.fm"
+msgstr "從 last.fm 取得相似的音軌"
+
+#: exaile.glade.h:105
+msgid "Files"
+msgstr "檔案"
+
+#: exaile.glade.h:106
+msgid "General"
+msgstr "一般"
+
+#: exaile.glade.h:109
+msgid "Go To Playing Track"
+msgstr "轉到播放中的音軌"
+
+#: exaile.glade.h:110
+msgid "Hint: see http://www.exaile.org/trac/wiki/OSD for examples"
+msgstr "提示：查閱 http://www.exaile.org/trac/wiki/OSD 的範例"
+
+#: exaile.glade.h:111
+msgid "I_mport"
+msgstr "匯入(_M)"
+
+#: exaile.glade.h:112
+msgid "Import Preset"
+msgstr "匯入預置"
+
+#: exaile.glade.h:114
+msgid "Input Required"
+msgstr "必要的輸入"
+
+#: exaile.glade.h:115
+msgid "Jump to current song on track change"
+msgstr "當音軌改變時跳到當前的曲目"
+
+#: exaile.glade.h:116
+msgid "Last.fm"
+msgstr "Last.fm"
+
+#: exaile.glade.h:117
+msgid "Last.fm Password:"
+msgstr "Last.fm 密碼："
+
+#: exaile.glade.h:118
+msgid "Last.fm Username:  "
+msgstr "Last.fm 使用者名稱：  "
+
+#: exaile.glade.h:120
+msgid "Library"
+msgstr "資料庫"
+
+#: exaile.glade.h:121
+msgid "Library Manager"
+msgstr "資料庫管理員"
+
+#: exaile.glade.h:122
+msgid "Library _Manager"
+msgstr "資料庫管理員(_M)"
+
+#: exaile.glade.h:123
+msgid "New Search"
+msgstr "新增搜尋"
+
+#: exaile.glade.h:125
+msgid "Next Track"
+msgstr "下一音軌"
+
+#: exaile.glade.h:127
+msgid "Notification"
+msgstr "通知"
+
+#: exaile.glade.h:128
+msgid "OK"
+msgstr "確定"
+
+#: exaile.glade.h:129
+msgid "Open _Disc"
+msgstr "開啟唱片(_D)"
+
+#: exaile.glade.h:130
+msgid "Open _URL"
+msgstr "開啟網址(_U)"
+
+#: exaile.glade.h:131
+msgid "Open last playlist on startup"
+msgstr "啟動時開啟上次的播放清單"
+
+#: exaile.glade.h:132
+msgid "Play/Pause"
+msgstr "播放/暫停"
+
+#: exaile.glade.h:133
+msgid "Playback Sink:   "
+msgstr "播放：  "
+
+#: exaile.glade.h:135
+msgid "Playlist Tab Placement:"
+msgstr "播放清單分頁放置在："
+
+#: exaile.glade.h:136
+msgid "Playlists"
+msgstr "播放清單"
+
+#: exaile.glade.h:137
+msgid ""
+"Please choose the EQF file from which you would like to import the equalizer "
+"preset."
+msgstr "請選擇你要匯入等化器預置 EQF 檔案。"
+
+#: exaile.glade.h:138
+msgid "Please enter the name which you would like to save the preset as."
+msgstr "請輸入你要另存的預置名稱。"
+
+#: exaile.glade.h:140
+msgid "Podcasts"
+msgstr "Podcasts"
+
+#: exaile.glade.h:141
+msgid "Popup"
+msgstr "蹦現式視窗"
+
+#: exaile.glade.h:144
+msgid "Previous Track"
+msgstr "上一音軌"
+
+#: exaile.glade.h:145
+msgid "Question:"
+msgstr "問題："
+
+#: exaile.glade.h:146
+msgid "Radio"
+msgstr "電台"
+
+#: exaile.glade.h:147
+msgid "Randomize Playlist"
+msgstr "隨機化播放清單"
+
+#: exaile.glade.h:149
+msgid "Rating: "
+msgstr "評等： "
+
+#: exaile.glade.h:151
+msgid "Remove Saved Station"
+msgstr "移除已儲存的站台"
+
+#: exaile.glade.h:152
+msgid "Repeat"
+msgstr "反覆"
+
+#: exaile.glade.h:153
+msgid "Resizable"
+msgstr "可改大小"
+
+#: exaile.glade.h:154
+msgid "Save"
+msgstr "儲存"
+
+#: exaile.glade.h:155
+msgid "Save Preset"
+msgstr "儲存預置"
+
+#: exaile.glade.h:156
+msgid "Save queue status"
+msgstr "儲存佇列狀態"
+
+#: exaile.glade.h:157
+msgid "Scan for new music every: "
+msgstr "掃描新的音樂每： "
+
+#: exaile.glade.h:158
+msgid "Search:"
+msgstr "搜尋："
+
+#: exaile.glade.h:159
+msgid "Search: "
+msgstr "搜尋： "
+
+#: exaile.glade.h:160
+msgid "Select A File"
+msgstr "選取一個檔案"
+
+#: exaile.glade.h:161
+msgid "Show On Screen Display on track change"
+msgstr "音軌改變時顯示 OSD"
+
+#: exaile.glade.h:162
+msgid "Show Tray Icon"
+msgstr "顯示常駐列圖示"
+
+#: exaile.glade.h:163
+msgid "Show Visualizations"
+msgstr "顯示視覺化效果"
+
+#: exaile.glade.h:164
+msgid "Show splash screen on startup"
+msgstr "在啟動時顯示啟動畫面"
+
+#: exaile.glade.h:165
+msgid "Shuffle"
+msgstr "洗牌"
+
+#: exaile.glade.h:166
+msgid "Start"
+msgstr "開始"
+
+#: exaile.glade.h:167
+msgid "Stop Playback"
+msgstr "停止播放"
+
+#: exaile.glade.h:169
+msgid "Text Color"
+msgstr "文字顏色"
+
+#: exaile.glade.h:170
+msgid "Text Font:"
+msgstr "文字字型："
+
+#: exaile.glade.h:172
+msgid "Title:"
+msgstr "標題："
+
+#: exaile.glade.h:173
+msgid ""
+"Top\n"
+"Left\n"
+"Right\n"
+"Bottom"
+msgstr ""
+"上\n"
+"左\n"
+"右\n"
+"下"
+
+#: exaile.glade.h:177
+msgid "Track Editor"
+msgstr "音軌編輯器"
+
+#: exaile.glade.h:178
+msgid "Track Number"
+msgstr "音軌編號"
+
+#: exaile.glade.h:179
+msgid "Track:"
+msgstr "音軌："
+
+#: exaile.glade.h:180
+msgid "Unknown"
+msgstr "未知"
+
+#: exaile.glade.h:181
+msgid "Up One Directory"
+msgstr "上一目錄"
+
+#: exaile.glade.h:182
+msgid "Vol:"
+msgstr "Vol："
+
+#: exaile.glade.h:183
+msgid "Wikipedia Locale:"
+msgstr "維基百科語系："
+
+#: exaile.glade.h:184
+msgid "Window Height:"
+msgstr "視窗高度："
+
+#: exaile.glade.h:185
+msgid "Window Width:"
+msgstr "視窗寬度："
+
+#: exaile.glade.h:188
+msgid "_Album Art Collector"
+msgstr "專輯封面蒐集器"
+
+#: exaile.glade.h:189
+msgid "_Artist Information"
+msgstr "演出者資訊(_A)"
+
+#: exaile.glade.h:190
+msgid "_Blacklist Manager"
+msgstr "黑名單管理員(_B)"
+
+#: exaile.glade.h:191
+msgid "_Clear Queue"
+msgstr "清除佇列(_C)"
+
+#: exaile.glade.h:192
+msgid "_Close"
+msgstr "關閉(_C)"
+
+#: exaile.glade.h:193
+msgid "_Columns"
+msgstr "欄位(_C)"
+
+#: exaile.glade.h:194
+msgid "_File"
+msgstr "檔案(_F)"
+
+#: exaile.glade.h:195
+msgid "_Help"
+msgstr "輔助說明(_H)"
+
+#: exaile.glade.h:196
+msgid "_Import Directory"
+msgstr "匯入目錄(_I)"
+
+#: exaile.glade.h:197
+msgid "_Logs"
+msgstr "記錄(_L)"
+
+#: exaile.glade.h:198
+msgid "_Lyrics"
+msgstr "歌詞(_L)"
+
+#: exaile.glade.h:199
+msgid "_New Playlist"
+msgstr "新增播放清單(_N)"
+
+#: exaile.glade.h:200
+msgid "_Open Media"
+msgstr "開啟媒體(_O)"
+
+#: exaile.glade.h:201
+msgid "_Queue Manager"
+msgstr "佇列管理員(_Q)"
+
+#: exaile.glade.h:202
+msgid "_Rescan Collection"
+msgstr "重新掃描收藏(_R)"
+
+#: exaile.glade.h:203
+msgid "_Tools"
+msgstr "工具(_T)"
+
+#: exaile.glade.h:204
+msgid "_View"
+msgstr "檢視(_V)"
+
+#: exaile.glade.h:205
+msgid "iPod Information"
+msgstr "iPod 資訊"
+
+#: exaile.glade.h:206
+msgid "message"
+msgstr "訊息"
+
+#: exaile.glade.h:208
+msgid "translator-credits"
+msgstr ""
+"如對翻譯有任何意見，歡迎來信討論！"
+"請將信寄到 lancetw@gmail.com :D"
+
+#: plugins/plugins.glade:8
+msgid "Plugin Manager"
+msgstr "外掛程式管理員"
+
+#: plugins/plugins.glade:148 plugins/plugins.glade:651
+msgid "Authors:"
+msgstr "作者群："
+
+#: plugins/plugins.glade:176 plugins/plugins.glade:679
+msgid "Version:      "
+msgstr "版本：      "
+
+#: plugins/plugins.glade:232 plugins/plugins.glade:735
+msgid "\n"
+msgstr "\n"
+
+#: plugins/plugins.glade:464
+msgid "Configure"
+msgstr "配置"
+
+#: plugins/plugins.glade:511 plugins/plugins.glade:998
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>沒有選取外掛程式</b>"
+
+#: plugins/plugins.glade:547
+msgid "Installed Plugins"
+msgstr "已安裝的外掛程式"
+
+#: plugins/plugins.glade:936
+msgid "Install"
+msgstr "安裝"
+
+#: plugins/plugins.glade:1034
+msgid "Available Plugins"
+msgstr "可用的外掛程式"

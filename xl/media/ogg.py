@@ -41,6 +41,15 @@ def fill_tag_from_path(tr):
     tr.album = get_tag(f, 'album')
     tr.title = get_tag(f, 'title')
     tr.genre = get_tag(f, 'genre')
-    tr.track = get_tag(f, 'tracknumber')
+    track = get_tag(f, 'tracknumber')
+    b = track.find('/')
+    if b > -1:
+        track = track[0:b]
+
+    try:
+        tr.track = int(track)
+    except ValueError:
+        tr.track = -1
+
     tr.disc_id = get_tag(f, 'discnumber')
     tr.year = get_tag(f, 'date')

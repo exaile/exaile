@@ -49,16 +49,6 @@ import os, re, random, fileinput, gc, urllib, md5, urlparse
 import os.path, traceback, thread, gettext, time, threading
 import locale, tempfile, subprocess
 
-# set up gettext for translations
-locale.setlocale(locale.LC_ALL, '')
-from gettext import gettext as _
-gettext.bindtextdomain('exaile', 'po')
-gettext.textdomain('exaile')
-# Note also before python 2.3 you need the following if
-# you need translations from non python code (glibc, libglade etc.)
-gtk.glade.bindtextdomain('exaile', '/usr/share/locale')
-# there are other access points to this function
-
 ## Find out the location of exaile's working directory, and go there
 basedir = os.path.dirname(os.path.realpath(__file__))
 if not os.path.exists(os.path.join(basedir, "exaile.py")):
@@ -68,14 +58,26 @@ sys.path.insert(0, basedir)
 os.chdir(basedir)
 
 # Add ../../lib/exaile to path
-path_suffix = '/share/exaile'
+prefix = '.'
+path_suffix = '%sshare%sexaile' % (os.sep, os.sep)
 if basedir.endswith(path_suffix):
-    sys.path.append(basedir[:-len(path_suffix)] + '/lib/exaile')
+    prefix = basedir[:-len(path_suffix)]
+    sys.path.append('%s%slib%sexaile' % (prefix, os.sep, os.sep))
 
 from xl import *
 from xl import media, audioscrobbler, equalizer
 import plugins.manager, plugins, plugins.gui
 import pygst; pygst.require('0.10'); import gst
+
+# set up gettext for translations
+locale.setlocale(locale.LC_ALL, '')
+from gettext import gettext as _
+gettext.bindtextdomain('exaile', 'po')
+gettext.textdomain('exaile')
+# Note also before python 2.3 you need the following if
+# you need translations from non python code (glibc, libglade etc.)
+gtk.glade.bindtextdomain('exaile', '%s%slocale' % (prefix, os.sep))
+# there are other access points to this function
 
 sys_var = "HOME"
 if os.sys.platform.startswith("win"): sys_var = "USERPROFILE"

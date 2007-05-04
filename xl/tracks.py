@@ -128,10 +128,11 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None):
     items = []
     args = []
     where = ""
+    tokens = None
     if keyword != None and w:
         regex = re.compile("\s+WHERE\s", re.DOTALL)
         w = regex.sub(" AND ", w)
-        tokens = keyword.lower().split()
+        tokens = keyword.lower().split(' ')
         if not keyword.lower() in tokens:
             tokens.append(keyword.lower())
 
@@ -139,7 +140,7 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None):
         check_fields = ('title', 'artists.name', 'albums.name')
         for token in tokens:
             for field in check_fields:
-                anditems.append("LOWER(%s) LIKE \"%%%s%%\" " % (field, token))
+                anditems.append("%s LIKE \"%%%s%%\" " % (field, token))
 
         anditems = ' OR '.join(anditems)
 
@@ -197,7 +198,6 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None):
             regex = re.compile("FROM\s+(.*?)\s+AND", re.DOTALL)
             query = regex.sub(r"FROM \1 %s AND" % where, query)
 
-
     try:
         cur = db.realcursor()
         cur.execute(query)
@@ -211,6 +211,15 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None):
         if track == None:
             pass
         else:
+            if tokens and len(tokens) > 1:
+                check = 0
+                for field in ('artist', 'title', 'album'):
+                    for token in tokens:
+                        if getattr(track, field).lower().find(token) > -1:
+                            check += 1
+                if check < len(tokens) - 1: 
+                    continue
+                    
             if playlist != None:
                 if track.loc in items:
                     tracks.append(track)

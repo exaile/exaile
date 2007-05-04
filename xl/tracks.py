@@ -131,12 +131,21 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None):
     if keyword != None and w:
         regex = re.compile("\s+WHERE\s", re.DOTALL)
         w = regex.sub(" AND ", w)
-        keyword = keyword.lower()
-        where = ' WHERE (LOWER(title) LIKE "%%' + keyword + \
-            '%%" OR LOWER(artists.name) LIKE "%%' + keyword + \
-            '%%" OR LOWER(albums.name) LIKE "%%' + keyword + '%%") AND ' \
+        tokens = keyword.lower().split()
+        if not keyword.lower() in tokens:
+            tokens.append(keyword.lower())
+
+        anditems = []
+        check_fields = ('title', 'artists.name', 'albums.name')
+        for token in tokens:
+            for field in check_fields:
+                anditems.append("LOWER(%s) LIKE \"%%%s%%\" " % (field, token))
+
+        anditems = ' OR '.join(anditems)
+
+        where = 'WHERE (%s) AND ' \
             '(paths.id=tracks.path AND artists.id=tracks.artist AND ' \
-            'albums.id=tracks.album)'
+            'albums.id=tracks.album)' % anditems
 
     if w == None:
         if keyword != None or playlist != None:

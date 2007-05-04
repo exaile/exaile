@@ -221,6 +221,8 @@ class ExaileWindow(gobject.GObject):
             if v:
                 enabled_plugins.append("%s.py" % k)
 
+
+        print enabled_plugins
         self.pmanager.load_plugins("%s%splugins" % (SETTINGS_DIR, os.sep),
             enabled_plugins)
         self.load_songs(False, True)
@@ -1756,10 +1758,14 @@ class ExaileWindow(gobject.GObject):
 
         keyword = self.tracks_filter.get_text()
         if keyword.startswith("where ") and not widget: return
-        if keyword == "": keyword = None
-        self.songs = tracks.search(self, self.tracks.playlist_songs, keyword,
+        self.songs = tracks.search(self, self.tracks.playlist_songs, None,
             custom=custom)
         self.tracks.set_songs(self.songs, False)
+        
+        tokens = keyword.lower().split()
+        for token in tokens:
+            self.songs = tracks.search(self, self.songs, token, custom=custom)
+            self.tracks.set_songs(self.songs, False)
 
     def __on_volume_scroll(self, widget, ev):
         """

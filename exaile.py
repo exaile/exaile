@@ -221,8 +221,6 @@ class ExaileWindow(gobject.GObject):
             if v:
                 enabled_plugins.append("%s.py" % k)
 
-
-        print enabled_plugins
         self.pmanager.load_plugins("%s%splugins" % (SETTINGS_DIR, os.sep),
             enabled_plugins)
         self.load_songs(False, True)

@@ -62,7 +62,7 @@ prefix = '.'
 path_suffix = '%sshare%sexaile' % (os.sep, os.sep)
 if basedir.endswith(path_suffix):
     prefix = basedir[:-len(path_suffix)]
-    sys.path.append('%s%slib%sexaile' % (prefix, os.sep, os.sep))
+    sys.path.append(os.path.join(prefix, 'lib', 'exaile'))
 
 from xl import *
 from xl import media, audioscrobbler, equalizer
@@ -76,7 +76,7 @@ gettext.bindtextdomain('exaile', 'po')
 gettext.textdomain('exaile')
 # Note also before python 2.3 you need the following if
 # you need translations from non python code (glibc, libglade etc.)
-gtk.glade.bindtextdomain('exaile', '%s%slocale' % (prefix, os.sep))
+gtk.glade.bindtextdomain('exaile', os.path.join(prefix, 'share', 'locale'))
 # there are other access points to this function
 
 sys_var = "HOME"

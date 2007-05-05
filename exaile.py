@@ -900,7 +900,7 @@ class ExaileWindow(gobject.GObject):
         xlmisc.log('Last playlist loaded')
         self.emit('last-playlist-loaded')
 
-    def append_songs(self, songs, queue=False, play=True, title="Playlist"): 
+    def append_songs(self, songs, queue=False, play=True):
         """
             Adds songs to the current playlist
         """

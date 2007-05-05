@@ -96,6 +96,7 @@ class ExaileWindow(gobject.GObject):
         'pause-toggled': (gobject.SIGNAL_RUN_LAST, None, (media.Track,)),
         'quit': (gobject.SIGNAL_RUN_LAST, None, ()),
         'last-playlist-loaded': (gobject.SIGNAL_RUN_LAST, None, ()),
+        'tray-icon-toggled': (gobject.SIGNAL_RUN_LAST, None, (bool,)),
 
         # called when the title label is changed (sometimes it changes when
         # the track hasn't changed, for example when you're listening to a
@@ -826,12 +827,14 @@ class ExaileWindow(gobject.GObject):
             return
         if self.tray_icon: return
         self.tray_icon = xlmisc.TrayIcon(self)
+        self.emit('tray-icon-toggled', True)
 
     def remove_tray(self):
         """
             Removes the tray icon
         """
         if self.tray_icon:
+            self.emit('tray-icon-toggled', False)
             self.tray_icon.destroy()
             self.tray_icon = None
 

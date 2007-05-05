@@ -46,6 +46,13 @@ class SignalContainer(object):
             conns = self.dict[obj] = []
         conns.append(obj.connect(signal, func, *args))
 
+    def disconnect_object(self, obj):
+        conns = self.dict.get(obj, None)
+        if conns:
+            for conn in conns:
+                obj.disconnect(conn)
+            del self.dict[obj]
+
     def disconnect_all(self):
         for obj, conns in self.dict.iteritems():
             for conn in conns:

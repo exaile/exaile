@@ -1514,7 +1514,7 @@ class LibraryManager(object):
             Initializes the dialog
         """
         self.exaile = exaile
-        self.xml = gtk.glade.XML('exaile.glade', 'LibraryManager')
+        self.xml = gtk.glade.XML('exaile.glade', 'LibraryManager', 'exaile')
         self.dialog = self.xml.get_widget('LibraryManager')
         self.list = ListBox(self.xml.get_widget('lm_list_box'))
         self.dialog.set_transient_for(exaile.window)

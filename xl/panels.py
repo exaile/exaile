@@ -2854,7 +2854,8 @@ class FilesPanel(object):
         self.exaile.status.set_first(_("Scanning and adding files..."))
         songs = self.get_selected_songs()
         if songs:
-            self.exaile.append_songs(songs, queue=(widget == self.queue_item))
+            self.exaile.append_songs(songs, queue=(widget == self.queue_item),
+                play=False)
         self.counter = 0
         self.exaile.status.set_first(None)
 
@@ -2984,7 +2985,7 @@ class FilesPanel(object):
                     tr = tracks.read_track(self.exaile.db, self.exaile.all_songs,
                         dir)
                     if tr:
-                        self.exaile.append_songs((tr, ), title=_('Playlist'))
+                        self.exaile.append_songs((tr, ))
 
     def load_directory(self, dir, history=True, keyword=None):
         """

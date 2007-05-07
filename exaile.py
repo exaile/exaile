@@ -1686,7 +1686,9 @@ class ExaileWindow(gobject.GObject):
     @common.synchronized
     def new_page(self, title=_("Playlist"), songs=None, set_current=True):
         """
-            Create a new tab with the included title with the specified type
+            Create a new tab with the specified title, populates it with the
+            specified songs, and sets it to be the current page if set_current
+            is true.
         """
         # if there is currently only one tab, and it's an empty "Playlist"
         # tab, remove it before adding this new one

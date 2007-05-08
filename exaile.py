@@ -38,7 +38,7 @@ for val in sys.argv:
 if '-h' in sys.argv: sys.argv.remove('-h')
 if '--help' in sys.argv: sys.argv.remove('--help')
 if '--version' in sys.argv:
-    print _("Exaile version: %s") % __version__
+    print "Exaile version: %s" % __version__
     sys.exit(0)
 
 import pygtk
@@ -2384,7 +2384,7 @@ class ExaileWindow(gobject.GObject):
             if page.type != 'track': continue
             songs = page.songs
             h = open(os.path.join(SETTINGS_DIR, "saved", "playlist%.4d.m3u" % i),
-                "w"))
+                "w")
             h.write("# PLAYLIST: %s\n" % title)
             for song in songs:
                 if song.type == 'podcast': continue

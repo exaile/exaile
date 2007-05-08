@@ -204,7 +204,7 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None):
         cur.execute(query)
     except Exception, e:
         xlmisc.log(query)
-        common.error(parent, _("Query Error: %s") str(e))
+        common.error(parent, _("Query Error: %s") + str(e))
         raise e
 
     for row in cur.fetchall():

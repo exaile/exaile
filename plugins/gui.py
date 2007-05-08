@@ -69,7 +69,7 @@ class PluginManager(object):
 
         pb = gtk.CellRendererPixbuf()
         text = gtk.CellRendererText()
-        col = gtk.TreeViewColumn("Plugin")
+        col = gtk.TreeViewColumn(_("Plugin"))
         col.pack_start(pb, False)
         col.pack_start(text, False)
         col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
@@ -83,7 +83,7 @@ class PluginManager(object):
         text = gtk.CellRendererToggle()
         text.set_property('activatable', True)
         text.connect('toggled', self.toggle_cb, self.model)
-        col = gtk.TreeViewColumn("Enabled", text)
+        col = gtk.TreeViewColumn(_("Enabled"), text)
         col.add_attribute(text, 'active', 2)
         col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
         self.list.append_column(col)
@@ -139,7 +139,7 @@ class PluginManager(object):
         """
             Downloads the selected plugin 
         """
-        download_dir = "%s%splugins" % (self.app.get_settings_dir(), os.sep)
+        download_dir = os.path.join(self.app.get_settings_dir(), 'plugins')
 
         try:
             # if the directory does not exist, create it
@@ -150,7 +150,7 @@ class PluginManager(object):
             xlmisc.log('Downloading %s from %s' % (file, download_url))
 
             plugin = urllib.urlopen(download_url).read()
-            h = open("%s%s%s" % (download_dir, os.sep, file), 'w')
+            h = open(os.path.join(download_dir, file), 'w')
             h.write(plugin)
             h.close()
         
@@ -170,8 +170,8 @@ class PluginManager(object):
             gobject.idle_add(self.install_plugin)
         except Exception, e:
             model.set_value(iter, 5, False)
-            gobject.idle_add(common.error, self.parent, "%s could "
-                "not be installed: %s" % (file, e))
+            gobject.idle_add(common.error, self.parent, _("%s could "
+                "not be installed: %s") % (file, e))
             xlmisc.log_exception()
 
     def check_fetch_avail(self, *e):
@@ -181,9 +181,9 @@ class PluginManager(object):
         if self.plugin_nb.get_current_page() != 0: return
         self.avail_version_label.set_text('')
         self.avail_author_label.set_text('')
-        self.avail_name_label.set_markup('<b>No Plugin Selected</b>')
-        self.avail_description.get_buffer().set_text("Fetching available"
-            " plugin list...")
+        self.avail_name_label.set_markup(_('<b>No Plugin Selected</b>'))
+        self.avail_description.get_buffer().set_text(_("Fetching available"
+            " plugin list..."))
         self.avail_model.clear()
         self.fetch_available_plugins(self.avail_url)
         xlmisc.log('Fetching available plugin list')
@@ -241,14 +241,14 @@ class PluginManager(object):
         self.avail_description = self.xml.get_widget('avail_description_view')
 
         text = gtk.CellRendererText()
-        col = gtk.TreeViewColumn('Plugin')
+        col = gtk.TreeViewColumn(_('Plugin'))
         col.pack_start(text, False)
         col.set_expand(True)
         col.set_attributes(text, text=0)
         self.avail_list.append_column(col)
 
         text = gtk.CellRendererText()
-        col = gtk.TreeViewColumn('Ver')
+        col = gtk.TreeViewColumn(_('Ver'))
         col.pack_start(text, False)
         col.set_expand(False)
         col.set_attributes(text, text=1)
@@ -257,14 +257,14 @@ class PluginManager(object):
         text = gtk.CellRendererToggle()
         text.set_property('activatable', True)
         text.connect('toggled', self.avail_toggle_cb, self.avail_model)
-        col = gtk.TreeViewColumn("Install", text)
+        col = gtk.TreeViewColumn(_("Install"), text)
         col.add_attribute(text, 'active', 5)
         col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
         self.avail_list.append_column(col)
 
         self.avail_list.set_model(self.avail_model)
-        self.avail_description.get_buffer().set_text("Fetching available"
-            " plugin list...")
+        self.avail_description.get_buffer().set_text(_("Fetching available"
+            " plugin list..."))
         selection = self.avail_list.get_selection()
         selection.connect('changed', self.avail_row_selected)
 
@@ -280,7 +280,7 @@ class PluginManager(object):
         author = model.get_value(iter, 2)
         description = model.get_value(iter, 3)
 
-        self.avail_name_label.set_markup('<b>%s</b>' % name)
+        self.avail_name_label.set_markup('<b>%s</b>' % common.escape_xml(name))
         self.avail_version_label.set_label(version)
         self.avail_author_label.set_label(author)
         self.avail_description.get_buffer().set_text(description)
@@ -332,10 +332,10 @@ class PluginManager(object):
 
             try:
                 del sys.modules[re.sub(r'\.pyc?$', '', plugin.FILE_NAME)]
-                os.remove("%s%splugins%s%s" % (self.app.get_settings_dir(), 
-                    os.sep, os.sep, plugin.FILE_NAME))
-                os.remove("%s%splugins%s%sc" % (self.app.get_settings_dir(), 
-                    os.sep, os.sep, plugin.FILE_NAME))
+                os.remove(os.path.join(self.app.get_settings_dir(), 'plugins',
+                    plugin.FILE_NAME))
+                os.remove(os.path.join(self.app.get_settings_dir(), 'plugins',
+                    plugin.FILE_NAME + 'c'))
             except:
                 xlmisc.log_exception()
 

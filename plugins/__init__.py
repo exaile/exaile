@@ -67,14 +67,14 @@ class PluginConfigDialog(gtk.Dialog):
         """
             Initializes the dialog
         """
-        gtk.Dialog.__init__(self, "Plugin Configuration", parent)
+        gtk.Dialog.__init__(self, _("Plugin Configuration"), parent)
         self.add_button("gtk-cancel", gtk.RESPONSE_CANCEL)
         self.add_button("gtk-ok", gtk.RESPONSE_OK)
 
         self.main = self.child
         self.main.set_spacing(3)
 
-        label = gtk.Label("<b>%s Configuration</b>" %
+        label = gtk.Label(_("<b>%s Configuration</b>") %
             common.escape_xml(plugin))
         label.set_markup(label.get_label())
         self.main.pack_start(label, False, False)

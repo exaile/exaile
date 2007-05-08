@@ -765,7 +765,8 @@ class TracksListCtrl(gtk.VBox):
 
         # edit specific common fields
         for menu_item in ('title', 'artist', 'album', 'genre', 'year'):
-            item = em.append("Edit %s" % menu_item.capitalize(),
+            #Obs.: The menu_item.capitalize() will be substituted by Title, Artist, Album and Year. Since these   strings were already extracted in another part of exaile code, then _(menu_item.capitalize() will be substituted by the translated string in exaile.
+            item = em.append(_("Edit %s") % _(menu_item.capitalize()),
                 self.edit_field, data=menu_item)
 
         em.append_separator()
@@ -825,8 +826,8 @@ class TracksListCtrl(gtk.VBox):
         text = getattr(songs[0], data)
 
         dialog = xlmisc.TextEntryDialog(self.exaile.window, 
-            "Enter the %s for the selected track(s)" % data.capitalize(),
-            "Edit %s" % data.capitalize())
+            _("Enter the %s for the selected track(s)") % _(data.capitalize()),
+            _("Edit %s") % _(data.capitalize()))
         dialog.set_value(text)
 
         if dialog.run() == gtk.RESPONSE_OK:

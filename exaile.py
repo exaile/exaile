@@ -2383,7 +2383,7 @@ class ExaileWindow(gobject.GObject):
             title = self.playlists_nb.get_tab_label(page).title
             if page.type != 'track': continue
             songs = page.songs
-            h = open(os.path.join(SETTINGS_DIR, "saved", "playlist%.4d.m3u" % i,
+            h = open(os.path.join(SETTINGS_DIR, "saved", "playlist%.4d.m3u" % i),
                 "w"))
             h.write("# PLAYLIST: %s\n" % title)
             for song in songs:

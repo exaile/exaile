@@ -313,13 +313,14 @@ class Preferences(object):
     """
         Preferences Dialog
     """
-    order = ('General', 'Advanced')
-    items = ({'General':
-                ('Library',
-                'Notification',
-                'Last.fm',
-                'Radio'),
-            'Advanced':
+
+    order = (_("General"), _("Advanced"))
+    items = ({_("General"):
+                (_("Library"),
+                _('Notification'),
+                _('Last.fm'),
+                _('Radio')),
+            _("Advanced"):
                 '',
             })
     def __init__(self, parent):
@@ -354,7 +355,7 @@ class Preferences(object):
 
         self.tree = self.xml.get_widget('prefs_tree')
         text = gtk.CellRendererText()
-        col = gtk.TreeViewColumn('Preferences', text, text=0)
+        col = gtk.TreeViewColumn(_('Preferences'), text, text=0)
         self.tree.append_column(col)
 
         self.model = gtk.TreeStore(str, int)
@@ -363,10 +364,10 @@ class Preferences(object):
         count = 0
         for header in self.order:
             items = self.items[header]
-            node = self.model.append(None, [header, count]) 
+            node = self.model.append(None, [_(header), count]) # header is a string that must be translated by gettext, therefore it is necessary to wrap it in _() 
             count += 1
             for item in items:
-                self.model.append(node, [item, count])
+                self.model.append(node, [_(item), _(count)]) # item and count are string that must be translated by gettext, therefore it is necessary to wrap them in _() 
                 count += 1
             self.tree.expand_row(self.model.get_path(node), False)
 

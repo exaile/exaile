@@ -38,7 +38,7 @@ for val in sys.argv:
 if '-h' in sys.argv: sys.argv.remove('-h')
 if '--help' in sys.argv: sys.argv.remove('--help')
 if '--version' in sys.argv:
-    print "Exaile version:", __version__
+    print _("Exaile version: %s") % __version__
     sys.exit(0)
 
 import pygtk
@@ -461,7 +461,7 @@ class ExaileWindow(gobject.GObject):
 
         self.new_progressbar = self.xml.get_widget('new_progressbar')
         self.new_progressbar.set_fraction(0)
-        self.new_progressbar.set_text("Not Playing")
+        self.new_progressbar.set_text(_("Not Playing"))
         self.new_progressbar.connect('button-press-event', self.seek)
 
         self.clear_button = self.xml.get_widget('clear_button')
@@ -778,7 +778,7 @@ class ExaileWindow(gobject.GObject):
             if 'nocover' in self.cover.loc: return
             track = self.player.current
             
-            xlmisc.CoverWindow(self.window, self.cover.loc, "%s by %s" %
+            xlmisc.CoverWindow(self.window, self.cover.loc, _("%s by %s") %
                 (track.album, track.artist))
         elif event.button == 3:
             if not self.player.current: return
@@ -863,15 +863,15 @@ class ExaileWindow(gobject.GObject):
             files = os.listdir(dir)
             for i, file in enumerate(files):
                 if not file.endswith(".m3u"): continue
-                h = open("%s%s%s" % (dir, os.sep, file))
+                h = open(os.path.join(dir, file))
                 line = h.readline()
                 h.close()
-                title = "Playlist"
+                title = _("Playlist")
                 m = re.search('^# PLAYLIST: (.*)$', line)
                 if m:
                     title = m.group(1)
 
-                self.import_m3u("%s%s%s" % (dir, os.sep, file), title=title,
+                self.import_m3u(os.path.join(dir, file), title=title,
                     set_current=False)
 
             if last_active > -1:
@@ -880,8 +880,8 @@ class ExaileWindow(gobject.GObject):
 
         # load queue
         if self.settings.get_boolean('save_queue', True):
-            if os.path.isfile("%s%squeued.save" % (dir, os.sep)):
-                h = open("%s%squeued.save" % (dir, os.sep))
+            if os.path.isfile(os.path.join(dir, "queued.save")):
+                h = open(os.path.join(dir, "queued.save"))
                 for line in h.readlines():
                     line = line.strip()
                     song = self.all_songs.for_path(line)
@@ -1055,7 +1055,7 @@ class ExaileWindow(gobject.GObject):
         """
             Returns a new database connection
         """
-        loc = "%s%smusic.db" % (SETTINGS_DIR, os.sep)
+        loc = os.path.join(SETTINGS_DIR, "music.db")
         database = db.DBManager(loc)
         database.add_function_create(('THE_CUTTER', 1, tracks.the_cutter))
         return database
@@ -1066,9 +1066,8 @@ class ExaileWindow(gobject.GObject):
         """
 
         im = False
-        if not os.path.isfile("%s%smusic.db" % (SETTINGS_DIR,
-            os.sep)):
-                im = True
+        if not os.path.isfile(os.path.join(SETTINGS_DIR, "music.db")):
+            im = True
         try:
             self.db = self.get_database()
         except db.DBOperationalError, e:
@@ -1077,10 +1076,10 @@ class ExaileWindow(gobject.GObject):
             sys.exit(1)
         if im:
             try:
-                self.db.import_sql("sql/db.sql")
+                self.db.import_sql(os.path.join("sql", "db.sql"))
             except db.DBOperationalError, e:
-                common.error(self.window, "Error "
-                    "creating collection database: %s" % (str(e)))
+                common.error(self.window, _("Error "
+                    "creating collection database: %s") % (str(e)))
                 sys.exit(1)
 
         # here we check for the "version" table.  If it's there, it's an old
@@ -1128,7 +1127,7 @@ class ExaileWindow(gobject.GObject):
             if sys.argv[1].endswith(".m3u") or sys.argv[1].endswith(".pls"):
                 gobject.idle_add(self.import_m3u, sys.argv[1], True)
             else:
-                if not self.tracks: self.new_page("Last", [])
+                if not self.tracks: self.new_page(_("Last"), [])
         if first_run: 
             gobject.idle_add(xlmisc.finish)
             gobject.idle_add(self.load_last_playlist)
@@ -1297,8 +1296,8 @@ class ExaileWindow(gobject.GObject):
             Updates the seeker position, the "now playing" title, and
             submits the track to last.fm when appropriate
         """
-        self.status.set_track_count("%d showing, %d in collection" % (len(self.songs),
-            len(self.all_songs)))   
+        self.status.set_track_count(_("%d showing, %d in collection") %
+            (len(self.songs), len(self.all_songs)))   
         track = self.player.current
         if GAMIN_AVAIL and self.mon:
             self.mon.handle_events()
@@ -1358,7 +1357,7 @@ class ExaileWindow(gobject.GObject):
         self.artist_label = self.xml.get_widget('artist_label')
         if track == None:
             self.new_progressbar.set_fraction(0)
-            self.new_progressbar.set_text("Not Playing")
+            self.new_progressbar.set_text(_("Not Playing"))
             self.title_label.set_label(_("Not Playing"))
             self.artist_label.set_label(_("Stopped"))
             self.rating_combo.set_active(0)
@@ -1370,21 +1369,21 @@ class ExaileWindow(gobject.GObject):
 
         album = track.album
         artist = track.artist
-        if album == "": album = "Unknown"
-        if artist == "": artist = "Unknown"
+        if album == "": album = _("Unknown")
+        if artist == "": artist = _("Unknown")
 
         self.title_label.set_label(track.title)
 
         # set up the playing/track labels based on the type of track
 
-        self.window.set_title("Exaile: playing %s from %s by %s" %
+        self.window.set_title(_("Exaile: playing %s from %s by %s") %
             (track.title, album, artist))
-        self.artist_label.set_label("from %s\nby %s" % (album, artist))
+        self.artist_label.set_label(_("from %s\nby %s") % (album, artist))
 #        if track.type == 'stream':
-#            self.artist_label.set_label("\n\non %s" % track.artist)
+#            self.artist_label.set_label(_("\n\non %s") % track.artist)
 
         if self.tray_icon:
-            self.tray_icon.set_tooltip("Playing %s\nfrom %s\nby %s" %
+            self.tray_icon.set_tooltip(_("Playing %s\nfrom %s\nby %s") %
                 (track.title, album, artist))
 
         row = self.db.read_one("tracks, paths", "paths.name, user_rating", 
@@ -1429,7 +1428,8 @@ class ExaileWindow(gobject.GObject):
         
         for cover in covers:
             if(cover['status'] == 200):
-                savepath="%s%scovers%sstreamCover.jpg" % (SETTINGS_DIR, os.sep, os.sep)
+                savepath = os.path.join(SETTINGS_DIR, "covers",
+                    "streamCover.jpg")
                 handle = open(savepath, "w")
                 handle.write(cover['data'])
                 handle.close()
@@ -1454,7 +1454,7 @@ class ExaileWindow(gobject.GObject):
         # loop through all of the covers that have been found
         for cover in covers:
             if(cover['status'] == 200):
-                cover.save("%s%scovers" % (SETTINGS_DIR, os.sep))
+                cover.save(os.path.join(SETTINGS_DIR, "covers"))
                 xlmisc.log(cover['filename'])
                 self.cover.set_image(cover['filename'])
 
@@ -1468,8 +1468,7 @@ class ExaileWindow(gobject.GObject):
             This checks to see if the image is too old for Amazon's ULA, and
             if it is, it refetches the image
         """
-        info = os.stat('%s%scovers%s%s' % (SETTINGS_DIR, os.sep, os.sep,
-            image))
+        info = os.stat(os.path.join(SETTINGS_DIR, 'covers', image))
 
         max_time = 30 * 24 * 60 * 60 # 1 month
         if time.time() - info[9] > max_time:
@@ -1488,7 +1487,7 @@ class ExaileWindow(gobject.GObject):
         """
         w = self.cover_width
         if not popup:
-            self.cover.set_image("images%snocover.png" % os.sep)
+            self.cover.set_image(os.path.join("images", "nocover.png"))
         if track == None: return
         artist_id = tracks.get_column_id(self.db, 'artists', 'name', track.artist)
         album_id = tracks.get_album_id(self.db, artist_id, track.album)
@@ -1502,19 +1501,17 @@ class ExaileWindow(gobject.GObject):
                 if cover:
                     self.cover.set_image(cover)
                     return
-                return "images%snocover.png" % os.sep
-            if os.path.isfile("%s%scovers%s%s" %
-                (SETTINGS_DIR, os.sep, os.sep, row[0])):
+                return os.path.join("images", "nocover.png")
+            if os.path.isfile(os.path.join(SETTINGS_DIR, "covers", row[0])):
 
-                if popup: return "%s%scovers%s%s" % \
-                    (SETTINGS_DIR, os.sep, os.sep, row[0])
+                if popup: return os.path.join(SETTINGS_DIR, "covers", row[0])
 
                 # check to see if we need to recache this image
                 if row[1]:
                     if not self.check_image_age(album_id, row[0]): return
 
-                self.cover.set_image("%s%scovers%s%s" %
-                    (SETTINGS_DIR, os.sep, os.sep, row[0]))
+                self.cover.set_image(os.path.join(SETTINGS_DIR, "covers",
+                    row[0]))
                 return
 
         cover = self.fetch_from_fs(track)
@@ -1523,7 +1520,7 @@ class ExaileWindow(gobject.GObject):
             else: self.cover.set_image(cover)
             return
 
-        if popup != None: return "images%snocover.png" % os.sep
+        if popup != None: return os.path.join("images", "nocover.png")
         self.stop_cover_thread()
 
         if self.settings.get_boolean("fetch_covers", True):
@@ -1555,8 +1552,8 @@ class ExaileWindow(gobject.GObject):
 
         for f in names:
             f = f.strip()
-            if os.path.isfile("%s%s%s" % (dir, os.sep, f)):
-                return "%s%s%s" % (dir, os.sep, f)
+            if os.path.isfile(os.path.join(dir, f)):
+                return os.path.join(dir, f)
 
         return None
 
@@ -1579,7 +1576,7 @@ class ExaileWindow(gobject.GObject):
         self.cover_box = gtk.EventBox()
         self.cover_box.add(self.cover)
         self.xml.get_widget('image_box').pack_start(self.cover_box)
-        self.cover.set_image('images%snocover.png' % os.sep)
+        self.cover.set_image(os.path.join('images', 'nocover.png'))
 
         # set the font/etc 
         self.title_label = self.xml.get_widget('title_label')
@@ -1618,7 +1615,7 @@ class ExaileWindow(gobject.GObject):
         album_id = tracks.get_album_id(self.db, artist_id, track.album)
 
         self.db.execute("UPDATE albums SET image='nocover' WHERE id=?", (album_id,))
-        self.cover.set_image("images%snocover.png" % os.sep)
+        self.cover.set_image(os.path.join("images", "nocover.png"))
 
     def cover_menu_activate(self, item, user_param=None): 
         """
@@ -1626,14 +1623,14 @@ class ExaileWindow(gobject.GObject):
             selected
         """
         if item == self.cover_fetch:
-            self.status.set_first(_("Fetching from amazon..."))
+            self.status.set_first(_("Fetching from Amazon..."))
             xlmisc.CoverFrame(self, self.player.current)
         elif item == self.cover_search:
             xlmisc.CoverFrame(self, self.player.current, True)
         elif item == "showcover" or item == self.cover_full:
             if "nocover" in self.cover.loc: return
             track = self.player.current
-            xlmisc.CoverWindow(self.window, self.cover.loc, "%s by %s" %
+            xlmisc.CoverWindow(self.window, self.cover.loc, _("%s by %s") %
                 (track.album, track.artist))
         elif item == self.cover_custom:
             track = self.player.current
@@ -1643,8 +1640,8 @@ class ExaileWindow(gobject.GObject):
                 filter.add_pattern(pattern)
 
             dialog = gtk.FileChooserDialog(_("Choose an image"), self.window,
-                buttons=('Cancel',
-                gtk.RESPONSE_CANCEL, 'Open', gtk.RESPONSE_OK))
+                buttons=(_('Cancel'),
+                gtk.RESPONSE_CANCEL, _('Open'), gtk.RESPONSE_OK))
             dialog.set_filter(filter)
             dialog.set_current_folder(self.get_last_dir())
 
@@ -1659,8 +1656,7 @@ class ExaileWindow(gobject.GObject):
 
                 (f, ext) = os.path.splitext(dialog.get_filename())
                 newname = md5.new(data).hexdigest() + ext
-                handle = open("%s%scovers%s%s" %
-                    (self.get_settings_dir(), os.sep, os.sep,
+                handle = open(os.path.join(self.get_settings_dir(), "covers",
                     newname), "w")
                 handle.write(data)
                 handle.close()
@@ -1679,9 +1675,8 @@ class ExaileWindow(gobject.GObject):
 
                 if track == self.player.current:
                     self.stop_cover_thread()
-                    self.cover.set_image("%s%scovers%s%s" %
-                        (self.get_settings_dir(), os.sep, os.sep,
-                        newname))
+                    self.cover.set_image(os.path.join(self.get_settings_dir(),
+                        "covers", newname))
 
     @common.synchronized
     def new_page(self, title=_("Playlist"), songs=None, set_current=True):
@@ -1808,7 +1803,8 @@ class ExaileWindow(gobject.GObject):
         self.settings['volume'] = frac_value
         if not self.window.get_property('visible') and  self.settings.get_boolean("osd/enabled", True):
             pop = xlmisc.get_osd(self, xlmisc.get_osd_settings(self.settings))
-            vol_text = "<big><b> Changing volume: %d %% </b></big>" % self.get_volume_percent()
+            vol_text = _("<big><b> Changing volume: %d %% </b></big>") % \
+                self.get_volume_percent()
             pop.show_osd(vol_text, None)
 
     def seek(self, progress, event): 
@@ -1932,8 +1928,8 @@ class ExaileWindow(gobject.GObject):
             if len(songs) >= count: break
 
         if not songs:
-            self.status.set_first("Could not find any"
-            " suggested songs", 4000)
+            self.status.set_first(_("Could not find any"
+            " suggested songs"), 4000)
 
         for song in songs:
             self.tracks.append_song(song)
@@ -2040,13 +2036,13 @@ class ExaileWindow(gobject.GObject):
             Called by ExailePlayer when playback stops
         """
         self.status.set_first(None)
-        self.cover.set_image("images%snocover.png" % os.sep)
+        self.cover.set_image(os.path.join("images", "nocover.png"))
         self.stop_cover_thread()
 
         self.playing = False
         if self.tray_icon:
-            self.tray_icon.set_tooltip("Exaile Media Player")
-        self.window.set_title("Exaile!")
+            self.tray_icon.set_tooltip(_("Exaile Media Player"))
+        self.window.set_title(_("Exaile!"))
 
         if track:
             # PLUGIN: alert plugins that this track has stopped playing
@@ -2066,7 +2062,7 @@ class ExaileWindow(gobject.GObject):
             a local file (ie, file:///somefile.m3u) or online.
         """
         xlmisc.log("Importing %s" % path)
-        self.status.set_first("Importing playlist...")
+        self.status.set_first(_("Importing playlist..."))
         xlmisc.finish()
 
         url = list(urlparse.urlsplit(path))
@@ -2101,7 +2097,7 @@ class ExaileWindow(gobject.GObject):
             else: continue
 #                tr = media.Track(urlparse.urlunsplit(url))
 #                tr.type = 'stream'
-#                tr.title = "Radio Stream"
+#                tr.title = _("Radio Stream")
 
 #                if first and play:
 #                    play = tr
@@ -2161,7 +2157,8 @@ class ExaileWindow(gobject.GObject):
             filter.add_pattern(pattern)
 
         dialog = gtk.FileChooserDialog(_("Choose a file"), self.window,
-            buttons=('Cancel', gtk.RESPONSE_CANCEL, 'Open', gtk.RESPONSE_OK))
+            buttons=(_('Cancel'), gtk.RESPONSE_CANCEL,
+            _('Open'), gtk.RESPONSE_OK))
 
         new_tab = gtk.CheckButton(_("Open in new tab"))
         dialog.set_extra_widget(new_tab)
@@ -2212,8 +2209,8 @@ class ExaileWindow(gobject.GObject):
 
         dialog = gtk.FileChooserDialog(_("Choose a file"),
             self.window, gtk.FILE_CHOOSER_ACTION_SAVE, 
-            buttons=('Save', gtk.RESPONSE_OK, 'Cancel',
-            gtk.RESPONSE_CANCEL))
+            buttons=(_('Cancel'), gtk.RESPONSE_CANCEL,
+            _('Save'), gtk.RESPONSE_OK))
         dialog.set_current_folder(self.get_last_dir())
         dialog.set_filter(filter)
 
@@ -2367,17 +2364,17 @@ class ExaileWindow(gobject.GObject):
         for thread in self.thread_pool:
             thread.done = True
 
-        dir = "%s%ssaved" % (SETTINGS_DIR, os.sep)
+        dir = os.path.join(SETTINGS_DIR, "saved")
         if not os.path.isdir(dir):
             os.mkdir(dir)
 
         # delete all current saved playlists
         for file in os.listdir(dir):
             if file.endswith(".m3u"):
-                os.unlink("%s%s%s" % (dir, os.sep, file))
+                os.unlink(os.path.join(dir, file))
 
-        if os.path.isfile("%s%squeued.save" % (dir, os.sep)):
-            os.unlink("%s%squeued.save" % (dir, os.sep))
+        if os.path.isfile(os.path.join(dir, "queued.save")):
+            os.unlink(os.path.join(dir, "queued.save"))
 
         if self.player.current: self.player.current.stop()
 
@@ -2386,8 +2383,8 @@ class ExaileWindow(gobject.GObject):
             title = self.playlists_nb.get_tab_label(page).title
             if page.type != 'track': continue
             songs = page.songs
-            h = open("%s%ssaved%splaylist%.4d.m3u" % 
-                (SETTINGS_DIR, os.sep, os.sep, i), "w")
+            h = open(os.path.join(SETTINGS_DIR, "saved", "playlist%.4d.m3u" % i,
+                "w"))
             h.write("# PLAYLIST: %s\n" % title)
             for song in songs:
                 if song.type == 'podcast': continue
@@ -2400,7 +2397,7 @@ class ExaileWindow(gobject.GObject):
 
         # save queued tracks
         if self.player.queued:
-            h = open("%s%squeued.save" % (dir, os.sep), "w")
+            h = open(os.path.join(dir, "queued.save"), "w")
             for song in self.player.queued:
                 h.write("%s\n" % song.loc)
             h.close()
@@ -2454,8 +2451,8 @@ def check_dirs():
     """
         Makes sure the required directories have been created
     """
-    covers = "%s%scovers" % (SETTINGS_DIR, os.sep)
-    cache = "%s%scache" % (SETTINGS_DIR, os.sep)
+    covers = os.path.join(SETTINGS_DIR, "covers")
+    cache = os.path.join(SETTINGS_DIR, "cache")
     if not os.path.isdir(covers):
         os.mkdir(covers)
 

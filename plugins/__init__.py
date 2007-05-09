@@ -15,6 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 import os, gtk
 from xl import common
+from gettext import gettext as _
 
 def name(file):
     return os.path.basename(file.replace('.pyc', '.py'))

@@ -735,7 +735,7 @@ class CollectionPanel(object):
         """
         return xl.tracks.search_tracks(self.exaile.window, self.db, all,
             self.keyword, None, self.where)
-    
+
     def __check_track_function(self, model, path, iter, track_needed):
         """
            Checks if track is equal to given while traversing the tree,
@@ -757,12 +757,13 @@ class CollectionPanel(object):
         self.model.foreach(self.__check_track_function, track)
         path = self.__track_path
         if path is None:
-           common.info(self.exaile.window, _("Track is not present in collection"))
+            common.info(self.exaile.window,
+                _("Track is not present in collection"))
         else:
-           self.tree.set_model(self.model)
-           self.tree.expand_to_path(path)
-           gobject.idle_add(self.tree.scroll_to_cell, path, None, True, 0.5)
-           gobject.idle_add(self.tree.set_cursor, path)
+            self.tree.set_model(self.model)
+            self.tree.expand_to_path(path)
+            gobject.idle_add(self.tree.scroll_to_cell, path, None, True, 0.5)
+            gobject.idle_add(self.tree.set_cursor, path)
 
     @common.threaded
     def append_info(self, node, songs=None, unknown=False):

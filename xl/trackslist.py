@@ -795,6 +795,9 @@ class TracksListCtrl(gtk.VBox):
             tpm.append_menu(_("Last.FM Options"), lfm)
             tpm.append_separator()
 
+        tpm.append(_("Show in Collection"), self.show_in_collection)
+        tpm.append_separator()
+
         rm = xlmisc.Menu()
         self.remove_tracks = rm.append(_("Remove from Playlist"),
             self.delete_tracks, None, 'remove')
@@ -812,6 +815,13 @@ class TracksListCtrl(gtk.VBox):
 
             self.plugins_item = tpm.append(_("Plugins"), None, 'gtk-execute')
             self.plugins_item.set_submenu(self.exaile.plugins_menu)
+
+    def show_in_collection(self, item, event):
+        """
+            Go to collection tree item corresponding to current track
+        """
+        track = self.get_selected_track()
+        self.exaile.collection_panel.show_in_collection(track)
 
     def send_lastfm_command(self, command):
         if self.exaile.player.lastfmsrc:

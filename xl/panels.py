@@ -735,6 +735,34 @@ class CollectionPanel(object):
         """
         return xl.tracks.search_tracks(self.exaile.window, self.db, all,
             self.keyword, None, self.where)
+    
+    def __check_track_function(self, model, path, iter, track_needed):
+        """
+           Checks if track is equal to given while traversing the tree,
+           called by show_in_collection
+        """
+        node = self.model.get_value(iter, 1)
+        if isinstance(node, media.Track) and node.loc == track_needed.loc:
+            self.__track_path = path
+            return True
+
+    def show_in_collection(self, track):
+        """
+           Shows given track in collection panel:
+           1. Expand tree to this node
+           2. Scroll tree to centerize node vertically if possible
+           3. Set cursor to it
+        """
+        self.__track_path = None
+        self.model.foreach(self.__check_track_function, track)
+        path = self.__track_path
+        if path is None:
+           common.info(self.exaile.window, _("Track is not present in collection"))
+        else:
+           self.tree.set_model(self.model)
+           self.tree.expand_to_path(path)
+           gobject.idle_add(self.tree.scroll_to_cell, path, None, True, 0.5)
+           gobject.idle_add(self.tree.set_cursor, path)
 
     @common.threaded
     def append_info(self, node, songs=None, unknown=False):

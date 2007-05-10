@@ -21,7 +21,6 @@ __version__ = '0.2.10svn'
 import traceback, sys, gobject
 gobject.threads_init()
 
-
 # this stuff is done first so that only the modules required to connect to an
 # already loaded exaile (if available) are loaded.  This helps with the speed
 # of remote commands, like --next, --prev
@@ -588,7 +587,7 @@ class ExaileWindow(gobject.GObject):
         """
         manager = plugins.gui.PluginManager(self, self.window, self.pmanager,
             self.update_plugin,
-            'http://www.exaile.org/cgi-bin/plugins/new_plugins.py?version=%s' %
+            'http://www.exaile.org/plugins/?version=%s' %
             self.get_plugin_location())
 
     def update_plugin(self, plugin):

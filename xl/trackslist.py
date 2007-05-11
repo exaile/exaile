@@ -34,7 +34,7 @@ class TracksListCtrl(gtk.VBox):
     default_columns = ('#', 'Title', 'Album', 'Artist', 'Length')
     col_items = ["#",
         _("Title"), _("Artist"), _("Album"), _("Length"), _("Disc"),
-        _("Rating"), _("Year"), _("Genre"), _("Bitrate")]
+        _("Rating"), _("Year"), _("Genre"), _("Bitrate"), _("Location")]
     col_map = {
         '#': 'track',
         _('Title'): 'title',
@@ -45,7 +45,8 @@ class TracksListCtrl(gtk.VBox):
         _('Rating'): 'rating',
         _('Year'): 'year',
         _('Genre'): 'genre',
-        _('Bitrate'): 'bitrate'
+        _('Bitrate'): 'bitrate',
+        _('Location'): 'io_loc'
         }
     size_map = {
         '#': 30,
@@ -57,7 +58,8 @@ class TracksListCtrl(gtk.VBox):
         _('Rating'): 80,
         _('Year'): 50,
         _('Genre'): 100,
-        _('Bitrate'): 30
+        _('Bitrate'): 30,
+        _('Location'): 100
     }
 
     prep = "track"
@@ -478,7 +480,7 @@ class TracksListCtrl(gtk.VBox):
 
                 if not resizable:
                     if name == _("Title") or name == _("Artist") or name == \
-                        _("Album"):
+                        _("Album") or name == _("Location"):
                         col.set_expand(True)
                         col.set_fixed_width(1)
                         col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)

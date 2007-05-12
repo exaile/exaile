@@ -52,9 +52,20 @@ sub print_info
  
 	my $song = $iface->get_title;
 	my $artist = $iface->get_artist;
+	my $album = $iface->get_album;
 	my $length = $iface->get_length;
-	Xchat::command ("me is playing $song by $artist [$length $pos\%]");
- 
+	if ($artist eq "")
+	{ 
+	  Xchat::command ("me is playing $song [$length $pos\%]");
+	}
+	elsif ($album eq "")
+	{
+	  Xchat::command ("me is playing $song by $artist [$length $pos\%]");
+	}
+	else
+	{ 
+	  Xchat::command ("me is playing $song by $artist from $album [$length $pos\%]");
+  }
 }
 sub unload {
     Xchat::print("Exaile! XChat unloaded");

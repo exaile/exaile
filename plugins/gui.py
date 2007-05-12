@@ -95,6 +95,7 @@ class PluginManager(object):
         self.list.set_model(self.model)
         self.dialog.show_all()
         selection.select_path(0)
+        self.fetched = False
 
         if avail_url: 
             self.setup_avail_tab()
@@ -178,7 +179,8 @@ class PluginManager(object):
         """
             Checks to see if the available plugin list needs to be fetched
         """
-        if self.plugin_nb.get_current_page() != 0: return
+        if self.plugin_nb.get_current_page() != 0 or self.fetched: return
+        self.fetched = True
         self.avail_version_label.set_text('')
         self.avail_author_label.set_text('')
         self.avail_name_label.set_markup(_('<b>No Plugin Selected</b>'))
@@ -338,6 +340,7 @@ class PluginManager(object):
                     plugin.FILE_NAME + 'c'))
             except:
                 xlmisc.log_exception()
+            self.fetched = False
 
     def configure_plugin(self, *e):
         """

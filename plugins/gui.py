@@ -119,6 +119,31 @@ class PluginManager(object):
         """
         self.plugin_install_button.set_sensitive(False)
         self.plugin_nb.set_sensitive(False)
+        self.download_plugins()
+
+    def done_installing(self, files):
+        # now we remove all the installed plugins from the available list
+        while True:
+            iter = self.avail_model.get_iter_first()
+            while True:
+                if not iter: break
+                file = self.avail_model.get_value(iter, 4)
+                if file in files:
+                    self.avail_model.remove(iter)
+                    break
+                iter = self.avail_model.iter_next(iter)
+            if not iter: break
+        self.plugin_install_button.set_sensitive(True)
+        self.load_plugin_list()
+        self.plugin_nb.set_sensitive(True)
+
+    @common.threaded
+    def download_plugins(self):
+        """
+            Downloads the selected plugin 
+        """
+        download_dir = os.path.join(self.app.get_settings_dir(), 'plugins')
+        files = []
         iter = self.avail_model.get_iter_first()
         while True:
             if not iter: break
@@ -126,54 +151,41 @@ class PluginManager(object):
             checked = self.avail_model.get_value(iter, 5)
             if checked:
                 file = self.avail_model.get_value(iter, 4)
-                self.download_plugin(file, self.avail_model, iter)
-                return
 
+                try:
+                    # if the directory does not exist, create it
+                    if not os.path.isdir(download_dir):
+                        os.mkdir(download_dir, 0777)
+                    download_url = "http://www.exaile.org/trac/browser/plugins/%s/%s?format=txt" \
+                        % (self.app.get_plugin_location(), file)
+                    xlmisc.log('Downloading %s from %s' % (file, download_url))
+
+                    plugin = urllib.urlopen(download_url).read()
+                    h = open(os.path.join(download_dir, file), 'w')
+                    h.write(plugin)
+                    h.close()
+                
+                    try:
+                        _name = re.sub(r'\.pyc?$', '', file)
+                        if file in sys.modules:
+                            del sys.modules[file]
+                    except Exception, e:
+                        xlmisc.log_exception()
+
+                    enabled_plugins = []
+                    for k, v in self.app.settings.get_plugins().iteritems():
+                        if v:
+                            enabled_plugins.append("%s.py" % k)
+                    self.manager.initialize_plugin(download_dir, file, enabled_plugins)
+                    files.append(file)
+                except Exception, e:
+                    model.set_value(iter, 5, False)
+                    gobject.idle_add(common.error, self.parent, _("%s could "
+                        "not be installed: %s") % (file, e))
+                    xlmisc.log_exception()
             iter = self.avail_model.iter_next(iter)
 
-        self.plugin_install_button.set_sensitive(True)
-        self.plugin_nb.set_sensitive(True)
-        self.load_plugin_list()
-
-    @common.threaded
-    def download_plugin(self, file, model, iter):
-        """
-            Downloads the selected plugin 
-        """
-        download_dir = os.path.join(self.app.get_settings_dir(), 'plugins')
-
-        try:
-            # if the directory does not exist, create it
-            if not os.path.isdir(download_dir):
-                os.mkdir(download_dir, 0777)
-            download_url = "http://www.exaile.org/trac/browser/plugins/%s/%s?format=txt" \
-                % (self.app.get_plugin_location(), file)
-            xlmisc.log('Downloading %s from %s' % (file, download_url))
-
-            plugin = urllib.urlopen(download_url).read()
-            h = open(os.path.join(download_dir, file), 'w')
-            h.write(plugin)
-            h.close()
-        
-            try:
-                _name = re.sub(r'\.pyc?$', '', file)
-                if file in sys.modules:
-                    del sys.modules[file]
-            except Exception, e:
-                xlmisc.log_exception()
-
-            gobject.idle_add(lambda: model.remove(iter))
-            enabled_plugins = []
-            for k, v in self.app.settings.get_plugins().iteritems():
-                if v:
-                    enabled_plugins.append("%s.py" % k)
-            self.manager.initialize_plugin(download_dir, file, enabled_plugins)
-            gobject.idle_add(self.install_plugin)
-        except Exception, e:
-            model.set_value(iter, 5, False)
-            gobject.idle_add(common.error, self.parent, _("%s could "
-                "not be installed: %s") % (file, e))
-            xlmisc.log_exception()
+        gobject.idle_add(self.done_installing, files)
 
     def check_fetch_avail(self, *e):
         """

@@ -34,7 +34,8 @@ class TracksListCtrl(gtk.VBox):
     default_columns = ('#', 'Title', 'Album', 'Artist', 'Length')
     col_items = ["#",
         _("Title"), _("Artist"), _("Album"), _("Length"), _("Disc"),
-        _("Rating"), _("Year"), _("Genre"), _("Bitrate"), _("Location")]
+        _("Rating"), _("Year"), _("Genre"), _("Bitrate"), _("Location"),
+        _("Filename")]
     col_map = {
         '#': 'track',
         _('Title'): 'title',
@@ -46,7 +47,8 @@ class TracksListCtrl(gtk.VBox):
         _('Year'): 'year',
         _('Genre'): 'genre',
         _('Bitrate'): 'bitrate',
-        _('Location'): 'io_loc'
+        _('Location'): 'io_loc',
+        _('Filename'): 'filename'
         }
     size_map = {
         '#': 30,
@@ -59,7 +61,8 @@ class TracksListCtrl(gtk.VBox):
         _('Year'): 50,
         _('Genre'): 100,
         _('Bitrate'): 30,
-        _('Location'): 100
+        _('Location'): 100,
+        _('Filename'): 50
     }
 
     prep = "track"
@@ -528,6 +531,13 @@ class TracksListCtrl(gtk.VBox):
             cell.set_property('text', '')
         else:
             cell.set_property('text', item.disc_id)
+
+    def filename_data_func(self, col, cell, model, iter):
+        """
+            Shows the filename of the track
+        """
+        item = model.get_value(iter, 0)
+        cell.set_property('text', os.path.basename(item.io_loc))
 
     def track_data_func(self, col, cell, model, iter):
         """

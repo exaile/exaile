@@ -107,6 +107,14 @@ class Track(gobject.GObject):
         self.next_func = None
         self.start_time = 0
 
+    def get_filename(self):
+        """
+            Returns the base filename of the track location
+        """
+        return os.path.basename(self.io_loc)
+
+    filename = property(get_filename)
+
     def set_info(self,loc="", title="", artist="",  
         album="", disc_id=0, genre="",
         track=0, length=0, bitrate=0, year="", 

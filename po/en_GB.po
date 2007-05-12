@@ -3,23 +3,24 @@
 # This file is distributed under the same license as the Exaile package.
 # Jeff Bailes, <thepizzaking@gmail.com>
 # 
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Exaile 0.2.5svn\n"
+"Project-Id-Version: Exaile 0.2.9b\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-13 11:19-0700\n"
-"PO-Revision-Date: 2006-12-13 13:25+1100\n"
+"POT-Creation-Date: 2007-03-06 15:48+1100\n"
+"PO-Revision-Date: 2007-03-06 16:01+1100\n"
 "Last-Translator: Jeff Bailes <thepizzaking@gmail.com>\n"
 "Language-Team: English/GB\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit"
 
-#: exaile.py:166 exaile.glade.h:87
+#: exaile.py:183 exaile.glade.h:85
 msgid "Exaile!"
 msgstr "Exaile!"
 
-#: exaile.py:214
+#: exaile.py:231
 msgid ""
 "You have not specified any search directories for your music library. You "
 "may do so now, or choose to do it later.  If you want to do it later, you "
@@ -31,36 +32,36 @@ msgstr ""
 "can manage your library search directories by going to Tools->Library "
 "Manager.  Do you want to choose your library directories now?"
 
-#: exaile.py:504 xl/xlmisc.py:1528
+#: exaile.py:582 xl/xlmisc.py:1540
 msgid "Add a directory"
 msgstr "Add a directory"
 
-#: exaile.py:506 xl/xlmisc.py:1530 exaile.glade.h:53
+#: exaile.py:584 xl/xlmisc.py:1542 exaile.glade.h:56
 msgid "Cancel"
 msgstr "Cancel"
 
-#: exaile.py:506 xl/xlmisc.py:1530
+#: exaile.py:584 xl/xlmisc.py:1542
 msgid "Choose"
 msgstr "Choose"
 
-#: exaile.py:509
+#: exaile.py:587
 msgid "Add tracks to current playlist after importing"
 msgstr "Add tracks to current playlist after importing"
 
-#: exaile.py:575
+#: exaile.py:654
 msgid "Queue"
 msgstr "Queue"
 
-#: exaile.py:602
+#: exaile.py:691
 msgid "Blacklist"
 msgstr "Blacklist"
 
-#: exaile.py:724 exaile.py:1388 exaile.py:1397 exaile.py:1432 exaile.py:1952
-#: xl/panels.py:3298 xl/panels.py:3397 exaile.glade.h:119
+#: exaile.py:827 exaile.py:1533 exaile.py:1542 exaile.py:1581 exaile.py:2057
+#: xl/panels.py:2790 xl/panels.py:2919 exaile.glade.h:115
 msgid "Playlist"
 msgstr "Playlist"
 
-#: exaile.py:768
+#: exaile.py:875
 msgid ""
 "Blacklisting the selected tracks will prevent them from being added to the "
 "library on rescan.  Are you sure you want to continue?"
@@ -68,86 +69,102 @@ msgstr ""
 "Blacklisting the selected tracks will prevent them from being added to the "
 "library on rescan.  Are you sure you want to continue?"
 
-#: exaile.py:847
+#: exaile.py:968
 #, python-format
 msgid "Error connecting to database: %s"
 msgstr "Error connecting to database: %s"
 
-#: exaile.py:880
+#: exaile.py:1000
 msgid "Loading library from database..."
 msgstr "Loading library from database..."
 
-#: exaile.py:916
-msgid "Scanning ipod..."
-msgstr "Scanning ipod..."
-
-#: exaile.py:1093 exaile.py:2183
+#: exaile.py:1239
 msgid "Submitting to Last.fm..."
 msgstr "Submitting to Last.fm..."
 
-#: exaile.py:1180
+#: exaile.py:1256 exaile.glade.h:107
+msgid "Not Playing"
+msgstr "Not Playing"
+
+#: exaile.py:1257 exaile.glade.h:145
+msgid "Stopped"
+msgstr "Stopped"
+
+#: exaile.py:1326
 msgid "No covers found."
 msgstr "No covers found."
 
-#: exaile.py:1243
+#: exaile.py:1389
 msgid "Fetching cover art from Amazon..."
 msgstr "Fetching cover art from Amazon..."
 
-#: exaile.py:1298
+#: exaile.py:1443
 msgid "View Full Image"
 msgstr "View Full Image"
 
-#: exaile.py:1300
+#: exaile.py:1445
 msgid "Fetch from Amazon"
 msgstr "Fetch from Amazon"
 
-#: exaile.py:1302
+#: exaile.py:1447
 msgid "Search Amazon"
 msgstr "Search Amazon"
 
-#: exaile.py:1304
+#: exaile.py:1449
 msgid "Set Custom Image"
 msgstr "Set Custom Image"
 
-#: exaile.py:1306
+#: exaile.py:1451
 msgid "Remove Cover"
 msgstr "Remove Cover"
 
-#: exaile.py:1330
+#: exaile.py:1475
 msgid "Fetching from amazon..."
 msgstr "Fetching from amazon..."
 
-#: exaile.py:1346
+#: exaile.py:1491
 msgid "Choose an image"
 msgstr "Choose an image"
 
-#: exaile.py:1514
+#: exaile.py:1709
 msgid "Podcast has not yet been downloaded"
 msgstr "Podcast has not yet been downloaded"
 
-#: exaile.py:1916 exaile.py:1967
+#: exaile.py:2022 exaile.py:2072
 msgid "Choose a file"
 msgstr "Choose a file"
 
-#: exaile.py:1919
+#: exaile.py:2025
 msgid "Open in new tab"
 msgstr "Open in new tab"
 
-#: exaile.py:1931
+#: exaile.py:2037
 msgid "Populating playlist..."
 msgstr "Populating playlist..."
 
-#: exaile.py:2026
+#: exaile.py:2130
 msgid "Enter the address"
 msgstr "Enter the address"
 
-#: exaile.py:2040
+#: exaile.py:2143
+msgid "You need the python-cddb package  in order to play audio discs."
+msgstr "You need the python-cddb package  in order to play audio discs."
+
+#: exaile.py:2148
 msgid "Audio Disc"
 msgstr "Audio Disc"
 
-#: exaile.py:2073
+#: exaile.py:2181
 msgid "Scanning collection..."
 msgstr "Scanning collection..."
+
+#: xl/audioscrobbler.py:29
+msgid "Failed to submit track to Last.fm."
+msgstr "Failed to submit track to Last.fm."
+
+#: xl/audioscrobbler.py:49
+msgid "Error logging into Last.fm."
+msgstr "Error logging into Last.fm."
 
 #: xl/filtergui.py:50
 msgid "Name"
@@ -157,150 +174,128 @@ msgstr "Name"
 msgid "Match any of the criteria"
 msgstr "Match any of the criteria"
 
-#: xl/fruit.py:28 xl/panels.py:61 xl/panels.py:76 xl/panels.py:85
+#: xl/panels.py:62 xl/panels.py:77 xl/panels.py:86
 msgid "seconds"
 msgstr "seconds"
 
-#: xl/fruit.py:34 xl/panels.py:67
+#: xl/panels.py:68
 msgid "and"
 msgstr "and"
 
-#: xl/fruit.py:49 xl/panels.py:97 xl/track.py:333 xl/trackslist.py:32
-#: xl/trackslist.py:37 xl/trackslist.py:48 xl/trackslist.py:434
-#: exaile.glade.h:38
-msgid "Artist"
-msgstr "Artist"
-
-#: xl/fruit.py:50 xl/fruit.py:56 xl/panels.py:98 xl/panels.py:108
-#: xl/panels.py:118 xl/panels.py:171
-msgid "is"
-msgstr "is"
-
-#: xl/fruit.py:52 xl/fruit.py:58 xl/panels.py:102 xl/panels.py:112
-#: xl/panels.py:122 xl/panels.py:175
-msgid "contains"
-msgstr "contains"
-
-#: xl/fruit.py:55 xl/panels.py:117 xl/trackslist.py:33 xl/trackslist.py:42
-#: xl/trackslist.py:53 exaile.glade.h:92
-msgid "Genre"
-msgstr "Genre"
-
-#: xl/fruit.py:61 xl/trackslist.py:33 xl/trackslist.py:40 xl/trackslist.py:51
-#: xl/trackslist.py:706 exaile.glade.h:129
-msgid "Rating"
-msgstr "Rating"
-
-#: xl/fruit.py:62 xl/fruit.py:78 xl/panels.py:128 xl/panels.py:133
-#: xl/panels.py:139 xl/panels.py:153
-msgid "at least"
-msgstr "at least"
-
-#: xl/fruit.py:64 xl/fruit.py:80 xl/panels.py:130 xl/panels.py:135
-#: xl/panels.py:141 xl/panels.py:155
-msgid "at most"
-msgstr "at most"
-
-#: xl/fruit.py:66 xl/fruit.py:74 xl/panels.py:149
-msgid "between"
-msgstr "between"
-
-#: xl/fruit.py:69 xl/panels.py:144 xl/trackslist.py:33 xl/trackslist.py:41
-#: xl/trackslist.py:52 exaile.glade.h:168
-msgid "Year"
-msgstr "Year"
-
-#: xl/fruit.py:70 xl/panels.py:145
-msgid "before"
-msgstr "before"
-
-#: xl/fruit.py:72 xl/panels.py:147
-msgid "after"
-msgstr "after"
-
-#: xl/fruit.py:77 xl/panels.py:152 xl/trackslist.py:32 xl/trackslist.py:39
-#: xl/trackslist.py:50 xl/trackslist.py:412 exaile.glade.h:102
-msgid "Length"
-msgstr "Length"
-
-#: xl/media.py:82
-msgid "Error logging into Last.fm."
-msgstr "Error logging into Last.fm."
-
-#: xl/media.py:540
-msgid "Sumitting track to Last.fm..."
-msgstr "Sumitting track to Last.fm..."
-
-#: xl/media.py:564
-msgid "Failed to submit track to Last.fm."
-msgstr "Failed to submit track to Last.fm."
-
-#: xl/panels.py:73 xl/panels.py:76
+#: xl/panels.py:74 xl/panels.py:77
 msgid "days"
 msgstr "days"
 
-#: xl/panels.py:76
+#: xl/panels.py:77
 msgid "minutes"
 msgstr "minutes"
 
-#: xl/panels.py:76
+#: xl/panels.py:77
 msgid "hours"
 msgstr "hours"
 
-#: xl/panels.py:76
+#: xl/panels.py:77
 msgid "weeks"
 msgstr "weeks"
 
-#: xl/panels.py:100 xl/panels.py:110 xl/panels.py:120 xl/panels.py:173
+#: xl/panels.py:98 xl/track.py:336 xl/trackslist.py:36 xl/trackslist.py:41
+#: xl/trackslist.py:53 xl/trackslist.py:478 exaile.glade.h:41
+msgid "Artist"
+msgstr "Artist"
+
+#: xl/panels.py:99 xl/panels.py:109 xl/panels.py:119 xl/panels.py:172
+msgid "is"
+msgstr "is"
+
+#: xl/panels.py:101 xl/panels.py:111 xl/panels.py:121 xl/panels.py:174
 msgid "is not"
 msgstr "is not"
 
-#: xl/panels.py:104 xl/panels.py:114 xl/panels.py:124 xl/panels.py:177
+#: xl/panels.py:103 xl/panels.py:113 xl/panels.py:123 xl/panels.py:176
+msgid "contains"
+msgstr "contains"
+
+#: xl/panels.py:105 xl/panels.py:115 xl/panels.py:125 xl/panels.py:178
 msgid "does not contain"
 msgstr "does not contain"
 
-#: xl/panels.py:107 xl/track.py:337 xl/trackslist.py:32 xl/trackslist.py:38
-#: xl/trackslist.py:49 xl/trackslist.py:435 exaile.glade.h:32
+#: xl/panels.py:108 xl/track.py:340 xl/trackslist.py:36 xl/trackslist.py:42
+#: xl/trackslist.py:54 xl/trackslist.py:479 exaile.glade.h:35
 msgid "Album"
 msgstr "Album"
 
-#: xl/panels.py:127
+#: xl/panels.py:118 xl/trackslist.py:37 xl/trackslist.py:47
+#: xl/trackslist.py:59 exaile.glade.h:90
+msgid "Genre"
+msgstr "Genre"
+
+#: xl/panels.py:128
 msgid "User Rating"
 msgstr "User Rating"
 
-#: xl/panels.py:132
+#: xl/panels.py:129 xl/panels.py:134 xl/panels.py:140 xl/panels.py:154
+msgid "at least"
+msgstr "at least"
+
+#: xl/panels.py:131 xl/panels.py:136 xl/panels.py:142 xl/panels.py:156
+msgid "at most"
+msgstr "at most"
+
+#: xl/panels.py:133
 msgid "System Rating"
 msgstr "System Rating"
 
-#: xl/panels.py:138
+#: xl/panels.py:139
 msgid "Number of Plays"
 msgstr "Number of Plays"
 
-#: xl/panels.py:158
+#: xl/panels.py:145 xl/trackslist.py:37 xl/trackslist.py:46
+#: xl/trackslist.py:58 exaile.glade.h:163
+msgid "Year"
+msgstr "Year"
+
+#: xl/panels.py:146
+msgid "before"
+msgstr "before"
+
+#: xl/panels.py:148
+msgid "after"
+msgstr "after"
+
+#: xl/panels.py:150
+msgid "between"
+msgstr "between"
+
+#: xl/panels.py:153 xl/trackslist.py:36 xl/trackslist.py:43
+#: xl/trackslist.py:55 xl/trackslist.py:451 exaile.glade.h:100
+msgid "Length"
+msgstr "Length"
+
+#: xl/panels.py:159
 msgid "Date Added"
 msgstr "Date Added"
 
-#: xl/panels.py:159 xl/panels.py:165
+#: xl/panels.py:160 xl/panels.py:166
 msgid "in the last"
 msgstr "in the last"
 
-#: xl/panels.py:161 xl/panels.py:167
+#: xl/panels.py:162 xl/panels.py:168
 msgid "not in the last"
 msgstr "not in the last"
 
-#: xl/panels.py:164
+#: xl/panels.py:165
 msgid "Last Played"
 msgstr "Last Played"
 
-#: xl/panels.py:170
+#: xl/panels.py:171
 msgid "Location"
 msgstr "Location"
 
-#: xl/panels.py:275
+#: xl/panels.py:278
 msgid "Finished scanning collection."
 msgstr "Finished scanning collection."
 
-#: xl/panels.py:296
+#: xl/panels.py:299
 msgid "Scanning..."
 msgstr "Scanning..."
 
@@ -308,253 +303,246 @@ msgstr "Scanning..."
 msgid "Append to Current"
 msgstr "Append to Current"
 
-#: xl/panels.py:337 xl/panels.py:347 xl/trackslist.py:668
-msgid "Add to Playlist"
-msgstr "Add to Playlist"
-
-#: xl/panels.py:348
-msgid "Queue Items"
-msgstr "Queue Items"
-
-#: xl/panels.py:350
-msgid "Blacklist Selected"
-msgstr "Blacklist Selected"
-
-#: xl/panels.py:352
-msgid "Delete Selected"
-msgstr "Delete Selected"
-
-#: xl/panels.py:438 xl/trackslist.py:866
-msgid ""
-"Are you sure you want to permanently remove the selected tracks from disk?"
-msgstr ""
-"Are you sure you want to permanently remove the selected tracks from disk?"
-
-#: xl/panels.py:456
-msgid "Are you sure you want to blacklist the selected tracks?"
-msgstr "Are you sure you want to blacklist the selected tracks?"
-
-#: xl/panels.py:616
-msgid "iPod Collection"
-msgstr "iPod Collection"
-
-#: xl/panels.py:900
-msgid "Error and stuff"
-msgstr "Error and stuff"
-
-#: xl/panels.py:945
-msgid "Transfer Queue"
-msgstr "Transfer Queue"
-
-#: xl/panels.py:966
-msgid "Transfer"
-msgstr "Transfer"
-
-#: xl/panels.py:1030 xl/panels.py:1374 xl/panels.py:1467
-msgid "Writing iPod database..."
-msgstr "Writing iPod database..."
-
-#: xl/panels.py:1126
-msgid "Not connected to iPod"
-msgstr "Not connected to iPod"
-
-#: xl/panels.py:1187 xl/panels.py:1564
-msgid "There is a transfer in progress. Please wait for it to complete."
-msgstr "There is a transfer in progress. Please wait for it to complete."
-
-#: xl/panels.py:1211 xl/panels.py:2192 xl/trackslist.py:961
-msgid "The following errors did occur"
-msgstr "The following errors did occur"
-
-#: xl/panels.py:1226
-msgid "Open Playlist"
-msgstr "Open Playlist"
-
-#: xl/panels.py:1230 xl/xlmisc.py:787
-msgid "Rename"
-msgstr "Rename"
-
-#: xl/panels.py:1232 xl/trackslist.py:722
-msgid "Remove"
-msgstr "Remove"
-
-#: xl/panels.py:1234
-msgid "Create Playlist"
-msgstr "Create Playlist"
-
-#: xl/panels.py:1238
-msgid "Update Covers"
-msgstr "Update Covers"
-
-#: xl/panels.py:1271 xl/panels.py:2210
-msgid "Are you sure you want to permanently delete the selected playlist?"
-msgstr "Are you sure you want to permanently delete the selected playlist?"
-
-#: xl/panels.py:1301
-msgid "Enter the new name for the playlist"
-msgstr "Enter the new name for the playlist"
-
-#: xl/panels.py:1302
-msgid "Rename Playlist"
-msgstr "Rename Playlist"
-
-#: xl/panels.py:1322
-msgid "Enter a name for the new playlist"
-msgstr "Enter a name for the new playlist"
-
-#: xl/panels.py:1322 xl/panels.py:2235 xl/trackslist.py:660
+#: xl/panels.py:337 xl/panels.py:1688 xl/trackslist.py:727
 msgid "New Playlist"
 msgstr "New Playlist"
 
-#: xl/panels.py:1436
+#: xl/panels.py:347 xl/trackslist.py:735
+msgid "Add to Playlist"
+msgstr "Add to Playlist"
+
+#: xl/panels.py:348 xl/panels.py:2751
+msgid "Queue Items"
+msgstr "Queue Items"
+
+#: xl/panels.py:351
+msgid "Blacklist Selected"
+msgstr "Blacklist Selected"
+
+#: xl/panels.py:353
+msgid "Delete Selected"
+msgstr "Delete Selected"
+
+#: xl/panels.py:357 xl/trackslist.py:754
+msgid "Edit Information"
+msgstr "Edit Information"
+
+#: xl/panels.py:434 xl/trackslist.py:950
 msgid ""
-"This action will write all album art in the Exaile database to your iPod "
-"(overwriting any existing album art).  Are you sure you want to continue?"
+"Are you sure you want to permanently remove the selected tracks from disk?"
 msgstr ""
-"This action will write all album art in the Exaile database to your iPod "
-"(overwriting any existing album art).  Are you sure you want to continue?"
+"Are you sure you want to permanently remove the selected tracks from disk?"
 
-#: xl/panels.py:1444
-msgid "Updating covers on iPod..."
-msgstr "Updating covers on iPod..."
+#: xl/panels.py:452
+msgid "Are you sure you want to blacklist the selected tracks?"
+msgstr "Are you sure you want to blacklist the selected tracks?"
 
-#: xl/panels.py:1584 xl/panels.py:1764 exaile.glade.h:111
-msgid "Not connected"
-msgstr "Not connected"
+#: xl/panels.py:836
+msgid "Transfer Queue"
+msgstr "Transfer Queue"
 
-#: xl/panels.py:1586
-msgid "Error connecting to iPod"
-msgstr "Error connecting to iPod"
+#: xl/panels.py:864
+msgid "Transfer"
+msgstr "Transfer"
 
-#: xl/panels.py:1837
+#: xl/panels.py:884
+msgid ""
+"A transfer is in progress, please wait for it to stop before attempting to "
+"perform this operation."
+msgstr ""
+"A transfer is in progress, please wait for it to stop before attempting to "
+"perform this operation."
+
+#: xl/panels.py:1027
+msgid "This device does not support removing tracks"
+msgstr "This device does not support removing tracks"
+
+#: xl/panels.py:1045
+msgid "Not connected to any media device"
+msgstr "Not connected to any media device"
+
+#: xl/panels.py:1076
+msgid "The current device  does not support transferring music."
+msgstr "The current device  does not support transferring music."
+
+#: xl/panels.py:1080
+msgid ""
+"There is a transfer currently in progress.  Please wait for it to finish"
+msgstr ""
+"There is a transfer currently in progress.  Please wait for it to finish"
+
+#: xl/panels.py:1180
+msgid "Error connecting to device"
+msgstr "Error connecting to device"
+
+#: xl/panels.py:1291
 msgid "Smart Playlists"
 msgstr "Smart Playlists"
 
-#: xl/panels.py:1900
+#: xl/panels.py:1354
 msgid "Custom Playlists"
 msgstr "Custom Playlists"
 
-#: xl/panels.py:1972 xl/panels.py:2015
+#: xl/panels.py:1426 xl/panels.py:1469
 msgid "That playlist name is already taken."
 msgstr "That playlist name is already taken."
 
-#: xl/panels.py:2010
+#: xl/panels.py:1464
 msgid "You did not enter a name for your playlist"
 msgstr "You did not enter a name for your playlist"
 
-#: xl/panels.py:2234
+#: xl/panels.py:1645 xl/trackslist.py:1024
+msgid "The following errors did occur"
+msgstr "The following errors did occur"
+
+#: xl/panels.py:1663
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr "Are you sure you want to permanently delete the selected playlist?"
+
+#: xl/panels.py:1687
 msgid "Enter the name you want for your new playlist"
 msgstr "Enter the name you want for your new playlist"
 
-#: xl/panels.py:2244
+#: xl/panels.py:1697
 msgid "Playlist already exists."
 msgstr "Playlist already exists."
 
-#: xl/panels.py:2393
+#: xl/panels.py:1846
 msgid "Downloading Podcasts"
 msgstr "Downloading Podcasts"
 
-#: xl/panels.py:2398
+#: xl/panels.py:1851
 msgid "Downloading..."
 msgstr "Downloading..."
 
-#: xl/panels.py:2433
+#: xl/panels.py:1886
 msgid "Stopping..."
 msgstr "Stopping..."
 
-#: xl/panels.py:2553
+#: xl/panels.py:2013
 msgid "Shoutcast Stations"
 msgstr "Shoutcast Stations"
 
-#: xl/panels.py:2767
+#: xl/panels.py:2115
+msgid ""
+"You need to have a last.fm username and password set in your preferences."
+msgstr ""
+"You need to have a last.fm username and password set in your preferences."
+
+#: xl/panels.py:2267
 msgid "Reload Streams"
 msgstr "Reload Streams"
 
-#: xl/panels.py:2772 xl/panels.py:2983
+#: xl/panels.py:2272 xl/panels.py:2473
 msgid "Add Stream to Station"
 msgstr "Add Stream to Station"
 
-#: xl/panels.py:2774
+#: xl/panels.py:2274
 msgid "Delete this Station"
 msgstr "Delete this Station"
 
-#: xl/panels.py:2778
+#: xl/panels.py:2278
 msgid "Add Feed"
 msgstr "Add Feed"
 
-#: xl/panels.py:2779
+#: xl/panels.py:2279
 msgid "Refresh Feed"
 msgstr "Refresh Feed"
 
-#: xl/panels.py:2780
+#: xl/panels.py:2280
 msgid "Delete Feed"
 msgstr "Delete Feed"
 
-#: xl/panels.py:2796
+#: xl/panels.py:2296
 msgid "Enter the location of the podcast"
 msgstr "Enter the location of the podcast"
 
-#: xl/panels.py:2797
+#: xl/panels.py:2297
 msgid "Add a podcast"
 msgstr "Add a podcast"
 
-#: xl/panels.py:2805
+#: xl/panels.py:2305
 msgid "A podcast with that url already exists"
 msgstr "A podcast with that url already exists"
 
-#: xl/panels.py:2841
+#: xl/panels.py:2331
 msgid "Could not read feed."
 msgstr "Could not read feed."
 
-#: xl/panels.py:2963
+#: xl/panels.py:2453
 msgid "Are you sure you want to delete this podcast?"
 msgstr "Are you sure you want to delete this podcast?"
 
-#: xl/panels.py:3008
-msgid "Are you sure you want to permanently delete the selectedstation?"
+#: xl/panels.py:2498
+msgid "Are you sure you want to permanently delete the selected station?"
 msgstr "Are you sure you want to permanently delete the selected station?"
 
-#: xl/panels.py:3059
+#: xl/panels.py:2551
 msgid "Add Station"
 msgstr "Add Station"
 
-#: xl/panels.py:3060
+#: xl/panels.py:2552
 msgid "Station Name:"
 msgstr "Station Name:"
 
-#: xl/panels.py:3061
+#: xl/panels.py:2553 plugins/plugins.glade:131 plugins/plugins.glade:399
 msgid "Description:"
 msgstr "Description:"
 
-#: xl/panels.py:3062
+#: xl/panels.py:2554
 msgid "URL:"
 msgstr "URL:"
 
-#: xl/panels.py:3069
+#: xl/panels.py:2561
 msgid "The 'Name' and 'URL' fields are required"
 msgstr "The 'Name' and 'URL' fields are required"
 
-#: xl/panels.py:3077
+#: xl/panels.py:2569
 msgid "Station name already exists."
 msgstr "Station name already exists."
 
-#: xl/panels.py:3124 xl/panels.py:3125
+#: xl/panels.py:2616 xl/panels.py:2617
 msgid "Enter the name of the station"
 msgstr "Enter the name of the station"
 
-#: xl/panels.py:3135
+#: xl/panels.py:2627
 msgid "Station already exists."
 msgstr "Station already exists."
 
-#: xl/panels.py:3249
+#: xl/panels.py:2750
 msgid "Append to Playlist"
 msgstr "Append to Playlist"
 
-#: xl/panels.py:3280
+#: xl/panels.py:2787
 msgid "Scanning and adding files..."
 msgstr "Scanning and adding files..."
 
-#: xl/prefs.py:417
+#: xl/player.py:393
+msgid "Errors"
+msgstr "Errors"
+
+#: xl/player.py:402
+msgid "<b>The following errors have occurred</b>"
+msgstr "<b>The following errors have occurred</b>"
+
+#: xl/player.py:416 xl/xlmisc.py:798
+msgid "Close"
+msgstr "Close"
+
+#: xl/player.py:546
+#, python-format
+msgid "Error logging in to Last.FM: %s"
+msgstr "Error logging in to Last.FM: %s"
+
+#: xl/player.py:646
+msgid "Loading stream sources, please wait..."
+msgstr "Loading stream sources, please wait..."
+
+#: xl/player.py:911
+msgid "Exaile Media Player"
+msgstr "Exaile Media Player"
+
+#: xl/prefs.py:458
 msgid ""
 "Cannot watch directories for changes. Install python2.4-gamin to use this "
 "feature."
@@ -562,69 +550,69 @@ msgstr ""
 "Cannot watch directories for changes. Install python2.4-gamin to use this "
 "feature."
 
-#: xl/prefs.py:559
+#: xl/prefs.py:600
 msgid ""
 "Move the OSD window to the location you want it to appear when listening"
 msgstr ""
 "Move the OSD window to the location you want it to appear when listening"
 
-#: xl/track.py:227 xl/track.py:284
+#: xl/track.py:229 xl/track.py:287
 msgid "Title: "
 msgstr "Title: "
 
-#: xl/track.py:228 exaile.glade.h:42
+#: xl/track.py:230 exaile.glade.h:45
 msgid "Artist:"
 msgstr "Artist:"
 
-#: xl/track.py:229 exaile.glade.h:36
+#: xl/track.py:231 exaile.glade.h:39
 msgid "Album:"
 msgstr "Album:"
 
-#: xl/track.py:231
+#: xl/track.py:233
 msgid "Track Number:"
 msgstr "Track Number:"
 
-#: xl/track.py:232 exaile.glade.h:169
+#: xl/track.py:234 exaile.glade.h:164
 msgid "Year:"
 msgstr "Year:"
 
-#: xl/track.py:233 exaile.glade.h:93
+#: xl/track.py:235 exaile.glade.h:91
 msgid "Genre:"
 msgstr "Genre:"
 
-#: xl/track.py:234
+#: xl/track.py:236
 msgid "Bitrate:"
 msgstr "Bitrate:"
 
-#: xl/track.py:235
+#: xl/track.py:237
 msgid "User Rating:"
 msgstr "User Rating:"
 
-#: xl/track.py:236
+#: xl/track.py:238
 msgid "System Rating:"
 msgstr "System Rating:"
 
-#: xl/track.py:237
+#: xl/track.py:239
 msgid "Playcount:"
 msgstr "Playcount:"
 
-#: xl/track.py:238 xl/track.py:290
+#: xl/track.py:240 xl/track.py:293
 msgid "Location: "
 msgstr "Location: "
 
-#: xl/track.py:285
+#: xl/track.py:288
 msgid "Description: "
 msgstr "Description: "
 
-#: xl/track.py:291
+#: xl/track.py:294
 msgid "Bitrate: "
 msgstr "Bitrate: "
 
-#: xl/track.py:310 xl/trackslist.py:708 exaile.glade.h:96
+#: xl/track.py:313 xl/trackslist.py:776 exaile.glade.h:94
 msgid "Information"
 msgstr "Information"
 
-#: xl/track.py:324 xl/track.py:326
+#: xl/track.py:327 xl/track.py:329
 msgid "Statistics"
 msgstr "Statistics"
 
@@ -636,165 +624,197 @@ msgstr "Lyrics"
 msgid "Tablature"
 msgstr "Tablature"
 
-#: xl/track.py:463
+#: xl/track.py:462
 msgid "Some errors occurred"
 msgstr "Some errors occurred"
 
-#: xl/tracks.py:379
+#: xl/tracks.py:394
 msgid "Could not open audio disc"
 msgstr "Could not open audio disc"
 
-#: xl/trackslist.py:32 xl/trackslist.py:36 xl/trackslist.py:47
-#: xl/trackslist.py:434 exaile.glade.h:152
+#: xl/tracks.py:406
+#, python-format
+msgid "Track %d"
+msgstr "Track %d"
+
+#: xl/trackslist.py:36 xl/trackslist.py:40 xl/trackslist.py:52
+#: xl/trackslist.py:478 exaile.glade.h:148
 msgid "Title"
 msgstr "Title"
 
-#: xl/trackslist.py:33 xl/trackslist.py:43 xl/trackslist.py:54
-#: exaile.glade.h:51
+#: xl/trackslist.py:36 xl/trackslist.py:44 xl/trackslist.py:56
+#: xl/trackslist.py:455 exaile.glade.h:78
+msgid "Disc"
+msgstr "Disc"
+
+#: xl/trackslist.py:37 xl/trackslist.py:45 xl/trackslist.py:57
+#: xl/trackslist.py:428 xl/trackslist.py:457 xl/trackslist.py:513
+#: xl/trackslist.py:774 exaile.glade.h:127
+msgid "Rating"
+msgstr "Rating"
+
+#: xl/trackslist.py:37 xl/trackslist.py:48 xl/trackslist.py:60
+#: exaile.glade.h:54
 msgid "Bitrate"
 msgstr "Bitrate"
 
-#: xl/trackslist.py:123
+#: xl/trackslist.py:150
 msgid "Scanning and adding tracks to current playlist..."
 msgstr "Scanning and adding tracks to current playlist..."
 
-#: xl/trackslist.py:653
+#: xl/trackslist.py:720
 msgid "Toggle Queue"
 msgstr "Toggle Queue"
 
-#: xl/trackslist.py:679
+#: xl/trackslist.py:746
 msgid "New Station"
 msgstr "New Station"
 
-#: xl/trackslist.py:682
+#: xl/trackslist.py:749
 msgid "Add to Saved Stations"
 msgstr "Add to Saved Stations"
 
-#: xl/trackslist.py:687
-msgid "Edit Information"
-msgstr "Edit Information"
-
-#: xl/trackslist.py:707
+#: xl/trackslist.py:775
 msgid "Edit Track(s)"
 msgstr "Edit Track(s)"
 
-#: xl/trackslist.py:713
+#: xl/trackslist.py:786
+msgid "Last.FM Options"
+msgstr "Last.FM Options"
+
+#: xl/trackslist.py:790
 msgid "Remove from Playlist"
 msgstr "Remove from Playlist"
 
-#: xl/trackslist.py:718
+#: xl/trackslist.py:794
 msgid "Blacklist Track(s)"
 msgstr "Blacklist Track(s)"
 
-#: xl/trackslist.py:720
+#: xl/trackslist.py:796
 msgid "Delete Track(s)"
 msgstr "Delete Track(s)"
 
-#: xl/trackslist.py:728 xl/xlmisc.py:272 exaile.glade.h:122
+#: xl/trackslist.py:798
+msgid "Remove"
+msgstr "Remove"
+
+#: xl/trackslist.py:804 xl/xlmisc.py:259 exaile.glade.h:118
 msgid "Plugins"
 msgstr "Plugins"
 
-#: xl/trackslist.py:984
+#: xl/trackslist.py:1049
 msgid "Remove from Blacklist"
 msgstr "Remove from Blacklist"
 
-#: xl/xlmisc.py:253 xl/xlmisc.py:282
+#: xl/xlmisc.py:240 xl/xlmisc.py:269
 msgid "Play"
 msgstr "Play"
 
-#: xl/xlmisc.py:265 exaile.glade.h:108
+#: xl/xlmisc.py:252 exaile.glade.h:105
 msgid "Next"
 msgstr "Next"
 
-#: xl/xlmisc.py:266 exaile.glade.h:125
+#: xl/xlmisc.py:253 exaile.glade.h:122
 msgid "Previous"
 msgstr "Previous"
 
-#: xl/xlmisc.py:269 exaile.glade.h:124
+#: xl/xlmisc.py:256 exaile.glade.h:121
 msgid "Preferences"
 msgstr "Preferences"
 
-#: xl/xlmisc.py:275
+#: xl/xlmisc.py:262
 msgid "Quit"
 msgstr "Quit"
 
-#: xl/xlmisc.py:286
+#: xl/xlmisc.py:273
 msgid "Pause"
 msgstr "Pause"
 
-#: xl/xlmisc.py:748
+#: xl/xlmisc.py:758
 msgid "Close this tab"
 msgstr "Close this tab"
 
-#: xl/xlmisc.py:761
+#: xl/xlmisc.py:771
 msgid "Enter the new name for this playlist"
 msgstr "Enter the new name for this playlist"
 
-#: xl/xlmisc.py:761
+#: xl/xlmisc.py:771
 msgid "Rename playlist"
 msgstr "Rename playlist"
 
-#: xl/xlmisc.py:788
-msgid "Close"
-msgstr "Close"
+#: xl/xlmisc.py:797
+msgid "Rename"
+msgstr "Rename"
 
-#: xl/xlmisc.py:791
+#: xl/xlmisc.py:801
 msgid "Save Playlist"
 msgstr "Save Playlist"
 
-#: xl/xlmisc.py:1353
+#: xl/xlmisc.py:1365
 msgid "Enter the search text"
 msgstr "Enter the search text"
 
-#: xl/xlmisc.py:1360
+#: xl/xlmisc.py:1372
 msgid "Searching for "
 msgstr "Searching for "
 
-#: xl/xlmisc.py:1432
+#: xl/xlmisc.py:1444
 msgid "Sorry, no covers were found."
 msgstr "Sorry, no covers were found."
 
 #: exaile.glade.h:1
+msgid " "
+msgstr " "
+
+#: exaile.glade.h:2
 msgid "               "
 msgstr "               "
 
-#: exaile.glade.h:2
+#: exaile.glade.h:3
 msgid "(c) 2006"
 msgstr "(c) 2006"
 
-#: exaile.glade.h:3
+#: exaile.glade.h:4
 msgid "(minutes, use 0 to disable)"
 msgstr "(minutes, use 0 to disable)"
 
-#: exaile.glade.h:4
+#: exaile.glade.h:5
 msgid "+"
 msgstr "+"
 
-#: exaile.glade.h:5
+#: exaile.glade.h:6
 msgid "-"
 msgstr "-"
 
-#: exaile.glade.h:6
+#: exaile.glade.h:7
+msgid "/"
+msgstr "/"
+
+#: exaile.glade.h:8
 msgid "/dev/cdrom"
 msgstr "/dev/cdrom"
 
-#: exaile.glade.h:7
+#: exaile.glade.h:9
 msgid "0"
 msgstr "0"
 
-#: exaile.glade.h:8
+#: exaile.glade.h:10
 msgid "0 Covers to fetch"
 msgstr "0 Covers to fetch"
 
-#: exaile.glade.h:9
+#: exaile.glade.h:11
+msgid "0 tracks"
+msgstr "0 tracks"
+
+#: exaile.glade.h:12
 msgid "0/0"
 msgstr "0/0"
 
-#: exaile.glade.h:10
+#: exaile.glade.h:13
 msgid "0:00"
 msgstr "0:00"
 
-#: exaile.glade.h:11
+#: exaile.glade.h:14
 msgid ""
 "1\n"
 "2\n"
@@ -814,71 +834,71 @@ msgstr ""
 "7\n"
 "8"
 
-#: exaile.glade.h:19
-msgid "<b>Miscellaneous</b>"
-msgstr "<b>Miscellaneous</b>"
+#: exaile.glade.h:22
+msgid "<b>General</b>"
+msgstr "<b>General</b>"
 
-#: exaile.glade.h:20
+#: exaile.glade.h:23
 msgid "<b>Model:</b>        "
 msgstr "<b>Model:</b>        "
 
-#: exaile.glade.h:21
+#: exaile.glade.h:24
 msgid "<b>Space:</b>"
 msgstr "<b>Space:</b>"
 
-#: exaile.glade.h:22
-msgid ""
-"<b>{Title}</b>\n"
-"{artist}\n"
-"on {album} - {length}"
-msgstr ""
-"<b>{Title}</b>\n"
-"{artist}\n"
-"on {album} - {length}"
-
 #: exaile.glade.h:25
 msgid ""
-"<b>{title}</b>\n"
+"<b>{Title}</b>\n"
 "{artist}\n"
 "on {album} - {length}"
 msgstr ""
-"<b>{title}</b>\n"
+"<b>{Title}</b>\n"
 "{artist}\n"
 "on {album} - {length}"
 
 #: exaile.glade.h:28
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+
+#: exaile.glade.h:31
 msgid "Action Log"
 msgstr "Action Log"
 
-#: exaile.glade.h:29
+#: exaile.glade.h:32
 msgid "Action _Log"
 msgstr "Action _Log"
 
-#: exaile.glade.h:30
+#: exaile.glade.h:33
 msgid "Add Saved Station"
 msgstr "Add Saved Station"
 
-#: exaile.glade.h:31
+#: exaile.glade.h:34
 msgid "Advanced"
 msgstr "Advanced"
 
-#: exaile.glade.h:33
-msgid "Album Art Collector"
-msgstr "Album Art Collector"
+#: exaile.glade.h:36
+msgid "Album Art"
+msgstr "Album Art"
 
-#: exaile.glade.h:34
+#: exaile.glade.h:37
 msgid "Album _Information"
 msgstr "Album _Information"
 
-#: exaile.glade.h:35
+#: exaile.glade.h:38
 msgid "Album art filenames (separated by spaces):"
 msgstr "Album art filenames (separated by spaces):"
 
-#: exaile.glade.h:37
+#: exaile.glade.h:40
 msgid "Amazon Locale:"
 msgstr "Amazon Locale:"
 
-#: exaile.glade.h:39
+#: exaile.glade.h:42
 msgid ""
 "Artist\n"
 "Album\n"
@@ -888,11 +908,11 @@ msgstr ""
 "Album\n"
 "Genre"
 
-#: exaile.glade.h:43
+#: exaile.glade.h:46
 msgid "Attempt to fetch cover art from Amazon automatically"
 msgstr "Attempt to fetch cover art from Amazon automatically"
 
-#: exaile.glade.h:44
+#: exaile.glade.h:47
 msgid ""
 "Automatic\n"
 "Use GConf Settings\n"
@@ -906,39 +926,35 @@ msgstr ""
 "osssink\n"
 "esdsink"
 
-#: exaile.glade.h:49
+#: exaile.glade.h:52
 msgid "Autosize"
 msgstr "Autosize"
 
-#: exaile.glade.h:50
+#: exaile.glade.h:53
 msgid "Background Color:"
 msgstr "Background Colour:"
 
-#: exaile.glade.h:52
+#: exaile.glade.h:55
 msgid "CD Device:"
 msgstr "CD Device:"
 
-#: exaile.glade.h:54
+#: exaile.glade.h:57
 msgid "Cl_ear Playlist"
 msgstr "Cl_ear Playlist"
 
-#: exaile.glade.h:55
+#: exaile.glade.h:58
 msgid "Cl_ose Playlist"
 msgstr "Cl_ose Playlist"
 
-#: exaile.glade.h:56
+#: exaile.glade.h:59
 msgid "Clear Playlist"
 msgstr "Clear Playlist"
 
-#: exaile.glade.h:57
+#: exaile.glade.h:60
 msgid "Collection"
 msgstr "Collection"
 
-#: exaile.glade.h:58
-msgid "Connect to iPod/Refresh"
-msgstr "Connect to iPod/Refresh"
-
-#: exaile.glade.h:59
+#: exaile.glade.h:61
 msgid ""
 "Copyright (C) 2006 Adam Olsen\n"
 "\n"
@@ -972,273 +988,243 @@ msgstr ""
 "along with this program; if not, write to the Free Software\n"
 "Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
 
-#: exaile.glade.h:74
+#: exaile.glade.h:76
 msgid "Cover Finder"
 msgstr "Cover Finder"
 
-#: exaile.glade.h:75
-msgid "Database Configuration"
-msgstr "Database Configuration"
-
-#: exaile.glade.h:76
-msgid "Database Host:"
-msgstr "Database Host:"
-
 #: exaile.glade.h:77
-msgid "Database Name:"
-msgstr "Database Name:"
-
-#: exaile.glade.h:78
-msgid "Database Password:"
-msgstr "Database Password:"
-
-#: exaile.glade.h:79
-msgid "Database Type: "
-msgstr "Database Type: "
-
-#: exaile.glade.h:80
-msgid "Database Username:     "
-msgstr "Database Username:     "
-
-#: exaile.glade.h:81
 msgid "Devices"
 msgstr "Devices"
 
-#: exaile.glade.h:82
-msgid "Directories excluded by watch (separated by spaces):"
-msgstr "Directories excluded by watch (separated by spaces):"
-
-#: exaile.glade.h:83
+#: exaile.glade.h:79
 msgid "Disc Number:"
 msgstr "Disc Number:"
 
-#: exaile.glade.h:84
+#: exaile.glade.h:80
 msgid "Display OSD when hovering over tray icon"
 msgstr "Display OSD when hovering over tray icon"
 
-#: exaile.glade.h:85
+#: exaile.glade.h:81
 msgid "Display Text:"
 msgstr "Display Text:"
 
-#: exaile.glade.h:86
+#: exaile.glade.h:82
+msgid "Download feeds when opening podcasts"
+msgstr "Download feeds when opening podcasts"
+
+#: exaile.glade.h:83
 msgid "Dynamic Playlist"
 msgstr "Dynamic Playlist"
 
-#: exaile.glade.h:88
+#: exaile.glade.h:84
+msgid "Exaile"
+msgstr "Exaile"
+
+#: exaile.glade.h:86
 msgid "Export Playlist"
 msgstr "Export Playlist"
 
-#: exaile.glade.h:89
+#: exaile.glade.h:87
 msgid "Fetches similar tracks from last.fm"
 msgstr "Fetches similar tracks from last.fm"
 
-#: exaile.glade.h:90
+#: exaile.glade.h:88
 msgid "Files"
 msgstr "Files"
 
-#: exaile.glade.h:91
+#: exaile.glade.h:89
 msgid "General"
 msgstr "General"
 
-#: exaile.glade.h:94
+#: exaile.glade.h:92
 msgid "Go To Playing Track"
 msgstr "Go To Playing Track"
 
-#: exaile.glade.h:95
-msgid "Hint: see http://www.exaile.org/markup.html for examples"
-msgstr "Hint: see http://www.exaile.org/markup.html for examples"
+#: exaile.glade.h:93
+msgid "Hint: see http://www.exaile.org/trac/wiki/OSD for examples"
+msgstr "Hint: see http://www.exaile.org/trac/wiki/OSD for examples"
 
-#: exaile.glade.h:97
+#: exaile.glade.h:95
 msgid "Input Required"
 msgstr "Input Required"
 
-#: exaile.glade.h:98
+#: exaile.glade.h:96
 msgid "Jump to current song on track change"
 msgstr "Jump to current song on track change"
 
-#: exaile.glade.h:99
+#: exaile.glade.h:97
 msgid "Last.fm"
 msgstr "Last.fm"
 
-#: exaile.glade.h:100
+#: exaile.glade.h:98
 msgid "Last.fm Password:"
 msgstr "Last.fm Password:"
 
-#: exaile.glade.h:101
+#: exaile.glade.h:99
 msgid "Last.fm Username:  "
 msgstr "Last.fm Username:  "
 
-#: exaile.glade.h:103
+#: exaile.glade.h:101
 msgid "Library"
 msgstr "Library"
 
-#: exaile.glade.h:104
+#: exaile.glade.h:102
 msgid "Library Manager"
 msgstr "Library Manager"
 
-#: exaile.glade.h:105
+#: exaile.glade.h:103
 msgid "Library _Manager"
 msgstr "Library _Manager"
 
-#: exaile.glade.h:106
-msgid "Mount Point: "
-msgstr "Mount Point: "
-
-#: exaile.glade.h:107
+#: exaile.glade.h:104
 msgid "New Search"
 msgstr "New Search"
 
-#: exaile.glade.h:109
+#: exaile.glade.h:106
 msgid "Next Track"
 msgstr "Next Track"
 
-#: exaile.glade.h:110
-msgid "Not Playing"
-msgstr "Not Playing"
+#: exaile.glade.h:108
+msgid "Notification"
+msgstr "Notification"
 
-#: exaile.glade.h:112
+#: exaile.glade.h:109
 msgid "OK"
 msgstr "OK"
 
-#: exaile.glade.h:113
-msgid "OSD"
-msgstr "OSD"
-
-#: exaile.glade.h:114
+#: exaile.glade.h:110
 msgid "Open _Disc"
 msgstr "Open _Disc"
 
-#: exaile.glade.h:115
+#: exaile.glade.h:111
 msgid "Open _URL"
 msgstr "Open _URL"
 
-#: exaile.glade.h:116
+#: exaile.glade.h:112
 msgid "Open last playlist on startup"
 msgstr "Open last playlist on startup"
 
-#: exaile.glade.h:117
+#: exaile.glade.h:113
 msgid "Play/Pause"
 msgstr "Play/Pause"
 
-#: exaile.glade.h:118
+#: exaile.glade.h:114
 msgid "Playback Sink:   "
 msgstr "Playback Sink:   "
 
-#: exaile.glade.h:120
+#: exaile.glade.h:116
 msgid "Playlist Tab Placement:"
 msgstr "Playlist Tab Placement:"
 
-#: exaile.glade.h:121
+#: exaile.glade.h:117
 msgid "Playlists"
 msgstr "Playlists"
 
-#: exaile.glade.h:123
+#: exaile.glade.h:119
+msgid "Podcasts"
+msgstr "Podcasts"
+
+#: exaile.glade.h:120
 msgid "Popup"
 msgstr "Popup"
 
-#: exaile.glade.h:126
+#: exaile.glade.h:123
 msgid "Previous Track"
 msgstr "Previous Track"
 
-#: exaile.glade.h:127
+#: exaile.glade.h:124
 msgid "Question:"
 msgstr "Question:"
 
-#: exaile.glade.h:128
+#: exaile.glade.h:125
 msgid "Radio"
 msgstr "Radio"
 
-#: exaile.glade.h:130
+#: exaile.glade.h:126
+msgid "Randomize Playlist"
+msgstr "Randomise Playlist"
+
+#: exaile.glade.h:128
 msgid "Rating: "
 msgstr "Rating: "
 
-#: exaile.glade.h:131
+#: exaile.glade.h:129
 msgid "Refresh"
 msgstr "Refresh"
 
-#: exaile.glade.h:132
+#: exaile.glade.h:130
 msgid "Remove Saved Station"
 msgstr "Remove Saved Station"
 
-#: exaile.glade.h:133
+#: exaile.glade.h:131
 msgid "Repeat"
 msgstr "Repeat"
 
-#: exaile.glade.h:134
+#: exaile.glade.h:132
 msgid "Resizable"
 msgstr "Resizable"
 
-#: exaile.glade.h:135
-msgid ""
-"SQLite\n"
-"MySQL\n"
-"PostgreSQL"
-msgstr ""
-"SQLite\n"
-"MySQL\n"
-"PostgreSQL"
-
-#: exaile.glade.h:138
+#: exaile.glade.h:133
 msgid "Save"
 msgstr "Save"
 
-#: exaile.glade.h:139
+#: exaile.glade.h:134
 msgid "Save queue status"
 msgstr "Save queue status"
 
-#: exaile.glade.h:140
+#: exaile.glade.h:135
 msgid "Scan for new music every: "
 msgstr "Scan for new music every: "
 
-#: exaile.glade.h:141
+#: exaile.glade.h:136
 msgid "Search:"
 msgstr "Search:"
 
-#: exaile.glade.h:142
+#: exaile.glade.h:137
+msgid "Search: "
+msgstr "Search: "
+
+#: exaile.glade.h:138
 msgid "Show On Screen Display"
 msgstr "Show On Screen Display"
 
-#: exaile.glade.h:143
+#: exaile.glade.h:139
 msgid "Show Tray Icon"
 msgstr "Show Tray Icon"
 
-#: exaile.glade.h:144
+#: exaile.glade.h:140
+msgid "Show Visualizations"
+msgstr "Show Visualisations"
+
+#: exaile.glade.h:141
 msgid "Show splash screen on startup"
 msgstr "Show splash screen on startup"
 
-#: exaile.glade.h:145
+#: exaile.glade.h:142
 msgid "Shuffle"
 msgstr "Shuffle"
 
-#: exaile.glade.h:146
+#: exaile.glade.h:143
 msgid "Start"
 msgstr "Start"
 
-#: exaile.glade.h:147
+#: exaile.glade.h:144
 msgid "Stop Playback"
 msgstr "Stop Playback"
 
-#: exaile.glade.h:148
-msgid "Stopped"
-msgstr "Stopped"
-
-#: exaile.glade.h:149
-msgid "Submit played tracks to last.fm on startup"
-msgstr "Submit played tracks to last.fm on startup"
-
-#: exaile.glade.h:150
+#: exaile.glade.h:146
 msgid "Text Color"
 msgstr "Text Colour"
 
-#: exaile.glade.h:151
+#: exaile.glade.h:147
 msgid "Text Font:"
 msgstr "Text Font:"
 
-#: exaile.glade.h:153
+#: exaile.glade.h:149
 msgid "Title:"
 msgstr "Title:"
 
-#: exaile.glade.h:154
+#: exaile.glade.h:150
 msgid ""
 "Top\n"
 "Left\n"
@@ -1250,130 +1236,250 @@ msgstr ""
 "Right\n"
 "Bottom"
 
-#: exaile.glade.h:158
+#: exaile.glade.h:154
 msgid "Track Editor"
 msgstr "Track Editor"
 
-#: exaile.glade.h:159
+#: exaile.glade.h:155
 msgid "Track Number"
 msgstr "Track Number"
 
-#: exaile.glade.h:160
+#: exaile.glade.h:156
 msgid "Track:"
 msgstr "Track:"
 
-#: exaile.glade.h:161
+#: exaile.glade.h:157
 msgid "Unknown"
 msgstr "Unknown"
 
-#: exaile.glade.h:162
+#: exaile.glade.h:158
 msgid "Up One Directory"
 msgstr "Up One Directory"
 
-#: exaile.glade.h:163
+#: exaile.glade.h:159
 msgid "Vol:"
 msgstr "Vol:"
 
-#: exaile.glade.h:164
-msgid "Watch directories for new songs (requires gamin)"
-msgstr "Watch directories for new songs (requires gamin)"
+#: exaile.glade.h:160
+msgid "Wikipedia Locale:"
+msgstr "Wikipedia Locale:"
 
-#: exaile.glade.h:165
-msgid "Wikipedia Locale"
-msgstr "Wikipedia Locale"
-
-#: exaile.glade.h:166
+#: exaile.glade.h:161
 msgid "Window Height:"
 msgstr "Window Height:"
 
-#: exaile.glade.h:167
+#: exaile.glade.h:162
 msgid "Window Width:"
 msgstr "Window Width:"
 
-#: exaile.glade.h:170
+#: exaile.glade.h:165
 msgid "_Album Art Collector"
 msgstr "_Album Art Collector"
 
-#: exaile.glade.h:171
+#: exaile.glade.h:166
 msgid "_Artist Information"
 msgstr "_Artist Information"
 
-#: exaile.glade.h:172
+#: exaile.glade.h:167
 msgid "_Blacklist Manager"
 msgstr "_Blacklist Manager"
 
-#: exaile.glade.h:173
+#: exaile.glade.h:168
 msgid "_Clear Queue"
 msgstr "_Clear Queue"
 
-#: exaile.glade.h:174
+#: exaile.glade.h:169
 msgid "_Close"
 msgstr "_Close"
 
-#: exaile.glade.h:175
+#: exaile.glade.h:170
 msgid "_Columns"
 msgstr "_Columns"
 
-#: exaile.glade.h:176
+#: exaile.glade.h:171
 msgid "_File"
 msgstr "_File"
 
-#: exaile.glade.h:177
+#: exaile.glade.h:172
 msgid "_Help"
 msgstr "_Help"
 
-#: exaile.glade.h:178
+#: exaile.glade.h:173
 msgid "_Import Directory"
 msgstr "_Import Directory"
 
-#: exaile.glade.h:179
+#: exaile.glade.h:174
 msgid "_Logs"
 msgstr "_Logs"
 
-#: exaile.glade.h:180
+#: exaile.glade.h:175
 msgid "_Lyrics"
 msgstr "_Lyrics"
 
-#: exaile.glade.h:181
+#: exaile.glade.h:176
 msgid "_New Playlist"
 msgstr "_New Playlist"
 
-#: exaile.glade.h:182
+#: exaile.glade.h:177
 msgid "_Open Media"
 msgstr "_Open Media"
 
-#: exaile.glade.h:183
+#: exaile.glade.h:178
 msgid "_Queue Manager"
 msgstr "_Queue Manager"
 
-#: exaile.glade.h:184
+#: exaile.glade.h:179
 msgid "_Rescan Collection"
 msgstr "_Rescan Collection"
 
-#: exaile.glade.h:185
+#: exaile.glade.h:180
 msgid "_Tools"
 msgstr "_Tools"
 
-#: exaile.glade.h:186
+#: exaile.glade.h:181
 msgid "_View"
 msgstr "_View"
 
-#: exaile.glade.h:187
-msgid "iPod"
-msgstr "iPod"
-
-#: exaile.glade.h:188
+#: exaile.glade.h:182
 msgid "iPod Information"
 msgstr "iPod Information"
 
-#: exaile.glade.h:189
-msgid "localhost"
-msgstr "localhost"
-
-#: exaile.glade.h:190
+#: exaile.glade.h:183
 msgid "message"
 msgstr "message"
 
-#: exaile.glade.h:192
+#: exaile.glade.h:185
 msgid "translator-credits"
 msgstr "Jeff Bailes <thepizzaking@gmail.com>, 2006."
+
+#: plugins/plugins.glade:7
+msgid "Plugin Manager"
+msgstr "Plugin Manager"
+
+#: plugins/plugins.glade:70 plugins/plugins.glade:378
+msgid "Authors:"
+msgstr "Authors:"
+
+#: plugins/plugins.glade:83 plugins/plugins.glade:360
+msgid "\n"
+msgstr "\n"
+
+#: plugins/plugins.glade:112 plugins/plugins.glade:337
+msgid "Version:      "
+msgstr "Version:      "
+
+#: plugins/plugins.glade:221
+msgid "Configure"
+msgstr "Configure"
+
+#: plugins/plugins.glade:255 plugins/plugins.glade:462
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>No Plugin Selected</b>"
+
+#: plugins/plugins.glade:275
+msgid "Installed Plugins"
+msgstr "Installed Plugins"
+
+#: plugins/plugins.glade:483
+msgid "Available Plugins"
+msgstr "Available Plugins"
+
+#~ msgid "Scanning ipod..."
+#~ msgstr "Scanning ipod..."
+
+#~ msgid "Sumitting track to Last.fm..."
+#~ msgstr "Sumitting track to Last.fm..."
+
+#~ msgid "iPod Collection"
+#~ msgstr "iPod Collection"
+
+#~ msgid "Error and stuff"
+#~ msgstr "Error and stuff"
+
+#~ msgid "Writing iPod database..."
+#~ msgstr "Writing iPod database..."
+
+#~ msgid "Open Playlist"
+#~ msgstr "Open Playlist"
+
+#~ msgid "Create Playlist"
+#~ msgstr "Create Playlist"
+
+#~ msgid "Update Covers"
+#~ msgstr "Update Covers"
+
+#~ msgid "Enter the new name for the playlist"
+#~ msgstr "Enter the new name for the playlist"
+
+#~ msgid "Enter a name for the new playlist"
+#~ msgstr "Enter a name for the new playlist"
+
+#~ msgid ""
+#~ "This action will write all album art in the Exaile database to your iPod "
+#~ "(overwriting any existing album art).  Are you sure you want to continue?"
+#~ msgstr ""
+#~ "This action will write all album art in the Exaile database to your iPod "
+#~ "(overwriting any existing album art).  Are you sure you want to continue?"
+
+#~ msgid "Updating covers on iPod..."
+#~ msgstr "Updating covers on iPod..."
+
+#~ msgid "Not connected"
+#~ msgstr "Not connected"
+
+#~ msgid "<b>Miscellaneous</b>"
+#~ msgstr "<b>Miscellaneous</b>"
+
+#~ msgid "Album Art Collector"
+#~ msgstr "Album Art Collector"
+
+#~ msgid "Connect to iPod/Refresh"
+#~ msgstr "Connect to iPod/Refresh"
+
+#~ msgid "Database Configuration"
+#~ msgstr "Database Configuration"
+
+#~ msgid "Database Host:"
+#~ msgstr "Database Host:"
+
+#~ msgid "Database Name:"
+#~ msgstr "Database Name:"
+
+#~ msgid "Database Password:"
+#~ msgstr "Database Password:"
+
+#~ msgid "Database Type: "
+#~ msgstr "Database Type: "
+
+#~ msgid "Database Username:     "
+#~ msgstr "Database Username:     "
+
+#~ msgid "Directories excluded by watch (separated by spaces):"
+#~ msgstr "Directories excluded by watch (separated by spaces):"
+
+#~ msgid "Mount Point: "
+#~ msgstr "Mount Point: "
+
+#~ msgid "OSD"
+#~ msgstr "OSD"
+
+#~ msgid ""
+#~ "SQLite\n"
+#~ "MySQL\n"
+#~ "PostgreSQL"
+#~ msgstr ""
+#~ "SQLite\n"
+#~ "MySQL\n"
+#~ "PostgreSQL"
+
+#~ msgid "Submit played tracks to last.fm on startup"
+#~ msgstr "Submit played tracks to last.fm on startup"
+
+#~ msgid "Watch directories for new songs (requires gamin)"
+#~ msgstr "Watch directories for new songs (requires gamin)"
+
+#~ msgid "iPod"
+#~ msgstr "iPod"
+
+#~ msgid "localhost"
+#~ msgstr "localhost"

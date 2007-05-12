@@ -42,6 +42,7 @@ def write_tag(tr):
 
         if tr.track > -1:
             track = str(tr.track)
+            disc = None
             if tr.disc_id > -1:
                 disc = str(tr.disc_id)
 
@@ -49,11 +50,11 @@ def write_tag(tr):
                 text=track)
 
             id3.loaded_frame(frame)
-
-            frame = mutagen.id3.Frames['TPOS'](encoding=3,
-                text=disc)
-
-            id3.loaded_frame(frame)
+            
+            if disc:
+                frame = mutagen.id3.Frames['TPOS'](encoding=3,
+                    text=disc)
+                id3.loaded_frame(frame)
 
         id3.save(tr.io_loc)    
 

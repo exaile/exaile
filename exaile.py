@@ -631,8 +631,8 @@ class ExaileWindow(gobject.GObject):
             (_("Cancel"), gtk.RESPONSE_CANCEL, _("Choose"), gtk.RESPONSE_OK))
         dialog.set_current_folder(self.get_last_dir())
 
-        check = gtk.CheckButton(_("Add tracks to current playlist after importing"))
-        dialog.set_extra_widget(check)
+        checkbtn = gtk.CheckButton(_("Add tracks to current playlist after importing"))
+        dialog.set_extra_widget(checkbtn)
 
         items = []
         tmp = self.settings.get_list("search_paths")
@@ -654,7 +654,7 @@ class ExaileWindow(gobject.GObject):
             self.settings['search_paths'] = items
 
             done_func = None
-            if check.get_active():
+            if checkbtn.get_active():
                 done_func = self.after_import
             self.update_library((path,), done_func=done_func, load_tree=load_tree, 
                 delete=False)

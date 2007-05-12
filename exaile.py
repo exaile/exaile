@@ -628,7 +628,8 @@ class ExaileWindow(gobject.GObject):
         """
         dialog = gtk.FileChooserDialog(_("Add a directory"),
             self.window, gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER,
-            (_("Cancel"), gtk.RESPONSE_CANCEL, _("Choose"), gtk.RESPONSE_OK))
+            (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+            gtk.STOCK_ADD, gtk.RESPONSE_OK))
         dialog.set_current_folder(self.get_last_dir())
 
         checkbtn = gtk.CheckButton(_("Add tracks to current playlist after importing"))
@@ -1639,8 +1640,8 @@ class ExaileWindow(gobject.GObject):
                 filter.add_pattern(pattern)
 
             dialog = gtk.FileChooserDialog(_("Choose an image"), self.window,
-                buttons=(_('Cancel'),
-                gtk.RESPONSE_CANCEL, _('Open'), gtk.RESPONSE_OK))
+                buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+                gtk.STOCK_OPEN, gtk.RESPONSE_OK))
             dialog.set_filter(filter)
             dialog.set_current_folder(self.get_last_dir())
 
@@ -2156,8 +2157,8 @@ class ExaileWindow(gobject.GObject):
             filter.add_pattern(pattern)
 
         dialog = gtk.FileChooserDialog(_("Choose a file"), self.window,
-            buttons=(_('Cancel'), gtk.RESPONSE_CANCEL,
-            _('Open'), gtk.RESPONSE_OK))
+            buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+            gtk.STOCK_OPEN, gtk.RESPONSE_OK))
 
         new_tab = gtk.CheckButton(_("Open in new tab"))
         dialog.set_extra_widget(new_tab)
@@ -2208,8 +2209,8 @@ class ExaileWindow(gobject.GObject):
 
         dialog = gtk.FileChooserDialog(_("Choose a file"),
             self.window, gtk.FILE_CHOOSER_ACTION_SAVE, 
-            buttons=(_('Cancel'), gtk.RESPONSE_CANCEL,
-            _('Save'), gtk.RESPONSE_OK))
+            buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+            gtk.STOCK_SAVE, gtk.RESPONSE_OK))
         dialog.set_current_folder(self.get_last_dir())
         dialog.set_filter(filter)
 

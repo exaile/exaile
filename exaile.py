@@ -1021,9 +1021,6 @@ class ExaileWindow(gobject.GObject):
             self.device_panel_widget)
 
         self.side_notebook.remove_page(page_number)
-
-        if not gst.registry_get_default().find_plugin('gnomevfs'):
-            self.side_notebook.remove_page(2)
         self.device_panel_showing = False
 
         self.pradio_panel = panels.PRadioPanel(self)

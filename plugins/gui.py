@@ -156,7 +156,7 @@ class PluginManager(object):
                     # if the directory does not exist, create it
                     if not os.path.isdir(download_dir):
                         os.mkdir(download_dir, 0777)
-                    download_url = "http://www.exaile.org/trac/browser/plugins/%s/%s?format=txt" \
+                    download_url = "http://www.exaile.org/plugins/plugins.py?version=%s&plugin=%s" \
                         % (self.app.get_plugin_location(), file)
                     xlmisc.log('Downloading %s from %s' % (file, download_url))
 

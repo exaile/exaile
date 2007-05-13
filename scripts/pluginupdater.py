@@ -17,7 +17,7 @@ plugins = plugin_re.findall(data)
 print "Updating plugin list"
 for plugin in plugins:
     data = \
-        urllib.urlopen('http://www.exaile.org/trac/browser/plugins/%s/%s?format=txt'
+        urllib.urlopen('http://www.exaile.org/plugins/plugins.py?version=%s&plugin=%s'
         % (version, plugin)).read()
 
     plugindir = '/home/%s/.exaile/plugins' % os.getlogin()

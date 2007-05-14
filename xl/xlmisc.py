@@ -1158,11 +1158,6 @@ class BrowserWindow(gtk.VBox):
             Loads a URL, either from the cache, or from the website specified
         """
 
-        if history:
-            self.history = self.history[:self.current + 1]
-            self.history.append(url)
-            self.current = len(self.history) - 1
-
         self.view.load_url(url)
 
         if not self.nostyles:
@@ -1183,75 +1178,6 @@ class BrowserWindow(gtk.VBox):
             link = "%s://%s%s%s" % (self.protocol, self.server, char, link)
         return "%s=%s%s%s" % (match.group(1), match.group(2), link,
             match.group(2))
-
-    def sanitize(self, text):
-        """
-            Removes styles, images, and etc
-        """
-        rel = re.compile('<(style|img|script)[^<]*[^>]*>',
-            re.DOTALL|re.IGNORECASE)
-        text = rel.sub('', text)
-
-        # this one might be temporary.  It's to clean out some php errors that
-        # lyrc.com.ar probably doesn't know about because their background is
-        # black and this warning is also black
-        rel = re.compile('<noscript>.*?</noscript>',
-            re.DOTALL|re.IGNORECASE)
-        text = rel.sub('', text)
-        rel = re.compile('<table.*?</table>',
-            re.DOTALL|re.IGNORECASE)
-        text = rel.sub('<hr><br><br>', text)
-        # end possible temporary solution
-
-        rel = re.compile('<\/?font[^>]*>', re.DOTALL|re.IGNORECASE)
-        text = rel.sub('', text)
-        text = re.sub('bgcolor="[^"]*"', '', text)
-        text = text.replace('BADSONG', '')
-        text = text.replace('If none is your song', '')
-        text = text.replace('Correct :', '')
-        text = text.replace('Add a lyric', '')
-        text = text.replace('Did you find an error on this lyric? Report It.',
-            '')
-        return text
-
-    def page_loaded(self, url, data, save=True):
-        """
-            Loads a page into the html window, and optionally saves it to the
-            cache
-        """
-        if not self.nostyles: gobject.idle_add(self.entry.set_text, url)
-        if "http://" not in url: url = "%s://%s" % (self.protocol, url)
-        self.url = url
-        cache_file = "%s/browser_%s.html" % (self.cache_dir, 
-            md5.new(url).hexdigest())
-        if save:
-            rel = re.compile("(href|src)=(['\"])([^'\"]*)(['\"])", 
-                re.DOTALL|re.IGNORECASE)
-            data = rel.sub(self.replace, data)
-            data = re.sub('(id|style|class)="([^"]*)"', '', data)
-            data = re.sub('<input .*?>', '', data) # nix pesky form fields
-            if self.nostyles:
-                data = self.sanitize(data)
-            h = open(cache_file, 'w')
-            h.write(data)
-            h.close()
-        else:
-            h = open(cache_file, 'r')
-            data = h.read()
-            h.close()
-
-        self.doc = gtkhtml2.Document()
-        self.doc.connect('request_url', self.request_url)
-        self.doc.connect('link_clicked', self.link_clicked)
-        self.doc.open_stream('text/html')
-        self.doc.write_stream(data)
-        self.doc.close_stream()
-
-        gobject.idle_add(self.view.set_document, self.doc)
-        gobject.idle_add(self.view.queue_draw)
-
-        if not self.nostyles:
-            gobject.idle_add(self.entry.set_sensitive, True)
 
     def link_clicked(self, mozembed, url):
         """

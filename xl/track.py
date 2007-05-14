@@ -17,6 +17,7 @@
 import os, threading, httplib, xlmisc, md5, re, common, xl.tracks
 import media, gc
 from urllib import urlencode
+import urllib
 from gettext import gettext as _
 
 import pygtk
@@ -160,7 +161,10 @@ class LyricsTab(gtk.VBox):
         """
         params = {'artist': self.track.artist, 'songname': self.track.title}
 
-        search = "http://lyrc.com.ar/en/tema1en.php?%s" % urlencode(params)
+#        search = "http://lyrc.com.ar/en/tema1en.php?%s" % urlencode(params)
+        search = "http://lyricwiki.org/api.php?artist=%s&song=%s&fmt=html" % (
+            urllib.quote_plus(params['artist']), 
+            urllib.quote_plus(params['songname']))
         print search
         self.lyrics.load_url(search, self.text.action_count, False)
 

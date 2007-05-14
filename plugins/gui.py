@@ -176,7 +176,7 @@ class PluginManager(object):
                     for k, v in self.app.settings.get_plugins().iteritems():
                         if v:
                             enabled_plugins.append("%s.py" % k)
-                    self.manager.initialize_plugin(download_dir, file, enabled_plugins)
+                    gobject.idle_add(self.manager.initialize_plugin, download_dir, file, enabled_plugins)
                     files.append(file)
                 except Exception, e:
                     model.set_value(iter, 5, False)

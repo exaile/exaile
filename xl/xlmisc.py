@@ -1109,8 +1109,6 @@ class BrowserWindow(gtk.VBox):
 
         if url:
             self.load_url(url, self.action_count, False)
-            if not self.nostyles:
-                self.entry.set_sensitive(False)
 
     def on_net_stop(self, *args):
         """
@@ -1133,7 +1131,7 @@ class BrowserWindow(gtk.VBox):
             Called when the user presses enter in the address bar
         """
         url = self.entry.get_text()
-        self.link_clicked(self.doc, url)
+        self.load_url(url, self.action_count)
 
     def on_next(self, widget):
         """
@@ -1170,6 +1168,8 @@ class BrowserWindow(gtk.VBox):
         if not self.nostyles:
             if self.view.can_go_back(): self.back.set_sensitive(True)
             if not self.view.can_go_forward(): self.next.set_sensitive(False)
+            self.entry.set_sensitive(True)
+            self.entry.set_text(url)
 
     def replace(self, match):
         """

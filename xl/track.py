@@ -147,7 +147,7 @@ class LyricsTab(gtk.VBox):
         self.exaile = exaile
         self.panel = panel
         self.track = track
-        self.text = xlmisc.BrowserWindow(exaile, None, True) 
+        self.text = xlmisc.BrowserWindow(exaile, None)#, True) 
         self.pack_start(self.text, True, True)
 
         self.show_all()

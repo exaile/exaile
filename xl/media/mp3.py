@@ -27,8 +27,8 @@ def write_tag(tr):
     except mutagen.id3.ID3NoHeaderError:
         id3 = mutagen.id3.ID3()
 
-#    for key, id3name in SDI.items():
-#        id3.delall(id3name)
+    for key, id3name in SDI.items():
+        id3.delall(id3name)
 
     for k, v in IDS.iteritems():
         if k == 'TRCK': continue

@@ -27,8 +27,8 @@ def write_tag(tr):
     except mutagen.id3.ID3NoHeaderError:
         id3 = mutagen.id3.ID3()
 
-    for key, id3name in SDI.items():
-        id3.delall(id3name)
+#    for key, id3name in SDI.items():
+#        id3.delall(id3name)
 
     for k, v in IDS.iteritems():
         if k == 'TRCK': continue
@@ -51,7 +51,7 @@ def write_tag(tr):
 
             id3.loaded_frame(frame)
             
-            if disc:
+            if disc and disc > -1:
                 frame = mutagen.id3.Frames['TPOS'](encoding=3,
                     text=disc)
                 id3.loaded_frame(frame)

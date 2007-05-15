@@ -1515,8 +1515,22 @@ class LibraryManager(object):
             self.exaile.window, gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER,
             (_("Cancel"), gtk.RESPONSE_CANCEL, _("Choose"), gtk.RESPONSE_OK))
         response = dialog.run()
+        dialog.hide()
         if response == gtk.RESPONSE_OK:
-            self.list.append(dialog.get_filename())
+            path = dialog.get_filename()
+            if path in self.items:
+                common.error(self.exaile.window, _('Path is already in '
+                    'your collection.'))
+                return
+
+            for item in self.items:
+                if path == item or path.find(item) > -1 or \
+                    item.find(path) > -1:
+                    common.error(self.exaile.window, _('Path is already '
+                        'in your collection, or is a subdirectory of another '
+                        'path in your collection'))
+                    return
+            self.list.append(path)
         dialog.destroy()
 
 class MultiTextEntryDialog(object):

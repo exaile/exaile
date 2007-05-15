@@ -648,6 +648,7 @@ class ExaileWindow(gobject.GObject):
             for p in items:
                 if p == path: check = False
                 if p.find(path) > -1: check = False
+                if path.find(p) > -1: check = False
 
             if check:
                 items.append(path)

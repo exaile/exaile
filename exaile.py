@@ -1863,7 +1863,6 @@ class ExaileWindow(gobject.GObject):
             self.goto_current()
 
         trackslist.update_queued(self)
-        xl.track.update_info(self.playlists_nb, track)
 
         # if we're in dynamic mode, find some tracks to add
         if self.dynamic.get_active():

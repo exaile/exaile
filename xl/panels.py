@@ -1045,6 +1045,8 @@ class DevicePanel(CollectionPanel):
         """
         if self.driver and hasattr(self.driver, 'get_menu'):
             menu = self.driver.get_menu(item, self.menu)
+        else:
+            menu = self.menu
 
         menu.popup(None, None, None, event.button, event.time)
 

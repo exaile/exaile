@@ -130,7 +130,10 @@ class Track(gobject.GObject):
         if type(loc) is unicode:
             self._loc = loc
         else:        
-            self._loc = unicode(loc, xlmisc.get_default_encoding())
+            try:
+                self._loc = unicode(loc, xlmisc.get_default_encoding())
+            except UnicodeDecodeError:
+                self._loc = loc
 
         self._bitrate = bitrate
 

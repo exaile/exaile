@@ -226,7 +226,7 @@ class PluginManager(object):
             found = False
             for plugin in self.manager.plugins:
                 if plugin.PLUGIN_NAME == name:
-                    if float(plugin.PLUGIN_VERSION) <= float(version):
+                    if float(plugin.PLUGIN_VERSION) >= float(version):
                         found = True
 
             if not found:

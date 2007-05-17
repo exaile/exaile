@@ -298,8 +298,8 @@ def get_icon(id, size=gtk.ICON_SIZE_BUTTON):
     except gobject.GError:
         pass
     
-    return gtk.gdk.pixbuf_new_from_file('images%sdefault_theme%s%s.png' 
-        % (os.sep, os.sep, id))
+    return gtk.gdk.pixbuf_new_from_file(os.path.join('images', 'default_theme',
+        id + '.png'))
 
 class BaseTrayIcon(gobject.GObject):
     """
@@ -396,12 +396,12 @@ class EggTrayIcon(BaseTrayIcon):
         BaseTrayIcon.__init__(self, exaile)
 
         self.tips = gtk.Tooltips()
-        self.icon = egg.trayicon.TrayIcon('Exaile!')
+        self.icon = egg.trayicon.TrayIcon(_('Exaile!'))
         self.box = gtk.EventBox()
         self.icon.add(self.box)
 
         image = gtk.Image()
-        image.set_from_file('images%strayicon.png' % os.sep)
+        image.set_from_file(os.path.join('images', 'trayicon.png'))
         self.box.add(image)
         self.box.connect('button_press_event',
             self.button_pressed)
@@ -449,8 +449,8 @@ class GtkTrayIcon(BaseTrayIcon):
     def __init__(self, exaile):
         BaseTrayIcon.__init__(self, exaile)
         self.icon = icon = gtk.StatusIcon()
-        icon.set_tooltip('Exaile!')
-        icon.set_from_file('images%strayicon.png' % os.sep)
+        icon.set_tooltip(_('Exaile!'))
+        icon.set_from_file(os.path.join('images', 'trayicon.png'))
         icon.connect('activate', self.activated)
         icon.connect('popup-menu', self.popup)
 
@@ -546,7 +546,7 @@ class CoverFetcher(object):
         self.dialog.show_all()
         finish()
         self.total = self.calculate_total()
-        self.label.set_label("%s covers left to collect." % self.total)
+        self.label.set_label(_("%s covers left to collect.") % self.total)
         if self.go:
             self.toggle_running(None)
 
@@ -564,14 +564,14 @@ class CoverFetcher(object):
         if CoverFetcher.stopped:
             if not self.artists:
                 self.go = True
-                self.stopstart.set_label("Stop")
+                self.stopstart.set_label(_("Stop"))
                 return
                 
             CoverFetcher.stopped = False
-            self.stopstart.set_label("Stop")
+            self.stopstart.set_label(_("Stop"))
             self.fetch_next()
         else:
-            self.stopstart.set_label("Start")
+            self.stopstart.set_label(_("Start"))
             CoverFetcher.stopped = True
             if self.cover_thread:
                 self.cover_thread.abort()
@@ -581,7 +581,7 @@ class CoverFetcher(object):
             Fetches the next cover in line
         """
         if not self.artists:
-            self.label.set_label("All Covers have been Fetched.")
+            self.label.set_label(_("All Covers have been Fetched."))
             self.stopstart.set_sensitive(False)
             return
         self.artist = self.artists[0]
@@ -604,7 +604,7 @@ class CoverFetcher(object):
             (self.artist, self.album),
             self.got_covers, locale=locale)
         self.cover_thread.start()
-        self.label.set_label("%s left: %s by %s" % 
+        self.label.set_label(_("%s left: %s by %s") % 
             ((self.total - self.current), self.album, self.artist))
 
     def got_covers(self, covers):
@@ -622,8 +622,8 @@ class CoverFetcher(object):
         # loop through all of the covers that have been found
         for cover in covers:
             if(cover['status'] == 200):
-                cover.save("%s%scovers" % (self.exaile.get_settings_dir(),
-                    os.sep))
+                cover.save(os.path.join(self.exaile.get_settings_dir(),
+                    'covers'))
                 log(cover['filename'])
 
                 try:
@@ -632,8 +632,8 @@ class CoverFetcher(object):
                 except:
                     log_exception()
 
-                image = "%s%scovers%s%s" % (self.exaile.get_settings_dir(),
-                    os.sep, os.sep, cover['md5'] + ".jpg")
+                image = os.path.join(self.exaile.get_settings_dir(), 'covers',
+                    cover['md5'] + ".jpg")
                 loc = image
                 image = gtk.gdk.pixbuf_new_from_file(image)
                 image = image.scale_simple(80, 80, 
@@ -667,7 +667,7 @@ class CoverFetcher(object):
         iter = self.model.get_iter(path)
         object = self.model.get_value(iter, 2)
 
-        self.status.set_markup("<b>" + common.escape_xml("%s by %s" %
+        self.status.set_markup("<b>" + common.escape_xml(_("%s by %s") %
             (object.album, object.artist)) + "</b>")
 
     def item_activated(self, iconview, path):
@@ -676,7 +676,7 @@ class CoverFetcher(object):
         """
         iter = self.model.get_iter(path)
         object = self.model.get_value(iter, 2)
-        CoverWindow(self.dialog, object.location, "%s by %s" % (object.album,
+        CoverWindow(self.dialog, object.location, _("%s by %s") % (object.album,
             object.artist))
 
     def calculate_total(self):
@@ -700,11 +700,11 @@ class CoverFetcher(object):
                 if "nocover" in image:
                     continue
                 else:
-                    image = "%s%scovers%s%s" % (self.exaile.get_settings_dir(),
-                        os.sep, os.sep, image)
+                    image = os.path.join(self.exaile.get_settings_dir(),
+                        'covers', image)
             else:
                 self.needs[artist].append(album)
-                image = "images%snocover.png" % os.sep
+                image = os.path.join("images", "nocover.png")
 
             if self.found.has_key("%s - %s" % (artist.lower(), album.lower())):
                 continue
@@ -721,7 +721,7 @@ class CoverFetcher(object):
                 t = 0
                 for k, v in self.needs.iteritems():
                     t += len(v)
-                self.label.set_label("%s covers left to collect." % t)
+                self.label.set_label(_("%s covers left to collect.") % t)
                 finish()
             count += 1
 
@@ -1050,11 +1050,11 @@ class URLFetcher(threading.Thread):
         """
             Calls the done_func after the current gtk pending event
         """
-        gobject.idle_add(self.done_func, "%s%s" % (self.server, self.path), text)
+        gobject.idle_add(self.done_func, self.server + self.path, text)
 
 class BrowserWindow(gtk.VBox):
     """
-        An html window for wikipedia information
+        An HTML window for Wikipedia information
     """
     def __init__(self, exaile, url, nostyles=False):
         """
@@ -1097,13 +1097,13 @@ class BrowserWindow(gtk.VBox):
         self.show_all()
         finish()
 
-        self.view.set_data('<html><body><b>Loading requested'
-            ' information...</b></body></html>', '')
-        exaile.status.set_first('Loading page...')
+        self.view.set_data('<html><body><b>' + _('Loading requested'
+            ' information...') + '</b></body></html>', '')
+        exaile.status.set_first(_('Loading page...'))
         self.view.connect('net-stop', self.on_net_stop)
         self.view.connect('open-uri', self.link_clicked)
 
-        self.cache_dir = '%s%scache' % (exaile.get_settings_dir(), os.sep)
+        self.cache_dir = os.path.join(exaile.get_settings_dir(), 'cache')
 
         self.server = ''
 
@@ -1196,7 +1196,8 @@ class AboutDialog(gtk.Dialog):
         """
         xml = gtk.glade.XML('exaile.glade', 'AboutDialog', 'exaile')
         self.dialog = xml.get_widget('AboutDialog')
-        logo = gtk.gdk.pixbuf_new_from_file('images%sexailelogo.png' % os.sep)
+        logo = gtk.gdk.pixbuf_new_from_file(os.path.join('images',
+            'exailelogo.png'))
         self.dialog.set_logo(logo)
         self.dialog.set_version(str(version))
         self.dialog.set_transient_for(parent)
@@ -1343,7 +1344,7 @@ class CoverFrame(object):
         if result == gtk.RESPONSE_OK:
             self.last_search = dialog.get_value()
             self.exaile.status.set_first(
-                _("Searching for ") + self.last_search + "...")
+                _("Searching for %s...") % self.last_search)
             self.window.hide()
 
             locale = self.exaile.settings.get_str('amazon_locale', 'us')
@@ -1364,9 +1365,8 @@ class CoverFrame(object):
 
         if track == self.exaile.player.current:
             self.exaile.stop_cover_thread()
-            self.exaile.cover.set_image("%s%scovers%s%s" %
-                (self.exaile.get_settings_dir(), os.sep, os.sep,
-                cover.filename()))
+            self.exaile.cover.set_image(os.path.join(
+                self.exaile.get_settings_dir(), 'covers', cover.filename()))
         self.window.destroy()
 
     def go_next(self, widget):
@@ -1398,13 +1398,12 @@ class CoverFrame(object):
         """
             Shows the current cover
         """
-        c.save("%s%scovers%s" % (self.exaile.get_settings_dir(),
-            os.sep, os.sep))
+        c.save(os.path.join(self.exaile.get_settings_dir(), 'covers') + os.sep)
 
         log(c.filename())
 
-        self.cover.set_image("%s%scovers%s%s" % (self.exaile.get_settings_dir(),
-            os.sep, os.sep, c.filename()))
+        self.cover.set_image(os.path.join(self.exaile.get_settings_dir(),
+            'covers', c.filename()))
 
         self.window.show_all()
 
@@ -1859,7 +1858,7 @@ class OSDWindow(object):
         self.title.set_markup(text)
 
         if cover == None:
-            cover = 'images%snocover.png' % os.sep
+            cover = os.path.join('images', 'nocover.png')
 
         self.cover.set_image(cover)
         self.window.show_all()

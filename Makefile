@@ -57,7 +57,7 @@ install: make-install-dirs mmkeys.so
 	    "#!/bin/sh\n" \
 	    "cd $(PREFIX)/share/exaile\n" \
 	    "export LD_LIBRARY_PATH=\$$LD_LIBRARY_PATH:$(FIREFOX)\n" \
-	    "exec python exaile.py \$$@" \
+	    "exec python exaile.py \"\$$@\"" \
 	    > exaile && \
 	  chmod 755 exaile
 	for f in `find po -name exaile.mo` ; do \

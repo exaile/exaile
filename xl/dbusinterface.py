@@ -43,6 +43,7 @@ class DBusInterfaceObject(dbus.service.Object):
         """
             Plays the specified file
         """
+        print filename
         if filename.endswith(".m3u") or filename.endswith(".pls"):
             self.exaile.import_m3u(filename, True)
         else: self.exaile.stream(filename)
@@ -240,6 +241,7 @@ def test(p):
                 iface = dbus.Interface(remote_object, "org.exaile.DBusInterface")
                 iface.test_service("testing dbus service")
                 do_exit = False
+
                 if options.get_title:
                     print iface.get_title()
                     do_exit = True

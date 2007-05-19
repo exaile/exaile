@@ -1120,21 +1120,23 @@ class ExaileWindow(gobject.GObject):
             gobject.idle_add(self.playlists_panel.load_playlists)
             gobject.idle_add(self.collection_panel.load_tree, True)
             
+        if first_run: 
+            gobject.idle_add(self.initialize)
+
+    def initialize(self):
+        """
+            Called when everything is done loading
+        """
+        xlmisc.finish()
+        self.load_last_playlist()
+
         if len(sys.argv) > 1 and sys.argv[1] and \
             not sys.argv[1].startswith("-"):
             if sys.argv[1].endswith(".m3u") or sys.argv[1].endswith(".pls"):
-                gobject.idle_add(self.import_m3u, sys.argv[1], True)
+                self.import_m3u(sys.argv[1], True)
             else:
-                if not self.tracks: self.new_page(_("Last"), [])
-        if first_run: 
-            gobject.idle_add(xlmisc.finish)
-            gobject.idle_add(self.load_last_playlist)
-            if len(sys.argv) > 1 and not sys.argv[1].startswith("--"):
-                f = sys.argv[1]
-                if f.endswith('.m3u') or f.endswith('.pls'):
-                    self.import_m3u(f, True)
-                else:
-                    gobject.idle_add(self.stream, f)
+                self.stream(sys.argv[1])
+        return False
 
     def setup_gamin(self, skip_prefs=False):
         """

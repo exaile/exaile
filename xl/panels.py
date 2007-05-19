@@ -458,7 +458,7 @@ class CollectionPanel(object):
                     continue
                 path_id = tracks.get_column_id(self.db, 'paths', 'name',
                     track.loc)
-                self.db.execute("UPDATE tracks SET blacklisted=1 WHERE ?", (path_id,))
+                self.db.execute("UPDATE tracks SET blacklisted=1 WHERE path=?", (path_id,))
             
         for track in add:
             try: self.exaile.all_songs.remove(track)

@@ -1132,10 +1132,7 @@ class ExaileWindow(gobject.GObject):
 
         if len(sys.argv) > 1 and sys.argv[1] and \
             not sys.argv[1].startswith("-"):
-            if sys.argv[1].endswith(".m3u") or sys.argv[1].endswith(".pls"):
-                self.import_m3u(sys.argv[1], True)
-            else:
-                self.stream(sys.argv[1])
+            self.stream(sys.argv[1])
         return False
 
     def setup_gamin(self, skip_prefs=False):
@@ -2074,7 +2071,6 @@ class ExaileWindow(gobject.GObject):
         name = os.path.basename(os.path.splitext(filename)[1]).replace("_", " ")
         file = urllib.urlopen(path)
 
-        
         if file.readline().strip() == '[playlist]':
             file.close()
             playlist = xlmisc.PlsParser(name,path)
@@ -2242,8 +2238,9 @@ class ExaileWindow(gobject.GObject):
         self.stop()
 
         # if it's a .m3u or .pls
-        if url.lower().endswith(".m3u") or \
-            url.lower().endswith(".pls"):
+        if (url.lower().endswith(".m3u") or \
+            url.lower().endswith(".pls")) and not \
+            "://" in url:
             self.import_m3u(url, True)
             return
         elif "://" in url:
@@ -2255,7 +2252,7 @@ class ExaileWindow(gobject.GObject):
         songs = tracks.TrackData((track, ))
         if not songs: return
 
-        self.append_songs(songs)
+        self.append_songs(songs, play=False)
         self.player.play_track(track)
 
     def open_url(self, event): 

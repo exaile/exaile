@@ -781,6 +781,7 @@ class ExailePlayer(GSTPlayer):
         if track.loc.lower().endswith('.pls') or \
             track.loc.lower().endswith('.m3u') or \
             track.loc.lower().endswith('.asx'):
+            print "FINDING STREAM URI"
             self.find_stream_uri(track)
             if ret: return True
 

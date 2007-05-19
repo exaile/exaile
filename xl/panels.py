@@ -435,13 +435,14 @@ class CollectionPanel(object):
                 "selected tracks from disk?"))
 
             if result != gtk.RESPONSE_YES: return
-            for track in add:
-                os.remove(track.loc)
 
             for track in add:
                 if track.type == 'device':
                     device_delete.append(track)
                     continue
+                else:
+                    for track in add:
+                        os.remove(track.loc)
                 path_id = tracks.get_column_id(self.db, 'paths', 'name',
                     track.loc)
                 self.db.execute("DELETE FROM tracks WHERE path=?", (path_id,))

@@ -2018,7 +2018,6 @@ class PRadioPanel(object):
         """
         reg = re.compile("<[^>]*?>", re.IGNORECASE|re.DOTALL)
         desc = reg.sub('', desc)
-        desc = desc.replace('\n', ' ')
         desc = re.sub(r"\s+", " ", desc)
 
         if len(desc) > 70:

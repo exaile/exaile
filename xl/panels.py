@@ -221,14 +221,16 @@ class CollectionPanel(object):
         self.keyword = None
         self.track_cache = dict()
         self.start_count = 0
-        self.artist_image = gtk.gdk.pixbuf_new_from_file('images%sartist.png' %
-            os.sep)
-        self.album_image = self.exaile.window.render_icon('gtk-cdrom', gtk.ICON_SIZE_SMALL_TOOLBAR)
-        self.track_image = gtk.gdk.pixbuf_new_from_file('images%strack.png' % 
-            os.sep)
-        self.genre_image = gtk.gdk.pixbuf_new_from_file('images%sgenre.png' %
-            os.sep)
-        self.iplaylist_image = gtk.gdk.pixbuf_new_from_file('images%splaylist.png' % os.sep)
+        self.artist_image = gtk.gdk.pixbuf_new_from_file(os.path.join(
+            'images', 'artist.png'))
+        self.album_image = self.exaile.window.render_icon('gtk-cdrom',
+            gtk.ICON_SIZE_SMALL_TOOLBAR)
+        self.track_image = gtk.gdk.pixbuf_new_from_file(os.path.join(
+            'images', 'track.png'))
+        self.genre_image = gtk.gdk.pixbuf_new_from_file(os.path.join(
+            'images', 'genre.png'))
+        self.iplaylist_image = gtk.gdk.pixbuf_new_from_file(os.path.join(
+            'images', 'playlist.png'))
         self.connect_id = None
         self.setup_widgets()
 
@@ -603,7 +605,7 @@ class CollectionPanel(object):
         # clear out the tracks if this is a first time load or the refresh
         # button is pressed
         if event: 
-            print "Clearing tracks cache"
+            xlmisc.log("Clearing tracks cache")
             self.track_cache = dict()
 
         self.model = gtk.TreeStore(gtk.gdk.Pixbuf, object)
@@ -799,7 +801,7 @@ class CollectionPanel(object):
                     if not unknown and first:
                         last_songs.append(track)
                         break
-                    info = "Unknown"
+                    info = _("Unknown")
                 first = False
 
                 if field == "title":
@@ -814,7 +816,6 @@ class CollectionPanel(object):
                         parent = self.model.append(parent, 
                             [self.image_map[field], info])
 
-                        data = "_%s" % field
                         if info == "track": info = track
                         node_for[string] = parent
                     else: parent = node_for[string]
@@ -895,8 +896,7 @@ class DeviceTransferQueue(gtk.VBox):
         buttons.pack_end(self.transfer, False, False)
         buttons.pack_end(self.clear, False, False)
         buttons.pack_end(self.stop, False, False)
-        self.clear.connect('clicked',
-            self.on_clear)
+        self.clear.connect('clicked', self.on_clear)
         self.transfer.connect('clicked', self.start_transfer)
 
         self.pack_start(buttons, False, False)
@@ -942,8 +942,8 @@ class DeviceTransferQueue(gtk.VBox):
         if self.transferring: return
         self.transferring = True
         self.stopped = False
-        gobject.idle_add(self.panel.exaile.status.set_first, "Starting "
-            "transfer...", 3000)
+        gobject.idle_add(self.panel.exaile.status.set_first, _("Starting "
+            "transfer..."), 3000)
         items = self.list.rows[:]
         total = len(self.list.rows)
         self.panel.transferring = True
@@ -957,12 +957,12 @@ class DeviceTransferQueue(gtk.VBox):
             per = float(count) / float(total)
             count += 1
             gobject.idle_add(self.update_progress, item, per)
-            print "set percent to %s" % per
+            xlmisc.log("set percent to %s" % per)
 
         if self.stopped: return
         gobject.idle_add(self.progress.set_fraction, 1)
-        gobject.idle_add(self.panel.exaile.status.set_first, "Finishing"
-            " transfer...", 3000)
+        gobject.idle_add(self.panel.exaile.status.set_first, _("Finishing"
+            " transfer..."), 3000)
         gobject.idle_add(self.panel.transfer_done)
         self.transferring = False
 
@@ -1156,7 +1156,7 @@ class DevicePanel(CollectionPanel):
             self.connected = False
             img = gtk.Image()
             img.set_from_stock('gtk-disconnect', gtk.ICON_SIZE_BUTTON)
-            self.track_count.set_label("0 tracks")
+            self.track_count.set_label(_("0 tracks"))
             self.load_tree(True)
             self.connect_button.set_image(img)
             return
@@ -1179,7 +1179,7 @@ class DevicePanel(CollectionPanel):
         count = 1
         select = 0
         self.store.clear()
-        self.store.append(['None', EmptyDriver()])
+        self.store.append([_('None'), EmptyDriver()])
 
         for k, v in self.drivers.iteritems():
             if k == self.driver:
@@ -1205,7 +1205,7 @@ class DevicePanel(CollectionPanel):
         self.update_drivers()
 
     def connect(self, driver):
-        self.track_count.set_label("Connecting...")
+        self.track_count.set_label(_("Connecting..."))
         try:
             driver.connect(self)
         except:
@@ -1233,7 +1233,7 @@ class DevicePanel(CollectionPanel):
             self.connect_button.set_image(img)
         else:
             self.connected = True
-        self.track_count.set_label("%d tracks" % len(self.driver.all))
+        self.track_count.set_label(_("%d tracks") % len(self.driver.all))
 
         self.load_tree()
 
@@ -1307,8 +1307,8 @@ class PodcastQueueThread(threading.Thread):
             if self.stopped: break
             hin = urllib.urlopen(song.loc)
 
-            temp_path = "%s%spodcasts%sdownloading" % \
-                (self.panel.exaile.get_settings_dir(), os.sep, os.sep)
+            temp_path = os.path.join(self.panel.exaile.get_settings_dir(),
+                'podcasts', 'downloading')
             hout = open(temp_path, "w+")
 
             count = 0
@@ -1430,7 +1430,7 @@ class PodcastTransferQueue(gtk.VBox):
             percent = down / total
             self.progress.set_fraction(percent)
 
-        self.label.set_label("%d of %d downloaded" % (self.downloaded,
+        self.label.set_label(_("%d of %d downloaded") % (self.downloaded,
             self.total))
 
     def append(self, song):
@@ -1511,13 +1511,13 @@ class PRadioPanel(object):
         self.tree.set_model(self.model)
 
         self.open_folder = xlmisc.get_icon('gnome-fs-directory-accept')
-        self.track = gtk.gdk.pixbuf_new_from_file('images%strack.png' %
-            os.sep)
+        self.track = gtk.gdk.pixbuf_new_from_file(os.path.join('images',
+            'track.png'))
         self.folder = xlmisc.get_icon('gnome-fs-directory')
         self.refresh_image = xlmisc.get_icon('gtk-refresh')
 
-        self.track = gtk.gdk.pixbuf_new_from_file('images%strack.png' %
-            os.sep)
+        self.track = gtk.gdk.pixbuf_new_from_file(os.path.join('images',
+            'track.png'))
         self.custom = self.model.append(None, [self.open_folder, "Saved Stations"])
         self.podcast = self.model.append(None, [self.open_folder, "Podcasts"])
 
@@ -1608,15 +1608,13 @@ class PRadioPanel(object):
                 PRadioGenre):
                 self.menu.popup(None, None, None, event.button, event.time)
             else:
-                if object == "Saved Stations" or \
-                    object == "Podcasts" or \
-                    object == "Shoutcast Stations":
+                if object in ("Saved Stations", "Podcasts", "Shoutcast Stations"):
                     return
 #                self.menu.popup(None, None, None,
 #                    event.button, event.time)
             
         elif event.type == gtk.gdk._2BUTTON_PRESS:
-            if object == 'Last.FM Radio':
+            if object == 'Last.fm Radio':
                 self.tree.expand_row(path, False)                
             elif isinstance(object, CustomWrapper):
                 self.open_station(object.name)
@@ -1656,7 +1654,7 @@ class PRadioPanel(object):
             node = self.model.append(self.radio_root, [self.folder, driver])
 
             self.load_nodes[driver] = self.model.append(node, 
-                [self.refresh_image, "Loading streams..."])
+                [self.refresh_image, _("Loading streams...")])
             self.drivers[driver] = node
             self.tree.expand_row(self.model.get_path(self.radio_root), False)
             if self.exaile.settings.get_boolean('row_expanded', plugin=name,
@@ -1673,14 +1671,14 @@ class PRadioPanel(object):
 
     def open_lastfm(self, object):
         """
-            Opens and plays a last.fm station
+            Opens and plays a Last.fm station
         """
         station = str(object)
         user = self.exaile.settings.get_str('lastfm/user', '')
         password = self.exaile.settings.get_crypted('lastfm/pass', '')
 
         if not user or not password:
-            common.error(self.exaile.window, _("You need to have a last.fm "
+            common.error(self.exaile.window, _("You need to have a Last.fm "
                 "username and password set in your preferences."))
             return
 
@@ -1693,7 +1691,7 @@ class PRadioPanel(object):
         tr.type = 'lastfm'
         tr.track = -1
         tr.title = station
-        tr.album = "%s's Last.FM %s" % (user, station)
+        tr.album = _("%s's Last.fm %s") % (user, station)
 
 
         self.exaile.append_songs((tr,))
@@ -1746,7 +1744,7 @@ class PRadioPanel(object):
             else:
                 if not downloaded:
 
-                    song.artist = "Not downloaded"
+                    song.artist = _("Not downloaded")
                     song.download_path = ''
                     add_item = True
                 else:
@@ -1788,12 +1786,11 @@ class PRadioPanel(object):
         """
         (path, ext) = os.path.splitext(loc)
         hash = md5.new(loc).hexdigest()
-        savepath = "%s%s%s" % (self.exaile.get_settings_dir(),
-            os.sep, 'podcasts')
+        savepath = os.path.join(self.exaile.get_settings_dir(), 'podcasts')
         if not os.path.isdir(savepath):
             os.mkdir(savepath, 0777)
 
-        file = "%s%s%s%s" % (savepath, os.sep, hash, ext)
+        file = os.path.join(savepath, hash + ext)
         if os.path.isfile(file): return file, True
         else: return file, False
 
@@ -1871,7 +1868,7 @@ class PRadioPanel(object):
             self.drivers_expanded[driver] = 1
             self.clean_node(self.drivers[driver])
             self.load_nodes[driver] = self.model.append(iter, 
-                [self.refresh_image, "Loading streams..."])
+                [self.refresh_image, _("Loading streams...")])
             driver.load_streams(self.drivers[driver], 
                 self.load_nodes[driver], False)
             self.tree.expand_row(self.model.get_path(iter), False)
@@ -1928,7 +1925,7 @@ class PRadioPanel(object):
             self.db.commit()
 
             item = self.model.append(self.podcast,
-                [self.track, PodcastWrapper("Fetching...", name)])
+                [self.track, PodcastWrapper(_("Fetching..."), name)])
             self.tree.expand_row(self.model.get_path(self.podcast), False)
 
             self.refresh_podcast(name, item)
@@ -2019,17 +2016,14 @@ class PRadioPanel(object):
         """ 
             Cleans description of html, and shortens it to 70 chars
         """
-        reg = re.compile("<[^>]*>", re.IGNORECASE|re.DOTALL)
+        reg = re.compile("<[^>]*?>", re.IGNORECASE|re.DOTALL)
         desc = reg.sub('', desc)
-        reg = re.compile("\n", re.IGNORECASE|re.DOTALL)
-        desc = reg.sub('', desc)
+        desc = desc.replace('\n', ' ')
+        desc = re.sub(r"\s+", " ", desc)
 
-        desc = re.sub("\s+", " ", desc)
+        if len(desc) > 70:
+            desc = desc[:67] + '...'
 
-        if len(desc) > 70: add = "..."
-        else: add = ''
-
-        desc = desc[:70] + add
         return desc
 
     def get_child(self, node, name):
@@ -2088,8 +2082,8 @@ class PRadioPanel(object):
         
         dialog = xlmisc.MultiTextEntryDialog(self.exaile.window,
             _("Add Stream to Station"))
-        dialog.add_field("URL:")
-        dialog.add_field("Description:")
+        dialog.add_field(_("URL:"))
+        dialog.add_field(_("Description:"))
         result = dialog.run()
         dialog.dialog.hide()
         if result == gtk.RESPONSE_OK:
@@ -2322,7 +2316,8 @@ class PlaylistsPanel(object):
         self.model = gtk.TreeStore(gtk.gdk.Pixbuf, str, object)
         self.tree.set_model(self.model)
         self.open_folder = xlmisc.get_icon('gnome-fs-directory-accept')
-        self.playlist_image = gtk.gdk.pixbuf_new_from_file('images%splaylist.png' % os.sep)
+        self.playlist_image = gtk.gdk.pixbuf_new_from_file(os.path.join(
+            'images', 'playlist.png'))
         self.smart_image = self.exaile.window.render_icon('gtk-execute',
             gtk.ICON_SIZE_MENU)
         self.smart = self.model.append(None, [self.open_folder, _("Smart"
@@ -2408,15 +2403,15 @@ class PlaylistsPanel(object):
             Sets up the popup menu for the playlist tree
         """
         self.menu = xlmisc.Menu()
-        self.menu.append('Add Playlist', self.on_add_playlist, 'gtk-add')
-        self.menu.append('Add Smart Playlist', self.on_add_smart_playlist, 
+        self.menu.append(_('Add Playlist'), self.on_add_playlist, 'gtk-add')
+        self.menu.append(_('Add Smart Playlist'), self.on_add_smart_playlist, 
             'gtk-add')
         self.menu.append_separator()
-        self.edit_item = self.menu.append('Edit', self.edit_playlist, 'gtk-edit')
+        self.edit_item = self.menu.append(_('Edit'), self.edit_playlist,
+            'gtk-edit')
         self.menu.append_separator()
-        self.remove_item = self.menu.append('Delete Playlist', 
-            self.remove_playlist,
-            'gtk-remove')
+        self.remove_item = self.menu.append(_('Delete Playlist'), 
+            self.remove_playlist, 'gtk-remove')
 
     def edit_playlist(self, item, event):
         """
@@ -2430,7 +2425,7 @@ class PlaylistsPanel(object):
         row = self.db.read_one('playlists', 'matchany', 
             'id=?', (obj.id,))
 
-        dialog = filtergui.FilterDialog('Edit Playlist', CRITERIA)
+        dialog = filtergui.FilterDialog(_('Edit Playlist'), CRITERIA)
         dialog.set_transient_for(self.exaile.window)
 
         dialog.set_name(obj.name)
@@ -2489,7 +2484,7 @@ class PlaylistsPanel(object):
         """
             Adds a smart playlist
         """
-        dialog = filtergui.FilterDialog('Add Smart Playlist', CRITERIA)
+        dialog = filtergui.FilterDialog(_('Add Smart Playlist'), CRITERIA)
 
         dialog.set_transient_for(self.exaile.window)
         result = dialog.run()
@@ -2796,7 +2791,8 @@ class FilesPanel(object):
         selection = self.tree.get_selection()
         selection.set_mode(gtk.SELECTION_MULTIPLE)
         self.directory = xlmisc.get_icon('gnome-fs-directory')
-        self.track = gtk.gdk.pixbuf_new_from_file('images%strack.png' % os.sep)
+        self.track = gtk.gdk.pixbuf_new_from_file(os.path.join('images',
+            'track.png'))
         self.up = self.xml.get_widget('files_up_button')
         self.up.connect('clicked', self.go_up)
         self.back = self.xml.get_widget('files_back_button')
@@ -2804,15 +2800,14 @@ class FilesPanel(object):
         self.next = self.xml.get_widget('files_next_button')
         self.next.connect('clicked', self.go_next)
         self.entry = self.xml.get_widget('files_entry')
-        self.entry.connect('activate', 
-            self.entry_activate)
+        self.entry.connect('activate', self.entry_activate)
         self.xml.get_widget('files_refresh_button').connect('clicked',
             self.refresh)
         self.counter = 0
 
         pb = gtk.CellRendererPixbuf()
         text = gtk.CellRendererText()
-        col = gtk.TreeViewColumn('Path')
+        col = gtk.TreeViewColumn(_('Path'))
         col.pack_start(pb, False)
         col.pack_start(text, True)
         col.set_fixed_width(130)
@@ -2826,7 +2821,7 @@ class FilesPanel(object):
 
         text = gtk.CellRendererText()
         text.set_property('xalign', 1.0)
-        col = gtk.TreeViewColumn('Size')
+        col = gtk.TreeViewColumn(_('Size'))
         col.set_fixed_width(50)
         col.set_resizable(True)
         col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
@@ -2902,7 +2897,7 @@ class FilesPanel(object):
         for path in paths:
             iter = self.model.get_iter(path)
             value = model.get_value(iter, 1)
-            value = "%s%s%s" % (self.current, os.sep, value)
+            value = os.path.join(self.current, value)
             (stuff, ext) = os.path.splitext(value)
             if os.path.isdir(value):
                 self.append_recursive(songs, value)
@@ -3007,7 +3002,7 @@ class FilesPanel(object):
         for path in paths:
             iter = self.model.get_iter(path)
             value = model.get_value(iter, 1)
-            dir = "%s%s%s" % (self.current, os.sep, value)
+            dir = os.path.join(self.current, value)
             if os.path.isdir(dir):
                 self.load_directory(dir)
             else:
@@ -3038,7 +3033,7 @@ class FilesPanel(object):
 
             if keyword and path.lower().find(keyword.lower()) == -1:
                 continue
-            full = "%s%s%s" % (dir, os.sep, path)
+            full = os.path.join(dir, path)
             if os.path.isdir(full):
                 directories.append(path)
 
@@ -3057,7 +3052,7 @@ class FilesPanel(object):
 
         for f in files:
             try:
-                info = os.stat("%s%s%s" % (dir, os.sep, f))
+                info = os.stat(os.path.join(dir, f))
             except OSError:
                 continue
             size = info[6]

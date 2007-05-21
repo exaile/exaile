@@ -57,7 +57,7 @@ class PluginManager(object):
         self.name_label = self.xml.get_widget('name_label')
         self.description = self.xml.get_widget('description_view')
         self.model = gtk.ListStore(gtk.gdk.Pixbuf, str, bool, object)
-        self.xml.get_widget('ok_button').connect('clicked',
+        self.xml.get_widget('close_button').connect('clicked',
             lambda *e: self.dialog.destroy())
         self.configure_button = self.xml.get_widget('configure_button')
         self.configure_button.connect('clicked', self.configure_plugin)

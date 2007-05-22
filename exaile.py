@@ -322,6 +322,9 @@ class ExaileWindow(gobject.GObject):
         """
             Sets up the location and size of the window based on settings
         """
+        if self.settings.get_boolean('ui/mainw_maximized', False):
+            self.window.maximize()
+
         width = self.settings.get_int("ui/mainw_width", 640)
         height = self.settings.get_int("ui/mainw_height", 475)
 
@@ -422,6 +425,7 @@ class ExaileWindow(gobject.GObject):
             Connects events to the various widgets
         """
         self.window.connect('configure_event', self.on_resize)
+        self.window.connect('window_state_event', self.on_state_change)
         self.window.connect('delete_event', self.on_quit)
         self.queue_count_label = self.xml.get_widget('queue_count_label')
         self.xml.get_widget('queue_count_box').connect('button-release-event',
@@ -2419,6 +2423,8 @@ class ExaileWindow(gobject.GObject):
         """
             Saves the current size and position
         """
+        if self.settings.get_boolean('ui/mainw_maximized', False): return False
+
         (width, height) = self.window.get_size()
         self.settings['ui/mainw_width'] = width
         self.settings['ui/mainw_height'] = height
@@ -2428,6 +2434,15 @@ class ExaileWindow(gobject.GObject):
         if self.splitter.get_position() > 10:
             sash = self.splitter.get_position()
             self.settings['ui/mainw_sash_pos'] = sash
+        return False
+
+    def on_state_change(self, widget, event):
+        """
+            Saves the current maximized state
+        """
+        if event.changed_mask & gtk.gdk.WINDOW_STATE_MAXIMIZED:
+            self.settings.set_boolean('ui/mainw_maximized',
+                bool(event.new_window_state & gtk.gdk.WINDOW_STATE_MAXIMIZED))
         return False
 
     def jump_to(self, index):

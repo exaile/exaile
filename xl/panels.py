@@ -1430,8 +1430,8 @@ class PodcastTransferQueue(gtk.VBox):
             percent = down / total
             self.progress.set_fraction(percent)
 
-        self.label.set_label(_("%d of %d downloaded") % (self.downloaded,
-            self.total))
+        self.label.set_label("%d %s %d %s" % (self.downloaded,
+            _('of'), self.total, _('downloaded')))
 
     def append(self, song):
         """
@@ -1691,7 +1691,7 @@ class PRadioPanel(object):
         tr.type = 'lastfm'
         tr.track = -1
         tr.title = station
-        tr.album = _("%s's Last.fm %s") % (user, station)
+        tr.album = "%s's Last.fm %s" % (user, station)
 
 
         self.exaile.append_songs((tr,))

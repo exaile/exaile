@@ -27,7 +27,7 @@ def get_tag(f, name):
     name = '\xa9%s' % name
     if not f.has_key(name):
         return ''
-    else: return f[name]
+    else: return f[name][0]
 
 def set_tag(f, name, value):
     name = "\xa9%s" % name

@@ -96,6 +96,7 @@ class TracksListCtrl(gtk.VBox):
             gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.pauseimg = self.pauseimg.scale_simple(18, 18,
             gtk.gdk.INTERP_BILINEAR)
+        self.stop_size = (6, 6) # stop image size
 
         self.db = exaile.db
         self.inited = False
@@ -392,7 +393,7 @@ class TracksListCtrl(gtk.VBox):
         """
             Gets the array to build the two models
         """
-        ar = [object, gtk.gdk.Pixbuf]
+        ar = [object, gtk.gdk.Pixbuf, gtk.gdk.Pixbuf]
 
         for item in map:
             if item == "track":
@@ -424,7 +425,7 @@ class TracksListCtrl(gtk.VBox):
 
         self.setup_model(self.append_map)
 
-        count = 2
+        count = 3
         first = False
         columns_settings = self.exaile.settings.get_list("ui/%s_columns" % (self.prep,))
 
@@ -446,12 +447,17 @@ class TracksListCtrl(gtk.VBox):
                     first = True
                     pb = gtk.CellRendererPixbuf()
                     pb.set_fixed_size(20, 20)
+                    stop_pb = gtk.CellRendererPixbuf()
+                    stop_pb.set_fixed_size(*self.stop_size)
                     col = gtk.TreeViewColumn(name)
                     col.pack_start(pb, False)
+                    col.pack_start(stop_pb, False)
                     col.pack_start(cellr, True)
                     col.set_attributes(cellr, text=count)
                     col.set_attributes(pb, pixbuf=1)
+                    col.set_attributes(stop_pb, pixbuf=2)
                     col.set_cell_data_func(pb, self.icon_data_func)
+                    col.set_cell_data_func(stop_pb, self.stop_icon_data_func)
                 else:
                     col = gtk.TreeViewColumn(name, cellr, text=count)
                 
@@ -594,6 +600,20 @@ class TracksListCtrl(gtk.VBox):
                 return (self.col_map[col.get_title()], 
                     col.get_sort_order() == gtk.SORT_DESCENDING)
         return 'album', False
+
+    def stop_icon_data_func(self, col, cellr, model, iter):
+        """
+            sets stop icon
+        """
+
+        item = model.get_value(iter, 0)
+        image = None
+        if item == self.exaile.player.stop_track:
+            image = xlmisc.get_text_icon(self.exaile.window,
+                '', self.stop_size[0], self.stop_size[0], 
+                    bgcolor='#9b0000', bordercolor='#9b0000')
+
+        cellr.set_property('pixbuf', image)
             
     def icon_data_func(self, col, cellr, model, iter):
         """
@@ -613,12 +633,6 @@ class TracksListCtrl(gtk.VBox):
             image = xlmisc.get_text_icon(self.exaile.window,
                 str(index + 1), 18, 18)
 
-        if item == self.exaile.player.stop_track:
-            char = '*'
-            if item == self.exaile.player.current:
-                char = '>'
-            image = xlmisc.get_text_icon(self.exaile.window,
-                char, 18, 18, '#a40000')
         cellr.set_property('pixbuf', image)
 
     def rating_data_func(self, col, cellr, model, iter):
@@ -683,7 +697,7 @@ class TracksListCtrl(gtk.VBox):
         """
             Creates the array to be added to the model in the correct order
         """
-        ar = [song, None]
+        ar = [song, None, None]
         for field in self.append_map:
             ar.append(getattr(song, field))
         return ar

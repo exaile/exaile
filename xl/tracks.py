@@ -96,6 +96,7 @@ class TrackData(list):
         """
             Returns the track associated with the path
         """
+
         if self.paths.has_key(path):
             track = self.paths[path]
             if track in self:

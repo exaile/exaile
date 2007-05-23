@@ -461,7 +461,7 @@ class ExailePlayer(GSTPlayer):
         self.played = []
         self.queued = []
         self.history = []
-        self.stop_track = -1
+        self.stop_track = None
         self.next_track = None
         self.shuffle = False
         self.repeat = False
@@ -839,9 +839,9 @@ class ExailePlayer(GSTPlayer):
     def next(self):
         self.stop(False)
         if self.exaile.tracks == None: return
-        if self.stop_track > -1:
+        if self.stop_track:
             if self.current == self.stop_track:
-                self.stop_track = -1
+                self.stop_track = None
                 self.stop()
                 return
       

@@ -610,12 +610,15 @@ class TracksListCtrl(gtk.VBox):
                 image = self.pauseimg
         elif item in self.exaile.player.queued:
             index = self.exaile.player.queued.index(item)
-            if item == self.exaile.player.stop_track:
-                image = xlmisc.get_text_icon(self.exaile.window,
-                    str(index + 1), 18, 18, '#ef1f1f')
-            else:
-                image = xlmisc.get_text_icon(self.exaile.window,
-                    str(index + 1), 18, 18)
+            image = xlmisc.get_text_icon(self.exaile.window,
+                str(index + 1), 18, 18)
+
+        if item == self.exaile.player.stop_track:
+            char = '*'
+            if item == self.exaile.player.current:
+                char = '>'
+            image = xlmisc.get_text_icon(self.exaile.window,
+                char, 18, 18, '#a40000')
         cellr.set_property('pixbuf', image)
 
     def rating_data_func(self, col, cellr, model, iter):
@@ -996,7 +999,7 @@ class TracksListCtrl(gtk.VBox):
                 path_id = xl.tracks.get_column_id(self.db, 'paths', 'name', track.loc)
                 self.exaile.playlist_songs.remove(track)
                 if track == self.exaile.player.stop_track:
-                    self.exaile.player.stop_track = -1
+                    self.exaile.player.stop_track = None
                 try: self.songs.remove(track)
                 except ValueError: pass
 
@@ -1201,7 +1204,7 @@ class QueueManager(TracksListCtrl):
         for track in tracks:
             self.exaile.player.queued.remove(track)
             if track == self.exaile.player.stop_track:
-                self.exaile.player.stop_track = -1
+                self.exaile.player.stop_track = None
 
         self.set_songs(self.exaile.player.queued)
         update_queued(self.exaile)

@@ -26,6 +26,7 @@ except ImportError: pass
 try:
     from xl.media import mp4
     formats['m4a'] = mp4
+    formats['aac'] = mp4
 except ImportError: pass
 
 try:
@@ -49,7 +50,7 @@ def read_from_path(uri):
         return
 
     tr = Track(uri)
-    tr.type = ext
+    tr.type = formats[ext].TYPE
 
     try:
         formats[ext].fill_tag_from_path(tr)

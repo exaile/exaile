@@ -21,6 +21,8 @@ try:
 except ImportError:
     from mutagen.m4a import M4A as MP4
 
+TYPE = 'aac'
+
 def get_tag(f, name):
     name = '\xa9%s' % name
     if not f.has_key(name):

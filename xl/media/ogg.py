@@ -1,5 +1,7 @@
 import mutagen.oggvorbis
 
+TYPE = 'ogg'
+
 def get_tag(f, tag):
     """
         Gets a specific tag, or if the tag does not exist, it returns an empty

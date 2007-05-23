@@ -1,5 +1,7 @@
 import lib.wmainfo
 
+TYPE = 'wma'
+
 def get_tag(inf, name):
     if inf.tags.has_key(name):
         return inf.tags[name]

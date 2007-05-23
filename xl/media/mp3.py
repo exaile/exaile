@@ -1,6 +1,8 @@
 import mutagen, mutagen.id3, mutagen.mp3
 from xl import xlmisc
 
+TYPE = 'mp3'
+
 IDS = { "TIT2": "title",
         "TPE1": "artist",
         "TALB": "album",

@@ -1,6 +1,8 @@
 import mutagen.apev2
 from xl import xlmisc
 
+TYPE = 'mpc'
+
 # this code taken from quodlibet
 try:
     import ctypes

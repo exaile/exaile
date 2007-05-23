@@ -1,5 +1,7 @@
 import mutagen.flac
 
+TYPE = 'flac'
+
 def get_tag(flac, tag):
     try:    
         return unicode(flac[tag][0])

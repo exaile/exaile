@@ -1677,7 +1677,7 @@ class StatusBar(object):
 
 BITMAP_CACHE = dict()
 def get_text_icon(widget, text, width, height, bgcolor='#456eac',   
-    border=True, bordercolor=None):
+    bordercolor=None):
     """
         Gets a bitmap icon with the specified text, width, and height
     """
@@ -1693,11 +1693,10 @@ def get_text_icon(widget, text, width, height, bgcolor='#456eac',
 
     if not bordercolor: bordercolor = black
     else: 
-        print "border color is ", bordercolor
         bordercolor = colormap.alloc_color(gtk.gdk.color_parse(bordercolor))
     gc.set_foreground(bordercolor)
 
-    if border: pixmap.draw_rectangle(gc, True, 0, 0, width, height)
+    pixmap.draw_rectangle(gc, True, 0, 0, width, height)
     fg = colormap.alloc_color(gtk.gdk.color_parse(bgcolor))
     gc.set_foreground(fg)
     pixmap.draw_rectangle(gc, True, 1, 1, width - 2, height - 2)

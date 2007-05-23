@@ -522,7 +522,10 @@ def read_track_from_db(db, path):
 
     if tr:
         (path, ext) = os.path.splitext(tr.loc.lower())
-        tr.type = ext.replace('.', '')
+        try:
+            tr.type = media.formats[ext.replace('.', '')].TYPE
+        except:
+            xlmisc.log_exception()
     
     return tr
 

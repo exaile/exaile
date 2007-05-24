@@ -185,10 +185,10 @@ class TracksListCtrl(gtk.VBox):
             if m:
                 song = self.exaile.device_panel.get_song(l)
             else:
-                # check plugins
-                song = self.get_plugin_track(l)
+                song = tracks.read_track(self.exaile.db, self.exaile.all_songs, l)
                 if not song:
-                    song = tracks.read_track(self.exaile.db, self.exaile.all_songs, l)
+                    # check plugins
+                    song = self.get_plugin_track(l)
 
             if not song or song in self.songs: continue
 

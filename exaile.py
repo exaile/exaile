@@ -134,7 +134,6 @@ class ExaileWindow(gobject.GObject):
         self.thread_pool = []
         self.dir_queue = []
         self.scan_timer = None
-        self.seek_id = None
         self.seeking = False
         self.debug_dialog = xlmisc.DebugDialog(self)
         self.col_menus = dict()
@@ -455,17 +454,13 @@ class ExaileWindow(gobject.GObject):
         self.plugins_item.connect('activate', self.show_plugin_manager)
         self.view_menu = self.xml.get_widget('view_menu')
 
-#        self.progress = self.xml.get_widget('track_slider')
-#        self.progress.connect('change-value', self.seek)
-#        self.progress.connect('button-press-event',
-#            self.progress_button_pressed)
-#        self.progress.connect('button-release-event',
-#            self.progress_button_released)
-
         self.new_progressbar = self.xml.get_widget('new_progressbar')
         self.new_progressbar.set_fraction(0)
         self.new_progressbar.set_text(_("Not Playing"))
-        self.new_progressbar.connect('button-press-event', self.seek)
+        self.new_progressbar.connect('button-press-event', self.seek_begin)
+        self.new_progressbar.connect('button-release-event', self.seek_end)
+        self.new_progressbar.connect('motion-notify-event',
+            self.seek_motion_notify)
 
         self.clear_button = self.xml.get_widget('clear_button')
         self.clear_button.connect('clicked', lambda *e: self.clear_playlist(None))
@@ -1304,7 +1299,7 @@ class ExaileWindow(gobject.GObject):
 
         if track == None: 
             return True
-        duration = track.duration * gst.SECOND
+        duration = track.duration
 
         # update the progress bar/label
         value = self.player.get_current_position()
@@ -1312,11 +1307,13 @@ class ExaileWindow(gobject.GObject):
             real = 0
         else:
             real = value * duration / 100
-        seconds = real / gst.SECOND
+        seconds = real
 
         if not self.seeking:
             self.new_progressbar = self.xml.get_widget('new_progressbar')
-            self.new_progressbar.set_fraction(value/100)
+            fraction = value / 100
+            if fraction > 1: fraction = 1
+            self.new_progressbar.set_fraction(fraction)
 
             if track.type == 'stream':
                 if track.start_time and self.player.is_playing():
@@ -1324,7 +1321,7 @@ class ExaileWindow(gobject.GObject):
                     self.new_progressbar.set_text("%d:%02d" % (seconds / 60, seconds % 60))
 
             else:
-                remaining_seconds = (duration / gst.SECOND) - seconds
+                remaining_seconds = duration - seconds
                 self.new_progressbar.set_text("%d:%02d / %d:%02d" % ((seconds / 60), (seconds % 60), (remaining_seconds / 60), (remaining_seconds % 60) )  )
 
 
@@ -1799,18 +1796,50 @@ class ExaileWindow(gobject.GObject):
                 self.get_volume_percent()
             pop.show_osd(vol_text, None)
 
-    def seek(self, progress, event): 
+    def seek_begin(self, widget, event):
         """
-            Seeks in the current track
+            Starts when seek drag begins
         """
+        self.seeking = True
+
+    def seek_motion_notify(self, widget, event):
+        """
+            Simulates dragging on the new progressbar widget
+        """
+        if not self.player.current or self.player.current.type == \
+            'stream': return
         mouse_x, mouse_y = event.get_coords()
-        progress_loc = progress.get_allocation()
+        progress_loc = self.new_progressbar.get_allocation()
 
         value = mouse_x / progress_loc.width
-        if self.seek_id:
-            gobject.source_remove(self.seek_id)
-            self.seeking = False
-            self.seek_id = None
+        self.new_progressbar.set_fraction(value)
+        track = self.player.current
+
+        duration = track.duration
+        if duration == -1:
+            real = 0
+        else:
+            real = value * duration
+        seconds = real
+        
+        if track.type == 'stream':
+            if track.start_time and self.player.is_playing():
+                seconds = time.time() - track.start_time
+                self.new_progressbar.set_text("%d:%02d" % (seconds / 60, seconds % 60))
+        else:
+            remaining_seconds = duration - seconds
+            self.new_progressbar.set_text("%d:%02d / %d:%02d" % ((seconds / 60), 
+                (seconds % 60), (remaining_seconds / 60), (remaining_seconds % 60))) 
+
+    def seek_end(self, widget, event):
+        """
+            Resets seeking flag, actually seeks to the requested location
+        """
+
+        mouse_x, mouse_y = event.get_coords()
+        progress_loc = self.new_progressbar.get_allocation()
+
+        value = mouse_x / progress_loc.width
 
         if not self.player.current or \
             self.player.current.type == 'stream':
@@ -1824,11 +1853,11 @@ class ExaileWindow(gobject.GObject):
         seconds = real / gst.SECOND
 
         duration = self.player.current.duration
-        real = long(value * duration)
+        real = float(value * duration)
         self.player.seek(real)
+        self.seeking = False
         self.player.current.submitted = True
         self.emit('seek', real)
-        self.seeking = False
 
     def play_track(self, player, track): 
         """

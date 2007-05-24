@@ -2320,7 +2320,10 @@ Genre</property>
 			<widget class="GtkProgressBar" id="new_progressbar">
 			  <property name="height_request">24</property>
 			  <property name="visible">True</property>
-			  <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+			  <property name="can_focus">True</property>
+			  <property name="has_focus">True</property>
+			  <property name="events">GDK_BUTTON_MOTION_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+			  <property name="extension_events">GDK_EXTENSION_EVENTS_ALL</property>
 			  <property name="orientation">GTK_PROGRESS_LEFT_TO_RIGHT</property>
 			  <property name="fraction">0</property>
 			  <property name="pulse_step">0.10000000149</property>

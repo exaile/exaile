@@ -1800,6 +1800,8 @@ class ExaileWindow(gobject.GObject):
         """
             Starts when seek drag begins
         """
+        if not self.player.current or self.player.current.type == \
+            'stream': return
         self.seeking = True
 
     def seek_motion_notify(self, widget, event):
@@ -1821,15 +1823,10 @@ class ExaileWindow(gobject.GObject):
         else:
             real = value * duration
         seconds = real
-        
-        if track.type == 'stream':
-            if track.start_time and self.player.is_playing():
-                seconds = time.time() - track.start_time
-                self.new_progressbar.set_text("%d:%02d" % (seconds / 60, seconds % 60))
-        else:
-            remaining_seconds = duration - seconds
-            self.new_progressbar.set_text("%d:%02d / %d:%02d" % ((seconds / 60), 
-                (seconds % 60), (remaining_seconds / 60), (remaining_seconds % 60))) 
+
+        remaining_seconds = duration - seconds
+        self.new_progressbar.set_text("%d:%02d / %d:%02d" % ((seconds / 60), 
+            (seconds % 60), (remaining_seconds / 60), (remaining_seconds % 60))) 
 
     def seek_end(self, widget, event):
         """

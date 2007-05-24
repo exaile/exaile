@@ -562,6 +562,24 @@ class ExaileWindow(gobject.GObject):
         self.rating_combo.set_sensitive(False)
         self.rating_signal = self.rating_combo.connect('changed', self.set_rating)
 
+        # stop track event box
+        self.xml.get_widget('stop_track_box').connect('button-press-event',
+            self.stop_track_toggle)
+
+    def stop_track_toggle(self, *e):
+        """
+            Stop track toggle
+        """
+        if not self.player.stop_track: return
+        result = common.yes_no_dialog(self.window, '%s "%s" %s "%s". %s?' % (
+            _('Playback is currently set to stop on the track'),
+            self.player.stop_track.title, _('by'),
+            self.player.stop_track.artist, _('Would you like to '
+            'remove this')))
+        if result == gtk.RESPONSE_YES:
+            self.player.stop_track = None
+            self.tracks.queue_draw()
+
     def __on_mmkey(self, key):
         if key in ('Play', 'PlayPause', 'Pause'):
             self.toggle_pause()

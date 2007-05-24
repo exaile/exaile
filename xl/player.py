@@ -461,7 +461,7 @@ class ExailePlayer(GSTPlayer):
         self.played = []
         self.queued = []
         self.history = []
-        self.stop_track = None
+        self._stop_track = None
         self.next_track = None
         self.shuffle = False
         self.repeat = False
@@ -474,6 +474,27 @@ class ExailePlayer(GSTPlayer):
 
         self.eof_func = self.exaile.on_next
         self.current = None
+
+    def get_stop_track(self):
+        """
+            returns the stop_track (track to stop playback)
+        """
+        return self._stop_track
+
+    def set_stop_track(self, value):
+        """
+            sets the stop_track (track to stop playback)
+        """
+        stop_image = self.exaile.xml.get_widget('stop_track_image')
+        stop_image.clear()
+        if value:
+            pixbuf = xlmisc.get_text_icon(self.exaile.window,
+                '', 8, 8, 
+                    bgcolor='#9b0000', bordercolor='#9b0000')
+            stop_image.set_from_pixbuf(pixbuf)
+        self._stop_track = value
+    
+    stop_track = property(get_stop_track, set_stop_track)
 
     def set_audio_sink(self, sink=None):
         """

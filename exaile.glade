@@ -2131,6 +2131,30 @@ Genre</property>
 		      <property name="pack_type">GTK_PACK_END</property>
 		    </packing>
 		  </child>
+
+		  <child>
+		    <widget class="GtkEventBox" id="stop_track_box">
+		      <property name="visible">True</property>
+		      <property name="visible_window">True</property>
+		      <property name="above_child">False</property>
+
+		      <child>
+			<widget class="GtkImage" id="stop_track_image">
+			  <property name="visible">True</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.550000011921</property>
+			  <property name="xpad">6</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		    <packing>
+		      <property name="padding">0</property>
+		      <property name="expand">False</property>
+		      <property name="fill">False</property>
+		      <property name="pack_type">GTK_PACK_END</property>
+		    </packing>
+		  </child>
 		</widget>
 		<packing>
 		  <property name="padding">0</property>

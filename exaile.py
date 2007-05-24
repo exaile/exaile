@@ -1833,6 +1833,8 @@ class ExaileWindow(gobject.GObject):
         progress_loc = self.new_progressbar.get_allocation()
 
         value = mouse_x / progress_loc.width
+        if value < 0: value = 0
+        if value > 1: value = 1
         self.new_progressbar.set_fraction(value)
         track = self.player.current
 
@@ -1856,6 +1858,8 @@ class ExaileWindow(gobject.GObject):
         progress_loc = self.new_progressbar.get_allocation()
 
         value = mouse_x / progress_loc.width
+        if value < 0: value = 0
+        if value > 1: value = 1
 
         if not self.player.current or \
             self.player.current.type == 'stream':

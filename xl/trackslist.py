@@ -185,7 +185,10 @@ class TracksListCtrl(gtk.VBox):
             if m:
                 song = self.exaile.device_panel.get_song(l)
             else:
-                song = tracks.read_track(self.exaile.db, self.exaile.all_songs, l)
+                # check plugins
+                song = self.get_plugin_track(l)
+                if not song:
+                    song = tracks.read_track(self.exaile.db, self.exaile.all_songs, l)
 
             if not song or song in self.songs: continue
 
@@ -216,6 +219,16 @@ class TracksListCtrl(gtk.VBox):
         if self.type != 'queue':
             self.exaile.update_songs(self.songs, False)
         self.exaile.status.set_first(None)
+
+    def get_plugin_track(self, loc):
+        """
+            Checks to see if a track is in the available plugin list
+        """
+        for k, v in self.exaile.plugin_tracks.iteritems():
+            tr = v.for_path(loc)
+            if tr: return tr
+
+        return None
 
     def update_songs(self):
         """

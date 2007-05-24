@@ -130,6 +130,7 @@ class ExaileWindow(gobject.GObject):
         self.playlists_menu = None
         self.cover_thread = None
         self.timer = xlmisc.MiscTimer(self.timer_update, 1000)
+        self.plugin_tracks = {}
         self.playing = False
         self.thread_pool = []
         self.dir_queue = []

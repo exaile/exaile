@@ -2,7 +2,7 @@
 
 import re, os, cgi, time, urllib, sys
 import os.path
-plugin_re = re.compile(r'<a class="file" title="View File" href=".*?">(\w+.py)</a>', re.DOTALL|re.MULTILINE)
+plugin_re = re.compile(r'<a class="file" title="View File" href=".*?">([-\w]+.py)</a>', re.DOTALL|re.MULTILINE)
 
 if len(sys.argv) != 2:
     print "usage: python pluginupdater.py [exaile_version]"

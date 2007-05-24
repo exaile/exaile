@@ -22,7 +22,7 @@ import gtk, gtk.glade, gobject, sys, os, plugins, urllib, re
 from xl import common, xlmisc
 from gettext import gettext as _
 
-def show_error(parent, message): 
+def show_error(parent, message):
     """
         Shows an error dialog
     """
@@ -89,7 +89,7 @@ class PluginManager(object):
         self.list.append_column(col)
 
         self.load_plugin_list()
-    
+
         selection = self.list.get_selection()
         selection.connect('changed', self.row_selected)
         self.list.set_model(self.model)
@@ -97,7 +97,7 @@ class PluginManager(object):
         selection.select_path(0)
         self.fetched = False
 
-        if avail_url: 
+        if avail_url:
             self.setup_avail_tab()
             self.avail_url = avail_url
             self.plugin_nb.connect('switch-page', self.check_fetch_avail)
@@ -107,9 +107,9 @@ class PluginManager(object):
         for plugin in self.manager.plugins:
             icon = plugin.PLUGIN_ICON
             if not icon:
-                icon = self.dialog.render_icon('gtk-execute', 
+                icon = self.dialog.render_icon('gtk-execute',
                     gtk.ICON_SIZE_MENU)
-                
+
             self.model.append([icon, plugin.PLUGIN_NAME,
                 plugin.PLUGIN_ENABLED, plugin])
 
@@ -140,7 +140,7 @@ class PluginManager(object):
     @common.threaded
     def download_plugins(self):
         """
-            Downloads the selected plugin 
+            Downloads the selected plugin
         """
         download_dir = os.path.join(self.app.get_settings_dir(), 'plugins')
         files = []
@@ -164,7 +164,7 @@ class PluginManager(object):
                     h = open(os.path.join(download_dir, file), 'w')
                     h.write(plugin)
                     h.close()
-                
+
                     try:
                         _name = re.sub(r'\.pyc?$', '', file)
                         if file in sys.modules:
@@ -226,7 +226,34 @@ class PluginManager(object):
             found = False
             for plugin in self.manager.plugins:
                 if plugin.PLUGIN_NAME == name:
-                    if float(plugin.PLUGIN_VERSION) >= float(version):
+
+                    #this is a bit odd, to allow non-decimal versioning.
+                    installed_ver = plugin.PLUGIN_VERSION.split('.')
+                    available_ver = version.split('.')
+                    if len(installed_ver) != len(available_ver):
+                        if len(installed_ver) > len(available_ver):
+                            steps = len(available_ver)
+                            longer = True
+                        else:
+                            steps = len(installed_ver)
+                            longer = False
+                    else:
+                        steps = len(installed_ver)
+                        longer = False
+                    found = True
+                    equal = True
+                    i = 0
+                    while i < steps:
+                        if int(installed_ver[i]) > int(available_ver[i]):
+                            found = True
+                            equal = False
+                            break
+                        elif int(installed_ver[i]) < int(available_ver[i]):
+                            found = False
+                            equal = False
+                            break
+                        i = i + 1
+                    if equal and longer:
                         found = True
 
             if not found:
@@ -322,7 +349,7 @@ class PluginManager(object):
             plugin.destroy()
             plugin.PLUGIN_ENABLED = False
 
-        print "Plugin %s set to enabled: %s" % (plugin.PLUGIN_NAME, 
+        print "Plugin %s set to enabled: %s" % (plugin.PLUGIN_NAME,
             plugin.PLUGIN_ENABLED)
         if self.update:
             self.update(plugin)
@@ -364,7 +391,7 @@ class PluginManager(object):
 
         plugin = model.get_value(iter, 3)
         plugin.configure()
-               
+
     def row_selected(self, selection, user_data=None):
         """
             Called when a row is selected

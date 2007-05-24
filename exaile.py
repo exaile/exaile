@@ -572,11 +572,13 @@ class ExaileWindow(gobject.GObject):
             Stop track toggle
         """
         if not self.player.stop_track: return
-        result = common.yes_no_dialog(self.window, '%s "%s" %s "%s". %s?' % (
-            _('Playback is currently set to stop on the track'),
-            self.player.stop_track.title, _('by'),
-            self.player.stop_track.artist, _('Would you like to '
-            'remove this')))
+        result = common.yes_no_dialog(self.window, 
+            _('Playback is currently set to stop on '
+            'the track "%(title)s" by "%(artist)s". '
+            'Would you like to remove this?') % {
+                'title': self.player.stop_track.title,
+                'artist': self.player.stop_track.artist
+            })
         if result == gtk.RESPONSE_YES:
             self.player.stop_track = None
             self.tracks.queue_draw()
@@ -1301,9 +1303,12 @@ class ExaileWindow(gobject.GObject):
             Updates the seeker position, the "now playing" title, and
             submits the track to last.fm when appropriate
         """
-        self.status.set_track_count("%d %s, %d %s" %
-            (len(self.songs), _('showing'), len(self.all_songs), _('in '
-            'collection')))   
+        self.status.set_track_count(_("%(track_count)d showing, "
+            "%(track_total)d in collection") %
+            {
+                'track_count': len(self.songs),
+                'track_total': len(self.all_songs)
+            })
         track = self.player.current
         if GAMIN_AVAIL and self.mon:
             self.mon.handle_events()
@@ -1384,15 +1389,20 @@ class ExaileWindow(gobject.GObject):
 
         # set up the playing/track labels based on the type of track
 
-        self.window.set_title("%s %s %s %s %s %s" %
-            (_('Exaile: playing'), track.title, _('from'), album, _('by'), artist))
-        self.artist_label.set_label("%s %s\n%s %s" % (_('from'), album, _('by'), artist))
-#        if track.type == 'stream':
-#            self.artist_label.set_label(_("\n\non %s") % track.artist)
+        self.window.set_title(_("Exaile: playing %(title)s from %(album)s by %(artist)s") %
+            {
+                'title': track.title,
+                'album': track.album,
+                'artist': track.artist
+            })
 
         if self.tray_icon:
-            self.tray_icon.set_tooltip("%s %s\n%s %s\n%s %s" %
-                (_('Playing'), track.title, _('from'), album, _('by'), artist))
+            self.tray_icon.set_tooltip(_("Playing %(title)s\nfrom %(album)s\nby %(artist)s") %
+                {
+                    'title': track.title,
+                    'album': track.album,
+                    'artist': track.artist
+                })
 
         row = self.db.read_one("tracks, paths", "paths.name, user_rating", 
             "paths.name=? AND paths.id=tracks.path", (track.loc,))
@@ -1638,8 +1648,11 @@ class ExaileWindow(gobject.GObject):
         elif item == "showcover" or item == self.cover_full:
             if "nocover" in self.cover.loc: return
             track = self.player.current
-            xlmisc.CoverWindow(self.window, self.cover.loc, "%s %s %s" %
-                (track.album, _('by'), track.artist))
+            xlmisc.CoverWindow(self.window, self.cover.loc, _("%(album)s by %(artist)s") %
+                {
+                    'album': track.album,
+                    'artist': track.artist
+                })
         elif item == self.cover_custom:
             track = self.player.current
             wildcard = ['*.jpg', '*.jpeg', '*.gif', '*.png', '*.*'] 

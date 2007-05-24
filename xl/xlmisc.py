@@ -604,9 +604,12 @@ class CoverFetcher(object):
             (self.artist, self.album),
             self.got_covers, locale=locale)
         self.cover_thread.start()
-        self.label.set_label("%s %s: %s %s %s" % 
-            ((self.total - self.current), _('left'), self.album, _('by'), 
-            self.artist))
+        self.label.set_label(_("%(remaining)s left: %(album)s by %(artist)s") % 
+            {
+                'remaining': (self.total - self.current),
+                'album': self.album,
+                'artist': self.artist
+            })
 
     def got_covers(self, covers):
         """
@@ -668,8 +671,11 @@ class CoverFetcher(object):
         iter = self.model.get_iter(path)
         object = self.model.get_value(iter, 2)
 
-        self.status.set_markup("<b>" + common.escape_xml("%s %s %s" %
-            (object.album, _('by'), object.artist)) + "</b>")
+        self.status.set_markup("<b>" + common.escape_xml(_("%(album)s by %(artist)s)") %
+            {
+                'album': object.album,
+                'artist': object.artist
+            }))
 
     def item_activated(self, iconview, path):
         """
@@ -677,8 +683,11 @@ class CoverFetcher(object):
         """
         iter = self.model.get_iter(path)
         object = self.model.get_value(iter, 2)
-        CoverWindow(self.dialog, object.location, "%s %s %s" % (object.album,
-            _('by'), object.artist))
+        CoverWindow(self.dialog, object.location, _("%(album)s by %(artist)s") % 
+            {
+                'album': object.album,
+                'artist': object.artist
+            })
 
     def calculate_total(self):
         """

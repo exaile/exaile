@@ -1430,8 +1430,11 @@ class PodcastTransferQueue(gtk.VBox):
             percent = down / total
             self.progress.set_fraction(percent)
 
-        self.label.set_label("%d %s %d %s" % (self.downloaded,
-            _('of'), self.total, _('downloaded')))
+        self.label.set_label(_("%(downloaded)d of %(total)d downloaded") % 
+            {
+                'downloaded': self.downloaded,
+                'total': self.total
+            })
 
     def append(self, song):
         """

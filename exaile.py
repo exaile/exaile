@@ -1395,6 +1395,11 @@ class ExaileWindow(gobject.GObject):
                 'album': track.album,
                 'artist': track.artist
             })
+        self.artist_label.set_label(_("from %(album)s\nby %(artist)s") % 
+            {
+                'album': album, 
+                'artist': artist
+            })
 
         if self.tray_icon:
             self.tray_icon.set_tooltip(_("Playing %(title)s\nfrom %(album)s\nby %(artist)s") %

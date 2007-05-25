@@ -604,7 +604,7 @@ class CoverFetcher(object):
             (self.artist, self.album),
             self.got_covers, locale=locale)
         self.cover_thread.start()
-        self.label.set_label(_("%(remaining)s left: %(album)s by %(artist)s") % 
+        self.label.set_label(_("%(remaining)d left: %(album)s by %(artist)s") % 
             {
                 'remaining': (self.total - self.current),
                 'album': self.album,

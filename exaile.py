@@ -798,8 +798,12 @@ class ExaileWindow(gobject.GObject):
             if 'nocover' in self.cover.loc: return
             track = self.player.current
             
-            xlmisc.CoverWindow(self.window, self.cover.loc, "%s %s %s" %
-                (track.album, _("by"), track.artist))
+            xlmisc.CoverWindow(self.window, self.cover.loc,
+                _("%(album)s by %(artist)s") %
+                {
+                    'album': track.album,
+                    'artist': track.artist
+                })
         elif event.button == 3:
             if not self.player.current: return
             self.cover_menu.popup(None, None, None, 

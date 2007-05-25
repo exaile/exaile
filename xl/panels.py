@@ -1694,7 +1694,11 @@ class PRadioPanel(object):
         tr.type = 'lastfm'
         tr.track = -1
         tr.title = station
-        tr.album = "%s's Last.fm %s" % (user, station)
+        tr.album = _("%(user)s's Last.fm %(station)s") %
+            {
+                'user': user,
+                'station': station
+            }
 
 
         self.exaile.append_songs((tr,))

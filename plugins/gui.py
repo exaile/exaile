@@ -228,32 +228,9 @@ class PluginManager(object):
                 if plugin.PLUGIN_NAME == name:
 
                     #this is a bit odd, to allow non-decimal versioning.
-                    installed_ver = plugin.PLUGIN_VERSION.split('.')
-                    available_ver = version.split('.')
-                    if len(installed_ver) != len(available_ver):
-                        if len(installed_ver) > len(available_ver):
-                            steps = len(available_ver)
-                            longer = True
-                        else:
-                            steps = len(installed_ver)
-                            longer = False
-                    else:
-                        steps = len(installed_ver)
-                        longer = False
-                    found = True
-                    equal = True
-                    i = 0
-                    while i < steps:
-                        if int(installed_ver[i]) > int(available_ver[i]):
-                            found = True
-                            equal = False
-                            break
-                        elif int(installed_ver[i]) < int(available_ver[i]):
-                            found = False
-                            equal = False
-                            break
-                        i = i + 1
-                    if equal and longer:
+                    installed_ver = map(int, plugin.PLUGIN_VERSION.split('.'))
+                    available_ver = map(int, version.split('.'))
+                    if installed_ver >= available_ver:
                         found = True
 
             if not found:

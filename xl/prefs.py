@@ -340,6 +340,7 @@ class Preferences(object):
         xml = self.xml
         self.window = self.xml.get_widget('PreferencesDialog')
         self.window.set_transient_for(parent.window)
+        self.window.connect('delete-event', lambda *e: self.cancel())
 
         self.nb = self.xml.get_widget('prefs_nb')
         self.nb.set_show_tabs(False)

@@ -71,12 +71,11 @@ import pygst; pygst.require('0.10'); import gst
 # set up gettext for translations
 locale.setlocale(locale.LC_ALL, '')
 from gettext import gettext as _
-gettext.bindtextdomain('exaile', 'po')
 gettext.textdomain('exaile')
-# Note also before python 2.3 you need the following if
-# you need translations from non python code (glibc, libglade etc.)
-gtk.glade.bindtextdomain('exaile', os.path.join(prefix, 'share', 'locale'))
-# there are other access points to this function
+gtk.glade.textdomain('exaile')
+if os.path.exists('po'):
+    gettext.bindtextdomain('exaile', 'po')
+    gtk.glade.bindtextdomain('exaile', 'po')
 
 sys_var = "HOME"
 if os.sys.platform.startswith("win"): sys_var = "USERPROFILE"

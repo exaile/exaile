@@ -1146,6 +1146,8 @@ class ExaileWindow(gobject.GObject):
         if len(sys.argv) > 1 and sys.argv[1] and \
             not sys.argv[1].startswith("-"):
             self.stream(sys.argv[1])
+        if self.options.playcd:
+            self.open_disc()
         return False
 
     def setup_gamin(self, skip_prefs=False):
@@ -2333,7 +2335,7 @@ class ExaileWindow(gobject.GObject):
             path = dialog.get_value()
             self.stream(path)
 
-    def open_disc(self, widget):
+    def open_disc(self, widget=None):
         """
             Opens an audio disc
         """

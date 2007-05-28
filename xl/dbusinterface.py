@@ -217,6 +217,9 @@ class DBusInterfaceObject(dbus.service.Object):
         if not self.exaile.player.current: return -1
         return self.exaile.player.current._rating
 
+    @dbus.service.method("org.exaile.DBusInterface")
+    def play_cd(self):
+        self.exaile.open_disc()
 
 def test_dbus(bus, interface):
     obj = bus.get_object('org.freedesktop.DBus', '/org/freedesktop/DBus') 
@@ -273,6 +276,7 @@ def test(p):
                 elif options.play_pause: iface.play_pause()
                 elif options.guiquery: iface.popup()
                 elif options.stream: iface.play_file(options.stream)
+                elif options.playcd: iface.play_cd()
 
                 elif options.rating is not None:
                     iface.set_rating(options.rating)
@@ -340,6 +344,8 @@ def get_options():
     p.add_option("-l","--decrease_vol", dest="dec_vol",action="store",
         type="int",metavar="VOL",help="Decreases the volume by VOL")
     p.add_option("--stream", dest="stream", help="Stream URL")
+    p.add_option("--play-cd", dest="playcd", action="store_true",
+        default=False, help="Start playing a CD")
     p.add_option("--new", dest="new", action="store_true",
         default=False, help="Start new instance")
     p.add_option('--set-rating', dest='rating', help='Set rating for current '

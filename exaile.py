@@ -187,7 +187,7 @@ class ExaileWindow(gobject.GObject):
         if self.settings.get_boolean("ui/use_tray", False): 
             self.setup_tray()
 
-        self.window.set_title(_("Exaile!"))
+        self.window.set_title(_("Exaile! Music Player"))
 
         # log in to audio scrobbler
         user = self.settings.get_str("lastfm/user", "")
@@ -2110,7 +2110,7 @@ class ExaileWindow(gobject.GObject):
         self.playing = False
         if self.tray_icon:
             self.tray_icon.set_tooltip(_("Exaile Media Player"))
-        self.window.set_title(_("Exaile!"))
+        self.window.set_title(_("Exaile! Music Player"))
 
         if track:
             # PLUGIN: alert plugins that this track has stopped playing

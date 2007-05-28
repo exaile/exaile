@@ -1522,7 +1522,8 @@ class LibraryManager(object):
         """
         dialog = gtk.FileChooserDialog(_("Add a directory"),
             self.exaile.window, gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER,
-            (_("Cancel"), gtk.RESPONSE_CANCEL, _("Choose"), gtk.RESPONSE_OK))
+            (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+            gtk.STOCK_ADD, gtk.RESPONSE_OK))
         response = dialog.run()
         dialog.hide()
         if response == gtk.RESPONSE_OK:

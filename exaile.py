@@ -56,11 +56,14 @@ if not os.path.exists(os.path.join(basedir, "exaile.py")):
 sys.path.insert(0, basedir)
 os.chdir(basedir)
 
-# Add ../../lib/exaile to path
+# Heuristic to check whether Exaile is installed.
+# Sets prefix accordingly, otherwise it is ".".
 prefix = '.'
 path_suffix = '%sshare%sexaile' % (os.sep, os.sep)
 if basedir.endswith(path_suffix):
     prefix = basedir[:-len(path_suffix)]
+    # Add ../../lib/exaile to path, otherwise Exaile won't be able to import any
+    # of its modules.
     sys.path.append(os.path.join(prefix, 'lib', 'exaile'))
 
 from xl import *
@@ -73,9 +76,11 @@ locale.setlocale(locale.LC_ALL, '')
 from gettext import gettext as _
 gettext.textdomain('exaile')
 gtk.glade.textdomain('exaile')
-if os.path.exists('po'):
+if prefix == '.': # if Exaile is not installed
     gettext.bindtextdomain('exaile', 'po')
     gtk.glade.bindtextdomain('exaile', 'po')
+else:
+    gtk.glade.bindtextdomain('exaile', os.path.join(prefix, 'share', 'locale'))
 
 sys_var = "HOME"
 if os.sys.platform.startswith("win"): sys_var = "USERPROFILE"
@@ -433,7 +438,7 @@ class ExaileWindow(gobject.GObject):
         # for multimedia keys
         self.mmkeys = xlmisc.MmKeys('Exaile', self.__on_mmkey)
         keygrabber = self.mmkeys.grab()
-        xlmisc.log("Using multimedia keys from: " + `keygrabber`)
+        xlmisc.log("Using multimedia keys from: " + str(keygrabber))
 
         self.play_button = self.xml.get_widget('play_button')
         self.play_button.connect('clicked', self.toggle_pause)

@@ -26,7 +26,6 @@ make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/xl
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/xl/media
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/lib
-	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/po
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/sql
 	mkdir -p $(DESTDIR)$(PREFIX)/share/locale
 
@@ -40,7 +39,6 @@ install: make-install-dirs mmkeys.so
 	install -m 644 images/*.svg $(DESTDIR)$(PREFIX)/share/exaile/images
 	install -m 644 images/default_theme/*.png \
 	$(DESTDIR)$(PREFIX)/share/exaile/images/default_theme
-	install -m 644 po/*.po $(DESTDIR)$(PREFIX)/share/exaile/po
 	install -m 644 xl/*.py $(DESTDIR)$(PREFIX)/share/exaile/xl
 	install -m 644 xl/*.pyc $(DESTDIR)$(PREFIX)/share/exaile/xl
 	install -m 644 xl/media/*.py $(DESTDIR)$(PREFIX)/share/exaile/xl/media

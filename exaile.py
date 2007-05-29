@@ -2460,9 +2460,6 @@ class ExaileWindow(gobject.GObject):
 
             h.close()
 
-        # PLUGIN: send plugins the quit signal
-        self.emit('quit')
-
         # save queued tracks
         if self.player.queued:
             h = open(os.path.join(dir, "queued.save"), "w")

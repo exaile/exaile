@@ -79,14 +79,14 @@ class Manager(object):
                         print "Failed to load plugin"
                         traceback.print_exc()
 
-    def initialize_plugin(self, dir, file, enabled=None):
+    def initialize_plugin(self, dir, file, enabled=None, check_loaded=True):
         if not dir in sys.path: sys.path.append(dir)
         try:
             plugin = __import__(re.sub('\.pyc?$', '', file))
             if not hasattr(plugin, "PLUGIN_NAME"):
                 return
 
-            if plugin.PLUGIN_NAME in self.loaded: return
+            if plugin.PLUGIN_NAME in self.loaded and check_loaded: return
             self.loaded.append(plugin.PLUGIN_NAME)
             
             print "Plugins '%s' version '%s' loaded successfully" % \

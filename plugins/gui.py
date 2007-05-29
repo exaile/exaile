@@ -167,8 +167,8 @@ class PluginManager(object):
 
                     try:
                         _name = re.sub(r'\.pyc?$', '', file)
-                        if file in sys.modules:
-                            del sys.modules[file]
+                        if _name in sys.modules:
+                            del sys.modules[_name]
                     except Exception, e:
                         xlmisc.log_exception()
 
@@ -230,6 +230,7 @@ class PluginManager(object):
                     #this is a bit odd, to allow non-decimal versioning.
                     installed_ver = map(int, plugin.PLUGIN_VERSION.split('.'))
                     available_ver = map(int, version.split('.'))
+
                     if installed_ver >= available_ver:
                         found = True
 

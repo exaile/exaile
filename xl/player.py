@@ -399,7 +399,8 @@ class ExailePlayerErrorWindow(gtk.Window):
         main.set_border_width(3)
         main.set_spacing(3)
         label = gtk.Label()
-        label.set_markup(_('<b>The following errors have occurred</b>'))
+        label.set_markup('<b>' + _('The following errors have occurred') +
+            '</b>')
         main.pack_start(label, False, False)
         self.add(main)
         self.scroll = gtk.ScrolledWindow()

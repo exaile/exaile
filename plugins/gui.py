@@ -137,6 +137,12 @@ class PluginManager(object):
         self.load_plugin_list()
         self.plugin_nb.set_sensitive(True)
 
+        self.avail_version_label.set_text('')
+        self.avail_author_label.set_text('')
+        self.avail_name_label.set_markup(_('<b>No Plugin Selected</b>'))
+        self.avail_description.get_buffer().set_text('')
+        self.avail_model.clear()
+
     @common.threaded
     def download_plugins(self):
         """
@@ -180,8 +186,12 @@ class PluginManager(object):
                     files.append(file)
                 except Exception, e:
                     model.set_value(iter, 5, False)
-                    gobject.idle_add(common.error, self.parent, _("%s could "
-                        "not be installed: %s") % (file, e))
+                    gobject.idle_add(common.error, self.parent, _("%(plugin)s could "
+                        "not be installed: %(exception)s") % 
+                        {
+                            'plugin': file, 
+                            'exception': e
+                        })
                     xlmisc.log_exception()
             iter = self.avail_model.iter_next(iter)
 
@@ -327,8 +337,8 @@ class PluginManager(object):
             plugin.destroy()
             plugin.PLUGIN_ENABLED = False
 
-        print "Plugin %s set to enabled: %s" % (plugin.PLUGIN_NAME,
-            plugin.PLUGIN_ENABLED)
+        xlmisc.log("Plugin %s set to enabled: %s" % (plugin.PLUGIN_NAME,
+            plugin.PLUGIN_ENABLED))
         if self.update:
             self.update(plugin)
 
@@ -394,13 +404,3 @@ class PluginTest(object):
         self.PLUGIN_DESCRIPTION = desc
         self.PLUGIN_ICON = None
         self.PLUGIN_ENABLED = True
-
-
-# testing
-if __name__ == '__main__':
-    manager = manager.Manager(None)
-    manager.plugins.append(PluginTest('fruit', 1.0, 'arolsen@gmail.com',
-        'fags'))
-
-    m = PluginManager(None, manager)
-    gtk.main()

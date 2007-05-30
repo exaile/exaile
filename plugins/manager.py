@@ -92,6 +92,7 @@ class Manager(object):
                 # it if that's the case
                 for p in self.plugins:
                     if p.PLUGIN_NAME == plugin.PLUGIN_NAME:
+                        p.destroy()
                         self.plugins.remove(p)
 
                 if plugin.PLUGIN_NAME in self.loaded:

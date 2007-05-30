@@ -281,9 +281,9 @@ class ExaileWindow(gobject.GObject):
             xlmisc.log('%s: %s' % (gst.tag_get_nick(tag), tags[tag]))           
         self.tracks.refresh_row(track)
         self.update_track_information()
-        print "rawtitle:%s newsong:%s" % (track.title,newsong)
+        xlmisc.log("rawtitle:%s newsong:%s" % (track.title,newsong))
         if newsong:
-            print "asking to fetch cover"
+            xlmisc.log("asking to fetch cover")
             self.fetch_cover(track)
         return True
         
@@ -389,16 +389,15 @@ class ExaileWindow(gobject.GObject):
         """
             Changes column view settings
         """
-        print data
         columns = self.settings.get_list(data['key'])
         columns = list(columns)
         if item.get_active():
             if data['value'] not in columns:
-                print "adding %s column to %s" % (data['value'], data['key'])
+                xlmisc.log("adding %s column to %s" % (data['value'], data['key']))
                 columns.append(data['value'])
         else:
             if data['value'] in columns:
-                print "removing %s column from %s" % (data['value'], data['key'])
+                xlmisc.log("removing %s column from %s" % (data['value'], data['key']))
                 columns.remove(data['value'])
         self.settings.set_list(data['key'], columns)
 
@@ -1839,8 +1838,8 @@ class ExaileWindow(gobject.GObject):
         self.settings['volume'] = frac_value
         if not self.window.get_property('visible') and  self.settings.get_boolean("osd/enabled", True):
             pop = xlmisc.get_osd(self, xlmisc.get_osd_settings(self.settings))
-            vol_text = _("<big><b> Changing volume: %d %% </b></big>") % \
-                self.get_volume_percent()
+            vol_text = "<big><b> " + _("Changing volume: %d %%") % \
+                self.get_volume_percent() + "</b></big>"
             pop.show_osd(vol_text, None)
 
     def seek_begin(self, widget, event):

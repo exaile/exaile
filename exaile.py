@@ -2186,8 +2186,11 @@ class ExaileWindow(gobject.GObject):
             return
         
         if newtab:
-            gobject.idle_add(self.new_page, name, songs, set_current,
-                False)
+            def _new_page(name, songs, set_current):
+                t = self.new_page(name, songs, set_current)
+                if not set_current: t.set_songs(songs)
+
+            gobject.idle_add(_new_page, name, songs, set_current)
         else:
             gobject.idle_add(self.append_songs, songs, False, False)
 

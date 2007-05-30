@@ -899,7 +899,7 @@ class ExaileWindow(gobject.GObject):
                 if m:
                     title = m.group(1)
 
-                self.import_m3u(os.path.join(dir, file), title=title,
+                self._import_m3u_wrapped(os.path.join(dir, file), title=title,
                     set_current=False)
 
             if last_active > -1:
@@ -1295,12 +1295,12 @@ class ExaileWindow(gobject.GObject):
                 (path1, path2) = visible
 
                 scroll_to_end = False
-                if path2[0] == len(self.tracks.songs):
+                if path2 and path2[0] == len(self.tracks.songs):
                     scroll_to_end = True
 
             gobject.idle_add(tracks.set_songs, songs)
 
-            if visible:
+            if visible and path1 and path2:
                 if scroll_to_end:
                     gobject.idle_add(tracks.list.scroll_to_cell,
                     (len(self.tracks.songs),))
@@ -2128,10 +2128,16 @@ class ExaileWindow(gobject.GObject):
     def import_m3u(self, path, play=False, title=None, newtab=True,
         set_current=True):
         """
+            Threaded wrapper for _import_m3u_wrapped
+        """
+        self._import_m3u_wrapped(path, play, title, newtab, set_current)
+    
+    def _import_m3u_wrapped(self, path, play=False, title=None, newtab=True,
+        set_current=True):
+        """
             Imports a playlist file, regardless of it's location (it can be
             a local file (ie, file:///somefile.m3u) or online.
         """
-    
         xlmisc.log("Importing %s" % path)
         gobject.idle_add(self.status.set_first, _("Importing playlist..."))
 

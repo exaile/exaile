@@ -1346,7 +1346,7 @@ class ExaileWindow(gobject.GObject):
             real = value * duration / 100
         seconds = real
 
-        if not self.seeking:
+        if not self.seeking and not self.player.is_paused():
             self.new_progressbar = self.xml.get_widget('new_progressbar')
             fraction = value / 100
             if fraction > 1: fraction = 1

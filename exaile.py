@@ -275,9 +275,9 @@ class ExaileWindow(gobject.GObject):
                 else:
                     track.artist = track.rawtitle
                 if len(titleArray) > 1:
-                    track.title = titleArray[1]
+                    track.title = titleArray[1].lstrip()
                 else: 
-                    track.title = track.rawtitle
+                    track.title = track.rawtitle.lstrip()
             xlmisc.log('%s: %s' % (gst.tag_get_nick(tag), tags[tag]))           
         self.tracks.refresh_row(track)
         self.update_track_information()

@@ -16,6 +16,6 @@ def fill_tag_from_path(tr):
     tr.artist = get_tag(inf, 'Author')
     tr.album = get_tag(inf, 'AlbumTitle')
     tr.title = get_tag(inf, 'Title') 
-    tr.genre = ""
+    tr.genre = get_tag(inf, 'Genre')
     tr.track = get_tag(inf, 'TrackNumber')
     tr.year = get_tag(inf, 'Year')

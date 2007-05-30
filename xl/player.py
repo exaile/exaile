@@ -686,7 +686,9 @@ class ExailePlayer(GSTPlayer):
         return value
 
     def find_stream_uri(self, track):
-        self.exaile.import_m3u(track.io_loc, play=True, title=None, newtab=True)
+        title = track.album[:30]
+        if not title: title = None
+        self.exaile.import_m3u(track.io_loc, play=True, title=title, newtab=True)
 
 #    @common.threaded
 #    def find_stream_uri(self, track):

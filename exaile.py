@@ -506,6 +506,15 @@ class ExaileWindow(gobject.GObject):
 
         self.xml.get_widget('clear_button').connect('clicked',
             self.clear_playlist)
+        self.accel_group = gtk.AccelGroup()
+        key, mod = gtk.accelerator_parse('<Control>C')
+        self.accel_group.connect_group(key, mod, gtk.ACCEL_VISIBLE,
+            self.clear_playlist)
+
+        key, mod = gtk.accelerator_parse('<Control>W')
+        self.accel_group.connect_group(key, mod, gtk.ACCEL_VISIBLE,
+            lambda *e: self.close_page())
+        self.window.add_accel_group(self.accel_group)
 
         self.xml.get_widget('preferences_item').connect('activate',
             lambda e: prefs.Preferences(self).run())
@@ -553,12 +562,6 @@ class ExaileWindow(gobject.GObject):
         action_log_item.connect('activate',
             lambda *e: self.show_debug_dialog()) 
 
-        self.xml.get_widget('clear_playlist_item').connect('activate',
-            lambda *e: self.clear_playlist(None))
-
-        self.xml.get_widget('close_playlist_item').connect('activate',
-            lambda *e: self.close_page())
-            
         self.xml.get_widget('import_directory_item').connect('activate',
             lambda *e: self.import_directory(load_tree=True))
 
@@ -1773,7 +1776,7 @@ class ExaileWindow(gobject.GObject):
         self.page_changed(nb, None, num)
         return False
 
-    def clear_playlist(self, widget): 
+    def clear_playlist(self, *e): 
         """
             Clears the current playlist
         """

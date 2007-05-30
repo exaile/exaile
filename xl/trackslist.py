@@ -431,15 +431,12 @@ class TracksListCtrl(gtk.VBox):
             if not col in cols:
                 cols.append(col)
 
-        self.append_map = []
-        for col in cols:
-            if col:
-                self.append_map.append(self.col_map[col])
+        self.append_map = [self.col_map[col] for col in cols if col]
 
         self.setup_model(self.append_map)
 
         count = 3
-        first = False
+        first_col = True
         columns_settings = self.exaile.settings.get_list("ui/%s_columns" % (self.prep,))
 
         for name in cols:
@@ -456,8 +453,8 @@ class TracksListCtrl(gtk.VBox):
                 show = True
 
             if show:
-                if not first:
-                    first = True
+                if first_col:
+                    first_col = False
                     pb = gtk.CellRendererPixbuf()
                     pb.set_fixed_size(20, 20)
                     stop_pb = gtk.CellRendererPixbuf()
@@ -501,8 +498,7 @@ class TracksListCtrl(gtk.VBox):
                     col.set_sort_indicator(False)
 
                 if not resizable:
-                    if name == _("Title") or name == _("Artist") or name == \
-                        _("Album") or name == _("Location"):
+                    if name in (_("Title"), _("Artist"), _("Album"), _("Location")):
                         col.set_expand(True)
                         col.set_fixed_width(1)
                         col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)

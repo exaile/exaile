@@ -139,7 +139,8 @@ class PluginManager(object):
 
         self.avail_version_label.set_text('')
         self.avail_author_label.set_text('')
-        self.avail_name_label.set_markup(_('<b>No Plugin Selected</b>'))
+        self.avail_name_label.set_markup('<b>' + _('No Plugin Selected') +
+            '</b>')
         self.avail_description.get_buffer().set_text('')
         self.avail_model.clear()
 

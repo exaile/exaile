@@ -675,7 +675,7 @@ class CoverFetcher(object):
             {
                 'album': object.album,
                 'artist': object.artist
-            }))
+            }) + "</b>")
 
     def item_activated(self, iconview, path):
         """

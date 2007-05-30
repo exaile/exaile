@@ -186,7 +186,8 @@ class ExaileWindow(gobject.GObject):
 
         if self.settings.get_boolean("ui/use_tray", False): 
             self.setup_tray()
-
+    
+        # sets the title of the main exaile window
         self.window.set_title(_("Exaile! Music Player"))
 
         # log in to audio scrobbler

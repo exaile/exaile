@@ -1714,7 +1714,8 @@ class ExaileWindow(gobject.GObject):
                         "covers", newname))
 
     @common.synchronized
-    def new_page(self, title=_("Playlist"), songs=None, set_current=True):
+    def new_page(self, title=_("Playlist"), songs=None, set_current=True,
+        ret=True):
         """
             Create a new tab with the specified title, populates it with the
             specified songs, and sets it to be the current page if set_current
@@ -1740,7 +1741,7 @@ class ExaileWindow(gobject.GObject):
             self.playlists_nb.set_current_page( 
                 self.playlists_nb.get_n_pages() - 1)
             self.update_songs(songs)
-        return t
+        if ret: return t
 
     def close_page(self, page=None): 
         """
@@ -2122,15 +2123,16 @@ class ExaileWindow(gobject.GObject):
 #        self.progress.set_value(0)
         self.new_progressbar.set_text("0:00 / 0:00")
 
+    @common.threaded
     def import_m3u(self, path, play=False, title=None, newtab=True,
         set_current=True):
         """
             Imports a playlist file, regardless of it's location (it can be
             a local file (ie, file:///somefile.m3u) or online.
         """
+    
         xlmisc.log("Importing %s" % path)
-        self.status.set_first(_("Importing playlist..."))
-        xlmisc.finish()
+        gobject.idle_add(self.status.set_first, _("Importing playlist..."))
 
         url = list(urlparse.urlsplit(path))
         if not url[0]: #local file
@@ -2142,7 +2144,10 @@ class ExaileWindow(gobject.GObject):
         name = os.path.basename(os.path.splitext(filename)[1]).replace("_", " ")
         file = urllib.urlopen(path)
 
-        if file.readline().strip() == '[playlist]':
+        if filename.lower().endswith(".asx"):
+            file.close()
+            playlist = xlmisc.ASXParser(name,path)
+        elif file.readline().strip() == '[playlist]':
             file.close()
             playlist = xlmisc.PlsParser(name,path)
         else:
@@ -2154,47 +2159,43 @@ class ExaileWindow(gobject.GObject):
         t = trackslist.TracksListCtrl
 
         count = 0
-        for url in playlist.get_urls():
+        for item in playlist.get_urls():
+            url = item['url']
             if url[0] == 'device': continue
             elif url[0] == 'file':
                 filename = urllib.unquote(url[2])
                 tr = tracks.read_track(self.db, self.all_songs, filename)
                   
-            else: continue
-#                tr = media.Track(urlparse.urlunsplit(url))
-#                tr.type = 'stream'
-#                tr.title = _("Radio Stream")
+            else: 
+                tr = media.Track(urlparse.urlunsplit(url))
+                tr.type = 'stream'
+                tr.title = item['title']
+                tr.album = item['album']
 
-#                if first and play:
-#                    play = tr
+                if first and play:
+                    play = tr
                     
             if tr:
                 songs.append(tr)
 
-            if count >= 100:
-                xlmisc.finish()
-                count = 0
-
-            count += 1
             first = False
 
-        self.db.commit()
         if title: name = title
         if not songs: 
-            self.status.set_first(None)
+            gobject.idle_add(self.status.set_first, None)
             return
         
         if newtab:
-            t = self.new_page(name, songs, set_current=set_current)
-            if not set_current: t.set_songs(songs)
+            gobject.idle_add(self.new_page, name, songs, set_current,
+                False)
         else:
-            self.append_songs(songs, play=False)
+            gobject.idle_add(self.append_songs, songs, False, False)
 
         if type(play) != bool and play.type == 'stream':
-            self.stop()
-            self.player.play_track(play)
+            gobject.idle_add(self.stop)
+            gobject.idle_add(self.player.play_track, play, False, False)
 
-        self.status.set_first(None)
+        gobject.idle_add(self.status.set_first, None)
     
     def get_last_dir(self):
         """

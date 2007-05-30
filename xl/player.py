@@ -685,56 +685,59 @@ class ExailePlayer(GSTPlayer):
 
         return value
 
-    @common.threaded
     def find_stream_uri(self, track):
-        """
-            Opens a filename like .pls, .m3u, or .asx and finds the playable
-            streams in them
-        """
-        gobject.idle_add(self.exaile.status.set_first, _("Loading stream "
-            "sources, please wait..."))
-        h = urllib.urlopen(track.loc)
-        asx = False
-        if track.loc.lower().endswith('.asx'):
-            asx = True
-        loc = ''
+        self.exaile.import_m3u(track.io_loc, play=True, title=None, newtab=True)
 
-        for i, line in enumerate(h.readlines()):
-            line = line.strip()
-            xlmisc.log('Line %d: %s' % (i, line.strip()))
-            if line.startswith('#') or line == '[playlist]': 
-                continue
+#    @common.threaded
+#    def find_stream_uri(self, track):
+#        """
+#            Opens a filename like .pls, .m3u, or .asx and finds the playable
+#            streams in them
+#        """
+#        gobject.idle_add(self.exaile.status.set_first, _("Loading stream "
+#            "sources, please wait..."))
+#        h = urllib.urlopen(track.loc)
+#        asx = False
+#        if track.loc.lower().endswith('.asx'):
+#            asx = True
+#        loc = ''
 
-            # if it's an asx stream
-            if asx:
-                m = ASX_REGEX.search(line)
-                if m:
-                    loc = m.group(2)
-                    break
-                continue
-            else:
-                if '=' in line:
-                    if not line.startswith('File'): continue
-                    line = re.sub('File\d+=', '', line)
-                    loc = line
-                    break
+#        for i, line in enumerate(h.readlines()):
+#            line = line.strip()
+#            xlmisc.log('Line %d: %s' % (i, line.strip()))
+#            if line.startswith('#') or line == '[playlist]': 
+#                continue
 
-        gobject.idle_add(self.exaile.status.set_first, None)
-        if loc:
-            xlmisc.log('Found location: %s' % loc)
-            track.start_time = time.time()
+#             if it's an asx stream
+#            if asx:
+#                m = ASX_REGEX.search(line)
+#                if m:
+#                    loc = m.group(2)
+#                    break
+#                continue
+#            else:
+#                if '=' in line:
+#                    if not line.startswith('File'): continue
+#                    line = re.sub('File\d+=', '', line)
+#                    loc = line
+#                    break
 
-            gobject.idle_add(self.emit, 'play-track', track)
+#        gobject.idle_add(self.exaile.status.set_first, None)
+#        if loc:
+#            xlmisc.log('Found location: %s' % loc)
+#            track.start_time = time.time()
 
-            try:
-                gobject.idle_add(GSTPlayer.play, self, loc)
-            except Exception, e:
-                gobject.idle_add(common.error, self.exaile.window, str(e))
-                gobject.idle_add(self.exaile.stop)
+#            gobject.idle_add(self.emit, 'play-track', track)
 
-            return
+#            try:
+#                gobject.idle_add(GSTPlayer.play, self, loc)
+#            except Exception, e:
+#                gobject.idle_add(common.error, self.exaile.window, str(e))
+#                gobject.idle_add(self.exaile.stop)
 
-        xlmisc.log('Could not find a stream location')
+#            return
+
+#        xlmisc.log('Could not find a stream location')
 
     def lastfm_update_func(self):
         """
@@ -803,7 +806,6 @@ class ExailePlayer(GSTPlayer):
         if track.loc.lower().endswith('.pls') or \
             track.loc.lower().endswith('.m3u') or \
             track.loc.lower().endswith('.asx'):
-            print "FINDING STREAM URI"
             self.find_stream_uri(track)
             if ret: return True
 

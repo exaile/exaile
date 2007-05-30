@@ -2033,7 +2033,8 @@ class PlaylistParser(object):
         self.name = name
         self.url = []
 
-    def add_url(self,url):
+    def add_url(self,url, title=None, album=''):
+        if not title: title=url
         try: 
             url = list(urlparse.urlsplit(url))
         except:
@@ -2041,7 +2042,13 @@ class PlaylistParser(object):
 
         if not url[0]:
             url[0] = 'file'
-        self.url.append(url)
+
+        item = {
+            'url': url,
+            'title': title,
+            'album': album
+        }
+        self.url.append(item)
 
     def get_urls(self):
         return self.url
@@ -2078,10 +2085,12 @@ class M3UParser(PlaylistParser):
                 else: # relative path
                     url = os.path.dirname(filename) + os.path.sep + line
                 url = 'file://' + urllib.quote(url)
+
             self.add_url(url)
         return True
 
 class PlsParser(PlaylistParser):
+    R = re.compile(r'[fF]ile(\d+)=(.*?)\n[tT]itle(\1)=(.*?)\n', re.DOTALL)
     def __init__(self,name,filename = None):
         super(PlsParser,self).__init__(name)
         if filename:
@@ -2090,13 +2099,12 @@ class PlsParser(PlaylistParser):
     def parse_file(self,filename):
 
         (path,file) = os.path.split(filename)
-        file = urllib.urlopen(filename)
+        data = urllib.urlopen(filename).read()
+        items = self.R.findall(data)
 
-        rgx = re.compile('[Ff]ile ?\d+ ?=(.+)')
-        for line in file.readlines():
-            line = line.strip() 
-            if rgx.match(line):
-                rg = rgx.match(line).group(1).strip()
+        if items:
+            for item in items:
+                rg = item[1]
                 if urlparse.urlsplit(rg)[0]:
                     url = rg
                 else:
@@ -2105,8 +2113,34 @@ class PlsParser(PlaylistParser):
                     else: # relative path
                         url = os.path.dirname(filename) + os.path.sep + rg
                     url = 'file://' + urllib.quote(url)
-                self.add_url(url)
+                self.add_url(url, title=url, album=item[3])
+
         return True
    
+class ASXParser(PlaylistParser):
+    ASX_REGEX = re.compile(r'href ?= ?([\'"])(.*?)\1', re.DOTALL|re.MULTILINE)
+    def __init__(self,name,filename = None):
+        super(ASXParser, self).__init__(name)
+        if filename:
+            self.parse_file(filename)
 
+        def parse_file(self, filename):
+            (path, file) = os.path.split(filename)
+            file = urllib.urlopen(filename)
 
+            for line in file.readlines():
+                line = line.strip()
+                m = self.ASX_REGEX.search(line)
+                if m:
+                    url = m.group(2)
+                    if urlparse.urlsplit(url)[0]:
+                        pass
+                    else:
+                        if os.path.isabs(url):
+                            pass
+                        else:
+                            url = os.path.dirname(filename) + os.path.sep + url
+                        url = "file://" + urllib.quote(url)
+                    self.add_url(url)
+            return True
+            

@@ -467,7 +467,7 @@ def get_album_id(db, artist_id, album, prep=''):
         (index, artist_id, album))
     return index
 
-def read_track(db, all, path):
+def read_track(db, all, path, track_type=media.Track):
     if not os.path.isfile(path): return None
     if all:
         tr = all.for_path(path)
@@ -475,15 +475,15 @@ def read_track(db, all, path):
    
     # if the track is not already read, try the database
     if not tr and db:
-        tr = read_track_from_db(db, path)
+        tr = read_track_from_db(db, path, track_type)
 
     # if it's not in the database, read it from the filesystem
     if not tr:
-        tr = media.read_from_path(path)
+        tr = media.read_from_path(path, track_type)
 
     return tr
 
-def read_track_from_db(db, path):
+def read_track_from_db(db, path, track_type=media.Track):
     """
         Reads a track from the database
     """
@@ -516,11 +516,11 @@ def read_track_from_db(db, path):
         """, (path,))
 
     if rows:
-        tr = media.Track(*rows[0])
+        tr = track_type(*rows[0])
     else: 
         tr = None
 
-    if tr:
+    if tr and tr.type != 'device':
         (path, ext) = os.path.splitext(tr.loc.lower())
         try:
             tr.type = media.formats[ext.replace('.', '')].TYPE

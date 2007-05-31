@@ -38,7 +38,7 @@ SUPPORTED_MEDIA = ['.%s' % x for x in formats.keys()]
 
 # Generic functions
 
-def read_from_path(uri):
+def read_from_path(uri, track_type):
     """
         Reads tags from a specified uri
     """
@@ -49,8 +49,10 @@ def read_from_path(uri):
         xlmisc.log('%s format is not understood' % ext)
         return
 
-    tr = Track(uri)
-    tr.type = formats[ext].TYPE
+    tr = track_type(uri)
+
+    if tr.type != 'device':
+        tr.type = formats[ext].TYPE
 
     try:
         formats[ext].fill_tag_from_path(tr)

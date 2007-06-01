@@ -39,14 +39,19 @@ except ImportError:
     mozembed = None
 
 
-if hasattr(gtk, 'StatusIcon'):
-    USE_TRAY = 'gtk'
-else:
+USE_TRAY = None
+if not 'win' in sys.platform:
     try:
+        import warnings
+        warnings.simplefilter('ignore', DeprecationWarning)
         import egg.trayicon
         USE_TRAY = 'egg'
     except ImportError:
         USE_TRAY = None
+
+if not USE_TRAY:
+    if hasattr(gtk, 'StatusIcon'):
+        USE_TRAY = 'gtk'
 
 try:
     import sexy

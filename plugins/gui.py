@@ -18,7 +18,7 @@
 
 import pygtk, manager
 pygtk.require('2.0')
-import gtk, gtk.glade, gobject, sys, os, plugins, urllib, re
+import gtk, pango, gtk.glade, gobject, sys, os, plugins, urllib, re
 from xl import common, xlmisc
 from gettext import gettext as _
 
@@ -274,6 +274,8 @@ class PluginManager(object):
         col = gtk.TreeViewColumn(_('Plugin'))
         col.pack_start(text, False)
         col.set_expand(True)
+        col.set_fixed_width(120)
+        col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
         col.set_attributes(text, text=0)
         self.avail_list.append_column(col)
 
@@ -281,14 +283,16 @@ class PluginManager(object):
         col = gtk.TreeViewColumn(_('Ver'))
         col.pack_start(text, False)
         col.set_expand(False)
+        col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
         col.set_attributes(text, text=1)
         self.avail_list.append_column(col)
 
         text = gtk.CellRendererToggle()
         text.set_property('activatable', True)
         text.connect('toggled', self.avail_toggle_cb, self.avail_model)
-        col = gtk.TreeViewColumn(_("Install"), text)
+        col = gtk.TreeViewColumn(_("Inst"), text)
         col.add_attribute(text, 'active', 5)
+        col.set_expand(False)
         col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
         self.avail_list.append_column(col)
 

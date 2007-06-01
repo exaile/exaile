@@ -727,10 +727,6 @@ class CollectionPanel(object):
         if self.connect_id: gobject.source_remove(self.connect_id)
         self.connect_id = None
         self.filter.set_sensitive(True)
-        if self.root:
-            path = self.model.get_path(self.root)
-            if path: gobject.timeout_add(500, self.tree.expand_row, path,
-                False)
 
     def search_tracks(self, keyword, all):
         """
@@ -833,6 +829,12 @@ class CollectionPanel(object):
         gobject.idle_add(self.tree.set_model, self.model)
         for path in expanded_paths:
             gobject.idle_add(self.tree.expand_to_path, path)
+
+        if self.root:
+            path = self.model.get_path(self.root)
+            gobject.idle_add(self.tree.expand_row, path, False)
+            if self.name == 'device':
+                gobject.idle_add(self.done_loading_tree)
 
 class EmptyDriver(object):
     def __init__(self):
@@ -1039,6 +1041,14 @@ class DevicePanel(CollectionPanel):
         self.connected = False
         self.queue = None
         self.chooser.set_active(0)
+
+    def done_loading_tree(self):
+        """
+            Called when the collection tree is done loading
+        """
+        if self.driver:
+            if hasattr(self.driver, 'done_loading_tree'):
+                self.driver.done_loading_tree()
 
     def show_device_panel_menu(self, widget, event, item):
         """

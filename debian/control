@@ -1,28 +1,21 @@
 Source: exaile
 Section: sound
 Priority: optional
-Maintainer: François Févotte <francois.fevotte@ensta.org>
-Build-Depends: debhelper (>= 5), libgtk2.0-dev, python2.4-dev, python-gtk2-dev
+Maintainer: Aren Olson <reacocard@gmail.com>
+Build-Depends: debhelper (>= 5), python-dev, python-gtk2-dev
 Standards-Version: 3.7.2
 
 Package: exaile
 Architecture: any
-Depends: ${shlibs:Depends}, libgstreamer0.10-0, gstreamer0.10-plugins-base, 
- gstreamer0.10-plugins-good, python-gst0.10, gstreamer0.10-esd, 
- gstreamer0.10-alsa, python2.4, python2.4-gtk2, python-glade2, 
- python2.4-dbus, python-pyvorbis, python-mutagen, python-pysqlite2,
- python-elementtree
-Recommends: gstreamer0.10-plugins-ugly, python2.4-gnome-extras, python-cddb,
- streamripper, sexy-python
-Description: an AmaroK-like media player
+Depends: gstreamer0.10-plugins-good, python-gst0.10, python, 
+ python-gtk2, python-glade2, python-dbus, python-pyvorbis,
+ python-mutagen, python-pysqlite2, python-elementtree
+Recommends: python-gnome-extras, python-cddb, sexy-python, 
+ gstreamer0.10-gnomevfs
+Suggests: gstreamer0.10-plugins-bad, gstreamer0.10-plugins-ugly
+Description: An AmaroK-like media player
  Exaile is a media player aiming to be similar to KDE's AmaroK, but for 
  GTK+. It incorporates many of the cool things from AmaroK (and other 
  media players) like automatic fetching of album art, handling of large 
- libraries, lyrics fetching, artist/album information via the wikipedia, 
- last.fm support, optional iPod support (assuming you have python-gpod 
- installed).
- In addition, Exaile also includes a built in shoutcast directory 
- browser, tabbed playlists (so you can have more than one playlist open 
- at a time), blacklisting of tracks (so they don't get scanned into your 
- library), downloading of guitar tablature from fretplay.com, and 
- submitting played tracks on your iPod to last.fm.
+ libraries, lyrics fetching, artist/album information from Wikipedia, 
+ last.fm support, an OSD, a powerful set of plugins and much more.

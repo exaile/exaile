@@ -36,7 +36,6 @@ install: make-install-dirs mmkeys.so
 	install -m 644 sql/*.sql $(DESTDIR)$(PREFIX)/share/exaile/sql
 	install -m 644 mmkeys.so $(DESTDIR)$(PREFIX)/lib/exaile
 	install -m 644 images/*.png $(DESTDIR)$(PREFIX)/share/exaile/images
-	install -m 644 images/*.svg $(DESTDIR)$(PREFIX)/share/exaile/images
 	install -m 644 images/default_theme/*.png \
 	$(DESTDIR)$(PREFIX)/share/exaile/images/default_theme
 	install -m 644 xl/*.py $(DESTDIR)$(PREFIX)/share/exaile/xl

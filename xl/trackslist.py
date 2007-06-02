@@ -119,11 +119,11 @@ class TracksListCtrl(gtk.VBox):
         if (self.rating_width != self.old_r_w and self.rating_width != 0):
             self.rating_images = []
             star_size = self.rating_width / 4
-            svg_star = gtk.gdk.pixbuf_new_from_file_at_size("images/star.svg", star_size, star_size)
+            star = gtk.gdk.pixbuf_new_from_file_at_size("images/star.png", star_size, star_size)
             full_image = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, self.rating_width, star_size)
             full_image.fill(0xffffff00) # transparent white
             for x in range(0, 4):
-                svg_star.copy_area(0, 0, star_size, star_size, full_image, star_size * x, 0)
+                star.copy_area(0, 0, star_size, star_size, full_image, star_size * x, 0)
             self.rating_images.insert(0, full_image)
             for x in range(7, 0, -1):
                 this_image = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, self.rating_width, star_size)

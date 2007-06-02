@@ -38,31 +38,6 @@ SUPPORTED_MEDIA = ['.%s' % x for x in formats.keys()]
 
 # Generic functions
 
-def read_from_path(uri, track_type):
-    """
-        Reads tags from a specified uri
-    """
-    (path, ext) = os.path.splitext(uri.lower())
-    ext = ext.replace('.', '')
-
-    if not formats.has_key(ext):
-        xlmisc.log('%s format is not understood' % ext)
-        return
-
-    tr = track_type(uri)
-
-    if tr.type != 'device':
-        tr.type = formats[ext].TYPE
-
-    try:
-        formats[ext].fill_tag_from_path(tr)
-    except HeaderNotFoundError:
-        print "Possibly corrupt file: " + uri
-    except:
-        xlmisc.log_exception()
-        return None
-    return tr
-
 def write_tag(tr):
     """
         Writes a tag
@@ -398,3 +373,30 @@ class Track(gobject.GObject):
     encoding = property(get_encoding, set_encoding)
     loc = property(get_loc, set_loc)
     io_loc = property(get_loc_for_io, None)
+
+
+def read_from_path(uri, track_type=Track):
+    """
+        Reads tags from a specified uri
+    """
+    (path, ext) = os.path.splitext(uri.lower())
+    ext = ext.replace('.', '')
+
+    if not formats.has_key(ext):
+        xlmisc.log('%s format is not understood' % ext)
+        return
+
+    tr = track_type(uri)
+
+    if tr.type != 'device':
+        tr.type = formats[ext].TYPE
+
+    try:
+        formats[ext].fill_tag_from_path(tr)
+    except HeaderNotFoundError:
+        print "Possibly corrupt file: " + uri
+    except:
+        xlmisc.log_exception()
+        return None
+    return tr
+

@@ -42,8 +42,8 @@ KEY = "15VDQG80MCS2K1W2VRR2" # Adam Olsen's key (synic)
 QUERY = "/onca/xml3?t=webservices-20&dev-t=%s&mode=music&type=lite&" % (KEY) + \
     "locale={locale}&page=1&f=xml&KeywordSearch="
 IMAGE_PATTERN = re.compile(
-    r"<ImageUrlMedium>http://(\w+\.images-amazon\.com)"
-    "(/images/.*?\.jpg)</ImageUrlMedium>", re.DOTALL)
+    r"<ImageUrlLarge>http://(\w+\.images-amazon\.com)"
+    "(/images/.*?\.jpg)</ImageUrlLarge>", re.DOTALL)
 
 """
     Fetches album covers from Amazon.com

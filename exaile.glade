@@ -2012,7 +2012,7 @@ Genre</property>
 	      <child>
 		<widget class="GtkHBox" id="playlist_bar">
 		  <property name="visible">True</property>
-		  <property name="homogeneous">False</property>
+		  <property name="homogeneous">True</property>
 		  <property name="spacing">0</property>
 
 		  <child>
@@ -2082,34 +2082,36 @@ Genre</property>
 			  <property name="fill">False</property>
 			</packing>
 		      </child>
-		    </widget>
-		    <packing>
-		      <property name="padding">0</property>
-		      <property name="expand">False</property>
-		      <property name="fill">True</property>
-		    </packing>
-		  </child>
-
-		  <child>
-		    <widget class="GtkEventBox" id="stop_track_box">
-		      <property name="visible">True</property>
-		      <property name="visible_window">False</property>
-		      <property name="above_child">False</property>
 
 		      <child>
-			<widget class="GtkImage" id="stop_track_image">
+			<widget class="GtkEventBox" id="stop_track_box">
+			  <property name="width_request">43</property>
 			  <property name="visible">True</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">10</property>
-			  <property name="ypad">0</property>
+			  <property name="visible_window">False</property>
+			  <property name="above_child">False</property>
+
+			  <child>
+			    <widget class="GtkImage" id="stop_track_image">
+			      <property name="width_request">43</property>
+			      <property name="visible">True</property>
+			      <property name="xalign">0</property>
+			      <property name="yalign">0.5</property>
+			      <property name="xpad">4</property>
+			      <property name="ypad">0</property>
+			    </widget>
+			  </child>
 			</widget>
+			<packing>
+			  <property name="padding">0</property>
+			  <property name="expand">False</property>
+			  <property name="fill">True</property>
+			</packing>
 		      </child>
 		    </widget>
 		    <packing>
 		      <property name="padding">0</property>
 		      <property name="expand">False</property>
-		      <property name="fill">False</property>
+		      <property name="fill">True</property>
 		    </packing>
 		  </child>
 

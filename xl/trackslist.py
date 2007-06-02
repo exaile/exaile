@@ -27,9 +27,9 @@ class TracksListCtrl(gtk.VBox):
         Represents the track/playlist table
     """
     rating_images = []
-    rating_width = 48   # some default value
+    rating_width = 64   # some default value
     old_r_w = -1
-    row_height = 12
+    row_height = 16
     
     default_columns = ('#', 'Title', 'Album', 'Artist', 'Length')
     col_items = ["#",

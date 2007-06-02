@@ -2496,7 +2496,7 @@ Genre</property>
 	  <property name="width_request">97</property>
 	  <property name="visible">True</property>
 	  <property name="homogeneous">False</property>
-	  <property name="spacing">3</property>
+	  <property name="spacing">0</property>
 
 	  <child>
 	    <widget class="GtkLabel" id="status_pos_1">

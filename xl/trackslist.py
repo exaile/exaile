@@ -1285,7 +1285,9 @@ def update_queued(exaile):
             page.set_songs(exaile.player.queued)
 
     if exaile.player.queued:
-        exaile.queue_count_label.set_label("%d track(s) queued" % 
-            len(exaile.player.queued))
+        exaile.queue_count_label.set_label(_(": %(tracks)d track(s) queued") % 
+            {
+                'tracks': len(exaile.player.queued)
+            })
     else:
         exaile.queue_count_label.set_label("")

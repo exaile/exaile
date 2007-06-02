@@ -40,16 +40,13 @@ except ImportError:
 
 
 USE_TRAY = None
-if not 'win' in sys.platform:
-    try:
-        import warnings
-        warnings.simplefilter('ignore', DeprecationWarning)
-        import egg.trayicon
-        USE_TRAY = 'egg'
-    except ImportError:
-        USE_TRAY = None
-
-if not USE_TRAY:
+import warnings
+warnings.filterwarnings('ignore', 'the module egg.trayicon is deprecated',
+    DeprecationWarning)
+try:
+    import egg.trayicon
+    USE_TRAY = 'egg'
+except ImportError:
     if hasattr(gtk, 'StatusIcon'):
         USE_TRAY = 'gtk'
 

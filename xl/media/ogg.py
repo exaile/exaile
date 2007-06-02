@@ -16,6 +16,7 @@ def write_tag(tr):
     try:
         com = mutagen.oggvorbis.OggVorbis(tr.io_loc)
     except mutagen.oggvorbis.OggVorbisHeaderError:
+        # FIXME: No use, this fails at the save() call.
         com = mutagen.oggvorbis.OggVorbis()
     com.clear()
     com['artist'] = tr.artist

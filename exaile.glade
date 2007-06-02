@@ -2557,7 +2557,7 @@ Genre</property>
 	      <property name="justify">GTK_JUSTIFY_LEFT</property>
 	      <property name="wrap">False</property>
 	      <property name="selectable">False</property>
-	      <property name="xalign">0.5</property>
+	      <property name="xalign">1</property>
 	      <property name="yalign">0.5</property>
 	      <property name="xpad">0</property>
 	      <property name="ypad">0</property>
@@ -2590,7 +2590,7 @@ Genre</property>
 		  <property name="selectable">False</property>
 		  <property name="xalign">1</property>
 		  <property name="yalign">0.5</property>
-		  <property name="xpad">3</property>
+		  <property name="xpad">0</property>
 		  <property name="ypad">0</property>
 		  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
 		  <property name="width_chars">-1</property>

@@ -31,7 +31,7 @@ class TracksListCtrl(gtk.VBox):
     old_r_w = -1
     row_height = 16
     
-    default_columns = ('#', 'Title', 'Album', 'Artist', 'Length')
+    default_columns = ('#', _('Title'), _('Album'), _('Artist'), _('Length'))
     col_items = ["#",
         _("Title"), _("Artist"), _("Album"), _("Length"), _("Disc"),
         _("Rating"), _("Year"), _("Genre"), _("Bitrate"), _("Location"),
@@ -443,7 +443,7 @@ class TracksListCtrl(gtk.VBox):
             if not self.size_map.has_key(name): continue
             # get cell renderer
             cellr = gtk.CellRendererText()
-            if name == _("Rating"):
+            if _(name) == _("Rating"):
                 cellr = gtk.CellRendererPixbuf()
                 cellr.set_property("follow-state", False)
             mapval = self.col_map
@@ -459,7 +459,7 @@ class TracksListCtrl(gtk.VBox):
                     pb.set_fixed_size(20, 20)
                     stop_pb = gtk.CellRendererPixbuf()
                     stop_pb.set_fixed_size(*self.stop_size)
-                    col = gtk.TreeViewColumn(name)
+                    col = gtk.TreeViewColumn(_(name))
                     col.pack_start(pb, False)
                     col.pack_start(stop_pb, False)
                     col.pack_start(cellr, True)
@@ -469,15 +469,15 @@ class TracksListCtrl(gtk.VBox):
                     col.set_cell_data_func(pb, self.icon_data_func)
                     col.set_cell_data_func(stop_pb, self.stop_icon_data_func)
                 else:
-                    col = gtk.TreeViewColumn(name, cellr, text=count)
+                    col = gtk.TreeViewColumn(_(name), cellr, text=count)
                 
-                if name == _("Length"):
+                if _(name) == _("Length"):
                     col.set_cell_data_func(cellr, self.length_data_func)
-                elif name == "#":
+                elif _(name) == "#":
                     col.set_cell_data_func(cellr, self.track_data_func)
-                elif name == _('Disc'):
+                elif _(name) == _('Disc'):
                     col.set_cell_data_func(cellr, self.disc_data_func)
-                elif name == _("Rating"):
+                elif _(name) == _("Rating"):
                     col.set_attributes(cellr, pixbuf=1)
                     col.set_cell_data_func(cellr, self.rating_data_func)
 
@@ -498,7 +498,7 @@ class TracksListCtrl(gtk.VBox):
                     col.set_sort_indicator(False)
 
                 if not resizable:
-                    if name in (_("Title"), _("Artist"), _("Album"), _("Location")):
+                    if _(name) in (_("Title"), _("Artist"), _("Album"), _("Location")):
                         col.set_expand(True)
                         col.set_fixed_width(1)
                         col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)

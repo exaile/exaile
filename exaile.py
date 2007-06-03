@@ -220,7 +220,7 @@ class ExaileWindow(gobject.GObject):
         self.timer.start()
 
         self.window.show_all()
-        self.stop_track_button.hide()
+        self.stop_track_button.set_sensitive(False)
         self.pmanager = plugins.manager.Manager(self) 
         enabled_plugins = []
         for k, v in self.settings.get_plugins().iteritems():

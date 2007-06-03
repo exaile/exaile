@@ -488,9 +488,9 @@ class ExailePlayer(GSTPlayer):
         """
         stop_button = self.exaile.stop_track_button
         if value:
-            stop_button.show()
+            stop_button.set_sensitive(True)
         else:
-            stop_button.hide()
+            stop_button.set_sensitive(False)
         self._stop_track = value
     
     stop_track = property(get_stop_track, set_stop_track)

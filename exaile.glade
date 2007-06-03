@@ -52,7 +52,7 @@
 		      <accelerator key="N" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image581">
+			<widget class="GtkImage" id="image643">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-new</property>
 			  <property name="icon_size">1</property>
@@ -80,7 +80,7 @@
 		      <accelerator key="O" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image582">
+			<widget class="GtkImage" id="image644">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-open</property>
 			  <property name="icon_size">1</property>
@@ -101,7 +101,7 @@
 		      <signal name="activate" handler="on_open_url_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image583">
+			<widget class="GtkImage" id="image645">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-network</property>
 			  <property name="icon_size">1</property>
@@ -122,7 +122,7 @@
 		      <signal name="activate" handler="on_open_disc_item_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image584">
+			<widget class="GtkImage" id="image646">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-cdrom</property>
 			  <property name="icon_size">1</property>
@@ -143,7 +143,7 @@
 		      <signal name="activate" handler="on_import_directory_item_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image585">
+			<widget class="GtkImage" id="image647">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-go-down</property>
 			  <property name="icon_size">1</property>
@@ -170,7 +170,7 @@
 		      <signal name="activate" handler="on_export_playlist_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image586">
+			<widget class="GtkImage" id="image648">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-save</property>
 			  <property name="icon_size">1</property>
@@ -203,6 +203,95 @@
 	  </child>
 
 	  <child>
+	    <widget class="GtkMenuItem" id="edit1">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">_Edit</property>
+	      <property name="use_underline">True</property>
+
+	      <child>
+		<widget class="GtkMenu" id="edit1_menu">
+
+		  <child>
+		    <widget class="GtkMenuItem" id="blacklist_manager_item">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Blacklist Manager</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_blacklist_manager_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="queue_manager_item">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Queue Manager</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_queue_manager_activate"/>
+		      <accelerator key="M" modifiers="GDK_CONTROL_MASK" signal="activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="library_manager">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Library _Manager</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_library_manager_activate"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image649">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-home</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkSeparatorMenuItem" id="separator15">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="plugins_item">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">P_lugins</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_plugins_item_activate"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image650">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-execute</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="preferences_item">
+		      <property name="visible">True</property>
+		      <property name="label">gtk-preferences</property>
+		      <property name="use_stock">True</property>
+		      <signal name="activate" handler="on_preferences_activate"/>
+		    </widget>
+		  </child>
+		</widget>
+	      </child>
+	    </widget>
+	  </child>
+
+	  <child>
 	    <widget class="GtkMenuItem" id="view_menu">
 	      <property name="visible">True</property>
 	      <property name="label" translatable="yes">_View</property>
@@ -214,13 +303,13 @@
 		  <child>
 		    <widget class="GtkImageMenuItem" id="goto_current_item">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Go To Playing Track</property>
+		      <property name="label" translatable="yes">_Go To Playing Track</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_go_to_playling_track_activate"/>
 		      <accelerator key="G" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image587">
+			<widget class="GtkImage" id="image651">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-jump-to</property>
 			  <property name="icon_size">1</property>
@@ -234,44 +323,8 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkMenuItem" id="information1">
+		    <widget class="GtkSeparatorMenuItem" id="separator14">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Information</property>
-		      <property name="use_underline">True</property>
-
-		      <child>
-			<widget class="GtkMenu" id="information1_menu">
-
-			  <child>
-			    <widget class="GtkMenuItem" id="track_artist_item">
-			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">_Artist Information</property>
-			      <property name="use_underline">True</property>
-			      <signal name="activate" handler="on_track_artist_item_activate"/>
-			      <accelerator key="E" modifiers="GDK_CONTROL_MASK" signal="activate"/>
-			    </widget>
-			  </child>
-
-			  <child>
-			    <widget class="GtkMenuItem" id="track_album_item">
-			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Album _Information</property>
-			      <property name="use_underline">True</property>
-			      <signal name="activate" handler="on_track_album_item_activate"/>
-			    </widget>
-			  </child>
-
-			  <child>
-			    <widget class="GtkMenuItem" id="track_lyrics_item">
-			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">_Lyrics</property>
-			      <property name="use_underline">True</property>
-			      <signal name="activate" handler="on_track_lyrics_item_activate"/>
-			      <accelerator key="L" modifiers="GDK_CONTROL_MASK" signal="activate"/>
-			    </widget>
-			  </child>
-			</widget>
-		      </child>
 		    </widget>
 		  </child>
 
@@ -416,7 +469,7 @@
 			      <property name="visible">True</property>
 			      <property name="label" translatable="yes">Resizable</property>
 			      <property name="use_underline">True</property>
-			      <property name="active">True</property>
+			      <property name="active">False</property>
 			      <signal name="activate" handler="on_resizable1_activate"/>
 			    </widget>
 			  </child>
@@ -437,32 +490,72 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkMenuItem" id="logs1">
+		    <widget class="GtkSeparatorMenuItem" id="separator11">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">_Logs</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="track_artist_item">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Artist Information</property>
 		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_track_artist_item_activate"/>
+		      <accelerator key="E" modifiers="GDK_CONTROL_MASK" signal="activate"/>
+		    </widget>
+		  </child>
 
-		      <child>
-			<widget class="GtkMenu" id="logs1_menu">
+		  <child>
+		    <widget class="GtkMenuItem" id="track_album_item">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Album _Information</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_track_album_item_activate"/>
+		    </widget>
+		  </child>
 
-			  <child>
-			    <widget class="GtkMenuItem" id="action_log_item">
-			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Action _Log</property>
-			      <property name="use_underline">True</property>
-			      <signal name="activate" handler="on_action_log_item_activate"/>
-			      <accelerator key="D" modifiers="GDK_CONTROL_MASK" signal="activate"/>
-			    </widget>
-			  </child>
+		  <child>
+		    <widget class="GtkMenuItem" id="track_lyrics_item">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Lyrics</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_track_lyrics_item_activate"/>
+		      <accelerator key="L" modifiers="GDK_CONTROL_MASK" signal="activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="action_log_item">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Action _Log</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_action_log_item_activate"/>
+		      <accelerator key="D" modifiers="GDK_CONTROL_MASK" signal="activate"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image652">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-file</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
 			</widget>
 		      </child>
 		    </widget>
 		  </child>
 
 		  <child>
+		    <widget class="GtkSeparatorMenuItem" id="separator13">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
 		    <widget class="GtkMenuItem" id="show_visualizations_item">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Show Visualizations</property>
+		      <property name="label" translatable="yes">Show _Visualizations</property>
 		      <property name="use_underline">True</property>
 		    </widget>
 		  </child>
@@ -490,11 +583,23 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkMenuItem" id="rescan_collection">
+		    <widget class="GtkImageMenuItem" id="rescan_collection">
 		      <property name="visible">True</property>
 		      <property name="label" translatable="yes">_Rescan Collection</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_rescan_collection_activate"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image653">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-refresh</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
 		    </widget>
 		  </child>
 
@@ -513,122 +618,6 @@
 		      <property name="label" translatable="yes">Randomize Playlist</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_randomize_item_activate"/>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkSeparatorMenuItem" id="separator5">
-		      <property name="visible">True</property>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkMenuItem" id="blacklist_manager_item">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">_Blacklist Manager</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="on_blacklist_manager_activate"/>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkSeparatorMenuItem" id="separator3">
-		      <property name="visible">True</property>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="clear_queue_item">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">_Clear Queue</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="on_clear_queue_activate"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image588">
-			  <property name="visible">True</property>
-			  <property name="stock">gtk-clear</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkMenuItem" id="queue_manager_item">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">_Queue Manager</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="on_queue_manager_activate"/>
-		      <accelerator key="M" modifiers="GDK_CONTROL_MASK" signal="activate"/>
-		    </widget>
-		  </child>
-		</widget>
-	      </child>
-	    </widget>
-	  </child>
-
-	  <child>
-	    <widget class="GtkMenuItem" id="options1">
-	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">_Options</property>
-	      <property name="use_underline">True</property>
-
-	      <child>
-		<widget class="GtkMenu" id="options1_menu">
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="library_manager">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Library _Manager</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="on_library_manager_activate"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image589">
-			  <property name="visible">True</property>
-			  <property name="stock">gtk-home</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="plugins_item">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Plugins</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="on_plugins_item_activate"/>
-
-		      <child internal-child="image">
-			<widget class="GtkImage" id="image590">
-			  <property name="visible">True</property>
-			  <property name="stock">gtk-execute</property>
-			  <property name="icon_size">1</property>
-			  <property name="xalign">0.5</property>
-			  <property name="yalign">0.5</property>
-			  <property name="xpad">0</property>
-			  <property name="ypad">0</property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
-
-		  <child>
-		    <widget class="GtkImageMenuItem" id="preferences_item">
-		      <property name="visible">True</property>
-		      <property name="label">gtk-preferences</property>
-		      <property name="use_stock">True</property>
-		      <signal name="activate" handler="on_preferences_activate"/>
 		    </widget>
 		  </child>
 		</widget>

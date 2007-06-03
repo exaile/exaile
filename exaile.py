@@ -521,7 +521,6 @@ class ExaileWindow(gobject.GObject):
             lambda e: prefs.Preferences(self).run())
 
         self.clear_queue_item = self.xml.get_widget('clear_queue_item')
-        self.clear_queue_item.connect('activate', self.on_clear_queue)
 
         self.goto_current_item = self.xml.get_widget('goto_current_item')
         self.goto_current_item.connect('activate', self.goto_current)

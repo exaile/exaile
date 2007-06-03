@@ -673,7 +673,7 @@ class CoverFetcher(object):
         iter = self.model.get_iter(path)
         object = self.model.get_value(iter, 2)
 
-        self.status.set_markup("<b>" + common.escape_xml(_("%(album)s by %(artist)s)") %
+        self.status.set_markup("<b>" + common.escape_xml(_("%(album)s by %(artist)s") %
             {
                 'album': object.album,
                 'artist': object.artist

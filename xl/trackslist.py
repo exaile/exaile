@@ -17,7 +17,7 @@
 import sys, os, re, random, fileinput, media
 import xlmisc, common, track, tracks
 import copy, time, urllib, xl.tracks
-from gettext import gettext as _
+from gettext import gettext as _, ngettext
 import pygtk
 pygtk.require('2.0')
 import gtk, pango
@@ -773,6 +773,7 @@ class TracksListCtrl(gtk.VBox):
             self.exaile.on_stop_track, 'gtk-media-stop')
         tpm.append_separator()
         songs = self.get_selected_tracks()
+        n_selected = len(songs)
 
         if not songs or not songs[0].type == 'stream':
             pm = xlmisc.Menu()
@@ -825,12 +826,13 @@ class TracksListCtrl(gtk.VBox):
                 self.update_rating, i)
 
         em.append_menu(_("Rating"), rm)
-        tpm.append_menu(_("Edit Track(s)"), em, 'gtk-edit')
+        tpm.append_menu(ngettext("Edit Track", "Edit Tracks", n_selected), em,
+            'gtk-edit')
         info = tpm.append(_("Information"), self.get_track_information,
             'gtk-info')
         tpm.append_separator()
 
-        if len(self.get_selected_tracks()) == 1 and self.get_selected_track() \
+        if n_selected == 1 and self.get_selected_track() \
             and self.get_selected_track().type == 'lastfm':
             lfm = xlmisc.Menu()
             lfm.append('Ban', lambda *e: self.send_lastfm_command('ban'))
@@ -847,10 +849,11 @@ class TracksListCtrl(gtk.VBox):
             self.delete_tracks, None, 'remove')
         self.playlists_menu = None
 
-        rm.append(_("Blacklist Track(s)"), self.exaile.on_blacklist)
+        rm.append(ngettext("Blacklist Track", "Blacklist Tracks", n_selected),
+            self.exaile.on_blacklist)
 
-        rm.append(_("Delete Track(s)"), self.delete_tracks,
-            'gtk-delete', 'delete')
+        rm.append(ngettext("Delete Track", "Delete Tracks", n_selected),
+            self.delete_tracks, 'gtk-delete', 'delete')
         tpm.append_menu(_("Remove"), rm, 'gtk-delete')
 
         # plugins menu items
@@ -879,8 +882,11 @@ class TracksListCtrl(gtk.VBox):
         if not songs: return
         text = getattr(songs[0], data)
 
-        dialog = xlmisc.TextEntryDialog(self.exaile.window, 
-            _("Enter the %s for the selected track(s)") % _(data.capitalize()),
+        dialog = xlmisc.TextEntryDialog(
+            self.exaile.window, 
+            ngettext("Enter the %s for the selected track",
+                "Enter the %s for the selected tracks", len(songs)) %
+                _(data.capitalize()),
             _("Edit %s") % _(data.capitalize()))
         dialog.set_value(text)
 
@@ -1285,9 +1291,8 @@ def update_queued(exaile):
             page.set_songs(exaile.player.queued)
 
     if exaile.player.queued:
-        exaile.queue_count_label.set_label(_(": %(tracks)d track(s) queued") % 
-            {
-                'tracks': len(exaile.player.queued)
-            })
+        n = len(exaile.player.queued)
+        exaile.queue_count_label.set_label(ngettext(": %d track queued",
+            ": %d tracks queued", n) % n)
     else:
         exaile.queue_count_label.set_label("")

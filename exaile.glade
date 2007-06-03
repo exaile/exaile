@@ -2013,7 +2013,7 @@ Genre</property>
 		<widget class="GtkHBox" id="playlist_bar">
 		  <property name="height_request">32</property>
 		  <property name="visible">True</property>
-		  <property name="homogeneous">True</property>
+		  <property name="homogeneous">False</property>
 		  <property name="spacing">0</property>
 
 		  <child>

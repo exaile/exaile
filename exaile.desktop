@@ -2,6 +2,7 @@
 Version=1.0
 Encoding=UTF-8
 Name=Exaile Music Player
+Name[de_DE]=Exaile Musik-Wiedergabe
 GenericName=Music Player
 GenericName[de_DE]=Musik-Wiedergabe
 GenericName[en_GB]=Music Player

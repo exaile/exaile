@@ -486,13 +486,11 @@ class ExailePlayer(GSTPlayer):
         """
             sets the stop_track (track to stop playback)
         """
-        stop_image = self.exaile.xml.get_widget('stop_track_image')
-        stop_image.clear()
+        stop_button = self.exaile.stop_track_button
         if value:
-            pixbuf = xlmisc.get_text_icon(self.exaile.window,
-                '', 8, 8, 
-                    bgcolor='#9b0000', bordercolor='#9b0000')
-            stop_image.set_from_pixbuf(pixbuf)
+            stop_button.show()
+        else:
+            stop_button.hide()
         self._stop_track = value
     
     stop_track = property(get_stop_track, set_stop_track)

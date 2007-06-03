@@ -220,6 +220,7 @@ class ExaileWindow(gobject.GObject):
         self.timer.start()
 
         self.window.show_all()
+        self.stop_track_button.hide()
         self.pmanager = plugins.manager.Manager(self) 
         enabled_plugins = []
         for k, v in self.settings.get_plugins().iteritems():
@@ -571,7 +572,8 @@ class ExaileWindow(gobject.GObject):
         self.rating_signal = self.rating_combo.connect('changed', self.set_rating)
 
         # stop track event box
-        self.xml.get_widget('stop_track_box').connect('button-press-event',
+        self.stop_track_button = self.xml.get_widget('stop_track_button')
+        self.stop_track_button.connect('clicked',
             self.stop_track_toggle)
 
     def stop_track_toggle(self, *e):

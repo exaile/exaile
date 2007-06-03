@@ -2124,7 +2124,7 @@ Genre</property>
 
 		      <child>
 			<widget class="GtkLabel" id="label114">
-			  <property name="width_request">60</property>
+			  <property name="width_request">50</property>
 			  <property name="visible">True</property>
 			  <property name="label" translatable="yes"></property>
 			  <property name="use_underline">False</property>
@@ -2144,7 +2144,7 @@ Genre</property>
 			<packing>
 			  <property name="padding">0</property>
 			  <property name="expand">False</property>
-			  <property name="fill">False</property>
+			  <property name="fill">True</property>
 			</packing>
 		      </child>
 
@@ -2192,7 +2192,7 @@ Genre</property>
 		    </widget>
 		    <packing>
 		      <property name="padding">0</property>
-		      <property name="expand">False</property>
+		      <property name="expand">True</property>
 		      <property name="fill">True</property>
 		      <property name="pack_type">GTK_PACK_END</property>
 		    </packing>

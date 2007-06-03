@@ -2087,7 +2087,7 @@ Genre</property>
 
 		      <child>
 			<widget class="GtkLabel" id="label115">
-			  <property name="width_request">10</property>
+			  <property name="width_request">5</property>
 			  <property name="visible">True</property>
 			  <property name="label" translatable="yes"></property>
 			  <property name="use_underline">False</property>

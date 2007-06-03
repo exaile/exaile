@@ -549,14 +549,8 @@ class ExaileWindow(gobject.GObject):
         self.open_disc_item.connect('activate',
             self.open_disc)
 
-        self.xml.get_widget('track_artist_item').connect('activate',
-            lambda *e: self.jump_to(1))
-
-        self.xml.get_widget('track_album_item').connect('activate',
-            lambda *e: self.jump_to(2))
-
-        self.xml.get_widget('track_lyrics_item').connect('activate',
-            lambda *e: self.jump_to(3))
+        self.xml.get_widget('track_information_item').connect('activate',
+            lambda *e: self.jump_to(0))
 
         action_log_item = self.xml.get_widget('action_log_item')
         action_log_item.connect('activate',

@@ -999,6 +999,7 @@ class VideoWidget(gtk.Window):
 
         track = self.exaile.player.current
         position = 0
+        play_track = False
         if track is not None and self.exaile.player.is_playing():
             try:
                 position = self.exaile.player.playbin.query_position(gst.FORMAT_TIME)[0] 

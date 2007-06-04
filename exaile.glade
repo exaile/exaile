@@ -2219,7 +2219,6 @@ Genre</property>
 
 	      <child>
 		<widget class="GtkHBox" id="play_toolbar">
-		  <property name="border_width">2</property>
 		  <property name="visible">True</property>
 		  <property name="homogeneous">False</property>
 		  <property name="spacing">0</property>
@@ -5665,7 +5664,7 @@ esdsink</property>
   <property name="destroy_with_parent">True</property>
   <property name="name">Exaile</property>
   <property name="copyright" translatable="yes">(c) 2006</property>
-  <property name="comments" translatable="yes">Exaile Registration Key: purgatorio</property>
+  <property name="comments" translatable="yes">Exaile</property>
   <property name="license" translatable="yes">Copyright (C) 2006 Adam Olsen
 
 This program is free software; you can redistribute it and/or modify
@@ -6199,9 +6198,10 @@ Josip Lisec</property>
 
 		  <child>
 		    <widget class="GtkHBox" id="hbox63">
+		      <property name="border_width">12</property>
 		      <property name="visible">True</property>
 		      <property name="homogeneous">False</property>
-		      <property name="spacing">2</property>
+		      <property name="spacing">12</property>
 
 		      <child>
 			<widget class="GtkImage" id="image535">

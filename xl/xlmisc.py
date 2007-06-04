@@ -566,14 +566,19 @@ class CoverFetcher(object):
         if CoverFetcher.stopped:
             if not self.artists:
                 self.go = True
-                self.stopstart.set_label(_("Stop"))
+                self.stopstart.set_use_stock(True)
+                self.stopstart.set_label('gtk-stop')
                 return
                 
             CoverFetcher.stopped = False
-            self.stopstart.set_label(_("Stop"))
+            self.stopstart.set_use_stock(True)
+            self.stopstart.set_label('gtk-stop')
             self.fetch_next()
         else:
-            self.stopstart.set_label(_("Start"))
+            self.stopstart.set_use_stock(False)
+            self.stopstart.set_label(_('Start'))
+            self.stopstart.set_image(gtk.image_new_from_stock('gtk-yes',
+                gtk.ICON_SIZE_BUTTON))
             CoverFetcher.stopped = True
             if self.cover_thread:
                 self.cover_thread.abort()
@@ -728,7 +733,7 @@ class CoverFetcher(object):
 
             self.found["%s - %s" % (artist.lower(), album.lower())] = \
                 self.model.append([title, image, title])
-            if count >= 30: 
+            if count >= 200: 
                 count = 0
                 t = 0
                 for k, v in self.needs.iteritems():

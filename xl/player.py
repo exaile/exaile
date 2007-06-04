@@ -967,7 +967,7 @@ class VideoWidget(gtk.Window):
         self.resize(700, 500)
         self.loaded = False
         self.connect('delete_event', self.on_delete)
-        self.set_title(_("Exaile Media Player"))
+        self.set_title(_("Exaile Music Player"))
 
     def button_press(self, widget, event):
         """

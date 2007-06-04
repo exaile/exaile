@@ -456,7 +456,7 @@ class GtkTrayIcon(BaseTrayIcon):
         icon.set_from_file(os.path.join('images', 'trayicon.png'))
         icon.connect('activate', self.activated)
         icon.connect('popup-menu', self.popup)
-        self.set_tooltip(_("Exaile Media Player"))
+        self.set_tooltip(_("Exaile Music Player"))
 
     def activated(self, icon):
         self.toggle_exaile_visibility()

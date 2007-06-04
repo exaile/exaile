@@ -2108,7 +2108,7 @@ class ExaileWindow(gobject.GObject):
 
         self.playing = False
         if self.tray_icon:
-            self.tray_icon.set_tooltip(_("Exaile Media Player"))
+            self.tray_icon.set_tooltip(_("Exaile Music Player"))
         self.window.set_title(_("Exaile Music Player"))
 
         if track:

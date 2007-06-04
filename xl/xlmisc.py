@@ -412,6 +412,7 @@ class EggTrayIcon(BaseTrayIcon):
         self.box.connect('enter-notify-event', lambda *e: 
             self.exaile.show_osd(tray=True))
         self.icon.show_all()
+        self.set_tooltip(_("Exaile Media Player"))
 
     def scroll(self, widget, ev):
         """
@@ -455,6 +456,7 @@ class GtkTrayIcon(BaseTrayIcon):
         icon.set_from_file(os.path.join('images', 'trayicon.png'))
         icon.connect('activate', self.activated)
         icon.connect('popup-menu', self.popup)
+        self.set_tooltip(_("Exaile Media Player"))
 
     def activated(self, icon):
         self.toggle_exaile_visibility()

@@ -96,7 +96,6 @@ class TracksListCtrl(gtk.VBox):
             gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.pauseimg = self.pauseimg.scale_simple(18, 18,
             gtk.gdk.INTERP_BILINEAR)
-        self.stop_size = (6, 6) # stop image size
 
         self.db = exaile.db
         self.inited = False
@@ -457,8 +456,9 @@ class TracksListCtrl(gtk.VBox):
                     first_col = False
                     pb = gtk.CellRendererPixbuf()
                     pb.set_fixed_size(20, 20)
+                    pb.set_property('xalign', 0.0)
                     stop_pb = gtk.CellRendererPixbuf()
-                    stop_pb.set_fixed_size(*self.stop_size)
+                    stop_pb.set_fixed_size(12, 12)
                     col = gtk.TreeViewColumn(_(name))
                     col.pack_start(pb, False)
                     col.pack_start(stop_pb, False)
@@ -623,12 +623,13 @@ class TracksListCtrl(gtk.VBox):
 
         item = model.get_value(iter, 0)
         image = None
+        
         if item == self.exaile.player.stop_track:
-            image = xlmisc.get_text_icon(self.exaile.window,
-                '', self.stop_size[0], self.stop_size[0], 
-                    bgcolor='#9b0000', bordercolor='#9b0000')
-
-        cellr.set_property('pixbuf', image)
+            image = self.exaile.window.render_icon('gtk-stop', 
+                gtk.ICON_SIZE_MENU) 
+            image = image.scale_simple(12, 12, gtk.gdk.INTERP_BILINEAR)
+        
+        cellr.set_property('pixbuf', image)  
             
     def icon_data_func(self, col, cellr, model, iter):
         """
@@ -770,7 +771,7 @@ class TracksListCtrl(gtk.VBox):
         self.queue = tpm.append(_("Toggle Queue"), self.exaile.on_queue,
             'gtk-media-play')
         self.stop_track = tpm.append(_("Toggle: Stop after this Track"), 
-            self.exaile.on_stop_track, 'gtk-media-stop')
+            self.exaile.on_stop_track, 'gtk-stop')
         tpm.append_separator()
         songs = self.get_selected_tracks()
         n_selected = len(songs)

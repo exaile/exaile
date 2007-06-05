@@ -2116,7 +2116,7 @@ class M3UParser(PlaylistParser):
                     else: # relative path
                         url = os.path.dirname(filename) + os.path.sep + rg
 
-                    url = 'file://' + urllib.urlquote(url)
+                    url = 'file://' + urllib.quote(url)
                 self.add_url(url, title=item[0], album=url)
 
         return True

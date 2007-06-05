@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-21 16:14+0200\n"
+"POT-Creation-Date: 2007-06-05 09:47-0600\n"
 "PO-Revision-Date: 2007-06-02 22:41+0100\n"
 "Last-Translator: Avramucz Péter <muczy@freestart.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
@@ -18,110 +18,116 @@ msgstr ""
 "X-Poedit-Country: HUNGARY\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: exaile.py:191
-#: exaile.py:2117
+#: exaile.py:191 exaile.py:2112 exaile.py:2113 xl/player.py:970
+#: xl/xlmisc.py:459
 #, fuzzy
-msgid "Exaile! Music Player"
+msgid "Exaile Music Player"
 msgstr "Exaile Media Player"
 
-#: exaile.py:236
-msgid "You have not specified any search directories for your music library. You may do so now, or choose to do it later.  If you want to do it later, you can manage your library search directories by going to Tools->Library Manager.  Do you want to choose your library directories now?"
-msgstr "Nem adott meg egyetlen keresési könyvtárat sem a zene gyűjteményhez. Most vagy később megteheti. Ha később szeretné megadni, a keresési könyvtárakat az Eszközök -> Gyűjtemény kezelő menüvel teheti meg. Kívánja most megadni a gyűjtemény könyvtárakat?"
+#: exaile.py:237
+msgid ""
+"You have not specified any search directories for your music library. You "
+"may do so now, or choose to do it later.  If you want to do it later, you "
+"can manage your library search directories by going to Tools->Library "
+"Manager.  Do you want to choose your library directories now?"
+msgstr ""
+"Nem adott meg egyetlen keresési könyvtárat sem a zene gyűjteményhez. Most "
+"vagy később megteheti. Ha később szeretné megadni, a keresési könyvtárakat "
+"az Eszközök -> Gyűjtemény kezelő menüvel teheti meg. Kívánja most megadni a "
+"gyűjtemény könyvtárakat?"
 
-#: exaile.py:464
-#: exaile.py:1386
-#: exaile.py:1387
-#: exaile.glade.h:124
+#: exaile.py:465 exaile.py:1382 exaile.py:1383 exaile.glade.h:121
 msgid "Not Playing"
 msgstr "Nem játszik"
 
-#: exaile.py:583
+#: exaile.py:578
 #, python-format
-msgid "Playback is currently set to stop on the track \"%(title)s\" by \"%(artist)s\". Would you like to remove this?"
-msgstr "A lejátszás jelenleg úgy van beállítva, hogy a \"%(artist)s\" \"%(title)s\" című számnál megálljon. Kívánja ezt kikapcsolni?"
+msgid ""
+"Playback is currently set to stop on the track \"%(title)s\" by \"%(artist)s"
+"\". Would you like to remove this?"
+msgstr ""
+"A lejátszás jelenleg úgy van beállítva, hogy a \"%(artist)s\" \"%(title)s\" "
+"című számnál megálljon. Kívánja ezt kikapcsolni?"
 
-#: exaile.py:656
-#: xl/xlmisc.py:1525
+#: exaile.py:651 xl/xlmisc.py:1532
 msgid "Add a directory"
 msgstr "Könyvtár hozzáadása"
 
-#: exaile.py:662
+#: exaile.py:657
 msgid "Add tracks to current playlist after importing"
 msgstr "Adja hozzá a számokat a jelenlegi lejátszólistához, importálás után"
 
-#: exaile.py:736
+#: exaile.py:731
 msgid "Queue"
 msgstr "Sor"
 
-#: exaile.py:773
+#: exaile.py:768
 msgid "Blacklist"
 msgstr "Fekete lista"
 
-#: exaile.py:794
-msgid "Gstreamer equalizer is not  available.  It can be found in gstreamer-plugins-bad (currently found in GST CVS)."
-msgstr "A Gstreamer equalizer nem elérhető. A gstreamer-plugins-bad csomagban található meg (jelenleg a GST CVS-ben)."
+#: exaile.py:789
+msgid ""
+"Gstreamer equalizer is not  available.  It can be found in gstreamer-plugins-"
+"bad (currently found in GST CVS)."
+msgstr ""
+"A Gstreamer equalizer nem elérhető. A gstreamer-plugins-bad csomagban "
+"található meg (jelenleg a GST CVS-ben)."
 
-#: exaile.py:809
-#: exaile.py:1669
-#: xl/xlmisc.py:688
+#: exaile.py:804 exaile.py:1665 xl/xlmisc.py:683 xl/xlmisc.py:695
 #, python-format
 msgid "%(album)s by %(artist)s"
 msgstr "%(album)s tőle: %(artist)s"
 
-#: exaile.py:900
-#: exaile.py:931
-#: exaile.py:1721
-#: exaile.py:1733
-#: exaile.py:1772
-#: exaile.py:2275
-#: exaile.glade.h:131
+#: exaile.py:896 exaile.py:927 exaile.py:1717 exaile.py:1729 exaile.py:1768
+#: exaile.py:2270 exaile.glade.h:129
 msgid "Playlist"
 msgstr "Lejátszólista"
 
-#: exaile.py:979
-msgid "Blacklisting the selected tracks will prevent them from being added to the library on rescan.  Are you sure you want to continue?"
-msgstr "A kijelölt számok fekete listára helyezése megakadályozza, hogy a gyűjteménybe kerüljenek átvizsgáláskor. Biztos, hogy folytatni akarja?"
+#: exaile.py:975
+msgid ""
+"Blacklisting the selected tracks will prevent them from being added to the "
+"library on rescan.  Are you sure you want to continue?"
+msgstr ""
+"A kijelölt számok fekete listára helyezése megakadályozza, hogy a "
+"gyűjteménybe kerüljenek átvizsgáláskor. Biztos, hogy folytatni akarja?"
 
-#: exaile.py:1093
+#: exaile.py:1089
 #, python-format
 msgid "Error connecting to database: %s"
 msgstr "Hiba az adatbázishoz való csatlakozás közben: %s"
 
-#: exaile.py:1100
+#: exaile.py:1096
 #, python-format
 msgid "Error creating collection database: %s"
 msgstr "Hiba a gyűjtemény adatbázis létrehozása közben: %s"
 
-#: exaile.py:1125
+#: exaile.py:1121
 msgid "Loading library from database..."
 msgstr "Gyűjtemény betöltése az adatbázisból..."
 
-#: exaile.py:1319
+#: exaile.py:1315
 #, fuzzy, python-format
 msgid "%(track_count)d showing, %(track_total)d in collection"
 msgstr "%d mutatva, %d a gyűjteményben"
 
-#: exaile.py:1370
+#: exaile.py:1366
 msgid "Submitting to Last.fm..."
 msgstr "Küldés a Last.fm-nek..."
 
-#: exaile.py:1388
-#: exaile.glade.h:167
+#: exaile.py:1384 exaile.glade.h:164
 msgid "Stopped"
 msgstr "Megállítva"
 
-#: exaile.py:1398
-#: exaile.py:1399
-#: xl/panels.py:800
+#: exaile.py:1394 exaile.py:1395 xl/panels.py:800
 msgid "Unknown"
 msgstr "Ismeretlen"
 
-#: exaile.py:1405
+#: exaile.py:1401
 #, fuzzy, python-format
 msgid "Exaile: playing %(title)s from %(album)s by %(artist)s"
 msgstr "Exaile: %s lejátszása %s albumból tőle: %s"
 
-#: exaile.py:1411
+#: exaile.py:1407
 #, fuzzy, python-format
 msgid ""
 "from %(album)s\n"
@@ -130,7 +136,7 @@ msgstr ""
 "%s-ból\n"
 "tőle: %s"
 
-#: exaile.py:1418
+#: exaile.py:1414
 #, fuzzy, python-format
 msgid ""
 "Playing %(title)s\n"
@@ -141,97 +147,150 @@ msgstr ""
 "%s-ból\n"
 "tőle: %s"
 
-#: exaile.py:1463
-#: exaile.py:1486
+#: exaile.py:1459 exaile.py:1482
 msgid "No covers found."
 msgstr "Nem található borító."
 
-#: exaile.py:1511
+#: exaile.py:1507
 msgid "Current amazon image is too old, fetching  a new one"
 msgstr "A jelenlegi amazon kép túl régi, új letöltése"
 
-#: exaile.py:1575
+#: exaile.py:1571
 msgid "Fetching cover art from Amazon..."
 msgstr "Borító letöltése az Amazon-ról..."
 
-#: exaile.py:1630
+#: exaile.py:1626
 msgid "View Full Image"
 msgstr "Teljes kép megtekintése"
 
-#: exaile.py:1632
+#: exaile.py:1628
 msgid "Fetch from Amazon"
 msgstr "Letöltés Amazon-ról"
 
-#: exaile.py:1634
+#: exaile.py:1630
 msgid "Search Amazon"
 msgstr "Keresés Amazon-on"
 
-#: exaile.py:1636
+#: exaile.py:1632
 msgid "Set Custom Image"
 msgstr "Saját kép beállítása"
 
-#: exaile.py:1638
+#: exaile.py:1634
 msgid "Remove Cover"
 msgstr "Borító eltávolítása"
 
-#: exaile.py:1662
+#: exaile.py:1658
 msgid "Fetching from Amazon..."
 msgstr "Letöltés Amazon-ról..."
 
-#: exaile.py:1681
+#: exaile.py:1677
 msgid "Choose an image"
 msgstr "Kép kiválasztása"
 
-#: exaile.py:1846
+#: exaile.py:1842
 #, fuzzy, python-format
 msgid "Changing volume: %d %%"
 msgstr "<big><b> Hangerő megváltoztatása: %d %% </b></big>"
 
-#: exaile.py:1920
+#: exaile.py:1916
 msgid "Podcast has not yet been downloaded"
 msgstr "A Podcast még nem került letöltésre"
 
-#: exaile.py:2003
+#: exaile.py:1999
 msgid "Could not find any suggested songs"
 msgstr "Nem találtam egy ajánlott számot sem"
 
-#: exaile.py:2116
-#: xl/player.py:972
-msgid "Exaile Media Player"
-msgstr "Exaile Media Player"
-
-#: exaile.py:2145
+#: exaile.py:2140
 msgid "Importing playlist..."
 msgstr "Lejátszólista importálása..."
 
-#: exaile.py:2239
-#: exaile.py:2290
+#: exaile.py:2234 exaile.py:2285
 msgid "Choose a file"
 msgstr "Válasszon fájlt"
 
-#: exaile.py:2243
+#: exaile.py:2238
 msgid "Open in new tab"
 msgstr "Megnyitás új fülön"
 
-#: exaile.py:2255
+#: exaile.py:2250
 msgid "Populating playlist..."
 msgstr "Lejátszólista feltöltése"
 
-#: exaile.py:2348
+#: exaile.py:2353
 msgid "Enter the address"
 msgstr "Írja be a címet"
 
-#: exaile.py:2361
+#: exaile.py:2366
 msgid "You need the python-cddb package  in order to play audio discs."
 msgstr "Szükség van a python-cddb csomagra az audio lemezek lejátszásához."
 
-#: exaile.py:2366
+#: exaile.py:2371
 msgid "Audio Disc"
 msgstr "Audió lemez"
 
-#: exaile.py:2399
+#: exaile.py:2404
 msgid "Scanning collection..."
 msgstr "Gyűjtemény átvizsgálása"
+
+#: plugins/__init__.py:71
+msgid "Plugin Configuration"
+msgstr ""
+
+#: plugins/__init__.py:78
+#, python-format
+msgid "<b>%s Configuration</b>"
+msgstr ""
+
+#: plugins/gui.py:72 plugins/gui.py:274
+#, fuzzy
+msgid "Plugin"
+msgstr "Beépülők"
+
+#: plugins/gui.py:86
+msgid "Enabled"
+msgstr ""
+
+#: plugins/gui.py:142
+#, fuzzy
+msgid "No Plugin Selected"
+msgstr "<b>Nincs kiválasztott beépülő</b>"
+
+#: plugins/gui.py:190
+#, python-format
+msgid "%(plugin)s could not be installed: %(exception)s"
+msgstr ""
+
+#: plugins/gui.py:209 plugins/plugins.glade.h:3
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Nincs kiválasztott beépülő</b>"
+
+#: plugins/gui.py:210 plugins/gui.py:300
+#, fuzzy
+msgid "Fetching available plugin list..."
+msgstr "Elérhető beépülők"
+
+#: plugins/gui.py:253
+msgid "No plugins or updates could be found for your version."
+msgstr ""
+
+#: plugins/gui.py:256
+#, fuzzy
+msgid "No plugin selected"
+msgstr "<b>Nincs kiválasztott beépülő</b>"
+
+#: plugins/gui.py:283
+msgid "Ver"
+msgstr ""
+
+#: plugins/gui.py:293
+msgid "Inst"
+msgstr ""
+
+#: plugins/gui.py:354
+#, fuzzy
+msgid "Are you sure you want to uninstall the selected plugin?"
+msgstr ""
+"Biztos, hogy véglegesen törölni akarja a kiválasztott lejátszólistákat?"
 
 #: xl/audioscrobbler.py:29
 msgid "Failed to submit track to Last.fm."
@@ -249,9 +308,7 @@ msgstr "Név"
 msgid "Match any of the criteria"
 msgstr "Bármely feltétel esetén"
 
-#: xl/panels.py:62
-#: xl/panels.py:77
-#: xl/panels.py:86
+#: xl/panels.py:62 xl/panels.py:77 xl/panels.py:86
 msgid "seconds"
 msgstr "másodperc"
 
@@ -259,8 +316,7 @@ msgstr "másodperc"
 msgid "and"
 msgstr "és"
 
-#: xl/panels.py:74
-#: xl/panels.py:77
+#: xl/panels.py:74 xl/panels.py:77
 msgid "days"
 msgstr "nap"
 
@@ -276,59 +332,36 @@ msgstr "óra"
 msgid "weeks"
 msgstr "hét"
 
-#: xl/panels.py:98
-#: xl/track.py:340
-#: xl/trackslist.py:36
-#: xl/trackslist.py:42
-#: xl/trackslist.py:56
-#: xl/trackslist.py:501
-#: exaile.glade.h:53
+#: xl/panels.py:98 xl/track.py:340 xl/trackslist.py:34 xl/trackslist.py:36
+#: xl/trackslist.py:42 xl/trackslist.py:56 xl/trackslist.py:504
+#: exaile.glade.h:52
 msgid "Artist"
 msgstr "Előadó"
 
-#: xl/panels.py:99
-#: xl/panels.py:109
-#: xl/panels.py:119
-#: xl/panels.py:172
+#: xl/panels.py:99 xl/panels.py:109 xl/panels.py:119 xl/panels.py:172
 msgid "is"
 msgstr "is"
 
-#: xl/panels.py:101
-#: xl/panels.py:111
-#: xl/panels.py:121
-#: xl/panels.py:174
+#: xl/panels.py:101 xl/panels.py:111 xl/panels.py:121 xl/panels.py:174
 msgid "is not"
 msgstr "is not"
 
-#: xl/panels.py:103
-#: xl/panels.py:113
-#: xl/panels.py:123
-#: xl/panels.py:176
+#: xl/panels.py:103 xl/panels.py:113 xl/panels.py:123 xl/panels.py:176
 msgid "contains"
 msgstr "tartalmazza"
 
-#: xl/panels.py:105
-#: xl/panels.py:115
-#: xl/panels.py:125
-#: xl/panels.py:178
+#: xl/panels.py:105 xl/panels.py:115 xl/panels.py:125 xl/panels.py:178
 msgid "does not contain"
 msgstr "nem tartalmazza"
 
-#: xl/panels.py:108
-#: xl/track.py:345
-#: xl/trackslist.py:36
-#: xl/trackslist.py:43
-#: xl/trackslist.py:57
-#: xl/trackslist.py:501
+#: xl/panels.py:108 xl/track.py:345 xl/trackslist.py:34 xl/trackslist.py:36
+#: xl/trackslist.py:43 xl/trackslist.py:57 xl/trackslist.py:504
 #: exaile.glade.h:47
 msgid "Album"
 msgstr "Album"
 
-#: xl/panels.py:118
-#: xl/trackslist.py:37
-#: xl/trackslist.py:48
-#: xl/trackslist.py:62
-#: exaile.glade.h:104
+#: xl/panels.py:118 xl/trackslist.py:37 xl/trackslist.py:48
+#: xl/trackslist.py:62 exaile.glade.h:103
 msgid "Genre"
 msgstr "Műfaj"
 
@@ -336,17 +369,11 @@ msgstr "Műfaj"
 msgid "User Rating"
 msgstr "Felhasználó rangsorolása"
 
-#: xl/panels.py:129
-#: xl/panels.py:134
-#: xl/panels.py:140
-#: xl/panels.py:154
+#: xl/panels.py:129 xl/panels.py:134 xl/panels.py:140 xl/panels.py:154
 msgid "at least"
 msgstr "legalább"
 
-#: xl/panels.py:131
-#: xl/panels.py:136
-#: xl/panels.py:142
-#: xl/panels.py:156
+#: xl/panels.py:131 xl/panels.py:136 xl/panels.py:142 xl/panels.py:156
 msgid "at most"
 msgstr "legfeljebb"
 
@@ -358,11 +385,8 @@ msgstr "Rendszer rangsorolása"
 msgid "Number of Plays"
 msgstr "Lejátszva"
 
-#: xl/panels.py:145
-#: xl/trackslist.py:37
-#: xl/trackslist.py:47
-#: xl/trackslist.py:61
-#: exaile.glade.h:184
+#: xl/panels.py:145 xl/trackslist.py:37 xl/trackslist.py:47
+#: xl/trackslist.py:61 exaile.glade.h:182
 msgid "Year"
 msgstr "Év"
 
@@ -378,12 +402,9 @@ msgstr "után"
 msgid "between"
 msgstr "között"
 
-#: xl/panels.py:153
-#: xl/trackslist.py:36
-#: xl/trackslist.py:44
-#: xl/trackslist.py:58
-#: xl/trackslist.py:474
-#: exaile.glade.h:116
+#: xl/panels.py:153 xl/trackslist.py:34 xl/trackslist.py:36
+#: xl/trackslist.py:44 xl/trackslist.py:58 xl/trackslist.py:477
+#: exaile.glade.h:113
 msgid "Length"
 msgstr "hossz"
 
@@ -391,13 +412,11 @@ msgstr "hossz"
 msgid "Date Added"
 msgstr "Hozzáadás dátuma"
 
-#: xl/panels.py:160
-#: xl/panels.py:166
+#: xl/panels.py:160 xl/panels.py:166
 msgid "in the last"
 msgstr "az utóbbi"
 
-#: xl/panels.py:162
-#: xl/panels.py:168
+#: xl/panels.py:162 xl/panels.py:168
 msgid "not in the last"
 msgstr "nem az utóbbi"
 
@@ -405,12 +424,8 @@ msgstr "nem az utóbbi"
 msgid "Last Played"
 msgstr "Utoljára játszott"
 
-#: xl/panels.py:171
-#: xl/trackslist.py:37
-#: xl/trackslist.py:50
-#: xl/trackslist.py:64
-#: xl/trackslist.py:501
-#: exaile.glade.h:120
+#: xl/panels.py:171 xl/trackslist.py:37 xl/trackslist.py:50
+#: xl/trackslist.py:64 xl/trackslist.py:504 exaile.glade.h:117
 msgid "Location"
 msgstr "Hely"
 
@@ -426,19 +441,15 @@ msgstr "Vizsgálat..."
 msgid "Append to Current"
 msgstr "Hozzáadás a jelenlegihez"
 
-#: xl/panels.py:339
-#: xl/panels.py:2736
-#: xl/trackslist.py:779
+#: xl/panels.py:339 xl/panels.py:2736 xl/trackslist.py:784
 msgid "New Playlist"
 msgstr "Új lejátszólista"
 
-#: xl/panels.py:349
-#: xl/trackslist.py:787
+#: xl/panels.py:349 xl/trackslist.py:792
 msgid "Add to Playlist"
 msgstr "Hozzáadás a lejátszólistához"
 
-#: xl/panels.py:350
-#: xl/panels.py:2861
+#: xl/panels.py:350 xl/panels.py:2861
 msgid "Queue Items"
 msgstr "Elemek sorba rakása"
 
@@ -450,15 +461,15 @@ msgstr "Kijelölteket fekete listára helyez"
 msgid "Delete Selected"
 msgstr "Kijelölteket törli"
 
-#: xl/panels.py:359
-#: xl/trackslist.py:806
+#: xl/panels.py:359 xl/trackslist.py:811
 msgid "Edit Information"
 msgstr "Információ szerkesztése"
 
-#: xl/panels.py:436
-#: xl/trackslist.py:1013
-msgid "Are you sure you want to permanently remove the selected tracks from disk?"
-msgstr "Biztos, hogy véglegesen el kívánja távolítani a kijelölt számokat a lemezről?"
+#: xl/panels.py:436 xl/trackslist.py:1023
+msgid ""
+"Are you sure you want to permanently remove the selected tracks from disk?"
+msgstr ""
+"Biztos, hogy véglegesen el kívánja távolítani a kijelölt számokat a lemezről?"
 
 #: xl/panels.py:455
 msgid "Are you sure you want to blacklist the selected tracks?"
@@ -477,8 +488,12 @@ msgid "Transfer"
 msgstr "Átvitel"
 
 #: xl/panels.py:916
-msgid "A transfer is in progress, please wait for it to stop before attempting to perform this operation."
-msgstr "Egy átvitel folyamatban van, kérem várja meg amíg befejeződik, mielőtt végrehajtaná ezt a műveletet."
+msgid ""
+"A transfer is in progress, please wait for it to stop before attempting to "
+"perform this operation."
+msgstr ""
+"Egy átvitel folyamatban van, kérem várja meg amíg befejeződik, mielőtt "
+"végrehajtaná ezt a műveletet."
 
 #: xl/panels.py:947
 msgid "Starting transfer..."
@@ -501,11 +516,12 @@ msgid "The current device  does not support transferring music."
 msgstr "A jelenlegi eszköz nem támogatja a számok átvitelét."
 
 #: xl/panels.py:1122
-msgid "There is a transfer currently in progress.  Please wait for it to finish"
-msgstr "Egy átvitel jelenleg folyamatban van. Kérem várja meg, amíg befejeződik."
+msgid ""
+"There is a transfer currently in progress.  Please wait for it to finish"
+msgstr ""
+"Egy átvitel jelenleg folyamatban van. Kérem várja meg, amíg befejeződik."
 
-#: xl/panels.py:1169
-#: exaile.glade.h:13
+#: xl/panels.py:1169 exaile.glade.h:13
 msgid "0 tracks"
 msgstr "0 szám"
 
@@ -543,14 +559,15 @@ msgstr "Megállítás..."
 msgid "%(downloaded)d of %(total)d downloaded"
 msgstr "%d a %d-ből letöltve"
 
-#: xl/panels.py:1670
-#: xl/panels.py:1888
+#: xl/panels.py:1670 xl/panels.py:1888
 msgid "Loading streams..."
 msgstr "Folyamok betöltése..."
 
 #: xl/panels.py:1694
-msgid "You need to have a Last.fm username and password set in your preferences."
-msgstr "Be kell állítania egy Last.fm felhasználónevet és jelszót a beállításokban."
+msgid ""
+"You need to have a Last.fm username and password set in your preferences."
+msgstr ""
+"Be kell állítania egy Last.fm felhasználónevet és jelszót a beállításokban."
 
 #: xl/panels.py:1707
 #, fuzzy, python-format
@@ -561,13 +578,11 @@ msgstr "%s Last.fm %s"
 msgid "Not downloaded"
 msgstr "Nincs letöltve"
 
-#: xl/panels.py:1861
-#: exaile.glade.h:148
+#: xl/panels.py:1861 exaile.glade.h:145
 msgid "Refresh"
 msgstr "Frissítés"
 
-#: xl/panels.py:1866
-#: xl/panels.py:2100
+#: xl/panels.py:1866 xl/panels.py:2100
 msgid "Add Stream to Station"
 msgstr "Folyam hozzáadása az állomáshoz"
 
@@ -611,14 +626,11 @@ msgstr "Nem tudtam olvasni a fedd-et."
 msgid "Are you sure you want to delete this podcast?"
 msgstr "Biztos, hogy törölni akarja ezt a podcast-ot?"
 
-#: xl/panels.py:2101
-#: xl/panels.py:2182
+#: xl/panels.py:2101 xl/panels.py:2182
 msgid "URL:"
 msgstr "URL:"
 
-#: xl/panels.py:2102
-#: xl/panels.py:2181
-#: plugins/plugins.glade.h:7
+#: xl/panels.py:2102 xl/panels.py:2181 plugins/plugins.glade.h:7
 msgid "Description:"
 msgstr "Leírás:"
 
@@ -642,8 +654,7 @@ msgstr "A 'Név' és 'URL' mezők kitöltése szükséges"
 msgid "Station name already exists."
 msgstr "Ilyen nevű állomás már létezik."
 
-#: xl/panels.py:2215
-#: xl/panels.py:2216
+#: xl/panels.py:2215 xl/panels.py:2216
 msgid "Enter the name of the station"
 msgstr "Írja be az állomás nevét"
 
@@ -663,8 +674,7 @@ msgstr "Saját lejátszólista"
 msgid "Add Playlist"
 msgstr "Hozzáadás lejátszólistához"
 
-#: xl/panels.py:2423
-#: xl/panels.py:2503
+#: xl/panels.py:2423 xl/panels.py:2503
 msgid "Add Smart Playlist"
 msgstr "Hozzáadás okos lejátszólistához"
 
@@ -680,8 +690,7 @@ msgstr "Lejátszólista törlése"
 msgid "Edit Playlist"
 msgstr "Lejátszólista szerkesztése"
 
-#: xl/panels.py:2474
-#: xl/panels.py:2517
+#: xl/panels.py:2474 xl/panels.py:2517
 msgid "That playlist name is already taken."
 msgstr "Ilyen nevű lejátszólista már létezik."
 
@@ -689,14 +698,14 @@ msgstr "Ilyen nevű lejátszólista már létezik."
 msgid "You did not enter a name for your playlist"
 msgstr "Nem adta meg a lejátszólista nevét."
 
-#: xl/panels.py:2693
-#: xl/trackslist.py:1089
+#: xl/panels.py:2693 xl/trackslist.py:1099
 msgid "The following errors did occur"
 msgstr "A következő hibák történtek."
 
 #: xl/panels.py:2711
 msgid "Are you sure you want to permanently delete the selected playlist?"
-msgstr "Biztos, hogy véglegesen törölni akarja a kiválasztott lejátszólistákat?"
+msgstr ""
+"Biztos, hogy véglegesen törölni akarja a kiválasztott lejátszólistákat?"
 
 #: xl/panels.py:2735
 msgid "Enter the name you want for your new playlist"
@@ -731,74 +740,67 @@ msgstr "Hibák"
 msgid "The following errors have occurred"
 msgstr "<b>A következő hibák történtek</b>"
 
-#: xl/player.py:417
-#: xl/xlmisc.py:891
+#: xl/player.py:417 xl/xlmisc.py:898
 msgid "Close"
 msgstr "Bezárás"
 
-#: xl/player.py:594
+#: xl/player.py:592
 #, python-format
 msgid "Error logging in to Last.FM: %s"
 msgstr "Hiba a Last.fm -be történő bejelentkezéskor: %s"
 
-#: xl/prefs.py:317
-#: xl/prefs.py:318
-#: exaile.glade.h:103
+#: xl/prefs.py:317 xl/prefs.py:318 exaile.glade.h:102
 msgid "General"
 msgstr "Általános"
 
-#: xl/prefs.py:317
-#: xl/prefs.py:323
-#: exaile.glade.h:46
+#: xl/prefs.py:317 xl/prefs.py:323 exaile.glade.h:46
 msgid "Advanced"
 msgstr "Haladó"
 
-#: xl/prefs.py:319
-#: exaile.glade.h:117
+#: xl/prefs.py:319 exaile.glade.h:114
 msgid "Library"
 msgstr "Gyűjtemény"
 
-#: xl/prefs.py:320
-#: exaile.glade.h:125
+#: xl/prefs.py:320 exaile.glade.h:122
 msgid "Notification"
 msgstr "Figyelmeztetés"
 
-#: xl/prefs.py:321
-#: exaile.glade.h:113
+#: xl/prefs.py:321 exaile.glade.h:110
 msgid "Last.fm"
 msgstr "Last.fm"
 
-#: xl/prefs.py:322
-#: exaile.glade.h:143
+#: xl/prefs.py:322 exaile.glade.h:140
 msgid "Radio"
 msgstr "Rádió"
 
-#: xl/prefs.py:359
-#: xl/xlmisc.py:346
-#: exaile.glade.h:139
+#: xl/prefs.py:359 xl/xlmisc.py:346 exaile.glade.h:136
 msgid "Preferences"
 msgstr "Beállítások"
 
 #: xl/prefs.py:460
-msgid "Cannot watch directories for changes. Install python2.4-gamin to use this feature."
-msgstr "Nem tudom figyelni a könyvtár változásokat. Telepítse a python2.4-gamin csomagot ehhez a funkcióhoz."
+msgid ""
+"Cannot watch directories for changes. Install python2.4-gamin to use this "
+"feature."
+msgstr ""
+"Nem tudom figyelni a könyvtár változásokat. Telepítse a python2.4-gamin "
+"csomagot ehhez a funkcióhoz."
 
 #: xl/prefs.py:602
-msgid "Move the OSD window to the location you want it to appear when listening"
-msgstr "Mozgassa az OSD ablakot arra a helyre, ahol szeretné, hogy megjelenjen lejátszás közben."
+msgid ""
+"Move the OSD window to the location you want it to appear when listening"
+msgstr ""
+"Mozgassa az OSD ablakot arra a helyre, ahol szeretné, hogy megjelenjen "
+"lejátszás közben."
 
-#: xl/track.py:233
-#: xl/track.py:291
+#: xl/track.py:233 xl/track.py:291
 msgid "Title: "
 msgstr "Cím:"
 
-#: xl/track.py:234
-#: exaile.glade.h:57
+#: xl/track.py:234 exaile.glade.h:56
 msgid "Artist:"
 msgstr "Szerző:"
 
-#: xl/track.py:235
-#: exaile.glade.h:51
+#: xl/track.py:235 exaile.glade.h:50
 msgid "Album:"
 msgstr "Album:"
 
@@ -806,13 +808,11 @@ msgstr "Album:"
 msgid "Track Number:"
 msgstr "Sorszám:"
 
-#: xl/track.py:238
-#: exaile.glade.h:185
+#: xl/track.py:238 exaile.glade.h:183
 msgid "Year:"
 msgstr "Év:"
 
-#: xl/track.py:239
-#: exaile.glade.h:105
+#: xl/track.py:239 exaile.glade.h:104
 msgid "Genre:"
 msgstr "Műfaj:"
 
@@ -832,8 +832,7 @@ msgstr "Rendszer értékelés:"
 msgid "Playcount:"
 msgstr "Lejátszások száma:"
 
-#: xl/track.py:244
-#: xl/track.py:297
+#: xl/track.py:244 xl/track.py:297
 msgid "Location: "
 msgstr "Hely:"
 
@@ -845,9 +844,7 @@ msgstr "Leírás:"
 msgid "Bitrate: "
 msgstr "Bitráta:"
 
-#: xl/track.py:317
-#: xl/trackslist.py:829
-#: exaile.glade.h:110
+#: xl/track.py:317 xl/trackslist.py:835
 msgid "Information"
 msgstr "Információ"
 
@@ -886,133 +883,125 @@ msgstr "Nem tudtam megnyitni a hanglemezt"
 msgid "Track %d"
 msgstr "Szám %d"
 
-#: xl/trackslist.py:36
-#: xl/trackslist.py:41
-#: xl/trackslist.py:55
-#: xl/trackslist.py:501
-#: exaile.glade.h:170
+#: xl/trackslist.py:34 xl/trackslist.py:36 xl/trackslist.py:41
+#: xl/trackslist.py:55 xl/trackslist.py:504 exaile.glade.h:167
 msgid "Title"
 msgstr "Cím"
 
-#: xl/trackslist.py:36
-#: xl/trackslist.py:45
-#: xl/trackslist.py:59
-#: xl/trackslist.py:478
-#: exaile.glade.h:89
+#: xl/trackslist.py:36 xl/trackslist.py:45 xl/trackslist.py:59
+#: xl/trackslist.py:481 exaile.glade.h:88
 msgid "Disc"
 msgstr "Lemez"
 
-#: xl/trackslist.py:37
-#: xl/trackslist.py:46
-#: xl/trackslist.py:60
-#: xl/trackslist.py:446
-#: xl/trackslist.py:480
-#: xl/trackslist.py:535
-#: xl/trackslist.py:827
-#: exaile.glade.h:146
+#: xl/trackslist.py:37 xl/trackslist.py:46 xl/trackslist.py:60
+#: xl/trackslist.py:448 xl/trackslist.py:483 xl/trackslist.py:538
+#: xl/trackslist.py:832 exaile.glade.h:143
 msgid "Rating"
 msgstr "értékelés"
 
-#: xl/trackslist.py:37
-#: xl/trackslist.py:49
-#: xl/trackslist.py:63
-#: exaile.glade.h:66
+#: xl/trackslist.py:37 xl/trackslist.py:49 xl/trackslist.py:63
+#: exaile.glade.h:65
 msgid "Bitrate"
 msgstr "Bitráta"
 
-#: xl/trackslist.py:38
-#: xl/trackslist.py:51
-#: xl/trackslist.py:65
-#: exaile.glade.h:101
+#: xl/trackslist.py:38 xl/trackslist.py:51 xl/trackslist.py:65
+#: exaile.glade.h:100
 msgid "Filename"
 msgstr "Fájlnév"
 
-#: xl/trackslist.py:156
+#: xl/trackslist.py:155
 msgid "Scanning and adding tracks to current playlist..."
 msgstr "Fájlok keresése és hozzáadása a jelenlegi lejátszólistához..."
 
-#: xl/trackslist.py:770
+#: xl/trackslist.py:774
 msgid "Toggle Queue"
 msgstr "Sor bekapcsolása"
 
-#: xl/trackslist.py:772
+#: xl/trackslist.py:776
 msgid "Toggle: Stop after this Track"
 msgstr "Bekapcsol: Megállítás ezen dal után"
 
-#: xl/trackslist.py:798
+#: xl/trackslist.py:803
 msgid "New Station"
 msgstr "Új állomás"
 
-#: xl/trackslist.py:801
+#: xl/trackslist.py:806
 msgid "Add to Saved Stations"
 msgstr "Hozzáadás a Mentett állomásokhoz"
 
-#: xl/trackslist.py:813
-#: xl/trackslist.py:884
+#: xl/trackslist.py:818 xl/trackslist.py:894
 #, python-format
 msgid "Edit %s"
 msgstr "%s szerkesztése"
 
-#: xl/trackslist.py:828
-msgid "Edit Track(s)"
-msgstr "Szám(ok) szerkesztése"
+#: xl/trackslist.py:833
+#, fuzzy
+msgid "Edit Track"
+msgid_plural "Edit Tracks"
+msgstr[0] "Szám(ok) szerkesztése"
+msgstr[1] "Szám(ok) szerkesztése"
 
-#: xl/trackslist.py:839
+#: xl/trackslist.py:845
 msgid "Last.FM Options"
 msgstr "Last.fm beállítások"
 
-#: xl/trackslist.py:842
+#: xl/trackslist.py:848
 msgid "Show in Collection"
 msgstr "Mutatás a gyűjteményben"
 
-#: xl/trackslist.py:846
+#: xl/trackslist.py:852
 msgid "Remove from Playlist"
 msgstr "Eltávolítás a lejátszólistából"
 
-#: xl/trackslist.py:850
-msgid "Blacklist Track(s)"
-msgstr "Szám(ok) feketelistára helyezése"
+#: xl/trackslist.py:856
+#, fuzzy
+msgid "Blacklist Track"
+msgid_plural "Blacklist Tracks"
+msgstr[0] "Szám(ok) feketelistára helyezése"
+msgstr[1] "Szám(ok) feketelistára helyezése"
 
-#: xl/trackslist.py:852
-msgid "Delete Track(s)"
-msgstr "Szám(ok) törlése"
+#: xl/trackslist.py:859
+#, fuzzy
+msgid "Delete Track"
+msgid_plural "Delete Tracks"
+msgstr[0] "Szám(ok) törlése"
+msgstr[1] "Szám(ok) törlése"
 
-#: xl/trackslist.py:854
+#: xl/trackslist.py:861
 msgid "Remove"
 msgstr "Törlés"
 
-#: xl/trackslist.py:860
-#: xl/xlmisc.py:349
-#: exaile.glade.h:136
+#: xl/trackslist.py:867 xl/xlmisc.py:349
 msgid "Plugins"
 msgstr "Beépülők"
 
-#: xl/trackslist.py:883
-#, python-format
-msgid "Enter the %s for the selected track(s)"
-msgstr "Írja be a kiválasztott szám(ok)nál: %s"
+#: xl/trackslist.py:891
+#, fuzzy, python-format
+msgid "Enter the %s for the selected track"
+msgid_plural "Enter the %s for the selected tracks"
+msgstr[0] "Írja be a kiválasztott szám(ok)nál: %s"
+msgstr[1] "Írja be a kiválasztott szám(ok)nál: %s"
 
-#: xl/trackslist.py:1114
+#: xl/trackslist.py:1124
 msgid "Remove from Blacklist"
 msgstr "Eltávolítás feketelistáról"
 
-#: xl/trackslist.py:1288
-#, python-format
-msgid ": %(tracks)d track(s) queued"
-msgstr ": %(tracks)d szám sorba állítva"
+#: xl/trackslist.py:1299
+#, fuzzy, python-format
+msgid ": %d track queued"
+msgid_plural ": %d tracks queued"
+msgstr[0] ": %(tracks)d szám sorba állítva"
+msgstr[1] ": %(tracks)d szám sorba állítva"
 
-#: xl/xlmisc.py:330
-#: xl/xlmisc.py:359
+#: xl/xlmisc.py:330 xl/xlmisc.py:359
 msgid "Play"
 msgstr "Lejátszás"
 
-#: xl/xlmisc.py:342
-#: exaile.glade.h:122
+#: xl/xlmisc.py:342 exaile.glade.h:119
 msgid "Next"
 msgstr "Következő"
 
-#: xl/xlmisc.py:343
-#: exaile.glade.h:140
+#: xl/xlmisc.py:343 exaile.glade.h:137
 msgid "Previous"
 msgstr "Előző"
 
@@ -1024,90 +1013,84 @@ msgstr "Kilépés"
 msgid "Pause"
 msgstr "Szünet"
 
-#: xl/xlmisc.py:401
-#: xl/xlmisc.py:454
-#: exaile.glade.h:98
-msgid "Exaile!"
+#: xl/xlmisc.py:401 xl/xlmisc.py:455 exaile.glade.h:96
+#, fuzzy
+msgid "Exaile"
 msgstr "Exaile!"
 
-#: xl/xlmisc.py:551
-#: xl/xlmisc.py:736
+#: xl/xlmisc.py:415
+msgid "Exaile Media Player"
+msgstr "Exaile Media Player"
+
+#: xl/xlmisc.py:553 xl/xlmisc.py:743
 #, python-format
 msgid "%s covers left to collect."
 msgstr "%s "
 
-#: xl/xlmisc.py:569
-#: xl/xlmisc.py:573
-msgid "Stop"
-msgstr "Megállítás"
-
-#: xl/xlmisc.py:576
-#: exaile.glade.h:165
+#: xl/xlmisc.py:581 exaile.glade.h:162
 msgid "Start"
 msgstr "Lejátszás"
 
-#: xl/xlmisc.py:586
+#: xl/xlmisc.py:593
 msgid "All Covers have been Fetched."
 msgstr "Minden borító le lett töltve."
 
-#: xl/xlmisc.py:609
+#: xl/xlmisc.py:616
 #, python-format
 msgid "%(remaining)d left: %(album)s by %(artist)s"
 msgstr "%(remaining)d maradt: %(album)s tőle: %(artist)s"
 
-#: xl/xlmisc.py:676
-#, python-format
-msgid "%(album)s by %(artist)s)"
-msgstr "%(album)s tőle: %(artist)s)"
-
-#: xl/xlmisc.py:851
+#: xl/xlmisc.py:858
 msgid "Close this tab"
 msgstr "Ezen lap bezárása"
 
-#: xl/xlmisc.py:864
+#: xl/xlmisc.py:871
 msgid "Enter the new name for this playlist"
 msgstr "Írja be a lejátszólista új nevét"
 
-#: xl/xlmisc.py:864
+#: xl/xlmisc.py:871
 msgid "Rename playlist"
 msgstr "Lejátszólista átnevezése"
 
-#: xl/xlmisc.py:890
+#: xl/xlmisc.py:897
 msgid "Rename"
 msgstr "Átnevezés"
 
-#: xl/xlmisc.py:894
+#: xl/xlmisc.py:901
 msgid "Save Playlist"
 msgstr "Lejátszólista mentése"
 
-#: xl/xlmisc.py:1112
+#: xl/xlmisc.py:1119
 msgid "Loading requested information..."
 msgstr "Kért információ betöltése..."
 
-#: xl/xlmisc.py:1114
+#: xl/xlmisc.py:1121
 msgid "Loading page..."
 msgstr "Oldal betöltése..."
 
-#: xl/xlmisc.py:1352
+#: xl/xlmisc.py:1359
 msgid "Enter the search text"
 msgstr "Írja be a keresendő szöveget"
 
-#: xl/xlmisc.py:1359
+#: xl/xlmisc.py:1366
 #, python-format
 msgid "Searching for %s..."
 msgstr "%s keresése..."
 
-#: xl/xlmisc.py:1429
+#: xl/xlmisc.py:1436
 msgid "Sorry, no covers were found."
 msgstr "Sajnálom, nem található borító."
 
-#: xl/xlmisc.py:1534
+#: xl/xlmisc.py:1541
 msgid "Path is already in your collection."
 msgstr "Az útvonal már a gyűjteményben van."
 
-#: xl/xlmisc.py:1541
-msgid "Path is already in your collection, or is a subdirectory of another path in your collection"
-msgstr "Az útvonal már a gyűjteményben van, vagy egy másik könyvtár alkönyvtára"
+#: xl/xlmisc.py:1548
+msgid ""
+"Path is already in your collection, or is a subdirectory of another path in "
+"your collection"
+msgstr ""
+"Az útvonal már a gyűjteményben van, vagy egy másik könyvtár alkönyvtára"
 
 #: exaile.glade.h:1
 msgid "  "
@@ -1274,18 +1257,14 @@ msgid "Album Art"
 msgstr "Album borítók"
 
 #: exaile.glade.h:49
-msgid "Album _Information"
-msgstr "Album _információ"
-
-#: exaile.glade.h:50
 msgid "Album art filenames (separated by spaces):"
 msgstr "Album borító fájlnevek (szóközzel elválasztva):"
 
-#: exaile.glade.h:52
+#: exaile.glade.h:51
 msgid "Amazon Locale:"
 msgstr "Amazon nyelv:"
 
-#: exaile.glade.h:54
+#: exaile.glade.h:53
 msgid ""
 "Artist\n"
 "Album\n"
@@ -1295,11 +1274,11 @@ msgstr ""
 "Album\n"
 "Műfaj"
 
-#: exaile.glade.h:58
+#: exaile.glade.h:57
 msgid "Attempt to fetch cover art from Amazon automatically"
 msgstr "Megkíséreltem a borító letöltését az Amazonról automatikusan"
 
-#: exaile.glade.h:59
+#: exaile.glade.h:58
 msgid ""
 "Automatic\n"
 "Use GConf Settings\n"
@@ -1313,31 +1292,31 @@ msgstr ""
 "osssink\n"
 "esdsink"
 
-#: exaile.glade.h:64
+#: exaile.glade.h:63
 msgid "Autosize"
 msgstr "Automéretezés"
 
-#: exaile.glade.h:65
+#: exaile.glade.h:64
 msgid "Background Color:"
 msgstr "Háttérszín:"
 
-#: exaile.glade.h:67
+#: exaile.glade.h:66
 msgid "CD Device:"
 msgstr "CD eszköz:"
 
-#: exaile.glade.h:68
+#: exaile.glade.h:67
 msgid "Cancel"
 msgstr "Mégsem"
 
-#: exaile.glade.h:69
+#: exaile.glade.h:68
 msgid "Clear Playlist"
 msgstr "Lejátszólista törlése"
 
-#: exaile.glade.h:70
+#: exaile.glade.h:69
 msgid "Collection"
 msgstr "Gyűjtemény"
 
-#: exaile.glade.h:71
+#: exaile.glade.h:70
 msgid ""
 "Copyright (C) 2006 Adam Olsen\n"
 "\n"
@@ -1371,259 +1350,270 @@ msgstr ""
 "along with this program; if not, write to the Free Software\n"
 "Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
 
-#: exaile.glade.h:86
+#: exaile.glade.h:85
 msgid "Cover Finder"
 msgstr "Borító kereső"
 
-#: exaile.glade.h:87
+#: exaile.glade.h:86
 msgid "Custom"
 msgstr "Saját"
 
-#: exaile.glade.h:88
+#: exaile.glade.h:87
 msgid "Devices"
 msgstr "Eszközök"
 
-#: exaile.glade.h:90
+#: exaile.glade.h:89
 msgid "Disc Number:"
 msgstr "Lemez száma:"
 
-#: exaile.glade.h:91
+#: exaile.glade.h:90
 msgid "Display OSD when hovering over tray icon"
 msgstr "OSD mutatása ha az egér a tálcaikon fölé ér"
 
-#: exaile.glade.h:92
+#: exaile.glade.h:91
 msgid "Display Text:"
 msgstr "Szöveg mutatása:"
 
-#: exaile.glade.h:93
+#: exaile.glade.h:92
 msgid "Download feeds when opening podcasts"
 msgstr "Feedek letöltése a podcastok megnyitásakor"
 
-#: exaile.glade.h:94
+#: exaile.glade.h:93
 #, fuzzy
 msgid "Dynamic"
 msgstr "Dinamikus lejátszólista"
 
-#: exaile.glade.h:95
+#: exaile.glade.h:94
 msgid "E_qualizer"
 msgstr "E_qualizer"
 
-#: exaile.glade.h:96
+#: exaile.glade.h:95
 msgid "Equalizer Settings"
 msgstr "Equalizer beállítások"
 
 #: exaile.glade.h:97
-msgid "Exaile Registration Key: purgatorio"
-msgstr "Exaile Regisztrációs kulcs: purgatorio"
+msgid "Exaile!"
+msgstr "Exaile!"
 
-#: exaile.glade.h:99
+#: exaile.glade.h:98
 msgid "Export Playlist"
 msgstr "Lejátszólista exportálása"
 
-#: exaile.glade.h:100
+#: exaile.glade.h:99
 msgid "Fetches similar tracks from last.fm"
 msgstr "Hasonló számokat tölt le a Last.fm -ről"
 
-#: exaile.glade.h:102
+#: exaile.glade.h:101
 msgid "Files"
 msgstr "Fájlok"
 
-#: exaile.glade.h:106
-msgid "Go To Playing Track"
-msgstr "Menjen az aktuális játszott dalhoz"
-
-#: exaile.glade.h:107
+#: exaile.glade.h:105
 msgid "Hint: see http://www.exaile.org/trac/wiki/OSD for examples"
 msgstr "Tipp: menjen a http://www.exaile.org/trac/wiki/OSD oldalra példákért"
 
-#: exaile.glade.h:108
+#: exaile.glade.h:106
 msgid "I_mport"
 msgstr "I_mport"
 
-#: exaile.glade.h:109
+#: exaile.glade.h:107
 msgid "Import Preset"
 msgstr "Import Preset"
 
-#: exaile.glade.h:111
+#: exaile.glade.h:108
 msgid "Input Required"
 msgstr "Beírás szükséges"
 
-#: exaile.glade.h:112
+#: exaile.glade.h:109
 msgid "Jump to current song on track change"
 msgstr "Ugrás a jelenlegi dalhoz számváltásnál"
 
-#: exaile.glade.h:114
+#: exaile.glade.h:111
 msgid "Last.fm Password:"
 msgstr "Last.fm jelszó:"
 
-#: exaile.glade.h:115
+#: exaile.glade.h:112
 msgid "Last.fm Username:  "
 msgstr "Last.fm felhasználónév:  "
 
-#: exaile.glade.h:118
+#: exaile.glade.h:115
 msgid "Library Manager"
 msgstr "Gyűjtemény kezelő"
 
-#: exaile.glade.h:119
+#: exaile.glade.h:116
 msgid "Library _Manager"
 msgstr "Gyűjtemény _kezelő"
 
-#: exaile.glade.h:121
+#: exaile.glade.h:118
 msgid "New Search"
 msgstr "Új keresés"
 
-#: exaile.glade.h:123
+#: exaile.glade.h:120
 msgid "Next Track"
 msgstr "Következő szám"
 
-#: exaile.glade.h:126
+#: exaile.glade.h:123
 msgid "Open _Disc"
 msgstr "_Lemez megnyitása"
 
-#: exaile.glade.h:127
+#: exaile.glade.h:124
 msgid "Open _URL"
 msgstr "_URL megnyitása"
 
-#: exaile.glade.h:128
+#: exaile.glade.h:125
 msgid "Open last playlist on startup"
 msgstr "Nyissa meg az utolsó lejátszólistát indításkor"
 
-#: exaile.glade.h:129
+#: exaile.glade.h:126
+#, fuzzy
+msgid "P_lugins"
+msgstr "Beépülők"
+
+#: exaile.glade.h:127
 msgid "Play/Pause"
 msgstr "Lejátszás/Szünet"
 
-#: exaile.glade.h:130
+#: exaile.glade.h:128
 msgid "Playback Sink:   "
 msgstr "Lejátszó csővezeték:"
 
-#: exaile.glade.h:132
+#: exaile.glade.h:130
 msgid "Playlist Tab Placement:"
 msgstr "Lejátszólista fül elrendezés"
 
-#: exaile.glade.h:133
+#: exaile.glade.h:131
 msgid "Playlists"
 msgstr "Lejátszólisták"
 
-#: exaile.glade.h:134
-msgid "Please choose the EQF file from which you would like to import the equalizer preset."
-msgstr "Kérem válasszon egy EQF fájlt, amelyet equalizer presetként szeretne importálni."
+#: exaile.glade.h:132
+msgid ""
+"Please choose the EQF file from which you would like to import the equalizer "
+"preset."
+msgstr ""
+"Kérem válasszon egy EQF fájlt, amelyet equalizer presetként szeretne "
+"importálni."
 
-#: exaile.glade.h:135
+#: exaile.glade.h:133
 msgid "Please enter the name which you would like to save the preset as."
 msgstr "Kérem írja be a preset mentési nevét."
 
-#: exaile.glade.h:137
+#: exaile.glade.h:134
 msgid "Podcasts"
 msgstr "Podcastok"
 
-#: exaile.glade.h:138
+#: exaile.glade.h:135
 #, fuzzy
 msgid "Popup"
 msgstr "Popup"
 
-#: exaile.glade.h:141
+#: exaile.glade.h:138
 msgid "Previous Track"
 msgstr "Előző szám"
 
-#: exaile.glade.h:142
+#: exaile.glade.h:139
 msgid "Question:"
 msgstr "Kérdés:"
 
-#: exaile.glade.h:144
+#: exaile.glade.h:141
 msgid "Randomize Playlist"
 msgstr "Lejátszólista összekeverése"
 
-#: exaile.glade.h:145
+#: exaile.glade.h:142
 #, fuzzy
 msgid "Randomize playback order"
 msgstr "Lejátszólista összekeverése"
 
-#: exaile.glade.h:147
+#: exaile.glade.h:144
 msgid "Rating: "
 msgstr "Rangsorolás:"
 
-#: exaile.glade.h:149
+#: exaile.glade.h:146
 msgid "Remove Saved Station"
 msgstr "Mentett állomás törlése"
 
-#: exaile.glade.h:150
+#: exaile.glade.h:147
 msgid "Repeat"
 msgstr "Ismétlés"
 
-#: exaile.glade.h:151
+#: exaile.glade.h:148
 msgid "Repeat the entire playlist endlessly"
 msgstr "Az egész lejátszólista ismétlése végtelenül"
 
-#: exaile.glade.h:152
+#: exaile.glade.h:149
 msgid "Resizable"
 msgstr "Méretezhető"
 
-#: exaile.glade.h:153
+#: exaile.glade.h:150
 msgid "Save Preset"
 msgstr "Preset mentése"
 
-#: exaile.glade.h:154
+#: exaile.glade.h:151
 msgid "Save queue status"
 msgstr "Sor állapotának mentése"
 
-#: exaile.glade.h:155
+#: exaile.glade.h:152
 msgid "Scan for new music every: "
 msgstr "Új zenék keresése minden: "
 
-#: exaile.glade.h:156
+#: exaile.glade.h:153
 msgid "Search:"
 msgstr "Keresés:"
 
-#: exaile.glade.h:157
+#: exaile.glade.h:154
 msgid "Search: "
 msgstr "Keresés:"
 
-#: exaile.glade.h:158
+#: exaile.glade.h:155
 #, fuzzy
 msgid "Search:  "
 msgstr "Keresés:"
 
-#: exaile.glade.h:159
+#: exaile.glade.h:156
 msgid "Select A File"
 msgstr "Válasszon egy fájlt"
 
-#: exaile.glade.h:160
+#: exaile.glade.h:157
 msgid "Show On Screen Display on track change"
 msgstr "Mutassa az On Screen Displayt számváltáskor"
 
-#: exaile.glade.h:161
+#: exaile.glade.h:158
 msgid "Show Tray Icon"
 msgstr "Tálcaikon mutatása"
 
-#: exaile.glade.h:162
-msgid "Show Visualizations"
+#: exaile.glade.h:159
+#, fuzzy
+msgid "Show _Visualizations"
 msgstr "Vizualizáció mutatása"
 
-#: exaile.glade.h:163
+#: exaile.glade.h:160
 msgid "Show splash screen on startup"
 msgstr "Nyitóképernyő mutatása indításkor"
 
-#: exaile.glade.h:164
+#: exaile.glade.h:161
 msgid "Shuffle"
 msgstr "Véletlenszerű"
 
-#: exaile.glade.h:166
+#: exaile.glade.h:163
 msgid "Stop Playback"
 msgstr "Lejátszás megállítása"
 
-#: exaile.glade.h:168
+#: exaile.glade.h:165
 msgid "Text Color"
 msgstr "Szöveg szín"
 
-#: exaile.glade.h:169
+#: exaile.glade.h:166
 msgid "Text Font:"
 msgstr "Szöveg betűtípus"
 
-#: exaile.glade.h:171
+#: exaile.glade.h:168
 msgid "Title:"
 msgstr "Cím:"
 
-#: exaile.glade.h:172
+#: exaile.glade.h:169
+#, fuzzy
+msgid "Toggle Stop Track"
+msgstr "Bekapcsol: Megállítás ezen dal után"
+
+#: exaile.glade.h:170
 msgid ""
 "Top\n"
 "Left\n"
@@ -1635,126 +1625,116 @@ msgstr ""
 "Jobb\n"
 "Alsó"
 
-#: exaile.glade.h:176
+#: exaile.glade.h:174
 msgid "Track Editor"
 msgstr "Szám szerkesztő"
 
-#: exaile.glade.h:177
+#: exaile.glade.h:175
 msgid "Track Number"
 msgstr "Szám sorszáma"
 
-#: exaile.glade.h:178
+#: exaile.glade.h:176
 msgid "Track:"
 msgstr "Szám:"
 
-#: exaile.glade.h:179
+#: exaile.glade.h:177
 msgid "Up One Directory"
 msgstr "Egy könyvtárral feljebb"
 
-#: exaile.glade.h:180
+#: exaile.glade.h:178
 msgid "Vol:"
 msgstr "Hangerő:"
 
-#: exaile.glade.h:181
+#: exaile.glade.h:179
 msgid "Wikipedia Locale:"
 msgstr "Wikipedia nyelv:"
 
-#: exaile.glade.h:182
+#: exaile.glade.h:180
 msgid "Window Height:"
 msgstr "Ablak magasság:"
 
-#: exaile.glade.h:183
+#: exaile.glade.h:181
 msgid "Window Width:"
 msgstr "Ablak szélesség:"
 
-#: exaile.glade.h:186
+#: exaile.glade.h:184
 msgid "_Album Art Collector"
 msgstr "_Album borító gyűjtő"
 
-#: exaile.glade.h:187
-msgid "_Artist Information"
-msgstr "_Előadó információ"
-
-#: exaile.glade.h:188
+#: exaile.glade.h:185
 msgid "_Blacklist Manager"
 msgstr "_Fekete lista kezelő"
 
-#: exaile.glade.h:189
-msgid "_Clear Queue"
-msgstr "Sor _ürítése"
-
-#: exaile.glade.h:190
+#: exaile.glade.h:186
 msgid "_Close"
 msgstr "_Bezár"
 
-#: exaile.glade.h:191
+#: exaile.glade.h:187
 msgid "_Columns"
 msgstr "_Oszlopok"
 
-#: exaile.glade.h:192
+#: exaile.glade.h:188
+#, fuzzy
+msgid "_Edit"
+msgstr "Szerkesztés"
+
+#: exaile.glade.h:189
 msgid "_File"
 msgstr "_Fájl"
 
-#: exaile.glade.h:193
+#: exaile.glade.h:190
+#, fuzzy
+msgid "_Go To Playing Track"
+msgstr "Menjen az aktuális játszott dalhoz"
+
+#: exaile.glade.h:191
 msgid "_Help"
 msgstr "_Segítség"
 
-#: exaile.glade.h:194
+#: exaile.glade.h:192
 msgid "_Import Directory"
 msgstr "Könyvtár _importálása"
 
-#: exaile.glade.h:195
-msgid "_Logs"
-msgstr "_Naplók"
-
-#: exaile.glade.h:196
-msgid "_Lyrics"
-msgstr "_Dalszöveg"
-
-#: exaile.glade.h:197
+#: exaile.glade.h:193
 msgid "_New Playlist"
 msgstr "_Új lejátszólista"
 
-#: exaile.glade.h:198
+#: exaile.glade.h:194
 msgid "_Open Media"
 msgstr "Média _megnyitása"
 
-#: exaile.glade.h:199
-#, fuzzy
-msgid "_Options"
-msgstr "Last.fm beállítások"
-
-#: exaile.glade.h:200
+#: exaile.glade.h:195
 msgid "_Queue Manager"
 msgstr "_Sor kezelő"
 
-#: exaile.glade.h:201
+#: exaile.glade.h:196
 msgid "_Rescan Collection"
 msgstr "_Gyűjtemény átvizsgálása"
 
-#: exaile.glade.h:202
+#: exaile.glade.h:197
 msgid "_Tools"
 msgstr "_Eszközök"
 
-#: exaile.glade.h:203
+#: exaile.glade.h:198
+#, fuzzy
+msgid "_Track Information"
+msgstr "Információ"
+
+#: exaile.glade.h:199
 msgid "_View"
 msgstr "_Nézet"
 
-#: exaile.glade.h:204
+#: exaile.glade.h:200
 msgid "message"
 msgstr "üzenet"
 
-#: exaile.glade.h:206
+#: exaile.glade.h:202
 msgid "translator-credits"
 msgstr "Avramucz Péter"
 
 #: plugins/plugins.glade.h:1
 msgid "\n"
 msgstr "\n"
-
-#: plugins/plugins.glade.h:3
-msgid "<b>No Plugin Selected</b>"
-msgstr "<b>Nincs kiválasztott beépülő</b>"
 
 #: plugins/plugins.glade.h:4
 msgid "Authors:"
@@ -1788,3 +1768,30 @@ msgstr "Eltávolítás"
 msgid "Version:      "
 msgstr "Verzió:"
 
+#~ msgid "Stop"
+#~ msgstr "Megállítás"
+
+#~ msgid "%(album)s by %(artist)s)"
+#~ msgstr "%(album)s tőle: %(artist)s)"
+
+#~ msgid "Album _Information"
+#~ msgstr "Album _információ"
+
+#~ msgid "Exaile Registration Key: purgatorio"
+#~ msgstr "Exaile Regisztrációs kulcs: purgatorio"
+
+#~ msgid "_Artist Information"
+#~ msgstr "_Előadó információ"
+
+#~ msgid "_Clear Queue"
+#~ msgstr "Sor _ürítése"
+
+#~ msgid "_Logs"
+#~ msgstr "_Naplók"
+
+#~ msgid "_Lyrics"
+#~ msgstr "_Dalszöveg"
+
+#, fuzzy
+#~ msgid "_Options"
+#~ msgstr "Last.fm beállítások"

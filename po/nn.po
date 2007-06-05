@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Exaile 0.2.10\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-31 21:15+0200\n"
+"POT-Creation-Date: 2007-06-05 09:47-0600\n"
 "PO-Revision-Date: 2007-05-31 21:20+0200\n"
 "Last-Translator: Eskild Hustvedt <eskild@zerodogg.org>\n"
 "Language-Team: Norwegian Nynorsk <i18n-no@skolelinux.no\n"
@@ -15,11 +15,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: exaile.py:191 exaile.py:2117
-msgid "Exaile! Music Player"
+#: exaile.py:191 exaile.py:2112 exaile.py:2113 xl/player.py:970
+#: xl/xlmisc.py:459
+#, fuzzy
+msgid "Exaile Music Player"
 msgstr "Exaile musikkspelar"
 
-#: exaile.py:236 exailefixed.py:232
+#: exaile.py:237
 msgid ""
 "You have not specified any search directories for your music library. You "
 "may do so now, or choose to do it later.  If you want to do it later, you "
@@ -31,12 +33,11 @@ msgstr ""
 "seinare kan du gjera det ved å velja Verktøy->Bibliotek. Vil du velja "
 "bibliotekmappene dine no?"
 
-#: exaile.py:464 exaile.py:1386 exaile.py:1387 exailefixed.py:461
-#: exailefixed.py:1378 exailefixed.py:1379 exaile.glade.h:124
+#: exaile.py:465 exaile.py:1382 exaile.py:1383 exaile.glade.h:121
 msgid "Not Playing"
 msgstr "Spelar ikkje"
 
-#: exaile.py:583 exailefixed.py:577
+#: exaile.py:578
 #, python-format
 msgid ""
 "Playback is currently set to stop on the track \"%(title)s\" by \"%(artist)s"
@@ -45,23 +46,23 @@ msgstr ""
 "Avspeling er no satt til å stoppe på sangen «%(title)s» av «%(artist)s». Vil "
 "du fjerne dette?"
 
-#: exaile.py:656 exailefixed.py:650 xl/xlmisc.py:1523
+#: exaile.py:651 xl/xlmisc.py:1532
 msgid "Add a directory"
 msgstr "Legg til ei mappe"
 
-#: exaile.py:662 exailefixed.py:656
+#: exaile.py:657
 msgid "Add tracks to current playlist after importing"
 msgstr "Legg sangar til den gjeldande spelelista etter importering"
 
-#: exaile.py:736 exailefixed.py:730
+#: exaile.py:731
 msgid "Queue"
 msgstr "Kø"
 
-#: exaile.py:773 exailefixed.py:767
+#: exaile.py:768
 msgid "Blacklist"
 msgstr "Svarteliste"
 
-#: exaile.py:794 exailefixed.py:788
+#: exaile.py:789
 msgid ""
 "Gstreamer equalizer is not  available.  It can be found in gstreamer-plugins-"
 "bad (currently found in GST CVS)."
@@ -69,20 +70,17 @@ msgstr ""
 "Gstreamer sin lydtilpassar («equalizer») er ikkje tilgjengeleg. Du kan finna "
 "han i gstreamer-plugins-bad (for tida ikkje i GST sin CVS)."
 
-#: exaile.py:809 exaile.py:1669 exailefixed.py:803 exailefixed.py:1661
-#: xl/xlmisc.py:686
+#: exaile.py:804 exaile.py:1665 xl/xlmisc.py:683 xl/xlmisc.py:695
 #, python-format
 msgid "%(album)s by %(artist)s"
 msgstr "%(album)s av %(artist)s"
 
-#: exaile.py:900 exaile.py:931 exaile.py:1721 exaile.py:1733 exaile.py:1772
-#: exaile.py:2275 exailefixed.py:894 exailefixed.py:925 exailefixed.py:1713
-#: exailefixed.py:1724 exailefixed.py:1763 exailefixed.py:2257
-#: exaile.glade.h:131
+#: exaile.py:896 exaile.py:927 exaile.py:1717 exaile.py:1729 exaile.py:1768
+#: exaile.py:2270 exaile.glade.h:129
 msgid "Playlist"
 msgstr "Speleliste"
 
-#: exaile.py:979 exailefixed.py:973
+#: exaile.py:975
 msgid ""
 "Blacklisting the selected tracks will prevent them from being added to the "
 "library on rescan.  Are you sure you want to continue?"
@@ -91,44 +89,43 @@ msgstr ""
 "biblioteket neste gang det søkast igjennom det. Er du sikker på at du vil "
 "fortsettje?"
 
-#: exaile.py:1093 exailefixed.py:1087
+#: exaile.py:1089
 #, python-format
 msgid "Error connecting to database: %s"
 msgstr "Feil ved tilkopling til databasen: %s"
 
-#: exaile.py:1100 exailefixed.py:1094
+#: exaile.py:1096
 #, python-format
 msgid "Error creating collection database: %s"
 msgstr "Feil under oppretting av samlingsdatabase: %s"
 
-#: exaile.py:1125 exailefixed.py:1119
+#: exaile.py:1121
 msgid "Loading library from database..."
 msgstr "Lastar bibliotek frå database ..."
 
-#: exaile.py:1319 exailefixed.py:1311
+#: exaile.py:1315
 #, python-format
 msgid "%(track_count)d showing, %(track_total)d in collection"
 msgstr "%(track_count)d vist, %(track_total)d i biblioteket"
 
-#: exaile.py:1370 exailefixed.py:1362
+#: exaile.py:1366
 msgid "Submitting to Last.fm..."
 msgstr "Sendar inn til Last.fm ..."
 
-#: exaile.py:1388 exailefixed.py:1380 exaile.glade.h:164
+#: exaile.py:1384 exaile.glade.h:164
 msgid "Stopped"
 msgstr "Stoppa"
 
-#: exaile.py:1398 exaile.py:1399 exailefixed.py:1390 exailefixed.py:1391
-#: xl/panels.py:804
+#: exaile.py:1394 exaile.py:1395 xl/panels.py:800
 msgid "Unknown"
 msgstr "Ukjend"
 
-#: exaile.py:1405 exailefixed.py:1397
+#: exaile.py:1401
 #, python-format
 msgid "Exaile: playing %(title)s from %(album)s by %(artist)s"
 msgstr "Exaile: spelar %(title)s frå %(album)s av %(artist)s"
 
-#: exaile.py:1411 exailefixed.py:1403
+#: exaile.py:1407
 #, python-format
 msgid ""
 "from %(album)s\n"
@@ -137,7 +134,7 @@ msgstr ""
 "frå %(album)s\n"
 "av %(artist)s"
 
-#: exaile.py:1418 exailefixed.py:1410
+#: exaile.py:1414
 #, python-format
 msgid ""
 "Playing %(title)s\n"
@@ -148,104 +145,149 @@ msgstr ""
 "frå %(album)s\n"
 "av %(artist)s"
 
-#: exaile.py:1463 exaile.py:1486 exailefixed.py:1455 exailefixed.py:1478
+#: exaile.py:1459 exaile.py:1482
 msgid "No covers found."
 msgstr "Ingen plateomslag funnet"
 
-#: exaile.py:1511 exailefixed.py:1503
+#: exaile.py:1507
 msgid "Current amazon image is too old, fetching  a new one"
 msgstr "Gjeldande bilete frå amazon er for gammalt, hentar eit nytt"
 
-#: exaile.py:1575 exailefixed.py:1567
+#: exaile.py:1571
 msgid "Fetching cover art from Amazon..."
 msgstr "Hentar plateomslag frå Amazon ..."
 
-#: exaile.py:1630 exailefixed.py:1622
+#: exaile.py:1626
 msgid "View Full Image"
 msgstr "Vis heile biletet"
 
-#: exaile.py:1632 exailefixed.py:1624
+#: exaile.py:1628
 msgid "Fetch from Amazon"
 msgstr "Hent frå Amazon"
 
-#: exaile.py:1634 exailefixed.py:1626
+#: exaile.py:1630
 msgid "Search Amazon"
 msgstr "Søk på Amazon"
 
-#: exaile.py:1636 exailefixed.py:1628
+#: exaile.py:1632
 msgid "Set Custom Image"
 msgstr "Bruk eit sjølvvald bilete"
 
-#: exaile.py:1638 exailefixed.py:1630
+#: exaile.py:1634
 msgid "Remove Cover"
 msgstr "Fjern plateomslag"
 
-#: exaile.py:1662 exailefixed.py:1654
+#: exaile.py:1658
 msgid "Fetching from Amazon..."
 msgstr "Hentar frå Amazon ..."
 
-#: exaile.py:1681 exailefixed.py:1673
+#: exaile.py:1677
 msgid "Choose an image"
 msgstr "Vel eit bilete"
 
-#: exaile.py:1846
+#: exaile.py:1842
 #, python-format
 msgid "Changing volume: %d %%"
 msgstr "Endrar volum: %d %%"
 
-#: exaile.py:1920 exailefixed.py:1911
+#: exaile.py:1916
 msgid "Podcast has not yet been downloaded"
 msgstr "Podkast har ikkje blitt lasta ned enda"
 
-#: exaile.py:2003 exailefixed.py:1994
+#: exaile.py:1999
 msgid "Could not find any suggested songs"
 msgstr "Kunne ikkje finna forslag til sangar"
 
-#: exaile.py:2116 exailefixed.py:2107 xl/player.py:972
-msgid "Exaile Media Player"
-msgstr "Exaile mediaavspelar"
-
-#: exaile.py:2145 exailefixed.py:2128
+#: exaile.py:2140
 msgid "Importing playlist..."
 msgstr "Importerar spelelista ..."
 
-#: exaile.py:2239 exaile.py:2290 exailefixed.py:2221 exailefixed.py:2272
+#: exaile.py:2234 exaile.py:2285
 msgid "Choose a file"
 msgstr "Vel ei fil"
 
-#: exaile.py:2243 exailefixed.py:2225
+#: exaile.py:2238
 msgid "Open in new tab"
 msgstr "Opn i ei arkfane"
 
-#: exaile.py:2255 exailefixed.py:2237
+#: exaile.py:2250
 msgid "Populating playlist..."
 msgstr "Fyllar spelelista ..."
 
-#: exaile.py:2348 exailefixed.py:2330
+#: exaile.py:2353
 msgid "Enter the address"
 msgstr "Skriv inn adressa"
 
-#: exaile.py:2361 exailefixed.py:2343
+#: exaile.py:2366
 msgid "You need the python-cddb package  in order to play audio discs."
 msgstr "Du treng «python-cddb» pakka for å kunne spela lydplater."
 
-#: exaile.py:2366 exailefixed.py:2348
+#: exaile.py:2371
 msgid "Audio Disc"
 msgstr "Lydplate"
 
-#: exaile.py:2399 exailefixed.py:2381
+#: exaile.py:2404
 msgid "Scanning collection..."
 msgstr "Søkar igjennom samling ..."
 
-#: exailefixed.py:187 exailefixed.py:2108 xl/xlmisc.py:399 xl/xlmisc.py:452
-#: exaile.glade.h:98
-msgid "Exaile!"
-msgstr "Exaile!"
+#: plugins/__init__.py:71
+msgid "Plugin Configuration"
+msgstr ""
 
-#: exailefixed.py:1837
+#: plugins/__init__.py:78
 #, python-format
-msgid "<big><b> Changing volume: %d %% </b></big>"
-msgstr "<big><b> Endrar volum: %d %% </b></big>"
+msgid "<b>%s Configuration</b>"
+msgstr ""
+
+#: plugins/gui.py:72 plugins/gui.py:274
+#, fuzzy
+msgid "Plugin"
+msgstr "Programtillegg"
+
+#: plugins/gui.py:86
+msgid "Enabled"
+msgstr ""
+
+#: plugins/gui.py:142
+#, fuzzy
+msgid "No Plugin Selected"
+msgstr "<b>Programtillegg ikkje valt</b>"
+
+#: plugins/gui.py:190
+#, python-format
+msgid "%(plugin)s could not be installed: %(exception)s"
+msgstr ""
+
+#: plugins/gui.py:209 plugins/plugins.glade.h:3
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Programtillegg ikkje valt</b>"
+
+#: plugins/gui.py:210 plugins/gui.py:300
+#, fuzzy
+msgid "Fetching available plugin list..."
+msgstr "Tilgjengelege programtillegg"
+
+#: plugins/gui.py:253
+msgid "No plugins or updates could be found for your version."
+msgstr ""
+
+#: plugins/gui.py:256
+#, fuzzy
+msgid "No plugin selected"
+msgstr "<b>Programtillegg ikkje valt</b>"
+
+#: plugins/gui.py:283
+msgid "Ver"
+msgstr ""
+
+#: plugins/gui.py:293
+msgid "Inst"
+msgstr ""
+
+#: plugins/gui.py:354
+#, fuzzy
+msgid "Are you sure you want to uninstall the selected plugin?"
+msgstr "Er du sikker på at du vil slette den valde spelelista permanent?"
 
 #: xl/audioscrobbler.py:29
 msgid "Failed to submit track to Last.fm."
@@ -287,8 +329,9 @@ msgstr "timar"
 msgid "weeks"
 msgstr "veker"
 
-#: xl/panels.py:98 xl/track.py:340 xl/trackslist.py:36 xl/trackslist.py:42
-#: xl/trackslist.py:56 xl/trackslist.py:501 exaile.glade.h:53
+#: xl/panels.py:98 xl/track.py:340 xl/trackslist.py:34 xl/trackslist.py:36
+#: xl/trackslist.py:42 xl/trackslist.py:56 xl/trackslist.py:504
+#: exaile.glade.h:52
 msgid "Artist"
 msgstr "Artist"
 
@@ -308,13 +351,14 @@ msgstr "inneheld"
 msgid "does not contain"
 msgstr "inneheld ikkje"
 
-#: xl/panels.py:108 xl/track.py:345 xl/trackslist.py:36 xl/trackslist.py:43
-#: xl/trackslist.py:57 xl/trackslist.py:501 exaile.glade.h:47
+#: xl/panels.py:108 xl/track.py:345 xl/trackslist.py:34 xl/trackslist.py:36
+#: xl/trackslist.py:43 xl/trackslist.py:57 xl/trackslist.py:504
+#: exaile.glade.h:47
 msgid "Album"
 msgstr "Album"
 
 #: xl/panels.py:118 xl/trackslist.py:37 xl/trackslist.py:48
-#: xl/trackslist.py:62 exaile.glade.h:104
+#: xl/trackslist.py:62 exaile.glade.h:103
 msgid "Genre"
 msgstr "Sjanger"
 
@@ -339,7 +383,7 @@ msgid "Number of Plays"
 msgstr "Antall ganger avspelt"
 
 #: xl/panels.py:145 xl/trackslist.py:37 xl/trackslist.py:47
-#: xl/trackslist.py:61 exaile.glade.h:181
+#: xl/trackslist.py:61 exaile.glade.h:182
 msgid "Year"
 msgstr "År"
 
@@ -355,8 +399,9 @@ msgstr "etter"
 msgid "between"
 msgstr "mellom"
 
-#: xl/panels.py:153 xl/trackslist.py:36 xl/trackslist.py:44
-#: xl/trackslist.py:58 xl/trackslist.py:474 exaile.glade.h:116
+#: xl/panels.py:153 xl/trackslist.py:34 xl/trackslist.py:36
+#: xl/trackslist.py:44 xl/trackslist.py:58 xl/trackslist.py:477
+#: exaile.glade.h:113
 msgid "Length"
 msgstr "Lengde"
 
@@ -377,7 +422,7 @@ msgid "Last Played"
 msgstr "Sist avspelt"
 
 #: xl/panels.py:171 xl/trackslist.py:37 xl/trackslist.py:50
-#: xl/trackslist.py:64 xl/trackslist.py:501 exaile.glade.h:120
+#: xl/trackslist.py:64 xl/trackslist.py:504 exaile.glade.h:117
 msgid "Location"
 msgstr "Plassering"
 
@@ -393,15 +438,15 @@ msgstr "Søkar igjennom ..."
 msgid "Append to Current"
 msgstr "Legg til gjeldande"
 
-#: xl/panels.py:339 xl/panels.py:2726 xl/trackslist.py:779
+#: xl/panels.py:339 xl/panels.py:2736 xl/trackslist.py:784
 msgid "New Playlist"
 msgstr "Ny speleliste"
 
-#: xl/panels.py:349 xl/trackslist.py:787
+#: xl/panels.py:349 xl/trackslist.py:792
 msgid "Add to Playlist"
 msgstr "Legg til spelelista"
 
-#: xl/panels.py:350 xl/panels.py:2851
+#: xl/panels.py:350 xl/panels.py:2861
 msgid "Queue Items"
 msgstr "Legg til i køen"
 
@@ -413,11 +458,11 @@ msgstr "Svartelist valget"
 msgid "Delete Selected"
 msgstr "Slett"
 
-#: xl/panels.py:359 xl/trackslist.py:806
+#: xl/panels.py:359 xl/trackslist.py:811
 msgid "Edit Information"
 msgstr "Rediger informasjon"
 
-#: xl/panels.py:436 xl/trackslist.py:1013
+#: xl/panels.py:436 xl/trackslist.py:1023
 msgid ""
 "Are you sure you want to permanently remove the selected tracks from disk?"
 msgstr "Vil du virkelig sletta dei valde sangane permanent frå harddisken?"
@@ -426,255 +471,255 @@ msgstr "Vil du virkelig sletta dei valde sangane permanent frå harddisken?"
 msgid "Are you sure you want to blacklist the selected tracks?"
 msgstr "Er du sikker på at du vil leggje dei valde sangane til svartelista?"
 
-#: xl/panels.py:764
+#: xl/panels.py:760
 msgid "Track is not present in collection"
 msgstr "Sangen er ikkje med i samnlingen"
 
-#: xl/panels.py:867
+#: xl/panels.py:869
 msgid "Transfer Queue"
 msgstr "Overføringskø"
 
-#: xl/panels.py:895
+#: xl/panels.py:897
 msgid "Transfer"
 msgstr "Overføring"
 
-#: xl/panels.py:914
+#: xl/panels.py:916
 msgid ""
 "A transfer is in progress, please wait for it to stop before attempting to "
 "perform this operation."
 msgstr ""
 "Vent til overføringa er ferdig før du forsøker å utføre denne handlingen."
 
-#: xl/panels.py:945
+#: xl/panels.py:947
 msgid "Starting transfer..."
 msgstr "startar overføring ..."
 
-#: xl/panels.py:964
+#: xl/panels.py:966
 msgid "Finishing transfer..."
 msgstr "Fullførar overføring ..."
 
-#: xl/panels.py:1059
+#: xl/panels.py:1069
 msgid "This device does not support removing tracks"
 msgstr "Denne eininga støttar ikkje fjerning av sangar"
 
-#: xl/panels.py:1077
+#: xl/panels.py:1087
 msgid "Not connected to any media device"
 msgstr "Ikkje kopla til ein medieeining"
 
-#: xl/panels.py:1108
+#: xl/panels.py:1118
 msgid "The current device  does not support transferring music."
 msgstr "Den gjeldande eininga støttar ikkje overføring av musikk."
 
-#: xl/panels.py:1112
+#: xl/panels.py:1122
 msgid ""
 "There is a transfer currently in progress.  Please wait for it to finish"
 msgstr "Vent på at overføringa blir fullført."
 
-#: xl/panels.py:1159 exaile.glade.h:13
+#: xl/panels.py:1169 exaile.glade.h:13
 msgid "0 tracks"
 msgstr "0 sangar"
 
-#: xl/panels.py:1182
+#: xl/panels.py:1192
 msgid "None"
 msgstr "Ingen"
 
-#: xl/panels.py:1208
+#: xl/panels.py:1218
 msgid "Connecting..."
 msgstr "Koplar til ..."
 
-#: xl/panels.py:1212
+#: xl/panels.py:1222
 msgid "Error connecting to device"
 msgstr "Feil ved tilkopling til eininga"
 
-#: xl/panels.py:1236
+#: xl/panels.py:1246
 #, python-format
 msgid "%d tracks"
 msgstr "%d sangar"
 
-#: xl/panels.py:1369
+#: xl/panels.py:1379
 msgid "Downloading Podcasts"
 msgstr "Lastar ned podkastar"
 
-#: xl/panels.py:1374
+#: xl/panels.py:1384
 msgid "Downloading..."
 msgstr "Lastar ned ..."
 
-#: xl/panels.py:1409
+#: xl/panels.py:1419
 msgid "Stopping..."
 msgstr "Stoppar ..."
 
-#: xl/panels.py:1433
+#: xl/panels.py:1443
 #, python-format
 msgid "%(downloaded)d of %(total)d downloaded"
 msgstr "%(downloaded)d av %(total)d lasta ned"
 
-#: xl/panels.py:1660 xl/panels.py:1878
+#: xl/panels.py:1670 xl/panels.py:1888
 msgid "Loading streams..."
 msgstr "Lastar straumar ..."
 
-#: xl/panels.py:1684
+#: xl/panels.py:1694
 msgid ""
 "You need to have a Last.fm username and password set in your preferences."
 msgstr "Du må ha eit Last.fm brukarnamn og passord satt i innstillingane."
 
-#: xl/panels.py:1697
+#: xl/panels.py:1707
 #, python-format
 msgid "%(user)s's Last.fm %(station)s"
 msgstr "%(user)s sin Last.fm %(station)s"
 
-#: xl/panels.py:1754
+#: xl/panels.py:1764
 msgid "Not downloaded"
 msgstr "Ikkje lasta ned"
 
-#: xl/panels.py:1851 exaile.glade.h:147
+#: xl/panels.py:1861 exaile.glade.h:145
 msgid "Refresh"
 msgstr "Oppdater"
 
-#: xl/panels.py:1856 xl/panels.py:2090
+#: xl/panels.py:1866 xl/panels.py:2100
 msgid "Add Stream to Station"
 msgstr "Legg strøm til stasjon"
 
-#: xl/panels.py:1858
+#: xl/panels.py:1868
 msgid "Delete this Station"
 msgstr "Slett denne stasjonen"
 
-#: xl/panels.py:1862
+#: xl/panels.py:1872
 msgid "Add Feed"
 msgstr "Legg til kjelde"
 
-#: xl/panels.py:1863
+#: xl/panels.py:1873
 msgid "Refresh Feed"
 msgstr "Oppdater kjelden"
 
-#: xl/panels.py:1864
+#: xl/panels.py:1874
 msgid "Delete Feed"
 msgstr "Slett kjelde"
 
-#: xl/panels.py:1917
+#: xl/panels.py:1927
 msgid "Enter the location of the podcast"
 msgstr "Skriv inn adressa til podkasten"
 
-#: xl/panels.py:1918
+#: xl/panels.py:1928
 msgid "Add a podcast"
 msgstr "Legg til ein podkast"
 
-#: xl/panels.py:1926
+#: xl/panels.py:1936
 msgid "A podcast with that url already exists"
 msgstr "Ein podkast med den adressa eksitserar allereie"
 
-#: xl/panels.py:1935
+#: xl/panels.py:1945
 msgid "Fetching..."
 msgstr "Hentar ..."
 
-#: xl/panels.py:1952
+#: xl/panels.py:1962
 msgid "Could not read feed."
 msgstr "Kunne ikkje lese straum."
 
-#: xl/panels.py:2070
+#: xl/panels.py:2080
 msgid "Are you sure you want to delete this podcast?"
 msgstr "Er du sikker på at du vil sletta denne podkasten?"
 
-#: xl/panels.py:2091 xl/panels.py:2172
+#: xl/panels.py:2101 xl/panels.py:2182
 msgid "URL:"
 msgstr "Nettadresse:"
 
-#: xl/panels.py:2092 xl/panels.py:2171 plugins/plugins.glade.h:7
+#: xl/panels.py:2102 xl/panels.py:2181 plugins/plugins.glade.h:7
 msgid "Description:"
 msgstr "Beskrivning:"
 
-#: xl/panels.py:2115
+#: xl/panels.py:2125
 msgid "Are you sure you want to permanently delete the selected station?"
 msgstr "Er du sikker på at du vil permanent slette den valde stasjonen?"
 
-#: xl/panels.py:2169
+#: xl/panels.py:2179
 msgid "Add Station"
 msgstr "Legg til stasjon"
 
-#: xl/panels.py:2170
+#: xl/panels.py:2180
 msgid "Station Name:"
 msgstr "Stasjonsnamn:"
 
-#: xl/panels.py:2179
+#: xl/panels.py:2189
 msgid "The 'Name' and 'URL' fields are required"
 msgstr "«Namn» og «URL» felta er obligatoriske"
 
-#: xl/panels.py:2187
+#: xl/panels.py:2197
 msgid "Station name already exists."
 msgstr "Sasjonsnamnet finst allereie"
 
-#: xl/panels.py:2205 xl/panels.py:2206
+#: xl/panels.py:2215 xl/panels.py:2216
 msgid "Enter the name of the station"
 msgstr "Skriv inn namnet på stasjonen"
 
-#: xl/panels.py:2216
+#: xl/panels.py:2226
 msgid "Station already exists."
 msgstr "Stasjonen eksiterar allereie"
 
-#: xl/panels.py:2329
+#: xl/panels.py:2339
 msgid "Smart Playlists"
 msgstr "Smarte spelelister"
 
-#: xl/panels.py:2392
+#: xl/panels.py:2402
 msgid "Custom Playlists"
 msgstr "Sjølvvalde spelelister"
 
-#: xl/panels.py:2412
+#: xl/panels.py:2422
 msgid "Add Playlist"
 msgstr "Legg til spelelista"
 
-#: xl/panels.py:2413 xl/panels.py:2493
+#: xl/panels.py:2423 xl/panels.py:2503
 msgid "Add Smart Playlist"
 msgstr "Legg til ei smart speleliste"
 
-#: xl/panels.py:2416
+#: xl/panels.py:2426
 msgid "Edit"
 msgstr "Rediger"
 
-#: xl/panels.py:2419
+#: xl/panels.py:2429
 msgid "Delete Playlist"
 msgstr "Slett spelelista"
 
-#: xl/panels.py:2434
+#: xl/panels.py:2444
 msgid "Edit Playlist"
 msgstr "Rediger spelelista"
 
-#: xl/panels.py:2464 xl/panels.py:2507
+#: xl/panels.py:2474 xl/panels.py:2517
 msgid "That playlist name is already taken."
 msgstr "Ei speleliste med det namnet finst allereie."
 
-#: xl/panels.py:2502
+#: xl/panels.py:2512
 msgid "You did not enter a name for your playlist"
 msgstr "Du skreiv ikkje inn eit namn for spelelista di"
 
-#: xl/panels.py:2683 xl/trackslist.py:1089
+#: xl/panels.py:2693 xl/trackslist.py:1099
 msgid "The following errors did occur"
 msgstr "Følgande feil oppstod"
 
-#: xl/panels.py:2701
+#: xl/panels.py:2711
 msgid "Are you sure you want to permanently delete the selected playlist?"
 msgstr "Er du sikker på at du vil slette den valde spelelista permanent?"
 
-#: xl/panels.py:2725
+#: xl/panels.py:2735
 msgid "Enter the name you want for your new playlist"
 msgstr "Skriv inn namnet på den nye spelelista di"
 
-#: xl/panels.py:2735
+#: xl/panels.py:2745
 msgid "Playlist already exists."
 msgstr "Spelelista finst allereie."
 
-#: xl/panels.py:2816
+#: xl/panels.py:2826
 msgid "Path"
 msgstr "Stig"
 
-#: xl/panels.py:2830
+#: xl/panels.py:2840
 msgid "Size"
 msgstr "Størrele"
 
-#: xl/panels.py:2850
+#: xl/panels.py:2860
 msgid "Append to Playlist"
 msgstr "Legg til spelelista"
 
-#: xl/panels.py:2887
+#: xl/panels.py:2897
 msgid "Scanning and adding files..."
 msgstr "Søkar igjennom og legg til filer ..."
 
@@ -686,16 +731,16 @@ msgstr "Feil"
 msgid "The following errors have occurred"
 msgstr "Følgande feil har oppstått"
 
-#: xl/player.py:417 xl/xlmisc.py:889
+#: xl/player.py:417 xl/xlmisc.py:898
 msgid "Close"
 msgstr "Lukk"
 
-#: xl/player.py:594
+#: xl/player.py:592
 #, python-format
 msgid "Error logging in to Last.FM: %s"
 msgstr "Feil ved innlogging til Last.fm: %s"
 
-#: xl/prefs.py:317 xl/prefs.py:318 exaile.glade.h:103
+#: xl/prefs.py:317 xl/prefs.py:318 exaile.glade.h:102
 msgid "General"
 msgstr "Generelt"
 
@@ -703,23 +748,23 @@ msgstr "Generelt"
 msgid "Advanced"
 msgstr "Avansert"
 
-#: xl/prefs.py:319 exaile.glade.h:117
+#: xl/prefs.py:319 exaile.glade.h:114
 msgid "Library"
 msgstr "Bibliotek"
 
-#: xl/prefs.py:320 exaile.glade.h:125
+#: xl/prefs.py:320 exaile.glade.h:122
 msgid "Notification"
 msgstr "Varsling"
 
-#: xl/prefs.py:321 exaile.glade.h:113
+#: xl/prefs.py:321 exaile.glade.h:110
 msgid "Last.fm"
 msgstr "Last.fm"
 
-#: xl/prefs.py:322 exaile.glade.h:143
+#: xl/prefs.py:322 exaile.glade.h:140
 msgid "Radio"
 msgstr "Radio"
 
-#: xl/prefs.py:359 xl/xlmisc.py:344 exaile.glade.h:139
+#: xl/prefs.py:359 xl/xlmisc.py:346 exaile.glade.h:136
 msgid "Preferences"
 msgstr "Innstillingar"
 
@@ -741,11 +786,11 @@ msgstr ""
 msgid "Title: "
 msgstr "Tittel: "
 
-#: xl/track.py:234 exaile.glade.h:57
+#: xl/track.py:234 exaile.glade.h:56
 msgid "Artist:"
 msgstr "Artist:"
 
-#: xl/track.py:235 exaile.glade.h:51
+#: xl/track.py:235 exaile.glade.h:50
 msgid "Album:"
 msgstr "Album:"
 
@@ -753,11 +798,11 @@ msgstr "Album:"
 msgid "Track Number:"
 msgstr "Sang nummer:"
 
-#: xl/track.py:238 exaile.glade.h:182
+#: xl/track.py:238 exaile.glade.h:183
 msgid "Year:"
 msgstr "År:"
 
-#: xl/track.py:239 exaile.glade.h:105
+#: xl/track.py:239 exaile.glade.h:104
 msgid "Genre:"
 msgstr "Sjanger:"
 
@@ -789,7 +834,7 @@ msgstr "Beskrivning: "
 msgid "Bitrate: "
 msgstr "Bitrate: "
 
-#: xl/track.py:317 xl/trackslist.py:829 exaile.glade.h:110
+#: xl/track.py:317 xl/trackslist.py:835
 msgid "Information"
 msgstr "Informasjon"
 
@@ -827,191 +872,209 @@ msgstr "Kunne ikkje opna lydplate"
 msgid "Track %d"
 msgstr "Sang %d"
 
-#: xl/trackslist.py:36 xl/trackslist.py:41 xl/trackslist.py:55
-#: xl/trackslist.py:501 exaile.glade.h:167
+#: xl/trackslist.py:34 xl/trackslist.py:36 xl/trackslist.py:41
+#: xl/trackslist.py:55 xl/trackslist.py:504 exaile.glade.h:167
 msgid "Title"
 msgstr "Tittel"
 
 #: xl/trackslist.py:36 xl/trackslist.py:45 xl/trackslist.py:59
-#: xl/trackslist.py:478 exaile.glade.h:89
+#: xl/trackslist.py:481 exaile.glade.h:88
 msgid "Disc"
 msgstr "Plate"
 
 #: xl/trackslist.py:37 xl/trackslist.py:46 xl/trackslist.py:60
-#: xl/trackslist.py:446 xl/trackslist.py:480 xl/trackslist.py:535
-#: xl/trackslist.py:827 exaile.glade.h:145
+#: xl/trackslist.py:448 xl/trackslist.py:483 xl/trackslist.py:538
+#: xl/trackslist.py:832 exaile.glade.h:143
 msgid "Rating"
 msgstr "Vurdering"
 
 #: xl/trackslist.py:37 xl/trackslist.py:49 xl/trackslist.py:63
-#: exaile.glade.h:66
+#: exaile.glade.h:65
 msgid "Bitrate"
 msgstr "Bitrate"
 
 #: xl/trackslist.py:38 xl/trackslist.py:51 xl/trackslist.py:65
-#: exaile.glade.h:101
+#: exaile.glade.h:100
 msgid "Filename"
 msgstr "Filnamn"
 
-#: xl/trackslist.py:156
+#: xl/trackslist.py:155
 msgid "Scanning and adding tracks to current playlist..."
 msgstr "Søkar etter og leggjer til sangar til spelelista ..."
 
-#: xl/trackslist.py:770
+#: xl/trackslist.py:774
 msgid "Toggle Queue"
 msgstr "Legg til/fjern frå køen"
 
-#: xl/trackslist.py:772
+#: xl/trackslist.py:776
 msgid "Toggle: Stop after this Track"
 msgstr "Slå av/på: Stopp etter denne sangen"
 
-#: xl/trackslist.py:798
+#: xl/trackslist.py:803
 msgid "New Station"
 msgstr "Ny stasjon"
 
-#: xl/trackslist.py:801
+#: xl/trackslist.py:806
 msgid "Add to Saved Stations"
 msgstr "Legg til «Lagra stasjonar»"
 
-#: xl/trackslist.py:813 xl/trackslist.py:884
+#: xl/trackslist.py:818 xl/trackslist.py:894
 #, python-format
 msgid "Edit %s"
 msgstr "Rediger %s"
 
-#: xl/trackslist.py:828
-msgid "Edit Track(s)"
-msgstr "Rediger"
+#: xl/trackslist.py:833
+#, fuzzy
+msgid "Edit Track"
+msgid_plural "Edit Tracks"
+msgstr[0] "Rediger"
+msgstr[1] "Rediger"
 
-#: xl/trackslist.py:839
+#: xl/trackslist.py:845
 msgid "Last.FM Options"
 msgstr "Last.fm innstillingar"
 
-#: xl/trackslist.py:842
+#: xl/trackslist.py:848
 msgid "Show in Collection"
 msgstr "Vis i samling"
 
-#: xl/trackslist.py:846
+#: xl/trackslist.py:852
 msgid "Remove from Playlist"
 msgstr "Fjern frå spelelista"
 
-#: xl/trackslist.py:850
-msgid "Blacklist Track(s)"
-msgstr "Legg til svartelista"
+#: xl/trackslist.py:856
+#, fuzzy
+msgid "Blacklist Track"
+msgid_plural "Blacklist Tracks"
+msgstr[0] "Legg til svartelista"
+msgstr[1] "Legg til svartelista"
 
-#: xl/trackslist.py:852
-msgid "Delete Track(s)"
-msgstr "Slett"
+#: xl/trackslist.py:859
+#, fuzzy
+msgid "Delete Track"
+msgid_plural "Delete Tracks"
+msgstr[0] "Slett"
+msgstr[1] "Slett"
 
-#: xl/trackslist.py:854
+#: xl/trackslist.py:861
 msgid "Remove"
 msgstr "Fjern"
 
-#: xl/trackslist.py:860 xl/xlmisc.py:347 exaile.glade.h:136
+#: xl/trackslist.py:867 xl/xlmisc.py:349
 msgid "Plugins"
 msgstr "Programtillegg"
 
-#: xl/trackslist.py:883
-#, python-format
-msgid "Enter the %s for the selected track(s)"
-msgstr "Skriv inn %s for dei valde sang(ane)"
+#: xl/trackslist.py:891
+#, fuzzy, python-format
+msgid "Enter the %s for the selected track"
+msgid_plural "Enter the %s for the selected tracks"
+msgstr[0] "Skriv inn %s for dei valde sang(ane)"
+msgstr[1] "Skriv inn %s for dei valde sang(ane)"
 
-#: xl/trackslist.py:1114
+#: xl/trackslist.py:1124
 msgid "Remove from Blacklist"
 msgstr "Fjern frå svarteliste"
 
-#: xl/xlmisc.py:328 xl/xlmisc.py:357
+#: xl/trackslist.py:1299
+#, fuzzy, python-format
+msgid ": %d track queued"
+msgid_plural ": %d tracks queued"
+msgstr[0] "%d sangar"
+msgstr[1] "%d sangar"
+
+#: xl/xlmisc.py:330 xl/xlmisc.py:359
 msgid "Play"
 msgstr "Spel"
 
-#: xl/xlmisc.py:340 exaile.glade.h:122
+#: xl/xlmisc.py:342 exaile.glade.h:119
 msgid "Next"
 msgstr "Neste"
 
-#: xl/xlmisc.py:341 exaile.glade.h:140
+#: xl/xlmisc.py:343 exaile.glade.h:137
 msgid "Previous"
 msgstr "Førre"
 
-#: xl/xlmisc.py:350
+#: xl/xlmisc.py:352
 msgid "Quit"
 msgstr "Avslutt"
 
-#: xl/xlmisc.py:361
+#: xl/xlmisc.py:363
 msgid "Pause"
 msgstr "Pause"
 
-#: xl/xlmisc.py:549 xl/xlmisc.py:734
+#: xl/xlmisc.py:401 xl/xlmisc.py:455 exaile.glade.h:96
+#, fuzzy
+msgid "Exaile"
+msgstr "Exaile!"
+
+#: xl/xlmisc.py:415
+msgid "Exaile Media Player"
+msgstr "Exaile mediaavspelar"
+
+#: xl/xlmisc.py:553 xl/xlmisc.py:743
 #, python-format
 msgid "%s covers left to collect."
 msgstr "%s plateomslag igjen å hente."
 
-#: xl/xlmisc.py:567 xl/xlmisc.py:571
-msgid "Stop"
-msgstr "Stopp"
-
-#: xl/xlmisc.py:574 exaile.glade.h:162
+#: xl/xlmisc.py:581 exaile.glade.h:162
 msgid "Start"
 msgstr "Start"
 
-#: xl/xlmisc.py:584
+#: xl/xlmisc.py:593
 msgid "All Covers have been Fetched."
 msgstr "Alle plateomslag har blitt henta."
 
-#: xl/xlmisc.py:607
+#: xl/xlmisc.py:616
 #, python-format
 msgid "%(remaining)d left: %(album)s by %(artist)s"
 msgstr "%(remaining)d igjen: %(album)s av %(artist)s"
 
-#: xl/xlmisc.py:674
-#, python-format
-msgid "%(album)s by %(artist)s)"
-msgstr "%(album)s by %(artist)s"
-
-#: xl/xlmisc.py:849
+#: xl/xlmisc.py:858
 msgid "Close this tab"
 msgstr "Lukk denne arkfana"
 
-#: xl/xlmisc.py:862
+#: xl/xlmisc.py:871
 msgid "Enter the new name for this playlist"
 msgstr "Skriv inn eit namn for denne spelelista"
 
-#: xl/xlmisc.py:862
+#: xl/xlmisc.py:871
 msgid "Rename playlist"
 msgstr "Gje nytt namn til spelelista"
 
-#: xl/xlmisc.py:888
+#: xl/xlmisc.py:897
 msgid "Rename"
 msgstr "Gje nytt namn"
 
-#: xl/xlmisc.py:892
+#: xl/xlmisc.py:901
 msgid "Save Playlist"
 msgstr "Lagre spelelista"
 
-#: xl/xlmisc.py:1110
+#: xl/xlmisc.py:1119
 msgid "Loading requested information..."
 msgstr "Lastar forespurd informasjon ..."
 
-#: xl/xlmisc.py:1112
+#: xl/xlmisc.py:1121
 msgid "Loading page..."
 msgstr "Lastar side ..."
 
-#: xl/xlmisc.py:1350
+#: xl/xlmisc.py:1359
 msgid "Enter the search text"
 msgstr "Skriv inn søketeksten"
 
-#: xl/xlmisc.py:1357
+#: xl/xlmisc.py:1366
 #, python-format
 msgid "Searching for %s..."
 msgstr "Søkjer etter %s ..."
 
-#: xl/xlmisc.py:1427
+#: xl/xlmisc.py:1436
 msgid "Sorry, no covers were found."
 msgstr "Beklagar, fant ingen plateomslag."
 
-#: xl/xlmisc.py:1532
+#: xl/xlmisc.py:1541
 msgid "Path is already in your collection."
 msgstr "Stigen allereie i samlinga di"
 
-#: xl/xlmisc.py:1539
+#: xl/xlmisc.py:1548
 msgid ""
 "Path is already in your collection, or is a subdirectory of another path in "
 "your collection"
@@ -1184,18 +1247,14 @@ msgid "Album Art"
 msgstr "Plateomslag"
 
 #: exaile.glade.h:49
-msgid "Album _Information"
-msgstr "Plate_informasjon"
-
-#: exaile.glade.h:50
 msgid "Album art filenames (separated by spaces):"
 msgstr "Filnamn for plateomslag (skild av mellomrom):"
 
-#: exaile.glade.h:52
+#: exaile.glade.h:51
 msgid "Amazon Locale:"
 msgstr "Amazon region:"
 
-#: exaile.glade.h:54
+#: exaile.glade.h:53
 msgid ""
 "Artist\n"
 "Album\n"
@@ -1205,11 +1264,11 @@ msgstr ""
 "Album\n"
 "Sjanger"
 
-#: exaile.glade.h:58
+#: exaile.glade.h:57
 msgid "Attempt to fetch cover art from Amazon automatically"
 msgstr "Prøv å hent plateomslag automatisk frå Amazon"
 
-#: exaile.glade.h:59
+#: exaile.glade.h:58
 msgid ""
 "Automatic\n"
 "Use GConf Settings\n"
@@ -1223,31 +1282,31 @@ msgstr ""
 "OSS\n"
 "ESD"
 
-#: exaile.glade.h:64
+#: exaile.glade.h:63
 msgid "Autosize"
 msgstr "Automatisk størrelse"
 
-#: exaile.glade.h:65
+#: exaile.glade.h:64
 msgid "Background Color:"
 msgstr "Bakgrunnsfarge:"
 
-#: exaile.glade.h:67
+#: exaile.glade.h:66
 msgid "CD Device:"
 msgstr "CD-eining:"
 
-#: exaile.glade.h:68
+#: exaile.glade.h:67
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: exaile.glade.h:69
+#: exaile.glade.h:68
 msgid "Clear Playlist"
 msgstr "Tøm spelelista"
 
-#: exaile.glade.h:70
+#: exaile.glade.h:69
 msgid "Collection"
 msgstr "Samling"
 
-#: exaile.glade.h:71
+#: exaile.glade.h:70
 msgid ""
 "Copyright (C) 2006 Adam Olsen\n"
 "\n"
@@ -1281,202 +1340,218 @@ msgstr ""
 "along with this program; if not, write to the Free Software\n"
 "Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
 
-#: exaile.glade.h:86
+#: exaile.glade.h:85
 msgid "Cover Finder"
 msgstr "Plateomslagshentar"
 
-#: exaile.glade.h:87
+#: exaile.glade.h:86
 msgid "Custom"
 msgstr "Sjølvvald"
 
-#: exaile.glade.h:88
+#: exaile.glade.h:87
 msgid "Devices"
 msgstr "Einingar"
 
-#: exaile.glade.h:90
+#: exaile.glade.h:89
 msgid "Disc Number:"
 msgstr "Platenummer:"
 
-#: exaile.glade.h:91
+#: exaile.glade.h:90
 msgid "Display OSD when hovering over tray icon"
 msgstr "Vis skjermmeldingar når musepeikaren er over ikonet i systemkurven"
 
-#: exaile.glade.h:92
+#: exaile.glade.h:91
 msgid "Display Text:"
 msgstr "Vis tekst:"
 
-#: exaile.glade.h:93
+#: exaile.glade.h:92
 msgid "Download feeds when opening podcasts"
 msgstr "Last ned kjelder når podkastane blir opna"
 
-#: exaile.glade.h:94
-msgid "Dynamic Playlist"
+#: exaile.glade.h:93
+#, fuzzy
+msgid "Dynamic"
 msgstr "Dynamisk speleliste"
 
-#: exaile.glade.h:95
+#: exaile.glade.h:94
 msgid "E_qualizer"
 msgstr "_Lydtilpassing"
 
-#: exaile.glade.h:96
+#: exaile.glade.h:95
 msgid "Equalizer Settings"
 msgstr "Innstillingar for lydtilpassing"
 
 #: exaile.glade.h:97
-msgid "Exaile Registration Key: purgatorio"
-msgstr "Exaile registreringsnøkkel: purgatorio"
+msgid "Exaile!"
+msgstr "Exaile!"
 
-#: exaile.glade.h:99
+#: exaile.glade.h:98
 msgid "Export Playlist"
 msgstr "Eksporter speleliste"
 
-#: exaile.glade.h:100
+#: exaile.glade.h:99
 msgid "Fetches similar tracks from last.fm"
 msgstr "Hentar liknande sangar frå last.fm"
 
-#: exaile.glade.h:102
+#: exaile.glade.h:101
 msgid "Files"
 msgstr "Filer"
 
-#: exaile.glade.h:106
-msgid "Go To Playing Track"
-msgstr "Gå til sangen som blir avspelt no"
-
-#: exaile.glade.h:107
+#: exaile.glade.h:105
 msgid "Hint: see http://www.exaile.org/trac/wiki/OSD for examples"
 msgstr "Hint: sjå http://www.exaile.org/trac/wiki/OSD for eksempler"
 
-#: exaile.glade.h:108
+#: exaile.glade.h:106
 msgid "I_mport"
 msgstr "I_mporter"
 
-#: exaile.glade.h:109
+#: exaile.glade.h:107
 msgid "Import Preset"
 msgstr "Importer førehandsvald lydtilpassing"
 
-#: exaile.glade.h:111
+#: exaile.glade.h:108
 msgid "Input Required"
 msgstr "Inndata trengst"
 
-#: exaile.glade.h:112
+#: exaile.glade.h:109
 msgid "Jump to current song on track change"
 msgstr "Hopp til gjeldande sang ved sangbyte"
 
-#: exaile.glade.h:114
+#: exaile.glade.h:111
 msgid "Last.fm Password:"
 msgstr "Last.fm passord: "
 
-#: exaile.glade.h:115
+#: exaile.glade.h:112
 msgid "Last.fm Username:  "
 msgstr "Last.fm brukarnamn: "
 
-#: exaile.glade.h:118
+#: exaile.glade.h:115
 msgid "Library Manager"
 msgstr "Bibliotekhandsamar"
 
-#: exaile.glade.h:119
+#: exaile.glade.h:116
 msgid "Library _Manager"
 msgstr "Bibliotek_handsamar"
 
-#: exaile.glade.h:121
+#: exaile.glade.h:118
 msgid "New Search"
 msgstr "Nytt søk"
 
-#: exaile.glade.h:123
+#: exaile.glade.h:120
 msgid "Next Track"
 msgstr "Neste sang"
 
-#: exaile.glade.h:126
+#: exaile.glade.h:123
 msgid "Open _Disc"
 msgstr "Opna _plate"
 
-#: exaile.glade.h:127
+#: exaile.glade.h:124
 msgid "Open _URL"
 msgstr "Opna _nettadresse"
 
-#: exaile.glade.h:128
+#: exaile.glade.h:125
 msgid "Open last playlist on startup"
 msgstr "Opna siste speleliste ved oppstart"
 
-#: exaile.glade.h:129
+#: exaile.glade.h:126
+#, fuzzy
+msgid "P_lugins"
+msgstr "Programtillegg"
+
+#: exaile.glade.h:127
 msgid "Play/Pause"
 msgstr "Spel/Pause"
 
-#: exaile.glade.h:130
+#: exaile.glade.h:128
 msgid "Playback Sink:   "
 msgstr "Avspelingsmetode:"
 
-#: exaile.glade.h:132
+#: exaile.glade.h:130
 msgid "Playlist Tab Placement:"
 msgstr "Plassering av speleliste-arkfanar:"
 
-#: exaile.glade.h:133
+#: exaile.glade.h:131
 msgid "Playlists"
 msgstr "Spelelister"
 
-#: exaile.glade.h:134
+#: exaile.glade.h:132
 msgid ""
 "Please choose the EQF file from which you would like to import the equalizer "
 "preset."
 msgstr "Vel EQF-file du vil importera den førehandsvalde lydtilpassinga frå."
 
-#: exaile.glade.h:135
+#: exaile.glade.h:133
 msgid "Please enter the name which you would like to save the preset as."
 msgstr "Skriv inn namnet du vil lagra den førehandsvalde lydtilpassinga som."
 
-#: exaile.glade.h:137
+#: exaile.glade.h:134
 msgid "Podcasts"
 msgstr "Podkastar"
 
-#: exaile.glade.h:138
+#: exaile.glade.h:135
 msgid "Popup"
 msgstr "Sprettopp"
 
-#: exaile.glade.h:141
+#: exaile.glade.h:138
 msgid "Previous Track"
 msgstr "Førre sang"
 
-#: exaile.glade.h:142
+#: exaile.glade.h:139
 msgid "Question:"
 msgstr "Spørsmål:"
 
-#: exaile.glade.h:144
+#: exaile.glade.h:141
 msgid "Randomize Playlist"
 msgstr "Gjer spelelista tilfeldig"
 
-#: exaile.glade.h:146
+#: exaile.glade.h:142
+#, fuzzy
+msgid "Randomize playback order"
+msgstr "Gjer spelelista tilfeldig"
+
+#: exaile.glade.h:144
 msgid "Rating: "
 msgstr "Vurdering: "
 
-#: exaile.glade.h:148
+#: exaile.glade.h:146
 msgid "Remove Saved Station"
 msgstr "Fjern lagra stasjonar"
 
-#: exaile.glade.h:149
+#: exaile.glade.h:147
 msgid "Repeat"
 msgstr "Gjenta"
 
-#: exaile.glade.h:150
+#: exaile.glade.h:148
+msgid "Repeat the entire playlist endlessly"
+msgstr ""
+
+#: exaile.glade.h:149
 msgid "Resizable"
 msgstr "Sjølvvald størrelse"
 
-#: exaile.glade.h:151
+#: exaile.glade.h:150
 msgid "Save Preset"
 msgstr "Lagre lydtilpassing"
 
-#: exaile.glade.h:152
+#: exaile.glade.h:151
 msgid "Save queue status"
 msgstr "Lagra køstatus"
 
-#: exaile.glade.h:153
+#: exaile.glade.h:152
 msgid "Scan for new music every: "
 msgstr "Søk etter ny musikk kvart: "
 
-#: exaile.glade.h:154
+#: exaile.glade.h:153
 msgid "Search:"
 msgstr "Søk:"
 
-#: exaile.glade.h:155
+#: exaile.glade.h:154
 msgid "Search: "
+msgstr "Søk: "
+
+#: exaile.glade.h:155
+#, fuzzy
+msgid "Search:  "
 msgstr "Søk: "
 
 #: exaile.glade.h:156
@@ -1492,7 +1567,8 @@ msgid "Show Tray Icon"
 msgstr "Vis ikon i systemkurv"
 
 #: exaile.glade.h:159
-msgid "Show Visualizations"
+#, fuzzy
+msgid "Show _Visualizations"
 msgstr "Vis effektar"
 
 #: exaile.glade.h:160
@@ -1520,6 +1596,11 @@ msgid "Title:"
 msgstr "Tittel"
 
 #: exaile.glade.h:169
+#, fuzzy
+msgid "Toggle Stop Track"
+msgstr "Slå av/på: Stopp etter denne sangen"
+
+#: exaile.glade.h:170
 msgid ""
 "Top\n"
 "Left\n"
@@ -1531,125 +1612,116 @@ msgstr ""
 "Høgre\n"
 "Bunnen"
 
-#: exaile.glade.h:173
+#: exaile.glade.h:174
 msgid "Track Editor"
 msgstr "Sporredigerar"
 
-#: exaile.glade.h:174
+#: exaile.glade.h:175
 msgid "Track Number"
 msgstr "Sangnummer"
 
-#: exaile.glade.h:175
+#: exaile.glade.h:176
 msgid "Track:"
 msgstr "Spor:"
 
-#: exaile.glade.h:176
+#: exaile.glade.h:177
 msgid "Up One Directory"
 msgstr "Opp ei mappe"
 
-#: exaile.glade.h:177
+#: exaile.glade.h:178
 msgid "Vol:"
 msgstr "Vol:"
 
-#: exaile.glade.h:178
+#: exaile.glade.h:179
 msgid "Wikipedia Locale:"
 msgstr "Wikipediaregion:"
 
-#: exaile.glade.h:179
+#: exaile.glade.h:180
 msgid "Window Height:"
 msgstr "Høyde på vindauge:"
 
-#: exaile.glade.h:180
+#: exaile.glade.h:181
 msgid "Window Width:"
 msgstr "Bredde på vindauge:"
 
-#: exaile.glade.h:183
+#: exaile.glade.h:184
 msgid "_Album Art Collector"
 msgstr "_Plateomslagssamlar"
-
-#: exaile.glade.h:184
-msgid "_Artist Information"
-msgstr "_Artistinformasjon"
 
 #: exaile.glade.h:185
 msgid "_Blacklist Manager"
 msgstr "_Svartelistehandsamar"
 
 #: exaile.glade.h:186
-msgid "_Clear Queue"
-msgstr "_Tøm kø"
-
-#: exaile.glade.h:187
 msgid "_Close"
 msgstr "_Lukk"
 
-#: exaile.glade.h:188
+#: exaile.glade.h:187
 msgid "_Columns"
 msgstr "_Kolonner"
+
+#: exaile.glade.h:188
+#, fuzzy
+msgid "_Edit"
+msgstr "Rediger"
 
 #: exaile.glade.h:189
 msgid "_File"
 msgstr "_Fil"
 
 #: exaile.glade.h:190
+#, fuzzy
+msgid "_Go To Playing Track"
+msgstr "Gå til sangen som blir avspelt no"
+
+#: exaile.glade.h:191
 msgid "_Help"
 msgstr "_Hjelp"
 
-#: exaile.glade.h:191
+#: exaile.glade.h:192
 msgid "_Import Directory"
 msgstr "_Importer mappe"
 
-#: exaile.glade.h:192
-msgid "_Logs"
-msgstr "_Loggar"
-
 #: exaile.glade.h:193
-msgid "_Lyrics"
-msgstr "_Sangtekstar"
-
-#: exaile.glade.h:194
 msgid "_New Playlist"
 msgstr "_Ny Speleliste"
 
-#: exaile.glade.h:195
+#: exaile.glade.h:194
 msgid "_Open Media"
 msgstr "_Opna media"
 
-#: exaile.glade.h:196
-msgid "_Options"
-msgstr "_Innstillingar"
-
-#: exaile.glade.h:197
+#: exaile.glade.h:195
 msgid "_Queue Manager"
 msgstr "_Køhandsamar"
 
-#: exaile.glade.h:198
+#: exaile.glade.h:196
 msgid "_Rescan Collection"
 msgstr "_Søk igjennom samling på nytt"
 
-#: exaile.glade.h:199
+#: exaile.glade.h:197
 msgid "_Tools"
 msgstr "V_erktøy"
 
-#: exaile.glade.h:200
+#: exaile.glade.h:198
+#, fuzzy
+msgid "_Track Information"
+msgstr "Informasjon"
+
+#: exaile.glade.h:199
 msgid "_View"
 msgstr "_Vis"
 
-#: exaile.glade.h:201
+#: exaile.glade.h:200
 msgid "message"
 msgstr "melding"
 
-#: exaile.glade.h:203
+#: exaile.glade.h:202
 msgid "translator-credits"
 msgstr "Eskild Hustvedt <eskild@zerodogg.org>"
 
 #: plugins/plugins.glade.h:1
 msgid "\n"
 msgstr "\n"
-
-#: plugins/plugins.glade.h:3
-msgid "<b>No Plugin Selected</b>"
-msgstr "<b>Programtillegg ikkje valt</b>"
 
 #: plugins/plugins.glade.h:4
 msgid "Authors:"
@@ -1682,6 +1754,36 @@ msgstr "Avinstaller"
 #: plugins/plugins.glade.h:12
 msgid "Version:      "
 msgstr "Versjon:     "
+
+#~ msgid "<big><b> Changing volume: %d %% </b></big>"
+#~ msgstr "<big><b> Endrar volum: %d %% </b></big>"
+
+#~ msgid "Stop"
+#~ msgstr "Stopp"
+
+#~ msgid "%(album)s by %(artist)s)"
+#~ msgstr "%(album)s by %(artist)s"
+
+#~ msgid "Album _Information"
+#~ msgstr "Plate_informasjon"
+
+#~ msgid "Exaile Registration Key: purgatorio"
+#~ msgstr "Exaile registreringsnøkkel: purgatorio"
+
+#~ msgid "_Artist Information"
+#~ msgstr "_Artistinformasjon"
+
+#~ msgid "_Clear Queue"
+#~ msgstr "_Tøm kø"
+
+#~ msgid "_Logs"
+#~ msgstr "_Loggar"
+
+#~ msgid "_Lyrics"
+#~ msgstr "_Sangtekstar"
+
+#~ msgid "_Options"
+#~ msgstr "_Innstillingar"
 
 #~ msgid "Loading stream sources, please wait..."
 #~ msgstr "lastar straumkjelder ..."

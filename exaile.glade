@@ -5663,7 +5663,7 @@ esdsink</property>
 <widget class="GtkAboutDialog" id="AboutDialog">
   <property name="destroy_with_parent">True</property>
   <property name="name">Exaile</property>
-  <property name="copyright" translatable="yes">(c) 2006</property>
+  <property name="copyright" translatable="yes">(c) 2006 -2007</property>
   <property name="comments" translatable="yes">Exaile</property>
   <property name="license" translatable="yes">Copyright (C) 2006 Adam Olsen
 
@@ -5688,6 +5688,10 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.</property>
 
 Johannes Sasongko 
     &lt;sasongko@gmail.com&gt; 
+    (Developer)
+
+Aren Olson
+    &lt;reacocard@gmail.com&gt;
     (Developer)</property>
   <property name="artists">Aron Homberg
 Josip Lisec</property>
@@ -6337,7 +6341,7 @@ Josip Lisec</property>
 	      <child>
 		<widget class="GtkLabel" id="label101">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">        </property>
+		  <property name="label" translatable="yes">&lt;span size=&quot;small&quot;&gt;(c) 2006 -2007&lt;/span&gt;</property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">False</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>

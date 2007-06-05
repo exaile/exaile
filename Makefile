@@ -68,6 +68,7 @@ clean:
 	cd mmkeys && make clean && cd ..
 	find . -name "*.pyc" -exec rm {} \;
 	find . -name "*.pyo" -exec rm {} \;
+	-find po -maxdepth 1 -regextype posix-basic -regex "po/[^.]*" -type d -exec rm -rf {} \;
 
 tarball: clean
 	tar --exclude .svn -czvf ../exaile.tar.gz ../exaile

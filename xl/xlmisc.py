@@ -2073,7 +2073,7 @@ class PlaylistParser(object):
         raise NotImplementedError
 
 class M3UParser(PlaylistParser):
-    
+    R = re.compile(r'#EXTINF:\d+,(.*?)[\r\n]+(.*?)[\r\n]+', re.DOTALL) 
     def __init__(self,name,filename = None):
         super(M3UParser,self).__init__(name)
         if filename:
@@ -2081,6 +2081,10 @@ class M3UParser(PlaylistParser):
 
     def parse_file(self,filename):
 
+        file = urllib.urlopen(filename)
+        line = file.readline()
+        if line.strip() == "#EXTM3U":
+            return self.parse_m3u(file)
         file = urllib.urlopen(filename)
 
         for line in file.readlines():
@@ -2096,6 +2100,25 @@ class M3UParser(PlaylistParser):
                 url = 'file://' + urllib.quote(url)
 
             self.add_url(url)
+        return True
+
+    def parse_m3u(self, file):
+        data = file.read()
+        items = self.R.findall(data)
+        if items:
+            for item in items:
+                rg = item[1]
+                if urlparse.urlsplit(rg)[0]:
+                    url = rg
+                else:
+                    if os.path.isabs(rg):
+                        url = rg
+                    else: # relative path
+                        url = os.path.dirname(filename) + os.path.sep + rg
+
+                    url = 'file://' + urllib.urlquote(url)
+                self.add_url(url, title=item[0], album=url)
+
         return True
 
 class PlsParser(PlaylistParser):

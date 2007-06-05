@@ -891,6 +891,7 @@ class ExaileWindow(gobject.GObject):
                 if not file.endswith(".m3u"): continue
                 h = open(os.path.join(dir, file))
                 line = h.readline()
+                line = h.readline()
                 h.close()
                 title = _("Playlist")
                 m = re.search('^# PLAYLIST: (.*)$', line)
@@ -2119,7 +2120,6 @@ class ExaileWindow(gobject.GObject):
         if self.tracks: self.tracks.queue_draw()
 
         self.update_track_information(None)
-#        self.progress.set_value(0)
         self.new_progressbar.set_text("0:00 / 0:00")
 
     @common.threaded
@@ -2295,14 +2295,24 @@ class ExaileWindow(gobject.GObject):
         if result == gtk.RESPONSE_OK:
             path = dialog.get_filename()
             self.last_open_dir = dialog.get_current_folder()
-            handle = open(path, "w")
-            handle.write("#EXTM3U\n")
 
-            for track in self.playlist_songs:
-                handle.write("#EXTINF:%d,%s\n%s\n" % (track.duration,
-                    track.title, track.loc))
+            self.save_m3u(path, self.playlist_songs)
 
-            handle.close()
+    def save_m3u(self, path, songs, playlist_name=''):
+        """
+            Saves a list of songs to an m3u file
+        """
+        handle = open(path, "w")
+
+        handle.write("#EXTM3U\n")
+        if playlist_name:
+            handle.write("#PLAYLIST: %s\n" % playlist_name)
+
+        for track in songs:
+            handle.write("#EXTINF:%d,%s\n%s\n" % (track.duration,
+                track.title, track.loc))
+
+        handle.close()
 
     def get_volume_percent(self):
         """
@@ -2459,14 +2469,8 @@ class ExaileWindow(gobject.GObject):
             title = self.playlists_nb.get_tab_label(page).title
             if page.type != 'track': continue
             songs = page.songs
-            h = open(os.path.join(SETTINGS_DIR, "saved", "playlist%.4d.m3u" % i),
-                "w")
-            h.write("# PLAYLIST: %s\n" % title)
-            for song in songs:
-                if song.type == 'podcast': continue
-                h.write("%s\n" % song.loc)
-
-            h.close()
+            self.save_m3u(os.path.join(SETTINGS_DIR, "saved",
+                "playlist%.4d.m3u" % i), songs)
 
         # save queued tracks
         if self.player.queued:

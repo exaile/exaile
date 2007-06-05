@@ -33,4 +33,5 @@ else:
             os.system('msgmerge -o temp.po %s ../messages.pot' % f)
             os.system('msgfmt temp.po -o %s/LC_MESSAGES/exaile.mo' % d)
 
+    os.remove('temp.po')
     os.chdir('..')

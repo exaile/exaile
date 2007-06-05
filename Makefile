@@ -7,6 +7,7 @@ all: build
 
 build: mmkeys.so
 	python -m compileall xl lib
+	python po/createpot.py compile
 
 mmkeys.so:
 	cd mmkeys && make mmkeys.so && cd ..

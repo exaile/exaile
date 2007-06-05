@@ -30,7 +30,7 @@ else:
             if not os.path.isdir('%s/LC_MESSAGES' % d):
                 os.mkdir('%s/LC_MESSAGES' % d, 0777)
 
-            os.system('msgmerge -U %s ../messages.pot' % f)
-            os.system('msgfmt %s -o %s/LC_MESSAGES/exaile.mo' % (f, d))
+            os.system('msgmerge -o temp.po %s ../messages.pot' % f)
+            os.system('msgfmt temp.po -o %s/LC_MESSAGES/exaile.mo' % d)
 
     os.chdir('..')

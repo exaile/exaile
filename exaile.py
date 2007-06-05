@@ -894,7 +894,7 @@ class ExaileWindow(gobject.GObject):
                 line = h.readline()
                 h.close()
                 title = _("Playlist")
-                m = re.search('^# PLAYLIST: (.*)$', line)
+                m = re.search('^#PLAYLIST: (.*)$', line)
                 if m:
                     title = m.group(1)
 
@@ -2470,7 +2470,7 @@ class ExaileWindow(gobject.GObject):
             if page.type != 'track': continue
             songs = page.songs
             self.save_m3u(os.path.join(SETTINGS_DIR, "saved",
-                "playlist%.4d.m3u" % i), songs)
+                "playlist%.4d.m3u" % i), songs, title)
 
         # save queued tracks
         if self.player.queued:

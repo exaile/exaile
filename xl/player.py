@@ -529,6 +529,12 @@ class ExailePlayer(GSTPlayer):
             asink = gst.element_factory_make('autoaudiosink')
         sinkbin = gst.Bin()
 
+        # if the equalizer is disabled, just return the audiosink
+        if self.exaile.options.noeq:
+            self.audiosink = asink
+            xlmisc.log("Not using equalizer, disabled by the user")
+            return self.audiosink
+
         try: # Equalizer element is still not very common 
             self.equalizer = gst.element_factory_make('equalizer-10bands')
         except gst.PluginNotFoundError:

@@ -356,5 +356,7 @@ def get_options():
     p.add_option("--cleanversion", dest="cleanversion", action="store_true")
     p.add_option("--version", dest="show_version", action="store_true")
     p.add_option("--testing", dest="testing", action="store_true")
+    p.add_option("--no-equalizer", dest="noeq", action="store_true",
+        default=False, help="Disable Equalizer support")
 
     return p

@@ -343,11 +343,12 @@ class BaseTrayIcon(gobject.GObject):
         self.menu.append(_("Previous"), self.exaile.on_previous,
             'gtk-media-previous')
         self.menu.append_separator()
+        self.menu.append(_("Plugins"), self.exaile.show_plugin_manager,
+            'gtk-execute')
         self.menu.append(_("Preferences"), 
             lambda e, a: prefs.Preferences(self.exaile).run(),
             'gtk-preferences')
-        self.menu.append(_("Plugins"), self.exaile.show_plugin_manager,
-            'gtk-execute')
+
         self.menu.append_separator()
         self.menu.append(_("Quit"), self.exaile.on_quit, 'gtk-quit')
 

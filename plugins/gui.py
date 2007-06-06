@@ -142,7 +142,6 @@ class PluginManager(object):
         self.avail_name_label.set_markup('<b>' + _('No Plugin Selected') +
             '</b>')
         self.avail_description.get_buffer().set_text('')
-        self.avail_model.clear()
 
     @common.threaded
     def download_plugins(self):

@@ -31,6 +31,7 @@ make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/share/locale
 
 install: make-install-dirs mmkeys.so
+	install -m 644 exaile.1 $(DESTDIR)$(PREFIX)/share/man/man1
 	install -m 644 exaile.py $(DESTDIR)$(PREFIX)/share/exaile
 	install -m 644 exaile.glade $(DESTDIR)$(PREFIX)/share/exaile
 	install -m 644 equalizer.ini $(DESTDIR)$(PREFIX)/share/exaile

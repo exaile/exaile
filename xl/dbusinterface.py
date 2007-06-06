@@ -84,7 +84,7 @@ class DBusInterfaceObject(dbus.service.Object):
         """
             Starts playback
         """
-        self.exaile.toggle_pause()
+        self.exaile.play()
 
     @dbus.service.method("org.exaile.DBusInterface")
     def play_pause(self):

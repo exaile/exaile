@@ -29,6 +29,7 @@ make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/lib
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/sql
 	mkdir -p $(DESTDIR)$(PREFIX)/share/locale
+	mkdir -p $(DESTDIR)$(PREFIX)/share/man/man1
 
 install: make-install-dirs mmkeys.so
 	install -m 644 exaile.1 $(DESTDIR)$(PREFIX)/share/man/man1

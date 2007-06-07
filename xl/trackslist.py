@@ -771,8 +771,10 @@ class TracksListCtrl(gtk.VBox):
             
         self.tpm = tpm        
                 
-        pixbuf = xlmisc.get_text_icon(self.exaile.window, u'\u00b1', 16, 16)
-        icon_set = gtk.IconSet (pixbuf)
+        songs = self.get_selected_tracks()
+
+        pixbuf = xlmisc.get_text_icon(self.exaile.window, u'\u2610', 16, 16)
+        icon_set = gtk.IconSet(pixbuf)
         
         factory = gtk.IconFactory()
         factory.add_default()        
@@ -783,7 +785,6 @@ class TracksListCtrl(gtk.VBox):
         self.stop_track = tpm.append(_("Toggle: Stop after this Track"), 
             self.exaile.on_stop_track, 'gtk-stop')
         tpm.append_separator()
-        songs = self.get_selected_tracks()
         n_selected = len(songs)
 
         if not songs or not songs[0].type == 'stream':

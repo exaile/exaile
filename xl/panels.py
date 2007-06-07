@@ -333,7 +333,7 @@ class CollectionPanel(object):
         """
         menu = xlmisc.Menu()
         self.append = menu.append(_("Append to Current"),
-            self.append_to_playlist)
+            self.append_to_playlist, 'gtk-add')
 
         pm = xlmisc.Menu()
         self.new_playlist = pm.append(_("New Playlist"),
@@ -346,14 +346,22 @@ class CollectionPanel(object):
         for row in rows:
             pm.append(row[0], self.add_to_playlist)
 
-        menu.append_menu(_("Add to Playlist"), pm)
+        menu.append_menu(_("Add to Playlist"), pm, 'gtk-add')
+
+        pixbuf = xlmisc.get_text_icon(self.exaile.window, u'\u2610', 16, 16)
+        icon_set = gtk.IconSet(pixbuf)
+        
+        factory = gtk.IconFactory()
+        factory.add_default()        
+        factory.add('exaile-queue-icon', icon_set)
+
         self.queue_item = menu.append(_("Queue Items"),
-            self.append_to_playlist)
+            self.append_to_playlist, 'exaile-queue-icon')
         menu.append_separator()
         self.blacklist = menu.append(_("Blacklist Selected"),
             self.remove_items)
         self.remove = menu.append(_("Delete Selected"), 
-            self.remove_items)
+            self.remove_items, 'gtk-remove')
 
         menu.append_separator()
         menu.append(_("Edit Information"), lambda e, f:

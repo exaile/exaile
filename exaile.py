@@ -1564,8 +1564,11 @@ class ExaileWindow(gobject.GObject):
                     self.got_stream_cover, locale=locale)
 
             else:    
+                album = track.album
+                if not album:
+                    album = track.title
                 self.cover_thread = covers.CoverFetcherThread("%s %s" \
-                    % (track.album,track.artist),
+                    % (album,track.artist),
                     self.got_covers, locale=locale)
 
             self.status.set_first(_("Fetching cover art from Amazon..."))

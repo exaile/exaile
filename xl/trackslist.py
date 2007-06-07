@@ -769,10 +769,17 @@ class TracksListCtrl(gtk.VBox):
         if self.plugins_item:
             self.plugins_item.remove_submenu()
             
-        self.tpm = tpm
-
+        self.tpm = tpm        
+                
+        pixbuf = xlmisc.get_text_icon(self.exaile.window, u'\u00b1', 18, 18)
+        icon_set = gtk.IconSet (pixbuf)
+        
+        factory = gtk.IconFactory()
+        factory.add_default()        
+        factory.add('exaile-queue-icon', icon_set)
+        
         self.queue = tpm.append(_("Toggle Queue"), self.exaile.on_queue,
-            'gtk-media-play')
+            'exaile-queue-icon')
         self.stop_track = tpm.append(_("Toggle: Stop after this Track"), 
             self.exaile.on_stop_track, 'gtk-stop')
         tpm.append_separator()

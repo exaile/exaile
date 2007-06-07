@@ -771,7 +771,7 @@ class TracksListCtrl(gtk.VBox):
             
         self.tpm = tpm        
                 
-        pixbuf = xlmisc.get_text_icon(self.exaile.window, u'\u00b1', 18, 18)
+        pixbuf = xlmisc.get_text_icon(self.exaile.window, u'\u00b1', 16, 16)
         icon_set = gtk.IconSet (pixbuf)
         
         factory = gtk.IconFactory()

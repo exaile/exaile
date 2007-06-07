@@ -488,8 +488,12 @@ def get_cover_fetcher(exaile):
     """
     global FETCHER
 
-    if not CoverFetcher.stopped:
-        return FETCHER
+    try:
+        if not CoverFetcher.stopped:
+            return FETCHER
+    except:
+        xlmisc.log_exception()
+        pass
 
     FETCHER = CoverFetcher(exaile)
     return FETCHER
@@ -539,6 +543,8 @@ class CoverFetcher(object):
         self.icons.connect('leave-notify-event',
             lambda *e: self.status.set_label(''))
         self.dialog = xml.get_widget('CoverFetcher')
+        self.dialog.connect('delete-event', self.cancel)
+
         self.progress = xml.get_widget('fetcher_progress')
         self.label = xml.get_widget('fetcher_label')
 
@@ -555,12 +561,12 @@ class CoverFetcher(object):
         if self.go:
             self.toggle_running(None)
 
-    def cancel(self, event):
+    def cancel(self, *event):
         """
             Closes the dialog
         """
         CoverFetcher.stopped = True
-        self.dialog.hide()
+        self.dialog.destroy()
 
     def toggle_running(self, event):
         """

@@ -853,7 +853,11 @@ class TracksListCtrl(gtk.VBox):
             tpm.append_menu(_("Last.FM Options"), lfm)
             tpm.append_separator()
 
-        tpm.append(_("Show in Collection"), self.show_in_collection)
+        factory.add('exaile-track-icon', gtk.IconSet(
+            gtk.gdk.pixbuf_new_from_file(os.path.join('images',
+            'track.png'))))
+        tpm.append(_("Show in Collection"), self.show_in_collection,
+            'exaile-track-icon')
         tpm.append_separator()
 
         rm = xlmisc.Menu()

@@ -359,9 +359,9 @@ class CollectionPanel(object):
             self.append_to_playlist, 'exaile-queue-icon')
         menu.append_separator()
         self.blacklist = menu.append(_("Blacklist Selected"),
-            self.remove_items)
+            self.remove_items, 'gtk-delete')
         self.remove = menu.append(_("Delete Selected"), 
-            self.remove_items, 'gtk-remove')
+            self.remove_items, 'gtk-delete')
 
         menu.append_separator()
         menu.append(_("Edit Information"), lambda e, f:

@@ -9,7 +9,8 @@ Package: exaile
 Architecture: any
 Depends: gstreamer0.10-plugins-good, python-gst0.10, python, 
  python-gtk2, python-glade2, python-dbus, python-pyvorbis,
- python-mutagen, python-pysqlite2, python-elementtree
+ python-mutagen, python-pysqlite2 | python (>= 2.5), 
+ python-elementtree | python (>= 2.5)
 Recommends: python-gnome-extras, python-cddb, sexy-python, 
  gstreamer0.10-gnomevfs
 Suggests: gstreamer0.10-plugins-bad, gstreamer0.10-plugins-ugly

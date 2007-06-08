@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import os, sys
+import os, sys, glob
 
 command = None
 try:
@@ -21,17 +21,12 @@ if command != 'compile':
 else:
     os.chdir('po')
 
-    files = os.listdir('.')
+    files = glob.glob('*.po')
     for f in files:
-        if f.endswith('.po'):
-            d = f.replace('.po', '')
-            if not os.path.isdir(d):
-                os.mkdir(d, 0777)
-            if not os.path.isdir('%s/LC_MESSAGES' % d):
-                os.mkdir('%s/LC_MESSAGES' % d, 0777)
+        l = os.path.splitext(f)
+        os.system('mkdir -p -m 0777 %s/LC_MESSAGES' % l[0])
 
-            os.system('msgmerge -o temp.po %s ../messages.pot' % f)
-            os.system('msgfmt temp.po -o %s/LC_MESSAGES/exaile.mo' % d)
+        print "Generating translation for %s locale" % l[0]
+        os.system('msgmerge -o - %s ../messages.pot | msgfmt -c -o %s/LC_MESSAGES/exaile.mo -' % (f, l[0]))
 
-    os.remove('temp.po')
     os.chdir('..')

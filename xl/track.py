@@ -159,7 +159,7 @@ class LyricsTab(gtk.VBox):
         """
             Called when this tab is selected
         """
-        params = {'artist': self.track.artist, 'songname': self.track.title}
+        params = {'artist': self.track.artist.encode('latin1'), 'songname': self.track.title.encode('latin1')}
 
 #        search = "http://lyrc.com.ar/en/tema1en.php?%s" % urlencode(params)
         search = "http://lyricwiki.org/api.php?artist=%s&song=%s&fmt=html" % (

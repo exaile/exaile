@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import thread, os, os.path, string
-import tracks, xlmisc, media, audioscrobbler
+import tracks, xlmisc, media, audioscrobbler, burn
 from gettext import gettext as _
 import pygtk, common
 pygtk.require('2.0')
@@ -378,6 +378,23 @@ class Preferences(object):
 
         xml.get_widget('prefs_lastfm_pass').set_invisible_char('*')
         xml.get_widget('prefs_audio_sink').set_active(0)
+
+        # populate the combobox with available burning programs
+        burn_prog_combo = xml.get_widget('prefs_burn_prog')
+        pref = settings.get_str('burn_prog', burn.check_burn_progs()[0])
+        count = 0
+        found_progs = burn.check_burn_progs()
+        if found_progs:
+            for prog in found_progs:
+                burn_prog_combo.append_text(prog)
+                if prog == pref:
+                    burn_prog_combo.set_active(count)
+                count += 1
+        else:
+            burn_prog_combo.append_text('No burning programs found')
+            burn_prog_combo.set_active(0)
+            burn_prog_combo.set_sensitive(False)
+           
         self.text_display = PrefsTextViewItem('osd/display_text',
             TEXT_VIEW_DEFAULT, self.display_popup)
         self.fields.append(self.text_display)
@@ -402,6 +419,7 @@ class Preferences(object):
             'lastfm/pass': (CryptedPrefsItem, '', None, self.setup_lastfm),
             'cd_device': (PrefsItem, '/dev/cdrom'),
             'audio_sink': (ComboPrefsItem, 'Use GConf Settings'),
+            'burn_prog': (ComboPrefsItem, burn.check_burn_progs()[0]),
             'osd/tray': (CheckPrefsItem, True),
             'osd/bgcolor': (ColorButtonPrefsItem, '#567ea2',
                 self.osd_colorpicker),

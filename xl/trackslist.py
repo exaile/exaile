@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import sys, os, re, random, fileinput, media
-import xlmisc, common, track, tracks
+import xlmisc, common, track, tracks, burn 
 import copy, time, urllib, xl.tracks
 from gettext import gettext as _, ngettext
 import pygtk
@@ -840,9 +840,14 @@ class TracksListCtrl(gtk.VBox):
         em.append_menu(_("Rating"), rm)
         tpm.append_menu(ngettext("Edit Track", "Edit Tracks", n_selected), em,
             'gtk-edit')
+        bm = tpm.append(ngettext("Burn Track", "Burn Tracks", n_selected),
+            self.burn_selected, 'gtk-cdrom')
         info = tpm.append(_("Information"), self.get_track_information,
             'gtk-info')
         tpm.append_separator()
+
+        if not burn.check_burn_progs():
+            bm.set_sensitive(False)
 
         if n_selected == 1 and self.get_selected_track() \
             and self.get_selected_track().type == 'lastfm':
@@ -878,6 +883,10 @@ class TracksListCtrl(gtk.VBox):
 
             self.plugins_item = tpm.append(_("Plugins"), None, 'gtk-execute')
             self.plugins_item.set_submenu(self.exaile.plugins_menu)
+
+    def burn_selected(self, widget, event):
+        burn.launch_burner(self.exaile.settings.get_str('burn_prog', burn.check_burn_progs()[0]), \
+                    self.exaile.tracks.get_selected_tracks())
 
     def show_in_collection(self, item, event):
         """

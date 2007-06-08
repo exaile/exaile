@@ -67,7 +67,7 @@ if basedir.endswith(path_suffix):
     sys.path.append(os.path.join(prefix, 'lib', 'exaile'))
 
 from xl import *
-from xl import media, audioscrobbler, equalizer
+from xl import media, audioscrobbler, equalizer, burn 
 import plugins.manager, plugins, plugins.gui
 import pygst; pygst.require('0.10'); import gst
 
@@ -1621,6 +1621,19 @@ class ExaileWindow(gobject.GObject):
         self.title_label.set_attributes(attr)
         self.setup_cover_menu()
 
+        # set up the burn button, check for available burning programs
+        burn_button = self.xml.get_widget('burn_button')
+        burn_button.connect('clicked', self.on_burn_button_clicked)
+
+        burnprogs = xl.burn.check_burn_progs()
+	if not burnprogs:            
+            print _("A supported CD burning program was not found "
+                    "in $PATH, disabling burning capabilities.")
+            burn_button.set_sensitive(False)
+        else:
+            pref = self.settings.get_str('burn_prog', burn.check_burn_progs()[0])
+
+
     def setup_cover_menu(self):
         """
             Sets up the menu for when the user right clicks on the album cover
@@ -1715,6 +1728,9 @@ class ExaileWindow(gobject.GObject):
                     self.stop_cover_thread()
                     self.cover.set_image(os.path.join(self.get_settings_dir(),
                         "covers", newname))
+
+    def on_burn_button_clicked(self, button):
+        xl.burn.launch_burner(self.settings.get_str('burn_prog', burn.check_burn_progs()[0]), self.tracks.songs)
 
     @common.synchronized
     def new_page(self, title=_("Playlist"), songs=None, set_current=True,

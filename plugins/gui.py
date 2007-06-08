@@ -332,7 +332,7 @@ class PluginManager(object):
             try:
                 if not plugin.initialize():
                     PLUGIN_ENABLED = False
-                    print "Error inizializing plugin"
+                    print "Error initializing plugin"
                     model[path][2] = False
             except plugins.PluginInitException, e:
                 show_error(self.parent, str(e))

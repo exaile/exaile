@@ -17,7 +17,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-__version__ = '0.2.10svn'
+__version__ = '0.2.11svn'
 import traceback, sys, gobject
 gobject.threads_init()
 

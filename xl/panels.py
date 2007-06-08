@@ -225,6 +225,8 @@ class CollectionPanel(object):
             'images', 'artist.png'))
         self.album_image = self.exaile.window.render_icon('gtk-cdrom',
             gtk.ICON_SIZE_SMALL_TOOLBAR)
+        self.separator_image = self.exaile.window.render_icon('gtk-remove', 
+            gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.track_image = gtk.gdk.pixbuf_new_from_file(os.path.join(
             'images', 'track.png'))
         self.genre_image = gtk.gdk.pixbuf_new_from_file(os.path.join(
@@ -790,6 +792,7 @@ class CollectionPanel(object):
             order_nodes[field] = xl.common.idict()
 
         expanded_paths = []
+        last_char = ''
         for track in songs:
             if self.current_start_count != self.start_count: return
 
@@ -801,6 +804,20 @@ class CollectionPanel(object):
                 node_for = order_nodes[field]
                 if field == "track": continue
                 info = getattr(track, field)
+
+                # print separators
+                if first and info:
+                    temp = info.upper().replace('THE ', '')
+                    first_char = temp[0]
+                    if first_char != last_char:
+                        if not re.match(r'^[a-zA-Z]$', first_char):
+                            first_char = '0-9'
+                        if first_char != last_char:
+                            last_char = first_char
+                            self.model.append(parent, [self.separator_image, 
+                                '---- %s ----' %
+                                first_char])
+
                 if info == "": 
                     if not unknown and first:
                         last_songs.append(track)
@@ -832,6 +849,7 @@ class CollectionPanel(object):
 
         # make sure "Unknown" items end up at the end of the list
         if not unknown and last_songs:
+            self.model.append(node, [self.separator_image, "-----------"])
             self.append_info(self.root, last_songs, True)
 
         gobject.idle_add(self.tree.set_model, self.model)

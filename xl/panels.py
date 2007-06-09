@@ -810,7 +810,7 @@ class CollectionPanel(object):
                     temp = info.upper().replace('THE ', '')
                     first_char = temp[0]
                     if first_char != last_char:
-                        if not re.match(r'^[a-zA-Z]$', first_char):
+                        if not first_char.isalpha():
                             first_char = '0-9'
                         if first_char != last_char:
                             last_char = first_char

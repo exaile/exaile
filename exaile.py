@@ -1558,7 +1558,7 @@ class ExaileWindow(gobject.GObject):
         if self.settings.get_boolean("fetch_covers", True):
             locale = self.settings.get_str('amazon_locale', 'us')
             if track.type == 'stream':
-                print "we got a stream type cover fetch"
+                xlmisc.log("we got a stream type cover fetch")
                 self.cover_thread = covers.CoverFetcherThread("%s %s"\
                     % (track.artist,track.title),
                     self.got_stream_cover, locale=locale)

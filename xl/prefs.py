@@ -332,7 +332,6 @@ class Preferences(object):
 
         self.exaile = parent
         self.fields = []
-        self.warning_shown = False
         self.popup = None
         self.osd_settings = xlmisc.get_osd_settings(self.exaile.settings)
         settings = self.exaile.settings
@@ -613,11 +612,6 @@ class Preferences(object):
             self.osd_settings['osd/y'] = y
             self.popup.window.destroy()
 
-        if not self.warning_shown:
-            common.info(self.window,
-                _("Move the OSD window to the location you want it to "
-                "appear when listening"))
-            self.warning_shown = True
         self.popup = xlmisc.OSDWindow(self.exaile, self.osd_settings,
             False, True)
 

@@ -381,15 +381,13 @@ class Preferences(object):
 
         # populate the combobox with available burning programs
         burn_prog_combo = xml.get_widget('prefs_burn_prog')
-        pref = settings.get_str('burn_prog', burn.check_burn_progs()[0])
-        count = 0
-        found_progs = burn.check_burn_progs()
-        if found_progs:
-            for prog in found_progs:
+        burn_progs = burn.check_burn_progs()
+        if burn_progs:
+            pref = settings.get_str('burn_prog', burn_progs[0])
+            for i, prog in enumerate(burn_progs):
                 burn_prog_combo.append_text(prog)
                 if prog == pref:
-                    burn_prog_combo.set_active(count)
-                count += 1
+                    burn_prog_combo.set_active(i)
         else:
             burn_prog_combo.append_text('No burning programs found')
             burn_prog_combo.set_active(0)
@@ -419,7 +417,7 @@ class Preferences(object):
             'lastfm/pass': (CryptedPrefsItem, '', None, self.setup_lastfm),
             'cd_device': (PrefsItem, '/dev/cdrom'),
             'audio_sink': (ComboPrefsItem, 'Use GConf Settings'),
-            'burn_prog': (ComboPrefsItem, burn.check_burn_progs()[0]),
+            'burn_prog': (ComboPrefsItem, (burn_progs and burn_progs[0]) or ''),
             'osd/tray': (CheckPrefsItem, True),
             'osd/bgcolor': (ColorButtonPrefsItem, '#567ea2',
                 self.osd_colorpicker),

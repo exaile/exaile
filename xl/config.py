@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import os
+import os, re
 from ConfigParser import SafeConfigParser
 import ConfigParser
 
@@ -203,6 +203,7 @@ class XlConfigParser(SafeConfigParser):
             Sets a string
         """
         value_str = str(value)
+        value_str = re.sub(r'%[^rdf%]?', r'%%', value_str)
         self.set(*self.get_section_keyv(key, plugin, value_str.replace('\n', r'\n')))
     
     

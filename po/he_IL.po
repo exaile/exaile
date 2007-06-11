@@ -1,0 +1,1819 @@
+# This Hebrew translation was edited by Oz Nahum
+# Copyright (C) 2007 Adam Olsen and Exaile development team
+# This file is distributed under the same license as the Exaile Music Player.
+# Nahum Oz <nahumoz@gmail.com>, 2007.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Exaile 0.2.10\n"
+"Report-Msgid-Bugs-To:http://exaile.org/trac/attachment/ticket/569\n"
+"POT-Creation-Date: 2007-06-04 08:36+0300\n"
+"PO-Revision-Date: 2007-06-09 14:29+0200\n"
+"Last-Translator: Oz Nahum <nahumoz@gmail.com>\n"
+"Language-Team: Hebrew <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: exaile.py:191
+#: exaile.py:2112
+msgid "Exaile! Music Player"
+msgstr ""
+
+#: exaile.py:237
+msgid "You have not specified any search directories for your music library. You may do so now, or choose to do it later.  If you want to do it later, you can manage your library search directories by going to Tools->Library Manager.  Do you want to choose your library directories now?"
+msgstr "לא צוינו תיקיות לחיפוש עבור ספריית המוזיקה. ניתן לבצע זאת כעת או מאוחר יותר. אם ברצונך לעשות זאת מאוחר יותר, ניתן להוסיף תיקיות עבור ספריית המוזיקה על ידי גישה ל'כלים'->'מנהל ספריית המוזיקה'. האם ברצונך לעשות זאת כעת?"
+
+#: exaile.py:465
+#: exaile.py:1381
+#: exaile.py:1382
+#: exaile.glade.h:121
+msgid "Not Playing"
+msgstr "לא מנגן"
+
+#: exaile.py:578
+#, python-format
+msgid "Playback is currently set to stop on the track \"%(title)s\" by \"%(artist)s\". Would you like to remove this?"
+msgstr "הנגן מכוון לעצור ברצועה \"%(title)s\" על ידי \"%(artist)s\" האם ברצונך לשנות זאת?"
+
+#: exaile.py:651
+#: xl/xlmisc.py:1525
+msgid "Add a directory"
+msgstr "הוסף תיקייה"
+
+#: exaile.py:657
+msgid "Add tracks to current playlist after importing"
+msgstr "הוסף רצועות לרשימת ההשמעה הנוכחית לאחר היבוא"
+
+#: exaile.py:731
+msgid "Queue"
+msgstr "השהה"
+
+#: exaile.py:768
+msgid "Blacklist"
+msgstr "רשימה שחורה"
+
+#: exaile.py:789
+msgid "Gstreamer equalizer is not  available.  It can be found in gstreamer-plugins-bad (currently found in GST CVS)."
+msgstr "Gstreamer equalizer is not  available.  It can be found in gstreamer-plugins-bad (currently found in GST CVS)."
+
+#: exaile.py:804
+#: exaile.py:1664
+#: xl/xlmisc.py:676
+#: xl/xlmisc.py:688
+#, python-format
+msgid "%(album)s by %(artist)s"
+msgstr "%(album)s by %(artist)s"
+
+#: exaile.py:895
+#: exaile.py:926
+#: exaile.py:1716
+#: exaile.py:1728
+#: exaile.py:1767
+#: exaile.py:2270
+#: exaile.glade.h:129
+msgid "Playlist"
+msgstr "רשימת השמעה"
+
+#: exaile.py:974
+msgid "Blacklisting the selected tracks will prevent them from being added to the library on rescan.  Are you sure you want to continue?"
+msgstr "הוספת הרצועות הנבחרות לרשימה השחורה תגרום לכך שלא יופיעו בספריה כאשר תבוצע סריקה מחודשת. האם ברצונך להמשיך ?"
+
+#: exaile.py:1088
+#, python-format
+msgid "Error connecting to database: %s"
+msgstr "שגיאה בהתחברות למסד הנתונים: %s"
+
+#: exaile.py:1095
+#, python-format
+msgid "Error creating collection database: %s"
+msgstr "שגיאה ביצירת מסד נתונים לאוסף: %s"
+
+#: exaile.py:1120
+msgid "Loading library from database..."
+msgstr "טוען תיקייה ממסד הנתונים..."
+
+#: exaile.py:1314
+#, python-format
+msgid "%(track_count)d showing, %(track_total)d in collection"
+msgstr "%(track_count)d showing, %(track_total)d in collection"
+
+#: exaile.py:1365
+msgid "Submitting to Last.fm..."
+msgstr "שולח אל Last.fm.."
+
+#: exaile.py:1383
+#: exaile.glade.h:164
+msgid "Stopped"
+msgstr "נעצר"
+
+#: exaile.py:1393
+#: exaile.py:1394
+#: xl/panels.py:800
+msgid "Unknown"
+msgstr "לא ידוע"
+
+#: exaile.py:1400
+#, python-format
+msgid "Exaile: playing %(title)s from %(album)s by %(artist)s"
+msgstr "Exaile: מנגן %(title)s מתוך %(album)s מאת %(artist)s"
+
+#: exaile.py:1406
+#, python-format
+msgid ""
+"from %(album)s\n"
+"by %(artist)s"
+msgstr ""
+"מתוך %(album)s\n"
+"מאת %(artist)s"
+
+#: exaile.py:1413
+#, python-format
+msgid ""
+"Playing %(title)s\n"
+"from %(album)s\n"
+"by %(artist)s"
+msgstr ""
+"מנגן %(title)s\n"
+"מתוך %(album)s\n"
+"מאת %(artist)s"
+
+#: exaile.py:1458
+#: exaile.py:1481
+msgid "No covers found."
+msgstr "לא נמצאו תמונות אלבום."
+
+#: exaile.py:1506
+msgid "Current amazon image is too old, fetching  a new one"
+msgstr "התמונה הנוכחית מ Amazon ישנה, מעדכן את התמונה כעת"
+
+#: exaile.py:1570
+msgid "Fetching cover art from Amazon..."
+msgstr "מייבא תמונת אלבום מ Amazon..."
+
+#: exaile.py:1625
+msgid "View Full Image"
+msgstr "הצג תמונה בגודל מלא"
+
+#: exaile.py:1627
+msgid "Fetch from Amazon"
+msgstr "Amazon-ייבא תמונה מ"
+
+#: exaile.py:1629
+msgid "Search Amazon"
+msgstr "חפש ב-Amazon"
+
+#: exaile.py:1631
+msgid "Set Custom Image"
+msgstr "קבע תמונת אלבום חלופית"
+
+#: exaile.py:1633
+msgid "Remove Cover"
+msgstr "הסר תמונת אלבום"
+
+#: exaile.py:1657
+msgid "Fetching from Amazon..."
+msgstr "מייבא תמונה מ-Amazon..."
+
+#: exaile.py:1676
+msgid "Choose an image"
+msgstr "בחר תמונה"
+
+#: exaile.py:1841
+#, python-format
+msgid "Changing volume: %d %%"
+msgstr "משנה עוצמת שמע: %d %%"
+
+#: exaile.py:1915
+msgid "Podcast has not yet been downloaded"
+msgstr " עוד לא הסתיימה Podcast הורדת "
+
+#: exaile.py:1998
+msgid "Could not find any suggested songs"
+msgstr "לא נמצאו שירים מתאימים"
+
+#: exaile.py:2111
+#: xl/player.py:970
+msgid "Exaile Media Player"
+msgstr ""
+
+#: exaile.py:2140
+msgid "Importing playlist..."
+msgstr "מייבא רשימת שמע..."
+
+#: exaile.py:2234
+#: exaile.py:2285
+msgid "Choose a file"
+msgstr "בחר קובץ"
+
+#: exaile.py:2238
+msgid "Open in new tab"
+msgstr "פתח בלשונית חדשה"
+
+#: exaile.py:2250
+msgid "Populating playlist..."
+msgstr "מאכלס את רשימת ההשמה..."
+
+#: exaile.py:2343
+msgid "Enter the address"
+msgstr "הזן כתובת"
+
+#: exaile.py:2356
+msgid "You need the python-cddb package  in order to play audio discs."
+msgstr "על מנת לנגן מוזיקה מתקליטורים עליך להתקין את החבילה הבאה python-cddb package"
+
+#: exaile.py:2361
+msgid "Audio Disc"
+msgstr "תקליטור שמע"
+
+#: exaile.py:2394
+msgid "Scanning collection..."
+msgstr "סורק את האוסף..."
+
+#: plugins/__init__.py:71
+msgid "Plugin Configuration"
+msgstr "הגדרת תוספים"
+
+#: plugins/__init__.py:78
+#, python-format
+msgid "<b>%s Configuration</b>"
+msgstr "<b>%s הגדרות</b>"
+
+#: plugins/gui.py:72
+#: plugins/gui.py:274
+msgid "Plugin"
+msgstr "תוסף"
+
+#: plugins/gui.py:86
+msgid "Enabled"
+msgstr "מאופשר"
+
+#: plugins/gui.py:142
+msgid "No Plugin Selected"
+msgstr "לא נבחר תוסף"
+
+#: plugins/gui.py:190
+#, python-format
+msgid "%(plugin)s could not be installed: %(exception)s"
+msgstr "%(plugin)s לא ניתן להתקין את  : %(exception)s"
+
+#: plugins/gui.py:209
+#: plugins/plugins.glade.h:3
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>לא נבחר תוסף</b>"
+
+#: plugins/gui.py:210
+#: plugins/gui.py:300
+msgid "Fetching available plugin list..."
+msgstr "מייבא רשימת תוספים אפשריים..."
+
+#: plugins/gui.py:253
+msgid "No plugins or updates could be found for your version."
+msgstr "לא נמצאו תוספים או עדכונים לגרסת הנגן."
+
+#: plugins/gui.py:256
+msgid "No plugin selected"
+msgstr "לא נבחר תוסף"
+
+#: plugins/gui.py:283
+msgid "Ver"
+msgstr "גרסא"
+
+#: plugins/gui.py:293
+msgid "Inst"
+msgstr "הותקנה"
+
+#: plugins/gui.py:354
+msgid "Are you sure you want to uninstall the selected plugin?"
+msgstr "האם ברצונך להסיר את התוסף שנבחר?"
+
+#: xl/audioscrobbler.py:29
+msgid "Failed to submit track to Last.fm."
+msgstr "שליחת הרצועה אל Last.fm .נכשלה"
+
+#: xl/audioscrobbler.py:49
+msgid "Error logging into Last.fm."
+msgstr "שגיאה בהתחברות אל Last.fm"
+
+#: xl/filtergui.py:50
+msgid "Name"
+msgstr "שם"
+
+#: xl/filtergui.py:64
+msgid "Match any of the criteria"
+msgstr "תואם לקריטריונים"
+
+#: xl/panels.py:62
+#: xl/panels.py:77
+#: xl/panels.py:86
+msgid "seconds"
+msgstr "שניות"
+
+#: xl/panels.py:68
+msgid "and"
+msgstr "ו"
+
+#: xl/panels.py:74
+#: xl/panels.py:77
+msgid "days"
+msgstr ""
+
+#: xl/panels.py:77
+msgid "minutes"
+msgstr "דקות"
+
+#: xl/panels.py:77
+msgid "hours"
+msgstr "שעות"
+
+#: xl/panels.py:77
+msgid "weeks"
+msgstr ""
+
+#: xl/panels.py:98
+#: xl/track.py:340
+#: xl/trackslist.py:34
+#: xl/trackslist.py:36
+#: xl/trackslist.py:42
+#: xl/trackslist.py:56
+#: xl/trackslist.py:501
+#: exaile.glade.h:52
+msgid "Artist"
+msgstr "אומן"
+
+#: xl/panels.py:99
+#: xl/panels.py:109
+#: xl/panels.py:119
+#: xl/panels.py:172
+msgid "is"
+msgstr "הוא"
+
+#: xl/panels.py:101
+#: xl/panels.py:111
+#: xl/panels.py:121
+#: xl/panels.py:174
+msgid "is not"
+msgstr "אינו"
+
+#: xl/panels.py:103
+#: xl/panels.py:113
+#: xl/panels.py:123
+#: xl/panels.py:176
+msgid "contains"
+msgstr "מכיל"
+
+#: xl/panels.py:105
+#: xl/panels.py:115
+#: xl/panels.py:125
+#: xl/panels.py:178
+msgid "does not contain"
+msgstr "אינו מכיל"
+
+#: xl/panels.py:108
+#: xl/track.py:345
+#: xl/trackslist.py:34
+#: xl/trackslist.py:36
+#: xl/trackslist.py:43
+#: xl/trackslist.py:57
+#: xl/trackslist.py:501
+#: exaile.glade.h:47
+msgid "Album"
+msgstr "אלבום"
+
+#: xl/panels.py:118
+#: xl/trackslist.py:37
+#: xl/trackslist.py:48
+#: xl/trackslist.py:62
+#: exaile.glade.h:103
+msgid "Genre"
+msgstr "ז'אנר"
+
+#: xl/panels.py:128
+msgid "User Rating"
+msgstr "דירוג משתמש"
+
+#: xl/panels.py:129
+#: xl/panels.py:134
+#: xl/panels.py:140
+#: xl/panels.py:154
+msgid "at least"
+msgstr "לפחות"
+
+#: xl/panels.py:131
+#: xl/panels.py:136
+#: xl/panels.py:142
+#: xl/panels.py:156
+msgid "at most"
+msgstr "לכל היותר"
+
+#: xl/panels.py:133
+msgid "System Rating"
+msgstr "דירוג מערכת"
+
+#: xl/panels.py:139
+msgid "Number of Plays"
+msgstr "מספר השמעות"
+
+#: xl/panels.py:145
+#: xl/trackslist.py:37
+#: xl/trackslist.py:47
+#: xl/trackslist.py:61
+#: exaile.glade.h:182
+msgid "Year"
+msgstr "שנה"
+
+#: xl/panels.py:146
+msgid "before"
+msgstr "לפני"
+
+#: xl/panels.py:148
+msgid "after"
+msgstr "לאחר"
+
+#: xl/panels.py:150
+msgid "between"
+msgstr ""
+
+#: xl/panels.py:153
+#: xl/trackslist.py:34
+#: xl/trackslist.py:36
+#: xl/trackslist.py:44
+#: xl/trackslist.py:58
+#: xl/trackslist.py:474
+#: exaile.glade.h:113
+msgid "Length"
+msgstr "אורך"
+
+#: xl/panels.py:159
+msgid "Date Added"
+msgstr "תאריך הוספה"
+
+#: xl/panels.py:160
+#: xl/panels.py:166
+msgid "in the last"
+msgstr "לאחרונה"
+
+#: xl/panels.py:162
+#: xl/panels.py:168
+msgid "not in the last"
+msgstr "לא לאחרונה"
+
+#: xl/panels.py:165
+msgid "Last Played"
+msgstr "הושמע לאחרונה"
+
+#: xl/panels.py:171
+#: xl/trackslist.py:37
+#: xl/trackslist.py:50
+#: xl/trackslist.py:64
+#: xl/trackslist.py:501
+#: exaile.glade.h:117
+msgid "Location"
+msgstr "מיקום"
+
+#: xl/panels.py:280
+msgid "Finished scanning collection."
+msgstr "סריקת האוסף הסתיימה."
+
+#: xl/panels.py:301
+msgid "Scanning..."
+msgstr "סורק..."
+
+#: xl/panels.py:335
+msgid "Append to Current"
+msgstr "הוסף לרשימת ההשמעה הנוכחית"
+
+#: xl/panels.py:339
+#: xl/panels.py:2736
+#: xl/trackslist.py:780
+msgid "New Playlist"
+msgstr "רשימת השמעה חדשה"
+
+#: xl/panels.py:349
+#: xl/trackslist.py:788
+msgid "Add to Playlist"
+msgstr "הוסף לרשימה השמעה"
+
+#: xl/panels.py:350
+#: xl/panels.py:2861
+msgid "Queue Items"
+msgstr "השהה פריטים"
+
+#: xl/panels.py:353
+msgid "Blacklist Selected"
+msgstr "הוסף לרשימה השחורה את הפריטים הנבחרים"
+
+#: xl/panels.py:355
+msgid "Delete Selected"
+msgstr "מחק פריטים שנבחרו"
+
+#: xl/panels.py:359
+#: xl/trackslist.py:807
+msgid "Edit Information"
+msgstr "ערוך מידע"
+
+#: xl/panels.py:436
+#: xl/trackslist.py:1019
+msgid "Are you sure you want to permanently remove the selected tracks from disk?"
+msgstr "האם ברצונך למחוק את הרצועות שנבחרו מהדיסק ?"
+
+#: xl/panels.py:455
+msgid "Are you sure you want to blacklist the selected tracks?"
+msgstr "האם ברצונך להוסיף לרשימה השחורה את הרצועות שנבחרו?"
+
+#: xl/panels.py:760
+msgid "Track is not present in collection"
+msgstr "הרצועה אינה נמצאת באוסף"
+
+#: xl/panels.py:869
+msgid "Transfer Queue"
+msgstr "העברה רשימת המתנה"
+
+#: xl/panels.py:897
+msgid "Transfer"
+msgstr "העברה"
+
+#: xl/panels.py:916
+msgid "A transfer is in progress, please wait for it to stop before attempting to perform this operation."
+msgstr "העברה מתבצעת, המתן לסיומה לפני נסיון לבצע פעולה זו."
+
+#: xl/panels.py:947
+msgid "Starting transfer..."
+msgstr "מתחיל העברה..."
+
+#: xl/panels.py:966
+msgid "Finishing transfer..."
+msgstr "מסיים העברה..."
+
+#: xl/panels.py:1069
+msgid "This device does not support removing tracks"
+msgstr "התקן זה אינו תומך בהעברת רצועות"
+
+#: xl/panels.py:1087
+msgid "Not connected to any media device"
+msgstr "לא מחובר לאף התקן מדיה"
+
+#: xl/panels.py:1118
+msgid "The current device  does not support transferring music."
+msgstr "ההתקן הנוכחי אינו תומך בהעברת מדיה."
+
+#: xl/panels.py:1122
+msgid "There is a transfer currently in progress.  Please wait for it to finish"
+msgstr "העברת קבצים מתבצעת כעת. יש להמתין שתסתיים"
+
+#: xl/panels.py:1169
+#: exaile.glade.h:13
+msgid "0 tracks"
+msgstr "0 רצועות"
+
+#: xl/panels.py:1192
+msgid "None"
+msgstr "אין"
+
+#: xl/panels.py:1218
+msgid "Connecting..."
+msgstr "מתחבר..."
+
+#: xl/panels.py:1222
+msgid "Error connecting to device"
+msgstr "שגיאה בהתחברות להתקן"
+
+#: xl/panels.py:1246
+#, python-format
+msgid "%d tracks"
+msgstr "%d רצועות"
+
+#: xl/panels.py:1379
+msgid "Downloading Podcasts"
+msgstr "מוריד פודקאסטים"
+
+#: xl/panels.py:1384
+msgid "Downloading..."
+msgstr "מוריד..."
+
+#: xl/panels.py:1419
+msgid "Stopping..."
+msgstr "עוצר..."
+
+#: xl/panels.py:1443
+#, python-format
+msgid "%(downloaded)d of %(total)d downloaded"
+msgstr ""
+
+#: xl/panels.py:1670
+#: xl/panels.py:1888
+msgid "Loading streams..."
+msgstr "טוען קישורים..."
+
+#: xl/panels.py:1694
+msgid "You need to have a Last.fm username and password set in your preferences."
+msgstr "יש להזין את שם המשתמש עבור Last.FM וסיסמא בהגדרות הנגן"
+
+#: xl/panels.py:1707
+#, python-format
+msgid "%(user)s's Last.fm %(station)s"
+msgstr ""
+
+#: xl/panels.py:1764
+msgid "Not downloaded"
+msgstr "לא הורדו"
+
+#: xl/panels.py:1861
+#: exaile.glade.h:145
+msgid "Refresh"
+msgstr "טען מחדש"
+
+#: xl/panels.py:1866
+#: xl/panels.py:2100
+msgid "Add Stream to Station"
+msgstr "הוסף חיבור לתחנה"
+
+#: xl/panels.py:1868
+msgid "Delete this Station"
+msgstr "מחק תחנה זו"
+
+#: xl/panels.py:1872
+msgid "Add Feed"
+msgstr "הוסף קישור"
+
+#: xl/panels.py:1873
+msgid "Refresh Feed"
+msgstr "טען קישור מחדש"
+
+#: xl/panels.py:1874
+msgid "Delete Feed"
+msgstr "מחק קישור"
+
+#: xl/panels.py:1927
+msgid "Enter the location of the podcast"
+msgstr "הזן את הנתיב לפודקאסט"
+
+#: xl/panels.py:1928
+msgid "Add a podcast"
+msgstr "הוסף פודקאסט"
+
+#: xl/panels.py:1936
+msgid "A podcast with that url already exists"
+msgstr "פודקאסט בנתיב זה כבר קיים"
+
+#: xl/panels.py:1945
+msgid "Fetching..."
+msgstr "טוען"
+
+#: xl/panels.py:1962
+msgid "Could not read feed."
+msgstr "לא יכול לקרוא את הקישור"
+
+#: xl/panels.py:2080
+msgid "Are you sure you want to delete this podcast?"
+msgstr "האם ברצונך למחוק את הפודקאסט?"
+
+#: xl/panels.py:2101
+#: xl/panels.py:2182
+msgid "URL:"
+msgstr ""
+
+#: xl/panels.py:2102
+#: xl/panels.py:2181
+#: plugins/plugins.glade.h:7
+msgid "Description:"
+msgstr "תיאור:"
+
+#: xl/panels.py:2125
+msgid "Are you sure you want to permanently delete the selected station?"
+msgstr "האם למחוק את התחנה לצמיתות ?"
+
+#: xl/panels.py:2179
+msgid "Add Station"
+msgstr "הוסף תחנה"
+
+#: xl/panels.py:2180
+msgid "Station Name:"
+msgstr "שם תחנה:"
+
+#: xl/panels.py:2189
+msgid "The 'Name' and 'URL' fields are required"
+msgstr "השדות 'שם' ו-'URL' הם שדות חובה"
+
+#: xl/panels.py:2197
+msgid "Station name already exists."
+msgstr "שם תחנה כבר קיים"
+
+#: xl/panels.py:2215
+#: xl/panels.py:2216
+msgid "Enter the name of the station"
+msgstr "הזן את שם התחנה"
+
+#: xl/panels.py:2226
+msgid "Station already exists."
+msgstr "תחנה כבר קיימת"
+
+#: xl/panels.py:2339
+msgid "Smart Playlists"
+msgstr "רשימות השמעה חכמות"
+
+#: xl/panels.py:2402
+msgid "Custom Playlists"
+msgstr "רשימות השמעה אישיות"
+
+#: xl/panels.py:2422
+msgid "Add Playlist"
+msgstr "הוספת רשימת השמעה"
+
+#: xl/panels.py:2423
+#: xl/panels.py:2503
+msgid "Add Smart Playlist"
+msgstr "הוספת רשימת השמעה חכמה"
+
+#: xl/panels.py:2426
+msgid "Edit"
+msgstr "ערוך"
+
+#: xl/panels.py:2429
+msgid "Delete Playlist"
+msgstr "מחק רשימת השמעה"
+
+#: xl/panels.py:2444
+msgid "Edit Playlist"
+msgstr "ערוך רשימת השמעה"
+
+#: xl/panels.py:2474
+#: xl/panels.py:2517
+msgid "That playlist name is already taken."
+msgstr "שם רשימת ההשמעה כבר קיים"
+
+#: xl/panels.py:2512
+msgid "You did not enter a name for your playlist"
+msgstr "לא הוזן שם עבור רשימת ההשמעה"
+
+#: xl/panels.py:2693
+#: xl/trackslist.py:1095
+msgid "The following errors did occur"
+msgstr "השגיאות הבאות התרחשו"
+
+#: xl/panels.py:2711
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr "האם ברצונך למחוק לצמיתות את רשימת ההשמעה ?"
+
+#: xl/panels.py:2735
+msgid "Enter the name you want for your new playlist"
+msgstr "יש להזין את השם עבור רשימת ההשמעה החדשה."
+
+#: xl/panels.py:2745
+msgid "Playlist already exists."
+msgstr "רשימת ההשמעה כבר קיימת"
+
+#: xl/panels.py:2826
+msgid "Path"
+msgstr "נתיב"
+
+#: xl/panels.py:2840
+msgid "Size"
+msgstr "גודל"
+
+#: xl/panels.py:2860
+msgid "Append to Playlist"
+msgstr "הוסף לסוף רשימת ההשמעה"
+
+#: xl/panels.py:2897
+msgid "Scanning and adding files..."
+msgstr "סורק ומוסיף קבצים..."
+
+#: xl/player.py:393
+msgid "Errors"
+msgstr "שגיאות"
+
+#: xl/player.py:402
+msgid "The following errors have occurred"
+msgstr "השגיאות הבאות התרחשו"
+
+#: xl/player.py:417
+#: xl/xlmisc.py:891
+msgid "Close"
+msgstr "סגור"
+
+#: xl/player.py:592
+#, python-format
+msgid "Error logging in to Last.FM: %s"
+msgstr "שגיאה בכניסה ל Last.FM: %s"
+
+#: xl/prefs.py:317
+#: xl/prefs.py:318
+#: exaile.glade.h:102
+msgid "General"
+msgstr "כללי"
+
+#: xl/prefs.py:317
+#: xl/prefs.py:323
+#: exaile.glade.h:46
+msgid "Advanced"
+msgstr "מתקדם"
+
+#: xl/prefs.py:319
+#: exaile.glade.h:114
+msgid "Library"
+msgstr "אוסף"
+
+#: xl/prefs.py:320
+#: exaile.glade.h:122
+msgid "Notification"
+msgstr "הודעה"
+
+#: xl/prefs.py:321
+#: exaile.glade.h:110
+msgid "Last.fm"
+msgstr ""
+
+#: xl/prefs.py:322
+#: exaile.glade.h:140
+msgid "Radio"
+msgstr "רדיו"
+
+#: xl/prefs.py:359
+#: xl/xlmisc.py:346
+#: exaile.glade.h:136
+msgid "Preferences"
+msgstr "העדפות"
+
+#: xl/prefs.py:460
+msgid "Cannot watch directories for changes. Install python2.4-gamin to use this feature."
+msgstr "Exaile אינו יכול לעקוב אחר שינויים בספריות. יש להתקין את החבילה python2.4-gamin כדי לאפשר תכונה זו."
+
+#: xl/prefs.py:602
+msgid "Move the OSD window to the location you want it to appear when listening"
+msgstr ""
+
+#: xl/track.py:233
+#: xl/track.py:291
+msgid "Title: "
+msgstr "כותרת:"
+
+#: xl/track.py:234
+#: exaile.glade.h:56
+msgid "Artist:"
+msgstr "אומן:"
+
+#: xl/track.py:235
+#: exaile.glade.h:50
+msgid "Album:"
+msgstr "אלבום:"
+
+#: xl/track.py:237
+msgid "Track Number:"
+msgstr "מספר רצועה:"
+
+#: xl/track.py:238
+#: exaile.glade.h:183
+msgid "Year:"
+msgstr "שנה:"
+
+#: xl/track.py:239
+#: exaile.glade.h:104
+msgid "Genre:"
+msgstr "ז'אנר:"
+
+#: xl/track.py:240
+msgid "Bitrate:"
+msgstr "קצב סיביות:"
+
+#: xl/track.py:241
+msgid "User Rating:"
+msgstr "דירוג משתמש"
+
+#: xl/track.py:242
+msgid "System Rating:"
+msgstr "דירוג מערכת:"
+
+#: xl/track.py:243
+msgid "Playcount:"
+msgstr "מספר השמעות:"
+
+#: xl/track.py:244
+#: xl/track.py:297
+msgid "Location: "
+msgstr "מיקום:"
+
+#: xl/track.py:292
+msgid "Description: "
+msgstr "תיאור:"
+
+#: xl/track.py:298
+msgid "Bitrate: "
+msgstr "קצב סיביות:"
+
+#: xl/track.py:317
+#: xl/trackslist.py:831
+msgid "Information"
+msgstr "מידע"
+
+#: xl/track.py:331
+msgid "Stream Statistics"
+msgstr "נתונים על החיבור"
+
+#: xl/track.py:333
+msgid "Statistics"
+msgstr "נתונים"
+
+#: xl/track.py:347
+msgid "Lyrics"
+msgstr "מלים"
+
+#: xl/track.py:349
+msgid "Tablature"
+msgstr "תווים"
+
+#: xl/track.py:467
+msgid "Some errors occurred"
+msgstr "התרחשו מספר שגיאות"
+
+#: xl/tracks.py:208
+#, python-format
+msgid "Query Error: %s"
+msgstr "בחן שגיאה: %s"
+
+#: xl/tracks.py:404
+msgid "Could not open audio disc"
+msgstr "לא ניתן לטעון תקליטור שמע"
+
+#: xl/tracks.py:416
+#, python-format
+msgid "Track %d"
+msgstr "רצועה %d"
+
+#: xl/trackslist.py:34
+#: xl/trackslist.py:36
+#: xl/trackslist.py:41
+#: xl/trackslist.py:55
+#: xl/trackslist.py:501
+#: exaile.glade.h:167
+msgid "Title"
+msgstr "כותרת"
+
+#: xl/trackslist.py:36
+#: xl/trackslist.py:45
+#: xl/trackslist.py:59
+#: xl/trackslist.py:478
+#: exaile.glade.h:88
+msgid "Disc"
+msgstr "אלבום"
+
+#: xl/trackslist.py:37
+#: xl/trackslist.py:46
+#: xl/trackslist.py:60
+#: xl/trackslist.py:446
+#: xl/trackslist.py:480
+#: xl/trackslist.py:535
+#: xl/trackslist.py:828
+#: exaile.glade.h:143
+msgid "Rating"
+msgstr "דירוג"
+
+#: xl/trackslist.py:37
+#: xl/trackslist.py:49
+#: xl/trackslist.py:63
+#: exaile.glade.h:65
+msgid "Bitrate"
+msgstr "קצב סיביות"
+
+#: xl/trackslist.py:38
+#: xl/trackslist.py:51
+#: xl/trackslist.py:65
+#: exaile.glade.h:100
+msgid "Filename"
+msgstr "שם קובץ"
+
+#: xl/trackslist.py:156
+msgid "Scanning and adding tracks to current playlist..."
+msgstr "סורק ומוסיף רצועות לרשימת השמע הנוכחית"
+
+#: xl/trackslist.py:770
+msgid "Toggle Queue"
+msgstr "הפעל השהייה"
+
+#: xl/trackslist.py:772
+msgid "Toggle: Stop after this Track"
+msgstr "הפעל: עצור השמעה לאחר רצועה זו"
+
+#: xl/trackslist.py:799
+msgid "New Station"
+msgstr "תחנה חדשה"
+
+#: xl/trackslist.py:802
+msgid "Add to Saved Stations"
+msgstr "הוסף לתחנות השמורות"
+
+#: xl/trackslist.py:814
+#: xl/trackslist.py:890
+#, python-format
+msgid "Edit %s"
+msgstr "ערוך %s"
+
+#: xl/trackslist.py:829
+msgid "Edit Track"
+msgid_plural "Edit Tracks"
+msgstr[0] "ערוך רצועה"
+msgstr[1] "ערוך רצועות"
+
+#: xl/trackslist.py:841
+msgid "Last.FM Options"
+msgstr "אפשרויות Last.FM"
+
+#: xl/trackslist.py:844
+msgid "Show in Collection"
+msgstr "הצג באוסף"
+
+#: xl/trackslist.py:848
+msgid "Remove from Playlist"
+msgstr "הסר מרשימת ההשמעה"
+
+#: xl/trackslist.py:852
+msgid "Blacklist Track"
+msgid_plural "Blacklist Tracks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: xl/trackslist.py:855
+msgid "Delete Track"
+msgid_plural "Delete Tracks"
+msgstr[0] "הוסף רצועה לרשימה שחורה"
+msgstr[1] "הוסף רצועות לרשימה שחורה"
+
+#: xl/trackslist.py:857
+msgid "Remove"
+msgstr "הסר"
+
+#: xl/trackslist.py:863
+#: xl/xlmisc.py:349
+msgid "Plugins"
+msgstr "תוספים"
+
+#: xl/trackslist.py:887
+#, python-format
+msgid "Enter the %s for the selected track"
+msgid_plural "Enter the %s for the selected tracks"
+msgstr[0] "הזן את %s עבור הרצועה הנבחרת"
+msgstr[1] "הזן את %s עבור הרצועות הנבחרות"
+
+#: xl/trackslist.py:1120
+msgid "Remove from Blacklist"
+msgstr "הסר מהרשימה השחורה"
+
+#: xl/trackslist.py:1295
+#, python-format
+msgid ": %d track queued"
+msgid_plural ": %d tracks queued"
+msgstr[0] "%d רצועה הושהתה"
+msgstr[1] ": %d רצועות הושהו"
+
+#: xl/xlmisc.py:330
+#: xl/xlmisc.py:359
+msgid "Play"
+msgstr "נגן"
+
+#: xl/xlmisc.py:342
+#: exaile.glade.h:119
+msgid "Next"
+msgstr "הבא"
+
+#: xl/xlmisc.py:343
+#: exaile.glade.h:137
+msgid "Previous"
+msgstr "הקודם"
+
+#: xl/xlmisc.py:352
+msgid "Quit"
+msgstr "עצור"
+
+#: xl/xlmisc.py:363
+msgid "Pause"
+msgstr "הפסק"
+
+#: xl/xlmisc.py:401
+#: xl/xlmisc.py:454
+#: exaile.glade.h:97
+msgid "Exaile!"
+msgstr ""
+
+#: xl/xlmisc.py:551
+#: xl/xlmisc.py:736
+#, python-format
+msgid "%s covers left to collect."
+msgstr "%s עטיפות אלבום נותרו"
+
+#: xl/xlmisc.py:569
+#: xl/xlmisc.py:573
+msgid "Stop"
+msgstr "עצור"
+
+#: xl/xlmisc.py:576
+#: exaile.glade.h:162
+msgid "Start"
+msgstr "התחל"
+
+#: xl/xlmisc.py:586
+msgid "All Covers have been Fetched."
+msgstr "כל עטיפות האלבומים הורדו"
+
+#: xl/xlmisc.py:609
+#, python-format
+msgid "%(remaining)d left: %(album)s by %(artist)s"
+msgstr ""
+
+#: xl/xlmisc.py:851
+msgid "Close this tab"
+msgstr "סגור לשונית זו"
+
+#: xl/xlmisc.py:864
+msgid "Enter the new name for this playlist"
+msgstr "יש להזין את השם החדש עבור רשימת ההשמעה"
+
+#: xl/xlmisc.py:864
+msgid "Rename playlist"
+msgstr "הסר את רשימת ההשמעה"
+
+#: xl/xlmisc.py:890
+msgid "Rename"
+msgstr "שנה שם"
+
+#: xl/xlmisc.py:894
+msgid "Save Playlist"
+msgstr "שמור את רשימת ההשמעה"
+
+#: xl/xlmisc.py:1112
+msgid "Loading requested information..."
+msgstr "טוען את המידע שהתבקש"
+
+#: xl/xlmisc.py:1114
+msgid "Loading page..."
+msgstr "טוען עמוד..."
+
+#: xl/xlmisc.py:1352
+msgid "Enter the search text"
+msgstr "יש להכניס טקסט לחיפוש"
+
+#: xl/xlmisc.py:1359
+#, python-format
+msgid "Searching for %s..."
+msgstr "מחפש את %s..."
+
+#: xl/xlmisc.py:1429
+msgid "Sorry, no covers were found."
+msgstr "לא נמצאו עטיפות אלבום."
+
+#: xl/xlmisc.py:1534
+msgid "Path is already in your collection."
+msgstr "הנתיב כבר באוסף שלך."
+
+#: xl/xlmisc.py:1541
+msgid "Path is already in your collection, or is a subdirectory of another path in your collection"
+msgstr "הנתיב כבר באוסף שלך, או שזהו נתיב לתת תיקיה שכבר נמצאת באוסף"
+
+#: exaile.glade.h:1
+msgid "  "
+msgstr "  "
+
+#: exaile.glade.h:2
+msgid "     "
+msgstr "     "
+
+#: exaile.glade.h:3
+msgid "        "
+msgstr "        "
+
+#: exaile.glade.h:4
+msgid "           "
+msgstr "           "
+
+#: exaile.glade.h:5
+msgid "               "
+msgstr "               "
+
+#: exaile.glade.h:6
+msgid "(c) 2006"
+msgstr "(c) 2006"
+
+#: exaile.glade.h:7
+msgid "(minutes, use 0 to disable)"
+msgstr "(דקות, השתמש ב 0 לבטל)"
+
+#: exaile.glade.h:8
+msgid "+"
+msgstr "+"
+
+#: exaile.glade.h:9
+msgid "-"
+msgstr "-"
+
+#: exaile.glade.h:10
+msgid "/dev/cdrom"
+msgstr "/dev/cdrom"
+
+#: exaile.glade.h:11
+msgid "0"
+msgstr "0"
+
+#: exaile.glade.h:12
+msgid "0 Covers to fetch"
+msgstr "0 עטיפות אלבום להוריד"
+
+#: exaile.glade.h:14
+msgid "0/0"
+msgstr "0/0"
+
+#: exaile.glade.h:15
+msgid ""
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5\n"
+"6\n"
+"7\n"
+"8"
+msgstr ""
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5\n"
+"6\n"
+"7\n"
+"8"
+
+#: exaile.glade.h:23
+msgid "<b>General</b>"
+msgstr "<b>כללי</b>"
+
+#: exaile.glade.h:24
+msgid ""
+"<b>{Title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{Title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+
+#: exaile.glade.h:27
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+
+#: exaile.glade.h:30
+msgid "<small>-20 dB</small>"
+msgstr "<small>-20 dB</small>"
+
+#: exaile.glade.h:31
+msgid "<small>0 dB</small>"
+msgstr "<small>0 dB</small>"
+
+#: exaile.glade.h:32
+msgid "<small>20 dB</small>"
+msgstr "<small>20 dB</small>"
+
+#: exaile.glade.h:33
+msgid "<small>200Hz</small>"
+msgstr "<small>200Hz</small>"
+
+#: exaile.glade.h:34
+msgid "<small>20Hz</small>"
+msgstr "<small>20Hz</small>"
+
+#: exaile.glade.h:35
+msgid "<small>20KHz</small>"
+msgstr "<small>20KHz</small>"
+
+#: exaile.glade.h:36
+msgid "<small>2KHz</small>"
+msgstr "<small>2KHz</small>"
+
+#: exaile.glade.h:37
+msgid "<small>4.3KHz</small>"
+msgstr "<small>4.3KHz</small>"
+
+#: exaile.glade.h:38
+msgid "<small>430Hz</small>"
+msgstr "<small>430Hz</small>"
+
+#: exaile.glade.h:39
+msgid "<small>45Hz</small>"
+msgstr "<small>45Hz</small>"
+
+#: exaile.glade.h:40
+msgid "<small>9.3KHz</small>"
+msgstr "<small>9.3KHz</small>"
+
+#: exaile.glade.h:41
+msgid "<small>90Hz</small>"
+msgstr "<small>90Hz</small>"
+
+#: exaile.glade.h:42
+msgid "<small>930Hz</small>"
+msgstr "<small>930Hz</small>"
+
+#: exaile.glade.h:43
+msgid "Action Log"
+msgstr "פעולות Log"
+
+#: exaile.glade.h:44
+msgid "Action _Log"
+msgstr "פעולות _Log"
+
+#: exaile.glade.h:45
+msgid "Add Saved Station"
+msgstr "הוסף תחנה שמורה"
+
+#: exaile.glade.h:48
+msgid "Album Art"
+msgstr "עטיפת אלבום"
+
+#: exaile.glade.h:49
+msgid "Album art filenames (separated by spaces):"
+msgstr ""
+
+#: exaile.glade.h:51
+msgid "Amazon Locale:"
+msgstr "לוקאל Amazon"
+
+#: exaile.glade.h:53
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre"
+msgstr ""
+"אמן\n"
+"אלבום\n"
+"ז'נאר"
+
+#: exaile.glade.h:57
+msgid "Attempt to fetch cover art from Amazon automatically"
+msgstr "נסה להוריד עטיפות אלבום מ Amazon באופן אוטומטי"
+
+#: exaile.glade.h:58
+msgid ""
+"Automatic\n"
+"Use GConf Settings\n"
+"alsasink\n"
+"osssink\n"
+"esdsink"
+msgstr ""
+"Automatic\n"
+"Use GConf Settings\n"
+"alsasink\n"
+"osssink\n"
+"esdsink"
+
+#: exaile.glade.h:63
+msgid "Autosize"
+msgstr "הגדר גודל באופן אוטומטי"
+
+#: exaile.glade.h:64
+msgid "Background Color:"
+msgstr "צבע רקע:"
+
+#: exaile.glade.h:66
+msgid "CD Device:"
+msgstr "התקן תקליטור שמע:"
+
+#: exaile.glade.h:67
+msgid "Cancel"
+msgstr "בטל"
+
+#: exaile.glade.h:68
+msgid "Clear Playlist"
+msgstr "נקה רשימת השמעה"
+
+#: exaile.glade.h:69
+msgid "Collection"
+msgstr "אוסף"
+
+#: exaile.glade.h:70
+msgid ""
+"Copyright (C) 2006 Adam Olsen\n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 1, or (at your option)\n"
+"any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
+msgstr ""
+
+#: exaile.glade.h:85
+msgid "Cover Finder"
+msgstr "מאתר עטיפות האלבומים"
+
+#: exaile.glade.h:86
+msgid "Custom"
+msgstr "הגדרות אישיות"
+
+#: exaile.glade.h:87
+msgid "Devices"
+msgstr "התקנים"
+
+#: exaile.glade.h:89
+msgid "Disc Number:"
+msgstr "דיסק מספר:"
+
+#: exaile.glade.h:90
+msgid "Display OSD when hovering over tray icon"
+msgstr "הצג את ה OSD כאשר סמן העכבר חולף על פני סמל מגש המערכת"
+
+#: exaile.glade.h:91
+msgid "Display Text:"
+msgstr "הצג טקסט:"
+
+#: exaile.glade.h:92
+msgid "Download feeds when opening podcasts"
+msgstr "הורד קישורים בזמן פתיחת פודקאסטים"
+
+#: exaile.glade.h:93
+msgid "Dynamic"
+msgstr "מצב נגינה דינאמי"
+
+#: exaile.glade.h:94
+msgid "E_qualizer"
+msgstr ""
+
+#: exaile.glade.h:95
+msgid "Equalizer Settings"
+msgstr "הגדרות אקולייזר"
+
+#: exaile.glade.h:96
+msgid "Exaile Registration Key: purgatorio"
+msgstr "purgatorio מפתח רישום של Exaile: purgatorio"
+
+#: exaile.glade.h:98
+msgid "Export Playlist"
+msgstr "ייצוא רשימת השמעה"
+
+#: exaile.glade.h:99
+msgid "Fetches similar tracks from last.fm"
+msgstr "יבא רצועות שמע דומות מ Last.fm"
+
+#: exaile.glade.h:101
+msgid "Files"
+msgstr "קבצים"
+
+#: exaile.glade.h:105
+msgid "Hint: see http://www.exaile.org/trac/wiki/OSD for examples"
+msgstr "טיפ: בדוק את הכתובת הבאה עבור דוגמאות see http://www.exaile.org/trac/wiki/OSD for examples"
+
+#: exaile.glade.h:106
+msgid "I_mport"
+msgstr ""
+
+#: exaile.glade.h:107
+msgid "Import Preset"
+msgstr "יבא סידור אקולייזר"
+
+#: exaile.glade.h:108
+msgid "Input Required"
+msgstr "נדרש קלט"
+
+#: exaile.glade.h:109
+msgid "Jump to current song on track change"
+msgstr "דלג לשיר הנוכחי עם החלפת רצועת השמע"
+
+#: exaile.glade.h:111
+msgid "Last.fm Password:"
+msgstr "סיסמא עבור Last.fm:"
+
+#: exaile.glade.h:112
+msgid "Last.fm Username:  "
+msgstr "שם משתמש עבור Last.fm:"
+
+#: exaile.glade.h:115
+msgid "Library Manager"
+msgstr "ניהול ספריית השמע"
+
+#: exaile.glade.h:116
+msgid "Library _Manager"
+msgstr ""
+
+#: exaile.glade.h:118
+msgid "New Search"
+msgstr "חיפוש חדש"
+
+#: exaile.glade.h:120
+msgid "Next Track"
+msgstr "הרצועה הבאה"
+
+#: exaile.glade.h:123
+msgid "Open _Disc"
+msgstr "פתח _Disc"
+
+#: exaile.glade.h:124
+msgid "Open _URL"
+msgstr "פתח _URL"
+
+#: exaile.glade.h:125
+msgid "Open last playlist on startup"
+msgstr "פתח רשימת השמעה אחרונה בעת הפעלה"
+
+#: exaile.glade.h:126
+msgid "P_lugins"
+msgstr ""
+
+#: exaile.glade.h:127
+msgid "Play/Pause"
+msgstr "נגן/הפסק"
+
+#: exaile.glade.h:128
+msgid "Playback Sink:   "
+msgstr "מיקום רשימת השמעה:"
+
+#: exaile.glade.h:130
+msgid "Playlist Tab Placement:"
+msgstr "מיקום לשונית רשימת השמעה"
+
+#: exaile.glade.h:131
+msgid "Playlists"
+msgstr "רשימות השמעה"
+
+#: exaile.glade.h:132
+msgid "Please choose the EQF file from which you would like to import the equalizer preset."
+msgstr "יש לבחור את קובץ ה-EQF שממנו ברצונך לייבא סידור אקולייזר."
+
+#: exaile.glade.h:133
+msgid "Please enter the name which you would like to save the preset as."
+msgstr "יש להזין את השם שברצונך לשמור עבור סידור אקולייזר זה"
+
+#: exaile.glade.h:134
+msgid "Podcasts"
+msgstr "פודקאסטים"
+
+#: exaile.glade.h:135
+msgid "Popup"
+msgstr "חלון קופץ"
+
+#: exaile.glade.h:138
+msgid "Previous Track"
+msgstr "רצועה קודמת"
+
+#: exaile.glade.h:139
+msgid "Question:"
+msgstr "שאלה:"
+
+#: exaile.glade.h:141
+msgid "Randomize Playlist"
+msgstr "ערבב את רשימת ההשמעה"
+
+#: exaile.glade.h:142
+msgid "Randomize playback order"
+msgstr "נגן באופן אקראי"
+
+#: exaile.glade.h:144
+msgid "Rating: "
+msgstr "דירוג:"
+
+#: exaile.glade.h:146
+msgid "Remove Saved Station"
+msgstr "הסר תחנה שמורה"
+
+#: exaile.glade.h:147
+msgid "Repeat"
+msgstr "חזור"
+
+#: exaile.glade.h:148
+msgid "Repeat the entire playlist endlessly"
+msgstr "חזור על רשימת ההשמעה אינסוף פעמים"
+
+#: exaile.glade.h:149
+msgid "Resizable"
+msgstr "גודל ניתן לשינוי"
+
+#: exaile.glade.h:150
+msgid "Save Preset"
+msgstr "שמור תבנית נוכחית"
+
+#: exaile.glade.h:151
+msgid "Save queue status"
+msgstr "שמור מצב המתנה"
+
+#: exaile.glade.h:152
+msgid "Scan for new music every: "
+msgstr "חפש מוזיקה חדשה כל:"
+
+#: exaile.glade.h:153
+msgid "Search:"
+msgstr "חיפוש:"
+
+#: exaile.glade.h:154
+msgid "Search: "
+msgstr "חפש"
+
+#: exaile.glade.h:155
+msgid "Search:  "
+msgstr "חפש:"
+
+#: exaile.glade.h:156
+msgid "Select A File"
+msgstr "בחר קובץ"
+
+#: exaile.glade.h:157
+msgid "Show On Screen Display on track change"
+msgstr "הצג מידע על המסך (OSD) בזמן החלפת רצועה"
+
+#: exaile.glade.h:158
+msgid "Show Tray Icon"
+msgstr "הצג סמל מגש"
+
+#: exaile.glade.h:159
+msgid "Show _Visualizations"
+msgstr "_Visualizations הצג"
+
+#: exaile.glade.h:160
+msgid "Show splash screen on startup"
+msgstr "הצג מצג פתיחה בזמן טעינת הנגן"
+
+#: exaile.glade.h:161
+msgid "Shuffle"
+msgstr "ערבב"
+
+#: exaile.glade.h:163
+msgid "Stop Playback"
+msgstr "עצור ניגון"
+
+#: exaile.glade.h:165
+msgid "Text Color"
+msgstr "צבע פונט"
+
+#: exaile.glade.h:166
+msgid "Text Font:"
+msgstr "פונט:"
+
+#: exaile.glade.h:168
+msgid "Title:"
+msgstr "כותרת:"
+
+#: exaile.glade.h:169
+msgid "Toggle Stop Track"
+msgstr "סמן רצועת עצירה"
+
+#: exaile.glade.h:170
+msgid ""
+"Top\n"
+"Left\n"
+"Right\n"
+"Bottom"
+msgstr ""
+"מעלה\n"
+"שמאל\n"
+"ימין\n"
+"תחתית"
+
+#: exaile.glade.h:174
+msgid "Track Editor"
+msgstr "עורך רצועות"
+
+#: exaile.glade.h:175
+msgid "Track Number"
+msgstr "מספר רצועה"
+
+#: exaile.glade.h:176
+msgid "Track:"
+msgstr "רצועה:"
+
+#: exaile.glade.h:177
+msgid "Up One Directory"
+msgstr "תיקייה מעלה"
+
+#: exaile.glade.h:178
+msgid "Vol:"
+msgstr "עוצמה:"
+
+#: exaile.glade.h:179
+msgid "Wikipedia Locale:"
+msgstr "לוקאל Wikipedia"
+
+#: exaile.glade.h:180
+msgid "Window Height:"
+msgstr "גובה חלון:"
+
+#: exaile.glade.h:181
+msgid "Window Width:"
+msgstr "רוחב חלון:"
+
+#: exaile.glade.h:184
+msgid "_Album Art Collector"
+msgstr "_אוסף עטיפות אלבום"
+
+#: exaile.glade.h:185
+msgid "_Blacklist Manager"
+msgstr "_מנהל רשימה שחורה"
+
+#: exaile.glade.h:186
+msgid "_Close"
+msgstr "_סגור"
+
+#: exaile.glade.h:187
+msgid "_Columns"
+msgstr "_עמודות"
+
+#: exaile.glade.h:188
+msgid "_Edit"
+msgstr "_ערוך"
+
+#: exaile.glade.h:189
+msgid "_File"
+msgstr "_קובץ"
+
+#: exaile.glade.h:190
+msgid "_Go To Playing Track"
+msgstr "_גש אל הרצועה המתנגנת"
+
+#: exaile.glade.h:191
+msgid "_Help"
+msgstr "_עזרה"
+
+#: exaile.glade.h:192
+msgid "_Import Directory"
+msgstr "_יבא תיקייה"
+
+#: exaile.glade.h:193
+msgid "_New Playlist"
+msgstr "_רשימת השמעה חדשה"
+
+#: exaile.glade.h:194
+msgid "_Open Media"
+msgstr "_פתח מדיה"
+
+#: exaile.glade.h:195
+msgid "_Queue Manager"
+msgstr "_מנהל תור"
+
+#: exaile.glade.h:196
+msgid "_Rescan Collection"
+msgstr "_סרוק אוסף מחדש"
+
+#: exaile.glade.h:197
+msgid "_Tools"
+msgstr "_כלים"
+
+#: exaile.glade.h:198
+msgid "_Track Information"
+msgstr "_מידע רצועה"
+
+#: exaile.glade.h:199
+msgid "_View"
+msgstr "_הצג"
+
+#: exaile.glade.h:200
+msgid "message"
+msgstr "הודעה"
+
+#: exaile.glade.h:202
+msgid "translator-credits"
+msgstr "קרדיט למתרגמים"
+
+#: plugins/plugins.glade.h:1
+msgid "\n"
+msgstr ""
+
+#: plugins/plugins.glade.h:4
+msgid "Authors:"
+msgstr "יוצרים:"
+
+#: plugins/plugins.glade.h:5
+msgid "Available Plugins"
+msgstr "תוספים זמינים"
+
+#: plugins/plugins.glade.h:6
+msgid "Configure"
+msgstr "הגדר"
+
+#: plugins/plugins.glade.h:8
+msgid "Install/Upgrade"
+msgstr "התקן/שדרג"
+
+#: plugins/plugins.glade.h:9
+msgid "Installed Plugins"
+msgstr "תוספים מותקנים"
+
+#: plugins/plugins.glade.h:10
+msgid "Plugin Manager"
+msgstr "מנהל תוספים"
+
+#: plugins/plugins.glade.h:11
+msgid "Uninstall"
+msgstr "הסר"
+
+#: plugins/plugins.glade.h:12
+msgid "Version:      "
+msgstr "גרסא"
+

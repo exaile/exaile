@@ -1530,6 +1530,7 @@ class ExaileWindow(gobject.GObject):
             if row[0] == "nocover": 
                 cover = self.fetch_from_fs(track)
                 if cover:
+                    if popup: return cover
                     self.cover.set_image(cover)
                     return
                 return os.path.join("images", "nocover.png")

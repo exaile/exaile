@@ -256,10 +256,9 @@ class ExaileWindow(gobject.GObject):
         track = self.player.current
         if not track or not track.type == 'stream': return True
         for tag in tags.keys():
-            nick = gst.tag_get_nick(tag)
-            if nick == 'bitrate': track.bitrate = int(tags[tag])/1000
-            elif nick == 'comment': track.album = tags[tag]
-            elif nick == 'title': 
+            if tag == 'bitrate': track.bitrate = int(tags[tag])/1000
+            elif tag == 'comment': track.album = tags[tag]
+            elif tag == 'title': 
                 try:
                     if track.rawtitle != tags[tag]: 
                         track.rawtitle=tags[tag]

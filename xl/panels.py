@@ -2280,11 +2280,13 @@ class PRadioPanel(object):
             if track.type != 'stream': continue
             path_id = tracks.get_column_id(self.db, 'paths', 'name', track.loc)
             try:
+                album = track.album
+                if not album: album = track.artist
                 self.db.execute("INSERT INTO radio_items( radio, title, path, "
                     "description, bitrate ) " \
                     "VALUES( ?, ?, ?, ?, ? )",
                     (station_id, track.title, path_id,
-                    track.artist, track.bitrate))
+                    album, track.bitrate))
             except sqlite.IntegrityError:
                 pass
         self.db.commit()

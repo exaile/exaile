@@ -358,5 +358,7 @@ def get_options():
     p.add_option("--testing", dest="testing", action="store_true")
     p.add_option("--no-equalizer", dest="noeq", action="store_true",
         default=False, help="Disable Equalizer support")
+    p.add_option("--start-minimized", dest="minim", action="store_true",
+        default=False, help="Start Exaile minimized to tray, if possible")
 
     return p

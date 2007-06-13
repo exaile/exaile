@@ -1151,6 +1151,11 @@ class ExaileWindow(gobject.GObject):
             self.stream(sys.argv[1])
         if self.options.playcd:
             self.open_disc()
+        if self.options.minim:
+            try:
+                self.tray_icon.toggle_exaile_visibility()
+            except:
+                pass
         return False
 
     def setup_gamin(self, skip_prefs=False):

@@ -425,7 +425,8 @@ class CollectionPanel(object):
                 self.append_recursive(iter, found)
             else:
                 track = self.model.get_value(iter, 1)
-                found.append(track.loc)
+                if isinstance(track, media.Track):
+                    found.append(track.loc)
 
         add = tracks.TrackData()
         for row in found:

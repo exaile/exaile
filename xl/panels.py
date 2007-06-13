@@ -558,7 +558,7 @@ class CollectionPanel(object):
 
         if self.name == 'device':
             self.show_device_panel_menu(widget, event, object)
-            return
+            return True
 
         self.menu.popup(None, None, None, event.button, event.time)
         if selection.count_selected_rows() <= 1: return False
@@ -1177,7 +1177,7 @@ class DevicePanel(CollectionPanel):
             self.queue.destroy()
             self.queue = None
         self.transferring = None
-        self.load_tree()
+        self.load_tree(True)
 
     def change_driver(self, button):
         """
@@ -1284,6 +1284,10 @@ class DevicePanel(CollectionPanel):
 
     def get_song(self, loc):
         return self.all.for_path(loc.replace('device_%s://' % self.driver.name, ''))
+
+    def load_tree(self, event=None):
+        CollectionPanel.load_tree(self, event)
+        self.track_count.set_label(_("%d tracks") % len(self.driver.all))
 
 class CustomWrapper(object):
     """

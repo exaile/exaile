@@ -198,7 +198,7 @@ class DBusInterfaceObject(dbus.service.Object):
             Toggle the main window's visibility
         """
         if not self.exaile.window.get_property('visible'):
-            self.exaile.window.show_all()
+            self.exaile.window.present()
             self.exaile.setup_location()
         else:
            self.exaile.window.hide()

@@ -598,7 +598,7 @@ class TracksListCtrl(gtk.VBox):
         attr, reverse = self.get_sort_by()
 
         def the_strip(tag):
-            return tracks.the_cutter(tag)
+            return spec_strip(tracks.the_cutter(tag))
         def spec_strip(tag):
             return tracks.lstrip_special(tag)
 

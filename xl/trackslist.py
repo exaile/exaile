@@ -596,19 +596,22 @@ class TracksListCtrl(gtk.VBox):
             Resorts all songs
         """
         attr, reverse = self.get_sort_by()
-        
+
+        if getattr(track, attr).lower()[:3] == 'the':
+            artist = getattr(track, attr).lower()[3:]
+        else:
+            artist = getattr(track, attr).lower()
+
         if attr == 'album' or attr == 'title':
-            s = [(getattr(track, attr).lower(), 
-            getattr(track,'artist').lower().lstrip('the '), 
+            s = [(getattr(track, attr).lower(), artist, 
             getattr(track,'album').lower(), getattr(track, 'track'), 
             track) for track in self.songs]
         elif attr == 'artist':
-            s = [(getattr(track, attr).lower().lstrip('the '),
-            getattr(track,'artist').lower().lstrip('the '),
+            s = [artist, artist,
             getattr(track,'album').lower(), getattr(track, 'track'), 
             track) for track in self.songs]
         else: 
-            s = [(getattr(track, attr), getattr(track,'artist').lower(), 
+            s = [(getattr(track, attr), artist, 
             getattr(track,'album').lower(), getattr(track, 'track'), 
             track) for track in self.songs]
         s.sort(reverse=reverse)

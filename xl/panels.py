@@ -647,7 +647,7 @@ class CollectionPanel(object):
         o_map = {'album' : 'LSTRIP_SPEC(albums.name), disc_id', 
                 'track' : 'track', 
                 'title' : 'LSTRIP_SPEC(title)',
-                'artist' : 'LSTRIP_SPEC(artists.name)',
+                'artist' : 'LSTRIP_SPEC(THE_CUTTER(artists.name))',
                 'genre' : 'LSTRIP_SPEC(genre)'}
         order_by = ''
         for sort_item in self.order:
@@ -770,7 +770,7 @@ class CollectionPanel(object):
 
                 # print separators
                 if first and info and use_alphabet:
-                    temp = tracks.lstrip_special(info.replace('THE ', '')).upper()
+                    temp = tracks.lstrip_special(info).upper().replace('THE ', '')
                     first_char = temp[0]
                     if first_char != last_char:
                         if not first_char.isalpha():

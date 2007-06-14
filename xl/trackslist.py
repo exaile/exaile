@@ -600,21 +600,28 @@ class TracksListCtrl(gtk.VBox):
         def the_strip(tag):
             if tag[:4] == 'the ':
                 tag = tag[4:]
+            return spec_strip(tag)
+        def spec_strip(tag):
             tag = tag.lstrip(" !@#$%^&*()_+~{}|:<>?`-=[]\\;',./\"")
             return tag
 
         if attr == 'album' or attr == 'title':
-            s = [(getattr(track, attr).lower(), the_strip(getattr(track, 'artist').lower()), 
-            getattr(track,'album').lower(), getattr(track, 'track'), 
+            s = [(spec_strip(getattr(track, attr).lower()), 
+            the_strip(getattr(track, 'artist').lower()), 
+            spec_strip(getattr(track,'album').lower()), 
+            getattr(track, 'track'), 
             track) for track in self.songs]
         elif attr == 'artist':
             s = [(the_strip(getattr(track, 'artist').lower()),
             the_strip(getattr(track, 'artist').lower()),
-            getattr(track,'album').lower(), getattr(track, 'track'), 
+            spec_strip(getattr(track,'album').lower()), 
+            getattr(track, 'track'), 
             track) for track in self.songs]
-        else: 
-            s = [(getattr(track, attr), the_strip(getattr(track, 'artist').lower()), 
-            getattr(track,'album').lower(), getattr(track, 'track'), 
+        else:
+            s = [(getattr(track, attr), 
+            the_strip(getattr(track, 'artist').lower()), 
+            spec_strip(getattr(track,'album').lower()), 
+            getattr(track, 'track'), 
             track) for track in self.songs]
         s.sort(reverse=reverse)
         self.songs = [track[4] for track in s]

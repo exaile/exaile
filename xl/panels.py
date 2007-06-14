@@ -770,7 +770,7 @@ class CollectionPanel(object):
 
                 # print separators
                 if first and info and use_alphabet:
-                    temp = info.upper().replace('THE ', '')
+                    temp = tracks.lstrip_special(info.replace('THE ', '')).upper()
                     first_char = temp[0]
                     if first_char != last_char:
                         if not first_char.isalpha():

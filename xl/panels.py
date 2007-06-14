@@ -646,7 +646,7 @@ class CollectionPanel(object):
 
         o_map = {'album' : 'LOWER(albums.name), disc_id', 
                 'track' : 'track', 'title' : 'title',
-                'artist' : 'THE_CUTTER(artists.name)',
+                'artist' : 'THE_CUTTER(LOWER(artists.name))',
                 'genre' : 'LOWER(genre)'}
         order_by = ''
         for sort_item in self.order:

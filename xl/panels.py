@@ -812,7 +812,8 @@ class CollectionPanel(object):
 
         # make sure "Unknown" items end up at the end of the list
         if not unknown and last_songs:
-            self.model.append(node, [self.separator_image, "-----------"])
+            if use_alphabet:
+                self.model.append(node, [self.separator_image, "-----------"])
             self.append_info(self.root, last_songs, True)
 
         gobject.idle_add(self.tree.set_model, self.model)

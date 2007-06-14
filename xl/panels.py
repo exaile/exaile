@@ -794,6 +794,7 @@ class CollectionPanel(object):
 
         expanded_paths = []
         last_char = ''
+        use_alphabet = self.exaile.settings.get_boolean("ui/use_alphabet", True)
         for track in songs:
             if self.current_start_count != self.start_count: return
 
@@ -807,7 +808,7 @@ class CollectionPanel(object):
                 info = getattr(track, field)
 
                 # print separators
-                if first and info:
+                if first and info and use_alphabet:
                     temp = info.upper().replace('THE ', '')
                     first_char = temp[0]
                     if first_char != last_char:

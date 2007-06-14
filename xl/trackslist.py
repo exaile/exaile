@@ -598,8 +598,8 @@ class TracksListCtrl(gtk.VBox):
         attr, reverse = self.get_sort_by()
 
         def the_strip(tag):
-            if tag[:3] == 'the':
-                return tag[3:]
+            if tag[:4] == 'the ':
+                return tag[4:]
             else:
                 return tag 
 

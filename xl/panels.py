@@ -644,10 +644,11 @@ class CollectionPanel(object):
         if self.choice.get_active() == 1:
             self.order = ('album', 'track', 'title')
 
-        o_map = {'album' : 'LOWER(albums.name), disc_id', 
-                'track' : 'track', 'title' : 'title',
-                'artist' : 'THE_CUTTER(LOWER(artists.name))',
-                'genre' : 'LOWER(genre)'}
+        o_map = {'album' : 'LSTRIP_SPEC(albums.name), disc_id', 
+                'track' : 'track', 
+                'title' : 'LSTRIP_SPEC(title)',
+                'artist' : 'LSTRIP_SPEC(artists.name)',
+                'genre' : 'LSTRIP_SPEC(genre)'}
         order_by = ''
         for sort_item in self.order:
             order_by = order_by + o_map[sort_item] + ', '

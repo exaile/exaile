@@ -1072,6 +1072,7 @@ class ExaileWindow(gobject.GObject):
         loc = os.path.join(SETTINGS_DIR, "music.db")
         database = db.DBManager(loc)
         database.add_function_create(('THE_CUTTER', 1, tracks.the_cutter))
+        database.add_function_create(('LSTRIP_SPEC', 1, tracks.lstrip_special))
         return database
 
     def database_connect(self):

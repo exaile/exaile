@@ -598,12 +598,9 @@ class TracksListCtrl(gtk.VBox):
         attr, reverse = self.get_sort_by()
 
         def the_strip(tag):
-            if tag[:4] == 'the ':
-                tag = tag[4:]
-            return spec_strip(tag)
+            return tracks.the_cutter(tag)
         def spec_strip(tag):
-            tag = tag.lstrip(" !@#$%^&*()_+~{}|:<>?`-=[]\\;',./\"")
-            return tag
+            return tracks.lstrip_special(tag)
 
         if attr == 'album' or attr == 'title':
             s = [(spec_strip(getattr(track, attr).lower()), 

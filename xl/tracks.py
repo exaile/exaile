@@ -40,6 +40,14 @@ def the_cutter(field):
     else:
         return field
 
+def lstrip_special(field):
+    """
+        Strip special chars off the beginning of a field for sorting
+    """
+    field = field.lower()
+    field = field.lstrip(" `~!@#$%^&*()_+-={}|[]\\\";'<>?,./")
+    return field
+
 def get_suggested_songs(exaile, db, song, s, count, done_func):
     """
         Finds and returns 10 suggested songs from last.fm

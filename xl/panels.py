@@ -637,62 +637,25 @@ class CollectionPanel(object):
 
         if self.choice.get_active() == 2:
             self.order = ('genre', 'artist', 'album', 'track', 'title')
-            self.where = """
-                SELECT 
-                    paths.name, 
-                    artists.name, 
-                    track, 
-                    title 
-                FROM tracks, paths, artists, albums 
-                WHERE 
-                    blacklisted=0 AND 
-                    (
-                        paths.id=tracks.path AND 
-                        artists.id=tracks.artist AND 
-                        albums.id=tracks.album
-                    ) 
-                ORDER BY 
-                    LOWER(genre), 
-                    THE_CUTTER(artists.name),
-                    LOWER(albums.name),
-                    disc_id,
-                    track, 
-                    title
-            """
 
         if self.choice.get_active() == 0:
             self.order = ('artist', 'album', 'track', 'title')
-            self.where = """
-                SELECT 
-                    paths.name, 
-                    artists.name, 
-                    albums.name, 
-                    track,
-                    title 
-                FROM tracks, paths, albums, artists 
-                WHERE
-                    blacklisted=0 AND 
-                    (
-                        paths.id=tracks.path AND 
-                        albums.id=tracks.album AND 
-                        artists.id=tracks.artist
-                    ) 
-                ORDER BY 
-                    THE_CUTTER(artists.name), 
-                    LOWER(albums.name), 
-                    disc_id,
-                    track, 
-                    title
-            """
 
         if self.choice.get_active() == 1:
             self.order = ('album', 'track', 'title')
-            self.where = """
+
+        o_map = {'album' : 'LOWER(albums.name), disc_id', 
+                'track' : 'track', 'title' : 'title',
+                'artist' : 'THE_CUTTER(artists.name)',
+                'genre' : 'LOWER(genre)'}
+        order_by = ''
+        for sort_item in self.order:
+            order_by = order_by + o_map[sort_item] + ', '
+        order_by = order_by[:-2]
+
+        self.where = """
                 SELECT 
-                    paths.name, 
-                    albums.name, 
-                    track, 
-                    title
+                    paths.name 
                 FROM tracks, albums, paths, artists
                 WHERE 
                     blacklisted=0 AND
@@ -702,12 +665,9 @@ class CollectionPanel(object):
                         artists.id=tracks.artist 
                     )
                 ORDER BY 
-                    LOWER(albums.name), 
-                    disc_id,
-                    track, 
-                    THE_CUTTER(artists.name), 
-                    title
-            """
+                    %s
+                    """ % order_by
+
 
         # save the active view setting
         self.exaile.settings['ui/%s_active_view' % self.name] = self.choice.get_active()

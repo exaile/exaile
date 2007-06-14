@@ -599,9 +599,9 @@ class TracksListCtrl(gtk.VBox):
 
         def the_strip(tag):
             if tag[:4] == 'the ':
-                return tag[4:]
-            else:
-                return tag 
+                tag = tag[4:]
+            tag = tag.lstrip(" !@#$%^&*()_+~{}|:<>?`-=[]\\;',./\"")
+            return tag
 
         if attr == 'album' or attr == 'title':
             s = [(getattr(track, attr).lower(), the_strip(getattr(track, 'artist').lower()), 

@@ -501,7 +501,7 @@ def edit_field(caller, data):
 
             xlmisc.finish()
             if isinstance(caller, xl.trackslist.TracksListCtrl):
-                caller.refresh_row(track)
+                caller.refresh_row(song)
 
         if errors:
             common.scrolledMessageDialog(caller.exaile.window,

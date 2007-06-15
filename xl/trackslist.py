@@ -22,6 +22,27 @@ import pygtk
 pygtk.require('2.0')
 import gtk, pango
 
+# creates the rating images for the caller
+def create_rating_images(caller):
+    """
+        Called to (re)create the pixmaps used for the Rating column.
+    """
+    if (caller.rating_width != caller.old_r_w and caller.rating_width != 0):
+        caller.rating_images = []
+        star_size = caller.rating_width / 4
+        star = gtk.gdk.pixbuf_new_from_file_at_size("images/star.png", star_size, star_size)
+        full_image = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, caller.rating_width, star_size)
+        full_image.fill(0xffffff00) # transparent white
+        for x in range(0, 4):
+            star.copy_area(0, 0, star_size, star_size, full_image, star_size * x, 0)
+        caller.rating_images.insert(0, full_image)
+        for x in range(7, 0, -1):
+            this_image = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, caller.rating_width, star_size)
+            this_image.fill(0xffffff00) # transparent white
+            full_image.copy_area(0, 0, int(x * star_size / 2.0), star_size, this_image, 0, 0)
+            caller.rating_images.insert(0, this_image)
+        caller.old_r_w = caller.rating_width
+
 class TracksListCtrl(gtk.VBox):
     """
         Represents the track/playlist table
@@ -105,31 +126,12 @@ class TracksListCtrl(gtk.VBox):
         self.plugins_item = None
         self.setup_columns()
 
-        self.create_rating_images()
+        create_rating_images(self)
 
         self.show()
         
         self.setup_events()
 
-    def create_rating_images(self):
-        """
-            Called to (re)create the pixmaps used for the Rating column.
-        """
-        if (self.rating_width != self.old_r_w and self.rating_width != 0):
-            self.rating_images = []
-            star_size = self.rating_width / 4
-            star = gtk.gdk.pixbuf_new_from_file_at_size("images/star.png", star_size, star_size)
-            full_image = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, self.rating_width, star_size)
-            full_image.fill(0xffffff00) # transparent white
-            for x in range(0, 4):
-                star.copy_area(0, 0, star_size, star_size, full_image, star_size * x, 0)
-            self.rating_images.insert(0, full_image)
-            for x in range(7, 0, -1):
-                this_image = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, self.rating_width, star_size)
-                this_image.fill(0xffffff00) # transparent white
-                full_image.copy_area(0, 0, int(x * star_size / 2.0), star_size, this_image, 0, 0)
-                self.rating_images.insert(0, this_image)
-            self.old_r_w = self.rating_width
 
     def close_page(self):
         """
@@ -537,7 +539,7 @@ class TracksListCtrl(gtk.VBox):
         self.exaile.settings[name] = col.get_width()
         if col.get_title() == _("Rating"):
             self.rating_width = min(col.get_width(), self.row_height * 4)
-            self.create_rating_images()
+            create_rating_images(self)
 
     def disc_data_func(self, col, cell, model, iter):
         """
@@ -837,20 +839,21 @@ class TracksListCtrl(gtk.VBox):
 
         # edit specific common fields
         for menu_item in ('title', 'artist', 'album', 'genre', 'year'):
-            #Obs.: The menu_item.capitalize() will be substituted by Title, Artist, Album and Year. Since these   strings were already extracted in another part of exaile code, then _(menu_item.capitalize() will be substituted by the translated string in exaile.
+            # Obs.: The menu_item.capitalize() will be substituted by 
+            # Title, Artist, Album and Year. Since these   
+            # strings were already extracted in another part of exaile 
+            # code, then _(menu_item.capitalize() will be substituted by 
+            # the translated string in exaile.
             item = em.append(_("Edit %s") % _(menu_item.capitalize()),
-                self.edit_field, data=menu_item)
+                lambda w, e, m=menu_item: track.edit_field(self, m))
 
         em.append_separator()
         rm = xlmisc.Menu()
         self.rating_ids = []
 
         for i in range(0, 8):
-#            string = "* " * (i + 1)
-#            item = rm.append(string, self.update_rating,
-#                None, i)
             item = rm.append_image(self.rating_images[i],
-                self.update_rating, i)
+                lambda w, e, i=i: track.update_rating(self, i))
 
         em.append_menu(_("Rating"), rm)
         tpm.append_menu(ngettext("Edit Track", "Edit Tracks", n_selected), em,
@@ -914,42 +917,6 @@ class TracksListCtrl(gtk.VBox):
         if self.exaile.player.lastfmsrc:
             self.exaile.player.lastfmsrc.control(command)
 
-    def edit_field(self, widget, data):
-        """
-            Edits one field in a list of tracks
-        """
-        songs = self.get_selected_tracks()
-        if not songs: return
-        text = getattr(songs[0], data)
-
-        dialog = xlmisc.TextEntryDialog(
-            self.exaile.window, 
-            ngettext("Enter the %s for the selected track",
-                "Enter the %s for the selected tracks", len(songs)) %
-                _(data.capitalize()),
-            _("Edit %s") % _(data.capitalize()))
-        dialog.set_value(text)
-
-        if dialog.run() == gtk.RESPONSE_OK:
-            value = dialog.get_value()
-            errors = ''
-            for song in songs:
-                setattr(song, data, value)
-                try:
-                    media.write_tag(song)    
-                    tracks.save_track_to_db(self.db, song)
-                except:
-                    errors += "Could not write tag for %s\n" % song.loc
-                    xlmisc.log_exception()
-
-                xlmisc.finish()
-                self.refresh_row(song)
-
-            if errors:
-                common.scrolledMessageDialog(self.exaile.window,
-                   errors, "Error writing tags")                    
-            
-        dialog.destroy()
 
     def get_track_information(self, widget, event=None):
         """
@@ -957,26 +924,6 @@ class TracksListCtrl(gtk.VBox):
         """
         t = self.get_selected_track()
         track.show_information(self.exaile, t)
-
-    def update_rating(self, widget, event):
-        """
-            Updates the rating based on which menu id was clicked
-        """
-#        text = widget.child.get_label()
-#        rating = 1
-#        if '*' in text:
-#            rating = len(text) / 2
-        rating = event + 1
-
-        cur = self.db.cursor()
-        for track in self.get_selected_tracks():
-            
-            path_id = tracks.get_column_id(self.db, 'paths', 'name',
-                track.loc)
-            self.db.execute("UPDATE tracks SET user_rating=? WHERE path=?",
-                (rating, path_id)) 
-            track.rating = rating
-            self.refresh_row(track)
 
     def button_press(self, button, event):
         """

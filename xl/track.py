@@ -15,10 +15,11 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import os, threading, httplib, xlmisc, md5, re, common, xl.tracks
+import xl.trackslist
 import media, gc
 from urllib import urlencode
 import urllib
-from gettext import gettext as _
+from gettext import gettext as _, ngettext
 
 import pygtk
 pygtk.require('2.0')
@@ -468,3 +469,59 @@ class TrackEditor(object):
                 " occurred"))    
         else:
             self.dialog.destroy()
+
+
+def edit_field(caller, data):
+    """
+        Edits one field in a list of tracks
+    """
+    songs = caller.get_selected_tracks()
+    if not songs: return
+    text = getattr(songs[0], data)
+
+    dialog = xlmisc.TextEntryDialog(
+        caller.exaile.window, 
+        ngettext("Enter the %s for the selected track",
+            "Enter the %s for the selected tracks", len(songs)) %
+            _(data.capitalize()),
+        _("Edit %s") % _(data.capitalize()))
+    dialog.set_value(text)
+
+    if dialog.run() == gtk.RESPONSE_OK:
+        value = dialog.get_value()
+        errors = ''
+        for song in songs:
+            setattr(song, data, value)
+            try:
+                media.write_tag(song)    
+                xl.tracks.save_track_to_db(caller.db, song)
+            except:
+                errors += "Could not write tag for %s\n" % song.loc
+                xlmisc.log_exception()
+
+            xlmisc.finish()
+            if isinstance(caller, xl.trackslist.TracksListCtrl):
+                caller.refresh_row(track)
+
+        if errors:
+            common.scrolledMessageDialog(caller.exaile.window,
+                errors, "Error writing tags")                    
+        
+    dialog.destroy()
+
+def update_rating(caller, num):
+    """
+        Updates the rating based on which menu id was clicked
+    """
+    rating = num + 1
+
+    cur = caller.db.cursor()
+    for track in caller.get_selected_tracks():
+        
+        path_id = xl.tracks.get_column_id(caller.db, 'paths', 'name',
+            track.loc)
+        caller.db.execute("UPDATE tracks SET user_rating=? WHERE path=?",
+            (rating, path_id)) 
+        track.rating = rating
+        if isinstance(caller, xl.trackslist.TracksListCtrl):
+            caller.refresh_row(track)

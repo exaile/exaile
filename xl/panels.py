@@ -27,7 +27,7 @@ try:
 except ImportError:
     from sqlite3 import dbapi2 as sqlite
 
-from gettext import gettext as _
+from gettext import gettext as _, ngettext
 from popen2 import popen3 as popen
 import pygtk, audioscrobbler
 pygtk.require('2.0')
@@ -180,26 +180,13 @@ CRITERIA = [
         ])
     ]
 
-class AlbumWrapper(object):
-    """
-        Wraps an album
-    """
-    def __init__(self, name):
-        """
-            Initializes the class
-        """
-        self.name = name
-
-    def __str__(self):
-        """
-            Returns the name
-        """
-        return self.name
-
 class CollectionPanel(object):
     """
         Represents the entire collection in a tree
     """
+    rating_images = []
+    rating_width = 64   # some default value
+    old_r_w = -1
     name = 'col'
     def __init__(self, exaile):
         """
@@ -215,6 +202,7 @@ class CollectionPanel(object):
         self.db = exaile.db
 
         self.scan_label = None
+        self.queue_item = -1
         self.scan_progress = None
         self.showing = False
         self.tree = None
@@ -235,6 +223,7 @@ class CollectionPanel(object):
             'images', 'playlist.png'))
         self.connect_id = None
         self.setup_widgets()
+        trackslist.create_rating_images(self)
 
     def setup_widgets(self):
         """
@@ -256,7 +245,6 @@ class CollectionPanel(object):
         self.filter.connect('activate', self.on_search)
         self.key_id = None
         self.filter.set_sensitive(False)
-        self.create_popup()
 
     def key_release(self, *e):
         """
@@ -365,9 +353,35 @@ class CollectionPanel(object):
         self.remove = menu.append(_("Delete Selected"), 
             self.remove_items, 'gtk-delete')
 
+        n_selected = len(self.get_selected_tracks())
         menu.append_separator()
-        menu.append(_("Edit Information"), lambda e, f:
+        em = xlmisc.Menu()
+
+        em.append(_("Edit Information"), lambda e, f:
             track.TrackEditor(self.exaile, self), 'gtk-edit')
+        em.append_separator()
+
+        # edit specific common fields
+        for menu_item in ('title', 'artist', 'album', 'genre', 'year'):
+            # Obs.: The menu_item.capitalize() will be substituted by 
+            # Title, Artist, Album and Year. Since these   
+            # strings were already extracted in another part of exaile 
+            # code, then _(menu_item.capitalize() will be substituted by 
+            # the translated string in exaile.
+            item = em.append(_("Edit %s") % _(menu_item.capitalize()),
+                lambda w, e, m=menu_item: track.edit_field(self, m))
+
+        em.append_separator()
+        rm = xlmisc.Menu()
+        self.rating_ids = []
+
+        for i in range(0, 8):
+            item = rm.append_image(self.rating_images[i],
+                lambda w, e, i=i: track.update_rating(self, i))
+
+        em.append_menu(_("Rating"), rm)
+        menu.append_menu(ngettext("Edit Track", "Edit Tracks", n_selected), em,
+            'gtk-edit')
 
         self.menu = menu
 
@@ -402,9 +416,10 @@ class CollectionPanel(object):
         """
         iter = self.model.iter_children(iter)        
         while True:
+            field = self.model.get_value(iter, 2)
             if self.model.iter_has_child(iter):
                 self.append_recursive(iter, add)
-            else:
+            elif field == 'title':
                 track = self.model.get_value(iter, 1)
                 add.append(track.loc)
             
@@ -421,11 +436,12 @@ class CollectionPanel(object):
         found = [] 
         for path in paths:
             iter = self.model.get_iter(path)
+            field = self.model.get_value(iter, 2)
             if self.model.iter_has_child(iter):
                 self.append_recursive(iter, found)
             else:
                 track = self.model.get_value(iter, 1)
-                if isinstance(track, media.Track):
+                if field == 'title':
                     found.append(track.loc)
 
         add = tracks.TrackData()
@@ -532,6 +548,7 @@ class CollectionPanel(object):
             if len(paths) == 1:
                 iter = self.model.get_iter(path[0])
                 object = self.model.get_value(iter, 1)
+                field = self.model.get_value(iter, 2)
 
                 # if this is a device panel, check to see if the current
                 # driver wants to handle this object, and if so, return
@@ -539,7 +556,7 @@ class CollectionPanel(object):
                     if self.driver and hasattr(self.driver, 'check_open_item'):
                         if self.driver.check_open_item(object):
                             return False
-                if isinstance(object, AlbumWrapper):
+                if field == 'album':
                     self.append_to_playlist()
                     return False
 
@@ -570,8 +587,10 @@ class CollectionPanel(object):
             Called when the tree needs a value for column 1
         """
         object = model.get_value(iter, 1)
-        if isinstance(object, media.Track):
-            cell.set_property('text', str(object.title))
+        field = model.get_value(iter, 2)
+
+        if hasattr(object, field):
+            cell.set_property('text', getattr(object, field))
         else:
             cell.set_property('text', str(object))
 
@@ -619,8 +638,8 @@ class CollectionPanel(object):
             xlmisc.log("Clearing tracks cache")
             self.track_cache = dict()
 
-        self.model = gtk.TreeStore(gtk.gdk.Pixbuf, object)
-        self.model_blank = gtk.TreeStore(gtk.gdk.Pixbuf, object)
+        self.model = gtk.TreeStore(gtk.gdk.Pixbuf, object, str)
+        self.model_blank = gtk.TreeStore(gtk.gdk.Pixbuf, object, str)
 
         self.tree.set_model(self.model_blank)
         self.root = self.get_initial_root(self.model)
@@ -779,7 +798,7 @@ class CollectionPanel(object):
                             last_char = first_char
                             self.model.append(parent, [self.separator_image, 
                                 '---- %s ----' %
-                                first_char])
+                                first_char, 'nofield'])
 
                 if info == "": 
                     if not unknown and first:
@@ -790,15 +809,12 @@ class CollectionPanel(object):
 
                 if field == "title":
                     n = self.model.append(parent, [self.track_image,
-                        track])
+                        track, field])
                 else:
                     string = "%s - %s" % (string, info)
                     if not string in node_for:
-                        if field == 'album':
-                            info = AlbumWrapper(info)
-
                         parent = self.model.append(parent, 
-                            [self.image_map[field], info])
+                            [self.image_map[field], track, field])
 
                         if info == "track": info = track
                         node_for[string] = parent
@@ -813,7 +829,8 @@ class CollectionPanel(object):
         # make sure "Unknown" items end up at the end of the list
         if not unknown and last_songs:
             if use_alphabet:
-                self.model.append(node, [self.separator_image, "-----------"])
+                self.model.append(node, [self.separator_image, "-----------",
+                'nofield'])
             self.append_info(self.root, last_songs, True)
 
         gobject.idle_add(self.tree.set_model, self.model)

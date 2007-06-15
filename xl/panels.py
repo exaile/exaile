@@ -590,7 +590,9 @@ class CollectionPanel(object):
         field = model.get_value(iter, 2)
 
         if hasattr(object, field):
-            cell.set_property('text', getattr(object, field))
+            info = getattr(object, field)
+            if not info: info = _('Unknown')
+            cell.set_property('text', info)
         else:
             cell.set_property('text', str(object))
 

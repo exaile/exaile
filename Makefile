@@ -1,17 +1,18 @@
 PREFIX ?= /usr/local
 FIREFOX ?= /usr/lib/firefox
 
-all: build 
+all: compile mmkeys.so translations
 	@echo "Done"
 	@echo "Type: 'make install' now"
 
-build: mmkeys.so
+compile:
 	python -m compileall xl lib
-	python po/createpot.py compile
 
 mmkeys.so:
-	cd mmkeys && make mmkeys.so && cd ..
-	cp mmkeys/mmkeys.so .
+	cd mmkeys && make mmkeys.so && cd .. && cp mmkeys/mmkeys.so .
+
+translations:
+	python po/createpot.py compile
 
 make-install-dirs: 
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
@@ -31,22 +32,22 @@ make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/share/locale
 	mkdir -p $(DESTDIR)$(PREFIX)/share/man/man1
 
-install: make-install-dirs mmkeys.so
+install: make-install-dirs
 	install -m 644 exaile.1 $(DESTDIR)$(PREFIX)/share/man/man1
 	install -m 644 exaile.py $(DESTDIR)$(PREFIX)/share/exaile
 	install -m 644 exaile.glade $(DESTDIR)$(PREFIX)/share/exaile
 	install -m 644 equalizer.ini $(DESTDIR)$(PREFIX)/share/exaile
 	install -m 644 sql/*.sql $(DESTDIR)$(PREFIX)/share/exaile/sql
-	install -m 644 mmkeys.so $(DESTDIR)$(PREFIX)/lib/exaile
+	-install -m 644 mmkeys.so $(DESTDIR)$(PREFIX)/lib/exaile
 	install -m 644 images/*.png $(DESTDIR)$(PREFIX)/share/exaile/images
 	install -m 644 images/default_theme/*.png \
 	$(DESTDIR)$(PREFIX)/share/exaile/images/default_theme
 	install -m 644 xl/*.py $(DESTDIR)$(PREFIX)/share/exaile/xl
-	install -m 644 xl/*.pyc $(DESTDIR)$(PREFIX)/share/exaile/xl
+	-install -m 644 xl/*.pyc $(DESTDIR)$(PREFIX)/share/exaile/xl
 	install -m 644 xl/media/*.py $(DESTDIR)$(PREFIX)/share/exaile/xl/media
-	install -m 644 xl/media/*.pyc $(DESTDIR)$(PREFIX)/share/exaile/xl/media
+	-install -m 644 xl/media/*.pyc $(DESTDIR)$(PREFIX)/share/exaile/xl/media
 	install -m 644 lib/*.py $(DESTDIR)$(PREFIX)/share/exaile/lib
-	install -m 644 lib/*.pyc $(DESTDIR)$(PREFIX)/share/exaile/lib
+	-install -m 644 lib/*.pyc $(DESTDIR)$(PREFIX)/share/exaile/lib
 	install -m 644 plugins/*.py $(DESTDIR)$(PREFIX)/share/exaile/plugins
 	install -m 644 plugins/*.glade $(DESTDIR)$(PREFIX)/share/exaile/plugins
 	install -m 644 images/largeicon.png \
@@ -61,7 +62,7 @@ install: make-install-dirs mmkeys.so
 	    > exaile && \
 	  chmod 755 exaile
 	for f in `find po -name exaile.mo` ; do \
-	  install -D $$f \
+	  install -D -m 644 $$f \
 	    `echo $$f | sed "s|po|$(DESTDIR)$(PREFIX)/share/locale|"` ; \
 	  done
 
@@ -74,7 +75,7 @@ clean:
 
 tarball: clean
 	tar --exclude .svn -czvf ../exaile.tar.gz ../exaile
-	
+
 uninstall:
 	rm -r $(DESTDIR)$(PREFIX)/share/exaile
 	rm -r $(DESTDIR)$(PREFIX)/lib/exaile

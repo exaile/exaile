@@ -246,27 +246,27 @@ def test(p):
                 do_exit = False
 
                 if options.get_title:
-                    print iface.get_title()
+                    print iface.get_title().encode("utf-8")
                     do_exit = True
                 if options.get_artist:
-                    print iface.get_artist()
+                    print iface.get_artist().encode("utf-8")
                     do_exit = True
                 if options.get_album:
-                    print iface.get_album()
+                    print iface.get_album().encode("utf-8")
                     do_exit = True
                 if options.show_version:
-                    print iface.get_version()
+                    print iface.get_version().encode("utf-8")
                     do_exit = True
                     sys.exit(0)
                 if options.get_length:
-                    print iface.get_length()
+                    print iface.get_length().encode("utf-8")
                     do_exit = True
                 if options.current_position:
-                    print iface.current_position()
+                    print iface.current_position().encode("utf-8")
                     do_exit = True
 
                 if options.get_rating:
-                    print iface.get_rating()
+                    print iface.get_rating().encode("utf-8")
                     do_exit = True
 
                 if options.next: iface.next_track()

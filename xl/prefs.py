@@ -425,7 +425,7 @@ class Preferences(object):
             'osd/text_font': (FontButtonPrefsItem, 'Sans 10',
                 self.osd_fontpicker),
             'ui/use_tray': (CheckPrefsItem, False, None, self.setup_tray),
-            'amazon_locale': (PrefsItem, 'us'),
+            'amazon_locale': (ComboPrefsItem, 'us'),
             'wikipedia_locale': (PrefsItem, 'en'),
             'scan_interval': (FloatPrefsItem, 25, None,
                 self.setup_scan_interval),

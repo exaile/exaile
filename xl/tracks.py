@@ -324,10 +324,14 @@ def load_tracks(db, current=None):
     db._close_thread()
     return tracks
 
-def scan_dir(dir, files=None, exts=()):
+def scan_dir(dir, files=None, skip=(), exts=()):
     """
         Scans a directory recursively
     """
+    regex = None
+    if skip:
+        match_string = r"^.*(" + r"|".join(skip) + r").*$"
+        regex = re.compile(match_string)
     if files is None: 
         files = []
 
@@ -349,7 +353,8 @@ def scan_dir(dir, files=None, exts=()):
         try:
             if os.path.isdir(file) and not \
                 os.path.islink(file):
-                    scan_dir(file, files, exts)
+                    if regex and regex.match(file): continue
+                    scan_dir(file, files=files, skip=skip, exts=exts)
         except:
             xlmisc.log("Error scanning %s" % file)
             traceback.print_exc()
@@ -364,14 +369,14 @@ def scan_dir(dir, files=None, exts=()):
 
     return files     
 
-def count_files(directories):
+def count_files(directories, skip=()):
     """
         Recursively counts the number of supported files in the specified
         directories
     """
     paths = []
     for dir in directories:
-        paths.extend(scan_dir(dir, exts=media.SUPPORTED_MEDIA))
+        paths.extend(scan_dir(dir, skip=skip, exts=media.SUPPORTED_MEDIA))
 
     return paths
 
@@ -607,7 +612,9 @@ class PopulateThread(threading.Thread):
         update_func = self.update_func
         gobject.idle_add(update_func, 0.001)
 
-        paths = count_files(directories)
+        skip = self.exaile.settings.get_list('scan_ignore',
+            default=['incomplete'])
+        paths = count_files(directories, skip)
         total = len(paths)
         xlmisc.log("File count: %d" % total)
 

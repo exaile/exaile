@@ -408,6 +408,7 @@ class Preferences(object):
             'ui/ensure_visible': (CheckPrefsItem, True),
             'art_filenames': (ListPrefsItem, 
                 ['cover.jpg', 'folder.jpg', '.folder.jpg', 'album.jpg', 'art.jpg']),
+            'scan_ignore': (ListPrefsItem, ['incomplete']),
             'open_last': (CheckPrefsItem, True),
             'osd/enabled': (CheckPrefsItem, True),
             'osd/w': (PrefsItem, '400', self.osd_adjust_size),

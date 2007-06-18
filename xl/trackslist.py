@@ -1049,7 +1049,8 @@ class TracksListCtrl(gtk.VBox):
                             if track.download_path:
                                 os.remove(track.download_path)
                         else:
-                            os.remove(track.loc)
+                            if os.path.isfile(track.loc): 
+                                os.remove(track.loc)
                     except OSError:
                         common.error(self.exaile.window, "Could not delete '%s' - "\
                             "perhaps you do not have permissions to do so?"

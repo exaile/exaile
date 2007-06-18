@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import thread, os, os.path, string
+import thread, os, os.path, string, shlex
 import tracks, xlmisc, media, audioscrobbler, burn
 from gettext import gettext as _
 import pygtk, common
@@ -183,7 +183,7 @@ class ListPrefsItem(PrefsItem):
     def apply(self):
         if self.done and not self.do_done(): return False
         text = self.widget.get_text()
-        settings.set_list(self.name, text.split(' '))
+        settings.set_list(self.name, shlex.split(text))
         return True
 
 class FloatPrefsItem(PrefsItem):

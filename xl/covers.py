@@ -25,7 +25,8 @@ __revision__ = ".01"
 #LOCALES = ['ca', 'de', 'fr', 'jp', 'uk', 'us']
 
 def get_server(locale):
-    if locale in ('en', 'us'):
+    #do 'es' here because webservices.amazon.es doesn't exist
+    if locale in ('en', 'us', 'es'):
         return "xml.amazon.com"
     elif locale in ('jp', 'uk'):
         return "webservices.amazon.co.%s" % locale

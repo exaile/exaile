@@ -42,11 +42,15 @@ def the_cutter(field):
 
 def lstrip_special(field):
     """
-        Strip special chars off the beginning of a field for sorting
+        Strip special chars off the beginning of a field for sorting. If
+        stripping the chars leaves nothing the original field is returned with
+        only whitespace removed.
     """
-    field = field.lower()
-    field = field.lstrip(" `~!@#$%^&*()_+-={}|[]\\\";'<>?,./")
-    return field
+    stripped = field.lower()
+    stripped = field.lstrip(" `~!@#$%^&*()_+-={}|[]\\\";'<>?,./")
+    if stripped:
+        return stripped
+    return field.lstrip()
 
 def get_suggested_songs(exaile, db, song, s, count, done_func):
     """

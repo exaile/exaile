@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import thread, os, os.path, string, shlex
-import tracks, xlmisc, media, audioscrobbler, burn
+import tracks, xlmisc, media, audioscrobbler, burn, advancededitor
 from gettext import gettext as _
 import pygtk, common
 pygtk.require('2.0')
@@ -340,6 +340,9 @@ class Preferences(object):
         self.window = self.xml.get_widget('PreferencesDialog')
         self.window.set_transient_for(parent.window)
         self.window.connect('delete-event', lambda *e: self.cancel())
+        self.xml.get_widget('show_advanced_button').connect('clicked',
+            lambda *e: advancededitor.AdvancedConfigEditor(self.exaile,
+            self.window, self, settings, 'data/settings_meta.ini'))
 
         self.nb = self.xml.get_widget('prefs_nb')
         self.nb.set_show_tabs(False)

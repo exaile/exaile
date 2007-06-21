@@ -108,6 +108,7 @@ class AdvancedConfigEditor(gtk.Window):
         top_box = gtk.HBox()
         top_box.pack_start(gtk.Label(_('Filter:') + '  '), False, False)
         self.filter = gtk.Entry()
+        self.filter.connect('activate', lambda *e: self.populate_model())
         top_box.pack_start(self.filter, True, True)
 
         main.pack_start(top_box, False, False)
@@ -121,6 +122,8 @@ class AdvancedConfigEditor(gtk.Window):
 
         self.tree = gtk.TreeView(self.model)
         self.tree.connect('row-activated', self.row_activated)
+        self.tree.get_selection().connect('changed',
+            self.on_selection_changed)
 
         # set up the treeview
         text = gtk.CellRendererText()
@@ -155,6 +158,14 @@ class AdvancedConfigEditor(gtk.Window):
         scroll.add(self.tree)
 
         main.pack_start(scroll, True, True)
+        label = gtk.Label()
+        label.set_markup('<b>' + _('Description:') + '</b>')
+        label.set_alignment(0, 0)
+        main.pack_start(label, False)
+
+        self.desc_label = gtk.Label()
+        self.desc_label.set_alignment(0, 0)
+        main.pack_start(self.desc_label, False)
 
         buttons = gtk.HBox()
         close = gtk.Button(_('Close'), gtk.STOCK_CLOSE)
@@ -166,6 +177,18 @@ class AdvancedConfigEditor(gtk.Window):
         self.resize(635, 500)
         self.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         self.show_all()
+
+    def on_selection_changed(self, selection):
+        """
+            Called when an item in the list is selected (so that we can
+            populate the description label
+        """
+        if selection.get_selected():
+            (model, iter) = selection.get_selected()
+            item = model.get_value(iter, 0)
+            self.desc_label.set_label(item.description)
+        else:
+            self.desc_label.set_label('')
 
     def value_data_func(self, column, cell, model, iter):
         """
@@ -203,5 +226,9 @@ class AdvancedConfigEditor(gtk.Window):
         """
             Populates the model with the settings items
         """
+        self.model.clear()
+        filter = self.filter.get_text()
         for item in self.items:
+            if filter:
+                if item.name.lower().find(filter.lower()) == -1: continue
             self.model.append([item, item.name, item.value, item.type])

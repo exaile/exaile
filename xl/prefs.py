@@ -434,7 +434,6 @@ class Preferences(object):
             'scan_interval': (FloatPrefsItem, 25, None,
                 self.setup_scan_interval),
             'download_feeds': (CheckPrefsItem, True),
-            'ui/use_alphabet': (CheckPrefsItem, True),
         })
 
         for setting, value in simple_settings.iteritems():

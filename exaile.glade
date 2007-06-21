@@ -4201,25 +4201,6 @@ on {album} - {length}</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkCheckButton" id="prefs_ui_use_alphabet">
-			      <property name="visible">True</property>
-			      <property name="can_focus">True</property>
-			      <property name="label" translatable="yes">Use extended alphabet view</property>
-			      <property name="use_underline">True</property>
-			      <property name="relief">GTK_RELIEF_NORMAL</property>
-			      <property name="focus_on_click">True</property>
-			      <property name="active">False</property>
-			      <property name="inconsistent">False</property>
-			      <property name="draw_indicator">True</property>
-			    </widget>
-			    <packing>
-			      <property name="padding">0</property>
-			      <property name="expand">False</property>
-			      <property name="fill">False</property>
-			    </packing>
-			  </child>
-
-			  <child>
 			    <widget class="GtkCheckButton" id="prefs_fetch_covers">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
@@ -5510,7 +5491,7 @@ on {album} - {length}</property>
 				  <child>
 				    <widget class="GtkComboBox" id="prefs_amazon_locale">
 				      <property name="visible">True</property>
-				      <property name="items" translatable="no">ca
+				      <property name="items">ca
 de
 fr
 jp

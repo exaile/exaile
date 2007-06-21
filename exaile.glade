@@ -5510,7 +5510,7 @@ on {album} - {length}</property>
 				  <child>
 				    <widget class="GtkComboBox" id="prefs_amazon_locale">
 				      <property name="visible">True</property>
-				      <property name="items" translatable="yes">ca
+				      <property name="items" translatable="no">ca
 de
 fr
 jp

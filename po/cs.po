@@ -1,0 +1,1678 @@
+# Czech translation for Exaile music player.
+# Copyright (C) 2006 Adam Olsen <arolsen@gmail.com>
+# This file is distributed under the same license as the Exaile package.
+# Zbyněk Mrkvička <zbynek@mrkvicka.eu>, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-05-13 13:09+0200\n"
+"PO-Revision-Date: 2007-05-13 14:01+0100\n"
+"Last-Translator: Zbynek Mrkvicka <zbynek@mrkvicka.eu>\n"
+"Language-Team: Zbyněk Mrkvička <zbynek@mrkvicka.eu>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Czech\n"
+"X-Poedit-Country: CZECH REPUBLIC\n"
+
+#: exaile.py:186
+#: exaile.py:2045
+#: exaile.glade.h:102
+msgid "Exaile!"
+msgstr ""
+
+#: exaile.py:231
+msgid "You have not specified any search directories for your music library. You may do so now, or choose to do it later.  If you want to do it later, you can manage your library search directories by going to Tools->Library Manager.  Do you want to choose your library directories now?"
+msgstr ""
+
+#: exaile.py:463
+#: exaile.py:1360
+#: exaile.py:1361
+#: exaile.glade.h:128
+msgid "Not Playing"
+msgstr "Nepřehrávám"
+
+#: exaile.py:629
+#: xl/xlmisc.py:1588
+msgid "Add a directory"
+msgstr "Přidat adresář"
+
+#: exaile.py:635
+msgid "Add tracks to current playlist after importing"
+msgstr ""
+
+#: exaile.py:709
+msgid "Queue"
+msgstr "Fronta"
+
+#: exaile.py:746
+msgid "Blacklist"
+msgstr ""
+
+#: exaile.py:767
+msgid "Gstreamer equalizer is not  available.  It can be found in gstreamer-plugins-bad (currently found in GST CVS)."
+msgstr ""
+
+#: exaile.py:781
+#: exaile.py:1633
+#, fuzzy, python-format
+msgid "%s by %s"
+msgstr "napsal"
+
+#: exaile.py:869
+#: exaile.py:897
+#: exaile.py:1682
+#: exaile.py:1693
+#: exaile.py:1732
+#: exaile.py:2195
+#: exaile.glade.h:136
+msgid "Playlist"
+msgstr "Playlist"
+
+#: exaile.py:945
+msgid "Blacklisting the selected tracks will prevent them from being added to the library on rescan.  Are you sure you want to continue?"
+msgstr ""
+
+#: exaile.py:1074
+#, python-format
+msgid "Error connecting to database: %s"
+msgstr "Chyba připojení k databázi: %s"
+
+#: exaile.py:1081
+#, python-format
+msgid "Error creating collection database: %s"
+msgstr "Chyba při vytváření databáze s kolekcí: %s"
+
+#: exaile.py:1106
+msgid "Loading library from database..."
+msgstr "Načítám knihovnu z databáze..."
+
+#: exaile.py:1130
+msgid "Last"
+msgstr "Poslední"
+
+#: exaile.py:1299
+#, fuzzy, python-format
+msgid "%d showing, %d in collection"
+msgstr "Probíhá hledání..."
+
+#: exaile.py:1344
+#, fuzzy
+msgid "Submitting to Last.fm..."
+msgstr "Přejít na poslední zprávu v katalogu"
+
+#: exaile.py:1362
+#: exaile.glade.h:170
+msgid "Stopped"
+msgstr "Zastaveno"
+
+#: exaile.py:1372
+#: exaile.py:1373
+#: exaile.glade.h:182
+msgid "Unknown"
+msgstr "Neznámý"
+
+#: exaile.py:1379
+#, python-format
+msgid "Exaile: playing %s from %s by %s"
+msgstr ""
+
+#: exaile.py:1381
+#, fuzzy, python-format
+msgid ""
+"from %s\n"
+"by %s"
+msgstr "Převést z %s"
+
+#: exaile.py:1386
+#, fuzzy, python-format
+msgid ""
+"Playing %s\n"
+"from %s\n"
+"by %s"
+msgstr ""
+"Imported {0} entries\n"
+"from {1}."
+
+#: exaile.py:1427
+#: exaile.py:1450
+msgid "No covers found."
+msgstr "Nebyly nalezeny žádné přebaly."
+
+#: exaile.py:1475
+msgid "Current amazon image is too old, fetching  a new one"
+msgstr "Aktuální obrázek je příliš starý, stahuji nový z Amazon"
+
+#: exaile.py:1539
+msgid "Fetching cover art from Amazon..."
+msgstr ""
+
+#: exaile.py:1594
+msgid "View Full Image"
+msgstr "Zobrazit plný obrázek"
+
+#: exaile.py:1596
+msgid "Fetch from Amazon"
+msgstr "Stáhnout z Amazon"
+
+#: exaile.py:1598
+msgid "Search Amazon"
+msgstr "Prohledat Amazon"
+
+#: exaile.py:1600
+msgid "Set Custom Image"
+msgstr "Nastavit vlastní obrázek"
+
+#: exaile.py:1602
+msgid "Remove Cover"
+msgstr "Odebrat přebal"
+
+#: exaile.py:1626
+msgid "Fetching from Amazon..."
+msgstr "Stahuji z Amazon..."
+
+#: exaile.py:1642
+msgid "Choose an image"
+msgstr "Vybrat obrázek"
+
+#: exaile.py:1806
+#, fuzzy, python-format
+msgid "<big><b> Changing volume: %d %% </b></big>"
+msgstr "Automatické řízení hlasitosti"
+
+#: exaile.py:1847
+#, fuzzy
+msgid "Podcast has not yet been downloaded"
+msgstr "Port ještě nebyl inicializován"
+
+#: exaile.py:1931
+#, fuzzy
+msgid "Could not find any suggested songs"
+msgstr "Nemohu nalézt ovladač pro '%s'"
+
+#: exaile.py:2044
+#: xl/player.py:945
+#, fuzzy
+msgid "Exaile Media Player"
+msgstr "Přehrávač souborů"
+
+#: exaile.py:2065
+msgid "Importing playlist..."
+msgstr "Importuji playlist..."
+
+#: exaile.py:2159
+#: exaile.py:2210
+msgid "Choose a file"
+msgstr "Vybrat soubor"
+
+#: exaile.py:2163
+msgid "Open in new tab"
+msgstr "Otevřít v nové kartě"
+
+#: exaile.py:2175
+#, fuzzy
+msgid "Populating playlist..."
+msgstr "Vygenerovat seznam skladeb"
+
+#: exaile.py:2267
+msgid "Enter the address"
+msgstr "Vložte adresu"
+
+#: exaile.py:2280
+msgid "You need the python-cddb package  in order to play audio discs."
+msgstr "Pro přehrávání audio disků potřebujete balíček python-cddb."
+
+#: exaile.py:2285
+msgid "Audio Disc"
+msgstr "Audio disk"
+
+#: exaile.py:2318
+msgid "Scanning collection..."
+msgstr "Skenuji kolekci..."
+
+#: xl/audioscrobbler.py:29
+msgid "Failed to submit track to Last.fm."
+msgstr ""
+
+#: xl/audioscrobbler.py:49
+msgid "Error logging into Last.fm."
+msgstr "Chyba při přihlašování do Last.fm."
+
+#: xl/filtergui.py:50
+msgid "Name"
+msgstr "Název"
+
+#: xl/filtergui.py:64
+#, fuzzy
+msgid "Match any of the criteria"
+msgstr "Nahradit současný výskyt"
+
+#: xl/panels.py:62
+#: xl/panels.py:77
+#: xl/panels.py:86
+msgid "seconds"
+msgstr "sekund"
+
+#: xl/panels.py:68
+msgid "and"
+msgstr "a"
+
+#: xl/panels.py:74
+#: xl/panels.py:77
+msgid "days"
+msgstr "dny"
+
+#: xl/panels.py:77
+msgid "minutes"
+msgstr "minuty"
+
+#: xl/panels.py:77
+msgid "hours"
+msgstr "hodiny"
+
+#: xl/panels.py:77
+msgid "weeks"
+msgstr "týdny"
+
+#: xl/panels.py:98
+#: xl/track.py:336
+#: xl/trackslist.py:36
+#: xl/trackslist.py:42
+#: xl/trackslist.py:56
+#: xl/trackslist.py:485
+#: exaile.glade.h:55
+msgid "Artist"
+msgstr "Umělec"
+
+#: xl/panels.py:99
+#: xl/panels.py:109
+#: xl/panels.py:119
+#: xl/panels.py:172
+msgid "is"
+msgstr "je"
+
+#: xl/panels.py:101
+#: xl/panels.py:111
+#: xl/panels.py:121
+#: xl/panels.py:174
+msgid "is not"
+msgstr "není"
+
+#: xl/panels.py:103
+#: xl/panels.py:113
+#: xl/panels.py:123
+#: xl/panels.py:176
+msgid "contains"
+msgstr "obsahuje"
+
+#: xl/panels.py:105
+#: xl/panels.py:115
+#: xl/panels.py:125
+#: xl/panels.py:178
+msgid "does not contain"
+msgstr "neobsahuje"
+
+#: xl/panels.py:108
+#: xl/track.py:341
+#: xl/trackslist.py:36
+#: xl/trackslist.py:43
+#: xl/trackslist.py:57
+#: xl/trackslist.py:486
+#: exaile.glade.h:49
+msgid "Album"
+msgstr "Album"
+
+#: xl/panels.py:118
+#: xl/trackslist.py:37
+#: xl/trackslist.py:48
+#: xl/trackslist.py:62
+#: exaile.glade.h:108
+msgid "Genre"
+msgstr "Žánr"
+
+#: xl/panels.py:128
+msgid "User Rating"
+msgstr "Uživatelské hodnocení"
+
+#: xl/panels.py:129
+#: xl/panels.py:134
+#: xl/panels.py:140
+#: xl/panels.py:154
+msgid "at least"
+msgstr "nejméně"
+
+#: xl/panels.py:131
+#: xl/panels.py:136
+#: xl/panels.py:142
+#: xl/panels.py:156
+msgid "at most"
+msgstr "nejvíce"
+
+#: xl/panels.py:133
+msgid "System Rating"
+msgstr "Systémové hodnocení"
+
+#: xl/panels.py:139
+msgid "Number of Plays"
+msgstr "Počet přehrání"
+
+#: xl/panels.py:145
+#: xl/trackslist.py:37
+#: xl/trackslist.py:47
+#: xl/trackslist.py:61
+#: exaile.glade.h:188
+msgid "Year"
+msgstr "Rok"
+
+#: xl/panels.py:146
+msgid "before"
+msgstr "před"
+
+#: xl/panels.py:148
+msgid "after"
+msgstr "po"
+
+#: xl/panels.py:150
+msgid "between"
+msgstr "mezi"
+
+#: xl/panels.py:153
+#: xl/trackslist.py:36
+#: xl/trackslist.py:44
+#: xl/trackslist.py:58
+#: xl/trackslist.py:458
+#: exaile.glade.h:120
+msgid "Length"
+msgstr "Délka"
+
+#: xl/panels.py:159
+#, fuzzy
+msgid "Date Added"
+msgstr "Vložený popis"
+
+#: xl/panels.py:160
+#: xl/panels.py:166
+#, fuzzy
+msgid "in the last"
+msgstr "Poslední soubor"
+
+#: xl/panels.py:162
+#: xl/panels.py:168
+#, fuzzy
+msgid "not in the last"
+msgstr "Nemohu otevřít %s v %s"
+
+#: xl/panels.py:165
+#, fuzzy
+msgid "Last Played"
+msgstr "Poslední soubor"
+
+#: xl/panels.py:171
+#: xl/trackslist.py:37
+#: xl/trackslist.py:50
+#: xl/trackslist.py:64
+#: xl/trackslist.py:486
+#: exaile.glade.h:124
+msgid "Location"
+msgstr "Umístění"
+
+#: xl/panels.py:278
+#, fuzzy
+msgid "Finished scanning collection."
+msgstr "Import z Mastercook byl dokončen."
+
+#: xl/panels.py:299
+msgid "Scanning..."
+msgstr "Skenuji..."
+
+#: xl/panels.py:333
+msgid "Append to Current"
+msgstr "Připojit k aktuálnímu"
+
+#: xl/panels.py:337
+#: xl/panels.py:2722
+#: xl/trackslist.py:747
+msgid "New Playlist"
+msgstr "Nový playlist"
+
+#: xl/panels.py:347
+#: xl/trackslist.py:755
+msgid "Add to Playlist"
+msgstr "Přidat do playlistu"
+
+#: xl/panels.py:348
+#: xl/panels.py:2847
+#, fuzzy
+msgid "Queue Items"
+msgstr "Hledat položky"
+
+#: xl/panels.py:351
+#, fuzzy
+msgid "Blacklist Selected"
+msgstr "Vybráno %d souborů!"
+
+#: xl/panels.py:353
+msgid "Delete Selected"
+msgstr "Smazat vybrané"
+
+#: xl/panels.py:357
+#: xl/trackslist.py:774
+msgid "Edit Information"
+msgstr "Upravit informace"
+
+#: xl/panels.py:434
+#: xl/trackslist.py:981
+msgid "Are you sure you want to permanently remove the selected tracks from disk?"
+msgstr ""
+
+#: xl/panels.py:452
+#, fuzzy
+msgid "Are you sure you want to blacklist the selected tracks?"
+msgstr "Opravdu chcete smazat %s vybraných receptů?"
+
+#: xl/panels.py:761
+msgid "Track is not present in collection"
+msgstr "Tato stopa v kolekci neexistuje"
+
+#: xl/panels.py:865
+#, fuzzy
+msgid "Transfer Queue"
+msgstr "Přenos byl přerušen!"
+
+#: xl/panels.py:893
+#, fuzzy
+msgid "Transfer"
+msgstr "Převod"
+
+#: xl/panels.py:913
+msgid "A transfer is in progress, please wait for it to stop before attempting to perform this operation."
+msgstr ""
+
+#: xl/panels.py:1056
+msgid "This device does not support removing tracks"
+msgstr "Toto zařízení nepodporuje odebírání stop"
+
+#: xl/panels.py:1074
+msgid "Not connected to any media device"
+msgstr ""
+
+#: xl/panels.py:1105
+msgid "The current device  does not support transferring music."
+msgstr ""
+
+#: xl/panels.py:1109
+msgid "There is a transfer currently in progress.  Please wait for it to finish"
+msgstr ""
+
+#: xl/panels.py:1209
+#, fuzzy
+msgid "Error connecting to device"
+msgstr "Chyba spojení ke vzdálenému počítači"
+
+#: xl/panels.py:1366
+#, fuzzy
+msgid "Downloading Podcasts"
+msgstr "Stahuji '%s' z '%s'..."
+
+#: xl/panels.py:1371
+msgid "Downloading..."
+msgstr "Stahování..."
+
+#: xl/panels.py:1406
+msgid "Stopping..."
+msgstr "Zastavuji..."
+
+#: xl/panels.py:1680
+msgid "You need to have a last.fm username and password set in your preferences."
+msgstr ""
+
+#: xl/panels.py:1844
+#: exaile.glade.h:152
+msgid "Refresh"
+msgstr "Obnovit"
+
+#: xl/panels.py:1849
+#: xl/panels.py:2087
+#, fuzzy
+msgid "Add Stream to Station"
+msgstr "Přidat do seznamu automatického uložení"
+
+#: xl/panels.py:1851
+msgid "Delete this Station"
+msgstr "Smazat tuto stanici"
+
+#: xl/panels.py:1855
+#, fuzzy
+msgid "Add Feed"
+msgstr "Jméno _zdroje:"
+
+#: xl/panels.py:1856
+#, fuzzy
+msgid "Refresh Feed"
+msgstr "Výchozí _interval obnovení zdroje:"
+
+#: xl/panels.py:1857
+#, fuzzy
+msgid "Delete Feed"
+msgstr "Jméno _zdroje:"
+
+#: xl/panels.py:1910
+#, fuzzy
+msgid "Enter the location of the podcast"
+msgstr "Editace umístění pro %s"
+
+#: xl/panels.py:1911
+msgid "Add a podcast"
+msgstr "Přidat podcast"
+
+#: xl/panels.py:1919
+#, fuzzy
+msgid "A podcast with that url already exists"
+msgstr "Chyba: Cosi s takovým názvem již existuje"
+
+#: xl/panels.py:1945
+#, fuzzy
+msgid "Could not read feed."
+msgstr "%s nemůže číst \"%s\" z %s."
+
+#: xl/panels.py:2067
+#, fuzzy
+msgid "Are you sure you want to delete this podcast?"
+msgstr "Opravdu chcete odebrat tento zdroj?"
+
+#: xl/panels.py:2112
+msgid "Are you sure you want to permanently delete the selected station?"
+msgstr ""
+
+#: xl/panels.py:2166
+msgid "Add Station"
+msgstr "Přidat stanici"
+
+#: xl/panels.py:2167
+msgid "Station Name:"
+msgstr "Název stanice:"
+
+#: xl/panels.py:2168
+#: plugins/plugins.glade.h:7
+msgid "Description:"
+msgstr "Popis:"
+
+#: xl/panels.py:2169
+msgid "URL:"
+msgstr "URL:"
+
+#: xl/panels.py:2176
+msgid "The 'Name' and 'URL' fields are required"
+msgstr ""
+
+#: xl/panels.py:2184
+msgid "Station name already exists."
+msgstr "Název stanice již existuje."
+
+#: xl/panels.py:2202
+#: xl/panels.py:2203
+msgid "Enter the name of the station"
+msgstr "Vložte název stanice"
+
+#: xl/panels.py:2213
+msgid "Station already exists."
+msgstr "Stanice již existuje."
+
+#: xl/panels.py:2325
+#, fuzzy
+msgid "Smart Playlists"
+msgstr "<b>Chytré záložky</b>"
+
+#: xl/panels.py:2388
+msgid "Custom Playlists"
+msgstr "Vlastní playlisty"
+
+#: xl/panels.py:2460
+#: xl/panels.py:2503
+msgid "That playlist name is already taken."
+msgstr ""
+
+#: xl/panels.py:2498
+msgid "You did not enter a name for your playlist"
+msgstr ""
+
+#: xl/panels.py:2679
+#: xl/trackslist.py:1057
+msgid "The following errors did occur"
+msgstr ""
+
+#: xl/panels.py:2697
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr ""
+
+#: xl/panels.py:2721
+msgid "Enter the name you want for your new playlist"
+msgstr ""
+
+#: xl/panels.py:2731
+msgid "Playlist already exists."
+msgstr "Playlist již existuje."
+
+#: xl/panels.py:2846
+msgid "Append to Playlist"
+msgstr "Připojit k playlistu"
+
+#: xl/panels.py:2883
+msgid "Scanning and adding files..."
+msgstr "Skenuji a přidávám soubory..."
+
+#: xl/player.py:393
+msgid "Errors"
+msgstr "Chyby"
+
+#: xl/player.py:402
+msgid "<b>The following errors have occurred</b>"
+msgstr "<b>Došlo k následujícím chybám</b>"
+
+#: xl/player.py:416
+#: xl/xlmisc.py:879
+msgid "Close"
+msgstr "Zavřít"
+
+#: xl/player.py:572
+#, python-format
+msgid "Error logging in to Last.FM: %s"
+msgstr ""
+
+#: xl/player.py:672
+msgid "Loading stream sources, please wait..."
+msgstr ""
+
+#: xl/prefs.py:317
+#: xl/prefs.py:318
+#: exaile.glade.h:107
+msgid "General"
+msgstr "Obecné"
+
+#: xl/prefs.py:317
+#: xl/prefs.py:323
+#: exaile.glade.h:48
+msgid "Advanced"
+msgstr "Rozšířené"
+
+#: xl/prefs.py:319
+#: exaile.glade.h:121
+msgid "Library"
+msgstr "Knihovna"
+
+#: xl/prefs.py:320
+#: exaile.glade.h:129
+msgid "Notification"
+msgstr "Upozorňování"
+
+#: xl/prefs.py:321
+#: exaile.glade.h:117
+msgid "Last.fm"
+msgstr "Last.fm"
+
+#: xl/prefs.py:322
+#: exaile.glade.h:148
+msgid "Radio"
+msgstr "Rádio"
+
+#: xl/prefs.py:358
+#: xl/xlmisc.py:344
+#: exaile.glade.h:144
+msgid "Preferences"
+msgstr "Nastavení"
+
+#: xl/prefs.py:459
+msgid "Cannot watch directories for changes. Install python2.4-gamin to use this feature."
+msgstr ""
+
+#: xl/prefs.py:601
+msgid "Move the OSD window to the location you want it to appear when listening"
+msgstr ""
+
+#: xl/track.py:229
+#: xl/track.py:287
+msgid "Title: "
+msgstr "Název:"
+
+#: xl/track.py:230
+#: exaile.glade.h:59
+msgid "Artist:"
+msgstr "Umělec:"
+
+#: xl/track.py:231
+#: exaile.glade.h:53
+msgid "Album:"
+msgstr "Album:"
+
+#: xl/track.py:233
+msgid "Track Number:"
+msgstr "Číslo stopy:"
+
+#: xl/track.py:234
+#: exaile.glade.h:189
+msgid "Year:"
+msgstr "Rok:"
+
+#: xl/track.py:235
+#: exaile.glade.h:109
+msgid "Genre:"
+msgstr "Žánr:"
+
+#: xl/track.py:236
+msgid "Bitrate:"
+msgstr "Datový tok:"
+
+#: xl/track.py:237
+msgid "User Rating:"
+msgstr "Uživatelské hodnocení:"
+
+#: xl/track.py:238
+msgid "System Rating:"
+msgstr "Systémové hodnocení:"
+
+#: xl/track.py:239
+msgid "Playcount:"
+msgstr ""
+
+#: xl/track.py:240
+#: xl/track.py:293
+msgid "Location: "
+msgstr "Umístění:"
+
+#: xl/track.py:288
+msgid "Description: "
+msgstr "Popis:"
+
+#: xl/track.py:294
+msgid "Bitrate: "
+msgstr "Datový tok:"
+
+#: xl/track.py:313
+#: xl/trackslist.py:797
+#: exaile.glade.h:114
+msgid "Information"
+msgstr "Informace"
+
+#: xl/track.py:327
+#, fuzzy
+msgid "Stream Statistics"
+msgstr "Statistika překladové paměti:"
+
+#: xl/track.py:329
+msgid "Statistics"
+msgstr "Statistika"
+
+#: xl/track.py:343
+msgid "Lyrics"
+msgstr "Texty"
+
+#: xl/track.py:345
+msgid "Tablature"
+msgstr "Tabulatura"
+
+#: xl/track.py:463
+msgid "Some errors occurred"
+msgstr "Nastaly chyby"
+
+#: xl/trackslist.py:36
+#: xl/trackslist.py:41
+#: xl/trackslist.py:55
+#: xl/trackslist.py:485
+#: exaile.glade.h:173
+msgid "Title"
+msgstr "Název"
+
+#: xl/trackslist.py:36
+#: xl/trackslist.py:45
+#: xl/trackslist.py:59
+#: xl/trackslist.py:462
+#: exaile.glade.h:93
+msgid "Disc"
+msgstr "Disk"
+
+#: xl/trackslist.py:37
+#: xl/trackslist.py:46
+#: xl/trackslist.py:60
+#: xl/trackslist.py:435
+#: xl/trackslist.py:464
+#: xl/trackslist.py:520
+#: xl/trackslist.py:795
+#: exaile.glade.h:150
+msgid "Rating"
+msgstr "Hodnocení"
+
+#: xl/trackslist.py:37
+#: xl/trackslist.py:49
+#: xl/trackslist.py:63
+#: exaile.glade.h:68
+msgid "Bitrate"
+msgstr "Datový tok"
+
+#: xl/trackslist.py:38
+#: xl/trackslist.py:51
+#: xl/trackslist.py:65
+#: exaile.glade.h:105
+msgid "Filename"
+msgstr "Název souboru"
+
+#: xl/trackslist.py:155
+msgid "Scanning and adding tracks to current playlist..."
+msgstr ""
+
+#: xl/trackslist.py:738
+#, fuzzy
+msgid "Toggle Queue"
+msgstr "Prohození zvětšení"
+
+#: xl/trackslist.py:740
+msgid "Toggle: Stop after this Track"
+msgstr ""
+
+#: xl/trackslist.py:766
+msgid "New Station"
+msgstr "Nová stanice"
+
+#: xl/trackslist.py:769
+msgid "Add to Saved Stations"
+msgstr "Přidat k uloženým stanicím"
+
+#: xl/trackslist.py:781
+#: xl/trackslist.py:852
+#, python-format
+msgid "Edit %s"
+msgstr "Upravit %s"
+
+#: xl/trackslist.py:796
+msgid "Edit Track(s)"
+msgstr "Upravit stopu(y)"
+
+#: xl/trackslist.py:807
+msgid "Last.FM Options"
+msgstr "Možnosti Last.FM"
+
+#: xl/trackslist.py:810
+msgid "Show in Collection"
+msgstr "Zobrazit v kolekci"
+
+#: xl/trackslist.py:814
+msgid "Remove from Playlist"
+msgstr "Odebrat z playlistu"
+
+#: xl/trackslist.py:818
+#, fuzzy
+msgid "Blacklist Track(s)"
+msgstr "Název skladby"
+
+#: xl/trackslist.py:820
+msgid "Delete Track(s)"
+msgstr "Smazat stopu(y)"
+
+#: xl/trackslist.py:822
+msgid "Remove"
+msgstr "Odebrat"
+
+#: xl/trackslist.py:828
+#: xl/xlmisc.py:347
+#: exaile.glade.h:141
+msgid "Plugins"
+msgstr "Zásuvné moduly"
+
+#: xl/trackslist.py:851
+#, python-format
+msgid "Enter the %s for the selected track(s)"
+msgstr "Vložte %s pro vybranou stopu(y)"
+
+#: xl/trackslist.py:1082
+#, fuzzy
+msgid "Remove from Blacklist"
+msgstr "Odstranit z lišty Rychlého spouštění"
+
+#: xl/tracks.py:207
+#, fuzzy, python-format
+msgid "Query Error: %s"
+msgstr "V dotazu je chyba"
+
+#: xl/tracks.py:403
+msgid "Could not open audio disc"
+msgstr "Nelze otevřít audio disk"
+
+#: xl/tracks.py:415
+#, python-format
+msgid "Track %d"
+msgstr "Stopa %d"
+
+#: xl/xlmisc.py:328
+#: xl/xlmisc.py:357
+msgid "Play"
+msgstr "Přehrát"
+
+#: xl/xlmisc.py:340
+#: exaile.glade.h:126
+msgid "Next"
+msgstr "Další"
+
+#: xl/xlmisc.py:341
+#: exaile.glade.h:145
+msgid "Previous"
+msgstr "Předchozí"
+
+#: xl/xlmisc.py:350
+msgid "Quit"
+msgstr "Ukončit"
+
+#: xl/xlmisc.py:361
+msgid "Pause"
+msgstr "Pozastavit"
+
+#: xl/xlmisc.py:839
+msgid "Close this tab"
+msgstr "Zavřít tuto kartu"
+
+#: xl/xlmisc.py:852
+#, fuzzy
+msgid "Enter the new name for this playlist"
+msgstr "Vložte název pro novou podkategorii"
+
+#: xl/xlmisc.py:852
+msgid "Rename playlist"
+msgstr "Přejmenovat playlist"
+
+#: xl/xlmisc.py:878
+msgid "Rename"
+msgstr "Přejmenovat"
+
+#: xl/xlmisc.py:882
+msgid "Save Playlist"
+msgstr "Uložit playlist"
+
+#: xl/xlmisc.py:1413
+#, fuzzy
+msgid "Enter the search text"
+msgstr "Hledat:"
+
+#: xl/xlmisc.py:1420
+#, fuzzy
+msgid "Searching for "
+msgstr "Hledat \"%s\""
+
+#: xl/xlmisc.py:1492
+#, fuzzy
+msgid "Sorry, no covers were found."
+msgstr "Tituly nebo přezdívky nebyly nalezeny"
+
+#: xl/xlmisc.py:1590
+#: exaile.glade.h:70
+msgid "Cancel"
+msgstr "Zrušit"
+
+#: xl/xlmisc.py:1590
+msgid "Choose"
+msgstr "Vybrat"
+
+#: exaile.glade.h:1
+msgid "  "
+msgstr ""
+
+#: exaile.glade.h:2
+msgid "     "
+msgstr ""
+
+#: exaile.glade.h:3
+msgid "        "
+msgstr ""
+
+#: exaile.glade.h:4
+msgid "           "
+msgstr ""
+
+#: exaile.glade.h:5
+msgid "               "
+msgstr ""
+
+#: exaile.glade.h:6
+msgid "(c) 2006"
+msgstr ""
+
+#: exaile.glade.h:7
+#, fuzzy
+msgid "(minutes, use 0 to disable)"
+msgstr "Nemohu použít %s slovník"
+
+#: exaile.glade.h:8
+msgid "+"
+msgstr ""
+
+#: exaile.glade.h:9
+msgid "-"
+msgstr ""
+
+#: exaile.glade.h:10
+msgid "/dev/cdrom"
+msgstr ""
+
+#: exaile.glade.h:11
+msgid "0"
+msgstr ""
+
+#: exaile.glade.h:12
+#, fuzzy
+msgid "0 Covers to fetch"
+msgstr "%s: nemohu převést na \"%s\": %s"
+
+#: exaile.glade.h:13
+msgid "0 tracks"
+msgstr "0 stop"
+
+#: exaile.glade.h:14
+msgid "0/0"
+msgstr ""
+
+#: exaile.glade.h:15
+msgid ""
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5\n"
+"6\n"
+"7\n"
+"8"
+msgstr ""
+
+#: exaile.glade.h:23
+msgid "<b>General</b>"
+msgstr "<b>Obecné</b>"
+
+#: exaile.glade.h:24
+msgid "<b>Model:</b>        "
+msgstr "<b>Model</b>        "
+
+#: exaile.glade.h:25
+msgid "<b>Space:</b>"
+msgstr "<b>Místo:</b>"
+
+#: exaile.glade.h:26
+#, fuzzy
+msgid ""
+"<b>{Title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr "Album: '%s', umělec: '%s', délka: '%s', rok: '%s', žánr: '%s', ID: '%s'"
+
+#: exaile.glade.h:29
+#, fuzzy
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr "Album: '%s', umělec: '%s', délka: '%s', rok: '%s', žánr: '%s', ID: '%s'"
+
+#: exaile.glade.h:32
+msgid "<small>-20 dB</small>"
+msgstr "<small>-20 dB</small>"
+
+#: exaile.glade.h:33
+msgid "<small>0 dB</small>"
+msgstr "<small>0 dB</small>"
+
+#: exaile.glade.h:34
+msgid "<small>20 dB</small>"
+msgstr "<small>20 dB</small>"
+
+#: exaile.glade.h:35
+msgid "<small>200Hz</small>"
+msgstr "<small>200Hz</small>"
+
+#: exaile.glade.h:36
+msgid "<small>20Hz</small>"
+msgstr "<small>20Hz</small>"
+
+#: exaile.glade.h:37
+msgid "<small>20KHz</small>"
+msgstr "<small>20KHz</small>"
+
+#: exaile.glade.h:38
+msgid "<small>2KHz</small>"
+msgstr "<small>2KHz</small>"
+
+#: exaile.glade.h:39
+msgid "<small>4.3KHz</small>"
+msgstr "<small>4.3KHz</small>"
+
+#: exaile.glade.h:40
+msgid "<small>430Hz</small>"
+msgstr "<small>430Hz</small>"
+
+#: exaile.glade.h:41
+msgid "<small>45Hz</small>"
+msgstr "<small>45Hz</small>"
+
+#: exaile.glade.h:42
+msgid "<small>9.3KHz</small>"
+msgstr "<small>9.3KHz</small>"
+
+#: exaile.glade.h:43
+msgid "<small>90Hz</small>"
+msgstr "<small>90Hz</small>"
+
+#: exaile.glade.h:44
+msgid "<small>930Hz</small>"
+msgstr "<small>930Hz</small>"
+
+#: exaile.glade.h:45
+#, fuzzy
+msgid "Action Log"
+msgstr "Záznam PPP"
+
+#: exaile.glade.h:46
+#, fuzzy
+msgid "Action _Log"
+msgstr "Záznam PPP"
+
+#: exaile.glade.h:47
+msgid "Add Saved Station"
+msgstr "Přidat uloženou stanici"
+
+#: exaile.glade.h:50
+#, fuzzy
+msgid "Album Art"
+msgstr "Umělec & Album"
+
+#: exaile.glade.h:51
+msgid "Album _Information"
+msgstr "_Informace o albu"
+
+#: exaile.glade.h:52
+msgid "Album art filenames (separated by spaces):"
+msgstr ""
+
+#: exaile.glade.h:54
+#, fuzzy
+msgid "Amazon Locale:"
+msgstr "Aktuální locale (%s)"
+
+#: exaile.glade.h:56
+#, fuzzy
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre"
+msgstr "Vzestupně podle umělce"
+
+#: exaile.glade.h:60
+msgid "Attempt to fetch cover art from Amazon automatically"
+msgstr ""
+
+#: exaile.glade.h:61
+msgid ""
+"Automatic\n"
+"Use GConf Settings\n"
+"alsasink\n"
+"osssink\n"
+"esdsink"
+msgstr ""
+
+#: exaile.glade.h:66
+msgid "Autosize"
+msgstr ""
+
+#: exaile.glade.h:67
+msgid "Background Color:"
+msgstr "Barva pozadí:"
+
+#: exaile.glade.h:69
+msgid "CD Device:"
+msgstr "CD Zařízení:"
+
+#: exaile.glade.h:71
+msgid "Cl_ear Playlist"
+msgstr "Vyčistit playlist"
+
+#: exaile.glade.h:72
+msgid "Cl_ose Playlist"
+msgstr "Zavřít playlist"
+
+#: exaile.glade.h:73
+msgid "Clear Playlist"
+msgstr "Vyčistit playlist"
+
+#: exaile.glade.h:74
+msgid "Collection"
+msgstr "Kolekce"
+
+#: exaile.glade.h:75
+msgid ""
+"Copyright (C) 2006 Adam Olsen\n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 1, or (at your option)\n"
+"any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
+msgstr ""
+
+#: exaile.glade.h:90
+#, fuzzy
+msgid "Cover Finder"
+msgstr "Přebal (zadní)"
+
+#: exaile.glade.h:91
+msgid "Custom"
+msgstr "Vlastní"
+
+#: exaile.glade.h:92
+msgid "Devices"
+msgstr "Zařízení"
+
+#: exaile.glade.h:94
+msgid "Disc Number:"
+msgstr "Číslo disku:"
+
+#: exaile.glade.h:95
+msgid "Display OSD when hovering over tray icon"
+msgstr ""
+
+#: exaile.glade.h:96
+msgid "Display Text:"
+msgstr "Zobrazit text:"
+
+#: exaile.glade.h:97
+msgid "Download feeds when opening podcasts"
+msgstr ""
+
+#: exaile.glade.h:98
+msgid "Dynamic Playlist"
+msgstr "Dynamický playlist"
+
+#: exaile.glade.h:99
+msgid "E_qualizer"
+msgstr "Ekvalizér"
+
+#: exaile.glade.h:100
+msgid "Equalizer Settings"
+msgstr "Nastavení ekvalizéru"
+
+#: exaile.glade.h:101
+msgid "Exaile Registration Key: purgatorio"
+msgstr ""
+
+#: exaile.glade.h:103
+msgid "Export Playlist"
+msgstr "Exportovat nastavení"
+
+#: exaile.glade.h:104
+msgid "Fetches similar tracks from last.fm"
+msgstr ""
+
+#: exaile.glade.h:106
+msgid "Files"
+msgstr "Soubory"
+
+#: exaile.glade.h:110
+msgid "Go To Playing Track"
+msgstr "Přejít k přehrávané stopě"
+
+#: exaile.glade.h:111
+msgid "Hint: see http://www.exaile.org/trac/wiki/OSD for examples"
+msgstr "Rada: pro příklady viz http://www.exaile.org/trac/wiki/OSD"
+
+#: exaile.glade.h:112
+msgid "I_mport"
+msgstr "I_mportovat"
+
+#: exaile.glade.h:113
+msgid "Import Preset"
+msgstr "Importovat preset"
+
+#: exaile.glade.h:115
+msgid "Input Required"
+msgstr ""
+
+#: exaile.glade.h:116
+msgid "Jump to current song on track change"
+msgstr ""
+
+#: exaile.glade.h:118
+msgid "Last.fm Password:"
+msgstr "Heslo Last.fm:"
+
+#: exaile.glade.h:119
+msgid "Last.fm Username:  "
+msgstr "Uživatel Last.fm:"
+
+#: exaile.glade.h:122
+msgid "Library Manager"
+msgstr "Správce knihovny"
+
+#: exaile.glade.h:123
+msgid "Library _Manager"
+msgstr "Správce k_nihovny"
+
+#: exaile.glade.h:125
+msgid "New Search"
+msgstr "Nové hledání"
+
+#: exaile.glade.h:127
+msgid "Next Track"
+msgstr "Další stopa"
+
+#: exaile.glade.h:130
+msgid "OK"
+msgstr "Budiž"
+
+#: exaile.glade.h:131
+msgid "Open _Disc"
+msgstr "Otevřít _disk"
+
+#: exaile.glade.h:132
+msgid "Open _URL"
+msgstr "Otevřít _URL"
+
+#: exaile.glade.h:133
+msgid "Open last playlist on startup"
+msgstr "Po spuštění otevřít poslední playlist"
+
+#: exaile.glade.h:134
+msgid "Play/Pause"
+msgstr "Přehrát/Pozastavit"
+
+#: exaile.glade.h:135
+#, fuzzy
+msgid "Playback Sink:   "
+msgstr "Současný mód: Mód přehrávání\n"
+
+#: exaile.glade.h:137
+msgid "Playlist Tab Placement:"
+msgstr "Umístění karty playlistu:"
+
+#: exaile.glade.h:138
+msgid "Playlists"
+msgstr "Playlisty"
+
+#: exaile.glade.h:139
+msgid "Please choose the EQF file from which you would like to import the equalizer preset."
+msgstr ""
+
+#: exaile.glade.h:140
+msgid "Please enter the name which you would like to save the preset as."
+msgstr ""
+
+#: exaile.glade.h:142
+msgid "Podcasts"
+msgstr "Podcasty"
+
+#: exaile.glade.h:143
+#, fuzzy
+msgid "Popup"
+msgstr "<b>Umístění vyskakovacích oken</b>"
+
+#: exaile.glade.h:146
+msgid "Previous Track"
+msgstr "Předchozí stopa"
+
+#: exaile.glade.h:147
+msgid "Question:"
+msgstr "Otázka:"
+
+#: exaile.glade.h:149
+msgid "Randomize Playlist"
+msgstr "Zamíchat playlist"
+
+#: exaile.glade.h:151
+msgid "Rating: "
+msgstr "Hodnocení:"
+
+#: exaile.glade.h:153
+#, fuzzy
+msgid "Remove Saved Station"
+msgstr "Vrátit"
+
+#: exaile.glade.h:154
+msgid "Repeat"
+msgstr "Opakovat"
+
+#: exaile.glade.h:155
+msgid "Resizable"
+msgstr ""
+
+#: exaile.glade.h:156
+msgid "Save"
+msgstr "Uložit"
+
+#: exaile.glade.h:157
+msgid "Save Preset"
+msgstr "Uložit preset"
+
+#: exaile.glade.h:158
+#, fuzzy
+msgid "Save queue status"
+msgstr "Souhrn stavu kamery"
+
+#: exaile.glade.h:159
+msgid "Scan for new music every: "
+msgstr "Hledat novou hudbu v intervalu:"
+
+#: exaile.glade.h:160
+msgid "Search:"
+msgstr "Hledat:"
+
+#: exaile.glade.h:161
+msgid "Search: "
+msgstr "Hledat:"
+
+#: exaile.glade.h:162
+msgid "Select A File"
+msgstr "Vybrat soubor"
+
+#: exaile.glade.h:163
+msgid "Show On Screen Display on track change"
+msgstr ""
+
+#: exaile.glade.h:164
+msgid "Show Tray Icon"
+msgstr "Zobrazit ikonu v oznamovací oblasti"
+
+#: exaile.glade.h:165
+msgid "Show Visualizations"
+msgstr "Zobrazit vizualizace"
+
+#: exaile.glade.h:166
+msgid "Show splash screen on startup"
+msgstr "Po spuštění zobrazit splash screen"
+
+#: exaile.glade.h:167
+msgid "Shuffle"
+msgstr "Zamíchat"
+
+#: exaile.glade.h:168
+msgid "Start"
+msgstr "Spustit"
+
+#: exaile.glade.h:169
+msgid "Stop Playback"
+msgstr "Zastavit přehrávání"
+
+#: exaile.glade.h:171
+msgid "Text Color"
+msgstr "Barva textu"
+
+#: exaile.glade.h:172
+msgid "Text Font:"
+msgstr "Písmo"
+
+#: exaile.glade.h:174
+msgid "Title:"
+msgstr "Název:"
+
+#: exaile.glade.h:175
+msgid ""
+"Top\n"
+"Left\n"
+"Right\n"
+"Bottom"
+msgstr ""
+
+#: exaile.glade.h:179
+msgid "Track Editor"
+msgstr "Editor stop"
+
+#: exaile.glade.h:180
+msgid "Track Number"
+msgstr "Číslo stopy"
+
+#: exaile.glade.h:181
+msgid "Track:"
+msgstr "Stopa:"
+
+#: exaile.glade.h:183
+msgid "Up One Directory"
+msgstr "K nadřazenému adresáři"
+
+#: exaile.glade.h:184
+msgid "Vol:"
+msgstr ""
+
+#: exaile.glade.h:185
+msgid "Wikipedia Locale:"
+msgstr ""
+
+#: exaile.glade.h:186
+msgid "Window Height:"
+msgstr "Výška okna:"
+
+#: exaile.glade.h:187
+msgid "Window Width:"
+msgstr "Šířka okna:"
+
+#: exaile.glade.h:190
+#, fuzzy
+msgid "_Album Art Collector"
+msgstr "Vzestupně podle názvu alba"
+
+#: exaile.glade.h:191
+msgid "_Artist Information"
+msgstr "Informace o umělci"
+
+#: exaile.glade.h:192
+#, fuzzy
+msgid "_Blacklist Manager"
+msgstr "Správce &katalogů"
+
+#: exaile.glade.h:193
+msgid "_Clear Queue"
+msgstr "_Vyčistit frontu"
+
+#: exaile.glade.h:194
+msgid "_Close"
+msgstr "_Zavřít"
+
+#: exaile.glade.h:195
+msgid "_Columns"
+msgstr "Sloup_ce"
+
+#: exaile.glade.h:196
+msgid "_File"
+msgstr "_Soubor"
+
+#: exaile.glade.h:197
+msgid "_Help"
+msgstr "_Nápověda"
+
+#: exaile.glade.h:198
+msgid "_Import Directory"
+msgstr "_Importovat adresář"
+
+#: exaile.glade.h:199
+msgid "_Logs"
+msgstr "_Logy"
+
+#: exaile.glade.h:200
+msgid "_Lyrics"
+msgstr "Texty"
+
+#: exaile.glade.h:201
+msgid "_New Playlist"
+msgstr "_Nový playlist"
+
+#: exaile.glade.h:202
+msgid "_Open Media"
+msgstr "_Otevřít médium"
+
+#: exaile.glade.h:203
+msgid "_Queue Manager"
+msgstr "Správce front"
+
+#: exaile.glade.h:204
+msgid "_Rescan Collection"
+msgstr "Přesk_enovat kolekci"
+
+#: exaile.glade.h:205
+msgid "_Tools"
+msgstr "Nás_troje"
+
+#: exaile.glade.h:206
+msgid "_View"
+msgstr "_Zobrazit"
+
+#: exaile.glade.h:207
+msgid "iPod Information"
+msgstr "Informace z iPod"
+
+#: exaile.glade.h:208
+msgid "message"
+msgstr "zpráva"
+
+#: exaile.glade.h:210
+msgid "translator-credits"
+msgstr "Zbyněk Mrkvička <zbynek@mrkvicka.eu>"
+
+#: plugins/plugins.glade.h:1
+msgid "\n"
+msgstr ""
+
+#: plugins/plugins.glade.h:3
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Nebyl vybrán zásuvný modul</b>"
+
+#: plugins/plugins.glade.h:4
+msgid "Authors:"
+msgstr "Autoři:"
+
+#: plugins/plugins.glade.h:5
+msgid "Available Plugins"
+msgstr "Dostupné zásuvné moduly"
+
+#: plugins/plugins.glade.h:6
+msgid "Configure"
+msgstr "Nastavit"
+
+#: plugins/plugins.glade.h:8
+msgid "Install/Upgrade"
+msgstr "Instalovat/Aktualizovat"
+
+#: plugins/plugins.glade.h:9
+msgid "Installed Plugins"
+msgstr "Nainstalované moduly"
+
+#: plugins/plugins.glade.h:10
+msgid "Plugin Manager"
+msgstr "Správce zásuvných modulů"
+
+#: plugins/plugins.glade.h:11
+msgid "Uninstall"
+msgstr "Odinstalovat"
+
+#: plugins/plugins.glade.h:12
+msgid "Version:      "
+msgstr "Verze:"
+

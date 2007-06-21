@@ -1,4 +1,5 @@
 PREFIX ?= /usr/local
+LIBDIR ?= $(PREFIX)/lib
 FIREFOX ?= /usr/lib/firefox
 
 all: compile mmkeys.so translations
@@ -16,8 +17,8 @@ translations:
 
 make-install-dirs: 
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
-	mkdir -p $(DESTDIR)$(PREFIX)/lib/
-	mkdir -p $(DESTDIR)$(PREFIX)/lib/exaile
+	mkdir -p $(DESTDIR)$(LIBDIR)
+	mkdir -p $(DESTDIR)$(LIBDIR)/exaile
 	mkdir -p $(DESTDIR)$(PREFIX)/share/
 	mkdir -p $(DESTDIR)$(PREFIX)/share/pixmaps
 	mkdir -p $(DESTDIR)$(PREFIX)/share/applications
@@ -38,7 +39,7 @@ install: make-install-dirs
 	install -m 644 exaile.glade $(DESTDIR)$(PREFIX)/share/exaile
 	install -m 644 equalizer.ini $(DESTDIR)$(PREFIX)/share/exaile
 	install -m 644 sql/*.sql $(DESTDIR)$(PREFIX)/share/exaile/sql
-	-install -m 644 mmkeys.so $(DESTDIR)$(PREFIX)/lib/exaile
+	-install -m 644 mmkeys.so $(DESTDIR)$(LIBDIR)/exaile
 	install -m 644 images/*.png $(DESTDIR)$(PREFIX)/share/exaile/images
 	install -m 644 images/default_theme/*.png \
 	$(DESTDIR)$(PREFIX)/share/exaile/images/default_theme
@@ -78,7 +79,7 @@ tarball: clean
 
 uninstall:
 	rm -r $(DESTDIR)$(PREFIX)/share/exaile
-	rm -r $(DESTDIR)$(PREFIX)/lib/exaile
+	rm -r $(DESTDIR)$(LIBDIR)/exaile
 	rm -r $(DESTDIR)$(PREFIX)/bin/exaile
 	rm  $(DESTDIR)$(PREFIX)/share/applications/exaile.desktop
 	rm  $(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png

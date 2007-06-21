@@ -37,6 +37,7 @@ make-install-dirs:
 install: make-install-dirs
 	install -m 644 exaile.1 $(DESTDIR)$(PREFIX)/share/man/man1
 	install -m 644 exaile.py $(DESTDIR)$(PREFIX)/share/exaile
+	-install -m 644 exaile.pyc $(DESTDIR)$(PREFIX)/share/exaile
 	install -m 644 exaile.glade $(DESTDIR)$(PREFIX)/share/exaile
 	install -m 644 equalizer.ini $(DESTDIR)$(PREFIX)/share/exaile
 	install -m 644 sql/*.sql $(DESTDIR)$(PREFIX)/share/exaile/sql

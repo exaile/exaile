@@ -447,6 +447,23 @@ class Preferences(object):
             else: done = None
             item = c(setting, default, change, done)
             self.fields.append(item)
+    
+    def advanced_alphabet_alert(self, item, value):
+        """
+            Shows an alert when the user changes the "show extended alphabet"
+            setting
+        """
+        common.info(self.exaile.window, _('Click the "Refresh" button in '
+            'the Collection panel to apply this setting.'))
+
+    def advanced_toggle_stop_button(self, item, value):
+        """
+            Hides or shows the stop button
+        """
+        if value:
+            self.exaile.stop_button.show()
+        else:
+            self.exaile.stop_button.hide()        
 
     def setup_scan_interval(self, widget):
         """

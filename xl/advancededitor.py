@@ -49,7 +49,7 @@ class ConfigurationItem(object):
                 self._value = eval(value)
             except:
                 self._value = []
-        elif self.type == 'bool':
+        elif self.type == 'boolean':
             if value and value.lower() == 'true':
                 self._value = True
             else:
@@ -62,6 +62,7 @@ class ConfigurationItem(object):
         
         m = getattr(self.ace.settings, 'set_%s' % self.type.lower())
         m(self.name, self._value)
+        print "setting %s to %s" % (self.name, self._value)
 
     def get_value(self):
         return self._value
@@ -94,7 +95,7 @@ class AdvancedConfigEditor(gtk.Window):
             handler = None
             if changefunc and changefunc != 'none' and hasattr(eventhandler, 'advanced_%s' % 
                 changefunc):
-                handler = getattr(eventhandler, changefunc)
+                handler = getattr(eventhandler, 'advanced_%s' % changefunc)
 
             self.items.append(ConfigurationItem(self, name, type, current,
                 description, handler))
@@ -119,23 +120,35 @@ class AdvancedConfigEditor(gtk.Window):
         scroll.set_shadow_type(gtk.SHADOW_IN)
 
         self.tree = gtk.TreeView(self.model)
+        self.tree.connect('row-activated', self.row_activated)
 
         # set up the treeview
         text = gtk.CellRendererText()
         col = gtk.TreeViewColumn(_('Setting Name'))
-        col.pack_start(text, True)
+        col.pack_start(text, False)
+        col.set_expand(True)
+        col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+        col.set_fixed_width(1)
         col.set_attributes(text, text=1)
         self.tree.append_column(col)
 
-        text = gtk.CellRendererText()
+        self.value_text = gtk.CellRendererText()
+        self.value_text.set_property('editable', True)
+        self.value_text.connect('edited', self.edited_cb)
         col = gtk.TreeViewColumn(_('Value'))
-        col.pack_start(text, True)
-        col.set_attributes(text, text=2)
+        col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
+        col.pack_start(self.value_text, True)
+        col.set_expand(True)
+        col.set_attributes(self.value_text, text=2)
+        col.set_cell_data_func(self.value_text, self.value_data_func)
         self.tree.append_column(col)
 
         text = gtk.CellRendererText()
         col = gtk.TreeViewColumn(_('Type'))
-        col.pack_start(text, False)
+        col.set_expand(True)
+        col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+        col.set_fixed_width(1)
+        col.pack_start(text, True)
         col.set_attributes(text, text=3)
         self.tree.append_column(col)
 
@@ -153,6 +166,38 @@ class AdvancedConfigEditor(gtk.Window):
         self.resize(635, 500)
         self.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         self.show_all()
+
+    def value_data_func(self, column, cell, model, iter):
+        """
+            Value data func
+        """
+        type = model.get_value(iter, 3)
+        if type == 'Boolean':
+            cell.set_property('editable', False)
+        else:
+            cell.set_property('editable', True)
+        cell.set_property('text', model.get_value(iter, 2))
+
+    def row_activated(self, tree, path, col):
+        """
+            Called when the user clicks on the TreeView
+        """
+        iter = self.model.get_iter(path)
+        item = self.model.get_value(iter, 0)
+
+        if item.type.lower() == 'boolean':
+            item.value = not item.value
+            self.model.set_value(iter, 2, item.value)
+
+    def edited_cb(self, cell, path, new_text, data=None):
+        """
+            Called when one of the cells is edited
+        """
+        iter = self.model.get_iter(path)
+        item = self.model.get_value(iter, 0)
+
+        item.value = new_text
+        self.model.set_value(iter, 2, new_text)
 
     def populate_model(self):
         """

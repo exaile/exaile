@@ -1,0 +1,1385 @@
+# Romanian translation of exaile.
+# Copyright (C) 2006 Adam Olsen <arolsen@gmail.com>
+# This file is distributed under the same license as the exaile package.
+# Alexandru Szasz <alexxed@gmail.com>, 2007.
+# , fuzzy
+# 
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile 0.2.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-06-03 13:02+0300\n"
+"PO-Revision-Date: 2007-06-03 23:37+0300\n"
+"Last-Translator: Alexandru Szasz <alexxed@gmail.com>\n"
+"Language-Team: Romanian <mozilla-ro@googlegroups.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit"
+
+#: exaile.py:174 exaile.glade.h:85
+msgid "Exaile!"
+msgstr "Exaile!"
+
+#: exaile.py:222
+msgid ""
+"You have not specified any search directories for your music library. You "
+"may do so now, or choose to do it later.  If you want to do it later, you "
+"can manage your library search directories by going to Tools->Library "
+"Manager.  Do you want to choose your library directories now?"
+msgstr ""
+"Nu ați specificat niciun director din colecția dumneavoastră muzicală. "
+"Puteți face asta acum, sau puteți să o faceți mai târziu.  Dacă "
+"doriți să o faceți mai târziu, trebuie să știți că puteți "
+"administra directoarele în care se caută muzica mergând la "
+"Unelte->Manager colecție.  Doriți să alegeți directoarele cu muzică "
+"acum?"
+
+#: exaile.py:573 xl/xlmisc.py:1543
+msgid "Add a directory"
+msgstr "Adaugă un director"
+
+#: exaile.py:575 xl/xlmisc.py:1545 exaile.glade.h:56
+msgid "Cancel"
+msgstr "Anulează"
+
+#: exaile.py:575 xl/xlmisc.py:1545
+msgid "Choose"
+msgstr "Alege"
+
+#: exaile.py:578
+msgid "Add tracks to current playlist after importing"
+msgstr "După import, adaugă melodiile la lista de redare curentă"
+
+#: exaile.py:645
+msgid "Queue"
+msgstr "Coadă"
+
+#: exaile.py:682
+msgid "Blacklist"
+msgstr "Lista neagră"
+
+#: exaile.py:818 exaile.py:1525 exaile.py:1534 exaile.py:1573 exaile.py:2049
+#: xl/panels.py:2790 xl/panels.py:2919 exaile.glade.h:115
+msgid "Playlist"
+msgstr "Listă de redare"
+
+#: exaile.py:866
+msgid ""
+"Blacklisting the selected tracks will prevent them from being added to the "
+"library on rescan.  Are you sure you want to continue?"
+msgstr ""
+"Dacă adăugați melodiile selectate la lista neagră, ele nu vor mai fi "
+"adăugate la colecția dumneavoastră la o nouă scanare.  Sigur doriți să "
+"continuați?"
+
+#: exaile.py:959
+#, python-format
+msgid "Error connecting to database: %s"
+msgstr "Eroare la conexiunea cu baza de date: %s"
+
+#: exaile.py:991
+msgid "Loading library from database..."
+msgstr "Se încarcă colecția din baza de date..."
+
+#: exaile.py:1231
+msgid "Submitting to Last.fm..."
+msgstr "Se postează la Last.fm..."
+
+#: exaile.py:1248 exaile.glade.h:107
+msgid "Not Playing"
+msgstr "Nu se redă nimic"
+
+#: exaile.py:1249 exaile.glade.h:145
+msgid "Stopped"
+msgstr "Oprit"
+
+#: exaile.py:1318
+msgid "No covers found."
+msgstr "Nu s-au găsit coperți."
+
+#: exaile.py:1381
+msgid "Fetching cover art from Amazon..."
+msgstr "Se obține coperta albumului de la Amazon..."
+
+#: exaile.py:1435
+msgid "View Full Image"
+msgstr "Vezi imaginea întreagă"
+
+#: exaile.py:1437
+msgid "Fetch from Amazon"
+msgstr "Ia de la Amazon"
+
+#: exaile.py:1439
+msgid "Search Amazon"
+msgstr "Caută pe Amazon"
+
+#: exaile.py:1441
+msgid "Set Custom Image"
+msgstr "Pune o copertă personalizată"
+
+#: exaile.py:1443
+msgid "Remove Cover"
+msgstr "Elimină coperta"
+
+#: exaile.py:1467
+msgid "Fetching from amazon..."
+msgstr "Se obține de la amazon..."
+
+#: exaile.py:1483
+msgid "Choose an image"
+msgstr "Alege o imagine"
+
+#: exaile.py:1701
+msgid "Podcast has not yet been downloaded"
+msgstr "Podcastul nu a fost descărcat încă"
+
+#: exaile.py:2014 exaile.py:2064
+msgid "Choose a file"
+msgstr "Alege un fișier"
+
+#: exaile.py:2017
+msgid "Open in new tab"
+msgstr "Deschide într-o filă nouă"
+
+#: exaile.py:2029
+msgid "Populating playlist..."
+msgstr "Se populează lista de redare..."
+
+#: exaile.py:2122
+msgid "Enter the address"
+msgstr "Introduceți adresa"
+
+#: exaile.py:2135
+msgid "You need the python-cddb package  in order to play audio discs."
+msgstr "Aveți nevoie de pachetul python-cddb pentru a reda discuri audio."
+
+#: exaile.py:2140
+msgid "Audio Disc"
+msgstr "Disc audio"
+
+#: exaile.py:2173
+msgid "Scanning collection..."
+msgstr "Se scanează colecția..."
+
+#: xl/audioscrobbler.py:29
+msgid "Failed to submit track to Last.fm."
+msgstr "Trimiterea melodiei către Last.fm a eșuat."
+
+#: xl/audioscrobbler.py:49
+msgid "Error logging into Last.fm."
+msgstr "Eroare la autentificarea în Last.fm."
+
+#: xl/filtergui.py:50
+msgid "Name"
+msgstr "Nume"
+
+#: xl/filtergui.py:64
+msgid "Match any of the criteria"
+msgstr "Se potrivește cu orice criteriu"
+
+#: xl/panels.py:62 xl/panels.py:77 xl/panels.py:86
+msgid "seconds"
+msgstr "secunde"
+
+#: xl/panels.py:68
+msgid "and"
+msgstr "și"
+
+#: xl/panels.py:74 xl/panels.py:77
+msgid "days"
+msgstr "zile"
+
+#: xl/panels.py:77
+msgid "minutes"
+msgstr "minute"
+
+#: xl/panels.py:77
+msgid "hours"
+msgstr "ore"
+
+#: xl/panels.py:77
+msgid "weeks"
+msgstr "săptămâni"
+
+#: xl/panels.py:98 xl/track.py:337 xl/trackslist.py:36 xl/trackslist.py:41
+#: xl/trackslist.py:53 xl/trackslist.py:480 exaile.glade.h:41
+msgid "Artist"
+msgstr "Artist"
+
+#: xl/panels.py:99 xl/panels.py:109 xl/panels.py:119 xl/panels.py:172
+msgid "is"
+msgstr "este"
+
+#: xl/panels.py:101 xl/panels.py:111 xl/panels.py:121 xl/panels.py:174
+msgid "is not"
+msgstr "nu este"
+
+#: xl/panels.py:103 xl/panels.py:113 xl/panels.py:123 xl/panels.py:176
+msgid "contains"
+msgstr "conține"
+
+#: xl/panels.py:105 xl/panels.py:115 xl/panels.py:125 xl/panels.py:178
+msgid "does not contain"
+msgstr "nu conține"
+
+#: xl/panels.py:108 xl/track.py:341 xl/trackslist.py:36 xl/trackslist.py:42
+#: xl/trackslist.py:54 xl/trackslist.py:481 exaile.glade.h:35
+msgid "Album"
+msgstr "Album"
+
+#: xl/panels.py:118 xl/trackslist.py:37 xl/trackslist.py:47
+#: xl/trackslist.py:59 exaile.glade.h:90
+msgid "Genre"
+msgstr "Gen"
+
+#: xl/panels.py:128
+msgid "User Rating"
+msgstr "Evaluare utilizator"
+
+#: xl/panels.py:129 xl/panels.py:134 xl/panels.py:140 xl/panels.py:154
+msgid "at least"
+msgstr "cel puțin"
+
+#: xl/panels.py:131 xl/panels.py:136 xl/panels.py:142 xl/panels.py:156
+msgid "at most"
+msgstr "cel mult"
+
+#: xl/panels.py:133
+msgid "System Rating"
+msgstr "Evaluare sistem"
+
+#: xl/panels.py:139
+msgid "Number of Plays"
+msgstr "Număr de redări"
+
+#: xl/panels.py:145 xl/trackslist.py:37 xl/trackslist.py:46
+#: xl/trackslist.py:58 exaile.glade.h:163
+msgid "Year"
+msgstr "An"
+
+#: xl/panels.py:146
+msgid "before"
+msgstr "înainte"
+
+#: xl/panels.py:148
+msgid "after"
+msgstr "după"
+
+#: xl/panels.py:150
+msgid "between"
+msgstr "între"
+
+#: xl/panels.py:153 xl/trackslist.py:36 xl/trackslist.py:43
+#: xl/trackslist.py:55 xl/trackslist.py:453 exaile.glade.h:100
+msgid "Length"
+msgstr "Durată"
+
+#: xl/panels.py:159
+msgid "Date Added"
+msgstr "Data adăugării"
+
+#: xl/panels.py:160 xl/panels.py:166
+msgid "in the last"
+msgstr "în ultimele"
+
+#: xl/panels.py:162 xl/panels.py:168
+msgid "not in the last"
+msgstr "nu în ultimele"
+
+#: xl/panels.py:165
+msgid "Last Played"
+msgstr "Ultima redare"
+
+#: xl/panels.py:171
+msgid "Location"
+msgstr "Amplasare"
+
+#: xl/panels.py:278
+msgid "Finished scanning collection."
+msgstr "S-a terminat scanarea colecției."
+
+#: xl/panels.py:299
+msgid "Scanning..."
+msgstr "Se scanează..."
+
+#: xl/panels.py:333
+msgid "Append to Current"
+msgstr "Adaugă la cea curentă"
+
+#: xl/panels.py:337 xl/panels.py:1688 xl/trackslist.py:729
+msgid "New Playlist"
+msgstr "Listă de redare nouă"
+
+#: xl/panels.py:347 xl/trackslist.py:737
+msgid "Add to Playlist"
+msgstr "Adaugă la lista de redare"
+
+#: xl/panels.py:348 xl/panels.py:2751
+msgid "Queue Items"
+msgstr "Pune la coadă"
+
+#: xl/panels.py:351
+msgid "Blacklist Selected"
+msgstr "Adaugă selecția la lista neagră"
+
+#: xl/panels.py:353
+msgid "Delete Selected"
+msgstr "Șterge cele selectate"
+
+#: xl/panels.py:357 xl/trackslist.py:756
+msgid "Edit Information"
+msgstr "Editează informațiile"
+
+#: xl/panels.py:434 xl/trackslist.py:952
+msgid ""
+"Are you sure you want to permanently remove the selected tracks from disk?"
+msgstr "Sigur doriți să ștergeți permanent melodiile selectate de pe disc?"
+
+#: xl/panels.py:452
+msgid "Are you sure you want to blacklist the selected tracks?"
+msgstr "Sigur doriți să adăugați melodiile selectate la lista neagră?"
+
+#: xl/panels.py:836
+msgid "Transfer Queue"
+msgstr "Coada de transferuri"
+
+#: xl/panels.py:864
+msgid "Transfer"
+msgstr "Transfer"
+
+#: xl/panels.py:884
+msgid ""
+"A transfer is in progress, please wait for it to stop before attempting to "
+"perform this operation."
+msgstr ""
+"Un transfer e în desfășurare, vă rugăm să așteptați să se termine "
+"înainte de a efectua această operație."
+
+#: xl/panels.py:1027
+msgid "This device does not support removing tracks"
+msgstr "Acest dispozitiv nu suportă ștergerea melodiilor"
+
+#: xl/panels.py:1045
+msgid "Not connected to any media device"
+msgstr "Niciun dispozitiv multimedia conectat"
+
+#: xl/panels.py:1076
+msgid "The current device  does not support transferring music."
+msgstr "Dispozitivul curent nu suportă transferul de muzică."
+
+#: xl/panels.py:1080
+msgid ""
+"There is a transfer currently in progress.  Please wait for it to finish"
+msgstr ""
+"Un transfer este în curs de desfășurare.  Vă rugam să așteptați "
+"încheierea lui"
+
+#: xl/panels.py:1180
+msgid "Error connecting to device"
+msgstr "Eroare la conexiunea cu dispozitivul"
+
+#: xl/panels.py:1291
+msgid "Smart Playlists"
+msgstr "Liste inteligente de redare"
+
+#: xl/panels.py:1354
+msgid "Custom Playlists"
+msgstr "Liste personalizate de redare"
+
+#: xl/panels.py:1426 xl/panels.py:1469
+msgid "That playlist name is already taken."
+msgstr "Numele de listă este deja luat."
+
+#: xl/panels.py:1464
+msgid "You did not enter a name for your playlist"
+msgstr "Nu ați introdus un nume pentru listă"
+
+#: xl/panels.py:1645 xl/trackslist.py:1026
+msgid "The following errors did occur"
+msgstr "Au apărut următoarele erori"
+
+#: xl/panels.py:1663
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr ""
+"Sigur doriți să ștergeți pentru totdeauna listele de redare selectate?"
+
+#: xl/panels.py:1687
+msgid "Enter the name you want for your new playlist"
+msgstr "Introduceți numele pe care doriți să-l dați listei noi de redare"
+
+#: xl/panels.py:1697
+msgid "Playlist already exists."
+msgstr "Lista există deja."
+
+#: xl/panels.py:1846
+msgid "Downloading Podcasts"
+msgstr "Se descarcă podcasturi"
+
+#: xl/panels.py:1851
+msgid "Downloading..."
+msgstr "Se descarcă..."
+
+#: xl/panels.py:1886
+msgid "Stopping..."
+msgstr "Se oprește..."
+
+#: xl/panels.py:2013
+msgid "Shoutcast Stations"
+msgstr "Posturi shoutcast"
+
+#: xl/panels.py:2115
+msgid ""
+"You need to have a last.fm username and password set in your preferences."
+msgstr ""
+"Trebuie să aveți un utilizator last.fm și o parolă setate în "
+"preferințe."
+
+#: xl/panels.py:2267
+msgid "Reload Streams"
+msgstr "Reîncarcă fluxurile"
+
+#: xl/panels.py:2272 xl/panels.py:2473
+msgid "Add Stream to Station"
+msgstr "Adaugă un flux la post"
+
+#: xl/panels.py:2274
+msgid "Delete this Station"
+msgstr "Șterge acest post"
+
+#: xl/panels.py:2278
+msgid "Add Feed"
+msgstr "Adaugă un flux"
+
+#: xl/panels.py:2279
+msgid "Refresh Feed"
+msgstr "Reîmprospătează fluxul"
+
+#: xl/panels.py:2280
+msgid "Delete Feed"
+msgstr "Șterge fluxul"
+
+#: xl/panels.py:2296
+msgid "Enter the location of the podcast"
+msgstr "Introduceți adresa podcastului"
+
+#: xl/panels.py:2297
+msgid "Add a podcast"
+msgstr "Adaugă un podcast"
+
+#: xl/panels.py:2305
+msgid "A podcast with that url already exists"
+msgstr "Există deja un podcast cu acea adresă"
+
+#: xl/panels.py:2331
+msgid "Could not read feed."
+msgstr "Nu se poate citi fluxul."
+
+#: xl/panels.py:2453
+msgid "Are you sure you want to delete this podcast?"
+msgstr "Sigur doriți să ștergeți acest podcast?"
+
+#: xl/panels.py:2498
+msgid "Are you sure you want to permanently delete the selected station?"
+msgstr "Sigur doriți să ștergeți pentru totdeauna postul selectat?"
+
+#: xl/panels.py:2551
+msgid "Add Station"
+msgstr "Adaugă un post"
+
+#: xl/panels.py:2552
+msgid "Station Name:"
+msgstr "Nume post:"
+
+#: xl/panels.py:2553 plugins/plugins.glade:131 plugins/plugins.glade:399
+msgid "Description:"
+msgstr "Descriere:"
+
+#: xl/panels.py:2554
+msgid "URL:"
+msgstr "Adresă URL:"
+
+#: xl/panels.py:2561
+msgid "The 'Name' and 'URL' fields are required"
+msgstr "Câmpurile „Nume” și „Adresă URL” sunt necesare"
+
+#: xl/panels.py:2569
+msgid "Station name already exists."
+msgstr "Numele de post există deja."
+
+#: xl/panels.py:2616 xl/panels.py:2617
+msgid "Enter the name of the station"
+msgstr "Introduceți numele postului"
+
+#: xl/panels.py:2627
+msgid "Station already exists."
+msgstr "Postul există deja."
+
+#: xl/panels.py:2750
+msgid "Append to Playlist"
+msgstr "Adaugă la listă"
+
+#: xl/panels.py:2787
+msgid "Scanning and adding files..."
+msgstr "Se scanează și se adaugă fișiere..."
+
+#: xl/player.py:394
+msgid "Errors"
+msgstr "Erori"
+
+#: xl/player.py:403
+msgid "<b>The following errors have occurred</b>"
+msgstr "<b>Au apărut următoarele erori</b>"
+
+#: xl/player.py:417 xl/xlmisc.py:801
+msgid "Close"
+msgstr "Închide"
+
+#: xl/player.py:549
+#, python-format
+msgid "Error logging in to Last.FM: %s"
+msgstr "Eroare la autentificarea în Last.FM: %s"
+
+#: xl/player.py:649
+msgid "Loading stream sources, please wait..."
+msgstr "Se încarcă sursele fluxului, vă rugăm așteptați..."
+
+#: xl/player.py:917
+msgid "Exaile Media Player"
+msgstr "Lectorul audio Exaile"
+
+#: xl/prefs.py:458
+msgid ""
+"Cannot watch directories for changes. Install python2.4-gamin to use this "
+"feature."
+msgstr ""
+"Nu se pot monitoriza directoarele pentru a detecta melodii noi. Instalați "
+"python2.4-gamin pentru a utiliza această funcționalitate."
+
+#: xl/prefs.py:600
+msgid ""
+"Move the OSD window to the location you want it to appear when listening"
+msgstr ""
+"Mutați fereastra OSD în locul unde doriți să apară când ascultați "
+"muzică"
+
+#: xl/track.py:229 xl/track.py:288
+msgid "Title: "
+msgstr "Titlu: "
+
+#: xl/track.py:230 exaile.glade.h:45
+msgid "Artist:"
+msgstr "Artist: "
+
+#: xl/track.py:231 exaile.glade.h:39
+msgid "Album:"
+msgstr "Album: "
+
+#: xl/track.py:233
+msgid "Track Number:"
+msgstr "Numărul melodiei:"
+
+#: xl/track.py:234 exaile.glade.h:164
+msgid "Year:"
+msgstr "An:"
+
+#: xl/track.py:235 exaile.glade.h:91
+msgid "Genre:"
+msgstr "Gen:"
+
+#: xl/track.py:236
+msgid "Bitrate:"
+msgstr "Rată de biți:"
+
+#: xl/track.py:237
+msgid "User Rating:"
+msgstr "Evaluare utilizator:"
+
+#: xl/track.py:238
+msgid "System Rating:"
+msgstr "Evaluare sistem:"
+
+#: xl/track.py:239
+msgid "Playcount:"
+msgstr "Nr. de redări:"
+
+#: xl/track.py:240 xl/track.py:294
+msgid "Location: "
+msgstr "Amplasare:"
+
+#: xl/track.py:289
+msgid "Description: "
+msgstr "Descriere:"
+
+#: xl/track.py:295
+msgid "Bitrate: "
+msgstr "Rată de biți: "
+
+#: xl/track.py:314 xl/trackslist.py:778 exaile.glade.h:94
+msgid "Information"
+msgstr "Informație"
+
+#: xl/track.py:328 xl/track.py:330
+msgid "Statistics"
+msgstr "Statistici"
+
+#: xl/track.py:343
+msgid "Lyrics"
+msgstr "Versuri"
+
+#: xl/track.py:345
+msgid "Tablature"
+msgstr "Tablatură"
+
+#: xl/track.py:463
+msgid "Some errors occurred"
+msgstr "Au apărut unele erori"
+
+#: xl/trackslist.py:36 xl/trackslist.py:40 xl/trackslist.py:52
+#: xl/trackslist.py:480 exaile.glade.h:148
+msgid "Title"
+msgstr "Titlu"
+
+#: xl/trackslist.py:36 xl/trackslist.py:44 xl/trackslist.py:56
+#: xl/trackslist.py:457 exaile.glade.h:78
+msgid "Disc"
+msgstr "Disc"
+
+#: xl/trackslist.py:37 xl/trackslist.py:45 xl/trackslist.py:57
+#: xl/trackslist.py:430 xl/trackslist.py:459 xl/trackslist.py:515
+#: xl/trackslist.py:776 exaile.glade.h:127
+msgid "Rating"
+msgstr "Evaluare"
+
+#: xl/trackslist.py:37 xl/trackslist.py:48 xl/trackslist.py:60
+#: exaile.glade.h:54
+msgid "Bitrate"
+msgstr "Rată de biți"
+
+#: xl/trackslist.py:150
+msgid "Scanning and adding tracks to current playlist..."
+msgstr "Se scanează și se adaugă melodii la lista curentă..."
+
+#: xl/trackslist.py:722
+msgid "Toggle Queue"
+msgstr "Alternează coada"
+
+#: xl/trackslist.py:748
+msgid "New Station"
+msgstr "Post nou"
+
+#: xl/trackslist.py:751
+msgid "Add to Saved Stations"
+msgstr "Adaugă la Posturi Salvate"
+
+#: xl/trackslist.py:777
+msgid "Edit Track(s)"
+msgstr "Editează melodiile"
+
+#: xl/trackslist.py:788
+msgid "Last.FM Options"
+msgstr "Opțiuni Last.FM"
+
+#: xl/trackslist.py:792
+msgid "Remove from Playlist"
+msgstr "Elimină din lista de redare"
+
+#: xl/trackslist.py:796
+msgid "Blacklist Track(s)"
+msgstr "Adaugă melodiile la lista neagră"
+
+#: xl/trackslist.py:798
+msgid "Delete Track(s)"
+msgstr "Șterge melodiile"
+
+#: xl/trackslist.py:800
+msgid "Remove"
+msgstr "Elimină"
+
+#: xl/trackslist.py:806 xl/xlmisc.py:262 exaile.glade.h:118
+msgid "Plugins"
+msgstr "Module"
+
+#: xl/trackslist.py:1051
+msgid "Remove from Blacklist"
+msgstr "Elimină de pe lista neagră"
+
+#: xl/tracks.py:394
+msgid "Could not open audio disc"
+msgstr "Nu se poate deschide discul audio"
+
+#: xl/tracks.py:406
+#, python-format
+msgid "Track %d"
+msgstr "Melodia %d"
+
+#: xl/xlmisc.py:243 xl/xlmisc.py:272
+msgid "Play"
+msgstr "Redare"
+
+#: xl/xlmisc.py:255 exaile.glade.h:105
+msgid "Next"
+msgstr "Următoarea"
+
+#: xl/xlmisc.py:256 exaile.glade.h:122
+msgid "Previous"
+msgstr "Precedenta"
+
+#: xl/xlmisc.py:259 exaile.glade.h:121
+msgid "Preferences"
+msgstr "Preferințe"
+
+#: xl/xlmisc.py:265
+msgid "Quit"
+msgstr "Ieșire"
+
+#: xl/xlmisc.py:276
+msgid "Pause"
+msgstr "Pauză"
+
+#: xl/xlmisc.py:761
+msgid "Close this tab"
+msgstr "Închide această filă"
+
+#: xl/xlmisc.py:774
+msgid "Enter the new name for this playlist"
+msgstr "Introduceți noul nume pentru această listă de redare"
+
+#: xl/xlmisc.py:774
+msgid "Rename playlist"
+msgstr "Redenumește lista de redare"
+
+#: xl/xlmisc.py:800
+msgid "Rename"
+msgstr "Redenumește"
+
+#: xl/xlmisc.py:804
+msgid "Save Playlist"
+msgstr "Salvează lista de redare"
+
+#: xl/xlmisc.py:1368
+msgid "Enter the search text"
+msgstr "Introduceți textul de căutat"
+
+#: xl/xlmisc.py:1375
+msgid "Searching for "
+msgstr "Se caută "
+
+#: xl/xlmisc.py:1447
+msgid "Sorry, no covers were found."
+msgstr "Nu s-au găsit coperți de albume."
+
+#: exaile.glade.h:1
+msgid " "
+msgstr ""
+
+#: exaile.glade.h:2
+msgid "               "
+msgstr ""
+
+#: exaile.glade.h:3
+msgid "(c) 2006"
+msgstr "(c) 2006"
+
+#: exaile.glade.h:4
+msgid "(minutes, use 0 to disable)"
+msgstr "(minute, folosiți 0 pentru dezactivare)"
+
+#: exaile.glade.h:5
+msgid "+"
+msgstr ""
+
+#: exaile.glade.h:6
+msgid "-"
+msgstr ""
+
+#: exaile.glade.h:7
+msgid "/"
+msgstr ""
+
+#: exaile.glade.h:8
+msgid "/dev/cdrom"
+msgstr ""
+
+#: exaile.glade.h:9
+msgid "0"
+msgstr ""
+
+#: exaile.glade.h:10
+msgid "0 Covers to fetch"
+msgstr "Nicio copertă de luat"
+
+#: exaile.glade.h:11
+msgid "0 tracks"
+msgstr "Nicio melodie"
+
+#: exaile.glade.h:12
+msgid "0/0"
+msgstr ""
+
+#: exaile.glade.h:13
+msgid "0:00"
+msgstr ""
+
+#: exaile.glade.h:14
+msgid ""
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5\n"
+"6\n"
+"7\n"
+"8"
+msgstr ""
+
+#: exaile.glade.h:22
+msgid "<b>General</b>"
+msgstr "<b>General</b>"
+
+#: exaile.glade.h:23
+msgid "<b>Model:</b>        "
+msgstr "<b>Model:</b>........"
+
+#: exaile.glade.h:24
+msgid "<b>Space:</b>"
+msgstr "<b>Spațiu:</b>"
+
+#: exaile.glade.h:25
+msgid ""
+"<b>{Title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{Title}</b>\n"
+"{artist}\n"
+"de pe {album} - {length}"
+
+#: exaile.glade.h:28
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"de pe {album} - {length}"
+
+#: exaile.glade.h:31
+msgid "Action Log"
+msgstr "Jurnal de acțiuni"
+
+#: exaile.glade.h:32
+msgid "Action _Log"
+msgstr "Jurna_l de acțiuni"
+
+#: exaile.glade.h:33
+msgid "Add Saved Station"
+msgstr "Adaugă un post salvats"
+
+#: exaile.glade.h:34
+msgid "Advanced"
+msgstr "Avansat"
+
+#: exaile.glade.h:36
+msgid "Album Art"
+msgstr "Coperți de album"
+
+#: exaile.glade.h:37
+msgid "Album _Information"
+msgstr "_Informații album"
+
+#: exaile.glade.h:38
+msgid "Album art filenames (separated by spaces):"
+msgstr "Nume de fișiere pentru coperți (separate de spații):"
+
+#: exaile.glade.h:40
+msgid "Amazon Locale:"
+msgstr "Cod țară pe Amazon:"
+
+#: exaile.glade.h:42
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre"
+msgstr ""
+"Artist\n"
+"Album\n"
+"Gen"
+
+#: exaile.glade.h:46
+msgid "Attempt to fetch cover art from Amazon automatically"
+msgstr "Încearcă să obții automat coperta albumului de pe Amazon"
+
+#: exaile.glade.h:47
+msgid ""
+"Automatic\n"
+"Use GConf Settings\n"
+"alsasink\n"
+"osssink\n"
+"esdsink"
+msgstr ""
+"Automat\n"
+"Folosește setările GConf\n"
+"alsasink\n"
+"osssink\n"
+"esdsink"
+
+#: exaile.glade.h:52
+msgid "Autosize"
+msgstr "Mărime automată"
+
+#: exaile.glade.h:53
+msgid "Background Color:"
+msgstr "Culoare fundal:"
+
+#: exaile.glade.h:55
+msgid "CD Device:"
+msgstr "Dispozitiv CD:"
+
+#: exaile.glade.h:57
+msgid "Cl_ear Playlist"
+msgstr "Curăță lista de r_edare"
+
+#: exaile.glade.h:58
+msgid "Cl_ose Playlist"
+msgstr "În_chide lista de redare"
+
+#: exaile.glade.h:59
+msgid "Clear Playlist"
+msgstr "Curăță lista de redare"
+
+#: exaile.glade.h:60
+msgid "Collection"
+msgstr "Colecție"
+
+#: exaile.glade.h:61
+msgid ""
+"Copyright (C) 2006 Adam Olsen\n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 1, or (at your option)\n"
+"any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program; if not, write to the Free Software\n"
+"Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
+msgstr ""
+"Drepturile de autor pe 2006 aparțin lui Adam Olsen\n"
+"\n"
+"Acest program este liber, îl puteți redistribui și/sau modifica "
+"respectând\n"
+"termenii licenței generale GNU după cum este publicată de fundația \n"
+"Free Software Foundation; ori versiunea 1, ori (după cum doriți) o\n"
+"versiune mai nouă.\n"
+"\n"
+"Acest program este distribuit în speranța că va fi folositor,\n"
+"dar cu ABSOLUT NICIO GARANȚIE. Vedeți licență GNU General Public\n"
+"License pentru mai multe detalii.\n"
+"\n"
+"Ar fi trebuit să primiți o copie a licenței GNU General Public License\n"
+"împreună cu acest program, dacă nu ați primit, scrieți în engleză "
+"fundației\n"
+"Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
+
+#: exaile.glade.h:76
+msgid "Cover Finder"
+msgstr "Căutător de coperți"
+
+#: exaile.glade.h:77
+msgid "Devices"
+msgstr "Dispozitive"
+
+#: exaile.glade.h:79
+msgid "Disc Number:"
+msgstr "Nr. disc:"
+
+#: exaile.glade.h:80
+msgid "Display OSD when hovering over tray icon"
+msgstr "Afișează OSD când trec peste iconița din zona de notificare."
+
+#: exaile.glade.h:81
+msgid "Display Text:"
+msgstr "Text de afișat:"
+
+#: exaile.glade.h:82
+msgid "Download feeds when opening podcasts"
+msgstr "Descarcă fluxurile când se deschid podcasturi"
+
+#: exaile.glade.h:83
+msgid "Dynamic Playlist"
+msgstr "Listă dinamică"
+
+#: exaile.glade.h:84
+msgid "Exaile"
+msgstr "Exaile"
+
+#: exaile.glade.h:86
+msgid "Export Playlist"
+msgstr "Exportă lista de redare"
+
+#: exaile.glade.h:87
+msgid "Fetches similar tracks from last.fm"
+msgstr "Obține melodii similare de pe last.fm"
+
+#: exaile.glade.h:88
+msgid "Files"
+msgstr "Fișiere"
+
+#: exaile.glade.h:89
+msgid "General"
+msgstr "General"
+
+#: exaile.glade.h:92
+msgid "Go To Playing Track"
+msgstr "Mergi la melodia redată"
+
+#: exaile.glade.h:93
+msgid "Hint: see http://www.exaile.org/trac/wiki/OSD for examples"
+msgstr "Pont: vedeți http://www.exaile.org/trac/wiki/OSD pentru exemple"
+
+#: exaile.glade.h:95
+msgid "Input Required"
+msgstr "Date necesare"
+
+#: exaile.glade.h:96
+msgid "Jump to current song on track change"
+msgstr "Sari la melodia curentă la schimbarea melodiei"
+
+#: exaile.glade.h:97
+msgid "Last.fm"
+msgstr "Last.fm"
+
+#: exaile.glade.h:98
+msgid "Last.fm Password:"
+msgstr "Parolă Last.fm"
+
+#: exaile.glade.h:99
+msgid "Last.fm Username:  "
+msgstr "Utilizator Last.fm"
+
+#: exaile.glade.h:101
+msgid "Library"
+msgstr "Colecție"
+
+#: exaile.glade.h:102
+msgid "Library Manager"
+msgstr "Gestionarul colecției"
+
+#: exaile.glade.h:103
+msgid "Library _Manager"
+msgstr "_Gestionarul colecției"
+
+#: exaile.glade.h:104
+msgid "New Search"
+msgstr "Căutare nouă"
+
+#: exaile.glade.h:106
+msgid "Next Track"
+msgstr "Melodia următoare"
+
+#: exaile.glade.h:108
+msgid "Notification"
+msgstr "Notificare"
+
+#: exaile.glade.h:109
+msgid "OK"
+msgstr "OK"
+
+#: exaile.glade.h:110
+msgid "Open _Disc"
+msgstr "Deschide _discul"
+
+#: exaile.glade.h:111
+msgid "Open _URL"
+msgstr "Deschide _URL"
+
+#: exaile.glade.h:112
+msgid "Open last playlist on startup"
+msgstr "Deschide ultima listă la pornire"
+
+#: exaile.glade.h:113
+msgid "Play/Pause"
+msgstr "Redare/Pauză"
+
+#: exaile.glade.h:114
+msgid "Playback Sink:   "
+msgstr "Sink de redare:   "
+
+#: exaile.glade.h:116
+msgid "Playlist Tab Placement:"
+msgstr "Locul capetelor de filă:"
+
+#: exaile.glade.h:117
+msgid "Playlists"
+msgstr "Liste de redare"
+
+#: exaile.glade.h:119
+msgid "Podcasts"
+msgstr "Podcasturi"
+
+#: exaile.glade.h:120
+msgid "Popup"
+msgstr "Popup"
+
+#: exaile.glade.h:123
+msgid "Previous Track"
+msgstr "Melodia precedentă"
+
+#: exaile.glade.h:124
+msgid "Question:"
+msgstr "Întrebare:"
+
+#: exaile.glade.h:125
+msgid "Radio"
+msgstr "Radio"
+
+#: exaile.glade.h:126
+msgid "Randomize Playlist"
+msgstr "Amestecă melodiile din listă"
+
+#: exaile.glade.h:128
+msgid "Rating: "
+msgstr "Evaluare: "
+
+#: exaile.glade.h:129
+msgid "Refresh"
+msgstr "Reîmprospătare"
+
+#: exaile.glade.h:130
+msgid "Remove Saved Station"
+msgstr "Elimină postul salvat"
+
+#: exaile.glade.h:131
+msgid "Repeat"
+msgstr "Repetat"
+
+#: exaile.glade.h:132
+msgid "Resizable"
+msgstr "Dimensionabil"
+
+#: exaile.glade.h:133
+msgid "Save"
+msgstr "Salvează"
+
+#: exaile.glade.h:134
+msgid "Save queue status"
+msgstr "Salvează starea cozii"
+
+#: exaile.glade.h:135
+msgid "Scan for new music every: "
+msgstr "Caută muzică nouă la fiecare: "
+
+#: exaile.glade.h:136
+msgid "Search:"
+msgstr "Caută:"
+
+#: exaile.glade.h:137
+msgid "Search: "
+msgstr "Caută: "
+
+#: exaile.glade.h:138
+msgid "Show On Screen Display"
+msgstr "Arată informații pe ecran (OSD)"
+
+#: exaile.glade.h:139
+msgid "Show Tray Icon"
+msgstr "Arată iconița în zona de notificare"
+
+#: exaile.glade.h:140
+msgid "Show Visualizations"
+msgstr "Arată vizualizările"
+
+#: exaile.glade.h:141
+msgid "Show splash screen on startup"
+msgstr "Arată imaginea de pornire"
+
+#: exaile.glade.h:142
+msgid "Shuffle"
+msgstr "Amestecat"
+
+#: exaile.glade.h:143
+msgid "Start"
+msgstr "Start"
+
+#: exaile.glade.h:144
+msgid "Stop Playback"
+msgstr "Oprește redarea"
+
+#: exaile.glade.h:146
+msgid "Text Color"
+msgstr "Culoare text"
+
+#: exaile.glade.h:147
+msgid "Text Font:"
+msgstr "Culoare font:"
+
+#: exaile.glade.h:149
+msgid "Title:"
+msgstr "Titlu:"
+
+#: exaile.glade.h:150
+msgid ""
+"Top\n"
+"Left\n"
+"Right\n"
+"Bottom"
+msgstr ""
+"Sus\n"
+"Stânga\n"
+"Dreapta\n"
+"Jos"
+
+#: exaile.glade.h:154
+msgid "Track Editor"
+msgstr "Editor de melodii"
+
+#: exaile.glade.h:155
+msgid "Track Number"
+msgstr "Numărul melodiei"
+
+#: exaile.glade.h:156
+msgid "Track:"
+msgstr "Nr. pe disc:"
+
+#: exaile.glade.h:157
+msgid "Unknown"
+msgstr "Necunoscut"
+
+#: exaile.glade.h:158
+msgid "Up One Directory"
+msgstr "Mai sus cu un director"
+
+#: exaile.glade.h:159
+msgid "Vol:"
+msgstr "Volum:"
+
+#: exaile.glade.h:160
+msgid "Wikipedia Locale:"
+msgstr "Cod țară pe Wikipedia:"
+
+#: exaile.glade.h:161
+msgid "Window Height:"
+msgstr "Înălțime fereastră:"
+
+#: exaile.glade.h:162
+msgid "Window Width:"
+msgstr "Lățime fereastră:"
+
+#: exaile.glade.h:165
+msgid "_Album Art Collector"
+msgstr "Colector de coperți de _album"
+
+#: exaile.glade.h:166
+msgid "_Artist Information"
+msgstr "Informații _artist"
+
+#: exaile.glade.h:167
+msgid "_Blacklist Manager"
+msgstr "Gestionarul listei _negre"
+
+#: exaile.glade.h:168
+msgid "_Clear Queue"
+msgstr "_Curăță coada"
+
+#: exaile.glade.h:169
+msgid "_Close"
+msgstr "În_chide"
+
+#: exaile.glade.h:170
+msgid "_Columns"
+msgstr "_Coloane"
+
+#: exaile.glade.h:171
+msgid "_File"
+msgstr "_Fișier"
+
+#: exaile.glade.h:172
+msgid "_Help"
+msgstr "_Ajutor"
+
+#: exaile.glade.h:173
+msgid "_Import Directory"
+msgstr "_Importă un director"
+
+#: exaile.glade.h:174
+msgid "_Logs"
+msgstr "_Jurnale"
+
+#: exaile.glade.h:175
+msgid "_Lyrics"
+msgstr "_Versuri"
+
+#: exaile.glade.h:176
+msgid "_New Playlist"
+msgstr "Listă _nouă de redare"
+
+#: exaile.glade.h:177
+msgid "_Open Media"
+msgstr "_Deschide un fișier"
+
+#: exaile.glade.h:178
+msgid "_Queue Manager"
+msgstr "Gestionarul _cozii"
+
+#: exaile.glade.h:179
+msgid "_Rescan Collection"
+msgstr "_Scanează din nou colecția"
+
+#: exaile.glade.h:180
+msgid "_Tools"
+msgstr "Unel_te"
+
+#: exaile.glade.h:181
+msgid "_View"
+msgstr "_Vedere"
+
+#: exaile.glade.h:182
+msgid "iPod Information"
+msgstr "Informații iPod"
+
+#: exaile.glade.h:183
+msgid "message"
+msgstr "mesaj"
+
+#: exaile.glade.h:185
+msgid "translator-credits"
+msgstr "Alexandru Szasz <alexxed@gmail.com>"
+
+#: plugins/plugins.glade:7
+msgid "Plugin Manager"
+msgstr "Gestionarul modulelor"
+
+#: plugins/plugins.glade:70 plugins/plugins.glade:378
+msgid "Authors:"
+msgstr "Autori:"
+
+#: plugins/plugins.glade:83 plugins/plugins.glade:360
+msgid "\n"
+msgstr ""
+
+#: plugins/plugins.glade:112 plugins/plugins.glade:337
+msgid "Version:      "
+msgstr "Versiune:      "
+
+#: plugins/plugins.glade:221
+msgid "Configure"
+msgstr "Configurează"
+
+#: plugins/plugins.glade:255 plugins/plugins.glade:462
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Niciun modul selectat</b>"
+
+#: plugins/plugins.glade:275
+msgid "Installed Plugins"
+msgstr "Module instalate"
+
+#: plugins/plugins.glade:483
+msgid "Available Plugins"
+msgstr "Module disponibile"

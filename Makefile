@@ -7,7 +7,6 @@ all: compile mmkeys.so translations
 	@echo "Type: 'make install' now"
 
 compile:
-	python -m py_compile exaile.py
 	python -m compileall xl lib
 
 mmkeys.so:
@@ -37,7 +36,6 @@ make-install-dirs:
 install: make-install-dirs
 	install -m 644 exaile.1 $(DESTDIR)$(PREFIX)/share/man/man1
 	install -m 644 exaile.py $(DESTDIR)$(PREFIX)/share/exaile
-	-install -m 644 exaile.pyc $(DESTDIR)$(PREFIX)/share/exaile
 	install -m 644 exaile.glade $(DESTDIR)$(PREFIX)/share/exaile
 	install -m 644 equalizer.ini $(DESTDIR)$(PREFIX)/share/exaile
 	install -m 644 sql/*.sql $(DESTDIR)$(PREFIX)/share/exaile/sql
@@ -61,7 +59,7 @@ install: make-install-dirs
 	    "#!/bin/sh\n" \
 	    "cd $(PREFIX)/share/exaile\n" \
 	    "export LD_LIBRARY_PATH=\$$LD_LIBRARY_PATH:$(FIREFOX)\n" \
-	    "exec python -m exaile \"\$$@\"" \
+	    "exec python exaile.py \"\$$@\"" \
 	    > exaile && \
 	  chmod 755 exaile
 	for f in `find po -name exaile.mo` ; do \

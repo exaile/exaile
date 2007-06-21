@@ -185,6 +185,9 @@ class AdvancedConfigEditor(gtk.Window):
         """
         if selection.get_selected():
             (model, iter) = selection.get_selected()
+            if not iter:
+                self.desc_label.set_label('')
+                return
             item = model.get_value(iter, 0)
             self.desc_label.set_label(item.description)
         else:

@@ -74,6 +74,12 @@ else:
 
     _mpcdec.mpc_streaminfo_get_length.restype = ctypes.c_double
 
+def get_tag(tagset, tag):
+    try:
+        return unicode(tagset[tag])
+    except KeyError:
+        return u''
+    
 def write_tag(tr):
     try: tag = mutagen.apev2.APEv2(tr.io_loc)
     except mutagen.apev2.APENoHeaderError:
@@ -89,12 +95,14 @@ def fill_tag_from_path(tr):
     try: tag = mutagen.apev2.APEv2(tr.io_loc)
     except mutagen.apev2.APENoHeaderError: return
 
-    tr.title = unicode(tag['title'])
-    tr.artist = unicode(tag['artist'])
-    tr.album = unicode(tag['album'])
-    tr.genre = unicode(tag['genre'])
+    tr.title = get_tag(tag, 'title')
+    tr.artist = get_tag(tag, 'artist')
+    tr.album = get_tag(tag, 'album')
+    tr.genre = get_tag(tag, 'genre')
+    tr.year = get_tag(tag, 'year')
+    
     try:
-        tr.track = int(unicode(tag['track']))
+        tr.track = int(get_tag(tag, 'track'))
     except ValueError: tr.track = -1
 
     # determine length and bitrate with the code from quodlibet

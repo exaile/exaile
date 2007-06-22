@@ -822,6 +822,8 @@ class ExailePlayer(GSTPlayer):
         if self.lastfm:
             self.setup_playbin()
 
+        if track.type == 'stream':
+            track.start_time = time.time()
         try:
             GSTPlayer.play(self, track.loc)
         except Exception, e:

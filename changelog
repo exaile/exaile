@@ -1,96 +1,101 @@
-exaile (0.2.5) dapper; urgency=low
-  * many drag and drop tweaks
-  * drag and drop now works from the file panel
-  * podcasts now have to be downloaded before they can be played
-  * added "repeat" and "shuffle" checkboxes above playback controls
-  * added rating dropdown for current playing track above playlist
-  * added queue count indicator to the right of toggle boxes
-  * added locale switcher to preferences
-  * added dbus.glib.init_threads() which fixed issues on Gentoo
+Exaile 0.2.10 (Friday June 22, 2007)
 
- -- Adam Olsen <arolsen@gmail.com>  Thu, 12 Oct  2006 08:11:00 -7000
-
-exaile (0.2.4) stable; urgency=low
-  * use gamin to monitor directories
-  * removed automatic reload of collection tree on scan
-  * integrate streamripper
-  * fixed options, made --help work
-  * all open playlists can now be reopened when exaile opens
-  * fixed some problems with the OSD preferences
-  * renaming of open tabs
-  * switched lyrics servers to lyrc.com.ar
-
- -- Adam Olsen <arolsen@gmail.com>  Thu, 18 Sep  2006 13:14:00 -0700
-
-exaile (0.2.3) stable; urgency=low
-  * Fixed a bug that prevented playlist creation
-
- -- Adam Olsen <arolsen@gmail.com>  Fri, 8 Sep  2006 11:41:10 -0700
-
-exaile (0.2.2) stable; urgency=low
-  * fixed the popup menu in the collection tab
-
- -- Adam Olsen <synic@jbother.org>  Wed, 6 Sep  2006 21:15:34 -0700
-
-exaile (0.2.1) unstable; urgency=low
-
-  * very minor bugfixes
-  * fixed a logo problem that reflected the wrong version of exaile
-
- -- Adam Olsen <synic@jbother.org>  Tue, 6 Sep  2006 15:41:25 -0700
-
-exaile (0.2) unstable; urgency=low
-    
-  * selection bug fixes in the collection panel
-  * path fixes that would prevent tracks with unicode in the path from playing
-
- -- Adam Olsen <synic@jbother.org>  Tue, 6 Sep  2006 07:25:25 -0700
-  
-exaile (0.2b5) unstable; urgency=low
-
-  * Some threading bugs fixed
-  * .mpc support and general gstreamer metadata fixes
-  * python-pymad and python-pyogg deps removed
-  * Using pathname2url to escape files located on disk
-
- -- Adam Olsen <synic@jbother.org>  Wed, 16 Aug  2006 17:31:01 -0700
-
-exaile (0.2b4) unstable; urgency=low
-
-  * Fixed some bugs regarding drag and drop
-  * Allow for drag and drop reordering
-  * Dropped python-pymad from required, added to recommended
-
- -- Adam Olsen <synic@jbother.org>  Thu, 27 June 2006 15:16:01 -0700
-
-exaile (0.2b3) unstable; urgency=low
-    
-  * Completely converted from using wxPython to pygtk
-  * removed wx dependancy
-  * added option cdrom drive and cddb support
-
- -- Adam Olsen <synic@jbother.org>  Mon, 24 June 2006 07:07:01 -0700
-
-exaile (0.2b2) unstable; urgency=low
-  
-  * iPod write support
-  * Drag & Drop support
-  * wma file support
-  * removed the track information update from the track timer (caused high cpu
-    useage)
-  * Updated artwork, exaile now tries to use the current gtk theme icons
-  * Removed PIL dependancy
-
- -- Adam Olsen <synic@jbother.org>  Tue, 22 June 2006 11:10:01 -0600
-
-exaile (0.2b) unstable; urgency=low
-  
-  * Updating the deb file
-
- -- Adam Olsen <synic@jbother.org>  Tue, 6 June 2006 15:38:55 -0600
-
-exaile (0.1) unstable; urgency=low
-
-  * Initial Release.
-
- -- Adam Olsen <synic@jbother.org>  Tue, 23 May 2006 14:07:33 -0600
+  * #1 (enhancement) Graphic Equalizer
+  * #192 (bug) Doubled slash in Files tab
+  * #267 (bug) metatag found foundcallback and i18n
+  * #286 (enhancement) Translation: pa (Punjabi)
+  * #288 (bug) Mini mode: scrolling over dropdown stops playback
+  * #290 (bug) Library will not recognise WMA!
+  * #304 (bug) Xgettext complains about unnamed arguments
+  * #316 (bug) Makefile does not install locales
+  * #319 (bug) Can not play music when adding a qeue immediately after starting exaile
+  * #320 (task) CLOSED Translation: en_GB (British English)
+  * #323 (bug) Mini mode and main window visible at the same time
+  * #324 (bug) Exaile should not appears on all virtal desktops
+  * #330 (bug) ImportError: libgtkembedmoz.so:
+  * #341 (bug) mmkeys.so, ELF shared library is installed to /usr/share instead of /usr/lib.
+  * #342 (task) Better volume handling
+  * #349 (enhancement) Turkish translation
+  * #350 (bug) information -&gt; artist = Crash
+  * #351 (enhancement) Compile to .pyc to speed up loading.
+  * #354 (bug) Wont open files with Brazilian Portuguese Characters (PT_BR)
+  * #358 (bug) Makefile is broken
+  * #361 (bug) Change of $PREFIX breaks some stuff
+  * #363 (bug) lib/* not installed
+  * #365 (bug) not supporting new libatk
+  * #369 (enhancement) Added German translations to exaile.desktop
+  * #371 (enhancement) Sonata-like progress bar
+  * #373 (bug) Available plugin bug
+  * #376 (bug) OSD pops out unwanted
+  * #378 (bug) Translation doesn't work
+  * #379 (bug) Libnotify over tray icon
+  * #381 (bug) Just little bugs when exaile start
+  * #382 (enhancement) Set a window-role/title to desktop-cover window to enable full X11 window management
+  * #384 (bug) visualization bug
+  * #393 (enhancement) Italian Translation
+  * #396 (bug) OSD shows on startup even though OSD is disabled
+  * #398 (bug) Remove all installed files on uninstall
+  * #399 (bug) Multimedia keys not working in Ubuntu Feisty
+  * #404 (bug) Glitches in mini mode: progress slider &amp; remaining time
+  * #405 (bug) Exaile -a or --play doesn't work, instead it uses exaile --next
+  * #406 (enhancement) Use PNG rating star image
+  * #407 (bug) Compiling in native code?
+  * #408 (enhancement) Compiling in native code?
+  * #410 (bug) Command line doesn't work
+  * #423 (bug) Tracks disappear from playlist when filename contains the: # pound hash sign
+  * #426 (enhancement) CLOSED Translation: sv (Swedish)
+  * #435 (bug) No tray icon and notification displaced
+  * #440 (bug) Exaile won't start if last used drive (e.g., external drive) is missing
+  * #447 (bug) Translations not found
+  * #450 (bug) Packaging problem due to new generation of 'exaile' script
+  * #451 (bug) Strings in the plugin manager window are not translated
+  * #452 (bug) Firefox fix breaks debian packaging
+  * #453 (enhancement) Translation: zh_TW (Traditional Chinese)
+  * #460 (bug) Library Manager window's title
+  * #461 (bug) "Cancel" and "Choose" in the import dialog do not work correctly
+  * #462 (bug) The strings in the preferences TreeView in the Preferences Window are not translatable
+  * #465 (bug) The strings in the "Edit Track(s)" windows are not translatable
+  * #467 (enhancement) Added 'Show track in Collection' functionality
+  * #471 (bug) Switch --version yields error
+  * #472 (bug) error plugin configuration
+  * #475 (bug) Tray icon menu not translated
+  * #476 (enhancement) Exaile cannot start and play a CD
+  * #477 (bug) exaile_xchat.pl should catch if there is no Artist for track
+  * #479 (bug) Files tab  is broken is gstreamer-gnome-vfs is missing
+  * #481 (enhancement) Translation: pt_BR (Brazilian Portuguese)
+  * #490 (bug) Opening files from Nautilus or terminal makes Exaile open, but it does not load song
+  * #495 (bug) "Open URL" and a URL like "http://shoutcast.com/something.pls" doesn't work
+  * #499 (enhancement) Translation: es_AR (Argentine Spanish)
+  * #502 (enhancement) zh_TW translation of Exaile
+  * #503 (enhancement) Translation: pl (Polish)
+  * #504 (enhancement) Translation: cs (Czech)
+  * #510 (bug) last.fm: how is work?
+  * #513 (bug) Playback bugs in minimode
+  * #517 (bug) Interface not translated
+  * #518 (bug) SPAT: broken image displayed at startup
+  * #519 (enhancement) Search for song title
+  * #526 (bug) Volume control on tray icon/OSD popup broken
+  * #527 (enhancement) Change name to make Exaile program menu option more meaningful
+  * #529 (enhancement) Translation: nn (Nynorsk)
+  * #530 (bug) exaile / exaile.py doens't work !
+  * #531 (bug) Genre ID3 tags not picked up in WMA tracks
+  * #533 (bug) Tray icon
+  * #534 (enhancement) update to "did you know..." plugin
+  * #537 (enhancement) feature request: hiding of the sidebar
+  * #547 (enhancement) Changing the color and the size of the rating star
+  * #550 (enhancement) Translation: hu_HU (Hungarian)
+  * #551 (enhancement) Consider use of lngettext()
+  * #553 (enhancement) Translation: ro (romanian)
+  * #555 (bug) OSD - Changing volume doesn't update when Exaile doesn't have focus
+  * #556 (enhancement) Patch to fix inconsistencies in the SPAT icons.
+  * #557 (task) Translation: de (German)
+  * #558 (bug) Error when closing Visualizations window when music is not playing.
+  * #559 (bug) Various UTF-8 issues when rescanning collection.
+  * #560 (enhancement) Translation: en_GB (British English)
+  * #569 (task) Translation: he_IL (Hebrew)
+  * #572 (enhancement) Change of queue icon on the right click menu.
+  * #577 (enhancement) Simplifications for the createpot script
+  * #582 (enhancement) he_IL translation
+  * #584 (bug) Title and Artist field not updated correctly when listening a Shoutcast radio in a localized Exaile
+  * #600 (enhancement) Alphabetic grouping: The ability to turn it off if you don't like it.
+  * #615 (enhancement) Use gtkmozembed instead of gtkhtml2

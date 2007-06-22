@@ -14,8 +14,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import gtk
+import gtk, pango
 from gettext import gettext as _
+import common
 
 class ConfigurationItem(object):
     """
@@ -63,6 +64,9 @@ class ConfigurationItem(object):
         m = getattr(self.ace.settings, 'set_%s' % self.type.lower())
         m(self.name, self._value)
         print "setting %s to %s" % (self.name, self._value)
+        if self.ace.eventhandler and hasattr(self.ace.eventhandler,
+            'setting_changed'):
+            self.ace.eventhandler.setting_changed()
 
     def get_value(self):
         return self._value
@@ -129,9 +133,8 @@ class AdvancedConfigEditor(gtk.Window):
         text = gtk.CellRendererText()
         col = gtk.TreeViewColumn(_('Setting Name'))
         col.pack_start(text, False)
-        col.set_expand(True)
-        col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
-        col.set_fixed_width(1)
+        col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
+
         col.set_attributes(text, text=1)
         self.tree.append_column(col)
 
@@ -139,18 +142,18 @@ class AdvancedConfigEditor(gtk.Window):
         self.value_text.set_property('editable', True)
         self.value_text.connect('edited', self.edited_cb)
         col = gtk.TreeViewColumn(_('Value'))
-        col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
-        col.pack_start(self.value_text, True)
         col.set_expand(True)
+        col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+        col.set_fixed_width(1)
+        self.value_text.set_property('ellipsize', pango.ELLIPSIZE_END)
+        col.pack_start(self.value_text, True)
         col.set_attributes(self.value_text, text=2)
         col.set_cell_data_func(self.value_text, self.value_data_func)
         self.tree.append_column(col)
 
         text = gtk.CellRendererText()
         col = gtk.TreeViewColumn(_('Type'))
-        col.set_expand(True)
-        col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
-        col.set_fixed_width(1)
+        col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
         col.pack_start(text, True)
         col.set_attributes(text, text=3)
         self.tree.append_column(col)
@@ -215,12 +218,30 @@ class AdvancedConfigEditor(gtk.Window):
             item.value = not item.value
             self.model.set_value(iter, 2, item.value)
 
+    def validate(self, type, value):
+        """
+            Validates a value for a given type
+        """
+        if type == 'Int':
+            value = int(value)
+        elif type == 'Float':
+            value = float(value)
+        elif type == 'List':
+            value = eval(value)
+
     def edited_cb(self, cell, path, new_text, data=None):
         """
             Called when one of the cells is edited
         """
         iter = self.model.get_iter(path)
         item = self.model.get_value(iter, 0)
+
+        try:
+            self.validate(item.type, new_text)
+        except:
+            common.error(self.parent, _('Invalid setting for %s' %
+                item.name))
+            return
 
         item.value = new_text
         self.model.set_value(iter, 2, new_text)

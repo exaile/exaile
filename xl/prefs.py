@@ -331,10 +331,8 @@ class Preferences(object):
         global settings, xml
 
         self.exaile = parent
-        self.fields = []
-        self.popup = None
-        self.osd_settings = xlmisc.get_osd_settings(self.exaile.settings)
         settings = self.exaile.settings
+        self.popup = None
         self.xml = gtk.glade.XML('exaile.glade', 'PreferencesDialog', 'exaile')
         xml = self.xml
         self.window = self.xml.get_widget('PreferencesDialog')
@@ -363,14 +361,17 @@ class Preferences(object):
 
         self.model = gtk.TreeStore(str, int)
         self.tree.set_model(self.model)
-
         count = 0
         for header in self.order:
             items = self.items[header]
-            node = self.model.append(None, [_(header), count]) # header is a string that must be translated by gettext, therefore it is necessary to wrap it in _() 
+            # header is a string that must be translated by gettext, 
+            # therefore it is necessary to wrap it in _() 
+            node = self.model.append(None, [_(header), count]) 
             count += 1
             for item in items:
-                self.model.append(node, [_(item), _(count)]) # item and count are string that must be translated by gettext, therefore it is necessary to wrap them in _() 
+                # item and count are string that must be translated by gettext, 
+                # therefore it is necessary to wrap them in _() 
+                self.model.append(node, [_(item), _(count)]) 
                 count += 1
             self.tree.expand_row(self.model.get_path(node), False)
 
@@ -381,8 +382,18 @@ class Preferences(object):
         xml.get_widget('prefs_lastfm_pass').set_invisible_char('*')
         xml.get_widget('prefs_audio_sink').set_active(0)
 
+
+        self.setup_settings()
+
+    def setup_settings(self):
+        """
+            Sets the various widgets and settings preferences
+        """
+        global settings
+        
         # populate the combobox with available burning programs
         burn_prog_combo = xml.get_widget('prefs_burn_prog')
+        burn_prog_combo.clear()
         burn_progs = burn.check_burn_progs()
         if burn_progs:
             pref = settings.get_str('burn_prog', burn_progs[0])
@@ -394,6 +405,9 @@ class Preferences(object):
             burn_prog_combo.append_text('No burning programs found')
             burn_prog_combo.set_active(0)
             burn_prog_combo.set_sensitive(False)
+
+        self.fields = []
+        self.osd_settings = xlmisc.get_osd_settings(self.exaile.settings)
            
         self.text_display = PrefsTextViewItem('osd/display_text',
             TEXT_VIEW_DEFAULT, self.display_popup)
@@ -446,6 +460,8 @@ class Preferences(object):
             else: done = None
             item = c(setting, default, change, done)
             self.fields.append(item)
+
+    setting_changed = setup_settings
     
     def advanced_alphabet_alert(self, item, value):
         """
@@ -454,6 +470,15 @@ class Preferences(object):
         """
         common.info(self.exaile.window, _('Click the "Refresh" button in '
             'the Collection panel to apply this setting.'))
+
+    def advanced_toggle_clear_button(self, item, value):
+        """
+            Hides or shows the clear button
+        """
+        if value:
+            self.exaile.clear_button.show()
+        else:
+            self.exaile.clear_button.hide()
 
     def advanced_toggle_stop_button(self, item, value):
         """
@@ -558,6 +583,10 @@ class Preferences(object):
         if val: self.exaile.setup_tray()
         else: self.exaile.remove_tray()
         return True
+
+    def advanced_setup_tray(self, item, value):
+        if value: self.exaile.setup_tray()
+        else: self.exaile.remove_tray()
 
     def osd_adjust_size(self, widget, event, name, previous):
         """

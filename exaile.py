@@ -520,6 +520,12 @@ class ExaileWindow(gobject.GObject):
         key, mod = gtk.accelerator_parse('<Control>W')
         self.accel_group.connect_group(key, mod, gtk.ACCEL_VISIBLE,
             lambda *e: self.close_page())
+
+        key, mod = gtk.accelerator_parse('<Control>L')
+        self.accel_group.connect_group(key, mod, gtk.ACCEL_VISIBLE,
+            lambda *e: self.jump_to(3))
+        
+        # add the accel group to the window
         self.window.add_accel_group(self.accel_group)
 
         self.xml.get_widget('preferences_item').connect('activate',

@@ -29,6 +29,7 @@ make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/xl
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/xl/media
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/lib
+	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/data
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/sql
 	mkdir -p $(DESTDIR)$(PREFIX)/share/locale
 	mkdir -p $(DESTDIR)$(PREFIX)/share/man/man1
@@ -49,6 +50,7 @@ install: make-install-dirs
 	-install -m 644 xl/media/*.pyc $(DESTDIR)$(PREFIX)/share/exaile/xl/media
 	install -m 644 lib/*.py $(DESTDIR)$(PREFIX)/share/exaile/lib
 	-install -m 644 lib/*.pyc $(DESTDIR)$(PREFIX)/share/exaile/lib
+	install -m 644 data/*.ini $(DESTDIR)$(PREFIX)/share/exaile/data
 	install -m 644 plugins/*.py $(DESTDIR)$(PREFIX)/share/exaile/plugins
 	install -m 644 plugins/*.glade $(DESTDIR)$(PREFIX)/share/exaile/plugins
 	install -m 644 images/largeicon.png \

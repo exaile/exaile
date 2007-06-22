@@ -393,7 +393,6 @@ class Preferences(object):
         
         # populate the combobox with available burning programs
         burn_prog_combo = xml.get_widget('prefs_burn_prog')
-        burn_prog_combo.clear()
         burn_progs = burn.check_burn_progs()
         if burn_progs:
             pref = settings.get_str('burn_prog', burn_progs[0])

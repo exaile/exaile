@@ -591,9 +591,10 @@ class TracksListCtrl(gtk.VBox):
             else:
                 col.set_sort_indicator(False)
 
-        self.reorder_songs()
+        self.songs = self.reorder_songs(self.songs)
+        self.set_songs(self.songs)
 
-    def reorder_songs(self):
+    def reorder_songs(self, songs):
         """
             Resorts all songs
         """
@@ -609,22 +610,22 @@ class TracksListCtrl(gtk.VBox):
             the_strip(getattr(track, 'artist').lower()), 
             spec_strip(getattr(track,'album').lower()), 
             getattr(track, 'track'), 
-            track) for track in self.songs]
+            track) for track in songs]
         elif attr == 'artist':
             s = [(the_strip(getattr(track, 'artist').lower()),
             the_strip(getattr(track, 'artist').lower()),
             spec_strip(getattr(track,'album').lower()), 
             getattr(track, 'track'), 
-            track) for track in self.songs]
+            track) for track in songs]
         else:
             s = [(getattr(track, attr), 
             the_strip(getattr(track, 'artist').lower()), 
             spec_strip(getattr(track,'album').lower()), 
             getattr(track, 'track'), 
-            track) for track in self.songs]
+            track) for track in songs]
         s.sort(reverse=reverse)
-        self.songs = [track[4] for track in s]
-        self.set_songs(self.songs)
+        songs = [track[4] for track in s]
+        return songs
 
     def get_sort_by(self):
         """

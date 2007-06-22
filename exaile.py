@@ -694,7 +694,7 @@ class ExaileWindow(gobject.GObject):
             Adds songs that have just been imported to the current playlist
             after importing a directory
         """
-
+        songs = self.tracks.reorder_songs(songs)
         self.append_songs(songs, play=False)
 
     def show_debug_dialog(self):

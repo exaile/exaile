@@ -275,7 +275,7 @@ class ExaileWindow(gobject.GObject):
                     track.rawtitle=tags[tag]
                     newsong=True
                 
-                titleArray=(tags[tag]).split('-',2)
+                titleArray=(tags[tag]).split(' - ',2)
                 
                 if len(titleArray) > 0:
                     track.artist = titleArray[0]

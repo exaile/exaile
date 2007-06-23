@@ -1,5 +1,5 @@
 # Czech translation for Exaile music player.
-# Copyright (C) 2006 Adam Olsen <arolsen@gmail.com>
+# Copyright (C) 2007 Adam Olsen <arolsen@gmail.com>
 # This file is distributed under the same license as the Exaile package.
 # Zbyněk Mrkvička <zbynek@mrkvicka.eu>, 2007.
 #
@@ -1032,7 +1032,7 @@ msgid "               "
 msgstr ""
 
 #: exaile.glade.h:6
-msgid "(c) 2006"
+msgid "(c) 2007"
 msgstr ""
 
 #: exaile.glade.h:7
@@ -1244,7 +1244,7 @@ msgstr "Kolekce"
 
 #: exaile.glade.h:75
 msgid ""
-"Copyright (C) 2006 Adam Olsen\n"
+"Copyright (C) 2007 Adam Olsen\n"
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"

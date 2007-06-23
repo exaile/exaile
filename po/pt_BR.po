@@ -1,5 +1,5 @@
 # Translation of pt_BR.po to Brazilian Portuguese
-# Copyright (C) 2006 Adam Olsen (arolsen@gmail.com)
+# Copyright (C) 2007 Adam Olsen (arolsen@gmail.com)
 # This file is distributed under the same license as the Exaile package.
 # Darlan Cavalcante Moreira <darcamo@gmail.com>, 2007
 #
@@ -1118,8 +1118,8 @@ msgid "               "
 msgstr "               "
 
 #: exaile.glade.h:6
-msgid "(c) 2006"
-msgstr "(c) 2006"
+msgid "(c) 2007"
+msgstr "(c) 2007"
 
 #: exaile.glade.h:7
 msgid "(minutes, use 0 to disable)"
@@ -1325,7 +1325,7 @@ msgstr "Coleção"
 
 #: exaile.glade.h:70
 msgid ""
-"Copyright (C) 2006 Adam Olsen\n"
+"Copyright (C) 2007 Adam Olsen\n"
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -1341,7 +1341,7 @@ msgid ""
 "along with this program; if not, write to the Free Software\n"
 "Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
 msgstr ""
-"Copyright (C) 2006 Adam Olsen\n"
+"Copyright (C) 2007 Adam Olsen\n"
 "\n"
 "Este programa é software livre; você pode redistribuí-lo e/ou modificá-lo\n"
 "sob os termos da GNU General Public License como publicado pela\n"
@@ -1359,7 +1359,7 @@ msgstr ""
 "\n"
 "\n"
 "\n"
-"Copyright (C) 2006 Adam Olsen\n"
+"Copyright (C) 2007 Adam Olsen\n"
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"

@@ -5939,7 +5939,7 @@ esdsink</property>
 <widget class="GtkAboutDialog" id="AboutDialog">
   <property name="destroy_with_parent">True</property>
   <property name="name">Exaile</property>
-  <property name="copyright" translatable="yes">(c) 2006</property>
+  <property name="copyright" translatable="yes">(c) 2007</property>
   <property name="comments" translatable="yes">Exaile</property>
   <property name="license" translatable="yes">Copyright (C) 2006 Adam Olsen
 
@@ -5964,6 +5964,10 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.</property>
 
 Johannes Sasongko 
     &lt;sasongko@gmail.com&gt; 
+    (Developer)
+
+Aren Olson
+    &lt;reacocard@gmail.com&gt;
     (Developer)</property>
   <property name="artists">Aron Homberg
 Josip Lisec</property>

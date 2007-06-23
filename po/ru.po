@@ -1092,7 +1092,7 @@ msgid "               "
 msgstr ""
 
 #: exaile.glade.h:6
-msgid "(c) 2006"
+msgid "(c) 2007"
 msgstr ""
 
 #: exaile.glade.h:7
@@ -1292,7 +1292,7 @@ msgstr ""
 
 #: exaile.glade.h:70
 msgid ""
-"Copyright (C) 2006 Adam Olsen\n"
+"Copyright (C) 2007 Adam Olsen\n"
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"

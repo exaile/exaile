@@ -1,5 +1,5 @@
 # translation of ca.po to Spanish
-# Copyright (C) 2006 THE Exaile'S COPYRIGHT Adam Olsen (arolsen@gmail.com)
+# Copyright (C) 2007 THE Exaile'S COPYRIGHT Adam Olsen (arolsen@gmail.com)
 # This file is distributed under the same license as the Exaile package.
 # Josep Jaume Rey (josepjaume@gmail.com)
 # 
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Exaile 0.2.5svn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-06-05 09:47-0600\n"
-"PO-Revision-Date: 2006-12-12 22:15+0100\n"
+"PO-Revision-Date: 2007-12-12 22:15+0100\n"
 "Last-Translator: Josep Jaume <josepjaume@gmail.com>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
 "MIME-Version: 1.0\n"
@@ -1127,8 +1127,8 @@ msgid "               "
 msgstr "               "
 
 #: exaile.glade.h:6
-msgid "(c) 2006"
-msgstr "(c)·2006"
+msgid "(c) 2007"
+msgstr "(c)·2007"
 
 #: exaile.glade.h:7
 msgid "(minutes, use 0 to disable)"
@@ -1329,7 +1329,7 @@ msgstr "Colecció"
 
 #: exaile.glade.h:70
 msgid ""
-"Copyright (C) 2006 Adam Olsen\n"
+"Copyright (C) 2007 Adam Olsen\n"
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"

@@ -1,11 +1,11 @@
 # Swedish translation of exaile
 #
-# Daniel Nylander <po@danielnylander.se>, 2006, 2007.
+# Daniel Nylander <po@danielnylander.se>, 2007, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-08 17:24-0600\n"
+"POT-Creation-Date: 2007-09-08 17:24-0600\n"
 "PO-Revision-Date: 2007-05-27 22:49+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -1128,8 +1128,8 @@ msgid "               "
 msgstr "               "
 
 #: exaile.glade.h:6
-msgid "(c) 2006"
-msgstr "© 2006"
+msgid "(c) 2007"
+msgstr "© 2007"
 
 #: exaile.glade.h:7
 msgid "(minutes, use 0 to disable)"
@@ -1349,7 +1349,7 @@ msgstr "Samling"
 
 #: exaile.glade.h:75
 msgid ""
-"Copyright (C) 2006 Adam Olsen\n"
+"Copyright (C) 2007 Adam Olsen\n"
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -1365,7 +1365,7 @@ msgid ""
 "along with this program; if not, write to the Free Software\n"
 "Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
 msgstr ""
-"Copyright © 2006 Adam Olsen\n"
+"Copyright © 2007 Adam Olsen\n"
 "\n"
 "Följande text är en informell översättning som enbart tillhandahålls i\n"
 "informativt syfte. För alla juridiska tolkningar gäller den engelska\n"

@@ -1,5 +1,5 @@
 # British English translation of Exaile.
-# Copyright (C) 2006 THE Exaile'S COPYRIGHT Adam Olsen (arolsen@gmail.com)
+# Copyright (C) 2007 THE Exaile'S COPYRIGHT Adam Olsen (arolsen@gmail.com)
 # This file is distributed under the same license as the Exaile package.
 # Jeff Bailes, <thepizzaking@gmail.com>
 # 
@@ -1087,8 +1087,8 @@ msgid "               "
 msgstr "               "
 
 #: exaile.glade.h:6
-msgid "(c) 2006"
-msgstr "(c) 2006"
+msgid "(c) 2007"
+msgstr "(c) 2007"
 
 #: exaile.glade.h:7
 msgid "(minutes, use 0 to disable)"
@@ -1292,7 +1292,7 @@ msgstr "Collection"
 
 #: exaile.glade.h:70
 msgid ""
-"Copyright (C) 2006 Adam Olsen\n"
+"Copyright (C) 2007 Adam Olsen\n"
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -1308,7 +1308,7 @@ msgid ""
 "along with this program; if not, write to the Free Software\n"
 "Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
 msgstr ""
-"Copyright (C) 2006 Adam Olsen\n"
+"Copyright (C) 2007 Adam Olsen\n"
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -1694,7 +1694,7 @@ msgstr "message"
 
 #: exaile.glade.h:202
 msgid "translator-credits"
-msgstr "Jeff Bailes <thepizzaking@gmail.com>, 2006."
+msgstr "Jeff Bailes <thepizzaking@gmail.com>, 2007."
 
 #: plugins/plugins.glade.h:1
 msgid "\n"

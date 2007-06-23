@@ -217,6 +217,7 @@ class AdvancedConfigEditor(gtk.Window):
         if item.type.lower() == 'boolean':
             item.value = not item.value
             self.model.set_value(iter, 2, item.value)
+        else: return True
 
     def validate(self, type, value):
         """

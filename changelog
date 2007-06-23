@@ -16,7 +16,7 @@ Exaile 0.2.10 (Friday June 22, 2007)
   * #341 (bug) mmkeys.so, ELF shared library is installed to /usr/share instead of /usr/lib.
   * #342 (task) Better volume handling
   * #349 (enhancement) Turkish translation
-  * #350 (bug) information -&gt; artist = Crash
+  * #350 (bug) information -> artist = Crash
   * #351 (enhancement) Compile to .pyc to speed up loading.
   * #354 (bug) Wont open files with Brazilian Portuguese Characters (PT_BR)
   * #358 (bug) Makefile is broken
@@ -36,11 +36,9 @@ Exaile 0.2.10 (Friday June 22, 2007)
   * #396 (bug) OSD shows on startup even though OSD is disabled
   * #398 (bug) Remove all installed files on uninstall
   * #399 (bug) Multimedia keys not working in Ubuntu Feisty
-  * #404 (bug) Glitches in mini mode: progress slider &amp; remaining time
+  * #404 (bug) Glitches in mini mode: progress slider & remaining time
   * #405 (bug) Exaile -a or --play doesn't work, instead it uses exaile --next
   * #406 (enhancement) Use PNG rating star image
-  * #407 (bug) Compiling in native code?
-  * #408 (enhancement) Compiling in native code?
   * #410 (bug) Command line doesn't work
   * #423 (bug) Tracks disappear from playlist when filename contains the: # pound hash sign
   * #426 (enhancement) CLOSED Translation: sv (Swedish)
@@ -69,7 +67,6 @@ Exaile 0.2.10 (Friday June 22, 2007)
   * #502 (enhancement) zh_TW translation of Exaile
   * #503 (enhancement) Translation: pl (Polish)
   * #504 (enhancement) Translation: cs (Czech)
-  * #510 (bug) last.fm: how is work?
   * #513 (bug) Playback bugs in minimode
   * #517 (bug) Interface not translated
   * #518 (bug) SPAT: broken image displayed at startup

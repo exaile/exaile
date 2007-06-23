@@ -19,6 +19,12 @@
 #
 ###
 
+####
+##
+## This code taken from Listen media player: http://www.listen-project.org
+##
+####
+
 import gobject
 import gtkmozembed
 

@@ -1589,6 +1589,8 @@ class MultiTextEntryDialog(object):
         self.left.pack_start(label, False, False)
 
         entry = gtk.Entry()
+        entry.connect('activate', lambda *e:
+            self.dialog.response(gtk.RESPONSE_OK))
         entry.set_width_chars(30)
         self.right.pack_start(entry, True, True)
         label.show()

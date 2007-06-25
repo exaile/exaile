@@ -58,7 +58,7 @@ def write_tag(tr):
                     text=disc)
                 id3.loaded_frame(frame)
 
-        id3.save(tr.io_loc)    
+    id3.save(tr.io_loc)    
 
 def fill_tag_from_path(tr):
     info = mutagen.mp3.MP3(tr.io_loc)

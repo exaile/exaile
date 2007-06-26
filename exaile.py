@@ -910,8 +910,8 @@ class ExaileWindow(gobject.GObject):
                 if m:
                     title = m.group(1)
 
-                self._import_m3u_wrapped(os.path.join(dir, file), title=title,
-                    set_current=False)
+                self._import_playlist_wrapped(os.path.join(dir, file),
+                    title=title, set_current=False)
 
             if last_active > -1:
                 xlmisc.finish()
@@ -1704,16 +1704,23 @@ class ExaileWindow(gobject.GObject):
                 })
         elif item == self.cover_custom:
             track = self.player.current
-            wildcard = ['*.jpg', '*.jpeg', '*.gif', '*.png', '*.*'] 
-            filter = gtk.FileFilter()
-            for pattern in wildcard:
-                filter.add_pattern(pattern)
 
             dialog = gtk.FileChooserDialog(_("Choose an image"), self.window,
                 buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
                 gtk.STOCK_OPEN, gtk.RESPONSE_OK))
-            dialog.set_filter(filter)
             dialog.set_current_folder(self.get_last_dir())
+
+            # Image Files
+            filter = gtk.FileFilter()
+            filter.set_name(_("Image Files"))
+            for pattern in ('*.jpg', '*.jpeg', '*.gif', '*.png'):
+                filter.add_pattern(pattern)
+            dialog.add_filter(filter)
+            # All Files
+            filter = gtk.FileFilter()
+            filter.set_name(_("All Files"))
+            filter.add_pattern('*')
+            dialog.add_filter(filter)
 
             result = dialog.run()
             dialog.hide()
@@ -2161,15 +2168,15 @@ class ExaileWindow(gobject.GObject):
         self.new_progressbar.set_text("0:00 / 0:00")
 
     @common.threaded
-    def import_m3u(self, path, play=False, title=None, newtab=True,
+    def import_playlist(self, path, play=False, title=None, newtab=True,
         set_current=True):
         """
-            Threaded wrapper for _import_m3u_wrapped
+            Threaded wrapper for _import_playlist_wrapped
         """
-        self._import_m3u_wrapped(path, play, title, newtab, set_current)
+        self._import_playlist_wrapped(path, play, title, newtab, set_current)
     
-    def _import_m3u_wrapped(self, path, play=False, title=None, newtab=True,
-        set_current=True):
+    def _import_playlist_wrapped(self, path, play=False, title=None,
+        newtab=True, set_current=True):
         """
             Imports a playlist file, regardless of it's location (it can be
             a local file (ie, file:///somefile.m3u) or online.
@@ -2260,15 +2267,6 @@ class ExaileWindow(gobject.GObject):
             Adds media to the current selected tab regardless of whether or
             not they are contained in the library
         """
-        types = media.SUPPORTED_MEDIA
-        wildcard = ['*%s' % t for t in types]
-        wildcard.extend(['.pls', '.m3u'])
-        wildcard.append('*')
-
-        filter = gtk.FileFilter()
-        for pattern in wildcard:
-            filter.add_pattern(pattern)
-
         dialog = gtk.FileChooserDialog(_("Choose a file"), self.window,
             buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
             gtk.STOCK_OPEN, gtk.RESPONSE_OK))
@@ -2276,8 +2274,25 @@ class ExaileWindow(gobject.GObject):
         new_tab = gtk.CheckButton(_("Open in new tab"))
         dialog.set_extra_widget(new_tab)
         dialog.set_current_folder(self.get_last_dir())
-        dialog.set_filter(filter)
         dialog.set_select_multiple(True)
+
+        # Media Files
+        filter = gtk.FileFilter()
+        filter.set_name(_("Media Files"))
+        for ext in media.SUPPORTED_MEDIA:
+            filter.add_pattern('*' + ext)
+        dialog.add_filter(filter)
+        filter = gtk.FileFilter()
+        # Playlist Files
+        filter.set_name(_("Playlist Files"))
+        for ext in xlmisc.PLAYLIST_EXTS:
+            filter.add_pattern('*' + ext)
+        dialog.add_filter(filter)
+        # All Files
+        filter = gtk.FileFilter()
+        filter.set_name(_("All Files"))
+        filter.add_pattern('*')
+        dialog.add_filter(filter)
 
         result = dialog.run()
         dialog.hide()
@@ -2300,8 +2315,8 @@ class ExaileWindow(gobject.GObject):
                     count = count + 1
                     if tr:
                         songs.append(tr)
-                if ext in (".m3u", ".pls"):
-                    self.import_m3u(path, newtab=new_tab.get_active())
+                if ext in xlmisc.PLAYLIST_EXTS:
+                    self.import_playlist(path, newtab=new_tab.get_active())
 
             if songs:
                 if new_tab.get_active():
@@ -2313,12 +2328,10 @@ class ExaileWindow(gobject.GObject):
 
     def export_playlist(self, item): 
         """
-            Exports the current selected playlist as a .m3u file
+            Exports the current selected playlist as an .m3u file
         """
-        wildcard = ['*.m3u', '*.pls']
         filter = gtk.FileFilter()
-        for w in wildcard:
-            filter.add_pattern(w)
+        filter.add_pattern('*.m3u')
 
         dialog = gtk.FileChooserDialog(_("Choose a file"),
             self.window, gtk.FILE_CHOOSER_ACTION_SAVE, 
@@ -2365,17 +2378,17 @@ class ExaileWindow(gobject.GObject):
         """
         self.stop()
 
-        # if it's a .m3u or .pls
-        if (url.lower().endswith(".m3u") or \
-            url.lower().endswith(".pls")) and not \
-            "://" in url:
-            self.import_m3u(url, True)
-            return
-        elif "://" in url:
+        if "://" in url:
             track = media.Track(url)
             track.type = 'stream'
         else:
-            track = tracks.read_track(self.db, self.all_songs, url)
+            lowurl = url.lower()
+            # if it's a playlist file
+            if any(lowurl.endswith(ext) for ext in xlmisc.PLAYLIST_EXTS):
+                self.import_playlist(url, True)
+                return
+            else:
+                track = tracks.read_track(self.db, self.all_songs, url)
 
         songs = tracks.TrackData((track, ))
         if not songs: return

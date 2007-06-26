@@ -3035,8 +3035,8 @@ class FilesPanel(object):
             if os.path.isdir(dir):
                 self.load_directory(dir)
             else:
-                if dir.endswith('.pls') or dir.endswith('.m3u'):
-                    self.exaile.import_m3u(dir, True)
+                if any(dir.endswith(ext) for ext in xlmisc.PLAYLIST_EXTS):
+                    self.exaile.import_playlist(dir, True)
                 else:
                     tr = tracks.read_track(self.exaile.db, self.exaile.all_songs,
                         dir)

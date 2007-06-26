@@ -14,22 +14,18 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import time
-import tracks, covers, md5, threading, re
-import sys, httplib, urlparse, os, os.path, urllib, media
-import common, traceback, gobject
+"""
+This file contains every miscellanious dialog and class that is not over
+300 lines of code.  Once they read 300+ lines, they should be put into
+their own file
+"""
 
+import httplib, os, re, sys, threading, time, traceback, urllib, urlparse
 from gettext import gettext as _
-import prefs
-
-opener = urllib.FancyURLopener()
-opener.addheaders.pop(0)
-opener.addheader("User-Agent","Mozilla")
 
 import pygtk
 pygtk.require('2.0')
 import gtk, gobject, pango
-
 from gtk.gdk import SCROLL_LEFT, SCROLL_RIGHT, SCROLL_UP, SCROLL_DOWN
 
 try:
@@ -37,7 +33,6 @@ try:
 except ImportError:
     traceback.print_exc()
     mozembed = None
-
 
 USE_TRAY = None
 import warnings
@@ -56,11 +51,13 @@ try:
 except ImportError:
     SEXY_AVAIL = False
 
-"""
-    This file contains every miscellanious dialog and class that is not over
-    300 lines of code.  Once they read 300+ lines, they should be put into
-    their own file
-"""
+
+import common, covers, media, prefs, tracks
+
+
+opener = urllib.FancyURLopener()
+opener.addheaders.pop(0)
+opener.addheader("User-Agent","Mozilla")
 
 def get_default_encoding():
     return 'utf-8'
@@ -2052,6 +2049,8 @@ class DragTreeView(gtk.TreeView):
             selection.select_path(path[0])
         return self.cont.button_press(button, event)
 
+PLAYLIST_EXTS = []
+
 class PlaylistParser(object):
     def __init__(self,name):
 
@@ -2089,6 +2088,7 @@ class PlaylistParser(object):
         raise NotImplementedError
 
 class M3UParser(PlaylistParser):
+    PLAYLIST_EXTS.append('.m3u')
     R = re.compile(r'#EXTINF:\d+,(.*?)[\r\n]+(.*?)[\r\n]+', re.DOTALL) 
     def __init__(self,name,filename = None):
         super(M3UParser,self).__init__(name)
@@ -2138,6 +2138,7 @@ class M3UParser(PlaylistParser):
         return True
 
 class PlsParser(PlaylistParser):
+    PLAYLIST_EXTS.append('.pls')
     R = re.compile(r'[fF]ile(\d+)=(.*?)\n[tT]itle(\1)=(.*?)\n', re.DOTALL)
     def __init__(self,name,filename = None):
         super(PlsParser,self).__init__(name)
@@ -2166,29 +2167,28 @@ class PlsParser(PlaylistParser):
         return True
    
 class ASXParser(PlaylistParser):
-    ASX_REGEX = re.compile(r'href ?= ?([\'"])(.*?)\1', re.DOTALL|re.MULTILINE)
-    def __init__(self,name,filename = None):
+    PLAYLIST_EXTS.append('.asx')
+
+    ASX_REGEX = re.compile(r'''<ref\s+href\s*=\s*(['"])(.*?)\1''',
+        re.DOTALL | re.IGNORECASE | re.MULTILINE)
+
+    def __init__(self, name, filename=None):
         super(ASXParser, self).__init__(name)
         if filename:
             self.parse_file(filename)
 
-        def parse_file(self, filename):
-            (path, file) = os.path.split(filename)
-            file = urllib.urlopen(filename)
+    def parse_file(self, filename):
+        (path, file) = os.path.split(filename)
+        file = urllib.urlopen(filename)
 
-            for line in file.readlines():
-                line = line.strip()
-                m = self.ASX_REGEX.search(line)
-                if m:
-                    url = m.group(2)
-                    if urlparse.urlsplit(url)[0]:
-                        pass
-                    else:
-                        if os.path.isabs(url):
-                            pass
-                        else:
-                            url = os.path.dirname(filename) + os.path.sep + url
-                        url = "file://" + urllib.quote(url)
-                    self.add_url(url)
-            return True
-            
+        for line in file.readlines():
+            line = line.strip()
+            m = self.ASX_REGEX.search(line)
+            if m:
+                url = m.group(2)
+                if not urlparse.urlsplit(url)[0]:
+                    if not os.path.isabs(url):
+                        url = os.path.dirname(filename) + os.path.sep + url
+                    url = "file://" + urllib.quote(url)
+                self.add_url(url)
+        return True

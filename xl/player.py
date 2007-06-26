@@ -692,7 +692,7 @@ class ExailePlayer(GSTPlayer):
     def find_stream_uri(self, track):
         title = track.album[:30]
         if not title: title = None
-        self.exaile.import_m3u(track.io_loc, play=True, title=title, newtab=True)
+        self.exaile.import_playlist(track.io_loc, play=True, title=title, newtab=True)
 
 #    @common.threaded
 #    def find_stream_uri(self, track):
@@ -809,9 +809,8 @@ class ExailePlayer(GSTPlayer):
             move on to the next track
         """
         self.stop(False)
-        if track.loc.lower().endswith('.pls') or \
-            track.loc.lower().endswith('.m3u') or \
-            track.loc.lower().endswith('.asx'):
+        lowtrackloc = track.loc.lower()
+        if any(lowtrackloc.endswith(ext) for ext in xlmisc.PLAYLIST_EXTS):
             self.find_stream_uri(track)
             if ret: return True
 

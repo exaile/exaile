@@ -104,6 +104,15 @@ class TrackData(list):
         self.paths[track.loc] = track
         list.append(self, track)
 
+    def remove(self, track):
+        """
+            Removes a track from the list
+        """
+        if not track: return
+        if not self.paths[track.loc]: return
+        del self.paths[track.loc]
+        list.remove(self, track)
+
     def for_path(self, path):
         """
             Returns the track associated with the path
@@ -715,6 +724,249 @@ def populate(exaile, db, directories, update_func, delete=True,
         Runs the populate thread
     """
     thread = PopulateThread(exaile, db, directories, update_func, 
+        delete, load_tree, done_func)
+    exaile.thread_pool.append(thread)
+    thread.start()
+
+class RemoveTracksThread(threading.Thread):
+    """
+        Removes tracks in database according to directories given
+    """
+    running = False
+    stopped = False
+
+    def __init__(self, exaile, db, directories, update_func, 
+        delete=True, load_tree=False, done_func=None):
+        """
+            Expects an exaile instance, the location of the database file,
+            the directories to search, the function to call as reading
+            progresses, and whether or not this is a quick scan.
+        """
+        threading.Thread.__init__(self)
+        self.db = db
+        self.setDaemon(True)
+        self.exaile = exaile
+        self.directories = directories
+        self.update_func = update_func
+        self.done = False
+        self.delete = delete
+        self.load_tree = load_tree
+        self.done_func = done_func
+
+    def run(self):
+        """
+            Called when the thread is started
+        """
+        xlmisc.log("Running is %s" % PopulateThread.running)
+        if RemoveTracksThread.running: return
+        RemoveTracksThread.running = True
+        RemoveTracksThread.stopped = False
+
+        directories = self.directories
+        db = self.db
+        cur = self.db.cursor()
+
+        update_func = self.update_func
+        gobject.idle_add(update_func, 0.001)
+
+        paths = count_files(directories)
+        total = len(paths)
+        xlmisc.log("File count: %d" % total)
+
+        count = 0
+        update_queue = dict()
+        added = dict()
+
+        self.found_tracks = []
+
+        for loc in paths:
+            if RemoveTracksThread.stopped:
+                self.stop()
+                return
+            try:
+                tr = self.exaile.all_songs.for_path(loc)
+               
+                if not tr:
+                    continue
+
+                if tr:
+                    path_id = get_column_id(db, 'paths', 'name', unicode(loc, xlmisc.get_default_encoding()))
+                    db.execute("DELETE FROM tracks WHERE path=?",
+                        (path_id,))
+
+            except DBOperationalError:
+                xlmisc.log_exception()
+                continue
+            except OSError:
+                xlmisc.log_exception()
+                continue
+            except Exception, ex:
+                xlmisc.log_exception()
+
+            count = count + (1 * 1.0)
+
+            if total != 0 and (count % 3) == 0.0:
+                percent = float(count / total)
+                gobject.idle_add(update_func, percent)
+
+            # periodical commit
+            if count % 1500 == 0:
+                xlmisc.log("Committing 1500 scanned tracks...")
+                db.commit()
+
+        if RemoveTracksThread.stopped:
+            self.stop()
+            return
+        self.stop()
+        xlmisc.log("Count is now: %d" % count)
+        if self.done: return
+
+    def stop(self):
+        """
+            Stops the thread
+        """
+        self.db._close_thread()
+        self.db.commit()
+
+        num = -2
+        if not self.load_tree: num = -1
+        tracks = self.found_tracks
+        if RemoveTracksThread.stopped:
+            tracks = None
+        gobject.idle_add(self.update_func, num, tracks, 
+            self.done_func) 
+        RemoveTracksThread.stopped = False
+        RemoveTracksThread.running = False
+
+def remove_tracks(exaile, db, directories, update_func, delete=True,
+    load_tree=False, done_func=None):
+    """
+       Removes tracks in database specified by directory path(s)
+    """
+    thread = RemoveTracksThread(exaile, db, directories, update_func,
+        delete, load_tree, done_func)
+    exaile.thread_pool.append(thread)
+    thread.start()
+
+class AddTracksThread(threading.Thread):
+    """
+        Adds tracks to database according to directories given
+    """
+    running = False
+    stopped = False
+
+    def __init__(self, exaile, db, directories, update_func, 
+        delete=True, load_tree=False, done_func=None):
+        """
+            Expects an exaile instance, the location of the database file,
+            the directories to search, the function to call as reading
+            progresses, and whether or not this is a quick scan.
+        """
+        threading.Thread.__init__(self)
+        self.db = db
+        self.setDaemon(True)
+        self.exaile = exaile
+        self.directories = directories
+        self.update_func = update_func
+        self.done = False
+        self.delete = delete
+        self.load_tree = load_tree
+        self.done_func = done_func
+
+    def run(self):
+        """
+            Called when the thread is started
+        """
+        xlmisc.log("Running is %s" % PopulateThread.running)
+        if AddTracksThread.running: return
+        AddTracksThread.running = True
+        AddTracksThread.stopped = False
+
+        directories = self.directories
+        db = self.db
+        cur = self.db.cursor()
+
+        update_func = self.update_func
+        gobject.idle_add(update_func, 0.001)
+
+        paths = count_files(directories)
+        total = len(paths)
+        xlmisc.log("File count: %d" % total)
+
+        count = 0
+        update_queue = dict()
+        added = dict()
+
+        self.found_tracks = []
+
+        for loc in paths:
+            if AddTracksThread.stopped:
+                self.stop()
+                return
+            try:
+
+                tr = media.read_from_path(loc)
+                if not tr: continue
+		new = True
+		save_track_to_db(db, tr, new)
+                path_id = get_column_id(db, 'paths', 'name', unicode(loc, xlmisc.get_default_encoding()))
+                db.execute("UPDATE tracks SET included=1 WHERE path=?", (path_id,))
+               
+                if not self.exaile.all_songs.for_path(loc):
+                    if not already_added(tr, added): self.exaile.all_songs.append(tr)
+                self.found_tracks.append(tr)
+                already_added(tr, added)
+
+            except DBOperationalError:
+                xlmisc.log_exception()
+                continue
+            except OSError:
+                xlmisc.log_exception()
+                continue
+            except Exception, ex:
+                xlmisc.log_exception()
+
+            count = count + (1 * 1.0)
+
+            if total != 0 and (count % 3) == 0.0:
+                percent = float(count / total)
+                gobject.idle_add(update_func, percent)
+
+            # periodical commit
+            if count % 1500 == 0:
+                xlmisc.log("Committing 1500 scanned tracks...")
+                db.commit()
+
+        if AddTracksThread.stopped:
+            self.stop()
+            return
+        self.stop()
+        xlmisc.log("Count is now: %d" % count)
+        if self.done: return
+
+    def stop(self):
+        """
+            Stops the thread
+        """
+        self.db._close_thread()
+        self.db.commit()
+
+        num = -2
+        if not self.load_tree: num = -1
+        tracks = self.found_tracks
+        if AddTracksThread.stopped:
+            tracks = None
+        gobject.idle_add(self.update_func, num, tracks, 
+            self.done_func) 
+        AddTracksThread.stopped = False
+        AddTracksThread.running = False
+
+def add_tracks(exaile, db, directories, update_func, delete=True,
+    load_tree=False, done_func=None):
+    """
+       Add tracks in database specified by directory path(s)
+    """
+    thread = AddTracksThread(exaile, db, directories, update_func,
         delete, load_tree, done_func)
     exaile.thread_pool.append(thread)
     thread.start()

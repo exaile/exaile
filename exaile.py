@@ -789,7 +789,8 @@ class ExaileWindow(gobject.GObject):
         response = dialog.run()
         dialog.dialog.hide()
         if response == gtk.RESPONSE_APPLY:
-            self.on_library_rescan()
+           self.on_library_remove_tracks()
+	   self.on_library_add_tracks()
         dialog.destroy()
 
     def show_equalizer(self):
@@ -2458,6 +2459,67 @@ class ExaileWindow(gobject.GObject):
 
         if done_func:
             done_func(songs)
+
+    def on_library_update(self, percent, songs=None, done_func=None):
+        """
+            Scans the library
+        """
+        self.collection_panel.update_progress(percent)
+
+        if percent < 0:
+            self.db.db.commit()
+            self.db._cursor.close()
+            self.db._cursor = self.db.realcursor()
+            self.load_songs(percent==-1)
+
+        if done_func:
+            done_func(songs)
+
+    def on_library_add_tracks(self, widget=None, event=None, data=None,
+        load_tree=True): 
+        """
+            Add tracks from paths added to library manager
+        """
+        items = []
+        tmp = self.settings.get_list("add_paths", [])
+        for i in tmp:
+            if i != "": items.append(i)
+
+        if len(items): self.update_library_add(items, load_tree=load_tree)
+
+    def update_library_add(self, items, done_func=None,
+        load_tree=True, delete=True): 
+        """
+            Updates the library by adding tracks
+        """
+        self.status.set_first(_("Adding tracks..."))
+
+        tracks.add_tracks(self, self.db,
+            items, self.on_library_update, delete,
+            load_tree=load_tree, done_func=done_func)
+
+    def on_library_remove_tracks(self, widget=None, event=None, data=None,
+        load_tree=True): 
+        """
+            Remove tracks from paths deleted from library manager
+        """
+        items = []
+        tmp = self.settings.get_list("remove_paths", [])
+        for i in tmp:
+            if i != "": items.append(i)
+
+        if len(items): self.update_library_remove(items, load_tree=load_tree)
+
+    def update_library_remove(self, items, done_func=None,
+        load_tree=True, delete=True): 
+        """
+            Updates the library by removing tracks
+        """
+        self.status.set_first(_("Removing tracks..."))
+
+        tracks.remove_tracks(self, self.db,
+            items, self.on_library_update, delete,
+            load_tree=load_tree, done_func=done_func)
 
     def on_quit(self, widget=None, event=None): 
         """

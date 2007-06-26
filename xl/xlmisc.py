@@ -1468,6 +1468,8 @@ class LibraryManager(object):
         self.xml = gtk.glade.XML('exaile.glade', 'LibraryManager', 'exaile')
         self.dialog = self.xml.get_widget('LibraryManager')
         self.list = ListBox(self.xml.get_widget('lm_list_box'))
+	self.addList = []
+	self.removeList = []
         self.dialog.set_transient_for(exaile.window)
         self.xml.get_widget('lm_add_button').connect('clicked',
             self.on_add)
@@ -1517,6 +1519,8 @@ class LibraryManager(object):
             Saves the paths in the dialog, and updates the library
         """
         self.exaile.settings['search_paths'] = self.list.rows
+	self.exaile.settings['add_paths'] = self.addList
+	self.exaile.settings['remove_paths'] = self.removeList
         self.dialog.response(gtk.RESPONSE_APPLY)
 
     def on_remove(self, widget):
@@ -1525,7 +1529,8 @@ class LibraryManager(object):
         """
         item = self.list.get_selection()
         index = self.list.rows.index(item)
-        self.list.remove(item)
+	self.removeList.append(item)
+	self.list.remove(item)
         selection = self.list.list.get_selection()
         if index >= len(self.list.rows):
             selection.select_path(index - 1)
@@ -1556,7 +1561,8 @@ class LibraryManager(object):
                         'in your collection, or is a subdirectory of another '
                         'path in your collection'))
                     return
-            self.list.append(path)
+            self.addList.append(path)
+	    self.list.append(path)
         dialog.destroy()
 
 class MultiTextEntryDialog(object):

@@ -1717,8 +1717,9 @@ def get_text_icon(widget, text, width, height, bgcolor='#456eac',
     """
     if BITMAP_CACHE.has_key("%s - %sx%s - %s" % (text, width, height, bgcolor)):
         return BITMAP_CACHE["%s - %sx%s - %s" % (text, width, height, bgcolor)]
-        
-    pixmap = gtk.gdk.Pixmap(None, width, height, 24)
+
+    default_visual = gtk.gdk.visual_get_system()
+    pixmap = gtk.gdk.Pixmap(None, width, height, default_visual.depth)
     colormap = gtk.gdk.colormap_get_system()
     white = colormap.alloc_color(65535, 65535, 65535)
     black = colormap.alloc_color(0, 0, 0)

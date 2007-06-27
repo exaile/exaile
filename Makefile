@@ -66,23 +66,23 @@ install: make-install-dirs
 	  chmod 755 exaile
 	for f in `find po -name exaile.mo` ; do \
 	  install -D -m 644 $$f \
-	    `echo $$f | sed "s|po|$(DESTDIR)$(PREFIX)/share/locale|"` ; \
+	    `echo $$f | sed "s|^po|$(DESTDIR)$(PREFIX)/share/locale|"` ; \
 	  done
 
 clean:
-	-rm mmkeys.so
+	rm -f mmkeys.so
 	cd mmkeys && make clean && cd ..
-	find . -name "*.pyc" -exec rm {} \;
-	find . -name "*.pyo" -exec rm {} \;
-	-find po -maxdepth 1 -regextype posix-basic -regex "po/[^.]*" -type d -exec rm -rf {} \;
+	find . -name "*.py[co]" -exec rm -f {} \;
+	find po -maxdepth 1 -regextype posix-basic -regex "po/[^.]*" -type d -exec rm -rf {} \;
+	rm -f exaile.glade.h messages.pot plugins/plugins.glade.h
 
 tarball: clean
 	tar --exclude .svn -czvf ../exaile.tar.gz ../exaile
 
 uninstall:
-	rm -r $(DESTDIR)$(PREFIX)/share/exaile
-	rm -r $(DESTDIR)$(LIBDIR)/exaile
-	rm -r $(DESTDIR)$(PREFIX)/bin/exaile
-	rm  $(DESTDIR)$(PREFIX)/share/applications/exaile.desktop
-	rm  $(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
-	find $(DESTDIR)$(PREFIX)/share/locale -name exaile.mo -exec rm {} \;
+	rm -rf $(DESTDIR)$(PREFIX)/share/exaile
+	rm -rf $(DESTDIR)$(LIBDIR)/exaile
+	rm -rf $(DESTDIR)$(PREFIX)/bin/exaile
+	rm -f $(DESTDIR)$(PREFIX)/share/applications/exaile.desktop
+	rm -f $(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
+	find $(DESTDIR)$(PREFIX)/share/locale -name exaile.mo -exec rm -f {} \;

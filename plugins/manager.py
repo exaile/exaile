@@ -80,9 +80,14 @@ class Manager(object):
                         traceback.print_exc()
 
     def initialize_plugin(self, dir, file, enabled=None, upgrading=False):
-        if not dir in sys.path: sys.path.append(dir)
         try:
-            plugin = __import__(re.sub('\.pyc?$', '', file))
+            oldpath = sys.path
+            try:
+                sys.path.insert(0, dir)
+                plugin = __import__(re.sub('\.pyc?$', '', file))
+            finally:
+                sys.path = oldpath
+
             if not hasattr(plugin, "PLUGIN_NAME"):
                 return
 

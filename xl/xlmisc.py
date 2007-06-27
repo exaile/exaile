@@ -1552,12 +1552,19 @@ class LibraryManager(object):
                 return
 
             for item in self.items:
-                if path == item or path.find(item) > -1 or \
-                    item.find(path) > -1:
+                if path.startswith(item):
+                    # our added path is a subdir of an existing path
                     common.error(self.exaile.window, _('Path is already '
                         'in your collection, or is a subdirectory of another '
                         'path in your collection'))
                     return
+                elif item.startswith(path):
+                    # our added path encompasses some previously added directories
+                    log('LibraryManager: Newly added directory contains' 
+                        'the directory %s, which will be removed from' 
+                        'the list' % (item,))
+                    self.items.remove(item)
+
             self.addList.append(path)
 	    self.list.append(path)
         dialog.destroy()

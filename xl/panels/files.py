@@ -16,7 +16,7 @@
 
 from gettext import gettext as _
 import locale, os, gtk, urllib
-from xl import xlmisc, media, tracks
+from xl import xlmisc, media, library
 locale.setlocale(locale.LC_ALL, '')
 
 class FilesPanel(object):
@@ -151,7 +151,7 @@ class FilesPanel(object):
         """
         selection = self.tree.get_selection()
         (model, paths) = selection.get_selected_rows()
-        songs = tracks.TrackData()
+        songs = library.TrackData()
 
         for path in paths:
             iter = self.model.get_iter(path)
@@ -179,7 +179,7 @@ class FilesPanel(object):
         """
             Gets a track
         """
-        tr = tracks.read_track(self.exaile.db, self.exaile.all_songs, path)
+        tr = library.read_track(self.exaile.db, self.exaile.all_songs, path)
         return tr
 
     def append_recursive(self, songs, dir):
@@ -266,7 +266,7 @@ class FilesPanel(object):
                 if any(dir.endswith(ext) for ext in xlmisc.PLAYLIST_EXTS):
                     self.exaile.import_playlist(dir, True)
                 else:
-                    tr = tracks.read_track(self.exaile.db, self.exaile.all_songs,
+                    tr = library.read_track(self.exaile.db, self.exaile.all_songs,
                         dir)
                     if tr:
                         self.exaile.append_songs((tr, ))

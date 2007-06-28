@@ -16,7 +16,7 @@
 
 import threading, gtk, os
 from gettext import gettext as _
-from xl import common, xlmisc, tracks, trackslist, media
+from xl import common, xlmisc, library, trackslist, media
 
 class CustomWrapper(object):
     """
@@ -106,7 +106,7 @@ class PodcastQueueThread(threading.Thread):
             self.transfer_queue.downloaded += 1
             gobject.idle_add(self.transfer_queue.update_progress)
             song.download_path = download_path
-            temp = tracks.read_track(None, None, download_path)
+            temp = library.read_track(None, None, download_path)
 
             if temp:
                 song.set_len(temp.duration)
@@ -163,7 +163,7 @@ class PodcastTransferQueue(gtk.VBox):
         self.downloaded_bytes = 0
         self.total = 0
         self.total_bytes = 0
-        self.queue = tracks.TrackData()
+        self.queue = library.TrackData()
         self.queue_thread = None
         panel.podcast_download_box.pack_start(self)
         self.show_all()
@@ -491,7 +491,7 @@ class RadioPanel(object):
             " pub_date DESC LIMIT 10", 
             (podcast_path_id,))
 
-        songs = tracks.TrackData()
+        songs = library.TrackData()
         for row in rows:
             t = common.strdate_to_time(row[4])
             year = time.strftime("%x", time.localtime(t))
@@ -904,7 +904,7 @@ class RadioPanel(object):
             "radio_items,radio,paths WHERE radio_items.radio=radio.id AND "
             "paths.id=radio_items.path AND radio.name=?", (playlist,))
 
-        songs = tracks.TrackData()
+        songs = library.TrackData()
         t = trackslist.TracksListCtrl(self.exaile)
         self.exaile.playlists_nb.append_page(t,
             xlmisc.NotebookTab(self.exaile, playlist, t))

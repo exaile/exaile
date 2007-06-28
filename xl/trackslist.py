@@ -15,8 +15,8 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import sys, os, re, random, fileinput, media
-import xlmisc, common, track, tracks, burn 
-import copy, time, urllib, xl.tracks
+import xlmisc, common, library, burn 
+import copy, time, urllib
 from gettext import gettext as _, ngettext
 import pygtk
 pygtk.require('2.0')
@@ -100,7 +100,7 @@ class TracksListCtrl(gtk.VBox):
         self.list = xlmisc.DragTreeView(self)
         self.list.set_rules_hint(True)
         self.list.set_enable_search(False)
-        self.songs = tracks.TrackData()
+        self.songs = library.TrackData()
 
         self.scroll = gtk.ScrolledWindow()
         self.scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
@@ -186,7 +186,7 @@ class TracksListCtrl(gtk.VBox):
             if m:
                 song = self.exaile.device_panel.get_song(l)
             else:
-                song = tracks.read_track(self.exaile.db, self.exaile.all_songs, l)
+                song = library.read_track(self.exaile.db, self.exaile.all_songs, l)
                 if not song:
                     # check plugins
                     song = self.get_plugin_track(l)
@@ -235,7 +235,7 @@ class TracksListCtrl(gtk.VBox):
         """
             Updates the songs for the new order
         """
-        songs = tracks.TrackData()
+        songs = library.TrackData()
         iter = self.model.get_iter_first()
         if not iter: return
         while True:
@@ -308,7 +308,7 @@ class TracksListCtrl(gtk.VBox):
         """
         selection = self.list.get_selection()
         (model, paths) = selection.get_selected_rows()
-        songs = tracks.TrackData()
+        songs = library.TrackData()
         for path in paths:
             iter = self.model.get_iter(path)
             song = self.model.get_value(iter, 0)
@@ -713,7 +713,7 @@ class TracksListCtrl(gtk.VBox):
         """
             Sets the songs in this table (expects a list of tracks)
         """
-        self.songs = tracks.TrackData()
+        self.songs = library.TrackData()
 
         # save sort indicators, because they get reset when you set the model
         indicators = {}
@@ -1285,3 +1285,5 @@ def update_queued(exaile):
             ": %d tracks queued", n) % n)
     else:
         exaile.queue_count_label.set_label("")
+
+from xl import library

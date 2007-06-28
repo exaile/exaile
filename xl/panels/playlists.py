@@ -16,7 +16,7 @@
 
 import gtk, random, os
 from gettext import gettext as _
-from xl import common, xlmisc, filtergui, tracks
+from xl import common, xlmisc, filtergui, library
 from xl.filtergui import MultiEntryField, EntryField
 random.seed()
 
@@ -462,14 +462,14 @@ class PlaylistsPanel(object):
             if name == 'Entire Library':    
                 songs = self.exaile.all_songs
             elif name == 'Random 100':
-                songs = tracks.TrackData()
+                songs = library.TrackData()
                 for song in self.exaile.all_songs:
                     songs.append(song)
 
                 random.shuffle(songs)
-                songs = tracks.TrackData(songs[:100])
+                songs = library.TrackData(songs[:100])
             else:
-                songs = tracks.search_tracks(self.exaile.window, 
+                songs = library.search_tracks(self.exaile.window, 
                     self.db,
                     self.exaile.all_songs, None, None, sql)
 
@@ -486,9 +486,9 @@ class PlaylistsPanel(object):
                 'WHERE playlist_items.path=paths.id AND playlist=?',
                 (playlist_id,))
 
-            songs = tracks.TrackData()
+            songs = library.TrackData()
             for row in rows:
-                tr = tracks.read_track(self.db, self.exaile.all_songs, row[0])
+                tr = library.read_track(self.db, self.exaile.all_songs, row[0])
                 if tr:
                     songs.append(tr)
 
@@ -538,7 +538,7 @@ class PlaylistsPanel(object):
                     track, title
             """ % andor.join(where)
         xlmisc.log(sql)
-        songs = tracks.search_tracks(self.exaile.window,
+        songs = library.search_tracks(self.exaile.window,
             self.db, self.exaile.all_songs, None, None, sql)
 
         self.exaile.new_page(name, songs)
@@ -556,7 +556,7 @@ class PlaylistsPanel(object):
             obj = None
 
         uris = selection.get_uris()
-        songs = tracks.TrackData()
+        songs = library.TrackData()
         for l in uris:
             l = urllib.unquote(l)
             m = re.search(r'^device_(\w+)://', l)

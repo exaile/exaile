@@ -15,13 +15,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import gtk
-from xl import common, xlmisc, tracks
+from xl import common, xlmisc, library
 from gettext import gettext as _
 import collection
 
 class EmptyDriver(object):
     def __init__(self):
-        self.all = tracks.TrackData()
+        self.all = library.TrackData()
 
     def search_tracks(self, *e):
         return self.all
@@ -184,7 +184,7 @@ class DevicePanel(collection.CollectionPanel):
         collection.CollectionPanel.__init__(self, exaile)
         self.driver = None
         self.drivers = {}
-        self.all = tracks.TrackData()
+        self.all = library.TrackData()
         self.tree = xlmisc.DragTreeView(self, True, True)
         self.tree.set_headers_visible(False)
 
@@ -431,7 +431,7 @@ class DevicePanel(collection.CollectionPanel):
         self.load_tree()
 
     def search_tracks(self, keyword, all=None):
-        if not self.driver: self.all = tracks.TrackData()
+        if not self.driver: self.all = library.TrackData()
         else: self.all = self.driver.search_tracks(keyword)
         return self.all
 

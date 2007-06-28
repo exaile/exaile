@@ -67,7 +67,8 @@ if basedir.endswith(path_suffix):
     sys.path.append(os.path.join(prefix, 'lib', 'exaile'))
 
 from xl import *
-from xl import media, audioscrobbler, equalizer, burn
+from xl import library, media, audioscrobbler, equalizer, burn
+from xl.library import gui as librarygui
 from xl.panels import collection, playlists, radio, device, files
 import plugins.manager, plugins, plugins.gui
 import pygst; pygst.require('0.10'); import gst
@@ -127,9 +128,9 @@ class ExaileWindow(gobject.GObject):
         self.timer_count = 0
         self.gamin_watched = []
         self.mon = None
-        self.all_songs = tracks.TrackData()
-        self.songs = tracks.TrackData()
-        self.playlist_songs = tracks.TrackData()
+        self.all_songs = library.TrackData()
+        self.songs = library.TrackData()
+        self.playlist_songs = library.TrackData()
         self.tracks = None
         self.playlists_menu = None
         self.timer = xlmisc.MiscTimer(self.timer_update, 1000)
@@ -761,7 +762,7 @@ class ExaileWindow(gobject.GObject):
         """)
         songs = []
         for row in all:
-            song = tracks.read_track(self.db, None, row[0])
+            song = library.read_track(self.db, None, row[0])
             if song: songs.append(song)
 
         for i in range(0, nb.get_n_pages()):
@@ -783,12 +784,12 @@ class ExaileWindow(gobject.GObject):
         """
             Displays the library manager
         """
-        dialog = xlmisc.LibraryManager(self)
+        dialog = librarygui.LibraryDialog(self)
         response = dialog.run()
         dialog.dialog.hide()
         if response == gtk.RESPONSE_APPLY:
-           self.on_library_remove_tracks()
-	   self.on_library_add_tracks()
+            self.on_library_remove_tracks()
+            self.on_library_add_tracks()
         dialog.destroy()
 
     def show_equalizer(self):
@@ -927,7 +928,7 @@ class ExaileWindow(gobject.GObject):
         """
         if queue: play = False
         if len(self.playlist_songs) == 0:
-            self.playlist_songs = tracks.TrackData()
+            self.playlist_songs = library.TrackData()
 
         # loop through all the tracks
         for song in songs:
@@ -1499,7 +1500,7 @@ class ExaileWindow(gobject.GObject):
                 self.tracks.songs:
                 self.playlists_nb.remove_page(0)
         
-        if not songs: songs = tracks.TrackData()
+        if not songs: songs = library.TrackData()
         self.tracks = trackslist.TracksListCtrl(self)
         t = self.tracks
         self.tracks.playlist_songs = songs 
@@ -1549,7 +1550,7 @@ class ExaileWindow(gobject.GObject):
         if self.tracks == None:
             self.new_page()
 
-        self.tracks.set_songs(tracks.TrackData())
+        self.tracks.set_songs(library.TrackData())
         self.tracks.playlist_songs = self.tracks.songs
         self.playlist_songs = self.tracks.songs
         self.songs = self.tracks.songs
@@ -1742,7 +1743,7 @@ class ExaileWindow(gobject.GObject):
         """
             adds suggested tracks that were fetched
         """
-        songs = tracks.TrackData()
+        songs = library.TrackData()
         for artist in artists:
             rows = self.db.select("SELECT paths.name FROM artists,tracks,paths WHERE " 
                 "tracks.path=paths.id AND artists.id=tracks.artist AND "
@@ -1929,7 +1930,7 @@ class ExaileWindow(gobject.GObject):
             playlist = xlmisc.M3UParser(name,path)
 
         first = True
-        songs = tracks.TrackData()
+        songs = library.TrackData()
         t = trackslist.TracksListCtrl
 
         count = 0
@@ -1938,7 +1939,7 @@ class ExaileWindow(gobject.GObject):
             if url[0] == 'device': continue
             elif url[0] == 'file':
                 filename = urllib.unquote(url[2])
-                tr = tracks.read_track(self.db, self.all_songs, filename)
+                tr = library.read_track(self.db, self.all_songs, filename)
                   
             else: 
                 tr = media.Track(urlparse.urlunsplit(url))
@@ -2025,7 +2026,7 @@ class ExaileWindow(gobject.GObject):
             paths = dialog.get_filenames()
             self.last_open_dir = dialog.get_current_folder()
             self.status.set_first(_("Populating playlist..."))
-            songs = tracks.TrackData()
+            songs = library.TrackData()
 
             count = 0
             for path in paths:
@@ -2034,7 +2035,7 @@ class ExaileWindow(gobject.GObject):
                     if count >= 10:
                         xlmisc.finish()
                         count = 0
-                    tr = tracks.read_track(self.db, self.all_songs, path)
+                    tr = library.read_track(self.db, self.all_songs, path)
 
                     count = count + 1
                     if tr:
@@ -2112,9 +2113,9 @@ class ExaileWindow(gobject.GObject):
                 self.import_playlist(url, True)
                 return
             else:
-                track = tracks.read_track(self.db, self.all_songs, url)
+                track = library.read_track(self.db, self.all_songs, url)
 
-        songs = tracks.TrackData((track, ))
+        songs = library.TrackData((track, ))
         if not songs: return
 
         self.append_songs(songs, play=False)

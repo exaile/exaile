@@ -16,7 +16,7 @@
 
 import gtk, os, gobject, urllib
 from gettext import gettext as _, ngettext
-from xl import common, xlmisc, trackslist, tracks
+from xl import common, xlmisc, trackslist, library
 
 class CollectionPanel(object):
     """
@@ -142,8 +142,8 @@ class CollectionPanel(object):
         """
             Stops the library scan
         """
-        if tracks.PopulateThread.running:
-            tracks.PopulateThread.stopped = True
+        if library.PopulateThread.running:
+            library.PopulateThread.stopped = True
 
     def on_search(self, widget=None, event=None):
         """
@@ -282,7 +282,7 @@ class CollectionPanel(object):
                 if field == 'title':
                     found.append(track.loc)
 
-        add = tracks.TrackData()
+        add = library.TrackData()
         for row in found:
             add.append(self.all.for_path(row))
 
@@ -563,7 +563,7 @@ class CollectionPanel(object):
         """
             Searches for songs
         """
-        return tracks.search_tracks(self.exaile.window, self.db, all,
+        return library.search_tracks(self.exaile.window, self.db, all,
             self.keyword, None, self.where)
 
     def __check_track_function(self, model, path, iter, track_needed):

@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import gtk, os, gobject, urllib
-from gettext import gettext as _
+from gettext import gettext as _, ngettext
 from xl import common, xlmisc, trackslist, tracks
 
 class CollectionPanel(object):

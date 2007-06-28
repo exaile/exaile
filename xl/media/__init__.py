@@ -393,8 +393,11 @@ def read_from_path(uri, track_type=Track):
 
     try:
         formats[ext].fill_tag_from_path(tr)
+        for t in ('artist', 'album', 'title'):
+            setattr(tr, t, getattr(tr, t).split(u'\0')[0])
     except HeaderNotFoundError:
         print "Possibly corrupt file: " + uri
+        return None
     except:
         xlmisc.log_exception()
         return None

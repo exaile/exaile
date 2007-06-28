@@ -67,7 +67,8 @@ if basedir.endswith(path_suffix):
     sys.path.append(os.path.join(prefix, 'lib', 'exaile'))
 
 from xl import *
-from xl import media, audioscrobbler, equalizer, burn 
+from xl import media, audioscrobbler, equalizer, burn
+from xl.panels import collection, playlists, radio, device, files
 import plugins.manager, plugins, plugins.gui
 import pygst; pygst.require('0.10'); import gst
 
@@ -1017,13 +1018,13 @@ class ExaileWindow(gobject.GObject):
         """
             Sets up the left panel
         """
-        self.playlists_panel = panels.PlaylistsPanel(self)
-        self.collection_panel = panels.CollectionPanel(self)
+        self.playlists_panel = playlists.PlaylistsPanel(self)
+        self.collection_panel = collection.CollectionPanel(self)
         self.side_notebook = self.xml.get_widget('side_notebook')
-        self.files_panel = panels.FilesPanel(self)
+        self.files_panel = files.FilesPanel(self)
 
         page_number = self._find_page_number('device_box')
-        self.device_panel = panels.DevicePanel(self)
+        self.device_panel = device.DevicePanel(self)
         self.device_panel_widget = self.side_notebook.get_nth_page(page_number)
         self.device_panel_label = self.side_notebook.get_tab_label(
             self.device_panel_widget)
@@ -1031,7 +1032,7 @@ class ExaileWindow(gobject.GObject):
         self.side_notebook.remove_page(page_number)
         self.device_panel_showing = False
 
-        self.pradio_panel = panels.PRadioPanel(self)
+        self.pradio_panel = radio.RadioPanel(self)
 
     def _find_page_number(self, text):
         """

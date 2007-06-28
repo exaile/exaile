@@ -28,6 +28,7 @@ make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/images/default_theme
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/xl
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/xl/media
+	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/xl/panels
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/lib
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/data
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/sql
@@ -48,6 +49,8 @@ install: make-install-dirs
 	-install -m 644 xl/*.pyc $(DESTDIR)$(PREFIX)/share/exaile/xl
 	install -m 644 xl/media/*.py $(DESTDIR)$(PREFIX)/share/exaile/xl/media
 	-install -m 644 xl/media/*.pyc $(DESTDIR)$(PREFIX)/share/exaile/xl/media
+	install -m 644 xl/panels/*.py $(DESTDIR)$(PREFIX)/share/exaile/xl/panels
+	-install -m 644 xl/panels/*.pyc $(DESTDIR)$(PREFIX)/share/exaile/xl/panels
 	install -m 644 lib/*.py $(DESTDIR)$(PREFIX)/share/exaile/lib
 	-install -m 644 lib/*.pyc $(DESTDIR)$(PREFIX)/share/exaile/lib
 	install -m 644 data/*.ini $(DESTDIR)$(PREFIX)/share/exaile/data

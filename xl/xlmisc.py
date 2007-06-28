@@ -1332,7 +1332,7 @@ class CoverFrame(object):
             album_id))
 
         if track == self.exaile.player.current:
-            self.exaile.stop_cover_thread()
+            self.exaile.cover_manager.stop_cover_thread()
             self.exaile.cover.set_image(os.path.join(
                 self.exaile.get_settings_dir(), 'covers', cover.filename()))
         self.window.destroy()

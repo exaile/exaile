@@ -114,7 +114,6 @@ class ExaileWindow(gobject.GObject):
             Initializes the main Exaile window
         """
         gobject.GObject.__init__(self)
-        self.cover_width = 100
         self.xml = gtk.glade.XML('exaile.glade', 'ExaileWindow', 'exaile')
         self.window = self.xml.get_widget('ExaileWindow')
         media.exaile_instance = self
@@ -132,8 +131,8 @@ class ExaileWindow(gobject.GObject):
         self.playlist_songs = tracks.TrackData()
         self.tracks = None
         self.playlists_menu = None
-        self.cover_thread = None
         self.timer = xlmisc.MiscTimer(self.timer_update, 1000)
+        self.cover_manager = covers.CoverManager(self)
         self.plugin_tracks = {}
         self.playing = False
         self.thread_pool = []
@@ -291,7 +290,7 @@ class ExaileWindow(gobject.GObject):
         xlmisc.log("rawtitle:%s newsong:%s" % (track.title,newsong))
         if newsong:
             xlmisc.log("asking to fetch cover")
-            self.fetch_cover(track)
+            self.cover_manager.fetch_cover(track)
         return True
         
     def get_version(self):
@@ -481,8 +480,6 @@ class ExaileWindow(gobject.GObject):
 
         self.previous_button = self.xml.get_widget('prev_button')
         self.previous_button.connect('clicked', self.on_previous)
-
-        self.cover_box.connect('button_press_event', self.cover_clicked)
 
         self.tracks_filter = xlmisc.ClearEntry(self.live_search)
         self.xml.get_widget('tracks_filter_box').pack_start(
@@ -803,25 +800,6 @@ class ExaileWindow(gobject.GObject):
                 '(currently found in GST CVS).'))
             return
         eq = equalizer.EqualizerWindow(self)
-
-    def cover_clicked(self, widget, event):
-        """
-            Called when the cover is clicked on
-        """
-        if event.type == gtk.gdk._2BUTTON_PRESS:
-            if 'nocover' in self.cover.loc: return
-            track = self.player.current
-            
-            xlmisc.CoverWindow(self.window, self.cover.loc,
-                _("%(album)s by %(artist)s") %
-                {
-                    'album': track.album,
-                    'artist': track.artist
-                })
-        elif event.button == 3:
-            if not self.player.current: return
-            self.cover_menu.popup(None, None, None, 
-                event.button, event.time)
 
     def get_play_image(self, size=gtk.ICON_SIZE_SMALL_TOOLBAR):
         """
@@ -1469,165 +1447,14 @@ class ExaileWindow(gobject.GObject):
         self.db.execute("UPDATE tracks SET %s WHERE path=?" % update_string, 
             (path_id,))
 
-        
-    def got_stream_cover(self,covers):
-        print "got stream cover"
-        self.status.set_first(None)
-        if len(covers) == 0:
-            self.status.set_first(_("No covers found."), 2000)
-        
-        for cover in covers:
-            if(cover['status'] == 200):
-                savepath = os.path.join(SETTINGS_DIR, "covers",
-                    "streamCover.jpg")
-                handle = open(savepath, "w")
-                handle.write(cover['data'])
-                handle.close()
-                self.cover.set_image(savepath)
-                break
-
-
-    def got_covers(self, covers): 
-        """
-            Gets called when all covers have been downloaded from amazon
-        """
-        track = self.player.current
-        artist_id = tracks.get_column_id(self.db, 'artists', 'name', track.artist)
-        album_id = tracks.get_album_id(self.db, artist_id, track.album)
-
-        self.status.set_first(None)
-        if len(covers) == 0:
-            self.status.set_first(_("No covers found."), 2000)
-            self.db.execute("UPDATE albums SET image='nocover' WHERE id=?",
-                (album_id,))
-
-        # loop through all of the covers that have been found
-        for cover in covers:
-            if(cover['status'] == 200):
-                cover.save(os.path.join(SETTINGS_DIR, "covers"))
-                xlmisc.log(cover['filename'])
-                self.cover.set_image(cover['filename'])
-
-                self.db.execute("UPDATE albums SET image=?, amazon_image=1 WHERE id=?",
-                    (cover['md5'] + ".jpg", album_id))
-                
-                break
-
-    def check_image_age(self, album_id, image):
-        """
-            This checks to see if the image is too old for Amazon's ULA, and
-            if it is, it refetches the image
-        """
-        info = os.stat(os.path.join(SETTINGS_DIR, 'covers', image))
-
-        max_time = 30 * 24 * 60 * 60 # 1 month
-        if time.time() - info[9] > max_time:
-            self.status.set_first(_('Current amazon image is too old, '
-                'fetching  a new one'), 2000)
-            self.db.execute('UPDATE albums SET image=NULL, amazon_image=0 '
-                'WHERE id=?', (album_id,))
-            self.fetch_cover(self.player.current)
-            return False
-        return True
-   
-    def fetch_cover(self, track, popup=None): 
-        """
-            Fetches the cover from the database.  If it can't be found
-            there it fetches it from amazon
-        """
-        w = self.cover_width
-        if not popup:
-            self.cover.set_image(os.path.join("images", "nocover.png"))
-        if track == None: return
-        artist_id = tracks.get_column_id(self.db, 'artists', 'name', track.artist)
-        album_id = tracks.get_album_id(self.db, artist_id, track.album)
-
-        # check to see if a cover already exists
-        row = self.db.read_one("albums", "image, amazon_image", 'id=?', (album_id,))
-
-        if row != None and row[0] != "" and row[0] != None:
-            if row[0] == "nocover": 
-                cover = self.fetch_from_fs(track)
-                if cover:
-                    if popup: return cover
-                    self.cover.set_image(cover)
-                    return
-                return os.path.join("images", "nocover.png")
-            if os.path.isfile(os.path.join(SETTINGS_DIR, "covers", row[0])):
-
-                if popup: return os.path.join(SETTINGS_DIR, "covers", row[0])
-
-                # check to see if we need to recache this image
-                if row[1]:
-                    if not self.check_image_age(album_id, row[0]): return
-
-                self.cover.set_image(os.path.join(SETTINGS_DIR, "covers",
-                    row[0]))
-                return
-
-        cover = self.fetch_from_fs(track)
-        if cover:
-            if popup: return cover
-            else: self.cover.set_image(cover)
-            return
-
-        if popup != None: return os.path.join("images", "nocover.png")
-        self.stop_cover_thread()
-
-        if self.settings.get_boolean("fetch_covers", True):
-            locale = self.settings.get_str('amazon_locale', 'us')
-            if track.type == 'stream':
-                xlmisc.log("we got a stream type cover fetch")
-                self.cover_thread = covers.CoverFetcherThread("%s %s"\
-                    % (track.artist,track.title),
-                    self.got_stream_cover, locale=locale)
-
-            else:    
-                album = track.album
-                if not album:
-                    album = track.title
-                self.cover_thread = covers.CoverFetcherThread("%s %s" \
-                    % (album,track.artist),
-                    self.got_covers, locale=locale)
-
-            self.status.set_first(_("Fetching cover art from Amazon..."))
-            self.cover_thread.start()
-        
-            
-    def fetch_from_fs(self, track, event=None):
-        """
-            Fetches the cover from the filesystem (if there is one)
-        """
-        dir = os.path.dirname(track.loc)
-
-        names = self.settings.get_list('art_filenames', 
-            ['cover.jpg', 'folder.jpg', '.folder.jpg', 'album.jpg', 'art.jpg'])
-        if not names: return None
-
-        for f in names:
-            f = f.strip()
-            if os.path.isfile(os.path.join(dir, f)):
-                return os.path.join(dir, f)
-
-        return None
-
-    def stop_cover_thread(self): 
-        """
-            Aborts the cover thread
-        """
-
-        if self.cover_thread != None:
-            xlmisc.log("Aborted cover thread")
-            self.cover_thread.abort()
-            self.cover_thread = None
     
     def setup_right(self): 
         """
             Sets up the right side of the sash (this is the playlist area)
         """
         self.cover = xlmisc.ImageWidget()
-        self.cover.set_image_size(self.cover_width, self.cover_width)
-        self.cover_box = gtk.EventBox()
+        self.cover.set_image_size(covers.COVER_WIDTH, covers.COVER_WIDTH)
+        self.cover_box = covers.CoverEventBox(self)
         self.cover_box.add(self.cover)
         self.xml.get_widget('image_box').pack_start(self.cover_box)
         self.cover.set_image(os.path.join('images', 'nocover.png'))
@@ -1638,122 +1465,18 @@ class ExaileWindow(gobject.GObject):
         attr.change(pango.AttrWeight(pango.WEIGHT_BOLD, 0, 800))
         attr.change(pango.AttrSize(12500, 0, 600))
         self.title_label.set_attributes(attr)
-        self.setup_cover_menu()
 
         # set up the burn button, check for available burning programs
         burn_button = self.xml.get_widget('burn_button')
         burn_button.connect('clicked', self.on_burn_button_clicked)
 
         burnprogs = xl.burn.check_burn_progs()
-	if not burnprogs:            
+        if not burnprogs:            
             print _("A supported CD burning program was not found "
                     "in $PATH, disabling burning capabilities.")
             burn_button.set_sensitive(False)
         else:
             pref = self.settings.get_str('burn_prog', burn.check_burn_progs()[0])
-
-
-    def setup_cover_menu(self):
-        """
-            Sets up the menu for when the user right clicks on the album cover
-        """
-        menu = xlmisc.Menu()
-        self.cover_full = menu.append(_("View Full Image"),
-            self.cover_menu_activate)
-        self.cover_fetch = menu.append(_("Fetch from Amazon"),
-            self.cover_menu_activate)
-        self.cover_search = menu.append(_("Search Amazon"),
-            self.cover_menu_activate)
-        self.cover_custom = menu.append(_("Set Custom Image"),
-            self.cover_menu_activate)
-        self.remove_cover = menu.append(_("Remove Cover"),
-            self.remove_cover)
-        self.cover_menu = menu
-
-    def remove_cover(self, item, param=None):
-        """
-            removes the cover art for the current track
-        """
-        track = self.player.current
-        if not track: return
-
-        artist_id = tracks.get_column_id(self.db, 'artists', 'name',
-            track.artist)
-        album_id = tracks.get_album_id(self.db, artist_id, track.album)
-
-        self.db.execute("UPDATE albums SET image='nocover' WHERE id=?", (album_id,))
-        self.cover.set_image(os.path.join("images", "nocover.png"))
-
-    def cover_menu_activate(self, item, user_param=None): 
-        """
-            Called when one of the menu items in the album cover popup is
-            selected
-        """
-        if item == self.cover_fetch:
-            self.status.set_first(_("Fetching from Amazon..."))
-            xlmisc.CoverFrame(self, self.player.current)
-        elif item == self.cover_search:
-            xlmisc.CoverFrame(self, self.player.current, True)
-        elif item == "showcover" or item == self.cover_full:
-            if "nocover" in self.cover.loc: return
-            track = self.player.current
-            xlmisc.CoverWindow(self.window, self.cover.loc, _("%(album)s by %(artist)s") %
-                {
-                    'album': track.album,
-                    'artist': track.artist
-                })
-        elif item == self.cover_custom:
-            track = self.player.current
-
-            dialog = gtk.FileChooserDialog(_("Choose an image"), self.window,
-                buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-                gtk.STOCK_OPEN, gtk.RESPONSE_OK))
-            dialog.set_current_folder(self.get_last_dir())
-
-            # Image Files
-            filter = gtk.FileFilter()
-            filter.set_name(_("Image Files"))
-            for pattern in ('*.jpg', '*.jpeg', '*.gif', '*.png'):
-                filter.add_pattern(pattern)
-            dialog.add_filter(filter)
-            # All Files
-            filter = gtk.FileFilter()
-            filter.set_name(_("All Files"))
-            filter.add_pattern('*')
-            dialog.add_filter(filter)
-
-            result = dialog.run()
-            dialog.hide()
-
-            if result == gtk.RESPONSE_OK:
-                self.last_open_dir = dialog.get_current_folder()
-                handle = open(dialog.get_filename(), "r")
-                data = handle.read()
-                handle.close()
-
-                (f, ext) = os.path.splitext(dialog.get_filename())
-                newname = md5.new(data).hexdigest() + ext
-                handle = open(os.path.join(self.get_settings_dir(), "covers",
-                    newname), "w")
-                handle.write(data)
-                handle.close()
-
-                path_id = tracks.get_column_id(self.db, 'paths', 'name',
-                    track.loc)
-                artist_id = tracks.get_column_id(self.db, 'artists', 'name',
-                    track.artist)
-                album_id  = tracks.get_album_id(self.db, artist_id,
-                    track.album)
-
-                xlmisc.log(newname)
-
-                self.db.execute("UPDATE albums SET image=? WHERE id=?",
-                    (newname, album_id))
-
-                if track == self.player.current:
-                    self.stop_cover_thread()
-                    self.cover.set_image(os.path.join(self.get_settings_dir(),
-                        "covers", newname))
 
     def on_burn_button_clicked(self, button):
         xl.burn.launch_burner(self.settings.get_str('burn_prog', burn.check_burn_progs()[0]), self.tracks.songs)
@@ -1970,7 +1693,7 @@ class ExaileWindow(gobject.GObject):
         tracks.get_album_id(self.db, artist_id, track.album)
 
         if track.type != 'stream':
-            self.fetch_cover(track)
+            self.cover_manager.fetch_cover(track)
 
         self.show_osd()
         if self.tracks: self.tracks.queue_draw()
@@ -2060,7 +1783,7 @@ class ExaileWindow(gobject.GObject):
         track = self.player.current
         if not track: return
         pop = xlmisc.get_osd(self, xlmisc.get_osd_settings(self.settings))
-        cover = self.fetch_cover(track, 1)
+        cover = self.cover_manager.fetch_cover(track, 1)
 
         text_display = self.settings.get_str('osd/display_text',
             xl.prefs.TEXT_VIEW_DEFAULT)
@@ -2150,7 +1873,7 @@ class ExaileWindow(gobject.GObject):
         """
         self.status.set_first(None)
         self.cover.set_image(os.path.join("images", "nocover.png"))
-        self.stop_cover_thread()
+        self.cover_manager.stop_cover_thread()
 
         self.playing = False
         if self.tray_icon:
@@ -2557,7 +2280,7 @@ class ExaileWindow(gobject.GObject):
             self.mon.disconnect()
 
         self.stop()
-        self.stop_cover_thread()
+        self.cover_manager.stop_cover_thread()
         for thread in self.thread_pool:
             thread.done = True
 

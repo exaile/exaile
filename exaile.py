@@ -550,7 +550,7 @@ class ExaileWindow(gobject.GObject):
 
         self.fetch_item = self.xml.get_widget('fetch_covers_item')
         self.fetch_item.connect('activate',
-            self.fetch_covers)
+            self.cover_manager.fetch_covers)
 
 
         self.open_disc_item = self.xml.get_widget('open_disc_item')
@@ -2142,13 +2142,6 @@ class ExaileWindow(gobject.GObject):
         songs = xl.tracks.read_audio_disc(self)
         if not songs: return
         self.new_page(_("Audio Disc"), songs)
-
-    def fetch_covers(self, event):
-        """
-            Fetches all covers
-        """
-        fetcher = xlmisc.get_cover_fetcher(self)
-        fetcher.dialog.show_all()
 
     def goto_current(self, *e): 
         """

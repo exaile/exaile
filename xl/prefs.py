@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import thread, os, os.path, string, shlex
-import tracks, xlmisc, media, audioscrobbler, burn, advancededitor
+import library, xlmisc, media, audioscrobbler, burn, advancededitor
 from gettext import gettext as _
 import pygtk, common
 pygtk.require('2.0')

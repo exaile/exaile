@@ -14,9 +14,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import os, re, os.path, copy, traceback, gc
+import os, re, os.path, copy, traceback, gc, gtk
 from xl import common, media, db, config, audioscrobbler
 from xl import xlmisc, dbusinterface
+from xl.library import gui as librarygui
 import sys, md5, gobject, random
 import thread, threading, urllib
 import xl.db, time
@@ -645,7 +646,7 @@ class PopulateThread(threading.Thread):
                 self.stop()
                 return
             try:
-                self.do_function()
+                self.do_function(loc)
 
             except DBOperationalError:
                 xlmisc.log_exception()
@@ -678,7 +679,8 @@ class PopulateThread(threading.Thread):
             db.execute("DELETE FROM tracks WHERE included=0")
         db.commit()
 
-    def do_function(self):
+    def do_function(self, loc):
+        db = self.db
         tr = self.exaile.all_songs.for_path(loc)
         
         if not tr:
@@ -744,7 +746,8 @@ class RemoveTracksThread(PopulateThread):
         PopulateThread.__init__(self, exaile, db, directories, update_func,
             delete, load_tree, done_func)
 
-    def do_function(self):
+    def do_function(self, loc):
+        db = self.db
         tr = self.exaile.all_songs.for_path(loc)
         
         if not tr:
@@ -779,7 +782,8 @@ class AddTracksThread(PopulateThread):
         PopulateThread.__init__(self, exaile, db, directories, update_func,
             delete, load_tree, done_func)
 
-    def do_function(self):
+    def do_function(self, loc):
+        db = self.db
         tr = media.read_from_path(loc)
         if not tr: return
         new = True
@@ -801,3 +805,181 @@ def add_tracks(exaile, db, directories, update_func, delete=True,
         delete, load_tree, done_func)
     exaile.thread_pool.append(thread)
     thread.start()
+
+
+class LibraryManager(object):
+    def __init__(self, exaile):
+        self.exaile = exaile
+        self.settings = exaile.settings
+        self.db = exaile.db
+
+    def import_directory(self, load_tree=False):
+        """
+            Imports a single directory into the database
+        """
+        dialog = gtk.FileChooserDialog(_("Add a directory"),
+            self.exaile.window, gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER,
+            (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+            gtk.STOCK_ADD, gtk.RESPONSE_OK))
+        dialog.set_current_folder(self.exaile.get_last_dir())
+
+        checkbtn = gtk.CheckButton(_("Add tracks to current playlist after importing"))
+        dialog.set_extra_widget(checkbtn)
+
+        items = []
+        tmp = self.settings.get_list("search_paths")
+        for i in tmp:
+            if i != "": items.append(i)
+
+        response = dialog.run()
+        if response == gtk.RESPONSE_OK:
+            path = dialog.get_filename()
+
+            check = True
+            for p in items:
+                if p == path: check = False
+                if p.find(path) > -1: check = False
+                if path.find(p) > -1: check = False
+
+            if check:
+                items.append(path)
+
+            self.settings['search_paths'] = items
+
+            done_func = None
+            if checkbtn.get_active():
+                done_func = self.after_import
+            self.update_library((path,), done_func=done_func, load_tree=load_tree, 
+                delete=False)
+        dialog.destroy()
+
+    def after_import(self, songs):
+        """
+            Adds songs that have just been imported to the current playlist
+            after importing a directory
+        """
+        songs = self.exaile.tracks.reorder_songs(songs)
+        self.exaile.append_songs(songs, play=False)
+
+    def show_library_manager(self):
+        """
+            Displays the library manager
+        """
+        dialog = librarygui.LibraryDialog(self.exaile)
+        response = dialog.run()
+        dialog.dialog.hide()
+        if response == gtk.RESPONSE_APPLY:
+            self.on_library_remove_tracks()
+            self.on_library_add_tracks()
+        dialog.destroy()
+
+    @common.threaded
+    def load_songs(self, updating=False, first_run=False): 
+        """
+            Loads the entire library from the database
+        """
+        gobject.idle_add(self.exaile.status.set_first, 
+            _("Loading library from database..."))
+
+        if not updating:
+            xlmisc.log("loading tracks...")
+            self.exaile.all_songs = load_tracks(self.db, 
+                self.exaile.all_songs)
+            self.db._close_thread()
+            xlmisc.log("done loading tracks...")
+        gobject.idle_add(self.exaile.status.set_first, None)
+
+        self.exaile.collection_panel.songs = self.exaile.all_songs
+        self.exaile.collection_panel.track_cache = dict()
+
+        if not updating:
+            xlmisc.log("loading songs")
+            gobject.idle_add(self.exaile.playlists_panel.load_playlists)
+            gobject.idle_add(self.exaile.collection_panel.load_tree, True)
+            
+        if first_run: 
+            gobject.idle_add(self.exaile.initialize)
+
+    def on_library_rescan(self, widget=None, event=None, data=None,
+        load_tree=True): 
+        """
+            Rescans the library for newly added tracks
+        """
+        items = []
+        tmp = self.settings.get_list("search_paths", [])
+        for i in tmp:
+            if i != "": items.append(i)
+
+        if len(items): self.update_library(items, load_tree=load_tree)
+    
+    def update_library(self, items, done_func=None,
+        load_tree=True, delete=True): 
+        """
+            Updates the library
+        """
+        self.exaile.status.set_first(_("Scanning collection..."))
+
+        populate(self.exaile, self.db,
+            items, self.on_library_update, delete,
+            load_tree=load_tree, done_func=done_func)
+
+    def on_library_update(self, percent, songs=None, done_func=None): 
+        """
+            Scans the library
+        """
+        self.exaile.collection_panel.update_progress(percent)
+        
+        if percent < 0:
+            self.db.db.commit()
+            self.db._cursor.close()
+            self.db._cursor = self.db.realcursor()
+            self.load_songs(percent==-1)
+
+        if done_func:
+            done_func(songs)
+
+    def on_library_add_tracks(self, widget=None, event=None, data=None,
+        load_tree=True): 
+        """
+            Add tracks from paths added to library manager
+        """
+        items = []
+        tmp = self.settings.get_list("add_paths", [])
+        for i in tmp:
+            if i != "": items.append(i)
+
+        if len(items): self.update_library_add(items, load_tree=load_tree)
+
+    def update_library_add(self, items, done_func=None,
+        load_tree=True, delete=True): 
+        """
+            Updates the library by adding tracks
+        """
+        self.exaile.status.set_first(_("Adding tracks..."))
+
+        add_tracks(self.exaile, self.db,
+            items, self.on_library_update, delete,
+            load_tree=load_tree, done_func=done_func)
+
+    def on_library_remove_tracks(self, widget=None, event=None, data=None,
+        load_tree=True): 
+        """
+            Remove tracks from paths deleted from library manager
+        """
+        items = []
+        tmp = self.settings.get_list("remove_paths", [])
+        for i in tmp:
+            if i != "": items.append(i)
+
+        if len(items): self.update_library_remove(items, load_tree=load_tree)
+
+    def update_library_remove(self, items, done_func=None,
+        load_tree=True, delete=True): 
+        """
+            Updates the library by removing tracks
+        """
+        self.exaile.status.set_first(_("Removing tracks..."))
+
+        remove_tracks(self.exaile, self.db,
+            items, self.on_library_update, delete,
+            load_tree=load_tree, done_func=done_func)

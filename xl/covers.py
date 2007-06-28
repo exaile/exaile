@@ -17,7 +17,7 @@
 
 import httplib, re, urllib, md5, threading, sys, os, xlmisc
 import urllib2, config, gobject, gtk, time
-import tracks, common
+import library, common
 from gettext import gettext as _
 COVER_WIDTH = 100
 
@@ -204,9 +204,9 @@ class CoverEventBox(gtk.EventBox):
         track = self.exaile.player.current
         if not track: return
 
-        artist_id = tracks.get_column_id(self.db, 'artists', 'name',
+        artist_id = library.get_column_id(self.db, 'artists', 'name',
             track.artist)
-        album_id = tracks.get_album_id(self.db, artist_id, track.album)
+        album_id = library.get_album_id(self.db, artist_id, track.album)
 
         self.db.execute("UPDATE albums SET image='nocover' WHERE id=?", (album_id,))
         self.exaile.cover.set_image(os.path.join("images", "nocover.png"))
@@ -266,11 +266,11 @@ class CoverEventBox(gtk.EventBox):
                 handle.write(data)
                 handle.close()
 
-                path_id = tracks.get_column_id(self.db, 'paths', 'name',
+                path_id = library.get_column_id(self.db, 'paths', 'name',
                     track.loc)
-                artist_id = tracks.get_column_id(self.db, 'artists', 'name',
+                artist_id = library.get_column_id(self.db, 'artists', 'name',
                     track.artist)
-                album_id  = tracks.get_album_id(self.db, artist_id,
+                album_id  = library.get_album_id(self.db, artist_id,
                     track.album)
 
                 xlmisc.log(newname)
@@ -357,8 +357,8 @@ class CoverManager(object):
             Gets called when all covers have been downloaded from amazon
         """
         track = self.exaile.player.current
-        artist_id = tracks.get_column_id(self.db, 'artists', 'name', track.artist)
-        album_id = tracks.get_album_id(self.db, artist_id, track.album)
+        artist_id = library.get_column_id(self.db, 'artists', 'name', track.artist)
+        album_id = library.get_album_id(self.db, artist_id, track.album)
 
         self.exaile.status.set_first(None)
         if len(covers) == 0:
@@ -404,8 +404,8 @@ class CoverManager(object):
         if not popup:
             self.exaile.cover.set_image(os.path.join("images", "nocover.png"))
         if track == None: return
-        artist_id = tracks.get_column_id(self.db, 'artists', 'name', track.artist)
-        album_id = tracks.get_album_id(self.db, artist_id, track.album)
+        artist_id = library.get_column_id(self.db, 'artists', 'name', track.artist)
+        album_id = library.get_album_id(self.db, artist_id, track.album)
 
         # check to see if a cover already exists
         row = self.db.read_one("albums", "image, amazon_image", 'id=?', (album_id,))
@@ -622,8 +622,8 @@ class CoverFetcher(object):
             album
         """
         if self.stopped: return
-        artist_id = tracks.get_column_id(self.db, 'artists', 'name', self.artist)
-        album_id = tracks.get_album_id(self.db, artist_id, self.album)
+        artist_id = library.get_column_id(self.db, 'artists', 'name', self.artist)
+        album_id = library.get_album_id(self.db, artist_id, self.album)
         if len(covers) == 0:
             self.db.execute("UPDATE albums SET image=? WHERE id=?",
                 ('nocover', album_id,))
@@ -847,8 +847,8 @@ class CoverFrame(object):
         """
         track = self.track
         cover = self.covers[self.current]
-        artist_id = tracks.get_column_id(self.db, 'artists', 'name', track.artist)
-        album_id = tracks.get_album_id(self.db, artist_id, track.album)
+        artist_id = library.get_column_id(self.db, 'artists', 'name', track.artist)
+        album_id = library.get_album_id(self.db, artist_id, track.album)
 
         self.db.execute("UPDATE albums SET image=? WHERE id=?", (cover.filename(),
             album_id))

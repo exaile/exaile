@@ -66,8 +66,8 @@ if basedir.endswith(path_suffix):
     # of its modules.
     sys.path.append(os.path.join(prefix, 'lib', 'exaile'))
 
-from xl import *
-from xl import library, media, audioscrobbler, equalizer, burn
+from xl import library, media, audioscrobbler, equalizer, burn, common
+from xl import xlmisc, config, db, covers, trackslist, player
 from xl.library import gui as librarygui
 from xl.panels import collection, playlists, radio, device, files
 import plugins.manager, plugins, plugins.gui
@@ -125,12 +125,11 @@ class ExaileWindow(gobject.GObject):
         self.options = options
         config.settings = self.settings
         self.database_connect()
-        self.timer_count = 0
-        self.gamin_watched = []
         self.mon = None
         self.all_songs = library.TrackData()
         self.songs = library.TrackData()
         self.playlist_songs = library.TrackData()
+        self.library_manager = library.LibraryManager(self)
         self.tracks = None
         self.playlists_menu = None
         self.timer = xlmisc.MiscTimer(self.timer_update, 1000)
@@ -236,7 +235,7 @@ class ExaileWindow(gobject.GObject):
 
         self.pmanager.load_plugins("%s%splugins" % (SETTINGS_DIR, os.sep),
             enabled_plugins)
-        self.load_songs(False, True)
+        self.library_manager.load_songs(False, True)
 
         if first_run:
             dialog = gtk.MessageDialog(self.window, gtk.DIALOG_MODAL,
@@ -249,7 +248,7 @@ class ExaileWindow(gobject.GObject):
             result = dialog.run()
             dialog.destroy()
             if result == gtk.RESPONSE_YES:
-                self.show_library_manager()
+                self.library_manager.show_library_manager()
 
         interval = self.settings.get_float('scan_interval', 25)
         if interval:
@@ -324,7 +323,7 @@ class ExaileWindow(gobject.GObject):
 
         if not self.scan_timer:
             self.scan_timer = xlmisc.MiscTimer(lambda:
-                self.on_library_rescan(load_tree=False), 1) 
+                self.library_manager.on_library_rescan(load_tree=False), 1) 
 
         self.scan_timer.stop()
         self.scan_timer.time = int(value * 60 * 60 * 1000)
@@ -491,11 +490,12 @@ class ExaileWindow(gobject.GObject):
         self.key_id = None
 
         self.rescan_collection = self.xml.get_widget('rescan_collection')
-        self.rescan_collection.connect('activate', self.on_library_rescan)
+        self.rescan_collection.connect('activate', 
+            self.library_manager.on_library_rescan)
 
         self.library_item = self.xml.get_widget('library_manager')
         self.library_item.connect('activate', lambda e:
-            self.show_library_manager())
+            self.library_manager.show_library_manager())
 
         self.equalizer_item = self.xml.get_widget('equalizer_item')
         self.equalizer_item.connect('activate', lambda e:
@@ -646,7 +646,7 @@ class ExaileWindow(gobject.GObject):
             if rating < 0: rating = 0
             if rating > 8: rating = 8
         track.rating = rating
-        path_id = tracks.get_column_id(self.db, 'paths', 'name', track.loc)
+        path_id = library.get_column_id(self.db, 'paths', 'name', track.loc)
         self.db.execute("UPDATE tracks SET user_rating=? WHERE path=?", 
             (rating, path_id))
 
@@ -654,53 +654,6 @@ class ExaileWindow(gobject.GObject):
         if self.tracks:
             self.tracks.refresh_row(track)
 
-    def import_directory(self, load_tree=False):
-        """
-            Imports a single directory into the database
-        """
-        dialog = gtk.FileChooserDialog(_("Add a directory"),
-            self.window, gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER,
-            (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-            gtk.STOCK_ADD, gtk.RESPONSE_OK))
-        dialog.set_current_folder(self.get_last_dir())
-
-        checkbtn = gtk.CheckButton(_("Add tracks to current playlist after importing"))
-        dialog.set_extra_widget(checkbtn)
-
-        items = []
-        tmp = self.settings.get_list("search_paths")
-        for i in tmp:
-            if i != "": items.append(i)
-
-        response = dialog.run()
-        if response == gtk.RESPONSE_OK:
-            path = dialog.get_filename()
-
-            check = True
-            for p in items:
-                if p == path: check = False
-                if p.find(path) > -1: check = False
-                if path.find(p) > -1: check = False
-
-            if check:
-                items.append(path)
-
-            self.settings['search_paths'] = items
-
-            done_func = None
-            if checkbtn.get_active():
-                done_func = self.after_import
-            self.update_library((path,), done_func=done_func, load_tree=load_tree, 
-                delete=False)
-        dialog.destroy()
-
-    def after_import(self, songs):
-        """
-            Adds songs that have just been imported to the current playlist
-            after importing a directory
-        """
-        songs = self.tracks.reorder_songs(songs)
-        self.append_songs(songs, play=False)
 
     def show_debug_dialog(self):
         """
@@ -780,17 +733,6 @@ class ExaileWindow(gobject.GObject):
         self.playlists_nb.set_current_page(
             self.playlists_nb.get_n_pages() - 1)
 
-    def show_library_manager(self):
-        """
-            Displays the library manager
-        """
-        dialog = librarygui.LibraryDialog(self)
-        response = dialog.run()
-        dialog.dialog.hide()
-        if response == gtk.RESPONSE_APPLY:
-            self.on_library_remove_tracks()
-            self.on_library_add_tracks()
-        dialog.destroy()
 
     def show_equalizer(self):
 
@@ -1064,8 +1006,8 @@ class ExaileWindow(gobject.GObject):
         """
         loc = os.path.join(SETTINGS_DIR, "music.db")
         database = db.DBManager(loc)
-        database.add_function_create(('THE_CUTTER', 1, tracks.the_cutter))
-        database.add_function_create(('LSTRIP_SPEC', 1, tracks.lstrip_special))
+        database.add_function_create(('THE_CUTTER', 1, library.the_cutter))
+        database.add_function_create(('LSTRIP_SPEC', 1, library.lstrip_special))
         return database
 
     def database_connect(self):
@@ -1105,33 +1047,6 @@ class ExaileWindow(gobject.GObject):
 
         self.db.check_version("sql")
 
-    @common.threaded
-    def load_songs(self, updating=False, first_run=False): 
-        """
-            Loads the entire library from the database
-        """
-        gobject.idle_add(self.status.set_first, 
-            _("Loading library from database..."))
-
-        if not updating:
-            xlmisc.log("loading tracks...")
-            self.all_songs = tracks.load_tracks(self.db, 
-                self.all_songs)
-            self.db._close_thread()
-            gobject.idle_add(self.setup_gamin)
-            xlmisc.log("done loading tracks...")
-        gobject.idle_add(self.status.set_first, None)
-
-        self.collection_panel.songs = self.all_songs
-        self.collection_panel.track_cache = dict()
-
-        if not updating:
-            xlmisc.log("loading songs")
-            gobject.idle_add(self.playlists_panel.load_playlists)
-            gobject.idle_add(self.collection_panel.load_tree, True)
-            
-        if first_run: 
-            gobject.idle_add(self.initialize)
 
     def initialize(self):
         """
@@ -1152,122 +1067,6 @@ class ExaileWindow(gobject.GObject):
                 pass
         return False
 
-    def setup_gamin(self, skip_prefs=False):
-        """
-            Sets up gamin to monitor directories for changes
-        """
-        # this section of code commented/blocked because gamin seems to be
-        # very buggy (or I'm using it wrong).  It's causing people to not be
-        # able to launch Exaile at all.
-        return
-        self.db.db.commit()
-        if not self.settings.get_boolean('watch_directories', False) \
-            and not skip_prefs: return
-        if not GAMIN_AVAIL:
-            xlmisc.log("Gamin not available, not watching directories")
-            return
-    
-        xlmisc.log("Setting up directory monitoring with gamin...")
-
-        self.mon = gamin.WatchMonitor()
-
-        items = []
-        tmp = self.settings.get_list("search_paths", "")
-        for i in tmp:
-            if i != "": items.append(i)
-
-        # check directories for changes since the last time we ran
-        scan = []
-        cur = self.db.cursor()
-        for item in items:
-            for root, dirs, files in os.walk(item):
-                for dir in dirs:
-                    dir = os.path.join(root, dir)
-                    mod = os.path.getmtime(dir)
-                    cur.execute("SELECT paths.name, modified FROM "
-                        "directories,paths WHERE directories.path=paths.id "
-                        "AND paths.name=?", (dir,))
-                    row = cur.fetchone()
-                    if not row or int(row[1]) != mod:
-                        path_id = tracks.get_column_id(self.db, 'paths',
-                            'name', dir)
-                        self.db.execute("REPLACE INTO directories( path, "
-                            "modified) VALUES( ?, ? )", (path_id, mod))
-                        scan.append(dir)
-
-
-        for item in items:
-            if item in self.gamin_watched: continue
-            self.mon.watch_directory(item, lambda path, event, dir=item:
-                self.directory_changed(dir, path, event))      
-
-            self.gamin_watched.append(item)
-
-        self.mon.handle_events()
-        if scan:
-            xlmisc.log("Scanning new directories...")
-            self.update_library(scan)
-
-    @common.synchronized
-    def directory_changed(self, directory, path, event):
-        """
-            Called when a changes happens in a directory
-        """
-        # if it matches the exclude directories, ignore it
-        items = self.settings.get_list('watch_exclude_dirs', [])
-        for item in items:
-            if item and (directory.find(item) > -1
-                or path == item):
-                return
-
-        d = os.path.join(directory, path)
-        if os.path.isdir(d) and not d in self.gamin_watched:
-            self.mon.watch_directory(d, lambda path, event, dir=d:
-                self.directory_changed(dir, path, event))
-            self.gamin_watched.append(d)
-            return
-
-        if event != 8 and event != 9:
-            path_id = tracks.get_column_id(self.db, 'paths', 'name', 
-                os.path.join(directory, path))
-
-            if os.path.isdir(os.path.join(directory, path)) and event == 5:
-                self.mon.watch_directory(os.path.join(directory, path), 
-                    lambda path, event, dir=os.path.join(directory, path):
-                    self.directory_changed(dir, path, event))
-                mod = os.path.getmtime(os.path.join(directory, path))
-                self.gamin_watched.append(os.path.join(directory, path))
-
-                self.db.execute("REPLACE INTO directories( path, modified ) "
-                    "VALUES( ?, ? )", (path_id, mod))
-                xlmisc.log("Dir created event on %s" % os.path.join(directory, path))
-                return
-
-            mod = os.path.getmtime(directory)
-            self.dir_queue.append(directory)
-            self.db.execute("UPDATE directories SET modified=? "
-                "WHERE path=?", (mod, path_id))
-
-    def run_dir_queue(self):
-        """
-            Runs one directory in the dir queue
-        """
-        if not self.dir_queue: return
-        new = []
-
-        # remove dups
-        for item in self.dir_queue:
-            if not item in new:
-                new.append(item)
-
-        self.dir_queue = new
-        item = self.dir_queue.pop(0)
-        xlmisc.log("Running gamin queued item %s" % item)
-
-        tracks.populate(self, self.db,
-            (item,), self.on_library_update, False, 
-            load_tree=False)
-   
     @common.threaded
     def update_songs(self, songs=None, set=True): 
         """
@@ -1317,15 +1116,7 @@ class ExaileWindow(gobject.GObject):
                 'track_total': len(self.all_songs)
             })
         track = self.player.current
-        if GAMIN_AVAIL and self.mon:
-            self.mon.handle_events()
 
-        # run the gamin changes queue and flush configuration every 4 laps
-        if self.timer_count % 4 == 0:
-            self.run_dir_queue()
-            self.settings.save()
-
-        self.timer_count += 1
         self.rewind_track += 1
 
         if track == None: 
@@ -1445,7 +1236,7 @@ class ExaileWindow(gobject.GObject):
 
         xlmisc.log("updated plays " + str(plays) + ", rating "+ str(rating))
 
-        path_id = tracks.get_column_id(self.db, 'paths', 'name', track.loc)
+        path_id = library.get_column_id(self.db, 'paths', 'name', track.loc)
         self.db.execute("UPDATE tracks SET %s WHERE path=?" % update_string, 
             (path_id,))
 
@@ -1691,8 +1482,8 @@ class ExaileWindow(gobject.GObject):
         self.update_track_information()
         track.submitted = False
 
-        artist_id = tracks.get_column_id(self.db, 'artists', 'name', track.artist)
-        tracks.get_album_id(self.db, artist_id, track.album)
+        artist_id = library.get_column_id(self.db, 'artists', 'name', track.artist)
+        library.get_album_id(self.db, artist_id, track.album)
 
         if track.type != 'stream':
             self.cover_manager.fetch_cover(track)
@@ -1715,7 +1506,7 @@ class ExaileWindow(gobject.GObject):
         track.last_played = time.strftime("%Y-%m-%d %H:%M:%S",
             time.localtime())
 
-        path_id = tracks.get_column_id(self.db, 'paths', 'name', track.loc)
+        path_id = library.get_column_id(self.db, 'paths', 'name', track.loc)
         self.db.execute("UPDATE tracks SET last_played=? WHERE path=?",
             (track.last_played, track.loc))
         gc.collect()
@@ -2152,104 +1943,6 @@ class ExaileWindow(gobject.GObject):
         if not self.tracks: return
         self.tracks.ensure_visible(self.player.current)
 
-    def on_library_rescan(self, widget=None, event=None, data=None,
-        load_tree=True): 
-        """
-            Rescans the library for newly added tracks
-        """
-        items = []
-        tmp = self.settings.get_list("search_paths", [])
-        for i in tmp:
-            if i != "": items.append(i)
-
-        if len(items): self.update_library(items, load_tree=load_tree)
-    
-    def update_library(self, items, done_func=None,
-        load_tree=True, delete=True): 
-        """
-            Updates the library
-        """
-        self.status.set_first(_("Scanning collection..."))
-
-        tracks.populate(self, self.db,
-            items, self.on_library_update, delete,
-            load_tree=load_tree, done_func=done_func)
-
-    def on_library_update(self, percent, songs=None, done_func=None): 
-        """
-            Scans the library
-        """
-        self.collection_panel.update_progress(percent)
-        
-        if percent < 0:
-            self.db.db.commit()
-            self.db._cursor.close()
-            self.db._cursor = self.db.realcursor()
-            self.load_songs(percent==-1)
-
-        if done_func:
-            done_func(songs)
-
-    def on_library_update(self, percent, songs=None, done_func=None):
-        """
-            Scans the library
-        """
-        self.collection_panel.update_progress(percent)
-
-        if percent < 0:
-            self.db.db.commit()
-            self.db._cursor.close()
-            self.db._cursor = self.db.realcursor()
-            self.load_songs(percent==-1)
-
-        if done_func:
-            done_func(songs)
-
-    def on_library_add_tracks(self, widget=None, event=None, data=None,
-        load_tree=True): 
-        """
-            Add tracks from paths added to library manager
-        """
-        items = []
-        tmp = self.settings.get_list("add_paths", [])
-        for i in tmp:
-            if i != "": items.append(i)
-
-        if len(items): self.update_library_add(items, load_tree=load_tree)
-
-    def update_library_add(self, items, done_func=None,
-        load_tree=True, delete=True): 
-        """
-            Updates the library by adding tracks
-        """
-        self.status.set_first(_("Adding tracks..."))
-
-        tracks.add_tracks(self, self.db,
-            items, self.on_library_update, delete,
-            load_tree=load_tree, done_func=done_func)
-
-    def on_library_remove_tracks(self, widget=None, event=None, data=None,
-        load_tree=True): 
-        """
-            Remove tracks from paths deleted from library manager
-        """
-        items = []
-        tmp = self.settings.get_list("remove_paths", [])
-        for i in tmp:
-            if i != "": items.append(i)
-
-        if len(items): self.update_library_remove(items, load_tree=load_tree)
-
-    def update_library_remove(self, items, done_func=None,
-        load_tree=True, delete=True): 
-        """
-            Updates the library by removing tracks
-        """
-        self.status.set_first(_("Removing tracks..."))
-
-        tracks.remove_tracks(self, self.db,
-            items, self.on_library_update, delete,
-            load_tree=load_tree, done_func=done_func)
 
     def on_quit(self, widget=None, event=None): 
         """
@@ -2263,13 +1956,6 @@ class ExaileWindow(gobject.GObject):
 
         # PLUGIN: send plugins event before quitting
         self.emit('quit')
-
-        if self.gamin_watched and self.mon:
-            for item in self.gamin_watched:
-                try:
-                    self.mon.stop_watch(item)
-                except gamin.GaminException:
-                    pass
 
         if self.mon:
             self.mon.disconnect()
@@ -2389,19 +2075,6 @@ def first_run():
         os.mkdir(SETTINGS_DIR)
     except:
         print "Could not create settings directory"
-
-# try to import gpod for iPod support
-try:
-    import gpod
-    IPOD_AVAIL = True
-except ImportError:
-    IPOD_AVAIL = False
-
-try:
-    import gamin
-    GAMIN_AVAIL = True
-except ImportError:
-    GAMIN_AVAIL = False
 
 def main(): 
     """

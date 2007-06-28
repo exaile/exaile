@@ -2030,7 +2030,7 @@ class ExaileWindow(gobject.GObject):
             count = 0
             for path in paths:
                 (f, ext) = os.path.splitext(path)
-                if ext in types:
+                if ext in media.SUPPORTED_MEDIA:
                     if count >= 10:
                         xlmisc.finish()
                         count = 0

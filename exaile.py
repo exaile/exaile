@@ -2400,10 +2400,9 @@ class ExaileWindow(gobject.GObject):
         """
             Prompts for a url to open
         """
-        dialog = xlmisc.TextEntryDialog(self.window,
+        dialog = common.TextEntryDialog(self.window,
             _("Enter the address"), _("Enter the address"))
         result = dialog.run()
-        dialog.dialog.hide()
 
         if result == gtk.RESPONSE_OK:
             path = dialog.get_value()

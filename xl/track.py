@@ -479,7 +479,7 @@ def edit_field(caller, data):
     if not songs: return
     text = getattr(songs[0], data)
 
-    dialog = xlmisc.TextEntryDialog(
+    dialog = common.TextEntryDialog(
         caller.exaile.window, 
         ngettext("Enter the %s for the selected track",
             "Enter the %s for the selected tracks", len(songs)) %

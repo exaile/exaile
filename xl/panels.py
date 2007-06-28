@@ -1937,7 +1937,7 @@ class PRadioPanel(object):
         """
             Called when a request to add a podcast is made
         """
-        dialog = xlmisc.TextEntryDialog(self.exaile.window, _("Enter the location of"
+        dialog = common.TextEntryDialog(self.exaile.window, _("Enter the location of"
             " the podcast"), _("Add a podcast"))
 
         if dialog.run() == gtk.RESPONSE_OK:
@@ -2109,7 +2109,7 @@ class PRadioPanel(object):
         (model, iter) = selection.get_selected()
         station = model.get_value(iter, 1)
         
-        dialog = xlmisc.MultiTextEntryDialog(self.exaile.window,
+        dialog = common.MultiTextEntryDialog(self.exaile.window,
             _("Add Stream to Station"))
         dialog.add_field(_("URL:"))
         dialog.add_field(_("Description:"))
@@ -2188,13 +2188,12 @@ class PRadioPanel(object):
         """
             Adds a station
         """
-        dialog = xlmisc.MultiTextEntryDialog(self.exaile.window, 
+        dialog = common.MultiTextEntryDialog(self.exaile.window, 
             _("Add Station"))
         dialog.add_field(_("Station Name:"))
         dialog.add_field(_("Description:"))
         dialog.add_field(_("URL:"))
         response = dialog.run()
-        dialog.dialog.hide()
 
         if response == gtk.RESPONSE_OK:
             (name, desc, url) = dialog.get_values()
@@ -2224,7 +2223,7 @@ class PRadioPanel(object):
         """
             Adds a playlist to the database
         """
-        dialog = xlmisc.TextEntryDialog(self.exaile.window,
+        dialog = common.TextEntryDialog(self.exaile.window,
             _("Enter the name of the station"),
             _("Enter the name of the station"))
         result = dialog.run()
@@ -2746,7 +2745,7 @@ class PlaylistsPanel(object):
         """
             Adds a playlist to the database
         """
-        dialog = xlmisc.TextEntryDialog(self.exaile.window, 
+        dialog = common.TextEntryDialog(self.exaile.window, 
             _("Enter the name you want for your new playlist"),
             _("New Playlist"))
         result = dialog.run()

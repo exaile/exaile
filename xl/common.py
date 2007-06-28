@@ -21,6 +21,117 @@ pygtk.require('2.0')
 import gtk, gtk.glade
 import locale, time, threading
 
+class MultiTextEntryDialog(gtk.Dialog):
+    """
+        Exactly like a TextEntryDialog, except it can contain multiple
+        labels/fields.
+
+        Instead of using GetValue, use GetValues.  It will return a list with
+        the contents of the fields. Each field must be filled out or the dialog
+        will not close.
+    """
+    def __init__(self, parent, title):
+        gtk.Dialog.__init__(self, title, parent)
+
+
+        self.hbox = gtk.HBox()
+        self.vbox.pack_start(self.hbox, True, True)
+        self.vbox.set_border_width(5)
+        self.hbox.set_border_width(5)
+        self.left = gtk.VBox()
+        self.right = gtk.VBox()
+
+        self.hbox.pack_start(self.left, True, True)
+        self.hbox.pack_start(self.right, True, True)
+
+        self.add_buttons(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+            gtk.STOCK_OK, gtk.RESPONSE_OK)
+
+        self.fields = []
+
+    def add_field(self, label):
+        """
+            Adds a field and corresponding label
+        """
+        label = gtk.Label(label + "     ")
+        label.set_alignment(0, 0)
+        label.set_padding(0, 5)
+        self.left.pack_start(label, False, False)
+
+        entry = gtk.Entry()
+        entry.connect('activate', lambda *e:
+            self.response(gtk.RESPONSE_OK))
+        entry.set_width_chars(30)
+        self.right.pack_start(entry, True, True)
+        label.show()
+        entry.show()
+
+        self.fields.append(entry)
+
+    def get_values(self):
+        """
+            Returns a list of the values from the added fields
+        """
+        return [a.get_text() for a in self.fields]
+
+    def run(self):
+        """
+            Shows the dialog, runs, hides, and returns
+        """
+        self.show_all()
+        response = gtk.Dialog.run(self)
+        self.hide()
+        return response
+
+class TextEntryDialog(gtk.Dialog):
+    """
+        Shows a dialog with a single line of text
+    """
+    def __init__(self, parent, message, title):
+        """
+            Initializes the dialog
+        """
+        gtk.Dialog.__init__(self, title, parent)
+
+        label = gtk.Label(message)
+        label.set_alignment(0.0, 0.0)
+        self.vbox.set_border_width(5)
+
+        main = gtk.VBox()
+        main.set_spacing(3)
+        main.set_border_width(5)
+        self.vbox.pack_start(main, True, True)
+
+        main.pack_start(label, False, False)
+
+        self.entry = gtk.Entry()
+        self.entry.set_width_chars(35)
+        main.pack_start(self.entry, False, False)
+
+        self.add_buttons(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+            gtk.STOCK_OK, gtk.RESPONSE_OK)
+
+        self.entry.connect('activate', 
+            lambda e: self.response(gtk.RESPONSE_OK))
+
+    def get_value(self):
+        """
+            Returns the text value
+        """
+        return self.entry.get_text()
+
+    def set_value(self, value):
+        """
+            Sets the value of the text
+        """
+        self.entry.set_text(value)
+
+    def run(self):
+        self.show_all()
+        response = gtk.Dialog.run(self)
+        self.hide()
+        return response
+
 def tup(string, num):
     """
         returns a tuple with the first char of the string repeated 

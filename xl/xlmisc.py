@@ -871,7 +871,7 @@ class NotebookTab(gtk.EventBox):
         """
             Renames the tab
         """
-        dialog = TextEntryDialog(self.exaile.window, 
+        dialog = common.TextEntryDialog(self.exaile.window, 
             _("Enter the new name for this playlist"), _("Rename playlist"))
         if dialog.run() == gtk.RESPONSE_OK:
             name = dialog.get_value()
@@ -1258,60 +1258,6 @@ class CoverWindow(object):
         """
         self.window.destroy()
 
-class TextEntryDialog(object):
-    """
-        Shows a dialog with a single line of text
-    """
-    def __init__(self, parent, message, title):
-        """
-            Initializes the dialog
-        """
-        self.parent = parent
-        xml = gtk.glade.XML('exaile.glade', 'TextEntryDialog', 'exaile')
-        self.dialog = xml.get_widget('TextEntryDialog')
-        xml.get_widget('ted_question_label').set_label(message)
-        self.dialog.set_title(title)
-        self.dialog.set_transient_for(parent)
-
-        xml.get_widget('ted_cancel_button').connect('clicked',
-            lambda e: self.dialog.response(gtk.RESPONSE_CANCEL))
-
-        self.entry = xml.get_widget('ted_entry')
-        xml.get_widget('ted_ok_button').connect('clicked',
-            lambda e: self.dialog.response(gtk.RESPONSE_OK))
-        self.entry.connect('activate', 
-            lambda e: self.dialog.response(gtk.RESPONSE_OK))
-
-    def run(self):
-        """
-            Runs the dialog, waiting for input
-        """
-        return self.dialog.run()
-
-    def response(self): # FIXME
-        """
-            Shows the dialog and returns the result
-        """
-        return self.response_code
-
-    def get_value(self):
-        """
-            Returns the text value
-        """
-        return self.entry.get_text()
-
-    def set_value(self, value):
-        """
-            Sets the value of the text
-        """
-        self.entry.set_text(value)
-
-    def destroy(self):
-        """
-            Destroys the dialog
-        """
-        self.dialog.destroy()
-
 class CoverFrame(object):
     """
         Fetches all album covers for a string, and allows the user to choose
@@ -1359,11 +1305,10 @@ class CoverFrame(object):
         """
             Creates a new search string
         """
-        dialog = TextEntryDialog(self.exaile.window,
+        dialog = common.TextEntryDialog(self.exaile.window,
             _("Enter the search text"), _("Enter the search text"))
         dialog.set_value(self.last_search)
         result = dialog.run()
-        dialog.dialog.hide()
         if result == gtk.RESPONSE_OK:
             self.last_search = dialog.get_value()
             self.exaile.status.set_first(
@@ -1465,8 +1410,8 @@ class LibraryManager(object):
         self.xml = gtk.glade.XML('exaile.glade', 'LibraryManager', 'exaile')
         self.dialog = self.xml.get_widget('LibraryManager')
         self.list = ListBox(self.xml.get_widget('lm_list_box'))
-	self.addList = []
-	self.removeList = []
+        self.addList = []
+        self.removeList = []
         self.dialog.set_transient_for(exaile.window)
         self.xml.get_widget('lm_add_button').connect('clicked',
             self.on_add)
@@ -1569,62 +1514,6 @@ class LibraryManager(object):
 	    self.list.append(path)
         dialog.destroy()
 
-class MultiTextEntryDialog(object):
-    """
-        Exactly like a TextEntryDialog, except it can contain multiple
-        labels/fields.
-
-        Instead of using GetValue, use GetValues.  It will return a list with
-        the contents of the fields. Each field must be filled out or the dialog
-        will not close.
-    """
-    def __init__(self, parent, title):
-        xml = gtk.glade.XML('exaile.glade', 'MultiTextEntryDialog', 'exaile')
-
-        self.dialog = xml.get_widget('MultiTextEntryDialog')
-        self.dialog.set_transient_for(parent)
-
-        self.hbox = xml.get_widget('mte_box')
-        self.left = xml.get_widget('mte_left')
-        self.right = xml.get_widget('mte_right')
-        self.fields = []
-
-    def add_field(self, label):
-        """
-            Adds a field and corresponding label
-        """
-        label = gtk.Label(label + "     ")
-        label.set_alignment(0, 0)
-        label.set_padding(0, 5)
-        self.left.pack_start(label, False, False)
-
-        entry = gtk.Entry()
-        entry.connect('activate', lambda *e:
-            self.dialog.response(gtk.RESPONSE_OK))
-        entry.set_width_chars(30)
-        self.right.pack_start(entry, True, True)
-        label.show()
-        entry.show()
-
-        self.fields.append(entry)
-    
-    def run(self):
-        """
-            Runs the dialog
-        """
-        return self.dialog.run()
-
-    def destroy(self):
-        """
-            Destroys the dialog
-        """
-        self.dialog.destroy()
-
-    def get_values(self):
-        """
-            Returns a list of the values from the added fields
-        """
-        return [a.get_text() for a in self.fields]
 
 class ImageWidget(gtk.Image):
     """

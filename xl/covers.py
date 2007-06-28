@@ -218,13 +218,13 @@ class CoverEventBox(gtk.EventBox):
         """
         if item == self.cover_fetch:
             self.exaile.status.set_first(_("Fetching from Amazon..."))
-            xlmisc.CoverFrame(self.exaile, self.exaile.player.current)
+            CoverFrame(self.exaile, self.exaile.player.current)
         elif item == self.cover_search:
-            xlmisc.CoverFrame(self.exaile, self.exaile.player.current, True)
+            CoverFrame(self.exaile, self.exaile.player.current, True)
         elif item == "showcover" or item == self.cover_full:
             if "nocover" in self.cover.loc: return
             track = self.exaile.player.current
-            xlmisc.CoverWindow(self.exaile.window, self.exaile.cover.loc, 
+            CoverWindow(self.exaile.window, self.exaile.cover.loc, 
                 _("%(album)s by %(artist)s") %
                 {
                     'album': track.album,
@@ -292,7 +292,7 @@ class CoverEventBox(gtk.EventBox):
             if 'nocover' in self.exaile.cover.loc: return
             track = self.exaile.player.current
             
-            xlmisc.CoverWindow(self.exaile.window, self.exaile.cover.loc,
+            CoverWindow(self.exaile.window, self.exaile.cover.loc,
                 _("%(album)s by %(artist)s") %
                 {
                     'album': track.album,
@@ -810,7 +810,7 @@ class CoverFrame(object):
         self.ok.connect('clicked',
             self.on_ok)
         self.box = self.xml.get_widget('cover_image_box')
-        self.cover = ImageWidget()
+        self.cover = xlmisc.ImageWidget()
         self.cover.set_image_size(350, 350)
         self.box.pack_start(self.cover, True, True)
 
@@ -890,7 +890,7 @@ class CoverFrame(object):
         """
         c.save(os.path.join(self.exaile.get_settings_dir(), 'covers') + os.sep)
 
-        log(c.filename())
+        xlmisc.log(c.filename())
 
         self.cover.set_image(os.path.join(self.exaile.get_settings_dir(),
             'covers', c.filename()))

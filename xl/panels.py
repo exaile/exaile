@@ -2114,7 +2114,6 @@ class PRadioPanel(object):
         dialog.add_field(_("URL:"))
         dialog.add_field(_("Description:"))
         result = dialog.run()
-        dialog.dialog.hide()
         if result == gtk.RESPONSE_OK:
             (stream, desc) = dialog.get_values()
 
@@ -2227,7 +2226,6 @@ class PRadioPanel(object):
             _("Enter the name of the station"),
             _("Enter the name of the station"))
         result = dialog.run()
-        dialog.dialog.hide()
         if result == gtk.RESPONSE_OK:
             name = dialog.get_value()
             if name == "": return
@@ -2749,7 +2747,6 @@ class PlaylistsPanel(object):
             _("Enter the name you want for your new playlist"),
             _("New Playlist"))
         result = dialog.run()
-        dialog.dialog.hide()
         if result == gtk.RESPONSE_OK:
             name = dialog.get_value()
             if name == "": return None
@@ -2811,8 +2808,8 @@ class FilesPanel(object):
         container = self.xml.get_widget('files_box')
         self.scroll = gtk.ScrolledWindow()
         self.scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        self.scroll.add(self.tree)
         self.scroll.set_shadow_type(gtk.SHADOW_IN)
+        self.scroll.add(self.tree)
         container.pack_start(self.scroll, True, True)
         container.show_all()
 

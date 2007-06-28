@@ -307,24 +307,48 @@ def escape_xml(text):
         text = text.replace(old, new)
     return text
 
+class ScrolledMessageDialog(gtk.Dialog):
+    def __init__(self, parent, title):
+        gtk.Dialog.__init__(self, title, parent)
+
+        main = gtk.VBox()
+        main.set_border_width(5)
+        self.vbox.pack_start(main, True, True)
+
+        self.add_buttons(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+            gtk.STOCK_OK, gtk.RESPONSE_OK)
+
+        scroll = gtk.ScrolledWindow()
+        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        scroll.set_shadow_type(gtk.SHADOW_IN)
+
+        self.view = gtk.TextView()
+        self.view.set_editable(False)
+        scroll.add(self.view)
+
+        main.pack_start(scroll, True, True)
+        self.add_buttons(gtk.STOCK_OK, gtk.RESPONSE_OK)
+        self.resize(500, 300)
+
+    def run(self):
+        self.show_all()
+        response = gtk.Dialog.run(self)
+        self.hide()
+        return response
+
 def scrolledMessageDialog(parent, message, title):
     """
         Shows a message dialog with a message in a TextView
     """
-    xml = gtk.glade.XML('exaile.glade', 'ScrolledMessageDialog', 'exaile')
-    dialog = xml.get_widget('ScrolledMessageDialog')
-    dialog.set_title(title)
-    view = xml.get_widget('smd_text_view')
+    dialog = ScrolledMessageDialog(parent, title, message)
+    view = dialog.view
     view.get_buffer().set_text(message)
 
-    dialog.set_transient_for(parent)
     buf = view.get_buffer()
     char = buf.get_char_count()
     iter = buf.get_iter_at_offset(char)
-    dialog.show_all()
     view.scroll_to_iter(iter, 0)
     dialog.run()
-    dialog.destroy()
 
 def error(parent, message): 
     """

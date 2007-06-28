@@ -601,9 +601,9 @@ class TracksListCtrl(gtk.VBox):
         attr, reverse = self.get_sort_by()
 
         def the_strip(tag):
-            return spec_strip(tracks.the_cutter(tag))
+            return spec_strip(library.the_cutter(tag))
         def spec_strip(tag):
-            return tracks.lstrip_special(tag)
+            return library.lstrip_special(tag)
 
         if attr == 'album' or attr == 'title':
             s = [(spec_strip(getattr(track, attr).lower()), 
@@ -905,7 +905,7 @@ class TracksListCtrl(gtk.VBox):
 
     def burn_selected(self, widget, event):
         burn.launch_burner(self.exaile.settings.get_str('burn_prog', burn.check_burn_progs()[0]), \
-                    self.exaile.tracks.get_selected_tracks())
+            self.exaile.tracks.get_selected_tracks())
 
     def show_in_collection(self, item, event):
         """
@@ -1019,7 +1019,7 @@ class TracksListCtrl(gtk.VBox):
 
             while len(delete) > 0:
                 track = delete.pop()
-                path_id = xl.tracks.get_column_id(self.db, 'paths', 'name', track.loc)
+                path_id = library.get_column_id(self.db, 'paths', 'name', track.loc)
                 self.exaile.playlist_songs.remove(track)
                 if track == self.exaile.player.stop_track:
                     self.exaile.player.stop_track = None
@@ -1066,7 +1066,7 @@ class TracksListCtrl(gtk.VBox):
                         else:
                             t = "playlists"; p = "path"
 
-                        playlist_id = xl.tracks.get_column_id(self.db, t, 'name',
+                        playlist_id = library.get_column_id(self.db, t, 'name',
                             playlist)
 
                         if t == 'playlists':
@@ -1123,7 +1123,7 @@ class BlacklistedTracksList(TracksListCtrl):
             self.playlist_songs.remove(track)
             try: self.exaile.songs.remove(track)
             except: pass
-            path_id = tracks.get_column_id(self.db, 'paths', 'name', track.loc)
+            path_id = library.get_column_id(self.db, 'paths', 'name', track.loc)
             cur.execute("UPDATE tracks SET blacklisted=0 WHERE path=?",
                 (path_id,)) 
             if not track in self.exaile.all_songs:

@@ -109,7 +109,10 @@ class TrackData(list):
             Removes a track from the list
         """
         if not track: return
-        if not self.paths[track.loc]: return
+        try:
+            if not self.paths[track.loc]: return
+        except KeyError:
+            return
         del self.paths[track.loc]
         list.remove(self, track)
 

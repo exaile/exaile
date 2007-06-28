@@ -310,7 +310,7 @@ class CollectionPanel(object):
                 else:
                     for track in add:
                         os.remove(track.loc)
-                path_id = tracks.get_column_id(self.db, 'paths', 'name',
+                path_id = library.get_column_id(self.db, 'paths', 'name',
                     track.loc)
                 self.db.execute("DELETE FROM tracks WHERE path=?", (path_id,))
                 self.db.execute("DELETE FROM playlist_items WHERE path=?",(path_id,))
@@ -323,7 +323,7 @@ class CollectionPanel(object):
             for track in add:
                 if track.type == 'device':
                     continue
-                path_id = tracks.get_column_id(self.db, 'paths', 'name',
+                path_id = library.get_column_id(self.db, 'paths', 'name',
                     track.loc)
                 self.db.execute("UPDATE tracks SET blacklisted=1 WHERE path=?", (path_id,))
             
@@ -629,7 +629,7 @@ class CollectionPanel(object):
 
                 # print separators
                 if first and info and use_alphabet:
-                    temp = tracks.lstrip_special(info).upper().replace('THE ', '')
+                    temp = library.lstrip_special(info).upper().replace('THE ', '')
                     first_char = temp[0]
                     if first_char != last_char:
                         if not first_char.isalpha():

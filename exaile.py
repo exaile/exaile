@@ -1359,8 +1359,9 @@ class ExaileWindow(gobject.GObject):
         
         tokens = keyword.lower().split()
         for token in tokens:
-            self.songs = tracks.search(self, self.songs, token, custom=custom)
+            self.songs = library.search(self, self.songs, token, custom=custom)
             self.tracks.set_songs(self.songs, False)
+
 
     def __on_volume_scroll(self, widget, ev):
         """
@@ -1527,7 +1528,7 @@ class ExaileWindow(gobject.GObject):
         xlmisc.log("suggested song count is %d" % count)
         if count <= 0: count = 1
 
-        songs = tracks.get_suggested_songs(self, self.db, 
+        songs = library.get_suggested_songs(self, self.db, 
             self.player.current, self.songs, count, self.add_suggested)
 
     def add_suggested(self, artists, count):
@@ -1928,11 +1929,11 @@ class ExaileWindow(gobject.GObject):
         """
             Opens an audio disc
         """
-        if not tracks.CDDB_AVAIL:
+        if not library.CDDB_AVAIL:
             common.error(self.window, _('You need the python-cddb package '
                 ' in order to play audio discs.'))
             return
-        songs = xl.tracks.read_audio_disc(self)
+        songs = library.read_audio_disc(self)
         if not songs: return
         self.new_page(_("Audio Disc"), songs)
 

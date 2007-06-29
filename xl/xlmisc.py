@@ -332,11 +332,11 @@ class BaseTrayIcon(gobject.GObject):
         hbox.pack_start(self.image, False, True)
         hbox.pack_start(self.label, True, True)
         self.playpause.add(hbox)
-        self.playpause.connect('activate', self.exaile.toggle_pause)
+        self.playpause.connect('activate', lambda *e: self.exaile.player.toggle_pause())
         self.menu.append_item(self.playpause)
 
-        self.menu.append(_("Next"), self.exaile.on_next, 'gtk-media-next')
-        self.menu.append(_("Previous"), self.exaile.on_previous,
+        self.menu.append(_("Next"), lambda *e: self.exaile.player.next(), 'gtk-media-next')
+        self.menu.append(_("Previous"), lambda *e: self.exaile.player.previous(),
             'gtk-media-previous')
         self.menu.append_separator()
         self.menu.append(_("Plugins"), self.exaile.show_plugin_manager,

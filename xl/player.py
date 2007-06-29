@@ -17,8 +17,9 @@
 import pygst, gtk
 pygst.require('0.10')
 import gst, gobject, random, time, urllib, urllib2, re, os, md5
+import thread
 from gettext import gettext as _
-from xl import xlmisc, common, media
+from xl import xlmisc, common, media, library, trackslist
 random.seed(time.time())
 
 ASX_REGEX = re.compile(r'href ?= ?([\'"])(.*?)\1', re.DOTALL|re.MULTILINE)
@@ -453,6 +454,7 @@ class ExailePlayer(GSTPlayer):
     __gsignals__ = {
         'play-track': (gobject.SIGNAL_RUN_LAST, None, (media.Track,)),
         'stop-track': (gobject.SIGNAL_RUN_LAST, None, (media.Track,)),
+        'pause-toggled': (gobject.SIGNAL_RUN_LAST, None, (media.Track,))
     }
 
     def __init__(self, exaile):
@@ -473,7 +475,7 @@ class ExailePlayer(GSTPlayer):
         self.equalizer = None
         self.error_window = ExailePlayerErrorWindow(self.exaile.window)
 
-        self.eof_func = self.exaile.on_next
+        self.eof_func = self.next
         self.current = None
 
     def get_stop_track(self):
@@ -632,12 +634,24 @@ class ExailePlayer(GSTPlayer):
             Toggles pause.  If it's a streaming track, it stops the stream and
             restarts it
         """
+        track = self.current
+
+        if not track:
+            self.play()
+            return
+
         if self.is_paused():
             if self.current.type == 'stream':
                 self.playbin.set_state(gst.STATE_READY)
                 self.playbin.set_state(gst.STATE_PLAYING)
                 return
+            self.exaile.play_button.set_image(self.exaile.get_pause_image())
+        else:
+            self.exaile.play_button.set_image(self.exaile.get_play_image())
         GSTPlayer.toggle_pause(self)
+
+        if self.exaile.tracks: self.exaile.tracks.queue_draw()
+        self.emit('pause-toggled', self.current)
 
     def get_next_queued(self):
         if self.next_track == None:
@@ -823,6 +837,15 @@ class ExailePlayer(GSTPlayer):
 
         if track.type == 'stream':
             track.start_time = time.time()
+
+        if track.type == 'podcast':
+            if not track.download_path:
+                common.error(self.exaile.window, _('Podcast has not yet been '
+                    'downloaded'))
+                return
+
+        self.exaile.play_button.set_image(self.exaile.get_pause_image())
+
         try:
             GSTPlayer.play(self, track.loc)
         except Exception, e:
@@ -836,38 +859,77 @@ class ExailePlayer(GSTPlayer):
             if ret: return False
 
         self.current = track
+        self.exaile.update_track_information()
+        track.submitted = False
+
         self.emit('play-track', track)
-        self.exaile.tracks.queue_draw()
+
+        artist_id = library.get_column_id(self.exaile.db, 'artists', 'name', track.artist)
+        library.get_album_id(self.exaile.db, artist_id, track.album)
+
+        if track.type != 'stream':
+            self.exaile.cover_manager.fetch_cover(track)
+
+        self.exaile.show_osd()
+        if self.exaile.tracks: self.exaile.tracks.queue_draw()
+
+        if self.exaile.settings.get_boolean('ui/ensure_visible', False):
+            self.exaile.goto_current()
+
+        trackslist.update_queued(self.exaile)
+
+        # if we're in dynamic mode, find some tracks to add
+        if self.exaile.dynamic.get_active():
+            thread.start_new_thread(self.exaile.get_suggested_songs, tuple())
+
+        track.last_played = time.strftime("%Y-%m-%d %H:%M:%S",
+            time.localtime())
+
+        path_id = library.get_column_id(self.exaile.db, 'paths', 'name', track.loc)
+        self.exaile.db.execute("UPDATE tracks SET last_played=? WHERE path=?",
+            (track.last_played, track.loc))
+        self.exaile.rewind_track = 0
         if ret: return True
 
     def play(self):
         """
             Plays the currently selected track
         """
-        self.stop()
+        try:
+            self.stop()
 
-        if self.exaile.tracks == None: 
-            self.exaile.tracks = self.exaile.playlists_nb.get_nth_page(0)
-            self.exaile.songs = self.exaile.tracks.songs
-            return
+            if self.exaile.tracks == None: 
+                self.exaile.tracks = self.exaile.playlists_nb.get_nth_page(0)
+                self.exaile.songs = self.exaile.tracks.songs
 
-        self.last_played = self.current
+            self.last_played = self.current
 
-        track = self.exaile.tracks.get_selected_track()
-        if not track:
-            if self.exaile.tracks.songs:
-                self.next()
+            track = self.exaile.tracks.get_selected_track()
+            if not track:
+                if self.exaile.tracks.songs:
+                    self.next()
+                    return
                 return
-            return
 
-        if track in self.queued: del self.queued[self.queued.index(track)]
-        self.current = track
+            if track in self.queued: del self.queued[self.queued.index(track)]
+            self.current = track
 
-        self.played = [track]
-        self.history.append(track)
-        self.play_track(track, from_button=True)
+            self.played = [track]
+            self.history.append(track)
+            self.play_track(track, from_button=True)
+        except Exception, e:
+            xlmisc.log_exception()
+            common.error(self.exaile.window, str(e))
+            self.stop()
         
     def next(self):
+        """
+            Plays the next track in the playlist
+        """
+        if self.current != None:
+            if self.get_current_position() < 50:
+                self.exaile.update_rating(self.current, rating=-1)
+
         self.stop(False)
         if self.exaile.tracks == None: return
         if self.stop_track:
@@ -917,6 +979,7 @@ class ExailePlayer(GSTPlayer):
             if not self.play_track(track):
                 return
         self.current = track
+        if self.exaile.tracks: self.exaile.tracks.queue_draw()
 
     def previous(self):
         """
@@ -943,20 +1006,36 @@ class ExailePlayer(GSTPlayer):
 
         self.current = track
         self.play_track(track)
+        if self.exaile.tracks:  self.exaile.tracks.queue_draw()
 
     def stop(self, reset_current=True):
         """
             Stops the currently playing track
         """
+        self.exaile.status.set_first(None)
+        self.exaile.cover.set_image(os.path.join('images', 'nocover.png'))
+        self.exaile.cover_manager.stop_cover_thread()
+
         if self.current: self.current.start_time = 0
         current = self.current
+        self.emit('stop-track', current)
         if reset_current: self.current = None
         GSTPlayer.stop(self)
-        self.emit('stop-track', current)
         self.lastfm_play_total = 0
         if self.lastfm:
             self.setup_playbin()
             self.lastfm = False
+
+        self.exaile.playing = False
+        if self.exaile.tray_icon:
+            self.exaile.tray_icon.set_tooltip(_('Exaile Music Player'))
+
+        self.exaile.window.set_title(_('Exaile Music Player'))
+
+        self.exaile.play_button.set_image(self.exaile.get_play_image())
+        if self.exaile.tracks: self.exaile.tracks.queue_draw()
+        self.exaile.update_track_information(None)
+        self.exaile.new_progressbar.set_text('0:00 / 0:00')
 
 # VideoWidget and VideoArea code taken from Listen media player
 # http://listen-gnome.free.fr

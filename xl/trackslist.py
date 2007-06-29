@@ -321,7 +321,7 @@ class TracksListCtrl(gtk.VBox):
             Sets up various events
         """
         if self.type != 'queue':
-            self.list.connect('row-activated', self.exaile.play)
+            self.list.connect('row-activated', lambda *e: self.exaile.player.play())
         self.list.connect('key_release_event', self.key_released)
 
     def drag_get_data(self, treeview, context, selection, target_id, etime):

@@ -95,10 +95,7 @@ class ExaileWindow(gobject.GObject):
         The main interface class
     """
     __gsignals__ = {
-        'play-track': (gobject.SIGNAL_RUN_LAST, None, (media.Track,)),
-        'stop-track': (gobject.SIGNAL_RUN_LAST, None, (media.Track,)),
         'seek': (gobject.SIGNAL_RUN_LAST, None, (int,)),
-        'pause-toggled': (gobject.SIGNAL_RUN_LAST, None, (media.Track,)),
         'quit': (gobject.SIGNAL_RUN_LAST, None, ()),
         'last-playlist-loaded': (gobject.SIGNAL_RUN_LAST, None, ()),
         'tray-icon-toggled': (gobject.SIGNAL_RUN_LAST, None, (bool,)),
@@ -146,8 +143,6 @@ class ExaileWindow(gobject.GObject):
         self.plugins_menu = xlmisc.Menu()
         self.rewind_track = 0
         self.player = player.ExailePlayer(self)
-        self.player.connect('play-track', self.play_track)
-        self.player.connect('stop-track', self._stop_cb)
         self.player.tag_func = self.tag_callback
 
         if self.settings.get_boolean("ui/use_splash", True):
@@ -447,10 +442,10 @@ class ExaileWindow(gobject.GObject):
         xlmisc.log("Using multimedia keys from: " + str(keygrabber))
 
         self.play_button = self.xml.get_widget('play_button')
-        self.play_button.connect('clicked', self.toggle_pause)
+        self.play_button.connect('clicked', lambda *e: self.player.toggle_pause())
 
         self.stop_button = self.xml.get_widget('stop_button')
-        self.stop_button.connect('clicked', self.stop)
+        self.stop_button.connect('clicked', lambda *e: self.player.stop())
 
         self.xml.get_widget('randomize_item').connect('activate', lambda *e:
             self.randomize_playlist())
@@ -477,10 +472,10 @@ class ExaileWindow(gobject.GObject):
         self.clear_button.connect('clicked', lambda *e: self.clear_playlist(None))
 
         self.next_button = self.xml.get_widget('next_button')
-        self.next_button.connect('clicked', lambda e: self.on_next())
+        self.next_button.connect('clicked', lambda e: self.player.next())
 
         self.previous_button = self.xml.get_widget('prev_button')
-        self.previous_button.connect('clicked', self.on_previous)
+        self.previous_button.connect('clicked', lambda *e: self.player.previous())
 
         self.tracks_filter = xlmisc.ClearEntry(self.live_search)
         self.xml.get_widget('tracks_filter_box').pack_start(
@@ -597,13 +592,13 @@ class ExaileWindow(gobject.GObject):
 
     def __on_mmkey(self, key):
         if key in ('Play', 'PlayPause', 'Pause'):
-            self.toggle_pause()
+            self.player.toggle_pause()
         elif key == 'Stop':
-            self.stop(1)
+            self.player.stop(1)
         elif key == 'Previous':
-            self.on_previous()
+            self.player.previous()
         elif key == 'Next':
-            self.on_next()
+            self.player.next()
 
     def randomize_playlist(self):
         """
@@ -1469,50 +1464,6 @@ class ExaileWindow(gobject.GObject):
         self.player.current.submitted = True
         self.emit('seek', real)
 
-    def play_track(self, player, track): 
-        """
-            Plays a track, gets the cover art, and sets up the context panel
-        """
-        if track.type == 'podcast':
-            if not track.download_path:
-                common.error(self.window, _("Podcast has not yet been "
-                    "downloaded"))
-                return
-        self.play_button.set_image(self.get_pause_image())
-        self.player.current = track
-        self.update_track_information()
-        track.submitted = False
-
-        artist_id = library.get_column_id(self.db, 'artists', 'name', track.artist)
-        library.get_album_id(self.db, artist_id, track.album)
-
-        if track.type != 'stream':
-            self.cover_manager.fetch_cover(track)
-
-        self.show_osd()
-        if self.tracks: self.tracks.queue_draw()
-
-        if self.settings.get_boolean('ui/ensure_visible', False):
-            self.goto_current()
-
-        trackslist.update_queued(self)
-
-        # if we're in dynamic mode, find some tracks to add
-        if self.dynamic.get_active():
-            thread.start_new_thread(self.get_suggested_songs, tuple())
-
-        # PLUGIN: send plugins events of this playing track
-        self.emit('play-track', track)
-
-        track.last_played = time.strftime("%Y-%m-%d %H:%M:%S",
-            time.localtime())
-
-        path_id = library.get_column_id(self.db, 'paths', 'name', track.loc)
-        self.db.execute("UPDATE tracks SET last_played=? WHERE path=?",
-            (track.last_played, track.loc))
-        gc.collect()
-        self.rewind_track = 0
-
     def get_suggested_songs(self):
         """
             Gets suggested tracks from last.fm
@@ -1609,80 +1560,6 @@ class ExaileWindow(gobject.GObject):
         self.settings.set_boolean(param, item.get_active())
         setattr(self.player, param, item.get_active())
 
-    def on_next(self, *args): 
-        """
-            Finds out what track is next and plays it
-        """
-        if self.player.current != None:
-            if self.player.get_current_position() < 50:
-                self.update_rating(self.player.current, rating=-1)
-        self.player.next()
-        self.tracks.queue_draw()
-    
-    def on_previous(self, widget=None, event=None): 
-        """
-            Plays the previous track in the history
-        """
-        self.player.previous()
-        self.tracks.queue_draw()
-
-    def toggle_pause(self, widget=None, event=None):
-        """
-            Pauses the current track
-        """
-        track = self.player.current
-        if not track:
-            self.play()
-            return
-
-        if self.player.is_paused(): 
-            self.play_button.set_image(self.get_pause_image())
-            self.player.toggle_pause()
-        elif self.player.is_playing(): 
-            self.play_button.set_image(self.get_play_image())
-            self.player.toggle_pause()
-        if self.tracks: self.tracks.queue_draw()
-        self.emit('pause-toggled', self.player.current)
-    
-    def play(self, *args): 
-        """
-            Called when someone double clicks on a track or presses the play
-            button.  If the track is already playing, it is restarted
-        """
-        try:
-            self.player.play() 
-        except Exception, e:
-            common.error(self.window, str(e))
-            self.player.stop()
-
-    def stop(self, *args): 
-        """
-            Stops playback
-        """
-        self.player.stop()
-
-    def _stop_cb(self, player, track):
-        """
-            Called by ExailePlayer when playback stops
-        """
-        self.status.set_first(None)
-        self.cover.set_image(os.path.join("images", "nocover.png"))
-        self.cover_manager.stop_cover_thread()
-
-        self.playing = False
-        if self.tray_icon:
-            self.tray_icon.set_tooltip(_("Exaile Music Player"))
-        self.window.set_title(_("Exaile Music Player"))
-
-        if track:
-            # PLUGIN: alert plugins that this track has stopped playing
-            self.emit('stop-track', track)
-
-        self.play_button.set_image(self.get_play_image())
-        if self.tracks: self.tracks.queue_draw()
-
-        self.update_track_information(None)
-        self.new_progressbar.set_text("0:00 / 0:00")
 
     @common.threaded
     def import_playlist(self, path, play=False, title=None, newtab=True,
@@ -1961,7 +1838,7 @@ class ExaileWindow(gobject.GObject):
         if self.mon:
             self.mon.disconnect()
 
-        self.stop()
+        self.player.stop()
         self.cover_manager.stop_cover_thread()
         for thread in self.thread_pool:
             thread.done = True

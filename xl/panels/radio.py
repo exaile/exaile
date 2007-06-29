@@ -471,7 +471,7 @@ class RadioPanel(object):
             }
 
 
-        self.exaile.append_songs((tr,))
+        self.exaile.playlist_manager.append_songs((tr,))
 
     def open_podcast(self, wrapper):
         """

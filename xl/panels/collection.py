@@ -353,7 +353,7 @@ class CollectionPanel(object):
         add = self.get_selected_items()
         queue = (item == self.queue_item)
 
-        self.exaile.append_songs(add, queue, True)
+        self.exaile.playlist_manager.append_songs(add, queue, True)
 
     def button_release(self, widget, event):
         """

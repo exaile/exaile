@@ -867,7 +867,7 @@ class LibraryManager(object):
             after importing a directory
         """
         songs = self.exaile.tracks.reorder_songs(songs)
-        self.exaile.append_songs(songs, play=False)
+        self.exaile.playlist_manager.append_songs(songs, play=False)
 
     def show_library_manager(self):
         """

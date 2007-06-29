@@ -447,7 +447,8 @@ class ExailePlayer(GSTPlayer):
     def find_stream_uri(self, track):
         title = track.album[:30]
         if not title: title = None
-        self.exaile.import_playlist(track.io_loc, play=True, title=title, newtab=True)
+        self.exaile.playlist_manager.import_playlist(track.io_loc, 
+            play=True, title=title, newtab=True)
 
     def play_track(self, track, from_button=False, ret=True):
         """

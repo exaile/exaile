@@ -67,6 +67,7 @@ if basedir.endswith(path_suffix):
 
 from xl import library, media, audioscrobbler, equalizer, burn, common
 from xl import xlmisc, config, db, covers, player
+import xl.playlist as playlistmanager
 from xl.gui import library as librarygui
 from xl.gui import playlist as trackslist
 from xl.panels import collection, playlists, radio, device, files
@@ -97,7 +98,6 @@ class ExaileWindow(gobject.GObject):
     __gsignals__ = {
         'seek': (gobject.SIGNAL_RUN_LAST, None, (int,)),
         'quit': (gobject.SIGNAL_RUN_LAST, None, ()),
-        'last-playlist-loaded': (gobject.SIGNAL_RUN_LAST, None, ()),
         'tray-icon-toggled': (gobject.SIGNAL_RUN_LAST, None, (bool,)),
 
         # called when the title label is changed (sometimes it changes when
@@ -129,6 +129,7 @@ class ExaileWindow(gobject.GObject):
         self.library_manager = library.LibraryManager(self)
         self.tracks = None
         self.playlists_menu = None
+        self.playlist_manager = playlistmanager.PlaylistManager(self)
         self.timer = xlmisc.MiscTimer(self.timer_update, 1000)
         self.cover_manager = covers.CoverManager(self)
         self.plugin_tracks = {}
@@ -805,95 +806,7 @@ class ExaileWindow(gobject.GObject):
         if not page: return
         self.update_songs(page.songs, False)
 
-    def load_last_playlist(self): 
-        """
-            Loads the playlist that was in the player on last exit
-        """
-        dir = "%s%ssaved" % (SETTINGS_DIR, os.sep)
-        if not os.path.isdir(dir):
-            os.mkdir(dir, 0744)
 
-        last_active = self.settings.get_int('last_active', -1)
-        if self.settings.get_boolean("open_last", True):
-            files = os.listdir(dir)
-            for i, file in enumerate(files):
-                if not file.endswith(".m3u"): continue
-                h = open(os.path.join(dir, file))
-                line = h.readline()
-                line = h.readline()
-                h.close()
-                title = _("Playlist")
-                m = re.search('^#PLAYLIST: (.*)$', line)
-                if m:
-                    title = m.group(1)
-
-                self._import_playlist_wrapped(os.path.join(dir, file),
-                    title=title, set_current=False)
-
-            if last_active > -1:
-                xlmisc.finish()
-                gobject.idle_add(self._load_tab, last_active)
-
-        # load queue
-        if self.settings.get_boolean('save_queue', True):
-            if os.path.isfile(os.path.join(dir, "queued.save")):
-                h = open(os.path.join(dir, "queued.save"))
-                for line in h.readlines():
-                    line = line.strip()
-                    song = self.all_songs.for_path(line)
-                    if song:
-                        self.player.queued.append(song)
-                h.close()
-
-            trackslist.update_queued(self)
-        stop_track = self.settings.get_str('stop_track', '')
-        if stop_track != '':
-            stop_track = self.all_songs.for_path(stop_track)
-            self.player.stop_track = stop_track
-            self.tracks.queue_draw()
-
-        if not self.playlists_nb.get_n_pages():
-            self.new_page(_("Playlist"))
-
-        # PLUGIN: send plugins event when the last playlist is loaded
-        xlmisc.log('Last playlist loaded')
-        self.emit('last-playlist-loaded')
-
-    def append_songs(self, songs, queue=False, play=True):
-        """
-            Adds songs to the current playlist
-        """
-        if queue: play = False
-        if len(self.playlist_songs) == 0:
-            self.playlist_songs = library.TrackData()
-
-        # loop through all the tracks
-        for song in songs:
-
-            # if the song isn't already in the current playlist, append it
-            if not song.loc in self.playlist_songs.paths:
-                self.playlist_songs.append(song)
-
-            # if we want to queue this song, make sure it's not already
-            # playing and make sure it's not already in the queue
-            if queue and not song in self.player.queued and song != \
-                self.player.current:
-
-                # if there isn't a queue yet, be sure to set which song is
-                # going to be played after the queue is empty
-                if not self.player.queued and self.player.current:
-                    self.next = self.player.current 
-                self.player.queued.append(song)
-                num = len(self.player.queued)
-
-        # update the current playlist
-        gobject.idle_add(self.update_songs, self.playlist_songs)
-        gobject.idle_add(trackslist.update_queued, self)
-        if not play: return
-
-        track = self.player.current
-        if track != None and (self.player.is_playing() or self.player.is_paused): return
-        gobject.idle_add(self.player.play_track, songs[0], False, False)
 
     def on_blacklist(self, item, event):
         """
@@ -1048,7 +961,7 @@ class ExaileWindow(gobject.GObject):
             Called when everything is done loading
         """
         xlmisc.finish()
-        self.load_last_playlist()
+        self.playlist_manager.load_last_playlist()
 
         if len(sys.argv) > 1 and sys.argv[1] and \
             not sys.argv[1].startswith("-"):
@@ -1560,89 +1473,6 @@ class ExaileWindow(gobject.GObject):
         self.settings.set_boolean(param, item.get_active())
         setattr(self.player, param, item.get_active())
 
-
-    @common.threaded
-    def import_playlist(self, path, play=False, title=None, newtab=True,
-        set_current=True):
-        """
-            Threaded wrapper for _import_playlist_wrapped
-        """
-        self._import_playlist_wrapped(path, play, title, newtab, set_current)
-    
-    def _import_playlist_wrapped(self, path, play=False, title=None,
-        newtab=True, set_current=True):
-        """
-            Imports a playlist file, regardless of it's location (it can be
-            a local file (ie, file:///somefile.m3u) or online.
-        """
-        xlmisc.log("Importing %s" % path)
-        gobject.idle_add(self.status.set_first, _("Importing playlist..."))
-
-        url = list(urlparse.urlsplit(path))
-        if not url[0]: #local file
-            url [0] = 'file'
-            url [2] = urllib.quote(os.path.abspath(os.path.expanduser(url[2])))
-            path = urlparse.urlunsplit(url)
-
-        filename = urllib.unquote(url[2])
-        name = os.path.basename(os.path.splitext(filename)[1]).replace("_", " ")
-        file = urllib.urlopen(path)
-
-        if filename.lower().endswith(".asx"):
-            file.close()
-            playlist = xlmisc.ASXParser(name,path)
-        elif file.readline().strip() == '[playlist]':
-            file.close()
-            playlist = xlmisc.PlsParser(name,path)
-        else:
-            file.close()
-            playlist = xlmisc.M3UParser(name,path)
-
-        first = True
-        songs = library.TrackData()
-        t = trackslist.TracksListCtrl
-
-        count = 0
-        for item in playlist.get_urls():
-            url = item['url']
-            if url[0] == 'device': continue
-            elif url[0] == 'file':
-                filename = urllib.unquote(url[2])
-                tr = library.read_track(self.db, self.all_songs, filename)
-                  
-            else: 
-                tr = media.Track(urlparse.urlunsplit(url))
-                tr.type = 'stream'
-                tr.title = item['title']
-                tr.album = item['album']
-
-                if first and play:
-                    play = tr
-                    
-            if tr:
-                songs.append(tr)
-
-            first = False
-
-        if title: name = title
-        if not songs: 
-            gobject.idle_add(self.status.set_first, None)
-            return
-        
-        if newtab:
-            def _new_page(name, songs, set_current):
-                t = self.new_page(name, songs, set_current)
-                if not set_current: t.set_songs(songs)
-
-            gobject.idle_add(_new_page, name, songs, set_current)
-        else:
-            gobject.idle_add(self.append_songs, songs, False, False)
-
-        if type(play) != bool and play.type == 'stream':
-            gobject.idle_add(self.player.stop)
-            gobject.idle_add(self.player.play_track, play, False, False)
-
-        gobject.idle_add(self.status.set_first, None)
     
     def get_last_dir(self):
         """
@@ -1710,13 +1540,14 @@ class ExaileWindow(gobject.GObject):
                     if tr:
                         songs.append(tr)
                 if ext in xlmisc.PLAYLIST_EXTS:
-                    self.import_playlist(path, newtab=new_tab.get_active())
+                    self.playlist_manager.import_playlist(path, 
+                        newtab=new_tab.get_active())
 
             if songs:
                 if new_tab.get_active():
                     self.new_page(_("Playlist"), songs)
                 else:
-                    self.append_songs(songs)
+                    self.playlist_manager.append_songs(songs)
 
             self.status.set_first(None)
 
@@ -1779,7 +1610,7 @@ class ExaileWindow(gobject.GObject):
             lowurl = url.lower()
             # if it's a playlist file
             if any(lowurl.endswith(ext) for ext in xlmisc.PLAYLIST_EXTS):
-                self.import_playlist(url, True)
+                self.playlist_manager.import_playlist(url, True)
                 return
             else:
                 track = library.read_track(self.db, self.all_songs, url)
@@ -1787,7 +1618,7 @@ class ExaileWindow(gobject.GObject):
         songs = library.TrackData((track, ))
         if not songs: return
 
-        self.append_songs(songs, play=False)
+        self.playlist_manager.append_songs(songs, play=False)
         self.player.play_track(track)
 
     def open_url(self, event): 

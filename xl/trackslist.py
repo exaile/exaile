@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import sys, os, re, random, fileinput, media
+import sys, os, re, random, fileinput, media, track
 import xlmisc, common, library, burn 
 import copy, time, urllib
 from gettext import gettext as _, ngettext

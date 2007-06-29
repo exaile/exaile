@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import os, threading, httplib, xlmisc, md5, re, common, xl.tracks
+import os, threading, httplib, xlmisc, md5, re, common, library
 import xl.trackslist
 import media, gc
 from urllib import urlencode
@@ -222,7 +222,7 @@ class TrackStatsTab(gtk.ScrolledWindow):
         """
             Adds the specific information fields for this track
         """
-        path_id = xl.tracks.get_column_id(self.db, 'paths', 'name', track.loc)
+        path_id = library.get_column_id(self.db, 'paths', 'name', track.loc)
         row = self.db.read_one("tracks", "plays, rating", "path=?", 
             (path_id,))
 
@@ -449,7 +449,7 @@ class TrackEditor(object):
             try:
                 db = self.exaile.db
                 media.write_tag(track)
-                xl.tracks.save_track_to_db(db, track)
+                library.save_track_to_db(db, track)
                 self.exaile.tracks.refresh_row(track)
             except:
                 errors.append("Unknown error writing tag for %s" % track.loc)
@@ -494,7 +494,7 @@ def edit_field(caller, data):
             setattr(song, data, value)
             try:
                 media.write_tag(song)    
-                xl.tracks.save_track_to_db(caller.db, song)
+                library.save_track_to_db(caller.db, song)
             except:
                 errors += "Could not write tag for %s\n" % song.loc
                 xlmisc.log_exception()
@@ -518,7 +518,7 @@ def update_rating(caller, num):
     cur = caller.db.cursor()
     for track in caller.get_selected_tracks():
         
-        path_id = xl.tracks.get_column_id(caller.db, 'paths', 'name',
+        path_id = library.get_column_id(caller.db, 'paths', 'name',
             track.loc)
         caller.db.execute("UPDATE tracks SET user_rating=? WHERE path=?",
             (rating, path_id)) 

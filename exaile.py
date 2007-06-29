@@ -541,7 +541,7 @@ class ExaileWindow(gobject.GObject):
         self.open_item.connect('activate', self.on_add_media)
 
         self.xml.get_widget('export_playlist_item').connect('activate',
-            self.export_playlist)
+            lambda *e: self.playlist_manager.export_playlist())
 
         self.xml.get_widget('open_url_item').connect('activate',
             self.open_url)
@@ -563,7 +563,7 @@ class ExaileWindow(gobject.GObject):
             lambda *e: self.show_debug_dialog()) 
 
         self.xml.get_widget('import_directory_item').connect('activate',
-            lambda *e: self.import_directory(load_tree=True))
+            lambda *e: self.library_manager.import_directory(load_tree=True))
 
         self.rating_combo = self.xml.get_widget('rating_combo')
         self.rating_combo.set_active(0)
@@ -1551,45 +1551,6 @@ class ExaileWindow(gobject.GObject):
 
             self.status.set_first(None)
 
-    def export_playlist(self, item): 
-        """
-            Exports the current selected playlist as an .m3u file
-        """
-        filter = gtk.FileFilter()
-        filter.add_pattern('*.m3u')
-
-        dialog = gtk.FileChooserDialog(_("Choose a file"),
-            self.window, gtk.FILE_CHOOSER_ACTION_SAVE, 
-            buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-            gtk.STOCK_SAVE, gtk.RESPONSE_OK))
-        dialog.set_current_folder(self.get_last_dir())
-        dialog.set_filter(filter)
-
-        result = dialog.run()
-        dialog.hide()
-
-        if result == gtk.RESPONSE_OK:
-            path = dialog.get_filename()
-            self.last_open_dir = dialog.get_current_folder()
-
-            self.save_m3u(path, self.playlist_songs)
-
-    def save_m3u(self, path, songs, playlist_name=''):
-        """
-            Saves a list of songs to an m3u file
-        """
-        handle = open(path, "w")
-
-        handle.write("#EXTM3U\n")
-        if playlist_name:
-            handle.write("#PLAYLIST: %s\n" % playlist_name)
-
-        for track in songs:
-            handle.write("#EXTINF:%d,%s\n%s\n" % (track.duration,
-                track.title, track.loc))
-
-        handle.close()
-
     def get_volume_percent(self):
         """
             Returns the current volume level as a percentage
@@ -1693,7 +1654,7 @@ class ExaileWindow(gobject.GObject):
             title = self.playlists_nb.get_tab_label(page).title
             if page.type != 'track': continue
             songs = page.songs
-            self.save_m3u(os.path.join(SETTINGS_DIR, "saved",
+            self.playlist_manager.save_m3u(os.path.join(SETTINGS_DIR, "saved",
                 "playlist%.4d.m3u" % i), songs, title)
 
         # save queued tracks

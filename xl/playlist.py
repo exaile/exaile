@@ -168,6 +168,45 @@ class PlaylistManager(gobject.GObject):
         xlmisc.log('Last playlist loaded')
         self.emit('last-playlist-loaded')
 
+    def export_playlist(self): 
+        """
+            Exports the current selected playlist as an .m3u file
+        """
+        filter = gtk.FileFilter()
+        filter.add_pattern('*.m3u')
+
+        dialog = gtk.FileChooserDialog(_("Choose a file"),
+            self.exaile.window, gtk.FILE_CHOOSER_ACTION_SAVE, 
+            buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+            gtk.STOCK_SAVE, gtk.RESPONSE_OK))
+        dialog.set_current_folder(self.exaile.get_last_dir())
+        dialog.set_filter(filter)
+
+        result = dialog.run()
+        dialog.hide()
+
+        if result == gtk.RESPONSE_OK:
+            path = dialog.get_filename()
+            self.exaile.last_open_dir = dialog.get_current_folder()
+
+            self.save_m3u(path, self.exaile.playlist_songs)
+
+    def save_m3u(self, path, songs, playlist_name=''):
+        """
+            Saves a list of songs to an m3u file
+        """
+        handle = open(path, "w")
+
+        handle.write("#EXTM3U\n")
+        if playlist_name:
+            handle.write("#PLAYLIST: %s\n" % playlist_name)
+
+        for track in songs:
+            handle.write("#EXTINF:%d,%s\n%s\n" % (track.duration,
+                track.title, track.loc))
+
+        handle.close()
+
     def append_songs(self, songs, queue=False, play=True):
         """
             Adds songs to the current playlist

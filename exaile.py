@@ -1639,7 +1639,7 @@ class ExaileWindow(gobject.GObject):
             gobject.idle_add(self.append_songs, songs, False, False)
 
         if type(play) != bool and play.type == 'stream':
-            gobject.idle_add(self.stop)
+            gobject.idle_add(self.player.stop)
             gobject.idle_add(self.player.play_track, play, False, False)
 
         gobject.idle_add(self.status.set_first, None)
@@ -1770,7 +1770,7 @@ class ExaileWindow(gobject.GObject):
         """
             Play a radio stream
         """
-        self.stop()
+        self.player.stop()
 
         if "://" in url:
             track = media.Track(url)

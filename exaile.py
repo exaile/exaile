@@ -66,7 +66,7 @@ if basedir.endswith(path_suffix):
     sys.path.append(os.path.join(prefix, 'lib', 'exaile'))
 
 from xl import library, media, audioscrobbler, equalizer, burn, common
-from xl import xlmisc, config, db, covers, player
+from xl import xlmisc, config, db, covers, player, prefs
 import xl.playlist as playlistmanager
 from xl.gui import library as librarygui
 from xl.gui import playlist as trackslist

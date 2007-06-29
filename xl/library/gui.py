@@ -15,6 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import gtk
+from gettext import gettext as _
 from xl import xlmisc
 
 class LibraryDialog(object):
@@ -80,8 +81,8 @@ class LibraryDialog(object):
             Saves the paths in the dialog, and updates the library
         """
         self.exaile.settings['search_paths'] = self.list.rows
-	self.exaile.settings['add_paths'] = self.addList
-	self.exaile.settings['remove_paths'] = self.removeList
+        self.exaile.settings['add_paths'] = self.addList
+        self.exaile.settings['remove_paths'] = self.removeList
         self.dialog.response(gtk.RESPONSE_APPLY)
 
     def on_remove(self, widget):
@@ -90,8 +91,8 @@ class LibraryDialog(object):
         """
         item = self.list.get_selection()
         index = self.list.rows.index(item)
-	self.removeList.append(item)
-	self.list.remove(item)
+        self.removeList.append(item)
+        self.list.remove(item)
         selection = self.list.list.get_selection()
         if index >= len(self.list.rows):
             selection.select_path(index - 1)

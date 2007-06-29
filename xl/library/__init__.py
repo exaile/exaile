@@ -591,6 +591,7 @@ class PopulateThread(threading.Thread):
     """
         Reads all the tracks in the library and adds them to the database
     """
+    type = 'populate'
     running = False
     stopped = False
 
@@ -634,7 +635,8 @@ class PopulateThread(threading.Thread):
         total = len(paths)
         xlmisc.log("File count: %d" % total)
 
-        db.execute("UPDATE tracks SET included=0")
+        if self.type == 'populate':
+            db.execute("UPDATE tracks SET included=0")
         count = 0
         update_queue = dict()
         self.added = dict()
@@ -678,8 +680,9 @@ class PopulateThread(threading.Thread):
         xlmisc.log("Count is now: %d" % count)
         if self.done: return
 
-        if self.delete:
-            db.execute("DELETE FROM tracks WHERE included=0")
+        if self.type == 'populate':
+            if self.delete:
+                db.execute("DELETE FROM tracks WHERE included=0")
         db.commit()
 
     def do_function(self, loc):
@@ -739,6 +742,7 @@ class RemoveTracksThread(PopulateThread):
     """
         Removes tracks in database according to directories given
     """
+    type = 'remove'
     def __init__(self, exaile, db, directories, update_func, 
         delete=True, load_tree=False, done_func=None):
         """
@@ -775,6 +779,7 @@ class AddTracksThread(PopulateThread):
     """
         Adds tracks to database according to directories given
     """
+    type = 'add'
     def __init__(self, exaile, db, directories, update_func, 
         delete=True, load_tree=False, done_func=None):
         """

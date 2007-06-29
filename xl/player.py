@@ -84,7 +84,6 @@ class GSTPlayer(Player):
 
         return True
 
-    @common.threaded
     def play(self, uri):
         """
             Plays the specified uri

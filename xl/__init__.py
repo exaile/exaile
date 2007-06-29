@@ -14,6 +14,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-__all__ = ['tracks', 'config', 'covers', 'db',
-	'common', 'trackslist', 'panels', 'xlmisc', 'prefs', 'track', 'media',
+__all__ = ['library', 'config', 'covers', 'db',
+	'common', 'panels', 'xlmisc', 'prefs', 'track', 'media',
     'dbusinterface', 'player']

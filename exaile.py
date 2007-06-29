@@ -16,7 +16,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
 __version__ = '0.2.11svn'
 import traceback, sys, gobject
 gobject.threads_init()
@@ -67,8 +66,9 @@ if basedir.endswith(path_suffix):
     sys.path.append(os.path.join(prefix, 'lib', 'exaile'))
 
 from xl import library, media, audioscrobbler, equalizer, burn, common
-from xl import xlmisc, config, db, covers, trackslist, player
-from xl.library import gui as librarygui
+from xl import xlmisc, config, db, covers, player
+from xl.gui import library as librarygui
+from xl.gui import playlist as trackslist
 from xl.panels import collection, playlists, radio, device, files
 import plugins.manager, plugins, plugins.gui
 import pygst; pygst.require('0.10'); import gst

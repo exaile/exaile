@@ -16,7 +16,8 @@
 
 import threading, gtk, os
 from gettext import gettext as _
-from xl import common, xlmisc, library, trackslist, media
+from xl import common, xlmisc, library, media
+from xl.gui import playlist as trackslist
 
 class CustomWrapper(object):
     """

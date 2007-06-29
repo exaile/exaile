@@ -14,13 +14,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import sys, os, re, random, fileinput, media, track
-import xlmisc, common, library, burn 
+import sys, os, re, random, fileinput
+from xl import xlmisc, common, library, burn, media
+from xl import library
 import copy, time, urllib
 from gettext import gettext as _, ngettext
 import pygtk
 pygtk.require('2.0')
 import gtk, pango
+import editor, information
 
 # creates the rating images for the caller
 def create_rating_images(caller):
@@ -835,7 +837,7 @@ class TracksListCtrl(gtk.VBox):
         em = xlmisc.Menu()
 
         em.append(_("Edit Information"), lambda e, f:
-            track.TrackEditor(self.exaile, self), 'gtk-edit')
+            editor.TrackEditor(self.exaile, self), 'gtk-edit')
         em.append_separator()
 
         # edit specific common fields
@@ -846,7 +848,7 @@ class TracksListCtrl(gtk.VBox):
             # code, then _(menu_item.capitalize() will be substituted by 
             # the translated string in exaile.
             item = em.append(_("Edit %s") % _(menu_item.capitalize()),
-                lambda w, e, m=menu_item: track.edit_field(self, m))
+                lambda w, e, m=menu_item: editor.edit_field(self, m))
 
         em.append_separator()
         rm = xlmisc.Menu()
@@ -854,7 +856,7 @@ class TracksListCtrl(gtk.VBox):
 
         for i in range(0, 8):
             item = rm.append_image(self.rating_images[i],
-                lambda w, e, i=i: track.update_rating(self, i))
+                lambda w, e, i=i: editor.update_rating(self, i))
 
         em.append_menu(_("Rating"), rm)
         tpm.append_menu(ngettext("Edit Track", "Edit Tracks", n_selected), em,
@@ -924,7 +926,7 @@ class TracksListCtrl(gtk.VBox):
             Shows the track information tab
         """
         t = self.get_selected_track()
-        track.show_information(self.exaile, t)
+        information.show_information(self.exaile, t)
 
     def button_press(self, button, event):
         """
@@ -1286,4 +1288,3 @@ def update_queued(exaile):
     else:
         exaile.queue_count_label.set_label("")
 
-from xl import library

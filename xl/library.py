@@ -17,7 +17,7 @@
 import os, re, os.path, copy, traceback, gc, gtk
 from xl import common, media, db, config, audioscrobbler
 from xl import xlmisc, dbusinterface
-from xl.library import gui as librarygui
+from xl.gui import library as librarygui
 import sys, md5, gobject, random
 import thread, threading, urllib
 import xl.db, time

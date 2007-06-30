@@ -65,7 +65,8 @@ class ExaileWindow(gobject.GObject):
             Initializes the main Exaile window
         """
         if ExaileWindow.__single:
-            raise ExaileWindow.__single
+            raise 'Exaile instance has already been created'
+
         gobject.GObject.__init__(self)
         self.settings_dir = settings_dir
         self.xml = gtk.glade.XML('exaile.glade', 'ExaileWindow', 'exaile')
@@ -77,7 +78,6 @@ class ExaileWindow(gobject.GObject):
         self.options = options
         config.settings = self.settings
         self.database_connect()
-        self.mon = None
         self.all_songs = library.TrackData()
         self.songs = library.TrackData()
         self.playlist_songs = library.TrackData()
@@ -1581,9 +1581,6 @@ class ExaileWindow(gobject.GObject):
 
         # PLUGIN: send plugins event before quitting
         self.emit('quit')
-
-        if self.mon:
-            self.mon.disconnect()
 
         self.player.stop()
         self.cover_manager.stop_cover_thread()

@@ -1263,7 +1263,14 @@ def get_osd_settings(settings):
 
 class DragTreeViewMixin:
     """
-        A TextView that does easy dragging/selecting/popup menu
+        Adds easy dragging / selecting / popup menu to a gtk.TreeView.  Needs to
+        be "mixed in" with gtk.TreeView or its subclass, like this (note the
+        precise order of gtk.TreeView and DragTreeViewMixin in both places):
+
+        class DragTreeView(DragTreeViewMixin, gtk.TreeView):
+            def __init__(self, *args, **kwargs):
+                gtk.TreeView.__init__(self)
+                DragTreeViewMixin.__init__(self, *args, **kwargs)
     """
     def __init__(self, cont, receive=True, source=True):
         """
@@ -1377,13 +1384,13 @@ class DragTreeViewMixin:
             selection.select_path(path[0])
         return self.cont.button_press(button, event)
 
-class DragTreeView(gtk.TreeView, DragTreeViewMixin):
+class DragTreeView(DragTreeViewMixin, gtk.TreeView):
     def __init__(self, *args, **kwargs):
         gtk.TreeView.__init__(self)
         DragTreeViewMixin.__init__(self, *args, **kwargs)
 
 if SEXY_AVAIL:
-    class SexyDragTreeView(sexy.TreeView, DragTreeViewMixin):
+    class SexyDragTreeView(DragTreeViewMixin, sexy.TreeView):
         """
             Identical to DragTreeView, except this one shows a tooltip when the
             mouse hovers on a cell.  The text is obtained from a

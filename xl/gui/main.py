@@ -904,7 +904,7 @@ class ExaileWindow(gobject.GObject):
                 cur.close()
                 self.db = db.convert_to027(self.db.db_loc)
                 self.db.add_function_create(('THE_CUTTER', 1, 
-                    tracks.the_cutter))
+                    library.the_cutter))
             except:
                 pass # db is ok, continue!                
 
@@ -1216,7 +1216,7 @@ class ExaileWindow(gobject.GObject):
 
         keyword = self.tracks_filter.get_text()
         if keyword.startswith("where ") and not widget: return
-        self.songs = tracks.search(self, self.tracks.playlist_songs, None,
+        self.songs = library.search(self, self.tracks.playlist_songs, None,
             custom=custom)
         self.tracks.set_songs(self.songs, False)
         

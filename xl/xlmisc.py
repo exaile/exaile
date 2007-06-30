@@ -1398,9 +1398,11 @@ if SEXY_AVAIL:
                     if isinstance(cr, gtk.CellRendererText):
                         model = view.get_model()
                         col.cell_set_cell_data(model, model.get_iter(path), False, False)
-                        l = gtk.Label(cr.props.text)
-                        l.show()
-                        return l
+                        text = cr.props.text
+                        if text:
+                            l = gtk.Label(text)
+                            l.show()
+                            return l
             self.connect('get-tooltip', tool)
 else:
     SexyDragTreeView = None

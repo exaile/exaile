@@ -52,7 +52,7 @@ except ImportError:
     SEXY_AVAIL = False
 
 
-import common, covers, media, prefs
+import common, prefs#, covers, media, prefs
 
 opener = urllib.FancyURLopener()
 opener.addheaders.pop(0)

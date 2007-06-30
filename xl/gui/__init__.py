@@ -1,1 +1,1 @@
-__all__ = ['playlist', 'library']
+__all__ = ['playlist', 'library', 'information', 'editor', 'main']

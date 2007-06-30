@@ -99,7 +99,10 @@ class TracksListCtrl(gtk.VBox):
         """
         gtk.VBox.__init__(self)
         self.exaile = exaile
-        self.list = xlmisc.DragTreeView(self)
+        if xlmisc.SexyDragTreeView:
+            self.list = xlmisc.SexyDragTreeView(self)
+        else:
+            self.list = xlmisc.DragTreeView(self)
         self.list.set_rules_hint(True)
         self.list.set_enable_search(False)
         self.songs = library.TrackData()

@@ -1261,7 +1261,7 @@ def get_osd_settings(settings):
 
     return info
 
-class DragTreeView(gtk.TreeView):
+class DragTreeViewMixin:
     """
         A TextView that does easy dragging/selecting/popup menu
     """
@@ -1269,7 +1269,6 @@ class DragTreeView(gtk.TreeView):
         """
             Initializes the tree and sets up the various callbacks
         """
-        gtk.TreeView.__init__(self)
         self.cont = cont
 
         self.targets = [("text/uri-list", 0, 0)]
@@ -1377,6 +1376,34 @@ class DragTreeView(gtk.TreeView):
         if not selection.count_selected_rows():
             selection.select_path(path[0])
         return self.cont.button_press(button, event)
+
+class DragTreeView(gtk.TreeView, DragTreeViewMixin):
+    def __init__(self, *args, **kwargs):
+        gtk.TreeView.__init__(self)
+        DragTreeViewMixin.__init__(self, *args, **kwargs)
+
+if SEXY_AVAIL:
+    class SexyDragTreeView(sexy.TreeView, DragTreeViewMixin):
+        """
+            Identical to DragTreeView, except this one shows a tooltip when the
+            mouse hovers on a cell.  The text is obtained from a
+            CellRendererText in the column; if there is more than one of them,
+            one is chosen arbitrarily.
+        """
+        def __init__(self, *args, **kwargs):
+            sexy.TreeView.__init__(self)
+            DragTreeViewMixin.__init__(self, *args, **kwargs)
+            def tool(view, path, col):
+                for cr in col.get_cell_renderers():
+                    if isinstance(cr, gtk.CellRendererText):
+                        model = view.get_model()
+                        col.cell_set_cell_data(model, model.get_iter(path), False, False)
+                        l = gtk.Label(cr.props.text)
+                        l.show()
+                        return l
+            self.connect('get-tooltip', tool)
+else:
+    SexyDragTreeView = None
 
 PLAYLIST_EXTS = []
 

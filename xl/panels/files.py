@@ -263,7 +263,7 @@ class FilesPanel(object):
             if os.path.isdir(dir):
                 self.load_directory(dir)
             else:
-                if any(dir.endswith(ext) for ext in xlmisc.PLAYLIST_EXTS):
+                if common.any(dir.endswith(ext) for ext in xlmisc.PLAYLIST_EXTS):
                     self.exaile.import_playlist(dir, True)
                 else:
                     tr = library.read_track(self.exaile.db, self.exaile.all_songs,

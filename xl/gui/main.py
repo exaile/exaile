@@ -1525,7 +1525,7 @@ class ExaileWindow(gobject.GObject):
         else:
             lowurl = url.lower()
             # if it's a playlist file
-            if any(lowurl.endswith(ext) for ext in xlmisc.PLAYLIST_EXTS):
+            if common.any(lowurl.endswith(ext) for ext in xlmisc.PLAYLIST_EXTS):
                 self.playlist_manager.import_playlist(url, True)
                 return
             else:

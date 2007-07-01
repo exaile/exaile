@@ -21,6 +21,15 @@ pygtk.require('2.0')
 import gtk, gtk.glade
 import locale, time, threading
 
+# python<2.5 compatibility. Drop this when python2.4 isn't used so much anymore.
+try:
+    any = any
+except NameError:
+    def any(seq):
+        for e in seq:
+            if e: return True
+        return False
+
 class MultiTextEntryDialog(gtk.Dialog):
     """
         Exactly like a TextEntryDialog, except it can contain multiple

@@ -458,7 +458,7 @@ class ExailePlayer(GSTPlayer):
         """
         self.stop(False)
         lowtrackloc = track.loc.lower()
-        if any(lowtrackloc.endswith(ext) for ext in xlmisc.PLAYLIST_EXTS):
+        if common.any(lowtrackloc.endswith(ext) for ext in xlmisc.PLAYLIST_EXTS):
             self.find_stream_uri(track)
             if ret: return True
 

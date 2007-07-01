@@ -44,8 +44,9 @@ class DBusInterfaceObject(dbus.service.Object):
             Plays the specified file
         """
         print filename
+        import common
         import xlmisc
-        if any(filename.endswith(ext) for ext in xlmisc.PLAYLIST_EXTS):
+        if common.any(filename.endswith(ext) for ext in xlmisc.PLAYLIST_EXTS):
             self.exaile.import_playlist(filename, True)
         else: self.exaile.stream(filename)
 

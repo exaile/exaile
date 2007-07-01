@@ -16,7 +16,7 @@
 
 from gettext import gettext as _
 import locale, os, gtk, urllib, re
-from xl import xlmisc, media, library
+from xl import common, xlmisc, media, library
 locale.setlocale(locale.LC_ALL, '')
 
 class FilesPanel(object):

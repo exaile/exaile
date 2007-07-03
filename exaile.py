@@ -16,7 +16,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import traceback, sys, gobject
+import sys
+import gobject
 gobject.threads_init()
 
 # this stuff is done first so that only the modules required to connect to an
@@ -37,9 +38,11 @@ if '--version' in sys.argv:
     print "Exaile version: %s" % __version__
     sys.exit(0)
 
-import pygtk, gettext, gtk
+import os.path
+
+import pygtk
 pygtk.require('2.0')
-import sys, os.path, traceback, locale
+import gtk
 
 ## Find out the location of exaile's working directory, and go there
 basedir = os.path.dirname(os.path.realpath(__file__))
@@ -59,9 +62,9 @@ if basedir.endswith(path_suffix):
     # of its modules.
     sys.path.append(os.path.join(prefix, 'lib', 'exaile'))
 
-from xl.gui import main as exailemain
-
 # set up gettext for translations
+import gettext, locale
+import gtk.glade
 locale.setlocale(locale.LC_ALL, '')
 gettext.textdomain('exaile')
 gtk.glade.textdomain('exaile')
@@ -71,12 +74,15 @@ if prefix == '.': # if Exaile is not installed
 else:
     gtk.glade.bindtextdomain('exaile', os.path.join(prefix, 'share', 'locale'))
 
-sys_var = "HOME"
-if os.sys.platform.startswith("win"): sys_var = "USERPROFILE"
+if sys.platform.startswith("win"):
+    sys_var = "USERPROFILE"
+else:
+    sys_var = "HOME"
 gtk.window_set_default_icon_from_file("images%sicon.png"% os.sep)
 SETTINGS_DIR = "%s%s%s" % (os.getenv(sys_var), os.sep, ".exaile")
 GCONF_DIR = "/apps/exaile"
 
+from xl.gui import main as exailemain
 from xl import xlmisc
 
 def check_dirs():
@@ -156,5 +162,6 @@ if __name__ == "__main__":
     except SystemExit:
         raise
     except: 
+        import traceback
         traceback.print_exc()
         xlmisc.log_exception()

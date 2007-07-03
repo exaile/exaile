@@ -630,7 +630,7 @@ class CollectionPanel(object):
 
                 # print separators
                 if first and info and use_alphabet:
-                    temp = library.lstrip_special(info).upper().replace('THE ', '')
+                    temp = library.the_cutter(library.lstrip_special(info).upper()).upper()
                     first_char = temp[0]
                     if first_char != last_char:
                         if not first_char.isalpha():

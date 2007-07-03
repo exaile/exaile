@@ -27,6 +27,7 @@ from xl import xlmisc, config, db, covers, player, prefs
 from xl import playlist as playlistmanager
 import plugins.manager, plugins.gui, gst
 from xl.gui import playlist as trackslist
+from xl.gui import information
 from xl.panels import collection, radio, playlists, files, device
 import random
 random.seed()
@@ -1666,5 +1667,5 @@ class ExaileWindow(gobject.GObject):
         if not track: track = self.tracks.get_selected_track() 
         if not track: return
             
-        page = xl.track.show_information(self, track)
+        page = information.show_information(self, track)
         page.set_current_page(index)

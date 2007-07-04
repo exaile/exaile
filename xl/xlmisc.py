@@ -1448,7 +1448,7 @@ class M3UParser(PlaylistParser):
             line = line.strip()
             if line and line[0] == "#":
                 url = self._get_url_from_path(basedir, line)
-                self.add_url()
+                self.add_url(url)
 
         return True
 

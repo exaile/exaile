@@ -66,7 +66,7 @@ class ExaileWindow(gobject.GObject):
             Initializes the main Exaile window
         """
         if ExaileWindow.__single:
-            raise 'Exaile instance has already been created'
+            raise AssertionError, 'Exaile instance has already been created'
 
         gobject.GObject.__init__(self)
         self.settings_dir = settings_dir

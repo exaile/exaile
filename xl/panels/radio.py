@@ -14,8 +14,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import threading, gtk, os
+import threading, os, re, time, urllib
+from xml.dom import minidom
 from gettext import gettext as _
+import gobject, gtk
 from xl import common, xlmisc, library, media
 from xl.gui import playlist as trackslist
 
@@ -477,7 +479,7 @@ class RadioPanel(object):
         """
             Opens a podcast
         """
-        podcast_path_id = tracks.get_column_id(self.db, 'paths', 'name',
+        podcast_path_id = library.get_column_id(self.db, 'paths', 'name',
             wrapper.path)
 
         xlmisc.log("Opening podcast %s" % wrapper.name)
@@ -690,7 +692,7 @@ class RadioPanel(object):
         if dialog.run() == gtk.RESPONSE_OK:
             name = dialog.get_value()
             dialog.destroy()
-            path_id = tracks.get_column_id(self.db, 'paths', 'name', name)
+            path_id = library.get_column_id(self.db, 'paths', 'name', name)
             if self.db.record_count("podcasts", "path=?", (name, )):
                 common.error(self.exaile.window, 
                     _("A podcast with that url already"
@@ -741,7 +743,7 @@ class RadioPanel(object):
         if not pub_date: pub_date = ""
         image = self.get_val(root, 'image')
         if not image: image = ""
-        path_id = tracks.get_column_id(self.db, 'paths', 'name', path)
+        path_id = library.get_column_id(self.db, 'paths', 'name', path)
 
         self.db.execute("UPDATE podcasts SET title=?, "
             "pub_date=?, description=?, image=? WHERE"
@@ -765,7 +767,7 @@ class RadioPanel(object):
                 length = enc[0].getAttribute('duration')
                 loc = str(enc[0].getAttribute("url"))
             else: continue
-            loc_id = tracks.get_column_id(self.db, 'paths', 'name', loc)
+            loc_id = library.get_column_id(self.db, 'paths', 'name', loc)
 
             row = self.db.read_one("podcast_items", "path", 
                 "podcast_path=? AND path=?", (path_id, loc_id))
@@ -832,7 +834,7 @@ class RadioPanel(object):
         selection = self.tree.get_selection()
         (model, iter) = selection.get_selected()
         object = self.model.get_value(iter, 1)
-        path_id = tracks.get_column_id(self.db, 'paths', 'name', object.path)
+        path_id = library.get_column_id(self.db, 'paths', 'name', object.path)
 
         if not isinstance(object, PodcastWrapper): return
         dialog = gtk.MessageDialog(self.exaile.window,
@@ -885,14 +887,14 @@ class RadioPanel(object):
             "station?"))
         result = dialog.run()
         dialog.destroy()
-        radio_id = tracks.get_column_id(self.db, 'radio', 'name', name)
+        radio_id = library.get_column_id(self.db, 'radio', 'name', name)
 
         if result == gtk.RESPONSE_YES:
             
             self.db.execute("DELETE FROM radio WHERE id=?", (radio_id,))
             self.db.execute("DELETE FROM radio_items WHERE radio=?", (radio_id,))
-            if tracks.RADIO.has_key(name):
-                del tracks.RADIO[name]
+            if library.RADIO.has_key(name):
+                del library.RADIO[name]
 
             self.model.remove(iter)
             self.tree.queue_draw()
@@ -954,8 +956,8 @@ class RadioPanel(object):
             if c > 0:
                 common.error(self.exaile.window, _("Station name already exists."))
                 return
-            radio_id = tracks.get_column_id(self.db, 'radio', 'name', name)
-            path_id = tracks.get_column_id(self.db, 'paths', 'name', url)
+            radio_id = library.get_column_id(self.db, 'radio', 'name', name)
+            path_id = library.get_column_id(self.db, 'paths', 'name', url)
             self.db.execute("INSERT INTO radio_items(radio, path, title, "
                 "description) VALUES( ?, ?, ?, ? )", (radio_id, path_id, desc,
                 desc))
@@ -983,7 +985,7 @@ class RadioPanel(object):
                 common.error(self, _("Station already exists."))
                 return
 
-            station_id = tracks.get_column_id(self.db, 'radio', 
+            station_id = library.get_column_id(self.db, 'radio', 
                 'name', name)
             
             self.model.append(self.custom, [self.track, CustomWrapper(name)])
@@ -1005,11 +1007,11 @@ class RadioPanel(object):
         else:
             playlist = item.get_child().get_text()
 
-        station_id = tracks.get_column_id(self.db, 'radio', 'name', playlist)
+        station_id = library.get_column_id(self.db, 'radio', 'name', playlist)
 
         for track in songs:
             if track.type != 'stream': continue
-            path_id = tracks.get_column_id(self.db, 'paths', 'name', track.loc)
+            path_id = library.get_column_id(self.db, 'paths', 'name', track.loc)
             try:
                 album = track.album
                 if not album: album = track.artist

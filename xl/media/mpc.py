@@ -1,5 +1,5 @@
+import os
 import mutagen.apev2
-from xl import xlmisc
 
 TYPE = 'mpc'
 

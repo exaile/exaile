@@ -14,8 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import os, threading, re
-from xl import media, library, common
+from xl import media, library, common, xlmisc
 from gettext import gettext as _, ngettext
 import gtk, gtk.glade
 import playlist as trackslist

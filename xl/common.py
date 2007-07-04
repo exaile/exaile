@@ -15,7 +15,6 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-import sys, re
 import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade

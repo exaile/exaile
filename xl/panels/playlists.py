@@ -14,11 +14,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import gtk, random, os
+import os, random, re, urllib
 from gettext import gettext as _
+import gtk
 from xl import common, xlmisc, filtergui, library
 from xl.filtergui import MultiEntryField, EntryField
-random.seed()
 
 N_ = lambda x: x
 
@@ -480,7 +480,7 @@ class PlaylistsPanel(object):
 
         elif isinstance(obj, CustomPlaylist):
             playlist = obj.name
-            playlist_id = tracks.get_column_id(self.db, 'playlists', 'name', playlist)
+            playlist_id = library.get_column_id(self.db, 'playlists', 'name', playlist)
 
             rows = self.db.select('SELECT paths.name FROM playlist_items,paths '
                 'WHERE playlist_items.path=paths.id AND playlist=?',
@@ -595,7 +595,7 @@ class PlaylistsPanel(object):
             " playlist?"))
         if dialog.run() == gtk.RESPONSE_YES:
             playlist = obj.name 
-            p_id = tracks.get_column_id(self.db, 'playlists', 'name', playlist)
+            p_id = library.get_column_id(self.db, 'playlists', 'name', playlist)
             self.db.execute("DELETE FROM playlists WHERE id=?", (p_id,))
 
             table = 'playlist_items'
@@ -603,8 +603,8 @@ class PlaylistsPanel(object):
                 table = 'smart_playlist_items'
             self.db.execute("DELETE FROM %s WHERE playlist=?" % table,
                 (p_id,))
-            if tracks.PLAYLISTS.has_key(playlist):
-                del tracks.PLAYLISTS[playlist]
+            if library.PLAYLISTS.has_key(playlist):
+                del library.PLAYLISTS[playlist]
             self.db.commit()
             
             self.model.remove(iter)
@@ -627,7 +627,7 @@ class PlaylistsPanel(object):
                 common.error(self.exaile.window, _("Playlist already exists."))
                 return name
 
-            playlist_id = tracks.get_column_id(self.db, 'playlists', 'name',
+            playlist_id = library.get_column_id(self.db, 'playlists', 'name',
                 name)
                 
             self.model.append(self.custom, [self.playlist_image, name,
@@ -647,11 +647,11 @@ class PlaylistsPanel(object):
             playlist = playlist.get_child().get_label()
 
         if songs == None: songs = self.exaile.tracks.get_selected_tracks()
-        playlist_id = tracks.get_column_id(self.db, 'playlists', 'name', playlist)
+        playlist_id = library.get_column_id(self.db, 'playlists', 'name', playlist)
 
         for track in songs:
             if track.type == 'stream': continue
-            path_id = tracks.get_column_id(self.db, 'paths', 'name', track.loc)
+            path_id = library.get_column_id(self.db, 'paths', 'name', track.loc)
             self.db.execute("INSERT INTO playlist_items( playlist, path ) " \
                 "VALUES( ?, ? )", (playlist_id, path_id))
         self.db.commit()

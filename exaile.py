@@ -171,7 +171,7 @@ if __name__ == "__main__":
         main()
     except SystemExit:
         raise
-    except: 
+    except BaseException:
         import traceback
         traceback.print_exc()
         xlmisc.log_exception()

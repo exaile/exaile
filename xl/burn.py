@@ -16,7 +16,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import plugins, time, os, gtk, subprocess, media, common
+import time, subprocess
 
 from urllib import pathname2url
 

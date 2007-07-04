@@ -14,18 +14,19 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import thread, os, os.path, string, shlex
-import library, xlmisc, media, audioscrobbler, burn, advancededitor
+import thread, os, shlex
 from gettext import gettext as _
 import pygtk, common
 pygtk.require('2.0')
-import gtk, gtk.glade, pango, subprocess
+import gtk, gtk.glade
+import xlmisc, audioscrobbler, burn, advancededitor
 
-try:
-    import gamin
-    GAMIN_AVAIL = True
-except ImportError:
-    GAMIN_AVAIL = False
+#try:
+#    import gamin
+#    GAMIN_AVAIL = True
+#except ImportError:
+#    GAMIN_AVAIL = False
+GAMIN_AVAIL = False
 
 settings = None
 xml = None

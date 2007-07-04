@@ -15,8 +15,8 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-import httplib, re, urllib, md5, threading, sys, os, xlmisc
-import urllib2, config, gobject, gtk, time
+import httplib, re, urllib, md5, threading, os, xlmisc
+import urllib2, gobject, gtk, time
 import library, common
 from gettext import gettext as _
 COVER_WIDTH = 100

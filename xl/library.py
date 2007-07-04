@@ -14,15 +14,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import os, re, os.path, copy, traceback, gc, gtk
-from xl import common, media, db, config, audioscrobbler
-from xl import xlmisc, dbusinterface
-from xl.gui import library as librarygui
-import sys, md5, gobject, random
-import thread, threading, urllib
-import xl.db, time
-from xl.db import DBOperationalError
+import md5, os, random, re, threading, time, traceback
 from gettext import gettext as _
+import gobject, gtk
+from xl import common, media, db, audioscrobbler, xlmisc, dbusinterface
+from xl.db import DBOperationalError
+from xl.gui import library as librarygui
 
 try:    
     import DiscID, CDDB

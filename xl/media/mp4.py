@@ -16,6 +16,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+from xl import xlmisc
+
 try:
     from mutagen.mp4 import MP4 as MP4
 except ImportError:
@@ -55,17 +57,17 @@ def fill_tag_from_path(tr):
     tr.year = get_tag(f, 'day')
 
 def write_tag(tr):
-    f = MP4(self.io_loc)
+    f = MP4(tr.io_loc)
 
     try:
-        f['trkn'] = (int(self.track), f['trkn'][1])
-        f['disk'] = (int(self.disc_id), f['disk'][1])
+        f['trkn'] = (int(tr.track), f['trkn'][1])
+        f['disk'] = (int(tr.disc_id), f['disk'][1])
     except:
         xlmisc.log_exception()
 
-    set_tag(f, 'nam', self.title)
-    set_tag(f, 'ART', self.artist)
-    set_tag(f, 'alb', self.album)
-    set_tag(f, 'gen', self.genre)
+    set_tag(f, 'nam', tr.title)
+    set_tag(f, 'ART', tr.artist)
+    set_tag(f, 'alb', tr.album)
+    set_tag(f, 'gen', tr.genre)
 
     f.save()

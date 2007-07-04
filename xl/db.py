@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import sys, threading, re, os, fileinput, traceback, xlmisc
+import threading, re, os, traceback, xlmisc
 import tempfile
 import shutil
 try:
@@ -29,7 +29,6 @@ except ImportError:
 
 #sqlite.enable_shared_cache(True)
 
-from traceback import print_exc
 import gobject
 
 class DBOperationalError(Exception):

@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
-import re, os, cgi, time, urllib, sys
-import os.path
+import re, os, urllib, sys
 plugin_re = re.compile(r'<a class="file" title="View File" href=".*?">([-\w]+.py)</a>', re.DOTALL|re.MULTILINE)
 
 if len(sys.argv) != 2:

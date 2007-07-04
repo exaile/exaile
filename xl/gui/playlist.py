@@ -14,14 +14,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import sys, os, re, random, fileinput
-from xl import xlmisc, common, library, burn, media
-from xl import library
-import copy, time, urllib
+import os, re, urllib
 from gettext import gettext as _, ngettext
 import pygtk
 pygtk.require('2.0')
 import gtk, pango
+from xl import xlmisc, common, library, burn, media
 import editor, information
 
 # creates the rating images for the caller

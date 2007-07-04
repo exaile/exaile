@@ -1381,12 +1381,13 @@ class DragTreeView(gtk.TreeView):
 PLAYLIST_EXTS = []
 
 class PlaylistParser(object):
-    def __init__(self,name):
-
+    def __init__(self, name, url=None):
         self.name = name
         self.url = []
 
-    def add_url(self,url, title=None, album=''):
+        self.parse_file(url)
+
+    def add_url(self, url, title=None, album=''):
         if not title: title=url
         try: 
             url = list(urlparse.urlsplit(url))
@@ -1409,115 +1410,88 @@ class PlaylistParser(object):
     def get_full(self):
         return [urlparse.urlunsplit(u) for u in self.url]
 
-
     def get_name(self):
         return self.name
 
-    def parse_file(self,filename):
+    def parse_file(self, url):
+        f = urllib.urlopen(url)
+        try:
+            return self._do_parse_file(f)
+        finally:
+            try:
+                f.close()
+            except:
+                pass
+
+    def _do_parse_file(self, file):
         raise NotImplementedError
+
+    def _get_url_from_path(self, basedir, s):
+        if not urlparse.urlsplit(s)[0]: # no scheme --> local path
+            if not os.path.isabs(s): # relative path
+                s = os.path.join(basedir, s)
+            s = 'file://' + urllib.quote(s)
+        return s
 
 class M3UParser(PlaylistParser):
     PLAYLIST_EXTS.append('.m3u')
-    R = re.compile(r'#EXTINF:\d+,(.*?)[\r\n]+(.*?)[\r\n]+', re.DOTALL) 
-    def __init__(self,name,filename = None):
-        super(M3UParser,self).__init__(name)
-        if filename:
-            self.parse_file(filename)
+    REGEX = re.compile(r'#EXTINF:\d+,(.*?)[\r\n]+(.*?)[\r\n]+', re.DOTALL) 
 
-    def parse_file(self,filename):
+    def _do_parse_file(self, file):
+        # Read first line to see if this is extended M3U.
+        firstline = file.readline()
+        if firstline.strip() == "#EXTM3U":
+            return self._do_parse_extended(file)
 
-        file = urllib.urlopen(filename)
-        line = file.readline()
-        if line.strip() == "#EXTM3U":
-            return self.parse_m3u(file)
-        file = urllib.urlopen(filename)
-
-        for line in file.readlines():
+        basedir = os.path.dirname(file.url)
+        for line in [firstline] + file.readlines():
             line = line.strip()
-            if not line or line[0] == "#": continue
-            if urlparse.urlsplit(line)[0]:
-                url = line
-            else:
-                if os.path.isabs(line):
-                    url = line
-                else: # relative path
-                    url = os.path.dirname(filename) + os.path.sep + line
-                url = 'file://' + urllib.quote(url)
+            if line and line[0] == "#":
+                url = self._get_url_from_path(basedir, line)
+                self.add_url()
 
-            self.add_url(url)
         return True
 
-    def parse_m3u(self, file):
+    def _do_parse_extended(self, file):
         data = file.read()
-        items = self.R.findall(data)
+        items = self.REGEX.findall(data)
         if items:
+            basedir = os.path.dirname(file.url)
             for item in items:
-                rg = item[1]
-                if urlparse.urlsplit(rg)[0]:
-                    url = rg
-                else:
-                    if os.path.isabs(rg):
-                        url = rg
-                    else: # relative path
-                        url = os.path.dirname(filename) + os.path.sep + rg
-
-                    url = 'file://' + urllib.quote(url)
+                url = self._get_url_from_path(basedir, item[1])
                 self.add_url(url, title=item[0], album=url)
 
         return True
 
 class PlsParser(PlaylistParser):
     PLAYLIST_EXTS.append('.pls')
-    R = re.compile(r'[fF]ile(\d+)=(.*?)\n[tT]itle(\1)=(.*?)\n', re.DOTALL)
-    def __init__(self,name,filename = None):
-        super(PlsParser,self).__init__(name)
-        if filename:
-            self.parse_file(filename)
+    REGEX = re.compile(r'[fF]ile(\d+)=(.*?)\n[tT]itle(\1)=(.*?)\n', re.DOTALL)
 
-    def parse_file(self,filename):
-
-        (path,file) = os.path.split(filename)
-        data = urllib.urlopen(filename).read()
-        items = self.R.findall(data)
+    def _do_parse_file(self, file):
+        data = file.read()
+        items = self.REGEX.findall(data)
 
         if items:
+            basedir = os.path.dirname(file.url)
             for item in items:
-                rg = item[1]
-                if urlparse.urlsplit(rg)[0]:
-                    url = rg
-                else:
-                    if os.path.isabs(rg):
-                        url = rg
-                    else: # relative path
-                        url = os.path.dirname(filename) + os.path.sep + rg
-                    url = 'file://' + urllib.quote(url)
+                url = self._get_url_from_path(basedir, item[1])
                 self.add_url(url, title=url, album=item[3])
 
         return True
    
 class ASXParser(PlaylistParser):
     PLAYLIST_EXTS.append('.asx')
-
-    ASX_REGEX = re.compile(r'''<ref\s+href\s*=\s*(['"])(.*?)\1''',
+    REGEX = re.compile(r'''<ref\s+href\s*=\s*(['"])(.*?)\1''',
         re.DOTALL | re.IGNORECASE | re.MULTILINE)
 
-    def __init__(self, name, filename=None):
-        super(ASXParser, self).__init__(name)
-        if filename:
-            self.parse_file(filename)
+    def _do_parse_file(self, file):
+        data = file.read()
+        items = self.REGEX.findall(data)
 
-    def parse_file(self, filename):
-        (path, file) = os.path.split(filename)
-        file = urllib.urlopen(filename)
-
-        for line in file.readlines():
-            line = line.strip()
-            m = self.ASX_REGEX.search(line)
-            if m:
-                url = m.group(2)
-                if not urlparse.urlsplit(url)[0]:
-                    if not os.path.isabs(url):
-                        url = os.path.dirname(filename) + os.path.sep + url
-                    url = "file://" + urllib.quote(url)
+        if items:
+            basedir = os.path.dirname(file.url)
+            for item in items:
+                url = self._get_url_from_path(basedir, item[1])
                 self.add_url(url)
+
         return True

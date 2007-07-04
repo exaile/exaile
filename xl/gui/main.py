@@ -19,7 +19,7 @@ import pygtk, pygst
 pygtk.require('2.0')
 pygst.require('0.10')
 
-import gtk, gobject, gettext, os, sys, dbus, thread, pango, gtk.glade
+import gtk, gobject, os, sys, dbus, thread, pango, gtk.glade
 import xl.dbusinterface, time
 from gettext import gettext as _
 from xl import library, media, audioscrobbler, equalizer, burn, common

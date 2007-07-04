@@ -16,7 +16,7 @@
 
 import gtk
 from gettext import gettext as _
-from xl import xlmisc
+from xl import common, xlmisc
 
 class LibraryDialog(object):
     """
@@ -125,7 +125,7 @@ class LibraryDialog(object):
                     return
                 elif item.startswith(path):
                     # our added path encompasses some previously added directories
-                    log('LibraryManager: Newly added directory contains' 
+                    xlmisc.log('LibraryManager: Newly added directory contains' 
                         'the directory %s, which will be removed from' 
                         'the list' % (item,))
                     self.items.remove(item)

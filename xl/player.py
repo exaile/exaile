@@ -16,12 +16,11 @@
 
 import pygst, gtk
 pygst.require('0.10')
-import gst, gobject, random, time, urllib, urllib2, re, os, md5
+import gst, gobject, random, time, re, os, md5
 import thread
 from gettext import gettext as _
 from xl import xlmisc, common, media, library
 from xl.gui import playlist as playlistgui
-import threading
 random.seed(time.time())
 
 ASX_REGEX = re.compile(r'href ?= ?([\'"])(.*?)\1', re.DOTALL|re.MULTILINE)

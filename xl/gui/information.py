@@ -15,9 +15,9 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import gtk, urllib, gtk.glade, pango, re, md5, os
-from xl import common, library, xlmisc
-from urllib import urlencode
 from gettext import gettext as _
+#from urllib import urlencode
+from xl import library, xlmisc
 
 def update_info(nb, track):
     """

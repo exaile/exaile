@@ -69,10 +69,7 @@ class EqualizerWindow(object):
             Gets all widgets from the glade definition file
         """
         xml = self.xml
-        self.scales = [xml.get_widget('eq_scale01'), xml.get_widget('eq_scale02'), xml.get_widget('eq_scale03'),
-                 xml.get_widget('eq_scale04'), xml.get_widget('eq_scale05'), xml.get_widget('eq_scale06'), 
-                 xml.get_widget('eq_scale07'), xml.get_widget('eq_scale08'), xml.get_widget('eq_scale09'), 
-                 xml.get_widget('eq_scale10')]
+        self.scales = [xml.get_widget('eq_scale%02d' % i) for i in xrange(1, 11)]
         self.close = xml.get_widget('eq_close_button')
         self.preset_chooser = xml.get_widget('eq_preset_combobox')
         self.save = xml.get_widget('eq_save_button')
@@ -260,11 +257,11 @@ class PresetImport(object):
         self.filechooser_btn.connect("selection-changed", self.enable_import)
 
         filter = gtk.FileFilter()
-        filter.set_name("Winamp EQF files")
+        filter.set_name(_("Winamp EQF files"))
         filter.add_pattern("*.eqf")
         self.filechooser_btn.add_filter(filter)
         filter = gtk.FileFilter()
-        filter.set_name("All files")
+        filter.set_name(_("All files"))
         filter.add_pattern("*")
         self.filechooser_btn.add_filter(filter)
         self.filechooser_btn.set_current_folder(os.getenv('HOME'))
@@ -279,7 +276,7 @@ class PresetImport(object):
         name = self.name_widget.get_text()
         filename = self.filechooser_btn.get_filename()
 
-        if (name != "" and filename != None):
+        if (name and filename is not None):
             self.import_btn.set_sensitive(True)
         else:
             self.import_btn.set_sensitive(False)
@@ -312,7 +309,7 @@ class PresetImport(object):
         f = open(filename, 'rb')
         header = f.read(31)
 
-        if header[0:27] == 'Winamp EQ library file v1.1':
+        if header.startswith('Winamp EQ library file v1.1'):
             tmp = f.read(257) # this contains the name - seems to be some problem with this
             b = f.read(11)
 
@@ -376,9 +373,4 @@ class PresetSave(object):
 
     def enable_save(self, *e):
         name = self.name_widget.get_text()
-        
-        if (name != ""):
-            self.save_btn.set_sensitive(True)
-        else:
-            self.save_btn.set_sensitive(False)
-
+        self.save_btn.set_sensitive(bool(name))

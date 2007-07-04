@@ -16,9 +16,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import pygtk, manager
+import pygtk
 pygtk.require('2.0')
-import gtk, pango, gtk.glade, gobject, sys, os, plugins, urllib, re
+import gtk, gtk.glade, gobject, sys, os, plugins, urllib, re
 from xl import common, xlmisc
 from gettext import gettext as _
 
@@ -185,7 +185,7 @@ class PluginManager(object):
                     gobject.idle_add(self.manager.initialize_plugin, download_dir, file, enabled_plugins, False)
                     files.append(file)
                 except Exception, e:
-                    model.set_value(iter, 5, False)
+                    self.model.set_value(iter, 5, False)
                     gobject.idle_add(common.error, self.parent, _("%(plugin)s could "
                         "not be installed: %(exception)s") % 
                         {

@@ -15,7 +15,8 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 from gettext import gettext as _
-import locale, os, gtk, urllib, re
+import locale, os, re, urllib
+import gobject, gtk
 from xl import common, xlmisc, media, library
 locale.setlocale(locale.LC_ALL, '')
 

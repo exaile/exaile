@@ -17,6 +17,16 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import sys
+
+if sys.platform == 'linux2':
+    # Set process name.  Only works on Linux >= 2.1.57.
+    try:
+        import dl
+        libc = dl.open('/lib/libc.so.6')
+        libc.call('prctl', 15, 'exaile\0', 0, 0, 0) # 15 is PR_SET_NAME
+    except:
+        pass
+
 import gobject
 gobject.threads_init()
 
@@ -41,7 +51,7 @@ if '--version' in sys.argv:
 import os.path
 
 import pygtk
-pygtk.require('2.0')
+pygtk.require('2.0') # Must be before 'import gtk'
 import gtk
 
 ## Find out the location of exaile's working directory, and go there

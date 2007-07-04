@@ -26,6 +26,7 @@ from gettext import gettext as _
 import pygtk
 pygtk.require('2.0')
 import gtk, gobject, pango
+import cairo
 from gtk.gdk import SCROLL_LEFT, SCROLL_RIGHT, SCROLL_UP, SCROLL_DOWN
 
 try:
@@ -1133,14 +1134,23 @@ class OSDWindow(object):
         self.__timeout = None
         self.start_timer = start_timer
 
-        color = gtk.gdk.color_parse(settings['osd/bgcolor'])
+        self.color = gtk.gdk.color_parse(settings['osd/bgcolor'])
         self.settings = settings
+
+        screen = self.window.get_screen()
+        if screen.is_composited():
+            self.window.set_colormap(screen.get_rgba_colormap())
+            self.window.set_app_paintable(True)
+            self.window.connect("expose-event", self.expose_callback)
+        else: # Just set the background color in the old fashioned way
+            self.window.modify_bg(gtk.STATE_NORMAL, self.color)
+
         self.event = self.xml.get_widget('popup_event_box')
         self.box = self.xml.get_widget('image_box')
-        self.window.modify_bg(gtk.STATE_NORMAL, color)
         self.title = self.xml.get_widget('popup_title_label')
 
         self.window.set_size_request(settings['osd/w'], settings['osd/h'])
+
         self.cover = ImageWidget()
         self.box.pack_start(self.cover, False, False)
         self.window.move(settings['osd/x'], settings['osd/y'])
@@ -1148,6 +1158,22 @@ class OSDWindow(object):
         self.event.connect('button_press_event', self.start_dragging)
         self.event.connect('button_release_event', self.stop_dragging)
         self.__handler = None
+
+    def expose_callback(self, widget, event):
+        cr = widget.window.cairo_create()
+        cr.set_operator(cairo.OPERATOR_SOURCE)
+
+        cr.rectangle(event.area.x, event.area.y,
+            event.area.width, event.area.height)
+        cr.clip()
+
+        color = self.color
+        translucency = 100 - self.settings['osd/opacity']
+        cr.set_source_rgba(color.red / 65535.0, color.green / 65535.0,
+            color.blue / 65535.0, translucency / 100.0)
+        cr.paint()
+
+        return False
 
     def start_dragging(self, widget, event):
         """
@@ -1258,6 +1284,7 @@ def get_osd_settings(settings):
         'Sans 10')
     info['osd/text_color'] = settings.get_str('osd/text_color',
         '#ffffff')
+    info['osd/opacity'] = settings.get_int('osd/opacity', 75)
 
     return info
 

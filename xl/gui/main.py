@@ -183,7 +183,10 @@ class ExaileWindow(gobject.GObject):
         enabled_plugins = []
         for k, v in self.settings.get_plugins().iteritems():
             if v:
-                enabled_plugins.append("%s.py" % k)
+                if k.endswith(".exz"):
+                    enabled_plugins.append(k)
+                else:
+                    enabled_plugins.append("%s.py" % k)
 
         self.pmanager.load_plugins("%s%splugins" % (self.settings_dir, os.sep),
             enabled_plugins)

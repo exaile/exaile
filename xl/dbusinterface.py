@@ -64,7 +64,7 @@ class DBusInterfaceObject(dbus.service.Object):
         """
             Jumps to the previous track
         """
-        self.exaile.on_previous()
+        self.exaile.player.previous()
 
 
     @dbus.service.method("org.exaile.DBusInterface")
@@ -72,28 +72,28 @@ class DBusInterfaceObject(dbus.service.Object):
         """
             Stops playback
         """
-        self.exaile.stop()
+        self.exaile.player.stop()
 
     @dbus.service.method("org.exaile.DBusInterface")
     def next_track(self):
         """
             Jumps to the next track
         """
-        self.exaile.on_next()
+        self.exaile.player.next()
 
     @dbus.service.method("org.exaile.DBusInterface")
     def play(self):
         """
             Starts playback
         """
-        self.exaile.play()
+        self.exaile.player.play()
 
     @dbus.service.method("org.exaile.DBusInterface")
     def play_pause(self):
         """
             Toggle Play or Pause
         """
-        self.exaile.toggle_pause()
+        self.exaile.player.toggle_pause()
 
     @dbus.service.method("org.exaile.DBusInterface", None, "s")
     def query(self):

@@ -14,13 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import os, re, traceback, sys, plugins
-
-try:
-    # setuptools is optional
-    import pkg_resources
-except ImportError:
-    pkg_resources = None
+import os, re, traceback, sys, plugins, zipimport
 
 class Manager(object):
     """
@@ -41,55 +35,37 @@ class Manager(object):
         """
         if not os.path.isdir(dir): return
         for file in os.listdir(dir):
-            if file.endswith('.py'):
+            if file.endswith('.py') or file.endswith('.exz'):
                 self.initialize_plugin(dir, file, enabled)
 
-        # load egg files
-        if pkg_resources:
-            pkg_env = pkg_resources.Environment([dir])
-            print "Checking in %s for egg plugins" % dir
-            print pkg_env
-            for name in pkg_env:
-                print name
-                egg = pkg_env[name][0]
-                for n in egg.get_entry_map('exaile.plugins'):
-                    p = None
-                    try:
-                        egg.activate()
-                        entry_point = egg.get_entry_info('exaile.plugins', n)
-                        plugin = entry_point.load()
-                    
-                        if plugin.PLUGIN_NAME in self.loaded: continue
-                        self.loaded.append(plugin.PLUGIN_NAME)
-                        print "Plugins '%s' version '%s' loaded successfully" % \
-                            (plugin.PLUGIN_NAME, plugin.PLUGIN_VERSION)
-                    
-                        plugin.FILE_NAME = entry_point.module_name
-                        plugin.APP = self.app
-                        file = entry_point.module_name
-                        p = plugin()
-
-                        if file in enabled or plugin.PLUGIN_ENABLED:
-                            p.initialize()
-                            plugin.PLUGIN_ENABLED = True
-                        self.plugins.append(p)
-                    except plugins.PluginInitException, e:
-                        if p: self.plugins.append(p)
-                    except Exception, e:
-                        print "Failed to load plugin"
-                        traceback.print_exc()
+    def import_zip(self, dir, file):
+        modname = file.replace('.exz', '')
+        zip = zipimport.zipimporter(os.path.join(dir, file))
+        plugin = zip.load_module(modname)
+        plugin.ZIP = zip
+        if hasattr(plugin, 'load_data'):
+            plugin.load_data(zip)
+            
+        return plugin
 
     def initialize_plugin(self, dir, file, enabled=None, upgrading=False):
         try:
-            oldpath = sys.path
-            try:
-                sys.path.insert(0, dir)
-                plugin = __import__(re.sub('\.pyc?$', '', file))
-            finally:
-                sys.path = oldpath
+            if file.endswith('.exz'):
+                plugin = self.import_zip(dir, file)
+                if not plugin: return
+            else:
+                oldpath = sys.path
+                try:
+                    sys.path.insert(0, dir)
+                    plugin = __import__(re.sub('\.pyc?$', '', file))
+                finally:
+                    sys.path = oldpath
 
             if not hasattr(plugin, "PLUGIN_NAME"):
                 return
+
+            if not hasattr(plugin, "PLUGIN_ENABLED"):
+                plugin.PLUGIN_ENABLED = False
 
             if plugin.PLUGIN_NAME in self.loaded and upgrading: return
             if not upgrading:
@@ -119,18 +95,3 @@ class Manager(object):
         except Exception, e:
             print "Failed to load plugin"
             traceback.print_exc()
-
-    def fire_event(self, event):
-        """
-            Fires an event to all plugins
-        """
-        check = True
-        for plugin in self.plugins:
-            if not plugin.PLUGIN_ENABLED: continue
-            for method, args in event.calls.iteritems():
-                if not hasattr(plugin, method): continue
-                func = getattr(plugin, method)
-                if func and callable(func):
-                    if not func(*args):
-                        check = False
-        return check

@@ -297,6 +297,9 @@ class DevicePanel(collection.CollectionPanel):
         """
             Adds to the device transfer queue
         """
+        if hasattr(self.driver, 'check_transfer_items'):
+            if not self.driver.check_transfer_items(items):
+                return
         if not hasattr(self.driver, 'put_item'):
             common.error(self.exaile.window, _("The current device "
                 " does not support transferring music."))

@@ -84,9 +84,10 @@ class Manager(object):
             print "Plugins '%s' version '%s' loaded successfully" % \
                 (plugin.PLUGIN_NAME, plugin.PLUGIN_VERSION)
 
-            plugin.FILE_NAME = file
+            plugin.FILE_NAME = file.replace('.exz', '.py')
             plugin.APP = self.app
-            
+           
+            file = file.replace('.exz', '.py')
             if (enabled is None or file in enabled) or plugin.PLUGIN_ENABLED:
                 if plugin.initialize():
                     plugin.PLUGIN_ENABLED = True

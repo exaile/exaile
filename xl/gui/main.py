@@ -184,7 +184,7 @@ class ExaileWindow(gobject.GObject):
         for k, v in self.settings.get_plugins().iteritems():
             if v:
                 if k.endswith(".exz"):
-                    enabled_plugins.append(k)
+                    enabled_plugins.append(k.replace('.exz', '.py'))
                 else:
                     enabled_plugins.append("%s.py" % k)
 
@@ -262,7 +262,7 @@ class ExaileWindow(gobject.GObject):
         if __version__.find('svn') > -1:
             return 'trunk'
         else:
-            return 'branch/%s' % __version__
+            return __version__
 
     def start_scan_interval(self, value):
         """
@@ -574,7 +574,7 @@ class ExaileWindow(gobject.GObject):
         """
         manager = plugins.gui.PluginManager(self, self.window, self.pmanager,
             self.update_plugin,
-            'http://www.exaile.org/plugins/plugins.py?version=%s' %
+            'http://www.exaile.org/files/plugins/%s/plugin_info.txt' %
             self.get_plugin_location())
 
     def update_plugin(self, plugin):

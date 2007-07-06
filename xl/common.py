@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
+from gettext import gettext as _
 import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade
@@ -386,3 +386,37 @@ def yes_no_dialog(parent, message):
     result = dialog.run()
     dialog.destroy()
     return result
+
+class ShowOnceMessageDialog(gtk.Dialog):
+    def __init__(self, title, parent, message, checked=True):
+        gtk.Dialog.__init__(self, title, parent)
+
+        vbox = gtk.VBox()
+        vbox.set_border_width(5)
+        vbox.set_spacing(3)
+        self.vbox.pack_start(vbox, True, True)
+
+        top = gtk.HBox()
+        top.set_border_width(3)
+        top.set_spacing(5)
+        top.pack_start(gtk.image_new_from_stock(gtk.STOCK_DIALOG_WARNING,
+            gtk.ICON_SIZE_DIALOG), False, False)
+        label = gtk.Label()
+        label.set_markup('<b>%s</b>' % message)
+        label.set_alignment(0.0, 0.5)
+        top.pack_start(label, True, True)
+
+        vbox.pack_start(top, True, True)
+
+        self.box = gtk.CheckButton(_('Do not show this dialog again'))
+        self.box.set_active(checked)
+        vbox.pack_start(self.box)
+
+        self.add_buttons(gtk.STOCK_OK, gtk.RESPONSE_OK)
+
+    def run(self):
+        self.show_all()
+        result = gtk.Dialog.run(self)
+        self.hide()
+        return self.box.get_active()
+

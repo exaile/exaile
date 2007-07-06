@@ -17,7 +17,7 @@
 import gtk, urllib, gtk.glade, pango, re, md5, os
 from gettext import gettext as _
 #from urllib import urlencode
-from xl import library, xlmisc
+from xl import library, xlmisc, common
 
 def update_info(nb, track):
     """
@@ -340,11 +340,26 @@ class TrackInformation(gtk.Notebook):
                 gtk.Label(_("Album")))
             self.append_page(LyricsTab(self.exaile, self, track),
                 gtk.Label(_("Lyrics")))
-            self.append_page(TablatureTab(self, track),
-                gtk.Label(_("Tablature")))
+
         else:
+            if self.exaile.settings.get_boolean('ui/gnome_extras_warning',
+                True):
+                dialog = common.ShowOnceMessageDialog(_('Warning'),
+                    self.exaile.window, 
+                    _('You do not have python-gnome2-extras '
+                    'installed.\nYou will need to install this '
+                    'package to use the "Artist", \n"Album", and '
+                    '"Lyrics" tabs'), checked=True)
+
+                result = dialog.run()
+                self.exaile.settings.set_boolean('ui/gnome_extras_warning',
+                    not result)
+
             xlmisc.log("gnome-extras not available.  Showing basic"
                        " track information only")
+
+        self.append_page(TablatureTab(self, track),
+            gtk.Label(_("Tablature")))
         self.show_all()
 
     def close_page(self):

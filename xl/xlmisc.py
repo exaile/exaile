@@ -31,7 +31,6 @@ from gtk.gdk import SCROLL_LEFT, SCROLL_RIGHT, SCROLL_UP, SCROLL_DOWN
 try:
     from xl import mozembed
 except ImportError:
-    traceback.print_exc()
     mozembed = None
 
 USE_TRAY = None

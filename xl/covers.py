@@ -288,18 +288,21 @@ class CoverEventBox(gtk.EventBox):
         """
             Called when the cover is clicked on
         """
+        track = self.exaile.player.current
+        if not track:
+            return
+
         if event.type == gtk.gdk._2BUTTON_PRESS:
-            if 'nocover' in self.exaile.cover.loc: return
-            track = self.exaile.player.current
-            
-            CoverWindow(self.exaile.window, self.exaile.cover.loc,
-                _("%(album)s by %(artist)s") %
-                {
-                    'album': track.album,
-                    'artist': track.artist
-                })
+            if 'nocover' in self.exaile.cover.loc:
+                CoverFrame(self.exaile, track)
+            else:
+                CoverWindow(self.exaile.window, self.exaile.cover.loc,
+                    _("%(album)s by %(artist)s") %
+                    {
+                        'album': track.album,
+                        'artist': track.artist
+                    })
         elif event.button == 3:
-            if not self.exaile.player.current: return
             self.cover_menu.popup(None, None, None, 
                 event.button, event.time)
 

@@ -146,7 +146,17 @@ class DBusInterfaceObject(dbus.service.Object):
         if not self.exaile.player.current:
             return ""
         return self.exaile.player.current.length
-
+    
+    @dbus.service.method("org.exaile.DBusInterface", "s", "s")
+    def get_track_attr(self, attr):
+        """
+            Attempts to return the specificed attribute of the 
+            playing track, returns '' on failure.
+        """
+        try:
+            return str(getattr(self.exaile.player.current, attr))
+        except:
+            return ''
 
     @dbus.service.method("org.exaile.DBusInterface", None, "y")
     def current_position(self):

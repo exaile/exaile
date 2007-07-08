@@ -10,7 +10,7 @@ Architecture: any
 Depends: gstreamer0.10-plugins-good, python-gst0.10, python, 
  python-gtk2, python-glade2, python-dbus, python-pyvorbis,
  python-mutagen, python-pysqlite2 | python (>= 2.5), 
- python-elementtree | python (>= 2.5), gstreamer-0.10-plugins-base
+ python-elementtree | python (>= 2.5), gstreamer0.10-plugins-base
 Recommends: python-gnome-extras, python-cddb, sexy-python, 
  gstreamer0.10-gnomevfs
 Suggests: gstreamer0.10-plugins-bad, gstreamer0.10-plugins-ugly

@@ -37,7 +37,6 @@ class DBusInterfaceObject(dbus.service.Object):
         dbus.service.Object.__init__(self, bus_name, object_path)
         self.exaile = exaile
 
-
     @dbus.service.method("org.exaile.DBusInterface", "s")
     def play_file(self, filename):
         """
@@ -48,8 +47,8 @@ class DBusInterfaceObject(dbus.service.Object):
         import xlmisc
         if common.any(filename.endswith(ext) for ext in xlmisc.PLAYLIST_EXTS):
             self.exaile.import_playlist(filename, True)
-        else: self.exaile.stream(filename)
-
+        else:
+            self.exaile.stream(filename)
 
     @dbus.service.method("org.exaile.DBusInterface", "s")
     def test_service(self, arg):
@@ -58,14 +57,12 @@ class DBusInterfaceObject(dbus.service.Object):
         """
         print arg
 
-
     @dbus.service.method("org.exaile.DBusInterface")
     def prev_track(self):
         """
             Jumps to the previous track
         """
         self.exaile.player.previous()
-
 
     @dbus.service.method("org.exaile.DBusInterface")
     def stop(self):
@@ -151,12 +148,12 @@ class DBusInterfaceObject(dbus.service.Object):
     def get_track_attr(self, attr):
         """
             Attempts to return the specificed attribute of the 
-            playing track, returns '' on failure.
+            playing track, returns empty string on failure.
         """
-        try:
-            return str(getattr(self.exaile.player.current, attr))
-        except:
-            return ''
+        value = getattr(self.exaile.player.current, attr, None)
+        if value:
+            return unicode(value)
+        return u''
 
     @dbus.service.method("org.exaile.DBusInterface", None, "y")
     def current_position(self):
@@ -258,27 +255,27 @@ def test(p):
                 do_exit = False
 
                 if options.get_title:
-                    print iface.get_title().encode("utf-8")
+                    print iface.get_title()
                     do_exit = True
                 if options.get_artist:
-                    print iface.get_artist().encode("utf-8")
+                    print iface.get_artist()
                     do_exit = True
                 if options.get_album:
-                    print iface.get_album().encode("utf-8")
+                    print iface.get_album()
                     do_exit = True
                 if options.show_version:
-                    print iface.get_version().encode("utf-8")
+                    print iface.get_version()
                     do_exit = True
                     sys.exit(0)
                 if options.get_length:
-                    print iface.get_length().encode("utf-8")
+                    print iface.get_length()
                     do_exit = True
                 if options.current_position:
-                    print iface.current_position().encode("utf-8")
+                    print iface.current_position()
                     do_exit = True
 
                 if options.get_rating:
-                    print iface.get_rating().encode("utf-8")
+                    print iface.get_rating()
                     do_exit = True
 
                 if options.next: iface.next_track()
@@ -287,7 +284,6 @@ def test(p):
                 elif options.play: iface.play()
                 elif options.play_pause: iface.play_pause()
                 elif options.guiquery: iface.popup()
-                elif options.stream: iface.play_file(options.stream)
                 elif options.playcd: iface.play_cd()
 
                 elif options.rating is not None:
@@ -298,10 +294,8 @@ def test(p):
                 elif options.dec_vol:
                     iface.decrease_volume(options.dec_vol)
                 elif options.query:
-
                     print iface.query()
-                    #if track == None: print "status: stopped"
-                    #else: print track.full_status()
+
                 elif len(sys.argv) > 1 and not sys.argv[1].startswith("-") and \
                     not do_exit:
                     iface.play_file(sys.argv[1])
@@ -322,7 +316,7 @@ def get_options():
     """
         Get the options for exaile
     """
-    usage = "usage: %prog [options]"
+    usage = "Usage: %prog [option...|uri]"
     p = OptionParser(usage=usage)
     p.add_option("-d", "--duplicates", dest="dups",
         metavar="DIR",
@@ -355,7 +349,6 @@ def get_options():
         type="int",metavar="VOL",help="Increases the volume by VOL")
     p.add_option("-l","--decrease_vol", dest="dec_vol",action="store",
         type="int",metavar="VOL",help="Decreases the volume by VOL")
-    p.add_option("--stream", dest="stream", help="Stream URL")
     p.add_option("--play-cd", dest="playcd", action="store_true",
         default=False, help="Start playing a CD")
     p.add_option("--new", dest="new", action="store_true",

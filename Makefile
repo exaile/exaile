@@ -7,7 +7,7 @@ all: compile mmkeys.so translations
 	@echo "Type: 'make install' now"
 
 compile:
-	python -m compileall xl lib
+	python -O -m compileall xl lib
 
 mmkeys.so:
 	cd mmkeys && make mmkeys.so && cd .. && cp mmkeys/mmkeys.so .

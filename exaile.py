@@ -158,7 +158,6 @@ def main():
 
 
         check_dirs()
-        if options.stream: sys.argv[1] = options.stream
         
         exaile = exailemain.ExaileWindow(SETTINGS_DIR, options, fr)
     else:

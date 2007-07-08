@@ -11,4 +11,4 @@ fi
 
 cd ${PROGRAM_DIR}
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/firefox
-exec python exaile.py "$@"
+exec python -O exaile.py "$@"

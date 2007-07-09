@@ -12,7 +12,6 @@ compile:
 mmkeys.so:
 	cd mmkeys && make mmkeys.so && cd .. && cp mmkeys/mmkeys.so .
 
-
 translations:
 	python po/createpot.py compile
 

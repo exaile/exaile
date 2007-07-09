@@ -812,6 +812,7 @@ class BrowserWindow(gtk.VBox):
         if not nostyles:
             top = gtk.HBox()
             top.set_spacing(3)
+
             self.back = gtk.Button()
             image = gtk.Image()
             image.set_from_stock('gtk-go-back', gtk.ICON_SIZE_SMALL_TOOLBAR)
@@ -828,6 +829,10 @@ class BrowserWindow(gtk.VBox):
             self.next.set_sensitive(False)
             top.pack_start(self.next, False, False)
 
+            w = gtk.Button(_("Open Browser"))
+            w.connect('clicked', self.on_open_browser)
+            top.pack_start(w, False, False)
+
             self.entry = gtk.Entry()
             self.entry.connect('activate', self.entry_activate)
             top.pack_start(self.entry, True, True)
@@ -835,6 +840,8 @@ class BrowserWindow(gtk.VBox):
 
         self.view = mozembed.MozClient()
         self.pack_start(self.view, True, True)
+        if not nostyles:
+            self.view.connect('location', self.on_location_change)
 
         self.show_all()
         finish()
@@ -875,6 +882,10 @@ class BrowserWindow(gtk.VBox):
         url = self.entry.get_text()
         self.load_url(url, self.action_count)
 
+    def on_location_change(self, mozembed):
+        # Only called when not self.nostyles
+        self.entry.set_text(mozembed.get_location())
+
     def on_next(self, widget):
         """
             Goes to the next entry in history
@@ -895,6 +906,15 @@ class BrowserWindow(gtk.VBox):
         if self.view.can_go_forward():
             self.next.set_sensitive(True)
 
+    def on_open_browser(self, button):
+        """
+            Opens the current URL in a new browser window (if possible).
+        """
+        # This method is rarely used, so we only do the import when we need to.
+        import webbrowser
+        # "new=1" is to request new window.
+        webbrowser.open(self.view.get_location(), new=1)
+
     def load_url(self, url, action_count, history=False):
         """
             Loads a URL, either from the cache, or from the website specified
@@ -907,25 +927,6 @@ class BrowserWindow(gtk.VBox):
             if not self.view.can_go_forward(): self.next.set_sensitive(False)
             self.entry.set_sensitive(True)
             self.entry.set_text(url)
-
-    def replace(self, match):
-        """
-            Finds out if it is a relative path and modifies it accordingly.
-            Called by the re.sub in PageLoaded
-        """
-        link = match.group(3)
-        if "://" not in link:
-            char = ""
-            if not link.startswith("/"): char = "/"
-            link = "%s://%s%s%s" % (self.protocol, self.server, char, link)
-        return "%s=%s%s%s" % (match.group(1), match.group(2), link,
-            match.group(2))
-
-    def link_clicked(self, mozembed, url):
-        """
-            Link clicked
-        """
-        return False
 
 class AboutDialog(gtk.Dialog):
     """

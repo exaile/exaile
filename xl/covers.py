@@ -280,8 +280,8 @@ class CoverEventBox(gtk.EventBox):
 
                 if track == self.exaile.player.current:
                     self.exaile.cover_manager.stop_cover_thread()
-                    self.exaile.exaile.cover.set_image(
-                        os.path.join(self.get_settings_dir(),
+                    self.exaile.cover.set_image(
+                        os.path.join(self.exaile.get_settings_dir(),
                         "covers", newname))
 
     def cover_clicked(self, widget, event):

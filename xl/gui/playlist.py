@@ -1014,6 +1014,16 @@ class TracksListCtrl(gtk.VBox):
 
         if not deleting or delete_confirmed:
             tracks = self.get_selected_tracks()
+            
+            # stores song before the first selected one so that it can be focused later
+            if (self.songs[0] != tracks[0]):
+                saved_song_iter = self.get_iter(self.get_previous_track(tracks[0]))
+                saved_song_tree_path = self.model.get_path(saved_song_iter)
+                scroll = True
+            else:
+                scroll = False
+
+            
             for track in tracks:
                 delete.append(track)
 
@@ -1084,8 +1094,12 @@ class TracksListCtrl(gtk.VBox):
                     error, _("The following errors did occur"))
             self.exaile.collection_panel.track_cache = dict()
             self.set_songs(self.songs)
+            
+            # move to old position
+            if scroll:
+                self.list.scroll_to_cell(saved_song_tree_path, use_align=True)
+
             if blacklisting: self.exaile.show_blacklist_manager(False)
-            self.exaile.on_search()
             if device_delete:
                 self.exaile.device_panel.remove_tracks(device_delete)
 

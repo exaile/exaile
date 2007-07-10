@@ -850,7 +850,6 @@ class BrowserWindow(gtk.VBox):
             ' information...') + '</b></body></html>', '')
         exaile.status.set_first(_('Loading page...'))
         self.view.connect('net-stop', self.on_net_stop)
-        self.view.connect('open-uri', self.link_clicked)
 
         self.cache_dir = os.path.join(exaile.get_settings_dir(), 'cache')
 
@@ -864,9 +863,6 @@ class BrowserWindow(gtk.VBox):
             Called when mozilla is done loading the page
         """
         self.exaile.status.set_first(None)
-        if self.nostyles: return
-        self.back.set_sensitive(self.view.can_go_back())
-        self.next.set_sensitive(self.view.can_go_forward())
 
     def set_text(self, text):
         """
@@ -885,26 +881,20 @@ class BrowserWindow(gtk.VBox):
     def on_location_change(self, mozembed):
         # Only called when not self.nostyles
         self.entry.set_text(mozembed.get_location())
+        self.back.set_sensitive(self.view.can_go_back())
+        self.next.set_sensitive(self.view.can_go_forward())
 
     def on_next(self, widget):
         """
             Goes to the next entry in history
         """
         self.view.go_forward()
-        if not self.view.can_go_forward():
-            self.next.set_sensitive(False)
-        if self.view.can_go_back():
-            self.back.set_sensitive(True)
             
     def on_back(self, widget):
         """
-            Previous entry
+            Goes to the previous entry in history
         """
         self.view.go_back()
-        if not self.view.can_go_back():
-            self.back.set_sensitive(False)
-        if self.view.can_go_forward():
-            self.next.set_sensitive(True)
 
     def on_open_browser(self, button):
         """

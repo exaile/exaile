@@ -101,6 +101,8 @@ class ExaileWindow(gobject.GObject):
         self.rewind_track = 0
         self.player = player.ExailePlayer(self)
         self.player.tag_func = self.tag_callback
+        self.importer = xl.cd_import.CDImporter(self)
+        self.audio_disc_page = None
 
         if self.settings.get_boolean("ui/use_splash", True):
             image = gtk.Image()
@@ -1126,20 +1128,12 @@ class ExaileWindow(gobject.GObject):
         attr.change(pango.AttrSize(12500, 0, 600))
         self.title_label.set_attributes(attr)
 
-        # set up the burn button, check for available burning programs
-        burn_button = self.xml.get_widget('burn_button')
-        burn_button.connect('clicked', self.on_burn_button_clicked)
-
         burnprogs = xl.burn.check_burn_progs()
         if not burnprogs:            
             xlmisc.log("A supported CD burning program was not found "
                     "in $PATH, disabling burning capabilities.")
-            burn_button.set_sensitive(False)
         else:
             pref = self.settings.get_str('burn_prog', burn.check_burn_progs()[0])
-
-    def on_burn_button_clicked(self, button):
-        xl.burn.launch_burner(self.settings.get_str('burn_prog', burn.check_burn_progs()[0]), self.tracks.songs)
 
     @common.synchronized
     def new_page(self, title=_("Playlist"), songs=None, set_current=True,
@@ -1555,15 +1549,21 @@ class ExaileWindow(gobject.GObject):
 
     def open_disc(self, widget=None):
         """
-            Opens an audio disc
+            Opens an audio disc (only one tab allowed)
         """
         if not library.CDDB_AVAIL:
             common.error(self.window, _('You need the python-cddb package '
                 ' in order to play audio discs.'))
             return
+
+        for i in range(self.playlists_nb.get_n_pages()):
+            if self.playlists_nb.get_nth_page(i) == self.audio_disc_page:
+                self.playlists_nb.set_current_page(i)
+                return
+
         songs = library.read_audio_disc(self)
         if not songs: return
-        self.new_page(_("Audio Disc"), songs)
+        self.audio_disc_page = self.new_page(_("Audio Disc"), songs)
 
     def goto_current(self, *e): 
         """
@@ -1608,7 +1608,7 @@ class ExaileWindow(gobject.GObject):
         for i in range(self.playlists_nb.get_n_pages()):
             page = self.playlists_nb.get_nth_page(i)
             title = self.playlists_nb.get_tab_label(page).title
-            if page.type != 'track': continue
+            if page.type != 'track' or page == self.audio_disc_page: continue
             songs = page.songs
             self.playlist_manager.save_m3u(os.path.join(self.settings_dir, "saved",
                 "playlist%.4d.m3u" % i), songs, title)

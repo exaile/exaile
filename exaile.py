@@ -113,6 +113,9 @@ def first_run():
 
         Creates the settings directory, and, if necessary, creates the initial
         database file.
+
+        Also scans the default import directory in case there's any music files
+        there.
     """
     try:
         os.mkdir(SETTINGS_DIR)
@@ -170,7 +173,7 @@ if __name__ == "__main__":
         main()
     except SystemExit:
         raise
-    except BaseException:
+    except: # BaseException doesn't exist in python2.4
         import traceback
         traceback.print_exc()
         xlmisc.log_exception()

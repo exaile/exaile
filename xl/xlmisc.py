@@ -937,7 +937,6 @@ class AboutDialog(gtk.Dialog):
         self.dialog.run()
         self.dialog.destroy()
 
-
 class ImageWidget(gtk.Image):
     """
         Custom resizeable image widget

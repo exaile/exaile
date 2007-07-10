@@ -414,7 +414,8 @@ def get_cddb_info(songs, disc_info, exaile):
         songs[i].year = info['EXTD'].replace("YEAR: ", "")
         songs[i].genre = info['DGENRE']
 
-    songs = exaile.tracks.songs
+    #songs = exaile.tracks.songs
+    exaile.tracks.songs = songs
 
     gobject.idle_add(exaile.tracks.set_songs, songs)
 
@@ -442,6 +443,8 @@ def read_audio_disc(exaile):
         song = media.Track("cdda://%d" % tracknum, _("Track %d") % tracknum,
             track=tracknum, length=length)
         song.type = 'cd'
+        if not song.artist: song.artist = "Unknown Artist"
+        if not song.album: song.album = "Unknown Album"
         total += length
         songs.append(song)
 

@@ -859,8 +859,25 @@ class TracksListCtrl(gtk.VBox):
         em.append_menu(_("Rating"), rm)
         tpm.append_menu(ngettext("Edit Track", "Edit Tracks", n_selected), em,
             'gtk-edit')
-        bm = tpm.append(ngettext("Burn Track", "Burn Tracks", n_selected),
-            self.burn_selected, 'gtk-cdrom')
+
+        t = songs[0].type
+        if t != 'cd' and t != 'stream' and t != 'lastfm' and t != 'device':
+            bm = xlmisc.Menu()
+            bm.append(ngettext("Burn Selected Track", "Burn Selected Tracks",
+                n_selected), self.burn_selected, 'gtk-cdrom')
+            bm.append("Burn Playlist", self.burn_playlist, 'gtk-cdrom')
+            tpm.append_menu('Burn', bm, 'gtk-cdrom')
+            if not burn.check_burn_progs():
+                bm.set_sensitive(False)
+
+        if t == 'cd':
+            im = xlmisc.Menu()
+            im.append(ngettext("Import Selected Track",
+                "Import Selected Tracks", n_selected),
+                self.import_selected, 'gtk-cdrom')
+            im.append('Import CD', self.import_cd, 'gtk-cdrom')
+            tpm.append_menu('Import', im, 'gtk-cdrom')
+
         info = tpm.append(_("Information"), self.get_track_information,
             'gtk-info')
         tpm.append_separator()
@@ -914,10 +931,23 @@ class TracksListCtrl(gtk.VBox):
         track = self.get_selected_track()
         self.exaile.collection_panel.show_in_collection(track)
 
+    def burn_selected(self, widget, event):
+        burn.launch_burner(self.exaile.settings.get_str('burn_prog', burn.check_burn_progs()[0]), \
+            self.exaile.tracks.get_selected_tracks())
+
+    def burn_playlist(self, widget, event):
+        burn.launch_burner(self.exaile.settings.get_str('burn_prog', burn.check_burn_progs()[0]), \
+            self.songs)
+
+    def import_selected(self, widget, event):
+        self.exaile.importer.do_import(self.get_selected_tracks())
+
+    def import_cd(self, widget, event):
+        self.exaile.importer.do_import(self.songs)
+
     def send_lastfm_command(self, command):
         if self.exaile.player.lastfmsrc:
             self.exaile.player.lastfmsrc.control(command)
-
 
     def get_track_information(self, widget, event=None):
         """

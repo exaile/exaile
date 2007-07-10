@@ -43,6 +43,14 @@ class LibraryDialog(object):
         self.xml.get_widget('lm_apply_button').connect('clicked',
             self.on_apply)
 
+        import_location = self.exaile.settings.get_str('import/location', '')
+        lm_import_dir = self.xml.get_widget('lm_import_dir')
+        if import_location:
+            lm_import_dir.set_text(_('Import Directory:') 
+                + ' ' + import_location)
+        else:
+            lm_import_dir.hide()
+
         items = exaile.settings.get_list("search_paths", [])
         self.items = []
         for i in items:
@@ -91,6 +99,20 @@ class LibraryDialog(object):
         """
         item = self.list.get_selection()
         index = self.list.rows.index(item)
+        
+        import_dir = self.exaile.settings.get_str('import/location', '')
+        scan_import_dir = self.exaile.settings.get_boolean(\
+            'import/scan_import_dir', True)
+
+        if import_dir and not scan_import_dir:
+            # if scan_import_dir is false, it means that the import dir doesn't
+            # appear in this list at all, it is encompassed by another dir.
+            # so we check that, and re-add the import dir if necessary.
+            if import_dir.startswith(item):
+                self.list.append(import_dir)
+                self.addList.append(import_dir)
+                self.exaile.settings['import/scan_import_dir'] = True
+        
         self.removeList.append(item)
         self.list.remove(item)
         selection = self.list.list.get_selection()
@@ -111,26 +133,34 @@ class LibraryDialog(object):
         dialog.hide()
         if response == gtk.RESPONSE_OK:
             path = dialog.get_filename()
-            if path in self.items:
-                common.error(self.exaile.window, _('Path is already in '
-                    'your collection.'))
-                return
+            import_location = self.exaile.settings.get_str('import/location')
+            tmp_items = self.items + [import_location]
 
-            for item in self.items:
+            for item in tmp_items:
+                if not item: continue
                 if path.startswith(item):
                     # our added path is a subdir of an existing path
                     common.error(self.exaile.window, _('Path is already '
-                        'in your collection, or is a subdirectory of another '
-                        'path in your collection'))
+                        'in your collection, or is a subdirectory of '
+                        'another path in your collection'))
                     return
                 elif item.startswith(path):
-                    # our added path encompasses some previously added directories
-                    xlmisc.log('LibraryManager: Newly added directory contains' 
-                        'the directory %s, which will be removed from' 
-                        'the list' % (item,))
-                    self.items.remove(item)
-
+                    # path is a parent to some previously added directories
+                    if item == import_location:
+                        # we don't remove the import dir from the list.
+                        # instead we don't scan it anymore, since the
+                        # dir we are adding right now covers it
+                        self.exaile.settings['import/scan_import_dir'] = False
+                        continue
+                    else:
+                        xlmisc.log('LibraryManager: Newly added directory '
+                            'contains the directory %s, which will be '
+                            'removed from the list' % (item,))
+                        self.items.remove(item)
+                        self.list.remove(item)
+    
             self.addList.append(path)
+            self.items.append(path)
 	    self.list.append(path)
         dialog.destroy()
 

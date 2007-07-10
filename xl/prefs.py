@@ -14,7 +14,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import thread, os, shlex
+import thread, os, shlex, string
+import cd_import
 from gettext import gettext as _
 import pygtk, common
 pygtk.require('2.0')
@@ -260,6 +261,8 @@ class DirPrefsItem(PrefsItem):
             Sets the current directory
         """
         directory = settings.get_str(self.name, self.default)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
         self.widget.set_filename(directory)
 
     def apply(self):
@@ -319,6 +322,7 @@ class Preferences(object):
     items = ({_("General"):
                 (_("Library"),
                 _('Notification'),
+                _('Importing'),
                 _('Last.fm'),
                 _('Radio')),
             _("Advanced"):
@@ -409,11 +413,47 @@ class Preferences(object):
         self.fields = []
         self.osd_settings = xlmisc.get_osd_settings(self.exaile.settings)
            
+        # populate the import format combobox
+        import_format = xml.get_widget('prefs_import_format')
+        import_formats = cd_import.check_import_formats()
+        if import_formats:
+            pref = settings.get_str('import_format', import_formats[0])
+            for i, format in enumerate(import_formats):
+                import_format.append_text(format)
+                if format == pref:
+                    import_format.set_active(i)
+        else:
+            import_format.append_text('No suitable gstreamer plugins found')
+            import_format.set_active(0)
+            import_format.set_sensitive(False)
+
         self.text_display = PrefsTextViewItem('osd/display_text',
             TEXT_VIEW_DEFAULT, self.display_popup)
         self.fields.append(self.text_display)
         self.fields.append(ComboPrefsItem('ui/tab_placement',
             0, None, self.setup_tabs, use_index=True))
+
+        # trigger the toggle callback manually once to set up the right
+        # sensitivity for the pref widgets in 'Importing'
+        checkbox = xml.get_widget('prefs_import_use_custom')
+        checkbox.connect('toggled', self.use_custom_toggled)
+        self.use_custom_toggled(checkbox)
+
+        location_button = xml.get_widget('prefs_import_location_button')
+        location_entry = xml.get_widget('prefs_import_location')
+        location_button.connect('clicked', self.choose_location, location_entry)
+
+        # update the "example" label when values change
+        naming = xml.get_widget('prefs_import_naming')
+        naming.connect('changed', self.update_example)
+
+        # update the "bitrate" label when quality gets changed
+        quality = xml.get_widget('prefs_import_quality')
+        bitrate = xml.get_widget('prefs_import_bitrate')
+        quality.connect('changed', self.update_bitrate, bitrate)
+        import_format.connect('changed', self.update_bitrate, bitrate)
+        bitrate.set_no_show_all(True)
+        bitrate.hide()
 
         simple_settings = ({
             'ui/use_splash': (CheckPrefsItem, True),
@@ -448,6 +488,13 @@ class Preferences(object):
             'scan_interval': (FloatPrefsItem, 25, None,
                 self.setup_scan_interval),
             'download_feeds': (CheckPrefsItem, True),
+            'import/format': (ComboPrefsItem, 
+                (import_formats and import_formats[0]) or 'MP3'),
+            'import/quality': (ComboPrefsItem, "High"),
+            'import/location': (PrefsItem, '', None, self.import_location_changed),
+            'import/naming': (PrefsItem, '${artist}/${album}/${artist} - ${title}.${ext}'),
+            'import/use_custom': (CheckPrefsItem, False),
+            'import/custom': (PrefsItem, ''),
         })
 
         for setting, value in simple_settings.iteritems():
@@ -511,6 +558,73 @@ class Preferences(object):
         self.exaile.start_scan_interval(value)
         return True
 
+    def update_bitrate(self, widget, bitrate):
+        """
+            Update the bitrate label
+        """
+        quality = self.xml.get_widget('prefs_import_quality').get_active_text()
+        if not quality: return
+        quality_label = self.xml.get_widget('label122')
+        format = self.xml.get_widget('prefs_import_format').get_active_text()
+
+        bitrate.hide()
+        quality_label.set_text(_('Quality:'))
+
+        if format == "MP3":
+            bitrate.set_text(str(cd_import.formatdict[format][quality]) + \
+                " kbps")
+            bitrate.show()
+        elif format == "MP3 VBR":
+            bitrate.set_text(str(cd_import.formatdict[format][quality]) + \
+                _(" mean kbps"))
+            bitrate.show()
+        elif format == "Ogg Vorbis":
+            bitrate.set_text(str(cd_import.formatdict[format][quality]))
+            bitrate.show()
+        elif format == "FLAC":
+            quality_label.set_text(_('Compression Level:'))
+            
+        
+    def import_location_changed(self, widget):
+        """
+            Scan the new import location for new songs
+        """
+        items = self.exaile.settings.get_list('search_paths', '')
+        path = widget.get_text()
+
+        for item in items:
+            if path.startswith(item): 
+                # if the import location is a subdir of some existing library path
+                # don't scan the tracks since they already are in the library
+                self.exaile.settings['import/scan_import_dir'] = False
+                return True
+            if item.startswith(path):
+                # if the import location is a parent of some existing library path
+                # consolidate the list (by removing the old path)
+                items.remove(item)
+
+        self.exaile.settings['search_paths'] = items
+        self.exaile.library_manager.update_library_add([path], load_tree=True)
+        return True
+
+    def choose_location(self, widget, location_entry):
+        """
+            Sets the "location" preference
+        """
+        dialog = gtk.FileChooserDialog(_("Choose a directory"),
+            self.exaile.window, gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER,
+            (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+            gtk.STOCK_OK, gtk.RESPONSE_OK))
+        response = dialog.run()
+        dialog.hide()
+        
+        if response != gtk.RESPONSE_OK:
+            return
+
+        path = dialog.get_filename()
+
+        location_entry.set_text(path)
+
     def check_gamin(self, widget):
         """
             Make sure gamin is availabe
@@ -522,6 +636,43 @@ class Preferences(object):
                     "Install python2.4-gamin to use this feature."))
                 widget.set_active(False)
                 return False
+
+    def use_custom_toggled(self, widget, event=None):
+        """
+            Set sensitivity of widgets when checkbox is toggled
+        """
+        active = widget.get_active()
+
+        #for w in ['format', 'quality', 'location', 'naming', 'example']:
+        for w in ['format', 'quality']:
+            xml.get_widget('prefs_import_' + w).set_sensitive(not active)
+        xml.get_widget('prefs_import_custom').set_sensitive(active)
+        return True
+
+    def update_example(self, widget, *args):
+        """
+            Updates the 'example' label in the import prefs
+        """
+        example = xml.get_widget('prefs_import_example')
+        #location = xml.get_widget('prefs_import_location')
+        #naming = xml.get_widget('prefs_import_naming')
+
+        #dir = location.get_filename()
+        path = widget.get_text()
+
+        # TODO: get proper mapping
+        mapping = {'artist':'Artist', 'album':'Album', 'tracknum':1, 
+                    'title':'Title', 'ext':'mp3'}
+        template = string.Template(path)
+        path = template.safe_substitute(mapping)
+        
+        # this fails a few times because for some reason dir is often empty 
+        # when the pref dialog is constructed... we ignore it
+        try:
+            #example.set_text(os.path.join(dir, path))
+            example.set_text(path)
+        except:
+            pass
 
     def setup_lastfm(self, widget):
         """

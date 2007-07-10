@@ -346,10 +346,10 @@ class TrackInformation(gtk.Notebook):
                 True):
                 dialog = common.ShowOnceMessageDialog(_('Warning'),
                     self.exaile.window, 
-                    _('You do not have python-gnome2-extras '
-                    'installed.\nYou will need to install this '
-                    'package to use the "Artist", \n"Album", and '
-                    '"Lyrics" tabs'), checked=True)
+                    _('You do not have gnome-python-extras installed.\n'
+                    'You will need to install this package (which may have a '
+                    'different name in your distribution)\nto use the '
+                    '"Artist", "Album", and "Lyrics" tabs'), checked=True)
 
                 result = dialog.run()
                 self.exaile.settings.set_boolean('ui/gnome_extras_warning',

@@ -456,8 +456,8 @@ class CoverManager(object):
                 album = track.album
                 if not album:
                     album = track.title
-                self.cover_thread = CoverFetcherThread("%s %s" \
-                    % (album,track.artist),
+                self.cover_thread = CoverFetcherThread("%s - %s" \
+                    % (track.artist, album),
                     self.got_covers, locale=locale)
 
             self.exaile.status.set_first(_("Fetching cover art from Amazon..."))

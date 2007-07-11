@@ -397,7 +397,7 @@ class Config:
         """
             Appends to a list
         """
-        self.config.set_list(key, self.config.get_list(key, plugin=plugin)+[value])
+        self.config.set_list(key, self.config.get_list(key, plugin=plugin) + [value])
     
     def save(self): 
         """

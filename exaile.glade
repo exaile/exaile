@@ -4798,7 +4798,7 @@ on {album} - {length}</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkLabel" id="label122">
+			    <widget class="GtkLabel" id="quality_label">
 			      <property name="visible">True</property>
 			      <property name="label" translatable="yes">Quality:</property>
 			      <property name="use_underline">False</property>

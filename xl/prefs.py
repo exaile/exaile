@@ -15,12 +15,11 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import thread, os, shlex, string
-import cd_import
 from gettext import gettext as _
 import pygtk, common
 pygtk.require('2.0')
 import gtk, gtk.glade
-import xlmisc, audioscrobbler, burn, advancededitor
+import cd_import, xlmisc, audioscrobbler, burn, advancededitor
 
 #try:
 #    import gamin
@@ -406,7 +405,7 @@ class Preferences(object):
                 if prog == pref:
                     burn_prog_combo.set_active(i)
         else:
-            burn_prog_combo.append_text('No burning programs found')
+            burn_prog_combo.append_text(_('No burning programs found'))
             burn_prog_combo.set_active(0)
             burn_prog_combo.set_sensitive(False)
 
@@ -423,7 +422,7 @@ class Preferences(object):
                 if format == pref:
                     import_format.set_active(i)
         else:
-            import_format.append_text('No suitable gstreamer plugins found')
+            import_format.append_text(_('No suitable GStreamer plugins found'))
             import_format.set_active(0)
             import_format.set_sensitive(False)
 
@@ -473,7 +472,7 @@ class Preferences(object):
             'lastfm/user': (PrefsItem, ''),
             'lastfm/pass': (CryptedPrefsItem, '', None, self.setup_lastfm),
             'cd_device': (PrefsItem, '/dev/cdrom'),
-            'audio_sink': (ComboPrefsItem, 'Use GConf Settings'),
+            'audio_sink': (ComboPrefsItem, 'Use GConf Settings'), # FIXME: i18n?
             'burn_prog': (ComboPrefsItem, (burn_progs and burn_progs[0]) or ''),
             'osd/tray': (CheckPrefsItem, True),
             'osd/bgcolor': (ColorButtonPrefsItem, '#567ea2',
@@ -490,7 +489,7 @@ class Preferences(object):
             'download_feeds': (CheckPrefsItem, True),
             'import/format': (ComboPrefsItem, 
                 (import_formats and import_formats[0]) or 'MP3'),
-            'import/quality': (ComboPrefsItem, "High"),
+            'import/quality': (ComboPrefsItem, "High"), # FIXME: i18n?
             'import/location': (PrefsItem, '', None, self.import_location_changed),
             'import/naming': (PrefsItem, '${artist}/${album}/${artist} - ${title}.${ext}'),
             'import/use_custom': (CheckPrefsItem, False),
@@ -564,27 +563,24 @@ class Preferences(object):
         """
         quality = self.xml.get_widget('prefs_import_quality').get_active_text()
         if not quality: return
-        quality_label = self.xml.get_widget('label122')
+        quality_label = self.xml.get_widget('quality_label')
         format = self.xml.get_widget('prefs_import_format').get_active_text()
 
-        bitrate.hide()
-        quality_label.set_text(_('Quality:'))
-
-        if format == "MP3":
-            bitrate.set_text(str(cd_import.formatdict[format][quality]) + \
-                " kbps")
-            bitrate.show()
-        elif format == "MP3 VBR":
-            bitrate.set_text(str(cd_import.formatdict[format][quality]) + \
-                _(" mean kbps"))
-            bitrate.show()
-        elif format == "Ogg Vorbis":
-            bitrate.set_text(str(cd_import.formatdict[format][quality]))
-            bitrate.show()
-        elif format == "FLAC":
+        if format == "FLAC":
             quality_label.set_text(_('Compression Level:'))
-            
-        
+            bitrate.hide()
+        else:
+            quality_label.set_text(_('Quality:'))
+            bitrate = cd_import.formatdict[format][quality]
+            if format == "MP3":
+                bitrate.set_text(str(bitrate) + " kbps")
+            elif format == "MP3 VBR":
+                bitrate.set_text(_("%d mean kbps") % bitrate)
+            elif format == "Ogg Vorbis":
+                bitrate.set_text(str(bitrate))
+            bitrate.show()
+
+
     def import_location_changed(self, widget):
         """
             Scan the new import location for new songs

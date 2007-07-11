@@ -865,8 +865,8 @@ class TracksListCtrl(gtk.VBox):
             bm = xlmisc.Menu()
             bm.append(ngettext("Burn Selected Track", "Burn Selected Tracks",
                 n_selected), self.burn_selected, 'gtk-cdrom')
-            bm.append("Burn Playlist", self.burn_playlist, 'gtk-cdrom')
-            tpm.append_menu('Burn', bm, 'gtk-cdrom')
+            bm.append(_("Burn Playlist"), self.burn_playlist, 'gtk-cdrom')
+            tpm.append_menu(_('Burn'), bm, 'gtk-cdrom')
             if not burn.check_burn_progs():
                 bm.set_sensitive(False)
 
@@ -875,8 +875,8 @@ class TracksListCtrl(gtk.VBox):
             im.append(ngettext("Import Selected Track",
                 "Import Selected Tracks", n_selected),
                 self.import_selected, 'gtk-cdrom')
-            im.append('Import CD', self.import_cd, 'gtk-cdrom')
-            tpm.append_menu('Import', im, 'gtk-cdrom')
+            im.append(_('Import CD'), self.import_cd, 'gtk-cdrom')
+            tpm.append_menu(_('Import'), im, 'gtk-cdrom')
 
         info = tpm.append(_("Information"), self.get_track_information,
             'gtk-info')

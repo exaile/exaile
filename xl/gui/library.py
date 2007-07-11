@@ -46,8 +46,7 @@ class LibraryDialog(object):
         import_location = self.exaile.settings.get_str('import/location', '')
         lm_import_dir = self.xml.get_widget('lm_import_dir')
         if import_location:
-            lm_import_dir.set_text(_('Import Directory:') 
-                + ' ' + import_location)
+            lm_import_dir.set_text(_('Import Directory: %s') % import_location)
         else:
             lm_import_dir.hide()
 

@@ -207,11 +207,11 @@ class CoverEventBox(gtk.EventBox):
         artist_id = library.get_column_id(self.db, 'artists', 'name',
             track.artist)
         album_id = library.get_album_id(self.db, artist_id, track.album)
-
-        self.db.execute("UPDATE albums SET image='nocover' WHERE id=?", (album_id,))
+        # Sets image to NULL so that it is as if it never existed
+        self.db.execute("UPDATE albums SET image=NULL WHERE id=?", (album_id,))
         self.exaile.cover.set_image(os.path.join("images", "nocover.png"))
 
-    def cover_menu_activate(self, item, user_param=None): 
+    def cover_menu_activate(self, item, user_param=None):
         """
             Called when one of the menu items in the album cover popup is
             selected
@@ -500,7 +500,7 @@ class CoverWrapper(object):
         self.location = location
 
     def __str__(self):
-        title = "%s - %s" % (self.artist, self.album)
+        title = "%s" % (self.album)
         if len(title) > 12:
             title = title[0:10] + "..."
         return title
@@ -529,6 +529,9 @@ class CoverFetcher(object):
         self.icons.set_pixbuf_column(1)
         self.icons.connect('item-activated',
             self.item_activated)
+        self.icons.connect('button-press-event',
+            self.cover_clicked)
+        self.setup_cover_menu()
         self.status = xml.get_widget('cover_status_bar')
         self.icons.connect('motion-notify-event',
             self.mouse_move)
@@ -552,6 +555,12 @@ class CoverFetcher(object):
         self.label.set_label(_("%s covers left to collect.") % self.total)
         if self.go:
             self.toggle_running(None)
+
+    def refresh(self):
+        self.model = gtk.ListStore(str, gtk.gdk.Pixbuf, object)
+        self.icons.set_model(self.model)
+        self.icons.set_item_width(90)
+        self.total = self.calculate_total()
 
     def cancel(self, *event):
         """
@@ -672,7 +681,9 @@ class CoverFetcher(object):
         y = int(y)
 
         path = self.icons.get_path_at_pos(x, y)
-        if not path: 
+        #saves path so that it can be used by the menu to locate the album
+        self.current_path = path
+        if not path:
             self.status.set_label('')
             return
 
@@ -703,13 +714,14 @@ class CoverFetcher(object):
         """
         all = self.db.select("SELECT artists.name, albums.name, albums.image "
             "FROM tracks,albums,artists WHERE blacklisted=0 AND type=0 AND ( "
-            "artists.id=tracks.artist AND albums.id=tracks.album) "
-            " ORDER BY artists.name, albums.name")
+            "artists.id=tracks.artist AND albums.id=tracks.album)"
+            " ORDER BY albums.name, artists.name")
         self.needs = dict()
 
         self.found = dict()
         count = 0
         for (artist, album, image) in all:
+            if artist == '<Unknown>' or album == '<Unknown>': continue
             if not self.needs.has_key(artist):
                 self.needs[artist] = []
             if album in self.needs[artist]: continue
@@ -752,6 +764,124 @@ class CoverFetcher(object):
 
         return count
 
+    def setup_cover_menu(self):
+        """
+            Sets up the menu for when the user right clicks on the album cover
+        """
+        menu = xlmisc.Menu()
+        self.cover_full = menu.append(_("View Full Image"),
+            self.cover_menu_activate)
+        self.cover_fetch = menu.append(_("Fetch from Amazon"),
+            self.cover_menu_activate)
+        self.cover_search = menu.append(_("Search Amazon"),
+            self.cover_menu_activate)
+        self.cover_custom = menu.append(_("Set Custom Image"),
+            self.cover_menu_activate)
+        self.remove_cover_menu = menu.append(_("Remove Cover"),
+            self.cover_menu_activate)
+        self.cover_menu = menu
+
+    def cover_clicked(self, widget, event):
+        """
+            Called when the cover is clicked on
+        """
+        track = self.current_path
+        if not track:
+            return
+        # Creates the nice Right click menu
+        if event.button == 3:
+            self.cover_menu.popup(None, None, None,
+                event.button, event.time)
+
+    def cover_menu_activate(self, item, user_param=None):
+        """
+            Called when one of the menu items in the album cover popup is
+            selected
+        """
+        iter = self.model.get_iter(self.current_path)
+        track = self.model.get_value(iter, 2)
+
+        if item == self.cover_fetch:
+            self.exaile.status.set_first(_("Fetching from Amazon..."))
+            CoverFrame(self.dialog, track, exaile_parent=self.exaile)
+        elif item == self.cover_search:
+            CoverFrame(self.dialog, track, True, exaile_parent=self.exaile)
+        elif item == "showcover" or item == self.cover_full:
+            if "nocover" in self.current_path: return
+
+            CoverWindow(self.dialog, track.location, _("%(album)s by %(artist)s") %
+            {
+                'album': track.album,
+                'artist': track.artist
+            })
+        elif item == self.cover_custom:
+
+            dialog = gtk.FileChooserDialog(_("Choose an image"), self.dialog,
+                buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+                gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+            dialog.set_current_folder(self.exaile.get_last_dir())
+
+            # Image Files
+            filter = gtk.FileFilter()
+            filter.set_name(_("Image Files"))
+            for pattern in ('*.jpg', '*.jpeg', '*.gif', '*.png'):
+                filter.add_pattern(pattern)
+            dialog.add_filter(filter)
+            # All Files
+            filter = gtk.FileFilter()
+            filter.set_name(_("All Files"))
+            filter.add_pattern('*')
+            dialog.add_filter(filter)
+
+            result = dialog.run()
+            dialog.hide()
+
+            if result == gtk.RESPONSE_OK:
+                self.exaile.last_open_dir = dialog.get_current_folder()
+                handle = open(dialog.get_filename(), "r")
+                data = handle.read()
+                handle.close()
+
+                (f, ext) = os.path.splitext(dialog.get_filename())
+                newname = md5.new(data).hexdigest() + ext
+                handle = open(os.path.join(self.exaile.get_settings_dir(), "covers",
+                    newname), "w")
+                handle.write(data)
+                handle.close()
+
+                path_id = library.get_column_id(self.db, 'paths', 'name',
+                    track.location)
+                artist_id = library.get_column_id(self.db, 'artists', 'name',
+                    track.artist)
+                album_id  = library.get_album_id(self.db, artist_id,
+                    track.album)
+
+                xlmisc.log(newname)
+
+                self.db.execute("UPDATE albums SET image=? WHERE id=?",
+                    (newname, album_id))
+
+                if track == self.exaile.player.current:
+                    self.exaile.cover_manager.stop_cover_thread()
+                    self.exaile.cover.set_image(
+                        os.path.join(self.exaile.get_settings_dir(),
+                        "covers", newname))
+        elif item == self.remove_cover_menu:
+            self.remove_cover(track)
+        self.refresh()
+
+    def remove_cover(self, track, param=None):
+        """
+            removes the cover art
+        """
+
+        artist_id = library.get_column_id(self.db, 'artists', 'name',
+            track.artist)
+        album_id = library.get_album_id(self.db, artist_id, track.album)
+        # Sets image to NULL so that it is as if it never existed
+        self.db.execute("UPDATE albums SET image=NULL WHERE id=?", (album_id,))
+
+
 class CoverWindow(object):
     """
         Shows the fullsize cover in a window
@@ -788,18 +918,29 @@ class CoverFrame(object):
         Fetches all album covers for a string, and allows the user to choose
         one out of the list
     """
-    def __init__(self, parent, track, search=False):
+    def __init__(self, parent, track, search=False, exaile_parent=None):
         """
             Expects the parent control, a track, an an optional search string
         """
         self.xml = gtk.glade.XML('exaile.glade', 'CoverFrame', 'exaile')
         self.window = self.xml.get_widget('CoverFrame')
         self.window.set_title("%s - %s" % (track.artist, track.album))
-        self.window.set_transient_for(parent.window)
 
-        self.exaile = parent
+        # This basically has to be done for exaile to pass the database
+        # correctly also for exaile to not be the parent of the searcher
+
+        if (exaile_parent == None):
+            self.window.set_transient_for(parent.window)
+            self.parent = parent.window
+            self.exaile = parent
+            self.db = self.exaile.db
+        else:
+            self.window.set_transient_for(parent)
+            self.parent = parent
+            self.exaile = exaile_parent
+
         self.track = track
-        self.db = parent.db
+        self.db = self.exaile.db
         self.prev = self.xml.get_widget('cover_back_button')
         self.prev.connect('clicked', self.go_prev)
         self.prev.set_sensitive(False)
@@ -830,7 +971,7 @@ class CoverFrame(object):
         """
             Creates a new search string
         """
-        dialog = common.TextEntryDialog(self.exaile.window,
+        dialog = common.TextEntryDialog(self.parent,
             _("Enter the search text"), _("Enter the search text"))
         dialog.set_value(self.last_search)
         result = dialog.run()
@@ -907,7 +1048,7 @@ class CoverFrame(object):
         self.exaile.status.set_first(None)
 
         if len(covers) <= 0:
-            common.error(self.exaile.window, _("Sorry, no covers were found."))
+            common.error(self.parent, _("Sorry, no covers were found."))
             self.covers = []
             self.next.set_sensitive(False)
             self.ok.set_sensitive(False)

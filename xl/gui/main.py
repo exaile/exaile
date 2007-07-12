@@ -830,6 +830,9 @@ class ExaileWindow(gobject.GObject):
         """
             Sets up the left panel
         """
+        self.panel_names = {}
+        self.panel_widgets = {}
+
         self.playlists_panel = playlists.PlaylistsPanel(self)
         self.collection_panel = collection.CollectionPanel(self)
         self.side_notebook = self.xml.get_widget('side_notebook')
@@ -845,6 +848,26 @@ class ExaileWindow(gobject.GObject):
         self.device_panel_showing = False
 
         self.pradio_panel = radio.RadioPanel(self)
+
+        for panel in ('col', 'playlists', 'files', 'radio'):
+            if not self.settings.get_boolean('ui/show_%s_panel' % panel, True):
+                self.set_panel_visible(panel, False)
+
+    def set_panel_visible(self, name, show):
+        """
+            Shows or hides a panel
+        """
+        page_number = self._find_page_number('%s_box' % name)
+        if not show:
+            self.panel_widgets[name] = \
+                self.side_notebook.get_nth_page(page_number)
+            self.panel_names[name] = self.side_notebook.get_tab_label(
+                self.panel_widgets[name])
+            self.side_notebook.remove_page(page_number)
+        else:
+            if not self.panel_widgets.has_key(name): return
+            self.side_notebook.append_page(self.panel_widgets[name],
+                self.panel_names[name])
 
     def _find_page_number(self, text):
         """

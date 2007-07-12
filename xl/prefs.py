@@ -517,6 +517,10 @@ class Preferences(object):
         common.info(self.exaile.window, _('Click the "Refresh" button in '
             'the Collection panel to apply this setting.'))
 
+    def advanced_toggle_panel(self, item, value):
+        item = item.name.replace('ui/show_', '').replace('_panel', '')
+        self.exaile.set_panel_visible(item, value)
+
     def advanced_toggle_clear_button(self, item, value):
         """
             Hides or shows the clear button

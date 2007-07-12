@@ -40,13 +40,16 @@ class ExaileHttpHandler(BaseHTTPRequestHandler):
 		write = self.wfile.write
 		write('<html><head><title>Exaile</title><body>')
 
-		write('<pre>')
-		command = self.path[1:]
-		if command and command in self.allowed_commands:
+		if self.path.startswith('/'):
+			command = self.path[1:]
+		else:
+			command = None
+
+		if command and command[1:] in self.allowed_commands:
 			line = [self.server.exaile, '--' + command]
 			print 'Running', line
-			write(Popen(line, stdout=PIPE).communicate()[0])
-		write('</pre>')
+			output = Popen(line, stdout=PIPE).communicate()[0]
+			write('<pre>' + output + '</pre>')
 
 		write('<ul>')
 		for cmd in self.allowed_commands:

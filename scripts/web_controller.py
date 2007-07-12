@@ -62,12 +62,10 @@ def run(port, exaile):
 		server.exaile = exaile
 		server.serve_forever()
 	except KeyboardInterrupt:
+		pass
+	finally:
 		if server:
 			server.socket.close()
-	except:
-		if server:
-			server.socket.close()
-		raise
 
 if __name__ == '__main__':
 	from sys import argv
@@ -79,3 +77,5 @@ if __name__ == '__main__':
 		if argc > 2:
 			exaile = argv[2]
 	run(port, exaile)
+
+# vi: noet ts=4 sts=4 sw=4 tw=80

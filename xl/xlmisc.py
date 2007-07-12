@@ -57,6 +57,12 @@ opener = urllib.FancyURLopener()
 opener.addheaders.pop(0)
 opener.addheader("User-Agent","Mozilla")
 
+def glade_file(exaile):
+    if os.path.isfile(os.path.join(exaile.get_settings_dir(),
+        'exaile.extheme')):
+        return os.path.join(exaile.get_settings_dir(), 'exaile.extheme')
+    else: return 'exaile.glade'
+
 def get_default_encoding():
     return 'utf-8'
 

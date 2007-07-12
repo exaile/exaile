@@ -70,7 +70,7 @@ class ExaileWindow(gobject.GObject):
 
         gobject.GObject.__init__(self)
         self.settings_dir = settings_dir
-        self.xml = gtk.glade.XML('exaile.glade', 'ExaileWindow', 'exaile')
+        self.xml = gtk.glade.XML(xlmisc.glade_file(self), 'ExaileWindow', 'exaile')
         self.window = self.xml.get_widget('ExaileWindow')
         media.exaile_instance = self
 

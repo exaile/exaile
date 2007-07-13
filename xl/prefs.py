@@ -561,7 +561,7 @@ class Preferences(object):
         self.exaile.start_scan_interval(value)
         return True
 
-    def update_bitrate(self, widget, bitrate):
+    def update_bitrate(self, widget, bitrate_label):
         """
             Update the bitrate label
         """
@@ -572,17 +572,17 @@ class Preferences(object):
 
         if format == "FLAC":
             quality_label.set_text(_('Compression Level:'))
-            bitrate.hide()
+            bitrate_label.hide()
         else:
             quality_label.set_text(_('Quality:'))
             bitrate = cd_import.formatdict[format][quality]
             if format == "MP3":
-                bitrate.set_text(str(bitrate) + " kbps")
+                bitrate_label.set_text(str(bitrate) + " kbps")
             elif format == "MP3 VBR":
-                bitrate.set_text(_("%d mean kbps") % bitrate)
+                bitrate_label.set_text(_("%d mean kbps") % bitrate)
             elif format == "Ogg Vorbis":
-                bitrate.set_text(str(bitrate))
-            bitrate.show()
+                bitrate_label.set_text(str(bitrate))
+            bitrate_label.show()
 
 
     def import_location_changed(self, widget):

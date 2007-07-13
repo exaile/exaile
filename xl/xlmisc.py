@@ -1124,6 +1124,7 @@ class OSDWindow(object):
         self.exaile = exaile
         self.draggable = draggable
         self.xml = gtk.glade.XML('exaile.glade', 'OSDWindow', 'exaile')
+        self.progress = self.xml.get_widget('osd_progressbar')
         self.window = self.xml.get_widget('OSDWindow')
         self.__timeout = None
         self.start_timer = start_timer
@@ -1142,7 +1143,12 @@ class OSDWindow(object):
         self.cover.set_image_size(settings['osd/h'] - 8, settings['osd/h'] - 8)
         self.event.connect('button_press_event', self.start_dragging)
         self.event.connect('button_release_event', self.stop_dragging)
+        self.exaile.connect('timer_update', self.timer_update)
         self.__handler = None
+
+    def timer_update(self, *e):
+        if self.window.get_property('visible'):
+            self.progress.set_fraction(self.exaile.new_progressbar.get_fraction())
 
     def start_dragging(self, widget, event):
         """
@@ -1188,6 +1194,7 @@ class OSDWindow(object):
         """
             Shows a popup specific to a track
         """
+        self.progress.show()
         text = text.replace("&", "&amp;") # we don't allow entity refs here
 
         for item in ('title', 'artist', 'album', 'length', 'track', 'bitrate',
@@ -1204,12 +1211,13 @@ class OSDWindow(object):
             self.exaile.get_volume_percent())
         text = text.replace("\\{", "{")
         text = text.replace("\\}", "}")
-        self.show_osd(text, cover)
+        self.show_osd(text, cover, True)
 
-    def show_osd(self, title, cover):
+    def show_osd(self, title, cover, show_progress=False):
         """
             Displays the popup for 4 seconds
         """
+        self.progress.hide()
         if self.__timeout:
             gobject.source_remove(self.__timeout)
             self.window.hide()
@@ -1224,6 +1232,8 @@ class OSDWindow(object):
 
         self.cover.set_image(cover)
         self.window.show_all()
+        if not show_progress:
+            self.progress.hide()
 
         if self.start_timer: 
             self.__timeout = gobject.timeout_add(4000, self.window.hide)

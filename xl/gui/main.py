@@ -46,6 +46,7 @@ class ExaileWindow(gobject.GObject):
         # shoutcast stream)
         'track-information-updated': (gobject.SIGNAL_RUN_LAST, None, ()),
         'quit': (gobject.SIGNAL_RUN_LAST, None, ()),
+        'timer_update': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
     __single = None
 
@@ -1052,6 +1053,8 @@ class ExaileWindow(gobject.GObject):
                 rating=1)
             self.status.set_first(_("Submitting to Last.fm..."), 2000)
             audioscrobbler.submit_to_scrobbler(self, track)
+
+        self.emit('timer_update')
 
         return True
 

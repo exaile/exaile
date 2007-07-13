@@ -177,112 +177,8 @@ class CoverEventBox(gtk.EventBox):
         gtk.EventBox.__init__(self)
         self.exaile = exaile
         self.db = exaile.db
-        self.setup_cover_menu()
+        self.cover_menu = CoverMenu(self.exaile, is_current_song=True)
         self.connect('button_press_event', self.cover_clicked)
-
-    def setup_cover_menu(self):
-        """
-            Sets up the menu for when the user right clicks on the album cover
-        """
-        menu = xlmisc.Menu()
-        self.cover_full = menu.append(_("View Full Image"),
-            self.cover_menu_activate)
-        self.cover_fetch = menu.append(_("Fetch from Amazon"),
-            self.cover_menu_activate)
-        self.cover_search = menu.append(_("Search Amazon"),
-            self.cover_menu_activate)
-        self.cover_custom = menu.append(_("Set Custom Image"),
-            self.cover_menu_activate)
-        self.remove_cover = menu.append(_("Remove Cover"),
-            self.remove_cover)
-        self.cover_menu = menu
-
-    def remove_cover(self, item, param=None):
-        """
-            removes the cover art for the current track
-        """
-        track = self.exaile.player.current
-        if not track: return
-
-        artist_id = library.get_column_id(self.db, 'artists', 'name',
-            track.artist)
-        album_id = library.get_album_id(self.db, artist_id, track.album)
-        # Sets image to NULL so that it is as if it never existed
-        self.db.execute("UPDATE albums SET image=NULL WHERE id=?", (album_id,))
-        self.exaile.cover.set_image(os.path.join("images", "nocover.png"))
-
-    def cover_menu_activate(self, item, user_param=None):
-        """
-            Called when one of the menu items in the album cover popup is
-            selected
-        """
-        if item == self.cover_fetch:
-            self.exaile.status.set_first(_("Fetching from Amazon..."))
-            CoverFrame(self.exaile, self.exaile.player.current)
-        elif item == self.cover_search:
-            CoverFrame(self.exaile, self.exaile.player.current, True)
-        elif item == "showcover" or item == self.cover_full:
-            if "nocover" in self.cover.loc: return
-            track = self.exaile.player.current
-            CoverWindow(self.exaile.window, self.exaile.cover.loc, 
-                _("%(album)s by %(artist)s") %
-                {
-                    'album': track.album,
-                    'artist': track.artist
-                })
-        elif item == self.cover_custom:
-            track = self.exaile.player.current
-
-            dialog = gtk.FileChooserDialog(_("Choose an image"), self.exaile.window,
-                buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-                gtk.STOCK_OPEN, gtk.RESPONSE_OK))
-            dialog.set_current_folder(self.exaile.get_last_dir())
-
-            # Image Files
-            filter = gtk.FileFilter()
-            filter.set_name(_("Image Files"))
-            for pattern in ('*.jpg', '*.jpeg', '*.gif', '*.png'):
-                filter.add_pattern(pattern)
-            dialog.add_filter(filter)
-            # All Files
-            filter = gtk.FileFilter()
-            filter.set_name(_("All Files"))
-            filter.add_pattern('*')
-            dialog.add_filter(filter)
-
-            result = dialog.run()
-            dialog.hide()
-
-            if result == gtk.RESPONSE_OK:
-                self.exaile.last_open_dir = dialog.get_current_folder()
-                handle = open(dialog.get_filename(), "r")
-                data = handle.read()
-                handle.close()
-
-                (f, ext) = os.path.splitext(dialog.get_filename())
-                newname = md5.new(data).hexdigest() + ext
-                handle = open(os.path.join(self.exaile.get_settings_dir(), "covers",
-                    newname), "w")
-                handle.write(data)
-                handle.close()
-
-                path_id = library.get_column_id(self.db, 'paths', 'name',
-                    track.loc)
-                artist_id = library.get_column_id(self.db, 'artists', 'name',
-                    track.artist)
-                album_id  = library.get_album_id(self.db, artist_id,
-                    track.album)
-
-                xlmisc.log(newname)
-
-                self.db.execute("UPDATE albums SET image=? WHERE id=?",
-                    (newname, album_id))
-
-                if track == self.exaile.player.current:
-                    self.exaile.cover_manager.stop_cover_thread()
-                    self.exaile.cover.set_image(
-                        os.path.join(self.exaile.get_settings_dir(),
-                        "covers", newname))
 
     def cover_clicked(self, widget, event):
         """
@@ -303,7 +199,7 @@ class CoverEventBox(gtk.EventBox):
                         'artist': track.artist
                     })
         elif event.button == 3:
-            self.cover_menu.popup(None, None, None, 
+            self.cover_menu.menu.popup(None, None, None,
                 event.button, event.time)
 
 FETCHER = None
@@ -527,11 +423,11 @@ class CoverFetcher(object):
         self.go = False
         self.icons.set_text_column(0)
         self.icons.set_pixbuf_column(1)
-        self.icons.connect('item-activated',
-            self.item_activated)
         self.icons.connect('button-press-event',
             self.cover_clicked)
-        self.setup_cover_menu()
+        # Leave blank since it just needs the reference for now
+        self.current_path = None
+        self.cover_menu = CoverMenu(self.exaile, self.model, self.current_path)
         self.status = xml.get_widget('cover_status_bar')
         self.icons.connect('motion-notify-event',
             self.mouse_move)
@@ -547,16 +443,19 @@ class CoverFetcher(object):
             self.cancel)
         self.stopstart = xml.get_widget('fetcher_stop_button')
         self.stopstart.connect('clicked', self.toggle_running)
-
+        xml.get_widget('fetcher_refresh_button').connect('clicked',
+            self.refresh)
         self.current = 0
         self.dialog.show_all()
+        # Give it a parent now that it exists.
+        self.cover_menu.set_parent(self.dialog)
         xlmisc.finish()
         self.total = self.calculate_total()
         self.label.set_label(_("%s covers left to collect.") % self.total)
         if self.go:
             self.toggle_running(None)
 
-    def refresh(self):
+    def refresh(self, event):
         self.model = gtk.ListStore(str, gtk.gdk.Pixbuf, object)
         self.icons.set_model(self.model)
         self.icons.set_item_width(90)
@@ -683,6 +582,7 @@ class CoverFetcher(object):
         path = self.icons.get_path_at_pos(x, y)
         #saves path so that it can be used by the menu to locate the album
         self.current_path = path
+        self.cover_menu.current_path = path
         if not path:
             self.status.set_label('')
             return
@@ -695,18 +595,6 @@ class CoverFetcher(object):
                 'album': object.album,
                 'artist': object.artist
             }) + "</b>")
-
-    def item_activated(self, iconview, path):
-        """
-            Called when an icon is double clicked
-        """
-        iter = self.model.get_iter(path)
-        object = self.model.get_value(iter, 2)
-        CoverWindow(self.dialog, object.location, _("%(album)s by %(artist)s") % 
-            {
-                'album': object.album,
-                'artist': object.artist
-            })
 
     def calculate_total(self):
         """
@@ -764,23 +652,6 @@ class CoverFetcher(object):
 
         return count
 
-    def setup_cover_menu(self):
-        """
-            Sets up the menu for when the user right clicks on the album cover
-        """
-        menu = xlmisc.Menu()
-        self.cover_full = menu.append(_("View Full Image"),
-            self.cover_menu_activate)
-        self.cover_fetch = menu.append(_("Fetch from Amazon"),
-            self.cover_menu_activate)
-        self.cover_search = menu.append(_("Search Amazon"),
-            self.cover_menu_activate)
-        self.cover_custom = menu.append(_("Set Custom Image"),
-            self.cover_menu_activate)
-        self.remove_cover_menu = menu.append(_("Remove Cover"),
-            self.cover_menu_activate)
-        self.cover_menu = menu
-
     def cover_clicked(self, widget, event):
         """
             Called when the cover is clicked on
@@ -788,99 +659,19 @@ class CoverFetcher(object):
         track = self.current_path
         if not track:
             return
+        # On double click (removed item_activated signal)
+        if event.type == gtk.gdk._2BUTTON_PRESS:
+            iter = self.model.get_iter(self.current_path)
+            object = self.model.get_value(iter, 2)
+            CoverWindow(self.dialog, object.location, _("%(album)s by %(artist)s") %
+            {
+                'album': object.album,
+                'artist': object.artist
+            })
         # Creates the nice Right click menu
         if event.button == 3:
-            self.cover_menu.popup(None, None, None,
+            self.cover_menu.menu.popup(None, None, None,
                 event.button, event.time)
-
-    def cover_menu_activate(self, item, user_param=None):
-        """
-            Called when one of the menu items in the album cover popup is
-            selected
-        """
-        iter = self.model.get_iter(self.current_path)
-        track = self.model.get_value(iter, 2)
-
-        if item == self.cover_fetch:
-            self.exaile.status.set_first(_("Fetching from Amazon..."))
-            CoverFrame(self.dialog, track, exaile_parent=self.exaile)
-        elif item == self.cover_search:
-            CoverFrame(self.dialog, track, True, exaile_parent=self.exaile)
-        elif item == "showcover" or item == self.cover_full:
-            if "nocover" in self.current_path: return
-
-            CoverWindow(self.dialog, track.location, _("%(album)s by %(artist)s") %
-            {
-                'album': track.album,
-                'artist': track.artist
-            })
-        elif item == self.cover_custom:
-
-            dialog = gtk.FileChooserDialog(_("Choose an image"), self.dialog,
-                buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-                gtk.STOCK_OPEN, gtk.RESPONSE_OK))
-            dialog.set_current_folder(self.exaile.get_last_dir())
-
-            # Image Files
-            filter = gtk.FileFilter()
-            filter.set_name(_("Image Files"))
-            for pattern in ('*.jpg', '*.jpeg', '*.gif', '*.png'):
-                filter.add_pattern(pattern)
-            dialog.add_filter(filter)
-            # All Files
-            filter = gtk.FileFilter()
-            filter.set_name(_("All Files"))
-            filter.add_pattern('*')
-            dialog.add_filter(filter)
-
-            result = dialog.run()
-            dialog.hide()
-
-            if result == gtk.RESPONSE_OK:
-                self.exaile.last_open_dir = dialog.get_current_folder()
-                handle = open(dialog.get_filename(), "r")
-                data = handle.read()
-                handle.close()
-
-                (f, ext) = os.path.splitext(dialog.get_filename())
-                newname = md5.new(data).hexdigest() + ext
-                handle = open(os.path.join(self.exaile.get_settings_dir(), "covers",
-                    newname), "w")
-                handle.write(data)
-                handle.close()
-
-                path_id = library.get_column_id(self.db, 'paths', 'name',
-                    track.location)
-                artist_id = library.get_column_id(self.db, 'artists', 'name',
-                    track.artist)
-                album_id  = library.get_album_id(self.db, artist_id,
-                    track.album)
-
-                xlmisc.log(newname)
-
-                self.db.execute("UPDATE albums SET image=? WHERE id=?",
-                    (newname, album_id))
-
-                if track == self.exaile.player.current:
-                    self.exaile.cover_manager.stop_cover_thread()
-                    self.exaile.cover.set_image(
-                        os.path.join(self.exaile.get_settings_dir(),
-                        "covers", newname))
-        elif item == self.remove_cover_menu:
-            self.remove_cover(track)
-        self.refresh()
-
-    def remove_cover(self, track, param=None):
-        """
-            removes the cover art
-        """
-
-        artist_id = library.get_column_id(self.db, 'artists', 'name',
-            track.artist)
-        album_id = library.get_album_id(self.db, artist_id, track.album)
-        # Sets image to NULL so that it is as if it never existed
-        self.db.execute("UPDATE albums SET image=NULL WHERE id=?", (album_id,))
-
 
 class CoverWindow(object):
     """
@@ -1063,3 +854,122 @@ class CoverFrame(object):
         self.current = 0
 
         self.show_cover(self.covers[self.current])
+
+class CoverMenu(xlmisc.Menu):
+
+    def __init__(self, exaile, model=None, current_path=None, is_current_song=False):
+        self.exaile = exaile
+        self.db = self.exaile.db
+        self.model = model
+        self.current_path = current_path
+        self.is_current = is_current_song
+        self.menu = xlmisc.Menu()
+        self.cover_full = self.menu.append(_("View Full Image"),
+            self.cover_menu_activate)
+        self.cover_fetch = self.menu.append(_("Fetch from Amazon"),
+            self.cover_menu_activate)
+        self.cover_search = self.menu.append(_("Search Amazon"),
+            self.cover_menu_activate)
+        self.cover_custom = self.menu.append(_("Set Custom Image"),
+            self.cover_menu_activate)
+        self.remove_cover_menu = self.menu.append(_("Remove Cover"),
+            self.cover_menu_activate)
+
+    def cover_menu_activate(self, item, user_param=None):
+        """
+            Called when one of the menu items in the album cover popup is
+            selected
+        """
+
+        if self.is_current:
+            self.mother = self.exaile.window
+            track = self.exaile.player.current
+            loc = self.exaile.player.current
+        else:
+            iter = self.model.get_iter(self.current_path)
+            track = self.model.get_value(iter, 2)
+            loc = track.location
+
+        if item == self.cover_fetch:
+            self.exaile.status.set_first(_("Fetching from Amazon..."))
+            CoverFrame(self.mother, track, exaile_parent=self.exaile)
+        elif item == self.cover_search:
+            CoverFrame(self.mother, track, True, exaile_parent=self.exaile)
+        elif item == "showcover" or item == self.cover_full:
+            if self.is_current:
+                loc = self.exaile.cover.loc
+
+            if "nocover" in loc: return
+            CoverWindow(self.mother, loc, _("%(album)s by %(artist)s") %
+            {
+                'album': track.album,
+                'artist': track.artist
+            })
+        elif item == self.cover_custom:
+
+            dialog = gtk.FileChooserDialog(_("Choose an image"), self.mother,
+                buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+                gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+            dialog.set_current_folder(self.exaile.get_last_dir())
+
+            # Image Files
+            filter = gtk.FileFilter()
+            filter.set_name(_("Image Files"))
+            for pattern in ('*.jpg', '*.jpeg', '*.gif', '*.png'):
+                filter.add_pattern(pattern)
+            dialog.add_filter(filter)
+            # All Files
+            filter = gtk.FileFilter()
+            filter.set_name(_("All Files"))
+            filter.add_pattern('*')
+            dialog.add_filter(filter)
+
+            result = dialog.run()
+            dialog.hide()
+
+            if result == gtk.RESPONSE_OK:
+                self.exaile.last_open_dir = dialog.get_current_folder()
+                handle = open(dialog.get_filename(), "r")
+                data = handle.read()
+                handle.close()
+
+                (f, ext) = os.path.splitext(dialog.get_filename())
+                newname = md5.new(data).hexdigest() + ext
+                handle = open(os.path.join(self.exaile.get_settings_dir(), "covers",
+                    newname), "w")
+                handle.write(data)
+                handle.close()
+
+                path_id = library.get_column_id(self.db, 'paths', 'name',
+                    loc)
+                artist_id = library.get_column_id(self.db, 'artists', 'name',
+                    track.artist)
+                album_id  = library.get_album_id(self.db, artist_id,
+                    track.album)
+
+                xlmisc.log(newname)
+
+                self.db.execute("UPDATE albums SET image=? WHERE id=?",
+                    (newname, album_id))
+
+                if track == self.exaile.player.current:
+                    self.exaile.cover_manager.stop_cover_thread()
+                    self.exaile.cover.set_image(
+                        os.path.join(self.exaile.get_settings_dir(),
+                        "covers", newname))
+        elif item == self.remove_cover_menu:
+            artist_id = library.get_column_id(self.db, 'artists', 'name', track.artist)
+            album_id = library.get_album_id(self.db, artist_id, track.album)
+            print album_id
+
+            # Sets image to NULL so that it is as if it never existed
+            self.db.execute("UPDATE albums SET image=NULL WHERE id=?", (album_id,))
+            # Always do this incase you remove the current tracks cover
+            self.exaile.cover.set_image(os.path.join("images", "nocover.png"))
+
+    def set_parent(self, parent):
+        """
+            This is used to set the parent.
+        """
+        # Cause you cant replace self.parent
+        self.mother = parent

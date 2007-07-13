@@ -732,9 +732,15 @@ class ExaileWindow(gobject.GObject):
         elif p == 1: s = gtk.POS_LEFT
         elif p == 2: s = gtk.POS_RIGHT
         elif p == 3: s = gtk.POS_BOTTOM
+        elif p == 4: 
+            self.playlists_nb.set_show_tabs(False)
+            self.playlists_nb.set_show_border(True)
+            return
 
+        self.playlists_nb.set_show_tabs(True)
+        self.playlists_nb.set_show_border(False)
         self.playlists_nb.set_tab_pos(s)
-
+        
     def setup_tray(self): 
         """
             Sets up the tray icon
@@ -1176,11 +1182,18 @@ class ExaileWindow(gobject.GObject):
                 self.playlists_nb.remove_page(0)
         
         if not songs: songs = library.TrackData()
-        self.tracks = trackslist.TracksListCtrl(self)
-        t = self.tracks
-        self.tracks.playlist_songs = songs 
-        tab = xlmisc.NotebookTab(self, title, self.tracks)
-        self.playlists_nb.append_page(self.tracks, tab)
+
+        # if the playlist notebook tabs are showing, add a page, otherwise,
+        # just update the current page
+        if self.playlists_nb.get_show_tabs() or \
+            self.playlists_nb.get_n_pages() == 0:
+            self.tracks = trackslist.TracksListCtrl(self)
+            t = self.tracks
+            self.tracks.playlist_songs = songs 
+            tab = xlmisc.NotebookTab(self, title, self.tracks)
+            self.playlists_nb.append_page(self.tracks, tab)
+        else:
+            t = self.tracks
 
         if set_current:
             self.playlists_nb.set_current_page( 
@@ -1195,9 +1208,9 @@ class ExaileWindow(gobject.GObject):
         nb = self.playlists_nb
         if not page:
             i = self.playlists_nb.get_current_page()
-            page = self.playlists_nb.get_nth_page(i)
-            page.close_page()
             if i > -1:
+                page = self.playlists_nb.get_nth_page(i)
+                page.close_page()
                 self.playlists_nb.remove_page(i)
         else:
             for i in range(0, nb.get_n_pages()):

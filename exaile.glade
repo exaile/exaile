@@ -1942,11 +1942,12 @@ Genre</property>
 
 		  <child>
 		    <widget class="GtkScrolledWindow" id="scrolledwindow1">
+		      <property name="border_width">1</property>
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
 		      <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
 		      <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-		      <property name="shadow_type">GTK_SHADOW_IN</property>
+		      <property name="shadow_type">GTK_SHADOW_ETCHED_IN</property>
 		      <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
 
 		      <child>
@@ -4018,7 +4019,8 @@ on {album} - {length}</property>
 				  <property name="items" translatable="yes">Top
 Left
 Right
-Bottom</property>
+Bottom
+Hidden</property>
 				  <property name="add_tearoffs">False</property>
 				  <property name="focus_on_click">True</property>
 				</widget>

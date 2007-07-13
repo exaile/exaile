@@ -381,13 +381,19 @@ class RadioPanel(object):
 
             elif isinstance(object, RadioDriver) or isinstance(object,
                 RadioGenre):
-                self.menu.popup(None, None, None, event.button, event.time)
+                if isinstance(object, RadioDriver):
+                    driver = object
+                else:
+                    driver = object.driver
+                self.setup_menus()
+                if driver and hasattr(driver, 'get_menu'):
+                    menu = driver.get_menu(object, self.menu)
+                else:
+                    menu = self.menu
+                menu.popup(None, None, None, event.button, event.time)
             else:
                 if object in ("Saved Stations", "Podcasts", "Shoutcast Stations"):
                     return
-#                self.menu.popup(None, None, None,
-#                    event.button, event.time)
-            
         elif event.type == gtk.gdk._2BUTTON_PRESS:
             if object == 'Last.fm Radio':
                 self.tree.expand_row(path, False)                
@@ -621,7 +627,7 @@ class RadioPanel(object):
         """
         self.menu = xlmisc.Menu()
         rel = self.menu.append(_("Refresh"), lambda e, f:
-            self.refresh_streams())
+            self.refresh_streams(), 'gtk-refresh')
 
         # custom playlist menu
         self.cmenu = xlmisc.Menu()

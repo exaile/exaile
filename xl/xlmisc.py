@@ -1124,7 +1124,6 @@ class OSDWindow(object):
         self.exaile = exaile
         self.draggable = draggable
         self.xml = gtk.glade.XML('exaile.glade', 'OSDWindow', 'exaile')
-        self.progress = self.xml.get_widget('osd_progressbar')
         self.window = self.xml.get_widget('OSDWindow')
         self.__timeout = None
         self.start_timer = start_timer
@@ -1135,6 +1134,8 @@ class OSDWindow(object):
         self.box = self.xml.get_widget('image_box')
         self.window.modify_bg(gtk.STATE_NORMAL, color)
         self.title = self.xml.get_widget('popup_title_label')
+        self.progress = self.xml.get_widget('osd_progressbar')
+        self.progress.modify_bg(gtk.STATE_NORMAL, color)
 
         self.window.set_size_request(settings['osd/w'], settings['osd/h'])
         self.cover = ImageWidget()

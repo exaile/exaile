@@ -171,7 +171,10 @@ class CDImporter(object):
 
         for i, song in enumerate(songs):
             if not self.importing: break 
-            bar.set_text(_("Track %d/%d") % (i+1, len(songs)))
+            bar.set_text(_("Track %(imported)d/%(total)d") % {
+                'imported': i + 1,
+                'total': len(songs)
+            })
             bar.set_fraction(float(i)/len(songs))
             label.set_markup('<big>' + song.title + '</big>')
             self.import_track(song)

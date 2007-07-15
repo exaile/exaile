@@ -27,6 +27,7 @@ try:
     from xl.media import mp4
     formats['m4a'] = mp4
     formats['aac'] = mp4
+    formats['mp4'] = mp4
 except ImportError: pass
 
 try:

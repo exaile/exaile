@@ -69,6 +69,7 @@ class PluginManager(object):
 
         pb = gtk.CellRendererPixbuf()
         text = gtk.CellRendererText()
+        # The column title for plugin names
         col = gtk.TreeViewColumn(_("Plugin"))
         col.pack_start(pb, False)
         col.pack_start(text, False)
@@ -83,6 +84,7 @@ class PluginManager(object):
         text = gtk.CellRendererToggle()
         text.set_property('activatable', True)
         text.connect('toggled', self.toggle_cb, self.model)
+        # The column title for the plugin statuses
         col = gtk.TreeViewColumn(_("Enabled"), text)
         col.add_attribute(text, 'active', 2)
         col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
@@ -205,7 +207,7 @@ class PluginManager(object):
         self.fetched = True
         self.avail_version_label.set_text('')
         self.avail_author_label.set_text('')
-        self.avail_name_label.set_markup(_('<b>No Plugin Selected</b>'))
+        self.avail_name_label.set_markup('<b>' + _('No Plugin Selected') + '</b>')
         self.avail_description.get_buffer().set_text(_("Fetching available"
             " plugin list..."))
         self.avail_model.clear()
@@ -279,6 +281,7 @@ class PluginManager(object):
         self.avail_list.append_column(col)
 
         text = gtk.CellRendererText()
+        # The column title for plugin versions
         col = gtk.TreeViewColumn(_('Ver'))
         col.pack_start(text, False)
         col.set_expand(False)
@@ -289,6 +292,7 @@ class PluginManager(object):
         text = gtk.CellRendererToggle()
         text.set_property('activatable', True)
         text.connect('toggled', self.avail_toggle_cb, self.avail_model)
+        # The column title for the plugin installation statuses
         col = gtk.TreeViewColumn(_("Inst"), text)
         col.add_attribute(text, 'active', 5)
         col.set_expand(False)

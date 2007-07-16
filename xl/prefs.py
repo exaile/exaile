@@ -577,7 +577,7 @@ class Preferences(object):
             quality_label.set_text(_('Quality:'))
             bitrate = cd_import.formatdict[format][quality]
             if format == "MP3":
-                bitrate_label.set_text(str(bitrate) + " kbps")
+                bitrate_label.set_text(_("%d kbps") % bitrate)
             elif format == "MP3 VBR":
                 bitrate_label.set_text(_("%d mean kbps") % bitrate)
             elif format == "Ogg Vorbis":

@@ -414,7 +414,7 @@ class EggTrayIcon(BaseTrayIcon):
         self.box.connect('enter-notify-event', lambda *e: 
             self.exaile.show_osd(tray=True))
         self.icon.show_all()
-        self.set_tooltip(_("Exaile Media Player"))
+        self.set_tooltip(_("Exaile Music Player"))
 
     def scroll(self, widget, ev):
         """

@@ -5640,7 +5640,7 @@ Low</property>
 				      <property name="editable">True</property>
 				      <property name="visibility">True</property>
 				      <property name="max_length">0</property>
-				      <property name="text" translatable="yes">/dev/cdrom</property>
+				      <property name="text" translatable="no">/dev/cdrom</property>
 				      <property name="has_frame">True</property>
 				      <property name="invisible_char">●</property>
 				      <property name="activates_default">False</property>
@@ -7138,7 +7138,7 @@ Josip Lisec</property>
 	      <child>
 		<widget class="GtkLabel" id="label104">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">&lt;small&gt;-20 dB&lt;/small&gt;</property>
+		  <property name="label" translatable="yes">&lt;small&gt;−20 dB&lt;/small&gt;</property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">True</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>

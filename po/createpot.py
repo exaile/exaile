@@ -8,14 +8,11 @@ try:
 except IndexError:
     pass
 
-os.system("intltool-extract --type=gettext/glade exaile.glade")
-os.system("intltool-extract --type=gettext/glade plugins/plugins.glade")
 os.system("xgettext -c -k_ -kN_ -o messages.pot "
     "*.py plugins/*.py `find xl -name '*.py'` "
-    "exaile.glade.h plugins/plugins.glade.h")
+    "exaile.glade plugins/plugins.glade")
 
 if command != 'compile':
-    print "\n\n**********\n"
     print "Now edit messages.pot, save it as <locale>.po, and post it on\n" \
         "our ticket tracker (http://www.exaile.org/newtranslation)\n" \
         "as a new translation.\n\nThank you!"

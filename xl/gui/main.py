@@ -1039,11 +1039,14 @@ class ExaileWindow(gobject.GObject):
             if track.type == 'stream':
                 if track.start_time and self.player.is_playing():
                     seconds = time.time() - track.start_time
-                    self.new_progressbar.set_text("%d:%02d" % (seconds / 60, seconds % 60))
+                    self.new_progressbar.set_text("%d:%02d" % # TODO: i18n
+                        (seconds // 60, seconds % 60))
 
             else:
                 remaining_seconds = duration - seconds
-                self.new_progressbar.set_text("%d:%02d / %d:%02d" % ((seconds / 60), (seconds % 60), (remaining_seconds / 60), (remaining_seconds % 60) )  )
+                self.new_progressbar.set_text("%d:%02d / %d:%02d" % # TODO: i18n
+                    (seconds // 60, seconds % 60,
+                    remaining_seconds // 60, remaining_seconds % 60))
 
 
         if (seconds > 240 or value > 50) and track.type != 'stream' and \
@@ -1079,51 +1082,48 @@ class ExaileWindow(gobject.GObject):
                 self.set_rating)
             return
 
+        title = track.title
         album = track.album
         artist = track.artist
-        if album == "": album = _("Unknown")
-        if artist == "": artist = _("Unknown")
 
-        self.title_label.set_label(track.title)
+        self.title_label.set_label(title)
 
-        # set up the playing/track labels based on the type of track
+        if album or artist:
+            desc = []
+            # Part of the sentence: "(title) from (album) by (artist)"
+            if album: desc.append(_("from %s") % album)
+            # Part of the sentence: "(title) from (album) by (artist)"
+            if artist: desc.append(_("by %s") % artist)
 
-        self.window.set_title(_("Exaile: playing %(title)s from %(album)s by %(artist)s") %
-            {
-                'title': track.title,
-                'album': track.album,
-                'artist': track.artist
-            })
-        self.artist_label.set_label(_("from %(album)s\nby %(artist)s") % 
-            {
-                'album': album, 
-                'artist': artist
-            })
-
-        if self.tray_icon:
-            self.tray_icon.set_tooltip(_("Playing %(title)s\nfrom %(album)s\nby %(artist)s") %
-                {
-                    'title': track.title,
-                    'album': track.album,
-                    'artist': track.artist
-                })
+            self.window.set_title(_("Exaile: playing %s") % title + ' ' +
+                ' '.join(desc))
+            desc_newline = '\n'.join(desc)
+            self.artist_label.set_label(desc_newline)
+            if self.tray_icon:
+                self.tray_icon.set_tooltip(_("Playing %s") % title + '\n' +
+                    desc_newline)
+        else:
+            self.window.set_title(_("Exaile: playing %s") % title)
+            self.artist_label.set_label("")
+            if self.tray_icon:
+                self.tray_icon.set_tooltip(_("Playing %s") % title)
 
         row = self.db.read_one("tracks, paths", "paths.name, user_rating", 
             "paths.name=? AND paths.id=tracks.path", (track.loc,))
-
-        if not row:
-            self.rating_combo.set_active(0)
-            self.rating_combo.set_sensitive(False)
-        else:
+        if row:
             rating = row[1]
             if rating <= 0 or rating == '' or rating is None: 
                 rating = 0
             self.rating_combo.set_active(rating - 1)
             track.user_rating = rating
             self.rating_combo.set_sensitive(True)
+        else:
+            self.rating_combo.set_active(0)
+            self.rating_combo.set_sensitive(False)
 
         self.rating_signal = self.rating_combo.connect('changed',
             self.set_rating)
+
         self.emit('track-information-updated')
         if returntrue: return True
 

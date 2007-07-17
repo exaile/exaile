@@ -180,6 +180,8 @@ class ExaileWindow(gobject.GObject):
             self.stop_button.hide()
         if not self.settings.get_boolean('ui/show_clear_button', True):
             self.clear_button.hide()
+        if not self.settings.get_boolean('ui/always_show_tabbar', False):
+            self.playlists_nb.set_show_tabs(False)
 
         self.stop_track_button.set_sensitive(False)
         self.pmanager = plugins.manager.Manager(self) 
@@ -654,6 +656,10 @@ class ExaileWindow(gobject.GObject):
         self.playlists_nb.set_current_page(
             self.playlists_nb.get_n_pages() - 1)
 
+        # if there is more than one tab, show the tab bar
+        if self.playlists_nb.get_n_pages() > 1:
+            self.playlists_nb.set_show_tabs(True)
+
     def show_blacklist_manager(self, new=True):
         """
             Shows the blacklist manager
@@ -691,6 +697,9 @@ class ExaileWindow(gobject.GObject):
         self.playlists_nb.set_current_page(
             self.playlists_nb.get_n_pages() - 1)
 
+        # if there is more than one tab, show the tab bar
+        if self.playlists_nb.get_n_pages() > 1:
+            self.playlists_nb.set_show_tabs(True)
 
     def show_equalizer(self):
 
@@ -733,13 +742,8 @@ class ExaileWindow(gobject.GObject):
         elif p == 1: s = gtk.POS_LEFT
         elif p == 2: s = gtk.POS_RIGHT
         elif p == 3: s = gtk.POS_BOTTOM
-        elif p == 4: 
-            self.playlists_nb.set_show_tabs(False)
-            self.playlists_nb.set_show_border(True)
-            return
 
-        self.playlists_nb.set_show_tabs(True)
-        self.playlists_nb.set_show_border(False)
+        self.playlists_nb.set_show_border(True)
         self.playlists_nb.set_tab_pos(s)
         
     def setup_tray(self): 
@@ -1186,22 +1190,21 @@ class ExaileWindow(gobject.GObject):
         
         if not songs: songs = library.TrackData()
 
-        # if the playlist notebook tabs are showing, add a page, otherwise,
-        # just update the current page
-        if self.playlists_nb.get_show_tabs() or \
-            self.playlists_nb.get_n_pages() == 0:
-            self.tracks = trackslist.TracksListCtrl(self)
-            t = self.tracks
-            self.tracks.playlist_songs = songs 
-            tab = xlmisc.NotebookTab(self, title, self.tracks)
-            self.playlists_nb.append_page(self.tracks, tab)
-        else:
-            t = self.tracks
+        self.tracks = trackslist.TracksListCtrl(self)
+        t = self.tracks
+        self.tracks.playlist_songs = songs 
+        tab = xlmisc.NotebookTab(self, title, self.tracks)
+        self.playlists_nb.append_page(self.tracks, tab)
 
         if set_current:
             self.playlists_nb.set_current_page( 
                 self.playlists_nb.get_n_pages() - 1)
             self.update_songs(songs)
+
+        # if there is more than one tab, show the tab bar
+        if self.playlists_nb.get_n_pages() > 1:
+            self.playlists_nb.set_show_tabs(True)
+
         if ret: return t
 
     def close_page(self, page=None): 
@@ -1224,6 +1227,11 @@ class ExaileWindow(gobject.GObject):
                     break
 
         self.tracks = None
+        
+        # if there is less than one tab, hide the tab bar
+        if self.playlists_nb.get_n_pages() <= 1 and \
+            not self.settings.get_boolean('ui/always_show_tabbar', False):
+            self.playlists_nb.set_show_tabs(False)
 
         if self.playlists_nb.get_n_pages() == 0:
             self.new_page(_("Playlist"))

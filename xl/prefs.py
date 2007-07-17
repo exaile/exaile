@@ -508,6 +508,12 @@ class Preferences(object):
             self.fields.append(item)
 
     setting_changed = setup_settings
+
+    def advanced_toggle_tabbar(self, item, value):
+        if not value and self.exaile.playlists_nb.get_n_pages() <= 1:
+            self.exaile.playlists_nb.set_show_tabs(False)
+        else:
+            self.exaile.playlists_nb.set_show_tabs(True)
     
     def advanced_alphabet_alert(self, item, value):
         """

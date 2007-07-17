@@ -6,7 +6,7 @@
 <widget class="GtkWindow" id="ExaileWindow">
   <property name="width_request">800</property>
   <property name="height_request">535</property>
-  <property name="title" translatable="no">Exaile</property>
+  <property name="title">Exaile</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_CENTER</property>
   <property name="modal">False</property>
@@ -2348,7 +2348,7 @@ Genre</property>
 		  <child>
 		    <widget class="GtkLabel" id="label107">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="no">  </property>
+		      <property name="label">  </property>
 		      <property name="use_underline">False</property>
 		      <property name="use_markup">False</property>
 		      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -2460,7 +2460,7 @@ Genre</property>
 		  <child>
 		    <widget class="GtkLabel" id="label113">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="no">  </property>
+		      <property name="label">  </property>
 		      <property name="use_underline">False</property>
 		      <property name="use_markup">False</property>
 		      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -3099,7 +3099,7 @@ Genre</property>
 		  <child>
 		    <widget class="GtkLabel" id="label13">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="no">               </property>
+		      <property name="label">               </property>
 		      <property name="use_underline">False</property>
 		      <property name="use_markup">False</property>
 		      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -4035,8 +4035,7 @@ on {album} - {length}</property>
 				  <property name="items" translatable="yes">Top
 Left
 Right
-Bottom
-Hidden</property>
+Bottom</property>
 				  <property name="add_tearoffs">False</property>
 				  <property name="focus_on_click">True</property>
 				</widget>
@@ -5640,7 +5639,7 @@ Low</property>
 				      <property name="editable">True</property>
 				      <property name="visibility">True</property>
 				      <property name="max_length">0</property>
-				      <property name="text" translatable="no">/dev/cdrom</property>
+				      <property name="text">/dev/cdrom</property>
 				      <property name="has_frame">True</property>
 				      <property name="invisible_char">●</property>
 				      <property name="activates_default">False</property>
@@ -6881,7 +6880,7 @@ Josip Lisec</property>
 	      <child>
 		<widget class="GtkLabel" id="label100">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="no">           </property>
+		  <property name="label">           </property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">False</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -6920,7 +6919,7 @@ Josip Lisec</property>
 	      <child>
 		<widget class="GtkLabel" id="label101">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="no">        </property>
+		  <property name="label">        </property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">False</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -7654,7 +7653,7 @@ Josip Lisec</property>
 	  <child>
 	    <widget class="GtkLabel" id="label85">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="no">     </property>
+	      <property name="label">     </property>
 	      <property name="use_underline">False</property>
 	      <property name="use_markup">False</property>
 	      <property name="justify">GTK_JUSTIFY_LEFT</property>

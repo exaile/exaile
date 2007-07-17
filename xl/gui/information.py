@@ -89,7 +89,7 @@ class TablatureTab(gtk.VBox):
         self.update()
         self.show_all()
 
-    def update(self):       
+    def update(self):
         """
             Called when this tab is selected
         """
@@ -122,7 +122,7 @@ class TablatureTab(gtk.VBox):
         h.write(text)
         h.close()            
 
-    def close_page(self):   
+    def close_page(self):
         """
             Called when this tab is closed
         """
@@ -225,10 +225,10 @@ class TrackStatsTab(gtk.ScrolledWindow):
         if row:
             playcount = row[0]
             rating = row[1]
-        self.append_info(_("Title: "), track.title)
+        self.append_info(_("Title:"), track.title)
         self.append_info(_("Artist:" ), track.artist)
         self.append_info(_("Album:"), track.album)
-        if track.track and track.track > -1: 
+        if track.track and track.track > -1:
             self.append_info(_("Track Number:"), str(track.track))
         self.append_info(_("Year:"), track.year)
         self.append_info(_("Genre:"), track.genre)
@@ -236,7 +236,7 @@ class TrackStatsTab(gtk.ScrolledWindow):
         if track.rating: self.append_info(_("User Rating:"), track.rating)
         self.append_info(_("System Rating:"), str(rating))
         if playcount >= 0: self.append_info(_("Playcount:"), str(playcount))
-        self.append_info(_("Location: "), track.loc.encode(xlmisc.get_default_encoding()))
+        self.append_info(_("Location:"), track.loc.encode(xlmisc.get_default_encoding()))
 
     def append_info(self, label, string):
         """
@@ -283,14 +283,14 @@ class RadioTrackStatsTab(TrackStatsTab):
             Sets up the specific information fields for this track
         """
 
-        self.append_info(_("Title: "), track.title)
-        self.append_info(_("Description: "), track.artist)
+        self.append_info(_("Title:"), track.title)
+        self.append_info(_("Description:"), track.artist)
 
         location = gtk.Entry()
         location.set_text(track.loc)
         location.set_editable(False)
-        self.append_info(_("Location: "), location)
-        self.append_info(_("Bitrate: "), track.bitrate)
+        self.append_info(_("Location:"), location)
+        self.append_info(_("Bitrate:"), track.bitrate)
 
 class TrackInformation(gtk.Notebook):
     """
@@ -321,7 +321,7 @@ class TrackInformation(gtk.Notebook):
         for i in range(0, self.get_n_pages()):
             self.remove_page(0)
 
-        if track.type == 'stream': 
+        if track.type == 'stream':
             self.append_page(RadioTrackStatsTab(self.exaile, track),
                 gtk.Label(_("Stream Statistics")))
         

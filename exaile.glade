@@ -6,7 +6,7 @@
 <widget class="GtkWindow" id="ExaileWindow">
   <property name="width_request">800</property>
   <property name="height_request">535</property>
-  <property name="title" translatable="yes">Exaile!</property>
+  <property name="title" translatable="no">Exaile</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_CENTER</property>
   <property name="modal">False</property>
@@ -2348,7 +2348,7 @@ Genre</property>
 		  <child>
 		    <widget class="GtkLabel" id="label107">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">  </property>
+		      <property name="label" translatable="no">  </property>
 		      <property name="use_underline">False</property>
 		      <property name="use_markup">False</property>
 		      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -2460,7 +2460,7 @@ Genre</property>
 		  <child>
 		    <widget class="GtkLabel" id="label113">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">  </property>
+		      <property name="label" translatable="no">  </property>
 		      <property name="use_underline">False</property>
 		      <property name="use_markup">False</property>
 		      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -3099,7 +3099,7 @@ Genre</property>
 		  <child>
 		    <widget class="GtkLabel" id="label13">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">               </property>
+		      <property name="label" translatable="no">               </property>
 		      <property name="use_underline">False</property>
 		      <property name="use_markup">False</property>
 		      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -3580,7 +3580,7 @@ Genre</property>
 		  <child>
 		    <widget class="GtkLabel" id="popup_title_label">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">&lt;b&gt;{Title}&lt;/b&gt;
+		      <property name="label" translatable="yes">&lt;b&gt;{title}&lt;/b&gt;
 {artist}
 on {album} - {length}</property>
 		      <property name="use_underline">False</property>
@@ -4726,7 +4726,7 @@ on {album} - {length}</property>
 			    <widget class="GtkLabel" id="label60">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
-			      <property name="label" translatable="yes">Hint: see http://www.exaile.org/trac/wiki/OSD for examples</property>
+			      <property name="label" translatable="yes">See http://www.exaile.org/trac/wiki/OSD for examples</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">False</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -6881,7 +6881,7 @@ Josip Lisec</property>
 	      <child>
 		<widget class="GtkLabel" id="label100">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">           </property>
+		  <property name="label" translatable="no">           </property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">False</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -6920,7 +6920,7 @@ Josip Lisec</property>
 	      <child>
 		<widget class="GtkLabel" id="label101">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">        </property>
+		  <property name="label" translatable="no">        </property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">False</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -7654,7 +7654,7 @@ Josip Lisec</property>
 	  <child>
 	    <widget class="GtkLabel" id="label85">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">     </property>
+	      <property name="label" translatable="no">     </property>
 	      <property name="use_underline">False</property>
 	      <property name="use_markup">False</property>
 	      <property name="justify">GTK_JUSTIFY_LEFT</property>

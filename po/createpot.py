@@ -10,7 +10,7 @@ except IndexError:
 
 os.system("intltool-extract --type=gettext/glade exaile.glade")
 os.system("intltool-extract --type=gettext/glade plugins/plugins.glade")
-os.system("xgettext -k_ -kN_ -o messages.pot "
+os.system("xgettext -c -k_ -kN_ -o messages.pot "
     "*.py plugins/*.py `find xl -name '*.py'` "
     "exaile.glade.h plugins/plugins.glade.h")
 

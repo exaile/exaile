@@ -233,7 +233,7 @@
 				  <child>
 				    <widget class="GtkLabel" id="author_label">
 				      <property name="visible">True</property>
-				      <property name="label" translatable="yes">
+				      <property name="label" translatable="no">
 </property>
 				      <property name="use_underline">False</property>
 				      <property name="use_markup">False</property>

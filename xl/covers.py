@@ -451,7 +451,7 @@ class CoverFetcher(object):
         self.cover_menu.set_parent(self.dialog)
         xlmisc.finish()
         self.total = self.calculate_total()
-        self.label.set_label(_("%s covers left to collect.") % self.total)
+        self.label.set_label(_("%d covers left to collect.") % self.total)
         if self.go:
             self.toggle_running(None)
 
@@ -639,7 +639,7 @@ class CoverFetcher(object):
                 t = 0
                 for k, v in self.needs.iteritems():
                     t += len(v)
-                self.label.set_label(_("%s covers left to collect.") % t)
+                self.label.set_label(_("%d covers left to collect.") % t)
                 xlmisc.finish()
             count += 1
 
@@ -837,20 +837,19 @@ class CoverFrame(object):
             Called when the cover fetcher thread has fetched all covers
         """
         self.exaile.status.set_first(None)
+        self.covers = covers
+        self.prev.set_sensitive(False)
 
-        if len(covers) <= 0:
+        if not covers:
             common.error(self.parent, _("Sorry, no covers were found."))
-            self.covers = []
             self.next.set_sensitive(False)
             self.ok.set_sensitive(False)
             self.window.show_all()
             return
 
-        if len(covers) > 1: self.next.set_sensitive(True)
-        else: self.next.set_sensitive(False)
+        self.next.set_sensitive(len(covers) > 1)
         self.ok.set_sensitive(True)
 
-        self.covers = covers
         self.current = 0
 
         self.show_cover(self.covers[self.current])

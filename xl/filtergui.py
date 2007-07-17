@@ -373,7 +373,7 @@ class MultiEntryField(gtk.HBox):
         return [e.get_text() for e in self.entries]
     def set_state(self, state):
         for i, e in enumerate(self.entries):
-            if len(state) > i: e.set_text(state[i])
+            if len(state) > i: e.set_text(unicode(state[i]))
 
 class EntryField(gtk.Entry):
     def __init__(self, result_generator):
@@ -386,7 +386,7 @@ class EntryField(gtk.Entry):
     def set_state(self, state):
         if type(state) == list or type(state) == tuple:
             state = state[0]
-        self.set_text(state)
+        self.set_text(unicode(state))
 
 class EntryLabelEntryField(MultiEntryField):
     def __init__(self, result_generator, label):

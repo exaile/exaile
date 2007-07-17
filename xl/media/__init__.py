@@ -341,9 +341,13 @@ class Track(gobject.GObject):
 
     def __str__(self):
         """
-            Returns a string representation of the track
+            Returns a string representation of the track.
+
+            Note that for now this string is only suitable for logging because
+            it is not translated and does not take into account when album or
+            artist is empty.
         """
-        return "%s from %s by %s" % (self._title, self.album, self.artist)
+        return "%s from %s by %s" % (self._title, self._album, self._artist)
 
     def set_bitrate(self, rate):
         """

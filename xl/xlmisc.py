@@ -1228,7 +1228,7 @@ class OSDWindow(object):
             title)
         self.title.set_markup(text)
 
-        if cover == None:
+        if not cover:
             cover = os.path.join('images', 'nocover.png')
 
         self.cover.set_image(cover)

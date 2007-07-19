@@ -302,12 +302,12 @@ class DevicePanel(collection.CollectionPanel):
                 return
         if not hasattr(self.driver, 'put_item'):
             common.error(self.exaile.window, _("The current device "
-                " does not support transferring music."))
+                "does not support transferring music."))
             return
         if self.transferring:
-            common.error(self.exaile.window, _("There is a transfer "
-                "currently in progress.  Please wait for it to "
-                "finish"))
+            common.error(self.panel.exaile.window, _('A transfer is in '
+                'progress, please wait for it to stop before attempting '
+                'to perform this operation.'))
             return
 
         if not self.queue:
@@ -375,6 +375,7 @@ class DevicePanel(collection.CollectionPanel):
         count = 1
         select = 0
         self.store.clear()
+        # TRANSLATORS: No driver
         self.store.append([_('None'), EmptyDriver()])
 
         for k, v in self.drivers.iteritems():
@@ -429,6 +430,7 @@ class DevicePanel(collection.CollectionPanel):
             self.connect_button.set_image(img)
         else:
             self.connected = True
+        # TRANSLATORS: Number of tracks available on the device
         self.track_count.set_label(_("%d tracks") % len(self.driver.all))
 
         self.load_tree()

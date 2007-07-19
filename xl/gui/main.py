@@ -142,7 +142,7 @@ class ExaileWindow(gobject.GObject):
         if self.settings.get_boolean("ui/use_tray", False): 
             self.setup_tray()
     
-        # sets the title of the main exaile window
+        # TRANSLATORS: The title of the main window
         self.window.set_title(_("Exaile Music Player"))
 
         # log in to audio scrobbler
@@ -427,6 +427,7 @@ class ExaileWindow(gobject.GObject):
 
         self.new_progressbar = self.xml.get_widget('new_progressbar')
         self.new_progressbar.set_fraction(0)
+        # TRANSLATORS: Progress bar background text when there is no playback
         self.new_progressbar.set_text(_("Not Playing"))
         self.new_progressbar.connect('button-press-event', self.seek_begin)
         self.new_progressbar.connect('button-release-event', self.seek_end)
@@ -651,6 +652,7 @@ class ExaileWindow(gobject.GObject):
                 nb.set_current_page(i)
                 return
         page = trackslist.QueueManager(self)
+        # TRANSLATORS: Title of the Queue tab
         tab = xlmisc.NotebookTab(self, _("Queue"), page)
         self.playlists_nb.append_page(page, tab)
         self.playlists_nb.set_current_page(
@@ -692,6 +694,7 @@ class ExaileWindow(gobject.GObject):
 
         page = trackslist.BlacklistedTracksList(self)
         page.set_songs(songs)
+        # TRANSLATORS: Title of the Blacklist tab
         tab = xlmisc.NotebookTab(self, _("Blacklist"), page)
         self.playlists_nb.append_page(page, tab)
         self.playlists_nb.set_current_page(
@@ -1094,9 +1097,9 @@ class ExaileWindow(gobject.GObject):
 
         if album or artist:
             desc = []
-            # Part of the sentence: "(title) from (album) by (artist)"
+            # TRANSLATORS: Part of the sentence: "(title) from (album) by (artist)"
             if album: desc.append(_("from %s") % album)
-            # Part of the sentence: "(title) from (album) by (artist)"
+            # TRANSLATORS: Part of the sentence: "(title) from (album) by (artist)"
             if artist: desc.append(_("by %s") % artist)
 
             self.window.set_title(_("Exaile: playing %s") % title + ' ' +
@@ -1422,6 +1425,7 @@ class ExaileWindow(gobject.GObject):
             if len(songs) >= count: break
 
         if not songs:
+            # TRANSLATORS: For dynamic playlist
             self.status.set_first(_("Could not find any"
             " suggested songs"), 4000)
 
@@ -1600,7 +1604,7 @@ class ExaileWindow(gobject.GObject):
         """
         if not library.CDDB_AVAIL:
             common.error(self.window, _('You need the python-cddb package '
-                ' in order to play audio discs.'))
+                'in order to play audio discs.'))
             return
 
         for i in range(self.playlists_nb.get_n_pages()):

@@ -127,6 +127,7 @@ class CollectionPanel(object):
                 self.progress_box.pack_start(self.stop_button, False, False)
 
                 self.box.pack_end(self.progress_box, False, False)
+                # TRANSLATORS: Scanning filesystem for tracks
                 self.scan_label = gtk.Label(_("Scanning..."))
                 self.scan_label.set_alignment(0, 0)
                 self.box.pack_end(self.scan_label, False, False)
@@ -161,6 +162,7 @@ class CollectionPanel(object):
             Creates the popup menu for this tree
         """
         menu = xlmisc.Menu()
+        # TRANSLATORS: Append selected track(s) to current playlist
         self.append = menu.append(_("Append to Current"),
             self.append_to_playlist, 'gtk-add')
 
@@ -187,8 +189,10 @@ class CollectionPanel(object):
         self.queue_item = menu.append(_("Queue Items"),
             self.append_to_playlist, 'exaile-queue-icon')
         menu.append_separator()
+        # TRANSLATORS: Put selected track(s) on the blacklist
         self.blacklist = menu.append(_("Blacklist Selected"),
             self.remove_items, 'gtk-delete')
+        # TRANSLATORS: Remove selected track(s) from the disk
         self.remove = menu.append(_("Delete Selected"), 
             self.remove_items, 'gtk-delete')
 
@@ -207,6 +211,8 @@ class CollectionPanel(object):
             # strings were already extracted in another part of exaile 
             # code, then _(menu_item.capitalize() will be substituted by 
             # the translated string in exaile.
+
+            # TRANSLATORS: Edit a specific tag
             item = em.append(_("Edit %s") % _(menu_item.capitalize()),
                 lambda w, e, m=menu_item: track.edit_field(self, m))
 

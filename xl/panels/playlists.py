@@ -31,6 +31,7 @@ class EntrySecondsField(MultiEntryField):
 class EntryAndEntryField(MultiEntryField):
     def __init__(self, result_generator):
         MultiEntryField.__init__(self, result_generator, n=2,
+            # TRANSLATORS: Logical AND used for smart playlists
             labels=(None, _('and'), None),
             widths=(50, 50))
 
@@ -62,12 +63,16 @@ class SpinNothing(filtergui.SpinLabelField):
 
 CRITERIA = [
     (N_('Artist'), [
+        # TRANSLATORS: True if haystack is equal to needle
         (N_('is'), (EntryField, lambda x:
             'artists.name = "%s"' % x)),
+        # TRANSLATORS: True if haystack is not equal to needle
         (N_('is not'), (EntryField, lambda x:
             'artists.name != "%s"' % x)),
+        # TRANSLATORS: True if haystack contains needle
         (N_('contains'), (EntryField, lambda x:
             'artists.name LIKE "%%%s%%"' % x)),
+        # TRANSLATORS: True if haystack does not contain needle
         (N_('does not contain'), (EntryField, lambda x:
             'artists.name NOT LIKE "%%%s%%"' % x)),
         ]),
@@ -92,8 +97,10 @@ CRITERIA = [
             'genre NOT LIKE "%%%s%%"' %x)),
         ]),
     (N_('User Rating'), [
+        # TRANSLATORS: Example: rating >= 5
         (N_('at least'), (SpinRating, lambda x:
             'user_rating >= %s' % x)),
+        # TRANSLATORS: Example: rating <= 3
         (N_('at most'), (SpinRating, lambda x:
             'user_rating <= %s' % x))]),
     (N_('System Rating'), [
@@ -109,10 +116,13 @@ CRITERIA = [
             'plays <= %s' %x))
         ]),
     (N_('Year'), [
+        # TRANSLATORS: Example: year < 1999
         (N_('before'), (EntryField, lambda x:
             'year < %s' % x)),
+        # TRANSLATORS: Example: year > 2002
         (N_('after'), (EntryField, lambda x:
             'year > %s' % x)),
+        # TRANSLATORS: Example: 1980 <= year <= 1987
         (N_('between'), (EntryAndEntryField, lambda x, y:
             'year BETWEEN %s AND %s' % (x, y))),
         ]),
@@ -123,8 +133,10 @@ CRITERIA = [
             'length <= %s' % x)),
         ]),
     (N_('Date Added'), [
+        # TRANSLATORS: Example: track has been added in the last 2 days
         (N_('in the last'), (SpinDateField, 
             lambda x, i: day_calc(x, i, 'time_added'))),
+        # TRANSLATORS: Example: track has not been added in the last 5 hours
         (N_('not in the last'), (SpinDateField, 
             lambda x, i: day_calc(x, i, 'time_added', '<'))),
         ]),

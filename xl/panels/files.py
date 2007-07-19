@@ -67,7 +67,8 @@ class FilesPanel(object):
 
         pb = gtk.CellRendererPixbuf()
         text = gtk.CellRendererText()
-        col = gtk.TreeViewColumn(_('Path'))
+        # TRANSLATORS: Filename column in the file browser
+        col = gtk.TreeViewColumn(_('Filename'))
         col.pack_start(pb, False)
         col.pack_start(text, True)
         col.set_fixed_width(130)
@@ -81,6 +82,7 @@ class FilesPanel(object):
 
         text = gtk.CellRendererText()
         text.set_property('xalign', 1.0)
+        # TRANSLATORS: Filesize column in the file browser
         col = gtk.TreeViewColumn(_('Size'))
         col.set_fixed_width(50)
         col.set_resizable(True)

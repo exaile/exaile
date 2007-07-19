@@ -131,6 +131,7 @@ class AdvancedConfigEditor(gtk.Window):
 
         # set up the treeview
         text = gtk.CellRendererText()
+        # TRANSLATORS: Name of a setting in the Advanced Configuration Editor
         col = gtk.TreeViewColumn(_('Setting Name'))
         col.pack_start(text, False)
         col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)

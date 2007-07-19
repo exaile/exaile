@@ -607,7 +607,7 @@
 		  <child>
 		    <widget class="GtkMenuItem" id="randomize_item">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Randomize Playlist</property>
+		      <property name="label" translatable="yes" comments="TRANSLATORS: Randomizes the track order contrary to Shuffle">Randomize Playlist</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_randomize_item_activate"/>
 		    </widget>
@@ -1659,7 +1659,7 @@ Genre</property>
 			  <child>
 			    <widget class="GtkLabel" id="label7">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Vol:</property>
+			      <property name="label" translatable="yes" comments="TRANSLATORS: The volume label">Vol:</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">False</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -2173,7 +2173,7 @@ Genre</property>
 		      <child>
 			<widget class="GtkLabel" id="filter_label">
 			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">Search:  </property>
+			  <property name="label" translatable="yes" comments="Label for the filter box next to the playlist">Search:  </property>
 			  <property name="use_underline">False</property>
 			  <property name="use_markup">False</property>
 			  <property name="justify">GTK_JUSTIFY_RIGHT</property>
@@ -2600,7 +2600,7 @@ Genre</property>
 	  <child>
 	    <widget class="GtkLabel" id="track_count_label">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">0/0</property>
+	      <property name="label" translatable="yes" comments="TRANSLATORS: Initial playlist and collection status">0/0</property>
 	      <property name="use_underline">False</property>
 	      <property name="use_markup">False</property>
 	      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -3946,7 +3946,7 @@ on {album} - {length}</property>
 			    <widget class="GtkCheckButton" id="prefs_ui_ensure_visible">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
-			      <property name="label" translatable="yes">Jump to current song on track change</property>
+			      <property name="label" translatable="yes" comments="TRANSLATORS: Keep the current track visible in playlist">Jump to current song on track change</property>
 			      <property name="use_underline">True</property>
 			      <property name="relief">GTK_RELIEF_NORMAL</property>
 			      <property name="focus_on_click">True</property>
@@ -4318,7 +4318,7 @@ Bottom</property>
 			  <child>
 			    <widget class="GtkLabel" id="label4">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">&lt;b&gt;Move the OSD window to the location you want it to appear when listening&lt;/b&gt;</property>
+			      <property name="label" translatable="yes">&lt;b&gt;Move the On Screen Display window to the location you want it to appear&lt;/b&gt;</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -4344,7 +4344,7 @@ Bottom</property>
 			    <widget class="GtkCheckButton" id="prefs_osd_enabled">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
-			      <property name="label" translatable="yes">Show On Screen Display on track change</property>
+			      <property name="label" translatable="yes">Show OSD on track change</property>
 			      <property name="use_underline">True</property>
 			      <property name="relief">GTK_RELIEF_NORMAL</property>
 			      <property name="focus_on_click">True</property>
@@ -4789,7 +4789,7 @@ on {album} - {length}</property>
 			  <child>
 			    <widget class="GtkLabel" id="label121">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Format:</property>
+			      <property name="label" translatable="yes" comments="TRANSLATORS: Output format of the CD import">Format:</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">False</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -4873,7 +4873,7 @@ on {album} - {length}</property>
 			  <child>
 			    <widget class="GtkLabel" id="label124">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Naming:</property>
+			      <property name="label" translatable="yes" comments="TRANSLATORS: File naming of imported tracks">Naming:</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">False</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -4989,7 +4989,7 @@ on {album} - {length}</property>
 			    <widget class="GtkCheckButton" id="prefs_import_use_custom">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
-			      <property name="label" translatable="yes">Custom pipeline:</property>
+			      <property name="label" translatable="yes" comments="TRANSLATORS: Custom Gstreamer pipeline for CD import">Custom pipeline:</property>
 			      <property name="use_underline">True</property>
 			      <property name="relief">GTK_RELIEF_NORMAL</property>
 			      <property name="focus_on_click">True</property>
@@ -5053,7 +5053,7 @@ on {album} - {length}</property>
 				  <child>
 				    <widget class="GtkLabel" id="label128">
 				      <property name="visible">True</property>
-				      <property name="label" translatable="yes">${artist}
+				      <property name="label">${artist}
 ${album}
 ${title}
 ${num}
@@ -5399,7 +5399,7 @@ Low</property>
 			  <child>
 			    <widget class="GtkLabel" id="label80">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Last.fm Username:  </property>
+			      <property name="label" translatable="yes">Last.fm Username:</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">False</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -5840,7 +5840,7 @@ us</property>
 				  <child>
 				    <widget class="GtkComboBox" id="prefs_audio_sink">
 				      <property name="visible">True</property>
-				      <property name="items" translatable="yes">Automatic
+				      <property name="items" translatable="yes" comments="TRANSLATORS: Audo sink setting">Automatic
 Use GConf Settings
 alsasink
 osssink
@@ -5946,7 +5946,7 @@ esdsink</property>
 			      <child>
 				<widget class="GtkLabel" id="label72">
 				  <property name="visible">True</property>
-				  <property name="label" translatable="yes">Playback Sink:   </property>
+				  <property name="label" translatable="yes">Playback Sink:</property>
 				  <property name="use_underline">False</property>
 				  <property name="use_markup">False</property>
 				  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -6261,7 +6261,7 @@ Aren Olson
     (Developer)</property>
   <property name="artists">Aron Homberg
 Josip Lisec</property>
-  <property name="translator_credits" translatable="yes" comments="TRANSLATORS: Replace this string with your names, one name per line.">translator-credits</property>
+  <property name="translator_credits" translatable="yes" comments="TRANSLATORS: Replace this string with your names, one per line">translator-credits</property>
 
   <child internal-child="vbox">
     <widget class="GtkVBox" id="dialog-vbox10">
@@ -6905,7 +6905,7 @@ Josip Lisec</property>
 	      <child>
 		<widget class="GtkComboBox" id="eq_preset_combobox">
 		  <property name="visible">True</property>
-		  <property name="items" translatable="yes">Custom</property>
+		  <property name="items" translatable="yes" comments="TRANSLATORS: Custom equalizer setting">Custom</property>
 		  <property name="add_tearoffs">False</property>
 		  <property name="focus_on_click">True</property>
 		</widget>

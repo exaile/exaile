@@ -485,6 +485,7 @@ class CoverFetcher(object):
             self.fetch_next()
         else:
             self.stopstart.set_use_stock(False)
+            # TRANSLATORS: Start fetching cover arts
             self.stopstart.set_label(_('Start'))
             self.stopstart.set_image(gtk.image_new_from_stock('gtk-yes',
                 gtk.ICON_SIZE_BUTTON))
@@ -520,6 +521,7 @@ class CoverFetcher(object):
             (self.artist, self.album),
             self.got_covers, locale=locale)
         self.cover_thread.start()
+        # TRANSLATORS: Album cover fetching status
         self.label.set_label(_("%(remaining)d left: %(album)s by %(artist)s") % 
             {
                 'remaining': (self.total - self.current),

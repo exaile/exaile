@@ -400,7 +400,7 @@ class EggTrayIcon(BaseTrayIcon):
         BaseTrayIcon.__init__(self, exaile)
 
         self.tips = gtk.Tooltips()
-        self.icon = egg.trayicon.TrayIcon(_('Exaile'))
+        self.icon = egg.trayicon.TrayIcon('Exaile')
         self.box = gtk.EventBox()
         self.icon.add(self.box)
 
@@ -454,7 +454,7 @@ class GtkTrayIcon(BaseTrayIcon):
     def __init__(self, exaile):
         BaseTrayIcon.__init__(self, exaile)
         self.icon = icon = gtk.StatusIcon()
-        icon.set_tooltip(_('Exaile'))
+        icon.set_tooltip('Exaile')
         icon.set_from_file(os.path.join('images', 'trayicon.png'))
         icon.connect('activate', self.activated)
         icon.connect('popup-menu', self.popup)

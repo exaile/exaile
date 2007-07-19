@@ -897,6 +897,7 @@ class TracksListCtrl(gtk.VBox):
         factory.add('exaile-track-icon', gtk.IconSet(
             gtk.gdk.pixbuf_new_from_file(os.path.join('images',
             'track.png'))))
+        # TRANSLATORS: Shows the selected track in the collection tree
         tpm.append(_("Show in Collection"), self.show_in_collection,
             'exaile-track-icon')
         tpm.append_separator()
@@ -917,6 +918,7 @@ class TracksListCtrl(gtk.VBox):
         if self.exaile.plugins_menu.get_children():
             tpm.append_separator()
 
+            # TRANSLATORS: Plugin submenu for the playlist
             self.plugins_item = tpm.append(_("Plugins"), None, 'gtk-execute')
             self.plugins_item.set_submenu(self.exaile.plugins_menu)
 

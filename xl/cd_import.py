@@ -171,6 +171,7 @@ class CDImporter(object):
 
         for i, song in enumerate(songs):
             if not self.importing: break 
+            # TRANSLATORS: CD import status
             bar.set_text(_("Track %(current)d/%(total)d") % {
                 'imported': i + 1,
                 'total': len(songs)

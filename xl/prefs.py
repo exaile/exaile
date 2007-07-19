@@ -318,12 +318,19 @@ class Preferences(object):
     """
 
     order = (_("General"), _("Advanced"))
+    # TRANSLATORS: Category of the preferences dialog
     items = ({_("General"):
+                # TRANSLATORS: Category of the preferences dialog
                 (_("Library"),
+                # TRANSLATORS: Category of the preferences dialog
                 _('Notification'),
+                # TRANSLATORS: Category of the preferences dialog
                 _('Importing'),
+                # TRANSLATORS: Category of the preferences dialog
                 _('Last.fm'),
+                # TRANSLATORS: Category of the preferences dialog
                 _('Radio')),
+            # TRANSLATORS: Category of the preferences dialog
             _("Advanced"):
                 '',
             })
@@ -520,6 +527,7 @@ class Preferences(object):
             Shows an alert when the user changes the "show extended alphabet"
             setting
         """
+        # TRANSLATORS: Notification about the "Show Extended Alphabet" setting
         common.info(self.exaile.window, _('Click the "Refresh" button in '
             'the Collection panel to apply this setting.'))
 
@@ -583,8 +591,10 @@ class Preferences(object):
             quality_label.set_text(_('Quality:'))
             bitrate = cd_import.formatdict[format][quality]
             if format == "MP3":
+                # TRANSLATORS: For MP3 CBR
                 bitrate_label.set_text(_("%d kbps") % bitrate)
             elif format == "MP3 VBR":
+                # TRANSLATORS: For MP3 VBR
                 bitrate_label.set_text(_("%d mean kbps") % bitrate)
             elif format == "Ogg Vorbis":
                 bitrate_label.set_text(str(bitrate))

@@ -866,7 +866,9 @@ class RadioPanel(object):
         
         dialog = common.MultiTextEntryDialog(self.exaile.window,
             _("Add Stream to Station"))
+        # TRANSLATORS: Address of a radio station
         dialog.add_field(_("URL:"))
+        # TRANSLATORS: Description of a radio station
         dialog.add_field(_("Description:"))
         result = dialog.run()
         if result == gtk.RESPONSE_OK:

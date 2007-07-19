@@ -408,6 +408,7 @@ class ShowOnceMessageDialog(gtk.Dialog):
 
         vbox.pack_start(top, True, True)
 
+        # TRANSLATORS: Checkbox for common dialogs
         self.box = gtk.CheckButton(_('Do not show this dialog again'))
         self.box.set_active(checked)
         vbox.pack_start(self.box)

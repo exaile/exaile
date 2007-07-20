@@ -17,7 +17,7 @@
 import gtk, os, gobject, urllib
 from gettext import gettext as _, ngettext
 from xl import common, xlmisc, library
-from xl.gui import playlist as trackslist
+from xl.gui import editor, playlist
 
 class CollectionPanel(object):
     """
@@ -62,7 +62,7 @@ class CollectionPanel(object):
             'images', 'playlist.png'))
         self.connect_id = None
         self.setup_widgets()
-        trackslist.create_rating_images(self)
+        playlist.create_rating_images(self)
 
     def setup_widgets(self):
         """
@@ -201,7 +201,7 @@ class CollectionPanel(object):
         em = xlmisc.Menu()
 
         em.append(_("Edit Information"), lambda e, f:
-            track.TrackEditor(self.exaile, self), 'gtk-edit')
+            editor.TrackEditor(self.exaile, self), 'gtk-edit')
         em.append_separator()
 
         # edit specific common fields
@@ -214,7 +214,7 @@ class CollectionPanel(object):
 
             # TRANSLATORS: Edit a specific tag
             item = em.append(_("Edit %s") % _(menu_item.capitalize()),
-                lambda w, e, m=menu_item: track.edit_field(self, m))
+                lambda w, e, m=menu_item: editor.edit_field(self, m))
 
         em.append_separator()
         rm = xlmisc.Menu()
@@ -222,7 +222,7 @@ class CollectionPanel(object):
 
         for i in range(0, 8):
             item = rm.append_image(self.rating_images[i],
-                lambda w, e, i=i: track.update_rating(self, i))
+                lambda w, e, i=i: editor.update_rating(self, i))
 
         em.append_menu(_("Rating"), rm)
         menu.append_menu(ngettext("Edit Track", "Edit Tracks", n_selected), em,

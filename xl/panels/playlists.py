@@ -22,6 +22,21 @@ from xl.filtergui import MultiEntryField, EntryField
 
 N_ = lambda x: x
 
+def day_calc(x, inc, field, symbol='>='):
+    import time
+    values = {
+        'seconds': 1,
+        'minutes': 60,
+        'hours': 60 * 60,
+        'days': 60 * 60 * 24,
+        'weeks': 60 * 60 * 24 * 7
+    }
+
+    seconds = int(x) * values[inc]
+    t = time.time() - seconds
+    t = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(t))
+    return "%s %s '%s'" % (field, symbol, t)
+
 class EntrySecondsField(MultiEntryField):
     def __init__(self, result_generator):
         MultiEntryField.__init__(self, result_generator, n=1,
@@ -142,9 +157,9 @@ CRITERIA = [
         ]),
     (N_('Last Played'), [
         (N_('in the last'), (SpinDateField, 
-            lambda x: day_calc(x, 'last_played'))),
+            lambda x, i: day_calc(x, i, 'last_played'))),
         (N_('not in the last'), (SpinDateField, 
-            lambda x: day_calc(x, 'last_played', '<'))),
+            lambda x, i: day_calc(x, i, 'last_played', '<'))),
         ]),
     (N_('Location'), [
         (N_('is'), (EntryField, lambda x:

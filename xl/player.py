@@ -292,19 +292,23 @@ class ExailePlayer(GSTPlayer):
             doesn't work, it tries autoaudiosink
         """
 
-        self.audio_sink = self._get_audio_sink(sink)
+        self.audio_sink = self._create_sink(sink)
 
         # if the audio_sink is still not set, use a fakesink
         if not self.audio_sink:
-            xlmisc.log('Audio Sink could not be set up.  Using a fakesink '
+            xlmisc.log('Audio sink could not be set up.  Using a fakesink '
                'instead.  Audio will not be available.')
             self.audio_sink = gst.element_factory_make('fakesink')
 
         self.playbin.set_property('audio-sink', self.audio_sink)
 
-    def _get_audio_sink(self, sink=None):
+    def _create_sink(self, sink=None):
         """
-            Returns the appropriate audio sink
+            Creates an element: equalizer -> replaygain -> named sink.
+
+            If the named sink is None, use the audio_sink setting.
+            The equalizer and ReplayGain elements are optional and will not be
+            created if they don't exist or are disabled.
         """
 
         if not sink: sink = self.exaile.settings.get_str('audio_sink',
@@ -318,38 +322,62 @@ class ExailePlayer(GSTPlayer):
             xlmisc.log("Could not create sink %s.  Trying autoaudiosink." %
                 sink)
             asink = gst.element_factory_make('autoaudiosink')
+
         sinkbin = gst.Bin()
+        sink_elements = []
 
-        # if the equalizer is disabled, just return the audiosink
+        # if the equalizer is disabled, print info
         if self.exaile.options.noeq:
-            self.audiosink = asink
             xlmisc.log("Not using equalizer, disabled by the user")
-            return self.audiosink
 
-        try: # Equalizer element is still not very common 
-            self.equalizer = gst.element_factory_make('equalizer-10bands')
-        except gst.PluginNotFoundError:
-            xlmisc.log("Warning: Gstreamer equalizer element not found, "
-                "please install the latest gst-plugins-bad package")
-            self.audiosink = asink
-            return self.audiosink
-        aconv = gst.element_factory_make('audioconvert')
-		
-        sinkbin.add(self.equalizer, aconv, asink)
-        gst.element_link_many(self.equalizer, aconv, asink)
-        sinkpad = self.equalizer.get_static_pad('sink')
+        # otherwise try loading equalizer
+        else:
+            try: # Equalizer element is still not very common 
+                self.equalizer = gst.element_factory_make('equalizer-10bands')
+            except gst.PluginNotFoundError:
+                xlmisc.log("Equalizer support requires gstreamer-plugins-bad 0.10.5")
+
+            if self.equalizer:
+                sink_elements.append(self.equalizer)
+                sink_elements.append(gst.element_factory_make('audioconvert'))
+
+                bands = self.exaile.settings.get_list('equalizer/band-values', 
+                    [0] * 10)
+                for i, v in enumerate(bands):
+                    self.equalizer.set_property(('band' + str(i)), v)
+
+        # user does not want replaygain
+        if not self.exaile.settings.get_boolean('use_replaygain', True):
+            xlmisc.log("Not using replaygain, disabled by the user")
+
+        # otherwise try loading replaygain
+        else:
+            replaygain = None
+
+            try:
+                replaygain = gst.element_factory_make('rgvolume')
+            except gst.PluginNotFoundError:
+                xlmisc.log("ReplayGain support requires gstreamer-plugins-bad 0.10.5")
+
+            if replaygain:
+                sink_elements.append(replaygain)
+
+        # if still empty just use asink and end
+        if not sink_elements:
+            return asink
+
+        # otherwise put audiosink as last element
+        sink_elements.append(asink)
+
+        # add elements to sink and link them
+        sinkbin.add(*sink_elements)
+        gst.element_link_many(*sink_elements)
+
+        # create sink pad in that links to sink pad of first element
+        sinkpad = sink_elements[0].get_static_pad('sink')
         sinkbin.add_pad(gst.GhostPad('sink', sinkpad))
 
-        self.audio_sink = sinkbin
-
-        bands = self.exaile.settings.get_list('equalizer/band-values', 
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-        i = 0
-        for v in bands:
-            self.equalizer.set_property(('band'+str(i)), v)
-            i = i + 1
-
-        return self.audio_sink
+        return sinkbin
 
     def get_position(self):
         """

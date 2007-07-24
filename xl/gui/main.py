@@ -1092,24 +1092,31 @@ class ExaileWindow(gobject.GObject):
         album = track.album
         artist = track.artist
 
+        if artist:
+            # TRANSLATORS: Window title
+            self.window.set_title(_("%(title)s (by %(artist)s)") %
+                { 'title': title, 'artist': artist } + " - Exaile")
+        else:
+            self.window.set_title(title + " - Exaile")
+
         self.title_label.set_label(title)
 
         if album or artist:
             desc = []
-            # TRANSLATORS: Part of the sentence: "(title) from (album) by (artist)"
-            if album: desc.append(_("from %s") % album)
-            # TRANSLATORS: Part of the sentence: "(title) from (album) by (artist)"
+            # TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
             if artist: desc.append(_("by %s") % artist)
+            # TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
+            if album: desc.append(_("from %s") % album)
 
-            self.window.set_title(_("Exaile: playing %s") % title + ' ' +
-                ' '.join(desc))
+            #self.window.set_title(_("Exaile: playing %s") % title +
+            #    ' ' + ' '.join(desc))
             desc_newline = '\n'.join(desc)
             self.artist_label.set_label(desc_newline)
             if self.tray_icon:
                 self.tray_icon.set_tooltip(_("Playing %s") % title + '\n' +
                     desc_newline)
         else:
-            self.window.set_title(_("Exaile: playing %s") % title)
+            #self.window.set_title(_("Exaile: playing %s") % title)
             self.artist_label.set_label("")
             if self.tray_icon:
                 self.tray_icon.set_tooltip(_("Playing %s") % title)

@@ -635,6 +635,9 @@ class NotebookTab(gtk.EventBox):
         """
             Shows menu when user right-clicks on tab
         """
+        if event.type == gtk.gdk._2BUTTON_PRESS:
+            self.rename(widget, event)
+            
         if event.button == 3:
             self.create_menu()
             self.menu.popup(None, None, None, event.button, event.time)

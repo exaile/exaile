@@ -310,6 +310,7 @@ class TrackInformation(gtk.Notebook):
 
         self.exaile.playlists_nb.append_page(self, xlmisc.NotebookTab(exaile,
             _("Information"), self))
+        self.exaile.playlists_nb.set_tab_reorderable(self, True)    
         self.exaile.playlists_nb.set_current_page(
             self.exaile.playlists_nb.get_n_pages() - 1)
 

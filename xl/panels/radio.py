@@ -919,6 +919,7 @@ class RadioPanel(object):
         t = trackslist.TracksListCtrl(self.exaile)
         self.exaile.playlists_nb.append_page(t,
             xlmisc.NotebookTab(self.exaile, playlist, t))
+        self.exaile.playlists_nb.set_tab_reorderable(t, True)     
         self.exaile.playlists_nb.set_current_page(
             self.exaile.playlists_nb.get_n_pages() - 1)
 

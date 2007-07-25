@@ -655,6 +655,7 @@ class ExaileWindow(gobject.GObject):
         # TRANSLATORS: Title of the Queue tab
         tab = xlmisc.NotebookTab(self, _("Queue"), page)
         self.playlists_nb.append_page(page, tab)
+        self.playlists_nb.set_tab_reorderable(page, True)
         self.playlists_nb.set_current_page(
             self.playlists_nb.get_n_pages() - 1)
 
@@ -699,7 +700,7 @@ class ExaileWindow(gobject.GObject):
         self.playlists_nb.append_page(page, tab)
         self.playlists_nb.set_current_page(
             self.playlists_nb.get_n_pages() - 1)
-
+        self.playlists_nb.set_tab_reorderable(page, True)
         # if there is more than one tab, show the tab bar
         if self.playlists_nb.get_n_pages() > 1:
             self.playlists_nb.set_show_tabs(True)
@@ -1204,7 +1205,8 @@ class ExaileWindow(gobject.GObject):
         self.tracks.playlist_songs = songs 
         tab = xlmisc.NotebookTab(self, title, self.tracks)
         self.playlists_nb.append_page(self.tracks, tab)
-
+        self.playlists_nb.set_tab_reorderable(self.tracks, True)
+        
         if set_current:
             self.playlists_nb.set_current_page( 
                 self.playlists_nb.get_n_pages() - 1)

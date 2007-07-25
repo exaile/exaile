@@ -361,6 +361,7 @@ class ExailePlayer(GSTPlayer):
 
             if replaygain:
                 sink_elements.append(replaygain)
+                xlmisc.log("ReplayGain support initialized.")
 
         # if still empty just use asink and end
         if not sink_elements:

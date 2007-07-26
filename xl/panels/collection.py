@@ -52,8 +52,6 @@ class CollectionPanel(object):
             'images', 'artist.png'))
         self.album_image = self.exaile.window.render_icon('gtk-cdrom',
             gtk.ICON_SIZE_SMALL_TOOLBAR)
-        self.separator_image = self.exaile.window.render_icon('gtk-remove', 
-            gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.track_image = gtk.gdk.pixbuf_new_from_file(os.path.join(
             'images', 'track.png'))
         self.genre_image = gtk.gdk.pixbuf_new_from_file(os.path.join(
@@ -432,14 +430,13 @@ class CollectionPanel(object):
             Called when the tree needs a value for column 1
         """
         object = model.get_value(iter, 1)
+	if object is None: return
         field = model.get_value(iter, 2)
 
         if hasattr(object, field):
             info = getattr(object, field)
             if not info: info = _('Unknown')
             cell.set_property('text', info)
-        else:
-            cell.set_property('text', str(object))
 
     def drag_data_received(self, tv, context, x, y, selection, info, etime):
         pass
@@ -478,6 +475,9 @@ class CollectionPanel(object):
             col.set_attributes(pb, pixbuf=0)
             self.tree.append_column(col)
             col.set_cell_data_func(cell, self.track_data_func)
+
+            self.tree.set_row_separator_func(
+                lambda m, i: m.get_value(i, 1) is None)
 
         # clear out the tracks if this is a first time load or the refresh
         # button is pressed
@@ -620,7 +620,7 @@ class CollectionPanel(object):
             order_nodes[field] = common.idict()
 
         expanded_paths = []
-        last_char = ''
+        last_char = None
         use_alphabet = self.exaile.settings.get_boolean("ui/use_alphabet", True)
         for track in songs:
             if self.current_start_count != self.start_count: return
@@ -638,14 +638,14 @@ class CollectionPanel(object):
                 if first and info and use_alphabet:
                     temp = library.the_cutter(library.lstrip_special(info).upper()).upper()
                     first_char = temp[0]
+                    if not last_char: # First row, don't add separator.
+                        last_char = first_char
                     if first_char != last_char:
                         if not first_char.isalpha():
                             first_char = '0-9'
                         if first_char != last_char:
                             last_char = first_char
-                            self.model.append(parent, [self.separator_image, 
-                                '---- %s ----' %
-                                first_char, 'nofield'])
+                            self.model.append(parent, [None, None, None]) # separator
 
                 if info == "": 
                     if not unknown and first:
@@ -676,8 +676,7 @@ class CollectionPanel(object):
         # make sure "Unknown" items end up at the end of the list
         if not unknown and last_songs:
             if use_alphabet:
-                self.model.append(node, [self.separator_image, "-----------",
-                'nofield'])
+                self.model.append(node, [None, None, None]) # separator
             self.append_info(self.root, last_songs, True)
 
         gobject.idle_add(self.tree.set_model, self.model)

@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import threading, os, re, time, urllib
+import md5, os, re, threading, time, urllib
 from xml.dom import minidom
 from gettext import gettext as _
 import gobject, gtk

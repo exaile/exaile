@@ -16,7 +16,7 @@
 
 import gtk, os, gobject, urllib
 from gettext import gettext as _, ngettext
-from xl import common, xlmisc, library
+from xl import common, media, library, xlmisc
 from xl.gui import editor, playlist
 
 class CollectionPanel(object):

@@ -491,49 +491,45 @@ class CollectionPanel(object):
         self.tree.set_model(self.model_blank)
         self.root = self.get_initial_root(self.model)
     
-        self.order = tuple()
-        self.image_map = ({
-            "artist": self.artist_image,
+        self.image_map = {
             "album": self.album_image,
+            "artist": self.artist_image,
             "genre": self.genre_image,
-            "title": self.track_image
-        })
+            "title": self.track_image,
+        }
 
         if self.keyword == "": self.keyword = None
 
-        if self.choice.get_active() == 2:
-            self.order = ('genre', 'artist', 'album', 'track', 'title')
+        orders = (
+            ('artist', 'album', 'track', 'title'),
+            ('album', 'track', 'title'),
+            ('genre', 'artist', 'album', 'track', 'title'),
+        )
+        self.order = orders[self.choice.get_active()]
 
-        if self.choice.get_active() == 0:
-            self.order = ('artist', 'album', 'track', 'title')
-
-        if self.choice.get_active() == 1:
-            self.order = ('album', 'track', 'title')
-
-        o_map = {'album' : 'LSTRIP_SPEC(albums.name), disc_id', 
-                'track' : 'track', 
-                'title' : 'LSTRIP_SPEC(title)',
-                'artist' : 'LSTRIP_SPEC(THE_CUTTER(artists.name))',
-                'genre' : 'LSTRIP_SPEC(genre)'}
-        order_by = ''
-        for sort_item in self.order:
-            order_by = order_by + o_map[sort_item] + ', '
-        order_by = order_by[:-2]
+        o_map = {
+            'album': 'LSTRIP_SPEC(albums.name), disc_id', 
+            'artist': 'LSTRIP_SPEC(THE_CUTTER(artists.name))',
+            'genre': 'LSTRIP_SPEC(genre)',
+            'title': 'LSTRIP_SPEC(title)',
+            'track': 'track', 
+        }
+        order_by = ', '.join((o_map[o] for o in self.order))
 
         self.where = """
-                SELECT 
-                    paths.name 
-                FROM tracks, albums, paths, artists
-                WHERE 
-                    blacklisted=0 AND
-                    (
-                        paths.id=tracks.path AND
-                        albums.id=tracks.album AND
-                        artists.id=tracks.artist 
-                    )
-                ORDER BY 
-                    %s
-                    """ % order_by
+            SELECT 
+                paths.name 
+            FROM tracks, albums, paths, artists
+            WHERE 
+                blacklisted=0 AND
+                (
+                    paths.id=tracks.path AND
+                    albums.id=tracks.album AND
+                    artists.id=tracks.artist 
+                )
+            ORDER BY 
+                %s
+            """ % order_by
 
 
         # save the active view setting
@@ -647,7 +643,7 @@ class CollectionPanel(object):
                             last_char = first_char
                             self.model.append(parent, [None, None, None]) # separator
 
-                if info == "": 
+                if not info: 
                     if not unknown and first:
                         last_songs.append(track)
                         break

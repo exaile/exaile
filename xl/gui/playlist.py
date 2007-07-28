@@ -524,28 +524,7 @@ class TracksListCtrl(gtk.VBox):
     def press_header(self, widget, event):
         if event.button != 3:
             return False
-        columns = widget.get_parent().get_columns()
-        visible_columns = [column for column in columns if column.get_visible()]
-        one_visible_column = len(visible_columns) == 1
-        menu = gtk.Menu()
-        pos = 1
-        for column in columns:
-            title = column.get_title()
-            if title == "":
-                title = _("Column #%i") %pos
-            elif title == "#":
-                title = _("Track Number")
-            item = gtk.CheckMenuItem(title)
-            if column in visible_columns:
-                item.set_active(True)
-                if one_visible_column:
-                    item.set_sensitive(False)
-            else:
-                item.set_active(False)
-            item.connect('activate', self.header_toggle, column)
-            menu.append(item)
-            pos += 1
-        menu.show_all()
+        menu = self.exaile.xml.get_widget('columns_menu_menu')
         menu.popup(None, None, None, event.button, event.time)
         return True
 			

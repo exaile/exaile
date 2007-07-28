@@ -43,11 +43,11 @@ def lstrip_special(field):
         stripping the chars leaves nothing the original field is returned with
         only whitespace removed.
     """
-    stripped = field.lower()
-    stripped = field.lstrip(" `~!@#$%^&*()_+-={}|[]\\\";'<>?,./")
+    lowered = field.lower()
+    stripped = lowered.lstrip(" `~!@#$%^&*()_+-={}|[]\\\";'<>?,./")
     if stripped:
         return stripped
-    return field.lstrip()
+    return lowered.lstrip()
 
 def get_suggested_songs(exaile, db, song, s, count, done_func):
     """

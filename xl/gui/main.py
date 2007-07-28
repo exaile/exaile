@@ -19,7 +19,7 @@ import pygtk, pygst
 pygtk.require('2.0')
 pygst.require('0.10')
 
-import gtk, gobject, os, sys, dbus, thread, pango, gtk.glade
+import gtk, gobject, os, signal, sys, dbus, thread, pango, gtk.glade
 import xl.dbusinterface, time
 from gettext import gettext as _
 from xl import library, media, audioscrobbler, equalizer, burn, common
@@ -213,6 +213,9 @@ class ExaileWindow(gobject.GObject):
         interval = self.settings.get_float('scan_interval', 25)
         if interval:
             self.start_scan_interval(interval)
+
+        # Handle SIGTERM
+        signal.signal(signal.SIGTERM, self.on_sigterm)
 
     def tag_callback(self, tags):
         """
@@ -1631,6 +1634,9 @@ class ExaileWindow(gobject.GObject):
         if not self.tracks: return
         self.tracks.ensure_visible(self.player.current)
 
+    def on_sigterm(self, signalnum, stackframe):
+        xlmisc.log("Caught SIGTERM, cleaning up.")
+        gobject.idle_add(self.on_quit)
 
     def on_quit(self, widget=None, event=None): 
         """

@@ -430,7 +430,7 @@ class CollectionPanel(object):
             Called when the tree needs a value for column 1
         """
         object = model.get_value(iter, 1)
-	if object is None: return
+        if object is None: return
         field = model.get_value(iter, 2)
 
         if hasattr(object, field):

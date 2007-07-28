@@ -514,11 +514,7 @@ class TracksListCtrl(gtk.VBox):
                     col.set_resizable(True)
                     col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
 
-                if name == "#":
-                    col.set_widget(gtk.Label(_(name)))
-                    name = _("Track Number")
-                else:
-                    col.set_widget(gtk.Label(_(name)))
+                col.set_widget(gtk.Label(_(name)))
                 col.get_widget().show()
                 self.list.append_column(col)
                 col.get_widget().get_ancestor(gtk.Button).connect('button_press_event', self.press_header)
@@ -537,6 +533,8 @@ class TracksListCtrl(gtk.VBox):
             title = column.get_title()
             if title == "":
                 title = _("Column #%i") %pos
+            elif title == "#":
+                title = _("Track Number")
             item = gtk.CheckMenuItem(title)
             if column in visible_columns:
                 item.set_active(True)

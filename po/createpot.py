@@ -10,7 +10,10 @@ except IndexError:
 
 os.system("intltool-extract --type=gettext/glade exaile.glade")
 os.system("intltool-extract --type=gettext/glade plugins/plugins.glade")
-os.system("xgettext -omessages.pot --from-code=utf-8 -k_ -kN_ --add-comments=TRANSLATORS "
+os.system("xgettext -o messages.pot --from-code=utf-8 -k_ -kN_ "
+    "--add-comments=TRANSLATORS"
+    "--copyright-holder='Adam Olsen <arolsen@gmail.com>' "
+    "--msgid-bugs-address=http://exaile.org/trac/newticket "
     "*.py plugins/*.py `find xl -name '*.py'` "
     "exaile.glade.h plugins/plugins.glade.h")
 

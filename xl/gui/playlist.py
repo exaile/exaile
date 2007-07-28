@@ -514,9 +514,45 @@ class TracksListCtrl(gtk.VBox):
                     col.set_resizable(True)
                     col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
 
+                if name == "#":
+                    col.set_widget(gtk.Label(_(name)))
+                    name = _("Track Number")
+                else:
+                    col.set_widget(gtk.Label(_(name)))
+                col.get_widget().show()
                 self.list.append_column(col)
+                col.get_widget().get_ancestor(gtk.Button).connect('button_press_event', self.press_header)
             count = count + 1
         self.changed_id = self.list.connect('columns-changed', self.column_changed)
+
+    def press_header(self, widget, event):
+        if event.button != 3:
+            return False
+        columns = widget.get_parent().get_columns()
+        visible_columns = [column for column in columns if column.get_visible()]
+        one_visible_column = len(visible_columns) == 1
+        menu = gtk.Menu()
+        pos = 1
+        for column in columns:
+            title = column.get_title()
+            if title == "":
+                title = _("Column #%i") %pos
+            item = gtk.CheckMenuItem(title)
+            if column in visible_columns:
+                item.set_active(True)
+                if one_visible_column:
+                    item.set_sensitive(False)
+            else:
+                item.set_active(False)
+            item.connect('activate', self.header_toggle, column)
+            menu.append(item)
+            pos += 1
+        menu.show_all()
+        menu.popup(None, None, None, event.button, event.time)
+        return True
+			
+    def header_toggle(self, menuitem, column):
+        column.set_visible(not column.get_visible())
 
     def column_changed(self, *e):
         """

@@ -414,7 +414,6 @@ class PlaylistsPanel(object):
 
         dialog.set_transient_for(self.exaile.window)
         result = dialog.run()
-        dialog.hide()
         if result == gtk.RESPONSE_ACCEPT:
             name = dialog.get_name()
             matchany = dialog.get_match_any()
@@ -427,6 +426,7 @@ class PlaylistsPanel(object):
                 common.error(self.exaile.window, _("That playlist name "
                     "is already taken."))
                 return
+            dialog.hide()
 
             self.db.execute("INSERT INTO playlists( name, type, matchany "
                 ") VALUES( ?, 1, ? )", (name, matchany))
@@ -448,6 +448,7 @@ class PlaylistsPanel(object):
             self.model.append(self.smart, [self.smart_image, name, 
                 SmartPlaylist(name, playlist_id)])
 
+        dialog.hide()
         dialog.destroy()
 
     def button_press(self, widget, event):

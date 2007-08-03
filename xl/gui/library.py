@@ -128,6 +128,7 @@ class LibraryDialog(object):
             self.exaile.window, gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER,
             (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
             gtk.STOCK_ADD, gtk.RESPONSE_OK))
+        dialog.set_current_folder(self.exaile.get_last_dir())
         response = dialog.run()
         dialog.hide()
         if response == gtk.RESPONSE_OK:

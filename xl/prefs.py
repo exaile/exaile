@@ -615,19 +615,21 @@ class Preferences(object):
         """
         items = self.exaile.settings.get_list('search_paths', '')
         path = widget.get_text()
+	if not path: return True
 
+        new_items = []
         for item in items:
             if path.startswith(item): 
                 # if the import location is a subdir of some existing library path
                 # don't scan the tracks since they already are in the library
                 self.exaile.settings['import/scan_import_dir'] = False
                 return True
-            if item.startswith(path):
+            if not item.startswith(path):
                 # if the import location is a parent of some existing library path
-                # consolidate the list (by removing the old path)
-                items.remove(item)
+                # consolidate the list (by not including the old path anymore)
+                new_items.append(item)
 
-        self.exaile.settings['search_paths'] = items
+        self.exaile.settings['search_paths'] = new_items
         self.exaile.library_manager.update_library_add([path], load_tree=True)
         return True
 

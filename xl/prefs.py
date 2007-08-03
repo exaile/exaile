@@ -615,7 +615,7 @@ class Preferences(object):
         """
         items = self.exaile.settings.get_list('search_paths', '')
         path = widget.get_text()
-	if not path: return True
+        if not path: return True
 
         new_items = []
         for item in items:

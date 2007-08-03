@@ -1,3 +1,0 @@
-#!/bin/sh
-
-svn merge -r1660:$1 svn://jbother.org/usr/local/svn/exaile/branch/0.2

@@ -332,7 +332,7 @@ class Preferences(object):
                 _('Radio')),
             # TRANSLATORS: Category of the preferences dialog
             _("Advanced"):
-                '',
+                (_('Replaygain'),),
             })
     def __init__(self, parent):
         """
@@ -460,7 +460,11 @@ class Preferences(object):
         import_format.connect('changed', self.update_bitrate, bitrate)
         bitrate.set_no_show_all(True)
         bitrate.hide()
-
+        
+        # replaygain toggle handler
+        replaygain = xml.get_widget('prefs_replaygain_disabled')
+        replaygain.connect('toggled', self.toggle_replaygain)
+        
         simple_settings = ({
             'ui/use_splash': (CheckPrefsItem, True),
 #            'watch_directories': (CheckPrefsItem, False, self.check_gamin,
@@ -501,6 +505,10 @@ class Preferences(object):
             'import/naming': (PrefsItem, '${artist}/${album}/${artist} - ${title}.${ext}'),
             'import/use_custom': (CheckPrefsItem, False),
             'import/custom': (PrefsItem, ''),
+            'replaygain/disabled': (CheckPrefsItem, False),
+            'replaygain/album_mode': (CheckPrefsItem, True),
+            'replaygain/preamp': (FloatPrefsItem, 0.0),
+            'replaygain/fallback': (FloatPrefsItem, 0.0),
         })
 
         for setting, value in simple_settings.iteritems():
@@ -652,7 +660,19 @@ class Preferences(object):
                     "Install python2.4-gamin to use this feature."))
                 widget.set_active(False)
                 return False
-
+            
+    def toggle_replaygain(self, widget, event=None):
+        """
+            Enables/disables replaygain options.
+        """
+        items = [xml.get_widget('prefs_replaygain_album_mode'),
+                 xml.get_widget('prefs_replaygain_preamp'),
+                 xml.get_widget('prefs_replaygain_fallback')]
+        to_state = not widget.get_active()
+        
+        for item in items:
+            item.set_sensitive(to_state)
+            
     def use_custom_toggled(self, widget, event=None):
         """
             Set sensitivity of widgets when checkbox is toggled

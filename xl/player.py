@@ -325,6 +325,30 @@ class ExailePlayer(GSTPlayer):
 
         sinkbin = gst.Bin()
         sink_elements = []
+        
+        # user does not want replaygain
+        if self.exaile.settings.get_boolean('replaygain/disabled', False):
+            xlmisc.log("Not using replaygain, disabled by the user")
+
+        # otherwise try loading replaygain
+        else:
+            replaygain = None
+
+            try:
+                replaygain = gst.element_factory_make('rgvolume')
+            except gst.PluginNotFoundError:
+                xlmisc.log("ReplayGain support requires gstreamer-plugins-bad 0.10.5")
+
+            if replaygain:
+                replaygain.set_property('album-mode',
+                    self.exaile.settings.get_boolean('replaygain/album_mode', True))
+                replaygain.set_property('pre-amp',
+                    self.exaile.settings.get_float('replaygain/preamp'))
+                replaygain.set_property('fallback-gain',
+                    self.exaile.settings.get_float('replaygain/fallback'))
+                
+                sink_elements.append(replaygain)
+                xlmisc.log("ReplayGain support initialized.")
 
         # if the equalizer is disabled, print info
         if self.exaile.options.noeq:
@@ -345,23 +369,6 @@ class ExailePlayer(GSTPlayer):
                     [0] * 10)
                 for i, v in enumerate(bands):
                     self.equalizer.set_property(('band' + str(i)), v)
-
-        # user does not want replaygain
-        if not self.exaile.settings.get_boolean('use_replaygain', True):
-            xlmisc.log("Not using replaygain, disabled by the user")
-
-        # otherwise try loading replaygain
-        else:
-            replaygain = None
-
-            try:
-                replaygain = gst.element_factory_make('rgvolume')
-            except gst.PluginNotFoundError:
-                xlmisc.log("ReplayGain support requires gstreamer-plugins-bad 0.10.5")
-
-            if replaygain:
-                sink_elements.append(replaygain)
-                xlmisc.log("ReplayGain support initialized.")
 
         # if still empty just use asink and end
         if not sink_elements:

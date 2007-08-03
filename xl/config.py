@@ -47,6 +47,7 @@ class XlConfigParser(SafeConfigParser):
                 self.add_section("lastfm")
                 self.add_section("equalizer")
                 self.add_section('import')
+                self.add_section('replaygain')
 
                 from config_convert import ConvertIniToConf
                 converter = ConvertIniToConf(self, self.loc)
@@ -56,6 +57,7 @@ class XlConfigParser(SafeConfigParser):
         self.add_section("lastfm")
         self.add_section("equalizer")
         self.add_section("import")
+        self.add_section('replaygain')
 
 
     def add_section(self, section_name="", plugin=None):

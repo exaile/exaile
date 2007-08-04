@@ -35,7 +35,10 @@ gobject.threads_init()
 # of remote commands, like --next, --prev
 import xl.dbusinterface
 EXAILE_OPTIONS = xl.dbusinterface.get_options()
-DBUS_EXIT = xl.dbusinterface.test(EXAILE_OPTIONS)
+if xl.dbusinterface.DBUS_AVAIL:
+	DBUS_EXIT = xl.dbusinterface.test(EXAILE_OPTIONS)
+else:
+	DBUS_EXIT = False
 
 # find out if they are asking for help
 HELP = False

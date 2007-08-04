@@ -15,11 +15,22 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import sys, traceback
-import dbus
-import dbus.service
-import dbus.glib
 
-dbus.glib.threads_init()
+try:
+    import dbus
+    import dbus.service
+    import dbus.glib
+    dbus.glib.threads_init()
+    DBUS_AVAIL = True
+except ImportError:
+    # Dummy D-Bus library
+    class Dummy: pass
+    dbus = Dummy()
+    dbus.service = Dummy()
+    dbus.service.method = lambda *a: lambda f: f
+    dbus.service.Object = object
+    DBUS_AVAIL = False
+
 import gobject
 from optparse import OptionParser
 

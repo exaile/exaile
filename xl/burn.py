@@ -54,9 +54,12 @@ def check_burn_progs():
     # this function get called quite often, perhaps just check it once
     # when the program starts and then use the results throughout the
     # whole program?
-    found = [program for program in ('serpentine', 'brasero', 'k3b') \
-            if subprocess.call(['which', program], stdout=-1) == 0]
-    
+    try:
+        found = [program for program in ('serpentine', 'brasero', 'k3b') \
+                if subprocess.call(['which', program], stdout=-1) == 0]
+    except OSError: # No "which"
+        found = []
+
     return found
 
 def launch_k3b(songs):

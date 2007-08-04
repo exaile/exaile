@@ -15,11 +15,10 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 __version__ = '0.2.11svn'
-import pygtk, pygst
+import pygtk
 pygtk.require('2.0')
-pygst.require('0.10')
 
-import gtk, gobject, os, signal, sys, dbus, thread, pango, gtk.glade
+import gtk, gobject, os, signal, sys, thread, pango, gtk.glade
 import xl.dbusinterface, time
 from gettext import gettext as _
 from xl import library, media, audioscrobbler, equalizer, burn, common
@@ -120,6 +119,7 @@ class ExaileWindow(gobject.GObject):
         
         # connect to dbus
         if not "win" in sys.platform:
+            import dbus
             try:
                 session_bus = dbus.SessionBus()
                 name = dbus.service.BusName("org.exaile.DBusInterface", bus=session_bus)

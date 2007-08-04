@@ -522,12 +522,14 @@ class ListBox(object):
         """
             Removes a row
         """
-        if not row in self.rows: return
-        index = self.rows.index(row)
+        try:
+            index = self.rows.index(row)
+        except ValueError:
+            return
         path = (index,)
         iter = self.store.get_iter(path)
         self.store.remove(iter)
-        self.rows.remove(row)
+        del self.rows[index]
 
     def set_rows(self, rows):
         """

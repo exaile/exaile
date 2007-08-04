@@ -131,6 +131,7 @@ class LibraryDialog(object):
         dialog.set_current_folder(self.exaile.get_last_dir())
         response = dialog.run()
         dialog.hide()
+
         if response == gtk.RESPONSE_OK:
             path = dialog.get_filename()
             import_location = self.exaile.settings.get_str('import/location')
@@ -151,16 +152,13 @@ class LibraryDialog(object):
                         # instead we don't scan it anymore, since the
                         # dir we are adding right now covers it
                         self.exaile.settings['import/scan_import_dir'] = False
-                        continue
                     else:
-                        xlmisc.log('LibraryManager: Newly added directory '
+                        xlmisc.log('Library Manager: Newly added directory '
                             'contains the directory %s, which will be '
-                            'removed from the list' % (item,))
-                        self.items.remove(item)
+                            'removed from the list' % item)
                         self.list.remove(item)
     
             self.addList.append(path)
-            self.items.append(path)
-	    self.list.append(path)
-        dialog.destroy()
+            self.list.append(path)
 
+        dialog.destroy()

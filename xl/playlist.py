@@ -48,25 +48,28 @@ class PlaylistManager(gobject.GObject):
         xlmisc.log("Importing %s" % path)
         gobject.idle_add(self.exaile.status.set_first, _("Importing playlist..."))
 
-        url = list(urlparse.urlsplit(path))
-        if not url[0]: #local file
-            url [0] = 'file'
-            url [2] = urllib.quote(os.path.abspath(os.path.expanduser(url[2])))
-            path = urlparse.urlunsplit(url)
+        ## Create playlist object
 
-        filename = urllib.unquote(url[2])
-        name = os.path.basename(os.path.splitext(filename)[1]).replace("_", " ")
-        file = urllib.urlopen(path)
+        url = common.to_url(path)
+        spliturl = urlparse.urlsplit(path)
 
-        if filename.lower().endswith(".asx"):
-            file.close()
-            playlist = xlmisc.ASXParser(name,path)
-        elif file.readline().strip() == '[playlist]':
-            file.close()
-            playlist = xlmisc.PlsParser(name,path)
+        path = urllib.unquote(spliturl[2])
+        name, ext = os.path.splitext(os.path.basename(path))
+        name = name.replace("_", " ")
+
+        if ext.lower() == ".asx":
+            playlist = xlmisc.ASXParser(name, url)
         else:
+            # TODO: This is inefficient because we're reopening the file later.
+            file = urllib.urlopen(url)
+            first_line = file.readline().strip()
             file.close()
-            playlist = xlmisc.M3UParser(name,path)
+            if first_line == '[playlist]':
+                playlist = xlmisc.PlsParser(name, url)
+            else:
+                playlist = xlmisc.M3UParser(name, url)
+
+        ## Add tracks from the playlist
 
         first = True
         songs = library.TrackData()

@@ -35,10 +35,7 @@ gobject.threads_init()
 # of remote commands, like --next, --prev
 import xl.dbusinterface
 EXAILE_OPTIONS = xl.dbusinterface.get_options()
-if xl.dbusinterface.DBUS_AVAIL:
-    DBUS_EXIT = xl.dbusinterface.test(EXAILE_OPTIONS)
-else:
-    DBUS_EXIT = False
+DBUS_EXIT = xl.dbusinterface.test(EXAILE_OPTIONS)
 
 # find out if they are asking for help
 HELP = False
@@ -87,12 +84,8 @@ if prefix == '.': # if Exaile is not installed
 else:
     gtk.glade.bindtextdomain('exaile', os.path.join(prefix, 'share', 'locale'))
 
-if sys.platform.startswith("win"):
-    sys_var = "USERPROFILE"
-else:
-    sys_var = "HOME"
 gtk.window_set_default_icon_from_file("images%sicon.png"% os.sep)
-SETTINGS_DIR = "%s%s%s" % (os.getenv(sys_var), os.sep, ".exaile")
+SETTINGS_DIR = os.path.expanduser('~/.exaile')
 GCONF_DIR = "/apps/exaile"
 
 from xl.gui import main as exailemain

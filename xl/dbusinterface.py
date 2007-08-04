@@ -24,11 +24,18 @@ try:
     DBUS_AVAIL = True
 except ImportError:
     # Dummy D-Bus library
+    class _Connection:
+        get_object = lambda *a: object()
+    class _Interface:
+        __init__ = lambda *a: None
+        ListNames = lambda *a: []
     class Dummy: pass
     dbus = Dummy()
+    dbus.Interface = _Interface
     dbus.service = Dummy()
     dbus.service.method = lambda *a: lambda f: f
     dbus.service.Object = object
+    dbus.SessionBus = _Connection
     DBUS_AVAIL = False
 
 import gobject
@@ -40,12 +47,11 @@ class DBusInterfaceObject(dbus.service.Object):
     """
         A DBus service for exaile
     """
-    def __init__(self, bus_name, exaile,
-        object_path="/DBusInterfaceObject"):
+    def __init__(self, exaile, conn, path="/DBusInterfaceObject"):
         """
             Initializes the service
         """
-        dbus.service.Object.__init__(self, bus_name, object_path)
+        dbus.service.Object.__init__(self, conn, path)
         self.exaile = exaile
 
     @dbus.service.method("org.exaile.DBusInterface", "s")
@@ -242,9 +248,9 @@ class DBusInterfaceObject(dbus.service.Object):
         self.exaile.open_disc()
 
 def test_dbus(bus, interface):
-    obj = bus.get_object('org.freedesktop.DBus', '/org/freedesktop/DBus') 
-    dbus_iface = dbus.Interface(obj, 'org.freedesktop.DBus') 
-    avail = dbus_iface.ListNames() 
+    obj = bus.get_object('org.freedesktop.DBus', '/org/freedesktop/DBus')
+    dbus_iface = dbus.Interface(obj, 'org.freedesktop.DBus')
+    avail = dbus_iface.ListNames()
     return interface in avail
 
 def test(p):

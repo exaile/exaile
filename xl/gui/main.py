@@ -121,9 +121,9 @@ class ExaileWindow(gobject.GObject):
         if not "win" in sys.platform:
             import dbus
             try:
-                session_bus = dbus.SessionBus()
-                name = dbus.service.BusName("org.exaile.DBusInterface", bus=session_bus)
-                object = xl.dbusinterface.DBusInterfaceObject(name, self)
+                conn = dbus.SessionBus()
+                name = dbus.service.BusName("org.exaile.DBusInterface", conn)
+                object = xl.dbusinterface.DBusInterfaceObject(self, conn)
             except dbus.DBusException:
                 xlmisc.log("Could not connect to dbus session bus.  "
                     "dbus will be unavailable.")

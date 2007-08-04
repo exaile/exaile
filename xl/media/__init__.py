@@ -237,7 +237,7 @@ class Track(gobject.GObject):
         """
 
         if self._title == "":
-            return re.sub(".*%s" % os.sep, "", self.loc)
+            return os.path.basename(self.loc)
         else:
             return self._title
     

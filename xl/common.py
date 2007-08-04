@@ -18,7 +18,7 @@ from gettext import gettext as _
 import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade
-import locale, time, threading
+import locale, time, threading, urllib
 
 # python<2.5 compatibility. Drop this when python2.4 isn't used so much anymore.
 try:
@@ -314,6 +314,16 @@ def escape_xml(text):
     for old, new in table:
         text = text.replace(old, new)
     return text
+
+def to_url(path):
+    """
+        Converts filesystem path to URL. Returns the input unchanged if it's not
+        an FS path (i.e. a URL or something invalid).
+    """
+    try:
+        return 'file://' + urllib.pathname2url(path)
+    except IOError:
+        return path
 
 class ScrolledMessageDialog(gtk.Dialog):
     def __init__(self, parent, title):

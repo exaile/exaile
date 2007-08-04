@@ -375,8 +375,8 @@ class TracksListCtrl(gtk.VBox):
         selection = self.list.get_selection()
         (model, pathlist) = selection.get_selected_rows()
 
-        # delete key
-        if event.keyval == 65535:
+        # Delete
+        if event.keyval == gtk.keysyms.Delete:
             delete = []
             for path in pathlist:
                 iter = model.get_iter(path)
@@ -394,7 +394,8 @@ class TracksListCtrl(gtk.VBox):
                 path = pathlist[0]
                 if path[0] >= len(self.songs): path = (path[0] - 1,)
                 selection.select_path(path)
-        elif event.keyval == 113 and self.type != 'queue': # the 'q' key
+        # Q
+        elif event.keyval == gtk.keysyms.q and self.type != 'queue':
             for path in pathlist:
                 iter = model.get_iter(path)
                 track = model.get_value(iter, 0)

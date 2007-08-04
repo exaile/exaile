@@ -6191,10 +6191,10 @@ esdsink</property>
 			  <property name="spacing">0</property>
 
 			  <child>
-			    <widget class="GtkCheckButton" id="prefs_replaygain_disabled">
+			    <widget class="GtkCheckButton" id="prefs_replaygain_enabled">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
-			      <property name="label" translatable="yes">Disable replaygain.</property>
+			      <property name="label" translatable="yes">Enable Replay Gain</property>
 			      <property name="use_underline">True</property>
 			      <property name="relief">GTK_RELIEF_NORMAL</property>
 			      <property name="focus_on_click">True</property>
@@ -6213,7 +6213,7 @@ esdsink</property>
 			    <widget class="GtkCheckButton" id="prefs_replaygain_album_mode">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
-			      <property name="label" translatable="yes">Use album gain mode.</property>
+			      <property name="label" translatable="yes">Use album gain mode</property>
 			      <property name="use_underline">True</property>
 			      <property name="relief">GTK_RELIEF_NORMAL</property>
 			      <property name="focus_on_click">True</property>
@@ -6359,7 +6359,7 @@ esdsink</property>
 		      <child>
 			<widget class="GtkLabel" id="label133">
 			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">Replaygain</property>
+			  <property name="label" translatable="yes">Replay Gain</property>
 			  <property name="use_underline">False</property>
 			  <property name="use_markup">False</property>
 			  <property name="justify">GTK_JUSTIFY_LEFT</property>

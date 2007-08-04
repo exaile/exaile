@@ -332,7 +332,7 @@ class Preferences(object):
                 _('Radio')),
             # TRANSLATORS: Category of the preferences dialog
             _("Advanced"):
-                (_('Replaygain'),),
+                (_('Replay Gain'),),
             })
     def __init__(self, parent):
         """
@@ -462,7 +462,7 @@ class Preferences(object):
         bitrate.hide()
         
         # replaygain toggle handler
-        replaygain = xml.get_widget('prefs_replaygain_disabled')
+        replaygain = xml.get_widget('prefs_replaygain_enabled')
         replaygain.connect('toggled', self.toggle_replaygain)
         
         simple_settings = ({
@@ -505,7 +505,7 @@ class Preferences(object):
             'import/naming': (PrefsItem, '${artist}/${album}/${artist} - ${title}.${ext}'),
             'import/use_custom': (CheckPrefsItem, False),
             'import/custom': (PrefsItem, ''),
-            'replaygain/disabled': (CheckPrefsItem, False),
+            'replaygain/enabled': (CheckPrefsItem, True),
             'replaygain/album_mode': (CheckPrefsItem, True),
             'replaygain/preamp': (FloatPrefsItem, 0.0),
             'replaygain/fallback': (FloatPrefsItem, 0.0),
@@ -662,7 +662,7 @@ class Preferences(object):
                     "Install python2.4-gamin to use this feature."))
                 widget.set_active(False)
                 return False
-            
+
     def toggle_replaygain(self, widget, event=None):
         """
             Enables/disables replaygain options.
@@ -670,11 +670,11 @@ class Preferences(object):
         items = [xml.get_widget('prefs_replaygain_album_mode'),
                  xml.get_widget('prefs_replaygain_preamp'),
                  xml.get_widget('prefs_replaygain_fallback')]
-        to_state = not widget.get_active()
-        
+        to_state = widget.get_active()
+
         for item in items:
             item.set_sensitive(to_state)
-            
+
     def use_custom_toggled(self, widget, event=None):
         """
             Set sensitivity of widgets when checkbox is toggled

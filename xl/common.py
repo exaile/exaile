@@ -18,7 +18,7 @@ from gettext import gettext as _
 import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade
-import locale, time, threading, urllib
+import locale, os, time, threading, urllib
 
 # python<2.5 compatibility. Drop this when python2.4 isn't used so much anymore.
 try:
@@ -28,6 +28,8 @@ except NameError:
         for e in seq:
             if e: return True
         return False
+
+HOME = os.path.expanduser('~')
 
 class MultiTextEntryDialog(gtk.Dialog):
     """

@@ -84,9 +84,9 @@ if prefix == '.': # if Exaile is not installed
 else:
     gtk.glade.bindtextdomain('exaile', os.path.join(prefix, 'share', 'locale'))
 
+from xl import common
 gtk.window_set_default_icon_from_file("images%sicon.png"% os.sep)
-SETTINGS_DIR = os.path.expanduser('~/.exaile')
-GCONF_DIR = "/apps/exaile"
+SETTINGS_DIR = os.path.join(common.HOME, '.exaile')
 
 from xl.gui import main as exailemain
 from xl import xlmisc

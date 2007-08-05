@@ -37,7 +37,7 @@ def show_information(exaile, track):
         page = nb.get_nth_page(i)
         if isinstance(page, TrackInformation):
             page.setup_tabs(track)
-            page.set_current_page(i)
+            page.parent.set_current_page(i)
             return page
 
     return TrackInformation(exaile, track)

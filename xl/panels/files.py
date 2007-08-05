@@ -281,8 +281,7 @@ class FilesPanel(object):
         try:
             paths = os.listdir(dir)
         except OSError:
-            dir = os.path.expanduser('~')
-            paths = os.listdir(dir)
+            paths = os.listdir(common.HOME)
 
         self.exaile.settings['files_panel_dir'] = dir
         self.current = dir

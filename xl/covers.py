@@ -63,7 +63,7 @@ class Cover(dict):
             os.mkdir(savepath)
 
         savepath = "%s%s%s.jpg" % (savepath, os.sep, self['md5'])
-        handle = open(savepath, "w")
+        handle = open(savepath, "wb")
         handle.write(self['data'])
         handle.close()
         self['filename'] = savepath

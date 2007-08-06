@@ -123,7 +123,8 @@ class ExaileWindow(gobject.GObject):
             try:
                 conn = dbus.SessionBus()
                 name = dbus.service.BusName("org.exaile.DBusInterface", conn)
-                object = xl.dbusinterface.DBusInterfaceObject(self, conn)
+                self.dbus_object = xl.dbusinterface.DBusInterfaceObject(
+                    self, name)
             except dbus.DBusException:
                 xlmisc.log("Could not connect to dbus session bus.  "
                     "dbus will be unavailable.")

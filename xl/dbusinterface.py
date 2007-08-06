@@ -47,11 +47,11 @@ class DBusInterfaceObject(dbus.service.Object):
     """
         A DBus service for exaile
     """
-    def __init__(self, exaile, conn, path="/DBusInterfaceObject"):
+    def __init__(self, exaile, bus_name, path="/DBusInterfaceObject"):
         """
             Initializes the service
         """
-        dbus.service.Object.__init__(self, conn, path)
+        dbus.service.Object.__init__(self, None, path, bus_name)
         self.exaile = exaile
 
     @dbus.service.method("org.exaile.DBusInterface", "s")

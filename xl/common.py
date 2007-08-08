@@ -18,7 +18,7 @@ from gettext import gettext as _
 import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade
-import locale, os, time, threading, urllib
+import locale, os, time, threading, urllib, re
 
 # python<2.5 compatibility. Drop this when python2.4 isn't used so much anymore.
 try:
@@ -322,6 +322,8 @@ def to_url(path):
         Converts filesystem path to URL. Returns the input unchanged if it's not
         an FS path (i.e. a URL or something invalid).
     """
+    if re.search(r'^[\w]+://', path):
+        return path
     try:
         return 'file://' + urllib.pathname2url(path)
     except IOError:

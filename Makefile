@@ -7,6 +7,7 @@ all: compile mmkeys.so translations
 	@echo "Type: 'make install' now"
 
 compile:
+	python -m compileall xl lib
 	python -O -m compileall xl lib
 
 mmkeys.so:
@@ -47,15 +48,15 @@ install: make-install-dirs
 	install -m 644 images/default_theme/*.png \
 	$(DESTDIR)$(PREFIX)/share/exaile/images/default_theme
 	install -m 644 xl/*.py $(DESTDIR)$(PREFIX)/share/exaile/xl
-	-install -m 644 xl/*.pyc $(DESTDIR)$(PREFIX)/share/exaile/xl
+	-install -m 644 xl/*.py[co] $(DESTDIR)$(PREFIX)/share/exaile/xl
 	install -m 644 xl/media/*.py $(DESTDIR)$(PREFIX)/share/exaile/xl/media
-	-install -m 644 xl/media/*.pyc $(DESTDIR)$(PREFIX)/share/exaile/xl/media
+	-install -m 644 xl/media/*.py[co] $(DESTDIR)$(PREFIX)/share/exaile/xl/media
 	install -m 644 xl/panels/*.py $(DESTDIR)$(PREFIX)/share/exaile/xl/panels
-	-install -m 644 xl/panels/*.pyc $(DESTDIR)$(PREFIX)/share/exaile/xl/panels
+	-install -m 644 xl/panels/*.py[co] $(DESTDIR)$(PREFIX)/share/exaile/xl/panels
 	install -m 644 xl/gui/*.py $(DESTDIR)$(PREFIX)/share/exaile/xl/gui
-	-install -m 644 xl/gui/*.pyc $(DESTDIR)$(PREFIX)/share/exaile/xl/gui
+	-install -m 644 xl/gui/*.py[co] $(DESTDIR)$(PREFIX)/share/exaile/xl/gui
 	install -m 644 lib/*.py $(DESTDIR)$(PREFIX)/share/exaile/lib
-	-install -m 644 lib/*.pyc $(DESTDIR)$(PREFIX)/share/exaile/lib
+	-install -m 644 lib/*.py[co] $(DESTDIR)$(PREFIX)/share/exaile/lib
 	install -m 644 data/*.ini $(DESTDIR)$(PREFIX)/share/exaile/data
 	install -m 644 plugins/*.py $(DESTDIR)$(PREFIX)/share/exaile/plugins
 	install -m 644 plugins/*.glade $(DESTDIR)$(PREFIX)/share/exaile/plugins

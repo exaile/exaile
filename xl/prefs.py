@@ -525,11 +525,10 @@ class Preferences(object):
     setting_changed = setup_settings
 
     def advanced_toggle_tabbar(self, item, value):
-        if not value and self.exaile.playlists_nb.get_n_pages() <= 1:
-            self.exaile.playlists_nb.set_show_tabs(False)
-        else:
-            self.exaile.playlists_nb.set_show_tabs(True)
-    
+        # value == always show
+        self.exaile.playlists_nb.set_show_tabs(
+            value or self.exaile.playlists_nb.get_n_pages() > 1)
+
     def advanced_alphabet_alert(self, item, value):
         """
             Shows an alert when the user changes the "show extended alphabet"

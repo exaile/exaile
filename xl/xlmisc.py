@@ -551,6 +551,7 @@ class ListBox(object):
         if not iter: return None
         return model.get_value(iter, 0)
 
+# Reduce the notebook tabs' close button padding size.
 gtk.rc_parse_string("""
     style "thinWidget" {
         xthickness = 0
@@ -558,6 +559,7 @@ gtk.rc_parse_string("""
     }
     widget "*.tabCloseButton" style "thinWidget"
     """)
+
 class NotebookTab(gtk.EventBox):
     """
         Shows a close image on a notebook tab
@@ -1063,7 +1065,7 @@ def get_text_icon(widget, text, width, height, bgcolor='#456eac',
     pixmap.draw_rectangle(gc, True, 1, 1, width - 2, height - 2)
 
     layout = widget.create_pango_layout(str(text))
-    desc = pango.FontDescription("Bitstream Vera Sans 8")
+    desc = pango.FontDescription("Sans 8")
     layout.set_font_description(desc)
     layout.set_alignment(pango.ALIGN_RIGHT)
 

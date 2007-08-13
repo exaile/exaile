@@ -169,8 +169,9 @@ class ExaileWindow(gobject.GObject):
 
         self.status = xlmisc.StatusBar(self)
 
-        self.playlists_nb.connect('switch-page',
-            self.page_changed)
+        self.playlists_nb.connect('switch-page', self.page_changed)
+        self.playlists_nb.connect('page-added', self.sync_playlists_tabbar)
+        self.playlists_nb.connect('page-removed', self.sync_playlists_tabbar)
         self.playlists_nb.remove_page(0)
 
         self.timer.start()
@@ -181,8 +182,6 @@ class ExaileWindow(gobject.GObject):
             self.stop_button.hide()
         if not self.settings.get_boolean('ui/show_clear_button', True):
             self.clear_button.hide()
-        if not self.settings.get_boolean('ui/always_show_tabbar', False):
-            self.playlists_nb.set_show_tabs(False)
 
         self.stop_track_button.set_sensitive(False)
         self.pmanager = plugins.manager.Manager(self) 
@@ -1243,11 +1242,6 @@ class ExaileWindow(gobject.GObject):
 
         self.tracks = None
         
-        # if there is less than one tab, hide the tab bar
-        if self.playlists_nb.get_n_pages() <= 1 and \
-            not self.settings.get_boolean('ui/always_show_tabbar', False):
-            self.playlists_nb.set_show_tabs(False)
-
         if self.playlists_nb.get_n_pages() == 0:
             self.new_page(_("Playlist"))
             return False
@@ -1725,6 +1719,14 @@ class ExaileWindow(gobject.GObject):
             self.settings.set_boolean('ui/mainw_maximized',
                 bool(event.new_window_state & gtk.gdk.WINDOW_STATE_MAXIMIZED))
         return False
+
+    def sync_playlists_tabbar(self, *args):
+        """
+            Hides/unhides the tab bar according to the number of pages
+        """
+        self.playlists_nb.set_show_tabs(
+            self.settings.get_boolean('ui/always_show_tabbar', True)
+            or self.playlists_nb.get_n_pages() > 1)
 
     def jump_to(self, index):
         """

@@ -896,9 +896,6 @@ class TracksListCtrl(gtk.VBox):
             'gtk-info')
         tpm.append_separator()
 
-        if not burn.check_burn_progs():
-            bm.set_sensitive(False)
-
         if n_selected == 1 and self.get_selected_track() \
             and self.get_selected_track().type == 'lastfm':
             lfm = xlmisc.Menu()

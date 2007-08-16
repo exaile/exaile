@@ -439,7 +439,7 @@ class EggTrayIcon(BaseTrayIcon):
             self.update_menu()
             self.menu.popup(None, None, None, event.button, event.time)
         elif event.button == 2:
-            self.exaile.toggle_pause()
+            self.exaile.player.toggle_pause()
         elif event.button == 1: 
             self.toggle_exaile_visibility()
 

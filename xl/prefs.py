@@ -698,7 +698,7 @@ class Preferences(object):
         path = widget.get_text()
 
         # TODO: get proper mapping
-        mapping = {'artist':'Artist', 'album':'Album', 'tracknum':1, 
+        mapping = {'artist':'Artist', 'album':'Album', 'num':1, 
                     'title':'Title', 'ext':'mp3'}
         template = string.Template(path)
         path = template.safe_substitute(mapping)

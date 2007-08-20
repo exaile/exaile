@@ -252,7 +252,7 @@ class CDImporter(object):
         naming = self.settings.get_str('import/naming', '')
         pref = self.settings.get_str('import/format', 'MP3')
         if not pref or not location: 
-            print "VVL, satan:", pref, location
+            print "VVL, satan:", pref, location # FIXME: ??
             return ''
 
         extension = formatdict[pref]['ext']

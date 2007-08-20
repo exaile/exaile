@@ -717,7 +717,7 @@ class CoverFrame(object):
         """
         self.xml = gtk.glade.XML('exaile.glade', 'CoverFrame', 'exaile')
         self.window = self.xml.get_widget('CoverFrame')
-        self.window.set_title("%s %s" % (track.artist, track.album))
+        self.window.set_title("%s - %s" % (track.artist, track.album))
 
         # This basically has to be done for exaile to pass the database
         # correctly also for exaile to not be the parent of the searcher

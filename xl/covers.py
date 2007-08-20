@@ -245,7 +245,7 @@ class CoverManager(object):
             if(cover['status'] == 200):
                 savepath = os.path.join(self.exaile.get_settings_dir(), "covers",
                     "streamCover.jpg")
-                handle = open(savepath, "w")
+                handle = open(savepath, "wb")
                 handle.write(cover['data'])
                 handle.close()
                 self.exaile.cover.set_image(savepath)
@@ -930,14 +930,14 @@ class CoverMenu(xlmisc.Menu):
 
             if result == gtk.RESPONSE_OK:
                 self.exaile.last_open_dir = dialog.get_current_folder()
-                handle = open(dialog.get_filename(), "r")
+                handle = open(dialog.get_filename(), "rb")
                 data = handle.read()
                 handle.close()
 
                 (f, ext) = os.path.splitext(dialog.get_filename())
                 newname = md5.new(data).hexdigest() + ext
                 handle = open(os.path.join(self.exaile.get_settings_dir(), "covers",
-                    newname), "w")
+                    newname), "wb")
                 handle.write(data)
                 handle.close()
 

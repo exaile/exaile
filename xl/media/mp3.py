@@ -2,26 +2,53 @@ import mutagen, mutagen.id3, mutagen.mp3
 from xl import xlmisc
 
 TYPE = 'mp3'
-
-IDS = { "TIT2": "title",
+IDS = { 
+        "TIT2": "title",
+        "TIT3": "version",
         "TPE1": "artist",
+        "TPE2": "performer",
+        "TPE3": "conductor",
+        "TPE4": "arranger",
+        "TEXT": "lyricist",
+        "TCOM": "composer",
+        "TCON": "genre",
+        "TENC": "encodedby",
         "TALB": "album",
-        "TRCK": "track",
-        "TDRC": "year",
-        "TCON": "genre"
+        "TRCK": "tracknumber",
+        "TPOS": "discnumber",
+        "TSRC": "isrc",
+        "TCOP": "copyright",
+        "TPUB": "organization",
+        "TSST": "part",
+        "TOLY": "author",
+        "TBPM": "bpm",
+        "TDRC": "date",
+        "TDOR": "originaldate",
+        "TOAL": "originalalbum",
+        "TOPE": "originalartist",
+        "WOAR": "website",
         }
-
-SDI = dict([(v, k) for k, v in IDS.iteritems()])
 
 def get_tag(id3, t):
     """
         Reads a specific id3 tag from the file
     """
-    if not id3.has_key(t): return ""
-    text = unicode(id3[t])
+    if not id3.has_key(t): return [] 
+    field = id3.getall(t)
 
-    text = text.replace('\n', ' ').replace('\r', ' ')
-    return text
+    ret = []
+    if t == 'TDRC' or t == 'TDOR': # values are ID3TimeStamps
+        for value in field:
+            ret.extend([unicode(x) for x in value.text])
+    else:
+        for value in field:
+            try:
+                ret.extend([unicode(x.replace('\n','').replace('\r','')) \
+                    for x in value.text])
+            except:
+                xlmisc.log("Can't parse ID3 field")
+                xlmisc.log_exception()
+    return ret
 
 def write_tag(tr):
     try:
@@ -29,36 +56,25 @@ def write_tag(tr):
     except mutagen.id3.ID3NoHeaderError:
         id3 = mutagen.id3.ID3()
 
-    for key, id3name in SDI.items():
+    for id3name, key in IDS.items():
         id3.delall(id3name)
 
     for k, v in IDS.iteritems():
-        if k == 'TRCK': continue
-
-        try:
-            frame = mutagen.id3.Frames[k](encoding=3,
-                text = unicode(getattr(tr, v)))
-            id3.loaded_frame(frame)
-        except:
-            xlmisc.log_exception()
-
-        if tr.track > -1:
-            track = str(tr.track)
-            disc = None
-            if tr.disc_id > -1:
-                disc = str(tr.disc_id)
-
-            frame = mutagen.id3.Frames['TRCK'](encoding=3,
-                text=track)
-
-            id3.loaded_frame(frame)
-            
-            if disc and disc > -1:
-                frame = mutagen.id3.Frames['TPOS'](encoding=3,
-                    text=disc)
+        if tr.tags[v]:
+            try:
+                frame = mutagen.id3.Frames[k](encoding=3,
+                    text = tr.tags[v])
                 id3.loaded_frame(frame)
+            except:
+                xlmisc.log_exception()
 
     id3.save(tr.io_loc)    
+
+def can_change(tag):
+    return tag in IDS.values()
+
+def is_multi():
+    return True
 
 def fill_tag_from_path(tr):
     info = mutagen.mp3.MP3(tr.io_loc)
@@ -67,32 +83,10 @@ def fill_tag_from_path(tr):
 
     try:    
         id3 = mutagen.id3.ID3(tr.io_loc)
-        tr.title = get_tag(id3, 'TIT2')
-        tr.artist = get_tag(id3, 'TPE1')
-        tr.album = get_tag(id3, 'TALB')
-        tr.genre = get_tag(id3, 'TCON')
 
-        trackinfo = get_tag(id3, 'TRCK')
-        if '/' in trackinfo:
-            tr.track, nothing = trackinfo.split('/')
-
-            try:
-                tr.track = int(tr.track)
-            except ValueError: tr.track = -1
-        else:
-            try:
-                tr.track = int(trackinfo)
-            except ValueError:
-                tr.track = -1
-
-        disc = get_tag(id3, 'TPOS')
-        try:
-            tr.disc_id = int(disc)
-        except ValueError:
-            tr.disc_id = -1
-
-        tr.year = get_tag(id3, 'TDRC')
-
+        for id3_tag, tag in IDS.iteritems():
+            tr.tags[tag] = get_tag(id3, id3_tag)
+            
     except OverflowError:
         pass
     except mutagen.id3.ID3NoHeaderError:

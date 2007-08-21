@@ -86,7 +86,7 @@ class TrackData(list):
     """
     def __init__(self, tracks=None):
         """
-            Inizializes the list
+            Initializes the list
         """
         self.paths = dict()
         if tracks:
@@ -306,7 +306,7 @@ def load_tracks(db, current=None):
 
         t = media.Track(*row)
         path, ext = os.path.splitext(row[0].lower().encode('utf-8'))
-        t.type = ext.replace('.', '')
+        t.type = "file" 
 
         if already_added(t, added): continue
 
@@ -550,11 +550,7 @@ def read_track_from_db(db, path, track_type=media.Track):
         tr = None
 
     if tr and tr.type != 'device':
-        (path, ext) = os.path.splitext(tr.loc.lower())
-        try:
-            tr.type = media.formats[ext.replace('.', '')].TYPE
-        except:
-            xlmisc.log_exception()
+        tr.type = 'file'
     
     return tr
 
@@ -900,6 +896,7 @@ class LibraryManager(object):
 
         self.exaile.collection_panel.songs = self.exaile.all_songs
         self.exaile.collection_panel.track_cache = dict()
+
 
         if not updating:
             xlmisc.log("loading songs")

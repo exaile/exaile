@@ -38,27 +38,19 @@ class XlConfigParser(SafeConfigParser):
         SafeConfigParser.__init__(self)
         self.loc = loc
 
+        sections = ['ui', 'osd', 'lastfm', 'equalizer',\
+            'editor', 'import', 'replaygain']
+
         if os.path.exists(self.loc):
             try:
                 self.read(self.loc)
             except ConfigParser.MissingSectionHeaderError:
-                self.add_section("ui")
-                self.add_section("osd")
-                self.add_section("lastfm")
-                self.add_section("equalizer")
-                self.add_section('import')
-                self.add_section('replaygain')
+                map(self.add_section, sections)
 
                 from config_convert import ConvertIniToConf
                 converter = ConvertIniToConf(self, self.loc)
 
-        self.add_section("ui")
-        self.add_section("osd")
-        self.add_section("lastfm")
-        self.add_section("equalizer")
-        self.add_section("import")
-        self.add_section('replaygain')
-
+        map(self.add_section, sections)
 
     def add_section(self, section_name="", plugin=None):
         section_name_str = section_name

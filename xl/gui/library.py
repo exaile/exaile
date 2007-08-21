@@ -115,7 +115,7 @@ class LibraryDialog(object):
         self.removeList.append(item)
         self.list.remove(item)
         selection = self.list.list.get_selection()
-        if index >= len(self.list.rows):
+        if index > len(self.list.rows):
             selection.select_path(index - 1)
         else:
             selection.select_path(index)

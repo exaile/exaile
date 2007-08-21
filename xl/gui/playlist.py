@@ -852,17 +852,6 @@ class TracksListCtrl(gtk.VBox):
             editor.TrackEditor(self.exaile, self), 'gtk-edit')
         em.append_separator()
 
-        # edit specific common fields
-        for menu_item in ('title', 'artist', 'album', 'genre', 'year'):
-            # Obs.: The menu_item.capitalize() will be substituted by 
-            # Title, Artist, Album and Year. Since these   
-            # strings were already extracted in another part of exaile 
-            # code, then _(menu_item.capitalize() will be substituted by 
-            # the translated string in exaile.
-            item = em.append(_("Edit %s") % _(menu_item.capitalize()),
-                lambda w, e, m=menu_item: editor.edit_field(self, m))
-
-        em.append_separator()
         rm = xlmisc.Menu()
         self.rating_ids = []
 
@@ -871,11 +860,10 @@ class TracksListCtrl(gtk.VBox):
                 lambda w, e, i=i: editor.update_rating(self, i))
 
         em.append_menu(_("Rating"), rm)
-        tpm.append_menu(ngettext("Edit Track", "Edit Tracks", n_selected), em,
-            'gtk-edit')
+        tpm.append_menu(ngettext("Edit Track", "Edit Tracks", n_selected), em, 'gtk-edit')
 
         t = songs[0].type
-        if t != 'cd' and t != 'stream' and t != 'lastfm' and t != 'device':
+        if t == 'file':
             bm = xlmisc.Menu()
             bm.append(ngettext("Burn Selected Track", "Burn Selected Tracks",
                 n_selected), self.burn_selected, 'gtk-cdrom')

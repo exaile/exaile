@@ -236,7 +236,22 @@ class idict(dict):
         """
         return self.keys_dict.values()
     
+class ldict(dict):
+    """
+        A dict that only handles lists
+    """
+    def __init__(self):
+        dict.__init__(self)
 
+    def __setitem__(self, item, value):
+        if type(value) is not list: value = [value]
+        dict.__setitem__(self, item , value)
+
+    def __getitem__(self, item):
+        try:
+            return dict.__getitem__(self, item)
+        except KeyError:
+            return []
 
 class ilist(list): 
     """
@@ -258,6 +273,8 @@ class ilist(list):
                 return True
 
         return False
+
+
 
 # this code stolen from listen-gnome
 """ Parse a date and return a time object """
@@ -349,7 +366,6 @@ class ScrolledMessageDialog(gtk.Dialog):
         scroll.add(self.view)
 
         main.pack_start(scroll, True, True)
-        self.add_buttons(gtk.STOCK_OK, gtk.RESPONSE_OK)
         self.resize(500, 300)
 
     def run(self):
@@ -362,7 +378,7 @@ def scrolledMessageDialog(parent, message, title):
     """
         Shows a message dialog with a message in a TextView
     """
-    dialog = ScrolledMessageDialog(parent, title, message)
+    dialog = ScrolledMessageDialog(parent, title)
     view = dialog.view
     view.get_buffer().set_text(message)
 
@@ -377,7 +393,8 @@ def error(parent, message):
         Shows an error dialog
     """
     dialog = gtk.MessageDialog(parent, gtk.DIALOG_MODAL, gtk.MESSAGE_ERROR,
-        gtk.BUTTONS_OK, message)
+        gtk.BUTTONS_OK)
+    dialog.set_markup(message)
     dialog.run()
     dialog.destroy()
 
@@ -386,7 +403,8 @@ def info(parent, message):
         Shows an info dialog
     """
     dialog = gtk.MessageDialog(parent, gtk.DIALOG_MODAL, gtk.MESSAGE_INFO,
-        gtk.BUTTONS_OK, message)
+        gtk.BUTTONS_OK)
+    dialog.set_markup(message)
     dialog.run()
     dialog.destroy()
 

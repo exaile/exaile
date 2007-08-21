@@ -122,7 +122,7 @@ class CDImporter(object):
             if format == 'MP3':
                 encoder = 'lame bitrate=%d ! id3mux v1-tag=1' % (formatdict[format][quality],)
             elif format == 'MP3 VBR':
-                encoder = 'lame vbr=4 vbr-mean-bitrate=%d ! id3mux v1-tag=1' % \
+                encoder = 'lame vbr=4 vbr-mean-bitrate=%d ! id3mux v1-tag=1 v2-tag=1' % \
                     (formatdict[format][quality],)
             elif format == 'Ogg Vorbis':
                 encoder = 'vorbisenc quality=%0.1f ! oggmux' % (formatdict[format][quality],)
@@ -252,7 +252,6 @@ class CDImporter(object):
         naming = self.settings.get_str('import/naming', '')
         pref = self.settings.get_str('import/format', 'MP3')
         if not pref or not location: 
-            print "VVL, satan:", pref, location # FIXME: ??
             return ''
 
         extension = formatdict[pref]['ext']
@@ -298,6 +297,7 @@ class CDImporter(object):
         self.pipeline.set_state(gst.STATE_NULL)
         self.gst_running = False
         self.importing = False
+
 
 
 def ask_overwrite(importer, parent, path):

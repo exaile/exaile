@@ -202,19 +202,6 @@ class CollectionPanel(object):
             editor.TrackEditor(self.exaile, self), 'gtk-edit')
         em.append_separator()
 
-        # edit specific common fields
-        for menu_item in ('title', 'artist', 'album', 'genre', 'year'):
-            # Obs.: The menu_item.capitalize() will be substituted by 
-            # Title, Artist, Album and Year. Since these   
-            # strings were already extracted in another part of exaile 
-            # code, then _(menu_item.capitalize() will be substituted by 
-            # the translated string in exaile.
-
-            # TRANSLATORS: Edit a specific tag
-            item = em.append(_("Edit %s") % _(menu_item.capitalize()),
-                lambda w, e, m=menu_item: editor.edit_field(self, m))
-
-        em.append_separator()
         rm = xlmisc.Menu()
         self.rating_ids = []
 

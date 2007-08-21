@@ -3,6 +3,17 @@ import mutagen.apev2
 
 TYPE = 'mpc'
 
+# the tags are nearly identical, but we do this anyway for consistency
+TAG_TRANSLATION = {
+    'artist':       'artist',
+    'title':        'title',
+    'album':        'album',
+    'genre':        'genre',
+    'track':        'tracknumber',
+    'copyright':    'copyright',
+    'isrc':         'isrc',
+}
+
 # this code taken from quodlibet
 try:
     import ctypes
@@ -76,34 +87,33 @@ else:
 
 def get_tag(tagset, tag):
     try:
-        return unicode(tagset[tag])
+        return [unicode(t) for t in tagset[tag]]
     except KeyError:
-        return u''
+        return []
     
 def write_tag(tr):
-    try: tag = mutagen.apev2.APEv2(tr.io_loc)
+    try: info = mutagen.apev2.APEv2(tr.io_loc)
     except mutagen.apev2.APENoHeaderError:
-        tag = mutagen.apev2.APEv2()
+        info = mutagen.apev2.APEv2()
 
-    for key in ('artist', 'album', 'title', 'genre', 'track', 'genre'):
-        if hasattr(tr, key):
-            tag[key] = getattr(tr, key)
+    for mpc_tag, tag in TAG_TRANSLATION.iteritems():
+        if tr.tags[tag]:
+            info[mpc_tag] = tr.tags[tag]
 
     tag.save(tr.io_loc)
 
+def can_change(tag):
+    return tag in TAG_TRANSLATION.values()
+
+def is_multi():
+    return True
+
 def fill_tag_from_path(tr):
-    try: tag = mutagen.apev2.APEv2(tr.io_loc)
+    try: info = mutagen.apev2.APEv2(tr.io_loc)
     except mutagen.apev2.APENoHeaderError: return
 
-    tr.title = get_tag(tag, 'title')
-    tr.artist = get_tag(tag, 'artist')
-    tr.album = get_tag(tag, 'album')
-    tr.genre = get_tag(tag, 'genre')
-    tr.year = get_tag(tag, 'year')
-    
-    try:
-        tr.track = int(get_tag(tag, 'track'))
-    except ValueError: tr.track = -1
+    for mpc_tag, tag in TAG_TRANSLATION.iteritems():
+        tr.tags[tag] = get_tag(info, mpc_tag)
 
     # determine length and bitrate with the code from quodlibet
     if _libc:

@@ -25,49 +25,53 @@ except ImportError:
 
 TYPE = 'aac'
 
+TAG_TRANSLATION = {
+    '\xa9nam':      'title',
+    '\xa9ART':      'artist',
+    '\xa9alb':      'album',
+    '\xa9gen':      'genre',
+    '\xa9day':      'date',
+    'trkn':         'tracknumber',
+    'disk':         'discnumber',
+    'cprt':         'copyright'
+}
+
 def get_tag(f, name):
-    name = '\xa9%s' % name
     if not f.has_key(name):
-        return ''
-    else: return f[name][0]
+        return [] 
+    else: return [t for t in f[name]]
 
 def set_tag(f, name, value):
-    name = "\xa9%s" % name
-    f[name] = value
+    if name in ['trkn', 'disk']:
+        try:
+            f[name] = (value, f[name][1])
+        except:
+            xlmisc.log_exception()
+    else:
+        f[name] = value
+
+def can_change(tag):
+    return tag in TAG_TRANSLATION.values()
+
+def is_multi():
+    return True
 
 def fill_tag_from_path(tr):
     f = MP4(tr.io_loc)
     tr.length = f.info.length
     tr.bitrate = f.info.bitrate
     
-    tr.title = get_tag(f, 'nam')
-    tr.artist = get_tag(f, 'ART')
-    tr.album = get_tag(f, 'alb')
-    tr.genre = get_tag(f, 'gen')
-    try:
-        tr.track = f['trkn'][0]
-    except:
-        tr.track = -1
-
-    try:
-        tr.disc_id = f['disk'][0]
-    except:
-        tr.disc_id = -1
-
-    tr.year = get_tag(f, 'day')
+    for mp4_tag, tag in TAG_TRANSLATION.iteritems():
+        try:
+            tr.tags[tag] = get_tag(f, mp4_tag)
+        except:
+            tr.tags[tag] = [] 
 
 def write_tag(tr):
     f = MP4(tr.io_loc)
 
-    try:
-        f['trkn'] = (int(tr.track), f['trkn'][1])
-        f['disk'] = (int(tr.disc_id), f['disk'][1])
-    except:
-        xlmisc.log_exception()
-
-    set_tag(f, 'nam', tr.title)
-    set_tag(f, 'ART', tr.artist)
-    set_tag(f, 'alb', tr.album)
-    set_tag(f, 'gen', tr.genre)
+    for mp4_tag, tag in TAG_TRANSLATION.iteritems():
+        if tr.tags[tag]:
+            set_tag(f, mp4_tag, tr.tags[tag])
 
     f.save()

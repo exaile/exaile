@@ -3,4 +3,10 @@ import xl.xlmisc
 TYPE = 'wav'
 
 def fill_tag_from_path(tr):
-    tr.title = tr.loc.encode(xl.xlmisc.get_default_encoding())
+    tr.tags['title'] = tr.loc.encode(xl.xlmisc.get_default_encoding())
+
+def can_change(tag):
+    return False
+
+def is_multi():
+    return False

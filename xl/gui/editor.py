@@ -34,6 +34,7 @@ TAG_STRINGS = {
     "description":      _('Description'),
     "location":         _('Location'),
     "contact":          _('Contact'),
+    # TRANSLATORS: International Standard Recording Code
     "isrc":             _('ISRC'),
     "date":             _('Date'),
     "arranger":         _('Arranger'),
@@ -46,6 +47,7 @@ TAG_STRINGS = {
     "part":             _('Part'),
     "website":          _('Website'),
     "language":         _('Language'),
+    # TRANSLATORS: Beats per minute
     "bpm":              _('BPM'),
     "albumartist":      _('Album Artist'),
     "originaldate":     _('Original Date'),
@@ -193,6 +195,7 @@ class TrackEditor(object):
             Set up the treeviews in the tabs etc
         """
         # tags view
+        # TRANSLATORS: A media file tag
         tag_column = gtk.TreeViewColumn(_("Tag"))
         tag_cell = gtk.CellRendererText()
         value_column = gtk.TreeViewColumn(_("Value"))
@@ -328,12 +331,11 @@ class TrackEditor(object):
                 invalid.append(header)
         
         if len(invalid):
-            if len(invalid) == 1:
-                msg = _("All files currently selected do not support"
-                        " editing the tag <b>%s</b>.")
-            else:
-                msg = _("All files currently selected do not support"
-                        " editing the tags <b>%s</b>.")
+            msg = ngettext("All files currently selected do not support"
+                           " editing the tag <b>%s</b>.",
+                           "All files currently selected do not support"
+                           " editing the tags <b>%s</b>.",
+                           len(invalid))
             common.error(self.dialog, msg % ', '.join(invalid))
             pattern = TagsFromPattern('')
 
@@ -557,8 +559,8 @@ class TrackEditor(object):
             self.tags_save.set_sensitive(True)
             self.tags_clear.set_sensitive(True)
         except xlmisc.TagUnsupportedException, e:
-            msg =_("The tag <b>%s</b> is not supported \
-                    by all selected tracks") % e.tag
+            msg =_("The tag <b>%s</b> is not supported"
+                   " by all selected tracks") % e.tag
             common.error(self.dialog, msg)
         except:
             xlmisc.log_exception()

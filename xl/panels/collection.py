@@ -672,4 +672,5 @@ class CollectionPanel(object):
             if self.name == 'device':
                 gobject.idle_add(self.done_loading_tree)
 
-import device
+#do this here so that the device panel can inherit from CollectionPanel
+import device 

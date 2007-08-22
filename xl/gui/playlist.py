@@ -805,6 +805,8 @@ class TracksListCtrl(gtk.VBox):
                 
         songs = self.get_selected_tracks()
 
+        n_selected = len(songs)
+
         pixbuf = xlmisc.get_text_icon(self.exaile.window, u'\u2610', 16, 16)
         icon_set = gtk.IconSet(pixbuf)
         
@@ -814,43 +816,14 @@ class TracksListCtrl(gtk.VBox):
         
         self.queue = tpm.append(_("Toggle Queue"), self.exaile.on_queue,
             'exaile-queue-icon')
-        self.stop_track = tpm.append(_("Toggle: Stop after this Track"), 
-            self.exaile.on_stop_track, 'gtk-stop')
+
+        if n_selected == 1:
+            self.stop_track = tpm.append(_("Toggle: Stop after this Track"), 
+                self.exaile.on_stop_track, 'gtk-stop')
         tpm.append_separator()
-        n_selected = len(songs)
 
-        if not songs or not songs[0].type == 'stream':
-            pm = xlmisc.Menu()
-            self.new_playlist = pm.append(_("New Playlist"),
-                self.exaile.playlists_panel.on_add_playlist, 'gtk-new')
-            pm.append_separator()
-            rows = self.db.select("SELECT name FROM playlists WHERE type=0 ORDER BY"
-                " name")
-            for row in rows:
-                pm.append(row[0], self.exaile.playlists_panel.add_items_to_playlist)
-
-            tpm.append_menu(_("Add to Playlist"), pm, 'gtk-add')
-
-        else:
-            self.playlists_menu = xlmisc.Menu()
-            all = self.db.select("SELECT name FROM radio "
-                "ORDER BY name")
-            for row in all:
-                i = self.playlists_menu.append(row[0],
-                    self.exaile.pradio_panel.add_items_to_station)
-
-            self.playlists_menu.append_separator()
-            self.new_playlist = self.playlists_menu.append(_("New Station"),
-                self.exaile.pradio_panel.on_add_to_station, 'gtk-new')
-
-            tpm.append_menu(_("Add to Saved Stations"),
-                self.playlists_menu, 'gtk-add')
-
-        em = xlmisc.Menu()
-
-        em.append(_("Edit Information"), lambda e, f:
+        tpm.append(_("Edit Track Information"), lambda e, f:
             editor.TrackEditor(self.exaile, self), 'gtk-edit')
-        em.append_separator()
 
         rm = xlmisc.Menu()
         self.rating_ids = []
@@ -859,8 +832,13 @@ class TracksListCtrl(gtk.VBox):
             item = rm.append_image(self.rating_images[i],
                 lambda w, e, i=i: editor.update_rating(self, i))
 
-        em.append_menu(_("Rating"), rm)
-        tpm.append_menu(ngettext("Edit Track", "Edit Tracks", n_selected), em, 'gtk-edit')
+        star_icon = gtk.gdk.pixbuf_new_from_file_at_size("images/star.png", 16, 16)
+        icon_set = gtk.IconSet(star_icon)
+        factory = gtk.IconFactory()
+        factory.add_default()        
+        factory.add('exaile-star-icon', icon_set)
+
+        tpm.append_menu(_("Set Track Rating"), rm, 'exaile-star-icon')
 
         t = songs[0].type
         if t == 'file':
@@ -880,8 +858,35 @@ class TracksListCtrl(gtk.VBox):
             im.append(_('Import CD'), self.import_cd, 'gtk-cdrom')
             tpm.append_menu(_('Import'), im, 'gtk-cdrom')
 
-        info = tpm.append(_("Information"), self.get_track_information,
-            'gtk-info')
+        if not songs or not songs[0].type == 'stream':
+            pm = xlmisc.Menu()
+            self.new_playlist = pm.append(_("New Playlist"),
+                self.exaile.playlists_panel.on_add_playlist, 'gtk-new')
+            pm.append_separator()
+            rows = self.db.select("SELECT name FROM playlists WHERE type=0 ORDER BY"
+                " name")
+            for row in rows:
+                pm.append(row[0], self.exaile.playlists_panel.add_items_to_playlist)
+
+            tpm.append_menu(_("Add to Playlist"), pm, 'gtk-add')
+        else:
+            self.playlists_menu = xlmisc.Menu()
+            all = self.db.select("SELECT name FROM radio "
+                "ORDER BY name")
+            for row in all:
+                i = self.playlists_menu.append(row[0],
+                    self.exaile.pradio_panel.add_items_to_station)
+
+            self.playlists_menu.append_separator()
+            self.new_playlist = self.playlists_menu.append(_("New Station"),
+                self.exaile.pradio_panel.on_add_to_station, 'gtk-new')
+
+            tpm.append_menu(_("Add to Saved Stations"),
+                self.playlists_menu, 'gtk-add')
+
+        if n_selected == 1:
+            info = tpm.append(_("Information"), self.get_track_information,
+                'gtk-info')
         tpm.append_separator()
 
         if n_selected == 1 and self.get_selected_track() \
@@ -897,21 +902,12 @@ class TracksListCtrl(gtk.VBox):
             gtk.gdk.pixbuf_new_from_file(os.path.join('images',
             'track.png'))))
         # TRANSLATORS: Shows the selected track in the collection tree
-        tpm.append(_("Show in Collection"), self.show_in_collection,
-            'exaile-track-icon')
-        tpm.append_separator()
+        if n_selected == 1:
+            tpm.append(_("Show in Collection"), self.show_in_collection,
+                'exaile-track-icon')
 
-        rm = xlmisc.Menu()
-        self.remove_tracks = rm.append(_("Remove from Playlist"),
-            self.delete_tracks, None, 'remove')
-        self.playlists_menu = None
-
-        rm.append(ngettext("Blacklist Track", "Blacklist Tracks", n_selected),
-            self.exaile.on_blacklist)
-
-        rm.append(ngettext("Delete Track", "Delete Tracks", n_selected),
-            self.delete_tracks, 'gtk-delete', 'delete')
-        tpm.append_menu(_("Remove"), rm, 'gtk-delete')
+        tpm.append(_("Remove from Current"),
+            self.delete_tracks, 'gtk-delete')
 
         # plugins menu items
         if self.exaile.plugins_menu.get_children():

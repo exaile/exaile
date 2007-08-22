@@ -225,6 +225,11 @@ class DevicePanel(collection.CollectionPanel):
         self.queue = None
         self.chooser.set_active(0)
 
+    def get_urls_for(self, items):
+        driver_name = self.get_driver_name()
+        return ["device_%s://%s" % (driver_name, urllib.quote(item.loc))
+            for item in items]
+
     def done_loading_tree(self):
         """
             Called when the collection tree is done loading

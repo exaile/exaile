@@ -227,16 +227,15 @@ class CollectionPanel(object):
         """
             Called when a drag source wants data for this drag operation
         """
-        loc = self.get_selected_items()
+        urls = self.get_urls_for(self.get_selected_items())
+        selection.set_uris(urls)
 
-        if isinstance(self, device.DevicePanel):
-            driver_name = self.get_driver_name()
-            loc = ["device_%s://%s" % (driver_name, 
-                urllib.quote(l.loc)) for l in loc]
-        else:
-            loc = [urllib.quote(l.loc.encode(xlmisc.get_default_encoding())) for l in loc]
-        
-        selection.set_uris(loc)
+    def get_urls_for(self, items): # may be overridden
+        """
+            Returns the the items' URLs
+        """
+        return [urllib.quote(item.loc.encode(xlmisc.get_default_encoding()))
+            for item in items]
 
     def append_recursive(self, iter, add):
         """
@@ -528,6 +527,8 @@ class CollectionPanel(object):
             all = self.exaile.all_songs
             self.all = all
         else:
+            # FIXME: This is evil OOP; it should use method overriding instead,
+            # e.g. see drag_get_data and get_urls_for.
             if isinstance(self, device.DevicePanel):
                 self.all = None
 
@@ -672,5 +673,6 @@ class CollectionPanel(object):
             if self.name == 'device':
                 gobject.idle_add(self.done_loading_tree)
 
-#do this here so that the device panel can inherit from CollectionPanel
-import device 
+# HACK: Work around failing recursive import.
+# See fixme in load_tree for why this is needed and how it should be fixed.
+import device

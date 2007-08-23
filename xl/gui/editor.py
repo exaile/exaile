@@ -354,7 +354,7 @@ class TrackEditor(object):
             render = gtk.CellRendererText()
             render.set_property('editable', True)
             render.connect('edited', self.tagsfrompath_row_edited, model, i + 2)
-            col = gtk.TreeViewColumn(header, render, text=i + 2)
+            col = gtk.TreeViewColumn(TAG_STRINGS[header], render, text=i + 2)
             col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
             view.append_column(col)
 

@@ -317,23 +317,26 @@ class Preferences(object):
         Preferences Dialog
     """
 
-    order = (_("General"), _("Advanced"))
-    # TRANSLATORS: Category of the preferences dialog
-    items = ({_("General"):
-                # TRANSLATORS: Category of the preferences dialog
-                (_("Library"),
-                # TRANSLATORS: Category of the preferences dialog
-                _('Notification'),
-                # TRANSLATORS: Category of the preferences dialog
-                _('Importing'),
-                # TRANSLATORS: Category of the preferences dialog
-                _('Last.fm'),
-                # TRANSLATORS: Category of the preferences dialog
-                _('Radio')),
+    CATEGORIES = [
+        # TRANSLATORS: Category of the preferences dialog
+        (_("General"), [
             # TRANSLATORS: Category of the preferences dialog
-            _("Advanced"):
-                (_('Replay Gain'),),
-            })
+            _("Library"),
+            # TRANSLATORS: Category of the preferences dialog
+            _("Notification"),
+            # TRANSLATORS: Category of the preferences dialog
+            _("Importing"),
+            # TRANSLATORS: Category of the preferences dialog
+            _("Last.fm"),
+            # TRANSLATORS: Category of the preferences dialog
+            _("Radio"),
+        ]),
+        # TRANSLATORS: Category of the preferences dialog
+        (_("Advanced"), [
+            _("Replay Gain"),
+        ]),
+    ]
+
     def __init__(self, parent):
         """
             Initilizes the preferences dialog
@@ -373,18 +376,13 @@ class Preferences(object):
         self.model = gtk.TreeStore(str, int)
         self.tree.set_model(self.model)
         count = 0
-        for header in self.order:
-            items = self.items[header]
-            # header is a string that must be translated by gettext, 
-            # therefore it is necessary to wrap it in _() 
-            node = self.model.append(None, [_(header), count]) 
+        for cat, subcats in self.CATEGORIES:
+            catnode = self.model.append(None, [cat, count])
             count += 1
-            for item in items:
-                # item and count are string that must be translated by gettext, 
-                # therefore it is necessary to wrap them in _() 
-                self.model.append(node, [_(item), _(count)]) 
+            for subcat in subcats:
+                self.model.append(catnode, [subcat, count])
                 count += 1
-            self.tree.expand_row(self.model.get_path(node), False)
+            self.tree.expand_row(self.model.get_path(catnode), False)
 
         selection = self.tree.get_selection()
         selection.connect('changed', self.switch_pane)

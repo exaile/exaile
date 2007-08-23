@@ -265,11 +265,13 @@ class TracksListCtrl(gtk.VBox):
         """
             Gets the next track
         """
-        if song == None:
+        if song is None:
             index = -1
         else: 
-            if not song in self.songs: return None
-	    index = self.songs.index(song)
+            try:
+                index = self.songs.index(song)
+            except ValueError:
+                return None
         path = (index + 1,)
         try:
             iter = self.model.get_iter(path)

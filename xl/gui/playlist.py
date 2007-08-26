@@ -860,31 +860,32 @@ class TracksListCtrl(gtk.VBox):
             im.append(_('Import CD'), self.import_cd, 'gtk-cdrom')
             tpm.append_menu(_('Import'), im, 'gtk-cdrom')
 
-        if not songs or not songs[0].type == 'stream':
-            pm = xlmisc.Menu()
-            self.new_playlist = pm.append(_("New Playlist"),
-                self.exaile.playlists_panel.on_add_playlist, 'gtk-new')
-            pm.append_separator()
-            rows = self.db.select("SELECT name FROM playlists WHERE type=0 ORDER BY"
-                " name")
-            for row in rows:
-                pm.append(row[0], self.exaile.playlists_panel.add_items_to_playlist)
+        if t != 'cd':
+            if not songs or not t == 'stream':
+                pm = xlmisc.Menu()
+                self.new_playlist = pm.append(_("New Playlist"),
+                    self.exaile.playlists_panel.on_add_playlist, 'gtk-new')
+                pm.append_separator()
+                rows = self.db.select("SELECT name FROM playlists WHERE type=0 ORDER BY"
+                    " name")
+                for row in rows:
+                    pm.append(row[0], self.exaile.playlists_panel.add_items_to_playlist)
 
-            tpm.append_menu(_("Add to Playlist"), pm, 'gtk-add')
-        else:
-            self.playlists_menu = xlmisc.Menu()
-            all = self.db.select("SELECT name FROM radio "
-                "ORDER BY name")
-            for row in all:
-                i = self.playlists_menu.append(row[0],
-                    self.exaile.pradio_panel.add_items_to_station)
+                tpm.append_menu(_("Add to Playlist"), pm, 'gtk-add')
+            else:
+                self.playlists_menu = xlmisc.Menu()
+                all = self.db.select("SELECT name FROM radio "
+                    "ORDER BY name")
+                for row in all:
+                    i = self.playlists_menu.append(row[0],
+                        self.exaile.pradio_panel.add_items_to_station)
 
-            self.playlists_menu.append_separator()
-            self.new_playlist = self.playlists_menu.append(_("New Station"),
-                self.exaile.pradio_panel.on_add_to_station, 'gtk-new')
+                self.playlists_menu.append_separator()
+                self.new_playlist = self.playlists_menu.append(_("New Station"),
+                    self.exaile.pradio_panel.on_add_to_station, 'gtk-new')
 
-            tpm.append_menu(_("Add to Saved Stations"),
-                self.playlists_menu, 'gtk-add')
+                tpm.append_menu(_("Add to Saved Stations"),
+                    self.playlists_menu, 'gtk-add')
 
         if n_selected == 1:
             info = tpm.append(_("Information"), self.get_track_information,

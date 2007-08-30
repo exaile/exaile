@@ -911,6 +911,7 @@ class LibraryManager(object):
         """
             Rescans the library for newly added tracks
         """
+        xlmisc.log('Library rescan called')
         items = []
         tmp = self.settings.get_list("search_paths", [])
         for i in tmp:

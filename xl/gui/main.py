@@ -288,8 +288,9 @@ class ExaileWindow(gobject.GObject):
             self.scan_timer = xlmisc.MiscTimer(lambda:
                 self.library_manager.on_library_rescan(load_tree=False), 1) 
 
+        xlmisc.log('Starting scan timer at %s' % value)
         self.scan_timer.stop()
-        self.scan_timer.time = int(value * 60 * 60 * 1000)
+        self.scan_timer.time = int(value * 60 * 1000)
         self.scan_timer.start()
 
     def setup_location(self):

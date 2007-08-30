@@ -517,6 +517,9 @@ class TracksListCtrl(gtk.VBox):
                     col.set_resizable(True)
                     col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
 
+                if _(name) == '#':
+                    cellr.set_property('xalign', 1.0)
+
                 col.set_widget(gtk.Label(_(name)))
                 col.get_widget().show()
                 self.list.append_column(col)

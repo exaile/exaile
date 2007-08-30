@@ -863,6 +863,7 @@ class RadioPanel(object):
         selection = self.tree.get_selection()
         (model, iter) = selection.get_selected()
         station = model.get_value(iter, 1)
+        radio = library.get_column_id(self.db, 'radio', 'name', str(station))
         
         dialog = common.MultiTextEntryDialog(self.exaile.window,
             _("Add Stream to Station"))
@@ -873,11 +874,11 @@ class RadioPanel(object):
         result = dialog.run()
         if result == gtk.RESPONSE_OK:
             (stream, desc) = dialog.get_values()
+            path_id = library.get_column_id(self.db, 'paths', 'name', stream)
 
-            self.db.execute("INSERT INTO radio_items(radio, url, "
-                "title, description) VALUES( %s, %s, %s, %s)" % 
-                common.tup(self.db.p, 4),
-                (station, stream, desc, desc))
+            self.db.execute("INSERT INTO radio_items(radio, path, title, "
+                "description) VALUES( ?, ?, ?, ?)", 
+                (radio, path_id, desc, desc))
             
     def remove_station(self, item, event=None):
         """

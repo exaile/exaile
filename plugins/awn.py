@@ -14,12 +14,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import plugins, dbus, time, gtk
+import dbus, time, gtk
+import xl.plugins as plugins
 from xl import common
 
 PLUGIN_NAME = "AWN"
 PLUGIN_AUTHORS = ['Aren Olson <reacocard@gmail.com>', 'Bryan Forbes <bryan@reigndropsfall.net>', 'Alberto Pagliarini <batopa@gmail.com>']
-PLUGIN_VERSION = '0.7.2'
+PLUGIN_VERSION = '0.7.3'
 PLUGIN_DESCRIPTION = r"""Displays the current album's cover art, progress and/or remaining time in AWN."""
 
 PLUGIN_ENABLED = False

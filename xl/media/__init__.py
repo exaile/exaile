@@ -1,4 +1,4 @@
-from xl.media import mp3, ogg, flac, wav
+from xl.media import mp3, ogg, flac, wav, wv, mpc, tta
 import pygst
 pygst.require('0.10')
 import gst
@@ -7,14 +7,17 @@ import xl.common
 from mutagen.mp3 import HeaderNotFoundError
 import os.path, gobject, re
 
-__all__ = ['flac', 'mp3', 'm4a', 'ogg', 'wma', 'mpc']
+__all__ = ['flac', 'mp3', 'm4a', 'ogg', 'wma', 'mpc', 'wv', 'tta']
 
 formats = {
     'mp3':      mp3,
     'mp2':      mp3,
     'ogg':      ogg,
     'flac':     flac,
-    'wav':      wav
+    'wav':      wav,
+    'mpc':      mpc,
+    'mp+':      mpc,
+    'tta':      tta
 }
 
 # Optional formats

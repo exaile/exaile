@@ -30,6 +30,6 @@ def fill_tag_from_path(tr):
     tr.length = inf.info["playtime_seconds"]
     tr.bitrate = inf.info["max_bitrate"]
 
-    for wma_tag, tag in TAG_TRANSLATION:
+    for wma_tag, tag in TAG_TRANSLATION.iteritems():
         tr.tags[tag] = get_tag(inf, wma_tag)
 

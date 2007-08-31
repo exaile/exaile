@@ -40,13 +40,20 @@ def get_tag(f, name):
     if not f.has_key(name):
         return [] 
     elif name in ['trkn', 'disk']: 
-        return ["%d/%d" % (f[name][0], f[name][1])]
+        ret = []
+        for value in f[name]:
+            ret.append("%d/%d" % (value[0], value[1]))
+        return ret
     else: return [t for t in f[name]]
 
 def set_tag(f, name, value):
+    if type(value) is not list: value = [value]
     if name in ['trkn', 'disk']:
         try:
-            f[name] = (value, f[name][1])
+            f[name] = []
+            for val in value:
+                tmp = map(int, val.split('/'))
+                f[name].append(tuple(tmp))
         except:
             xlmisc.log_exception()
     else:

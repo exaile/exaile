@@ -18,7 +18,8 @@
 
 import pygtk
 pygtk.require('2.0')
-import gtk, gtk.glade, gobject, sys, os, plugins, urllib, re
+import gtk, gtk.glade, gobject, sys, os, urllib, re
+import xl.plugins
 from xl import common, xlmisc
 from gettext import gettext as _
 

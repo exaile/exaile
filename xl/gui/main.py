@@ -24,11 +24,11 @@ from gettext import gettext as _
 from xl import library, media, audioscrobbler, equalizer, burn, common
 from xl import xlmisc, config, db, covers, player, prefs
 from xl import playlist as playlistmanager
-import plugins.manager, plugins.gui, gst
+from xl.plugins import manager as pluginmanager, gui as plugingui
 from xl.gui import playlist as trackslist
 from xl.gui import information
 from xl.panels import collection, radio, playlists, files, device
-import random
+import random, gst
 random.seed()
 
 class ExaileWindow(gobject.GObject): 
@@ -184,7 +184,7 @@ class ExaileWindow(gobject.GObject):
             self.clear_button.hide()
 
         self.stop_track_button.set_sensitive(False)
-        self.pmanager = plugins.manager.Manager(self) 
+        self.pmanager = pluginmanager.Manager(self) 
         enabled_plugins = []
         for k, v in self.settings.get_plugins().iteritems():
             if v:
@@ -582,7 +582,7 @@ class ExaileWindow(gobject.GObject):
         """
             Shows the plugin manager
         """
-        manager = plugins.gui.PluginManager(self, self.window, self.pmanager,
+        manager = plugingui.PluginManager(self, self.window, self.pmanager,
             self.update_plugin,
             'http://www.exaile.org/files/plugins/%s/plugin_info.txt' %
             self.get_plugin_location())

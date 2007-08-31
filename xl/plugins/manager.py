@@ -14,7 +14,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import os, re, traceback, sys, plugins, zipimport
+import os, re, traceback, sys, zipimport
+import xl.plugins
 
 class Manager(object):
     """
@@ -92,7 +93,7 @@ class Manager(object):
                 if plugin.initialize():
                     plugin.PLUGIN_ENABLED = True
             self.plugins.append(plugin)
-        except plugins.PluginInitException, e:
+        except xl.plugins.PluginInitException, e:
             self.plugins.append(plugin)
         except Exception, e:
             print "Failed to load plugin"

@@ -10,8 +10,8 @@ name_re = re.compile(r'PLUGIN_NAME\s+=\s+r?(\'\'?\'?|""?"?)(.*?)(\1)', re.DOTALL
 version_re = re.compile(r'PLUGIN_VERSION\s+=\s+r?(\'\'?\'?|""?"?)(.*?)(\1)', re.DOTALL|re.MULTILINE)
 author_re = re.compile(r'PLUGIN_AUTHORS\s+=\s(\[.*?\])', re.DOTALL|re.MULTILINE)
 description_re = re.compile(r'PLUGIN_DESCRIPTION\s+=\s+r?(\'\'?\'?|""?"?)(.*?)(\1)', re.DOTALL|re.MULTILINE)
-plugin_re = re.compile(r'<a class="file" title="View File" href=".*?">([\w-]+.py)</a>', re.DOTALL|re.MULTILINE)
 dir_re = re.compile(r'<a class="dir" title="Browse Directory" href=".*?">([\w-]+)</a>', re.DOTALL|re.MULTILINE)
+plugin_re = '<a href="([^\">]*/([-\w]+.py))" title="Download[^\">]*?"> download </a>'
 
 data = urllib.urlopen(url).read()
 

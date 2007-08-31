@@ -39,6 +39,8 @@ TAG_TRANSLATION = {
 def get_tag(f, name):
     if not f.has_key(name):
         return [] 
+    elif name in ['trkn', 'disk']: 
+        return ["%d/%d" % (f[name][0], f[name][1])]
     else: return [t for t in f[name]]
 
 def set_tag(f, name, value):
@@ -57,7 +59,12 @@ def is_multi():
     return True
 
 def fill_tag_from_path(tr):
-    f = MP4(tr.io_loc)
+    try:
+        f = MP4(tr.io_loc)
+    except:
+        xlmisc.log("Couldn't read tags from file: " + tr.loc)
+        return
+
     tr.length = f.info.length
     tr.bitrate = f.info.bitrate
     

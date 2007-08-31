@@ -77,7 +77,12 @@ def is_multi():
     return True
 
 def fill_tag_from_path(tr):
-    info = mutagen.mp3.MP3(tr.io_loc)
+    try:
+        info = mutagen.mp3.MP3(tr.io_loc)
+    except:
+        xlmisc.log("Couldn't read tags from file: " + tr.loc)
+        return
+
     tr.length = info.info.length
     tr.bitrate = info.info.bitrate
 

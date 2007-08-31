@@ -18,7 +18,11 @@ def fill_tag_from_path(tr):
     """
         Reads all tags from the file
     """
-    f = mutagen.flac.FLAC(tr.io_loc)
+    try:
+        f = mutagen.flac.FLAC(tr.io_loc)
+    except:
+        xlmisc.log("Couldn't read tags from file: " + tr.loc)
+        return
     tr.length = int(f.info.length)
 
     for tag in VALID_TAGS:

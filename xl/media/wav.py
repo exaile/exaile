@@ -1,4 +1,4 @@
-import xl.xlmisc
+from xl import xlmisc
 
 TYPE = 'wav'
 

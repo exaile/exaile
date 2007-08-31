@@ -1,4 +1,5 @@
 import lib.wmainfo
+from xl import xlmisc
 
 TYPE = 'wma'
 
@@ -25,7 +26,11 @@ def is_multi():
     return False
 
 def fill_tag_from_path(tr):
-    inf = lib.wmainfo.WmaInfo(tr.io_loc)
+    try:
+        inf = lib.wmainfo.WmaInfo(tr.io_loc)
+    except:
+        xlmisc.log("Couldn't read tags from file: " + tr.loc)
+        return
 
     tr.length = inf.info["playtime_seconds"]
     tr.bitrate = inf.info["max_bitrate"]

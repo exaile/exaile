@@ -30,7 +30,8 @@ from subprocess import *
 from BaseHTTPServer import *
 
 class ExaileHttpHandler(BaseHTTPRequestHandler):
-	allowed_commands = ['prev', 'play', 'play-pause', 'stop', 'next', 'query']
+	ALLOWED_COMMANDS = frozenset((
+			'prev', 'play', 'play-pause', 'stop', 'next', 'query'))
 
 	def do_GET(self):
 		self.send_response(200)
@@ -45,7 +46,7 @@ class ExaileHttpHandler(BaseHTTPRequestHandler):
 		else:
 			command = None
 
-		if command and command in self.allowed_commands:
+		if command and command in self.ALLOWED_COMMANDS:
 			line = [self.server.exaile, '--' + command]
 			print 'Running', line
 			output = Popen(line, stdout=PIPE).communicate()[0]

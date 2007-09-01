@@ -10,7 +10,7 @@ PLUGIN_NAME        = 'IM Status'
 PLUGIN_ICON        = None
 PLUGIN_ENABLED     = False
 PLUGIN_AUTHORS     = ['Ingelrest François <Athropos@gmail.com>']
-PLUGIN_VERSION     = '0.11.1'
+PLUGIN_VERSION     = '0.12'
 PLUGIN_DESCRIPTION = r"""Sets the online status of your instant messenger client according to the music you are listening to.\n\nSupported IM clients are:\n * Gaim (>= 2.0 beta6)\n * Gajim\n * Gossip\n * Pidgin"""
 
 # Possible actions when Exaile quits or stops playing
@@ -262,12 +262,12 @@ def onStopTimer() :
     return False
 
 
-def initialize():
+def initialize(self = None):
     """
         Called when the plugin is enabled
     """
     global mIMClients
-
+    oldNumber      = len(mIMClients) 
     mIMClients     = []
     activeServices = dbus.SessionBus().get_object('org.freedesktop.DBus', '/org/freedesktop/DBus').ListNames()
 
@@ -280,15 +280,21 @@ def initialize():
             client[IM_ACCOUNTS] = client[IM_INSTANCE].listAccounts()
 
             mIMClients.append(client)
-
+            
+            
     # If there is at least one active IM client, we can connect our handlers
-    if len(mIMClients) != 0 :
-        mHandlers.connect(APP, 'stop-track',                stop_track)
-        mHandlers.connect(APP, 'pause-toggled',             lambda exaile, track : updateStatus())
-        mHandlers.connect(APP, 'track-information-updated', lambda arg : updateStatus())
+    if oldNumber == 0 :
+        if len(mIMClients) != 0 :
+            mHandlers.connect(APP.player, 'stop-track',                 stop_track)
+            mHandlers.connect(APP.player, 'pause-toggled',              lambda exaile, track : updateStatus())
+            mHandlers.connect(APP,        'track-information-updated',  lambda arg : updateStatus())
+    else :
+        if len(mIMClients) == 0 :
+            mHandlers.disconnect_all()
+    
+    #print "Working clients: ", mIMClients
 
     return True
-
 
 def destroy() :
     """
@@ -377,6 +383,9 @@ def configure() :
     checkUpdateOnPause = gtk.CheckButton('Update status when track is paused')
     tmpBox.pack_start(checkUpdateOnPause, False, False, 0)
     checkUpdateOnPause.set_active(APP.settings.get_boolean('updateOnPause', DEFAULT_UPDATE_ON_PAUSE, PID))
+    resetButton = gtk.Button('Reset')
+    tmpBox.pack_start(resetButton, False, False, 0)
+    resetButton.connect('clicked', initialize)
 
     dlg.show_all()
     result = dlg.run()

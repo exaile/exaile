@@ -290,9 +290,7 @@ def initialize(self = None):
             mHandlers.connect(APP,        'track-information-updated',  lambda arg : updateStatus())
     else :
         if len(mIMClients) == 0 :
-            mHandlers.disconnect(APP.player, 'stop-track',                 stop_track)
-            mHandlers.disconnect(APP.player, 'pause-toggled',              lambda exaile, track : updateStatus())
-            mHandlers.disconnect(APP,        'track-information-updated',  lambda arg : updateStatus())
+            mHandlers.disconnect_all()
     
     #print "Working clients: ", mIMClients
 

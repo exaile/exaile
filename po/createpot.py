@@ -9,19 +9,19 @@ except IndexError:
     pass
 
 os.system("intltool-extract --type=gettext/glade exaile.glade")
-os.system("intltool-extract --type=gettext/glade plugins/plugins.glade")
+os.system("intltool-extract --type=gettext/glade xl/plugins/plugins.glade")
 os.system("xgettext -o messages.pot --from-code=utf-8 -k_ -kN_ "
     "--add-comments=TRANSLATORS "
     "--copyright-holder='Adam Olsen <arolsen@gmail.com>' "
-    "--msgid-bugs-address=http://exaile.org/trac/newticket "
+    "--msgid-bugs-address='https://bugs.launchpad.net/exaile/' "
     "*.py plugins/*.py `find xl -name '*.py'` "
-    "exaile.glade.h plugins/plugins.glade.h")
+    "exaile.glade.h xl/plugins/plugins.glade.h")
 
 if command != 'compile':
     print "\n\n**********\n"
     print "Now edit messages.pot, save it as <locale>.po, and post it on\n" \
-        "our ticket tracker (http://www.exaile.org/newtranslation)\n" \
-        "as a new translation.\n\nThank you!"
+        "our but tracker (https://bugs.launchpad.net/exaile/)\n\n" \
+        "Thank you!"
 
 else:
     os.chdir('po')

@@ -202,9 +202,6 @@ class PlaylistsPanel(object):
     """ 
         The playlists panel 
     """
-    SMART_PLAYLISTS = ("Entire Library", "Highest Rated", "Top 100", "Most Played",
-        "Least Played", "Random 100", "Rating > 5", "Rating > 3", "Newest 100")
-
     def __init__(self, exaile):
         """
             Creates the playlist panel
@@ -248,69 +245,65 @@ class PlaylistsPanel(object):
             gtk.ICON_SIZE_MENU)
         self.smart = self.model.append(None, [self.open_folder, _("Smart"
             " Playlists"), None])
-        self.smart_dict = {
-            'Entire Library': "SELECT paths.name FROM artists, albums, tracks, paths WHERE " \
+
+        smart_playlists = [
+            (_('Entire Library'), "SELECT paths.name FROM artists, albums, tracks, paths WHERE " \
                 "paths.id=tracks.path AND artists.id=tracks.artist AND " \
                 "albums.id=tracks.albums ORDER BY LOWER(artists.name), " \
-                "THE_CUTTER(albums.name)",
+                "THE_CUTTER(albums.name)"),
 
-            'Top 100': "SELECT paths.name FROM tracks,paths WHERE " \
+            (_('Top 100'), "SELECT paths.name FROM tracks,paths WHERE " \
                 "paths.id=tracks.path ORDER BY rating " \
-                "DESC LIMIT 100",
+                "DESC LIMIT 100"),
 
-            'Highest Rated': "SELECT paths.name FROM tracks,paths WHERE " \
+            (_('Highest Rated'), "SELECT paths.name FROM tracks,paths WHERE " \
                 "tracks.path=paths.id " \
                 "ORDER BY user_rating DESC " \
-                "LIMIT 100",
+                "LIMIT 100"),
 
-            'Most Played': "SELECT paths.name FROM paths, tracks WHERE " \
+            (_('Most Played'), "SELECT paths.name FROM paths, tracks WHERE " \
                 "tracks.path=paths.id ORDER " \
-                "BY plays DESC LIMIT 100",
+                "BY plays DESC LIMIT 100"),
 
-            'Least Played': "SELECT paths.name FROM paths, tracks WHERE " \
+            (_('Least Played'), "SELECT paths.name FROM paths, tracks WHERE " \
                 "paths.id=tracks.path ORDER " \
-                "BY plays ASC LIMIT 100",
+                "BY plays ASC LIMIT 100"),
 
-            'Rating > 5': "SELECT paths.name FROM paths, tracks, artists, " \
+            (_('Rating > 5'), "SELECT paths.name FROM paths, tracks, artists, " \
                 "albums " \
                 "WHERE tracks.path=paths.id AND albums.id=tracks.album AND " \
                 "artists.id=tracks.artist " \
                 "AND user_rating > 5 " \
-                "ORDER BY LOWER(artists.name), THE_CUTTER(albums.name), track",
+                "ORDER BY LOWER(artists.name), THE_CUTTER(albums.name), track"),
             
-            'Rating > 3': "SELECT paths.name FROM paths,tracks,artists,albums WHERE " \
+            (_('Rating > 3'), "SELECT paths.name FROM paths,tracks,artists,albums WHERE " \
                 "tracks.path=paths.id AND albums.id=tracks.album AND " \
                 "artists.id=tracks.artist AND user_rating > 3 " \
-                "ORDER BY LOWER(artists.name), LOWER(albums.name), track", 
+                "ORDER BY LOWER(artists.name), LOWER(albums.name), track"),
 
-            'Newest 100': "SELECT paths.name FROM paths,tracks WHERE " \
+            (_('Newest 100'), "SELECT paths.name FROM paths,tracks WHERE " \
                 "tracks.path=paths.id AND time_added!='' " \
                 "ORDER BY time_added DESC " \
-                "LIMIT 100",
+                "LIMIT 100"),
 
-            'Random 100': "SELECT paths.name FROM tracks,paths WHERE " \
-                "paths.id=tracks.path"
-        }
+            (_('Random 100'), "SELECT paths.name FROM tracks,paths WHERE " \
+                "paths.id=tracks.path"),
+        ]
 
-        self.model.append(self.smart, [self.playlist_image, 'Entire Library',
-            BuiltinPlaylist('Entire Library', self.smart_dict[
-            'Entire Library'])])
+        # Add smart playlists
+        def add_smart(parent, i):
+            name, sql = smart_playlists[i]
+            self.model.append(parent, [self.playlist_image, name,
+                BuiltinPlaylist(name, sql)])
+        add_smart(self.smart, 0)
+        builtin = self.model.append(self.smart, [self.open_folder,
+            _('Built In'), None])
+        for i in xrange(1, len(smart_playlists)):
+            add_smart(builtin, i)
 
-        self.builtin = self.model.append(self.smart, [self.open_folder,
-            'Built In', None])
-
-        items = ('Top 100', 'Highest Rated', 'Most Played',
-            'Least Played', 'Rating > 5', 'Rating > 3', 'Newest 100', 'Random'
-            ' 100')
-
-        for name in items:
-            sql = self.smart_dict[name]
-            self.model.append(self.builtin, [self.playlist_image, name, 
-                BuiltinPlaylist(name, sql)]) 
-        
         self.custom = self.model.append(None, [self.open_folder,
             _("Custom Playlists"), None])
-        
+
         rows = self.db.select("SELECT name, id, type FROM playlists ORDER BY"
             " name")
         for row in rows:

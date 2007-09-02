@@ -26,7 +26,7 @@ make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/share/applications
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/images
-	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/plugins
+	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/xl/plugins
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/images/default_theme
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/xl
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/xl/media
@@ -59,8 +59,8 @@ install: make-install-dirs
 	install -m 644 lib/*.py $(DESTDIR)$(PREFIX)/share/exaile/lib
 	-install -m 644 lib/*.py[co] $(DESTDIR)$(PREFIX)/share/exaile/lib
 	install -m 644 data/*.ini $(DESTDIR)$(PREFIX)/share/exaile/data
-	install -m 644 plugins/*.py $(DESTDIR)$(PREFIX)/share/exaile/plugins
-	install -m 644 plugins/*.glade $(DESTDIR)$(PREFIX)/share/exaile/plugins
+	install -m 644 xl/plugins/*.py $(DESTDIR)$(PREFIX)/share/exaile/xl/plugins
+	install -m 644 xl/plugins/*.glade $(DESTDIR)$(PREFIX)/share/exaile/xl/plugins
 	install -m 644 images/largeicon.png \
 	$(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
 	install -m 644 exaile.desktop $(DESTDIR)$(PREFIX)/share/applications/

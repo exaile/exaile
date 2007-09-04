@@ -15,14 +15,16 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import gtk, subprocess, os, time, gst
+from gettext import gettext as _
 from xl import common, media, xlmisc
 import xl.plugins as plugins
-PLUGIN_NAME = "Streamripper!"
+
+PLUGIN_NAME = _("Streamripper!")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
 PLUGIN_VERSION = '0.1.2'
-PLUGIN_DESCRIPTION = r"""Allows you to record streams with
+PLUGIN_DESCRIPTION = _(r"""Allows you to record streams with
 streamripper\n\nRequires the command line version of streamripper to be
-installed"""
+installed""")
 
 PLUGIN_ENABLED = False
 button = gtk.Button()
@@ -45,21 +47,21 @@ def configure():
     table = gtk.Table(2, 2)
     table.set_row_spacings(2)
     bottom = 0
-    label = gtk.Label("Save Location:    ")
+    label = gtk.Label(_("Save Location:    "))
     label.set_alignment(0.0, 0.0)
 
     table.attach(label, 0, 1, bottom, bottom + 1)
 
     location = exaile.settings.get_str("save_location", plugin=plugins.name(__file__),
         default=os.getenv("HOME"))
-    save_loc = gtk.FileChooserButton("Location")
+    save_loc = gtk.FileChooserButton(_("Location"))
     save_loc.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
     save_loc.set_current_folder(location)
 
     table.attach(save_loc, 1, 2, bottom, bottom + 1)
     bottom += 1
 
-    label = gtk.Label("Relay Port:")
+    label = gtk.Label(_("Relay Port:"))
     label.set_alignment(0.0, 0.0)
     table.attach(label, 0, 1, bottom, bottom + 1)
 
@@ -89,7 +91,7 @@ def toggle_record(widget, event=None):
     if not STREAMRIPPER_PID:
         if not track: return True
         if not track.type == 'stream':
-            common.error(APP.window, "You can only record streams")
+            common.error(APP.window, _("You can only record streams"))
             widget.set_active(False)
             return True
 

@@ -15,19 +15,19 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-PLUGIN_NAME = "Desktop Cover"
+import gobject, gtk
+from gettext import gettext as _
+from xl import xlmisc
+import xl.plugins as plugins
+
+PLUGIN_NAME = _("Desktop Cover")
 PLUGIN_AUTHORS = ["Johannes Sasongko <sasongko@gmail.com>", 
     "Adam Olsen <arolsen@gmail.com>"]
 
 PLUGIN_VERSION = "0.3.1"
-PLUGIN_DESCRIPTION = "Displays the current album cover on the desktop"
+PLUGIN_DESCRIPTION = _("Displays the current album cover on the desktop")
 PLUGIN_ENABLED = False
 PLUGIN_ICON = None
-
-from gettext import gettext as _
-import gobject, gtk
-from xl import xlmisc
-import xl.plugins as plugins
 
 PLUGIN = None
 CONNS = plugins.SignalContainer()
@@ -134,9 +134,13 @@ class CoverDisplay:
         self.window.destroy()
 
 GRAVITIES = [
+    # TRANSLATORS: Desktop cover gravity
     (_("Northwest"), gtk.gdk.GRAVITY_NORTH_WEST),
+    # TRANSLATORS: Desktop cover gravity
     (_("Northeast"), gtk.gdk.GRAVITY_NORTH_EAST),
+    # TRANSLATORS: Desktop cover gravity
     (_("Southwest"), gtk.gdk.GRAVITY_SOUTH_WEST),
+    # TRANSLATORS: Desktop cover gravity
     (_("Southeast"), gtk.gdk.GRAVITY_SOUTH_EAST),
 ]
 
@@ -177,6 +181,7 @@ class DesktopCoverConfig(plugins.PluginConfigDialog):
             plugin=plugin_name))
         n_rows += 1
 
+        # TRANSLATORS: Offset from the desktop border
         label = gtk.Label(_("X offset"))
         table.attach(label, 0, 1, n_rows, n_rows + 1)
         position_widgets.append(label)
@@ -188,6 +193,7 @@ class DesktopCoverConfig(plugins.PluginConfigDialog):
         position_widgets.append(spin)
         n_rows += 1
 
+        # TRANSLATORS: Offset from the desktop border
         label = gtk.Label(_("Y offset"))
         table.attach(label, 0, 1, n_rows, n_rows + 1)
         position_widgets.append(label)

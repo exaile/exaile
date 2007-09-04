@@ -17,14 +17,15 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import gtk, time, gobject
+from gettext import gettext as _
 import xl.plugins as plugins
 
-PLUGIN_NAME = "Alarm Clock"
+PLUGIN_NAME = _("Alarm Clock")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
 PLUGIN_VERSION = "0.1.1"
-PLUGIN_DESCRIPTION = r"""Plays music at a specific time.\n\nNote that when the 
+PLUGIN_DESCRIPTION = _(r"""Plays music at a specific time.\n\nNote that when the 
 specified time arrives, Exaile will just act like you pressed the play button, 
-so be sure you have the music you want to hear in your playlist"""
+so be sure you have the music you want to hear in your playlist""")
 
 PLUGIN_ENABLED = False
 PLUGIN = None
@@ -42,7 +43,8 @@ def configure():
 
     dialog = plugins.PluginConfigDialog(exaile.window, PLUGIN_NAME)
     hbox = gtk.HBox()
-    hbox.pack_start(gtk.Label("Alarm Time:  "), False, False)
+    # TRANSLATORS: Alarm time for the Alarm Clock plugin
+    hbox.pack_start(gtk.Label(_("Alarm Time:  ")), False, False)
     hour = gtk.SpinButton(gtk.Adjustment(1, step_incr=1))
     hour.set_range(0, 23)
     hour.set_value(int(hours))

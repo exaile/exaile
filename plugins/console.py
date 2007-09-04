@@ -23,11 +23,11 @@ from cStringIO import StringIO
 from gettext import gettext as _
 import gtk
 
-PLUGIN_NAME = "Python Console"
+PLUGIN_NAME = _("Python Console")
 PLUGIN_VERSION = '0.1.0'
 PLUGIN_AUTHORS = ["Johannes Sasongko <sasongko@gmail.com>"]
-PLUGIN_DESCRIPTION = r"""Provides a Python console that can be used to
-manipulate Exaile."""
+PLUGIN_DESCRIPTION = _(r"""Provides a Python console that can be used to
+manipulate Exaile.""")
 
 PLUGIN_ICON = None
 PLUGIN_ENABLED = False
@@ -102,7 +102,7 @@ MENU_ITEM = None
 
 def initialize():
     global MENU_ITEM
-    MENU_ITEM = gtk.MenuItem('Show Python Console')
+    MENU_ITEM = gtk.MenuItem(_('Show Python Console'))
     MENU_ITEM.connect('activate', show_console)
     APP.xml.get_widget('tools_menu').get_submenu().append(MENU_ITEM)
     MENU_ITEM.show()

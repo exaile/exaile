@@ -15,20 +15,22 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-PLUGIN_NAME = "Shoutcast Radio"
-PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = '0.4.2'
-PLUGIN_DESCRIPTION = r"""Allows you to browse the Shoutcast Streaming Radio
-network"""
-PLUGIN_ENABLED = False
-PLUGIN_ICON = None
-
-PLUGIN = None
+from gettext import gettext as _
 import xl.common, urllib, os, re, gobject, xl.panels, gtk
 from xl import xlmisc, media, common
 from xl.panels import radio
 from xl.gui import playlist as trackslist
 import xl.plugins as plugins
+
+PLUGIN_NAME = _("Shoutcast Radio")
+PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
+PLUGIN_VERSION = '0.4.2'
+PLUGIN_DESCRIPTION = _(r"""Allows you to browse the Shoutcast Streaming Radio
+network""")
+PLUGIN_ENABLED = False
+PLUGIN_ICON = None
+
+PLUGIN = None
 
 PLS = re.compile("<a href=\"(/sbin/shoutcast-playlist\.pls\?rn=\d+&file="
     "filename\.pls)\">.*?<a.*?href=\"[^\"]*\">([^<]*)</a>.*?Now Playing:</font>"
@@ -130,7 +132,7 @@ class ShoutcastDriver(radio.RadioDriver):
         gobject.idle_add(self.show_streams, lines, node, load_node)
 
     def get_menu(self, item, menu):
-        menu.append('Search', self.on_search, 'gtk-find')
+        menu.append(_('Search'), self.on_search, 'gtk-find')
         return menu
 
     def show_streams(self, lines, node, load_node):
@@ -162,8 +164,8 @@ class ShoutcastDriver(radio.RadioDriver):
 
     def on_search(self, *e):
         dialog = common.MultiTextEntryDialog(self.panel.exaile.window,
-            "Search Stations")
-        dialog.add_field("Search:")
+            _("Search Stations"))
+        dialog.add_field(_("Search:"))
         result = dialog.run()
         dialog.hide()
         if result == gtk.RESPONSE_OK:

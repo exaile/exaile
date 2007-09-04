@@ -17,12 +17,13 @@
 import pygtk
 pygtk.require("2.0")
 import gtk
+from gettext import gettext as _
 import xl.plugins as plugins
 
-PLUGIN_NAME = "Panel List"
+PLUGIN_NAME = _("Panel List")
 PLUGIN_AUTHORS = ['Aren Olson <reacocard@gmail.com>']
 PLUGIN_VERSION = '0.1.2'
-PLUGIN_DESCRIPTION = r"""Moves the sidepanel's tab list into a drop-down menu."""
+PLUGIN_DESCRIPTION = _(r"""Moves the sidepanel's tab list into a drop-down menu.""")
 
 PLUGIN_ENABLED = False
 PLUGIN_ICON = None

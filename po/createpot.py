@@ -10,12 +10,15 @@ except IndexError:
 
 os.system("intltool-extract --type=gettext/glade exaile.glade")
 os.system("intltool-extract --type=gettext/glade xl/plugins/plugins.glade")
+os.system("intltool-extract --type=gettext/glade plugins/daap-share/gui.glade")
+os.system("intltool-extract --type=gettext/glade plugins/didyouknow/gui.glade")
 os.system("xgettext -o messages.pot --from-code=utf-8 -k_ -kN_ "
     "--add-comments=TRANSLATORS "
     "--copyright-holder='Adam Olsen <arolsen@gmail.com>' "
     "--msgid-bugs-address='https://bugs.launchpad.net/exaile/' "
-    "*.py plugins/*.py `find xl -name '*.py'` "
-    "exaile.glade.h xl/plugins/plugins.glade.h")
+    "*.py `find plugins -name '*.py'` `find xl -name '*.py'` "
+    "exaile.glade.h xl/plugins/plugins.glade.h "
+    "plugins/daap-share/gui.glade.h plugins/didyouknow/gui.glade.h")
 
 if command != 'compile':
     print "\n\n**********\n"

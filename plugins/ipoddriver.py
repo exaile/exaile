@@ -21,10 +21,10 @@ import xl, os
 from gettext import gettext as _
 import xl.plugins as plugins
 
-PLUGIN_NAME = "iPod Device Driver"
+PLUGIN_NAME = _("iPod Device Driver")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
 PLUGIN_VERSION = '0.4.3'
-PLUGIN_DESCRIPTION = r"""iPod Driver for the Devices Panel"""
+PLUGIN_DESCRIPTION = _(r"""iPod Driver for the Devices Panel""")
 PLUGIN_ENABLED = False
 button = gtk.Button()
 PLUGIN_ICON = button.render_icon('gnome-dev-ipod', gtk.ICON_SIZE_MENU)
@@ -47,7 +47,7 @@ def configure():
     table = gtk.Table(1, 2)
     table.set_row_spacings(2)
     bottom = 0
-    label = gtk.Label("Mount Point:      ")
+    label = gtk.Label(_("Mount Point:      "))
     label.set_alignment(0.0, 0.5)
 
     table.attach(label, 0, 1, bottom, bottom + 1)
@@ -55,7 +55,7 @@ def configure():
     location = exaile.settings.get_str("ipod_mount", plugin=plugins.name(__file__),
         default="/media/ipod")
 
-    loc_entry = gtk.FileChooserButton("Location")
+    loc_entry = gtk.FileChooserButton(_("Location"))
     loc_entry.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
     loc_entry.set_current_folder(location)
     table.attach(loc_entry, 1, 2, bottom, bottom + 1, gtk.SHRINK)
@@ -157,9 +157,9 @@ class iPodDriver(plugins.DeviceDriver):
         """
         if isinstance(item, iPodPlaylist):
             menu = xlmisc.Menu()
-            menu.append('Add Playlist', self.on_add_playlist)
-            menu.append('Rename Playlist', self.on_rename_playlist)
-            menu.append('Remove Playlist', self.on_remove_playlist)
+            menu.append(_('Add Playlist'), self.on_add_playlist)
+            menu.append(_('Rename Playlist'), self.on_rename_playlist)
+            menu.append(_('Remove Playlist'), self.on_remove_playlist)
 
         return menu
 
@@ -263,7 +263,7 @@ class iPodDriver(plugins.DeviceDriver):
                 item = model.append(self.iroot, [self.iplaylist_image,
                 k, 'nofield'])
         path = model.get_path(self.iroot)
-        new_root = model.append(None, [self.ipod_image, "iPod Collection",
+        new_root = model.append(None, [self.ipod_image, _("iPod Collection"),
 			'nofield'])
         return new_root
 
@@ -408,9 +408,9 @@ class iPodDriver(plugins.DeviceDriver):
         if not self.itdb: 
             self.connected = False
             self.all = library.TrackData()
-            gobject.idle_add(panel.on_error, "Error connecting to "
+            gobject.idle_add(panel.on_error, _("Error connecting to "
                 "iPod. Make sure you specify the right mount point "
-                "in the plugin configuration.")
+                "in the plugin configuration."))
             return False
 
         self.all = library.TrackData()
@@ -473,8 +473,8 @@ def initialize():
     global PLUGIN
 
     if not IPOD_AVAIL:
-        common.error(APP.window, "python-gpod could not be loaded. iPod"
-            " device driver will not be available")
+        common.error(APP.window, _("python-gpod could not be loaded. iPod"
+            " device driver will not be available"))
         return False
     PLUGIN = iPodDriver()
     APP.device_panel.add_driver(PLUGIN, PLUGIN_NAME)

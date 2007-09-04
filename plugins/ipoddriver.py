@@ -23,7 +23,7 @@ import xl.plugins as plugins
 
 PLUGIN_NAME = _("iPod Device Driver")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = '0.4.3'
+PLUGIN_VERSION = '0.4.4'
 PLUGIN_DESCRIPTION = _(r"""iPod Driver for the Devices Panel""")
 PLUGIN_ENABLED = False
 button = gtk.Button()

@@ -21,7 +21,7 @@ from xl import common
 
 PLUGIN_NAME = _("AWN")
 PLUGIN_AUTHORS = ['Aren Olson <reacocard@gmail.com>', 'Bryan Forbes <bryan@reigndropsfall.net>', 'Alberto Pagliarini <batopa@gmail.com>']
-PLUGIN_VERSION = '0.7.3'
+PLUGIN_VERSION = '0.7.4'
 PLUGIN_DESCRIPTION = _(r"""Displays the current album's cover art, progress and/or remaining time in AWN.""")
 
 PLUGIN_ENABLED = False

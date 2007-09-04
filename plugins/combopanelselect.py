@@ -22,7 +22,7 @@ import xl.plugins as plugins
 
 PLUGIN_NAME = _("Panel List")
 PLUGIN_AUTHORS = ['Aren Olson <reacocard@gmail.com>']
-PLUGIN_VERSION = '0.1.2'
+PLUGIN_VERSION = '0.1.3'
 PLUGIN_DESCRIPTION = _(r"""Moves the sidepanel's tab list into a drop-down menu.""")
 
 PLUGIN_ENABLED = False

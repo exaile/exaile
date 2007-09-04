@@ -22,7 +22,7 @@ import xl.plugins as plugins
 
 PLUGIN_NAME = _("Mini Mode")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = '0.4.4'
+PLUGIN_VERSION = '0.4.5'
 PLUGIN_DESCRIPTION = _(r"""Super groovy mini mode window!\n\nMini Mode is activated
 by pressing CTRL+ALT+M\n\nYou can move the window in most cases by
 ALT+drag""")

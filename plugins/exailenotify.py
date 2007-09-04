@@ -20,7 +20,7 @@ import xl.plugins as plugins
 
 PLUGIN_NAME = _("LibNotify Plugin")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = '0.1.4'
+PLUGIN_VERSION = '0.1.5'
 PLUGIN_DESCRIPTION = _("Uses libnotify to inform you when a new song starts")
 PLUGIN_ENABLED = False
 button = gtk.Button()

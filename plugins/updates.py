@@ -7,7 +7,7 @@ import xl.plugins as plugins
 
 PLUGIN_NAME = _("Update Notifier")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen' + chr(32+32) + 'gmail' + '.com>']
-PLUGIN_VERSION = "0.3.1"
+PLUGIN_VERSION = "0.3.2"
 PLUGIN_DESCRIPTION = _(r"""Notifies the user of Exaile and plugin updates""")
 
 PLUGIN_ENABLED = False

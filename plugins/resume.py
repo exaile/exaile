@@ -5,7 +5,7 @@ import xl.plugins as plugins
 
 PLUGIN_NAME = _("Resume Playback")
 PLUGIN_AUTHORS = ['Jonas Wagner <veers' + chr(32+32) + 'gmx' + '.ch>']
-PLUGIN_VERSION = "0.2.2"
+PLUGIN_VERSION = "0.2.3"
 PLUGIN_DESCRIPTION = _(r"""Resumes playback after restarting exaile""")
 
 PLUGIN_ENABLED = False

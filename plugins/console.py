@@ -24,7 +24,7 @@ from gettext import gettext as _
 import gtk
 
 PLUGIN_NAME = _("Python Console")
-PLUGIN_VERSION = '0.1.0'
+PLUGIN_VERSION = '0.1.1'
 PLUGIN_AUTHORS = ["Johannes Sasongko <sasongko@gmail.com>"]
 PLUGIN_DESCRIPTION = _(r"""Provides a Python console that can be used to
 manipulate Exaile.""")

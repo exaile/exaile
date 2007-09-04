@@ -24,7 +24,7 @@ PLUGIN_NAME = _("Desktop Cover")
 PLUGIN_AUTHORS = ["Johannes Sasongko <sasongko@gmail.com>", 
     "Adam Olsen <arolsen@gmail.com>"]
 
-PLUGIN_VERSION = "0.3.1"
+PLUGIN_VERSION = "0.3.2"
 PLUGIN_DESCRIPTION = _("Displays the current album cover on the desktop")
 PLUGIN_ENABLED = False
 PLUGIN_ICON = None

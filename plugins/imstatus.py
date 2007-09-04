@@ -11,7 +11,7 @@ PLUGIN_NAME        = _('IM Status')
 PLUGIN_ICON        = None
 PLUGIN_ENABLED     = False
 PLUGIN_AUTHORS     = ['Ingelrest François <Athropos@gmail.com>']
-PLUGIN_VERSION     = '0.12'
+PLUGIN_VERSION     = '0.12.1'
 PLUGIN_DESCRIPTION = _(r"""Sets the online status of your instant messenger client according to the music you are listening to.\n\nSupported IM clients are:\n * Gaim (>= 2.0 beta6)\n * Gajim\n * Gossip\n * Pidgin""")
 
 # Possible actions when Exaile quits or stops playing

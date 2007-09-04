@@ -21,7 +21,7 @@ import xl.plugins as plugins
 
 PLUGIN_NAME = _("Streamripper!")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = '0.1.2'
+PLUGIN_VERSION = '0.1.3'
 PLUGIN_DESCRIPTION = _(r"""Allows you to record streams with
 streamripper\n\nRequires the command line version of streamripper to be
 installed""")

@@ -5,7 +5,7 @@ from gettext import gettext as _
 PLUGIN_NAME = _("Global Hotkeys")
 PLUGIN_AUTHORS = ['Sayamindu Dasgupta <sayamindu@gnome.org>',
                   'Lincoln de Sousa <lincoln@archlinux-br.org']
-PLUGIN_VERSION = '0.6.1'
+PLUGIN_VERSION = '0.6.2'
 PLUGIN_DESCRIPTION = _(r"""Enables support for Global Hotkeys in metacity
 (default gnome window manager)""")
 PLUGIN_ENABLED = False

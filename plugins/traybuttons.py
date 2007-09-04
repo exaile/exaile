@@ -21,7 +21,7 @@ import xl.plugins as plugins
 
 PLUGIN_NAME = _("Tray Buttons")
 PLUGIN_AUTHORS = ['Andras Petrik <bikmak@gmail.com>']
-PLUGIN_VERSION = '0.7.1'
+PLUGIN_VERSION = '0.7.2'
 PLUGIN_DESCRIPTION = _(r"""This plugin adds "Play/Pause", "Previous" and "Next" buttons to the notification area""")
 PLUGIN_ENABLED = False
 PLUGIN_ICON = None

@@ -21,7 +21,7 @@ import xl.plugins as plugins
 
 PLUGIN_NAME = _("Sound Juicer")
 PLUGIN_AUTHORS = ['Aren Olson <reacocard@gmail.com>']
-PLUGIN_VERSION = '0.1.2'
+PLUGIN_VERSION = '0.1.3'
 PLUGIN_DESCRIPTION = _(r"""Allows importing of cds with sound-juicer.""")
 
 PLUGIN_ENABLED = False

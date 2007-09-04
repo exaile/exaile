@@ -23,7 +23,7 @@ import xl.plugins as plugins
 
 PLUGIN_NAME = _("Mass Storage Driver")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = '0.3.3'
+PLUGIN_VERSION = '0.3.4'
 PLUGIN_DESCRIPTION = _(r"""Mass Storage Driver for the Devices Panel""")
 PLUGIN_ENABLED = False
 PLUGIN_ICON = None

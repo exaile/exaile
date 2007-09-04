@@ -21,7 +21,7 @@ import gtk
 from xl import common, xlmisc
 
 PLUGIN_NAME = _("Send via Bluetooth")
-PLUGIN_VERSION = '0.2'
+PLUGIN_VERSION = '0.2.1'
 PLUGIN_AUTHORS = ["Johannes Sasongko <sasongko@gmail.com>"]
 PLUGIN_DESCRIPTION = _(r"""Allows sending files via Bluetooth.\n\nRequires
 gnome-obex-send.""")

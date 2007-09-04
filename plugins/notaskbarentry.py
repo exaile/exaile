@@ -5,7 +5,7 @@ import xl.plugins as plugins
 
 PLUGIN_NAME = _("No Taskbar Entry")
 PLUGIN_AUTHORS = ['Jonas Wagner <veers' + chr(32+32) + 'gmx' + '.ch>']
-PLUGIN_VERSION = "0.1.1"
+PLUGIN_VERSION = "0.1.2"
 PLUGIN_DESCRIPTION = _(r"""Removes exaile from the taskbar""")
 
 PLUGIN_ENABLED = False

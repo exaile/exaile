@@ -22,7 +22,7 @@ import xl.plugins as plugins
 
 PLUGIN_NAME = _("Alarm Clock")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = "0.1.1"
+PLUGIN_VERSION = "0.1.2"
 PLUGIN_DESCRIPTION = _(r"""Plays music at a specific time.\n\nNote that when the 
 specified time arrives, Exaile will just act like you pressed the play button, 
 so be sure you have the music you want to hear in your playlist""")

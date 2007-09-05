@@ -15,18 +15,20 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import gtk, pynotify, traceback, cgi, os
+from gettext import gettext as _
 import xl.plugins as plugins
 
-PLUGIN_NAME = "LibNotify Plugin"
+PLUGIN_NAME = _("LibNotify Plugin")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = '0.1.4'
-PLUGIN_DESCRIPTION = "Uses libnotify to inform you when a new song starts"
+PLUGIN_VERSION = '0.1.5'
+PLUGIN_DESCRIPTION = _("Uses libnotify to inform you when a new song starts")
 PLUGIN_ENABLED = False
 button = gtk.Button()
 PLUGIN_ICON = button.render_icon('gtk-info', gtk.ICON_SIZE_MENU)
 button.destroy()
 DEFAULT_SUMMARY = '{title}'
-DEFAULT_BODY = '{artist}\n<i>on {album}</i>'
+# TRANSLATORS: Libnotify plugin default message body
+DEFAULT_BODY = _('{artist}\n<i>on {album}</i>')
 
 GTKSTATUSICON_AVAIL = hasattr(gtk, 'StatusIcon')
 
@@ -46,7 +48,7 @@ def configure():
 
     dialog = plugins.PluginConfigDialog(exaile.window, PLUGIN_NAME)
     main = dialog.child
-    label = gtk.Label("Notification Summary:")
+    label = gtk.Label(_("Notification Summary:"))
     label.set_alignment(0.0, 0.0)
     main.pack_start(label, False, False)
 
@@ -54,7 +56,7 @@ def configure():
     summary_entry.set_text(summary)
     main.pack_start(summary_entry, True, False)
 
-    label = gtk.Label("Notification Body:")
+    label = gtk.Label(_("Notification Body:"))
     label.set_alignment(0.0, 0.0)
     main.pack_start(label, False, False)
 
@@ -67,12 +69,12 @@ def configure():
 
     main.pack_start(scroll, True, True)
 
-    show_cover_box = gtk.CheckButton('Show album covers in notification')
+    show_cover_box = gtk.CheckButton(_('Show album covers in notification'))
     show_cover_box.set_active(settings.get_boolean('show_covers', default=True,
         plugin=plugins.name(__file__)))
 
-    attach_to_tray_box = gtk.CheckButton('Attach notification to tray icon '
-        '(if available)')
+    attach_to_tray_box = gtk.CheckButton(_('Attach notification to tray icon '
+        '(if available)'))
     attach_to_tray_box.set_active(settings.get_boolean('attach_to_tray',
         default=True, plugin=plugins.name(__file__)))
     main.pack_start(attach_to_tray_box)

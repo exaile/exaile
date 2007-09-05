@@ -2,12 +2,12 @@ import gtk, gconf, gobject
 import xl.plugins as plugins
 from gettext import gettext as _
 
-PLUGIN_NAME = "Global Hotkeys"
+PLUGIN_NAME = _("Global Hotkeys")
 PLUGIN_AUTHORS = ['Sayamindu Dasgupta <sayamindu@gnome.org>',
                   'Lincoln de Sousa <lincoln@archlinux-br.org']
-PLUGIN_VERSION = '0.6.1'
-PLUGIN_DESCRIPTION = r"""Enables support for Global Hotkeys in metacity
-(default gnome window manager)"""
+PLUGIN_VERSION = '0.6.2'
+PLUGIN_DESCRIPTION = _(r"""Enables support for Global Hotkeys in metacity
+(default gnome window manager)""")
 PLUGIN_ENABLED = False
 
 b = gtk.Button()
@@ -20,14 +20,14 @@ b.destroy()
 #    setting name   shortcut    command         label
 ##
 items = (
-    ('show_hide',   '<Super>p', 'exaile',      'Show/Hide Exaile:'),
-    ('play',        '<Super>x', 'exaile -a',   'Play:'),
-    ('play_pause',  '<Super>c', 'exaile -t',   'Toggle Play/Pause:'),
-    ('stop',        '<Super>v', 'exaile -s',   'Stop:'),
-    ('previous',    '<Super>z', 'exaile -p',   'Previous Song:'),
-    ('next',        '<Super>b', 'exaile -n',   'Next Song:'),
-    ('ivolume',     '<Super>i', 'exaile -i 5', 'Increase Volume:'),
-    ('dvolume',     '<Super>d', 'exaile -l 5', 'Decrease Volume:')
+    ('show_hide',   '<Super>p', 'exaile',      _('Show/Hide Exaile:')),
+    ('play',        '<Super>x', 'exaile -a',   _('Play:')),
+    ('play_pause',  '<Super>c', 'exaile -t',   _('Toggle Play/Pause:')),
+    ('stop',        '<Super>v', 'exaile -s',   _('Stop:')),
+    ('previous',    '<Super>z', 'exaile -p',   _('Previous Song:')),
+    ('next',        '<Super>b', 'exaile -n',   _('Next Song:')),
+    ('ivolume',     '<Super>i', 'exaile -i 5', _('Increase Volume:')),
+    ('dvolume',     '<Super>d', 'exaile -l 5', _('Decrease Volume:'))
 )
 
 # some shortcuts
@@ -111,7 +111,7 @@ def configure():
             plugin=plugins.name(__file__))
         attach_field(v[3], binding)
 
-    frame = gtk.Frame('Set Hotkeys')
+    frame = gtk.Frame(_('Set Hotkeys'))
     frame.set_border_width(8)
     frame.add(table)
 

@@ -35,11 +35,13 @@ import urllib2
 import random
 import threading
 import os, re, locale, string
-PLUGIN_NAME = "Did You Know"
+from gettext import gettext as _
+
+PLUGIN_NAME = _("Did You Know")
 PLUGIN_AUTHORS = ['Amit Man <amit.man@gmail.com>']
 PLUGIN_VERSION = '0.4.2'
-PLUGIN_DESCRIPTION = r"""Displays a 'did you know..' information from Wikipedia.
-\n\nPress the 'i' icon the show the popup window. Double click on popup window to hide it."""
+PLUGIN_DESCRIPTION = _(r"""Displays a 'did you know..' information from Wikipedia.
+\n\nPress the 'i' icon the show the popup window. Double click on popup window to hide it.""")
 PLUGIN_ENABLED = False
 
 b = gtk.Button()
@@ -288,7 +290,7 @@ def initialize():
         (plugins.name(__file__), PLUGIN_VERSION, APP.get_version())
 
     BUTTON = gtk.Button()
-    TIPS.set_tip(BUTTON, "Toggle 'Did you know..' popup")
+    TIPS.set_tip(BUTTON, _("Toggle 'Did you know..' popup"))
     image = gtk.Image()
     image.set_from_stock('gtk-info', gtk.ICON_SIZE_MENU)
     BUTTON.set_image(image)
@@ -475,7 +477,7 @@ class InfoGiver:
         else:
             self.image.set_from_file("images%snocover.png" % os.sep)
             
-        self.title.set_label('Artist: '+ track.artist+'\n\n'+self.c.paraSentances[0][0]);
+        self.title.set_label(_('Artist: ')+ track.artist+'\n\n'+self.c.paraSentances[0][0]);
 
 
     def show_random_info(self):
@@ -485,7 +487,7 @@ class InfoGiver:
         if not self.enable_popups:
             return
                         
-        self.L.set_label("Did you know...\n\n%s" % (self.c.get_random_fact()))
+        self.L.set_label(_("Did you know...\n\n%s") % (self.c.get_random_fact()))
 
         #self.dialog.show_all()
         self.vbox1.resize_children()

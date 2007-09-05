@@ -20,6 +20,7 @@ import urllib2, gobject, gtk, time
 import library, common
 from gettext import gettext as _
 COVER_WIDTH = 100
+NOCOVER_IMAGE = os.path.join("images", "nocover.png")
 
 __revision__ = ".01"
 
@@ -618,13 +619,13 @@ class CoverFetcher(object):
 
             if image:
                 if "nocover" in image:
-                    continue
+                    image = NOCOVER_IMAGE
                 else:
                     image = os.path.join(self.exaile.get_settings_dir(),
                         'covers', image)
             else:
                 self.needs[artist].append(album)
-                image = os.path.join("images", "nocover.png")
+                image = NOCOVER_IMAGE
 
             if self.found.has_key("%s - %s" % (artist.lower(), album.lower())):
                 continue
@@ -961,7 +962,7 @@ class CoverMenu(xlmisc.Menu):
         elif item == self.remove_cover_menu:
             artist_id = library.get_column_id(self.db, 'artists', 'name', track.artist)
             album_id = library.get_album_id(self.db, artist_id, track.album)
-            print album_id
+            #print album_id  #testing to check that right album is removed
 
             # Sets image to NULL so that it is as if it never existed
             self.db.execute("UPDATE albums SET image=NULL WHERE id=?", (album_id,))

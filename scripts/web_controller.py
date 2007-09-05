@@ -45,7 +45,7 @@ class ExaileHttpHandler(BaseHTTPRequestHandler):
 		else:
 			command = None
 
-		if command and command[1:] in self.allowed_commands:
+		if command and command in self.allowed_commands:
 			line = [self.server.exaile, '--' + command]
 			print 'Running', line
 			output = Popen(line, stdout=PIPE).communicate()[0]

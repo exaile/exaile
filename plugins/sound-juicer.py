@@ -19,10 +19,10 @@ from xl import common
 from gettext import gettext as _
 import xl.plugins as plugins
 
-PLUGIN_NAME = "Sound Juicer"
+PLUGIN_NAME = _("Sound Juicer")
 PLUGIN_AUTHORS = ['Aren Olson <reacocard@gmail.com>']
-PLUGIN_VERSION = '0.1.2'
-PLUGIN_DESCRIPTION = r"""Allows importing of cds with sound-juicer."""
+PLUGIN_VERSION = '0.1.3'
+PLUGIN_DESCRIPTION = _(r"""Allows importing of cds with sound-juicer.""")
 
 PLUGIN_ENABLED = False
 w = gtk.Button()

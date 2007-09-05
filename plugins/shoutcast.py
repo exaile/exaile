@@ -25,7 +25,7 @@ import xl.plugins as plugins
 PLUGIN_ID = 'Shoutcast Radio'
 PLUGIN_NAME = _("Shoutcast Radio")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = '0.4.3'
+PLUGIN_VERSION = '0.4.4'
 PLUGIN_DESCRIPTION = _(r"""Allows you to browse the Shoutcast Streaming Radio
 network""")
 PLUGIN_ENABLED = False

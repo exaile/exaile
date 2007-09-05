@@ -1,12 +1,14 @@
 #!/usr/bin/env python
+
 import gtk, gobject, time, urllib
+from gettext import gettext as _
 from xl import common, xlmisc
 import xl.plugins as plugins
 
-PLUGIN_NAME = "Update Notifier"
+PLUGIN_NAME = _("Update Notifier")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen' + chr(32+32) + 'gmail' + '.com>']
-PLUGIN_VERSION = "0.3.1"
-PLUGIN_DESCRIPTION = r"""Notifies the user of Exaile and plugin updates"""
+PLUGIN_VERSION = "0.3.2"
+PLUGIN_DESCRIPTION = _(r"""Notifies the user of Exaile and plugin updates""")
 
 PLUGIN_ENABLED = False
 PLUGIN_ICON = None
@@ -14,8 +16,8 @@ PLUGIN = None
 APP = None
 
 def found_updates(found):
-    message = "The following plugins have new versions available for install."
-    message += " You can install them from the plugin manager.\n\n"
+    message = _("The following plugins have new versions available for install."
+    " You can install them from the plugin manager.\n\n")
 
     for (name, version) in found:
         message += "%s\t%s\n" % (name, version)
@@ -30,8 +32,8 @@ def start_thread(exaile):
         urllib.urlopen('http://exaile.org/current_version.txt').read().split('.'))
 
     if version < check_version:
-        gobject.idle_add(common.info, APP.window, "Exaile version %s is "
-            "available.  Grab it from http://www.exaile.org today!" % 
+        gobject.idle_add(common.info, APP.window, _("Exaile version %s is "
+            "available.  Grab it from http://www.exaile.org today!") % 
             '.'.join([str(i) for i in check_version]))
 
     # check plugins

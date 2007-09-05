@@ -15,19 +15,14 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-
-
-
-
-
-
 import gtk, gobject, pygtk
+from gettext import gettext as _
 import xl.plugins as plugins
 
-PLUGIN_NAME = "Tray Buttons"
+PLUGIN_NAME = _("Tray Buttons")
 PLUGIN_AUTHORS = ['Andras Petrik <bikmak@gmail.com>']
-PLUGIN_VERSION = '0.7.1'
-PLUGIN_DESCRIPTION = r"""It shows play/pause, previous, next buttons on the notification area"""
+PLUGIN_VERSION = '0.7.2'
+PLUGIN_DESCRIPTION = _(r"""This plugin adds "Play/Pause", "Previous" and "Next" buttons to the notification area""")
 PLUGIN_ENABLED = False
 PLUGIN_ICON = None
 
@@ -58,13 +53,13 @@ class Plugin:
 			
 		
 		self.tyPrevious.connect( "activate", self.onPrevious, None )
-		self.tyPrevious.set_tooltip( "previous track" )
+		self.tyPrevious.set_tooltip( _("Previous Track") )
 		
 		self.tyPause.connect( "activate", self.onPause, None )
-		self.tyPause.set_tooltip( "play/pause" )
+		self.tyPause.set_tooltip( _("Play/Pause") )
 		
 		self.tyNext.connect( "activate", self.onNext, None )
-		self.tyNext.set_tooltip( "next track" )	
+		self.tyNext.set_tooltip( _("Next Track") )	
 		
 		self.tyPrevious.set_visible( app.settings.get_boolean( 'previous_visible', plugin=plugins.name( __file__ ), default = True ) )
 		self.tyPause.set_visible( app.settings.get_boolean( 'pause_visible', plugin=plugins.name( __file__ ), default = True ) )
@@ -123,10 +118,10 @@ class Plugin:
 		"""
 		if APP.player.is_paused():
 			self.tyPause.set_from_stock( "gtk-media-play" )
-			self.tyPause.set_tooltip( "play" )
+			self.tyPause.set_tooltip( _("Play") )
 		else:
 			self.tyPause.set_from_stock( "gtk-media-pause" )
-			self.tyPause.set_tooltip( "pause" )
+			self.tyPause.set_tooltip( _("Pause") )
 		
 	def setShowTrackInformation( self, inp ) :
 		"""
@@ -134,8 +129,8 @@ class Plugin:
 		"""
 		self.showTrackInformation = inp
 		if ( inp == False ) :
-			self.tyPrevious.set_tooltip( "previous track" )
-			self.tyNext.set_tooltip( "next track" )
+			self.tyPrevious.set_tooltip( _("Previous Track") )
+			self.tyNext.set_tooltip( _("Next Track") )
 		
 	def getShowTrackInformation( self ) :
 		"""
@@ -148,13 +143,19 @@ class Plugin:
 			Set the tooltip of the next icon
 		"""
 		
-		self.tyPrevious.set_tooltip("previous track: %s of %s" % ( self.app.tracks.get_previous_track( current ).title, self.app.tracks.get_previous_track( current ).artist ) )
+		self.tyPrevious.set_tooltip(_("Previous track: %(title)s by %(artist)s") % {
+      'title' : self.app.tracks.get_previous_track( current ).title,
+      'artist' : self.app.tracks.get_previous_track( current ).artist
+    })
 		
 	def setPreviousTooltip( self, current ) :
 		"""
 			Set the tooltip of the previous icon
 		"""
-		self.tyNext.set_tooltip("next track: %s of %s" % ( self.app.tracks.get_next_track( current ).title, self.app.tracks.get_next_track( current ).artist ) )
+		self.tyNext.set_tooltip(_("Next track: %(title)s by %(artist)s") % {
+      'title' : self.app.tracks.get_next_track( current ).title,
+      'artist' : self.app.tracks.get_next_track( current ).artist
+    })
 
 
 
@@ -198,11 +199,11 @@ def configure():
 	showTrackInformation = settings.get_boolean( 'show_track_information', plugin=plugins.name(__file__), default = True )
 	buttonReverse = settings.get_boolean( 'button_reverse',  plugin=plugins.name(__file__), default = False )
 
-	pauseVisibleBox = gtk.CheckButton( 'Pause/Play icon' )
-	nextVisibleBox = gtk.CheckButton( 'Next icon' )
-	previousVisibleBox = gtk.CheckButton( 'Previous icon' )
-	showTrackInformationBox = gtk.CheckButton( 'Show track information on next/previous tooltip' )
-	buttonReverseBox = gtk.CheckButton( 'Reverse the order of the next and previous buttons (effect only on exaile restart)' )
+	pauseVisibleBox = gtk.CheckButton( _('Pause/Play icon') )
+	nextVisibleBox = gtk.CheckButton( _('Next icon') )
+	previousVisibleBox = gtk.CheckButton( _('Previous icon') )
+	showTrackInformationBox = gtk.CheckButton( _('Show track information in the tooltip of Next and Previous') )
+	buttonReverseBox = gtk.CheckButton( _('Reverse the order of the Next and Previous buttons (requires a restart of Exaile)') )
 
 	pauseVisibleBox.set_active( pauseVisible )
 	nextVisibleBox.set_active( nextVisible )

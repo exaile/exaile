@@ -8,14 +8,8 @@ try:
 except IndexError:
     pass
 
-os.system("intltool-extract --type=gettext/glade exaile.glade")
-os.system("intltool-extract --type=gettext/glade xl/plugins/plugins.glade")
-os.system("xgettext -o messages.pot --from-code=utf-8 -k_ -kN_ "
-    "--add-comments=TRANSLATORS "
-    "--copyright-holder='Adam Olsen <arolsen@gmail.com>' "
-    "--msgid-bugs-address='https://bugs.launchpad.net/exaile/' "
-    "*.py plugins/*.py `find xl -name '*.py'` "
-    "exaile.glade.h xl/plugins/plugins.glade.h")
+os.chdir('po')
+os.system('intltool-update --pot --gettext-package=messages --verbose')
 
 if command != 'compile':
     print "\n\n**********\n"
@@ -24,7 +18,6 @@ if command != 'compile':
         "Thank you!"
 
 else:
-    os.chdir('po')
 
     files = glob.glob('*.po')
     for f in files:
@@ -32,6 +25,6 @@ else:
         os.system('mkdir -p -m 0777 %s/LC_MESSAGES' % l[0])
 
         print "Generating translation for %s locale" % l[0]
-        os.system('msgmerge -o - %s ../messages.pot | msgfmt -c -o %s/LC_MESSAGES/exaile.mo -' % (f, l[0]))
+        os.system('msgmerge -o - %s messages.pot | msgfmt -c -o %s/LC_MESSAGES/exaile.mo -' % (f, l[0]))
 
-    os.chdir('..')
+os.chdir('..')

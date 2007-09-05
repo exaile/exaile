@@ -2,16 +2,17 @@
 # -*- coding: utf-8 -*-
 
 import dbus, gobject, gtk, os
+from gettext import gettext as _
 import xl.plugins as plugins
 
 
 # Plugin description
-PLUGIN_NAME        = 'IM Status'
+PLUGIN_NAME        = _('IM Status')
 PLUGIN_ICON        = None
 PLUGIN_ENABLED     = False
 PLUGIN_AUTHORS     = ['Ingelrest François <Athropos@gmail.com>']
-PLUGIN_VERSION     = '0.12'
-PLUGIN_DESCRIPTION = r"""Sets the online status of your instant messenger client according to the music you are listening to.\n\nSupported IM clients are:\n * Gaim (>= 2.0 beta6)\n * Gajim\n * Gossip\n * Pidgin"""
+PLUGIN_VERSION     = '0.12.1'
+PLUGIN_DESCRIPTION = _(r"""Sets the online status of your instant messenger client according to the music you are listening to.\n\nSupported IM clients are:\n * Gaim (>= 2.0 beta6)\n * Gajim\n * Gossip\n * Pidgin""")
 
 # Possible actions when Exaile quits or stops playing
 (
@@ -23,8 +24,9 @@ PLUGIN_DESCRIPTION = r"""Sets the online status of your instant messenger client
 PID                     = plugins.name(__file__)
 TRACK_FIELDS            = ('album', 'artist', 'bitrate', 'genre', 'length', 'rating', 'title', 'track', 'year')
 DEFAULT_STOP_ACTION     = CHANGE_STATUS
-DEFAULT_STOP_STATUS     = 'Exaile is stopped'
-DEFAULT_STATUS_FORMAT   = '♫ {artist} - {album} ♫'
+DEFAULT_STOP_STATUS     = _('Exaile is stopped')
+# TRANSLATORS: IMStatus plugin default status format
+DEFAULT_STATUS_FORMAT   = _('♫ {artist} - {album} ♫')
 DEFAULT_UPDATE_ON_PAUSE = False
 
 # Global variables
@@ -307,7 +309,8 @@ def showHelp(widget, data=None) :
     """
         Display a dialog box with some help about status format
     """
-    msg = 'Any field of the form <b>{field}</b> will be replaced by the corresponding value.\n\nAvailable fields are '
+    msg = _('Any field of the form <b>{field}</b> will be replaced by the '
+        'corresponding value.\n\nAvailable fields are ')
     for field in TRACK_FIELDS :
         msg = msg + '<i>' + field + '</i>, '
     dlg = gtk.MessageDialog(None, gtk.DIALOG_MODAL, gtk.MESSAGE_INFO, gtk.BUTTONS_OK)
@@ -331,7 +334,7 @@ def configure() :
 
     # Upper part: status format
     frame = gtk.Frame('')
-    frame.get_label_widget().set_markup('<b> Status message: </b>')
+    frame.get_label_widget().set_markup(_('<b> Status message: </b>'))
     mainBox.pack_start(frame, True, True, 0)
     align = gtk.Alignment(0, 0, 1, 1)
     align.set_padding(5, 5, 5, 5)
@@ -340,7 +343,7 @@ def configure() :
     tmpBox.set_spacing(5)
     entryFormat = gtk.Entry()
     entryFormat.set_text(APP.settings.get_str('format', DEFAULT_STATUS_FORMAT, PID))
-    button = gtk.Button('Help', gtk.STOCK_HELP)
+    button = gtk.Button(_('Help'), gtk.STOCK_HELP)
     tmpBox.pack_start(entryFormat, True, True)
     tmpBox.pack_start(button)
     button.connect('clicked', showHelp)
@@ -348,7 +351,7 @@ def configure() :
 
     # Middle part: what should be done when Exaile quits of stops playing
     frame = gtk.Frame('')
-    frame.get_label_widget().set_markup('<b> When Exaile stops playing or quits: </b>')
+    frame.get_label_widget().set_markup(_('<b> When Exaile stops playing or quits: </b>'))
     mainBox.pack_start(frame, False, False, 0)
     tmpBox = gtk.VBox()
     tmpBox.set_spacing(5)
@@ -356,8 +359,8 @@ def configure() :
     align.set_padding(5, 5, 5, 5)
     frame.add(align)
     align.add(tmpBox)
-    radioDoNothing = gtk.RadioButton(None, 'Do nothing')
-    radioSetStatus = gtk.RadioButton(radioDoNothing, 'Set status to:')
+    radioDoNothing = gtk.RadioButton(None, _('Do nothing'))
+    radioSetStatus = gtk.RadioButton(radioDoNothing, _('Set status to:'))
     if APP.settings.get_int('stopAction', DEFAULT_STOP_ACTION, PID) == DO_NOTHING :
         radioDoNothing.set_active(True)
     else :
@@ -372,7 +375,7 @@ def configure() :
 
     # Lower part: miscellaneous
     frame = gtk.Frame('')
-    frame.get_label_widget().set_markup('<b> Miscellaneous: </b>')
+    frame.get_label_widget().set_markup(_('<b> Miscellaneous: </b>'))
     mainBox.pack_start(frame, False, False, 0)
     tmpBox = gtk.VBox()
     tmpBox.set_spacing(5)
@@ -380,10 +383,10 @@ def configure() :
     align.set_padding(5, 5, 5, 5)
     frame.add(align)
     align.add(tmpBox)
-    checkUpdateOnPause = gtk.CheckButton('Update status when track is paused')
+    checkUpdateOnPause = gtk.CheckButton(_('Update status when track is paused'))
     tmpBox.pack_start(checkUpdateOnPause, False, False, 0)
     checkUpdateOnPause.set_active(APP.settings.get_boolean('updateOnPause', DEFAULT_UPDATE_ON_PAUSE, PID))
-    resetButton = gtk.Button('Reset')
+    resetButton = gtk.Button(_('Reset'))
     tmpBox.pack_start(resetButton, False, False, 0)
     resetButton.connect('clicked', initialize)
 

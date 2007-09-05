@@ -16,15 +16,16 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 import gtk, gobject, pango
+from gettext import gettext as _
 from xl import xlmisc
 import xl.plugins as plugins
 
-PLUGIN_NAME = "Mini Mode"
+PLUGIN_NAME = _("Mini Mode")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = '0.4.4'
-PLUGIN_DESCRIPTION = r"""Super groovy mini mode window!\n\nMini Mode is activated
+PLUGIN_VERSION = '0.4.5'
+PLUGIN_DESCRIPTION = _(r"""Super groovy mini mode window!\n\nMini Mode is activated
 by pressing CTRL+ALT+M\n\nYou can move the window in most cases by
-ALT+drag"""
+ALT+drag""")
 PLUGIN_ENABLED = False
 PLUGIN_ICON = None
 
@@ -66,9 +67,9 @@ def configure():
     decoration = settings.get_boolean('decoration',
         plugin=plugins.name(__file__), default=False)
 
-    on_top_box = gtk.CheckButton('Always on top')
-    no_taskbar_box = gtk.CheckButton('Skip taskbar')
-    decoration_box = gtk.CheckButton('Window decoration')
+    on_top_box = gtk.CheckButton(_('Always on top'))
+    no_taskbar_box = gtk.CheckButton(_('Skip taskbar'))
+    decoration_box = gtk.CheckButton(_('Window decoration'))
 
     on_top_box.set_active(on_top)
     no_taskbar_box.set_active(no_taskbar)
@@ -112,14 +113,14 @@ class MiniWindow(gtk.Window):
         bbox.set_spacing(3)
 
         prev = self.create_button('gtk-media-previous', self.on_prev,
-            'Previous')
+            _('Previous'))
         bbox.pack_start(prev, False)
 
         self.play = self.create_button('gtk-media-play', self.on_play,
-            'Play/Pause')
+            _('Play/Pause'))
         bbox.pack_start(self.play, False)
 
-        self.next = self.create_button('gtk-media-next', self.on_next, 'Next')
+        self.next = self.create_button('gtk-media-next', self.on_next, _('Next'))
         bbox.pack_start(self.next)
 
         self.model = gtk.ListStore(str, object)
@@ -146,8 +147,8 @@ class MiniWindow(gtk.Window):
         self.pos_label.set_alignment(0.0, .5)
         bbox.pack_start(self.pos_label)
 
-        mm = self.create_button('gtk-fullscreen', toggle_minimode, 'Restore'
-            ' Regular View')
+        mm = self.create_button('gtk-fullscreen', toggle_minimode, _('Restore'
+            ' Regular View'))
         bbox.pack_start(mm, False)
 
         main.pack_start(bbox)
@@ -405,7 +406,7 @@ def initialize():
     ACCEL_GROUP.connect_group(key, mod, gtk.ACCEL_VISIBLE, pass_func)
 
     APP.window.add_accel_group(ACCEL_GROUP)
-    MENU_ITEM = gtk.MenuItem("Mini Mode")
+    MENU_ITEM = gtk.MenuItem(_("Mini Mode"))
     MENU_ITEM.connect('activate', toggle_minimode)
     MENU_ITEM.add_accelerator('activate', ACCEL_GROUP, key, mod,
         gtk.ACCEL_VISIBLE)

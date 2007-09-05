@@ -15,13 +15,14 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import dbus, time, gtk
+from gettext import gettext as _
 import xl.plugins as plugins
 from xl import common
 
-PLUGIN_NAME = "AWN"
+PLUGIN_NAME = _("AWN")
 PLUGIN_AUTHORS = ['Aren Olson <reacocard@gmail.com>', 'Bryan Forbes <bryan@reigndropsfall.net>', 'Alberto Pagliarini <batopa@gmail.com>']
-PLUGIN_VERSION = '0.7.3'
-PLUGIN_DESCRIPTION = r"""Displays the current album's cover art, progress and/or remaining time in AWN."""
+PLUGIN_VERSION = '0.7.4'
+PLUGIN_DESCRIPTION = _(r"""Displays the current album's cover art, progress and/or remaining time in AWN.""")
 
 PLUGIN_ENABLED = False
 PLUGIN_ICON = None
@@ -123,15 +124,15 @@ def configure():
 
     box = dialog.main
 
-    show_timer_box = gtk.RadioButton(label='Show song\'s remaining time in AWN')
+    show_timer_box = gtk.RadioButton(label=_("Show song's remaining time in AWN"))
     show_timer_box.set_active(SHOW_TIMER)
 
     show_progress_box = gtk.RadioButton(group=show_timer_box,
-        label='Show song\'s progress in AWN')
+        label=_("Show song's progress in AWN"))
     show_progress_box.set_active(SHOW_PROGRESS)
 
     do_nothing_box = gtk.RadioButton(group=show_timer_box,
-        label='Don\'t show any extra information')
+        label=_("Don't show any extra information"))
     if not SHOW_PROGRESS and not SHOW_TIMER:
         do_nothing_box.set_active(True)
 

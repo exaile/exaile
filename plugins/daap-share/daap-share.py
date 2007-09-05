@@ -44,11 +44,11 @@ try:
 except:
     AVAHI = False
 
-PLUGIN_NAME = "Music Sharing"
+PLUGIN_NAME = _("Music Sharing")
 PLUGIN_AUTHORS = ['Aren Olson <reacocard@gmail.com>']
 PLUGIN_VERSION = '0.7.6'
-PLUGIN_DESCRIPTION = r"""Allows playing of DAAP music shares.
-\n\nDepends: python-daap, python-avahi."""
+PLUGIN_DESCRIPTION = _(r"""Allows playing of DAAP music shares.
+\n\nDepends: python-daap, python-avahi.""")
 
 PLUGIN_ENABLED = False
 PLUGIN_ICON = gtk.Button().render_icon('gtk-network', gtk.ICON_SIZE_MENU)

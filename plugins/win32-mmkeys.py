@@ -18,7 +18,7 @@
 PLUGIN_NAME = "Windows multimedia keys"
 PLUGIN_AUTHORS = ["Johannes Sasongko <sasongko@gmail.com>"]
 
-PLUGIN_VERSION = "0.1"
+PLUGIN_VERSION = "0.1.1"
 PLUGIN_DESCRIPTION = r"""Adds support for multimedia keys in MS Windows.
 \n\nRequires pyHook, http://www.cs.unc.edu/Research/assist/developer.shtml"""
 PLUGIN_ENABLED = False

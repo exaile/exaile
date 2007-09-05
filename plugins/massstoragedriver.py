@@ -17,13 +17,14 @@
 
 from xl import media, library, xlmisc, db, common
 import os, xl, gobject, gtk, shutil, os.path
+from gettext import gettext as _
 import copy
 import xl.plugins as plugins
 
-PLUGIN_NAME = "Mass Storage Driver"
+PLUGIN_NAME = _("Mass Storage Driver")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = '0.3.3'
-PLUGIN_DESCRIPTION = r"""Mass Storage Driver for the Devices Panel"""
+PLUGIN_VERSION = '0.3.4'
+PLUGIN_DESCRIPTION = _(r"""Mass Storage Driver for the Devices Panel""")
 PLUGIN_ENABLED = False
 PLUGIN_ICON = None
 
@@ -38,7 +39,7 @@ def configure():
     table = gtk.Table(1, 2)
     table.set_row_spacings(2)
     bottom = 0
-    label = gtk.Label("Mount Point:      ")
+    label = gtk.Label(_("Mount Point:      "))
     label.set_alignment(0.0, 0.5)
 
     table.attach(label, 0, 1, bottom, bottom + 1)
@@ -46,7 +47,7 @@ def configure():
     location = exaile.settings.get_str("mount", plugin=plugins.name(__file__),
         default="/mnt/device")
 
-    loc_entry = gtk.FileChooserButton("Location")
+    loc_entry = gtk.FileChooserButton(_("Location"))
     loc_entry.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
     loc_entry.set_current_folder(location)
     table.attach(loc_entry, 1, 2, bottom, bottom + 1, gtk.SHRINK)
@@ -55,11 +56,11 @@ def configure():
         plugin=plugins.name(__file__), default='')
 
     bottom += 1
-    label = gtk.Label("Transfer Save Location:")
+    label = gtk.Label(_("Transfer Save Location:"))
     label.set_alignment(0.0, 0.5)
     table.attach(label, 0, 1, bottom, bottom + 1)
 
-    save_entry = gtk.FileChooserButton("Save Directory")
+    save_entry = gtk.FileChooserButton(_("Save Directory"))
     save_entry.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
     save_entry.set_current_folder(save_loc)
     table.attach(save_entry, 1, 2, bottom, bottom + 1, gtk.SHRINK)
@@ -93,9 +94,9 @@ class MassStorageDriver(plugins.DeviceDriver):
         self.save_loc = self.exaile.settings.get_str('save_loc', default='', 
             plugin=plugins.name(__file__))
         if not self.save_loc:
-            common.error(APP.window, "You have not specified a directory "
+            common.error(APP.window, _("You have not specified a directory "
                 "to transfer your music in.  Please choose one in the "
-                "configuration dialog")
+                "configuration dialog"))
             configure()
             return False
 

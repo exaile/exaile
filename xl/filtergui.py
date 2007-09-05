@@ -21,7 +21,7 @@ They resemble the configuration dialogs of Evolution's mail filters
 and Rhythmbox's automatic playlists.
 """
 
-from gettext import gettext
+from gettext import gettext as _
 
 import gtk
 
@@ -47,7 +47,7 @@ class FilterDialog(gtk.Dialog):
         top.set_border_width(5)
         top.set_spacing(5)
 
-        top.pack_start(gtk.Label(gettext("Name") + ":"), False)
+        top.pack_start(gtk.Label(_("Name") + ":"), False)
         self.name_entry = gtk.Entry()
         top.pack_start(self.name_entry)
         self.vbox.pack_start(top)
@@ -61,7 +61,7 @@ class FilterDialog(gtk.Dialog):
 
         bottom = gtk.HBox()
         bottom.set_border_width(5)
-        self.match_any = gtk.CheckButton(gettext('Match any of the criteria'))
+        self.match_any = gtk.CheckButton(_('Match any of the criteria'))
         bottom.pack_start(self.match_any)
 
         btn = gtk.Button()
@@ -282,7 +282,7 @@ class Criterion(gtk.HBox):
             self.combo = combo = gtk.combo_box_new_text()
             self.subcriteria = subcriteria
             for subc in subcriteria:
-                combo.append_text(gettext(subc[0]))
+                combo.append_text(_(subc[0]))
             combo.set_active(0)
             combo.connect('changed', self._combo_changed)
             combo.show()

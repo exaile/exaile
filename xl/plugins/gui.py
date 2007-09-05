@@ -370,10 +370,17 @@ class PluginManager(object):
 
             try:
                 del sys.modules[re.sub(r'\.pyc?$', '', plugin.FILE_NAME)]
-                os.remove(os.path.join(self.app.get_settings_dir(), 'plugins',
-                    plugin.FILE_NAME))
-                os.remove(os.path.join(self.app.get_settings_dir(), 'plugins',
-                    plugin.FILE_NAME + 'c'))
+
+                # if it's an exz, remove that file instead of trying to remove
+                # the python files themselves
+                if hasattr(plugin, '_IS_EXZ') and plugin._IS_EXZ:
+                    os.remove(os.path.join(self.app.get_settings_dir(), 
+                        'plugins', plugin.FILE_NAME.replace('.py', '.exz')))
+                else:
+                    os.remove(os.path.join(self.app.get_settings_dir(), 'plugins',
+                        plugin.FILE_NAME))
+                    os.remove(os.path.join(self.app.get_settings_dir(), 'plugins',
+                        plugin.FILE_NAME + 'c'))
             except:
                 xlmisc.log_exception()
             self.fetched = False

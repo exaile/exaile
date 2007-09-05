@@ -22,6 +22,7 @@ from xl.panels import radio
 from xl.gui import playlist as trackslist
 import xl.plugins as plugins
 
+PLUGIN_ID = 'Shoutcast Radio'
 PLUGIN_NAME = _("Shoutcast Radio")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
 PLUGIN_VERSION = '0.4.3'
@@ -117,7 +118,7 @@ class ShoutcastDriver(radio.RadioDriver):
             Loads the shoutcast streams
         """
         cache_file = "%s%scache%s%s_radio_plugin.cache" % (APP.get_settings_dir(),
-            os.sep, os.sep, PLUGIN_NAME)
+            os.sep, os.sep, PLUGIN_ID)
         if use_cache and os.path.isfile(cache_file):
             lines = self.load_cache(cache_file)
         else:
@@ -159,7 +160,7 @@ class ShoutcastDriver(radio.RadioDriver):
         """
             Loads the genre specified
         """
-        if rel or not APP.tracks.load(genre, PLUGIN_NAME):
+        if rel or not APP.tracks.load(genre, PLUGIN_ID):
             self.fetch_genre(genre)
 
     def on_search(self, *e):
@@ -218,7 +219,7 @@ class ShoutcastDriver(radio.RadioDriver):
                 self.tracks.set_songs(songs)
             self.tracks.exaile.status.set_first(None)
             if self.genre:
-                self.tracks.save(self.genre, PLUGIN_NAME)
+                self.tracks.save(self.genre, PLUGIN_ID)
             self.tracks.playlist_songs = self.tracks.songs
         elif self.count <= 60:
             if not track['loc'] in self.tracks.songs.paths:

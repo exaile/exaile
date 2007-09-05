@@ -44,6 +44,7 @@ class Manager(object):
         zip = zipimport.zipimporter(os.path.join(dir, file))
         plugin = zip.load_module(modname)
         plugin.ZIP = zip
+        plugin._IS_EXZ = True
         if hasattr(plugin, 'load_data'):
             plugin.load_data(zip)
             

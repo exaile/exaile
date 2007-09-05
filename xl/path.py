@@ -19,6 +19,7 @@ import os
 
 home = os.path.expanduser('~')
 _configdir = os.path.join(home, '.exaile')
+_cachedir = os.path.join(_configdir, 'cache')
 
 # These are set in init
 _datadir = None
@@ -43,12 +44,24 @@ def init(basedir, installed):
         except:
             # FIXME: Die?
             print "Could not create settings directory"
+        try:
+            os.mkdir(_cachedir)
+        except:
+            # FIXME: Die?
+            print "Could not create cache directory"
 
 def set_configdir(dir):
     global _configdir
     _configdir = dir
 
+def get_cache(*path_elems):
+    return os.path.join(_cachedir, *path_elems)
+
 def get_config(*path_elems):
+    if path_elems[0] == 'cache':
+        print "WARNING: get_config called for 'cache', use get_cache instead"
+        import traceback
+        traceback.print_stack()
     return os.path.join(_configdir, *path_elems)
 
 def get_data(*path_elems):

@@ -89,12 +89,8 @@ def check_dirs():
         Makes sure the required directories have been created
     """
     covers = xl.path.get_config("covers")
-    cache = xl.path.get_config("cache")
-
     if not os.path.isdir(covers):
         os.mkdir(covers)
-    if not os.path.isdir(cache):
-        os.mkdir(cache)
 
 def main(): 
     """

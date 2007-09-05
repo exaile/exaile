@@ -25,7 +25,7 @@ import xl.plugins as plugins
 PLUGIN_ID = 'Shoutcast Radio'
 PLUGIN_NAME = _("Shoutcast Radio")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = '0.4.4'
+PLUGIN_VERSION = '0.4.5'
 PLUGIN_DESCRIPTION = _(r"""Allows you to browse the Shoutcast Streaming Radio
 network""")
 PLUGIN_ENABLED = False
@@ -117,8 +117,7 @@ class ShoutcastDriver(radio.RadioDriver):
         """
             Loads the shoutcast streams
         """
-        cache_file = "%s%scache%s%s_radio_plugin.cache" % (APP.get_settings_dir(),
-            os.sep, os.sep, PLUGIN_ID)
+        cache_file = xl.path.get_cache(PLUGIN_ID + '_radio_plugin.cache')
         if use_cache and os.path.isfile(cache_file):
             lines = self.load_cache(cache_file)
         else:

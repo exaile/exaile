@@ -25,6 +25,6 @@ else:
         os.system('mkdir -p -m 0777 %s/LC_MESSAGES' % l[0])
 
         print "Generating translation for %s locale" % l[0]
-        os.system('msgmerge -o - %s ../messages.pot | msgfmt -c -o %s/LC_MESSAGES/exaile.mo -' % (f, l[0]))
+        os.system('msgmerge -o - %s messages.pot | msgfmt -c -o %s/LC_MESSAGES/exaile.mo -' % (f, l[0]))
 
 os.chdir('..')

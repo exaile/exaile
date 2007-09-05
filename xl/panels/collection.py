@@ -621,7 +621,11 @@ class CollectionPanel(object):
                 # print separators
                 if first and info and use_alphabet:
                     temp = library.the_cutter(library.lstrip_special(info).upper()).upper()
-                    first_char = temp[0]
+
+                    if not temp:
+                        first_char = ' '
+                    else:
+                        first_char = temp[0]
                     if not last_char: # First row, don't add separator.
                         last_char = first_char
                     if first_char != last_char:

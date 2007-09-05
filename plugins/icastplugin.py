@@ -218,7 +218,9 @@ class Icast(UserDict):
 PLUGIN_NAME = "Icast Streamer"
 PLUGIN_AUTHORS = ['Edgar Merino <donvodka at gmail dot com>']
 PLUGIN_VERSION = '0.2.1'
-PLUGIN_DESCRIPTION = r"""Stream to an icecast/shoutcast server"""
+PLUGIN_DESCRIPTION = r"""Stream to an icecast/shoutcast server\n\nSee
+https://bugs.launchpad.net/exaile/+bug/136851 for instructions on how to use
+it."""
 PLUGIN_ENABLED = False
 button = gtk.Button()
 PLUGIN_ICON = button.render_icon('gnome-dev-usb', gtk.ICON_SIZE_MENU)

@@ -14,11 +14,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import os, re, gtk, gobject
+import os, re, urlparse, urllib
+from gettext import gettext as _
+import gtk, gobject
 import common, xlmisc, library, media
 from xl.gui import playlist as trackslist
-from gettext import gettext as _
-import urlparse, urllib
+import xl.path
 
 class PlaylistManager(gobject.GObject):
     __gsignals__ = {
@@ -121,7 +122,7 @@ class PlaylistManager(gobject.GObject):
         """
             Loads the playlist that was in the player on last exit
         """
-        dir = "%s%ssaved" % (self.exaile.get_settings_dir(), os.sep)
+        dir = xl.path.get_config('saved')
         if not os.path.isdir(dir):
             os.mkdir(dir, 0744)
 

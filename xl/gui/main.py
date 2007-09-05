@@ -51,17 +51,17 @@ class ExaileWindow(gobject.GObject):
 
     # ExaileWindow should be a singleton
     @classmethod
-    def get_instance(caller, settings_dir, options, first_run = False):
+    def get_instance(cls, options, first_run=False):
         """
             Use this to get the Exaile instance
         """
         if not ExaileWindow.__single:
-            instance = ExaileWindow(settings_dir, options, first_run)
+            instance = ExaileWindow(options, first_run)
             ExaileWindow.__single = instance
 
         return ExaileWindow.__single
 
-    def __init__(self, settings_dir, options, first_run = False): 
+    def __init__(self, options, first_run=False): 
         """
             Initializes the main Exaile window
         """
@@ -69,12 +69,11 @@ class ExaileWindow(gobject.GObject):
             raise AssertionError, 'Exaile instance has already been created'
 
         gobject.GObject.__init__(self)
-        self.settings_dir = settings_dir
         self.xml = gtk.glade.XML(xlmisc.glade_file(self), 'ExaileWindow', 'exaile')
         self.window = self.xml.get_widget('ExaileWindow')
         media.exaile_instance = self
 
-        self.settings = config.Config("%s%ssettings.ini" % (self.settings_dir, os.sep))
+        self.settings = config.Config(xl.path.get_config('settings.ini'))
 
         self.options = options
         config.settings = self.settings
@@ -193,7 +192,7 @@ class ExaileWindow(gobject.GObject):
                 else:
                     enabled_plugins.append("%s.py" % k)
 
-        self.pmanager.load_plugins("%s%splugins" % (self.settings_dir, os.sep),
+        self.pmanager.load_plugins(xl.path.get_config('plugins'),
             enabled_plugins)
         self.library_manager.load_songs(False, True)
 
@@ -731,12 +730,6 @@ class ExaileWindow(gobject.GObject):
         """
         return gtk.image_new_from_stock('gtk-media-pause', size)
 
-    def get_settings_dir(self): 
-        """
-            Returns the location of the settings directory
-        """
-        return self.settings_dir
-   
     def set_tab_placement(self, setting=None):
         """
             Sets the placement of the tabs on the playlists notebook
@@ -914,7 +907,7 @@ class ExaileWindow(gobject.GObject):
         """
             Returns a new database connection
         """
-        loc = os.path.join(self.settings_dir, "music.db")
+        loc = xl.path.get_config('music.db')
         database = db.DBManager(loc)
         database.add_function_create(('THE_CUTTER', 1, library.the_cutter))
         database.add_function_create(('LSTRIP_SPEC', 1, library.lstrip_special))
@@ -926,20 +919,19 @@ class ExaileWindow(gobject.GObject):
         """
 
         im = False
-        if not os.path.isfile(os.path.join(self.settings_dir, "music.db")):
+        if not os.path.isfile(xl.path.get_config('music.db')):
             im = True
         try:
             self.db = self.get_database()
         except db.DBOperationalError, e:
-            common.error(self.window, _("Error connecting to database: %s" %
-                str(e)))
+            common.error(self.window, _("Error connecting to database: %s" % e))
             sys.exit(1)
         if im:
             try:
-                self.db.import_sql(os.path.join("sql", "db.sql"))
+                self.db.import_sql(xl.path.get_data('sql', 'db.sql'))
             except db.DBOperationalError, e:
                 common.error(self.window, _("Error "
-                    "creating collection database: %s") % (str(e)))
+                    "creating collection database: %s") % e)
                 sys.exit(1)
 
         # here we check for the "version" table.  If it's there, it's an old
@@ -1652,7 +1644,7 @@ class ExaileWindow(gobject.GObject):
         for thread in self.thread_pool:
             thread.done = True
 
-        dir = os.path.join(self.settings_dir, "saved")
+        dir = xl.path.get_config('saved')
         if not os.path.isdir(dir):
             os.mkdir(dir)
 
@@ -1661,8 +1653,9 @@ class ExaileWindow(gobject.GObject):
             if file.endswith(".m3u"):
                 os.unlink(os.path.join(dir, file))
 
-        if os.path.isfile(os.path.join(dir, "queued.save")):
-            os.unlink(os.path.join(dir, "queued.save"))
+        queuefile = xl.path.get_config('queued.save')
+        if os.path.isfile(queuefile):
+            os.unlink(queuefile)
 
         if self.player.current: self.player.current.stop()
 
@@ -1671,7 +1664,7 @@ class ExaileWindow(gobject.GObject):
             title = self.playlists_nb.get_tab_label(page).title
             if page.type != 'track' or page == self.audio_disc_page: continue
             songs = page.songs
-            self.playlist_manager.save_m3u(os.path.join(self.settings_dir, "saved",
+            self.playlist_manager.save_m3u(xl.path.get_config('saved',
                 "playlist%.4d.m3u" % i), songs, title)
 
         # save queued tracks

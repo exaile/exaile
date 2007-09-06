@@ -29,8 +29,6 @@ except NameError:
             if e: return True
         return False
 
-HOME = os.path.expanduser('~')
-
 class MultiTextEntryDialog(gtk.Dialog):
     """
         Exactly like a TextEntryDialog, except it can contain multiple

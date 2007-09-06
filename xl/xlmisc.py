@@ -50,6 +50,9 @@ try:
 except ImportError:
     SEXY_AVAIL = False
 
+import xl.path
+import common, prefs
+
 VALID_TAGS = (
     # Ogg Vorbis spec tags
     "title version album tracknumber artist genre performer copyright "
@@ -61,17 +64,16 @@ VALID_TAGS = (
     "originalartist recordingdate"
     ).split()
 
-import common, prefs#, covers, media, prefs
-
 opener = urllib.FancyURLopener()
 opener.addheaders.pop(0)
-opener.addheader("User-Agent","Mozilla")
+opener.addheader("User-Agent", "Mozilla")
 
 def glade_file(exaile):
-    if os.path.isfile(os.path.join(exaile.get_settings_dir(),
-        'exaile.extheme')):
-        return os.path.join(exaile.get_settings_dir(), 'exaile.extheme')
-    else: return 'exaile.glade'
+    themefile = xl.path.get_config('exaile.extheme')
+    if os.path.isfile(themefile):
+        return themefile
+    else:
+        return xl.path.get_data('exaile.glade')
 
 def get_default_encoding():
     return 'utf-8'
@@ -702,8 +704,7 @@ class DebugDialog(object):
         print message
         if not self.log_file:
             try:
-                self.log_file = open(self.exaile.get_settings_dir() + os.sep +
-                    "exaile.log", 'a')
+                self.log_file = open(xl.path.get_config('exaile.log'), 'a')
             except:
                 self.log_file = None
 
@@ -874,7 +875,7 @@ class BrowserWindow(gtk.VBox):
         exaile.status.set_first(_('Loading page...'))
         self.view.connect('net-stop', self.on_net_stop)
 
-        self.cache_dir = os.path.join(exaile.get_settings_dir(), 'cache')
+        self.cache_dir = xl.path.get_config('cache')
 
         self.server = ''
 

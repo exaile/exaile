@@ -16,12 +16,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+import sys, os, urllib, re
+from gettext import gettext as _
 import pygtk
 pygtk.require('2.0')
-import gtk, gtk.glade, gobject, sys, os, urllib, re
+import gtk, gtk.glade, gobject
 import xl.plugins
+import xl.path
 from xl import common, xlmisc
-from gettext import gettext as _
 
 def show_error(parent, message):
     """
@@ -151,7 +153,7 @@ class PluginManager(object):
         """
             Downloads the selected plugin
         """
-        download_dir = os.path.join(self.app.get_settings_dir(), 'plugins')
+        download_dir = xl.path.get_config('plugins')
         files = []
         iter = self.avail_model.get_iter_first()
         while True:
@@ -371,16 +373,14 @@ class PluginManager(object):
             try:
                 del sys.modules[re.sub(r'\.pyc?$', '', plugin.FILE_NAME)]
 
-                # if it's an exz, remove that file instead of trying to remove
-                # the python files themselves
+                filename = xl.path.get_config('plugins', plugin.FILE_NAME)
                 if hasattr(plugin, '_IS_EXZ') and plugin._IS_EXZ:
-                    os.remove(os.path.join(self.app.get_settings_dir(), 
-                        'plugins', plugin.FILE_NAME.replace('.py', '.exz')))
+                    # if it's an exz, remove that file instead of trying to remove
+                    # the python files themselves
+                    os.remove(filename.replace('.py', '.exz'))
                 else:
-                    os.remove(os.path.join(self.app.get_settings_dir(), 'plugins',
-                        plugin.FILE_NAME))
-                    os.remove(os.path.join(self.app.get_settings_dir(), 'plugins',
-                        plugin.FILE_NAME + 'c'))
+                    os.remove(filename)
+                    os.remove(filename + 'c') # pyc
             except:
                 xlmisc.log_exception()
             self.fetched = False

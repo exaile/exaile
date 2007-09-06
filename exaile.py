@@ -54,23 +54,20 @@ import pygtk
 pygtk.require('2.0') # Must be before 'import gtk'
 import gtk
 
-## Find out the location of exaile's working directory, and go there
+
+# Find out the location of exaile's working directory, and insert it to sys.path
 basedir = os.path.dirname(os.path.realpath(__file__))
 if not os.path.exists(os.path.join(basedir, "exaile.py")):
     if os.path.exists(os.path.join(os.getcwd(), "exaile.py")):
         basedir = os.getcwd()
 sys.path.insert(0, basedir)
-os.chdir(basedir)
 
-# Heuristic to check whether Exaile is installed.
-# Sets prefix accordingly, otherwise it is ".".
-prefix = '.'
-path_suffix = '%sshare%sexaile' % (os.sep, os.sep)
-if basedir.endswith(path_suffix):
-    prefix = basedir[:-len(path_suffix)]
-    # Add ../../lib/exaile to path, otherwise Exaile won't be able to import any
-    # of its modules.
-    sys.path.append(os.path.join(prefix, 'lib', 'exaile'))
+# Evil heuristic to check whether Exaile is installed, by looking for Makefile.
+installed = not os.path.exists(os.path.join(basedir, 'Makefile'))
+
+import xl.path
+xl.path.init(basedir, installed)
+
 
 # set up gettext for translations
 import gettext, locale
@@ -78,15 +75,11 @@ import gtk.glade
 locale.setlocale(locale.LC_ALL, '')
 gettext.textdomain('exaile')
 gtk.glade.textdomain('exaile')
-if prefix == '.': # if Exaile is not installed
-    gettext.bindtextdomain('exaile', 'po')
-    gtk.glade.bindtextdomain('exaile', 'po')
-else:
-    gtk.glade.bindtextdomain('exaile', os.path.join(prefix, 'share', 'locale'))
+gettext.bindtextdomain('exaile', xl.path.localedir)
+gtk.glade.bindtextdomain('exaile', xl.path.localedir)
 
 from xl import common
-gtk.window_set_default_icon_from_file("images%sicon.png"% os.sep)
-SETTINGS_DIR = os.path.join(common.HOME, '.exaile')
+gtk.window_set_default_icon_from_file(xl.path.get_data('images', 'icon.png'))
 
 from xl.gui import main as exailemain
 from xl import xlmisc
@@ -95,34 +88,14 @@ def check_dirs():
     """
         Makes sure the required directories have been created
     """
-    covers = os.path.join(SETTINGS_DIR, "covers")
-    cache = os.path.join(SETTINGS_DIR, "cache")
+    covers = xl.path.get_config("covers")
     if not os.path.isdir(covers):
         os.mkdir(covers)
-
-    if not os.path.isdir(cache):
-        os.mkdir(cache)
-    
-def first_run(): 
-    """
-        Called if the music database or settings files are missing.
-
-        Creates the settings directory, and, if necessary, creates the initial
-        database file.
-
-        Also scans the default import directory in case there's any music files
-        there.
-    """
-    try:
-        os.mkdir(SETTINGS_DIR)
-    except:
-        print "Could not create settings directory"
 
 def main(): 
     """
         Everything dispatches from this main function
     """
-    global SETTINGS_DIR
     p = EXAILE_OPTIONS
 
     if HELP:
@@ -131,7 +104,7 @@ def main():
 
     options, args = p.parse_args()
     if options.settings:
-        SETTINGS_DIR = options.settings
+        xl.path.set_configdir(options.settings)
     elif options.dups:
         xlmisc.log("Searching for duplicates in: %s" % options.dups)
         track.find_and_delete_dups(options.dups)
@@ -150,15 +123,9 @@ def main():
                 print "No running Exaile instance found."
                 sys.exit(1)
 
-        fr = False
-        if not os.path.isdir(SETTINGS_DIR):
-            first_run()
-            fr = True
-
-
         check_dirs()
         
-        exaile = exailemain.ExaileWindow(SETTINGS_DIR, options, fr)
+        exaile = exailemain.ExaileWindow(options, xl.path.firstrun)
     else:
         sys.exit(0)
 

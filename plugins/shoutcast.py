@@ -21,6 +21,7 @@ from xl import xlmisc, media, common
 from xl.panels import radio
 from xl.gui import playlist as trackslist
 import xl.plugins as plugins
+import xl.path
 
 PLUGIN_ID = 'Shoutcast Radio'
 PLUGIN_NAME = _("Shoutcast Radio")

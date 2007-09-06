@@ -20,10 +20,11 @@ from xl import library, media, common, xlmisc
 import xl, os
 from gettext import gettext as _
 import xl.plugins as plugins
+import xl.path
 
 PLUGIN_NAME = _("iPod Device Driver")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = '0.4.4'
+PLUGIN_VERSION = '0.4.5'
 PLUGIN_DESCRIPTION = _(r"""iPod Driver for the Devices Panel""")
 PLUGIN_ENABLED = False
 button = gtk.Button()
@@ -384,8 +385,7 @@ class iPodDriver(plugins.DeviceDriver):
         if not rows: return None
         row = rows[0]
         if not row or row[0] == '': return None
-        return "%s%scovers%s%s" % (APP.get_settings_dir(), os.sep,
-            os.sep, str(row[0]))
+        return xl.path.get_config('covers', str(row[0]))
 
     @common.threaded
     def connect(self, panel):

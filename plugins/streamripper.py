@@ -18,10 +18,11 @@ import gtk, subprocess, os, time, gst
 from gettext import gettext as _
 from xl import common, media, xlmisc
 import xl.plugins as plugins
+import xl.path
 
 PLUGIN_NAME = _("Streamripper!")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = '0.1.3'
+PLUGIN_VERSION = '0.1.4'
 PLUGIN_DESCRIPTION = _(r"""Allows you to record streams with
 streamripper\n\nRequires the command line version of streamripper to be
 installed""")
@@ -100,7 +101,7 @@ def toggle_record(widget, event=None):
             default=os.getenv("HOME"))
         port = SETTINGS.get_int('relay_port', plugin=plugins.name(__file__),
             default=8000)
-        outfile = APP.get_settings_dir() + "/streamripper.log"
+        outfile = xl.path.get_config('streamripper.log')
 
         STREAMRIPPER_OUT = open(outfile, "w+", 0)
         STREAMRIPPER_OUT.write("Streamripper log file started: %s\n" %

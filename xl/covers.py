@@ -15,12 +15,14 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-import httplib, re, urllib, md5, threading, os, xlmisc
-import urllib2, gobject, gtk, time
-import library, common
+import httplib, md5, os, re, threading, time, urllib, urllib2
 from gettext import gettext as _
+import gobject, gtk
+import xlmisc, library, common
+import xl.path
+
 COVER_WIDTH = 100
-NOCOVER_IMAGE = os.path.join("images", "nocover.png")
+NOCOVER_IMAGE = xl.path.get_data("images", "nocover.png")
 
 __revision__ = ".01"
 
@@ -244,8 +246,7 @@ class CoverManager(object):
         
         for cover in covers:
             if(cover['status'] == 200):
-                savepath = os.path.join(self.exaile.get_settings_dir(), "covers",
-                    "streamCover.jpg")
+                savepath = xl.path.get_config('covers', 'streamCover.jpg')
                 handle = open(savepath, "wb")
                 handle.write(cover['data'])
                 handle.close()
@@ -269,7 +270,7 @@ class CoverManager(object):
         # loop through all of the covers that have been found
         for cover in covers:
             if(cover['status'] == 200):
-                cover.save(os.path.join(self.exaile.get_settings_dir(), "covers"))
+                cover.save(xl.path.get_config('covers'))
                 xlmisc.log(cover['filename'])
                 self.exaile.cover.set_image(cover['filename'])
 
@@ -283,7 +284,7 @@ class CoverManager(object):
             This checks to see if the image is too old for Amazon's ULA, and
             if it is, it refetches the image
         """
-        info = os.stat(os.path.join(self.exaile.get_settings_dir(), 'covers', image))
+        info = os.stat(xl.path.get_config('covers', image))
 
         max_time = 30 * 24 * 60 * 60 # 1 month
         if time.time() - info[9] > max_time:
@@ -302,7 +303,7 @@ class CoverManager(object):
         """
         w = COVER_WIDTH
         if not popup:
-            self.exaile.cover.set_image(os.path.join("images", "nocover.png"))
+            self.exaile.cover.set_image(NOCOVER_IMAGE)
         if track == None: return
         artist_id = library.get_column_id(self.db, 'artists', 'name', track.artist)
         album_id = library.get_album_id(self.db, artist_id, track.album)
@@ -317,19 +318,19 @@ class CoverManager(object):
                     if popup: return cover
                     self.exaile.cover.set_image(cover)
                     return
-                return os.path.join("images", "nocover.png")
-            if os.path.isfile(os.path.join(self.exaile.get_settings_dir(), 
-                "covers", row[0])):
+                return NOCOVER_IMAGE
 
-                if popup: return os.path.join(self.exaile.get_settings_dir(), 
-                    "covers", row[0])
+            coverfile = xl.path.get_config('covers', row[0])
+
+            if os.path.isfile(coverfile):
+
+                if popup: return coverfile
 
                 # check to see if we need to recache this image
                 if row[1]:
                     if not self.check_image_age(album_id, row[0]): return
 
-                self.exaile.cover.set_image(os.path.join(self.exaile.get_settings_dir(), 
-                    "covers", row[0]))
+                self.exaile.cover.set_image(coverfile)
                 return
 
         cover = self.fetch_from_fs(track)
@@ -338,7 +339,7 @@ class CoverManager(object):
             else: self.exaile.cover.set_image(cover)
             return
 
-        if popup != None: return os.path.join("images", "nocover.png")
+        if popup != None: return NOCOVER_IMAGE
         self.stop_cover_thread()
 
         if self.exaile.settings.get_boolean("fetch_covers", True):
@@ -371,9 +372,9 @@ class CoverManager(object):
         if not names: return None
 
         for f in names:
-            f = f.strip()
-            if os.path.isfile(os.path.join(dir, f)):
-                return os.path.join(dir, f)
+            f = os.path.join(dir, f.strip())
+            if os.path.isfile(f):
+                return f
 
         return None
 
@@ -545,8 +546,7 @@ class CoverFetcher(object):
         # loop through all of the covers that have been found
         for cover in covers:
             if(cover['status'] == 200):
-                cover.save(os.path.join(self.exaile.get_settings_dir(),
-                    'covers'))
+                cover.save(xl.path.get_config('covers'))
                 xlmisc.log(cover['filename'])
 
                 try:
@@ -555,8 +555,7 @@ class CoverFetcher(object):
                 except:
                     xlmisc.log_exception()
 
-                image = os.path.join(self.exaile.get_settings_dir(), 'covers',
-                    cover['md5'] + ".jpg")
+                image = xl.path.get_config('covers', cover['md5'] + ".jpg")
                 loc = image
                 image = gtk.gdk.pixbuf_new_from_file(image)
                 image = image.scale_simple(80, 80, 
@@ -621,8 +620,7 @@ class CoverFetcher(object):
                 if "nocover" in image:
                     image = NOCOVER_IMAGE
                 else:
-                    image = os.path.join(self.exaile.get_settings_dir(),
-                        'covers', image)
+                    image = xl.path.get_config('covers', image)
             else:
                 self.needs[artist].append(album)
                 image = NOCOVER_IMAGE
@@ -793,8 +791,8 @@ class CoverFrame(object):
 
         if track == self.exaile.player.current:
             self.exaile.cover_manager.stop_cover_thread()
-            self.exaile.cover.set_image(os.path.join(
-                self.exaile.get_settings_dir(), 'covers', cover.filename()))
+            self.exaile.cover.set_image(
+                xl.path.get_config('covers', cover.filename()))
         self.window.destroy()
 
     def go_next(self, widget):
@@ -826,12 +824,11 @@ class CoverFrame(object):
         """
             Shows the current cover
         """
-        c.save(os.path.join(self.exaile.get_settings_dir(), 'covers') + os.sep)
+        c.save(xl.path.get_config('covers') + os.sep)
 
         xlmisc.log(c.filename())
 
-        self.cover.set_image(os.path.join(self.exaile.get_settings_dir(),
-            'covers', c.filename()))
+        self.cover.set_image(xl.path.get_config('covers', c.filename()))
 
         self.window.show_all()
 
@@ -937,8 +934,7 @@ class CoverMenu(xlmisc.Menu):
 
                 (f, ext) = os.path.splitext(dialog.get_filename())
                 newname = md5.new(data).hexdigest() + ext
-                handle = open(os.path.join(self.exaile.get_settings_dir(), "covers",
-                    newname), "wb")
+                handle = open(xl.path.get_config('covers', newname), 'wb')
                 handle.write(data)
                 handle.close()
 
@@ -957,8 +953,7 @@ class CoverMenu(xlmisc.Menu):
                 if track == self.exaile.player.current:
                     self.exaile.cover_manager.stop_cover_thread()
                     self.exaile.cover.set_image(
-                        os.path.join(self.exaile.get_settings_dir(),
-                        "covers", newname))
+                        xl.path.get_config('covers', newname))
         elif item == self.remove_cover_menu:
             artist_id = library.get_column_id(self.db, 'artists', 'name', track.artist)
             album_id = library.get_album_id(self.db, artist_id, track.album)
@@ -967,7 +962,7 @@ class CoverMenu(xlmisc.Menu):
             # Sets image to NULL so that it is as if it never existed
             self.db.execute("UPDATE albums SET image=NULL WHERE id=?", (album_id,))
             # Always do this incase you remove the current tracks cover
-            self.exaile.cover.set_image(os.path.join("images", "nocover.png"))
+            self.exaile.cover.set_image(NOCOVER_IMAGE)
 
     def set_parent(self, parent):
         """

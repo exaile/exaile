@@ -20,6 +20,7 @@ import pygtk
 pygtk.require('2.0')
 import gtk, pango
 from xl import xlmisc, common, library, burn, media
+import xl.path
 import editor, information
 
 # creates the rating images for the caller
@@ -977,8 +978,7 @@ class TracksListCtrl(gtk.VBox):
             Loads the track information from a cache file if it exists.
             If loading it fails, False is returned, else True is returned
         """
-        settings = self.exaile.get_settings_dir()
-        cache = "%s%s%s" % (settings, os.sep, "cache")
+        cache = xl.path.get_config('cache')
         if not os.path.isdir(cache): os.mkdir(cache)
         f = "%s%sradioplugin_%s_%s.tab" % (cache, os.sep, plugin, genre)
         if not os.path.isfile(f): return False
@@ -1011,8 +1011,7 @@ class TracksListCtrl(gtk.VBox):
         """
             Saves the track information to a track file.
         """
-        settings = self.exaile.get_settings_dir()
-        cache = "%s%s%s" % (settings, os.sep, "cache")
+        cache = xl.path.get_config('cache')
         if not os.path.isdir(cache): os.mkdir(cache)
 
         try:

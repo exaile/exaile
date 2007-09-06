@@ -20,6 +20,7 @@ from gettext import gettext as _
 import gobject, gtk
 from xl import common, xlmisc, library, media
 from xl.gui import playlist as trackslist
+import xl.path
 
 class CustomWrapper(object):
     """
@@ -79,8 +80,7 @@ class PodcastQueueThread(threading.Thread):
             if self.stopped: break
             hin = urllib.urlopen(song.loc)
 
-            temp_path = os.path.join(self.panel.exaile.get_settings_dir(),
-                'podcasts', 'downloading')
+            temp_path = xl.path.get_config('podcasts', 'downloading')
             hout = open(temp_path, "w+")
 
             count = 0
@@ -571,7 +571,7 @@ class RadioPanel(object):
         """
         (path, ext) = os.path.splitext(loc)
         hash = md5.new(loc).hexdigest()
-        savepath = os.path.join(self.exaile.get_settings_dir(), 'podcasts')
+        savepath = xl.path.get_config('podcasts')
         if not os.path.isdir(savepath):
             os.mkdir(savepath, 0777)
 

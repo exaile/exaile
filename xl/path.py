@@ -30,7 +30,7 @@ def init(basedir, installed):
     global _datadir, localedir, firstrun
 
     if installed:
-        prefix = os.path.normpath(os.path.join(basedir, '..'))
+        prefix = os.path.normpath(os.path.join(basedir, '../..'))
         _datadir = os.path.join(prefix, 'share', 'exaile')
         localedir = os.path.join(prefix, 'share', 'locale')
     else:

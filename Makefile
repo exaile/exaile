@@ -35,6 +35,8 @@ make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/images/default_theme
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/data
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/sql
+	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/xl
+	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/xl/plugins
 	mkdir -p $(DESTDIR)$(PREFIX)/share/locale
 	mkdir -p $(DESTDIR)$(PREFIX)/share/man/man1
 
@@ -69,7 +71,7 @@ install: make-install-dirs
 	    "#!/bin/sh\n" \
 	    "cd $(PREFIX)/share/exaile\n" \
 	    "export LD_LIBRARY_PATH=\$$LD_LIBRARY_PATH:$(FIREFOX)\n" \
-	    "exec python exaile.py \"\$$@\"" \
+	    "exec python $(PREFIX)$(LIBDIR)/exaile/exaile.py \"\$$@\"" \
 	    > exaile && \
 	  chmod 755 exaile
 	for f in `find po -name exaile.mo` ; do \

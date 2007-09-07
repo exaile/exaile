@@ -286,12 +286,12 @@ class RadioPanel(object):
         self.tree.set_model(self.model)
 
         self.open_folder = xlmisc.get_icon('gnome-fs-directory-accept')
-        self.track = gtk.gdk.pixbuf_new_from_file(os.path.join('images',
+        self.track = gtk.gdk.pixbuf_new_from_file(xl.path.get_data('images',
             'track.png'))
         self.folder = xlmisc.get_icon('gnome-fs-directory')
         self.refresh_image = xlmisc.get_icon('gtk-refresh')
 
-        self.track = gtk.gdk.pixbuf_new_from_file(os.path.join('images',
+        self.track = gtk.gdk.pixbuf_new_from_file(xl.path.get_data('images',
             'track.png'))
         self.custom = self.model.append(None, [self.open_folder, "Saved Stations"])
         self.podcast = self.model.append(None, [self.open_folder, "Podcasts"])

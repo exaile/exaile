@@ -105,7 +105,7 @@ class ExaileWindow(gobject.GObject):
 
         if self.settings.get_boolean("ui/use_splash", True):
             image = gtk.Image()
-            image.set_from_file("images%ssplash.png" % os.sep)
+            image.set_from_file(xl.path.get_data('images', 'splash.png'))
 
             xml = gtk.glade.XML('exaile.glade', 'SplashScreen', 'exaile')
             splash_screen = xml.get_widget('SplashScreen')
@@ -1161,7 +1161,7 @@ class ExaileWindow(gobject.GObject):
         self.cover_box = covers.CoverEventBox(self)
         self.cover_box.add(self.cover)
         self.xml.get_widget('image_box').pack_start(self.cover_box)
-        self.cover.set_image(os.path.join('images', 'nocover.png'))
+        self.cover.set_image(xl.path.get_data('images', 'nocover.png'))
 
         # set the font/etc 
         self.title_label = self.xml.get_widget('title_label')

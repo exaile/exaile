@@ -17,10 +17,11 @@
 import gtk, pynotify, traceback, cgi, os
 from gettext import gettext as _
 import xl.plugins as plugins
+import xl.path
 
 PLUGIN_NAME = _("LibNotify Plugin")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = '0.1.5'
+PLUGIN_VERSION = '0.1.6'
 PLUGIN_DESCRIPTION = _("Uses libnotify to inform you when a new song starts")
 PLUGIN_ENABLED = False
 button = gtk.Button()
@@ -130,7 +131,7 @@ def play_track(exaile, track):
         pixbuf = gtk.gdk.pixbuf_new_from_file(APP.cover_manager.fetch_cover(track, 1))
         pixbuf = pixbuf.scale_simple(50, 50, gtk.gdk.INTERP_BILINEAR)
     else:
-        pixbuf = gtk.gdk.pixbuf_new_from_file('images%slargeicon.png' % os.sep)
+        pixbuf = gtk.gdk.pixbuf_new_from_file(xl.path.get_data('images', 'largeicon.png'))
         pixbuf = pixbuf.scale_simple(50, 50, gtk.gdk.INTERP_BILINEAR)
 
     notify.set_icon_from_pixbuf(pixbuf)

@@ -36,10 +36,11 @@ import random
 import threading
 import os, re, locale, string
 from gettext import gettext as _
+import xl.path
 
 PLUGIN_NAME = _("Did You Know")
 PLUGIN_AUTHORS = ['Amit Man <amit.man@gmail.com>']
-PLUGIN_VERSION = '0.4.2'
+PLUGIN_VERSION = '0.4.3'
 PLUGIN_DESCRIPTION = _(r"""Displays a 'did you know..' information from Wikipedia.
 \n\nPress the 'i' icon the show the popup window. Double click on popup window to hide it.""")
 PLUGIN_ENABLED = False
@@ -475,7 +476,7 @@ class InfoGiver:
         if self.c.gotimage:
             self.image.set_from_file('didyouknow_tmp.img')
         else:
-            self.image.set_from_file("images%snocover.png" % os.sep)
+            self.image.set_from_file(xl.path.get_data('images', 'nocover.png'))
             
         self.title.set_label(_('Artist: ')+ track.artist+'\n\n'+self.c.paraSentances[0][0]);
 

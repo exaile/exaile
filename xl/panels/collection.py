@@ -18,6 +18,7 @@ import gtk, os, gobject, urllib
 from gettext import gettext as _, ngettext
 from xl import common, media, library, xlmisc
 from xl.gui import editor, playlist
+import xl.path
 
 class CollectionPanel(object):
     """
@@ -48,15 +49,15 @@ class CollectionPanel(object):
         self.keyword = None
         self.track_cache = dict()
         self.start_count = 0
-        self.artist_image = gtk.gdk.pixbuf_new_from_file(os.path.join(
+        self.artist_image = gtk.gdk.pixbuf_new_from_file(xl.path.get_data(
             'images', 'artist.png'))
         self.album_image = self.exaile.window.render_icon('gtk-cdrom',
             gtk.ICON_SIZE_SMALL_TOOLBAR)
-        self.track_image = gtk.gdk.pixbuf_new_from_file(os.path.join(
+        self.track_image = gtk.gdk.pixbuf_new_from_file(xl.path.get_data(
             'images', 'track.png'))
-        self.genre_image = gtk.gdk.pixbuf_new_from_file(os.path.join(
+        self.genre_image = gtk.gdk.pixbuf_new_from_file(xl.path.get_data(
             'images', 'genre.png'))
-        self.iplaylist_image = gtk.gdk.pixbuf_new_from_file(os.path.join(
+        self.iplaylist_image = gtk.gdk.pixbuf_new_from_file(xl.path.get_data(
             'images', 'playlist.png'))
         self.connect_id = None
         self.setup_widgets()

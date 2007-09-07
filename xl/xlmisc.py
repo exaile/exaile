@@ -313,8 +313,8 @@ def get_icon(id, size=gtk.ICON_SIZE_BUTTON):
     except gobject.GError:
         pass
     
-    return gtk.gdk.pixbuf_new_from_file(os.path.join('images', 'default_theme',
-        id + '.png'))
+    return gtk.gdk.pixbuf_new_from_file(
+        xl.path.get_data('images', 'default_theme', id + '.png'))
 
 class BaseTrayIcon(gobject.GObject):
     """
@@ -417,7 +417,7 @@ class EggTrayIcon(BaseTrayIcon):
         self.icon.add(self.box)
 
         image = gtk.Image()
-        image.set_from_file(os.path.join('images', 'trayicon.png'))
+        image.set_from_file(xl.path.get_data('images', 'trayicon.png'))
         self.box.add(image)
         self.box.connect('button_press_event',
             self.button_pressed)
@@ -467,7 +467,7 @@ class GtkTrayIcon(BaseTrayIcon):
         BaseTrayIcon.__init__(self, exaile)
         self.icon = icon = gtk.StatusIcon()
         icon.set_tooltip('Exaile')
-        icon.set_from_file(os.path.join('images', 'trayicon.png'))
+        icon.set_from_file(xl.path.get_data('images', 'trayicon.png'))
         icon.connect('activate', self.activated)
         icon.connect('popup-menu', self.popup)
         self.set_tooltip(_("Exaile Music Player"))
@@ -953,7 +953,7 @@ class AboutDialog(gtk.Dialog):
         """
         xml = gtk.glade.XML('exaile.glade', 'AboutDialog', 'exaile')
         self.dialog = xml.get_widget('AboutDialog')
-        logo = gtk.gdk.pixbuf_new_from_file(os.path.join('images',
+        logo = gtk.gdk.pixbuf_new_from_file(xl.path.get_data('images',
             'exailelogo.png'))
         self.dialog.set_logo(logo)
         self.dialog.set_version(str(version))
@@ -1247,7 +1247,7 @@ class OSDWindow(object):
         self.title.set_markup(text)
 
         if not cover:
-            cover = os.path.join('images', 'nocover.png')
+            cover = xl.path.get_data('images', 'nocover.png')
 
         self.cover.set_image(cover)
         self.window.show_all()

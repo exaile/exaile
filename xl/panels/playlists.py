@@ -19,6 +19,7 @@ from gettext import gettext as _
 import gtk
 from xl import common, xlmisc, filtergui, library
 from xl.filtergui import MultiEntryField, EntryField
+import xl.path
 
 N_ = lambda x: x
 
@@ -239,7 +240,7 @@ class PlaylistsPanel(object):
         self.model = gtk.TreeStore(gtk.gdk.Pixbuf, str, object)
         self.tree.set_model(self.model)
         self.open_folder = xlmisc.get_icon('gnome-fs-directory-accept')
-        self.playlist_image = gtk.gdk.pixbuf_new_from_file(os.path.join(
+        self.playlist_image = gtk.gdk.pixbuf_new_from_file(xl.path.get_data(
             'images', 'playlist.png'))
         self.smart_image = self.exaile.window.render_icon('gtk-execute',
             gtk.ICON_SIZE_MENU)

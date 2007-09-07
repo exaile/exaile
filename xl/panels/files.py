@@ -19,6 +19,7 @@ import locale, os, re, urllib
 import gobject, gtk
 from xl import common, xlmisc, media, library
 locale.setlocale(locale.LC_ALL, '')
+import xl.path
 
 class FilesPanel(object):
     """
@@ -51,7 +52,7 @@ class FilesPanel(object):
         selection = self.tree.get_selection()
         selection.set_mode(gtk.SELECTION_MULTIPLE)
         self.directory = xlmisc.get_icon('gnome-fs-directory')
-        self.track = gtk.gdk.pixbuf_new_from_file(os.path.join('images',
+        self.track = gtk.gdk.pixbuf_new_from_file(xl.path.get_data('images',
             'track.png'))
         self.up = self.xml.get_widget('files_up_button')
         self.up.connect('clicked', self.go_up)

@@ -21,6 +21,7 @@ import thread
 from gettext import gettext as _
 from xl import xlmisc, common, media, library
 from xl.gui import playlist as playlistgui
+import xl.path
 random.seed(time.time())
 
 ASX_REGEX = re.compile(r'href ?= ?([\'"])(.*?)\1', re.DOTALL|re.MULTILINE)
@@ -675,7 +676,7 @@ class ExailePlayer(GSTPlayer):
             Stops the currently playing track
         """
         self.exaile.status.set_first(None)
-        self.exaile.cover.set_image(os.path.join('images', 'nocover.png'))
+        self.exaile.cover.set_image(xl.path.get_data('images', 'nocover.png'))
         self.exaile.cover_manager.stop_cover_thread()
 
         if self.current: self.current.start_time = 0

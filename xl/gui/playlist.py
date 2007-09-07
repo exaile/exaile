@@ -31,7 +31,8 @@ def create_rating_images(caller):
     if (caller.rating_width != caller.old_r_w and caller.rating_width != 0):
         caller.rating_images = []
         star_size = caller.rating_width / 4
-        star = gtk.gdk.pixbuf_new_from_file_at_size("images/star.png", star_size, star_size)
+        star = gtk.gdk.pixbuf_new_from_file_at_size(
+            xl.path.get_data('images', 'star.png'), star_size, star_size)
         full_image = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, caller.rating_width, star_size)
         full_image.fill(0xffffff00) # transparent white
         for x in range(0, 4):
@@ -838,7 +839,8 @@ class TracksListCtrl(gtk.VBox):
             item = rm.append_image(self.rating_images[i],
                 lambda w, e, i=i: editor.update_rating(self, i))
 
-        star_icon = gtk.gdk.pixbuf_new_from_file_at_size("images/star.png", 16, 16)
+        star_icon = gtk.gdk.pixbuf_new_from_file_at_size(
+            xl.path.get_data('images', 'star.png'), 16, 16)
         icon_set = gtk.IconSet(star_icon)
         factory = gtk.IconFactory()
         factory.add_default()        
@@ -906,7 +908,7 @@ class TracksListCtrl(gtk.VBox):
             tpm.append_separator()
 
         factory.add('exaile-track-icon', gtk.IconSet(
-            gtk.gdk.pixbuf_new_from_file(os.path.join('images',
+            gtk.gdk.pixbuf_new_from_file(xl.path.get_data('images',
             'track.png'))))
         # TRANSLATORS: Shows the selected track in the collection tree
         if n_selected == 1:

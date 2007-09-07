@@ -20,6 +20,7 @@ import pygtk, common
 pygtk.require('2.0')
 import gtk, gtk.glade
 import cd_import, xlmisc, audioscrobbler, burn, advancededitor
+import xl.path
 
 #try:
 #    import gamin
@@ -855,7 +856,7 @@ class Preferences(object):
         display_text = display_text.replace("{volume}", "\\{volume\\}")
 
         self.popup.show_track_osd(track, display_text, 
-            'images%snocover.png' % os.sep)       
+            xl.path.get_data('images', 'nocover.png'))
 
         return False
 

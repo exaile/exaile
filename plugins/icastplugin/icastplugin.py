@@ -192,7 +192,7 @@ class Icast(UserDict):
         self.client.log("Streaming song %s" % self.current_track)
         try:
             self.__server.set_metadata({
-                "song":self.client.get_track_metadata()
+                "song":str(self.client.get_track_metadata())
             })
         except shout.ShoutException:
             self.client.log("Sending metadata to the server not available" )
@@ -255,7 +255,7 @@ PLUGIN_AUTHORS = ['Edgar Merino <donvodka at gmail dot com>']
 
 # this needs to be this way because the plugin repository looks for this
 # format in order to add the plugin to the list of available plugins
-PLUGIN_VERSION = "0.4.1"
+PLUGIN_VERSION = "0.4.2"
 __version__ = PLUGIN_VERSION
 PLUGIN_DESCRIPTION = r"""Stream to an icecast/shoutcast server"""
 PLUGIN_ENABLED = False

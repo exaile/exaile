@@ -28,7 +28,6 @@ try:
 except ImportError:
     SHOUT_AVAIL = False
 
-__version__ = "0.3.1"
 # Code taken from exaile src
 # if you want to reuse the code, you'll need this
 #def threaded(f):
@@ -253,7 +252,11 @@ class Icast(UserDict):
 
 PLUGIN_NAME = "Icast Streamer"
 PLUGIN_AUTHORS = ['Edgar Merino <donvodka at gmail dot com>']
-PLUGIN_VERSION = __version__
+
+# this needs to be this way because the plugin repository looks for this
+# format in order to add the plugin to the list of available plugins
+PLUGIN_VERSION = "0.4.1"
+__version__ = PLUGIN_VERSION
 PLUGIN_DESCRIPTION = r"""Stream to an icecast/shoutcast server"""
 PLUGIN_ENABLED = False
 button = gtk.Button()

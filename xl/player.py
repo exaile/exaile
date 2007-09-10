@@ -106,6 +106,24 @@ class GSTPlayer(Player):
             uri = uri.replace('%', '%25')
             self.playbin.set_property('uri', uri.encode(xlmisc.get_default_encoding()))
 
+        formats = {
+            'mp3':  'mad',
+            'flac': 'flac',
+            'ogg':  'vorbis',
+            'mpc':  'musepack',
+            'tta':  'tta',
+            'mp4':  'faad',
+            'm4a':  'faad',
+        }
+        (file, ext) = os.path.splitext(uri.encode(xlmisc.get_default_encoding()))
+        ext = ext.replace('.', '').lower()
+        if ext in formats.keys():
+            plugin = formats[ext]
+            if not gst.registry_get_default().find_plugin(plugin):
+                raise Exception(_("You do not have the "
+                    "appropriate Gstreamer plugin installed to play "
+                    "this file: %(uri)s") % {'uri': uri})
+
         self.playbin.set_state(gst.STATE_PLAYING)
 
     def on_sync_message(self, bus, message):
@@ -514,7 +532,7 @@ class ExailePlayer(GSTPlayer):
         except Exception, e:
             self.error_window.log(str(e))
             self.error_window.show_all()
-            if from_button: self.exaile.stop()
+            if from_button: self.exaile.player.stop()
             else: 
                 self.stop()
                 self.current = track

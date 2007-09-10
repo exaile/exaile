@@ -1,6 +1,5 @@
 PREFIX ?= /usr/local
 LIBDIR ?= /lib
-
 FIREFOX ?= /usr/lib/firefox
 
 all: compile mmkeys.so translations

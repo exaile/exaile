@@ -329,7 +329,7 @@ class NetworkPanel(collection.CollectionPanel):
                     except daap.DAAPError:
                         while 1:
                             dialog = common.TextEntryDialog(self.exaile.window,
-                                _("%s %s") % ("Enter password for",
+                                "%s %s" % (_("Enter password for"),
                                  self.active_share.name ),
                                 _("Password required."))
                             dialog.entry.set_visibility(False)

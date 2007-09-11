@@ -47,7 +47,7 @@ except:
 
 PLUGIN_NAME = _("Music Sharing")
 PLUGIN_AUTHORS = ['Aren Olson <reacocard@gmail.com>']
-PLUGIN_VERSION = '0.7.8'
+PLUGIN_VERSION = '0.7.9'
 PLUGIN_DESCRIPTION = _(r"""Allows playing of DAAP music shares.
 \n\nDepends: python-daap, python-avahi.""")
 

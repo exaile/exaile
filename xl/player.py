@@ -115,8 +115,14 @@ class GSTPlayer(Player):
             'mp4':  'faad',
             'm4a':  'faad',
         }
-        (file, ext) = os.path.splitext(uri.encode(xlmisc.get_default_encoding()))
-        ext = ext.replace('.', '').lower()
+
+        ext_re = re.compile(r'\.([^\.]*)$')
+        m = ext_re.search(uri.encode(xlmisc.get_default_encoding()).lower())
+        if m:
+            ext = m.group(1)
+        else:
+            ext = ''
+
         if ext in formats.keys():
             plugin = formats[ext]
             if not gst.registry_get_default().find_plugin(plugin):

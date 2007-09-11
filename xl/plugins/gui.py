@@ -22,7 +22,7 @@ import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade, gobject
 import xl.plugins
-import xl.path
+import xl.path, locale
 from xl import common, xlmisc
 
 def show_error(parent, message):
@@ -120,7 +120,7 @@ class PluginManager(object):
                 plugin])
 
         def plugin_sort(a, b):
-            return cmp(a[1].lower(), b[1].lower())
+            return locale.strcoll(a[1].lower(), b[1].lower())
 
         list.sort(plugin_sort)
         for p in list:
@@ -267,7 +267,7 @@ class PluginManager(object):
                 "for your version."))
         else:
             def plugin_sort(a, b):
-                return cmp(a[0].lower(), b[0].lower())
+                return locale.strcoll(a[0].lower(), b[0].lower())
 
             plugin_list.sort(plugin_sort)
             for plugin in plugin_list:

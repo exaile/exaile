@@ -109,14 +109,20 @@ class PluginManager(object):
 
     def load_plugin_list(self):
         self.model.clear()
+        list = []
         for plugin in self.manager.plugins:
             icon = plugin.PLUGIN_ICON
             if not icon:
                 icon = self.dialog.render_icon('gtk-execute',
                     gtk.ICON_SIZE_MENU)
 
-            self.model.append([icon, plugin.PLUGIN_NAME,
-                plugin.PLUGIN_ENABLED, plugin])
+            list.append([plugin.PLUGIN_NAME, plugin.PLUGIN_ENABLED, plugin,
+                icon])
+
+        list.sort()
+        for p in list:
+            self.model.append([p[3], p[0],
+                p[1], p[2]])
 
     def install_plugin(self, *e):
         """
@@ -229,6 +235,7 @@ class PluginManager(object):
 
     def done_fetching(self, lines):
 
+        plugin_list = []
         check = False
         for line in lines:
             line = line.strip()
@@ -250,12 +257,16 @@ class PluginManager(object):
                         found = True
 
             if not found:
-                self.avail_model.append([name, version, author, description, file, False])
+                plugin_list.append([name, version, author, description, file, False])
                 check = True
 
         if not check:
             common.info(self.parent, _("No plugins or updates could be found "
                 "for your version."))
+        else:
+            plugin_list.sort()
+            for plugin in plugin_list:
+                self.avail_model.append(plugin)
 
         self.avail_description.get_buffer().set_text(_("No plugin selected"))
         selection = self.avail_list.get_selection()

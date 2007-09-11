@@ -116,13 +116,15 @@ class PluginManager(object):
                 icon = self.dialog.render_icon('gtk-execute',
                     gtk.ICON_SIZE_MENU)
 
-            list.append([plugin.PLUGIN_NAME, plugin.PLUGIN_ENABLED, plugin,
-                icon])
+            list.append([icon, plugin.PLUGIN_NAME, plugin.PLUGIN_ENABLED, 
+                plugin])
 
-        list.sort()
+        def plugin_sort(a, b):
+            return cmp(a[1].lower(), b[1].lower())
+
+        list.sort(plugin_sort)
         for p in list:
-            self.model.append([p[3], p[0],
-                p[1], p[2]])
+            self.model.append(p)
 
     def install_plugin(self, *e):
         """
@@ -264,7 +266,10 @@ class PluginManager(object):
             common.info(self.parent, _("No plugins or updates could be found "
                 "for your version."))
         else:
-            plugin_list.sort()
+            def plugin_sort(a, b):
+                return cmp(a[0].lower(), b[0].lower())
+
+            plugin_list.sort(plugin_sort)
             for plugin in plugin_list:
                 self.avail_model.append(plugin)
 

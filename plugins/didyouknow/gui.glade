@@ -5,7 +5,7 @@
 
 <widget class="GtkWindow" id="window">
   <property name="visible">True</property>
-  <property name="title" translatable="yes">window</property>
+  <property name="title">window</property>
   <property name="type">GTK_WINDOW_POPUP</property>
   <property name="window_position">GTK_WIN_POS_CENTER</property>
   <property name="modal">False</property>
@@ -69,7 +69,7 @@
 	      <child>
 		<widget class="GtkLabel" id="title">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">title</property>
+		  <property name="label">title</property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">False</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -134,7 +134,7 @@
 	      <child>
 		<widget class="GtkLabel" id="label">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">info</property>
+		  <property name="label">info</property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">False</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>

@@ -40,7 +40,7 @@ import xl.path
 
 PLUGIN_NAME = _("Did You Know")
 PLUGIN_AUTHORS = ['Amit Man <amit.man@gmail.com>']
-PLUGIN_VERSION = '0.4.3'
+PLUGIN_VERSION = '0.4.4'
 PLUGIN_DESCRIPTION = _(r"""Displays a 'did you know..' information from Wikipedia.
 \n\nPress the 'i' icon the show the popup window. Double click on popup window to hide it.""")
 PLUGIN_ENABLED = False

@@ -30,55 +30,55 @@ from subprocess import *
 from BaseHTTPServer import *
 
 class ExaileHttpHandler(BaseHTTPRequestHandler):
-	allowed_commands = ['prev', 'play', 'play-pause', 'stop', 'next', 'query']
+    allowed_commands = ['prev', 'play', 'play-pause', 'stop', 'next', 'query']
 
-	def do_GET(self):
-		self.send_response(200)
-		self.send_header('Content-type', 'text/html')
-		self.end_headers()
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'text/html')
+        self.end_headers()
 
-		write = self.wfile.write
-		write('<html><head><title>Exaile</title><body>')
+        write = self.wfile.write
+        write('<html><head><title>Exaile</title><body>')
 
-		if self.path.startswith('/'):
-			command = self.path[1:]
-		else:
-			command = None
+        if self.path.startswith('/'):
+            command = self.path[1:]
+        else:
+            command = None
 
-		if command and command in self.allowed_commands:
-			line = [self.server.exaile, '--' + command]
-			print 'Running', line
-			output = Popen(line, stdout=PIPE).communicate()[0]
-			write('<pre>' + output + '</pre>')
+        if command and command in self.allowed_commands:
+            line = [self.server.exaile, '--' + command]
+            print 'Running', line
+            output = Popen(line, stdout=PIPE).communicate()[0]
+            write('<pre>' + output + '</pre>')
 
-		write('<ul>')
-		for cmd in self.allowed_commands:
-			write('<li><a href="' + cmd + '">' + cmd + '</a></li>')
-		write('</ul>')
+        write('<ul>')
+        for cmd in self.allowed_commands:
+            write('<li><a href="' + cmd + '">' + cmd + '</a></li>')
+        write('</ul>')
 
-		write('</body></html>')
+        write('</body></html>')
 
 def run(port, exaile):
-	server = None
-	try:
-		server = HTTPServer(('', port), ExaileHttpHandler)
-		server.exaile = exaile
-		server.serve_forever()
-	except KeyboardInterrupt:
-		pass
-	finally:
-		if server:
-			server.socket.close()
+    server = None
+    try:
+        server = HTTPServer(('', port), ExaileHttpHandler)
+        server.exaile = exaile
+        server.serve_forever()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        if server:
+            server.socket.close()
 
 if __name__ == '__main__':
-	from sys import argv
-	argc = len(argv)
-	port = 8080
-	exaile = 'exaile'
-	if argc > 1:
-		port = int(argv[1])
-		if argc > 2:
-			exaile = argv[2]
-	run(port, exaile)
+    from sys import argv
+    argc = len(argv)
+    port = 8080
+    exaile = 'exaile'
+    if argc > 1:
+        port = int(argv[1])
+        if argc > 2:
+            exaile = argv[2]
+    run(port, exaile)
 
-# vi: noet ts=4 sts=4 sw=4 tw=80
+# vi: et ts=4 sts=4 sw=4 tw=80

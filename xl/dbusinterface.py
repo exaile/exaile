@@ -51,7 +51,10 @@ class DBusInterfaceObject(dbus.service.Object):
         """
             Initializes the service
         """
-        dbus.service.Object.__init__(self, None, path, bus_name)
+        # HACK: Passing bus name as second argument is deprecated, but we need
+        # it for compatibility with old versions of dbus-python, e.g. the one in
+        # Ubuntu 6.10 (edgy).
+        dbus.service.Object.__init__(self, bus_name, path)
         self.exaile = exaile
 
     @dbus.service.method("org.exaile.DBusInterface", "s")

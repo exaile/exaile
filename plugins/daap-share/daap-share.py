@@ -47,7 +47,7 @@ except:
 
 PLUGIN_NAME = _("Music Sharing")
 PLUGIN_AUTHORS = ['Aren Olson <reacocard@gmail.com>']
-PLUGIN_VERSION = '0.7.8'
+PLUGIN_VERSION = '0.7.9'
 PLUGIN_DESCRIPTION = _(r"""Allows playing of DAAP music shares.
 \n\nDepends: python-daap, python-avahi.""")
 
@@ -329,7 +329,7 @@ class NetworkPanel(collection.CollectionPanel):
                     except daap.DAAPError:
                         while 1:
                             dialog = common.TextEntryDialog(self.exaile.window,
-                                _("%s %s") % ("Enter password for",
+                                "%s %s" % (_("Enter password for"),
                                  self.active_share.name ),
                                 _("Password required."))
                             dialog.entry.set_visibility(False)

@@ -24,7 +24,7 @@ PLUGIN_NAME = _("Desktop Cover")
 PLUGIN_AUTHORS = ["Johannes Sasongko <sasongko@gmail.com>", 
     "Adam Olsen <arolsen@gmail.com>"]
 
-PLUGIN_VERSION = "0.3.2"
+PLUGIN_VERSION = "0.3.3"
 PLUGIN_DESCRIPTION = _("Displays the current album cover on the desktop")
 PLUGIN_ENABLED = False
 PLUGIN_ICON = None
@@ -52,7 +52,7 @@ class CoverDisplay:
         wnd.set_skip_pager_hint(True)
         wnd.set_skip_taskbar_hint(True)
         wnd.set_title("")
-        wnd.stick()
+        #wnd.stick()
 
         self.x = self.DEFAULT_X
         self.y = self.DEFAULT_Y
@@ -129,6 +129,7 @@ class CoverDisplay:
             wnd.show()
             # May be reset by the WM.
             wnd.set_keep_below(True)
+            wnd.stick()
 
     def destroy(self):
         self.window.destroy()

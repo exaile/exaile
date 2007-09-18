@@ -576,7 +576,7 @@ def initialize():
         # Long string... Mathias said this won't work for gettext if not done like this
         common.error(APP.window, _("Shout library could not be loaded. You need libshout 2 and shout python bindings. Streaming will not be available"))
         return False
-    PLUGIN = setup_plugin()()
+    PLUGIN = setup_plugin()
     PLUGIN.main()
 
     return True

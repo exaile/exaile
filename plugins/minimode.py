@@ -22,7 +22,7 @@ import xl.plugins as plugins
 
 PLUGIN_NAME = _("Mini Mode")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = '0.4.5'
+PLUGIN_VERSION = '0.4.6'
 PLUGIN_DESCRIPTION = _(r"""Super groovy mini mode window!\n\nMini Mode is activated
 by pressing CTRL+ALT+M\n\nYou can move the window in most cases by
 ALT+drag""")
@@ -66,10 +66,20 @@ def configure():
         plugin=plugins.name(__file__), default=False)
     decoration = settings.get_boolean('decoration',
         plugin=plugins.name(__file__), default=False)
+    font_size = settings.get_int('font_size', plugin=plugins.name(__file__), default=8)
 
     on_top_box = gtk.CheckButton(_('Always on top'))
     no_taskbar_box = gtk.CheckButton(_('Skip taskbar'))
     decoration_box = gtk.CheckButton(_('Window decoration'))
+
+    font_size_label = gtk.Label(_('Tracklist font size:'))
+    adjustment = gtk.Adjustment(value=font_size, lower=1, upper=72, step_incr=1)
+    font_size_spinner = gtk.SpinButton(adjustment)
+    font_size_spinner.set_numeric(True)
+
+    font_size_box = gtk.HBox(spacing=3)
+    font_size_box.pack_start(font_size_label)
+    font_size_box.pack_start(font_size_spinner)
 
     on_top_box.set_active(on_top)
     no_taskbar_box.set_active(no_taskbar)
@@ -78,6 +88,7 @@ def configure():
     box.pack_start(on_top_box)
     box.pack_start(no_taskbar_box)
     box.pack_start(decoration_box)
+    box.pack_start(font_size_box)
     dialog.show_all()
 
     result = dialog.run()
@@ -86,6 +97,7 @@ def configure():
     settings.set_boolean('on_top', on_top_box.get_active(), plugin=plugins.name(__file__))
     settings.set_boolean('no_taskbar', no_taskbar_box.get_active(), plugin=plugins.name(__file__))
     settings.set_boolean('decoration', decoration_box.get_active(), plugin=plugins.name(__file__))
+    settings.set_int('font_size', font_size_spinner.get_value_as_int(), plugin=plugins.name(__file__))
 
 class MiniWindow(gtk.Window):
     """
@@ -126,7 +138,8 @@ class MiniWindow(gtk.Window):
         self.model = gtk.ListStore(str, object)
         self.title_box = gtk.ComboBox(self.model)
         cell = gtk.CellRendererText()
-        cell.set_property('font-desc', pango.FontDescription('Normal 8'))
+        font_size = APP.settings.get_int('font_size', plugin=plugins.name(__file__), default=8)
+        cell.set_property('font-desc', pango.FontDescription('Normal %d' % font_size))
         cell.set_property('ellipsize', pango.ELLIPSIZE_END)
     
         self.title_box.pack_start(cell, True)

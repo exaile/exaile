@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'
+    'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html>
+<head>
+  <title>Exaile</title>
+  <link href='/exaile.css' rel='stylesheet' type='text/css'/>
+  <script type='text/javascript' src='/prototype.js'></script>
+  <script type='text/javascript' src='/exaile.js'></script>
+</head>
+<body>
+
+	<!-- Header -->
+	<div id='header'>
+		<a class='link' onclick='eh_show("prefs")'>Preferences</a>
+	</div>
+
+	<!-- Player -->
+	<div id='player'>
+
+		<!-- Cover from current track -->
+		<div id='trackcover'></div>
+
+		<!-- Current track info -->
+		<div id='trackinfo'>
+			<div id='ti_title'></div>
+			<div class='trackinfo'><span class='tibold'>Artist: </span><span id='ti_artist'>&nbsp;</span></div>
+			<div class='trackinfo'><span class='tibold'>Album: </span><span id='ti_album'>&nbsp;</span></div>
+			<div id='trackprogressbar'><div class='trackprogressbarlen' id='ti_len'>&nbsp;</div><div class='trackprogressbarposition' id='ti_position'>&nbsp;</div><div class='trackprogressbarpositionmove' id='ti_positionmove'>&nbsp;</div></div>
+		</div>
+
+		<!-- Player control -->
+		<div id='trackcontrol'>
+			<a class='button' id='action-previous' onclick='eh_action_previous()'>
+				<img src='/btn-previous.png' alt='Previous'/>
+			</a>
+			<a class='button' id='action-play' onclick='eh_action_play()'>
+				<img src='/btn-play.png' alt='Play'/>
+			</a>
+			<a class='button' id='action-pause' onclick='eh_action_pause()'>
+				<img src='/btn-pause.png' alt='Pause'/>
+			</a>
+			<a class='button' id='action-stop' onclick='eh_action_stop()'>
+				<img src='/btn-stop.png' alt='Stop'/>
+			</a>
+			<a class='button' id='action-next' onclick='eh_action_next()'>
+				<img src='/btn-next.png' alt='Next'/>
+			</a>
+			<a class='button' id='action-reloadplaylist' onclick='eh_refresh_playlist()'>
+				<img src='/btn-reload.png' alt='Reload playlist'/>
+			</a>
+
+		</div>
+	</div>
+
+	<!-- Playlist -->
+	<div id='playlist'>
+		<div id='playlistcontent'>
+			<div class='info'>
+				Playlist are not loaded. Please use the refresh button to load it
+				(<img src='/btn-reload.png' alt='Refresh button'/>)
+			</div>
+		</div>
+	</div>
+
+	<!-- Preferences -->
+	<div id='prefs'>
+		<div id='prefs-title'>Exaile - Preferences</div>
+		<dl>
+			<dt>Refresh timer</dt>
+			<dd>
+				<select id='eh_pref_refreshtime' onchange='eh_pref(this)'>
+					<option value='1'>1 second</option>
+					<option value='2'>2 seconds</option>
+					<option value='5'>5 seconds</option>
+				</select>
+			</dd>
+			<dt>Columns displayed in playlist</dt>
+			<dd>
+				<input type='checkbox' id='eh_pref_playlist_title' disabled='disabled' checked='checked'/>
+				<label for='eh_pref_playlist_title'>Title</label><br/>
+				<input type='checkbox' id='eh_pref_playlist_artist' onchange="eh_pref(this)"/>
+				<label for='eh_pref_playlist_artist'>Artist</label><br/>
+				<input type='checkbox' id='eh_pref_playlist_album' onchange="eh_pref(this)"/>
+				<label for='eh_pref_playlist_album'>Album</label><br/>
+				<input type='checkbox' id='eh_pref_playlist_genre' onchange="eh_pref(this)"/>
+				<label for='eh_pref_playlist_genre'>Genre</label><br/>
+				<input type='checkbox' id='eh_pref_playlist_duration' onchange="eh_pref(this)"/>
+				<label for='eh_pref_playlist_duration'>Duration</label><br/>
+				<input type='checkbox' id='eh_pref_playlist_rating' onchange="eh_pref(this)"/>
+				<label for='eh_pref_playlist_rating'>Rating</label><br/>
+			</dd>
+		</dl>
+		<a id='prefs-close' onclick='eh_hide("prefs");'>&raquo; Close</a>
+	</div>
+
+	<!-- Start -->
+	<script type='text/javascript'>
+	<!--
+		eh_init();
+	-->
+	</script>
+
+</body>
+</html>

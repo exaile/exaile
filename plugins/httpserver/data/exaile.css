@@ -1,0 +1,199 @@
+body {
+	background-color: #ffffff;
+	font-family: sans-serif;
+	margin: 0;
+	padding: 0;
+	min-width: 500px;
+}
+
+#player {
+	background-color: #272727;
+	height: 128px;
+	position: fixed;
+	top: 0px;
+	width: 100%;
+}
+
+#trackcover, #trackcover img {
+	width: 100px;
+	height: 100px;
+	float: left;
+}
+
+#trackinfo {
+	height: 100px;
+	margin-left: 100px;
+	color: #eeeeee;
+}
+
+#trackcontrol {
+	background-color: #436a9c;
+	height: 28px;
+}
+
+#trackcontrol .button {
+	float: left;
+	line-height: 28px;
+	font-size: 10px;
+	padding: 2px 10px;
+}
+
+#trackcontrol .button:hover {
+	background-color: #8abc63;
+	cursor: pointer;
+}
+
+#ti_title {
+	font-size: 22px;
+	padding: 5px 5px 5px 20px;
+	font-weight: bold;
+	white-space: pre;
+}
+
+.trackinfo {
+	font-size: 12px;
+	padding: 0px 20px;
+}
+
+.tibold {
+	font-weight: bold;
+}
+
+#trackprogressbar {
+	background-color: white;
+	width: auto;
+	height: 20px;
+	line-height: 20px;
+	margin: 5px 20px 0px 20px;
+	cursor: pointer;
+}
+
+.trackprogressbarlen {
+	color: black;
+	text-align: center;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 20px;
+	height: 20px;
+	cursor: pointer;
+}
+
+.trackprogressbarpositionmove,
+.trackprogressbarposition {
+	background-color: #aaaaaa;
+	width: 100%;
+	height: 20px;
+	margin-top: -20px;
+	cursor: pointer;
+}
+
+.trackprogressbarpositionmove {
+	background-color: #aaaacc;
+	display: none;
+	cursor: pointer;
+}
+
+#playlist {
+	margin-top: 128px;
+}
+
+#playlistcontent table {
+	font-size: 12px;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+#playlistcontent table th {
+	text-align: left;
+	background-color: #385882;
+	padding: 5px;
+	color: #ffffff;
+}
+
+#playlistcontent table td {
+	border-top: 1px solid #eeeeee;
+	padding: 5px;
+	cursor: pointer;
+}
+
+#playlistcontent table tr.playing td {
+	background-color: #f0f0f0;
+}
+
+#playlistcontent table td div {
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+img.loading {
+	margin: 40px auto;
+}
+
+div.info {
+	margin: 40px auto;
+	width: 400px;
+	border: 1px solid #e0e0e0;
+	background-color: #f0f0f0;
+	padding: 20px;
+}
+
+#prefs {
+	display: none;
+	width: 100%;
+	top: 0px;
+	position: fixed;
+	background: transparent url('bg-trans.png') top left repeat; 
+	padding: 20px;
+	color: #f0f0f0;
+	font-size: 12px;
+	z-index: 4;
+	border-bottom: 2px solid black;
+}
+
+#prefs dt {
+	font-size: 13px;
+	font-weight: bold;
+	padding: 3px;
+	border-bottom: 1px solid #f0f0f0;
+	margin: 10px;
+}
+
+
+#prefs-close {
+	margin: 20px;
+	display: block;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+#prefs-title {
+	font-size: 22px;
+	padding: 5px 5px 5px 20px;
+	font-weight: bold;
+	white-space: pre;
+}
+
+#header {
+	position: fixed;
+	margin: 0px 30px;
+	top: 0px;
+	right: 0px;
+	z-index: 3;
+}
+
+#header a {
+	border: 1px solid #444444;
+	background-color: #333333;
+	-moz-border-radius: 5px;
+	border-top: none;
+	padding: 10px 8px 4px 8px;
+	text-decoration: none;
+	color: #dddddd;
+	font-size: 10px;
+	cursor: pointer;
+}
+
+img.rating {
+	width: 12px;
+	height: 12px;
+}

@@ -14,7 +14,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-__version__ = '0.2.11svn'
 import pygtk
 pygtk.require('2.0')
 
@@ -260,16 +259,16 @@ class ExaileWindow(gobject.GObject):
         """
             Returns the version of Exaile
         """
-        return __version__
+        return sys.modules['__main__'].__version__
 
     def get_plugin_location(self):
         """
             Returns the location of the plugins
         """
-        if __version__.find('svn') > -1:
+        if sys.modules['__main__'].__version__.find('svn') > -1:
             return 'trunk'
         else:
-            return __version__
+            return sys.modules['__main__'].__version__
 
     def start_scan_interval(self, value):
         """

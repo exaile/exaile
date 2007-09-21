@@ -34,7 +34,7 @@ class FilesPanel(object):
         self.db = exaile.db
         self.xml = exaile.xml
         self.first_dir = self.exaile.settings.get_str('files_panel_dir',
-            os.getenv('HOME'))
+            xl.path.home)
         self.history = [self.first_dir]
 
         self.tree = xlmisc.DragTreeView(self, False)

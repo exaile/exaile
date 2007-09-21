@@ -20,6 +20,7 @@ import os
 home = os.path.expanduser('~')
 _configdir = os.path.join(home, '.exaile')
 _cachedir = os.path.join(_configdir, 'cache')
+_coverdir = os.path.join(_configdir, 'covers')
 
 # These are set in init
 _datadir = None
@@ -49,6 +50,11 @@ def init(basedir, installed):
         except:
             # FIXME: Die?
             print "Could not create cache directory"
+        try:
+            os.mkdir(_coverdir)
+        except:
+            # FIXME: Die?
+            print "Could not create cover directory"
 
 def set_configdir(dir):
     global _configdir

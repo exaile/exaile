@@ -7,7 +7,7 @@ import xl.plugins as plugins
 
 PLUGIN_NAME = _("Update Notifier")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen' + chr(32+32) + 'gmail' + '.com>']
-PLUGIN_VERSION = "0.3.2"
+PLUGIN_VERSION = "0.3.3"
 PLUGIN_DESCRIPTION = _(r"""Notifies the user of Exaile and plugin updates""")
 
 PLUGIN_ENABLED = False
@@ -27,7 +27,8 @@ def found_updates(found):
 @common.threaded
 def start_thread(exaile):
     # check exaile itself
-    version = map(int, APP.get_version().replace('svn', '').split('.'))
+    version = map(int, APP.get_version().replace('svn', 
+        '').replace('b', '').split('.'))
     check_version = map(int,
         urllib.urlopen('http://exaile.org/current_version.txt').read().split('.'))
 

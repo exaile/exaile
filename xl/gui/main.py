@@ -265,7 +265,8 @@ class ExaileWindow(gobject.GObject):
         """
             Returns the location of the plugins
         """
-        if sys.modules['__main__'].__version__.find('svn') > -1:
+        if sys.modules['__main__'].__version__.find('svn') > -1 \
+            or sys.modules['__main__'].__version__.find('b') > -1:
             return 'trunk'
         else:
             return sys.modules['__main__'].__version__

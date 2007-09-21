@@ -16,7 +16,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-__version__ = '0.2.11svn'
+__version__ = '0.2.11b'
 import sys
 
 if sys.platform == 'linux2':
@@ -87,7 +87,7 @@ from xl import xlmisc
 
 import urllib
 # set the user agent
-urllib.URLopener.version = "Exaile/%s (comptatible; Python-urllib)" % \
+urllib.URLopener.version = "Exaile/%s (compatible; Python-urllib)" % \
     __version__ 
 
 def check_dirs():

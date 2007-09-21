@@ -78,11 +78,9 @@ import gtk.glade
 locale.setlocale(locale.LC_ALL, '')
 gettext.textdomain('exaile')
 gtk.glade.textdomain('exaile')
-gettext.bindtextdomain('exaile', xl.path.localedir)
-gtk.glade.bindtextdomain('exaile', xl.path.localedir)
+
 
 from xl import common
-gtk.window_set_default_icon_from_file(xl.path.get_data('images', 'icon.png'))
 
 from xl.gui import main as exailemain
 from xl import xlmisc
@@ -116,6 +114,10 @@ def main():
         xlmisc.log("Searching for duplicates in: %s" % options.dups)
         track.find_and_delete_dups(options.dups)
         sys.exit(0)
+
+    gettext.bindtextdomain('exaile', xl.path.localedir)
+    gtk.glade.bindtextdomain('exaile', xl.path.localedir)
+    gtk.window_set_default_icon_from_file(xl.path.get_data('images', 'icon.png'))
 
     running_checks = ('next', 'prev', 'stop', 'play', 'guiquery', 'get_title',
         'get_artist', 'get_album', 'get_length', 'current_position',

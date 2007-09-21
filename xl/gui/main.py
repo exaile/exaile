@@ -500,7 +500,8 @@ class ExaileWindow(gobject.GObject):
         self.goto_current_item.connect('activate', self.goto_current)
 
         self.xml.get_widget('about_item').connect('activate',
-            lambda *e: xlmisc.AboutDialog(self.window, __version__))
+            lambda *e: xlmisc.AboutDialog(self.window,
+            sys.modules['__main__'].__version__))
         
         self.xml.get_widget('new_item').connect('activate',
             lambda *e: self.new_page())

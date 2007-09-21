@@ -111,6 +111,7 @@ def main():
     options, args = p.parse_args()
     if options.settings:
         xl.path.set_configdir(options.settings)
+        xl.path.init(basedir, installed)
     elif options.dups:
         xlmisc.log("Searching for duplicates in: %s" % options.dups)
         track.find_and_delete_dups(options.dups)

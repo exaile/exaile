@@ -67,7 +67,9 @@ sys.path.insert(0, basedir)
 installed = not os.path.exists(os.path.join(basedir, 'Makefile'))
 
 import xl.path
-if not EXAILE_OPTIONS.settings: xl.path.init(basedir, installed)
+
+options, args = EXAILE_SETTINGS.parse_args()
+if not options.settings: xl.path.init(basedir, installed)
 
 
 # set up gettext for translations
@@ -102,13 +104,11 @@ def main():
     """
         Everything dispatches from this main function
     """
-    p = EXAILE_OPTIONS
 
     if HELP:
-        p.print_help()
+        EXAILE_SETTINGS.print_help()
         sys.exit(0)
 
-    options, args = p.parse_args()
     if options.settings:
         xl.path.set_configdir(options.settings)
         xl.path.init(basedir, installed)

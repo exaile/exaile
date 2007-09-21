@@ -68,7 +68,7 @@ installed = not os.path.exists(os.path.join(basedir, 'Makefile'))
 
 import xl.path
 
-options, args = EXAILE_SETTINGS.parse_args()
+options, args = EXAILE_OPTIONS.parse_args()
 if not options.settings: xl.path.init(basedir, installed)
 
 
@@ -106,7 +106,7 @@ def main():
     """
 
     if HELP:
-        EXAILE_SETTINGS.print_help()
+        EXAILE_OPTIONS.print_help()
         sys.exit(0)
 
     if options.settings:

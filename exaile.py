@@ -67,7 +67,7 @@ sys.path.insert(0, basedir)
 installed = not os.path.exists(os.path.join(basedir, 'Makefile'))
 
 import xl.path
-xl.path.init(basedir, installed)
+if not EXAILE_OPTIONS.settings: xl.path.init(basedir, installed)
 
 
 # set up gettext for translations

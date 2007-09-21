@@ -53,6 +53,7 @@ def init(basedir, installed):
 def set_configdir(dir):
     global _configdir
     _configdir = dir
+    _cachedir = os.path.join(_configdir, 'cache')
 
 def get_cache(*path_elems):
     return os.path.join(_cachedir, *path_elems)

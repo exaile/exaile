@@ -69,7 +69,11 @@ installed = not os.path.exists(os.path.join(basedir, 'Makefile'))
 import xl.path
 
 options, args = EXAILE_OPTIONS.parse_args()
-if not options.settings: xl.path.init(basedir, installed)
+if not options.settings: 
+    xl.path.init(basedir, installed)
+else:
+    xl.path.set_configdir(options.settings)
+    xl.path.init(basedir, installed)
 
 
 # set up gettext for translations
@@ -78,9 +82,11 @@ import gtk.glade
 locale.setlocale(locale.LC_ALL, '')
 gettext.textdomain('exaile')
 gtk.glade.textdomain('exaile')
-
+gettext.bindtextdomain('exaile', xl.path.localedir)
+gtk.glade.bindtextdomain('exaile', xl.path.localedir)
 
 from xl import common
+gtk.window_set_default_icon_from_file(xl.path.get_data('images', 'icon.png'))
 
 from xl.gui import main as exailemain
 from xl import xlmisc
@@ -107,17 +113,10 @@ def main():
         EXAILE_OPTIONS.print_help()
         sys.exit(0)
 
-    if options.settings:
-        xl.path.set_configdir(options.settings)
-        xl.path.init(basedir, installed)
-    elif options.dups:
+    if options.dups:
         xlmisc.log("Searching for duplicates in: %s" % options.dups)
         track.find_and_delete_dups(options.dups)
         sys.exit(0)
-
-    gettext.bindtextdomain('exaile', xl.path.localedir)
-    gtk.glade.bindtextdomain('exaile', xl.path.localedir)
-    gtk.window_set_default_icon_from_file(xl.path.get_data('images', 'icon.png'))
 
     running_checks = ('next', 'prev', 'stop', 'play', 'guiquery', 'get_title',
         'get_artist', 'get_album', 'get_length', 'current_position',

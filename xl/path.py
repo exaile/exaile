@@ -51,7 +51,7 @@ def init(basedir, installed):
             print "Could not create cache directory"
 
 def set_configdir(dir):
-    global _configdir
+    global _configdir, _cachedir
     _configdir = dir
     _cachedir = os.path.join(_configdir, 'cache')
 

@@ -625,6 +625,11 @@ class TracksListCtrl(gtk.VBox):
             return spec_strip(library.the_cutter(tag))
         def spec_strip(tag):
             return library.lstrip_special(tag)
+        def get_seconds(track):
+            length = getattr(track, 'length')
+            (minutes, colon, seconds) = length.partition(':')
+            total = (int(minutes) * 60) + int(seconds)
+            return total
 
         if attr == 'album' or attr == 'title':
             s = [(spec_strip(getattr(track, attr).lower()), 
@@ -637,6 +642,12 @@ class TracksListCtrl(gtk.VBox):
             the_strip(getattr(track, 'artist').lower()),
             spec_strip(getattr(track,'album').lower()), 
             getattr(track, 'track'), 
+            track) for track in songs]
+        elif attr == 'length':
+            s = [(get_seconds(track),
+            the_strip(getattr(track, 'artist').lower()),
+            spec_strip(getattr(track,'album').lower()),
+            getattr(track, 'track'),
             track) for track in songs]
         else:
             s = [(getattr(track, attr), 

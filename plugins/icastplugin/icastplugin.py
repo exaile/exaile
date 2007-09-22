@@ -401,7 +401,7 @@ class Icast(UserDict):
 
 PLUGIN_NAME = _("Icast Streamer")
 PLUGIN_AUTHORS = ['Edgar Merino <donvodka at gmail dot com>']
-PLUGIN_VERSION = "0.5.0"
+PLUGIN_VERSION = "0.5.1"
 __version = PLUGIN_VERSION
 PLUGIN_DESCRIPTION = _(r"""Stream to an icecast/shoutcast server""")
 PLUGIN_ENABLED = False

@@ -763,7 +763,8 @@
 			    <widget class="GtkComboBox" id="protocol">
 			      <property name="width_request">140</property>
 			      <property name="visible">True</property>
-			      <property name="items" translatable="yes">http</property>
+			      <property name="items" translatable="yes">http
+                  icy</property>
 			      <property name="add_tearoffs">False</property>
 			      <property name="focus_on_click">True</property>
 			    </widget>

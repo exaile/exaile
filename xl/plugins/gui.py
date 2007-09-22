@@ -396,8 +396,10 @@ class PluginManager(object):
                     os.remove(filename.replace('.py', '.exz'))
                 else:
                     os.remove(filename)
-                    if os.path.isfile(filename + c):
+                    if os.path.isfile(filename + 'c'):
                         os.remove(filename + 'c') # pyc
+                    if os.path.isfile(filename + 'o'):
+                        os.remove(filename + 'o') # pyo
             except:
                 xlmisc.log_exception()
             self.fetched = False

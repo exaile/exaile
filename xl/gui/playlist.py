@@ -625,38 +625,26 @@ class TracksListCtrl(gtk.VBox):
             return spec_strip(library.the_cutter(tag))
         def spec_strip(tag):
             return library.lstrip_special(tag)
-        def get_seconds(track):
-            length = getattr(track, 'length')
-            (minutes, colon, seconds) = length.partition(':')
-            total = (int(minutes) * 60) + int(seconds)
-            return total
 
-        if attr == 'album' or attr == 'title':
-            s = [(spec_strip(getattr(track, attr).lower()), 
-            the_strip(getattr(track, 'artist').lower()), 
-            spec_strip(getattr(track,'album').lower()), 
-            getattr(track, 'track'), 
-            track) for track in songs]
+        if attr in ('album', 'title'):
+            get_key = lambda track: spec_strip(getattr(track, attr).lower())
         elif attr == 'artist':
-            s = [(the_strip(getattr(track, 'artist').lower()),
-            the_strip(getattr(track, 'artist').lower()),
-            spec_strip(getattr(track,'album').lower()), 
-            getattr(track, 'track'), 
-            track) for track in songs]
+            # the_strip(track.artist.lower()) is the same as the next sort key
+            get_key = lambda track: None
         elif attr == 'length':
-            s = [(get_seconds(track),
-            the_strip(getattr(track, 'artist').lower()),
-            spec_strip(getattr(track,'album').lower()),
-            getattr(track, 'track'),
-            track) for track in songs]
+            get_key = lambda track: track.get_duration()
         else:
-            s = [(getattr(track, attr), 
-            the_strip(getattr(track, 'artist').lower()), 
-            spec_strip(getattr(track,'album').lower()), 
-            getattr(track, 'track'), 
-            track) for track in songs]
+            get_key = lambda track: getattr(track, attr)
+
+        s = [
+            (get_key(track),
+            the_strip(track.artist.lower()),
+            spec_strip(track.album.lower()),
+            track.track,
+            track)
+            for track in songs]
         s.sort(reverse=reverse)
-        songs = [track[4] for track in s]
+        songs = [track[-1] for track in s]
         return songs
 
     def get_sort_by(self):

@@ -258,7 +258,7 @@ class CDImporter(object):
 
         # TODO: this mapping should be more complete (e.g. cd number?)
         mapping = dict(artist=song.artist, album=song.album, title=song.title,\
-                    ext=extension, num=(song.track or ''))
+                    ext=extension, num=(song.track or ''), date=song.date)
         template = string.Template(naming)
         try:
             ret = template.substitute(mapping)

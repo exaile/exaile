@@ -693,7 +693,7 @@ class Preferences(object):
 
         # TODO: get proper mapping
         mapping = {'artist':'Artist', 'album':'Album', 'num':1, 
-                    'title':'Title', 'ext':'mp3'}
+                    'title':'Title', 'ext':'mp3', 'date':'2000'}
         template = string.Template(path)
         path = template.safe_substitute(mapping)
         

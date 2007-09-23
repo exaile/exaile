@@ -46,7 +46,8 @@ def start_updatecheck_thread(playlist_manager):
     version = map(int, exaile.get_version().replace('svn', 
         '').replace('b', '').split('.'))
     check_version = map(int,
-        urllib.urlopen('http://exaile.org/current_version.txt').read().split('.'))
+        urllib.urlopen('http://exaile.org/current_version.txt').read().replace('svn', 
+        '').replace('b', '').split('.'))
 
     if version < check_version:
         gobject.idle_add(common.info, exaile.window, _("Exaile version %s is "

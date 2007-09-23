@@ -124,7 +124,7 @@ class Encoder(UserDict):
     # until enough data's been written by the encoder
     def sync(self):
         """
-            Give some time to the encoder to write necessary data
+            Give some time to the encoder to write necessary data before streaming
         """
         while True:
             if self.pid:
@@ -144,7 +144,7 @@ class Encoder(UserDict):
 # Reusable class
 class Icast(UserDict):
     """
-        Stream music to an icecast/shoutcast server
+        Streaming to an icecast/shoutcast server
     """
     class LameEncoder(Encoder):
         """
@@ -181,7 +181,7 @@ class Icast(UserDict):
         
         def encode(self, input):
             self.create_dump()
-            # I don't know how to reencode an ogg track on the fly... 
+            # I don't know how to reencode an ogg track on the fly... HELP!
             p1 = subprocess.Popen('oggdec "%s" >> /dev/stdout' \
                     % input, stdout=subprocess.PIPE, shell=True)
             p2 = subprocess.Popen('oggenc --managed -b %d --resample %d - > "%s"' \
@@ -202,6 +202,7 @@ class Icast(UserDict):
     	# Default encoder
         self.encoder = self.LameEncoder()
         #self.encoder = self.OggEncoder()
+        self.keep_alive = True
         self["host"] = "localhost"
         self["port"] = 8000
         self["pass"] = "hackme"
@@ -259,6 +260,10 @@ class Icast(UserDict):
             if self.reencode:
                 self.encoder.stop_encode()
             self.client.log("Disconnected from server")
+
+    def stop(self):
+        self.disconnect()
+        self.keep_alive = False
     
     @common.threaded
     def _reencode_track(self):
@@ -333,7 +338,7 @@ class Icast(UserDict):
             f.close()
         self.disconnect()
 
-    # TODO method should provide a way to exit grecefully
+    # TODO method should provide a BETTER way to exit from the loop
     def icast_main(self):
         """
             Main Icast method, loops forever
@@ -344,7 +349,7 @@ class Icast(UserDict):
         retry_delay = 3 #seconds
         f = None
         done = False
-        while True:
+        while self.keep_alive:
             if self.client.is_playing() \
                     and not done:
                 # Connect if needed
@@ -395,13 +400,14 @@ class Icast(UserDict):
                     change_data = False
                     if done: done = False
             time.sleep(0.01)
+        print "bye bye"
   
 # ----------------------------------------------------------------------------------------------------------------#
 # Plugin code starts here. START HERE IF YOU NEED TO CHANGE ANY OPTION
 
 PLUGIN_NAME = _("Icast Streamer")
 PLUGIN_AUTHORS = ['Edgar Merino <donvodka at gmail dot com>']
-PLUGIN_VERSION = "0.5.1"
+PLUGIN_VERSION = "0.5.2"
 __version = PLUGIN_VERSION
 PLUGIN_DESCRIPTION = _(r"""Stream to an icecast/shoutcast server""")
 PLUGIN_ENABLED = False
@@ -454,7 +460,7 @@ class IcastPlugin(Icast):
         #self["host"] = "localhost"
         #self["port"] = 8000
         #self["user"] = "source"
-        self["pass"] = "imyourgod"
+        self["pass"] = "hackme"
         #self["mount"] = "/icast"
 
         # PROTOCOLS SUPPORTED:
@@ -473,7 +479,7 @@ class IcastPlugin(Icast):
         #self["description"] = "none"
 
         # ENABLE REENCODING, MP3 ONLY
-        self.reencode = False
+        self.reencode = True
         self.encoder = self.LameEncoder()
         # THERE'S CURRENTLY NO SUPPORT TO SEND LIVE AUDIO FROM SOUNDCARD OUTPUT, DON'T CHANGE THIS
         # self.broadcasting_live = False 
@@ -503,6 +509,7 @@ FIELDS = {
 
 INTS = (8000, 128, 44100)
 
+# TODO include configuration for the encoder too
 def configure():
     """
         Allows for configuration of the icastplugin
@@ -548,7 +555,7 @@ def configure():
             func(k, value, plugin=plugins.name(__file__))
 
         if PLUGIN:
-            PLUGIN.disconnect()
+            PLUGIN.stop()
             PLUGIN = setup_plugin()
             PLUGIN.main()
 
@@ -585,7 +592,7 @@ def destroy():
     global PLUGIN
 
     if PLUGIN:
-        PLUGIN.disconnect()
+        PLUGIN.stop()
 
     PLUGIN = None
 

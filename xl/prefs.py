@@ -508,6 +508,7 @@ class Preferences(object):
             'replaygain/album_mode': (CheckPrefsItem, True),
             'replaygain/preamp': (FloatPrefsItem, 0.0),
             'replaygain/fallback': (FloatPrefsItem, 0.0),
+            'check_for_updates': (CheckPrefsItem, True),
         })
 
         for setting, value in simple_settings.iteritems():

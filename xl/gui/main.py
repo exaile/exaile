@@ -27,8 +27,58 @@ from xl.plugins import manager as pluginmanager, gui as plugingui
 from xl.gui import playlist as trackslist
 from xl.gui import information
 from xl.panels import collection, radio, playlists, files, device
-import random, gst
+import random, gst, urllib
 random.seed()
+
+def found_updates(exaile, found):
+    message = _("The following plugins have new versions available for install."
+    " You can install them from the plugin manager.\n\n")
+
+    for (name, version) in found:
+        message += "%s\t%s\n" % (name, version)
+
+    common.info(exaile.window, message)
+
+@common.threaded
+def start_updatecheck_thread(playlist_manager):
+    exaile = playlist_manager.exaile
+    # check exaile itself
+    version = map(int, exaile.get_version().replace('svn', 
+        '').replace('b', '').split('.'))
+    check_version = map(int,
+        urllib.urlopen('http://exaile.org/current_version.txt').read().split('.'))
+
+    if version < check_version:
+        gobject.idle_add(common.info, exaile.window, _("Exaile version %s is "
+            "available.  Grab it from http://www.exaile.org today!") % 
+            '.'.join([str(i) for i in check_version]))
+
+    # check plugins
+    pmanager = exaile.pmanager
+    avail_url = 'http://www.exaile.org/files/plugins/%s/plugin_info.txt' % \
+            exaile.get_plugin_location()
+
+    h = urllib.urlopen(avail_url)
+    lines = h.readlines()
+    h.close()
+
+    found = []
+
+    check = False
+    for line in lines:
+        line = line.strip()
+        (file, name, version, author, description) = line.split('\t')
+        
+        for plugin in pmanager.plugins:
+            if plugin.PLUGIN_NAME == name:
+                installed_ver = map(int, plugin.PLUGIN_VERSION.split('.'))
+                available_ver = map(int, version.split('.'))
+
+                if installed_ver < available_ver:
+                    found.append((name, version))
+
+    if found:
+        gobject.idle_add(found_updates, exaile, found)
 
 class ExaileWindow(gobject.GObject): 
     """
@@ -101,6 +151,11 @@ class ExaileWindow(gobject.GObject):
         self.player.tag_func = self.tag_callback
         self.importer = xl.cd_import.CDImporter(self)
         self.audio_disc_page = None
+
+        # check for updates
+        if self.settings.get_boolean('check_for_updates', True):
+            self.playlist_manager.connect('last-playlist-loaded',
+                start_updatecheck_thread)
 
         if self.settings.get_boolean("ui/use_splash", True):
             image = gtk.Image()

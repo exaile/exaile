@@ -125,7 +125,8 @@ class TrackGroup(object):
                                 del(track.tags[tag][i])
                                 break
                     elif row[ADDED]:
-                        if to_add.has_key(tag):
+                        if to_add.has_key(tag) and not row[VALUE] in \
+                            to_add[tag]:
                             to_add[tag].append(row[VALUE])
                         else:
                             to_add[tag] = row[VALUE]

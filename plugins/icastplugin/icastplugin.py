@@ -349,6 +349,7 @@ class Icast(UserDict):
         retry_delay = 3 #seconds
         f = None
         done = False
+        sleep_delay = 0.2
         while self.keep_alive:
             if self.client.is_playing() \
                     and not done:
@@ -399,7 +400,7 @@ class Icast(UserDict):
                     self._close_stream(f)
                     change_data = False
                     if done: done = False
-            time.sleep(0.01)
+            time.sleep(sleep_delay)
         print "bye bye"
   
 # ----------------------------------------------------------------------------------------------------------------#
@@ -407,7 +408,7 @@ class Icast(UserDict):
 
 PLUGIN_NAME = _("Icast Streamer")
 PLUGIN_AUTHORS = ['Edgar Merino <donvodka at gmail dot com>']
-PLUGIN_VERSION = "0.5.2"
+PLUGIN_VERSION = "0.5.3"
 __version = PLUGIN_VERSION
 PLUGIN_DESCRIPTION = _(r"""Stream to an icecast/shoutcast server""")
 PLUGIN_ENABLED = False

@@ -1543,7 +1543,7 @@ class ExaileWindow(gobject.GObject):
             f = self.last_open_dir
         except:
             self.last_open_dir = self.settings.get_str('last_open_dir',
-                os.getenv('HOME'))
+                xl.path.home)
         return self.last_open_dir
 
     def on_add_media(self, item, event=None): 

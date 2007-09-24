@@ -1068,10 +1068,11 @@ class ExaileWindow(gobject.GObject):
             Updates the seeker position, the "now playing" title, and
             submits the track to last.fm when appropriate
         """
-        self.status.set_track_count(_("%(track_count)d showing, "
+        self.status.set_track_count(_("%(track_count)d showing (%(total_time)s), "
             "%(track_total)d in collection") %
             {
                 'track_count': len(self.songs),
+                'total_time' : self.songs.get_total_length(),
                 'track_total': len(self.all_songs)
             })
         track = self.player.current

@@ -89,6 +89,7 @@ class TrackData(list):
             Initializes the list
         """
         self.paths = dict()
+        self.total_length = 0
         if tracks:
             for track in tracks:
                 self.append(track)
@@ -100,6 +101,7 @@ class TrackData(list):
         if not track: return
         self.paths[track.loc] = track
         list.append(self, track)
+        self.update_total_length(track.get_duration(), appending=True)
 
     def remove(self, track):
         """
@@ -112,6 +114,21 @@ class TrackData(list):
             return
         del self.paths[track.loc]
         list.remove(self, track)
+        self.update_total_length(track.get_duration(), appending=False)
+    
+    def update_total_length(self, track_duration, appending):
+        if appending:
+            self.total_length += track_duration
+        else:
+            self.total_length -= track_duration
+            
+    def get_total_length(self):
+        """ 
+            Returns length of all tracks in the table
+        """
+        text = "%s:%02d" % (self.total_length / 60, self.total_length % 60)
+        return text
+
 
     def for_path(self, path):
         """

@@ -126,7 +126,30 @@ class TrackData(list):
         """ 
             Returns length of all tracks in the table
         """
-        text = "%s:%02d" % (self.total_length / 60, self.total_length % 60)
+        l = self.total_length
+
+        minutes = l / 60 % 60
+        hours = l / 3600 % 60
+        days = l / 3600 / 24
+        seconds = l % 60
+
+        text = ""
+        if days:
+            text += _("%(days)d days, ") % {'days': days}
+
+        if hours:
+            text += _("%(hours)d hours, ") % {'hours': hours}
+
+        text += _("%(minutes)d minutes") % {'minutes': minutes}
+
+        if not days and seconds:
+            text += _(", %(seconds)d seconds") % {'seconds': seconds}
+
+        if not text:
+            text = _("0 minutes")
+
+#        text = "%s:%02d" % (self.total_length / 60, self.total_length % 60)
+
         return text
 
 

@@ -1544,7 +1544,7 @@ class ExaileWindow(gobject.GObject):
             f = self.last_open_dir
         except:
             self.last_open_dir = self.settings.get_str('last_open_dir',
-                os.getenv('HOME'))
+                xl.path.home)
         return self.last_open_dir
 
     def on_add_media(self, item, event=None): 
@@ -1584,7 +1584,9 @@ class ExaileWindow(gobject.GObject):
 
         if result == gtk.RESPONSE_OK:
             paths = dialog.get_filenames()
-            self.last_open_dir = dialog.get_current_folder()
+            dir = dialog.get_current_folder()
+            if dir: # dir is None when the last view is a search
+                self.last_open_dir = dir
             self.status.set_first(_("Populating playlist..."))
             songs = library.TrackData()
 

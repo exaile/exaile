@@ -54,7 +54,7 @@ class PlaylistManager(gobject.GObject):
         url = common.to_url(path)
         spliturl = urlparse.urlsplit(path)
 
-        path = urllib.unquote(spliturl[2])
+        path = unicode(urllib.unquote(spliturl[2]), 'utf-8') # UTF-8 by RFC 3986
         name, ext = os.path.splitext(os.path.basename(path))
         name = name.replace("_", " ")
 
@@ -190,9 +190,8 @@ class PlaylistManager(gobject.GObject):
         dialog.hide()
 
         if result == gtk.RESPONSE_OK:
-            path = dialog.get_filename()
             self.exaile.last_open_dir = dialog.get_current_folder()
-
+            path = unicode(dialog.get_filename(), 'utf-8')
             self.save_m3u(path, self.exaile.playlist_songs)
 
     def save_m3u(self, path, songs, playlist_name=''):

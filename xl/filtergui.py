@@ -47,7 +47,7 @@ class FilterDialog(gtk.Dialog):
         top.set_border_width(5)
         top.set_spacing(5)
 
-        top.pack_start(gtk.Label(_("Name") + ":"), False)
+        top.pack_start(gtk.Label(_("Name:")), False)
         self.name_entry = gtk.Entry()
         top.pack_start(self.name_entry)
         self.vbox.pack_start(top)
@@ -92,7 +92,7 @@ class FilterDialog(gtk.Dialog):
         """
             Returns the text in the name_entry
         """
-        return self.name_entry.get_text()
+        return unicode(self.name_entry.get_text(), 'utf-8')
 
     def set_name(self, name):
         """
@@ -160,6 +160,9 @@ class FilterWidget(gtk.Table):
                 return object
             def set_state(self, state):
                 pass
+
+    Although not required, these methods should use unicode instead of
+    str objects when dealing with strings.
     """
 
     def __init__(self, criteria):
@@ -370,7 +373,7 @@ class MultiEntryField(gtk.HBox):
     def get_result(self):
         return self.generate_result(*self.get_state())
     def get_state(self):
-        return [e.get_text() for e in self.entries]
+        return [unicode(e.get_text(), 'utf-8') for e in self.entries]
     def set_state(self, state):
         for i, e in enumerate(self.entries):
             if len(state) > i: e.set_text(unicode(state[i]))
@@ -380,7 +383,7 @@ class EntryField(gtk.Entry):
         gtk.Entry.__init__(self)
         self.generate_result = result_generator
     def get_result(self):
-        return self.generate_result(self.get_text())
+        return self.generate_result(unicode(self.get_text(), 'utf-8'))
     def get_state(self):
         return self.get_text()
     def set_state(self, state):
@@ -435,11 +438,12 @@ class SpinButtonAndComboField(gtk.HBox):
         return self.generate_result(*self.get_state())
 
     def set_state(self, state):
-        if type(state) != tuple and type(state) != list:
+        if not isinstance(state, (tuple, list)):
             return
 
         print state
 
+        # TODO: Check length.
         try:
             self.entry.set_value(int(state[0]))
         except ValueError:
@@ -458,4 +462,4 @@ class SpinButtonAndComboField(gtk.HBox):
 
     def get_state(self):
         return [self.entry.get_value(), 
-            self.combo.get_active_text()]
+            unicode(self.combo.get_active_text(), 'utf-8')]

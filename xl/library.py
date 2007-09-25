@@ -97,6 +97,9 @@ class TrackData:
 
     def __getitem__(self, index):
         return self._inner[index]
+
+    def __setitem__(self, index, value):
+        self._inner[index] = value
  
     def __len__(self):
         return len(self._inner)

@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import os, re, traceback, sys, zipimport
-import xl.plugins
+import xl.plugins, xl.xlmisc, xl.common
 
 class Manager(object):
     """
@@ -42,7 +42,13 @@ class Manager(object):
     def import_zip(self, dir, file):
         modname = file.replace('.exz', '')
         zip = zipimport.zipimporter(os.path.join(dir, file))
-        plugin = zip.load_module(modname)
+        try:
+            plugin = zip.load_module(modname)
+        except:
+            xl.common(self.app.window, _('You may need to restart Exaile to '
+                'completely update the %s plugin') % file)
+            xl.xlmisc.log_exception()
+
         plugin.ZIP = zip
         plugin._IS_EXZ = True
         if hasattr(plugin, 'load_data'):

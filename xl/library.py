@@ -80,7 +80,7 @@ def get_suggested_songs(exaile, db, song, s, count, done_func):
 
     gobject.idle_add(done_func, all, count)    
 
-class TrackData(list):
+class TrackData:
     """
         Represents a list of tracks
     """
@@ -88,19 +88,26 @@ class TrackData(list):
         """
             Initializes the list
         """
-        self.paths = dict()
         self.total_length = 0
+        self.paths = {}
+        self._inner = []
         if tracks:
             for track in tracks:
                 self.append(track)
 
+    def __getitem__(self, index):
+        return self._inner[index]
+ 
+    def __len__(self):
+        return len(self._inner)
+ 
     def append(self, track):
         """
             Adds a track to the list
         """
         if not track: return
         self.paths[track.loc] = track
-        list.append(self, track)
+        self._inner.append(track)
         self.update_total_length(track.get_duration(), appending=True)
 
     def remove(self, track):
@@ -109,11 +116,11 @@ class TrackData(list):
         """
         if not track: return
         try:
-            if not self.paths[track.loc]: return
+            del self.paths[track.loc]
         except KeyError:
             return
-        del self.paths[track.loc]
-        list.remove(self, track)
+        else:
+            self._inner.remove(track)
         self.update_total_length(track.get_duration(), appending=False)
     
     def update_total_length(self, track_duration, appending):
@@ -155,15 +162,9 @@ class TrackData(list):
 
     def for_path(self, path):
         """
-            Returns the track associated with the path
+            Returns the track associated with the path, or None
         """
-
-        if self.paths.has_key(path):
-            track = self.paths[path]
-            if track in self:
-                return self.paths[path]
-
-        return None
+        return self.paths.get(path)
 
 def search(exaile, all, keyword=None, custom=True):
     """

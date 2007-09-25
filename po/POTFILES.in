@@ -23,7 +23,6 @@ plugins/shoutcast.py
 plugins/sound-juicer.py
 plugins/streamripper.py
 plugins/traybuttons.py
-plugins/updates.py
 xl/__init__.py
 xl/advancededitor.py
 xl/audioscrobbler.py

@@ -100,6 +100,9 @@ class TrackData:
  
     def __len__(self):
         return len(self._inner)
+
+    def index(self, item):
+        return self._inner.index(item)
  
     def append(self, track):
         """

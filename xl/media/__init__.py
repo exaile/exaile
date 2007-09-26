@@ -205,13 +205,12 @@ class Track(gobject.GObject):
     def get_tag(self, tag):
         """
             Common function for getting a tag.
-            Simplifies a list into a single string
+            Simplifies a list into a single string separated by " / ".
         """
-        try:
-            ret = filter(lambda x: x or x == 0, self.tags[tag])
-            return " / ".join(ret)
-        except KeyError:
-            return u""
+        values = self.tags.get(tag)
+        if values:
+            return u" / ".join(unicode(x) for x in values if x not in (None, ''))
+        return u""
 
     def set_tag(self, tag, value, append=False):
         """

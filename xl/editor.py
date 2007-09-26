@@ -144,6 +144,13 @@ class TrackGroup(object):
             try:
                 media.write_tag(track)
                 library.save_track_to_db(exaile.db, track)
+
+                try:
+                    exaile.all_songs.remove(exaile.all_songs.for_path(track.loc))
+                    exaile.all_songs.append(track)
+                except:
+                    xlmisc.log_exception()
+
                 exaile.tracks.refresh_row(track)
             except:
                 errors.append(_("Unknown error writing tag for %s") % track.loc)

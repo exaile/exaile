@@ -791,12 +791,12 @@ class TracksListCtrl(gtk.VBox):
         while True:
             check = self.model.get_value(iter, 0)
             if not check: break
-            if check == song:
+            if check == song or check.io_loc == song.io_loc:
                 self.update_iter(iter, song)
                 break
             iter = self.model.iter_next(iter)
             if not iter: break
-       
+      
         if not paths: return
         for path in paths:
             selection.select_path(path)

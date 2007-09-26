@@ -31,6 +31,8 @@ def create_rating_images(caller):
     if (caller.rating_width != caller.old_r_w and caller.rating_width != 0):
         caller.rating_images = []
         star_size = caller.rating_width / 4
+
+        star_size -= 1
         star = gtk.gdk.pixbuf_new_from_file_at_size(
             xl.path.get_data('images', 'star.png'), star_size, star_size)
         full_image = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, caller.rating_width, star_size)

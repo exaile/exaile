@@ -99,6 +99,9 @@ class TrackData:
         return self._inner[index]
 
     def __setitem__(self, index, value):
+        old = self._inner[index]
+        del self.paths[old.loc]
+        self.paths[value.loc] = value
         self._inner[index] = value
  
     def __len__(self):

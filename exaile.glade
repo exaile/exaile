@@ -716,7 +716,11 @@
 			      <property name="visible">True</property>
 			      <property name="items" translatable="yes">Artist
 Album
-Genre</property>
+Genre - Artist
+Genre - Album
+Year - Artist
+Year - Album
+Artist - Year - Album</property>
 			      <property name="add_tearoffs">False</property>
 			      <property name="focus_on_click">True</property>
 			    </widget>
@@ -6944,6 +6948,7 @@ esdsink</property>
 <widget class="GtkAboutDialog" id="AboutDialog">
   <property name="border_width">5</property>
   <property name="destroy_with_parent">True</property>
+  <property name="name" translatable="yes">Exaile</property>
   <property name="copyright" translatable="yes">(c) 2007</property>
   <property name="comments" translatable="yes">Exaile</property>
   <property name="license" translatable="yes">Copyright (C) 2006 Adam Olsen

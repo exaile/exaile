@@ -51,6 +51,8 @@ class CollectionPanel(object):
         self.start_count = 0
         self.artist_image = gtk.gdk.pixbuf_new_from_file(xl.path.get_data(
             'images', 'artist.png'))
+        self.year_image = gtk.gdk.pixbuf_new_from_file(xl.path.get_data(
+            'images', 'year.png'))
         self.album_image = self.exaile.window.render_icon('gtk-cdrom',
             gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.track_image = gtk.gdk.pixbuf_new_from_file(xl.path.get_data(
@@ -483,6 +485,7 @@ class CollectionPanel(object):
             "artist": self.artist_image,
             "genre": self.genre_image,
             "title": self.track_image,
+            "year": self.year_image,
         }
 
         if self.keyword == "": self.keyword = None
@@ -491,6 +494,10 @@ class CollectionPanel(object):
             ('artist', 'album', 'track', 'title'),
             ('album', 'track', 'title'),
             ('genre', 'artist', 'album', 'track', 'title'),
+            ('genre', 'album', 'artist', 'track', 'title'),
+            ('year', 'artist', 'album', 'track', 'title'),
+            ('year', 'album', 'artist', 'track', 'title'),
+            ('artist', 'year', 'album', 'track', 'title')
         )
         self.order = orders[self.choice.get_active()]
 
@@ -500,6 +507,7 @@ class CollectionPanel(object):
             'genre': 'LSTRIP_SPEC(genre)',
             'title': 'LSTRIP_SPEC(title)',
             'track': 'track', 
+            'year' : 'LSTRIP_SPEC(year)',
         }
         order_by = ', '.join((o_map[o] for o in self.order))
 

@@ -22,7 +22,7 @@ import xl.plugins as plugins
 
 PLUGIN_NAME = _("Alarm Clock")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>', 'Christian Balles <me@ballessay.de>']
-PLUGIN_VERSION = "0.1.4"
+PLUGIN_VERSION = "0.2"
 PLUGIN_DESCRIPTION = _(r"""Plays music at a specific time.\n\nNote that when the 
 specified time arrives, Exaile will just act like you pressed the play button, 
 so be sure you have the music you want to hear in your playlist""")
@@ -46,6 +46,103 @@ days = [ ('1',   _('Monday') ),
          ('0',   _('Sunday') ) ]
 
 check_box_list = []
+
+class VolumeControl:
+    def __init__(self):
+        self.thread = thread
+
+    def print_debug( self ):
+        print self.min_volume
+        print self.max_volume
+        print self.increment
+        print self.time_per_inc
+
+    def fade_in( self ):
+        temp_volume = self.min_volume
+        while temp_volume <= self.max_volume:
+            #print "set volume to %s" % str(temp_volume / 100.0)
+            APP.player.set_volume( ( temp_volume / 100.0 ) )
+            temp_volume += self.increment
+            time.sleep( self.time_per_inc )
+            if APP.player.is_paused() or not APP.player.is_playing():
+                self.stop_fading()
+        
+
+    def fade_out( self):
+        temp_volume = self.max_volume
+        while temp_volume >= self.min_volume:
+            #print "set volume to %d" % (temp_volume / 100.0)
+            APP.player.set_volume( ( temp_volume / 100.0) )
+            temp_volume -= self.increment
+            time.sleep( self.time_per_inc )
+            if APP.player.is_paused() or not APP.player.is_playing():
+                self.stop_fading()
+
+    def fade_in_thread( self ):
+        if self.use_fading == "True":
+            self.thread.start_new( self.fade_in, ())
+
+    def stop_fading( self ):
+        self.thread.exit()
+
+    def save_settings( self ):
+        self.use_fading = str(self.use_button.get_active())
+        self.min_volume = self.min_spinBox.get_value()
+        self.max_volume = self.max_spinBox.get_value()
+        self.increment  = self.inc_spinBox.get_value()
+        self.time_per_inc = self.time_spinBox.get_value()
+        APP.settings.set_str("alarm_use_fading", "%s" %  self.use_fading, plugin=plugins.name(__file__))
+        APP.settings.set_str("alarm_min_volume", "%d" % self.min_volume, plugin=plugins.name(__file__))
+        APP.settings.set_str("alarm_max_volume", "%d" % self.max_volume, plugin=plugins.name(__file__))
+        APP.settings.set_str("alarm_increment", "%d" % self.increment, plugin=plugins.name(__file__))
+        APP.settings.set_str("alarm_time_per_in", "%d" % self.time_per_inc, plugin=plugins.name(__file__))
+
+    def load_settings( self ):
+        self.use_fading     = APP.settings.get_str("alarm_use_fading", plugin=plugins.name(__file__), default="False")
+        self.min_volume     = int(APP.settings.get_str("alarm_min_volume", plugin=plugins.name(__file__), default="0"))
+        self.max_volume     = int(APP.settings.get_str("alarm_max_volume", plugin=plugins.name(__file__), default="100"))
+        self.increment      = int(APP.settings.get_str("alarm_increment", plugin=plugins.name(__file__), default="1"))
+        self.time_per_inc   = int(APP.settings.get_str("alarm_time_per_inc", plugin=plugins.name(__file__), default="1"))
+
+    def create_vbox( self ):
+        vbox = gtk.VBox()
+
+        self.use_button = gtk.CheckButton( _( "Use Fading"))
+        if self.use_fading == "True":
+            self.use_button.set_active( True)
+        vbox.pack_start( self.use_button, False, False)
+
+        table = gtk.Table( 4, 2, True)
+
+        table.attach( gtk.Label( _( "Minimum Volume:  ")), 0, 1, 0, 1)
+        self.min_spinBox  = gtk.SpinButton( gtk.Adjustment( 1, step_incr=1))
+        self.min_spinBox.set_range( 0, 100)
+        self.min_spinBox.set_value( int(self.min_volume) )
+        table.attach( self.min_spinBox, 1,2,0,1)
+
+        table.attach( gtk.Label( _( "Maximum Volume:  ")), 0, 1, 1, 2)
+        self.max_spinBox  = gtk.SpinButton( gtk.Adjustment( 1, step_incr=1))
+        self.max_spinBox.set_range( 0, 100)
+        self.max_spinBox.set_value( int(self.max_volume) )
+        table.attach( self.max_spinBox, 1,2, 1,2)
+
+        table.attach( gtk.Label( _( "Increment:  ")), 0, 1, 2, 3)
+        self.inc_spinBox  = gtk.SpinButton( gtk.Adjustment( 1, step_incr=1))
+        self.inc_spinBox.set_range( 1, 100)
+        self.inc_spinBox.set_value( int(self.increment) )
+        table.attach( self.inc_spinBox, 1, 2, 2, 3)
+
+        table.attach( gtk.Label( _( "Time per Inc:  ")), 0, 1, 3, 4)
+        self.time_spinBox = gtk.SpinButton( gtk.Adjustment( 1, step_incr=1))
+        self.time_spinBox.set_range( 1, 100)
+        self.time_spinBox.set_value( int(self.time_per_inc) )
+        table.attach( self.time_spinBox, 1, 2, 3, 4)
+
+        vbox.pack_start( table, False, False )
+
+        return vbox
+
+VOLUME_CONTROL = VolumeControl()
 
 def create_alarm_time_hbox( hours = 12, minutes = 30):
     """
@@ -119,20 +216,33 @@ def configure():
     alarm_day_list = []
     alarm_day_list = alarm_days.split(" ")
 
+    VOLUME_CONTROL.load_settings()
+
     dialog = plugins.PluginConfigDialog(exaile.window, PLUGIN_NAME)
 
+    notebook = gtk.Notebook()
+
+    time_and_day_vbox = gtk.VBox()
+
     alarmTimeTupel = create_alarm_time_hbox( hours, minutes)
-    dialog.child.pack_start( alarmTimeTupel[0], False, False)
+    time_and_day_vbox.pack_start( alarmTimeTupel[0], False, False)
     
     hour = alarmTimeTupel[1]
     minute = alarmTimeTupel[2]
     
 
     label = gtk.Label( _("Alarm Days:") )
-    dialog.child.pack_start( label, False, False)
+    time_and_day_vbox.pack_start( label, False, False)
 
     alarmDaysBox = create_alarm_days_vbox( alarm_day_list)
-    dialog.child.pack_start( alarmDaysBox, False, False)
+    time_and_day_vbox.pack_start( alarmDaysBox, False, False)
+
+    notebook.append_page( time_and_day_vbox, gtk.Label( _("Times")) )
+
+    notebook.append_page( VOLUME_CONTROL.create_vbox(), gtk.Label( _( "Fading" )) )
+
+
+    dialog.child.pack_start( notebook );
 
     dialog.show_all()
     result = dialog.run()
@@ -144,6 +254,7 @@ def configure():
         exaile.settings.set_str("alarm_time", "%02d:%02d" % (hour, minute),
             plugin=plugins.name(__file__))
         exaile.settings.set_str("alarm_days", "%s" % createDaySettingsString(), plugin=plugins.name( __file__) )
+        VOLUME_CONTROL.save_settings()
 
 def timeout_cb():
     """
@@ -168,6 +279,7 @@ def timeout_cb():
         track = APP.player.current
         if track and (APP.player.is_playing() or APP.player.is_paused()): return True
         APP.player.play()
+        VOLUME_CONTROL.fade_in_thread()
 
         RANG[check] = True
 
@@ -181,6 +293,7 @@ def initialize():
     exaile = APP
     SETTINGS = exaile.settings
     TIMER_ID = gobject.timeout_add(2000, timeout_cb)
+    VOLUME_CONTROL.load_settings()
     return True
 
 def destroy():

@@ -43,10 +43,10 @@ def found_updates(exaile, found):
 def start_updatecheck_thread(playlist_manager):
     exaile = playlist_manager.exaile
     # check exaile itself
-    version = map(int, exaile.get_version().replace('svn', 
+    version = map(int, exaile.get_version().replace('devel', 
         '').replace('b', '').split('.'))
     check_version = map(int,
-        urllib.urlopen('http://exaile.org/current_version.txt').read().replace('svn', 
+        urllib.urlopen('http://exaile.org/current_version.txt').read().replace('devel', 
         '').replace('b', '').split('.'))
 
     if version < check_version:
@@ -321,7 +321,7 @@ class ExaileWindow(gobject.GObject):
         """
             Returns the location of the plugins
         """
-        if sys.modules['__main__'].__version__.find('svn') > -1 \
+        if sys.modules['__main__'].__version__.find('devel') > -1 \
             or sys.modules['__main__'].__version__.find('b') > -1:
             return 'trunk'
         else:

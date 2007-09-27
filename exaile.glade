@@ -1553,7 +1553,7 @@ Genre</property>
 		  <property name="spacing">3</property>
 
 		  <child>
-		    <widget class="GtkFrame" id="frame2">
+		    <widget class="GtkFrame" id="main_cover_frame">
 		      <property name="border_width">2</property>
 		      <property name="visible">True</property>
 		      <property name="label_xalign">0</property>

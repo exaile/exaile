@@ -236,6 +236,8 @@ class ExaileWindow(gobject.GObject):
             self.stop_button.hide()
         if not self.settings.get_boolean('ui/show_clear_button', True):
             self.clear_button.hide()
+        if not self.settings.get_boolean('ui/show_cover', True):
+            self.xml.get_widget('main_cover_frame').hide()
 
         self.stop_track_button.set_sensitive(False)
         self.pmanager = pluginmanager.Manager(self) 

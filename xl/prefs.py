@@ -524,6 +524,12 @@ class Preferences(object):
 
     setting_changed = setup_settings
 
+    def advanced_toggle_cover(self, item, value):
+        if value:
+            self.exaile.xml.get_widget('main_cover_frame').show_all()
+        else:
+            self.exaile.xml.get_widget('main_cover_frame').hide()
+
     def advanced_toggle_tabbar(self, item, value):
         # value == always show
         self.exaile.playlists_nb.set_show_tabs(

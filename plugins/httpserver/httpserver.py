@@ -20,7 +20,7 @@ from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 
 PLUGIN_NAME = _('HTTP Server Control')
 PLUGIN_AUTHORS = ['Mathieu Virbel <tito@bankiz.org>']
-PLUGIN_VERSION = '0.2'
+PLUGIN_VERSION = '0.2.1'
 PLUGIN_DESCRIPTION = _('Open an HTTP Server to control exaile from a remote host')
 PLUGIN_ENABLED = False
 button = gtk.Button()
@@ -292,12 +292,14 @@ class ExaileHttpThread(threading.Thread):
 # -----------------------------------------------------------------------------
 
 def initialize():
+    global eh_thread
 	eh_thread = ExaileHttpThread()
 	eh_thread.setDaemon(True)
 	eh_thread.start()
 	return True
 
 def destroy():
+    global eh_thread
 	if eh_thread is not None:
 		del eh_thread
 		eh_thread = None

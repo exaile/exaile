@@ -15,6 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import os, re, traceback, sys, zipimport
+from gettext import gettext as _
 import xl.plugins, xl.xlmisc, xl.common
 
 class Manager(object):

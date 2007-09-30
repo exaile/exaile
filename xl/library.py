@@ -100,7 +100,10 @@ class TrackData:
 
     def __setitem__(self, index, value):
         old = self._inner[index]
-        del self.paths[old.loc]
+        try:
+            del self.paths[old.loc]
+        except KeyError:
+            pass
         self.paths[value.loc] = value
         self._inner[index] = value
  

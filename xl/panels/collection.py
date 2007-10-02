@@ -253,7 +253,8 @@ class CollectionPanel(object):
                 self.append_recursive(iter, add)
             elif field == 'title':
                 track = self.model.get_value(iter, 1)
-                add.append(track.loc)
+                if not track.loc in add:
+                    add.append(track.loc)
             
             iter = self.model.iter_next(iter)
             if not iter: break
@@ -274,7 +275,8 @@ class CollectionPanel(object):
             else:
                 track = self.model.get_value(iter, 1)
                 if field == 'title':
-                    found.append(track.loc)
+                    if not track.loc in found:
+                        found.append(track.loc)
 
         add = library.TrackData()
         for row in found:

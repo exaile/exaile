@@ -70,6 +70,7 @@ install: make-install-dirs
 	    "#!/bin/sh\n" \
 	    "cd $(PREFIX)/share/exaile\n" \
 	    "export LD_LIBRARY_PATH=\$$LD_LIBRARY_PATH:$(FIREFOX)\n" \
+		"export MOZILLA_FIVE_HOME=$(firefox)\n" \
 	    "exec python $(PREFIX)$(LIBDIR)/exaile/exaile.py \"\$$@\"" \
 	    > exaile && \
 	  chmod 755 exaile

@@ -46,8 +46,8 @@ class Manager(object):
         try:
             plugin = zip.load_module(modname)
         except:
-            xl.common(self.app.window, _('You may need to restart Exaile to '
-                'completely update the %s plugin') % file)
+            xl.common.info(self.app.window, _('You may need to restart Exaile '
+                'to completely update the %s plugin') % file)
             xl.xlmisc.log_exception()
 
         plugin.ZIP = zip

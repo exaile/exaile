@@ -1,4 +1,3 @@
-from xl.media import mp3, ogg, flac, wav, wv, mpc, tta
 import pygst
 pygst.require('0.10')
 import gst
@@ -9,37 +8,26 @@ import os.path, gobject, re
 
 __all__ = ['flac', 'mp3', 'm4a', 'ogg', 'wma', 'mpc', 'wv', 'tta']
 
+from xl.media import flac, mp3, mp4, mpc, ogg, tta, wav, wma, wv
+
 formats = {
-    'mp3':      mp3,
-    'mp2':      mp3,
-    'ogg':      ogg,
-    'flac':     flac,
-    'wav':      wav,
-    'mpc':      mpc,
-    'mp+':      mpc,
-    'tta':      tta
+    'aac': mp4,
+    'ac3': None,
+    'flac': flac,
+    'm4a': mp4,
+    'mp+': mpc,
+    'mp2': mp3,
+    'mp3': mp3,
+    'mp4': mp4,
+    'mpc': mpc,
+    'ogg': ogg,
+    'tta': tta,
+    'wav': wav,
+    'wma': wma,
+    'wv': wv,
 }
 
-# Optional formats
-
-try:
-    from xl.media import mpc
-    formats['mpc'] = mpc
-except ImportError: pass
-
-try:
-    from xl.media import mp4
-    formats['m4a'] = mp4
-    formats['aac'] = mp4
-    formats['mp4'] = mp4
-except ImportError: pass
-
-try:
-    from xl.media import wma
-    formats['wma'] = wma
-except ImportError: pass
-
-SUPPORTED_MEDIA = ['.%s' % x for x in formats.keys()]
+SUPPORTED_MEDIA = ['.' + ext for ext in formats.iterkeys()]
 
 # Generic functions
 
@@ -50,7 +38,7 @@ def write_tag(tr):
     (path, ext) = os.path.splitext(tr.loc.lower())
     ext = ext.replace('.', '')
 
-    if not formats.has_key(ext):
+    if not formats.get(ext):
         raise Exception("Writing metadata to type '%s' is not supported" %
             ext)
 
@@ -534,7 +522,7 @@ def read_from_path(uri, track_type=Track):
     (path, ext) = os.path.splitext(uri.lower())
     ext = ext.replace('.', '')
 
-    if not formats.has_key(ext):
+    if not formats.get(ext):
         xlmisc.log('%s format is not understood' % ext)
         return
 

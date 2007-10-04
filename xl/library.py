@@ -688,7 +688,7 @@ class PopulateThread(threading.Thread):
         bl = False
         if not tr:
             tr = read_track_from_db(db, unicode(loc, xlmisc.get_default_encoding()))
-            if tr.blacklisted: bl = True
+            if tr and tr.blacklisted: bl = True
 
         modified = os.stat(loc).st_mtime
         if not tr or tr.modified != modified:

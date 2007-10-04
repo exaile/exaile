@@ -84,6 +84,12 @@ class Track(gobject.GObject):
         
         self.tags = xl.common.ldict()
 
+        self.time_played = 0
+        self.read_from_db = False
+        self.blacklisted = 0
+        self.next_func = None
+        self.start_time = 0
+
         self.set_info(*args, **kwargs)
 
         try:
@@ -92,11 +98,6 @@ class Track(gobject.GObject):
         except:
             self.ext = None 
 
-        self.time_played = 0
-        self.read_from_db = False
-        self.blacklisted = 0
-        self.next_func = None
-        self.start_time = 0
 
     def full_status(self, player):
         """
@@ -132,7 +133,8 @@ class Track(gobject.GObject):
     def set_info(self,loc="", title="", artist="",  
         album="", disc_id=0, genre="",
         track=0, length=0, bitrate=0, year="", 
-        modified=0, user_rating=0, blacklisted=0, time_added='', encoding=xlmisc.get_default_encoding()):
+        modified=0, user_rating=0, blacklisted=0, time_added='', 
+        encoding=xlmisc.get_default_encoding()):
     
     
         """

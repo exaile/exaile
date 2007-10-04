@@ -684,16 +684,18 @@ class PopulateThread(threading.Thread):
     def do_function(self, loc):
         db = self.db
         tr = self.exaile.all_songs.for_path(loc)
-        
+
+        bl = False
         if not tr:
             tr = read_track_from_db(db, unicode(loc, xlmisc.get_default_encoding()))
-            if tr and tr.blacklisted: return
+            if tr.blacklisted: bl = True
 
         modified = os.stat(loc).st_mtime
         if not tr or tr.modified != modified:
             if not tr: new = True
             else: new = False
             tr = media.read_from_path(loc)
+            tr.blacklisted = bl
             if not tr: return
             tr.modified = modified
             save_track_to_db(db, tr, new)

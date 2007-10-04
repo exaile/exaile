@@ -1004,9 +1004,9 @@ class ExaileWindow(gobject.GObject):
                 self.db.add_function_create(('THE_CUTTER', 1, 
                     library.the_cutter))
             except:
-                pass # db is ok, continue!                
+                pass # db is ok, continue!
 
-        self.db.check_version("sql")
+        self.db.check_version(xl.path.get_data('sql'))
 
 
     def initialize(self):

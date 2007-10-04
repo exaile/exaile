@@ -687,6 +687,7 @@ class PopulateThread(threading.Thread):
         
         if not tr:
             tr = read_track_from_db(db, unicode(loc, xlmisc.get_default_encoding()))
+            if tr and tr.blacklisted: return
 
         modified = os.stat(loc).st_mtime
         if not tr or tr.modified != modified:
@@ -792,6 +793,7 @@ class AddTracksThread(PopulateThread):
         tr = media.read_from_path(loc)
         if not tr: return
         new = True
+        tr.modified = os.stat(loc).st_mtime
         save_track_to_db(db, tr, new)
         path_id = get_column_id(db, 'paths', 'name', unicode(loc, xlmisc.get_default_encoding()))
         db.execute("UPDATE tracks SET included=1 WHERE path=?", (path_id,))

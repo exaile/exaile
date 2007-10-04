@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import md5, os, random, re, threading, time, traceback
-from gettext import gettext as _
+from gettext import gettext as _, ngettext
 import gobject, gtk
 from xl import common, media, db, audioscrobbler, xlmisc, dbusinterface
 from xl.db import DBOperationalError
@@ -143,31 +143,30 @@ class TrackData:
             
     def get_total_length(self):
         """ 
-            Returns length of all tracks in the table
+            Returns length of all tracks in the table as preformatted string
         """
         l = self.total_length
-
-        minutes = l / 60 % 60
-        hours = l / 3600 % 60
-        days = l / 3600 / 24
         seconds = l % 60
+        l //= 60
+        minutes = l % 60
+        l //= 60
+        hours = l % 60
+        l //= 24
+        days = l
 
-        text = ""
+        text = []
         if days:
-            text += _("%(days)d days, ") % {'days': days}
-
+            text.append(ngettext("%d day", "%d days", days) % days)
         if hours:
-            text += _("%(hours)d hours, ") % {'hours': hours}
+            text.append(ngettext("%d hour", "%d hours", hours) % hours)
+        if minutes:
+            text.append(ngettext("%d minute", "%d minutes", minutes) % minutes)
+        if seconds:
+            text.append(ngettext("%d second", "%d seconds", seconds) % seconds)
 
-        text += _("%(minutes)d minutes") % {'minutes': minutes}
+        text = ", ".join(text)
 
-        if not days and seconds:
-            text += _(", %(seconds)d seconds") % {'seconds': seconds}
-
-        if not text:
-            text = _("0 minutes")
-
-#        text = "%s:%02d" % (self.total_length / 60, self.total_length % 60)
+        #text = "%s:%02d" % (self.total_length / 60, self.total_length % 60)
 
         return text
 

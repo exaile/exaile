@@ -14,7 +14,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.import gobject
 
-import pymtp
 import gobject
 from xl import common, media, library, plugins
 from gettext import gettext as _
@@ -23,10 +22,15 @@ from gettext import gettext as _
 PLUGIN_NAME = "MTP Device Manager"
 PLUGIN_AUTHORS = ["Dan O'Reilly <oreilldf@gmail.com>", "Matt Goodall <matt.goodall@gmail.com>"]
 PLUGIN_VERSION = "0.3.1"
-PLUGIN_DESCRIPTION = "MTP device manager"
+PLUGIN_DESCRIPTION = "MTP device manager, requires libmtp and pymtp."
 PLUGIN_ENABLED = True
 PLUGIN_ICON = None
 
+try:
+    import pymtp
+    MTP_INSTALLED = True
+except:
+    MTP_INSTALLED = False
 
 CONNS = plugins.SignalContainer()
 
@@ -73,8 +77,11 @@ class MTPDeviceDriver(plugins.DeviceDriver):
             self.mtp.connect()
         except:
             self.panel.on_connect_complete(None)
-            self.panel = None
+            gobject.idle_add(panel.on_error, _("Couldn't connect to the MTP device,"
+                                        " wait a few seconds or reconnect the"
+                                        " device, then try again."))
             self.connected = False
+            self.connecting = False
             return
         self.connected = True
         self.panel.track_count.set_label(_("Loading tracks..."))
@@ -118,8 +125,7 @@ class MTPDeviceDriver(plugins.DeviceDriver):
         for track in tracks:
             print 'deleting ', track
             self.mtp.delete_object(int(track.mtp_item_id))
-            gobject.idle_add(self.all.remove, track)
-            gobject.idle_add(self.search_tracks, None)
+            self.all.remove(track)
             
 
 
@@ -145,7 +151,7 @@ class MTPDeviceDriver(plugins.DeviceDriver):
                 'artist': library.lstrip_special(library.the_cutter((song.artist))),
                 'title': library.lstrip_special(song.title),
                 'genre': library.lstrip_special(song.genre),
-                'track': 'song.track',
+                'track': song.track,
             }
 
             if self.panel.choice.get_active() == 0:  # Artist view
@@ -155,7 +161,6 @@ class MTPDeviceDriver(plugins.DeviceDriver):
             else:  # Genre view
                 new.append((a['genre'],a['artist'], a['album'], a['track'], a['title'], song))
         new.sort()
-
         return library.TrackData([a[-1] for a in new])
 
 
@@ -203,6 +208,12 @@ def initialize():
         Initializes the plugin
     '''
     global PLUGIN
+    
+    if not MTP_INSTALLED:
+        common.error(APP.window, _("The pymtp library could not be found.  Make"
+                                   "sure you install both libmtp and pytmp "
+                                   "(http://nick125.com/projects/pymtp/) before using this plugin."))
+        return False
     PLUGIN = MTPDeviceDriver()
     if PLUGIN is None:
         return False

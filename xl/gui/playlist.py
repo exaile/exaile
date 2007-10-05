@@ -918,8 +918,15 @@ class TracksListCtrl(gtk.VBox):
             tpm.append(_("Show in Collection"), self.show_in_collection,
                 'exaile-track-icon')
 
-        tpm.append(_("Remove from Current"),
+        rm = xlmisc.Menu()
+        rm.append(_("Remove Selected from Playlist"),
             self.delete_tracks, 'gtk-delete')
+        rm.append(_("Blacklist Selected"),
+            self.delete_tracks, 'gtk-delete', 'blacklist')
+        rm.append(_("Delete Selected"),
+            self.delete_tracks, 'gtk-delete', 'delete')
+
+        tpm.append_menu(_("Remove"), rm, 'gtk-delete')
 
         # plugins menu items
         if self.exaile.plugins_menu.get_children():

@@ -200,13 +200,6 @@ class ExaileWindow(gobject.GObject):
         # TRANSLATORS: The title of the main window
         self.window.set_title(_("Exaile Music Player"))
 
-        # log in to audio scrobbler
-        user = self.settings.get_str("lastfm/user", "")
-        password = self.settings.get_crypted("lastfm/pass", "")
-
-        thread.start_new_thread(audioscrobbler.get_scrobbler_session,
-            (self, user, password))
-
         self.playlists_nb = self.xml.get_widget('playlists_nb')
         self.set_tab_placement()
         self.setup_left()
@@ -223,6 +216,16 @@ class ExaileWindow(gobject.GObject):
 
         self.status = xlmisc.StatusBar(self)
 
+        # log in to audio scrobbler
+        user = self.settings.get_str("lastfm/user", "")
+        password = self.settings.get_crypted("lastfm/pass", "")
+
+        thread.start_new_thread(audioscrobbler.get_scrobbler_session,
+            (self, user, password))
+            
+        # Try to load a saved last.fm cache
+        gobject.idle_add(audioscrobbler.load_cache)
+        
         self.playlists_nb.connect('switch-page', self.page_changed)
         self.playlists_nb.connect('page-added', self.sync_playlists_tabbar)
         self.playlists_nb.connect('page-removed', self.sync_playlists_tabbar)
@@ -1710,6 +1713,10 @@ class ExaileWindow(gobject.GObject):
 
         # PLUGIN: send plugins event before quitting
         self.emit('quit')
+
+        # Write any tracks remaining in the last.fm cache to disk
+        # for submission later.
+        audioscrobbler.write_cache()
 
         self.player.stop()
         self.cover_manager.stop_cover_thread()

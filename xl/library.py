@@ -530,6 +530,7 @@ def read_track_from_db(db, path, track_type=media.Track):
             year, 
             modified, 
             user_rating, 
+            rating,
             blacklisted, 
             time_added,
             encoding
@@ -576,6 +577,8 @@ def save_track_to_db(db, tr, new=False, prep=''):
             "track": tr.track,
             "length": tr.duration,
             "bitrate": tr._bitrate,
+            "rating": tr.system_rating,
+            "user_rating": tr.rating,
             "blacklisted": tr.blacklisted,
             "year": tr.year,
             "modified": tr.modified,

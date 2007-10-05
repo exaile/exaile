@@ -121,7 +121,7 @@ class Track(gobject.GObject):
     def set_info(self,loc="", title="", artist="",  
         album="", disc_id=0, genre="",
         track=0, length=0, bitrate=0, year="", 
-        modified=0, user_rating=0, blacklisted=0, time_added='', 
+        modified=0, user_rating=0, rating=0, blacklisted=0, time_added='', 
         encoding=xlmisc.get_default_encoding()):
     
     
@@ -151,7 +151,7 @@ class Track(gobject.GObject):
         self.modified = modified
         self.blacklisted = blacklisted
         self._rating = user_rating
-        self.user_rating = user_rating
+        self.system_rating = rating
         self.time_added = time_added
     
         for tag, val in {'title': title, 'artist': artist, 'album':album,\

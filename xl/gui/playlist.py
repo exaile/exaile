@@ -45,12 +45,14 @@ def create_rating_images(caller):
             caller.rating_images.insert(0, this_image)
         caller.old_r_w = caller.rating_width
 
-class Column:
+class Column(object):
     __slots__ = ['id', 'display', 'size']
     def __init__(self, id, display, size):
         self.id = id
         self.display = display
         self.size = size
+    def __repr__(self):
+        return 'Column(%s, %s, %s)' % (`self.id`, `self.display`, `self.size`)
 
 class TracksListCtrl(gtk.VBox):
     """
@@ -72,53 +74,17 @@ class TracksListCtrl(gtk.VBox):
         Column('year', _('Year'), 50),
         Column('genre', _('Genre'), 100),
         Column('bitrate', _('Bitrate'), 30),
-        Column('io_loc', _('Location'), 100),
-        Column('filename', _('Filename'), 50),
+        Column('io_loc', _('Location'), 200),
+        Column('filename', _('Filename'), 200),
     ]
 
-    #column_ids = []
     column_by_id = {}
     column_by_display = {}
     for col in COLUMNS:
-        #column_ids.append(col.id)
         column_by_id[col.id] = col
         column_by_display[col.display] = col
 
     default_column_ids = ['track', 'title', 'album', 'artist', 'length']
-
-    #~ default_columns = ('#', _('Title'), _('Album'), _('Artist'), _('Length'))
-    #~ col_items = ["#",
-        #~ _("Title"), _("Artist"), _("Album"), _("Length"), _("Disc"),
-        #~ _("Rating"), _("Year"), _("Genre"), _("Bitrate"), _("Location"),
-        #~ _("Filename")]
-    #~ col_map = {
-        #~ '#': 'track',
-        #~ _('Title'): 'title',
-        #~ _('Artist'): 'artist',
-        #~ _('Album'): 'album',
-        #~ _('Length'): 'length',
-        #~ _('Disc'): 'disc_id',
-        #~ _('Rating'): 'rating',
-        #~ _('Year'): 'year',
-        #~ _('Genre'): 'genre',
-        #~ _('Bitrate'): 'bitrate',
-        #~ _('Location'): 'io_loc',
-        #~ _('Filename'): 'filename'
-        #~ }
-    #~ size_map = {
-        #~ '#': 30,
-        #~ _('Title'): 200,
-        #~ _('Artist'): 150,
-        #~ _('Album'): 150,
-        #~ _('Length'): 50,
-        #~ _('Disc'): 30,
-        #~ _('Rating'): 80,
-        #~ _('Year'): 50,
-        #~ _('Genre'): 100,
-        #~ _('Bitrate'): 30,
-        #~ _('Location'): 100,
-        #~ _('Filename'): 50
-    #~ }
 
     prep = "track"
     type = 'track'
@@ -469,9 +435,14 @@ class TracksListCtrl(gtk.VBox):
         self._length_id = -1
 
         col_ids = self.exaile.settings.get_list("ui/col_order", None)
-        cols = None
         if col_ids:
-            cols = [self.column_by_id[col_id] for col_id in col_ids]
+            cols = []
+            for col_id in col_ids[:]:
+                col = self.column_by_id.get(col_id)
+                if col: # Good entries only
+                    cols.append(col)
+                else:
+                    col_ids.remove(col_id)
             for col in self.COLUMNS:
                 if not col in cols:
                     cols.append(col)
@@ -493,12 +464,8 @@ class TracksListCtrl(gtk.VBox):
             if col_struct.id == 'rating':
                 cellr = gtk.CellRendererPixbuf()
                 cellr.set_property("follow-state", False)
-            
-            show = False
-            if col_struct.id in columns_settings:
-                show = True
 
-            if show:
+            if col_struct.id in columns_settings:
                 if first_col:
                     first_col = False
                     pb = gtk.CellRendererPixbuf()

@@ -383,19 +383,16 @@ class ExaileWindow(gobject.GObject):
             self.settings.set_list('ui/%s_columns' % pref,
                 trackslist.TracksListCtrl.default_column_ids)
 
-        self.col_menus[pref] = dict()
-        column_settings = self.settings.get_list('ui/%s_columns' % pref)
+        self.col_menus[pref] = {}
+        column_ids = frozenset(self.settings.get_list('ui/%s_columns' % pref))
 
         for col_struct in cols:
             self.col_menus[col_struct.id] = menu = self.xml.get_widget(
                 '%s_%s_col' % (pref, col_struct.id))
-            show = False
-            if col_struct.display in column_settings:
-                show = True
 
-            menu.set_active(show)
-            menu.connect('activate', 
-                self.change_column_settings, ('ui/%s_columns' % pref, col_struct))
+            menu.set_active(col_struct.id in column_ids)
+            menu.connect('activate', self.change_column_settings,
+                ('ui/%s_columns' % pref, col_struct))
 
     def activate_cols_resizable(self, widget, event=None):
         """
@@ -416,16 +413,16 @@ class ExaileWindow(gobject.GObject):
         pref, col_struct = data
         id = col_struct.id
 
-        columns = self.settings.get_list(pref)
+        column_ids = self.settings.get_list(pref)
         if item.get_active():
-            if id not in columns:
+            if id not in column_ids:
                 xlmisc.log("adding %s column to %s" % (id, pref))
-                columns.append(id)
+                column_ids.append(id)
         else:
-            if col_struct.id in columns:
+            if col_struct.id in column_ids:
                 xlmisc.log("removing %s column from %s" % (id, pref))
-                columns.remove(id)
-        self.settings.set_list(pref, columns)
+                column_ids.remove(id)
+        self.settings.set_list(pref, column_ids)
 
         for i in range(0, self.playlists_nb.get_n_pages()):
             page = self.playlists_nb.get_nth_page(i)

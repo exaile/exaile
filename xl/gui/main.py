@@ -380,10 +380,8 @@ class ExaileWindow(gobject.GObject):
         # setup up default shown columns
         if not self.settings.get_boolean('ui/trackslist_defaults_set', False):
             self.settings.set_boolean('ui/trackslist_defaults_set', True)
-            columns = []
-            for col in trackslist.TracksListCtrl.default_columns:
-                columns.append(col)
-            self.settings.set_list('ui/%s_columns' % pref, columns)
+            self.settings.set_list('ui/%s_columns' % pref,
+                trackslist.TracksListCtrl.default_column_ids)
 
         self.col_menus[pref] = dict()
         column_settings = self.settings.get_list('ui/%s_columns' % pref)
@@ -397,7 +395,7 @@ class ExaileWindow(gobject.GObject):
 
             menu.set_active(show)
             menu.connect('activate', 
-                self.change_column_settings, {'key': 'ui/%s_columns' % pref, 'value': col_struct.display})
+                self.change_column_settings, ('ui/%s_columns' % pref, col_struct))
 
     def activate_cols_resizable(self, widget, event=None):
         """
@@ -415,17 +413,19 @@ class ExaileWindow(gobject.GObject):
         """
             Changes column view settings
         """
-        columns = self.settings.get_list(data['key'])
-        columns = list(columns)
+        pref, col_struct = data
+        id = col_struct.id
+
+        columns = self.settings.get_list(pref)
         if item.get_active():
-            if data['value'] not in columns:
-                xlmisc.log("adding %s column to %s" % (data['value'], data['key']))
-                columns.append(data['value'])
+            if id not in columns:
+                xlmisc.log("adding %s column to %s" % (id, pref))
+                columns.append(id)
         else:
-            if data['value'] in columns:
-                xlmisc.log("removing %s column from %s" % (data['value'], data['key']))
-                columns.remove(data['value'])
-        self.settings.set_list(data['key'], columns)
+            if col_struct.id in columns:
+                xlmisc.log("removing %s column from %s" % (id, pref))
+                columns.remove(id)
+        self.settings.set_list(pref, columns)
 
         for i in range(0, self.playlists_nb.get_n_pages()):
             page = self.playlists_nb.get_nth_page(i)

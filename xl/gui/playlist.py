@@ -583,7 +583,7 @@ class TracksListCtrl(gtk.VBox):
         self.list.disconnect(self.changed_id)
         cols = []
         for col in self.list.get_columns():
-            cols.append(col.get_title())
+            cols.append(self.column_by_display[col.get_title()].id)
             self.list.remove_column(col)
 
         self.exaile.settings['ui/col_order'] = cols
@@ -593,7 +593,7 @@ class TracksListCtrl(gtk.VBox):
         """
             Called when the user resizes a column
         """
-        col_struct = self.column_by_display(col.get_title())
+        col_struct = self.column_by_display[col.get_title()]
         name = "ui/%scol_width_%s" % (self.prep, col_struct.id)
         self.exaile.settings[name] = col.get_width()
         if col_struct.id == 'rating':

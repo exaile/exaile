@@ -20,6 +20,7 @@ formats = {
     'mp3': mp3,
     'mp4': mp4,
     'mpc': mpc,
+    'oga': ogg,
     'ogg': ogg,
     'tta': tta,
     'wav': wav,

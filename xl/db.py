@@ -123,6 +123,8 @@ class DBManager(object):
             version = int(row[0])
 
         files = os.listdir(path)
+        files.sort()
+
         versions = []
         for file in files:
             m = re.search("changes(\d+)\.sql", file)

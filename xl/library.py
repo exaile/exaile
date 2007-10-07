@@ -530,6 +530,7 @@ def read_track_from_db(db, path, track_type=media.Track):
             year, 
             modified, 
             user_rating, 
+            rating,
             blacklisted, 
             time_added,
             encoding
@@ -576,6 +577,8 @@ def save_track_to_db(db, tr, new=False, prep=''):
             "track": tr.track,
             "length": tr.duration,
             "bitrate": tr._bitrate,
+            "rating": tr.system_rating,
+            "user_rating": tr.rating,
             "blacklisted": tr.blacklisted,
             "year": tr.year,
             "modified": tr.modified,
@@ -684,15 +687,18 @@ class PopulateThread(threading.Thread):
     def do_function(self, loc):
         db = self.db
         tr = self.exaile.all_songs.for_path(loc)
-        
+
+        bl = 0
         if not tr:
             tr = read_track_from_db(db, unicode(loc, xlmisc.get_default_encoding()))
+            if tr and tr.blacklisted: bl = 1
 
         modified = os.stat(loc).st_mtime
         if not tr or tr.modified != modified:
             if not tr: new = True
             else: new = False
             tr = media.read_from_path(loc)
+            tr.blacklisted = bl
             if not tr: return
             tr.modified = modified
             save_track_to_db(db, tr, new)
@@ -792,6 +798,7 @@ class AddTracksThread(PopulateThread):
         tr = media.read_from_path(loc)
         if not tr: return
         new = True
+        tr.modified = os.stat(loc).st_mtime
         save_track_to_db(db, tr, new)
         path_id = get_column_id(db, 'paths', 'name', unicode(loc, xlmisc.get_default_encoding()))
         db.execute("UPDATE tracks SET included=1 WHERE path=?", (path_id,))

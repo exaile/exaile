@@ -6926,7 +6926,6 @@ esdsink</property>
 
 <widget class="GtkAboutDialog" id="AboutDialog">
   <property name="destroy_with_parent">True</property>
-  <property name="name">Exaile</property>
   <property name="copyright" translatable="yes">(c) 2007</property>
   <property name="comments" translatable="yes">Exaile</property>
   <property name="license" translatable="yes">Copyright (C) 2006 Adam Olsen

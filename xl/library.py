@@ -689,10 +689,10 @@ class PopulateThread(threading.Thread):
         db = self.db
         tr = self.exaile.all_songs.for_path(loc)
 
-        bl = False
+        bl = 0
         if not tr:
             tr = read_track_from_db(db, unicode(loc, xlmisc.get_default_encoding()))
-            if tr and tr.blacklisted: bl = True
+            if tr and tr.blacklisted: bl = 1
 
         modified = os.stat(loc).st_mtime
         if not tr or tr.modified != modified:

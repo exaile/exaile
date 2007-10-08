@@ -291,7 +291,10 @@ class Track(gobject.GObject):
         """
             Gets the rating
         """
-        return "* " * self._rating
+        try:
+            return "* " * self._rating
+        except TypeError:
+            return ""
     
     def set_rating(self, rating): 
         """

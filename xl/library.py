@@ -286,8 +286,10 @@ def load_tracks(db, current=None):
             year, 
             modified, 
             user_rating, 
+            rating,
             blacklisted, 
-            time_added
+            time_added,
+            encoding
         FROM tracks, paths, artists, albums 
         WHERE 
             (

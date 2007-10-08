@@ -288,8 +288,7 @@ def load_tracks(db, current=None):
             user_rating, 
             rating,
             blacklisted, 
-            time_added,
-            encoding
+            time_added
         FROM tracks, paths, artists, albums 
         WHERE 
             (

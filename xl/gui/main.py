@@ -1224,6 +1224,10 @@ class ExaileWindow(gobject.GObject):
         self.db.execute("UPDATE tracks SET %s WHERE path=?" % update_string, 
             (path_id,))
 
+        track.playcount += plays
+
+        self.tracks.refresh_row(track)
+
     
     def setup_right(self): 
         """

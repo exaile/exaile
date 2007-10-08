@@ -525,7 +525,7 @@ class TracksListCtrl(gtk.VBox):
                     col.set_resizable(True)
                     col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
 
-                if _(name) == '#':
+                if _(name) == '#' or _(name) == _('Playcount'):
                     cellr.set_property('xalign', 1.0)
 
                 col.set_widget(gtk.Label(_(name)))

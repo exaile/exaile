@@ -585,7 +585,8 @@ def read_track_from_db(db, path, track_type=media.Track):
             rating,
             blacklisted, 
             time_added,
-            encoding
+            encoding,
+            plays
         FROM tracks,paths,artists,albums 
         WHERE 
             (
@@ -637,7 +638,8 @@ def save_track_to_db(db, tr, new=False, prep=''):
             "year": tr.year,
             "modified": tr.modified,
             "time_added": tr.time_added,
-            "encoding": tr.encoding
+            "encoding": tr.encoding,
+            "plays": tr.playcount
         }, "path=?", (path_id,), new)
 
 class PopulateThread(threading.Thread):

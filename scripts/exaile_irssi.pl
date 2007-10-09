@@ -5,6 +5,9 @@ use strict;
 use Irssi;
 use vars qw($VERSION %IRSSI);
 
+my $star_full = '✮';
+my $star_empty = '✩';
+
 $VERSION = "1.0";
 %IRSSI = (
 	authors => "Adam Olsen",
@@ -61,11 +64,25 @@ sub print_info
 	my $song = $iface->get_title;
 	my $artist = $iface->get_artist;
 	my $length = $iface->get_length;
+	my $rating = $iface->get_rating;
+	my $star_string = '';
+	my $count = 0;
+	while($count < 8)
+	{
+		if($rating > $count)
+		{
+			$star_string .= $star_full;
+		}
+		else {
+			$star_string .= $star_empty;
+		}
+		$count++;
+	}
 
 	if($witem && $witem->{type} eq 'CHANNEL')
 	{
 		$witem->command("ACTION " . $witem->{name} .
-			" is playing $song by $artist [$length $pos\%]");
+			" is playing $song by $artist [$length $pos\%] ($star_string)");
 	}
 }
 

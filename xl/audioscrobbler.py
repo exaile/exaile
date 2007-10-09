@@ -35,6 +35,7 @@ def load_cache():
         Loads the cache that's been saved to disk
     """
     global SCROBBLER_SESSION
+    if SCROBBLER_SESSION == None: return
     file_name = path.get_config('lastfm.xml')
     if not os.path.isfile(file_name):
         xlmisc.log('No last.fm cache found.')
@@ -75,6 +76,7 @@ def write_cache():
         Writes the local cache to disk when exaile is closed
     """
     global SCROBBLER_SESSION
+    if SCROBBLER_SESSION == None: return
     file_name = path.get_config('') + "/lastfm.xml"
     try:
         doc = xml.dom.minidom.parse(file_name)

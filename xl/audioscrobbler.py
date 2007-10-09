@@ -2,7 +2,6 @@
 
 import xlmisc, gobject, common, time, urllib, path, os
 import xml.dom.minidom
-import xml.dom.ext
 from gettext import gettext as _
 SCROBBLER_SESSION = None
 
@@ -46,12 +45,12 @@ def load_cache():
     cache = []
     
     for track in tracks:
-        artist = track.getElementsByTagName("artist")[0].childNodes[0].nodeValue
-        title = track.getElementsByTagName("title")[0].childNodes[0].nodeValue
-        album = track.getElementsByTagName("album")[0].childNodes[0].nodeValue
-        len = track.getElementsByTagName("duration")[0].childNodes[0].nodeValue
-        date = track.getElementsByTagName("date")[0].childNodes[0].nodeValue
-        mbid = track.getElementsByTagName("mbid")[0].childNodes[0].nodeValue
+        artist = getElement(track, "artist")
+        title = getElement(track, "title")
+        album = getElement(track, "album")
+        len = getElement(track, "duration")
+        date = getElement(track, "date")
+        mbid = getElement(track, "mbid")
         
         # When rebuilding the cache we remove the url codes that were added
         # during a previous failed submission
@@ -65,11 +64,21 @@ def load_cache():
         cache.append(entry)
         doc.childNodes[0].removeChild(track)
     file = open(file_name, "w")
-    xml.dom.ext.PrettyPrint(doc, file)
+    doc.writexml(file)
     file.close()
     SCROBBLER_SESSION.cache = cache
     SCROBBLER_SESSION.post()
         
+def getElement(track, tag):
+    """
+        Returns the element in a track associated with a given tag,
+        or an empty string if the element isn't found or is None
+    """
+    try:
+        ret = track.getElementsByTagName(tag)[0].childNodes[0].nodeValue
+    except:
+        ret = ''
+    return ret
             
 def write_cache():
     """
@@ -86,7 +95,7 @@ def write_cache():
         doc = xml.dom.minidom.Document()
         root_element = doc.createElement("cache")
         doc.appendChild(root_element)
-        xml.dom.ext.PrettyPrint(doc, file)
+        doc.writexml(file)
         file.close()
         doc = xml.dom.minidom.parse(file_name)
             
@@ -138,7 +147,7 @@ def write_cache():
         doc.childNodes[0].appendChild(track_element)
         
     file_object = open(file_name, "w")
-    xml.dom.ext.PrettyPrint(doc, file_object)
+    doc.writexml(file_object)
 
 def get_scrobbler_session(exaile, username="", password="", new=False): 
     """

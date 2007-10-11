@@ -59,6 +59,15 @@ class timetype(long):
         long.__init__(self, num)
         self.stream = False
 
+def force_unicode(x, default_encoding=None):
+    if isinstance(x, unicode):
+        return x
+    elif default_encoding and isinstance(x, str):
+        # This unicode constructor only accepts "string or buffer".
+        return unicode(x, default_encoding)
+    else:
+        return unicode(x)
+
 class Track(gobject.GObject): 
     """
         Represents a generic single track.
@@ -201,27 +210,24 @@ class Track(gobject.GObject):
         """
         values = self.tags.get(tag)
         if values:
-            return u" / ".join(unicode(x) for x in values if x not in (None, ''))
+            values = (force_unicode(x, self.encoding) for x in values
+                if x not in (None, ''))
+            return u" / ".join(values)
         return u""
 
-    def set_tag(self, tag, value, append=False):
+    def set_tag(self, tag, values, append=False):
         """
             Common function for setting a tag.
             Expects a list (even for a single value)
         """
-        def xlunicode(x):
-            if type(x) is unicode:
-                return x
-            else:
-                return unicode(str(x), self.encoding)
-
-        if type(value) is not list: value = [value]
+        if not isinstance(values, list): values = [values]
         # filter out empty values and convert to unicode
-        value = map(xlunicode, filter(lambda x: x or x == 0, value))
+        values = (force_unicode(x, self.encoding) for x in values
+            if x not in (None, ''))
         if append:
-            self.tags[tag].extend(value)
+            self.tags[tag].extend(values)
         else:
-            self.tags[tag] = value
+            self.tags[tag] = list(values)
 
    # ========== Getters and setters ============
 

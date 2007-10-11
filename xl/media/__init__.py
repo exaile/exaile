@@ -210,7 +210,12 @@ class Track(gobject.GObject):
             Simplifies a list into a single string
         """
         try:
-            ret = filter(lambda x: x or x == 0, self.tags[tag])
+            # NOTE: This is paranoid; trunk has a better but riskier fix.
+            ret = []
+            for x in self.tags[tag]:
+                if not isinstance(x, basestring):
+                    x = str(x)
+                ret.append(x)
             return " / ".join(ret)
         except KeyError:
             return u""

@@ -287,7 +287,7 @@ class DBManager(object):
             values = []
             for key in keys:
                 val = vals[key]
-                if not isinstance(val, str) or not isinstance(val, unicode):
+                if not isinstance(val, basestring):
                     val = unicode(val)
 
                 val = val.decode("utf-8", 'replace')

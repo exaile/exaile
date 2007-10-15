@@ -491,6 +491,7 @@ class Preferences(object):
                 self.osd_colorpicker),
             'osd/text_font': (FontButtonPrefsItem, 'Sans 10',
                 self.osd_fontpicker),
+            'osd/trans_value': (PrefsItem, 75, self.osd_adjust_transparency),
             'ui/use_tray': (CheckPrefsItem, False, None, self.setup_tray),
             'amazon_locale': (ComboPrefsItem, 'us'),
             'wikipedia_locale': (PrefsItem, 'en'),
@@ -788,6 +789,19 @@ class Preferences(object):
             widget.set_text(previous)
             return
         
+        self.osd_settings[name] = val
+        self.display_popup()
+
+    def osd_adjust_transparency(self, widget, event, name, previous):
+        """
+            Called when the user requests to adjust the transparency (alpha value) of the osd
+        """
+        try:
+            val = int(widget.get_text())
+        except ValueError:
+            widget.set_text(previous)
+            return
+
         self.osd_settings[name] = val
         self.display_popup()
 

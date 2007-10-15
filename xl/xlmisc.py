@@ -26,6 +26,7 @@ from gettext import gettext as _
 import pygtk
 pygtk.require('2.0')
 import gtk, gobject, pango
+import cairo
 from gtk.gdk import SCROLL_LEFT, SCROLL_RIGHT, SCROLL_UP, SCROLL_DOWN
 
 try:
@@ -1151,14 +1152,27 @@ class OSDWindow(object):
         self.__timeout = None
         self.start_timer = start_timer
 
-        color = gtk.gdk.color_parse(settings['osd/bgcolor'])
+        self.color = gtk.gdk.color_parse(settings['osd/bgcolor'])
         self.settings = settings
         self.event = self.xml.get_widget('popup_event_box')
         self.box = self.xml.get_widget('image_box')
-        self.window.modify_bg(gtk.STATE_NORMAL, color)
-        self.title = self.xml.get_widget('popup_title_label')
+
         self.progress = self.xml.get_widget('osd_progressbar')
-        self.progress.modify_bg(gtk.STATE_NORMAL, color)
+
+        screen = self.window.get_screen()
+        if screen.is_composited():
+            self.window.set_colormap(screen.get_rgba_colormap())
+            self.window.set_app_paintable(True)
+            self.window.connect("expose-event", self.expose_callback)
+
+            self.progress.set_colormap(screen.get_rgba_colormap())
+            self.progress.set_app_paintable(True)
+            self.progress.connect("expose-event", self.expose_callback())
+        else: # Just set the background color in the old fashioned way
+            self.window.modify_bg(gtk.STATE_NORMAL, self.color)
+            self.progress.modify_bg(gtk.STATE_NORMAL, self.color)
+            
+        self.title = self.xml.get_widget('popup_title_label')
 
         self.window.set_size_request(settings['osd/w'], settings['osd/h'])
         self.cover = ImageWidget()
@@ -1170,9 +1184,40 @@ class OSDWindow(object):
         self.exaile.connect('timer_update', self.timer_update)
         self.__handler = None
 
+    def expose_callback(self, widget, event):
+        cr = widget.window.cairo_create()
+        cr.set_operator(cairo.OPERATOR_SOURCE)
+
+        cr.rectangle(event.area.x, event.area.y,
+            event.area.width, event.area.height)
+        cr.clip()
+
+        transparency = 100 - self.settings['osd/trans_value']
+        
+        cr.set_source_rgba(self.color.red/65535.0, self.color.green/65535.0, 
+                self.color.blue/65535.0, transparency/100.0)
+        cr.paint()
+        return False
+
     def timer_update(self, *e):
         if self.window.get_property('visible'):
             self.progress.set_fraction(self.exaile.new_progressbar.get_fraction())
+
+    def expose_callback(self, widget, event):
+        cr = widget.window.cairo_create()
+        cr.set_operator(cairo.OPERATOR_SOURCE)
+
+        cr.rectangle(event.area.x, event.area.y,
+            event.area.width, event.area.height)
+        cr.clip()
+
+        transparency = 100 - self.settings['osd/trans_value']
+        
+        cr.set_source_rgba(self.color.red/65535.0, self.color.green/65535.0, 
+                self.color.blue/65535.0, transparency/100.0)
+        cr.paint()
+        return False
+
 
     def start_dragging(self, widget, event):
         """
@@ -1285,8 +1330,10 @@ def get_osd_settings(settings):
         prefs.TEXT_VIEW_DEFAULT)
     info['osd/text_font'] = settings.get_str('osd/text_font',
         'Sans 10')
+    info['osd/trans_value'] = settings.get_int('osd/trans_value', 75)
     info['osd/text_color'] = settings.get_str('osd/text_color',
         '#ffffff')
+    info['osd/trans_value'] = settings.get_int('osd/trans_value', 75)
 
     return info
 

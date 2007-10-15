@@ -486,7 +486,8 @@ class TracksListCtrl(gtk.VBox):
                     col.set_cell_data_func(stop_pb, self.stop_icon_data_func)
                 else:
                     col = gtk.TreeViewColumn(_(name), cellr, text=count)
-                
+
+                col.set_cell_data_func(cellr, self.change_playing_track_text_func)
                 if _(name) == _("Length"):
                     col.set_cell_data_func(cellr, self.length_data_func)
                 elif _(name) == "#":
@@ -534,6 +535,17 @@ class TracksListCtrl(gtk.VBox):
                 col.get_widget().get_ancestor(gtk.Button).connect('button_press_event', self.press_header)
             count = count + 1
         self.changed_id = self.list.connect('columns-changed', self.column_changed)
+    
+    def change_playing_track_text_func(self, col, cellr, model, iter):
+        """
+            Changes the text of current playing/paused track to bold
+        """
+        item = model.get_value(iter, 0)
+        if item != self.exaile.player.current:
+            cellr.set_property('weight', pango.WEIGHT_NORMAL)
+        else:
+            if self.exaile.player.is_playing() or self.exaile.player.is_paused():
+                cellr.set_property('weight', pango.WEIGHT_HEAVY)
 
     def press_header(self, widget, event):
         if event.button != 3:
@@ -590,6 +602,7 @@ class TracksListCtrl(gtk.VBox):
         """
             Track number
         """
+        self.change_playing_track_text_func(col, cell, model, iter)
         item = model.get_value(iter, 0)
         if item.track is None or item.track == -1 or \
             item.type == 'podcast':
@@ -708,6 +721,7 @@ class TracksListCtrl(gtk.VBox):
         """ 
             Formats the track length
         """
+        self.change_playing_track_text_func(col, cellr, model, iter)
         item = model.get_value(iter, 0)
 
         if item == 'podcast':

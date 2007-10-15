@@ -59,15 +59,6 @@ class timetype(long):
         long.__init__(self, num)
         self.stream = False
 
-def force_unicode(x, default_encoding=None):
-    if isinstance(x, unicode):
-        return x
-    elif default_encoding and isinstance(x, str):
-        # This unicode constructor only accepts "string or buffer".
-        return unicode(x, default_encoding)
-    else:
-        return unicode(x)
-
 class Track(gobject.GObject): 
     """
         Represents a generic single track.
@@ -210,7 +201,7 @@ class Track(gobject.GObject):
         """
         values = self.tags.get(tag)
         if values:
-            values = (force_unicode(x, self.encoding) for x in values
+            values = (xl.common.to_unicode(x, self.encoding) for x in values
                 if x not in (None, ''))
             return u" / ".join(values)
         return u""
@@ -222,7 +213,7 @@ class Track(gobject.GObject):
         """
         if not isinstance(values, list): values = [values]
         # filter out empty values and convert to unicode
-        values = (force_unicode(x, self.encoding) for x in values
+        values = (xl.common.to_unicode(x, self.encoding) for x in values
             if x not in (None, ''))
         if append:
             self.tags[tag].extend(values)

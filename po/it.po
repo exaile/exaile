@@ -1,82 +1,22 @@
-# German translation for Exaile music player.
-# Copyright (C) 2007 Adam Olsen <arolsen@gmail.com>
-# This file is distributed under the same license as the Exaile package.
-# Mathias Brodala <info@noctus.net>, 2007.
+# Italian translation for exaile
+# Copyright (c) 2007 Rosetta Contributors and Canonical Ltd 2007
+# This file is distributed under the same license as the exaile package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Exaile 0.2.10\n"
-"Report-Msgid-Bugs-To: http://exaile.org/trac/newticket\n"
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2007-09-23 12:17-0600\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Mathias Brodala <info@noctus.net>\n"
-"Language-Team: German <info@noctus.net>\n"
+"PO-Revision-Date: 2007-10-14 11:50+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Launchpad-Export-Date: 2007-10-16 21:28+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
-"X-Poedit-Basepath: bzr/exaile/po\n"
-
-#~ msgid "Icast Streamer"
-#~ msgstr "Icast-Streamer"
-
-#~ msgid "Stream to an icecast/shoutcast server"
-#~ msgstr "Streaming zu einem Icecast/Shoutcast-Server"
-
-#~ msgid ""
-#~ "Shout library could not be loaded. You need libshout2 and shout-python "
-#~ "bindings. Streaming will not be available."
-#~ msgstr ""
-#~ "Die Shout-Bibliothek konnte nicht geladen werden. Hierzu sind libshout2 und "
-#~ "shout-python erforderlich; das Streamen wird nicht möglich sein."
-
-#~ msgid ""
-#~ "Shout library could not be loaded. You need libshout 2 and shout python "
-#~ "bindings. Streaming will not be available"
-#~ msgstr ""
-#~ "Die Shout-Bibliothek konnte nicht geladen werden. Hierzu sind libshout2 und "
-#~ "shout-python erforderlich; das Streamen wird nicht möglich sein."
-
-#~ msgid "<b>Icast Plugin Configuration</b>"
-#~ msgstr "<b>Konfiguration für das Icast-Plugin</b>"
-
-#~ msgid "<b>Server Configuration</b>"
-#~ msgstr "<b>Server-Konfiguration</b>"
-
-#~ msgid "Host:"
-#~ msgstr "Host:"
-
-#~ msgid "Icast Configuration"
-#~ msgstr "Icast-Konfiguration"
-
-#~ msgid "Mount Point:"
-#~ msgstr "Einhängepunkt:"
-
-#~ msgid "Name:"
-#~ msgstr "Name:"
-
-#~ msgid "Password:"
-#~ msgstr "Passwort:"
-
-#~ msgid "Port:"
-#~ msgstr "Port:"
-
-#~ msgid "Protocol:"
-#~ msgstr "Protokoll:"
-
-#~ msgid "Sample Rate:     "
-#~ msgstr "Abtastrate:     "
-
-#~ msgid "Username:"
-#~ msgstr "Benutzername:"
-
-#~ msgid "http"
-#~ msgstr "http"
-
-#~ msgid "mp3"
-#~ msgstr "mp3"
 
 #: ../exaile.glade.h:1
 msgid "(c) 2007"
@@ -84,7 +24,7 @@ msgstr "(c) 2007"
 
 #: ../exaile.glade.h:2
 msgid "(minutes, use 0 to disable)"
-msgstr "(Minuten, 0 zum Deaktivieren)"
+msgstr "(minuti, usa 0 per disabilitare)"
 
 #: ../exaile.glade.h:3
 msgid "+"
@@ -100,11 +40,11 @@ msgstr "0"
 
 #: ../exaile.glade.h:6
 msgid "0 Covers to fetch"
-msgstr "Keine Cover zu holen"
+msgstr "0 Copertine da prelevare"
 
 #: ../exaile.glade.h:7 ../xl/panels/device.py:360
 msgid "0 tracks"
-msgstr "0 Stücke"
+msgstr "0 tracce"
 
 #. TRANSLATORS: Initial playlist and collection status
 #: ../exaile.glade.h:9
@@ -133,17 +73,18 @@ msgstr ""
 
 #: ../exaile.glade.h:18
 msgid "<b>General</b>"
-msgstr "<b>Allgemein</b>"
+msgstr "<b>Generale</b>"
 
 #: ../exaile.glade.h:19
 msgid ""
 "<b>Move the On Screen Display window to the location you want it to "
 "appear</b>"
-msgstr "<b>OSD zur gewünschten Position bewegen.</b>"
+msgstr ""
+"<b>Muovi la finestra dell' On Screen Display nella posizione desiderata</b>"
 
 #: ../exaile.glade.h:20
 msgid "<b>Variables</b>"
-msgstr "<b>Platzhalter</b>"
+msgstr "<b>Variabili</b>"
 
 #: ../exaile.glade.h:21
 msgid ""
@@ -153,7 +94,7 @@ msgid ""
 msgstr ""
 "<b>{title}</b>\n"
 "{artist}\n"
-"on {album} - {length}"
+"in {album} - {length}"
 
 #: ../exaile.glade.h:24
 msgid "<small>0 dB</small>"
@@ -209,28 +150,28 @@ msgstr "<small>−20 dB</small>"
 
 #: ../exaile.glade.h:37
 msgid "Action Log"
-msgstr "Vorgangs-Logdatei"
+msgstr "Log delle Operazioni"
 
 #: ../exaile.glade.h:38
 msgid "Action _Log"
-msgstr "Vorgangs-_Logdatei"
+msgstr "_Log delle Operazioni"
 
 #: ../exaile.glade.h:39
 msgid "Add"
-msgstr "Hinzufügen"
+msgstr "Aggiungi"
 
 #: ../exaile.glade.h:40
 msgid "Add Saved Station"
-msgstr "Gespeicherte Station hinzufügen"
+msgstr "Aggiungi Stazione Salvata"
 
 #. TRANSLATORS: Category of the preferences dialog
 #: ../exaile.glade.h:41 ../xl/prefs.py:336
 msgid "Advanced"
-msgstr "Erweitert"
+msgstr "Avanzate"
 
 #: ../exaile.glade.h:42 ../xl/advancededitor.py:82
 msgid "Advanced Configuration Editor"
-msgstr "Erweiterte Konfiguration"
+msgstr "Editor di Configurazione Avanzato"
 
 #: ../exaile.glade.h:43 ../xl/gui/editor.py:26 ../xl/gui/information.py:341
 #: ../xl/gui/playlist.py:57 ../xl/gui/playlist.py:59 ../xl/gui/playlist.py:66
@@ -241,22 +182,22 @@ msgstr "Album"
 
 #: ../exaile.glade.h:44
 msgid "Album Art"
-msgstr "Album-Cover"
+msgstr "Copertina"
 
 #: ../exaile.glade.h:45
 msgid "Album art filenames (separated by spaces):"
-msgstr "Dateinamen für Cover (getrennt durch Leerzeichen):"
+msgstr "File delle copertine (separati da spazi):"
 
 #: ../exaile.glade.h:46
 msgid "Amazon Locale:"
-msgstr "Amazon-Sprachauswahl:"
+msgstr "Amazon Locale:"
 
 #: ../exaile.glade.h:47 ../xl/gui/editor.py:28 ../xl/gui/information.py:336
 #: ../xl/gui/playlist.py:57 ../xl/gui/playlist.py:59 ../xl/gui/playlist.py:65
 #: ../xl/gui/playlist.py:79 ../xl/gui/playlist.py:511
 #: ../xl/panels/playlists.py:81
 msgid "Artist"
-msgstr "Interpret"
+msgstr "Artista"
 
 #: ../exaile.glade.h:48 ../plugins/daap-share/gui.glade.h:1
 msgid ""
@@ -264,9 +205,9 @@ msgid ""
 "Album\n"
 "Genre"
 msgstr ""
-"Interpret\n"
+"Artista\n"
 "Album\n"
-"Genre"
+"Genere"
 
 #: ../exaile.glade.h:51
 msgid ""
@@ -277,16 +218,16 @@ msgid ""
 "Filename extension\n"
 "Full filename (for custom pipeline)"
 msgstr ""
-"Interpret\n"
-"Albumtitel\n"
-"Stücktitel\n"
-"Stücknummer\n"
-"Dateierweiterung\n"
-"Voller Dateiname (für benutzerdefinierte Pipeline)"
+"Nome dell'Artista\n"
+"Titolo dell'Album\n"
+"Titolo della Canzone\n"
+"Numero Traccia\n"
+"Estensione File\n"
+"Nome Intero del File"
 
 #: ../exaile.glade.h:57
 msgid "Attempt to fetch cover art from Amazon automatically"
-msgstr "Cover automatisch von Amazon holen"
+msgstr "Tenta di prelevare automaticamente la copertina da Amazon"
 
 #. TRANSLATORS: Audo sink setting
 #: ../exaile.glade.h:59
@@ -297,19 +238,19 @@ msgid ""
 "osssink\n"
 "esdsink"
 msgstr ""
-"Automatisch\n"
-"GConf-Einstellungen\n"
+"Automatico\n"
+"Usa le Impostazioni di GConf\n"
 "alsasink\n"
 "osssink\n"
 "esdsink"
 
 #: ../exaile.glade.h:64
 msgid "Autosize"
-msgstr "Automatisch"
+msgstr "Dimensione Automatica"
 
 #: ../exaile.glade.h:65
 msgid "Background Color:"
-msgstr "Hintergrundfarbe:"
+msgstr "Colore di Sfondo:"
 
 #: ../exaile.glade.h:66 ../xl/gui/playlist.py:60 ../xl/gui/playlist.py:72
 #: ../xl/gui/playlist.py:86
@@ -318,27 +259,27 @@ msgstr "Bitrate"
 
 #: ../exaile.glade.h:67
 msgid "Browse"
-msgstr "Durchsuchen"
+msgstr "Sfoglia"
 
 #: ../exaile.glade.h:68
 msgid "Burning program:"
-msgstr "Brennprogramm:"
+msgstr "Programma di masterizzazione"
 
 #: ../exaile.glade.h:69
 msgid "CD Device:"
-msgstr "CD-Gerät:"
+msgstr "Dispositivo CD:"
 
 #: ../exaile.glade.h:70
 msgid "Clear Playlist"
-msgstr "Wiedergabeliste leeren"
+msgstr "Svuota Scaletta"
 
 #: ../exaile.glade.h:71
 msgid "Clear changes"
-msgstr "Änderungen verwerfen"
+msgstr "Annulla cambiamenti"
 
 #: ../exaile.glade.h:72
 msgid "Collection"
-msgstr "Bibliothek"
+msgstr "Collezione"
 
 #: ../exaile.glade.h:73
 msgid ""
@@ -360,74 +301,75 @@ msgid ""
 msgstr ""
 "Copyright (C) 2006 Adam Olsen\n"
 "\n"
-"This program is free software; you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation; either version 1, or (at your option)\n"
-"any later version.\n"
+"Questo programma è un software libero; puoi ridistribuirlo e/o modificarlo\n"
+" sotto i termini della GNU General Public License come pubblicata dalla \n"
+"Free Software Foundation; versione 1, o (a tua scelta)\n"
+"ogni versione successiva.\n"
 "\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
+"Questo programma  è distribuito nella  speranza che sia  utile,\n"
+"ma SENZA  ALCUNA GARANZIA; senza neppure la garanzia implicita di\n"
+"NEGOZIABILITÀ o di APPLICABILITÀ PER UN PARTICOLARE SCOPO. \n"
+"Consultare la GNU General Public License per maggiori dettagli.\n"
 "\n"
-"You should have received a copy of the GNU General Public License\n"
-"along with this program; if not, write to the Free Software\n"
-"Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."
+"Questo programma deve essere distribuito assieme ad una copia\n"
+"della GNU Public License; in caso contrario, è possibile richiederne una\n"
+"scrivendo alla Free Software Foundation, Inc., 675 Mass Ave,\n"
+"Cambridge, MA 02139, USA."
 
 #: ../exaile.glade.h:88
 msgid "Cover Finder"
-msgstr "Cover-Finder"
+msgstr "Ricerca Copertine"
 
 #. TRANSLATORS: Custom equalizer setting
 #: ../exaile.glade.h:90
 msgid "Custom"
-msgstr "Benutzerdefiniert"
+msgstr "Personalizzato"
 
 #. TRANSLATORS: Custom Gstreamer pipeline for CD import
 #: ../exaile.glade.h:92
 msgid "Custom pipeline:"
-msgstr "Benutzerdefinierte Pipeline:"
+msgstr "Pipeline personalizzata:"
 
 #: ../exaile.glade.h:93
 msgid "Default/fallback gain (dB)"
-msgstr "Standard-Verstärkung (dB):"
+msgstr "Guadagno predefinito (dB)"
 
 #: ../exaile.glade.h:94
 msgid "Devices"
-msgstr "Geräte"
+msgstr "Periferiche"
 
 #: ../exaile.glade.h:95 ../xl/gui/playlist.py:59 ../xl/gui/playlist.py:68
 #: ../xl/gui/playlist.py:82 ../xl/gui/playlist.py:488
 msgid "Disc"
-msgstr "Disk"
+msgstr "Disco"
 
 #: ../exaile.glade.h:96
 msgid "Display OSD when hovering over tray icon"
-msgstr "OSD beim Hovern des Kontrollleistensymbols anzeigen"
+msgstr "Mostra OSD quando si passa sull'icona nell'area di notifica"
 
 #: ../exaile.glade.h:97
 msgid "Display Text:"
-msgstr "Anzeigetext:"
+msgstr "Visualizza Testo:"
 
 #: ../exaile.glade.h:98
 msgid "Download feeds when opening podcasts"
-msgstr "Feeds beim Aufrufen von Podcasts herunterladen"
+msgstr "Scarica i feed all'apertura dei podcasts"
 
 #: ../exaile.glade.h:99
 msgid "Dynamic"
-msgstr "Dynamisch"
+msgstr "Dinamica"
 
 #: ../exaile.glade.h:100
 msgid "E_qualizer"
-msgstr "E_qualizer"
+msgstr "E_qualizzatore"
 
 #: ../exaile.glade.h:101
 msgid "Enable Replay Gain"
-msgstr "ReplayGain aktivieren"
+msgstr "Attiva il guadagno di riproduzione"
 
 #: ../exaile.glade.h:102
 msgid "Equalizer Settings"
-msgstr "Equalizer-Einstellungen"
+msgstr "Impostazioni equalizzatore"
 
 #: ../exaile.glade.h:103
 msgid "Exaile"
@@ -435,77 +377,75 @@ msgstr "Exaile"
 
 #: ../exaile.glade.h:104
 msgid "Example:"
-msgstr "Beispiel:"
+msgstr "Esempio:"
 
 #: ../exaile.glade.h:105
 msgid "Export Playlist"
-msgstr "Wiedergabeliste exportieren"
+msgstr "Esporta Scaletta"
 
 #: ../exaile.glade.h:106
 msgid "Fetches similar tracks from last.fm"
-msgstr "Ähnliche Stücke aus der Bibliothek der Wiedergabeliste hinzufügen"
+msgstr "Cerca tracce simili su Last.fm"
 
 #. TRANSLATORS: Filename column in the file browser
 #: ../exaile.glade.h:107 ../xl/gui/playlist.py:61 ../xl/gui/playlist.py:74
 #: ../xl/gui/playlist.py:88 ../xl/panels/files.py:72
 msgid "Filename"
-msgstr "Dateiname"
+msgstr "Nome file"
 
 #: ../exaile.glade.h:108
 msgid "Files"
-msgstr "Dateien"
+msgstr "Files"
 
 #. TRANSLATORS: Output format of the CD import
 #: ../exaile.glade.h:110
 msgid "Format:"
-msgstr "Format:"
+msgstr "Formato"
 
 #. TRANSLATORS: Category of the preferences dialog
 #: ../exaile.glade.h:111 ../xl/prefs.py:323
 msgid "General"
-msgstr "Allgemein"
+msgstr "Generale"
 
 #: ../exaile.glade.h:112 ../xl/gui/editor.py:29 ../xl/gui/playlist.py:60
 #: ../xl/gui/playlist.py:71 ../xl/gui/playlist.py:85
 #: ../xl/panels/playlists.py:105
 msgid "Genre"
-msgstr "Genre"
+msgstr "Genere"
 
 #: ../exaile.glade.h:113
 msgid "I_mport"
-msgstr "I_mportieren"
+msgstr "I_mporta"
 
 #: ../exaile.glade.h:114
 msgid "Ignore directories containing the following (separated by spaces):"
-msgstr ""
-"Verzeichnisse ignorieren, deren Name folgende Begriffe enthält (getrennt "
-"durch Leerzeichen):"
+msgstr "Ignora le cartelle che contengono (spazio per separare):"
 
 #: ../exaile.glade.h:115
 msgid "Import Preset"
-msgstr "Voreinstellung importieren"
+msgstr "Importa Preset"
 
 #: ../exaile.glade.h:116
 msgid "Import directory:"
-msgstr "Verzeichnis _importieren"
+msgstr "Importa cartella:"
 
 #. TRANSLATORS: Category of the preferences dialog
 #: ../exaile.glade.h:117 ../xl/prefs.py:329
 msgid "Importing"
-msgstr "Import"
+msgstr "Importazione"
 
 #: ../exaile.glade.h:118
 msgid "Importing tracks"
-msgstr "Stücke werden importiert …"
+msgstr "Importazione delle tracce"
 
 #: ../exaile.glade.h:119
 msgid "Importing:"
-msgstr "Importieren:"
+msgstr "Importo:"
 
 #. TRANSLATORS: Keep the current track visible in playlist
 #: ../exaile.glade.h:121
 msgid "Jump to current song on track change"
-msgstr "Aktuelles Stück in der Wiedergabeliste sichtbar halten"
+msgstr "Vai al brano corrente al prossimo cambio di traccia"
 
 #. TRANSLATORS: Category of the preferences dialog
 #: ../exaile.glade.h:122 ../xl/prefs.py:331
@@ -514,30 +454,30 @@ msgstr "Last.fm"
 
 #: ../exaile.glade.h:123
 msgid "Last.fm Password:"
-msgstr "Passwort:"
+msgstr "Last.fm Password:"
 
 #: ../exaile.glade.h:124
 msgid "Last.fm Username:"
-msgstr "Benutzername:"
+msgstr "Last.fm Username:"
 
 #: ../exaile.glade.h:125 ../xl/gui/playlist.py:57 ../xl/gui/playlist.py:59
 #: ../xl/gui/playlist.py:67 ../xl/gui/playlist.py:81 ../xl/gui/playlist.py:484
 #: ../xl/panels/playlists.py:145
 msgid "Length"
-msgstr "Länge"
+msgstr "Durata"
 
 #. TRANSLATORS: Category of the preferences dialog
 #: ../exaile.glade.h:126 ../xl/prefs.py:325
 msgid "Library"
-msgstr "Bibliothek"
+msgstr "Libreria"
 
 #: ../exaile.glade.h:127
 msgid "Library Manager"
-msgstr "Bibliotheken-Verwaltung"
+msgstr "Gestione"
 
 #: ../exaile.glade.h:128
 msgid "Library _Manager"
-msgstr "Bibliotheken-_Verwaltung"
+msgstr "Gestione della _Libreria"
 
 #: ../exaile.glade.h:129 ../plugins/ipoddriver.py:59
 #: ../plugins/massstoragedriver.py:50 ../plugins/streamripper.py:58
@@ -545,53 +485,53 @@ msgstr "Bibliotheken-_Verwaltung"
 #: ../xl/gui/playlist.py:87 ../xl/gui/playlist.py:511
 #: ../xl/panels/playlists.py:165
 msgid "Location"
-msgstr "Ort"
+msgstr "Posizione"
 
 #: ../exaile.glade.h:130 ../xl/gui/information.py:239
 #: ../xl/gui/information.py:292
 msgid "Location:"
-msgstr "Ort:"
+msgstr "Posizione:"
 
 #. TRANSLATORS: File naming of imported tracks
 #: ../exaile.glade.h:132
 msgid "Naming:"
-msgstr "Dateibenennung:"
+msgstr "Nome:"
 
 #: ../exaile.glade.h:133
 msgid "New Search"
-msgstr "Neue Suche"
+msgstr "Nuova Ricerca"
 
 #: ../exaile.glade.h:134 ../plugins/minimode.py:135 ../xl/xlmisc.py:355
 msgid "Next"
-msgstr "Nächstes"
+msgstr "Successiva"
 
 #: ../exaile.glade.h:135 ../plugins/traybuttons.py:62
 #: ../plugins/traybuttons.py:133
 msgid "Next Track"
-msgstr "Nächstes Stück"
+msgstr "Traccia Successiva"
 
 #. TRANSLATORS: Progress bar background text when there is no playback
 #: ../exaile.glade.h:136 ../xl/gui/main.py:434 ../xl/gui/main.py:1079
 #: ../xl/gui/main.py:1080
 msgid "Not Playing"
-msgstr "Keine Wiedergabe"
+msgstr "Non in Riproduzione"
 
 #. TRANSLATORS: Category of the preferences dialog
 #: ../exaile.glade.h:137 ../xl/prefs.py:327
 msgid "Notification"
-msgstr "OSD"
+msgstr "Notifica"
 
 #: ../exaile.glade.h:138
 msgid "Open _Disc"
-msgstr "_Disc öffnen"
+msgstr "Apri _Disco"
 
 #: ../exaile.glade.h:139
 msgid "Open _URL"
-msgstr "_Adresse öffnen"
+msgstr "Apri _URL"
 
 #: ../exaile.glade.h:140
 msgid "Open last playlist on startup"
-msgstr "Letzte Wiedergabeliste beim Starten anzeigen"
+msgstr "Apri l'ultima playlist all'avvio"
 
 #: ../exaile.glade.h:141
 msgid "P_lugins"
@@ -600,41 +540,40 @@ msgstr "P_lugins"
 #: ../exaile.glade.h:142 ../plugins/minimode.py:132
 #: ../plugins/traybuttons.py:59
 msgid "Play/Pause"
-msgstr "Wiedergabe/Pause"
+msgstr "Riproduci/Pausa"
 
 #: ../exaile.glade.h:143
 msgid "Playback Sink:"
-msgstr "Wiedergabe-Puffer:"
+msgstr "Sistema di riproduzione:"
 
 #: ../exaile.glade.h:144 ../xl/playlist.py:138 ../xl/playlist.py:169
 #: ../xl/gui/main.py:1182 ../xl/gui/main.py:1194 ../xl/gui/main.py:1240
 #: ../xl/gui/main.py:1552
 msgid "Playlist"
-msgstr "Wiedergabeliste"
+msgstr "Scaletta"
 
 #: ../exaile.glade.h:145
 msgid "Playlist Tab Placement:"
-msgstr "Platzierung des Wiedergabe-Tabs:"
+msgstr "Posizionamento Tab Scaletta"
 
 #: ../exaile.glade.h:146
 msgid "Playlists"
-msgstr "Wiedergabelisten"
+msgstr "Scalette"
 
 #: ../exaile.glade.h:147
 msgid ""
 "Please choose the EQF file from which you would like to import the equalizer "
 "preset."
 msgstr ""
-"Bitte EQF-Datei auswählen, die als Equalizer-Voreinstellung importiert "
-"werden soll."
+"Seleziona il file EQF dal quale vuoi importare il preset dell'equalizzatore."
 
 #: ../exaile.glade.h:148
 msgid "Please enter the name which you would like to save the preset as."
-msgstr "Bitte den gewünschten Namen der Voreinstellung eingeben."
+msgstr "Inserisci il nome con il quale vuoi salvare il preset."
 
 #: ../exaile.glade.h:149
 msgid "Podcasts"
-msgstr "Podcasts"
+msgstr "Podcast"
 
 #: ../exaile.glade.h:150
 msgid "Popup"
@@ -642,24 +581,24 @@ msgstr "Popup"
 
 #: ../exaile.glade.h:151
 msgid "Preamp (dB)"
-msgstr "Vorverstärker (dB):"
+msgstr "Preamp (dB)"
 
 #: ../exaile.glade.h:152 ../xl/prefs.py:374 ../xl/xlmisc.py:361
 msgid "Preferences"
-msgstr "Einstellungen"
+msgstr "Preferenze"
 
 #: ../exaile.glade.h:153 ../plugins/minimode.py:128 ../xl/xlmisc.py:356
 msgid "Previous"
-msgstr "Vorheriges"
+msgstr "Precedente"
 
 #: ../exaile.glade.h:154 ../plugins/traybuttons.py:56
 #: ../plugins/traybuttons.py:132
 msgid "Previous Track"
-msgstr "Vorheriges Stück"
+msgstr "Traccia Precedente"
 
 #: ../exaile.glade.h:155 ../xl/prefs.py:592
 msgid "Quality:"
-msgstr "Qualität:"
+msgstr "Qualità:"
 
 #. TRANSLATORS: Category of the preferences dialog
 #: ../exaile.glade.h:156 ../xl/prefs.py:333
@@ -669,123 +608,123 @@ msgstr "Radio"
 #. TRANSLATORS: Randomizes the track order contrary to Shuffle
 #: ../exaile.glade.h:158
 msgid "Randomize Playlist"
-msgstr "Wiedergabeliste mischen"
+msgstr "Scaletta casuale"
 
 #: ../exaile.glade.h:159
 msgid "Randomize playback order"
-msgstr "Zufällige Wiedergabe"
+msgstr "Ordine di riproduzione casuale"
 
 #: ../exaile.glade.h:160 ../xl/gui/playlist.py:60 ../xl/gui/playlist.py:69
 #: ../xl/gui/playlist.py:83 ../xl/gui/playlist.py:455
 #: ../xl/gui/playlist.py:490 ../xl/gui/playlist.py:561
 #: ../xl/panels/collection.py:213
 msgid "Rating"
-msgstr "Bewertung"
+msgstr "Valutazione"
 
 #: ../exaile.glade.h:161
 msgid "Rating: "
-msgstr "Bewertung: "
+msgstr "Valutazione: "
 
 #: ../exaile.glade.h:162 ../plugins/daap-share/gui.glade.h:4
 #: ../xl/panels/radio.py:629
 msgid "Refresh"
-msgstr "Aktualisieren"
+msgstr "Aggiorna"
 
 #: ../exaile.glade.h:163
 msgid "Remove"
-msgstr "Entfernen"
+msgstr "Rimuovi"
 
 #: ../exaile.glade.h:164
 msgid "Remove Saved Station"
-msgstr "Gespeicherte Station entfernen"
+msgstr "Rimuovi Stazione Salvata"
 
 #: ../exaile.glade.h:165
 msgid "Repeat"
-msgstr "Wiederholen"
+msgstr "Ripeti"
 
 #: ../exaile.glade.h:166
 msgid "Repeat the entire playlist endlessly"
-msgstr "Gesamte Wiedergabeliste wiederholen"
+msgstr "Ripeti l'intera scaletta all'infinito"
 
 #: ../exaile.glade.h:167 ../xl/prefs.py:337
 msgid "Replay Gain"
-msgstr "ReplayGain"
+msgstr "Guadagno di Riproduzione"
 
 #: ../exaile.glade.h:168
 msgid "Resizable"
-msgstr "Änderbar"
+msgstr "Ridimensionabile"
 
 #: ../exaile.glade.h:169
 msgid "Save Preset"
-msgstr "Voreinstellung speichern"
+msgstr "Salva Preset"
 
 #: ../exaile.glade.h:170
 msgid "Save queue status"
-msgstr "Warteschlangen-Status beim Starten wiederherstellen"
+msgstr "Salva lo stato della coda"
 
 #: ../exaile.glade.h:171
 msgid "Scan for new music every: "
-msgstr "Intervall für Suche nach neuer Musik: "
+msgstr "Cerca nuovi brani ogni: "
 
 #: ../exaile.glade.h:172 ../plugins/daap-share/gui.glade.h:5
 #: ../plugins/shoutcast.py:169
 msgid "Search:"
-msgstr "Suche:"
+msgstr "Cerca:"
 
 #: ../exaile.glade.h:173
 msgid "Search: "
-msgstr "Suche: "
+msgstr "Cerca: "
 
 #. Label for the filter box next to the playlist
 #: ../exaile.glade.h:175
 msgid "Search:  "
-msgstr "Filter:  "
+msgstr "Cerca:  "
 
 #: ../exaile.glade.h:176
 msgid "See http://www.exaile.org/trac/wiki/OSD for examples"
-msgstr "Beispiele sind unter http://exaile.org/trac/wiki/OSD zu finden."
+msgstr "Visita http://www.exaile.org/trac/wiki/OSD per esempi"
 
 #: ../exaile.glade.h:177
 msgid "Select A File"
-msgstr "Datei auswählen"
+msgstr "Scegliere un file"
 
 #: ../exaile.glade.h:178
 msgid "Show OSD on track change"
-msgstr "OSD beim Stückwechsel anzeigen"
+msgstr "Mostra l'OSD al cambiamento della traccia"
 
 #: ../exaile.glade.h:179
 msgid "Show _Visualizations"
-msgstr "_Visualisierungen anzeigen"
+msgstr "Mostra _Visualizzazioni"
 
 #: ../exaile.glade.h:180
 msgid "Show splash screen on startup"
-msgstr "Startbildschirm anzeigen"
+msgstr "Moltra lo splash sreen all'avvio"
 
 #: ../exaile.glade.h:181
 msgid "Show tray icon"
-msgstr "Kontrollleistensymbol anzeigen"
+msgstr "Mostra l'icona nell'area di notifica"
 
 #: ../exaile.glade.h:182
 msgid "Shuffle"
-msgstr "Zufallswiedergabe"
+msgstr "Casuale"
 
 #. TRANSLATORS: Start fetching cover arts
 #: ../exaile.glade.h:183 ../xl/covers.py:491
 msgid "Start"
-msgstr "Starten"
+msgstr "Avvia"
 
 #. TRANSLATORS: Start track numbers from this
 #: ../exaile.glade.h:185
 msgid "Start with"
-msgstr "Starten mit:"
+msgstr "Inizia da"
 
 #: ../exaile.glade.h:186
 msgid "Stop Playback"
-msgstr "Wiedergabe beenden"
+msgstr "Ferma Riproduzione"
 
 #: ../exaile.glade.h:187 ../xl/gui/main.py:1081
 msgid "Stopped"
-msgstr "Beendet"
+msgstr "Arrestato"
 
 #: ../exaile.glade.h:188
 msgid "Tags"
@@ -793,33 +732,33 @@ msgstr "Tags"
 
 #: ../exaile.glade.h:189
 msgid "Tags From Path"
-msgstr "Tags aus Dateiname erzeugen"
+msgstr "Tag da Percorso"
 
 #: ../exaile.glade.h:190
 msgid "Tags are added to existing ones"
-msgstr "Neue Tags werden zu den vorhandenen Tags hinzugefügt"
+msgstr "Aggiungi Tag a quelli esistenti"
 
 #: ../exaile.glade.h:191
 msgid "Tags replace existing ones"
-msgstr "Neue Tags überschreiben bestehende Tags"
+msgstr "Sostituisci Tag esistenti con i nuovi"
 
 #: ../exaile.glade.h:192
 msgid "Text Color"
-msgstr "Textfarbe:"
+msgstr "Colore del testo"
 
 #: ../exaile.glade.h:193
 msgid "Text Font:"
-msgstr "Schriftart:"
+msgstr "Font del testo:"
 
 #: ../exaile.glade.h:194 ../xl/gui/editor.py:24 ../xl/gui/playlist.py:57
 #: ../xl/gui/playlist.py:59 ../xl/gui/playlist.py:64 ../xl/gui/playlist.py:78
 #: ../xl/gui/playlist.py:511
 msgid "Title"
-msgstr "Titel"
+msgstr "Titolo"
 
 #: ../exaile.glade.h:195
 msgid "Toggle Stop Track"
-msgstr "Nach diesem Stück stoppen"
+msgstr "Arresta Traccia"
 
 #: ../exaile.glade.h:196
 msgid ""
@@ -828,30 +767,30 @@ msgid ""
 "Right\n"
 "Bottom"
 msgstr ""
-"Oben\n"
-"Links\n"
-"Rechts\n"
-"Unten"
+"Sopra\n"
+"Sinistra\n"
+"Destra\n"
+"Sotto"
 
 #: ../exaile.glade.h:200
 msgid "Track Editor"
-msgstr "Tag-Editor"
+msgstr "Editor Traccia"
 
 #: ../exaile.glade.h:201 ../xl/gui/editor.py:27 ../xl/gui/editor.py:226
 msgid "Track Number"
-msgstr "Nummer"
+msgstr "Numero Traccia"
 
 #: ../exaile.glade.h:202
 msgid "Track Numbers"
-msgstr "Nummerierung"
+msgstr "Numeri Tracce"
 
 #: ../exaile.glade.h:203
 msgid "Up One Directory"
-msgstr "Übergeordnetes Verzeichnis"
+msgstr "Livello superiore"
 
 #: ../exaile.glade.h:204
 msgid "Use album gain mode"
-msgstr "Album-Verstärkungsmodus nutzen"
+msgstr "Usa modalità di Guadagno per l'album"
 
 #: ../exaile.glade.h:205
 msgid ""
@@ -860,114 +799,114 @@ msgid ""
 "Medium\n"
 "Low"
 msgstr ""
-"Sehr hoch\n"
-"Hoch\n"
-"Mittel\n"
-"Niedrig"
+"Molto Alta\n"
+"Alta\n"
+"Media\n"
+"Bassa"
 
 #. TRANSLATORS: The volume label
 #: ../exaile.glade.h:210
 msgid "Vol:"
-msgstr "Lautstärke:"
+msgstr "Vol:"
 
 #: ../exaile.glade.h:211
 msgid "Wikipedia Locale:"
-msgstr "Wikipedia-Sprachauswahl:"
+msgstr "Wikipedia Locale:"
 
 #: ../exaile.glade.h:212
 msgid "Window Height:"
-msgstr "Fensterhöhe:"
+msgstr "Altezza Finestra:"
 
 #: ../exaile.glade.h:213
 msgid "Window Width:"
-msgstr "Fensterbreite:"
+msgstr "Larghezza Finestra:"
 
 #: ../exaile.glade.h:214 ../xl/gui/playlist.py:60 ../xl/gui/playlist.py:70
 #: ../xl/gui/playlist.py:84 ../xl/panels/playlists.py:134
 msgid "Year"
-msgstr "Jahr"
+msgstr "Anno"
 
 #: ../exaile.glade.h:215
 msgid "_Album Art Collector"
-msgstr "_Album-Cover-Sammlung"
+msgstr "Gestione _Copertine"
 
 #: ../exaile.glade.h:216
 msgid "_Blacklist Manager"
-msgstr "_Blacklist"
+msgstr "Gestione _Lista Nera"
 
 #: ../exaile.glade.h:217
 msgid "_Close"
-msgstr "_Schließen"
+msgstr "_Chiudi"
 
 #: ../exaile.glade.h:218
 msgid "_Columns"
-msgstr "_Spalten"
+msgstr "C_olonne"
 
 #: ../exaile.glade.h:219
 msgid "_Edit"
-msgstr "_Bearbeiten"
+msgstr "_Modifica"
 
 #: ../exaile.glade.h:220
 msgid "_File"
-msgstr "_Datei"
+msgstr "_File"
 
 #: ../exaile.glade.h:221
 msgid "_Go To Playing Track"
-msgstr "_Zum aktuellen Stück springen"
+msgstr "_Vai alla Traccia in Riproduzione"
 
 #: ../exaile.glade.h:222
 msgid "_Help"
-msgstr "_Hilfe"
+msgstr "_Aiuto"
 
 #: ../exaile.glade.h:223
 msgid "_Import Directory"
-msgstr "Verzeichnis _importieren"
+msgstr "_Importa Cartella"
 
 #: ../exaile.glade.h:224
 msgid "_New Playlist"
-msgstr "_Neue Wiedergabeliste"
+msgstr "_Nuova Scaletta"
 
 #: ../exaile.glade.h:225
 msgid "_Open Media"
-msgstr "_Medium öffnen"
+msgstr "_Apri Media"
 
 #: ../exaile.glade.h:226
 msgid "_Queue Manager"
-msgstr "_Warteschlange"
+msgstr "Gestione della _Coda"
 
 #: ../exaile.glade.h:227
 msgid "_Rescan Collection"
-msgstr "Bibliothek _neu scannen"
+msgstr "_Aggiorna Collezione"
 
 #: ../exaile.glade.h:228
 msgid "_Tools"
-msgstr "_Werkzeuge"
+msgstr "_Strumenti"
 
 #: ../exaile.glade.h:229
 msgid "_Track Information"
-msgstr "Informa_tionen zum Stück"
+msgstr "_Informazione Traccia"
 
 #: ../exaile.glade.h:230
 msgid "_View"
-msgstr "_Ansicht"
+msgstr "_Visualizza"
 
 #. TRANSLATORS: Total number of tracks
 #: ../exaile.glade.h:232
 msgid "out of:"
-msgstr "von:"
+msgstr "di"
 
 #. TRANSLATORS: Replace this string with your names, one per line
 #: ../exaile.glade.h:234
 msgid "translator-credits"
 msgstr ""
-"Mathias Brodala <info@noctus.net>\n"
-"\n"
 "Launchpad Contributions:\n"
-"  Mathias Brodala https://launchpad.net/~mathbr"
+"  Alessandro Tavano https://launchpad.net/~alessandro-tavano\n"
+"  Nicola Piovesan https://launchpad.net/~piovesannicola\n"
+"  risidoro https://launchpad.net/~risidoro-gmail"
 
 #: ../plugins/alarmclock.py:23
 msgid "Alarm Clock"
-msgstr "Weckuhr"
+msgstr "Alarm Clock"
 
 #: ../plugins/alarmclock.py:26
 msgid ""
@@ -976,15 +915,15 @@ msgid ""
 "button, \n"
 "so be sure you have the music you want to hear in your playlist"
 msgstr ""
-"Spielt zu einer vorgegebenen Zeit Musik ab.\\n\\nHinweis: Da Exaile zum "
-"vorgegebenen Zeitpunkt einfach den Inhalt der\n"
-"aktuellen Wiedergabeliste abspielt, sollte diese auch die gewünschten\n"
-"Stücke enthalten."
+"Riproduce brani ad un determinato orario.\\n\\nNota che quando \n"
+"l'ora specificata arriva, Exaile agirà come se stessi premendo il bottone "
+"per riprodurre, \n"
+"quindi sii sicuro di avere i brani che desideri ascoltare nella tua playlist."
 
 #. TRANSLATORS: Alarm time for the Alarm Clock plugin
 #: ../plugins/alarmclock.py:47
 msgid "Alarm Time:  "
-msgstr "Weckzeit:  "
+msgstr "Orario dell'Allarme  "
 
 #: ../plugins/awn.py:22
 msgid "AWN"
@@ -995,217 +934,217 @@ msgid ""
 "Displays the current album's cover art, progress and/or remaining time in "
 "AWN."
 msgstr ""
-"Zeigt das CD-Cover, den Wiedergabestatus und/oder die verbleibende Zeit des "
-"aktuellen Albums in AWN an."
+"Mostra la copertina dell'album corrente, il progresso e/o il tempo rimanente "
+"in AWN."
 
 #: ../plugins/awn.py:127
 msgid "Show song's remaining time in AWN"
-msgstr "Verbleibende Zeit des Stücks in AWN anzeigen"
+msgstr "Mostra il tempo rimanente del brano in AWN"
 
 #: ../plugins/awn.py:131
 msgid "Show song's progress in AWN"
-msgstr "Wiedergabestatus des Stücks in AWN anzeigen"
+msgstr "Mostra il progresso del brano in AWN"
 
 #: ../plugins/awn.py:135
 msgid "Don't show any extra information"
-msgstr "Keine zusätzliche Information anzeigen"
+msgstr "Non mostrare alcuna informazione extra"
 
 #: ../plugins/bluetooth.py:23 ../plugins/bluetooth.py:53
 msgid "Send via Bluetooth"
-msgstr "Über Bluetooth versenden"
+msgstr "Invia via Bluetooth"
 
 #: ../plugins/bluetooth.py:26
 msgid ""
 "Allows sending files via Bluetooth.\\n\\nRequires\n"
 "gnome-obex-send."
 msgstr ""
-"Ermöglicht das Übermitteln von Dateien via Bluetooth\\n\\n(Erfordert „gnome-"
-"obex-send“)"
+"Consenti il trasferimento di file via Bluetooth.\\n\\nRichiede\n"
+"gnome-obex-send."
 
 #: ../plugins/combopanelselect.py:23
 msgid "Panel List"
-msgstr "Paneelenliste"
+msgstr "Elenco delle schede"
 
 #: ../plugins/combopanelselect.py:26
 msgid "Moves the sidepanel's tab list into a drop-down menu."
-msgstr "Verschiebt die Tabs der Seitenpaneele in ein Auswahlfeld"
+msgstr ""
+"Inserisci l'elenco delle schede del pannello laterale in un menu a discesa."
 
 #: ../plugins/console.py:26
 msgid "Python Console"
-msgstr "Python-Konsole"
+msgstr "Console Python"
 
 #: ../plugins/console.py:29
 msgid ""
 "Provides a Python console that can be used to\n"
 "manipulate Exaile."
 msgstr ""
-"Ermöglicht die Manipulation Exailes über eine\n"
-"Python-Konsole."
+"Fornisce una console Python che può essere usata per\n"
+"controllare Exaile."
 
 #: ../plugins/console.py:42
 msgid "Python Console - Exaile"
-msgstr "Python-Konsole: Exaile"
+msgstr "Console Python - Exaile"
 
 #: ../plugins/console.py:105
 msgid "Show Python Console"
-msgstr "Python-Konsole anzeigen"
+msgstr "Mostra Console Python"
 
 #: ../plugins/daap-share/daap-share.py:48
 msgid "Music Sharing"
-msgstr "DAAP-Musikverteilung"
+msgstr "Condivisione della musica"
 
 #: ../plugins/daap-share/daap-share.py:51
 msgid ""
 "Allows playing of DAAP music shares.\n"
 "\\n\\nDepends: python-daap, python-avahi."
 msgstr ""
-"Ermöglicht die Wiedergabe von DAAP-Verzeichnissen\n"
-"\\n\\n(Erfordert „python-daap“ sowie „python-avahi“.)"
+"Consente la riproduzione delle condivisioni musicali DAAP.\n"
+"\\n\\nRichiede: python-daap, python-avahi."
 
 #: ../plugins/daap-share/daap-share.py:166
 msgid "Retrieving track list from server..."
-msgstr "Stückliste wird vom Server abgerufen …"
+msgstr "Ricezione dell'elenco delle tracce dal server..."
 
 #: ../plugins/daap-share/daap-share.py:242
 msgid ""
 "This server does not support multiple connections.\n"
 "You must stop playback before downloading songs."
 msgstr ""
-"Dieser Server lässt keine Mehrfachverbindungen zu.\n"
-"Vor dem Download von Stücken muss die Wiedergabe\n"
-"beendet werden."
+"Questo server non supporta le connessioni multiple.\n"
+"Arrestare la riproduzione prima di scaricare i brani."
 
 #: ../plugins/daap-share/daap-share.py:297
 #: ../plugins/daap-share/daap-share.py:415
 msgid "Custom location..."
-msgstr "Benutzerdefinierter Ort …"
+msgstr "Percorso personalizzato..."
 
 #: ../plugins/daap-share/daap-share.py:300
 msgid "Enter IP address and port for share"
-msgstr "IP-Adresse und Port des DAAP-Verzeichnisses eingeben"
+msgstr "Inserisci l'indirizzo IP e la porta per la condivisione"
 
 #: ../plugins/daap-share/daap-share.py:301
 msgid "Enter IP address and port."
-msgstr "IP-Adresse und Port eingeben."
+msgstr "Inserisci indirizzo IP e porta."
 
 #: ../plugins/daap-share/daap-share.py:311
 msgid ""
 "You must supply an IP address and port number, in the format\n"
 "<ip address>:<port>"
 msgstr ""
-"IP-Adresse und Portnummer sind im folgenden Format erforderlich:\n"
-"<IP-Adresse>:<Port>"
+"Devi fornire un indirizzo IP e una porta nel formato\n"
+"<indirizzo IP>:<porta>"
 
 #: ../plugins/daap-share/daap-share.py:332
 msgid "Enter password for"
-msgstr "Passwort eingeben für:"
+msgstr "Inserisci password per"
 
 #: ../plugins/daap-share/daap-share.py:334
 msgid "Password required."
-msgstr "Passwort erforderlich."
+msgstr "Password richiesta."
 
 #: ../plugins/daap-share/daap-share.py:351
 msgid ""
 "Could not connect to server. Did you enter the correct address and port?"
 msgstr ""
-"Verbindung zum Server konnte nicht aufgebaut werden. Wurde die korrekte "
-"Adresse und Portnummer angegeben?"
+"Non è possibile connettersi al server. Hai inserito indirizzo e porta "
+"corretti?"
 
 #. TRANSLATORS: Append selected track(s) to current playlist
 #: ../plugins/daap-share/daap-share.py:422 ../xl/panels/collection.py:165
 msgid "Append to Current"
-msgstr "An derzeitige Wiedergabeliste anhängen"
+msgstr "Aggiungi alla corrente"
 
 #: ../plugins/daap-share/daap-share.py:425 ../xl/panels/collection.py:188
 #: ../xl/panels/files.py:108
 msgid "Queue Items"
-msgstr "An Warteschlange anhängen"
+msgstr "Accoda gli elementi"
 
 #: ../plugins/daap-share/daap-share.py:429
 msgid "Save Items"
-msgstr "Stücke speichern"
+msgstr "Salva gli elementi"
 
 #: ../plugins/daap-share/daap-share.py:452
 msgid "Select a save location"
-msgstr "Speicherort festlegen"
+msgstr "Selezionare la destinazione di salvataggio"
 
 #: ../plugins/daap-share/daap-share.py:454
 msgid "Open"
-msgstr "Öffnen"
+msgstr "Apri"
 
 #: ../plugins/daap-share/daap-share.py:454
 msgid "Cancel"
-msgstr "Abbrechen"
+msgstr "Annulla"
 
 #: ../plugins/daap-share/daap-share.py:500
 msgid "Network"
-msgstr "Netzwerk"
+msgstr "Rete"
 
 #: ../plugins/daap-share/gui.glade.h:6
 msgid "Share:"
-msgstr "DAAP-Freigabe:"
+msgstr "Condividi:"
 
 #: ../plugins/desktopcover.py:23
 msgid "Desktop Cover"
-msgstr "Desktop-Cover"
+msgstr "Desktop Cover"
 
 #: ../plugins/desktopcover.py:28
 msgid "Displays the current album cover on the desktop"
-msgstr "Zeigt das derzeitige CD-Cover auf dem Desktop an"
+msgstr "Mostra la copertina dell'album corrente sul desktop"
 
 #. TRANSLATORS: Desktop cover gravity
 #: ../plugins/desktopcover.py:139
 msgid "Northwest"
-msgstr "Nordwest"
+msgstr "Nordovest"
 
 #. TRANSLATORS: Desktop cover gravity
 #: ../plugins/desktopcover.py:141
 msgid "Northeast"
-msgstr "Nordost"
+msgstr "Nordest"
 
 #. TRANSLATORS: Desktop cover gravity
 #: ../plugins/desktopcover.py:143
 msgid "Southwest"
-msgstr "Südwest"
+msgstr "Sudovest"
 
 #. TRANSLATORS: Desktop cover gravity
 #: ../plugins/desktopcover.py:145
 msgid "Southeast"
-msgstr "Südost"
+msgstr "Sudest"
 
 #: ../plugins/desktopcover.py:166
 msgid "Manual positioning"
-msgstr "Manuelle Positionierung"
+msgstr "Posizionamento manuale"
 
 #: ../plugins/desktopcover.py:173
 msgid "Gravity"
-msgstr "Ausrichtung"
+msgstr "Orientamento"
 
 #. TRANSLATORS: Offset from the desktop border
 #: ../plugins/desktopcover.py:186
 msgid "X offset"
-msgstr "X-Abstand"
+msgstr "Scostamento X"
 
 #. TRANSLATORS: Offset from the desktop border
 #: ../plugins/desktopcover.py:198
 msgid "Y offset"
-msgstr "Y-Abstand"
+msgstr "Scostamento Y"
 
 #: ../plugins/desktopcover.py:209
 msgid "Manual sizing"
-msgstr "Manuelle Größenanpassung"
+msgstr "Dimensionamento manuale"
 
 #: ../plugins/desktopcover.py:216
 msgid "Width"
-msgstr "Breite"
+msgstr "Larghezza"
 
 #: ../plugins/desktopcover.py:227
 msgid "Height"
-msgstr "Höhe"
+msgstr "Altezza"
 
 #: ../plugins/didyouknow/didyouknow.py:41
 msgid "Did You Know"
-msgstr "Wussten Sie schon ...?"
+msgstr "Lo sapevi che..."
 
 #: ../plugins/didyouknow/didyouknow.py:44
 msgid ""
@@ -1213,17 +1152,17 @@ msgid ""
 "\\n\\nPress the 'i' icon the show the popup window. Double click on popup "
 "window to hide it."
 msgstr ""
-"Zeigt eine wissenswerte Information aus der Wikipedia an\n"
-"\\n\\nEin Klick auf das „i“-Icon zeigt das Fenster an; ein Doppelklick auf "
-"das Fenster verbirgt es wieder."
+"Mostra un'informazione 'lo sapevi che...' da Wikipedia.\n"
+"\\n\\nPremi l'icona 'i' per mostrare la finestra popup. Fai doppio click "
+"sulla finestra popup per nasconderla."
 
 #: ../plugins/didyouknow/didyouknow.py:294
 msgid "Toggle 'Did you know..' popup"
-msgstr "Sichtbarkeit des „Wussten Sie schon …?“-Fensters"
+msgstr "Attiva/Disattiva la finestra popup 'Lo sapevi che...'"
 
 #: ../plugins/didyouknow/didyouknow.py:481
 msgid "Artist: "
-msgstr "Interpret: "
+msgstr "Artista: "
 
 #: ../plugins/didyouknow/didyouknow.py:491
 #, python-format
@@ -1232,21 +1171,21 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Wussten Sie schon …\n"
+"Lo sapevi che...\n"
 "\n"
 "%s"
 
 #: ../plugins/didyouknow/gui.glade.h:1
 msgid "Next..."
-msgstr "Nächste …"
+msgstr "Successivo..."
 
 #: ../plugins/exailenotify.py:22
 msgid "LibNotify Plugin"
-msgstr "Benachrichtigungsfenster"
+msgstr "LibNotify Plugin"
 
 #: ../plugins/exailenotify.py:25
 msgid "Uses libnotify to inform you when a new song starts"
-msgstr "Zeigt Informationen zum Stück mit Hilfe von libnotify an"
+msgstr "Usa libnotify per informarti quando inizia una nuova canzone."
 
 #. TRANSLATORS: Libnotify plugin default message body
 #: ../plugins/exailenotify.py:32
@@ -1255,77 +1194,76 @@ msgid ""
 "<i>on {album}</i>"
 msgstr ""
 "{artist}\n"
-"<i>aus {album}</i>"
+"<i>in {album}</i>"
 
 #: ../plugins/exailenotify.py:52
 msgid "Notification Summary:"
-msgstr "Benachrichtigungs-Kopf:"
+msgstr "Sommario Notifica:"
 
 #: ../plugins/exailenotify.py:60
 msgid "Notification Body:"
-msgstr "Benachrichtigungs-Text:"
+msgstr "Corpo Notifica:"
 
 #: ../plugins/exailenotify.py:73
 msgid "Show album covers in notification"
-msgstr "CD-Cover im Benachrichtungsfenster anzeigen"
+msgstr "Visualizza le copertine degli album nelle notifiche"
 
 #: ../plugins/exailenotify.py:77
 msgid "Attach notification to tray icon (if available)"
-msgstr ""
-"Benachrichtigungsfenster an Kontrollleistensymbol anheften (sofern aktiviert)"
+msgstr "Allega le notifiche all'icona sull'area di notifica (se possibile)"
 
 #: ../plugins/hotkeys.py:5
 msgid "Global Hotkeys"
-msgstr "Globale Tastenkürzel"
+msgstr "Tasti di scelta rapida globali"
 
 #: ../plugins/hotkeys.py:9
 msgid ""
 "Enables support for Global Hotkeys in metacity\n"
 "(default gnome window manager)"
 msgstr ""
-"Ermöglicht die Nutzung globaler Tastenkürzel in metacity,\n"
-"dem Standard-Windowmanager in GNOME"
+"Abilita il supporto per i tasti di scelta rapida globali in metacity\n"
+"(Gestore predefinito delle finestre in gnome)"
 
 #: ../plugins/hotkeys.py:23
 msgid "Show/Hide Exaile:"
-msgstr "Exaile anzeigen/verbergen:"
+msgstr "Mostra/Nascondi Exaile:"
 
 #: ../plugins/hotkeys.py:24
 msgid "Play:"
-msgstr "Wiedergabe:"
+msgstr "RIproduci:"
 
 #: ../plugins/hotkeys.py:25
 msgid "Toggle Play/Pause:"
-msgstr "Wechsel zwischen Wiedergabe und Pause:"
+msgstr "Play/Pausa:"
 
 #: ../plugins/hotkeys.py:26
 msgid "Stop:"
-msgstr "Wiedergabe beenden:"
+msgstr "Pausa:"
 
 #: ../plugins/hotkeys.py:27
 msgid "Previous Song:"
-msgstr "Vorheriges Stück:"
+msgstr "Canzone Precedente:"
 
 #: ../plugins/hotkeys.py:28
 msgid "Next Song:"
-msgstr "Nächstes Stück:"
+msgstr "Canzone Successiva:"
 
 #: ../plugins/hotkeys.py:29
 msgid "Increase Volume:"
-msgstr "Lautstärke erhöhen:"
+msgstr "Aumenta Volume:"
 
 #: ../plugins/hotkeys.py:30
 msgid "Decrease Volume:"
-msgstr "Lautstärke verringern:"
+msgstr "Diminuisci Volume:"
 
 #: ../plugins/hotkeys.py:114
 msgid "Set Hotkeys"
-msgstr "Tastenkürzel festlegen"
+msgstr "Configura tasti di scelta rapida"
 
 #. Plugin description
 #: ../plugins/imstatus.py:10
 msgid "IM Status"
-msgstr "IM-Status"
+msgstr "IM Status"
 
 #: ../plugins/imstatus.py:15
 msgid ""
@@ -1333,13 +1271,13 @@ msgid ""
 "music you are listening to.\\n\\nSupported IM clients are:\\n * Gaim (>= 2.0 "
 "beta6)\\n * Gajim\\n * Gossip\\n * Pidgin"
 msgstr ""
-"Passt die Statusnachricht des aktiven Instant-Messengers dem derzeit "
-"abgespielten Stück an.\\n\\nUnterstützte Clients:\\n  Gaim (≥ 2.0 beta6)\\n  "
-"Gajim\\n  Gossip\\n  Pidgin"
+"Imposta lo stato online del tuo programma di messagistica con il brano che "
+"stai ascoltando.\\n\\nI programmi supportati sono:\\n * Gaim (>= 2.0 beta6)\\"
+"n * Gajim\\n * Gossip\\n * Pidgin"
 
 #: ../plugins/imstatus.py:27
 msgid "Exaile is stopped"
-msgstr "Wiedergabe beendet"
+msgstr "Exaile è in pausa"
 
 #. TRANSLATORS: IMStatus plugin default status format
 #: ../plugins/imstatus.py:29
@@ -1353,131 +1291,129 @@ msgid ""
 "\n"
 "Available fields are "
 msgstr ""
-"Alle Platzhalter im Format <b>{Platzhalter}</b> werden durch den zugehörigen "
-"Wert ersetzt.\n"
-"\n"
-"Verfügbare Platzhalter sind "
+"Tutti i campi nella forma <b>{campo}</b> saranno rimpiazzati dal valore "
+"corrispondente. "
 
 #: ../plugins/imstatus.py:337
 msgid "<b> Status message: </b>"
-msgstr "<b>Statusnachricht:</b>"
+msgstr "<b> Messaggio dello stato: </b>"
 
 #: ../plugins/imstatus.py:346
 msgid "Help"
-msgstr "Hilfe"
+msgstr "Aiuto"
 
 #: ../plugins/imstatus.py:354
 msgid "<b> When Exaile stops playing or quits: </b>"
-msgstr "<b>Statusnachricht beim Beenden der Wiedergabe oder Exaile:</b>"
+msgstr "<b> Quando Exaile termina la riproduzione o viene chiuso: </b>"
 
 #: ../plugins/imstatus.py:362
 msgid "Do nothing"
-msgstr "Keine Statusnachricht anzeigen"
+msgstr "Nessuna azione"
 
 #: ../plugins/imstatus.py:363
 msgid "Set status to:"
-msgstr "Folgende Statusnachricht anzeigen:"
+msgstr "Imposta lo stato su:"
 
 #: ../plugins/imstatus.py:378
 msgid "<b> Miscellaneous: </b>"
-msgstr "<b>Sonstiges:</b>"
+msgstr "<b> Varie: </b>"
 
 #: ../plugins/imstatus.py:386
 msgid "Update status when track is paused"
-msgstr "Statusnachricht beim Pausieren der Wiedergabe aktualisieren"
+msgstr "Aggiorna lo stato quando la traccia è in pausa"
 
 #: ../plugins/imstatus.py:389
 msgid "Reset"
-msgstr "Zurücksetzen"
+msgstr "Reimposta"
 
 #: ../plugins/ipoddriver.py:25
 msgid "iPod Device Driver"
-msgstr "iPod-Gerätetreiber"
+msgstr "Driver per iPod"
 
 #: ../plugins/ipoddriver.py:28
 msgid "iPod Driver for the Devices Panel"
-msgstr ""
-"iPod-Treiber für die „Geräte“-Paneele\n"
-"(Erfordert „python-gpod“)"
+msgstr "Driver per iPod nel Pannello Dispositivi"
 
 #: ../plugins/ipoddriver.py:51 ../plugins/massstoragedriver.py:42
 msgid "Mount Point:      "
-msgstr "Einhängepunkt:      "
+msgstr "Punto di Mount:      "
 
 #: ../plugins/ipoddriver.py:161 ../xl/panels/playlists.py:326
 msgid "Add Playlist"
-msgstr "Wiedergabeliste hinzufügen"
+msgstr "Aggiungi Scaletta"
 
 #: ../plugins/ipoddriver.py:162 ../plugins/ipoddriver.py:216
 msgid "Rename Playlist"
-msgstr "Wiedergabeliste umbenennen"
+msgstr "Rinomina Scaletta"
 
 #: ../plugins/ipoddriver.py:163
 msgid "Remove Playlist"
-msgstr "Wiedergabeliste entfernen"
+msgstr "Rimuovi Scaletta"
 
 #: ../plugins/ipoddriver.py:189
 msgid "Enter a name for the new playlist"
-msgstr "Name für die neue Wiedergabeliste eingeben"
+msgstr "Inserisci un nome per la nuova scaletta"
 
 #: ../plugins/ipoddriver.py:189 ../xl/gui/playlist.py:871
 #: ../xl/panels/collection.py:169 ../xl/panels/playlists.py:641
 msgid "New Playlist"
-msgstr "Neue Wiedergabeliste"
+msgstr "Nuova Scaletta"
 
 #: ../plugins/ipoddriver.py:215
 msgid "Enter the new name for the playlist"
-msgstr "Neuen Namen für die Wiedergabeliste eingeben"
+msgstr "Inserisci il nuovo nome per la scaletta"
 
 #: ../plugins/ipoddriver.py:238 ../xl/panels/playlists.py:616
 msgid "Are you sure you want to permanently delete the selected playlist?"
-msgstr "Soll die gewählte Wiedergabeliste unwiederbringlich gelöscht werden?"
+msgstr ""
+"Sei sicuro di voler eliminare permanentemente la scaletta selezionata?"
 
 #: ../plugins/ipoddriver.py:267
 msgid "iPod Collection"
-msgstr "iPod-Bibliothek"
+msgstr "Collezione iPod"
 
 #: ../plugins/ipoddriver.py:411
 msgid ""
 "Error connecting to iPod. Make sure you specify the right mount point in the "
 "plugin configuration."
 msgstr ""
-"Fehler beim Verbindungsaufbau zum iPod. Wurde der richtige Einhängepunkt in "
-"der Plugin-Konfiguration festgelegt?"
+"Errore di connessione all'iPod. Assicurati di aver specificato il corretto "
+"punto di mount nella configurazione del plugin."
 
 #: ../plugins/ipoddriver.py:476
 msgid ""
 "python-gpod could not be loaded. iPod device driver will not be available"
 msgstr ""
-"Der iPod-Gerätetreiber ist nicht nutzbar: „python-gpod“ nicht gefunden."
+"python-gpod non può essere caricato. Il driver per iPod non sarà disponibile"
 
 #: ../plugins/massstoragedriver.py:24
 msgid "Mass Storage Driver"
-msgstr "Massenspeicher-Gerätetreiber"
+msgstr "Driver per periferiche di archiviazione di massa"
 
 #: ../plugins/massstoragedriver.py:27
 msgid "Mass Storage Driver for the Devices Panel"
-msgstr "Massenspeicher-Treiber für die „Geräte“-Paneele"
+msgstr ""
+"Driver per periferiche di archiviazione di massa nel pannello dei dispositivi"
 
 #: ../plugins/massstoragedriver.py:59
 msgid "Transfer Save Location:"
-msgstr "Speicherort für Übertragungen:"
+msgstr "Cartella di salvataggio dei trasferimenti:"
 
 #: ../plugins/massstoragedriver.py:63
 msgid "Save Directory"
-msgstr "Speicherort"
+msgstr "Salva Cartella"
 
 #: ../plugins/massstoragedriver.py:97
 msgid ""
 "You have not specified a directory to transfer your music in.  Please choose "
 "one in the configuration dialog"
 msgstr ""
-"Es wurde kein Speicherort zur Übertragung von Musik in der Plugin-"
-"Konfiguration angegeben."
+"Devi specificare una cartella in cui trasferire la musica. Puoi sceglierne "
+"una nella finestra di configurazione"
 
 #: ../plugins/minimode.py:23 ../plugins/minimode.py:422
 msgid "Mini Mode"
-msgstr "Minimodus"
+msgstr "Modalità minima"
 
 #: ../plugins/minimode.py:26
 msgid ""
@@ -1485,63 +1421,64 @@ msgid ""
 "by pressing CTRL+ALT+M\\n\\nYou can move the window in most cases by\n"
 "ALT+drag"
 msgstr ""
-"Ein kompakter Minimodus für Exaile\\n\\nÜber die Tastenkombination "
-"Strg+Alt+M wird er de/aktiviert\\nBei deaktivierter Fensterdekoration kann "
-"das Fenster meist mit Hilfe der Alt-Taste verschoben werden."
+"Modalità di visualizzazione minima!\\n\\nPuoi attivare la modalità minima\n"
+"con i tasti CTRL+ALT+M\\n\\nIn molti casi è possibile spostare la finestra "
+"con\n"
+"ALT+spostamento del mouse"
 
 #: ../plugins/minimode.py:71
 msgid "Always on top"
-msgstr "Immer zuoberst"
+msgstr "Sempre in alto"
 
 #: ../plugins/minimode.py:72
 msgid "Skip taskbar"
-msgstr "Nicht in Fensterliste anzeigen"
+msgstr "Salta la barra dei task"
 
 #: ../plugins/minimode.py:73
 msgid "Window decoration"
-msgstr "Fensterdekoration"
+msgstr "Decorazione finestra"
 
 #: ../plugins/minimode.py:75
 msgid "Tracklist font size:"
-msgstr "Schriftgröße der Stückliste:"
+msgstr "Dimensione dei caratteri dell'elenco dei brani"
 
 #: ../plugins/minimode.py:163
 msgid "Restore Regular View"
-msgstr "Normale Ansicht wiederherstellen"
+msgstr "Ripristina la modalità di visualizzazione normale"
 
 #: ../plugins/notaskbarentry.py:6
 msgid "No Taskbar Entry"
-msgstr "In Fensterliste ausblenden"
+msgstr "Assente dall'elenco delle finestre"
 
 #: ../plugins/notaskbarentry.py:9
 msgid "Removes exaile from the taskbar"
-msgstr "Blendet Exailes Eintrag in der Fensterliste aus"
+msgstr "Rimuovi Exaile dall'elenco delle finestre"
 
 #: ../plugins/resume.py:6
 msgid "Resume Playback"
-msgstr "Wiedergabe fortsetzen"
+msgstr "Riprendi la riproduzione"
 
 #: ../plugins/resume.py:9
 msgid "Resumes playback after restarting exaile"
-msgstr "Setzt die Wiedergabe nach einem Neustart Exailes fort"
+msgstr "Riprendi la riproduzione quando si riavvia Exaile"
 
 #: ../plugins/shoutcast.py:27
 msgid "Shoutcast Radio"
-msgstr "Shoutcast-Radio"
+msgstr "Shoutcast Radio"
 
 #: ../plugins/shoutcast.py:30
 msgid ""
 "Allows you to browse the Shoutcast Streaming Radio\n"
 "network"
-msgstr "Ermöglicht das Durchsuchen des Shoutcast-Streamingradio-Netzwerks"
+msgstr "Consente di esplorare la rete Shoutcast Streaming Radio"
 
 #: ../plugins/shoutcast.py:136
 msgid "Search"
-msgstr "Suche"
+msgstr "Cerca"
 
 #: ../plugins/shoutcast.py:168
 msgid "Search Stations"
-msgstr "Stationen durchsuchen"
+msgstr "Cerca Stazioni"
 
 #: ../plugins/sound-juicer.py:22
 msgid "Sound Juicer"
@@ -1549,21 +1486,22 @@ msgstr "Sound Juicer"
 
 #: ../plugins/sound-juicer.py:25
 msgid "Allows importing of cds with sound-juicer."
-msgstr "Ermöglicht den Import von CDs mittels Sound Juicer."
+msgstr "Consente l'importazione di cd con sound-juicer."
 
 #: ../plugins/sound-juicer.py:49
 msgid ""
 "Sound Juicer was not found in your $PATH. Disabling the Sound Juicer plugin."
 msgstr ""
-"Sound Juicer wurde nicht im $PATH gefunden; das Plugin wird deaktiviert."
+"Sound Juicer non è stato trovato nel tuo $PATH. Il plugin Sound Juicer è "
+"stato disabilitato."
 
 #: ../plugins/sound-juicer.py:54 ../plugins/sound-juicer.py:55
 msgid "Import Disc"
-msgstr "CD importieren"
+msgstr "Importa Disco"
 
 #: ../plugins/streamripper.py:23
 msgid "Streamripper!"
-msgstr "Streamripper"
+msgstr "Streamripper!"
 
 #: ../plugins/streamripper.py:26
 msgid ""
@@ -1571,92 +1509,93 @@ msgid ""
 "streamripper\\n\\nRequires the command line version of streamripper to be\n"
 "installed"
 msgstr ""
-"Ermöglicht die Aufzeichnung von Streams\n"
-"mittels Streamripper(Erfordert: „streamripper“)"
+"Consente di registrare i flussi audio con\n"
+"streamripper\\n\\nRichiede la presenza della versione a riga\n"
+"di comando di streamripper"
 
 #: ../plugins/streamripper.py:51
 msgid "Save Location:    "
-msgstr "Speicherort:    "
+msgstr "Salva Destinazione:    "
 
 #: ../plugins/streamripper.py:65
 msgid "Relay Port:"
-msgstr "Port:"
+msgstr "Porta di inoltro:"
 
 #: ../plugins/streamripper.py:95
 msgid "You can only record streams"
-msgstr "Nur Streams können aufgezeichnet werden"
+msgstr "È possibile registrare solo i flussi"
 
 #: ../plugins/streamripper.py:125
 msgid "There was an error executing streamripper."
-msgstr "Beim Ausführen von streamripper ist ein Fehler aufgetreten."
+msgstr "Si è verificato un errore nell'esecuzione di streamripper."
 
 #: ../plugins/streamripper.py:139
 msgid "Streamripper is not running."
-msgstr "Streamripper ist nicht aktiv."
+msgstr "Streamripper non è in esecuzione."
 
 #: ../plugins/traybuttons.py:22
 msgid "Tray Buttons"
-msgstr "Kontrollleistenbuttons"
+msgstr "Pulsanti area di Notifica"
 
 #: ../plugins/traybuttons.py:25
 msgid ""
 "This plugin adds \"Play/Pause\", \"Previous\" and \"Next\" buttons to the "
 "notification area"
 msgstr ""
-"Fügt Buttons für „Wiedergabe/Pause“, „Vorheriges Stück“ und „Nächstes Stück“ "
-"der Kontrollleiste hinzu"
+"Questo plugin aggiunge i bottoni \"Play/Pause\", \"Previous\" e \"Next\" "
+"nell'area di notifica"
 
 #: ../plugins/traybuttons.py:121 ../xl/xlmisc.py:343 ../xl/xlmisc.py:373
 msgid "Play"
-msgstr "Wiedergabe"
+msgstr "Riproduci"
 
 #: ../plugins/traybuttons.py:124 ../xl/xlmisc.py:377
 msgid "Pause"
-msgstr "Pause"
+msgstr "Pausa"
 
 #: ../plugins/traybuttons.py:146
 #, python-format
 msgid "Previous track: %(title)s by %(artist)s"
-msgstr "Vorheriges Stück: %(title)s von %(artist)s"
+msgstr "Traccia precedente: %(title)s di %(artist)s"
 
 #: ../plugins/traybuttons.py:155
 #, python-format
 msgid "Next track: %(title)s by %(artist)s"
-msgstr "Nächstes Stück: %(title)s von %(artist)s"
+msgstr "Traccia successiva: %(title)s di %(artist)s"
 
 #: ../plugins/traybuttons.py:202
 msgid "Pause/Play icon"
-msgstr "Wiedergabe/Pause"
+msgstr "Icona Pausa/Riproduci"
 
 #: ../plugins/traybuttons.py:203
 msgid "Next icon"
-msgstr "Nächstes Stück"
+msgstr "Icona Successiva"
 
 #: ../plugins/traybuttons.py:204
 msgid "Previous icon"
-msgstr "Vorheriges Stück"
+msgstr "Icona Precedente"
 
 #: ../plugins/traybuttons.py:205
 msgid "Show track information in the tooltip of Next and Previous"
 msgstr ""
-"Informationen zum vorherigen/nächsten Stück im Tooltip des jeweiligen "
-"Buttons anzeigen"
+"Mostra informazioni sulla traccia al passaggio del mouse su Successivo e "
+"Precedente"
 
 #: ../plugins/traybuttons.py:206
 msgid ""
 "Reverse the order of the Next and Previous buttons (requires a restart of "
 "Exaile)"
 msgstr ""
-"Position der Buttons „Vorheriges Stück“ und „Nächstes Stück“ vertauschen "
-"(erfordert einen Neustart Exailes)"
+"Inverti l'ordine dei bottoni Successivo e Precedente (richiede il riavvio di "
+"Exaile)"
 
 #: ../plugins/updates.py:8
 msgid "Update Notifier"
-msgstr "Update-Benachrichtigung"
+msgstr "Notifica Aggiornamenti"
 
 #: ../plugins/updates.py:11
 msgid "Notifies the user of Exaile and plugin updates"
-msgstr "Informiert über Updates für Exaile und Plugins"
+msgstr "Notifica l'utente degli aggiornamenti di Exaile e dei plugin"
 
 #: ../plugins/updates.py:19
 msgid ""
@@ -1664,8 +1603,8 @@ msgid ""
 "install them from the plugin manager.\n"
 "\n"
 msgstr ""
-"Für folgende Plugins sind neue Versionen verfügbar; sie können über den "
-"Plugin-Manager installiert werden:\n"
+"I seguenti plugins hanno una nuova versione disponibile da installare. Puoi "
+"installarli dal gestore plugin.\n"
 "\n"
 
 #: ../plugins/updates.py:36
@@ -1673,225 +1612,227 @@ msgstr ""
 msgid ""
 "Exaile version %s is available.  Grab it from http://www.exaile.org today!"
 msgstr ""
-"Eine neue Version (%s) für Exaile ist unter http://exaile.org/downloads "
-"verfügbar."
+"La versione %s di Exaile è disponibile. Scaricala da http://www.exaile.org "
+"oggi stesso!"
 
 #: ../xl/advancededitor.py:113
 msgid "Filter:"
-msgstr "Filter:"
+msgstr "Filtro:"
 
 #. TRANSLATORS: Name of a setting in the Advanced Configuration Editor
 #: ../xl/advancededitor.py:135
 msgid "Setting Name"
-msgstr "Einstellung"
+msgstr "Nome Impostazione"
 
 #: ../xl/advancededitor.py:145 ../xl/gui/editor.py:201
 msgid "Value"
-msgstr "Wert"
+msgstr "Valore"
 
 #: ../xl/advancededitor.py:156
 msgid "Type"
-msgstr "Typ"
+msgstr "Tipo"
 
 #. TRANSLATORS: Description of a radio station
 #: ../xl/advancededitor.py:166 ../xl/gui/information.py:287
 #: ../xl/panels/radio.py:873 ../xl/panels/radio.py:952
 #: ../xl/plugins/plugins.glade.h:5
 msgid "Description:"
-msgstr "Beschreibung:"
+msgstr "Descrizione:"
 
 #: ../xl/advancededitor.py:175 ../xl/player.py:235 ../xl/xlmisc.py:643
 msgid "Close"
-msgstr "Schließen"
+msgstr "Chiudi"
 
 #: ../xl/advancededitor.py:244
 #, python-format
 msgid "Invalid setting for %s"
-msgstr "Ungültiger Wert für „%s“"
+msgstr "Impostazione non valida per %s"
 
 #: ../xl/audioscrobbler.py:29
 msgid "Failed to submit track to Last.fm."
-msgstr "Übermittlung an Last.fm fehlgeschlagen."
+msgstr "Invio della traccia a Last.fm non riuscito."
 
 #: ../xl/audioscrobbler.py:49
 msgid "Error logging into Last.fm."
-msgstr "Fehler beim Einloggen auf Last.fm."
+msgstr "Errore durante l'accesso a Last.fm."
 
 #: ../xl/cd_import.py:153
 msgid ""
 "Please set the import settings in the Preferences dialog before importing "
 "anything."
 msgstr ""
-"Bitte zuerst die Importeinstellungen im Einstellungsdialog festlegen."
+"Controllare le impostazioni di importazione nella finestra delle Preferenze "
+"prima di importare qualcosa."
 
 #. TRANSLATORS: CD import status
 #: ../xl/cd_import.py:175
 #, python-format
 msgid "Track %(current)d/%(total)d"
-msgstr "Stück %(current)d von %(total)d"
+msgstr "Traccia %(current)d/%(total)d"
 
 #: ../xl/cd_import.py:308
 msgid "Overwrite file"
-msgstr "Datei überschreiben"
+msgstr "Sovrascrivi file"
 
 #: ../xl/cd_import.py:310
 msgid "Yes to All"
-msgstr "Alles mit Ja beantworten"
+msgstr "Sì a tutti"
 
 #: ../xl/cd_import.py:313
 msgid "No to All"
-msgstr "Alles mit Nein beantworten"
+msgstr "No a Tutti"
 
 #: ../xl/cd_import.py:317
 #, python-format
 msgid "The file %s already exists, do you want to overwrite it?"
-msgstr "Die Datei „%s“ existiert bereits. Soll sie überschrieben werden?"
+msgstr "Il file %s esiste già, vuoi sovrascriverlo?"
 
 #. TRANSLATORS: Checkbox for common dialogs
 #: ../xl/common.py:442
 msgid "Do not show this dialog again"
-msgstr "Diese Meldung nicht wieder anzeigen"
+msgstr "Non mostrare più questa finestra di dialogo"
 
 #: ../xl/covers.py:199 ../xl/covers.py:595 ../xl/covers.py:667
 #: ../xl/covers.py:902
 #, python-format
 msgid "%(album)s by %(artist)s"
-msgstr "%(album)s von %(artist)s"
+msgstr "%(album)s di %(artist)s"
 
 #: ../xl/covers.py:245 ../xl/covers.py:266
 msgid "No covers found."
-msgstr "Kein Cover gefunden."
+msgstr "Nessuna copertina trovata."
 
 #: ../xl/covers.py:291
 msgid "Current amazon image is too old, fetching  a new one"
-msgstr "Derzeitiges Amazon-Cover ist zu alt, ein neues wird geholt"
+msgstr ""
+"L'immagine corrente ottenuta da Amazon è obsoleta, ne prelevo una nuova"
 
 #: ../xl/covers.py:361
 msgid "Fetching cover art from Amazon..."
-msgstr "Cover von Amazon holen …"
+msgstr "Prelievo della copertina da Amazon..."
 
 #: ../xl/covers.py:456 ../xl/covers.py:643
 #, python-format
 msgid "%d covers left to collect."
-msgstr "%d Cover verbleiben."
+msgstr "%d copertine da ottenere."
 
 #: ../xl/covers.py:503
 msgid "All Covers have been Fetched."
-msgstr "Alle Cover wurden geholt."
+msgstr "Tutte le copertine sono state prelevate."
 
 #. TRANSLATORS: Album cover fetching status
 #: ../xl/covers.py:527
 #, python-format
 msgid "%(remaining)d left: %(album)s by %(artist)s"
-msgstr "%(album)s von %(artist)s: noch %(remaining)d"
+msgstr "%(remaining)d rimanenti: %(album)s di %(artist)s"
 
 #: ../xl/covers.py:767
 msgid "Enter the search text"
-msgstr "Suchtext eingeben"
+msgstr "Inserisci il testo da cercare"
 
 #: ../xl/covers.py:773
 #, python-format
 msgid "Searching for %s..."
-msgstr "Suche nach %s …"
+msgstr "Ricerca di %s in corso..."
 
 #: ../xl/covers.py:844
 msgid "Sorry, no covers were found."
-msgstr "Leider keine Cover gefunden."
+msgstr "Spiacente, non è stata trovata nessuna copertina."
 
 #: ../xl/covers.py:866
 msgid "View Full Image"
-msgstr "Vollansicht"
+msgstr "Visualizza Immagine Intera"
 
 #: ../xl/covers.py:868
 msgid "Fetch from Amazon"
-msgstr "Von Amazon holen"
+msgstr "Preleva da Amazon"
 
 #: ../xl/covers.py:870
 msgid "Search Amazon"
-msgstr "Amazon durchsuchen"
+msgstr "Cerca su Amazon"
 
 #: ../xl/covers.py:872
 msgid "Set Custom Image"
-msgstr "Benutzerdefiniertes Cover"
+msgstr "Imposta Immagine Personalizzata"
 
 #: ../xl/covers.py:874
 msgid "Remove Cover"
-msgstr "Cover zurücksetzen"
+msgstr "Rimuovi Copertina"
 
 #: ../xl/covers.py:893
 msgid "Fetching from Amazon..."
-msgstr "Von Amazon holen …"
+msgstr "Prelevando da Amazon..."
 
 #: ../xl/covers.py:909
 msgid "Choose an image"
-msgstr "Bild auswählen"
+msgstr "Segli una immagine"
 
 #: ../xl/covers.py:916
 msgid "Image Files"
-msgstr "Bilddateien"
+msgstr "Files Immagine"
 
 #: ../xl/covers.py:922 ../xl/gui/main.py:1521
 msgid "All Files"
-msgstr "Alle Dateien"
+msgstr "Tutti i Files"
 
 #: ../xl/editor.py:149
 #, python-format
 msgid "Unknown error writing tag for %s"
-msgstr "Unbekannter Fehler beim Schreiben eines Tags in %s"
+msgstr "Errore sconosciuto durante la scrittura del tag per %s"
 
 #: ../xl/equalizer.py:260
 msgid "Winamp EQF files"
-msgstr "Winamp-Equalizereinstellungen (EQF)"
+msgstr "Files Winamp EQF"
 
 #: ../xl/equalizer.py:264
 msgid "All files"
-msgstr "Alle Dateien"
+msgstr "Tutti i files"
 
 #: ../xl/filtergui.py:50
 msgid "Name"
-msgstr "Name"
+msgstr "Nome"
 
 #: ../xl/filtergui.py:64
 msgid "Match any of the criteria"
-msgstr "Mindestens eine der Bedingungen muss erfüllt sein"
+msgstr "Nessun criterio soddisfatto"
 
 #: ../xl/library.py:229
 #, python-format
 msgid "Query Error: %s"
-msgstr "Abfrage-Fehler: %s"
+msgstr "Errore Query: %s"
 
 #: ../xl/library.py:431
 msgid "Could not open audio disc"
-msgstr "Audio-CD konnte nicht geöffnet werden"
+msgstr "Impossibile aprire il cd audio"
 
 #: ../xl/library.py:443
 #, python-format
 msgid "Track %d"
-msgstr "Stück %d"
+msgstr "Traccia %d"
 
 #: ../xl/library.py:825 ../xl/gui/library.py:127
 msgid "Add a directory"
-msgstr "Verzeichnis hinzufügen"
+msgstr "Aggiungi una cartella"
 
 #: ../xl/library.py:831
 msgid "Add tracks to current playlist after importing"
-msgstr "Stücke nach Import der aktuellen Wiedergabeliste hinzufügen"
+msgstr "Aggiungi tracce alla scaletta corrente dopo l'importazione"
 
 #: ../xl/library.py:887
 msgid "Loading library from database..."
-msgstr "Bibliothek aus Datenbank laden …"
+msgstr "Caricamento libreria dal database..."
 
 #: ../xl/library.py:927
 msgid "Scanning collection..."
-msgstr "Bibliothek scannen …"
+msgstr "Scansione della collezione..."
 
 #: ../xl/library.py:965
 msgid "Adding tracks..."
-msgstr "Stücke werden hinzugefügt …"
+msgstr "Aggiunta tracce..."
 
 #: ../xl/library.py:988
 msgid "Removing tracks..."
-msgstr "Stücke werden entfernt …"
+msgstr "Rimozione tracce..."
 
 #: ../xl/player.py:129
 #, python-format
@@ -1899,78 +1840,78 @@ msgid ""
 "You do not have the appropriate Gstreamer plugin installed to play this "
 "file: %(uri)s"
 msgstr ""
-"Das erforderliche Gstreamer-Plugin für folgende Datei ist nicht installiert: "
-"%(uri)s"
+"Non hai l'appropriato plugin Gstreamer installato per riprodurre questo "
+"file: %(uri)s"
 
 #: ../xl/player.py:211
 msgid "Errors"
-msgstr "Fehler"
+msgstr "Errori"
 
 #: ../xl/player.py:220
 msgid "The following errors have occurred"
-msgstr "Die folgenden Fehler sind aufgetreten"
+msgstr "Si sono verificati i seguenti errori"
 
 #: ../xl/player.py:530
 msgid "Podcast has not yet been downloaded"
-msgstr "Podcast noch nicht heruntergeladen"
+msgstr "I Podcast non sono stati ancora scaricati"
 
 #. TRANSLATORS: The title of the main window
 #: ../xl/player.py:714 ../xl/player.py:716 ../xl/player.py:739
 #: ../xl/xlmisc.py:429 ../xl/xlmisc.py:473 ../xl/gui/main.py:145
 msgid "Exaile Music Player"
-msgstr "Exaile Musik-Wiedergabe"
+msgstr "Riproduttore Audio Exaile"
 
 #: ../xl/playlist.py:50
 msgid "Importing playlist..."
-msgstr "Wiedergabeliste importieren …"
+msgstr "Importazione scaletta..."
 
 #: ../xl/playlist.py:182 ../xl/gui/main.py:1498
 msgid "Choose a file"
-msgstr "Datei auswählen"
+msgstr "Scegliere un file"
 
 #: ../xl/prefs.py:414
 msgid "No burning programs found"
-msgstr "Kein Brennprogramm gefunden"
+msgstr "Nessun programma di masterizzazione trovato"
 
 #: ../xl/prefs.py:431
 msgid "No suitable GStreamer plugins found"
-msgstr "Keine unterstützten GStreamer-Plugins gefunden"
+msgstr "Non è stato trovato un plugin di GStreamer adatto"
 
 #. TRANSLATORS: Notification about the "Show Extended Alphabet" setting
 #: ../xl/prefs.py:537
 msgid ""
 "Click the \"Refresh\" button in the Collection panel to apply this setting."
 msgstr ""
-"Zum Anwenden dieser Einstellung den „Aktualisieren“-Button in der "
-"Bibliotheks-Paneele betätigen"
+"Clicca il bottone \"Aggiorna\" nel pannello Collezione per applicare le "
+"impostazioni."
 
 #: ../xl/prefs.py:589
 msgid "Compression Level:"
-msgstr "Kompressions_grad:"
+msgstr "Livello Compressione:"
 
 #. TRANSLATORS: For MP3 CBR
 #: ../xl/prefs.py:596
 #, python-format
 msgid "%d kbps"
-msgstr "%d KB/s"
+msgstr "%d kbps"
 
 #. TRANSLATORS: For MP3 VBR
 #: ../xl/prefs.py:599
 #, python-format
 msgid "%d mean kbps"
-msgstr "%d KB/s (Mittelwert)"
+msgstr "%d significa kbps"
 
 #: ../xl/prefs.py:633
 msgid "Choose a directory"
-msgstr "Verzeichnis wählen"
+msgstr "Scegli una cartella"
 
 #: ../xl/prefs.py:654
 msgid ""
 "Cannot watch directories for changes. Install python2.4-gamin to use this "
 "feature."
 msgstr ""
-"Verzeichnisse können nicht überwacht werden. Für dieses Feature muss "
-"python2.4-gamin installiert sein."
+"Non posso controllare gli aggiornamenti delle cartelle. Installare python2.4-"
+"gamin per attivare questa funzionalità."
 
 #. TRANSLATORS: Plugin submenu for the playlist
 #: ../xl/xlmisc.py:359 ../xl/gui/playlist.py:925
@@ -1979,47 +1920,47 @@ msgstr "Plugins"
 
 #: ../xl/xlmisc.py:366
 msgid "Quit"
-msgstr "Beenden"
+msgstr "Esci"
 
 #: ../xl/xlmisc.py:603
 msgid "Close this tab"
-msgstr "Tab schließen"
+msgstr "Chiudi questa scheda"
 
 #: ../xl/xlmisc.py:616
 msgid "Enter the new name for this playlist"
-msgstr "Neuen Namen für die Wiedergabeliste eingeben"
+msgstr "Inserisci il nuovo nome per questa scaletta"
 
 #: ../xl/xlmisc.py:616
 msgid "Rename playlist"
-msgstr "Wiedergabeliste umbenennen"
+msgstr "Rinomina scaletta"
 
 #: ../xl/xlmisc.py:642
 msgid "Rename"
-msgstr "Umbenennen"
+msgstr "Rinomina"
 
 #: ../xl/xlmisc.py:646
 msgid "Save Playlist"
-msgstr "Wiedergabeliste speichern"
+msgstr "Salva scaletta"
 
 #: ../xl/xlmisc.py:856
 msgid "Open Browser"
-msgstr "Browser öffnen"
+msgstr "Apri il browser"
 
 #: ../xl/xlmisc.py:873
 msgid "Loading requested information..."
-msgstr "Angeforderte Information wird geladen …"
+msgstr "Caricamento informazioni richieste..."
 
 #: ../xl/xlmisc.py:875
 msgid "Loading page..."
-msgstr "Lade Seite …"
+msgstr "Caricamento pagina..."
 
 #: ../xl/gui/editor.py:25
 msgid "Version"
-msgstr "Version:"
+msgstr "Versione"
 
 #: ../xl/gui/editor.py:30
 msgid "Performer"
-msgstr "Interpret"
+msgstr "Interprete"
 
 #: ../xl/gui/editor.py:31
 msgid "Copyright"
@@ -2027,19 +1968,19 @@ msgstr "Copyright"
 
 #: ../xl/gui/editor.py:32
 msgid "License"
-msgstr "Lizenz"
+msgstr "Licenza"
 
 #: ../xl/gui/editor.py:33
 msgid "Organization"
-msgstr "Organisation"
+msgstr "Organizzazione"
 
 #: ../xl/gui/editor.py:34
 msgid "Description"
-msgstr "Beschreibung"
+msgstr "Descrizione"
 
 #: ../xl/gui/editor.py:36
 msgid "Contact"
-msgstr "Kontakt"
+msgstr "Contatti"
 
 #. TRANSLATORS: International Standard Recording Code
 #: ../xl/gui/editor.py:38
@@ -2048,76 +1989,76 @@ msgstr "ISRC"
 
 #: ../xl/gui/editor.py:39
 msgid "Date"
-msgstr "Datum"
+msgstr "Data"
 
 #: ../xl/gui/editor.py:40
 msgid "Arranger"
-msgstr "Arrangeur"
+msgstr "Arrangiatore"
 
 #: ../xl/gui/editor.py:41
 msgid "Author"
-msgstr "Autor"
+msgstr "Autore"
 
 #: ../xl/gui/editor.py:42
 msgid "Composer"
-msgstr "Komponist"
+msgstr "Compositore"
 
 #: ../xl/gui/editor.py:43
 msgid "Conductor"
-msgstr "Dirigent"
+msgstr "Conduttore"
 
 #: ../xl/gui/editor.py:44
 msgid "Lyricist"
-msgstr "Texter"
+msgstr "Autore testo"
 
 #: ../xl/gui/editor.py:45
 msgid "Disc Number"
-msgstr "Disc-Nummer"
+msgstr "Numero Disco"
 
 #: ../xl/gui/editor.py:46
 msgid "Label ID"
-msgstr "Label-ID"
+msgstr "ID Etichetta"
 
 #: ../xl/gui/editor.py:47
 msgid "Part"
-msgstr "Teil"
+msgstr "Parte"
 
 #: ../xl/gui/editor.py:48
 msgid "Website"
-msgstr "Webseite"
+msgstr "Sito Web"
 
 #: ../xl/gui/editor.py:49
 msgid "Language"
-msgstr "Sprache"
+msgstr "Lingua"
 
 #. TRANSLATORS: Beats per minute
 #: ../xl/gui/editor.py:51
 msgid "BPM"
-msgstr "BPM"
+msgstr "BPM (Pulsazioni/minuto)"
 
 #: ../xl/gui/editor.py:52
 msgid "Album Artist"
-msgstr "Albeninterpret"
+msgstr "Artista dell'Album"
 
 #: ../xl/gui/editor.py:53
 msgid "Original Date"
-msgstr "Erstveröffentlichung"
+msgstr "Data Originale"
 
 #: ../xl/gui/editor.py:54
 msgid "Original Album"
-msgstr "Originalalbum"
+msgstr "Album Originale"
 
 #: ../xl/gui/editor.py:55
 msgid "Original Artist"
-msgstr "Originalinterpret"
+msgstr "Artista Originale"
 
 #: ../xl/gui/editor.py:56
 msgid "Recording Date"
-msgstr "Aufnahmedatum"
+msgstr "Data di Registrazione"
 
 #: ../xl/gui/editor.py:57
 msgid "Encoded By"
-msgstr "Kodierer"
+msgstr "Codificato da"
 
 #. tags view
 #. TRANSLATORS: A media file tag
@@ -2128,11 +2069,11 @@ msgstr "Tag"
 #. track num view
 #: ../xl/gui/editor.py:224
 msgid "Track"
-msgstr "Stück"
+msgstr "Traccia"
 
 #: ../xl/gui/editor.py:228
 msgid "Total Tracks"
-msgstr "Insgesamt"
+msgstr "Tracce Totali"
 
 #: ../xl/gui/editor.py:334
 #, python-format
@@ -2141,69 +2082,66 @@ msgid ""
 msgid_plural ""
 "All files currently selected do not support editing the tags <b>%s</b>."
 msgstr[0] ""
-"Die momentan ausgewählten Stücke unterstützen die Bearbeitung des Tags "
-"<b>%s</b> nicht."
+"Tutti i file selezionati non supportano la modifica del tag <b>%s</b>."
 msgstr[1] ""
-"Die momentan ausgewählten Stücke unterstützen die Bearbeitung der Tags "
-"<b>%s</b> nicht."
+"Tutti i file selezionati non supportano la modifica dei tag <b>%s</b>."
 
 #: ../xl/gui/editor.py:349
 msgid "File"
-msgstr "Datei"
+msgstr "File"
 
 #: ../xl/gui/editor.py:423 ../xl/gui/editor.py:482
 msgid "Do you want to save your changes in the Tags tab?"
-msgstr "Änderungen im „Tags“-Tab übernehmen?"
+msgstr "Vuoi salvare le modifiche nella scheda Tag"
 
 #: ../xl/gui/editor.py:537
 msgid "Some errors occurred"
-msgstr "Einige Fehler sind aufgetreten"
+msgstr "Si sono verificati alcuni errori"
 
 #: ../xl/gui/editor.py:562
 #, python-format
 msgid "The tag <b>%s</b> is not supported by all selected tracks"
-msgstr ""
-"Der Tag <b>%s</b> wird nicht von allen ausgewählten Stücken unterstützt."
+msgstr "Il tag <b>%s</b> non è supportato dalle tracce selezionate"
 
 #: ../xl/gui/editor.py:624
 msgid "The default patterns can't be removed."
-msgstr "Die Standardmuster können nicht entfernt werden."
+msgstr "I percorsi predefiniti non possono essere rimossi."
 
 #: ../xl/gui/editor.py:729
 msgid "Add a Tag"
-msgstr "Tag hinzufügen"
+msgstr "Aggiungi un tag"
 
 #: ../xl/gui/editor.py:785
 msgid "Save changes?"
-msgstr "Änderungen übernehmen?"
+msgstr "Salvare i cambiamenti?"
 
 #: ../xl/gui/editor.py:812
 msgid "Tag missing from one or more files"
-msgstr "Tag fehlt in einem oder mehreren Stücken"
+msgstr "Tag mancante in uno o più file"
 
 #: ../xl/gui/editor.py:814
 msgid "Tag different in one or more files"
-msgstr "Tag in einem oder mehreren Stücken unterschiedlich"
+msgstr "Tag differente in uno o più file"
 
 #: ../xl/gui/editor.py:816
 msgid "Tag unsupported in one or more files"
-msgstr "Tag von einem oder mehreren Stücken nicht unterstützt"
+msgstr "Tag non supportato in uno o più file"
 
 #: ../xl/gui/editor.py:818
 msgid "Multiple tag values found, not supported by all tracks"
-msgstr "Mehrere Tag-Werte werden nicht von allen Stücken unterstützt"
+msgstr "Trovati numerosi valori del tag, non supportato da tutte le tracce"
 
 #: ../xl/gui/editor.py:820
 msgid "Unable to display tag for unknown reason"
-msgstr "Anzeige des Tags aus unbekanntem Grund nicht möglich"
+msgstr "Impossibile visualizzare il tag, ragione non nota"
 
 #: ../xl/gui/information.py:228 ../xl/gui/information.py:286
 msgid "Title:"
-msgstr "Titel:"
+msgstr "Titolo:"
 
 #: ../xl/gui/information.py:229
 msgid "Artist:"
-msgstr "Interpret:"
+msgstr "Artista:"
 
 #: ../xl/gui/information.py:230
 msgid "Album:"
@@ -2211,15 +2149,15 @@ msgstr "Album:"
 
 #: ../xl/gui/information.py:232
 msgid "Track Number:"
-msgstr "Stücknummer:"
+msgstr "Numero Traccia:"
 
 #: ../xl/gui/information.py:233
 msgid "Year:"
-msgstr "Jahr"
+msgstr "Anno:"
 
 #: ../xl/gui/information.py:234
 msgid "Genre:"
-msgstr "Genre:"
+msgstr "Genere:"
 
 #: ../xl/gui/information.py:235 ../xl/gui/information.py:293
 msgid "Bitrate:"
@@ -2227,35 +2165,35 @@ msgstr "Bitrate:"
 
 #: ../xl/gui/information.py:236
 msgid "User Rating:"
-msgstr "Nutzerbewertung:"
+msgstr "Valutazione Utente:"
 
 #: ../xl/gui/information.py:237
 msgid "System Rating:"
-msgstr "Systembewertung:"
+msgstr "Valutazione del Sistema:"
 
 #: ../xl/gui/information.py:238
 msgid "Playcount:"
-msgstr "Wiedergabeanzahl:"
+msgstr "Contatore di riproduzione:"
 
 #: ../xl/gui/information.py:312 ../xl/gui/playlist.py:896
 msgid "Information"
-msgstr "Information"
+msgstr "Informazione"
 
 #: ../xl/gui/information.py:327
 msgid "Stream Statistics"
-msgstr "Stream-Statistiken"
+msgstr "Statistiche Stream"
 
 #: ../xl/gui/information.py:329
 msgid "Statistics"
-msgstr "Statistik"
+msgstr "Statistiche"
 
 #: ../xl/gui/information.py:343
 msgid "Lyrics"
-msgstr "Texte"
+msgstr "Parole"
 
 #: ../xl/gui/information.py:348
 msgid "Warning"
-msgstr "Warnung"
+msgstr "Avvertenza"
 
 #: ../xl/gui/information.py:350
 msgid ""
@@ -2264,19 +2202,19 @@ msgid ""
 "your distribution)\n"
 "to use the \"Artist\", \"Album\", and \"Lyrics\" tabs"
 msgstr ""
-"Das Paket „gnome-python-extras“ wurde nicht gefunden.\n"
-"Um die „Interpret“-, „Album“- und „Texte“-Tabs nutzen zu können, muss dieses "
-"installiert werden.\n"
-"(Der Paketname lautet unter Umständen anders.)"
+"Il pacchetto gnome-python-extras non è installato.\n"
+"Devi installare questo pacchetto (che forse ha un nome diverso nella tua "
+"distribuzione)\n"
+"per usare le schede \"Artista\", \"Album\", e \"Lyrics\""
 
 #: ../xl/gui/information.py:363
 msgid "Tablature"
-msgstr "Tabulatur"
+msgstr "Tablatura"
 
 #: ../xl/gui/library.py:49
 #, python-format
 msgid "Import Directory: %s"
-msgstr "Verzeichnis „%s“ importieren"
+msgstr "Importa Cartella: %s"
 
 #. our added path is a subdir of an existing path
 #: ../xl/gui/library.py:144
@@ -2284,8 +2222,8 @@ msgid ""
 "Path is already in your collection, or is a subdirectory of another path in "
 "your collection"
 msgstr ""
-"Pfad befindet sich bereits in der Bibliothek oder ist ein Unterverzeichnis "
-"eines bereits in der Bibliothek befindlichen Pfades."
+"Il percorso è già presente nella tua collezione, o in una sottocartella di "
+"un'altra cartella nella tua collezione."
 
 #: ../xl/gui/main.py:201
 msgid ""
@@ -2294,9 +2232,11 @@ msgid ""
 "can manage your library search directories by going to Tools->Library "
 "Manager.  Do you want to choose your library directories now?"
 msgstr ""
-"Es wurde kein zu durchsuchendes Verzeichnis für die Musik-Bibliothek "
-"angegeben. Soll nun eines angegeben werden?\n"
-"(Dies kann jederzeit über die „Bibliotheken-Verwaltung“ geändert werden.)"
+"Non hai specificato nessuna cartella in cui cercare brani per la tua "
+"libreria. Puoi farlo ora, o scegliere di farlo successivamente. Se vuoi "
+"farlo successivamente, puoi gestire le cartelle in cui cercare musica per la "
+"tua libreria andando in Strumenti --> Gestione della Libreria. Vuoi "
+"scegliere le cartelle per la libreria ora?"
 
 #: ../xl/gui/main.py:553
 #, python-format
@@ -2304,18 +2244,18 @@ msgid ""
 "Playback is currently set to stop on the track \"%(title)s\" by "
 "\"%(artist)s\". Would you like to remove this?"
 msgstr ""
-"Momentan soll die Wiedergabe nach dem Stück „%(title)s“ von „%(artist)s“ "
-"gestoppt werden. Soll dies aufgehoben werden?"
+"La riproduzione è al momento impostata per fermarsi alla traccia "
+"\"%(title)s\" di \"%(artist)s\". Eliminare questa impostazione?"
 
 #. TRANSLATORS: Title of the Queue tab
 #: ../xl/gui/main.py:660
 msgid "Queue"
-msgstr "Warteschlange"
+msgstr "Coda"
 
 #. TRANSLATORS: Title of the Blacklist tab
 #: ../xl/gui/main.py:703
 msgid "Blacklist"
-msgstr "Blacklist"
+msgstr "Lista Nera"
 
 #. Should probably log this..
 #: ../xl/gui/main.py:717
@@ -2323,7 +2263,7 @@ msgid ""
 "GStreamer equalizer is not available.  It can be found in gstreamer-plugins-"
 "bad 0.10.5."
 msgstr ""
-"Gstreamer-Equalizer ist nicht verfügbar. Zu finden ist dieser in gstreamer-"
+"L'equalizzatore GStreamer non è disponibile. Puoi trovarlo in gstreamer-"
 "plugins-bad 0.10.5."
 
 #: ../xl/gui/main.py:790
@@ -2331,407 +2271,407 @@ msgid ""
 "Blacklisting the selected tracks will prevent them from being added to the "
 "library on rescan.  Are you sure you want to continue?"
 msgstr ""
-"Das Setzen der gewählten Stücke auf die Blacklist verhindert, dass sie bei "
-"einem zukünftigen Scan der Bibliothek hinzugefügt werden. Dennoch fortfahren?"
+"Aggiungendo alla Lista Nera le seguenti tracce queste non verranno aggiunte "
+"alla libreria alla prossima scansione. Se sicuro di voler continuare?"
 
 #: ../xl/gui/main.py:928
 #, python-format
 msgid "Error connecting to database: %s"
-msgstr "Fehler beim Verbindungsaufbau zur Datenbank: %s"
+msgstr "Errore durante la connessione al database: %s"
 
 #: ../xl/gui/main.py:934
 #, python-format
 msgid "Error creating collection database: %s"
-msgstr "Fehler beim Erstellen der Datenbank: %s"
+msgstr "Errore durante la creazione del database: %s"
 
 #: ../xl/gui/main.py:1015
 #, python-format
 msgid "%(track_count)d showing, %(track_total)d in collection"
-msgstr "%(track_count)d angezeigt, %(track_total)d in Bibliothek"
+msgstr "%(track_count)d visualizzati, %(track_total)d nella collezione"
 
 #: ../xl/gui/main.py:1061
 msgid "Submitting to Last.fm..."
-msgstr "Übermittle an Last.fm …"
+msgstr "Invio a Last.fm in corso..."
 
 #. TRANSLATORS: Window title
 #: ../xl/gui/main.py:1095
 #, python-format
 msgid "%(title)s (by %(artist)s)"
-msgstr "%(title)s von %(artist)s"
+msgstr "%(title)s (di %(artist)s)"
 
 #. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
 #: ../xl/gui/main.py:1105
 #, python-format
 msgid "by %s"
-msgstr "von %s"
+msgstr "di %s"
 
 #. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
 #: ../xl/gui/main.py:1107
 #, python-format
 msgid "from %s"
-msgstr "aus %s"
+msgstr "da %s"
 
 #: ../xl/gui/main.py:1114 ../xl/gui/main.py:1120
 #, python-format
 msgid "Playing %s"
-msgstr "%s"
+msgstr "Riproduzione di %s"
 
 #: ../xl/gui/main.py:1315
 #, python-format
 msgid "Changing volume: %d %%"
-msgstr "Lautstärke: %d%%"
+msgstr "Modifica del volume: %d %%"
 
 #. TRANSLATORS: For dynamic playlist
 #: ../xl/gui/main.py:1429
 msgid "Could not find any suggested songs"
-msgstr "Keine empfohlenen Stücke gefunden"
+msgstr "Non è stato possibile trovare alcun brano suggerito"
 
 #: ../xl/gui/main.py:1502
 msgid "Open in new tab"
-msgstr "In neuem Tab öffnen"
+msgstr "Apri in una nuova scheda"
 
 #: ../xl/gui/main.py:1509
 msgid "Media Files"
-msgstr "Mediendateien"
+msgstr "File Multimediali"
 
 #. Playlist Files
 #: ../xl/gui/main.py:1515
 msgid "Playlist Files"
-msgstr "Wiedergabelisten"
+msgstr "File della scaletta"
 
 #: ../xl/gui/main.py:1531
 msgid "Populating playlist..."
-msgstr "Wiedergabeliste erstellen …"
+msgstr "Popolamento della scaletta in corso..."
 
 #: ../xl/gui/main.py:1594
 msgid "Enter the address"
-msgstr "Adresse eingeben"
+msgstr "Inserisci l'indirizzo"
 
 #: ../xl/gui/main.py:1606
 msgid "You need the python-cddb package in order to play audio discs."
-msgstr "Zum Abspielen von Audio-CDs ist das Paket python-cddb erforderlich."
+msgstr "Per riprodurre dischi audio hai bisogno del pacchetto python-cddb."
 
 #: ../xl/gui/main.py:1617
 msgid "Audio Disc"
-msgstr "Audio-CD"
+msgstr "Disco Audio"
 
 #: ../xl/gui/playlist.py:159
 msgid "Scanning and adding tracks to current playlist..."
-msgstr "Scanne und füge Stücke der aktuellen Wiedergabeliste hinzu …"
+msgstr "Ricerca ed aggiunta delle tracce alla scaletta corrente..."
 
 #: ../xl/gui/playlist.py:823
 msgid "Toggle Queue"
-msgstr "In Warteschlange setzen"
+msgstr "Accoda"
 
 #: ../xl/gui/playlist.py:827
 msgid "Toggle: Stop after this Track"
-msgstr "Nach diesem Stück stoppen"
+msgstr "Arresta dopo questa Traccia"
 
 #: ../xl/gui/playlist.py:831
 msgid "Edit Track Information"
-msgstr "Tags bearbeiten"
+msgstr "Modifica le informazioni della traccia"
 
 #: ../xl/gui/playlist.py:848
 msgid "Set Track Rating"
-msgstr "Bewertung festlegen"
+msgstr "Imposta la valutazione per la traccia"
 
 #: ../xl/gui/playlist.py:853
 msgid "Burn Selected Track"
 msgid_plural "Burn Selected Tracks"
-msgstr[0] "Ausgewähltes Stück brennen"
-msgstr[1] "Ausgewählte Stücke brennen"
+msgstr[0] "Masterizza la traccia selezionata"
+msgstr[1] "Masterizza le tracce selezionate"
 
 #: ../xl/gui/playlist.py:855
 msgid "Burn Playlist"
-msgstr "Wiedergabeliste brennen"
+msgstr "Masterizza la scaletta"
 
 #: ../xl/gui/playlist.py:856
 msgid "Burn"
-msgstr "Brennen"
+msgstr "Masterizza"
 
 #: ../xl/gui/playlist.py:862
 msgid "Import Selected Track"
 msgid_plural "Import Selected Tracks"
-msgstr[0] "Ausgewähltes Stück importieren"
-msgstr[1] "Ausgewählte Stücke importieren"
+msgstr[0] "Importa la traccia selezionata"
+msgstr[1] "Importa le tracce selezionate"
 
 #: ../xl/gui/playlist.py:865
 msgid "Import CD"
-msgstr "CD importieren"
+msgstr "Importa CD"
 
 #: ../xl/gui/playlist.py:866
 msgid "Import"
-msgstr "Import"
+msgstr "Importa"
 
 #: ../xl/gui/playlist.py:879 ../xl/panels/collection.py:179
 msgid "Add to Playlist"
-msgstr "Zu Wiedergabeliste hinzufügen"
+msgstr "Aggiungi alla scaletta"
 
 #: ../xl/gui/playlist.py:889
 msgid "New Station"
-msgstr "Station hinzufügen"
+msgstr "Nuova stazione"
 
 #: ../xl/gui/playlist.py:892
 msgid "Add to Saved Stations"
-msgstr "Zu den gespeicherten Stationen hinzufügen"
+msgstr "Aggiungi alle Stazioni Salvate"
 
 #: ../xl/gui/playlist.py:906
 msgid "Last.FM Options"
-msgstr "Last.fm-Optionen"
+msgstr "Opzioni Last.FM"
 
 #: ../xl/gui/playlist.py:914
 msgid "Show in Collection"
-msgstr "In Bibliothek anzeigen"
+msgstr "Mostra nella Scaletta"
 
 #: ../xl/gui/playlist.py:917
 msgid "Remove from Current"
-msgstr "Aus Wiedergabeliste entfernen"
+msgstr "Rimuovi dalla Corrente"
 
 #: ../xl/gui/playlist.py:1040 ../xl/panels/collection.py:293
 msgid ""
 "Are you sure you want to permanently remove the selected tracks from disk?"
 msgstr ""
-"Sollen die gewählten Stücke unwiederbringlich vom Datenträger gelöscht "
-"werden?"
+"Sei sicuro di voler rimuovere permanentemente dal disco rigido le traccie "
+"selezionate?"
 
 #: ../xl/gui/playlist.py:1127 ../xl/panels/playlists.py:598
 msgid "The following errors did occur"
-msgstr "Die folgenden Fehler sind aufgetreten"
+msgstr "Si sono verificati i seguenti errori"
 
 #: ../xl/gui/playlist.py:1156
 msgid "Remove from Blacklist"
-msgstr "Aus Blacklist entfernen"
+msgstr "Rimuovi dalla Lista Nera"
 
 #: ../xl/gui/playlist.py:1331
 #, python-format
 msgid ": %d track queued"
 msgid_plural ": %d tracks queued"
-msgstr[0] ": %d Stück in Warteschlange"
-msgstr[1] ": %d Stücke in Warteschlange"
+msgstr[0] ": %d traccia in coda"
+msgstr[1] ": %d tracce in coda"
 
 #: ../xl/panels/collection.py:108
 msgid "Finished scanning collection."
-msgstr "Scannen der Bibliothek abgeschlossen."
+msgstr "Scansione della collezione completata."
 
 #. TRANSLATORS: Scanning filesystem for tracks
 #: ../xl/panels/collection.py:130
 msgid "Scanning..."
-msgstr "Scannen …"
+msgstr "Scansione in corso..."
 
 #. TRANSLATORS: Put selected track(s) on the blacklist
 #: ../xl/panels/collection.py:192
 msgid "Blacklist Selected"
-msgstr "Auf Blacklist setzen"
+msgstr "Aggiungi la selezione alla Lista Nera"
 
 #. TRANSLATORS: Remove selected track(s) from the disk
 #: ../xl/panels/collection.py:195
 msgid "Delete Selected"
-msgstr "Löschen"
+msgstr "Rimuovi la selezione"
 
 #: ../xl/panels/collection.py:202
 msgid "Edit Information"
-msgstr "Informationen bearbeiten"
+msgstr "Modifica le informazioni"
 
 #: ../xl/panels/collection.py:214
 msgid "Edit Track"
 msgid_plural "Edit Tracks"
-msgstr[0] "Stück bearbeiten"
-msgstr[1] "Stücke bearbeiten"
+msgstr[0] "Modifica Traccia"
+msgstr[1] "Modifica Tracce"
 
 #: ../xl/panels/collection.py:312
 msgid "Are you sure you want to blacklist the selected tracks?"
-msgstr "Ausgewählte Stücke auf Blacklist setzen?"
+msgstr "Sei sicuro di voler mettere la traccia selezionata nella Lista Nera?"
 
 #: ../xl/panels/collection.py:425 ../xl/panels/collection.py:643
 msgid "Unknown"
-msgstr "Unbekannt"
+msgstr "Sconosciuto"
 
 #: ../xl/panels/collection.py:583
 msgid "Track is not present in collection"
-msgstr "Ausgewähltes Stück nicht in der Bibliothek gefunden"
+msgstr "La traccia non è presente nella collezione"
 
 #: ../xl/panels/device.py:52
 msgid "Transfer Queue"
-msgstr "Warteschlange übertragen"
+msgstr "Coda di trasferimento"
 
 #: ../xl/panels/device.py:80
 msgid "Transfer"
-msgstr "Übertragung"
+msgstr "Trasferimento"
 
 #: ../xl/panels/device.py:99 ../xl/panels/device.py:313
 msgid ""
 "A transfer is in progress, please wait for it to stop before attempting to "
 "perform this operation."
 msgstr ""
-"Bevor der gewünschte Vorgang durchgeführt werden kann, müssen erst alle "
-"aktiven Übertragungen abgeschlossen sein."
+"Un trasferimento è in corso, si prega di attenderne la conclusione prima di "
+"effettuare questa operazione."
 
 #: ../xl/panels/device.py:130
 msgid "Starting transfer..."
-msgstr "Beginne Übertragung …"
+msgstr "Inizio trasferimento..."
 
 #: ../xl/panels/device.py:149
 msgid "Finishing transfer..."
-msgstr "Beende Übertragung …"
+msgstr "Completamento trasferimento"
 
 #: ../xl/panels/device.py:257
 msgid "This device does not support removing tracks"
-msgstr "Dieses Gerät unterstützt das  Entfernen von Stücken nicht."
+msgstr "Questo dispositivo non supporta la rimozione di tracce"
 
 #: ../xl/panels/device.py:275
 msgid "Not connected to any media device"
-msgstr "Keine Verbindung zu einem Mediengerät"
+msgstr "Non connesso ad alcun dispositivo multimediale"
 
 #: ../xl/panels/device.py:309
 msgid "The current device does not support transferring music."
-msgstr "Das aktuelle Gerät unterstützt den Transfer von Musik nicht."
+msgstr "Il dispositivo corrente non supporta il trasferimento di musica."
 
 #. TRANSLATORS: No driver
 #: ../xl/panels/device.py:384
 msgid "None"
-msgstr "Keiner"
+msgstr "Nessuno"
 
 #: ../xl/panels/device.py:410
 msgid "Connecting..."
-msgstr "Verbinde …"
+msgstr "Connessione..."
 
 #: ../xl/panels/device.py:414
 msgid "Error connecting to device"
-msgstr "Fehler beim Verbindungsaufbau zum Gerät"
+msgstr "Errore di conessione al dispositivo"
 
 #. TRANSLATORS: Number of tracks available on the device
 #: ../xl/panels/device.py:439 ../xl/panels/device.py:457
 #, python-format
 msgid "%d tracks"
-msgstr "%d Stücke"
+msgstr "%d tracce"
 
 #. TRANSLATORS: Filesize column in the file browser
 #: ../xl/panels/files.py:87
 msgid "Size"
-msgstr "Größe"
+msgstr "Dimensione"
 
 #: ../xl/panels/files.py:107
 msgid "Append to Playlist"
-msgstr "An Wiedergabeliste anhängen"
+msgstr "Accoda alla scaletta"
 
 #: ../xl/panels/files.py:144
 msgid "Scanning and adding files..."
-msgstr "Scanne und füge Dateien hinzu …"
+msgstr "Scansione e aggiunta dei file..."
 
 #: ../xl/panels/playlists.py:44 ../xl/panels/playlists.py:60
 #: ../xl/panels/playlists.py:69
 msgid "seconds"
-msgstr "Sekunden"
+msgstr "secondi"
 
 #. TRANSLATORS: Logical AND used for smart playlists
 #: ../xl/panels/playlists.py:51
 msgid "and"
-msgstr "und"
+msgstr "e"
 
 #: ../xl/panels/playlists.py:57 ../xl/panels/playlists.py:60
 msgid "days"
-msgstr "Tage"
+msgstr "giorni"
 
 #: ../xl/panels/playlists.py:60
 msgid "minutes"
-msgstr "Minuten"
+msgstr "minuti"
 
 #: ../xl/panels/playlists.py:60
 msgid "hours"
-msgstr "Stunden"
+msgstr "ore"
 
 #: ../xl/panels/playlists.py:60
 msgid "weeks"
-msgstr "Wochen"
+msgstr "settimane"
 
 #. TRANSLATORS: True if haystack is equal to needle
 #: ../xl/panels/playlists.py:83 ../xl/panels/playlists.py:96
 #: ../xl/panels/playlists.py:106 ../xl/panels/playlists.py:166
 msgid "is"
-msgstr "ist"
+msgstr "è"
 
 #. TRANSLATORS: True if haystack is not equal to needle
 #: ../xl/panels/playlists.py:86 ../xl/panels/playlists.py:98
 #: ../xl/panels/playlists.py:108 ../xl/panels/playlists.py:168
 msgid "is not"
-msgstr "ist nicht"
+msgstr "non è"
 
 #. TRANSLATORS: True if haystack contains needle
 #: ../xl/panels/playlists.py:89 ../xl/panels/playlists.py:100
 #: ../xl/panels/playlists.py:110 ../xl/panels/playlists.py:170
 msgid "contains"
-msgstr "enthält"
+msgstr "contiene"
 
 #. TRANSLATORS: True if haystack does not contain needle
 #: ../xl/panels/playlists.py:92 ../xl/panels/playlists.py:102
 #: ../xl/panels/playlists.py:112 ../xl/panels/playlists.py:172
 msgid "does not contain"
-msgstr "enthält nicht"
+msgstr "non contiene"
 
 #: ../xl/panels/playlists.py:115
 msgid "User Rating"
-msgstr "Nutzerbewertung"
+msgstr "Valutazione Utente"
 
 #. TRANSLATORS: Example: rating >= 5
 #: ../xl/panels/playlists.py:117 ../xl/panels/playlists.py:123
 #: ../xl/panels/playlists.py:129 ../xl/panels/playlists.py:146
 msgid "at least"
-msgstr "mindestens"
+msgstr "almeno"
 
 #. TRANSLATORS: Example: rating <= 3
 #: ../xl/panels/playlists.py:120 ../xl/panels/playlists.py:125
 #: ../xl/panels/playlists.py:131 ../xl/panels/playlists.py:148
 msgid "at most"
-msgstr "maximal"
+msgstr "al massimo"
 
 #: ../xl/panels/playlists.py:122
 msgid "System Rating"
-msgstr "Systembewertung"
+msgstr "Valutazione Sistema"
 
 #: ../xl/panels/playlists.py:128
 msgid "Number of Plays"
-msgstr "Wiedergabeanzahl"
+msgstr "Numero di ascolti"
 
 #. TRANSLATORS: Example: year < 1999
 #: ../xl/panels/playlists.py:136
 msgid "before"
-msgstr "vor"
+msgstr "prima"
 
 #. TRANSLATORS: Example: year > 2002
 #: ../xl/panels/playlists.py:139
 msgid "after"
-msgstr "nach"
+msgstr "dopo"
 
 #. TRANSLATORS: Example: 1980 <= year <= 1987
 #: ../xl/panels/playlists.py:142
 msgid "between"
-msgstr "zwischen"
+msgstr "tra"
 
 #: ../xl/panels/playlists.py:151
 msgid "Date Added"
-msgstr "Hinzufügedatum"
+msgstr "Data di aggiunta"
 
 #. TRANSLATORS: Example: track has been added in the last 2 days
 #: ../xl/panels/playlists.py:153 ../xl/panels/playlists.py:160
 msgid "in the last"
-msgstr "in der letzten"
+msgstr "negli ultimi"
 
 #. TRANSLATORS: Example: track has not been added in the last 5 hours
 #: ../xl/panels/playlists.py:156 ../xl/panels/playlists.py:162
 msgid "not in the last"
-msgstr "nicht in der letzten"
+msgstr "non negli ultimi"
 
 #: ../xl/panels/playlists.py:159
 msgid "Last Played"
-msgstr "Zuletzt wiedergegeben"
+msgstr "Ultimo ascolto"
 
 #: ../xl/panels/playlists.py:247
 msgid "Smart Playlists"
-msgstr "Intelligente Wiedergabelisten"
+msgstr "Scalette veloci"
 
 #: ../xl/panels/playlists.py:251
 msgid "Entire Library"
-msgstr "Gesamte Bibliothek"
+msgstr "Intera libreria"
 
 #: ../xl/panels/playlists.py:256
 msgid "Top 100"
@@ -2739,196 +2679,196 @@ msgstr "Top 100"
 
 #: ../xl/panels/playlists.py:260
 msgid "Highest Rated"
-msgstr "Höchste Wertung"
+msgstr "Con voto più alto"
 
 #: ../xl/panels/playlists.py:265
 msgid "Most Played"
-msgstr "Am häufigsten gespielt"
+msgstr "Più ascoltati"
 
 #: ../xl/panels/playlists.py:269
 msgid "Least Played"
-msgstr "Am seltensten gespielt"
+msgstr "Meno ascoltati"
 
 #: ../xl/panels/playlists.py:273
 msgid "Rating > 5"
-msgstr "Bewertung > 5"
+msgstr "Valutazione > 5"
 
 #: ../xl/panels/playlists.py:280
 msgid "Rating > 3"
-msgstr "Bewertung > 3"
+msgstr "Valutazione > 3"
 
 #: ../xl/panels/playlists.py:285
 msgid "Newest 100"
-msgstr "Neueste 100"
+msgstr "Ultimi 100"
 
 #: ../xl/panels/playlists.py:290
 msgid "Random 100"
-msgstr "Zufällige 100"
+msgstr "100 Casuali"
 
 #: ../xl/panels/playlists.py:301
 msgid "Built In"
-msgstr "Vordefiniert"
+msgstr "Integrato"
 
 #: ../xl/panels/playlists.py:306
 msgid "Custom Playlists"
-msgstr "Benutzerdefiniert"
+msgstr "Scalette Personalizzate"
 
 #: ../xl/panels/playlists.py:327 ../xl/panels/playlists.py:407
 msgid "Add Smart Playlist"
-msgstr "Intelligente Wiedergabeliste hinzufügen"
+msgstr "Aggiungi alla Scaletta veloce"
 
 #: ../xl/panels/playlists.py:330
 msgid "Edit"
-msgstr "Bearbeiten"
+msgstr "Modifica"
 
 #: ../xl/panels/playlists.py:333
 msgid "Delete Playlist"
-msgstr "Wiedergabeliste entfernen"
+msgstr "Elimina Scaletta"
 
 #: ../xl/panels/playlists.py:348
 msgid "Edit Playlist"
-msgstr "Wiedergabeliste bearbeiten"
+msgstr "Modifica Scaletta"
 
 #: ../xl/panels/playlists.py:378 ../xl/panels/playlists.py:420
 msgid "That playlist name is already taken."
-msgstr "Wiedergabeliste mit diesem Namen existiert bereits."
+msgstr "Questo nome per la scaletta è già in uso."
 
 #: ../xl/panels/playlists.py:415
 msgid "You did not enter a name for your playlist"
-msgstr "Kein Name für die Wiedergabeliste eingegeben"
+msgstr "Non hai inserito nessun nome per la tua scaletta"
 
 #: ../xl/panels/playlists.py:640
 msgid "Enter the name you want for your new playlist"
-msgstr "Name für die neue Wiedergabeliste eingeben"
+msgstr "Inserisci il nome che desideri per la nuova scaletta."
 
 #: ../xl/panels/playlists.py:649
 msgid "Playlist already exists."
-msgstr "Wiedergabeliste existiert bereits."
+msgstr "La scaletta è già esistente."
 
 #: ../xl/panels/radio.py:141
 msgid "Downloading Podcasts"
-msgstr "Podcasts herunterladen"
+msgstr "Download dei Podcast"
 
 #: ../xl/panels/radio.py:146
 msgid "Downloading..."
-msgstr "Herunterladen …"
+msgstr "Download in corso..."
 
 #: ../xl/panels/radio.py:181
 msgid "Stopping..."
-msgstr "Anhalten …"
+msgstr "Arresto..."
 
 #: ../xl/panels/radio.py:205
 #, python-format
 msgid "%(downloaded)d of %(total)d downloaded"
-msgstr "%(downloaded)d von %(total)d heruntergeladen"
+msgstr "%(downloaded)d di %(total)d scaricate"
 
 #: ../xl/panels/radio.py:438 ../xl/panels/radio.py:656
 msgid "Loading streams..."
-msgstr "Lade Streams …"
+msgstr "Caricamento stream..."
 
 #: ../xl/panels/radio.py:462
 msgid ""
 "You need to have a Last.fm username and password set in your preferences."
 msgstr ""
-"Es müssen ein Benutzername und Passwort für Last.fm in den Einstellungen "
-"festgelegt worden sein."
+"È necessario impostare username e password di Last.fm nelle preferenze."
 
 #: ../xl/panels/radio.py:475
 #, python-format
 msgid "%(user)s's Last.fm %(station)s"
-msgstr "%(user)ss Last.fm-%(station)s"
+msgstr "%(user)s's Last.fm %(station)s"
 
 #: ../xl/panels/radio.py:532
 msgid "Not downloaded"
-msgstr "Nicht heruntergeladen"
+msgstr "Non scaricato"
 
 #: ../xl/panels/radio.py:634 ../xl/panels/radio.py:869
 msgid "Add Stream to Station"
-msgstr "Stream zu Station hinzufügen"
+msgstr "Aggiungi Stream alla Stazione"
 
 #: ../xl/panels/radio.py:636
 msgid "Delete this Station"
-msgstr "Station löschen"
+msgstr "Elimina questa Stazione"
 
 #: ../xl/panels/radio.py:640
 msgid "Add Feed"
-msgstr "Feed hinzufügen"
+msgstr "Aggiungi Feed"
 
 #: ../xl/panels/radio.py:641
 msgid "Refresh Feed"
-msgstr "Feed neu laden"
+msgstr "Aggiorna Feed"
 
 #: ../xl/panels/radio.py:642
 msgid "Delete Feed"
-msgstr "Feed löschen"
+msgstr "Cancella Feed"
 
 #: ../xl/panels/radio.py:695
 msgid "Enter the location of the podcast"
-msgstr "Ort des Podcasts angeben"
+msgstr "Inserisci la posizione del Podcast"
 
 #: ../xl/panels/radio.py:696
 msgid "Add a podcast"
-msgstr "Podcast hinzufügen"
+msgstr "Aggiungi Podcast"
 
 #: ../xl/panels/radio.py:704
 msgid "A podcast with that url already exists"
-msgstr "Ein Podcast mit dieser Adresse existiert bereits"
+msgstr "E' già presente un Podcast con questo URL"
 
 #: ../xl/panels/radio.py:713
 msgid "Fetching..."
-msgstr "Hole …"
+msgstr "Recupero..."
 
 #: ../xl/panels/radio.py:730
 msgid "Could not read feed."
-msgstr "Feed konnte nicht gelesen werden."
+msgstr "Impossibile leggere il Feed"
 
 #: ../xl/panels/radio.py:848
 msgid "Are you sure you want to delete this podcast?"
-msgstr "Podcast wirklich löschen?"
+msgstr "Sei sicuro di voler eliminare questo podcast?"
 
 #. TRANSLATORS: Address of a radio station
 #: ../xl/panels/radio.py:871 ../xl/panels/radio.py:953
 msgid "URL:"
-msgstr "Adresse:"
+msgstr "URL:"
 
 #: ../xl/panels/radio.py:895
 msgid "Are you sure you want to permanently delete the selected station?"
-msgstr "Ausgewählte Station unwiederbringlich löschen?"
+msgstr ""
+"Sei sicuro di voler rimuovere permanentemente le stazioni selezionate?"
 
 #: ../xl/panels/radio.py:950
 msgid "Add Station"
-msgstr "Station hinzufügen"
+msgstr "Aggiungi Stazione"
 
 #: ../xl/panels/radio.py:951
 msgid "Station Name:"
-msgstr "Name der Station:"
+msgstr "Nome Stazione:"
 
 #: ../xl/panels/radio.py:959
 msgid "The 'Name' and 'URL' fields are required"
-msgstr "Die „Name“- und „Adresse“-Felder sind Pflicht"
+msgstr "I campi 'Nome' e 'URL' sono obbligatori"
 
 #: ../xl/panels/radio.py:967
 msgid "Station name already exists."
-msgstr "Eine Station mit diesem Namen existiert bereits."
+msgstr "Il nome della stazione è già in uso"
 
 #: ../xl/panels/radio.py:985 ../xl/panels/radio.py:986
 msgid "Enter the name of the station"
-msgstr "Name der Station angeben"
+msgstr "Inserisci il nome della stazione"
 
 #: ../xl/panels/radio.py:995
 msgid "Station already exists."
-msgstr "Station existiert bereits."
+msgstr "La stazione già esiste."
 
 #. TRANSLATORS: The window title for the generic configuration dialog of plugins
 #: ../xl/plugins/__init__.py:72
 msgid "Plugin Configuration"
-msgstr "Plugin-Konfiguration"
+msgstr "Configurazione Plugin"
 
 #. TRANSLATORS: Short text stating which plugin a configuration dialog is for
 #: ../xl/plugins/__init__.py:80
 #, python-format
 msgid "<b>%s Configuration</b>"
-msgstr "<b>Konfiguration für %s</b>"
+msgstr "<b>%s Configurazione/b>"
 
 #. TRANSLATORS: The column title for plugin names
 #: ../xl/plugins/gui.py:76 ../xl/plugins/gui.py:294
@@ -2938,76 +2878,76 @@ msgstr "Plugin"
 #. TRANSLATORS: The column title for the plugin statuses
 #: ../xl/plugins/gui.py:91
 msgid "Enabled"
-msgstr "Aktiviert"
+msgstr "Attivato"
 
 #: ../xl/plugins/gui.py:155 ../xl/plugins/gui.py:221
 msgid "No Plugin Selected"
-msgstr "Kein Plugin ausgewählt"
+msgstr "Nessun Plugin Selezionato"
 
 #: ../xl/plugins/gui.py:202
 #, python-format
 msgid "%(plugin)s could not be installed: %(exception)s"
-msgstr "%(plugin)s konnte nicht installiert werden: %(exception)s"
+msgstr "%(plugin)s non può essere installato: %(exception)s"
 
 #: ../xl/plugins/gui.py:222 ../xl/plugins/gui.py:322
 msgid "Fetching available plugin list..."
-msgstr "Verfügbare Plugins abrufen …"
+msgstr "Acquisizione lista dei plugin disponibili..."
 
 #: ../xl/plugins/gui.py:266
 msgid "No plugins or updates could be found for your version."
 msgstr ""
-"Es konnten keine Plugins oder Updates für diese Version gefunden werden."
+"Non sono stati trovati plugin o aggiornamenti per la versione in uso."
 
 #: ../xl/plugins/gui.py:276
 msgid "No plugin selected"
-msgstr "Kein Plugin ausgewählt"
+msgstr "Nessun plugin selezionato"
 
 #. TRANSLATORS: The column title for plugin versions
 #: ../xl/plugins/gui.py:304
 msgid "Ver"
-msgstr "Ver."
+msgstr "Ver"
 
 #. TRANSLATORS: The column title for the plugin installation statuses
 #: ../xl/plugins/gui.py:315
 msgid "Inst"
-msgstr "Inst."
+msgstr "Inst"
 
 #: ../xl/plugins/gui.py:376
 msgid "Are you sure you want to uninstall the selected plugin?"
-msgstr "Soll das ausgewählte Plugin deinstalliert werden?"
+msgstr "Sei sicuro di voler disinstallare il plugin selezionato?"
 
 #: ../xl/plugins/plugins.glade.h:1
 msgid "<b>No Plugin Selected</b>"
-msgstr "<b>Kein Plugin ausgewählt</b>"
+msgstr "<b>Nessun Plugin Selezionato</b>"
 
 #: ../xl/plugins/plugins.glade.h:2
 msgid "Authors:"
-msgstr "Autoren:"
+msgstr "Autori:"
 
 #: ../xl/plugins/plugins.glade.h:3
 msgid "Available Plugins"
-msgstr "Verfügbare Plugins"
+msgstr "Plugin Disponibili"
 
 #: ../xl/plugins/plugins.glade.h:4
 msgid "Configure"
-msgstr "Einstellungen"
+msgstr "Configura"
 
 #: ../xl/plugins/plugins.glade.h:6
 msgid "Install/Upgrade"
-msgstr "Installieren / Aktualisieren"
+msgstr "Installa/Aggiorna"
 
 #: ../xl/plugins/plugins.glade.h:7
 msgid "Installed Plugins"
-msgstr "Installierte Plugins"
+msgstr "Plugin Installati"
 
 #: ../xl/plugins/plugins.glade.h:8
 msgid "Plugin Manager"
-msgstr "Plugin-Verwaltung"
+msgstr "Gestione Plugin"
 
 #: ../xl/plugins/plugins.glade.h:9
 msgid "Uninstall"
-msgstr "Deinstallieren"
+msgstr "Rimuovi"
 
 #: ../xl/plugins/plugins.glade.h:10
 msgid "Version:"
-msgstr "Version:"
+msgstr "Versione:"

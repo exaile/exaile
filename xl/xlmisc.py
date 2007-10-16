@@ -23,7 +23,7 @@ their own file
 import httplib, os, re, sys, threading, time, traceback, urllib, urlparse
 from gettext import gettext as _
 
-import pygtk
+import pygtk, locale
 pygtk.require('2.0')
 import gtk, gobject, pango
 import cairo
@@ -77,7 +77,8 @@ def glade_file(exaile):
         return xl.path.get_data('exaile.glade')
 
 def get_default_encoding():
-    return 'utf-8'
+    #return 'utf-8'
+    return locale.getpreferredencoding()
 
 class ClearEntry(object):
     """

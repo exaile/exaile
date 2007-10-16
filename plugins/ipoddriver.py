@@ -28,6 +28,7 @@ PLUGIN_VERSION = '0.4.6'
 PLUGIN_DESCRIPTION = _(r"""iPod Driver for the Devices Panel
 \n\nRequires libgpod and its Python bindings to be installed
 \n(e.g. python-gpod in Debian).""")
+
 PLUGIN_ENABLED = False
 button = gtk.Button()
 PLUGIN_ICON = button.render_icon('gnome-dev-ipod', gtk.ICON_SIZE_MENU)

@@ -1676,6 +1676,8 @@ class ExaileWindow(gobject.GObject):
             for song in self.player.queued:
                 h.write("%s\n" % song.loc)
             h.close()
+        elif os.path.isfile(os.path.join(dir, "queued.save")):
+            os.unlink(os.path.join(dir, "queued.save"))
 
         if self.player.stop_track:
             self.settings.set_str('stop_track', self.player.stop_track.loc)

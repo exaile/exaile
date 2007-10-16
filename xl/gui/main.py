@@ -280,42 +280,49 @@ class ExaileWindow(gobject.GObject):
         """
             Called when a tag is found in a stream
         """
-        newsong=False
         track = self.player.current
-        if not track or not track.type == 'stream': return True
-        for tag in tags.keys():
-            if tag == 'bitrate': track.bitrate = int(tags[tag])/1000
-            elif tag == 'comment': track.album = tags[tag]
-            elif tag == 'title': 
+        if not (track and track.type == 'stream'): return True
+
+        log = ['Stream tag:']
+        newsong=False
+
+        for key in tags.keys():
+            value = tags[key]
+            try:
+                value = common.to_unicode(value)
+            except UnicodeDecodeError:
+                log.append('  ' + key + " [can't decode]: " + `str(value)`)
+                continue # TODO: What encoding does gst give us?
+
+            log.append('  ' + key + ': ' + value)
+
+            if key == 'bitrate': track.bitrate = int(value) / 1000
+            elif key == 'comment': track.album = value
+            elif key == 'title': 
                 try:
-                    if track.rawtitle != tags[tag]: 
-                        track.rawtitle=tags[tag]
-                        xlmisc.log("different song")
-                        newsong=True
+                    if track.rawtitle != value:
+                        track.rawtitle = value
+                        newsong = True
                 except AttributeError:
-                    xlmisc.log("new song")
-                    track.rawtitle=tags[tag]
-                    newsong=True
-                
-                titleArray=(tags[tag]).split(' - ',2)
-                
-                if len(titleArray) > 0:
-                    track.artist = titleArray[0]
+                    track.rawtitle = value
+                    newsong = True
+
+                title_array = value.split(' - ', 1)
+                if len(title_array) == 1:
+                    track.title = value
                 else:
-                    track.artist = track.rawtitle
-                if len(titleArray) > 1:
-                    track.title = titleArray[1].lstrip()
-                else: 
-                    track.title = track.rawtitle.lstrip()
-            xlmisc.log('%s: %s' % (gst.tag_get_nick(tag), tags[tag]))           
+                    track.artist = title_array[0]
+                    track.title = title_array[1]
+
         self.tracks.refresh_row(track)
         self.update_track_information()
-        xlmisc.log("rawtitle:%s newsong:%s" % (track.title,newsong))
         if newsong:
-            xlmisc.log("asking to fetch cover")
+            log.append('  New song, fetching cover.')
             self.cover_manager.fetch_cover(track)
+
+        xlmisc.log_multi(log)
         return True
-        
+
     def get_version(self):
         """
             Returns the version of Exaile

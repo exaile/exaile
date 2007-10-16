@@ -726,10 +726,17 @@ class DebugDialog(object):
             self.log_file.close()
 
 LOG_QUEUE = dict()
+
 def log(message):
     """
         Queues a log event
     """
+    try:
+        message = common.to_unicode(message)
+    except UnicodeDecodeError:
+        log_stack("Cannot convert message to unicode.")
+        # Fall through because we still want the message to be logged.
+
     gobject.idle_add(__log, message)
 
 def __log(message):
@@ -753,30 +760,42 @@ def __log(message):
 
         dialog.log(message)
 
+def __log_multiline(lines):
+    """
+        Logs a multiline message
+    """
+    for line in lines:
+        __log(line)
+
 def log_exception():
     """
-        Queues a log event
+        Queues a log event for current exception
     """
-    message = log_file_and_line() + traceback.format_exc()
-    gobject.idle_add(__log_exception, message)
+    message = log_file_and_line()
+    message.extend(traceback.format_exc().split('\n'))
+    gobject.idle_add(__log_multiline, message)
 
-def __log_exception(message):
+def log_stack(description=None, skip=1):
     """
-        Logs an exception
+        Queues a log event for current stack
     """
-    message = message.split("\n")
-    for line in message:
-        log(line)
+    message = log_file_and_line()
+    if description:
+        message.append(description)
+    stack = traceback.format_stack()
+    for i in xrange(0, len(stack) - skip - 1):
+        message.append(stack[i].rstrip())
+    gobject.idle_add(__log_multiline, message)
 
-def log_file_and_line():
+def log_file_and_line(skip=1):
     """
        Logs where we are (function, file name and line number)
        when log_exception is called... handy for debugging.
     """
-    co = sys._getframe(2).f_code
-    return "-----------------------\n" \
-           " %s ( %s @ %s):\n" \
-           "-----------------------\n" % (co.co_name, co.co_filename, co.co_firstlineno)
+    co = sys._getframe(skip + 1).f_code
+    return ["-----------------------",
+            " %s ( %s @ %s):" % (co.co_name, co.co_filename, co.co_firstlineno),
+            "-----------------------"]
 
 class URLFetcher(threading.Thread):
     """

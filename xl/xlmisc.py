@@ -1167,7 +1167,7 @@ class OSDWindow(object):
 
             self.progress.set_colormap(screen.get_rgba_colormap())
             self.progress.set_app_paintable(True)
-            self.progress.connect("expose-event", self.expose_callback())
+            self.progress.connect("expose-event", self.expose_callback)
         else: # Just set the background color in the old fashioned way
             self.window.modify_bg(gtk.STATE_NORMAL, self.color)
             self.progress.modify_bg(gtk.STATE_NORMAL, self.color)

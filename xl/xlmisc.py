@@ -734,7 +734,7 @@ def log(message):
     try:
         message = common.to_unicode(message)
     except UnicodeDecodeError:
-        log_stack("Cannot convert message to unicode.")
+        log_stack("Can't decode: " + `message`)
         # Fall through because we still want the message to be logged.
 
     gobject.idle_add(__log, message)

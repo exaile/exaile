@@ -760,7 +760,17 @@ def __log(message):
 
         dialog.log(message)
 
-def __log_multiline(lines):
+def log_multi(lines):
+    for i, line in enumerate(lines):
+        try:
+            lines[i] = common.to_unicode(line)
+        except UnicodeDecodeError:
+            log_stack("Can't decode: " + `line`)
+            # Fall through because we still want the message to be logged.
+
+    gobject.idle_add(__log_multi, lines)
+
+def __log_multi(lines):
     """
         Logs a multiline message
     """
@@ -773,19 +783,20 @@ def log_exception():
     """
     message = log_file_and_line()
     message.extend(traceback.format_exc().split('\n'))
-    gobject.idle_add(__log_multiline, message)
+    gobject.idle_add(__log_multi, message)
 
 def log_stack(description=None, skip=1):
     """
         Queues a log event for current stack
     """
     message = log_file_and_line()
-    if description:
-        message.append(description)
+    message.append('Stack:')
     stack = traceback.format_stack()
     for i in xrange(0, len(stack) - skip - 1):
         message.append(stack[i].rstrip())
-    gobject.idle_add(__log_multiline, message)
+    if description:
+        message.append(description)
+    gobject.idle_add(__log_multi, message)
 
 def log_file_and_line(skip=1):
     """

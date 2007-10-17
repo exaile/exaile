@@ -289,6 +289,8 @@ class PlaylistsPanel(object):
 
             (_('Random 100'), "SELECT paths.name FROM tracks,paths WHERE " \
                 "paths.id=tracks.path"),
+            (_('Random 500'), "SELECT paths.name FROM tracks,paths WHERE " \
+                "paths.id=tracks.path"),
         ]
 
         # Add smart playlists
@@ -296,6 +298,7 @@ class PlaylistsPanel(object):
             name, sql = smart_playlists[i]
             self.model.append(parent, [self.playlist_image, name,
                 BuiltinPlaylist(name, sql)])
+
         add_smart(self.smart, 0)
         builtin = self.model.append(self.smart, [self.open_folder,
             _('Built In'), None])
@@ -483,13 +486,18 @@ class PlaylistsPanel(object):
 
             if name == 'Entire Library':    
                 songs = self.exaile.all_songs
-            elif name == 'Random 100':
+            elif name.startswith('Random'):
                 songs = library.TrackData()
                 for song in self.exaile.all_songs:
                     songs.append(song)
 
                 random.shuffle(songs)
-                songs = library.TrackData(songs[:100])
+                    
+                try:
+                    number = int(name.replace('Random ', ''))
+                except ValueError:
+                    number = 100
+                songs = library.TrackData(songs[:number])
             else:
                 songs = library.search_tracks(self.exaile.window, 
                     self.db,

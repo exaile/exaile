@@ -1748,6 +1748,10 @@ class ExaileWindow(gobject.GObject):
             os.unlink(queuefile)
 
         if self.player.current: self.player.current.stop()
+        
+        # Clear the search filter so that the entire playlist is saved
+        self.tracks_filter.set_text('')
+        self.on_search()
 
         for i in range(self.playlists_nb.get_n_pages()):
             page = self.playlists_nb.get_nth_page(i)

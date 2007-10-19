@@ -1747,12 +1747,16 @@ class ExaileWindow(gobject.GObject):
         queuefile = xl.path.get_config('queued.save')
         if os.path.isfile(queuefile):
             os.unlink(queuefile)
+            
 
         if self.player.current: self.player.current.stop()
         
         # Clear the search filter so that the entire playlist is saved
         self.tracks_filter.set_text('')
-        self.on_search()
+        try:
+            self.on_search()
+        except:  # In case we're quitting before the playlist loaded
+            pass
 
         for i in range(self.playlists_nb.get_n_pages()):
             page = self.playlists_nb.get_nth_page(i)

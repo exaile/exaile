@@ -73,8 +73,45 @@ class FilterDialog(gtk.Dialog):
         align.add(btn)
         bottom.pack_end(align)
         self.vbox.pack_start(bottom)
+
+        # add the limit checkbox, spinner
+        limit_area = gtk.HBox()
+        limit_area.set_border_width(5)
+        self.lim_check = gtk.CheckButton(_("Limit to: "))
+        limit_area.pack_start(self.lim_check, False)
+
+        self.lim_spin = gtk.SpinButton(gtk.Adjustment(1, 0, 1000000000, 1))
+        self.lim_spin.set_sensitive(False)
+
+        self.lim_check.connect('toggled', lambda b:
+            self.lim_spin.set_sensitive(self.lim_check.get_active()))
+
+        limit_area.pack_start(self.lim_spin, False)
+        limit_area.pack_start(gtk.Label(_(" songs")), False)
+        self.vbox.pack_start(limit_area)
+        limit_area.show_all()
+
         bottom.show_all()
         align.show_all()
+
+    def set_limit(self, limit):
+        """
+            Sets the limit for the number of items that should be returned
+        """
+        if limit > 0:
+            self.lim_check.set_active(True)
+            self.lim_spin.set_value(limit)
+        else:
+            self.lim_check.set_active(False)
+
+    def get_limit(self):
+        """
+            Get the limit value
+        """
+        if self.lim_check.get_active():
+            return int(self.lim_spin.get_value())
+        else:
+            return 0
 
     def get_match_any(self):
         """

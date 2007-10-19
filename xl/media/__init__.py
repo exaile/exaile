@@ -78,7 +78,6 @@ class Track(gobject.GObject):
         self.blacklisted = 0
         self.next_func = None
         self.start_time = 0
-        self._rating = 2
 
         self.set_info(*args, **kwargs)
 

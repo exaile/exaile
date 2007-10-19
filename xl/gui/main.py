@@ -1204,6 +1204,7 @@ class ExaileWindow(gobject.GObject):
             rating = row[1]
             if rating <= 0 or rating == '' or rating is None: 
                 rating = 0
+
             self.rating_combo.set_active(rating - 1)
             track.user_rating = rating
             self.rating_combo.set_sensitive(True)

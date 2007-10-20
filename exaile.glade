@@ -6509,11 +6509,13 @@ us</property>
 				  <child>
 				    <widget class="GtkComboBox" id="prefs_audio_sink">
 				      <property name="visible">True</property>
-				      <property name="items" translatable="yes" comments="TRANSLATORS: Audo sink setting">Automatic
+				      <property name="items" translatable="yes" comments="TRANSLATORS: Audio sink setting">Automatic
 Use GConf Settings
+pulsesink
+esdsink
+jackaudiosink
 alsasink
-osssink
-esdsink</property>
+osssink</property>
 				      <property name="add_tearoffs">False</property>
 				      <property name="focus_on_click">True</property>
 				    </widget>

@@ -262,7 +262,7 @@ class ExaileWindow(gobject.GObject):
                 _("You have not specified any search directories for your "
                 "music library. You may do so now, or choose to do it later.  "
                 "If you want to do it later, you can manage your library "
-                "search directories by going to Tools->Library Manager.  "
+                "search directories by going to Edit->Library Manager.  "
                 "Do you want to choose your library directories now?")) 
             result = dialog.run()
             dialog.destroy()

@@ -702,7 +702,10 @@ class DebugDialog(object):
         char = self.buf.get_char_count()
         iter = self.buf.get_iter_at_offset(char + 1)
 
-        self.buf.insert(iter, text)
+        try:
+            self.buf.insert(iter, text)
+        except:
+            return
         print message
         if not self.log_file:
             try:

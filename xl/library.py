@@ -281,7 +281,13 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None):
         common.error(parent, _("Query Error: %s") % str(e))
         raise e
 
-    for row in cur.fetchall():
+    while True:
+        try:
+            row = cur.fetchone()
+            if not row: break
+        except sqlite3.OperationalError:
+            continue
+
         track = all.for_path(row[0])
         if track == None:
             pass

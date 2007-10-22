@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import gtk
-from xl impot xlmisc, common, library
+from xl import xlmisc, common, library
 
 class StatsDialog(gtk.Dialog):
     """

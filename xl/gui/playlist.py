@@ -795,6 +795,13 @@ class TracksListCtrl(gtk.VBox):
         ar = self.get_ar(song)
         self.model.insert_after(iter, ar)
         self.model.remove(iter)
+    
+    def update_song_list(self, song, orig_song):
+        """
+            Updates the in the song list with the new Track object
+        """
+        index = self.songs.index(orig_song)
+        self.songs[index] = song
 
     def refresh_row(self, song):
         """
@@ -809,6 +816,7 @@ class TracksListCtrl(gtk.VBox):
             if not check: break
             if check == song or check.io_loc == song.io_loc:
                 self.update_iter(iter, song)
+                self.update_song_list(song, check)
                 break
             iter = self.model.iter_next(iter)
             if not iter: break

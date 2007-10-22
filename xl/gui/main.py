@@ -1535,6 +1535,7 @@ class ExaileWindow(gobject.GObject):
             xl.prefs.TEXT_VIEW_DEFAULT)
         pop.show_track_osd(track, text_display,
             cover)
+        self.timer_update()
 
     def setup_menus(self):
         """

@@ -72,7 +72,12 @@ class FilesPanel(object):
         col = gtk.TreeViewColumn(_('Filename'))
         col.pack_start(pb, False)
         col.pack_start(text, True)
-        col.set_fixed_width(130)
+        col.connect('notify::width', self.set_column_width)
+
+        width = self.exaile.settings.get_int('ui/files_%s_col_width' %
+            _('Filename'), 130)
+
+        col.set_fixed_width(width)
         col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
         col.set_resizable(True)
         col.set_attributes(pb, pixbuf=0)
@@ -81,15 +86,19 @@ class FilesPanel(object):
 
         self.tree.append_column(col)
 
+        width = self.exaile.settings.get_int('ui/files_%s_col_width' %
+            _('Size'), 50)
+
         text = gtk.CellRendererText()
         text.set_property('xalign', 1.0)
         # TRANSLATORS: Filesize column in the file browser
         col = gtk.TreeViewColumn(_('Size'))
-        col.set_fixed_width(50)
+        col.set_fixed_width(width)
         col.set_resizable(True)
         col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
         col.pack_start(text, False)
         col.set_attributes(text, text=2)
+        col.connect('notify::width', self.set_column_width)
         self.tree.append_column(col)
 
         # set up the search entry
@@ -106,6 +115,13 @@ class FilesPanel(object):
         self.menu = xlmisc.Menu()
         self.menu.append(_("Append to Playlist"), self.append)
         self.queue_item = self.menu.append(_("Queue Items"), self.append)
+
+    def set_column_width(self, col, stuff=None):
+        """
+            Called when the user resizes a column
+        """
+        name = "ui/files_%s_col_width" % col.get_title()
+        self.exaile.settings[name] = col.get_width()
 
     def key_release(self, *e):
         """

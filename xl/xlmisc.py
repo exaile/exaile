@@ -1560,7 +1560,7 @@ class M3UParser(PlaylistParser):
         basedir = os.path.dirname(file.url)
         for line in [firstline] + file.readlines():
             line = line.strip()
-            if line and line[0] == "#":
+            if not line.startswith("#"):
                 url = self._get_url_from_path(basedir, line)
                 self.add_url(url)
 

@@ -173,7 +173,7 @@ class DBManager(object):
             cur.execute(query, args)
         except:
             traceback.print_exc()
-            traceback.print_tb()
+            traceback.print_stack()
             print query, args
 
     def select(self, query, args=[]):

@@ -262,6 +262,7 @@ class TracksListCtrl(gtk.VBox):
         index = self.songs.index(track)
         path = (index,)
         self.list.scroll_to_cell(path)
+        self.list.set_cursor(path)
     
     def get_songs(self):
         """

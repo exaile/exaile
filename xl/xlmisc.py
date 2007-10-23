@@ -77,8 +77,12 @@ def glade_file(exaile):
         return xl.path.get_data('exaile.glade')
 
 def get_default_encoding():
+    """
+        Returns the encoding to be used when dealing with file paths.  Do not
+        use for other purposes.
+    """
     #return 'utf-8'
-    return locale.getpreferredencoding()
+    return sys.getfilesystemencoding() or sys.getdefaultencoding()
 
 class ClearEntry(object):
     """

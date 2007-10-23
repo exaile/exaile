@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-import httplib, md5, os, re, threading, time, urllib, urllib2
+import glob, httplib, md5, os, re, threading, time, urllib, urllib2
 from gettext import gettext as _
 import gobject, gtk
 import xlmisc, library, common
@@ -368,13 +368,13 @@ class CoverManager(object):
         dir = os.path.dirname(track.loc)
 
         names = self.exaile.settings.get_list('art_filenames', 
-            ['cover.jpg', 'folder.jpg', '.folder.jpg', 'album.jpg', 'art.jpg'])
+            [u'cover.jpg', u'folder.jpg', u'.folder.jpg', u'album.jpg', u'art.jpg'])
         if not names: return None
 
         for f in names:
-            f = os.path.join(dir, f.strip())
-            if os.path.isfile(f):
-                return f
+            for f in glob.glob(os.path.join(dir, f.strip())):
+                if os.path.isfile(f):
+                    return f
 
         return None
 

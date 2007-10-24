@@ -435,10 +435,10 @@ class EntryLabelEntryField(MultiEntryField):
             widths=(50, 50))
 
 class SpinLabelField(gtk.HBox):
-    def __init__(self, result_generator, label='', top=99999):
+    def __init__(self, result_generator, label='', top=99999, lower=-99999):
         gtk.HBox.__init__(self, spacing=5)
         self.generate_result = result_generator
-        self.spin = gtk.SpinButton(gtk.Adjustment(0, 0, top, 1, 0, 0))
+        self.spin = gtk.SpinButton(gtk.Adjustment(0, lower, top, 1, 0, 0))
         self.pack_start(self.spin)
         self.pack_start(gtk.Label(label))
         self.show_all()

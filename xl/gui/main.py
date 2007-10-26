@@ -43,10 +43,10 @@ def found_updates(exaile, found):
 def start_updatecheck_thread(playlist_manager):
     exaile = playlist_manager.exaile
     # check exaile itself
-    version = map(int, exaile.get_version().replace('svn', 
+    version = map(int, exaile.get_version().replace('devel', 
         '').replace('b', '').split('.'))
     check_version = map(int,
-        urllib.urlopen('http://exaile.org/current_version.txt').read().replace('svn', 
+        urllib.urlopen('http://exaile.org/current_version.txt').read().replace('devel', 
         '').replace('b', '').split('.'))
 
     if version < check_version:
@@ -200,13 +200,6 @@ class ExaileWindow(gobject.GObject):
         # TRANSLATORS: The title of the main window
         self.window.set_title(_("Exaile Music Player"))
 
-        # log in to audio scrobbler
-        user = self.settings.get_str("lastfm/user", "")
-        password = self.settings.get_crypted("lastfm/pass", "")
-
-        thread.start_new_thread(audioscrobbler.get_scrobbler_session,
-            (self, user, password))
-
         self.playlists_nb = self.xml.get_widget('playlists_nb')
         self.set_tab_placement()
         self.setup_left()
@@ -223,6 +216,16 @@ class ExaileWindow(gobject.GObject):
 
         self.status = xlmisc.StatusBar(self)
 
+        # log in to audio scrobbler
+        user = self.settings.get_str("lastfm/user", "")
+        password = self.settings.get_crypted("lastfm/pass", "")
+
+        thread.start_new_thread(audioscrobbler.get_scrobbler_session,
+            (self, user, password))
+            
+        # Try to load a saved last.fm cache
+        gobject.idle_add(audioscrobbler.load_cache)
+        
         self.playlists_nb.connect('switch-page', self.page_changed)
         self.playlists_nb.connect('page-added', self.sync_playlists_tabbar)
         self.playlists_nb.connect('page-removed', self.sync_playlists_tabbar)
@@ -236,6 +239,8 @@ class ExaileWindow(gobject.GObject):
             self.stop_button.hide()
         if not self.settings.get_boolean('ui/show_clear_button', True):
             self.clear_button.hide()
+        if not self.settings.get_boolean('ui/show_cover', True):
+            self.xml.get_widget('main_cover_frame').hide()
 
         self.stop_track_button.set_sensitive(False)
         self.pmanager = pluginmanager.Manager(self) 
@@ -257,7 +262,7 @@ class ExaileWindow(gobject.GObject):
                 _("You have not specified any search directories for your "
                 "music library. You may do so now, or choose to do it later.  "
                 "If you want to do it later, you can manage your library "
-                "search directories by going to Tools->Library Manager.  "
+                "search directories by going to Edit->Library Manager.  "
                 "Do you want to choose your library directories now?")) 
             result = dialog.run()
             dialog.destroy()
@@ -275,42 +280,49 @@ class ExaileWindow(gobject.GObject):
         """
             Called when a tag is found in a stream
         """
-        newsong=False
         track = self.player.current
-        if not track or not track.type == 'stream': return True
-        for tag in tags.keys():
-            if tag == 'bitrate': track.bitrate = int(tags[tag])/1000
-            elif tag == 'comment': track.album = tags[tag]
-            elif tag == 'title': 
+        if not (track and track.type == 'stream'): return True
+
+        log = ['Stream tag:']
+        newsong=False
+
+        for key in tags.keys():
+            value = tags[key]
+            try:
+                value = common.to_unicode(value)
+            except UnicodeDecodeError:
+                log.append('  ' + key + " [can't decode]: " + `str(value)`)
+                continue # TODO: What encoding does gst give us?
+
+            log.append('  ' + key + ': ' + value)
+
+            if key == 'bitrate': track.bitrate = int(value) / 1000
+            elif key == 'comment': track.album = value
+            elif key == 'title': 
                 try:
-                    if track.rawtitle != tags[tag]: 
-                        track.rawtitle=tags[tag]
-                        xlmisc.log("different song")
-                        newsong=True
+                    if track.rawtitle != value:
+                        track.rawtitle = value
+                        newsong = True
                 except AttributeError:
-                    xlmisc.log("new song")
-                    track.rawtitle=tags[tag]
-                    newsong=True
-                
-                titleArray=(tags[tag]).split(' - ',2)
-                
-                if len(titleArray) > 0:
-                    track.artist = titleArray[0]
+                    track.rawtitle = value
+                    newsong = True
+
+                title_array = value.split(' - ', 1)
+                if len(title_array) == 1:
+                    track.title = value
                 else:
-                    track.artist = track.rawtitle
-                if len(titleArray) > 1:
-                    track.title = titleArray[1].lstrip()
-                else: 
-                    track.title = track.rawtitle.lstrip()
-            xlmisc.log('%s: %s' % (gst.tag_get_nick(tag), tags[tag]))           
+                    track.artist = title_array[0]
+                    track.title = title_array[1]
+
         self.tracks.refresh_row(track)
         self.update_track_information()
-        xlmisc.log("rawtitle:%s newsong:%s" % (track.title,newsong))
         if newsong:
-            xlmisc.log("asking to fetch cover")
+            log.append('  New song, fetching cover.')
             self.cover_manager.fetch_cover(track)
+
+        xlmisc.log_multi(log)
         return True
-        
+
     def get_version(self):
         """
             Returns the version of Exaile
@@ -321,7 +333,7 @@ class ExaileWindow(gobject.GObject):
         """
             Returns the location of the plugins
         """
-        if sys.modules['__main__'].__version__.find('svn') > -1 \
+        if sys.modules['__main__'].__version__.find('devel') > -1 \
             or sys.modules['__main__'].__version__.find('b') > -1:
             return 'trunk'
         else:
@@ -999,9 +1011,9 @@ class ExaileWindow(gobject.GObject):
                 self.db.add_function_create(('THE_CUTTER', 1, 
                     library.the_cutter))
             except:
-                pass # db is ok, continue!                
+                pass # db is ok, continue!
 
-        self.db.check_version("sql")
+        self.db.check_version(xl.path.get_data('sql'))
 
 
     def initialize(self):
@@ -1065,18 +1077,28 @@ class ExaileWindow(gobject.GObject):
             Updates the seeker position, the "now playing" title, and
             submits the track to last.fm when appropriate
         """
-        self.status.set_track_count(_("%(track_count)d showing (%(total_time)s), "
-            "%(track_total)d in collection") %
-            {
-                'track_count': len(self.songs),
-                'total_time' : self.songs.get_total_length(),
-                'track_total': len(self.all_songs)
-            })
+        status_text = ""
+        track_count = len(self.songs)
+
+        if track_count:
+            #TRANSLATORS: Number of tracks in the playlist
+            status_text += _("%d showing") % track_count
+
+            total_time = self.songs.get_total_length()
+            if total_time:
+                status_text += " (" + total_time + ")"
+
+            status_text += ", "
+
+        #TRANSLATORS: Number of tracks in the collection
+        status_text += _("%d in collection") % len(self.all_songs)
+        self.status.set_track_count(status_text)
+
         track = self.player.current
 
         self.rewind_track += 1
 
-        if track == None: 
+        if track is None: 
             return True
         duration = track.duration
 
@@ -1179,6 +1201,7 @@ class ExaileWindow(gobject.GObject):
             rating = row[1]
             if rating <= 0 or rating == '' or rating is None: 
                 rating = 0
+
             self.rating_combo.set_active(rating - 1)
             track.user_rating = rating
             self.rating_combo.set_sensitive(True)
@@ -1205,6 +1228,10 @@ class ExaileWindow(gobject.GObject):
         path_id = library.get_column_id(self.db, 'paths', 'name', track.loc)
         self.db.execute("UPDATE tracks SET %s WHERE path=?" % update_string, 
             (path_id,))
+
+        track.playcount += plays
+
+        self.tracks.refresh_row(track)
 
     
     def setup_right(self): 
@@ -1505,6 +1532,7 @@ class ExaileWindow(gobject.GObject):
             xl.prefs.TEXT_VIEW_DEFAULT)
         pop.show_track_osd(track, text_display,
             cover)
+        self.timer_update()
 
     def setup_menus(self):
         """
@@ -1696,6 +1724,10 @@ class ExaileWindow(gobject.GObject):
         # PLUGIN: send plugins event before quitting
         self.emit('quit')
 
+        # Write any tracks remaining in the last.fm cache to disk
+        # for submission later.
+        audioscrobbler.write_cache()
+
         self.player.stop()
         self.cover_manager.stop_cover_thread()
         for thread in self.thread_pool:
@@ -1713,8 +1745,16 @@ class ExaileWindow(gobject.GObject):
         queuefile = xl.path.get_config('queued.save')
         if os.path.isfile(queuefile):
             os.unlink(queuefile)
+            
 
         if self.player.current: self.player.current.stop()
+        
+        # Clear the search filter so that the entire playlist is saved
+        self.tracks_filter.set_text('')
+        try:
+            self.on_search()
+        except:  # In case we're quitting before the playlist loaded
+            pass
 
         for i in range(self.playlists_nb.get_n_pages()):
             page = self.playlists_nb.get_nth_page(i)
@@ -1730,6 +1770,8 @@ class ExaileWindow(gobject.GObject):
             for song in self.player.queued:
                 h.write("%s\n" % song.loc)
             h.close()
+        elif os.path.isfile(os.path.join(dir, "queued.save")):
+            os.unlink(os.path.join(dir, "queued.save"))
 
         if self.player.stop_track:
             self.settings.set_str('stop_track', self.player.stop_track.loc)

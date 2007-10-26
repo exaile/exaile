@@ -140,6 +140,15 @@ class TextEntryDialog(gtk.Dialog):
         self.hide()
         return response
 
+def to_unicode(x, default_encoding=None):
+    if isinstance(x, unicode):
+        return x
+    elif default_encoding and isinstance(x, str):
+        # This unicode constructor only accepts "string or buffer".
+        return unicode(x, default_encoding)
+    else:
+        return unicode(x)
+
 def tup(string, num):
     """
         returns a tuple with the first char of the string repeated 

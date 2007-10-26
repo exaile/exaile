@@ -47,7 +47,7 @@ except:
 
 PLUGIN_NAME = _("Music Sharing")
 PLUGIN_AUTHORS = ['Aren Olson <reacocard@gmail.com>']
-PLUGIN_VERSION = '0.7.9'
+PLUGIN_VERSION = '0.8.0'
 PLUGIN_DESCRIPTION = _(r"""Allows playing of DAAP music shares.
 \n\nDepends: python-daap, python-avahi.""")
 
@@ -282,6 +282,8 @@ class NetworkPanel(collection.CollectionPanel):
             xl.path.get_data('images', 'track.png'))
         self.genre_image = gtk.gdk.pixbuf_new_from_file(
             xl.path.get_data('images', 'genre.png'))
+        self.year_image = gtk.gdk.pixbuf_new_from_file(xl.path.get_data(
+            'images', 'year.png'))
 
         self.setup_widgets()
 

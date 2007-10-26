@@ -632,26 +632,55 @@ class TrackEditor(object):
         # out a lot of valuable tags and when it's a wanted effect?
         append = self.replace_tags2.get_active()
         cols = self.tagsfrompath_view.get_columns()
-
+        errors = []
+        exaile = self.exaile
         for row in self.tagsfrompath_view.get_model():
-            song = row[0]
+            track = row[0]
             for i, col in enumerate(cols[1:]):
                 if not row[i+2]: continue
-                song.set_tag(col.get_title(), row[i + 2], append)
-            media.write_tag(song)
+                tag = (col.get_title()).lower().replace(' ', '')
+                track.set_tag(tag, row[i + 2], append)
+            try:
+                media.write_tag(track)
+                library.save_track_to_db(exaile.db, track)
+                try:
+                    exaile.all_songs.remove(exaile.all_songs.for_path(track.loc))
+                    exaile.all_songs.append(track)
+                except:
+                    xlmisc.log_exception()
+
+                exaile.tracks.refresh_row(track)
+            except:
+                errors.append(_("Unknown error writing tag for %s") % track.loc)
+                xlmisc.log_exception()
         return
 
     def on_tracknum_save_clicked(self, widget, *args):
         """
             Write to disk
         """
+        errors = []
+        exaile = self.exaile
+        
         for row in self.tracknum_view.get_model():
-            song = row[0]
+            track = row[0]
             if row[3]:
-                song.set_tag('tracknumber', "/".join([str(row[2]), str(row[3])]))
+                track.set_tag('tracknumber', "/".join([str(row[2]), str(row[3])]))
             else:
-                song.set_tag('tracknumber', row[2])
-            media.write_tag(song)
+                track.set_tag('tracknumber', row[2])
+            try:
+                media.write_tag(track)
+                library.save_track_to_db(exaile.db, track)
+                try:
+                    exaile.all_songs.remove(exaile.all_songs.for_path(track.loc))
+                    exaile.all_songs.append(track)
+                except:
+                    xlmisc.log_exception()
+
+                exaile.tracks.refresh_row(track)
+            except:
+                errors.append(_("Unknown error writing tag for %s") % track.loc)
+                xlmisc.log_exception()
         return
 
     def update_tracknum_sb(self):

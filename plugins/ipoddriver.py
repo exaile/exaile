@@ -24,8 +24,11 @@ import xl.path
 
 PLUGIN_NAME = _("iPod Device Driver")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = '0.4.5'
-PLUGIN_DESCRIPTION = _(r"""iPod Driver for the Devices Panel""")
+PLUGIN_VERSION = '0.4.6'
+PLUGIN_DESCRIPTION = _(r"""iPod Driver for the Devices Panel
+\n\nRequires libgpod and its Python bindings to be installed
+\n(e.g. python-gpod in Debian).""")
+
 PLUGIN_ENABLED = False
 button = gtk.Button()
 PLUGIN_ICON = button.render_icon('gnome-dev-ipod', gtk.ICON_SIZE_MENU)
@@ -146,9 +149,11 @@ class iPodDriver(plugins.DeviceDriver):
 
             gpod.itdb_track_unlink(track)
             self.all.remove(song)
-            for k, v in self.lists.iteritems():
-                if track.loc in v:
-                    self.lists[k].remove(track.loc)
+            for v in self.lists.itervalues():
+                try:
+                    v.remove(song.loc)
+                except ValueError:
+                    pass
 
         self.transfer_done()
 

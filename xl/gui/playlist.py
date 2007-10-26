@@ -31,8 +31,12 @@ def create_rating_images(caller):
     if (caller.rating_width != caller.old_r_w and caller.rating_width != 0):
         caller.rating_images = []
         star_size = caller.rating_width / 4
+
         star = gtk.gdk.pixbuf_new_from_file_at_size(
             xl.path.get_data('images', 'star.png'), star_size, star_size)
+
+        star_size -= 1
+
         full_image = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, caller.rating_width, star_size)
         full_image.fill(0xffffff00) # transparent white
         for x in range(0, 4):
@@ -64,7 +68,7 @@ class TracksListCtrl(gtk.VBox):
     row_height = 16
     
     COLUMNS = [
-        Column('track', '#', 30),
+        Column('track', _('#'), 30),
         Column('title', _('Title'), 200),
         Column('artist', _('Artist'), 150),
         Column('album', _('Album'), 150),
@@ -76,6 +80,7 @@ class TracksListCtrl(gtk.VBox):
         Column('bitrate', _('Bitrate'), 30),
         Column('io_loc', _('Location'), 200),
         Column('filename', _('Filename'), 200),
+        Column('playcount', _('Playcount'), 50),
     ]
 
     column_by_id = {}
@@ -254,6 +259,7 @@ class TracksListCtrl(gtk.VBox):
         index = self.songs.index(track)
         path = (index,)
         self.list.scroll_to_cell(path)
+        self.list.set_cursor(path)
     
     def get_songs(self):
         """
@@ -484,7 +490,8 @@ class TracksListCtrl(gtk.VBox):
                     col.set_cell_data_func(stop_pb, self.stop_icon_data_func)
                 else:
                     col = gtk.TreeViewColumn(col_struct.display, cellr, text=count)
-                
+
+                col.set_cell_data_func(cellr, self.change_playing_track_text_func)
                 if col_struct.id == 'length':
                     col.set_cell_data_func(cellr, self.length_data_func)
                 elif col_struct.id == 'track':
@@ -523,7 +530,7 @@ class TracksListCtrl(gtk.VBox):
                     col.set_resizable(True)
                     col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
 
-                if col_struct.id == 'track':
+                if col_struct.id in ('track', 'playcount'):
                     cellr.set_property('xalign', 1.0)
 
                 col.set_widget(gtk.Label(col_struct.display))
@@ -532,6 +539,17 @@ class TracksListCtrl(gtk.VBox):
                 col.get_widget().get_ancestor(gtk.Button).connect('button_press_event', self.press_header)
             count = count + 1
         self.changed_id = self.list.connect('columns-changed', self.column_changed)
+    
+    def change_playing_track_text_func(self, col, cellr, model, iter):
+        """
+            Changes the text of current playing/paused track to bold
+        """
+        item = model.get_value(iter, 0)
+        if item != self.exaile.player.current:
+            cellr.set_property('weight', pango.WEIGHT_NORMAL)
+        else:
+            if self.exaile.player.is_playing() or self.exaile.player.is_paused():
+                cellr.set_property('weight', pango.WEIGHT_HEAVY)
 
     def press_header(self, widget, event):
         if event.button != 3:
@@ -589,6 +607,7 @@ class TracksListCtrl(gtk.VBox):
         """
             Track number
         """
+        self.change_playing_track_text_func(col, cell, model, iter)
         item = model.get_value(iter, 0)
         if item.track is None or item.track == -1 or \
             item.type == 'podcast':
@@ -707,6 +726,7 @@ class TracksListCtrl(gtk.VBox):
         """ 
             Formats the track length
         """
+        self.change_playing_track_text_func(col, cellr, model, iter)
         item = model.get_value(iter, 0)
 
         if item == 'podcast':
@@ -780,6 +800,13 @@ class TracksListCtrl(gtk.VBox):
         ar = self.get_ar(song)
         self.model.insert_after(iter, ar)
         self.model.remove(iter)
+    
+    def update_song_list(self, song, orig_song):
+        """
+            Updates the in the song list with the new Track object
+        """
+        index = self.songs.index(orig_song)
+        self.songs[index] = song
 
     def refresh_row(self, song):
         """
@@ -792,12 +819,13 @@ class TracksListCtrl(gtk.VBox):
         while True:
             check = self.model.get_value(iter, 0)
             if not check: break
-            if check == song:
+            if check == song or check.io_loc == song.io_loc:
                 self.update_iter(iter, song)
+                self.update_song_list(song, check)
                 break
             iter = self.model.iter_next(iter)
             if not iter: break
-       
+      
         if not paths: return
         for path in paths:
             selection.select_path(path)
@@ -919,8 +947,15 @@ class TracksListCtrl(gtk.VBox):
             tpm.append(_("Show in Collection"), self.show_in_collection,
                 'exaile-track-icon')
 
-        tpm.append(_("Remove from Current"),
+        rm = xlmisc.Menu()
+        rm.append(_("Remove Selected from Playlist"),
             self.delete_tracks, 'gtk-delete')
+        rm.append(_("Blacklist Selected"),
+            self.delete_tracks, 'gtk-delete', 'blacklist')
+        rm.append(_("Delete Selected"),
+            self.delete_tracks, 'gtk-delete', 'delete')
+
+        tpm.append_menu(_("Remove"), rm, 'gtk-delete')
 
         # plugins menu items
         if self.exaile.plugins_menu.get_children():

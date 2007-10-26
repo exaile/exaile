@@ -1,6 +1,7 @@
 # $Id$
 
-import xlmisc, gobject, common, time, xlmisc, urllib
+import xlmisc, gobject, common, time, urllib, path, os
+import xml.dom.minidom
 from gettext import gettext as _
 SCROBBLER_SESSION = None
 
@@ -27,6 +28,126 @@ def submit_to_scrobbler(exaile, tr):
         xlmisc.log_exception()
         gobject.idle_add(exaile.status.set_first, 
             _("Failed to submit track to Last.fm."), 3000)
+
+def load_cache():
+    """
+        Loads the cache that's been saved to disk
+    """
+    global SCROBBLER_SESSION
+    if SCROBBLER_SESSION == None: return
+    file_name = path.get_config('lastfm.xml')
+    if not os.path.isfile(file_name):
+        xlmisc.log('No last.fm cache found.')
+        return
+    
+    doc = xml.dom.minidom.parse(file_name)
+    tracks = doc.getElementsByTagName("track")
+    cache = []
+    
+    for track in tracks:
+        artist = getElement(track, "artist")
+        title = getElement(track, "title")
+        album = getElement(track, "album")
+        len = getElement(track, "duration")
+        date = getElement(track, "date")
+        mbid = getElement(track, "mbid")
+        
+        # When rebuilding the cache we remove the url codes that were added
+        # during a previous failed submission
+        entry = {'a[%s]' : artist,
+                 't[%s]' : title,
+                 'l[%s]' : len,
+                 'i[%s]' : date,
+                 'b[%s]' : album,
+                 'm[%s]' : mbid,
+                }
+        cache.append(entry)
+        doc.childNodes[0].removeChild(track)
+    file = open(file_name, "w")
+    doc.writexml(file)
+    file.close()
+    SCROBBLER_SESSION.cache = cache
+    SCROBBLER_SESSION.post()
+        
+def getElement(track, tag):
+    """
+        Returns the element in a track associated with a given tag,
+        or an empty string if the element isn't found or is None
+    """
+    try:
+        ret = track.getElementsByTagName(tag)[0].childNodes[0].nodeValue
+    except:
+        ret = ''
+    return ret
+            
+def write_cache():
+    """
+        Writes the local cache to disk when exaile is closed
+    """
+    global SCROBBLER_SESSION
+    if SCROBBLER_SESSION == None: return
+    file_name = path.get_config('') + "/lastfm.xml"
+    try:
+        doc = xml.dom.minidom.parse(file_name)
+    except:
+        xlmisc.log('last.fm submission cache file not found, creating it...')
+        file = open(file_name, "w")
+        doc = xml.dom.minidom.Document()
+        root_element = doc.createElement("cache")
+        doc.appendChild(root_element)
+        doc.writexml(file)
+        file.close()
+        doc = xml.dom.minidom.parse(file_name)
+            
+    for entry in SCROBBLER_SESSION.cache:
+        tr = {}
+        for k in entry.keys():
+            if k[0] == 'a':
+                tr[0] = urllib.unquote(entry[k])
+            elif k[0] == 't':
+                tr[1] = urllib.unquote(entry[k])
+            elif k[0] == 'l':
+                tr[2] = urllib.unquote(entry[k])
+            elif k[0] == 'i':
+                tr[3] = urllib.unquote(entry[k])
+            elif k[0] == 'b':
+                tr[4] = urllib.unquote(entry[k])
+            elif k[0] == 'm':
+                tr[5] = urllib.unquote(entry[k])
+            else:
+                xlmisc.log("Unexpected entry in lastfm cache.  Aborting.")
+                return
+                
+        # Create elements to be added to the xml file    
+        track_element = doc.createElement("track")
+        title_element = doc.createElement("title")
+        artist_element = doc.createElement("artist")
+        duration_element = doc.createElement("duration")
+        date_element = doc.createElement("date")
+        album_element = doc.createElement("album")
+        mbid_element = doc.createElement("mbid")
+        
+        # Add the stored track information to its respective element
+        title_element.appendChild(doc.createTextNode(tr[1]))
+        artist_element.appendChild(doc.createTextNode(tr[0]))
+        duration_element.appendChild(doc.createTextNode(tr[2]))
+        date_element.appendChild(doc.createTextNode(tr[3]))
+        album_element.appendChild(doc.createTextNode(tr[4]))
+        mbid_element.appendChild(doc.createTextNode(tr[5]))
+        
+        # Add track information elements to the parent track element
+        track_element.appendChild(title_element)
+        track_element.appendChild(artist_element)
+        track_element.appendChild(duration_element)
+        track_element.appendChild(date_element)
+        track_element.appendChild(album_element)
+        track_element.appendChild(mbid_element)
+
+        # Append the new track element to the root cache element
+        doc.childNodes[0].appendChild(track_element)
+        
+    file_object = open(file_name, "w")
+    doc.writexml(file_object)
 
 def get_scrobbler_session(exaile, username="", password="", new=False): 
     """
@@ -780,7 +901,6 @@ class AudioScrobblerPost:
             sane_length = int(length)
         else:
             sane_length = -1
-        
         # If the track length is less than 30 move on
         if sane_length < 30:
             msg = ("Track '%s' by '%s' only %s seconds in length, so "
@@ -815,8 +935,10 @@ class AudioScrobblerPost:
         count = 0
         for track in self.cache[:number]:
             for k in track.keys():
+                track[k] = urllib.unquote(track[k])
                 track[k] = urllib.quote(track[k].encode('utf-8'))
                 params[k % (count,)] = track[k]
+            count += 1
         
         self.auth()
         params.update(self.auth_details)

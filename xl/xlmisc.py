@@ -23,9 +23,10 @@ their own file
 import httplib, os, re, sys, threading, time, traceback, urllib, urlparse
 from gettext import gettext as _
 
-import pygtk
+import pygtk, locale
 pygtk.require('2.0')
 import gtk, gobject, pango
+import cairo
 from gtk.gdk import SCROLL_LEFT, SCROLL_RIGHT, SCROLL_UP, SCROLL_DOWN
 
 try:
@@ -76,7 +77,12 @@ def glade_file(exaile):
         return xl.path.get_data('exaile.glade')
 
 def get_default_encoding():
-    return 'utf-8'
+    """
+        Returns the encoding to be used when dealing with file paths.  Do not
+        use for other purposes.
+    """
+    #return 'utf-8'
+    return sys.getfilesystemencoding() or sys.getdefaultencoding()
 
 class ClearEntry(object):
     """
@@ -700,7 +706,10 @@ class DebugDialog(object):
         char = self.buf.get_char_count()
         iter = self.buf.get_iter_at_offset(char + 1)
 
-        self.buf.insert(iter, text)
+        try:
+            self.buf.insert(iter, text)
+        except:
+            return
         print message
         if not self.log_file:
             try:
@@ -725,10 +734,17 @@ class DebugDialog(object):
             self.log_file.close()
 
 LOG_QUEUE = dict()
+
 def log(message):
     """
         Queues a log event
     """
+    try:
+        message = common.to_unicode(message)
+    except UnicodeDecodeError:
+        log_stack("Can't decode: " + `message`)
+        # Fall through because we still want the message to be logged.
+
     gobject.idle_add(__log, message)
 
 def __log(message):
@@ -752,30 +768,53 @@ def __log(message):
 
         dialog.log(message)
 
+def log_multi(lines):
+    for i, line in enumerate(lines):
+        try:
+            lines[i] = common.to_unicode(line)
+        except UnicodeDecodeError:
+            log_stack("Can't decode: " + `line`)
+            # Fall through because we still want the message to be logged.
+
+    gobject.idle_add(__log_multi, lines)
+
+def __log_multi(lines):
+    """
+        Logs a multiline message
+    """
+    for line in lines:
+        __log(line)
+
 def log_exception():
     """
-        Queues a log event
+        Queues a log event for current exception
     """
-    message = log_file_and_line() + traceback.format_exc()
-    gobject.idle_add(__log_exception, message)
+    message = log_file_and_line()
+    message.extend(traceback.format_exc().split('\n'))
+    gobject.idle_add(__log_multi, message)
 
-def __log_exception(message):
+def log_stack(description=None, skip=1):
     """
-        Logs an exception
+        Queues a log event for current stack
     """
-    message = message.split("\n")
-    for line in message:
-        log(line)
+    message = log_file_and_line()
+    message.append('Stack:')
+    stack = traceback.format_stack()
+    for i in xrange(0, len(stack) - skip - 1):
+        message.append(stack[i].rstrip())
+    if description:
+        message.append(description)
+    gobject.idle_add(__log_multi, message)
 
-def log_file_and_line():
+def log_file_and_line(skip=1):
     """
        Logs where we are (function, file name and line number)
        when log_exception is called... handy for debugging.
     """
-    co = sys._getframe(2).f_code
-    return "-----------------------\n" \
-           " %s ( %s @ %s):\n" \
-           "-----------------------\n" % (co.co_name, co.co_filename, co.co_firstlineno)
+    co = sys._getframe(skip + 1).f_code
+    return ["-----------------------",
+            " %s ( %s @ %s):" % (co.co_name, co.co_filename, co.co_firstlineno),
+            "-----------------------"]
 
 class URLFetcher(threading.Thread):
     """
@@ -1151,14 +1190,27 @@ class OSDWindow(object):
         self.__timeout = None
         self.start_timer = start_timer
 
-        color = gtk.gdk.color_parse(settings['osd/bgcolor'])
+        self.color = gtk.gdk.color_parse(settings['osd/bgcolor'])
         self.settings = settings
         self.event = self.xml.get_widget('popup_event_box')
         self.box = self.xml.get_widget('image_box')
-        self.window.modify_bg(gtk.STATE_NORMAL, color)
-        self.title = self.xml.get_widget('popup_title_label')
+
         self.progress = self.xml.get_widget('osd_progressbar')
-        self.progress.modify_bg(gtk.STATE_NORMAL, color)
+
+        screen = self.window.get_screen()
+        if screen.is_composited():
+            self.window.set_colormap(screen.get_rgba_colormap())
+            self.window.set_app_paintable(True)
+            self.window.connect("expose-event", self.expose_callback)
+
+            self.progress.set_colormap(screen.get_rgba_colormap())
+            self.progress.set_app_paintable(True)
+            self.progress.connect("expose-event", self.expose_callback)
+        else: # Just set the background color in the old fashioned way
+            self.window.modify_bg(gtk.STATE_NORMAL, self.color)
+            self.progress.modify_bg(gtk.STATE_NORMAL, self.color)
+            
+        self.title = self.xml.get_widget('popup_title_label')
 
         self.window.set_size_request(settings['osd/w'], settings['osd/h'])
         self.cover = ImageWidget()
@@ -1170,9 +1222,40 @@ class OSDWindow(object):
         self.exaile.connect('timer_update', self.timer_update)
         self.__handler = None
 
+    def expose_callback(self, widget, event):
+        cr = widget.window.cairo_create()
+        cr.set_operator(cairo.OPERATOR_SOURCE)
+
+        cr.rectangle(event.area.x, event.area.y,
+            event.area.width, event.area.height)
+        cr.clip()
+
+        transparency = 100 - self.settings['osd/trans_value']
+        
+        cr.set_source_rgba(self.color.red/65535.0, self.color.green/65535.0, 
+                self.color.blue/65535.0, transparency/100.0)
+        cr.paint()
+        return False
+
     def timer_update(self, *e):
         if self.window.get_property('visible'):
             self.progress.set_fraction(self.exaile.new_progressbar.get_fraction())
+
+    def expose_callback(self, widget, event):
+        cr = widget.window.cairo_create()
+        cr.set_operator(cairo.OPERATOR_SOURCE)
+
+        cr.rectangle(event.area.x, event.area.y,
+            event.area.width, event.area.height)
+        cr.clip()
+
+        transparency = 100 - self.settings['osd/trans_value']
+        
+        cr.set_source_rgba(self.color.red/65535.0, self.color.green/65535.0, 
+                self.color.blue/65535.0, transparency/100.0)
+        cr.paint()
+        return False
+
 
     def start_dragging(self, widget, event):
         """
@@ -1285,8 +1368,10 @@ def get_osd_settings(settings):
         prefs.TEXT_VIEW_DEFAULT)
     info['osd/text_font'] = settings.get_str('osd/text_font',
         'Sans 10')
+    info['osd/trans_value'] = settings.get_int('osd/trans_value', 75)
     info['osd/text_color'] = settings.get_str('osd/text_color',
         '#ffffff')
+    info['osd/trans_value'] = settings.get_int('osd/trans_value', 75)
 
     return info
 
@@ -1475,7 +1560,7 @@ class M3UParser(PlaylistParser):
         basedir = os.path.dirname(file.url)
         for line in [firstline] + file.readlines():
             line = line.strip()
-            if line and line[0] == "#":
+            if not line.startswith("#"):
                 url = self._get_url_from_path(basedir, line)
                 self.add_url(url)
 

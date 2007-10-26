@@ -71,7 +71,7 @@ class SpinSecondsField(filtergui.SpinLabelField):
 class SpinRating(filtergui.SpinLabelField):
     def __init__(self, result_generator):
         filtergui.SpinLabelField.__init__(self, result_generator, '',
-            8)
+            8, -8)
 
 class SpinNothing(filtergui.SpinLabelField):
     def __init__(self, result_generator):
@@ -289,6 +289,8 @@ class PlaylistsPanel(object):
 
             (_('Random 100'), "SELECT paths.name FROM tracks,paths WHERE " \
                 "paths.id=tracks.path"),
+            (_('Random 500'), "SELECT paths.name FROM tracks,paths WHERE " \
+                "paths.id=tracks.path"),
         ]
 
         # Add smart playlists
@@ -296,6 +298,7 @@ class PlaylistsPanel(object):
             name, sql = smart_playlists[i]
             self.model.append(parent, [self.playlist_image, name,
                 BuiltinPlaylist(name, sql)])
+
         add_smart(self.smart, 0)
         builtin = self.model.append(self.smart, [self.open_folder,
             _('Built In'), None])
@@ -342,7 +345,7 @@ class PlaylistsPanel(object):
 
         obj = model.get_value(iter, 2)
         if not isinstance(obj, SmartPlaylist): return
-        row = self.db.read_one('playlists', 'matchany', 
+        row = self.db.read_one('playlists', 'matchany, item_limit', 
             'id=?', (obj.id,))
 
         dialog = filtergui.FilterDialog(_('Edit Playlist'), CRITERIA)
@@ -350,6 +353,7 @@ class PlaylistsPanel(object):
 
         dialog.set_name(obj.name)
         dialog.set_match_any(row[0])
+        dialog.set_limit(row[1])
 
         state = []
         rows = self.db.select('SELECT crit1, crit2, filter FROM '
@@ -379,8 +383,9 @@ class PlaylistsPanel(object):
                         "is already taken."))
                     return
             matchany = dialog.get_match_any()
-            self.db.execute('UPDATE playlists SET name=?, matchany=? WHERE '
-                'id=?', (name, matchany, obj.id))
+            limit = dialog.get_limit()
+            self.db.execute('UPDATE playlists SET name=?, matchany=?, item_limit=?WHERE '
+                'id=?', (name, matchany, limit, obj.id))
             self.db.execute('DELETE FROM smart_playlist_items WHERE '
                 'playlist=?', (obj.id,))
 
@@ -411,6 +416,7 @@ class PlaylistsPanel(object):
         if result == gtk.RESPONSE_ACCEPT:
             name = dialog.get_name()
             matchany = dialog.get_match_any()
+            limit = dialog.get_limit()
             if not name: 
                 common.error(self.exaile.window, _("You did not enter a "
                     "name for your playlist"))
@@ -422,8 +428,8 @@ class PlaylistsPanel(object):
                 return
             dialog.hide()
 
-            self.db.execute("INSERT INTO playlists( name, type, matchany "
-                ") VALUES( ?, 1, ? )", (name, matchany))
+            self.db.execute("INSERT INTO playlists( name, type, matchany, "
+                " item_limit ) VALUES( ?, 1, ?, ? )", (name, matchany, limit))
             row = self.db.read_one('playlists', 'id', 'name=?', (name,))
             playlist_id = row[0]
 
@@ -483,13 +489,18 @@ class PlaylistsPanel(object):
 
             if name == 'Entire Library':    
                 songs = self.exaile.all_songs
-            elif name == 'Random 100':
+            elif name.startswith('Random'):
                 songs = library.TrackData()
                 for song in self.exaile.all_songs:
                     songs.append(song)
 
                 random.shuffle(songs)
-                songs = library.TrackData(songs[:100])
+                    
+                try:
+                    number = int(name.replace('Random ', ''))
+                except ValueError:
+                    number = 100
+                songs = library.TrackData(songs[:number])
             else:
                 songs = library.search_tracks(self.exaile.window, 
                     self.db,
@@ -523,7 +534,8 @@ class PlaylistsPanel(object):
         """
             Opens a smart playlist
         """
-        row = self.db.read_one('playlists', 'matchany', 'id=?', (id,))
+        row = self.db.read_one('playlists', 'matchany, item_limit', 'id=?', (id,))
+        limit = row[1]
         rows = self.db.select("SELECT crit1, crit2, filter FROM "
             "smart_playlist_items WHERE playlist=? ORDER BY line", (id,))
 
@@ -562,6 +574,11 @@ class PlaylistsPanel(object):
         xlmisc.log(sql)
         songs = library.search_tracks(self.exaile.window,
             self.db, self.exaile.all_songs, None, None, sql)
+
+        # if a limit was set, shuffle the songs and only grab that amount
+        if limit:
+            random.shuffle(songs)
+            songs = library.TrackData(songs[:limit])
 
         self.exaile.new_page(name, songs)
 

@@ -52,7 +52,7 @@
 		      <accelerator key="N" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image678">
+			<widget class="GtkImage" id="image771">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-new</property>
 			  <property name="icon_size">1</property>
@@ -80,7 +80,7 @@
 		      <accelerator key="O" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image679">
+			<widget class="GtkImage" id="image772">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-open</property>
 			  <property name="icon_size">1</property>
@@ -101,7 +101,7 @@
 		      <signal name="activate" handler="on_open_url_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image680">
+			<widget class="GtkImage" id="image773">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-network</property>
 			  <property name="icon_size">1</property>
@@ -122,7 +122,7 @@
 		      <signal name="activate" handler="on_open_disc_item_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image681">
+			<widget class="GtkImage" id="image774">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-cdrom</property>
 			  <property name="icon_size">1</property>
@@ -143,7 +143,7 @@
 		      <signal name="activate" handler="on_import_directory_item_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image682">
+			<widget class="GtkImage" id="image775">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-go-down</property>
 			  <property name="icon_size">1</property>
@@ -170,7 +170,7 @@
 		      <signal name="activate" handler="on_export_playlist_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image683">
+			<widget class="GtkImage" id="image776">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-save</property>
 			  <property name="icon_size">1</property>
@@ -238,7 +238,7 @@
 		      <signal name="activate" handler="on_library_manager_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image684">
+			<widget class="GtkImage" id="image777">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-home</property>
 			  <property name="icon_size">1</property>
@@ -265,7 +265,7 @@
 		      <signal name="activate" handler="on_plugins_item_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image685">
+			<widget class="GtkImage" id="image778">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-execute</property>
 			  <property name="icon_size">1</property>
@@ -309,7 +309,7 @@
 		      <accelerator key="G" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image686">
+			<widget class="GtkImage" id="image779">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-jump-to</property>
 			  <property name="icon_size">1</property>
@@ -459,6 +459,16 @@
 			  </child>
 
 			  <child>
+			    <widget class="GtkCheckMenuItem" id="track_playcount_col">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Playcount</property>
+			      <property name="use_underline">True</property>
+			      <property name="active">False</property>
+			      <signal name="activate" handler="on_track_playcount_col_activate" last_modification_time="Mon, 08 Oct 2007 22:23:26 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
 			    <widget class="GtkSeparatorMenuItem" id="separator9">
 			      <property name="visible">True</property>
 			    </widget>
@@ -503,7 +513,7 @@
 		      <accelerator key="I" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image687">
+			<widget class="GtkImage" id="image780">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-info</property>
 			  <property name="icon_size">1</property>
@@ -525,7 +535,7 @@
 		      <accelerator key="D" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image688">
+			<widget class="GtkImage" id="image781">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-file</property>
 			  <property name="icon_size">1</property>
@@ -582,7 +592,7 @@
 		      <signal name="activate" handler="on_rescan_collection_activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image689">
+			<widget class="GtkImage" id="image782">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-refresh</property>
 			  <property name="icon_size">1</property>
@@ -607,7 +617,7 @@
 		  <child>
 		    <widget class="GtkMenuItem" id="randomize_item">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes" comments="TRANSLATORS: Randomizes the track order contrary to Shuffle">Randomize Playlist</property>
+		      <property name="label" translatable="yes">Randomize Playlist</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_randomize_item_activate"/>
 		    </widget>
@@ -716,7 +726,11 @@
 			      <property name="visible">True</property>
 			      <property name="items" translatable="yes">Artist
 Album
-Genre</property>
+Genre - Artist
+Genre - Album
+Year - Artist
+Year - Album
+Artist - Year - Album</property>
 			      <property name="add_tearoffs">False</property>
 			      <property name="focus_on_click">True</property>
 			    </widget>
@@ -1549,7 +1563,7 @@ Genre</property>
 		  <property name="spacing">3</property>
 
 		  <child>
-		    <widget class="GtkFrame" id="frame2">
+		    <widget class="GtkFrame" id="main_cover_frame">
 		      <property name="border_width">2</property>
 		      <property name="visible">True</property>
 		      <property name="label_xalign">0</property>
@@ -3755,28 +3769,106 @@ Genre</property>
 </widget>
 
 <widget class="GtkWindow" id="CoverWindow">
-  <property name="title" translatable="yes"></property>
-  <property name="type">GTK_WINDOW_TOPLEVEL</property>
-  <property name="window_position">GTK_WIN_POS_NONE</property>
-  <property name="modal">False</property>
-  <property name="resizable">False</property>
-  <property name="destroy_with_parent">False</property>
-  <property name="decorated">True</property>
-  <property name="skip_taskbar_hint">False</property>
-  <property name="skip_pager_hint">False</property>
-  <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
-  <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
-  <property name="focus_on_map">True</property>
-  <property name="urgency_hint">False</property>
-
+  <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+  <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
+  <property name="destroy_with_parent">True</property>
+  <signal name="destroy" handler="cover_window_destroy"/>
+  <signal name="size_allocate" handler="cover_window_size_allocate"/>
   <child>
-    <widget class="GtkHBox" id="cw_box">
+    <widget class="GtkVBox" id="vbox">
       <property name="visible">True</property>
-      <property name="homogeneous">False</property>
-      <property name="spacing">0</property>
-
+      <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
       <child>
-	<placeholder/>
+        <widget class="GtkToolbar" id="toolbar">
+          <property name="visible">True</property>
+          <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+          <property name="toolbar_style">GTK_TOOLBAR_BOTH</property>
+          <child>
+            <widget class="GtkToolButton" id="zoom_in">
+              <property name="visible">True</property>
+              <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+              <property name="stock_id">gtk-zoom-in</property>
+              <signal name="clicked" handler="zoom_in_clicked"/>
+            </widget>
+            <packing>
+              <property name="expand">False</property>
+            </packing>
+          </child>
+          <child>
+            <widget class="GtkToolButton" id="zoom_out">
+              <property name="visible">True</property>
+              <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+              <property name="stock_id">gtk-zoom-out</property>
+              <signal name="clicked" handler="zoom_out_clicked"/>
+            </widget>
+            <packing>
+              <property name="expand">False</property>
+            </packing>
+          </child>
+          <child>
+            <widget class="GtkToolButton" id="zoom_100">
+              <property name="visible">True</property>
+              <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+              <property name="stock_id">gtk-zoom-100</property>
+              <signal name="clicked" handler="zoom_100_clicked"/>
+            </widget>
+            <packing>
+              <property name="expand">False</property>
+            </packing>
+          </child>
+          <child>
+            <widget class="GtkToolButton" id="zoom_fit">
+              <property name="visible">True</property>
+              <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+              <property name="stock_id">gtk-zoom-fit</property>
+              <signal name="clicked" handler="zoom_fit_clicked"/>
+            </widget>
+            <packing>
+              <property name="expand">False</property>
+            </packing>
+          </child>
+        </widget>
+        <packing>
+          <property name="expand">False</property>
+          <property name="fill">False</property>
+        </packing>
+      </child>
+      <child>
+        <widget class="GtkScrolledWindow" id="scrolledwindow">
+          <property name="visible">True</property>
+          <property name="can_focus">True</property>
+          <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+          <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+          <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+          <child>
+            <widget class="GtkLayout" id="layout">
+              <property name="visible">True</property>
+              <property name="has_focus">True</property>
+              <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+              <child>
+                <widget class="GtkImage" id="image">
+                  <property name="visible">True</property>
+                  <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                  <property name="stock">gtk-missing-image</property>
+                </widget>
+              </child>
+            </widget>
+          </child>
+        </widget>
+        <packing>
+          <property name="position">1</property>
+        </packing>
+      </child>
+      <child>
+        <widget class="GtkStatusbar" id="statusbar">
+          <property name="visible">True</property>
+          <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+          <property name="spacing">2</property>
+        </widget>
+        <packing>
+          <property name="expand">False</property>
+          <property name="position">2</property>
+        </packing>
       </child>
     </widget>
   </child>
@@ -5057,6 +5149,64 @@ Bottom</property>
 			      <property name="padding">0</property>
 			      <property name="expand">False</property>
 			      <property name="fill">False</property>
+			    </packing>
+			  </child>
+
+			  <child>
+			    <widget class="GtkHBox" id="hbox56">
+			      <property name="visible">True</property>
+			      <property name="homogeneous">False</property>
+			      <property name="spacing">1</property>
+
+			      <child>
+				<widget class="GtkLabel" id="label87">
+				  <property name="visible">True</property>
+				  <property name="label" translatable="yes">Transparency Level:</property>
+				  <property name="use_underline">False</property>
+				  <property name="use_markup">False</property>
+				  <property name="justify">GTK_JUSTIFY_LEFT</property>
+				  <property name="wrap">False</property>
+				  <property name="selectable">False</property>
+				  <property name="xalign">0.5</property>
+				  <property name="yalign">0.5</property>
+				  <property name="xpad">0</property>
+				  <property name="ypad">0</property>
+				  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+				  <property name="width_chars">-1</property>
+				  <property name="single_line_mode">False</property>
+				  <property name="angle">0</property>
+				</widget>
+				<packing>
+				  <property name="padding">0</property>
+				  <property name="expand">False</property>
+				  <property name="fill">False</property>
+				</packing>
+			      </child>
+
+			      <child>
+				<widget class="GtkSpinButton" id="prefs_osd_trans_value">
+				  <property name="visible">True</property>
+				  <property name="can_focus">True</property>
+				  <property name="climb_rate">1</property>
+				  <property name="digits">0</property>
+				  <property name="numeric">True</property>
+				  <property name="update_policy">GTK_UPDATE_IF_VALID</property>
+				  <property name="snap_to_ticks">False</property>
+				  <property name="wrap">False</property>
+				  <property name="adjustment">75 0 100 1 10 10</property>
+				</widget>
+				<packing>
+				  <property name="padding">0</property>
+				  <property name="expand">False</property>
+				  <property name="fill">False</property>
+				  <property name="pack_type">GTK_PACK_END</property>
+				</packing>
+			      </child>
+			    </widget>
+			    <packing>
+			      <property name="padding">0</property>
+			      <property name="expand">True</property>
+			      <property name="fill">True</property>
 			    </packing>
 			  </child>
 
@@ -6359,11 +6509,13 @@ us</property>
 				  <child>
 				    <widget class="GtkComboBox" id="prefs_audio_sink">
 				      <property name="visible">True</property>
-				      <property name="items" translatable="yes" comments="TRANSLATORS: Audo sink setting">Automatic
+				      <property name="items" translatable="yes" comments="TRANSLATORS: Audio sink setting">Automatic
 Use GConf Settings
+pulsesink
+esdsink
+jackaudiosink
 alsasink
-osssink
-esdsink</property>
+osssink</property>
 				      <property name="add_tearoffs">False</property>
 				      <property name="focus_on_click">True</property>
 				    </widget>
@@ -6944,23 +7096,25 @@ esdsink</property>
 <widget class="GtkAboutDialog" id="AboutDialog">
   <property name="border_width">5</property>
   <property name="destroy_with_parent">True</property>
+  <property name="name" translatable="yes">Exaile</property>
   <property name="copyright" translatable="yes">(c) 2007</property>
   <property name="comments" translatable="yes">Exaile</property>
-  <property name="license" translatable="yes">Copyright (C) 2006 Adam Olsen
+  <property name="license" translatable="yes">Copyright (C) 2007 Adam Olsen &lt;arolsen@gmail.com&gt; 
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 1, or (at your option)
-any later version.
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.</property>
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+</property>
   <property name="wrap_license">False</property>
   <property name="website">http://www.exaile.org</property>
   <property name="authors">Adam Olsen 

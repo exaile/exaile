@@ -289,7 +289,7 @@ class Icast(UserDict):
         """
             Send data to the server
         """
-        buf = f.read(4096)
+        buf = f.read(4096*4)
         if len(buf) == 0:
             self.client.log("Done sending '%s'" \
                     % self.current_track)
@@ -299,10 +299,11 @@ class Icast(UserDict):
         except shout.ShoutException:
             self.disconnect()
             return False
-        self._server.sync()
+        delay = self._server.delay()/1000.0
+        if delay > 0: time.sleep(delay)
         return True
 
-    def _update_info(self, f):
+    def _change_data(self, f=None):
         """
             Update info for data to be streamed
         """
@@ -343,13 +344,11 @@ class Icast(UserDict):
         """
             Main Icast method, loops forever
         """
-        change_data = False
-        streaming = False
         connect_retry = False
         retry_delay = 3 #seconds
         f = None
         done = False
-        sleep_delay = 0.2
+        sleep_delay = 0.01
         while self.keep_alive:
             if self.client.is_playing() \
                     and not done:
@@ -359,56 +358,38 @@ class Icast(UserDict):
                         # Something happened, maybe just give the server some time to settle down
                         time.sleep(retry_delay)
                         connect_retry = False
-                    # TODO handle exceptions properly
                     try:
                         self.connect()
                     except Exception:
-                        change_data = False
                         self.client.log("Connection retry count: 1")
                         connect_retry = True
                     else:
-                        change_data = True
-                if change_data:
-                    # Update information
-                    f = self._update_info(f)
-                    if not f: 
+                        f = self._change_data()
+                # Send data (and only do that! don't close the file!)
+                elif not self._send_data(f):
+                    # If done sending data, request another track
+                    f = self._change_data(f)
+                    if not f:
                         self.client.log("Finished sending data")
                         self._close_stream()
                         done = True
-                    else: 
-                        streaming = True
-                    change_data = False
-                if streaming:
-                    # Send data (and only do that! don't close the file!)
-                    streaming = self._send_data(f)
-                    if not streaming:
-                        # If sending data is done, send another track
-                        change_data = True
-                # TODO if someone wants to stream the same song twice (why would you freak?) this won't work
-#                if self.current_track != \
-#                        self.client.get_current_track():
-                    # Song changed
-#                    change_data = True
     		# if not playing
-            elif done and not self.client.is_playing():
+            if done and not self.client.is_playing():
                 done = False
-            elif self.connected:
+            elif self.connected and False:
                 # if client stopped, disconnect from server
                 # TODO how can we avoid this? we are suppose to only disconnect, not check if it's playing or not
-                time.sleep(0.5)
                 if not self.client.is_playing():
                     self._close_stream(f)
-                    change_data = False
-                    if done: done = False
-            time.sleep(sleep_delay)
-        print "bye bye"
-  
+            else:
+                time.sleep(sleep_delay)
+ 
 # ----------------------------------------------------------------------------------------------------------------#
 # Plugin code starts here. START HERE IF YOU NEED TO CHANGE ANY OPTION
 
 PLUGIN_NAME = _("Icast Streamer")
 PLUGIN_AUTHORS = ['Edgar Merino <donvodka at gmail dot com>']
-PLUGIN_VERSION = "0.5.3"
+PLUGIN_VERSION = "0.5.4"
 __version = PLUGIN_VERSION
 PLUGIN_DESCRIPTION = _(r"""Stream to an icecast/shoutcast server""")
 PLUGIN_ENABLED = False
@@ -433,10 +414,11 @@ class ExaileClient(Client):
         return self.current_track.io_loc
 
     def get_next_track(self):
-        self.current_track = self.app.tracks.get_next_track(self.current_track)
-        if not self.current_track: 
-            if not self.app.player.current: return None
+        if not self.current_track:
             self.current_track = self.app.player.current
+        else:
+            self.current_track = self.app.tracks.get_next_track(self.current_track)
+        if not self.current_track: return None
         return self.current_track.io_loc
 
     def get_track_metadata(self):

@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import md5, os, random, re, threading, time, traceback
-from gettext import gettext as _
+from gettext import gettext as _, ngettext
 import gobject, gtk
 from xl import common, media, db, audioscrobbler, xlmisc, dbusinterface
 from xl.db import DBOperationalError
@@ -80,7 +80,7 @@ def get_suggested_songs(exaile, db, song, s, count, done_func):
 
     gobject.idle_add(done_func, all, count)    
 
-class TrackData(list):
+class TrackData:
     """
         Represents a list of tracks
     """
@@ -88,19 +88,38 @@ class TrackData(list):
         """
             Initializes the list
         """
-        self.paths = dict()
         self.total_length = 0
+        self.paths = {}
+        self._inner = []
         if tracks:
             for track in tracks:
                 self.append(track)
 
+    def __getitem__(self, index):
+        return self._inner[index]
+
+    def __setitem__(self, index, value):
+        old = self._inner[index]
+        try:
+            del self.paths[old.loc]
+        except KeyError:
+            pass
+        self.paths[value.loc] = value
+        self._inner[index] = value
+ 
+    def __len__(self):
+        return len(self._inner)
+
+    def index(self, item):
+        return self._inner.index(item)
+ 
     def append(self, track):
         """
             Adds a track to the list
         """
         if not track: return
         self.paths[track.loc] = track
-        list.append(self, track)
+        self._inner.append(track)
         self.update_total_length(track.get_duration(), appending=True)
 
     def remove(self, track):
@@ -109,11 +128,11 @@ class TrackData(list):
         """
         if not track: return
         try:
-            if not self.paths[track.loc]: return
+            del self.paths[track.loc]
         except KeyError:
             return
-        del self.paths[track.loc]
-        list.remove(self, track)
+        else:
+            self._inner.remove(track)
         self.update_total_length(track.get_duration(), appending=False)
     
     def update_total_length(self, track_duration, appending):
@@ -124,46 +143,39 @@ class TrackData(list):
             
     def get_total_length(self):
         """ 
-            Returns length of all tracks in the table
+            Returns length of all tracks in the table as preformatted string
         """
         l = self.total_length
-
-        minutes = l / 60 % 60
-        hours = l / 3600 % 60
-        days = l / 3600 / 24
         seconds = l % 60
+        l //= 60
+        minutes = l % 60
+        l //= 60
+        hours = l % 60
+        l //= 24
+        days = l
 
-        text = ""
+        text = []
         if days:
-            text += _("%(days)d days, ") % {'days': days}
-
+            text.append(ngettext("%d day", "%d days", days) % days)
         if hours:
-            text += _("%(hours)d hours, ") % {'hours': hours}
+            text.append(ngettext("%d hour", "%d hours", hours) % hours)
+        if minutes:
+            text.append(ngettext("%d minute", "%d minutes", minutes) % minutes)
+        if seconds:
+            text.append(ngettext("%d second", "%d seconds", seconds) % seconds)
 
-        text += _("%(minutes)d minutes") % {'minutes': minutes}
+        text = ", ".join(text)
 
-        if not days and seconds:
-            text += _(", %(seconds)d seconds") % {'seconds': seconds}
-
-        if not text:
-            text = _("0 minutes")
-
-#        text = "%s:%02d" % (self.total_length / 60, self.total_length % 60)
+        #text = "%s:%02d" % (self.total_length / 60, self.total_length % 60)
 
         return text
 
 
     def for_path(self, path):
         """
-            Returns the track associated with the path
+            Returns the track associated with the path, or None
         """
-
-        if self.paths.has_key(path):
-            track = self.paths[path]
-            if track in self:
-                return self.paths[path]
-
-        return None
+        return self.paths.get(path)
 
 def search(exaile, all, keyword=None, custom=True):
     """
@@ -269,7 +281,13 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None):
         common.error(parent, _("Query Error: %s") % str(e))
         raise e
 
-    for row in cur.fetchall():
+    while True:
+        try:
+            row = cur.fetchone()
+            if not row: break
+        except sqlite3.OperationalError:
+            continue
+
         track = all.for_path(row[0])
         if track == None:
             pass
@@ -326,8 +344,11 @@ def load_tracks(db, current=None):
             year, 
             modified, 
             user_rating, 
+            rating,
             blacklisted, 
-            time_added
+            time_added,
+            encoding,
+            plays
         FROM tracks, paths, artists, albums 
         WHERE 
             (
@@ -570,9 +591,11 @@ def read_track_from_db(db, path, track_type=media.Track):
             year, 
             modified, 
             user_rating, 
+            rating,
             blacklisted, 
             time_added,
-            encoding
+            encoding,
+            plays
         FROM tracks,paths,artists,albums 
         WHERE 
             (
@@ -614,13 +637,17 @@ def save_track_to_db(db, tr, new=False, prep=''):
             "disc_id": tr.disc_id,
             "genre": tr.genre,
             "track": tr.track,
+            "rating": tr.system_rating,
+            "user_rating": tr._rating,
             "length": tr.duration,
             "bitrate": tr._bitrate,
+            "rating": tr.system_rating,
             "blacklisted": tr.blacklisted,
             "year": tr.year,
             "modified": tr.modified,
             "time_added": tr.time_added,
-            "encoding": tr.encoding
+            "encoding": tr.encoding,
+            "plays": tr.playcount
         }, "path=?", (path_id,), new)
 
 class PopulateThread(threading.Thread):
@@ -724,15 +751,18 @@ class PopulateThread(threading.Thread):
     def do_function(self, loc):
         db = self.db
         tr = self.exaile.all_songs.for_path(loc)
-        
+
+        bl = 0
         if not tr:
             tr = read_track_from_db(db, unicode(loc, xlmisc.get_default_encoding()))
+            if tr and tr.blacklisted: bl = 1
 
         modified = os.stat(loc).st_mtime
         if not tr or tr.modified != modified:
             if not tr: new = True
             else: new = False
             tr = media.read_from_path(loc)
+            tr.blacklisted = bl
             if not tr: return
             tr.modified = modified
             save_track_to_db(db, tr, new)
@@ -832,6 +862,7 @@ class AddTracksThread(PopulateThread):
         tr = media.read_from_path(loc)
         if not tr: return
         new = True
+        tr.modified = os.stat(loc).st_mtime
         save_track_to_db(db, tr, new)
         path_id = get_column_id(db, 'paths', 'name', unicode(loc, xlmisc.get_default_encoding()))
         db.execute("UPDATE tracks SET included=1 WHERE path=?", (path_id,))

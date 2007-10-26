@@ -1,4 +1,3 @@
-from xl.media import mp3, ogg, flac, wav, wv, mpc, tta
 import pygst
 pygst.require('0.10')
 import gst
@@ -9,37 +8,27 @@ import os.path, gobject, re
 
 __all__ = ['flac', 'mp3', 'm4a', 'ogg', 'wma', 'mpc', 'wv', 'tta']
 
+from xl.media import flac, mp3, mp4, mpc, ogg, tta, wav, wma, wv
+
 formats = {
-    'mp3':      mp3,
-    'mp2':      mp3,
-    'ogg':      ogg,
-    'flac':     flac,
-    'wav':      wav,
-    'mpc':      mpc,
-    'mp+':      mpc,
-    'tta':      tta
+    'aac': mp4,
+    'ac3': None,
+    'flac': flac,
+    'm4a': mp4,
+    'mp+': mpc,
+    'mp2': mp3,
+    'mp3': mp3,
+    'mp4': mp4,
+    'mpc': mpc,
+    'oga': ogg,
+    'ogg': ogg,
+    'tta': tta,
+    'wav': wav,
+    'wma': wma,
+    'wv': wv,
 }
 
-# Optional formats
-
-try:
-    from xl.media import mpc
-    formats['mpc'] = mpc
-except ImportError: pass
-
-try:
-    from xl.media import mp4
-    formats['m4a'] = mp4
-    formats['aac'] = mp4
-    formats['mp4'] = mp4
-except ImportError: pass
-
-try:
-    from xl.media import wma
-    formats['wma'] = wma
-except ImportError: pass
-
-SUPPORTED_MEDIA = ['.%s' % x for x in formats.keys()]
+SUPPORTED_MEDIA = ['.' + ext for ext in formats.iterkeys()]
 
 # Generic functions
 
@@ -50,7 +39,7 @@ def write_tag(tr):
     (path, ext) = os.path.splitext(tr.loc.lower())
     ext = ext.replace('.', '')
 
-    if not formats.has_key(ext):
+    if not formats.get(ext):
         raise Exception("Writing metadata to type '%s' is not supported" %
             ext)
 
@@ -84,6 +73,12 @@ class Track(gobject.GObject):
         
         self.tags = xl.common.ldict()
 
+        self.time_played = 0
+        self.read_from_db = False
+        self.blacklisted = 0
+        self.next_func = None
+        self.start_time = 0
+
         self.set_info(*args, **kwargs)
 
         try:
@@ -92,11 +87,6 @@ class Track(gobject.GObject):
         except:
             self.ext = None 
 
-        self.time_played = 0
-        self.read_from_db = False
-        self.blacklisted = 0
-        self.next_func = None
-        self.start_time = 0
 
     def full_status(self, player):
         """
@@ -132,7 +122,8 @@ class Track(gobject.GObject):
     def set_info(self,loc="", title="", artist="",  
         album="", disc_id=0, genre="",
         track=0, length=0, bitrate=0, year="", 
-        modified=0, user_rating=0, blacklisted=0, time_added='', encoding=xlmisc.get_default_encoding()):
+        modified=0, user_rating=2, rating=0, blacklisted=0, time_added='', 
+        encoding=xlmisc.get_default_encoding(), playcount=0):
     
     
         """
@@ -161,8 +152,9 @@ class Track(gobject.GObject):
         self.modified = modified
         self.blacklisted = blacklisted
         self._rating = user_rating
-        self.user_rating = user_rating
+        self.system_rating = rating
         self.time_added = time_added
+        self.playcount = playcount
     
         for tag, val in {'title': title, 'artist': artist, 'album':album,\
                         'genre': genre, 'discnumber':disc_id,\
@@ -205,32 +197,28 @@ class Track(gobject.GObject):
     def get_tag(self, tag):
         """
             Common function for getting a tag.
-            Simplifies a list into a single string
+            Simplifies a list into a single string separated by " / ".
         """
-        try:
-            ret = filter(lambda x: x or x == 0, self.tags[tag])
-            return " / ".join(ret)
-        except KeyError:
-            return u""
+        values = self.tags.get(tag)
+        if values:
+            values = (xl.common.to_unicode(x, self.encoding) for x in values
+                if x not in (None, ''))
+            return u" / ".join(values)
+        return u""
 
-    def set_tag(self, tag, value, append=False):
+    def set_tag(self, tag, values, append=False):
         """
             Common function for setting a tag.
             Expects a list (even for a single value)
         """
-        def xlunicode(x):
-            if type(x) is unicode:
-                return x
-            else:
-                return unicode(str(x), self.encoding)
-
-        if type(value) is not list: value = [value]
+        if not isinstance(values, list): values = [values]
         # filter out empty values and convert to unicode
-        value = map(xlunicode, filter(lambda x: x or x == 0, value))
+        values = (xl.common.to_unicode(x, self.encoding) for x in values
+            if x not in (None, ''))
         if append:
-            self.tags[tag].extend(value)
+            self.tags[tag].extend(values)
         else:
-            self.tags[tag] = value
+            self.tags[tag] = list(values)
 
    # ========== Getters and setters ============
 
@@ -289,7 +277,10 @@ class Track(gobject.GObject):
         """
             Gets the rating
         """
-        return "* " * self._rating
+        try:
+            return "* " * self._rating
+        except TypeError:
+            return ""
     
     def set_rating(self, rating): 
         """
@@ -535,7 +526,7 @@ def read_from_path(uri, track_type=Track):
     (path, ext) = os.path.splitext(uri.lower())
     ext = ext.replace('.', '')
 
-    if not formats.has_key(ext):
+    if not formats.get(ext):
         xlmisc.log('%s format is not understood' % ext)
         return
 

@@ -93,6 +93,7 @@ def configure():
 
     result = dialog.run()
     dialog.hide()
+    if not result == gtk.RESPONSE_OK: return
 
     settings.set_boolean('on_top', on_top_box.get_active(), plugin=plugins.name(__file__))
     settings.set_boolean('no_taskbar', no_taskbar_box.get_active(), plugin=plugins.name(__file__))

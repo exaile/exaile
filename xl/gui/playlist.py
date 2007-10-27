@@ -459,7 +459,7 @@ class TracksListCtrl(gtk.VBox):
             if not self.size_map.has_key(name): continue
             # get cell renderer
             cellr = gtk.CellRendererText()
-            if _(name) == _("Rating"):
+            if name == _("Rating"):
                 cellr = gtk.CellRendererPixbuf()
                 cellr.set_property("follow-state", False)
             mapval = self.col_map
@@ -488,16 +488,17 @@ class TracksListCtrl(gtk.VBox):
                 else:
                     col = gtk.TreeViewColumn(_(name), cellr, text=count)
 
-                col.set_cell_data_func(cellr, self.change_playing_track_text_func)
-                if _(name) == _("Length"):
+                if name == _("Length"):
                     col.set_cell_data_func(cellr, self.length_data_func)
-                elif _(name) == "#":
+                elif name == "#":
                     col.set_cell_data_func(cellr, self.track_data_func)
-                elif _(name) == _('Disc'):
+                elif name == _('Disc'):
                     col.set_cell_data_func(cellr, self.disc_data_func)
-                elif _(name) == _("Rating"):
+                elif name == _("Rating"):
                     col.set_attributes(cellr, pixbuf=1)
                     col.set_cell_data_func(cellr, self.rating_data_func)
+                else:
+                    col.set_cell_data_func(cellr, self.default_data_func)
 
                 setting_name = "ui/%scol_width_%s" % (self.prep, name)
                 width = self.exaile.settings.get_int(setting_name, 
@@ -537,24 +538,13 @@ class TracksListCtrl(gtk.VBox):
             count = count + 1
         self.changed_id = self.list.connect('columns-changed', self.column_changed)
     
-    def change_playing_track_text_func(self, col, cellr, model, iter):
-        """
-            Changes the text of current playing/paused track to bold
-        """
-        item = model.get_value(iter, 0)
-        if item != self.exaile.player.current:
-            cellr.set_property('weight', pango.WEIGHT_NORMAL)
-        else:
-            if self.exaile.player.is_playing() or self.exaile.player.is_paused():
-                cellr.set_property('weight', pango.WEIGHT_HEAVY)
-
     def press_header(self, widget, event):
         if event.button != 3:
             return False
         menu = self.exaile.xml.get_widget('columns_menu_menu')
         menu.popup(None, None, None, event.button, event.time)
         return True
-			
+
     def header_toggle(self, menuitem, column):
         column.set_visible(not column.get_visible())
 
@@ -581,9 +571,61 @@ class TracksListCtrl(gtk.VBox):
             self.rating_width = min(col.get_width(), self.row_height * 4)
             create_rating_images(self)
 
+    def icon_data_func(self, col, cell, model, iter):
+        """
+            Sets track status (playing/paused/queued) icon
+        """
+
+        item = model.get_value(iter, 0)
+        image = None
+
+        if item == self.exaile.player.current:
+            if self.exaile.player.is_playing():
+                image = self.playimg
+            elif self.exaile.player.is_paused():
+                image = self.pauseimg
+        elif item in self.exaile.player.queued:
+            index = self.exaile.player.queued.index(item)
+            image = xlmisc.get_text_icon(self.exaile.window,
+                str(index + 1), 18, 18)
+
+        cell.set_property('pixbuf', image)
+
+    def stop_icon_data_func(self, col, cell, model, iter):
+        """
+            Sets "stop after this" icon
+        """
+
+        item = model.get_value(iter, 0)
+        image = None
+        
+        if item == self.exaile.player.stop_track:
+            image = self.exaile.window.render_icon('gtk-stop', 
+                gtk.ICON_SIZE_MENU) 
+            image = image.scale_simple(12, 12, gtk.gdk.INTERP_BILINEAR)
+        
+        cell.set_property('pixbuf', image)  
+
+    def rating_data_func(self, col, cell, model, iter):
+        item = model.get_value(iter, 0)
+        if not item.rating: return
+        idx = len(item.rating) / 2 - 1
+        cell.set_property('pixbuf', self.rating_images[idx])
+
+    def set_cell_weight(self, cell, item):
+        """
+            Sets a CellRendererText's "weight" property according to whether
+            `item` is the currently playing track.
+        """
+        if item == self.exaile.player.current:
+            weight = pango.WEIGHT_HEAVY
+        else:
+            weight = pango.WEIGHT_NORMAL
+        cell.set_property('weight', weight)
+
     def disc_data_func(self, col, cell, model, iter):
         """
-            formats the disc
+            Formats the disc
         """
         item = model.get_value(iter, 0)
         if item.disc_id is None or item.disc_id == -1 or \
@@ -591,6 +633,7 @@ class TracksListCtrl(gtk.VBox):
             cell.set_property('text', '')
         else:
             cell.set_property('text', item.disc_id)
+        self.set_cell_weight(cell, item)
 
     def filename_data_func(self, col, cell, model, iter):
         """
@@ -598,18 +641,41 @@ class TracksListCtrl(gtk.VBox):
         """
         item = model.get_value(iter, 0)
         cell.set_property('text', os.path.basename(item.io_loc))
+        self.set_cell_weight(cell, item)
+
+    def length_data_func(self, col, cell, model, iter):
+        """ 
+            Formats the track length
+        """
+        item = model.get_value(iter, 0)
+        if item.type == 'podcast':
+            text = item.length
+        elif item.type == 'stream':
+            text = ''
+        else:
+            seconds = item.duration
+            text = "%s:%02d" % (seconds / 60, seconds % 60)
+        cell.set_property('text', text)
+        self.set_cell_weight(cell, item)
 
     def track_data_func(self, col, cell, model, iter):
         """
             Track number
         """
-        self.change_playing_track_text_func(col, cell, model, iter)
         item = model.get_value(iter, 0)
         if item.track is None or item.track == -1 or \
             item.type == 'podcast':
             cell.set_property('text', '')
         else:
             cell.set_property('text', item.track)
+        self.set_cell_weight(cell, item)
+
+    def default_data_func(self, col, cell, model, iter):
+        """
+            For use in CellRendererTexts that don't have special data funcs.
+        """
+        item = model.get_value(iter, 0)
+        self.set_cell_weight(cell, item)
 
     # sort functions courtesy of listen (http://listengnome.free.fr), which
     # are in turn, courtesy of quodlibet.  
@@ -676,66 +742,6 @@ class TracksListCtrl(gtk.VBox):
                 return (self.col_map[col.get_title()], 
                     col.get_sort_order() == gtk.SORT_DESCENDING)
         return 'album', False
-
-    def stop_icon_data_func(self, col, cellr, model, iter):
-        """
-            sets stop icon
-        """
-
-        item = model.get_value(iter, 0)
-        image = None
-        
-        if item == self.exaile.player.stop_track:
-            image = self.exaile.window.render_icon('gtk-stop', 
-                gtk.ICON_SIZE_MENU) 
-            image = image.scale_simple(12, 12, gtk.gdk.INTERP_BILINEAR)
-        
-        cellr.set_property('pixbuf', image)  
-            
-    def icon_data_func(self, col, cellr, model, iter):
-        """
-            sets track icon
-        """
-
-        item = model.get_value(iter, 0)
-        image = None
-
-        if item == self.exaile.player.current:
-            if self.exaile.player.is_playing():
-                image = self.playimg
-            elif self.exaile.player.is_paused():
-                image = self.pauseimg
-        elif item in self.exaile.player.queued:
-            index = self.exaile.player.queued.index(item)
-            image = xlmisc.get_text_icon(self.exaile.window,
-                str(index + 1), 18, 18)
-
-        cellr.set_property('pixbuf', image)
-
-    def rating_data_func(self, col, cellr, model, iter):
-        item = model.get_value(iter, 0)
-        if not item.rating: return
-        idx = len(item.rating) / 2 - 1
-        cellr.set_property('pixbuf', self.rating_images[idx])
-
-    def length_data_func(self, col, cellr, model, iter):
-        """ 
-            Formats the track length
-        """
-        self.change_playing_track_text_func(col, cellr, model, iter)
-        item = model.get_value(iter, 0)
-
-        if item == 'podcast':
-            cellr.set_property('text', item.length)
-            return
-
-        seconds = item.duration
-        text = "%s:%02d" % (seconds / 60, seconds % 60)
-
-        if item.type == 'stream':
-            text = ''
-
-        cellr.set_property('text', text)
 
     def update_col_settings(self):
         """

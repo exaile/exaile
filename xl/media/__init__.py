@@ -42,8 +42,8 @@ def write_tag(tr):
     ext = ext.replace('.', '')
 
     if not formats.get(ext):
-        raise Exception("Writing metadata to type '%s' is not supported" %
-            ext)
+        xlmisc.log("Writing metadata to type '%s' is not supported" % ext)
+        return
 
     formats[ext].write_tag(tr)
 
@@ -526,11 +526,11 @@ def read_from_path(uri, track_type=Track):
         Reads tags from a specified uri
     """
     (path, ext) = os.path.splitext(uri.lower())
-    ext = ext.replace('.', '')
+    ext = ext[1:]
 
-    if not formats.get(ext):
+    if ext not in formats:
         xlmisc.log('%s format is not understood' % ext)
-        return
+        return None
 
     tr = track_type(uri)
 

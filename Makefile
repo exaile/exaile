@@ -75,8 +75,9 @@ install: make-install-dirs
 	    > exaile && \
 	  chmod 755 exaile
 	for f in `find po -name exaile.mo` ; do \
-	  install -d -m 755 $$f \
-	    `echo $$f | sed "s|^po|$(DESTDIR)$(PREFIX)/share/locale|"` && \
+	  install -d -m 755 \
+	    `echo $$f | sed "s|^po|$(DESTDIR)$(PREFIX)/share/locale|" | \
+	      xargs dirname` && \
 	  install -m 644 $$f \
 	    `echo $$f | sed "s|^po|$(DESTDIR)$(PREFIX)/share/locale|"` ; \
 	  done

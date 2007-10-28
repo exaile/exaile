@@ -39,7 +39,7 @@ def write_tag(tr):
         Writes a tag
     """
     (path, ext) = os.path.splitext(tr.loc.lower())
-    ext = ext.replace('.', '')
+    ext = ext[1:]
 
     if not formats.get(ext):
         xlmisc.log("Writing metadata to type '%s' is not supported" % ext)
@@ -528,17 +528,20 @@ def read_from_path(uri, track_type=Track):
     (path, ext) = os.path.splitext(uri.lower())
     ext = ext[1:]
 
-    if ext not in formats:
-        xlmisc.log('%s format is not understood' % ext)
-        return None
+    #if ext not in formats:
+    #    xlmisc.log('%s format is not understood' % ext)
+    #    return None
 
     tr = track_type(uri)
 
     if tr.type != 'device':
         tr.type = 'file' 
 
+    format = formats.get(ext)
+    if not format: return tr
+
     try:
-        formats[ext].fill_tag_from_path(tr)
+        format.fill_tag_from_path(tr)
     except HeaderNotFoundError:
         print "Possibly corrupt file: " + uri
         return None

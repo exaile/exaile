@@ -90,6 +90,7 @@ gtk.window_set_default_icon_from_file(xl.path.get_data('images', 'icon.png'))
 
 from xl.gui import main as exailemain
 from xl import xlmisc
+xlmisc.log("Exaile " + __version__)
 
 import urllib
 # set the user agent
@@ -144,7 +145,5 @@ if __name__ == "__main__":
         main()
     except SystemExit:
         raise
-    except: # BaseException doesn't exist in python2.4
-        import traceback
-        traceback.print_exc()
+    except Exception:
         xlmisc.log_exception()

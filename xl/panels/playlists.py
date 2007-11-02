@@ -250,7 +250,7 @@ class PlaylistsPanel(object):
         smart_playlists = [
             (_('Entire Library'), "SELECT paths.name FROM artists, albums, tracks, paths WHERE " \
                 "paths.id=tracks.path AND artists.id=tracks.artist AND " \
-                "albums.id=tracks.albums ORDER BY LOWER(artists.name), " \
+                "albums.id=tracks.album ORDER BY LOWER(artists.name), " \
                 "THE_CUTTER(albums.name)"),
 
             (_('Top 100'), "SELECT paths.name FROM tracks,paths WHERE " \

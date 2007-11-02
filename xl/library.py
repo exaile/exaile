@@ -417,6 +417,7 @@ def scan_dir(dir, files=None, skip=(), exts=(), scanned=None):
     except OSError:
         return files
 
+    if dir in scanned: return
     scanned.add(dir)
 
     for file in to_scan:

@@ -398,7 +398,7 @@ def load_tracks(db, current=None):
     db._close_thread()
     return tracks
 
-def scan_dir(dir, files=None, skip=(), exts=()):
+def scan_dir(dir, files=None, skip=(), exts=(), scanned=None):
     """
         Scans a directory recursively
     """
@@ -408,11 +408,16 @@ def scan_dir(dir, files=None, skip=(), exts=()):
         regex = re.compile(match_string)
     if files is None: 
         files = []
+    if scanned is None:
+        scanned = set()
 
     try:
+        dir = os.path.realpath(dir)
         to_scan = os.listdir(dir)
     except OSError:
         return files
+
+    scanned.add(dir)
 
     for file in to_scan:
         try:
@@ -425,10 +430,9 @@ def scan_dir(dir, files=None, skip=(), exts=()):
             continue
 
         try:
-            if os.path.isdir(file) and not \
-                os.path.islink(file):
-                    if regex and regex.match(file): continue
-                    scan_dir(file, files=files, skip=skip, exts=exts)
+            if os.path.isdir(file):
+                if regex and regex.match(file): continue
+                scan_dir(file, files=files, skip=skip, exts=exts, scanned=scanned)
         except:
             xlmisc.log("Error scanning %s" % file)
             traceback.print_exc()

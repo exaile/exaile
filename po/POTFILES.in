@@ -13,6 +13,9 @@ plugins/didyouknow/didyouknow.py
 plugins/didyouknow/gui.glade
 plugins/exailenotify.py
 plugins/hotkeys.py
+plugins/httpserver/httpserver.py
+plugins/icastplugin/icastplugin.py
+plugins/icastplugin/gui.glade
 plugins/imstatus.py
 plugins/ipoddriver.py
 plugins/massstoragedriver.py
@@ -23,6 +26,7 @@ plugins/shoutcast.py
 plugins/sound-juicer.py
 plugins/streamripper.py
 plugins/traybuttons.py
+plugins/xkey.py
 xl/__init__.py
 xl/advancededitor.py
 xl/audioscrobbler.py

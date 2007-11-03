@@ -20,36 +20,37 @@
 #
 #
 #"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-#   .~SSS' '' ' s      `~:.   '.SSSS'''''a  
+#   .~SSS' '' ' s'     `~:.  `.SSSSS'''''aS  
 #     >Ss''''.'SSSs       ';    >SSS'''.'SS
-#   ,'''S', ~ 'SSSSSs    `~   ,''''S'' ~'SS
-# '''',''   A. `'SSSSSs    ,''''''     a. '
-#'' s    K. ..N.  '.SSSS'''''''s   a;.,:~a  
-#''SSSs    E.~  Y   >SSS'''';'SSSs   ~a.'`     
-# \SSSSSs    Y    ,''''S''` ~ `'SSSSs  ~;a   
-#   \SSSSSs    ,''''''''   <@.   `'SSSSs ~ 
-#;k    \SSSS''''''''s'  <s..  s..   '.SSSS'
-#df     ,SSS'''',.'SSSs   `s``~~a >   >SSS'
-#     `''''S',`   ~'.SSSs   ~s.    ,''''S''
+#   ,'''S', ~`'SSSSSs    `~   ,''''S''  .  
+# '''',''   A. `'SSSSSs    ,''''','    `A;.
+#'' s'   K. ..N. `'SSSSS'''''''sSs. ~a;.,;   
+#''SSSs    E.~  Y   >SSS'''';'.SSSSs. ~a.``      
+#`'SSSSSs    Y    ,''''S',' ,. `'SSSSs. ~;>   
+#  `'SSSSSs.   ,'''''','    'I;. `'SSSSs. ,  
+#;k   `'SSSS''''''''s'  <E;... ~L. `'SSSS''
+#df     ,SSS'''''.'SSSs   `X. ``~'E>  >SS''
+#     `''''S''''` `'SSSSs   ~A.    ,`'''S''
 #
 # ADD KEYBOARD SHORTCUTS TO EXAILE
 
 
+
 import xl.plugins as plugins
-import thread
-import select
+
 import gtk
+from gobject import source_remove,io_add_watch
 from Xlib.display import Display
 from Xlib import X 
 
-PLUGIN_NAME = "Keyboard Shortcuts"
+PLUGIN_NAME = _("Keyboard Shortcuts")
 PLUGIN_AUTHORS = ['Hubert Berezowski <hubertb2@wp.pl>']
-PLUGIN_VERSION = '0.1'
-PLUGIN_DESCRIPTION = r""" Keyboard Shortcuts via the X Server.
+PLUGIN_VERSION = '0.1.4'
+PLUGIN_DESCRIPTION = _(r""" Keyboard Shortcuts via the X Server.
 \n\n
 Requires Python-Xlib
 \n
-http://python-xlib.sourceforge.net/"""
+http://python-xlib.sourceforge.net/""")
 
 
 PLUGIN_ENABLED = False
@@ -71,39 +72,176 @@ class XlibKeys:
 
 
         # actionlist, the keys of the keyb dictionary, sorting order in the configure panel
-        self.actionlist = ['play','pause','stop','next Track','previous Track','seek +5sec.','seek -5sec.','volume up','volume down']
+        self.actionlist = ['play','pause','stop','next Track','previous Track','seek forward','seek backward','volume up','volume down','show osd']
 
         # load settings or use default
         try:
             self.getsettings()
         except:
-            # keyb = 'name':[keyname,keycode,shift,ctrl,alt,mod1,mod2,callback]
-            self.keyb = {'play':['not defined', 0, 0, 0, 0, 0, 0, 'APP.player.play'],
-                         'stop':['not defined', 0, 0, 0, 0, 0, 0, 'APP.player.stop'],
-                         'pause':['not defined', 0, 0, 0, 0, 0, 0, 'APP.player.toggle_pause'],
-                         'next Track':['not defined', 0, 0, 0, 0, 0, 0, 'APP.player.next'],
-                         'previous Track':['not defined', 0, 0, 0, 0, 0, 0, 'APP.player.previous'],
-                         'seek +5sec.':['not defined', 0, 0, 0, 0, 0, 0, 'seekForward5'],
-                         'seek -5sec.':['not defined', 0, 0, 0, 0, 0, 0, 'seekBack5'],
-                         'volume up':['not defined', 0, 0, 0, 0, 0, 0, 'volUp5'],
-                         'volume down':['not defined', 0, 0, 0, 0, 0, 0, 'volDown5'],                                                  
-                         }            
+
+            #        [key] [button] [ 1=pressed 0=unpressed       ] [ a function the key will call ]
+            #        [   ] [text  ] [ leave this 0                ] [ or a direct exaile command ]
+            #         v      v       v       v     v    v   v    v    v        v
+            # keyb = 'name':[keyname,keycode,shift,ctrl,alt,mod1,mod2,callback,callback-arguments]
+            #         ^       ^      ^       ^     ^    ^   ^    ^    ^        ^        
+            # keyb = '*   ':[str    ,int    ,int  ,int ,int,int,int  ,str     ,str               ]
+
+            
+            self.keyb = {'play':          ['not defined', 0, 0, 0, 0, 0, 0, 'APP.player.play',''],
+                         'stop':          ['not defined', 0, 0, 0, 0, 0, 0, 'APP.player.stop',''],
+                         'pause':         ['not defined', 0, 0, 0, 0, 0, 0, 'APP.player.toggle_pause',''],
+                         'next Track':    ['not defined', 0, 0, 0, 0, 0, 0, 'APP.player.next',''],
+                         'previous Track':['not defined', 0, 0, 0, 0, 0, 0, 'APP.player.previous',''],
+                         'seek forward':  ['not defined', 0, 0, 0, 0, 0, 0, 'seekForward','5'],
+                         'seek backward': ['not defined', 0, 0, 0, 0, 0, 0, 'seekBack','5'],
+                         'volume up':     ['not defined', 0, 0, 0, 0, 0, 0, 'volUp5','2'],
+                         'volume down':   ['not defined', 0, 0, 0, 0, 0, 0, 'volDown5','2'],
+                         'show osd':      ['not defined', 0, 0, 0, 0, 0, 0, 'APP.show_osd',''],
+                         }
 
         # connect loaded settings with X
+        # start listening
         self.listen()
 
+    def ButtonHit(self,event):
+        '''##########################################################################
+        a mapped button was hit! do specified exaile action
+        '''
+        # specify actions:
+        def seekBack(step):
+            APP.player.seek(APP.player.get_position()/1000000000-step)
+            APP.show_osd()
+
+        def seekForward(step):
+            APP.player.seek(APP.player.get_position()/1000000000+step)
+            APP.show_osd()
+            
+        def volUp5(step):
+            APP.volume.set_value(APP.volume.value+step)
+            
+        def volDown5(step):
+            APP.volume.set_value(APP.volume.value-step)
+            
+        # run the function keyb[callback]([arguments]) if keyb[kecode] == x.event
+        for i in self.keyb.values():
+            if i[1] == event:
+                eval (i[7]+'('+i[8]+')')
+
+    def extras(self,key):
+        '''#########################################################################
+         called by updatebuttons() in the configure method. will return a gtk widget
+         which will be between the label and key-button.
+         '''
+        def setextra(value):
+            self.keyb[key][8]=str(value.value)
+            
+        if key == 'seek forward':
+            container = gtk.HBox(False, 0)
+            adjustments = gtk.Adjustment(float(self.keyb[key][8]), 1, 50, 1, 0, 0)
+            adjustments.connect("value_changed", setextra)
+            zeichen = gtk.Label(" ")        
+            label = gtk.Label(_("sec."))        
+            steps = gtk.HScale(adjustments)        
+            steps.set_value_pos(gtk.POS_LEFT)
+            steps.set_usize( 100, 0)
+            container.pack_start(zeichen, True, True, 3)        
+            container.pack_start(steps, True, True, 3)        
+            container.pack_start(label, False, False, 3)
+            zeichen.show()
+            steps.show()
+            label.show()
+
+            return container
+
+        if key == 'seek backward':
+            container = gtk.HBox(False, 0)
+            adjustments = gtk.Adjustment(float(self.keyb[key][8]), 1, 50, 1, 0, 0)
+            adjustments.connect("value_changed", setextra)
+            zeichen = gtk.Label("-")                    
+            label = gtk.Label(_("sec."))        
+            steps = gtk.HScale(adjustments)        
+            steps.set_value_pos(gtk.POS_LEFT)
+            steps.set_usize( 100, 0)
+            container.pack_start(zeichen, True, True, 3)        
+            container.pack_start(steps, True, True, 3)        
+            container.pack_start(label, False, False, 3)
+            #steps.set_inverted(True)
+            zeichen.show()
+            steps.show()
+            label.show()
+
+            return container
+
+        if key == 'volume up':
+            zeichen = gtk.Label(" ")                    
+            container = gtk.HBox(False, 0)
+            adjustments = gtk.Adjustment(float(self.keyb[key][8]), 0, 25, 1, 0, 0)
+            adjustments.connect("value_changed", setextra)
+            steps = gtk.HScale(adjustments)        
+            steps.set_value_pos(gtk.POS_LEFT)
+            steps.set_usize( 100, 0)
+            label = gtk.Label("%")        
+            container.pack_start(zeichen, True, True, 3)        
+            container.pack_start(steps, True, True, 3)
+            container.pack_start(label, False, False, 3)
+            steps.show()
+            zeichen.show()
+            label.show()
+            
+            return container
+
+        if key == 'volume down':
+            zeichen = gtk.Label("-")            
+            container = gtk.HBox(False, 0)
+            adjustments = gtk.Adjustment(float(self.keyb[key][8]), 0, 25, 1, 0, 0)
+            adjustments.connect("value_changed", setextra)
+            steps = gtk.HScale(adjustments)        
+            #steps.set_inverted(True)
+            steps.set_value_pos(gtk.POS_LEFT)
+            steps.set_usize( 100, 0)
+            label = gtk.Label("%")                    
+            container.pack_start(zeichen, True, True, 3)                    
+            container.pack_start(steps, True, True, 3)
+            container.pack_start(label, False, False, 3)
+            steps.show()
+            zeichen.show()
+            label.show()
+            
+            return container
+
+
+    
+##################################################################################
+#
+# If you want to add your custom shortcut, this is as far as you have to edit this
+# file. The Rest is generic stuff that should work with any action. As long as it
+# follows following pattern:
+#
+#     in the __init__ method:
+#         a valid entry(see comments) in the keyb dictionary and actionlist
+#
+#  optional:
+#     in the Buttonhit method:
+#         a function called by the 7the entry in the dict
+#
+#     in the extras method:
+#         additional config menu items
+#
+##################################################################################
 
 
     def freeKey(self):
-        '''##########################################################################
-        stop grabbing
+        '''#######################################################################
+        stop grabbing without a trace (i hope)
         '''
-        self.grabbing = False
-        
+
+        source_remove(self.listener)
+        self.grabKey('free')
+        #self.disp.close()
 
 
     def grabKey(self,action):
-        '''##########################################################################
+        '''#######################################################################
         Connect / disconnect Keys to grab
         '''
         # Make a xlib Mask for every key in the settings-dict
@@ -138,6 +276,7 @@ class XlibKeys:
                 elif action == 'free':
                     # ...or ungrab it.
                     self.root.ungrab_key(self.keyb[key][1], checkmask(maske))
+                    self.disp.flush()
                     #print 'ungrabbed '+str(self.keyb[key][1])
                 
     def listen(self):
@@ -146,66 +285,24 @@ class XlibKeys:
         '''
 
 
-        def keylisten():
-            # select display to listen on
-            self.disp = Display()
-            self.root = self.disp.screen().root
-            # specify event
-            self.root.change_attributes(event_mask = X.KeyPressMask)
+        # select display to listen on
+        self.disp = Display()
+        self.root = self.disp.screen().root
+        # specify event
+        self.root.change_attributes(event_mask = X.KeyPressMask)
 
-            self.grabbing = True
-            self.grabKey('grab')
+        self.grabKey('grab')
 
-            #print 'listening'
-            while self.grabbing == True:
-
-                self.disp.pending_events()
-                readable = select.select([self.disp], [], [], 1)
-
-
-                if [self.disp] in readable:
-                    i = self.disp.pending_events()
-                    while i > 0:
-                        event = self.disp.next_event()
-                        if event.type == X.KeyPress:
-                            self.ButtonHit(event.detail)
-                            i = i - 1
-
-            # free display
-            self.grabKey('free')
-            self.disp.close()
-            thread.exit()        
-            print "this print command doesn't make any sense"
-
-
-        # start the listentread                    
-        thread.start_new_thread(keylisten,())
-
-        
-
-    def ButtonHit(self,event):
-        '''##########################################################################
-        a mapped button was hit! do specified exaile action
-        '''
-        # first specify actions:
-        def seekBack5():
-            APP.player.seek(APP.player.get_position()/1000000000-5)
-            APP.show_osd()
-
-        def seekForward5():
-            APP.player.seek(APP.player.get_position()/1000000000+5)
-            APP.show_osd()
-            
-        def volUp5():
-            APP.volume.set_value(APP.volume.value+2)
-            
-        def volDown5():
-            APP.volume.set_value(APP.volume.value-2)
-
-        for i in self.keyb.values():
-            if i[1] == event:
-                eval (i[7]+'()')
-
+        #print 'listening'
+        def checkKey(arg1,arg2):
+            #print arg1,arg2
+            event = self.disp.next_event()
+            if event.type == X.KeyPress:
+                self.ButtonHit(event.detail)
+            return True
+    
+        self.listener = io_add_watch(self.disp, 1 ,checkKey)
+        print self.disp.pending_events()
 
 
     def savesettings(self):
@@ -235,7 +332,7 @@ class XlibKeys:
             values = APP.settings.get_str(action, default='some string', plugin=plugins.name(__file__)).strip('[]').rsplit(',')
 
             # convert values into desired types
-            clean = [values[0].lstrip(' ').strip('\''),int(values[1]),int(values[2]),int(values[3]),int(values[4]),int(values[5]),int(values[6]),values[7].lstrip(' ').strip('\'')]
+            clean = [values[0].lstrip(' ').strip('\''),int(values[1]),int(values[2]),int(values[3]),int(values[4]),int(values[5]),int(values[6]),values[7].lstrip(' ').strip('\''),values[8].lstrip(' ').strip('\'')]
 
             # finally put all into the dict
             self.keyb[action] = clean
@@ -250,6 +347,8 @@ class XlibKeys:
 
             def keypressed(widget, event):
                 mod = 0
+                # put pressed modifiers into the list and count them
+                ####
                 if 'GDK_SHIFT_MASK' in event.state.value_names:
                     self.keyb[data][2] = 1
                     mod += 1
@@ -279,7 +378,9 @@ class XlibKeys:
                     mod += 1
                 else:
                     self.keyb[data][6] = 0
-                
+
+                #### now sort out the exceptions
+                # omitt doing an action for modifier key events                
                 if event.string == '':
                     print 'mod hit'
                     
@@ -301,55 +402,97 @@ class XlibKeys:
                         self.keyb[data][0] = gtk.gdk.keyval_name(event.keyval)
                         self.keyb[data][1] = event.hardware_keycode
                         pkeyinfo.destroy()
-                        dialog.destroy()
-                        self.configdialog()
+                        updatebuttons()
                     else:
                         useddialog = gtk.MessageDialog(APP.window, gtk.DIALOG_DESTROY_WITH_PARENT,
-                                                       gtk.MESSAGE_INFO, gtk.BUTTONS_OK, "Key already mapped by %s" % used)
+                                                       gtk.MESSAGE_INFO,
+                                                       gtk.BUTTONS_OK,
+                                                       _("Key already mapped by %s") % used)
                         useddialog.run()
                         useddialog.destroy()
 
                 
-                
+            #######################################################################
+#        dialog = gtk.Dialog("Configure Exaile Shortcuts",
+#                            APP.window,
+#                            gtk.DIALOG_DESTROY_WITH_PARENT,
+#                            (gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
+#                             gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
+        
+
+                        
             pkeyinfo = gtk.MessageDialog(APP.window, gtk.DIALOG_DESTROY_WITH_PARENT,
-                                         gtk.MESSAGE_INFO, gtk.BUTTONS_NONE,
-                                         "Please Press a Key for '%s' while holding one or more modifier Keys (ctrl, shift, alt)" % data)
+                                         gtk.MESSAGE_INFO, gtk.BUTTONS_CANCEL,
+                                         _("Please Press a Key for '%s' while holding one or more modifier Keys (ctrl, shift, alt)") % data)
             
             pkeyinfo.add_events(gtk.gdk.KEY_PRESS_MASK)
             pkeyinfo.connect('key-press-event', keypressed)
             pkeyinfo.run()
-        
+            pkeyinfo.destroy()
+            
         def clearKey(widget, data):
+            # user clicked the 'clear' button
             self.keyb[data][0]='not defined'
             self.keyb[data][1]=0
             self.keyb[data][2]=0
             self.keyb[data][3]=0
             self.keyb[data][4]=0
-            self.keyb[data][5]=0                                
+            self.keyb[data][5]=0                              
             self.keyb[data][6]=0
-            dialog.destroy()
-            self.configdialog()
+            updatebuttons()
             
-        # MAIN ----------------------------------------------------+
+        # packung -------------------------------------------------+
         #    label     key-button             clear-button         |
         #               L  defineNewKey()      L  self.clearKey()  |      
         #                   L  Keypressed()                        |
         #----------------------------------------------------------+
 
 
-        dialog = gtk.Dialog("Configure Exaile Shortcuts",
+        dialog = gtk.Dialog(_("Configure Exaile Shortcuts"),
                             APP.window,
                             gtk.DIALOG_DESTROY_WITH_PARENT,
                             (gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
                              gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
         
-        beschreibung = gtk.Label('The shortcuts will be globally accessible in X')
+        beschreibung = gtk.Label(_('The shortcuts will be globally accessible in X'))
         dialog.vbox.pack_start(beschreibung, False, False, 0)
 
         def updatebuttons():
-            for key in self.actionlist:            
+            # remove the refreshbox container holding the old buttons
+            #try:
+            dialog.vbox.remove(self.refreshbox)
+
+            # create the context for the buttons 
+            self.refreshbox = gtk.VBox(True, 0)
+            dialog.vbox.pack_start(self.refreshbox, False, False, 5)
+            beschreibung.set_padding(5, 3)
+            beschreibung.show()
+            dialog.set_border_width(5)
+            
+            
+            for key in self.actionlist:
+
+                # create something like this for every key:
+                #
+                #  +- packung -----------------------------------+
+                #  | [ name ] ( [ extra ] )? [ kname ] [ clk ]   |
+                #  +---------------------------------------------+
+                #
+                # and put it in the refresh-vbox:
+                #  
+                #       +- dialog.vbox -------+
+                #       | beschreibung(label) |
+                #   --> | +- refreshbox ----+ |
+                #       | |  [ packung 1 ]  | |
+                #       | |  [ packung 2 ]  | |
+                #       | |  etc ...        | |
+                #   --> | +-----------------+ |
+                #       |        [cancel][ok] |
+                #       +---------------------+                
+                
                 packung = gtk.HBox(False, 0)
 
+                
                 knopf = str(self.keyb[key][0])
                 if self.keyb[key][2] == 1:
                     knopf += ' + shift'
@@ -369,24 +512,41 @@ class XlibKeys:
 
                 kname.connect("clicked",defineNewKey, key)
                 clk.connect("clicked",clearKey, key)
-                
+                self.refreshbox.pack_start(packung, False, False, 5)                
                 packung.pack_start(name, False, False, 5)
+
+                # check for extra options
+                if self.keyb[key][8] != '':
+                    extra = self.extras(key)
+                    packung.pack_start(extra, False, False,5)
+                    extra.show()
+
                 packung.pack_start(kname, True, True, 5)
                 packung.pack_start(clk, False, False, 2)
-                dialog.vbox.pack_start(packung, False, False, 5)
                 name.show()
                 kname.show()
                 clk.show()
                 packung.show()
+            self.refreshbox.show()
 
-                                
+            
+               
 
-        self.grabbing = False
-        updatebuttons()
+        # ungrab keys, so that no key is blocked while defining a new shortcut
+        self.grabKey('free')
+        source_remove(self.listener)
+
+        # create the context for the buttons 
+        self.refreshbox = gtk.VBox(True, 0)
+        dialog.vbox.pack_start(self.refreshbox, False, False, 5)
         beschreibung.set_padding(5, 3)
         beschreibung.show()
         dialog.set_border_width(5)
 
+
+        updatebuttons()
+        
+        # If user clicked 'ok' save settings else reload settings
         dial = dialog.run()
         if dial == gtk.RESPONSE_ACCEPT:
             self.savesettings()

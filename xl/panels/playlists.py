@@ -288,9 +288,9 @@ class PlaylistsPanel(object):
                 "LIMIT 100"),
 
             (_('Random 100'), "SELECT paths.name FROM tracks,paths WHERE " \
-                "paths.id=tracks.path"),
+                "paths.id=tracks.path ORDER BY RANDOM() LIMIT 100"),
             (_('Random 500'), "SELECT paths.name FROM tracks,paths WHERE " \
-                "paths.id=tracks.path"),
+                "paths.id=tracks.path ORDER BY RANDOM() LIMIT 500"),
         ]
 
         # Add smart playlists

@@ -10,11 +10,10 @@ DEFS=`pkg-config --variable=defsdir pygtk-2.0`
 
 mmkeyspy.c: mmkeys.defs mmkeys.override
 	pygtk-codegen-2.0 --prefix mmkeys \
-	--register $(DEFS)/gdk-types.defs \
-	--register $(DEFS)/gtk-types.defs \
-	--override mmkeys.override \
-	mmkeys.defs > gen-tmp
-	mv gen-tmp $@
+	  --register $(DEFS)/gdk-types.defs \
+	  --register $(DEFS)/gtk-types.defs \
+	  --override mmkeys.override \
+	  mmkeys.defs > $@
 
 clean:
 	rm -f mmkeys.so *.o mmkeyspy.c

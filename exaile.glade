@@ -74,7 +74,7 @@
 		  <child>
 		    <widget class="GtkImageMenuItem" id="open_item">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">_Open Media</property>
+		      <property name="label" translatable="yes">_Open Files</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_open_item_activate"/>
 		      <accelerator key="O" modifiers="GDK_CONTROL_MASK" signal="activate"/>

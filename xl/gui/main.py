@@ -1589,23 +1589,27 @@ class ExaileWindow(gobject.GObject):
         dialog.set_current_folder(self.get_last_dir())
         dialog.set_select_multiple(True)
 
-        # Media Files
-        filter = gtk.FileFilter()
-        filter.set_name(_("Media Files"))
+        supported = gtk.FileFilter()
+        supported.set_name(_("Supported Files"))
+        music = gtk.FileFilter()
+        music.set_name(_("Music Files"))
+        playlist = gtk.FileFilter()
+        playlist.set_name(_("Playlist Files"))
+        all = gtk.FileFilter()
+        all.set_name(_("All Files"))
+
         for ext in media.SUPPORTED_MEDIA:
-            filter.add_pattern('*' + ext)
-        dialog.add_filter(filter)
-        filter = gtk.FileFilter()
-        # Playlist Files
-        filter.set_name(_("Playlist Files"))
+            supported.add_pattern('*' + ext)
+            music.add_pattern('*' + ext)
         for ext in xlmisc.PLAYLIST_EXTS:
-            filter.add_pattern('*' + ext)
-        dialog.add_filter(filter)
-        # All Files
-        filter = gtk.FileFilter()
-        filter.set_name(_("All Files"))
-        filter.add_pattern('*')
-        dialog.add_filter(filter)
+            supported.add_pattern('*' + ext)
+            playlist.add_pattern('*' + ext)
+        all.add_pattern('*')
+
+        dialog.add_filter(supported)
+        dialog.add_filter(music)
+        dialog.add_filter(playlist)
+        dialog.add_filter(all)
 
         result = dialog.run()
         dialog.hide()

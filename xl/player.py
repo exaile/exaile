@@ -343,6 +343,9 @@ class ExailePlayer(GSTPlayer):
         elif "auto" in sink: sink = 'autoaudiosink'
         try:
             asink = gst.element_factory_make(sink)
+            if sink == 'gconfaudiosink':
+                # The "Music and Movies" profile
+                sink.set_property('profile', 1)
         except:
             xlmisc.log("Could not create sink %s.  Trying autoaudiosink." %
                 sink)

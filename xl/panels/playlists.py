@@ -489,18 +489,6 @@ class PlaylistsPanel(object):
 
             if name == 'Entire Library':    
                 songs = self.exaile.all_songs
-            elif name.startswith('Random'):
-                songs = library.TrackData()
-                for song in self.exaile.all_songs:
-                    songs.append(song)
-
-                random.shuffle(songs)
-                    
-                try:
-                    number = int(name.replace('Random ', ''))
-                except ValueError:
-                    number = 100
-                songs = library.TrackData(songs[:number])
             else:
                 songs = library.search_tracks(self.exaile.window, 
                     self.db,

@@ -188,6 +188,12 @@ class ListPrefsItem(PrefsItem):
         settings.set_list(self.name, shlex.split(text))
         return True
 
+class SpinPrefsItem(PrefsItem):
+    def set_pref(self):
+        value = settings[self.name]
+        if value is None: value = self.default
+        self.widget.set_value(value)
+
 class FloatPrefsItem(PrefsItem):
     """
         A class to represent a floating point number in the preferences window
@@ -491,7 +497,7 @@ class Preferences(object):
                 self.osd_colorpicker),
             'osd/text_font': (FontButtonPrefsItem, 'Sans 10',
                 self.osd_fontpicker),
-            'osd/trans_value': (PrefsItem, 75, self.osd_adjust_transparency),
+            'osd/opacity': (SpinPrefsItem, '80', self.osd_adjust_opacity),
             'ui/use_tray': (CheckPrefsItem, False, None, self.setup_tray),
             'amazon_locale': (ComboPrefsItem, 'us'),
             'wikipedia_locale': (PrefsItem, 'en'),
@@ -792,9 +798,9 @@ class Preferences(object):
         self.osd_settings[name] = val
         self.display_popup()
 
-    def osd_adjust_transparency(self, widget, event, name, previous):
+    def osd_adjust_opacity(self, widget, event, name, previous):
         """
-            Called when the user requests to adjust the transparency (alpha value) of the osd
+            Called when the user requests to adjust the opacity (alpha value) of the osd
         """
         try:
             val = int(widget.get_text())

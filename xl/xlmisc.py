@@ -1230,10 +1230,10 @@ class OSDWindow(object):
             event.area.width, event.area.height)
         cr.clip()
 
-        transparency = 100 - self.settings['osd/trans_value']
+        opacity = self.settings['osd/opacity']
         
         cr.set_source_rgba(self.color.red/65535.0, self.color.green/65535.0, 
-                self.color.blue/65535.0, transparency/100.0)
+                self.color.blue/65535.0, opacity/100.0)
         cr.paint()
         return False
 
@@ -1249,10 +1249,10 @@ class OSDWindow(object):
             event.area.width, event.area.height)
         cr.clip()
 
-        transparency = 100 - self.settings['osd/trans_value']
+        opacity = self.settings['osd/opacity']
         
         cr.set_source_rgba(self.color.red/65535.0, self.color.green/65535.0, 
-                self.color.blue/65535.0, transparency/100.0)
+                self.color.blue/65535.0, opacity/100.0)
         cr.paint()
         return False
 
@@ -1360,6 +1360,7 @@ def get_osd(exaile, settings):
 def get_osd_settings(settings):
     info = dict()
     info['osd/bgcolor'] = settings.get_str("osd/bgcolor", "#567ea2")
+    info['osd/opacity'] = settings.get_int("osd/opacity", 80)
     info['osd/w'] = settings.get_int("osd/w", 400)
     info['osd/h'] = settings.get_int("osd/h", 95)
     info['osd/y'] = settings.get_int("osd/y", 0)
@@ -1368,10 +1369,8 @@ def get_osd_settings(settings):
         prefs.TEXT_VIEW_DEFAULT)
     info['osd/text_font'] = settings.get_str('osd/text_font',
         'Sans 10')
-    info['osd/trans_value'] = settings.get_int('osd/trans_value', 75)
     info['osd/text_color'] = settings.get_str('osd/text_color',
         '#ffffff')
-    info['osd/trans_value'] = settings.get_int('osd/trans_value', 75)
 
     return info
 

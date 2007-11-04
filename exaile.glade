@@ -5161,7 +5161,7 @@ Bottom</property>
 			      <child>
 				<widget class="GtkLabel" id="label87">
 				  <property name="visible">True</property>
-				  <property name="label" translatable="yes">Transparency Level:</property>
+				  <property name="label" translatable="yes">Opacity Level:</property>
 				  <property name="use_underline">False</property>
 				  <property name="use_markup">False</property>
 				  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -5184,7 +5184,7 @@ Bottom</property>
 			      </child>
 
 			      <child>
-				<widget class="GtkSpinButton" id="prefs_osd_trans_value">
+				<widget class="GtkSpinButton" id="prefs_osd_opacity">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="climb_rate">1</property>

@@ -1548,7 +1548,7 @@ class PlaylistParser(object):
 
 class M3UParser(PlaylistParser):
     PLAYLIST_EXTS.append('.m3u')
-    REGEX = re.compile(r'#EXTINF:\d+,(.*?)[\r\n]+(.*?)[\r\n]+', re.DOTALL) 
+    REGEX = re.compile(r'#EXTINF:-?\d+,(.*?)[\r\n]+([^\r\n]+)', re.DOTALL) 
 
     def _do_parse_file(self, file):
         # Read first line to see if this is extended M3U.

@@ -36,6 +36,8 @@
 
 
 
+from gettext import gettext as _
+
 import xl.plugins as plugins
 
 import gtk
@@ -45,7 +47,7 @@ from Xlib import X
 
 PLUGIN_NAME = _("Keyboard Shortcuts")
 PLUGIN_AUTHORS = ['Hubert Berezowski <hubertb2@wp.pl>']
-PLUGIN_VERSION = '0.1.4'
+PLUGIN_VERSION = '0.1.5'
 PLUGIN_DESCRIPTION = _(r""" Keyboard Shortcuts via the X Server.
 \n\n
 Requires Python-Xlib

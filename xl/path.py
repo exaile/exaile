@@ -17,7 +17,7 @@
 
 import os
 
-home = os.path.expanduser('~')
+home = os.path.expanduser(u'~')
 _configdir = os.path.join(home, '.exaile')
 _cachedir = os.path.join(_configdir, 'cache')
 

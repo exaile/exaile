@@ -1,8 +1,7 @@
 import pygst
 pygst.require('0.10')
 import gst
-from xl import xlmisc
-import xl.common
+from xl import common, xlmisc
 from mutagen.mp3 import HeaderNotFoundError
 import os.path, gobject, re
 
@@ -73,7 +72,7 @@ class Track(gobject.GObject):
         """
         gobject.GObject.__init__(self)
         
-        self.tags = xl.common.ldict()
+        self.tags = common.ldict()
 
         self.time_played = 0
         self.read_from_db = False
@@ -203,7 +202,7 @@ class Track(gobject.GObject):
         """
         values = self.tags.get(tag)
         if values:
-            values = (xl.common.to_unicode(x, self.encoding) for x in values
+            values = (common.to_unicode(x, self.encoding) for x in values
                 if x not in (None, ''))
             return u" / ".join(values)
         return u""
@@ -215,7 +214,7 @@ class Track(gobject.GObject):
         """
         if not isinstance(values, list): values = [values]
         # filter out empty values and convert to unicode
-        values = (xl.common.to_unicode(x, self.encoding) for x in values
+        values = (common.to_unicode(x, self.encoding) for x in values
             if x not in (None, ''))
         if append:
             self.tags[tag].extend(values)
@@ -392,10 +391,7 @@ class Track(gobject.GObject):
             decode it back into the ascii and don't worry about botched up
             characters (ie the value should be exactly identical to the one given)
         """
-        if type(value) is unicode:
-            self._loc = value
-        else:
-            self._loc = unicode(value, xlmisc.get_default_encoding())
+        self._loc = common.to_unicode(value, xlmisc.get_default_encoding())
 
     def get_disc(self):
         """
@@ -495,29 +491,29 @@ class Track(gobject.GObject):
         """
         self.set_tag('genre', value)
 
-    encoding = property(get_encoding, set_encoding)
-    duration = property(get_duration)
-    length = property(get_len, set_len)
-    rating = property(get_rating, set_rating)
     bitrate = property(get_bitrate, set_bitrate)
-    loc = property(get_loc, set_loc)
-    io_loc = property(get_loc_for_io, None)
+    duration = property(get_duration)
+    encoding = property(get_encoding, set_encoding)
     filename = property(get_filename)
+    io_loc = property(get_loc_for_io, None)
+    length = property(get_len, set_len)
+    loc = property(get_loc, set_loc)
+    rating = property(get_rating, set_rating)
 
-    # data written to tags
-    title = property(get_title, set_title)
-    artist = property(get_artist, set_artist)
+    # Data written to tags
     album = property(get_album, set_album)
-    track = property(get_track, set_track)
-    date = property(get_date, set_date)
-    year = property(get_date, set_date) # backwards compatibility
-    genre = property(get_genre, set_genre)
-    disc_id = property(get_disc, set_disc)
-    version = property(get_version, set_version)
-    performer = property(get_performer, set_performer)
+    artist = property(get_artist, set_artist)
     copyright = property(get_copyright, set_copyright)
-    publisher = property(get_publisher, set_publisher)
+    date = property(get_date, set_date)
+    disc_id = property(get_disc, set_disc)
+    genre = property(get_genre, set_genre)
     isrc = property(get_isrc, set_isrc)
+    performer = property(get_performer, set_performer)
+    publisher = property(get_publisher, set_publisher)
+    title = property(get_title, set_title)
+    track = property(get_track, set_track)
+    version = property(get_version, set_version)
+    year = property(get_date, set_date) # backwards compatibility
 
 
 

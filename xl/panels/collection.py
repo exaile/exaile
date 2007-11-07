@@ -154,7 +154,7 @@ class CollectionPanel(object):
             in LoadTree if keyword is not None which will expand the items
             of the tree until the matched node is found
         """
-        self.keyword = self.filter.get_text()
+        self.keyword = unicode(self.filter.get_text(), 'utf-8')
         self.start_count += 1
         self.load_tree()
 

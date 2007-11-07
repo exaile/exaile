@@ -17,18 +17,16 @@
 
 from gettext import gettext as _
 
-import pygtk
-pygtk.require('2.0')
+import ConfigParser, os
 import gtk, gtk.glade
-import ConfigParser
-import os
+import xl.path
 
 def get_active_text(combobox):
     model = combobox.get_model()
     active = combobox.get_active()
     if active < 0:
         return None
-    return model[active][0]
+    return unicode(model[active][0], 'utf-8')
 
 class EqualizerWindow(object):
     """
@@ -264,7 +262,7 @@ class PresetImport(object):
         filter.set_name(_("All files"))
         filter.add_pattern("*")
         self.filechooser_btn.add_filter(filter)
-        self.filechooser_btn.set_current_folder(os.getenv('HOME'))
+        self.filechooser_btn.set_current_folder(xl.path.home)
 
         self.name_widget.connect('changed', self.enable_import)
 
@@ -273,7 +271,7 @@ class PresetImport(object):
         self.dlg.show_all()
 
     def enable_import(self, *e):
-        name = self.name_widget.get_text()
+        name = unicode(self.name_widget.get_text(), 'utf-8')
         filename = self.filechooser_btn.get_filename()
 
         if (name and filename is not None):

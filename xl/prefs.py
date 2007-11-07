@@ -63,10 +63,10 @@ class PrefsItem(object):
             Sets up the function to be called when this preference is changed
         """
         self.widget.connect('focus-out-event',
-            self.change, self.name, self.widget.get_text())
+            self.change, self.name, unicode(self.widget.get_text(), 'utf-8'))
         self.widget.connect('activate',
             lambda *e: self.change(self.widget, None, self.name,
-                self.widget.get_text()))
+                unicode(self.widget.get_text(), 'utf-8')))
 
     def set_pref(self):
         """ 
@@ -85,7 +85,7 @@ class PrefsItem(object):
             applies this setting
         """
         if self.done and not self.do_done(): return False
-        settings.set_str(self.name, self.widget.get_text())
+        settings.set_str(self.name, unicode(self.widget.get_text(), 'utf-8'))
         return True
 
 class CryptedPrefsItem(PrefsItem):
@@ -101,7 +101,7 @@ class CryptedPrefsItem(PrefsItem):
 
     def apply(self):
         if self.done and not self.do_done(): return False
-        settings.set_crypted(self.name, self.widget.get_text())
+        settings.set_crypted(self.name, unicode(self.widget.get_text(), 'utf-8'))
         return True
 
 class PrefsTextViewItem(PrefsItem):
@@ -128,7 +128,7 @@ class PrefsTextViewItem(PrefsItem):
         buf = self.widget.get_buffer()
         start = buf.get_start_iter()
         end = buf.get_end_iter()
-        return buf.get_text(start, end)
+        return unicode(buf.get_text(start, end), 'utf-8')
 
     def set_pref(self):
         """
@@ -184,7 +184,7 @@ class ListPrefsItem(PrefsItem):
 
     def apply(self):
         if self.done and not self.do_done(): return False
-        text = self.widget.get_text()
+        text = unicode(self.widget.get_text(), 'utf-8')
         settings.set_list(self.name, shlex.split(text))
         return True
 
@@ -621,7 +621,7 @@ class Preferences(object):
             Scan the new import location for new songs
         """
         items = self.exaile.settings.get_list('search_paths', '')
-        path = widget.get_text()
+        path = unicode(widget.get_text(), 'utf-8')
         if not path: return True
 
         new_items = []
@@ -703,7 +703,7 @@ class Preferences(object):
         #naming = xml.get_widget('prefs_import_naming')
 
         #dir = location.get_filename()
-        path = widget.get_text()
+        path = unicode(widget.get_text(), 'utf-8')
 
         # TODO: get proper mapping
         mapping = {'artist':'Artist', 'album':'Album', 'num':1, 

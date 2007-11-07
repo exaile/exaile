@@ -106,7 +106,7 @@ class FilesPanel(object):
         self.search.connect('key-release-event', self.key_release)
         self.search.connect('activate', lambda *e:
             self.load_directory(self.current, history=False,
-            keyword=self.search.get_text()))
+            keyword=unicode(self.search.get_text(), 'utf-8')))
 
         self.key_id = None
 
@@ -134,7 +134,7 @@ class FilesPanel(object):
 
         self.key_id = gobject.timeout_add(700, lambda *e:
             self.load_directory(self.current, history=False,
-            keyword=self.search.get_text()))
+            keyword=unicode(self.search.get_text(), 'utf-8')))
 
     def drag_get_data(self, treeview, context, sel, target_id, etime):
         """
@@ -175,7 +175,7 @@ class FilesPanel(object):
 
         for path in paths:
             iter = self.model.get_iter(path)
-            value = model.get_value(iter, 1)
+            value = unicode(model.get_value(iter, 1), 'utf-8')
             value = os.path.join(self.current, value)
             (stuff, ext) = os.path.splitext(value)
             if os.path.isdir(value):
@@ -231,7 +231,7 @@ class FilesPanel(object):
         """
             Called when the user presses enter in the entry box
         """
-        dir = os.path.expanduser(self.entry.get_text())
+        dir = os.path.expanduser(unicode(self.entry.get_text(), 'utf-8'))
         if not os.path.isdir(dir):
             self.entry.set_text(self.current)
             return
@@ -278,7 +278,7 @@ class FilesPanel(object):
 
         for path in paths:
             iter = self.model.get_iter(path)
-            value = model.get_value(iter, 1)
+            value = unicode(model.get_value(iter, 1), 'utf-8')
             dir = os.path.join(self.current, value)
             if os.path.isdir(dir):
                 self.load_directory(dir)
@@ -333,7 +333,7 @@ class FilesPanel(object):
                 continue
             size = info[6]
             size = size / 1024
-            size = locale.format("%d", size, True) + " KB"
+            size = locale.format_string("%d KB", size, True)
 
             self.model.append([self.track, f, size])
 

@@ -596,7 +596,7 @@ class TrackEditor(object):
         
         dialog.show_all()
         resp = dialog.run()
-        val = entry.get_text()
+        val = unicode(entry.get_text(), 'utf-8')
         dialog.destroy()
         if resp != gtk.RESPONSE_OK or not val:
             return

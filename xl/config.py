@@ -436,11 +436,7 @@ class Config:
 def _is_list(s):
     return s and s[0] == '[' and s[-1] == ']'
 def _is_int(s):
-    try:
-        int(s)
-        return True
-    except ValueError:
-        return False
+    return s.isdigit()
 def _is_float(s):
     try:
         float(s)

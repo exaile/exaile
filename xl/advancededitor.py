@@ -253,7 +253,7 @@ class AdvancedConfigEditor(gtk.Window):
             Populates the model with the settings items
         """
         self.model.clear()
-        filter = self.filter.get_text()
+        filter = unicode(self.filter.get_text(), 'utf-8')
         for item in self.items:
             if filter:
                 if item.name.lower().find(filter.lower()) == -1: continue

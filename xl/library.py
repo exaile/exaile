@@ -65,17 +65,15 @@ def get_suggested_songs(exaile, db, song, s, count, done_func):
         xlmisc.log("Fetching suggested tracks for %s" % song.artist)
         try:
             lastfm = audioscrobbler.AudioScrobblerQuery(artist=song.artist)
-            artists = []
-            for artist in lastfm.similar():
-                artists.append(artist.name)
-
-            random.shuffle(artists)
-            all.extend(artists)
-           
+            artists = [artist.name for artist in lastfm.similar()]
         except audioscrobbler.AudioScrobblerError:
-            pass
+            continue
         except:
             xlmisc.log_exception()
+            continue
+
+        random.shuffle(artists)
+        all.extend(artists)
         if len(all) >= 100: break
 
     gobject.idle_add(done_func, all, count)    

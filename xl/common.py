@@ -80,7 +80,7 @@ class MultiTextEntryDialog(gtk.Dialog):
         """
             Returns a list of the values from the added fields
         """
-        return [a.get_text() for a in self.fields]
+        return [unicode(a.get_text(), 'utf-8') for a in self.fields]
 
     def run(self):
         """
@@ -126,7 +126,7 @@ class TextEntryDialog(gtk.Dialog):
         """
             Returns the text value
         """
-        return self.entry.get_text()
+        return unicode(self.entry.get_text(), 'utf-8')
 
     def set_value(self, value):
         """

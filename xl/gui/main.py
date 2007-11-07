@@ -28,7 +28,6 @@ from xl.gui import playlist as trackslist
 from xl.gui import information
 from xl.panels import collection, radio, playlists, files, device
 import random, gst, urllib
-random.seed()
 
 def found_updates(exaile, found):
     message = _("The following plugins have new versions available for install."
@@ -1346,7 +1345,7 @@ class ExaileWindow(gobject.GObject):
             Called when something is typed into the filter box
         """
 
-        keyword = self.tracks_filter.get_text()
+        keyword = unicode(self.tracks_filter.get_text(), 'utf-8')
         if keyword.startswith("where ") and not widget: return
         self.songs = library.search(self, self.tracks.playlist_songs, None,
             custom=custom)

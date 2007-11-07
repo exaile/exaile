@@ -52,7 +52,7 @@ class PlaylistManager(gobject.GObject):
         ## Create playlist object
 
         url = common.to_url(path)
-        spliturl = urlparse.urlsplit(path)
+        spliturl = urlparse.urlsplit(url)
 
         path = unicode(urllib.unquote(spliturl[2]), 'utf-8') # UTF-8 by RFC 3986
         name, ext = os.path.splitext(os.path.basename(path))

@@ -797,10 +797,10 @@ def log_stack(description=None, skip=1):
     """
         Queues a log event for current stack
     """
-    message = log_file_and_line()
+    message = log_file_and_line(skip)
     message.append('Stack:')
     stack = traceback.format_stack()
-    for i in xrange(0, len(stack) - skip - 1):
+    for i in xrange(0, len(stack) - skip):
         message.append(stack[i].rstrip())
     if description:
         message.append(description)
@@ -938,7 +938,7 @@ class BrowserWindow(gtk.VBox):
         """
             Called when the user presses enter in the address bar
         """
-        url = self.entry.get_text()
+        url = unicode(self.entry.get_text(), 'utf-8')
         self.load_url(url, self.action_count)
 
     def on_location_change(self, mozembed):

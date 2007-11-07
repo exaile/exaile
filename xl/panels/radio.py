@@ -1015,7 +1015,7 @@ class RadioPanel(object):
         if station:
             playlist = station
         else:
-            playlist = item.get_child().get_text()
+            playlist = unicode(item.get_child().get_text(), 'utf-8')
 
         station_id = library.get_column_id(self.db, 'radio', 'name', playlist)
 

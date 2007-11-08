@@ -1201,14 +1201,18 @@ class OSDWindow(object):
         # In GTK+ >=2.12 we can actually just use Window.set_opacity.
         is_composited = getattr(self.window, 'is_composited', None)
         if is_composited and is_composited():
-            self.window.set_colormap(screen.get_rgba_colormap())
+            screen = self.window.get_screen()
+            colormap = screen.get_rgba_colormap()
+
+            self.window.set_colormap(colormap)
             self.window.set_app_paintable(True)
             self.window.connect("expose-event", self.expose_callback)
 
-            self.progress.set_colormap(screen.get_rgba_colormap())
+            self.progress.set_colormap(colormap)
             self.progress.set_app_paintable(True)
             self.progress.connect("expose-event", self.expose_callback)
-        else: # Just set the background color in the old fashioned way
+        else:
+            # Just set the background color in the old fashioned way
             self.window.modify_bg(gtk.STATE_NORMAL, self.color)
             self.progress.modify_bg(gtk.STATE_NORMAL, self.color)
             

@@ -90,7 +90,6 @@ gtk.window_set_default_icon_from_file(xl.path.get_data('images', 'icon.png'))
 
 from xl.gui import main as exailemain
 from xl import xlmisc
-xlmisc.log("Exaile " + __version__)
 
 import urllib
 # set the user agent
@@ -134,6 +133,7 @@ def main():
 
         check_dirs()
         
+        xlmisc.log("Exaile " + __version__)
         exaile = exailemain.ExaileWindow(options, xl.path.firstrun)
     else:
         sys.exit(0)

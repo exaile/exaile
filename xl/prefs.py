@@ -190,8 +190,7 @@ class ListPrefsItem(PrefsItem):
 
 class SpinPrefsItem(PrefsItem):
     def set_pref(self):
-        value = settings[self.name]
-        if value is None: value = self.default
+        value = settings.get_float(self.name, default=self.default)
         self.widget.set_value(value)
 
 class FloatPrefsItem(PrefsItem):
@@ -341,6 +340,8 @@ class Preferences(object):
         # TRANSLATORS: Category of the preferences dialog
         (_("Advanced"), [
             _("Replay Gain"),
+            # TRANSLATORS: Category of the preferences dialog
+            _("Proxy Settings")
         ]),
     ]
 
@@ -470,6 +471,13 @@ class Preferences(object):
         replaygain = xml.get_widget('prefs_replaygain_enabled')
         replaygain.connect('toggled', self.toggle_replaygain)
         
+        # proxy server handler
+        proxy = xml.get_widget('prefs_proxy_enabled')
+        proxy.connect('toggled', self.toggle_proxy)
+        xml.get_widget('prefs_proxy_username').set_sensitive(0)
+        xml.get_widget('prefs_proxy_password').set_sensitive(0)
+        xml.get_widget('prefs_proxy_server').set_sensitive(0)        
+        
         simple_settings = ({
             'ui/use_splash': (CheckPrefsItem, True),
 #            'watch_directories': (CheckPrefsItem, False, self.check_gamin,
@@ -497,7 +505,7 @@ class Preferences(object):
                 self.osd_colorpicker),
             'osd/text_font': (FontButtonPrefsItem, 'Sans 10',
                 self.osd_fontpicker),
-            'osd/opacity': (SpinPrefsItem, '80', self.osd_adjust_opacity),
+            'osd/opacity': (SpinPrefsItem, 80, self.osd_adjust_opacity),
             'ui/use_tray': (CheckPrefsItem, False, None, self.setup_tray),
             'amazon_locale': (ComboPrefsItem, 'us'),
             'wikipedia_locale': (PrefsItem, 'en'),
@@ -516,6 +524,10 @@ class Preferences(object):
             'replaygain/preamp': (FloatPrefsItem, 0.0),
             'replaygain/fallback': (FloatPrefsItem, 0.0),
             'check_for_updates': (CheckPrefsItem, True),
+            'proxy/enabled': (CheckPrefsItem, False),
+            'proxy/server': (PrefsItem, ''),
+            'proxy/username': (PrefsItem, ''),
+            'proxy/password': (CryptedPrefsItem, '', None),
         })
 
         for setting, value in simple_settings.iteritems():
@@ -679,6 +691,18 @@ class Preferences(object):
                  xml.get_widget('prefs_replaygain_fallback')]
         to_state = widget.get_active()
 
+        for item in items:
+            item.set_sensitive(to_state)
+
+    def toggle_proxy(self, widget, event=None):
+        """
+            Enables/disables proxy server options.
+        """
+        items = [xml.get_widget('prefs_proxy_server'),
+                 xml.get_widget('prefs_proxy_username'),
+                 xml.get_widget('prefs_proxy_password')]
+        to_state = widget.get_active()
+        
         for item in items:
             item.set_sensitive(to_state)
 

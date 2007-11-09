@@ -180,7 +180,11 @@ class ListPrefsItem(PrefsItem):
 
     def set_pref(self):
         items = settings.get_list(self.name, default=self.default)
-        self.widget.set_text(" ".join(items))
+        try:
+            items = " ".join(items)
+        except:
+            items = ""
+        self.widget.set_text(items)
 
     def apply(self):
         if self.done and not self.do_done(): return False
@@ -478,6 +482,13 @@ class Preferences(object):
         xml.get_widget('prefs_proxy_password').set_sensitive(0)
         xml.get_widget('prefs_proxy_server').set_sensitive(0)        
         
+        # proxy server handler
+        proxy = xml.get_widget('prefs_proxy_enabled')
+        proxy.connect('toggled', self.toggle_proxy)
+        xml.get_widget('prefs_proxy_username').set_sensitive(0)
+        xml.get_widget('prefs_proxy_password').set_sensitive(0)
+        xml.get_widget('prefs_proxy_server').set_sensitive(0)        
+        
         simple_settings = ({
             'ui/use_splash': (CheckPrefsItem, True),
 #            'watch_directories': (CheckPrefsItem, False, self.check_gamin,
@@ -691,6 +702,18 @@ class Preferences(object):
                  xml.get_widget('prefs_replaygain_fallback')]
         to_state = widget.get_active()
 
+        for item in items:
+            item.set_sensitive(to_state)
+
+    def toggle_proxy(self, widget, event=None):
+        """
+            Enables/disables proxy server options.
+        """
+        items = [xml.get_widget('prefs_proxy_server'),
+                 xml.get_widget('prefs_proxy_username'),
+                 xml.get_widget('prefs_proxy_password')]
+        to_state = widget.get_active()
+        
         for item in items:
             item.set_sensitive(to_state)
 

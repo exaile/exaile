@@ -30,8 +30,6 @@ class Player(gobject.GObject):
     """
         This is the main player interface, other engines will subclass it
     """
-    def __init__(self):
-        gobject.GObject.__init__(self)
 
 class GSTPlayer(Player):
     """
@@ -64,13 +62,15 @@ class GSTPlayer(Player):
         """
             Returns True if the player is currently playing
         """
-        return self.playbin.get_state()[1] == gst.STATE_PLAYING
+        state = self.playbin.get_state(timeout=50*gst.MSECOND)[1]
+        return state == gst.STATE_PLAYING
 
     def is_paused(self):
         """
             Returns True if the player is currently paused
         """
-        return self.playbin.get_state()[1] == gst.STATE_PAUSED
+        state = self.playbin.get_state(timeout=50*gst.MSECOND)[1]
+        return state == gst.STATE_PAUSED
 
     def on_message(self, bus, message, reading_tag = False):
         """

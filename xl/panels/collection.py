@@ -667,7 +667,7 @@ class CollectionPanel(object):
                     else: parent = node_for[string]
 
                 if self.keyword and last_parent:
-                    if str(info).lower().find(self.keyword.lower()) > -1:
+                    if self.keyword.lower() in common.to_unicode(info).lower():
                         expanded_paths.append(self.model.get_path(
                             last_parent))
                 last_parent = parent

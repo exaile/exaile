@@ -185,17 +185,28 @@ class PluginManager(object):
                     h.close()
 
                     try:
-                        _name = re.sub(r'\.pyc?$', '', file)
+                        _name = re.sub(r'\.py[co]?$', '', file)
                         if _name in sys.modules:
                             del sys.modules[_name]
                     except Exception, e:
                         xlmisc.log_exception()
 
                     enabled_plugins = []
+                    avail_plugins = []
                     for k, v in self.app.settings.get_plugins().iteritems():
                         if v:
-                            enabled_plugins.append("%s.py" % k)
-                    gobject.idle_add(self.manager.initialize_plugin, download_dir, file, enabled_plugins, False)
+                            if k.endswith(".exz"):
+                                enabled_plugins.append(k.replace('.exz', '.py'))
+                            else:
+                                enabled_plugins.append("%s.py" % k)
+                        else:
+                            if k.endswith(".exz"):
+                                avail_plugins.append(k.replace('.exz', '.py'))
+                            else:
+                                avail_plugins.append("%s.py" % k)
+
+                    gobject.idle_add(self.manager.initialize_plugin, download_dir, file, 
+                        enabled_plugins, False, avail_plugins)
                     files.append(file)
                 except Exception, e:
                     self.model.set_value(iter, 5, False)
@@ -354,7 +365,7 @@ class PluginManager(object):
         if plugin.PLUGIN_ENABLED:
             try:
                 if not plugin.initialize():
-                    PLUGIN_ENABLED = False
+                    plugin.PLUGIN_ENABLED = False
                     print "Error initializing plugin"
                     model[path][2] = False
             except xl.plugins.PluginInitException, e:
@@ -387,7 +398,7 @@ class PluginManager(object):
             self.manager.loaded.remove(plugin.PLUGIN_NAME)
 
             try:
-                del sys.modules[re.sub(r'\.pyc?$', '', plugin.FILE_NAME)]
+                del sys.modules[re.sub(r'\.py[co]?$', '', plugin.FILE_NAME)]
 
                 filename = xl.path.get_config('plugins', plugin.FILE_NAME)
                 if hasattr(plugin, '_IS_EXZ') and plugin._IS_EXZ:

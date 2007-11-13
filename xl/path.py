@@ -16,6 +16,7 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 import os
+from xl import logger
 
 home = os.path.expanduser(u'~')
 _configdir = os.path.join(home, '.exaile')
@@ -60,10 +61,8 @@ def get_cache(*path_elems):
 
 def get_config(*path_elems):
     if path_elems[0] == 'cache':
-        logger.log("WARNING: get_config called for 'cache', "
+        logger.log_stack("WARNING: get_config called for 'cache', "
             "use get_cache instead")
-        import traceback
-        traceback.print_stack()
     return os.path.join(_configdir, *path_elems)
 
 def get_data(*path_elems):

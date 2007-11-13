@@ -770,9 +770,11 @@ class Preferences(object):
         """
             Connects to last.fm if the password field isn't empty
         """
-        if not widget.get_text(): return True
-        user = xml.get_widget('prefs_lastfm_user').get_text()
+        # The audioscrobbler module can handle unicode or UTF-8 str;
+        # no need to decode.
         password = widget.get_text()
+        if not password: return True
+        user = xml.get_widget('prefs_lastfm_user').get_text()
 
         thread.start_new_thread(audioscrobbler.get_scrobbler_session,
             (self.exaile, user, password, True))

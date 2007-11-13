@@ -24,7 +24,7 @@ from gettext import gettext as _
 import gtk
 
 PLUGIN_NAME = _("Python Console")
-PLUGIN_VERSION = '0.1.1'
+PLUGIN_VERSION = '0.1.2'
 PLUGIN_AUTHORS = ["Johannes Sasongko <sasongko@gmail.com>"]
 PLUGIN_DESCRIPTION = _(r"""Provides a Python console that can be used to
 manipulate Exaile.""")
@@ -78,20 +78,22 @@ class PyConsole(gtk.Window):
         """
             Executes some Python code.
         """
+        stdout = sys.stdout
         try:
             pycode = compile(code, '<console>', 'single')
-            stdout = sys.stdout
             sys.stdout = self.buffer
             exec pycode in self.dict
+        except:
+            sys.stdout = stdout
+            exc = traceback.format_exception(*sys.exc_info())
+            del exc[1] # Remove our function.
+            result = ''.join(exc)
+        else:
             sys.stdout = stdout
             result = self.buffer.getvalue()
             # Can't simply close and recreate later because help() stores and
             # reuses stdout.
             self.buffer.truncate(0) 
-        except:
-            exc = traceback.format_exception(*sys.exc_info())
-            del exc[1] # Remove our function.
-            result = ''.join(exc)
         result = '>>> %s\n%s' % (code, result)
         self.text_buffer.insert(self.text_buffer.get_end_iter(), result)
         # Can't use iter, won't scroll correctly.

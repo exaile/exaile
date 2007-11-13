@@ -79,8 +79,8 @@ class TablatureTab(gtk.VBox):
         self.title = track.title.replace(" ", "_").lower()
         self.url = "http://www.fretplay.com/tabs/%s/%s/%s-tab.shtml" % \
             (self.letter, self.artist, self.title)
-        self.cache_file = xl.path.get_config('cache',
-            'tablature_%s.tablature' % md5.new(self.url).hexdigest())
+        self.cache_file = xl.path.get_cache('tablature_%s.tablature' %
+            md5.new(self.url).hexdigest())
         if os.path.isfile(self.cache_file):
             h = open(self.cache_file, 'r')
             self.fetched = True

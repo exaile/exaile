@@ -242,7 +242,7 @@ class ExaileWindow(gobject.GObject):
             self.xml.get_widget('main_cover_frame').hide()
 
         self.stop_track_button.set_sensitive(False)
-        self.pmanager = pluginmanager.Manager(self) 
+        self.pmanager = pluginmanager.Manager(self, self.update_plugin) 
         enabled_plugins = []
         for k, v in self.settings.get_plugins().iteritems():
             if v:

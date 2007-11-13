@@ -348,7 +348,7 @@ class Config:
 
         for plug in plug_sections:
             plugin = plug.split('/')[1]
-            plugins[plugin] = self.get_boolean("enabled", False, plugin=plugin)
+            plugins[plugin] = self.get_boolean("enabled", True, plugin=plugin)
 
         return plugins
     

@@ -217,8 +217,33 @@ class TracksListCtrl(gtk.VBox):
                     counter = 0
                 else:
                     counter += 1
-            if not song in self.playlist_songs:
+                
+            # For some reason songs not in the database will always
+            # show up as not in playlist_songs even if it is already there.
+            # So instead of just doing if song in self.playlist_songs, 
+            # we compare track.loc to song.loc.  If that's there, we assign
+            # song to the already existing track, otherwise, we append the
+            # new song like normal.
+            found_track = False
+            for track in self.playlist_songs:                
+                if track.loc == song.loc:
+                    song = track
+                    found_track = True
+            if not found_track:
                 self.playlist_songs.append(song)
+
+        # Now that we've inserted new rows for the dragged tracks
+        # we need to delete the original rows and track entries.
+        # It's also necessary to run update_songs() first to make sure
+        # self.songs takes the added rows into account.
+        self.update_songs()
+        if context.action == gtk.gdk.ACTION_MOVE:
+            for track in self.drag_delete:
+                index = self.songs.index(track)
+                iter = self.model.get_iter((index,))
+                self.model.remove(iter)
+                self.songs.remove(track)
+            self.drag_delete = []
 
         if context.action == gtk.gdk.ACTION_MOVE:
             context.finish(True, True, etime)
@@ -355,13 +380,11 @@ class TracksListCtrl(gtk.VBox):
                 loc.append(urllib.quote(str(song.loc)))
             delete.append(song)
             
-        if context.action == gtk.gdk.ACTION_MOVE:
-            for song in delete:
-                index = self.songs.index(song)
-                iter = self.model.get_iter((index,))
-                self.model.remove(iter)
-                self.songs.remove(song)
-
+        # We can't remove the tracks in delete until the drag operation is
+        # complete, because doing so causes strange dragging behavior.
+        # So we just make the list available to the drag_data_recieved 
+        # function to make use of.
+        self.drag_delete = delete
         selection.set_uris(loc)
 
     def get_iter(self, song):

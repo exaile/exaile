@@ -23,13 +23,14 @@ class Manager(object):
         Plugin manager. 
         Manages loading plugins, and sending events to them
     """
-    def __init__(self, app):
+    def __init__(self, app, update_cb=None):
         """
             Initializes the manager
         """
         self.plugins = []
         self.app = app
         self.loaded = []
+        self.update_cb = None
 
     def load_plugins(self, dir, enabled):
         """
@@ -57,7 +58,8 @@ class Manager(object):
             
         return plugin
 
-    def initialize_plugin(self, dir, file, enabled=None, upgrading=False):
+    def initialize_plugin(self, dir, file, enabled=None, upgrading=False,
+        avail_plugins=None):
         try:
             if file.endswith('.exz'):
                 plugin = self.import_zip(dir, file)
@@ -66,7 +68,7 @@ class Manager(object):
                 oldpath = sys.path
                 try:
                     sys.path.insert(0, dir)
-                    plugin = __import__(re.sub('\.pyc?$', '', file))
+                    plugin = __import__(re.sub('\.py[co]?$', '', file))
                 finally:
                     sys.path = oldpath
 
@@ -97,9 +99,24 @@ class Manager(object):
             plugin.APP = self.app
            
             file = file.replace('.exz', '.py')
+
             if (enabled is None or file in enabled) or plugin.PLUGIN_ENABLED:
                 if plugin.initialize():
                     plugin.PLUGIN_ENABLED = True
+
+            # if this is a new plugin from a download (avail_plugins is only
+            # set while downloading new plugins), check to see if it's
+            # explicitly disabled in the settings.ini file.  If it's not
+            # explicitly disabled, enable it.  We make the assumption that if
+            # a user is downloading a plugin from the plugin manager, they
+            # probably want it enabled by default.  Plugins manually put in
+            # ~/.exaile/plugins will have to be enabled specifically
+            elif (avail_plugins is not
+                None and file not in avail_plugins):
+                if plugin.initialize():
+                    plugin.PLUGIN_ENABLED = True
+                    if self.update_cb: self.update_cb(plugin)
+
             self.plugins.append(plugin)
         except xl.plugins.PluginInitException, e:
             self.plugins.append(plugin)

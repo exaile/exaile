@@ -20,7 +20,7 @@ pygtk.require('2.0')
 import gtk, gobject, os, signal, sys, thread, pango, gtk.glade
 import xl.dbusinterface, time
 from gettext import gettext as _
-from xl import library, media, audioscrobbler, equalizer, burn, common
+from xl import library, logger, media, audioscrobbler, equalizer, burn, common
 from xl import xlmisc, config, db, covers, player, prefs
 from xl import playlist as playlistmanager
 from xl.plugins import manager as pluginmanager, gui as plugingui
@@ -142,7 +142,7 @@ class ExaileWindow(gobject.GObject):
         self.dir_queue = []
         self.scan_timer = None
         self.seeking = False
-        self.debug_dialog = xlmisc.DebugDialog(self)
+        self.debug_dialog = logger.init(self, xl.path.get_config('exaile.log'))
         self.col_menus = dict()
         self.setup_col_menus('track', trackslist.TracksListCtrl.col_map)
         self.plugins_menu = xlmisc.Menu()
@@ -691,8 +691,8 @@ class ExaileWindow(gobject.GObject):
         """
             Shows the debug dialog if it has been initialized
         """
-        if xlmisc.DebugDialog.debug:
-            xlmisc.DebugDialog.debug.dialog.show()
+        if logger.gui:
+            logger.gui.dialog.show()
 
     def live_search(self, *e):
         """

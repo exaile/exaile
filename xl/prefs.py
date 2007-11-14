@@ -188,8 +188,11 @@ class ListPrefsItem(PrefsItem):
 
     def apply(self):
         if self.done and not self.do_done(): return False
-        text = unicode(self.widget.get_text(), 'utf-8')
-        settings.set_list(self.name, shlex.split(text))
+        # shlex is broken with unicode, so we feed it UTF-8 and encode
+        # afterwards.
+        values = shlex.split(self.widget.get_text())
+        values = [unicode(value, 'utf-8') for value in values]
+        settings.set_list(self.name, values)
         return True
 
 class SpinPrefsItem(PrefsItem):

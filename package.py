@@ -32,7 +32,7 @@ os.chdir('../build')
 os.system('cp -rf ../%s exaile_%s' % (branch, version))
 os.chdir('exaile_%s' % version)
 
-for m in ('.pyc', '.pyo', '.svn'):
+for m in ('.pyc', '.pyo', '.bzr'):
     os.system('find . -name %s -exec rm -rf {} \;' % m)
 
 os.system('debuild -i -S -sa')

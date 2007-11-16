@@ -90,7 +90,7 @@ clean:
 	rm -f exaile.glade.h messages.pot plugins/plugins.glade.h
 
 tarball: clean
-	tar --exclude .svn -czvf ../exaile.tar.gz ../exaile
+	tar --exclude .bzr -czvf ../exaile.tar.gz ../exaile
 
 uninstall:
 	rm -rf $(DESTDIR)$(PREFIX)/share/exaile

@@ -172,6 +172,7 @@ class TracksListCtrl(gtk.VBox):
             if os.path.isdir(l.replace("file://", "")):
                 # in this case, it is a folder
                 for root, dirs, files in os.walk(l.replace("file://", '')):
+                    files.sort()
                     for file in files:
                         (stuff, ext) = os.path.splitext(file)
                         if ext.lower() in media.SUPPORTED_MEDIA:

@@ -761,12 +761,17 @@ class PopulateThread(threading.Thread):
             if tr and tr.blacklisted: bl = 1
 
         modified = os.stat(loc).st_mtime
+        time_added=''
         if not tr or tr.modified != modified:
             if not tr: new = True
-            else: new = False
+            else: 
+               new = False
+               time_added=tr.time_added
             tr = media.read_from_path(loc)
             tr.blacklisted = bl
             if not tr: return
+            if time_added:
+               tr.time_added=time_added
             tr.modified = modified
             save_track_to_db(db, tr, new)
 

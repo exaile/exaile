@@ -180,7 +180,7 @@ class TracksListCtrl(gtk.VBox):
         drop_info = tv.get_dest_row_at_pos(x, y)
         if drop_info:
             path, position = drop_info
-            iter = model.get_iter(path)
+            iter = self.model.get_iter(path)
             if (position == gtk.TREE_VIEW_DROP_BEFORE or
                 position == gtk.TREE_VIEW_DROP_INTO_OR_BEFORE):
                 first = False
@@ -199,7 +199,22 @@ class TracksListCtrl(gtk.VBox):
                     # check plugins
                     song = self.get_plugin_track(l)
 
-            if not song or song in self.songs: continue
+            if not song: continue
+            if song in self.songs:
+                # If the song is in drag_delete, we should remove it now
+                # so it gets added properly in its new position.  Otherwise,
+                # we are adding a track to the playlist that is already there,
+                # and should do nothing.
+                if song in self.drag_delete:
+                    index = self.songs.index(song)
+                    itera = self.model.get_iter((index,))
+                    self.model.remove(itera)
+                    self.songs.remove(song)
+                    self.drag_delete.remove(song)
+                    self.update_songs()
+                else:
+                    continue
+
 
             if not drop_info:
                 # if there's no drop info, just add it to the end
@@ -218,9 +233,12 @@ class TracksListCtrl(gtk.VBox):
                 else:
                     counter += 1
                 
+                # Update here in case multiple tracks are being dragged.
+                self.update_songs()
+                
             # For some reason songs not in the database will always
             # show up as not in playlist_songs even if it is already there.
-            # So instead of just doing if song in self.playlist_songs, 
+            # So instead of just appending if song is in self.playlist_songs, 
             # we compare track.loc to song.loc.  If that's there, we assign
             # song to the already existing track, otherwise, we append the
             # new song like normal.
@@ -234,9 +252,6 @@ class TracksListCtrl(gtk.VBox):
 
         # Now that we've inserted new rows for the dragged tracks
         # we need to delete the original rows and track entries.
-        # It's also necessary to run update_songs() first to make sure
-        # self.songs takes the added rows into account.
-        self.update_songs()
         if context.action == gtk.gdk.ACTION_MOVE:
             for track in self.drag_delete:
                 index = self.songs.index(track)

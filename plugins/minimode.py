@@ -15,14 +15,14 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-import gtk, gobject, pango
+import gtk, gobject, pango, gst
 from gettext import gettext as _
 from xl import xlmisc
 import xl.plugins as plugins
 
 PLUGIN_NAME = _("Mini Mode")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = '0.4.7'
+PLUGIN_VERSION = '0.4.8'
 PLUGIN_DESCRIPTION = _(r"""Super groovy mini mode window!\n\nMini Mode is activated
 by pressing CTRL+ALT+M\n\nYou can move the window in most cases by
 ALT+drag""")
@@ -150,16 +150,30 @@ class MiniWindow(gtk.Window):
             self.title_box.connect('changed', self.change_track)
         bbox.pack_start(self.title_box, False)
 
-        self.seeker = gtk.HScale(gtk.Adjustment(0, 0, 100, 1, 5, 0))
-        self.seeker.set_draw_value(False)
-        self.seeker.set_size_request(150, -1)
-        self.seeker_id = self.seeker.connect('change-value', self.seek)
-        bbox.pack_start(self.seeker, False)
+        self.progressbar = gtk.ProgressBar()
+        self.progressbar.set_fraction(0)
+        self.progressbar.set_size_request(200, -1)
+        self.progressbar.set_text(APP.new_progressbar.get_text())
+        self.progressbar.props.events = gtk.gdk.BUTTON_MOTION_MASK | \
+          gtk.gdk.BUTTON_PRESS_MASK | \
+          gtk.gdk.BUTTON_RELEASE_MASK
+        self.progressbar.connect('button-press-event', self.seek_begin)
+        self.progressbar.connect('button-release-event', self.seek_end)
+        self.progressbar.connect('motion-notify-event', self.seek_motion_notify)
 
-        self.pos_label = gtk.Label("0:00")
-        self.pos_label.set_size_request(40, -1)
-        self.pos_label.set_alignment(0.0, .5)
-        bbox.pack_start(self.pos_label)
+        self.progressbar.set_size_request(-1, 24)
+
+        pbox = gtk.VBox()
+        label_sizes = 2
+        l = gtk.Label()
+        l.set_size_request(-1, label_sizes)
+        pbox.pack_start(l, False, False)
+        pbox.pack_start(self.progressbar, True, True)
+        l = gtk.Label()
+        l.set_size_request(-1, label_sizes)
+        pbox.pack_start(l, False, False)
+
+        bbox.pack_start(pbox, False)
 
         mm = self.create_button('gtk-fullscreen', toggle_minimode, _('Restore'
             ' Regular View'))
@@ -172,27 +186,68 @@ class MiniWindow(gtk.Window):
         self.connect('configure-event', self.on_move)
         self.first = False
 
-    def seek(self, range, scroll, value): 
+    def seek_begin(self, widget, event):
         """
-            Seeks in the current track
+            Starts when seek drag begins
         """
-
-        if self.seek_id:
-            gobject.source_remove(self.seek_id)
-            self.seeking = False
-            self.seek_id = None
-
-        self.seek_id = gobject.timeout_add(250, self._seek_cb, range)
+        if not APP.player.current or \
+            APP.player.current.type == 'stream': return
         self.seeking = True
 
-    def _seek_cb(self, range):
+    def seek_motion_notify(self, widget, event):
+        """
+            Simulates dragging on the new progressbar widget
+        """
+        if not APP.player.current or APP.player.current.type == \
+            'stream': return
+        mouse_x, mouse_y = event.get_coords()
+        progress_loc = self.progressbar.get_allocation()
+
+        value = mouse_x / progress_loc.width
+        if value < 0: value = 0
+        if value > 1: value = 1
+        self.progressbar.set_fraction(value)
+        track = APP.player.current
+
+        duration = track.duration
+        if duration == -1:
+            real = 0
+        else:
+            real = value * duration
+        seconds = real
+
+        remaining_seconds = duration - seconds
+        self.progressbar.set_text("%d:%02d / %d:%02d" % ((seconds / 60), 
+            (seconds % 60), (remaining_seconds / 60), (remaining_seconds % 60))) 
+
+    def seek_end(self, widget, event):
+        """
+            Resets seeking flag, actually seeks to the requested location
+        """
+        mouse_x, mouse_y = event.get_coords()
+        progress_loc = self.progressbar.get_allocation()
+
+        value = mouse_x / progress_loc.width
+        if value < 0: value = 0
+        if value > 1: value = 1
+
+        if not APP.player.current or \
+            APP.player.current.type == 'stream':
+            self.progressbar.set_fraction(0)
+            return
+        duration = APP.player.current.duration * gst.SECOND
+        if duration == -1:
+            real = 0
+        else:
+            real = value * duration / 100
+        seconds = real / gst.SECOND
 
         duration = APP.player.current.duration
-        real = long(range.get_value() * duration / 100)
+        real = float(value * duration)
         APP.player.seek(real)
+        self.seeking = False
         APP.player.current.submitted = True
         APP.emit('seek', real)
-        self.seeking = False
 
     def change_track(self, combo):
         """
@@ -201,7 +256,7 @@ class MiniWindow(gtk.Window):
         iter = self.title_box.get_active_iter()
         if iter:
             song = self.model.get_value(iter, 1)
-            APP.stop()
+            APP.player.stop()
             APP.player.play_track(song)
 
     def setup_title_box(self):
@@ -368,12 +423,8 @@ class MiniWindow(gtk.Window):
         self.set_title(APP.window.get_title())
 
     def timeout_cb(self):
-        text = APP.new_progressbar.get_text()
-        b = text.find(' /')
-        if b > -1:
-            text = text[:b]
-        self.pos_label.set_label(text)
-        self.seeker.set_value(APP.new_progressbar.get_fraction() * 100)
+        self.progressbar.set_text(APP.new_progressbar.get_text())
+        self.progressbar.set_fraction(APP.new_progressbar.get_fraction())
             
         return True
 

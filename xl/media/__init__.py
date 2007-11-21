@@ -340,8 +340,11 @@ class Track(gobject.GObject):
         """
             Sets the encoding, translating info from the previous one
         """
-        for tag in VALID_TAGS:
-            self.tags[tag] = unicode(self.tags[tag].encode(self.encoding), value)
+        for tag in xlmisc.VALID_TAGS:
+            try:
+                self.tags[tag] = unicode(self.tags[tag].encode(self.encoding), value)
+            except AttributeError:
+                pass
 
         self._encoding = value
 

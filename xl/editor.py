@@ -111,6 +111,7 @@ class TrackGroup(object):
         errors = []
         to_add = common.ldict()
         for track in self.tracks:
+            track.rating, "woot woot"
             for row in model:
                 tag = row[TAGNAME]
                 if row[ERROR]:

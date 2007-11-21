@@ -59,6 +59,11 @@ TAG_STRINGS = {
 
 TAGNAME, VALUE, OLDVALUE, ERROR, ADDED, REMOVED, EDITED = range(0,7)
 
+# these items are read from the database, so they will need to be copied over
+# when creating the songs list (see FIXME below)
+DB_COPY_ITEMS = ('modified', '_rating', 'system_rating', 'blacklisted', 'time_added',
+    'encoding', 'playcount')
+
 class TrackEditor(object):
     """
         A track properties editor
@@ -78,8 +83,14 @@ class TrackEditor(object):
 
         # FIXME: most of the metadata isn't stored in the database
         # so we have to load it explicitly from disk each time
-        self.songs = [media.read_from_path(song.io_loc) 
-                                    for song in tracks.get_selected_tracks()]
+        self.songs = []
+        
+        for song in tracks.get_selected_tracks():
+            track = media.read_from_path(song.io_loc)
+            for item in DB_COPY_ITEMS:
+                if hasattr(song, item):
+                    setattr(track, item, getattr(song, item))
+            self.songs.append(track)
         
         self.count = len(self.songs)
         self.unsaved_tags = {}

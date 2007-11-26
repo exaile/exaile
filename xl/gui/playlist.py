@@ -49,6 +49,15 @@ def create_rating_images(caller):
             caller.rating_images.insert(0, this_image)
         caller.old_r_w = caller.rating_width
 
+class Column(object):
+    __slots__ = ['id', 'display', 'size']
+    def __init__(self, id, display, size):
+        self.id = id
+        self.display = display
+        self.size = size
+    def __repr__(self):
+        return 'Column(%s, %s, %s)' % (`self.id`, `self.display`, `self.size`)
+
 class TracksListCtrl(gtk.VBox):
     """
         Represents the track/playlist table
@@ -58,41 +67,29 @@ class TracksListCtrl(gtk.VBox):
     old_r_w = -1
     row_height = 16
     
-    default_columns = ('#', _('Title'), _('Album'), _('Artist'), _('Length'))
-    col_items = ["#",
-        _("Title"), _("Artist"), _("Album"), _("Length"), _("Disc"),
-        _("Rating"), _("Year"), _("Genre"), _("Bitrate"), _("Location"),
-        _("Filename"), _("Playcount")]
-    col_map = {
-        '#': 'track',
-        _('Title'): 'title',
-        _('Artist'): 'artist',
-        _('Album'): 'album',
-        _('Length'): 'length',
-        _('Disc'): 'disc_id',
-        _('Rating'): 'rating',
-        _('Year'): 'year',
-        _('Genre'): 'genre',
-        _('Bitrate'): 'bitrate',
-        _('Location'): 'io_loc',
-        _('Filename'): 'filename',
-        _('Playcount'): 'playcount'
-        }
-    size_map = {
-        '#': 30,
-        _('Title'): 200,
-        _('Artist'): 150,
-        _('Album'): 150,
-        _('Length'): 50,
-        _('Disc'): 30,
-        _('Rating'): 80,
-        _('Year'): 50,
-        _('Genre'): 100,
-        _('Bitrate'): 30,
-        _('Location'): 100,
-        _('Filename'): 50,
-        _('Playcount'): 50
-    }
+    COLUMNS = [
+        Column('track', _('#'), 30),
+        Column('title', _('Title'), 200),
+        Column('artist', _('Artist'), 150),
+        Column('album', _('Album'), 150),
+        Column('length', _('Length'), 50),
+        Column('disc_id', _('Disc'), 30),
+        Column('rating', _('Rating'), 80),
+        Column('year', _('Year'), 50),
+        Column('genre', _('Genre'), 100),
+        Column('bitrate', _('Bitrate'), 30),
+        Column('io_loc', _('Location'), 200),
+        Column('filename', _('Filename'), 200),
+        Column('playcount', _('Playcount'), 50),
+    ]
+
+    column_by_id = {}
+    column_by_display = {}
+    for col in COLUMNS:
+        column_by_id[col.id] = col
+        column_by_display[col.display] = col
+
+    default_column_ids = ['track', 'title', 'album', 'artist', 'length']
 
     prep = "track"
     type = 'track'
@@ -481,33 +478,39 @@ class TracksListCtrl(gtk.VBox):
 
         self._col_count = 0
         self._length_id = -1
-        cols = self.exaile.settings.get_list("ui/col_order", self.col_items)
-        for col in self.col_items:
-            if not col in cols:
-                cols.append(col)
 
-        self.append_map = [self.col_map[col] for col in cols if col]
+        col_ids = self.exaile.settings.get_list("ui/col_order", None)
+        if col_ids:
+            cols = []
+            for col_id in col_ids[:]:
+                col = self.column_by_id.get(col_id)
+                if col: # Good entries only
+                    cols.append(col)
+                else:
+                    col_ids.remove(col_id)
+            for col in self.COLUMNS:
+                if not col in cols:
+                    cols.append(col)
+                    col_ids.append(col.id)
+        else:
+            cols = self.COLUMNS[:]
+            col_ids = [col.id for col in cols]
 
-        self.setup_model(self.append_map)
+        self.append_map = col_ids
+        self.setup_model(col_ids)
 
         count = 3
         first_col = True
-        columns_settings = self.exaile.settings.get_list("ui/%s_columns" % (self.prep,))
+        columns_settings = self.exaile.settings.get_list("ui/%s_columns" % self.prep)
 
-        for name in cols:
-            if not self.size_map.has_key(name): continue
+        for col_struct in cols:
             # get cell renderer
             cellr = gtk.CellRendererText()
-            if name == _("Rating"):
+            if col_struct.id == 'rating':
                 cellr = gtk.CellRendererPixbuf()
                 cellr.set_property("follow-state", False)
-            mapval = self.col_map
-            
-            show = False
-            if name in columns_settings:
-                show = True
 
-            if show:
+            if col_struct.id in columns_settings:
                 if first_col:
                     first_col = False
                     pb = gtk.CellRendererPixbuf()
@@ -515,7 +518,7 @@ class TracksListCtrl(gtk.VBox):
                     pb.set_property('xalign', 0.0)
                     stop_pb = gtk.CellRendererPixbuf()
                     stop_pb.set_fixed_size(12, 12)
-                    col = gtk.TreeViewColumn(_(name))
+                    col = gtk.TreeViewColumn(col_struct.display)
                     col.pack_start(pb, False)
                     col.pack_start(stop_pb, False)
                     col.pack_start(cellr, True)
@@ -525,23 +528,23 @@ class TracksListCtrl(gtk.VBox):
                     col.set_cell_data_func(pb, self.icon_data_func)
                     col.set_cell_data_func(stop_pb, self.stop_icon_data_func)
                 else:
-                    col = gtk.TreeViewColumn(_(name), cellr, text=count)
+                    col = gtk.TreeViewColumn(col_struct.display, cellr, text=count)
 
-                if name == _("Length"):
+                if col_struct.id == 'length':
                     col.set_cell_data_func(cellr, self.length_data_func)
-                elif name == "#":
+                elif col_struct.id == 'track':
                     col.set_cell_data_func(cellr, self.track_data_func)
-                elif name == _('Disc'):
+                elif col_struct.id == 'disc_id':
                     col.set_cell_data_func(cellr, self.disc_data_func)
-                elif name == _("Rating"):
+                elif col_struct.id == 'rating':
                     col.set_attributes(cellr, pixbuf=1)
                     col.set_cell_data_func(cellr, self.rating_data_func)
                 else:
                     col.set_cell_data_func(cellr, self.default_data_func)
 
-                setting_name = "ui/%scol_width_%s" % (self.prep, name)
+                setting_name = "ui/%scol_width_%s" % (self.prep, col_struct.id)
                 width = self.exaile.settings.get_int(setting_name, 
-                    self.size_map[name])
+                    col_struct.size)
                 col.set_fixed_width(width)
 
                 resizable = self.exaile.settings.get_boolean('ui/resizable_cols',
@@ -556,7 +559,7 @@ class TracksListCtrl(gtk.VBox):
                     col.set_sort_indicator(False)
 
                 if not resizable:
-                    if _(name) in (_("Title"), _("Artist"), _("Album"), _("Location")):
+                    if col_struct.id in ('title', 'artist', 'album', 'io_loc'):
                         col.set_expand(True)
                         col.set_fixed_width(1)
                         col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
@@ -567,10 +570,10 @@ class TracksListCtrl(gtk.VBox):
                     col.set_resizable(True)
                     col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
 
-                if _(name) == '#' or _(name) == _('Playcount'):
+                if col_struct.id in ('track', 'playcount'):
                     cellr.set_property('xalign', 1.0)
 
-                col.set_widget(gtk.Label(_(name)))
+                col.set_widget(gtk.Label(col_struct.display))
                 col.get_widget().show()
                 self.list.append_column(col)
                 col.get_widget().get_ancestor(gtk.Button).connect('button_press_event', self.press_header)
@@ -594,7 +597,7 @@ class TracksListCtrl(gtk.VBox):
         self.list.disconnect(self.changed_id)
         cols = []
         for col in self.list.get_columns():
-            cols.append(col.get_title())
+            cols.append(self.column_by_display[col.get_title()].id)
             self.list.remove_column(col)
 
         self.exaile.settings['ui/col_order'] = cols
@@ -604,9 +607,10 @@ class TracksListCtrl(gtk.VBox):
         """
             Called when the user resizes a column
         """
-        name = "ui/%scol_width_%s" % (self.prep, col.get_title())
+        col_struct = self.column_by_display[col.get_title()]
+        name = "ui/%scol_width_%s" % (self.prep, col_struct.id)
         self.exaile.settings[name] = col.get_width()
-        if col.get_title() == _("Rating"):
+        if col_struct.id == 'rating':
             self.rating_width = min(col.get_width(), self.row_height * 4)
             create_rating_images(self)
 
@@ -725,7 +729,7 @@ class TracksListCtrl(gtk.VBox):
         title = column.get_title()
         count = 0
         for col in self.list.get_columns():
-            if column.get_title() == col.get_title():
+            if title == col.get_title():
                 order = column.get_sort_order()
                 if (not column.get_sort_indicator() or 
                     order == gtk.SORT_DESCENDING):
@@ -778,7 +782,7 @@ class TracksListCtrl(gtk.VBox):
         """
         for col in self.list.get_columns():
             if col.get_sort_indicator():
-                return (self.col_map[col.get_title()], 
+                return (self.column_by_display[col.get_title()].id,
                     col.get_sort_order() == gtk.SORT_DESCENDING)
         return 'album', False
 

@@ -144,7 +144,7 @@ class ExaileWindow(gobject.GObject):
         self.seeking = False
         self.debug_dialog = logger.init(self, xl.path.get_config('exaile.log'))
         self.col_menus = dict()
-        self.setup_col_menus('track', trackslist.TracksListCtrl.col_map)
+        self.setup_col_menus('track', trackslist.TracksListCtrl.COLUMNS)
         self.plugins_menu = xlmisc.Menu()
         self.rewind_track = 0
         self.player = player.ExailePlayer(self)
@@ -379,7 +379,7 @@ class ExaileWindow(gobject.GObject):
         self.window.resize(width, height)
         self.window.move(x, y)
 
-    def setup_col_menus(self, pref, map):
+    def setup_col_menus(self, pref, cols):
         """
             Fetches the view column menus from the glade xml definition
         """
@@ -395,24 +395,19 @@ class ExaileWindow(gobject.GObject):
         # setup up default shown columns
         if not self.settings.get_boolean('ui/trackslist_defaults_set', False):
             self.settings.set_boolean('ui/trackslist_defaults_set', True)
-            columns = []
-            for col in trackslist.TracksListCtrl.default_columns:
-                columns.append(col)
-            self.settings.set_list('ui/%s_columns' % (pref,), columns)
+            self.settings.set_list('ui/%s_columns' % pref,
+                trackslist.TracksListCtrl.default_column_ids)
 
-        self.col_menus[pref] = dict()
-        column_settings = self.settings.get_list('ui/%s_columns' % (pref,))
+        self.col_menus[pref] = {}
+        column_ids = frozenset(self.settings.get_list('ui/%s_columns' % pref))
 
-        for k, v in map.iteritems():
-            self.col_menus[v] = self.xml.get_widget('%s_%s_col' % (pref,
-                v))
-            show = False
-            if k in column_settings:
-                show = True
+        for col_struct in cols:
+            self.col_menus[col_struct.id] = menu = self.xml.get_widget(
+                '%s_%s_col' % (pref, col_struct.id))
 
-            self.col_menus[v].set_active(show)
-            self.col_menus[v].connect('activate', 
-                self.change_column_settings, {'key': 'ui/%s_columns' % (pref,), 'value': k})
+            menu.set_active(col_struct.id in column_ids)
+            menu.connect('activate', self.change_column_settings,
+                ('ui/%s_columns' % pref, col_struct))
 
     def activate_cols_resizable(self, widget, event=None):
         """
@@ -430,17 +425,19 @@ class ExaileWindow(gobject.GObject):
         """
             Changes column view settings
         """
-        columns = self.settings.get_list(data['key'])
-        columns = list(columns)
+        pref, col_struct = data
+        id = col_struct.id
+
+        column_ids = self.settings.get_list(pref)
         if item.get_active():
-            if data['value'] not in columns:
-                xlmisc.log("adding %s column to %s" % (data['value'], data['key']))
-                columns.append(data['value'])
+            if id not in column_ids:
+                xlmisc.log("adding %s column to %s" % (id, pref))
+                column_ids.append(id)
         else:
-            if data['value'] in columns:
-                xlmisc.log("removing %s column from %s" % (data['value'], data['key']))
-                columns.remove(data['value'])
-        self.settings.set_list(data['key'], columns)
+            if col_struct.id in column_ids:
+                xlmisc.log("removing %s column from %s" % (id, pref))
+                column_ids.remove(id)
+        self.settings.set_list(pref, column_ids)
 
         for i in range(0, self.playlists_nb.get_n_pages()):
             page = self.playlists_nb.get_nth_page(i)

@@ -226,8 +226,12 @@ class ExaileWindow(gobject.GObject):
         gobject.idle_add(audioscrobbler.load_cache)
         
         self.playlists_nb.connect('switch-page', self.page_changed)
-        self.playlists_nb.connect('page-added', self.sync_playlists_tabbar)
-        self.playlists_nb.connect('page-removed', self.sync_playlists_tabbar)
+        try:
+            self.playlists_nb.connect('page-added', self.sync_playlists_tabbar)
+            self.playlists_nb.connect('page-removed', self.sync_playlists_tabbar)
+        except TypeError:
+            # Pre-GTK+ 2.10
+            xlmisc.log("Using old GtkNotebook")
         self.playlists_nb.remove_page(0)
 
         self.timer.start()

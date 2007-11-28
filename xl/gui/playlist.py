@@ -153,7 +153,6 @@ class TracksListCtrl(gtk.VBox):
             self.list.targets,
             gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
 
-        model = tv.get_model()
         loc = list(selection.get_uris())
         counter = 0
  
@@ -221,16 +220,24 @@ class TracksListCtrl(gtk.VBox):
                 if not first:
                     first = True
                     ar = self.get_ar(song)
-                    iter = self.model.insert_before(iter, ar)
+                    if self.model.iter_is_valid(iter):
+                        iter = self.model.insert_before(iter, ar)
+                    else:
+                        iter = self.model.append(ar)
                 else:
                     ar = self.get_ar(song)
-                    iter = self.model.insert_after(iter, ar)
+                    path = self.model.get_path(iter)
+                    if self.model.iter_is_valid(iter):
+                        iter = self.model.insert_after(iter, ar)
+                    else:
+                        iter = self.model.append(ar)
+
                 if counter >= 20:
                     xlmisc.finish()
                     counter = 0
                 else:
                     counter += 1
-                
+                    
                 # Update here in case multiple tracks are being dragged.
                 self.update_songs()
                 

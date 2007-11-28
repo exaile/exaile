@@ -494,7 +494,7 @@ class CollectionPanel(object):
 
         orders = (
             ('artist', 'album', 'track', 'title'),
-            ('album', 'track', 'title'),
+            ('album', 'artist', 'track', 'title'),
             ('genre', 'artist', 'album', 'track', 'title'),
             ('genre', 'album', 'artist', 'track', 'title'),
             ('year', 'artist', 'album', 'track', 'title'),

@@ -424,6 +424,9 @@ class CollectionPanel(object):
         if object is None: return
         field = model.get_value(iter, 2)
 
+        if field == 'nofield':
+            cell.set_property('text', object)
+            return
         if hasattr(object, field):
             info = getattr(object, field)
             if not info: info = _('Unknown')

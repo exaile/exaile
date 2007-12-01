@@ -142,6 +142,12 @@ def main():
 
 if __name__ == "__main__": 
     try:
+        # enable psyco if available
+        try:
+            import psyco
+            psyco.full()
+        except ImportError:
+            pass # psyco isn't available
         main()
     except SystemExit:
         raise

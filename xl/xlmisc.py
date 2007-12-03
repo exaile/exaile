@@ -20,7 +20,7 @@ This file contains every miscellanious dialog and class that is not over
 their own file
 """
 
-import httplib, os, re, sys, threading, time, traceback, urllib, urlparse
+import urllib2, os, re, sys, threading, time, traceback, urllib, urlparse
 from gettext import gettext as _
 
 import pygtk, locale
@@ -692,16 +692,16 @@ class URLFetcher(threading.Thread):
         """
             Called by thread.start()
         """
-
-        conn = httplib.HTTPConnection(self.server)
-
-        conn.request("GET", self.path)
-        response = conn.getresponse()
-
-        if response.status != 200:
+        try:
+            response = urllib2.urlopen("http://" + self.server + self.path)
+        except urllib2.URLError, e:
             self.notify("Could not load page. "
-                "Error %d: %s" % 
-                (response.status, response.reason))
+                "Error: %s" % e.reason)
+            return
+
+        except urllib2.HTTPError, e:
+            self.notify("Could not load page. "
+                "Error %d" % e.status)
             return
 
         page = response.read()

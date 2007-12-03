@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-import glob, httplib, md5, os, re, threading, time, urllib, urllib2
+import glob, md5, os, re, threading, time, urllib, urllib2
 from gettext import gettext as _
 import gobject, gtk
 import xlmisc, library, common
@@ -108,7 +108,6 @@ class CoverFetcherThread(threading.Thread):
             Actually connects and fetches the covers
         """
         xlmisc.log("cover thread started")
-        conn = httplib.HTTPConnection(get_server(self.locale))
 
         if self._done: return
         try:
@@ -121,22 +120,21 @@ class CoverFetcherThread(threading.Thread):
         except KeyError:
             string = ""
         try:
-            conn.request("GET", string)
-        except urllib2.URLError:
-            pass
-        except:
-            xlmisc.log_exception()
-            pass
-        if self._done: return
-
-        response = conn.getresponse()
-        if response.status != 200:
-            print dir(response)
-            print response.reason
+            request = "http://" + get_server(self.locale) + string
+            response = urllib2.urlopen(request)
+        except urllib2.HTTPError, e:
             print get_server(self.locale), string
-            xlmisc.log("Invalid response received: %s" % response.status)
+            xlmisc.log("Server replied with an error: %s" %e.message )
             gobject.idle_add(self._done_func, [])
             return
+        except urllib2.URLError, e:
+            print "There was an error during connexion:" , e.reason
+            pass
+        except Exception, e:
+            xlmisc.log_exception()
+            gobject.idle_add(self._done_func, [])
+            return
+        if self._done: return
 
         page = response.read()
 
@@ -145,18 +143,16 @@ class CoverFetcherThread(threading.Thread):
             if self._done: return
 
             cover = Cover()
-
-            conn = httplib.HTTPConnection(m.group(1))
+            # m.group(1) == hostname
+            # m.group(2) == filename
+            url = "http://" + m.group(1) + m.group(2)
             try:
-                conn.request("GET", m.group(2))
-            except urllib2.URLError:
-                continue
-            response = conn.getresponse()
-            cover['status'] = response.status
-            if response.status == 200:
+                response = urllib2.urlopen(url)
+                
+                cover['status'] = 200
+
                 data = response.read()
                 if self._done: return
-                conn.close()
                 cover['data'] = data
                 cover['md5'] = md5.new(data).hexdigest()
 
@@ -164,8 +160,11 @@ class CoverFetcherThread(threading.Thread):
                 if len(data) > 1200:
                     covers.append(cover)
                     if not self.fetch_all: break
-
-        conn.close()
+            except urllib2.HTTPError,e:
+                cover['status'] = e.code
+                continue
+            except urllib2.URLError:
+                continue
 
         if len(covers) == 0:
             xlmisc.log("Thread done.... *shrug*, no covers found")

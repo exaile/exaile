@@ -22,9 +22,6 @@ from gettext import gettext as _
 from xl import xlmisc, common, media, library
 from xl.gui import playlist as playlistgui
 import xl.path
-random.seed(time.time())
-
-ASX_REGEX = re.compile(r'href ?= ?([\'"])(.*?)\1', re.DOTALL|re.MULTILINE)
 
 class Player(gobject.GObject):
     """
@@ -93,16 +90,15 @@ class GSTPlayer(Player):
 
         if not self.connections and not self.is_paused() and not \
             uri.find("lastfm://") > -1:
+
             self.connections.append(self.bus.connect('message', self.on_message))
             self.connections.append(self.bus.connect('sync-message::element',
                 self.on_sync_message))
 
             if '://' not in uri: 
-                if not os.path.isfile(uri.encode(xlmisc.get_default_encoding())):
-                    raise Exception('File does not exist: %s' %
-                        uri.encode(xlmisc.get_default_encoding()))
-
-                uri = 'file://%s' % uri
+                if not os.path.isfile(uri):
+                    raise Exception('File does not exist: ' + uri)
+                uri = 'file://%s' % uri # FIXME: Wrong.
             uri = uri.replace('%', '%25')
             self.playbin.set_property('uri', uri.encode(xlmisc.get_default_encoding()))
 

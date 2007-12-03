@@ -16,7 +16,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-__version__ = '0.2.12b'
+__version__ = '0.2.12devel'
+
 import sys
 
 if sys.platform == 'linux2':
@@ -28,9 +29,6 @@ if sys.platform == 'linux2':
     except:
         pass
 
-import gobject
-gobject.threads_init()
-
 # this stuff is done first so that only the modules required to connect to an
 # already loaded exaile (if available) are loaded.  This helps with the speed
 # of remote commands, like --next, --prev
@@ -38,18 +36,20 @@ import xl.dbusinterface
 EXAILE_OPTIONS = xl.dbusinterface.get_options()
 DBUS_EXIT = xl.dbusinterface.test(EXAILE_OPTIONS)
 
-# find out if they are asking for help
+# find out if they are asking for help or version
 HELP = False
-for val in sys.argv:
-    if val == '-h' or val == '--help': HELP = True
-
-if '-h' in sys.argv: sys.argv.remove('-h')
-if '--help' in sys.argv: sys.argv.remove('--help')
-if '--version' in sys.argv:
-    print "Exaile version: %s" % __version__
-    sys.exit(0)
+for val in sys.argv[:]:
+    if val in ('-h', '--help'):
+        HELP = True
+        sys.argv.remove(val)
+    elif val == '--version':
+        print "Exaile version:", __version__
+        sys.exit(0)
 
 import os.path
+
+import gobject
+gobject.threads_init()
 
 import pygtk
 pygtk.require('2.0') # Must be before 'import gtk'
@@ -59,8 +59,9 @@ import gtk
 # Find out the location of exaile's working directory, and insert it to sys.path
 basedir = os.path.dirname(os.path.realpath(__file__))
 if not os.path.exists(os.path.join(basedir, "exaile.py")):
-    if os.path.exists(os.path.join(os.getcwd(), "exaile.py")):
-        basedir = os.getcwd()
+    cwd = os.getcwd()
+    if os.path.exists(os.path.join(cwd, "exaile.py")):
+        basedir = cwd
 sys.path.insert(0, basedir)
 
 # Evil heuristic to check whether Exaile is installed, by looking for Makefile.
@@ -69,11 +70,9 @@ installed = not os.path.exists(os.path.join(basedir, 'Makefile'))
 import xl.path
 
 options, args = EXAILE_OPTIONS.parse_args()
-if not options.settings: 
-    xl.path.init(basedir, installed)
-else:
+if options.settings: 
     xl.path.set_configdir(options.settings)
-    xl.path.init(basedir, installed)
+xl.path.init(basedir, installed)
 
 
 # set up gettext for translations
@@ -104,11 +103,7 @@ def check_dirs():
     if not os.path.isdir(covers):
         os.mkdir(covers)
 
-def main(): 
-    """
-        Everything dispatches from this main function
-    """
-
+def init():
     if HELP:
         EXAILE_OPTIONS.print_help()
         sys.exit(0)
@@ -118,27 +113,24 @@ def main():
         track.find_and_delete_dups(options.dups)
         sys.exit(0)
 
+    if DBUS_EXIT:
+        sys.exit(0)
+
     running_checks = ('next', 'prev', 'stop', 'play', 'guiquery', 'get_title',
         'get_artist', 'get_album', 'get_length', 'current_position',
         'inc_vol', 'dec_vol', 'query')
 
-
     # check passed arguments for options that require exaile to currently be
     # running
-    if not DBUS_EXIT:
-        for check in running_checks:
-            if getattr(options, check):
-                print "No running Exaile instance found."
-                sys.exit(1)
+    for check in running_checks:
+        if getattr(options, check):
+            print "No running Exaile instance found."
+            sys.exit(1)
 
-        check_dirs()
-        
-        xlmisc.log("Exaile " + __version__)
-        exaile = exailemain.ExaileWindow(options, xl.path.firstrun)
-    else:
-        sys.exit(0)
+    check_dirs()
 
-    gtk.main()
+    xlmisc.log("Exaile " + __version__)
+    exaile = exailemain.ExaileWindow(options, xl.path.firstrun)
 
 if __name__ == "__main__": 
     try:
@@ -148,7 +140,8 @@ if __name__ == "__main__":
             psyco.full()
         except ImportError:
             pass # psyco isn't available
-        main()
+        init()
+        gtk.main()
     except SystemExit:
         raise
     except Exception:

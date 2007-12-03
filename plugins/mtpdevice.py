@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # Copyright (C) 2007 Dan O'Reilly
 
 # This program is free software; you can redistribute it and/or modify
@@ -12,18 +13,24 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.import gobject
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import gobject
-from xl import common, media, library, plugins
+import gtk
+from xl import common, media, library, plugins, xlmisc
 from gettext import gettext as _
+from xl.panels import collection
+import xl.path
 
 
 PLUGIN_NAME = "MTP Device Manager"
-PLUGIN_AUTHORS = ["Dan O'Reilly <oreilldf@gmail.com>", "Matt Goodall <matt.goodall@gmail.com>"]
-PLUGIN_VERSION = "0.3.1"
-PLUGIN_DESCRIPTION = "MTP device manager, requires libmtp and pymtp."
-PLUGIN_ENABLED = True
+PLUGIN_AUTHORS = ["Dan O'Reilly <oreilldf@gmail.com>"]
+PLUGIN_VERSION = "0.4.0"
+PLUGIN_DESCRIPTION = _(r"""MTP device manager.
+\n\nDepends:
+\nlibmtp: http://libmtp.sourceforge.net/
+\npymtp: http://nick125.com/projects/pymtp/""")
+PLUGIN_ENABLED = False
 PLUGIN_ICON = None
 
 try:
@@ -33,6 +40,7 @@ except:
     MTP_INSTALLED = False
 
 CONNS = plugins.SignalContainer()
+
 
 class MTPTrack(media.Track):
     '''
@@ -52,29 +60,61 @@ class MTPTrack(media.Track):
         mtp_item_id = None
 
 
+class MTPPlaylist(object):
+    """
+        Container for MTP Playlist
+    """
+
+    def __init__(self, playlist, root=False):
+        self.playlist = playlist
+        self.root = root
+        self.name = playlist.name
+        self.tracks = playlist.tracks
+        self.no_tracks = playlist.no_tracks
+        self.playlist_id = playlist.playlist_id
+    
+    def __str__(self):
+        return self.name
+
+
 class MTPDeviceDriver(plugins.DeviceDriver):
     '''
         Class that implements an MTP Device Driver
     '''
     name = 'mtpdevice'
+    
     def __init__(self):
+        """
+            Initializes the MTPDeviceDriver class.
+        """
         plugins.DeviceDriver.__init__(self)
         self.connected = False
         self.connecting = False
+        self.exaile = APP
+        self.dp = APP.device_panel
+        self.mtp_image = xlmisc.get_icon('gnome-dev-ipod')
+        self.track_image = gtk.gdk.pixbuf_new_from_file(xl.path.get_data(
+                                        'images', 'track.png'))
+        self.playlist_image = gtk.gdk.pixbuf_new_from_file(xl.path.get_data(
+                                        'images', 'playlist.png'))
+        self.directory_image = xlmisc.get_icon('gnome-fs-directory')
+
 
     @common.threaded
     def connect(self, panel):
         '''
-            Connects the MTP device
+            Connects to the MTP device and loads playlist/track
+             info into exaile.
         '''
         if self.connecting: self.disconnect()
+
         self.connecting = True
         self.panel = panel
-        self.panel.tree.set_row_separator_func(
-                lambda m, i: m.get_value(i, 1) is None)
+        self.collection_panel = self.exaile.collection_panel
         self.mtp = pymtp.MTP()
         try:
             self.mtp.connect()
+            self.connected = True
         except:
             self.panel.on_connect_complete(None)
             gobject.idle_add(panel.on_error, _("Couldn't connect to the MTP device,"
@@ -83,10 +123,21 @@ class MTPDeviceDriver(plugins.DeviceDriver):
             self.connected = False
             self.connecting = False
             return
-        self.connected = True
+
         self.panel.track_count.set_label(_("Loading tracks..."))
         tracks = self.mtp.get_tracklisting()
         gobject.idle_add(self._load_tracks, tracks)
+        
+        self.panel.track_count.set_label(_("Loading playlists..."))
+        self.playlists = {}
+        for playlist in self.mtp.get_playlists():
+            p_entry = MTPPlaylist(playlist)
+            self.playlists[p_entry] = []
+            for track in playlist.__iter__():
+                self.playlists[p_entry].append(track)
+            
+        self.panel.track_count.set_label(_("Loading folders..."))
+
         self.connecting = False
 
 
@@ -95,6 +146,7 @@ class MTPDeviceDriver(plugins.DeviceDriver):
             Loads the tracks from the connected device into the device panel
         '''
         self.all = library.TrackData()
+        self.all_dict = {}
         for t in list(track_list):
             song = MTPTrack(t.title, t.artist, t.album, t.tracknumber,
                             t.date, t.duration/1000, t.genre)
@@ -104,8 +156,52 @@ class MTPDeviceDriver(plugins.DeviceDriver):
             # has a way to hunt down the track from the panel tree.
             song.loc = str(t.item_id)
             gobject.idle_add(self.all.append, song)
+            self.all_dict[t.item_id] = song
         self.connected = True
         gobject.idle_add(self.panel.on_connect_complete, self)
+
+
+    def get_menu(self, item, menu):
+        return menu
+
+
+    def get_initial_root(self, model):
+        """
+            Adds new nodes and returns the one tracks should be added to
+        """
+        if not self.playlists: return None
+        self.mtproot = model.append(None, [self.directory_image, _("Playlists"),
+            'nofield'])
+
+        for k, v in self.playlists.iteritems():
+            item = model.append(self.mtproot, [self.playlist_image, k,
+                                               'nofield'])
+            self.load_playlist(item, v, model)
+        new_root = model.append(None, [self.mtp_image, _("Music Collection"),
+                                       'nofield'])
+        return new_root
+    
+    
+    def load_playlist(self, parent, list_contents, model):
+        """
+            Adds the track list for a given playlist to the device panel
+            in Artst - Title format.
+        """
+        for track_id in list_contents:
+            song = self.all_dict[track_id]
+            if not song:
+                print 'Couldn\'t find playlist track on device'
+                continue
+            name = song.artist + " - " + song.title
+            model.append(parent, [self.track_image, name, 'nofield'])
+
+
+    def done_loading_tree(self):
+        """
+            Called when the tree is done loading
+        """
+        path = self.dp.model.get_path(self.mtproot)
+        self.dp.tree.expand_row(path, False)
 
 
     def disconnect(self, *a, **k):
@@ -116,6 +212,9 @@ class MTPDeviceDriver(plugins.DeviceDriver):
         self.panel = None
         self.connected = False
         self.connecting = False
+        self.playlists = None
+        self.all = None
+        self.all_dict = None
 
 
     def remove_tracks(self, tracks):
@@ -126,7 +225,12 @@ class MTPDeviceDriver(plugins.DeviceDriver):
             print 'deleting ', track
             self.mtp.delete_object(int(track.mtp_item_id))
             self.all.remove(track)
-            
+            del self.all_dict[track.mtp_item_id]
+            for playlist in self.playlists:
+                try:
+                    del playlist[track.mtp_item_id]
+                except:
+                    pass
 
 
     def search_tracks(self, keyword):
@@ -201,6 +305,18 @@ class MTPDeviceDriver(plugins.DeviceDriver):
         # Assign the track a unique location
         song.loc = str(track_id)
         gobject.idle_add(self.all.append, song)
+        self.all_dict[track_id] = song
+    
+    
+    def get_song(self, song):
+        """
+            Transfers a track from the device and to the /tmp/ directory
+            on the filesystem, and returns that track object.
+        """
+        new_loc = "/tmp/" + song.artist + '-' + song.title
+        self.mtp.get_track_to_file(int(song.mtp_item_id), str(new_loc))
+        song.loc = new_loc
+        return song
 
 
 def initialize():
@@ -221,6 +337,7 @@ def initialize():
     CONNS.connect(APP, 'quit', quit)
     return True
 
+
 def destroy():
     '''
         Disconnects the device and removes the driver instance from the
@@ -233,6 +350,7 @@ def destroy():
     APP.device_panel.remove_driver(PLUGIN)
     PLUGIN = None
 
+
 def quit(exaile):
     '''
         Disconnects the attached device when user quits exaile
@@ -240,4 +358,3 @@ def quit(exaile):
     global PLUGIN
     if PLUGIN.connected is True:
         PLUGIN.mtp.disconnect()
-

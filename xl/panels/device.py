@@ -452,7 +452,11 @@ class DevicePanel(collection.CollectionPanel):
         return self.driver.name
 
     def get_song(self, loc):
-        return self.all.for_path(loc.replace('device_%s://' % self.driver.name, ''))
+        song = self.all.for_path(loc.replace('device_%s://' % self.driver.name, ''))
+        if hasattr(self.driver, 'get_song'):
+            return self.driver.get_song(song)
+        else:
+           return song
 
     def load_tree(self, event=None):
         collection.CollectionPanel.load_tree(self, event)

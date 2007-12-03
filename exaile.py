@@ -29,6 +29,9 @@ if sys.platform == 'linux2':
     except:
         pass
 
+import gobject
+gobject.threads_init()
+
 # this stuff is done first so that only the modules required to connect to an
 # already loaded exaile (if available) are loaded.  This helps with the speed
 # of remote commands, like --next, --prev
@@ -47,9 +50,6 @@ for val in sys.argv[:]:
         sys.exit(0)
 
 import os.path
-
-import gobject
-gobject.threads_init()
 
 import pygtk
 pygtk.require('2.0') # Must be before 'import gtk'

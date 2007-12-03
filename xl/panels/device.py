@@ -198,6 +198,8 @@ class DevicePanel(collection.CollectionPanel):
         self.chooser.pack_start(cell)
         self.chooser.add_attribute(cell, 'text', 0)
         self.chooser.set_model(self.store)
+        self.tree.set_row_separator_func(
+                lambda m, i: m.get_value(i, 1) is None)
 
         container = self.xml.get_widget('%s_box' % self.name)
 
@@ -290,7 +292,7 @@ class DevicePanel(collection.CollectionPanel):
             if m:
                 song = self.get_song(url)
             else:
-                song = self.exaile.all_songs.for_path(url)
+                song = library.read_track(self.exaile.db, self.exaile.all_songs, url)
 
             if song:
                 items.append(DeviceDragItem(song, target))

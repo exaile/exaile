@@ -21,7 +21,7 @@ import xl.plugins as plugins
 
 PLUGIN_NAME = _("Tray Buttons")
 PLUGIN_AUTHORS = ['Andras Petrik <bikmak@gmail.com>']
-PLUGIN_VERSION = '0.7.2'
+PLUGIN_VERSION = '0.7.3'
 PLUGIN_DESCRIPTION = _(r"""This plugin adds "Play/Pause", "Previous" and "Next" buttons to the notification area""")
 PLUGIN_ENABLED = False
 PLUGIN_ICON = None
@@ -142,20 +142,27 @@ class Plugin:
 		"""
 			Set the tooltip of the next icon
 		"""
-		
-		self.tyPrevious.set_tooltip(_("Previous track: %(title)s by %(artist)s") % {
-      'title' : self.app.tracks.get_previous_track( current ).title,
-      'artist' : self.app.tracks.get_previous_track( current ).artist
-    })
+		track = self.app.tracks.get_previous_track( current )
+		if track:
+			self.tyPrevious.set_tooltip(_("Previous track: %(title)s by %(artist)s") % {
+				'title' : track.title,
+				'artist' : track.artist
+			})
+		else:
+			self.tyPrevious.set_tooltip("")
 		
 	def setPreviousTooltip( self, current ) :
 		"""
 			Set the tooltip of the previous icon
 		"""
-		self.tyNext.set_tooltip(_("Next track: %(title)s by %(artist)s") % {
-      'title' : self.app.tracks.get_next_track( current ).title,
-      'artist' : self.app.tracks.get_next_track( current ).artist
-    })
+		track = self.app.tracks.get_next_track( current )
+		if track:
+			self.tyNext.set_tooltip(_("Next track: %(title)s by %(artist)s") % {
+				'title' : track.title,
+				'artist' : track.artist
+			})
+		else:
+			self.tyNext.set_tooltip("")
 
 
 

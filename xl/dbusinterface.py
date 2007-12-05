@@ -189,9 +189,7 @@ class DBusInterfaceObject(dbus.service.Object):
         """
             Returns if the player is paused or playing
         """
-        if not self.exaile.player.current:
-            return "No track playing"
-        return self.exaile.player.current.status()
+        return self.exaile.player.get_state()
 
     @dbus.service.method("org.exaile.DBusInterface", None, "s")
     def get_cover_path(self):

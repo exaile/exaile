@@ -566,9 +566,12 @@ class TracksListCtrl(gtk.VBox):
                     col.set_sort_indicator(False)
 
                 if not resizable:
-                    if col_struct.id in ('title', 'artist', 'album', 'io_loc'):
-                        col.set_expand(True)
-                        col.set_fixed_width(1)
+                    if col_struct.id in ('title', 'artist', 'album', 'io_loc', 'genre'):
+                        if col_struct.id != 'genre': 
+                            col.set_expand(True)
+                            col.set_fixed_width(1)
+                        else:
+                            col.set_fixed_width(80)
                         col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
                         cellr.set_property('ellipsize', pango.ELLIPSIZE_END)
                     else:

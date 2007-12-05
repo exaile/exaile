@@ -684,7 +684,7 @@ class URLFetcher(threading.Thread):
         self.server = server 
         self.path = path 
 
-        print self.server, self.path
+        logger.log(self.server + ' ' + self.path)
         self.setDaemon(True)
         self.done_func = done_func
 

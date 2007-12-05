@@ -55,23 +55,39 @@ class GSTPlayer(Player):
         """
         self.playbin.set_property('volume', vol)
 
+    def _get_gst_state(self):
+        """
+            Returns the raw GStreamer state
+        """
+        return self.playbin.get_state(timeout=50*gst.MSECOND)[1]
+
+    def get_state(self):
+        """
+            Returns the player state: 'playing', 'paused', or 'stopped'.
+        """
+        state = self._get_gst_state()
+        if state == gst.STATE_PLAYING:
+            return 'playing'
+        elif state == gst.STATE_PAUSED:
+            return 'paused'
+        else:
+            return 'stopped'
+
     def is_playing(self):
         """
             Returns True if the player is currently playing
         """
-        state = self.playbin.get_state(timeout=50*gst.MSECOND)[1]
-        return state == gst.STATE_PLAYING
+        return self._get_gst_state() == gst.STATE_PLAYING
 
     def is_paused(self):
         """
             Returns True if the player is currently paused
         """
-        state = self.playbin.get_state(timeout=50*gst.MSECOND)[1]
-        return state == gst.STATE_PAUSED
+        return self._get_gst_state() == gst.STATE_PAUSED
 
     def on_message(self, bus, message, reading_tag = False):
         """
-            Called when a message is recieved from gstreamer
+            Called when a message is received from gstreamer
         """
         if message.type == gst.MESSAGE_TAG and self.tag_func:
             self.tag_func(message.parse_tag())

@@ -42,12 +42,17 @@ import xl.plugins as plugins
 
 import gtk
 from gobject import source_remove,io_add_watch
-from Xlib.display import Display
-from Xlib import X 
+from xl import common
+
+try:
+    from Xlib.display import Display
+    from Xlib import X 
+except ImportError:
+    X = None
 
 PLUGIN_NAME = _("Keyboard Shortcuts")
 PLUGIN_AUTHORS = ['Hubert Berezowski <hubertb2@wp.pl>']
-PLUGIN_VERSION = '0.1.5'
+PLUGIN_VERSION = '0.1.6'
 PLUGIN_DESCRIPTION = _(r""" Keyboard Shortcuts via the X Server.
 \n\n
 Requires Python-Xlib
@@ -566,6 +571,10 @@ def initialize():
     """
         Called when the plugin is enabled
     """
+    if not X:
+        common.error(APP.window, _('Python-xlib library is not available. '
+            'Cannot initialize xkeys plugin.'))
+        return False
     APP.window.cuts = XlibKeys()
     return True
  

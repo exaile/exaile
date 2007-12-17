@@ -4,8 +4,8 @@
 <glade-interface>
 
 <widget class="GtkWindow" id="ExaileWindow">
-  <property name="width_request">800</property>
-  <property name="height_request">535</property>
+  <property name="width_request">700</property>
+  <property name="height_request">400</property>
   <property name="title">Exaile</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_CENTER</property>

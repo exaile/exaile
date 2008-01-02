@@ -1,6 +1,5 @@
 PREFIX ?= /usr/local
 LIBDIR ?= /lib
-FIREFOX ?= /usr/lib/firefox
 
 all: compile mmkeys.so translations
 	@echo "Done"
@@ -69,8 +68,6 @@ install: make-install-dirs
 	  /bin/echo -e \
 	    "#!/bin/sh\n" \
 	    "cd $(PREFIX)/share/exaile\n" \
-	    "export LD_LIBRARY_PATH=\$$LD_LIBRARY_PATH:$(FIREFOX)\n" \
-		"export MOZILLA_FIVE_HOME=$(FIREFOX)\n" \
 	    "exec python $(PREFIX)$(LIBDIR)/exaile/exaile.py \"\$$@\"" \
 	    > exaile && \
 	  chmod 755 exaile

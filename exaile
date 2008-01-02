@@ -10,6 +10,4 @@ if [ -z "$PROGRAM_DIR" ]; then
 fi
 
 cd ${PROGRAM_DIR}
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/firefox
-export MOZILLA_FIVE_HOME=/usr/lib/firefox
 exec python -O exaile.py "$@"

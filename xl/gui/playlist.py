@@ -16,6 +16,7 @@
 
 import os, re, urllib
 from gettext import gettext as _, ngettext
+import operator
 import pygtk
 pygtk.require('2.0')
 import gtk, pango
@@ -768,8 +769,7 @@ class TracksListCtrl(gtk.VBox):
         if attr in ('album', 'title'):
             get_key = lambda track: spec_strip(getattr(track, attr).lower())
         elif attr == 'artist':
-            # the_strip(track.artist.lower()) is the same as the next sort key
-            get_key = lambda track: None
+            get_key = lambda track: the_strip(track.artist.lower())
         elif attr == 'length':
             get_key = lambda track: track.get_duration()
         else:
@@ -777,12 +777,11 @@ class TracksListCtrl(gtk.VBox):
 
         s = [
             (get_key(track),
-            the_strip(track.artist.lower()),
-            spec_strip(track.album.lower()),
-            track.track,
             track)
             for track in songs]
-        s.sort(reverse=reverse)
+
+        s  = sorted(s, key=operator.itemgetter(0), reverse=reverse)
+
         songs = [track[-1] for track in s]
         return songs
 

@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import md5, os, random, re, threading, time, traceback
+import md5, os, random, re, threading, time, traceback, gc
 from gettext import gettext as _, ngettext
 import gobject, gtk
 from xl import common, media, db, audioscrobbler, xlmisc, dbusinterface
@@ -753,7 +753,11 @@ class PopulateThread(threading.Thread):
 
     def do_function(self, loc):
         db = self.db
+
+        in_library = False
         tr = self.exaile.all_songs.for_path(loc)
+        if tr:
+            in_library = True
 
         bl = 0
         if not tr:
@@ -781,7 +785,7 @@ class PopulateThread(threading.Thread):
                 (path_id,))
         if not tr or tr.blacklisted: return
         
-        if not self.exaile.all_songs.for_path(loc):
+        if not in_library:
             if not already_added(tr, self.added): self.exaile.all_songs.append(tr)
         self.found_tracks.append(tr)
         already_added(tr, self.added)       
@@ -800,6 +804,7 @@ class PopulateThread(threading.Thread):
             tracks = None
         gobject.idle_add(self.update_func, num, tracks, 
             self.done_func) 
+        gobject.idle_add(gc.collect)
         PopulateThread.stopped = False
         PopulateThread.running = False
 
@@ -840,6 +845,11 @@ class RemoveTracksThread(PopulateThread):
             db.execute("DELETE FROM tracks WHERE path=?",
                 (path_id,))
 
+        try:
+            self.exaile.all_songs.remove(tr)
+        except ValueError:
+            pass
+
 def remove_tracks(exaile, db, directories, update_func, delete=True,
     load_tree=False, done_func=None):
     """
@@ -867,6 +877,8 @@ class AddTracksThread(PopulateThread):
 
     def do_function(self, loc):
         db = self.db
+
+        if self.exaile.all_songs.for_path(loc): return
         tr = media.read_from_path(loc)
         if not tr: return
         new = True
@@ -875,8 +887,7 @@ class AddTracksThread(PopulateThread):
         path_id = get_column_id(db, 'paths', 'name', unicode(loc, xlmisc.get_default_encoding()))
         db.execute("UPDATE tracks SET included=1 WHERE path=?", (path_id,))
         
-        if not self.exaile.all_songs.for_path(loc):
-            if not already_added(tr, self.added): self.exaile.all_songs.append(tr)
+        if not already_added(tr, self.added): self.exaile.all_songs.append(tr)
         self.found_tracks.append(tr)
         already_added(tr, self.added)
 
@@ -889,7 +900,6 @@ def add_tracks(exaile, db, directories, update_func, delete=True,
         delete, load_tree, done_func)
     exaile.thread_pool.append(thread)
     thread.start()
-
 
 class LibraryManager(object):
     def __init__(self, exaile):
@@ -976,7 +986,6 @@ class LibraryManager(object):
         self.exaile.collection_panel.songs = self.exaile.all_songs
         self.exaile.collection_panel.track_cache = dict()
 
-
         if not updating:
             xlmisc.log("loading songs")
             gobject.idle_add(self.exaile.playlists_panel.load_playlists)
@@ -1019,7 +1028,14 @@ class LibraryManager(object):
             self.db.db.commit()
             self.db._cursor.close()
             self.db._cursor = self.db.realcursor()
-            self.load_songs(percent==-1)
+
+            # if percent is -2, it wasn't an auto scan, so we won't reload the
+            # collection tree because that could potentially take a lot of
+            # time if the person has a lot of tracks in their library
+            if percent == -2:
+                self.exaile.collection_panel.songs = self.exaile.all_songs
+                self.exaile.collection_panel.track_cache = dict()
+                gobject.idle_add(self.exaile.collection_panel.load_tree, True)
 
         if done_func:
             done_func(songs)

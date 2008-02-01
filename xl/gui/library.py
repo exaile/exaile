@@ -30,8 +30,8 @@ class LibraryDialog(object):
         self.xml = gtk.glade.XML('exaile.glade', 'LibraryManager', 'exaile')
         self.dialog = self.xml.get_widget('LibraryManager')
         self.list = xlmisc.ListBox(self.xml.get_widget('lm_list_box'))
-        self.addList = []
-        self.removeList = []
+        self.add_list = []
+        self.remove_list = []
         self.dialog.set_transient_for(exaile.window)
         self.xml.get_widget('lm_add_button').connect('clicked',
             self.on_add)
@@ -88,8 +88,8 @@ class LibraryDialog(object):
             Saves the paths in the dialog, and updates the library
         """
         self.exaile.settings['search_paths'] = self.list.rows
-        self.exaile.settings['add_paths'] = self.addList
-        self.exaile.settings['remove_paths'] = self.removeList
+        self.exaile.settings['add_paths'] = self.add_list
+        self.exaile.settings['remove_paths'] = self.remove_list
         self.dialog.response(gtk.RESPONSE_APPLY)
 
     def on_remove(self, widget):
@@ -109,10 +109,10 @@ class LibraryDialog(object):
             # so we check that, and re-add the import dir if necessary.
             if import_dir.startswith(item):
                 self.list.append(import_dir)
-                self.addList.append(import_dir)
+                self.add_list.append(import_dir)
                 self.exaile.settings['import/scan_import_dir'] = True
         
-        self.removeList.append(item)
+        self.remove_list.append(item)
         self.list.remove(item)
         selection = self.list.list.get_selection()
         if index > len(self.list.rows):
@@ -158,7 +158,7 @@ class LibraryDialog(object):
                             'removed from the list' % item)
                         self.list.remove(item)
     
-            self.addList.append(path)
+            self.add_list.append(path)
             self.list.append(path)
 
         dialog.destroy()

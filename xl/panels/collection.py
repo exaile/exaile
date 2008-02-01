@@ -41,6 +41,8 @@ class CollectionPanel(object):
         self.exaile = exaile
         self.db = exaile.db
 
+        self.model = gtk.TreeStore(gtk.gdk.Pixbuf, object, str)
+        self.model_blank = gtk.TreeStore(gtk.gdk.Pixbuf, object, str)
         self.scan_label = None
         self.queue_item = -1
         self.scan_progress = None
@@ -479,9 +481,7 @@ class CollectionPanel(object):
             xlmisc.log("Clearing tracks cache")
             self.track_cache = dict()
 
-        self.model = gtk.TreeStore(gtk.gdk.Pixbuf, object, str)
-        self.model_blank = gtk.TreeStore(gtk.gdk.Pixbuf, object, str)
-
+        self.model.clear()
         self.tree.set_model(self.model_blank)
         self.root = self.get_initial_root(self.model)
     

@@ -30,7 +30,7 @@ class Manager(object):
         self.plugins = []
         self.app = app
         self.loaded = []
-        self.update_cb = None
+        self.update_cb = update_cb
 
     def load_plugins(self, dir, enabled):
         """
@@ -103,6 +103,7 @@ class Manager(object):
             if (enabled is None or file in enabled) or plugin.PLUGIN_ENABLED:
                 if plugin.initialize():
                     plugin.PLUGIN_ENABLED = True
+                    if self.update_cb: self.update_cb(plugin)
 
             # if this is a new plugin from a download (avail_plugins is only
             # set while downloading new plugins), check to see if it's

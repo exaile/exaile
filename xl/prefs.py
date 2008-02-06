@@ -73,6 +73,9 @@ class PrefsItem(object):
         """ 
             Sets the GUI widget up for this preference
         """
+        if not self.widget:
+            xlmisc.log("Widget not found: %s" % (self.name))
+            return
         self.widget.set_text(str(settings.get_str(self.name, default=self.default)))
 
     def do_done(self):
@@ -273,7 +276,7 @@ class DirPrefsItem(PrefsItem):
         """
             Sets the current directory
         """
-        directory = settings.get_str(self.name, self.default)
+        directory = os.path.expanduser(settings.get_str(self.name, self.default))
         if not os.path.exists(directory):
             os.makedirs(directory)
         self.widget.set_filename(directory)
@@ -520,6 +523,7 @@ class Preferences(object):
             'scan_interval': (FloatPrefsItem, 25, None,
                 self.setup_scan_interval),
             'download_feeds': (CheckPrefsItem, True),
+            'feed_download_location': (DirPrefsItem, '~/.exaile/podcasts'),
             'import/format': (ComboPrefsItem, 
                 (import_formats and import_formats[0]) or 'MP3'),
             'import/quality': (ComboPrefsItem, "High"), # FIXME: i18n?
@@ -534,7 +538,7 @@ class Preferences(object):
             'check_for_updates': (CheckPrefsItem, True),
             'proxy/enabled': (CheckPrefsItem, False, None, self.proxy_setting_changed),
             'proxy/server': (PrefsItem, '', None, self.proxy_setting_changed),
-            'proxy/port': (PrefsItem, '', None, self.proxy_setting_changed),
+#            'proxy/port': (PrefsItem, '', None, self.proxy_setting_changed),
             'proxy/username': (PrefsItem, '', None, self.proxy_setting_changed),
             'proxy/password': (CryptedPrefsItem, '', None, self.proxy_setting_changed),
         })

@@ -80,7 +80,7 @@ class PodcastQueueThread(threading.Thread):
             if self.stopped: break
             hin = urllib.urlopen(song.loc)
 
-            temp_path = xl.path.get_config('podcasts', 'downloading')
+            temp_path = "%s.part" % download_path
             hout = open(temp_path, "w+")
 
             count = 0
@@ -497,7 +497,7 @@ class RadioPanel(object):
         rows = self.db.select("SELECT paths.name, title, description, length, "
             "pub_date, size FROM podcast_items, paths WHERE podcast_path=? "
             "AND paths.id=podcast_items.path ORDER BY"
-            " pub_date DESC LIMIT 10", 
+            " pub_date", 
             (podcast_path_id,))
 
         songs = library.TrackData()
@@ -571,7 +571,8 @@ class RadioPanel(object):
         """
         (path, ext) = os.path.splitext(loc)
         hash = md5.new(loc).hexdigest()
-        savepath = xl.path.get_config('podcasts')
+        savepath = self.exaile.settings.get_str('feed_download_location',
+            os.path.expanduser('~/.exaile/podcasts')) 
         if not os.path.isdir(savepath):
             os.mkdir(savepath, 0777)
 

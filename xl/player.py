@@ -525,11 +525,11 @@ class ExailePlayer(GSTPlayer):
         if track.type == 'stream':
             track.start_time = time.time()
 
-        if track.type == 'podcast':
-            if not track.download_path:
-                common.error(self.exaile.window, _('Podcast has not yet been '
-                    'downloaded'))
-                return
+#        if track.type == 'podcast':
+#            if not track.download_path:
+#                common.error(self.exaile.window, _('Podcast has not yet been '
+#                    'downloaded'))
+#                return
 
         self.exaile.play_button.set_image(self.exaile.get_pause_image())
 

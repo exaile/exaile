@@ -27,6 +27,7 @@ from xl.plugins import manager as pluginmanager, gui as plugingui
 from xl.gui import playlist as trackslist
 from xl.gui import information
 from xl.panels import collection, radio, playlists, files, device
+import xl.version
 import random, gst, urllib
 
 def found_updates(exaile, found):
@@ -569,7 +570,7 @@ class ExaileWindow(gobject.GObject):
 
         self.xml.get_widget('about_item').connect('activate',
             lambda *e: xlmisc.AboutDialog(self.window,
-            sys.modules['__main__'].__version__))
+            self.get_version_info()))
         
         self.xml.get_widget('new_item').connect('activate',
             lambda *e: self.new_page())
@@ -611,6 +612,20 @@ class ExaileWindow(gobject.GObject):
         self.stop_track_button = self.xml.get_widget('stop_track_button')
         self.stop_track_button.connect('clicked',
             self.stop_track_toggle)
+
+    def get_version_info(self):
+        """
+            Gets the current version information
+            If this is a development version, add on the revision number.
+            This number is in xl/version.py, which is generated when the
+            "make" command is issued (via bzr version-info --format=python >
+            xl/version.py
+        """
+        version = sys.modules['__main__'].__version__
+        if version.find('devel') > -1:
+            version = "%s [r%s]" % (version, xl.version.version_info['revno'])
+
+        return version
 
     def stop_track_toggle(self, *e):
         """

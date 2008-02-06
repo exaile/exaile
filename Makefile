@@ -6,6 +6,7 @@ all: compile mmkeys.so translations
 	@echo "Type: 'make install' now"
 
 compile:
+	-bzr version-info --format=python > xl/version.py
 	python -m compileall xl lib
 	python -O -m compileall xl lib
 

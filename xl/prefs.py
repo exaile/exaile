@@ -15,6 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import thread, os, shlex, string
+import urllib2
 from gettext import gettext as _
 import pygtk, common
 pygtk.require('2.0')
@@ -485,13 +486,6 @@ class Preferences(object):
         xml.get_widget('prefs_proxy_password').set_sensitive(0)
         xml.get_widget('prefs_proxy_server').set_sensitive(0)        
         
-        # proxy server handler
-        proxy = xml.get_widget('prefs_proxy_enabled')
-        proxy.connect('toggled', self.toggle_proxy)
-        xml.get_widget('prefs_proxy_username').set_sensitive(0)
-        xml.get_widget('prefs_proxy_password').set_sensitive(0)
-        xml.get_widget('prefs_proxy_server').set_sensitive(0)        
-        
         simple_settings = ({
             'ui/use_splash': (CheckPrefsItem, True),
 #            'watch_directories': (CheckPrefsItem, False, self.check_gamin,
@@ -538,10 +532,11 @@ class Preferences(object):
             'replaygain/preamp': (FloatPrefsItem, 0.0),
             'replaygain/fallback': (FloatPrefsItem, 0.0),
             'check_for_updates': (CheckPrefsItem, True),
-            'proxy/enabled': (CheckPrefsItem, False),
-            'proxy/server': (PrefsItem, ''),
-            'proxy/username': (PrefsItem, ''),
-            'proxy/password': (CryptedPrefsItem, '', None),
+            'proxy/enabled': (CheckPrefsItem, False, None, self.proxy_setting_changed),
+            'proxy/server': (PrefsItem, '', None, self.proxy_setting_changed),
+            'proxy/port': (PrefsItem, '', None, self.proxy_setting_changed),
+            'proxy/username': (PrefsItem, '', None, self.proxy_setting_changed),
+            'proxy/password': (CryptedPrefsItem, '', None, self.proxy_setting_changed),
         })
 
         for setting, value in simple_settings.iteritems():
@@ -642,6 +637,35 @@ class Preferences(object):
             bitrate_label.show()
 
 
+    def proxy_setting_changed(self, widget):
+        """
+            Apply proxy settings
+        """
+        if self.exaile.settings.get_boolean('proxy/enabled', False):
+            server = self.exaile.settings.get_str('proxy/server', "")
+            port = self.exaile.settings.get_str('proxy/port', "")
+            username = self.exaile.settings.get_str('proxy/username', "")
+            password = self.exaile.settings.get_str('proxy/password', "")
+
+            proxy_url = "http://"
+
+            if username != "" and password != "":
+                proxy_url+="%s:%s@" %(username, password)
+
+            proxy_url+=server
+
+            if port != "":
+                proxy_url+=":%s" % port
+
+            proxy_support = urllib2.ProxyHandler({'http':proxy_url})
+            opener = urllib2.build_opener(proxy_support, urllib2.HTTPHandler)
+            urllib2.install_opener(opener)
+        else:
+            opener = urllib2.build_opener(urllib2.HTTPHandler)
+            urllib2.install_opener(opener)
+
+        return True
+
     def import_location_changed(self, widget):
         """
             Scan the new import location for new songs
@@ -713,18 +737,7 @@ class Preferences(object):
             Enables/disables proxy server options.
         """
         items = [xml.get_widget('prefs_proxy_server'),
-                 xml.get_widget('prefs_proxy_username'),
-                 xml.get_widget('prefs_proxy_password')]
-        to_state = widget.get_active()
-        
-        for item in items:
-            item.set_sensitive(to_state)
-
-    def toggle_proxy(self, widget, event=None):
-        """
-            Enables/disables proxy server options.
-        """
-        items = [xml.get_widget('prefs_proxy_server'),
+                 xml.get_widget('prefs_proxy_port'),
                  xml.get_widget('prefs_proxy_username'),
                  xml.get_widget('prefs_proxy_password')]
         to_state = widget.get_active()

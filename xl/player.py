@@ -304,6 +304,26 @@ class ExailePlayer(GSTPlayer):
         self.eof_func = self.next
         self.current = None
 
+        self._sink_element_factories = []
+        self.add_sink_element_factory(ReplayGainElementFactory)
+        self.add_sink_element_factory(EqualizerElementFactory)
+
+    def add_sink_element_factory(self, factory):
+        """
+            adds a GstElement factory to the audio sink link
+        """
+        self._sink_element_factories.append(factory)
+        # TODO: Check if GstElements are unreferenced and cleaned up
+        # TODO: Redesign GstElement management
+        self.audio_sink = None
+
+    def del_sink_element_factory(self, factory):
+        """
+            deletes a GstElement factory from the audio sink link
+        """
+        self._sink_element_factories.remove(factory)
+        self.audio_sink = None
+
     def get_stop_track(self):
         """
             returns the stop_track (track to stop playback)
@@ -365,50 +385,15 @@ class ExailePlayer(GSTPlayer):
 
         sinkbin = gst.Bin()
         sink_elements = []
-        
-        # user does not want replaygain
-        if self.exaile.settings.get_boolean('replaygain/disabled', False):
-            xlmisc.log("Not using replaygain, disabled by the user")
 
-        # otherwise try loading replaygain
-        else:
-            replaygain = None
-
-            try:
-                replaygain = gst.element_factory_make('rgvolume')
-            except gst.PluginNotFoundError:
-                xlmisc.log("ReplayGain support requires gstreamer-plugins-bad 0.10.5")
-
-            if replaygain:
-                replaygain.set_property('album-mode',
-                    self.exaile.settings.get_boolean('replaygain/album_mode', True))
-                replaygain.set_property('pre-amp',
-                    self.exaile.settings.get_float('replaygain/preamp'))
-                replaygain.set_property('fallback-gain',
-                    self.exaile.settings.get_float('replaygain/fallback'))
-                
-                sink_elements.append(replaygain)
-                xlmisc.log("ReplayGain support initialized.")
-
-        # if the equalizer is disabled, print info
-        if self.exaile.options.noeq:
-            xlmisc.log("Not using equalizer, disabled by the user")
-
-        # otherwise try loading equalizer
-        else:
-            try: # Equalizer element is still not very common 
-                self.equalizer = gst.element_factory_make('equalizer-10bands')
-            except gst.PluginNotFoundError:
-                xlmisc.log("Equalizer support requires gstreamer-plugins-bad 0.10.5")
-
-            if self.equalizer:
-                sink_elements.append(self.equalizer)
-                sink_elements.append(gst.element_factory_make('audioconvert'))
-
-                bands = self.exaile.settings.get_list('equalizer/band-values', 
-                    [0] * 10)
-                for i, v in enumerate(bands):
-                    self.equalizer.set_property(('band' + str(i)), v)
+        # iterate through sink element factory list
+        for element_factory in self._sink_element_factories:
+            if element_factory.is_enabled(self):
+                # This should be made a try: except: statement in case creation fails
+                sink_elements += element_factory.get_elements(self)
+                xlmisc.log(element_factory.name + " support initialized.")
+            else:
+                xlmisc.log("Not using " + element_factory.name + " disabled by the user")
 
         # if still empty just use asink and end
         if not sink_elements:
@@ -734,6 +719,57 @@ class ExailePlayer(GSTPlayer):
         if self.exaile.tracks: self.exaile.tracks.queue_draw()
         self.exaile.update_track_information(None)
         self.exaile.new_progressbar.set_text('0:00 / 0:00')
+
+class ReplayGainElementFactory(object):
+    name = u"ReplayGain"
+    
+    @staticmethod
+    def is_enabled(exaileplayer):
+        return not exaileplayer.exaile.settings.get_boolean('replaygain/disabled', False)
+    
+    @staticmethod
+    def get_elements(exaileplayer):
+        replaygain = None
+
+        try:
+            replaygain = gst.element_factory_make('rgvolume')
+        except gst.PluginNotFoundError:
+            xlmisc.log("ReplayGain support requires gstreamer-plugins-bad 0.10.5")
+
+        if replaygain:
+            replaygain.set_property('album-mode',
+                exaileplayer.exaile.settings.get_boolean('replaygain/album_mode', True))
+            replaygain.set_property('pre-amp',
+                exaileplayer.exaile.settings.get_float('replaygain/preamp'))
+            replaygain.set_property('fallback-gain',
+                exaileplayer.exaile.settings.get_float('replaygain/fallback'))
+            
+            # Using the ugly method for returing a 1-element tuple
+            return replaygain,
+
+class EqualizerElementFactory(object):
+    name = u"Equalizer"
+    
+    @staticmethod
+    def is_enabled(exaileplayer):
+        return not exaileplayer.exaile.options.noeq
+    
+    @staticmethod
+    def get_elements(exaileplayer):
+        try: # Equalizer element is still not very common 
+            exaileplayer.equalizer = gst.element_factory_make('equalizer-10bands')
+        except gst.PluginNotFoundError:
+            xlmisc.log("Equalizer support requires gstreamer-plugins-bad 0.10.5")
+
+        elements = []
+        if exaileplayer.equalizer:
+            elements.append(exaileplayer.equalizer)
+            elements.append(gst.element_factory_make('audioconvert'))
+
+            bands = exaileplayer.exaile.settings.get_list('equalizer/band-values', [0] * 10)
+            for i, v in enumerate(bands):
+                exaileplayer.equalizer.set_property(('band' + str(i)), v)
+        return elements
 
 # VideoWidget and VideoArea code taken from Listen media player
 # http://listen-gnome.free.fr

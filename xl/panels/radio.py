@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import md5, os, re, threading, time, urllib
-from xml.dom import minidom
+from lib import feedparser
 from gettext import gettext as _
 import gobject, gtk
 from xl import common, xlmisc, library, media
@@ -520,30 +520,23 @@ class RadioPanel(object):
 
             (download_path, downloaded) = \
                 self.get_podcast_download_path(row[0])
-            add_item = False
-
-            if not self.exaile.settings.get_boolean('download_feeds', True):
-                add_item = False
-
-                song.download_path = 1
+            if not downloaded:
+                song.artist = _("Not downloaded")
+                song.download_path = ''
+                add_item = True
             else:
-                if not downloaded:
-
-                    song.artist = _("Not downloaded")
-                    song.download_path = ''
-                    add_item = True
-                else:
-                    song.download_path = download_path
+                song.download_path = download_path
 
             song.length = row[3]
             song.podcast_path = wrapper.path
             songs.append(song)
             self.podcasts[song.loc] = song
-            if add_item:
-                song.podcast_artist = row[2] 
-                self.add_podcast_to_queue(song)
-            else:
-                song.podcast_artist = None
+            song.podcast_artist = row[2]
+#            if add_item:
+#                song.podcast_artist = row[2] 
+#                self.add_podcast_to_queue(song)
+#            else:
+#                song.podcast_artist = None
 
         self.exaile.new_page(str(wrapper), songs)
 
@@ -723,33 +716,28 @@ class RadioPanel(object):
             Refreshes a podcast
         """
         try:
-            h = urllib.urlopen(path)
-            xml = h.read()
-            h.close()
+            feed = feedparser.parse(path)
         except IOError:
             gobject.idle_add(common.error, self.exaile.window, 
                 _("Could not read feed."))
             return
 
-        gobject.idle_add(self.parse_podcast_xml, path, item, xml)
+        gobject.idle_add(self.parse_podcast_xml, path, item, feed)
 
-    def parse_podcast_xml(self, path, iter, xml):
+    def parse_podcast_xml(self, path, iter, feed):
         """
             Parses the xml from the podcast and stores the information to the
             database
         """
-        path = str(path)
-        xml = minidom.parseString(xml).documentElement
-        root = xml.getElementsByTagName('channel')[0]
-
-        title = self.get_val(root, 'title')
-        description = self.get_val(root, 'description')
+        title = feed.feed.title
+        description = feed.feed.description
         if not description: description = ""
-        pub_date = self.get_val(root, 'pubDate')
-        print pub_date
-        if not pub_date: pub_date = ""
-        image = self.get_val(root, 'image')
-        if not image: image = ""
+
+        try: pub_date = feed.feed.updated
+        except AttributeError: pub_date = ""
+
+        # TODO: use the image from the feed as the cover image
+        image = ""
         path_id = library.get_column_id(self.db, 'paths', 'name', path)
 
         self.db.execute("UPDATE podcasts SET title=?, "
@@ -758,21 +746,28 @@ class RadioPanel(object):
 
         self.model.set_value(iter, 1, PodcastWrapper(title, path))
         root_title = title
-        items = root.getElementsByTagName('item')
 
-        for item in items:
-            title = self.get_val(item, 'title')
-            link = self.get_val(item, 'link')
+        for item in feed['entries']:
+            title = item.title 
+            link = item.link
             print title, link
-            desc = self.get_val(item, 'description')
+            desc = item.description
 
             desc = self.clean_desc(desc)
-            enc = self.get_child(item, 'enclosure')
-            date = self.get_val(item, 'pubDate')
+            enc = None
+            try:
+                enc = item.enclosures
+            except AttributeError:
+                pass
+
+            date = item.updated
             if enc:
-                size = enc[0].getAttribute('length')
-                length = enc[0].getAttribute('duration')
-                loc = str(enc[0].getAttribute("url"))
+                try: size = enc[0].length
+                except AttributeError: size = 0
+                try: length = enc[0].duration
+                except AttributeError: length = 0
+                try: loc = str(enc[0].href)
+                except AttributeError: loc = ''
             else: continue
             loc_id = library.get_column_id(self.db, 'paths', 'name', loc)
 
@@ -811,29 +806,6 @@ class RadioPanel(object):
 
         return desc
 
-    def get_child(self, node, name):
-        """ 
-            Gets a child node
-        """
-        return node.getElementsByTagName(name)
-
-    def get_value(self, node):
-        if hasattr(node, "firstChild") and node.firstChild:
-            return node.firstChild.nodeValue
-        else:
-            return ""
-
-    # the following code stolen from listen
-    def get_val(self, node, name):
-        """
-            Node navigation
-        """
-        node = self.get_child(node, name)
-        if node:
-            return self.get_value(node[0])
-        else:
-            return ""
-            
     def delete_podcast(self, widget, event):
         """ 
             Removes a podcast

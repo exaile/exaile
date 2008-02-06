@@ -897,6 +897,7 @@ class TracksListCtrl(gtk.VBox):
         self.tpm = tpm        
                 
         songs = self.get_selected_tracks()
+        t = songs[0].type
 
         n_selected = len(songs)
 
@@ -915,6 +916,9 @@ class TracksListCtrl(gtk.VBox):
                 self.exaile.on_stop_track, 'gtk-stop')
         tpm.append_separator()
 
+        if t == 'podcast':
+            tpm.append(_('Download Podcasts'), self.download_podcast,
+            'gtk-save')
         tpm.append(_("Edit Track Information"), lambda e, f:
             editor.TrackEditor(self.exaile, self), 'gtk-edit')
 
@@ -934,7 +938,6 @@ class TracksListCtrl(gtk.VBox):
 
         tpm.append_menu(_("Set Track Rating"), rm, 'exaile-star-icon')
 
-        t = songs[0].type
         if t == 'file':
             bm = xlmisc.Menu()
             bm.append(ngettext("Burn Selected Track", "Burn Selected Tracks",
@@ -978,6 +981,7 @@ class TracksListCtrl(gtk.VBox):
 
                 tpm.append_menu(_("Add to Saved Stations"),
                     self.playlists_menu, 'gtk-add')
+
 
         if n_selected == 1:
             info = tpm.append(_("Information"), self.get_track_information,
@@ -1117,6 +1121,15 @@ class TracksListCtrl(gtk.VBox):
             f.close()
         except IOError:
             xlmisc.log('Could not save station list')
+
+    def download_podcast(self, event, type):
+        """
+            Downloads the selected podcasts
+        """
+        songs = self.get_selected_tracks()
+        for song in songs:
+            if song.type == 'podcast':
+                self.exaile.pradio_panel.add_podcast_to_queue(song)
 
     def delete_tracks(self, event, type): 
         """

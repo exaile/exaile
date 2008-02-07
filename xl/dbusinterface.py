@@ -66,7 +66,7 @@ class DBusInterfaceObject(dbus.service.Object):
         import common
         import xlmisc
         if common.any(filename.endswith(ext) for ext in xlmisc.PLAYLIST_EXTS):
-            self.exaile.import_playlist(filename, True)
+            self.exaile.playlist_manager.import_playlist(filename, True)
         else:
             self.exaile.stream(filename)
 

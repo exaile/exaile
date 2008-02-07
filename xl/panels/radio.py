@@ -114,10 +114,15 @@ class PodcastQueueThread(threading.Thread):
             if temp:
                 song.set_len(temp.duration)
                 self.db = self.panel.exaile.db
+                path_id = library.get_column_id(self.db, 'paths', 'name',
+                    song.loc)
+                podcast_path_id = library.get_column_id(self.db, 'paths', 
+                    'name', song.podcast_path)
+
                 self.panel.exaile.db.execute(
-                    "UPDATE podcast_items SET length=%s WHERE podcast_path=%s"
-                    " AND path=%s" % (self.db.p, self.db.p, self.db.p), 
-                    (temp.duration, song.podcast_path, song.loc))
+                    "UPDATE podcast_items SET length=? WHERE podcast_path=?"
+                    " AND path=?", 
+                    (temp.duration, podcast_path_id, path_id))
                 self.panel.exaile.db.commit()
                 if song.podcast_artist:
                     song.artist = song.podcast_artist

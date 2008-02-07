@@ -534,7 +534,10 @@ class ExailePlayer(GSTPlayer):
         self.exaile.play_button.set_image(self.exaile.get_pause_image())
 
         try:
-            GSTPlayer.play(self, track.loc)
+            play_loc = track.loc
+            if track.type == 'podcast':
+                play_loc = track.download_path
+            GSTPlayer.play(self, play_loc)
         except Exception, e:
             self.error_window.log(str(e))
             self.error_window.show_all()

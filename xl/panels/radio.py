@@ -752,6 +752,8 @@ class RadioPanel(object):
         self.model.set_value(iter, 1, PodcastWrapper(title, path))
         root_title = title
 
+        found_items = []
+        
         for item in feed['entries']:
             title = item.title 
             link = item.link
@@ -775,9 +777,13 @@ class RadioPanel(object):
                 except AttributeError: loc = ''
             else: continue
             loc_id = library.get_column_id(self.db, 'paths', 'name', loc)
+            found_items.append(loc_id)
 
             row = self.db.read_one("podcast_items", "path", 
                 "podcast_path=? AND path=?", (path_id, loc_id))
+
+            # if the feed already exists, don't add it again
+            if row: continue
 
             t = common.strdate_to_time(date)
             date = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(t))
@@ -793,6 +799,13 @@ class RadioPanel(object):
                     "length": length,
                 }, "path=? AND podcast_path=?", 
                 (loc_id, path_id), row == None)
+
+        # delete all items that aren't still in the feed
+        where = ["path!=\"%d\" " % (x) for x in found_items]
+        where = " AND ".join(where)
+        cur = self.db.cursor()
+        cur.execute("DELETE FROM podcast_items WHERE (%s) AND podcast_path=?"
+            % (where,), (path_id,))
 
         self.db.commit()
 

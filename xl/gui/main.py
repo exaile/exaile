@@ -1053,7 +1053,6 @@ class ExaileWindow(gobject.GObject):
                 pass
         return False
 
-    @common.synchronized
     @common.threaded
     def update_songs(self, songs=None, set=True): 
         """

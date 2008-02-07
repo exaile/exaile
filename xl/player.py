@@ -535,7 +535,7 @@ class ExailePlayer(GSTPlayer):
 
         try:
             play_loc = track.loc
-            if track.type == 'podcast':
+            if track.type == 'podcast' and track.download_path:
                 play_loc = track.download_path
             GSTPlayer.play(self, play_loc)
         except Exception, e:

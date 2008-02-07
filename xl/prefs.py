@@ -522,7 +522,6 @@ class Preferences(object):
             'wikipedia_locale': (PrefsItem, 'en'),
             'scan_interval': (FloatPrefsItem, 25, None,
                 self.setup_scan_interval),
-            'download_feeds': (CheckPrefsItem, True),
             'feed_download_location': (DirPrefsItem, '~/.exaile/podcasts'),
             'import/format': (ComboPrefsItem, 
                 (import_formats and import_formats[0]) or 'MP3'),

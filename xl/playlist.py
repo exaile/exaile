@@ -205,6 +205,8 @@ class PlaylistManager(gobject.GObject):
             handle.write("#PLAYLIST: %s\n" % playlist_name)
 
         for track in songs:
+            if track.type == 'podcast' or track.type == 'stream': 
+                continue
             handle.write("#EXTINF:%d,%s\n%s\n" % (track.duration,
                 track.title, track.loc))
 

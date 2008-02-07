@@ -329,7 +329,10 @@ class CoverManager(object):
                 if row[1]:
                     if not self.check_image_age(album_id, row[0]): return
 
-                self.exaile.cover.set_image(coverfile)
+                if gtk.gdk.pixbuf_get_file_info(coverfile):
+                    self.exaile.cover.set_image(coverfile)
+                else:
+                    self.exaile.cover.set_image(NOCOVER_IMAGE)
                 return
 
         cover = self.fetch_from_fs(track)
@@ -624,13 +627,17 @@ class CoverFetcher(object):
                 self.needs[artist].append(album)
                 image = NOCOVER_IMAGE
 
-            if self.found.has_key("%s - %s" % (artist.lower(), album.lower())):
-                continue
 
             title = CoverWrapper(artist, album, image)
-            image = gtk.gdk.pixbuf_new_from_file(image)
+            try:
+                image = gtk.gdk.pixbuf_new_from_file(image)
+            except gobject.GError:
+                image = gtk.gdk.pixbuf_new_from_file(NOCOVER_IMAGE)
             image = image.scale_simple(80, 80, 
                 gtk.gdk.INTERP_BILINEAR)
+
+            if self.found.has_key("%s - %s" % (artist.lower(), album.lower())):
+                continue
 
             self.found["%s - %s" % (artist.lower(), album.lower())] = \
                 self.model.append([title, image, title])

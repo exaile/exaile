@@ -530,9 +530,7 @@ class RadioPanel(object):
             else:
                 song.download_path = download_path
 
-            song.length = row[3]
             song.podcast_path = wrapper.path
-            song.artist = row[2]
             songs.append(song)
             self.podcasts[song.loc] = song
 

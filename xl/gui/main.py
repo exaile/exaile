@@ -401,7 +401,6 @@ class ExaileWindow(gobject.GObject):
 
         self.col_menus[pref] = {}
         column_ids = frozenset(self.settings.get_list('ui/%s_columns' % pref))
-        print column_ids
 
         for col_struct in cols:
             self.col_menus[col_struct.id] = menu = self.xml.get_widget(

@@ -20,6 +20,7 @@ import gobject, gtk
 from xl import common, media, db, audioscrobbler, xlmisc, dbusinterface
 from xl.db import DBOperationalError
 from xl.gui import library as librarygui
+from guppy import hpy; heap=hpy()
 
 try:    
     import DiscID, CDDB
@@ -807,6 +808,9 @@ class PopulateThread(threading.Thread):
         gobject.idle_add(gc.collect)
         PopulateThread.stopped = False
         PopulateThread.running = False
+        self.exaile = None
+        self.directories = None
+        self.added = None
 
 def populate(exaile, db, directories, update_func, delete=True,
     load_tree=False, done_func=None):
@@ -1013,7 +1017,6 @@ class LibraryManager(object):
             Updates the library
         """
         self.exaile.status.set_first(_("Scanning collection..."))
-
         populate(self.exaile, self.db,
             items, self.on_library_update, delete,
             load_tree=load_tree, done_func=done_func)

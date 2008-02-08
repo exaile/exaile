@@ -707,6 +707,8 @@ class TracksListCtrl(gtk.VBox):
         item = model.get_value(iter, 0)
         if item.type == 'podcast':
             text = item.length
+            if item.length == "0:00":
+                text = "N/A"
         elif item.type == 'stream':
             text = ''
         else:

@@ -124,8 +124,6 @@ class PodcastQueueThread(threading.Thread):
                     " AND path=?", 
                     (temp.duration, podcast_path_id, path_id))
                 self.panel.exaile.db.commit()
-                if song.podcast_artist:
-                    song.artist = song.podcast_artist
 
             gobject.idle_add(self.transfer_queue.update_song, song)
             xlmisc.log("Downloaded podcast %s" % song.loc)
@@ -512,7 +510,7 @@ class RadioPanel(object):
             info = ({
                 'title': row[1],
                 'artist': row[2],
-                'album': desc,
+                'album': desc.replace('\n', ' '),
                 'loc': row[0],
                 'year': row[4], 
                 'length': row[3], 
@@ -522,26 +520,21 @@ class RadioPanel(object):
             song.set_info(**info)
             song.type = 'podcast'
             song.size = row[5]
+            song.year = song.year.replace(' 00:00:00', '')
 
             (download_path, downloaded) = \
                 self.get_podcast_download_path(row[0])
+
             if not downloaded:
-                song.artist = _("Not downloaded")
                 song.download_path = ''
-                add_item = True
             else:
                 song.download_path = download_path
 
             song.length = row[3]
             song.podcast_path = wrapper.path
+            song.artist = row[2]
             songs.append(song)
             self.podcasts[song.loc] = song
-            song.podcast_artist = row[2]
-#            if add_item:
-#                song.podcast_artist = row[2] 
-#                self.add_podcast_to_queue(song)
-#            else:
-#                song.podcast_artist = None
 
         self.exaile.new_page(str(wrapper), songs)
 

@@ -18,8 +18,9 @@
 from gettext import gettext as _
 
 import ConfigParser, os
-import gtk, gtk.glade
+import gtk, gtk.glade, gst
 import xl.path
+from xl import xlmisc
 
 def get_active_text(combobox):
     model = combobox.get_model()
@@ -43,6 +44,9 @@ class EqualizerWindow(object):
         self.dialog.set_transient_for(self.exaile.window)
 
         self.get_widgets()
+        self.eq_enable_box.set_active(exaile.settings.get_boolean('equalizer/enabled',
+            False))
+        self.eq_enable_box.connect('toggled', self.toggle_enabled)
 
         self.delete.set_sensitive(False) # We can't let the user delete default presets
         self.save.set_sensitive(False)
@@ -62,6 +66,39 @@ class EqualizerWindow(object):
         self.setup_equalizer()
         self.dialog.show()
 
+    def toggle_enabled(self, widget):
+        """
+            Called when the user clicks the "Enable Equalizer" checkbox
+        """
+
+        # save it to the settings, and then reset the playbin
+        self.exaile.settings.set_boolean('equalizer/enabled',
+            self.eq_enable_box.get_active())
+
+        xlmisc.log("Setting Equalizer support to %s" %
+            self.eq_enable_box.get_active())
+        player = self.exaile.player
+        track = player.current
+
+        position = 0
+        if track is not None and player.is_playing():
+            try:
+                position = player.playbin.query_position(gst.FORMAT_TIME)[0]
+            except gst.QueryError:
+                position = 0
+            player.stop(False)
+            play_track = True
+        else:
+            play_track = False
+
+        player.setup_playbin()
+        player.audio_sink = None
+        if play_track:
+            player.play_track(track)
+            player.current = track
+            if position and track.type != 'stream':
+                player.seek(position / gst.SECOND, False)
+
     def get_widgets(self):
         """
             Gets all widgets from the glade definition file
@@ -73,6 +110,7 @@ class EqualizerWindow(object):
         self.save = xml.get_widget('eq_save_button')
         self.delete = xml.get_widget('eq_del_button')
         self.import_btn = xml.get_widget('eq_import_button')
+        self.eq_enable_box = xml.get_widget('eq_enable')
 
     def setup_equalizer(self):
         """

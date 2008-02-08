@@ -1148,7 +1148,8 @@ class ExaileWindow(gobject.GObject):
 
 
         if (seconds > 240 or value > 50) and track.type != 'stream' and \
-            self.player.is_playing() and not track.submitted: 
+            track.type != 'podcast' and self.player.is_playing() \
+            and not track.submitted: 
             track.submitted = True
             self.update_rating(track, plays=1,
                 rating=1)

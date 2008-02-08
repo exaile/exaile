@@ -164,6 +164,7 @@ def get_scrobbler_session(exaile, username="", password="", new=False):
         SCROBBLER_SESSION.verbose = True
         try:
             SCROBBLER_SESSION.auth()
+            xlmisc.log("Login succesful")
         except:
             xlmisc.log_exception()
             gobject.idle_add(exaile.status.set_first,

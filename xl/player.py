@@ -422,7 +422,6 @@ class ExailePlayer(GSTPlayer):
 
     def setup_playbin(self):
         GSTPlayer.setup_playbin(self)
-        self.set_audio_sink
         self.playbin.set_property('volume',
             self.exaile.settings.get_float('volume', .7))
 
@@ -755,6 +754,9 @@ class EqualizerElementFactory(object):
     
     @staticmethod
     def is_enabled(exaileplayer):
+        if not exaileplayer.exaile.settings.get_boolean('equalizer/enabled',
+            False): 
+            return False
         return not exaileplayer.exaile.options.noeq
     
     @staticmethod

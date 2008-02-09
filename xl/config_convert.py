@@ -87,7 +87,8 @@ class ConvertIniToConf:
             "watch_directories": self.conv_bool,
             "show_track_col_Year": ("ui/track_columns", self.add_rem_list),
             "mainw_x": ("ui/mainw_x", self.conv_int),
-            "mainw_y": ("ui/mainw_y", self.conv_int)
+            "mainw_y": ("ui/mainw_y", self.conv_int),
+	    "podcast_show_limit": self.conv_str
         }
 
         for setting in self.osettings.keys():

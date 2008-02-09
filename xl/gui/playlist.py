@@ -90,7 +90,7 @@ class TracksListCtrl(gtk.VBox):
         column_by_id[col.id] = col
         column_by_display[col.display] = col
 
-    default_column_ids = ('track', 'title', 'album', 'artist', 'length')
+    default_column_ids = ['track', 'title', 'album', 'artist', 'length']
 
     prep = "track"
     type = 'track'

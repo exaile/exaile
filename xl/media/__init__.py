@@ -366,6 +366,7 @@ class Track(gobject.GObject):
         """
             Gets the duration as an integer
         """
+        if self._len == '': self._len = 0
         return timetype(self._len)
     
     def set_bitrate(self, rate):

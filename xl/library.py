@@ -20,7 +20,6 @@ import gobject, gtk
 from xl import common, media, db, audioscrobbler, xlmisc, dbusinterface
 from xl.db import DBOperationalError
 from xl.gui import library as librarygui
-from guppy import hpy; heap=hpy()
 
 try:    
     import DiscID, CDDB

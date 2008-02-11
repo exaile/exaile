@@ -702,9 +702,11 @@ class ExailePlayer(GSTPlayer):
         """
             Stops the currently playing track
         """
-        self.exaile.status.set_first(None)
-        self.exaile.cover.set_image(xl.path.get_data('images', 'nocover.png'))
-        self.exaile.cover_manager.stop_cover_thread()
+        exaile = self.exaile
+
+        exaile.status.set_first(None)
+        exaile.cover.set_image(xl.path.get_data('images', 'nocover.png'))
+        exaile.cover_manager.stop_cover_thread()
 
         if self.current: self.current.start_time = 0
         current = self.current
@@ -712,16 +714,17 @@ class ExailePlayer(GSTPlayer):
         if reset_current: self.current = None
         GSTPlayer.stop(self)
 
-        self.exaile.playing = False
-        if self.exaile.tray_icon:
-            self.exaile.tray_icon.set_tooltip(_('Exaile Music Player'))
+        exaile.playing = False
 
-        self.exaile.window.set_title(_('Exaile Music Player'))
+        title = _('Exaile Music Player')
+        exaile.window.set_title(title)
+        if exaile.tray_icon:
+            exaile.tray_icon.set_tooltip(title)
 
-        self.exaile.play_button.set_image(self.exaile.get_play_image())
-        if self.exaile.tracks: self.exaile.tracks.queue_draw()
-        self.exaile.update_track_information(None)
-        self.exaile.new_progressbar.set_text('0:00 / 0:00')
+        exaile.play_button.set_image(exaile.get_play_image())
+        if exaile.tracks: exaile.tracks.queue_draw()
+        exaile.update_track_information(None)
+        exaile.new_progressbar.set_text('0:00 / 0:00')
 
 class ReplayGainElementFactory(object):
     name = u"ReplayGain"

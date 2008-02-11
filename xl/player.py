@@ -19,7 +19,7 @@ pygst.require('0.10')
 import gst, gobject, random, time, re, os, md5
 import thread
 from gettext import gettext as _
-from xl import xlmisc, common, media, library
+from xl import xlmisc, common, media, library, logger
 from xl.gui import playlist as playlistgui
 import xl.path
 
@@ -538,6 +538,7 @@ class ExailePlayer(GSTPlayer):
                 play_loc = track.download_path
             GSTPlayer.play(self, play_loc)
         except Exception, e:
+            logger.log_exception()
             self.error_window.log(str(e))
             self.error_window.show_all()
             if from_button: self.exaile.player.stop()

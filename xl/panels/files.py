@@ -333,7 +333,11 @@ class FilesPanel(object):
                 continue
             size = info[6]
             size = size / 1024
-            size = locale.format_string("%d KB", size, True)
+            # The next two lines are equivalent to
+            # locale.format_string(_("%d KB"), size, True)
+            # which is only available in Python >=2.5.
+            size = locale.format('%d', size, True)
+            size = _("%s KB") % size
 
             self.model.append([self.track, f, size])
 

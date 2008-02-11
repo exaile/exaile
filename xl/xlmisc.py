@@ -770,8 +770,6 @@ class BrowserWindow(gtk.VBox):
         exaile.status.set_first(_('Loading page...'))
         self.view.connect('net-stop', self.on_net_stop)
 
-        self.cache_dir = xl.path.get_config('cache')
-
         self.server = ''
 
         if url:

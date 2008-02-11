@@ -14,8 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import thread, os, shlex, string
-import urllib2
+import thread, os, shlex, string, urllib2
 from gettext import gettext as _
 import pygtk, common
 pygtk.require('2.0')
@@ -481,14 +480,11 @@ class Preferences(object):
         # replaygain toggle handler
         replaygain = xml.get_widget('prefs_replaygain_enabled')
         replaygain.connect('toggled', self.toggle_replaygain)
-        
+
         # proxy server handler
         proxy = xml.get_widget('prefs_proxy_enabled')
         proxy.connect('toggled', self.toggle_proxy)
-        xml.get_widget('prefs_proxy_username').set_sensitive(0)
-        xml.get_widget('prefs_proxy_password').set_sensitive(0)
-        xml.get_widget('prefs_proxy_server').set_sensitive(0)        
-        
+
         simple_settings = ({
             'ui/use_splash': (CheckPrefsItem, True),
 #            'watch_directories': (CheckPrefsItem, False, self.check_gamin,
@@ -537,7 +533,7 @@ class Preferences(object):
             'check_for_updates': (CheckPrefsItem, True),
             'proxy/enabled': (CheckPrefsItem, False, None, self.proxy_setting_changed),
             'proxy/server': (PrefsItem, '', None, self.proxy_setting_changed),
-#            'proxy/port': (PrefsItem, '', None, self.proxy_setting_changed),
+            'proxy/port': (PrefsItem, '', None, self.proxy_setting_changed),
             'proxy/username': (PrefsItem, '', None, self.proxy_setting_changed),
             'proxy/password': (CryptedPrefsItem, '', None, self.proxy_setting_changed),
         })
@@ -653,12 +649,12 @@ class Preferences(object):
             proxy_url = "http://"
 
             if username != "" and password != "":
-                proxy_url+="%s:%s@" %(username, password)
+                proxy_url += "%s:%s@" % (username, password)
 
-            proxy_url+=server
+            proxy_url += server
 
             if port != "":
-                proxy_url+=":%s" % port
+                proxy_url += ":%s" % port
 
             proxy_support = urllib2.ProxyHandler({'http':proxy_url})
             opener = urllib2.build_opener(proxy_support, urllib2.HTTPHandler)
@@ -739,14 +735,9 @@ class Preferences(object):
         """
             Enables/disables proxy server options.
         """
-        items = [xml.get_widget('prefs_proxy_server'),
-                 xml.get_widget('prefs_proxy_port'),
-                 xml.get_widget('prefs_proxy_username'),
-                 xml.get_widget('prefs_proxy_password')]
+        item = xml.get_widget('prefs_proxy_table')
         to_state = widget.get_active()
-        
-        for item in items:
-            item.set_sensitive(to_state)
+        item.set_sensitive(to_state)
 
     def use_custom_toggled(self, widget, event=None):
         """

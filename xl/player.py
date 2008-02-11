@@ -244,7 +244,7 @@ class ExailePlayerErrorWindow(gtk.Window):
         self.scroll.add(self.view)
 
         buttons = gtk.HBox()
-        close = gtk.Button(_('Close'))
+        close = gtk.Button(stock=gtk.STOCK_CLOSE)
         buttons.pack_end(close, False, False)
         main.pack_start(buttons, False, False)
 

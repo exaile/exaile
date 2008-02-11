@@ -84,9 +84,11 @@ class TracksListCtrl(gtk.VBox):
         Column('playcount', _('Playcount'), 50),
     ]
 
+    COLUMN_IDS = []
     column_by_id = {}
     column_by_display = {}
     for col in COLUMNS:
+        COLUMN_IDS.append(col.id)
         column_by_id[col.id] = col
         column_by_display[col.display] = col
 
@@ -488,6 +490,7 @@ class TracksListCtrl(gtk.VBox):
         self._length_id = -1
 
         col_ids = self.exaile.settings.get_list("ui/col_order", None)
+        cols = None
         if col_ids:
             cols = []
             for col_id in col_ids[:]:
@@ -496,13 +499,14 @@ class TracksListCtrl(gtk.VBox):
                     cols.append(col)
                 else:
                     col_ids.remove(col_id)
+        if cols:
             for col in self.COLUMNS:
                 if not col in cols:
                     cols.append(col)
                     col_ids.append(col.id)
         else:
             cols = self.COLUMNS[:]
-            col_ids = [col.id for col in cols]
+            col_ids = self.COLUMN_IDS[:]
 
         self.append_map = col_ids
         self.setup_model(col_ids)

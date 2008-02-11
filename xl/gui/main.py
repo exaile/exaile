@@ -393,14 +393,23 @@ class ExaileWindow(gobject.GObject):
         self.not_resizable_cols.connect('activate',
             self.activate_cols_resizable)
 
-        # setup up default shown columns
-        if not self.settings.get_boolean('ui/new_trackslist_defaults_set', False):
+        column_ids = None
+        if self.settings.get_boolean('ui/trackslist_defaults_set', False):
+            column_ids = set()
+            ids = self.settings.get_list("ui/%s_columns" % pref)
+            # Don't add invalid columns.
+            all_ids = frozenset(trackslist.TracksListCtrl.COLUMN_IDS)
+            for id in ids:
+                if id in all_ids:
+                    column_ids.add(id)
+        if not column_ids:
+            # Use default.
+            ids = trackslist.TracksListCtrl.default_column_ids
             self.settings.set_boolean('ui/new_trackslist_defaults_set', True)
-            self.settings.set_list('ui/%s_columns' % pref,
-                trackslist.TracksListCtrl.default_column_ids)
+            self.settings.set_list('ui/%s_columns' % pref, ids)
+            column_ids = frozenset(ids)
 
         self.col_menus[pref] = {}
-        column_ids = frozenset(self.settings.get_list('ui/%s_columns' % pref))
 
         for col_struct in cols:
             self.col_menus[col_struct.id] = menu = self.xml.get_widget(

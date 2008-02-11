@@ -749,6 +749,8 @@ class ReplayGainElementFactory(object):
             # Using the ugly method for returing a 1-element tuple
             return replaygain,
 
+        return ()
+
 class EqualizerElementFactory(object):
     name = u"Equalizer"
     

@@ -437,7 +437,7 @@ class ExaileWindow(gobject.GObject):
         pref, col_struct = data
         id = col_struct.id
 
-        column_ids = self.settings.get_list(pref)
+        column_ids = list(self.settings.get_list(pref))
         if item.get_active():
             if id not in column_ids:
                 xlmisc.log("adding %s column to %s" % (id, pref))

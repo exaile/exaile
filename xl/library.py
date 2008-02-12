@@ -1016,6 +1016,7 @@ class LibraryManager(object):
             Updates the library
         """
         self.exaile.status.set_first(_("Scanning collection..."))
+
         populate(self.exaile, self.db,
             items, self.on_library_update, delete,
             load_tree=load_tree, done_func=done_func)
@@ -1034,7 +1035,7 @@ class LibraryManager(object):
             # if percent is -2, it wasn't an auto scan, so we won't reload the
             # collection tree because that could potentially take a lot of
             # time if the person has a lot of tracks in their library
-            if percent == -2:
+            if percent == -2 and 0:
                 self.exaile.collection_panel.songs = self.exaile.all_songs
                 self.exaile.collection_panel.track_cache = dict()
                 gobject.idle_add(self.exaile.collection_panel.load_tree, True)

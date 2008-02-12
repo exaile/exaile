@@ -97,6 +97,8 @@ class LibraryDialog(object):
             removes a path from the list
         """
         item = self.list.get_selection()
+        if item is None:
+            return
         index = self.list.rows.index(item)
         
         import_dir = self.exaile.settings.get_str('import/location', '')

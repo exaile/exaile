@@ -27,7 +27,6 @@ from xl.plugins import manager as pluginmanager, gui as plugingui
 from xl.gui import playlist as trackslist
 from xl.gui import information
 from xl.panels import collection, radio, playlists, files, device
-import xl.version
 import random, gst, urllib
 
 def found_updates(exaile, found):
@@ -631,7 +630,8 @@ class ExaileWindow(gobject.GObject):
             xl/version.py
         """
         version = sys.modules['__main__'].__version__
-        if version.find('devel') > -1:
+        if 'devel' in version:
+            import xl.version
             version = "%s [r%s]" % (version, xl.version.version_info['revno'])
 
         return version

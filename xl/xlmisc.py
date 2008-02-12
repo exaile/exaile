@@ -851,10 +851,10 @@ class AboutDialog(gtk.Dialog):
         self.dialog.set_logo(logo)
         # HACK: GTK+ < 2.12 (2007-09-14) use set_name.
         try:
-            self.dialog.set_program_name(_("Exaile") + "\n")
+            self.dialog.set_program_name(_("Exaile"))
         except AttributeError:
-            self.dialog.set_name(_("Exaile") + "\n")
-        self.dialog.set_version(str(version))
+            self.dialog.set_name(_("Exaile"))
+        self.dialog.set_version("\n" + str(version))
         self.dialog.set_transient_for(parent)
         self.dialog.run()
         self.dialog.destroy()

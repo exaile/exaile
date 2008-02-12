@@ -835,29 +835,24 @@ class BrowserWindow(gtk.VBox):
             self.entry.set_sensitive(True)
             self.entry.set_text(url)
 
-class AboutDialog(gtk.Dialog):
+def show_about_dialog(parent, version):
     """
-        An about dialog
+        Shows an about dialog
     """
-
-    def __init__(self, parent, version):
-        """
-            Initializes the dialog
-        """
-        xml = gtk.glade.XML('exaile.glade', 'AboutDialog', 'exaile')
-        self.dialog = xml.get_widget('AboutDialog')
-        logo = gtk.gdk.pixbuf_new_from_file(xl.path.get_data('images',
-            'exailelogo.png'))
-        self.dialog.set_logo(logo)
-        # HACK: GTK+ < 2.12 (2007-09-14) use set_name.
-        try:
-            self.dialog.set_program_name(_("Exaile"))
-        except AttributeError:
-            self.dialog.set_name(_("Exaile"))
-        self.dialog.set_version("\n" + str(version))
-        self.dialog.set_transient_for(parent)
-        self.dialog.run()
-        self.dialog.destroy()
+    xml = gtk.glade.XML('exaile.glade', 'AboutDialog', 'exaile')
+    dialog = xml.get_widget('AboutDialog')
+    logo = gtk.gdk.pixbuf_new_from_file(xl.path.get_data('images',
+        'exailelogo.png'))
+    dialog.set_logo(logo)
+    # HACK: GTK+ < 2.12 (2007-09-14) use set_name.
+    try:
+        dialog.set_program_name(_("Exaile"))
+    except AttributeError:
+        dialog.set_name(_("Exaile"))
+    dialog.set_version("\n" + str(version))
+    dialog.set_transient_for(parent)
+    dialog.run()
+    dialog.destroy()
 
 class ImageWidget(gtk.Image):
     """

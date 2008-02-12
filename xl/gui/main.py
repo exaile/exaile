@@ -577,7 +577,7 @@ class ExaileWindow(gobject.GObject):
         self.goto_current_item.connect('activate', self.goto_current)
 
         self.xml.get_widget('about_item').connect('activate',
-            lambda *e: xlmisc.AboutDialog(self.window,
+            lambda *e: xlmisc.show_about_dialog(self.window,
             self.get_version_info()))
         
         self.xml.get_widget('new_item').connect('activate',

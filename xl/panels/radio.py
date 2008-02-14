@@ -497,9 +497,9 @@ class RadioPanel(object):
         if not row: return
 
         desc = row[0]
-	limit = self.exaile.settings.get_str('podcast_show_limit', '0')
-	limiter = ""
-	if int(limit) > 0: limiter = "LIMIT %s" % limit
+        limit = self.exaile.settings.get_str('podcast_show_limit', '0')
+        limiter = ""
+        if int(limit) > 0: limiter = "LIMIT %s" % limit
         rows = self.db.select("SELECT paths.name, title, description, length, "
             "pub_date, size FROM podcast_items, paths WHERE podcast_path=? "
             "AND paths.id=podcast_items.path ORDER BY "

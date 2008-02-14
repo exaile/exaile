@@ -1780,13 +1780,13 @@ class ExaileWindow(gobject.GObject):
             
 
         if self.player.current: self.player.current.stop()
-        
-        # Clear the search filter so that the entire playlist is saved
-        self.tracks_filter.set_text('')
-        try:
-            self.on_search()
-        except:  # In case we're quitting before the playlist loaded
-            pass
+        # Clear search filter if needed so that the entire playlist is saved
+        if self.tracks_filter.get_text() != '':
+            self.tracks_filter.set_text('')
+            try:
+                self.on_search()
+            except:  # In case we're quitting before the playlist loaded
+                pass
 
         for i in range(self.playlists_nb.get_n_pages()):
             page = self.playlists_nb.get_nth_page(i)

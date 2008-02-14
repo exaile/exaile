@@ -552,7 +552,8 @@ class CollectionPanel(object):
             songs = self.track_cache[key]
         except:
             pass
-        if not songs:
+
+        if not songs or self.name== 'device':
             songs = self.search_tracks(self.keyword, self.all)
             self.track_cache[key] = songs
 

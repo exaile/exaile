@@ -630,7 +630,6 @@ class ExailePlayer(GSTPlayer):
       
         track = self.exaile.tracks.get_next_track(self.current)
 
-        print 'next track was reported as ', track
         if not track:
             if not self.exaile.tracks.get_songs():
                 if not self.queued: return

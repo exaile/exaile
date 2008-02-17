@@ -409,7 +409,6 @@ class Preferences(object):
         xml.get_widget('prefs_lastfm_pass').set_invisible_char('*')
         xml.get_widget('prefs_audio_sink').set_active(0)
 
-
         self.setup_settings()
 
     def setup_settings(self):
@@ -502,6 +501,7 @@ class Preferences(object):
             'osd/h': (PrefsItem, '95', self.osd_adjust_size),
             'lastfm/user': (PrefsItem, ''),
             'lastfm/pass': (CryptedPrefsItem, '', None, self.setup_lastfm),
+            'lastfm/submit': (CheckPrefsItem, True),
             'cd_device': (PrefsItem, '/dev/cdrom'),
             'audio_sink': (ComboPrefsItem, 'Use GConf Settings'), # FIXME: i18n?
             'burn_prog': (ComboPrefsItem, (burn_progs and burn_progs[0]) or ''),

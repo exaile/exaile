@@ -95,6 +95,7 @@ class ExaileWindow(gobject.GObject):
         'track-information-updated': (gobject.SIGNAL_RUN_LAST, None, ()),
         'quit': (gobject.SIGNAL_RUN_LAST, None, ()),
         'timer_update': (gobject.SIGNAL_RUN_LAST, None, ()),
+        'lastfm_toggle': (gobject.SIGNAL_RUN_LAST, None, (bool,))
     }
     __single = None
 
@@ -564,6 +565,11 @@ class ExaileWindow(gobject.GObject):
         key, mod = gtk.accelerator_parse('<Control>L')
         self.accel_group.connect_group(key, mod, gtk.ACCEL_VISIBLE,
             lambda *e: self.jump_to(3))
+
+        # toggle last.fm submissions
+        key, mod = gtk.accelerator_parse('<Control><Shift>L')
+        self.accel_group.connect_group(key, mod, gtk.ACCEL_VISIBLE,
+            lambda *e: self.toggle_lastfm())
         
         # add the accel group to the window
         self.window.add_accel_group(self.accel_group)
@@ -620,6 +626,20 @@ class ExaileWindow(gobject.GObject):
         self.stop_track_button = self.xml.get_widget('stop_track_button')
         self.stop_track_button.connect('clicked',
             self.stop_track_toggle)
+
+    def toggle_lastfm(self):
+        """
+            Toggles last.fm submissions
+        """
+        new_setting = not self.settings.get_boolean('lastfm/submit', True)
+        self.settings.set_boolean('lastfm/submit', new_setting)
+        xlmisc.log("Toggling last.fm submissions to: %s" % new_setting)
+        self.emit('lastfm_toggle', new_setting)
+
+        type = _('Enabling')
+        if not new_setting: type = _('Disabling')
+        message = type + ' ' + _('Last.FM Submissions...')
+        self.status.set_first(message, 2000)
 
     def get_version_info(self):
         """
@@ -1163,7 +1183,9 @@ class ExaileWindow(gobject.GObject):
             self.update_rating(track, plays=1,
                 rating=1)
             self.status.set_first(_("Submitting to Last.fm..."), 2000)
-            audioscrobbler.submit_to_scrobbler(self, track)
+
+            if self.settings.get_boolean('lastfm/submit', True):
+                audioscrobbler.submit_to_scrobbler(self, track)
 
         self.emit('timer_update')
 

@@ -16,7 +16,8 @@
 
 import os, re
 from ConfigParser import SafeConfigParser
-import ConfigParser
+import ConfigParser, gobject
+from xl import common, xlmisc
 
 # ok, I know this isn't secure, but it's better than having passwords in
 # plaintext in the configuration file.
@@ -37,6 +38,7 @@ class XlConfigParser(SafeConfigParser):
         """
         SafeConfigParser.__init__(self)
         self.loc = loc
+        self.writing = False
 
         sections = ['ui', 'osd', 'lastfm', 'equalizer',\
             'editor', 'import', 'replaygain', 'proxy']
@@ -228,10 +230,14 @@ class XlConfigParser(SafeConfigParser):
         """
             Saves the settings
         """
+        if self.writing: return True
+        self.writing = True
+        xlmisc.log("Saving settings")
         f = open(self.loc, 'w')
         self.write(f)
         f.close()
-
+        self.writing = False
+        return True
     
     def optionxform(self, option):
         return str(option)
@@ -248,6 +254,9 @@ class Config:
         """
         self.config = XlConfigParser(loc)
         self.loc = loc
+
+        # save settings every 30 seconds
+        gobject.timeout_add(30000, self.save)
 
     def get_crypted(self, key, default="", plugin=None):
         """
@@ -398,6 +407,7 @@ class Config:
             Saves the settings
         """
         self.config.save()
+        return True
     
 
     def __setitem__(self, key, value): 

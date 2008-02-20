@@ -237,6 +237,7 @@ class TrackStatsTab(gtk.ScrolledWindow):
         self.append_info(_("System Rating:"), str(rating))
         if playcount >= 0: self.append_info(_("Playcount:"), str(playcount))
         self.append_info(_("Location:"), track.loc.encode(xlmisc.get_default_encoding()))
+        self.append_info(_("Date Added:"), track.time_added)
 
     def append_info(self, label, string):
         """

@@ -232,7 +232,6 @@ class XlConfigParser(SafeConfigParser):
         """
         if self.writing: return True
         self.writing = True
-        xlmisc.log("Saving settings")
         f = open(self.loc, 'w')
         self.write(f)
         f.close()

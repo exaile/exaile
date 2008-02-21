@@ -25,7 +25,7 @@ from gettext import gettext as _
 
 import pygtk, locale
 pygtk.require('2.0')
-import gtk, gobject, pango
+import gtk, gobject, pango, gtk.glade
 import cairo
 from gtk.gdk import SCROLL_LEFT, SCROLL_RIGHT, SCROLL_UP, SCROLL_DOWN
 
@@ -69,9 +69,48 @@ opener = urllib.FancyURLopener()
 opener.addheaders.pop(0)
 opener.addheader("User-Agent", "Mozilla")
 
+def check_theme_file(file):
+    """
+        Checks a theme file to make sure it's compatible with the current
+        version of Exaile.
+
+        It will open the glade file, instantiate the "ThemeInfo" dialog, and
+        check the "supported_versions" TextView for the current version.
+        Supported versions are separated by a newline.  If the current version
+        is not in the supported_versions, or the ThemeInfo dialog cannot be
+        instantiated, this function will return False
+    """
+    
+    current_version = sys.modules['__main__'].__version__
+    try:
+        xml = gtk.glade.XML(file, 'ThemeInfo', 'exaile')
+        svtv = xml.get_widget('supported_versions')
+        if not svtv: 
+            log("supported_versions widget not found, not using theme")
+            return False # the TextView could not be found
+
+        supported_versions = svtv.get_buffer().get_text(
+            svtv.get_buffer().get_start_iter(), 
+            svtv.get_buffer().get_end_iter()).split('\n')
+
+        if not current_version in supported_versions: 
+            log("Current version: %s not found in %s, not using theme" %
+                (current_version, supported_versions))
+            return False
+
+        log("%s theme is ok, continuing" % file)
+        return True
+
+    except:
+        log_exception()
+        return False
+
+
 def glade_file(exaile):
     themefile = xl.path.get_config('exaile.extheme')
     if os.path.isfile(themefile):
+        if not check_theme_file(themefile):
+            return xl.path.get_data('exaile.glade')
         return themefile
     else:
         return xl.path.get_data('exaile.glade')

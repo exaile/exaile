@@ -212,13 +212,24 @@ class MmKeys:
         try:
             import dbus
             bus = dbus.SessionBus()
-            obj = bus.get_object('org.gnome.SettingsDaemon',
-                '/org/gnome/SettingsDaemon')
-            self.__gnome = gnome = dbus.Interface(obj,
-                'org.gnome.SettingsDaemon')
+
+            # old method
+            try:
+                obj = bus.get_object('org.gnome.SettingsDaemon',
+                    '/org/gnome/SettingsDaemon')
+                self.__gnome = gnome = dbus.Interface(obj,
+                    'org.gnome.SettingsDaemon')
+            except:
+                # new method (for gnome 21.x)
+                obj = bus.get_object('org.gnome.SettingsDaemon',
+                    '/org/gnome/SettingsDaemon/MediaKeys')
+                self.__gnome = gnome = dbus.Interface(obj,
+                    'org.gnome.SettingsDaemon.MediaKeys')
+            
             gnome.GrabMediaPlayerKeys(self.application, 0)
             gnome.connect_to_signal('MediaPlayerKeyPressed', on_gnome_mmkey)
         except:
+            xlmisc.log_exception()
             return None
 
         return 'gnome'

@@ -47,7 +47,7 @@ except:
 
 PLUGIN_NAME = _("Music Sharing")
 PLUGIN_AUTHORS = ['Aren Olson <reacocard@gmail.com>']
-PLUGIN_VERSION = '0.8.0'
+PLUGIN_VERSION = '0.8.1'
 PLUGIN_DESCRIPTION = _(r"""Allows playing of DAAP music shares.
 \n\nDepends: python-daap, python-avahi.""")
 
@@ -266,6 +266,8 @@ class NetworkPanel(collection.CollectionPanel):
         self.transfer_queue = None
         self.transferring = False
         self.queue = None
+        self.model = gtk.TreeStore(gtk.gdk.Pixbuf, object, str)
+        self.model_blank = gtk.TreeStore(gtk.gdk.Pixbuf, object, str)
 
         self.keyword = None
         self.track_cache = dict()

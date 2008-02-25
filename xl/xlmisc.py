@@ -229,7 +229,7 @@ class MmKeys:
             gnome.GrabMediaPlayerKeys(self.application, 0)
             gnome.connect_to_signal('MediaPlayerKeyPressed', on_gnome_mmkey)
         except:
-            xlmisc.log_exception()
+            log_exception()
             return None
 
         return 'gnome'

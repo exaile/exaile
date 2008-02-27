@@ -1,7 +1,7 @@
 Source: exaile
 Section: universe/devel
 Priority: optional
-Maintainer: Aren Olson <reacocard@gmail.com>
+Maintainer: Adam Olsen <arolsen@gmail.com>
 Build-Depends: debhelper (>= 5), python-dev, python-gtk2-dev
 Standards-Version: 3.7.2
 

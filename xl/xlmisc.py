@@ -1046,13 +1046,17 @@ class OSDWindow(object):
 
         self.progress = self.xml.get_widget('osd_progressbar')
 
+        # Try to set the window opacity.  To do that we need the RGBA colormap,
+        # which for some reason may not be available even if
+        # Widget.is_composited is true.  In GTK+ >=2.12 all this can just be
+        # modified to use Window.set_opacity.
+        colormap = None
         # Widget.is_composited is only in GTK+ >=2.10.
-        # In GTK+ >=2.12 we can actually just use Window.set_opacity.
         is_composited = getattr(self.window, 'is_composited', None)
         if is_composited and is_composited():
             screen = self.window.get_screen()
             colormap = screen.get_rgba_colormap()
-
+        if colormap:
             self.window.set_colormap(colormap)
             self.window.set_app_paintable(True)
             self.window.connect("expose-event", self.expose_callback)

@@ -1,0 +1,9 @@
+This is for notes and plans regarding exaile 0.3. 
+It should also be used to keep track of what each developer is
+currently working on.
+
+Current projects:
+    Aren Olson - initial rewrite structuring
+
+NOTES:
+xl is to be split into xl and xlgui. All code concerning the display of data and receipt of user input through the gui should go into xlgui. code that is not dependent upon the gui implementation should go in xl.

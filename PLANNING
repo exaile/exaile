@@ -5,5 +5,45 @@ currently working on.
 Current projects:
     Aren Olson - initial rewrite structuring
 
-NOTES:
+
+==== NOTES ====
 xl is to be split into xl and xlgui. All code concerning the display of data and receipt of user input through the gui should go into xlgui. code that is not dependent upon the gui implementation should go in xl.
+
+
+==== REFERENCES ====
+wiki page: http://exaile.org/wiki/index.php?title=Exaile:Rewrite
+user with good ideas: http://ubuntuforums.org/showpost.php?p=3717989&postcount=1006
+
+==== WHAT DO WE WANT? ====
+this is perhaps the most important question, since it will shape the development of everything else.
+this is not just NEW things, or changes. this is a list of EVERYTHING that we want in 0.3, no more no less. or at least it will be such a list once it is complete.
+
+legend:
+ - point
+ -! critical point
+ -? wishlist/idea
+ -& needs info
+
+key ideas:
+ - empower users more
+ - 'just work'
+
+
+general structure/underpinnings:
+ -! make everything modular and reuseable. defined APIs are a good thing.
+
+collection management:
+ -? load collection into tree on-demand (see wiki)
+
+devices:
+ - detect devices via HAL and configure them automatically
+ - seamless transfer/syncronization, including playlists and podcasts
+ - support ipod, mtp, and mass storage devices fully
+ - support for defining a file layout for media transferred to the device (where applicable)
+    -? if already files on the device, look at them to try to figure out the existing layout
+    -& default layout
+
+podcasts:
+ - allow users to choose, when and where to download podcasts
+   -& default
+ - option to delete saved files when deleting a podcast

@@ -29,11 +29,62 @@ key ideas:
  - 'just work'
 
 
+unsorted:
+ - select default amazon/wikipedia settings from system LOCALE
+ -? resolve unicode issues
+ - allow transcoding files
+ - multi-file media support
+    - cue/bin
+    - wavpack hybrid
+ -? guess tag info from filename (and path?) if no tags (eg file://04 - na na na.mp3 -> track:04, title: na na na)
+
+
 general structure/underpinnings:
  -! make everything modular and reuseable. defined APIs are a good thing.
+ -! make many more pluggable APIs
+    - playback engine (gstreamer default, xine optional)
+    - global media keys (integrate the various plugins for this into core and expose in prefs)
+    -? sql engine (default to sqlite)
+    - cover art fetcher
+    - lyrics fetcher
+ - with pluggable APIs, allow prioritization and auto-fallback
+
+gui:
+ - allow hiding files pane
+ - better consistency in the tabs' interfaces
+ -? use libsexy to display album art in tray icon tooltip if available (possible?)
+ - make splash sceen appear earlier in start sequence so it has more use
+ - allow installing plugins from files
+
+osd:
+ - allow hiding progressbar (move pbar into markup?)
+
+discs:
+ - integrated cd burner (we can probably borrow code from serpentine)
+    -? support cd text
+ -? dvd audio/SACD support (does gstreamer support this?)
+ - recognize cds via HAL
+
+playlists:
+ - move 'built-in' smart playlists to just being 'default' smart playlists, so they become user-editable
+   - provide option to restore default smart playlists
+ - better import/export (m3u, pls)
+
+streaming:
+ - make sure we don't freeze on bad streams/buffering
 
 collection management:
  -? load collection into tree on-demand (see wiki)
+ - allow exaile to manage library structure (question: how to handle having multiple library folders?)
+ -? use inotify or a FAM to watch for library updates, if available
+ - put audiobooks into a separate pane (use gapless for audiobooks, if available)
+ -? partiton awareness - don't choke if tracks are umounted
+
+audio engine:
+ - allow choosing audio playback device
+ - volume normalization / per-track(/album) volume levels
+ -? support more than two audio channels
+ -? gapless playback / crossfade (settable per-track, per-album?)
 
 devices:
  - detect devices via HAL and configure them automatically
@@ -42,8 +93,26 @@ devices:
  - support for defining a file layout for media transferred to the device (where applicable)
     -? if already files on the device, look at them to try to figure out the existing layout
     -& default layout
+ - transcode tracks when transferred 
+    - auto-detect what the device supports (possible?)
+    - if device supports lossless and lossy formats, convert lossy files to lossy and lossless to lossless (unless otherwise directed)
 
 podcasts:
  - allow users to choose, when and where to download podcasts
    -& default
  - option to delete saved files when deleting a podcast
+
+last.fm:
+ - move support out to a plugin
+ - allow playback as well (may require making the playback engine more modular - a good thing)
+
+plugins:
+ - port all that are still relevant to new system
+ - include some in the default installation
+    - all media device plugins
+    -? radio plugins?
+    -? mini mode
+ - a well-defined API, that makes the most commonly needed functions easily accessible
+ - make .exz the de facto format (single-file plugins can just be zipped straight)
+
+

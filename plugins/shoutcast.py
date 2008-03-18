@@ -144,11 +144,11 @@ class ShoutcastDriver(radio.RadioDriver):
         self.model.remove(load_node)
         self.last_node = None
         for line in lines:
-            m = re.search(r'(\t+)<OPTION VALUE="(.*?)">', line)
+            m = re.search(r'<OPTION VALUE="(.*?)">( - )?', line)
             if m:
-                tabcount = m.group(1)
-                genre = m.group(2)
-                if not tabcount == '\t\t': 
+                genre = m.group(1)
+                subgenre_prefix = m.group(2)
+                if not subgenre_prefix: 
                     self.add_function(node, genre)
                 else:
                     self.add_function(self.last_node, genre,

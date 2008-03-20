@@ -26,7 +26,7 @@ import xl.path
 PLUGIN_ID = 'Shoutcast Radio'
 PLUGIN_NAME = _("Shoutcast Radio")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = '0.4.6'
+PLUGIN_VERSION = '0.4.7'
 PLUGIN_DESCRIPTION = _(r"""Allows you to browse the Shoutcast Streaming Radio
 network""")
 PLUGIN_ENABLED = False
@@ -184,6 +184,7 @@ class ShoutcastDriver(radio.RadioDriver):
 
     @xl.common.threaded
     def do_search(self, value):
+        self.count = 0
         stations = []
         parse_genre(value, stations, None, self.update, 's')
         gobject.idle_add(self.update, None)
@@ -195,6 +196,7 @@ class ShoutcastDriver(radio.RadioDriver):
         """
             Fetches the specified genre from shoutcast
         """
+        self.count = 0
         self.genre = genre
         print "genre = ", str(genre)
         stations = []

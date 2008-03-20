@@ -389,6 +389,8 @@ class ExaileWindow(gobject.GObject):
             self.xml.get_widget('cols_not_resizable_item')
         self.resizable_cols.set_active(self.settings.get_boolean('ui/resizable_cols',
             False))
+        self.not_resizable_cols.set_active(not self.settings.get_boolean('ui/resizable_cols',
+            False))
         self.resizable_cols.connect('activate', self.activate_cols_resizable)
         self.not_resizable_cols.connect('activate',
             self.activate_cols_resizable)

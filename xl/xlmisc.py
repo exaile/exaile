@@ -1386,13 +1386,16 @@ class DragTreeView(gtk.TreeView):
             if event.type == gtk.gdk._2BUTTON_PRESS:
                 self.cont.button_press(button, event)
 
-            if selection.count_selected_rows() <= 1: return False
+            if selection.count_selected_rows() <= 1: 
+                self.cont.button_press(button, event)
+                return False
             else: 
                 if selection.path_is_selected(path[0]): 
                     if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
                         selection.unselect_path(path[0])
                     return True
                 elif not event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
+                    self.cont.button_press(button, event)
                     return True
                 return False
 

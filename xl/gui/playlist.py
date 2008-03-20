@@ -31,22 +31,20 @@ def create_rating_images(caller):
     """
     if (caller.rating_width != caller.old_r_w and caller.rating_width != 0):
         caller.rating_images = []
-        star_size = caller.rating_width / 4
+        star_size = caller.rating_width / 5
 
         star = gtk.gdk.pixbuf_new_from_file_at_size(
             xl.path.get_data('images', 'star.png'), star_size, star_size)
 
-        star_size -= 1
-
         full_image = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, caller.rating_width, star_size)
         full_image.fill(0xffffff00) # transparent white
-        for x in range(0, 4):
+        for x in range(0, 5):
             star.copy_area(0, 0, star_size, star_size, full_image, star_size * x, 0)
         caller.rating_images.insert(0, full_image)
-        for x in range(7, 0, -1):
+        for x in range(5, 0, -1):
             this_image = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, caller.rating_width, star_size)
             this_image.fill(0xffffff00) # transparent white
-            full_image.copy_area(0, 0, int(x * star_size / 2.0), star_size, this_image, 0, 0)
+            full_image.copy_area(0, 0, int(x * star_size), star_size, this_image, 0, 0)
             caller.rating_images.insert(0, this_image)
         caller.old_r_w = caller.rating_width
 
@@ -75,7 +73,7 @@ class TracksListCtrl(gtk.VBox):
         Column('album', _('Album'), 150),
         Column('length', _('Length'), 50),
         Column('disc_id', _('Disc'), 30),
-        Column('rating', _('Rating'), 80),
+        Column('rating', _('Rating'), 64),
         Column('year', _('Year'), 50),
         Column('genre', _('Genre'), 100),
         Column('bitrate', _('Bitrate'), 30),
@@ -666,9 +664,13 @@ class TracksListCtrl(gtk.VBox):
 
     def rating_data_func(self, col, cell, model, iter):
         item = model.get_value(iter, 0)
-        if not item.rating: return
-        idx = len(item.rating) / 2 - 1
-        cell.set_property('pixbuf', self.rating_images[idx])
+        if not item._rating: return
+        try:
+            idx = item._rating - 1
+            cell.set_property('pixbuf', self.rating_images[idx])
+        except IndexError:
+            if idx > 5: idx = 5
+            elif idx < 0: idx = 0
 
     def set_cell_weight(self, cell, item):
         """
@@ -931,9 +933,13 @@ class TracksListCtrl(gtk.VBox):
         rm = xlmisc.Menu()
         self.rating_ids = []
 
-        for i in range(0, 8):
-            item = rm.append_image(self.rating_images[i],
-                lambda w, e, i=i: editor.update_rating(self, i))
+        for i in range(0, 5):
+            if i == 0:
+                item = rm.append('-', lambda w, e, i=i:
+                editor.update_rating(self, i))
+            else:
+                item = rm.append_image(self.rating_images[i],
+                    lambda w, e, i=i: editor.update_rating(self, i))
 
         star_icon = gtk.gdk.pixbuf_new_from_file_at_size(
             xl.path.get_data('images', 'star.png'), 16, 16)
@@ -1070,7 +1076,19 @@ class TracksListCtrl(gtk.VBox):
             The popup menu that is displayed when you right click in the
             playlist
         """
-        if not event.button == 3: return
+        if not event.button == 3: 
+            try: path, col, cellx, celly = self.list.get_path_at_pos(int(event.x),
+            int(event.y))
+            except: 
+                xlmisc.log_exception()
+                return True
+
+            if col.get_title() == _('Rating'):
+                count = int(float(cellx + 5) / (float(self.rating_width / 5)))
+                print count
+            return True
+            print path, col, cellx, celly, col.get_title()
+            
         selection = self.list.get_selection()
         self.setup_tracks_menu()
 

@@ -67,22 +67,28 @@ sub print_info
 	my $rating = $iface->get_rating;
 	my $star_string = '';
 	my $count = 0;
-	while($count < 8)
+
+	if($rating)
 	{
-		if($rating > $count)
+		while($count < 5)
 		{
-			$star_string .= $star_full;
+			if($rating > $count)
+			{
+				$star_string .= $star_full;
+			}
+			else {
+				$star_string .= $star_empty;
+			}
+			$count++;
 		}
-		else {
-			$star_string .= $star_empty;
-		}
-		$count++;
+
+		$star_string = " ($star_string)";
 	}
 
 	if($witem && $witem->{type} eq 'CHANNEL')
 	{
 		$witem->command("ACTION " . $witem->{name} .
-			" is playing $song by $artist [$length $pos\%] ($star_string)");
+			" is playing $song by $artist [$length $pos\%]$star_string");
 	}
 }
 

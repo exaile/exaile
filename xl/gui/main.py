@@ -715,7 +715,7 @@ class ExaileWindow(gobject.GObject):
         if not track: return
 
         if rating is None:
-            rating = combo.get_active() + 1
+            rating = combo.get_active()
         else:
             try:
                 rating = int(rating)
@@ -723,7 +723,7 @@ class ExaileWindow(gobject.GObject):
                 xlmisc.log('Invalid rating passed')
                 return
             if rating < 0: rating = 0
-            if rating > 8: rating = 8
+            if rating > 5: rating = 5
         track.rating = rating
         path_id = library.get_column_id(self.db, 'paths', 'name', track.loc)
         self.db.execute("UPDATE tracks SET user_rating=? WHERE path=?", 
@@ -1254,7 +1254,7 @@ class ExaileWindow(gobject.GObject):
             if rating <= 0 or rating == '' or rating is None: 
                 rating = 0
 
-            self.rating_combo.set_active(rating - 1)
+            self.rating_combo.set_active(rating)
             track.user_rating = rating
             self.rating_combo.set_sensitive(True)
         else:

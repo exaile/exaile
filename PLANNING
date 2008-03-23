@@ -7,7 +7,9 @@ Current projects:
 
 
 ==== NOTES ====
-xl is to be split into xl and xlgui. All code concerning the display of data and receipt of user input through the gui should go into xlgui. code that is not dependent upon the gui implementation should go in xl.
+xl is to be split into xl and xlgui. All code concerning the display of 
+data and receipt of user input through the gui should go into xlgui. code 
+that is not dependent upon the gui implementation should go in xl.
 
 
 ==== REFERENCES ====
@@ -16,8 +18,11 @@ user with good ideas: http://ubuntuforums.org/showpost.php?p=3717989&postcount=1
 
 
 ==== WHAT DO WE WANT? ====
-this is perhaps the most important question, since it will shape the development of everything else.
-this is not just NEW things, or changes. this is a list of EVERYTHING that we want in 0.3, no more no less. or at least it will be such a list once it is complete.
+this is perhaps the most important question, since it will shape the 
+development of everything else.
+this is not just NEW things, or changes. this is a list of EVERYTHING 
+that we want in 0.3, no more no less. or at least it will be such a 
+list once it is complete.
 
 legend:
  - point
@@ -37,14 +42,16 @@ unsorted:
  - multi-file media support
     - cue/bin
     - wavpack hybrid
- -? guess tag info from filename (and path?) if no tags (eg file://04 - na na na.mp3 -> track:04, title: na na na)
+ -? guess tag info from filename (and path?) if no tags (eg file://04 - 
+      na na na.mp3 -> track:04, title: na na na)
 
 
 general structure/underpinnings:
  -! make everything modular and reuseable. defined APIs are a good thing.
  -! make many more pluggable APIs
     - playback engine (gstreamer default, xine optional)
-    - global media keys (integrate the various plugins for this into core and expose in prefs)
+    - global media keys (integrate the various plugins for this into core 
+          and expose in prefs)
     -? sql engine (default to sqlite)
     - cover art fetcher
     - lyrics fetcher
@@ -53,7 +60,8 @@ general structure/underpinnings:
 gui:
  - allow hiding files pane
  - better consistency in the tabs' interfaces
- -? use libsexy to display album art in tray icon tooltip if available (possible?)
+ -? use libsexy to display album art in tray icon tooltip if 
+       available (possible?)
  - make splash sceen appear earlier in start sequence so it has more use
  - allow installing plugins from files
 
@@ -67,7 +75,8 @@ discs:
  - recognize cds via HAL
 
 playlists:
- - move 'built-in' smart playlists to just being 'default' smart playlists, so they become user-editable
+ - move 'built-in' smart playlists to just being 'default' smart playlists, 
+       so they become user-editable
    - provide option to restore default smart playlists
  - better import/export (m3u, pls)
  - object inherits from TrackDB, adds an ordered list of Track objects
@@ -77,9 +86,12 @@ streaming:
 
 collection management:
  -? load collection into tree on-demand (see wiki)
- - allow exaile to manage library structure (question: how to handle having multiple library folders?)
+ - allow exaile to manage library structure (question: how to handle 
+     having multiple library folders? global defualt, allow per-library and 
+     per-collection choices)
  -? use inotify or a FAM to watch for library updates, if available
- - put audiobooks into a separate pane (use gapless for audiobooks, if available)
+ - put audiobooks into a separate pane (use gapless for 
+     audiobooks, if available)
  -? partiton awareness - don't choke if tracks are umounted
  -? allow user to maintail multiple collections, backed by different libraries
  -? handle AudioBooks separately
@@ -94,12 +106,15 @@ devices:
  - detect devices via HAL and configure them automatically
  - seamless transfer/syncronization, including playlists and podcasts
  - support ipod, mtp, and mass storage devices fully
- - support for defining a file layout for media transferred to the device (where applicable)
-    -? if already files on the device, look at them to try to figure out the existing layout
-    -& default layout
+ - support for defining a file layout for media transferred to 
+     the device (where applicable)
+   -? if already files on the device, look at them to try to figure 
+        out the existing layout
+   -& default layout
  - transcode tracks when transferred 
     - auto-detect what the device supports (possible?)
-    - if device supports lossless and lossy formats, convert lossy files to lossy and lossless to lossless (unless otherwise directed)
+    - if device supports lossless and lossy formats, convert lossy 
+        files to lossy and lossless to lossless (unless otherwise directed)
 
 podcasts:
  - allow users to choose, when and where to download podcasts
@@ -108,7 +123,8 @@ podcasts:
 
 last.fm:
  - move support out to a plugin
- - allow playback as well (may require making the playback engine more modular - a good thing)
+ - allow playback as well (may require making the playback engine 
+     more modular - a good thing)
 
 plugins:
  - port all that are still relevant to new system
@@ -116,15 +132,18 @@ plugins:
     - all media device plugins
     -? radio plugins?
     -? mini mode
- - a well-defined API, that makes the most commonly needed functions easily accessible
- - make .exz the de facto format (single-file plugins can just be zipped straight)
+ - a well-defined API, that makes the most commonly needed functions 
+       easily accessible
+ - make .exz the de facto format (single-file plugins can just be 
+       zipped straight)
 
 
 === Code Structure ===
 use this to plan object layout, interactions, etc.
 
 general:
- - use signals to notify about object changes (track info updates in all places in real time!)
+ - use signals to notify about object changes (track info updates in all 
+       places in real time!)
 
 DB schema:
  (same as before where not mentioned)
@@ -134,57 +153,155 @@ DB schema:
     always keep this synced with main!)
 
 song management:
- - TrackDB - sqlite-backed database of tracks
-   - search(query [, fields]) - search the database, returns a list of Track objects
-   - advanced_search(query) - allows more-specific queries 
-   - add(track) - add a Track to the DB
-   - remove(track) - remove a track from the DB
- - Track - one track
-   - is_editable() - whether this track's data can be edited or not
-   - use python's object customizing abilities to support 
-       getting/setting attibutes via Track[attr]
-   - changes made are synced back to the TrackDB and file automatically 
-     - _hold() and _commit() for mass updates - suspends/resumes auto-syncing
- - Collection - based on TrackDB, adds ability to watch directories for new media
-   - add_library(library) - add a Library object to use
-   - rescan_libraries() - force a rescan of all libraries
-   - get_libraries() - returns the list of all libraries
-   - remove_library(library) - remove a Library
- - Library - watch a directory for changes and sync them to the associated Collection
-   - set_watch(path) - set the watched path
-   - rescan(path) - force a scan of the watched path
-   - realtime(bool) - watch in real time or not (using pynotify? gamin?)
+ - xl/track.py
+   - classes
+     - TrackDB - sqlite-backed database of tracks
+       - signals
+         - track_added
+         - track_removed
+       - methods
+         - search(query [, fields]) - search the database, returns a 
+               list of Track objects
+         - advanced_search(query) - allows more-specific queries 
+         - add(track) - add a Track to the DB
+         - remove(track) - remove a track from the DB
+     - Track - one track
+       - signals
+         - info_updated
+       - methods
+         - is_editable() - whether this track's data can be edited or not
+         - load_from_file([filename]) - reloads tags from file, either the 
+               specified one or one saved in the object
+         - _hold() - stop auto-syncing changes to the TrackDB
+         - _commit() - resume auto-syncing changes to the TrackDB, and sync
+               any changes that were pending during _hold()
+       - notes
+         - use python's object customizing abilities to support 
+               getting/setting attibutes via Track[attr]
+         - changes made are synced back to the TrackDB and file 
+               automatically 
+         - will need some shenangling to handle different file types, 
+               especially multi-file ones like cue/bin
+ - xl/collection.py
+   - classes
+     - Collection - based on TrackDB, adds ability to watch directories 
+             for new media
+       - methods
+         - add_library(library) - add a Library object to use
+         - rescan_libraries() - force a rescan of all libraries
+         - get_libraries() - returns the list of all libraries
+         - remove_library(library) - remove a Library
+     - Library - watch a directory for changes and sync them to the 
+           associated Collection
+       - signals
+         - filesystem_changed
+       - methods
+         - set_watch(path) - set the watched path
+         - rescan(path) - force a scan of the watched path
+         - realtime(bool) - watch in real time or not (using pynotify? gamin?)
+         - rescan_interval(interval) - time between automatic 
+             rescans - has no effect if realtime is on
+         - get_next_updated_file() - returns the next path of an updated file. 
+             returns False if no more updated files.
+       - notes
+         - need to be careful, we probably shouldn't inotify a mounted network 
+             share (default realtime to off seems simplest solution)
 
 playlists:
- - Playlist - inherits from TrackDB, adds ordered list of Track Objects
-   - get_tracks() - returns the list of Track objects
-   - remove_tracks(tracks) - removes all Track objects in the given list
-   - add_tracks(tracks [,pos]) - add the given list of tracks, 
-       at the given pos (default: append)
- - SmartPlaylist - inherits from Playlist - gets tracks from a Collection(s), updates in real time
-   - add_collection
+ - xl/playlist.py
+   - methods
+     - save_to_m3u(playlist, path)
+     - import_from_m3u(path)
+     - save_to_pls(playlist, path)
+     - import_from_pls(path)
+   - classes
+     - Playlist - inherits from TrackDB, adds ordered list of Track Objects
+       - get_tracks() - returns the list of Track objects
+       - remove_tracks(tracks | posrange) - removes all Track objects in 
+           the given list of Track objects and position numbers
+       - add_tracks(tracks [,pos]) - add the given list of tracks, 
+           at the given pos (default: append)
+     - SmartPlaylist - inherits from Playlist - gets tracks from a 
+           Collection(s), updates in real time
+       - signals
+         - updated
+       - methods
+         - add_collection(collection)
 
 playback:
- - Player - plays songs
-   - play(track) - plays the given track
-   - stop() - stops playback
-   - pause() - pauses playback
-   - get_progress() - returns progress in %
-   - get_time() - returns current time in seconds
+ - xl/player.py
+   - classes
+     - Player - plays songs
+       - signals
+         - playback_start
+         - playback_end
+         - playback_paused
+         - playback_resume
+       - methods
+         - play(track) - plays the given track
+         - stop() - stops playback
+         - pause() - pauses playback
+         - get_progress() - returns progress in %
+         - get_time() - returns current time in seconds
+         - is_playing() - whether anything is currently playing (even 
+               if paused)
 
 covers:
- - CoverManager - manages the collection of covers
-   - get_cover(track) - gets the cover for the Track if it's in the 
-       cover database (returns: ???)
-   - set_cover(track) - sets the cover for this Track
-   - fetch_cover(track) - fetches the cover for a Track using a CoverFetcher
- - CoverFetcher - abstract class - defines a methods of retrieving a cover
- - LibraryFetcher - fetch cover.jpg-style covers
- - DatabaseFetcher - fetch covers from the database in ~/.exaile
- - AmazonFetcher - fetch covers from Amazon.com
- - LibraryStore - store the fetched cover in the library
- - DatabaseStore - store the fetched cover in the cover database
+ - xl/covers.py
+   - classes
+     - Cover - a cover
+       - signals 
+         - updated
+       - methods
+         - get_full_cover() - returns the full-sized image of the cover
+         - get_sized_image(size) - returns the cover image scaled to size 
+               pixels
+     - CoverManager - manages the collection of covers
+       - methods
+         - get_cover(track) - gets the cover for the Track if it's in the 
+               cover database (returns a Cover, defaults to the exaile logo)
+         - set_cover(track) - sets the cover for this Track
+         - fetch_cover(track) - fetches the cover for a Track using a 
+               CoverFetcher
+         - get_fetchers() - returns a list of the CoverFetcher objects 
+               registered
+         - add_fetcher(fetcher [,pos]) - adds a new CoverFetcher at the 
+               specified location (defualt: append)
+         - remove_fetcher(pos) - removes the fetcher at position pos
+     - CoverFetcher - abstract class - defines a methods of retrieving 
+           a cover
+       - methods
+         - get_cover(track) - returns False if no cover found
+     - LibraryCoverFetcher - fetch cover.jpg-style covers
+     - DatabaseCoverFetcher - fetch covers from the database in ~/.exaile
+     - AmazonCoverFetcher - fetch covers from Amazon.com
+     - CoverStore - abstract - defines a method of storing the covers 
+           locally
+       - methods
+         - set_cover(track)
+     - LibraryCoverStore - store the fetched cover in the library
+     - DatabaseCoverStore - store the fetched cover in the cover database
 
 
-   
+lyrics:
+ - xl/lyrics.py
+   - classes
+     - LyricsManager
+     - LyricsStore
+     - LyricsFetcher
+     - LyricwikiLyricsFetcher
+
+media keys:
+ - xl/keys.py
+   - classes
+     - MediaKeyManager
+     - MediaKeys
+       - methods
+         - is_changeable() - returns True if we know how to change
+               these key settings
+     - GnomeMediaKeys
+     - MetacityMediaKeys
+     - WindowsMediaKeys
+
+
 

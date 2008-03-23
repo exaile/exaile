@@ -14,6 +14,7 @@ xl is to be split into xl and xlgui. All code concerning the display of data and
 wiki page: http://exaile.org/wiki/index.php?title=Exaile:Rewrite
 user with good ideas: http://ubuntuforums.org/showpost.php?p=3717989&postcount=1006
 
+
 ==== WHAT DO WE WANT? ====
 this is perhaps the most important question, since it will shape the development of everything else.
 this is not just NEW things, or changes. this is a list of EVERYTHING that we want in 0.3, no more no less. or at least it will be such a list once it is complete.
@@ -69,6 +70,7 @@ playlists:
  - move 'built-in' smart playlists to just being 'default' smart playlists, so they become user-editable
    - provide option to restore default smart playlists
  - better import/export (m3u, pls)
+ - object inherits from TrackDB, adds an ordered list of Track objects
 
 streaming:
  - make sure we don't freeze on bad streams/buffering
@@ -79,6 +81,8 @@ collection management:
  -? use inotify or a FAM to watch for library updates, if available
  - put audiobooks into a separate pane (use gapless for audiobooks, if available)
  -? partiton awareness - don't choke if tracks are umounted
+ -? allow user to maintail multiple collections, backed by different libraries
+ -? handle AudioBooks separately
 
 audio engine:
  - allow choosing audio playback device
@@ -115,4 +119,72 @@ plugins:
  - a well-defined API, that makes the most commonly needed functions easily accessible
  - make .exz the de facto format (single-file plugins can just be zipped straight)
 
+
+=== Code Structure ===
+use this to plan object layout, interactions, etc.
+
+general:
+ - use signals to notify about object changes (track info updates in all places in real time!)
+
+DB schema:
+ (same as before where not mentioned)
+ - remove playlists, podcasts, etc, they will be handled elsewhere
+ - store a version of all searchable info that has been made lowercase
+    and has stopwords removed, for faster searching (but be sure to 
+    always keep this synced with main!)
+
+song management:
+ - TrackDB - sqlite-backed database of tracks
+   - search(query [, fields]) - search the database, returns a list of Track objects
+   - advanced_search(query) - allows more-specific queries 
+   - add(track) - add a Track to the DB
+   - remove(track) - remove a track from the DB
+ - Track - one track
+   - is_editable() - whether this track's data can be edited or not
+   - use python's object customizing abilities to support 
+       getting/setting attibutes via Track[attr]
+   - changes made are synced back to the TrackDB and file automatically 
+     - _hold() and _commit() for mass updates - suspends/resumes auto-syncing
+ - Collection - based on TrackDB, adds ability to watch directories for new media
+   - add_library(library) - add a Library object to use
+   - rescan_libraries() - force a rescan of all libraries
+   - get_libraries() - returns the list of all libraries
+   - remove_library(library) - remove a Library
+ - Library - watch a directory for changes and sync them to the associated Collection
+   - set_watch(path) - set the watched path
+   - rescan(path) - force a scan of the watched path
+   - realtime(bool) - watch in real time or not (using pynotify? gamin?)
+
+playlists:
+ - Playlist - inherits from TrackDB, adds ordered list of Track Objects
+   - get_tracks() - returns the list of Track objects
+   - remove_tracks(tracks) - removes all Track objects in the given list
+   - add_tracks(tracks [,pos]) - add the given list of tracks, 
+       at the given pos (default: append)
+ - SmartPlaylist - inherits from Playlist - gets tracks from a Collection(s), updates in real time
+   - add_collection
+
+playback:
+ - Player - plays songs
+   - play(track) - plays the given track
+   - stop() - stops playback
+   - pause() - pauses playback
+   - get_progress() - returns progress in %
+   - get_time() - returns current time in seconds
+
+covers:
+ - CoverManager - manages the collection of covers
+   - get_cover(track) - gets the cover for the Track if it's in the 
+       cover database (returns: ???)
+   - set_cover(track) - sets the cover for this Track
+   - fetch_cover(track) - fetches the cover for a Track using a CoverFetcher
+ - CoverFetcher - abstract class - defines a methods of retrieving a cover
+ - LibraryFetcher - fetch cover.jpg-style covers
+ - DatabaseFetcher - fetch covers from the database in ~/.exaile
+ - AmazonFetcher - fetch covers from Amazon.com
+ - LibraryStore - store the fetched cover in the library
+ - DatabaseStore - store the fetched cover in the cover database
+
+
+   
 

@@ -44,3 +44,23 @@ sys.path.insert(0, basedir)
 
 # check for a Makefile so we can tell if exaiel is installed or not
 installed = not os.path.exists(os.path.join(basedir, 'Makefile'))
+
+def init():
+    exaile = xl.main.Main()
+    exaileui = xlgui.main.MainWindow()
+
+
+if __name__ == "__main__": 
+    try:
+        # enable psyco if available
+        try:
+            import psyco
+            psyco.full()
+        except ImportError:
+            pass # psyco isn't available
+        init()
+        gtk.main()
+    except SystemExit:
+        raise
+    except:
+        pass

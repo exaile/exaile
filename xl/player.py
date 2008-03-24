@@ -118,30 +118,6 @@ class GSTPlayer(Player):
             uri = uri.replace('%', '%25')
             self.playbin.set_property('uri', uri.encode(xlmisc.get_default_encoding()))
 
-        formats = {
-            'mp3':  'mad',
-            'flac': 'flac',
-            'ogg':  'vorbis',
-            'mpc':  'musepack',
-            'tta':  'tta',
-            'mp4':  'faad',
-            'm4a':  'faad',
-        }
-
-        ext_re = re.compile(r'\.([^\.]*)$')
-        m = ext_re.search(uri.encode(xlmisc.get_default_encoding()).lower())
-        if m:
-            ext = m.group(1)
-        else:
-            ext = ''
-
-        if ext in formats.keys():
-            plugin = formats[ext]
-            if not gst.registry_get_default().find_plugin(plugin):
-                raise Exception(_("You do not have the "
-                    "appropriate Gstreamer plugin installed to play "
-                    "this file: %(uri)s") % {'uri': uri})
-
         self.playbin.set_state(gst.STATE_PLAYING)
 
     def on_sync_message(self, bus, message):

@@ -210,7 +210,7 @@ class CollectionPanel(object):
         rm = xlmisc.Menu()
         self.rating_ids = []
 
-        for i in range(0, 8):
+        for i in range(0, 5):
             item = rm.append_image(self.rating_images[i],
                 lambda w, e, i=i: editor.update_rating(self, i))
 

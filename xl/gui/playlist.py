@@ -936,7 +936,7 @@ class TracksListCtrl(gtk.VBox):
         for i in range(0, 5):
             if i == 0:
                 item = rm.append('-', lambda w, e, i=i:
-                editor.update_rating(self, i))
+                    editor.update_rating(self, i))
             else:
                 item = rm.append_image(self.rating_images[i],
                     lambda w, e, i=i: editor.update_rating(self, i))

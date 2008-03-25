@@ -205,6 +205,10 @@ class DBusInterfaceObject(dbus.service.Object):
         """
         self.exaile.show_osd()
 
+    @dbus.service.method("org.exaile.DBusInterface", None, "s")
+    def get_volume(self):
+        return str(self.exaile.get_volume_percent())
+
     @dbus.service.method("org.exaile.DBusInterface", "y")
     def increase_volume(self,vol):
         """ 
@@ -295,6 +299,10 @@ def test(p):
                     print iface.current_position()
                     do_exit = True
 
+                if options.get_volume:
+                    print iface.get_volume()                   
+                    do_exit = True
+
                 if options.get_rating:
                     print iface.get_rating()
                     do_exit = True
@@ -333,6 +341,7 @@ def test(p):
 
     return False
 
+
 def get_options():
     """
         Get the options for exaile
@@ -370,6 +379,8 @@ def get_options():
         type="int",metavar="VOL",help="Increases the volume by VOL")
     p.add_option("-l","--decrease_vol", dest="dec_vol",action="store",
         type="int",metavar="VOL",help="Decreases the volume by VOL")
+    p.add_option("--get-volume", dest="get_volume", action="store_true",
+        default=False, help="Print the current volume")
     p.add_option("--play-cd", dest="playcd", action="store_true",
         default=False, help="Start playing a CD")
     p.add_option("--new", dest="new", action="store_true",

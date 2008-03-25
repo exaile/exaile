@@ -118,7 +118,7 @@ def init():
 
     running_checks = ('next', 'prev', 'stop', 'play', 'guiquery', 'get_title',
         'get_artist', 'get_album', 'get_length', 'current_position',
-        'inc_vol', 'dec_vol', 'query')
+        'inc_vol', 'dec_vol', 'get_volume', 'query')
 
     # check passed arguments for options that require exaile to currently be
     # running

@@ -219,6 +219,8 @@ class MmKeys:
                     '/org/gnome/SettingsDaemon/MediaKeys')
                 self.__gnome = gnome = dbus.Interface(obj,
                     'org.gnome.SettingsDaemon.MediaKeys')
+                gnome.GrabMediaPlayerKeys(self.application, 0)
+                gnome.connect_to_signal('MediaPlayerKeyPressed', on_gnome_mmkey)
                 log("Activated gnome mmkeys for gnome 2.22.x")
             except:
                 # old method
@@ -226,10 +228,10 @@ class MmKeys:
                     '/org/gnome/SettingsDaemon')
                 self.__gnome = gnome = dbus.Interface(obj,
                     'org.gnome.SettingsDaemon')
+                gnome.GrabMediaPlayerKeys(self.application, 0)
+                gnome.connect_to_signal('MediaPlayerKeyPressed', on_gnome_mmkey)
                 log("Activated gnome mmkeys for gnome 2.20.x")
-            
-            gnome.GrabMediaPlayerKeys(self.application, 0)
-            gnome.connect_to_signal('MediaPlayerKeyPressed', on_gnome_mmkey)
+
         except:
             log_exception()
             return None

@@ -300,7 +300,7 @@ class FilesPanel(object):
         except OSError:
             paths = os.listdir(xl.path.home)
 
-        self.exaile.settings['files_panel_dir'] = dir
+        self.exaile.settings.set_str('files_panel_dir', dir)
         self.current = dir
         directories = []
         files = []

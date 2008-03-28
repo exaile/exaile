@@ -1391,7 +1391,6 @@ class DragTreeView(gtk.TreeView):
                 self.cont.button_press(button, event)
 
             if selection.count_selected_rows() <= 1: 
-                self.cont.button_press(button, event)
                 return False
             else: 
                 if selection.path_is_selected(path[0]): 

@@ -107,7 +107,8 @@ class CoverFetcherThread(threading.Thread):
         """
             Actually connects and fetches the covers
         """
-        xlmisc.log("cover thread started")
+        start = time.time()
+        xlmisc.log("Amazon: cover thread started")
 
         if self._done: return
         try:
@@ -124,11 +125,11 @@ class CoverFetcherThread(threading.Thread):
             response = urllib2.urlopen(request)
         except urllib2.HTTPError, e:
             print get_server(self.locale), string
-            xlmisc.log("Server replied with an error: %s" %e.message )
+            xlmisc.log("Amazon: Server replied with an error: %s" %e.message )
             gobject.idle_add(self._done_func, [])
             return
         except urllib2.URLError, e:
-            print "There was an error during connexion:" , e.reason
+            print "Amazon: There was an error during connection:" , e.reason
             pass
         except Exception, e:
             xlmisc.log_exception()
@@ -162,15 +163,22 @@ class CoverFetcherThread(threading.Thread):
                     if not self.fetch_all: break
             except urllib2.HTTPError,e:
                 cover['status'] = e.code
-                continue
             except urllib2.URLError:
-                continue
+                pass
 
         if len(covers) == 0:
-            xlmisc.log("Thread done.... *shrug*, no covers found")
+            xlmisc.log("Amazon: Thread done.... *shrug*, no covers found")
 
         if self._done: return
 
+        end = time.time()
+        if end - start < 1:
+            difference = 1 - (end - start) + .01
+            xlmisc.log("Amazon: sleeping for %s seconds..." % difference)
+        else:
+            difference = .01
+
+        time.sleep(difference)
         # call after the current pending event in the gtk gui
         gobject.idle_add(self._done_func, covers)
 

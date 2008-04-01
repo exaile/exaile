@@ -20,35 +20,15 @@ from gettext import gettext as _
 import gobject, gtk
 import xlmisc, library, common
 import xl.path
+from lib import ecs
 
 COVER_WIDTH = 100
 NOCOVER_IMAGE = xl.path.get_data("images", "nocover.png")
 
-__revision__ = ".01"
-
 #LOCALES = ['ca', 'de', 'fr', 'jp', 'uk', 'us']
 
-def get_server(locale):
-    #do 'es' here because webservices.amazon.es doesn't exist
-    if locale in ('en', 'us', 'es'):
-        return "xml.amazon.com"
-    elif locale in ('jp', 'uk'):
-        return "webservices.amazon.co.%s" % locale
-    else:
-        return "webservices.amazon.%s" % locale
-
-def get_encoding(locale):
-    if locale == 'jp':
-        return 'utf-8'
-    else:
-        return 'iso-8859-1'
-
 KEY = "15VDQG80MCS2K1W2VRR2" # Adam Olsen's key (synic)
-QUERY = "/onca/xml3?t=webservices-20&dev-t=%s&mode=music&type=lite&" % (KEY) + \
-    "locale={locale}&page=1&f=xml&KeywordSearch="
-IMAGE_PATTERN = re.compile(
-    r"<ImageUrlLarge>http://(\w+\.images-amazon\.com)"
-    "(/images/.*?\.jpg)</ImageUrlLarge>", re.DOTALL)
+ecs.setLicenseKey(KEY)
 
 """
     Fetches album covers from Amazon.com
@@ -92,7 +72,7 @@ class CoverFetcherThread(threading.Thread):
         self.search_string = search_string
         self.locale = locale
         self.fetch_all = fetch_all
-    
+        ecs.setLocale(locale)
 
     def abort(self):
         """
@@ -111,42 +91,22 @@ class CoverFetcherThread(threading.Thread):
         xlmisc.log("Amazon: cover thread started")
 
         if self._done: return
-        try:
-            query = QUERY.replace("{locale}", self.locale)
-            # FIXME: always UTF-8?
-            search_string = self.search_string.decode('utf-8')
-            search_string = search_string.encode(
-                get_encoding(self.locale), 'replace')
-            string = query + urllib.quote(search_string, '')
-        except KeyError:
-            string = ""
-        try:
-            request = "http://" + get_server(self.locale) + string
-            response = urllib2.urlopen(request)
-        except urllib2.HTTPError, e:
-            print get_server(self.locale), string
-            xlmisc.log("Amazon: Server replied with an error: %s" %e.message )
-            gobject.idle_add(self._done_func, [])
-            return
-        except urllib2.URLError, e:
-            print "Amazon: There was an error during connection:" , e.reason
-            pass
-        except Exception, e:
-            xlmisc.log_exception()
-            gobject.idle_add(self._done_func, [])
-            return
+
+        albums = ecs.ItemSearch(Keywords=self.search_string, SearchIndex="Music", 
+            ResponseGroup="ItemAttributes,Images")
+
         if self._done: return
 
-        page = response.read()
-
         covers = []
-        for m in IMAGE_PATTERN.finditer(page):
+        for album in albums:
             if self._done: return
 
             cover = Cover()
             # m.group(1) == hostname
             # m.group(2) == filename
-            url = "http://" + m.group(1) + m.group(2)
+            try:
+                url = album.LargeImage.URL
+            except AttributeError: continue
             try:
                 response = urllib2.urlopen(url)
                 

@@ -301,7 +301,17 @@ class ExaileWindow(gobject.GObject):
             log.append('  ' + key + ': ' + value)
 
             if key == 'bitrate': track.bitrate = int(value) / 1000
-            elif key == 'comment': track.album = value
+
+            # if there's a comment, but no album, set album to the comment
+            elif key == 'comment' and not track.loc.endswith('.mp3'): track.album = value
+            elif key == 'album': track.album = value
+            elif key == 'artist': track.artist = value
+            elif key == 'duratin': track._len = long(value)
+            elif key == 'track-number': 
+                try:
+                    track.track = int(value)
+                except ValueError: pass
+            elif key == 'genre': track.genre = value
             elif key == 'title': 
                 try:
                     if track.rawtitle != value:
@@ -312,7 +322,7 @@ class ExaileWindow(gobject.GObject):
                     newsong = True
 
                 title_array = value.split(' - ', 1)
-                if len(title_array) == 1:
+                if len(title_array) == 1 or track.loc.endswith(".mp3"):
                     track.title = value
                 else:
                     track.artist = title_array[0]

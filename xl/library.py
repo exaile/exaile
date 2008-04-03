@@ -1026,16 +1026,16 @@ class LibraryManager(object):
             Scans the library
         """
         self.exaile.collection_panel.update_progress(percent)
-        
+
         if percent < 0:
             self.db.db.commit()
             self.db._cursor.close()
             self.db._cursor = self.db.realcursor()
 
-            # if percent is -2, it wasn't an auto scan, so we won't reload the
+            # if percent is not -2, it wasn't an auto scan, so we won't reload the
             # collection tree because that could potentially take a lot of
             # time if the person has a lot of tracks in their library
-            if percent == -2 and 0:
+            if percent == -2:
                 self.exaile.collection_panel.songs = self.exaile.all_songs
                 self.exaile.collection_panel.track_cache = dict()
                 gobject.idle_add(self.exaile.collection_panel.load_tree, True)

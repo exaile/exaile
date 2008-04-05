@@ -406,7 +406,7 @@ class ExaileWindow(gobject.GObject):
             self.activate_cols_resizable)
 
         column_ids = None
-        if self.settings.get_boolean('ui/trackslist_defaults_set', False):
+        if self.settings.get_boolean('ui/new_trackslist_defaults_set', False):
             column_ids = set()
             ids = self.settings.get_list("ui/%s_columns" % pref)
             # Don't add invalid columns.
@@ -414,6 +414,7 @@ class ExaileWindow(gobject.GObject):
             for id in ids:
                 if id in all_ids:
                     column_ids.add(id)
+
         if not column_ids:
             # Use default.
             ids = trackslist.TracksListCtrl.default_column_ids

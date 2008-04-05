@@ -92,12 +92,17 @@ class CoverFetcherThread(threading.Thread):
 
         if self._done: return
 
-        albums = ecs.ItemSearch(Keywords=self.search_string, SearchIndex="Music", 
-            ResponseGroup="ItemAttributes,Images")
+        covers = []
+        try:
+            albums = ecs.ItemSearch(Keywords=self.search_string, SearchIndex="Music", 
+                ResponseGroup="ItemAttributes,Images")
+        except Exception:
+            xlmisc.log_exception()
+            gobject.idle_add(self._done_func, covers)
+            return
 
         if self._done: return
 
-        covers = []
         for album in albums:
             if self._done: return
 

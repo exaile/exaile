@@ -788,7 +788,6 @@ class PopulateThread(threading.Thread):
         if not in_library:
             if not already_added(tr, self.added): self.exaile.all_songs.append(tr)
         self.found_tracks.append(tr)
-        already_added(tr, self.added)       
 
     def stop(self):
         """
@@ -892,7 +891,6 @@ class AddTracksThread(PopulateThread):
         
         if not already_added(tr, self.added): self.exaile.all_songs.append(tr)
         self.found_tracks.append(tr)
-        already_added(tr, self.added)
 
 def add_tracks(exaile, db, directories, update_func, delete=True,
     load_tree=False, done_func=None):

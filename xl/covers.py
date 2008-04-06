@@ -103,7 +103,13 @@ class CoverFetcherThread(threading.Thread):
 
         if self._done: return
 
-        for album in albums:
+        # using a for x in range loop here because the ecs.py library
+        # sometimes gets an exception when looping through all the items
+        for i in range(0, len(albums)):
+            try:
+                album = albums[i]
+            except IndexError: continue
+
             if self._done: return
 
             cover = Cover()

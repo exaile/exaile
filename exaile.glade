@@ -8435,7 +8435,7 @@ Josip Lisec</property>
 	      <child>
 		<widget class="GtkLabel" id="label102">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">&lt;small&gt;20 dB&lt;/small&gt;</property>
+		  <property name="label" translatable="yes">&lt;small&gt;+12 dB&lt;/small&gt;</property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">True</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -8525,7 +8525,7 @@ Josip Lisec</property>
 	      <property name="digits">1</property>
 	      <property name="update_policy">GTK_UPDATE_CONTINUOUS</property>
 	      <property name="inverted">True</property>
-	      <property name="adjustment">0 -1 1 0.10000000149 0 0</property>
+	      <property name="adjustment">0 -20 12 0.5 0 0</property>
 	    </widget>
 	    <packing>
 	      <property name="left_attach">2</property>
@@ -8545,7 +8545,7 @@ Josip Lisec</property>
 	      <property name="digits">1</property>
 	      <property name="update_policy">GTK_UPDATE_CONTINUOUS</property>
 	      <property name="inverted">True</property>
-	      <property name="adjustment">0 -1 1 0.10000000149 0 0</property>
+	      <property name="adjustment">0 -20 12 0.5 0 0</property>
 	    </widget>
 	    <packing>
 	      <property name="left_attach">4</property>
@@ -8565,7 +8565,7 @@ Josip Lisec</property>
 	      <property name="digits">1</property>
 	      <property name="update_policy">GTK_UPDATE_CONTINUOUS</property>
 	      <property name="inverted">True</property>
-	      <property name="adjustment">0 -1 1 0.10000000149 0 0</property>
+	      <property name="adjustment">0 -20 12 0.5 0 0</property>
 	    </widget>
 	    <packing>
 	      <property name="left_attach">3</property>
@@ -8585,7 +8585,7 @@ Josip Lisec</property>
 	      <property name="digits">1</property>
 	      <property name="update_policy">GTK_UPDATE_CONTINUOUS</property>
 	      <property name="inverted">True</property>
-	      <property name="adjustment">0 -1 1 0.10000000149 0 0</property>
+	      <property name="adjustment">0 -20 12 0.5 0 0</property>
 	    </widget>
 	    <packing>
 	      <property name="left_attach">1</property>
@@ -8606,7 +8606,7 @@ Josip Lisec</property>
 	      <property name="digits">1</property>
 	      <property name="update_policy">GTK_UPDATE_CONTINUOUS</property>
 	      <property name="inverted">True</property>
-	      <property name="adjustment">0 -1 1 0.10000000149 0 0</property>
+	      <property name="adjustment">0 -20 12 0.5 0 0</property>
 	    </widget>
 	    <packing>
 	      <property name="left_attach">10</property>
@@ -8627,7 +8627,7 @@ Josip Lisec</property>
 	      <property name="digits">1</property>
 	      <property name="update_policy">GTK_UPDATE_CONTINUOUS</property>
 	      <property name="inverted">True</property>
-	      <property name="adjustment">0 -1 1 0.10000000149 0 0</property>
+	      <property name="adjustment">0 -20 12 0.5 0 0</property>
 	    </widget>
 	    <packing>
 	      <property name="left_attach">9</property>
@@ -8647,7 +8647,7 @@ Josip Lisec</property>
 	      <property name="digits">1</property>
 	      <property name="update_policy">GTK_UPDATE_CONTINUOUS</property>
 	      <property name="inverted">True</property>
-	      <property name="adjustment">0 -1 1 0.10000000149 0 0</property>
+	      <property name="adjustment">0 -20 12 0.5 0 0</property>
 	    </widget>
 	    <packing>
 	      <property name="left_attach">8</property>
@@ -8667,7 +8667,7 @@ Josip Lisec</property>
 	      <property name="digits">1</property>
 	      <property name="update_policy">GTK_UPDATE_CONTINUOUS</property>
 	      <property name="inverted">True</property>
-	      <property name="adjustment">0 -1 1 0.10000000149 0 0</property>
+	      <property name="adjustment">0 -20 12 0.5 0 0</property>
 	    </widget>
 	    <packing>
 	      <property name="left_attach">7</property>
@@ -8687,7 +8687,7 @@ Josip Lisec</property>
 	      <property name="digits">1</property>
 	      <property name="update_policy">GTK_UPDATE_CONTINUOUS</property>
 	      <property name="inverted">True</property>
-	      <property name="adjustment">0 -1 1 0.10000000149 0 0</property>
+	      <property name="adjustment">0 -20 12 0.5 0 0</property>
 	    </widget>
 	    <packing>
 	      <property name="left_attach">6</property>
@@ -8707,7 +8707,7 @@ Josip Lisec</property>
 	      <property name="digits">1</property>
 	      <property name="update_policy">GTK_UPDATE_CONTINUOUS</property>
 	      <property name="inverted">True</property>
-	      <property name="adjustment">0 -1 1 0.10000000149 0 0</property>
+	      <property name="adjustment">0 -20 12 0.5 0 0</property>
 	    </widget>
 	    <packing>
 	      <property name="left_attach">5</property>

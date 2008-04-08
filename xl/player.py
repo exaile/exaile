@@ -706,7 +706,7 @@ class ReplayGainElementFactory(object):
     
     @staticmethod
     def is_enabled(exaileplayer):
-        return not exaileplayer.exaile.settings.get_boolean('replaygain/disabled', False)
+        return exaileplayer.exaile.settings.get_boolean('replaygain/enabled', True)
     
     @staticmethod
     def get_elements(exaileplayer):

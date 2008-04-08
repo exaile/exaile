@@ -348,9 +348,6 @@ def get_options():
     """
     usage = "Usage: %prog [option...|uri]"
     p = OptionParser(usage=usage)
-    p.add_option("-d", "--duplicates", dest="dups",
-        metavar="DIR",
-        help="Finds and deletes all duplicate tracks (based on their md5 sum)")
     p.add_option("-n", "--next", dest="next", action="store_true",
         default=False, help="Play the next track")
     p.add_option("-p", "--prev", dest="prev", action="store_true",
@@ -397,8 +394,5 @@ def get_options():
         default=False, help="Disable Equalizer support")
     p.add_option("--start-minimized", dest="minim", action="store_true",
         default=False, help="Start Exaile minimized to tray, if possible")
-    p.add_option("--no-psyco", dest="nopsyco", action="store_true",
-                 default=False,  
-                 help="Do not use the psyco optimizer, even if available")
 
     return p

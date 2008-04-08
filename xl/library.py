@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import md5, os, random, re, threading, time, traceback, gc
+import md5, os, random, re, threading, time, traceback, gc, sys
 from gettext import gettext as _, ngettext
 import gobject, gtk
 from xl import common, media, db, audioscrobbler, xlmisc, dbusinterface
@@ -301,7 +301,7 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None):
 
 def already_added(t, added):
     """
-        Checks to see if an md5 hash of the title, artist, album and path 
+        Checks to see if the title, artist, album and genre 
         has already been added to the list of tracks
     """
 
@@ -309,7 +309,9 @@ def already_added(t, added):
     if not t.title: t.title = ""
     if not t.album: t.album = ""
     if not t.artist: t.artist = ""
-    h = "%s - %s - %s - %s" % (t.title, t.album, t.artist, t.loc)
+    if not t.genre: t.genre = ""
+
+    h = "%s - %s - %s - %s" % (t.title, t.album, t.artist, t.genre)
 
     if added.has_key(h): return True
     added[h] = 1

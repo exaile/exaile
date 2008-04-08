@@ -108,11 +108,6 @@ def init():
         EXAILE_OPTIONS.print_help()
         sys.exit(0)
 
-    if options.dups:
-        xlmisc.log("Searching for duplicates in: %s" % options.dups)
-        track.find_and_delete_dups(options.dups)
-        sys.exit(0)
-
     if DBUS_EXIT:
         sys.exit(0)
 

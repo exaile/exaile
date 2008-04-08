@@ -116,7 +116,8 @@ class EqualizerWindow(object):
         """
             Gets the previous equalizer values from the settings
         """
-        self.band_values = self.exaile.settings.get_list('equalizer/band-values', [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+        self.band_values = self.exaile.settings.get_list('equalizer/band-values', 
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
         self.apply_band_values()
         self.update_scales()
 

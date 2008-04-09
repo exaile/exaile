@@ -22,7 +22,7 @@ import xl.plugins as plugins
 
 PLUGIN_NAME = _("Mini Mode")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = '0.4.8'
+PLUGIN_VERSION = '0.4.9'
 PLUGIN_DESCRIPTION = _(r"""Super groovy mini mode window!\n\nMini Mode is activated
 by pressing CTRL+ALT+M\n\nYou can move the window in most cases by
 ALT+drag""")
@@ -33,6 +33,7 @@ PLUGIN = None
 MENU_ITEM = None
 ACCEL_GROUP = None
 MM_ACTIVE = False
+BUTTON = None
 
 CONS = plugins.SignalContainer()
 
@@ -66,11 +67,14 @@ def configure():
         plugin=plugins.name(__file__), default=True)
     decoration = settings.get_boolean('decoration',
         plugin=plugins.name(__file__), default=False)
+    switchbutton = settings.get_boolean('switchbutton',
+        plugin=plugins.name(__file__), default=False)
     font_size = settings.get_int('font_size', plugin=plugins.name(__file__), default=8)
 
     on_top_box = gtk.CheckButton(_('Always on top'))
     taskbar_box = gtk.CheckButton(_('Show in taskbar'))
     decoration_box = gtk.CheckButton(_('Window decoration'))
+    switchbutton_box = gtk.CheckButton(_('Mini Mode button in main window'))
 
     font_size_label = gtk.Label(_('Tracklist font size:'))
     adjustment = gtk.Adjustment(value=font_size, lower=1, upper=72, step_incr=1)
@@ -84,10 +88,12 @@ def configure():
     on_top_box.set_active(on_top)
     taskbar_box.set_active(taskbar)
     decoration_box.set_active(decoration)
+    switchbutton_box.set_active(switchbutton)
 
     box.pack_start(on_top_box)
     box.pack_start(taskbar_box)
     box.pack_start(decoration_box)
+    box.pack_start(switchbutton_box)
     box.pack_start(font_size_box)
     dialog.show_all()
 
@@ -95,10 +101,16 @@ def configure():
     dialog.hide()
     if not result == gtk.RESPONSE_OK: return
 
+    if switchbutton_box.get_active():
+        BUTTON.show()
+    else:
+        BUTTON.hide()
+
     settings.set_boolean('on_top', on_top_box.get_active(), plugin=plugins.name(__file__))
     settings.set_boolean('taskbar', taskbar_box.get_active(), plugin=plugins.name(__file__))
     settings.set_boolean('decoration', decoration_box.get_active(), plugin=plugins.name(__file__))
     settings.set_int('font_size', font_size_spinner.get_value_as_int(), plugin=plugins.name(__file__))
+    settings.set_boolean('switchbutton', switchbutton_box.get_active(), plugin=plugins.name(__file__))
 
 class MiniWindow(gtk.Window):
     """
@@ -462,7 +474,7 @@ def pass_func(*args):
         return True
 
 def initialize():
-    global TIMER_ID, PLUGIN, ACCEL_GROUP, MENU_ITEM
+    global TIMER_ID, PLUGIN, ACCEL_GROUP, MENU_ITEM, BUTTON
 
     PLUGIN = MiniWindow()
     TIMER_ID = gobject.timeout_add(1000, PLUGIN.timeout_cb)
@@ -478,6 +490,29 @@ def initialize():
     APP.view_menu.get_submenu().append(MENU_ITEM)
     MENU_ITEM.show()
     PLUGIN.add_accel_group(ACCEL_GROUP)
+
+    BUTTON = gtk.Button(_("Mini Mode"))
+    BUTTON.connect('button-release-event', toggle_minimode)
+    image = gtk.Image()
+    image.set_from_stock(gtk.STOCK_INDEX, gtk.ICON_SIZE_BUTTON)
+    BUTTON.set_image(image)
+
+    try:
+        BUTTON.set_tooltip_text(_("Switch to Mini Mode"))
+    except:
+        # Backwards compatibility to GTK < 2.12
+        tooltip = gtk.Tooltips()
+        tooltip.set_tip(BUTTON, _("Switch to Mini Mode"))
+
+    toolbar = APP.xml.get_widget('top_bar')
+    toolbar.pack_end(BUTTON, False)
+    
+    if APP.settings.get_boolean('switchbutton',
+        plugin=plugins.name(__file__), default=False):
+        BUTTON.show()
+    else:
+        BUTTON.hide()
+
     CONS.connect(APP.player, 'play-track', play_track)
     CONS.connect(APP.player, 'stop-track', stop_track)
     CONS.connect(APP.player, 'pause-toggled', pause_toggled)
@@ -488,7 +523,7 @@ def initialize():
     return True
 
 def destroy():
-    global PLUGIN, MENU_ITEM, ACCEL_GROUP, MENU_ITEM, TIMER_ID
+    global PLUGIN, MENU_ITEM, ACCEL_GROUP, MENU_ITEM, TIMER_ID, BUTTON
 
     CONS.disconnect_all()
 
@@ -503,6 +538,10 @@ def destroy():
     if MENU_ITEM:
         APP.view_menu.get_submenu().remove(MENU_ITEM)
         MENU_ITEM = None
+
+    if BUTTON:
+        APP.xml.get_widget('top_bar').remove(BUTTON)
+        BUTTTON = None
         
     if ACCEL_GROUP: 
         APP.window.remove_accel_group(ACCEL_GROUP)

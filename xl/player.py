@@ -20,7 +20,7 @@ import gst, gobject, random, time, re, os, md5
 import thread
 from gettext import gettext as _
 from xl import xlmisc, common, media, library, logger
-from xl.gui import playlist as playlistgui
+from xl.gui import playlist as playlistgui, information
 import xl.path
 
 class Player(gobject.GObject):
@@ -529,6 +529,11 @@ class ExailePlayer(GSTPlayer):
         track.submitted = False
 
         self.emit('play-track', track)
+
+        # update information tab if it's open and set to do so
+        if self.exaile.settings.get_boolean('ui/information_autoswitch',
+            False):
+            information.update_info(self.exaile.playlists_nb, track)
 
         artist_id = library.get_column_id(self.exaile.db, 'artists', 'name', track.artist)
         library.get_album_id(self.exaile.db, artist_id, track.album)

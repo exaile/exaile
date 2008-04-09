@@ -22,6 +22,7 @@ their own file
 
 import urllib2, os, re, sys, threading, time, traceback, urllib, urlparse
 from gettext import gettext as _
+#import gtkmozembed
 
 import pygtk, locale
 pygtk.require('2.0')
@@ -880,7 +881,6 @@ class BrowserWindow(gtk.VBox):
         """
             Loads a URL, either from the cache, or from the website specified
         """
-
         self.view.load_url(url)
 
         if not self.nostyles:

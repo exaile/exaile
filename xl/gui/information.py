@@ -137,7 +137,6 @@ class LyricsTab(gtk.VBox):
             Initializes the panel
         """
         gtk.VBox.__init__(self)
-        self.set_border_width(5)
         self.set_spacing(3)
         self.exaile = exaile
         self.panel = panel
@@ -293,7 +292,7 @@ class RadioTrackStatsTab(TrackStatsTab):
         self.append_info(_("Location:"), location)
         self.append_info(_("Bitrate:"), track.bitrate)
 
-class TrackInformation(gtk.Notebook):
+class TrackInformation(gtk.VBox):
     """
         Shows information regarding a track
     """
@@ -301,8 +300,20 @@ class TrackInformation(gtk.Notebook):
         """
             Initializes the track information page
         """
-        gtk.Notebook.__init__(self)
         self.exaile = exaile
+        gtk.VBox.__init__(self)
+        self.set_border_width(3)
+        top_box = gtk.HBox()
+        self.autoswitch = gtk.CheckButton(_("Automatically update on track "
+            "change"))
+        self.autoswitch.connect('toggled', self.autoswitch_toggled)
+        self.autoswitch.set_active(exaile.settings.get_boolean('ui/information_autoswitch',
+            False))
+        top_box.pack_end(self.autoswitch, False, False)
+
+        self.pack_start(top_box, False, False)
+        self.nb = None
+
         self.db = exaile.db
 
         self.setup_tabs(track)
@@ -315,13 +326,29 @@ class TrackInformation(gtk.Notebook):
         self.exaile.playlists_nb.set_current_page(
             self.exaile.playlists_nb.get_n_pages() - 1)
 
+    def autoswitch_toggled(self, *e):
+        """
+            Called when the user toggles the autoswitch button
+        """
+        self.exaile.settings.set_boolean('ui/information_autoswitch', 
+            self.autoswitch.get_active())
+
+    def append_page(self, *e):
+        """
+            Appends a page to the notebook
+        """
+        self.nb.append_page(*e)
+
     def setup_tabs(self, track):
         """
             Sets up the tabs for the specified track
         """
         self.track = track
-        for i in range(0, self.get_n_pages()):
-            self.remove_page(0)
+        if self.nb:
+            self.remove(self.nb)
+
+        self.nb = gtk.Notebook()
+        self.pack_start(self.nb, True, True)
 
         if track.type == 'stream':
             self.append_page(RadioTrackStatsTab(self.exaile, track),
@@ -333,6 +360,7 @@ class TrackInformation(gtk.Notebook):
         if xlmisc.mozembed:
             artist = "http://%s.wikipedia.org/wiki/%s" % (locale, track.artist)
             artist = artist.replace(" ", "_")
+
             self.append_page(WikipediaTab(self.exaile, artist),
                 gtk.Label(_("Artist")))
             
@@ -360,14 +388,15 @@ class TrackInformation(gtk.Notebook):
             xlmisc.log("gnome-extras not available.  Showing basic"
                        " track information only")
 
-        self.append_page(TablatureTab(self, track),
-            gtk.Label(_("Tablature")))
+#        self.append_page(TablatureTab(self, track),
+#            gtk.Label(_("Tablature")))
         self.show_all()
+        self.nb.show_all()
 
     def close_page(self):
         """
             Called when this tab in the notebook is closed
         """
-        for i in range(self.get_n_pages()):
-            page = self.get_nth_page(i)
+        for i in range(self.nb.get_n_pages()):
+            page = self.nb.get_nth_page(i)
             page.close_page()

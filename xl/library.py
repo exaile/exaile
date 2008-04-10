@@ -143,28 +143,18 @@ class TrackData:
         """ 
             Returns length of all tracks in the table as preformatted string
         """
-        l = self.total_length
-        seconds = l % 60
-        l //= 60
-        minutes = l % 60
-        l //= 60
-        hours = l % 60
-        l //= 24
-        days = l
+        s = self.total_length
+        m, s = divmod(s, 60)
+        h, m = divmod(m, 60)
+        d, h = divmod(h, 24)
 
         text = []
-        if days:
-            text.append(ngettext("%d day", "%d days", days) % days)
-        if hours:
-            text.append(ngettext("%d hour", "%d hours", hours) % hours)
-        if minutes:
-            text.append(ngettext("%d minute", "%d minutes", minutes) % minutes)
-        if seconds:
-            text.append(ngettext("%d second", "%d seconds", seconds) % seconds)
+        if d: text.append(ngettext("%d day", "%d days", d) % d)
+        if h: text.append(ngettext("%d hour", "%d hours", h) % h)
+        if m: text.append(ngettext("%d minute", "%d minutes", m) % m)
+        if s: text.append(ngettext("%d second", "%d seconds", s) % s)
 
         text = ", ".join(text)
-
-        #text = "%s:%02d" % (self.total_length / 60, self.total_length % 60)
 
         return text
 

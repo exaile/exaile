@@ -25,7 +25,7 @@ from xl import xlmisc, config, db, covers, player, prefs
 from xl import playlist as playlistmanager
 from xl.plugins import manager as pluginmanager, gui as plugingui
 from xl.gui import playlist as trackslist
-from xl.gui import information
+from xl.gui import information, tray
 from xl.panels import collection, radio, playlists, files, device
 import random, gst, urllib
 
@@ -322,7 +322,8 @@ class ExaileWindow(gobject.GObject):
                     newsong = True
 
                 title_array = value.split(' - ', 1)
-                if len(title_array) == 1 or track.loc.endswith(".mp3"):
+                if len(title_array) == 1 or (track.loc.endswith(".mp3") and \
+                    not track.loc.endswith("lastfm.mp3")):
                     track.title = value
                 else:
                     track.artist = title_array[0]
@@ -876,11 +877,11 @@ class ExaileWindow(gobject.GObject):
         """
             Sets up the tray icon
         """
-        if not xlmisc.USE_TRAY:
+        if not tray.USE_TRAY:
             xlmisc.log("Sorry, tray icon is NOT available")
             return
         if self.tray_icon: return
-        self.tray_icon = xlmisc.TrayIcon(self)
+        self.tray_icon = tray.TrayIcon(self)
         self.emit('tray-icon-toggled', True)
 
     def remove_tray(self):

@@ -208,7 +208,6 @@ class CollectionPanel(object):
         em.append_separator()
 
         rm = xlmisc.Menu()
-        self.rating_ids = []
 
         for i in range(0, 5):
             if i == 0:

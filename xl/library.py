@@ -496,7 +496,7 @@ def read_audio_disc(exaile):
 
         minus = info[i + 3] / 75
         tracknum = i + 1
-        song = media.Track("cdda://%d" % tracknum, _("Track %d") % tracknum,
+        song = media.Track("cdda://%d#%s" % (tracknum, device), _("Track %d") % tracknum,
             track=tracknum, length=length)
         song.type = 'cd'
         #if not song.artist: song.artist = _("Unknown Artist")

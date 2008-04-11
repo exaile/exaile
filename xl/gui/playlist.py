@@ -931,7 +931,6 @@ class TracksListCtrl(gtk.VBox):
             editor.TrackEditor(self.exaile, self), 'gtk-edit')
 
         rm = xlmisc.Menu()
-        self.rating_ids = []
 
         for i in range(0, 5):
             if i == 0:

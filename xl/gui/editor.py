@@ -825,15 +825,15 @@ class AskSaveDialog(gtk.Dialog):
         gtk.Dialog.__init__(self, _("Save changes?"), parent)
         return
 
-def update_rating(caller, num):
+def update_rating(caller, num, tracks=None):
     """
         Updates the rating based on which menu id was clicked
     """
     rating = num + 1
 
     cur = caller.db.cursor()
-    for track in caller.get_selected_tracks():
-        
+    if tracks is None: tracks = caller.get_selected_tracks()
+    for track in tracks:
         path_id = library.get_column_id(caller.db, 'paths', 'name',
             track.loc)
         caller.db.execute("UPDATE tracks SET user_rating=? WHERE path=?",

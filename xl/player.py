@@ -97,6 +97,11 @@ class GSTPlayer(Player):
 
         return True
 
+    def __notify_source(self, o, s, num):
+        s = self.playbin.get_property('source')
+        s.set_property('device', num)
+        self.playbin.disconnect(self.notify_id)
+
     def play(self, uri):
         """
             Plays the specified uri
@@ -116,6 +121,14 @@ class GSTPlayer(Player):
                     raise Exception('File does not exist: ' + uri)
                 uri = 'file://%s' % uri # FIXME: Wrong.
             uri = uri.replace('%', '%25')
+
+            # for audio cds
+            if uri.startswith("cdda://"):
+                num = uri[uri.find('#') + 1:]
+                uri = uri[:uri.find('#')]
+                self.notify_id = self.playbin.connect('notify::source',
+                    self.__notify_source, num)
+
             self.playbin.set_property('uri', uri.encode(xlmisc.get_default_encoding()))
 
         self.playbin.set_state(gst.STATE_PLAYING)

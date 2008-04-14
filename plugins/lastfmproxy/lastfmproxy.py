@@ -25,7 +25,7 @@ import time, gtk, gobject
 
 PLUGIN_NAME = _("LastFM Radio")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = "0.1"
+PLUGIN_VERSION = "0.1.1"
 PLUGIN_DESCRIPTION = _(r"""Allows for streaming via lastfm proxy.\n\n
 This plugin is very beta and still doesn't work perfectly.  If you find\n
 you can't change stations, hit "stop", wait 10 seconds, and then try.
@@ -160,6 +160,15 @@ class LastFMDriver(radio.RadioDriver):
         self.last_node = node
 
     def load_genre(self, genre, rel=False):
+        if isinstance(self.exaile.player.current, LastFMTrack):
+            current = self.exaile.player.current
+            current.album = "LastFM: %s" % str(genre)
+            self.exaile.tracks.refresh_row(current)
+
+            self.command("/changestation/%s" % genre.lastfm_url)
+            self.exaile.status.set_first(_("Changing stations..."), 2000)
+            self.exaile.tracks.append_song(current)
+            return
         tr = LastFMTrack()
         tr.loc = 'http://localhost:1881/lastfm.mp3'
         tr.artist = 'LastFM Radio!'
@@ -196,7 +205,7 @@ def load_data(zip):
     """
         Loads the data from the zipfile
     """
-    global TMP_DIR
+    global TMP_DIR, PLUGIN_ICON
     if TMP_DIR: return
 
     fname = "/tmp/lfmfile%s" % md5.new(str(random.randrange(0,
@@ -268,3 +277,94 @@ def destroy():
 
     MENU_ITEM = None
     PLUGIN = None
+
+icon_data = ["16 16 72 1",
+" 	c None",
+".	c #D20039",
+"+	c #D71B4E",
+"@	c #EE9EB4",
+"#	c #F9DFE6",
+"$	c #FAE5EB",
+"%	c #F5C8D4",
+"&	c #E05077",
+"*	c #E04D75",
+"=	c #F6CAD6",
+"-	c #F7D3DD",
+";	c #E87A98",
+">	c #D71E50",
+",	c #F8D8E1",
+"'	c #F5C5D2",
+")	c #E1547A",
+"!	c #DD416B",
+"~	c #EB8DA6",
+"{	c #FDF5F7",
+"]	c #E36084",
+"^	c #D40A41",
+"/	c #FAE0E7",
+"(	c #E66F8F",
+"_	c #E04F76",
+":	c #EC94AC",
+"<	c #D40D43",
+"[	c #EFA2B7",
+"}	c #F3BBCA",
+"|	c #E25C80",
+"1	c #DD3D68",
+"2	c #DC3965",
+"3	c #F8DAE2",
+"4	c #E1577D",
+"5	c #D3033B",
+"6	c #F6CBD7",
+"7	c #EA8AA4",
+"8	c #E67191",
+"9	c #FBEAEF",
+"0	c #F3BAC9",
+"a	c #E36184",
+"b	c #D3083F",
+"c	c #F9DCE4",
+"d	c #E05279",
+"e	c #FAE1E8",
+"f	c #D40E44",
+"g	c #D82253",
+"h	c #E9829E",
+"i	c #FBEBEF",
+"j	c #ED9BB1",
+"k	c #F0A9BC",
+"l	c #F1B1C2",
+"m	c #DB3562",
+"n	c #F6CED9",
+"o	c #E56B8C",
+"p	c #E1557B",
+"q	c #F9DDE5",
+"r	c #D92657",
+"s	c #FBE6EC",
+"t	c #F2B4C5",
+"u	c #DC3A66",
+"v	c #D92959",
+"w	c #E77997",
+"x	c #FDF2F5",
+"y	c #E15379",
+"z	c #FBE8ED",
+"A	c #DF4B73",
+"B	c #DA2B5A",
+"C	c #F2B8C8",
+"D	c #D92A5A",
+"E	c #FAE3E9",
+"F	c #F7CFDA",
+"G	c #E9839F",
+" .............. ",
+"................",
+"................",
+"................",
+"..+@#$%&..*=-;..",
+".>,')!~{]^/(_:<.",
+".[}....|$1$2....",
+".34....567890ab.",
+".cd.....]efghij.",
+".kl....mgno..pq.",
+".rstuvwx2yzAB0C.",
+"..Dl/EFa..G3clg.",
+"................",
+"................",
+"................",
+" .............. "]
+PLUGIN_ICON = gtk.gdk.pixbuf_new_from_xpm_data(icon_data)

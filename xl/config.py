@@ -67,10 +67,11 @@ class XlConfigParser(SafeConfigParser):
 
     def get_section_key(self, key, plugin=None):
         plugin_str = plugin
+
         if plugin:
             if plugin.endswith(".py"):
                 plugin_str = plugin[:-3]
-        
+
         if plugin_str:
             if plugin_str not in self.sections():
                 self.add_section(plugin=plugin_str)
@@ -93,6 +94,7 @@ class XlConfigParser(SafeConfigParser):
             does not exist in the current settings, the default is returned
         """
         value = None
+
         try:
             value = SafeConfigParser.get(self, *self.get_section_key(key, plugin))
             return value
@@ -168,12 +170,13 @@ class XlConfigParser(SafeConfigParser):
         return value
 
 
-    def get_list(self, key, default=[], plugin=None):
+    def get_list(self, key, default=None, plugin=None):
         """
             Gets a list from the settings.  If default is passed, and the value
             does not exist in the current settings, the default is returned
         """
-        value = self.get(key, plugin)
+
+        value = self.get(key, plugin=plugin)
 
         if value is None:
             value = default
@@ -262,7 +265,8 @@ class Config:
             Gets a string from the config file and decrypts it
         """
         string = self.config.get_str(key, default, plugin)
-        
+        if not string: return default
+
         # convert it from hex
         new = ''
         vals = string.split()

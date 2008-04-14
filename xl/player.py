@@ -525,6 +525,11 @@ class ExailePlayer(GSTPlayer):
             play_loc = track.loc
             if track.type == 'podcast' and track.download_path:
                 play_loc = track.download_path
+
+            # custom track setup
+            if hasattr(track, 'start_play'):
+                track.start_play()
+
             GSTPlayer.play(self, play_loc)
         except Exception, e:
             logger.log_exception()

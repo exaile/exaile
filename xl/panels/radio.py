@@ -394,6 +394,7 @@ class RadioPanel(object):
                 else:
                     menu = self.menu
                 menu.popup(None, None, None, event.button, event.time)
+                return True
             else:
                 if object in ("Saved Stations", "Podcasts", "Shoutcast Stations"):
                     return

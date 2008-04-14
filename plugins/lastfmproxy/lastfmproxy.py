@@ -27,9 +27,7 @@ PLUGIN_NAME = _("LastFM Radio")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
 PLUGIN_VERSION = "0.1.1"
 PLUGIN_DESCRIPTION = _(r"""Allows for streaming via lastfm proxy.\n\n
-This plugin is very beta and still doesn't work perfectly.  If you find\n
-you can't change stations, hit "stop", wait 10 seconds, and then try.
-""")
+This plugin is very beta and still doesn't work perfectly.""")
 PLUGIN_ENABLE = False
 PLUGIN_ICON = None
 
@@ -68,12 +66,15 @@ class LastFMDriver(radio.RadioDriver):
         self.panel = panel
         self.exaile = APP
         self.last_node = None
+        self.no_new_page = True
 
         self.custom_urls = self.exaile.settings.get_list('custom_urls',
             plugin=plugins.name(__file__))
 
     def command(self, command):
         self.lfmcommand = command
+        self.exaile.status.set_first(_("Running command: %s") %
+            command.replace('/', ''), 2000) 
         self.do_command()
 
     @common.threaded
@@ -167,7 +168,8 @@ class LastFMDriver(radio.RadioDriver):
 
             self.command("/changestation/%s" % genre.lastfm_url)
             self.exaile.status.set_first(_("Changing stations..."), 2000)
-            self.exaile.tracks.append_song(current)
+            if not current in self.exaile.tracks.songs:
+                self.exaile.tracks.append_song(current)
             return
         tr = LastFMTrack()
         tr.loc = 'http://localhost:1881/lastfm.mp3'

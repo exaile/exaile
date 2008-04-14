@@ -409,13 +409,15 @@ class RadioPanel(object):
                 self.open_lastfm(object)
             elif isinstance(object, RadioGenre):
                 if object.driver:
-                    tracks = trackslist.TracksListCtrl(self.exaile)
-                    self.exaile.playlists_nb.append_page(tracks,
-                        xlmisc.NotebookTab(self.exaile, str(object), tracks))
-                    self.exaile.playlists_nb.set_current_page(
-                        self.exaile.playlists_nb.get_n_pages() - 1)
-                    self.exaile.tracks = tracks
-                    object.driver.tracks = tracks
+                    if not hasattr(object.driver, 'no_new_page') or not \
+                        object.driver.no_new_page:
+                        tracks = trackslist.TracksListCtrl(self.exaile)
+                        self.exaile.playlists_nb.append_page(tracks,
+                            xlmisc.NotebookTab(self.exaile, str(object), tracks))
+                        self.exaile.playlists_nb.set_current_page(
+                            self.exaile.playlists_nb.get_n_pages() - 1)
+                        self.exaile.tracks = tracks
+                        object.driver.tracks = tracks
                     object.driver.load_genre(object)
             return True
 

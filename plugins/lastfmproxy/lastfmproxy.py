@@ -26,8 +26,8 @@ import time, gtk, gobject
 PLUGIN_NAME = _("LastFM Radio")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
 PLUGIN_VERSION = "0.1.1"
-PLUGIN_DESCRIPTION = _(r"""Allows for streaming via lastfm proxy.\n\n
-This plugin is very beta and still doesn't work perfectly.""")
+PLUGIN_DESCRIPTION = _(r"""Allows for streaming via lastfm proxy.\n\nThis
+plugin is very beta and still doesn't work perfectly.""")
 PLUGIN_ENABLE = False
 PLUGIN_ICON = None
 

@@ -25,7 +25,7 @@ import time, gtk, gobject, gtk.glade
 
 PLUGIN_NAME = _("LastFM Radio")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = "0.1.3"
+PLUGIN_VERSION = "0.1.4"
 PLUGIN_DESCRIPTION = _(r"""Allows for streaming via lastfm proxy.\n\nThis
 plugin is very beta and still doesn't work perfectly.""")
 PLUGIN_ENABLED = False
@@ -158,7 +158,9 @@ class LastFMDriver(radio.RadioDriver):
             return
         tr = media.Track()
         tr.type = 'stream'
-        tr.loc = 'http://localhost:1881/lastfm.mp3'
+        tr.loc = 'http://localhost:%d/lastfm.mp3' % \
+            self.exaile.settings.get_int('listenport', default=1881,
+            plugin=plugins.name(__file__))
         tr.artist = 'LastFM Radio!'
         tr.album = "LastFM: %s" % str(genre)
         tr.title = "LastFM: %s" % str(genre)

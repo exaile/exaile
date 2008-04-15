@@ -25,7 +25,7 @@ import time, gtk, gobject, gtk.glade
 
 PLUGIN_NAME = _("LastFM Radio")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = "0.1.4"
+PLUGIN_VERSION = "0.1.5"
 PLUGIN_DESCRIPTION = _(r"""Allows for streaming via lastfm proxy.\n\nThis
 plugin is very beta and still doesn't work perfectly.""")
 PLUGIN_ENABLED = False
@@ -149,21 +149,23 @@ class LastFMDriver(radio.RadioDriver):
         current = self.exaile.player.current
         if hasattr(current, 'lastfm_track'):
             current.album = "LastFM: %s" % str(genre)
+            new_loc = 'http://localhost:%d/lastfm.mp3' % self.listenport
             self.exaile.tracks.refresh_row(current)
 
-            self.command("/changestation/%s" % genre.lastfm_url)
             self.exaile.status.set_first(_("Changing stations..."), 3500)
+            if not current.loc == new_loc:
+                current.loc = new_loc
+                self.exaile.player.play_track(current)
             if not current in self.exaile.tracks.songs:
                 self.exaile.tracks.append_song(current)
+            self.command("/changestation/%s" % genre.lastfm_url)
             return
         tr = media.Track()
         tr.type = 'stream'
-        tr.loc = 'http://localhost:%d/lastfm.mp3' % \
-            self.exaile.settings.get_int('listenport', default=1881,
-            plugin=plugins.name(__file__))
         tr.artist = 'LastFM Radio!'
         tr.album = "LastFM: %s" % str(genre)
         tr.title = "LastFM: %s" % str(genre)
+        tr.loc = "http://localhost:%d/lastfm.mp3" % self.listenport
         tr.lastfm_track = True
 
         self.exaile.tracks.append_song(tr)
@@ -215,7 +217,22 @@ def load_data(zip):
 
 @common.threaded
 def run_proxy(config):
-    PROXY.run(config.bind_address, config.listenport)
+    RUN_COUNT = 0
+    while True:
+        try:
+            PLUGIN.listenport = config.listenport
+            PROXY.run(config.bind_address, config.listenport)
+            return
+        except Exception, e:
+            if RUN_COUNT >= 5:
+                raise(e)
+            if e.args[0] == 98:
+                RUN_COUNT += 1
+                xlmisc.log("LastFM Proxy: Port %d in use, trying %d" %
+                    (config.listenport, config.listenport + 1))
+                config.listenport += 1
+            else:
+                raise(e)
 
 BUTTON_ITEMS = (
     ('LastFM: Skip this track', 'gtk-media-forward', '/skip'),
@@ -233,7 +250,6 @@ def initialize():
 
     settings = APP.settings
 
-
     port = settings.get_int('listenport', plugin=plugins.name(__file__),
         default=1881)
     config.listenport = port
@@ -244,14 +260,14 @@ def initialize():
         plugin=plugins.name(__file__),
         default=settings.get_str('lastfm/pass', ''))
 
+    if not PLUGIN:
+        PLUGIN = LastFMDriver(APP.pradio_panel)
+        APP.pradio_panel.add_driver(PLUGIN, plugins.name(__file__))
+        HTTP_CLIENT = httpclient.httpclient('localhost', config.listenport)
 
     PROXY = lastfmmain.proxy(config.username, config.password)
     PROXY.basedir = TMP_DIR
     run_proxy(config)
-
-    PLUGIN = LastFMDriver(APP.pradio_panel)
-    APP.pradio_panel.add_driver(PLUGIN, plugins.name(__file__))
-    HTTP_CLIENT = httpclient.httpclient('localhost', config.listenport)
 
     if not BUTTONS:
         for tooltip, icon, command in BUTTON_ITEMS:
@@ -342,6 +358,7 @@ def configure():
     if result == gtk.RESPONSE_OK:
         if PROXY: 
             PROXY.quit = True
+            PROXY.stop = True
             exaile.player.stop()
         settings.set_boolean('use_main', use_main.get_active(),
             plugin=plugins.name(__file__))

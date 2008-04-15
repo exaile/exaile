@@ -59,7 +59,7 @@ class LastFMDriver(radio.RadioDriver):
     def command(self, command):
         self.lfmcommand = command
         self.exaile.status.set_first(_("Running command: %s...") %
-            command.replace('/', ''), 3500) 
+            command, 3500) 
         self.do_command()
 
     @common.threaded

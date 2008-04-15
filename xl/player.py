@@ -94,6 +94,8 @@ class GSTPlayer(Player):
         elif message.type == gst.MESSAGE_EOS and not self.is_paused() \
             and self.eof_func:
             self.eof_func()
+        elif message.type == gst.MESSAGE_ERROR:
+            print message, dir(message)
 
         return True
 

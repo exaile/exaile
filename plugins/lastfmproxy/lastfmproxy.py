@@ -25,7 +25,7 @@ import time, gtk, gobject, gtk.glade
 
 PLUGIN_NAME = _("LastFM Radio")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = "0.1.2"
+PLUGIN_VERSION = "0.1.3"
 PLUGIN_DESCRIPTION = _(r"""Allows for streaming via lastfm proxy.\n\nThis
 plugin is very beta and still doesn't work perfectly.""")
 PLUGIN_ENABLED = False
@@ -35,28 +35,12 @@ TMP_DIR = None
 PROXY = None
 PLUGIN = None
 HTTP_CLIENT = None
-MENU_ITEM = None
+BUTTONS = []
+TIPS = gtk.Tooltips()
 GLADE_XML_STRING = None
 
 def lastfm_error(message):
     common.error(APP.window, message)
-
-class LastFMTrack(media.Track):
-    def __init__(self, *args):
-        media.Track.__init__(self, *args)
-        self.type = 'stream'
-        self.proxy = PROXY
-        self.lfmstation = None
-
-    @common.threaded
-    def start_play(self):
-        if not self.proxy.proxy_ready:
-            gobject.idle_add(lastfm_error, _("The LastFM server has not reported that "
-                "it's ready yet.  Please wait a moment."))
-            
-            return
-        time.sleep(.5)
-        HTTP_CLIENT.req('/' + self.lfmstation) 
 
 class LastFMDriver(radio.RadioDriver):
     def __init__(self, panel):
@@ -162,8 +146,8 @@ class LastFMDriver(radio.RadioDriver):
         self.last_node = node
 
     def load_genre(self, genre, rel=False):
-        if isinstance(self.exaile.player.current, LastFMTrack):
-            current = self.exaile.player.current
+        current = self.exaile.player.current
+        if hasattr(current, 'lastfm_track'):
             current.album = "LastFM: %s" % str(genre)
             self.exaile.tracks.refresh_row(current)
 
@@ -172,15 +156,17 @@ class LastFMDriver(radio.RadioDriver):
             if not current in self.exaile.tracks.songs:
                 self.exaile.tracks.append_song(current)
             return
-        tr = LastFMTrack()
+        tr = media.Track()
+        tr.type = 'stream'
         tr.loc = 'http://localhost:1881/lastfm.mp3'
         tr.artist = 'LastFM Radio!'
         tr.album = "LastFM: %s" % str(genre)
         tr.title = "LastFM: %s" % str(genre)
-        tr.lfmstation = genre.lastfm_url
+        tr.lastfm_track = True
 
         self.exaile.tracks.append_song(tr)
         self.exaile.player.play_track(tr)
+        self.command('/changestation/%s' % genre.lastfm_url)
         
     def __str__(self):
         return "LastFM Radio"
@@ -229,8 +215,14 @@ def load_data(zip):
 def run_proxy(config):
     PROXY.run(config.bind_address, config.listenport)
 
+BUTTON_ITEMS = (
+    ('LastFM: Skip this track', 'gtk-media-forward', '/skip'),
+    ('LastFM: Mark this track as loved', 'gtk-add', '/love'),
+    ('LastFM: Ban this track', 'gtk-delete', '/ban'),
+)
+
 def initialize():
-    global PROXY, PLUGIN, HTTP_CLIENT, MENU_ITEM
+    global PROXY, PLUGIN, HTTP_CLIENT, BUTTONS
     if not TMP_DIR in sys.path: sys.path.append(TMP_DIR)
 
     import lastfmmain
@@ -259,27 +251,37 @@ def initialize():
     APP.pradio_panel.add_driver(PLUGIN, plugins.name(__file__))
     HTTP_CLIENT = httpclient.httpclient('localhost', config.listenport)
 
-    MENU_ITEM = xlmisc.Menu()
-    MENU_ITEM.append(_("Skip"), lambda *e: PLUGIN.command('/skip'))
-    MENU_ITEM.append(_("Love"), lambda *e: PLUGIN.command('/love'))
-    MENU_ITEM.append(_("Ban"), lambda *e: PLUGIN.command('/ban'))
-    
-    APP.plugins_menu.append_menu(_("LastFM"), MENU_ITEM)
-    
+    if not BUTTONS:
+        for tooltip, icon, command in BUTTON_ITEMS:
+            button = gtk.Button()
+            button.connect('clicked', lambda w, command=command: PLUGIN.command(command))
+            image = gtk.Image()
+            image.set_from_stock(icon, gtk.ICON_SIZE_MENU)
+            button.set_size_request(32, 32)
+            button.set_image(image)
+            TIPS.set_tip(button, tooltip)
+            APP.xml.get_widget('rating_toolbar').pack_start(button)
+            BUTTONS.append(button)
+        for button in BUTTONS:
+            button.show()
+
     return True
 
 def destroy():
-    global PLUGIN, MENU_ITEM, PROXY
+    global PLUGIN, MENU_ITEM, PROXY, BUTTONS
     if TMP_DIR:
         sys.path.remove(TMP_DIR) 
 
     if PLUGIN:
         APP.pradio_panel.remove_driver(PLUGIN)
 
-    if MENU_ITEM:
-        MENU_ITEM.hide()
-        MENU_ITEM.destroy()
+    if BUTTONS:
+        for button in BUTTONS:
+            button.hide()
+            button.destroy()
 
+        BUTTONS = []
+    
     if PROXY:
         PROXY.quit = True
 

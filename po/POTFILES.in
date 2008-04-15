@@ -23,7 +23,6 @@ plugins/minimode.py
 plugins/notaskbarentry.py
 plugins/resume.py
 plugins/shoutcast.py
-plugins/sound-juicer.py
 plugins/streamripper.py
 plugins/traybuttons.py
 plugins/xkey.py

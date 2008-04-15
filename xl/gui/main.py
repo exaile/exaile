@@ -334,6 +334,7 @@ class ExaileWindow(gobject.GObject):
         if newsong:
             log.append('  New song, fetching cover.')
             self.cover_manager.fetch_cover(track)
+            self.show_osd()
 
         xlmisc.log_multi(log)
         return True

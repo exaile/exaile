@@ -21,14 +21,14 @@ random.seed(time.time())
 from xl import common, xlmisc
 from xl.panels import radio
 import xl.media as media
-import time, gtk, gobject
+import time, gtk, gobject, gtk.glade
 
 PLUGIN_NAME = _("LastFM Radio")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = "0.1.1"
+PLUGIN_VERSION = "0.1.2"
 PLUGIN_DESCRIPTION = _(r"""Allows for streaming via lastfm proxy.\n\nThis
 plugin is very beta and still doesn't work perfectly.""")
-PLUGIN_ENABLE = False
+PLUGIN_ENABLED = False
 PLUGIN_ICON = None
 
 TMP_DIR = None
@@ -36,6 +36,7 @@ PROXY = None
 PLUGIN = None
 HTTP_CLIENT = None
 MENU_ITEM = None
+GLADE_XML_STRING = None
 
 def lastfm_error(message):
     common.error(APP.window, message)
@@ -73,8 +74,8 @@ class LastFMDriver(radio.RadioDriver):
 
     def command(self, command):
         self.lfmcommand = command
-        self.exaile.status.set_first(_("Running command: %s") %
-            command.replace('/', ''), 2000) 
+        self.exaile.status.set_first(_("Running command: %s...") %
+            command.replace('/', ''), 3500) 
         self.do_command()
 
     @common.threaded
@@ -167,7 +168,7 @@ class LastFMDriver(radio.RadioDriver):
             self.exaile.tracks.refresh_row(current)
 
             self.command("/changestation/%s" % genre.lastfm_url)
-            self.exaile.status.set_first(_("Changing stations..."), 2000)
+            self.exaile.status.set_first(_("Changing stations..."), 3500)
             if not current in self.exaile.tracks.songs:
                 self.exaile.tracks.append_song(current)
             return
@@ -207,7 +208,7 @@ def load_data(zip):
     """
         Loads the data from the zipfile
     """
-    global TMP_DIR, PLUGIN_ICON
+    global TMP_DIR, PLUGIN_ICON, GLADE_XML_STRING
     if TMP_DIR: return
 
     fname = "/tmp/lfmfile%s" % md5.new(str(random.randrange(0,
@@ -222,13 +223,15 @@ def load_data(zip):
 
     unzip_file(fname, TMP_DIR)
 
+    GLADE_XML_STRING = zip.get_data('data/lastfmproxy.glade')
+
 @common.threaded
 def run_proxy(config):
     PROXY.run(config.bind_address, config.listenport)
 
 def initialize():
     global PROXY, PLUGIN, HTTP_CLIENT, MENU_ITEM
-    sys.path.append(TMP_DIR)
+    if not TMP_DIR in sys.path: sys.path.append(TMP_DIR)
 
     import lastfmmain
     import config
@@ -266,7 +269,7 @@ def initialize():
     return True
 
 def destroy():
-    global PLUGIN, MENU_ITEM
+    global PLUGIN, MENU_ITEM, PROXY
     if TMP_DIR:
         sys.path.remove(TMP_DIR) 
 
@@ -277,8 +280,77 @@ def destroy():
         MENU_ITEM.hide()
         MENU_ITEM.destroy()
 
+    if PROXY:
+        PROXY.quit = True
+
+    PROXY = None
     MENU_ITEM = None
     PLUGIN = None
+
+def use_main_toggled(box, user, password):
+    active = not box.get_active()
+    user.set_sensitive(active)
+    password.set_sensitive(active)
+
+def quick_init():
+    """
+        Runs initialize, but returns False so the timer doesn't continue to
+        run
+    """
+    global PROXY
+    initialize()
+
+    return False
+
+def configure():
+    global PROXY
+    exaile = APP
+    settings = exaile.settings
+
+    xml = gtk.glade.xml_new_from_buffer(GLADE_XML_STRING,
+        len(GLADE_XML_STRING))
+
+    dialog = xml.get_widget('ConfigurationDialog')
+    use_main = xml.get_widget('lastfm_use_main')
+    lastfm_user = xml.get_widget('lastfm_user')
+    lastfm_pass = xml.get_widget('lastfm_pass')
+    lastfm_listen_port = xml.get_widget('lastfm_listen_port')
+
+    use_main.set_active(settings.get_boolean('use_main',
+        plugin=plugins.name(__file__), default=True))
+
+    lastfm_user.set_text(settings.get_str('lastfmuser',
+        plugin=plugins.name(__file__),
+        default=settings.get_str('lastfm/user', '')))
+    lastfm_pass.set_text(settings.get_crypted('lastfmpass',
+        plugin=plugins.name(__file__),
+        default=settings.get_str('lastfm/pass', '')))
+
+    lastfm_listen_port.set_text(settings.get_str('listenport',
+        plugin=plugins.name(__file__), default=1881))
+
+    use_main.connect('toggled', lambda *e: use_main_toggled(use_main,
+        lastfm_user, lastfm_pass))
+    use_main_toggled(use_main, lastfm_user, lastfm_pass)
+
+    result = dialog.run()
+    dialog.hide()
+    if result == gtk.RESPONSE_OK:
+        if PROXY: 
+            PROXY.quit = True
+            exaile.player.stop()
+        settings.set_boolean('use_main', use_main.get_active(),
+            plugin=plugins.name(__file__))
+        settings.set_str('lastfm_user', lastfm_user.get_text(), 
+            plugin=plugins.name(__file__))
+        settings.set_crypted('lastfm_pass', lastfm_pass.get_text(),
+            plugin=plugins.name(__file__))
+
+        settings.set_str('listenport', lastfm_listen_port.get_text(),
+            plugin=plugins.name(__file__))
+
+        if PLUGIN_ENABLED:
+            gobject.timeout_add(5000, quick_init)
 
 icon_data = ["16 16 72 1",
 " 	c None",

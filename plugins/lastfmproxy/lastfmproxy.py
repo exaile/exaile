@@ -258,19 +258,27 @@ def album_callback(value):
         set_cover(value)
     xlmisc.log("LastFM: Got cover: %s" % value)
 
+SIGNAL_ID = None
 def play_track(exaile, track):
+    global SIGNAL_ID
     if not COVER or not hasattr(APP.player.current,
         'lastfm_track'): return
     APP.cover.hide()
     COVER.set_image(xl.path.get_data('images', 'nocover.png'))
     COVER_BOX.show_all()
     COVER.show()
+    SIGNAL_ID = APP.connect('timer_update', lambda *e:
+        HTTP_CLIENT.req('/np'))
 
 def stop_track(exaile, track):
+    global SIGNAL_ID
     if not COVER: return
     APP.cover.show()
     COVER.hide()
     COVER_BOX.hide()
+    if SIGNAL_ID:
+        APP.disconnect(SIGNAL_ID)
+        SIGNAL_ID = None
 
 def initialize():
     global PROXY, PLUGIN, HTTP_CLIENT, BUTTONS, COVER, SHOW_COVER

@@ -1305,8 +1305,7 @@ class ExaileWindow(gobject.GObject):
         """
         self.cover = xlmisc.ImageWidget()
         self.cover.set_image_size(covers.COVER_WIDTH, covers.COVER_WIDTH)
-        self.cover_box = covers.CoverEventBox(self)
-        self.cover_box.add(self.cover)
+        self.cover_box = covers.CoverEventBox(self, self.cover)
         self.xml.get_widget('image_box').pack_start(self.cover_box)
         self.cover.set_image(xl.path.get_data('images', 'nocover.png'))
 

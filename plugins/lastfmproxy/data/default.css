@@ -1,0 +1,89 @@
+body { 
+    font-family: sans-serif; 
+    margin: 0; 
+}
+div { 
+    white-space: nowrap;
+}
+#lfmp {
+    padding: 0; 
+    background: #E3E6D8; 
+}
+#lfmp-cover { 
+    float: left; 
+    padding: 10px;
+}
+#lfmp-header { 
+    background: #91998e; 
+    color: white; 
+    font-weight: bold; 
+    padding: 5px;
+}
+#lfmp-header a {
+    color: white; 
+}
+#lfmp-version {
+    float: right;
+    padding: 0;
+    font-weight: normal;
+    font-size: small;
+}
+#lfmp-main {
+    color: black; 
+}
+#lfmp-main a {
+    color: black; 
+}
+#lfmp-main img {
+    padding-right: 5px;
+    vertical-align: bottom;
+}
+#lfmp-trackinfo {
+    padding: 10px;
+}
+#lfmp-trackinfo div {
+    padding: 5px;
+}
+#lfmp-artiststations {
+    font-size: small;
+    color: #91998e;
+}
+#lfmp-artiststations a {
+    color: #91998e;
+}
+#lfmp-footer {
+    background: #d20039; 
+    color: white; 
+    clear: both;
+    padding: 5px;
+}
+#lfmp-footer a {
+    color: white; 
+}
+#lfmp-bookmarks {
+    float: right;
+    padding: 0;
+    font-size: small;
+}
+#lfmp-lasttracks {
+    float: right;
+    padding: 5px;
+    color: #91998e;
+    font-weight: bold;
+}
+#lfmp-lasttracks a {
+    color: #91998e; 
+}
+#lfmp-lasttracks ul {
+    margin-top: 0px;
+    margin-left: 16px;
+    padding: 0px;
+    font-weight: normal;
+    font-size: small;
+}
+.lfmp-shortcut {
+    text-decoration: underline;
+}
+form {
+    margin: 0;
+}

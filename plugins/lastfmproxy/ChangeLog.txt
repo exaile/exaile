@@ -1,0 +1,142 @@
+2007-12-20:
+- Released v1.3b
+- More code page fixes.
+- It's now possible to turn off recording to profile.
+
+2007-12-19:
+- Released v1.3
+- Try different stations on playlist errors.
+
+2007-12-17:
+- Configurable bind address, thanks to Romain Beauxis.
+
+2007-12-13:
+- Added new audioscrobbler module; recording to profile works again
+
+2007-12-10:
+- Added .pls playlist serving (http://localhost:port/lastfm.pls)
+- More charset fixes
+
+2007-12-07:
+- Removed old metadata cruft; all is now taken from the playlist
+- A lot of robustness improvements, thanks to Morty for many of them!
+- Removed "discovery mode" for now, as it seems to have no effect
+
+2007-11-23:
+- Better UTF-8 handing in xspf.py - Thanks again, Artur. :)
+- More error resilience
+- Some debug options
+- Removed superfluous "hashlib" requirement.
+
+2007-11-22:
+- Released v1.2
+- Switched to XSPF playlists - thanks to Artur for the xspf.py module.
+
+2006-07-17:
+- Released v1.1 final
+- Fixed correct metadata host and track progress
+
+2005-12-12:
+- Released v1.1alpha5
+- Cache related fixes; Send "no-cache" HTTP headers, and use "Temporary Redirect"
+  instead of "Moved Permanently". (Thanks to Jajcus for the tip on that one.)
+
+2005-12-10:
+- Use local copy of "nocover" image + related fix
+- Don't strip "SYNC" markers any more
+
+2005-10-11:
+- Released v1.1alpha4
+- Fixed handling of port-less "stream_url" (thanks to jgarrett)
+
+2005-09-18:
+- Released v1.1alpha3
+- Fixed pasting of station-URLs (thanks to vitalyb and mad_goldfish)
+
+2005-09-09:
+- Set "reuseaddr" flag on the socket to avoid "address in use" errors (thanks
+  to Peter Russel!)
+
+2005-08-30:
+- Made transparent PNGs look nice in MSIE, finally
+
+2005-08-29:
+- Released v1.1alpha2
+- Keyboard shortcuts + several small improvements (thanks to Ben Winslow!)
+- Better error handling when talking to the server (thanks to Craig Nicol!)
+
+2005-08-26:
+- Released v1.1alpha1
+- Better backwards compatibility (thanks to Craig Nicol / mad_goldfish!)
+- Proper thread handling
+
+2005-08-24:
+- Use "bookmarks.txt" for bookmarks (instead of "stations.txt")
+- New javascript-based GUI
+- Links for "similar" and "fans" stations
+
+2005-08-23:
+- Released v1.0.2
+- Very basic run-time theme selection ("http://.../settheme/sidebar")
+- Include favicon and noalbum images instead of linking to the server
+- Added "Record to profile" and "Discovery mode" checkboxes
+
+2005-08-21:
+- Released v1.0.1
+- Open data files in binary mode
+
+2005-08-20:
+- Released v1.0
+- Added a vertically oriented "sidebar" theme
+- Moved the default GUI and stylesheet (default.html and .css) into own files
+
+2005-08-19:
+- Released v1.0beta3
+- Show last played tracks
+
+2005-08-18:
+- Refresh when starting radio (and also while not streaming)
+
+2005-08-17:
+- Be paranoid about received metadata (hopefully avoid some crashes)
+- Use target="_self" for own links
+
+2005-08-17:
+- Released v1.0beta2
+- Fixed crash when starting without a bookmarks file (stations.txt)
+- Fixed jumpy track time display after clicking a button
+- Hopefully work around dodgy stream titles
+
+2005-08-17:
+- Released v1.0beta1
+
+2005-08-16:
+- Store 10 last used stations in a "bookmark" pulldown
+- New changestation.py script (for handling lastfm://station links)
+- Replaced random listen port with configurable port
+- Work-around for a bug when there's no album link
+- Display artist and track name in window title / taskbar
+- Basic proxy authentication support
+
+2005-08-16:
+- Released v0.1alpha3
+- Proxy support
+- Handle metadata with no "albumcover_medium"
+
+2005-08-15:
+- Released v0.1alpha2
+- Fix channel selection on stream startup
+- Proper display of track time / duration
+- Some frames testing
+
+2005-08-15:
+- Released v0.1alpha
+- Web-server cleanups, imitate last.fm's design
+
+2005-08-13:
+- Added integrated webserver for controlling the stream
+
+2005-08-12:
+- Project started
+- First working implementation
+

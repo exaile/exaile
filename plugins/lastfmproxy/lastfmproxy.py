@@ -20,12 +20,15 @@ from gettext import gettext as _
 random.seed(time.time())
 from xl import common, xlmisc
 from xl.panels import radio
+import xl.path
 import xl.media as media
 import time, gtk, gobject, gtk.glade
+import urllib
+import xl.covers
 
 PLUGIN_NAME = _("LastFM Radio")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = "0.1.5"
+PLUGIN_VERSION = "0.1.6"
 PLUGIN_DESCRIPTION = _(r"""Allows for streaming via lastfm proxy.\n\nThis
 plugin is very beta and still doesn't work perfectly.""")
 PLUGIN_ENABLED = False
@@ -38,6 +41,10 @@ HTTP_CLIENT = None
 BUTTONS = []
 TIPS = gtk.Tooltips()
 GLADE_XML_STRING = None
+CONS = plugins.SignalContainer()
+COVER = None
+SHOW_COVER = False
+COVER_BOX = None
 
 def lastfm_error(message):
     common.error(APP.window, message)
@@ -201,16 +208,10 @@ def load_data(zip):
     global TMP_DIR, PLUGIN_ICON, GLADE_XML_STRING
     if TMP_DIR: return
 
-    fname = "/tmp/lfmfile%s" % md5.new(str(random.randrange(0,
-        234234234234324))).hexdigest()
+    fname = os.sep.join(str(__file__).split(os.path.sep)[0:-1])
     TMP_DIR = "/tmp/lfmdir%s" % md5.new(str(random.randrange(0,
         123471287348834))).hexdigest()
-
     os.mkdir(TMP_DIR)
-    h = open(fname, 'w')
-    h.write(zip.get_data("data/lastfmproxy.zip"))
-    h.close()
-
     unzip_file(fname, TMP_DIR)
 
     GLADE_XML_STRING = zip.get_data('data/lastfmproxy.glade')
@@ -240,8 +241,40 @@ BUTTON_ITEMS = (
     ('LastFM: Ban this track', 'gtk-delete', '/ban'),
 )
 
+@common.threaded
+def set_cover(value):
+    fname = "lfmcover%s" % md5.new(str(random.randrange(0,
+        23423423442))).hexdigest()
+
+    data = urllib.urlopen(value).read()
+    h = open(fname, 'w+')
+    h.write(data)
+    h.close()
+
+    gobject.idle_add(COVER.set_image, fname)
+
+def album_callback(value):
+    if COVER:
+        set_cover(value)
+    xlmisc.log("LastFM: Got cover: %s" % value)
+
+def play_track(exaile, track):
+    if not COVER or not hasattr(APP.player.current,
+        'lastfm_track'): return
+    APP.cover.hide()
+    COVER.set_image(xl.path.get_data('images', 'nocover.png'))
+    COVER_BOX.show_all()
+    COVER.show()
+
+def stop_track(exaile, track):
+    if not COVER: return
+    APP.cover.show()
+    COVER.hide()
+    COVER_BOX.hide()
+
 def initialize():
-    global PROXY, PLUGIN, HTTP_CLIENT, BUTTONS
+    global PROXY, PLUGIN, HTTP_CLIENT, BUTTONS, COVER, SHOW_COVER
+    global COVER_BOX
     if not TMP_DIR in sys.path: sys.path.append(TMP_DIR)
 
     import lastfmmain
@@ -249,6 +282,7 @@ def initialize():
     import httpclient
 
     settings = APP.settings
+    SHOW_COVER = settings.get_boolean('ui/show_cover', True)
 
     port = settings.get_int('listenport', plugin=plugins.name(__file__),
         default=1881)
@@ -266,8 +300,22 @@ def initialize():
         HTTP_CLIENT = httpclient.httpclient('localhost', config.listenport)
 
     PROXY = lastfmmain.proxy(config.username, config.password)
+    PROXY.np_image_func = album_callback
     PROXY.basedir = TMP_DIR
     run_proxy(config)
+
+    if not COVER and SHOW_COVER:    
+        COVER = xlmisc.ImageWidget()
+        COVER.set_image_size(xl.covers.COVER_WIDTH, xl.covers.COVER_WIDTH)
+        COVER_BOX = xl.covers.CoverEventBox(APP, COVER)
+        APP.xml.get_widget('image_box').pack_start(COVER_BOX)
+        COVER.hide()
+        COVER_BOX.hide()
+        COVER.set_image(xl.path.get_data('images', 'nocover.png'))
+
+    if not CONS.dict:
+        CONS.connect(APP.player, 'play-track', play_track)
+        CONS.connect(APP.player, 'stop-track', stop_track)
 
     if not BUTTONS:
         for tooltip, icon, command in BUTTON_ITEMS:
@@ -286,9 +334,18 @@ def initialize():
     return True
 
 def destroy():
-    global PLUGIN, MENU_ITEM, PROXY, BUTTONS
+    global PLUGIN, MENU_ITEM, PROXY, BUTTONS, COVER
+    global COVER_BOX
     if TMP_DIR:
         sys.path.remove(TMP_DIR) 
+
+    CONS.disconnect_all()
+
+    if COVER:
+        COVER_BOX.hide()
+        COVER_BOX = None
+        COVER.hide()
+        COVER = None
 
     if PLUGIN:
         APP.pradio_panel.remove_driver(PLUGIN)
@@ -301,6 +358,7 @@ def destroy():
         BUTTONS = []
     
     if PROXY:
+        PROXY.np_image_func = None
         PROXY.quit = True
 
     PROXY = None

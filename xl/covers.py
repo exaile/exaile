@@ -154,12 +154,14 @@ class CoverFetcherThread(threading.Thread):
         gobject.idle_add(self._done_func, covers)
 
 class CoverEventBox(gtk.EventBox):
-    def __init__(self, exaile):
+    def __init__(self, exaile, cover):
         gtk.EventBox.__init__(self)
         self.exaile = exaile
         self.db = exaile.db
         self.cover_menu = CoverMenu(self.exaile, is_current_song=True)
         self.connect('button_press_event', self.cover_clicked)
+        self.add(cover)
+        self.cover = cover
 
     def cover_clicked(self, widget, event):
         """
@@ -170,10 +172,10 @@ class CoverEventBox(gtk.EventBox):
             return
 
         if event.type == gtk.gdk._2BUTTON_PRESS:
-            if 'nocover' in self.exaile.cover.loc:
+            if 'nocover' in self.cover.loc:
                 CoverFrame(self.exaile, track)
             else:
-                CoverWindow(self.exaile.window, self.exaile.cover.loc,
+                CoverWindow(self.exaile.window, self.cover.loc,
                     _("%(album)s by %(artist)s") %
                     {
                         'album': track.album,

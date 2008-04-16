@@ -423,6 +423,7 @@ def configure():
     dialog.hide()
     if result == gtk.RESPONSE_OK:
         if PROXY: 
+            PROXY.np_image_func = None
             PROXY.quit = True
             PROXY.stop = True
             exaile.player.stop()

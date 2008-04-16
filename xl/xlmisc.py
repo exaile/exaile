@@ -1210,7 +1210,6 @@ class DragTreeView(gtk.TreeView):
                         selection.unselect_path(path[0])
                     return True
                 elif not event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
-                    self.cont.button_press(button, event)
                     return True
                 return False
 

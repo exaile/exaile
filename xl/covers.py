@@ -253,6 +253,7 @@ class CoverManager(object):
                 cover.save(xl.path.get_config('covers'))
                 xlmisc.log(cover['filename'])
                 self.exaile.cover.set_image(cover['filename'])
+                self.exaile.player.current._tmp_cover = cover['filename']
 
                 self.db.execute("UPDATE albums SET image=?, amazon_image=1 WHERE id=?",
                     (cover['md5'] + ".jpg", album_id))
@@ -284,6 +285,11 @@ class CoverManager(object):
         w = COVER_WIDTH
         if not popup:
             self.exaile.cover.set_image(NOCOVER_IMAGE)
+
+        # for popups, cover might have already been located, so use it
+        if popup and hasattr(track, '_tmp_cover'):
+            if track._tmp_cover: return track._tmp_cover
+
         if track == None: return
         artist_id = library.get_column_id(self.db, 'artists', 'name', track.artist)
         album_id = library.get_album_id(self.db, artist_id, track.album)
@@ -311,6 +317,7 @@ class CoverManager(object):
                     if not self.check_image_age(album_id, row[0]): return
 
                 if gtk.gdk.pixbuf_get_file_info(coverfile):
+                    track._tmp_cover = coverfile
                     self.exaile.cover.set_image(coverfile)
                 else:
                     self.exaile.cover.set_image(NOCOVER_IMAGE)
@@ -318,6 +325,7 @@ class CoverManager(object):
 
         cover = self.fetch_from_fs(track)
         if cover:
+            track._tmp_cover = cover
             if popup: return cover
             else: self.exaile.cover.set_image(cover)
             return

@@ -28,7 +28,7 @@ import xl.covers
 
 PLUGIN_NAME = _("LastFM Radio")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = "0.1.6"
+PLUGIN_VERSION = "0.1.7"
 PLUGIN_DESCRIPTION = _(r"""Allows for streaming via lastfm proxy.\n\nThis
 plugin is very beta and still doesn't work perfectly.""")
 PLUGIN_ENABLED = False
@@ -74,11 +74,33 @@ class LastFMDriver(radio.RadioDriver):
         HTTP_CLIENT.req(self.lfmcommand)
 
     def get_menu(self, item, menu):
+        menu.append_separator()
         menu.append(_("Add Station"), self.on_add, 'gtk-add')
         if isinstance(item, radio.RadioGenre) and item.custom:
             menu.append(_("Remove Station"), self.on_remove, 'gtk-delete')
             self.last_menu_item = item
+        menu.append_separator()
+        menu.append(_("Similar Artist Selection"), self.similar_artist,
+            'gtk-media-play')
         return menu
+
+    def similar_artist(self, *e):
+        """
+            Opens a dialog, asks for an artist you want to play similar tracks
+            by, and plays that station
+        """
+        dialog = common.MultiTextEntryDialog(APP.window, 
+            _("Similar Artist Radio"))
+        dialog.add_field(_("Artist:"))
+        result = dialog.run()
+        dialog.hide()
+        if result == gtk.RESPONSE_OK:
+            values = dialog.get_values()
+            artist = urllib.quote(values[0])
+
+            item = radio.RadioGenre("Similar to: %s" % values[0])
+            item.lastfm_url = "lastfm://artist/%s/similarartists" % artist
+            self.load_genre(item)
 
     def on_add(self, *e):
         """
@@ -243,13 +265,16 @@ BUTTON_ITEMS = (
 
 @common.threaded
 def set_cover(value):
-    fname = "lfmcover%s" % md5.new(str(random.randrange(0,
+    if not COVER or not hasattr(APP.player.current,
+        'lastfm_track'): return
+    fname = "/tmp/lfmcover%s" % md5.new(str(random.randrange(0,
         23423423442))).hexdigest()
 
     data = urllib.urlopen(value).read()
     h = open(fname, 'w+')
     h.write(data)
     h.close()
+    APP.player.current._tmp_cover = fname
 
     gobject.idle_add(COVER.set_image, fname)
 

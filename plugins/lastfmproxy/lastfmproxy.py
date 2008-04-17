@@ -28,7 +28,7 @@ import xl.covers
 
 PLUGIN_NAME = _("LastFM Radio")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = "0.1.7"
+PLUGIN_VERSION = "0.1.8"
 PLUGIN_DESCRIPTION = _(r"""Allows for streaming via lastfm proxy.\n\nThis
 plugin is very beta and still doesn't work perfectly.""")
 PLUGIN_ENABLED = False
@@ -270,6 +270,7 @@ def set_cover(value):
     fname = "/tmp/lfmcover%s" % md5.new(str(random.randrange(0,
         23423423442))).hexdigest()
 
+    value = value.replace('130x130', '300x300')
     data = urllib.urlopen(value).read()
     h = open(fname, 'w+')
     h.write(data)

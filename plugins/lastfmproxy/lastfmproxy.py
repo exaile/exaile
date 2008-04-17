@@ -24,11 +24,10 @@ import xl.path
 import xl.media as media
 import time, gtk, gobject, gtk.glade
 import urllib
-import xl.covers
 
 PLUGIN_NAME = _("LastFM Radio")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = "0.1.8"
+PLUGIN_VERSION = "0.1.9"
 PLUGIN_DESCRIPTION = _(r"""Allows for streaming via lastfm proxy.\n\nThis
 plugin is very beta and still doesn't work perfectly.""")
 PLUGIN_ENABLED = False
@@ -42,9 +41,8 @@ BUTTONS = []
 TIPS = gtk.Tooltips()
 GLADE_XML_STRING = None
 CONS = plugins.SignalContainer()
-COVER = None
 SHOW_COVER = False
-COVER_BOX = None
+OLD_COVER_FUNC = None
 
 def lastfm_error(message):
     common.error(APP.window, message)
@@ -265,7 +263,7 @@ BUTTON_ITEMS = (
 
 @common.threaded
 def set_cover(value):
-    if not COVER or not hasattr(APP.player.current,
+    if not OLD_COVER_FUNC or not hasattr(APP.player.current,
         'lastfm_track'): return
     fname = "/tmp/lfmcover%s" % md5.new(str(random.randrange(0,
         23423423442))).hexdigest()
@@ -277,38 +275,45 @@ def set_cover(value):
     h.close()
     APP.player.current._tmp_cover = fname
 
-    gobject.idle_add(COVER.set_image, fname)
+    gobject.idle_add(APP.cover.set_lfmimage, fname)
 
 def album_callback(value):
-    if COVER:
+    if OLD_COVER_FUNC:
         set_cover(value)
     xlmisc.log("LastFM: Got cover: %s" % value)
 
+def new_cover_func(self, *e):
+    """
+        Do absolutely nothing.  Srs.
+    """
+    pass
+
 SIGNAL_ID = None
 def play_track(exaile, track):
-    global SIGNAL_ID
-    if not COVER or not hasattr(APP.player.current,
+    global SIGNAL_ID, OLD_COVER_FUNC
+    if not SHOW_COVER or not hasattr(APP.player.current,
         'lastfm_track'): return
-    APP.cover.hide()
-    COVER.set_image(xl.path.get_data('images', 'nocover.png'))
-    COVER_BOX.show_all()
-    COVER.show()
+    
+    OLD_COVER_FUNC = APP.cover.set_image
+    APP.cover.set_image = new_cover_func
+    APP.cover.set_lfmimage = OLD_COVER_FUNC
+
+    APP.cover.set_lfmimage(xl.path.get_data('images', 'nocover.png'))
     SIGNAL_ID = APP.connect('timer_update', lambda *e:
         HTTP_CLIENT.req('/np'))
 
 def stop_track(exaile, track):
-    global SIGNAL_ID
-    if not COVER: return
-    APP.cover.show()
-    COVER.hide()
-    COVER_BOX.hide()
+    global SIGNAL_ID, OLD_COVER_FUNC
+    if not SHOW_COVER: return
     if SIGNAL_ID:
         APP.disconnect(SIGNAL_ID)
         SIGNAL_ID = None
+    if OLD_COVER_FUNC:
+        APP.cover.set_image = OLD_COVER_FUNC
+        OLD_COVER_FUNC = None
 
 def initialize():
-    global PROXY, PLUGIN, HTTP_CLIENT, BUTTONS, COVER, SHOW_COVER
-    global COVER_BOX
+    global PROXY, PLUGIN, HTTP_CLIENT, BUTTONS, SHOW_COVER
     if not TMP_DIR in sys.path: sys.path.append(TMP_DIR)
 
     import lastfmmain
@@ -338,15 +343,6 @@ def initialize():
     PROXY.basedir = TMP_DIR
     run_proxy(config)
 
-    if not COVER and SHOW_COVER:    
-        COVER = xlmisc.ImageWidget()
-        COVER.set_image_size(xl.covers.COVER_WIDTH, xl.covers.COVER_WIDTH)
-        COVER_BOX = xl.covers.CoverEventBox(APP, COVER)
-        APP.xml.get_widget('image_box').pack_start(COVER_BOX)
-        COVER.hide()
-        COVER_BOX.hide()
-        COVER.set_image(xl.path.get_data('images', 'nocover.png'))
-
     if not CONS.dict:
         CONS.connect(APP.player, 'play-track', play_track)
         CONS.connect(APP.player, 'stop-track', stop_track)
@@ -368,18 +364,15 @@ def initialize():
     return True
 
 def destroy():
-    global PLUGIN, MENU_ITEM, PROXY, BUTTONS, COVER
-    global COVER_BOX
+    global PLUGIN, MENU_ITEM, PROXY, BUTTONS, OLD_COVER_FUNC
     if TMP_DIR:
         sys.path.remove(TMP_DIR) 
 
     CONS.disconnect_all()
 
-    if COVER:
-        COVER_BOX.hide()
-        COVER_BOX = None
-        COVER.hide()
-        COVER = None
+    if OLD_COVER_FUNC:
+        APP.cover.set_image = OLD_COVER_FUNC
+        OLD_COVER_FUNC = None
 
     if PLUGIN:
         APP.pradio_panel.remove_driver(PLUGIN)

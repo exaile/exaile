@@ -27,7 +27,7 @@ import urllib
 
 PLUGIN_NAME = _("LastFM Radio")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = "0.1.9"
+PLUGIN_VERSION = "0.2.0"
 PLUGIN_DESCRIPTION = _(r"""Allows for streaming via lastfm proxy.\n\nThis
 plugin is very beta and still doesn't work perfectly.""")
 PLUGIN_ENABLED = False
@@ -148,10 +148,12 @@ class LastFMDriver(radio.RadioDriver):
 
     def load_streams(self, node, load_node, use_cache=True):
         stations = (
-            ('Personal', 'lastfm://user/synic/personal'),
-            ('Recommended', 'lastfm://user/synic/recommended/100'),
-            ('Neighbourhood', 'lastfm://user/synic/neighbours'),
-            ('Loved Tracks', 'lastfm://user/synic/loved'),
+            ('Personal', 'lastfm://user/%s/personal' % self.config.username),
+            ('Recommended', 'lastfm://user/%s/recommended/100' %
+                self.config.username),
+            ('Neighbourhood', 'lastfm://user/%s/neighbours' %
+                self.config.username),
+            ('Loved Tracks', 'lastfm://user/%s/loved' % self.config.username),
         )
 
         for station, url in stations:
@@ -333,8 +335,14 @@ def initialize():
         plugin=plugins.name(__file__),
         default=settings.get_str('lastfm/pass', ''))
 
+    if settings.get_boolean('lastfm_use_main', default=True,
+        plugin=plugins.name(__file__)):
+        config.username = settings.get_str('lastfm/user', '')
+        config.password = settings.get_crypted('lastfm/pass', '') 
+
     if not PLUGIN:
         PLUGIN = LastFMDriver(APP.pradio_panel)
+        PLUGIN.config = config
         APP.pradio_panel.add_driver(PLUGIN, plugins.name(__file__))
         HTTP_CLIENT = httpclient.httpclient('localhost', config.listenport)
 

@@ -27,7 +27,7 @@ import urllib
 
 PLUGIN_NAME = _("LastFM Radio")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = "0.2.0"
+PLUGIN_VERSION = "0.2.1"
 PLUGIN_DESCRIPTION = _(r"""Allows for streaming via lastfm proxy.\n\nThis
 plugin is very beta and still doesn't work perfectly.""")
 PLUGIN_ENABLED = False
@@ -311,6 +311,7 @@ def stop_track(exaile, track):
         APP.disconnect(SIGNAL_ID)
         SIGNAL_ID = None
     if OLD_COVER_FUNC:
+        APP.cover.set_lfmimage(xl.path.get_data('images', 'nocover.png'))
         APP.cover.set_image = OLD_COVER_FUNC
         OLD_COVER_FUNC = None
 

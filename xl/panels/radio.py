@@ -296,8 +296,8 @@ class RadioPanel(object):
 
         self.track = gtk.gdk.pixbuf_new_from_file(xl.path.get_data('images',
             'track.png'))
-        self.custom = self.model.append(None, [self.open_folder, "Saved Stations"])
-        self.podcast = self.model.append(None, [self.open_folder, "Podcasts"])
+        self.custom = self.model.append(None, [self.open_folder, _("Saved Stations")])
+        self.podcast = self.model.append(None, [self.open_folder, _("Podcasts")])
 
         # load all saved stations from the database
         rows = self.db.select("SELECT name FROM radio "
@@ -318,8 +318,8 @@ class RadioPanel(object):
         self.tree.expand_row(self.model.get_path(self.custom), False)
         self.tree.expand_row(self.model.get_path(self.podcast), False)
 
-        self.radio_root = self.model.append(None, [self.open_folder, "Radio "
-            "Streams"])
+        self.radio_root = self.model.append(None, [self.open_folder, _("Radio "
+            "Streams")])
 
         self.drivers_expanded = {}
         self.load_nodes = {}

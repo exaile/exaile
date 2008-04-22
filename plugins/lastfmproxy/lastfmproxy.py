@@ -27,7 +27,7 @@ import urllib
 
 PLUGIN_NAME = _("LastFM Radio")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = "0.2.1"
+PLUGIN_VERSION = "0.2.2"
 PLUGIN_DESCRIPTION = _(r"""Allows for streaming via lastfm proxy.\n\nThis
 plugin is very beta and still doesn't work perfectly.""")
 PLUGIN_ENABLED = False
@@ -96,6 +96,7 @@ class LastFMDriver(radio.RadioDriver):
             values = dialog.get_values()
             artist = urllib.quote(values[0])
 
+            # TRANSLATORS: Similar artists on Last.fm
             item = radio.RadioGenre("Similar to: %s" % values[0])
             item.lastfm_url = "lastfm://artist/%s/similarartists" % artist
             self.load_genre(item)
@@ -148,12 +149,12 @@ class LastFMDriver(radio.RadioDriver):
 
     def load_streams(self, node, load_node, use_cache=True):
         stations = (
-            ('Personal', 'lastfm://user/%s/personal' % self.config.username),
-            ('Recommended', 'lastfm://user/%s/recommended/100' %
+            (_('Personal'), 'lastfm://user/%s/personal' % self.config.username),
+            (_('Recommended'), 'lastfm://user/%s/recommended/100' %
                 self.config.username),
-            ('Neighbourhood', 'lastfm://user/%s/neighbours' %
+            (_('Neighbourhood'), 'lastfm://user/%s/neighbours' %
                 self.config.username),
-            ('Loved Tracks', 'lastfm://user/%s/loved' % self.config.username),
+            (_('Loved Tracks'), 'lastfm://user/%s/loved' % self.config.username),
         )
 
         for station, url in stations:
@@ -191,7 +192,7 @@ class LastFMDriver(radio.RadioDriver):
             return
         tr = media.Track()
         tr.type = 'stream'
-        tr.artist = 'LastFM Radio!'
+        tr.artist = _('LastFM Radio!')
         tr.album = "LastFM: %s" % str(genre)
         tr.title = "LastFM: %s" % str(genre)
         tr.loc = "http://localhost:%d/lastfm.mp3" % self.listenport
@@ -202,7 +203,7 @@ class LastFMDriver(radio.RadioDriver):
         self.command('/changestation/%s' % genre.lastfm_url)
         
     def __str__(self):
-        return "LastFM Radio"
+        return _("LastFM Radio")
 
 def unzip_file(file, odir):
     """
@@ -258,9 +259,9 @@ def run_proxy(config):
                 raise(e)
 
 BUTTON_ITEMS = (
-    ('LastFM: Skip this track', 'gtk-media-forward', '/skip'),
-    ('LastFM: Mark this track as loved', 'gtk-add', '/love'),
-    ('LastFM: Ban this track', 'gtk-delete', '/ban'),
+    (_('LastFM: Skip this track'), 'gtk-media-forward', '/skip'),
+    (_('LastFM: Mark this track as loved'), 'gtk-add', '/love'),
+    (_('LastFM: Ban this track'), 'gtk-delete', '/ban'),
 )
 
 @common.threaded

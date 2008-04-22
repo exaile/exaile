@@ -18,6 +18,7 @@ plugins/icastplugin/icastplugin.py
 plugins/icastplugin/gui.glade
 plugins/imstatus.py
 plugins/ipoddriver.py
+plugins/lastfmproxy/lastfmproxy.py
 plugins/massstoragedriver.py
 plugins/minimode.py
 plugins/notaskbarentry.py

@@ -46,6 +46,7 @@ xl/gui/information.py
 xl/gui/library.py
 xl/gui/main.py
 xl/gui/playlist.py
+xl/gui/tray.py
 xl/panels/collection.py
 xl/panels/device.py
 xl/panels/files.py

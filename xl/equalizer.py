@@ -56,7 +56,7 @@ class EqualizerWindow(object):
         self._scale_changed_ids = []
         for scale in self.scales:
             self._scale_changed_ids.append(scale.connect('value_changed', self.on_value_changed_cb))
-        self.close.connect('clicked', lambda e: self.dialog.destroy())
+        self.close.connect('clicked', self.destroy)
         self.save.connect('clicked',  self.save_preset)
         self.delete.connect('clicked', self.delete_preset)
         self.import_btn.connect('clicked', self.import_preset)
@@ -65,6 +65,12 @@ class EqualizerWindow(object):
         
         self.setup_equalizer()
         self.dialog.show()
+
+    def destroy(self, *e):
+        """
+            Called when the close dialog is clicked
+        """
+        self.dialog.destroy()
 
     def toggle_enabled(self, widget):
         """

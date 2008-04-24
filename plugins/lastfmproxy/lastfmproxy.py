@@ -27,7 +27,7 @@ import urllib
 
 PLUGIN_NAME = _("LastFM Radio")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = "0.2.2"
+PLUGIN_VERSION = "0.2.3"
 PLUGIN_DESCRIPTION = _(r"""Allows for streaming via lastfm proxy.\n\nThis
 plugin is very beta and still doesn't work perfectly.""")
 PLUGIN_ENABLED = False
@@ -78,27 +78,53 @@ class LastFMDriver(radio.RadioDriver):
             menu.append(_("Remove Station"), self.on_remove, 'gtk-delete')
             self.last_menu_item = item
         menu.append_separator()
-        menu.append(_("Similar Artist Selection"), self.similar_artist,
+        menu.append(_("Play 'Similar Artist' Radio"), lambda *e:
+            self.play_radio(
+                _('Similar Artist'), 
+                _('Artist'),
+                "lastfm://artist/%s/similarartists"),
             'gtk-media-play')
+
+        menu.append(_("Play 'Neighbour' Radio"), lambda *e:
+            self.play_radio(
+                _('Neighbour'), 
+                _('User'),
+                "lastfm://user/%s/personal"),
+            'gtk-media-play')
+
+        menu.append(_("Play 'Group' Radio"), lambda *e:
+            self.play_radio(
+                _('Group'),
+                _("Group"),
+                "lastfm://group/%s"),
+            'gtk-media-play')
+
+        menu.append(_('Play URL'), lambda *e: 
+            self.play_radio(
+                '', 
+                _("URL"),
+                'lastfm://%s'),
+            'gtk-media-play')
+            
         return menu
 
-    def similar_artist(self, *e):
+    def play_radio(self, title, field, url):
         """
-            Opens a dialog, asks for an artist you want to play similar tracks
-            by, and plays that station
+            Opens a dialog and asks the user for a field, and plays the
+            station
         """
-        dialog = common.MultiTextEntryDialog(APP.window, 
-            _("Similar Artist Radio"))
-        dialog.add_field(_("Artist:"))
+        dialog = common.MultiTextEntryDialog(APP.window, title)
+        dialog.add_field("%s: " % field)
         result = dialog.run()
         dialog.hide()
+
         if result == gtk.RESPONSE_OK:
             values = dialog.get_values()
-            artist = urllib.quote(values[0])
+            display = values[0]
+            value = urllib.quote(values[0].replace("lastfm://", ''))
 
-            # TRANSLATORS: Similar artists on Last.fm
-            item = radio.RadioGenre("Similar to: %s" % values[0])
-            item.lastfm_url = "lastfm://artist/%s/similarartists" % artist
+            item = radio.RadioGenre("%s: %s" % (field, display))
+            item.lastfm_url = url % value
             self.load_genre(item)
 
     def on_add(self, *e):
@@ -189,6 +215,7 @@ class LastFMDriver(radio.RadioDriver):
             if not current in self.exaile.tracks.songs:
                 self.exaile.tracks.append_song(current)
             self.command("/changestation/%s" % genre.lastfm_url)
+            xlmisc.log("LastFM: playing %s" % genre.lastfm_url)
             return
         tr = media.Track()
         tr.type = 'stream'
@@ -200,6 +227,7 @@ class LastFMDriver(radio.RadioDriver):
 
         self.exaile.tracks.append_song(tr)
         self.exaile.player.play_track(tr)
+        xlmisc.log("LastFM: playing %s" % genre.lastfm_url)
         self.command('/changestation/%s' % genre.lastfm_url)
         
     def __str__(self):

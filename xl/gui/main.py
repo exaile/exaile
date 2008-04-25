@@ -43,7 +43,8 @@ def found_updates(exaile, found):
     result = dialog.run()
     dialog.destroy()
     if result == gtk.RESPONSE_YES:
-        exaile.show_plugin_manager() 
+        manager = exaile.show_plugin_manager() 
+        manager.plugin_nb.set_current_page(2)
 
 @common.threaded
 def start_updatecheck_thread(playlist_manager):
@@ -721,6 +722,7 @@ class ExaileWindow(gobject.GObject):
             self.update_plugin,
             'http://www.exaile.org/files/plugins/%s/plugin_info.txt' %
             self.get_plugin_location())
+        return manager
 
     def update_plugin(self, plugin):
         """

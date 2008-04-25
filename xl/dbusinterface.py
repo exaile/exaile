@@ -128,6 +128,16 @@ class DBusInterfaceObject(dbus.service.Object):
         """
         self.exaile.show_osd()
 
+    @dbus.service.method("org.exaile.DBusInterface")
+    def popup_text(self, text):
+        """
+            Shows a popup window with a text string
+        """
+        import xlmisc
+        pop = xlmisc.get_osd(self, 
+                xlmisc.get_osd_settings(self.exaile.settings))
+        pop.show_osd(text, None)
+
     @dbus.service.method("org.exaile.DBusInterface", None, "s")
     def get_title(self):
         """
@@ -197,13 +207,6 @@ class DBusInterfaceObject(dbus.service.Object):
             Returns the path to the cover image of the playing track
         """
         return self.exaile.cover.loc
-
-    @dbus.service.method("org.exaile.DBusInterface")
-    def popup(self):
-        """
-            Shows a popup window with information about the current track
-        """
-        self.exaile.show_osd()
 
     @dbus.service.method("org.exaile.DBusInterface", None, "s")
     def get_volume(self):

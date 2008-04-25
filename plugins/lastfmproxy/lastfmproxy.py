@@ -27,7 +27,7 @@ import urllib
 
 PLUGIN_NAME = _("LastFM Radio")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = "0.2.3"
+PLUGIN_VERSION = "0.2.4"
 PLUGIN_DESCRIPTION = _(r"""Allows for streaming via lastfm proxy.\n\nThis
 plugin is very beta and still doesn't work perfectly.""")
 PLUGIN_ENABLED = False
@@ -200,6 +200,22 @@ class LastFMDriver(radio.RadioDriver):
 
         self.model.remove(load_node)
         self.last_node = node
+
+    def handles_url(self, url):
+        """
+            Check to see if this is a lastfm:// url, and if so, return True
+        """
+        if re.match(r"^lastfm://.*$", url):
+            return True
+
+    def handle_url(self, url):
+        """
+            Handle a url
+        """
+        url = "lastfm://%s" % urllib.quote(url.replace('lastfm://', ''))
+        item = radio.RadioGenre(url, self)
+        item.lastfm_url = url
+        self.load_genre(item)
 
     def load_genre(self, genre, rel=False):
         current = self.exaile.player.current
@@ -375,6 +391,7 @@ def initialize():
         PLUGIN.config = config
         APP.pradio_panel.add_driver(PLUGIN, plugins.name(__file__))
         HTTP_CLIENT = httpclient.httpclient('localhost', config.listenport)
+        APP.add_urlhandler(PLUGIN)
 
     PROXY = lastfmmain.proxy(config.username, config.password)
     PROXY.np_image_func = album_callback
@@ -414,6 +431,7 @@ def destroy():
 
     if PLUGIN:
         APP.pradio_panel.remove_driver(PLUGIN)
+        APP.remove_urlhandler(PLUGIN)
 
     if BUTTONS:
         for button in BUTTONS:

@@ -152,6 +152,7 @@ class ExaileWindow(gobject.GObject):
         self.player.tag_func = self.tag_callback
         self.importer = xl.cd_import.CDImporter(self)
         self.audio_disc_page = None
+        self.urlhandlers = []
 
         # check for updates
         if self.settings.get_boolean('check_for_updates', True):
@@ -1077,6 +1078,21 @@ class ExaileWindow(gobject.GObject):
 
         self.db.check_version(xl.path.get_data('sql'))
 
+    def add_urlhandler(self, handler):
+        """
+            Items in the urlhandlers list will be queried for certain patterns
+            to see if they can handle playback of these items, IE, lastfm://
+            would be handled by the lastfmproxy plugin
+        """
+        if not handler in self.urlhandlers:
+            self.urlhandlers.append(handler)
+
+    def remove_urlhandler(self, handler):
+        """
+            Removes a handler from the system
+        """
+        if handler in self.urlhandlers:
+            self.urlhandlers.remove(handler)
 
     def initialize(self):
         """
@@ -1719,6 +1735,15 @@ class ExaileWindow(gobject.GObject):
             Play a radio stream
         """
         self.player.stop()
+
+        # plugins can register as urlhandlers, so check to see if any plugin
+        # wants to handle this url
+        for handler in self.urlhandlers:
+            if hasattr(handler, 'handles_url') and \
+                hasattr(handler, 'handle_url'):
+                if handler.handles_url(url):
+                    handler.handle_url(url)
+                    return
 
         if "://" in url:
             track = media.Track(url)

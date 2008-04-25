@@ -1,0 +1,40 @@
+import lib.wmainfo
+from xl import xlmisc
+
+TYPE = 'wma'
+
+TAG_TRANSLATION = {
+    "Author":       "artist",
+    "AlbumTitle":   "album",
+    "Title":        "title",
+    "Genre":        "genre",
+    "TrackNumber":  "tracknumber",
+    "Year":         "date"
+}
+
+def get_tag(inf, name):
+    if inf.tags.has_key(name):
+        return [inf.tags[name]]
+    else:
+        return []
+
+def can_change(tag):
+    return False
+
+def is_multi():
+    # FIXME: is this true?
+    return False
+
+def fill_tag_from_path(tr):
+    try:
+        inf = lib.wmainfo.WmaInfo(tr.io_loc)
+    except:
+        xlmisc.log("Couldn't read tags from file: " + tr.loc)
+        return
+
+    tr.length = inf.info["playtime_seconds"]
+    tr.bitrate = inf.info["max_bitrate"]
+
+    for wma_tag, tag in TAG_TRANSLATION.iteritems():
+        tr.tags[tag] = get_tag(inf, wma_tag)
+

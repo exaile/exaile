@@ -36,7 +36,14 @@ def found_updates(exaile, found):
     for (name, version) in found:
         message += "%s\t%s\n" % (name, version)
 
-    common.info(exaile.window, message)
+    dialog = gtk.MessageDialog(exaile.window, gtk.DIALOG_MODAL, gtk.MESSAGE_INFO,
+        gtk.BUTTONS_OK)
+    dialog.set_markup(message)
+    dialog.add_button(_("Plugin Manager"), gtk.RESPONSE_YES)
+    result = dialog.run()
+    dialog.destroy()
+    if result == gtk.RESPONSE_YES:
+        exaile.show_plugin_manager() 
 
 @common.threaded
 def start_updatecheck_thread(playlist_manager):

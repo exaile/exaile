@@ -47,6 +47,12 @@ class PluginManager(object):
         self.parent = parent
         self.update = update
         self.manager = manager
+        self.lists = dict()
+        self.models = dict()
+        self.author_labels = dict()
+        self.descriptions = dict()
+        self.version_labels = dict()
+        self.name_labels = dict()
 
         self.xml = gtk.glade.XML('xl/plugins/plugins.glade',
             'PluginManagerDialog','exaile')
@@ -66,7 +72,10 @@ class PluginManager(object):
         self.configure_button.connect('clicked', self.configure_plugin)
         self.plugin_install_button = self.xml.get_widget('plugin_install_button')
         self.plugin_install_button.connect('clicked',
-            self.install_plugin)
+            lambda *e: self.install_plugin('avail'))
+        self.plugin_update_button = self.xml.get_widget('plugin_update_button')
+        self.plugin_update_button.connect('clicked',
+            lambda *e: self.install_plugin('update'))
         self.xml.get_widget('plugin_uninstall_button').connect('clicked',
             self.uninstall_plugin)
 
@@ -103,9 +112,10 @@ class PluginManager(object):
         self.fetched = False
 
         if avail_url:
-            self.setup_avail_tab()
+            self.setup_tab('avail')
+            self.setup_tab('update')
             self.avail_url = avail_url
-            self.plugin_nb.connect('switch-page', self.check_fetch_avail)
+            self.plugin_nb.connect('switch-page', lambda *e: self.check_fetch('avail'))
 
     def load_plugin_list(self):
         self.model.clear()
@@ -126,50 +136,52 @@ class PluginManager(object):
         for p in list:
             self.model.append(p)
 
-    def install_plugin(self, *e):
+    def install_plugin(self, type='avail'):
         """
             Installs the selected plugin
         """
         self.plugin_install_button.set_sensitive(False)
+        self.plugin_update_button.set_sensitive(False)
         self.plugin_nb.set_sensitive(False)
-        self.download_plugins()
+        self.download_plugins(type)
 
-    def done_installing(self, files):
+    def done_installing(self, files, type='avail'):
         # now we remove all the installed plugins from the available list
         while True:
-            iter = self.avail_model.get_iter_first()
+            iter = self.models[type].get_iter_first()
             while True:
                 if not iter: break
-                file = self.avail_model.get_value(iter, 4)
+                file = self.models[type].get_value(iter, 4)
                 if file in files:
-                    self.avail_model.remove(iter)
+                    self.models[type].remove(iter)
                     break
-                iter = self.avail_model.iter_next(iter)
+                iter = self.models[type].iter_next(iter)
             if not iter: break
         self.plugin_install_button.set_sensitive(True)
+        self.plugin_update_button.set_sensitive(True)
         self.load_plugin_list()
         self.plugin_nb.set_sensitive(True)
 
-        self.avail_version_label.set_text('')
-        self.avail_author_label.set_text('')
-        self.avail_name_label.set_markup('<b>' + _('No Plugin Selected') +
+        self.version_labels[type].set_text('')
+        self.author_labels[type].set_text('')
+        self.name_labels[type].set_markup('<b>' + _('No Plugin Selected') +
             '</b>')
-        self.avail_description.get_buffer().set_text('')
+        self.descriptions[type].get_buffer().set_text('')
 
     @common.threaded
-    def download_plugins(self):
+    def download_plugins(self, type='avail'):
         """
             Downloads the selected plugin
         """
         download_dir = xl.path.get_config('plugins')
         files = []
-        iter = self.avail_model.get_iter_first()
+        iter = self.models[type].get_iter_first()
         while True:
             if not iter: break
 
-            checked = self.avail_model.get_value(iter, 5)
+            checked = self.models[type].get_value(iter, 5)
             if checked:
-                file = self.avail_model.get_value(iter, 4)
+                file = self.models[type].get_value(iter, 4)
 
                 try:
                     # if the directory does not exist, create it
@@ -209,7 +221,7 @@ class PluginManager(object):
                         enabled_plugins, False, avail_plugins)
                     files.append(file)
                 except Exception, e:
-                    self.model.set_value(iter, 5, False)
+                    self.models[type].set_value(iter, 5, False)
                     gobject.idle_add(common.error, self.parent, _("%(plugin)s could "
                         "not be installed: %(exception)s") % 
                         {
@@ -217,22 +229,22 @@ class PluginManager(object):
                             'exception': e
                         })
                     xlmisc.log_exception()
-            iter = self.avail_model.iter_next(iter)
+            iter = self.models[type].iter_next(iter)
 
-        gobject.idle_add(self.done_installing, files)
+        gobject.idle_add(self.done_installing, files, type)
 
-    def check_fetch_avail(self, *e):
+    def check_fetch(self, type='avail'):
         """
             Checks to see if the available plugin list needs to be fetched
         """
         if self.plugin_nb.get_current_page() != 0 or self.fetched: return
         self.fetched = True
-        self.avail_version_label.set_text('')
-        self.avail_author_label.set_text('')
-        self.avail_name_label.set_markup('<b>' + _('No Plugin Selected') + '</b>')
-        self.avail_description.get_buffer().set_text(_("Fetching available"
+        self.version_labels[type].set_text('')
+        self.author_labels[type].set_text('')
+        self.name_labels[type].set_markup('<b>' + _('No Plugin Selected') + '</b>')
+        self.descriptions[type].get_buffer().set_text(_("Fetching available"
             " plugin list..."))
-        self.avail_model.clear()
+        self.models[type].clear()
         self.fetch_available_plugins(self.avail_url)
         xlmisc.log('Fetching available plugin list')
 
@@ -249,6 +261,7 @@ class PluginManager(object):
     def done_fetching(self, lines):
 
         plugin_list = []
+        update_list = []
         check = False
         for line in lines:
             line = line.strip()
@@ -265,9 +278,14 @@ class PluginManager(object):
                     #this is a bit odd, to allow non-decimal versioning.
                     installed_ver = map(int, plugin.PLUGIN_VERSION.split('.'))
                     available_ver = map(int, version.split('.'))
+            
+                    found = True
 
-                    if installed_ver >= available_ver:
-                        found = True
+                    # if there is an update available
+                    if installed_ver < available_ver:
+                        update_list.append([name, version, author,
+                            description, file, False])
+                        check = True
 
             if not found:
                 plugin_list.append([name, version, author, description, file, False])
@@ -281,25 +299,32 @@ class PluginManager(object):
                 return locale.strcoll(a[0].lower(), b[0].lower())
 
             plugin_list.sort(plugin_sort)
+            update_list.sort(plugin_sort)
             for plugin in plugin_list:
-                self.avail_model.append(plugin)
+                self.models['avail'].append(plugin)
+            for plugin in update_list:
+                self.models['update'].append(plugin)
 
-        self.avail_description.get_buffer().set_text(_("No plugin selected"))
-        selection = self.avail_list.get_selection()
-        selection.select_path(0)
-        self.avail_row_selected(selection)
+        for type in self.descriptions.keys():
+            self.descriptions[type].get_buffer().set_text(_("No plugin selected"))
+            selection = self.lists[type].get_selection()
+            selection.select_path(0)
+            self.t_row_selected(type, selection)
 
-    def setup_avail_tab(self):
+    def setup_tab(self, type='avail'):
         """
             Sets up the "plugins available" tab
         """
-        self.avail_model = gtk.ListStore(str, str, str, str,
+        self.models[type] = gtk.ListStore(str, str, str, str,
             str, bool)
-        self.avail_list = self.xml.get_widget('avail_plugin_tree')
-        self.avail_version_label = self.xml.get_widget('avail_version_label')
-        self.avail_author_label = self.xml.get_widget('avail_author_label')
-        self.avail_name_label = self.xml.get_widget('avail_name_label')
-        self.avail_description = self.xml.get_widget('avail_description_view')
+        self.lists[type] = self.xml.get_widget('%s_plugin_tree' % type)
+        self.version_labels[type] = self.xml.get_widget('%s_version_label' %
+            type)
+        self.author_labels[type] = self.xml.get_widget('%s_author_label' %
+            type)
+        self.name_labels[type] = self.xml.get_widget('%s_name_label' % type)
+        self.descriptions[type] = self.xml.get_widget('%s_description_view' %
+            type)
 
         text = gtk.CellRendererText()
         col = gtk.TreeViewColumn(_('Plugin'))
@@ -308,7 +333,7 @@ class PluginManager(object):
         col.set_fixed_width(120)
         col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
         col.set_attributes(text, text=0)
-        self.avail_list.append_column(col)
+        self.lists[type].append_column(col)
 
         text = gtk.CellRendererText()
         # TRANSLATORS: The column title for plugin versions
@@ -317,25 +342,26 @@ class PluginManager(object):
         col.set_expand(False)
         col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
         col.set_attributes(text, text=1)
-        self.avail_list.append_column(col)
+        self.lists[type].append_column(col)
 
         text = gtk.CellRendererToggle()
         text.set_property('activatable', True)
-        text.connect('toggled', self.avail_toggle_cb, self.avail_model)
+        text.connect('toggled', self.t_toggle_cb, self.models[type])
         # TRANSLATORS: The column title for the plugin installation statuses
         col = gtk.TreeViewColumn(_("Inst"), text)
         col.add_attribute(text, 'active', 5)
         col.set_expand(False)
         col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
-        self.avail_list.append_column(col)
+        self.lists[type].append_column(col)
 
-        self.avail_list.set_model(self.avail_model)
-        self.avail_description.get_buffer().set_text(_("Fetching available"
+        self.lists[type].set_model(self.models[type])
+        self.descriptions[type].get_buffer().set_text(_("Fetching available"
             " plugin list..."))
-        selection = self.avail_list.get_selection()
-        selection.connect('changed', self.avail_row_selected)
+        selection = self.lists[type].get_selection()
+        selection.connect('changed', lambda selection, type=type: 
+            self.t_row_selected(type, selection))
 
-    def avail_row_selected(self, selection):
+    def t_row_selected(self, type, selection):
         """
             Called when a user selects a row in the avialable tab
         """
@@ -347,12 +373,12 @@ class PluginManager(object):
         author = model.get_value(iter, 2)
         description = model.get_value(iter, 3)
 
-        self.avail_name_label.set_markup('<b>%s</b>' % common.escape_xml(name))
-        self.avail_version_label.set_label(version)
-        self.avail_author_label.set_label(author)
-        self.avail_description.get_buffer().set_text(description)
+        self.name_labels[type].set_markup('<b>%s</b>' % common.escape_xml(name))
+        self.version_labels[type].set_label(version)
+        self.author_labels[type].set_label(author)
+        self.descriptions[type].get_buffer().set_text(description)
 
-    def avail_toggle_cb(self, cell, path, model):
+    def t_toggle_cb(self, cell, path, model):
         model[path][5] = not model[path][5]
 
     def toggle_cb(self, cell, path, model):

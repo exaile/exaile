@@ -19,7 +19,7 @@ import gtk, gobject, gtk.gdk
 from xl.gui import playlist
 import xl.library as library
 
-from xl import xlmisc
+from xl import xlmisc, prefs
 import xl.path
 from gettext import gettext as _
 

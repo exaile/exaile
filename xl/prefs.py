@@ -536,6 +536,7 @@ class Preferences(object):
             'proxy/port': (PrefsItem, '', None, self.proxy_setting_changed),
             'proxy/username': (PrefsItem, '', None, self.proxy_setting_changed),
             'proxy/password': (CryptedPrefsItem, '', None, self.proxy_setting_changed),
+            'ui/covers_in_collection': (CheckPrefsItem, False),
         })
 
         for setting, value in simple_settings.iteritems():

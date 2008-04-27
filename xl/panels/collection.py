@@ -66,6 +66,7 @@ class CollectionPanel(object):
         self.connect_id = None
         self.setup_widgets()
         playlist.create_rating_images(self)
+        self.cover_cache = {}
 
     def setup_widgets(self):
         """
@@ -611,6 +612,7 @@ class CollectionPanel(object):
             Only the very last item of self.order will be a child node
         """
 
+        show_covers = self.exaile.settings.get_boolean('ui/covers_in_collection', False)
         order_nodes = common.idict()
         order = []
         last_songs = []
@@ -666,8 +668,16 @@ class CollectionPanel(object):
                 else:
                     string = "%s - %s" % (string, info)
                     if not string in node_for:
-                        parent = self.model.append(parent, 
-                            [self.image_map[field], track, field])
+                        if field == "album" and show_covers:                                            
+                            album_cover = self.exaile.cover_manager.fetch_cover(track, True)
+                            if not album_cover in self.cover_cache:
+                                self.cover_cache[album_cover] = \
+                                gtk.gdk.pixbuf_new_from_file_at_size(album_cover, 20, 20)
+                            parent = self.model.append(parent, 
+                                [self.cover_cache[album_cover], track, field])
+                        else:                            
+                            parent = self.model.append(parent, 
+                                [self.image_map[field], track, field])
 
                         if info == "track": info = track
                         node_for[string] = parent

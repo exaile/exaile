@@ -78,6 +78,7 @@ class MissingParameterCombination(AWSException): pass
 class MissingParameters(AWSException): pass
 class MissingParameterValueCombination(AWSException): pass
 class MissingServiceParameter(AWSException): pass
+class NoExactMatches(AWSException): pass
 class ParameterOutOfRange(AWSException): pass
 class ParameterRepeatedInRequest(AWSException): pass
 class RestrictedParameterValueCombination(AWSException): pass
@@ -156,6 +157,8 @@ def buildException(els):
     error = els[0]
     class_name = error.childNodes[0].firstChild.data[4:]
     msg = error.childNodes[1].firstChild.data 
+    if class_name == "ECommerceService.NoExactMatches":
+        class_name = "NoExactMatches"
 
     e = globals()[ class_name ](msg)
     return e

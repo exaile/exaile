@@ -96,6 +96,10 @@ class CoverFetcherThread(threading.Thread):
         try:
             albums = ecs.ItemSearch(Keywords=self.search_string, SearchIndex="Music", 
                 ResponseGroup="ItemAttributes,Images")
+        except ecs.NoExactMatches:
+            xlmisc.log("No cover found")
+            gobject.idle_add(self._done_func, covers)
+            return
         except Exception:
             xlmisc.log_exception()
             gobject.idle_add(self._done_func, covers)

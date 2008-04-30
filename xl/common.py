@@ -15,10 +15,28 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 from gettext import gettext as _
-import pygtk
-pygtk.require('2.0')
-import gtk, gtk.glade
 import locale, os, time, threading, urllib, re
+import traceback
+
+VALID_TAGS = (
+    # Ogg Vorbis spec tags
+    "title version album tracknumber artist genre performer copyright "
+    "license organization description location contact isrc date "
+
+    # Other tags we like
+    "arranger author composer conductor lyricist discnumber labelid part "
+    "website language encodedby bpm albumartist originaldate originalalbum "
+    "originalartist recordingdate"
+    ).split()
+
+def get_default_encoding():
+    return 'utf-8'
+
+def log(message):
+    print message
+
+def log_exception(*e):
+    traceback.print_exc()
 
 # python<2.5 compatibility. Drop this when python2.4 isn't used so much anymore.
 try:
@@ -29,117 +47,6 @@ except NameError:
             if e: return True
         return False
 
-class MultiTextEntryDialog(gtk.Dialog):
-    """
-        Exactly like a TextEntryDialog, except it can contain multiple
-        labels/fields.
-
-        Instead of using GetValue, use GetValues.  It will return a list with
-        the contents of the fields. Each field must be filled out or the dialog
-        will not close.
-    """
-    def __init__(self, parent, title):
-        gtk.Dialog.__init__(self, title, parent)
-
-
-        self.hbox = gtk.HBox()
-        self.vbox.pack_start(self.hbox, True, True)
-        self.vbox.set_border_width(5)
-        self.hbox.set_border_width(5)
-        self.left = gtk.VBox()
-        self.right = gtk.VBox()
-
-        self.hbox.pack_start(self.left, True, True)
-        self.hbox.pack_start(self.right, True, True)
-
-        self.add_buttons(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-            gtk.STOCK_OK, gtk.RESPONSE_OK)
-
-        self.fields = []
-
-    def add_field(self, label):
-        """
-            Adds a field and corresponding label
-        """
-        label = gtk.Label(label + "     ")
-        label.set_alignment(0, 0)
-        label.set_padding(0, 5)
-        self.left.pack_start(label, False, False)
-
-        entry = gtk.Entry()
-        entry.connect('activate', lambda *e:
-            self.response(gtk.RESPONSE_OK))
-        entry.set_width_chars(30)
-        self.right.pack_start(entry, True, True)
-        label.show()
-        entry.show()
-
-        self.fields.append(entry)
-
-    def get_values(self):
-        """
-            Returns a list of the values from the added fields
-        """
-        return [unicode(a.get_text(), 'utf-8') for a in self.fields]
-
-    def run(self):
-        """
-            Shows the dialog, runs, hides, and returns
-        """
-        self.show_all()
-        response = gtk.Dialog.run(self)
-        self.hide()
-        return response
-
-class TextEntryDialog(gtk.Dialog):
-    """
-        Shows a dialog with a single line of text
-    """
-    def __init__(self, parent, message, title):
-        """
-            Initializes the dialog
-        """
-        gtk.Dialog.__init__(self, title, parent)
-
-        label = gtk.Label(message)
-        label.set_alignment(0.0, 0.0)
-        self.vbox.set_border_width(5)
-
-        main = gtk.VBox()
-        main.set_spacing(3)
-        main.set_border_width(5)
-        self.vbox.pack_start(main, True, True)
-
-        main.pack_start(label, False, False)
-
-        self.entry = gtk.Entry()
-        self.entry.set_width_chars(35)
-        main.pack_start(self.entry, False, False)
-
-        self.add_buttons(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-            gtk.STOCK_OK, gtk.RESPONSE_OK)
-
-        self.entry.connect('activate', 
-            lambda e: self.response(gtk.RESPONSE_OK))
-
-    def get_value(self):
-        """
-            Returns the text value
-        """
-        return unicode(self.entry.get_text(), 'utf-8')
-
-    def set_value(self, value):
-        """
-            Sets the value of the text
-        """
-        self.entry.set_text(value)
-
-    def run(self):
-        self.show_all()
-        response = gtk.Dialog.run(self)
-        self.hide()
-        return response
-
 def to_unicode(x, default_encoding=None):
     if isinstance(x, unicode):
         return x
@@ -148,17 +55,6 @@ def to_unicode(x, default_encoding=None):
         return unicode(x, default_encoding)
     else:
         return unicode(x)
-
-def tup(string, num):
-    """
-        returns a tuple with the first char of the string repeated 
-        the number of times after the first char:
-        ie: 5e would result in ('e', 'e', 'e', 'e', 'e')
-    """
-    a = []
-    for i in range(num):
-        a.append(string)
-    return tuple(a)
 
 def threaded(f):
     """
@@ -352,111 +248,4 @@ def to_url(path):
         return 'file://' + urllib.pathname2url(path)
     except IOError:
         return path
-
-class ScrolledMessageDialog(gtk.Dialog):
-    def __init__(self, parent, title):
-        gtk.Dialog.__init__(self, title, parent)
-
-        main = gtk.VBox()
-        main.set_border_width(5)
-        self.vbox.pack_start(main, True, True)
-
-        self.add_buttons(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-            gtk.STOCK_OK, gtk.RESPONSE_OK)
-
-        scroll = gtk.ScrolledWindow()
-        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        scroll.set_shadow_type(gtk.SHADOW_IN)
-
-        self.view = gtk.TextView()
-        self.view.set_editable(False)
-        scroll.add(self.view)
-
-        main.pack_start(scroll, True, True)
-        self.resize(500, 300)
-
-    def run(self):
-        self.show_all()
-        response = gtk.Dialog.run(self)
-        self.hide()
-        return response
-
-def scrolledMessageDialog(parent, message, title):
-    """
-        Shows a message dialog with a message in a TextView
-    """
-    dialog = ScrolledMessageDialog(parent, title)
-    view = dialog.view
-    view.get_buffer().set_text(message)
-
-    buf = view.get_buffer()
-    char = buf.get_char_count()
-    iter = buf.get_iter_at_offset(char)
-    view.scroll_to_iter(iter, 0)
-    dialog.run()
-
-def error(parent, message): 
-    """
-        Shows an error dialog
-    """
-    dialog = gtk.MessageDialog(parent, gtk.DIALOG_MODAL, gtk.MESSAGE_ERROR,
-        gtk.BUTTONS_OK)
-    dialog.set_markup(message)
-    dialog.run()
-    dialog.destroy()
-
-def info(parent, message):
-    """
-        Shows an info dialog
-    """
-    dialog = gtk.MessageDialog(parent, gtk.DIALOG_MODAL, gtk.MESSAGE_INFO,
-        gtk.BUTTONS_OK)
-    dialog.set_markup(message)
-    dialog.run()
-    dialog.destroy()
-
-def yes_no_dialog(parent, message):
-    """
-        Shows a question dialog and returns the result
-    """
-    dialog = gtk.MessageDialog(parent, 
-        gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, 
-        message)
-    result = dialog.run()
-    dialog.destroy()
-    return result
-
-class ShowOnceMessageDialog(gtk.Dialog):
-    def __init__(self, title, parent, message, checked=True):
-        gtk.Dialog.__init__(self, title, parent)
-
-        vbox = gtk.VBox()
-        vbox.set_border_width(5)
-        vbox.set_spacing(3)
-        self.vbox.pack_start(vbox, True, True)
-
-        top = gtk.HBox()
-        top.set_border_width(3)
-        top.set_spacing(5)
-        top.pack_start(gtk.image_new_from_stock(gtk.STOCK_DIALOG_WARNING,
-            gtk.ICON_SIZE_DIALOG), False, False)
-        label = gtk.Label()
-        label.set_markup('<b>%s</b>' % message)
-        label.set_alignment(0.0, 0.5)
-        top.pack_start(label, True, True)
-
-        vbox.pack_start(top, True, True)
-
-        # TRANSLATORS: Checkbox for common dialogs
-        self.box = gtk.CheckButton(_('Do not show this dialog again'))
-        self.box.set_active(checked)
-        vbox.pack_start(self.box)
-
-        self.add_buttons(gtk.STOCK_OK, gtk.RESPONSE_OK)
-
-    def run(self):
-        self.show_all()
-        result = gtk.Dialog.run(self)
-        self.hide()
-        return self.box.get_active()
 

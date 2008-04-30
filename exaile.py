@@ -16,7 +16,8 @@
 
 __version__ = '0.3.0devel'
 
-import sys
+import sys, os
+from IPython.Shell import IPShellEmbed
 
 if sys.platform == 'linux2':
     # Set process name.  Only works on Linux >= 2.1.57.
@@ -28,11 +29,9 @@ if sys.platform == 'linux2':
         pass
 
 
-# test for DBUS commands, help, and version here, that way we can
-# process them quickly without loading more modules than are necessary
-
 import gobject
 gobject.threads_init()
+import xl.library, xl.player
 
 # Find out the location of exaile's working directory, and insert it to sys.path
 basedir = os.path.dirname(os.path.realpath(__file__))
@@ -42,25 +41,10 @@ if not os.path.exists(os.path.join(basedir, "exaile.py")):
         basedir = cwd
 sys.path.insert(0, basedir)
 
-# check for a Makefile so we can tell if exaiel is installed or not
+# check for a Makefile so we can tell if exaile is installed or not
 installed = not os.path.exists(os.path.join(basedir, 'Makefile'))
 
-def init():
-    exaile = xl.main.Main()
-    exaileui = xlgui.main.MainWindow()
-
-
 if __name__ == "__main__": 
-    try:
-        # enable psyco if available
-        try:
-            import psyco
-            psyco.full()
-        except ImportError:
-            pass # psyco isn't available
-        init()
-        gtk.main()
-    except SystemExit:
-        raise
-    except:
-        pass
+    # for now, everything will be cli based.  This will hopefully help while
+    # designing a clear API for everything. 
+    IPShellEmbed()()

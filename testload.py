@@ -116,12 +116,12 @@ if __name__ == '__main__':
     save_file = sys.argv[2]
 
     if not os.path.isfile(save_file):
-        songs = []
+        songs = dict() 
         paths = count_files([dir_to_scan])
         for path in paths:
             song = media.read_from_path(path)
             if song.track and song.title and song.artist and song.album:
-                songs.append(song)
+                songs[song.loc] = song
 
         print "Total songs:", len(songs)
         f = open(save_file, 'wb')
@@ -156,13 +156,8 @@ if __name__ == '__main__':
     media.Track.get_sort_list = get_sort_list
     media.Track.get_sortable = get_sortable
 
-    s = songs[:]
-    songs.extend(s)
-    s = songs[:]
-    songs.extend(s)
-
     print "friggin %d songs" % len(songs)
-    for song in songs:
+    for k, song in songs.iteritems():
         model.append(song.get_sort_list())
 
     tree.set_model(model)

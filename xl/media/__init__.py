@@ -88,6 +88,8 @@ class Track(gobject.GObject):
         except:
             self.ext = None 
 
+    def __str__(self):
+        return "%s by %s on %s" % (self.title, self.artist, self.album)
 
     def full_status(self, player):
         """

@@ -1,5 +1,5 @@
 import lib.wmainfo
-from xl import xlmisc
+from xl import common
 
 TYPE = 'wma'
 
@@ -29,7 +29,7 @@ def fill_tag_from_path(tr):
     try:
         inf = lib.wmainfo.WmaInfo(tr.io_loc)
     except:
-        xlmisc.log("Couldn't read tags from file: " + tr.loc)
+        common.log("Couldn't read tags from file: " + tr.loc)
         return
 
     tr.length = inf.info["playtime_seconds"]

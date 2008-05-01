@@ -1,8 +1,8 @@
 import mutagen.oggvorbis
-from xl import xlmisc 
+from xl import common 
 
 TYPE = 'ogg'
-VALID_TAGS = xlmisc.VALID_TAGS
+VALID_TAGS = common.VALID_TAGS
 
 def get_tag(f, tag):
     """

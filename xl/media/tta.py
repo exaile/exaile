@@ -1,5 +1,5 @@
 import mutagen, mutagen.id3, mutagen.trueaudio
-from xl import xlmisc
+from xl import common
 
 IDS = { "TIT2": "title",
         "TPE1": "artist",
@@ -38,7 +38,7 @@ def write_tag(tr):
                 text = unicode(getattr(tr, v)))
             id3.loaded_frame(frame)
         except:
-            xlmisc.log_exception()
+            common.log_exception()
 
         if tr.track > -1:
             track = str(tr.track)
@@ -89,4 +89,4 @@ def fill_tag_from_path(tr):
     except IOError:
         pass
     except:
-        xlmisc.log_exception()
+        common.log_exception()

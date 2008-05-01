@@ -16,7 +16,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from xl import xlmisc
+from xl import common
 
 try:
     from mutagen.mp4 import MP4 as MP4
@@ -55,7 +55,7 @@ def set_tag(f, name, value):
                 tmp = map(int, val.split('/'))
                 f[name].append(tuple(tmp))
         except:
-            xlmisc.log_exception()
+            common.log_exception()
     else:
         f[name] = value
 
@@ -69,7 +69,7 @@ def fill_tag_from_path(tr):
     try:
         f = MP4(tr.io_loc)
     except:
-        xlmisc.log("Couldn't read tags from file: " + tr.loc)
+        common.log("Couldn't read tags from file: " + tr.loc)
         return
 
     tr.length = f.info.length

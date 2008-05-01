@@ -1,5 +1,5 @@
 import mutagen, mutagen.id3, mutagen.mp3
-from xl import xlmisc
+from xl import common
 
 TYPE = 'mp3'
 IDS = { 
@@ -46,8 +46,8 @@ def get_tag(id3, t):
                 ret.extend([unicode(x.replace('\n','').replace('\r','')) \
                     for x in value.text])
             except:
-                xlmisc.log("Can't parse ID3 field")
-                xlmisc.log_exception()
+                common.log("Can't parse ID3 field")
+                common.log_exception()
     return ret
 
 def write_tag(tr):
@@ -66,7 +66,7 @@ def write_tag(tr):
                     text = tr.tags[v])
                 id3.loaded_frame(frame)
             except:
-                xlmisc.log_exception()
+                common.log_exception()
 
     id3.save(tr.io_loc)    
 
@@ -80,7 +80,7 @@ def fill_tag_from_path(tr):
     try:
         info = mutagen.mp3.MP3(tr.io_loc)
     except:
-        xlmisc.log("Couldn't read tags from file: " + tr.loc)
+        common.log("Couldn't read tags from file: " + tr.loc)
         return
 
     tr.length = info.info.length
@@ -99,4 +99,4 @@ def fill_tag_from_path(tr):
     except IOError:
         pass
     except:
-        xlmisc.log_exception()
+        common.log_exception()

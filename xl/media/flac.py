@@ -1,9 +1,9 @@
 import mutagen.flac
-from xl import xlmisc
+from xl import common
 
 TYPE = 'flac'
 
-VALID_TAGS = xlmisc.VALID_TAGS
+VALID_TAGS = common.VALID_TAGS
 
 def get_tag(flac, tag):
     try:    
@@ -21,7 +21,7 @@ def fill_tag_from_path(tr):
     try:
         f = mutagen.flac.FLAC(tr.io_loc)
     except:
-        xlmisc.log("Couldn't read tags from file: " + tr.loc)
+        common.log("Couldn't read tags from file: " + tr.loc)
         return
     tr.length = int(f.info.length)
 

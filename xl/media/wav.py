@@ -1,9 +1,9 @@
-from xl import xlmisc
+from xl import common
 
 TYPE = 'wav'
 
 def fill_tag_from_path(tr):
-    tr.tags['title'] = tr.loc.encode(xlmisc.get_default_encoding())
+    tr.tags['title'] = tr.loc.encode(common.get_default_encoding())
 
 def can_change(tag):
     return False

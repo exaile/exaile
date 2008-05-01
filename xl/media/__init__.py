@@ -1,7 +1,7 @@
 import pygst
 pygst.require('0.10')
 import gst
-from xl import common, xlmisc
+from xl import common
 from mutagen.mp3 import HeaderNotFoundError
 import os.path, gobject, re
 
@@ -41,7 +41,7 @@ def write_tag(tr):
     ext = ext[1:]
 
     if not formats.get(ext):
-        xlmisc.log("Writing metadata to type '%s' is not supported" % ext)
+        common.log("Writing metadata to type '%s' is not supported" % ext)
         return
 
     formats[ext].write_tag(tr)
@@ -124,7 +124,7 @@ class Track(gobject.GObject):
         album="", disc_id=0, genre="",
         track=0, length=0, bitrate=0, year="", 
         modified=0, user_rating=0, rating=0, blacklisted=0, time_added='', 
-        encoding=xlmisc.get_default_encoding(), playcount=0):
+        encoding=common.get_default_encoding(), playcount=0):
     
     
         """
@@ -137,7 +137,7 @@ class Track(gobject.GObject):
             self._loc = loc
         else:        
             try:
-                self._loc = unicode(loc, xlmisc.get_default_encoding())
+                self._loc = unicode(loc, common.get_default_encoding())
             except (UnicodeDecodeError, TypeError):
                 self._loc = loc
 
@@ -340,7 +340,7 @@ class Track(gobject.GObject):
         """
             Sets the encoding, translating info from the previous one
         """
-        for tag in xlmisc.VALID_TAGS:
+        for tag in common.VALID_TAGS:
             try:
                 self.tags[tag] = unicode(self.tags[tag].encode(self.encoding), value)
             except AttributeError:
@@ -385,7 +385,7 @@ class Track(gobject.GObject):
         """
             Gets the location as ascii. Should always be correct, see set_loc.
         """
-        return self._loc.encode(xlmisc.get_default_encoding())
+        return self._loc.encode(common.get_default_encoding())
 
     def set_loc(self, value):
         """
@@ -395,7 +395,7 @@ class Track(gobject.GObject):
             decode it back into the ascii and don't worry about botched up
             characters (ie the value should be exactly identical to the one given)
         """
-        self._loc = common.to_unicode(value, xlmisc.get_default_encoding())
+        self._loc = common.to_unicode(value, common.get_default_encoding())
 
     def get_disc(self):
         """
@@ -529,7 +529,7 @@ def read_from_path(uri, track_type=Track):
     ext = ext[1:]
 
     #if ext not in formats:
-    #    xlmisc.log('%s format is not understood' % ext)
+    #    common.log('%s format is not understood' % ext)
     #    return None
 
     tr = track_type(uri)
@@ -546,7 +546,7 @@ def read_from_path(uri, track_type=Track):
         print "Possibly corrupt file: " + uri
         return None
     except:
-        xlmisc.log_exception()
+        common.log_exception()
         return None
 
     return tr

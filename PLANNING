@@ -155,7 +155,7 @@ DB schema:
 song management:
  - xl/track.py
    - classes
-     - TrackDB - sqlite-backed database of tracks
+     - TrackDB - database of tracks (pickle, sqlite)
        - signals
          - track_added
          - track_removed

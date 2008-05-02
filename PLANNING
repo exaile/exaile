@@ -53,12 +53,14 @@ general structure/underpinnings:
     - global media keys (integrate the various plugins for this into core 
           and expose in prefs)
     -? sql engine (default to sqlite)
+      - pickle-based DB persistence? (in-progress, xl/library.py)
     - cover art fetcher
     - lyrics fetcher
- - with pluggable APIs, allow prioritization and auto-fallback
+ - with pluggable APIs, allow prioritization and auto-fallback where
+     applicable/possible.
 
 gui:
- - allow hiding files pane
+ - allow hiding any side pane
  - better consistency in the tabs' interfaces
  -? use libsexy to display album art in tray icon tooltip if 
        available (possible?)
@@ -92,9 +94,8 @@ collection management:
  -? use inotify or a FAM to watch for library updates, if available
  - put audiobooks into a separate pane (use gapless for 
      audiobooks, if available)
- -? partiton awareness - don't choke if tracks are umounted
+ -? partiton awareness - don't choke if tracks are umounted (HAL?)
  -? allow user to maintail multiple collections, backed by different libraries
- -? handle AudioBooks separately
 
 audio engine:
  - allow choosing audio playback device
@@ -111,13 +112,13 @@ devices:
    -? if already files on the device, look at them to try to figure 
         out the existing layout
    -& default layout
- - transcode tracks when transferred 
+ - transcode tracks when transferred (only if necessary)
     - auto-detect what the device supports (possible?)
     - if device supports lossless and lossy formats, convert lossy 
         files to lossy and lossless to lossless (unless otherwise directed)
 
 podcasts:
- - allow users to choose, when and where to download podcasts
+ - allow users to choose when and where to download podcasts
    -& default
  - option to delete saved files when deleting a podcast
 
@@ -139,18 +140,13 @@ plugins:
 
 
 === Code Structure ===
-use this to plan object layout, interactions, etc.
+use this to plan object layout, interactions, etc. It should also be kept 
+updated as items are implemented, since it can then serve as rudimentary
+API documentation.
 
 general:
  - use signals to notify about object changes (track info updates in all 
        places in real time!)
-
-DB schema:
- (same as before where not mentioned)
- - remove playlists, podcasts, etc, they will be handled elsewhere
- - store a version of all searchable info that has been made lowercase
-    and has stopwords removed, for faster searching (but be sure to 
-    always keep this synced with main!)
 
 song management:
  - xl/library.py # changed from track.py, because often "track" is a name conflict
@@ -165,7 +161,7 @@ song management:
          - advanced_search(query) - allows more-specific queries 
          - add(track) - add a Track to the DB
          - remove(track) - remove a track from the DB
-     - Track - one track
+     - Track - one track (currently using old xl/media/__init__.py - should change)
        - signals
          - info_updated
        - methods
@@ -182,6 +178,8 @@ song management:
                automatically 
          - will need some shenangling to handle different file types, 
                especially multi-file ones like cue/bin
+         - current pickle-based TrackDB will need work to get auto-sync
+               working efficiently
  - xl/collection.py
    - classes
      - Collection - based on TrackDB, adds ability to watch directories 
@@ -262,26 +260,20 @@ covers:
                cover database (returns a Cover, defaults to the exaile logo)
          - set_cover(track) - sets the cover for this Track
          - fetch_cover(track) - fetches the cover for a Track using a 
-               CoverFetcher
-         - get_fetchers() - returns a list of the CoverFetcher objects 
+               CoverStore
+         - get_stores() - returns a list of the CoverStore objects 
                registered
-         - add_fetcher(fetcher [,pos]) - adds a new CoverFetcher at the 
+         - add_store(store [,pos]) - adds a new CoverStore at the 
                specified location (defualt: append)
          - remove_fetcher(pos) - removes the fetcher at position pos
-     - CoverFetcher - abstract class - defines a methods of retrieving 
-           a cover
+     - CoverStore - abstract class - defines a method of retrieving/storing 
+           covers
        - methods
          - get_cover(track) - returns False if no cover found
-     - LibraryCoverFetcher - fetch cover.jpg-style covers
-     - DatabaseCoverFetcher - fetch covers from the database in ~/.exaile
-     - AmazonCoverFetcher - fetch covers from Amazon.com
-     - CoverStore - abstract - defines a method of storing the covers 
-           locally
-       - methods
          - set_cover(track)
-     - LibraryCoverStore - store the fetched cover in the library
-     - DatabaseCoverStore - store the fetched cover in the cover database
-
+     - LibraryCoverStore - cover.jpg-style covers
+     - DatabaseCoverStore - covers from the database in ~/.exaile
+     - AmazonCoverStore - covers from Amazon.com
 
 lyrics:
  - xl/lyrics.py
@@ -299,8 +291,14 @@ media keys:
        - methods
          - is_changeable() - returns True if we know how to change
                these key settings
+         - accepted_actions() - returns a list of actions the keybind
+               manager can take, eg play. returns ['any'] for methods
+               that allow arbitrary bindings.
+         - current_bindings() - returns a dictionary of action:key pairs
+         - set_binding(action, key) - sets the given key combo to do the
+               specified action.
      - GnomeMediaKeys
-     - MetacityMediaKeys
+     - MetacityMediaKeys (really needs a better solution)
      - WindowsMediaKeys
 
 

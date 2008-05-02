@@ -67,6 +67,25 @@ def sort_tracks(field, tracks, reverse=False):
 
     return [t[-1:][0] for t in tracks]
 
+
+class PickleData:
+    """
+        Very simple class. All it does is store data in a pickle-able
+        format. This allows easy expansion of what is included in the 
+        pickled DB later.
+    """
+    def __init__(self):
+        self.tracks = {}
+        # Examples of what might be added
+        #self.podcast_url = ''
+        #self.track_order = []
+        #self.scan_locations = []
+        #self.playlist_mode = '' #eg dynamic, shuffle, etc.
+        # Bascially, anything specific to this TrackDB could be stored 
+        # here. This also allows easy forwards/backwards conpatibility
+        # as new attributes can be stored here without older versions
+        # needing to be aware of them.
+
 class TrackDB(gobject.GObject):
     """
         Manages the track database. 
@@ -76,7 +95,6 @@ class TrackDB(gobject.GObject):
 
         This particular implementation is done using L{pickle}
     """
-
     # signals
     __gsignals__ = {
         'track_added': (gobject.SIGNAL_RUN_LAST, None, (media.Track,)),
@@ -99,8 +117,9 @@ class TrackDB(gobject.GObject):
         """
 
         f = open(location, 'rb')
-        self.tracks = pickle.load(f)
+        pdata = pickle.load(f)
         f.close()
+        self.tracks = pdata.tracks
 
     def save_to_location(self, location=None):
         """
@@ -118,8 +137,11 @@ class TrackDB(gobject.GObject):
         if not location:
             raise AttributeError("You did not specify a location to save the db")
 
+        f = file(location, 'rb')
+        pdata = pickle.load(f)
+        pdata.tracks = self.tracks
         f = file(location, 'w')
-        pickle.dump(f, self.tracks)
+        pickle.dump(f, pdata)
         f.close()
 
     def add(self, track):

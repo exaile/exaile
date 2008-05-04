@@ -73,7 +73,8 @@ class PickleData:
         pickled DB later.
     """
     def __init__(self):
-        self.tracks = {}
+        pass
+        #self.tracks = {}
         # Examples of what might be added
         #self.podcast_url = ''
         #self.track_order = []

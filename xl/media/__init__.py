@@ -540,7 +540,7 @@ def read_from_path(uri, track_type=Track):
 
     if ext not in formats:
         common.log('%s format is not understood' % ext)
-    #    return None
+        return None
 
     tr = track_type(uri)
 

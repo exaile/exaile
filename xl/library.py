@@ -115,17 +115,19 @@ class TrackDB(gobject.GObject):
             @type  location: str
             @param location: The location of the location
         """
-
-        f = open(location, 'rb')
-        pdata = pickle.load(f)
-        f.close()
+        try:
+            f = open(location, 'rb')
+            pdata = pickle.load(f)
+            f.close()
+        except:
+            pdata = PickleData()
         for attr in self.pickle_attrs:
             try:
                 setattr(self, attr, getattr(pdata, attr))
             except:
                 pass
 
-    def save_to_location(self, data, location=None):
+    def save_to_location(self, location=None):
         """
             Saves track data to a pickle location.
 
@@ -156,7 +158,7 @@ class TrackDB(gobject.GObject):
             except:
                 pass
         f = file(location, 'wb')
-        pickle.dump(f, pdata)
+        pickle.dump(pdata, f)
         f.close()
 
     def add(self, track):
@@ -203,6 +205,7 @@ class TrackDB(gobject.GObject):
                 v = getattr(track, item).lower()
                 if v.find(kw) > -1:
                     tracks.append(track)
+                    break
 
         return tracks
 

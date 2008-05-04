@@ -33,7 +33,6 @@ class Collection(library.TrackDB):
             self.libraries[loc] = library
         else:
             pass # TODO: raise an exception or something here
-        library.rescan()
 
     def remove_library(self, library):
         for k, v in self.libraries.iteritems():

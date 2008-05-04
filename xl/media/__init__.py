@@ -122,6 +122,23 @@ class Track(gobject.GObject):
         """
         return formats[self.ext].is_multi()
 
+    def __getitem__(self, tag):
+        """
+            Allows retrieval of tags via Track[tag] syntax.
+            Returns a list of values for the tag, even for single values.
+        """
+        return self.get_tag(tag)
+
+    def __setitem__(self, tag, values):
+        """
+            Allows setting of tags via Track[tag] syntax.
+            Expects a list of values, even for single values.
+
+            Use set_tag if you want to do appending instead of
+            always overwriting.
+        """
+        self.set_tag(tag, values, False)
+
     def set_info(self,loc="", title="", artist="",  
         album="", disc_id=0, genre="",
         track=0, length=0, bitrate=0, year="", 
@@ -174,18 +191,8 @@ class Track(gobject.GObject):
         """
             Writes the tag information to the database
         """
-
-        if db:
-            mod = os.stat(self.loc).st_mtime
-            artist_id = tracks.get_column_id(db, 'artists', 'name',
-                self.artist)
-            album_id = tracks.get_album_id(db, artist_id, self.album)
-            path_id = tracks.get_column_id(db, 'paths', 'name', self.loc)
-
-            db.execute("UPDATE tracks SET title=?, artist=?, " \
-                "album=?, disc_id=?, genre=?, year=?, modified=?, track=? WHERE path=?",
-                (self.title, artist_id, album_id, self.disc_id, self.genre,
-                self.date, mod, self.track, path_id))
+        pass # Not needed under pickleDB, but Im leaving the stump as
+             # it may be useful for similar purposes.
 
     def __str__(self):
         """
@@ -195,6 +202,7 @@ class Track(gobject.GObject):
             it is not translated and does not take into account when album or
             artist is empty.
         """
+        # TODO: fix the problems noted in the docstring.
         return "%s from %s by %s" % (self.title, self.album, self.artist)
    
     def get_tag(self, tag):
@@ -530,9 +538,9 @@ def read_from_path(uri, track_type=Track):
     (path, ext) = os.path.splitext(uri.lower())
     ext = ext[1:]
 
-    #if ext not in formats:
-    #    common.log('%s format is not understood' % ext)
-    #    return None
+    if ext not in formats:
+        common.log('%s format is not understood' % ext)
+        return None
 
     tr = track_type(uri)
 

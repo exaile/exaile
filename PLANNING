@@ -31,8 +31,9 @@ legend:
  -& needs info
 
 key ideas:
- - empower users more
  - 'just work'
+ - empower users more
+ - speed
 
 
 unsorted:
@@ -44,6 +45,7 @@ unsorted:
     - wavpack hybrid
  -? guess tag info from filename (and path?) if no tags (eg file://04 - 
       na na na.mp3 -> track:04, title: na na na)
+    - see similar point on mass storage media players, below.
 
 
 general structure/underpinnings:
@@ -161,7 +163,9 @@ song management:
          - advanced_search(query) - allows more-specific queries 
          - add(track) - add a Track to the DB
          - remove(track) - remove a track from the DB
-     - Track - one track (currently using old xl/media/__init__.py - should change)
+    # the follwing may not be neccesary, I think the old one can
+    # work with only minor modifications.
+     - Track 
        - signals
          - info_updated
        - methods
@@ -173,7 +177,7 @@ song management:
                any changes that were pending during _hold()
        - notes
          - use python's object customizing abilities to support 
-               getting/setting attibutes via Track[attr]
+               getting/setting attibutes via Track[attr] 
          - changes made are synced back to the TrackDB and file 
                automatically 
          - will need some shenangling to handle different file types, 

@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 1, or (at your option)
@@ -20,7 +18,7 @@ except ImportError:
     import pickle
 
 import gobject
-from xl import media
+from xl import media, common
 
 SEARCH_ITEMS = ('artist', 'album', 'title')
 SORT_ORDER = ('album', 'track', 'artist', 'title')
@@ -88,7 +86,7 @@ class PickleData:
 
 class TrackDB(gobject.GObject):
     """
-        Manages the track database. 
+        Manages a track database. 
 
         Allows you to add, remove, retrieve, search, save and load
         L{media.Track} objects.
@@ -101,9 +99,11 @@ class TrackDB(gobject.GObject):
         'track_removed': (gobject.SIGNAL_RUN_LAST, None, (media.Track,)),
     }
 
-    def __init__(self, location=None):
+    def __init__(self, location=None, pickle_attrs=[]):
         self.tracks = dict()
         self.location = location
+        self.pickle_attrs = pickle_attrs
+        self.pickle_attrs += ['tracks']
 
         if location:
             self.load_from_location(location)
@@ -119,9 +119,13 @@ class TrackDB(gobject.GObject):
         f = open(location, 'rb')
         pdata = pickle.load(f)
         f.close()
-        self.tracks = pdata.tracks
+        for attr in self.pickle_attrs:
+            try:
+                setattr(self, attr, getattr(pdata, attr))
+            except:
+                pass
 
-    def save_to_location(self, location=None):
+    def save_to_location(self, data, location=None):
         """
             Saves track data to a pickle location.
 
@@ -129,6 +133,10 @@ class TrackDB(gobject.GObject):
             @param location: The location of a location.  This is optional, and if
                          none is specified, it will use the location location
                          passed into the constructor
+
+            @type  data: list
+            @param data: a list of data items to store as attibutes of
+                PickleData. All items must be pickleable.
         """
 
         if not location:
@@ -137,10 +145,17 @@ class TrackDB(gobject.GObject):
         if not location:
             raise AttributeError("You did not specify a location to save the db")
 
-        f = file(location, 'rb')
-        pdata = pickle.load(f)
-        pdata.tracks = self.tracks
-        f = file(location, 'w')
+        try:
+            f = file(location, 'rb')
+            pdata = pickle.load(f)
+        except:
+            pdata = PickleData()
+        for attr in self.pickle_attrs:
+            try:
+                setattr(pdata, attr, getattr(self, attr))
+            except:
+                pass
+        f = file(location, 'wb')
         pickle.dump(f, pdata)
         f.close()
 
@@ -154,7 +169,7 @@ class TrackDB(gobject.GObject):
     
         self.tracks[track.loc] = track
 
-        self.emit('track_added', track)
+        #self.emit('track_added', track)
 
     def remove(self, track):
         """
@@ -172,7 +187,7 @@ class TrackDB(gobject.GObject):
 
     def search(self, keyword, sort_field=None):
         """
-            Searches the track database for a list of tracks
+            Searches the track database.
         
             @type   keyword: str
             @param  keyword: The string you want to match
@@ -190,3 +205,4 @@ class TrackDB(gobject.GObject):
                     tracks.append(track)
 
         return tracks
+

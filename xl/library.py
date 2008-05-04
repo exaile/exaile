@@ -17,7 +17,6 @@ try:
 except ImportError:
     import pickle
 
-import gobject
 from xl import media, common
 
 SEARCH_ITEMS = ('artist', 'album', 'title')
@@ -85,7 +84,7 @@ class PickleData:
         # as new attributes can be stored here without older versions
         # needing to be aware of them.
 
-class TrackDB(gobject.GObject):
+class TrackDB:
     """
         Manages a track database. 
 
@@ -94,12 +93,6 @@ class TrackDB(gobject.GObject):
 
         This particular implementation is done using L{pickle}
     """
-    # signals
-    __gsignals__ = {
-        'track_added': (gobject.SIGNAL_RUN_LAST, None, (media.Track,)),
-        'track_removed': (gobject.SIGNAL_RUN_LAST, None, (media.Track,)),
-    }
-
     def __init__(self, location=None, pickle_attrs=[]):
         self.tracks = dict()
         self.location = location
@@ -159,7 +152,7 @@ class TrackDB(gobject.GObject):
             except:
                 pass
         f = file(location, 'wb')
-        pickle.dump(pdata, f)
+        pickle.dump(pdata, f, 2)
         f.close()
 
     def add(self, track):
@@ -172,8 +165,6 @@ class TrackDB(gobject.GObject):
     
         self.tracks[track.loc] = track
 
-        #self.emit('track_added', track)
-
     def remove(self, track):
         """
             Removes a track from the database
@@ -184,9 +175,6 @@ class TrackDB(gobject.GObject):
 
         if track.loc in self.tracks:
             del self.tracks[track]
-
-            self.emit('track_removed', track)
-
 
     def search(self, keyword, sort_field=None):
         """

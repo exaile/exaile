@@ -3,7 +3,7 @@ pygst.require('0.10')
 import gst
 from xl import common
 from mutagen.mp3 import HeaderNotFoundError
-import os.path, gobject, re
+import os.path, re
 
 __all__ = ['flac', 'mp3', 'm4a', 'ogg', 'wma', 'mpc', 'wv', 'tta']
 
@@ -60,18 +60,15 @@ class timetype(long):
         long.__init__(self, num)
         self.stream = False
 
-class Track(gobject.GObject): 
+class Track: 
     """
         Represents a generic single track.
     """
-    type = 'track'
     def __init__(self, *args, **kwargs):
         """
             Loads and initializes the tag information
             Expects the path to the track as an argument
         """
-        gobject.GObject.__init__(self)
-        
         self.tags = common.ldict()
 
         self.time_played = 0
@@ -543,9 +540,6 @@ def read_from_path(uri, track_type=Track):
         return None
 
     tr = track_type(uri)
-
-    if tr.type != 'device':
-        tr.type = 'file' 
 
     format = formats.get(ext)
     if not format: return tr

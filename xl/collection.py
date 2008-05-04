@@ -13,7 +13,6 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 from xl import library, media
-import gobject
 
 import os
 
@@ -21,9 +20,9 @@ class Collection(library.TrackDB):
     """
         Manages a persistent track database.
     """
-    def __init__(self, location=None):
+    def __init__(self, location=None, pickle_attrs=[]):
         self.libraries = dict()
-        pickle_attrs = ['libraries']
+        pickle_attrs += ['libraries']
         library.TrackDB.__init__(self, location=location, 
                 pickle_attrs=pickle_attrs)
 
@@ -47,7 +46,7 @@ class Collection(library.TrackDB):
         for library in self.libraries.values():
             library.rescan()
 
-class Library(gobject.GObject):
+class Library:
     """
         Scans and watches a folder for tracks, and adds them to
         a Collection.

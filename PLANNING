@@ -198,16 +198,14 @@ song management:
        - signals
          - filesystem_changed
        - methods
-         - set_watch(path) - set the watched path
+         - set_location(path) - set the watched path
          - rescan(path) - force a scan of the watched path
-         - realtime(bool) - watch in real time or not (using pynotify? gamin?)
-         - rescan_interval(interval) - time between automatic 
+         - set_realtime(bool) - watch in real time or not (using pynotify? gamin?)
+         - set_rescan_interval(interval) - time between automatic 
              rescans - has no effect if realtime is on
-         - get_next_updated_file() - returns the next path of an updated file. 
-             returns False if no more updated files.
        - notes
-         - need to be careful, we probably shouldn't inotify a mounted network 
-             share (default realtime to off seems simplest solution)
+         - need to be careful, we probably shouldn't inotify a mounted 
+             network share (default realtime to off seems simplest solution)
 
 playlists:
  - xl/playlist.py

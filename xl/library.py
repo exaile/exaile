@@ -93,14 +93,21 @@ class TrackDB:
 
         This particular implementation is done using L{pickle}
     """
-    def __init__(self, location=None, pickle_attrs=[]):
+    def __init__(self, name='', location=None, pickle_attrs=[]):
         self.tracks = dict()
+        self.name = name
         self.location = location
         self.pickle_attrs = pickle_attrs
-        self.pickle_attrs += ['tracks']
+        self.pickle_attrs += ['tracks', 'name']
 
         if location:
             self.load_from_location(location)
+
+    def set_name(self, name):
+        self.name = name
+
+    def get_name(self):
+        return self.name
 
     def load_from_location(self, location):
         """

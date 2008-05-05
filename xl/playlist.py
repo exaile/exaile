@@ -15,7 +15,20 @@
 from xl import library
 
 def save_to_m3u(playlist, path):
-    pass
+    """
+        Saves a Playlist to an m3u file
+    """
+    handle = open(path, "w")
+
+    handle.write("#EXTM3U\n")
+    if playlist.get_name() != '':
+        handle.write("#PLAYLIST: %s\n" % playlist.get_name())
+
+    for track in songs:
+        handle.write("#EXTINF:%d,%s\n%s\n" % (track.duration,
+            track.title, track.loc))
+
+    handle.close()
 
 def import_from_m3u(path):
     pass

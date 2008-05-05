@@ -304,4 +304,28 @@ media keys:
      - WindowsMediaKeys
 
 
+event handling:
+ - xl/event.py
+   - notes:
+     - intended to replace the current system of signals since they 
+           don't cooperate with pickling.
+     - could also be used as the basis for a new logging system.
+     - example: log_event('track_updated', some_media.Track_instance,
+           'file://foobar.mp3')
+     - example: log_event('playback_start', Player_instance, Track_instance)
+     - example: 
+   - functions:
+     - log_event(type, object, data, async=True) - creates an Event and 
+           logs it to the EventManager
+     - set_event_callback(function, type=None, object=None) - sets a 
+           callback for an event. function must take three params as
+           arguments (type, object, data).
+   - classes
+     - Event(type, object, data)
+     - EventManager
+       - methods
+         - emit(event) - emits an event, block until all callbacks complete
+         - emit_async(event) - same as emit() but doesn't block
+         - add_callback(function, type=None, object=None)
+         - remove_callback(function, type=None, object=None)
 

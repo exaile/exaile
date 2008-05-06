@@ -1,7 +1,7 @@
 import pygst
 pygst.require('0.10')
 import gst
-from xl import common
+from xl import common, event
 from mutagen.mp3 import HeaderNotFoundError
 import os.path, re
 
@@ -227,6 +227,7 @@ class Track:
             self.tags[tag].extend(values)
         else:
             self.tags[tag] = list(values)
+        event.log_event('track_updated', self, self.loc)
 
    # ========== Getters and setters ============
 

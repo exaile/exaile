@@ -12,9 +12,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from xl.common import threaded
+import threading
 
 EVENT_MANAGER = None
+IDLE_MANAGER  = None
 
 def log_event(type, object, data, async=True):
     global EVENT_MANAGER
@@ -27,6 +28,10 @@ def log_event(type, object, data, async=True):
 def set_event_callback(function, type=None, object=None):
     global EVENT_MANAGER
     EVENT_MANAGER.add_callback(function, type, object)
+
+def idle_add(func, *args):
+    global IDLE_MANAGER
+    IDLE_MANAGER.add(func, *args)
 
 class Event:
     def __init__(self, type, object, data):
@@ -52,8 +57,8 @@ class EventManager:
         for call in callbacks:
             call.__call__(event.type, event.object, event.data)
 
-    @threaded
     def emit_async(self, event):
+         
         self.emit(event)
 
     def add_callback(self, function, type=None, object=None):
@@ -66,4 +71,33 @@ class EventManager:
     def remove_callback(self, function, type=None, object=None):
         self.callbacks[type][object].remove(function)
 
+
+class IdleManager(threading.Thread):
+    queue = []
+    event = threading.Event()
+
+    def __init__(self):
+        threading.Thread.__init__(self)
+        self.setDaemon(True)
+        self.start()
+
+    def run(self):
+        while True:
+            while len(self.queue) == 0:
+                self.event.wait()
+            self.event.clear()
+            func, args = self.queue[0]
+            self.queue = self.queue[1:]
+            
+            try:
+                func.__call__(*args)
+            except:
+                pass # TODO: handle this more smartly by logging errors
+
+    def add(self, func, *args):
+        self.queue.append((func, args))
+        self.event.set()
+
+
 EVENT_MANAGER = EventManager()
+IDLE_MANAGER  = IdleManager()

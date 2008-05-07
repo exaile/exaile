@@ -17,17 +17,80 @@
 import pygst, gtk
 pygst.require('0.10')
 import gst, random, time, re, os, md5
-import thread, common, event
+import thread, common, event, playlist
+
+import gobject
+gobject.threads_init()
 
 def get_default_player():
     return GSTPlayer
+
+class PlayQueue(playlist.Playlist):
+    """
+        Manages the queue of songs to be played
+    """
+    def __init__(self, player, location=None, pickle_attrs=[]):
+        self.current_playlist = None
+        playlist.Playlist.__init__(self, location=location,
+                pickle_attrs=pickle_attrs)
+        self.player = player
+        player.set_queue(self)
+
+    def set_current_playlist(self, playlist):
+        self.current_playlist = playlist
+
+    def set_current_pl_track(self, track):
+        self.current_pl_track = track
+
+    def next(self):
+        track = playlist.Playlist.next(self)
+        if track == None:
+            if self.current_playlist is not None:
+                track = self.current_playlist.next()
+                self.current_playlist.current_playing = True
+                self.current_playing = False
+        else:
+            self.ordered_tracks = self.ordered_tracks[1:]
+            self.current_pos -= 1
+            self.current_playing = True
+            self.current_playlist.current_playing = False
+        self.player.play(track)
+        return track
+
+    def prev(self):
+        track = None
+        if self.current_pos == -1:
+            if self.current_playlist:
+                track = self.current_playlist.prev()
+        else:
+            track = self.get_current()
+        self.player.play(track)
+        return track
+
+    def get_current(self):
+        current = playlist.Playlist.get_current(self)
+        if current == None and self.current_playlist:
+            current = self.current_playlist.get_current()
+        return current
+
+    def get_current_pos(self):
+        return 0
+
+    def play(self):
+        if self.player.is_playing():
+            return
+        track = self.get_current()
+        if track:
+            self.player.play(track)
+        else:
+            self.next()
 
 class Player:
     """
         This is the main player interface, other engines will subclass it
     """
     def __init__(self):
-        pass
+        self.current = None
 
     def play(self, track):
         raise NotImplementedError
@@ -69,9 +132,26 @@ class GSTPlayer(Player):
         self.playing = False
         self.connections = []
         self.last_position = 0
-        self.eof_func = None
         self.tag_func = None
         self.setup_playbin()
+        self.queue = None
+        self._gobject_loop()
+
+    @common.threaded
+    def _gobject_loop(self):
+        # hack to make gst messages work
+        import gobject
+        loop = gobject.MainLoop()
+        gobject.threads_init()
+        context = loop.get_context()
+        while 1:
+            context.iteration(True)
+
+    def set_queue(self, queue):
+        self.queue = queue
+
+    def eof_func(self, *args):
+        self.queue.next()
 
     def setup_playbin(self):
         self.playbin = gst.element_factory_make('playbin')
@@ -127,8 +207,7 @@ class GSTPlayer(Player):
         """
         if message.type == gst.MESSAGE_TAG and self.tag_func:
             self.tag_func(message.parse_tag())
-        elif message.type == gst.MESSAGE_EOS and not self.is_paused() \
-            and self.eof_func:
+        elif message.type == gst.MESSAGE_EOS and not self.is_paused():
             self.eof_func()
         elif message.type == gst.MESSAGE_ERROR:
             print message, dir(message)
@@ -144,7 +223,11 @@ class GSTPlayer(Player):
         """
             Plays the specified Track
         """
-        uri = track.get_loc_for_io()
+        self.stop()
+        try:
+            uri = track.get_loc_for_io()
+        except:
+            return False
         if not self.audio_sink:
             self.set_audio_sink('')
 
@@ -152,6 +235,7 @@ class GSTPlayer(Player):
             uri.find("lastfm://") > -1:
 
             self.connections.append(self.bus.connect('message', self.on_message))
+           
             self.connections.append(self.bus.connect('sync-message::element',
                 self.on_sync_message))
 
@@ -171,7 +255,9 @@ class GSTPlayer(Player):
             self.playbin.set_property('uri', uri.encode(common.get_default_encoding()))
 
         self.playbin.set_state(gst.STATE_PLAYING)
+        self.current = track
         event.log_event('playback_start', self, track)
+        return True
 
     def on_sync_message(self, bus, message):
         """
@@ -208,26 +294,28 @@ class GSTPlayer(Player):
             Pauses the currently playing track
         """
         self.playbin.set_state(gst.STATE_PAUSED)
-        event.log_event('playback_pause', self, track)        
+        event.log_event('playback_pause', self, self.current)        
 
     def toggle_pause(self):
         if self.is_paused():
             self.playbin.set_state(gst.STATE_PLAYING)
-            event.log_event('playback_resume', self, track)
+            event.log_event('playback_resume', self, self.current)
         else:
             self.playbin.set_state(gst.STATE_PAUSED)
-            event.log_event('playback_start', self, track)
+            event.log_event('playback_start', self, self.current)
 
     def stop(self):
         """
             Stops the playback of the currently playing track
         """
+        current = self.current
         for connection in self.connections:
             self.bus.disconnect(connection)
         self.connections = []
 
         self.playbin.set_state(gst.STATE_NULL)
-        event.log_event('playback_end', self, track)
+        self.current = None
+        event.log_event('playback_end', self, current)
 
 
     def get_position(self):
@@ -242,3 +330,16 @@ class GSTPlayer(Player):
             self.last_position = 0
 
         return self.last_position
+
+    def get_time(self):
+        """
+            Gets current playback time in seconds
+        """
+        return self.get_position()/gst.SECOND
+
+
+    def get_progress(self):
+        """
+            Gets current playback progress in percent
+        """
+        return self.get_time()/float(self.current.length)

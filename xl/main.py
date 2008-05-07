@@ -16,7 +16,7 @@
 
 import common, event, collection, playlist, player, media
 
-import time
+import time, os
 
 class Exaile:
     
@@ -37,15 +37,8 @@ class Exaile:
 
         self.player = player.get_default_player()()
 
-        self.collection = collection.Collection(location='testdb')
+        self.queue = player.PlayQueue(self.player)
 
-        lib = collection.Library('/home/reacocard/music/library', self.collection)
-        lib.rescan()
+        self.collection = collection.Collection(location=os.path.join(os.getenv('HOME'),'testdb'))
 
-        print "Scan complete"
 
-        self.player.play(self.collection.search('')[0])
-
-        print self.collection.search('')[0]['title']
-
-        time.sleep(3600)

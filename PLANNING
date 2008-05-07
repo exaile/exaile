@@ -315,7 +315,7 @@ event handling:
            don't cooperate with pickling.
      - also replaces (mostly) gobject's idle_add.
      - could also be used as the basis for a new logging system.
-     - example: log_event('track_updated', some_media.Track_instance,
+     - example: log_event('track_updated', Track_instance,
            'file://foobar.mp3')
      - example: log_event('playback_start', Player_instance, Track_instance)
    - functions:

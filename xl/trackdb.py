@@ -109,13 +109,15 @@ class TrackDB:
     def get_name(self):
         return self.name
 
-    def load_from_location(self, location):
+    def load_from_location(self, location=None):
         """
             Loads track data from a pickle location
 
             @type  location: str
             @param location: The location of the location
         """
+        if not location:
+            location = self.location
         try:
             f = open(location, 'rb')
             pdata = pickle.load(f)

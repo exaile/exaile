@@ -35,9 +35,6 @@ if sys.platform == 'linux2':
         pass
 
 
-import gobject
-gobject.threads_init()
-
 # Find out the location of exaile's working directory, and insert it to sys.path
 basedir = os.path.dirname(os.path.realpath(__file__))
 if not os.path.exists(os.path.join(basedir, "exaile.py")):
@@ -52,3 +49,4 @@ installed = not os.path.exists(os.path.join(basedir, 'Makefile'))
 if __name__ == "__main__":
     from xl import main
     exaile = main.Exaile(options, args)
+

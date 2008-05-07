@@ -12,18 +12,18 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from xl import library, media
+from xl import trackdb, media
 
 import os
 
-class Collection(library.TrackDB):
+class Collection(trackdb.TrackDB):
     """
         Manages a persistent track database.
     """
     def __init__(self, location=None, pickle_attrs=[]):
         self.libraries = dict()
         pickle_attrs += ['libraries']
-        library.TrackDB.__init__(self, location=location, 
+        trackdb.TrackDB.__init__(self, location=location, 
                 pickle_attrs=pickle_attrs)
 
     def add_library(self, library):
@@ -45,6 +45,11 @@ class Collection(library.TrackDB):
     def rescan_libraries(self):
         for library in self.libraries.values():
             library.rescan()
+
+        try:
+            self.save_to_location()
+        except AttributeError:
+            pass
 
 class Library:
     """

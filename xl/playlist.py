@@ -12,7 +12,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from xl import library
+from xl import trackdb
 
 def save_to_m3u(playlist, path):
     """
@@ -39,15 +39,17 @@ def save_to_pls(playlist, path):
 def import_from_pls(path):
     pass
 
-class Playlist(library.TrackDB):
+class Playlist(trackdb.TrackDB):
     """
         Represents a playlist, which is basically just a TrackDB
         with ordering.
     """
     def __init__(self, location=None, pickle_attrs=[]):
         self.ordered_tracks = []
-        pickle_attrs += ['ordered_tracks']
-        library.TrackDB.__init__(self, location=location,
+        self.current_pos = -1
+        self.current_playing = False
+        pickle_attrs += ['ordered_tracks', 'current_pos', 'current_playing']
+        trackdb.TrackDB.__init__(self, location=location,
                 pickle_attrs=pickle_attrs)
 
     def add(self, track, location=None):
@@ -67,18 +69,16 @@ class Playlist(library.TrackDB):
             self.ordered_tracks = self.ordered_tracks[:location] + \
                     tracks + self.ordered_tracks[location:]
         for t in tracks:
-            library.TrackDB.add(self, t)
+            trackdb.TrackDB.add(self, t)
+        
+        if location >= self.current_pos:
+            self.current_pos += len(tracks)
 
     def remove(self, index):
         """
             removes the track at the specified index from the playlist
         """
-        try:
-            t = self.ordered_tracks[index]
-            del self.ordered_tracks[index]
-            library.TrackDB.remove(t)
-        except IndexError:
-            pass
+        self.remove_tracks(index, index)
 
     def remove_tracks(self, start, end):
         end = end + 1
@@ -86,8 +86,37 @@ class Playlist(library.TrackDB):
         self.ordered_tracks = self.ordered_tracks[:start] + \
                 self.ordered_tracks[end:]
         for t in removed:
-            library.TrackDB.remove(t)
+            trackdb.TrackDB.remove(t)
+
+        if end < self.current_pos:
+            self.current_pos -= len(removed)
+        elif start <= self.current_pos <= end:
+            self.current_pos = start+1
 
     def get_tracks(self):
         return self.ordered_tracks[:]
+
+    def get_current_pos(self):
+        return self.current_pos
+
+    def get_current(self):
+        if self.current_pos >= len(self.ordered_tracks) or \
+                self.current_pos == -1:
+            return None
+        else:
+            return self.ordered_tracks[self.current_pos]
+
+    def next(self):
+        if len(self.ordered_tracks) == 0:
+            return None
+        self.current_pos += 1
+        if self.current_pos >= len(self.ordered_tracks):
+            self.current_pos = -1
+        return self.get_current()
+
+    def prev(self):
+        self.current_pos -= 1
+        if self.current_pos < 0:
+            self.current_pos = 0
+        return self.get_current()
 

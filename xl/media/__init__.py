@@ -191,6 +191,9 @@ class Track:
         pass # Not needed under pickleDB, but Im leaving the stump as
              # it may be useful for similar purposes.
 
+    def __repr__(self):
+        return "%s - %s" % (self['title'],self.get_loc_for_io())
+
     def __str__(self):
         """
             Returns a string representation of the track.

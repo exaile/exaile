@@ -16,13 +16,42 @@
 
 import pygst, gtk
 pygst.require('0.10')
-import gst, gobject, random, time, re, os, md5
-import thread, common
+import gst, random, time, re, os, md5
+import thread, common, event
 
-class Player(gobject.GObject):
+class Player:
     """
         This is the main player interface, other engines will subclass it
     """
+    def play(self, track):
+        raise NotImplementedError
+
+    def stop(self):
+        raise NotImplementedError
+
+    def pause(self):
+        raise NotImplementedError
+
+    def get_progress(self):
+        raise NotImplementedError
+
+    def get_time(self):
+        raise NotImplementedError
+
+    def is_playing(self):
+        raise NotImplementedError
+
+    def is_paused(self):
+        raise NotImplementedError
+
+    def seek(self, value, wait=True):
+        raise NotImplementedError
+
+    def toggle_pause(self):
+        raise NotImplementedError
+
+        
+
 
 class GSTPlayer(Player):
     """
@@ -53,8 +82,8 @@ class GSTPlayer(Player):
 
     def set_audio_sink(self, arg):
         """
-            Stub method, should be implemented in subclasses
         """
+        pass
 
     def _get_gst_state(self):
         """
@@ -105,10 +134,11 @@ class GSTPlayer(Player):
         s.set_property('device', num)
         self.playbin.disconnect(self.notify_id)
 
-    def play(self, uri):
+    def play(self, track):
         """
-            Plays the specified uri
+            Plays the specified Track
         """
+        uri = track.get_loc_for_io()
         if not self.audio_sink:
             self.set_audio_sink('')
 
@@ -135,6 +165,7 @@ class GSTPlayer(Player):
             self.playbin.set_property('uri', uri.encode(common.get_default_encoding()))
 
         self.playbin.set_state(gst.STATE_PLAYING)
+        event.log_event('playback_start', self, track)
 
     def on_sync_message(self, bus, message):
         """
@@ -171,12 +202,15 @@ class GSTPlayer(Player):
             Pauses the currently playing track
         """
         self.playbin.set_state(gst.STATE_PAUSED)
+        event.log_event('playback_pause', self, track)        
 
     def toggle_pause(self):
         if self.is_paused():
             self.playbin.set_state(gst.STATE_PLAYING)
+            event.log_event('playback_resume', self, track)
         else:
             self.playbin.set_state(gst.STATE_PAUSED)
+            event.log_event('playback_start', self, track)
 
     def stop(self):
         """
@@ -187,6 +221,8 @@ class GSTPlayer(Player):
         self.connections = []
 
         self.playbin.set_state(gst.STATE_NULL)
+        event.log_event('playback_end', self, track)
+
 
     def get_position(self):
         """

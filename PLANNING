@@ -241,10 +241,14 @@ playback:
          - play(track) - plays the given track
          - stop() - stops playback
          - pause() - pauses playback
+         - toggle_pause() - toggle paused state
          - get_progress() - returns progress in %
          - get_time() - returns current time in seconds
          - is_playing() - whether anything is currently playing (even 
                if paused)
+         - is_paused()
+         - seek(value, wait=True)
+
 
 covers:
  - xl/covers.py

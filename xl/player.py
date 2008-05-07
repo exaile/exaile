@@ -19,10 +19,16 @@ pygst.require('0.10')
 import gst, random, time, re, os, md5
 import thread, common, event
 
+def get_default_player():
+    return GSTPlayer
+
 class Player:
     """
         This is the main player interface, other engines will subclass it
     """
+    def __init__(self):
+        pass
+
     def play(self, track):
         raise NotImplementedError
 

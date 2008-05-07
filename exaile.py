@@ -17,7 +17,13 @@
 __version__ = '0.3.0devel'
 
 import sys, os
-from IPython.Shell import IPShellEmbed
+from optparse import OptionParser
+
+parser = OptionParser()
+
+# optparse stuff here
+
+(options, args) = parser.parse_args()
 
 if sys.platform == 'linux2':
     # Set process name.  Only works on Linux >= 2.1.57.
@@ -31,7 +37,6 @@ if sys.platform == 'linux2':
 
 import gobject
 gobject.threads_init()
-import xl.library, xl.player
 
 # Find out the location of exaile's working directory, and insert it to sys.path
 basedir = os.path.dirname(os.path.realpath(__file__))
@@ -44,7 +49,6 @@ sys.path.insert(0, basedir)
 # check for a Makefile so we can tell if exaile is installed or not
 installed = not os.path.exists(os.path.join(basedir, 'Makefile'))
 
-if __name__ == "__main__": 
-    # for now, everything will be cli based.  This will hopefully help while
-    # designing a clear API for everything. 
-    IPShellEmbed()()
+if __name__ == "__main__":
+    from xl import main
+    exaile = main.Exaile(options, args)

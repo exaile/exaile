@@ -17,7 +17,8 @@ try:
 except ImportError:
     import pickle
 
-from xl import media, common
+from xl import media, common, track
+from copy import deepcopy
 
 SEARCH_ITEMS = ('artist', 'album', 'title')
 SORT_ORDER = ('album', 'track', 'artist', 'title')
@@ -98,7 +99,7 @@ class TrackDB:
         self.name = name
         self.location = location
         self.pickle_attrs = pickle_attrs
-        self.pickle_attrs += ['tracks', 'name']
+        self.pickle_attrs = ['tracks', 'name']
 
         if location:
             self.load_from_location(location)
@@ -123,10 +124,20 @@ class TrackDB:
             pdata = pickle.load(f)
             f.close()
         except:
-            pdata = PickleData()
+            pdata = dict()
         for attr in self.pickle_attrs:
             try:
-                setattr(self, attr, getattr(pdata, attr))
+                if 'tracks' in attr:
+                    if type(pdata[attr]) == list:
+                        setattr(self, attr,
+                                [ track.Track(_unpickles=x) for x in pdata[attr] ] )
+                    elif type(pdata[attr]) == dict:
+                        data = pdata[attr]
+                        for k, v in data.iteritems():
+                            data[k] = track.Track(_unpickles=v)
+                        setattr(self, attr, data)
+                else:
+                    setattr(self, attr, pdata[attr])
             except:
                 pass
 
@@ -154,14 +165,24 @@ class TrackDB:
             f = file(location, 'rb')
             pdata = pickle.load(f)
         except:
-            pdata = PickleData()
+            pdata = dict()
         for attr in self.pickle_attrs:
-            try:
-                setattr(pdata, attr, getattr(self, attr))
-            except:
+            if True:
+                #bad hack
+                if 'tracks' in attr:
+                    if type(getattr(self, attr)) == list:
+                        pdata[attr] = [ x._pickles() for x in getattr(self, attr) ]
+                    elif type(getattr(self, attr)) == dict:
+                        data = deepcopy(getattr(self, attr))
+                        for k,v in data.iteritems():
+                            data[k] = v._pickles()
+                        pdata[attr] = data
+                else:
+                    pdata[attr] = deepcopy(getattr(self, attr))
+            else:
                 pass
         f = file(location, 'wb')
-        pickle.dump(pdata, f, 2)
+        pickle.dump(pdata, f, common.PICKLE_PROTOCOL)
         f.close()
 
     def add(self, track):
@@ -172,7 +193,7 @@ class TrackDB:
             @param track: The track you want to add to the database
         """
     
-        self.tracks[track.loc] = track
+        self.tracks[track.get_loc()] = track
 
     def remove(self, track):
         """
@@ -200,7 +221,7 @@ class TrackDB:
         tracks = []
         for k, track in self.tracks.iteritems():
             for item in SEARCH_ITEMS:
-                v = getattr(track, item).lower()
+                v = track[item].lower()
                 if v.find(kw) > -1:
                     tracks.append(track)
                     break

@@ -16,17 +16,17 @@ def get_tag(f, tag):
 
 def write_tag(tr):
     try:
-        com = mutagen.oggvorbis.OggVorbis(tr.io_loc)
+        com = mutagen.oggvorbis.OggVorbis(tr.get_loc_for_io())
     except mutagen.oggvorbis.OggVorbisHeaderError:
         # FIXME: No use, this fails at the save() call.
         com = mutagen.oggvorbis.OggVorbis()
     com.clear()
 
     for tag in VALID_TAGS:
-        if tr.tags[tag]:
-            com[tag] = tr.tags[tag]
+        if tr[tag]:
+            com[tag] = tr[tag]
             
-    com.save(tr.io_loc)
+    com.save(tr.get_loc_for_io())
 
 def can_change(tag):
     return tag in VALID_TAGS
@@ -39,13 +39,13 @@ def fill_tag_from_path(tr):
         Fills the passed in media.Track with tags from the file
     """
     try:
-        f = mutagen.oggvorbis.OggVorbis(tr.io_loc)
+        f = mutagen.oggvorbis.OggVorbis(tr.get_loc_for_io())
     except mutagen.oggvorbis.OggVorbisHeaderError:
         return
 
-    tr.length = int(f.info.length)
+    tr.info['length'] = int(f.info.length)
     
-    tr.bitrate = (f.info.bitrate // 33554431) * 1000
+    tr.info['bitrate'] = (f.info.bitrate // 33554431) * 1000
 
     for tag in VALID_TAGS:
-        tr.tags[tag] = get_tag(f, tag)
+        tr[tag] = get_tag(f, tag)

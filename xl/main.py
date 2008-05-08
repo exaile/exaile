@@ -39,6 +39,6 @@ class Exaile:
 
         self.queue = player.PlayQueue(self.player)
 
-        self.collection = collection.Collection(location=os.path.join(os.getenv('HOME'),'testdb'))
+        self.collection = collection.Collection(location='testdb')
 
 

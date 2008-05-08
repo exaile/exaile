@@ -29,6 +29,8 @@ VALID_TAGS = (
     "originalartist recordingdate"
     ).split()
 
+PICKLE_PROTOCOL=2
+
 def get_default_encoding():
     return 'utf-8'
 

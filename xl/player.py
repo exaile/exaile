@@ -22,6 +22,8 @@ import thread, common, event, playlist
 import gobject
 gobject.threads_init()
 
+VIDEO_WIDGET=None
+
 def get_default_player():
     return GSTPlayer
 
@@ -45,7 +47,7 @@ class PlayQueue(playlist.Playlist):
     def next(self):
         track = playlist.Playlist.next(self)
         if track == None:
-            if self.current_playlist is not None:
+            if self.current_playlist:
                 track = self.current_playlist.next()
                 self.current_playlist.current_playing = True
                 self.current_playing = False
@@ -53,7 +55,8 @@ class PlayQueue(playlist.Playlist):
             self.ordered_tracks = self.ordered_tracks[1:]
             self.current_pos -= 1
             self.current_playing = True
-            self.current_playlist.current_playing = False
+            if self.current_playlist:
+                self.current_playlist.current_playing = False
         self.player.play(track)
         return track
 
@@ -342,4 +345,4 @@ class GSTPlayer(Player):
         """
             Gets current playback progress in percent
         """
-        return self.get_time()/float(self.current.length)
+        return self.get_time()/float(self.current.info['length'])

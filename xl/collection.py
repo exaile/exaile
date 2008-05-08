@@ -12,7 +12,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from xl import trackdb, media
+from xl import trackdb, media, track
 
 import os
 
@@ -22,7 +22,7 @@ class Collection(trackdb.TrackDB):
     """
     def __init__(self, location=None, pickle_attrs=[]):
         self.libraries = dict()
-        pickle_attrs += ['libraries']
+        #pickle_attrs += ['libraries']
         trackdb.TrackDB.__init__(self, location=location, 
                 pickle_attrs=pickle_attrs)
 
@@ -79,10 +79,10 @@ class Library:
             basepath = folder[0]
             for filename in folder[2]:
                 fullpath = os.path.join(basepath, filename)
-                (stuff, ext) = os.path.splitext(fullpath)
-                track = media.read_from_path(fullpath)
-                if track is not None:
-                    self.collection.add(track)
+                #(stuff, ext) = os.path.splitext(fullpath)
+                tr = track.Track(fullpath)
+                if tr._scan_valid == True:
+                    self.collection.add(tr)
 
     def set_realtime(self, bool):
         pass

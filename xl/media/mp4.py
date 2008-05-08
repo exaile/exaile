@@ -67,25 +67,25 @@ def is_multi():
 
 def fill_tag_from_path(tr):
     try:
-        f = MP4(tr.io_loc)
+        f = MP4(tr.get_loc_for_io())
     except:
         common.log("Couldn't read tags from file: " + tr.loc)
         return
 
-    tr.length = f.info.length
-    tr.bitrate = f.info.bitrate
+    tr.info['length'] = f.info.length
+    tr.info['bitrate'] = f.info.bitrate
     
     for mp4_tag, tag in TAG_TRANSLATION.iteritems():
         try:
-            tr.tags[tag] = get_tag(f, mp4_tag)
+            tr[tag] = get_tag(f, mp4_tag)
         except:
-            tr.tags[tag] = [] 
+            tr[tag] = [] 
 
 def write_tag(tr):
-    f = MP4(tr.io_loc)
+    f = MP4(tr.get_loc_for_io())
 
     for mp4_tag, tag in TAG_TRANSLATION.iteritems():
-        if tr.tags[tag]:
-            set_tag(f, mp4_tag, tr.tags[tag])
+        if tr[tag]:
+            set_tag(f, mp4_tag, tr[tag])
 
     f.save()

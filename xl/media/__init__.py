@@ -69,7 +69,7 @@ class Track:
             Loads and initializes the tag information
             Expects the path to the track as an argument
         """
-        self.tags = common.ldict()
+        self.tags = dict()
 
         self.time_played = 0
         self.read_from_db = False

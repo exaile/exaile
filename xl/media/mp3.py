@@ -52,7 +52,7 @@ def get_tag(id3, t):
 
 def write_tag(tr):
     try:
-        id3 = mutagen.id3.ID3(tr.io_loc)
+        id3 = mutagen.id3.ID3(tr.get_loc_for_io())
     except mutagen.id3.ID3NoHeaderError:
         id3 = mutagen.id3.ID3()
 
@@ -63,7 +63,7 @@ def write_tag(tr):
         if tr.tags[v]:
             try:
                 frame = mutagen.id3.Frames[k](encoding=3,
-                    text = tr.tags[v])
+                    text = tr[v])
                 id3.loaded_frame(frame)
             except:
                 common.log_exception()
@@ -78,19 +78,19 @@ def is_multi():
 
 def fill_tag_from_path(tr):
     try:
-        info = mutagen.mp3.MP3(tr.io_loc)
+        info = mutagen.mp3.MP3(tr.get_loc_for_io())
     except:
-        common.log("Couldn't read tags from file: " + tr.loc)
+        common.log("Couldn't read tags from file: " + tr.get_loc())
         return
 
-    tr.length = info.info.length
-    tr.bitrate = info.info.bitrate
+    tr.info['length'] = info.info.length
+    tr.info['bitrate'] = info.info.bitrate
 
     try:    
-        id3 = mutagen.id3.ID3(tr.io_loc)
+        id3 = mutagen.id3.ID3(tr.get_loc_for_io())
 
         for id3_tag, tag in IDS.iteritems():
-            tr.tags[tag] = get_tag(id3, id3_tag)
+            tr[tag] = get_tag(id3, id3_tag)
             
     except OverflowError:
         pass

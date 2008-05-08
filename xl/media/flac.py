@@ -19,14 +19,14 @@ def fill_tag_from_path(tr):
         Reads all tags from the file
     """
     try:
-        f = mutagen.flac.FLAC(tr.io_loc)
+        f = mutagen.flac.FLAC(tr.get_loc_for_io())
     except:
-        common.log("Couldn't read tags from file: " + tr.loc)
+        common.log("Couldn't read tags from file: " + tr.get_loc())
         return
-    tr.length = int(f.info.length)
+    tr.info['length'] = int(f.info.length)
 
     for tag in VALID_TAGS:
-        tr.tags[tag] = get_tag(f, tag)
+        tr[tag] = get_tag(f, tag)
 
 def can_change(tag):
     """
@@ -35,25 +35,12 @@ def can_change(tag):
     return tag in VALID_TAGS
 
 def write_tag(tr):
-    f = mutagen.flac.FLAC(tr.io_loc)
+    f = mutagen.flac.FLAC(tr.get_loc_for_io())
     if f.vc is None: f.add_vorbiscomment()
     del(f.vc[:])
 
     for tag in VALID_TAGS:
         if tr.tags[tag]:
-            f.vc[tag] = tr.tags[tag]
-
-    #f.vc['artist'] = tr.artist
-    #f.vc['album'] = tr.album
-    #f.vc['title'] = tr.title
-    #f.vc['discnumber'] = tr.disc_id
-    #f.vc['genre'] = tr.genre
-    #f.vc['tracknumber'] = str(tr.track)
-    #f.vc['date'] = str(tr.date)
-    #f.vc['version'] = tr.version
-    #f.vc['performer'] = tr.performer
-    #f.vc['copyright'] = tr.copyright
-    #f.vc['organization'] = tr.org
-    #f.vc['isrc'] = tr.isrc
+            f.vc[tag] = tr[tag]
 
     f.save()

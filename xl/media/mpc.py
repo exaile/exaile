@@ -92,15 +92,15 @@ def get_tag(tagset, tag):
         return []
     
 def write_tag(tr):
-    try: info = mutagen.apev2.APEv2(tr.io_loc)
+    try: info = mutagen.apev2.APEv2(tr.get_loc_for_io())
     except mutagen.apev2.APENoHeaderError:
         info = mutagen.apev2.APEv2()
 
     for mpc_tag, tag in TAG_TRANSLATION.iteritems():
-        if tr.tags[tag]:
-            info[mpc_tag] = tr.tags[tag]
+        if tr[tag]:
+            info[mpc_tag] = tr[tag]
 
-    tag.save(tr.io_loc)
+    tag.save(tr.get_loc_for_io())
 
 def can_change(tag):
     return tag in TAG_TRANSLATION.values()
@@ -109,16 +109,16 @@ def is_multi():
     return True
 
 def fill_tag_from_path(tr):
-    try: info = mutagen.apev2.APEv2(tr.io_loc)
+    try: info = mutagen.apev2.APEv2(tr.get_loc_for_io())
     except mutagen.apev2.APENoHeaderError: return
 
     for mpc_tag, tag in TAG_TRANSLATION.iteritems():
-        tr.tags[tag] = get_tag(info, mpc_tag)
+        tr[tag] = get_tag(info, mpc_tag)
 
     # determine length and bitrate with the code from quodlibet
     if _libc:
         reader = _MPCReaderFile()
-        f = _libc.fopen(tr.io_loc, "r")
+        f = _libc.fopen(tr.get_loc_for_io(), "r")
         if not f: raise OSError(os.strerror(_get_errno()))
         _mpcdec.mpc_reader_setup_file_reader(
             ctypes.pointer(reader), ctypes.c_void_p(f))
@@ -128,8 +128,8 @@ def fill_tag_from_path(tr):
             ctypes.byref(info), ctypes.byref(reader.reader)):
             raise IOError("not a valid Musepack file")
 
-        tr.length = int(
+        tr.info['length'] = int(
             _mpcdec.mpc_streaminfo_get_length(ctypes.byref(info)))
-        tr.bitrate = int(info.average_bitrate)
+        tr.info['bitrate'] = int(info.average_bitrate)
         _libc.fclose(reader.file)
                    

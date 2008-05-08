@@ -23,7 +23,7 @@ def get_tag(id3, t):
 
 def write_tag(tr):
     try:
-        id3 = mutagen.id3.ID3(tr.io_loc)
+        id3 = mutagen.id3.ID3(tr.get_loc_for_io())
     except mutagen.id3.ID3NoHeaderError:
         id3 = mutagen.id3.ID3()
 
@@ -35,52 +35,54 @@ def write_tag(tr):
 
         try:
             frame = mutagen.id3.Frames[k](encoding=3,
-                text = unicode(getattr(tr, v)))
+                text = unicode(tr[v])
             id3.loaded_frame(frame)
         except:
             common.log_exception()
 
         if tr.track > -1:
-            track = str(tr.track)
-            if tr.disc_id > -1:
-                track = "%s/%s" % (track, tr.disc_id)
+            track = str(tr['track'])
+            if tr['disc_id'] > -1:
+                track = "%s/%s" % (track, tr['disc_id'])
 
             frame = mutagen.id3.Frames['TRCK'](encoding=3,
                 text=track)
 
             id3.loaded_frame(frame)
 
-        id3.save(tr.io_loc)    
+        id3.save(tr.get_loc_for_io())    
 
 def fill_tag_from_path(tr):
-    info = mutagen.trueaudio.TrueAudio(tr.io_loc)
-    tr.length = info.info.length
+    info = mutagen.trueaudio.TrueAudio(tr.get_loc_for_io())
+    tr.info['length'] = info.info.length
 
     try:    
-        id3 = mutagen.id3.ID3(tr.io_loc)
-        tr.title = get_tag(id3, 'TIT2')
-        tr.artist = get_tag(id3, 'TPE1')
-        tr.album = get_tag(id3, 'TALB')
-        tr.genre = get_tag(id3, 'TCON')
+        id3 = mutagen.id3.ID3(tr.get_loc_for_io())
+        tr['title'] = get_tag(id3, 'TIT2')
+        tr['artist'] = get_tag(id3, 'TPE1')
+        tr['album'] = get_tag(id3, 'TALB')
+        tr['genre'] = get_tag(id3, 'TCON')
 
         trackinfo = get_tag(id3, 'TRCK')
         if '/' in trackinfo:
-            tr.track, tr.disc_id = trackinfo.split('/')
+            track, disc_id = trackinfo.split('/')
 
             try:
-                tr.track = int(tr.track)
-            except ValueError: tr.track = -1
+                tr['track'] = int(track)
+            except ValueError: 
+                tr['track'] = -1
 
             try:
-                tr.disc_id = int(tr.disc_id)
-            except ValueError: tr.disc_id = -1
+                tr['disc_id'] = int(tr.disc_id)
+            except ValueError: 
+                tr['disc_id'] = -1
         else:
             try:
-                tr.track = int(trackinfo)
+                tr['track'] = int(trackinfo)
             except ValueError:
-                tr.track = -1
+                tr['track'] = -1
 
-        tr.year = get_tag(id3, 'TDRC')
+        tr['year'] = get_tag(id3, 'TDRC')
 
     except OverflowError:
         pass

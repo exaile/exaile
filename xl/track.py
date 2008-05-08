@@ -137,7 +137,7 @@ class Track:
             self.tags[tag].extend(values)
         else:
             self.tags[tag] = list(values)
-        event.log_event('tag_updated', self, tag)
+        event.log_event('track_updated', self, self.get_loc())
 
     def __getitem__(self, tag):
         """

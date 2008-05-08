@@ -14,9 +14,7 @@
 
 # Here's where it all begins.....
 
-import common, event, collection, playlist, player, media
-
-import time, os
+import common, collection, playlist, player
 
 class Exaile:
     
@@ -28,17 +26,37 @@ class Exaile:
         self.options = options
         self.args = args
 
-        #handle DBUS stuff here
-
-        #show spash screen
-        print "Pretend this is a splash screen"
+        #initialize DbusManager
+        #self.dbus = ???
 
         #initialize settings manager
+        #self.settings = ???
 
+        #initialize GUI (show splash screen if enabled)
+        #self.gui = ???
+
+        #Set up the player itself.
         self.player = player.get_default_player()()
 
+        #Set up the playback Queue
         self.queue = player.PlayQueue(self.player)
 
+        #initialize CollectionsManager
+        #self.collections = ???
+        # temporary until we get a proper CollectionsManager
         self.collection = collection.Collection(location='testdb')
 
+        #initalize PlaylistsManager
+        #self.playlists = ???
 
+        #initialize CoverManager
+        #self.covers = ???
+
+        #initialize LyricManager
+        #self.lyrics = ???
+
+        #initialize PluginManager
+        #self.plugins = ???
+
+        #show GUI. also passes control to gtk.main() or similar.
+        #self.gui.start()

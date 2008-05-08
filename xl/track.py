@@ -107,13 +107,10 @@ class Track:
 
 
     def _pickles(self):
-        picklestr = pickle.dumps(
-                deepcopy((self.tags, self.info)),
-                common.PICKLE_PROTOCOL )
-        return picklestr
+        return deepcopy((self.tags, self.info))
 
     def _unpickles(self, pickle_str):
-        self.tags, self.info = pickle.loads(pickle_str)
+        self.tags, self.info = pickle_str
 
     def get_tag(self, tag):
         """

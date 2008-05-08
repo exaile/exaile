@@ -35,7 +35,7 @@ def write_tag(tr):
 
         try:
             frame = mutagen.id3.Frames[k](encoding=3,
-                text = unicode(tr[v])
+                text = unicode(tr[v]))
             id3.loaded_frame(frame)
         except:
             common.log_exception()

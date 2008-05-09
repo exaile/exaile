@@ -31,6 +31,7 @@ VALID_TAGS = (
 
 PICKLE_PROTOCOL=2
 
+
 def get_default_encoding():
     return 'utf-8'
 
@@ -39,15 +40,6 @@ def log(message):
 
 def log_exception(*e):
     traceback.print_exc()
-
-# python<2.5 compatibility. Drop this when python2.4 isn't used so much anymore.
-try:
-    any = any
-except NameError:
-    def any(seq):
-        for e in seq:
-            if e: return True
-        return False
 
 def to_unicode(x, default_encoding=None):
     if isinstance(x, unicode):
@@ -93,92 +85,6 @@ def synchronized(func):
     wrapper.__dict__ = func.__dict__
     wrapper.__doc__ = func.__doc__
     return wrapper
-
-class idict(dict): 
-    """
-        Case insensitive dictionary
-    """
-    def __init__(self): 
-        """
-            Initializes the dictionary
-        """
-        dict.__init__(self)
-        self.keys_dict = dict()
-    
-
-    def __setitem__(self, item, val): 
-        """
-            Sets an item in the dict
-        """
-        dict.__setitem__(self, item.lower(), val)
-        self.keys_dict[item.lower()] = item
-    
-
-    def __getitem__(self, item): 
-        """
-            Gets an item from the dict
-        """
-        return dict.__getitem__(self, item.lower())
-    
-
-    def __contains__(self, key): 
-        """
-            Returns True if this dictionary contains the specified key
-        """
-        return self.has_key(key)
-    
-
-    def has_key(self, key): 
-        """
-            Returns True if this dictionary contains the specified key
-        """
-        return dict.has_key(self, key.lower())
-    
-
-    def keys(self): 
-        """
-            Returns the case sensitive values of the keys
-        """
-        return self.keys_dict.values()
-    
-class ldict(dict):
-    """
-        A dict that only handles lists
-    """
-    def __init__(self):
-        dict.__init__(self)
-
-    def __setitem__(self, item, value):
-        if type(value) is not list: value = [value]
-        dict.__setitem__(self, item , value)
-
-    def __getitem__(self, item):
-        try:
-            return dict.__getitem__(self, item)
-        except KeyError:
-            return []
-
-class ilist(list): 
-    """
-        Case insensitive list
-    """
-    def __init__(self): 
-        """
-            Initializes the list
-        """
-        list.__init__(self)
-    
-
-    def __contains__(self, item): 
-        """
-            Returns true if this list contains the specified item
-        """
-        for i in self:
-            if i.lower() == item.lower():
-                return True
-
-        return False
-
 
 
 # this code stolen from listen-gnome
@@ -250,5 +156,16 @@ def to_url(path):
         return 'file://' + urllib.pathname2url(path)
     except IOError:
         return path
+
+
+def get_config_dir(options=None):
+    if options:
+        # handle commandline settingdir stuff here
+        pass
+    else:
+        #TODO: implement cross-platform settings handling
+        home = os.getenv("HOME")
+        settings = os.path.join(home, '.exaile-0.3')
+        return settings
 
 

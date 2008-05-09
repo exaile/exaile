@@ -14,7 +14,9 @@
 
 # Here's where it all begins.....
 
-import common, collection, playlist, player
+import common, collection, playlist, player, settings
+
+import os
 
 class Exaile:
     
@@ -29,8 +31,9 @@ class Exaile:
         #initialize DbusManager
         #self.dbus = ???
 
-        #initialize settings manager
-        #self.settings = ???
+        #initialize SettingsManager
+        self.settings = settings.SettingsManager(
+                os.path.join(common.get_config_dir(), 'settings.ini') )
 
         #initialize GUI (show splash screen if enabled)
         #self.gui = ???

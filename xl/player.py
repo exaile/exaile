@@ -71,18 +71,22 @@ class PlayQueue(playlist.Playlist):
         return track
 
     def get_current(self):
-        current = playlist.Playlist.get_current(self)
-        if current == None and self.current_playlist:
-            current = self.current_playlist.get_current()
+        if self.player.current:
+            current = self.player.current
+        else:
+            current = playlist.Playlist.get_current(self)
+            if current == None and self.current_playlist:
+                current = self.current_playlist.get_current()
         return current
 
     def get_current_pos(self):
         return 0
 
-    def play(self):
-        if self.player.is_playing():
+    def play(self, track=None):
+        if self.player.is_playing() and not track:
             return
-        track = self.get_current()
+        if not track:
+            track = self.get_current()
         if track:
             self.player.play(track)
         else:

@@ -157,15 +157,3 @@ def to_url(path):
     except IOError:
         return path
 
-
-def get_config_dir(options=None):
-    if options:
-        # handle commandline settingdir stuff here
-        pass
-    else:
-        #TODO: implement cross-platform settings handling
-        home = os.getenv("HOME")
-        settings = os.path.join(home, '.exaile-0.3')
-        return settings
-
-

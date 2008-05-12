@@ -60,6 +60,8 @@ class PlaylistManager(gobject.GObject):
 
         if ext.lower() == ".asx":
             playlist = xlmisc.ASXParser(name, url)
+        elif ext.lower() == ".xspf":
+            playlist = xlmisc.XSPFParser(name, url)
         else:
             # TODO: This is inefficient because we're reopening the file later.
             file = urllib.urlopen(url)

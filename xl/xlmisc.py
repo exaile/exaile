@@ -1336,6 +1336,24 @@ class ASXParser(PlaylistParser):
         return True
 
 
+class XSPFParser(PlaylistParser):
+    PLAYLIST_EXTS.append('.xspf')
+
+    def _do_parse_file(self, file):
+        try:
+            import xml.etree.cElementTree as cETree
+        except:
+            return True
+
+        tree = cETree.ElementTree(file=file)
+        ns = "{http://xspf.org/ns/0/}"
+        tracks = tree.find("%strackList"%ns).findall("%strack"%ns)
+        for t in tracks:
+            url = t.find("%slocation"%ns).text.strip()
+            self.add_url(url)
+
+        return True
+
 
 # EXCEPTIONS
 

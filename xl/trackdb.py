@@ -304,7 +304,7 @@ class TrackDB:
 
         def do_search(tokens, current_list):
             """ search for tracks by using the parsed tokens """
-            new_list = []
+            new_list = {}
             try:
                 token = tokens[0]
             except IndexError:
@@ -316,12 +316,12 @@ class TrackDB:
                 subtoken = token[0]
                 if subtoken == "!":
                     to_remove = do_search(token[1], current_list)
-                    for track in current_list:
-                        if track not in to_remove:
-                            new_list.append(track)
+                    for l,track in current_list.iteritems():
+                        if l not in to_remove:
+                            new_list[l]=track
                 elif subtoken == "|":
-                    new_list = do_search([token[1][0]], current_list)
-                    new_list += do_search([token[1][1]], current_list)
+                    new_list.update(do_search([token[1][0]], current_list))
+                    new_list.update(do_search([token[1][1]], current_list))
                 elif subtoken == "(":
                     new_list = do_search(token[1], current_list)
                 else:
@@ -331,46 +331,36 @@ class TrackDB:
                 if "==" in token:
                     tag, content = token.split("==")
                     content = content.strip('"')
-                    for tr in current_list:
+                    for l,tr in current_list.iteritems():
                         try:
                             if tr[tag].lower() == content:
-                                new_list.append(tr)
+                                new_list[l]=tr
                         except:
                             pass
                 elif "=" in token:
                     tag, content = token.split("=")
                     content = content.strip('"')
-                    for tr in current_list:
+                    for l,tr in current_list.iteritems():
                         try:
                             if content in tr[tag].lower():
-                                new_list.append(tr)
+                                new_list[l]=tr
                         except:
                             pass
                 else:
                     content = token.strip('"')
-                    for tr in current_list:
+                    for l,tr in current_list.iteritems():
                         for item in SEARCH_ITEMS:
                             try:
                                 if content in tr[item].lower():
-                                    new_list.append(tr)
+                                    new_list[l]=tr
                             except:
                                 pass
 
             return do_search(tokens[1:], new_list)
 
         
-        def remove_dupes(tracks):
-            new_tracks = []
-
-            for track in tracks:
-                if track not in new_tracks:
-                    new_tracks.append(track)
-
-            return new_tracks
-
         tokens = tokenize(search)
-        results = do_search(tokens, self.tracks.values())
-        results = remove_dupes(results)
+        results = do_search(tokens, self.tracks).values()
 
         return results
 

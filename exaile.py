@@ -38,8 +38,12 @@ sys.path.insert(0, basedir)
 # check for a Makefile so we can tell if exaile is installed or not
 installed = not os.path.exists(os.path.join(basedir, 'Makefile'))
 
-if __name__ == "__main__":
+def main():
     from xl import main, path
     path.init(basedir, installed)
+    global exaile
     exaile = main.Exaile()
 
+
+if __name__ == "__main__":
+    main()

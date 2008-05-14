@@ -272,6 +272,7 @@ class TrackDB:
             tokens = etokens
 
             def red(tokens):
+                """ reduce tokens to a parsable format """
                 if tokens == []:
                     return []
                 elif "(" in tokens:
@@ -302,6 +303,7 @@ class TrackDB:
             return red(tokens)
 
         def do_search(tokens, current_list):
+            """ search for tracks by using the parsed tokens """
             new_list = []
             try:
                 token = tokens[0]

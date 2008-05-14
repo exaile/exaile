@@ -220,3 +220,18 @@ class Track:
             common.log_exception()
             return None
         return self
+
+    def __repr__(self):
+        return str(self) #for debugging, remove later
+
+    def __str__(self):
+        title = self['title']
+        album = self['album']
+        artist = self['artist']
+        ret = "'"+title+"'"
+        if artist.strip():
+            ret += " by '%s'" % artist
+        if album.strip():
+            ret += " from '%s'" % album
+        return ret
+

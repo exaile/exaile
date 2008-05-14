@@ -21,12 +21,22 @@ class Collection(trackdb.TrackDB):
         Manages a persistent track database.
     """
     def __init__(self, location=None, pickle_attrs=[]):
+        """
+            Set up the collection
+
+            args: see TrackDB
+        """
         self.libraries = dict()
         #pickle_attrs += ['libraries']
         trackdb.TrackDB.__init__(self, location=location, 
                 pickle_attrs=pickle_attrs)
 
     def add_library(self, library):
+        """
+            Add this library to the collection
+
+            library: the library to add [Library]
+        """
         loc = library.get_location()
         if loc not in self.libraries.keys():
             self.libraries[loc] = library
@@ -34,15 +44,29 @@ class Collection(trackdb.TrackDB):
             pass # TODO: raise an exception or something here
 
     def remove_library(self, library):
+        """
+            Remove a library from the collection
+
+            library: the library to remove
+        """
         for k, v in self.libraries.iteritems():
             if v == library:
                 del self.libraries[k]
                 return
     
     def get_libraries(self):
+        """
+            Gets a list of all the Libraries associated with this 
+            Collection
+
+            returns: [list of Library]
+        """
         return self.libraries.values()
 
     def rescan_libraries(self):
+        """
+            Rescans all libraries associated with this Collection
+        """
         for library in self.libraries.values():
             library.rescan()
 
@@ -57,15 +81,31 @@ class Library:
         a Collection.
     """
     def __init__(self, location, collection):
+        """
+            Sets up the Library
+
+            location: the directory this library will scan [string]
+            collection: the Collection to associate with [Collection]
+        """
         self.location = location
         self.collection = collection
 
         self.collection.add_library(self)
 
     def set_location(self, location):
+        """
+            Changes the location of this Library
+
+            location: the new location to use [string]
+        """
         self.location = location
 
     def get_location(self):
+        """
+            Gets the current location associated with this Library
+
+            returns: the current location [string]
+        """
         return self.location
 
     def rescan(self):

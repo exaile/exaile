@@ -45,6 +45,11 @@ class Playlist(trackdb.TrackDB):
         with ordering.
     """
     def __init__(self, location=None, pickle_attrs=[]):
+        """
+            Sets up the Playlist
+
+            args: see TrackDB
+        """
         self.ordered_tracks = []
         self.current_pos = -1
         self.current_playing = False
@@ -56,12 +61,18 @@ class Playlist(trackdb.TrackDB):
         """
             insert the track into the playlist at the specified
             location (default: append)
+
+            track: the track to add [Track]
+            location: the index to insert at [int]
         """
         self.add_tracks([track], location)
 
     def add_tracks(self, tracks, location=None):
         """
             like add(), but takes a list of tracks instead of a single one
+
+            tracks: the tracks to add [list of Track]
+            location: the index to insert at [int]
         """
         if location == None:
             self.ordered_tracks.extend(tracks)
@@ -77,10 +88,18 @@ class Playlist(trackdb.TrackDB):
     def remove(self, index):
         """
             removes the track at the specified index from the playlist
+
+            index: the index to remove at [int]
         """
         self.remove_tracks(index, index)
 
     def remove_tracks(self, start, end):
+        """
+            remove the specified range of tracks from the playlist
+
+            start: index to start at [int]
+            end: index to end at (inclusive) [int]
+        """
         end = end + 1
         removed = self.ordered_tracks[start:end]
         self.ordered_tracks = self.ordered_tracks[:start] + \
@@ -94,12 +113,27 @@ class Playlist(trackdb.TrackDB):
             self.current_pos = start+1
 
     def get_tracks(self):
+        """
+            gets the list of tracks in this playlist, in order
+
+            returns: [list of Track]
+        """
         return self.ordered_tracks[:]
 
     def get_current_pos(self):
+        """
+            gets current playback position, -1 if not playing
+
+            returns: the position [int]
+        """
         return self.current_pos
 
     def get_current(self):
+        """
+            gets the currently-playing Track, or None if no current
+
+            returns: the current track [Track]
+        """
         if self.current_pos >= len(self.ordered_tracks) or \
                 self.current_pos == -1:
             return None
@@ -107,6 +141,11 @@ class Playlist(trackdb.TrackDB):
             return self.ordered_tracks[self.current_pos]
 
     def next(self):
+        """
+            moves to the next track in the playlist
+
+            returns: the next track [Track]
+        """
         if len(self.ordered_tracks) == 0:
             return None
         self.current_pos += 1
@@ -115,6 +154,11 @@ class Playlist(trackdb.TrackDB):
         return self.get_current()
 
     def prev(self):
+        """
+            moves to the previous track in the playlist
+
+            returns: the previous track [Track]
+        """
         self.current_pos -= 1
         if self.current_pos < 0:
             self.current_pos = 0

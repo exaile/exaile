@@ -17,7 +17,7 @@ try:
 except ImportError:
     import pickle
 
-from xl import media, common, track
+from xl import media, common, track, event
 from copy import deepcopy
 
 SEARCH_ITEMS = ('artist', 'album', 'title')
@@ -66,59 +66,66 @@ def sort_tracks(field, tracks, reverse=False):
     return [t[-1:][0] for t in tracks]
 
 
-class PickleData:
-    """
-        Very simple class. All it does is store data in a pickle-able
-        format. This allows easy expansion of what is included in the 
-        pickled DB later.
-    """
-    def __init__(self):
-        pass
-        #self.tracks = {}
-        # Examples of what might be added
-        #self.podcast_url = ''
-        #self.track_order = []
-        #self.scan_locations = []
-        #self.playlist_mode = '' #eg dynamic, shuffle, etc.
-        # Bascially, anything specific to this TrackDB could be stored 
-        # here. This also allows easy forwards/backwards conpatibility
-        # as new attributes can be stored here without older versions
-        # needing to be aware of them.
-
 class TrackDB:
     """
         Manages a track database. 
 
         Allows you to add, remove, retrieve, search, save and load
-        L{media.Track} objects.
+        Track objects.
 
-        This particular implementation is done using L{pickle}
+        This particular implementation is done using pickle
     """
     def __init__(self, name='', location=None, pickle_attrs=[]):
+        """
+            Sets up the trackDB.
+
+            name:   The name of this TrackDB. [string]
+            location:   Path to a file where this trackDB
+                    should be stored. [string]
+            pickle_attrs:   A list of attributes to store in the
+                    pickled representation of this object. All
+                    attributes listed must be built-in types, with
+                    one exception: If the object contains the phrase
+                    'tracks' in its name it may be a list or dict
+                    or Track objects. [list of strings]
+        """
         self.tracks = dict()
         self.name = name
         self.location = location
         self.pickle_attrs = pickle_attrs
-        self.pickle_attrs = ['tracks', 'name']
+        self.pickle_attrs += ['tracks', 'name']
 
         if location:
             self.load_from_location(location)
 
     def set_name(self, name):
+        """
+            Sets the name of this TrackDB
+
+            name:   The new name. [string]
+        """
         self.name = name
 
     def get_name(self):
+        """
+            Gets the name of this TrackDB
+
+            returns: The name. [string]
+        """
         return self.name
 
     def load_from_location(self, location=None):
         """
-            Loads track data from a pickle location
+            Restores TrackDB state from the pickled representation
+            stored at the specified location.
 
-            @type  location: str
-            @param location: The location of the location
+            location: the location to load the data from [string]
         """
         if not location:
             location = self.location
+        if not location:
+            raise AttributeError("You did not specify a location to save the db")
+
         try:
             f = open(location, 'rb')
             pdata = pickle.load(f)
@@ -143,21 +150,13 @@ class TrackDB:
 
     def save_to_location(self, location=None):
         """
-            Saves track data to a pickle location.
-
-            @type  location: str
-            @param location: The location of a location.  This is optional, and if
-                         none is specified, it will use the location location
-                         passed into the constructor
-
-            @type  data: list
-            @param data: a list of data items to store as attibutes of
-                PickleData. All items must be pickleable.
+            Saves a pickled representation of this TrackDB to the 
+            specified location.
+            
+            location: the location to save the data to [string]
         """
-
         if not location:
             location = self.location
-
         if not location:
             raise AttributeError("You did not specify a location to save the db")
 
@@ -189,32 +188,27 @@ class TrackDB:
         """
             Adds a track to the database of tracks
 
-            @type  track: L{media.Track} object
-            @param track: The track you want to add to the database
+            track: The Track to add [Track]
         """
-    
         self.tracks[track.get_loc()] = track
+        event.log_event("track_added", self, track.get_loc())
 
     def remove(self, track):
         """
             Removes a track from the database
 
-            @type  track: L{media.Track} object
-            @param track: The track you want to remove
+            track: the Track to remove [Track]    
         """
-
-        if track.loc in self.tracks:
+        if track.get_loc() in self.tracks:
             del self.tracks[track]
+            event.log_event("track_removed", self, track.get_loc()
 
     def search(self, keyword, sort_field=None):
         """
-            Searches the track database.
-        
-            @type   keyword: str
-            @param  keyword: The string you want to match
-            
-            @rtype:  list
-            @return: A list of tracks matching the search terms
+            Simple search of the database
+
+            keyword: term to search for [string]
+            sort_field: field to sort by [string] #not functional
         """
         kw = keyword.lower()
 
@@ -227,4 +221,74 @@ class TrackDB:
                     break
 
         return tracks
+
+    def advanced_search(self, search, sort_field=None):
+        """
+            Advanced search of the database
+
+            search: the advanced search query [string]
+            sort_field: field to sort by [string]
+        """
+        pass # Not implemented yet
+        """
+        Search queries could be something like this:
+
+        days artist==flow NOT (album="Complete Best" OR album=OST)
+
+        ==disccetion of example==
+        days - general search query, matches any field
+        artist==flow - matches only the artist "flow"
+        NOT - exclude items that match the following term
+        () - parentheses can be used to group terms. without these the
+             NOT would only apply to album="Complete Best", with them,
+             it applies to everything inside the parentheses.
+        album="Complete Best" - matches albums that contain the exact 
+             phrase "Complete Best"
+        OR - causes results matching the terms on either side to be 
+             returned. the default linker for terms is AND.
+        album=OST - match albums containing "OST"
+
+        ==other examples==
+
+        artist=("rie fu" afromania) - matches the artists "rie fu" or 
+                                      afromania
+        
+
+        so, this query would match tracks by the artist "flow", that are 
+        in albums not containing "complete best" or "ost", and that 
+        contain the phrase "days" is any tag.
+
+        ==list of search operators==
+
+        =
+        syntax: <tag>=<phrase>
+        effect: match tracks having that phrase contained in that tag
+        
+        ==
+        syntax: <tag>==<phrase>
+        effect: match tracks a tag content exactly matching that phrase
+
+        NOT, !
+        syntax: NOT <term>
+        effect: exclude tracks matching the following term. only affects
+                one term after.
+
+        OR, |
+        syntax: <term> OR <term>
+        effect: include tracks matching either the terms before or after.
+                affects only one term before or after.
+
+        AND, &
+        syntax: <term> AND <term>
+        effect: include tracks matching both the terms before and after.
+                affects only one term before or after. This is the default
+                if nothing else is specified.
+
+        ()
+        syntax: ( <terms> ) or ( <phrases> )
+        effect: makes the enclosed terms appear as one term to outside
+                operators, or, use the make = or == match any of the 
+                contained phrases (ie. a=(b c) instead of a=b a=c)
+        
+        """
 

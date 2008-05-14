@@ -23,11 +23,10 @@ except:
 import pygst
 pygst.require('0.10')
 import gst
-
-from xl import common, event
 from mutagen.mp3 import HeaderNotFoundError
 
-from xl.media import flac, mp3, mp4, mpc, ogg, tta, wav, wma, wv
+import common, event
+from media import flac, mp3, mp4, mpc, ogg, tta, wav, wma, wv
 
 formats = {
     'aac': mp4,
@@ -53,7 +52,6 @@ SUPPORTED_MEDIA = ['.' + ext for ext in formats.iterkeys()]
 
 
 
-
 class Track:
     """
         Represents a single track.
@@ -61,7 +59,9 @@ class Track:
     def __init__(self, uri=None, _unpickles=None):
         """
             loads and initializes the tag information
-            Expects the path to the track as an argument
+            
+            uri: path to the track [string]
+            _unpickles: unpickle data [tuple] # internal use only!
         """
         self.tags = dict(map(lambda x: (x, ''), common.VALID_TAGS))
         self.info = {
@@ -85,10 +85,14 @@ class Track:
     def set_loc(self, loc):
         """
             Sets the location. It is always in unicode.
+
             If the value is not unicode, convert it into unicode using some
             default mapping. This way, when we want to access the file, we
             decode it back into the ascii and don't worry about botched up
-            characters (ie the value should be exactly identical to the one given)
+            characters (ie the value should be exactly identical to the 
+            one given)
+
+            loc: the location [string]
         """
         self.info['loc'] = common.to_unicode(loc, 
                 common.get_default_encoding())
@@ -96,26 +100,46 @@ class Track:
     def get_loc(self):
         """
             Gets the location as unicode (might contain garbled characters)
+
+            returns: the location [string]
         """
         return self.info['loc']
 
     def get_loc_for_io(self):
         """
-            Gets the location as ascii. Should always be correct, see set_loc.
+            Gets the location as ascii. Should always be correct, see 
+            set_loc.
+
+            returns: the location [string]
         """
         return self.info['loc'].encode(common.get_default_encoding())
 
 
     def _pickles(self):
+        """
+            returns a data repr of the track suitable for pickling
+
+            internal use only please
+
+            returns: (tags, info) [tuple of dicts]
+        """
         return deepcopy((self.tags, self.info))
 
     def _unpickles(self, pickle_str):
+        """
+            restores the state from the pickle-able repr
+
+            internal use only please
+
+            pickle_str: the pickle repr [tuple of dicts]
+        """
         self.tags, self.info = pickle_str
 
     def get_tag(self, tag):
         """
             Common function for getting a tag.
-            Simplifies a list into a single string separated by " / ".
+            
+            tag: tag to get [string]
         """
         values = self.tags.get(tag)
         if values:
@@ -127,7 +151,10 @@ class Track:
     def set_tag(self, tag, values, append=False):
         """
             Common function for setting a tag.
-            Expects a list (even for a single value)
+            
+            tag: tag to set [string]
+            values: list of values for the tag [list]
+            append: whether to append to existing values [bool]
         """
         if not isinstance(values, list): values = [values]
         # filter out empty values and convert to unicode

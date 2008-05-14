@@ -1,0 +1,17 @@
+
+gui - implement the GUI!
+
+collections-manager - create a system for managing all Collections
+
+auto-sync - use event system to allow syncing of track info changes among the various parts automatically (depends: collections-manager)
+
+library-watching - allow watching a Library for updates (periodic or real-time)
+
+xspf-playlists - support xspf playlists fully
+
+playlist-search - support searching playlists, returning the results in 
+order
+
+custom-stemming - allow trimming of 'A', not just 'The'
+
+keyboard-shortcuts - allow more control via keyoard, eg. pressing 'Enter' in collection pane should add selection to current playlist (depends: gui)

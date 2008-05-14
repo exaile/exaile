@@ -146,44 +146,49 @@ use this to plan object layout, interactions, etc. It should also be kept
 updated as items are implemented, since it can then serve as rudimentary
 API documentation.
 
+key:
+ -! not implemented
+
 general:
  - use signals to notify about object changes (track info updates in all 
        places in real time!)
 
 song management:
- - xl/library.py # changed from track.py, because often "track" is a name conflict
+ - xl/trackdb.py 
    - classes
      - TrackDB - database of tracks (pickle, sqlite)
-       - signals
+       - events
          - track_added
          - track_removed
        - methods
-         - search(query [, fields]) - search the database, returns a 
+         - set_name(name) - sets the name of this TrackDB
+         - get_name() - gets the name of this TrackDB
+         - load_from_location([location]) - restores the TrackDB
+                from the pickled representation stored at location.
+         - save_to_location([location]) - saves a pickled repr of
+                this trackdb to the specified location.
+         -! search(query [, fields]) - search the database, returns a 
                list of Track objects
-         - advanced_search(query) - allows more-specific queries 
+         -! advanced_search(query [, fields]) - allows more-specific queries 
          - add(track) - add a Track to the DB
          - remove(track) - remove a track from the DB
-    # the follwing may not be neccesary, I think the old one can
-    # work with only minor modifications.
+
+ - xl/track.py
      - Track 
-       - signals
-         - info_updated
+       - events
+         - track_updated
        - methods
-         - is_editable() - whether this track's data can be edited or not
-         - load_from_file([filename]) - reloads tags from file, either the 
-               specified one or one saved in the object
-         - _hold() - stop auto-syncing changes to the TrackDB
-         - _commit() - resume auto-syncing changes to the TrackDB, and sync
-               any changes that were pending during _hold()
+         - set_loc(loc) - sets the file location
+         - get_loc() - gets the file locaion
+         - get_loc_for_io() - gets the file location in ascii
+         - get_tag(tag) - gets the contents of a tag
+         - set_tag(tag, values [,append]) - sets the contents of a tag
+         - write_tags() - save tags to the file
+         - read_tags() - read tags from the file
        - notes
-         - use python's object customizing abilities to support 
+         - uses python's object customizing abilities to support 
                getting/setting attibutes via Track[attr] 
-         - changes made are synced back to the TrackDB and file 
-               automatically 
-         - will need some shenangling to handle different file types, 
-               especially multi-file ones like cue/bin
-         - current pickle-based TrackDB will need work to get auto-sync
-               working efficiently
+
  - xl/collection.py
    - classes
      - Collection - based on TrackDB, adds ability to watch directories 
@@ -195,13 +200,13 @@ song management:
          - remove_library(library) - remove a Library
      - Library - watch a directory for changes and sync them to the 
            associated Collection
-       - signals
-         - filesystem_changed
+       - events
+         -! filesystem_changed (necessary?)
        - methods
          - set_location(path) - set the watched path
          - rescan(path) - force a scan of the watched path
-         - set_realtime(bool) - watch in real time or not (using pynotify? gamin?)
-         - set_rescan_interval(interval) - time between automatic 
+         -! set_realtime(bool) - watch in real time or not (using pynotify? gamin?)
+         -! set_rescan_interval(interval) - time between automatic 
              rescans - has no effect if realtime is on
        - notes
          - need to be careful, we probably shouldn't inotify a mounted 
@@ -211,19 +216,31 @@ playlists:
  - xl/playlist.py
    - methods
      - save_to_m3u(playlist, path)
-     - import_from_m3u(path)
-     - save_to_pls(playlist, path)
-     - import_from_pls(path)
+     -! import_from_m3u(path)
+     -! save_to_pls(playlist, path)
+     -! import_from_pls(path)
+     -! save_to_xspf(playlist, path)
+     -! import_from_xspf(path)
    - classes
      - Playlist - inherits from TrackDB, adds ordered list of Track Objects
-       - get_tracks() - returns the list of Track objects
-       - remove_tracks(tracks | posrange) - removes all Track objects in 
-           the given list of Track objects and position numbers
-       - add_tracks(tracks [,pos]) - add the given list of tracks, 
-           at the given pos (default: append)
-     - SmartPlaylist - inherits from Playlist - gets tracks from a 
+       - methods
+         - get_tracks() - returns the list of Track objects
+         - remove_track(index) - remove the specified Track
+         - remove_tracks(start, end) - removes all Track objects in 
+             the given list of Track objects and position numbers
+         - add_track(track [,pos]) - add the specified track
+         - add_tracks(tracks [,pos]) - add the given list of tracks
+         - get_current_pos() - get current playback index
+         - get_current() - get currently-playing track
+         - next() - moves to the next track in the playlist
+         - prev() - moves to the previous track in the playlist
+         -! search
+         -! advanced_search
+       - events
+         -! position_changed
+     -! SmartPlaylist - inherits from Playlist - gets tracks from a 
            Collection(s), updates in real time
-       - signals
+       - events
          - updated
        - methods
          - add_collection(collection)
@@ -232,7 +249,7 @@ playback:
  - xl/player.py
    - classes
      - Player - plays songs
-       - signals
+       - events
          - playback_start
          - playback_end
          - playback_paused
@@ -254,7 +271,7 @@ covers:
  - xl/covers.py
    - classes
      - Cover - a cover
-       - signals 
+       - events 
          - updated
        - methods
          - get_full_cover() - returns the full-sized image of the cover

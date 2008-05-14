@@ -57,8 +57,10 @@ class EventManager:
         for call in callbacks:
             call.__call__(event.type, event.object, event.data)
 
+    #FIXME: this should use an idle_add style system to avoid 
+    # spawning threads
+    @common.threaded
     def emit_async(self, event):
-         
         self.emit(event)
 
     def add_callback(self, function, type=None, object=None):

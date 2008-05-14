@@ -203,23 +203,30 @@ class TrackDB:
             del self.tracks[track]
             event.log_event("track_removed", self, track.get_loc())
 
-    def search(self, keyword, sort_field=None):
+    def search(self, phrase, sort_field=None):
         """
             Simple search of the database
 
-            keyword: term to search for [string]
+            phrase: terms to search for [string]
             sort_field: field to sort by [string] #not functional
         """
-        kw = keyword.lower()
+        words = phrase.lower().split()
 
         tracks = []
-        for k, track in self.tracks.iteritems():
-            for item in SEARCH_ITEMS:
-                v = track[item].lower()
-                if v.find(kw) > -1:
-                    tracks.append(track)
+        for track in self.tracks.itervalues():
+            broken = False
+            for kw in words:
+                broke = False
+                for item in SEARCH_ITEMS:
+                    v = track[item].lower()
+                    if kw in v:
+                        broke = True
+                        break
+                if not broke:
+                    broken = True
                     break
-
+            if not broken:
+                tracks.append(track)
         return tracks
 
     def advanced_search(self, search, sort_field=None):
@@ -227,7 +234,7 @@ class TrackDB:
             Advanced search of the database
 
             search: the advanced search query [string]
-            sort_field: field to sort by [string]
+            sort_field: field to sort by [string] #not functional
         """
         def tokenize(search):
             """ tokenize a search query """
@@ -302,6 +309,24 @@ class TrackDB:
 
             return red(tokens)
 
+        def optimize_tokens(tokens):
+            """ optimizes token order for fast search """
+            l1 = []
+            l2 = []
+            l3 = []
+
+            for token in tokens:
+                if type(token) == str and "=" in token:
+                    l1.append(token)
+                elif type(token) == str and "=" not in token:
+                    l2.append(token)
+                else:
+                    l3.append(token)
+
+            tokens = l1 + l2 + l3
+            return tokens
+                                
+
         def do_search(tokens, current_list):
             """ search for tracks by using the parsed tokens """
             new_list = {}
@@ -360,77 +385,8 @@ class TrackDB:
 
         
         tokens = tokenize(search)
+        tokens = optimize_tokens(tokens)
         results = do_search(tokens, self.tracks).values()
 
         return results
-
-        """
-        Search queries could be something like this:
-
-        days artist==flow NOT (album="Complete Best" OR album=OST)
-
-        ==disccetion of example==
-        days - general search query, matches any field
-        artist==flow - matches only the artist "flow"
-        NOT - exclude items that match the following term
-        () - parentheses can be used to group terms. without these the
-             NOT would only apply to album="Complete Best", with them,
-             it applies to everything inside the parentheses.
-        album="Complete Best" - matches albums that contain the exact 
-             phrase "Complete Best"
-        OR - causes results matching the terms on either side to be 
-             returned. the default linker for terms is AND.
-        album=OST - match albums containing "OST"
-
-        ==other examples==
-
-        artist=("rie fu" afromania) - matches the artists "rie fu" or 
-                                      afromania
-        
-
-        so, this query would match tracks by the artist "flow", that are 
-        in albums not containing "complete best" or "ost", and that 
-        contain the phrase "days" is any tag.
-
-        ==list of search operators==
-
-        =
-        syntax: <tag>=<phrase>
-        effect: match tracks having that phrase contained in that tag
-        
-        ==
-        syntax: <tag>==<phrase>
-        effect: match tracks a tag content exactly matching that phrase
-
-        ", '
-        syntax: "<word> <word>"
-        effect: treat multiple words as one phrase instead of several
-
-        NOT, !
-        syntax: NOT <term>
-        effect: exclude tracks matching the following term. only affects
-                one term after.
-
-        OR, |
-        syntax: <term> OR <term>
-        effect: include tracks matching either the terms before or after.
-                affects only one term before or after.
-
-        AND, &
-        syntax: <term> AND <term>
-        effect: include tracks matching both the terms before and after.
-                affects only one term before or after. This is the default
-                if nothing else is specified.
-
-        ()
-        syntax: ( <terms> ) or ( <phrases> )
-        effect: makes the enclosed terms appear as one term to outside
-                operators, or, use to make = or == match more than one
-                phrase (eg.  a=(b OR c)  instead of  a=b OR a=c  )
-        
-        ==misc notes==
-        search terms are case-insensitive, but operators are not. thus,
-        "or" is a phrase while "OR" is an operator.
-
-        """
 

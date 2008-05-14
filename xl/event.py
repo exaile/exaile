@@ -14,6 +14,7 @@
 
 import threading
 
+
 EVENT_MANAGER = None
 IDLE_MANAGER  = None
 
@@ -57,11 +58,9 @@ class EventManager:
         for call in callbacks:
             call.__call__(event.type, event.object, event.data)
 
-    #FIXME: this should use an idle_add style system to avoid 
-    # spawning threads
-    @common.threaded
+    #FIXME: we probably shouldn't use the global idle_add for this
     def emit_async(self, event):
-        self.emit(event)
+        idle_add(self.emit, event)
 
     def add_callback(self, function, type=None, object=None):
         if not self.callbacks.has_key(type):

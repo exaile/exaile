@@ -201,7 +201,7 @@ class TrackDB:
         """
         if track.get_loc() in self.tracks:
             del self.tracks[track]
-            event.log_event("track_removed", self, track.get_loc()
+            event.log_event("track_removed", self, track.get_loc())
 
     def search(self, keyword, sort_field=None):
         """
@@ -229,7 +229,149 @@ class TrackDB:
             search: the advanced search query [string]
             sort_field: field to sort by [string]
         """
-        pass # Not implemented yet
+        def tokenize(search):
+            """ tokenize a search query """
+
+            # convert bool ops to symbols
+            search = search.replace("|", " | ")
+            search = search.replace("!", " ! ")
+            search = search.replace("&", " & ")
+            search = search.replace(" OR ", " | ")
+            search = search.replace(" NOT ", " ! ")
+            search = search.replace(" AND ", " & ")
+            search = search.replace("(", " ( ")
+            search = search.replace(")", " ) ")
+
+            replaces = [ ("  ", " "),
+                    (" =", "="),
+                    ("= ", "=")]
+            oldsearch = search
+            for pair in replaces:
+                while True:
+                    search = search.replace(pair[0], pair[1])
+                    if search == oldsearch:
+                        break
+                    else:
+                        oldsearch = search
+
+            search = search.lower()
+            tokens = search.split(" ")
+
+            etokens = []
+            counter = 0
+            while counter < len(tokens):
+                if '"' in tokens[counter]:
+                    tk = tokens[counter] + " " + tokens[counter+1]
+                    tk.replace('"', "")
+                    etokens.append(tk)
+                    counter += 2
+                else:
+                    if tokens[counter].strip() is not "":
+                        etokens.append(tokens[counter])
+                    counter += 1
+            tokens = etokens
+
+            def red(tokens):
+                if tokens == []:
+                    return []
+                elif "(" in tokens:
+                    start = tokens.index("(")
+                    end = tokens.index(")")
+                    before = tokens[:start]
+                    inside = red(tokens[start+1:end])
+                    after = tokens[end+1:]
+                    tokens = before + [["(",inside]] + after
+                elif "!" in tokens:
+                    start = tokens.index("!")
+                    end = start+2
+                    before = tokens[:start]
+                    inside = tokens[start+1:end]
+                    after = tokens[end:]
+                    tokens = before + [["!", inside]] + after
+                elif "|" in tokens:
+                    start = tokens.index("|")
+                    inside = [tokens[start-1], tokens[start+1]]
+                    before = tokens[:start-1]
+                    after = tokens[start+2:]
+                    tokens = before + [["|",inside]] + after
+                else:
+                    return tokens
+
+                return red(tokens)
+
+            return red(tokens)
+
+        def do_search(tokens, current_list):
+            new_list = []
+            try:
+                token = tokens[0]
+            except IndexError:
+                return current_list
+
+            if type(token) == list:
+                if len(token) == 1:
+                    token = token[0]
+                subtoken = token[0]
+                if subtoken == "!":
+                    to_remove = do_search(token[1], current_list)
+                    for track in current_list:
+                        if track not in to_remove:
+                            new_list.append(track)
+                elif subtoken == "|":
+                    new_list = do_search([token[1][0]], current_list)
+                    new_list += do_search([token[1][1]], current_list)
+                elif subtoken == "(":
+                    new_list = do_search(token[1], current_list)
+                else:
+                    print "whoops!"
+                    return current_list
+            else:
+                if "==" in token:
+                    tag, content = token.split("==")
+                    content = content.strip('"')
+                    for tr in current_list:
+                        try:
+                            if tr[tag].lower() == content:
+                                new_list.append(tr)
+                        except:
+                            pass
+                elif "=" in token:
+                    tag, content = token.split("=")
+                    content = content.strip('"')
+                    for tr in current_list:
+                        try:
+                            if content in tr[tag].lower():
+                                new_list.append(tr)
+                        except:
+                            pass
+                else:
+                    content = token.strip('"')
+                    for tr in current_list:
+                        for item in SEARCH_ITEMS:
+                            try:
+                                if content in tr[item].lower():
+                                    new_list.append(tr)
+                            except:
+                                pass
+
+            return do_search(tokens[1:], new_list)
+
+        
+        def remove_dupes(tracks):
+            new_tracks = []
+
+            for track in tracks:
+                if track not in new_tracks:
+                    new_tracks.append(track)
+
+            return new_tracks
+
+        tokens = tokenize(search)
+        results = do_search(tokens, self.tracks.values())
+        results = remove_dupes(results)
+
+        return results
+
         """
         Search queries could be something like this:
 
@@ -268,6 +410,10 @@ class TrackDB:
         syntax: <tag>==<phrase>
         effect: match tracks a tag content exactly matching that phrase
 
+        ", '
+        syntax: "<word> <word>"
+        effect: treat multiple words as one phrase instead of several
+
         NOT, !
         syntax: NOT <term>
         effect: exclude tracks matching the following term. only affects
@@ -287,8 +433,12 @@ class TrackDB:
         ()
         syntax: ( <terms> ) or ( <phrases> )
         effect: makes the enclosed terms appear as one term to outside
-                operators, or, use the make = or == match any of the 
-                contained phrases (ie. a=(b c) instead of a=b a=c)
+                operators, or, use to make = or == match more than one
+                phrase (eg.  a=(b OR c)  instead of  a=b OR a=c  )
         
+        ==misc notes==
+        search terms are case-insensitive, but operators are not. thus,
+        "or" is a phrase while "OR" is an operator.
+
         """
 

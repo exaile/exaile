@@ -248,6 +248,11 @@ playlists:
 playback:
  - xl/player.py
    - classes
+     - PlayQueue - manages the queue
+       - methods
+         - set_current_playlist(playlist) - set the current playlist
+         - set_current_pl_track(track) - set the current playlist track
+         - play() - start playback of the queue
      - Player - plays songs
        - events
          - playback_start
@@ -263,66 +268,66 @@ playback:
          - get_time() - returns current time in seconds
          - is_playing() - whether anything is currently playing (even 
                if paused)
-         - is_paused()
-         - seek(value, wait=True)
+         - is_paused() - is playback paused?
+         - seek(value, wait=True) - seek to the given position
 
 
 covers:
- - xl/covers.py
-   - classes
-     - Cover - a cover
-       - events 
-         - updated
-       - methods
-         - get_full_cover() - returns the full-sized image of the cover
-         - get_sized_image(size) - returns the cover image scaled to size 
+ -! xl/covers.py
+   -! classes
+     -! Cover - a cover
+       -! events 
+         -! updated
+       -! methods
+         -! get_full_cover() - returns the full-sized image of the cover
+         -! get_sized_image(size) - returns the cover image scaled to size 
                pixels
-     - CoverManager - manages the collection of covers
-       - methods
-         - get_cover(track) - gets the cover for the Track if it's in the 
+     -! CoverManager - manages the collection of covers
+       -! methods
+         -! get_cover(track) - gets the cover for the Track if it's in the 
                cover database (returns a Cover, defaults to the exaile logo)
-         - set_cover(track) - sets the cover for this Track
-         - fetch_cover(track) - fetches the cover for a Track using a 
+         -! set_cover(track) - sets the cover for this Track
+         -! fetch_cover(track) - fetches the cover for a Track using a 
                CoverStore
-         - get_stores() - returns a list of the CoverStore objects 
+         -! get_stores() - returns a list of the CoverStore objects 
                registered
-         - add_store(store [,pos]) - adds a new CoverStore at the 
+         -! add_store(store [,pos]) - adds a new CoverStore at the 
                specified location (defualt: append)
-         - remove_fetcher(pos) - removes the fetcher at position pos
-     - CoverStore - abstract class - defines a method of retrieving/storing 
+         -! remove_fetcher(pos) - removes the fetcher at position pos
+     -! CoverStore - abstract class - defines a method of retrieving/storing 
            covers
-       - methods
-         - get_cover(track) - returns False if no cover found
-         - set_cover(track)
-     - LibraryCoverStore - cover.jpg-style covers
-     - DatabaseCoverStore - covers from the database in ~/.exaile
-     - AmazonCoverStore - covers from Amazon.com
+       -! methods
+         -! get_cover(track) - returns False if no cover found
+         -! set_cover(track)
+     -! LibraryCoverStore - cover.jpg-style covers
+     -! DatabaseCoverStore - covers from the database in ~/.exaile
+     -! AmazonCoverStore - covers from Amazon.com
 
 lyrics:
- - xl/lyrics.py
-   - classes
-     - LyricsManager
-     - LyricsStore
-     - LyricsFetcher
-     - LyricwikiLyricsFetcher
+ -! xl/lyrics.py
+   -! classes
+     -! LyricsManager
+     -! LyricsStore
+     -! LyricsFetcher
+     -! LyricwikiLyricsFetcher
 
 media keys:
- - xl/keys.py
-   - classes
-     - MediaKeyManager
-     - MediaKeys
-       - methods
-         - is_changeable() - returns True if we know how to change
+ -! xl/keys.py
+   -! classes
+     -! MediaKeyManager
+     -! MediaKeys
+       -! methods
+         -! is_changeable() - returns True if we know how to change
                these key settings
-         - accepted_actions() - returns a list of actions the keybind
+         -! accepted_actions() - returns a list of actions the keybind
                manager can take, eg play. returns ['any'] for methods
                that allow arbitrary bindings.
-         - current_bindings() - returns a dictionary of action:key pairs
-         - set_binding(action, key) - sets the given key combo to do the
+         -! current_bindings() - returns a dictionary of action:key pairs
+         -! set_binding(action, key) - sets the given key combo to do the
                specified action.
-     - GnomeMediaKeys
-     - MetacityMediaKeys (really needs a better solution)
-     - WindowsMediaKeys
+     -! GnomeMediaKeys
+     -! MetacityMediaKeys (really needs a better solution)
+     -! WindowsMediaKeys
 
 
 event handling:

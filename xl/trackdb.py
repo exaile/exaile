@@ -98,6 +98,8 @@ class TrackDB:
         if location:
             self.load_from_location(location)
 
+        self.searcher = TrackSearcher(self.tracks)
+
     def set_name(self, name):
         """
             Sets the name of this TrackDB
@@ -230,163 +232,193 @@ class TrackDB:
         return tracks
 
     def advanced_search(self, search, sort_field=None):
+        return self.searcher.search(search)
+
+
+class TrackSearcher:
+    def __init__(self, tracks=dict()):
+        self.tracks = tracks
+        self.tokens = None
+
+    def set_tracks(self, tracks):
         """
-            Advanced search of the database
-
-            search: the advanced search query [string]
-            sort_field: field to sort by [string] #not functional
+            Sets the tracks dict to use
         """
-        def tokenize(search):
-            """ tokenize a search query """
+        self.tracks = tracks
 
-            # convert bool ops to symbols
-            search = search.replace("|", " | ")
-            search = search.replace("!", " ! ")
-            search = search.replace("&", " & ")
-            search = search.replace(" OR ", " | ")
-            search = search.replace(" NOT ", " ! ")
-            search = search.replace(" AND ", " & ")
-            search = search.replace("(", " ( ")
-            search = search.replace(")", " ) ")
-
-            replaces = [ ("  ", " "),
-                    (" =", "="),
-                    ("= ", "=")]
-            oldsearch = search
-            for pair in replaces:
-                while True:
-                    search = search.replace(pair[0], pair[1])
-                    if search == oldsearch:
-                        break
-                    else:
-                        oldsearch = search
-
-            search = search.lower()
-            tokens = search.split(" ")
-
-            etokens = []
-            counter = 0
-            while counter < len(tokens):
-                if '"' in tokens[counter]:
-                    tk = tokens[counter] + " " + tokens[counter+1]
-                    tk.replace('"', "")
-                    etokens.append(tk)
-                    counter += 2
-                else:
-                    if tokens[counter].strip() is not "":
-                        etokens.append(tokens[counter])
-                    counter += 1
-            tokens = etokens
-
-            def red(tokens):
-                """ reduce tokens to a parsable format """
-                if tokens == []:
-                    return []
-                elif "(" in tokens:
-                    start = tokens.index("(")
-                    end = tokens.index(")")
-                    before = tokens[:start]
-                    inside = red(tokens[start+1:end])
-                    after = tokens[end+1:]
-                    tokens = before + [["(",inside]] + after
-                elif "!" in tokens:
-                    start = tokens.index("!")
-                    end = start+2
-                    before = tokens[:start]
-                    inside = tokens[start+1:end]
-                    after = tokens[end:]
-                    tokens = before + [["!", inside]] + after
-                elif "|" in tokens:
-                    start = tokens.index("|")
-                    inside = [tokens[start-1], tokens[start+1]]
-                    before = tokens[:start-1]
-                    after = tokens[start+2:]
-                    tokens = before + [["|",inside]] + after
-                else:
-                    return tokens
-
-                return red(tokens)
-
-            return red(tokens)
-
-        def optimize_tokens(tokens):
-            """ optimizes token order for fast search """
-            l1 = []
-            l2 = []
-            l3 = []
-
-            for token in tokens:
-                if type(token) == str and "=" in token:
-                    l1.append(token)
-                elif type(token) == str and "=" not in token:
-                    l2.append(token)
-                else:
-                    l3.append(token)
-
-            tokens = l1 + l2 + l3
-            return tokens
-                                
-
-        def do_search(tokens, current_list):
-            """ search for tracks by using the parsed tokens """
-            new_list = {}
-            try:
-                token = tokens[0]
-            except IndexError:
-                return current_list
-
-            if type(token) == list:
-                if len(token) == 1:
-                    token = token[0]
-                subtoken = token[0]
-                if subtoken == "!":
-                    to_remove = do_search(token[1], current_list)
-                    for l,track in current_list.iteritems():
-                        if l not in to_remove:
-                            new_list[l]=track
-                elif subtoken == "|":
-                    new_list.update(do_search([token[1][0]], current_list))
-                    new_list.update(do_search([token[1][1]], current_list))
-                elif subtoken == "(":
-                    new_list = do_search(token[1], current_list)
-                else:
-                    print "whoops!"
-                    return current_list
-            else:
-                if "==" in token:
-                    tag, content = token.split("==")
-                    content = content.strip('"')
-                    for l,tr in current_list.iteritems():
-                        try:
-                            if tr[tag].lower() == content:
-                                new_list[l]=tr
-                        except:
-                            pass
-                elif "=" in token:
-                    tag, content = token.split("=")
-                    content = content.strip('"')
-                    for l,tr in current_list.iteritems():
-                        try:
-                            if content in tr[tag].lower():
-                                new_list[l]=tr
-                        except:
-                            pass
-                else:
-                    content = token.strip('"')
-                    for l,tr in current_list.iteritems():
-                        for item in SEARCH_ITEMS:
-                            try:
-                                if content in tr[item].lower():
-                                    new_list[l]=tr
-                            except:
-                                pass
-
-            return do_search(tokens[1:], new_list)
-
+    def set_query(self, query):
+        """
+            Set the search query
+        """
+        self.tokens = self.tokenize_query(query)
         
-        tokens = tokenize(search)
-        tokens = optimize_tokens(tokens)
-        results = do_search(tokens, self.tracks).values()
+    def tokenize_query(self, search):
+        """ 
+            tokenizes a search query 
+        """
+        # convert bool ops to symbols
+        search = search.replace("|", " | ")
+        search = search.replace("!", " ! ")
+        search = search.replace("&", " & ")
+        search = search.replace(" OR ", " | ")
+        search = search.replace(" NOT ", " ! ")
+        search = search.replace(" AND ", " & ")
+        search = search.replace("(", " ( ")
+        search = search.replace(")", " ) ")
 
-        return results
+        replaces = [ ("  ", " "),
+                (" =", "="),
+                ("= ", "=")]
+        oldsearch = search
+        for pair in replaces:
+            while True:
+                search = search.replace(pair[0], pair[1])
+                if search == oldsearch:
+                    break
+                else:
+                    oldsearch = search
 
+        search = search.lower()
+        tokens = search.split(" ")
+
+        etokens = []
+        counter = 0
+        while counter < len(tokens):
+            if '"' in tokens[counter]:
+                tk = tokens[counter] + " " + tokens[counter+1]
+                tk.replace('"', "")
+                etokens.append(tk)
+                counter += 2
+            else:
+                if tokens[counter].strip() is not "":
+                    etokens.append(tokens[counter])
+                counter += 1
+        tokens = etokens
+        tokens = self.__red(tokens)
+        tokens = self.__optimize_tokens(tokens)
+        return tokens
+
+    def __optimize_tokens(self, tokens):
+        """ 
+            optimizes token order for fast search 
+        """
+        l1 = []
+        l2 = []
+        l3 = []
+
+        for token in tokens:
+            if type(token) == str and "=" in token:
+                l1.append(token)
+            elif type(token) == str and "=" not in token:
+                l2.append(token)
+            else:
+                l3.append(token)
+
+        tokens = l1 + l2 + l3
+        return tokens
+
+    def __red(self, tokens):
+        """ 
+            reduce tokens to a parsable format 
+        """
+        if tokens == []:
+            return []
+        elif "(" in tokens:
+            start = tokens.index("(")
+            end = tokens.index(")")
+            before = tokens[:start]
+            inside = self.__red(tokens[start+1:end])
+            after = tokens[end+1:]
+            tokens = before + [["(",inside]] + after
+        elif "!" in tokens:
+            start = tokens.index("!")
+            end = start+2
+            before = tokens[:start]
+            inside = tokens[start+1:end]
+            after = tokens[end:]
+            tokens = before + [["!", inside]] + after
+        elif "|" in tokens:
+            start = tokens.index("|")
+            inside = [tokens[start-1], tokens[start+1]]
+            before = tokens[:start-1]
+            after = tokens[start+2:]
+            tokens = before + [["|",inside]] + after
+        else:
+            return tokens
+
+        return self.__red(tokens)
+
+    def search(self, query, tracks=None):
+        """
+            executes a search on the passed query and (optionally) tracks
+        """
+        if not tracks:
+            tracks = self.tracks
+        tokens = self.tokenize_query(query)
+        return self.__do_search(tokens, tracks)
+
+    def get_results(self):
+        """
+            get the results for the stored search query and tracks
+        """
+        return self.__do_search(self.tokens, self.tracks)
+
+    def __do_search(self, tokens, current_list):
+        """ 
+            search for tracks by using the parsed tokens 
+        """
+        new_list = {}
+        try:
+            token = tokens[0]
+        except IndexError:
+            return current_list
+
+        if type(token) == list:
+            if len(token) == 1:
+                token = token[0]
+            subtoken = token[0]
+            if subtoken == "!":
+                to_remove = self.__do_search(token[1], current_list)
+                for l,track in current_list.iteritems():
+                    if l not in to_remove:
+                        new_list[l]=track
+            elif subtoken == "|":
+                new_list.update(
+                        self.__do_search([token[1][0]], current_list))
+                new_list.update(
+                        self.__do_search([token[1][1]], current_list))
+            elif subtoken == "(":
+                new_list = self.__do_search(token[1], current_list)
+            else:
+                print "whoops!"
+                return current_list
+        else:
+            if "==" in token:
+                tag, content = token.split("==")
+                content = content.strip('"')
+                for l,tr in current_list.iteritems():
+                    try:
+                        if tr[tag].lower() == content:
+                            new_list[l]=tr
+                    except:
+                        pass
+            elif "=" in token:
+                tag, content = token.split("=")
+                content = content.strip('"')
+                for l,tr in current_list.iteritems():
+                    try:
+                        if content in tr[tag].lower():
+                            new_list[l]=tr
+                    except:
+                        pass
+            else:
+                content = token.strip('"')
+                for l,tr in current_list.iteritems():
+                    for item in SEARCH_ITEMS:
+                        try:
+                            if content in tr[item].lower():
+                                new_list[l]=tr
+                        except:
+                            pass
+
+        return self.__do_search(tokens[1:], new_list)

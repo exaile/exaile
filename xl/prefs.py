@@ -19,7 +19,7 @@ from gettext import gettext as _
 import pygtk, common
 pygtk.require('2.0')
 import gtk, gtk.glade
-import cd_import, xlmisc, audioscrobbler, burn, advancededitor
+import cd_import, xlmisc, burn, advancededitor
 import xl.path
 
 #try:
@@ -787,8 +787,7 @@ class Preferences(object):
         if not password: return True
         user = xml.get_widget('prefs_lastfm_user').get_text()
 
-        thread.start_new_thread(audioscrobbler.get_scrobbler_session,
-            (self.exaile, user, password, True))
+        self.exaile.scrobbler_login(user, password)
         return True
 
     def setup_gamin(self, widget):

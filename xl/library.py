@@ -747,7 +747,8 @@ class PopulateThread(threading.Thread):
         db = self.db
 
         in_library = False
-        tr = self.exaile.all_songs.for_path(loc)
+        tr = self.exaile.all_songs.for_path(unicode(loc,
+            xlmisc.get_default_encoding()))
         if tr:
             in_library = True
 
@@ -762,7 +763,7 @@ class PopulateThread(threading.Thread):
             if not tr: new = True
             else: 
                new = False
-               time_added=tr.time_added
+               time_added = tr.time_added
             tr = media.read_from_path(loc)
             tr.blacklisted = bl
             if not tr: return

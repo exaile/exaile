@@ -18,9 +18,9 @@ import pygtk
 pygtk.require('2.0')
 
 import gtk, gobject, os, signal, sys, thread, pango, gtk.glade
-import xl.dbusinterface, time
+import xl.dbusinterface, time, datetime
 from gettext import gettext as _
-from xl import library, logger, media, audioscrobbler, equalizer, burn, common
+from xl import library, logger, media, equalizer, burn, common
 from xl import xlmisc, config, db, covers, player, prefs
 from xl import playlist as playlistmanager
 from xl.plugins import manager as pluginmanager, gui as plugingui
@@ -28,6 +28,11 @@ from xl.gui import playlist as trackslist
 from xl.gui import information, tray
 from xl.panels import collection, radio, playlists, files, device
 import random, gst, urllib
+from lib import scrobbler
+try:
+    import cPickle as pickle
+except ImportError:
+    import pickle
 
 def found_updates(exaile, found):
     message = _("The following plugins have new versions available for install."
@@ -157,6 +162,7 @@ class ExaileWindow(gobject.GObject):
         self.plugins_menu = xlmisc.Menu()
         self.rewind_track = 0
         self.player = player.ExailePlayer(self)
+        self.submit_track = None
         self.player.tag_func = self.tag_callback
         self.importer = xl.cd_import.CDImporter(self)
         self.audio_disc_page = None
@@ -229,11 +235,13 @@ class ExaileWindow(gobject.GObject):
         user = self.settings.get_str("lastfm/user", "")
         password = self.settings.get_crypted("lastfm/pass", "")
 
-        thread.start_new_thread(audioscrobbler.get_scrobbler_session,
-            (self, user, password))
+        self.player.connect('play-track', self.on_play_track)
+        self.player.connect('stop-track', self.on_stop_track)
+        if user and password:
+            self.scrobbler_login(user, password)
             
         # Try to load a saved last.fm cache
-        gobject.idle_add(audioscrobbler.load_cache)
+        self.scrobbler_load_cache()
         
         self.playlists_nb.connect('switch-page', self.page_changed)
         try:
@@ -1224,12 +1232,79 @@ class ExaileWindow(gobject.GObject):
                 rating=1)
             self.status.set_first(_("Submitting to Last.fm..."), 2000)
 
-            if self.settings.get_boolean('lastfm/submit', True):
-                audioscrobbler.submit_to_scrobbler(self, track)
+            if duration > 30 and self.settings.get_boolean('lastfm/submit', True):
+                self.submit_track = track
 
         self.emit('timer_update')
 
         return True
+
+    def on_play_track(self, player, track):
+        """
+            Called when playback of a track has started
+        """
+        self.submit_time = int(time.mktime(datetime.datetime.utcnow().timetuple()))
+        self.submit_track = None
+        scrobbler.now_playing(track.artist, track.title, track.album,
+            int(track.duration), track.track)
+
+    def on_stop_track(self, player, track):
+        """
+            Called when playback of a track has stopped
+        """
+        if not track or not self.submit_track: return
+        if track == self.submit_track:
+            self.submit_to_scrobbler(track)
+            self.submit_track = None
+
+    def scrobbler_load_cache(self):
+        """
+            Loads the audioscrobbler cache, if it exists
+        """
+        cache = xl.path.get_config('lastfm.db')
+        if os.path.isfile(cache):
+            h = open(cache, 'rb')
+            cache_data = pickle.load(h)
+            h.close()
+            scrobbler.SUBMIT_CACHE = cache_data
+
+            os.remove(cache)
+
+    def scrobbler_write_cache(self):
+        """
+            Saves scrobbler cache data
+        """
+        if scrobbler.SUBMIT_CACHE:
+            cache = xl.path.get_config('lastfm.db')
+            h = file(cache, 'wb')
+            pickle.dump(scrobbler.SUBMIT_CACHE, h, 2)
+            h.close()
+
+    @common.threaded
+    def scrobbler_login(self, user, password):
+        """
+            Logs in to audioscrobbler
+        """
+        try:
+            scrobbler.login(user, password, client=('exa', self.get_version()),
+                hashpw=True)
+        except Exception, e:
+            gobject.idle_add(self.status.set_first, _("Error logging into"
+                " audioscrobbler"), 3000)
+
+    @common.threaded
+    def submit_to_scrobbler(self, track):
+        """
+            Submits a track to audioscrobbler
+        """
+        if scrobbler.SESSION_ID:
+            try:
+                scrobbler.submit(track.artist, track.title, self.submit_time, 'P',
+                    '', int(track.duration), track.album, track.track, autoflush=True)
+            except:
+                gobject.idle_add(self.status.set_first, _("Error submitting"
+                    "to audioscrobbler"), 3000)
+        track.submitted = True
 
     def update_track_information(self, track='', returntrue=True):
         """
@@ -1828,7 +1903,7 @@ class ExaileWindow(gobject.GObject):
 
         # Write any tracks remaining in the last.fm cache to disk
         # for submission later.
-        audioscrobbler.write_cache()
+        self.scrobbler_write_cache()
 
         self.player.stop()
         self.cover_manager.stop_cover_thread()

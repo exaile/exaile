@@ -27,7 +27,7 @@ import urllib
 
 PLUGIN_NAME = _("LastFM Radio")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = "0.2.4"
+PLUGIN_VERSION = "0.2.5"
 PLUGIN_DESCRIPTION = _(r"""Allows for streaming via lastfm proxy.\n\nThis
 plugin is very beta and still doesn't work perfectly.""")
 PLUGIN_ENABLED = False
@@ -218,6 +218,11 @@ class LastFMDriver(radio.RadioDriver):
         self.load_genre(item)
 
     def load_genre(self, genre, rel=False):
+        if not PROXY.proxy_ready:
+            common.error(APP.window, _("The Last.FM Proxy has "
+                "not yet connected to last.fm.  Please wait "
+                "a moment and try again"))
+            return
         current = self.exaile.player.current
         if hasattr(current, 'lastfm_track'):
             current.album = "LastFM: %s" % str(genre)

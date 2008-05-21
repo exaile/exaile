@@ -546,7 +546,6 @@ class ExailePlayer(GSTPlayer):
 
         self.current = track
         self.exaile.update_track_information()
-        track.submitted = False
 
         self.emit('play-track', track)
 

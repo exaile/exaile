@@ -104,6 +104,7 @@ def check_dirs():
         os.mkdir(covers)
 
 def init():
+    global exaile
     if HELP:
         EXAILE_OPTIONS.print_help()
         sys.exit(0)

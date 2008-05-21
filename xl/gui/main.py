@@ -1230,7 +1230,6 @@ class ExaileWindow(gobject.GObject):
             track.submitted = True
             self.update_rating(track, plays=1,
                 rating=1)
-            self.status.set_first(_("Submitting to Last.fm..."), 2000)
 
             if duration > 30 and self.settings.get_boolean('lastfm/submit', True):
                 self.submit_track = track

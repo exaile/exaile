@@ -27,7 +27,7 @@ import urllib
 
 PLUGIN_NAME = _("LastFM Radio")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = "0.2.5"
+PLUGIN_VERSION = "0.2.6"
 PLUGIN_DESCRIPTION = _(r"""Allows for streaming via lastfm proxy.\n\nThis
 plugin is very beta and still doesn't work perfectly.""")
 PLUGIN_ENABLED = False

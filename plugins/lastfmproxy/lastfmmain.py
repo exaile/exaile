@@ -11,7 +11,7 @@ import string
 
 import config
 import lastfm
-import audioscrobbler
+from lib import scrobbler
 
 True = 1
 False = 0
@@ -635,7 +635,8 @@ class proxy:
 
             tracklen = int(int(track["duration"])/1000)
             if self.recordtoprofile:
-                self.audioscrobbler.nowplaying(track["creator"], track["title"], track["album"], tracklen)
+                self.audioscrobbler.now_playing(track["creator"], track["title"], 
+                    track["album"], tracklen)
 
             scrobbled = False
 
@@ -720,7 +721,10 @@ class proxy:
             if not scrobbled and self.recordtoprofile and not self.stop and not self.quit:
                 if tracklen > 30 and (time.time() - self.starttime) > tracklen / 2:
                     scrobbled = True
-                    self.audioscrobbler.submit(track["creator"], track["title"], track["album"], self.starttime, self.rating, tracklen, track["trackauth"])
+                    self.audioscrobbler.submit(artist=track["creator"], 
+                        track=track["title"], album=track["album"], time=self.starttime, 
+                        rating=self.rating, length=tracklen, source='L' + track['trackauth'], 
+                        autoflush=True)
 
         clientsock.close()
         self.streaming = 0
@@ -752,8 +756,7 @@ class proxy:
             s.close()
             return
 
-        self.audioscrobbler = audioscrobbler.audioscrobbler()
-        self.audioscrobbler.handshake(self.username, self.password, self.version)
+        self.audioscrobbler = scrobbler
 
         self.bookmarks = []
         try:

@@ -27,7 +27,7 @@ import urllib
 
 PLUGIN_NAME = _("LastFM Radio")
 PLUGIN_AUTHORS = ['Adam Olsen <arolsen@gmail.com>']
-PLUGIN_VERSION = "0.2.6"
+PLUGIN_VERSION = "0.2.7"
 PLUGIN_DESCRIPTION = _(r"""Allows for streaming via lastfm proxy.\n\nThis
 plugin is very beta and still doesn't work perfectly.""")
 PLUGIN_ENABLED = False
@@ -379,17 +379,17 @@ def initialize():
     port = settings.get_int('listenport', plugin=plugins.name(__file__),
         default=1881)
     config.listenport = port
-    config.username = settings.get_str('lastfmuser',
-        plugin=plugins.name(__file__),
-        default=settings.get_str('lastfm/user', ''))
-    config.password = settings.get_crypted('lastfmpass',
-        plugin=plugins.name(__file__),
-        default=settings.get_str('lastfm/pass', ''))
+#    config.username = settings.get_str('lastfmuser',
+#        plugin=plugins.name(__file__),
+#        default=settings.get_str('lastfm/user', ''))
+#    config.password = settings.get_crypted('lastfmpass',
+#        plugin=plugins.name(__file__),
+#        default=settings.get_str('lastfm/pass', ''))
 
-    if settings.get_boolean('lastfm_use_main', default=True,
-        plugin=plugins.name(__file__)):
-        config.username = settings.get_str('lastfm/user', '')
-        config.password = settings.get_crypted('lastfm/pass', '') 
+#    if settings.get_boolean('lastfm_use_main', default=True,
+#        plugin=plugins.name(__file__)):
+    config.username = settings.get_str('lastfm/user', '')
+    config.password = settings.get_crypted('lastfm/pass', '') 
 
     if not PLUGIN:
         PLUGIN = LastFMDriver(APP.pradio_panel)
@@ -453,10 +453,10 @@ def destroy():
     MENU_ITEM = None
     PLUGIN = None
 
-def use_main_toggled(box, user, password):
-    active = not box.get_active()
-    user.set_sensitive(active)
-    password.set_sensitive(active)
+#def use_main_toggled(box, user, password):
+#    active = not box.get_active()
+#    user.set_sensitive(active)
+#    password.set_sensitive(active)
 
 def quick_init():
     """
@@ -477,27 +477,27 @@ def configure():
         len(GLADE_XML_STRING))
 
     dialog = xml.get_widget('ConfigurationDialog')
-    use_main = xml.get_widget('lastfm_use_main')
-    lastfm_user = xml.get_widget('lastfm_user')
-    lastfm_pass = xml.get_widget('lastfm_pass')
+#    use_main = xml.get_widget('lastfm_use_main')
+#    lastfm_user = xml.get_widget('lastfm_user')
+#    lastfm_pass = xml.get_widget('lastfm_pass')
     lastfm_listen_port = xml.get_widget('lastfm_listen_port')
 
-    use_main.set_active(settings.get_boolean('use_main',
-        plugin=plugins.name(__file__), default=True))
+#    use_main.set_active(settings.get_boolean('use_main',
+#        plugin=plugins.name(__file__), default=True))
 
-    lastfm_user.set_text(settings.get_str('lastfmuser',
-        plugin=plugins.name(__file__),
-        default=settings.get_str('lastfm/user', '')))
-    lastfm_pass.set_text(settings.get_crypted('lastfmpass',
-        plugin=plugins.name(__file__),
-        default=settings.get_str('lastfm/pass', '')))
+#    lastfm_user.set_text(settings.get_str('lastfmuser',
+#        plugin=plugins.name(__file__),
+#        default=settings.get_str('lastfm/user', '')))
+#    lastfm_pass.set_text(settings.get_crypted('lastfmpass',
+#        plugin=plugins.name(__file__),
+#        default=settings.get_str('lastfm/pass', '')))
 
     lastfm_listen_port.set_text(settings.get_str('listenport',
         plugin=plugins.name(__file__), default=1881))
 
-    use_main.connect('toggled', lambda *e: use_main_toggled(use_main,
-        lastfm_user, lastfm_pass))
-    use_main_toggled(use_main, lastfm_user, lastfm_pass)
+#    use_main.connect('toggled', lambda *e: use_main_toggled(use_main,
+#        lastfm_user, lastfm_pass))
+#    use_main_toggled(use_main, lastfm_user, lastfm_pass)
 
     result = dialog.run()
     dialog.hide()
@@ -507,12 +507,12 @@ def configure():
             PROXY.quit = True
             PROXY.stop = True
             exaile.player.stop()
-        settings.set_boolean('use_main', use_main.get_active(),
-            plugin=plugins.name(__file__))
-        settings.set_str('lastfm_user', lastfm_user.get_text(), 
-            plugin=plugins.name(__file__))
-        settings.set_crypted('lastfm_pass', lastfm_pass.get_text(),
-            plugin=plugins.name(__file__))
+#        settings.set_boolean('use_main', use_main.get_active(),
+#            plugin=plugins.name(__file__))
+#        settings.set_str('lastfm_user', lastfm_user.get_text(), 
+#            plugin=plugins.name(__file__))
+#        settings.set_crypted('lastfm_pass', lastfm_pass.get_text(),
+#            plugin=plugins.name(__file__))
 
         settings.set_str('listenport', lastfm_listen_port.get_text(),
             plugin=plugins.name(__file__))

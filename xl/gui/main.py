@@ -162,7 +162,8 @@ class ExaileWindow(gobject.GObject):
         self.plugins_menu = xlmisc.Menu()
         self.rewind_track = 0
         self.player = player.ExailePlayer(self)
-        self.submit_track = None
+        self.submit_time_played = 0
+        self.submit_time = 0
         self.player.tag_func = self.tag_callback
         self.importer = xl.cd_import.CDImporter(self)
         self.audio_disc_page = None
@@ -1223,16 +1224,8 @@ class ExaileWindow(gobject.GObject):
                     (seconds // 60, seconds % 60,
                     remaining_seconds // 60, remaining_seconds % 60))
 
-
-        if (seconds > 240 or value > 50) and track.type != 'stream' and \
-            track.type != 'podcast' and self.player.is_playing() \
-            and not track.submitted: 
-            track.submitted = True
-            self.update_rating(track, plays=1,
-                rating=1)
-
-            if duration > 30 and self.settings.get_boolean('lastfm/submit', True):
-                self.submit_track = track
+        if not self.player.is_paused():
+            self.submit_time_played += 1
 
         self.emit('timer_update')
 
@@ -1242,8 +1235,8 @@ class ExaileWindow(gobject.GObject):
         """
             Called when playback of a track has started
         """
-        self.submit_time = int(time.mktime(datetime.datetime.utcnow().timetuple()))
-        self.submit_track = None
+        self.submit_time = int(time.mktime(datetime.datetime.now().timetuple()))
+        self.submit_time_played = 0
         scrobbler.now_playing(track.artist, track.title, track.album,
             int(track.duration), track.track)
 
@@ -1251,10 +1244,21 @@ class ExaileWindow(gobject.GObject):
         """
             Called when playback of a track has stopped
         """
-        if not track or not self.submit_track: return
-        if track == self.submit_track:
-            self.submit_to_scrobbler(track)
-            self.submit_track = None
+        if not track: return
+        if track.type == 'podcast' or track.type == 'stream': return
+
+        if self.submit_time_played > 240 or float(self.submit_time_played) > \
+            float(track.duration) / 2.0:
+            self.update_rating(track, plays=1, rating=1)
+
+            # check to see if this track should be submitted to audioscrobbler
+            if self.settings.get_boolean('lastfm/submit', True) \
+                and track.duration > 30:
+
+                xlmisc.log("[Last.FM]: Attempting to submit %s to last.fm" %
+                    track)
+                self.submit_to_scrobbler(track)
+                self.submit_time_played = 0
 
     def scrobbler_load_cache(self):
         """
@@ -1287,9 +1291,17 @@ class ExaileWindow(gobject.GObject):
         try:
             scrobbler.login(user, password, client=('exa', self.get_version()),
                 hashpw=True)
-        except Exception, e:
-            gobject.idle_add(self.status.set_first, _("Error logging into"
-                " audioscrobbler"), 3000)
+        except:
+            xlmisc.log("Error logging into audioscrobbler")
+            xlmisc.log_exception()
+
+        try:
+            if scrobbler.SUBMIT_CACHE:
+                xlmisc.log("[Last.FM]: Attempting to flush %d item(s) "
+                    "from scrobbler cache" % len(scrobbler.SUBMIT_CACHE))
+                scrobbler.flush()
+        except:
+            xlmisc.log_exception()
 
     @common.threaded
     def submit_to_scrobbler(self, track):

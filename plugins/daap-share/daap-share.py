@@ -122,8 +122,8 @@ class DaapConnection(object):
         self.all = library.TrackData()
         self.connected = False
         self.tracks = None
-        self.server = server
-        self.port = port
+        self.server = server.encode('ascii')
+        self.port = port.encode('ascii')
         self.name = name
         self.auth = False
         self.password = None

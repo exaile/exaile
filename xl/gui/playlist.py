@@ -131,19 +131,29 @@ class TracksListCtrl(gtk.VBox):
         self.tpm = None
         self.plugins_item = None
         self.setup_columns()
-
+        self.setup_events()
+        
         create_rating_images(self)
 
         self.show()
         
-        self.setup_events()
 
 
     def close_page(self):
         """
             Called when this page in the notebook is closed
         """
-        pass
+        #Save the playlist order to the db
+        cur = self.db.cursor()
+        sort_index = 0;
+        for track in self.songs:
+            if track.type == 'stream': continue
+            path_id = library.get_column_id(self.db, 'paths', 'name', track.loc)
+            self.db.execute("UPDATE playlist_items SET sort_index=? " \
+            "WHERE playlist_items.path=?" 
+                            , (sort_index,path_id) )
+            sort_index = sort_index + 1
+        self.db.commit()
 
     def drag_data_received(self, tv, context, x, y, selection, info, etime):
         """

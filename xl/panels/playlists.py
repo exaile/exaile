@@ -504,7 +504,7 @@ class PlaylistsPanel(object):
             playlist_id = library.get_column_id(self.db, 'playlists', 'name', playlist)
 
             rows = self.db.select('SELECT paths.name FROM playlist_items,paths '
-                'WHERE playlist_items.path=paths.id AND playlist=?',
+                'WHERE playlist_items.path=paths.id AND playlist=? ORDER BY playlist_items.sort_index',
                 (playlist_id,))
 
             songs = library.TrackData()
@@ -668,7 +668,7 @@ class PlaylistsPanel(object):
 
     def add_items_to_playlist(self, playlist, songs=None):
         """
-            Adds the selected tracks tot he playlist
+            Adds the selected tracks to the playlist
         """
         if type(playlist) == gtk.MenuItem:
             playlist = playlist.get_child().get_label()

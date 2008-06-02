@@ -603,6 +603,8 @@ class TrackEditor(object):
         dialog.add_buttons(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, \
             gtk.STOCK_OK, gtk.RESPONSE_OK)
         entry = gtk.Entry()
+        # Set the default text to the pattern currently selected
+        entry.set_text(self.tagsfrompath_cb.get_active_text())
         dialog.vbox.pack_start(entry, True, True)
         
         dialog.show_all()

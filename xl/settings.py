@@ -16,6 +16,8 @@ from ConfigParser import SafeConfigParser, NoSectionError, NoOptionError
 
 import os
 
+from xl import event
+
 TYPE_MAPPING = {
         'I': int,
         'S': str,
@@ -54,6 +56,7 @@ class SettingsManager(SafeConfigParser):
         except NoSectionError:
             self.add_section(section)
             self.set(section, key, value)
+        event.log_event('option_set', self, option)
 
     def get_option(self, option, default=None):
         """

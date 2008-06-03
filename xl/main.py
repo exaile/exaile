@@ -139,6 +139,7 @@ class Exaile:
         #self.gui.quit()
 
         self.collection.save_to_location()
+        self.collection.save_libraries()
 
         #TODO: save player, queue, playlists
 

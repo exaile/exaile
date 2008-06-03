@@ -13,6 +13,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 from xl import trackdb, media, track
+from settings import SettingsManager
 
 import os
 
@@ -27,9 +28,13 @@ class Collection(trackdb.TrackDB):
             args: see TrackDB
         """
         self.libraries = dict()
-        #pickle_attrs += ['libraries']
+        self.settings = SettingsManager.settings
         trackdb.TrackDB.__init__(self, location=location, 
                 pickle_attrs=pickle_attrs)
+        lib_paths = self.settings.get_option("collection/library_paths", "")
+        for l in lib_paths.split(":"):
+            if len(l.strip()) > 0:
+                self.add_library( Library(l) )
 
     def add_library(self, library):
         """
@@ -40,6 +45,7 @@ class Collection(trackdb.TrackDB):
         loc = library.get_location()
         if loc not in self.libraries.keys():
             self.libraries[loc] = library
+            library.set_collection(self)
         else:
             pass # TODO: raise an exception or something here
 
@@ -75,12 +81,20 @@ class Collection(trackdb.TrackDB):
         except AttributeError:
             pass
 
+    def save_libraries(self):
+        lib_paths = ""
+        for k, v in self.libraries.iteritems():
+            lib_paths += k + ":"
+        lib_paths = lib_paths[:-1]
+        self.settings.set_option("collection/library_paths", lib_paths)
+
+
 class Library:
     """
         Scans and watches a folder for tracks, and adds them to
         a Collection.
     """
-    def __init__(self, location, collection):
+    def __init__(self, location):
         """
             Sets up the Library
 
@@ -88,9 +102,8 @@ class Library:
             collection: the Collection to associate with [Collection]
         """
         self.location = location
-        self.collection = collection
 
-        self.collection.add_library(self)
+        self.collection = None
 
     def set_location(self, location):
         """
@@ -108,11 +121,17 @@ class Library:
         """
         return self.location
 
+    def set_collection(self, collection):
+        self.collection = collection
+
     def rescan(self):
         """
             Rescan the associated folder and add the contained files
             to the Collection
         """
+        if not self.collection:
+            return
+
         formats = media.formats.keys()
 
         for folder in os.walk(self.location):
@@ -124,8 +143,14 @@ class Library:
                 if tr._scan_valid == True:
                     self.collection.add(tr)
 
+    def is_realtime(self):
+        return False
+
     def set_realtime(self, bool):
         pass
+
+    def get_rescan_interval(self):
+        return 0
 
     def set_rescan_interval(self, interval):
         pass

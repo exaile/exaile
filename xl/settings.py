@@ -28,6 +28,7 @@ class SettingsManager(SafeConfigParser):
     """
         Manages exaile's settings
     """
+    settings = None
     def __init__(self, loc):
         """
             Sets up the SettingsManager. Expects a loc to a file
@@ -35,12 +36,13 @@ class SettingsManager(SafeConfigParser):
         """
         SafeConfigParser.__init__(self)
         self.loc = loc
-        
+
         try:
             self.read(self.loc)
         except:
             pass
 
+        SettingsManager.settings = self
 
     def set_option(self, option, value):
         """

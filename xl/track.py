@@ -26,7 +26,7 @@ import gst
 from mutagen.mp3 import HeaderNotFoundError
 
 import common, event
-from media import flac, mp3, mp4, mpc, ogg, tta, wav, wma, wv
+from xl.media import flac, mp3, mp4, mpc, ogg, tta, wav, wma, wv
 
 formats = {
     'aac': mp4,
@@ -225,6 +225,9 @@ class Track:
         return str(self) #for debugging, remove later
 
     def __str__(self):
+        """
+            returns a string representing the track
+        """
         title = self['title']
         album = self['album']
         artist = self['artist']

@@ -35,10 +35,9 @@ def get_sort_tuple(field, track):
         @rtype: tuple
         @return: a tuple containing the sortable items for a track
     """
-
-    items = [getattr(track, field)]
+    items = [track[field]]
     for item in SORT_ORDER:
-        items.append(getattr(track, item))
+        items.append(track[item])
 
     items.append(track)
     return tuple(items)
@@ -202,37 +201,17 @@ class TrackDB:
             track: the Track to remove [Track]    
         """
         if track.get_loc() in self.tracks:
-            del self.tracks[track]
+            del self.tracks[track.get_loc()]
             event.log_event("track_removed", self, track.get_loc())
 
     def search(self, phrase, sort_field=None):
         """
-            Simple search of the database
-
-            phrase: terms to search for [string]
-            sort_field: field to sort by [string] #not functional
+            Search the trackDB, optionally sorting by sort_field
         """
-        words = phrase.lower().split()
-
-        tracks = []
-        for track in self.tracks.itervalues():
-            broken = False
-            for kw in words:
-                broke = False
-                for item in SEARCH_ITEMS:
-                    v = track[item].lower()
-                    if kw in v:
-                        broke = True
-                        break
-                if not broke:
-                    broken = True
-                    break
-            if not broken:
-                tracks.append(track)
+        tracks = self.searcher.search(phrase).values()
+        if sort_field:
+            tracks = sort_tracks(sort_field, tracks)
         return tracks
-
-    def advanced_search(self, search, sort_field=None):
-        return self.searcher.search(search)
 
 
 class TrackSearcher:
@@ -278,17 +257,20 @@ class TrackSearcher:
                 else:
                     oldsearch = search
 
-        search = search.lower()
+        search = " " + search.lower() + " "
         tokens = search.split(" ")
 
         etokens = []
         counter = 0
         while counter < len(tokens):
             if '"' in tokens[counter]:
-                tk = tokens[counter] + " " + tokens[counter+1]
+                tk = tokens[counter]
+                while tk.count('"') < 2:
+                    tk += " " + tokens[counter+1]
+                    counter += 1
                 tk.replace('"', "")
                 etokens.append(tk)
-                counter += 2
+                counter += 1
             else:
                 if tokens[counter].strip() is not "":
                     etokens.append(tokens[counter])
@@ -355,7 +337,9 @@ class TrackSearcher:
         if not tracks:
             tracks = self.tracks
         tokens = self.tokenize_query(query)
-        return self.__do_search(tokens, tracks)
+        tracks = self.__do_search(tokens, tracks)
+        return tracks
+
 
     def get_results(self):
         """
@@ -395,7 +379,7 @@ class TrackSearcher:
         else:
             if "==" in token:
                 tag, content = token.split("==")
-                content = content.strip('"')
+                content = content.strip().strip('"')
                 for l,tr in current_list.iteritems():
                     try:
                         if tr[tag].lower() == content:
@@ -404,7 +388,7 @@ class TrackSearcher:
                         pass
             elif "=" in token:
                 tag, content = token.split("=")
-                content = content.strip('"')
+                content = content.strip().strip('"')
                 for l,tr in current_list.iteritems():
                     try:
                         if content in tr[tag].lower():
@@ -412,7 +396,7 @@ class TrackSearcher:
                     except:
                         pass
             else:
-                content = token.strip('"')
+                content = token.strip().strip('"')
                 for l,tr in current_list.iteritems():
                     for item in SEARCH_ITEMS:
                         try:

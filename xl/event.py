@@ -14,7 +14,6 @@
 
 import threading
 
-
 EVENT_MANAGER = None
 IDLE_MANAGER  = None
 
@@ -58,9 +57,9 @@ class EventManager:
         for call in callbacks:
             call.__call__(event.type, event.object, event.data)
 
-    #FIXME: we probably shouldn't use the global idle_add for this
     def emit_async(self, event):
-        idle_add(self.emit, event)
+        global IDLE_MANAGER
+        IDLE_MANAGER.add_priority(self.emit, event)
 
     def add_callback(self, function, type=None, object=None):
         if not self.callbacks.has_key(type):
@@ -75,6 +74,7 @@ class EventManager:
 
 class IdleManager(threading.Thread):
     queue = []
+    prio_queue = []
     event = threading.Event()
 
     def __init__(self):
@@ -84,11 +84,15 @@ class IdleManager(threading.Thread):
 
     def run(self):
         while True:
-            while len(self.queue) == 0:
+            while len(self.queue) == 0 and len(self.prio_queue) == 0:
                 self.event.wait()
             self.event.clear()
-            func, args = self.queue[0]
-            self.queue = self.queue[1:]
+            try:
+                func, args = self.prio_queue[0]
+                self.prio_queue = self.prio_queue[1:]
+            except IndexError:
+                func, args = self.queue[0]
+                self.queue = self.queue[1:]
             
             try:
                 func.__call__(*args)
@@ -97,6 +101,10 @@ class IdleManager(threading.Thread):
 
     def add(self, func, *args):
         self.queue.append((func, args))
+        self.event.set()
+
+    def add_priority(self, func, *args):
+        self.prio_queue.append((func, args))
         self.event.set()
 
 

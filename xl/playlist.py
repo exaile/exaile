@@ -12,7 +12,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from xl import trackdb
+from xl import trackdb, event
 
 def save_to_m3u(playlist, path):
     """
@@ -128,6 +128,11 @@ class Playlist(trackdb.TrackDB):
         """
         return self.current_pos
 
+    def set_current_pos(self, pos):
+        if pos < len(self.ordered_tracks):
+            self.current_pos = pos
+        event.log_event('current_changed', self, pos)
+
     def get_current(self):
         """
             gets the currently-playing Track, or None if no current
@@ -151,6 +156,7 @@ class Playlist(trackdb.TrackDB):
         self.current_pos += 1
         if self.current_pos >= len(self.ordered_tracks):
             self.current_pos = -1
+        event.log_event('current_changed', self, self.current_pos)
         return self.get_current()
 
     def prev(self):
@@ -162,5 +168,19 @@ class Playlist(trackdb.TrackDB):
         self.current_pos -= 1
         if self.current_pos < 0:
             self.current_pos = 0
+        event.log_event('current_changed', self, self.current_pos)            
         return self.get_current()
 
+    def search(self, phrase, sort_field=None):
+        """
+            searches the playlist
+        """
+        tracks = trackdb.TrackDB.search(self, phrase, sort_field)
+        if sort_field is None:
+            from copy import deepcopy
+            new_tracks = []
+            for tr in self.ordered_tracks:
+                if tr in tracks:
+                    new_tracks.append(tr)
+            tracks = new_tracks
+        return tracks

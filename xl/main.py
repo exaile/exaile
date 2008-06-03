@@ -14,7 +14,7 @@
 
 # Here's where it all begins.....
 
-import common, collection, playlist, player, settings, path
+from xl import common, collection, playlist, player, settings, path, manager
 
 import os
 
@@ -110,12 +110,15 @@ class Exaile:
         self.queue = player.PlayQueue(self.player)
 
         #initialize CollectionsManager
-        #self.collections = ???
+        self.collections = manager.SimpleManager('collections')
+        self.collections.add( collection.Collection("Collection", 
+            location='testdb') )
+
         # temporary until we get a proper CollectionsManager
-        self.collection = collection.Collection(location='testdb')
+        # self.collection = collection.Collection(location='testdb')
 
         #initalize PlaylistsManager
-        #self.playlists = ???
+        self.playlists = manager.SimpleManager('playlists')
 
         #initialize CoverManager
         #self.covers = ???

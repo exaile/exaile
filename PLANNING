@@ -125,7 +125,7 @@ podcasts:
  - option to delete saved files when deleting a podcast
 
 last.fm:
- - move support out to a plugin
+ - move support out to a plugin (install and load by default)
  - allow playback as well (may require making the playback engine 
      more modular - a good thing)
 
@@ -133,6 +133,7 @@ plugins:
  - port all that are still relevant to new system
  - include some in the default installation
     - all media device plugins
+    - last.fm
     -? radio plugins?
     -? mini mode
  - a well-defined API, that makes the most commonly needed functions 
@@ -167,9 +168,8 @@ song management:
                 from the pickled representation stored at location.
          - save_to_location([location]) - saves a pickled repr of
                 this trackdb to the specified location.
-         -! search(query [, fields]) - search the database, returns a 
+         - search(query [,sort_field]) - search the database, returns a 
                list of Track objects
-         -! advanced_search(query [, fields]) - allows more-specific queries 
          - add(track) - add a Track to the DB
          - remove(track) - remove a track from the DB
 
@@ -234,10 +234,9 @@ playlists:
          - get_current() - get currently-playing track
          - next() - moves to the next track in the playlist
          - prev() - moves to the previous track in the playlist
-         -! search
-         -! advanced_search
+         - search(phrase [,sort_field]) - search playlist
        - events
-         -! position_changed
+         - current_changed
      -! SmartPlaylist - inherits from Playlist - gets tracks from a 
            Collection(s), updates in real time
        - events

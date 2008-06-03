@@ -20,7 +20,7 @@ class Collection(trackdb.TrackDB):
     """
         Manages a persistent track database.
     """
-    def __init__(self, location=None, pickle_attrs=[]):
+    def __init__(self, name, location=None, pickle_attrs=[]):
         """
             Set up the collection
 

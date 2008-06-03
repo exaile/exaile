@@ -17,7 +17,7 @@
 import pygst, gtk
 pygst.require('0.10')
 import gst, random, time, re, os, md5
-import thread, common, event, playlist
+from xl import thread, common, event, playlist
 
 import gobject
 gobject.threads_init()

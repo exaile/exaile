@@ -14,7 +14,8 @@
 
 # Here's where it all begins.....
 
-from xl import common, collection, playlist, player, settings, path, manager
+from xl import common, collection, playlist, player, settings
+from xl import xdg, path, manager
 
 import os
 
@@ -72,7 +73,6 @@ def get_options():
     # Other options
     p.add_option("--new", dest="new", action="store_true",
         default=False, help="Start new instance")
-    p.add_option("--settings", dest="settings", help="Settings Directory")
     p.add_option("--version", dest="show_version", action="store_true")
     p.add_option("--start-minimized", dest="minim", action="store_true",
         default=False, help="Start Exaile minimized to tray, if possible")
@@ -92,13 +92,9 @@ class Exaile:
         #initialize DbusManager
         #self.dbus = dbus.DbusManager(self.options, self.args)
 
-        #reset settings dir if we were told to
-        if self.options.settings:
-            path.set_config_dir(self.options.settings)
-
         #initialize SettingsManager
         self.settings = settings.SettingsManager( os.path.join(
-                path.get_config( 'settings.ini') ) )
+                xdg.get_config_dir(), "settings.ini" ) )
 
         #show splash screen if enabled
         #xlgui.show_splash(show=True)

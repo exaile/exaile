@@ -36,14 +36,11 @@ class SettingsManager(SafeConfigParser):
         SafeConfigParser.__init__(self)
         self.loc = loc
         
-        if os.path.exists(self.loc):
-            try:
-                self.read(self.loc)
-            except:
-                pass
-        else:
-            dir = os.path.join(os.path.split(loc)[:-1])[0]
-            os.makedirs(dir)
+        try:
+            self.read(self.loc)
+        except:
+            pass
+
 
     def set_option(self, option, value):
         """

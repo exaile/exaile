@@ -94,8 +94,11 @@ class Track:
 
             loc: the location [string]
         """
-        self.info['loc'] = common.to_unicode(loc, 
+        loc = common.to_unicode(loc, 
                 common.get_default_encoding())
+        if loc.startswith("file://"):
+            loc = loc[7:]
+        self.info['loc'] = loc
     
     def get_loc(self):
         """

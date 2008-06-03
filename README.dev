@@ -1,0 +1,10 @@
+
+exaile coding standards and guidelines
+
+
+
+use "from xl import module", not "import module"
+
+tracks have length 0 if undefined, eg for streams
+
+

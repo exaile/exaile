@@ -25,8 +25,11 @@ def save_to_m3u(playlist, path):
         handle.write("#PLAYLIST: %s\n" % playlist.get_name())
 
     for track in songs:
-        handle.write("#EXTINF:%d,%s\n%s\n" % (track.duration,
-            track.title, track.loc))
+        leng = track.info['length']
+        if leng == 0: 
+            leng = -1
+        handle.write("#EXTINF:%d,%s\n%s\n" % (leng,
+            track['title'], track.get_loc()))
 
     handle.close()
 

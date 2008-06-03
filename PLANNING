@@ -217,7 +217,7 @@ playlists:
    - methods
      - save_to_m3u(playlist, path)
      -! import_from_m3u(path)
-     -! save_to_pls(playlist, path)
+     - save_to_pls(playlist, path)
      -! import_from_pls(path)
      -! save_to_xspf(playlist, path)
      -! import_from_xspf(path)
@@ -231,7 +231,7 @@ playlists:
          - remove_tracks(start, end) - removes all Track objects in 
              the given list of Track objects and position numbers
          - add_track(track [,pos]) - add the specified track
-         - add_tracks(tracks [,pos]) - add the given list of tracks
+        - add_tracks(tracks [,pos]) - add the given list of tracks
          - get_current_pos() - get current playback index
          - get_current() - get currently-playing track
          - next() - moves to the next track in the playlist

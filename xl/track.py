@@ -24,6 +24,7 @@ import pygst
 pygst.require('0.10')
 import gst
 from mutagen.mp3 import HeaderNotFoundError
+from urlparse import urlparse
 
 import common, event
 from xl.media import flac, mp3, mp4, mpc, ogg, tta, wav, wma, wv
@@ -74,7 +75,7 @@ class Track:
                 'encoding':''}
 
         self._scan_valid = False
-        if uri:
+        if uri and urlparse(uri)[0] in ['', 'file']:
             self.set_loc(uri)
             if self.read_tags() is not None:
                 self._scan_valid = True

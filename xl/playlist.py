@@ -13,6 +13,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 from xl import trackdb, event
+import urllib
 
 def save_to_m3u(playlist, path):
     """
@@ -34,6 +35,7 @@ def save_to_m3u(playlist, path):
     handle.close()
 
 def import_from_m3u(path):
+    # import -1 as 0
     pass
 
 def save_to_pls(playlist, path):
@@ -44,17 +46,77 @@ def save_to_pls(playlist, path):
     
     handle.write("[playlist]\n")
     handle.write("NumberOfEntries=%d\n\n" % len(playlist))
-   
+    
+    count = 1 
+    
     for track in playlist:
         handle.write("File%d=%s\n" % (count, track.get_loc()))
         handle.write("Title%d=%s\n" % (count, track['title']))
-        handle.write("Length%d=%s\n\n" % (count, track.info['length']))
+        if track.info['length'] < 1:
+            handel.write("Length%d=%d\n\n" % (count, -1))
+        else:
+            handle.write("Length%d=%d\n\n" % (count, track.info['length']))
         count += 1
     
     handle.write("Version=2")
     handle.close()
 
 def import_from_pls(path):
+    pass
+    
+def save_to_asx(playlist, path):
+    """
+        Saves a Playlist to an asx file
+    """
+    handle = open(path, "w")
+    
+    handle.write("<asx version=\"3.0\">\n")
+    if playlist.get_name() != '':
+        name = ''
+    else:
+        name = playlist.get_name()
+    handle.write("  <title>%s</title>\n" % name)
+    
+    for track in playlist:
+        handle.write("<entry>\n")
+        handle.write("  <title>%s</title>\n" % track['title'])
+        handle.write("  <ref href=\"%s\" />\n" % urllib.quote(track.get_loc()))
+        handle.write("</entry\n")
+    
+    handle.write("</asx>")
+    handle.close()
+    
+def import_from_asx(path):
+    # urllib.unquote(string)
+    pass
+
+def save_to_xspf(playlist, path):
+    """
+        Saves a Playlist to a xspf file
+    """
+    handle = open(path, "w")
+    
+    handle.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
+    handle.write("<playlist version=\"1\" xmlns=\"http://xspf.org/ns/0/\">\n")
+    if playlist.get_name() != '':
+        handle.write("  <title>%s</title>\n" % playlist.get_name())
+    
+    handle.write("  <trackList>\n")
+    for track in playlist:
+        handle.write("    <track>\n")
+        handle.write("      <title>%s</title>\n" % track['title'])
+        if track.info['length'] > 0:
+            handle.write("      <location>file://%s</location>\n" % urllib.quote(track.get_loc()))
+        else:
+            handle.write("      <location>%s</location>\n" % urllib.quote(track.get_loc()))
+        handle.write("    </track>\n")
+    
+    handle.write("  </trackList>\n")
+    handle.write("</playlist>\n")
+    handle.close()
+    
+def import_from_xspf(path):
+    # urllib.unquote(string)
     pass
 
 class PlaylistIterator:

@@ -221,6 +221,8 @@ playlists:
      -! import_from_pls(path)
      -! save_to_xspf(playlist, path)
      -! import_from_xspf(path)
+     -! save_to_asx(playlistm path)
+     -! import_from_asx(path)
    - classes
      - Playlist - inherits from TrackDB, adds ordered list of Track Objects
        - methods

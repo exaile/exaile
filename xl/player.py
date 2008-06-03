@@ -349,4 +349,8 @@ class GSTPlayer(Player):
         """
             Gets current playback progress in percent
         """
-        return self.get_time()/float(self.current.info['length'])
+        try:
+            progress = self.get_time()/float(self.current.info['length'])
+        except ZeroDivisionError:
+            progress = 0
+        return progress

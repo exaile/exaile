@@ -34,7 +34,24 @@ def import_from_m3u(path):
     pass
 
 def save_to_pls(playlist, path):
-    pass
+    """
+        Saves a Playlist to an pls file
+    """
+    handle = open(path, "w")
+    
+    handle.write("[playlist]\n")
+    handle.write("NumberOfEntries=%d\n\n" % len(playlist))
+   
+    songs = playlist.get_tracks()
+    count = 1
+    for track in songs:
+        handle.write("File%d=%s\n" % (count, track.get_loc()))
+        handle.write("Title%d=%s\n" % (count, track['title']))
+        handle.write("Length%d=%s\n\n" % (count, track.info['length']))
+        count += 1
+    
+    handle.write("Version=2")
+    handle.close()
 
 def import_from_pls(path):
     pass
@@ -56,6 +73,12 @@ class Playlist(trackdb.TrackDB):
         pickle_attrs += ['ordered_tracks', 'current_pos', 'current_playing']
         trackdb.TrackDB.__init__(self, location=location,
                 pickle_attrs=pickle_attrs)
+
+    def __len__(self):
+        """
+            Returns the lengh of the playlist.
+        """
+        return len(self.ordered_tracks)
 
     def add(self, track, location=None):
         """

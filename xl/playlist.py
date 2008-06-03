@@ -24,7 +24,7 @@ def save_to_m3u(playlist, path):
     if playlist.get_name() != '':
         handle.write("#PLAYLIST: %s\n" % playlist.get_name())
 
-    for track in songs:
+    for track in playlist:
         leng = track.info['length']
         if leng == 0: 
             leng = -1
@@ -45,9 +45,7 @@ def save_to_pls(playlist, path):
     handle.write("[playlist]\n")
     handle.write("NumberOfEntries=%d\n\n" % len(playlist))
    
-    songs = playlist.get_tracks()
-    count = 1
-    for track in songs:
+    for track in playlist:
         handle.write("File%d=%s\n" % (count, track.get_loc()))
         handle.write("Title%d=%s\n" % (count, track['title']))
         handle.write("Length%d=%s\n\n" % (count, track.info['length']))

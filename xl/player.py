@@ -152,7 +152,10 @@ class GSTPlayer(Player):
         gobject.threads_init()
         context = loop.get_context()
         while 1:
-            context.iteration(True)
+            try:
+                context.iteration(True)
+            except:
+                pass
 
     def set_queue(self, queue):
         self.queue = queue

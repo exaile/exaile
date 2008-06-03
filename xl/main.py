@@ -15,7 +15,7 @@
 # Here's where it all begins.....
 
 from xl import common, collection, playlist, player, settings
-from xl import xdg, path, manager
+from xl import xdg, path, manager, event
 
 import os
 
@@ -105,13 +105,9 @@ class Exaile:
         #Set up the playback Queue
         self.queue = player.PlayQueue(self.player)
 
-        #initialize CollectionsManager
-        self.collections = manager.SimpleManager('collections')
-        self.collections.add( collection.Collection("Collection", 
-            location='testdb') )
-
-        # temporary until we get a proper CollectionsManager
-        # self.collection = collection.Collection(location='testdb')
+        # Initialize the collection
+        self.collection = collection.Collection("Collection",
+                location=os.path.join(xdg.get_data_dirs()[0], 'music.db') )
 
         #initalize PlaylistsManager
         self.playlists = manager.SimpleManager('playlists')
@@ -128,3 +124,24 @@ class Exaile:
         #setup GUI
         #self.gui = xlgui.Main()
 
+    def quit(self):
+        """
+            exits Exaile normally.
+
+            takes care of saving prefs, databases, etc.
+        """
+        # this event should be used by plugins and modules that dont need
+        # to be saved in any particular order. modules that might be 
+        # touched by events triggered here should be added statically
+        # below.
+        event.log_event("quit_application", self, self, async=False)
+
+        #self.gui.quit()
+
+        self.collection.save_to_location()
+
+        #TODO: save player, queue, playlists
+
+        self.settings.save()
+
+        exit()

@@ -59,6 +59,20 @@ def save_to_pls(playlist, path):
 def import_from_pls(path):
     pass
 
+class PlaylistIterator:
+    def __init__(self, pl):
+        self.pos = -1
+        self.pl = pl
+    def __iter__(self):
+        return self
+    def next(self):
+        self.pos+=1
+        try:
+            return self.pl.ordered_tracks[self.pos]
+        except:
+            raise StopIteration
+
+
 class Playlist(trackdb.TrackDB):
     """
         Represents a playlist, which is basically just a TrackDB
@@ -82,6 +96,14 @@ class Playlist(trackdb.TrackDB):
             Returns the lengh of the playlist.
         """
         return len(self.ordered_tracks)
+
+    def __iter__(self):
+        """
+            allows "for song in playlist" synatax
+
+            warning: assumes playlist doesn't change while iterating
+        """
+        return PlaylistIterator(self)
 
     def add(self, track, location=None):
         """

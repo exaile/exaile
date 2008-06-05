@@ -287,5 +287,101 @@ class Playlist(trackdb.TrackDB):
 
 
 class SmartPlaylist(Playlist):
-    """ stub """
-    pass
+    """ 
+        Represents a Smart Playlist.  
+        This will query a collection object using a set of parameters
+    """
+    def __init__(self, location=None, collection=None, pickle_attrs=[]):
+        """
+            Sets up a smart playlist
+            
+            collection: a reference to a TrackDB object.
+    
+            args: See TrackDB
+        """
+        pickle_attrs += ['search_params']
+        self.search_params = []
+        self.collection = collection
+        self.or_match = False
+        Playlist.__init__(self, location=location,
+                pickle_attrs=pickle_attrs)
+
+    def set_or_match(self, value):
+        """
+            Set to True to make this an or match: match any of the parameters
+
+            value: True to match any, False to match all params
+        """
+        self.or_match = value
+
+    def get_or_match(self):
+        """
+            Return if this is an any or and playlist
+        """
+        return self.or_match
+        
+    def add_param(self, field, op, value, index=-1):
+        """
+            Adds a search parameter.
+
+            field:  The field to operate on. [string]
+            op:     The operator.  Valid operators are:
+                        >,<,>=,<=,=,NOT =,==,NOT ==
+            value:  The value to match against
+            index:  Where to insert the parameter in the search order.  -1 to
+                        append
+        """
+        if index:
+            self.search_params.insert(index, [field, op, value])
+        else:
+            self.search_params.append([field, op, value])
+
+    def remove_param(self, index):
+        """
+            Removes a parameter at the speficied index
+        
+            index:  the index of the parameter to remove
+        """
+        return self.search_params.pop(index)
+
+    def update(self, collection=None):
+        """
+            Update internal tracks by querying the collection
+        """
+        if not collection:
+            collection = self.collection
+
+        search_string = self._create_search_string()
+        self.add_tracks(collection.search(search_string))
+
+    def _create_search_string(self):
+        """
+            Creates a search string based on the internal params
+        """
+
+        params = [] # parameter list
+
+        for (field, op, value) in self.search_params:
+            s = ""
+            if op == ">=" or op == "<=":
+                s += "( %(field)s%(op)s%(value)s " \
+                    "OR %(field)s==%(value)s )" % \
+                    {
+                        'field': field,
+                        'value': value,
+                        'op':    op[0]
+                    }
+            else:
+                s += "%(field)s%(op)s\"%(value)s\"" % \
+                    {
+                        'field': field,
+                        'value': value,
+                        'op':    op
+                    }
+
+            params.append(s)
+
+        if self.or_match:
+            return 'OR'.join(params)
+        else:
+            return 'AND'.join(params)

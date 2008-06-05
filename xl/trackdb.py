@@ -315,8 +315,26 @@ class TrackSearcher:
 
         # handle parentheses
         elif "(" in tokens:
-            start = tokens.index("(")
-            end = tokens.index(")")
+            num_found = 0
+            start = None
+            end = None
+            count = 0
+            for t in tokens:
+                if t == "(":
+                    if start is None:
+                        start = count
+                    else:
+                        num_found += 1
+                elif t == ")":
+                    if end is None and num_found == 0:
+                        end = count
+                    else:
+                        num_found -= 1
+                if start and end:
+                    break
+                count += 1
+            #start = tokens.index("(")
+            #end = tokens.index(")")
             before = tokens[:start]
             inside = self.__red(tokens[start+1:end])
             after = tokens[end+1:]
@@ -415,7 +433,6 @@ class TrackSearcher:
                 content = content.strip().strip('"')
                 for l,tr in current_list.iteritems():
                     try:
-                        print tr[tag].lower()
                         if content in str(tr[tag]).lower():
                             new_list[l]=tr
                     except:
@@ -426,7 +443,6 @@ class TrackSearcher:
                 content = content.strip().strip('"')
                 for l,tr in current_list.iteritems():
                     try:
-                        print content, tr[tag]
                         if float(content) < float(tr[tag]):
                             new_list[l]=tr
                     except:
@@ -437,7 +453,6 @@ class TrackSearcher:
                 content = content.strip().strip('"')
                 for l,tr in current_list.iteritems():
                     try:
-                        print content, tr[tag]
                         if float(content) > float(tr[tag]):
                             new_list[l]=tr
                     except:

@@ -35,7 +35,7 @@ Things that can probably be implemented at this stage:
         should be able to handle multiple cd devices
         will eventually detect via HAL, not needed in inital version
     Library Watching
-        use pynotify or similar to watch libraries for new tracks
+        use pyinotify or similar to watch libraries for new tracks
         periodic rescan
         stubs in collection.py
 

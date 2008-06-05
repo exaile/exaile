@@ -3,363 +3,81 @@ It should also be used to keep track of what each developer is
 currently working on.
 
 Current projects:
-    Aren Olson - initial rewrite structuring
+    Aren Olson - Core Rewrite, documentation thereof
 
+Implemented:
+    Collection
+    Libraries
+        no watching or auto-rescan
+    Playlists
+    Player
+    Queue
+    Settings
+    Event
+        signals-like system
+    XDG
+        exaile's config and data files now stored according to xdg spec
+
+Things that can probably be implemented at this stage:
+    Playlist Exporting
+        stubs in playlist.py
+    Smart Playlists
+        again, stub in playlist.py
+    Logging System (important!)
+        python has a built-in logging module we could build on
+    Alternate Playback Systems
+        will need more abstraction in player.py, but is feasable
+        stub for generic Player class exists
+    Make Sorting Use albumartist instead of Artist if available
+        trackdb.py
+    CD Playback
+        just make a Playlist containing the tracks and hold it
+        should be able to handle multiple cd devices
+        will eventually detect via HAL, not needed in inital version
+    Library Watching
+        use pynotify or similar to watch libraries for new tracks
+        periodic rescan
+        stubs in collection.py
+
+
+Other Work-Items:
+    Gapless Playback
+        doable? difficulty?
+        cross-fade too?
+    Podcasts
+    Dynamic Playlists
+        I have some fun ideas for this one, best to wait --Aren
+    HAL Support
+        recognize and autoconfigure CDs and mp3 players via HAL
+    MP3 Player Support (very involved, should wait for a while)
+        generic classes subclassable for iPod, MTP and MassStorage players
+        create a special Collection for each, load Playlists, etc.
+        also should handle transfer, nto necessariliy at first
+            transcode on transfer also good
+            algorithms to handle sync?
+            allow custom file layout if applicable
+        podcast support
+            limit number / autodelete old ?
+    Plugins Systems (wait on GUI)
+        make exz default format
+        port old plugins
+    Last.fm
+        implement as plugin
+    CD Ripping
+        wait on CD playback
+    CD Burning
+        wait on CD playback
+    GUI
+        this is a big one, should come very late
+    Lyrics
+        wait on GUI
+    Covers
+        wait on GUI
+    DBUS
 
 ==== NOTES ====
 xl is to be split into xl and xlgui. All code concerning the display of 
 data and receipt of user input through the gui should go into xlgui. code 
 that is not dependent upon the gui implementation should go in xl.
-
-
-==== REFERENCES ====
-wiki page: http://exaile.org/wiki/index.php?title=Exaile:Rewrite
-user with good ideas: http://ubuntuforums.org/showpost.php?p=3717989&postcount=1006
-
-
-==== WHAT DO WE WANT? ====
-this is perhaps the most important question, since it will shape the 
-development of everything else.
-this is not just NEW things, or changes. this is a list of EVERYTHING 
-that we want in 0.3, no more no less. or at least it will be such a 
-list once it is complete.
-
-legend:
- - point
- -! critical point
- -? wishlist/idea
- -& needs info
-
-key ideas:
- - 'just work'
- - empower users more
- - speed
-
-
-unsorted:
- - select default amazon/wikipedia settings from system LOCALE
- -? resolve unicode issues
- - allow transcoding files
- - multi-file media support
-    - cue/bin
-    - wavpack hybrid
- -? guess tag info from filename (and path?) if no tags (eg file://04 - 
-      na na na.mp3 -> track:04, title: na na na)
-    - see similar point on mass storage media players, below.
-
-
-general structure/underpinnings:
- -! make everything modular and reuseable. defined APIs are a good thing.
- -! make many more pluggable APIs
-    - playback engine (gstreamer default, xine optional)
-    - global media keys (integrate the various plugins for this into core 
-          and expose in prefs)
-    -? sql engine (default to sqlite)
-      - pickle-based DB persistence? (in-progress, xl/library.py)
-    - cover art fetcher
-    - lyrics fetcher
- - with pluggable APIs, allow prioritization and auto-fallback where
-     applicable/possible.
-
-gui:
- - allow hiding any side pane
- - better consistency in the tabs' interfaces
- -? use libsexy to display album art in tray icon tooltip if 
-       available (possible?)
- - make splash sceen appear earlier in start sequence so it has more use
- - allow installing plugins from files
-
-osd:
- - allow hiding progressbar (move pbar into markup?)
-
-discs:
- - integrated cd burner (we can probably borrow code from serpentine)
-    -? support cd text
- -? dvd audio/SACD support (does gstreamer support this?)
- - recognize cds via HAL
-
-playlists:
- - move 'built-in' smart playlists to just being 'default' smart playlists, 
-       so they become user-editable
-   - provide option to restore default smart playlists
- - better import/export (m3u, pls)
- - object inherits from TrackDB, adds an ordered list of Track objects
-
-streaming:
- - make sure we don't freeze on bad streams/buffering
-
-collection management:
- -? load collection into tree on-demand (see wiki)
- - allow exaile to manage library structure (question: how to handle 
-     having multiple library folders? global defualt, allow per-library and 
-     per-collection choices)
- -? use inotify or a FAM to watch for library updates, if available
- - put audiobooks into a separate pane (use gapless for 
-     audiobooks, if available)
- -? partiton awareness - don't choke if tracks are umounted (HAL?)
- -? allow user to maintail multiple collections, backed by different libraries
-
-audio engine:
- - allow choosing audio playback device
- - volume normalization / per-track(/album) volume levels
- -? support more than two audio channels
- -? gapless playback / crossfade (settable per-track, per-album?)
-
-devices:
- - detect devices via HAL and configure them automatically
- - seamless transfer/syncronization, including playlists and podcasts
- - support ipod, mtp, and mass storage devices fully
- - support for defining a file layout for media transferred to 
-     the device (where applicable)
-   -? if already files on the device, look at them to try to figure 
-        out the existing layout
-   -& default layout
- - transcode tracks when transferred (only if necessary)
-    - auto-detect what the device supports (possible?)
-    - if device supports lossless and lossy formats, convert lossy 
-        files to lossy and lossless to lossless (unless otherwise directed)
-
-podcasts:
- - allow users to choose when and where to download podcasts
-   -& default
- - option to delete saved files when deleting a podcast
-
-last.fm:
- - move support out to a plugin (install and load by default)
- - allow playback as well (may require making the playback engine 
-     more modular - a good thing)
-
-plugins:
- - port all that are still relevant to new system
- - include some in the default installation
-    - all media device plugins
-    - last.fm
-    -? radio plugins?
-    -? mini mode
- - a well-defined API, that makes the most commonly needed functions 
-       easily accessible
- - make .exz the de facto format (single-file plugins can just be 
-       zipped straight)
-
-
-=== Code Structure ===
-use this to plan object layout, interactions, etc. It should also be kept 
-updated as items are implemented, since it can then serve as rudimentary
-API documentation.
-
-key:
- -! not implemented
-
-general:
- - use signals to notify about object changes (track info updates in all 
-       places in real time!)
-
-song management:
- - xl/trackdb.py 
-   - classes
-     - TrackDB - database of tracks (pickle, sqlite)
-       - events
-         - track_added
-         - track_removed
-       - methods
-         - set_name(name) - sets the name of this TrackDB
-         - get_name() - gets the name of this TrackDB
-         - load_from_location([location]) - restores the TrackDB
-                from the pickled representation stored at location.
-         - save_to_location([location]) - saves a pickled repr of
-                this trackdb to the specified location.
-         - search(query [,sort_field]) - search the database, returns a 
-               list of Track objects
-         - add(track) - add a Track to the DB
-         - remove(track) - remove a track from the DB
-
- - xl/track.py
-     - Track 
-       - events
-         - track_updated
-       - methods
-         - set_loc(loc) - sets the file location
-         - get_loc() - gets the file locaion
-         - get_loc_for_io() - gets the file location in ascii
-         - get_tag(tag) - gets the contents of a tag
-         - set_tag(tag, values [,append]) - sets the contents of a tag
-         - write_tags() - save tags to the file
-         - read_tags() - read tags from the file
-       - notes
-         - uses python's object customizing abilities to support 
-               getting/setting attibutes via Track[attr] 
-
- - xl/collection.py
-   - classes
-     - Collection - based on TrackDB, adds ability to watch directories 
-             for new media
-       - methods
-         - add_library(library) - add a Library object to use
-         - rescan_libraries() - force a rescan of all libraries
-         - get_libraries() - returns the list of all libraries
-         - remove_library(library) - remove a Library
-     - Library - watch a directory for changes and sync them to the 
-           associated Collection
-       - events
-         -! filesystem_changed (necessary?)
-       - methods
-         - set_location(path) - set the watched path
-         - rescan(path) - force a scan of the watched path
-         -! set_realtime(bool) - watch in real time or not (using pynotify? gamin?)
-         -! set_rescan_interval(interval) - time between automatic 
-             rescans - has no effect if realtime is on
-       - notes
-         - need to be careful, we probably shouldn't inotify a mounted 
-             network share (default realtime to off seems simplest solution)
-
-playlists:
- - xl/playlist.py
-   - methods
-     - save_to_m3u(playlist, path)
-     -! import_from_m3u(path)
-     - save_to_pls(playlist, path)
-     -! import_from_pls(path)
-     -! save_to_xspf(playlist, path)
-     -! import_from_xspf(path)
-     -! save_to_asx(playlistm path)
-     -! import_from_asx(path)
-   - classes
-     - Playlist - inherits from TrackDB, adds ordered list of Track Objects
-       - methods
-         - get_tracks() - returns the list of Track objects
-         - remove_track(index) - remove the specified Track
-         - remove_tracks(start, end) - removes all Track objects in 
-             the given list of Track objects and position numbers
-         - add_track(track [,pos]) - add the specified track
-        - add_tracks(tracks [,pos]) - add the given list of tracks
-         - get_current_pos() - get current playback index
-         - get_current() - get currently-playing track
-         - next() - moves to the next track in the playlist
-         - prev() - moves to the previous track in the playlist
-         - search(phrase [,sort_field]) - search playlist
-       - events
-         - current_changed
-     -! SmartPlaylist - inherits from Playlist - gets tracks from a 
-           Collection(s), updates in real time
-       - events
-         - updated
-       - methods
-         - add_collection(collection)
-
-playback:
- - xl/player.py
-   - classes
-     - PlayQueue - manages the queue
-       - methods
-         - set_current_playlist(playlist) - set the current playlist
-         - set_current_pl_track(track) - set the current playlist track
-         - play() - start playback of the queue
-     - Player - plays songs
-       - events
-         - playback_start
-         - playback_end
-         - playback_paused
-         - playback_resume
-       - methods
-         - play(track) - plays the given track
-         - stop() - stops playback
-         - pause() - pauses playback
-         - toggle_pause() - toggle paused state
-         - get_progress() - returns progress in %
-         - get_time() - returns current time in seconds
-         - is_playing() - whether anything is currently playing (even 
-               if paused)
-         - is_paused() - is playback paused?
-         - seek(value, wait=True) - seek to the given position
-
-
-covers:
- -! xl/covers.py
-   -! classes
-     -! Cover - a cover
-       -! events 
-         -! updated
-       -! methods
-         -! get_full_cover() - returns the full-sized image of the cover
-         -! get_sized_image(size) - returns the cover image scaled to size 
-               pixels
-     -! CoverManager - manages the collection of covers
-       -! methods
-         -! get_cover(track) - gets the cover for the Track if it's in the 
-               cover database (returns a Cover, defaults to the exaile logo)
-         -! set_cover(track) - sets the cover for this Track
-         -! fetch_cover(track) - fetches the cover for a Track using a 
-               CoverStore
-         -! get_stores() - returns a list of the CoverStore objects 
-               registered
-         -! add_store(store [,pos]) - adds a new CoverStore at the 
-               specified location (defualt: append)
-         -! remove_fetcher(pos) - removes the fetcher at position pos
-     -! CoverStore - abstract class - defines a method of retrieving/storing 
-           covers
-       -! methods
-         -! get_cover(track) - returns False if no cover found
-         -! set_cover(track)
-     -! LibraryCoverStore - cover.jpg-style covers
-     -! DatabaseCoverStore - covers from the database in ~/.exaile
-     -! AmazonCoverStore - covers from Amazon.com
-
-lyrics:
- -! xl/lyrics.py
-   -! classes
-     -! LyricsManager
-     -! LyricsStore
-     -! LyricsFetcher
-     -! LyricwikiLyricsFetcher
-
-media keys:
- -! xl/keys.py
-   -! classes
-     -! MediaKeyManager
-     -! MediaKeys
-       -! methods
-         -! is_changeable() - returns True if we know how to change
-               these key settings
-         -! accepted_actions() - returns a list of actions the keybind
-               manager can take, eg play. returns ['any'] for methods
-               that allow arbitrary bindings.
-         -! current_bindings() - returns a dictionary of action:key pairs
-         -! set_binding(action, key) - sets the given key combo to do the
-               specified action.
-     -! GnomeMediaKeys
-     -! MetacityMediaKeys (really needs a better solution)
-     -! WindowsMediaKeys
-
-
-event handling:
- - xl/event.py
-   - notes:
-     - intended to replace the current system of signals since they 
-           don't cooperate with pickling.
-     - also replaces (mostly) gobject's idle_add.
-     - could also be used as the basis for a new logging system.
-     - example: log_event('track_updated', Track_instance,
-           'file://foobar.mp3')
-     - example: log_event('playback_start', Player_instance, Track_instance)
-   - functions:
-     - log_event(type, object, data, async=True) - creates an Event and 
-           logs it to the EventManager
-     - set_event_callback(function, type=None, object=None) - sets a 
-           callback for an event. function must take three params as
-           arguments (type, object, data).
-     - idle_add(function, *args) - run function in the background at some 
-           point in the future when the computer has free time. Note that
-           this should NOT be used for long-running functions as they
-           will block other functions from executing until they complete.
-   - classes
-     - Event(type, object, data)
-     - EventManager
-       - methods
-         - emit(event) - emits an event, block until all callbacks complete
-         - emit_async(event) - same as emit() but doesn't block
-         - add_callback(function, type=None, object=None)
-         - remove_callback(function, type=None, object=None)
-     - IdleManager
-         - add(func, *args) - underlying implementation for idle_add, above
 
 

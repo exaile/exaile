@@ -1,23 +1,36 @@
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 1, or (at your option)
-# any later version.
+# Provides a signals-like system for sending and listening for 'events'
 #
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+# Events are kind of like signals, except they may be listened for on a 
+# global scale, rather than connected on a per-object basis like signals 
+# are. This means that ANY object can emit ANY event, and these events may 
+# be listened for by ANY object. Events may be emitted either syncronously 
+# or asyncronously, the default is asyncronous.
+#
+# The events module also provides an idle_add() function similar to that of
+# gobject's. However this should not be used for long-running tasks as they
+# may block other events queued via idle_add().
+#
+# Events should be emitted AFTER the given event has taken place. Often the
+# most appropriate spot is immediately before a return statement.
 
-import threading
 
+import threading, common
+
+# define these here so the interperter doesn't complain about them
 EVENT_MANAGER = None
+EVENT_IDLE_MANAGER = None
 IDLE_MANAGER  = None
 
 def log_event(type, object, data, async=True):
+    """
+        Sends an event.
+
+        type: the 'type' or 'name' of the event. [string]
+        object: the object sending the event. [object]
+        data: some data about the event. [object]
+        async: whether or not to emit asyncronously. [bool]
+    """
     global EVENT_MANAGER
     e = Event(type, object, data)
     if async:
@@ -26,25 +39,68 @@ def log_event(type, object, data, async=True):
         EVENT_MANAGER.emit(e)
 
 def set_event_callback(function, type=None, object=None):
+    """
+        Sets an Event callback
+
+        function: the function to call when the event happens [function]
+        type: the 'type' or 'name' of the event to listen for, eg 
+                "track_added",  "cover_changed". Defaults to any event if 
+                not specified. [string]
+        object: the object to listen to events from, eg exaile.collection, 
+                exaile.cover_manager. Defaults to any object if not 
+                specified. [object]
+
+        You should ALWAYS specify one of the two options on what to listen 
+        for. While not forbidden to listen to all events, doing so will 
+        cause your callback to be called very frequently, and possibly may 
+        cause slowness within the player itself.
+    """
     global EVENT_MANAGER
     EVENT_MANAGER.add_callback(function, type, object)
 
 def idle_add(func, *args):
+    """
+        Adds a function to run when there is spare processor time.
+        
+        func: the function to call [function]
+        
+        any additional arguments to idle_add will be passed on to the 
+        called function.
+
+        do not use for long-running tasks, so as to avoid blocking other
+        functions.
+    """
     global IDLE_MANAGER
     IDLE_MANAGER.add(func, *args)
 
 class Event:
+    """
+        Represents an Event
+    """
     def __init__(self, type, object, data):
+        """
+            type: the 'type' or 'name' for this Event [string]
+            object: the object emitting the Event [object]
+            data: some piece of data relevant to the Event [object]
+        """
         self.type = type
         self.object = object
         self.data = data
 
 class EventManager:
-    callbacks = {}
+    """
+        Manages all Events
+    """
     def __init__(self):
-        pass
+        self.callbacks = {}
 
     def emit(self, event):
+        """
+            Emits an Event, calling any registered callbacks.
+
+            event: the Event to emit [Event]
+        """
+        # find callbacks that match the Event
         callbacks = []
         for tcall in [None, event.type]:
             for ocall in [None, event.object]:
@@ -54,45 +110,80 @@ class EventManager:
                             callbacks.append(call)
                 except KeyError:
                     pass
+
+        # now call them
         for call in callbacks:
-            call.__call__(event.type, event.object, event.data)
+            try:
+                call.__call__(event.type, event.object, event.data)
+            except NameError:
+                # the function we're trying to call disappeared
+                self.remove_callback(call, event.type, event.object)
+            except:
+                # something went wrong inside the function we're calling
+                common.log_exception()
 
     def emit_async(self, event):
+        """
+            Same as emit(), but does not block.
+        """
         global IDLE_MANAGER
-        IDLE_MANAGER.add_priority(self.emit, event)
+        EVENT_IDLE_MANAGER.add(self.emit, event)
 
     def add_callback(self, function, type=None, object=None):
+        """
+            Registers a callback.
+
+            function: The function to call [function]
+            type: The 'type' or 'name' of event to listen for. Defaults
+                  to any. [string]
+            object: The object to listen to events from. Defaults
+                  to any. [string]
+
+            You should always specify at least one of type or object.
+        """
+        # add the specified categories if needed.
         if not self.callbacks.has_key(type):
             self.callbacks[type] = {}
         if not self.callbacks[type].has_key(object):
             self.callbacks[type][object] = []
+
+        # add the actual callback
         self.callbacks[type][object].append(function)
 
     def remove_callback(self, function, type=None, object=None):
+        """
+            Unsets a callback. 
+
+            The parameters must match those given when the callback was
+            registered.
+        """
         self.callbacks[type][object].remove(function)
 
 
 class IdleManager(threading.Thread):
-    queue = []
-    prio_queue = []
-    event = threading.Event()
-
+    """
+        Simulates gobject's idle_add() using threads.
+    """
     def __init__(self):
         threading.Thread.__init__(self)
         self.setDaemon(True)
+        self.queue = []
+        self.event = threading.Event()
+
         self.start()
 
     def run(self):
+        """
+            The main loop.
+        """
+        # This is quite simple. If we have a job, wake up and run it.
+        # If we run out of jobs, sleep until we have another one to do.
         while True:
-            while len(self.queue) == 0 and len(self.prio_queue) == 0:
+            while len(self.queue) == 0:
                 self.event.wait()
             self.event.clear()
-            try:
-                func, args = self.prio_queue[0]
-                self.prio_queue = self.prio_queue[1:]
-            except IndexError:
-                func, args = self.queue[0]
-                self.queue = self.queue[1:]
+            func, args = self.queue[0]
+            self.queue = self.queue[1:]
             
             try:
                 func.__call__(*args)
@@ -100,13 +191,19 @@ class IdleManager(threading.Thread):
                 pass # TODO: handle this more smartly by logging errors
 
     def add(self, func, *args):
+        """
+            Adds a function to be executed.
+
+            func: the function to execute [function]
+            
+            any additional arguments will be passed on to the called
+            function
+        """
         self.queue.append((func, args))
         self.event.set()
 
-    def add_priority(self, func, *args):
-        self.prio_queue.append((func, args))
-        self.event.set()
-
-
+# Instantiate our managers as globals. This lets us use the same instance
+# regardless of where this module is imported.
 EVENT_MANAGER = EventManager()
+EVENT_IDLE_MANAGER = IdleManager()
 IDLE_MANAGER  = IdleManager()

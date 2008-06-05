@@ -1,16 +1,8 @@
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 1, or (at your option)
-# any later version.
+# TrackDB
 #
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# TrackDB - a track database. basis for playlist, collection
 #
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+# TrackSearcher - fast, advanced method for searching a dictionary of tracks
 
 try:
     import cPickle as pickle
@@ -27,13 +19,8 @@ def get_sort_tuple(field, track):
     """
         Returns the sort tuple for a single track
 
-        @type   field: str
-        @param  field: the field to sort by
-        @type   track: L{media.Track}
-        @param  track: the track from which to retrieve the sort tuple
-
-        @rtype: tuple
-        @return: a tuple containing the sortable items for a track
+        field: the tag to sort by [string]
+        track: the track to sort [Track]
     """
     items = [track[field]]
     for item in SORT_ORDER:
@@ -46,15 +33,9 @@ def sort_tracks(field, tracks, reverse=False):
     """
         Sorts tracks by the field passed
 
-        @type   field: str
-        @param  field: the field to sort by
-        @type   tracks: list
-        @param  tracks: the tracks to sort
-        @type   reverse: bool
-        @param  reverse: True to reverse the sort order
-
-        @rtype:  list
-        @return: the sorted list of tracks
+        field: field to sort by [string]
+        tracks: tracks to sort [list of Track]
+        reverse: sort in reverse? [bool]
     """
 
     sort_order = [field].extend(SORT_ORDER)
@@ -86,7 +67,7 @@ class TrackDB:
                     attributes listed must be built-in types, with
                     one exception: If the object contains the phrase
                     'tracks' in its name it may be a list or dict
-                    or Track objects. [list of strings]
+                    or Track objects. [list of string]
         """
         self.tracks = dict()
         self.name = name
@@ -168,7 +149,7 @@ class TrackDB:
             pdata = dict()
         for attr in self.pickle_attrs:
             if True:
-                #bad hack
+                # bad hack to allow saving of lists/dicts of Tracks
                 if 'tracks' in attr:
                     if type(getattr(self, attr)) == list:
                         pdata[attr] = [ x._pickles() for x in getattr(self, attr) ]
@@ -215,6 +196,9 @@ class TrackDB:
 
 
 class TrackSearcher:
+    """
+        Search a TrackDB for matching tracks
+    """
     def __init__(self, tracks=dict()):
         self.tracks = tracks
         self.tokens = None
@@ -245,6 +229,7 @@ class TrackSearcher:
         search = search.replace("(", " ( ")
         search = search.replace(")", " ) ")
 
+        # ensure spacing is uniform
         replaces = [ ("  ", " "),
                 (" =", "="),
                 ("= ", "=")]
@@ -257,9 +242,11 @@ class TrackSearcher:
                 else:
                     oldsearch = search
 
+        # split the search into tokens to be parsed
         search = " " + search.lower() + " "
         tokens = search.split(" ")
 
+        # handle "" grouping
         etokens = []
         counter = 0
         while counter < len(tokens):
@@ -276,23 +263,31 @@ class TrackSearcher:
                     etokens.append(tokens[counter])
                 counter += 1
         tokens = etokens
+
+        # reduce tokens to a search tree and optimize it
         tokens = self.__red(tokens)
         tokens = self.__optimize_tokens(tokens)
+
         return tokens
 
     def __optimize_tokens(self, tokens):
         """ 
             optimizes token order for fast search 
         """
+        # only optimizes the top level of tokens, the speed
+        # gains from optimizing recursively are usually negligible
         l1 = []
         l2 = []
         l3 = []
 
         for token in tokens:
+            # direct equality is the most reducing so put them first
             if type(token) == str and "=" in token:
                 l1.append(token)
+            # then other normal keywords
             elif type(token) == str and "=" not in token:
                 l2.append(token)
+            # then anything else like ! or ()
             else:
                 l3.append(token)
 
@@ -303,8 +298,11 @@ class TrackSearcher:
         """ 
             reduce tokens to a parsable format 
         """
+        # base case since we use recursion
         if tokens == []:
             return []
+
+        # handle parentheses
         elif "(" in tokens:
             start = tokens.index("(")
             end = tokens.index(")")
@@ -312,6 +310,8 @@ class TrackSearcher:
             inside = self.__red(tokens[start+1:end])
             after = tokens[end+1:]
             tokens = before + [["(",inside]] + after
+
+        # handle NOT
         elif "!" in tokens:
             start = tokens.index("!")
             end = start+2
@@ -319,12 +319,16 @@ class TrackSearcher:
             inside = tokens[start+1:end]
             after = tokens[end:]
             tokens = before + [["!", inside]] + after
+
+        # handle OR
         elif "|" in tokens:
             start = tokens.index("|")
             inside = [tokens[start-1], tokens[start+1]]
             before = tokens[:start-1]
             after = tokens[start+2:]
             tokens = before + [["|",inside]] + after
+
+        # nothing special, so just return it
         else:
             return tokens
 
@@ -332,14 +336,14 @@ class TrackSearcher:
 
     def search(self, query, tracks=None):
         """
-            executes a search on the passed query and (optionally) tracks
+            executes a search using the passed query and (optionally) 
+            the passed tracks
         """
         if not tracks:
             tracks = self.tracks
         tokens = self.tokenize_query(query)
         tracks = self.__do_search(tokens, tracks)
         return tracks
-
 
     def get_results(self):
         """
@@ -352,31 +356,39 @@ class TrackSearcher:
             search for tracks by using the parsed tokens 
         """
         new_list = {}
+        # if there's no more tokens, everything matches!
         try:
             token = tokens[0]
         except IndexError:
             return current_list
 
+        # is it a special operator?
         if type(token) == list:
             if len(token) == 1:
                 token = token[0]
             subtoken = token[0]
+            # NOT
             if subtoken == "!":
                 to_remove = self.__do_search(token[1], current_list)
                 for l,track in current_list.iteritems():
                     if l not in to_remove:
                         new_list[l]=track
+            # OR
             elif subtoken == "|":
                 new_list.update(
                         self.__do_search([token[1][0]], current_list))
                 new_list.update(
                         self.__do_search([token[1][1]], current_list))
+            # ()
             elif subtoken == "(":
                 new_list = self.__do_search(token[1], current_list)
             else:
-                print "whoops!"
+                print "whoops! bad search token"
                 return current_list
+
+        # normal token
         else:
+            # exact match in tag
             if "==" in token:
                 tag, content = token.split("==")
                 content = content.strip().strip('"')
@@ -386,6 +398,7 @@ class TrackSearcher:
                             new_list[l]=tr
                     except:
                         pass
+            # keyword in tag
             elif "=" in token:
                 tag, content = token.split("=")
                 content = content.strip().strip('"')
@@ -395,6 +408,7 @@ class TrackSearcher:
                             new_list[l]=tr
                     except:
                         pass
+            # plain keyword
             else:
                 content = token.strip().strip('"')
                 for l,tr in current_list.iteritems():

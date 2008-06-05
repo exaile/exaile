@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>xl.settings</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >Exaile</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="xl-module.html">Package&nbsp;xl</a> ::
+        Module&nbsp;settings
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="xl.settings-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="xl.settings-module.html">Module xl.settings</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment"># This program is free software; you can redistribute it and/or modify</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># it under the terms of the GNU General Public License as published by</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># the Free Software Foundation; either version 1, or (at your option)</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># any later version.</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment">#</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># This program is distributed in the hope that it will be useful,</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># but WITHOUT ANY WARRANTY; without even the implied warranty of</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># GNU General Public License for more details.</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment">#</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># You should have received a copy of the GNU General Public License</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># along with this program; if not, write to the Free Software</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">ConfigParser</tt> <tt class="py-keyword">import</tt> <tt class="py-name">SafeConfigParser</tt><tt class="py-op">,</tt> <tt class="py-name">NoSectionError</tt><tt class="py-op">,</tt> <tt class="py-name">NoOptionError</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package xl=xl-module.html"><a title="xl" class="py-name" href="#" onclick="return doclink('link-0', 'xl', 'link-0');">xl</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Module xl.event=xl.event-module.html"><a title="xl.event" class="py-name" href="#" onclick="return doclink('link-1', 'event', 'link-1');">event</a></tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt id="link-2" class="py-name" targets="Variable xl.settings.TYPE_MAPPING=xl.settings-module.html#TYPE_MAPPING"><a title="xl.settings.TYPE_MAPPING" class="py-name" href="#" onclick="return doclink('link-2', 'TYPE_MAPPING', 'link-2');">TYPE_MAPPING</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line">        <tt class="py-string">'I'</tt><tt class="py-op">:</tt> <tt class="py-name">int</tt><tt class="py-op">,</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line">        <tt class="py-string">'S'</tt><tt class="py-op">:</tt> <tt class="py-name">str</tt><tt class="py-op">,</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line">        <tt class="py-string">'F'</tt><tt class="py-op">:</tt> <tt class="py-name">float</tt><tt class="py-op">,</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line">        <tt class="py-string">'B'</tt><tt class="py-op">:</tt> <tt class="py-name">bool</tt> <tt class="py-op">}</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"> </tt>
+<a name="SettingsManager"></a><div id="SettingsManager-def"><a name="L27"></a><tt class="py-lineno"> 27</tt> <a class="py-toggle" href="#" id="SettingsManager-toggle" onclick="return toggle('SettingsManager');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="xl.settings.SettingsManager-class.html">SettingsManager</a><tt class="py-op">(</tt><tt class="py-base-class">SafeConfigParser</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SettingsManager-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="SettingsManager-expanded"><a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-docstring">        Manages exaile's settings</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">    <tt id="link-3" class="py-name" targets="Module xl.settings=xl.settings-module.html,Variable xl.settings.SettingsManager.settings=xl.settings.SettingsManager-class.html#settings"><a title="xl.settings
+xl.settings.SettingsManager.settings" class="py-name" href="#" onclick="return doclink('link-3', 'settings', 'link-3');">settings</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="SettingsManager.__init__"></a><div id="SettingsManager.__init__-def"><a name="L32"></a><tt class="py-lineno"> 32</tt> <a class="py-toggle" href="#" id="SettingsManager.__init__-toggle" onclick="return toggle('SettingsManager.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.settings.SettingsManager-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">loc</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SettingsManager.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SettingsManager.__init__-expanded"><a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt class="py-docstring">            Sets up the SettingsManager. Expects a loc to a file</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-docstring">            where settings will be stored.</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">        <tt class="py-name">SafeConfigParser</tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Method xl.collection.Collection.__init__()=xl.collection.Collection-class.html#__init__,Method xl.collection.Library.__init__()=xl.collection.Library-class.html#__init__,Method xl.event.Event.__init__()=xl.event.Event-class.html#__init__,Method xl.event.EventManager.__init__()=xl.event.EventManager-class.html#__init__,Method xl.event.IdleManager.__init__()=xl.event.IdleManager-class.html#__init__,Method xl.main.Exaile.__init__()=xl.main.Exaile-class.html#__init__,Method xl.manager.SimpleManager.__init__()=xl.manager.SimpleManager-class.html#__init__,Method xl.player.GSTPlayer.__init__()=xl.player.GSTPlayer-class.html#__init__,Method xl.player.PlayQueue.__init__()=xl.player.PlayQueue-class.html#__init__,Method xl.player.Player.__init__()=xl.player.Player-class.html#__init__,Method xl.playlist.Playlist.__init__()=xl.playlist.Playlist-class.html#__init__,Method xl.playlist.PlaylistIterator.__init__()=xl.playlist.PlaylistIterator-class.html#__init__,Method xl.settings.SettingsManager.__init__()=xl.settings.SettingsManager-class.html#__init__,Method xl.track.Track.__init__()=xl.track.Track-class.html#__init__,Method xl.trackdb.TrackDB.__init__()=xl.trackdb.TrackDB-class.html#__init__,Method xl.trackdb.TrackSearcher.__init__()=xl.trackdb.TrackSearcher-class.html#__init__"><a title="xl.collection.Collection.__init__
+xl.collection.Library.__init__
+xl.event.Event.__init__
+xl.event.EventManager.__init__
+xl.event.IdleManager.__init__
+xl.main.Exaile.__init__
+xl.manager.SimpleManager.__init__
+xl.player.GSTPlayer.__init__
+xl.player.PlayQueue.__init__
+xl.player.Player.__init__
+xl.playlist.Playlist.__init__
+xl.playlist.PlaylistIterator.__init__
+xl.settings.SettingsManager.__init__
+xl.track.Track.__init__
+xl.trackdb.TrackDB.__init__
+xl.trackdb.TrackSearcher.__init__" class="py-name" href="#" onclick="return doclink('link-4', '__init__', 'link-4');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">loc</tt> <tt class="py-op">=</tt> <tt class="py-name">loc</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">read</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">loc</tt><tt class="py-op">)</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">            <tt class="py-keyword">pass</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">        <tt id="link-5" class="py-name" targets="Class xl.settings.SettingsManager=xl.settings.SettingsManager-class.html"><a title="xl.settings.SettingsManager" class="py-name" href="#" onclick="return doclink('link-5', 'SettingsManager', 'link-5');">SettingsManager</a></tt><tt class="py-op">.</tt><tt id="link-6" class="py-name"><a title="xl.settings
+xl.settings.SettingsManager.settings" class="py-name" href="#" onclick="return doclink('link-6', 'settings', 'link-3');">settings</a></tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt> </tt>
+</div><a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"> </tt>
+<a name="SettingsManager.set_option"></a><div id="SettingsManager.set_option-def"><a name="L47"></a><tt class="py-lineno"> 47</tt> <a class="py-toggle" href="#" id="SettingsManager.set_option-toggle" onclick="return toggle('SettingsManager.set_option');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.settings.SettingsManager-class.html#set_option">set_option</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">option</tt><tt class="py-op">,</tt> <tt class="py-param">value</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SettingsManager.set_option-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SettingsManager.set_option-expanded"><a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"><tt class="py-docstring">            Set an option (in section/key syntax) to the specified value.</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">        <tt class="py-name">value</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Method xl.settings.SettingsManager._val_to_str()=xl.settings.SettingsManager-class.html#_val_to_str"><a title="xl.settings.SettingsManager._val_to_str" class="py-name" href="#" onclick="return doclink('link-7', '_val_to_str', 'link-7');">_val_to_str</a></tt><tt class="py-op">(</tt><tt class="py-name">value</tt><tt class="py-op">)</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">        <tt class="py-name">section</tt><tt class="py-op">,</tt> <tt class="py-name">key</tt> <tt class="py-op">=</tt> <tt class="py-name">option</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-string">'/'</tt><tt class="py-op">)</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">set</tt><tt class="py-op">(</tt><tt class="py-name">section</tt><tt class="py-op">,</tt> <tt class="py-name">key</tt><tt class="py-op">,</tt> <tt class="py-name">value</tt><tt class="py-op">)</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-name">NoSectionError</tt><tt class="py-op">:</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">add_section</tt><tt class="py-op">(</tt><tt class="py-name">section</tt><tt class="py-op">)</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">set</tt><tt class="py-op">(</tt><tt class="py-name">section</tt><tt class="py-op">,</tt> <tt class="py-name">key</tt><tt class="py-op">,</tt> <tt class="py-name">value</tt><tt class="py-op">)</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">        <tt id="link-8" class="py-name"><a title="xl.event" class="py-name" href="#" onclick="return doclink('link-8', 'event', 'link-1');">event</a></tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Function xl.event.log_event()=xl.event-module.html#log_event"><a title="xl.event.log_event" class="py-name" href="#" onclick="return doclink('link-9', 'log_event', 'link-9');">log_event</a></tt><tt class="py-op">(</tt><tt class="py-string">'option_set'</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">option</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"> </tt>
+<a name="SettingsManager.get_option"></a><div id="SettingsManager.get_option-def"><a name="L60"></a><tt class="py-lineno"> 60</tt> <a class="py-toggle" href="#" id="SettingsManager.get_option-toggle" onclick="return toggle('SettingsManager.get_option');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.settings.SettingsManager-class.html#get_option">get_option</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">option</tt><tt class="py-op">,</tt> <tt class="py-param">default</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SettingsManager.get_option-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SettingsManager.get_option-expanded"><a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line"><tt class="py-docstring">            Get the value of an option (in section/key syntax), returning</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"><tt class="py-docstring">            default if the key does not exist yet.</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">        <tt class="py-name">section</tt><tt class="py-op">,</tt> <tt class="py-name">key</tt> <tt class="py-op">=</tt> <tt class="py-name">option</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-string">'/'</tt><tt class="py-op">)</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">            <tt class="py-name">value</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-name">section</tt><tt class="py-op">,</tt> <tt class="py-name">key</tt><tt class="py-op">)</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">            <tt class="py-name">value</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Method xl.settings.SettingsManager._str_to_val()=xl.settings.SettingsManager-class.html#_str_to_val"><a title="xl.settings.SettingsManager._str_to_val" class="py-name" href="#" onclick="return doclink('link-10', '_str_to_val', 'link-10');">_str_to_val</a></tt><tt class="py-op">(</tt><tt class="py-name">value</tt><tt class="py-op">)</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-name">NoSectionError</tt><tt class="py-op">:</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">            <tt class="py-name">value</tt> <tt class="py-op">=</tt> <tt class="py-name">default</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-name">NoOptionError</tt><tt class="py-op">:</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">            <tt class="py-name">value</tt> <tt class="py-op">=</tt> <tt class="py-name">default</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">value</tt> </tt>
+</div><a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line"> </tt>
+<a name="SettingsManager._val_to_str"></a><div id="SettingsManager._val_to_str-def"><a name="L75"></a><tt class="py-lineno"> 75</tt> <a class="py-toggle" href="#" id="SettingsManager._val_to_str-toggle" onclick="return toggle('SettingsManager._val_to_str');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.settings.SettingsManager-class.html#_val_to_str">_val_to_str</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">value</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SettingsManager._val_to_str-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SettingsManager._val_to_str-expanded"><a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line"><tt class="py-docstring">            Turns a value of some type into a string so it</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line"><tt class="py-docstring">            can be a configuration value.</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt id="link-11" class="py-name" targets="Variable xl.media.tta.k=xl.media.tta-module.html#k"><a title="xl.media.tta.k" class="py-name" href="#" onclick="return doclink('link-11', 'k', 'link-11');">k</a></tt><tt class="py-op">,</tt> <tt id="link-12" class="py-name" targets="Variable xl.media.tta.v=xl.media.tta-module.html#v"><a title="xl.media.tta.v" class="py-name" href="#" onclick="return doclink('link-12', 'v', 'link-12');">v</a></tt> <tt class="py-keyword">in</tt> <tt id="link-13" class="py-name"><a title="xl.settings.TYPE_MAPPING" class="py-name" href="#" onclick="return doclink('link-13', 'TYPE_MAPPING', 'link-2');">TYPE_MAPPING</a></tt><tt class="py-op">.</tt><tt class="py-name">iteritems</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt id="link-14" class="py-name"><a title="xl.media.tta.v" class="py-name" href="#" onclick="return doclink('link-14', 'v', 'link-12');">v</a></tt> <tt class="py-op">==</tt> <tt class="py-name">type</tt><tt class="py-op">(</tt><tt class="py-name">value</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt id="link-15" class="py-name"><a title="xl.media.tta.k" class="py-name" href="#" onclick="return doclink('link-15', 'k', 'link-11');">k</a></tt> <tt class="py-op">+</tt> <tt class="py-string">": "</tt> <tt class="py-op">+</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">value</tt><tt class="py-op">)</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">        <tt class="py-keyword">raise</tt> <tt class="py-name">ValueError</tt><tt class="py-op">(</tt><tt class="py-string">"We don't know how to store that kind of setting"</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line"> </tt>
+<a name="SettingsManager._str_to_val"></a><div id="SettingsManager._str_to_val-def"><a name="L85"></a><tt class="py-lineno"> 85</tt> <a class="py-toggle" href="#" id="SettingsManager._str_to_val-toggle" onclick="return toggle('SettingsManager._str_to_val');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.settings.SettingsManager-class.html#_str_to_val">_str_to_val</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">value</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SettingsManager._str_to_val-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SettingsManager._str_to_val-expanded"><a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"><tt class="py-docstring">            Convert setting strings back to normal values.</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">        <tt class="py-name">kind</tt> <tt class="py-op">=</tt> <tt class="py-name">value</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-string">':'</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">        <tt class="py-name">value</tt> <tt class="py-op">=</tt> <tt class="py-name">value</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-string">':'</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">:</tt><tt class="py-op">]</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">kind</tt> <tt class="py-keyword">in</tt> <tt id="link-16" class="py-name"><a title="xl.settings.TYPE_MAPPING" class="py-name" href="#" onclick="return doclink('link-16', 'TYPE_MAPPING', 'link-2');">TYPE_MAPPING</a></tt><tt class="py-op">.</tt><tt class="py-name">keys</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">            <tt class="py-name">value</tt> <tt class="py-op">=</tt> <tt id="link-17" class="py-name"><a title="xl.settings.TYPE_MAPPING" class="py-name" href="#" onclick="return doclink('link-17', 'TYPE_MAPPING', 'link-2');">TYPE_MAPPING</a></tt><tt class="py-op">[</tt><tt class="py-name">kind</tt><tt class="py-op">]</tt><tt class="py-op">(</tt><tt class="py-name">value</tt><tt class="py-op">)</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">value</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-name">ValueError</tt><tt class="py-op">(</tt><tt class="py-string">"An Unknown type of setting was found!"</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line"> </tt>
+<a name="SettingsManager.__setitem__"></a><div id="SettingsManager.__setitem__-def"><a name="L97"></a><tt class="py-lineno"> 97</tt> <a class="py-toggle" href="#" id="SettingsManager.__setitem__-toggle" onclick="return toggle('SettingsManager.__setitem__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.settings.SettingsManager-class.html#__setitem__">__setitem__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">option</tt><tt class="py-op">,</tt> <tt class="py-param">value</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SettingsManager.__setitem__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SettingsManager.__setitem__-expanded"><a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line"><tt class="py-docstring">            same as set_option</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-18" class="py-name" targets="Method xl.settings.SettingsManager.set_option()=xl.settings.SettingsManager-class.html#set_option"><a title="xl.settings.SettingsManager.set_option" class="py-name" href="#" onclick="return doclink('link-18', 'set_option', 'link-18');">set_option</a></tt><tt class="py-op">(</tt><tt class="py-name">option</tt><tt class="py-op">,</tt> <tt class="py-name">value</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line"> </tt>
+<a name="SettingsManager.__getitem__"></a><div id="SettingsManager.__getitem__-def"><a name="L103"></a><tt class="py-lineno">103</tt> <a class="py-toggle" href="#" id="SettingsManager.__getitem__-toggle" onclick="return toggle('SettingsManager.__getitem__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.settings.SettingsManager-class.html#__getitem__">__getitem__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">option</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SettingsManager.__getitem__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SettingsManager.__getitem__-expanded"><a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line"><tt class="py-docstring">            same as get_option</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name" targets="Method xl.settings.SettingsManager.get_option()=xl.settings.SettingsManager-class.html#get_option"><a title="xl.settings.SettingsManager.get_option" class="py-name" href="#" onclick="return doclink('link-19', 'get_option', 'link-19');">get_option</a></tt><tt class="py-op">(</tt><tt class="py-name">option</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"> </tt>
+<a name="SettingsManager.save"></a><div id="SettingsManager.save-def"><a name="L109"></a><tt class="py-lineno">109</tt> <a class="py-toggle" href="#" id="SettingsManager.save-toggle" onclick="return toggle('SettingsManager.save');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.settings.SettingsManager-class.html#save">save</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="SettingsManager.save-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="SettingsManager.save-expanded"><a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"><tt class="py-docstring">            Save the settings to disk</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">        <tt class="py-name">f</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">loc</tt><tt class="py-op">,</tt> <tt class="py-string">'w'</tt><tt class="py-op">)</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">write</tt><tt class="py-op">(</tt><tt class="py-name">f</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >Exaile</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0 on Wed Jun  4 21:12:07 2008
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

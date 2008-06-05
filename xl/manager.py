@@ -1,24 +1,19 @@
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 1, or (at your option)
-# any later version.
+# Classes to assist in the creation of *Manager classes.
 #
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+# SimpleManager - a very simple manager, basically a list with events on 
+# add/remove
 
 import event
 
 class SimpleManager:
     """
-        A simple class to easily manage a list of items, with add and remove events.
+        A simple class to easily manage a list of items, with add and 
+        remove events.
     """
     def __init__(self, name):
+        """
+            name: the name of this manager
+        """
         self.name = name
 
         self.items = []
@@ -27,7 +22,11 @@ class SimpleManager:
 
     def add(self, item, pos=-1):
         """
-            add an item. if the position is not specified it defaults to appending
+            add an item. if the position is not specified it defaults 
+            to appending
+
+            item: the item to add [object]
+            pos: the index to insert at [int]
         """
         if item not in self.items:
             if pos == -1:
@@ -43,6 +42,8 @@ class SimpleManager:
     def remove(self, item):
         """
             removes an item
+
+            item: the item to remove [object]
         """
         i = self.items.index(item)
         self.remove(item)
@@ -65,6 +66,8 @@ class SimpleManager:
     def set_active(self, pos):
         """
             set the currently active item
+
+            pos: the index to make active [int]
         """
         if pos < len(self.items):
             self.active = pos

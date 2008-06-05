@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>xl.media.mpc</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >Exaile</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="xl-module.html">Package&nbsp;xl</a> ::
+        <a href="xl.media-module.html">Package&nbsp;media</a> ::
+        Module&nbsp;mpc
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="xl.media.mpc-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="xl.media.mpc-module.html">Module xl.media.mpc</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">mutagen</tt><tt class="py-op">.</tt><tt class="py-name">apev2</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt id="link-0" class="py-name" targets="Variable xl.media.flac.TYPE=xl.media.flac-module.html#TYPE,Variable xl.media.mp3.TYPE=xl.media.mp3-module.html#TYPE,Variable xl.media.mp4.TYPE=xl.media.mp4-module.html#TYPE,Variable xl.media.mpc.TYPE=xl.media.mpc-module.html#TYPE,Variable xl.media.ogg.TYPE=xl.media.ogg-module.html#TYPE,Variable xl.media.wav.TYPE=xl.media.wav-module.html#TYPE,Variable xl.media.wma.TYPE=xl.media.wma-module.html#TYPE"><a title="xl.media.flac.TYPE
+xl.media.mp3.TYPE
+xl.media.mp4.TYPE
+xl.media.mpc.TYPE
+xl.media.ogg.TYPE
+xl.media.wav.TYPE
+xl.media.wma.TYPE" class="py-name" href="#" onclick="return doclink('link-0', 'TYPE', 'link-0');">TYPE</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'mpc'</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"># the tags are nearly identical, but we do this anyway for consistency</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt id="link-1" class="py-name" targets="Variable xl.media.mp4.TAG_TRANSLATION=xl.media.mp4-module.html#TAG_TRANSLATION,Variable xl.media.mpc.TAG_TRANSLATION=xl.media.mpc-module.html#TAG_TRANSLATION,Variable xl.media.wma.TAG_TRANSLATION=xl.media.wma-module.html#TAG_TRANSLATION"><a title="xl.media.mp4.TAG_TRANSLATION
+xl.media.mpc.TAG_TRANSLATION
+xl.media.wma.TAG_TRANSLATION" class="py-name" href="#" onclick="return doclink('link-1', 'TAG_TRANSLATION', 'link-1');">TAG_TRANSLATION</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line">    <tt class="py-string">'artist'</tt><tt class="py-op">:</tt>       <tt class="py-string">'artist'</tt><tt class="py-op">,</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line">    <tt class="py-string">'title'</tt><tt class="py-op">:</tt>        <tt class="py-string">'title'</tt><tt class="py-op">,</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line">    <tt class="py-string">'album'</tt><tt class="py-op">:</tt>        <tt class="py-string">'album'</tt><tt class="py-op">,</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line">    <tt class="py-string">'genre'</tt><tt class="py-op">:</tt>        <tt class="py-string">'genre'</tt><tt class="py-op">,</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line">    <tt class="py-string">'track'</tt><tt class="py-op">:</tt>        <tt class="py-string">'tracknumber'</tt><tt class="py-op">,</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line">    <tt class="py-string">'copyright'</tt><tt class="py-op">:</tt>    <tt class="py-string">'copyright'</tt><tt class="py-op">,</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line">    <tt class="py-string">'isrc'</tt><tt class="py-op">:</tt>         <tt class="py-string">'isrc'</tt><tt class="py-op">,</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-op">}</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-comment"># this code taken from quodlibet</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line">    <tt class="py-keyword">import</tt> <tt class="py-name">ctypes</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line">    <tt id="link-2" class="py-name" targets="Variable xl.media.mpc._libc=xl.media.mpc-module.html#_libc"><a title="xl.media.mpc._libc" class="py-name" href="#" onclick="return doclink('link-2', '_libc', 'link-2');">_libc</a></tt> <tt class="py-op">=</tt> <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">cdll</tt><tt class="py-op">.</tt><tt class="py-name">LoadLibrary</tt><tt class="py-op">(</tt><tt class="py-string">"libc.so.6"</tt><tt class="py-op">)</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line">    <tt id="link-3" class="py-name" targets="Variable xl.media.mpc._mpcdec=xl.media.mpc-module.html#_mpcdec"><a title="xl.media.mpc._mpcdec" class="py-name" href="#" onclick="return doclink('link-3', '_mpcdec', 'link-3');">_mpcdec</a></tt> <tt class="py-op">=</tt> <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">cdll</tt><tt class="py-op">.</tt><tt class="py-name">LoadLibrary</tt><tt class="py-op">(</tt><tt class="py-string">"libmpcdec.so.3"</tt><tt class="py-op">)</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-keyword">except</tt> <tt class="py-op">(</tt><tt class="py-name">ImportError</tt><tt class="py-op">,</tt> <tt class="py-name">OSError</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line">    <tt id="link-4" class="py-name"><a title="xl.media.mpc._libc" class="py-name" href="#" onclick="return doclink('link-4', '_libc', 'link-2');">_libc</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="_get_errno"></a><div id="_get_errno-def"><a name="L25"></a><tt class="py-lineno"> 25</tt> <a class="py-toggle" href="#" id="_get_errno-toggle" onclick="return toggle('_get_errno');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.media.mpc-module.html#_get_errno">_get_errno</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="_get_errno-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="_get_errno-expanded"><a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">c_int</tt><tt class="py-op">.</tt><tt class="py-name">in_dll</tt><tt class="py-op">(</tt><tt id="link-5" class="py-name"><a title="xl.media.mpc._libc" class="py-name" href="#" onclick="return doclink('link-5', '_libc', 'link-2');">_libc</a></tt><tt class="py-op">,</tt> <tt class="py-string">"errno"</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">value</tt> </tt>
+</div><a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line">    <tt id="link-6" class="py-name" targets="Variable xl.media.mpc.mpc_bool_t=xl.media.mpc-module.html#mpc_bool_t"><a title="xl.media.mpc.mpc_bool_t" class="py-name" href="#" onclick="return doclink('link-6', 'mpc_bool_t', 'link-6');">mpc_bool_t</a></tt> <tt class="py-op">=</tt> <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">c_uint8</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line">    <tt id="link-7" class="py-name" targets="Variable xl.media.mpc.mpc_int16_t=xl.media.mpc-module.html#mpc_int16_t"><a title="xl.media.mpc.mpc_int16_t" class="py-name" href="#" onclick="return doclink('link-7', 'mpc_int16_t', 'link-7');">mpc_int16_t</a></tt> <tt class="py-op">=</tt> <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">c_int16</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line">    <tt id="link-8" class="py-name" targets="Variable xl.media.mpc.mpc_int32_t=xl.media.mpc-module.html#mpc_int32_t"><a title="xl.media.mpc.mpc_int32_t" class="py-name" href="#" onclick="return doclink('link-8', 'mpc_int32_t', 'link-8');">mpc_int32_t</a></tt> <tt class="py-op">=</tt> <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">c_int32</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">    <tt id="link-9" class="py-name" targets="Variable xl.media.mpc.mpc_int64_t=xl.media.mpc-module.html#mpc_int64_t"><a title="xl.media.mpc.mpc_int64_t" class="py-name" href="#" onclick="return doclink('link-9', 'mpc_int64_t', 'link-9');">mpc_int64_t</a></tt> <tt class="py-op">=</tt> <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">c_int64</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">    <tt id="link-10" class="py-name" targets="Variable xl.media.mpc.mpc_uint16_t=xl.media.mpc-module.html#mpc_uint16_t"><a title="xl.media.mpc.mpc_uint16_t" class="py-name" href="#" onclick="return doclink('link-10', 'mpc_uint16_t', 'link-10');">mpc_uint16_t</a></tt> <tt class="py-op">=</tt> <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">c_uint16</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">    <tt id="link-11" class="py-name" targets="Variable xl.media.mpc.mpc_uint32_t=xl.media.mpc-module.html#mpc_uint32_t"><a title="xl.media.mpc.mpc_uint32_t" class="py-name" href="#" onclick="return doclink('link-11', 'mpc_uint32_t', 'link-11');">mpc_uint32_t</a></tt> <tt class="py-op">=</tt> <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">c_uint32</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">    <tt id="link-12" class="py-name" targets="Variable xl.media.mpc.mpc_streaminfo_off_t=xl.media.mpc-module.html#mpc_streaminfo_off_t"><a title="xl.media.mpc.mpc_streaminfo_off_t" class="py-name" href="#" onclick="return doclink('link-12', 'mpc_streaminfo_off_t', 'link-12');">mpc_streaminfo_off_t</a></tt> <tt class="py-op">=</tt> <tt id="link-13" class="py-name"><a title="xl.media.mpc.mpc_int32_t" class="py-name" href="#" onclick="return doclink('link-13', 'mpc_int32_t', 'link-8');">mpc_int32_t</a></tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"> </tt>
+<a name="_MPCReader"></a><div id="_MPCReader-def"><a name="L36"></a><tt class="py-lineno"> 36</tt> <a class="py-toggle" href="#" id="_MPCReader-toggle" onclick="return toggle('_MPCReader');">-</a><tt class="py-line">    <tt class="py-keyword">class</tt> <a class="py-def-name" href="xl.media.mpc._MPCReader-class.html">_MPCReader</a><tt class="py-op">(</tt><tt class="py-base-class">ctypes</tt><tt class="py-op">.</tt><tt class="py-base-class">Structure</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="_MPCReader-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="_MPCReader-expanded"><a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">        <tt id="link-14" class="py-name" targets="Variable xl.media.mpc._MPCReader._fields_=xl.media.mpc._MPCReader-class.html#_fields_,Variable xl.media.mpc._MPCReaderFile._fields_=xl.media.mpc._MPCReaderFile-class.html#_fields_,Variable xl.media.mpc._MPCStreamInfo._fields_=xl.media.mpc._MPCStreamInfo-class.html#_fields_"><a title="xl.media.mpc._MPCReader._fields_
+xl.media.mpc._MPCReaderFile._fields_
+xl.media.mpc._MPCStreamInfo._fields_" class="py-name" href="#" onclick="return doclink('link-14', '_fields_', 'link-14');">_fields_</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">(</tt><tt class="py-string">'read'</tt><tt class="py-op">,</tt> <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">c_void_p</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">'seek'</tt><tt class="py-op">,</tt> <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">c_void_p</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">'tell'</tt><tt class="py-op">,</tt> <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">c_void_p</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">'get_size'</tt><tt class="py-op">,</tt> <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">c_void_p</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">'canseek'</tt><tt class="py-op">,</tt> <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">c_void_p</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">                    <tt class="py-comment"># Actually, all the above are function pointers</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">'data'</tt><tt class="py-op">,</tt> <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">c_void_p</tt><tt class="py-op">)</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">                    <tt class="py-op">]</tt> </tt>
+</div><a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"> </tt>
+<a name="_MPCReaderFile"></a><div id="_MPCReaderFile-def"><a name="L46"></a><tt class="py-lineno"> 46</tt> <a class="py-toggle" href="#" id="_MPCReaderFile-toggle" onclick="return toggle('_MPCReaderFile');">-</a><tt class="py-line">    <tt class="py-keyword">class</tt> <a class="py-def-name" href="xl.media.mpc._MPCReaderFile-class.html">_MPCReaderFile</a><tt class="py-op">(</tt><tt class="py-base-class">ctypes</tt><tt class="py-op">.</tt><tt class="py-base-class">Structure</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="_MPCReaderFile-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="_MPCReaderFile-expanded"><a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">        <tt id="link-15" class="py-name"><a title="xl.media.mpc._MPCReader._fields_
+xl.media.mpc._MPCReaderFile._fields_
+xl.media.mpc._MPCStreamInfo._fields_" class="py-name" href="#" onclick="return doclink('link-15', '_fields_', 'link-14');">_fields_</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">(</tt><tt class="py-string">"reader"</tt><tt class="py-op">,</tt> <tt id="link-16" class="py-name" targets="Class xl.media.mpc._MPCReader=xl.media.mpc._MPCReader-class.html"><a title="xl.media.mpc._MPCReader" class="py-name" href="#" onclick="return doclink('link-16', '_MPCReader', 'link-16');">_MPCReader</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">"file"</tt><tt class="py-op">,</tt> <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">c_void_p</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-comment"># actually FILE*</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">"file_size"</tt><tt class="py-op">,</tt> <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">c_long</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">"is_seekable"</tt><tt class="py-op">,</tt> <tt id="link-17" class="py-name"><a title="xl.media.mpc.mpc_bool_t" class="py-name" href="#" onclick="return doclink('link-17', 'mpc_bool_t', 'link-6');">mpc_bool_t</a></tt><tt class="py-op">)</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"> </tt>
+<a name="_MPCStreamInfo"></a><div id="_MPCStreamInfo-def"><a name="L52"></a><tt class="py-lineno"> 52</tt> <a class="py-toggle" href="#" id="_MPCStreamInfo-toggle" onclick="return toggle('_MPCStreamInfo');">-</a><tt class="py-line">    <tt class="py-keyword">class</tt> <a class="py-def-name" href="xl.media.mpc._MPCStreamInfo-class.html">_MPCStreamInfo</a><tt class="py-op">(</tt><tt class="py-base-class">ctypes</tt><tt class="py-op">.</tt><tt class="py-base-class">Structure</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="_MPCStreamInfo-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="_MPCStreamInfo-expanded"><a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">        <tt id="link-18" class="py-name"><a title="xl.media.mpc._MPCReader._fields_
+xl.media.mpc._MPCReaderFile._fields_
+xl.media.mpc._MPCStreamInfo._fields_" class="py-name" href="#" onclick="return doclink('link-18', '_fields_', 'link-14');">_fields_</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">(</tt><tt class="py-string">"sample_freq"</tt><tt class="py-op">,</tt> <tt id="link-19" class="py-name"><a title="xl.media.mpc.mpc_uint32_t" class="py-name" href="#" onclick="return doclink('link-19', 'mpc_uint32_t', 'link-11');">mpc_uint32_t</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">"channels"</tt><tt class="py-op">,</tt> <tt id="link-20" class="py-name"><a title="xl.media.mpc.mpc_uint32_t" class="py-name" href="#" onclick="return doclink('link-20', 'mpc_uint32_t', 'link-11');">mpc_uint32_t</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">"header_position"</tt><tt class="py-op">,</tt> <tt id="link-21" class="py-name"><a title="xl.media.mpc.mpc_streaminfo_off_t" class="py-name" href="#" onclick="return doclink('link-21', 'mpc_streaminfo_off_t', 'link-12');">mpc_streaminfo_off_t</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">"stream_version"</tt><tt class="py-op">,</tt> <tt id="link-22" class="py-name"><a title="xl.media.mpc.mpc_uint32_t" class="py-name" href="#" onclick="return doclink('link-22', 'mpc_uint32_t', 'link-11');">mpc_uint32_t</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">"bitrate"</tt><tt class="py-op">,</tt> <tt id="link-23" class="py-name"><a title="xl.media.mpc.mpc_uint32_t" class="py-name" href="#" onclick="return doclink('link-23', 'mpc_uint32_t', 'link-11');">mpc_uint32_t</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">"average_bitrate"</tt><tt class="py-op">,</tt> <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">c_double</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">"frames"</tt><tt class="py-op">,</tt> <tt id="link-24" class="py-name"><a title="xl.media.mpc.mpc_uint32_t" class="py-name" href="#" onclick="return doclink('link-24', 'mpc_uint32_t', 'link-11');">mpc_uint32_t</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">"pcm_samples"</tt><tt class="py-op">,</tt> <tt id="link-25" class="py-name"><a title="xl.media.mpc.mpc_int64_t" class="py-name" href="#" onclick="return doclink('link-25', 'mpc_int64_t', 'link-9');">mpc_int64_t</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">"max_band"</tt><tt class="py-op">,</tt> <tt id="link-26" class="py-name"><a title="xl.media.mpc.mpc_uint32_t" class="py-name" href="#" onclick="return doclink('link-26', 'mpc_uint32_t', 'link-11');">mpc_uint32_t</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">"istereo"</tt><tt class="py-op">,</tt> <tt id="link-27" class="py-name"><a title="xl.media.mpc.mpc_uint32_t" class="py-name" href="#" onclick="return doclink('link-27', 'mpc_uint32_t', 'link-11');">mpc_uint32_t</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-comment"># 'is' is a Python keyword</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">'ms'</tt><tt class="py-op">,</tt> <tt id="link-28" class="py-name"><a title="xl.media.mpc.mpc_uint32_t" class="py-name" href="#" onclick="return doclink('link-28', 'mpc_uint32_t', 'link-11');">mpc_uint32_t</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">"block_size"</tt><tt class="py-op">,</tt> <tt id="link-29" class="py-name"><a title="xl.media.mpc.mpc_uint32_t" class="py-name" href="#" onclick="return doclink('link-29', 'mpc_uint32_t', 'link-11');">mpc_uint32_t</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">"profile"</tt><tt class="py-op">,</tt> <tt id="link-30" class="py-name"><a title="xl.media.mpc.mpc_uint32_t" class="py-name" href="#" onclick="return doclink('link-30', 'mpc_uint32_t', 'link-11');">mpc_uint32_t</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">"profile_name"</tt><tt class="py-op">,</tt> <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">c_char_p</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">"gain_title"</tt><tt class="py-op">,</tt> <tt id="link-31" class="py-name"><a title="xl.media.mpc.mpc_int16_t" class="py-name" href="#" onclick="return doclink('link-31', 'mpc_int16_t', 'link-7');">mpc_int16_t</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">"gain_album"</tt><tt class="py-op">,</tt> <tt id="link-32" class="py-name"><a title="xl.media.mpc.mpc_int16_t" class="py-name" href="#" onclick="return doclink('link-32', 'mpc_int16_t', 'link-7');">mpc_int16_t</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">"peak_title"</tt><tt class="py-op">,</tt> <tt id="link-33" class="py-name"><a title="xl.media.mpc.mpc_uint16_t" class="py-name" href="#" onclick="return doclink('link-33', 'mpc_uint16_t', 'link-10');">mpc_uint16_t</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">"peak_album"</tt><tt class="py-op">,</tt> <tt id="link-34" class="py-name"><a title="xl.media.mpc.mpc_uint16_t" class="py-name" href="#" onclick="return doclink('link-34', 'mpc_uint16_t', 'link-10');">mpc_uint16_t</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line"> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">"is_true_gapless"</tt><tt class="py-op">,</tt> <tt id="link-35" class="py-name"><a title="xl.media.mpc.mpc_uint32_t" class="py-name" href="#" onclick="return doclink('link-35', 'mpc_uint32_t', 'link-11');">mpc_uint32_t</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">"last_frame_samples"</tt><tt class="py-op">,</tt> <tt id="link-36" class="py-name"><a title="xl.media.mpc.mpc_uint32_t" class="py-name" href="#" onclick="return doclink('link-36', 'mpc_uint32_t', 'link-11');">mpc_uint32_t</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">"encoder_version"</tt><tt class="py-op">,</tt> <tt id="link-37" class="py-name"><a title="xl.media.mpc.mpc_uint32_t" class="py-name" href="#" onclick="return doclink('link-37', 'mpc_uint32_t', 'link-11');">mpc_uint32_t</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">"encoder"</tt><tt class="py-op">,</tt> <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">c_char</tt> <tt class="py-op">*</tt> <tt class="py-number">256</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">"tag_offset"</tt><tt class="py-op">,</tt> <tt id="link-38" class="py-name"><a title="xl.media.mpc.mpc_streaminfo_off_t" class="py-name" href="#" onclick="return doclink('link-38', 'mpc_streaminfo_off_t', 'link-12');">mpc_streaminfo_off_t</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">                    <tt class="py-op">(</tt><tt class="py-string">"total_file_length"</tt><tt class="py-op">,</tt> <tt id="link-39" class="py-name"><a title="xl.media.mpc.mpc_streaminfo_off_t" class="py-name" href="#" onclick="return doclink('link-39', 'mpc_streaminfo_off_t', 'link-12');">mpc_streaminfo_off_t</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">                    <tt class="py-op">]</tt> </tt>
+</div><a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line"> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">    <tt id="link-40" class="py-name"><a title="xl.media.mpc._mpcdec" class="py-name" href="#" onclick="return doclink('link-40', '_mpcdec', 'link-3');">_mpcdec</a></tt><tt class="py-op">.</tt><tt class="py-name">mpc_reader_setup_file_reader</tt><tt class="py-op">.</tt><tt class="py-name">argtypes</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">        <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">POINTER</tt><tt class="py-op">(</tt><tt id="link-41" class="py-name" targets="Class xl.media.mpc._MPCReaderFile=xl.media.mpc._MPCReaderFile-class.html"><a title="xl.media.mpc._MPCReaderFile" class="py-name" href="#" onclick="return doclink('link-41', '_MPCReaderFile', 'link-41');">_MPCReaderFile</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">c_void_p</tt><tt class="py-op">]</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line"> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">    <tt id="link-42" class="py-name"><a title="xl.media.mpc._mpcdec" class="py-name" href="#" onclick="return doclink('link-42', '_mpcdec', 'link-3');">_mpcdec</a></tt><tt class="py-op">.</tt><tt class="py-name">mpc_streaminfo_read</tt><tt class="py-op">.</tt><tt class="py-name">argtypes</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">        <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">POINTER</tt><tt class="py-op">(</tt><tt id="link-43" class="py-name" targets="Class xl.media.mpc._MPCStreamInfo=xl.media.mpc._MPCStreamInfo-class.html"><a title="xl.media.mpc._MPCStreamInfo" class="py-name" href="#" onclick="return doclink('link-43', '_MPCStreamInfo', 'link-43');">_MPCStreamInfo</a></tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">POINTER</tt><tt class="py-op">(</tt><tt id="link-44" class="py-name"><a title="xl.media.mpc._MPCReader" class="py-name" href="#" onclick="return doclink('link-44', '_MPCReader', 'link-16');">_MPCReader</a></tt><tt class="py-op">)</tt><tt class="py-op">]</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line"> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">    <tt id="link-45" class="py-name"><a title="xl.media.mpc._mpcdec" class="py-name" href="#" onclick="return doclink('link-45', '_mpcdec', 'link-3');">_mpcdec</a></tt><tt class="py-op">.</tt><tt class="py-name">mpc_streaminfo_get_length</tt><tt class="py-op">.</tt><tt class="py-name">restype</tt> <tt class="py-op">=</tt> <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">c_double</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"> </tt>
+<a name="get_tag"></a><div id="get_tag-def"><a name="L88"></a><tt class="py-lineno"> 88</tt> <a class="py-toggle" href="#" id="get_tag-toggle" onclick="return toggle('get_tag');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.media.mpc-module.html#get_tag">get_tag</a><tt class="py-op">(</tt><tt class="py-param">tagset</tt><tt class="py-op">,</tt> <tt class="py-param">tag</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="get_tag-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="get_tag-expanded"><a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-op">[</tt><tt class="py-name">unicode</tt><tt class="py-op">(</tt><tt class="py-name">t</tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt class="py-name">t</tt> <tt class="py-keyword">in</tt> <tt class="py-name">tagset</tt><tt class="py-op">[</tt><tt class="py-name">tag</tt><tt class="py-op">]</tt><tt class="py-op">]</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt class="py-name">KeyError</tt><tt class="py-op">:</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">     </tt>
+<a name="write_tag"></a><div id="write_tag-def"><a name="L94"></a><tt class="py-lineno"> 94</tt> <a class="py-toggle" href="#" id="write_tag-toggle" onclick="return toggle('write_tag');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.media.mpc-module.html#write_tag">write_tag</a><tt class="py-op">(</tt><tt class="py-param">tr</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="write_tag-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="write_tag-expanded"><a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> <tt class="py-name">info</tt> <tt class="py-op">=</tt> <tt class="py-name">mutagen</tt><tt class="py-op">.</tt><tt class="py-name">apev2</tt><tt class="py-op">.</tt><tt class="py-name">APEv2</tt><tt class="py-op">(</tt><tt class="py-name">tr</tt><tt class="py-op">.</tt><tt id="link-46" class="py-name" targets="Method xl.track.Track.get_loc_for_io()=xl.track.Track-class.html#get_loc_for_io"><a title="xl.track.Track.get_loc_for_io" class="py-name" href="#" onclick="return doclink('link-46', 'get_loc_for_io', 'link-46');">get_loc_for_io</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt class="py-name">mutagen</tt><tt class="py-op">.</tt><tt class="py-name">apev2</tt><tt class="py-op">.</tt><tt class="py-name">APENoHeaderError</tt><tt class="py-op">:</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">        <tt class="py-name">info</tt> <tt class="py-op">=</tt> <tt class="py-name">mutagen</tt><tt class="py-op">.</tt><tt class="py-name">apev2</tt><tt class="py-op">.</tt><tt class="py-name">APEv2</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line"> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">mpc_tag</tt><tt class="py-op">,</tt> <tt class="py-name">tag</tt> <tt class="py-keyword">in</tt> <tt id="link-47" class="py-name"><a title="xl.media.mp4.TAG_TRANSLATION
+xl.media.mpc.TAG_TRANSLATION
+xl.media.wma.TAG_TRANSLATION" class="py-name" href="#" onclick="return doclink('link-47', 'TAG_TRANSLATION', 'link-1');">TAG_TRANSLATION</a></tt><tt class="py-op">.</tt><tt class="py-name">iteritems</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">tr</tt><tt class="py-op">[</tt><tt class="py-name">tag</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">            <tt class="py-name">info</tt><tt class="py-op">[</tt><tt class="py-name">mpc_tag</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">tr</tt><tt class="py-op">[</tt><tt class="py-name">tag</tt><tt class="py-op">]</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line"> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">    <tt class="py-name">tag</tt><tt class="py-op">.</tt><tt id="link-48" class="py-name" targets="Method xl.settings.SettingsManager.save()=xl.settings.SettingsManager-class.html#save"><a title="xl.settings.SettingsManager.save" class="py-name" href="#" onclick="return doclink('link-48', 'save', 'link-48');">save</a></tt><tt class="py-op">(</tt><tt class="py-name">tr</tt><tt class="py-op">.</tt><tt id="link-49" class="py-name"><a title="xl.track.Track.get_loc_for_io" class="py-name" href="#" onclick="return doclink('link-49', 'get_loc_for_io', 'link-46');">get_loc_for_io</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line"> </tt>
+<a name="can_change"></a><div id="can_change-def"><a name="L105"></a><tt class="py-lineno">105</tt> <a class="py-toggle" href="#" id="can_change-toggle" onclick="return toggle('can_change');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.media.mpc-module.html#can_change">can_change</a><tt class="py-op">(</tt><tt class="py-param">tag</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="can_change-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="can_change-expanded"><a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">tag</tt> <tt class="py-keyword">in</tt> <tt id="link-50" class="py-name"><a title="xl.media.mp4.TAG_TRANSLATION
+xl.media.mpc.TAG_TRANSLATION
+xl.media.wma.TAG_TRANSLATION" class="py-name" href="#" onclick="return doclink('link-50', 'TAG_TRANSLATION', 'link-1');">TAG_TRANSLATION</a></tt><tt class="py-op">.</tt><tt class="py-name">values</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line"> </tt>
+<a name="is_multi"></a><div id="is_multi-def"><a name="L108"></a><tt class="py-lineno">108</tt> <a class="py-toggle" href="#" id="is_multi-toggle" onclick="return toggle('is_multi');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.media.mpc-module.html#is_multi">is_multi</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="is_multi-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="is_multi-expanded"><a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">True</tt> </tt>
+</div><a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line"> </tt>
+<a name="fill_tag_from_path"></a><div id="fill_tag_from_path-def"><a name="L111"></a><tt class="py-lineno">111</tt> <a class="py-toggle" href="#" id="fill_tag_from_path-toggle" onclick="return toggle('fill_tag_from_path');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.media.mpc-module.html#fill_tag_from_path">fill_tag_from_path</a><tt class="py-op">(</tt><tt class="py-param">tr</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="fill_tag_from_path-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="fill_tag_from_path-expanded"><a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> <tt class="py-name">info</tt> <tt class="py-op">=</tt> <tt class="py-name">mutagen</tt><tt class="py-op">.</tt><tt class="py-name">apev2</tt><tt class="py-op">.</tt><tt class="py-name">APEv2</tt><tt class="py-op">(</tt><tt class="py-name">tr</tt><tt class="py-op">.</tt><tt id="link-51" class="py-name"><a title="xl.track.Track.get_loc_for_io" class="py-name" href="#" onclick="return doclink('link-51', 'get_loc_for_io', 'link-46');">get_loc_for_io</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt class="py-name">mutagen</tt><tt class="py-op">.</tt><tt class="py-name">apev2</tt><tt class="py-op">.</tt><tt class="py-name">APENoHeaderError</tt><tt class="py-op">:</tt> <tt class="py-keyword">return</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line"> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">mpc_tag</tt><tt class="py-op">,</tt> <tt class="py-name">tag</tt> <tt class="py-keyword">in</tt> <tt id="link-52" class="py-name"><a title="xl.media.mp4.TAG_TRANSLATION
+xl.media.mpc.TAG_TRANSLATION
+xl.media.wma.TAG_TRANSLATION" class="py-name" href="#" onclick="return doclink('link-52', 'TAG_TRANSLATION', 'link-1');">TAG_TRANSLATION</a></tt><tt class="py-op">.</tt><tt class="py-name">iteritems</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">        <tt class="py-name">tr</tt><tt class="py-op">[</tt><tt class="py-name">tag</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt id="link-53" class="py-name" targets="Function xl.media.flac.get_tag()=xl.media.flac-module.html#get_tag,Function xl.media.mp3.get_tag()=xl.media.mp3-module.html#get_tag,Function xl.media.mp4.get_tag()=xl.media.mp4-module.html#get_tag,Function xl.media.mpc.get_tag()=xl.media.mpc-module.html#get_tag,Function xl.media.ogg.get_tag()=xl.media.ogg-module.html#get_tag,Function xl.media.tta.get_tag()=xl.media.tta-module.html#get_tag,Function xl.media.wma.get_tag()=xl.media.wma-module.html#get_tag,Function xl.media.wv.get_tag()=xl.media.wv-module.html#get_tag,Method xl.track.Track.get_tag()=xl.track.Track-class.html#get_tag"><a title="xl.media.flac.get_tag
+xl.media.mp3.get_tag
+xl.media.mp4.get_tag
+xl.media.mpc.get_tag
+xl.media.ogg.get_tag
+xl.media.tta.get_tag
+xl.media.wma.get_tag
+xl.media.wv.get_tag
+xl.track.Track.get_tag" class="py-name" href="#" onclick="return doclink('link-53', 'get_tag', 'link-53');">get_tag</a></tt><tt class="py-op">(</tt><tt class="py-name">info</tt><tt class="py-op">,</tt> <tt class="py-name">mpc_tag</tt><tt class="py-op">)</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line"> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">    <tt class="py-comment"># determine length and bitrate with the code from quodlibet</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line"><tt class="py-comment"></tt>    <tt class="py-keyword">if</tt> <tt id="link-54" class="py-name"><a title="xl.media.mpc._libc" class="py-name" href="#" onclick="return doclink('link-54', '_libc', 'link-2');">_libc</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">        <tt class="py-name">reader</tt> <tt class="py-op">=</tt> <tt id="link-55" class="py-name"><a title="xl.media.mpc._MPCReaderFile" class="py-name" href="#" onclick="return doclink('link-55', '_MPCReaderFile', 'link-41');">_MPCReaderFile</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">        <tt class="py-name">f</tt> <tt class="py-op">=</tt> <tt id="link-56" class="py-name"><a title="xl.media.mpc._libc" class="py-name" href="#" onclick="return doclink('link-56', '_libc', 'link-2');">_libc</a></tt><tt class="py-op">.</tt><tt class="py-name">fopen</tt><tt class="py-op">(</tt><tt class="py-name">tr</tt><tt class="py-op">.</tt><tt id="link-57" class="py-name"><a title="xl.track.Track.get_loc_for_io" class="py-name" href="#" onclick="return doclink('link-57', 'get_loc_for_io', 'link-46');">get_loc_for_io</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-string">"r"</tt><tt class="py-op">)</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">f</tt><tt class="py-op">:</tt> <tt class="py-keyword">raise</tt> <tt class="py-name">OSError</tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">strerror</tt><tt class="py-op">(</tt><tt id="link-58" class="py-name" targets="Function xl.media.mpc._get_errno()=xl.media.mpc-module.html#_get_errno"><a title="xl.media.mpc._get_errno" class="py-name" href="#" onclick="return doclink('link-58', '_get_errno', 'link-58');">_get_errno</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">        <tt id="link-59" class="py-name"><a title="xl.media.mpc._mpcdec" class="py-name" href="#" onclick="return doclink('link-59', '_mpcdec', 'link-3');">_mpcdec</a></tt><tt class="py-op">.</tt><tt class="py-name">mpc_reader_setup_file_reader</tt><tt class="py-op">(</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">            <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">pointer</tt><tt class="py-op">(</tt><tt class="py-name">reader</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">c_void_p</tt><tt class="py-op">(</tt><tt class="py-name">f</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">        <tt class="py-name">info</tt> <tt class="py-op">=</tt> <tt id="link-60" class="py-name"><a title="xl.media.mpc._MPCStreamInfo" class="py-name" href="#" onclick="return doclink('link-60', '_MPCStreamInfo', 'link-43');">_MPCStreamInfo</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line"> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-61" class="py-name"><a title="xl.media.mpc._mpcdec" class="py-name" href="#" onclick="return doclink('link-61', '_mpcdec', 'link-3');">_mpcdec</a></tt><tt class="py-op">.</tt><tt class="py-name">mpc_streaminfo_read</tt><tt class="py-op">(</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">            <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">byref</tt><tt class="py-op">(</tt><tt class="py-name">info</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">byref</tt><tt class="py-op">(</tt><tt class="py-name">reader</tt><tt class="py-op">.</tt><tt class="py-name">reader</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-name">IOError</tt><tt class="py-op">(</tt><tt class="py-string">"not a valid Musepack file"</tt><tt class="py-op">)</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line"> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">        <tt class="py-name">tr</tt><tt class="py-op">.</tt><tt class="py-name">info</tt><tt class="py-op">[</tt><tt class="py-string">'length'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">            <tt id="link-62" class="py-name"><a title="xl.media.mpc._mpcdec" class="py-name" href="#" onclick="return doclink('link-62', '_mpcdec', 'link-3');">_mpcdec</a></tt><tt class="py-op">.</tt><tt class="py-name">mpc_streaminfo_get_length</tt><tt class="py-op">(</tt><tt class="py-name">ctypes</tt><tt class="py-op">.</tt><tt class="py-name">byref</tt><tt class="py-op">(</tt><tt class="py-name">info</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">        <tt class="py-name">tr</tt><tt class="py-op">.</tt><tt class="py-name">info</tt><tt class="py-op">[</tt><tt class="py-string">'bitrate'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">info</tt><tt class="py-op">.</tt><tt class="py-name">average_bitrate</tt><tt class="py-op">)</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">        <tt id="link-63" class="py-name"><a title="xl.media.mpc._libc" class="py-name" href="#" onclick="return doclink('link-63', '_libc', 'link-2');">_libc</a></tt><tt class="py-op">.</tt><tt class="py-name">fclose</tt><tt class="py-op">(</tt><tt class="py-name">reader</tt><tt class="py-op">.</tt><tt class="py-name">file</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >Exaile</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0 on Wed Jun  4 21:12:07 2008
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

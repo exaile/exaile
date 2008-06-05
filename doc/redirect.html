@@ -1,0 +1,38 @@
+<html><head><title>Epydoc Redirect Page</title>
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="pragma" content="no-cache" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+<!--
+var pages = ["xl.playlist.PlaylistIterator-c", "xl.media.mpc._MPCReaderFile-c", "xl.media.mpc._MPCStreamInfo-c", "xl.settings.SettingsManager-c", "xl.playlist.SmartPlaylist-c", "xl.collection.Collection-c", "xl.manager.SimpleManager-c", "xl.trackdb.TrackSearcher-c", "xl.media.mpc._MPCReader-c", "xl.collection.Library-c", "xl.event.EventManager-c", "xl.event.IdleManager-c", "xl.playlist.Playlist-c", "xl.player.GSTPlayer-c", "xl.player.PlayQueue-c", "xl.trackdb.TrackDB-c", "xl.player.Player-c", "xlgui.playlist-m", "xl.event.Event-c", "xl.main.Exaile-c", "xl.track.Track-c", "xl.collection-m", "xl.media.flac-m", "xl.media.mp3-m", "xl.media.mp4-m", "xl.media.mpc-m", "xl.media.ogg-m", "xl.media.tta-m", "xl.media.wav-m", "xl.media.wma-m", "xl.media.wv-m", "xl.playlist-m", "xl.settings-m", "xlgui.panel-m", "xl.manager-m", "xl.trackdb-m", "xlgui.main-m", "xl.common-m", "xl.player-m", "xl.event-m", "xl.media-m", "xl.track-m", "xl.main-m", "xl.path-m", "xl.xdg-m", "xlgui-m", "xl-m"];
+var dottedName = get_anchor();
+if (dottedName) {
+    var target = redirect_url(dottedName);
+    if (target) window.location.replace(target);
+}
+// -->
+</script>
+
+<h3>Epydoc Auto-redirect page</h3>
+
+<p>When javascript is enabled, this page will redirect URLs of
+the form <tt>redirect.html#<i>dotted.name</i></tt> to the
+documentation for the object with the given fully-qualified
+dotted name.</p>
+<p><a id="message"> &nbsp; </a></p>
+
+<script type="text/javascript">
+<!--
+if (dottedName) {
+    var msg = document.getElementById("message");
+    msg.innerHTML = "No documentation found for <tt>"+
+                    dottedName+"</tt>";
+}
+// -->
+</script>
+
+</body>
+</html>

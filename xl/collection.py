@@ -1,16 +1,10 @@
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 1, or (at your option)
-# any later version.
+# Classes representing collections and libraries
 #
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# A collection is a database of tracks. It is based on TrackDB but
+# has the ability to be linked with libraries.
 #
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+# A library finds tracks in a specified directory and adds them to an
+# associated collection.
 
 from xl import trackdb, media, track
 from settings import SettingsManager
@@ -53,7 +47,7 @@ class Collection(trackdb.TrackDB):
         """
             Remove a library from the collection
 
-            library: the library to remove
+            library: the library to remove [Library]
         """
         for k, v in self.libraries.iteritems():
             if v == library:
@@ -75,13 +69,15 @@ class Collection(trackdb.TrackDB):
         """
         for library in self.libraries.values():
             library.rescan()
-
         try:
             self.save_to_location()
         except AttributeError:
             pass
 
     def save_libraries(self):
+        """
+            Save information about libraries into settings
+        """
         lib_paths = ""
         for k, v in self.libraries.iteritems():
             lib_paths += k + ":"
@@ -122,6 +118,7 @@ class Library:
         return self.location
 
     def set_collection(self, collection):
+
         self.collection = collection
 
     def rescan(self):

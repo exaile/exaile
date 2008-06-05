@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>xl.media.tta</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >Exaile</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="xl-module.html">Package&nbsp;xl</a> ::
+        <a href="xl.media-module.html">Package&nbsp;media</a> ::
+        Module&nbsp;tta
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="xl.media.tta-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="xl.media.tta-module.html">Module xl.media.tta</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">mutagen</tt><tt class="py-op">,</tt> <tt class="py-name">mutagen</tt><tt class="py-op">.</tt><tt class="py-name">id3</tt><tt class="py-op">,</tt> <tt class="py-name">mutagen</tt><tt class="py-op">.</tt><tt class="py-name">trueaudio</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package xl=xl-module.html"><a title="xl" class="py-name" href="#" onclick="return doclink('link-0', 'xl', 'link-0');">xl</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Module xl.common=xl.common-module.html"><a title="xl.common" class="py-name" href="#" onclick="return doclink('link-1', 'common', 'link-1');">common</a></tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt id="link-2" class="py-name" targets="Variable xl.media.mp3.IDS=xl.media.mp3-module.html#IDS,Variable xl.media.tta.IDS=xl.media.tta-module.html#IDS"><a title="xl.media.mp3.IDS
+xl.media.tta.IDS" class="py-name" href="#" onclick="return doclink('link-2', 'IDS', 'link-2');">IDS</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> <tt class="py-string">"TIT2"</tt><tt class="py-op">:</tt> <tt class="py-string">"title"</tt><tt class="py-op">,</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line">        <tt class="py-string">"TPE1"</tt><tt class="py-op">:</tt> <tt class="py-string">"artist"</tt><tt class="py-op">,</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line">        <tt class="py-string">"TALB"</tt><tt class="py-op">:</tt> <tt class="py-string">"album"</tt><tt class="py-op">,</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line">        <tt class="py-string">"TRCK"</tt><tt class="py-op">:</tt> <tt class="py-string">"track"</tt><tt class="py-op">,</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line">        <tt class="py-string">"TDRC"</tt><tt class="py-op">:</tt> <tt class="py-string">"year"</tt><tt class="py-op">,</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line">        <tt class="py-string">"TCON"</tt><tt class="py-op">:</tt> <tt class="py-string">"genre"</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line">        <tt class="py-op">}</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt id="link-3" class="py-name" targets="Variable xl.media.tta.SDI=xl.media.tta-module.html#SDI"><a title="xl.media.tta.SDI" class="py-name" href="#" onclick="return doclink('link-3', 'SDI', 'link-3');">SDI</a></tt> <tt class="py-op">=</tt> <tt class="py-name">dict</tt><tt class="py-op">(</tt><tt class="py-op">[</tt><tt class="py-op">(</tt><tt id="link-4" class="py-name" targets="Variable xl.media.tta.v=xl.media.tta-module.html#v"><a title="xl.media.tta.v" class="py-name" href="#" onclick="return doclink('link-4', 'v', 'link-4');">v</a></tt><tt class="py-op">,</tt> <tt id="link-5" class="py-name" targets="Variable xl.media.tta.k=xl.media.tta-module.html#k"><a title="xl.media.tta.k" class="py-name" href="#" onclick="return doclink('link-5', 'k', 'link-5');">k</a></tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt id="link-6" class="py-name"><a title="xl.media.tta.k" class="py-name" href="#" onclick="return doclink('link-6', 'k', 'link-5');">k</a></tt><tt class="py-op">,</tt> <tt id="link-7" class="py-name"><a title="xl.media.tta.v" class="py-name" href="#" onclick="return doclink('link-7', 'v', 'link-4');">v</a></tt> <tt class="py-keyword">in</tt> <tt id="link-8" class="py-name"><a title="xl.media.mp3.IDS
+xl.media.tta.IDS" class="py-name" href="#" onclick="return doclink('link-8', 'IDS', 'link-2');">IDS</a></tt><tt class="py-op">.</tt><tt class="py-name">iteritems</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"> </tt>
+<a name="get_tag"></a><div id="get_tag-def"><a name="L14"></a><tt class="py-lineno">14</tt> <a class="py-toggle" href="#" id="get_tag-toggle" onclick="return toggle('get_tag');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.media.tta-module.html#get_tag">get_tag</a><tt class="py-op">(</tt><tt class="py-param">id3</tt><tt class="py-op">,</tt> <tt class="py-param">t</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="get_tag-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="get_tag-expanded"><a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-docstring">        Reads a specific id3 tag from the file</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">id3</tt><tt class="py-op">.</tt><tt class="py-name">has_key</tt><tt class="py-op">(</tt><tt class="py-name">t</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">return</tt> <tt class="py-string">""</tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line">    <tt class="py-name">text</tt> <tt class="py-op">=</tt> <tt class="py-name">unicode</tt><tt class="py-op">(</tt><tt class="py-name">id3</tt><tt class="py-op">[</tt><tt class="py-name">t</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line">    <tt class="py-name">text</tt> <tt class="py-op">=</tt> <tt class="py-name">text</tt><tt class="py-op">.</tt><tt class="py-name">replace</tt><tt class="py-op">(</tt><tt class="py-string">'\n'</tt><tt class="py-op">,</tt> <tt class="py-string">' '</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">replace</tt><tt class="py-op">(</tt><tt class="py-string">'\r'</tt><tt class="py-op">,</tt> <tt class="py-string">' '</tt><tt class="py-op">)</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">text</tt> </tt>
+</div><a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"> </tt>
+<a name="write_tag"></a><div id="write_tag-def"><a name="L24"></a><tt class="py-lineno">24</tt> <a class="py-toggle" href="#" id="write_tag-toggle" onclick="return toggle('write_tag');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.media.tta-module.html#write_tag">write_tag</a><tt class="py-op">(</tt><tt class="py-param">tr</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="write_tag-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="write_tag-expanded"><a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">        <tt class="py-name">id3</tt> <tt class="py-op">=</tt> <tt class="py-name">mutagen</tt><tt class="py-op">.</tt><tt class="py-name">id3</tt><tt class="py-op">.</tt><tt class="py-name">ID3</tt><tt class="py-op">(</tt><tt class="py-name">tr</tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Method xl.track.Track.get_loc_for_io()=xl.track.Track-class.html#get_loc_for_io"><a title="xl.track.Track.get_loc_for_io" class="py-name" href="#" onclick="return doclink('link-9', 'get_loc_for_io', 'link-9');">get_loc_for_io</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt class="py-name">mutagen</tt><tt class="py-op">.</tt><tt class="py-name">id3</tt><tt class="py-op">.</tt><tt class="py-name">ID3NoHeaderError</tt><tt class="py-op">:</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">        <tt class="py-name">id3</tt> <tt class="py-op">=</tt> <tt class="py-name">mutagen</tt><tt class="py-op">.</tt><tt class="py-name">id3</tt><tt class="py-op">.</tt><tt class="py-name">ID3</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line"> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">key</tt><tt class="py-op">,</tt> <tt class="py-name">id3name</tt> <tt class="py-keyword">in</tt> <tt id="link-10" class="py-name"><a title="xl.media.tta.SDI" class="py-name" href="#" onclick="return doclink('link-10', 'SDI', 'link-3');">SDI</a></tt><tt class="py-op">.</tt><tt class="py-name">items</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">        <tt class="py-name">id3</tt><tt class="py-op">.</tt><tt class="py-name">delall</tt><tt class="py-op">(</tt><tt class="py-name">id3name</tt><tt class="py-op">)</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line"> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt id="link-11" class="py-name"><a title="xl.media.tta.k" class="py-name" href="#" onclick="return doclink('link-11', 'k', 'link-5');">k</a></tt><tt class="py-op">,</tt> <tt id="link-12" class="py-name"><a title="xl.media.tta.v" class="py-name" href="#" onclick="return doclink('link-12', 'v', 'link-4');">v</a></tt> <tt class="py-keyword">in</tt> <tt id="link-13" class="py-name"><a title="xl.media.mp3.IDS
+xl.media.tta.IDS" class="py-name" href="#" onclick="return doclink('link-13', 'IDS', 'link-2');">IDS</a></tt><tt class="py-op">.</tt><tt class="py-name">iteritems</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-14" class="py-name"><a title="xl.media.tta.k" class="py-name" href="#" onclick="return doclink('link-14', 'k', 'link-5');">k</a></tt> <tt class="py-op">==</tt> <tt class="py-string">'TRCK'</tt><tt class="py-op">:</tt> <tt class="py-keyword">continue</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line"> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">            <tt class="py-name">frame</tt> <tt class="py-op">=</tt> <tt class="py-name">mutagen</tt><tt class="py-op">.</tt><tt class="py-name">id3</tt><tt class="py-op">.</tt><tt class="py-name">Frames</tt><tt class="py-op">[</tt><tt id="link-15" class="py-name"><a title="xl.media.tta.k" class="py-name" href="#" onclick="return doclink('link-15', 'k', 'link-5');">k</a></tt><tt class="py-op">]</tt><tt class="py-op">(</tt><tt class="py-name">encoding</tt><tt class="py-op">=</tt><tt class="py-number">3</tt><tt class="py-op">,</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">                <tt class="py-name">text</tt> <tt class="py-op">=</tt> <tt class="py-name">unicode</tt><tt class="py-op">(</tt><tt class="py-name">tr</tt><tt class="py-op">[</tt><tt id="link-16" class="py-name"><a title="xl.media.tta.v" class="py-name" href="#" onclick="return doclink('link-16', 'v', 'link-4');">v</a></tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">            <tt class="py-name">id3</tt><tt class="py-op">.</tt><tt class="py-name">loaded_frame</tt><tt class="py-op">(</tt><tt class="py-name">frame</tt><tt class="py-op">)</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">            <tt id="link-17" class="py-name"><a title="xl.common" class="py-name" href="#" onclick="return doclink('link-17', 'common', 'link-1');">common</a></tt><tt class="py-op">.</tt><tt id="link-18" class="py-name" targets="Function xl.common.log_exception()=xl.common-module.html#log_exception"><a title="xl.common.log_exception" class="py-name" href="#" onclick="return doclink('link-18', 'log_exception', 'link-18');">log_exception</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line"> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">tr</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name" targets="Module xl.track=xl.track-module.html"><a title="xl.track" class="py-name" href="#" onclick="return doclink('link-19', 'track', 'link-19');">track</a></tt> <tt class="py-op">&gt;</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">:</tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">            <tt id="link-20" class="py-name"><a title="xl.track" class="py-name" href="#" onclick="return doclink('link-20', 'track', 'link-19');">track</a></tt> <tt class="py-op">=</tt> <tt class="py-name">str</tt><tt class="py-op">(</tt><tt class="py-name">tr</tt><tt class="py-op">[</tt><tt class="py-string">'track'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">tr</tt><tt class="py-op">[</tt><tt class="py-string">'disc_id'</tt><tt class="py-op">]</tt> <tt class="py-op">&gt;</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">:</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">                <tt id="link-21" class="py-name"><a title="xl.track" class="py-name" href="#" onclick="return doclink('link-21', 'track', 'link-19');">track</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"%s/%s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt id="link-22" class="py-name"><a title="xl.track" class="py-name" href="#" onclick="return doclink('link-22', 'track', 'link-19');">track</a></tt><tt class="py-op">,</tt> <tt class="py-name">tr</tt><tt class="py-op">[</tt><tt class="py-string">'disc_id'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line"> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">            <tt class="py-name">frame</tt> <tt class="py-op">=</tt> <tt class="py-name">mutagen</tt><tt class="py-op">.</tt><tt class="py-name">id3</tt><tt class="py-op">.</tt><tt class="py-name">Frames</tt><tt class="py-op">[</tt><tt class="py-string">'TRCK'</tt><tt class="py-op">]</tt><tt class="py-op">(</tt><tt class="py-name">encoding</tt><tt class="py-op">=</tt><tt class="py-number">3</tt><tt class="py-op">,</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">                <tt class="py-name">text</tt><tt class="py-op">=</tt><tt id="link-23" class="py-name"><a title="xl.track" class="py-name" href="#" onclick="return doclink('link-23', 'track', 'link-19');">track</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line"> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">            <tt class="py-name">id3</tt><tt class="py-op">.</tt><tt class="py-name">loaded_frame</tt><tt class="py-op">(</tt><tt class="py-name">frame</tt><tt class="py-op">)</tt> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line"> </tt>
+<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line">        <tt class="py-name">id3</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name" targets="Method xl.settings.SettingsManager.save()=xl.settings.SettingsManager-class.html#save"><a title="xl.settings.SettingsManager.save" class="py-name" href="#" onclick="return doclink('link-24', 'save', 'link-24');">save</a></tt><tt class="py-op">(</tt><tt class="py-name">tr</tt><tt class="py-op">.</tt><tt id="link-25" class="py-name"><a title="xl.track.Track.get_loc_for_io" class="py-name" href="#" onclick="return doclink('link-25', 'get_loc_for_io', 'link-9');">get_loc_for_io</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt>     </tt>
+</div><a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line"> </tt>
+<a name="fill_tag_from_path"></a><div id="fill_tag_from_path-def"><a name="L55"></a><tt class="py-lineno">55</tt> <a class="py-toggle" href="#" id="fill_tag_from_path-toggle" onclick="return toggle('fill_tag_from_path');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.media.tta-module.html#fill_tag_from_path">fill_tag_from_path</a><tt class="py-op">(</tt><tt class="py-param">tr</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="fill_tag_from_path-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="fill_tag_from_path-expanded"><a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">    <tt class="py-name">info</tt> <tt class="py-op">=</tt> <tt class="py-name">mutagen</tt><tt class="py-op">.</tt><tt class="py-name">trueaudio</tt><tt class="py-op">.</tt><tt class="py-name">TrueAudio</tt><tt class="py-op">(</tt><tt class="py-name">tr</tt><tt class="py-op">.</tt><tt id="link-26" class="py-name"><a title="xl.track.Track.get_loc_for_io" class="py-name" href="#" onclick="return doclink('link-26', 'get_loc_for_io', 'link-9');">get_loc_for_io</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line">    <tt class="py-name">tr</tt><tt class="py-op">.</tt><tt class="py-name">info</tt><tt class="py-op">[</tt><tt class="py-string">'length'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">info</tt><tt class="py-op">.</tt><tt class="py-name">info</tt><tt class="py-op">.</tt><tt class="py-name">length</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line"> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line">    <tt class="py-keyword">try</tt><tt class="py-op">:</tt>     </tt>
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line">        <tt class="py-name">id3</tt> <tt class="py-op">=</tt> <tt class="py-name">mutagen</tt><tt class="py-op">.</tt><tt class="py-name">id3</tt><tt class="py-op">.</tt><tt class="py-name">ID3</tt><tt class="py-op">(</tt><tt class="py-name">tr</tt><tt class="py-op">.</tt><tt id="link-27" class="py-name"><a title="xl.track.Track.get_loc_for_io" class="py-name" href="#" onclick="return doclink('link-27', 'get_loc_for_io', 'link-9');">get_loc_for_io</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line">        <tt class="py-name">tr</tt><tt class="py-op">[</tt><tt class="py-string">'title'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt id="link-28" class="py-name" targets="Function xl.media.flac.get_tag()=xl.media.flac-module.html#get_tag,Function xl.media.mp3.get_tag()=xl.media.mp3-module.html#get_tag,Function xl.media.mp4.get_tag()=xl.media.mp4-module.html#get_tag,Function xl.media.mpc.get_tag()=xl.media.mpc-module.html#get_tag,Function xl.media.ogg.get_tag()=xl.media.ogg-module.html#get_tag,Function xl.media.tta.get_tag()=xl.media.tta-module.html#get_tag,Function xl.media.wma.get_tag()=xl.media.wma-module.html#get_tag,Function xl.media.wv.get_tag()=xl.media.wv-module.html#get_tag,Method xl.track.Track.get_tag()=xl.track.Track-class.html#get_tag"><a title="xl.media.flac.get_tag
+xl.media.mp3.get_tag
+xl.media.mp4.get_tag
+xl.media.mpc.get_tag
+xl.media.ogg.get_tag
+xl.media.tta.get_tag
+xl.media.wma.get_tag
+xl.media.wv.get_tag
+xl.track.Track.get_tag" class="py-name" href="#" onclick="return doclink('link-28', 'get_tag', 'link-28');">get_tag</a></tt><tt class="py-op">(</tt><tt class="py-name">id3</tt><tt class="py-op">,</tt> <tt class="py-string">'TIT2'</tt><tt class="py-op">)</tt> </tt>
+<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line">        <tt class="py-name">tr</tt><tt class="py-op">[</tt><tt class="py-string">'artist'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt id="link-29" class="py-name"><a title="xl.media.flac.get_tag
+xl.media.mp3.get_tag
+xl.media.mp4.get_tag
+xl.media.mpc.get_tag
+xl.media.ogg.get_tag
+xl.media.tta.get_tag
+xl.media.wma.get_tag
+xl.media.wv.get_tag
+xl.track.Track.get_tag" class="py-name" href="#" onclick="return doclink('link-29', 'get_tag', 'link-28');">get_tag</a></tt><tt class="py-op">(</tt><tt class="py-name">id3</tt><tt class="py-op">,</tt> <tt class="py-string">'TPE1'</tt><tt class="py-op">)</tt> </tt>
+<a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line">        <tt class="py-name">tr</tt><tt class="py-op">[</tt><tt class="py-string">'album'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt id="link-30" class="py-name"><a title="xl.media.flac.get_tag
+xl.media.mp3.get_tag
+xl.media.mp4.get_tag
+xl.media.mpc.get_tag
+xl.media.ogg.get_tag
+xl.media.tta.get_tag
+xl.media.wma.get_tag
+xl.media.wv.get_tag
+xl.track.Track.get_tag" class="py-name" href="#" onclick="return doclink('link-30', 'get_tag', 'link-28');">get_tag</a></tt><tt class="py-op">(</tt><tt class="py-name">id3</tt><tt class="py-op">,</tt> <tt class="py-string">'TALB'</tt><tt class="py-op">)</tt> </tt>
+<a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line">        <tt class="py-name">tr</tt><tt class="py-op">[</tt><tt class="py-string">'genre'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt id="link-31" class="py-name"><a title="xl.media.flac.get_tag
+xl.media.mp3.get_tag
+xl.media.mp4.get_tag
+xl.media.mpc.get_tag
+xl.media.ogg.get_tag
+xl.media.tta.get_tag
+xl.media.wma.get_tag
+xl.media.wv.get_tag
+xl.track.Track.get_tag" class="py-name" href="#" onclick="return doclink('link-31', 'get_tag', 'link-28');">get_tag</a></tt><tt class="py-op">(</tt><tt class="py-name">id3</tt><tt class="py-op">,</tt> <tt class="py-string">'TCON'</tt><tt class="py-op">)</tt> </tt>
+<a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line"> </tt>
+<a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line">        <tt class="py-name">trackinfo</tt> <tt class="py-op">=</tt> <tt id="link-32" class="py-name"><a title="xl.media.flac.get_tag
+xl.media.mp3.get_tag
+xl.media.mp4.get_tag
+xl.media.mpc.get_tag
+xl.media.ogg.get_tag
+xl.media.tta.get_tag
+xl.media.wma.get_tag
+xl.media.wv.get_tag
+xl.track.Track.get_tag" class="py-name" href="#" onclick="return doclink('link-32', 'get_tag', 'link-28');">get_tag</a></tt><tt class="py-op">(</tt><tt class="py-name">id3</tt><tt class="py-op">,</tt> <tt class="py-string">'TRCK'</tt><tt class="py-op">)</tt> </tt>
+<a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-string">'/'</tt> <tt class="py-keyword">in</tt> <tt class="py-name">trackinfo</tt><tt class="py-op">:</tt> </tt>
+<a name="L68"></a><tt class="py-lineno">68</tt>  <tt class="py-line">            <tt id="link-33" class="py-name"><a title="xl.track" class="py-name" href="#" onclick="return doclink('link-33', 'track', 'link-19');">track</a></tt><tt class="py-op">,</tt> <tt class="py-name">disc_id</tt> <tt class="py-op">=</tt> <tt class="py-name">trackinfo</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-string">'/'</tt><tt class="py-op">)</tt> </tt>
+<a name="L69"></a><tt class="py-lineno">69</tt>  <tt class="py-line"> </tt>
+<a name="L70"></a><tt class="py-lineno">70</tt>  <tt class="py-line">            <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L71"></a><tt class="py-lineno">71</tt>  <tt class="py-line">                <tt class="py-name">tr</tt><tt class="py-op">[</tt><tt class="py-string">'track'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt id="link-34" class="py-name"><a title="xl.track" class="py-name" href="#" onclick="return doclink('link-34', 'track', 'link-19');">track</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L72"></a><tt class="py-lineno">72</tt>  <tt class="py-line">            <tt class="py-keyword">except</tt> <tt class="py-name">ValueError</tt><tt class="py-op">:</tt>  </tt>
+<a name="L73"></a><tt class="py-lineno">73</tt>  <tt class="py-line">                <tt class="py-name">tr</tt><tt class="py-op">[</tt><tt class="py-string">'track'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt> </tt>
+<a name="L74"></a><tt class="py-lineno">74</tt>  <tt class="py-line"> </tt>
+<a name="L75"></a><tt class="py-lineno">75</tt>  <tt class="py-line">            <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L76"></a><tt class="py-lineno">76</tt>  <tt class="py-line">                <tt class="py-name">tr</tt><tt class="py-op">[</tt><tt class="py-string">'disc_id'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">tr</tt><tt class="py-op">.</tt><tt class="py-name">disc_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L77"></a><tt class="py-lineno">77</tt>  <tt class="py-line">            <tt class="py-keyword">except</tt> <tt class="py-name">ValueError</tt><tt class="py-op">:</tt>  </tt>
+<a name="L78"></a><tt class="py-lineno">78</tt>  <tt class="py-line">                <tt class="py-name">tr</tt><tt class="py-op">[</tt><tt class="py-string">'disc_id'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt> </tt>
+<a name="L79"></a><tt class="py-lineno">79</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L80"></a><tt class="py-lineno">80</tt>  <tt class="py-line">            <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L81"></a><tt class="py-lineno">81</tt>  <tt class="py-line">                <tt class="py-name">tr</tt><tt class="py-op">[</tt><tt class="py-string">'track'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">trackinfo</tt><tt class="py-op">)</tt> </tt>
+<a name="L82"></a><tt class="py-lineno">82</tt>  <tt class="py-line">            <tt class="py-keyword">except</tt> <tt class="py-name">ValueError</tt><tt class="py-op">:</tt> </tt>
+<a name="L83"></a><tt class="py-lineno">83</tt>  <tt class="py-line">                <tt class="py-name">tr</tt><tt class="py-op">[</tt><tt class="py-string">'track'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt> </tt>
+<a name="L84"></a><tt class="py-lineno">84</tt>  <tt class="py-line"> </tt>
+<a name="L85"></a><tt class="py-lineno">85</tt>  <tt class="py-line">        <tt class="py-name">tr</tt><tt class="py-op">[</tt><tt class="py-string">'year'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt id="link-35" class="py-name"><a title="xl.media.flac.get_tag
+xl.media.mp3.get_tag
+xl.media.mp4.get_tag
+xl.media.mpc.get_tag
+xl.media.ogg.get_tag
+xl.media.tta.get_tag
+xl.media.wma.get_tag
+xl.media.wv.get_tag
+xl.track.Track.get_tag" class="py-name" href="#" onclick="return doclink('link-35', 'get_tag', 'link-28');">get_tag</a></tt><tt class="py-op">(</tt><tt class="py-name">id3</tt><tt class="py-op">,</tt> <tt class="py-string">'TDRC'</tt><tt class="py-op">)</tt> </tt>
+<a name="L86"></a><tt class="py-lineno">86</tt>  <tt class="py-line"> </tt>
+<a name="L87"></a><tt class="py-lineno">87</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt class="py-name">OverflowError</tt><tt class="py-op">:</tt> </tt>
+<a name="L88"></a><tt class="py-lineno">88</tt>  <tt class="py-line">        <tt class="py-keyword">pass</tt> </tt>
+<a name="L89"></a><tt class="py-lineno">89</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt class="py-name">mutagen</tt><tt class="py-op">.</tt><tt class="py-name">id3</tt><tt class="py-op">.</tt><tt class="py-name">ID3NoHeaderError</tt><tt class="py-op">:</tt> </tt>
+<a name="L90"></a><tt class="py-lineno">90</tt>  <tt class="py-line">        <tt class="py-keyword">pass</tt> </tt>
+<a name="L91"></a><tt class="py-lineno">91</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt> <tt class="py-name">IOError</tt><tt class="py-op">:</tt> </tt>
+<a name="L92"></a><tt class="py-lineno">92</tt>  <tt class="py-line">        <tt class="py-keyword">pass</tt> </tt>
+<a name="L93"></a><tt class="py-lineno">93</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
+<a name="L94"></a><tt class="py-lineno">94</tt>  <tt class="py-line">        <tt id="link-36" class="py-name"><a title="xl.common" class="py-name" href="#" onclick="return doclink('link-36', 'common', 'link-1');">common</a></tt><tt class="py-op">.</tt><tt id="link-37" class="py-name"><a title="xl.common.log_exception" class="py-name" href="#" onclick="return doclink('link-37', 'log_exception', 'link-18');">log_exception</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L95"></a><tt class="py-lineno">95</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >Exaile</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0 on Wed Jun  4 21:12:07 2008
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

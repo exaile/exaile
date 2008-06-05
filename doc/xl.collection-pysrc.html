@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>xl.collection</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >Exaile</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="xl-module.html">Package&nbsp;xl</a> ::
+        Module&nbsp;collection
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="xl.collection-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="xl.collection-module.html">Module xl.collection</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment"># Classes representing collections and libraries</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment">#</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># A collection is a database of tracks. It is based on TrackDB but</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># has the ability to be linked with libraries.</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment">#</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># A library finds tracks in a specified directory and adds them to an</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-comment"></tt><tt class="py-comment"># associated collection.</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-comment"></tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package xl=xl-module.html"><a title="xl" class="py-name" href="#" onclick="return doclink('link-0', 'xl', 'link-0');">xl</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Module xl.trackdb=xl.trackdb-module.html"><a title="xl.trackdb" class="py-name" href="#" onclick="return doclink('link-1', 'trackdb', 'link-1');">trackdb</a></tt><tt class="py-op">,</tt> <tt id="link-2" class="py-name" targets="Package xl.media=xl.media-module.html"><a title="xl.media" class="py-name" href="#" onclick="return doclink('link-2', 'media', 'link-2');">media</a></tt><tt class="py-op">,</tt> <tt id="link-3" class="py-name" targets="Module xl.track=xl.track-module.html"><a title="xl.track" class="py-name" href="#" onclick="return doclink('link-3', 'track', 'link-3');">track</a></tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-4" class="py-name" targets="Module xl.settings=xl.settings-module.html,Variable xl.settings.SettingsManager.settings=xl.settings.SettingsManager-class.html#settings"><a title="xl.settings
+xl.settings.SettingsManager.settings" class="py-name" href="#" onclick="return doclink('link-4', 'settings', 'link-4');">settings</a></tt> <tt class="py-keyword">import</tt> <tt id="link-5" class="py-name" targets="Class xl.settings.SettingsManager=xl.settings.SettingsManager-class.html"><a title="xl.settings.SettingsManager" class="py-name" href="#" onclick="return doclink('link-5', 'SettingsManager', 'link-5');">SettingsManager</a></tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"> </tt>
+<a name="Collection"></a><div id="Collection-def"><a name="L14"></a><tt class="py-lineno"> 14</tt> <a class="py-toggle" href="#" id="Collection-toggle" onclick="return toggle('Collection');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="xl.collection.Collection-class.html">Collection</a><tt class="py-op">(</tt><tt class="py-base-class">trackdb</tt><tt class="py-op">.</tt><tt class="py-base-class">TrackDB</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Collection-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Collection-expanded"><a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-docstring">        Manages a persistent track database.</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="Collection.__init__"></a><div id="Collection.__init__-def"><a name="L18"></a><tt class="py-lineno"> 18</tt> <a class="py-toggle" href="#" id="Collection.__init__-toggle" onclick="return toggle('Collection.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.collection.Collection-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">,</tt> <tt class="py-param">location</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">pickle_attrs</tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Collection.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Collection.__init__-expanded"><a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-docstring">            Set up the collection</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-docstring">            args: see TrackDB</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">libraries</tt> <tt class="py-op">=</tt> <tt class="py-name">dict</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-6" class="py-name"><a title="xl.settings
+xl.settings.SettingsManager.settings" class="py-name" href="#" onclick="return doclink('link-6', 'settings', 'link-4');">settings</a></tt> <tt class="py-op">=</tt> <tt id="link-7" class="py-name"><a title="xl.settings.SettingsManager" class="py-name" href="#" onclick="return doclink('link-7', 'SettingsManager', 'link-5');">SettingsManager</a></tt><tt class="py-op">.</tt><tt id="link-8" class="py-name"><a title="xl.settings
+xl.settings.SettingsManager.settings" class="py-name" href="#" onclick="return doclink('link-8', 'settings', 'link-4');">settings</a></tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line">        <tt id="link-9" class="py-name"><a title="xl.trackdb" class="py-name" href="#" onclick="return doclink('link-9', 'trackdb', 'link-1');">trackdb</a></tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Class xl.trackdb.TrackDB=xl.trackdb.TrackDB-class.html"><a title="xl.trackdb.TrackDB" class="py-name" href="#" onclick="return doclink('link-10', 'TrackDB', 'link-10');">TrackDB</a></tt><tt class="py-op">.</tt><tt id="link-11" class="py-name" targets="Method xl.collection.Collection.__init__()=xl.collection.Collection-class.html#__init__,Method xl.collection.Library.__init__()=xl.collection.Library-class.html#__init__,Method xl.event.Event.__init__()=xl.event.Event-class.html#__init__,Method xl.event.EventManager.__init__()=xl.event.EventManager-class.html#__init__,Method xl.event.IdleManager.__init__()=xl.event.IdleManager-class.html#__init__,Method xl.main.Exaile.__init__()=xl.main.Exaile-class.html#__init__,Method xl.manager.SimpleManager.__init__()=xl.manager.SimpleManager-class.html#__init__,Method xl.player.GSTPlayer.__init__()=xl.player.GSTPlayer-class.html#__init__,Method xl.player.PlayQueue.__init__()=xl.player.PlayQueue-class.html#__init__,Method xl.player.Player.__init__()=xl.player.Player-class.html#__init__,Method xl.playlist.Playlist.__init__()=xl.playlist.Playlist-class.html#__init__,Method xl.playlist.PlaylistIterator.__init__()=xl.playlist.PlaylistIterator-class.html#__init__,Method xl.settings.SettingsManager.__init__()=xl.settings.SettingsManager-class.html#__init__,Method xl.track.Track.__init__()=xl.track.Track-class.html#__init__,Method xl.trackdb.TrackDB.__init__()=xl.trackdb.TrackDB-class.html#__init__,Method xl.trackdb.TrackSearcher.__init__()=xl.trackdb.TrackSearcher-class.html#__init__"><a title="xl.collection.Collection.__init__
+xl.collection.Library.__init__
+xl.event.Event.__init__
+xl.event.EventManager.__init__
+xl.event.IdleManager.__init__
+xl.main.Exaile.__init__
+xl.manager.SimpleManager.__init__
+xl.player.GSTPlayer.__init__
+xl.player.PlayQueue.__init__
+xl.player.Player.__init__
+xl.playlist.Playlist.__init__
+xl.playlist.PlaylistIterator.__init__
+xl.settings.SettingsManager.__init__
+xl.track.Track.__init__
+xl.trackdb.TrackDB.__init__
+xl.trackdb.TrackSearcher.__init__" class="py-name" href="#" onclick="return doclink('link-11', '__init__', 'link-11');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">location</tt><tt class="py-op">=</tt><tt class="py-name">location</tt><tt class="py-op">,</tt>  </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line">                <tt class="py-name">pickle_attrs</tt><tt class="py-op">=</tt><tt class="py-name">pickle_attrs</tt><tt class="py-op">)</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line">        <tt class="py-name">lib_paths</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name"><a title="xl.settings
+xl.settings.SettingsManager.settings" class="py-name" href="#" onclick="return doclink('link-12', 'settings', 'link-4');">settings</a></tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Method xl.settings.SettingsManager.get_option()=xl.settings.SettingsManager-class.html#get_option"><a title="xl.settings.SettingsManager.get_option" class="py-name" href="#" onclick="return doclink('link-13', 'get_option', 'link-13');">get_option</a></tt><tt class="py-op">(</tt><tt class="py-string">"collection/library_paths"</tt><tt class="py-op">,</tt> <tt class="py-string">""</tt><tt class="py-op">)</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">l</tt> <tt class="py-keyword">in</tt> <tt class="py-name">lib_paths</tt><tt class="py-op">.</tt><tt class="py-name">split</tt><tt class="py-op">(</tt><tt class="py-string">":"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">l</tt><tt class="py-op">.</tt><tt class="py-name">strip</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name" targets="Method xl.collection.Collection.add_library()=xl.collection.Collection-class.html#add_library"><a title="xl.collection.Collection.add_library" class="py-name" href="#" onclick="return doclink('link-14', 'add_library', 'link-14');">add_library</a></tt><tt class="py-op">(</tt> <tt id="link-15" class="py-name" targets="Class xl.collection.Library=xl.collection.Library-class.html"><a title="xl.collection.Library" class="py-name" href="#" onclick="return doclink('link-15', 'Library', 'link-15');">Library</a></tt><tt class="py-op">(</tt><tt class="py-name">l</tt><tt class="py-op">)</tt> <tt class="py-op">)</tt> </tt>
+</div><a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"> </tt>
+<a name="Collection.add_library"></a><div id="Collection.add_library-def"><a name="L33"></a><tt class="py-lineno"> 33</tt> <a class="py-toggle" href="#" id="Collection.add_library-toggle" onclick="return toggle('Collection.add_library');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.collection.Collection-class.html#add_library">add_library</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">library</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Collection.add_library-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Collection.add_library-expanded"><a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-docstring">            Add this library to the collection</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt class="py-docstring">            library: the library to add [Library]</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">        <tt class="py-name">loc</tt> <tt class="py-op">=</tt> <tt class="py-name">library</tt><tt class="py-op">.</tt><tt id="link-16" class="py-name" targets="Method xl.collection.Library.get_location()=xl.collection.Library-class.html#get_location"><a title="xl.collection.Library.get_location" class="py-name" href="#" onclick="return doclink('link-16', 'get_location', 'link-16');">get_location</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">loc</tt> <tt class="py-keyword">not</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">libraries</tt><tt class="py-op">.</tt><tt class="py-name">keys</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">libraries</tt><tt class="py-op">[</tt><tt class="py-name">loc</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">library</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">            <tt class="py-name">library</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name" targets="Method xl.collection.Library.set_collection()=xl.collection.Library-class.html#set_collection"><a title="xl.collection.Library.set_collection" class="py-name" href="#" onclick="return doclink('link-17', 'set_collection', 'link-17');">set_collection</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">            <tt class="py-keyword">pass</tt> <tt class="py-comment"># TODO: raise an exception or something here</tt> </tt>
+</div><a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"> </tt>
+<a name="Collection.remove_library"></a><div id="Collection.remove_library-def"><a name="L46"></a><tt class="py-lineno"> 46</tt> <a class="py-toggle" href="#" id="Collection.remove_library-toggle" onclick="return toggle('Collection.remove_library');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.collection.Collection-class.html#remove_library">remove_library</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">library</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Collection.remove_library-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Collection.remove_library-expanded"><a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"><tt class="py-docstring">            Remove a library from the collection</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"><tt class="py-docstring">            library: the library to remove [Library]</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt id="link-18" class="py-name" targets="Variable xl.media.tta.k=xl.media.tta-module.html#k"><a title="xl.media.tta.k" class="py-name" href="#" onclick="return doclink('link-18', 'k', 'link-18');">k</a></tt><tt class="py-op">,</tt> <tt id="link-19" class="py-name" targets="Variable xl.media.tta.v=xl.media.tta-module.html#v"><a title="xl.media.tta.v" class="py-name" href="#" onclick="return doclink('link-19', 'v', 'link-19');">v</a></tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">libraries</tt><tt class="py-op">.</tt><tt class="py-name">iteritems</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt id="link-20" class="py-name"><a title="xl.media.tta.v" class="py-name" href="#" onclick="return doclink('link-20', 'v', 'link-19');">v</a></tt> <tt class="py-op">==</tt> <tt class="py-name">library</tt><tt class="py-op">:</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">                <tt class="py-keyword">del</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">libraries</tt><tt class="py-op">[</tt><tt id="link-21" class="py-name"><a title="xl.media.tta.k" class="py-name" href="#" onclick="return doclink('link-21', 'k', 'link-18');">k</a></tt><tt class="py-op">]</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> </tt>
+</div><a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">     </tt>
+<a name="Collection.get_libraries"></a><div id="Collection.get_libraries-def"><a name="L57"></a><tt class="py-lineno"> 57</tt> <a class="py-toggle" href="#" id="Collection.get_libraries-toggle" onclick="return toggle('Collection.get_libraries');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.collection.Collection-class.html#get_libraries">get_libraries</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Collection.get_libraries-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Collection.get_libraries-expanded"><a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"><tt class="py-docstring">            Gets a list of all the Libraries associated with this </tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"><tt class="py-docstring">            Collection</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line"><tt class="py-docstring">            returns: [list of Library]</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">libraries</tt><tt class="py-op">.</tt><tt class="py-name">values</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"> </tt>
+<a name="Collection.rescan_libraries"></a><div id="Collection.rescan_libraries-def"><a name="L66"></a><tt class="py-lineno"> 66</tt> <a class="py-toggle" href="#" id="Collection.rescan_libraries-toggle" onclick="return toggle('Collection.rescan_libraries');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.collection.Collection-class.html#rescan_libraries">rescan_libraries</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Collection.rescan_libraries-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Collection.rescan_libraries-expanded"><a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line"><tt class="py-docstring">            Rescans all libraries associated with this Collection</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">library</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">libraries</tt><tt class="py-op">.</tt><tt class="py-name">values</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">            <tt class="py-name">library</tt><tt class="py-op">.</tt><tt id="link-22" class="py-name" targets="Method xl.collection.Library.rescan()=xl.collection.Library-class.html#rescan"><a title="xl.collection.Library.rescan" class="py-name" href="#" onclick="return doclink('link-22', 'rescan', 'link-22');">rescan</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-23" class="py-name" targets="Method xl.trackdb.TrackDB.save_to_location()=xl.trackdb.TrackDB-class.html#save_to_location"><a title="xl.trackdb.TrackDB.save_to_location" class="py-name" href="#" onclick="return doclink('link-23', 'save_to_location', 'link-23');">save_to_location</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-name">AttributeError</tt><tt class="py-op">:</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">            <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line"> </tt>
+<a name="Collection.save_libraries"></a><div id="Collection.save_libraries-def"><a name="L77"></a><tt class="py-lineno"> 77</tt> <a class="py-toggle" href="#" id="Collection.save_libraries-toggle" onclick="return toggle('Collection.save_libraries');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.collection.Collection-class.html#save_libraries">save_libraries</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Collection.save_libraries-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Collection.save_libraries-expanded"><a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line"><tt class="py-docstring">            Save information about libraries into settings</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">        <tt class="py-name">lib_paths</tt> <tt class="py-op">=</tt> <tt class="py-string">""</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt id="link-24" class="py-name"><a title="xl.media.tta.k" class="py-name" href="#" onclick="return doclink('link-24', 'k', 'link-18');">k</a></tt><tt class="py-op">,</tt> <tt id="link-25" class="py-name"><a title="xl.media.tta.v" class="py-name" href="#" onclick="return doclink('link-25', 'v', 'link-19');">v</a></tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">libraries</tt><tt class="py-op">.</tt><tt class="py-name">iteritems</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">            <tt class="py-name">lib_paths</tt> <tt class="py-op">+=</tt> <tt id="link-26" class="py-name"><a title="xl.media.tta.k" class="py-name" href="#" onclick="return doclink('link-26', 'k', 'link-18');">k</a></tt> <tt class="py-op">+</tt> <tt class="py-string">":"</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">        <tt class="py-name">lib_paths</tt> <tt class="py-op">=</tt> <tt class="py-name">lib_paths</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-27" class="py-name"><a title="xl.settings
+xl.settings.SettingsManager.settings" class="py-name" href="#" onclick="return doclink('link-27', 'settings', 'link-4');">settings</a></tt><tt class="py-op">.</tt><tt id="link-28" class="py-name" targets="Method xl.settings.SettingsManager.set_option()=xl.settings.SettingsManager-class.html#set_option"><a title="xl.settings.SettingsManager.set_option" class="py-name" href="#" onclick="return doclink('link-28', 'set_option', 'link-28');">set_option</a></tt><tt class="py-op">(</tt><tt class="py-string">"collection/library_paths"</tt><tt class="py-op">,</tt> <tt class="py-name">lib_paths</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line"> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"> </tt>
+<a name="Library"></a><div id="Library-def"><a name="L88"></a><tt class="py-lineno"> 88</tt> <a class="py-toggle" href="#" id="Library-toggle" onclick="return toggle('Library');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="xl.collection.Library-class.html">Library</a><tt class="py-op">:</tt> </tt>
+</div><div id="Library-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Library-expanded"><a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line"><tt class="py-docstring">        Scans and watches a folder for tracks, and adds them to</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line"><tt class="py-docstring">        a Collection.</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="Library.__init__"></a><div id="Library.__init__-def"><a name="L93"></a><tt class="py-lineno"> 93</tt> <a class="py-toggle" href="#" id="Library.__init__-toggle" onclick="return toggle('Library.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.collection.Library-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">location</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Library.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Library.__init__-expanded"><a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line"><tt class="py-docstring">            Sets up the Library</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line"><tt class="py-docstring">            location: the directory this library will scan [string]</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line"><tt class="py-docstring">            collection: the Collection to associate with [Collection]</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">location</tt> <tt class="py-op">=</tt> <tt class="py-name">location</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line"> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-29" class="py-name" targets="Module xl.collection=xl.collection-module.html"><a title="xl.collection" class="py-name" href="#" onclick="return doclink('link-29', 'collection', 'link-29');">collection</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+</div><a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line"> </tt>
+<a name="Library.set_location"></a><div id="Library.set_location-def"><a name="L104"></a><tt class="py-lineno">104</tt> <a class="py-toggle" href="#" id="Library.set_location-toggle" onclick="return toggle('Library.set_location');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.collection.Library-class.html#set_location">set_location</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">location</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Library.set_location-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Library.set_location-expanded"><a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line"><tt class="py-docstring">            Changes the location of this Library</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"><tt class="py-docstring">            location: the new location to use [string]</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">location</tt> <tt class="py-op">=</tt> <tt class="py-name">location</tt> </tt>
+</div><a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"> </tt>
+<a name="Library.get_location"></a><div id="Library.get_location-def"><a name="L112"></a><tt class="py-lineno">112</tt> <a class="py-toggle" href="#" id="Library.get_location-toggle" onclick="return toggle('Library.get_location');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.collection.Library-class.html#get_location">get_location</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Library.get_location-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Library.get_location-expanded"><a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line"><tt class="py-docstring">            Gets the current location associated with this Library</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line"><tt class="py-docstring">            returns: the current location [string]</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">location</tt> </tt>
+</div><a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line"> </tt>
+<a name="Library.set_collection"></a><div id="Library.set_collection-def"><a name="L120"></a><tt class="py-lineno">120</tt> <a class="py-toggle" href="#" id="Library.set_collection-toggle" onclick="return toggle('Library.set_collection');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.collection.Library-class.html#set_collection">set_collection</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">collection</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Library.set_collection-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Library.set_collection-expanded"><a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line"> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-30" class="py-name"><a title="xl.collection" class="py-name" href="#" onclick="return doclink('link-30', 'collection', 'link-29');">collection</a></tt> <tt class="py-op">=</tt> <tt id="link-31" class="py-name"><a title="xl.collection" class="py-name" href="#" onclick="return doclink('link-31', 'collection', 'link-29');">collection</a></tt> </tt>
+</div><a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line"> </tt>
+<a name="Library.rescan"></a><div id="Library.rescan-def"><a name="L124"></a><tt class="py-lineno">124</tt> <a class="py-toggle" href="#" id="Library.rescan-toggle" onclick="return toggle('Library.rescan');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.collection.Library-class.html#rescan">rescan</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Library.rescan-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Library.rescan-expanded"><a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line"><tt class="py-docstring">            Rescan the associated folder and add the contained files</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line"><tt class="py-docstring">            to the Collection</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-32" class="py-name"><a title="xl.collection" class="py-name" href="#" onclick="return doclink('link-32', 'collection', 'link-29');">collection</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line"> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">        <tt id="link-33" class="py-name" targets="Variable xl.media.formats=xl.media-module.html#formats,Variable xl.track.formats=xl.track-module.html#formats"><a title="xl.media.formats
+xl.track.formats" class="py-name" href="#" onclick="return doclink('link-33', 'formats', 'link-33');">formats</a></tt> <tt class="py-op">=</tt> <tt id="link-34" class="py-name"><a title="xl.media" class="py-name" href="#" onclick="return doclink('link-34', 'media', 'link-2');">media</a></tt><tt class="py-op">.</tt><tt id="link-35" class="py-name"><a title="xl.media.formats
+xl.track.formats" class="py-name" href="#" onclick="return doclink('link-35', 'formats', 'link-33');">formats</a></tt><tt class="py-op">.</tt><tt class="py-name">keys</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line"> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">folder</tt> <tt class="py-keyword">in</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">walk</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">location</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">            <tt class="py-name">basepath</tt> <tt class="py-op">=</tt> <tt class="py-name">folder</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">            <tt class="py-keyword">for</tt> <tt class="py-name">filename</tt> <tt class="py-keyword">in</tt> <tt class="py-name">folder</tt><tt class="py-op">[</tt><tt class="py-number">2</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">                <tt class="py-name">fullpath</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt id="link-36" class="py-name" targets="Module xl.path=xl.path-module.html"><a title="xl.path" class="py-name" href="#" onclick="return doclink('link-36', 'path', 'link-36');">path</a></tt><tt class="py-op">.</tt><tt class="py-name">join</tt><tt class="py-op">(</tt><tt class="py-name">basepath</tt><tt class="py-op">,</tt> <tt class="py-name">filename</tt><tt class="py-op">)</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">                <tt class="py-comment">#(stuff, ext) = os.path.splitext(fullpath)</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line"><tt class="py-comment"></tt>                <tt class="py-name">tr</tt> <tt class="py-op">=</tt> <tt id="link-37" class="py-name"><a title="xl.track" class="py-name" href="#" onclick="return doclink('link-37', 'track', 'link-3');">track</a></tt><tt class="py-op">.</tt><tt id="link-38" class="py-name" targets="Class xl.track.Track=xl.track.Track-class.html"><a title="xl.track.Track" class="py-name" href="#" onclick="return doclink('link-38', 'Track', 'link-38');">Track</a></tt><tt class="py-op">(</tt><tt class="py-name">fullpath</tt><tt class="py-op">)</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">tr</tt><tt class="py-op">.</tt><tt class="py-name">_scan_valid</tt> <tt class="py-op">==</tt> <tt class="py-name">True</tt><tt class="py-op">:</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">                    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-39" class="py-name"><a title="xl.collection" class="py-name" href="#" onclick="return doclink('link-39', 'collection', 'link-29');">collection</a></tt><tt class="py-op">.</tt><tt id="link-40" class="py-name" targets="Method xl.event.IdleManager.add()=xl.event.IdleManager-class.html#add,Method xl.manager.SimpleManager.add()=xl.manager.SimpleManager-class.html#add,Method xl.playlist.Playlist.add()=xl.playlist.Playlist-class.html#add,Method xl.trackdb.TrackDB.add()=xl.trackdb.TrackDB-class.html#add"><a title="xl.event.IdleManager.add
+xl.manager.SimpleManager.add
+xl.playlist.Playlist.add
+xl.trackdb.TrackDB.add" class="py-name" href="#" onclick="return doclink('link-40', 'add', 'link-40');">add</a></tt><tt class="py-op">(</tt><tt class="py-name">tr</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line"> </tt>
+<a name="Library.is_realtime"></a><div id="Library.is_realtime-def"><a name="L143"></a><tt class="py-lineno">143</tt> <a class="py-toggle" href="#" id="Library.is_realtime-toggle" onclick="return toggle('Library.is_realtime');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.collection.Library-class.html#is_realtime">is_realtime</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Library.is_realtime-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Library.is_realtime-expanded"><a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">False</tt> </tt>
+</div><a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line"> </tt>
+<a name="Library.set_realtime"></a><div id="Library.set_realtime-def"><a name="L146"></a><tt class="py-lineno">146</tt> <a class="py-toggle" href="#" id="Library.set_realtime-toggle" onclick="return toggle('Library.set_realtime');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.collection.Library-class.html#set_realtime">set_realtime</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">bool</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Library.set_realtime-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Library.set_realtime-expanded"><a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line">        <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line"> </tt>
+<a name="Library.get_rescan_interval"></a><div id="Library.get_rescan_interval-def"><a name="L149"></a><tt class="py-lineno">149</tt> <a class="py-toggle" href="#" id="Library.get_rescan_interval-toggle" onclick="return toggle('Library.get_rescan_interval');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.collection.Library-class.html#get_rescan_interval">get_rescan_interval</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Library.get_rescan_interval-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Library.get_rescan_interval-expanded"><a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-number">0</tt> </tt>
+</div><a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line"> </tt>
+<a name="Library.set_rescan_interval"></a><div id="Library.set_rescan_interval-def"><a name="L152"></a><tt class="py-lineno">152</tt> <a class="py-toggle" href="#" id="Library.set_rescan_interval-toggle" onclick="return toggle('Library.set_rescan_interval');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.collection.Library-class.html#set_rescan_interval">set_rescan_interval</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">interval</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Library.set_rescan_interval-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Library.set_rescan_interval-expanded"><a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">        <tt class="py-keyword">pass</tt> </tt>
+</div></div><a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Project homepage -->
+      <th class="navbar" align="right" width="100%">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr><th class="navbar" align="center"
+            >Exaile</th>
+          </tr></table></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0 on Wed Jun  4 21:12:07 2008
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

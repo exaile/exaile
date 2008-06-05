@@ -405,7 +405,7 @@ class TrackSearcher:
                 content = content.strip().strip('"')
                 for l,tr in current_list.iteritems():
                     try:
-                        if tr[tag].lower() == content:
+                        if str(tr[tag]).lower() == content:
                             new_list[l]=tr
                     except:
                         pass
@@ -415,7 +415,8 @@ class TrackSearcher:
                 content = content.strip().strip('"')
                 for l,tr in current_list.iteritems():
                     try:
-                        if content in tr[tag].lower():
+                        print tr[tag].lower()
+                        if content in str(tr[tag]).lower():
                             new_list[l]=tr
                     except:
                         pass
@@ -425,17 +426,19 @@ class TrackSearcher:
                 content = content.strip().strip('"')
                 for l,tr in current_list.iteritems():
                     try:
-                        if int(content) > int(tr[tag].lower()):
+                        print content, tr[tag]
+                        if float(content) < float(tr[tag]):
                             new_list[l]=tr
                     except:
                         pass
             # less than
             elif "<" in token:
-                tag, sym, content = token.partiton("<")
+                tag, sym, content = token.partition("<")
                 content = content.strip().strip('"')
                 for l,tr in current_list.iteritems():
                     try:
-                        if int(content) < int(tr[tag].lower()):
+                        print content, tr[tag]
+                        if float(content) > float(tr[tag]):
                             new_list[l]=tr
                     except:
                         pass

@@ -5,10 +5,13 @@
 #
 # Also takes care of parsing commandline options.
 
+
 from xl import common, collection, playlist, player, settings
 from xl import xdg, path, manager, event
 
 import os
+
+import logging
 
 #import xlgui
 
@@ -68,6 +71,10 @@ def get_options():
     p.add_option("--start-minimized", dest="minim", action="store_true",
         default=False, help="Start Exaile minimized to tray, if possible")
 
+    p.add_option("--debug", dest="debug", action="store_true",
+        default=False, help="Show debugging output")
+    p.add_option("--quiet", dest="quiet", action="store_true",
+        default=False, help="Reduce level of output")
     return p
 
 
@@ -79,6 +86,23 @@ class Exaile:
         """
         #parse args
         self.options, self.args = get_options().parse_args()
+
+        #set up logging
+        loglevel = logging.INFO
+        if self.options.debug:
+            loglevel = logging.DEBUG
+        elif self.options.quiet:
+            loglevel = logging.WARNING
+        logging.basicConfig(level=logging.DEBUG,
+                format='%(asctime)s %(levelname)-8s: %(message)s (%(name)s)',
+                datefmt="%m-%d %H:%M",
+                filename=os.path.join(xdg.get_config_dir(), "exaile.log"),
+                filemode="a")
+        console = logging.StreamHandler()
+        console.setLevel(loglevel)
+        formatter = logging.Formatter("%(levelname)-8s: %(message)s (%(name)s)")
+        console.setFormatter(formatter)
+        logging.getLogger("").addHandler(console)
 
         #initialize DbusManager
         #self.dbus = dbus.DbusManager(self.options, self.args)

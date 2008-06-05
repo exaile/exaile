@@ -17,6 +17,9 @@
 from gettext import gettext as _
 import locale, os, time, threading, urllib, re
 import traceback
+import logging
+
+logger = logging.getLogger(__name__)
 
 VALID_TAGS = (
     # Ogg Vorbis spec tags
@@ -35,11 +38,13 @@ PICKLE_PROTOCOL=2
 def get_default_encoding():
     return 'utf-8'
 
+# these loggers exist only so as to not break compatibility, new code
+# should not use them
 def log(message):
-    print message
-
+    logger.info(message)
 def log_exception(*e):
-    traceback.print_exc()
+    logger.error("Exception caught!\n" + traceback.format_exc())
+
 
 def to_unicode(x, default_encoding=None):
     if isinstance(x, unicode):

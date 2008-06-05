@@ -205,7 +205,7 @@ class Playlist(trackdb.TrackDB):
         self.ordered_tracks = self.ordered_tracks[:start] + \
                 self.ordered_tracks[end:]
         for t in removed:
-            trackdb.TrackDB.remove(t)
+            trackdb.TrackDB.remove(self, t)
 
         if end < self.current_pos:
             self.current_pos -= len(removed)
@@ -299,10 +299,10 @@ class SmartPlaylist(Playlist):
     
             args: See TrackDB
         """
-        pickle_attrs += ['search_params']
         self.search_params = []
         self.collection = collection
         self.or_match = False
+        pickle_attrs += ['search_params', 'or_match']
         Playlist.__init__(self, location=location,
                 pickle_attrs=pickle_attrs)
 
@@ -326,7 +326,7 @@ class SmartPlaylist(Playlist):
 
             field:  The field to operate on. [string]
             op:     The operator.  Valid operators are:
-                        >,<,>=,<=,=,NOT =,==,NOT ==
+                        >,<,>=,<=,=,NOT =,==,NOT ==,>< (between)
             value:  The value to match against
             index:  Where to insert the parameter in the search order.  -1 to
                         append
@@ -344,10 +344,14 @@ class SmartPlaylist(Playlist):
         """
         return self.search_params.pop(index)
 
-    def update(self, collection=None):
+    def update(self, collection=None, clear=True):
         """
             Update internal tracks by querying the collection
+            collection: the collection to search (leave none to search
+                        internal ref)
+            clear:      clear current tracks
         """
+        self.remove_tracks(0, len(self))
         if not collection:
             collection = self.collection
 
@@ -371,6 +375,14 @@ class SmartPlaylist(Playlist):
                         'value': value,
                         'op':    op[0]
                     }
+            elif op == "><":
+                s+= "( %(field)s>%(value1)s AND " \
+                    "%(field)s<%(value2)s )" % \
+                    {
+                        'field':  field,
+                        'value1': value[0],
+                        'value2': value[1]
+                    }
             else:
                 s += "%(field)s%(op)s\"%(value)s\"" % \
                     {
@@ -382,6 +394,6 @@ class SmartPlaylist(Playlist):
             params.append(s)
 
         if self.or_match:
-            return 'OR'.join(params)
+            return ' OR '.join(params)
         else:
-            return 'AND'.join(params)
+            return ' AND '.join(params)

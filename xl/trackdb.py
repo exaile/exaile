@@ -189,7 +189,11 @@ class TrackDB:
         """
             Search the trackDB, optionally sorting by sort_field
         """
-        tracks = self.searcher.search(phrase).values()
+        if phrase != "":
+            tracks = self.searcher.search(phrase).values()
+        else:
+            tracks = self.tracks.values()
+
         if sort_field:
             tracks = sort_tracks(sort_field, tracks)
         return tracks
@@ -231,8 +235,12 @@ class TrackSearcher:
 
         # ensure spacing is uniform
         replaces = [ ("  ", " "),
-                (" =", "="),
-                ("= ", "=")]
+                (" =","="),
+                ("= ","="),
+                (" >",">"),
+                ("> ",">"),
+                (" <","<"),
+                ("< ","<")]
         oldsearch = search
         for pair in replaces:
             while True:
@@ -405,6 +413,26 @@ class TrackSearcher:
                 for l,tr in current_list.iteritems():
                     try:
                         if content in tr[tag].lower():
+                            new_list[l]=tr
+                    except:
+                        pass
+            # greater than
+            elif ">" in token:
+                tag, content = token.split("=")
+                content = content.strip().strip('"')
+                for l,tr in current_list.iteritems():
+                    try:
+                        if int(content) > int(tr[tag].lower()):
+                            new_list[l]=tr
+                    except:
+                        pass
+            # less than
+            elif "<" in token:
+                tag, content = token.split("=")
+                content = content.strip().strip('"')
+                for l,tr in current_list.iteritems():
+                    try:
+                        if int(content) < int(tr[tag].lower()):
                             new_list[l]=tr
                     except:
                         pass

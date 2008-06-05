@@ -135,6 +135,12 @@ class Track:
             
             tag: tag to get [string]
         """
+        if tag.startswith("xl_"):
+            tag = tag[3:]
+            try:
+                return self.info[tag]
+            except:
+                return u""
         values = self.tags.get(tag)
         if values:
             values = (common.to_unicode(x, self.info['encoding']) for x in values
@@ -150,6 +156,15 @@ class Track:
             values: list of values for the tag [list]
             append: whether to append to existing values [bool]
         """
+        if tag.startswith("xl_"):
+            tag = tag[3:]
+            try:
+                if len(values) == 1 and \
+                        type(values[0]) == type(self.info[tag]):
+                    self.info[tag] = values[0]
+                    return
+            except:
+                return
         if not isinstance(values, list): values = [values]
         # filter out empty values and convert to unicode
         values = (common.to_unicode(x, self.info['encoding']) for x in values

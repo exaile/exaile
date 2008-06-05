@@ -15,7 +15,7 @@
 # most appropriate spot is immediately before a return statement.
 
 
-import threading, common
+import threading, common, time
 
 # define these here so the interperter doesn't complain about them
 EVENT_MANAGER = None
@@ -201,6 +201,44 @@ class IdleManager(threading.Thread):
         """
         self.queue.append((func, args))
         self.event.set()
+
+class Waiter(threading.Thread):
+    """
+        This is kind of like the built-in python Timer class, except that
+        it is possible to reset the countdown while the timer is running.
+        It is intended for cases where we want to wait a certain interval
+        of time after things stop changing before we do anything.
+
+        Waiters can be used only once.
+    """
+    def __init__(self, interval, function, *args, **kwargs):
+        threading.Thread.__init__(self)
+        self.interval = interval
+        self.function = function
+        self.args = args
+        self.kwargs = kwargs
+        self.old_time = -1
+        self.new_time = -1
+        self.setDaemon(True)
+        self.start()
+
+    def reset(self):
+        """
+            Resets the timer
+        """
+        self.new_time = time.time()
+
+    def run(self):
+        self.old_time = time.time()
+        while True:
+            time.sleep(self.interval)
+            if self.new_time > self.old_time + self.interval:
+                self.interval = self.old_time + self.interval - \
+                        self.new_time
+                self.old_time = self.new_time
+            else:
+                break
+        self.func.__call__(*self.args, **self.kwargs)
 
 # Instantiate our managers as globals. This lets us use the same instance
 # regardless of where this module is imported.

@@ -18,14 +18,13 @@ Implemented:
         signals-like system
     XDG
         exaile's config and data files now stored according to xdg spec
+    Logging System
 
 Things that can probably be implemented at this stage:
     Playlist Exporting
         stubs in playlist.py
     Smart Playlists
         again, stub in playlist.py
-    Logging System (important!)
-        python has a built-in logging module we could build on
     Alternate Playback Systems
         will need more abstraction in player.py, but is feasable
         stub for generic Player class exists

@@ -39,6 +39,7 @@ class XlConfigParser(SafeConfigParser):
         SafeConfigParser.__init__(self)
         self.loc = loc
         self.writing = False
+        self.dirty = False
 
         sections = ['ui', 'osd', 'lastfm', 'equalizer',\
             'editor', 'import', 'replaygain', 'proxy']
@@ -197,7 +198,7 @@ class XlConfigParser(SafeConfigParser):
         if value == "false" or value == "False": value = False
         
         self.set(*self.get_section_keyv(key, plugin, str(value)))
-    
+        self.dirty = True
     
     def set_str(self, key, value, plugin=None):
         """
@@ -206,35 +207,37 @@ class XlConfigParser(SafeConfigParser):
         value_str = str(value)
         value_str = re.sub(r'%[^rdf%]?', r'%%', value_str)
         self.set(*self.get_section_keyv(key, plugin, value_str.replace('\n', r'\n')))
-    
+        self.dirty = True
     
     def set_int(self, key, value, plugin=None):
         """
             Sets an int
         """
         self.set(*self.get_section_keyv(key, plugin, str(value)))
-    
+        self.dirty = True
     
     def set_float(self, key, value, plugin=None):
         """
             Sets a float
         """
         self.set(*self.get_section_keyv(key, plugin, str(value)))
-    
+        self.dirty = True
     
     def set_list(self, key, value, plugin=None):
         """
             Sets a list
         """
         self.set(*self.get_section_keyv(key, plugin, str(value)))
-
+        self.dirty = True
     
     def save(self): 
         """
             Saves the settings
         """
         if self.writing: return True
+        if not self.dirty: return True
         self.writing = True
+        self.dirty = False
         f = open(self.loc, 'w')
         self.write(f)
         f.close()

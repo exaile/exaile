@@ -19,6 +19,9 @@ from urlparse import urlparse
 import common, event
 from xl.media import flac, mp3, mp4, mpc, ogg, tta, wav, wma, wv
 
+import logging
+logger = logging.getLogger(__name__)
+
 formats = {
     'aac': mp4,
     'ac3': None,
@@ -200,7 +203,7 @@ class Track:
         ext = ext[1:]
 
         if not formats.get(ext):
-            common.log("Writing metadata to type '%s' is not supported" % 
+            logger.info("Writing metadata to type '%s' is not supported" % 
                     ext)
         else:
             formats[ext].write_tag(self)
@@ -213,7 +216,7 @@ class Track:
         ext = ext[1:]
 
         if ext not in formats:
-            common.log('%s format is not understood' % ext)
+            common.debug('%s format is not understood' % ext)
             return None
 
         format = formats.get(ext)
@@ -223,10 +226,10 @@ class Track:
         try:
             format.fill_tag_from_path(self)
         except HeaderNotFoundError:
-            print "Possibly corrupt file: " + self.get_loc()
+            logger.warning("Possibly corrupt file: " + self.get_loc())
             return None
         except:
-            common.log_exception()
+            common.log_exception(__name__)
             return None
         return self
 

@@ -15,7 +15,7 @@
 # most appropriate spot is immediately before a return statement.
 
 
-import threading, common, time
+import threading, common, time, logging
 
 # define these here so the interperter doesn't complain about them
 EVENT_MANAGER = None
@@ -120,7 +120,7 @@ class EventManager:
                 self.remove_callback(call, event.type, event.object)
             except:
                 # something went wrong inside the function we're calling
-                common.log_exception()
+                common.log_exception(__name__)
 
     def emit_async(self, event):
         """
@@ -188,7 +188,7 @@ class IdleManager(threading.Thread):
             try:
                 func.__call__(*args)
             except:
-                pass # TODO: handle this more smartly by logging errors
+                common.log_exception(__name__)
 
     def add(self, func, *args):
         """
@@ -238,7 +238,10 @@ class Waiter(threading.Thread):
                 self.old_time = self.new_time
             else:
                 break
-        self.func.__call__(*self.args, **self.kwargs)
+        try:
+            self.func.__call__(*self.args, **self.kwargs)
+        except:
+            common.log_exception(__name__)
 
 # Instantiate our managers as globals. This lets us use the same instance
 # regardless of where this module is imported.

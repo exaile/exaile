@@ -38,12 +38,14 @@ PICKLE_PROTOCOL=2
 def get_default_encoding():
     return 'utf-8'
 
-# these loggers exist only so as to not break compatibility, new code
-# should not use them
+# log() exists only so as to not break compatibility, new code
+# should not use it
 def log(message):
-    logger.info(message)
-def log_exception(*e):
-    logger.error("Exception caught!\n" + traceback.format_exc())
+    logger.info(message + "  (Warning, using depreciated logger)")
+
+# use this for general logging of exceptions
+def log_exception(name="None specified", *e):
+    logger.error("Exception caught in %s!\n"%name + traceback.format_exc())
 
 
 def to_unicode(x, default_encoding=None):

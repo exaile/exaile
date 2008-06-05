@@ -11,11 +11,13 @@ import pygst, gtk
 pygst.require('0.10')
 import gst, random, time, re, os, md5
 from xl import common, event, playlist
-import thread
+import thread, logging
 import gobject
 gobject.threads_init()
 
 VIDEO_WIDGET=None
+
+logger = logging.getLogger(__name__)
 
 def get_default_player():
     return GSTPlayer
@@ -213,7 +215,7 @@ class GSTPlayer(Player):
         elif message.type == gst.MESSAGE_EOS and not self.is_paused():
             self.eof_func()
         elif message.type == gst.MESSAGE_ERROR:
-            print message, dir(message)
+            logger.error("%s %s" %(message, dir(message)) )
 
         return True
 
@@ -268,7 +270,7 @@ class GSTPlayer(Player):
         """
         if message.structure.get_name() == 'prepare-xwindow-id' and \
             VIDEO_WIDGET:
-            common.log('Gstreamer requested video sync')
+            logger.debug('Gstreamer requested video sync')
             VIDEO_WIDGET.set_sink(message.src)
 
     def seek(self, value, wait=True):
@@ -287,7 +289,7 @@ class GSTPlayer(Player):
         if res:
             self.playbin.set_new_stream_time(0L)
         else:
-            common.log("Couldn't send seek event")
+            logger.debug("Couldn't send seek event")
         if wait: self.playbin.get_state(timeout=50*gst.MSECOND)
 
         self.last_seek_pos = value

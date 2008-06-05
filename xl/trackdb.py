@@ -15,6 +15,9 @@ from copy import deepcopy
 SEARCH_ITEMS = ('artist', 'album', 'title')
 SORT_ORDER = ('album', 'track', 'artist', 'title')
 
+import logging
+logger = logging.getLogger(__name__)
+
 def get_sort_tuple(field, track):
     """
         Returns the sort tuple for a single track
@@ -391,7 +394,7 @@ class TrackSearcher:
             elif subtoken == "(":
                 new_list = self.__do_search(token[1], current_list)
             else:
-                print "whoops! bad search token"
+                logger.warning("bad search token")
                 return current_list
 
         # normal token

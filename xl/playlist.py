@@ -377,7 +377,7 @@ class SmartPlaylist(Playlist):
                         'op':    op[0]
                     }
             elif op == "!=" or op == "!==":
-                s += 'NOT %(field)s%(op)s"%(value)s")' % \
+                s += 'NOT %(field)s%(op)s"%(value)s"' % \
                     {
                         'field': field,
                         'value': value,

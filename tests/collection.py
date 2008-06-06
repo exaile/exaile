@@ -16,9 +16,12 @@ class CollectionTestCase(unittest.TestCase):
         self.collection.add_library(self.library1)
         self.collection.rescan_libraries()
 
+    def testLengths(self):
+        pass
+
     def testCount(self):
         tracks = self.collection.search('')
-        assert len(tracks) == 4, "Number of tracks scanned is incorrect"
+        assert len(tracks) == 5, "Number of tracks scanned is incorrect"
 
     def testSaveLoad(self):
         self.collection.save_to_location()
@@ -26,14 +29,15 @@ class CollectionTestCase(unittest.TestCase):
         # test col
         col = collection.Collection("TestCollection2", self.temp_col_loc)
         tracks = self.collection.search('')
-        assert len(tracks) == 4, "Number of tracks scanned is incorrect"
+        assert len(tracks) == 5, "Number of tracks scanned is incorrect"
 
     def testAllFieldSearch(self):
         c = self.collection
 
         # search for a keyword in all fields
         tracks = c.search('Black')
-        assert tracks[0]['title'].find('Black') > -1, "Keyword search failed"
+        assert len(tracks) == 1, "Keyword search failed"
+        assert tracks[0]['title'].find('black') > -1, "Keyword search failed"
 
     def testNotSearch(self):
         tracks = self.collection.search(

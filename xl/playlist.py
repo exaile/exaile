@@ -327,7 +327,7 @@ class SmartPlaylist(Playlist):
 
             field:  The field to operate on. [string]
             op:     The operator.  Valid operators are:
-                        >,<,>=,<=,=,NOT =,==,NOT ==,>< (between)
+                        >,<,>=,<=,=,!=,==,!==,>< (between)
             value:  The value to match against
             index:  Where to insert the parameter in the search order.  -1 to
                         append
@@ -369,23 +369,30 @@ class SmartPlaylist(Playlist):
         for (field, op, value) in self.search_params:
             s = ""
             if op == ">=" or op == "<=":
-                s += "( %(field)s%(op)s%(value)s " \
-                    "OR %(field)s==%(value)s )" % \
+                s += '( %(field)s%(op)s%(value)s ' \
+                    'OR %(field)s==%(value)s )' % \
                     {
                         'field': field,
                         'value': value,
                         'op':    op[0]
                     }
+            elif op == "!=" or op == "!==":
+                s += 'NOT %(field)s%(op)s"%(value)s")' % \
+                    {
+                        'field': field,
+                        'value': value,
+                        'op':    op[1:]
+                    }
             elif op == "><":
-                s+= "( %(field)s>%(value1)s AND " \
-                    "%(field)s<%(value2)s )" % \
+                s+= '( %(field)s>%(value1)s AND ' \
+                    '%(field)s<%(value2)s )' % \
                     {
                         'field':  field,
                         'value1': value[0],
                         'value2': value[1]
                     }
             else:
-                s += "%(field)s%(op)s\"%(value)s\"" % \
+                s += '%(field)s%(op)s"%(value)s"' % \
                     {
                         'field': field,
                         'value': value,
@@ -397,4 +404,4 @@ class SmartPlaylist(Playlist):
         if self.or_match:
             return ' OR '.join(params)
         else:
-            return ' AND '.join(params)
+            return ' '.join(params)

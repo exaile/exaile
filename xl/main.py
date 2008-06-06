@@ -9,6 +9,10 @@
 from xl import common, collection, playlist, player, settings
 from xl import xdg, path, manager, event, devices, hal
 
+# TEMPORARY SCROBBLER STUFF, don't get your pants in a bunch.  this will be
+# moved to an actual plugin later.
+from plugins import scrobbler
+
 import os
 
 import logging
@@ -78,7 +82,7 @@ def get_options():
     return p
 
 
-class Exaile:
+class Exaile(object):
     
     def __init__(self):
         """
@@ -135,6 +139,11 @@ class Exaile:
 
         #initialize HAL
         self.hal = hal.HAL(self.devices)
+
+        # TEMPORARY AUDIOSCROBBLER STUFF
+        user = self.settings.get_option('plug_lastfm/user', '')
+        passwd = self.settings.get_option('plug_lastfm/pass', '')
+        self.scrobbler = scrobbler.ExaileScrobbler(self.player, user, passwd) 
 
         #initialize CoverManager
         #self.covers = ???

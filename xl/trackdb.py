@@ -49,7 +49,7 @@ def sort_tracks(field, tracks, reverse=False):
     return [t[-1:][0] for t in tracks]
 
 
-class TrackDB:
+class TrackDB(object):
     """
         Manages a track database. 
 
@@ -202,7 +202,7 @@ class TrackDB:
         return tracks
 
 
-class TrackSearcher:
+class TrackSearcher(object):
     """
         Search a TrackDB for matching tracks
     """

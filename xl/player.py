@@ -87,7 +87,7 @@ class PlayQueue(playlist.Playlist):
         else:
             self.next()
 
-class Player:
+class Player(object):
     """
         This is the main player interface, other engines will subclass it
     """

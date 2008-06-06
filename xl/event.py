@@ -73,7 +73,7 @@ def idle_add(func, *args):
     IDLE_MANAGER.add(func, *args)
 
 
-class Event:
+class Event(object):
     """
         Represents an Event
     """
@@ -131,7 +131,7 @@ class IdleManager(threading.Thread):
         self.event.set()
 
 
-class EventManager:
+class EventManager(object):
     """
         Manages all Events
     """

@@ -80,8 +80,8 @@ class ExaileScrobbler(object):
         if scrobbler.SESSION_ID:
             try:
                 scrobbler.submit(track['artist'], track['title'],
-                int(time_started), 'P', '', int(track['length']), track['album'],
-                int(track['track']), autoflush=True)
+                    int(time_started), 'P', '', int(track['length']), track['album'],
+                    int(track['track']), autoflush=True)
             except:
                 common.log_exception()
                 logger.warning("LastFM: Failed to submit track")

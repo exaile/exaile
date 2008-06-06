@@ -5,7 +5,7 @@
 # also contains functions for saving and loading various playlist formats.
 
 from xl import trackdb, event
-import urllib
+import urllib, random
 
 def save_to_m3u(playlist, path):
     """
@@ -139,8 +139,10 @@ class Playlist(trackdb.TrackDB):
         self.ordered_tracks = []
         self.current_pos = -1
         self.current_playing = False
+        self.shuffle_enabled = False
+        self.random_enabled = False
         pickle_attrs += ['name', 'ordered_tracks', 'current_pos', 
-                'current_playing']
+                'current_playing', "shuffle_enabled", "random_enabled"]
         trackdb.TrackDB.__init__(self, name=name, location=location,
                 pickle_attrs=pickle_attrs)
 
@@ -250,13 +252,26 @@ class Playlist(trackdb.TrackDB):
         """
             moves to the next track in the playlist
 
-            returns: the next track [Track]
+            returns: the next track [Track], None if no more tracks
         """
-        if len(self.ordered_tracks) == 0:
-            return None
-        self.current_pos += 1
+        if self.random_enabled:
+            if len(self.ordered_tracks) == 1:
+                return None
+            next = self.current_pos
+            while next == self.current_pos:
+                next = random.choice(range(len(self.ordered_tracks)))
+            self.current_pos = next
+        else:
+            if len(self.ordered_tracks) == 0:
+                return None
+            self.current_pos += 1
+
         if self.current_pos >= len(self.ordered_tracks):
-            self.current_pos = -1
+            if self.repeat_enabled:
+                self.current_pos = 0
+            else:
+                self.current_pos = -1
+
         event.log_event('current_changed', self, self.current_pos)
         return self.get_current()
 
@@ -266,10 +281,17 @@ class Playlist(trackdb.TrackDB):
 
             returns: the previous track [Track]
         """
+        if self.random_enabled:
+            return self.get_current() # cant seek backwards in random mode
+
         self.current_pos -= 1
         if self.current_pos < 0:
-            self.current_pos = 0
-        event.log_event('current_changed', self, self.current_pos)            
+            if self.repeat_enabled:
+                self.current_pos = len(self.ordered_tracks) - 1
+            else:
+                self.current_pos = 0
+
+        event.log_event('current_changed', self, self.current_pos)
         return self.get_current()
 
     def search(self, phrase, sort_field=None):
@@ -285,6 +307,28 @@ class Playlist(trackdb.TrackDB):
                     new_tracks.append(tr)
             tracks = new_tracks
         return tracks
+
+    def toggle_random(self, mode=None):
+        """
+            toggle random playback order
+
+            mode: set random to this [bool]
+        """
+        if mode is not None:
+            self.random_enabled = mode
+        else:
+            self.random_enabled = self.random_enabled == False
+
+    def toggle_repeat(self, mode=None):
+        """
+            toggle repeat playback
+
+            mode: set repeat to this [bool]
+        """
+        if mode is not None:
+            self.repeat_enabled = mode
+        else:
+            self.repeat_enabled = self.repeat_enabled == False
 
 
 class SmartPlaylist(Playlist):

@@ -230,7 +230,9 @@ class TrackSearcher:
         """ 
             tokenizes a search query 
         """
-        # convert bool ops to symbols
+        search = " " + search + " "
+
+        # convert bool ops to symbol
         search = search.replace("|", " | ")
         search = search.replace("!", " ! ")
         search = search.replace("&", " ")

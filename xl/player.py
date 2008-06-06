@@ -137,20 +137,6 @@ class GSTPlayer(Player):
         self.tag_func = None
         self.setup_playbin()
         self.queue = None
-        self._gobject_loop()
-
-    @common.threaded
-    def _gobject_loop(self):
-        # hack to make gst messages work
-        import gobject
-        loop = gobject.MainLoop()
-        gobject.threads_init()
-        context = loop.get_context()
-        while 1:
-            try:
-                context.iteration(True)
-            except:
-                pass
 
     def set_queue(self, queue):
         self.queue = queue

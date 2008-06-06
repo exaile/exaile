@@ -3,7 +3,7 @@ It should also be used to keep track of what each developer is
 currently working on.
 
 Current projects:
-    Aren Olson - Device Manager
+    Aren Olson - ???
     Adam Olsen - Library watch system (pynotify?)
 
 Implemented:
@@ -24,8 +24,9 @@ Implemented:
     Track Syncronization
         very prelimiary, will need careful watching
     Device Manager
-        goes closely with HAL
-        start with just CD, expand to MP3 players
+        only for cd right now
+    HAL Support
+        only for cd right now
 
 Things that can probably be implemented at this stage:
     Playlist Exporting
@@ -42,9 +43,6 @@ Things that can probably be implemented at this stage:
         class in cd.py, takes a Playlist and burns it in order
     CD Ripping
         class in cd.py, rips a CDPlaylist or any track with a cdda loc
-    HAL Support
-        recognize and autoconfigure CDs and mp3 players via HAL
-
 
 Other Work-Items:
     Gapless Playback

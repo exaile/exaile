@@ -7,7 +7,7 @@
 
 
 from xl import common, collection, playlist, player, settings
-from xl import xdg, path, manager, event, devices
+from xl import xdg, path, manager, event, devices, hal
 
 import os
 
@@ -104,6 +104,9 @@ class Exaile:
         console.setFormatter(formatter)
         logging.getLogger("").addHandler(console)
 
+        #setup glib
+        self.mainloop()
+
         #initialize DbusManager
         #self.dbus = dbus.DbusManager(self.options, self.args)
 
@@ -130,6 +133,9 @@ class Exaile:
         #initalize device manager
         self.devices = devices.DeviceManager()
 
+        #initialize HAL
+        self.hal = hal.HAL(self.devices)
+
         #initialize CoverManager
         #self.covers = ???
 
@@ -141,6 +147,26 @@ class Exaile:
 
         #setup GUI
         #self.gui = xlgui.Main()
+
+    @common.threaded
+    def mainloop(self):
+        import gobject, dbus.mainloop.glib
+        dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+        dbus.mainloop.glib.threads_init()
+        dbus.mainloop.glib.gthreads_init()
+        loop = gobject.MainLoop()
+        #dbus.set_default_main_loop(loop)
+        gobject.threads_init()
+        context = loop.get_context()
+        self.__mainloop(context)
+
+    @common.threaded
+    def __mainloop(self,context):
+        while 1:
+            try:
+                context.iteration(True)
+            except:
+                pass
 
     def quit(self):
         """

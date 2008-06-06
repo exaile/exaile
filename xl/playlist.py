@@ -301,11 +301,20 @@ class SmartPlaylist(Playlist):
             args: See TrackDB
         """
         self.search_params = []
+        self.custom_params = []
         self.collection = collection
         self.or_match = False
         pickle_attrs += ['search_params', 'or_match']
         Playlist.__init__(self, location=location,
                 pickle_attrs=pickle_attrs)
+
+    def set_collection(self, collection):
+        """
+            change the collection backing this playlist
+
+            collection: the collection to use [Collection]
+        """
+        self.collection = collection
 
     def set_or_match(self, value):
         """
@@ -327,15 +336,29 @@ class SmartPlaylist(Playlist):
 
             field:  The field to operate on. [string]
             op:     The operator.  Valid operators are:
-                        >,<,>=,<=,=,!=,==,!==,>< (between)
-            value:  The value to match against
-            index:  Where to insert the parameter in the search order.  -1 to
-                        append
+                    >,<,>=,<=,=,!=,==,!==,>< (between) [string]
+            value:  The value to match against [string]
+            index:  Where to insert the parameter in the search order.  -1 
+                    to append [int]
         """
         if index:
             self.search_params.insert(index, [field, op, value])
         else:
             self.search_params.append([field, op, value])
+
+    def set_custom_param(self, param, index=-1):
+        """
+            Adds an arbitrary search parameter, exposing the full power
+            of the new search system to the user.
+
+            param:  the search query to use. [string]
+            index:  the index to insert at. default is append [int]
+        """
+        if index:
+            self.search_params.insert(index, param)
+        else:
+            self.search_params.append(param)
+   
 
     def remove_param(self, index):
         """
@@ -355,6 +378,8 @@ class SmartPlaylist(Playlist):
         self.remove_tracks(0, len(self))
         if not collection:
             collection = self.collection
+        if not collection: #if there wasnt one set we might not have one
+            return
 
         search_string = self._create_search_string()
         self.add_tracks(collection.search(search_string))
@@ -366,7 +391,11 @@ class SmartPlaylist(Playlist):
 
         params = [] # parameter list
 
-        for (field, op, value) in self.search_params:
+        for param in self.search_params:
+            if type(param) == str:
+                params += [param]
+                continue
+            (field, op, value) = param
             s = ""
             if op == ">=" or op == "<=":
                 s += '( %(field)s%(op)s%(value)s ' \

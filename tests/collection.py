@@ -1,24 +1,8 @@
 import unittest, time, md5
-
 from xl import collection, settings
+from base import BaseTestClass
 
-# TODO:  move this to settings.py for settings testing
-settings.SettingsManager('/tmp/test_exaile_settings.ini')
-
-class CollectionTestCase(unittest.TestCase):
-    def setUp(self):
-        self.temp_col_loc = '/tmp/col%s.db' % \
-            md5.new(str(time.time())).hexdigest()
-        self.collection = collection.Collection("TestCollection", 
-            self.temp_col_loc)
-
-        self.library1 = collection.Library("./tests/data")
-        self.collection.add_library(self.library1)
-        self.collection.rescan_libraries()
-
-    def testLengths(self):
-        pass
-
+class CollectionTestCase(BaseTestClass):
     def testCount(self):
         tracks = self.collection.search('')
         assert len(tracks) == 5, "Number of tracks scanned is incorrect"
@@ -30,6 +14,11 @@ class CollectionTestCase(unittest.TestCase):
         col = collection.Collection("TestCollection2", self.temp_col_loc)
         tracks = self.collection.search('')
         assert len(tracks) == 5, "Number of tracks scanned is incorrect"
+
+        # test libraries
+        l = col.get_libraries()
+        assert len(l) == 1, "Number of saved libraries is incorrect"
+        assert l[0].location == './tests/data', "Saved library is incorrect"
 
     def testAllFieldSearch(self):
         c = self.collection
@@ -47,4 +36,3 @@ class CollectionTestCase(unittest.TestCase):
         )
 
         assert len(tracks) == 2, "Not search failed"
-

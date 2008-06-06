@@ -3,7 +3,7 @@ It should also be used to keep track of what each developer is
 currently working on.
 
 Current projects:
-    Aren Olson - Core Rewrite, documentation thereof
+    Aren Olson - Device Manager
     Adam Olsen - Library watch system (pynotify?)
 
 Implemented:
@@ -32,7 +32,14 @@ Things that can probably be implemented at this stage:
         use pyinotify or similar to watch libraries for new tracks
         periodic rescan
         stubs in collection.py
-
+    Playlists Manager
+    CD Burning
+        class in cd.py, takes a Playlist and burns it in order
+    CD Ripping
+        class in cd.py, rips a CDPlaylist or any track with a cdda loc
+    Device Manager
+        goes closely with HAL
+        start with just CD, expand to MP3 players
 
 Other Work-Items:
     Gapless Playback
@@ -57,10 +64,6 @@ Other Work-Items:
         port old plugins
     Last.fm
         implement as plugin
-    CD Ripping
-        wait on CD playback
-    CD Burning
-        wait on CD playback
     GUI
         this is a big one, should come very late
     Lyrics
@@ -68,6 +71,9 @@ Other Work-Items:
     Covers
         wait on GUI
     DBUS
+    Track Syncronization
+        different instances of the same track may arise, we need a way to 
+        keep metadata synced
 
 ==== NOTES ====
 xl is to be split into xl and xlgui. All code concerning the display of 

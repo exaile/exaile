@@ -19,21 +19,15 @@ Implemented:
     XDG
         exaile's config and data files now stored according to xdg spec
     Logging System
+    Smart Playlists
+    CD Playback
 
 Things that can probably be implemented at this stage:
     Playlist Exporting
         stubs in playlist.py
-    Smart Playlists
-        again, stub in playlist.py
     Alternate Playback Systems
         will need more abstraction in player.py, but is feasable
         stub for generic Player class exists
-    Make Sorting Use albumartist instead of Artist if available
-        trackdb.py
-    CD Playback
-        just make a Playlist containing the tracks and hold it
-        should be able to handle multiple cd devices
-        will eventually detect via HAL, not needed in inital version
     Library Watching
         use pyinotify or similar to watch libraries for new tracks
         periodic rescan

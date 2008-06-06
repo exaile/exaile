@@ -12,7 +12,7 @@ except ImportError:
 from xl import media, common, track, event
 from copy import deepcopy
 
-SEARCH_ITEMS = ('artist', 'album', 'title')
+SEARCH_ITEMS = ('albumartist', 'artist', 'album', 'title')
 SORT_ORDER = ('album', 'track', 'artist', 'title')
 
 import logging
@@ -41,7 +41,7 @@ def sort_tracks(field, tracks, reverse=False):
         reverse: sort in reverse? [bool]
     """
 
-    sort_order = [field].extend(SORT_ORDER)
+    #sort_order = [field].extend(SORT_ORDER)
     tracks = [get_sort_tuple(field, t) for t in tracks]
     tracks.sort()
     if reverse: tracks.reverse()

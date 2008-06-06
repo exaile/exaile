@@ -15,12 +15,14 @@ class DeviceManager:
 
     def add_device(self, device):
         self.devices[device.get_name()] = device
+        event.log_event("device_added", self, device)
 
     def remove_device(self, device):
         try:
             del self.devices[device.get_name()]
         except KeyError:
             pass
+        event.log_event("device_removed", self, device)
 
     def list_devices(self):
         return self.devices.values()

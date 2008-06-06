@@ -54,7 +54,7 @@ def write_tag(tr):
 
 def fill_tag_from_path(tr):
     info = mutagen.trueaudio.TrueAudio(tr.get_loc_for_io())
-    tr.info['length'] = info.info.length
+    tr['length'] = info.info.length
 
     try:    
         id3 = mutagen.id3.ID3(tr.get_loc_for_io())

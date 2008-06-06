@@ -12,7 +12,7 @@ def fill_tag_from_path(tr):
     """
     f = mutagen.wavpack.WavPack(tr.get_loc_for_io())
 
-    tr.info['length'] = int(f.info.length)
+    tr['length'] = int(f.info.length)
 
     tr['artist'] = get_tag(f, "artist")
     tr['album'] = get_tag(f, "album")

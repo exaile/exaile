@@ -43,9 +43,9 @@ def fill_tag_from_path(tr):
     except mutagen.oggvorbis.OggVorbisHeaderError:
         return
 
-    tr.info['length'] = int(f.info.length)
+    tr['length'] = int(f.info.length)
     
-    tr.info['bitrate'] = (f.info.bitrate // 33554431) * 1000
+    tr['bitrate'] = (f.info.bitrate // 33554431) * 1000
 
     for tag in VALID_TAGS:
         tr[tag] = get_tag(f, tag)

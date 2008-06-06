@@ -5,23 +5,17 @@
 from copy import deepcopy
 import os
 
-try:
-    import cPickle as pickle
-except:
-    import pickle as pickle
-
-import pygst
-pygst.require('0.10')
-import gst
 from mutagen.mp3 import HeaderNotFoundError
 from urlparse import urlparse
 
-import common, event
+from xl import common, event
 from xl.media import flac, mp3, mp4, mpc, ogg, tta, wav, wma, wv
+
 
 import logging
 logger = logging.getLogger(__name__)
 
+# map file extensions to tag modules
 formats = {
     'aac': mp4,
     'ac3': None,
@@ -44,6 +38,20 @@ formats = {
 
 SUPPORTED_MEDIA = ['.' + ext for ext in formats.iterkeys()]
 
+TRACK_EVENTS = event.EventManager()
+
+def track_updated(track, tag, value):
+    global TRACK_EVENTS
+    e = event.Event(track.get_loc(), track, (tag, value))
+    TRACK_EVENTS.emit_async(e)
+
+def set_track_update_callback(function, track_loc):
+    global TRACK_EVENTS
+    TRACK_EVENTS.add_callback(function, track_loc)
+
+def remove_track_update_callback(function, track_loc):
+    global TRACK_EVENTS
+    TRACK_EVENTS.remove_callback(function, track_loc)
 
 
 class Track:
@@ -58,14 +66,14 @@ class Track:
             _unpickles: unpickle data [tuple] # internal use only!
         """
         self.tags = dict(map(lambda x: (x, ''), common.VALID_TAGS))
-        self.info = {
+        self.tags.update( {
                 'playcount':0,
                 'bitrate':0,
                 'length':0,
                 'blacklisted':False,
                 'rating':0,
                 'loc':'',
-                'encoding':''}
+                'encoding':''} )
 
         self._scan_valid = False
         if uri and urlparse(uri)[0] in ['', 'file']:
@@ -75,6 +83,15 @@ class Track:
 
         elif _unpickles:
             self._unpickles(_unpickles)
+
+    def _track_update_callback(self, track_loc, track_obj, tag_info):
+        if track_obj == self:
+            return
+        elif track_loc != self.get_loc():
+            return
+        else:
+            tag, value = tag_info
+            self[tag] = value
 
     def set_loc(self, loc):
         """
@@ -88,19 +105,29 @@ class Track:
 
             loc: the location [string]
         """
+        try:
+            remove_track_update_callback(self._track_update_callback, 
+                    self.get_loc())
+        except:
+            pass
+
         loc = common.to_unicode(loc, 
                 common.get_default_encoding())
         if loc.startswith("file://"):
             loc = loc[7:]
-        self.info['loc'] = loc
-    
+        self['loc'] = loc
+       
+        set_track_update_callback(self._track_update_callback, 
+                self.get_loc())
+
+
     def get_loc(self):
         """
             Gets the location as unicode (might contain garbled characters)
 
             returns: the location [string]
         """
-        return self.info['loc']
+        return self['loc']
 
     def get_loc_for_io(self):
         """
@@ -109,7 +136,7 @@ class Track:
 
             returns: the location [string]
         """
-        return self.info['loc'].encode(common.get_default_encoding())
+        return self['loc'].encode(common.get_default_encoding())
 
 
     def _pickles(self):
@@ -120,7 +147,7 @@ class Track:
 
             returns: (tags, info) [tuple of dicts]
         """
-        return deepcopy((self.tags, self.info))
+        return deepcopy(self.tags)
 
     def _unpickles(self, pickle_str):
         """
@@ -130,7 +157,7 @@ class Track:
 
             pickle_str: the pickle repr [tuple of dicts]
         """
-        self.tags, self.info = pickle_str
+        self.tags = pickle_str
 
     def get_tag(self, tag):
         """
@@ -138,15 +165,9 @@ class Track:
             
             tag: tag to get [string]
         """
-        if tag.startswith("xl_"):
-            tag = tag[3:]
-            try:
-                return self.info[tag]
-            except:
-                return u""
         values = self.tags.get(tag)
         if values:
-            values = (common.to_unicode(x, self.info['encoding']) for x in values
+            values = (common.to_unicode(x, self['encoding']) for x in values
                 if x not in (None, ''))
             return u" / ".join(values)
         return u""
@@ -159,24 +180,16 @@ class Track:
             values: list of values for the tag [list]
             append: whether to append to existing values [bool]
         """
-        if tag.startswith("xl_"):
-            tag = tag[3:]
-            try:
-                if len(values) == 1 and \
-                        type(values[0]) == type(self.info[tag]):
-                    self.info[tag] = values[0]
-                    return
-            except:
-                return
         if not isinstance(values, list): values = [values]
         # filter out empty values and convert to unicode
-        values = (common.to_unicode(x, self.info['encoding']) for x in values
+        values = (common.to_unicode(x, self['encoding']) for x in values
             if x not in (None, ''))
         if append:
             self.tags[tag].extend(values)
         else:
             self.tags[tag] = list(values)
-        event.log_event('track_updated', self, self.get_loc())
+
+        track_updated(self, tag, values)
 
     def __getitem__(self, tag):
         """
@@ -216,7 +229,7 @@ class Track:
         ext = ext[1:]
 
         if ext not in formats:
-            common.debug('%s format is not understood' % ext)
+            logger.debug('%s format is not understood' % ext)
             return None
 
         format = formats.get(ext)

@@ -27,13 +27,13 @@ def is_multi():
 
 def fill_tag_from_path(tr):
     try:
-        inf = lib.wmainfo.WmaInfo(tr.io_loc)
+        inf = lib.wmainfo.WmaInfo(tr.get_loc_for_io())
     except:
-        common.log("Couldn't read tags from file: " + tr.loc)
+        common.log("Couldn't read tags from file: " + tr.get_loc_for_io())
         return
 
-    tr.length = inf.info["playtime_seconds"]
-    tr.bitrate = inf.info["max_bitrate"]
+    tr['length'] = inf.info["playtime_seconds"]
+    tr['bitrate'] = inf.info["max_bitrate"]
 
     for wma_tag, tag in TAG_TRANSLATION.iteritems():
         tr.tags[tag] = get_tag(inf, wma_tag)

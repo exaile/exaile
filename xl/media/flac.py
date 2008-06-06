@@ -23,7 +23,7 @@ def fill_tag_from_path(tr):
     except:
         common.log("Couldn't read tags from file: " + tr.get_loc())
         return
-    tr.info['length'] = int(f.info.length)
+    tr['length'] = int(f.info.length)
 
     for tag in VALID_TAGS:
         tr[tag] = get_tag(f, tag)

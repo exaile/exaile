@@ -80,11 +80,12 @@ def fill_tag_from_path(tr):
     try:
         info = mutagen.mp3.MP3(tr.get_loc_for_io())
     except:
+        #common.log_exception()
         common.log("Couldn't read tags from file: " + tr.get_loc())
         return
 
-    tr.info['length'] = info.info.length
-    tr.info['bitrate'] = info.info.bitrate
+    tr['length'] = info.info.length
+    tr['bitrate'] = info.info.bitrate
 
     try:    
         id3 = mutagen.id3.ID3(tr.get_loc_for_io())

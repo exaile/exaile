@@ -19,7 +19,6 @@ import threading, common, time, logging
 
 # define these here so the interperter doesn't complain about them
 EVENT_MANAGER = None
-EVENT_IDLE_MANAGER = None
 IDLE_MANAGER  = None
 
 def log_event(type, object, data, async=True):
@@ -73,6 +72,7 @@ def idle_add(func, *args):
     global IDLE_MANAGER
     IDLE_MANAGER.add(func, *args)
 
+
 class Event:
     """
         Represents an Event
@@ -86,78 +86,6 @@ class Event:
         self.type = type
         self.object = object
         self.data = data
-
-class EventManager:
-    """
-        Manages all Events
-    """
-    def __init__(self):
-        self.callbacks = {}
-
-    def emit(self, event):
-        """
-            Emits an Event, calling any registered callbacks.
-
-            event: the Event to emit [Event]
-        """
-        # find callbacks that match the Event
-        callbacks = []
-        for tcall in [None, event.type]:
-            for ocall in [None, event.object]:
-                try:
-                    for call in self.callbacks[tcall][ocall]:
-                        if call not in callbacks:
-                            callbacks.append(call)
-                except KeyError:
-                    pass
-
-        # now call them
-        for call in callbacks:
-            try:
-                call.__call__(event.type, event.object, event.data)
-            except NameError:
-                # the function we're trying to call disappeared
-                self.remove_callback(call, event.type, event.object)
-            except:
-                # something went wrong inside the function we're calling
-                common.log_exception(__name__)
-
-    def emit_async(self, event):
-        """
-            Same as emit(), but does not block.
-        """
-        global IDLE_MANAGER
-        EVENT_IDLE_MANAGER.add(self.emit, event)
-
-    def add_callback(self, function, type=None, object=None):
-        """
-            Registers a callback.
-
-            function: The function to call [function]
-            type: The 'type' or 'name' of event to listen for. Defaults
-                  to any. [string]
-            object: The object to listen to events from. Defaults
-                  to any. [string]
-
-            You should always specify at least one of type or object.
-        """
-        # add the specified categories if needed.
-        if not self.callbacks.has_key(type):
-            self.callbacks[type] = {}
-        if not self.callbacks[type].has_key(object):
-            self.callbacks[type][object] = []
-
-        # add the actual callback
-        self.callbacks[type][object].append(function)
-
-    def remove_callback(self, function, type=None, object=None):
-        """
-            Unsets a callback. 
-
-            The parameters must match those given when the callback was
-            registered.
-        """
-        self.callbacks[type][object].remove(function)
 
 
 class IdleManager(threading.Thread):
@@ -201,6 +129,80 @@ class IdleManager(threading.Thread):
         """
         self.queue.append((func, args))
         self.event.set()
+
+
+class EventManager:
+    """
+        Manages all Events
+    """
+    def __init__(self):
+        self.callbacks = {}
+        self.idle = IdleManager()
+
+    def emit(self, event):
+        """
+            Emits an Event, calling any registered callbacks.
+
+            event: the Event to emit [Event]
+        """
+        # find callbacks that match the Event
+        callbacks = []
+        for tcall in [None, event.type]:
+            for ocall in [None, event.object]:
+                try:
+                    for call in self.callbacks[tcall][ocall]:
+                        if call not in callbacks:
+                            callbacks.append(call)
+                except KeyError:
+                    pass
+
+        # now call them
+        for call in callbacks:
+            try:
+                call.__call__(event.type, event.object, event.data)
+            except NameError:
+                # the function we're trying to call disappeared
+                self.remove_callback(call, event.type, event.object)
+            except:
+                # something went wrong inside the function we're calling
+                common.log_exception(__name__)
+
+    def emit_async(self, event):
+        """
+            Same as emit(), but does not block.
+        """
+        self.idle.add(self.emit, event)
+
+    def add_callback(self, function, type=None, object=None):
+        """
+            Registers a callback.
+
+            function: The function to call [function]
+            type: The 'type' or 'name' of event to listen for. Defaults
+                  to any. [string]
+            object: The object to listen to events from. Defaults
+                  to any. [string]
+
+            You should always specify at least one of type or object.
+        """
+        # add the specified categories if needed.
+        if not self.callbacks.has_key(type):
+            self.callbacks[type] = {}
+        if not self.callbacks[type].has_key(object):
+            self.callbacks[type][object] = []
+
+        # add the actual callback
+        self.callbacks[type][object].append(function)
+
+    def remove_callback(self, function, type=None, object=None):
+        """
+            Unsets a callback. 
+
+            The parameters must match those given when the callback was
+            registered.
+        """
+        self.callbacks[type][object].remove(function)
+
 
 class Waiter(threading.Thread):
     """
@@ -246,5 +248,4 @@ class Waiter(threading.Thread):
 # Instantiate our managers as globals. This lets us use the same instance
 # regardless of where this module is imported.
 EVENT_MANAGER = EventManager()
-EVENT_IDLE_MANAGER = IdleManager()
 IDLE_MANAGER  = IdleManager()

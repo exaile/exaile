@@ -55,6 +55,8 @@ class HAL:
         device = str(cd.GetProperty("block.device"))
 
         cddev = devices.CDDevice( dev=device)
+
+        cddev.connect()
         
         self.devicemanager.add_device(cddev)
         self.hal_devices[udi] = cddev

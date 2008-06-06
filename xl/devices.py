@@ -74,6 +74,7 @@ class CDDevice(Device):
         self.dev = dev
 
     def connect(self):
+        print self.dev
         cdpl = cd.CDPlaylist(device=self.dev)
         self.playlists.append(cdpl)
 

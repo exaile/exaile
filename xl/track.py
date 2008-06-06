@@ -54,7 +54,7 @@ def remove_track_update_callback(function, track_loc):
     TRACK_EVENTS.remove_callback(function, track_loc)
 
 
-class Track:
+class Track(object):
     """
         Represents a single track.
     """

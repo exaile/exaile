@@ -85,7 +85,7 @@ class Collection(trackdb.TrackDB):
         self.settings.set_option("collection/library_paths", lib_paths)
 
 
-class Library:
+class Library(object):
     """
         Scans and watches a folder for tracks, and adds them to
         a Collection.

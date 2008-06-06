@@ -5,7 +5,7 @@
 
 import event
 
-class SimpleManager:
+class SimpleManager(object):
     """
         A simple class to easily manage a list of items, with add and 
         remove events.

@@ -6,7 +6,7 @@
 from xl import common, cd, event
 
 
-class DeviceManager:
+class DeviceManager(object):
     """
         manages devices
     """
@@ -27,7 +27,7 @@ class DeviceManager:
     def list_devices(self):
         return self.devices.values()
 
-class Device:
+class Device(object):
     """
         a device
 

@@ -157,7 +157,6 @@ class Exaile(object):
         #setup GUI
         #self.gui = xlgui.Main()
 
-    @common.threaded
     def mainloop(self):
         import gobject, dbus.mainloop.glib
         dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)

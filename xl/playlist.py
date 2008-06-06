@@ -111,7 +111,7 @@ def import_from_xspf(path):
     # urllib.unquote(string)
     pass
 
-class PlaylistIterator:
+class PlaylistIterator(object):
     def __init__(self, pl):
         self.pos = -1
         self.pl = pl

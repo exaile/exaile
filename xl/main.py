@@ -7,7 +7,7 @@
 
 
 from xl import common, collection, playlist, player, settings
-from xl import xdg, path, manager, event
+from xl import xdg, path, manager, event, devices
 
 import os
 
@@ -126,6 +126,9 @@ class Exaile:
 
         #initalize PlaylistsManager
         self.playlists = manager.SimpleManager('playlists')
+
+        #initalize device manager
+        self.devices = devices.DeviceManager()
 
         #initialize CoverManager
         #self.covers = ???

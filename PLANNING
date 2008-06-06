@@ -23,6 +23,9 @@ Implemented:
     CD Playback
     Track Syncronization
         very prelimiary, will need careful watching
+    Device Manager
+        goes closely with HAL
+        start with just CD, expand to MP3 players
 
 Things that can probably be implemented at this stage:
     Playlist Exporting
@@ -39,9 +42,9 @@ Things that can probably be implemented at this stage:
         class in cd.py, takes a Playlist and burns it in order
     CD Ripping
         class in cd.py, rips a CDPlaylist or any track with a cdda loc
-    Device Manager
-        goes closely with HAL
-        start with just CD, expand to MP3 players
+    HAL Support
+        recognize and autoconfigure CDs and mp3 players via HAL
+
 
 Other Work-Items:
     Gapless Playback
@@ -50,8 +53,6 @@ Other Work-Items:
     Podcasts
     Dynamic Playlists
         I have some fun ideas for this one, best to wait --Aren
-    HAL Support
-        recognize and autoconfigure CDs and mp3 players via HAL
     MP3 Player Support (very involved, should wait for a while)
         generic classes subclassable for iPod, MTP and MassStorage players
         create a special Collection for each, load Playlists, etc.

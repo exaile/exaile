@@ -49,7 +49,7 @@ class CDPlaylist(playlist.Playlist):
             song.set_loc("cdda://%d#%s" % (tracknum, self.device))
             song['title'] = "Track %d" % tracknum
             song['track'] = tracknum
-            song.info['length'] = length
+            song['length'] = length
             total += length
             songs[song.get_loc()] = song
 

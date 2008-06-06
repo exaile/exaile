@@ -213,12 +213,16 @@ class TrackSearcher:
     def set_tracks(self, tracks):
         """
             Sets the tracks dict to use
+
+            tracks: the dictionary of tracks to use [dict of Track]
         """
         self.tracks = tracks
 
     def set_query(self, query):
         """
             Set the search query
+
+            query: the query to use [string]
         """
         self.tokens = self.tokenize_query(query)
         
@@ -229,21 +233,22 @@ class TrackSearcher:
         # convert bool ops to symbols
         search = search.replace("|", " | ")
         search = search.replace("!", " ! ")
-        search = search.replace("&", " & ")
+        search = search.replace("&", " ")
         search = search.replace(" OR ", " | ")
         search = search.replace(" NOT ", " ! ")
-        search = search.replace(" AND ", " & ")
+        search = search.replace(" AND ", " ")
         search = search.replace("(", " ( ")
         search = search.replace(")", " ) ")
 
         # ensure spacing is uniform
-        replaces = [ ("  ", " "),
+        replaces = [ 
+                ("  "," "),
                 (" =","="),
                 ("= ","="),
                 (" >",">"),
                 ("> ",">"),
                 (" <","<"),
-                ("< ","<")]
+                ("< ","<") ]
         oldsearch = search
         for pair in replaces:
             while True:
@@ -284,6 +289,8 @@ class TrackSearcher:
     def __optimize_tokens(self, tokens):
         """ 
             optimizes token order for fast search 
+
+            tokens: tokens to optimize [token list]
         """
         # only optimizes the top level of tokens, the speed
         # gains from optimizing recursively are usually negligible
@@ -308,6 +315,8 @@ class TrackSearcher:
     def __red(self, tokens):
         """ 
             reduce tokens to a parsable format 
+
+            tokens: the list of tokens to reduce [list of string]
         """
         # base case since we use recursion
         if tokens == []:
@@ -333,8 +342,6 @@ class TrackSearcher:
                 if start and end:
                     break
                 count += 1
-            #start = tokens.index("(")
-            #end = tokens.index(")")
             before = tokens[:start]
             inside = self.__red(tokens[start+1:end])
             after = tokens[end+1:]
@@ -367,6 +374,9 @@ class TrackSearcher:
         """
             executes a search using the passed query and (optionally) 
             the passed tracks
+
+            query: the query to search for [string]
+            tracks: the dict of tracks to use [dict of tracks]
         """
         if not tracks:
             tracks = self.tracks
@@ -383,6 +393,9 @@ class TrackSearcher:
     def __do_search(self, tokens, current_list):
         """ 
             search for tracks by using the parsed tokens 
+
+            tokens: tokens to use when searching [token list]
+            current_list: dict of tracks to search [dict of Track]
         """
         new_list = {}
         # if there's no more tokens, everything matches!

@@ -1,0 +1,8 @@
+#!/usr/bin/env python
+
+# for those of us who rather like ipython :P
+from IPython.Shell import IPShellEmbed
+import exaile as ex
+ex.main()
+
+IPShellEmbed(user_ns = dict(exaile = ex.exaile))()

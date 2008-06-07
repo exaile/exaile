@@ -105,7 +105,7 @@ class TracksListCtrl(gtk.VBox):
         self.exaile = exaile
         self.list = xlmisc.DragTreeView(self)
         self.list.set_rules_hint(True)
-        self.list.set_enable_search(False)
+        self.list.set_enable_search(True)
         self.songs = library.TrackData()
 
         self.scroll = gtk.ScrolledWindow()
@@ -136,8 +136,6 @@ class TracksListCtrl(gtk.VBox):
         create_rating_images(self)
 
         self.show()
-        
-
 
     def close_page(self):
         """
@@ -436,7 +434,7 @@ class TracksListCtrl(gtk.VBox):
         """
             Called when someone presses a key
         """
-
+        
         selection = self.list.get_selection()
         (model, pathlist) = selection.get_selected_rows()
 
@@ -459,15 +457,6 @@ class TracksListCtrl(gtk.VBox):
                 path = pathlist[0]
                 if path[0] >= len(self.songs): path = (path[0] - 1,)
                 selection.select_path(path)
-        # Q
-        elif event.keyval == gtk.keysyms.q and self.type != 'queue':
-            for path in pathlist:
-                iter = model.get_iter(path)
-                track = model.get_value(iter, 0)
-                if not track in self.exaile.player.queued:
-                    self.exaile.player.queued.append(track)
-                else:
-                    self.exaile.player.queued.remove(track)
 
             update_queued(self.exaile)
             self.queue_draw()
@@ -498,6 +487,8 @@ class TracksListCtrl(gtk.VBox):
         self._length_id = -1
 
         col_ids = self.exaile.settings.get_list("ui/col_order", None)
+        search_column = self.exaile.settings.get_str("ui/search_column","Title")
+        
         cols = None
         if col_ids:
             cols = []
@@ -595,7 +586,10 @@ class TracksListCtrl(gtk.VBox):
 
                 if col_struct.id in ('track', 'playcount'):
                     cellr.set_property('xalign', 1.0)
-
+                    
+                # Update which column to search for when columns are changed
+                if col_struct.display == search_column:
+                    self.list.set_search_column(count)
                 col.set_widget(gtk.Label(col_struct.display))
                 col.get_widget().show()
                 self.list.append_column(col)
@@ -831,7 +825,7 @@ class TracksListCtrl(gtk.VBox):
             Sets the songs in this table (expects a list of tracks)
         """
         self.songs = library.TrackData()
-
+        search_column = self.exaile.settings.get_str("ui/search_column","Title")
         # save sort indicators, because they get reset when you set the model
         indicators = {}
         self.model.clear()
@@ -841,11 +835,17 @@ class TracksListCtrl(gtk.VBox):
         self.list.set_model(self.model_blank)
         if update_playlist: self.playlist_songs = songs
         for song in songs:
-            self.append_song(song)
+            self.append_song(song,False)
+        self.songs = songs;
 
         self.list.set_model(self.model)
+        count = 3
         for col in self.list.get_columns():
             col.set_sort_indicator(indicators[col.get_title()])
+            # We have to set search_column here because the model was cleared
+            if col.get_title() == search_column:
+                self.list.set_search_column(count)
+            count = count + 1  
 
     def get_ar(self, song):
         """
@@ -856,14 +856,14 @@ class TracksListCtrl(gtk.VBox):
             ar.append(getattr(song, field))
         return ar
 
-    def append_song(self, song):
+    def append_song(self, song, append_to_list = True):
         """
             Adds a song to this view
         """
         ar = self.get_ar(song)
 
         self.model.append(ar)
-        if not song in self.songs: self.songs.append(song)
+        if append_to_list: self.songs.append(song)
 
     def update_iter(self, iter, song):
         """

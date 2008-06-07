@@ -42,7 +42,7 @@ class XlConfigParser(SafeConfigParser):
         self.dirty = False
 
         sections = ['ui', 'osd', 'lastfm', 'equalizer',\
-            'editor', 'import', 'replaygain', 'proxy']
+            'editor', 'import', 'replaygain', 'proxy', 'playlist']
 
         if os.path.exists(self.loc):
             try:

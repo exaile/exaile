@@ -88,6 +88,8 @@ class Exaile(object):
         """
             Initializes Exaile.
         """
+        self.quitting = False
+
         #parse args
         self.options, self.args = get_options().parse_args()
 
@@ -112,7 +114,7 @@ class Exaile(object):
         self.mainloop()
 
         #initialize DbusManager
-        #self.dbus = dbus.DbusManager(self.options, self.args)
+        #self.dbus = xldbus.DbusManager(self.options, self.args)
 
         #initialize SettingsManager
         self.settings = settings.SettingsManager( os.path.join(
@@ -132,7 +134,7 @@ class Exaile(object):
                 location=os.path.join(xdg.get_data_dirs()[0], 'music.db') )
 
         #initalize PlaylistsManager
-        self.playlists = manager.SimpleManager('playlists')
+        self.playlists = playlist.PlaylistManager()
 
         #initalize device manager
         self.devices = devices.DeviceManager()
@@ -182,6 +184,8 @@ class Exaile(object):
 
             takes care of saving prefs, databases, etc.
         """
+        if self.quitting: return
+        self.quitting = True
         # this event should be used by plugins and modules that dont need
         # to be saved in any particular order. modules that might be 
         # touched by events triggered here should be added statically
@@ -189,6 +193,8 @@ class Exaile(object):
         event.log_event("quit_application", self, self, async=False)
 
         #self.gui.quit()
+
+        self.playlists.save_all()
 
         self.collection.save_to_location()
         self.collection.save_libraries()
@@ -200,3 +206,4 @@ class Exaile(object):
         self.settings.save()
 
         exit()
+

@@ -4,8 +4,8 @@
 #
 # also contains functions for saving and loading various playlist formats.
 
-from xl import trackdb, event
-import urllib, random
+from xl import trackdb, event, xdg
+import urllib, random, os
 
 def save_to_m3u(playlist, path):
     """
@@ -143,7 +143,7 @@ class Playlist(trackdb.TrackDB):
         self.repeat_enabled = False
         self.tracks_history = []
         pickle_attrs += ['name', 'ordered_tracks', 'current_pos', 
-                'current_playing', "shuffle_enabled", "random_enabled",
+                'current_playing', "repeat_enabled", "random_enabled",
                 'tracks_history']
         trackdb.TrackDB.__init__(self, name=name, location=location,
                 pickle_attrs=pickle_attrs)
@@ -493,3 +493,98 @@ class SmartPlaylist(Playlist):
             return ' OR '.join(params)
         else:
             return ' '.join(params)
+
+
+class PlaylistManager(object):
+
+    def __init__(self):
+        self.playlist_dir = os.path.join(xdg.get_data_dirs()[0],'playlists')
+        self.smart_playlist_dir = os.path.join(xdg.get_data_dirs()[0],
+                'smart_playlists')
+        for dir in [self.playlist_dir, self.smart_playlist_dir]:
+            if not os.path.exists(dir):
+                os.makedirs(dir)
+        self.playlists = {}
+        self.smart_playlists = {}
+
+        self.load_names()
+
+    def add_playlist(self, pl):
+        name = pl.get_name()
+        pl.set_location(os.path.join(self.playlist_dir, pl.get_name()))
+        self.playlists[name] = pl
+        event.log_event('playlist_added', self, pl)
+
+    def remove_playlist(self, name):
+        if self.playlists.has_key(name):
+            pl = self.playlists[name]
+            del self.playlists[name]
+            event.log_event('playlist_removed', self, pl)
+
+    def add_smart_playlist(self, pl):
+        name = pl.get_name()
+        pl.set_location(os.path.join(self.smart_playlist_dir,pl.get_name()))
+        self.smart_playlists[name] = pl
+        event.log_event('smart_playlist_added', self, pl)
+
+    def remove_smart_playlist(self, pl):
+        if self.smart_playlists.has_key(name):
+            pl = self.smart_playlists[name]
+            del self.smart_playlists[name]
+            event.log_event('smart_playlist_removed', self, pl)
+
+    def save_all(self):
+        for pl in self.playlists.values():
+            if pl is not None:
+                pl.save_to_location()
+        for pl in self.smart_playlists.values():
+            if pl is not None:
+                pl.save_to_location()
+
+    def rename_playlist(self, old, new):
+        pl = self.get_playlist(old)
+        self.remove_playlist(old)
+        pl.set_name(new)
+        self.add_playlist(pl)
+
+    def rename_smart_playlist(self, old, new):
+        pl = self.get_playlist(old)
+        self.remove_playlist(old)
+        pl.set_name(new)
+        self.add_playlist(pl)
+
+    def load_names(self):
+        playlist_names = os.listdir(self.playlist_dir)
+        for p in playlist_names:
+            self.playlists[p] = None
+        smart_playlist_names = os.listdir(self.smart_playlist_dir)
+        for p in smart_playlist_names:
+            self.smart_playlists[p] = None
+
+    def get_playlist(self, name):
+        if self.playlists.has_key(name):
+            pl = self.playlists[name]
+            if pl == None:
+                pl = Playlist(name=name, 
+                        location=os.path.join(self.playlist_dir, name))
+            return pl
+        else:
+            raise ValueError("No such playlist")
+
+    def list_playlists(self):
+        return self.playlists.keys()
+
+    def get_smart_playlist(self, name):
+        if self.smart_playlists.has_key(name):
+            pl = self.smart_playlists[name]
+            if pl == None:
+                pl = SmartPlaylist(name=name, 
+                        location=os.path.join(self.smart_playlist_dir,name))
+            return pl
+        else:
+            raise ValueError("No such playlist")
+
+    def list_smart_playlists(self):
+        return self.smart_playlists.keys()
+
+

@@ -99,6 +99,9 @@ class TrackDB(object):
         """
         return self.name
 
+    def set_location(self, location):
+        self.location = location
+
     def load_from_location(self, location=None):
         """
             Restores TrackDB state from the pickled representation

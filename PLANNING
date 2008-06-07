@@ -3,7 +3,7 @@ It should also be used to keep track of what each developer is
 currently working on.
 
 Current projects:
-    Aren Olson - ???
+    Aren Olson - Playlist Exporting
     Adam Olsen - Tests (doctests or other), Library watch system (pynotify?)
 
 Implemented:
@@ -27,6 +27,7 @@ Implemented:
         only for cd right now
     HAL Support
         only for cd right now
+    Playlists Manager
 
 Things that can probably be implemented at this stage:
     Playlist Exporting
@@ -38,7 +39,6 @@ Things that can probably be implemented at this stage:
         use pyinotify or similar to watch libraries for new tracks
         periodic rescan
         stubs in collection.py
-    Playlists Manager
     CD Burning
         class in cd.py, takes a Playlist and burns it in order
     CD Ripping
@@ -72,9 +72,6 @@ Other Work-Items:
     Covers
         wait on GUI
     DBUS
-    Track Syncronization
-        different instances of the same track may arise, we need a way to 
-        keep metadata synced
 
 ==== NOTES ====
 xl is to be split into xl and xlgui. All code concerning the display of 

@@ -19,10 +19,11 @@ class SmartPlaylistTestCase(BasePlaylistTestClass):
         self.sp.add_param("artist", "=", "TestArtist")
         self.sp.add_param("album", "!=", "First")
 
-    def testSearch(self):
-        self.sp.update()
+    def testSearch(self, sp=None):
+        if not sp: sp = self.sp
+        sp.update()
 
-        tracks = self.sp.get_tracks()
+        tracks = sp.get_tracks()
         tracks.reverse()
 
         for i, track in enumerate(tracks):
@@ -37,4 +38,4 @@ class SmartPlaylistTestCase(BasePlaylistTestClass):
             location=self.sp_loc)
         sp.load_from_location()
 
-        self.testSearch()
+        self.testSearch(sp)

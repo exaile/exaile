@@ -12,7 +12,7 @@ class CollectionTestCase(BaseTestClass):
         
         # test col
         col = collection.Collection("TestCollection2", self.temp_col_loc)
-        tracks = self.collection.search('')
+        tracks = col.search('')
         assert len(tracks) == 5, "Number of tracks scanned is incorrect"
 
         # test libraries

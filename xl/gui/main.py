@@ -236,8 +236,8 @@ class ExaileWindow(gobject.GObject):
         user = self.settings.get_str("lastfm/user", "")
         password = self.settings.get_crypted("lastfm/pass", "")
 
-        self.player.connect('play-track', self.on_play_track)
-        self.player.connect('stop-track', self.on_stop_track)
+        self.player.connect('play-track', self.as_play_track)
+        self.player.connect('stop-track', self.as_stop_track)
         if user and password:
             self.scrobbler_login(user, password)
             
@@ -1231,7 +1231,7 @@ class ExaileWindow(gobject.GObject):
 
         return True
 
-    def on_play_track(self, player, track):
+    def as_play_track(self, player, track):
         """
             Called when playback of a track has started
         """
@@ -1240,7 +1240,7 @@ class ExaileWindow(gobject.GObject):
         scrobbler.now_playing(track.artist, track.title, track.album,
             int(track.duration), track.track)
 
-    def on_stop_track(self, player, track):
+    def as_stop_track(self, player, track):
         """
             Called when playback of a track has stopped
         """

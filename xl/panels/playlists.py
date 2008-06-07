@@ -270,11 +270,11 @@ class PlaylistsPanel(object):
                 "paths.id=tracks.path ORDER " \
                 "BY plays ASC LIMIT 100"),
 
-            (_('Rating > 5'), "SELECT paths.name FROM paths, tracks, artists, " \
+            (_('Rating > 4'), "SELECT paths.name FROM paths, tracks, artists, " \
                 "albums " \
                 "WHERE tracks.path=paths.id AND albums.id=tracks.album AND " \
                 "artists.id=tracks.artist " \
-                "AND user_rating > 5 " \
+                "AND user_rating > 4 " \
                 "ORDER BY LOWER(artists.name), THE_CUTTER(albums.name), track"),
             
             (_('Rating > 3'), "SELECT paths.name FROM paths,tracks,artists,albums WHERE " \

@@ -13,30 +13,3 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 __all__ = ['flac', 'mp3', 'm4a', 'ogg', 'wma', 'mpc', 'wv', 'tta']
-
-from xl.media import flac, mp3, mp4, mpc, ogg, tta, wav, wma, wv
-
-formats = {
-    'aac': mp4,
-    'ac3': None,
-    'flac': flac,
-    'm4a': mp4,
-    'mp+': mpc,
-    'mp2': mp3,
-    'mp3': mp3,
-    'mp4': mp4,
-    'mod': None,
-    'mpc': mpc,
-    'oga': ogg,
-    'ogg': ogg,
-    's3m': None,
-    'tta': tta,
-    'wav': wav,
-    'wma': wma,
-    'wv': wv,
-}
-
-SUPPORTED_MEDIA = ['.' + ext for ext in formats.iterkeys()]
-
-
-

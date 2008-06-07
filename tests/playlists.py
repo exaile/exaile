@@ -31,11 +31,15 @@ class SmartPlaylistTestCase(BasePlaylistTestClass):
                 "SmartPlaylist search failed"
 
     def testSaveLoad(self):
+        self.sp.set_or_match(True)
         self.sp.save_to_location()
 
         # test playlist
         sp = playlist.SmartPlaylist(collection=self.collection,
             location=self.sp_loc)
+
+        assert sp.get_or_match() == True, "Loading saved smart playlist failed"
+        self.sp.set_or_match(False)
         sp.load_from_location()
 
         self.testSearch(sp)

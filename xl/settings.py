@@ -13,7 +13,8 @@ TYPE_MAPPING = {
         'I': int,
         'S': str,
         'F': float,
-        'B': bool }
+        'B': bool,
+        'L': list}
 
 class SettingsManager(SafeConfigParser):
     """
@@ -72,7 +73,10 @@ class SettingsManager(SafeConfigParser):
         """
         for k, v in TYPE_MAPPING.iteritems():
             if v == type(value):
-                return k + ": " + str(value)
+                if v == list:
+                    return k + ": " + repr(value)
+                else:
+                    return k + ": " + str(value)
         raise ValueError("We don't know how to store that kind of setting")
 
     def _str_to_val(self, value):
@@ -81,6 +85,11 @@ class SettingsManager(SafeConfigParser):
         """
         kind = value.split(':')[0]
         value = value.split(':')[1][1:]
+
+        # lists are special case
+        if kind == 'L':
+            return eval(value)
+
         if kind in TYPE_MAPPING.keys():
             value = TYPE_MAPPING[kind](value)
             return value

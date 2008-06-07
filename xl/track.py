@@ -1,9 +1,19 @@
-# Track
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 1, or (at your option)
+# any later version.
 #
-# contains Track which represents a single Track for playback
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 from copy import deepcopy
-import os
+import os, time, os.path
 
 from mutagen.mp3 import HeaderNotFoundError
 from urlparse import urlparse
@@ -73,7 +83,8 @@ class Track(object):
                 'blacklisted':False,
                 'rating':0,
                 'loc':'',
-                'encoding':''} )
+                'encoding':'',
+                'modified': 0} )
 
         self._scan_valid = False
         if uri and urlparse(uri)[0] in ['', 'file']:
@@ -236,6 +247,7 @@ class Track(object):
         if not format: 
             return None
 
+        self['modified'] = os.path.getmtime(self.get_loc())
         try:
             format.fill_tag_from_path(self)
         except HeaderNotFoundError:
@@ -245,6 +257,18 @@ class Track(object):
             common.log_exception(__name__)
             return None
         return self
+
+    def get_track(self):
+        """
+            Gets the track number in int format.  
+        """
+        t = self.get_tag('tracknumber')
+        if t.find('/') > -1:
+            t = t[:t.find('/')]
+        if t == '':
+            t = -1
+
+        return int(t)
 
     def __repr__(self):
         return str(self) #for debugging, remove later

@@ -9,7 +9,9 @@
 from xl import trackdb, media, track
 from settings import SettingsManager
 
-import os
+import os, time, os.path, logging
+
+logger = logging.getLogger(__name__)
 
 class Collection(trackdb.TrackDB):
     """
@@ -25,10 +27,10 @@ class Collection(trackdb.TrackDB):
         self.settings = SettingsManager.settings
         trackdb.TrackDB.__init__(self, location=location, 
                 pickle_attrs=pickle_attrs)
-        lib_paths = self.settings.get_option("collection/library_paths", "")
-        for l in lib_paths.split(":"):
-            if len(l.strip()) > 0:
-                self.add_library( Library(l) )
+        lib_paths = self.settings.get_option("collection/libraries", [])
+        for (loc, realtime, interval) in lib_paths:
+            if len(loc.strip()) > 0:
+                self.add_library(Library(loc, realtime, interval))
 
     def add_library(self, library):
         """
@@ -78,19 +80,64 @@ class Collection(trackdb.TrackDB):
         """
             Save information about libraries into settings
         """
-        lib_paths = ""
+        libraries = []
         for k, v in self.libraries.iteritems():
-            lib_paths += k + ":"
-        lib_paths = lib_paths[:-1]
-        self.settings.set_option("collection/library_paths", lib_paths)
+            libraries.append((v.location, v.realtime, v.scan_interval))
+        self.settings.set_option("collection/libraries", libraries)
 
+
+class ProcessEvent(object):
+    pass
+
+try:
+    import pyinotify
+    from pyinotify import EventsCodes, ProcessEvent
+    INOTIFY_MASK = EventsCodes.IN_DELETE | EventsCodes.IN_CLOSE_WRITE
+except ImportError:
+    pyinotify = None
+
+class INotifyEventProcessor(ProcessEvent):
+    """
+        Processes events from inotify
+    """
+
+    def __init__(self):
+        self.libraries = []
+
+    def add_library(self, library):
+        wdd = WATCH_MANAGER.add_watch(library.location,
+            INOTIFY_MASK, rec=True)
+
+        self.libraries.append((library, wdd))
+        logger.info("Watching directory: %s" % library.location)
+
+    def process_IN_DELETE(self, event):
+        pathname = os.path.join(event.path, event.name)
+        logger.info("Location deleted: %s" % pathname)
+        for (library, wdd) in self.libraries:
+            if pathname.find(library.location) > -1:
+                library._remove_locations([pathname])         
+
+    def process_IN_CLOSE_WRITE(self, event):
+        pathname = os.path.join(event.path, event.name)
+        logger.info("Location modified: %s" % pathname)
+        for (library, wdd) in self.libraries:
+            if pathname.find(library.location) > -1:
+                library._scan_locations([pathname])         
+if pyinotify:
+    EVENT_PROCESSOR = INotifyEventProcessor()
+    WATCH_MANAGER = pyinotify.WatchManager()
+    NOTIFIER = pyinotify.ThreadedNotifier(WATCH_MANAGER,
+        EVENT_PROCESSOR)
+    NOTIFIER.setDaemon(True)
+    NOTIFIER.start()
 
 class Library(object):
     """
         Scans and watches a folder for tracks, and adds them to
         a Collection.
     """
-    def __init__(self, location):
+    def __init__(self, location, realtime=False, scan_interval=0):
         """
             Sets up the Library
 
@@ -98,6 +145,9 @@ class Library(object):
             collection: the Collection to associate with [Collection]
         """
         self.location = location
+        self.realtime = realtime
+        self.scan_interval = scan_interval
+        self.set_realtime(realtime)
 
         self.collection = None
 
@@ -121,6 +171,40 @@ class Library(object):
 
         self.collection = collection
 
+    def _scan_locations(self, locations):
+        """
+            Scans locations for tracks and adds them to the collection
+
+            locations: a list of locations to check
+        """
+        for fullpath in locations:
+            if fullpath in self.collection.tracks:
+                # check to see if we need to scan this track
+                mtime = os.path.getmtime(fullpath)
+                if unicode(mtime) == self.collection.tracks[fullpath]['modified']:
+                    continue
+                else:
+                    self.collection.tracks[fullpath].read_tags()
+                    continue
+
+            tr = track.Track(fullpath)
+            if tr._scan_valid == True:
+                self.collection.add(tr)
+
+    def _remove_locations(self, locations):
+        """
+            Removes tracks at the specified locations from the collection
+
+            locations: the paths to remove
+        """
+        for loc in locations:
+            try:
+                track = self.collection.tracks[loc]
+            except KeyError:    
+                continue
+
+            self.collection.remove(track)
+
     def rescan(self):
         """
             Rescan the associated folder and add the contained files
@@ -129,22 +213,39 @@ class Library(object):
         if not self.collection:
             return
 
-        formats = media.formats.keys()
+        formats = track.formats.keys()
 
         for folder in os.walk(self.location):
             basepath = folder[0]
             for filename in folder[2]:
                 fullpath = os.path.join(basepath, filename)
-                #(stuff, ext) = os.path.splitext(fullpath)
+
+                if fullpath in self.collection.tracks:
+                    # check to see if we need to scan this track
+                    mtime = os.path.getmtime(fullpath)
+                    if unicode(mtime) == self.collection.tracks[fullpath]['modified']:
+                        continue
+                    else:
+                        self.collection.tracks[fullpath].read_tags()
+                        continue
+
                 tr = track.Track(fullpath)
                 if tr._scan_valid == True:
                     self.collection.add(tr)
 
     def is_realtime(self):
-        return False
+        """
+            Returns True if this is library is being watched by gamin
+        """
+        return self.realtime
 
-    def set_realtime(self, bool):
-        pass
+    def set_realtime(self, realtime):
+        """
+            Sets to True if you want this library to be monitored
+        """
+        self.realtime = realtime
+        if realtime and pyinotify:
+            EVENT_PROCESSOR.add_library(self)
 
     def get_rescan_interval(self):
         return 0

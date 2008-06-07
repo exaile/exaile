@@ -141,8 +141,8 @@ class Exaile(object):
         self.hal = hal.HAL(self.devices)
 
         # TEMPORARY AUDIOSCROBBLER STUFF
-        user = self.settings.get_option('plug_lastfm/user', '')
-        passwd = self.settings.get_option('plug_lastfm/pass', '')
+        user = self.settings.get_option('plugin/lastfm/user', '')
+        passwd = self.settings.get_option('plugin/lastfm/pass', '')
         self.scrobbler = scrobbler.ExaileScrobbler(self.player, user, passwd) 
 
         #initialize CoverManager
@@ -192,6 +192,8 @@ class Exaile(object):
 
         self.collection.save_to_location()
         self.collection.save_libraries()
+        if collection.pyinotify:
+            collection.NOTIFIER.stop()
 
         #TODO: save player, queue, playlists
 

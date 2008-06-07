@@ -272,6 +272,13 @@ class Track(object):
 
         return int(t)
 
+    def get_duration(self):
+        """
+            Returns the length of the track as an int in seconds
+        """
+        if not self['length']: self['length'] = 0
+        return int(float(self['length']))
+
     def __repr__(self):
         return str(self) #for debugging, remove later
 

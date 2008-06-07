@@ -58,8 +58,10 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class Playlist</h1><p class="nomargin-top"><span class="codelink"><a href="xl.playlist-pysrc.html#Playlist">source&nbsp;code</a></span></p>
+<h1 class="epydoc">Class Playlist</h1><span class="codelink"><a href="xl.playlist-pysrc.html#Playlist">source&nbsp;code</a></span><br /><br />
 <pre class="base-tree">
+     object --+    
+              |    
 <a href="xl.trackdb.TrackDB-class.html">trackdb.TrackDB</a> --+
                   |
                  <strong class="uidshort">Playlist</strong>
@@ -67,13 +69,14 @@
 
 <dl><dt>Known Subclasses:</dt>
 <dd>
-      <ul class="subclass-list">
-<li><a href="xl.playlist.SmartPlaylist-class.html">SmartPlaylist</a></li><li>, <a href="xl.player.PlayQueue-class.html">player.PlayQueue</a></li>  </ul>
+    <a href="xl.cd.CDPlaylist-class.html">cd.CDPlaylist</a>,
+    <a href="xl.player.PlayQueue-class.html">player.PlayQueue</a>,
+    <a href="xl.playlist.SmartPlaylist-class.html">SmartPlaylist</a>
 </dd></dl>
 
 <hr />
-<p>Represents a playlist, which is basically just a TrackDB with 
-  ordering.</p>
+Represents a playlist, which is basically just a TrackDB with 
+  ordering.<br /><br />
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -99,28 +102,12 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="xl.playlist.Playlist-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">location</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">name</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">location</span>=<span class="summary-sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>,
         <span class="summary-sig-arg">pickle_attrs</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>)</span><br />
       Sets up the Playlist</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.__init__">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="xl.playlist.Playlist-class.html#__iter__" class="summary-sig-name">__iter__</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      allows &quot;for song in playlist&quot; synatax</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.__iter__">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -151,9 +138,26 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a href="xl.playlist.Playlist-class.html#__iter__" class="summary-sig-name">__iter__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      allows &quot;for song in playlist&quot; synatax</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.__iter__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a href="xl.playlist.Playlist-class.html#add" class="summary-sig-name">add</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">track</span>,
-        <span class="summary-sig-arg">location</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">location</span>=<span class="summary-sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>)</span><br />
       insert the track into the playlist at the specified location 
       (default: append)</td>
           <td align="right" valign="top">
@@ -173,95 +177,10 @@
         <tr>
           <td><span class="summary-sig"><a href="xl.playlist.Playlist-class.html#add_tracks" class="summary-sig-name">add_tracks</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">tracks</span>,
-        <span class="summary-sig-arg">location</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">location</span>=<span class="summary-sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>)</span><br />
       like add(), but takes a list of tracks instead of a single one</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.add_tracks">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="xl.playlist.Playlist-class.html#get_current" class="summary-sig-name">get_current</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      gets the currently-playing Track, or None if no current</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.get_current">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="xl.playlist.Playlist-class.html#get_current_pos" class="summary-sig-name">get_current_pos</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      gets current playback position, -1 if not playing</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.get_current_pos">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="xl.playlist.Playlist-class.html#get_tracks" class="summary-sig-name">get_tracks</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      gets the list of tracks in this playlist, in order</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.get_tracks">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="xl.playlist.Playlist-class.html#next" class="summary-sig-name">next</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      moves to the next track in the playlist</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.next">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="xl.playlist.Playlist-class.html#prev" class="summary-sig-name">prev</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      moves to the previous track in the playlist</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.prev">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -312,12 +231,27 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="xl.playlist.Playlist-class.html#search" class="summary-sig-name">search</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">phrase</span>,
-        <span class="summary-sig-arg">sort_field</span>=<span class="summary-sig-default">None</span>)</span><br />
-      searches the playlist</td>
+          <td><span class="summary-sig"><a href="xl.playlist.Playlist-class.html#get_tracks" class="summary-sig-name">get_tracks</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      gets the list of tracks in this playlist, in order</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.search">source&nbsp;code</a></span>
+            <span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.get_tracks">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="xl.playlist.Playlist-class.html#get_current_pos" class="summary-sig-name">get_current_pos</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      gets current playback position, -1 if not playing</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.get_current_pos">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -342,13 +276,156 @@
       
     </td>
   </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="xl.playlist.Playlist-class.html#get_current" class="summary-sig-name">get_current</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      gets the currently-playing Track, or None if no current</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.get_current">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="xl.playlist.Playlist-class.html#next" class="summary-sig-name">next</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      moves to the next track in the playlist</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.next">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="xl.playlist.Playlist-class.html#prev" class="summary-sig-name">prev</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      moves to the previous track in the playlist</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.prev">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="xl.playlist.Playlist-class.html#search" class="summary-sig-name">search</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">phrase</span>,
+        <span class="summary-sig-arg">sort_field</span>=<span class="summary-sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>)</span><br />
+      searches the playlist</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.search">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="xl.playlist.Playlist-class.html#toggle_random" class="summary-sig-name">toggle_random</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">mode</span>=<span class="summary-sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>)</span><br />
+      toggle random playback order</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.toggle_random">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="xl.playlist.Playlist-class.html#toggle_repeat" class="summary-sig-name">toggle_repeat</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">mode</span>=<span class="summary-sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>)</span><br />
+      toggle repeat playback</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.toggle_repeat">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
   <tr>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="xl.trackdb.TrackDB-class.html">trackdb.TrackDB</a></code></b>:
       <code><a href="xl.trackdb.TrackDB-class.html#get_name">get_name</a></code>,
       <code><a href="xl.trackdb.TrackDB-class.html#load_from_location">load_from_location</a></code>,
       <code><a href="xl.trackdb.TrackDB-class.html#save_to_location">save_to_location</a></code>,
+      <code><a href="xl.trackdb.TrackDB-class.html#set_location">set_location</a></code>,
       <code><a href="xl.trackdb.TrackDB-class.html#set_name">set_name</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__str__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
       </p>
     </td>
   </tr>
@@ -379,20 +456,21 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">location</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">name</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">location</span>=<span class="sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>,
         <span class="sig-arg">pickle_attrs</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>Sets up the Playlist</p>
-  <p>args: see TrackDB</p>
+  args: see TrackDB
   <dl class="fields">
     <dt>Overrides:
-        <a href="xl.trackdb.TrackDB-class.html#__init__">trackdb.TrackDB.__init__</a>
+      <a href="xl.trackdb.TrackDB-class.html#__init__">trackdb.TrackDB.__init__</a>
     </dt>
   </dl>
 </td></tr></table>
@@ -409,10 +487,10 @@
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.__iter__">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>allows &quot;for song in playlist&quot; synatax</p>
-  <p>warning: assumes playlist doesn't change while iterating</p>
+  warning: assumes playlist doesn't change while iterating
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -426,20 +504,20 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">add</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">track</span>,
-        <span class="sig-arg">location</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">location</span>=<span class="sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.add">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>insert the track into the playlist at the specified location (default:
   append)</p>
-  <p>track: the track to add [Track] location: the index to insert at 
-  [int]</p>
+  track: the track to add [Track] location: the index to insert at 
+  [int]
   <dl class="fields">
     <dt>Overrides:
-        <a href="xl.trackdb.TrackDB-class.html#add">trackdb.TrackDB.add</a>
+      <a href="xl.trackdb.TrackDB-class.html#add">trackdb.TrackDB.add</a>
     </dt>
   </dl>
 </td></tr></table>
@@ -453,116 +531,16 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">add_tracks</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">tracks</span>,
-        <span class="sig-arg">location</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">location</span>=<span class="sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.add_tracks">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>like add(), but takes a list of tracks instead of a single one</p>
-  <p>tracks: the tracks to add [list of Track] location: the index to 
-  insert at [int]</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="get_current"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_current</span>(<span class="sig-arg">self</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.get_current">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>gets the currently-playing Track, or None if no current</p>
-  <p>returns: the current track [Track]</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="get_current_pos"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_current_pos</span>(<span class="sig-arg">self</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.get_current_pos">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>gets current playback position, -1 if not playing</p>
-  <p>returns: the position [int]</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="get_tracks"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_tracks</span>(<span class="sig-arg">self</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.get_tracks">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>gets the list of tracks in this playlist, in order</p>
-  <p>returns: [list of Track]</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="next"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">next</span>(<span class="sig-arg">self</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.next">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>moves to the next track in the playlist</p>
-  <p>returns: the next track [Track]</p>
-  <dl class="fields">
-  </dl>
-</td></tr></table>
-</div>
-<a name="prev"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">prev</span>(<span class="sig-arg">self</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.prev">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>moves to the previous track in the playlist</p>
-  <p>returns: the previous track [Track]</p>
+  tracks: the tracks to add [list of Track] location: the index to 
+  insert at [int]
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -580,13 +558,13 @@
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.remove">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>removes the track at the specified index from the playlist</p>
-  <p>index: the index to remove at [int]</p>
+  index: the index to remove at [int]
   <dl class="fields">
     <dt>Overrides:
-        <a href="xl.trackdb.TrackDB-class.html#remove">trackdb.TrackDB.remove</a>
+      <a href="xl.trackdb.TrackDB-class.html#remove">trackdb.TrackDB.remove</a>
     </dt>
   </dl>
 </td></tr></table>
@@ -605,11 +583,111 @@
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.remove_tracks">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>remove the specified range of tracks from the playlist</p>
-  <p>start: index to start at [int] end: index to end at (inclusive) 
-  [int]</p>
+  start: index to start at [int] end: index to end at (inclusive) 
+  [int]
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_tracks"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_tracks</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.get_tracks">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <p>gets the list of tracks in this playlist, in order</p>
+  returns: [list of Track]
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_current_pos"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_current_pos</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.get_current_pos">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <p>gets current playback position, -1 if not playing</p>
+  returns: the position [int]
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_current"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_current</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.get_current">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <p>gets the currently-playing Track, or None if no current</p>
+  returns: the current track [Track]
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="next"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">next</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.next">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <p>moves to the next track in the playlist</p>
+  returns: the next track [Track], None if no more tracks
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="prev"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">prev</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.prev">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <p>moves to the previous track in the playlist</p>
+  returns: the previous track [Track]
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -623,18 +701,60 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">search</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">phrase</span>,
-        <span class="sig-arg">sort_field</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">sort_field</span>=<span class="sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.search">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
-  <p>searches the playlist</p>
+  searches the playlist
   <dl class="fields">
     <dt>Overrides:
-        <a href="xl.trackdb.TrackDB-class.html#search">trackdb.TrackDB.search</a>
+      <a href="xl.trackdb.TrackDB-class.html#search">trackdb.TrackDB.search</a>
     </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="toggle_random"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">toggle_random</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">mode</span>=<span class="sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.toggle_random">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <p>toggle random playback order</p>
+  mode: set random to this [bool]
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="toggle_repeat"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">toggle_repeat</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">mode</span>=<span class="sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="xl.playlist-pysrc.html#Playlist.toggle_repeat">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <p>toggle repeat playback</p>
+  mode: set repeat to this [bool]
+  <dl class="fields">
   </dl>
 </td></tr></table>
 </div>
@@ -667,11 +787,10 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0 on Wed Jun  4 21:12:07 2008
+    Generated by Epydoc 3.0beta1 on Sat Jun  7 12:27:47 2008
     </td>
     <td align="right" class="footer">
-      <a target="mainFrame" href="http://epydoc.sourceforge.net"
-        >http://epydoc.sourceforge.net</a>
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -682,8 +801,9 @@
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie();
+  checkCookie()
   // -->
 </script>
+  
 </body>
 </html>

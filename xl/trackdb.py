@@ -62,10 +62,10 @@ class TrackDB(object):
         """
             Sets up the trackDB.
 
-            name:   The name of this TrackDB. [string]
-            location:   Path to a file where this trackDB
+            @param name:   The name of this TrackDB. [string]
+            @param location:   Path to a file where this trackDB
                     should be stored. [string]
-            pickle_attrs:   A list of attributes to store in the
+            @param pickle_attrs:   A list of attributes to store in the
                     pickled representation of this object. All
                     attributes listed must be built-in types, with
                     one exception: If the object contains the phrase
@@ -107,7 +107,7 @@ class TrackDB(object):
             Restores TrackDB state from the pickled representation
             stored at the specified location.
 
-            location: the location to load the data from [string]
+            @param location: the location to load the data from [string]
         """
         if not location:
             location = self.location

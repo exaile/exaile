@@ -58,18 +58,24 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class TrackDB</h1><p class="nomargin-top"><span class="codelink"><a href="xl.trackdb-pysrc.html#TrackDB">source&nbsp;code</a></span></p>
+<h1 class="epydoc">Class TrackDB</h1><span class="codelink"><a href="xl.trackdb-pysrc.html#TrackDB">source&nbsp;code</a></span><br /><br />
+<pre class="base-tree">
+object --+
+         |
+        <strong class="uidshort">TrackDB</strong>
+</pre>
+
 <dl><dt>Known Subclasses:</dt>
 <dd>
-      <ul class="subclass-list">
-<li><a href="xl.playlist.Playlist-class.html">playlist.Playlist</a></li><li>, <a href="xl.collection.Collection-class.html">collection.Collection</a></li>  </ul>
+    <a href="xl.playlist.Playlist-class.html">playlist.Playlist</a>,
+    <a href="xl.collection.Collection-class.html">collection.Collection</a>
 </dd></dl>
 
 <hr />
 <p>Manages a track database.</p>
   <p>Allows you to add, remove, retrieve, search, save and load Track 
   objects.</p>
-  <p>This particular implementation is done using pickle</p>
+  This particular implementation is done using pickle<br /><br />
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -96,7 +102,7 @@
         <tr>
           <td><span class="summary-sig"><a href="xl.trackdb.TrackDB-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">name</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
-        <span class="summary-sig-arg">location</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">location</span>=<span class="summary-sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>,
         <span class="summary-sig-arg">pickle_attrs</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>)</span><br />
       Sets up the trackDB.</td>
           <td align="right" valign="top">
@@ -150,9 +156,9 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="xl.trackdb.TrackDB-class.html#load_from_location" class="summary-sig-name">load_from_location</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">location</span>=<span class="summary-sig-default">None</span>)</span><br />
-      Restores TrackDB state from the pickled representation stored at the 
-      specified location.</td>
+        <span class="summary-sig-arg">location</span>=<span class="summary-sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>)</span><br />
+      Restores TrackDB state from the pickled representation stored at 
+      the specified location.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="xl.trackdb-pysrc.html#TrackDB.load_from_location">source&nbsp;code</a></span>
             
@@ -187,7 +193,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="xl.trackdb.TrackDB-class.html#save_to_location" class="summary-sig-name">save_to_location</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">location</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">location</span>=<span class="summary-sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>)</span><br />
       Saves a pickled representation of this TrackDB to the specified 
       location.</td>
           <td align="right" valign="top">
@@ -207,10 +213,27 @@
         <tr>
           <td><span class="summary-sig"><a name="search"></a><span class="summary-sig-name">search</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">phrase</span>,
-        <span class="summary-sig-arg">sort_field</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">sort_field</span>=<span class="summary-sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>)</span><br />
       Search the trackDB, optionally sorting by sort_field</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="xl.trackdb-pysrc.html#TrackDB.search">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="set_location"></a><span class="summary-sig-name">set_location</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">location</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="xl.trackdb-pysrc.html#TrackDB.set_location">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -234,6 +257,46 @@
         </tr>
       </table>
       
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__str__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
     </td>
   </tr>
 </table>
@@ -264,31 +327,31 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">name</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>,
-        <span class="sig-arg">location</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">location</span>=<span class="sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>,
         <span class="sig-arg">pickle_attrs</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.trackdb-pysrc.html#TrackDB.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
-  <pre class="literalblock">
-
-Sets up the trackDB.
-
-name:   The name of this TrackDB. [string]
-location:   Path to a file where this trackDB
-        should be stored. [string]
-pickle_attrs:   A list of attributes to store in the
-        pickled representation of this object. All
-        attributes listed must be built-in types, with
-        one exception: If the object contains the phrase
-        'tracks' in its name it may be a list or dict
-        or Track objects. [list of string]
-
-</pre>
+  Sets up the trackDB.
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>name</code></strong> - The name of this TrackDB. [string]</li>
+        <li><strong class="pname"><code>location</code></strong> - Path to a file where this trackDB should be stored. 
+          [string]</li>
+        <li><strong class="pname"><code>pickle_attrs</code></strong> - A list of attributes to store in the pickled representation of
+          this object. All attributes listed must be built-in types, with 
+          one exception: If the object contains the phrase 'tracks' in its 
+          name it may be a list or dict or Track objects. [list of 
+          string]</li>
+    </ul></dd>
+    <dt>Overrides:
+      object.__init__
+    </dt>
   </dl>
 </td></tr></table>
 </div>
@@ -305,10 +368,10 @@ pickle_attrs:   A list of attributes to store in the
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.trackdb-pysrc.html#TrackDB.add">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>Adds a track to the database of tracks</p>
-  <p>track: The Track to add [Track]</p>
+  track: The Track to add [Track]
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -325,10 +388,10 @@ pickle_attrs:   A list of attributes to store in the
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.trackdb-pysrc.html#TrackDB.get_name">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>Gets the name of this TrackDB</p>
-  <p>returns: The name. [string]</p>
+  returns: The name. [string]
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -341,16 +404,16 @@ pickle_attrs:   A list of attributes to store in the
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">load_from_location</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">location</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">location</span>=<span class="sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.trackdb-pysrc.html#TrackDB.load_from_location">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>Restores TrackDB state from the pickled representation stored at the 
   specified location.</p>
-  <p>location: the location to load the data from [string]</p>
+  location: the location to load the data from [string]
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -368,10 +431,10 @@ pickle_attrs:   A list of attributes to store in the
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.trackdb-pysrc.html#TrackDB.remove">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>Removes a track from the database</p>
-  <p>track: the Track to remove [Track]</p>
+  track: the Track to remove [Track]
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -384,16 +447,16 @@ pickle_attrs:   A list of attributes to store in the
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">save_to_location</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">location</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">location</span>=<span class="sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.trackdb-pysrc.html#TrackDB.save_to_location">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>Saves a pickled representation of this TrackDB to the specified 
   location.</p>
-  <p>location: the location to save the data to [string]</p>
+  location: the location to save the data to [string]
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -411,10 +474,10 @@ pickle_attrs:   A list of attributes to store in the
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.trackdb-pysrc.html#TrackDB.set_name">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>Sets the name of this TrackDB</p>
-  <p>name:   The new name. [string]</p>
+  name:   The new name. [string]
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -448,11 +511,10 @@ pickle_attrs:   A list of attributes to store in the
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0 on Wed Jun  4 21:12:07 2008
+    Generated by Epydoc 3.0beta1 on Sat Jun  7 12:27:47 2008
     </td>
     <td align="right" class="footer">
-      <a target="mainFrame" href="http://epydoc.sourceforge.net"
-        >http://epydoc.sourceforge.net</a>
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -463,8 +525,9 @@ pickle_attrs:   A list of attributes to store in the
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie();
+  checkCookie()
   // -->
 </script>
+  
 </body>
 </html>

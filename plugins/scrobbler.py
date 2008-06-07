@@ -50,7 +50,7 @@ class ExaileScrobbler(object):
     @common.threaded
     def now_playing(self, track):
         scrobbler.now_playing(track['artist'], track['title'], track['album'],
-            int(track['length']), track.get_track())
+            track.get_duration(), track.get_track())
 
     def on_stop(self, type, player, track):
         if not track: return
@@ -80,7 +80,7 @@ class ExaileScrobbler(object):
         if scrobbler.SESSION_ID:
             try:
                 scrobbler.submit(track['artist'], track['title'],
-                    int(time_started), 'P', '', int(track['length']), track['album'],
+                    int(time_started), 'P', '', track.get_duration(), track['album'],
                     track.get_track(), autoflush=True)
             except:
                 common.log_exception()

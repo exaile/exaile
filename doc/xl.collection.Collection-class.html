@@ -58,15 +58,17 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class Collection</h1><p class="nomargin-top"><span class="codelink"><a href="xl.collection-pysrc.html#Collection">source&nbsp;code</a></span></p>
+<h1 class="epydoc">Class Collection</h1><span class="codelink"><a href="xl.collection-pysrc.html#Collection">source&nbsp;code</a></span><br /><br />
 <pre class="base-tree">
+     object --+    
+              |    
 <a href="xl.trackdb.TrackDB-class.html">trackdb.TrackDB</a> --+
                   |
                  <strong class="uidshort">Collection</strong>
 </pre>
 
 <hr />
-<p>Manages a persistent track database.</p>
+Manages a persistent track database.<br /><br />
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -93,7 +95,7 @@
         <tr>
           <td><span class="summary-sig"><a href="xl.collection.Collection-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">name</span>,
-        <span class="summary-sig-arg">location</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">location</span>=<span class="summary-sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>,
         <span class="summary-sig-arg">pickle_attrs</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>)</span><br />
       Set up the collection</td>
           <td align="right" valign="top">
@@ -148,7 +150,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="xl.collection.Collection-class.html#get_libraries" class="summary-sig-name">get_libraries</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      Gets a list of all the Libraries associated with this Collection</td>
+      Gets a list of all the Libraries associated with this 
+      Collection</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="xl.collection-pysrc.html#Collection.get_libraries">source&nbsp;code</a></span>
             
@@ -201,7 +204,44 @@
       <code><a href="xl.trackdb.TrackDB-class.html#remove">remove</a></code>,
       <code><a href="xl.trackdb.TrackDB-class.html#save_to_location">save_to_location</a></code>,
       <code><a href="xl.trackdb.TrackDB-class.html#search">search</a></code>,
+      <code><a href="xl.trackdb.TrackDB-class.html#set_location">set_location</a></code>,
       <code><a href="xl.trackdb.TrackDB-class.html#set_name">set_name</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__str__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
       </p>
     </td>
   </tr>
@@ -233,20 +273,20 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">name</span>,
-        <span class="sig-arg">location</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">location</span>=<span class="sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>,
         <span class="sig-arg">pickle_attrs</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.collection-pysrc.html#Collection.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>Set up the collection</p>
-  <p>args: see TrackDB</p>
+  args: see TrackDB
   <dl class="fields">
     <dt>Overrides:
-        <a href="xl.trackdb.TrackDB-class.html#__init__">trackdb.TrackDB.__init__</a>
+      <a href="xl.trackdb.TrackDB-class.html#__init__">trackdb.TrackDB.__init__</a>
     </dt>
   </dl>
 </td></tr></table>
@@ -264,10 +304,10 @@
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.collection-pysrc.html#Collection.add_library">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>Add this library to the collection</p>
-  <p>library: the library to add [Library]</p>
+  library: the library to add [Library]
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -285,10 +325,10 @@
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.collection-pysrc.html#Collection.remove_library">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>Remove a library from the collection</p>
-  <p>library: the library to remove [Library]</p>
+  library: the library to remove [Library]
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -305,10 +345,10 @@
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.collection-pysrc.html#Collection.get_libraries">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>Gets a list of all the Libraries associated with this Collection</p>
-  <p>returns: [list of Library]</p>
+  returns: [list of Library]
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -342,11 +382,10 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0 on Wed Jun  4 21:12:07 2008
+    Generated by Epydoc 3.0beta1 on Sat Jun  7 12:27:46 2008
     </td>
     <td align="right" class="footer">
-      <a target="mainFrame" href="http://epydoc.sourceforge.net"
-        >http://epydoc.sourceforge.net</a>
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -357,8 +396,9 @@
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie();
+  checkCookie()
   // -->
 </script>
+  
 </body>
 </html>

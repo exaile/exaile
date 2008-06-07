@@ -58,8 +58,15 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class Track</h1><p class="nomargin-top"><span class="codelink"><a href="xl.track-pysrc.html#Track">source&nbsp;code</a></span></p>
-<p>Represents a single track.</p>
+<h1 class="epydoc">Class Track</h1><span class="codelink"><a href="xl.track-pysrc.html#Track">source&nbsp;code</a></span><br /><br />
+<pre class="base-tree">
+object --+
+         |
+        <strong class="uidshort">Track</strong>
+</pre>
+
+<hr />
+Represents a single track.<br /><br />
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -85,11 +92,30 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="xl.track.Track-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">uri</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">_unpickles</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">uri</span>=<span class="summary-sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>,
+        <span class="summary-sig-arg">_unpickles</span>=<span class="summary-sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>)</span><br />
       loads and initializes the tag information</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="xl.track-pysrc.html#Track.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_track_update_callback"></a><span class="summary-sig-name">_track_update_callback</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">track_loc</span>,
+        <span class="summary-sig-arg">track_obj</span>,
+        <span class="summary-sig-arg">tag_info</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="xl.track-pysrc.html#Track._track_update_callback">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -122,7 +148,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="xl.track.Track-class.html#get_loc" class="summary-sig-name">get_loc</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      Gets the location as unicode (might contain garbled characters)</td>
+      Gets the location as unicode (might contain garbled 
+      characters)</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="xl.track-pysrc.html#Track.get_loc">source&nbsp;code</a></span>
             
@@ -155,7 +182,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="xl.track.Track-class.html#_pickles" class="summary-sig-name" onclick="show_private();">_pickles</a>(<span class="summary-sig-arg">self</span>)</span><br />
+          <td><span class="summary-sig"><a href="xl.track.Track-class.html#_pickles" class="summary-sig-name">_pickles</a>(<span class="summary-sig-arg">self</span>)</span><br />
       returns a data repr of the track suitable for pickling</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="xl.track-pysrc.html#Track._pickles">source&nbsp;code</a></span>
@@ -172,7 +199,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="xl.track.Track-class.html#_unpickles" class="summary-sig-name" onclick="show_private();">_unpickles</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="xl.track.Track-class.html#_unpickles" class="summary-sig-name">_unpickles</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">pickle_str</span>)</span><br />
       restores the state from the pickle-able repr</td>
           <td align="right" valign="top">
@@ -299,7 +326,25 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__repr__"></a><span class="summary-sig-name">__repr__</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="get_track"></a><span class="summary-sig-name">get_track</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Gets the track number in int format.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="xl.track-pysrc.html#Track.get_track">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="xl.track.Track-class.html#__repr__" class="summary-sig-name">__repr__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      repr(x)</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="xl.track-pysrc.html#Track.__repr__">source&nbsp;code</a></span>
             
@@ -315,7 +360,7 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="__str__"></a><span class="summary-sig-name">__str__</span>(<span class="summary-sig-arg">self</span>)</span><br />
+          <td><span class="summary-sig"><a href="xl.track.Track-class.html#__str__" class="summary-sig-name">__str__</a>(<span class="summary-sig-arg">self</span>)</span><br />
       returns a string representing the track</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="xl.track-pysrc.html#Track.__str__">source&nbsp;code</a></span>
@@ -324,6 +369,44 @@
         </tr>
       </table>
       
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__setattr__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
     </td>
   </tr>
 </table>
@@ -353,19 +436,22 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">uri</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">_unpickles</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">uri</span>=<span class="sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>,
+        <span class="sig-arg">_unpickles</span>=<span class="sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.track-pysrc.html#Track.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>loads and initializes the tag information</p>
-  <p>uri: path to the track [string] _unpickles: unpickle data [tuple] # 
-  internal use only!</p>
+  uri: path to the track [string] _unpickles: unpickle data [tuple] # 
+  internal use only!
   <dl class="fields">
+    <dt>Overrides:
+      object.__init__
+    </dt>
   </dl>
 </td></tr></table>
 </div>
@@ -382,14 +468,14 @@
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.track-pysrc.html#Track.set_loc">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>Sets the location. It is always in unicode.</p>
   <p>If the value is not unicode, convert it into unicode using some 
   default mapping. This way, when we want to access the file, we decode it 
   back into the ascii and don't worry about botched up characters (ie the 
   value should be exactly identical to the one given)</p>
-  <p>loc: the location [string]</p>
+  loc: the location [string]
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -406,10 +492,10 @@
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.track-pysrc.html#Track.get_loc">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>Gets the location as unicode (might contain garbled characters)</p>
-  <p>returns: the location [string]</p>
+  returns: the location [string]
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -426,10 +512,10 @@
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.track-pysrc.html#Track.get_loc_for_io">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>Gets the location as ascii. Should always be correct, see set_loc.</p>
-  <p>returns: the location [string]</p>
+  returns: the location [string]
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -446,11 +532,11 @@
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.track-pysrc.html#Track._pickles">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>returns a data repr of the track suitable for pickling</p>
   <p>internal use only please</p>
-  <p>returns: (tags, info) [tuple of dicts]</p>
+  returns: (tags, info) [tuple of dicts]
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -468,11 +554,11 @@
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.track-pysrc.html#Track._unpickles">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>restores the state from the pickle-able repr</p>
   <p>internal use only please</p>
-  <p>pickle_str: the pickle repr [tuple of dicts]</p>
+  pickle_str: the pickle repr [tuple of dicts]
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -490,10 +576,10 @@
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.track-pysrc.html#Track.get_tag">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>Common function for getting a tag.</p>
-  <p>tag: tag to get [string]</p>
+  tag: tag to get [string]
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -513,11 +599,11 @@
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.track-pysrc.html#Track.set_tag">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>Common function for setting a tag.</p>
-  <p>tag: tag to set [string] values: list of values for the tag [list] 
-  append: whether to append to existing values [bool]</p>
+  tag: tag to set [string] values: list of values for the tag [list] 
+  append: whether to append to existing values [bool]
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -536,10 +622,10 @@
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.track-pysrc.html#Track.__getitem__">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
-  <p>Allows retrieval of tags via Track[tag] syntax. Returns a list of 
-  values for the tag, even for single values.</p>
+  Allows retrieval of tags via Track[tag] syntax. Returns a list of 
+  values for the tag, even for single values.
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -559,13 +645,60 @@
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.track-pysrc.html#Track.__setitem__">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>Allows setting of tags via Track[tag] syntax. Expects a list of 
   values, even for single values.</p>
-  <p>Use set_tag if you want to do appending instead of always 
-  overwriting.</p>
+  Use set_tag if you want to do appending instead of always 
+  overwriting.
   <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="__repr__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__repr__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Representation operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="xl.track-pysrc.html#Track.__repr__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  repr(x)
+  <dl class="fields">
+    <dt>Overrides:
+      object.__repr__
+        <dd><em class="note">(inherited documentation)</em></dd>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__str__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__str__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Informal representation operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="xl.track-pysrc.html#Track.__str__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  returns a string representing the track
+  <dl class="fields">
+    <dt>Overrides:
+      object.__str__
+    </dt>
   </dl>
 </td></tr></table>
 </div>
@@ -598,11 +731,10 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0 on Wed Jun  4 21:12:07 2008
+    Generated by Epydoc 3.0beta1 on Sat Jun  7 12:27:47 2008
     </td>
     <td align="right" class="footer">
-      <a target="mainFrame" href="http://epydoc.sourceforge.net"
-        >http://epydoc.sourceforge.net</a>
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -613,8 +745,9 @@
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie();
+  checkCookie()
   // -->
 </script>
+  
 </body>
 </html>

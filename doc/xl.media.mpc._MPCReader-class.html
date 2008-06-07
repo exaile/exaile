@@ -59,14 +59,57 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class _MPCReader</h1><p class="nomargin-top"><span class="codelink"><a href="xl.media.mpc-pysrc.html#_MPCReader">source&nbsp;code</a></span></p>
+<h1 class="epydoc">Class _MPCReader</h1><span class="codelink"><a href="xl.media.mpc-pysrc.html#_MPCReader">source&nbsp;code</a></span><br /><br />
 <pre class="base-tree">
-ctypes.Structure --+
-                   |
-                  <strong class="uidshort">_MPCReader</strong>
+   object --+        
+            |        
+    ??._CData --+    
+                |    
+_ctypes.Structure --+
+                    |
+                   <strong class="uidshort">_MPCReader</strong>
 </pre>
 
 <hr />
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>_ctypes.Structure</code></b>:
+      <code>__init__</code>,
+      <code>__new__</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><i>unreachable</i>._CData</code></b>:
+      <code>__ctypes_from_outparam__</code>,
+      <code>__hash__</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__getattribute__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__str__</code>
+      </p>
+    </td>
+  </tr>
+</table>
 <!-- ==================== CLASS VARIABLES ==================== -->
 <a name="section-ClassVariables"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -88,9 +131,86 @@ ctypes.Structure --+
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="xl.media.mpc._MPCReader-class.html#_fields_" class="summary-name">_fields_</a> = <code title="[('read', ctypes.c_void_p), ('seek', ctypes.c_void_p), ('tell', ctypes\
-.c_void_p), ('get_size', ctypes.c_void_p), ('canseek', ctypes.c_void_p\
-), ('data', ctypes.c_void_p)]">[('read', ctypes.c_void_p), ('seek', ctypes.c_void_<code class="variable-ellipsis">...</code></code>
+        <a href="xl.media.mpc._MPCReader-class.html#_fields_" class="summary-name">_fields_</a> = <code title="[('read', &lt;class 'ctypes.c_void_p'&gt;),
+ ('seek', &lt;class 'ctypes.c_void_p'&gt;),
+ ('tell', &lt;class 'ctypes.c_void_p'&gt;),
+ ('get_size', &lt;class 'ctypes.c_void_p'&gt;),
+ ('canseek', &lt;class 'ctypes.c_void_p'&gt;),
+ ('data', &lt;class 'ctypes.c_void_p'&gt;)]"><code class="variable-group">[</code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">read</code><code class="variable-quote">'</code><code class="variable-op">, </code>&lt;class 'ctypes.c_void_p'&gt;<code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">seek</code><code class="variable-quote">'</code><code class="variable-op">, </code>&lt;cla<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="canseek"></a><span class="summary-name">canseek</span> = <code title="&lt;Field type=c_void_p, ofs=16, size=4&gt;">&lt;Field type=c_void_p, ofs=16, size=4&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="data"></a><span class="summary-name">data</span> = <code title="&lt;Field type=c_void_p, ofs=20, size=4&gt;">&lt;Field type=c_void_p, ofs=20, size=4&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="get_size"></a><span class="summary-name">get_size</span> = <code title="&lt;Field type=c_void_p, ofs=12, size=4&gt;">&lt;Field type=c_void_p, ofs=12, size=4&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="read"></a><span class="summary-name">read</span> = <code title="&lt;Field type=c_void_p, ofs=0, size=4&gt;">&lt;Field type=c_void_p, ofs=0, size=4&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="seek"></a><span class="summary-name">seek</span> = <code title="&lt;Field type=c_void_p, ofs=4, size=4&gt;">&lt;Field type=c_void_p, ofs=4, size=4&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="tell"></a><span class="summary-name">tell</span> = <code title="&lt;Field type=c_void_p, ofs=8, size=4&gt;">&lt;Field type=c_void_p, ofs=8, size=4&gt;</code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><i>unreachable</i>._CData</code></b>:
+      <code>_b_base_</code>,
+      <code>_b_needsfree_</code>
+      </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><i>unreachable</i>._CData</code></b> (private):
+      <code>_objects</code>
+      </p></div>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
     </td>
   </tr>
 </table>
@@ -124,9 +244,12 @@ ctypes.Structure --+
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-[('read', ctypes.c_void_p), ('seek', ctypes.c_void_p), ('tell', ctypes<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-.c_void_p), ('get_size', ctypes.c_void_p), ('canseek', ctypes.c_void_p<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-), ('data', ctypes.c_void_p)]
+<code class="variable-group">[</code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">read</code><code class="variable-quote">'</code><code class="variable-op">, </code>&lt;class 'ctypes.c_void_p'&gt;<code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">seek</code><code class="variable-quote">'</code><code class="variable-op">, </code>&lt;class 'ctypes.c_void_p'&gt;<code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">tell</code><code class="variable-quote">'</code><code class="variable-op">, </code>&lt;class 'ctypes.c_void_p'&gt;<code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">get_size</code><code class="variable-quote">'</code><code class="variable-op">, </code>&lt;class 'ctypes.c_void_p'&gt;<code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">canseek</code><code class="variable-quote">'</code><code class="variable-op">, </code>&lt;class 'ctypes.c_void_p'&gt;<code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">data</code><code class="variable-quote">'</code><code class="variable-op">, </code>&lt;class 'ctypes.c_void_p'&gt;<code class="variable-group">)</code><code class="variable-group">]</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -161,11 +284,10 @@ ctypes.Structure --+
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0 on Wed Jun  4 21:12:07 2008
+    Generated by Epydoc 3.0beta1 on Sat Jun  7 12:27:46 2008
     </td>
     <td align="right" class="footer">
-      <a target="mainFrame" href="http://epydoc.sourceforge.net"
-        >http://epydoc.sourceforge.net</a>
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -176,8 +298,9 @@ ctypes.Structure --+
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie();
+  checkCookie()
   // -->
 </script>
+  
 </body>
 </html>

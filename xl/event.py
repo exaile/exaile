@@ -41,18 +41,18 @@ def set_event_callback(function, type=None, object=None):
     """
         Sets an Event callback
 
-        function: the function to call when the event happens [function]
-        type: the 'type' or 'name' of the event to listen for, eg 
-                "track_added",  "cover_changed". Defaults to any event if 
-                not specified. [string]
-        object: the object to listen to events from, eg exaile.collection, 
-                exaile.cover_manager. Defaults to any object if not 
-                specified. [object]
-
         You should ALWAYS specify one of the two options on what to listen 
         for. While not forbidden to listen to all events, doing so will 
         cause your callback to be called very frequently, and possibly may 
         cause slowness within the player itself.
+
+        @param function: the function to call when the event happens [function]
+        @param type: the 'type' or 'name' of the event to listen for, eg 
+                "track_added",  "cover_changed". Defaults to any event if 
+                not specified. [string]
+        @param object: the object to listen to events from, eg exaile.collection, 
+                exaile.cover_manager. Defaults to any object if not 
+                specified. [object]
     """
     global EVENT_MANAGER
     EVENT_MANAGER.add_callback(function, type, object)
@@ -176,14 +176,13 @@ class EventManager(object):
     def add_callback(self, function, type=None, object=None):
         """
             Registers a callback.
-
-            function: The function to call [function]
-            type: The 'type' or 'name' of event to listen for. Defaults
-                  to any. [string]
-            object: The object to listen to events from. Defaults
-                  to any. [string]
-
             You should always specify at least one of type or object.
+
+            @param function: The function to call [function]
+            @param type:     The 'type' or 'name' of event to listen for. Defaults
+                to any. [string]
+            @param object:   The object to listen to events from. Defaults
+                to any. [string]
         """
         # add the specified categories if needed.
         if not self.callbacks.has_key(type):

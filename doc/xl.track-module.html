@@ -57,7 +57,7 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module track</h1><p class="nomargin-top"><span class="codelink"><a href="xl.track-pysrc.html">source&nbsp;code</a></span></p>
+<h1 class="epydoc">Module track</h1><span class="codelink"><a href="xl.track-pysrc.html">source&nbsp;code</a></span><br /><br />
 <!-- ==================== CLASSES ==================== -->
 <a name="section-Classes"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -84,6 +84,76 @@
     </td>
   </tr>
 </table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="track_updated"></a><span class="summary-sig-name">track_updated</span>(<span class="summary-sig-arg">track</span>,
+        <span class="summary-sig-arg">tag</span>,
+        <span class="summary-sig-arg">value</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="xl.track-pysrc.html#track_updated">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="set_track_update_callback"></a><span class="summary-sig-name">set_track_update_callback</span>(<span class="summary-sig-arg">function</span>,
+        <span class="summary-sig-arg">track_loc</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="xl.track-pysrc.html#set_track_update_callback">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="remove_track_update_callback"></a><span class="summary-sig-name">remove_track_update_callback</span>(<span class="summary-sig-arg">function</span>,
+        <span class="summary-sig-arg">track_loc</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="xl.track-pysrc.html#remove_track_update_callback">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
 <!-- ==================== VARIABLES ==================== -->
 <a name="section-Variables"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -105,15 +175,22 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="xl.track-module.html#formats" class="summary-name">formats</a> = <code title="{'aac': &lt;module 'xl.media.mp4' from '/home/reacocard/projects/exaile/r\
-ewrite/xl/media/mp4.py'&gt;,
+        <a name="logger"></a><span class="summary-name">logger</span> = <code title="logging.getLogger(__name__)">logging.getLogger(__name__)</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="xl.track-module.html#formats" class="summary-name">formats</a> = <code title="{'aac': &lt;module 'xl.media.mp4' from '/home/synic/Projects/exaile-0.3.0\
+/xl/media/mp4.py'&gt;,
  'ac3': None,
- 'flac': &lt;module 'xl.media.flac' from '/home/reacocard/projects/exaile\
-/rewrite/xl/media/flac.py'&gt;,
- 'm4a': &lt;module 'xl.media.mp4' from '/home/reacocard/projects/exaile/r\
-ewrite/xl/media/mp4.py'&gt;,
+ 'flac': &lt;module 'xl.media.flac' from '/home/synic/Projects/exaile-0.3\
+.0/xl/media/flac.py'&gt;,
+ 'm4a': &lt;module 'xl.media.mp4' from '/home/synic/Projects/exaile-0.3.0\
+/xl/media/mp4.py'&gt;,
  'mod': None,
-..."><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">aac</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;module 'xl.media.mp4' from '/home/reacocard<code class="variable-ellipsis">...</code></code>
+..."><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">aac</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;module 'xl.media.mp4' from '/home/synic/Pro<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
@@ -129,6 +206,13 @@ ewrite/xl/media/mp4.py'&gt;,
  '.mp4',
  '.wma',
 ..."><code class="variable-group">[</code><code class="variable-quote">'</code><code class="variable-string">.s3m</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">.mpc</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">.aac</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">.mp+</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">.ac3</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">.w</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="TRACK_EVENTS"></a><span class="summary-name">TRACK_EVENTS</span> = <code title="event.EventManager()">event.EventManager()</code>
     </td>
   </tr>
 <tr>
@@ -169,13 +253,13 @@ ewrite/xl/media/mp4.py'&gt;,
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">aac</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;module 'xl.media.mp4' from '/home/reacocard/projects/exaile/r<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-ewrite/xl/media/mp4.py'&gt;<code class="variable-op">,</code>
+<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">aac</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;module 'xl.media.mp4' from '/home/synic/Projects/exaile-0.3.0<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+/xl/media/mp4.py'&gt;<code class="variable-op">,</code>
  <code class="variable-quote">'</code><code class="variable-string">ac3</code><code class="variable-quote">'</code><code class="variable-op">: </code>None<code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">flac</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;module 'xl.media.flac' from '/home/reacocard/projects/exaile<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-/rewrite/xl/media/flac.py'&gt;<code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">m4a</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;module 'xl.media.mp4' from '/home/reacocard/projects/exaile/r<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-ewrite/xl/media/mp4.py'&gt;<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">flac</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;module 'xl.media.flac' from '/home/synic/Projects/exaile-0.3<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+.0/xl/media/flac.py'&gt;<code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">m4a</code><code class="variable-quote">'</code><code class="variable-op">: </code>&lt;module 'xl.media.mp4' from '/home/synic/Projects/exaile-0.3.0<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+/xl/media/mp4.py'&gt;<code class="variable-op">,</code>
  <code class="variable-quote">'</code><code class="variable-string">mod</code><code class="variable-quote">'</code><code class="variable-op">: </code>None<code class="variable-op">,</code>
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
@@ -238,11 +322,10 @@ ewrite/xl/media/mp4.py'&gt;<code class="variable-op">,</code>
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0 on Wed Jun  4 21:12:06 2008
+    Generated by Epydoc 3.0beta1 on Sat Jun  7 12:27:46 2008
     </td>
     <td align="right" class="footer">
-      <a target="mainFrame" href="http://epydoc.sourceforge.net"
-        >http://epydoc.sourceforge.net</a>
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -253,8 +336,9 @@ ewrite/xl/media/mp4.py'&gt;<code class="variable-op">,</code>
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie();
+  checkCookie()
   // -->
 </script>
+  
 </body>
 </html>

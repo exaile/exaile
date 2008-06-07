@@ -59,14 +59,57 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class _MPCReaderFile</h1><p class="nomargin-top"><span class="codelink"><a href="xl.media.mpc-pysrc.html#_MPCReaderFile">source&nbsp;code</a></span></p>
+<h1 class="epydoc">Class _MPCReaderFile</h1><span class="codelink"><a href="xl.media.mpc-pysrc.html#_MPCReaderFile">source&nbsp;code</a></span><br /><br />
 <pre class="base-tree">
-ctypes.Structure --+
-                   |
-                  <strong class="uidshort">_MPCReaderFile</strong>
+   object --+        
+            |        
+    ??._CData --+    
+                |    
+_ctypes.Structure --+
+                    |
+                   <strong class="uidshort">_MPCReaderFile</strong>
 </pre>
 
 <hr />
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>_ctypes.Structure</code></b>:
+      <code>__init__</code>,
+      <code>__new__</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><i>unreachable</i>._CData</code></b>:
+      <code>__ctypes_from_outparam__</code>,
+      <code>__hash__</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__getattribute__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__str__</code>
+      </p>
+    </td>
+  </tr>
+</table>
 <!-- ==================== CLASS VARIABLES ==================== -->
 <a name="section-ClassVariables"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -88,8 +131,70 @@ ctypes.Structure --+
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="xl.media.mpc._MPCReaderFile-class.html#_fields_" class="summary-name">_fields_</a> = <code title="[(&quot;reader&quot;, _MPCReader), (&quot;file&quot;, ctypes.c_void_p), (&quot;file_size&quot;, ctyp\
-es.c_long), (&quot;is_seekable&quot;, mpc_bool_t)]">[(&quot;reader&quot;, _MPCReader), (&quot;file&quot;, ctypes.c_void_p),<code class="variable-ellipsis">...</code></code>
+        <a href="xl.media.mpc._MPCReaderFile-class.html#_fields_" class="summary-name">_fields_</a> = <code title="[('reader', &lt;class 'xl.media.mpc._MPCReader'&gt;),
+ ('file', &lt;class 'ctypes.c_void_p'&gt;),
+ ('file_size', &lt;class 'ctypes.c_long'&gt;),
+ ('is_seekable', &lt;class 'ctypes.c_ubyte'&gt;)]"><code class="variable-group">[</code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">reader</code><code class="variable-quote">'</code><code class="variable-op">, </code>&lt;class 'xl.media.mpc._MPCReader'&gt;<code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">f</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="file"></a><span class="summary-name">file</span> = <code title="&lt;Field type=c_void_p, ofs=24, size=4&gt;">&lt;Field type=c_void_p, ofs=24, size=4&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="file_size"></a><span class="summary-name">file_size</span> = <code title="&lt;Field type=c_long, ofs=28, size=4&gt;">&lt;Field type=c_long, ofs=28, size=4&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="is_seekable"></a><span class="summary-name">is_seekable</span> = <code title="&lt;Field type=c_ubyte, ofs=32, size=1&gt;">&lt;Field type=c_ubyte, ofs=32, size=1&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="reader"></a><span class="summary-name">reader</span> = <code title="&lt;Field type=_MPCReader, ofs=0, size=24&gt;">&lt;Field type=_MPCReader, ofs=0, size=24&gt;</code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><i>unreachable</i>._CData</code></b>:
+      <code>_b_base_</code>,
+      <code>_b_needsfree_</code>
+      </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><i>unreachable</i>._CData</code></b> (private):
+      <code>_objects</code>
+      </p></div>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
     </td>
   </tr>
 </table>
@@ -123,8 +228,10 @@ es.c_long), (&quot;is_seekable&quot;, mpc_bool_t)]">[(&quot;reader&quot;, _MPCRe
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-[(&quot;reader&quot;, _MPCReader), (&quot;file&quot;, ctypes.c_void_p), (&quot;file_size&quot;, ctyp<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-es.c_long), (&quot;is_seekable&quot;, mpc_bool_t)]
+<code class="variable-group">[</code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">reader</code><code class="variable-quote">'</code><code class="variable-op">, </code>&lt;class 'xl.media.mpc._MPCReader'&gt;<code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">file</code><code class="variable-quote">'</code><code class="variable-op">, </code>&lt;class 'ctypes.c_void_p'&gt;<code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">file_size</code><code class="variable-quote">'</code><code class="variable-op">, </code>&lt;class 'ctypes.c_long'&gt;<code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">is_seekable</code><code class="variable-quote">'</code><code class="variable-op">, </code>&lt;class 'ctypes.c_ubyte'&gt;<code class="variable-group">)</code><code class="variable-group">]</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -159,11 +266,10 @@ es.c_long), (&quot;is_seekable&quot;, mpc_bool_t)]
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0 on Wed Jun  4 21:12:07 2008
+    Generated by Epydoc 3.0beta1 on Sat Jun  7 12:27:46 2008
     </td>
     <td align="right" class="footer">
-      <a target="mainFrame" href="http://epydoc.sourceforge.net"
-        >http://epydoc.sourceforge.net</a>
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -174,8 +280,9 @@ es.c_long), (&quot;is_seekable&quot;, mpc_bool_t)]
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie();
+  checkCookie()
   // -->
 </script>
+  
 </body>
 </html>

@@ -57,7 +57,7 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module event</h1><p class="nomargin-top"><span class="codelink"><a href="xl.event-pysrc.html">source&nbsp;code</a></span></p>
+<h1 class="epydoc">Module event</h1><span class="codelink"><a href="xl.event-pysrc.html">source&nbsp;code</a></span><br /><br />
 <!-- ==================== CLASSES ==================== -->
 <a name="section-Classes"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -87,6 +87,14 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
+        <a href="xl.event.IdleManager-class.html" class="summary-name">IdleManager</a><br />
+      Simulates gobject's idle_add() using threads.
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
         <a href="xl.event.EventManager-class.html" class="summary-name">EventManager</a><br />
       Manages all Events
     </td>
@@ -95,8 +103,10 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="xl.event.IdleManager-class.html" class="summary-name">IdleManager</a><br />
-      Simulates gobject's idle_add() using threads.
+        <a href="xl.event.Waiter-class.html" class="summary-name">Waiter</a><br />
+      This is kind of like the built-in python Timer class, except 
+        that it is possible to reset the countdown while the timer is 
+        running.
     </td>
   </tr>
 </table>
@@ -144,8 +154,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="xl.event-module.html#set_event_callback" class="summary-sig-name">set_event_callback</a>(<span class="summary-sig-arg">function</span>,
-        <span class="summary-sig-arg">type</span>=<span class="summary-sig-default">None</span>,
-        <span class="summary-sig-arg">object</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">type</span>=<span class="summary-sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>,
+        <span class="summary-sig-arg">object</span>=<span class="summary-sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>)</span><br />
       Sets an Event callback</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="xl.event-pysrc.html#set_event_callback">source&nbsp;code</a></span>
@@ -203,14 +213,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="EVENT_IDLE_MANAGER"></a><span class="summary-name">EVENT_IDLE_MANAGER</span> = <code title="&lt;IdleManager(Thread-1, stopped daemon)&gt;">&lt;IdleManager(Thread-1, stopped daemon)&gt;</code>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="IDLE_MANAGER"></a><span class="summary-name">IDLE_MANAGER</span> = <code title="&lt;IdleManager(Thread-2, stopped daemon)&gt;">&lt;IdleManager(Thread-2, stopped daemon)&gt;</code>
+        <a name="IDLE_MANAGER"></a><span class="summary-name">IDLE_MANAGER</span> = <code title="&lt;IdleManager(Thread-2, started daemon)&gt;">&lt;IdleManager(Thread-2, started daemon)&gt;</code>
     </td>
   </tr>
 </table>
@@ -247,12 +250,12 @@
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.event-pysrc.html#log_event">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>Sends an event.</p>
-  <p>type: the 'type' or 'name' of the event. [string] object: the object 
+  type: the 'type' or 'name' of the event. [string] object: the object 
   sending the event. [object] data: some data about the event. [object] 
-  async: whether or not to emit asyncronously. [bool]</p>
+  async: whether or not to emit asyncronously. [bool]
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -265,33 +268,30 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">set_event_callback</span>(<span class="sig-arg">function</span>,
-        <span class="sig-arg">type</span>=<span class="sig-default">None</span>,
-        <span class="sig-arg">object</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">type</span>=<span class="sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>,
+        <span class="sig-arg">object</span>=<span class="sig-default">&lt;CDLL 'libc.so.6', handle 40049558 at 847af6c&gt;</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.event-pysrc.html#set_event_callback">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
-  <pre class="literalblock">
-
-Sets an Event callback
-
-function: the function to call when the event happens [function]
-type: the 'type' or 'name' of the event to listen for, eg 
-        &quot;track_added&quot;,  &quot;cover_changed&quot;. Defaults to any event if 
-        not specified. [string]
-object: the object to listen to events from, eg exaile.collection, 
-        exaile.cover_manager. Defaults to any object if not 
-        specified. [object]
-
-You should ALWAYS specify one of the two options on what to listen 
-for. While not forbidden to listen to all events, doing so will 
-cause your callback to be called very frequently, and possibly may 
-cause slowness within the player itself.
-
-</pre>
+  <p>Sets an Event callback</p>
+  You should ALWAYS specify one of the two options on what to listen 
+  for. While not forbidden to listen to all events, doing so will cause 
+  your callback to be called very frequently, and possibly may cause 
+  slowness within the player itself.
   <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>function</code></strong> - the function to call when the event happens [function]</li>
+        <li><strong class="pname"><code>type</code></strong> - the 'type' or 'name' of the event to listen for, eg 
+          &quot;track_added&quot;,  &quot;cover_changed&quot;. Defaults to 
+          any event if not specified. [string]</li>
+        <li><strong class="pname"><code>object</code></strong> - the object to listen to events from, eg exaile.collection, 
+          exaile.cover_manager. Defaults to any object if not specified. 
+          [object]</li>
+    </ul></dd>
   </dl>
 </td></tr></table>
 </div>
@@ -308,14 +308,14 @@ cause slowness within the player itself.
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.event-pysrc.html#idle_add">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>Adds a function to run when there is spare processor time.</p>
   <p>func: the function to call [function]</p>
   <p>any additional arguments to idle_add will be passed on to the called 
   function.</p>
-  <p>do not use for long-running tasks, so as to avoid blocking other 
-  functions.</p>
+  do not use for long-running tasks, so as to avoid blocking other 
+  functions.
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -349,11 +349,10 @@ cause slowness within the player itself.
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0 on Wed Jun  4 21:12:06 2008
+    Generated by Epydoc 3.0beta1 on Sat Jun  7 12:27:46 2008
     </td>
     <td align="right" class="footer">
-      <a target="mainFrame" href="http://epydoc.sourceforge.net"
-        >http://epydoc.sourceforge.net</a>
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -364,8 +363,9 @@ cause slowness within the player itself.
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie();
+  checkCookie()
   // -->
 </script>
+  
 </body>
 </html>

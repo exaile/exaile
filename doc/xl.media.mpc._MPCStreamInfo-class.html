@@ -59,14 +59,57 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class _MPCStreamInfo</h1><p class="nomargin-top"><span class="codelink"><a href="xl.media.mpc-pysrc.html#_MPCStreamInfo">source&nbsp;code</a></span></p>
+<h1 class="epydoc">Class _MPCStreamInfo</h1><span class="codelink"><a href="xl.media.mpc-pysrc.html#_MPCStreamInfo">source&nbsp;code</a></span><br /><br />
 <pre class="base-tree">
-ctypes.Structure --+
-                   |
-                  <strong class="uidshort">_MPCStreamInfo</strong>
+   object --+        
+            |        
+    ??._CData --+    
+                |    
+_ctypes.Structure --+
+                    |
+                   <strong class="uidshort">_MPCStreamInfo</strong>
 </pre>
 
 <hr />
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>_ctypes.Structure</code></b>:
+      <code>__init__</code>,
+      <code>__new__</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><i>unreachable</i>._CData</code></b>:
+      <code>__ctypes_from_outparam__</code>,
+      <code>__hash__</code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__getattribute__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__str__</code>
+      </p>
+    </td>
+  </tr>
+</table>
 <!-- ==================== CLASS VARIABLES ==================== -->
 <a name="section-ClassVariables"></a>
 <table class="summary" border="1" cellpadding="3"
@@ -88,15 +131,215 @@ ctypes.Structure --+
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="xl.media.mpc._MPCStreamInfo-class.html#_fields_" class="summary-name">_fields_</a> = <code title="[(&quot;sample_freq&quot;, mpc_uint32_t), (&quot;channels&quot;, mpc_uint32_t), (&quot;header_p\
-osition&quot;, mpc_streaminfo_off_t), (&quot;stream_version&quot;, mpc_uint32_t), (&quot;b\
-itrate&quot;, mpc_uint32_t), (&quot;average_bitrate&quot;, ctypes.c_double), (&quot;frames\
-&quot;, mpc_uint32_t), (&quot;pcm_samples&quot;, mpc_int64_t), (&quot;max_band&quot;, mpc_uint3\
-2_t), (&quot;istereo&quot;, mpc_uint32_t), ('ms', mpc_uint32_t), (&quot;block_size&quot;, \
-mpc_uint32_t), (&quot;profile&quot;, mpc_uint32_t), (&quot;profile_name&quot;, ctypes.c_ch\
-ar_p), (&quot;gain_title&quot;, mpc_int16_t), (&quot;gain_album&quot;, mpc_int16_t), (&quot;pea\
-k_title&quot;, mpc_uint16_t), (&quot;peak_album&quot;, mpc_uint16_t), (&quot;is_true_gaple\
-...">[(&quot;sample_freq&quot;, mpc_uint32_t), (&quot;channels&quot;, mpc_ui<code class="variable-ellipsis">...</code></code>
+        <a href="xl.media.mpc._MPCStreamInfo-class.html#_fields_" class="summary-name">_fields_</a> = <code title="[('sample_freq', &lt;class 'ctypes.c_ulong'&gt;),
+ ('channels', &lt;class 'ctypes.c_ulong'&gt;),
+ ('header_position', &lt;class 'ctypes.c_long'&gt;),
+ ('stream_version', &lt;class 'ctypes.c_ulong'&gt;),
+ ('bitrate', &lt;class 'ctypes.c_ulong'&gt;),
+ ('average_bitrate', &lt;class 'ctypes.c_double'&gt;),
+ ('frames', &lt;class 'ctypes.c_ulong'&gt;),
+ ('pcm_samples', &lt;class 'ctypes.c_longlong'&gt;),
+..."><code class="variable-group">[</code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">sample_freq</code><code class="variable-quote">'</code><code class="variable-op">, </code>&lt;class 'ctypes.c_ulong'&gt;<code class="variable-group">)</code><code class="variable-op">, </code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">chann</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="average_bitrate"></a><span class="summary-name">average_bitrate</span> = <code title="&lt;Field type=c_double, ofs=20, size=8&gt;">&lt;Field type=c_double, ofs=20, size=8&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="bitrate"></a><span class="summary-name">bitrate</span> = <code title="&lt;Field type=c_ulong, ofs=16, size=4&gt;">&lt;Field type=c_ulong, ofs=16, size=4&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="block_size"></a><span class="summary-name">block_size</span> = <code title="&lt;Field type=c_ulong, ofs=52, size=4&gt;">&lt;Field type=c_ulong, ofs=52, size=4&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="channels"></a><span class="summary-name">channels</span> = <code title="&lt;Field type=c_ulong, ofs=4, size=4&gt;">&lt;Field type=c_ulong, ofs=4, size=4&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="encoder"></a><span class="summary-name">encoder</span> = <code title="&lt;Field type=c_char_Array_256, ofs=84, size=256&gt;">&lt;Field type=c_char_Array_256, ofs=84, size=256&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="encoder_version"></a><span class="summary-name">encoder_version</span> = <code title="&lt;Field type=c_ulong, ofs=80, size=4&gt;">&lt;Field type=c_ulong, ofs=80, size=4&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="frames"></a><span class="summary-name">frames</span> = <code title="&lt;Field type=c_ulong, ofs=28, size=4&gt;">&lt;Field type=c_ulong, ofs=28, size=4&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="gain_album"></a><span class="summary-name">gain_album</span> = <code title="&lt;Field type=c_short, ofs=66, size=2&gt;">&lt;Field type=c_short, ofs=66, size=2&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="gain_title"></a><span class="summary-name">gain_title</span> = <code title="&lt;Field type=c_short, ofs=64, size=2&gt;">&lt;Field type=c_short, ofs=64, size=2&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="header_position"></a><span class="summary-name">header_position</span> = <code title="&lt;Field type=c_long, ofs=8, size=4&gt;">&lt;Field type=c_long, ofs=8, size=4&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="is_true_gapless"></a><span class="summary-name">is_true_gapless</span> = <code title="&lt;Field type=c_ulong, ofs=72, size=4&gt;">&lt;Field type=c_ulong, ofs=72, size=4&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="istereo"></a><span class="summary-name">istereo</span> = <code title="&lt;Field type=c_ulong, ofs=44, size=4&gt;">&lt;Field type=c_ulong, ofs=44, size=4&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="last_frame_samples"></a><span class="summary-name">last_frame_samples</span> = <code title="&lt;Field type=c_ulong, ofs=76, size=4&gt;">&lt;Field type=c_ulong, ofs=76, size=4&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="max_band"></a><span class="summary-name">max_band</span> = <code title="&lt;Field type=c_ulong, ofs=40, size=4&gt;">&lt;Field type=c_ulong, ofs=40, size=4&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="ms"></a><span class="summary-name">ms</span> = <code title="&lt;Field type=c_ulong, ofs=48, size=4&gt;">&lt;Field type=c_ulong, ofs=48, size=4&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="pcm_samples"></a><span class="summary-name">pcm_samples</span> = <code title="&lt;Field type=c_longlong, ofs=32, size=8&gt;">&lt;Field type=c_longlong, ofs=32, size=8&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="peak_album"></a><span class="summary-name">peak_album</span> = <code title="&lt;Field type=c_ushort, ofs=70, size=2&gt;">&lt;Field type=c_ushort, ofs=70, size=2&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="peak_title"></a><span class="summary-name">peak_title</span> = <code title="&lt;Field type=c_ushort, ofs=68, size=2&gt;">&lt;Field type=c_ushort, ofs=68, size=2&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="profile"></a><span class="summary-name">profile</span> = <code title="&lt;Field type=c_ulong, ofs=56, size=4&gt;">&lt;Field type=c_ulong, ofs=56, size=4&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="profile_name"></a><span class="summary-name">profile_name</span> = <code title="&lt;Field type=c_char_p, ofs=60, size=4&gt;">&lt;Field type=c_char_p, ofs=60, size=4&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="sample_freq"></a><span class="summary-name">sample_freq</span> = <code title="&lt;Field type=c_ulong, ofs=0, size=4&gt;">&lt;Field type=c_ulong, ofs=0, size=4&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="stream_version"></a><span class="summary-name">stream_version</span> = <code title="&lt;Field type=c_ulong, ofs=12, size=4&gt;">&lt;Field type=c_ulong, ofs=12, size=4&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="tag_offset"></a><span class="summary-name">tag_offset</span> = <code title="&lt;Field type=c_long, ofs=340, size=4&gt;">&lt;Field type=c_long, ofs=340, size=4&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="total_file_length"></a><span class="summary-name">total_file_length</span> = <code title="&lt;Field type=c_long, ofs=344, size=4&gt;">&lt;Field type=c_long, ofs=344, size=4&gt;</code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><i>unreachable</i>._CData</code></b>:
+      <code>_b_base_</code>,
+      <code>_b_needsfree_</code>
+      </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><i>unreachable</i>._CData</code></b> (private):
+      <code>_objects</code>
+      </p></div>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
     </td>
   </tr>
 </table>
@@ -130,14 +373,14 @@ k_title&quot;, mpc_uint16_t), (&quot;peak_album&quot;, mpc_uint16_t), (&quot;is_
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-[(&quot;sample_freq&quot;, mpc_uint32_t), (&quot;channels&quot;, mpc_uint32_t), (&quot;header_p<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-osition&quot;, mpc_streaminfo_off_t), (&quot;stream_version&quot;, mpc_uint32_t), (&quot;b<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-itrate&quot;, mpc_uint32_t), (&quot;average_bitrate&quot;, ctypes.c_double), (&quot;frames<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-&quot;, mpc_uint32_t), (&quot;pcm_samples&quot;, mpc_int64_t), (&quot;max_band&quot;, mpc_uint3<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-2_t), (&quot;istereo&quot;, mpc_uint32_t), ('ms', mpc_uint32_t), (&quot;block_size&quot;, <span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-mpc_uint32_t), (&quot;profile&quot;, mpc_uint32_t), (&quot;profile_name&quot;, ctypes.c_ch<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-ar_p), (&quot;gain_title&quot;, mpc_int16_t), (&quot;gain_album&quot;, mpc_int16_t), (&quot;pea<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
-k_title&quot;, mpc_uint16_t), (&quot;peak_album&quot;, mpc_uint16_t), (&quot;is_true_gaple<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+<code class="variable-group">[</code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">sample_freq</code><code class="variable-quote">'</code><code class="variable-op">, </code>&lt;class 'ctypes.c_ulong'&gt;<code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">channels</code><code class="variable-quote">'</code><code class="variable-op">, </code>&lt;class 'ctypes.c_ulong'&gt;<code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">header_position</code><code class="variable-quote">'</code><code class="variable-op">, </code>&lt;class 'ctypes.c_long'&gt;<code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">stream_version</code><code class="variable-quote">'</code><code class="variable-op">, </code>&lt;class 'ctypes.c_ulong'&gt;<code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">bitrate</code><code class="variable-quote">'</code><code class="variable-op">, </code>&lt;class 'ctypes.c_ulong'&gt;<code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">average_bitrate</code><code class="variable-quote">'</code><code class="variable-op">, </code>&lt;class 'ctypes.c_double'&gt;<code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">frames</code><code class="variable-quote">'</code><code class="variable-op">, </code>&lt;class 'ctypes.c_ulong'&gt;<code class="variable-group">)</code><code class="variable-op">,</code>
+ <code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">pcm_samples</code><code class="variable-quote">'</code><code class="variable-op">, </code>&lt;class 'ctypes.c_longlong'&gt;<code class="variable-group">)</code><code class="variable-op">,</code>
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -173,11 +416,10 @@ k_title&quot;, mpc_uint16_t), (&quot;peak_album&quot;, mpc_uint16_t), (&quot;is_
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0 on Wed Jun  4 21:12:07 2008
+    Generated by Epydoc 3.0beta1 on Sat Jun  7 12:27:47 2008
     </td>
     <td align="right" class="footer">
-      <a target="mainFrame" href="http://epydoc.sourceforge.net"
-        >http://epydoc.sourceforge.net</a>
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -188,8 +430,9 @@ k_title&quot;, mpc_uint16_t), (&quot;peak_album&quot;, mpc_uint16_t), (&quot;is_
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie();
+  checkCookie()
   // -->
 </script>
+  
 </body>
 </html>

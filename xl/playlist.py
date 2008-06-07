@@ -376,12 +376,54 @@ class Playlist(trackdb.TrackDB):
             self.repeat_enabled = self.repeat_enabled == False
 
 
+####
+## Dynamic playlists.
+## Aren:  I'm not sure if this is how you wanted to do this.  I'm only adding
+## it here temporarily so I can create an entire library playlist easily and
+## set it on shuffle :)
+class EntireLibraryPlaylist(Playlist):
+    """
+        Dynamic playlist.  Loads entire library
+    """
+    def __init__(self, name="", location=None, collection=None,
+        pickle_attrs=[]):
+        """
+            Initializes the playlist
+
+            @param name:    the name of the playlist
+            @param location: the location of the playlist
+            @param collection: the collection to load.  REQUIRED for this
+                dynamic playlist
+            @param pickle_attrs: internal
+        """
+        if not collection:
+            raise AttributeError("You must specify a collection!")
+        
+        Playlist.__init__(self, name=name, location=location,
+            pickle_attrs=pickle_attrs)
+        self.collection = collection
+        self.update()
+
+    def update(self, collection=None):
+        """
+            Updates this playlist
+
+            @param collection:  To specify a Collection other than what was 
+                passed in the constructor
+        """
+        if not collection:
+            collection = self.collection
+
+        tracks = collection.search('')
+        self.add_tracks(tracks)
+
 class SmartPlaylist(Playlist):
     """ 
         Represents a Smart Playlist.  
         This will query a collection object using a set of parameters
     """
-    def __init__(self, location=None, collection=None, pickle_attrs=[]):
+    def __init__(self, name="", location=None, collection=None, 
+        pickle_attrs=[]):
         """
             Sets up a smart playlist
             
@@ -394,7 +436,7 @@ class SmartPlaylist(Playlist):
         self.collection = collection
         self.or_match = False
         pickle_attrs += ['search_params', 'or_match']
-        Playlist.__init__(self, location=location,
+        Playlist.__init__(self, name=name, location=location,
                 pickle_attrs=pickle_attrs)
 
     def set_collection(self, collection):
@@ -423,11 +465,11 @@ class SmartPlaylist(Playlist):
         """
             Adds a search parameter.
 
-            field:  The field to operate on. [string]
-            op:     The operator.  Valid operators are:
+            @param field:  The field to operate on. [string]
+            @param op:     The operator.  Valid operators are:
                     >,<,>=,<=,=,!=,==,!==,>< (between) [string]
-            value:  The value to match against [string]
-            index:  Where to insert the parameter in the search order.  -1 
+            @param value:  The value to match against [string]
+            @param index:  Where to insert the parameter in the search order.  -1 
                     to append [int]
         """
         if index:
@@ -460,9 +502,10 @@ class SmartPlaylist(Playlist):
     def update(self, collection=None, clear=True):
         """
             Update internal tracks by querying the collection
-            collection: the collection to search (leave none to search
+            
+            @param collection: the collection to search (leave none to search
                         internal ref)
-            clear:      clear current tracks
+            @param clear:      clear current tracks
         """
         self.remove_tracks(0, len(self))
         if not collection:

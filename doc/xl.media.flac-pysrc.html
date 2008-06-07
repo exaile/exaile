@@ -70,10 +70,8 @@ xl.media.ogg.TYPE
 xl.media.wav.TYPE
 xl.media.wma.TYPE" class="py-name" href="#" onclick="return doclink('link-3', 'TYPE', 'link-3');">TYPE</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'flac'</tt> </tt>
 <a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"> </tt>
-<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt id="link-4" class="py-name" targets="Variable xl.common.VALID_TAGS=xl.common-module.html#VALID_TAGS,Variable xl.media.flac.VALID_TAGS=xl.media.flac-module.html#VALID_TAGS,Variable xl.media.ogg.VALID_TAGS=xl.media.ogg-module.html#VALID_TAGS"><a title="xl.common.VALID_TAGS
-xl.media.flac.VALID_TAGS
-xl.media.ogg.VALID_TAGS" class="py-name" href="#" onclick="return doclink('link-4', 'VALID_TAGS', 'link-4');">VALID_TAGS</a></tt> <tt class="py-op">=</tt> <tt id="link-5" class="py-name"><a title="xl.common" class="py-name" href="#" onclick="return doclink('link-5', 'common', 'link-2');">common</a></tt><tt class="py-op">.</tt><tt id="link-6" class="py-name"><a title="xl.common.VALID_TAGS
-xl.media.flac.VALID_TAGS
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt id="link-4" class="py-name" targets="Variable xl.media.flac.VALID_TAGS=xl.media.flac-module.html#VALID_TAGS,Variable xl.media.ogg.VALID_TAGS=xl.media.ogg-module.html#VALID_TAGS"><a title="xl.media.flac.VALID_TAGS
+xl.media.ogg.VALID_TAGS" class="py-name" href="#" onclick="return doclink('link-4', 'VALID_TAGS', 'link-4');">VALID_TAGS</a></tt> <tt class="py-op">=</tt> <tt id="link-5" class="py-name"><a title="xl.common" class="py-name" href="#" onclick="return doclink('link-5', 'common', 'link-2');">common</a></tt><tt class="py-op">.</tt><tt id="link-6" class="py-name"><a title="xl.media.flac.VALID_TAGS
 xl.media.ogg.VALID_TAGS" class="py-name" href="#" onclick="return doclink('link-6', 'VALID_TAGS', 'link-4');">VALID_TAGS</a></tt> </tt>
 <a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"> </tt>
 <a name="get_tag"></a><div id="get_tag-def"><a name="L8"></a><tt class="py-lineno"> 8</tt> <a class="py-toggle" href="#" id="get_tag-toggle" onclick="return toggle('get_tag');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.media.flac-module.html#get_tag">get_tag</a><tt class="py-op">(</tt><tt class="py-param">flac</tt><tt class="py-op">,</tt> <tt class="py-param">tag</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
@@ -94,10 +92,9 @@ xl.media.ogg.VALID_TAGS" class="py-name" href="#" onclick="return doclink('link-
 <a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line">    <tt class="py-keyword">except</tt><tt class="py-op">:</tt> </tt>
 <a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line">        <tt id="link-10" class="py-name"><a title="xl.common" class="py-name" href="#" onclick="return doclink('link-10', 'common', 'link-2');">common</a></tt><tt class="py-op">.</tt><tt id="link-11" class="py-name" targets="Function xl.common.log()=xl.common-module.html#log"><a title="xl.common.log" class="py-name" href="#" onclick="return doclink('link-11', 'log', 'link-11');">log</a></tt><tt class="py-op">(</tt><tt class="py-string">"Couldn't read tags from file: "</tt> <tt class="py-op">+</tt> <tt class="py-name">tr</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Method xl.track.Track.get_loc()=xl.track.Track-class.html#get_loc"><a title="xl.track.Track.get_loc" class="py-name" href="#" onclick="return doclink('link-12', 'get_loc', 'link-12');">get_loc</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
 <a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> </tt>
-<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">    <tt class="py-name">tr</tt><tt class="py-op">.</tt><tt class="py-name">info</tt><tt class="py-op">[</tt><tt class="py-string">'length'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">f</tt><tt class="py-op">.</tt><tt class="py-name">info</tt><tt class="py-op">.</tt><tt class="py-name">length</tt><tt class="py-op">)</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">    <tt class="py-name">tr</tt><tt class="py-op">[</tt><tt class="py-string">'length'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">f</tt><tt class="py-op">.</tt><tt class="py-name">info</tt><tt class="py-op">.</tt><tt class="py-name">length</tt><tt class="py-op">)</tt> </tt>
 <a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line"> </tt>
-<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">tag</tt> <tt class="py-keyword">in</tt> <tt id="link-13" class="py-name"><a title="xl.common.VALID_TAGS
-xl.media.flac.VALID_TAGS
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">tag</tt> <tt class="py-keyword">in</tt> <tt id="link-13" class="py-name"><a title="xl.media.flac.VALID_TAGS
 xl.media.ogg.VALID_TAGS" class="py-name" href="#" onclick="return doclink('link-13', 'VALID_TAGS', 'link-4');">VALID_TAGS</a></tt><tt class="py-op">:</tt> </tt>
 <a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">        <tt class="py-name">tr</tt><tt class="py-op">[</tt><tt class="py-name">tag</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt id="link-14" class="py-name" targets="Function xl.media.flac.get_tag()=xl.media.flac-module.html#get_tag,Function xl.media.mp3.get_tag()=xl.media.mp3-module.html#get_tag,Function xl.media.mp4.get_tag()=xl.media.mp4-module.html#get_tag,Function xl.media.mpc.get_tag()=xl.media.mpc-module.html#get_tag,Function xl.media.ogg.get_tag()=xl.media.ogg-module.html#get_tag,Function xl.media.tta.get_tag()=xl.media.tta-module.html#get_tag,Function xl.media.wma.get_tag()=xl.media.wma-module.html#get_tag,Function xl.media.wv.get_tag()=xl.media.wv-module.html#get_tag,Method xl.track.Track.get_tag()=xl.track.Track-class.html#get_tag"><a title="xl.media.flac.get_tag
 xl.media.mp3.get_tag
@@ -113,8 +110,7 @@ xl.track.Track.get_tag" class="py-name" href="#" onclick="return doclink('link-1
 </div><div id="can_change-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="can_change-expanded"><a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
 <a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line"><tt class="py-docstring">        Can the tag in question be used in this file format?</tt> </tt>
 <a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
-<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">tag</tt> <tt class="py-keyword">in</tt> <tt id="link-15" class="py-name"><a title="xl.common.VALID_TAGS
-xl.media.flac.VALID_TAGS
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">tag</tt> <tt class="py-keyword">in</tt> <tt id="link-15" class="py-name"><a title="xl.media.flac.VALID_TAGS
 xl.media.ogg.VALID_TAGS" class="py-name" href="#" onclick="return doclink('link-15', 'VALID_TAGS', 'link-4');">VALID_TAGS</a></tt> </tt>
 </div><a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line"> </tt>
 <a name="write_tag"></a><div id="write_tag-def"><a name="L37"></a><tt class="py-lineno">37</tt> <a class="py-toggle" href="#" id="write_tag-toggle" onclick="return toggle('write_tag');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="xl.media.flac-module.html#write_tag">write_tag</a><tt class="py-op">(</tt><tt class="py-param">tr</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
@@ -122,8 +118,7 @@ xl.media.ogg.VALID_TAGS" class="py-name" href="#" onclick="return doclink('link-
 <a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">f</tt><tt class="py-op">.</tt><tt class="py-name">vc</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> <tt class="py-name">f</tt><tt class="py-op">.</tt><tt class="py-name">add_vorbiscomment</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
 <a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">    <tt class="py-keyword">del</tt><tt class="py-op">(</tt><tt class="py-name">f</tt><tt class="py-op">.</tt><tt class="py-name">vc</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
 <a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line"> </tt>
-<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">tag</tt> <tt class="py-keyword">in</tt> <tt id="link-18" class="py-name"><a title="xl.common.VALID_TAGS
-xl.media.flac.VALID_TAGS
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">tag</tt> <tt class="py-keyword">in</tt> <tt id="link-18" class="py-name"><a title="xl.media.flac.VALID_TAGS
 xl.media.ogg.VALID_TAGS" class="py-name" href="#" onclick="return doclink('link-18', 'VALID_TAGS', 'link-4');">VALID_TAGS</a></tt><tt class="py-op">:</tt> </tt>
 <a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">tr</tt><tt class="py-op">.</tt><tt class="py-name">tags</tt><tt class="py-op">[</tt><tt class="py-name">tag</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
 <a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">            <tt class="py-name">f</tt><tt class="py-op">.</tt><tt class="py-name">vc</tt><tt class="py-op">[</tt><tt class="py-name">tag</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-name">tr</tt><tt class="py-op">[</tt><tt class="py-name">tag</tt><tt class="py-op">]</tt> </tt>
@@ -164,11 +159,10 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0 on Wed Jun  4 21:12:07 2008
+    Generated by Epydoc 3.0beta1 on Sat Jun  7 12:27:48 2008
     </td>
     <td align="right" class="footer">
-      <a target="mainFrame" href="http://epydoc.sourceforge.net"
-        >http://epydoc.sourceforge.net</a>
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -179,8 +173,9 @@ expandto(location.href);
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie();
+  checkCookie()
   // -->
 </script>
+  
 </body>
 </html>

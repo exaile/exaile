@@ -6,6 +6,9 @@ Current projects:
     Aren Olson - Playlist Importing
     Adam Olsen - Tests (doctests or other)
 
+*** QUICK NOTE:  We need to make a way that coders can easily see what object
+export which signals, and possibly have a way for this to show up in epydoc
+
 Implemented:
     Collection
     Libraries

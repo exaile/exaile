@@ -58,9 +58,16 @@
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class Library</h1><p class="nomargin-top"><span class="codelink"><a href="xl.collection-pysrc.html#Library">source&nbsp;code</a></span></p>
-<p>Scans and watches a folder for tracks, and adds them to a 
-  Collection.</p>
+<h1 class="epydoc">Class Library</h1><span class="codelink"><a href="xl.collection-pysrc.html#Library">source&nbsp;code</a></span><br /><br />
+<pre class="base-tree">
+object --+
+         |
+        <strong class="uidshort">Library</strong>
+</pre>
+
+<hr />
+Scans and watches a folder for tracks, and adds them to a 
+  Collection.<br /><br />
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -86,7 +93,9 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="xl.collection.Library-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">location</span>)</span><br />
+        <span class="summary-sig-arg">location</span>,
+        <span class="summary-sig-arg">realtime</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">scan_interval</span>=<span class="summary-sig-default">0</span>)</span><br />
       Sets up the Library</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="xl.collection-pysrc.html#Library.__init__">source&nbsp;code</a></span>
@@ -149,6 +158,42 @@
       
     </td>
   </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="xl.collection.Library-class.html#_scan_locations" class="summary-sig-name">_scan_locations</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">locations</span>)</span><br />
+      Scans locations for tracks and adds them to the collection</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="xl.collection-pysrc.html#Library._scan_locations">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="xl.collection.Library-class.html#_remove_locations" class="summary-sig-name">_remove_locations</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">locations</span>)</span><br />
+      Removes tracks at the specified locations from the collection</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="xl.collection-pysrc.html#Library._remove_locations">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
@@ -173,7 +218,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="is_realtime"></a><span class="summary-sig-name">is_realtime</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="is_realtime"></a><span class="summary-sig-name">is_realtime</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns True if this is library is being watched</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="xl.collection-pysrc.html#Library.is_realtime">source&nbsp;code</a></span>
             
@@ -190,7 +236,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="set_realtime"></a><span class="summary-sig-name">set_realtime</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">bool</span>)</span></td>
+        <span class="summary-sig-arg">realtime</span>)</span><br />
+      Sets to True if you want this library to be monitored</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="xl.collection-pysrc.html#Library.set_realtime">source&nbsp;code</a></span>
             
@@ -206,7 +253,8 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="get_rescan_interval"></a><span class="summary-sig-name">get_rescan_interval</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="get_rescan_interval"></a><span class="summary-sig-name">get_rescan_interval</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns the scan interval in seconds</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="xl.collection-pysrc.html#Library.get_rescan_interval">source&nbsp;code</a></span>
             
@@ -222,8 +270,9 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="set_rescan_interval"></a><span class="summary-sig-name">set_rescan_interval</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">interval</span>)</span></td>
+          <td><span class="summary-sig"><a href="xl.collection.Library-class.html#set_rescan_interval" class="summary-sig-name">set_rescan_interval</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">interval</span>)</span><br />
+      Sets the scan interval in seconds.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="xl.collection-pysrc.html#Library.set_rescan_interval">source&nbsp;code</a></span>
             
@@ -231,6 +280,46 @@
         </tr>
       </table>
       
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__repr__</code>,
+      <code>__setattr__</code>,
+      <code>__str__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
     </td>
   </tr>
 </table>
@@ -260,18 +349,23 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">location</span>)</span>
+        <span class="sig-arg">location</span>,
+        <span class="sig-arg">realtime</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">scan_interval</span>=<span class="sig-default">0</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.collection-pysrc.html#Library.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>Sets up the Library</p>
-  <p>location: the directory this library will scan [string] collection: 
-  the Collection to associate with [Collection]</p>
+  location: the directory this library will scan [string] collection: 
+  the Collection to associate with [Collection]
   <dl class="fields">
+    <dt>Overrides:
+      object.__init__
+    </dt>
   </dl>
 </td></tr></table>
 </div>
@@ -288,10 +382,10 @@
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.collection-pysrc.html#Library.set_location">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>Changes the location of this Library</p>
-  <p>location: the new location to use [string]</p>
+  location: the new location to use [string]
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -308,10 +402,74 @@
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="xl.collection-pysrc.html#Library.get_location">source&nbsp;code</a></span>&nbsp;
     </td>
-  </tr></table>
+  </table>
   
   <p>Gets the current location associated with this Library</p>
-  <p>returns: the current location [string]</p>
+  returns: the current location [string]
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_scan_locations"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_scan_locations</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">locations</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="xl.collection-pysrc.html#Library._scan_locations">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <p>Scans locations for tracks and adds them to the collection</p>
+  locations: a list of locations to check
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="_remove_locations"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">_remove_locations</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">locations</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="xl.collection-pysrc.html#Library._remove_locations">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <p>Removes tracks at the specified locations from the collection</p>
+  locations: the paths to remove
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="set_rescan_interval"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">set_rescan_interval</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">interval</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="xl.collection-pysrc.html#Library.set_rescan_interval">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <p>Sets the scan interval in seconds.  If the interval is 0 seconds, the 
+  scan interval is stopped</p>
+  interval: scan interval (int) in seconds
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -345,11 +503,10 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0 on Wed Jun  4 21:12:07 2008
+    Generated by Epydoc 3.0beta1 on Sat Jun  7 12:27:46 2008
     </td>
     <td align="right" class="footer">
-      <a target="mainFrame" href="http://epydoc.sourceforge.net"
-        >http://epydoc.sourceforge.net</a>
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -360,8 +517,9 @@
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie();
+  checkCookie()
   // -->
 </script>
+  
 </body>
 </html>

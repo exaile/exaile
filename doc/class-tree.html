@@ -57,28 +57,6 @@
 </b></center><br />
 <h1 class="epydoc">Class Hierarchy</h1>
 <ul class="nomargin-top">
-    <li> <strong class="uidlink"><a href="xl.event.Event-class.html">xl.event.Event</a></strong>:
-      <em class="summary">Represents an Event</em>
-    </li>
-    <li> <strong class="uidlink"><a href="xl.event.EventManager-class.html">xl.event.EventManager</a></strong>:
-      <em class="summary">Manages all Events</em>
-    </li>
-    <li> <strong class="uidlink"><a href="xl.main.Exaile-class.html">xl.main.Exaile</a></strong>
-    </li>
-    <li> <strong class="uidlink"><a href="xl.collection.Library-class.html">xl.collection.Library</a></strong>:
-      <em class="summary">Scans and watches a folder for tracks, and adds them to a 
-        Collection.</em>
-    </li>
-    <li> <strong class="uidlink"><a href="xl.player.Player-class.html">xl.player.Player</a></strong>:
-      <em class="summary">This is the main player interface, other engines will subclass it</em>
-    <ul>
-    <li> <strong class="uidlink"><a href="xl.player.GSTPlayer-class.html">xl.player.GSTPlayer</a></strong>:
-      <em class="summary">Gstreamer engine</em>
-    </li>
-    </ul>
-    </li>
-    <li> <strong class="uidlink"><a href="xl.playlist.PlaylistIterator-class.html">xl.playlist.PlaylistIterator</a></strong>
-    </li>
     <li> <strong class="uidlink">ConfigParser.RawConfigParser</strong>
     <ul>
     <li> <strong class="uidlink">ConfigParser.ConfigParser</strong>
@@ -94,18 +72,26 @@
     </li>
     </ul>
     </li>
-    <li> <strong class="uidlink"><a href="xl.manager.SimpleManager-class.html">xl.manager.SimpleManager</a></strong>:
-      <em class="summary">A simple class to easily manage a list of items, with add and 
-        remove events.</em>
+    <li> <strong class="uidlink">object</strong>:
+      <em class="summary">The most base type</em>
+    <ul>
+    <li> <strong class="uidlink">exceptions.BaseException</strong>:
+      <em class="summary">Common base class for all exceptions</em>
+    <ul>
+    <li> <strong class="uidlink">exceptions.Exception</strong>:
+      <em class="summary">Common base class for all non-exit exceptions.</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="xl.collection.PyInotifyNotSupportedException-class.html">xl.collection.PyInotifyNotSupportedException</a></strong>:
+      <em class="summary">Thrown when set_realtime is called with True and pyinotify is 
+        not installed or not supported</em>
     </li>
-    <li> <strong class="uidlink">ctypes.Structure</strong>
+    <li> <strong class="uidlink"><a href="xl.cd.NoCddbError-class.html">xl.cd.NoCddbError</a></strong>
     </li>
-    <li> <strong class="uidlink">ctypes.Structure</strong>
+    </ul>
     </li>
-    <li> <strong class="uidlink">ctypes.Structure</strong>
+    </ul>
     </li>
-    <li> <strong class="uidlink"><a href="xl.track.Track-class.html">xl.track.Track</a></strong>:
-      <em class="summary">Represents a single track.</em>
+    <li> <strong class="uidlink"><a href="xl.playlist.PlaylistIterator-class.html">xl.playlist.PlaylistIterator</a></strong>
     </li>
     <li> <strong class="uidlink"><a href="xl.trackdb.TrackDB-class.html">xl.trackdb.TrackDB</a></strong>:
       <em class="summary">Manages a track database.</em>
@@ -121,7 +107,23 @@
       <em class="summary">Manages the queue of songs to be played</em>
     </li>
     <li> <strong class="uidlink"><a href="xl.playlist.SmartPlaylist-class.html">xl.playlist.SmartPlaylist</a></strong>:
-      <em class="summary">stub</em>
+      <em class="summary">Represents a Smart Playlist.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="xl.cd.CDPlaylist-class.html">xl.cd.CDPlaylist</a></strong>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink">pyinotify._ProcessEvent</strong>:
+      <em class="summary">Abstract processing event class.</em>
+    <ul>
+    <li> <strong class="uidlink">pyinotify.ProcessEvent</strong>:
+      <em class="summary">Process events objects, can be specialized via subclassing, thus
+        its behavior can be overrided:</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="xl.collection.INotifyEventProcessor-class.html">xl.collection.INotifyEventProcessor</a></strong>:
+      <em class="summary">Processes events from inotify</em>
     </li>
     </ul>
     </li>
@@ -130,19 +132,81 @@
     <li> <strong class="uidlink"><a href="xl.trackdb.TrackSearcher-class.html">xl.trackdb.TrackSearcher</a></strong>:
       <em class="summary">Search a TrackDB for matching tracks</em>
     </li>
-    <li> <strong class="uidlink">object</strong>:
-      <em class="summary">The most base type</em>
-    <ul>
+    <li> <strong class="uidlink"><a href="xl.track.Track-class.html">xl.track.Track</a></strong>:
+      <em class="summary">Represents a single track.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="xl.hal.HAL-class.html">xl.hal.HAL</a></strong>:
+      <em class="summary">HAL interface</em>
+    </li>
+    <li> <strong class="uidlink"><a href="xl.event.Event-class.html">xl.event.Event</a></strong>:
+      <em class="summary">Represents an Event</em>
+    </li>
+    <li> <strong class="uidlink"><a href="xl.main.Exaile-class.html">xl.main.Exaile</a></strong>
+    </li>
     <li> <strong class="uidlink">threading._Verbose</strong>
     <ul>
     <li> <strong class="uidlink">threading.Thread</strong>
     <ul>
+    <li> <strong class="uidlink"><a href="xl.event.Waiter-class.html">xl.event.Waiter</a></strong>:
+      <em class="summary">This is kind of like the built-in python Timer class, except 
+        that it is possible to reset the countdown while the timer is 
+        running.</em>
+    </li>
     <li> <strong class="uidlink"><a href="xl.event.IdleManager-class.html">xl.event.IdleManager</a></strong>:
       <em class="summary">Simulates gobject's idle_add() using threads.</em>
     </li>
     </ul>
     </li>
     </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="xl.collection.Library-class.html">xl.collection.Library</a></strong>:
+      <em class="summary">Scans and watches a folder for tracks, and adds them to a 
+        Collection.</em>
+    </li>
+    <li> <strong class="uidlink"><a href="xl.devices.Device-class.html">xl.devices.Device</a></strong>:
+      <em class="summary">a device</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="xl.devices.CDDevice-class.html">xl.devices.CDDevice</a></strong>:
+      <em class="summary">represents a CD</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="xl.player.Player-class.html">xl.player.Player</a></strong>:
+      <em class="summary">This is the main player interface, other engines will subclass 
+        it</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="xl.player.GSTPlayer-class.html">xl.player.GSTPlayer</a></strong>:
+      <em class="summary">Gstreamer engine</em>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="xl.devices.DeviceManager-class.html">xl.devices.DeviceManager</a></strong>:
+      <em class="summary">manages devices</em>
+    </li>
+    <li> <strong class="uidlink"><i>unreachable</i>._CData</strong>:
+      <em class="summary">XXX to be provided</em>
+    <ul>
+    <li> <strong class="uidlink">_ctypes.Structure</strong>:
+      <em class="summary">Structure base class</em>
+    <ul>
+    <li> <strong class="uidlink"><a href="xl.media.mpc._MPCReaderFile-class.html">xl.media.mpc._MPCReaderFile</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="xl.media.mpc._MPCReader-class.html">xl.media.mpc._MPCReader</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="xl.media.mpc._MPCStreamInfo-class.html">xl.media.mpc._MPCStreamInfo</a></strong>
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </li>
+    <li> <strong class="uidlink"><a href="xl.event.EventManager-class.html">xl.event.EventManager</a></strong>:
+      <em class="summary">Manages all Events</em>
+    </li>
+    <li> <strong class="uidlink"><a href="xl.playlist.PlaylistManager-class.html">xl.playlist.PlaylistManager</a></strong>
+    </li>
+    <li> <strong class="uidlink"><a href="xl.manager.SimpleManager-class.html">xl.manager.SimpleManager</a></strong>:
+      <em class="summary">A simple class to easily manage a list of items, with add and 
+        remove events.</em>
     </li>
     </ul>
     </li>
@@ -175,11 +239,10 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0 on Wed Jun  4 21:12:06 2008
+    Generated by Epydoc 3.0beta1 on Sat Jun  7 12:27:46 2008
     </td>
     <td align="right" class="footer">
-      <a target="mainFrame" href="http://epydoc.sourceforge.net"
-        >http://epydoc.sourceforge.net</a>
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -190,8 +253,9 @@
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie();
+  checkCookie()
   // -->
 </script>
+  
 </body>
 </html>

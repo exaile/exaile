@@ -4,7 +4,7 @@ currently working on.
 
 Current projects:
     Aren Olson - Playlist Importing
-    Adam Olsen - Tests (doctests or other), Library watch system (pynotify?)
+    Adam Olsen - Tests (doctests or other)
 
 Implemented:
     Collection
@@ -34,10 +34,6 @@ Things that can probably be implemented at this stage:
     Alternate Playback Systems
         will need more abstraction in player.py, but is feasable
         stub for generic Player class exists
-    Library Watching
-        use pyinotify or similar to watch libraries for new tracks
-        periodic rescan
-        stubs in collection.py
     CD Burning
         class in cd.py, takes a Playlist and burns it in order
     CD Ripping

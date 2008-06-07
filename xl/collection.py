@@ -1,3 +1,18 @@
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 1, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+
 # Classes representing collections and libraries
 #
 # A collection is a database of tracks. It is based on TrackDB but
@@ -10,6 +25,7 @@ from xl import trackdb, media, track
 from settings import SettingsManager
 
 import os, time, os.path, logging
+import gobject
 
 logger = logging.getLogger(__name__)
 
@@ -87,8 +103,13 @@ class Collection(trackdb.TrackDB):
 
 
 class ProcessEvent(object):
+    """
+        Stub ProcessEvent.  This is here so that the INotifyEventProcessor
+        declaration doesn't fail if pyinotify doesn't import correctly
+    """
     pass
 
+# attempt to import pyinotify
 try:
     import pyinotify
     from pyinotify import EventsCodes, ProcessEvent
@@ -100,6 +121,9 @@ class INotifyEventProcessor(ProcessEvent):
         Processes events from inotify
     """
     def __init__(self):
+        """
+            Initializes the Event Processor
+        """
         self.libraries = []
         self.mask = EventsCodes.IN_MOVED_TO|EventsCodes.IN_MOVED_FROM|\
             EventsCodes.IN_CREATE|EventsCodes.IN_DELETE|EventsCodes.IN_CLOSE_WRITE
@@ -110,6 +134,13 @@ class INotifyEventProcessor(ProcessEvent):
         self.started = False
 
     def add_library(self, library):
+        """
+            Adds a library to be monitored by inotify.
+            If the ThreadedNotifier hasn't been started already, it will be
+            started
+
+            library:  the Library to be watched
+        """
         wdd = self.wm.add_watch(library.location,
             self.mask, rec=True, auto_add=True)
 
@@ -119,28 +150,69 @@ class INotifyEventProcessor(ProcessEvent):
             self.notifier.start()
             self.started = True
 
+    def remove_library(self, library):
+        """
+            Stops a library from being watched.  If after removing the
+            specified library there are no more libraries being watched, the
+            notifier thread is stopped
+
+            library: the Library to remove
+        """
+        if not self.libraries: return
+        i = 0
+        for (l, wdd) in self.libraries:
+            if l == library:
+                self.wm.rm_watch(wdd[l.location], rec=True)        
+                break
+            i += 1
+
+        self.libraries.pop(i)
+        if not self.libraries:
+            self.notifier.stop()
+
     def process_IN_DELETE(self, event):
+        """
+            Called when a file is deleted
+        """
         pathname = os.path.join(event.path, event.name)
         logger.info("Location deleted: %s" % pathname)
         for (library, wdd) in self.libraries:
             if pathname.find(library.location) > -1:
                 library._remove_locations([pathname])         
+                break
 
     def process_IN_CLOSE_WRITE(self, event):
+        """
+            Called when a file is changed
+        """
         pathname = os.path.join(event.path, event.name)
         logger.info("Location modified: %s" % pathname)
         for (library, wdd) in self.libraries:
             if pathname.find(library.location) > -1:
                 library._scan_locations([pathname])         
+                break
 
     def process_IN_MOVED_FROM(self, event):
+        """
+            Called when a file is created as the result of moving
+        """
         self.process_IN_DELETE(event)
 
     def process_IN_MOVED_TO(self, event):
+        """
+            Called when a file is removed as the result of moving
+        """
         self.process_IN_CLOSE_WRITE(event)
 
 if pyinotify:
     EVENT_PROCESSOR = INotifyEventProcessor()
+
+class PyInotifyNotSupportedException(Exception):
+    """
+        Thrown when set_realtime is called with True and pyinotify is not
+        installed or not supported
+    """
+    pass
 
 class Library(object):
     """
@@ -155,11 +227,19 @@ class Library(object):
             collection: the Collection to associate with [Collection]
         """
         self.location = location
-        self.realtime = realtime
         self.scan_interval = scan_interval
-        self.set_realtime(realtime)
+        self.scan_id = 0
+        self.scanning = False
+        try:
+            self.set_realtime(realtime)
+        except PyInotifyNotSupportedException:
+            logger.warning("PyInotify not installed or not supported.  "
+                "Not watching library: %s" % location)
+        except:
+            common.log_exception()
 
         self.collection = None
+        self.set_rescan_interval(scan_interval)
 
     def set_location(self, location):
         """
@@ -221,8 +301,12 @@ class Library(object):
             to the Collection
         """
         if not self.collection:
-            return
+            return True
 
+        if self.scanning: return
+
+        logger.info("Scanning library: %s" % self.location)
+        self.scanning = True
         formats = track.formats.keys()
 
         for folder in os.walk(self.location):
@@ -243,9 +327,12 @@ class Library(object):
                 if tr._scan_valid == True:
                     self.collection.add(tr)
 
+        self.scanning = False
+        return True
+
     def is_realtime(self):
         """
-            Returns True if this is library is being watched by gamin
+            Returns True if this is library is being watched
         """
         return self.realtime
 
@@ -253,14 +340,38 @@ class Library(object):
         """
             Sets to True if you want this library to be monitored
         """
+        if realtime and not pyinotify:
+            raise PyInotifyNotSupportedException()           
+
         self.realtime = realtime
         if realtime and pyinotify:
             EVENT_PROCESSOR.add_library(self)
+        
+        if not realtime and pyinotify:
+            EVENT_PROCESSOR.remove_library(self)
 
     def get_rescan_interval(self):
-        return 0
+        """
+            Returns the scan interval in seconds
+        """
+        return self.scan_interval
 
     def set_rescan_interval(self, interval):
-        pass
+        """
+            Sets the scan interval in seconds.  If the interval is 0 seconds,
+            the scan interval is stopped
 
+            interval: scan interval (int) in seconds
+        """
+        if not interval:
+            if self.scan_id:
+                gobject.source_remove(self.scan_id)
+                self.scan_id = 0
+        else:
+            if self.scan_id:
+                gobject.source_remove(self.scan_id)
 
+            self.scan_id = gobject.timeout_add(interval * 1000, 
+                self.rescan)
+
+        self.scan_interval = interval

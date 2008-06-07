@@ -139,10 +139,12 @@ class Playlist(trackdb.TrackDB):
         self.ordered_tracks = []
         self.current_pos = -1
         self.current_playing = False
-        self.shuffle_enabled = False
         self.random_enabled = False
+        self.repeat_enabled = False
+        self.tracks_history = []
         pickle_attrs += ['name', 'ordered_tracks', 'current_pos', 
-                'current_playing', "shuffle_enabled", "random_enabled"]
+                'current_playing', "shuffle_enabled", "random_enabled",
+                'tracks_history']
         trackdb.TrackDB.__init__(self, name=name, location=location,
                 pickle_attrs=pickle_attrs)
 
@@ -255,12 +257,18 @@ class Playlist(trackdb.TrackDB):
             returns: the next track [Track], None if no more tracks
         """
         if self.random_enabled:
-            if len(self.ordered_tracks) == 1:
+            if self.current_pos != -1:
+                self.tracks_history.append(self.get_current())
+                if self.repeat_enabled and len(self.tracks_history) == \
+                        len(self.ordered_tracks):
+                    self.tracks_history = []
+            if len(self.ordered_tracks) == 1 and \
+                    len(self.tracks_history) == 1:
                 return None
-            next = self.current_pos
-            while next == self.current_pos:
-                next = random.choice(range(len(self.ordered_tracks)))
-            self.current_pos = next
+            
+            next = random.choice([ x for x in self.ordered_tracks \
+                    if x not in self.tracks_history])
+            self.current_pos = self.ordered_tracks.index(next)            
         else:
             if len(self.ordered_tracks) == 0:
                 return None
@@ -282,14 +290,19 @@ class Playlist(trackdb.TrackDB):
             returns: the previous track [Track]
         """
         if self.random_enabled:
-            return self.get_current() # cant seek backwards in random mode
-
-        self.current_pos -= 1
-        if self.current_pos < 0:
-            if self.repeat_enabled:
-                self.current_pos = len(self.ordered_tracks) - 1
-            else:
-                self.current_pos = 0
+            try:
+                prev = self.tracks_history[-1]
+            except:
+                return self.get_current()
+            self.tracks_history = self.tracks_history[:-1]
+            self.current_pos = self.ordered_tracks.index(prev)
+        else:
+            self.current_pos -= 1
+            if self.current_pos < 0:
+                if self.repeat_enabled:
+                    self.current_pos = len(self.ordered_tracks) - 1
+                else:
+                    self.current_pos = 0
 
         event.log_event('current_changed', self, self.current_pos)
         return self.get_current()
@@ -314,6 +327,8 @@ class Playlist(trackdb.TrackDB):
 
             mode: set random to this [bool]
         """
+        if not self.random_enabled:
+            self.tracks_history = []
         if mode is not None:
             self.random_enabled = mode
         else:

@@ -48,12 +48,12 @@ class CDPlaylist(playlist.Playlist):
             song = track.Track()
             song.set_loc("cdda://%d#%s" % (tracknum, self.device))
             song['title'] = "Track %d" % tracknum
-            song['track'] = tracknum
+            song['tracknumber'] = tracknum
             song['length'] = length
             total += length
             songs[song.get_loc()] = song
 
-        sort_tups = [ (int(s['track']),s) for s in songs.values() ]
+        sort_tups = [ (int(s['tracknumber']),s) for s in songs.values() ]
         sort_tups.sort()
 
         sorted = [ s[1] for s in sort_tups ]

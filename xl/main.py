@@ -198,8 +198,6 @@ class Exaile(object):
 
         self.collection.save_to_location()
         self.collection.save_libraries()
-        if collection.pyinotify:
-            collection.NOTIFIER.stop()
 
         #TODO: save player, queue, playlists
 

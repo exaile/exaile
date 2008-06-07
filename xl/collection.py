@@ -92,7 +92,6 @@ class ProcessEvent(object):
 try:
     import pyinotify
     from pyinotify import EventsCodes, ProcessEvent
-    INOTIFY_MASK = EventsCodes.IN_DELETE | EventsCodes.IN_CLOSE_WRITE
 except ImportError:
     pyinotify = None
 
@@ -100,16 +99,25 @@ class INotifyEventProcessor(ProcessEvent):
     """
         Processes events from inotify
     """
-
     def __init__(self):
         self.libraries = []
+        self.mask = EventsCodes.IN_MOVED_TO|EventsCodes.IN_MOVED_FROM|\
+            EventsCodes.IN_CREATE|EventsCodes.IN_DELETE|EventsCodes.IN_CLOSE_WRITE
+            
+        self.wm = pyinotify.WatchManager()
+        self.notifier = pyinotify.ThreadedNotifier(self.wm, self)
+        self.notifier.setDaemon(True)
+        self.started = False
 
     def add_library(self, library):
-        wdd = WATCH_MANAGER.add_watch(library.location,
-            INOTIFY_MASK, rec=True)
+        wdd = self.wm.add_watch(library.location,
+            self.mask, rec=True, auto_add=True)
 
         self.libraries.append((library, wdd))
         logger.info("Watching directory: %s" % library.location)
+        if not self.started:
+            self.notifier.start()
+            self.started = True
 
     def process_IN_DELETE(self, event):
         pathname = os.path.join(event.path, event.name)
@@ -124,13 +132,15 @@ class INotifyEventProcessor(ProcessEvent):
         for (library, wdd) in self.libraries:
             if pathname.find(library.location) > -1:
                 library._scan_locations([pathname])         
+
+    def process_IN_MOVED_FROM(self, event):
+        self.process_IN_DELETE(event)
+
+    def process_IN_MOVED_TO(self, event):
+        self.process_IN_CLOSE_WRITE(event)
+
 if pyinotify:
     EVENT_PROCESSOR = INotifyEventProcessor()
-    WATCH_MANAGER = pyinotify.WatchManager()
-    NOTIFIER = pyinotify.ThreadedNotifier(WATCH_MANAGER,
-        EVENT_PROCESSOR)
-    NOTIFIER.setDaemon(True)
-    NOTIFIER.start()
 
 class Library(object):
     """

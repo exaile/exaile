@@ -3,13 +3,12 @@ It should also be used to keep track of what each developer is
 currently working on.
 
 Current projects:
-    Aren Olson - Playlist Exporting
+    Aren Olson - Playlist Importing
     Adam Olsen - Tests (doctests or other), Library watch system (pynotify?)
 
 Implemented:
     Collection
     Libraries
-        no watching or auto-rescan
     Playlists
     Player
     Queue
@@ -30,7 +29,7 @@ Implemented:
     Playlists Manager
 
 Things that can probably be implemented at this stage:
-    Playlist Exporting
+    Playlist Importing
         stubs in playlist.py
     Alternate Playback Systems
         will need more abstraction in player.py, but is feasable
@@ -56,6 +55,10 @@ Other Work-Items:
         create a special Collection for each, load Playlists, etc.
         also should handle transfer, nto necessariliy at first
             transcode on transfer also good
+                auto-detect supported formats (allow choosing too)
+                transcode only if
+                    not in specified format
+                    above certain bitrate/filesize?
             algorithms to handle sync?
             allow custom file layout if applicable
         podcast support
@@ -69,8 +72,13 @@ Other Work-Items:
         this is a big one, should come very late
     Lyrics
         wait on GUI
+        pluggable backends
+        support embedded lyics
     Covers
         wait on GUI
+        pluggable backends
+        support embedded covers
+        cover from filename via tag info (eg. %artist-%album.jpg)
     DBUS
 
 ==== NOTES ====
@@ -79,3 +87,7 @@ data and receipt of user input through the gui should go into xlgui. code
 that is not dependent upon the gui implementation should go in xl.
 
 
+=== Contributors ===
+list other contributors to 0.3 here so they may be given due credit
+
+AlphaCluster - playlist export for m3u/pls/asx/xspf

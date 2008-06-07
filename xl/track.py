@@ -87,7 +87,7 @@ class Track(object):
                 'modified': 0} )
 
         self._scan_valid = False
-        if uri and urlparse(uri)[0] in ['', 'file']:
+        if uri:
             self.set_loc(uri)
             if self.read_tags() is not None:
                 self._scan_valid = True
@@ -236,6 +236,8 @@ class Track(object):
         """
             Reads tags from file
         """
+        if urlparse(self.get_loc())[0] != "":
+            return None #not a local file
         (path, ext) = os.path.splitext(self.get_loc().lower())
         ext = ext[1:]
 

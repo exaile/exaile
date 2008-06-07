@@ -64,7 +64,10 @@ class CDPlaylist(playlist.Playlist):
     
     @common.threaded
     def get_cddb_info(self):
-        status, info = CDDB.query(self.info)
+        try:
+            status, info = CDDB.query(self.info)
+        except IOError:
+            return
         if status in (210, 211):
             info = info[0]
             status = 200

@@ -4,8 +4,10 @@
 #
 # also contains functions for saving and loading various playlist formats.
 
-from xl import trackdb, event, xdg
+from xl import trackdb, event, xdg, track
 import urllib, random, os
+import xml.etree.cElementTree as cETree
+from urlparse import urlparse
 
 def save_to_m3u(playlist, path):
     """
@@ -18,8 +20,8 @@ def save_to_m3u(playlist, path):
         handle.write("#PLAYLIST: %s\n" % playlist.get_name())
 
     for track in playlist:
-        leng = track.info['length']
-        if leng == 0: 
+        leng = track['length']
+        if leng < 1: 
             leng = -1
         handle.write("#EXTINF:%d,%s\n%s\n" % (leng,
             track['title'], track.get_loc()))
@@ -44,10 +46,10 @@ def save_to_pls(playlist, path):
     for track in playlist:
         handle.write("File%d=%s\n" % (count, track.get_loc()))
         handle.write("Title%d=%s\n" % (count, track['title']))
-        if track.info['length'] < 1:
-            handel.write("Length%d=%d\n\n" % (count, -1))
+        if track['length'] < 1:
+            handle.write("Length%d=%d\n\n" % (count, -1))
         else:
-            handle.write("Length%d=%d\n\n" % (count, track.info['length']))
+            handle.write("Length%d=%d\n\n" % (count, track['length']))
         count += 1
     
     handle.write("Version=2")
@@ -82,6 +84,13 @@ def import_from_asx(path):
     # urllib.unquote(string)
     pass
 
+XSPF_MAPPING = {
+        'title': 'title',
+        'creator': 'artist',
+        'album': 'album',
+        'trackNum': 'tracknumber'}
+# TODO: support image tag for CoverManager
+
 def save_to_xspf(playlist, path):
     """
         Saves a Playlist to a xspf file
@@ -96,11 +105,15 @@ def save_to_xspf(playlist, path):
     handle.write("  <trackList>\n")
     for track in playlist:
         handle.write("    <track>\n")
-        handle.write("      <title>%s</title>\n" % track['title'])
-        if track.info['length'] > 0:
-            handle.write("      <location>file://%s</location>\n" % urllib.quote(track.get_loc()))
+        for xs, tag in XSPF_MAPPING.iteritems():
+            if track[tag] == "":
+                continue
+            handle.write("      <%s>%s</%s>\n" % (xs, track[tag],xs) )
+        url = urllib.quote(track.get_loc())
+        if urlparse(track.get_loc())[0] == "":
+            handle.write("      <location>file://%s</location>\n" % url)
         else:
-            handle.write("      <location>%s</location>\n" % urllib.quote(track.get_loc()))
+            handle.write("      <location>%s</location>\n" % url)
         handle.write("    </track>\n")
     
     handle.write("  </trackList>\n")
@@ -108,8 +121,25 @@ def save_to_xspf(playlist, path):
     handle.close()
     
 def import_from_xspf(path):
-    # urllib.unquote(string)
-    pass
+    #TODO: support content resolution
+    tree = cETree.ElementTree(file=open(path))
+    ns = "{http://xspf.org/ns/0/}"
+    tracks = tree.find("%strackList"%ns).findall("%strack"%ns)
+    name = tree.find("%stitle"%ns).text.strip()
+    pl = Playlist(name=name)
+    for t in tracks:
+        tr = track.Track()
+        loc = urllib.unquote(t.find("%slocation"%ns).text.strip())
+        tr.set_loc(loc)
+        for xs, tag in XSPF_MAPPING.iteritems():
+            try:
+                tr[tag] = t.find("%s%s"%(ns,xs)).text.strip()
+            except:
+                pass
+        tr.read_tags() # read tags, if applicable
+        pl.add(tr)
+    return pl
+
 
 class PlaylistIterator(object):
     def __init__(self, pl):

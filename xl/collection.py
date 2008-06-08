@@ -22,7 +22,7 @@
 # associated collection.
 
 from xl import trackdb, media, track
-from settings import SettingsManager
+from xl.settings import SettingsManager
 
 import os, time, os.path, logging
 import gobject
@@ -32,6 +32,17 @@ logger = logging.getLogger(__name__)
 class Collection(trackdb.TrackDB):
     """
         Manages a persistent track database.
+
+        Simple usage:
+
+        >>> from xl.collection import *
+        >>> c = Collection("Test Collection")
+        >>> c.add_library(Library("./tests/data"))
+        >>> c.rescan_libraries()
+        >>> tracks = c.search('artist="TestArtist"')
+        >>> print len(tracks)
+        5
+        >>> 
     """
     def __init__(self, name, location=None, pickle_attrs=[]):
         """
@@ -43,10 +54,12 @@ class Collection(trackdb.TrackDB):
         self.settings = SettingsManager.settings
         trackdb.TrackDB.__init__(self, location=location, 
                 pickle_attrs=pickle_attrs)
-        lib_paths = self.settings.get_option("collection/libraries", [])
-        for (loc, realtime, interval) in lib_paths:
-            if len(loc.strip()) > 0:
-                self.add_library(Library(loc, realtime, interval))
+
+        if self.settings:
+            lib_paths = self.settings.get_option("collection/libraries", [])
+            for (loc, realtime, interval) in lib_paths:
+                if len(loc.strip()) > 0:
+                    self.add_library(Library(loc, realtime, interval))
 
     def add_library(self, library):
         """
@@ -218,6 +231,20 @@ class Library(object):
     """
         Scans and watches a folder for tracks, and adds them to
         a Collection.
+
+        Simple usage:
+
+        >>> from xl.collection import *
+        >>> c = Collection("TestCollection")
+        >>> l = Library("./tests/data")
+        >>> c.add_library(l)
+        >>> l.rescan()
+        True
+        >>> print c.get_libraries()[0].location
+        ./tests/data
+        >>> print len(c.search(''))
+        5
+        >>> 
     """
     def __init__(self, location, realtime=False, scan_interval=0):
         """

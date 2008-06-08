@@ -3,17 +3,38 @@ It should also be used to keep track of what each developer is
 currently working on.
 
 Current projects:
-    Aren Olson - Playlist Importing
+    Aren Olson - Playlist Importing, Plugins System, Dynamic Playlists
     Adam Olsen - Tests (doctests or other)
 
-*** QUICK NOTE:  We need to make a way that coders can easily see what object
-export which signals, and possibly have a way for this to show up in epydoc
+*** QUICK NOTE:  We need to make a way that coders can easily see what 
+object export which events, and possibly have a way for this to show up 
+in epydoc
+**** I think perhaps adding an "Events" section to the docstring for each 
+class would be the way to go here. something like:
+
+class TrackDB:
+    """
+        blah blah blah...
+
+        Events:
+            track_added - sent when a track is added to the db
+                data: the loc of the track
+            track_removed - sent when a track is removed from the db
+                data: the loc of the track
+    """
+
+this doesn't handle the case where multiple classes emit the same event
+though, though I do not know of any cases of that in the current codebase
+(except those arising from subclassing which don't count)
 
 Implemented:
     Collection
     Libraries
         now has realtime watching!
     Playlists
+        has random, repeat
+        export to m3u/pls/asx/xspf
+        import from xspf
     Player
     Queue
     Settings
@@ -23,7 +44,9 @@ Implemented:
         exaile's config and data files now stored according to xdg spec
     Logging System
     Smart Playlists
+        todo: use events to add tracks efficiently on-the-fly
     CD Playback
+        doesn't support mp3 CDs yet
     Track Syncronization
         very prelimiary, will need careful watching
     Device Manager
@@ -31,6 +54,7 @@ Implemented:
     HAL Support
         only for cd right now
     Playlists Manager
+        manages persistence of playlists and smart playlists.
 
 Things that can probably be implemented at this stage:
     Playlist Importing
@@ -46,14 +70,24 @@ Things that can probably be implemented at this stage:
         matching tracks based on tag content rather than loc.
         useful for: detecting moves withing the library, xspf playlists
         ?match by everything or a subset? if x% is the same? efficiency?
+    Plugins System
+        this will need to be expanded later to integrate the GUI API
+        file format: transfers as .exz, which gets unzipped to a folder in
+            $XDG_DATA_HOME/exaile/plugins/.
+    Dynamic Playlists
+        pluggable backends: allow matching via last.fm, musicbrainz, etc.
+        allow combining multiple backends
+        store dynamic info for offline use
+        allow setting of song 'buffer size', ie how many songs ahead of the
+            playing song to queue up. if for some reason the buffer empties,
+            fill it back to this level.
 
 Other Work-Items:
     Gapless Playback
         doable? difficulty?
         cross-fade too?
-    Podcasts
-    Dynamic Playlists
-        I have some fun ideas for this one, best to wait --Aren
+    Podcasts & Internet Radio
+        not really sure how these two should look on the backend, ideas?
     MP3 Player Support (very involved, should wait for a while)
         generic classes subclassable for iPod, MTP and MassStorage players
         create a special Collection for each, load Playlists, etc.
@@ -67,31 +101,32 @@ Other Work-Items:
             allow custom file layout if applicable
         podcast support
             limit number / autodelete old ?
-    Plugins Systems (wait on GUI)
-        make exz default format
-        port old plugins
     Last.fm
         implement as plugin
+        scrobbling/radio, each togglable separately
     GUI
         this is a big one, should come very late
     Lyrics
-        wait on GUI
-        pluggable backends
-        support embedded lyics
+        pluggable backends (lyricwiki, others?)
+        support embedded lyrics
     Covers
-        wait on GUI
-        pluggable backends
+        pluggable backends (amazon, last.fm?, musicbrainz?)
         support embedded covers
         cover from filename via tag info (eg. %artist-%album.jpg)
     DBUS
     Kill xl/path.py
         relevant code should be merged into xdg.py
 
+
 ==== NOTES ====
 xl is to be split into xl and xlgui. All code concerning the display of 
 data and receipt of user input through the gui should go into xlgui. code 
 that is not dependent upon the gui implementation should go in xl.
 
+all pluggable backends should have all backends implemented as plugins 
+unless there is a really good reason to do otherwise. we will ship and 
+enable some plugins by default to provide the best out-of-the-box 
+experience
 
 === Contributors ===
 list other contributors to 0.3 here so they may be given due credit

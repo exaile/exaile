@@ -13,3 +13,6 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 __all__ = ['flac', 'mp3', 'm4a', 'ogg', 'wma', 'mpc', 'wv', 'tta']
+
+# vim: et sts=4 sw=4
+

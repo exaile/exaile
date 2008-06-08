@@ -487,3 +487,7 @@ class TrackSearcher(object):
                             pass
 
         return self.__do_search(tokens[1:], new_list)
+
+
+# vim: et sts=4 sw=4
+

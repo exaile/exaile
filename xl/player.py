@@ -338,3 +338,6 @@ class GSTPlayer(Player):
         except ZeroDivisionError:
             progress = 0
         return progress
+
+# vim: et sts=4 sw=4
+

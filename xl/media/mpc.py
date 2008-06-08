@@ -132,4 +132,6 @@ def fill_tag_from_path(tr):
             _mpcdec.mpc_streaminfo_get_length(ctypes.byref(info)))
         tr.info['bitrate'] = int(info.average_bitrate)
         _libc.fclose(reader.file)
-                   
+                  
+# vim: et sts=4 sw=4
+

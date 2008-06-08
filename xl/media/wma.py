@@ -37,4 +37,5 @@ def fill_tag_from_path(tr):
 
     for wma_tag, tag in TAG_TRANSLATION.iteritems():
         tr.tags[tag] = get_tag(inf, wma_tag)
+# vim: et sts=4 sw=4
 

@@ -114,3 +114,6 @@ class SettingsManager(SafeConfigParser):
         """
         f = open(self.loc, 'w')
         self.write(f)
+
+# vim: et sts=4 sw=4
+

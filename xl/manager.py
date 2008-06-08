@@ -71,4 +71,5 @@ class SimpleManager(object):
         """
         if pos < len(self.items):
             self.active = pos
+# vim: et sts=4 sw=4
 

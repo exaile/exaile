@@ -101,3 +101,6 @@ def fill_tag_from_path(tr):
         pass
     except:
         common.log_exception()
+
+# vim: et sts=4 sw=4
+

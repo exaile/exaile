@@ -49,3 +49,6 @@ def fill_tag_from_path(tr):
 
     for tag in VALID_TAGS:
         tr[tag] = get_tag(f, tag)
+
+# vim: et sts=4 sw=4
+

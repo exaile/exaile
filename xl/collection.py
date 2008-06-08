@@ -375,3 +375,6 @@ class Library(object):
                 self.rescan)
 
         self.scan_interval = interval
+
+# vim: et sts=4 sw=4
+

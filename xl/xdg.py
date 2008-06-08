@@ -29,3 +29,7 @@ def get_config_dir():
 
 def get_data_dirs():
     return data_dirs
+
+
+# vim: et sts=4 sw=4
+

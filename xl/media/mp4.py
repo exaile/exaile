@@ -89,3 +89,6 @@ def write_tag(tr):
             set_tag(f, mp4_tag, tr[tag])
 
     f.save()
+
+# vim: et sts=4 sw=4
+

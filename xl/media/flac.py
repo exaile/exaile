@@ -44,3 +44,6 @@ def write_tag(tr):
             f.vc[tag] = tr[tag]
 
     f.save()
+
+# vim: et sts=4 sw=4
+

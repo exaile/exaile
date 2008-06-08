@@ -44,3 +44,6 @@ def write_tag(tr):
     else:
         f['track'] = str(tr['track'])
     f.save()
+
+# vim: et sts=4 sw=4
+

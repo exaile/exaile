@@ -10,3 +10,6 @@ def can_change(tag):
 
 def is_multi():
     return False
+
+# vim: et sts=4 sw=4
+

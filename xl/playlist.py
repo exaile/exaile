@@ -660,4 +660,5 @@ class PlaylistManager(object):
     def list_smart_playlists(self):
         return self.smart_playlists.keys()
 
+# vim: et sts=4 sw=4
 

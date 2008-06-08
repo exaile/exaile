@@ -248,3 +248,6 @@ class Waiter(threading.Thread):
 # regardless of where this module is imported.
 EVENT_MANAGER = EventManager()
 IDLE_MANAGER  = IdleManager()
+
+# vim: et sts=4 sw=4
+

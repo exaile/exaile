@@ -47,3 +47,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# vim: et sts=4 sw=4
+

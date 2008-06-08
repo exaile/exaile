@@ -94,4 +94,5 @@ class CDPlaylist(playlist.Playlist):
 
 
 
+# vim: et sts=4 sw=4
 

@@ -296,3 +296,5 @@ class Track(object):
             ret += " from '%s'" % album
         return ret
 
+# vim: et sts=4 sw=4
+

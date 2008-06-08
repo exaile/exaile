@@ -12,6 +12,7 @@ export which signals, and possibly have a way for this to show up in epydoc
 Implemented:
     Collection
     Libraries
+        now has realtime watching!
     Playlists
     Player
     Queue
@@ -41,6 +42,10 @@ Things that can probably be implemented at this stage:
         class in cd.py, takes a Playlist and burns it in order
     CD Ripping
         class in cd.py, rips a CDPlaylist or any track with a cdda loc
+    Content-Matching (involved)
+        matching tracks based on tag content rather than loc.
+        useful for: detecting moves withing the library, xspf playlists
+        ?match by everything or a subset? if x% is the same? efficiency?
 
 Other Work-Items:
     Gapless Playback
@@ -79,6 +84,8 @@ Other Work-Items:
         support embedded covers
         cover from filename via tag info (eg. %artist-%album.jpg)
     DBUS
+    Kill xl/path.py
+        relevant code should be merged into xdg.py
 
 ==== NOTES ====
 xl is to be split into xl and xlgui. All code concerning the display of 

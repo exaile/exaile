@@ -163,4 +163,5 @@ def to_url(path):
         return 'file://' + urllib.pathname2url(path)
     except IOError:
         return path
+# vim: et sts=4 sw=4
 

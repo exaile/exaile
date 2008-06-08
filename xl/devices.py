@@ -82,3 +82,6 @@ class CDDevice(Device):
     def disconnect(self):
         self.playlists = []
 
+
+# vim: et sts=4 sw=4
+

@@ -83,4 +83,5 @@ class HAL(object):
                 "DeviceRemoved")
 
 
+# vim: et sts=4 sw=4
 

@@ -1,11 +1,14 @@
 
 
 
-from xl import xdg, common
+from xl import xdg, common, settings
 import os, imp
 
 import logging
 logger = logging.getLogger(__name__)
+
+# list of plugins to enable by default on new installs
+DEFAULT_PLUGINS = []
 
 class PluginsManager(object):
     def __init__(self, exaile):
@@ -21,11 +24,15 @@ class PluginsManager(object):
         self.exaile = exaile 
         
         self.loaded_plugins = {}
-
         self.enabled_plugins = {}
 
+        self.settings = settings.SettingsManager.settings
+        
+        self.load_installed_plugins()
+        self.load_enabled()
+
     def load_installed_plugins(self):
-        for plugin in self.list_installed_plugins:
+        for plugin in self.list_installed_plugins():
             self.load_plugin(plugin)
 
     def __findplugin(self, pluginname):
@@ -76,7 +83,8 @@ class PluginsManager(object):
         for dir in self.plugindirs:
             if os.path.exists(dir):
                 for file in os.listdir(dir):
-                    if file not in pluginlist:
+                    if file not in pluginlist and \
+                            os.path.isdir(os.path.join(dir, file)):
                         pluginlist.append(file)
         return pluginlist
 
@@ -88,7 +96,9 @@ class PluginsManager(object):
 
     
     def save_enabled(self):
-        pass
+        self.settings.set_option("plugins/enabled", self.enabled_plugins.keys())
 
     def load_enabled(self):
-        pass
+        to_enable = self.settings.get_option("plugins/enabled", DEFAULT_PLUGINS)
+        for plugin in to_enable:
+            self.enable_plugin(plugin)

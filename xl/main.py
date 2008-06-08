@@ -215,6 +215,8 @@ class Exaile(object):
         # below.
         event.log_event("quit_application", self, self, async=False)
 
+        self.plugins.save_enabled()
+
         #self.gui.quit()
 
         self.playlists.save_all()

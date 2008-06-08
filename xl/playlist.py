@@ -20,7 +20,7 @@ def save_to_m3u(playlist, path):
         handle.write("#PLAYLIST: %s\n" % playlist.get_name())
 
     for track in playlist:
-        leng = track['length']
+        leng = float(track['length'])
         if leng < 1: 
             leng = -1
         handle.write("#EXTINF:%d,%s\n%s\n" % (leng,
@@ -29,8 +29,43 @@ def save_to_m3u(playlist, path):
     handle.close()
 
 def import_from_m3u(path):
-    # import -1 as 0
-    pass
+    handle = open(path, 'r')
+
+    name = os.path.split(path)[-1].replace(".m3u","")
+    
+    if not handle.readline().startswith("#EXTM3U"):
+        return None
+
+    pl = Playlist(name=name)
+
+    current = None
+    for line in handle:
+        line = line.strip()
+        if line == "":
+            pass
+        elif line.startswith("#Playlist: "):
+            pl.set_name(line[12:])
+        elif line.startswith("#EXTINF:"):
+            current = track.Track()
+            len, title = line[9:].split(",", 1)
+            len = float(len)
+            if len < 1:
+                len = 0
+            current['title'] = title
+            current['length'] = len
+        elif line.startswith("#"):
+            pass
+        else:
+            if not current:
+                current = track.Track()
+            current.set_loc(line)
+            current.read_tags()
+            pl.add(current)
+            current = None
+
+    handle.close()
+
+    return pl
 
 def save_to_pls(playlist, path):
     """
@@ -49,14 +84,57 @@ def save_to_pls(playlist, path):
         if track['length'] < 1:
             handle.write("Length%d=%d\n\n" % (count, -1))
         else:
-            handle.write("Length%d=%d\n\n" % (count, track['length']))
+            handle.write("Length%d=%d\n\n" % (count, float(track['length'])))
         count += 1
     
     handle.write("Version=2")
     handle.close()
 
 def import_from_pls(path):
-    pass
+    handle = open(path, 'r')
+
+    #PLS doesn't store a name, so assume the filename is the name
+    name = os.path.split(path)[-1].replace(".pls","")
+
+    if handle.readline().strip() != '[playlist]':
+        return None # not a valid pls playlist
+
+    linedict = {}
+
+    for line in handle:
+        newline = line.strip()
+        if newline == "":
+            continue
+        try:
+            entry, value = newline.split("=",1)
+            linedict[entry] = value
+        except:
+            return None
+
+    if not linedict.has_key("Version"):
+        return None
+    if not linedict.has_key("NumberOfEntries"):
+        return None
+
+    num = int(linedict["NumberOfEntries"])
+
+    pl = Playlist(name=name)
+
+    for n in range(1,num+1):
+        tr = track.Track()
+        tr.set_loc(linedict["File%s"%n])
+        tr['title'] = linedict["Title%s"%n]
+        len = float(linedict["Length%s"%n])
+        if len < 1:
+            len = 0
+        tr['length'] = len
+        tr.read_tags()
+        pl.add(tr)
+
+    handle.close()
+    
+    return pl
+
     
 def save_to_asx(playlist, path):
     """
@@ -136,7 +214,7 @@ def import_from_xspf(path):
                 tr[tag] = t.find("%s%s"%(ns,xs)).text.strip()
             except:
                 pass
-        tr.read_tags() # read tags, if applicable
+        tr.read_tags()
         pl.add(tr)
     return pl
 

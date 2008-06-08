@@ -138,6 +138,7 @@ class Exaile(object):
 
         #initalize device manager
         self.devices = devices.DeviceManager()
+        self._add_default_playlists()
 
         #initialize HAL
         self.hal = hal.HAL(self.devices)
@@ -158,6 +159,33 @@ class Exaile(object):
 
         #setup GUI
         #self.gui = xlgui.Main()
+
+    def _add_default_playlists(self):
+        """
+            Adds some default smart playlists to the playlist manager
+        """
+
+        ## dynamic playlists
+
+        # entire playlist
+        entire_lib = playlist.SmartPlaylist("Entire Library",
+            collection=self.collection, save=False) 
+        self.playlists.add_smart_playlist(entire_lib)
+
+        # random playlists
+        for count in (100, 300, 500):
+            pl = playlist.SmartPlaylist("Random %d" % count,
+                collection=self.collection, save=False)
+            pl.set_return_limit(count)
+            pl.set_random_sort(True)
+            self.playlists.add_smart_playlist(pl)
+
+        # rating based playlists
+        for item in (3, 4):
+            pl = playlist.SmartPlaylist("Rating > %d" % item, 
+                collection=self.collection, save=False)
+            pl.add_param('xl_rating', '>', item)
+            self.playlists.add_smart_playlist(pl)
 
     def mainloop(self):
         import gobject, dbus.mainloop.glib

@@ -15,8 +15,10 @@ from copy import deepcopy
 SEARCH_ITEMS = ('albumartist', 'artist', 'album', 'title')
 SORT_ORDER = ('album', 'track', 'artist', 'title')
 
-import logging
+import logging, random, time
 logger = logging.getLogger(__name__)
+
+random.seed(time.time())
 
 def get_sort_tuple(field, track):
     """
@@ -191,9 +193,15 @@ class TrackDB(object):
             del self.tracks[track.get_loc()]
             event.log_event("track_removed", self, track.get_loc())
 
-    def search(self, phrase, sort_field=None):
+    def search(self, phrase, sort_field=None, return_lim=-1):
         """
             Search the trackDB, optionally sorting by sort_field
+
+            @param phrase:  the search phrase
+            @param sort_field:  the field to sort by.  Use RANDOM to sort
+                randomly
+            @param return_lim:  limit the number of tracks returned to a
+                maximum
         """
         if phrase != "":
             tracks = self.searcher.search(phrase).values()
@@ -201,7 +209,13 @@ class TrackDB(object):
             tracks = self.tracks.values()
 
         if sort_field:
-            tracks = sort_tracks(sort_field, tracks)
+            if sort_field == 'RANDOM':
+                random.shuffle(tracks)
+            else:
+                tracks = sort_tracks(sort_field, tracks)
+
+        if return_lim != -1:
+            return tracks[:return_lim]
         return tracks
 
 

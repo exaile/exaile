@@ -43,3 +43,31 @@ class SmartPlaylistTestCase(BasePlaylistTestClass):
         sp.load_from_location()
 
         self.testSearch(sp)
+
+    def testReturnLimit(self):
+        sp = playlist.SmartPlaylist(collection=self.collection)
+        sp.set_return_limit(2)
+
+        sp.update()
+
+        assert len(sp) == 2, "Return limit test failed"
+
+    def testRandomSort(self):
+        sp = playlist.SmartPlaylist(collection=self.collection)
+        sp.set_random_sort(True)
+
+        check = False
+        sp.update()
+
+        start = sp.get_tracks()
+
+        # if it's not different in 50 iterations, something *has* to be wrong
+        for i in range(50):
+            sp.update()
+            if start != sp.get_tracks():
+                check = True
+                break
+
+            start = sp.get_tracks()
+
+        assert check == True, "Random sort did not work in 50 iterations"

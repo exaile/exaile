@@ -5,9 +5,10 @@
 # also contains functions for saving and loading various playlist formats.
 
 from xl import trackdb, event, xdg, track
-import urllib, random, os
+import urllib, random, os, time
 import xml.etree.cElementTree as cETree
 from urlparse import urlparse
+random.seed(time.time())
 
 def save_to_m3u(playlist, path):
     """
@@ -463,47 +464,11 @@ class Playlist(trackdb.TrackDB):
         else:
             self.repeat_enabled = self.repeat_enabled == False
 
-
-####
-## Dynamic playlists.
-## Aren:  I'm not sure if this is how you wanted to do this.  I'm only adding
-## it here temporarily so I can create an entire library playlist easily and
-## set it on shuffle :)
-class EntireLibraryPlaylist(Playlist):
-    """
-        Dynamic playlist.  Loads entire library
-    """
-    def __init__(self, name="", location=None, collection=None,
-        pickle_attrs=[]):
+    def __str__(self):
         """
-            Initializes the playlist
-
-            @param name:    the name of the playlist
-            @param location: the location of the playlist
-            @param collection: the collection to load.  REQUIRED for this
-                dynamic playlist
-            @param pickle_attrs: internal
+            Returns the name of the playlist
         """
-        if not collection:
-            raise AttributeError("You must specify a collection!")
-        
-        Playlist.__init__(self, name=name, location=location,
-            pickle_attrs=pickle_attrs)
-        self.collection = collection
-        self.update()
-
-    def update(self, collection=None):
-        """
-            Updates this playlist
-
-            @param collection:  To specify a Collection other than what was 
-                passed in the constructor
-        """
-        if not collection:
-            collection = self.collection
-
-        tracks = collection.search('')
-        self.add_tracks(tracks)
+        return "%s: %s" % (type(self), self.name)
 
 class SmartPlaylist(Playlist):
     """ 
@@ -511,7 +476,7 @@ class SmartPlaylist(Playlist):
         This will query a collection object using a set of parameters
     """
     def __init__(self, name="", location=None, collection=None, 
-        pickle_attrs=[]):
+        pickle_attrs=[], save=True):
         """
             Sets up a smart playlist
             
@@ -523,7 +488,11 @@ class SmartPlaylist(Playlist):
         self.custom_params = []
         self.collection = collection
         self.or_match = False
-        pickle_attrs += ['search_params', 'or_match']
+        self.track_count = -1
+        self.random_sort = False
+        self._save = save
+        pickle_attrs += ['search_params', 'or_match', 'track_count',
+            'random_sort']
         Playlist.__init__(self, name=name, location=location,
                 pickle_attrs=pickle_attrs)
 
@@ -534,6 +503,35 @@ class SmartPlaylist(Playlist):
             collection: the collection to use [Collection]
         """
         self.collection = collection
+
+    def set_random_sort(self, sort):
+        """ 
+            If True, the tracks added during update() will be randomized
+
+            @param sort: bool
+        """
+        self.random_sort = True
+
+    def get_random_sort(self):
+        """
+            Returns True if this playlist will randomly be sorted
+        """
+        return self.random_sort
+    
+    def set_return_limit(self, count):
+        """
+            Sets the max number of tracks to return.  
+
+            @param count:  number of tracks to return.  Set to -1 to return
+                all matched
+        """
+        self.track_count = count
+
+    def get_return_limit(self):
+        """
+            Returns the track count setting
+        """
+        return self.track_count
 
     def set_or_match(self, value):
         """
@@ -577,7 +575,6 @@ class SmartPlaylist(Playlist):
             self.search_params.insert(index, param)
         else:
             self.search_params.append(param)
-   
 
     def remove_param(self, index):
         """
@@ -602,7 +599,11 @@ class SmartPlaylist(Playlist):
             return
 
         search_string = self._create_search_string()
-        self.add_tracks(collection.search(search_string))
+        search_field = None
+        if self.random_sort: search_field = 'RANDOM'
+
+        self.add_tracks(collection.search(search_string, search_field,
+            self.track_count))
 
     def _create_search_string(self):
         """
@@ -657,7 +658,6 @@ class SmartPlaylist(Playlist):
 
 
 class PlaylistManager(object):
-
     def __init__(self):
         self.playlist_dir = os.path.join(xdg.get_data_dirs()[0],'playlists')
         self.smart_playlist_dir = os.path.join(xdg.get_data_dirs()[0],
@@ -699,7 +699,7 @@ class PlaylistManager(object):
             if pl is not None:
                 pl.save_to_location()
         for pl in self.smart_playlists.values():
-            if pl is not None:
+            if pl is not None and pl._save:
                 pl.save_to_location()
 
     def rename_playlist(self, old, new):

@@ -3,7 +3,7 @@ It should also be used to keep track of what each developer is
 currently working on.
 
 Current projects:
-    Aren Olson - Playlist Importing, Plugins System, Dynamic Playlists
+    Aren Olson - Plugins System, Dynamic Playlists
     Adam Olsen - Tests (doctests or other)
 
 *** QUICK NOTE:  We need to make a way that coders can easily see what 
@@ -32,9 +32,8 @@ Implemented:
     Libraries
         now has realtime watching!
     Playlists
-        has random, repeat
-        export to m3u/pls/asx/xspf
-        import from xspf
+        random, repeat
+        import/export for m3u/pls/asx/xspf
     Player
     Queue
     Settings

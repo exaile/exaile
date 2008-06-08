@@ -143,7 +143,7 @@ def save_to_asx(playlist, path):
     handle = open(path, "w")
     
     handle.write("<asx version=\"3.0\">\n")
-    if playlist.get_name() != '':
+    if playlist.get_name() == '':
         name = ''
     else:
         name = playlist.get_name()
@@ -153,14 +153,24 @@ def save_to_asx(playlist, path):
         handle.write("<entry>\n")
         handle.write("  <title>%s</title>\n" % track['title'])
         handle.write("  <ref href=\"%s\" />\n" % urllib.quote(track.get_loc()))
-        handle.write("</entry\n")
+        handle.write("</entry>\n")
     
     handle.write("</asx>")
     handle.close()
     
 def import_from_asx(path):
-    # urllib.unquote(string)
-    pass
+    tree = cETree.ElementTree(file=open(path))
+    tracks = tree.findall("entry")
+    name = tree.find("title").text.strip()
+    pl = Playlist(name=name)
+    for t in tracks:
+        tr = track.Track()
+        loc = urllib.unquote(t.find("ref").get("href"))
+        tr.set_loc(loc)
+        tr['title'] = t.find("title").text.strip()
+        tr.read_tags()
+        pl.add(tr)
+    return pl
 
 XSPF_MAPPING = {
         'title': 'title',

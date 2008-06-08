@@ -5,13 +5,10 @@
 #
 # Also takes care of parsing commandline options.
 
+__version__ = '0.3.0devel'
 
 from xl import common, collection, playlist, player, settings
-from xl import xdg, path, manager, event, devices, hal
-
-# TEMPORARY SCROBBLER STUFF, don't get your pants in a bunch.  this will be
-# moved to an actual plugin later.
-from plugins import scrobbler
+from xl import xdg, manager, event, devices, hal, plugins
 
 import os
 
@@ -143,11 +140,6 @@ class Exaile(object):
         #initialize HAL
         self.hal = hal.HAL(self.devices)
 
-        # TEMPORARY AUDIOSCROBBLER STUFF
-        user = self.settings.get_option('plugin/lastfm/user', '')
-        passwd = self.settings.get_option('plugin/lastfm/pass', '')
-        self.scrobbler = scrobbler.ExaileScrobbler(self.player, user, passwd) 
-
         #initialize CoverManager
         #self.covers = ???
 
@@ -155,7 +147,7 @@ class Exaile(object):
         #self.lyrics = ???
 
         #initialize PluginManager
-        #self.plugins = ???
+        self.plugins = plugins.PluginsManager(self)
 
         #setup GUI
         #self.gui = xlgui.Main()
@@ -187,13 +179,16 @@ class Exaile(object):
             pl.add_param('xl_rating', '>', item)
             self.playlists.add_smart_playlist(pl)
 
+
+    # The mainloop stuff makes gobject play nicely with python threads.
+    # Necessary for DBUS signal listening (hal) and gstreamer 
+    # messages (player).
     def mainloop(self):
         import gobject, dbus.mainloop.glib
         dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
         dbus.mainloop.glib.threads_init()
         dbus.mainloop.glib.gthreads_init()
         loop = gobject.MainLoop()
-        #dbus.set_default_main_loop(loop)
         gobject.threads_init()
         context = loop.get_context()
         self.__mainloop(context)
@@ -227,10 +222,12 @@ class Exaile(object):
         self.collection.save_to_location()
         self.collection.save_libraries()
 
-        #TODO: save player, queue, playlists
+        #TODO: save player, queue
 
         self.settings.save()
 
         exit()
+
+
 # vim: et sts=4 sw=4
 

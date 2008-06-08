@@ -5,6 +5,7 @@ currently working on.
 Current projects:
     Aren Olson - Plugins System, Dynamic Playlists
     Adam Olsen - Tests (doctests or other)
+    Anthony Waters - Lyrics
 
 *** QUICK NOTE:  We need to make a way that coders can easily see what 
 object export which events, and possibly have a way for this to show up 
@@ -56,8 +57,6 @@ Implemented:
         manages persistence of playlists and smart playlists.
 
 Things that can probably be implemented at this stage:
-    Playlist Importing
-        stubs in playlist.py
     Alternate Playback Systems
         will need more abstraction in player.py, but is feasable
         stub for generic Player class exists
@@ -72,7 +71,8 @@ Things that can probably be implemented at this stage:
     Plugins System
         this will need to be expanded later to integrate the GUI API
         file format: transfers as .exz, which gets unzipped to a folder in
-            $XDG_DATA_HOME/exaile/plugins/.
+            $XDG_DATA_HOME/exaile/plugins/. Plugins may also be installed
+            in $XDG_DATA_DIRS by packages.
     Dynamic Playlists
         pluggable backends: allow matching via last.fm, musicbrainz, etc.
         allow combining multiple backends
@@ -80,6 +80,8 @@ Things that can probably be implemented at this stage:
         allow setting of song 'buffer size', ie how many songs ahead of the
             playing song to queue up. if for some reason the buffer empties,
             fill it back to this level.
+    Kill xl/path.py
+        relevant code should be merged into xdg.py
 
 Other Work-Items:
     Gapless Playback
@@ -113,9 +115,6 @@ Other Work-Items:
         support embedded covers
         cover from filename via tag info (eg. %artist-%album.jpg)
     DBUS
-    Kill xl/path.py
-        relevant code should be merged into xdg.py
-
 
 ==== NOTES ====
 xl is to be split into xl and xlgui. All code concerning the display of 

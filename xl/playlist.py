@@ -2,6 +2,10 @@
 #
 # Playlist - essentially an ordered TrackDB
 #
+# SmartPlaylist - playlist that auto-populates from a collection
+#
+# PlaylistManager - playlist persistence manager
+#
 # also contains functions for saving and loading various playlist formats.
 
 from xl import trackdb, event, xdg, track

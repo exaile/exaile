@@ -3,7 +3,7 @@ It should also be used to keep track of what each developer is
 currently working on.
 
 Current projects:
-    Aren Olson - Plugins System, Dynamic Playlists
+    Aren Olson -  Dynamic Playlists
     Adam Olsen - Tests (doctests or other)
     Anthony Waters - Lyrics
 
@@ -55,6 +55,11 @@ Implemented:
         only for cd right now
     Playlists Manager
         manages persistence of playlists and smart playlists.
+    Plugins System
+        this will need to be expanded later to integrate the GUI API
+        file format: tar archive (optionally with gzip/bzip2), gets extracted
+                into XDG_DATA_HOME, loads from there ro XDG_DATA_DIRS
+        does not yet allow retrieval from remote server (has stubs)
 
 Things that can probably be implemented at this stage:
     Alternate Playback Systems
@@ -68,11 +73,6 @@ Things that can probably be implemented at this stage:
         matching tracks based on tag content rather than loc.
         useful for: detecting moves withing the library, xspf playlists
         ?match by everything or a subset? if x% is the same? efficiency?
-    Plugins System
-        this will need to be expanded later to integrate the GUI API
-        file format: transfers as .exz, which gets unzipped to a folder in
-            $XDG_DATA_HOME/exaile/plugins/. Plugins may also be installed
-            in $XDG_DATA_DIRS by packages.
     Dynamic Playlists
         pluggable backends: allow matching via last.fm, musicbrainz, etc.
         allow combining multiple backends
@@ -80,15 +80,24 @@ Things that can probably be implemented at this stage:
         allow setting of song 'buffer size', ie how many songs ahead of the
             playing song to queue up. if for some reason the buffer empties,
             fill it back to this level.
-    Kill xl/path.py
-        relevant code should be merged into xdg.py
+    Last.fm
+        implement as plugin
+        scrobbling/radio, each togglable separately
+    Podcasts & Internet Radio
+        not really sure how these two should look on the backend, ideas?
+    Lyrics
+        pluggable backends (lyricwiki, others?)
+        support embedded lyrics
+    Covers
+        pluggable backends (amazon, last.fm?, musicbrainz?)
+        support embedded covers
+        cover from filename via tag info (eg. %artist-%album.jpg)
+    DBUS
 
 Other Work-Items:
     Gapless Playback
         doable? difficulty?
         cross-fade too?
-    Podcasts & Internet Radio
-        not really sure how these two should look on the backend, ideas?
     MP3 Player Support (very involved, should wait for a while)
         generic classes subclassable for iPod, MTP and MassStorage players
         create a special Collection for each, load Playlists, etc.
@@ -102,19 +111,9 @@ Other Work-Items:
             allow custom file layout if applicable
         podcast support
             limit number / autodelete old ?
-    Last.fm
-        implement as plugin
-        scrobbling/radio, each togglable separately
     GUI
         this is a big one, should come very late
-    Lyrics
-        pluggable backends (lyricwiki, others?)
-        support embedded lyrics
-    Covers
-        pluggable backends (amazon, last.fm?, musicbrainz?)
-        support embedded covers
-        cover from filename via tag info (eg. %artist-%album.jpg)
-    DBUS
+
 
 ==== NOTES ====
 xl is to be split into xl and xlgui. All code concerning the display of 

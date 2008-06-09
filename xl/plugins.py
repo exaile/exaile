@@ -115,3 +115,6 @@ class PluginsManager(object):
         to_enable = self.settings.get_option("plugins/enabled", DEFAULT_PLUGINS)
         for plugin in to_enable:
             self.enable_plugin(plugin)
+
+# vim: et sts=4 sw=4
+

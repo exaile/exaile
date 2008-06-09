@@ -2,7 +2,7 @@
 
 
 from xl import xdg, common, settings
-import os, imp, urllib, tarfile
+import os, sys, imp, urllib, tarfile
 
 import logging
 logger = logging.getLogger(__name__)
@@ -21,10 +21,10 @@ class PluginsManager(object):
             except:
                 pass
 
-        self.exaile = exaile 
-        
-        self.enabled_plugins = {}
+        self.plugindirs = [ x for x in self.plugindirs if os.path.exists(x) ]
 
+        self.exaile = exaile 
+        self.enabled_plugins = {}
         self.settings = settings.SettingsManager.settings
         
         self.load_enabled()
@@ -40,7 +40,9 @@ class PluginsManager(object):
         path = self.__findplugin(pluginname)
         if path is None:
             return False
+        sys.path.insert(0, path)
         plugin = imp.load_source(pluginname, os.path.join(path,'__init__.py'))
+        sys.path = sys.path[1:]
         return plugin
 
     def install_plugin(self, path):

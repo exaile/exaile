@@ -137,6 +137,7 @@ class GSTPlayer(Player):
         self.tag_func = None
         self.setup_playbin()
         self.queue = None
+        self.playtime_stamp = None
 
     def set_queue(self, queue):
         self.queue = queue
@@ -245,6 +246,7 @@ class GSTPlayer(Player):
 
             self.playbin.set_property('uri', uri.encode(common.get_default_encoding()))
 
+        self.reset_playtime_stamp()
         self.playbin.set_state(gst.STATE_PLAYING)
         self.current = track
         event.log_event('playback_start', self, track)
@@ -284,21 +286,41 @@ class GSTPlayer(Player):
         """
             Pauses the currently playing track
         """
+        self.update_playtime()
         self.playbin.set_state(gst.STATE_PAUSED)
-        event.log_event('playback_pause', self, self.current)        
+        event.log_event('playback_pause', self, self.current)
+        self.reset_playtime_stamp()
 
     def toggle_pause(self):
         if self.is_paused():
+            self.playtime_stamp = int(time.time())
             self.playbin.set_state(gst.STATE_PLAYING)
             event.log_event('playback_resume', self, self.current)
         else:
-            self.playbin.set_state(gst.STATE_PAUSED)
-            event.log_event('playback_start', self, self.current)
+            self.pause()
+
+    def update_playtime(self):
+        if self.current and self.playtime_stamp:
+            last = self.current['playtime']
+            if type(last) == str:
+                try:
+                    last = int(last)
+                except:
+                    last = 0
+            elif type(last) != int:
+                last = 0
+            self.current['playtime'] = last + int(time.time() - \
+                    self.playtime_stamp)
+            self.playtime_stamp = None
+
+    def reset_playtime_stamp(self):
+        self.playtime_stamp = time.time()
 
     def stop(self):
         """
             Stops the playback of the currently playing track
         """
+        self.update_playtime()
         current = self.current
         for connection in self.connections:
             self.bus.disconnect(connection)
@@ -306,7 +328,8 @@ class GSTPlayer(Player):
 
         self.playbin.set_state(gst.STATE_NULL)
         self.current = None
-        event.log_event('playback_end', self, current)
+        if current:
+            event.log_event('playback_end', self, current)
 
 
     def get_position(self):

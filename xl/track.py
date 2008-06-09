@@ -177,10 +177,13 @@ class Track(object):
             tag: tag to get [string]
         """
         values = self.tags.get(tag)
-        if values:
-            values = (common.to_unicode(x, self['encoding']) for x in values
-                if x not in (None, ''))
-            return u" / ".join(values)
+        if values not in [None, "", [] ]:
+            if isinstance(values, list):
+                values = [ common.to_unicode(x, self.tags['encoding']) \
+                        for x in values if x not in (None, '') ]
+                return u" / ".join(values)
+            else:
+                return values
         return u""
 
     def set_tag(self, tag, values, append=False):
@@ -191,14 +194,19 @@ class Track(object):
             values: list of values for the tag [list]
             append: whether to append to existing values [bool]
         """
-        if not isinstance(values, list): values = [values]
+        if not isinstance(values, list):
+            if append:
+                values = [values]
+            else:
+                self.tags[tag] = values
         # filter out empty values and convert to unicode
-        values = (common.to_unicode(x, self['encoding']) for x in values
-            if x not in (None, ''))
-        if append:
-            self.tags[tag].extend(values)
-        else:
-            self.tags[tag] = list(values)
+        if isinstance(values, list):
+            values = [common.to_unicode(x, self.tags['encoding']) for x in values
+                if x not in (None, '')]
+            if append:
+                self.tags[tag].extend(values)
+            else:
+                self.tags[tag] = list(values)
 
         track_updated(self, tag, values)
 

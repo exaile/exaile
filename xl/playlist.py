@@ -474,13 +474,14 @@ class Playlist(trackdb.TrackDB):
         """
         return "%s: %s" % (type(self), self.name)
 
-class SmartPlaylist(Playlist):
+
+class SmartPlaylist(trackdb.TrackDB):
     """ 
         Represents a Smart Playlist.  
         This will query a collection object using a set of parameters
     """
     def __init__(self, name="", location=None, collection=None, 
-        pickle_attrs=[], save=True):
+        pickle_attrs=[]):
         """
             Sets up a smart playlist
             
@@ -494,10 +495,10 @@ class SmartPlaylist(Playlist):
         self.or_match = False
         self.track_count = -1
         self.random_sort = False
-        self._save = save
+        self._dirty = False
         pickle_attrs += ['search_params', 'or_match', 'track_count',
             'random_sort']
-        Playlist.__init__(self, name=name, location=location,
+        trackdb.TrackDB.__init__(self, name=name, location=location,
                 pickle_attrs=pickle_attrs)
 
     def set_collection(self, collection):
@@ -579,6 +580,7 @@ class SmartPlaylist(Playlist):
             self.search_params.insert(index, param)
         else:
             self.search_params.append(param)
+        self._dirty = True
 
     def remove_param(self, index):
         """
@@ -586,28 +588,33 @@ class SmartPlaylist(Playlist):
         
             index:  the index of the parameter to remove
         """
+        self._dirty = True
         return self.search_params.pop(index)
 
-    def update(self, collection=None, clear=True):
+    def get_playlist(self, collection=None):
         """
-            Update internal tracks by querying the collection
+            Generates a playlist by querying the collection
             
             @param collection: the collection to search (leave none to search
                         internal ref)
             @param clear:      clear current tracks
         """
-        self.remove_tracks(0, len(self))
         if not collection:
             collection = self.collection
         if not collection: #if there wasnt one set we might not have one
             return
 
         search_string = self._create_search_string()
-        search_field = None
-        if self.random_sort: search_field = 'RANDOM'
+        sort_field = None
+        if self.random_sort: 
+            sort_field = 'RANDOM'
 
-        self.add_tracks(collection.search(search_string, search_field,
+        pl = Playlist(name=self.get_name())
+
+        pl.add_tracks(collection.search(search_string, sort_field,
             self.track_count))
+
+        return pl
 
     def _create_search_string(self):
         """
@@ -660,6 +667,11 @@ class SmartPlaylist(Playlist):
         else:
             return ' '.join(params)
 
+    def save_to_location(self, location=None):
+        if self._dirty:
+            trackdb.TrackDB.save_to_location(self, location=location)
+            self._dirty = False
+
 
 class PlaylistManager(object):
     def __init__(self):
@@ -703,7 +715,7 @@ class PlaylistManager(object):
             if pl is not None:
                 pl.save_to_location()
         for pl in self.smart_playlists.values():
-            if pl is not None and pl._save:
+            if pl is not None:
                 pl.save_to_location()
 
     def rename_playlist(self, old, new):

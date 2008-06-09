@@ -132,7 +132,9 @@ class Exaile(object):
 
         #initalize PlaylistsManager
         self.playlists = playlist.PlaylistManager()
-        self._add_default_playlists()
+        self._add_default_playlists() #TODO: run this only first time or 
+                                      #      when requested
+
 
         #initalize device manager
         self.devices = devices.DeviceManager()
@@ -159,13 +161,13 @@ class Exaile(object):
 
         # entire playlist
         entire_lib = playlist.SmartPlaylist("Entire Library",
-            collection=self.collection, save=False) 
+            collection=self.collection) 
         self.playlists.add_smart_playlist(entire_lib)
 
         # random playlists
         for count in (100, 300, 500):
             pl = playlist.SmartPlaylist("Random %d" % count,
-                collection=self.collection, save=False)
+                collection=self.collection)
             pl.set_return_limit(count)
             pl.set_random_sort(True)
             self.playlists.add_smart_playlist(pl)
@@ -173,7 +175,7 @@ class Exaile(object):
         # rating based playlists
         for item in (3, 4):
             pl = playlist.SmartPlaylist("Rating > %d" % item, 
-                collection=self.collection, save=False)
+                collection=self.collection)
             pl.add_param('rating', '>', item)
             self.playlists.add_smart_playlist(pl)
 

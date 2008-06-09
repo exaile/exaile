@@ -3,7 +3,7 @@ It should also be used to keep track of what each developer is
 currently working on.
 
 Current projects:
-    Aren Olson -  Dynamic Playlists
+    Aren Olson - Dynamic Playlists
     Adam Olsen - Tests (doctests or other)
     Anthony Waters - Lyrics
 
@@ -44,7 +44,6 @@ Implemented:
         exaile's config and data files now stored according to xdg spec
     Logging System
     Smart Playlists
-        todo: use events to add tracks efficiently on-the-fly
     CD Playback
         doesn't support mp3 CDs yet
     Track Syncronization
@@ -56,9 +55,8 @@ Implemented:
     Playlists Manager
         manages persistence of playlists and smart playlists.
     Plugins System
-        this will need to be expanded later to integrate the GUI API
         file format: tar archive (optionally with gzip/bzip2), gets extracted
-                into XDG_DATA_HOME, loads from there ro XDG_DATA_DIRS
+                into XDG_DATA_HOME, loads from there or XDG_DATA_DIRS
         does not yet allow retrieval from remote server (has stubs)
 
 Things that can probably be implemented at this stage:
@@ -113,6 +111,7 @@ Other Work-Items:
             limit number / autodelete old ?
     GUI
         this is a big one, should come very late
+
 
 
 ==== NOTES ====

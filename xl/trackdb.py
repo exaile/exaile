@@ -160,7 +160,8 @@ class TrackDB(object):
                 # bad hack to allow saving of lists/dicts of Tracks
                 if 'tracks' in attr:
                     if type(getattr(self, attr)) == list:
-                        pdata[attr] = [ x._pickles() for x in getattr(self, attr) ]
+                        pdata[attr] = [ x._pickles() \
+                                for x in getattr(self, attr) ]
                     elif type(getattr(self, attr)) == dict:
                         data = deepcopy(getattr(self, attr))
                         for k,v in data.iteritems():

@@ -2,7 +2,7 @@
 
 
 from xl import xdg, common, settings
-import os, imp
+import os, imp, urllib, tarfile
 
 import logging
 logger = logging.getLogger(__name__)
@@ -23,17 +23,12 @@ class PluginsManager(object):
 
         self.exaile = exaile 
         
-        self.loaded_plugins = {}
         self.enabled_plugins = {}
 
         self.settings = settings.SettingsManager.settings
         
-        self.load_installed_plugins()
         self.load_enabled()
 
-    def load_installed_plugins(self):
-        for plugin in self.list_installed_plugins():
-            self.load_plugin(plugin)
 
     def __findplugin(self, pluginname):
         for dir in self.plugindirs:
@@ -46,21 +41,28 @@ class PluginsManager(object):
         if path is None:
             return False
         plugin = imp.load_source(pluginname, os.path.join(path,'__init__.py'))
-        self.loaded_plugins[pluginname] = plugin
-        logger.debug("Loaded plugin %s"%pluginname)
-        return True
+        return plugin
 
-    def install_plugin(self, uri):
-        pass
+    def install_plugin(self, path):
+        tar = tarfile.open(path, "r:*") #transparently supports gz, bz2
+        tar.extractall(self.plugindirs[0]) #FIXME: this is unsafe
 
     def uninstall_plugin(self, pluginname):
-        pass
+        self.disable_plugin(pluginname)
+        for dir in self.plugindirs:
+            try:
+                common.remove_recursive(self.__findplugin(pluginname))
+                return True
+            except:
+                pass
+        return False
 
     def enable_plugin(self, pluginname):
         try:
-            plugin = self.loaded_plugins[pluginname]
+            plugin = self.load_plugin(pluginname)
             plugin.enable(self.exaile)
             self.enabled_plugins[pluginname] = plugin
+            logger.debug("Loaded plugin %s."%pluginname)
         except:
             logger.warning("Unable to enable plugin %s."%pluginname)
             common.log_exception()

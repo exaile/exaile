@@ -163,5 +163,21 @@ def to_url(path):
         return 'file://' + urllib.pathname2url(path)
     except IOError:
         return path
+
+def remove_recursive(path):
+    """
+        removes a folder and all enclosed files recursively
+    """
+    # why isn't this in the standard library?
+
+    for root, dirs, files in os.walk(path, topdown=False):
+        for name in files:
+            os.remove(os.path.join(root, name))
+        for name in dirs:
+            os.rmdir(os.path.join(root, name))
+    os.rmdir(path)
+
+
+
 # vim: et sts=4 sw=4
 

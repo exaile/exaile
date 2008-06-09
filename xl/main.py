@@ -8,7 +8,7 @@
 __version__ = '0.3.0devel'
 
 from xl import common, collection, playlist, player, settings
-from xl import xdg, manager, event, devices, hal, plugins
+from xl import xdg, event, devices, hal, plugins
 
 import os
 
@@ -132,10 +132,10 @@ class Exaile(object):
 
         #initalize PlaylistsManager
         self.playlists = playlist.PlaylistManager()
+        self._add_default_playlists()
 
         #initalize device manager
         self.devices = devices.DeviceManager()
-        self._add_default_playlists()
 
         #initialize HAL
         self.hal = hal.HAL(self.devices)
@@ -157,8 +157,6 @@ class Exaile(object):
             Adds some default smart playlists to the playlist manager
         """
 
-        ## dynamic playlists
-
         # entire playlist
         entire_lib = playlist.SmartPlaylist("Entire Library",
             collection=self.collection, save=False) 
@@ -176,7 +174,7 @@ class Exaile(object):
         for item in (3, 4):
             pl = playlist.SmartPlaylist("Rating > %d" % item, 
                 collection=self.collection, save=False)
-            pl.add_param('xl_rating', '>', item)
+            pl.add_param('rating', '>', item)
             self.playlists.add_smart_playlist(pl)
 
 
@@ -209,6 +207,7 @@ class Exaile(object):
         """
         if self.quitting: return
         self.quitting = True
+
         # this event should be used by plugins and modules that dont need
         # to be saved in any particular order. modules that might be 
         # touched by events triggered here should be added statically

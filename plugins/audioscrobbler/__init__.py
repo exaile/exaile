@@ -1,7 +1,7 @@
 
 import _scrobbler as scrobbler
 from xl import common, event
-import logging, time, md5
+import gobject, logging, time, md5
 
 from xl.settings import SettingsManager
 settings = SettingsManager.settings
@@ -37,10 +37,8 @@ class ExaileScrobbler(object):
         self.start_time = 0
         self.time_started = 0
         self.connected = False
-        self.submission_queue = []
         self.get_options('','','plugin/lastfm/user')
         event.set_event_callback(self.get_options, 'option_set')
-
 
     def get_options(self, type, sm, option):
         if option not in ['plugin/lastfm/user', 'plugin/lastfm/password',
@@ -107,18 +105,12 @@ class ExaileScrobbler(object):
 
 
     @common.threaded
-    def submit_to_scrobbler(self, track, time_started, time_played, queue=True):
+    def submit_to_scrobbler(self, track, time_started, time_played):
         if scrobbler.SESSION_ID:
             try:
                 scrobbler.submit(track['artist'], track['title'],
                     int(time_started), 'P', '', track.get_duration(), 
                     track['album'], track.get_track(), autoflush=True)
-                if queue:
-                    for item in self.submission_queue:
-                        self.submit_to_scrobbler(item[0], item[1], item[2], False)
             except:
                 common.log_exception()
                 logger.warning("LastFM: Failed to submit track")
-                self.submission_queue.append((track, time_started, time_played))
-                return
-

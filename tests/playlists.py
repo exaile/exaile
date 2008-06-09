@@ -21,9 +21,9 @@ class SmartPlaylistTestCase(BasePlaylistTestClass):
 
     def testSearch(self, sp=None):
         if not sp: sp = self.sp
-        sp.update()
+        p = sp.get_playlist()
 
-        tracks = sp.get_tracks()
+        tracks = p.get_tracks()
         tracks.reverse()
 
         for i, track in enumerate(tracks):
@@ -37,7 +37,7 @@ class SmartPlaylistTestCase(BasePlaylistTestClass):
         # test playlist
         sp = playlist.SmartPlaylist(collection=self.collection,
             location=self.sp_loc)
-
+        
         assert sp.get_or_match() == True, "Loading saved smart playlist failed"
         self.sp.set_or_match(False)
         sp.load_from_location()
@@ -48,26 +48,26 @@ class SmartPlaylistTestCase(BasePlaylistTestClass):
         sp = playlist.SmartPlaylist(collection=self.collection)
         sp.set_return_limit(2)
 
-        sp.update()
+        p = sp.get_playlist()
 
-        assert len(sp) == 2, "Return limit test failed"
+        assert len(p) == 2, "Return limit test failed"
 
     def testRandomSort(self):
         sp = playlist.SmartPlaylist(collection=self.collection)
         sp.set_random_sort(True)
 
         check = False
-        sp.update()
+        p = sp.get_playlist()
 
-        start = sp.get_tracks()
+        start = p.get_tracks()
 
         # if it's not different in 50 iterations, something *has* to be wrong
         for i in range(50):
-            sp.update()
-            if start != sp.get_tracks():
+            p = sp.get_playlist() 
+            if start != p.get_tracks():
                 check = True
                 break
 
-            start = sp.get_tracks()
+            start = p.get_tracks()
 
         assert check == True, "Random sort did not work in 50 iterations"

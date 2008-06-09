@@ -96,7 +96,18 @@ class PluginsManager(object):
     def list_updateable_plugins(self):
         pass
 
-    
+    def get_plugin_info(self, pluginname):
+        path = os.path.join(self.__findplugin(pluginname), PLUGININFO)
+        f = open(path)
+        infodict = {}
+        for line in f:
+            try:
+                key, val = ln.split("=",1)
+                infodict[key] = eval(val)
+            except ValueError:
+                pass # this happens on blank lines
+        return infodict
+
     def save_enabled(self):
         self.settings.set_option("plugins/enabled", self.enabled_plugins.keys())
 

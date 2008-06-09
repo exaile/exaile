@@ -516,6 +516,7 @@ class SmartPlaylist(trackdb.TrackDB):
             @param sort: bool
         """
         self.random_sort = True
+        self._dirty = True
 
     def get_random_sort(self):
         """
@@ -531,6 +532,7 @@ class SmartPlaylist(trackdb.TrackDB):
                 all matched
         """
         self.track_count = count
+        self._dirty = True
 
     def get_return_limit(self):
         """
@@ -545,6 +547,7 @@ class SmartPlaylist(trackdb.TrackDB):
             value: True to match any, False to match all params
         """
         self.or_match = value
+        self._dirty = True
 
     def get_or_match(self):
         """
@@ -567,6 +570,7 @@ class SmartPlaylist(trackdb.TrackDB):
             self.search_params.insert(index, [field, op, value])
         else:
             self.search_params.append([field, op, value])
+        self._dirty = True
 
     def set_custom_param(self, param, index=-1):
         """
@@ -610,6 +614,9 @@ class SmartPlaylist(trackdb.TrackDB):
             sort_field = 'RANDOM'
 
         pl = Playlist(name=self.get_name())
+
+        tracks = collection.search(search_string, sort_field,
+        self.track_count)
 
         pl.add_tracks(collection.search(search_string, sort_field,
             self.track_count))

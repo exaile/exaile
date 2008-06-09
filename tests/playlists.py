@@ -21,6 +21,7 @@ class SmartPlaylistTestCase(BasePlaylistTestClass):
 
     def testSearch(self, sp=None):
         if not sp: sp = self.sp
+
         p = sp.get_playlist()
 
         tracks = p.get_tracks()
@@ -39,10 +40,10 @@ class SmartPlaylistTestCase(BasePlaylistTestClass):
             location=self.sp_loc)
         
         assert sp.get_or_match() == True, "Loading saved smart playlist failed"
-        self.sp.set_or_match(False)
-        sp.load_from_location()
+        sp.set_or_match(False)
 
         self.testSearch(sp)
+        self.sp.set_or_match(False)
 
     def testReturnLimit(self):
         sp = playlist.SmartPlaylist(collection=self.collection)

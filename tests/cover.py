@@ -25,6 +25,18 @@ class CoverTestCase(BaseTestClass):
         track = self.collection.search('artist=Delerium')[0]
         self.cm.set_preferred_order(['amazon'])
 
-        covers = self.cm.find_covers(track)
+        covers = self.cm.find_covers(track, limit=2)
 
-        assert len(covers) == 5, "Amazon cover search failed"
+        assert len(covers) == 2, "Amazon cover search failed"
+
+    def testLastFMCovers(self):
+        # amazon doesn't have this cover, so lastfm should return a lastfm url
+        # for the album art
+        track = {
+            'album': 'faith',
+            'artist': 'fatali'
+        }
+
+        self.cm.set_preferred_order(['lastm'])
+        covers = self.cm.find_covers(track)
+        assert len(covers) > 0, "LastFM cover search failed"

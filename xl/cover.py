@@ -14,7 +14,7 @@
 
 import os.path, os
 from lib import ecs
-import md5, urllib, traceback
+import md5, urllib, traceback, re
 from xl import common
 
 class CoverNotFoundException(Exception):
@@ -74,8 +74,9 @@ class CoverManager(object):
         self.add_search_method(
             AmazonCoverSearch('15VDQG80MCS2K1W2VRR2') # Adam Olsen's key
         )
+        self.add_search_method(LastFMCoverSearch())
 
-    def find_covers(self, track):
+    def find_covers(self, track, limit=-1):
         """
             Finds a cover for a track.  
 
@@ -85,7 +86,7 @@ class CoverManager(object):
         for name in self.preferred_order:
             if name in self.methods:
                 try:
-                    c = self.methods[name].find_covers(track)
+                    c = self.methods[name].find_covers(track, limit)
                     return c
                 except CoverNotFoundException:  
                     pass
@@ -93,7 +94,7 @@ class CoverManager(object):
         for k, method in self.methods.iteritems():
             if k not in self.preferred_order:
                 try:
-                    c = method.find_covers(track)
+                    c = method.find_covers(track, limit)
                     return c
                 except CoverNotFoundException:
                     pass
@@ -106,7 +107,7 @@ class CoverSearchMethod(object):
         Base search method
     """
     name = "basesearchmethod"
-    def find_covers(self, track):
+    def find_covers(self, track, limit):
         """
             Searches for an album cover
 
@@ -138,7 +139,7 @@ class LocalCoverSearch(CoverSearchMethod):
         self.preferred_names = ['album.jpg', 'cover.jpg']
         self.exts = ['.jpg', '.jpeg', '.png', '.gif']
 
-    def find_covers(self, track):
+    def find_covers(self, track, limit=-1):
         covers = []
         search_dir = os.path.dirname(track.get_loc())
         for file in os.listdir(search_dir):
@@ -148,11 +149,15 @@ class LocalCoverSearch(CoverSearchMethod):
             # check preferred names
             if file.lower() in self.preferred_names:
                 covers.append(os.path.join(search_dir, file))
+                if limit != -1 and len(covers) == limit:
+                    return covers
 
             # check for other names
             (pathinfo, ext) = os.path.splitext(file)
             if ext.lower() in self.exts:
                 covers.append(os.path.join(search_dir, file))
+                if limit != -1 and len(covers) == limit:
+                    return covers
 
         if covers:
             return covers
@@ -168,7 +173,7 @@ class AmazonCoverSearch(CoverSearchMethod):
     def __init__(self, amazon_key):
         ecs.setLicenseKey(amazon_key)
 
-    def find_covers(self, track):
+    def find_covers(self, track, limit=-1):
         """
             Searches amazon for album covers
         """
@@ -195,6 +200,8 @@ class AmazonCoverSearch(CoverSearchMethod):
                 h.close()
 
                 covers.append(covername)
+                if limit != -1 and len(covers) == limit:
+                    return covers
             except AttributeError: continue
             except:
                 traceback.print_exc()
@@ -204,3 +211,41 @@ class AmazonCoverSearch(CoverSearchMethod):
             raise CoverNotFoundException()
 
         return covers
+
+
+class LastFMCoverSearch(CoverSearchMethod):
+    """
+        Searches Last.FM for album art
+    """
+    name = 'lastfm'
+    regex = re.compile(r'<coverart>.*?medium>([^<]*)</medium>.*?</coverart>', 
+        re.IGNORECASE|re.DOTALL)
+    url = "http://ws.audioscrobbler.com/1.0/album/%(artist)s/%(album)s/info.xml"
+
+    def find_covers(self, track, limit=-1):
+        """
+            Searches last.fm for album covers
+        """
+        cache_dir = self.manager.cache_dir
+
+        data = urllib.urlopen(self.url % 
+        {
+            'album': track['album'],
+            'artist': track['artist']
+        }).read()
+
+        m = self.regex.search(data)
+        if not m:
+            raise CoverNotFoundException()
+
+        h = urllib.urlopen(m.group(1))
+        data = h.read()
+        h.close()
+
+        covername = os.path.join(cache_dir, md5.new(m.group(1)).hexdigest())
+        covername += ".jpg"
+        h = open(covername, 'w')
+        h.write(data)
+        h.close()
+
+        return [covername]

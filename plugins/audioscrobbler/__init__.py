@@ -1,7 +1,7 @@
 
 import _scrobbler as scrobbler
-from xl import common, event
-import gobject, logging, time, md5
+from xl import common, event,xdg
+import gobject, logging, time, md5, pickle, os
 
 from xl.settings import SettingsManager
 settings = SettingsManager.settings
@@ -32,25 +32,34 @@ def disable(exaile):
 class ExaileScrobbler(object):
     def __init__(self):
         """
-            Connects evens to the player object
+            Connects events to the player object, loads settings and cache
         """
         self.start_time = 0
         self.time_started = 0
         self.connected = False
+        self.cachefile = os.path.join(xdg.get_data_dirs()[0], 
+                "audioscrobbler.cache")
+        self.get_options('','','plugin/lastfm/cache_size')
         self.get_options('','','plugin/lastfm/user')
+        self.load_cache()
         event.set_event_callback(self.get_options, 'option_set')
+        event.set_event_callback(self._save_cache_cb, 'quit_application')
 
     def get_options(self, type, sm, option):
-        if option not in ['plugin/lastfm/user', 'plugin/lastfm/password',
-                'plugin/lastfm/submit' ]:
+        if option == 'plugin/lastfm/cache_size':
+            self.set_cache_size(
+                    settings.get_option('plugin/lastfm/cache_size', 100), False)
             return
-        username = settings.get_option('plugin/lastfm/user', '')
-        password = settings.get_option('plugin/lastfm/password', '')
-        self.submit = settings.get_option('plugin/lastfm/submit', True)
+        
+        if option in ['plugin/lastfm/user', 'plugin/lastfm/password',
+                'plugin/lastfm/submit' ]:
+            username = settings.get_option('plugin/lastfm/user', '')
+            password = settings.get_option('plugin/lastfm/password', '')
+            self.submit = settings.get_option('plugin/lastfm/submit', True)
 
-        if not self.connected:
-            if username and password:
-                self.initialize(username, password)
+            if not self.connected:
+                if username and password:
+                    self.initialize(username, password)
 
     def stop(self):
         """
@@ -60,6 +69,7 @@ class ExaileScrobbler(object):
             event.remove_callback(self.on_play, 'playback_start')
             event.remove_callback(self.on_stop, 'playback_end')
             self.connected = False
+            self.save_cache()
 
     @common.threaded
     def initialize(self, username, password):
@@ -103,6 +113,28 @@ class ExaileScrobbler(object):
         self.time_started = 0
         self.start_time = 0
 
+    def set_cache_size(self, size, save=True):
+        scrobbler.MAX_CACHE = size
+        if save:
+            settings.set_option("plugin/lastfm/cache_size", size)
+
+    def _save_cache_cb(self, a, b, c):
+        self.save_cache()
+
+    def save_cache(self):
+        cache = scrobbler.SUBMIT_CACHE
+        f = open(self.cachefile,'w')
+        pickle.dump(cache, f)
+        f.close()
+
+    def load_cache(self):
+        try:
+            f = open(self.cachefile,'r')
+            cache = pickle.load(f)
+            f.close()
+            scrobbler.SUBMIT_CACHE = cache
+        except:
+            pass
 
     @common.threaded
     def submit_to_scrobbler(self, track, time_started, time_played):

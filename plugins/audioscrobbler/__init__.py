@@ -75,8 +75,7 @@ class ExaileScrobbler(object):
     def initialize(self, username, password):
         try:
             logger.info("LastFM: attempting to connect to audioscrobbler")
-            password = md5.new(password).hexdigest()
-            scrobbler.login(username, password)
+            scrobbler.login(username, password, haspw=True)
         except:
             common.log_exception()
             return

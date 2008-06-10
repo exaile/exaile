@@ -1,6 +1,7 @@
 import unittest, doctest
 from tests.collection import *
 from tests.playlists import *
+from tests.cover import *
 
 # doctest stuff
 from xl import collection, common, playlist, settings

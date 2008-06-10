@@ -242,7 +242,7 @@ class Library(object):
         True
         >>> print c.get_libraries()[0].location
         ./tests/data
-        >>> print len(c.search(''))
+        >>> print len(c.search('artist="TestArtist"'))
         5
         >>> 
     """

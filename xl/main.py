@@ -8,7 +8,7 @@
 __version__ = '0.3.0devel'
 
 from xl import common, collection, playlist, player, settings
-from xl import xdg, event, devices, hal, plugins
+from xl import xdg, event, devices, hal, plugins, cover
 
 import os
 
@@ -141,6 +141,10 @@ class Exaile(object):
 
         #initialize HAL
         self.hal = hal.HAL(self.devices)
+
+        # cover manager
+        self.covers = cover.CoverManager(cache_dir=os.path.join(
+            xdg.get_data_dirs()[0], "covers"))
 
         #initialize CoverManager
         #self.covers = ???

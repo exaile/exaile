@@ -65,6 +65,7 @@ class ExaileScrobbler(object):
         """
             Stops submitting
         """
+        logger.info("LastFM: Stopping submissions")
         if self.connected:
             event.remove_callback(self.on_play, 'playback_start')
             event.remove_callback(self.on_stop, 'playback_end')
@@ -75,7 +76,7 @@ class ExaileScrobbler(object):
     def initialize(self, username, password):
         try:
             logger.info("LastFM: attempting to connect to audioscrobbler")
-            scrobbler.login(username, password, haspw=True)
+            scrobbler.login(username, password, hashpw=True)
         except:
             common.log_exception()
             return
@@ -94,6 +95,7 @@ class ExaileScrobbler(object):
             track.get_duration(), track.get_track())
 
     def on_play(self, type, player, track):
+
         self.time_started = track['playcount']
         if self.time_started == "":
             self.time_started = 0

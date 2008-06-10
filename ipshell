@@ -3,6 +3,15 @@
 # for those of us who rather like ipython :P
 from IPython.Shell import IPShellEmbed
 import exaile as ex
+from xl import playlist
 ex.main()
+
+def play_random(search_terms):
+    pl = playlist.Playlist()
+    pl.set_random(True)
+
+    pl.add_tracks(ex.exaile.collection.search(search_terms))
+    ex.exaile.queue.set_current_playlist(pl)
+    ex.exaile.queue.next()
 
 IPShellEmbed(user_ns = dict(exaile = ex.exaile))()

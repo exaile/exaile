@@ -1,7 +1,5 @@
 import unittest, doctest, os, shutil
-from tests.collection import *
-from tests.playlists import *
-from tests.cover import *
+import tests.collection, tests.playlists, tests.cover
 
 # doctest stuff
 from xl import collection, common, playlist, settings
@@ -10,7 +8,6 @@ doctests = [collection, common, playlist, settings]
 
 if __name__ == '__main__':
     print " -- Exaile Test Suite --\n"
-    print "Running doctests..."
     if not os.path.isdir(".testtemp"):
         os.mkdir(".testtemp", 0755)
 
@@ -19,9 +16,11 @@ if __name__ == '__main__':
     for mod in doctests:
         suite.addTest(doctest.DocTestSuite(mod))
 
-    runner = unittest.TextTestRunner()
+    loader = unittest.TestLoader()
+    for mod in (tests.collection, tests.playlists, tests.cover):
+        suite.addTests(loader.loadTestsFromModule(mod))
+
+    runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)
 
-    print "\nRunning other tests..."
-
-    unittest.main()
+    shutil.rmtree('.testtemp')

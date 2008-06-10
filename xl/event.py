@@ -107,7 +107,7 @@ class IdleManager(threading.Thread):
         # This is quite simple. If we have a job, wake up and run it.
         # If we run out of jobs, sleep until we have another one to do.
         while True:
-            if not self.queue: return
+            if self.queue is None: return
             while len(self.queue) == 0:
                 self.event.wait()
             self.event.clear()
@@ -117,7 +117,7 @@ class IdleManager(threading.Thread):
             try:
                 func.__call__(*args)
             except:
-                common.log_exception(__name__)
+                if common: common.log_exception(__name__)
 
     def add(self, func, *args):
         """

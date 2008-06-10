@@ -498,14 +498,27 @@ class SmartPlaylist(trackdb.TrackDB):
     """ 
         Represents a Smart Playlist.  
         This will query a collection object using a set of parameters
+
+        Simple usage:
+
+        >>> import xl.collection
+        >>> col = xl.collection.Collection("Test Collection")
+        >>> col.add_library(xl.collection.Library("./tests/data"))
+        >>> col.rescan_libraries()
+        >>> sp = SmartPlaylist(collection=col)
+        >>> sp.add_param("artist", "==", "Delerium")
+        >>> p = sp.get_playlist()
+        >>> p.get_tracks()[0]['album']
+        u'Chimera'
+        >>>
+            
     """
     def __init__(self, name="", location=None, collection=None, 
         pickle_attrs=[]):
         """
             Sets up a smart playlist
-            
-            collection: a reference to a TrackDB object.
-    
+
+            @param collection: a reference to a TrackDB object.
             args: See TrackDB
         """
         self.search_params = []
@@ -620,7 +633,6 @@ class SmartPlaylist(trackdb.TrackDB):
             
             @param collection: the collection to search (leave none to search
                         internal ref)
-            @param clear:      clear current tracks
         """
         if not collection:
             collection = self.collection

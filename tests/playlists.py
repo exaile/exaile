@@ -12,7 +12,7 @@ class SmartPlaylistTestCase(BasePlaylistTestClass):
     def setUp(self):
         BasePlaylistTestClass.setUp(self)
 
-        self.sp_loc = "/tmp/sp_exaile%s.playlist" % \
+        self.sp_loc = ".testtemp/sp_exaile%s.playlist" % \
             md5.new(str(time.time())).hexdigest()
         self.sp = playlist.SmartPlaylist(collection=self.collection,
             location=self.sp_loc)

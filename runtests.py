@@ -1,4 +1,4 @@
-import unittest, doctest
+import unittest, doctest, os, shutil
 from tests.collection import *
 from tests.playlists import *
 from tests.cover import *
@@ -11,6 +11,8 @@ doctests = [collection, common, playlist, settings]
 if __name__ == '__main__':
     print " -- Exaile Test Suite --\n"
     print "Running doctests..."
+    if not os.path.isdir(".testtemp"):
+        os.mkdir(".testtemp", 0755)
 
     # run doctests first
     suite = unittest.TestSuite()

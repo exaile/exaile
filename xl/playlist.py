@@ -468,6 +468,25 @@ class Playlist(trackdb.TrackDB):
         else:
             self.repeat_enabled = self.repeat_enabled == False
 
+    def set_random(self, value):
+        """
+            Enables random mode if it isn't already enabled
+
+            @param value: [bool]
+        """
+        if not self.random_enabled and value:
+            self.tracks_history = []
+
+        self.random_enabled = value
+
+    def set_repeat(self, value):
+        """
+            Enables repeat mode if it isn't already enabled
+
+            @param value: [bool]
+        """
+        self.repeat_enabled = value
+
     def __str__(self):
         """
             Returns the name of the playlist
@@ -681,6 +700,9 @@ class SmartPlaylist(trackdb.TrackDB):
 
 
 class PlaylistManager(object):
+    """
+        TODO:  document me!
+    """
     def __init__(self):
         self.playlist_dir = os.path.join(xdg.get_data_dirs()[0],'playlists')
         self.smart_playlist_dir = os.path.join(xdg.get_data_dirs()[0],

@@ -59,10 +59,11 @@ Implemented:
                 into XDG_DATA_HOME, loads from there or XDG_DATA_DIRS
         does not yet allow retrieval from remote server (has stubs)
     Covers
-        pluggable backends (amazon, last.fm)
+        amazon and last.fm classes should be moved out to plugins
         todo: support embedded covers, cover from filename via tag 
             info (eg. %artist-%album.jpg)
     Internet Radio
+        not at all feature-complete, needs shoutcast moved into plugin, etc
 
 Things that can probably be implemented at this stage:
     Alternate Playback Systems
@@ -83,15 +84,10 @@ Things that can probably be implemented at this stage:
         allow setting of song 'buffer size', ie how many songs ahead of the
             playing song to queue up. if for some reason the buffer empties,
             fill it back to this level.
-    Last.fm
-        implement as plugin
-        scrobbling/radio, each togglable separately
-    Podcasts & Internet Radio
-        not really sure how these two should look on the backend, ideas?
+    Podcasts 
     Lyrics
         pluggable backends (lyricwiki, others?)
         support embedded lyrics
-
     DBUS
 
 Other Work-Items:

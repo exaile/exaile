@@ -2,7 +2,7 @@ import lib.wmainfo
 from xl import common
 import logging
 
-logger = loggin.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 TYPE = 'wma'
 

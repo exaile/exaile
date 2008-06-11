@@ -117,6 +117,10 @@ class RadioStation(object):
         pass
 
     def load_lists(self):
+        # this should load the lists into RAM from server, file, etc.
+        pass
+
+    def get_lists(self)
         """
             Returns the rlists for this radio station
         """

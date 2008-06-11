@@ -58,6 +58,11 @@ Implemented:
         file format: tar archive (optionally with gzip/bzip2), gets extracted
                 into XDG_DATA_HOME, loads from there or XDG_DATA_DIRS
         does not yet allow retrieval from remote server (has stubs)
+    Covers
+        pluggable backends (amazon, last.fm)
+        todo: support embedded covers, cover from filename via tag 
+            info (eg. %artist-%album.jpg)
+    Internet Radio
 
 Things that can probably be implemented at this stage:
     Alternate Playback Systems
@@ -86,10 +91,7 @@ Things that can probably be implemented at this stage:
     Lyrics
         pluggable backends (lyricwiki, others?)
         support embedded lyrics
-    Covers
-        pluggable backends (amazon, last.fm?, musicbrainz?)
-        support embedded covers
-        cover from filename via tag info (eg. %artist-%album.jpg)
+
     DBUS
 
 Other Work-Items:

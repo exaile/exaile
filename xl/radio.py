@@ -25,8 +25,8 @@ class RadioManager(object):
 
         >>> manager = RadioManager()
         >>> manager.add_station(RadioStation())
-        >>> categories = manager.get_categories('test_station')
-        >>> pl = categories[0].get_playlist()
+        >>> lists = manager.load_lists('test_station')
+        >>> pl = lists[0].get_playlist()
         >>> print pl.get_tracks()[0]['title']
         Test Track
         >>>
@@ -60,22 +60,22 @@ class RadioManager(object):
         else:
             return None
 
-    def get_categories(self, station):
+    def load_lists(self, station):
         """
-            Gets the categories for the specified station
+            Gets the rlists for the specified station
 
             @param station:  The name of the station
         """
         if station in self.stations:
-            return self.stations[station].get_categories()
+            return self.stations[station].load_lists()
         else:
             return None
 
 
-class RadioCategory(object):
+class RadioList(object):
     def __init__(self, name):
         """
-            Initializes the category
+            Initializes the rlist
         """
         self.name = name
 
@@ -85,11 +85,21 @@ class RadioCategory(object):
     def get_name(self):
         return self.name
 
-    def get_categories(self):
+    def get_items(self):
         """
-            Returns subcategories
+            Returns subrlists
         """
         return []
+
+class RadioItem(object):
+    """
+        Radio Items
+    """
+    def __init__(self, name):
+        """
+            Initializes the radio item
+        """
+        self.name = name
 
     def get_playlist(self):
         tr = track.Track()
@@ -106,11 +116,11 @@ class RadioStation(object):
         """
         pass
 
-    def get_categories(self):
+    def load_lists(self):
         """
-            Returns the categories for this radio station
+            Returns the rlists for this radio station
         """
-        return [RadioCategory('TestCategory')]
+        return [RadioItem('TestCategory')]
 
     def search(self, keyword):
         return None
@@ -123,8 +133,8 @@ class ShoutcastRadioStation(RadioStation):
 
         >>> manager = RadioManager()
         >>> manager.add_station(ShoutcastRadioStation())
-        >>> categories = manager.search('shoutcast', 'ravetrax')
-        >>> tracks = categories[0].get_playlist().get_tracks()
+        >>> stations = manager.search('shoutcast', 'ravetrax')
+        >>> tracks = stations[0].get_playlist().get_tracks()
         >>> len(tracks) > 0
         True
         >>>
@@ -137,46 +147,47 @@ class ShoutcastRadioStation(RadioStation):
         self.genre_url = 'http://www.shoutcast.com/sbin/newxml.phtml'
         self.cat_url = 'http://www.shoutcast.com/sbin/newxml.phtml?genre=%(genre)s'
         self.playlist_url = 'http://www.shoutcast.com/sbin/tunein-station.pls?id=%(id)s'
-        self.categories = []
+        self.search_url = 'http://www.shoutcast.com/sbin/newxml.phtml?search=%(kw)s'
+        self.rlists = []
         self.subs = {}
         self.playlists = {}
 
-    def get_categories(self):
+    def load_items(self):
         """
-            Returns the categories for shoutcast
+            Returns the rlists for shoutcast
         """
         data = urllib.urlopen(self.genre_url).read()
         items = re.findall(r'<genre name="([^"]*)"></genre>', data)
-        categories = []
+        rlists = []
         for item in items:
-            category = RadioCategory(item)
-            category.get_categories = lambda name=item: \
-                self._get_subcategories(name)
-            categories.append(category)
+            rlist = RadioList(item)
+            rlist.get_items = lambda name=item: \
+                self._get_subrlists(name)
+            rlists.append(rlist)
         
-        self.categories = []
-        return categories
+        self.rlists = []
+        return rlists
 
-    def _get_subcategories(self, name):
+    def _get_subrlists(self, name):
         """
-            Gets the subcategories for a category
+            Gets the subrlists for a rlist
         """
         if name in self.subs:
             return self.subs[name]
 
         url = self.cat_url % {'genre': name}
         data = urllib.urlopen(url).read()
-        categories = []
+        rlists = []
         items = re.findall(r'<station name="([^"]*)" .*? id="(\d+)"', data)
         
         for item in items:
-            category = RadioCategory(item[0])
-            category.get_playlist = lambda name=item[0], station_id=item[1]: \
+            rlist = RadioItem(item[0])
+            rlist.get_playlist = lambda name=item[0], station_id=item[1]: \
                 self._get_playlist(name, station_id)
-            categories.append(category)
+            rlists.append(rlist)
 
-        self.subs[name] = categories
-        return categories
+        self.subs[name] = rlists
+        return rlists
 
     def _get_playlist(self, name, station_id):
         """
@@ -197,12 +208,15 @@ class ShoutcastRadioStation(RadioStation):
             
             @param keyword: the keyword to search
         """
-        keyword = keyword.lower()
-        found = []
-        categories = self.get_categories()
-        for cat in categories:
-            for c in cat.get_categories():
-                if c.name.lower().find(keyword) > -1:
-                    found.append(c)
-        return found
+        url = self.search_url % {'kw': keyword}
+        data = urllib.urlopen(url).read()
+        rlists = []
+        items = re.findall(r'<station name="([^"]*)" .*? id="(\d+)"', data)
 
+        for item in items:
+            rlist = RadioList(item[0])
+            rlist.get_playlist = lambda name=item[0], station_id=item[1]: \
+                self._get_playlist(name, station_id)
+            rlists.append(rlist)
+
+        return rlists

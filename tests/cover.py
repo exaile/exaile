@@ -1,6 +1,7 @@
 from base import BaseTestClass
 from xl import cover
 import time, md5, os, re
+from plugins import lastfmcovers, amazoncovers
 
 class CoverTestCase(BaseTestClass):
     def setUp(self):
@@ -8,6 +9,9 @@ class CoverTestCase(BaseTestClass):
         self.cm = cover.CoverManager(cache_dir=".testtemp/exaile_cache%s" %
             md5.new(str(time.time())).hexdigest())
         self.cm.add_defaults()
+        self.cm.add_search_method(lastfmcovers.LastFMCoverSearch())
+        self.cm.add_search_method(amazoncovers.AmazonCoverSearch(
+            amazoncovers.AMAZON_KEY))
 
     def testLocalCovers(self):
         track = self.collection.search('artist=Delerium')[0]

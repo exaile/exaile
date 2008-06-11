@@ -142,6 +142,12 @@ class GSTPlayer(Player):
     def set_queue(self, queue):
         self.queue = queue
 
+    def set_tag_function(self, func):
+        """
+            This function will be called when tag information is update
+        """
+        self.tag_func = func
+
     def eof_func(self, *args):
         self.queue.next()
 

@@ -9,6 +9,7 @@ __version__ = '0.3.0devel'
 
 from xl import common, collection, playlist, player, settings
 from xl import xdg, event, devices, hal, plugins, cover
+from xl import radio
 
 import os
 
@@ -146,8 +147,8 @@ class Exaile(object):
         self.covers = cover.CoverManager(cache_dir=os.path.join(
             xdg.get_data_dirs()[0], "covers"))
 
-        #initialize CoverManager
-        #self.covers = ???
+        # Radio Manager
+        self.radio = radio.RadioManager()
 
         #initialize LyricManager
         #self.lyrics = ???

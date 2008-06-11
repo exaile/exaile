@@ -13,8 +13,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import os.path, os
-from lib import ecs
-import md5, urllib, traceback, re
+import urllib, traceback
 from xl import common
 
 class CoverNotFoundException(Exception):
@@ -71,10 +70,6 @@ class CoverManager(object):
             Adds default search methods
         """
         self.add_search_method(LocalCoverSearch())
-        self.add_search_method(
-            AmazonCoverSearch('15VDQG80MCS2K1W2VRR2') # Adam Olsen's key
-        )
-        self.add_search_method(LastFMCoverSearch())
 
     def find_covers(self, track, limit=-1):
         """
@@ -163,89 +158,3 @@ class LocalCoverSearch(CoverSearchMethod):
             return covers
         else:
             raise CoverNotFoundException()
-
-
-class AmazonCoverSearch(CoverSearchMethod):
-    """
-        Searches amazon for an album cover
-    """
-    name = 'amazon'
-    def __init__(self, amazon_key):
-        ecs.setLicenseKey(amazon_key)
-
-    def find_covers(self, track, limit=-1):
-        """
-            Searches amazon for album covers
-        """
-        cache_dir = self.manager.cache_dir
-        try:
-            albums = ecs.ItemSearch(Keywords="%s - %s" %
-                (track['artist'], track['album']), SearchIndex="Music",
-                ResponseGroup="ItemAttributes,Images")
-        except ecs.NoExactMatches:
-            raise CoverNotFoundException()
-
-        covers = []
-        for album in albums:
-            try:
-                h = urllib.urlopen(album.LargeImage.URL)
-                data = h.read()
-                h.close()
-
-                covername = os.path.join(cache_dir,
-                    md5.new(album.LargeImage.URL).hexdigest())
-                covername += ".jpg"
-                h = open(covername, 'w')
-                h.write(data)
-                h.close()
-
-                covers.append(covername)
-                if limit != -1 and len(covers) == limit:
-                    return covers
-            except AttributeError: continue
-            except:
-                traceback.print_exc()
-                common.log_exception()
-
-        if not covers:
-            raise CoverNotFoundException()
-
-        return covers
-
-
-class LastFMCoverSearch(CoverSearchMethod):
-    """
-        Searches Last.FM for album art
-    """
-    name = 'lastfm'
-    regex = re.compile(r'<coverart>.*?medium>([^<]*)</medium>.*?</coverart>', 
-        re.IGNORECASE|re.DOTALL)
-    url = "http://ws.audioscrobbler.com/1.0/album/%(artist)s/%(album)s/info.xml"
-
-    def find_covers(self, track, limit=-1):
-        """
-            Searches last.fm for album covers
-        """
-        cache_dir = self.manager.cache_dir
-
-        data = urllib.urlopen(self.url % 
-        {
-            'album': track['album'],
-            'artist': track['artist']
-        }).read()
-
-        m = self.regex.search(data)
-        if not m:
-            raise CoverNotFoundException()
-
-        h = urllib.urlopen(m.group(1))
-        data = h.read()
-        h.close()
-
-        covername = os.path.join(cache_dir, md5.new(m.group(1)).hexdigest())
-        covername += ".jpg"
-        h = open(covername, 'w')
-        h.write(data)
-        h.close()
-
-        return [covername]

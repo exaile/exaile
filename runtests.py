@@ -3,8 +3,10 @@ import tests.collection, tests.playlists, tests.cover
 
 # doctest stuff
 from xl import collection, common, playlist, settings, radio
+from plugins import shoutcast
 
-doctests = [collection, common, playlist, settings, radio]
+doctests = [collection, common, playlist, settings, radio,
+    shoutcast]
 
 if __name__ == '__main__':
     print " -- Exaile Test Suite --\n"

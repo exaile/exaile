@@ -95,8 +95,8 @@ def save_to_pls(playlist, path):
     handle.write("Version=2")
     handle.close()
 
-def import_from_pls(path):
-    handle = open(path, 'r')
+def import_from_pls(path, handle=None):
+    if not handle: handle = open(path, 'r')
 
     #PLS doesn't store a name, so assume the filename is the name
     name = os.path.split(path)[-1].replace(".pls","")
@@ -112,24 +112,24 @@ def import_from_pls(path):
             continue
         try:
             entry, value = newline.split("=",1)
-            linedict[entry] = value
+            linedict[entry.lower()] = value
         except:
             return None
 
-    if not linedict.has_key("Version"):
+    if not linedict.has_key("version"):
         return None
-    if not linedict.has_key("NumberOfEntries"):
+    if not linedict.has_key("numberofentries"):
         return None
 
-    num = int(linedict["NumberOfEntries"])
+    num = int(linedict["numberofentries"])
 
     pl = Playlist(name=name)
 
     for n in range(1,num+1):
         tr = track.Track()
-        tr.set_loc(linedict["File%s"%n])
-        tr['title'] = linedict["Title%s"%n]
-        len = float(linedict["Length%s"%n])
+        tr.set_loc(linedict["file%s"%n])
+        tr['title'] = linedict["title%s"%n]
+        len = float(linedict["length%s"%n])
         if len < 1:
             len = 0
         tr['length'] = len

@@ -2,7 +2,7 @@
 
 
 from xl import xdg, common, settings
-import os, sys, imp, urllib, tarfile
+import os, sys, imp, urllib, tarfile, shutil
 
 import logging
 logger = logging.getLogger(__name__)
@@ -53,7 +53,7 @@ class PluginsManager(object):
         self.disable_plugin(pluginname)
         for dir in self.plugindirs:
             try:
-                common.remove_recursive(self.__findplugin(pluginname))
+                shutil.rmtree(self.__findplugin(pluginname))
                 return True
             except:
                 pass

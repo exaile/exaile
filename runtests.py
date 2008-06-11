@@ -2,9 +2,9 @@ import unittest, doctest, os, shutil
 import tests.collection, tests.playlists, tests.cover
 
 # doctest stuff
-from xl import collection, common, playlist, settings
+from xl import collection, common, playlist, settings, radio
 
-doctests = [collection, common, playlist, settings]
+doctests = [collection, common, playlist, settings, radio]
 
 if __name__ == '__main__':
     print " -- Exaile Test Suite --\n"

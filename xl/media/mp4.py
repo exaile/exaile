@@ -17,6 +17,9 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 from xl import common
+import logging
+
+logger = logging.getLogger(__name__)
 
 try:
     from mutagen.mp4 import MP4 as MP4
@@ -69,7 +72,7 @@ def fill_tag_from_path(tr):
     try:
         f = MP4(tr.get_loc_for_io())
     except:
-        common.log("Couldn't read tags from file: " + tr.get_loc())
+        logger.warning("Couldn't read tags from file: " + tr.get_loc())
         return
 
     tr['length'] = f.info.length

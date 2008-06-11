@@ -1,5 +1,8 @@
 import lib.wmainfo
 from xl import common
+import logging
+
+logger = loggin.getLogger(__name__)
 
 TYPE = 'wma'
 
@@ -29,7 +32,7 @@ def fill_tag_from_path(tr):
     try:
         inf = lib.wmainfo.WmaInfo(tr.get_loc_for_io())
     except:
-        common.log("Couldn't read tags from file: " + tr.get_loc_for_io())
+        logger.warning("Couldn't read tags from file: " + tr.get_loc_for_io())
         return
 
     tr['length'] = inf.info["playtime_seconds"]

@@ -2,11 +2,12 @@
 A pure-python library to assist sending data to AudioScrobbler (the LastFM
 backend)
 """
-import urllib, urllib2
+import urllib, urllib2, logging
 from time import mktime
 from datetime import datetime, timedelta
 from md5 import md5
-from xl import common
+
+logger = logging.getLogger(__name__)
 
 SESSION_ID = None
 POST_URL   = None
@@ -108,7 +109,7 @@ Consider using an NTP-client to keep you system time in sync.''')
       NOW_URL    = lines[2]
       POST_URL   = lines[3]
       HARD_FAILS = 0
-      common.log("[Last.FM]: Logged in successfully")
+      logger.info("[Last.FM]: Logged in successfully")
 
    else:
       # some hard error
@@ -172,7 +173,7 @@ def now_playing( artist, track, album="", length="", trackno="", mbid="",
    result = response.read()
 
    if result.strip() == "OK":
-      common.log("[Last.FM]: Submitted 'now playing' succesfully")
+      logger.info("[Last.FM]: Submitted 'now playing' succesfully")
       return True
    elif result.strip() == "BADSESSION" :
       if inner_call is False:
@@ -181,7 +182,7 @@ def now_playing( artist, track, album="", length="", trackno="", mbid="",
       else:
          raise SessionError('Invalid session')
    else:
-      common.log("[Last.FM]: Error submitting 'now playing'")
+      logger.warning("[Last.FM]: Error submitting 'now playing'")
       return False
 
 def submit(artist, track, time, source='P', rating="", length="", album="",
@@ -299,7 +300,7 @@ you login?''')
 
    if lines[0] == "OK":
       SUBMIT_CACHE = []
-      common.log("[Last.FM]: OK: %s" % data)
+      logger.info("[Last.FM]: OK: %s" % data)
       return True
    elif lines[0] == "BADSESSION" :
       if inner_call is False:

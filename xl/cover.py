@@ -16,7 +16,7 @@ import os.path, os
 import urllib, traceback
 from xl import common
 
-class CoverNotFoundException(Exception):
+class NoCoverFoundException(Exception):
     pass
 
 class CoverManager(object):
@@ -63,6 +63,8 @@ class CoverManager(object):
             @param order: a list containing the order you'd like to search
                 first
         """
+        if not type(order) in (list, tuple):
+            raise AttributeError("order must be a list or tuple")
         self.preferred_order = order
 
     def add_defaults(self):
@@ -70,6 +72,23 @@ class CoverManager(object):
             Adds default search methods
         """
         self.add_search_method(LocalCoverSearch())
+
+    def set_cover(self, track, order=None):
+        """ 
+            Sets the ['album_image'] for a given track
+
+            @param track:  The track to set the art for
+            @param order:  an optional [list] for preferred search order
+        """
+        if type(order) in (list, tuple):
+            self.preferred_order = order
+
+        try:
+            covers = self.find_covers(track)
+            track['album_image'] = covers[0]
+            return True
+        except NoCoverFoundException:
+            return False
 
     def find_covers(self, track, limit=-1):
         """
@@ -83,7 +102,7 @@ class CoverManager(object):
                 try:
                     c = self.methods[name].find_covers(track, limit)
                     return c
-                except CoverNotFoundException:  
+                except NoCoverFoundException:  
                     pass
 
         for k, method in self.methods.iteritems():
@@ -91,11 +110,11 @@ class CoverManager(object):
                 try:
                     c = method.find_covers(track, limit)
                     return c
-                except CoverNotFoundException:
+                except NoCoverFoundException:
                     pass
 
         # no covers were found, raise an exception
-        raise CoverNotFoundException()
+        raise NoCoverFoundException()
 
 class CoverSearchMethod(object):
     """
@@ -157,4 +176,4 @@ class LocalCoverSearch(CoverSearchMethod):
         if covers:
             return covers
         else:
-            raise CoverNotFoundException()
+            raise NoCoverFoundException()

@@ -1,5 +1,7 @@
 import mutagen.flac
 from xl import common
+import logging
+logger = logging.getLogger(__name__)
 
 TYPE = 'flac'
 
@@ -21,7 +23,7 @@ def fill_tag_from_path(tr):
     try:
         f = mutagen.flac.FLAC(tr.get_loc_for_io())
     except:
-        common.log("Couldn't read tags from file: " + tr.get_loc())
+        logger.warning("Couldn't read tags from file: " + tr.get_loc())
         return
     tr['length'] = int(f.info.length)
 

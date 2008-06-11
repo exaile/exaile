@@ -1,5 +1,7 @@
 import mutagen, mutagen.id3, mutagen.mp3
 from xl import common
+import logging
+logger = logging.getLogger(__name__)
 
 TYPE = 'mp3'
 IDS = { 
@@ -46,7 +48,7 @@ def get_tag(id3, t):
                 ret.extend([unicode(x.replace('\n','').replace('\r','')) \
                     for x in value.text])
             except:
-                common.log("Can't parse ID3 field")
+                logger.warning("Can't parse ID3 field")
                 common.log_exception()
     return ret
 
@@ -81,7 +83,7 @@ def fill_tag_from_path(tr):
         info = mutagen.mp3.MP3(tr.get_loc_for_io())
     except:
         #common.log_exception()
-        common.log("Couldn't read tags from file: " + tr.get_loc())
+        logger.warning("Couldn't read tags from file: " + tr.get_loc())
         return
 
     tr['length'] = info.info.length

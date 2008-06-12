@@ -18,6 +18,14 @@ config_home = os.path.join(config_home, "exaile")
 if not os.path.exists(config_home):
     os.mkdir(config_home)
 
+cache_home = os.getenv("XDG_CACHE_HOME")
+if cache_home == None:
+    cache_home = os.path.join(homedir, ".cache")
+cache_home = os.path.join(cache_home, "exaile")
+if not os.path.exists(cache_home):
+    os.mkdir(cache_home)
+
+
 data_dirs = os.getenv("XDG_DATA_DIRS")
 if data_dirs == None:
     data_dirs = "/usr/local/share/:/usr/share/"
@@ -34,6 +42,9 @@ def get_config_dir():
 
 def get_data_dirs():
     return data_dirs
+
+def get_cache_dir():
+    return cache_home
 
 
 # vim: et sts=4 sw=4

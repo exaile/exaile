@@ -15,11 +15,12 @@
 import os.path, os
 import urllib, traceback
 from xl import common
+from xl.manager import SimpleManager
 
 class NoCoverFoundException(Exception):
     pass
 
-class CoverManager(object):
+class CoverManager(SimpleManager):
     """
         Cover manager.
 
@@ -31,41 +32,10 @@ class CoverManager(object):
 
             @param cache_dir:  directory to save remotely downloaded art
         """
+        SimpleManager.__init__(self)
         self.cache_dir = cache_dir
         if not os.path.isdir(cache_dir):
             os.mkdir(cache_dir, 0755)
-
-        self.methods = {}
-        self.preferred_order = []
-
-    def add_search_method(self, method):
-        """
-            Adds a search method
-
-            @param method: search method
-        """
-        self.methods[method.name] = method
-        method._set_manager(self)
-
-    def remove_search_method(self, method):
-        """
-            Removes a search method
-            
-            @param method: the method to remove
-        """
-        if method.name in self.methods:
-            del self.methods[method.name]
-
-    def set_preferred_order(self, order):
-        """
-            Sets the preferred search order
-
-            @param order: a list containing the order you'd like to search
-                first
-        """
-        if not type(order) in (list, tuple):
-            raise AttributeError("order must be a list or tuple")
-        self.preferred_order = order
 
     def add_defaults(self):
         """

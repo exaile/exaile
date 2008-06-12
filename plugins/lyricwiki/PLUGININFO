@@ -1,0 +1,5 @@
+Version="0.0.1"
+Authors=["Anthony Waters <awaters1@gmail.com>"]
+Name="Lyrics Wiki"
+Description="Plugin to fetch lyrics from lyricwiki.org"
+

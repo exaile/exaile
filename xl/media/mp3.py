@@ -28,6 +28,7 @@ IDS = {
         "TDOR": "originaldate",
         "TOAL": "originalalbum",
         "TOPE": "originalartist",
+        "USLT": "lyrics",
         "WOAR": "website",
         }
 
@@ -35,13 +36,16 @@ def get_tag(id3, t):
     """
         Reads a specific id3 tag from the file
     """
-    if not id3.has_key(t): return [] 
     field = id3.getall(t)
-
+    if len(field) <= 0:
+        return []
     ret = []
     if t == 'TDRC' or t == 'TDOR': # values are ID3TimeStamps
         for value in field:
             ret.extend([unicode(x) for x in value.text])
+    elif t == 'USLT': # Lyrics are stored in plan old strings
+        for value in field:
+            ret.append(value.text)
     else:
         for value in field:
             try:
@@ -60,17 +64,17 @@ def write_tag(tr):
 
     for id3name, key in IDS.items():
         id3.delall(id3name)
-
+    
     for k, v in IDS.iteritems():
         if tr.tags[v]:
             try:
                 frame = mutagen.id3.Frames[k](encoding=3,
                     text = tr[v])
-                id3.loaded_frame(frame)
+                id3.add(frame)
             except:
                 common.log_exception()
-
-    id3.save(tr.io_loc)    
+    
+    id3.save(tr.get_loc_for_io(), v1=2)    
 
 def can_change(tag):
     return tag in IDS.values()

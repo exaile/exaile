@@ -9,7 +9,7 @@ __version__ = '0.3.0devel'
 
 from xl import common, collection, playlist, player, settings
 from xl import xdg, event, devices, hal, plugins, cover
-from xl import radio
+from xl import radio, lyrics
 
 import os
 
@@ -151,7 +151,7 @@ class Exaile(object):
         self.radio = radio.RadioManager()
 
         #initialize LyricManager
-        #self.lyrics = ???
+        self.lyrics = lyrics.LyricsManager()
 
         #initialize PluginManager
         self.plugins = plugins.PluginsManager(self)

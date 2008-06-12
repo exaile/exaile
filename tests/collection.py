@@ -5,7 +5,7 @@ from base import BaseTestClass
 class CollectionTestCase(BaseTestClass):
     def testCount(self):
         tracks = self.collection.search('')
-        assert len(tracks) == 6, "Number of tracks scanned is incorrect"
+        assert len(tracks) == 7, "Number of tracks scanned is incorrect"
 
     def testSaveLoad(self):
         self.collection.save_to_location()
@@ -13,7 +13,7 @@ class CollectionTestCase(BaseTestClass):
         # test col
         col = collection.Collection("TestCollection2", self.temp_col_loc)
         tracks = col.search('')
-        assert len(tracks) == 6, "Number of tracks scanned is incorrect"
+        assert len(tracks) == 7, "Number of tracks scanned is incorrect"
 
         # test libraries
         l = col.get_libraries()

@@ -1,5 +1,5 @@
 import unittest, doctest, os, shutil
-import tests.collection, tests.playlists, tests.cover
+import tests.collection, tests.playlists, tests.cover, tests.lyrics
 
 # doctest stuff
 from xl import collection, common, playlist, settings, radio
@@ -19,7 +19,7 @@ if __name__ == '__main__':
         suite.addTest(doctest.DocTestSuite(mod))
 
     loader = unittest.TestLoader()
-    for mod in (tests.collection, tests.playlists, tests.cover):
+    for mod in (tests.collection, tests.playlists, tests.cover, tests.lyrics):
         suite.addTests(loader.loadTestsFromModule(mod))
 
     runner = unittest.TextTestRunner(verbosity=2)

@@ -5,7 +5,7 @@ currently working on.
 Current projects:
     Aren Olson - Dynamic Playlists
     Adam Olsen - Tests (doctests or other)
-    Anthony Waters - Lyrics
+    Anthony Waters - 
 
 *** QUICK NOTE:  We need to make a way that coders can easily see what 
 object export which events, and possibly have a way for this to show up 
@@ -64,6 +64,7 @@ Implemented:
             info (eg. %artist-%album.jpg)
     Internet Radio
         not at all feature-complete, needs shoutcast moved into plugin, etc
+    Lyrics Manager
 
 Things that can probably be implemented at this stage:
     Alternate Playback Systems
@@ -85,9 +86,6 @@ Things that can probably be implemented at this stage:
             playing song to queue up. if for some reason the buffer empties,
             fill it back to this level.
     Podcasts 
-    Lyrics
-        pluggable backends (lyricwiki, others?)
-        support embedded lyrics
     DBUS
 
 Other Work-Items:

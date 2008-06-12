@@ -108,7 +108,8 @@ Other Work-Items:
     GUI
         this is a big one, should come very late
 
-
+Misc:
+    RAM use on large (>10000) collections? Can we get near-constant RAM use like banshee et al manage?
 
 ==== NOTES ====
 xl is to be split into xl and xlgui. All code concerning the display of 

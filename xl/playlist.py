@@ -278,16 +278,17 @@ class Playlist(trackdb.TrackDB):
         self.current_playing = False
         self.random_enabled = False
         self.repeat_enabled = False
+        self.dynamic_enabled = False
         self.tracks_history = []
         pickle_attrs += ['name', 'ordered_tracks', 'current_pos', 
                 'current_playing', "repeat_enabled", "random_enabled",
-                'tracks_history']
+                'tracks_history', 'dynamic_enabled']
         trackdb.TrackDB.__init__(self, name=name, location=location,
                 pickle_attrs=pickle_attrs)
 
     def __len__(self):
         """
-            Returns the lengh of the playlist.
+            Returns the length of the playlist.
         """
         return len(self.ordered_tracks)
 
@@ -295,7 +296,8 @@ class Playlist(trackdb.TrackDB):
         """
             allows "for song in playlist" synatax
 
-            warning: assumes playlist doesn't change while iterating
+            warning: assumes playlist doesn't change while iterating.
+            behavior is undefined if playlist changes while iterating.
         """
         return PlaylistIterator(self)
 
@@ -373,7 +375,7 @@ class Playlist(trackdb.TrackDB):
     def set_current_pos(self, pos):
         if pos < len(self.ordered_tracks):
             self.current_pos = pos
-        event.log_event('current_changed', self, pos)
+        event.log_event('pl_current_changed', self, pos)
 
     def get_current(self):
         """
@@ -417,7 +419,7 @@ class Playlist(trackdb.TrackDB):
             else:
                 self.current_pos = -1
 
-        event.log_event('current_changed', self, self.current_pos)
+        event.log_event('pl_current_changed', self, self.current_pos)
         return self.get_current()
 
     def prev(self):
@@ -441,7 +443,7 @@ class Playlist(trackdb.TrackDB):
                 else:
                     self.current_pos = 0
 
-        event.log_event('current_changed', self, self.current_pos)
+        event.log_event('pl_current_changed', self, self.current_pos)
         return self.get_current()
 
     def search(self, phrase, sort_field=None):
@@ -458,29 +460,25 @@ class Playlist(trackdb.TrackDB):
             tracks = new_tracks
         return tracks
 
-    def toggle_random(self, mode=None):
+    def toggle_random(self):
         """
             toggle random playback order
-
-            mode: set random to this [bool]
         """
         if not self.random_enabled:
             self.tracks_history = []
-        if mode is not None:
-            self.random_enabled = mode
-        else:
-            self.random_enabled = self.random_enabled == False
+        self.random_enabled = self.random_enabled == False
 
-    def toggle_repeat(self, mode=None):
+    def toggle_repeat(self):
         """
             toggle repeat playback
-
-            mode: set repeat to this [bool]
         """
-        if mode is not None:
-            self.repeat_enabled = mode
-        else:
-            self.repeat_enabled = self.repeat_enabled == False
+        self.repeat_enabled = self.repeat_enabled == False
+
+    def toggle_dynamic(self):
+        """
+            toggle dynamic adding of similar tracks to the playlist
+        """
+        self.dynamic_enabled = self.repeat_enabled == False
 
     def set_random(self, value):
         """
@@ -488,9 +486,8 @@ class Playlist(trackdb.TrackDB):
 
             @param value: [bool]
         """
-        if not self.random_enabled and value:
+        if not self.random_enabled:
             self.tracks_history = []
-
         self.random_enabled = value
 
     def set_repeat(self, value):
@@ -500,6 +497,23 @@ class Playlist(trackdb.TrackDB):
             @param value: [bool]
         """
         self.repeat_enabled = value
+
+    def set_dynamic(self, value):
+        """
+            Enables dynamic mode if it isn't already enabled
+
+            @param value: [bool]
+        """
+        self.dynamic_enabled = value
+
+    def is_random(self):
+        return self.random_enabled
+
+    def is_repeat(self):
+        return self.repeat_enabled
+
+    def is_dynamic(self):
+        return self.dynamic_enabled
 
     def __str__(self):
         """

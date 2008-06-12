@@ -17,7 +17,7 @@ class SimpleManager(object):
     """
         Simple Manager
         
-        others managers will extend this
+        other managers will extend this
     """
     def __init__(self):
         """
@@ -25,6 +25,7 @@ class SimpleManager(object):
         """
         self.methods = {}
         self.preferred_order = []
+
         # Should call child class method
         self.add_defaults()
 
@@ -56,12 +57,12 @@ class SimpleManager(object):
         if not type(order) in (list, tuple):
             raise AttributeError("order must be a list or tuple")
         self.preferred_order = order
-        
+
     def add_defaults(self):
         """
             Adds default search methods
         """
-        raise NotImplementedError
+        pass # Not all managers will need to add defaults
 
     def get_methods(self):
         """
@@ -71,8 +72,8 @@ class SimpleManager(object):
         for name in self.preferred_order:
             if name in self.methods:
                 methods.append(self.methods[name])
-
         for k, method in self.methods.iteritems():
             if k not in self.preferred_order:
                 methods.append(method)
         return methods
+

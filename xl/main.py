@@ -25,7 +25,7 @@ __version__ = '0.3.0devel'
 
 from xl import common, collection, playlist, player, settings
 from xl import xdg, event, devices, hal, plugins, cover
-from xl import radio, lyrics
+from xl import radio, lyrics, dynamic
 
 import os
 
@@ -152,6 +152,8 @@ class Exaile(object):
         self._add_default_playlists() #TODO: run this only first time or 
                                       #      when requested
 
+        #initialize dynamic playlist support
+        self.dynamic = dynamic.DynamicManager(self.collection)
 
         #initalize device manager
         self.devices = devices.DeviceManager()

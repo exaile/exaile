@@ -15,15 +15,15 @@ class LyricsManager(SimpleManager):
     def find_lyrics(self, track, update_track = False):
         """
             Fetches lyrics for a track either from 
-            1. a backend lyric plugin
-            2. the actual tags in the track
+                1. a backend lyric plugin
+                2. the actual tags in the track
             
-            @param track the track we want lyrics for, it
+            @param track: the track we want lyrics for, it
                 must have artist/title tags 
-            @param update_track if true we try to write the lyrics
+            @param update_track: if true we try to write the lyrics
                 to the tags in the track (only mp3 at the moment)
                 
-            @return tuple of the following format (lyrics, source, url)
+            @return: tuple of the following format (lyrics, source, url)
                 where lyrics are the lyrics to the track
                 source is where it came from (file, lyrics wiki, lyrics fly, etc.)
                 url is a link to the lyrics (where applicable)
@@ -75,7 +75,7 @@ class LyricSearchMethod(object):
         """
             Called by LyricsManager when lyrics are requested
             
-            @track the track that we want lyrics for
+            @param track: the track that we want lyrics for
         """
         raise NotImplementedError
     

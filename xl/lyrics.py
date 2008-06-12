@@ -1,6 +1,6 @@
 #Lyrics manager.
 #
-from manager import SimpleManager
+from xl.manager import SimpleManager
 
 class LyricsNotFoundException(Exception):
     pass

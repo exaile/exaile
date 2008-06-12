@@ -1,28 +1,64 @@
-import unittest, doctest, os, shutil
-import tests.collection, tests.playlists, tests.cover, tests.lyrics
+import unittest, doctest, os, shutil, sys, imp
+from tests import base
+import xl
 
-# doctest stuff
-from xl import collection, common, playlist, settings, radio
-from plugins import shoutcast
+sys.path.append('plugins')
 
-doctests = [collection, common, playlist, settings, radio,
-    shoutcast]
+checks = 'all'
+try:
+    checks = sys.argv[1]
+except IndexError:
+    pass
 
 if __name__ == '__main__':
     print " -- Exaile Test Suite --\n"
     if not os.path.isdir(".testtemp"):
         os.mkdir(".testtemp", 0755)
 
-    # run doctests first
-    suite = unittest.TestSuite()
-    for mod in doctests:
-        suite.addTest(doctest.DocTestSuite(mod))
-
     loader = unittest.TestLoader()
-    for mod in (tests.collection, tests.playlists, tests.cover, tests.lyrics):
-        suite.addTests(loader.loadTestsFromModule(mod))
+    suite = unittest.TestSuite()
+
+    if checks in ('doctests', 'all'):
+        for file in os.listdir('xl'):
+            if file in ('__init__.py', 'main.py') or not file.endswith('.py'): 
+                continue
+
+            mod = imp.load_source(file.replace('.py', ''), 
+                os.path.join('xl', file))
+            try:
+                suite.addTest(doctest.DocTestSuite(mod))
+            except ValueError:
+                pass
+
+    if checks in ('main', 'all'):
+        tests = []
+        for file in os.listdir('tests'):
+            if file in ('base.py','__init__.py') or not file.endswith('.py'):
+                continue
+
+            mod = imp.load_source('xl/' + file.replace('.py', ''), 
+                os.path.join('tests', file))
+            ts = loader.loadTestsFromModule(mod)
+            for test in ts._tests:
+                if not test in tests:
+                    tests.append(test)
+        
+        tests = list(set(tests))
+        suite.addTests(tests)
+
+
+    if checks in ('plugins', 'all'):
+        for file in os.listdir('plugins'):
+            path = os.path.join('plugins', file)
+            if os.path.isdir(path):
+                if not os.path.isfile(os.path.join(path, 'test.py')):
+                    print "Warning: no tests for %s" % file
+                    continue
+                mod = imp.load_source(path, os.path.join(path, 'test.py'))
+                suite.addTests(loader.loadTestsFromModule(mod))
 
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)
+            
 
     shutil.rmtree('.testtemp')

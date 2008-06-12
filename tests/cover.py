@@ -1,17 +1,18 @@
-from base import BaseTestClass
+from tests.base import BaseTestCase
 from xl import cover
 import time, md5, os, re
-from plugins import lastfmcovers, amazoncovers
 
-class CoverTestCase(BaseTestClass):
+class CoverBaseTestCase(BaseTestCase):
     def setUp(self):
-        BaseTestClass.setUp(self)
+        BaseTestCase.setUp(self)
         self.cm = cover.CoverManager(cache_dir=".testtemp/exaile_cache%s" %
             md5.new(str(time.time())).hexdigest())
         self.cm.add_defaults()
-        self.cm.add_search_method(lastfmcovers.LastFMCoverSearch())
-        self.cm.add_search_method(amazoncovers.AmazonCoverSearch(
-            amazoncovers.AMAZON_KEY))
+
+
+class LocalCoverTestCase(CoverBaseTestCase):
+    def setUp(self):
+        CoverBaseTestCase.setUp(self)
 
     def testLocalCovers(self):
         track = self.collection.search('artist=Delerium')[0]
@@ -25,22 +26,4 @@ class CoverTestCase(BaseTestClass):
         assert data.find('48 x 48') > -1, "Local cover search failed: %s" % \
             data
 
-    def testAmazonCovers(self):
-        track = self.collection.search('artist=Delerium')[0]
-        self.cm.set_preferred_order(['amazon'])
 
-        covers = self.cm.find_covers(track, limit=2)
-
-        assert len(covers) == 2, "Amazon cover search failed"
-
-    def testLastFMCovers(self):
-        # amazon doesn't have this cover, so lastfm should return a lastfm url
-        # for the album art
-        track = {
-            'album': 'faith',
-            'artist': 'fatali'
-        }
-
-        self.cm.set_preferred_order(['lastm'])
-        covers = self.cm.find_covers(track)
-        assert len(covers) > 0, "LastFM cover search failed"

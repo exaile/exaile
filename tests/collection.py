@@ -1,8 +1,8 @@
 import unittest, time, md5
 from xl import collection, settings
-from base import BaseTestClass
+from tests.base import BaseTestCase
 
-class CollectionTestCase(BaseTestClass):
+class CollectionTestCase(BaseTestCase):
     def testCount(self):
         tracks = self.collection.search('')
         assert len(tracks) == 7, "Number of tracks scanned is incorrect"

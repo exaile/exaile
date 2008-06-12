@@ -1,16 +1,16 @@
-from base import BaseTestClass
+from tests.base import BaseTestCase
 from xl import playlist
 import time, md5
 
-class BasePlaylistTestClass(BaseTestClass):
+class BasePlaylistTestCase(BaseTestCase):
     """
         stub
     """
     pass
 
-class SmartPlaylistTestCase(BasePlaylistTestClass):
+class SmartPlaylistTestCase(BasePlaylistTestCase):
     def setUp(self):
-        BasePlaylistTestClass.setUp(self)
+        BasePlaylistTestCase.setUp(self)
 
         self.sp_loc = ".testtemp/sp_exaile%s.playlist" % \
             md5.new(str(time.time())).hexdigest()

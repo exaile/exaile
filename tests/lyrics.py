@@ -1,4 +1,4 @@
-import unittest, time, md5
+import unittest, time, md5, shutil
 from xl.lyrics import LyricsManager
 from xl.lyrics import LyricsNotFoundException
 from tests.base import BaseTestCase
@@ -17,7 +17,11 @@ class LyricsBaseTestCase(BaseTestCase):
         self.plugindirs = 'plugins'
         self.lyrics = LyricsManager()
         # Create a track object
-        self.track = Track("tests/data/music/delerium/chimera/05 - Truly.mp3")
+        # (copying the file here so that it doesn't keep updating in bzr when
+        # the lyrics manager finds the lyrics and changes the file)
+        shutil.copyfile('tests/data/music/delerium/chimera/05 - Truly.mp3', 
+            '.testtemp/truly.mp3')
+        self.track = Track(".testtemp/truly.mp3")
         self.fail_track = Track("tests/data/music/testartist/first/1-black.ogg")
         # Setup plugins
         self.lyricsfly_plugin =  self.load_plugin("lyricsfly")

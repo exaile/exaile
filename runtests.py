@@ -31,21 +31,13 @@ if __name__ == '__main__':
                 pass
 
     if checks in ('main', 'all'):
-        tests = []
         for file in os.listdir('tests'):
             if file in ('base.py','__init__.py') or not file.endswith('.py'):
                 continue
 
             mod = imp.load_source('xl/' + file.replace('.py', ''), 
                 os.path.join('tests', file))
-            ts = loader.loadTestsFromModule(mod)
-            for test in ts._tests:
-                if not test in tests:
-                    tests.append(test)
-        
-        tests = list(set(tests))
-        suite.addTests(tests)
-
+            suite.addTests(loader.loadTestsFromModule(mod))
 
     if checks in ('plugins', 'all'):
         for file in os.listdir('plugins'):

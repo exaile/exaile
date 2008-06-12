@@ -42,8 +42,8 @@ class ExaileScrobbler(object):
         self.get_options('','','plugin/lastfm/cache_size')
         self.get_options('','','plugin/lastfm/user')
         self.load_cache()
-        event.set_event_callback(self.get_options, 'option_set')
-        event.set_event_callback(self._save_cache_cb, 'quit_application')
+        event.add_callback(self.get_options, 'option_set')
+        event.add_callback(self._save_cache_cb, 'quit_application')
 
     def get_options(self, type, sm, option):
         if option == 'plugin/lastfm/cache_size':
@@ -83,8 +83,8 @@ class ExaileScrobbler(object):
        
         logger.info("LastFM: Connected to audioscrobbler")
 
-        event.set_event_callback(self.on_play, 'playback_start')
-        event.set_event_callback(self.on_stop, 'playback_end')
+        event.add_callback(self.on_play, 'playback_start')
+        event.add_callback(self.on_stop, 'playback_end')
         self.connected = True
         
 

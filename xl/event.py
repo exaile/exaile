@@ -1,3 +1,17 @@
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 1, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
 # Provides a signals-like system for sending and listening for 'events'
 #
 #
@@ -37,7 +51,7 @@ def log_event(type, object, data, async=True):
     else:
         EVENT_MANAGER.emit(e)
 
-def set_event_callback(function, type=None, object=None):
+def add_call(function, type=None, object=None):
     """
         Sets an Event callback
 
@@ -56,6 +70,15 @@ def set_event_callback(function, type=None, object=None):
     """
     global EVENT_MANAGER
     EVENT_MANAGER.add_callback(function, type, object)
+
+def remove_callback(function, type=None, object=None):
+    """
+        Removes a callback
+
+        The parameters passed should match those that were passed when adding
+        the callback
+    """
+    EVENT_MANAGER.remove_callback(function, type, object)
 
 def idle_add(func, *args):
     """

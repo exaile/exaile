@@ -60,7 +60,7 @@ class CoverManager(SimpleManager):
         except NoCoverFoundException:
             return False
 
-    def find_covers(self, track):
+    def find_covers(self, track, limit=-1):
         """
             Finds a cover for a track.  
 

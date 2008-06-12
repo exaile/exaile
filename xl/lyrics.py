@@ -34,19 +34,13 @@ class LyricsManager(SimpleManager):
         lyrics = None
         source = None
         url = None
-        for name in self.preferred_order:
-            if name in self.methods and lyrics == None:
-                try:
-                    (lyrics, source, url) = self.methods[name].find_lyrics(track)
-                except LyricsNotFoundException:  
-                    pass
-
-        for k, method in self.methods.iteritems():
-            if k not in self.preferred_order and lyrics == None:
-                try:
-                    (lyrics, source, url) = method.find_lyrics(track)
-                except LyricsNotFoundException:
-                    pass
+        for method in self.get_methods():
+            try:
+                (lyrics, source, url) = method.find_lyrics(track)
+            except LyricsNotFoundException:
+                pass
+            if lyrics:
+                break
 
         # See if we want to update the track,
         # but only if we have lyrics

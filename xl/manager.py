@@ -12,6 +12,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+
 class SimpleManager(object):
     """
         Simple Manager
@@ -61,3 +62,17 @@ class SimpleManager(object):
             Adds default search methods
         """
         raise NotImplementedError
+
+    def get_methods(self):
+        """
+            returns a list of Methods, sorted by preference
+        """
+        methods = []
+        for name in self.preferred_order:
+            if name in self.methods:
+                methods.append(self.methods[name])
+
+        for k, method in self.methods.iteritems():
+            if k not in self.preferred_order:
+                methods.append(method)
+        return methods

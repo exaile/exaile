@@ -60,31 +60,28 @@ class CoverManager(SimpleManager):
         except NoCoverFoundException:
             return False
 
-    def find_covers(self, track, limit=-1):
+    def find_covers(self, track):
         """
             Finds a cover for a track.  
 
             Searches the preferred order first, and then the rest of the
             available methods.  The first cover that is found is returned.
         """
-        for name in self.preferred_order:
-            if name in self.methods:
-                try:
-                    c = self.methods[name].find_covers(track, limit)
-                    return c
-                except NoCoverFoundException:  
-                    pass
-
-        for k, method in self.methods.iteritems():
-            if k not in self.preferred_order:
-                try:
-                    c = method.find_covers(track, limit)
-                    return c
-                except NoCoverFoundException:
-                    pass
+        for method in self.get_methods():
+            try:
+                c = method.find_covers(track, limit)
+                return c
+            except NoCoverFoundException:
+                pass
 
         # no covers were found, raise an exception
         raise NoCoverFoundException()
+
+    def find_all_covers(self, track):
+        """
+            finds all available covers for a track
+        """
+        raise NotImplementedError # this isnt really needed til GUI
 
 class CoverSearchMethod(object):
     """

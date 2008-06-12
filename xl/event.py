@@ -51,7 +51,7 @@ def log_event(type, object, data, async=True):
     else:
         EVENT_MANAGER.emit(e)
 
-def add_call(function, type=None, object=None):
+def add_callback(function, type=None, object=None):
     """
         Sets an Event callback
 

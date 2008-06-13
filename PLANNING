@@ -3,7 +3,7 @@ It should also be used to keep track of what each developer is
 currently working on.
 
 Current projects:
-    Aren Olson - Dynamic Playlists
+    Aren Olson - 
     Adam Olsen - Tests (doctests or other)
     Anthony Waters - 
 
@@ -65,6 +65,7 @@ Implemented:
     Internet Radio
         not at all feature-complete, needs shoutcast moved into plugin, etc
     Lyrics Manager
+    Dynamic Playlists
 
 Things that can probably be implemented at this stage:
     Alternate Playback Systems
@@ -78,13 +79,6 @@ Things that can probably be implemented at this stage:
         matching tracks based on tag content rather than loc.
         useful for: detecting moves withing the library, xspf playlists
         ?match by everything or a subset? if x% is the same? efficiency?
-    Dynamic Playlists
-        pluggable backends: allow matching via last.fm, musicbrainz, etc.
-        allow combining multiple backends
-        store dynamic info for offline use
-        allow setting of song 'buffer size', ie how many songs ahead of the
-            playing song to queue up. if for some reason the buffer empties,
-            fill it back to this level.
     Podcasts 
     DBUS
 
@@ -107,6 +101,10 @@ Other Work-Items:
             limit number / autodelete old ?
     GUI
         this is a big one, should come very late
+    Conversion
+        we need to handle the upgrade process from 0.2->0.3 smoothly
+        this should include the collection, settings, plugins,
+            playlists, and anything else still relevant in 0.3
 
 Misc:
     RAM use on large (>10000) collections? Can we get near-constant RAM use like banshee et al manage?

@@ -12,8 +12,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from xl import xdg, common, manager
-import os, time, urllib, random, event
+from xl import xdg, common, manager, event
+import os, time, urllib, random
 
 class DynamicManager(manager.SimpleManager):
     """

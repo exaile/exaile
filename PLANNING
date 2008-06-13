@@ -3,7 +3,7 @@ It should also be used to keep track of what each developer is
 currently working on.
 
 Current projects:
-    Aren Olson - 
+    Aren Olson - MMKeys
     Adam Olsen - DBUS, Podcasts 
     Anthony Waters - 
 
@@ -90,6 +90,10 @@ Things that can probably be implemented at this stage:
         ideally, the implementation will allow for cross-fade as well,
             but this is not mandatory
     Podcasts 
+    MMKeys
+        should support gnome mmkeys, others
+        use pluggable backends
+        drop support for old mmkeys.so?
 
 Other Work-Items:
     MP3 Player Support (very involved, should wait for a while)

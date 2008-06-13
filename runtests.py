@@ -50,7 +50,6 @@ if __name__ == '__main__':
                 suite.addTests(loader.loadTestsFromModule(mod))
 
     runner = unittest.TextTestRunner(verbosity=2)
-    runner.run(suite)
-            
+    result = runner.run(suite)
 
     shutil.rmtree('.testtemp')

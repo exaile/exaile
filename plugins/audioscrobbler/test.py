@@ -1,4 +1,3 @@
-data = """
 ###########################################################################
 ###                                                                     ###
 ### audioscrobbler plugin                                               ###
@@ -7,7 +6,6 @@ data = """
 ### any good ideas, please add them here                                ###
 ###                                                                     ###
 ###########################################################################
-"""
 
 import sys
 sys.path.append('plugins/audioscrobbler')
@@ -16,7 +14,8 @@ from xl import event
 
 class AudioscrobblerTestCase(BaseTestCase):
     def setUp(self):
-        print data
+        print "No test performed.  If you can think of a test, please add it. ",
+        sys.stdout.flush()
         self.plugin = self.load_plugin('audioscrobbler')
         self.plugin.enable(self)
 

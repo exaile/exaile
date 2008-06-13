@@ -46,7 +46,7 @@ class DynamicManager(manager.SimpleManager):
             return []
         query = " OR ".join( [ 'artist=="%s"'%(x[1].lower().replace('"', '')) for x in artists ] )
         tracks = self.collection.search(query)
-        if exclude != []
+        if exclude != []:
             tracks = [ x for x in tracks if x not in exclude ]
         if limit < len(tracks) and limit > 0:
             tracks = random.sample(tracks, limit)

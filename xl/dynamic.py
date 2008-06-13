@@ -30,7 +30,7 @@ class DynamicManager(manager.SimpleManager):
         event.add_callback(self._dynamic_callback, 'pl_current_changed')
 
 
-    def find_similar_tracks(self, track, limit=-1):
+    def find_similar_tracks(self, track, limit=-1, exclude=[]):
         """
             finds tracks from the collection that are similar 
             to the passed track.
@@ -46,6 +46,8 @@ class DynamicManager(manager.SimpleManager):
             return []
         query = " OR ".join( [ 'artist=="%s"'%(x[1].lower().replace('"', '')) for x in artists ] )
         tracks = self.collection.search(query)
+        if exclude != []
+            tracks = [ x for x in tracks if x not in exclude ]
         if limit < len(tracks) and limit > 0:
             tracks = random.sample(tracks, limit)
         return tracks
@@ -117,7 +119,8 @@ class DynamicManager(manager.SimpleManager):
         if needed < 1:
             needed = 1
         curr = playlist.get_current()
-        tracks = self.find_similar_tracks(curr, needed)
+        tracks = self.find_similar_tracks(curr, needed, 
+                playlist.get_tracks())
         playlist.add_tracks(tracks)
 
 class DynamicSource(object):

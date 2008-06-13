@@ -9,7 +9,7 @@ def enable(exaile):
     exaile.dynamic.add_search_method(LastfmSource())
 
 def disable(exaile):
-    exaile.dynamic.remove_search_method('lastfm')
+    exaile.dynamic.remove_search_method_by_name('lastfm')
 
 
 class LastfmSource(DynamicSource):

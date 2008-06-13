@@ -42,9 +42,11 @@ class DynamicManager(manager.SimpleManager):
                 returned.
         """
         artists = self.find_similar_artists(track)
+        if artists == []:
+            return []
         query = " OR ".join( [ 'artist=="%s"'%(x[1].lower().replace('"', '')) for x in artists ] )
         tracks = self.collection.search(query)
-        if limit < len(tracks):
+        if limit < len(tracks) and limit > 0:
             tracks = random.sample(tracks, limit)
         return tracks
 

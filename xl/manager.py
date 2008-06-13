@@ -47,6 +47,15 @@ class SimpleManager(object):
         if method.name in self.methods:
             del self.methods[method.name]
 
+    def remove_search_method_by_name(self, name):
+        """
+            Removes a search method
+            
+            @param name: the name of the method to remove
+        """
+        if name in self.methods:
+            del self.methods[name]
+
     def set_preferred_order(self, order):
         """
             Sets the preferred search order

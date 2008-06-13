@@ -66,7 +66,6 @@ Implemented:
         not at all feature-complete, needs shoutcast moved into plugin, etc
     Lyrics Manager
     Dynamic Playlists
-        still needs result weighting
 
 Things that can probably be implemented at this stage:
     Alternate Playback Systems
@@ -106,6 +105,7 @@ Other Work-Items:
             allow custom file layout if applicable
         podcast support
             limit number / autodelete old ?
+        found on ubuntu forums: "With amarok I can grab a playlist, drag it to my player and Amarok will automatically transfer all the associated songs and generate the playlist on my player. No other app was able to do this." - this is a GOOD IDEA
     GUI
         this is a big one, should come very late
     Conversion

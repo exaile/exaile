@@ -10,3 +10,15 @@ doc: docclean
 
 docclean:
 	rm -rf ./doc/*
+
+test:
+	python runtests.py all
+
+testplugins:
+	python runtests.py plugins
+
+testmain:
+	python runtests.py main
+
+doctests:
+	python runtests.py doctests

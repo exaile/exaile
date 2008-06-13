@@ -66,6 +66,7 @@ Implemented:
         not at all feature-complete, needs shoutcast moved into plugin, etc
     Lyrics Manager
     Dynamic Playlists
+        still needs result weighting
 
 Things that can probably be implemented at this stage:
     Alternate Playback Systems
@@ -79,13 +80,19 @@ Things that can probably be implemented at this stage:
         matching tracks based on tag content rather than loc.
         useful for: detecting moves withing the library, xspf playlists
         ?match by everything or a subset? if x% is the same? efficiency?
-    Podcasts 
     DBUS
+    Gapless Playback
+        because gstreamer is nasty about this, the method is as follows:
+            queue up a new stream before the previous one ends
+            start the new stream just as the old one ends
+        this will involve implementing lookahead in the queue and playlists
+            for simplicity, lookahead can return None if random is 
+            enabled,as it's not that useful in that case anyway
+        ideally, the implementation will allow for cross-fade as well,
+            but this is not mandatory
+    Podcasts 
 
 Other Work-Items:
-    Gapless Playback
-        doable? difficulty?
-        cross-fade too?
     MP3 Player Support (very involved, should wait for a while)
         generic classes subclassable for iPod, MTP and MassStorage players
         create a special Collection for each, load Playlists, etc.

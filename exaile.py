@@ -14,6 +14,16 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+import sys
+
+if sys.platform == 'linux2':
+    # Set process name.  Only works on Linux >= 2.1.57.
+    try:
+        import ctypes
+        libc = ctypes.CDLL('libc.so.6')
+        libc.prctl(15, 'exaile',0,0,0)
+    except:
+        pass
 
 def main():
     from xl import main

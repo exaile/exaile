@@ -17,6 +17,7 @@ LAST_HS    = None   # Last handshake time
 HS_DELAY   = 0      # wait this many seconds until next handshake
 SUBMIT_CACHE = []
 MAX_CACHE  = 5      # keep only this many songs in the cache
+MAX_SUBMIT = 10     # submit at most this many tracks at one time
 PROTOCOL_VERSION = '1.2'
 __LOGIN      = {}     # data required to login
 
@@ -278,7 +279,7 @@ def flush(inner_call=False):
    """Sends the cached songs to AS.
 
    @param inner_call: Internally used variable. Don't touch!"""
-   global SUBMIT_CACHE, __LOGIN
+   global SUBMIT_CACHE, __LOGIN, MAX_SUBMIT
 
    if POST_URL is None:
       raise ProtocolError('''Cannot submit without having a valid post-URL. Did
@@ -286,7 +287,7 @@ you login?''')
 
    values = {}
 
-   for i, item in enumerate(SUBMIT_CACHE):
+   for i, item in enumerate(SUBMIT_CACHE[:MAX_SUBMIT]):
       for key in item:
          values[key + "[%d]" % i] = item[key]
 
@@ -299,7 +300,7 @@ you login?''')
    lines = result.split('\n')
 
    if lines[0] == "OK":
-      SUBMIT_CACHE = []
+      SUBMIT_CACHE = [MAX_SUBMIT:]
       logger.info("[Last.FM]: OK: %s" % data)
       return True
    elif lines[0] == "BADSESSION" :

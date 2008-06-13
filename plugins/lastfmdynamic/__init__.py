@@ -18,7 +18,8 @@ class LastfmSource(DynamicSource):
         DynamicSource.__init__(self)
 
     def get_results(self, artist):
-        url = "http://ws.audioscrobbler.com/1.0/artist/%s/similar.xml"%urllib.quote(artist)
+        ar = urllib.quote(artist.encode('utf-8'))
+        url = "http://ws.audioscrobbler.com/1.0/artist/%s/similar.xml"%ar
         try:
             f = urllib.urlopen(url)
         except:

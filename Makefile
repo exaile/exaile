@@ -35,5 +35,4 @@ doctests:
 commit: test clean
 	bzr pull
 	bzr commit
-	@echo "Committed, use bzr push to send to launchpad"
-	# don't put in push in case we're offline or cancel the commit
+	@echo "Use bzr push to send to launchpad"

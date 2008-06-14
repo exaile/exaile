@@ -103,7 +103,7 @@ class ExaileScrobbler(object):
 
         # wait 5 seconds before now playing to allow for skipping
         time.sleep(5)
-        if self.player.current == track:
+        if player.current == track:
             self.now_playing(track)
 
     def on_stop(self, type, player, track):

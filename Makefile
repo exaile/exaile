@@ -1,7 +1,15 @@
 
 
+compile:
+	python -m compileall xl lib xlgui
+	python -O -m compileall xl lib xlgui
+
+plugins:
+	cd plugins && make dist && cd ..
+
 clean:
 	find . -name "*.py[co]" -exec rm -f {} \;
+	cd plugins && make clean && cd ..
 
 doc: docclean
 	mkdir -p ./doc/
@@ -22,3 +30,10 @@ testmain:
 
 doctests:
 	python runtests.py doctests
+
+
+commit: test clean
+	bzr pull
+	bzr commit
+	@echo "Committed, use bzr push to send to launchpad"
+	# don't put in push in case we're offline or cancel the commit

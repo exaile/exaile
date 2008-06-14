@@ -300,7 +300,7 @@ you login?''')
    lines = result.split('\n')
 
    if lines[0] == "OK":
-      SUBMIT_CACHE = [MAX_SUBMIT:]
+      SUBMIT_CACHE = SUBMIT_CACHE[MAX_SUBMIT:]
       logger.info("[Last.FM]: OK: %s" % data)
       return True
    elif lines[0] == "BADSESSION" :

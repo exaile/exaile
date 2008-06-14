@@ -3,7 +3,7 @@ It should also be used to keep track of what each developer is
 currently working on.
 
 Current projects:
-    Aren Olson - 
+    Aren Olson - Persistence
     Adam Olsen - DBUS, Podcasts 
     Anthony Waters - 
 
@@ -106,7 +106,14 @@ Things that can probably be implemented at this stage:
         podcast support
             limit number / autodelete old ?
         found on ubuntu forums: "With amarok I can grab a playlist, drag it to my player and Amarok will automatically transfer all the associated songs and generate the playlist on my player. No other app was able to do this." - this is a GOOD IDEA, we should aim for this sort of "Just Works" wherever possible.
-
+    Persistence 
+        everything should be persistent, ie. when opening exaile it should appear EXACTLY as it was when you exited.
+        todo list:
+            fix bugs in playlist persistence
+            make queue, player persistent
+            optimize saving mechanisms to prevent unneeded disk I/O
+            ensure all commits to essential data are atomic
+            periodic save to disk so that in event of crash eveything is saved
 
 Other Work-Items:
     GUI
@@ -115,6 +122,9 @@ Other Work-Items:
         we need to handle the upgrade process from 0.2->0.3 smoothly
         this should include the collection, settings, plugins,
             playlists, and anything else still relevant in 0.3
+        should be the last primary 'feature' implemented
+        implement as plugin? that way it can just be unloaded afterwards
+            saving a little bit of time and memory
 
 Misc:
     RAM use on large (>10000) collections? Can we get near-constant RAM use like banshee et al manage? On further inspection, banshee is not using constant RAM, rather it is using less than 2kb per track, while 0.3 is currently slightly above 4kb per track. This is still an issue, but less so than before.

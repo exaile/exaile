@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 def callback(key):
     global EXAILE
     if key in ('Play', 'PlayPause', 'Pause'):
-        if EXAILE.player.is_playing(): 
+        if EXAILE.player.is_playing() or EXAILE.player.is_paused(): 
             EXAILE.player.toggle_pause()
         elif key != "Pause":
             EXAILE.queue.play()

@@ -167,6 +167,7 @@ class TrackDB(object):
         try:
             f = file(location, 'rb')
             pdata = pickle.load(f)
+            f.close()
         except:
             pdata = dict()
         for attr in self.pickle_attrs:

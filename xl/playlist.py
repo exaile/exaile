@@ -813,6 +813,7 @@ class PlaylistManager(object):
             if pl == None:
                 pl = Playlist(name=name, 
                         location=os.path.join(self.playlist_dir, name))
+                self.playlists[name] = pl
             return pl
         else:
             raise ValueError("No such playlist")
@@ -826,6 +827,7 @@ class PlaylistManager(object):
             if pl == None:
                 pl = SmartPlaylist(name=name, 
                         location=os.path.join(self.smart_playlist_dir,name))
+                self.smart_playlists[name] = pl
             return pl
         else:
             raise ValueError("No such playlist")

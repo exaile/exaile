@@ -133,6 +133,16 @@ Other Work-Items:
 Misc:
     RAM use on large (>10000) collections? Can we get near-constant RAM use like banshee et al manage? On further inspection, banshee is not using constant RAM, rather it is using less than 2kb per track, while 0.3 is currently slightly above 4kb per track. This is still an issue, but less so than before.
 
+    possible solution: an alternate db system based on shelve
+        shelve is basically an on-disc python dictionary
+        so we can have lower, near-constant, mem use, but use more disk i/o
+        could also potentially speed up search (== will be blazing fast)
+    implementation notes:
+        one db to store the tracks in (index by a UUID)
+        one db per tag for searching (index lowercase of tag)
+        other things to consider: playlists 
+
+
 ==== NOTES ====
 xl is to be split into xl and xlgui. All code concerning the display of 
 data and receipt of user input through the gui should go into xlgui. code 

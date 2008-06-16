@@ -111,7 +111,6 @@ class ExaileScrobbler(object):
         if not track: 
             return
         playtime = track['playtime'] - self.time_started
-        logger.info("Stop called: %s" % playtime)
         if playtime > 240 or playtime > float(track['length']) / 2.0:
             if self.submit and track['length'] > 30:
                 self.submit_to_scrobbler(track, self.start_time, playtime)

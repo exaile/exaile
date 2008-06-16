@@ -12,7 +12,7 @@ search_method = None
 # lyricsfly does weekly license keys for software in dev.
 # for permintent key please see
 # http://lyricsfly.com/api/
-license_key = "4a4bf5d237cfac72b"
+license_key = "0a8998d6e60ab8858"
 
 def enable(exaile):
     """

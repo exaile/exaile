@@ -59,11 +59,10 @@ Implemented:
                 into XDG_DATA_HOME, loads from there or XDG_DATA_DIRS
         does not yet allow retrieval from remote server (has stubs)
     Covers
-        amazon and last.fm classes should be moved out to plugins
         todo: support embedded covers, cover from filename via tag 
             info (eg. %artist-%album.jpg)
     Internet Radio
-        not at all feature-complete, needs shoutcast moved into plugin, etc
+        not at all feature-complete
     Lyrics Manager
     Dynamic Playlists
     MMKeys

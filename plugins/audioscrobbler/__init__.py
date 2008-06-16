@@ -89,7 +89,11 @@ class ExaileScrobbler(object):
         
 
     @common.threaded
-    def now_playing(self, track):
+    def now_playing(self, player, track):
+        # wait 5 seconds before now playing to allow for skipping
+        time.sleep(5)
+        if player.current != track: return
+
         logger.info("Attempting to submit now playing information...")
         scrobbler.now_playing(track['artist'], track['title'], track['album'],
             track.get_duration(), track.get_track())
@@ -101,10 +105,7 @@ class ExaileScrobbler(object):
             self.time_started = 0
         self.start_time = time.time()
 
-        # wait 5 seconds before now playing to allow for skipping
-        time.sleep(5)
-        if player.current == track:
-            self.now_playing(track)
+        self.now_playing(player, track)
 
     def on_stop(self, type, player, track):
         if not track: 

@@ -1,5 +1,6 @@
 from xl.lyrics import LyricSearchMethod
 from xl.lyrics import LyricsNotFoundException
+import cgi
 
 try:
     import xml.etree.cElementTree as cETree
@@ -9,10 +10,14 @@ except:
 import urllib
 
 search_method = None
-# lyricsfly does weekly license keys for software in dev.
-# for permintent key please see
-# http://lyricsfly.com/api/
-license_key = "0a8998d6e60ab8858"
+
+##
+## Notice.  Please request your own key from lyricswiki.com/api.  DO NOT USE
+## KEY FOR YOUR OWN SOFTWARE.
+##
+## Yeah, key is encoded.  No, it's not a good way to protect it, but there's
+## not really a great way to do it.
+license_key = "AQLkZQWyAmMxMTHkLGR0AJVgMKuunJkyYz9lMj=="
 
 def enable(exaile):
     """
@@ -32,7 +37,7 @@ class LyricsFly(LyricSearchMethod):
     name= "lyricsfly"
     def find_lyrics(self, track):
         search = "http://lyricsfly.com/api/api.php?i=%s&a=%s&t=%s" % (
-            urllib.quote_plus(license_key),
+            urllib.quote_plus(license_key.decode('rot13').decode('base64')),
             urllib.quote_plus(track["artist"]), 
             urllib.quote_plus(track["title"]))
         sock = urllib.urlopen(search)

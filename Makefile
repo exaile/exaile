@@ -33,6 +33,5 @@ doctests:
 
 
 commit: test clean
-	bzr pull
-	bzr commit
+	./commit || (bzr pull && bzr commit)
 	@echo "Use bzr push to send to launchpad"

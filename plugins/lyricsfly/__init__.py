@@ -1,6 +1,6 @@
 from xl.lyrics import LyricSearchMethod
 from xl.lyrics import LyricsNotFoundException
-import cgi
+import cgi, re
 
 try:
     import xml.etree.cElementTree as cETree
@@ -32,14 +32,21 @@ def disable(exaile):
     if search_method:
         exaile.lyrics.remove_search_method(search_method)
 
+def rep(m):
+    """
+        LyricsFly api says to replace all foreign and special characters with
+        just %.  Yeah, doesn't make sense, but that's what it says
+    """
+    return re.sub(r"[^a-zA-Z _-]", '%', m).replace('%%', '%')
+
 class LyricsFly(LyricSearchMethod):
     
     name= "lyricsfly"
     def find_lyrics(self, track):
         search = "http://lyricsfly.com/api/api.php?i=%s&a=%s&t=%s" % (
-            urllib.quote_plus(license_key.decode('rot13').decode('base64')),
-            urllib.quote_plus(track["artist"]), 
-            urllib.quote_plus(track["title"]))
+            license_key.decode('rot13').decode('base64'),
+            rep(track["artist"]), 
+            rep(track["title"]))
         sock = urllib.urlopen(search)
         xml = sock.read()
         sock.close()

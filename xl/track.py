@@ -75,8 +75,7 @@ class Track(object):
             uri: path to the track [string]
             _unpickles: unpickle data [tuple] # internal use only!
         """
-        self.tags = dict(map(lambda x: (x, ''), common.VALID_TAGS))
-        self.tags.update( {
+        self.tags = {
                 'playcount':0,
                 'bitrate':0,
                 'length':0,
@@ -84,7 +83,7 @@ class Track(object):
                 'rating':0,
                 'loc':'',
                 'encoding':'',
-                'modified': 0} )
+                'modified': 0} 
 
         self._scan_valid = False
         if uri:

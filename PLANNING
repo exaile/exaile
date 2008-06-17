@@ -108,7 +108,6 @@ Things that can probably be implemented at this stage:
     Persistence 
         everything should be persistent, ie. when opening exaile it should appear EXACTLY as it was when you exited.
         todo list:
-            fix bugs in playlist persistence - done
             make queue, player persistent
             optimize saving mechanisms to prevent unneeded disk I/O
                 done for smart playlists 

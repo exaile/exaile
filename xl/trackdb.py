@@ -34,30 +34,34 @@ logger = logging.getLogger(__name__)
 
 random.seed(time.time())
 
-def get_sort_tuple(field, track):
+def get_sort_tuple(fields, track):
     """
         Returns the sort tuple for a single track
 
-        field: the tag to sort by [string]
+        fields: the tag(s) to sort by (a single string or iterable of strings)
         track: the track to sort [Track]
     """
-    items = [track[field]]
+    if not type(fields) in (list, tuple):
+        items = [track.sort_param(field)]
+    else:
+        items = [track.sort_param(field) for field in fields]
+
     for item in SORT_ORDER:
-        items.append(track[item])
+        if track.sort_param(item) not in items:
+            items.append(track.sort_param(item))
 
     items.append(track)
     return tuple(items)
 
-def sort_tracks(field, tracks, reverse=False):
+def sort_tracks(fields, tracks, reverse=False):
     """
         Sorts tracks by the field passed
 
-        field: field to sort by [string]
+        fields: field(s) to sort by [string] or [list] of strings
         tracks: tracks to sort [list of Track]
         reverse: sort in reverse? [bool]
     """
 
-    #sort_order = [field].extend(SORT_ORDER)
     tracks = [get_sort_tuple(field, t) for t in tracks]
     tracks.sort()
     if reverse: tracks.reverse()
@@ -209,13 +213,13 @@ class TrackDB(object):
             del self.tracks[track.get_loc()]
             event.log_event("track_removed", self, track.get_loc())
 
-    def search(self, phrase, sort_field=None, return_lim=-1):
+    def search(self, phrase, sort_fields=None, return_lim=-1):
         """
             Search the trackDB, optionally sorting by sort_field
 
             @param phrase:  the search phrase
-            @param sort_field:  the field to sort by.  Use RANDOM to sort
-                randomly
+            @param sort_fields:  the field(s) to sort by.  Use RANDOM to sort
+                randomly.  A [string] or [list] of strings
             @param return_lim:  limit the number of tracks returned to a
                 maximum
         """
@@ -224,8 +228,8 @@ class TrackDB(object):
         else:
             tracks = self.tracks.values()
 
-        if sort_field:
-            if sort_field == 'RANDOM':
+        if sort_fields:
+            if sort_fields == 'RANDOM':
                 random.shuffle(tracks)
             else:
                 tracks = sort_tracks(sort_field, tracks)

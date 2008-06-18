@@ -14,4 +14,9 @@ def play_random(search_terms):
     ex.exaile.queue.set_current_playlist(pl)
     ex.exaile.queue.next()
 
+def play_station(search_terms):
+    pl = ex.exaile.radio.search('shoutcast', search_terms)[0].get_playlist()
+    ex.exaile.queue.set_current_playlist(pl)
+    ex.exaile.queue.next()
+
 IPShellEmbed(user_ns = dict(exaile = ex.exaile))()

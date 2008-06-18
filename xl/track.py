@@ -288,6 +288,14 @@ class Track(object):
         if not self['length']: self['length'] = 0
         return int(float(self['length']))
 
+    def sort_param(self, field):
+        """ 
+            Returns a sortable of the parameter given (some items should be
+            returned as an int instead of unicode)
+        """
+        if field == 'tracknumber': return self.get_track()
+        else: return self[field]
+
     def __repr__(self):
         return str(self) #for debugging, remove later
 

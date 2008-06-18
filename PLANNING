@@ -1,11 +1,12 @@
 This is for notes and plans regarding exaile 0.3. 
-It should also be used to keep track of what each developer is
+It should also be used to keep track of what each contributor is
 currently working on.
 
 Current projects:
     Aren Olson - Persistence
     Adam Olsen - DBUS, Podcasts 
     Anthony Waters - 
+    thiblahute - CD Burning
 
 *** QUICK NOTE:  We need to make a way that coders can easily see what 
 object export which events, and possibly have a way for this to show up 
@@ -74,8 +75,10 @@ Things that can probably be implemented at this stage:
         stub for generic Player class exists
     CD Burning
         class in cd.py, takes a Playlist and burns it in order
+        allow mp3 cd burning
     CD Ripping
         class in cd.py, rips a CDPlaylist or any track with a cdda loc
+        also allow import of mp3 cd?
     Content-Matching (involved)
         matching tracks based on tag content rather than loc.
         useful for: detecting moves withing the library, xspf playlists
@@ -90,8 +93,13 @@ Things that can probably be implemented at this stage:
             enabled,as it's not that useful in that case anyway
         ideally, the implementation will allow for cross-fade as well,
             but this is not mandatory
-    Podcasts 
+    Podcasts
+        part of radio or separate?
+        allow flexibility in choice of when (if?) and where to download
+        allow streaming if not downloaded
+        allow
     MP3 Player Support
+        will likely need some additional work in devices and hal
         generic classes subclassable for iPod, MTP and MassStorage players
         create a special Collection for each, load Playlists, etc.
         also should handle transfer, nto necessariliy at first
@@ -116,10 +124,17 @@ Things that can probably be implemented at this stage:
                     updated.
             ensure all commits to essential data are atomic
             periodic save to disk so that in event of crash eveything is saved
+    GUI
+        should not be drastically different from 0.2
+        separate classes (with associated glade files) for each part
+            side panes
+            playlist panel
+            now playing area
+            info tabs
+            more?
+            
 
 Other Work-Items:
-    GUI
-        this is a big one, should come very late
     Conversion
         we need to handle the upgrade process from 0.2->0.3 smoothly
         this should include the collection, settings, plugins,
@@ -131,14 +146,16 @@ Other Work-Items:
 Misc:
     RAM use on large (>10000) collections? Can we get near-constant RAM use like banshee et al manage? On further inspection, banshee is not using constant RAM, rather it is using less than 2kb per track, while 0.3 is currently slightly above 4kb per track. This is still an issue, but less so than before.
 
-    possible solution: an alternate db system based on shelve
-        shelve is basically an on-disc python dictionary
+    possible solution: an alternate db system based on dbhash
         so we can have lower, near-constant, mem use, but use more disk i/o
         could also potentially speed up search (== will be blazing fast)
     implementation notes:
-        one db to store the tracks in (index by a UUID)
+        one db to store the tracks in (index by a number)
         one db per tag for searching (index lowercase of tag)
         other things to consider: playlists 
+
+    may require more-radical change than I was anticipating, I'm putting
+    this on hold for now. work on hardening/optmizing pickledb instead
 
 
 ==== NOTES ====
@@ -149,7 +166,7 @@ that is not dependent upon the gui implementation should go in xl.
 all pluggable backends should have all backends implemented as plugins 
 unless there is a really good reason to do otherwise. we will ship and 
 enable some plugins by default to provide the best out-of-the-box 
-experience
+experience.
 
 plugins to enable by default: 
     all mmkeys plugins

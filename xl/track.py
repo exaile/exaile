@@ -1,6 +1,6 @@
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 1, or (at your option)
+# the Free Software Foundation; either version 3, or (at your option)
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
@@ -193,6 +193,8 @@ class Track(object):
             values: list of values for the tag [list]
             append: whether to append to existing values [bool]
         """
+        #if tag in common.VALID_TAGS:
+        #    values = [values]
         if not isinstance(values, list):
             if append:
                 values = [values]

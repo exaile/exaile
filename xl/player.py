@@ -17,9 +17,10 @@
 # PlayQueue - exactly what it sounds like. can also be associated with a 
 # Playlist to play form when the Queue is empty.
 #
-# Player - the player itself, subclasses of it exist for each playback
-# backend supported. An instance of one subclass is used for actual playback
+# GSTPlayer - the player itself
 #
+
+# FIXME: needs docstrings
 
 import pygst, gtk
 pygst.require('0.10')
@@ -32,9 +33,6 @@ gobject.threads_init()
 VIDEO_WIDGET=None
 
 logger = logging.getLogger(__name__)
-
-def get_default_player():
-    return GSTPlayer
 
 class PlayQueue(playlist.Playlist):
     """
@@ -101,50 +99,13 @@ class PlayQueue(playlist.Playlist):
         else:
             self.next()
 
-class Player(object):
-    """
-        This is the main player interface, other engines will subclass it
-    """
-    def __init__(self):
-        self.current = None
 
-    def play(self, track):
-        raise NotImplementedError
-
-    def stop(self):
-        raise NotImplementedError
-
-    def pause(self):
-        raise NotImplementedError
-
-    def get_progress(self):
-        raise NotImplementedError
-
-    def get_time(self):
-        raise NotImplementedError
-
-    def is_playing(self):
-        raise NotImplementedError
-
-    def is_paused(self):
-        raise NotImplementedError
-
-    def seek(self, value, wait=True):
-        raise NotImplementedError
-
-    def toggle_pause(self):
-        raise NotImplementedError
-
-        
-
-
-class GSTPlayer(Player):
+class GSTPlayer(object):
     """
         Gstreamer engine
     """
-
     def __init__(self):
-        Player.__init__(self)
+        self.current = None
         self.playing = False
         self.connections = []
         self.last_position = 0
@@ -243,8 +204,7 @@ class GSTPlayer(Player):
         if not self.audio_sink:
             self.set_audio_sink('')
 
-        if not self.connections and not self.is_paused() and not \
-            uri.find("lastfm://") > -1:
+        if not self.connections and not self.is_paused():
 
             self.connections.append(self.bus.connect('message', self.on_message))
            
@@ -313,7 +273,7 @@ class GSTPlayer(Player):
 
     def toggle_pause(self):
         if self.is_paused():
-            self.playtime_stamp = int(time.time())
+            self.reset_playtime_stamp()
             self.playbin.set_state(gst.STATE_PLAYING)
             event.log_event('playback_resume', self, self.current)
         else:
@@ -334,7 +294,7 @@ class GSTPlayer(Player):
             self.playtime_stamp = None
 
     def reset_playtime_stamp(self):
-        self.playtime_stamp = time.time()
+        self.playtime_stamp = inttime.time()
 
     def stop(self):
         """

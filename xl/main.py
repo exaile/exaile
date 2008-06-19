@@ -21,22 +21,18 @@
 
 __version__ = '0.3.0devel'
 
-from xl import common, collection, playlist, player, settings
-from xl import xdg, event, devices, hal, plugins, cover
-from xl import radio, lyrics, dynamic
-
+from xl import common, xdg, event
 import os
 
 import logging
 
 #import xlgui
 
-from optparse import OptionParser
-
 def get_options():
     """
         Get the options for exaile
     """
+    from optparse import OptionParser
     usage = "Usage: %prog [option...|uri]"
     p = OptionParser(usage=usage)
     
@@ -93,19 +89,7 @@ def get_options():
         default=False, help="Reduce level of output")
     return p
 
-
-class Exaile(object):
-    
-    def __init__(self):
-        """
-            Initializes Exaile.
-        """
-        self.quitting = False
-
-        #parse args
-        self.options, self.args = get_options().parse_args()
-
-        #set up logging
+def setup_logging(options):
         loglevel = logging.INFO
         if self.options.debug:
             loglevel = logging.DEBUG
@@ -122,64 +106,122 @@ class Exaile(object):
         console.setFormatter(formatter)
         logging.getLogger("").addHandler(console)
 
+
+class Exaile(object):
+    
+    def __init__(self):
+        """
+            Initializes Exaile.
+        """
+        self.quitting = False
+
+        #parse args
+        self.options, self.args = get_options().parse_args()
+
+        #set up logging
+        self.setup_logging()
+
         #setup glib
         self.mainloop()
 
+        #initial dbus check
+        self.dbus_start()
+
         #initialize DbusManager
-        #self.dbus = xldbus.DbusManager(self.options, self.args)
+        #from xl import dbus as xldbus
+        #self.dbus = xldbus.DbusManager(self)
 
         #initialize SettingsManager
+        from xl import settings
         self.settings = settings.SettingsManager( os.path.join(
                 xdg.get_config_dir(), "settings.ini" ) )
 
         #show splash screen if enabled
+        #import xlgui
         #xlgui.show_splash(show=True)
 
         #Set up the player itself.
-        self.player = player.get_default_player()()
+        from xl import player
+        self.player = player.GSTPlayer()
 
         #Set up the playback Queue
         self.queue = player.PlayQueue(self.player)
 
         # Initialize the collection
+        from xl import collection
         self.collection = collection.Collection("Collection",
                 location=os.path.join(xdg.get_data_dirs()[0], 'music.db') )
 
         #initalize PlaylistsManager
+        from xl import playlist
         self.playlists = playlist.PlaylistManager()
         self._add_default_playlists() #TODO: run this only first time or 
                                       #      when requested
 
         #initialize dynamic playlist support
+        from xl import dynamic
         self.dynamic = dynamic.DynamicManager(self.collection)
 
         #initalize device manager
+        from xl import devices
         self.devices = devices.DeviceManager()
 
         #initialize HAL
+        from xl import hal
         self.hal = hal.HAL(self.devices)
 
         # cover manager
+        from xl import cover
         self.covers = cover.CoverManager(cache_dir=os.path.join(
             xdg.get_data_dirs()[0], "covers"))
 
         # Radio Manager
+        from xl import radio
         self.radio = radio.RadioManager()
 
         #initialize LyricManager
+        from xl import lyrics
         self.lyrics = lyrics.LyricsManager()
 
         #initialize PluginManager
+        from xl import plugins
         self.plugins = plugins.PluginsManager(self)
 
         #setup GUI
+        #xlgui.show_splash(show=False)
         #self.gui = xlgui.Main()
+
+    def setup_logging(self):
+        loglevel = logging.INFO
+        if self.options.debug:
+            loglevel = logging.DEBUG
+        elif self.options.quiet:
+            loglevel = logging.WARNING
+        logging.basicConfig(level=logging.DEBUG,
+                format='%(asctime)s %(levelname)-8s: %(message)s (%(name)s)',
+                datefmt="%m-%d %H:%M",
+                filename=os.path.join(xdg.get_config_dir(), "exaile.log"),
+                filemode="a")
+        console = logging.StreamHandler()
+        console.setLevel(loglevel)
+        formatter = logging.Formatter("%(levelname)-8s: %(message)s (%(name)s)")
+        console.setFormatter(formatter)
+        logging.getLogger("").addHandler(console)
+
+    def dbus_start(self):
+        """
+            checks to see if there's a running exaile instance, and if there
+            is, sends it any commandline options recieved then exits.
+        """
+        import dbus
+        pass
+        #exit() # no need to clean up nicely at this point
 
     def _add_default_playlists(self):
         """
             Adds some default smart playlists to the playlist manager
         """
-
+        from xl import playlist
         # entire playlist
         entire_lib = playlist.SmartPlaylist("Entire Library",
             collection=self.collection) 
@@ -206,11 +248,11 @@ class Exaile(object):
     # messages (player).
     def mainloop(self):
         import gobject, dbus.mainloop.glib
+        gobject.threads_init()
         dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
         dbus.mainloop.glib.threads_init()
         dbus.mainloop.glib.gthreads_init()
         loop = gobject.MainLoop()
-        gobject.threads_init()
         context = loop.get_context()
         self.__mainloop(context)
 
@@ -237,6 +279,7 @@ class Exaile(object):
         # below.
         event.log_event("quit_application", self, self, async=False)
 
+        
         self.plugins.save_enabled()
 
         #self.gui.quit()

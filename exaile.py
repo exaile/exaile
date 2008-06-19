@@ -30,7 +30,6 @@ def main():
     global exaile
     exaile = main.Exaile()
 
-
 if __name__ == "__main__":
     main()
 

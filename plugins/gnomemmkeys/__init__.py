@@ -3,7 +3,7 @@ GNOME_MMKEYS = None
 EXAILE = None
 
 from xl import common
-import dbus, logging
+import dbus, logging, traceback
 logger = logging.getLogger(__name__)
 
 def callback(key):
@@ -42,12 +42,13 @@ def enable(exaile):
             logger.info("Activated gnome mmkeys for gnome 2.22.x")
             return True
         except:
+            traceback.print_exc()
             # old method
             obj = bus.get_object('org.gnome.SettingsDaemon',
                 '/org/gnome/SettingsDaemon')
             GNOME_MMKEYS = gnome = dbus.Interface(obj,
                 'org.gnome.SettingsDaemon')
-            gnome.GrabMediaPlayerKeys(self.application, 0)
+            gnome.GrabMediaPlayerKeys("Exaile", 0)
             gnome.connect_to_signal('MediaPlayerKeyPressed', on_gnome_mmkey)
             logger.info("Activated gnome mmkeys for gnome 2.20.x")
             return True

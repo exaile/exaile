@@ -1,21 +1,22 @@
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 3, or (at your option)
+# this program is free software; you can redistribute it and/or modify
+# it under the terms of the gnu general public license as published by
+# the free software foundation; either version 3, or (at your option)
 # any later version.
 #
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# this program is distributed in the hope that it will be useful,
+# but without any warranty; without even the implied warranty of
+# merchantability or fitness for a particular purpose.  see the
+# gnu general public license for more details.
 #
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+# you should have received a copy of the gnu general public license
+# along with this program; if not, write to the free software
+# foundation, inc., 675 mass ave, cambridge, ma 02139, usa.
 
 __all__ = ['main', 'panel', 'playlist']
 
 import gtk, gtk.glade, gobject
 from xl import xdg
+from xlgui import main, panel
 
 class Main(object):
     """
@@ -28,6 +29,9 @@ class Main(object):
             @param exaile: The Exaile instance
         """
         self.exaile = exaile
+        self.main = main.MainWindow(self)
+
+        self.collection_panel = panel.CollectionPanel(self)
 
 def show_splash(show=True):
     """

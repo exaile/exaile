@@ -294,7 +294,7 @@ class GSTPlayer(object):
             self.playtime_stamp = None
 
     def reset_playtime_stamp(self):
-        self.playtime_stamp = inttime.time()
+        self.playtime_stamp = int(time.time())
 
     def stop(self):
         """

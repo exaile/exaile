@@ -36,7 +36,19 @@ def check_exit(options, args):
             iface = dbus.Interface(remote_object,
                 'org.exaile.ExaileInterface')
             iface.test_service('testing dbus service')
-            do_exit = False
+
+            info_commands = ('get_artist', 'get_title', 'get_album',
+                'get_length', 'get_rating')
+            for command in info_commands:
+                if getattr(options, command):
+                    print iface.get_track_attr(command.replace('get_', ''))
+                    do_exit = True
+
+            run_commands = ('play', 'stop', 'next', 'prev', 'play_pause')
+            for command in run_commands:
+                if getattr(options, command):
+                    getattr(iface, command)()
+                    sys.exit(0)
 
             if not do_exit:
                 print "You have entered an invalid option"
@@ -71,13 +83,16 @@ class DbusManager(dbus.service.Object):
         """
             Returns a attribute of a track
         """
-        value = getattr(self.exaile.player.current, attr, None)
+        try:
+            value = self.exaile.player.current[attr]
+        except ValueError:
+            value = None
         if value:
             return unicode(value)
         return u''
 
     @dbus.service.method("org.exaile.ExaileInterface")
-    def prev_track(self):
+    def prev(self):
         """
             Jumps to the previous track
         """
@@ -91,7 +106,7 @@ class DbusManager(dbus.service.Object):
         self.exaile.player.stop()
 
     @dbus.service.method("org.exaile.ExaileInterface")
-    def next_track(self):
+    def next(self):
         """
             Jumps to the next track
         """

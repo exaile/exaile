@@ -17,6 +17,7 @@ __all__ = ['main', 'panel', 'playlist']
 import gtk, gtk.glade, gobject
 from xl import xdg
 from xlgui import main, panel
+from xlgui.panel import collection
 
 class Main(object):
     """
@@ -31,7 +32,7 @@ class Main(object):
         self.exaile = exaile
         self.main = main.MainWindow(self)
 
-        self.collection_panel = panel.CollectionPanel(self)
+        self.collection_panel = collection.CollectionPanel(self)
 
 def show_splash(show=True):
     """

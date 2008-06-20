@@ -18,6 +18,18 @@ if __name__ == '__main__':
     loader = unittest.TestLoader()
     suite = unittest.TestSuite()
 
+    # test gui elements
+    # in order for these to work, you're going to need guitest from 
+    # http://gintas.pov.lt/guitest/.  Thank you, come again.
+    if checks in ('gui', 'all'):
+        for file in os.listdir('tests/gui'):
+            if file in ('base.py', '__init__.py') or not file.endswith('.py'):
+                continue
+
+            mod = imp.load_source('tests/gui/' + file.replace('.py', ''),
+                'tests/gui/' + file)
+            suite.addTests(loader.loadTestsFromModule(mod))
+
     if checks in ('doctests', 'all'):
         for file in os.listdir('xl'):
             if file in ('__init__.py', 'main.py') or not file.endswith('.py'): 
@@ -49,17 +61,7 @@ if __name__ == '__main__':
                 mod = imp.load_source(path, os.path.join(path, 'test.py'))
                 suite.addTests(loader.loadTestsFromModule(mod))
                 
-    # test gui elements
-    # in order for these to work, you're going to need guitest from 
-    # http://gintas.pov.lt/guitest/.  Thank you, come again.
-    if checks in ('gui', 'all'):
-        for file in os.listdir('tests/gui'):
-            if file in ('base.py', '__init__.py') or not file.endswith('.py'):
-                continue
 
-            mod = imp.load_source('tests/gui/' + file.replace('.py', ''),
-                'tests/gui/' + file)
-            suite.addTests(loader.loadTestsFromModule(mod))
 
     runner = unittest.TextTestRunner(verbosity=2)
     result = runner.run(suite)

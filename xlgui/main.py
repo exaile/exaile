@@ -32,6 +32,10 @@ class MainWindow(object):
         self.window = self.xml.get_widget('ExaileWindow')
         self.panel_notebook = self.xml.get_widget('panel_notebook')
 
+        # the first tab in the panel is a stub that just stops libglade from
+        # complaining
+        self.panel_notebook.remove_page(0)
+
         self.window.show_all()
 
     def add_panel(self, child, name):

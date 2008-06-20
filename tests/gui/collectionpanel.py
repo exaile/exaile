@@ -5,4 +5,4 @@ class CollectionPanelTestCase(base.BaseTestCase):
         base.BaseTestCase.setUp(self)
 
     def testMonkey(self):
-        print self.gui, "wanker"
+        pass

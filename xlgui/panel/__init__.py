@@ -43,14 +43,4 @@ class Panel(object):
         self.controller.main.add_panel(child, window.get_title())
         window.destroy()
 
-class CollectionPanel(Panel):
-    """
-        The collection panel
-    """
-    gladeinfo = ('collection_panel.glade', 'CollectionPanelWindow')
 
-    def __init__(self, controller):
-        """
-            Initializes the collection panel
-        """
-        Panel.__init__(self, controller)

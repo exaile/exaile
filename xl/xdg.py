@@ -37,7 +37,6 @@ cache_home = os.path.join(cache_home, "exaile")
 if not os.path.exists(cache_home):
     os.mkdir(cache_home)
 
-
 data_dirs = os.getenv("XDG_DATA_DIRS")
 if data_dirs == None:
     data_dirs = "/usr/local/share/:/usr/share/"
@@ -58,6 +57,11 @@ def get_data_dirs():
 def get_cache_dir():
     return cache_home
 
+def get_glade_dir():
+    return 'data/glade/'
+
+def get_image_dir():
+    return 'data/images/'
 
 # vim: et sts=4 sw=4
 

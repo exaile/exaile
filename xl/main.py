@@ -26,8 +26,6 @@ import os, sys
 
 import logging
 
-#import xlgui
-
 def get_options():
     """
         Get the options for exaile
@@ -104,9 +102,6 @@ class Exaile(object):
         # setup glib
         self.mainloop()
 
-        #initial dbus check
-        self.dbus_start()
-
         #initialize DbusManager
         from xl import xldbus
         if xldbus.check_exit(self.options, self.args):
@@ -166,8 +161,10 @@ class Exaile(object):
         self.plugins = plugins.PluginsManager(self)
 
         #setup GUI
-        #xlgui.show_splash(show=False)
-        #self.gui = xlgui.Main()
+        import xlgui
+        xlgui.show_splash(show=self.settings.get_option('gui/show_splash',
+            True))
+#        self.gui = xlgui.Main(self)
 
     def setup_logging(self):
         loglevel = logging.INFO
@@ -185,15 +182,6 @@ class Exaile(object):
         formatter = logging.Formatter("%(levelname)-8s: %(message)s (%(name)s)")
         console.setFormatter(formatter)
         logging.getLogger("").addHandler(console)
-
-    def dbus_start(self):
-        """
-            checks to see if there's a running exaile instance, and if there
-            is, sends it any commandline options recieved then exits.
-        """
-        import dbus
-        pass
-        #exit() # no need to clean up nicely at this point
 
     def _add_default_playlists(self):
         """

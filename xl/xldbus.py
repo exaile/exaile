@@ -38,10 +38,10 @@ def check_exit(options, args):
             iface.test_service('testing dbus service')
             do_exit = False
 
-        if not do_exit:
-            print "You have entered an invalid option"
+            if not do_exit:
+                print "You have entered an invalid option"
 
-        return True
+            return True
 
     return False
 

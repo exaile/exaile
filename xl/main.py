@@ -25,6 +25,7 @@ from xl import common, xdg, event
 import os, sys
 
 import logging
+logger = logging.getLogger(__name__)
 
 def get_options():
     """
@@ -85,11 +86,13 @@ def get_options():
         default=False, help="Show debugging output")
     p.add_option("--quiet", dest="quiet", action="store_true",
         default=False, help="Reduce level of output")
+    p.add_option('--startgui', dest='startgui', action='store_true',
+        default=False)
     return p
 
 class Exaile(object):
     
-    def __init__(self):
+    def __init__(self, startgui=False):
         """
             Initializes Exaile.
         """
@@ -100,13 +103,14 @@ class Exaile(object):
         self.setup_logging()
 
         # setup glib
-        self.mainloop()
+        if not startgui: self.mainloop()
 
         #initialize DbusManager
-        from xl import xldbus
-        if xldbus.check_exit(self.options, self.args):
-            sys.exit(0)
-        self.dbus = xldbus.DbusManager(self)
+        if not startui:
+            from xl import xldbus
+            if xldbus.check_exit(self.options, self.args):
+                sys.exit(0)
+            self.dbus = xldbus.DbusManager(self)
 
         #initialize SettingsManager
         from xl import settings
@@ -161,10 +165,12 @@ class Exaile(object):
         self.plugins = plugins.PluginsManager(self)
 
         #setup GUI
-        import xlgui
-        xlgui.show_splash(show=self.settings.get_option('gui/show_splash',
-            True))
-#        self.gui = xlgui.Main(self)
+        if startgui:
+            import xlgui
+            logger.info("Loading gui")
+            xlgui.show_splash(show=self.settings.get_option('gui/show_splash',
+                True))
+            self.gui = xlgui.Main(self)
 
     def setup_logging(self):
         loglevel = logging.INFO

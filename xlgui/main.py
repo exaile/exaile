@@ -12,8 +12,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+import pygtk
+pygtk.require('2.0')
 import gtk, gtk.glade, gobject
 from xl import xdg
+from gettext import gettext as _
 
 class MainWindow(object):
     """
@@ -26,17 +29,68 @@ class MainWindow(object):
             @param controller: the main gui controller
         """
         self.controller = controller
+        self.settings = controller.exaile.settings
+        self.first_removed = False
 
         self.xml = gtk.glade.XML('%smain.glade' % xdg.get_glade_dir(),
             'ExaileWindow', 'exaile')
         self.window = self.xml.get_widget('ExaileWindow')
+        self.window.set_title(_('Exaile'))
         self.panel_notebook = self.xml.get_widget('panel_notebook')
+        self.splitter = self.xml.get_widget('splitter')
 
-        # the first tab in the panel is a stub that just stops libglade from
-        # complaining
-        self.panel_notebook.remove_page(0)
+        self._setup_position()
+        self._connect_events()
 
-        self.window.show_all()
+    def _connect_events(self):
+        """
+            Connects the various events to their handlers
+        """
+        self.splitter.connect('notify::position', self.configure_event)
+        self.xml.signal_autoconnect({
+            'on_configure_event':   self.configure_event,
+            'on_delete_event':      self.delete_event
+        })        
+
+    def _setup_position(self):
+        """
+            Sets up the position and sized based on the size the window was
+            when it was last moved or resized
+        """
+        width = self.settings.get_option('gui/mainw_width', 500)
+        height = self.settings.get_option('gui/mainw_height', 600)
+        x = self.settings.get_option('gui/mainw_x', 10)
+        y = self.settings.get_option('gui/mainw_y', 10)
+
+        self.window.move(x, y)
+        self.window.resize(width, height)
+
+        pos = self.settings.get_option('gui/mainw_sash_pos', 200)
+        self.splitter.set_position(pos)
+
+    def delete_event(self, *e):
+        """
+            Called when the user attempts to close the window
+        """
+        self.controller.exaile.quit()
+        return True
+
+    def configure_event(self, *e):
+        """
+            Called when the window is resized or moved
+        """
+        (width, height) = self.window.get_size()
+        self.settings['gui/mainw_height'] = height
+        self.settings['gui/mainw_width'] = width
+        (x, y) = self.window.get_position()
+        self.settings['gui/mainw_x'] = x
+        self.settings['gui/mainw_y'] = y
+
+        pos = self.splitter.get_position()
+        if pos > 10:
+            self.settings['gui/mainw_sash_pos'] = pos
+
+        return False
 
     def add_panel(self, child, name):
         """
@@ -45,3 +99,11 @@ class MainWindow(object):
         label = gtk.Label(name)
         label.set_angle(90)
         self.panel_notebook.append_page(child, label)
+
+        if not self.first_removed:
+            self.first_removed = True
+
+            # the first tab in the panel is a stub that just stops libglade from
+            # complaining
+            self.panel_notebook.remove_page(0)
+

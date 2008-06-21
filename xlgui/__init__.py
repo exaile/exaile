@@ -17,7 +17,7 @@ __all__ = ['main', 'panel', 'playlist']
 import gtk, gtk.glade, gobject
 from xl import xdg
 from xlgui import main, panel
-from xlgui.panel import collection
+from xlgui.panel import collection, radio
 
 class Main(object):
     """
@@ -33,6 +33,9 @@ class Main(object):
         self.main = main.MainWindow(self)
 
         self.collection_panel = collection.CollectionPanel(self)
+        self.radio_panel = radio.RadioPanel(self)
+
+        self.main.window.show_all()
 
 def show_splash(show=True):
     """

@@ -1,3 +1,8 @@
+try:
+    import guitest
+except ImportError:
+    guitest = None
+
 import unittest, doctest, os, shutil, sys, imp
 from tests import base
 import xl
@@ -17,18 +22,6 @@ if __name__ == '__main__':
 
     loader = unittest.TestLoader()
     suite = unittest.TestSuite()
-
-    # test gui elements
-    # in order for these to work, you're going to need guitest from 
-    # http://gintas.pov.lt/guitest/.  Thank you, come again.
-    if checks in ('gui', 'all'):
-        for file in os.listdir('tests/gui'):
-            if file in ('base.py', '__init__.py') or not file.endswith('.py'):
-                continue
-
-            mod = imp.load_source('tests/gui/' + file.replace('.py', ''),
-                'tests/gui/' + file)
-            suite.addTests(loader.loadTestsFromModule(mod))
 
     if checks in ('doctests', 'all'):
         for file in os.listdir('xl'):
@@ -61,6 +54,21 @@ if __name__ == '__main__':
                 mod = imp.load_source(path, os.path.join(path, 'test.py'))
                 suite.addTests(loader.loadTestsFromModule(mod))
                 
+    if not guitest:
+        print "guitest is not available. Cannot perform gui tests."
+        print "Please download it from http://gintas.gov.lt/guitest/"
+    else:
+        # test gui elements
+        # in order for these to work, you're going to need guitest from 
+        # http://gintas.pov.lt/guitest/.  Thank you, come again.
+        if checks in ('gui', 'all'):
+            for file in os.listdir('tests/gui'):
+                if file in ('base.py', '__init__.py') or not file.endswith('.py'):
+                    continue
+
+                mod = imp.load_source('tests/gui/' + file.replace('.py', ''),
+                    'tests/gui/' + file)
+                suite.addTests(loader.loadTestsFromModule(mod))
 
 
     runner = unittest.TextTestRunner(verbosity=2)

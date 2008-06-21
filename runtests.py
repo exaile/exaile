@@ -55,7 +55,7 @@ if __name__ == '__main__':
                 suite.addTests(loader.loadTestsFromModule(mod))
                 
     if not guitest:
-        print "guitest is not available. Cannot perform gui tests."
+        print " **** guitest is not available. Cannot perform gui tests."
         print "Please download it from http://gintas.gov.lt/guitest/"
     else:
         # test gui elements

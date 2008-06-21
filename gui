@@ -16,8 +16,9 @@
 
 import pygtk
 pygtk.require('2.0')
-import gtk, sys, dbus, gobject
+import gtk, sys, dbus, dbus.glib, gobject
 gobject.threads_init()
+dbus.glib.threads_init()
 dbus.SessionBus()
 
 if sys.platform == 'linux2':

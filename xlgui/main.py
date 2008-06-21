@@ -37,6 +37,8 @@ class MainWindow(object):
         self.window = self.xml.get_widget('ExaileWindow')
         self.window.set_title(_('Exaile'))
         self.panel_notebook = self.xml.get_widget('panel_notebook')
+        self.playlist_notebook = self.xml.get_widget('playlist_notebook')
+        self.playlist_notebook.remove_page(0)
         self.splitter = self.xml.get_widget('splitter')
 
         self._setup_position()

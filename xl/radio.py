@@ -100,6 +100,12 @@ class RadioList(object):
         """
         return []
 
+    def __str__(self):
+        """
+            Returns a string representation of the list
+        """
+        return self.name
+
 class RadioItem(object):
     """
         Radio Items
@@ -116,6 +122,12 @@ class RadioItem(object):
         pl = playlist.Playlist('Test Playlist')
         pl.add_tracks([tr])
         return pl
+
+    def __str__(self):
+        """
+            Returns a string representation of the item
+        """
+        return self.name
         
 class RadioStation(object):
     name = 'test_station'

@@ -106,7 +106,7 @@ class Exaile(object):
         if not startgui: self.mainloop()
 
         #initialize DbusManager
-        if not startui:
+        if not startgui:
             from xl import xldbus
             if xldbus.check_exit(self.options, self.args):
                 sys.exit(0)

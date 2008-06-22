@@ -3,7 +3,7 @@ It should also be used to keep track of what each contributor is
 currently working on.
 
 Current projects:
-    Aren Olson - Persistence
+    Aren Olson - Persistence, CD Import
     Adam Olsen - DBUS, Podcasts 
     Anthony Waters - 
     thiblahute - CD Burning
@@ -68,11 +68,13 @@ Implemented:
     Dynamic Playlists
     MMKeys
         Only for gnome >= 2.20
+    Gapless Playback
+        limitation: the UI will see the track as changing when the next track
+            is 'spooled up', rather than when the change happens. This is a 
+            limitation of the current playbin2. In most cases the difference
+            should be negligible.
 
 Things that can probably be implemented at this stage:
-    Alternate Playback Systems
-        will need more abstraction in player.py, but is feasable
-        stub for generic Player class exists
     CD Burning
         class in cd.py, takes a Playlist and burns it in order
         allow mp3 cd burning
@@ -84,15 +86,6 @@ Things that can probably be implemented at this stage:
         useful for: detecting moves withing the library, xspf playlists
         ?match by everything or a subset? if x% is the same? efficiency?
     DBUS
-    Gapless Playback
-        because gstreamer is nasty about this, the method is as follows:
-            queue up a new stream before the previous one ends
-            start the new stream just as the old one ends
-        this will involve implementing lookahead in the queue and playlists
-            for simplicity, lookahead can return None if random is 
-            enabled,as it's not that useful in that case anyway
-        ideally, the implementation will allow for cross-fade as well,
-            but this is not mandatory
     Podcasts
         part of radio or separate?
         allow flexibility in choice of when (if?) and where to download
@@ -101,6 +94,7 @@ Things that can probably be implemented at this stage:
     MP3 Player Support
         will likely need some additional work in devices and hal
         generic classes subclassable for iPod, MTP and MassStorage players
+        support for each type of player implemented as a plugin
         create a special Collection for each, load Playlists, etc.
         also should handle transfer, nto necessariliy at first
             transcode on transfer also good
@@ -125,10 +119,17 @@ Things that can probably be implemented at this stage:
             optimize saving mechanisms to prevent unneeded disk I/O
                 done for smart playlists 
                 needs doing for general trackdb
-                    how? must be done whenever contained track is
-                    updated.
-            ensure all commits to essential data are atomic
+                    use track events to know when contained are updated
+            ensure all commits to essential data are crash-proof
+                save to <file>.new
+                move <file> to <file>.old
+                move <file>.new to <file>
+                delete <file>.old
+                make restore able to cope with the outcome of interruption
+                    at any of these steps
             periodic save to disk so that in event of crash eveything is saved
+            how to deal with streams or devices, which cannot be guaranteed
+                to be present upon resume
     GUI
         should not be drastically different from 0.2
         separate classes (with associated glade files) for each part
@@ -136,10 +137,19 @@ Things that can probably be implemented at this stage:
             playlist panel
             now playing area
             info tabs
-            use gtk.glade.XML.signal_autoconnect *whenever* possible... this
-                is something we didn't do in 0.2 and it was a pain
-            more?
-            
+            ???
+        use gtk.glade.XML.signal_autoconnect *whenever* possible... this
+            is something we didn't do in 0.2 and it was a pain
+    Equalizer
+        should be first pipeline element after playbin, to minimize distortion
+        add a pre-amp element
+    Replaygain
+    Visualizations
+        implement as plugin (if possible)
+    Cross-Fade
+        use gst's adder element to combine streams
+        use peek() methods on playlists and queue to see next track
+            without actually switching to it.
 
 Other Work-Items:
     Conversion
@@ -166,6 +176,11 @@ Misc:
 
     may require more-radical change than I was anticipating, I'm putting
     this on hold for now. work on hardening/optmizing pickledb instead
+
+
+    another idea: have two DBs, one on-disc and one in-mem, with the in-mem
+    db holding only what is needed to display the UI. 
+        possible issues: syncronization, searching
 
 
 ==== NOTES ====

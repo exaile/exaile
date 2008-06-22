@@ -390,6 +390,20 @@ class Playlist(trackdb.TrackDB):
         else:
             return self.ordered_tracks[self.current_pos]
 
+    def peek(self):
+        """
+            returns the next track that will be played
+        """
+        if self.random_enabled:
+            return None #peek() is meaningless with random
+        nextpos = self.current_pos + 1
+        if nextpos >= len(self):
+            if self.repeat_enabled:
+                nextpos = 0
+            else:
+                return None # end of playlist
+        return self.ordered_tracks[nextpos]
+
     def next(self):
         """
             moves to the next track in the playlist

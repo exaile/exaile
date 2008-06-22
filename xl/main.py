@@ -22,9 +22,8 @@
 __version__ = '0.3.0devel'
 
 from xl import common, xdg, event
-import os, sys
+import os, sys, logging
 
-import logging
 logger = logging.getLogger(__name__)
 
 def get_options():
@@ -119,7 +118,7 @@ class Exaile(object):
 
         #Set up the player itself.
         from xl import player
-        self.player = player.GSTPlayer()
+        self.player = player.get_player()()
 
         #Set up the playback Queue
         self.queue = player.PlayQueue(self.player)
@@ -178,7 +177,11 @@ class Exaile(object):
             loglevel = logging.DEBUG
         elif self.options.quiet:
             loglevel = logging.WARNING
-        logging.basicConfig(level=logging.DEBUG,
+        if self.options.quiet:
+            logfilelevel = logging.INFO
+        else:
+            logfilelevel = loglevel
+        logging.basicConfig(level=logfilelevel,
                 format='%(asctime)s %(levelname)-8s: %(message)s (%(name)s)',
                 datefmt="%m-%d %H:%M",
                 filename=os.path.join(xdg.get_config_dir(), "exaile.log"),

@@ -12,25 +12,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-# Player
-#
-# PlayQueue - exactly what it sounds like. can also be associated with a 
-# Playlist to play form when the Queue is empty.
-#
-# GSTPlayer - the player itself
-#
+# FIXME: needs documentation badly
 
-# FIXME: needs docstrings
-
-import pygst, gtk
+import pygst
 pygst.require('0.10')
-import gst, random, time, re, os, md5
-from xl import common, event, playlist
-import thread, logging
-import gobject
-gobject.threads_init()
+import gst
 
-VIDEO_WIDGET=None
+from xl import common, event, playlist, settings
+import random, time, re, os, md5, thread, logging
+from urlparse import urlparse
+
+settings = settings.SettingsManager.settings
 
 logger = logging.getLogger(__name__)
 
@@ -51,7 +43,14 @@ class PlayQueue(playlist.Playlist):
     def set_current_pl_track(self, track):
         self.current_pl_track = track
 
-    def next(self):
+    def peek(self):
+        track = playlist.Playlist.peek(self)
+        if track == None:
+            if self.current_playlist:
+                track = self.current_playlist.peek()
+        return track
+
+    def next(self, player=True):
         track = playlist.Playlist.next(self)
         if track == None:
             if self.current_playlist:
@@ -64,7 +63,8 @@ class PlayQueue(playlist.Playlist):
             self.current_playing = True
             if self.current_playlist:
                 self.current_playlist.current_playing = False
-        self.player.play(track)
+        if player:
+            self.player.play(track)
         return track
 
     def prev(self):
@@ -100,49 +100,89 @@ class PlayQueue(playlist.Playlist):
             self.next()
 
 
-class GSTPlayer(object):
+def get_player():
+    if settings.get_option("player/gapless", False):
+        return GaplessPlayer
+    else:
+        return GSTPlayer
+
+class BaseGSTPlayer(object):
     """
-        Gstreamer engine
+        base player object
+        player implementations will subclass this
     """
     def __init__(self):
         self.current = None
         self.playing = False
-        self.connections = []
         self.last_position = 0
-        self.tag_func = None
-        self.setup_playbin()
         self.queue = None
         self.playtime_stamp = None
+
+        self.connections = []
+        self.playbin = None
+        self.bus = None
+        self.audio_sink = None
+        self.volume_control = None
+
+        self.equalizer = None
+        self.replaygain = None
+
+        self.setup_playbin()
+        self.setup_bus()
+        self.setup_gst_elements()
+
+    def setup_playbin(self):
+        raise NotImplementedError
+
+    def setup_bus(self):
+        self.bus = self.playbin.get_bus()
+        self.bus.add_signal_watch()
+        self.bus.enable_sync_message_emission()
+        self.bus.connect('message', self.on_message)
+
+    def setup_gst_elements(self):
+        """
+            sets up additional gst elements
+        """
+        # TODO: implement eq, replaygain, prefs
+        self.audio_sink = gst.element_factory_make("alsasink", "sink")
+        self.volume_control = gst.element_factory_make("volume", "vol")
+        
+        sinkbin = gst.Bin()
+        elements = [self.volume_control, self.audio_sink]
+        sinkbin.add(*elements)
+        gst.element_link_many(*elements)
+        sinkpad = elements[0].get_static_pad("sink")
+        sinkbin.add_pad(gst.GhostPad('sink', sinkpad))
+
+        self.playbin.set_property("audio-sink", sinkbin)
+
+    def tag_func(self, *args):
+        pass
+
+    def eof_func(self, *args):
+        raise NotImplementedError
 
     def set_queue(self, queue):
         self.queue = queue
 
-    def set_tag_function(self, func):
-        """
-            This function will be called when tag information is update
-        """
-        self.tag_func = func
-
-    def eof_func(self, *args):
-        self.queue.next()
-
-    def setup_playbin(self):
-        self.playbin = gst.element_factory_make('playbin')
-        self.bus = self.playbin.get_bus()
-        self.bus.add_signal_watch()
-        self.bus.enable_sync_message_emission()
-        self.audio_sink = None
-
     def set_volume(self, vol):
         """
-            Sets the volume for the player
+            sets the volume
         """
-        self.playbin.set_property('volume', vol)
+        self.volume.set_property("volume", vol)
 
-    def set_audio_sink(self, arg):
+    def on_message(self, bus, message, reading_tag = False):
         """
+            Called when a message is received from gstreamer
         """
-        pass
+        if message.type == gst.MESSAGE_TAG and self.tag_func:
+            self.tag_func(message.parse_tag())
+        elif message.type == gst.MESSAGE_EOS and not self.is_paused():
+            self.eof_func()
+        elif message.type == gst.MESSAGE_ERROR:
+            logger.error("%s %s" %(message, dir(message)) )
+        return True
 
     def _get_gst_state(self):
         """
@@ -174,144 +214,6 @@ class GSTPlayer(object):
         """
         return self._get_gst_state() == gst.STATE_PAUSED
 
-    def on_message(self, bus, message, reading_tag = False):
-        """
-            Called when a message is received from gstreamer
-        """
-        if message.type == gst.MESSAGE_TAG and self.tag_func:
-            self.tag_func(message.parse_tag())
-        elif message.type == gst.MESSAGE_EOS and not self.is_paused():
-            self.eof_func()
-        elif message.type == gst.MESSAGE_ERROR:
-            logger.error("%s %s" %(message, dir(message)) )
-
-        return True
-
-    def __notify_source(self, o, s, num):
-        s = self.playbin.get_property('source')
-        s.set_property('device', num)
-        self.playbin.disconnect(self.notify_id)
-
-    def play(self, track):
-        """
-            Plays the specified Track
-        """
-        self.stop()
-        try:
-            uri = track.get_loc_for_io()
-        except:
-            return False
-        if not self.audio_sink:
-            self.set_audio_sink('')
-
-        if not self.connections and not self.is_paused():
-
-            self.connections.append(self.bus.connect('message', self.on_message))
-           
-            self.connections.append(self.bus.connect('sync-message::element',
-                self.on_sync_message))
-
-            if '://' not in uri: 
-                if not os.path.isfile(uri):
-                    raise Exception('File does not exist: ' + uri)
-                uri = 'file://%s' % uri # FIXME: Wrong.
-            uri = uri.replace('%', '%25')
-
-            # for audio cds
-            if uri.startswith("cdda://"):
-                num = uri[uri.find('#') + 1:]
-                uri = uri[:uri.find('#')]
-                self.notify_id = self.playbin.connect('notify::source',
-                    self.__notify_source, num)
-
-            self.playbin.set_property('uri', uri.encode(common.get_default_encoding()))
-
-        self.reset_playtime_stamp()
-        self.playbin.set_state(gst.STATE_PLAYING)
-        self.current = track
-        event.log_event('playback_start', self, track)
-        return True
-
-    def on_sync_message(self, bus, message):
-        """
-            called when gstreamer requests a video sync
-        """
-        if message.structure.get_name() == 'prepare-xwindow-id' and \
-            VIDEO_WIDGET:
-            logger.debug('Gstreamer requested video sync')
-            VIDEO_WIDGET.set_sink(message.src)
-
-    def seek(self, value, wait=True):
-        """
-            Seeks to a specified location (in seconds) in the currently
-            playing track
-        """
-        value = int(gst.SECOND * value)
-
-        if wait: self.playbin.get_state(timeout=50*gst.MSECOND)
-        event = gst.event_new_seek(1.0, gst.FORMAT_TIME,
-            gst.SEEK_FLAG_FLUSH|gst.SEEK_FLAG_ACCURATE,
-            gst.SEEK_TYPE_SET, value, gst.SEEK_TYPE_NONE, 0)
-
-        res = self.playbin.send_event(event)
-        if res:
-            self.playbin.set_new_stream_time(0L)
-        else:
-            logger.debug("Couldn't send seek event")
-        if wait: self.playbin.get_state(timeout=50*gst.MSECOND)
-
-        self.last_seek_pos = value
-
-    def pause(self):
-        """
-            Pauses the currently playing track
-        """
-        self.update_playtime()
-        self.playbin.set_state(gst.STATE_PAUSED)
-        event.log_event('playback_pause', self, self.current)
-        self.reset_playtime_stamp()
-
-    def toggle_pause(self):
-        if self.is_paused():
-            self.reset_playtime_stamp()
-            self.playbin.set_state(gst.STATE_PLAYING)
-            event.log_event('playback_resume', self, self.current)
-        else:
-            self.pause()
-
-    def update_playtime(self):
-        if self.current and self.playtime_stamp:
-            last = self.current['playtime']
-            if type(last) == str:
-                try:
-                    last = int(last)
-                except:
-                    last = 0
-            elif type(last) != int:
-                last = 0
-            self.current['playtime'] = last + int(time.time() - \
-                    self.playtime_stamp)
-            self.playtime_stamp = None
-
-    def reset_playtime_stamp(self):
-        self.playtime_stamp = int(time.time())
-
-    def stop(self):
-        """
-            Stops the playback of the currently playing track
-        """
-        self.update_playtime()
-        current = self.current
-        for connection in self.connections:
-            self.bus.disconnect(connection)
-        self.connections = []
-
-        self.playbin.set_state(gst.STATE_NULL)
-        self.current = None
-        if current:
-            event.log_event('playback_end', self, current)
-
-
     def get_position(self):
         """
             Gets the current playback position of the playing track
@@ -331,7 +233,6 @@ class GSTPlayer(object):
         """
         return self.get_position()/gst.SECOND
 
-
     def get_progress(self):
         """
             Gets current playback progress in percent
@@ -341,6 +242,127 @@ class GSTPlayer(object):
         except ZeroDivisionError:
             progress = 0
         return progress
+
+    def update_playtime(self):
+        if self.current and self.playtime_stamp:
+            last = self.current['playtime']
+            if type(last) == str:
+                try:
+                    last = int(last)
+                except:
+                    last = 0
+            elif type(last) != int:
+                last = 0
+            self.current['playtime'] = last + int(time.time() - \
+                    self.playtime_stamp)
+            self.playtime_stamp = None
+
+    def reset_playtime_stamp(self):
+        self.playtime_stamp = int(time.time())
+
+    def _get_track_uri(self, track):
+        uri = track.get_loc_for_io()
+        parsed = urlparse(uri)
+        if parsed[0] == "":
+            uri = "file://%s"%uri #TODO: is there a better way to do this?
+        uri = uri.encode(common.get_default_encoding())
+        return uri
+
+    def play(self, track):
+        self.stop()
+       
+        if track == None:
+            return False
+        
+        uri = self._get_track_uri(track)
+        self.reset_playtime_stamp()
+
+        self.playbin.set_property("uri", uri)
+
+        self.playbin.set_state(gst.STATE_PLAYING)
+        self.current = track
+        event.log_event('playback_start', self, track)
+
+    def stop(self):
+        if self.is_playing() or self.is_paused():
+            self.update_playtime()
+            current = self.current
+            self.playbin.set_state(gst.STATE_NULL)
+            self.current = None
+            event.log_event('playback_end', self, current)
+
+    def pause(self):
+        if self.is_playing():
+            self.update_playtime()
+            self.playbin.set_state(gst.STATE_PAUSED)
+            self.reset_playtime_stamp()
+            event.log_event('playback_pause', self, self.current)
+ 
+    def unpause(self):
+        if self.is_paused():
+            self.reset_playtime_stamp()
+            self.playbin.set_state(gst.STATE_PLAYING)
+            event.log_event('playback_resume', self, self.current)
+
+    def toggle_pause(self):
+        if self.is_paused():
+            self.unpause()
+        else:
+            self.pause()
+
+    def seek(self, value):
+        value = int(gst.SECOND * value)
+        event = gst.event_new_seek(1.0, gst.FORMAT_TIME,
+            gst.SEEK_FLAG_FLUSH|gst.SEEK_FLAG_ACCURATE,
+            gst.SEEK_TYPE_SET, value, gst.SEEK_TYPE_NONE, 0)
+
+        res = self.playbin.send_event(event)
+        if res:
+            self.playbin.set_new_stream_time(0L)
+        else:
+            logger.debug("Couldn't send seek event")
+
+        self.last_seek_pos = value
+    
+
+class GSTPlayer(BaseGSTPlayer):
+    """
+        Gstreamer engine
+    """
+    def __init__(self):
+        BaseGSTPlayer.__init__(self)
+
+    def setup_playbin(self):
+        self.playbin = gst.element_factory_make("playbin", "player")
+
+    def eof_func(self, *args):
+        self.queue.next()
+
+class GaplessPlayer(BaseGSTPlayer):
+    """
+        Gstreamer engine, using playbin2 for gapless
+    """
+    def __init__(self):
+        BaseGSTPlayer.__init__(self)
+
+    def eof_func(self, *args):
+        self.queue.next()
+
+    def setup_playbin(self):
+        self.playbin = gst.element_factory_make('playbin2')
+        self.playbin.connect('about-to-finish', self.on_finish)
+        
+        # This signal doesn't work yet (as of gst 0.10.19)
+        # self.playbin.connect('audio-changed', self.on_changed)
+
+    def on_finish(self, *args):
+        """
+            called when a track is about to finish, so we can make it gapless
+        """
+        next = self.queue.peek()
+        uri = self._get_track_uri(next)
+        self.playbin.set_property('uri', uri) #playbin2 takes care of the rest
+    
 
 # vim: et sts=4 sw=4
 

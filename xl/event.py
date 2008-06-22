@@ -35,6 +35,9 @@ import threading, common, time, logging
 EVENT_MANAGER = None
 IDLE_MANAGER  = None
 
+logger = logging.getLogger(__name__)
+
+
 def log_event(type, object, data, async=True):
     """
         Sends an event.
@@ -179,6 +182,8 @@ class EventManager(object):
                             callbacks.append(call)
                 except KeyError:
                     pass
+
+        logger.debug("Sent '%s' event from '%s' with data '%s'."%(event.type, repr(event.object), repr(event.data)))
 
         # now call them
         for call in callbacks:

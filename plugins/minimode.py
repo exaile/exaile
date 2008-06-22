@@ -277,8 +277,9 @@ class MiniWindow(gtk.Window):
 
             The combobox will be populated with all the tracks in the current
             playlist, UNLESS there are more than 50 songs in the playlist.  In
-            that case, only the current song and the next 50 upcoming tracks
-            are displayed.
+            that case, the current song and 25 songs on either side will
+            be displayed. If there aren't enough on one side, it will be
+            made up for on the other.
         """
         blank = gtk.ListStore(str, object)
         self.title_box.set_model(blank)
@@ -291,29 +292,25 @@ class MiniWindow(gtk.Window):
             select = -1
             current = APP.songs[0] 
 
-        # if there are more than 50 songs in the current playlist, then only
-        # display the next 50 tracks
-        if len(APP.songs) > 50:
-            if current:  
-                count += 1
-                self.model.append([current.title, current])
+        count = 0
+        select = 0
+        for song in APP.songs:
+            if song == current and APP.player.current:
+                select = count
+                break
 
-            next = current
+            count = count + 1
 
-            while True:
-                next = APP.tracks.get_next_track(next)
-                if not next: break
-                self.model.append([next.title, next])
-                count += 1
-                if count >= 50: break
+        #A little fiddling to get the first and last songs to display
+        #In the combo box
+        min_index = max(select - 25, 0)
+        max_index = min(min_index + 50, len(APP.songs))
+        min_index = max(max_index - 50, 0) #To be safe
 
-        # otherwise, display all songs in the current playlist
-        else:
-            for song in APP.songs:
-                if song == current and APP.player.current:
-                    select = count
-                self.model.append([song.title, song])
-                count += 1
+        select = select - min_index
+        for i in range(min_index, max_index):
+            song = APP.songs[i]
+            self.model.append([song.title, song])
 
         self.title_box.set_model(self.model)
         self.title_box.disconnect(self.title_id)

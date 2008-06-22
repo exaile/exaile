@@ -258,7 +258,10 @@ class Track(object):
         if not format: 
             return None
 
-        self['modified'] = os.path.getmtime(self.get_loc_for_io())
+        try:
+            self['modified'] = os.path.getmtime(self.get_loc_for_io())
+        except OSError:
+            pass
         try:
             format.fill_tag_from_path(self)
         except HeaderNotFoundError:

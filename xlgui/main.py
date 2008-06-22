@@ -16,6 +16,8 @@ import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade, gobject
 from xl import xdg
+import xl.playlist
+from xlgui import playlist
 from gettext import gettext as _
 
 class MainWindow(object):
@@ -44,6 +46,20 @@ class MainWindow(object):
         self._setup_position()
         self._connect_events()
 
+        pl = xl.playlist.Playlist()
+        self.add_playlist(pl)
+
+    def add_playlist(self, pl):
+        """
+            Adds a playlist to the playlist tab
+
+            @param pl: the xl.playlist.Playlist instance to add
+        """
+        name = pl.name
+        pl = playlist.Playlist(self.controller, pl)
+        self.playlist_notebook.append_page(pl,
+            gtk.Label(name))
+
     def _connect_events(self):
         """
             Connects the various events to their handlers
@@ -51,7 +67,8 @@ class MainWindow(object):
         self.splitter.connect('notify::position', self.configure_event)
         self.xml.signal_autoconnect({
             'on_configure_event':   self.configure_event,
-            'on_delete_event':      self.delete_event
+            'on_delete_event':      self.delete_event,
+            'on_quit_item_activated': self.delete_event
         })        
 
     def _setup_position(self):
@@ -74,7 +91,8 @@ class MainWindow(object):
         """
             Called when the user attempts to close the window
         """
-        self.controller.exaile.quit()
+        self.window.hide()
+        gobject.idle_add(self.controller.exaile.quit)
         return True
 
     def configure_event(self, *e):

@@ -62,7 +62,7 @@ def sort_tracks(fields, tracks, reverse=False):
         reverse: sort in reverse? [bool]
     """
 
-    tracks = [get_sort_tuple(field, t) for t in tracks]
+    tracks = [get_sort_tuple(fields, t) for t in tracks]
     tracks.sort()
     if reverse: tracks.reverse()
 
@@ -232,7 +232,7 @@ class TrackDB(object):
             if sort_fields == 'RANDOM':
                 random.shuffle(tracks)
             else:
-                tracks = sort_tracks(sort_field, tracks)
+                tracks = sort_tracks(sort_fields, tracks)
 
         if return_lim != -1:
             return tracks[:return_lim]

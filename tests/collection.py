@@ -24,7 +24,8 @@ class CollectionTestCase(BaseTestCase):
         c = self.collection
 
         # search for a keyword in all fields
-        tracks = c.search('Black')
+        tracks = c.search('Black', sort_fields=('artist', 'album',
+            'tracknumber'))
         assert len(tracks) == 1, "Keyword search failed"
         assert tracks[0]['title'].find('black') > -1, "Keyword search failed"
 

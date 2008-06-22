@@ -267,7 +267,7 @@ class Playlist(trackdb.TrackDB):
         Represents a playlist, which is basically just a TrackDB
         with ordering.
     """
-    def __init__(self, name="", location=None, pickle_attrs=[]):
+    def __init__(self, name="Playlist", location=None, pickle_attrs=[]):
         """
             Sets up the Playlist
 
@@ -279,6 +279,7 @@ class Playlist(trackdb.TrackDB):
         self.random_enabled = False
         self.repeat_enabled = False
         self.dynamic_enabled = False
+        self.name = name
         self.tracks_history = []
         pickle_attrs += ['name', 'ordered_tracks', 'current_pos', 
                 'current_playing', "repeat_enabled", "random_enabled",

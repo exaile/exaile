@@ -1,3 +1,8 @@
+try:
+    import guitest.gtktest
+except ImportError:
+    pass
+
 from tests.base import BaseTestCase
 from xl import event
 

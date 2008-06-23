@@ -424,7 +424,7 @@ class GaplessPlayer(BaseGSTPlayer):
         self.queue.next()
 
     def setup_playbin(self):
-        self.playbin = gst.element_factory_make('playbin2')
+        self.playbin = gst.element_factory_make('playbin2', "player")
         self.playbin.connect('about-to-finish', self.on_finish)
         
         # This signal doesn't work yet (as of gst 0.10.19)

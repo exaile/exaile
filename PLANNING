@@ -141,6 +141,11 @@ Things that can probably be implemented at this stage:
             ???
         use gtk.glade.XML.signal_autoconnect *whenever* possible... this
             is something we didn't do in 0.2 and it was a pain
+        devices:
+            idea: use separate side tab for each device, with device manager
+                option in Tools for advanced config. tabs would be
+                auto-generated as new devices are connected, either via HAL
+                or the device manager. 
     Visualizations
         implement as plugin (if possible)
     Cross-Fade
@@ -199,6 +204,9 @@ all pluggable backends should have all backends implemented as plugins
 unless there is a really good reason to do otherwise. we will ship and 
 enable some plugins by default to provide the best out-of-the-box 
 experience.
+
+idea: plugin method allowing it to determine whether it is appropriate to
+    enable itself on first run, eg. enable gnomemmkeys only if under gnome.
 
 plugins to enable by default: 
     all mmkeys plugins

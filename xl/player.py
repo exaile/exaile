@@ -245,7 +245,7 @@ class BaseGSTPlayer(object):
         """
             sets the volume
         """
-        self.volume.set_property("volume", vol)
+        self.volume_control.set_property("volume", vol)
 
     def on_message(self, bus, message, reading_tag = False):
         """
@@ -434,7 +434,9 @@ class GaplessPlayer(BaseGSTPlayer):
         """
             called when a track is about to finish, so we can make it gapless
         """
-        next = self.queue.peek()
+        # this really should be peek(), but since the 'audio-changed'
+        # signal isn't functional we have to do it this way.
+        next = self.queue.next()
         uri = self._get_track_uri(next)
         self.playbin.set_property('uri', uri) #playbin2 takes care of the rest
     

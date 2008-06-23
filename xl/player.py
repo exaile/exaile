@@ -131,6 +131,8 @@ class BaseGSTPlayer(object):
         self.setup_bus()
         self.setup_gst_elements()
 
+        event.add_callback(self._on_setting_change, 'option_set')
+
     def setup_playbin(self):
         raise NotImplementedError
 
@@ -140,21 +142,94 @@ class BaseGSTPlayer(object):
         self.bus.enable_sync_message_emission()
         self.bus.connect('message', self.on_message)
 
+    def _on_setting_change(self, name, object, data):
+        if 'player/volume' == data:
+            self._load_volume()
+        elif 'equalizer/band-' in data:
+            self._load_equalizer_values()
+
+    def _load_equalizer_values(self):
+        if self.equalizer:
+            for band in range(0, 10):
+                value = settings.get_option("equalizer/band-%s"%band, 0.0)
+                self.equalizer.set_property("band%s"%band, value)
+
+    def _load_volume(self):
+        volume = settings.get_option("player/volume", 1.0)
+        self.set_volume(volume)
+
     def setup_gst_elements(self):
         """
             sets up additional gst elements
         """
-        # TODO: implement eq, replaygain, prefs
-        self.audio_sink = gst.element_factory_make("alsasink", "sink")
-        self.volume_control = gst.element_factory_make("volume", "vol")
+        # TODO: implement eq, replaygain
+
+        elements = []
+
+        # equalizer
+        if settings.get_option("player/equalizer", False):
+            try:
+                self.equalizer = gst.element_factory_make("equalizer-10bands",
+                        "equalizer")
+                self._load_equalizer_values()
+                elements.append(self.equalizer)
+                elements.append(gst.element_factory_make('audioconvert'))
+            except:
+                logger.warning("Failed to enable equalizer")
+                self.equalizer = None
+        else:
+            self.equalizer = None
+
+        # replaygain
+        if settings.get_option("player/replaygain", False):
+            try:
+                self.replay_gain = gst.element_factory_make("rgvolume", 
+                        "replaygain")
+                self.replay_gain.set_property(
+                        settings.get_option("replaygain/album_mode", False) )
+                self.replay_gain.set_property(
+                        settings.get_option("replaygain/preamp", 0.0) )
+                self.replay_gain.set_property(
+                        settings.get_option("replaygain/fallback", 0.0) )
+                elements.append(self.replaygain)
+            except:
+                logger.warning("Failed to enable replaygain")
+                self.replay_gain = None
+        else:
+            self.replay_gain = None
         
+        # add volume control element
+        self.volume_control = gst.element_factory_make("volume", "vol")
+        self._load_volume()
+        elements.append(self.volume_control)
+
+        # set up the link to the sound card
+        name = settings.get_option("player/sink", "autoaudiosink")
+        if not gst.element_factory_find(name):
+            logger.warning("Could not find playback sink %s, falling back to autoaudiosink"%name)
+            name = 'autoaudiosink'
+            options = []
+        logger.debug("Using %s for playback"%name)
+        self.audio_sink = gst.element_factory_make(name, "sink")
+        # this setting is a list of strings of the form "param=value"
+        options = settings.get_option("player/sink_options", [])
+        for option in options:
+            try:
+                param, value = option.split("=", 1)
+                self.audio_sink.set_property(param, value)
+            except:
+                logger.warning("Could not set parameter %s for %s"%(param, name))
+        elements.append(self.audio_sink)
+
+
+        # join everything together into a Bin to use as the playbin's sink
         sinkbin = gst.Bin()
-        elements = [self.volume_control, self.audio_sink]
         sinkbin.add(*elements)
         gst.element_link_many(*elements)
         sinkpad = elements[0].get_static_pad("sink")
         sinkbin.add_pad(gst.GhostPad('sink', sinkpad))
 
+        
         self.playbin.set_property("audio-sink", sinkbin)
 
     def tag_func(self, *args):

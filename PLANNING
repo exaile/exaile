@@ -73,6 +73,8 @@ Implemented:
             is 'spooled up', rather than when the change happens. This is a 
             limitation of the current playbin2. In most cases the difference
             should be negligible.
+    Equalizer
+    Replaygain
 
 Things that can probably be implemented at this stage:
     CD Burning
@@ -90,7 +92,6 @@ Things that can probably be implemented at this stage:
         part of radio or separate?
         allow flexibility in choice of when (if?) and where to download
         allow streaming if not downloaded
-        allow
     MP3 Player Support
         will likely need some additional work in devices and hal
         generic classes subclassable for iPod, MTP and MassStorage players
@@ -109,8 +110,8 @@ Things that can probably be implemented at this stage:
         found on ubuntu forums: "With amarok I can grab a playlist, drag 
             it to my player and Amarok will automatically 
             transfer all the associated songs and generate the playlist 
-            on my player. No other app was able to do this." - this is a GOOD IDEA, 
-            we should aim for this sort of "Just Works" wherever possible.
+            on my player. No other app was able to do this." - this is a GOOD 
+            IDEA, we should aim for this sort of "Just Works" wherever possible
     Persistence 
         everything should be persistent, ie. when opening exaile it should appear 
             EXACTLY as it was when you exited.
@@ -129,7 +130,7 @@ Things that can probably be implemented at this stage:
                     at any of these steps
             periodic save to disk so that in event of crash eveything is saved
             how to deal with streams or devices, which cannot be guaranteed
-                to be present upon resume
+                to be present upon resume?
     GUI
         should not be drastically different from 0.2
         separate classes (with associated glade files) for each part
@@ -140,16 +141,18 @@ Things that can probably be implemented at this stage:
             ???
         use gtk.glade.XML.signal_autoconnect *whenever* possible... this
             is something we didn't do in 0.2 and it was a pain
-    Equalizer
-        should be first pipeline element after playbin, to minimize distortion
-        add a pre-amp element
-    Replaygain
     Visualizations
         implement as plugin (if possible)
     Cross-Fade
         use gst's adder element to combine streams
         use peek() methods on playlists and queue to see next track
             without actually switching to it.
+
+Minor Tasks:
+    make hal non-mandatory
+    make python cddb non-mandatory
+    add comments and docstrings in xl/player.py
+    implement buffering handling in xl/player.py (see gstreamer playbin docs)
 
 Other Work-Items:
     Conversion
@@ -158,13 +161,14 @@ Other Work-Items:
             playlists, and anything else still relevant in 0.3
         should be the last primary 'feature' implemented
         implement as plugin? that way it can just be unloaded afterwards
-            saving a little bit of time and memory
+            saving a little bit of time and memory.
 
 Misc:
-    RAM use on large (>10000) collections? Can we get near-constant RAM use like 
-        banshee et al manage? On further inspection, banshee is not using constant RAM, 
-        rather it is using less than 2kb per track, while 0.3 is currently slightly 
-        above 4kb per track. This is still an issue, but less so than before.
+    RAM use on large (>10000) collections? Can we get near-constant RAM use
+        like banshee et al manage? On further inspection, banshee is not using 
+        constant RAM, rather it is using less than 2kb per track, while 0.3 is 
+        currently slightly above 4kb per track. This is still an issue, but 
+        less so than before.
 
     possible solution: an alternate db system based on dbhash
         so we can have lower, near-constant, mem use, but use more disk i/o
@@ -178,10 +182,13 @@ Misc:
     this on hold for now. work on hardening/optmizing pickledb instead
 
 
-    another idea: have two DBs, one on-disc and one in-mem, with the in-mem
+    another idea: have two DBs, one on-disk and one in-mem, with the in-mem
     db holding only what is needed to display the UI. 
+        advantages: fast UI, low ram use
+        disadvantages: increased disk-I/O (though less than above)
         possible issues: syncronization, searching
-
+            search displayed cols be default, read from disk db if tag not
+                in mem is specified.
 
 ==== NOTES ====
 xl is to be split into xl and xlgui. All code concerning the display of 

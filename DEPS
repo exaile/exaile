@@ -20,5 +20,6 @@ device detection:
 cd info:
     python-cddb (TBI)
 
-
+library watching:
+    pyinotify 
 

@@ -1,36 +1,24 @@
-<?xml version="1.0" standalone="no"?> <!--*- mode: xml -*-->
-<!DOCTYPE glade-interface SYSTEM "http://glade.gnome.org/glade-2.0.dtd">
-
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
+<!--*- mode: xml -*-->
 <glade-interface>
-
-<widget class="GtkWindow" id="SplashScreen">
-  <property name="width_request">413</property>
-  <property name="height_request">163</property>
-  <property name="title" translatable="yes"></property>
-  <property name="type">GTK_WINDOW_POPUP</property>
-  <property name="window_position">GTK_WIN_POS_CENTER</property>
-  <property name="modal">False</property>
-  <property name="resizable">False</property>
-  <property name="destroy_with_parent">True</property>
-  <property name="decorated">False</property>
-  <property name="skip_taskbar_hint">True</property>
-  <property name="skip_pager_hint">True</property>
-  <property name="type_hint">GDK_WINDOW_TYPE_HINT_NORMAL</property>
-  <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
-  <property name="focus_on_map">True</property>
-  <property name="urgency_hint">False</property>
-
-  <child>
-    <widget class="GtkHBox" id="splash_box">
-      <property name="visible">True</property>
-      <property name="homogeneous">False</property>
-      <property name="spacing">0</property>
-
-      <child>
-	<placeholder/>
-      </child>
-    </widget>
-  </child>
-</widget>
-
+  <widget class="GtkWindow" id="SplashScreen">
+    <property name="width_request">413</property>
+    <property name="height_request">163</property>
+    <property name="type">GTK_WINDOW_POPUP</property>
+    <property name="resizable">False</property>
+    <property name="window_position">GTK_WIN_POS_CENTER</property>
+    <property name="destroy_with_parent">True</property>
+    <property name="skip_taskbar_hint">True</property>
+    <property name="skip_pager_hint">True</property>
+    <property name="decorated">False</property>
+    <child>
+      <widget class="GtkHBox" id="splash_box">
+        <property name="visible">True</property>
+        <child>
+          <placeholder/>
+        </child>
+      </widget>
+    </child>
+  </widget>
 </glade-interface>

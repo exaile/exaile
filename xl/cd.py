@@ -18,7 +18,8 @@
 #
 #
 
-from xl import playlist, settings, track, common
+import dbus
+from xl import playlist, settings, track, common, hal, devices
 
 try:
     import DiscID, CDDB
@@ -106,6 +107,45 @@ class CDPlaylist(playlist.Playlist):
 
         self.set_name(title[1].decode('iso-8859-15', 'replace'))
 
+
+class CDDevice(devices.Device):
+    """
+        represents a CD
+    """
+    def __init__(self, dev="/dev/cdrom"):
+        devices.Device.__init__(self, dev)
+        self.dev = dev
+
+    def connect(self):
+        cdpl = CDPlaylist(device=self.dev)
+        self.playlists.append(cdpl)
+
+    def disconnect(self):
+        self.playlists = []
+
+
+class CDHandler(hal.Handler):
+    name = "cd"
+    def is_type(self, device, capabilities):
+        if "volume.disc" in capabilities:
+            return True
+        return False
+
+    def get_udis(self, hal):
+        udis = hal.hal.FindDeviceByCapability("volume.disc")
+        return udis
+
+    def device_from_udi(self, hal, udi):
+        cd_obj = hal.bus.get_object("org.freedesktop.Hal", udi)
+        cd = dbus.Interface(cd_obj, "org.freedesktop.Hal.Device")
+        if not cd.GetProperty("volume.disc.has_audio"):
+            return #not CD-Audio
+            #TODO: implement mp3 cd support
+        device = str(cd.GetProperty("block.device"))
+
+        cddev = CDDevice( dev=device)
+
+        return cddev
 
 
 # vim: et sts=4 sw=4

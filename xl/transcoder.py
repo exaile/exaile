@@ -143,7 +143,7 @@ class Transcoder(object):
         self.pipe.set_state(gst.STATE_NULL)
 
     def on_error(self, *args):
-        print *args #FIXME: actually do something here
+        print args #FIXME: actually do something here
 
     def on_eof(self, *args):
         self.pipe.set_state(gst.STATE_NULL)

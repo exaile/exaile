@@ -116,6 +116,8 @@ class Exaile(object):
         self.settings = settings.SettingsManager( os.path.join(
                 xdg.get_config_dir(), "settings.ini" ) )
 
+        firstrun = self.settings.get_option("general/first_run", True)
+
         #Set up the player itself.
         from xl import player
         self.player = player.get_player()()
@@ -131,8 +133,8 @@ class Exaile(object):
         #initalize PlaylistsManager
         from xl import playlist
         self.playlists = playlist.PlaylistManager()
-        self._add_default_playlists() #TODO: run this only first time or 
-                                      #      when requested
+        if firstrun:
+            self._add_default_playlists() 
 
         #initialize dynamic playlist support
         from xl import dynamic
@@ -145,6 +147,11 @@ class Exaile(object):
         #initialize HAL
         from xl import hal
         self.hal = hal.HAL(self.devices)
+        self.hal.connect()
+
+        #add cd device support to hal
+        from xl import cd
+        self.hal.add_handler(cd.CDHandler())
 
         # cover manager
         from xl import cover
@@ -155,11 +162,11 @@ class Exaile(object):
         from xl import radio
         self.radio = radio.RadioManager()
 
-        #initialize LyricManager
+        #initialize LyricsManager
         from xl import lyrics
         self.lyrics = lyrics.LyricsManager()
 
-        #initialize PluginManager
+        #initialize PluginsManager
         from xl import plugins
         self.plugins = plugins.PluginsManager(self)
 

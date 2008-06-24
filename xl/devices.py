@@ -17,7 +17,7 @@
 # contains the DeviceManager and some generic Device classes
 #
 
-from xl import common, cd, event
+from xl import common, event
 
 
 class DeviceManager(object):
@@ -81,20 +81,6 @@ class Device(object):
         return self.playlists
 
 
-class CDDevice(Device):
-    """
-        represents a CD
-    """
-    def __init__(self, dev="/dev/cdrom"):
-        Device.__init__(self, dev)
-        self.dev = dev
-
-    def connect(self):
-        cdpl = cd.CDPlaylist(device=self.dev)
-        self.playlists.append(cdpl)
-
-    def disconnect(self):
-        self.playlists = []
 
 
 # vim: et sts=4 sw=4

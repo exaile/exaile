@@ -14,8 +14,7 @@
 
 import dbus
 
-from xl import devices, common
-
+from xl import common
 
 
 class HAL(object):
@@ -28,60 +27,51 @@ class HAL(object):
         self.bus = None
         self.hal = None
 
+        self.handlers = {}
         self.hal_devices = {}
-
-        self.connect()
 
     def connect(self):
         try:
             self.bus = dbus.SystemBus()
-
             hal_obj = self.bus.get_object('org.freedesktop.Hal', 
                 '/org/freedesktop/Hal/Manager')
-
             self.hal = dbus.Interface(hal_obj, 'org.freedesktop.Hal.Manager')
-        
-            self.initial_device_setup()
+            return True
         except:
             common.log_exception()
+            return False
 
-    @common.threaded
-    def initial_device_setup(self):
-        self.setup_cds_initial()
-        self.setup_device_events()
-
-    def setup_cds_initial(self):
-        udis = self.hal.FindDeviceByCapability("volume.disc")
-
+    def add_handler(self, handler):
+        self.handlers[handler.name] = handler
+        udis = handler.get_udis(self)
         for udi in udis:
-            self.add_cd_device(udi)
+            self.add_device(udi)
 
+    def remove_handler(self, name):
+        del self.handlers[name]
 
-    def add_cd_device(self, udi):
-        cd_obj = self.bus.get_object("org.freedesktop.Hal", udi)
-        cd = dbus.Interface(cd_obj, "org.freedesktop.Hal.Device")
-        if not cd.GetProperty("volume.disc.has_audio"):
-            return #not CD-Audio
-            #TODO: implement mp3 cd support
-        device = str(cd.GetProperty("block.device"))
-
-        cddev = devices.CDDevice( dev=device)
-
-        cddev.connect()
-        
-        self.devicemanager.add_device(cddev)
-        self.hal_devices[udi] = cddev
-
-
-    def handle_device_added(self, device_udi):
-        dev_obj = self.bus.get_object("org.freedesktop.Hal", device_udi)
+    def get_handler(self, udi):
+        dev_obj = self.bus.get_object("org.freedesktop.Hal", udi)
         device = dbus.Interface(dev_obj, "org.freedesktop.Hal.Device")
         capabilities = device.GetProperty("info.capabilities")
-        if "volume.disc" in capabilities:
-            self.add_cd_device(device_udi)
+        for handler in self.handlers.itervalues():
+            if handler.is_type(device, capabilities):
+                return handler
+        return None
 
+    @common.threaded
+    def add_device(self, device_udi):
+        handler = self.get_handler(device_udi)
+        if handler is None:
+            return
 
-    def handle_device_removed(self, device_udi):
+        dev = handler.device_from_udi(self, device_udi)
+        dev.connect()
+
+        self.devicemanager.add_device(dev)
+        self.hal_devices[device_udi] = dev
+
+    def remove_device(self, device_udi):
         try:
             self.devicemanager.remove_device(self.hal_devices[device_udi])
             del self.hal_devices[device_udi]
@@ -89,10 +79,25 @@ class HAL(object):
             pass
 
     def setup_device_events(self):
-        self.bus.add_signal_receiver(self.handle_device_added,
+        self.bus.add_signal_receiver(self.add_device,
                 "DeviceAdded")
-        self.bus.add_signal_receiver(self.handle_device_removed,
+        self.bus.add_signal_receiver(self.remove_device,
                 "DeviceRemoved")
+
+
+class Handler(object):
+    name = 'base'
+    def __init__(self):
+        pass
+
+    def is_type(self, device, capabilities):
+        return False
+    
+    def get_udis(self, hal):
+        return []
+
+    def device_from_udi(self, hal, udi):
+        pass
 
 
 # vim: et sts=4 sw=4

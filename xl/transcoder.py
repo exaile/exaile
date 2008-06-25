@@ -81,34 +81,36 @@ def add_format(self, name, format):
     global FORMATS
     FORMATS[name] = format
 
+class TranscodeError(Exception):
+    pass
 
 class Transcoder(object):
     def __init__(self):
         self.src = None
         self.sink = None
-        self.dest_format = None
-        self.quality = None
+        self.dest_format = "Ogg Vorbis"
+        self.quality = 5
         self.input = None
         self.output = None
         self.encoder = None
         self.pipe = None
         self.bus = None
+        self.running = False
+
+        self.error_cb = None
+        self.end_cb = None
 
     def set_format(self, name):
-        self.dest_format = name
+        if name in FORMATS:
+            self.dest_format = name
 
     def set_quality(self, value):
-        self.quality = value
+        if value in FORMATS[self.dest_format]['raw_steps']:
+            self.quality = value
 
     def _construct_encoder(self):
-        if not self.dest_format:
-            format = FORMATS["Ogg Vorbis"]
-        else:
-            format = FORMATS[self.dest_format]
-        if self.quality not in format["raw_steps"]:
-            quality = format["default"]
-        else:
-            quality = self.quality
+        format = FORMATS[self.dest_format]
+        quality = self.quality
         self.encoder = format["command"]%quality
 
     def set_input(self, uri):
@@ -125,28 +127,48 @@ class Transcoder(object):
 
     def start_transcode(self): 
         self._construct_encoder()
-        elements = [ self.input, "decodebin", "audioconvert", 
+        elements = [ self.input, "decodebin name=\"decoder\"", "audioconvert", 
                 self.encoder, self.output ]
         pipestr = " ! ".join( elements )
-        print pipestr
         pipe = gst.parse_launch(pipestr)
         self.pipe = pipe
         self.bus = pipe.get_bus()
         self.bus.add_signal_watch()
         self.bus.connect('message::error', self.on_error)
-        self.bus.connect('message::eof', self.on_eof)
+        self.bus.connect('message::eos', self.on_eof)
 
         pipe.set_state(gst.STATE_PLAYING)
+        self.running = True
         return pipe
 
     def stop(self):
         self.pipe.set_state(gst.STATE_NULL)
+        self.running = False
+        try:
+            self.end_cb()
+        except:
+            pass #FIXME
 
     def on_error(self, *args):
-        print args #FIXME: actually do something here
+        self.pipe.set_state(gst.STATE_NULL)
+        self.running = False
+        try:
+            self.error_cb()
+        except:
+            raise TranscodeError(args)
 
     def on_eof(self, *args):
-        self.pipe.set_state(gst.STATE_NULL)
+        self.stop()
+        
+    def get_time(self):
+        try:
+            tim = self.pipe.query_position(gst.FORMAT_TIME)[0]
+            tim = tim/gst.SECOND
+            return tim
+        except:
+            import traceback
+            print traceback.format_exc()
+            return 0.0
 
-    def get_progress(self):
-        raise NotImplementedError #TODO: implement
+    def is_running(self):
+        return self.running

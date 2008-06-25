@@ -87,6 +87,7 @@ Things that can probably be implemented at this stage:
         matching tracks based on tag content rather than loc.
         useful for: detecting moves withing the library, xspf playlists
         ?match by everything or a subset? if x% is the same? efficiency?
+        needed? see alternate DB ideas below
     DBUS
     Podcasts
         part of radio or separate?
@@ -158,6 +159,7 @@ Minor Tasks:
     make python cddb non-mandatory
     add comments and docstrings in xl/player.py
     implement buffering handling in xl/player.py (see gstreamer playbin docs)
+    handle devices other than /dev/cdrom for disc in xl/player.py
 
 Other Work-Items:
     Conversion
@@ -193,7 +195,8 @@ Misc:
         disadvantages: increased disk-I/O (though less than above)
         possible issues: syncronization, searching
             search displayed cols be default, read from disk db if tag not
-                in mem is specified.
+                in mem is specified. if you keep the separate index DBs as 
+                suggested above the difference should be negligible.
 
 ==== NOTES ====
 xl is to be split into xl and xlgui. All code concerning the display of 

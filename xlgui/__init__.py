@@ -17,8 +17,9 @@ __all__ = ['main', 'panel', 'playlist']
 import gtk, gtk.glade, gobject
 from xl import xdg
 from xlgui import main, panel
-from xlgui.panel import collection, radio
+from xlgui.panel import collection, radio, playlists
 
+gtk.window_set_default_icon_from_file('%sicon.png' % xdg.get_image_dir())
 class Main(object):
     """
         This is the main gui controller for exaile
@@ -32,8 +33,11 @@ class Main(object):
         self.exaile = exaile
         self.main = main.MainWindow(self)
 
-        self.collection_panel = collection.CollectionPanel(self)
-        self.radio_panel = radio.RadioPanel(self)
+        self.collection_panel = collection.CollectionPanel(self,
+            exaile.collection)
+        self.radio_panel = radio.RadioPanel(self, exaile.radio)
+        self.playlists_panel = playlists.PlaylistsPanel(self,
+            exaile.playlists)
 
         self.main.window.show_all()
 

@@ -14,7 +14,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import gtk
+import gtk, os.path
+from xl import xdg
 
 class DragTreeView(gtk.TreeView):
     """
@@ -133,3 +134,18 @@ class DragTreeView(gtk.TreeView):
         if not selection.count_selected_rows():
             selection.select_path(path[0])
         return self.cont.button_press(button, event)
+
+
+def get_icon(id, size=gtk.ICON_SIZE_BUTTON):
+    """
+        Returns a stock icon for the specified id and size
+    """
+    theme = gtk.icon_theme_get_default()
+    try:
+        icon = theme.load_icon(id, size, gtk.ICON_LOOKUP_NO_SVG)
+        if icon: return icon
+    except gobject.GError:
+        pass
+    
+    return gtk.gdk.pixbuf_new_from_file(
+        os.path.join(xdg.get_image_dir(), 'default_theme', id + '.png'))

@@ -15,6 +15,7 @@
 import gtk, pango
 from xlgui import guiutil
 from gettext import gettext as _
+from xl import playlist, event
 
 class Column(object):
     __slots__ = ['id', 'display', 'size']
@@ -55,40 +56,51 @@ class Playlist(gtk.VBox):
 
     default_column_ids = ['tracknumber', 'title', 'album', 'artist', 'length']
 
-    def __init__(self, controller, playlist):
+    def __init__(self, controller, pl):
         """
             Initializes the playlist
 
             @param controller:  the main GUI controller
-            @param playlist: the playlist.Playlist instace to represent
+            @param pl: the playlist.Playlist instace to represent
         """
         gtk.VBox.__init__(self)
 
         self.controller = controller
-        self.playlist = playlist
+
+        self.playlist = pl
+
         self.settings = controller.exaile.settings
 
         self._setup_tree()
         self._setup_columns()
-        self.refresh()
+        self._set_tracks(self.playlist.get_tracks())
 
         self.show_all()
 
-    def refresh(self):
+        # watch the playlist for changes
+        event.add_callback(self.on_add_tracks, 'tracks_added', self)
+
+    def on_add_tracks(self, type, playlist, tracks):
         """
-            Refreshes the view based on the tracks that are currently in the
-            playlist
+            Called when someone adds tracks to the contained playlist
+        """
+        for track in tracks:
+            self._append_track(track)
+
+    def _set_tracks(self, tracks):
+        """
+            Sets the tracks that this playlist should display
         """
 
         self.model.clear()
         self.list.set_model(self.model_blank)
 
-        for track in self.playlist.get_tracks():
-            self.append_track(track)
+        for track in tracks:
+            self._append_track(track)
 
         self.list.set_model(self.model)
 
-    def get_ar(self, song):
+    def _get_ar(self, song):
         """
             Creates the array to be added to the model in the correct order
         """
@@ -97,11 +109,11 @@ class Playlist(gtk.VBox):
             ar.append(str(song[field]))
         return ar
 
-    def append_track(self, song):
+    def _append_track(self, track):
         """
-            Adds a song to this view
+            Adds a track to this view
         """
-        ar = self.get_ar(song)
+        ar = self._get_ar(track)
         self.model.append(ar)
 
     def _setup_tree(self):
@@ -230,7 +242,7 @@ class Playlist(gtk.VBox):
 
                 if col_struct.id == 'length':
                     col.set_cell_data_func(cellr, self.length_data_func)
-                elif col_struct.id == 'track':
+                elif col_struct.id == 'tracknumber':
                     col.set_cell_data_func(cellr, self.track_data_func)
 #                elif col_struct.id == 'rating':
 #                    col.set_attributes(cellr, pixbuf=1)
@@ -245,6 +257,13 @@ class Playlist(gtk.VBox):
 
                 resizable = self.settings.get_option('gui/resizable_cols',
                     False)
+
+                col.connect('clicked', self.set_sort_by)
+#                col.connect('notify::width', self.set_column_width)
+                col.set_clickable(True)
+                col.set_reorderable(True)
+                col.set_resizable(False)
+                col.set_sort_indicator(False)
 
                 if not resizable:
                     if col_struct.id in ('title', 'artist', 'album', 'io_loc', 'genre'):
@@ -274,6 +293,52 @@ class Playlist(gtk.VBox):
                     self.press_header)
             count = count + 1
         self.changed_id = self.list.connect('columns-changed', self.column_changed)
+
+    # sort functions courtesy of listen (http://listengnome.free.fr), which
+    # are in turn, courtesy of quodlibet.  
+    def set_sort_by(self, column):
+        """
+            Sets the sort column
+        """
+        title = column.get_title()
+        count = 0
+        for col in self.list.get_columns():
+            if title == col.get_title():
+                order = column.get_sort_order()
+                if order == gtk.SORT_ASCENDING:
+                    order = gtk.SORT_DESCENDING
+                else:
+                    order = gtk.SORT_ASCENDING
+                col.set_sort_indicator(True)
+                col.set_sort_order(order)
+            else:
+                col.set_sort_indicator(False)
+
+        tracks = self.reorder_songs()
+        self._set_tracks(tracks)
+
+    def reorder_songs(self):
+        """
+            Resorts all songs
+        """
+        attr, reverse = self.get_sort_by()
+
+        songs = self.playlist.search('',
+            (attr, 'artist', 'album', 'tracknumber', 'title'))
+
+        if reverse:
+            songs.reverse()
+        return songs
+
+    def get_sort_by(self):
+        """
+            Gets the sort order
+        """
+        for col in self.list.get_columns():
+            if col.get_sort_indicator():
+                return (self.column_by_display[col.get_title()].id,
+                    col.get_sort_order() == gtk.SORT_DESCENDING)
+        return 'album', False
 
     def icon_data_func(self, col, cell, model, iter):
         """

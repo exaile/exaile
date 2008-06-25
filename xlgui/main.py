@@ -59,6 +59,8 @@ class MainWindow(object):
         pl = playlist.Playlist(self.controller, pl)
         self.playlist_notebook.append_page(pl,
             gtk.Label(name))
+        self.playlist_notebook.set_current_page(
+            self.playlist_notebook.get_n_pages() - 1)
 
     def _connect_events(self):
         """

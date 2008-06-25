@@ -20,8 +20,10 @@ class CollectionPanel(panel.Panel):
     """
     gladeinfo = ('collection_panel.glade', 'CollectionPanelWindow')
 
-    def __init__(self, controller):
+    def __init__(self, controller, collection):
         """
             Initializes the collection panel
         """
         panel.Panel.__init__(self, controller)
+
+        self.collection = collection

@@ -271,6 +271,10 @@ class Playlist(trackdb.TrackDB):
         """
             Sets up the Playlist
 
+            Signals:
+                - tracks_added - Called when tracks are added
+                - tracks_removed - Called when tracks are removed
+
             args: see TrackDB
         """
         self.ordered_tracks = []
@@ -330,6 +334,8 @@ class Playlist(trackdb.TrackDB):
         if location >= self.current_pos:
             self.current_pos += len(tracks)
 
+        event.log_event('tracks_added', self, tracks)
+
     def remove(self, index):
         """
             removes the track at the specified index from the playlist
@@ -337,6 +343,7 @@ class Playlist(trackdb.TrackDB):
             index: the index to remove at [int]
         """
         self.remove_tracks(index, index)
+
 
     def remove_tracks(self, start, end):
         """
@@ -356,6 +363,8 @@ class Playlist(trackdb.TrackDB):
             self.current_pos -= len(removed)
         elif start <= self.current_pos <= end:
             self.current_pos = start+1
+
+        event.log_event('tracks_removed', self, (start, end))
 
     def get_tracks(self):
         """
@@ -686,6 +695,8 @@ class SmartPlaylist(trackdb.TrackDB):
         sort_field = None
         if self.random_sort: 
             sort_field = 'RANDOM'
+        else:
+            sort_field = ('artist', 'album', 'tracknumber', 'title')
 
         pl = Playlist(name=self.get_name())
 

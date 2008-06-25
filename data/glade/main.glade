@@ -134,10 +134,10 @@
               <widget class="GtkVBox" id="vbox2">
                 <property name="visible">True</property>
                 <property name="border_width">3</property>
-                <property name="spacing">3</property>
                 <child>
                   <widget class="GtkHBox" id="hbox3">
                     <property name="visible">True</property>
+                    <property name="border_width">3</property>
                     <child>
                       <widget class="GtkAspectFrame" id="cover_frame">
                         <property name="width_request">100</property>
@@ -295,6 +295,7 @@
                   <widget class="GtkNotebook" id="playlist_notebook">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="border_width">3</property>
                     <signal name="switch_page" handler="on_playlist_notebook_switch"/>
                     <child>
                       <widget class="GtkVBox" id="placeholder">

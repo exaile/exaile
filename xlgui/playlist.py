@@ -16,6 +16,7 @@ import gtk, pango
 from xlgui import guiutil
 from gettext import gettext as _
 from xl import playlist, event
+import copy
 
 class Column(object):
     __slots__ = ['id', 'display', 'size']
@@ -67,7 +68,9 @@ class Playlist(gtk.VBox):
 
         self.controller = controller
 
-        self.playlist = pl
+        # here we make a copy of the playlist, so that changes here don't
+        # effect the original (this is how Exaile 0.2 worked)
+        self.playlist = copy.copy(pl)
 
         self.settings = controller.exaile.settings
 

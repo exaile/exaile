@@ -560,10 +560,9 @@ class SmartPlaylist(trackdb.TrackDB):
         >>> sp = SmartPlaylist(collection=col)
         >>> sp.add_param("artist", "==", "Delerium")
         >>> p = sp.get_playlist()
-        >>> p.get_tracks()[0]['album']
+        >>> p.get_tracks()[1]['album']
         u'Chimera'
-        >>>
-            
+        >>> 
     """
     def __init__(self, name="", location=None, collection=None, 
         pickle_attrs=[]):

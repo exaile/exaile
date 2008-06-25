@@ -25,7 +25,6 @@ class SmartPlaylistTestCase(BasePlaylistTestCase):
         p = sp.get_playlist()
 
         tracks = p.get_tracks()
-        tracks.reverse()
 
         for i, track in enumerate(tracks):
             assert i+1 == int(track['tracknumber']), \

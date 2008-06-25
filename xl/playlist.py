@@ -344,6 +344,11 @@ class Playlist(trackdb.TrackDB):
         """
         self.remove_tracks(index, index)
 
+    def index(self, track):
+        """
+            Gets the index of a specific track
+        """
+        return self.ordered_tracks.index(track)
 
     def remove_tracks(self, start, end):
         """

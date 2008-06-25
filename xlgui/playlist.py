@@ -116,6 +116,34 @@ class Playlist(gtk.VBox):
         ar = self._get_ar(track)
         self.model.append(ar)
 
+    def get_selected_track(self):
+        """
+            Returns the currently selected track
+        """
+        selection = self.list.get_selection()
+        (model, paths) = selection.get_selected_rows()
+        if not paths: return
+        iter = self.model.get_iter(paths[0])
+        return model.get_value(iter, 0)
+
+    def on_row_activated(self, *e):
+        """
+            Called when the user double clicks on a track
+        """
+        track = self.get_selected_track()
+        if not track: return
+
+        index = self.playlist.index(track)
+        self.playlist.set_current_pos(index)
+        self.controller.exaile.player.stop()
+        self.controller.exaile.queue.play()
+
+    def button_press(self, *e):
+        """
+            stubb
+        """
+        pass
+
     def _setup_tree(self):
         """
             Sets up the TreeView for this Playlist
@@ -123,6 +151,7 @@ class Playlist(gtk.VBox):
         self.list = guiutil.DragTreeView(self)
         self.list.set_rules_hint(True)
         self.list.set_enable_search(True)
+        self.list.connect('row-activated', self.on_row_activated)
 
         self.scroll = gtk.ScrolledWindow()
         self.scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
@@ -316,6 +345,12 @@ class Playlist(gtk.VBox):
 
         tracks = self.reorder_songs()
         self._set_tracks(tracks)
+
+        curtrack = \
+            self.playlist.ordered_tracks[self.playlist.get_current_pos()] 
+        self.playlist.ordered_tracks = tracks
+        index = self.playlist.index(curtrack)
+        self.playlist.set_current_pos(index)
 
     def reorder_songs(self):
         """

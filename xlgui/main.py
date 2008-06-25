@@ -15,7 +15,7 @@
 import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade, gobject
-from xl import xdg
+from xl import xdg, event
 import xl.playlist
 from xlgui import playlist
 from gettext import gettext as _
@@ -70,8 +70,44 @@ class MainWindow(object):
         self.xml.signal_autoconnect({
             'on_configure_event':   self.configure_event,
             'on_delete_event':      self.delete_event,
-            'on_quit_item_activated': self.delete_event
+            'on_quit_item_activated': self.delete_event,
+            'on_playlist_notebook_switch':  self.playlist_switch_event,
+            'on_play_button_clicked': self.on_play_clicked,
+            'on_next_button_clicked':
+                lambda *e: self.controller.exaile.queue.next(),
+            'on_prev_button_clicked':
+                lambda *e: self.controller.exaile.queue.prev(),
+            'on_stop_button_clicked':
+                lambda *e: self.controller.exaile.player.stop(),
         })        
+
+        event.add_callback(self.draw_playlist, 'playback_end')
+        event.add_callback(self.draw_playlist, 'playback_start') 
+
+    def draw_playlist(self, *e):
+        """
+            Called when playback starts, redraws teh playlist
+        """
+        page = self.playlist_notebook.get_current_page()
+        page = self.playlist_notebook.get_nth_page(page)
+        gobject.idle_add(page.queue_draw)
+
+    def on_play_clicked(self, *e):
+        """
+            Called when the play button is clicked
+        """
+        exaile = self.controller.exaile
+        if exaile.player.is_paused() or exaile.player.is_playing():
+            exaile.player.toggle_pause()
+        else:
+            exaile.queue.play()
+
+    def playlist_switch_event(self, notebook, page, page_num):
+        """
+            Called when the page is changed in the playlist notebook
+        """
+        page = notebook.get_nth_page(page_num)
+        self.controller.exaile.queue.set_current_playlist(page.playlist)
 
     def _setup_position(self):
         """

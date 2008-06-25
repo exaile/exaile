@@ -295,6 +295,7 @@
                   <widget class="GtkNotebook" id="playlist_notebook">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <signal name="switch_page" handler="on_playlist_notebook_switch"/>
                     <child>
                       <widget class="GtkVBox" id="placeholder">
                         <property name="visible">True</property>
@@ -461,6 +462,7 @@
                       <widget class="GtkButton" id="play_button">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="tooltip" translatable="yes">Start Playback</property>
                         <property name="response_id">0</property>
                         <signal name="clicked" handler="on_play_button_clicked"/>
                         <child>
@@ -479,6 +481,7 @@
                       <widget class="GtkButton" id="next_button">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="tooltip" translatable="yes">Next Track</property>
                         <property name="response_id">0</property>
                         <signal name="clicked" handler="on_next_button_clicked"/>
                         <child>

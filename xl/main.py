@@ -104,7 +104,7 @@ class Exaile(object):
         self.mainloop()
         
         #initialize DbusManager
-        if not self.options.startgui:
+        if self.options.startgui:
             from xl import xldbus
             if xldbus.check_exit(self.options, self.args):
                 sys.exit(0)
@@ -237,18 +237,15 @@ class Exaile(object):
             self.playlists.add_smart_playlist(pl)
 
     def mainloop(self):
+        import gobject, dbus, dbus.mainloop.glib
+        gobject.threads_init()
+        dbus_loop = dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+        dbus.mainloop.glib.threads_init()
+        dbus.mainloop.glib.gthreads_init()
         if self.options.startgui:
-            import gtk, gobject, dbus, dbus.mainloop.glib
-            gobject.threads_init()
-            dbus.mainloop.glib.threads_init()
-            dbus.mainloop.glib.gthreads_init()
+            import gtk
             gtk.gdk.threads_init()
         else:
-            import gobject, dbus.mainloop.glib
-            gobject.threads_init()
-            dbus_loop = dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
-            dbus.mainloop.glib.threads_init()
-            dbus.mainloop.glib.gthreads_init()
             loop = gobject.MainLoop()
             context = loop.get_context()
             self.__mainloop(context)

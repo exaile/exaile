@@ -26,8 +26,10 @@ def gtkrun(f):
     """
     def wrapper(*args, **kwargs):
         gtk.gdk.threads_enter()
-        f(*args, **kwargs)
-        gtk.gdk.threads_leave()
+        try:
+            f(*args, **kwargs)
+        finally:
+            gtk.gdk.threads_leave()
 
     wrapper.__name__ = f.__name__
     wrapper.__dict__ = f.__dict__

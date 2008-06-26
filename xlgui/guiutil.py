@@ -17,6 +17,24 @@
 import gtk, os.path
 from xl import xdg
 
+
+def gtkrun(f):
+    """
+        A decorator that will make any function run in gtk threadsafe mode
+
+        ALL CODE MODIFYING THE UI SHOULD BE WRAPPED IN THIS
+    """
+    def wrapper(*args, **kwargs):
+        gtk.gdk.threads_enter()
+        f(*args, **kwargs)
+        gtk.gdk.threads_leave()
+
+    wrapper.__name__ = f.__name__
+    wrapper.__dict__ = f.__dict__
+    wrapper.__doc__ = f.__doc__
+
+    return wrapper
+
 class DragTreeView(gtk.TreeView):
     """
         A TextView that does easy dragging/selecting/popup menu

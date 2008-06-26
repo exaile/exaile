@@ -22,7 +22,7 @@
 __version__ = '0.3.0devel'
 
 from xl import common, xdg, event
-import os, sys, logging
+import os, sys, logging, time
 
 logger = logging.getLogger(__name__)
 
@@ -91,7 +91,7 @@ def get_options():
 
 class Exaile(object):
     
-    def __init__(self, startgui=False):
+    def __init__(self):
         """
             Initializes Exaile.
         """
@@ -101,20 +101,34 @@ class Exaile(object):
         #set up logging
         self.setup_logging()
 
-        # setup glib
-        if not startgui: self.mainloop()
-
+        self.mainloop()
+        
         #initialize DbusManager
-        if not startgui:
+        if not self.options.startgui:
             from xl import xldbus
             if xldbus.check_exit(self.options, self.args):
                 sys.exit(0)
             self.dbus = xldbus.DbusManager(self)
+        
+        self.__init()
+        if self.options.startgui:
+            self.__gtkmainloop()
 
+    @common.threaded
+    def __init(self):
+        """
+            Initializes Exaile
+        """
         #initialize SettingsManager
         from xl import settings
         self.settings = settings.SettingsManager( os.path.join(
                 xdg.get_config_dir(), "settings.ini" ) )
+        
+        # splash screen
+        if self.options.startgui:
+            import xlgui
+            xlgui.show_splash(show=self.settings.get_option('gui/show_splash',
+                True))
 
         firstrun = self.settings.get_option("general/first_run", True)
 
@@ -171,11 +185,9 @@ class Exaile(object):
         self.plugins = plugins.PluginsManager(self)
 
         #setup GUI
-        if startgui:
+        if self.options.startgui:
             import xlgui
             logger.info("Loading gui")
-            xlgui.show_splash(show=self.settings.get_option('gui/show_splash',
-                True))
             self.gui = xlgui.Main(self)
 
     def setup_logging(self):
@@ -224,28 +236,34 @@ class Exaile(object):
             pl.add_param('rating', '>', item)
             self.playlists.add_smart_playlist(pl)
 
-
-    # The mainloop stuff makes gobject play nicely with python threads.
-    # Necessary for DBUS signal listening (hal) and gstreamer 
-    # messages (player).
     def mainloop(self):
-        import gobject, dbus.mainloop.glib
-        gobject.threads_init()
-        dbus_loop = dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
-        dbus.SessionBus()
-        dbus.mainloop.glib.threads_init()
-        dbus.mainloop.glib.gthreads_init()
-        loop = gobject.MainLoop()
-        context = loop.get_context()
-        self.__mainloop(context)
+        if self.options.startgui:
+            import gtk, gobject, dbus, dbus.mainloop.glib
+            gobject.threads_init()
+            dbus.mainloop.glib.threads_init()
+            dbus.mainloop.glib.gthreads_init()
+            gtk.gdk.threads_init()
+        else:
+            import gobject, dbus.mainloop.glib
+            gobject.threads_init()
+            dbus_loop = dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+            dbus.mainloop.glib.threads_init()
+            dbus.mainloop.glib.gthreads_init()
+            loop = gobject.MainLoop()
+            context = loop.get_context()
+            self.__mainloop(context)
 
     @common.threaded
-    def __mainloop(self,context):
+    def __mainloop(self, context):
         while 1:
             try:
                 context.iteration(True)
             except:
                 pass
+
+    def __gtkmainloop(self):
+        import gtk
+        gtk.main()
 
     def get_version(self):
         """

@@ -16,14 +16,16 @@ __all__ = ['main', 'panel', 'playlist']
 
 import gtk, gtk.glade, gobject
 from xl import xdg
-from xlgui import main, panel
+from xlgui import main, panel, guiutil
 from xlgui.panel import collection, radio, playlists
 
 gtk.window_set_default_icon_from_file('%sicon.png' % xdg.get_image_dir())
+
 class Main(object):
     """
         This is the main gui controller for exaile
     """
+    @guiutil.gtkrun
     def __init__(self, exaile):
         """ 
             Initializes the GUI
@@ -41,6 +43,7 @@ class Main(object):
 
         self.main.window.show_all()
 
+@guiutil.gtkrun
 def show_splash(show=True):
     """
         Show a splash screen

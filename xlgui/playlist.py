@@ -16,7 +16,7 @@ import gtk, pango
 from xlgui import guiutil
 from gettext import gettext as _
 from xl import playlist, event
-import copy
+import copy, urllib
 
 class Column(object):
     __slots__ = ['id', 'display', 'size']
@@ -67,6 +67,7 @@ class Playlist(gtk.VBox):
         gtk.VBox.__init__(self)
 
         self.controller = controller
+        self.collection = controller.exaile.collection
 
         # here we make a copy of the playlist, so that changes here don't
         # effect the original (this is how Exaile 0.2 worked)
@@ -81,7 +82,7 @@ class Playlist(gtk.VBox):
         self.show_all()
 
         # watch the playlist for changes
-        event.add_callback(self.on_add_tracks, 'tracks_added', self)
+        event.add_callback(self.on_add_tracks, 'tracks_added', self.playlist)
 
     def on_add_tracks(self, type, playlist, tracks):
         """
@@ -192,7 +193,40 @@ class Playlist(gtk.VBox):
         """
             Called when data is recieved
         """
-        pass
+        self.list.unset_rows_drag_dest()
+        self.list.drag_dest_set(gtk.DEST_DEFAULT_ALL,
+            self.list.targets,
+            gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
+
+        locs = list(selection.get_uris())
+        count = 0
+
+        if context.action != gtk.gdk.ACTION_MOVE:
+            pass
+
+        drop_info = tv.get_dest_row_at_pos(x, y)
+        if drop_info:
+            path, position = drop_info
+            iter = self.model.get_iter(path)
+            if (position == gtk.TREE_VIEW_DROP_BEFORE or
+                position == gtk.TREE_VIEW_DROP_INTO_OR_BEFORE):
+                first = False
+            else:
+                first = True
+
+        current_tracks = self.playlist.get_tracks()
+        add = []
+        for loc in locs:
+            loc = loc.replace('file://', '')
+            loc = urllib.unquote(loc)
+
+            if not loc in self.collection.tracks: continue
+            track = self.collection.tracks[loc]
+            if not track in current_tracks:
+                add.append(track)
+
+        if add:
+            self.playlist.add_tracks(add)
 
     def setup_model(self, map):
         """

@@ -13,17 +13,25 @@
           <widget class="GtkHBox" id="hbox1">
             <property name="visible">True</property>
             <child>
-              <widget class="GtkComboBox" id="combobox1">
+              <widget class="GtkComboBox" id="collection_combo_box">
                 <property name="visible">True</property>
+                <property name="items" translatable="yes">Artist
+Album
+Genre - Artist
+Genre - Album
+Year - Artist
+Year - Album
+Artist - Year - Album</property>
               </widget>
             </child>
             <child>
-              <widget class="GtkButton" id="refresh">
+              <widget class="GtkButton" id="collection_refresh_button">
                 <property name="width_request">34</property>
                 <property name="height_request">34</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="response_id">0</property>
+                <signal name="clicked" handler="on_refresh_button_clicked"/>
                 <child>
                   <widget class="GtkImage" id="image1">
                     <property name="visible">True</property>
@@ -57,9 +65,10 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkEntry" id="entry1">
+              <widget class="GtkEntry" id="collection_search_entry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <signal name="activate" handler="on_search_entry_activate"/>
               </widget>
               <packing>
                 <property name="position">1</property>
@@ -73,22 +82,7 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkScrolledWindow" id="scrolledwindow1">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-            <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-            <property name="shadow_type">GTK_SHADOW_IN</property>
-            <child>
-              <widget class="GtkTreeView" id="treeview1">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-              </widget>
-            </child>
-          </widget>
-          <packing>
-            <property name="position">2</property>
-          </packing>
+          <placeholder/>
         </child>
       </widget>
     </child>

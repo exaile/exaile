@@ -12,7 +12,10 @@
 # along with this program; if not, write to the free software
 # foundation, inc., 675 mass ave, cambridge, ma 02139, usa.
 
-from xlgui import panel
+import gtk, gobject, urllib
+from xl import xdg, common
+from xlgui import panel, guiutil
+from gettext import gettext as _
 
 class CollectionPanel(panel.Panel):
     """
@@ -27,3 +30,267 @@ class CollectionPanel(panel.Panel):
         panel.Panel.__init__(self, controller)
 
         self.collection = collection
+        self.settings = controller.exaile.settings
+        self.use_alphabet = self.settings.get_option('gui/use_alphabet', True)
+        self.filter = self.xml.get_widget('collection_search_entry')
+        self.choice = self.xml.get_widget('collection_combo_box')
+
+        self.start_count = 0
+        self.keyword = ''
+        self._setup_tree()
+        self._setup_images()
+        self._connect_events()
+        self.load_tree()
+
+    def _connect_events(self):
+        """
+            Uses signal_autoconnect to connect the various events
+        """
+        self.xml.signal_autoconnect({
+            'on_search_entry_activate': self.on_search
+        })
+
+    def on_search(self, *e):
+        """
+            Searches tracks and reloads the tree
+        """
+        self.keyword = unicode(self.filter.get_text(), 'utf-8')
+        self.start_count += 1
+        self.load_tree()
+
+    def _setup_images(self):
+        """
+            Sets up the various images that will be used in the tree
+        """
+        window = gtk.Window()
+        self.artist_image = gtk.gdk.pixbuf_new_from_file('%sartist.png' %
+            xdg.get_image_dir())
+        self.year_image = gtk.gdk.pixbuf_new_from_file('%syear.png' %
+            xdg.get_image_dir())
+        self.album_image = window.render_icon('gtk-cdrom',
+            gtk.ICON_SIZE_SMALL_TOOLBAR)
+        self.track_image = gtk.gdk.pixbuf_new_from_file('%strack.png' %
+            xdg.get_image_dir())
+        self.genre_image = gtk.gdk.pixbuf_new_from_file('%sgenre.png' %
+            xdg.get_image_dir())
+
+    def drag_data_received(self, *e):
+        """
+            stubb
+        """
+        pass
+
+    def drag_get_data(self, treeview, context, selection, target_id, etime):
+        """
+            Called when a drag source wants data for this drag operation
+        """
+        urls = self._get_urls_for(self.get_selected_tracks())
+        selection.set_uris(urls)
+
+    def _get_urls_for(self, items):
+        """
+            Returns the items' URLs
+        """
+        return [urllib.quote(item.get_loc().encode(common.get_default_encoding()))
+            for item in items]
+
+    def _setup_tree(self):
+        """
+            Sets up the tree widget
+        """
+        self.tree = guiutil.DragTreeView(self)
+        self.tree.set_headers_visible(False)
+        container = self.xml.get_widget('CollectionPanel')
+        scroll = gtk.ScrolledWindow()
+        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        scroll.add(self.tree)
+        scroll.set_shadow_type(gtk.SHADOW_IN)
+        container.pack_start(scroll, True, True)
+        container.show_all()
+
+        selection = self.tree.get_selection()
+        selection.set_mode(gtk.SELECTION_MULTIPLE)
+        pb = gtk.CellRendererPixbuf()
+        cell = gtk.CellRendererText()
+        col = gtk.TreeViewColumn('Text')
+        col.pack_start(pb, False)
+        col.pack_start(cell, True)
+        col.set_attributes(pb, pixbuf=0)
+        self.tree.append_column(col)
+        col.set_cell_data_func(cell, self.track_data_func)
+
+        self.tree.set_row_separator_func(
+            lambda m, i: m.get_value(i, 1) is None)
+
+        self.model = gtk.TreeStore(gtk.gdk.Pixbuf, object, str)
+        self.model_blank = gtk.TreeStore(gtk.gdk.Pixbuf, object, str)
+
+    def track_data_func(self, column, cell, model, iter, user_data=None):
+        """
+            Called when the tree needs a value for column 1
+        """
+        object = model.get_value(iter, 1)
+        if object is None: return
+        field = model.get_value(iter, 2)
+
+        if field == 'nofield':
+            cell.set_property('text', object)
+            return
+        if object[field]:
+            info = object[field]
+            if not info: info = _('Unknown')
+            cell.set_property('text', info)
+
+    def _find_recursive(self, iter, add):
+        """
+            Appends items recursively to the added songs list.  If this
+            is a genre, artist, or album, it will search into each one and
+            all of the tracks contained
+        """
+        iter = self.model.iter_children(iter)        
+        while True:
+            field = self.model.get_value(iter, 2)
+            if self.model.iter_has_child(iter):
+                self._find_recursive(iter, add)
+            elif field == 'title':
+                track = self.model.get_value(iter, 1)
+                if not track in add:
+                    add.append(track)
+            
+            iter = self.model.iter_next(iter)
+            if not iter: break
+
+    def get_selected_tracks(self):
+        """
+            Finds all the selected tracks
+        """
+
+        selection = self.tree.get_selection()
+        (model, paths) = selection.get_selected_rows()
+        found = [] 
+        for path in paths:
+            iter = self.model.get_iter(path)
+            field = self.model.get_value(iter, 2)
+            if self.model.iter_has_child(iter):
+                self._find_recursive(iter, found)
+            else:
+                track = self.model.get_value(iter, 1)
+                if field == 'title':
+                    if not track in found:
+                        found.append(track)
+
+        return found
+
+    def load_tree(self):
+        """
+            Builds the tree
+        """
+        self.current_start_count = self.start_count
+        self.model.clear()
+        self.tree.set_model(self.model_blank)
+
+        self.root = None
+        self.order = ('artist', 'album', 'tracknumber', 'title')
+
+        self.image_map = {
+            "album": self.album_image,
+            "artist": self.artist_image,
+            "genre": self.genre_image,
+            "title": self.track_image,
+            "year": self.year_image,
+        }
+
+        tracks = self.collection.search(self.keyword, self.order)
+
+        if self.current_start_count != self.start_count: return
+        self.append_tracks(self.root, tracks)
+
+    def append_tracks(self, node, tracks=None, unknown=False,
+        expanded_paths=None):
+        """
+            Adds tracks to the tree in the correct order
+        """
+        current_tracks = tracks[:1000]
+        order_nodes = common.idict()
+        order = []
+        last_songs = []
+
+        for field in self.order:
+            if field == 'tracknumber': continue
+            order.append(field)
+
+        for field in order:
+            order_nodes[field] = common.idict()
+
+        last_char = None
+        if not expanded_paths: expanded_paths = []
+
+        for track in tracks:
+            parent = node
+            last_parent = None
+            string = ""
+            first = True
+
+            for field in order:
+                node_for = order_nodes[field]
+                if field == 'tracknumber': continue
+                info = track[field]
+
+                # print separators
+                if first and info and self.use_alphabet:
+                    temp = info.upper()
+                    if not temp: first_char = ' '
+                    else: first_char = temp[0]
+
+                    if not last_char: # first row, don't add separator
+                        last_char = first_char
+
+                    if first_char != last_char:
+                        if not first_char.isalpha():
+                            first_char = '0-9'
+                        if first_char != last_char:
+                            last_char = first_char
+                            self.model.append(parent, [None, None, None]) 
+
+                if not info:
+                    if not unknown and first:
+                        last_songs.append(track)
+                        break
+                    info = _('Unknown')
+                first = False
+
+                if field == 'title':
+                    n = self.model.append(parent, [self.track_image,
+                        track, field])
+                else:
+                    string = '%s - %s' % (string, info)
+                    if not string in node_for:
+                        parent = self.model.append(parent,
+                            [self.image_map[field], track, field])
+
+                        if info == 'tracknumber': info = track
+                        node_for[string] = parent
+                    else:
+                        parent = node_for[string]
+
+                if self.keyword and last_parent:
+                    if self.keyword.lower() in common.to_unicode(info).lower():
+                        expanded_paths.append(self.model.get_path(
+                            last_parent))
+
+                last_parent = parent
+
+        newtracks = tracks[1000:]
+        if newtracks:
+            gobject.idle_add(self.append_tracks, node, newtracks, unknown,
+                expanded_paths)
+        else:
+            # make sure 'unknown' items end up at the end of the list
+            if not unknown and last_songs:
+                self.append_tracks(self.root, last_songs, True,
+                    expanded_paths)
+
+            gobject.idle_add(self.tree.set_model, self.model)
+
+            for path in expanded_paths:
+                gobject.idle_add(self.tree.expand_to_path, path)

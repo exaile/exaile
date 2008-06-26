@@ -164,5 +164,52 @@ def to_url(path):
     except IOError:
         return path
 
+class idict(dict): 
+    """
+        Case insensitive dictionary
+    """
+    def __init__(self): 
+        """
+            Initializes the dictionary
+        """
+        dict.__init__(self)
+        self.keys_dict = dict()
+    
+
+    def __setitem__(self, item, val): 
+        """
+            Sets an item in the dict
+        """
+        dict.__setitem__(self, item.lower(), val)
+        self.keys_dict[item.lower()] = item
+    
+
+    def __getitem__(self, item): 
+        """
+            Gets an item from the dict
+        """
+        return dict.__getitem__(self, item.lower())
+    
+
+    def __contains__(self, key): 
+        """
+            Returns True if this dictionary contains the specified key
+        """
+        return self.has_key(key)
+    
+
+    def has_key(self, key): 
+        """
+            Returns True if this dictionary contains the specified key
+        """
+        return dict.has_key(self, key.lower())
+    
+
+    def keys(self): 
+        """
+            Returns the case sensitive values of the keys
+        """
+        return self.keys_dict.values()
+
 # vim: et sts=4 sw=4
 

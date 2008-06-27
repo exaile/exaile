@@ -163,9 +163,10 @@ class EventManager(object):
     """
         Manages all Events
     """
-    def __init__(self):
+    def __init__(self, use_logger=True):
         self.callbacks = {}
         self.idle = IdleManager()
+        self.use_logger = use_logger
 
     def emit(self, event):
         """
@@ -184,7 +185,8 @@ class EventManager(object):
                 except KeyError:
                     pass
 
-        logger.debug("Sent '%s' event from '%s' with data '%s'."%(event.type, repr(event.object), repr(event.data)))
+        if self.use_logger:
+            logger.debug("Sent '%s' event from '%s' with data '%s'."%(event.type, repr(event.object), repr(event.data)))
 
         # now call them
         for call in callbacks:

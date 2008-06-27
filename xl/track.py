@@ -48,7 +48,7 @@ formats = {
 
 SUPPORTED_MEDIA = ['.' + ext for ext in formats.iterkeys()]
 
-TRACK_EVENTS = event.EventManager()
+TRACK_EVENTS = event.EventManager(use_logger=False)
 
 def track_updated(track, tag, value):
     global TRACK_EVENTS

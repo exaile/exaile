@@ -3,7 +3,7 @@ It should also be used to keep track of what each contributor is
 currently working on.
 
 Current projects:
-    Aren Olson - Persistence, CD Import
+    Aren Olson - Persistence
     Adam Olsen - GUI
     Anthony Waters - 
     thiblahute - CD Burning
@@ -75,14 +75,12 @@ Implemented:
             should be negligible.
     Equalizer
     Replaygain
+    CD Ripping
 
 Things that can probably be implemented at this stage:
     CD Burning
         class in cd.py, takes a Playlist and burns it in order
         allow mp3 cd burning
-    CD Ripping
-        class in cd.py, rips a CDPlaylist or any track with a cdda loc
-        also allow import of mp3 cd?
     Content-Matching (involved)
         matching tracks based on tag content rather than loc.
         useful for: detecting moves withing the library, xspf playlists
@@ -156,7 +154,6 @@ Things that can probably be implemented at this stage:
 
 Minor Tasks:
     make hal non-mandatory
-    make python cddb non-mandatory
     add comments and docstrings in xl/player.py
     implement buffering handling in xl/player.py (see gstreamer playbin docs)
     handle devices other than /dev/cdrom for disc in xl/player.py

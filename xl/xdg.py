@@ -57,11 +57,13 @@ def get_data_dirs():
 def get_cache_dir():
     return cache_home
 
-def get_glade_dir():
-    return 'data/glade/'
 
-def get_image_dir():
-    return 'data/images/'
+def get_data_path(subpath):
+    for dir in data_dirs:
+        path = os.path.join(dir, subpath)
+        if os.path.exists(path):
+            return path
+    return None
 
 # vim: et sts=4 sw=4
 

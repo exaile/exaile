@@ -29,7 +29,8 @@
 # most appropriate spot is immediately before a return statement.
 
 
-import threading, common, time, logging
+import threading, time, logging
+from xl import common
 
 # define these here so the interperter doesn't complain about them
 EVENT_MANAGER = None

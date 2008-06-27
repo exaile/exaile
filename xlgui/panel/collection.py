@@ -63,16 +63,12 @@ class CollectionPanel(panel.Panel):
             Sets up the various images that will be used in the tree
         """
         window = gtk.Window()
-        self.artist_image = gtk.gdk.pixbuf_new_from_file('%sartist.png' %
-            xdg.get_image_dir())
-        self.year_image = gtk.gdk.pixbuf_new_from_file('%syear.png' %
-            xdg.get_image_dir())
+        self.artist_image = gtk.gdk.pixbuf_new_from_file(xdg.get_data_path("images/artist.png"))
+        self.year_image = gtk.gdk.pixbuf_new_from_file(xdg.get_data_path('images/year.png'))
         self.album_image = window.render_icon('gtk-cdrom',
             gtk.ICON_SIZE_SMALL_TOOLBAR)
-        self.track_image = gtk.gdk.pixbuf_new_from_file('%strack.png' %
-            xdg.get_image_dir())
-        self.genre_image = gtk.gdk.pixbuf_new_from_file('%sgenre.png' %
-            xdg.get_image_dir())
+        self.track_image = gtk.gdk.pixbuf_new_from_file(xdg.get_data_path('images/track.png'))
+        self.genre_image = gtk.gdk.pixbuf_new_from_file(xdg.get_data_path('images/genre.png'))
 
     def drag_data_received(self, *e):
         """

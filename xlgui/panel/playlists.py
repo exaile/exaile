@@ -60,8 +60,7 @@ class PlaylistsPanel(panel.Panel):
 
         # icons
         self.open_folder = guiutil.get_icon('gnome-fs-directory-accept')
-        self.playlist_image = gtk.gdk.pixbuf_new_from_file('%splaylist.png' %
-            xdg.get_image_dir())
+        self.playlist_image = gtk.gdk.pixbuf_new_from_file(xdg.get_data_path('images/playlist.png'))
 
         self._load_playlists()
 

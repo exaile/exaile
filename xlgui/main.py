@@ -34,7 +34,7 @@ class MainWindow(object):
         self.settings = controller.exaile.settings
         self.first_removed = False
 
-        self.xml = gtk.glade.XML('%smain.glade' % xdg.get_glade_dir(),
+        self.xml = gtk.glade.XML(xdg.get_data_path("glade/main.glade"),
             'ExaileWindow', 'exaile')
         self.window = self.xml.get_widget('ExaileWindow')
         self.window.set_title(_('Exaile'))

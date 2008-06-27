@@ -19,7 +19,7 @@ from xl import xdg
 from xlgui import main, panel, guiutil
 from xlgui.panel import collection, radio, playlists
 
-gtk.window_set_default_icon_from_file('%sicon.png' % xdg.get_image_dir())
+gtk.window_set_default_icon_from_file(xdg.get_data_path("images/icon.png"))
 
 
 def mainloop():
@@ -55,11 +55,12 @@ def show_splash(show=True):
         @param show: [bool] show the splash screen
     """
     image = gtk.Image()
-    image.set_from_file("%ssplash.png" % xdg.get_image_dir())
-    xml = gtk.glade.XML('%ssplash.glade' % xdg.get_glade_dir(), 'SplashScreen', 'exaile')
+    image.set_from_file(xdg.get_data_path("images/splash.png"))
+    xml = gtk.glade.XML(xdg.get_data_path("glade/splash.glade"), 'SplashScreen', 'exaile')
     splash_screen = xml.get_widget('SplashScreen')
     box = xml.get_widget('splash_box')
     box.pack_start(image, True, True)
     splash_screen.set_transient_for(None)
     splash_screen.show_all()
+    #FIXME: should disappear when loading finishes, not at a fixed time
     gobject.timeout_add(2500, splash_screen.destroy) 

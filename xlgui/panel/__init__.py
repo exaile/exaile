@@ -33,7 +33,7 @@ class Panel(object):
         """
         self.controller = controller
 
-        self.xml = gtk.glade.XML('%s%s' % (xdg.get_glade_dir(),
+        self.xml = gtk.glade.XML(xdg.get_data_path("glade/%s" %
             self.gladeinfo[0]), self.gladeinfo[1], 'exaile')
 
         window = self.xml.get_widget(self.gladeinfo[1])

@@ -39,13 +39,13 @@ def get_default_encoding():
     return 'utf-8'
 
 # log() exists only so as to not break compatibility, new code
-# should not use it
+# should not use it as it may br dropped in the future
 def log(message):
     logger.info(message + "  (Warning, using depreciated logger)")
 
 # use this for general logging of exceptions
-def log_exception(name="None specified", *e):
-    logger.error("Exception caught in %s!\n"%name + traceback.format_exc())
+def log_exception(log=logger):
+    log.error("Exception caught!\n" + traceback.format_exc())
 
 
 def to_unicode(x, default_encoding=None):

@@ -268,7 +268,7 @@ class Track(object):
             logger.warning("Possibly corrupt file: " + self.get_loc())
             return None
         except:
-            common.log_exception(__name__)
+            common.log_exception(logger)
             return None
         return self
 

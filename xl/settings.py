@@ -19,7 +19,8 @@
 
 from ConfigParser import SafeConfigParser, NoSectionError, NoOptionError
 
-import os
+import os, logging
+logger = logging.getLogger(__name__)
 
 from xl import event
 
@@ -40,6 +41,7 @@ class SettingsManager(SafeConfigParser):
             Sets up the SettingsManager. Expects a loc to a file
             where settings will be stored.
         """
+        logger.info("Loading settings")
         SafeConfigParser.__init__(self)
         self.loc = loc
 

@@ -16,6 +16,9 @@ import dbus
 
 from xl import common
 
+import logging
+logger = logging.getLogger(__name__)
+
 
 class HAL(object):
     """
@@ -36,9 +39,10 @@ class HAL(object):
             hal_obj = self.bus.get_object('org.freedesktop.Hal', 
                 '/org/freedesktop/Hal/Manager')
             self.hal = dbus.Interface(hal_obj, 'org.freedesktop.Hal.Manager')
+            logger.debug("Connected to HAL")
             return True
         except:
-            common.log_exception()
+            logger.warning("Failed to connect to HAL, autodetection of devices will be disabled.")
             return False
 
     def add_handler(self, handler):
@@ -63,6 +67,7 @@ class HAL(object):
     def add_device(self, device_udi):
         handler = self.get_handler(device_udi)
         if handler is None:
+            logger.debug("Found no HAL device handler for %s"%device_udi)
             return
 
         dev = handler.device_from_udi(self, device_udi)

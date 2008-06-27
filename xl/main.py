@@ -35,6 +35,8 @@ class Exaile(object):
         """
         self.quitting = False
         (self.options, self.args) = self.get_options().parse_args()
+        if self.options.debugevent:
+            event.EVENT_MANAGER.use_logger = True
 
         #set up logging
         self.setup_logging()
@@ -62,6 +64,7 @@ class Exaile(object):
         """
             Initializes Exaile
         """
+        logger.info("Loading Exaile...")
         #initialize SettingsManager
         from xl import settings
         self.settings = settings.SettingsManager( os.path.join(
@@ -84,6 +87,7 @@ class Exaile(object):
 
         # Initialize the collection
         from xl import collection
+        logger.info("Loading collection...")
         self.collection = collection.Collection("Collection",
                 location=os.path.join(xdg.get_data_dirs()[0], 'music.db') )
 
@@ -99,6 +103,7 @@ class Exaile(object):
 
         #initalize device manager
         from xl import devices
+        logger.info("Loading devices...")
         self.devices = devices.DeviceManager()
 
         #initialize HAL
@@ -123,20 +128,24 @@ class Exaile(object):
         from xl import lyrics
         self.lyrics = lyrics.LyricsManager()
 
-        #initialize PluginsManager
-        from xl import plugins
-        self.plugins = plugins.PluginsManager(self)
-
         #setup GUI
         if self.options.startgui:
             import xlgui
-            logger.info("Loading gui")
+            logger.info("Loading interface...")
             self.gui = xlgui.Main(self)
 
+        #initialize PluginsManager
+        from xl import plugins
+        logger.info("Loading plugins...")
+        self.plugins = plugins.PluginsManager(self)
+
+
     def setup_logging(self):
+        console_format = "%(levelname)-8s: %(message)s"
         loglevel = logging.INFO
         if self.options.debug:
             loglevel = logging.DEBUG
+            console_format += " (%(name)s)"
         elif self.options.quiet:
             loglevel = logging.WARNING
         if self.options.quiet:
@@ -150,7 +159,7 @@ class Exaile(object):
                 filemode="a")
         console = logging.StreamHandler()
         console.setLevel(loglevel)
-        formatter = logging.Formatter("%(levelname)-8s: %(message)s (%(name)s)")
+        formatter = logging.Formatter(console_format)
         console.setFormatter(formatter)
         logging.getLogger("").addHandler(console)
 
@@ -171,8 +180,8 @@ class Exaile(object):
             default=False, help="Stop playback")
         p.add_option("-a", "--play", dest="play", action="store_true",
             default=False, help="Play")
-        p.add_option("-t", "--play-pause", dest="play_pause", action="store_true",
-            default=False, help="Toggle Play or Pause")
+        p.add_option("-t", "--play-pause", dest="play_pause", 
+            action="store_true", default=False, help="Toggle Play or Pause")
 
         # Current song options
         p.add_option("-q", "--query", dest="query", action="store_true",
@@ -182,17 +191,18 @@ class Exaile(object):
         p.add_option("--get-title", dest="get_title", action="store_true",
             default=False, help="Print the title of current track")
         p.add_option("--get-album", dest="get_album", action="store_true",
-            default=False, help="Print the album of current track")
+            default=False, help="Print th   e album of current track")
         p.add_option("--get-artist", dest="get_artist", action="store_true",
             default=False, help="Print the artist of current track")
         p.add_option("--get-length", dest="get_length", action="store_true",
             default=False, help="Print the length of current track")
-        p.add_option('--set-rating', dest='rating', help='Set rating for current '
-            'song')
+        p.add_option('--set-rating', dest='rating', 
+            help='Set rating for current song')
         p.add_option('--get-rating', dest='get_rating', help='Get rating for '
             'current song', default=False, action='store_true')
-        p.add_option("--current-position", dest="current_position", action="store_true",
-            default=False, help="Print the position inside the current track as a percentage")
+        p.add_option("--current-position", dest="current_position", 
+            action="store_true", default=False, 
+            help="Print the position inside the current track as a percentage")
 
         # Volume options
         p.add_option("-i","--increase_vol", dest="inc_vol",action="store", 
@@ -209,8 +219,12 @@ class Exaile(object):
         p.add_option("--start-minimized", dest="minim", action="store_true",
             default=False, help="Start Exaile minimized to tray, if possible")
 
+        # development and debug options
         p.add_option("--debug", dest="debug", action="store_true",
             default=False, help="Show debugging output")
+        p.add_option("--eventdebug", dest="debugevent", 
+            action="store_true", default=False, 
+            help="Enable debugging of xl.event. Generates LOTS of output")
         p.add_option("--quiet", dest="quiet", action="store_true",
             default=False, help="Reduce level of output")
         p.add_option('--startgui', dest='startgui', action='store_true',
@@ -278,6 +292,7 @@ class Exaile(object):
         """
         if self.quitting: return
         self.quitting = True
+        logger.info("Exaile is shutting down...")
 
         # this event should be used by plugins and modules that dont need
         # to be saved in any particular order. modules that might be 
@@ -285,7 +300,7 @@ class Exaile(object):
         # below.
         event.log_event("quit_application", self, self, async=False)
 
-        
+        logger.info("Saving state...")
         self.plugins.save_enabled()
 
         #self.gui.quit()
@@ -299,6 +314,7 @@ class Exaile(object):
 
         self.settings.save()
 
+        logger.info("Bye!")
         exit()
 
 # vim: et sts=4 sw=4

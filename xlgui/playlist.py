@@ -69,9 +69,10 @@ class Playlist(gtk.VBox):
         self.controller = controller
         self.collection = controller.exaile.collection
 
-        # here we make a copy of the playlist, so that changes here don't
-        # effect the original (this is how Exaile 0.2 worked)
-        self.playlist = copy.copy(pl)
+        # note: care must be taken so that sorting and searching does
+        # not affect this object. However, changes in order and tracks
+        # should change this object.
+        self.playlist = pl
 
         self.settings = controller.exaile.settings
 

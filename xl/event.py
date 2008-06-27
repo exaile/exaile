@@ -144,7 +144,7 @@ class IdleManager(threading.Thread):
             try:
                 func.__call__(*args)
             except:
-                if common: common.log_exception(__name__)
+                common.log_exception(logger)
 
     def add(self, func, *args):
         """
@@ -163,7 +163,7 @@ class EventManager(object):
     """
         Manages all Events
     """
-    def __init__(self, use_logger=True):
+    def __init__(self, use_logger=False):
         self.callbacks = {}
         self.idle = IdleManager()
         self.use_logger = use_logger
@@ -197,7 +197,7 @@ class EventManager(object):
                 self.remove_callback(call, event.type, event.object)
             except:
                 # something went wrong inside the function we're calling
-                common.log_exception(__name__)
+                common.log_exception(logger)
 
     def emit_async(self, event):
         """
@@ -274,7 +274,7 @@ class Waiter(threading.Thread):
         try:
             self.func.__call__(*self.args, **self.kwargs)
         except:
-            common.log_exception(__name__)
+            common.log_exception(logger)
 
 # Instantiate our managers as globals. This lets us use the same instance
 # regardless of where this module is imported.

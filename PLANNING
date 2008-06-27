@@ -157,6 +157,7 @@ Minor Tasks:
     add comments and docstrings in xl/player.py
     implement buffering handling in xl/player.py (see gstreamer playbin docs)
     handle devices other than /dev/cdrom for disc in xl/player.py
+    store current sort field in xl.playlist.Playlist, use this in the GUI
 
 Other Work-Items:
     Conversion

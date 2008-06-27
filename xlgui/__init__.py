@@ -21,6 +21,10 @@ from xlgui.panel import collection, radio, playlists
 
 gtk.window_set_default_icon_from_file('%sicon.png' % xdg.get_image_dir())
 
+
+def mainloop():
+    gtk.main()
+
 class Main(object):
     """
         This is the main gui controller for exaile

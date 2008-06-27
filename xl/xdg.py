@@ -21,21 +21,21 @@ if data_home == None:
     data_home = os.path.join(homedir, ".local", "share")
 data_home = os.path.join(data_home, "exaile")
 if not os.path.exists(data_home):
-    os.mkdir(data_home)
+    os.makedirs(data_home)
 
 config_home = os.getenv("XDG_CONFIG_HOME")
 if config_home == None:
     config_home = os.path.join(homedir, ".config")
 config_home = os.path.join(config_home, "exaile")
 if not os.path.exists(config_home):
-    os.mkdir(config_home)
+    os.makedirs(config_home)
 
 cache_home = os.getenv("XDG_CACHE_HOME")
 if cache_home == None:
     cache_home = os.path.join(homedir, ".cache")
 cache_home = os.path.join(cache_home, "exaile")
 if not os.path.exists(cache_home):
-    os.mkdir(cache_home)
+    os.makedirs(cache_home)
 
 data_dirs = os.getenv("XDG_DATA_DIRS")
 if data_dirs == None:

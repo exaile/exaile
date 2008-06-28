@@ -29,7 +29,7 @@ from copy import deepcopy
 SEARCH_ITEMS = ('albumartist', 'artist', 'album', 'title')
 SORT_ORDER = ('album', 'track', 'artist', 'title')
 
-import logging, random, time
+import logging, random, time, os
 logger = logging.getLogger(__name__)
 
 random.seed(time.time())
@@ -134,12 +134,19 @@ class TrackDB(object):
         if not location:
             raise AttributeError("You did not specify a location to save the db")
 
-        try:
-            f = open(location, 'rb')
-            pdata = pickle.load(f)
-            f.close()
-        except:
+        pdata = None
+        for loc in [location, location+".old", location+".new"]:
+            try:
+                f = open(loc, 'rb')
+                pdata = pickle.load(f)
+                f.close()
+            except:
+                pdata = None
+            if pdata:
+                break
+        if not pdata:
             pdata = dict()
+
         for attr in self.pickle_attrs:
             try:
                 if 'tracks' in attr:
@@ -190,9 +197,26 @@ class TrackDB(object):
                     pdata[attr] = deepcopy(getattr(self, attr))
             else:
                 pass
-        f = file(location, 'wb')
+        try:
+            os.remove(location + ".old")
+        except:
+            pass
+        try:
+            os.remove(location + ".new")
+        except:
+            pass
+        f = file(location + ".new", 'wb')
         pickle.dump(pdata, f, common.PICKLE_PROTOCOL)
         f.close()
+        try:
+            os.rename(location, location + ".old")
+        except:
+            pass # if it doesn'texist we don't care
+        os.rename(location + ".new", location)
+        try:
+            os.remove(location + ".old")
+        except:
+            pass
 
     def add(self, track):
         """

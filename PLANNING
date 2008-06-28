@@ -80,19 +80,20 @@ Implemented:
 Things that can probably be implemented at this stage:
     CD Burning
         class in cd.py, takes a Playlist and burns it in order
-        allow mp3 cd burning
+        allow mp3 cd burning?
     Content-Matching (involved)
         matching tracks based on tag content rather than loc.
         useful for: detecting moves withing the library, xspf playlists
         ?match by everything or a subset? if x% is the same? efficiency?
         needed? see alternate DB ideas below
+            amarok handles files moving by storing the file's checksum in
+            the db, perhaps we should do this too.
     DBUS
     Podcasts
-        part of radio or separate?
+        separate from radio
         allow flexibility in choice of when (if?) and where to download
         allow streaming if not downloaded
     MP3 Player Support
-        will likely need some additional work in devices and hal
         generic classes subclassable for iPod, MTP and MassStorage players
         support for each type of player implemented as a plugin
         create a special Collection for each, load Playlists, etc.
@@ -106,6 +107,7 @@ Things that can probably be implemented at this stage:
             allow custom file layout if applicable
         podcast support
             limit number / autodelete old ?
+            autosync - allow selecting which ones to sync
         found on ubuntu forums: "With amarok I can grab a playlist, drag 
             it to my player and Amarok will automatically 
             transfer all the associated songs and generate the playlist 
@@ -120,13 +122,6 @@ Things that can probably be implemented at this stage:
                 done for smart playlists 
                 needs doing for general trackdb
                     use track events to know when contained are updated
-            ensure all commits to essential data are crash-proof
-                save to <file>.new
-                move <file> to <file>.old
-                move <file>.new to <file>
-                delete <file>.old
-                make restore able to cope with the outcome of interruption
-                    at any of these steps
             periodic save to disk so that in event of crash eveything is saved
             how to deal with streams or devices, which cannot be guaranteed
                 to be present upon resume?
@@ -144,7 +139,10 @@ Things that can probably be implemented at this stage:
             idea: use separate side tab for each device, with device manager
                 option in Tools for advanced config. tabs would be
                 auto-generated as new devices are connected, either via HAL
-                or the device manager. 
+                or the device manager.
+                    possible issue: space
+                        not likely needing concern, as it is unlikely that
+                        more than 3 devices will be plugged in at a time
     Visualizations
         implement as plugin (if possible)
     Cross-Fade
@@ -153,11 +151,12 @@ Things that can probably be implemented at this stage:
             without actually switching to it.
 
 Minor Tasks:
-    make hal non-mandatory
     add comments and docstrings in xl/player.py
     implement buffering handling in xl/player.py (see gstreamer playbin docs)
     handle devices other than /dev/cdrom for disc in xl/player.py
     store current sort field in xl.playlist.Playlist, use this in the GUI
+    create a method of exposing what the current UI is to plugins, so they can
+        load widgets and such appropriately. (xlgui.Main.name?)
 
 Other Work-Items:
     Conversion
@@ -189,12 +188,15 @@ Misc:
 
     another idea: have two DBs, one on-disk and one in-mem, with the in-mem
     db holding only what is needed to display the UI. 
-        advantages: fast UI, low ram use
+        advantages: fast UI, low ram use, better forwards compatibility
         disadvantages: increased disk-I/O (though less than above)
         possible issues: syncronization, searching
             search displayed cols be default, read from disk db if tag not
                 in mem is specified. if you keep the separate index DBs as 
                 suggested above the difference should be negligible.
+
+    these db issues probably need to be decided before even the first alpha 
+    of 0.3, since they will involve drastic on-disk format changes
 
 ==== NOTES ====
 xl is to be split into xl and xlgui. All code concerning the display of 

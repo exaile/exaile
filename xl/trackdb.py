@@ -97,11 +97,14 @@ class TrackDB(object):
         self.location = location
         self.pickle_attrs = pickle_attrs
         self.pickle_attrs += ['tracks', 'name']
+        self._dirty = False
 
         if location:
             self.load_from_location(location)
 
         self.searcher = TrackSearcher(self.tracks)
+
+        track.set_track_update_callback(self._track_watch_cb, None)
 
     def set_name(self, name):
         """
@@ -109,6 +112,7 @@ class TrackDB(object):
 
             name:   The new name. [string]
         """
+        self._dirty = True
         self.name = name
 
     def get_name(self):
@@ -118,6 +122,11 @@ class TrackDB(object):
             returns: The name. [string]
         """
         return self.name
+
+    def _track_watch_cb(self, loc, track, tagvaltup):
+        if self.tracks.has_key(loc):
+            self._dirty = True
+
 
     def set_location(self, location):
         self.location = location
@@ -170,6 +179,9 @@ class TrackDB(object):
             
             location: the location to save the data to [string]
         """
+        if not self._dirty:
+            return
+
         if not location:
             location = self.location
         if not location:
@@ -217,6 +229,8 @@ class TrackDB(object):
             os.remove(location + ".old")
         except:
             pass
+        
+        self._dirty = False
 
     def add(self, track):
         """
@@ -225,6 +239,7 @@ class TrackDB(object):
             track: The Track to add [Track]
         """
         self.tracks[track.get_loc()] = track
+        self._dirty = True
         event.log_event("track_added", self, track.get_loc())
 
     def remove(self, track):
@@ -235,6 +250,7 @@ class TrackDB(object):
         """
         if track.get_loc() in self.tracks:
             del self.tracks[track.get_loc()]
+            self._dirty = True
             event.log_event("track_removed", self, track.get_loc())
 
     def search(self, phrase, sort_fields=None, return_lim=-1):

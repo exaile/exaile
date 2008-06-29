@@ -55,7 +55,7 @@ def enable(exaile):
     except:
         disable(exaile) #disconnect if we failed to load completely
         GNOME_MMKEYS = None
-        common.log_exception(__name__)
+        common.log_exception(logger)
         return False
 
 def disable(exaile):
@@ -65,5 +65,7 @@ def disable(exaile):
             GNOME_MMKEYS.ReleaseMediaPlayerKeys("Exaile")
         except:
             common.log_exception()
+            GNOME_MMKEYS = None
             return False
+    GNOME_MMKEYS = None
     return True

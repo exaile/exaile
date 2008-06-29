@@ -118,10 +118,6 @@ Things that can probably be implemented at this stage:
             EXACTLY as it was when you exited.
         todo list:
             make queue, player persistent
-            optimize saving mechanisms to prevent unneeded disk I/O
-                done for smart playlists 
-                needs doing for general trackdb
-                    use track events to know when contained are updated
             periodic save to disk so that in event of crash eveything is saved
             how to deal with streams or devices, which cannot be guaranteed
                 to be present upon resume?

@@ -362,7 +362,8 @@ class Playlist(trackdb.TrackDB):
         self.ordered_tracks = self.ordered_tracks[:start] + \
                 self.ordered_tracks[end:]
         for t in removed:
-            trackdb.TrackDB.remove(self, t)
+            if t not in self.ordered_tracks:
+                trackdb.TrackDB.remove(self, t)
 
         if end < self.current_pos:
             self.current_pos -= len(removed)
@@ -390,6 +391,7 @@ class Playlist(trackdb.TrackDB):
     def set_current_pos(self, pos):
         if pos < len(self.ordered_tracks):
             self.current_pos = pos
+        self._dirty = True
         event.log_event('pl_current_changed', self, pos)
 
     def get_current(self):
@@ -448,6 +450,7 @@ class Playlist(trackdb.TrackDB):
             else:
                 self.current_pos = -1
 
+        self._dirty = True
         event.log_event('pl_current_changed', self, self.current_pos)
         return self.get_current()
 
@@ -472,6 +475,7 @@ class Playlist(trackdb.TrackDB):
                 else:
                     self.current_pos = 0
 
+        self._dirty = True
         event.log_event('pl_current_changed', self, self.current_pos)
         return self.get_current()
 
@@ -496,18 +500,21 @@ class Playlist(trackdb.TrackDB):
         if not self.random_enabled:
             self.tracks_history = []
         self.random_enabled = self.random_enabled == False
+        self._dirty = True
 
     def toggle_repeat(self):
         """
             toggle repeat playback
         """
         self.repeat_enabled = self.repeat_enabled == False
+        self._dirty = True
 
     def toggle_dynamic(self):
         """
             toggle dynamic adding of similar tracks to the playlist
         """
         self.dynamic_enabled = self.repeat_enabled == False
+        self._dirty = True
 
     def set_random(self, value):
         """
@@ -518,6 +525,7 @@ class Playlist(trackdb.TrackDB):
         if not self.random_enabled:
             self.tracks_history = []
         self.random_enabled = value
+        self._dirty = True
 
     def set_repeat(self, value):
         """
@@ -526,6 +534,7 @@ class Playlist(trackdb.TrackDB):
             @param value: [bool]
         """
         self.repeat_enabled = value
+        self.dirty = True
 
     def set_dynamic(self, value):
         """
@@ -534,6 +543,7 @@ class Playlist(trackdb.TrackDB):
             @param value: [bool]
         """
         self.dynamic_enabled = value
+        self._dirty = True
 
     def is_random(self):
         return self.random_enabled
@@ -583,7 +593,6 @@ class SmartPlaylist(trackdb.TrackDB):
         self.or_match = False
         self.track_count = -1
         self.random_sort = False
-        self._dirty = False
         pickle_attrs += ['search_params', 'or_match', 'track_count',
             'random_sort']
         trackdb.TrackDB.__init__(self, name=name, location=location,
@@ -762,12 +771,6 @@ class SmartPlaylist(trackdb.TrackDB):
             return ' OR '.join(params)
         else:
             return ' '.join(params)
-
-    def save_to_location(self, location=None):
-        if self._dirty:
-            trackdb.TrackDB.save_to_location(self, location=location)
-            self._dirty = False
-
 
 class PlaylistManager(object):
     """

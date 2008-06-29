@@ -185,7 +185,7 @@ class Track(object):
                 return values
         return u""
 
-    def set_tag(self, tag, values, append=False):
+    def set_tag(self, tag, values, append=False, emit=True):
         """
             Common function for setting a tag.
             
@@ -208,8 +208,9 @@ class Track(object):
                 self.tags[tag].extend(values)
             else:
                 self.tags[tag] = list(values)
-
-        track_updated(self, tag, values)
+        
+        if emit:
+            track_updated(self, tag, values)
 
     def __getitem__(self, tag):
         """

@@ -343,19 +343,28 @@ class BaseGSTPlayer(object):
         uri = uri.encode(common.get_default_encoding())
         return uri
 
+    def __notify_source(self, *args):
+        source = self.playbin.get_property('source')
+        device = self.current.get_loc_for_io().split("#")[-1]
+        source.set_property('device', device)
+        self.playbin.disconnect(self.notify_id)
+
     def play(self, track):
         self.stop()
        
         if track == None:
             return False
+        self.current = track
         
         uri = self._get_track_uri(track)
         self.reset_playtime_stamp()
 
         self.playbin.set_property("uri", uri)
+        if uri.startswith("cdda://"):
+            self.notify_id = self.playbin.connect('notify::source',
+                    self.__notify_source)
 
         self.playbin.set_state(gst.STATE_PLAYING)
-        self.current = track
         event.log_event('playback_start', self, track)
 
     def stop(self):

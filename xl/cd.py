@@ -107,6 +107,7 @@ class CDPlaylist(playlist.Playlist):
         songs = {}
         
         for count, length in enumerate(lengths):
+            count += 1
             song = track.Track()
             song.set_loc("cdda://%d#%s" % (count, self.device))
             song['title'] = "Track %d" % count

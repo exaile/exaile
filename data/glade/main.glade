@@ -147,7 +147,12 @@
                         <property name="ratio">1</property>
                         <property name="obey_child">False</property>
                         <child>
-                          <placeholder/>
+                          <widget class="GtkEventBox" id="cover_event_box">
+                            <property name="visible">True</property>
+                            <child>
+                              <placeholder/>
+                            </child>
+                          </widget>
                         </child>
                       </widget>
                       <packing>

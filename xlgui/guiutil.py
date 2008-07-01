@@ -37,6 +37,43 @@ def gtkrun(f):
 
     return wrapper
 
+class ScalableImageWidget(gtk.Image):
+    """
+        Custom resizeable image widget
+    """
+    def __init__(self):
+        """
+            Initializes the image
+        """
+        gtk.Image.__init__(self)
+        self.loc = ''
+
+    def set_image_size(self, width, height):
+        """
+            Scales the size of the image
+        """
+        self.size = (width, height)
+
+    def set_image(self, image, fill=False):
+        """
+            Sets the image
+        """
+        self.loc = image
+        pixbuf = gtk.gdk.pixbuf_new_from_file(image)
+        width, height = self.size
+        if not fill:
+            origw = float(pixbuf.get_width())
+            origh = float(pixbuf.get_height())
+            scale = min(width / origw, height / origh)
+            width = int(origw * scale)
+            height = int(origh * scale)
+        self.width = width
+        self.height = height
+        scaled = pixbuf.scale_simple(width, height, gtk.gdk.INTERP_BILINEAR)
+        self.set_from_pixbuf(scaled)
+
+        scaled = pixbuf = None
+
 class DragTreeView(gtk.TreeView):
     """
         A TextView that does easy dragging/selecting/popup menu

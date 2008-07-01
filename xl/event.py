@@ -29,7 +29,7 @@
 # most appropriate spot is immediately before a return statement.
 
 
-import threading, time, logging
+import threading, time, logging, traceback
 from xl import common
 
 # define these here so the interperter doesn't complain about them
@@ -193,6 +193,7 @@ class EventManager(object):
             try:
                 call.__call__(event.type, event.object, event.data)
             except NameError:
+                traceback.print_exc()
                 # the function we're trying to call disappeared
                 self.remove_callback(call, event.type, event.object)
             except:

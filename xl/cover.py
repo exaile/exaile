@@ -16,6 +16,8 @@ import os.path, os
 import urllib, traceback
 from xl import common
 from xl.manager import SimpleManager
+import logging
+logger = logging.getLogger(__name__)
 
 class NoCoverFoundException(Exception):
     pass
@@ -67,9 +69,11 @@ class CoverManager(SimpleManager):
             Searches the preferred order first, and then the rest of the
             available methods.  The first cover that is found is returned.
         """
+        logger.info("Attempting to find covers for %s" % track)
         for method in self.get_methods():
             try:
                 c = method.find_covers(track, limit)
+                logger.info("Found covers from %s" % method.name)
                 return c
             except NoCoverFoundException:
                 pass

@@ -17,7 +17,7 @@ pygtk.require('2.0')
 import gtk, gtk.glade, gobject
 from xl import xdg, event
 import xl.playlist
-from xlgui import playlist
+from xlgui import playlist, cover
 from gettext import gettext as _
 
 class MainWindow(object):
@@ -44,6 +44,7 @@ class MainWindow(object):
         self.splitter = self.xml.get_widget('splitter')
 
         self._setup_position()
+        self._setup_widgets()
         self._connect_events()
 
         pl = xl.playlist.Playlist()
@@ -61,6 +62,21 @@ class MainWindow(object):
             gtk.Label(name))
         self.playlist_notebook.set_current_page(
             self.playlist_notebook.get_n_pages() - 1)
+        pl.playlist.set_random(self.shuffle_toggle.get_active())
+
+    def _setup_widgets(self):
+        """
+            Sets up the various widgets
+        """
+        self.shuffle_toggle = self.xml.get_widget('shuffle_button')
+        self.shuffle_toggle.set_active(self.settings.get_option('playback/shuffle',
+            False))
+
+        # cover box
+        self.cover_event_box = self.xml.get_widget('cover_event_box')
+        self.cover = cover.CoverWidget(self, self.controller.exaile.covers,
+            self.controller.exaile.player)
+        self.cover_event_box.add(self.cover)
 
     def _connect_events(self):
         """
@@ -79,10 +95,44 @@ class MainWindow(object):
                 lambda *e: self.controller.exaile.queue.prev(),
             'on_stop_button_clicked':
                 lambda *e: self.controller.exaile.player.stop(),
+            'on_shuffle_button_toggled': self.on_shuffle_button_toggled,
         })        
 
-        event.add_callback(self.draw_playlist, 'playback_end')
-        event.add_callback(self.draw_playlist, 'playback_start') 
+        event.add_callback(self.draw_playlist, 'playback_end',
+            self.controller.exaile.player)
+        event.add_callback(self.on_playback_start, 'playback_start',
+            self.controller.exaile.player) 
+
+    def on_shuffle_button_toggled(self, button):
+        """
+            Called when the user clicks the shuffle checkbox
+        """
+        self.settings['playback/shuffle'] = button.get_active()
+        pl = self.get_current_playlist()
+        if pl:
+            pl.playlist.get_random(button.get_active())
+
+    def get_current_playlist(self):
+        """
+            Returns the currently selected playlist
+        """
+        page = self.playlist_notebook.get_current_page()
+        if page is None: return
+        page = self.playlist_notebook.get_nth_page(page)
+        return page
+
+    def on_playback_start(self, type, player, object):
+        """
+            Called when playback starts
+            Sets the currently playing track visible in the currently selected
+            playlist if the user has chosen this setting
+        """
+        pl = self.get_current_playlist()
+        if player.current in pl.playlist.ordered_tracks:
+            path = (pl.playlist.index(player.current),)
+            pl.list.scroll_to_cell(path)
+            pl.list.set_cursor(path)
+        self.draw_playlist(type, player, object)
 
     def draw_playlist(self, *e):
         """
@@ -108,6 +158,7 @@ class MainWindow(object):
         """
         page = notebook.get_nth_page(page_num)
         self.controller.exaile.queue.set_current_playlist(page.playlist)
+        page.playlist.set_random(self.shuffle_toggle.get_active())
 
     def _setup_position(self):
         """

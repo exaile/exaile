@@ -19,6 +19,59 @@ from xl import xdg, event
 import xl.playlist
 from xlgui import playlist, cover
 from gettext import gettext as _
+import xl.playlist
+
+class NotebookTab(gtk.EventBox):
+    """
+        A notebook tab, complete with a close button
+    """
+    def __init__(self, main, notebook, title, page):
+        """
+            Initializes the tab
+        """
+        gtk.EventBox.__init__(self)
+        self.set_visible_window(False)
+
+        self.connect('button_press_event', self.on_button_press)
+
+        self.main = main
+        self.nb = notebook
+        self.title = title
+        self.page = page
+        self.tips = gtk.Tooltips()
+
+        self.hbox = hbox = gtk.HBox(False, 5)
+        self.add(hbox)
+
+        self.label = gtk.Label(title)
+        hbox.pack_start(self.label, False, False)
+
+        self.button = btn = gtk.Button()
+        btn.set_name('tab_close_button')
+        btn.set_relief(gtk.RELIEF_NONE)
+        btn.set_focus_on_click(False)
+        btn.connect('clicked', self.do_close)
+        btn.connect('button_press_event', self.on_button_press)
+        self.tips.set_tip(btn, _("Close Tab"))
+        image = gtk.Image()
+        image.set_from_stock('gtk-close', gtk.ICON_SIZE_MENU)
+        btn.add(image)
+        hbox.pack_end(btn, False, False)
+
+        self.show_all()
+
+    def on_button_press(self, widget, event):
+        """
+            Called when the user clicks on the tab
+        """
+        pass
+
+    def do_close(self, *args):
+        """
+            Called when the user clicks the close button on the tab
+        """
+        num = self.nb.page_num(self.page)
+        self.nb.remove_page(num)
 
 class MainWindow(object):
     """
@@ -45,24 +98,33 @@ class MainWindow(object):
 
         self._setup_position()
         self._setup_widgets()
+        self._setup_hotkeys()
         self._connect_events()
 
-        pl = xl.playlist.Playlist()
-        self.add_playlist(pl)
+        self.add_playlist()
 
-    def add_playlist(self, pl):
+    def add_playlist(self, pl=None):
         """
             Adds a playlist to the playlist tab
 
             @param pl: the xl.playlist.Playlist instance to add
         """
+        if not pl:
+            pl = xl.playlist.Playlist()
         name = pl.name
         pl = playlist.Playlist(self.controller, pl)
+        tab = NotebookTab(self, self.playlist_notebook, name, pl)
         self.playlist_notebook.append_page(pl,
-            gtk.Label(name))
+            tab)
         self.playlist_notebook.set_current_page(
             self.playlist_notebook.get_n_pages() - 1)
         pl.playlist.set_random(self.shuffle_toggle.get_active())
+
+    def _setup_hotkeys(self):
+        """
+            Sets up accelerators that haven't been set up in glade
+        """
+        pass
 
     def _setup_widgets(self):
         """
@@ -96,12 +158,31 @@ class MainWindow(object):
             'on_stop_button_clicked':
                 lambda *e: self.controller.exaile.player.stop(),
             'on_shuffle_button_toggled': self.on_shuffle_button_toggled,
+            'on_clear_playlist_button_clicked': self.on_clear_playlist,
+            'on_playlist_notebook_remove': self.on_playlist_notebook_remove,
+            'on_new_playlist_item_activated': lambda *e:
+                self.add_playlist(),
         })        
 
         event.add_callback(self.draw_playlist, 'playback_end',
             self.controller.exaile.player)
         event.add_callback(self.on_playback_start, 'playback_start',
             self.controller.exaile.player) 
+
+    def on_playlist_notebook_remove(self, notebook, widget):
+        """
+            Called when a tab is removed from the playlist notebook
+        """
+        if notebook.get_n_pages() == 0:
+            self.add_playlist()
+
+    def on_clear_playlist(self, *e):
+        """
+            Clears the current playlist tab
+        """
+        playlist = self.get_current_playlist()
+        if not playlist: return
+        playlist.playlist.remove_tracks(0, len(playlist.playlist))
 
     def on_shuffle_button_toggled(self, button):
         """

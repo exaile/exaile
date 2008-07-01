@@ -24,6 +24,7 @@
                         <property name="label" translatable="yes">New Playlist</property>
                         <property name="use_underline">True</property>
                         <signal name="activate" handler="on_new_playlist_item_activated"/>
+                        <accelerator key="N" modifiers="GDK_CONTROL_MASK" signal="activate"/>
                         <child internal-child="image">
                           <widget class="GtkImage" id="image7">
                             <property name="visible">True</property>
@@ -59,7 +60,7 @@
               </widget>
             </child>
             <child>
-              <widget class="GtkMenuItem" id="menuitem3">
+              <widget class="GtkMenuItem" id="view_menu">
                 <property name="visible">True</property>
                 <property name="label" translatable="yes">_View</property>
                 <property name="use_underline">True</property>
@@ -301,6 +302,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="border_width">3</property>
+                    <signal name="remove" handler="on_playlist_notebook_remove"/>
                     <signal name="switch_page" handler="on_playlist_notebook_switch"/>
                     <child>
                       <widget class="GtkVBox" id="placeholder">
@@ -545,6 +547,7 @@
                         <property name="can_focus">True</property>
                         <property name="response_id">0</property>
                         <signal name="clicked" handler="on_clear_playlist_button_clicked"/>
+                        <accelerator key="C" modifiers="GDK_CONTROL_MASK" signal="clicked"/>
                         <child>
                           <widget class="GtkImage" id="image5">
                             <property name="visible">True</property>

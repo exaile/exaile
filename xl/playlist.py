@@ -370,7 +370,7 @@ class Playlist(trackdb.TrackDB):
         elif start <= self.current_pos <= end:
             self.current_pos = start+1
 
-        event.log_event('tracks_removed', self, (start, end))
+        event.log_event('tracks_removed', self, (start, end, removed))
 
     def get_tracks(self):
         """

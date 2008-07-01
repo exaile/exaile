@@ -84,6 +84,15 @@ class Playlist(gtk.VBox):
 
         # watch the playlist for changes
         event.add_callback(self.on_add_tracks, 'tracks_added', self.playlist)
+        event.add_callback(self.on_remove_tracks, 'tracks_removed',
+            self.playlist)
+
+    def on_remove_tracks(self, type, playlist, info):
+        """
+            Called when someone removes tracks from the contained playlist
+        """
+        self._set_tracks(playlist.get_tracks())
+        self.reorder_songs()
 
     def on_add_tracks(self, type, playlist, tracks):
         """

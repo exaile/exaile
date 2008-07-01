@@ -124,7 +124,16 @@ class MainWindow(object):
         """
             Sets up accelerators that haven't been set up in glade
         """
-        pass
+        hotkeys = (
+            ('<Control>W', lambda *e: self.close_playlist_tab()),
+        )
+
+        self.accel_group = gtk.AccelGroup()
+        for key, function in hotkeys:
+            key, mod = gtk.accelerator_parse(key)
+            self.accel_group.connect_group(key, mod, gtk.ACCEL_VISIBLE,
+                function)
+        self.window.add_accel_group(self.accel_group)
 
     def _setup_widgets(self):
         """
@@ -168,6 +177,16 @@ class MainWindow(object):
             self.controller.exaile.player)
         event.add_callback(self.on_playback_start, 'playback_start',
             self.controller.exaile.player) 
+
+    def close_playlist_tab(self, tab=None):
+        """
+            Closes the tab specified
+            @param tab: the tab number to close.  If no number is specified,
+                the currently selected tab is closed
+        """
+        if tab is None:
+            tab = self.playlist_notebook.get_current_page()
+        self.playlist_notebook.remove_page(tab)
 
     def on_playlist_notebook_remove(self, notebook, widget):
         """

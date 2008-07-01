@@ -3,7 +3,7 @@ from guitest.utils import mainloop_handler
 import pygtk, gtk
 import xlgui
 import tests.base
-from xl import playlist, radio, player
+from xl import playlist, radio, player, cover
 
 class FakeRadio(object):
     stations = {}
@@ -15,6 +15,7 @@ class BaseTestCase(GtkTestCase,
         self.radio = FakeRadio()
         GtkTestCase.setUp(self)
         tests.base.BaseTestCase.setUp(self)
+        self.covers = cover.CoverManager('.testtemp/covers')
         self.player = player.get_player()()
         self.queue = player.PlayQueue(self.player)
         self.playlists = playlist.PlaylistManager()

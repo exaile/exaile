@@ -14,9 +14,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from xl import xdg, event, cover
+from xl import xdg, event, cover, common
 from xlgui import guiutil
-import gtk
+import gtk, gobject
+import logging
+logger = logging.getLogger(__name__)
 
 COVER_WIDTH = 100
 
@@ -43,6 +45,7 @@ class CoverWidget(guiutil.ScalableImageWidget):
         event.add_callback(self.on_playback_start, 'playback_start', player)
         event.add_callback(self.on_playback_end, 'playback_end', player)
 
+    @common.threaded
     def on_playback_start(self, type, player, object):
         """
             Called when playback starts.  Fetches album covers, and displays
@@ -52,12 +55,12 @@ class CoverWidget(guiutil.ScalableImageWidget):
 
         try:
             covers = self.covers.find_covers(self.current_track, limit=1)
-
         except cover.NoCoverFoundException:
+            logger.warning("No covers found")
             return
 
         if covers and self.player.current == self.current_track:
-            self.set_image(covers[0])
+            gobject.idle_add(self.set_image, covers[0])
 
     def on_playback_end(self, type, player, object):
         """

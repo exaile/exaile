@@ -58,7 +58,7 @@ class NoLicenseKey(AWSException) : pass
 class BadLocale(AWSException) : pass
 # Runtime exception
 class ExactParameterRequirement(AWSException): pass
-class NoExcactMatches(AWSException): pass
+class NoExactMatches(AWSException): pass
 class ExceededMaximumParameterValues(AWSException): pass
 class InsufficientParameterValues(AWSException): pass
 class InternalError(AWSException): pass
@@ -158,7 +158,7 @@ def buildException(els):
     class_name = error.childNodes[0].firstChild.data[4:]
     msg = error.childNodes[1].firstChild.data 
 
-    e = globals()[ class_name ](msg)
+    e = globals()[ class_name.replace('ECommerceService.', '') ](msg)
     return e
 
 

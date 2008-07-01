@@ -30,7 +30,7 @@ class LastFMCoverSearch(CoverSearchMethod):
 
         m = self.regex.search(data)
         if not m:
-            raise CoverNotFoundException()
+            raise NoCoverFoundException()
 
         h = urllib.urlopen(m.group(1))
         data = h.read()

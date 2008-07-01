@@ -30,7 +30,7 @@ class AmazonCoverSearch(CoverSearchMethod):
                 (track['artist'], track['album']), SearchIndex="Music",
                 ResponseGroup="ItemAttributes,Images")
         except ecs.NoExactMatches:
-            raise CoverNotFoundException()
+            raise NoCoverFoundException()
 
         covers = []
         for album in albums:
@@ -55,6 +55,6 @@ class AmazonCoverSearch(CoverSearchMethod):
                 common.log_exception()
 
         if not covers:
-            raise CoverNotFoundException()
+            raise NoCoverFoundException()
 
         return covers

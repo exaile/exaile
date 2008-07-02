@@ -204,6 +204,9 @@ class Playlist(gtk.VBox):
         """
             Called when data is recieved
         """
+        event.remove_callback(self.on_add_tracks, 'tracks_added', self.playlist)
+        event.remove_callback(self.on_remove_tracks, 'tracks_removed',
+            self.playlist)
         self.list.unset_rows_drag_dest()
         self.list.drag_dest_set(gtk.DEST_DEFAULT_ALL,
             self.list.targets,
@@ -237,7 +240,7 @@ class Playlist(gtk.VBox):
                 index = self.playlist.index(track)
                 itera = self.model.get_iter((index,))
                 self.model.remove(itera)
-                self.playlist.remove_tracks(index, index+1, False)
+                self.playlist.remove_tracks(index, index+1)
                 self.drag_delete.remove(track)
 
             if not drop_info:
@@ -263,7 +266,7 @@ class Playlist(gtk.VBox):
                 index = self.playlist.index(track)
                 iter = self.model.get_iter((index,))
                 self.model.remove(iter)
-                self.playlist.remove_tracks(index, index+1, signal=False)
+                self.playlist.remove_tracks(index, index+1)
             self.drag_delete = []
 
         if context.action == gtk.gdk.ACTION_MOVE:
@@ -278,7 +281,7 @@ class Playlist(gtk.VBox):
         while True:
             track = self.model.get_value(iter, 0)
             if not track in current_tracks: 
-                self.playlist.add_tracks((track,), signal=False)
+                self.playlist.add_tracks((track,))
             iter = self.model.iter_next(iter)
             if not iter: break
 
@@ -290,6 +293,10 @@ class Playlist(gtk.VBox):
             self.playlist.ordered_tracks.append(track)
             iter = self.model.iter_next(iter)
             if not iter: break
+
+        event.add_callback(self.on_add_tracks, 'tracks_added', self.playlist)
+        event.add_callback(self.on_remove_tracks, 'tracks_removed',
+            self.playlist)
 
     def drag_get_data(self, treeview, context, selection, target_id, etime):
         """

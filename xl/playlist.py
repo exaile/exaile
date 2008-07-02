@@ -772,6 +772,9 @@ class SmartPlaylist(trackdb.TrackDB):
         else:
             return ' '.join(params)
 
+class PlaylistExists(Exception):
+    pass
+
 class PlaylistManager(object):
     """
         TODO:  document me!
@@ -783,22 +786,26 @@ class PlaylistManager(object):
         for dir in [self.playlist_dir, self.smart_playlist_dir]:
             if not os.path.exists(dir):
                 os.makedirs(dir)
-        self.playlists = {}
+        self.playlists = []
         self.smart_playlists = {}
 
         self.load_names()
 
-    def add_playlist(self, pl):
+    def save_playlist(self, pl, overwrite=False):
         name = pl.get_name()
-        pl.set_location(os.path.join(self.playlist_dir, pl.get_name()))
-        self.playlists[name] = pl
-        event.log_event('playlist_added', self, pl)
+        if overwrite or name not in self.playlists:
+            pl.save_to_location(os.path.join(self.playlist_dir, pl.get_name()))
+            self.playlists.append(name)
+            self.playlists.sort()
+        else:
+            raise PlaylistExists
+
+        event.log_event('playlist_added', self, name)
 
     def remove_playlist(self, name):
-        if self.playlists.has_key(name):
-            pl = self.playlists[name]
-            del self.playlists[name]
-            event.log_event('playlist_removed', self, pl)
+        if name in self.playlists:
+            self.playlists.remove(name)
+            event.log_event('playlist_removed', self, name)
 
     def add_smart_playlist(self, pl):
         name = pl.get_name()
@@ -813,46 +820,25 @@ class PlaylistManager(object):
             event.log_event('smart_playlist_removed', self, pl)
 
     def save_all(self):
-        for pl in self.playlists.values():
-            if pl is not None:
-                pl.save_to_location()
         for pl in self.smart_playlists.values():
             if pl is not None:
                 pl.save_to_location()
 
-    def rename_playlist(self, old, new):
-        pl = self.get_playlist(old)
-        self.remove_playlist(old)
-        pl.set_name(new)
-        self.add_playlist(pl)
-
-    def rename_smart_playlist(self, old, new):
-        pl = self.get_playlist(old)
-        self.remove_playlist(old)
-        pl.set_name(new)
-        self.add_playlist(pl)
-
     def load_names(self):
-        playlist_names = os.listdir(self.playlist_dir)
-        for p in playlist_names:
-            self.playlists[p] = None
+        self.playlists = os.listdir(self.playlist_dir)
         smart_playlist_names = os.listdir(self.smart_playlist_dir)
         for p in smart_playlist_names:
             self.smart_playlists[p] = None
 
     def get_playlist(self, name):
-        if self.playlists.has_key(name):
-            pl = self.playlists[name]
-            if pl == None:
-                pl = Playlist(name=name, 
-                        location=os.path.join(self.playlist_dir, name))
-                self.playlists[name] = pl
+        if name in self.playlists:
+            pl = Playlist(location=os.path.join(self.playlist_dir, name))
             return pl
         else:
             raise ValueError("No such playlist")
 
     def list_playlists(self):
-        return self.playlists.keys()
+        return self.playlists[:]
 
     def get_smart_playlist(self, name):
         if self.smart_playlists.has_key(name):

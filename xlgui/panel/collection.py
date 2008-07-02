@@ -22,6 +22,15 @@ class CollectionPanel(panel.Panel):
         The collection panel
     """
     gladeinfo = ('collection_panel.glade', 'CollectionPanelWindow')
+    orders = (
+        ('artist', 'album', 'tracknumber', 'title'),
+        ('album', 'tracknumber', 'title'),
+        ('genre', 'artist', 'album', 'tracknumber', 'title'),
+        ('genre', 'album', 'artist', 'tracknumber', 'title'),
+        ('date', 'artist', 'album', 'tracknumber', 'title'),
+        ('date', 'album', 'artist', 'tracknumber', 'title'),
+        ('artist', 'date', 'album', 'tracknumber', 'title')
+    )
 
     def __init__(self, controller, collection):
         """
@@ -38,16 +47,26 @@ class CollectionPanel(panel.Panel):
         self.start_count = 0
         self.keyword = ''
         self._setup_tree()
+        self._setup_widgets()
         self._setup_images()
         self._connect_events()
         self.load_tree()
+
+    def _setup_widgets(self):
+        """
+            Sets up the various widgets to be used in this panel
+        """
+        self.choice = self.xml.get_widget('collection_combo_box')
+        active = self.settings.get_option('gui/collection_active_view', 0)
+        self.choice.set_active(active)
 
     def _connect_events(self):
         """
             Uses signal_autoconnect to connect the various events
         """
         self.xml.signal_autoconnect({
-            'on_search_entry_activate': self.on_search
+            'on_search_entry_activate': self.on_search,
+            'on_collection_combo_box_changed': lambda *e: self.load_tree(),
         })
 
     def on_search(self, *e):
@@ -186,15 +205,18 @@ class CollectionPanel(panel.Panel):
         self.tree.set_model(self.model_blank)
 
         self.root = None
-        self.order = ('artist', 'album', 'tracknumber', 'title')
+        self.order = self.orders[self.choice.get_active()]
 
         self.image_map = {
             "album": self.album_image,
             "artist": self.artist_image,
             "genre": self.genre_image,
             "title": self.track_image,
-            "year": self.year_image,
+            "date": self.year_image,
         }
+
+        # save the active view setting
+        self.settings['gui/collection_active_view'] = self.choice.get_active()
 
         tracks = self.collection.search(self.keyword, self.order)
 
@@ -235,6 +257,12 @@ class CollectionPanel(panel.Panel):
                 # print separators
                 if first and info and self.use_alphabet:
                     temp = info.upper()
+
+                    # remove 'the' if it's the artist field
+                    if field == 'artist':
+                        if temp.find('THE ') == 0:
+                            temp = temp[4:]
+
                     if not temp: first_char = ' '
                     else: first_char = temp[0]
 

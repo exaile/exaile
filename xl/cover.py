@@ -62,6 +62,14 @@ class CoverManager(SimpleManager):
         except NoCoverFoundException:
             return False
 
+    def find_cover(self, track, update_track=False):
+        """
+            Finds one cover for a specified track.
+
+            @param track: the track to search for covers
+        """
+        pass
+
     def find_covers(self, track, limit=-1):
         """
             Finds a cover for a track.  

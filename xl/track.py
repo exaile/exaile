@@ -298,7 +298,12 @@ class Track(object):
             returned as an int instead of unicode)
         """
         if field == 'tracknumber': return self.get_track()
-        else: return self[field]
+        elif field == 'artist':
+            artist = self['artist'].lower()
+            if artist.find('the ') == 0:
+                artist = artist[4:]
+            return artist
+        else: return self[field].lower()
 
     def __repr__(self):
         return str(self) #for debugging, remove later

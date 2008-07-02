@@ -22,6 +22,7 @@ Genre - Album
 Year - Artist
 Year - Album
 Artist - Year - Album</property>
+                <signal name="changed" handler="on_collection_combo_box_changed"/>
               </widget>
             </child>
             <child>

@@ -198,12 +198,18 @@ class Playlist(gtk.VBox):
             self.list.remove_column(col)
 
         self.settings['gui/col_order'] = cols
-        self.setup_columns()
+        self._setup_columns()
 
     def drag_data_received(self, tv, context, x, y, selection, info, etime):
         """
             Called when data is recieved
         """
+        if self.playlist.ordered_tracks:
+            curtrack = \
+                self.playlist.ordered_tracks[self.playlist.get_current_pos()] 
+        else:
+            curtrack = None
+
         event.remove_callback(self.on_add_tracks, 'tracks_added', self.playlist)
         event.remove_callback(self.on_remove_tracks, 'tracks_removed',
             self.playlist)
@@ -297,6 +303,10 @@ class Playlist(gtk.VBox):
         event.add_callback(self.on_add_tracks, 'tracks_added', self.playlist)
         event.add_callback(self.on_remove_tracks, 'tracks_removed',
             self.playlist)
+        
+        if curtrack is not None:
+            index = self.playlist.index(curtrack)
+            self.playlist.set_current_pos(index)
 
     def drag_get_data(self, treeview, context, selection, target_id, etime):
         """
@@ -417,7 +427,7 @@ class Playlist(gtk.VBox):
                     False)
 
                 col.connect('clicked', self.set_sort_by)
-#                col.connect('notify::width', self.set_column_width)
+                col.connect('notify::width', self.set_column_width)
                 col.set_clickable(True)
                 col.set_reorderable(True)
                 col.set_resizable(False)
@@ -451,6 +461,17 @@ class Playlist(gtk.VBox):
                     self.press_header)
             count = count + 1
         self.changed_id = self.list.connect('columns-changed', self.column_changed)
+
+    def set_column_width(self, col, *e):
+        """
+            Called when the user resizes a column
+        """
+        col_struct = self.column_by_display[col.get_title()]
+        name = 'gui/col_width_%s' % col_struct.id
+        self.settings[name] = col.get_width()
+        if col_struct.id == 'rating':
+            self.rating_width = min(col.get_width(), self.row_height * 4)
+            # create_rating_images(self)
 
     # sort functions courtesy of listen (http://listengnome.free.fr), which
     # are in turn, courtesy of quodlibet.  

@@ -151,10 +151,11 @@ class CollectionPanel(panel.Panel):
         if field == 'nofield':
             cell.set_property('text', object)
             return
-        if object[field]:
-            info = object[field]
-            if not info: info = _('Unknown')
-            cell.set_property('text', info)
+
+        info = object[field]
+        if not info or info == u'': 
+            info = _('Unknown')
+        cell.set_property('text', info)
 
     def _find_recursive(self, iter, add):
         """
@@ -276,7 +277,7 @@ class CollectionPanel(panel.Panel):
                             last_char = first_char
                             self.model.append(parent, [None, None, None]) 
 
-                if not info:
+                if not info or info == u'':
                     if not unknown and first:
                         last_songs.append(track)
                         break

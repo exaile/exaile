@@ -343,7 +343,10 @@ class Library(object):
 
                 if fullpath in self.collection.tracks:
                     # check to see if we need to scan this track
-                    mtime = os.path.getmtime(fullpath)
+                    try:
+                        mtime = os.path.getmtime(fullpath)
+                    except OSError:
+                        continue
                     if unicode(mtime) == self.collection.tracks[fullpath]['modified']:
                         continue
                     else:

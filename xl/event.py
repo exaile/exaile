@@ -49,7 +49,7 @@ def log_event(type, object, data, async=True):
         async: whether or not to emit asyncronously. [bool]
     """
     global EVENT_MANAGER
-    e = Event(type, object, data)
+    e = Event(type, object, data, time.time())
     if async:
         EVENT_MANAGER.emit_async(e)
     else:
@@ -104,7 +104,7 @@ class Event(object):
     """
         Represents an Event
     """
-    def __init__(self, type, object, data):
+    def __init__(self, type, object, data, time):
         """
             type: the 'type' or 'name' for this Event [string]
             object: the object emitting the Event [object]
@@ -113,7 +113,19 @@ class Event(object):
         self.type = type
         self.object = object
         self.data = data
+        self.time = time
 
+class Callback(object):
+    """
+        Represents a callback
+    """
+    def __init__(self, function, time):
+        """
+            @param function: the function to call
+            @param time: the time this callback was added
+        """
+        self.function = function
+        self.time = time
 
 class IdleManager(threading.Thread):
     """
@@ -174,6 +186,7 @@ class EventManager(object):
 
             event: the Event to emit [Event]
         """
+
         # find callbacks that match the Event
         callbacks = []
         for tcall in [None, event.type]:
@@ -189,9 +202,10 @@ class EventManager(object):
             logger.debug("Sent '%s' event from '%s' with data '%s'."%(event.type, repr(event.object), repr(event.data)))
 
         # now call them
-        for call in callbacks:
+        for cb in callbacks:
             try:
-                call.__call__(event.type, event.object, event.data)
+                if event.time >= cb.time:
+                    cb.function.__call__(event.type, event.object, event.data)
             except NameError:
                 traceback.print_exc()
                 # the function we're trying to call disappeared
@@ -224,7 +238,7 @@ class EventManager(object):
             self.callbacks[type][object] = []
 
         # add the actual callback
-        self.callbacks[type][object].append(function)
+        self.callbacks[type][object].append(Callback(function, time.time()))
 
     def remove_callback(self, function, type=None, object=None):
         """
@@ -233,8 +247,13 @@ class EventManager(object):
             The parameters must match those given when the callback was
             registered.
         """
-        self.callbacks[type][object].remove(function)
+        remove = []
+        for cb in self.callbacks[type][object]:
+            if cb.function == function:
+                remove.append(cb)
 
+        for cb in remove:
+            self.callbacks[type][object].remove(cb)
 
 class Waiter(threading.Thread):
     """

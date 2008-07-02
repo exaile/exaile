@@ -17,10 +17,142 @@ import urllib, traceback
 from xl import common
 from xl.manager import SimpleManager
 import logging
+from copy import deepcopy
 logger = logging.getLogger(__name__)
+
+try:
+    import cPickle as pickle
+except ImportError:
+    import pickle
 
 class NoCoverFoundException(Exception):
     pass
+
+class CoverDB(object):
+    """
+        Manages the stored cover database
+    
+        Allows you to set covers for a particular album
+    """
+    def __init__(self, location=None, pickle_attrs=[]):
+        """
+            Sets up the CoverDB
+        """
+        self.artists = common.idict()
+        self.location = location
+        self.pickle_attrs = pickle_attrs
+        self.pickle_attrs += ['artists']
+        self._dirty = False
+        if location:
+            self.load_from_location(location)
+
+
+    def get_cover(self, artist, album):
+        """
+            Gets the cover filename for an album 
+
+            @param artist: the artist
+            @param album: the album
+            @return: the location of the cover, or None if no cover exists
+        """
+        if artist in self.artists:
+            if album in self.artists[artist]:
+                return self.artists[artist][album]
+        return None
+        
+    def set_cover(self, artist, album, cover):
+        """
+            Sets the cover filename for an album
+            
+            @param artist: the artist
+            @param album: the album
+        """
+        if not artist in self.artists:
+            self.artists[artist] = common.idict()
+
+        self.artists[artist][album] = cover
+        self._dirty = True
+
+    def set_location(self, location):
+        self.location = location
+
+    def load_from_location(self, location=None):
+        """
+            Restores CoverDB state from the pickled representation
+            stored at the specified location.
+
+            @param location: the location to load the data from [string]
+        """
+        if not location:
+            location = self.location
+        if not location:
+            raise AttributeError("You did not specify a location to save the db")
+
+        pdata = None
+        for loc in [location, location+".old", location+".new"]:
+            try:
+                f = open(loc, 'rb')
+                pdata = pickle.load(f)
+                f.close()
+            except:
+                pdata = None
+            if pdata:
+                break
+        if not pdata:
+            pdata = dict()
+
+        for attr in self.pickle_attrs:
+            try:
+                setattr(self, attr, pdata[attr])
+            except:
+                pass
+
+    def save_to_location(self, location=None):
+        """
+            Saves a pickled representation of this CoverDB to the 
+            specified location.
+            
+            location: the location to save the data to [string]
+        """
+        if not self._dirty:
+            return
+
+        if not location:
+            location = self.location
+        if not location:
+            raise AttributeError("You did not specify a location to save the db")
+
+        try:
+            f = file(location, 'rb')
+            pdata = pickle.load(f)
+            f.close()
+        except:
+            pdata = dict()
+        for attr in self.pickle_attrs:
+            pdata[attr] = deepcopy(getattr(self, attr))
+
+        try:
+            os.remove(location + ".old")
+        except:
+            pass
+        try:
+            os.remove(location + ".new")
+        except:
+            pass
+        f = file(location + ".new", 'wb')
+        pickle.dump(pdata, f, common.PICKLE_PROTOCOL)
+        f.close()
+        try:
+            os.rename(location, location + ".old")
+        except:
+            pass # if it doesn'texist we don't care
+        os.rename(location + ".new", location)
+        try:
+            os.remove(location + ".old")
+        except:
+            pass
+        
+        self._dirty = False
 
 class CoverManager(SimpleManager):
     """
@@ -38,6 +170,20 @@ class CoverManager(SimpleManager):
         self.cache_dir = cache_dir
         if not os.path.isdir(cache_dir):
             os.mkdir(cache_dir, 0755)
+
+        self.coverdb = CoverDB(location='%s/cover.db' % self.cache_dir)
+
+    def get_cover_db(self):
+        """
+            Returns the cover database
+        """
+        return self.coverdb
+
+    def save_cover_db(self):
+        """
+            Saves the cover database
+        """
+        self.coverdb.save_to_location()
 
     def add_defaults(self):
         """
@@ -62,13 +208,29 @@ class CoverManager(SimpleManager):
         except NoCoverFoundException:
             return False
 
-    def find_cover(self, track, update_track=False):
+    def get_cover(self, track, update_track=False):
         """
             Finds one cover for a specified track.
 
+            This function first checks the cover database.  If the album art
+            is not there, it searches the available methods
+
             @param track: the track to search for covers
+            @param update_track: if True, update the coverdb to reflect the
+                new art
         """
-        pass
+        cover = self.coverdb.get_cover(track['artist'], track['album'])
+        if not cover:
+            covers = self.find_covers(track, limit=1)
+            if not covers:
+                raise NoCoverFoundException()
+            else:
+                cover = covers[0]
+
+        if update_track:
+            self.coverdb.set_cover(track['artist'], track['album'], cover)
+
+        return cover
 
     def find_covers(self, track, limit=-1):
         """

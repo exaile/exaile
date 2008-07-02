@@ -306,6 +306,7 @@ class Exaile(object):
         #self.gui.quit()
 
         self.playlists.save_all()
+        self.covers.save_cover_db()
 
         self.collection.save_to_location()
         self.collection.save_libraries()

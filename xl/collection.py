@@ -347,7 +347,7 @@ class Library(object):
                         mtime = os.path.getmtime(fullpath)
                     except OSError:
                         continue
-                    if unicode(mtime) == self.collection.tracks[fullpath]['modified']:
+                    if mtime == self.collection.tracks[fullpath]['modified']:
                         continue
                     else:
                         self.collection.tracks[fullpath].read_tags()

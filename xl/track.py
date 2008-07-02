@@ -52,7 +52,7 @@ TRACK_EVENTS = event.EventManager(use_logger=False)
 
 def track_updated(track, tag, value):
     global TRACK_EVENTS
-    e = event.Event(track.get_loc(), track, (tag, value))
+    e = event.Event(track.get_loc(), track, (tag, value), time.time())
     TRACK_EVENTS.emit_async(e)
 
 def set_track_update_callback(function, track_loc):

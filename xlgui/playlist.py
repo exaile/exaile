@@ -37,14 +37,14 @@ class Playlist(gtk.VBox):
         Column('artist', _('Artist'), 150),
         Column('album', _('Album'), 150),
         Column('length', _('Length'), 50),
-#        Column('disc_id', _('Disc'), 30),
+        Column('disc_id', _('Disc'), 30),
         Column('rating', _('Rating'), 64),
         Column('year', _('Year'), 50),
         Column('genre', _('Genre'), 100),
-#        Column('bitrate', _('Bitrate'), 30),
+        Column('bitrate', _('Bitrate'), 30),
         Column('io_loc', _('Location'), 200),
-#        Column('filename', _('Filename'), 200),
-#        Column('playcount', _('Playcount'), 50),
+        Column('filename', _('Filename'), 200),
+        Column('playcount', _('Playcount'), 50),
     ]
 
     COLUMN_IDS = []
@@ -76,6 +76,7 @@ class Playlist(gtk.VBox):
 
         self.settings = controller.exaile.settings
 
+        self.drag_delete = []
         self._setup_tree()
         self._setup_columns()
         self._set_tracks(self.playlist.get_tracks())
@@ -225,18 +226,92 @@ class Playlist(gtk.VBox):
                 first = True
 
         current_tracks = self.playlist.get_tracks()
-        add = []
         for loc in locs:
             loc = loc.replace('file://', '')
             loc = urllib.unquote(loc)
 
             if not loc in self.collection.tracks: continue
             track = self.collection.tracks[loc]
-            if not track in current_tracks:
-                add.append(track)
 
-        if add:
-            self.playlist.add_tracks(add)
+            if track in current_tracks and track in self.drag_delete:
+                index = self.playlist.index(track)
+                itera = self.model.get_iter((index,))
+                self.model.remove(itera)
+                self.playlist.remove_tracks(index, index+1, False)
+                self.drag_delete.remove(track)
+
+            if not drop_info:
+                self._append_track(track)
+            else:
+                if not first:
+                    first = True
+                    ar = self._get_ar(track)
+                    if self.model.iter_is_valid(iter):
+                        iter = self.model.insert_before(iter, ar)
+                    else:
+                        iter = self.model.append(ar)
+                else:
+                    ar = self._get_ar(track)
+                    path = self.model.get_path(iter)
+                    if self.model.iter_is_valid(iter):
+                        iter = self.model.insert_after(iter, ar)
+                    else:
+                        iter = self.model.append(ar)
+
+        if context.action == gtk.gdk.ACTION_MOVE:
+            for track in self.drag_delete:
+                index = self.playlist.index(track)
+                iter = self.model.get_iter((index,))
+                self.model.remove(iter)
+                self.playlist.remove_tracks(index, index+1, signal=False)
+            self.drag_delete = []
+
+        if context.action == gtk.gdk.ACTION_MOVE:
+            context.finish(True, True, etime)
+        else:
+            context.finish(True, False, etime)
+
+        # update the tracks in the playlist
+        current_tracks = self.playlist.get_tracks()
+        iter = self.model.get_iter_first()
+        if not iter: return
+        while True:
+            track = self.model.get_value(iter, 0)
+            if not track in current_tracks: 
+                self.playlist.add_tracks((track,), signal=False)
+            iter = self.model.iter_next(iter)
+            if not iter: break
+
+        iter = self.model.get_iter_first()
+        if not iter: return
+        self.playlist.ordered_tracks = []
+        while True:
+            track = self.model.get_value(iter, 0)
+            self.playlist.ordered_tracks.append(track)
+            iter = self.model.iter_next(iter)
+            if not iter: break
+
+    def drag_get_data(self, treeview, context, selection, target_id, etime):
+        """
+            Called when a drag source wants data for this drag operation
+        """
+        loc = []
+        delete = []
+        sel = self.list.get_selection()
+        (model, paths) = sel.get_selected_rows()
+        for path in paths:
+            iter = self.model.get_iter(path)
+            song = self.model.get_value(iter, 0) 
+
+            loc.append(urllib.quote(str(song.get_loc())))
+            delete.append(song)
+            
+        # We can't remove the tracks in delete until the drag operation is
+        # complete, because doing so causes strange dragging behavior.
+        # So we just make the list available to the drag_data_recieved 
+        # function to make use of.
+        self.drag_delete = delete
+        selection.set_uris(loc)
 
     def setup_model(self, map):
         """

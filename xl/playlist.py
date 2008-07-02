@@ -316,12 +316,13 @@ class Playlist(trackdb.TrackDB):
         """
         self.add_tracks([track], location)
 
-    def add_tracks(self, tracks, location=None):
+    def add_tracks(self, tracks, location=None, signal=True):
         """
             like add(), but takes a list of tracks instead of a single one
 
-            tracks: the tracks to add [list of Track]
-            location: the index to insert at [int]
+            @param tracks: the tracks to add [list of Track]
+            @param location: the index to insert at [int]
+            @param signal: emit the 'tracks_added' signal
         """
         if location == None:
             self.ordered_tracks.extend(tracks)
@@ -334,7 +335,7 @@ class Playlist(trackdb.TrackDB):
         if location >= self.current_pos:
             self.current_pos += len(tracks)
 
-        event.log_event('tracks_added', self, tracks)
+        if signal: event.log_event('tracks_added', self, tracks)
 
     def remove(self, index):
         """
@@ -350,12 +351,13 @@ class Playlist(trackdb.TrackDB):
         """
         return self.ordered_tracks.index(track)
 
-    def remove_tracks(self, start, end):
+    def remove_tracks(self, start, end, signal=True):
         """
             remove the specified range of tracks from the playlist
 
-            start: index to start at [int]
-            end: index to end at (inclusive) [int]
+            @param start: index to start at [int]
+            @param end: index to end at (inclusive) [int]
+            @param signal: emit the 'tracks_removed' signal
         """
         end = end + 1
         removed = self.ordered_tracks[start:end]
@@ -370,7 +372,8 @@ class Playlist(trackdb.TrackDB):
         elif start <= self.current_pos <= end:
             self.current_pos = start+1
 
-        event.log_event('tracks_removed', self, (start, end, removed))
+        if signal:
+            event.log_event('tracks_removed', self, (start, end, removed))
 
     def get_tracks(self):
         """

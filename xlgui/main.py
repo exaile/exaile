@@ -210,7 +210,7 @@ class MainWindow(object):
         self.settings['playback/shuffle'] = button.get_active()
         pl = self.get_current_playlist()
         if pl:
-            pl.playlist.get_random(button.get_active())
+            pl.playlist.set_random(button.get_active())
 
     def get_current_playlist(self):
         """

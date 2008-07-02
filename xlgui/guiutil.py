@@ -17,6 +17,10 @@
 import gtk, os.path
 from xl import xdg
 
+try:
+    import sexy
+except ImportError:
+    sexy = None
 
 def gtkrun(f):
     """
@@ -192,6 +196,44 @@ class DragTreeView(gtk.TreeView):
             selection.select_path(path[0])
         return self.cont.button_press(button, event)
 
+class EntryWithClearButton(object):
+    """
+        A gtk.Entry with a clear icon
+    """
+    def __init__(self, change_func):
+        """
+            Initializes the entry
+        """
+        if sexy:
+            self.entry = sexy.IconEntry()
+            image = gtk.Image()
+            image.set_from_stock('gtk-clear', gtk.ICON_SIZE_SMALL_TOOLBAR)
+            self.entry.set_icon(sexy.ICON_ENTRY_SECONDARY, image)
+            if change_func:
+                self.entry.connect('icon-released', self.icon_released)
+        else:
+            self.entry = gtk.Entry()
+        self.entry.connect('changed', change_func)
+
+    def set_clear_callback(self, cb):
+        """
+            Sets the callback to be called after the clear button is pressed
+        """
+        self.clear_callback = cb
+
+    def icon_released(self, *e):
+        """
+            Called when the user clicks the entry icon
+        """
+        self.entry.set_text('')
+
+    def __getattr__(self, attr):
+        """
+            If this object doesn't have the attribute, check the gtk.Entry for
+            it
+        """
+        if attr == 'entry': return self.entry
+        return getattr(self.entry, attr)
 
 def get_icon(id, size=gtk.ICON_SIZE_BUTTON):
     """

@@ -53,7 +53,7 @@ Artist - Year - Album</property>
           </packing>
         </child>
         <child>
-          <widget class="GtkHBox" id="hbox2">
+          <widget class="GtkHBox" id="collection_search_box">
             <property name="visible">True</property>
             <child>
               <widget class="GtkLabel" id="label1">
@@ -66,14 +66,7 @@ Artist - Year - Album</property>
               </packing>
             </child>
             <child>
-              <widget class="GtkEntry" id="collection_search_entry">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <signal name="activate" handler="on_search_entry_activate"/>
-              </widget>
-              <packing>
-                <property name="position">1</property>
-              </packing>
+              <placeholder/>
             </child>
           </widget>
           <packing>

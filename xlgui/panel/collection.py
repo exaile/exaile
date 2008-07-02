@@ -60,12 +60,28 @@ class CollectionPanel(panel.Panel):
         active = self.settings.get_option('gui/collection_active_view', 0)
         self.choice.set_active(active)
 
+        box = self.xml.get_widget('collection_search_box')
+        self.filter = guiutil.EntryWithClearButton(self.on_filter_key_release)
+        self.filter.connect('activate', self.on_search)
+        box.pack_start(self.filter.entry, True, True)
+        self.key_id = None
+
+    def on_filter_key_release(self, *e):
+        """
+            Called when someone releases a key
+            Sets up a timer to simulate live-search
+        """
+        if self.key_id:
+            gobject.source_remove(self.key_id)
+            self.key_id = None
+
+        self.key_id = gobject.timeout_add(500, self.on_search)
+
     def _connect_events(self):
         """
             Uses signal_autoconnect to connect the various events
         """
         self.xml.signal_autoconnect({
-            'on_search_entry_activate': self.on_search,
             'on_collection_combo_box_changed': lambda *e: self.load_tree(),
         })
 
@@ -229,7 +245,7 @@ class CollectionPanel(panel.Panel):
         """
             Adds tracks to the tree in the correct order
         """
-        current_tracks = tracks[:1000]
+        current_tracks = tracks[:100]
         order_nodes = common.idict()
         order = []
         last_songs = []
@@ -244,7 +260,7 @@ class CollectionPanel(panel.Panel):
         last_char = None
         if not expanded_paths: expanded_paths = []
 
-        for track in tracks:
+        for track in current_tracks:
             parent = node
             last_parent = None
             string = ""
@@ -305,7 +321,7 @@ class CollectionPanel(panel.Panel):
 
                 last_parent = parent
 
-        newtracks = tracks[1000:]
+        newtracks = tracks[100:]
         if newtracks:
             gobject.idle_add(self.append_tracks, node, newtracks, unknown,
                 expanded_paths)
@@ -315,7 +331,7 @@ class CollectionPanel(panel.Panel):
                 self.append_tracks(self.root, last_songs, True,
                     expanded_paths)
 
-            gobject.idle_add(self.tree.set_model, self.model)
+            self.tree.set_model(self.model)
 
             for path in expanded_paths:
-                gobject.idle_add(self.tree.expand_to_path, path)
+                self.tree.expand_to_path(path)

@@ -14,7 +14,7 @@
 
 import pygtk
 pygtk.require('2.0')
-import gtk, gtk.glade, gobject
+import gtk, gtk.glade, gobject, pango
 from xl import xdg, event
 import xl.playlist
 from xlgui import playlist, cover
@@ -148,6 +148,12 @@ class MainWindow(object):
         self.cover = cover.CoverWidget(self, self.controller.exaile.covers,
             self.controller.exaile.player)
         self.cover_event_box.add(self.cover)
+        self.track_title_label = self.xml.get_widget('track_title_label')
+        attr = pango.AttrList()
+        attr.change(pango.AttrWeight(pango.WEIGHT_BOLD, 0, 800))
+        attr.change(pango.AttrSize(12500, 0, 600))
+        self.track_title_label.set_attributes(attr)
+        self.track_info_label = self.xml.get_widget('track_info_label')
 
     def _connect_events(self):
         """
@@ -173,7 +179,7 @@ class MainWindow(object):
                 self.add_playlist(),
         })        
 
-        event.add_callback(self.draw_playlist, 'playback_end',
+        event.add_callback(self.on_playback_end, 'playback_end',
             self.controller.exaile.player)
         event.add_callback(self.on_playback_start, 'playback_start',
             self.controller.exaile.player) 
@@ -232,6 +238,52 @@ class MainWindow(object):
             path = (pl.playlist.index(player.current),)
             pl.list.scroll_to_cell(path)
             pl.list.set_cursor(path)
+        
+        # set track information
+        track = player.current
+
+        if track:
+            artist = track['artist']
+            album = track['album']
+            title = track['title']
+
+            if artist:
+                # TRANSLATORS: Window title
+                self.window.set_title(_("%(title)s (by %(artist)s)") %
+                    { 'title': title, 'artist': artist } + " - Exaile")
+            else:
+                self.window.set_title(title + " - Exaile")
+
+        self.track_title_label.set_label(title)
+        if album or artist:
+            desc = []
+            # TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
+            if artist: desc.append(_("by %s") % artist)
+            # TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
+            if album: desc.append(_("from %s") % album)
+
+            #self.window.set_title(_("Exaile: playing %s") % title +
+            #    ' ' + ' '.join(desc))
+            desc_newline = '\n'.join(desc)
+            self.track_info_label.set_label(desc_newline)
+#            if self.tray_icon:
+#                self.tray_icon.set_tooltip(_("Playing %s") % title + '\n' +
+#                    desc_newline)
+        else:
+            #self.window.set_title(_("Exaile: playing %s") % title)
+            self.track_info.set_label("")
+#            if self.tray_icon:
+#                self.tray_icon.set_tooltip(_("Playing %s") % title)
+
+        self.draw_playlist(type, player, object)
+
+    def on_playback_end(self, type, player, object):
+        """
+            Called when playback ends
+        """
+        self.track_title_label.set_label(_('Not Playing'))
+        self.track_info_label.set_label(_('Stopped'))
+
         self.draw_playlist(type, player, object)
 
     def draw_playlist(self, *e):

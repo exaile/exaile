@@ -63,6 +63,17 @@ def remove_track_update_callback(function, track_loc):
     global TRACK_EVENTS
     TRACK_EVENTS.remove_callback(function, track_loc)
 
+def lstrip_special(field):
+    """
+        Strip special chars off the beginning of a field for sorting. If
+        stripping the chars leaves nothing the original field is returned with
+        only whitespace removed.
+    """
+    lowered = field.lower()
+    stripped = lowered.lstrip(" `~!@#$%^&*()_+-={}|[]\\\";'<>?,./")
+    if stripped:
+        return stripped
+    return lowered.lstrip()
 
 class Track(object):
     """
@@ -299,11 +310,11 @@ class Track(object):
         """
         if field == 'tracknumber': return self.get_track()
         elif field == 'artist':
-            artist = self['artist'].lower()
+            artist = lstrip_special(self['artist'])
             if artist.find('the ') == 0:
                 artist = artist[4:]
             return artist
-        else: return self[field].lower()
+        else: return lstrip_special(self[field])
 
     def __repr__(self):
         return str(self) #for debugging, remove later

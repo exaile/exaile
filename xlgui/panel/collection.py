@@ -17,6 +17,8 @@ from xl import xdg, common
 from xlgui import panel, guiutil
 from gettext import gettext as _
 
+TRACK_NUM = 300
+
 class CollectionPanel(panel.Panel):
     """
         The collection panel
@@ -245,7 +247,7 @@ class CollectionPanel(panel.Panel):
         """
             Adds tracks to the tree in the correct order
         """
-        current_tracks = tracks[:100]
+        current_tracks = tracks[:TRACK_NUM]
         order_nodes = common.idict()
         order = []
         last_songs = []
@@ -321,7 +323,7 @@ class CollectionPanel(panel.Panel):
 
                 last_parent = parent
 
-        newtracks = tracks[100:]
+        newtracks = tracks[TRACK_NUM:]
         if newtracks:
             gobject.idle_add(self.append_tracks, node, newtracks, unknown,
                 expanded_paths)

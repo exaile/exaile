@@ -122,6 +122,7 @@ Things that can probably be implemented at this stage:
             how to deal with streams or devices, which cannot be guaranteed
                 to be present upon resume?
     GUI
+        see GUIPLANNING
         should not be drastically different from 0.2
         separate classes (with associated glade files) for each part
             side panes
@@ -192,6 +193,23 @@ Misc:
 
     these db issues probably need to be decided before even the first alpha 
     of 0.3, since they will involve drastic on-disk format changes
+    
+GUIPLANNING:
+    Implemented:
+        Collection Panel
+            * still needs right click menu, double click actions, etc
+
+        Playlists Panel
+            * still needs right click menu, a way to add custom playlists and
+                smart playlists
+            * still needs to display custom playlists
+
+        Playlist Tabs
+            * still need to be able to recieve track dragged from a file
+                manager like nautilus
+    
+    Needs to be implemented:
+        Lots
 
 ==== NOTES ====
 xl is to be split into xl and xlgui. All code concerning the display of 

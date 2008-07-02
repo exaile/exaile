@@ -20,7 +20,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 # list of plugins to enable by default on new installs
-DEFAULT_PLUGINS = ['shoutcast', 'amazoncovers']
+DEFAULT_PLUGINS = ['shoutcast', 'amazoncovers', 'console']
 
 class PluginsManager(object):
     def __init__(self, exaile):

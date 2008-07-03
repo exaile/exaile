@@ -51,19 +51,16 @@ class PlaybackProgressBar(object):
 
         track = self.player.current
         if not track: return
+        length = int(track['length'])
 
-        duration = int(track['length']) * gst.SECOND
-        if duration == -1:
-            real = 0
-        else:
-            real = value * duration / 100
-        seconds = real / gst.SECOND
-
-        real = float(value * int(track['length']))
-        self.player.seek(real)
+        seconds = float(value * length)
+        self.player.seek(seconds)
         self.seeking = False
         self.bar.set_fraction(value)
-#        self.emit('seek', real)
+        remaining_seconds = length - seconds
+        self.bar.set_text("%d:%02d / %d:%02d" % ((seconds / 60), 
+            (seconds % 60), (remaining_seconds / 60), (remaining_seconds % 60))) 
+#        self.emit('seek', seconds)
 
     def seek_motion_notify(self, widget, event):
         track = self.player.current
@@ -78,14 +75,8 @@ class PlaybackProgressBar(object):
         if value > 1: value = 1
 
         self.bar.set_fraction(value)
-
         length = int(track['length'])
-        if length == -1:
-            real = 0
-        else:
-            real = value * length
-        seconds = real
-
+        seconds = float(value * length)
         remaining_seconds = length - seconds
         self.bar.set_text("%d:%02d / %d:%02d" % ((seconds / 60), 
             (seconds % 60), (remaining_seconds / 60), (remaining_seconds % 60))) 
@@ -104,13 +95,7 @@ class PlaybackProgressBar(object):
 
         self.bar.set_fraction(self.player.get_progress())
 
-        value = self.player.get_time()
-        if length == -1:
-            real = 0
-        else:
-            real = value * length / 100
-        seconds = real
-
+        seconds = self.player.get_time()
         remaining_seconds = length - seconds
         self.bar.set_text("%d:%02d / %d:%02d" %
             ( seconds // 60, seconds % 60, remaining_seconds // 60,

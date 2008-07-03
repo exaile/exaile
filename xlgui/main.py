@@ -112,7 +112,7 @@ class MainWindow(object):
         if not pl:
             pl = xl.playlist.Playlist()
         name = pl.name
-        pl = playlist.Playlist(self.controller, pl)
+        pl = playlist.Playlist(self, self.controller, pl)
         tab = NotebookTab(self, self.playlist_notebook, name, pl)
         self.playlist_notebook.append_page(pl,
             tab)

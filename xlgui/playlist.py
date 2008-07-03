@@ -17,6 +17,8 @@ from xlgui import guiutil
 from gettext import gettext as _
 from xl import playlist, event
 import copy, urllib
+import logging
+logger = logging.getLogger(__name__)
 
 class Column(object):
     __slots__ = ['id', 'display', 'size']
@@ -37,9 +39,9 @@ class Playlist(gtk.VBox):
         Column('artist', _('Artist'), 150),
         Column('album', _('Album'), 150),
         Column('length', _('Length'), 50),
-        Column('disc_id', _('Disc'), 30),
+        Column('discnumber', _('Disc'), 30),
         Column('rating', _('Rating'), 64),
-        Column('year', _('Year'), 50),
+        Column('date', _('Year'), 50),
         Column('genre', _('Genre'), 100),
         Column('bitrate', _('Bitrate'), 30),
         Column('io_loc', _('Location'), 200),
@@ -57,7 +59,7 @@ class Playlist(gtk.VBox):
 
     default_column_ids = ['tracknumber', 'title', 'album', 'artist', 'length']
 
-    def __init__(self, controller, pl):
+    def __init__(self, main, controller, pl):
         """
             Initializes the playlist
 
@@ -66,8 +68,10 @@ class Playlist(gtk.VBox):
         """
         gtk.VBox.__init__(self)
 
+        self.main = main
         self.controller = controller
         self.collection = controller.exaile.collection
+        self.xml = main.xml
 
         # note: care must be taken so that sorting and searching does
         # not affect this object. However, changes in order and tracks
@@ -75,9 +79,11 @@ class Playlist(gtk.VBox):
         self.playlist = pl
 
         self.settings = controller.exaile.settings
+        self.col_menus = dict()
 
         self.drag_delete = []
         self._setup_tree()
+        self._setup_col_menus()
         self._setup_columns()
         self._set_tracks(self.playlist.get_tracks())
 
@@ -87,6 +93,93 @@ class Playlist(gtk.VBox):
         event.add_callback(self.on_add_tracks, 'tracks_added', self.playlist)
         event.add_callback(self.on_remove_tracks, 'tracks_removed',
             self.playlist)
+
+    def _setup_col_menus(self):
+        """
+            Sets up the column menus (IE, View->Column->Track, etc)
+        """
+        self.resizable_cols = self.xml.get_widget('col_resizable_item')
+        self.not_resizable_cols = \
+            self.xml.get_widget('col_not_resizable_item')
+        self.resizable_cols.set_active(self.settings.get_option('gui/resizable_cols',
+            False))
+        self.resizable_cols.connect('activate', self.activate_cols_resizable)
+        self.not_resizable_cols.connect('activate',
+            self.activate_cols_resizable)
+
+        column_ids = None
+        if self.settings.get_option('gui/trackslist_defaults_set', False):
+            column_ids = set()
+            ids = self.settings.get_option("gui/columns", [])
+            # Don't add invalid columns.
+            all_ids = frozenset(self.COLUMN_IDS)
+            for id in ids:
+                if id in all_ids:
+                    column_ids.add(id)
+
+        if not column_ids:
+            # Use default.
+            ids = self.default_column_ids
+            self.settings['gui/trackslist_defaults_set'] = True
+            self.settings['gui/columns'] = ids
+            column_ids = frozenset(ids)
+
+
+        for col_struct in self.COLUMNS:
+            self.col_menus[col_struct.id] = menu = self.xml.get_widget(
+                '%s_col' % col_struct.id)
+
+            if menu is None:
+                logger.warning("No such column: %s" % col_struct.id)
+                continue
+
+            menu.set_active(col_struct.id in column_ids)
+            menu.connect('activate', self.change_column_settings,
+                ('gui/columns', col_struct))
+
+    def change_column_settings(self, item, data):
+        """
+            Changes column view settings
+        """
+        pref, col_struct = data
+        id = col_struct.id
+
+        column_ids = list(self.settings.get_option(pref, []))
+        if item.get_active():
+            if id not in column_ids:
+                logger.info("adding %s column to %s" % (id, pref))
+                column_ids.append(id)
+        else:
+            if col_struct.id in column_ids:
+                logger.info("removing %s column from %s" % (id, pref))
+                column_ids.remove(id)
+        self.settings[pref] = column_ids
+
+        for i in range(0, self.main.playlist_notebook.get_n_pages()):
+            page = self.main.playlist_notebook.get_nth_page(i)
+            page.update_col_settings()
+
+    def activate_cols_resizable(self, widget, event=None):
+        """
+            Called when the user chooses whether or not columns can be
+            resizable
+        """
+        self.settings['gui/resizable_cols'] = self.resizable_cols.get_active()
+        for i in range(0, self.main.playlist_notebook.get_n_pages()):
+            page = self.main.playlist_notebook.get_nth_page(i)
+            page.update_col_settings()
+
+    def update_col_settings(self):
+        """
+            Updates the settings for a specific column
+        """
+        self.list.disconnect(self.changed_id)
+        columns = self.list.get_columns()
+        for col in columns:
+            self.list.remove_column(col)
+
+        self._setup_columns()
+        self.list.queue_draw()
 
     def on_remove_tracks(self, type, playlist, info):
         """
@@ -448,7 +541,7 @@ class Playlist(gtk.VBox):
                     col.set_resizable(True)
                     col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
 
-                if col_struct.id in ('track', 'playcount'):
+                if col_struct.id in ('tracknumber', 'playcount'):
                     cellr.set_property('xalign', 1.0)
                     
                 # Update which column to search for when columns are changed

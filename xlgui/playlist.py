@@ -21,13 +21,23 @@ import logging
 logger = logging.getLogger(__name__)
 
 class Column(object):
-    __slots__ = ['id', 'display', 'size']
     def __init__(self, id, display, size):
         self.id = id
         self.display = display
         self.size = size
+
+    def data_func(self, col, cell, model, iter):
+        """
+            Generic data function
+        """
+        track = model.get_value(iter, 0)
+        value = track[self.id]
+        cell.set_property('text', value)
+        self.set_cell_weight(cell, value)
+    
     def __repr__(self):
-        return 'Column(%s, %s, %s)' % (`self.id`, `self.display`, `self.size`)
+        return '%s(%s, %s, %s)' % (self.__class__.__name__,
+            `self.id`, `self.display`, `self.size`)
 
 class Playlist(gtk.VBox):
     """
@@ -504,10 +514,11 @@ class Playlist(gtk.VBox):
                 if col_struct.id == 'length':
                     col.set_cell_data_func(cellr, self.length_data_func)
                 elif col_struct.id == 'tracknumber':
-                    col.set_cell_data_func(cellr, self.track_data_func)
+#                    col.set_cell_data_func(cellr, self.track_data_func)
 #                elif col_struct.id == 'rating':
 #                    col.set_attributes(cellr, pixbuf=1)
 #                    col.set_cell_data_func(cellr, self.rating_data_func)
+                    pass
                 else:
                     col.set_cell_data_func(cellr, self.default_data_func)
 

@@ -12,14 +12,111 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import pygtk
+import pygtk, pygst
 pygtk.require('2.0')
+pygst.require('0.10')
+import gst
 import gtk, gtk.glade, gobject, pango
 from xl import xdg, event
 import xl.playlist
 from xlgui import playlist, cover
 from gettext import gettext as _
 import xl.playlist
+
+class PlaybackProgressBar(object):
+    def __init__(self, bar, player):
+        self.bar = bar
+        self.player = player
+        self.timer_id = None
+        self.seeking = False
+
+        self.bar.set_text(_('Not Playing'))
+        self.bar.connect('button-press-event', self.seek_begin)
+        self.bar.connect('button-release-event', self.seek_end)
+        self.bar.connect('motion-notify-event', self.seek_motion_notify)
+
+        event.add_callback(self.playback_start, 'playback_start', player)
+        event.add_callback(self.playback_end, 'playback_end', player)
+
+    def seek_begin(self, *e):
+        self.seeking = True
+
+    def seek_end(self, widget, event):
+        mouse_x, mouse_y = event.get_coords()
+        progress_loc = self.bar.get_allocation()
+
+        value = mouse_x / progress_loc.width
+        if value < 0: value = 0
+        if value > 1: value = 1
+
+        track = self.player.current
+        if not track: return
+
+        duration = int(track['length']) * gst.SECOND
+        if duration == -1:
+            real = 0
+        else:
+            real = value * duration / 100
+        seconds = real / gst.SECOND
+
+        real = float(value * int(track['length']))
+        self.player.seek(real)
+        self.seeking = False
+        self.bar.set_fraction(value)
+#        self.emit('seek', real)
+
+    def seek_motion_notify(self, widget, event):
+        track = self.player.current
+        if not track: return
+
+        mouse_x, mouse_y = event.get_coords()
+        progress_loc = self.bar.get_allocation()
+
+        value = mouse_x / progress_loc.width
+
+        if value < 0: value = 0
+        if value > 1: value = 1
+
+        self.bar.set_fraction(value)
+
+        length = int(track['length'])
+        if length == -1:
+            real = 0
+        else:
+            real = value * length
+        seconds = real
+
+        remaining_seconds = length - seconds
+        self.bar.set_text("%d:%02d / %d:%02d" % ((seconds / 60), 
+            (seconds % 60), (remaining_seconds / 60), (remaining_seconds % 60))) 
+       
+    def playback_start(self, type, player, object):
+        self.timer_id = gobject.timeout_add(1000, self.timer_update)
+
+    def playback_end(self, type, player, object):
+        gobject.source_remove(self.timer_id)
+        self.timer_id = None
+        self.bar.set_text(_('Not Playing'))
+
+    def timer_update(self, *e):
+        track = self.player.current
+        length = int(track['length'])
+
+        self.bar.set_fraction(self.player.get_progress())
+
+        value = self.player.get_time()
+        if length == -1:
+            real = 0
+        else:
+            real = value * length / 100
+        seconds = real
+
+        remaining_seconds = length - seconds
+        self.bar.set_text("%d:%02d / %d:%02d" %
+            ( seconds // 60, seconds % 60, remaining_seconds // 60,
+            remaining_seconds % 60))
+
+        return True
 
 class NotebookTab(gtk.EventBox):
     """
@@ -154,6 +251,10 @@ class MainWindow(object):
         attr.change(pango.AttrSize(12500, 0, 600))
         self.track_title_label.set_attributes(attr)
         self.track_info_label = self.xml.get_widget('track_info_label')
+
+        self.progress_bar = PlaybackProgressBar(
+            self.xml.get_widget('playback_progressbar'),
+            self.controller.exaile.player)
 
     def _connect_events(self):
         """

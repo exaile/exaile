@@ -17,6 +17,7 @@
 import pygst
 pygst.require('0.10')
 import gst
+import gobject
 
 from xl import common, event, playlist, settings
 import random, time, re, os, md5, thread, logging
@@ -439,7 +440,11 @@ class GaplessPlayer(BaseGSTPlayer):
         # This signal doesn't work yet (as of gst 0.10.19)
         # self.playbin.connect('audio-changed', self.on_changed)
 
+
     def on_finish(self, *args):
+        gobject.idle_add(self._on_finish)
+
+    def _on_finish(self, *args):
         """
             called when a track is about to finish, so we can make it gapless
         """

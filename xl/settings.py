@@ -107,6 +107,9 @@ class SettingsManager(SafeConfigParser):
             return eval(value)
 
         if kind in TYPE_MAPPING.keys():
+            if kind == 'B':
+                if value != 'True':
+                    return False
             value = TYPE_MAPPING[kind](value)
             return value
         else:

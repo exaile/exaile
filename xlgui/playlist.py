@@ -113,6 +113,8 @@ class Playlist(gtk.VBox):
             self.xml.get_widget('col_not_resizable_item')
         self.resizable_cols.set_active(self.settings.get_option('gui/resizable_cols',
             False))
+        self.not_resizable_cols.set_active(not \
+            self.settings.get_option('gui/resizable_cols', False))
         self.resizable_cols.connect('activate', self.activate_cols_resizable)
         self.not_resizable_cols.connect('activate',
             self.activate_cols_resizable)
@@ -174,7 +176,12 @@ class Playlist(gtk.VBox):
             Called when the user chooses whether or not columns can be
             resizable
         """
-        self.settings['gui/resizable_cols'] = self.resizable_cols.get_active()
+        if 'not' in widget.name:
+            resizable = False
+        else: 
+            resizable = True
+
+        self.settings['gui/resizable_cols'] = resizable
         for i in range(0, self.main.playlist_notebook.get_n_pages()):
             page = self.main.playlist_notebook.get_nth_page(i)
             page.update_col_settings()
@@ -183,13 +190,23 @@ class Playlist(gtk.VBox):
         """
             Updates the settings for a specific column
         """
+        selection = self.list.get_selection()
+        info = selection.get_selected_rows()
+        
         self.list.disconnect(self.changed_id)
         columns = self.list.get_columns()
         for col in columns:
             self.list.remove_column(col)
 
         self._setup_columns()
+        self._set_tracks(self.playlist.get_tracks())
         self.list.queue_draw()
+
+        if info:
+            paths = info[1]
+            if paths:
+                for path in paths:
+                    selection.select_path(path)
 
     def on_remove_tracks(self, type, playlist, info):
         """

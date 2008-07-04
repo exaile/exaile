@@ -575,6 +575,7 @@
                       <widget class="GtkButton" id="prev_button">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="tooltip" translatable="yes">Previous Track</property>
                         <property name="response_id">0</property>
                         <signal name="clicked" handler="on_prev_button_clicked"/>
                         <child>
@@ -592,6 +593,7 @@
                       <widget class="GtkButton" id="stop_button">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="tooltip" translatable="yes">Stop Playback</property>
                         <property name="response_id">0</property>
                         <signal name="clicked" handler="on_stop_button_clicked"/>
                         <child>
@@ -610,7 +612,7 @@
                       <widget class="GtkButton" id="play_button">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="tooltip" translatable="yes">Start Playback</property>
+                        <property name="tooltip" translatable="yes">Start/Pause Playback</property>
                         <property name="response_id">0</property>
                         <signal name="clicked" handler="on_play_button_clicked"/>
                         <child>
@@ -686,6 +688,7 @@
                       <widget class="GtkButton" id="clear_playlist_button">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="tooltip" translatable="yes">Clear Playlist</property>
                         <property name="response_id">0</property>
                         <signal name="clicked" handler="on_clear_playlist_button_clicked"/>
                         <accelerator key="C" modifiers="GDK_CONTROL_MASK" signal="clicked"/>

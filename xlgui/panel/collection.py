@@ -215,6 +215,51 @@ class CollectionPanel(panel.Panel):
 
         return found
 
+    def append_to_playlist(self, item=None, event=None):
+        """
+            Adds items to the current playlist
+        """
+        add = self.get_selected_tracks()
+
+        pl = self.controller.main.get_selected_playlist()
+        if pl:
+            tracks = pl.playlist.get_tracks()
+            found = []
+            for track in add:
+                if not track in tracks:
+                    found.append(track)
+            pl.playlist.add_tracks(found)
+
+    def button_press(self, widget, event):
+        """ 
+            Called when the user clicks on the tree
+        """
+        selection = self.tree.get_selection()
+        (x, y) = map(int, event.get_coords())
+        path = self.tree.get_path_at_pos(x, y)
+        if event.type == gtk.gdk._2BUTTON_PRESS:
+            (model, paths) = selection.get_selected_rows()
+
+            # check to see if it's a double click on an album
+            if len(paths) == 1:
+                iter = self.model.get_iter(path[0])
+                object = self.model.get_value(iter, 1)
+                field = self.model.get_value(iter, 2)
+
+                if field == 'album':
+                    self.append_to_playlist()
+                    return False
+
+            for path in paths:
+                iter = self.model.get_iter(path)
+                object = self.model.get_value(iter, 1)
+                if self.model.iter_has_child(iter):
+                    self.tree.expand_row(path, False)
+                else:
+                    self.append_to_playlist()
+
+            return False
+
     def load_tree(self):
         """
             Builds the tree

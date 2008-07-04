@@ -238,11 +238,23 @@ class Playlist(gtk.VBox):
         """
             Returns the currently selected track
         """
+        tracks = self.get_selected_tracks()
+        if not tracks: return None
+        else: return tracks[0]
+
+    def get_selected_tracks(self):
+        """
+            Gets the selected tracks in the tree view
+        """
         selection = self.list.get_selection()
         (model, paths) = selection.get_selected_rows()
-        if not paths: return
-        iter = self.model.get_iter(paths[0])
-        return model.get_value(iter, 0)
+        songs = []
+        for path in paths:
+            iter = self.model.get_iter(path)
+            song = self.model.get_value(iter, 0)
+            songs.append(song)
+
+        return songs
 
     def on_row_activated(self, *e):
         """

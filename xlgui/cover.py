@@ -62,6 +62,7 @@ class CoverWidget(guiutil.ScalableImageWidget):
 
         if self.player.current == self.current_track:
             gobject.idle_add(self.set_image, cover)
+            self.loc = cover
 
     def on_playback_end(self, type, player, object):
         """

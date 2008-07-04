@@ -112,7 +112,10 @@ class Track(object):
             return
         else:
             tag, value = tag_info
-            self[tag] = value
+
+            # we set emit to False here, because if it's True, there will be
+            # an infinite loop, as set_tag calls this function
+            self.set_tag(tag, value, emit=False)
 
     def set_loc(self, loc):
         """

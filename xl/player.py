@@ -395,6 +395,8 @@ class BaseGSTPlayer(object):
         else:
             self.pause()
 
+        event.log_event('playback_toggle_pause', self, self.current)
+
     def seek(self, value):
         value = int(gst.SECOND * value)
         event = gst.event_new_seek(1.0, gst.FORMAT_TIME,

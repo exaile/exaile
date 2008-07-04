@@ -35,9 +35,9 @@ from xl import common
 # define these here so the interperter doesn't complain about them
 EVENT_MANAGER = None
 IDLE_MANAGER  = None
+_TESTING = False  # set this to true for testing
 
 logger = logging.getLogger(__name__)
-
 
 def log_event(type, object, data, async=True):
     """
@@ -50,7 +50,7 @@ def log_event(type, object, data, async=True):
     """
     global EVENT_MANAGER
     e = Event(type, object, data, time.time())
-    if async:
+    if async and not _TESTING:
         EVENT_MANAGER.emit_async(e)
     else:
         EVENT_MANAGER.emit(e)
@@ -146,7 +146,8 @@ class IdleManager(threading.Thread):
         # This is quite simple. If we have a job, wake up and run it.
         # If we run out of jobs, sleep until we have another one to do.
         while True:
-            if self.queue is None: return
+            if self.queue is None or self.event is None: 
+                return
             while len(self.queue) == 0:
                 self.event.wait()
             self.event.clear()
@@ -177,7 +178,7 @@ class EventManager(object):
     """
     def __init__(self, use_logger=False):
         self.callbacks = {}
-        self.idle = IdleManager()
+        self.idle = IDLE_MANAGER
         self.use_logger = use_logger
 
     def emit(self, event):
@@ -212,13 +213,18 @@ class EventManager(object):
                 self.remove_callback(call, event.type, event.object)
             except:
                 # something went wrong inside the function we're calling
-                common.log_exception(logger)
+                if not _TESTING: common.log_exception(logger)
+                else:
+                    traceback.print_exc()
 
     def emit_async(self, event):
         """
             Same as emit(), but does not block.
         """
-        self.idle.add(self.emit, event)
+        if not _TESTING:
+            self.idle.add(self.emit, event)
+        else:
+            self.emit(event)
 
     def add_callback(self, function, type=None, object=None):
         """
@@ -298,8 +304,8 @@ class Waiter(threading.Thread):
 
 # Instantiate our managers as globals. This lets us use the same instance
 # regardless of where this module is imported.
-EVENT_MANAGER = EventManager()
 IDLE_MANAGER  = IdleManager()
+EVENT_MANAGER = EventManager()
 
 # vim: et sts=4 sw=4
 

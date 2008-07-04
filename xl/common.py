@@ -20,6 +20,7 @@ import traceback
 import logging
 
 logger = logging.getLogger(__name__)
+_TESTING = False  # set to True for testing
 
 VALID_TAGS = (
     # Ogg Vorbis spec tags
@@ -61,6 +62,8 @@ def threaded(f):
     """
         A decorator that will make any function run in a new thread
     """
+
+    if _TESTING: return f
     def wrapper(*args, **kwargs):
         t = threading.Thread(target=f, args=args, kwargs=kwargs)
         t.setDaemon(True)

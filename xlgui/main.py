@@ -85,7 +85,7 @@ class PlaybackProgressBar(object):
         self.timer_id = gobject.timeout_add(1000, self.timer_update)
 
     def playback_end(self, type, player, object):
-        gobject.source_remove(self.timer_id)
+        if self.timer_id: gobject.source_remove(self.timer_id)
         self.timer_id = None
         self.bar.set_text(_('Not Playing'))
 
@@ -241,6 +241,12 @@ class MainWindow(object):
             self.xml.get_widget('playback_progressbar'),
             self.controller.exaile.player)
 
+        # playback buttons
+        bts = ('play', 'next', 'prev', 'stop')
+        for button in bts:
+            setattr(self, '%s_button' % button,
+                self.xml.get_widget('%s_button' % button))
+
     def _connect_events(self):
         """
             Connects the various events to their handlers
@@ -269,6 +275,27 @@ class MainWindow(object):
             self.controller.exaile.player)
         event.add_callback(self.on_playback_start, 'playback_start',
             self.controller.exaile.player) 
+        event.add_callback(self.on_toggle_pause, 'playback_toggle_pause',
+            self.controller.exaile.player)
+
+    def on_toggle_pause(self, type, player, object):
+        """
+            Called when the user clicks the play button after playback has
+            already begun
+        """
+        if player.is_paused():
+            image = gtk.image_new_from_stock('gtk-media-play',
+                gtk.ICON_SIZE_SMALL_TOOLBAR)
+        else:
+            image = gtk.image_new_from_stock('gtk-media-pause',
+                gtk.ICON_SIZE_SMALL_TOOLBAR)
+            
+        self.play_button.set_image(image)
+        
+        # refresh the current playlist
+        pl = self.get_selected_playlist()
+        if pl:
+            pl.list.queue_draw()
 
     def close_playlist_tab(self, tab=None):
         """
@@ -362,6 +389,8 @@ class MainWindow(object):
 #                self.tray_icon.set_tooltip(_("Playing %s") % title)
 
         self.draw_playlist(type, player, object)
+        self.play_button.set_image(gtk.image_new_from_stock('gtk-media-pause',
+                gtk.ICON_SIZE_SMALL_TOOLBAR))
 
     def on_playback_end(self, type, player, object):
         """
@@ -371,6 +400,8 @@ class MainWindow(object):
         self.track_info_label.set_label(_('Stopped'))
 
         self.draw_playlist(type, player, object)
+        self.play_button.set_image(gtk.image_new_from_stock('gtk-media-play',
+                gtk.ICON_SIZE_SMALL_TOOLBAR))
 
     def draw_playlist(self, *e):
         """
@@ -380,6 +411,14 @@ class MainWindow(object):
         page = self.playlist_notebook.get_nth_page(page)
         gobject.idle_add(page.queue_draw)
 
+    def get_selected_playlist(self):
+        """
+            Returns teh currently selected playlist
+        """
+        num = self.playlist_notebook.get_current_page()
+        page = self.playlist_notebook.get_nth_page(num)
+        return page
+
     def on_play_clicked(self, *e):
         """
             Called when the play button is clicked
@@ -388,6 +427,12 @@ class MainWindow(object):
         if exaile.player.is_paused() or exaile.player.is_playing():
             exaile.player.toggle_pause()
         else:
+            pl = self.get_selected_playlist()
+            if pl:
+                track = pl.get_selected_track()
+                if track:
+                    pl.playlist.set_current_pos(
+                        pl.playlist.index(track))
             exaile.queue.play()
 
     def playlist_switch_event(self, notebook, page, page_num):

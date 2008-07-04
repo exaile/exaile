@@ -1,6 +1,8 @@
-from xl import settings, collection
+from xl import settings, collection, event, common
 import unittest, md5, time, imp, os
 
+event._TESTING = True
+common._TESTING = True
 settings.SettingsManager('.testtemp/test_exaile_settings.ini')
 class BaseTestCase(unittest.TestCase):
     def setUp(self):

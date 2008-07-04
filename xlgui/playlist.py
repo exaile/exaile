@@ -741,10 +741,9 @@ class Playlist(gtk.VBox):
         cell.set_property('weight', weight)
 
     def press_header(self, widget, event):
-        pass
-#        if event.button != 3:
-#            return False
-#        menu = self.exaile.xml.get_widget('columns_menu_menu')
-#        menu.popup(None, None, None, event.button, event.time)
-#        return True
+        if event.button != 3:
+            return False
+        menu = self.xml.get_widget('columns_menu_menu')
+        menu.popup(None, None, None, event.button, event.time)
+        return True
 

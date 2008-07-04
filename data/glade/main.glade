@@ -84,7 +84,7 @@
                         <property name="label" translatable="yes">_Columns</property>
                         <property name="use_underline">True</property>
                         <child>
-                          <widget class="GtkMenu" id="menuitem3_menu">
+                          <widget class="GtkMenu" id="columns_menu_menu">
                             <child>
                               <widget class="GtkCheckMenuItem" id="tracknumber_col">
                                 <property name="visible">True</property>

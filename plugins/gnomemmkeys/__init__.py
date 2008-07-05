@@ -39,7 +39,6 @@ def enable(exaile):
                 'org.gnome.SettingsDaemon.MediaKeys')
             gnome.GrabMediaPlayerKeys("Exaile", 0)
             gnome.connect_to_signal('MediaPlayerKeyPressed', on_gnome_mmkey)
-            logger.info("Activated gnome mmkeys for gnome 2.22.x")
             return True
         except:
             traceback.print_exc()
@@ -50,7 +49,6 @@ def enable(exaile):
                 'org.gnome.SettingsDaemon')
             gnome.GrabMediaPlayerKeys("Exaile", 0)
             gnome.connect_to_signal('MediaPlayerKeyPressed', on_gnome_mmkey)
-            logger.info("Activated gnome mmkeys for gnome 2.20.x")
             return True
     except:
         disable(exaile) #disconnect if we failed to load completely

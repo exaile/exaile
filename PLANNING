@@ -8,26 +8,6 @@ Current projects:
     Anthony Waters - 
     thiblahute - CD Burning
 
-*** QUICK NOTE:  We need to make a way that coders can easily see what 
-object export which events, and possibly have a way for this to show up 
-in epydoc
-**** I think perhaps adding an "Events" section to the docstring for each 
-class would be the way to go here. something like:
-
-class TrackDB:
-    """
-        blah blah blah...
-
-        Events:
-            track_added - sent when a track is added to the db
-                data: the loc of the track
-            track_removed - sent when a track is removed from the db
-                data: the loc of the track
-    """
-
-this doesn't handle the case where multiple classes emit the same event
-though, though I do not know of any cases of that in the current codebase
-(except those arising from subclassing which don't count)
 
 Implemented:
     Collection
@@ -40,7 +20,7 @@ Implemented:
     Queue
     Settings
     Event
-        signals-like system
+        signals-like system that doesn't require reference passing
     XDG
         exaile's config and data files now stored according to xdg spec
     Logging System
@@ -85,10 +65,13 @@ Things that can probably be implemented at this stage:
         matching tracks based on tag content rather than loc.
         useful for: detecting moves withing the library, xspf playlists
         ?match by everything or a subset? if x% is the same? efficiency?
-        needed? see alternate DB ideas below
-            amarok handles files moving by storing the file's checksum in
+        needed? amarok handles files moving by storing the file's checksum in
             the db, perhaps we should do this too.
+                hash only part (eg the last 512k), to make it fast.
     DBUS
+        allow greater freedom to query, eg allow listing artists, albums
+            in collection, searching collection, etc. best wait til after
+            StormDB to implement this.
     Podcasts
         separate from radio
         allow flexibility in choice of when (if?) and where to download
@@ -146,6 +129,15 @@ Things that can probably be implemented at this stage:
         use gst's adder element to combine streams
         use peek() methods on playlists and queue to see next track
             without actually switching to it.
+    Localization
+        not only the GUI but all INFO, WARNING and ERROR logs should be 
+            translateable
+        DEBUG logs do not need to be, as they are largely not intended to be
+            seen by users
+    StormDB
+        database based on Storm instead of pickle.
+        development will happen in a separate branch until feature-parity
+            with pickle is reached.
 
 Minor Tasks:
     add comments and docstrings in xl/player.py
@@ -153,6 +145,10 @@ Minor Tasks:
     store current sort field in xl.playlist.Playlist, use this in the GUI
     create a method of exposing what the current UI is to plugins, so they can
         load widgets and such appropriately. (xlgui.Main.name?)
+    make event.py use weakref so it won't hold things in memory after they're
+        deleted elsewhere.
+    santize plugin extraction (current method is a potential security 
+        vulnerability)
 
 Other Work-Items:
     Conversion
@@ -162,37 +158,8 @@ Other Work-Items:
         should be the last primary 'feature' implemented
         implement as plugin? that way it can just be unloaded afterwards
             saving a little bit of time and memory.
-
-Misc:
-    RAM use on large (>10000) collections? Can we get near-constant RAM use
-        like banshee et al manage? On further inspection, banshee is not using 
-        constant RAM, rather it is using less than 2kb per track, while 0.3 is 
-        currently slightly above 4kb per track. This is still an issue, but 
-        less so than before.
-
-    possible solution: an alternate db system based on dbhash
-        so we can have lower, near-constant, mem use, but use more disk i/o
-        could also potentially speed up search (== will be blazing fast)
-    implementation notes:
-        one db to store the tracks in (index by a number)
-        one db per tag for searching (index lowercase of tag)
-        other things to consider: playlists 
-
-    may require more-radical change than I was anticipating, I'm putting
-    this on hold for now. work on hardening/optmizing pickledb instead
-
-
-    another idea: have two DBs, one on-disk and one in-mem, with the in-mem
-    db holding only what is needed to display the UI. 
-        advantages: fast UI, low ram use, better forwards compatibility
-        disadvantages: increased disk-I/O (though less than above)
-        possible issues: syncronization, searching
-            search displayed cols be default, read from disk db if tag not
-                in mem is specified. if you keep the separate index DBs as 
-                suggested above the difference should be negligible.
-
-    these db issues probably need to be decided before even the first alpha 
-    of 0.3, since they will involve drastic on-disk format changes
+        alternatively, only improt it on firstrun is True. this is likely
+            a cleaner and more-effiecient method.
     
 GUIPLANNING:
     Implemented:
@@ -210,6 +177,11 @@ GUIPLANNING:
     
     Needs to be implemented:
         Lots
+    Ideas:
+        use banshee-stype progressbars, ie display a list of all active
+            progressbars below the side pane area. This can be used for
+            things like collection rescan, cd import, mp3 player sync, etc.
+
 
 ==== NOTES ====
 xl is to be split into xl and xlgui. All code concerning the display of 

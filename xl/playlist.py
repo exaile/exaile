@@ -262,12 +262,12 @@ class PlaylistIterator(object):
             raise StopIteration
 
 
-class Playlist(trackdb.TrackDB):
+class Playlist(object):
     """
         Represents a playlist, which is basically just a TrackDB
         with ordering.
     """
-    def __init__(self, name="Playlist", location=None, pickle_attrs=[]):
+    def __init__(self, name="Playlist", location=""):
         """
             Sets up the Playlist
 
@@ -285,11 +285,15 @@ class Playlist(trackdb.TrackDB):
         self.dynamic_enabled = False
         self.name = name
         self.tracks_history = []
-        pickle_attrs += ['name', 'ordered_tracks', 'current_pos', 
-                'current_playing', "repeat_enabled", "random_enabled",
-                'tracks_history', 'dynamic_enabled']
-        trackdb.TrackDB.__init__(self, name=name, location=location,
-                pickle_attrs=pickle_attrs)
+
+    def set_location(self, location):
+        pass
+
+    def get_name(self):
+        return self.name
+
+    def set_name(self, name):
+        self.name = name
 
     def __len__(self):
         """
@@ -328,10 +332,8 @@ class Playlist(trackdb.TrackDB):
         else:
             self.ordered_tracks = self.ordered_tracks[:location] + \
                     tracks + self.ordered_tracks[location:]
-        for t in tracks:
-            trackdb.TrackDB.add(self, t)
         
-        if location >= self.current_pos:
+        if location <= self.current_pos:
             self.current_pos += len(tracks)
 
         event.log_event('tracks_added', self, tracks)
@@ -361,9 +363,6 @@ class Playlist(trackdb.TrackDB):
         removed = self.ordered_tracks[start:end]
         self.ordered_tracks = self.ordered_tracks[:start] + \
                 self.ordered_tracks[end:]
-        for t in removed:
-            if t not in self.ordered_tracks:
-                trackdb.TrackDB.remove(self, t)
 
         if end < self.current_pos:
             self.current_pos -= len(removed)
@@ -391,7 +390,6 @@ class Playlist(trackdb.TrackDB):
     def set_current_pos(self, pos):
         if pos < len(self.ordered_tracks):
             self.current_pos = pos
-        self._dirty = True
         event.log_event('pl_current_changed', self, pos)
 
     def get_current(self):
@@ -561,7 +559,7 @@ class Playlist(trackdb.TrackDB):
         return "%s: %s" % (type(self), self.name)
 
 
-class SmartPlaylist(trackdb.TrackDB):
+class SmartPlaylist(object):
     """ 
         Represents a Smart Playlist.  
         This will query a collection object using a set of parameters
@@ -579,8 +577,7 @@ class SmartPlaylist(trackdb.TrackDB):
         u'Chimera'
         >>> 
     """
-    def __init__(self, name="", location=None, collection=None, 
-        pickle_attrs=[]):
+    def __init__(self, name="", location="", collection=None):
         """
             Sets up a smart playlist
 
@@ -593,10 +590,16 @@ class SmartPlaylist(trackdb.TrackDB):
         self.or_match = False
         self.track_count = -1
         self.random_sort = False
-        pickle_attrs += ['search_params', 'or_match', 'track_count',
-            'random_sort']
-        trackdb.TrackDB.__init__(self, name=name, location=location,
-                pickle_attrs=pickle_attrs)
+        self.name = name
+
+    def set_location(self, location):
+        pass
+
+    def get_name(self):
+        return self.name
+
+    def set_name(self, name):
+        self.name = name
 
     def set_collection(self, collection):
         """

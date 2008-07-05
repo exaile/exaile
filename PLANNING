@@ -145,6 +145,9 @@ Minor Tasks:
     store current sort field in xl.playlist.Playlist, use this in the GUI
     create a method of exposing what the current UI is to plugins, so they can
         load widgets and such appropriately. (xlgui.Main.name?)
+    make rating system be a float from 0-100, this lets us seamlessly handle
+        information coming from sources that use differing rating systems.
+        a negative value will mean "not rated"
     make event.py use weakref so it won't hold things in memory after they're
         deleted elsewhere.
     santize plugin extraction (current method is a potential security 
@@ -157,7 +160,6 @@ Other Work-Items:
             playlists, and anything else still relevant in 0.3
         should be the last primary 'feature' implemented
         implement as plugin? that way it can just be unloaded afterwards
-            saving a little bit of time and memory.
         alternatively, only improt it on firstrun is True. this is likely
             a cleaner and more-effiecient method.
     

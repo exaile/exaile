@@ -96,6 +96,7 @@ class Exaile(object):
         self.playlists = playlist.PlaylistManager()
         if firstrun:
             self._add_default_playlists() 
+            pass
 
         #initialize dynamic playlist support
         from xl import dynamic

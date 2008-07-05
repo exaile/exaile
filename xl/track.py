@@ -12,15 +12,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from copy import deepcopy
-import os, time, os.path
+import os, time
 
-from mutagen.mp3 import HeaderNotFoundError
 from urlparse import urlparse
 
-from xl import common, event
+from xl import common
 from xl.media import flac, mp3, mp4, mpc, ogg, tta, wav, wma, wv
 
+from mutagen.mp3 import HeaderNotFoundError
+from storm.locals import *
 
 import logging
 logger = logging.getLogger(__name__)
@@ -48,21 +48,6 @@ formats = {
 
 SUPPORTED_MEDIA = ['.' + ext for ext in formats.iterkeys()]
 
-TRACK_EVENTS = event.EventManager(use_logger=False)
-
-def track_updated(track, tag, value):
-    global TRACK_EVENTS
-    e = event.Event(track.get_loc(), track, (tag, value), time.time())
-    TRACK_EVENTS.emit_async(e)
-
-def set_track_update_callback(function, track_loc):
-    global TRACK_EVENTS
-    TRACK_EVENTS.add_callback(function, track_loc)
-
-def remove_track_update_callback(function, track_loc):
-    global TRACK_EVENTS
-    TRACK_EVENTS.remove_callback(function, track_loc)
-
 def lstrip_special(field):
     """
         Strip special chars off the beginning of a field for sorting. If
@@ -79,43 +64,62 @@ class Track(object):
     """
         Represents a single track.
     """
-    def __init__(self, uri=None, _unpickles=None):
+    __storm_table__ = "tracks"
+    id = Int(primary=True)
+    title = Unicode()
+    version = Unicode()
+    album = Unicode()
+    tracknumber = Unicode()
+    artist = Unicode()
+    genre = Unicode()
+    performer = Unicode()
+    copyright = Unicode()
+    license = Unicode()
+    organization = Unicode()
+    description = Unicode()
+    location = Unicode()
+    contact = Unicode()
+    isrc = Unicode()
+    date = Unicode()
+    arranger = Unicode()
+    author = Unicode()
+    composer = Unicode()
+    conductor = Unicode()
+    lyricist = Unicode()
+    discnumber = Unicode()
+    labelid = Unicode()
+    part = Unicode()
+    website = Unicode()
+    language = Unicode()
+    encodedby = Unicode()
+    bpm = Unicode()
+    albumartist = Unicode()
+    originaldate = Unicode()
+    originalalbum = Unicode()
+    originalartist = Unicode()
+    recordingdate = Unicode()
+    playcount = Int()
+    bitrate = Int()
+    length = Float()
+    blacklisted = Bool()
+    rating = Float()
+    loc = Unicode()
+    encoding = Unicode()
+    modified = Int()
+
+    def __init__(self, uri=None):
         """
             loads and initializes the tag information
             
             uri: path to the track [string]
             _unpickles: unpickle data [tuple] # internal use only!
         """
-        self.tags = {
-                'playcount':0,
-                'bitrate':0,
-                'length':0,
-                'blacklisted':False,
-                'rating':0,
-                'loc':'',
-                'encoding':'',
-                'modified': 0} 
 
         self._scan_valid = False
         if uri:
             self.set_loc(uri)
             if self.read_tags() is not None:
                 self._scan_valid = True
-
-        elif _unpickles:
-            self._unpickles(_unpickles)
-
-    def _track_update_callback(self, track_loc, track_obj, tag_info):
-        if track_obj == self:
-            return
-        elif track_loc != self.get_loc():
-            return
-        else:
-            tag, value = tag_info
-
-            # we set emit to False here, because if it's True, there will be
-            # an infinite loop, as set_tag calls this function
-            self.set_tag(tag, value, emit=False)
 
     def set_loc(self, loc):
         """
@@ -129,29 +133,19 @@ class Track(object):
 
             loc: the location [string]
         """
-        try:
-            remove_track_update_callback(self._track_update_callback, 
-                    self.get_loc())
-        except:
-            pass
-
         loc = common.to_unicode(loc, 
                 common.get_default_encoding())
         if loc.startswith("file://"):
             loc = loc[7:]
-        self['loc'] = loc
+        self.loc = loc
        
-        set_track_update_callback(self._track_update_callback, 
-                self.get_loc())
-
-
     def get_loc(self):
         """
             Gets the location as unicode (might contain garbled characters)
 
             returns: the location [string]
         """
-        return self['loc']
+        return self.loc
 
     def get_loc_for_io(self):
         """
@@ -160,28 +154,7 @@ class Track(object):
 
             returns: the location [string]
         """
-        return self['loc'].encode(common.get_default_encoding())
-
-
-    def _pickles(self):
-        """
-            returns a data repr of the track suitable for pickling
-
-            internal use only please
-
-            returns: (tags, info) [tuple of dicts]
-        """
-        return deepcopy(self.tags)
-
-    def _unpickles(self, pickle_str):
-        """
-            restores the state from the pickle-able repr
-
-            internal use only please
-
-            pickle_str: the pickle repr [tuple of dicts]
-        """
-        self.tags = pickle_str
+        return self.loc.encode(common.get_default_encoding())
 
     def get_tag(self, tag):
         """
@@ -189,15 +162,13 @@ class Track(object):
             
             tag: tag to get [string]
         """
-        values = self.tags.get(tag)
-        if values not in [None, "", [] ]:
-            if isinstance(values, list):
-                values = [ common.to_unicode(x, self.tags['encoding']) \
-                        for x in values if x not in (None, '') ]
-                return u" / ".join(values)
-            else:
-                return values
-        return u""
+        try:
+            values = getattr(self, tag)
+            if u'\x00' in values:
+                values = values.split(u'\x00')
+            return values
+        except:
+            return None
 
     def set_tag(self, tag, values, append=False, emit=True):
         """
@@ -207,25 +178,25 @@ class Track(object):
             values: list of values for the tag [list]
             append: whether to append to existing values [bool]
         """
+
         #if tag in common.VALID_TAGS:
         #    values = [values]
         if not isinstance(values, list):
             if append:
                 values = [values]
             else:
-                self.tags[tag] = values
+                setattr(self, tag, values)
+
         # filter out empty values and convert to unicode
         if isinstance(values, list):
-            values = [common.to_unicode(x, self.tags['encoding']) for x in values
+            values = [common.to_unicode(x, self.encoding) for x in values
                 if x not in (None, '')]
             if append:
-                self.tags[tag].extend(values)
+                values = self.get_tag(tag).extend(values)
+                setattr(self, tag, u'\x00'.join(values))
             else:
-                self.tags[tag] = list(values)
+                setattr(self, tag, u'\x00'.join(values))
         
-        if emit:
-            track_updated(self, tag, values)
-
     def __getitem__(self, tag):
         """
             Allows retrieval of tags via Track[tag] syntax.
@@ -320,7 +291,7 @@ class Track(object):
         else: return lstrip_special(self[field])
 
     def __repr__(self):
-        return str(self) #for debugging, remove later
+        return str(self)
 
     def __str__(self):
         """

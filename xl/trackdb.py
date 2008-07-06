@@ -23,60 +23,107 @@ from xl import media, common, track, event, xdg
 import logging, random, time, os
 logger = logging.getLogger(__name__)
 
-from lib.sqlite_threaded import SQLiteThreaded
+# this overrides storms' sqlite support to handle threading transparently
+from lib import storm_threaded
+
 from storm.uri import URI
 from storm.locals import *
 from storm.expr import Gt, Lt
 import storm.properties
 from storm.properties import *
 
+try:
+    import MySQLdb as mysqldb
+except:
+    mysqldb = False
+
 SEARCH_ITEMS = ('artist', 'album', 'title')
 SORT_FALLBACK = ('tracknumber', 'album')
 
 
+# we don't use everything in these mappings, but include them for completeness
+# List type ommitted as storm docs are not clear on the appropriate mappings
 SQLITE_MAPPING = {
         Bool: "INTEGER",
         Int: "INTEGER",
         Float: "FLOAT",
         Decimal: "VARCHAR",
         Unicode: "VARCHAR",
-        RawStr: "VARCHAR",
+        RawStr: "BLOB",
         Pickle: "BLOB",
         DateTime: "VARCHAR",
         Date: "VARCHAR",
         Time: "VARCHAR",
-        TimeDelta: "VARCHAR",
-        List: "VARCHAR" }
+        TimeDelta: "VARCHAR"}
+
+MYSQL_MAPPING = {
+        Bool: "TINYINT",
+        Int: "INTEGER",
+        Float: "FLOAT",
+        Decimal: "DECIMAL",
+        Unicode: "BLOB",
+        RawStr: "BLOB", 
+        Pickle: "BLOB",
+        DateTime: "DATETIME",
+        Date: "DATE",
+        Time: "TIME"}
+
+POSTGRESQL_MAPPING = {
+        Bool: "BOOL",
+        Int: "INTEGER",
+        Float: "FLOAT",
+        Decimal: "DECIMAL",
+        Unicode: "VARCHAR",
+        RawStr: "BYTEA",
+        Pickle: "BYTEA",
+        DateTime: "TIMESTAMP",
+        Date: "DATE",
+        Time: "TIME",
+        TimeDelta: "INTERVAL"}
 
 
 def get_database_connection(uri):
-    #TODO: make this capable of handling connections to mysql, postgres
+    dbtype = uri.split(":",1)[0]
+
     logger.debug("Connecting to database at %s"%uri)
-    uri = URI(uri)
-    db = SQLiteThreaded(uri)
+    db = create_database(uri)
 
-    sql_fields = ["id INTEGER PRIMARY KEY"]
+    #TODO: make this capable of handling connections to mysql, postgres
 
-    # generate the necessary SQL
+    if dbtype == "sqlite":
+        attr_mapping = SQLITE_MAPPING
+        sql_fields = ["id INTEGER PRIMARY KEY"]
+    elif dbtype == "mysql":
+        attr_mapping = MYSQL_MAPPING
+        sql_fields = ["id INTEGER AUTO_INCREMENT PRIMARY KEY"]
+    else:
+        attr_mapping = {} #this just fails for eveything, whee!
+        sql_fields = []
+
+    # generate the SQL column info
     storm_properties = storm.properties.__dict__.values()
-    for k, v in track.Track.__dict__.iteritems():
-        if k == "id": # ignore the primary key, we've already done it
-            continue
-        if type(v) in storm_properties:
-            sql = "%s %s"%(k, SQLITE_MAPPING[type(v)])
+    for k, v in (x for x in track.Track.__dict__.iteritems() if x[0] != "id"):
+        try:
+            sql = "%s %s"%(k, attr_mapping[type(v)])
             sql_fields.append(sql)
+        except KeyError:
+            pass
 
     
     #FIXME: this doesn't handle errors in talking to the db
     store = Store(db)
     try:
         # make db, first run
-        query = "CREATE TABLE tracks("
+        if dbtype == "sqlite":
+            query = "CREATE TABLE tracks("
+        elif dbtype == "mysql":
+            dbname = uri.split("/")[-1]
+            query = "CREATE TABLE tracks ("
         query += sql_fields[0]
         for item in sql_fields[1:]:
-            query += ", " + item
-        query += ")"
-        store.execute(query, noresult=True)
+            query += ", \n" + item
+        query += ");"
+        store.execute(query)
         logger.debug("Created initial DB")
     except:
         # table exists, try adding any fields individually, this handles
@@ -85,7 +132,7 @@ def get_database_connection(uri):
         for item in sql_fields[1:]:
             try:
                 query = "ALTER TABLE tracks ADD %s;"%item
-                store.execute(query, noresult=True)
+                store.execute(query)
                 logger.debug("Added missing field \"%s\""%item)
             except:
                 pass
@@ -115,8 +162,8 @@ class TrackDB(object):
         self.name = name
         self.location = location
 
-        db = get_database_connection("sqlite:%s"%location)
-        self.store = Store(db)
+        self.db = get_database_connection(location)
+        self.store = Store(self.db)
 
     def set_name(self, name):
         """

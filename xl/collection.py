@@ -21,13 +21,37 @@
 # A library finds tracks in a specified directory and adds them to an
 # associated collection.
 
-from xl import trackdb, media, track
+from xl import trackdb, media, track, common
 from xl.settings import SettingsManager
+settings = SettingsManager.settings
 
 import os, time, os.path, logging
 import gobject
 
 logger = logging.getLogger(__name__)
+
+def get_collection_uri(type=None):
+    """
+        returns the URI of the collection
+    """
+    if not type:
+        type = settings.get_option("collection/db_type", "sqlite")
+    if type == "sqlite":
+        return "sqlite:%s"%os.path.join(xdg.get_data_dirs()[0], 'music.db')
+    elif type == "mysql":
+        port = settings.get_option("collection/mysql_port", None)
+        host = settings.get_option("collection/mysql_host", None)
+        user = settings.get_option("collection/mysql_user", None)
+        passwd = settings.get_option("collection/mysql_pass", None)
+        dbname = settings.get_option("collection/mysql_db", None)
+        if None in [port, host, user, passwd, dbname]:
+            logger.error("MYSQL connection information missing, falling back to SQLite")
+            return get_collection_uri(type="sqlite")
+        return "mysql://%s:%s@%s:%s/%s"%(user, passwd, host, port, dbname)
+    
+    logger.warning("Invalid collection type was set, falling back to SQLite")
+    return get_collection_uri(type="sqlite")
+
 
 class Collection(trackdb.TrackDB):
     """

@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 from gettext import gettext as _
-import locale, os, time, threading, urllib, re
+import locale, os, time, threading, urllib, re, random, string
 import traceback
 import logging
 
@@ -209,6 +209,15 @@ class idict(dict):
             Returns the case sensitive values of the keys
         """
         return self.keys_dict.values()
+
+def random_string(n):
+    """
+        returns a random string of length n, comprised of ascii characters
+    """
+    s = ""
+    for x in range(n):
+        s += random.choice(string.ascii_letters)
+    return s
 
 # vim: et sts=4 sw=4
 

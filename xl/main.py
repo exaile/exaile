@@ -78,18 +78,18 @@ class Exaile(object):
 
         firstrun = self.settings.get_option("general/first_run", True)
 
+        # Initialize the collection
+        from xl import collection
+        logger.info("Loading collection...")
+        self.collection = collection.Collection("Collection",
+                location=collection.get_collection_uri() )
+
         #Set up the player itself.
         from xl import player
         self.player = player.get_player()()
 
         #Set up the playback Queue
         self.queue = player.PlayQueue(self.player)
-
-        # Initialize the collection
-        from xl import collection
-        logger.info("Loading collection...")
-        self.collection = collection.Collection("Collection",
-                location=os.path.join(xdg.get_data_dirs()[0], 'music.db') )
 
         #initalize PlaylistsManager
         from xl import playlist

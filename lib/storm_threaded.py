@@ -6,6 +6,8 @@
 from storm.databases.sqlite import *
 import threading
 
+from storm.database import register_scheme
+
 class ThreadHolder(threading.Thread):
     def __init__(self):
         self.queue = []
@@ -96,4 +98,7 @@ class SQLiteThreaded(SQLite):
     def raw_connect(self, *args, **kwargs):
         return SQLite.raw_connect(self, *args, **kwargs)
 
-create_from_uri = SQLiteThreaded
+# take advantage of storm's built-in scheme registry to override
+# sqlite support when this is imported.
+register_scheme("sqlite", SQLiteThreaded)
+

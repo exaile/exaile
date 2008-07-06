@@ -162,6 +162,13 @@ class Track(object):
         """
         return self['loc'].encode(common.get_default_encoding())
 
+    def get_type(self):
+        """
+            Returns the type of track
+        """
+        b = self['loc'].find('://')
+        if b == -1: return 'file'
+        return self['loc'][:b]
 
     def _pickles(self):
         """
@@ -335,6 +342,60 @@ class Track(object):
         if album.strip():
             ret += " from '%s'" % album
         return ret
+
+def parse_stream_tags(track, tags):
+    """
+        Called when a tag is found in a stream
+    """
+
+    log = ['Stream tag:']
+    newsong=False
+
+    for key in tags.keys():
+        value = tags[key]
+        try:
+            value = common.to_unicode(value)
+        except UnicodeDecodeError:
+            log.append('  ' + key + " [can't decode]: " + `str(value)`)
+            continue # TODO: What encoding does gst give us?
+
+        log.append('  ' + key + ': ' + value)
+
+        if key == 'bitrate': track['bitrate'] = int(value) / 1000
+
+        # if there's a comment, but no album, set album to the comment
+        elif key == 'comment' and not track.get_loc().endswith('.mp3'): 
+            track['album'] = value
+        elif key == 'album': track['album'] = value
+        elif key == 'artist': track['artist'] = value
+        elif key == 'duration': track['length'] = value
+        elif key == 'track-number': 
+            track['tracknumber'] = value
+        elif key == 'genre': track['genre'] = value
+        elif key == 'title': 
+            try:
+                if track['rawtitle'] != value:
+                    track['rawtitle'] = value
+                    newsong = True
+            except AttributeError:
+                track['rawtitle'] = value
+                newsong = True
+
+            title_array = value.split(' - ', 1)
+            if len(title_array) == 1 or (track.get_loc().endswith(".mp3") and \
+                not track.get_loc().endswith("lastfm.mp3")):
+                track['title'] = value
+            else:
+                track['artist'] = title_array[0]
+                track['title'] = title_array[1]
+
+    if newsong:
+        log.append('  New song, fetching cover.')
+
+    for line in log:
+        logger.info(line)
+    return newsong
+
 
 # vim: et sts=4 sw=4
 

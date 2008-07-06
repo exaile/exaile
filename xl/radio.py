@@ -13,7 +13,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import urllib, re
-from xl import playlist, track
+from xl import playlist, track, event
 
 class RadioManager(object):
     """
@@ -41,7 +41,9 @@ class RadioManager(object):
 
             @param station: The station to add
         """
-        self.stations[station.name] = station
+        if not station.name in self.stations:
+            self.stations[station.name] = station
+            event.log_event('station_added', self, station) 
 
     def remove_station(self, station):
         """
@@ -51,6 +53,7 @@ class RadioManager(object):
         """
         if station.name in self.stations:
             del self.stations[station.name]
+            event.log_event('station_removed', self, station)
 
     def search(self, station, keyword):
         if station in self.stations:
@@ -149,4 +152,12 @@ class RadioStation(object):
 
     def search(self, keyword):
         return None
+
+    def __str__(self):
+        """
+            Returns a stream representation of this station
+        """
+        name = self.__class__.__name__
+        name = name.replace('RadioStation', ' Radio')
+        return name
 

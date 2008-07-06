@@ -234,7 +234,7 @@ class BaseGSTPlayer(object):
         self.playbin.set_property("audio-sink", sinkbin)
 
     def tag_func(self, *args):
-        pass
+        event.log_event('tags_parsed', self, (self.current, args[0]))
 
     def eof_func(self, *args):
         raise NotImplementedError

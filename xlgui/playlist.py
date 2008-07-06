@@ -273,6 +273,36 @@ class Playlist(gtk.VBox):
 
         return songs
 
+    def update_iter(self, iter, song):
+        """
+            Updates the track at "iter"
+        """
+        ar = self._get_ar(song)
+        self.model.insert_after(iter, ar)
+        self.model.remove(iter)
+
+    def refresh_row(self, song):
+        """
+            Refreshes the text for the specified row
+        """
+        selection = self.list.get_selection()
+        model, paths = selection.get_selected_rows()
+        iter = self.model.get_iter_first()
+        if not iter: return
+        while True:
+            check = self.model.get_value(iter, 0)
+            if not check: break
+            if check == song or check.get_loc() == song.get_loc():
+                self.update_iter(iter, song)
+                break
+            iter = self.model.iter_next(iter)
+            if not iter: break
+      
+        if not paths: return
+        for path in paths:
+            selection.select_path(path)
+        self.list.queue_draw()
+
     def on_row_activated(self, *e):
         """
             Called when the user double clicks on a track

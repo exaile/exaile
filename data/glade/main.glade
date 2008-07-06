@@ -464,6 +464,7 @@
                     </child>
                   </widget>
                   <packing>
+                    <property name="padding">3</property>
                     <property name="position">1</property>
                   </packing>
                 </child>

@@ -306,6 +306,25 @@ class Track(object):
 
         return int(t)
 
+    def get_bitrate(self): 
+        """
+            Returns the bitrate
+        """
+        if self.get_type() != 'file':
+            if self['bitrate']:
+                try:
+                    return "%sk" % self['bitrate'].replace('k', '')
+                except AttributeError:
+                    return str(self['bitrate']) + "k"
+            else:
+                return ''
+        try:
+            rate = int(self['bitrate']) / 1000
+            if rate: return "%dk" % rate
+            else: return ""
+        except:
+            return self['bitrate']
+
     def get_duration(self):
         """
             Returns the length of the track as an int in seconds

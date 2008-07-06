@@ -572,6 +572,8 @@ class Playlist(gtk.VBox):
 
                 if col_struct.id == 'length':
                     col.set_cell_data_func(cellr, self.length_data_func)
+                elif col_struct.id == 'bitrate':
+                    col.set_cell_data_func(cellr, self.bitrate_data_func)
                 elif col_struct.id == 'tracknumber':
 #                    col.set_cell_data_func(cellr, self.track_data_func)
 #                elif col_struct.id == 'rating':
@@ -737,6 +739,14 @@ class Playlist(gtk.VBox):
         except:
             text = "0:00"
         cell.set_property('text', text)
+        self.set_cell_weight(cell, item)
+
+    def bitrate_data_func(self, col, cell, model, iter):
+        """
+            Shows the bitrate
+        """
+        item = model.get_value(iter, 0)
+        cell.set_property('text', item.get_bitrate())
         self.set_cell_weight(cell, item)
 
     def track_data_func(self, col, cell, model, iter):

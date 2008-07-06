@@ -107,6 +107,14 @@ class PlaybackProgressBar(object):
 
         return True
 
+# Reduce the notebook tabs' close button padding size.
+gtk.rc_parse_string("""
+    style "thinWidget" {
+        xthickness = 0
+        ythickness = 0
+    }
+    widget "*.tabCloseButton" style "thinWidget"
+    """)
 class NotebookTab(gtk.EventBox):
     """
         A notebook tab, complete with a close button
@@ -133,8 +141,7 @@ class NotebookTab(gtk.EventBox):
         hbox.pack_start(self.label, False, False)
 
         self.button = btn = gtk.Button()
-        btn.set_size_request(24, 22)
-        btn.set_name('tab_close_button')
+        btn.set_name('tabCloseButton')
         btn.set_relief(gtk.RELIEF_NONE)
         btn.set_focus_on_click(False)
         btn.connect('clicked', self.do_close)

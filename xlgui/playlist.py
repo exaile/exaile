@@ -207,6 +207,7 @@ class Playlist(gtk.VBox):
                 for path in paths:
                     selection.select_path(path)
 
+    @guiutil.gtkrun
     def on_remove_tracks(self, type, playlist, info):
         """
             Called when someone removes tracks from the contained playlist
@@ -214,6 +215,7 @@ class Playlist(gtk.VBox):
         self._set_tracks(playlist.get_tracks())
         self.reorder_songs()
 
+    @guiutil.gtkrun
     def on_add_tracks(self, type, playlist, tracks):
         """
             Called when someone adds tracks to the contained playlist
@@ -243,7 +245,6 @@ class Playlist(gtk.VBox):
             ar.append(str(song[field]))
         return ar
 
-    @guiutil.gtkrun
     def _append_track(self, track):
         """
             Adds a track to this view

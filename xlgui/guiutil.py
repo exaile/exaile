@@ -101,6 +101,8 @@ class DragTreeView(gtk.TreeView):
                 gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_DEFAULT)
             self.connect('drag_data_received', 
                 self.cont.drag_data_received)
+            self.connect('drag_data_delete',
+                self.cont.drag_data_delete)
         self.receive = receive
         self.dragging = False
         self.connect('drag_begin', self.drag_begin)

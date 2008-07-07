@@ -112,6 +112,12 @@ class CollectionPanel(panel.Panel):
             stubb
         """
         pass
+    
+    def drag_data_delete(self, *e):
+        """
+            stub
+        """
+        pass
 
     def drag_get_data(self, treeview, context, selection, target_id, etime):
         """

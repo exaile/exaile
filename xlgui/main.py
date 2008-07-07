@@ -19,7 +19,7 @@ import gst
 import gtk, gtk.glade, gobject, pango
 from xl import xdg, event, track
 import xl.playlist
-from xlgui import playlist, cover
+from xlgui import playlist, cover, guiutil
 from gettext import gettext as _
 import xl.playlist
 
@@ -297,6 +297,7 @@ class MainWindow(object):
         event.add_callback(self.on_tags_parsed, 'tags_parsed',
             self.controller.exaile.player)
 
+    @guiutil.gtkrun
     def on_tags_parsed(self, type, player, args):
         """
             Called when tags are parsed from a stream/track
@@ -308,6 +309,7 @@ class MainWindow(object):
             self.cover.on_playback_start('', self.controller.exaile.player, None)
             self.get_current_playlist().refresh_row(tr)
 
+    @guiutil.gtkrun
     def on_toggle_pause(self, type, player, object):
         """
             Called when the user clicks the play button after playback has
@@ -370,6 +372,7 @@ class MainWindow(object):
         page = self.playlist_notebook.get_nth_page(page)
         return page
 
+    @guiutil.gtkrun
     def on_playback_start(self, type, player, object):
         """
             Called when playback starts
@@ -388,6 +391,7 @@ class MainWindow(object):
         self.play_button.set_image(gtk.image_new_from_stock('gtk-media-pause',
                 gtk.ICON_SIZE_SMALL_TOOLBAR))
 
+    @guiutil.gtkrun
     def on_playback_end(self, type, player, object):
         """
             Called when playback ends

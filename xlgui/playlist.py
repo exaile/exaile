@@ -15,7 +15,7 @@
 import gtk, pango
 from xlgui import guiutil
 from gettext import gettext as _
-from xl import playlist, event
+from xl import playlist, event, track
 import copy, urllib
 import logging
 logger = logging.getLogger(__name__)
@@ -91,7 +91,6 @@ class Playlist(gtk.VBox):
         self.settings = controller.exaile.settings
         self.col_menus = dict()
 
-        self.drag_delete = []
         self._setup_tree()
         self._setup_col_menus()
         self._setup_columns()
@@ -244,6 +243,7 @@ class Playlist(gtk.VBox):
             ar.append(str(song[field]))
         return ar
 
+    @guiutil.gtkrun
     def _append_track(self, track):
         """
             Adds a track to this view
@@ -372,6 +372,7 @@ class Playlist(gtk.VBox):
         else:
             curtrack = None
 
+        #Remove callbacks so they are not fired when we perform actions
         event.remove_callback(self.on_add_tracks, 'tracks_added', self.playlist)
         event.remove_callback(self.on_remove_tracks, 'tracks_removed',
             self.playlist)
@@ -401,15 +402,13 @@ class Playlist(gtk.VBox):
             loc = loc.replace('file://', '')
             loc = urllib.unquote(loc)
 
-            if not loc in self.collection.tracks: continue
+            # If the location we are handling is not in the current collection
+            # associated with this playlist then we have to perform extra
+            # work to verify if it is a legit file
+            if not loc in self.collection.tracks: 
+                self.handle_unknown_drag_data(loc)
+                continue
             track = self.collection.tracks[loc]
-
-            if track in current_tracks and track in self.drag_delete:
-                index = self.playlist.index(track)
-                itera = self.model.get_iter((index,))
-                self.model.remove(itera)
-                self.playlist.remove_tracks(index, index+1)
-                self.drag_delete.remove(track)
 
             if not drop_info:
                 self._append_track(track)
@@ -430,14 +429,8 @@ class Playlist(gtk.VBox):
                         iter = self.model.append(ar)
 
         if context.action == gtk.gdk.ACTION_MOVE:
-            for track in self.drag_delete:
-                index = self.playlist.index(track)
-                iter = self.model.get_iter((index,))
-                self.model.remove(iter)
-                self.playlist.remove_tracks(index, index+1)
-            self.drag_delete = []
-
-        if context.action == gtk.gdk.ACTION_MOVE:
+            #On a move action the second True makes the
+            # drag_data_delete function called
             context.finish(True, True, etime)
         else:
             context.finish(True, False, etime)
@@ -469,6 +462,43 @@ class Playlist(gtk.VBox):
         if curtrack is not None:
             index = self.playlist.index(curtrack)
             self.playlist.set_current_pos(index)
+            
+    def drag_data_delete(self, tv, context):
+        """
+            Called after a drag data operation is complete
+            and we want to delete the source data
+        """
+        #TODO verify that it only deletes tracks when we 
+        # do a move operation and not a copy operation
+        if context.drag_drop_succeeded():
+            sel = self.list.get_selection()
+            (model, paths) = sel.get_selected_rows()
+            #Since we want to modify the model we make references to it
+            # This allows us to remove rows without it messing up
+            rows = []
+            for path in paths:
+                rows.append(gtk.TreeRowReference(model, path))
+            for row in rows:
+                iter = self.model.get_iter(row.get_path()) 
+                self.model.remove(iter)
+        self._print_playlist('drag_data_delete')
+
+    #TODO have it take in the position to put the tracks as well
+    def handle_unknown_drag_data(self, loc):
+        """
+            Handles unknown drag data that has been recieved by
+            drag_data_received.  Unknown drag data is classified as
+            any loc (location) that is not in the collection of tracks
+            (i.e. a new song, or a new playlist)
+        """
+        if track.is_valid_track(loc):
+            #Adding a new song to the playlist
+            new_track = track.Track(loc)
+        elif playlist.is_valid_playlist(loc):
+            #User is dragging a playlist into the playlist list
+            # so we add all of the songs in the playlist
+            # to the list
+            new_playlist = playlist.import_playlist(loc)
 
     def drag_get_data(self, treeview, context, selection, target_id, etime):
         """
@@ -483,14 +513,9 @@ class Playlist(gtk.VBox):
             song = self.model.get_value(iter, 0) 
 
             loc.append(urllib.quote(str(song.get_loc())))
-            delete.append(song)
-            
-        # We can't remove the tracks in delete until the drag operation is
-        # complete, because doing so causes strange dragging behavior.
-        # So we just make the list available to the drag_data_recieved 
-        # function to make use of.
-        self.drag_delete = delete
+
         selection.set_uris(loc)
+        self._print_playlist('drag_get_data')
 
     def setup_model(self, map):
         """
@@ -787,3 +812,12 @@ class Playlist(gtk.VBox):
         menu.popup(None, None, None, event.button, event.time)
         return True
 
+    def _print_playlist(self, banner = ''):
+        """
+            Debug - prints the current playlist to stdout
+        """
+        print banner
+        tracks = self.playlist.get_tracks()
+        for track in tracks:
+            print track.get_loc()
+        print '---Done printing playlist'

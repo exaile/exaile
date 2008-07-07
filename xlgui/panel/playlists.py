@@ -95,6 +95,12 @@ class PlaylistsPanel(panel.Panel):
             Stubb
         """
         pass
+    
+    def drag_data_delete(self, *e):
+        """
+            stub
+        """
+        pass
 
     def button_press(self, *e):
         """

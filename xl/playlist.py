@@ -24,7 +24,10 @@
 
 from xl import trackdb, event, xdg, track
 import urllib, random, os, time
-import xml.etree.cElementTree as cETree
+try:
+    import xml.etree.cElementTree as cETree
+except:
+    import cElementTree as cETree
 from urlparse import urlparse
 random.seed(time.time())
 
@@ -52,8 +55,8 @@ def import_from_m3u(path):
 
     name = os.path.split(path)[-1].replace(".m3u","")
     
-    if not handle.readline().startswith("#EXTM3U"):
-        return None
+    #if not handle.readline().startswith("#EXTM3U"):
+    #    return None
 
     pl = Playlist(name=name)
 
@@ -77,6 +80,8 @@ def import_from_m3u(path):
         else:
             if not current:
                 current = track.Track()
+            if not os.path.isabs(line):
+                line = os.path.join(os.path.dirname(path), line)
             current.set_loc(line)
             current.read_tags()
             pl.add(current)
@@ -247,6 +252,33 @@ def import_from_xspf(path):
         pl.add(tr)
     return pl
 
+def is_valid_playlist(loc):
+    """
+        Returns whether the file at loc is a valid playlist
+        right now determines based on file extension but
+        possibly could be extended to actually opening
+        the file and determining
+    """
+    sections = loc.split('.')
+    return sections[-1] in ['m3u', 'pls','asx', 'xspf']
+
+def import_playlist(path):
+    """
+        Determines what type of playlist it is and
+        based on that calls the appropriate import
+        function
+    """
+    sections = path.split('.')
+    extension = sections[-1]
+    if extension == 'm3u':
+        return import_from_m3u(path)
+    elif extension == 'pls':
+        return import_from_pls(path)
+    elif extension == 'asx':
+        return import_from_asx(path)
+    elif extension == 'xspf':
+        return import_from_xspf(path)
+    
 
 class PlaylistIterator(object):
     def __init__(self, pl):

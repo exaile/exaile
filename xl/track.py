@@ -75,6 +75,16 @@ def lstrip_special(field):
         return stripped
     return lowered.lstrip()
 
+def is_valid_track(loc):
+    """
+        Returns whether the file at loc is a valid track,
+        right now determines based on file extension but
+        possibly could be extended to actually opening
+        the file and determining
+    """
+    sections = loc.split('.');
+    return sections[-1] in formats
+
 class Track(object):
     """
         Represents a single track.

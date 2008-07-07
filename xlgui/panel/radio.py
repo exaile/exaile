@@ -138,6 +138,12 @@ class RadioPanel(panel.Panel):
 
     def drag_get_data(self, *e):
         pass
+    
+    def drag_data_delete(self, *e):
+        """
+            stub
+        """
+        pass
 
     def on_row_expand(self, tree, iter, path):
         """

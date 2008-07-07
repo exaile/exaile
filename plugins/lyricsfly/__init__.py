@@ -73,6 +73,8 @@ class LyricsFly(LyricSearchMethod):
             url = "http://lyricsfly.com/search/view.php?%s&view=%s" % (
                 urllib.quote_plus(cs),
                 urllib.quote_plus(id)) 
+            #Take out the [br]
+            lyrics = lyrics.replace("[br]","\n")
             return (lyrics, url)
         else:
             raise LyricsNotFoundException

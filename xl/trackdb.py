@@ -236,7 +236,7 @@ class TrackDB(object):
             retset = set(search(search_terms).values(getattr(track.Track, 
                     tag)))
 
-        return [ x for x in retset if x ]
+        return [ x for x in retset ]
 
     def search(self, query, sort_fields=None, return_lim=-1):
         """

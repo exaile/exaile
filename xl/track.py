@@ -17,7 +17,7 @@ import os, time
 from urlparse import urlparse
 
 from xl import common
-from xl.media import flac, mp3, mp4, mpc, ogg, tta, wav, wma, wv
+from xl.media import flac, mp3, mp4, mpc, ogg, tta, wma, wv, default
 
 from mutagen.mp3 import HeaderNotFoundError
 from storm.locals import *
@@ -27,23 +27,23 @@ logger = logging.getLogger(__name__)
 
 # map file extensions to tag modules
 formats = {
-    'aac': mp4,
-    'ac3': None,
+    'aac' : mp4,
+    'ac3' : default,
     'flac': flac,
-    'm4a': mp4,
-    'mp+': mpc,
-    'mp2': mp3,
-    'mp3': mp3,
-    'mp4': mp4,
-    'mod': None,
-    'mpc': mpc,
-    'oga': ogg,
-    'ogg': ogg,
-    's3m': None,
-    'tta': tta,
-    'wav': wav,
-    'wma': wma,
-    'wv': wv,
+    'm4a' : mp4,
+    'mp+' : mpc,
+    'mp2' : mp3,
+    'mp3' : mp3,
+    'mp4' : mp4,
+    'mod' : default,
+    'mpc' : mpc,
+    'oga' : ogg,
+    'ogg' : ogg,
+    's3m' : default,
+    'tta' : tta,
+    'wav' : default,
+    'wma' : wma,
+    'wv'  : wv,
 }
 
 SUPPORTED_MEDIA = ['.' + ext for ext in formats.iterkeys()]
@@ -64,6 +64,8 @@ class Track(object):
     """
         Represents a single track.
     """
+    # list of properties for storm. these should never be set
+    # from outside an instance of this class.
     __storm_table__ = "tracks"
     id = Int(primary=True)
     title = Unicode()
@@ -112,7 +114,6 @@ class Track(object):
             loads and initializes the tag information
             
             uri: path to the track [string]
-            _unpickles: unpickle data [tuple] # internal use only!
         """
 
         self._scan_valid = False
@@ -164,13 +165,13 @@ class Track(object):
         """
         try:
             values = getattr(self, tag)
-            if u'\x00' in values:
+            if type(values) == unicode and u'\x00' in values:
                 values = values.split(u'\x00')
             return values
         except:
             return None
 
-    def set_tag(self, tag, values, append=False, emit=True):
+    def set_tag(self, tag, values, append=False):
         """
             Common function for setting a tag.
             
@@ -178,26 +179,26 @@ class Track(object):
             values: list of values for the tag [list]
             append: whether to append to existing values [bool]
         """
-
-        #if tag in common.VALID_TAGS:
-        #    values = [values]
+        # handle values tat aren't lists
         if not isinstance(values, list):
             if append:
                 values = [values]
             else:
                 if type(values) == str:
                     values = unicode(values)
-                setattr(self, tag, values)
 
-        # filter out empty values and convert to unicode
+        # for lists, filter out empty values and convert to unicode
         if isinstance(values, list):
             values = [common.to_unicode(x, self.encoding) for x in values
                 if x not in (None, '')]
             if append:
-                values = self.get_tag(tag).extend(values)
-                setattr(self, tag, u'\x00'.join(values))
-            else:
-                setattr(self, tag, u'\x00'.join(values))
+                values = list(self.get_tag(tag)).extend(values)
+            values = u'\x00'.join(values)
+
+        # set the value, replacing "" with None
+        if values == u"":
+            values = None
+        setattr(self, tag, values)
         
     def __getitem__(self, tag):
         """
@@ -250,6 +251,10 @@ class Track(object):
             self['modified'] = os.path.getmtime(self.get_loc_for_io())
         except OSError:
             pass
+
+        #TODO: it might be better to pass these exceptions up to whatever
+        # is calling rather than just failing, since then we can do things
+        # like showing files that create warnings in the UI.
         try:
             format.fill_tag_from_path(self)
         except HeaderNotFoundError:
@@ -265,11 +270,9 @@ class Track(object):
             Gets the track number in int format.  
         """
         t = self.get_tag('tracknumber')
-        if t.find('/') > -1:
-            t = t[:t.find('/')]
+        t = split("/")[0]
         if t == '':
             t = -1
-
         return int(t)
 
     def get_duration(self):
@@ -284,13 +287,15 @@ class Track(object):
             Returns a sortable of the parameter given (some items should be
             returned as an int instead of unicode)
         """
-        if field == 'tracknumber': return self.get_track()
+        if field == 'tracknumber': 
+            return self.get_track()
         elif field == 'artist':
             artist = lstrip_special(self['artist'])
-            if artist.find('the ') == 0:
+            if artist.startswith('the '): #TODO: allow custom stemming
                 artist = artist[4:]
             return artist
-        else: return lstrip_special(self[field])
+        else: 
+            return lstrip_special(self[field])
 
     def __repr__(self):
         return str(self)

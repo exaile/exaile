@@ -185,6 +185,8 @@ class Track(object):
             if append:
                 values = [values]
             else:
+                if type(values) == str:
+                    values = unicode(values)
                 setattr(self, tag, values)
 
         # filter out empty values and convert to unicode

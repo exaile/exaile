@@ -61,7 +61,7 @@ MYSQL_MAPPING = {
         Int: "INTEGER",
         Float: "FLOAT",
         Decimal: "DECIMAL",
-        Unicode: "BLOB",
+        Unicode: "TEXT CHARACTER SET utf8",
         RawStr: "BLOB", 
         Pickle: "BLOB",
         DateTime: "DATETIME",
@@ -208,6 +208,35 @@ class TrackDB(object):
         """
         self.store.remove(track)
         event.log_event("track_removed", self, track.get_loc())
+
+    def list_tag(self, tag, search_terms=None):
+        def search(search_terms):
+            if search_terms:
+                return self.search(search_terms)
+            else:
+                return self.store.find(track.Track)
+
+        store = self.store
+
+        retset = None
+        #FIXME: this code could be clearer
+        if tag == "artist":
+            albumartists = set(store.find(
+                    track.Track).values(track.Track.albumartist))
+            if len(albumartists) == 0: #SQL fails on empty list with In
+                retset =  set(search(search_terms).values(
+                        getattr(track.Track, tag)))
+            aaalbums = list(set(store.find(track.Track, 
+                    In(track.Track.albumartist, 
+                    list(albumartists))).values(track.Track.album)))
+            artists = set(store.find(track.Track, Not(In(track.Track.album, 
+                    aaalbums))).values(track.Track.artist))
+            retset = artists.union(albumartists)
+        else:
+            retset = set(search(search_terms).values(getattr(track.Track, 
+                    tag)))
+
+        return [ x for x in retset if x ]
 
     def search(self, query, sort_fields=None, return_lim=-1):
         """

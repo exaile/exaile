@@ -46,6 +46,10 @@ def get_tag(id3, t):
     elif t == 'USLT': # Lyrics are stored in plan old strings
         for value in field:
             ret.append(value.text)
+    elif t == 'WOAR': # URLS are stored in url not text
+        for value in field:
+            ret.extend([unicode(x.replace('\n','').replace('\r','')) \
+                    for x in value.url])
     else:
         for value in field:
             try:

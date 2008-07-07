@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
+<!--*- mode: xml -*-->
+<glade-interface>
+  <widget class="GtkWindow" id="FilesPanelWindow">
+    <property name="title" translatable="yes">Files</property>
+    <child>
+      <widget class="GtkVBox" id="files_box">
+        <property name="visible">True</property>
+        <property name="border_width">3</property>
+        <property name="spacing">3</property>
+        <child>
+          <placeholder/>
+        </child>
+      </widget>
+    </child>
+  </widget>
+</glade-interface>

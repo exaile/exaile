@@ -17,7 +17,7 @@ __all__ = ['main', 'panel', 'playlist']
 import gtk, gtk.glade, gobject
 from xl import xdg
 from xlgui import main, panel, guiutil
-from xlgui.panel import collection, radio, playlists
+from xlgui.panel import collection, radio, playlists, files
 
 gtk.window_set_default_icon_from_file(xdg.get_data_path("images/icon.png"))
 
@@ -44,8 +44,13 @@ class Main(object):
         self.radio_panel = radio.RadioPanel(self, exaile.radio)
         self.playlists_panel = playlists.PlaylistsPanel(self,
             exaile.playlists)
+        self.files_panel = files.FilesPanel(self)
 
         self.main.window.show_all()
+        
+        # hide the stop_track button for now
+        self.main.xml.get_widget('stop_track').hide()
+
 
 @guiutil.gtkrun
 def show_splash(show=True):

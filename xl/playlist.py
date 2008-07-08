@@ -24,8 +24,13 @@
 
 from xl import trackdb, event, xdg, track
 import urllib, random, os, time
-import xml.etree.cElementTree as cETree
+try:
+    import xml.etree.cElementTree as ETree
+except:
+    import xml.etree.ElementTree as ETree
 from urlparse import urlparse
+
+#TODO: is this really needed?
 random.seed(time.time())
 
 def save_to_m3u(playlist, path):
@@ -213,7 +218,7 @@ def save_to_xspf(playlist, path):
     for track in playlist:
         handle.write("    <track>\n")
         for xs, tag in XSPF_MAPPING.iteritems():
-            if track[tag] == "":
+            if track[tag] == u"":
                 continue
             handle.write("      <%s>%s</%s>\n" % (xs, track[tag],xs) )
         url = urllib.quote(track.get_loc())
@@ -229,7 +234,7 @@ def save_to_xspf(playlist, path):
     
 def import_from_xspf(path):
     #TODO: support content resolution
-    tree = cETree.ElementTree(file=open(path))
+    tree = ETree.ElementTree(file=open(path))
     ns = "{http://xspf.org/ns/0/}"
     tracks = tree.find("%strackList"%ns).findall("%strack"%ns)
     name = tree.find("%stitle"%ns).text.strip()
@@ -267,15 +272,15 @@ class Playlist(object):
         Represents a playlist, which is basically just a TrackDB
         with ordering.
     """
-    def __init__(self, name="Playlist", location=""):
+    def __init__(self, name="Playlist"):
         """
             Sets up the Playlist
 
-            Signals:
-                - tracks_added - Called when tracks are added
-                - tracks_removed - Called when tracks are removed
+            Events:
+                - tracks_added - Sent when tracks are added
+                - tracks_removed - Sent when tracks are removed
 
-            args: see TrackDB
+            @param name: the name of this playlist [string]
         """
         self.ordered_tracks = []
         self.current_pos = -1
@@ -285,9 +290,6 @@ class Playlist(object):
         self.dynamic_enabled = False
         self.name = name
         self.tracks_history = []
-
-    def set_location(self, location):
-        pass
 
     def get_name(self):
         return self.name
@@ -558,6 +560,47 @@ class Playlist(object):
         """
         return "%s: %s" % (type(self), self.name)
 
+    #FIXME: name random, repeat, dynamic, current_pos, name
+    def save_to_location(self, location):
+        if os.path.exists(location):
+            f = open(location + ".new", "w")
+        else:
+            f = open(location, "w")
+        for tr in self:
+            f.write(tr.get_loc() + "\n")
+        f.close()
+        if os.path.exists(location + ".new"):
+            os.remove(location)
+            os.rename(location + ".new", location)
+
+    def load_from_location(self, location):
+        for loc in [location, location+".new"]:
+            try:
+                f = open(loc, 'r')
+                break
+            except:
+                pass
+        locs = []
+        while True:
+            line = f.readline()
+            if line == "":
+                break
+            locs.append(line)
+        f.close()
+
+        tracks = []
+        for loc in locs:
+            c = collection.get_collection_by_loc(loc)
+            if c:
+                tr = c.get_track_by_loc(loc)
+            if not tr:
+                tr = track.Track(uri=loc)
+                if tr.is_local() and not tr._scan_valid:
+                    tr = None
+            if tr:
+                tracks.append(tr)
+        self.ordered_tracks = tracks
+
 
 class SmartPlaylist(object):
     """ 
@@ -577,7 +620,7 @@ class SmartPlaylist(object):
         u'Chimera'
         >>> 
     """
-    def __init__(self, name="", location="", collection=None):
+    def __init__(self, name="", collection=None):
         """
             Sets up a smart playlist
 
@@ -775,6 +818,12 @@ class SmartPlaylist(object):
         else:
             return ' '.join(params)
 
+    def save_to_location(self, location):
+        pass #FIXME: implement this
+
+    def load_from_location(self, location):
+        pass #FIXME: implement this
+
 class PlaylistExists(Exception):
     pass
 
@@ -798,7 +847,8 @@ class PlaylistManager(object):
         name = pl.get_name()
         if overwrite or name not in self.playlists:
             pl.save_to_location(os.path.join(self.playlist_dir, pl.get_name()))
-            self.playlists.append(name)
+            if name not in self.playlists:
+                self.playlists.append(name)
             self.playlists.sort()
         else:
             raise PlaylistExists
@@ -825,7 +875,8 @@ class PlaylistManager(object):
     def save_all(self):
         for pl in self.smart_playlists.values():
             if pl is not None:
-                pl.save_to_location()
+                pl.save_to_location(os.path.join(self.smart_playlist_dir, 
+                        pl.get_name()))
 
     def load_names(self):
         self.playlists = os.listdir(self.playlist_dir)
@@ -836,6 +887,7 @@ class PlaylistManager(object):
     def get_playlist(self, name):
         if name in self.playlists:
             pl = Playlist(location=os.path.join(self.playlist_dir, name))
+            pl.set_name(name)
             return pl
         else:
             raise ValueError("No such playlist")

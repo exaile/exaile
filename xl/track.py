@@ -234,7 +234,7 @@ class Track(object):
         """
             Reads tags from file
         """
-        if urlparse(self.get_loc())[0] != "":
+        if not self.is_local():
             return None #not a local file
         (path, ext) = os.path.splitext(self.get_loc().lower())
         ext = ext[1:]
@@ -264,6 +264,9 @@ class Track(object):
             common.log_exception(logger)
             return None
         return self
+
+    def is_local(self):
+        return urlparse(self.get_loc())[0] == ""
 
     def get_track(self):
         """

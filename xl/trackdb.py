@@ -28,16 +28,16 @@ from lib import storm_threaded
 
 from storm.uri import URI
 from storm.locals import *
-from storm.expr import Gt, Lt
-import storm.properties
-from storm.properties import *
+from storm.expr import Gt, Lt, Eq
+from storm.properties import Bool, Int, Float, Decimal, Unicode, RawStr, Pickle, DateTime, Date, Time, TimeDelta
 
 try:
     import MySQLdb as mysqldb
 except:
     mysqldb = False
 
-SEARCH_ITEMS = ('artist', 'album', 'title')
+#FIXME: make these user-customizable
+SEARCH_ITEMS = ('artist', 'albumartist', 'album', 'title')
 SORT_FALLBACK = ('tracknumber', 'album')
 
 
@@ -61,14 +61,14 @@ MYSQL_MAPPING = {
         Int: "INTEGER",
         Float: "FLOAT",
         Decimal: "DECIMAL",
-        Unicode: "TEXT CHARACTER SET utf8",
+        Unicode: "TEXT CHARACTER SET utf8", #needed for unicode support
         RawStr: "BLOB", 
         Pickle: "BLOB",
         DateTime: "DATETIME",
         Date: "DATE",
         Time: "TIME"}
 
-POSTGRESQL_MAPPING = {
+POSTGRES_MAPPING = {
         Bool: "BOOL",
         Int: "INTEGER",
         Float: "FLOAT",
@@ -88,7 +88,7 @@ def get_database_connection(uri):
     logger.debug("Connecting to database at %s"%uri)
     db = create_database(uri)
 
-    #TODO: make this capable of handling connections to mysql, postgres
+    #TODO: make this capable of handling connections to postgres
 
     if dbtype == "sqlite":
         attr_mapping = SQLITE_MAPPING
@@ -101,7 +101,6 @@ def get_database_connection(uri):
         sql_fields = []
 
     # generate the SQL column info
-    storm_properties = storm.properties.__dict__.values()
     for k, v in (x for x in track.Track.__dict__.iteritems() if x[0] != "id"):
         try:
             sql = "%s %s"%(k, attr_mapping[type(v)])
@@ -109,7 +108,6 @@ def get_database_connection(uri):
         except KeyError:
             pass
 
-    
     #FIXME: this doesn't handle errors in talking to the db
     store = Store(db)
     try:
@@ -125,7 +123,7 @@ def get_database_connection(uri):
         query += ");"
         store.execute(query)
         logger.debug("Created initial DB")
-    except:
+    except: #FIXME: BAD BAD BAD BAD BAD, we should handle specific exceptions
         # table exists, try adding any fields individually, this handles
         # added fields between versions transparently.
         logger.debug("DB exists, attempting to add any missing fields")
@@ -171,7 +169,6 @@ class TrackDB(object):
 
             name:   The new name. [string]
         """
-        self._dirty = True
         self.name = name
 
     def get_name(self):
@@ -197,8 +194,12 @@ class TrackDB(object):
 
             track: The Track to add [Track]
         """
-        self.store.add(track)
-        event.log_event("track_added", self, track.get_loc())
+        self.add_tracks([track])
+
+    def add_tracks(self, tracks):
+        for tr in tracks:
+            self.store.add(tr)
+            event.log_event("track_added", self, tr.get_loc())        
 
     def remove(self, track):
         """
@@ -206,37 +207,61 @@ class TrackDB(object):
 
             track: the Track to remove [Track]    
         """
-        self.store.remove(track)
-        event.log_event("track_removed", self, track.get_loc())
+        self.remove_tracks([track])
+                
+    def remove_tracks(self, tracks):
+        for tr in tracks:
+            self.store.remove(tr)
+            event.log_event("track_removed", self, tr.get_loc())
 
-    def list_tag(self, tag, search_terms=None):
-        def search(search_terms):
-            if search_terms:
-                return self.search(search_terms)
-            else:
-                return self.store.find(track.Track)
-
+    def list_tag(self, tag, search_terms=None, use_albumartist=False):
+        """
+            lists out all the values for a particular, tag, without duplicates
+            
+            can also optionally prefer albumartist's value over artist's,
+            this is primarily useful for the collection panel
+        """
         store = self.store
-
         retset = None
-        #FIXME: this code could be clearer
-        if tag == "artist":
-            albumartists = set(store.find(
-                    track.Track).values(track.Track.albumartist))
+        if tag == "artist" and use_albumartist == True:
+            albumartists = set(
+                    store.find(track.Track).values(track.Track.albumartist))
             if len(albumartists) == 0: #SQL fails on empty list with In
-                retset =  set(search(search_terms).values(
-                        getattr(track.Track, tag)))
-            aaalbums = list(set(store.find(track.Track, 
-                    In(track.Track.albumartist, 
-                    list(albumartists))).values(track.Track.album)))
-            artists = set(store.find(track.Track, Not(In(track.Track.album, 
-                    aaalbums))).values(track.Track.artist))
-            retset = artists.union(albumartists)
+                tag = getattr(track.Track, tag)
+                retset = set(self.search(search_terms).values(tag))
+            else:
+                aaalbums = set(
+                            store.find(track.Track, 
+                                In(track.Track.albumartist, 
+                                    list(albumartists))
+                                ).values(track.Track.album))
+                artists = set(
+                            store.find(track.Track, 
+                                Not(In(track.Track.album, 
+                                    list(aaalbums)))
+                                ).values(track.Track.artist))
+                retset = artists.union(albumartist)
         else:
-            retset = set(search(search_terms).values(getattr(track.Track, 
-                    tag)))
+            tag = getattr(track.Track, tag)
+            retset = set(self.search(search_terms).values(tag))
 
-        return [ x for x in retset ]
+        return list(retset)
+
+    def get_track_by_loc(self, loc):
+        """
+            returns the track having the given loc. if no such
+            track exists, returns None
+        """
+        res = list(self.store.find(track.Track, Eq(track.Track.loc, loc)))
+        if len(res) == 0:
+            return None
+        elif len(res) > 1: # have to hack this since storm apparently won't 
+            for tr in res: #           let me force a case-sensitive search
+                if tr.get_loc() == loc or tr.get_loc_for_io() == loc:
+                    return tr
+            return None #this should never happen
+        else:
+            return res[0]
 
     def search(self, query, sort_fields=None, return_lim=-1):
         """
@@ -454,10 +479,13 @@ class TrackSearcher(object):
 
     def search_collection(self, query, collection, sort_fields=None, 
             return_lim=-1):
-        tokens = self.tokenize_query(query)
-        storm_tokens = self.stormize(tokens)
-        tracks = collection.store.find(track.Track, storm_tokens)
-        return tracks
+        if query == "":
+            return collection.store.find(track.Track)
+        else:
+            tokens = self.tokenize_query(query)
+            storm_tokens = self.stormize(tokens)
+            tracks = collection.store.find(track.Track, storm_tokens)
+            return tracks
 
     def search(self, query, tracks, sort_order=None):
         """

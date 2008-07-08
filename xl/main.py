@@ -79,8 +79,8 @@ class Exaile(object):
         firstrun = self.settings.get_option("general/first_run", True)
 
         # Initialize the collection
-        from xl import collection
         logger.info("Loading collection...")
+        from xl import collection
         self.collection = collection.Collection("Collection",
                 location=collection.get_collection_uri() )
 
@@ -103,8 +103,8 @@ class Exaile(object):
         self.dynamic = dynamic.DynamicManager(self.collection)
 
         #initalize device manager
-        from xl import devices
         logger.info("Loading devices...")
+        from xl import devices
         self.devices = devices.DeviceManager()
 
         #initialize HAL
@@ -131,15 +131,14 @@ class Exaile(object):
 
         #setup GUI
         if self.options.startgui:
-            import xlgui
             logger.info("Loading interface...")
+            import xlgui
             self.gui = xlgui.Main(self)
 
         #initialize PluginsManager
         from xl import plugins
         logger.info("Loading plugins...")
         self.plugins = plugins.PluginsManager(self)
-
 
     def setup_logging(self):
         console_format = "%(levelname)-8s: %(message)s"

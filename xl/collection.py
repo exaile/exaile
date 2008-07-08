@@ -30,6 +30,18 @@ import gobject
 
 logger = logging.getLogger(__name__)
 
+COLLECTIONS = set()
+
+def get_collection_by_loc(loc):
+    """
+        returns the collection containing a track having the
+        given loc. returns None if no such collection exists.
+    """
+    for c in COLLECTIONS:
+        if c.loc_is_member(loc):
+            return c
+    return None
+
 def get_collection_uri(type=None):
     """
         returns the URI of the collection
@@ -84,6 +96,8 @@ class Collection(trackdb.TrackDB):
             for (loc, realtime, interval) in lib_paths:
                 if len(loc.strip()) > 0:
                     self.add_library(Library(loc, realtime, interval))
+        
+        COLLECTIONS.add(self)
 
     def add_library(self, library):
         """
@@ -137,6 +151,35 @@ class Collection(trackdb.TrackDB):
         for k, v in self.libraries.iteritems():
             libraries.append((v.location, v.realtime, v.scan_interval))
         self.settings.set_option("collection/libraries", libraries)
+
+    def loc_is_member(self, loc):
+        """
+            returns True if loc is a track in this collection, False
+            if it is not
+        """
+        # check to see if it's in one of our libraries, this speeds things
+        # up if we have a slow DB
+        lib = None
+        for k, v in self.libraries:
+            if loc.startswith(k):
+                lib = v
+                break
+        if not lib:
+            return False
+
+        # check for the actual track
+        if self.get_track_by_loc(loc):
+            return True
+        else:
+            return False
+
+    def close(self):
+        """
+            close the collection. does any work like saving to disk,
+            closing network connections, etc.
+        """
+        #TODO: make close() part of trackdb
+        collections.remove(self)
 
 
 class ProcessEvent(object):

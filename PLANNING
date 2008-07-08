@@ -193,6 +193,10 @@ GUIPLANNING:
         use banshee-stype progressbars, ie display a list of all active
             progressbars below the side pane area. This can be used for
             things like collection rescan, cd import, mp3 player sync, etc.
+        use libsexy to put album art in tray tooltip (possible?)
+            - alternatively, replace tray tooltip with OSD if enabled
+        OSD progressbar should be togglable (perhaps make {progressbar}
+            element available in customizer?)
 
 
 ==== NOTES ====

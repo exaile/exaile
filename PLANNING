@@ -6,7 +6,7 @@ Current projects:
     Aren Olson - Persistence, Mass Storage MP3 Player (base), StormDB
     Adam Olsen - GUI
     Anthony Waters - 
-    thiblahute - CD Burning
+    thiblahute - CD Burning (hasn't been seen in a while)
 
 
 Implemented:
@@ -55,6 +55,7 @@ Implemented:
             should be negligible.
     Equalizer
     Replaygain
+        doesn't support creating tags, only reading them
     CD Ripping
 
 Things that can probably be implemented at this stage:
@@ -132,6 +133,7 @@ Minor Tasks:
         deleted elsewhere.
     santize plugin extraction (current method is a potential security 
         vulnerability)
+    ensure the log file doesn't grow to insane sizes
 
 Other Work-Items:
     Conversion
@@ -141,8 +143,8 @@ Other Work-Items:
         should be the last primary 'feature' implemented
         implement as plugin? that way it can just be unloaded afterwards
             saving a little bit of time and memory.
-        alternatively, only improt it on firstrun is True. this is likely
-            a cleaner and more-effiecient method.
+        alternatively, only import it if firstrun is True. this is likely
+            a cleaner and more-efficient method.
     
 GUIPLANNING:
     Implemented:
@@ -190,13 +192,17 @@ GUIPLANNING:
                         more than 3 devices will be plugged in at a time
 
     Ideas:
-        use banshee-stype progressbars, ie display a list of all active
+        use banshee-type progressbars, ie display a list of all active
             progressbars below the side pane area. This can be used for
             things like collection rescan, cd import, mp3 player sync, etc.
         use libsexy to put album art in tray tooltip (possible?)
             - alternatively, replace tray tooltip with OSD if enabled
         OSD progressbar should be togglable (perhaps make {progressbar}
             element available in customizer?)
+    feature requests:
+        PPAT - like SPAT, but pauses instead of stopping. this could easily
+            be a toggle for SPAT. (this would let me stop listening between 
+            songs, without losing my place like SPAT does) --reacocard
 
 
 ==== NOTES ====

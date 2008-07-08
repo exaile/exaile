@@ -464,6 +464,7 @@
                     </child>
                   </widget>
                   <packing>
+                    <property name="padding">3</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
@@ -516,7 +517,6 @@
                     </child>
                     <child>
                       <widget class="GtkButton" id="stop_track">
-                        <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="relief">GTK_RELIEF_NONE</property>
                         <property name="response_id">0</property>

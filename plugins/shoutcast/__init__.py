@@ -47,7 +47,10 @@ class ShoutcastRadioStation(RadioStation):
                 self._get_subrlists(name)
             rlists.append(rlist)
         
-        self.rlists = []
+        sort_list = [(item.name, item) for item in rlists]
+        sort_list.sort()
+        rlists = [item[1] for item in sort_list]
+        self.rlists = rlists
         return rlists
 
     get_lists = load_lists
@@ -62,13 +65,21 @@ class ShoutcastRadioStation(RadioStation):
         url = self.cat_url % {'genre': name}
         data = urllib.urlopen(url).read()
         rlists = []
-        items = re.findall(r'<station name="([^"]*)" .*? id="(\d+)"', data)
+        items = re.findall(r'<station name="([^"]*)" .*? id="(\d+)" br="(\d+)"', data)
+        found_names = []
         
         for item in items:
             rlist = RadioItem(item[0])
+            rlist.bitrate = item[2]
+            if item[0] in found_names: continue
+            found_names.append(item[0])
             rlist.get_playlist = lambda name=item[0], station_id=item[1]: \
                 self._get_playlist(name, station_id)
             rlists.append(rlist)
+
+        sort_list = [(item.name, item) for item in rlists]
+        sort_list.sort()
+        rlists = [item[1] for item in sort_list]
 
         self.subs[name] = rlists
         return rlists

@@ -297,6 +297,8 @@ class LocalCoverSearch(CoverSearchMethod):
     def find_covers(self, track, limit=-1):
         covers = []
         search_dir = os.path.dirname(track.get_loc())
+        if not os.path.isdir(search_dir):
+            raise NoCoverFoundException()
         for file in os.listdir(search_dir):
             if not os.path.isfile(os.path.join(search_dir, file)):
                 continue

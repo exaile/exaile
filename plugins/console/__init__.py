@@ -1,6 +1,7 @@
 import sys, traceback, gtk
 from cStringIO import StringIO
 from gettext import gettext as _
+from xlgui import guiutil
 
 class PyConsole(gtk.Window):
     def __init__(self, dict):
@@ -70,6 +71,7 @@ class PyConsole(gtk.Window):
         self.text_view.scroll_to_mark(self.end_mark, 0)
 
 PLUGIN = None
+@guiutil.gtkrun
 def enable(exaile):
     global PLUGIN
     PLUGIN = PyConsole({'exaile': exaile})

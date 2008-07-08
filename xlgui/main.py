@@ -17,9 +17,9 @@ pygtk.require('2.0')
 pygst.require('0.10')
 import gst
 import gtk, gtk.glade, gobject, pango
-from xl import xdg, event
+from xl import xdg, event, track
 import xl.playlist
-from xlgui import playlist, cover
+from xlgui import playlist, cover, guiutil
 from gettext import gettext as _
 import xl.playlist
 
@@ -50,7 +50,7 @@ class PlaybackProgressBar(object):
         if value > 1: value = 1
 
         track = self.player.current
-        if not track: return
+        if not track or track.get_type() != 'file': return
         length = int(track['length'])
 
         seconds = float(value * length)
@@ -64,7 +64,7 @@ class PlaybackProgressBar(object):
 
     def seek_motion_notify(self, widget, event):
         track = self.player.current
-        if not track: return
+        if not track or track.get_type() != 'file': return
 
         mouse_x, mouse_y = event.get_coords()
         progress_loc = self.bar.get_allocation()
@@ -91,6 +91,10 @@ class PlaybackProgressBar(object):
 
     def timer_update(self, *e):
         track = self.player.current
+
+        if track.get_type() != 'file':
+            self.bar.set_text('Streaming...')
+            return
         length = int(track['length'])
 
         self.bar.set_fraction(self.player.get_progress())
@@ -103,6 +107,14 @@ class PlaybackProgressBar(object):
 
         return True
 
+# Reduce the notebook tabs' close button padding size.
+gtk.rc_parse_string("""
+    style "thinWidget" {
+        xthickness = 0
+        ythickness = 0
+    }
+    widget "*.tabCloseButton" style "thinWidget"
+    """)
 class NotebookTab(gtk.EventBox):
     """
         A notebook tab, complete with a close button
@@ -122,14 +134,14 @@ class NotebookTab(gtk.EventBox):
         self.page = page
         self.tips = gtk.Tooltips()
 
-        self.hbox = hbox = gtk.HBox(False, 5)
+        self.hbox = hbox = gtk.HBox(False, 2)
         self.add(hbox)
 
         self.label = gtk.Label(title)
         hbox.pack_start(self.label, False, False)
 
         self.button = btn = gtk.Button()
-        btn.set_name('tab_close_button')
+        btn.set_name('tabCloseButton')
         btn.set_relief(gtk.RELIEF_NONE)
         btn.set_focus_on_click(False)
         btn.connect('clicked', self.do_close)
@@ -195,6 +207,11 @@ class MainWindow(object):
             pl = xl.playlist.Playlist()
         name = pl.name
         pl = playlist.Playlist(self, self.controller, pl)
+        
+        # make sure the name isn't too long
+        if len(name) > 20:
+            name = name[:20] + "..."
+
         tab = NotebookTab(self, self.playlist_notebook, name, pl)
         self.playlist_notebook.append_page(pl,
             tab)
@@ -277,7 +294,22 @@ class MainWindow(object):
             self.controller.exaile.player) 
         event.add_callback(self.on_toggle_pause, 'playback_toggle_pause',
             self.controller.exaile.player)
+        event.add_callback(self.on_tags_parsed, 'tags_parsed',
+            self.controller.exaile.player)
 
+    @guiutil.gtkrun
+    def on_tags_parsed(self, type, player, args):
+        """
+            Called when tags are parsed from a stream/track
+        """
+        (tr, args) = args
+        if tr.get_type() == 'file': return
+        if track.parse_stream_tags(tr, args):
+            self._update_track_information()
+            self.cover.on_playback_start('', self.controller.exaile.player, None)
+            self.get_current_playlist().refresh_row(tr)
+
+    @guiutil.gtkrun
     def on_toggle_pause(self, type, player, object):
         """
             Called when the user clicks the play button after playback has
@@ -340,6 +372,7 @@ class MainWindow(object):
         page = self.playlist_notebook.get_nth_page(page)
         return page
 
+    @guiutil.gtkrun
     def on_playback_start(self, type, player, object):
         """
             Called when playback starts
@@ -352,8 +385,30 @@ class MainWindow(object):
             pl.list.scroll_to_cell(path)
             pl.list.set_cursor(path)
         
+
+        self._update_track_information()
+        self.draw_playlist(type, player, object)
+        self.play_button.set_image(gtk.image_new_from_stock('gtk-media-pause',
+                gtk.ICON_SIZE_SMALL_TOOLBAR))
+
+    @guiutil.gtkrun
+    def on_playback_end(self, type, player, object):
+        """
+            Called when playback ends
+        """
+        self.track_title_label.set_label(_('Not Playing'))
+        self.track_info_label.set_label(_('Stopped'))
+
+        self.draw_playlist(type, player, object)
+        self.play_button.set_image(gtk.image_new_from_stock('gtk-media-play',
+                gtk.ICON_SIZE_SMALL_TOOLBAR))
+
+    def _update_track_information(self):
+        """
+            Sets track information
+        """
         # set track information
-        track = player.current
+        track = self.controller.exaile.player.current
 
         if track:
             artist = track['artist']
@@ -383,25 +438,10 @@ class MainWindow(object):
 #                self.tray_icon.set_tooltip(_("Playing %s") % title + '\n' +
 #                    desc_newline)
         else:
-            #self.window.set_title(_("Exaile: playing %s") % title)
-            self.track_info.set_label("")
+            self.window.set_title(_("Exaile: playing %s") % title)
+            self.track_info_label.set_label("")
 #            if self.tray_icon:
 #                self.tray_icon.set_tooltip(_("Playing %s") % title)
-
-        self.draw_playlist(type, player, object)
-        self.play_button.set_image(gtk.image_new_from_stock('gtk-media-pause',
-                gtk.ICON_SIZE_SMALL_TOOLBAR))
-
-    def on_playback_end(self, type, player, object):
-        """
-            Called when playback ends
-        """
-        self.track_title_label.set_label(_('Not Playing'))
-        self.track_info_label.set_label(_('Stopped'))
-
-        self.draw_playlist(type, player, object)
-        self.play_button.set_image(gtk.image_new_from_stock('gtk-media-play',
-                gtk.ICON_SIZE_SMALL_TOOLBAR))
 
     def draw_playlist(self, *e):
         """

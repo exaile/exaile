@@ -6,7 +6,7 @@ Current projects:
     Aren Olson - Persistence, Mass Storage MP3 Player (base), StormDB
     Adam Olsen - GUI
     Anthony Waters - 
-    thiblahute - CD Burning
+    thiblahute - CD Burning (hasn't been seen in a while)
 
 
 Implemented:
@@ -55,6 +55,7 @@ Implemented:
             should be negligible.
     Equalizer
     Replaygain
+        doesn't support creating tags, only reading them
     CD Ripping
 
 Things that can probably be implemented at this stage:
@@ -106,23 +107,6 @@ Things that can probably be implemented at this stage:
                 to be present upon resume?
     GUI
         see GUIPLANNING
-        should not be drastically different from 0.2
-        separate classes (with associated glade files) for each part
-            side panes
-            playlist panel
-            now playing area
-            info tabs
-            ???
-        use gtk.glade.XML.signal_autoconnect *whenever* possible... this
-            is something we didn't do in 0.2 and it was a pain
-        devices:
-            idea: use separate side tab for each device, with device manager
-                option in Tools for advanced config. tabs would be
-                auto-generated as new devices are connected, either via HAL
-                or the device manager.
-                    possible issue: space
-                        not likely needing concern, as it is unlikely that
-                        more than 3 devices will be plugged in at a time
     Visualizations
         implement as plugin (if possible)
     Cross-Fade
@@ -152,6 +136,7 @@ Minor Tasks:
         deleted elsewhere.
     santize plugin extraction (current method is a potential security 
         vulnerability)
+    ensure the log file doesn't grow to insane sizes
 
 Other Work-Items:
     Conversion
@@ -160,29 +145,67 @@ Other Work-Items:
             playlists, and anything else still relevant in 0.3
         should be the last primary 'feature' implemented
         implement as plugin? that way it can just be unloaded afterwards
-        alternatively, only improt it on firstrun is True. this is likely
-            a cleaner and more-effiecient method.
+            saving a little bit of time and memory.
+        alternatively, only import it if firstrun is True. this is likely
+            a cleaner and more-efficient method.
     
 GUIPLANNING:
     Implemented:
         Collection Panel
-            * still needs right click menu, double click actions, etc
+            still needs right click menu, double click actions, etc
 
         Playlists Panel
-            * still needs right click menu, a way to add custom playlists and
+            still needs right click menu, a way to add custom playlists and
                 smart playlists
-            * still needs to display custom playlists
+            still needs to display custom playlists
 
         Playlist Tabs
-            * still need to be able to recieve track dragged from a file
+            still need to be able to recieve track dragged from a file
                 manager like nautilus
     
     Needs to be implemented:
-        Lots
+        Album Art Manager
+        Preferences Dialog
+        Library Manager
+        Radio Panel
+        Podcasts?
+        Queueing tracks, display of queued tracks, queue manager
+        Rating
+        Plugin Manager
+        About Dialog
+        Visualizations
+        SPAT... "stop after track button" like we had in 0.2.  Frankly, I
+            wouldn't mind seeing this in a menu instead of on the toolbar.  I hate
+            the thing anyway.
+        Better search interface (allow for custom queries and etc)
+        Smart Playlist editor
+        Various Device Panels
+        Major cleanup of code in xlgui/playlists.py
+
+    Notes:
+        use gtk.glade.XML.signal_autoconnect *whenever* possible... this
+            is something we didn't do in 0.2 and it was a pain
+        devices:
+            idea: use separate side tab for each device, with device manager
+                option in Tools for advanced config. tabs would be
+                auto-generated as new devices are connected, either via HAL
+                or the device manager.
+                    possible issue: space
+                        not likely needing concern, as it is unlikely that
+                        more than 3 devices will be plugged in at a time
+
     Ideas:
-        use banshee-stype progressbars, ie display a list of all active
+        use banshee-type progressbars, ie display a list of all active
             progressbars below the side pane area. This can be used for
             things like collection rescan, cd import, mp3 player sync, etc.
+        use libsexy to put album art in tray tooltip (possible?)
+            - alternatively, replace tray tooltip with OSD if enabled
+        OSD progressbar should be togglable (perhaps make {progressbar}
+            element available in customizer?)
+    feature requests:
+        PPAT - like SPAT, but pauses instead of stopping. this could easily
+            be a toggle for SPAT. (this would let me stop listening between 
+            songs, without losing my place like SPAT does) --reacocard
 
 
 ==== NOTES ====

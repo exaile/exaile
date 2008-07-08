@@ -54,15 +54,15 @@ class CoverWidget(guiutil.ScalableImageWidget):
         self.current_track = player.current
 
         try:
-            cover = self.covers.get_cover(self.current_track,
+            cov = self.covers.get_cover(self.current_track,
                 update_track=True)
         except cover.NoCoverFoundException:
             logger.warning("No covers found")
             return
 
         if self.player.current == self.current_track:
-            gobject.idle_add(self.set_image, cover)
-            self.loc = cover
+            gobject.idle_add(self.set_image, cov)
+            self.loc = cov
 
     def on_playback_end(self, type, player, object):
         """

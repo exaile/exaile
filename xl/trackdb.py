@@ -83,6 +83,9 @@ POSTGRES_MAPPING = {
 
 
 def get_database_connection(uri):
+    if uri == None:
+        from tempfile import mkstemp
+        uri = "sqlite:%s"%mkstemp()[1]
     dbtype = uri.split(":",1)[0]
 
     logger.debug("Connecting to database at %s"%uri)
@@ -124,7 +127,7 @@ def get_database_connection(uri):
         store.execute(query)
         logger.debug("Created initial DB")
     except: #FIXME: BAD BAD BAD BAD BAD, we should handle specific exceptions
-        # table exists, try adding any fields individually, this handles
+        # table exists, try adding any fields individually. this handles
         # added fields between versions transparently.
         logger.debug("DB exists, attempting to add any missing fields")
         for item in sql_fields[1:]:
@@ -132,8 +135,15 @@ def get_database_connection(uri):
                 query = "ALTER TABLE tracks ADD %s;"%item
                 store.execute(query)
                 logger.debug("Added missing field \"%s\""%item)
-            except:
+            except: #ALSO BAD
                 pass
+    for item in SEARCH_ITEMS:
+        try:
+            query = "CREATE INDEX %s_index ON tracks(%s(100))"%(item, item)
+            store.execute(query)
+            logger.debug("Added index for %s"%item)
+        except: #YET MORE BAD
+            pass
     store.commit()
 
     return db
@@ -148,7 +158,7 @@ class TrackDB(object):
 
         This particular implementation is done using storm
     """
-    def __init__(self, name='', location="", pickle_attrs=[]):
+    def __init__(self, name='', location=""):
         """
             Sets up the trackDB.
 
@@ -186,6 +196,7 @@ class TrackDB(object):
         pass
             
     def save_to_location(self, location=None):
+        self.store.commit()
         pass #FIXME
 
     def add(self, track):
@@ -214,7 +225,7 @@ class TrackDB(object):
             self.store.remove(tr)
             event.log_event("track_removed", self, tr.get_loc())
 
-    def list_tag(self, tag, search_terms=None, use_albumartist=False):
+    def list_tag(self, tag, search_terms="", use_albumartist=False):
         """
             lists out all the values for a particular, tag, without duplicates
             

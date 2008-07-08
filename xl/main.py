@@ -96,7 +96,6 @@ class Exaile(object):
         self.playlists = playlist.PlaylistManager()
         if firstrun:
             self._add_default_playlists() 
-            pass
 
         #initialize dynamic playlist support
         from xl import dynamic
@@ -240,7 +239,7 @@ class Exaile(object):
         entire_lib = playlist.SmartPlaylist("Entire Library",
             collection=self.collection) 
         self.playlists.add_smart_playlist(entire_lib)
-
+        
         # random playlists
         for count in (100, 300, 500):
             pl = playlist.SmartPlaylist("Random %d" % count,
@@ -248,7 +247,7 @@ class Exaile(object):
             pl.set_return_limit(count)
             pl.set_random_sort(True)
             self.playlists.add_smart_playlist(pl)
-
+        
         # rating based playlists
         for item in (3, 4):
             pl = playlist.SmartPlaylist("Rating > %d" % item, 

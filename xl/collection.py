@@ -75,12 +75,12 @@ class Collection(trackdb.TrackDB):
         >>> c = Collection("Test Collection")
         >>> c.add_library(Library("./tests/data"))
         >>> c.rescan_libraries()
-        >>> tracks = c.search('artist="TestArtist"')
+        >>> tracks = list(c.search('artist="TestArtist"'))
         >>> print len(tracks)
         5
         >>> 
     """
-    def __init__(self, name, location=None, pickle_attrs=[]):
+    def __init__(self, name, location=None):
         """
             Set up the collection
 
@@ -88,8 +88,7 @@ class Collection(trackdb.TrackDB):
         """
         self.libraries = dict()
         self.settings = SettingsManager.settings
-        trackdb.TrackDB.__init__(self, location=location, 
-                pickle_attrs=pickle_attrs)
+        trackdb.TrackDB.__init__(self, location=location)
 
         if self.settings:
             lib_paths = self.settings.get_option("collection/libraries", [])
@@ -309,7 +308,7 @@ class Library(object):
         True
         >>> print c.get_libraries()[0].location
         ./tests/data
-        >>> print len(c.search('artist="TestArtist"'))
+        >>> print len(list(c.search('artist="TestArtist"')))
         5
         >>> 
     """

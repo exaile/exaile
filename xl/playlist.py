@@ -759,11 +759,10 @@ class SmartPlaylist(object):
 
         pl = Playlist(name=self.get_name())
 
-        tracks = collection.search(search_string, sort_field,
-        self.track_count)
-
-        pl.add_tracks(collection.search(search_string, sort_field,
+        tracks = list(collection.search(search_string, sort_field,
             self.track_count))
+
+        pl.add_tracks(tracks)
 
         return pl
 

@@ -35,7 +35,8 @@ from xl import common
 # define these here so the interperter doesn't complain about them
 EVENT_MANAGER = None
 IDLE_MANAGER  = None
-_TESTING = False  # set this to true for testing
+
+_TESTING = False  # this is used by the testsuite to make all events syncronous
 
 logger = logging.getLogger(__name__)
 
@@ -98,7 +99,6 @@ def idle_add(func, *args):
     """
     global IDLE_MANAGER
     IDLE_MANAGER.add(func, *args)
-
 
 class Event(object):
     """
@@ -180,6 +180,7 @@ class EventManager(object):
         self.callbacks = {}
         self.idle = IDLE_MANAGER
         self.use_logger = use_logger
+        self.lock = threading.Lock()
 
     def emit(self, event):
         """
@@ -187,7 +188,7 @@ class EventManager(object):
 
             event: the Event to emit [Event]
         """
-
+        self.lock.acquire()
         # find callbacks that match the Event
         callbacks = []
         for tcall in [None, event.type]:
@@ -216,15 +217,13 @@ class EventManager(object):
                 if not _TESTING: common.log_exception(logger)
                 else:
                     traceback.print_exc()
+        self.lock.release()
 
     def emit_async(self, event):
         """
             Same as emit(), but does not block.
         """
-        if not _TESTING:
-            self.idle.add(self.emit, event)
-        else:
-            self.emit(event)
+        self.idle.add(self.emit, event)
 
     def add_callback(self, function, type=None, object=None):
         """

@@ -7,7 +7,7 @@ settings.SettingsManager('.testtemp/test_exaile_settings.ini')
 class BaseTestCase(unittest.TestCase):
     def setUp(self):
         self.settings = settings.SettingsManager('.testtemp/test_exaile_settings.ini')
-        self.temp_col_loc = '.testtemp/col%s.db' % \
+        self.temp_col_loc = 'sqlite:.testtemp/col%s.db' % \
             md5.new(str(time.time())).hexdigest()
         self.collection = collection.Collection("TestCollection", 
             self.temp_col_loc)

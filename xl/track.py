@@ -310,10 +310,13 @@ class Track(object):
         title = self['title']
         album = self['album']
         artist = self['artist']
-        ret = "'"+title+"'"
-        if artist.strip():
+        if title and title.strip():
+            ret = "'"+title+"'"
+        else:
+            ret = "'Unknown'"
+        if artist and artist.strip():
             ret += " by '%s'" % artist
-        if album.strip():
+        if album and album.strip():
             ret += " from '%s'" % album
         return ret
 

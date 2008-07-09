@@ -27,8 +27,9 @@ class TestPlayer(player.BaseGSTPlayer):
     def stop(self):
         self.playing = False
         self.paused = False
-        event.log_event('playback_end', self, self.current)
+        current = self.current
         self.current = None
+        event.log_event('playback_end', self, current)
 
     def pause(self):
         self.paused = True
@@ -69,7 +70,7 @@ class BaseTestCase(GtkTestCase,
         self.covers = cover.CoverManager('.testtemp/covers')
         self.player = TestPlayer()
         self.queue = player.PlayQueue(self.player)
-        self.playlists = playlist.PlaylistManager()
+        self.playlists = playlist.PlaylistManager(self.collection)
         self.radio = radio.RadioManager()
         self.gui = xlgui.Main(self)
 

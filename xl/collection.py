@@ -88,6 +88,7 @@ class Collection(trackdb.TrackDB):
         """
         self.libraries = dict()
         self.settings = SettingsManager.settings
+        self.name = name
         trackdb.TrackDB.__init__(self, location=location)
 
         if self.settings:

@@ -81,6 +81,38 @@ POSTGRES_MAPPING = {
         Time: "TIME",
         TimeDelta: "INTERVAL"}
 
+def get_sort_tuple(fields, track):
+    """
+        Returns the sort tuple for a single track
+
+        fields: the tag(s) to sort by (a single string or iterable of strings)
+        track: the track to sort [Track]
+    """
+    if not type(fields) in (list, tuple):
+        items = [track.sort_param(field)]
+    else:
+        items = [track.sort_param(field) for field in fields]
+
+    for item in ('album', 'track', 'artist', 'title'):
+        if track.sort_param(item) not in items:
+            items.append(track.sort_param(item))
+
+    items.append(track)
+    return tuple(items)
+
+def sort_tracks(fields, tracks, reverse=False):
+    """
+        Sorts tracks by the field passed
+
+        fields: field(s) to sort by [string] or [list] of strings
+        tracks: tracks to sort [list of Track]
+        reverse: sort in reverse? [bool]
+    """
+    tracks = [get_sort_tuple(fields, t) for t in tracks]
+    tracks.sort()
+    if reverse: tracks.reverse()
+
+    return [t[-1:][0] for t in tracks]
 
 def get_database_connection(uri):
     if uri == None:
@@ -274,7 +306,8 @@ class TrackDB(object):
         else:
             return res[0]
 
-    def search(self, query, sort_fields=None, return_lim=-1):
+    def search(self, query, sort_fields=None, return_lim=-1, 
+            use_resultset=False):
         """
             Search the trackDB, optionally sorting by sort_field
 
@@ -283,9 +316,25 @@ class TrackDB(object):
                 randomly.  A [string] or [list] of strings
             @param return_lim:  limit the number of tracks returned to a
                 maximum
+            @param use_resultset: return a resultset instead of a list, if 
+                possible
         """
         searcher = TrackSearcher()
-        tracks = searcher.search_collection(query, self)
+        tracks = searcher.search_store(query, self.store)
+
+        #TODO: these can probably be done more-efficiently via storm
+        if sort_fields:
+            tracks = list(tracks)
+            if sort_fields == 'RANDOM':
+                random.shuffle(tracks)
+            else:
+                tracks = sort_tracks(sort_fields, tracks)
+        if return_lim != -1:
+            tracks = list(tracks)[:return_lim]
+
+        if not use_resultset:
+            tracks = list(tracks)
+
         return tracks
 
 
@@ -488,14 +537,13 @@ class TrackSearcher(object):
         return self.stormize(tokens[1:], last_val=val)
 
 
-    def search_collection(self, query, collection, sort_fields=None, 
-            return_lim=-1):
+    def search_store(self, query, store):
         if query == "":
-            return collection.store.find(track.Track)
+            return store.find(track.Track)
         else:
             tokens = self.tokenize_query(query)
             storm_tokens = self.stormize(tokens)
-            tracks = collection.store.find(track.Track, storm_tokens)
+            tracks = store.find(track.Track, storm_tokens)
             return tracks
 
     def search(self, query, tracks, sort_order=None):

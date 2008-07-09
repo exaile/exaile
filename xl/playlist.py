@@ -23,7 +23,13 @@
 # also contains functions for saving and loading various playlist formats.
 
 from xl import trackdb, event, xdg, track
+from xl.settings import SettingsManager
 import urllib, random, os, time
+
+try:
+    import cPickle as pickle
+except:
+    import pickle
 
 try:
     import xml.etree.cElementTree as ETree
@@ -591,7 +597,6 @@ class Playlist(object):
         """
         return "%s: %s" % (type(self), self.name)
 
-    #FIXME: name random, repeat, dynamic, current_pos, name
     def save_to_location(self, location):
         if os.path.exists(location):
             f = open(location + ".new", "w")
@@ -599,6 +604,12 @@ class Playlist(object):
             f = open(location, "w")
         for tr in self:
             f.write(tr.get_loc() + "\n")
+        f.write("EOF\n")
+        for item in ['random_enabled', 'repeat_enabled', 'dynamic_enabled',
+                'current_pos', 'name']:
+            val = getattr(self, item)
+            strn = SettingsManager._val_to_str(val)
+            f.write("%s=%s\n"%(item,strn))
         f.close()
         if os.path.exists(location + ".new"):
             os.remove(location)
@@ -614,9 +625,17 @@ class Playlist(object):
         locs = []
         while True:
             line = f.readline()
-            if line == "":
+            if line == "EOF\n" or line == "":
                 break
             locs.append(line)
+        while True:
+            line = f.readline()
+            if line == "":
+                break
+            item, strn = line[:-1].split("=",1)
+            val = SettingsManager._str_to_val(strn)
+            if hasattr(self, item):
+                setattr(self, item, val)
         f.close()
 
         tracks = []
@@ -849,10 +868,25 @@ class SmartPlaylist(object):
             return ' '.join(params)
 
     def save_to_location(self, location):
-        pass #FIXME: implement this
+        pdata = {}
+        for item in ['search_params', 'custom_params', 'or_match',
+                'track_count', 'random_sort', 'name']:
+            pdata[item] = getattr(self, item)
+        f = open(location, 'wb')
+        pickle.dump(pdata, f)
+        f.close()
 
     def load_from_location(self, location):
-        pass #FIXME: implement this
+        try:
+            f = open(location, 'rb')
+            pdata = pickle.load(f)
+            f.close()
+        except:
+            return
+        for item in pdata:
+            if hasattr(self, item):
+                setattr(self, item, pdata[item])
+
 
 class PlaylistExists(Exception):
     pass
@@ -861,7 +895,7 @@ class PlaylistManager(object):
     """
         TODO:  document me!
     """
-    def __init__(self):
+    def __init__(self, collection):
         self.playlist_dir = os.path.join(xdg.get_data_dirs()[0],'playlists')
         self.smart_playlist_dir = os.path.join(xdg.get_data_dirs()[0],
                 'smart_playlists')
@@ -870,6 +904,7 @@ class PlaylistManager(object):
                 os.makedirs(dir)
         self.playlists = []
         self.smart_playlists = {}
+        self.collection = collection
 
         self.load_names()
 
@@ -892,7 +927,6 @@ class PlaylistManager(object):
 
     def add_smart_playlist(self, pl):
         name = pl.get_name()
-        pl.set_location(os.path.join(self.smart_playlist_dir,pl.get_name()))
         self.smart_playlists[name] = pl
         event.log_event('smart_playlist_added', self, pl)
 
@@ -916,8 +950,8 @@ class PlaylistManager(object):
 
     def get_playlist(self, name):
         if name in self.playlists:
-            pl = Playlist(location=os.path.join(self.playlist_dir, name))
-            pl.set_name(name)
+            pl = Playlist()
+            pl.load_from_location(os.path.join(self.playlist_dir, name))
             return pl
         else:
             raise ValueError("No such playlist")
@@ -929,8 +963,8 @@ class PlaylistManager(object):
         if self.smart_playlists.has_key(name):
             pl = self.smart_playlists[name]
             if pl == None:
-                pl = SmartPlaylist(name=name, 
-                        location=os.path.join(self.smart_playlist_dir,name))
+                pl = SmartPlaylist(collection=self.collection)
+                pl.load_from_location(os.path.join(self.smart_playlist_dir,name))
                 self.smart_playlists[name] = pl
             return pl
         else:

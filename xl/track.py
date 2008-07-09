@@ -54,6 +54,8 @@ def lstrip_special(field):
         stripping the chars leaves nothing the original field is returned with
         only whitespace removed.
     """
+    if field == None:
+        return field
     lowered = field.lower()
     stripped = lowered.lstrip(" `~!@#$%^&*()_+-={}|[]\\\";'<>?,./")
     if stripped:
@@ -78,6 +80,8 @@ class Track(object):
     # from outside an instance of this class.
     __storm_table__ = "tracks"
     id = Int(primary=True)
+
+    #tags
     title = Unicode()
     version = Unicode()
     album = Unicode()
@@ -110,6 +114,9 @@ class Track(object):
     originalalbum = Unicode()
     originalartist = Unicode()
     recordingdate = Unicode()
+    lyrics = Unicode()
+
+    # exaile internal fields
     playcount = Int()
     bitrate = Int()
     length = Float()
@@ -118,6 +125,8 @@ class Track(object):
     loc = Unicode()
     encoding = Unicode()
     modified = Int()
+
+
 
     def __init__(self, uri=None):
         """
@@ -283,9 +292,9 @@ class Track(object):
             Gets the track number in int format.  
         """
         t = self.get_tag('tracknumber')
-        t = split("/")[0]
-        if t == '':
-            t = -1
+        if t == None:
+            return -1
+        t = t.split("/")[0]
         return int(t)
 
     def get_bitrate(self): 
@@ -323,6 +332,8 @@ class Track(object):
             return self.get_track()
         elif field == 'artist':
             artist = lstrip_special(self['artist'])
+            if artist == None:
+                artist = u""
             if artist.startswith('the '): #TODO: allow custom stemming
                 artist = artist[4:]
             return artist

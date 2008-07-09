@@ -93,7 +93,7 @@ class Exaile(object):
 
         #initalize PlaylistsManager
         from xl import playlist
-        self.playlists = playlist.PlaylistManager()
+        self.playlists = playlist.PlaylistManager(self.collection)
         if firstrun:
             self._add_default_playlists() 
 

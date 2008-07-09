@@ -13,7 +13,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import gtk, pango
-from xlgui import guiutil
+from xlgui import guiutil, menu
 from gettext import gettext as _
 from xl import playlist, event, track
 import copy, urllib
@@ -96,6 +96,8 @@ class Playlist(gtk.VBox):
         self._setup_col_menus()
         self._setup_columns()
         self._set_tracks(self.playlist.get_tracks())
+
+        self.menu = menu.PlaylistMenu(self) 
 
         self.show_all()
 
@@ -317,11 +319,16 @@ class Playlist(gtk.VBox):
         self.controller.exaile.player.stop()
         self.controller.exaile.queue.play()
 
-    def button_press(self, *e):
+    def button_press(self, button, event):
         """
-            stubb
+            Called when the user clicks on the playlist
         """
-        pass
+        if event.button == 3:
+            selection = self.list.get_selection()
+            self.menu.popup(event)
+
+            if selection.count_selected_rows() <= 1: return False
+            else: return True
 
     def _setup_tree(self):
         """

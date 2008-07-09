@@ -408,6 +408,12 @@ class Playlist(trackdb.TrackDB):
 
         event.log_event('tracks_removed', self, (start, end, removed))
 
+    def clear(self):
+        """
+            Clears the playlist of any tracks
+        """
+        self.remove_tracks(0, len(self))
+
     def get_tracks(self):
         """
             gets the list of tracks in this playlist, in order

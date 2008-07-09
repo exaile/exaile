@@ -367,3 +367,96 @@ def get_text_icon(widget, text, width, height, bgcolor='#456eac',
 
     BITMAP_CACHE["%s - %sx%s - %s" % (text, width, height, bgcolor)] = pixbuf
     return pixbuf
+
+class Menu(gtk.Menu):
+    """
+        A proxy for making it easier to add icons to menu items
+    """
+    def __init__(self):
+        """
+            Initializes the menu
+        """
+        gtk.Menu.__init__(self)
+
+        self.show()
+
+    def append_image(self, pixbuf, callback, data=None):
+        """
+            Appends a graphic as a menu item
+        """
+        item = gtk.MenuItem()
+        image = gtk.Image()
+        image.set_from_pixbuf(pixbuf)
+        item.add(image)
+        
+        if callback: item.connect('activate', callback, data)
+        gtk.Menu.append(self, item)
+        item.show_all()
+        return item
+
+    def append(self, label, callback, stock_id=None, data=None):
+        """
+            Appends a menu item
+        """
+        if stock_id:
+            item = gtk.MenuItem()
+            hbox = gtk.HBox()
+            hbox.set_spacing(5)
+            item.add(hbox)
+            image = gtk.image_new_from_stock(stock_id,
+                gtk.ICON_SIZE_MENU)
+            hbox.pack_start(image, False, True)
+            label = gtk.Label(label)
+            label.set_alignment(0, 0)
+            hbox.pack_start(label, True, True)
+        else:
+            item = gtk.MenuItem(label)
+            self.label = item.get_child()
+
+        if callback: item.connect('activate', callback, data)
+        gtk.Menu.append(self, item)
+        item.show_all()
+        return item
+
+    def append_item(self, item):
+        """
+            Appends a menu item
+        """
+        gtk.Menu.append(self, item)
+        item.show_all()
+
+    def append_menu(self, label, menu, stock_id=None):
+        """
+            Appends a submenu
+        """
+        if stock_id:
+            item = self.append(label, None, stock_id)
+            item.set_submenu(menu)
+            return item
+
+        item = gtk.MenuItem(label)
+        item.set_submenu(menu)
+        item.show()
+        gtk.Menu.append(self, item)
+
+        return item
+
+    def insert_menu(self, index, label, menu):
+        """
+            Inserts a menu at the specified index
+        """
+        item = gtk.MenuItem(label)
+        item.set_submenu(menu)
+        item.show()
+        gtk.Menu.insert(self, item, index)
+
+        return item
+
+    def append_separator(self):
+        """
+            Adds a separator
+        """
+        item = gtk.SeparatorMenuItem()
+        item.show()
+        gtk.Menu.append(self, item)
+

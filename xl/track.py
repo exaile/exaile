@@ -353,7 +353,12 @@ class Track(object):
             if artist.find('the ') == 0:
                 artist = artist[4:]
             return artist
-        else: return lstrip_special(self[field])
+        elif field == 'length':
+            try:
+                return int(self[field])
+            except ValueError:
+                return "0"
+        else: return lstrip_special(unicode(self[field]))
 
     def __repr__(self):
         return str(self) #for debugging, remove later

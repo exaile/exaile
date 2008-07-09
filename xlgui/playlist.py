@@ -729,10 +729,12 @@ class Playlist(gtk.VBox):
                 image = self.playimg
             elif self.controller.exaile.player.is_paused():
                 image = self.pauseimg
-#        elif item in self.exaile.player.queued:
-#            index = self.exaile.player.queued.index(item)
-#            image = xlmisc.get_text_icon(self.exaile.window,
-#                str(index + 1), 18, 18)
+
+        # queued items
+        elif item in self.controller.exaile.queue.tracks.values():
+            index = self.controller.exaile.queue.index(item)
+            image = guiutil.get_text_icon(self.main.window,
+                str(index + 1), 18, 18)
 
         cell.set_property('pixbuf', image)
 

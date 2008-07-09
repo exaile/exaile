@@ -338,15 +338,19 @@ class Playlist(trackdb.TrackDB):
         """
         return PlaylistIterator(self)
 
-    def add(self, track, location=None):
+    def add(self, track, location=None, ignore_missing_files = True):
         """
             insert the track into the playlist at the specified
-            location (default: append)
+            location (default: append). by default it the track can
+            not be found by the os it is not added
 
+            @param ignore_missing_files:
+                if true tracks that cannot be found are ignored
             track: the track to add [Track]
             location: the index to insert at [int]
         """
-        self.add_tracks([track], location)
+        if os.path.exists(track.get_loc_for_io()) or not ignore_missing_files:
+            self.add_tracks([track], location)
 
     def add_tracks(self, tracks, location=None):
         """
@@ -853,6 +857,11 @@ class PlaylistManager(object):
 
     def save_all(self):
         for pl in self.smart_playlists.values():
+            if pl is not None:
+                pl.save_to_location()
+                
+        for name in self.playlists:
+            pl = self.get_playlist(name)
             if pl is not None:
                 pl.save_to_location()
 

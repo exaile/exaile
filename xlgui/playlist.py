@@ -18,6 +18,7 @@ from gettext import gettext as _
 from xl import playlist, event, track
 import copy, urllib
 import logging
+import os, os.path
 logger = logging.getLogger(__name__)
 
 class Column(object):
@@ -399,18 +400,10 @@ class Playlist(gtk.VBox):
                 first = True
 
         current_tracks = self.playlist.get_tracks()
-        for loc in locs:
-            loc = loc.replace('file://', '')
-            loc = urllib.unquote(loc)
-
-            # If the location we are handling is not in the current collection
-            # associated with this playlist then we have to perform extra
-            # work to verify if it is a legit file
-            if not loc in self.collection.tracks: 
-                self.handle_unknown_drag_data(loc)
-                continue
-            track = self.collection.tracks[loc]
-
+        (tracks, playlists) = self.list.get_drag_data(locs)
+            
+        #Determine what to do with the tracks
+        for track in tracks:
             if not drop_info:
                 self._append_track(track)
             else:
@@ -436,7 +429,8 @@ class Playlist(gtk.VBox):
         else:
             context.finish(True, False, etime)
 
-        # update the tracks in the playlist
+        #iterates through the list and adds any tracks that are
+        # not in the playlist to the current playlist
         current_tracks = self.playlist.get_tracks()
         iter = self.model.get_iter_first()
         if not iter: return
@@ -447,6 +441,8 @@ class Playlist(gtk.VBox):
             iter = self.model.iter_next(iter)
             if not iter: break
 
+        #Re add all of the tracks so that they
+        # become ordered 
         iter = self.model.get_iter_first()
         if not iter: return
         self.playlist.ordered_tracks = []
@@ -455,6 +451,8 @@ class Playlist(gtk.VBox):
             self.playlist.ordered_tracks.append(track)
             iter = self.model.iter_next(iter)
             if not iter: break
+    
+        # We do not save the playlist because it is saved by the playlist manager?
 
         event.add_callback(self.on_add_tracks, 'tracks_added', self.playlist)
         event.add_callback(self.on_remove_tracks, 'tracks_removed',
@@ -469,8 +467,6 @@ class Playlist(gtk.VBox):
             Called after a drag data operation is complete
             and we want to delete the source data
         """
-        #TODO verify that it only deletes tracks when we 
-        # do a move operation and not a copy operation
         if context.drag_drop_succeeded():
             sel = self.list.get_selection()
             (model, paths) = sel.get_selected_rows()
@@ -482,25 +478,7 @@ class Playlist(gtk.VBox):
             for row in rows:
                 iter = self.model.get_iter(row.get_path()) 
                 self.model.remove(iter)
-        self._print_playlist('drag_data_delete')
-
-    #TODO have it take in the position to put the tracks as well
-    def handle_unknown_drag_data(self, loc):
-        """
-            Handles unknown drag data that has been recieved by
-            drag_data_received.  Unknown drag data is classified as
-            any loc (location) that is not in the collection of tracks
-            (i.e. a new song, or a new playlist)
-        """
-        if track.is_valid_track(loc):
-            #Adding a new song to the playlist
-            new_track = track.Track(loc)
-        elif playlist.is_valid_playlist(loc):
-            #User is dragging a playlist into the playlist list
-            # so we add all of the songs in the playlist
-            # to the list
-            new_playlist = playlist.import_playlist(loc)
-
+            
     def drag_get_data(self, treeview, context, selection, target_id, etime):
         """
             Called when a drag source wants data for this drag operation
@@ -516,8 +494,7 @@ class Playlist(gtk.VBox):
             loc.append(urllib.quote(str(song.get_loc())))
 
         selection.set_uris(loc)
-        self._print_playlist('drag_get_data')
-
+        
     def setup_model(self, map):
         """
             Gets the array to build the two models

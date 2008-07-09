@@ -14,9 +14,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import gtk, os.path
+import gtk, os.path, urllib
 import gtk.gdk, pango
-from xl import xdg
+from xl import xdg, track, playlist
 
 try:
     import sexy
@@ -198,6 +198,76 @@ class DragTreeView(gtk.TreeView):
         if not selection.count_selected_rows():
             selection.select_path(path[0])
         return self.cont.button_press(button, event)
+    
+    #TODO maybe move this somewhere else? (along with _handle_unknown_drag_data)
+    def get_drag_data(self, locs, compile_tracks = True):
+        """
+            Handles the locations from drag data
+        
+            @param locs: locations we are dealing with (can
+                be anything from a file to a folder)
+            @param compile_tracks: if true any tracks in the playlists
+                that are not found as tracks are added to the list of tracks
+            
+            @returns: a 2 tuple in which the first part is a list of tracks
+                and the second is a list of playlist (note: any files that are
+                in a playlist are not added to the list of tracks, but a track could
+                be both in as a found track and part of a playlist)
+        """
+        tracks = []
+        playlists = []
+        for loc in locs:
+            loc = loc.replace('file://', '')
+            loc = urllib.unquote(loc)
+            (found_tracks, found_playlist) = self._handle_unknown_drag_data(loc)
+            tracks.extend(found_tracks)
+            playlists.extend(found_playlist)
+            
+        if compile_tracks:
+            #Add any tracks in the playlist to the master list of tracks
+            for playlist in playlists:
+                for track in playlist.get_tracks():
+                    if track not in tracks:
+                        tracks.append(track)
+                
+        return (tracks, playlists)
+    
+    def _handle_unknown_drag_data(self, loc):
+        """
+            Handles unknown drag data that has been recieved by
+            drag_data_received.  Unknown drag data is classified as
+            any loc (location) that is not in the collection of tracks
+            (i.e. a new song, or a new playlist)
+            
+            @param loc:
+                the location of the unknown drag data
+            
+            @returns: a 2 tuple in which the first part is a list of tracks
+                and the second is a list of playlist
+        """
+        if track.is_valid_track(loc):
+            new_track = track.Track(loc)
+            return ([new_track],[])
+        elif playlist.is_valid_playlist(loc):
+            #User is dragging a playlist into the playlist list
+            # so we add all of the songs in the playlist
+            # to the list
+            new_playlist = playlist.import_playlist(loc)
+            return ([], [new_playlist])
+        elif os.path.isdir(loc):
+            #They dropped a folder
+            new_tracks = [] 
+            new_playlist = []
+            for root, dirs, files in os.walk(loc):
+                files.sort()
+                for file in files:
+                    full_path = os.path.join(root, file)
+                    (found_tracks, found_playlist) = self._handle_unknown_drag_data(full_path)
+                    new_tracks.extend(found_tracks)
+                    new_playlist.extend(found_playlist) 
+            return (new_tracks, new_playlist)
+        else: #We don't know what they dropped
+            return ([], [])
 
 class EntryWithClearButton(object):
     """

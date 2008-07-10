@@ -198,12 +198,14 @@ class TrackDB(object):
             @param location:   Path to a file where this trackDB
                     should be stored. [string]
         """
-        self.tracks = dict()
         self.name = name
         self.location = location
 
         self.db = get_database_connection(location)
         self.store = Store(self.db)
+
+    def get_editable(self):
+        return EditableTrackDB(self, self.db)
 
     def set_name(self, name):
         """
@@ -231,32 +233,6 @@ class TrackDB(object):
         self.store.commit()
         pass #FIXME
 
-    def add(self, track):
-        """
-            Adds a track to the database of tracks
-
-            track: The Track to add [Track]
-        """
-        self.add_tracks([track])
-
-    def add_tracks(self, tracks):
-        for tr in tracks:
-            self.store.add(tr)
-            event.log_event("track_added", self, tr.get_loc())        
-
-    def remove(self, track):
-        """
-            Removes a track from the database
-
-            track: the Track to remove [Track]    
-        """
-        self.remove_tracks([track])
-                
-    def remove_tracks(self, tracks):
-        for tr in tracks:
-            self.store.remove(tr)
-            event.log_event("track_removed", self, tr.get_loc())
-
     def list_tag(self, tag, search_terms="", use_albumartist=False):
         """
             lists out all the values for a particular, tag, without duplicates
@@ -268,43 +244,42 @@ class TrackDB(object):
         retset = None
         if tag == "artist" and use_albumartist == True:
             albumartists = set(
-                    store.find(track.Track).values(track.Track.albumartist))
+                    store.find(track.Track).config(distinct=True).values(track.Track.albumartist))
             if len(albumartists) == 0: #SQL fails on empty list with In
                 tag = getattr(track.Track, tag)
-                retset = set(self.search(search_terms).values(tag))
+                retset = self.search(search_terms, use_resultset=True).config(distinct=True).values(tag)
             else:
-                aaalbums = set(
+                aaalbums = list(
                             store.find(track.Track, 
                                 In(track.Track.albumartist, 
                                     list(albumartists))
-                                ).values(track.Track.album))
+                                ).config(distinct=True).values(track.Track.album))
                 artists = set(
                             store.find(track.Track, 
                                 Not(In(track.Track.album, 
-                                    list(aaalbums)))
-                                ).values(track.Track.artist))
+                                    aaalbums))
+                                ).config(distinct=True).values(track.Track.artist))
                 retset = artists.union(albumartist)
         else:
             tag = getattr(track.Track, tag)
-            retset = set(self.search(search_terms).values(tag))
+            retset = self.search(search_terms,use_resultset=True).config(distinct=True).values(tag)
 
         return list(retset)
 
-    def get_track_by_loc(self, loc):
+    def get_track_by_loc(self, loc, raw=False):
         """
             returns the track having the given loc. if no such
             track exists, returns None
         """
-        res = list(self.store.find(track.Track, Eq(track.Track.loc, loc)))
-        if len(res) == 0:
-            return None
-        elif len(res) > 1: # have to hack this since storm apparently won't 
-            for tr in res: #           let me force a case-sensitive search
-                if tr.get_loc() == loc or tr.get_loc_for_io() == loc:
-                    return tr
-            return None #this should never happen
+        res = self.store.find(track.Track, Like(track.Track.loc, loc, case_sensitive=True))
+        if raw:
+            return res
         else:
-            return res[0]
+            return res.one()
+
+    def get_track_attr(self, loc, attr):
+        res = self.get_track_by_loc(loc, raw=True)
+        return res.values(getattr(track.Track, attr))[0]
 
     def search(self, query, sort_fields=None, return_lim=-1, 
             use_resultset=False):
@@ -337,6 +312,82 @@ class TrackDB(object):
 
         return tracks
 
+    def _on_commit(self):
+        # reloads the data from the db after changes are made
+        self.store.rollback()
+        self.store.flush()
+
+    def loc_is_member(self, loc):
+        """
+            returns True if loc is a track in this collection, False
+            if it is not
+        """
+        # check to see if it's in one of our libraries, this speeds things
+        # up if we have a slow DB
+        lib = None
+        if hasattr(self, libraries):
+            for k, v in self.libraries:
+                if loc.startswith(k):
+                    lib = v
+                    break
+            if not lib:
+                return False
+
+        # check for the actual track
+        if self.get_track_by_loc(loc):
+            return True
+        else:
+            return False
+ 
+
+class EditableTrackDB(TrackDB):
+    """
+        to keep things smooth, we require edits to the DB to be made
+        via these. the main TrackDB instance is for read-only purposes,
+        any changes to it will be lost
+    """
+    def __init__(self, trackdb, db):
+        self.trackdb = trackdb
+        self.db = db
+        self.store = Store(db)
+
+    def add(self, track):
+        """
+            Adds a track to the database of tracks
+
+            track: The Track to add [Track]
+        """
+        self.add_tracks([track])
+
+    def add_tracks(self, tracks):
+        for tr in tracks:
+            self.store.add(tr)
+            event.log_event("track_added", self.trackdb, tr.get_loc())        
+
+    def remove(self, track):
+        """
+            Removes a track from the database
+
+            track: the Track to remove [Track]    
+        """
+        self.remove_tracks([track])
+                
+    def remove_tracks(self, tracks):
+        for tr in tracks:
+            self.store.remove(tr)
+            event.log_event("track_removed", self.trackdb, tr.get_loc())
+
+    def commit(self):
+        self.store.commit()
+        self.trackdb._on_commit()
+
+    def rollback(self):
+        self.store.rollback()
+
+    def close(self):
+        self.store.close()
+        self.trackdb._on_commit()
+        
 
 class TrackSearcher(object):
     """

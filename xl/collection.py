@@ -21,7 +21,7 @@
 # A library finds tracks in a specified directory and adds them to an
 # associated collection.
 
-from xl import trackdb, media, track, common
+from xl import trackdb, media, track, common, xdg
 from xl.settings import SettingsManager
 settings = SettingsManager.settings
 
@@ -151,27 +151,6 @@ class Collection(trackdb.TrackDB):
         for k, v in self.libraries.iteritems():
             libraries.append((v.location, v.realtime, v.scan_interval))
         self.settings.set_option("collection/libraries", libraries)
-
-    def loc_is_member(self, loc):
-        """
-            returns True if loc is a track in this collection, False
-            if it is not
-        """
-        # check to see if it's in one of our libraries, this speeds things
-        # up if we have a slow DB
-        lib = None
-        for k, v in self.libraries:
-            if loc.startswith(k):
-                lib = v
-                break
-        if not lib:
-            return False
-
-        # check for the actual track
-        if self.get_track_by_loc(loc):
-            return True
-        else:
-            return False
 
     def close(self):
         """
@@ -361,19 +340,23 @@ class Library(object):
 
             locations: a list of locations to check
         """
+        db = self.collection.get_editable()
         for fullpath in locations:
-            if fullpath in self.collection.tracks:
+            tr = db.get_track_by_loc(fullpath)
+            if tr:
                 # check to see if we need to scan this track
                 mtime = os.path.getmtime(fullpath)
-                if unicode(mtime) == self.collection.tracks[fullpath]['modified']:
+                if unicode(mtime) == tr['modified']:
                     continue
                 else:
-                    self.collection.tracks[fullpath].read_tags()
+                    tr.read_tags()
                     continue
 
             tr = track.Track(fullpath)
             if tr._scan_valid == True:
-                self.collection.add(tr)
+                db.add(tr)
+        db.commit()
+        db.close()
 
     def _remove_locations(self, locations):
         """
@@ -402,28 +385,36 @@ class Library(object):
         logger.info("Scanning library: %s" % self.location)
         self.scanning = True
         formats = track.formats.keys()
+        db = self.collection.get_editable()
+        num_added = 0
 
         for folder in os.walk(self.location):
             basepath = folder[0]
             for filename in folder[2]:
+                if num_added > 500:
+                    db.commit()
+                    num_added = 0
                 fullpath = os.path.join(basepath, filename)
 
-                if fullpath in self.collection.tracks:
-                    # check to see if we need to scan this track
-                    try:
-                        mtime = os.path.getmtime(fullpath)
-                    except OSError:
+                try:
+                    trmtime = db.get_track_attr(fullpath, "modified")
+                    mtime = os.path.getmtime(fullpath)
+                    if mtime == trmtime:
                         continue
-                    if mtime == self.collection.tracks[fullpath]['modified']:
-                        continue
-                    else:
-                        self.collection.tracks[fullpath].read_tags()
-                        continue
+                except:
+                    continue
 
-                tr = track.Track(fullpath)
-                if tr._scan_valid == True:
-                    self.collection.add(tr)
-
+                tr = db.get_track_by_loc(fullpath)
+                if tr:
+                    tr.read_tags()
+                    num_added += 1
+                else:
+                    tr = track.Track(fullpath)
+                    if tr._scan_valid == True:
+                        db.add(tr)
+                        num_added += 1
+        db.commit()
+        db.close()
         self.scanning = False
         return True
 

@@ -122,7 +122,7 @@ class PlaylistsPanel(panel.Panel):
             current_playlist.add_tracks(tracks)
             # Do we save in the case when a user drags a file onto a playlist in the playlist panel?
             # note that the playlist does not have to be open for this to happen
-            self.manager.save_playlist(current_playlist)
+            self.manager.save_playlist(current_playlist, overwrite=True)
         else:
             # If the user dragged files prompt for a new playlist name
             # else if they dragged a playlist add the playlist
@@ -135,7 +135,7 @@ class PlaylistsPanel(panel.Panel):
                 self.model.append(self.custom, [self.playlist_image, new_playlist.get_name(), 
                                                 new_playlist])
                 # We are adding a completely new playlist with tracks so we save it
-                self.manager.save_playlist(new_playlist)
+                self.manager.save_playlist(new_playlist, overwrite=True)
                     
             #After processing playlist proceed to ask the user for the 
             #name of the new playlist to add and add the tracks to it

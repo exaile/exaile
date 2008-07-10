@@ -59,7 +59,6 @@ class Main(object):
         # save open tabs
         self.main.save_current_tabs()
 
-
 @guiutil.gtkrun
 def show_splash(show=True):
     """

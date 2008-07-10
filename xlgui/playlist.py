@@ -498,6 +498,8 @@ class Playlist(gtk.VBox):
             iter = self.model.get_iter(path)
             song = self.model.get_value(iter, 0) 
 
+            if song.get_type() != 'file':
+                guiutil.DragTreeView.dragged_data[song.get_loc()] = song
             loc.append(urllib.quote(str(song.get_loc())))
 
         selection.set_uris(loc)

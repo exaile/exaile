@@ -83,6 +83,7 @@ class DragTreeView(gtk.TreeView):
     """
         A TextView that does easy dragging/selecting/popup menu
     """
+    dragged_data = dict()
     def __init__(self, cont, receive=True, source=True):
         """
             Initializes the tree and sets up the various callbacks
@@ -254,6 +255,10 @@ class DragTreeView(gtk.TreeView):
             # to the list
             new_playlist = playlist.import_playlist(loc)
             return ([], [new_playlist])
+        elif loc in DragTreeView.dragged_data:
+            new_track = DragTreeView.dragged_data[loc]
+            del DragTreeView.dragged_data[loc]
+            return ([new_track],[])
         elif os.path.isdir(loc):
             #They dropped a folder
             new_tracks = [] 

@@ -778,6 +778,7 @@ class Playlist(gtk.VBox):
         """
             For use in CellRendererTexts that don't have special data funcs.
         """
+        if not self.model.iter_is_valid(iter): return
         item = model.get_value(iter, 0)
         self.set_cell_weight(cell, item)
 

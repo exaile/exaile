@@ -1,4 +1,4 @@
-import unittest, time, md5, shutil
+import unittest, time, md5, shutil, sys
 from xl.lyrics import LyricsManager
 from xl.lyrics import LyricsNotFoundException
 from tests.base import BaseTestCase
@@ -67,6 +67,7 @@ class LyricsTestCase(LyricsBaseTestCase):
         (lyrics, source, url) = self.lyrics.find_lyrics(self.track, True)
         # Load the track to see if it saved
         track = Track("tests/data/music/delerium/chimera/05 - Truly.mp3")
+
         assert(track["lyrics"] == self.track["lyrics"]), "Lyrics not saved to track"
         
     def testSaveLyricsOgg(self):

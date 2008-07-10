@@ -153,10 +153,10 @@ def import_from_pls(path, handle=None):
             len = 0
         tr['length'] = len
         tr.read_tags()
-        pl.add(tr)
+        pl.add(tr, ignore_missing_files=False)
 
     handle.close()
-    
+
     return pl
 
     

@@ -77,7 +77,6 @@ def write_tag(tr):
                 id3.add(frame)
             except:
                 common.log_exception()
-    
     id3.save(tr.get_loc_for_io(), v1=2)    
 
 def can_change(tag):

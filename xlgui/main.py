@@ -88,6 +88,7 @@ class PlaybackProgressBar(object):
         if self.timer_id: gobject.source_remove(self.timer_id)
         self.timer_id = None
         self.bar.set_text(_('Not Playing'))
+        self.bar.set_fraction(0)
 
     def timer_update(self, *e):
         track = self.player.current

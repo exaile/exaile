@@ -27,3 +27,35 @@ class FilesPanel(panel.Panel):
             Initializes the files panel
         """
         panel.Panel.__init__(self, controller)
+
+        self.box = self.xml.get_widget('files_box')
+
+        self.targets = [('text/uri-list', 0, 0)]
+        
+        self.tree = guiutil.DragTreeView(self, True, True)
+        self.tree.set_headers_visible(False)
+
+        self.scroll = gtk.ScrolledWindow()
+        self.scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        self.scroll.add(self.tree)
+        self.scroll.set_shadow_type(gtk.SHADOW_IN)
+        self.box.pack_start(self.scroll, True, True)
+        self.box.show_all()
+
+    def drag_data_received(self, *e):
+        """ 
+            stub
+        """
+        pass
+
+    def drag_data_delete(self, *e):
+        """
+            stub
+        """
+        pass
+
+    def drag_get_data(self, *e):
+        """ 
+            stub
+        """
+        pass

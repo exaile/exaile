@@ -14,8 +14,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import gtk, os.path, urllib
-import gtk.gdk, pango
+import gtk, os.path, urllib, time, md5
+import gtk.gdk, pango, gobject
 from xl import xdg, track, playlist
 
 try:
@@ -465,3 +465,28 @@ class Menu(gtk.Menu):
         item.show()
         gtk.Menu.append(self, item)
 
+class StatusBar(object):
+    """
+        A basic statusbar to replace gtk.StatusBar
+    """
+    def __init__(self, label):
+        """
+            Initializes the bar
+            
+            @param label: the gtk.Label to use for setting status messages
+        """
+        self.label = label
+
+    def set_label(self, message, timeout=0):
+        """
+            Sets teh status label
+        """
+        self.label.set_label(message)
+        if timeout:
+            gobject.timeout_add(timeout, self.clear)
+
+    def clear(self, *e):
+        """
+            Clears the label
+        """
+        self.label.set_label('')

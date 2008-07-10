@@ -307,7 +307,7 @@ class MainWindow(object):
             setattr(self, '%s_button' % button,
                 self.xml.get_widget('%s_button' % button))
 
-        self.left_status = self.xml.get_widget('left_statuslabel')
+        self.status = guiutil.StatusBar(self.xml.get_widget('left_statuslabel'))
         self.track_count_label = self.xml.get_widget('track_count_label')
 
     def update_track_counts(self):
@@ -351,6 +351,18 @@ class MainWindow(object):
             self.controller.exaile.player)
         event.add_callback(self.on_tags_parsed, 'tags_parsed',
             self.controller.exaile.player)
+        event.add_callback(self.on_buffering, 'playback_buffering',
+            self.controller.exaile.player)
+
+    @guiutil.gtkrun
+    def on_buffering(self, type, player, percent):
+        """
+            Called when a stream is buffering
+        """
+        if percent < 100:
+            self.status.set_label("Buffering: %d%%..." % percent, 1000)
+        else:
+            self.status.set_label("Buffering: 100%...", 1000)
 
     @guiutil.gtkrun
     def on_tags_parsed(self, type, player, args):

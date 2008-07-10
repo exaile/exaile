@@ -51,6 +51,14 @@ class Main(object):
         # hide the stop_track button for now
         self.main.xml.get_widget('stop_track').hide()
 
+    def quit(self):
+        """
+            Quits the gui, saving anything that needs to be saved
+        """
+
+        # save open tabs
+        self.main.save_current_tabs()
+
 
 @guiutil.gtkrun
 def show_splash(show=True):

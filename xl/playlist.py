@@ -819,12 +819,19 @@ class PlaylistExists(Exception):
 
 class PlaylistManager(object):
     """
-        TODO:  document me!
+        Manages saving and loading of playlists
     """
-    def __init__(self):
-        self.playlist_dir = os.path.join(xdg.get_data_dirs()[0],'playlists')
+    def __init__(self, playlist_dir='playlists',
+        smart_playlist_dir='smart_playlists'):
+        """
+            Initializes the playlist manager
+
+            @param data_dir: the data dir to save playlists to
+            @param smart_playlist_dir: the data dir to save smart playlists
+        """
+        self.playlist_dir = os.path.join(xdg.get_data_dirs()[0],playlist_dir)
         self.smart_playlist_dir = os.path.join(xdg.get_data_dirs()[0],
-                'smart_playlists')
+                smart_playlist_dir)
         for dir in [self.playlist_dir, self.smart_playlist_dir]:
             if not os.path.exists(dir):
                 os.makedirs(dir)
@@ -834,6 +841,13 @@ class PlaylistManager(object):
         self.load_names()
 
     def save_playlist(self, pl, overwrite=False):
+        """
+            Saves a playlist
+
+            @param pl: the playlist
+            @param overwrite: Set to [True] if you wish to overwrite a
+                playlist should it happen to already exist
+        """
         name = pl.get_name()
         if overwrite or name not in self.playlists:
             pl.save_to_location(os.path.join(self.playlist_dir, pl.get_name()))
@@ -845,23 +859,41 @@ class PlaylistManager(object):
         event.log_event('playlist_added', self, name)
 
     def remove_playlist(self, name):
+        """
+            Removes a playlist from the manager
+
+            @param name: the name of the playlist to remove
+        """
         if name in self.playlists:
             self.playlists.remove(name)
             event.log_event('playlist_removed', self, name)
 
     def add_smart_playlist(self, pl):
+        """
+            Adds a smart playlist to the manager
+
+            @param pl: the playlist
+        """
         name = pl.get_name()
         pl.set_location(os.path.join(self.smart_playlist_dir,pl.get_name()))
         self.smart_playlists[name] = pl
         event.log_event('smart_playlist_added', self, pl)
 
-    def remove_smart_playlist(self, pl):
+    def remove_smart_playlist(self, name):
+        """
+            Removes a smart playlist
+
+            @param name: the name of the playlist to remove
+        """
         if self.smart_playlists.has_key(name):
             pl = self.smart_playlists[name]
             del self.smart_playlists[name]
             event.log_event('smart_playlist_removed', self, pl)
 
     def save_all(self):
+        """
+            Saves all the playlists that are currently being managed
+        """
         for pl in self.smart_playlists.values():
             if pl is not None:
                 pl.save_to_location()
@@ -872,12 +904,20 @@ class PlaylistManager(object):
                 pl.save_to_location()
 
     def load_names(self):
+        """
+            Loads the names of the playlists in the data directory
+        """
         self.playlists = os.listdir(self.playlist_dir)
         smart_playlist_names = os.listdir(self.smart_playlist_dir)
         for p in smart_playlist_names:
             self.smart_playlists[p] = None
 
     def get_playlist(self, name):
+        """
+            Gets a playlist by name
+
+            @param name: the name of the playlist you wish to retrieve
+        """
         if name in self.playlists:
             pl = Playlist(location=os.path.join(self.playlist_dir, name))
             return pl
@@ -885,9 +925,15 @@ class PlaylistManager(object):
             raise ValueError("No such playlist")
 
     def list_playlists(self):
+        """
+            Returns all the contained playlist names
+        """
         return self.playlists[:]
 
     def get_smart_playlist(self, name):
+        """
+            Returns a smart playlist by name
+        """
         if self.smart_playlists.has_key(name):
             pl = self.smart_playlists[name]
             if pl == None:
@@ -899,6 +945,9 @@ class PlaylistManager(object):
             raise ValueError("No such playlist")
 
     def list_smart_playlists(self):
+        """
+            Returns a list of all the smart playlist names
+        """
         return self.smart_playlists.keys()
 
 # vim: et sts=4 sw=4

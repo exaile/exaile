@@ -128,6 +128,7 @@ class Exaile(object):
         from xl import lyrics
         self.lyrics = lyrics.LyricsManager()
 
+        self.gui = None
         #setup GUI
         if self.options.startgui:
             import xlgui
@@ -303,9 +304,11 @@ class Exaile(object):
         logger.info("Saving state...")
         self.plugins.save_enabled()
 
-        #self.gui.quit()
+        if self.gui:
+            self.gui.quit()
 
         self.playlists.save_all()
+
         self.covers.save_cover_db()
 
         self.collection.save_to_location()

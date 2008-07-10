@@ -14,7 +14,7 @@
 
 import gtk, gobject, urllib
 from xl import xdg, common
-from xlgui import panel, guiutil
+from xlgui import panel, guiutil, menu
 from gettext import gettext as _
 
 TRACK_NUM = 300
@@ -52,6 +52,8 @@ class CollectionPanel(panel.Panel):
         self._setup_widgets()
         self._setup_images()
         self._connect_events()
+
+        self.menu = menu.CollectionMenu(self, controller.main)
         self.load_tree()
 
     def _setup_widgets(self):
@@ -265,6 +267,9 @@ class CollectionPanel(panel.Panel):
                     self.append_to_playlist()
 
             return False
+        elif event.button == 3:
+            selection = self.tree.get_selection()
+            self.menu.popup(event)
 
     def load_tree(self):
         """

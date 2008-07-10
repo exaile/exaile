@@ -44,7 +44,7 @@ class Main(object):
         self.radio_panel = radio.RadioPanel(self, exaile.radio)
         self.playlists_panel = playlists.PlaylistsPanel(self,
             exaile.playlists)
-        self.files_panel = files.FilesPanel(self)
+        self.files_panel = files.FilesPanel(self, exaile.collection)
 
         self.main.window.show_all()
         

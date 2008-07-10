@@ -29,14 +29,15 @@ class GenericTrackMenu(guiutil.Menu):
         self.queue = queue
 
         self._add_queue_pixbuf()
-        self.queue_item = self.append(_('Toggle Queue'), self.on_queue,
+        self.queue_item = self.append(_('Toggle Queue'), lambda *e: self.on_queue(),
             'exaile-queue-icon')
 
-    def on_queue(self, *e):
+    def on_queue(self, selected=None):
         """
             Called when the user clicks the "toggle queue" item
         """
-        selected = self.widget.get_selected_tracks()
+        if not selected:
+            selected = self.widget.get_selected_tracks()
         current = self.queue.get_tracks()
 
         for track in selected:
@@ -47,7 +48,8 @@ class GenericTrackMenu(guiutil.Menu):
 
         self.queue.clear()
         self.queue.add_tracks(current)
-        self.widget.queue_draw()
+        if hasattr(self.widget, 'queue_draw'):
+            self.widget.queue_draw()
 
     def _add_queue_pixbuf(self):
         """
@@ -75,3 +77,48 @@ class PlaylistMenu(GenericTrackMenu):
     def __init__(self, playlist):
         GenericTrackMenu.__init__(self, playlist,
             playlist.controller.exaile.queue)
+
+class FilesMenu(GenericTrackMenu):
+    """
+        Menu for xlgui.panels.files.FilesPanel
+    """
+    def __init__(self, panel, main):
+        self.main = main
+        GenericTrackMenu.__init__(self, panel,
+            panel.controller.exaile.queue)
+
+    def on_queue(self):
+        """
+            Called when the user clicks the "toggle queue" item
+        """
+        selected = self.widget.get_selected_tracks()
+        pl = self.main.get_selected_playlist()
+        if pl:
+            pl.playlist.add_tracks(selected)
+
+        GenericTrackMenu.on_queue(self, selected=selected)
+        if pl:
+            pl.list.queue_draw()
+
+class CollectionMenu(GenericTrackMenu):
+    """
+        Menu for xlgui.panels.collection.CollectionPanel
+    """
+    def __init__(self, panel, main):
+        GenericTrackMenu.__init__(self, panel,
+            panel.controller.exaile.queue)
+
+        self.main = main
+
+    def on_queue(self):
+        """
+            Called when the user clicks the "toggle queue" item
+        """
+        selected = self.widget.get_selected_tracks()
+        pl = self.main.get_selected_playlist()
+        if pl:
+            pl.playlist.add_tracks(selected)
+
+        GenericTrackMenu.on_queue(self, selected=selected)
+        if pl:
+            pl.list.queue_draw()

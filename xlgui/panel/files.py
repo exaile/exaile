@@ -40,7 +40,7 @@ class FilesPanel(panel.Panel):
        
         self._setup_tree()
         self._setup_widgets()
-        self.menu = menu.FilesMenu(self, controller.main)
+        self.menu = menu.FilesPanelMenu(self, controller.main)
 
         self.key_id = None
         self.i = 0
@@ -231,7 +231,7 @@ class FilesPanel(panel.Panel):
         try:
             paths = os.listdir(dir)
         except OSError:
-            paths = os.listdir(xl.path.home)
+            paths = os.listdir(xdg.homedir)
 
         self.settings['gui/files_panel_dir'] = dir
         self.current = dir

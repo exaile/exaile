@@ -352,13 +352,22 @@ class Playlist(trackdb.TrackDB):
         if os.path.exists(track.get_loc_for_io()) or not ignore_missing_files:
             self.add_tracks([track], location)
 
-    def add_tracks(self, tracks, location=None):
+    def add_tracks(self, tracks, location=None, add_duplicates=True):
         """
             like add(), but takes a list of tracks instead of a single one
 
             @param tracks: the tracks to add [list of Track]
             @param location: the index to insert at [int]
+            @param add_duplicates: Set to [False] if you wouldn't like to add
+                tracks that are already in the playlist
         """
+        if not add_duplicates:
+            new = []
+            for track in tracks:
+                if track not in self.tracks.values():
+                    new.append(track)
+            tracks = new
+
         if location == None:
             self.ordered_tracks.extend(tracks)
         else:

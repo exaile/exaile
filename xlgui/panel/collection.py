@@ -53,7 +53,7 @@ class CollectionPanel(panel.Panel):
         self._setup_images()
         self._connect_events()
 
-        self.menu = menu.CollectionMenu(self, controller.main)
+        self.menu = menu.CollectionPanelMenu(self, controller.main)
         self.load_tree()
 
     def _setup_widgets(self):

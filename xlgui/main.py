@@ -307,6 +307,18 @@ class MainWindow(object):
             setattr(self, '%s_button' % button,
                 self.xml.get_widget('%s_button' % button))
 
+        self.left_status = self.xml.get_widget('left_statuslabel')
+        self.track_count_label = self.xml.get_widget('track_count_label')
+
+    def update_track_counts(self):
+        """
+            Updates the track count information
+        """
+        if not self.get_current_playlist(): return
+        self.track_count_label.set_label("%d showing / %d in collection" 
+            % (len(self.get_current_playlist().playlist),
+            len(self.controller.exaile.collection.tracks)))
+
     def _connect_events(self):
         """
             Connects the various events to their handlers
@@ -525,6 +537,7 @@ class MainWindow(object):
         page = notebook.get_nth_page(page_num)
         self.controller.exaile.queue.set_current_playlist(page.playlist)
         page.playlist.set_random(self.shuffle_toggle.get_active())
+        self.update_track_counts()
 
     def _setup_position(self):
         """

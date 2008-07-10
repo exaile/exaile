@@ -217,6 +217,7 @@ class Playlist(gtk.VBox):
         """
         self._set_tracks(playlist.get_tracks())
         self.reorder_songs()
+        self.main.update_track_counts()
 
     @guiutil.gtkrun
     def on_add_tracks(self, type, playlist, tracks):
@@ -225,6 +226,7 @@ class Playlist(gtk.VBox):
         """
         for track in tracks:
             self._append_track(track)
+        self.main.update_track_counts()
 
     def _set_tracks(self, tracks):
         """
@@ -238,6 +240,7 @@ class Playlist(gtk.VBox):
             self._append_track(track)
 
         self.list.set_model(self.model)
+        self.main.update_track_counts()
 
     def _get_ar(self, song):
         """

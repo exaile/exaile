@@ -258,6 +258,15 @@ class BaseGSTPlayer(object):
             self.eof_func()
         elif message.type == gst.MESSAGE_ERROR:
             logger.error("%s %s" %(message, dir(message)) )
+        elif message.type == gst.MESSAGE_BUFFERING:
+            percent = message.parse_buffering()
+            if percent < 100:
+                self.playbin.set_state(gst.STATE_PAUSED)
+            else:
+                logger.info('Buffering complete')
+                self.playbin.set_state(gst.STATE_PLAYING)
+            if percent % 5 == 0:
+                event.log_event('playback_buffering', self, percent)
         return True
 
     def _get_gst_state(self):

@@ -190,10 +190,12 @@ def search_tracks(parent, db, all, keyword=None, playlist=None, w=None):
     items = []
     args = []
     where = ""
+    if keyword and keyword.replace("\"","") == "":
+        keyword = None
     if keyword != None and w:
         regex = re.compile("\s+WHERE\s", re.DOTALL)
         w = regex.sub(" AND ", w)
-        tokens = keyword.lower().split(' ')
+        tokens = keyword.lower().replace("\"","").split(' ')
 
         anditems = []
         check_fields = ('title', 'artists.name', 'albums.name')

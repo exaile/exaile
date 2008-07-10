@@ -3,6 +3,8 @@
 <!--*- mode: xml -*-->
 <glade-interface>
   <widget class="GtkWindow" id="ExaileWindow">
+    <property name="width_request">700</property>
+    <property name="height_request">400</property>
     <signal name="configure_event" handler="on_configure_event"/>
     <signal name="delete_event" handler="on_delete_event"/>
     <child>
@@ -242,6 +244,7 @@
           <widget class="GtkHPaned" id="splitter">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="position">129</property>
             <child>
               <widget class="GtkNotebook" id="panel_notebook">
                 <property name="visible">True</property>
@@ -303,13 +306,27 @@
                     <child>
                       <widget class="GtkVBox" id="vbox3">
                         <property name="visible">True</property>
+                        <property name="spacing">3</property>
                         <child>
-                          <widget class="GtkLabel" id="track_title_label">
+                          <widget class="GtkHBox" id="hbox8">
                             <property name="visible">True</property>
-                            <property name="xalign">0</property>
-                            <property name="xpad">4</property>
-                            <property name="label" translatable="yes">Not Playing</property>
+                            <child>
+                              <widget class="GtkLabel" id="track_title_label">
+                                <property name="visible">True</property>
+                                <property name="xalign">0</property>
+                                <property name="yalign">0.49000000953674316</property>
+                                <property name="xpad">4</property>
+                                <property name="label" translatable="yes">Not Playing</property>
+                              </widget>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
+                              </packing>
+                            </child>
                           </widget>
+                          <packing>
+                            <property name="expand">False</property>
+                          </packing>
                         </child>
                         <child>
                           <widget class="GtkHBox" id="hbox4">
@@ -368,6 +385,8 @@
                             </child>
                           </widget>
                           <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
                             <property name="position">1</property>
                           </packing>
                         </child>

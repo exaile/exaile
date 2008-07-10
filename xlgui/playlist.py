@@ -715,8 +715,8 @@ class Playlist(gtk.VBox):
                 image = self.pauseimg
 
         # queued items
-        elif item in self.controller.exaile.queue.tracks.values():
-            index = self.controller.exaile.queue.index(item)
+        elif item in self.controller.exaile.queue.ordered_tracks:
+            index = self.controller.exaile.queue.ordered_tracks.index(item)
             image = guiutil.get_text_icon(self.main.window,
                 str(index + 1), 18, 18)
 

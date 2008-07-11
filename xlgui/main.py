@@ -197,7 +197,7 @@ class MainWindow(object):
         self._setup_hotkeys()
         self._connect_events()
         self.tab_manager = xl.playlist.PlaylistManager(
-            'saved_tabs', 'saved_tabs')
+            'saved_tabs')
         self.load_saved_tabs()
 
     def load_saved_tabs(self):

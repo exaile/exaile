@@ -23,7 +23,8 @@ class PlaylistsPanel(panel.Panel):
     """
     gladeinfo = ('playlists_panel.glade', 'PlaylistsPanelWindow')
 
-    def __init__(self, controller, playlist_manager, collection):
+    def __init__(self, controller, playlist_manager, 
+        smart_manager, collection):
         """
             Intializes the playlists panel
 
@@ -32,6 +33,7 @@ class PlaylistsPanel(panel.Panel):
         """
         panel.Panel.__init__(self, controller)
         self.manager = playlist_manager
+        self.smart_manager = smart_manager
         self.collection = collection
         self.box = self.xml.get_widget('playlists_box')
 
@@ -75,9 +77,9 @@ class PlaylistsPanel(panel.Panel):
         self.custom = self.model.append(None, [self.open_folder, 
             _("Custom Playlists"), None])
 
-        for name, playlist in self.manager.smart_playlists.iteritems():
+        for name in self.smart_manager.playlists:
             self.model.append(self.smart, [self.playlist_image, name, 
-                playlist])
+                self.smart_manager.get_playlist(name)])
             
         for name in self.manager.playlists:
             self.model.append(self.custom, [self.playlist_image, name, 
@@ -94,7 +96,7 @@ class PlaylistsPanel(panel.Panel):
 
         # for smart playlists
         if hasattr(playlist, 'get_playlist'):
-            playlist = playlist.get_playlist()
+            playlist = playlist.get_playlist(self.collection)
 
         # if the tracks are in the collection, use them instead of the
         # ones loaded from the playlist (so that we don't have duplicated
@@ -168,6 +170,7 @@ class PlaylistsPanel(panel.Panel):
                         new_playlist.add_tracks(tracks)
                         self.model.append(self.custom, [self.playlist_image, name, 
                                                        new_playlist])
+                        self.tree.expand_row(self.model.get_path(self.custom), False)
                         # We are adding a completely new playlist with tracks so we save it
                         self.manager.save_playlist(new_playlist)                
     

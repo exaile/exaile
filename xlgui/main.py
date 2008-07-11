@@ -172,22 +172,22 @@ class MainWindow(object):
     """
         Main Exaile Window
     """
-    def __init__(self, controller):
+    def __init__(self, controller, xml, settings, collection, 
+        player, queue):
         """
             Initializes the main window
 
             @param controller: the main gui controller
         """
         self.controller = controller
-        self.settings = controller.exaile.settings
-        self.collection = controller.exaile.collection
-        self.first_removed = False
+        self.settings = settings
+        self.collection =  collection
+        self.player = player
+        self.queue = queue
 
-        self.xml = gtk.glade.XML(xdg.get_data_path("glade/main.glade"),
-            'ExaileWindow', 'exaile')
+        self.xml = xml
         self.window = self.xml.get_widget('ExaileWindow')
         self.window.set_title(_('Exaile'))
-        self.panel_notebook = self.xml.get_widget('panel_notebook')
         self.playlist_notebook = self.xml.get_widget('playlist_notebook')
         self.playlist_notebook.remove_page(0)
         self.splitter = self.xml.get_widget('splitter')
@@ -362,9 +362,9 @@ class MainWindow(object):
         if not self.get_current_playlist(): return
         message = "%d showing / %d in collection" \
             % (len(self.get_current_playlist().playlist), \
-            len(self.controller.exaile.collection.tracks))
+            len(self.collection.tracks))
         
-        queuecount = len(self.controller.exaile.queue)
+        queuecount = len(self.queue)
         if queuecount:
             message += " : %d queued" % queuecount
 
@@ -395,25 +395,24 @@ class MainWindow(object):
         })        
 
         event.add_callback(self.on_playback_end, 'playback_end',
-            self.controller.exaile.player)
+            self.player)
         event.add_callback(self.on_playback_start, 'playback_start',
-            self.controller.exaile.player) 
+            self.player) 
         event.add_callback(self.on_toggle_pause, 'playback_toggle_pause',
-            self.controller.exaile.player)
+            self.player)
         event.add_callback(self.on_tags_parsed, 'tags_parsed',
-            self.controller.exaile.player)
+            self.player)
         event.add_callback(self.on_buffering, 'playback_buffering',
-            self.controller.exaile.player)
+            self.player)
 
         # monitor the queue
-        queue = self.controller.exaile.queue
         event.add_callback(lambda *e: self.update_track_counts(),
-            'tracks_added', queue)
+            'tracks_added', self.queue)
         event.add_callback(lambda *e: self.update_track_counts(),
-            'tracks_removed', queue)
+            'tracks_removed', self.queue)
         event.add_callback(lambda *e:
             self.get_current_playlist().list.queue_draw, 'stop_track',
-            queue)
+            self.queue)
 
     @guiutil.gtkrun
     def on_buffering(self, type, player, percent):
@@ -434,7 +433,7 @@ class MainWindow(object):
         if tr.get_type() == 'file': return
         if track.parse_stream_tags(tr, args):
             self._update_track_information()
-            self.cover.on_playback_start('', self.controller.exaile.player, None)
+            self.cover.on_playback_start('', self.player, None)
             self.get_current_playlist().refresh_row(tr)
 
     @guiutil.gtkrun
@@ -537,7 +536,7 @@ class MainWindow(object):
             Sets track information
         """
         # set track information
-        track = self.controller.exaile.player.current
+        track = self.player.current
 
         if track:
             artist = track['artist']
@@ -609,7 +608,7 @@ class MainWindow(object):
             Called when the page is changed in the playlist notebook
         """
         page = notebook.get_nth_page(page_num)
-        self.controller.exaile.queue.set_current_playlist(page.playlist)
+        self.queue.set_current_playlist(page.playlist)
         page.playlist.set_random(self.shuffle_toggle.get_active())
         self.update_track_counts()
 
@@ -654,18 +653,5 @@ class MainWindow(object):
 
         return False
 
-    def add_panel(self, child, name):
-        """
-            Adds a panel to the panel notebook
-        """
-        label = gtk.Label(name)
-        label.set_angle(90)
-        self.panel_notebook.append_page(child, label)
 
-        if not self.first_removed:
-            self.first_removed = True
-
-            # the first tab in the panel is a stub that just stops libglade from
-            # complaining
-            self.panel_notebook.remove_page(0)
 

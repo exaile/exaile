@@ -37,17 +37,40 @@ class Main(object):
             @param exaile: The Exaile instance
         """
         self.exaile = exaile
-        self.main = main.MainWindow(self)
+        self.first_removed = False
+        self.xml = gtk.glade.XML(xdg.get_data_path("glade/main.glade"),
+            'ExaileWindow', 'exaile')
+
+        self.main = main.MainWindow(self, self.xml, exaile.settings, 
+            exaile.collection,
+            exaile.player, exaile.queue)
+        self.panel_notebook = self.xml.get_widget('panel_notebook')
 
         self.collection_panel = collection.CollectionPanel(self,
-            exaile.collection)
-        self.radio_panel = radio.RadioPanel(self, exaile.collection,
-            exaile.radio, exaile.stations)
+            exaile.settings, exaile.collection)
+        self.radio_panel = radio.RadioPanel(self, exaile.settings, 
+            exaile.collection, exaile.radio, exaile.stations)
         self.playlists_panel = playlists.PlaylistsPanel(self,
             exaile.playlists, exaile.smart_playlists, exaile.collection)
-        self.files_panel = files.FilesPanel(self, exaile.collection)
+        self.files_panel = files.FilesPanel(self, exaile.settings,
+            exaile.collection)
 
         self.main.window.show_all()
+
+    def add_panel(self, child, name):
+        """
+            Adds a panel to the panel notebook
+        """
+        label = gtk.Label(name)
+        label.set_angle(90)
+        self.panel_notebook.append_page(child, label)
+
+        if not self.first_removed:
+            self.first_removed = True
+
+            # the first tab in the panel is a stub that just stops libglade from
+            # complaining
+            self.panel_notebook.remove_page(0)
         
     def quit(self):
         """

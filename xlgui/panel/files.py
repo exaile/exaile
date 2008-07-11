@@ -26,12 +26,12 @@ class FilesPanel(panel.Panel):
 
     gladeinfo = ('files_panel.glade', 'FilesPanelWindow')
 
-    def __init__(self, controller, collection):
+    def __init__(self, controller, settings, collection):
         """
             Initializes the files panel
         """
         panel.Panel.__init__(self, controller)
-        self.settings = controller.exaile.settings
+        self.settings = settings
         self.collection = collection
 
         self.box = self.xml.get_widget('files_box')

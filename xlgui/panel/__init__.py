@@ -40,7 +40,7 @@ class Panel(object):
         child = window.get_child()
         window.remove(child)
 
-        self.controller.main.add_panel(child, window.get_title())
+        self.controller.add_panel(child, window.get_title())
         window.destroy()
 
 

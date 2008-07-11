@@ -34,14 +34,14 @@ class CollectionPanel(panel.Panel):
         ('artist', 'date', 'album', 'tracknumber', 'title')
     )
 
-    def __init__(self, controller, collection):
+    def __init__(self, controller, settings, collection):
         """
             Initializes the collection panel
         """
         panel.Panel.__init__(self, controller)
 
         self.collection = collection
-        self.settings = controller.exaile.settings
+        self.settings = settings
         self.use_alphabet = self.settings.get_option('gui/use_alphabet', True)
         self.filter = self.xml.get_widget('collection_search_entry')
         self.choice = self.xml.get_widget('collection_combo_box')

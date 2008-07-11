@@ -26,13 +26,14 @@ class RadioPanel(panel.Panel):
     """
     gladeinfo = ('radio_panel.glade', 'RadioPanelWindow')
 
-    def __init__(self, controller, collection, 
+    def __init__(self, controller, settings, collection, 
         radio_manager, station_manager):
         """
             Initializes the radio panel
         """
         panel.Panel.__init__(self, controller)
-       
+      
+        self.settings = settings
         self.collection = collection
         self.manager = radio_manager
         self.station_manager = station_manager

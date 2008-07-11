@@ -37,8 +37,9 @@ class RadioPanel(panel.Panel):
         self.collection = collection
         self.manager = radio_manager
         self.station_manager = station_manager
-        self.load_nodes = {}
         self.nodes = {}
+        self.load_nodes = {}
+        self.complete_reload = {}
 
         self._setup_tree()
         self._setup_widgets()
@@ -67,8 +68,8 @@ class RadioPanel(panel.Panel):
         """
         node = self.model.append(self.radio_root, [self.folder, driver])
         self.nodes[driver] = node
-        self.load_nodes[driver] = self.model.append(node, 
-            [self.refresh_image, _('Loading streams...')])
+        self.load_nodes[driver] = self.model.append(node, [self.refresh_image, 
+            _('Loading streams...')])
         self.tree.expand_row(self.model.get_path(self.radio_root), False)
 
     def _setup_widgets(self):
@@ -157,6 +158,15 @@ class RadioPanel(panel.Panel):
         playlist.set_tracks(new)
 
         self.controller.main.add_playlist(playlist)
+
+    def get_menu(self):
+        """
+            Returns the menu that all radio stations use
+        """
+        menu = guiutil.Menu()
+        menu.append(_("Refresh"), self.on_reload, 'gtk-refresh')
+        return menu
+
 
     def button_press(self, widget, event):
         """
@@ -259,6 +269,25 @@ class RadioPanel(panel.Panel):
         """
         pass
 
+    def on_reload(self, *e):
+        """
+            Called when the refresh button is clicked
+        """
+        selection = self.tree.get_selection()
+        info = selection.get_selected_rows()
+        if not info: return
+        (model, paths) = info
+        iter = self.model.get_iter(paths[0])
+        object = self.model.get_value(iter, 1)
+
+        if isinstance(object, (xl.radio.RadioList, xl.radio.RadioStation)):
+            self._clear_node(iter)
+            self.load_nodes[object] = self.model.append(iter,
+                [self.refresh_image, _("Loading streams...")])
+
+            self.complete_reload[object] = True
+            self.tree.expand_row(self.model.get_path(iter), False)
+
     def on_row_expand(self, tree, iter, path):
         """
             Called when a user expands a row in the tree
@@ -275,14 +304,19 @@ class RadioPanel(panel.Panel):
             Loads a radio station
         """
 
+        no_cache = False
+        if driver in self.complete_reload:
+            no_cache = True
+            del self.complete_reload[driver]
+
         if isinstance(driver, xl.radio.RadioStation):
-            lists = driver.get_lists()
+            lists = driver.get_lists(no_cache=no_cache)
         else:
-            lists = driver.get_items()
+            lists = driver.get_items(no_cache=no_cache)
 
-        gobject.idle_add(self._done_loading, iter, driver, lists, True)
+        gobject.idle_add(self._done_loading, iter, driver, lists)
 
-    def _done_loading(self, iter, object, items, idle=False):
+    def _done_loading(self, iter, object, items):
         """
             Called when an item is done loading.  Adds items to the tree
         """
@@ -290,13 +324,23 @@ class RadioPanel(panel.Panel):
             if isinstance(item, xl.radio.RadioList): 
                 node = self.model.append(self.nodes[object], [self.folder, item])
                 self.nodes[item] = node
-                self.load_nodes[item] = self.model.append(node,
-                    [self.refresh_image, _("Loading streams...")]) 
+                self.load_nodes[item] = self.model.append(node, [self.refresh_image, 
+                    _("Loading streams...")]) 
             else:
                 self.model.append(self.nodes[object], [self.track, item])
 
         self.model.remove(self.load_nodes[object])
         del self.load_nodes[object]
+
+    def _clear_node(self, node):
+        """
+            Clears a node of all children
+        """
+        iter = self.model.iter_children(node)
+        while True:
+            if not iter: break
+            self.model.remove(iter)
+            iter = self.model.iter_children(node)
 
     def on_collapsed(self, tree, iter, path):
         """

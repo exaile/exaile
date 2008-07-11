@@ -61,14 +61,14 @@ class RadioManager(object):
         else:
             return None
 
-    def get_lists(self, station):
+    def get_lists(self, station, no_cache=False):
         """
             Loads the lists for the specified station
 
             @param station: The name of the station
         """
         if station in self.stations:
-            return self.stations[station].get_lists()
+            return self.stations[station].get_lists(no_cache=no_cache)
         else:
             return None
 
@@ -98,7 +98,7 @@ class RadioList(object):
     def get_name(self):
         return self.name
 
-    def get_items(self):
+    def get_items(self, no_cache=False):
         """
             Returns subrlists
         """
@@ -142,11 +142,7 @@ class RadioStation(object):
         """
         pass
 
-    def load_lists(self):
-        # this should load the lists into RAM from server, file, etc.
-        pass
-
-    def get_lists(self):
+    def get_lists(self, no_cache=False):
         """
             Returns the rlists for this radio station
         """

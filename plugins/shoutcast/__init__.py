@@ -38,7 +38,7 @@ class ShoutcastRadioStation(RadioStation):
         self.subs = {}
         self.playlists = {}
 
-    def load_lists(self):
+    def load_lists(self, no_cache=False):
         """
             Returns the rlists for shoutcast
         """
@@ -47,8 +47,8 @@ class ShoutcastRadioStation(RadioStation):
         rlists = []
         for item in items:
             rlist = RadioList(item, station=self)
-            rlist.get_items = lambda name=item: \
-                self._get_subrlists(name)
+            rlist.get_items = lambda no_cache, name=item: \
+                self._get_subrlists(name=name, no_cache=no_cache)
             rlists.append(rlist)
         
         sort_list = [(item.name, item) for item in rlists]
@@ -59,7 +59,7 @@ class ShoutcastRadioStation(RadioStation):
 
     get_lists = load_lists
 
-    def _get_subrlists(self, name):
+    def _get_subrlists(self, name, no_cache=False):
         """
             Gets the subrlists for a rlist
         """
@@ -173,6 +173,6 @@ class ShoutcastRadioStation(RadioStation):
             Returns a menu that works for shoutcast radio
         """
         self._parent = parent
-        menu = guiutil.Menu()
+        menu = parent.get_menu()
         menu.append(_("Search"), lambda *e: self.on_search(), 'gtk-find')
         return menu

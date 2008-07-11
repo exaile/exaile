@@ -72,6 +72,10 @@ class RadioPanel(panel.Panel):
             _('Loading streams...')])
         self.tree.expand_row(self.model.get_path(self.radio_root), False)
 
+        if self.settings.get_option('gui/radio/%s_station_expanded' %
+            driver.name, False):
+            self.tree.expand_row(self.model.get_path(node), False)
+
     def _setup_widgets(self):
         """
             Sets up the various widgets required for this panel
@@ -298,6 +302,21 @@ class RadioPanel(panel.Panel):
             isinstance(driver, xl.radio.RadioList):
             self._load_station(iter, driver)        
 
+        if isinstance(driver, xl.radio.RadioStation):
+            self.settings['gui/radio/%s_station_expanded' % \
+                driver.name] = True
+
+    def on_collapsed(self, tree, iter, path):
+        """
+            Called when someone collapses a tree item
+        """
+        driver = self.model.get_value(iter, 1)
+        self.model.set_value(iter, 0, self.folder)
+
+        if isinstance(driver, xl.radio.RadioStation):
+            self.settings['gui/radio/%s_station_expanded' % \
+                driver.name] = False
+
     @common.threaded 
     def _load_station(self, iter, driver):
         """
@@ -342,8 +361,4 @@ class RadioPanel(panel.Panel):
             self.model.remove(iter)
             iter = self.model.iter_children(node)
 
-    def on_collapsed(self, tree, iter, path):
-        """
-            Called when someone collapses a tree item
-        """
-        self.model.set_value(iter, 0, self.folder)
+

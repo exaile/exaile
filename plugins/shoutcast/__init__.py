@@ -1,6 +1,6 @@
-import re, urllib
+import re, urllib, os
 from xl.radio import *
-from xl import common, playlist
+from xl import common, playlist, xdg
 from xlgui import guiutil, commondialogs
 from gettext import gettext as _
 import gtk, gobject
@@ -34,15 +34,37 @@ class ShoutcastRadioStation(RadioStation):
         self.cat_url = 'http://www.shoutcast.com/sbin/newxml.phtml?genre=%(genre)s'
         self.playlist_url = 'http://www.shoutcast.com/sbin/tunein-station.pls?id=%(id)s'
         self.search_url = 'http://www.shoutcast.com/sbin/newxml.phtml?search=%(kw)s'
-        self.rlists = []
+        self.cache_file = os.path.join(xdg.get_cache_dir(), 'shoutcast.cache')
+        self.data = None 
+        self._load_cache()
         self.subs = {}
         self.playlists = {}
 
-    def load_lists(self, no_cache=False):
+    def _load_cache(self):
+        """
+            Loads shoutcast data from cache
+        """
+        if os.path.isfile(self.cache_file):
+            self.data = open(self.cache_file).read()
+
+    def _save_cache(self):
+        """
+            Saves cache data
+        """
+        h = open(self.cache_file, 'w')
+        h.write(self.data)
+        h.close()
+
+    def get_lists(self, no_cache=False):
         """
             Returns the rlists for shoutcast
         """
-        data = urllib.urlopen(self.genre_url).read()
+        if no_cache or not self.data:
+            data = urllib.urlopen(self.genre_url).read()
+            self.data = data
+            self._save_cache()
+        else:
+            data = self.data
         items = re.findall(r'<genre name="([^"]*)"></genre>', data)
         rlists = []
         for item in items:
@@ -56,8 +78,6 @@ class ShoutcastRadioStation(RadioStation):
         rlists = [item[1] for item in sort_list]
         self.rlists = rlists
         return rlists
-
-    get_lists = load_lists
 
     def _get_subrlists(self, name, no_cache=False):
         """

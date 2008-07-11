@@ -322,9 +322,38 @@ class MainWindow(object):
         for button in bts:
             setattr(self, '%s_button' % button,
                 self.xml.get_widget('%s_button' % button))
-
+        
+        self.stop_button.connect('button-press-event',
+            self.on_stop_buttonpress)
         self.status = guiutil.StatusBar(self.xml.get_widget('left_statuslabel'))
         self.track_count_label = self.xml.get_widget('track_count_label')
+
+    def on_stop_buttonpress(self, widget, event):
+        """
+            Called when the user clicks on the stop button.  We're looking for
+            a right click so we can display the SPAT menu
+        """
+        if event.button != 3: return
+        menu = guiutil.Menu()
+        menu.append(_("Toggle: Stop after selected track"), self.on_spat_clicked,
+            'gtk-stop')
+        menu.popup(None, None, None, event.button, event.time)
+
+    def on_spat_clicked(self, *e):
+        """
+            Called when the user clicks on the SPAT item
+        """
+        queue = self.controller.exaile.queue
+        tracks = self.get_current_playlist().get_selected_tracks()
+        if not tracks: return
+        track = tracks[0]
+
+        if track == queue.stop_track:
+            queue.stop_track = None
+        else:
+            queue.stop_track = track
+
+        self.get_current_playlist().list.queue_draw()
 
     def update_track_counts(self):
         """
@@ -382,6 +411,9 @@ class MainWindow(object):
             'tracks_added', queue)
         event.add_callback(lambda *e: self.update_track_counts(),
             'tracks_removed', queue)
+        event.add_callback(lambda *e:
+            self.get_current_playlist().list.queue_draw, 'stop_track',
+            queue)
 
     @guiutil.gtkrun
     def on_buffering(self, type, player, percent):

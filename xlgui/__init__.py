@@ -49,9 +49,6 @@ class Main(object):
 
         self.main.window.show_all()
         
-        # hide the stop_track button for now
-        self.main.xml.get_widget('stop_track').hide()
-
     def quit(self):
         """
             Quits the gui, saving anything that needs to be saved

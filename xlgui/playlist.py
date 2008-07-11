@@ -735,11 +735,11 @@ class Playlist(gtk.VBox):
         item = model.get_value(iter, 0)
         image = None
        
-#        window = gtk.Window()
-#        if item == self.controller.exaile.player.stop_track:
-#            image = window.render_icon('gtk-stop', 
-#                gtk.ICON_SIZE_MENU) 
-#            image = image.scale_simple(12, 12, gtk.gdk.INTERP_BILINEAR)
+        window = gtk.Window()
+        if item == self.controller.exaile.queue.stop_track:
+            image = window.render_icon('gtk-stop', 
+                gtk.ICON_SIZE_MENU) 
+            image = image.scale_simple(12, 12, gtk.gdk.INTERP_BILINEAR)
         
         cell.set_property('pixbuf', image)  
 

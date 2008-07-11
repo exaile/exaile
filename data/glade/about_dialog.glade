@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
+<!--Generated with glade3 3.4.5 on Fri Jul 11 15:50:46 2008 -->
+<glade-interface>
+  <widget class="GtkAboutDialog" id="AboutDialog">
+    <property name="border_width">5</property>
+    <property name="title" translatable="yes">About Exaile</property>
+    <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
+    <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
+    <property name="has_separator">False</property>
+    <property name="program_name">Exaile</property>
+    <property name="copyright" translatable="yes">(c) 2008</property>
+    <property name="comments" translatable="yes">Exaile</property>
+    <property name="website">http://www.exaile.org</property>
+    <property name="license" translatable="yes">Copyright (C) 2007 Adam Olsen &lt;arolsen@gmail.com&gt; 
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+</property>
+    <property name="authors">Adam Olsen 
+    &lt;arolsen@gmail.com&gt; 
+    (Lead Developer)
+
+Johannes Sasongko 
+    &lt;sasongko@gmail.com&gt; 
+    (Developer)
+
+Aren Olson
+    &lt;reacocard@gmail.com&gt;
+    (Developer)</property>
+    <property name="artists">Aron Homberg
+Josip Lisec</property>
+    <child internal-child="vbox">
+      <widget class="GtkVBox" id="dialog-vbox1">
+        <property name="visible">True</property>
+        <property name="spacing">2</property>
+        <child>
+          <placeholder/>
+        </child>
+        <child internal-child="action_area">
+          <widget class="GtkHButtonBox" id="dialog-action_area1">
+            <property name="visible">True</property>
+            <property name="layout_style">GTK_BUTTONBOX_END</property>
+          </widget>
+          <packing>
+            <property name="expand">False</property>
+            <property name="pack_type">GTK_PACK_END</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+</glade-interface>

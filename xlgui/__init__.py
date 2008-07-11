@@ -16,11 +16,12 @@ __all__ = ['main', 'panel', 'playlist']
 
 import gtk, gtk.glade, gobject
 from xl import xdg
+import xl.main as xlmain
 from xlgui import main, panel, guiutil
 from xlgui.panel import collection, radio, playlists, files
+from gettext import gettext as _
 
 gtk.window_set_default_icon_from_file(xdg.get_data_path("images/icon.png"))
-
 
 def mainloop():
     gtk.main()
@@ -45,6 +46,7 @@ class Main(object):
             exaile.collection,
             exaile.player, exaile.queue)
         self.panel_notebook = self.xml.get_widget('panel_notebook')
+        self._connect_events()
 
         self.collection_panel = collection.CollectionPanel(self,
             exaile.settings, exaile.collection)
@@ -56,6 +58,14 @@ class Main(object):
             exaile.collection)
 
         self.main.window.show_all()
+
+    def _connect_events(self):
+        """
+            Connects the various events to their handlers
+        """
+        self.xml.signal_autoconnect({
+            'on_about_item_activated': self.show_about_dialog
+        })
 
     def add_panel(self, child, name):
         """
@@ -71,6 +81,26 @@ class Main(object):
             # the first tab in the panel is a stub that just stops libglade from
             # complaining
             self.panel_notebook.remove_page(0)
+
+    def show_about_dialog(self, *e):
+        """
+            Displays the about dialog
+        """
+        xml = gtk.glade.XML(xdg.get_data_path('glade/about_dialog.glade'),
+            'AboutDialog', 'exaile')
+        dialog = xml.get_widget('AboutDialog')
+        logo = gtk.gdk.pixbuf_new_from_file(
+            xdg.get_data_path('images/exailelogo.png'))
+        dialog.set_logo(logo)
+        # HACK: GTK+ < 2.12 (2007-09-14) use set_name.
+        try:
+            dialog.set_program_name(_("Exaile"))
+        except AttributeError:
+            dialog.set_name(_("Exaile"))
+        dialog.set_version("\n" + str(xlmain.__version__))
+        dialog.set_transient_for(self.main.window)
+        dialog.run()
+        dialog.destroy()
         
     def quit(self):
         """

@@ -125,7 +125,10 @@ class CollectionPanel(panel.Panel):
         """
             Called when a drag source wants data for this drag operation
         """
-        urls = self._get_urls_for(self.get_selected_tracks())
+        tracks = self.get_selected_tracks()
+        for track in tracks:
+            guiutil.DragTreeView.dragged_data[track.get_loc()] = track
+        urls = self._get_urls_for(tracks)
         selection.set_uris(urls)
 
     def _get_urls_for(self, items):

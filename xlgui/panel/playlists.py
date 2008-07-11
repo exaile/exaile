@@ -23,7 +23,7 @@ class PlaylistsPanel(panel.Panel):
     """
     gladeinfo = ('playlists_panel.glade', 'PlaylistsPanelWindow')
 
-    def __init__(self, controller, playlist_manager):
+    def __init__(self, controller, playlist_manager, collection):
         """
             Intializes the playlists panel
 
@@ -32,6 +32,7 @@ class PlaylistsPanel(panel.Panel):
         """
         panel.Panel.__init__(self, controller)
         self.manager = playlist_manager
+        self.collection = collection
         self.box = self.xml.get_widget('playlists_box')
 
         self.targets = [('text/uri-list', 0, 0)]
@@ -94,6 +95,21 @@ class PlaylistsPanel(panel.Panel):
         # for smart playlists
         if hasattr(playlist, 'get_playlist'):
             playlist = playlist.get_playlist()
+
+        # if the tracks are in the collection, use them instead of the
+        # ones loaded from the playlist (so that we don't have duplicated
+        # tracks object floating around)
+        tracks = playlist.get_tracks()
+        new = []
+        
+        for track in tracks:
+            if track.get_loc() in \
+                self.collection.tracks:
+                track = self.collection.tracks[track.get_loc()]
+                
+            new.append(track)
+
+        playlist.set_tracks(new)
 
         self.controller.main.add_playlist(playlist)
 

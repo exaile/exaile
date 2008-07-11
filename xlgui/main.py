@@ -180,6 +180,7 @@ class MainWindow(object):
         """
         self.controller = controller
         self.settings = controller.exaile.settings
+        self.collection = controller.exaile.collection
         self.first_removed = False
 
         self.xml = gtk.glade.XML(xdg.get_data_path("glade/main.glade"),
@@ -217,6 +218,21 @@ class MainWindow(object):
             if pl.name.startswith('current.'):
                 count = i
                 pl.name = pl.name.replace('current.', '')
+
+            # if the tracks are in the collection, use them instead of the
+            # ones loaded from the playlist (so that we don't have duplicated
+            # tracks object floating around)
+            tracks = pl.get_tracks()
+            new = []
+            
+            for track in tracks:
+                if track.get_loc() in \
+                    self.collection.tracks:
+                    track = self.collection.tracks[track.get_loc()]
+                 
+                new.append(track)
+
+            pl.set_tracks(new)
 
             self.add_playlist(pl)
 
@@ -315,9 +331,15 @@ class MainWindow(object):
             Updates the track count information
         """
         if not self.get_current_playlist(): return
-        self.track_count_label.set_label("%d showing / %d in collection" 
-            % (len(self.get_current_playlist().playlist),
-            len(self.controller.exaile.collection.tracks)))
+        message = "%d showing / %d in collection" \
+            % (len(self.get_current_playlist().playlist), \
+            len(self.controller.exaile.collection.tracks))
+        
+        queuecount = len(self.controller.exaile.queue)
+        if queuecount:
+            message += " : %d queued" % queuecount
+
+        self.track_count_label.set_label(message)
 
     def _connect_events(self):
         """
@@ -353,6 +375,13 @@ class MainWindow(object):
             self.controller.exaile.player)
         event.add_callback(self.on_buffering, 'playback_buffering',
             self.controller.exaile.player)
+
+        # monitor the queue
+        queue = self.controller.exaile.queue
+        event.add_callback(lambda *e: self.update_track_counts(),
+            'tracks_added', queue)
+        event.add_callback(lambda *e: self.update_track_counts(),
+            'tracks_removed', queue)
 
     @guiutil.gtkrun
     def on_buffering(self, type, player, percent):
@@ -419,7 +448,7 @@ class MainWindow(object):
         """
         playlist = self.get_current_playlist()
         if not playlist: return
-        playlist.playlist.remove_tracks(0, len(playlist.playlist))
+        playlist.playlist.clear()
 
     def on_shuffle_button_toggled(self, button):
         """
@@ -457,6 +486,7 @@ class MainWindow(object):
         self.draw_playlist(type, player, object)
         self.play_button.set_image(gtk.image_new_from_stock('gtk-media-pause',
                 gtk.ICON_SIZE_SMALL_TOOLBAR))
+        self.update_track_counts()
 
     @guiutil.gtkrun
     def on_playback_end(self, type, player, object):

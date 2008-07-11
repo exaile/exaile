@@ -246,7 +246,11 @@ class DragTreeView(gtk.TreeView):
             @returns: a 2 tuple in which the first part is a list of tracks
                 and the second is a list of playlist
         """
-        if track.is_valid_track(loc):
+        if loc in DragTreeView.dragged_data:
+            new_track = DragTreeView.dragged_data[loc]
+            del DragTreeView.dragged_data[loc]
+            return ([new_track],[])
+        elif track.is_valid_track(loc):
             new_track = track.Track(loc)
             return ([new_track],[])
         elif playlist.is_valid_playlist(loc):
@@ -255,10 +259,6 @@ class DragTreeView(gtk.TreeView):
             # to the list
             new_playlist = playlist.import_playlist(loc)
             return ([], [new_playlist])
-        elif loc in DragTreeView.dragged_data:
-            new_track = DragTreeView.dragged_data[loc]
-            del DragTreeView.dragged_data[loc]
-            return ([new_track],[])
         elif os.path.isdir(loc):
             #They dropped a folder
             new_tracks = [] 

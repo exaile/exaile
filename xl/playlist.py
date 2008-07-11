@@ -423,6 +423,15 @@ class Playlist(trackdb.TrackDB):
         """
         self.remove_tracks(0, len(self))
 
+    def set_tracks(self, tracks):
+        """
+            Clears the playlist and adds the specified tracks
+
+            @param tracks: the tracks to add
+        """
+        self.clear()
+        self.add_tracks(tracks)
+
     def get_tracks(self):
         """
             gets the list of tracks in this playlist, in order

@@ -71,6 +71,7 @@ class BaseTestCase(GtkTestCase,
         self.queue = player.PlayQueue(self.player)
         self.playlists = playlist.PlaylistManager()
         self.smart_playlists = playlist.PlaylistManager('smart_playlists')
+        self.stations = playlist.PlaylistManager('radio_stations')
         self.radio = radio.RadioManager()
         self.gui = xlgui.Main(self)
 

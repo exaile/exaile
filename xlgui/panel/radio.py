@@ -93,7 +93,7 @@ class RadioPanel(panel.Panel):
             Sets up the tree that displays the radio panel
         """
         box = self.xml.get_widget('RadioPanel')
-        self.tree = guiutil.DragTreeView(self, True, True)
+        self.tree = guiutil.DragTreeView(self, True, False)
         self.tree.set_headers_visible(False)
 
         self.targets = [('text/uri-list', 0, 0)]
@@ -161,7 +161,22 @@ class RadioPanel(panel.Panel):
         """
             Called when someone clicks on the tree
         """
-        pass
+        (x, y) = map(int, event.get_coords())
+        path = self.tree.get_path_at_pos(x, y)
+        if path:
+            iter = self.model.get_iter(path[0])
+            item = self.model.get_value(iter, 1)
+
+            if isinstance(item, (xl.radio.RadioStation, xl.radio.RadioList,
+                xl.radio.RadioItem)):
+                if isinstance(item, xl.radio.RadioStation):
+                    station = item
+                else:
+                    station = item.station
+
+                if station and hasattr(station, 'get_menu'):
+                    menu = station.get_menu(self)
+                    menu.popup(None, None, None, event.button, event.time)
 
     def cell_data_func(self, column, cell, model, iter):
         """
@@ -188,11 +203,7 @@ class RadioPanel(panel.Panel):
             iter = self.model.get_iter(path[0])
             current_playlist = self.model.get_value(iter, 1)
             if not isinstance(current_playlist, xl.playlist.Playlist):
-                if type(current_playlist) == str:
-                    self._add_new_station(locs)
-                    return
-                #Can't add songs to a smart playlists
-                context.drop_finish(False, etime)
+                self._add_new_station(locs)
                 return
             (tracks, playlists) = self.tree.get_drag_data(locs)
             current_playlist.add_tracks(tracks)

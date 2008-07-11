@@ -85,11 +85,12 @@ class RadioManager(object):
 
 
 class RadioList(object):
-    def __init__(self, name):
+    def __init__(self, name, station=None):
         """
             Initializes the rlist
         """
         self.name = name
+        self.station = station
 
     def set_name(self, name):
         self.name = name
@@ -113,11 +114,12 @@ class RadioItem(object):
     """
         Radio Items
     """
-    def __init__(self, name):
+    def __init__(self, name, station=None):
         """
             Initializes the radio item
         """
         self.name = name
+        self.station = station
 
     def get_playlist(self):
         tr = track.Track()

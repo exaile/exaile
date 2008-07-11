@@ -1,5 +1,9 @@
 import re, urllib
 from xl.radio import *
+from xl import common, playlist
+from xlgui import guiutil, commondialogs
+from gettext import gettext as _
+import gtk, gobject
 
 def enable(exaile):
     exaile.radio.add_station(ShoutcastRadioStation())
@@ -42,7 +46,7 @@ class ShoutcastRadioStation(RadioStation):
         items = re.findall(r'<genre name="([^"]*)"></genre>', data)
         rlists = []
         for item in items:
-            rlist = RadioList(item)
+            rlist = RadioList(item, station=self)
             rlist.get_items = lambda name=item: \
                 self._get_subrlists(name)
             rlists.append(rlist)
@@ -69,7 +73,7 @@ class ShoutcastRadioStation(RadioStation):
         found_names = []
         
         for item in items:
-            rlist = RadioItem(item[0])
+            rlist = RadioItem(item[0], station=self)
             rlist.bitrate = item[2]
             if item[0] in found_names: continue
             found_names.append(item[0])
@@ -115,3 +119,60 @@ class ShoutcastRadioStation(RadioStation):
             rlists.append(rlist)
 
         return rlists
+
+    def on_search(self):
+        """
+            Called when the user wants to search for a specific stream
+        """
+        dialog = commondialogs.TextEntryDialog(_("Enter the search keywords"), 
+            _("Shoutcast Search"))
+
+        result = dialog.run()
+        if result == gtk.RESPONSE_OK:
+            keyword = dialog.get_value()
+           
+            self.do_search(keyword)
+
+    @common.threaded
+    def do_search(self, keyword):
+        """
+            Actually performs the search in a separate thread
+        """
+        lists = self.search(keyword)
+
+        gobject.idle_add(self.search_done, keyword, lists)
+
+    @guiutil.gtkrun
+    def search_done(self, keyword, lists):
+        """
+            Called when the search is finished
+        """
+        dialog = commondialogs.ListDialog(_("Search Results"))
+        dialog.set_items(lists)
+
+        result = dialog.run()
+        if result == gtk.RESPONSE_OK:
+            items = dialog.get_items()
+            if not items: return
+
+            self.do_get_playlist(keyword, items[0])
+
+    @common.threaded
+    def do_get_playlist(self, keyword, item):
+        pl = item.get_playlist()
+        pl.name = keyword
+
+        gobject.idle_add(self.done_getting_playlist, pl)
+
+    @guiutil.gtkrun
+    def done_getting_playlist(self, pl):
+        self._parent.controller.main.add_playlist(pl)
+
+    def get_menu(self, parent):
+        """
+            Returns a menu that works for shoutcast radio
+        """
+        self._parent = parent
+        menu = guiutil.Menu()
+        menu.append(_("Search"), lambda *e: self.on_search(), 'gtk-find')
+        return menu

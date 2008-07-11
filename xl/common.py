@@ -219,5 +219,25 @@ def random_string(n):
         s += random.choice(string.ascii_letters)
     return s
 
+
+def lstrip_special(field, the_cutter=False):
+    """
+        Strip special chars off the beginning of a field for sorting. If
+        stripping the chars leaves nothing the original field is returned with
+        only whitespace removed.
+    """
+    if field == None:
+        return field
+    lowered = field.lower()
+    stripped = lowered.lstrip(" `~!@#$%^&*()_+-={}|[]\\\";'<>?,./")
+    if stripped:
+        ret = stripped
+    else:
+        ret = lowered.lstrip()
+    if the_cutter:
+        if ret.startswith("the "):
+            ret = ret[4:]
+    return ret
+
 # vim: et sts=4 sw=4
 

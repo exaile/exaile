@@ -19,6 +19,8 @@ from urlparse import urlparse
 from xl import common
 from xl.media import flac, mp3, mp4, mpc, ogg, tta, wma, wv, default
 
+from common import lstrip_special
+
 from mutagen.mp3 import HeaderNotFoundError
 from storm.locals import *
 
@@ -47,20 +49,6 @@ formats = {
 }
 
 SUPPORTED_MEDIA = ['.' + ext for ext in formats.iterkeys()]
-
-def lstrip_special(field):
-    """
-        Strip special chars off the beginning of a field for sorting. If
-        stripping the chars leaves nothing the original field is returned with
-        only whitespace removed.
-    """
-    if field == None:
-        return field
-    lowered = field.lower()
-    stripped = lowered.lstrip(" `~!@#$%^&*()_+-={}|[]\\\";'<>?,./")
-    if stripped:
-        return stripped
-    return lowered.lstrip()
 
 def is_valid_track(loc):
     """
@@ -157,7 +145,7 @@ class Track(object):
                 common.get_default_encoding())
         if loc.startswith("file://"):
             loc = loc[7:]
-        self.loc = loc
+        self['loc'] = loc
        
     def get_loc(self):
         """
@@ -165,7 +153,7 @@ class Track(object):
 
             returns: the location [string]
         """
-        return self.loc
+        return self['loc']
 
     def get_loc_for_io(self):
         """
@@ -174,7 +162,7 @@ class Track(object):
 
             returns: the location [string]
         """
-        return self.loc.encode(common.get_default_encoding())
+        return self['loc'].encode(common.get_default_encoding())
 
     def get_tag(self, tag):
         """
@@ -359,6 +347,19 @@ class Track(object):
         if album and album.strip():
             ret += " from '%s'" % album
         return ret
+
+class TrackWrapper(Track):
+    # simple track wrapper so we can easily get values from the db without
+    # instantiating the whole object
+    def __init__(self, id, store):
+        self.idn = id
+        self.store = store
+
+    def __getattr__(self, name):
+        try:
+            return self.store.find(Track, id == self.idn).values(getattr(Track, name)).one()
+        except:
+            return None
 
 def parse_stream_tags(track, tags):
     """

@@ -233,7 +233,7 @@ class TrackDB(object):
         self.store.commit()
         pass #FIXME
 
-    def list_tag(self, tag, search_terms="", use_albumartist=False):
+    def list_tag(self, tag, search_terms="", use_albumartist=False, sort=False):
         """
             lists out all the values for a particular, tag, without duplicates
             
@@ -242,6 +242,7 @@ class TrackDB(object):
         """
         store = self.store
         retset = None
+        field = tag
         if tag == "artist" and use_albumartist == True:
             albumartists = set(
                     store.find(track.Track).config(distinct=True).values(track.Track.albumartist))
@@ -264,7 +265,11 @@ class TrackDB(object):
             tag = getattr(track.Track, tag)
             retset = self.search(search_terms,use_resultset=True).config(distinct=True).values(tag)
 
-        return list(retset)
+        ret = list(retset)
+
+        if sort:
+            ret.sort(key=common.lstrip_special)
+        return ret
 
     def get_track_by_loc(self, loc, raw=False):
         """
@@ -280,6 +285,10 @@ class TrackDB(object):
     def get_track_attr(self, loc, attr):
         res = self.get_track_by_loc(loc, raw=True)
         return res.values(getattr(track.Track, attr))[0]
+
+    def _get_track_by_id(self, id):
+        res = self.store.find(track.Track, id=id)
+        return res
 
     def search(self, query, sort_fields=None, return_lim=-1, 
             use_resultset=False):
@@ -562,7 +571,10 @@ class TrackSearcher(object):
             if "==" in token:
                 tag, sym, content = token.partition("==")
                 content = content.strip().strip('"')
-                val = Like(getattr(track.Track, tag), content)
+                if content.upper() == "NONE":
+                    val = Eq(getattr(track.Track, tag), None)
+                else:
+                    val = Like(getattr(track.Track, tag), content)
             elif "=" in token:
                 tag, sym, content = token.partition("=")
                 content = content.strip().strip('"')
@@ -653,9 +665,11 @@ class TrackSearcher(object):
             if "==" in token:
                 tag, sym, content = token.partition("==")
                 content = content.strip().strip('"')
+                if content == "NONE":
+                    content == None
                 for l,tr in current_list.iteritems():
                     try:
-                        if str(tr[tag]).lower() == content:
+                        if str(tr[tag]).lower() == content or tr[tag] == content:
                             new_list[l]=tr
                     except:
                         pass

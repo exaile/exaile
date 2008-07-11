@@ -13,7 +13,7 @@
 # foundation, inc., 675 mass ave, cambridge, ma 02139, usa.
 
 import gtk, gobject, urllib
-from xl import xdg, common
+from xl import xdg, common, track
 from xlgui import panel, guiutil
 from gettext import gettext as _
 
@@ -155,31 +155,14 @@ class CollectionPanel(panel.Panel):
         col.pack_start(pb, False)
         col.pack_start(cell, True)
         col.set_attributes(pb, pixbuf=0)
+        col.set_attributes(cell, text=1)
         self.tree.append_column(col)
-        col.set_cell_data_func(cell, self.track_data_func)
 
         self.tree.set_row_separator_func(
             lambda m, i: m.get_value(i, 1) is None)
 
-        self.model = gtk.TreeStore(gtk.gdk.Pixbuf, object, str)
-        self.model_blank = gtk.TreeStore(gtk.gdk.Pixbuf, object, str)
-
-    def track_data_func(self, column, cell, model, iter, user_data=None):
-        """
-            Called when the tree needs a value for column 1
-        """
-        object = model.get_value(iter, 1)
-        if object is None: return
-        field = model.get_value(iter, 2)
-
-        if field == 'nofield':
-            cell.set_property('text', object)
-            return
-
-        info = object[field]
-        if not info or info == u'': 
-            info = _('Unknown')
-        cell.set_property('text', info)
+        self.model = gtk.TreeStore(gtk.gdk.Pixbuf, str)
+        self.model_blank = gtk.TreeStore(gtk.gdk.Pixbuf, str)
 
     def _find_recursive(self, iter, add):
         """
@@ -266,7 +249,93 @@ class CollectionPanel(panel.Panel):
 
             return False
 
+    def get_node_keywords(self, parent):
+        if not parent:
+            return []
+        values = [self.model.get_value(parent, 1)]
+        iter = self.model.iter_parent(parent)
+        newvals = self.get_node_keywords(iter)
+        if values[0]:
+            values = newvals + values
+        else:
+            values = newvals
+        return values
+
+    def get_node_search_terms(self, node):
+        keywords = self.get_node_keywords(node)
+        terms = []
+        n = 0
+        for field in self.order:
+            if field == 'tracknumber':
+                n += 1
+                continue
+            try:
+                word = keywords[n]
+                if word:
+                    word = word.replace("\"","")
+                else:
+                    n += 1
+                    continue
+                if word == _("Unknown"):
+                    word = "NONE"
+                terms.append("%s==\"%s\""%(field, word))
+                n += 1
+            except IndexError:
+                break
+        return terms
+
     def load_tree(self):
+        self.current_start_count = self.start_count
+        self.model.clear()
+        self.tree.set_model(self.model_blank)
+
+        self.root = None
+        self.order = self.orders[self.choice.get_active()]
+
+        self.image_map = {
+            "album": self.album_image,
+            "artist": self.artist_image,
+            "genre": self.genre_image,
+            "title": self.track_image,
+            "date": self.year_image,
+        }
+
+        # save the active view setting
+        self.settings['gui/collection_active_view'] = self.choice.get_active()
+
+        self.load_subtree(None)
+
+    def load_subtree(self, parent, depth=0):
+        terms = self.get_node_search_terms(parent)
+        if terms:
+            search = " ".join(terms)
+        else:
+            search = ""
+        if self.keyword.strip():
+            search += " " + self.keyword
+        print search
+        try:
+            tag = self.order[depth]
+            if tag == 'tracknumber':
+                depth += 1
+                tag = self.order[depth]
+            values = self.collection.list_tag(tag, search, use_albumartist=False, sort=True)
+        except IndexError:
+            return
+        try:
+            image = getattr(self, "%s_image"%tag)
+        except:
+            image = None
+        for v in values:
+            if not v:
+                v = _("Unknown")
+            iter = self.model.append(parent, [image, v])
+            self.load_subtree(iter, depth+1)
+
+        self.tree.set_model(self.model)
+
+
+    def load_tree_old(self):
         """
             Builds the tree
         """
@@ -355,12 +424,12 @@ class CollectionPanel(panel.Panel):
 
                 if field == 'title':
                     n = self.model.append(parent, [self.track_image,
-                        track, field])
+                        track.id, field])
                 else:
                     string = '%s - %s' % (string, info)
                     if not string in node_for:
                         parent = self.model.append(parent,
-                            [self.image_map[field], track, field])
+                            [self.image_map[field], track.id, field])
 
                         if info == 'tracknumber': info = track
                         node_for[string] = parent

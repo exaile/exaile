@@ -18,6 +18,17 @@ from xlgui import menu
 from xl import playlist
 from gettext import gettext as _
 
+class TrackWrapper(object):
+    def __init__(self, track, playlist):
+        self.track = track
+        self.playlist = playlist
+
+    def __str__(self):
+        text = self.track['title']
+        if text:
+            text += " - " + self.track['artist']
+        return text
+
 class PlaylistsPanel(panel.Panel):
     """
         The playlists panel
@@ -37,6 +48,7 @@ class PlaylistsPanel(panel.Panel):
         self.smart_manager = smart_manager
         self.collection = collection
         self.box = self.xml.get_widget('playlists_box')
+        self.playlist_nodes = {}
 
         self.targets = [('text/uri-list', 0, 0)]
 
@@ -66,6 +78,8 @@ class PlaylistsPanel(panel.Panel):
         self.open_folder = guiutil.get_icon('gnome-fs-directory-accept')
         self.playlist_image = gtk.gdk.pixbuf_new_from_file(
             xdg.get_data_path('images/playlist.png'))
+        self.track_image = gtk.gdk.pixbuf_new_from_file(
+            xdg.get_data_path('images/track.png'))
         
         self.menu = menu.PlaylistsPanelMenu(self, controller.main)
 
@@ -86,10 +100,34 @@ class PlaylistsPanel(panel.Panel):
                 self.smart_manager.get_playlist(name)])
             
         for name in self.manager.playlists:
-            self.model.append(self.custom, [self.playlist_image, name, 
-                self.manager.get_playlist(name)])
+            playlist = self.manager.get_playlist(name)
+            self.playlist_nodes[playlist] = self.model.append(
+                self.custom, [self.playlist_image, name, playlist])
+            self._load_playlist_nodes(playlist)
 
-        self.tree.expand_all()
+        self.tree.expand_row(self.model.get_path(self.smart), False)
+        self.tree.expand_row(self.model.get_path(self.custom), False)
+
+    
+    def _load_playlist_nodes(self, playlist):
+        """
+            Loads the playlist tracks into the node for the specified playlist
+        """
+        if not playlist in self.playlist_nodes: return
+
+        expanded = self.tree.row_expanded(
+            self.model.get_path(self.playlist_nodes[playlist]))
+
+        self._clear_node(self.playlist_nodes[playlist])
+        tracks = playlist.ordered_tracks
+        for track in tracks:
+            wrapper = TrackWrapper(track, playlist)
+            self.model.append(self.playlist_nodes[playlist], 
+                [self.track_image, str(wrapper), wrapper])
+
+        if expanded:
+            self.tree.expand_row(
+                self.model.get_path(self.playlist_nodes[playlist]), False)
         
     def open_selected_playlist(self):
         selection = self.tree.get_selection()
@@ -101,16 +139,21 @@ class PlaylistsPanel(panel.Panel):
             Called when the user double clicks on a playlist
         """
         iter = self.model.get_iter(path)
-        playlist = self.model.get_value(iter, 2)
-        if playlist:
+        pl = self.model.get_value(iter, 2)
+        if pl:
+            # if it's not a playlist, bail
+            if not isinstance(pl, (playlist.Playlist,
+                playlist.SmartPlaylist)):
+                return
+
             # for smart playlists
-            if hasattr(playlist, 'get_playlist'):
-                playlist = playlist.get_playlist()
+            if hasattr(pl, 'get_playlist'):
+                pl = playlist.get_playlist()
     
             # if the tracks are in the collection, use them instead of the
             # ones loaded from the playlist (so that we don't have duplicated
             # tracks object floating around)
-            tracks = playlist.get_tracks()
+            tracks = pl.get_tracks()
             new = []
             
             for track in tracks:
@@ -120,9 +163,9 @@ class PlaylistsPanel(panel.Panel):
                     
                 new.append(track)
     
-            playlist.set_tracks(new)
+            pl.set_tracks(new)
     
-            self.controller.main.add_playlist(playlist)
+            self.controller.main.add_playlist(pl)
 
     def drag_data_received(self, tv, context, x, y, selection, info, etime):
         """
@@ -141,12 +184,13 @@ class PlaylistsPanel(panel.Panel):
             # Add whatever we received to the playlist at path
             iter = self.model.get_iter(path[0])
             current_playlist = self.model.get_value(iter, 2)
-            if hasattr(current_playlist, 'get_playlist') or current_playlist == None:
+            if not isinstance(current_playlist, playlist.Playlist):
                 #Can't add songs to a smart playlists
                 context.drop_finish(False, etime)
                 return
             (tracks, playlists) = self.tree.get_drag_data(locs)
             current_playlist.add_tracks(tracks)
+            self._load_playlist_nodes(current_playlist)
             # Do we save in the case when a user drags a file onto a playlist in the playlist panel?
             # note that the playlist does not have to be open for this to happen
             self.manager.save_playlist(current_playlist, overwrite=True)
@@ -159,8 +203,11 @@ class PlaylistsPanel(panel.Panel):
             (tracks, playlists) = self.tree.get_drag_data(locs, False)
             #First see if they dragged any playlist files
             for new_playlist in playlists:
-                self.model.append(self.custom, [self.playlist_image, new_playlist.get_name(), 
-                                                new_playlist])
+                self.playlist_nodes[new_playlist] = self.model.append(self.custom, 
+                    [self.playlist_image, new_playlist.get_name(), 
+                    new_playlist])
+                self._load_playlist_nodes(new_playlist)
+
                 # We are adding a completely new playlist with tracks so we save it
                 self.manager.save_playlist(new_playlist, overwrite=True)
                     
@@ -177,9 +224,11 @@ class PlaylistsPanel(panel.Panel):
                         #Create the playlist from all of the tracks
                         new_playlist = playlist.Playlist(name)
                         new_playlist.add_tracks(tracks)
-                        self.model.append(self.custom, [self.playlist_image, name, 
-                                                       new_playlist])
+                        self.playlist_nodes[new_playlist] = \
+                            self.model.append(self.custom, [self.playlist_image, name,  
+                            new_playlist])
                         self.tree.expand_row(self.model.get_path(self.custom), False)
+                        self._load_playlist_nodes(new_playlist)
                         # We are adding a completely new playlist with tracks so we save it
                         self.manager.save_playlist(new_playlist)                
     
@@ -273,3 +322,12 @@ class PlaylistsPanel(panel.Panel):
         if event.button == 3:
             self.menu.popup(event)
 
+    def _clear_node(self, node):
+        """
+            Clears a node of all children
+        """
+        iter = self.model.iter_children(node)
+        while True:
+            if not iter: break
+            self.model.remove(iter)
+            iter = self.model.iter_children(node)

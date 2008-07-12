@@ -873,13 +873,30 @@ class PlaylistManager(object):
 
     def remove_playlist(self, name):
         """
-            Removes a playlist from the manager
+            Removes a playlist from the manager, also
+            physically deletes its
 
             @param name: the name of the playlist to remove
         """
         if name in self.playlists:
+            os.remove(os.path.join(self.playlist_dir, name))
             self.playlists.remove(name)
             event.log_event('playlist_removed', self, name)
+            
+    def rename_playlist(self, old_name, new_name):
+        """
+            Renames the playlist at old_name to new_name
+        """
+        #TODO need to test that this works and is the right
+        #way to do it
+        old_path = os.path.join(self.playlist_dir, old_name)
+        new_path = os.path.join(self.playlist_dir, new_name)
+        print 'old path %s' %old_path
+        print 'new path %s' %new_path
+        os.rename(old_path, new_path)
+        # We also have to remove the old playlist so it does not 
+        # Save when we exit
+        self.remove_playlist(old_name)
 
     def save_all(self):
         """

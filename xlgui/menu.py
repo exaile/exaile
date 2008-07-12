@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import gtk
-from xlgui import guiutil
+from xlgui import guiutil, commondialogs
 from gettext import gettext as _
 
 class GenericTrackMenu(guiutil.Menu):
@@ -132,3 +132,52 @@ class TrackSelectMenu(GenericTrackMenu):
 # these are stubbs for now
 FilesPanelMenu = TrackSelectMenu
 CollectionPanelMenu = TrackSelectMenu
+
+
+class PlaylistsPanelMenu(TrackSelectMenu):
+    """
+        Menu for xlgui.panel.playlists.PlaylistsPanel
+    """
+    def __init__(self, widget, main):
+        """
+            @param widget: playlists panel widget
+        """
+        TrackSelectMenu.__init__(self, widget, main)
+        self.widget = widget
+        
+        self.append_separator()
+        self.append(_('Open'), lambda *e: self.on_open_playlist(),
+                    'gtk-open')
+        self.append(_('Rename'), lambda *e: self.on_rename_playlist(),
+                    'gtk-edit')
+        self.append(_('Export'), lambda *e: self.on_export_playlist(),
+                    'gtk-save')
+        self.append_separator()
+        self.append(_('Delete Playlist'), lambda *e: self.on_delete_playlist(), 
+                    'gtk-remove') 
+        
+    def on_export_playlist(self, selected = None):
+        pass
+                    
+    def on_delete_playlist(self, selected = None):
+        self.widget.remove_selected_playlist()
+        
+    def on_rename_playlist(self, selected = None):
+        # Ask for new name
+        dialog = commondialogs.TextEntryDialog(
+            _("Enter the new name you want for your playlist"),
+            _("Rename Playlist"))
+        result = dialog.run()
+        if result == gtk.RESPONSE_OK:
+            name = dialog.get_value()
+            if not name == "":
+                self.widget.rename_selected_playlist(name)
+    
+    def on_open_playlist(self, selected = None):
+        self.widget.open_selected_playlist()
+    
+    def popup(self, event):
+        """
+            Displays the menu
+        """
+        guiutil.Menu.popup(self, None, None, None, event.button, event.time)

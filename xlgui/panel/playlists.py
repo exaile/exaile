@@ -14,6 +14,7 @@
 
 import gtk, urllib, os.path
 from xlgui import panel, guiutil, xdg, commondialogs
+from xlgui import menu
 from xl import playlist
 from gettext import gettext as _
 
@@ -65,6 +66,8 @@ class PlaylistsPanel(panel.Panel):
         self.open_folder = guiutil.get_icon('gnome-fs-directory-accept')
         self.playlist_image = gtk.gdk.pixbuf_new_from_file(
             xdg.get_data_path('images/playlist.png'))
+        
+        self.menu = menu.PlaylistsPanelMenu(self, controller.main)
 
         self._load_playlists()
 
@@ -87,6 +90,11 @@ class PlaylistsPanel(panel.Panel):
                 self.manager.get_playlist(name)])
 
         self.tree.expand_all()
+        
+    def open_selected_playlist(self):
+        selection = self.tree.get_selection()
+        (model, iter) = selection.get_selected()
+        self.open_playlist(self.tree, model.get_path(iter), None)
 
     def open_playlist(self, tree, path, col):
         """
@@ -94,27 +102,27 @@ class PlaylistsPanel(panel.Panel):
         """
         iter = self.model.get_iter(path)
         playlist = self.model.get_value(iter, 2)
-
-        # for smart playlists
-        if hasattr(playlist, 'get_playlist'):
-            playlist = playlist.get_playlist(self.collection)
-
-        # if the tracks are in the collection, use them instead of the
-        # ones loaded from the playlist (so that we don't have duplicated
-        # tracks object floating around)
-        tracks = playlist.get_tracks()
-        new = []
-        
-        for track in tracks:
-            if track.get_loc() in \
-                self.collection.tracks:
-                track = self.collection.tracks[track.get_loc()]
-                
-            new.append(track)
-
-        playlist.set_tracks(new)
-
-        self.controller.main.add_playlist(playlist)
+        if playlist:
+            # for smart playlists
+            if hasattr(playlist, 'get_playlist'):
+                playlist = playlist.get_playlist()
+    
+            # if the tracks are in the collection, use them instead of the
+            # ones loaded from the playlist (so that we don't have duplicated
+            # tracks object floating around)
+            tracks = playlist.get_tracks()
+            new = []
+            
+            for track in tracks:
+                if track.get_loc() in \
+                    self.collection.tracks:
+                    track = self.collection.tracks[track.get_loc()]
+                    
+                new.append(track)
+    
+            playlist.set_tracks(new)
+    
+            self.controller.main.add_playlist(playlist)
 
     def drag_data_received(self, tv, context, x, y, selection, info, etime):
         """
@@ -186,23 +194,82 @@ class PlaylistsPanel(panel.Panel):
             Called when someone drags something from the playlist
         """
         # Find the currently selected playlist
-        selection = self.tree.get_selection()
-        (model, iter) = selection.get_selected()
-        playlist = model.get_value(iter, 2)
-        # for smart playlists
-        if hasattr(playlist, 'get_playlist'):
-            tracks = playlist.get_playlist().get_tracks()
-        else:
-            tracks = playlist.get_tracks()
+        tracks = self.get_selected_playlist().get_tracks()
         # Put the songs in a list of uris
         track_uris = []
         for track in tracks:
             track_uris.append(track.get_loc_for_io())
         selection_data.set_uris(track_uris)
-
-    def button_press(self, *e):
+        
+    def get_selected_playlist(self):
         """
-            subb
+            Retrieves the currently selected playlist in
+            the playlists panel.  If a non-playlist is
+            selected it returns None
+            
+            @return: the playlist
         """
-        pass
+        selection = self.tree.get_selection()
+        (model, iter) = selection.get_selected()
+        playlist = model.get_value(iter, 2)
+        # for smart playlists
+        if hasattr(playlist, 'get_playlist'):
+            return playlist.get_playlist()
+        elif playlist is not None:
+            return playlist
+        else:
+            return None
+        
+    def remove_selected_playlist(self):
+        """
+            Removes the selected playlist both from view
+            of the user and from the underlying manager if 
+            they confirm
+        """
+        dialog = gtk.MessageDialog(None, 
+            gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, 
+            _("Are you sure you want to permanently delete the selected"
+            " playlist?"))
+        if dialog.run() == gtk.RESPONSE_YES:
+           selected_playlist = self.get_selected_playlist()
+           if selected_playlist is not None:
+                self.manager.remove_playlist(selected_playlist.get_name())
+                #remove from UI
+                selection = self.tree.get_selection()
+                (model, iter) = selection.get_selected()
+                self.model.remove(iter)
+        dialog.destroy()
+            
+    def get_selected_tracks(self):
+        """
+            Used by the menu, just basically gets the selected
+            playlist and returns the tracks in it
+        """
+        pl = self.get_selected_playlist()
+        if pl:
+            return pl.get_tracks()
+        
+    def rename_selected_playlist(self, name):
+        """
+            Renames the selected playlist
+            
+            @param name: the new name
+        """
+        #TODO fix! - it does not actially rename
+        pl = self.get_selected_playlist()
+        if pl:
+            old_name = pl.get_name()
+            selection = self.tree.get_selection()
+            (model, iter) = selection.get_selected()
+            model.set_value(iter, 1, name)
+            pl.set_name(name)
+            model.set_value(iter, 2, pl)
+            #Update the manager aswell
+            self.manager.rename_playlist(old_name, name)
+        
+    def button_press(self, button, event):
+        #TODO show different menu based on what is selected?
+        # or just disable/enable items?
+        if event.button == 3:
+            self.menu.popup(event)
 

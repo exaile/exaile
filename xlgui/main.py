@@ -621,7 +621,7 @@ class MainWindow(object):
                 if track:
                     pl.playlist.set_current_pos(
                         pl.playlist.index(track))
-            exaile.queue.play()
+            exaile.queue.next()
 
     def playlist_switch_event(self, notebook, page, page_num):
         """

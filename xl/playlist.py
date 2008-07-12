@@ -309,7 +309,9 @@ class Playlist(trackdb.TrackDB):
 
             args: see TrackDB
         """
-        self.ordered_tracks = []
+        self._ordered_tracks = []
+        self.filtered_tracks = []
+        self.filtered = False
         self.current_pos = -1
         self.current_playing = False
         self.random_enabled = False
@@ -322,6 +324,39 @@ class Playlist(trackdb.TrackDB):
                 'tracks_history', 'dynamic_enabled']
         trackdb.TrackDB.__init__(self, name=name, location=location,
                 pickle_attrs=pickle_attrs)
+
+    def get_ordered_tracks(self):
+        """
+            Returns _ordered_tracks, or filtered tracks if it's been set
+        """
+        if self.filtered:
+            return self.filtered_tracks
+        else:   
+            return self._ordered_tracks
+
+    def set_ordered_tracks(self, tracks):
+        """
+            Sets the ordered tracks
+        """
+        if self.filtered:
+            self.filtered_tracks = tracks
+        else:
+            self._ordered_tracks = tracks
+
+    ordered_tracks = property(get_ordered_tracks,
+        set_ordered_tracks)
+
+    def filter(self, keyword):
+        """
+            Filters the ordered tracks based on a keyword
+        """
+        if not keyword:
+            self.filtered = False
+            return self._ordered_tracks
+        else:
+            self.filtered_tracks = self.search(keyword)
+            self.filtered = True
+            return self.filtered_tracks
 
     def __len__(self):
         """
@@ -879,7 +914,10 @@ class PlaylistManager(object):
             @param name: the name of the playlist to remove
         """
         if name in self.playlists:
-            os.remove(os.path.join(self.playlist_dir, name))
+            try:
+                os.remove(os.path.join(self.playlist_dir, name))
+            except OSError:
+                pass
             self.playlists.remove(name)
             event.log_event('playlist_removed', self, name)
             

@@ -65,21 +65,9 @@ class CollectionPanel(panel.Panel):
         self.choice.set_active(active)
 
         box = self.xml.get_widget('collection_search_box')
-        self.filter = guiutil.SearchEntry(self.on_search)
+        self.filter = guiutil.SearchEntry()
         self.filter.connect('activate', self.on_search)
         box.pack_start(self.filter.entry, True, True)
-        self.key_id = None
-
-    def on_filter_key_release(self, *e):
-        """
-            Called when someone releases a key
-            Sets up a timer to simulate live-search
-        """
-        if self.key_id:
-            gobject.source_remove(self.key_id)
-            self.key_id = None
-
-        self.key_id = gobject.timeout_add(500, self.on_search)
 
     def _connect_events(self):
         """

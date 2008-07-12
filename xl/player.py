@@ -37,7 +37,7 @@ class PlayQueue(playlist.Playlist):
                 pickle_attrs=pickle_attrs)
         self.player = player
         player.set_queue(self)
-        self.stop_track = None
+        self.stop_track = -1
 
     def set_current_playlist(self, playlist):
         self.current_playlist = playlist
@@ -57,7 +57,7 @@ class PlayQueue(playlist.Playlist):
             if self.player.current == self.stop_track:
                 self.player.stop()
                 event.log_event('stop_track', self, self.stop_track)
-                self.stop_track = None
+                self.stop_track = -1
                 return
 
         track = playlist.Playlist.next(self)

@@ -85,10 +85,10 @@ class Playlist(gtk.VBox):
         self.search_keyword = ''
         self.xml = main.xml
 
-        # note: care must be taken so that sorting and searching does
-        # not affect this object. However, changes in order and tracks
-        # should change this object.
-        self.playlist = pl
+        self.playlist = copy.copy(pl)
+        self.playlist.tracks = copy.copy(pl.tracks)
+        self.playlist.ordered_tracks = pl.ordered_tracks[:]
+        self.playlist.current_pos = -1
 
         self.settings = controller.exaile.settings
         self.col_menus = dict()
@@ -156,7 +156,8 @@ class Playlist(gtk.VBox):
         """
             Filter the playlist with a keyword
         """
-        self._set_tracks(self.playlist.search(keyword))
+        tracks = self.playlist.filter(keyword)
+        self._set_tracks(tracks)
         self.search_keyword = keyword
 
     def change_column_settings(self, item, data):
@@ -684,8 +685,12 @@ class Playlist(gtk.VBox):
         tracks = self.reorder_songs()
         self._set_tracks(tracks)
 
-        curtrack = \
-            self.playlist.ordered_tracks[self.playlist.get_current_pos()] 
+        if not self.playlist.ordered_tracks: return
+        try:
+            curtrack = \
+                self.playlist.ordered_tracks[self.playlist.get_current_pos()] 
+        except IndexError:
+            curtrac = self.playlist.ordered_tracks[0]
         self.playlist.ordered_tracks = tracks
         index = self.playlist.index(curtrack)
         self.playlist.set_current_pos(index)

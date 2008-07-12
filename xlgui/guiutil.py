@@ -278,7 +278,7 @@ class EntryWithClearButton(object):
     """
         A gtk.Entry with a clear icon
     """
-    def __init__(self, change_func):
+    def __init__(self):
         """
             Initializes the entry
         """
@@ -287,17 +287,9 @@ class EntryWithClearButton(object):
             image = gtk.Image()
             image.set_from_stock('gtk-clear', gtk.ICON_SIZE_SMALL_TOOLBAR)
             self.entry.set_icon(sexy.ICON_ENTRY_SECONDARY, image)
-            if change_func:
-                self.entry.connect('icon-released', self.icon_released)
+            self.entry.connect('icon-released', self.icon_released)
         else:
             self.entry = gtk.Entry()
-        self.entry.connect('changed', change_func)
-
-    def set_clear_callback(self, cb):
-        """
-            Sets the callback to be called after the clear button is pressed
-        """
-        self.clear_callback = cb
 
     def icon_released(self, *e):
         """
@@ -312,6 +304,37 @@ class EntryWithClearButton(object):
         """
         if attr == 'entry': return self.entry
         return getattr(self.entry, attr)
+
+class SearchEntry(EntryWithClearButton):
+    """
+        A gtk.Entry that emits the "activated" signal when something has
+        changed after the specified timeout
+    """
+    def __init__(self, timeout=500):
+        """
+            Initializes the entry
+        """
+        EntryWithClearButton.__init__(self)
+        self.timeout = 500
+        self.change_id = None
+
+        self.entry.connect('changed', self.on_entry_changed)
+
+    def on_entry_changed(self, *e):
+        """
+            Called when the entry changes
+        """
+        if self.change_id:
+            gobject.source_remove(self.change_id)
+
+        self.change_id = gobject.timeout_add(self.timeout,
+            self.entry_activate)
+
+    def entry_activate(self, *e):
+        """
+            Emit the activate signal
+        """
+        self.entry.emit('activate')
 
 def get_icon(id, size=gtk.ICON_SIZE_BUTTON):
     """

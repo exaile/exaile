@@ -276,7 +276,7 @@ class MainWindow(object):
             tab)
         self.playlist_notebook.set_current_page(
             self.playlist_notebook.get_n_pages() - 1)
-        pl.playlist.set_random(self.shuffle_toggle.get_active())
+        self.set_mode_toggles()
 
     def _setup_hotkeys(self):
         """
@@ -299,6 +299,9 @@ class MainWindow(object):
         """
         self.shuffle_toggle = self.xml.get_widget('shuffle_button')
         self.shuffle_toggle.set_active(self.settings.get_option('playback/shuffle',
+            False))
+        self.repeat_toggle = self.xml.get_widget('repeat_button')
+        self.repeat_toggle.set_active(self.settings.get_option('playback/repeat',
             False))
 
         # cover box
@@ -327,6 +330,20 @@ class MainWindow(object):
             self.on_stop_buttonpress)
         self.status = guiutil.StatusBar(self.xml.get_widget('left_statuslabel'))
         self.track_count_label = self.xml.get_widget('track_count_label')
+
+        # search filter
+        box = self.xml.get_widget('playlist_search_entry_box')
+        self.filter = guiutil.SearchEntry()
+        self.filter.connect('activate', self.on_playlist_search)
+        box.pack_start(self.filter.entry, True, True)
+
+    def on_playlist_search(self, *e):
+        """
+            Filters the currently selected playlist
+        """
+        pl = self.get_current_playlist()
+        if pl:
+            pl.search(self.filter.get_text())
 
     def on_stop_buttonpress(self, widget, event):
         """
@@ -387,7 +404,8 @@ class MainWindow(object):
                 lambda *e: self.controller.exaile.queue.prev(),
             'on_stop_button_clicked':
                 lambda *e: self.controller.exaile.player.stop(),
-            'on_shuffle_button_toggled': self.on_shuffle_button_toggled,
+            'on_shuffle_button_toggled': self.set_mode_toggles,
+            'on_repeat_button_toggled': self.set_mode_toggles,
             'on_clear_playlist_button_clicked': self.on_clear_playlist,
             'on_playlist_notebook_remove': self.on_playlist_notebook_remove,
             'on_new_playlist_item_activated': lambda *e:
@@ -481,14 +499,16 @@ class MainWindow(object):
         if not playlist: return
         playlist.playlist.clear()
 
-    def on_shuffle_button_toggled(self, button):
+    def set_mode_toggles(self, *e):
         """
-            Called when the user clicks the shuffle checkbox
+            Called when the user clicks one of the playback mode buttons
         """
-        self.settings['playback/shuffle'] = button.get_active()
+        self.settings['playback/shuffle'] = self.shuffle_toggle.get_active()
+        self.settings['playback/repeat'] = self.repeat_toggle.get_active()
         pl = self.get_current_playlist()
         if pl:
-            pl.playlist.set_random(button.get_active())
+            pl.playlist.set_random(self.shuffle_toggle.get_active())
+            pl.playlist.set_repeat(self.repeat_toggle.get_active())
 
     def get_current_playlist(self):
         """
@@ -609,7 +629,7 @@ class MainWindow(object):
         """
         page = notebook.get_nth_page(page_num)
         self.queue.set_current_playlist(page.playlist)
-        page.playlist.set_random(self.shuffle_toggle.get_active())
+        self.set_mode_toggles()
         self.update_track_counts()
 
     def _setup_position(self):

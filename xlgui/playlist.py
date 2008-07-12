@@ -82,6 +82,7 @@ class Playlist(gtk.VBox):
         self.main = main
         self.controller = controller
         self.collection = controller.exaile.collection
+        self.search_keyword = ''
         self.xml = main.xml
 
         # note: care must be taken so that sorting and searching does
@@ -150,6 +151,13 @@ class Playlist(gtk.VBox):
             menu.set_active(col_struct.id in column_ids)
             menu.connect('activate', self.change_column_settings,
                 ('gui/columns', col_struct))
+
+    def search(self, keyword):
+        """
+            Filter the playlist with a keyword
+        """
+        self._set_tracks(self.playlist.search(keyword))
+        self.search_keyword = keyword
 
     def change_column_settings(self, item, data):
         """
@@ -688,7 +696,7 @@ class Playlist(gtk.VBox):
         """
         attr, reverse = self.get_sort_by()
 
-        songs = self.playlist.search('',
+        songs = self.playlist.search(self.search_keyword,
             (attr, 'artist', 'album', 'tracknumber', 'title'))
 
         if reverse:

@@ -574,13 +574,13 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkEntry" id="playlist_search_entry">
+                      <widget class="GtkHBox" id="playlist_search_entry_box">
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <signal name="activate" handler="on_playlist_search_entry_activate"/>
+                        <child>
+                          <placeholder/>
+                        </child>
                       </widget>
                       <packing>
-                        <property name="padding">4</property>
                         <property name="position">6</property>
                       </packing>
                     </child>

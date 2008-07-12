@@ -65,7 +65,7 @@ class CollectionPanel(panel.Panel):
         self.choice.set_active(active)
 
         box = self.xml.get_widget('collection_search_box')
-        self.filter = guiutil.EntryWithClearButton(self.on_filter_key_release)
+        self.filter = guiutil.SearchEntry(self.on_search)
         self.filter.connect('activate', self.on_search)
         box.pack_start(self.filter.entry, True, True)
         self.key_id = None

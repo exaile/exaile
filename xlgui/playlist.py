@@ -85,7 +85,6 @@ class Playlist(gtk.VBox):
         self.xml = main.xml
 
         self.playlist = copy.copy(pl)
-        self.playlist.tracks = copy.copy(pl.tracks)
         self.playlist.ordered_tracks = pl.ordered_tracks[:]
         self.playlist.current_pos = -1
 

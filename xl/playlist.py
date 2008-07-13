@@ -22,8 +22,9 @@
 #
 # also contains functions for saving and loading various playlist formats.
 
-from xl import trackdb, event, xdg, track
+from xl import trackdb, event, xdg, track, collection
 from xl.settings import SettingsManager
+SettingsManager = SettingsManager.settings
 import urllib, random, os, time
 
 try:
@@ -704,6 +705,7 @@ class Playlist(object):
         tracks = []
         for loc in locs:
             c = collection.get_collection_by_loc(loc)
+            tr = None
             if c:
                 tr = c.get_track_by_loc(loc)
             if not tr:

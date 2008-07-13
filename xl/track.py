@@ -165,11 +165,9 @@ class Track(object):
         return self['loc'].encode(common.get_default_encoding())
 
     def get_type(self):
-        try:
-            type = self['loc'].split("://",1)[0]
-        except:
-            type = "file"
-        return type
+        b = self['loc'].find('://')
+        if b == -1: return 'file'
+        return self['loc'][:b]
 
     def get_tag(self, tag):
         """

@@ -57,17 +57,19 @@ class LyricsManager(SimpleManager):
             if lyrics:
                 break
 
+        if not lyrics:
+            # no lyrcs were found, raise an exception
+            raise LyricsNotFoundException()
+
+        lyrics = lyrics.strip()
+
         # See if we want to update the track,
         # but only if we have lyrics
-        if lyrics and update_track:
+        if update_track:
             track["lyrics"] = lyrics
             track.write_tags()
         
-        if lyrics:
-            return (lyrics, source, url)
-        else:
-            # no lyrcs were found, raise an exception
-            raise LyricsNotFoundException()
+        return (lyrics, source, url)
     
     def add_defaults(self):
         """

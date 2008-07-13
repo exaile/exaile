@@ -21,13 +21,49 @@
 # A library finds tracks in a specified directory and adds them to an
 # associated collection.
 
-from xl import trackdb, media, track
+from xl import trackdb, media, track, common, xdg
 from xl.settings import SettingsManager
+settings = SettingsManager.settings
 
 import os, time, os.path, logging
 import gobject
 
 logger = logging.getLogger(__name__)
+
+COLLECTIONS = set()
+
+def get_collection_by_loc(loc):
+    """
+        returns the collection containing a track having the
+        given loc. returns None if no such collection exists.
+    """
+    for c in COLLECTIONS:
+        if c.loc_is_member(loc):
+            return c
+    return None
+
+def get_collection_uri(type=None):
+    """
+        returns the URI of the collection
+    """
+    if not type:
+        type = settings.get_option("collection/db_type", "sqlite")
+    if type == "sqlite":
+        return "sqlite:%s"%os.path.join(xdg.get_data_dirs()[0], 'music.db')
+    elif type == "mysql":
+        port = settings.get_option("collection/mysql_port", None)
+        host = settings.get_option("collection/mysql_host", None)
+        user = settings.get_option("collection/mysql_user", None)
+        passwd = settings.get_option("collection/mysql_pass", None)
+        dbname = settings.get_option("collection/mysql_db", None)
+        if None in [port, host, user, passwd, dbname]:
+            logger.error("MYSQL connection information missing, falling back to SQLite")
+            return get_collection_uri(type="sqlite")
+        return "mysql://%s:%s@%s:%s/%s"%(user, passwd, host, port, dbname)
+    
+    logger.warning("Invalid collection type was set, falling back to SQLite")
+    return get_collection_uri(type="sqlite")
+
 
 class Collection(trackdb.TrackDB):
     """
@@ -39,12 +75,12 @@ class Collection(trackdb.TrackDB):
         >>> c = Collection("Test Collection")
         >>> c.add_library(Library("./tests/data"))
         >>> c.rescan_libraries()
-        >>> tracks = c.search('artist="TestArtist"')
+        >>> tracks = list(c.search('artist="TestArtist"'))
         >>> print len(tracks)
         5
         >>> 
     """
-    def __init__(self, name, location=None, pickle_attrs=[]):
+    def __init__(self, name, location=None):
         """
             Set up the collection
 
@@ -52,14 +88,16 @@ class Collection(trackdb.TrackDB):
         """
         self.libraries = dict()
         self.settings = SettingsManager.settings
-        trackdb.TrackDB.__init__(self, location=location, 
-                pickle_attrs=pickle_attrs)
+        self.name = name
+        trackdb.TrackDB.__init__(self, location=location)
 
         if self.settings:
             lib_paths = self.settings.get_option("collection/libraries", [])
             for (loc, realtime, interval) in lib_paths:
                 if len(loc.strip()) > 0:
                     self.add_library(Library(loc, realtime, interval))
+        
+        COLLECTIONS.add(self)
 
     def add_library(self, library):
         """
@@ -113,6 +151,14 @@ class Collection(trackdb.TrackDB):
         for k, v in self.libraries.iteritems():
             libraries.append((v.location, v.realtime, v.scan_interval))
         self.settings.set_option("collection/libraries", libraries)
+
+    def close(self):
+        """
+            close the collection. does any work like saving to disk,
+            closing network connections, etc.
+        """
+        #TODO: make close() part of trackdb
+        collections.remove(self)
 
 
 class ProcessEvent(object):
@@ -242,7 +288,7 @@ class Library(object):
         True
         >>> print c.get_libraries()[0].location
         ./tests/data
-        >>> print len(c.search('artist="TestArtist"'))
+        >>> print len(list(c.search('artist="TestArtist"')))
         5
         >>> 
     """
@@ -294,19 +340,23 @@ class Library(object):
 
             locations: a list of locations to check
         """
+        db = self.collection.get_editable()
         for fullpath in locations:
-            if fullpath in self.collection.tracks:
+            tr = db.get_track_by_loc(fullpath)
+            if tr:
                 # check to see if we need to scan this track
                 mtime = os.path.getmtime(fullpath)
-                if unicode(mtime) == self.collection.tracks[fullpath]['modified']:
+                if unicode(mtime) == tr['modified']:
                     continue
                 else:
-                    self.collection.tracks[fullpath].read_tags()
+                    tr.read_tags()
                     continue
 
             tr = track.Track(fullpath)
             if tr._scan_valid == True:
-                self.collection.add(tr)
+                db.add(tr)
+        db.commit()
+        db.close()
 
     def _remove_locations(self, locations):
         """
@@ -335,28 +385,36 @@ class Library(object):
         logger.info("Scanning library: %s" % self.location)
         self.scanning = True
         formats = track.formats.keys()
+        db = self.collection.get_editable()
+        num_added = 0
 
         for folder in os.walk(self.location):
             basepath = folder[0]
             for filename in folder[2]:
+                if num_added > 500:
+                    db.commit()
+                    num_added = 0
                 fullpath = os.path.join(basepath, filename)
 
-                if fullpath in self.collection.tracks:
-                    # check to see if we need to scan this track
-                    try:
-                        mtime = os.path.getmtime(fullpath)
-                    except OSError:
+                try:
+                    trmtime = db.get_track_attr(fullpath, "modified")
+                    mtime = os.path.getmtime(fullpath)
+                    if mtime == trmtime:
                         continue
-                    if mtime == self.collection.tracks[fullpath]['modified']:
-                        continue
-                    else:
-                        self.collection.tracks[fullpath].read_tags()
-                        continue
+                except:
+                    continue
 
-                tr = track.Track(fullpath)
-                if tr._scan_valid == True:
-                    self.collection.add(tr)
-
+                tr = db.get_track_by_loc(fullpath)
+                if tr:
+                    tr.read_tags()
+                    num_added += 1
+                else:
+                    tr = track.Track(fullpath)
+                    if tr._scan_valid == True:
+                        db.add(tr)
+                        num_added += 1
+        db.commit()
+        db.close()
         self.scanning = False
         return True
 

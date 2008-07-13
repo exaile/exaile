@@ -18,21 +18,68 @@
 #
 # TrackSearcher - fast, advanced method for searching a dictionary of tracks
 
-try:
-    import cPickle as pickle
-except ImportError:
-    import pickle
-
-from xl import media, common, track, event
-from copy import deepcopy
-
-SEARCH_ITEMS = ('albumartist', 'artist', 'album', 'title')
-SORT_ORDER = ('album', 'track', 'artist', 'title')
+from xl import media, common, track, event, xdg
 
 import logging, random, time, os
 logger = logging.getLogger(__name__)
 
-random.seed(time.time())
+# this overrides storms' sqlite support to handle threading transparently
+from lib import storm_threaded
+
+from storm.uri import URI
+from storm.locals import *
+from storm.expr import Gt, Lt, Eq
+from storm.properties import Bool, Int, Float, Decimal, Unicode, RawStr, Pickle, DateTime, Date, Time, TimeDelta
+
+try:
+    import MySQLdb as mysqldb
+except:
+    mysqldb = False
+
+#FIXME: make these user-customizable
+SEARCH_ITEMS = ('artist', 'albumartist', 'album', 'title')
+SORT_FALLBACK = ('tracknumber', 'album')
+
+
+# we don't use everything in these mappings, but include them for completeness
+# List type ommitted as storm docs are not clear on the appropriate mappings
+SQLITE_MAPPING = {
+        Bool: "INTEGER",
+        Int: "INTEGER",
+        Float: "FLOAT",
+        Decimal: "VARCHAR",
+        Unicode: "VARCHAR",
+        RawStr: "BLOB",
+        Pickle: "BLOB",
+        DateTime: "VARCHAR",
+        Date: "VARCHAR",
+        Time: "VARCHAR",
+        TimeDelta: "VARCHAR"}
+
+MYSQL_MAPPING = {
+        Bool: "TINYINT",
+        Int: "INTEGER",
+        Float: "FLOAT",
+        Decimal: "DECIMAL",
+        Unicode: "TEXT CHARACTER SET utf8", #needed for unicode support
+        RawStr: "BLOB", 
+        Pickle: "BLOB",
+        DateTime: "DATETIME",
+        Date: "DATE",
+        Time: "TIME"}
+
+POSTGRES_MAPPING = {
+        Bool: "BOOL",
+        Int: "INTEGER",
+        Float: "FLOAT",
+        Decimal: "DECIMAL",
+        Unicode: "VARCHAR",
+        RawStr: "BYTEA",
+        Pickle: "BYTEA",
+        DateTime: "TIMESTAMP",
+        Date: "DATE",
+        Time: "TIME",
+        TimeDelta: "INTERVAL"}
 
 def get_sort_tuple(fields, track):
     """
@@ -46,7 +93,7 @@ def get_sort_tuple(fields, track):
     else:
         items = [track.sort_param(field) for field in fields]
 
-    for item in SORT_ORDER:
+    for item in ('album', 'track', 'artist', 'title'):
         if track.sort_param(item) not in items:
             items.append(track.sort_param(item))
 
@@ -61,12 +108,77 @@ def sort_tracks(fields, tracks, reverse=False):
         tracks: tracks to sort [list of Track]
         reverse: sort in reverse? [bool]
     """
-
     tracks = [get_sort_tuple(fields, t) for t in tracks]
     tracks.sort()
     if reverse: tracks.reverse()
 
     return [t[-1:][0] for t in tracks]
+
+def get_database_connection(uri):
+    if uri == None:
+        from tempfile import mkstemp
+        uri = "sqlite:%s"%mkstemp()[1]
+    dbtype = uri.split(":",1)[0]
+
+    logger.debug("Connecting to database at %s"%uri)
+    db = create_database(uri)
+
+    #TODO: make this capable of handling connections to postgres
+
+    if dbtype == "sqlite":
+        attr_mapping = SQLITE_MAPPING
+        sql_fields = ["id INTEGER PRIMARY KEY"]
+    elif dbtype == "mysql":
+        attr_mapping = MYSQL_MAPPING
+        sql_fields = ["id INTEGER AUTO_INCREMENT PRIMARY KEY"]
+    else:
+        attr_mapping = {} #this just fails for eveything, whee!
+        sql_fields = []
+
+    # generate the SQL column info
+    for k, v in (x for x in track.Track.__dict__.iteritems() if x[0] != "id"):
+        try:
+            sql = "%s %s"%(k, attr_mapping[type(v)])
+            sql_fields.append(sql)
+        except KeyError:
+            pass
+
+    #FIXME: this doesn't handle errors in talking to the db
+    store = Store(db)
+    try:
+        # make db, first run
+        if dbtype == "sqlite":
+            query = "CREATE TABLE tracks("
+        elif dbtype == "mysql":
+            dbname = uri.split("/")[-1]
+            query = "CREATE TABLE tracks ("
+        query += sql_fields[0]
+        for item in sql_fields[1:]:
+            query += ", \n" + item
+        query += ");"
+        store.execute(query)
+        logger.debug("Created initial DB")
+    except: #FIXME: BAD BAD BAD BAD BAD, we should handle specific exceptions
+        # table exists, try adding any fields individually. this handles
+        # added fields between versions transparently.
+        logger.debug("DB exists, attempting to add any missing fields")
+        for item in sql_fields[1:]:
+            try:
+                query = "ALTER TABLE tracks ADD %s;"%item
+                store.execute(query)
+                logger.debug("Added missing field \"%s\""%item)
+            except: #ALSO BAD
+                pass
+    for item in SEARCH_ITEMS:
+        try:
+            query = "CREATE INDEX %s_index ON tracks(%s(100))"%(item, item)
+            store.execute(query)
+            logger.debug("Added index for %s"%item)
+        except: #YET MORE BAD
+            pass
+    store.commit()
+
+    return db
 
 
 class TrackDB(object):
@@ -76,35 +188,24 @@ class TrackDB(object):
         Allows you to add, remove, retrieve, search, save and load
         Track objects.
 
-        This particular implementation is done using pickle
+        This particular implementation is done using storm
     """
-    def __init__(self, name='', location=None, pickle_attrs=[]):
+    def __init__(self, name='', location=""):
         """
             Sets up the trackDB.
 
             @param name:   The name of this TrackDB. [string]
             @param location:   Path to a file where this trackDB
                     should be stored. [string]
-            @param pickle_attrs:   A list of attributes to store in the
-                    pickled representation of this object. All
-                    attributes listed must be built-in types, with
-                    one exception: If the object contains the phrase
-                    'tracks' in its name it may be a list or dict
-                    or Track objects. [list of string]
         """
-        self.tracks = dict()
         self.name = name
         self.location = location
-        self.pickle_attrs = pickle_attrs
-        self.pickle_attrs += ['tracks', 'name']
-        self._dirty = False
 
-        if location:
-            self.load_from_location(location)
+        self.db = get_database_connection(location)
+        self.store = Store(self.db)
 
-        self.searcher = TrackSearcher(self.tracks)
-
-        track.set_track_update_callback(self._track_watch_cb, None)
+    def get_editable(self):
+        return EditableTrackDB(self, self.db)
 
     def set_name(self, name):
         """
@@ -112,7 +213,6 @@ class TrackDB(object):
 
             name:   The new name. [string]
         """
-        self._dirty = True
         self.name = name
 
     def get_name(self):
@@ -123,114 +223,142 @@ class TrackDB(object):
         """
         return self.name
 
-    def _track_watch_cb(self, loc, track, tagvaltup):
-        if self.tracks.has_key(loc):
-            self._dirty = True
-
-
     def set_location(self, location):
-        self.location = location
+        pass #FIXME
 
-    def load_from_location(self, location=None):
-        """
-            Restores TrackDB state from the pickled representation
-            stored at the specified location.
-
-            @param location: the location to load the data from [string]
-        """
-        if not location:
-            location = self.location
-        if not location:
-            raise AttributeError("You did not specify a location to save the db")
-
-        pdata = None
-        for loc in [location, location+".old", location+".new"]:
-            try:
-                f = open(loc, 'rb')
-                pdata = pickle.load(f)
-                f.close()
-            except:
-                pdata = None
-            if pdata:
-                break
-        if not pdata:
-            pdata = dict()
-
-        for attr in self.pickle_attrs:
-            try:
-                if 'tracks' in attr:
-                    if type(pdata[attr]) == list:
-                        setattr(self, attr,
-                                [ track.Track(_unpickles=x) for x in pdata[attr] ] )
-                    elif type(pdata[attr]) == dict:
-                        data = pdata[attr]
-                        for k, v in data.iteritems():
-                            data[k] = track.Track(_unpickles=v)
-                        setattr(self, attr, data)
-                else:
-                    setattr(self, attr, pdata[attr])
-            except:
-                pass
-
-    def save_to_location(self, location=None):
-        """
-            Saves a pickled representation of this TrackDB to the 
-            specified location.
+    def load_from_location(self):
+        pass
             
-            location: the location to save the data to [string]
+    def save_to_location(self, location=None):
+        self.store.commit()
+        pass #FIXME
+
+    def list_tag(self, tag, search_terms="", use_albumartist=False, sort=False):
         """
-        if not self._dirty:
-            return
-
-        if not location:
-            location = self.location
-        if not location:
-            raise AttributeError("You did not specify a location to save the db")
-
-        try:
-            f = file(location, 'rb')
-            pdata = pickle.load(f)
-            f.close()
-        except:
-            pdata = dict()
-        for attr in self.pickle_attrs:
-            if True:
-                # bad hack to allow saving of lists/dicts of Tracks
-                if 'tracks' in attr:
-                    if type(getattr(self, attr)) == list:
-                        pdata[attr] = [ x._pickles() \
-                                for x in getattr(self, attr) ]
-                    elif type(getattr(self, attr)) == dict:
-                        data = deepcopy(getattr(self, attr))
-                        for k,v in data.iteritems():
-                            data[k] = v._pickles()
-                        pdata[attr] = data
-                else:
-                    pdata[attr] = deepcopy(getattr(self, attr))
+            lists out all the values for a particular, tag, without duplicates
+            
+            can also optionally prefer albumartist's value over artist's,
+            this is primarily useful for the collection panel
+        """
+        store = self.store
+        retset = None
+        field = tag
+        if tag == "artist" and use_albumartist == True:
+            albumartists = set(
+                    store.find(track.Track).config(distinct=True).values(track.Track.albumartist))
+            if len(albumartists) == 0: #SQL fails on empty list with In
+                tag = getattr(track.Track, tag)
+                retset = self.search(search_terms, use_resultset=True).config(distinct=True).values(tag)
             else:
-                pass
-        try:
-            os.remove(location + ".old")
-        except:
-            pass
-        try:
-            os.remove(location + ".new")
-        except:
-            pass
-        f = file(location + ".new", 'wb')
-        pickle.dump(pdata, f, common.PICKLE_PROTOCOL)
-        f.close()
-        try:
-            os.rename(location, location + ".old")
-        except:
-            pass # if it doesn'texist we don't care
-        os.rename(location + ".new", location)
-        try:
-            os.remove(location + ".old")
-        except:
-            pass
-        
-        self._dirty = False
+                aaalbums = list(
+                            store.find(track.Track, 
+                                In(track.Track.albumartist, 
+                                    list(albumartists))
+                                ).config(distinct=True).values(track.Track.album))
+                artists = set(
+                            store.find(track.Track, 
+                                Not(In(track.Track.album, 
+                                    aaalbums))
+                                ).config(distinct=True).values(track.Track.artist))
+                retset = artists.union(albumartist)
+        else:
+            tag = getattr(track.Track, tag)
+            retset = self.search(search_terms,use_resultset=True).config(distinct=True).values(tag)
+
+        ret = list(retset)
+
+        if sort:
+            ret.sort(key=lambda x: common.lstrip_special(x, the_cutter=tag==u"artist" or tag == u"albumartist"))
+        return ret
+
+    def get_track_by_loc(self, loc, raw=False):
+        """
+            returns the track having the given loc. if no such
+            track exists, returns None
+        """
+        res = self.store.find(track.Track, Like(track.Track.loc, loc, case_sensitive=True))
+        if raw:
+            return res
+        else:
+            return res.one()
+
+    def get_track_attr(self, loc, attr):
+        res = self.get_track_by_loc(loc, raw=True)
+        return res.values(getattr(track.Track, attr))[0]
+
+    def _get_track_by_id(self, id):
+        res = self.store.find(track.Track, id=id)
+        return res
+
+    def search(self, query, sort_fields=None, return_lim=-1, 
+            use_resultset=False):
+        """
+            Search the trackDB, optionally sorting by sort_field
+
+            @param query:  the search
+            @param sort_fields:  the field(s) to sort by.  Use RANDOM to sort
+                randomly.  A [string] or [list] of strings
+            @param return_lim:  limit the number of tracks returned to a
+                maximum
+            @param use_resultset: return a resultset instead of a list, if 
+                possible
+        """
+        searcher = TrackSearcher()
+        tracks = searcher.search_store(query, self.store)
+
+        #TODO: these can probably be done more-efficiently via storm
+        if sort_fields:
+            tracks = list(tracks)
+            if sort_fields == 'RANDOM':
+                random.shuffle(tracks)
+            else:
+                tracks = sort_tracks(sort_fields, tracks)
+        if return_lim != -1:
+            tracks = list(tracks)[:return_lim]
+
+        if not use_resultset:
+            tracks = list(tracks)
+
+        return tracks
+
+    def _on_commit(self):
+        # reloads the data from the db after changes are made
+        self.store.rollback()
+        self.store.flush()
+
+    def loc_is_member(self, loc):
+        """
+            returns True if loc is a track in this collection, False
+            if it is not
+        """
+        # check to see if it's in one of our libraries, this speeds things
+        # up if we have a slow DB
+        lib = None
+        if hasattr(self, 'libraries'):
+            for k, v in self.libraries.iteritems():
+                if loc.startswith(k):
+                    lib = v
+                    break
+            if not lib:
+                return False
+
+        # check for the actual track
+        if self.get_track_by_loc(loc):
+            return True
+        else:
+            return False
+ 
+
+class EditableTrackDB(TrackDB):
+    """
+        to keep things smooth, we require edits to the DB to be made
+        via these. the main TrackDB instance is for read-only purposes,
+        any changes to it will be lost
+    """
+    def __init__(self, trackdb, db):
+        self.trackdb = trackdb
+        self.db = db
+        self.store = Store(db)
 
     def add(self, track):
         """
@@ -238,9 +366,12 @@ class TrackDB(object):
 
             track: The Track to add [Track]
         """
-        self.tracks[track.get_loc()] = track
-        self._dirty = True
-        event.log_event("track_added", self, track.get_loc())
+        self.add_tracks([track])
+
+    def add_tracks(self, tracks):
+        for tr in tracks:
+            self.store.add(tr)
+            event.log_event("track_added", self.trackdb, tr.get_loc())        
 
     def remove(self, track):
         """
@@ -248,61 +379,29 @@ class TrackDB(object):
 
             track: the Track to remove [Track]    
         """
-        if track.get_loc() in self.tracks:
-            del self.tracks[track.get_loc()]
-            self._dirty = True
-            event.log_event("track_removed", self, track.get_loc())
+        self.remove_tracks([track])
+                
+    def remove_tracks(self, tracks):
+        for tr in tracks:
+            self.store.remove(tr)
+            event.log_event("track_removed", self.trackdb, tr.get_loc())
 
-    def search(self, phrase, sort_fields=None, return_lim=-1):
-        """
-            Search the trackDB, optionally sorting by sort_field
+    def commit(self):
+        self.store.commit()
+        self.trackdb._on_commit()
 
-            @param phrase:  the search phrase
-            @param sort_fields:  the field(s) to sort by.  Use RANDOM to sort
-                randomly.  A [string] or [list] of strings
-            @param return_lim:  limit the number of tracks returned to a
-                maximum
-        """
-        if phrase != "":
-            tracks = self.searcher.search(phrase).values()
-        else:
-            tracks = self.tracks.values()
+    def rollback(self):
+        self.store.rollback()
 
-        if sort_fields:
-            if sort_fields == 'RANDOM':
-                random.shuffle(tracks)
-            else:
-                tracks = sort_tracks(sort_fields, tracks)
-
-        if return_lim != -1:
-            return tracks[:return_lim]
-        return tracks
-
+    def close(self):
+        self.store.close()
+        self.trackdb._on_commit()
+        
 
 class TrackSearcher(object):
     """
         Search a TrackDB for matching tracks
-    """
-    def __init__(self, tracks=dict()):
-        self.tracks = tracks
-        self.tokens = None
-
-    def set_tracks(self, tracks):
-        """
-            Sets the tracks dict to use
-
-            tracks: the dictionary of tracks to use [dict of Track]
-        """
-        self.tracks = tracks
-
-    def set_query(self, query):
-        """
-            Set the search query
-
-            query: the query to use [string]
-        """
-        self.tokens = self.tokenize_query(query)
-        
+    """ 
     def tokenize_query(self, search):
         """ 
             tokenizes a search query 
@@ -449,7 +548,68 @@ class TrackSearcher(object):
 
         return self.__red(tokens)
 
-    def search(self, query, tracks=None):
+    def stormize(self, tokens, last_val=None):
+        try:
+            token = tokens[0]
+        except IndexError:
+            return last_val
+        val = None
+        if type(token) == list:
+            if len(token) == 1:
+                token = token[0]
+            subtoken = token[0]
+            if subtoken == "!":
+                val = Not(self.stormize(token[1]))
+            elif subtoken == "|":
+                val = Or(self.stormize(token([1][0])), 
+                        self.stormize(token([1][1])))
+            elif subtoken == "(":
+                val = And(self.stormize(token[1]))
+            else:
+                logger.warning("bad search token")
+        else:
+            if "==" in token:
+                tag, sym, content = token.partition("==")
+                content = content.strip().strip('"')
+                if content.upper() == "NONE":
+                    val = Eq(getattr(track.Track, tag), None)
+                else:
+                    val = Like(getattr(track.Track, tag), content)
+            elif "=" in token:
+                tag, sym, content = token.partition("=")
+                content = content.strip().strip('"')
+                val = Like(getattr(track.Track, tag), "%"+content+"%")
+            elif ">" in token:
+                tag, sym, content = token.partition("=")
+                content = content.strip().strip('"')
+                val = Gt(getattr(track.Track, tag), float(content))
+            elif "<" in token:
+                tag, sym, content = token.partition("=")
+                content = content.strip().strip('"')
+                val = Lt(getattr(track.Track, tag), float(content))
+            else:
+                content = token.strip().strip('"')
+                l = []
+                for item in SEARCH_ITEMS:
+                    l.append(Like(getattr(track.Track, item), "%"+content+"%"))
+                val = Or(*l)
+
+        if last_val:
+            val = And(last_val, val)
+        
+        return self.stormize(tokens[1:], last_val=val)
+
+
+    def search_store(self, query, store):
+        if query == "":
+            return store.find(track.Track)
+        else:
+            tokens = self.tokenize_query(query)
+            storm_tokens = self.stormize(tokens)
+            tracks = store.find(track.Track, storm_tokens)
+            return tracks
+
+    def search(self, query, tracks, sort_order=None):
         """
             executes a search using the passed query and (optionally) 
             the passed tracks
@@ -457,17 +617,9 @@ class TrackSearcher(object):
             query: the query to search for [string]
             tracks: the dict of tracks to use [dict of tracks]
         """
-        if not tracks:
-            tracks = self.tracks
         tokens = self.tokenize_query(query)
         tracks = self.__do_search(tokens, tracks)
         return tracks
-
-    def get_results(self):
-        """
-            get the results for the stored search query and tracks
-        """
-        return self.__do_search(self.tokens, self.tracks)
 
     def __do_search(self, tokens, current_list):
         """ 
@@ -513,9 +665,11 @@ class TrackSearcher(object):
             if "==" in token:
                 tag, sym, content = token.partition("==")
                 content = content.strip().strip('"')
+                if content == "NONE":
+                    content == None
                 for l,tr in current_list.iteritems():
                     try:
-                        if str(tr[tag]).lower() == content:
+                        if str(tr[tag]).lower() == content or tr[tag] == content:
                             new_list[l]=tr
                     except:
                         pass

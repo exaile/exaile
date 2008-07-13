@@ -13,6 +13,8 @@
 # foundation, inc., 675 mass ave, cambridge, ma 02139, usa.
 
 import gtk, gobject, urllib
+from xl import xdg, common, track
+from xlgui import panel, guiutil, menu
 from xl import xdg, common
 from xlgui import panel, guiutil, menu
 from gettext import gettext as _
@@ -94,7 +96,7 @@ class CollectionPanel(panel.Panel):
         self.year_image = gtk.gdk.pixbuf_new_from_file(xdg.get_data_path('images/year.png'))
         self.album_image = window.render_icon('gtk-cdrom',
             gtk.ICON_SIZE_SMALL_TOOLBAR)
-        self.track_image = gtk.gdk.pixbuf_new_from_file(xdg.get_data_path('images/track.png'))
+        self.title_image = gtk.gdk.pixbuf_new_from_file(xdg.get_data_path('images/track.png'))
         self.genre_image = gtk.gdk.pixbuf_new_from_file(xdg.get_data_path('images/genre.png'))
 
     def drag_data_received(self, *e):
@@ -148,51 +150,24 @@ class CollectionPanel(panel.Panel):
         col.pack_start(pb, False)
         col.pack_start(cell, True)
         col.set_attributes(pb, pixbuf=0)
+        col.set_attributes(cell, text=1)
         self.tree.append_column(col)
-        col.set_cell_data_func(cell, self.track_data_func)
 
         self.tree.set_row_separator_func(
             lambda m, i: m.get_value(i, 1) is None)
 
-        self.model = gtk.TreeStore(gtk.gdk.Pixbuf, object, str)
-        self.model_blank = gtk.TreeStore(gtk.gdk.Pixbuf, object, str)
+        self.model = gtk.TreeStore(gtk.gdk.Pixbuf, str)
+        self.model_blank = gtk.TreeStore(gtk.gdk.Pixbuf, str)
 
-    def track_data_func(self, column, cell, model, iter, user_data=None):
+        self.tree.connect("row-expanded", self.on_expanded)
+
+    def _find_tracks(self, iter):
         """
-            Called when the tree needs a value for column 1
+            finds tracks matching a given iter. returns a resultset.
         """
-        object = model.get_value(iter, 1)
-        if object is None: return
-        field = model.get_value(iter, 2)
-
-        if field == 'nofield':
-            cell.set_property('text', object)
-            return
-
-        info = object[field]
-        if not info or info == u'': 
-            info = _('Unknown')
-        cell.set_property('text', info)
-
-    def _find_recursive(self, iter, add):
-        """
-            Appends items recursively to the added songs list.  If this
-            is a genre, artist, or album, it will search into each one and
-            all of the tracks contained
-        """
-        iter = self.model.iter_children(iter)        
-        while True:
-            field = self.model.get_value(iter, 2)
-            if self.model.iter_has_child(iter):
-                self._find_recursive(iter, add)
-            elif field == 'title':
-                track = self.model.get_value(iter, 1)
-                if not track in add:
-                    add.append(track)
-            
-            iter = self.model.iter_next(iter)
-            if not iter: break
-
+        search = " ".join(self.get_node_search_terms(iter))
+        return self.collection.search(search, use_resultset=True)
+        
     def get_selected_tracks(self):
         """
             Finds all the selected tracks
@@ -203,17 +178,14 @@ class CollectionPanel(panel.Panel):
         found = [] 
         for path in paths:
             iter = self.model.get_iter(path)
-            field = self.model.get_value(iter, 2)
-            if self.model.iter_has_child(iter):
-                self._find_recursive(iter, found)
-            else:
-                track = self.model.get_value(iter, 1)
-                if field == 'title':
-                    if not track in found:
-                        found.append(track)
-
+            newset = self._find_tracks(iter)
+            found.append(newset)
+       
+        found = list(reduce(lambda x, y: x.union(y), found))
         return found
 
+
+    #FIXME: this should probably be moved into the playlist part of the UI
     def append_to_playlist(self, item=None, event=None):
         """
             Adds items to the current playlist
@@ -229,6 +201,7 @@ class CollectionPanel(panel.Panel):
                     found.append(track)
             pl.playlist.add_tracks(found)
 
+
     def button_press(self, widget, event):
         """ 
             Called when the user clicks on the tree
@@ -237,32 +210,106 @@ class CollectionPanel(panel.Panel):
         (x, y) = map(int, event.get_coords())
         path = self.tree.get_path_at_pos(x, y)
         if event.type == gtk.gdk._2BUTTON_PRESS:
-            (model, paths) = selection.get_selected_rows()
-
-            # check to see if it's a double click on an album
-            if len(paths) == 1:
-                iter = self.model.get_iter(path[0])
-                object = self.model.get_value(iter, 1)
-                field = self.model.get_value(iter, 2)
-
-                if field == 'album':
-                    self.append_to_playlist()
-                    return False
-
-            for path in paths:
-                iter = self.model.get_iter(path)
-                object = self.model.get_value(iter, 1)
-                if self.model.iter_has_child(iter):
-                    self.tree.expand_row(path, False)
-                else:
-                    self.append_to_playlist()
-
+            self.append_to_playlist()
             return False
         elif event.button == 3:
             selection = self.tree.get_selection()
             self.menu.popup(event)
 
+    def on_expanded(self, tree, iter, path):
+        if self.model.iter_n_children(iter) == 1 and self.model.get_value(self.model.iter_children(iter), 1) == None:
+            iter_sep = self.model.iter_children(iter)
+            self.load_subtree(iter)
+            self.model.remove(iter_sep)
+
+    def get_node_keywords(self, parent):
+        if not parent:
+            return []
+        values = [self.model.get_value(parent, 1)]
+        iter = self.model.iter_parent(parent)
+        newvals = self.get_node_keywords(iter)
+        if values[0]:
+            values = newvals + values
+        else:
+            values = newvals
+        return values
+
+    def get_node_search_terms(self, node):
+        keywords = self.get_node_keywords(node)
+        terms = []
+        n = 0
+        for field in self.order:
+            if field == 'tracknumber':
+                continue
+            try:
+                word = keywords[n]
+                if word:
+                    word = word.replace("\"","")
+                else:
+                    n += 1
+                    continue
+                if word == _("Unknown"):
+                    word = "NONE"
+                terms.append("%s==\"%s\""%(field, word))
+                n += 1
+            except IndexError:
+                break
+        return terms
+
     def load_tree(self):
+        self.current_start_count = self.start_count
+        self.model.clear()
+        self.tree.set_model(self.model_blank)
+
+        self.root = None
+        self.order = self.orders[self.choice.get_active()]
+
+        # save the active view setting
+        self.settings['gui/collection_active_view'] = self.choice.get_active()
+
+        self.load_subtree(None)
+
+        self.tree.set_model(self.model)
+
+
+    def load_subtree(self, parent):
+        if parent == None:
+            depth = 0
+        else:
+            depth = self.model.iter_depth(parent) +1
+        terms = self.get_node_search_terms(parent)
+        if terms:
+            search = " ".join(terms)
+        else:
+            search = ""
+        if self.keyword.strip():
+            search += " " + self.keyword
+        try:
+            if list(self.order).index("tracknumber") <= depth:
+                depth += 1
+        except ValueError:
+            pass # tracknumber isnt in the list
+        try:
+            tag = self.order[depth]
+            values = self.collection.list_tag(tag, search, use_albumartist=False, sort=True)
+        except IndexError:
+            return # at the bottom of the tree
+        try:
+            image = getattr(self, "%s_image"%tag)
+        except:
+            image = None
+        bottom = False
+        if depth == len(self.order)-1:
+            bottom = True
+        for v in values:
+            if not v:
+                v = _("Unknown")
+            iter = self.model.append(parent, [image, v])
+            if not bottom:
+                self.model.append(iter, [None, None])
+            #self.load_subtree(iter, depth+1)
+
+    def load_tree_old(self):
         """
             Builds the tree
         """
@@ -277,7 +324,7 @@ class CollectionPanel(panel.Panel):
             "album": self.album_image,
             "artist": self.artist_image,
             "genre": self.genre_image,
-            "title": self.track_image,
+            "title": self.title_image,
             "date": self.year_image,
         }
 
@@ -351,12 +398,12 @@ class CollectionPanel(panel.Panel):
 
                 if field == 'title':
                     n = self.model.append(parent, [self.track_image,
-                        track, field])
+                        track.id, field])
                 else:
                     string = '%s - %s' % (string, info)
                     if not string in node_for:
                         parent = self.model.append(parent,
-                            [self.image_map[field], track, field])
+                            [self.image_map[field], track.id, field])
 
                         if info == 'tracknumber': info = track
                         node_for[string] = parent

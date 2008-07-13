@@ -377,9 +377,8 @@ class MainWindow(object):
             Updates the track count information
         """
         if not self.get_current_playlist(): return
-        message = "%d showing / %d in collection" \
-            % (len(self.get_current_playlist().playlist), \
-            len(self.collection.tracks))
+        message = "%d showing" \
+            % (len(self.get_current_playlist().playlist))
         
         queuecount = len(self.queue)
         if queuecount:

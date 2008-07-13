@@ -27,8 +27,9 @@ class TestPlayer(player.BaseGSTPlayer):
     def stop(self):
         self.playing = False
         self.paused = False
-        event.log_event('playback_end', self, self.current)
+        current = self.current
         self.current = None
+        event.log_event('playback_end', self, current)
 
     def pause(self):
         self.paused = True

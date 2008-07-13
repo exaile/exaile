@@ -31,10 +31,9 @@ class PlayQueue(playlist.Playlist):
     """
         Manages the queue of songs to be played
     """
-    def __init__(self, player, location=None, pickle_attrs=[]):
+    def __init__(self, player):
         self.current_playlist = None
-        playlist.Playlist.__init__(self, location=location,
-                pickle_attrs=pickle_attrs)
+        playlist.Playlist.__init__(self, name="Queue")
         self.player = player
         player.set_queue(self)
         self.stop_track = -1

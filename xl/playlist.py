@@ -22,13 +22,24 @@
 #
 # also contains functions for saving and loading various playlist formats.
 
-from xl import trackdb, event, xdg, track
+from xl import trackdb, event, xdg, track, collection
+from xl.settings import SettingsManager
+SettingsManager = SettingsManager.settings
 import urllib, random, os, time
+
 try:
-    import xml.etree.cElementTree as cETree
+    import cPickle as pickle
 except:
-    import cElementTree as cETree
+    import pickle
+
+try:
+    import xml.etree.cElementTree as ETree
+except:
+    import xml.etree.ElementTree as ETree
+
 from urlparse import urlparse
+
+#TODO: is this really needed?
 random.seed(time.time())
 
 def save_to_m3u(playlist, path):
@@ -218,7 +229,7 @@ def save_to_xspf(playlist, path):
     for track in playlist:
         handle.write("    <track>\n")
         for xs, tag in XSPF_MAPPING.iteritems():
-            if track[tag] == "":
+            if track[tag] == u"":
                 continue
             handle.write("      <%s>%s</%s>\n" % (xs, track[tag],xs) )
         url = urllib.quote(track.get_loc())
@@ -234,7 +245,7 @@ def save_to_xspf(playlist, path):
     
 def import_from_xspf(path):
     #TODO: support content resolution
-    tree = cETree.ElementTree(file=open(path))
+    tree = ETree.ElementTree(file=open(path))
     ns = "{http://xspf.org/ns/0/}"
     tracks = tree.find("%strackList"%ns).findall("%strack"%ns)
     name = tree.find("%stitle"%ns).text.strip()
@@ -294,20 +305,20 @@ class PlaylistIterator(object):
             raise StopIteration
 
 
-class Playlist(trackdb.TrackDB):
+class Playlist(object):
     """
         Represents a playlist, which is basically just a TrackDB
         with ordering.
     """
-    def __init__(self, name="Playlist", location=None, pickle_attrs=[]):
+    def __init__(self, name="Playlist"):
         """
             Sets up the Playlist
 
-            Signals:
-                - tracks_added - Called when tracks are added
-                - tracks_removed - Called when tracks are removed
+            Events:
+                - tracks_added - Sent when tracks are added
+                - tracks_removed - Sent when tracks are removed
 
-            args: see TrackDB
+            @param name: the name of this playlist [string]
         """
         self._ordered_tracks = []
         self.filtered_tracks = []
@@ -319,11 +330,12 @@ class Playlist(trackdb.TrackDB):
         self.dynamic_enabled = False
         self.name = name
         self.tracks_history = []
-        pickle_attrs += ['name', 'ordered_tracks', 'current_pos', 
-                'current_playing', "repeat_enabled", "random_enabled",
-                'tracks_history', 'dynamic_enabled']
-        trackdb.TrackDB.__init__(self, name=name, location=location,
-                pickle_attrs=pickle_attrs)
+
+    def get_name(self):
+        return self.name
+
+    def set_name(self, name):
+        self.name = name
 
     def get_ordered_tracks(self):
         """
@@ -408,10 +420,8 @@ class Playlist(trackdb.TrackDB):
         else:
             self.ordered_tracks = self.ordered_tracks[:location] + \
                     tracks + self.ordered_tracks[location:]
-        for t in tracks:
-            trackdb.TrackDB.add(self, t)
         
-        if location >= self.current_pos:
+        if location <= self.current_pos:
             self.current_pos += len(tracks)
 
         event.log_event('tracks_added', self, tracks)
@@ -441,9 +451,6 @@ class Playlist(trackdb.TrackDB):
         removed = self.ordered_tracks[start:end]
         self.ordered_tracks = self.ordered_tracks[:start] + \
                 self.ordered_tracks[end:]
-        for t in removed:
-            if t not in self.ordered_tracks:
-                trackdb.TrackDB.remove(self, t)
 
         if end < self.current_pos:
             self.current_pos -= len(removed)
@@ -486,7 +493,6 @@ class Playlist(trackdb.TrackDB):
     def set_current_pos(self, pos):
         if pos < len(self.ordered_tracks):
             self.current_pos = pos
-        self._dirty = True
         event.log_event('pl_current_changed', self, pos)
 
     def get_current(self):
@@ -653,9 +659,65 @@ class Playlist(trackdb.TrackDB):
         """
             Returns the name of the playlist
         """
-        return self.name
+        return "%s: %s" % (type(self), self.name)
 
-class SmartPlaylist(trackdb.TrackDB):
+    def save_to_location(self, location):
+        if os.path.exists(location):
+            f = open(location + ".new", "w")
+        else:
+            f = open(location, "w")
+        for tr in self:
+            f.write(tr.get_loc() + "\n")
+        f.write("EOF\n")
+        for item in ['random_enabled', 'repeat_enabled', 'dynamic_enabled',
+                'current_pos', 'name']:
+            val = getattr(self, item)
+            strn = SettingsManager._val_to_str(val)
+            f.write("%s=%s\n"%(item,strn))
+        f.close()
+        if os.path.exists(location + ".new"):
+            os.remove(location)
+            os.rename(location + ".new", location)
+
+    def load_from_location(self, location):
+        for loc in [location, location+".new"]:
+            try:
+                f = open(loc, 'r')
+                break
+            except:
+                pass
+        locs = []
+        while True:
+            line = f.readline()
+            if line == "EOF\n" or line == "":
+                break
+            locs.append(line)
+        while True:
+            line = f.readline()
+            if line == "":
+                break
+            item, strn = line[:-1].split("=",1)
+            val = SettingsManager._str_to_val(strn)
+            if hasattr(self, item):
+                setattr(self, item, val)
+        f.close()
+
+        tracks = []
+        for loc in locs:
+            c = collection.get_collection_by_loc(loc)
+            tr = None
+            if c:
+                tr = c.get_track_by_loc(loc)
+            if not tr:
+                tr = track.Track(uri=loc)
+                if tr.is_local() and not tr._scan_valid:
+                    tr = None
+            if tr:
+                tracks.append(tr)
+        self.ordered_tracks = tracks
+
+
+class SmartPlaylist(object):
     """ 
         Represents a Smart Playlist.  
         This will query a collection object using a set of parameters
@@ -673,8 +735,7 @@ class SmartPlaylist(trackdb.TrackDB):
         u'Chimera'
         >>> 
     """
-    def __init__(self, name="", location=None, collection=None, 
-        pickle_attrs=[]):
+    def __init__(self, name="", collection=None):
         """
             Sets up a smart playlist
 
@@ -687,10 +748,16 @@ class SmartPlaylist(trackdb.TrackDB):
         self.or_match = False
         self.track_count = -1
         self.random_sort = False
-        pickle_attrs += ['search_params', 'or_match', 'track_count',
-            'random_sort']
-        trackdb.TrackDB.__init__(self, name=name, location=location,
-                pickle_attrs=pickle_attrs)
+        self.name = name
+
+    def set_location(self, location):
+        pass
+
+    def get_name(self):
+        return self.name
+
+    def set_name(self, name):
+        self.name = name
 
     def set_collection(self, collection):
         """
@@ -807,11 +874,10 @@ class SmartPlaylist(trackdb.TrackDB):
 
         pl = Playlist(name=self.get_name())
 
-        tracks = collection.search(search_string, sort_field,
-        self.track_count)
-
-        pl.add_tracks(collection.search(search_string, sort_field,
+        tracks = list(collection.search(search_string, sort_field,
             self.track_count))
+
+        pl.add_tracks(tracks)
 
         return pl
 
@@ -866,6 +932,27 @@ class SmartPlaylist(trackdb.TrackDB):
         else:
             return ' '.join(params)
 
+    def save_to_location(self, location):
+        pdata = {}
+        for item in ['search_params', 'custom_params', 'or_match',
+                'track_count', 'random_sort', 'name']:
+            pdata[item] = getattr(self, item)
+        f = open(location, 'wb')
+        pickle.dump(pdata, f)
+        f.close()
+
+    def load_from_location(self, location):
+        try:
+            f = open(location, 'rb')
+            pdata = pickle.load(f)
+            f.close()
+        except:
+            return
+        for item in pdata:
+            if hasattr(self, item):
+                setattr(self, item, pdata[item])
+
+
 class PlaylistExists(Exception):
     pass
 
@@ -899,7 +986,9 @@ class PlaylistManager(object):
         name = pl.get_name()
         if overwrite or name not in self.playlists:
             pl.save_to_location(os.path.join(self.playlist_dir, pl.get_name()))
-            if not name in self.playlists: self.playlists.append(name)
+
+            if not name in self.playlists: 
+                self.playlists.append(name)
             self.playlists.sort()
         else:
             raise PlaylistExists
@@ -943,7 +1032,8 @@ class PlaylistManager(object):
         for name in self.playlists:
             pl = self.get_playlist(name)
             if pl is not None:
-                pl.save_to_location()
+                pl.save_to_location(os.path.join(self.smart_playlist_dir, 
+                        pl.get_name()))
 
     def load_names(self):
         """
@@ -958,8 +1048,8 @@ class PlaylistManager(object):
             @param name: the name of the playlist you wish to retrieve
         """
         if name in self.playlists:
-            pl = self.playlist_class(name=name,
-                location=os.path.join(self.playlist_dir, name))
+            pl = self.playlist_class(name=name)
+            pl.load_from_location(os.path.join(self.playlist_dir, name))
             return pl
         else:
             raise ValueError("No such playlist")

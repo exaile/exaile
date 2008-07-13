@@ -14,8 +14,7 @@ class SmartPlaylistTestCase(BasePlaylistTestCase):
 
         self.sp_loc = ".testtemp/sp_exaile%s.playlist" % \
             md5.new(str(time.time())).hexdigest()
-        self.sp = playlist.SmartPlaylist(collection=self.collection,
-            location=self.sp_loc)
+        self.sp = playlist.SmartPlaylist(collection=self.collection)
         self.sp.add_param("artist", "=", "TestArtist")
         self.sp.add_param("album", "!=", "First")
 
@@ -32,11 +31,11 @@ class SmartPlaylistTestCase(BasePlaylistTestCase):
 
     def testSaveLoad(self):
         self.sp.set_or_match(True)
-        self.sp.save_to_location()
+        self.sp.save_to_location(self.sp_loc)
 
         # test playlist
-        sp = playlist.SmartPlaylist(collection=self.collection,
-            location=self.sp_loc)
+        sp = playlist.SmartPlaylist(collection=self.collection)
+        sp.load_from_location(self.sp_loc)
         
         assert sp.get_or_match() == True, "Loading saved smart playlist failed"
         sp.set_or_match(False)
@@ -67,7 +66,5 @@ class SmartPlaylistTestCase(BasePlaylistTestCase):
             if start != p.get_tracks():
                 check = True
                 break
-
-            start = p.get_tracks()
 
         assert check == True, "Random sort did not work in 50 iterations"

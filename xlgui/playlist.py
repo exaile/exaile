@@ -15,7 +15,7 @@
 import gtk, pango
 from xlgui import guiutil, menu
 from gettext import gettext as _
-from xl import playlist, event, track
+from xl import playlist, event, track, collection
 import copy, urllib
 import logging
 import os, os.path
@@ -81,12 +81,10 @@ class Playlist(gtk.VBox):
 
         self.main = main
         self.controller = controller
-        self.collection = controller.exaile.collection
         self.search_keyword = ''
         self.xml = main.xml
 
         self.playlist = copy.copy(pl)
-        self.playlist.tracks = copy.copy(pl.tracks)
         self.playlist.ordered_tracks = pl.ordered_tracks[:]
         self.playlist.current_pos = -1
 
@@ -388,8 +386,7 @@ class Playlist(gtk.VBox):
             Called when data is recieved
         """
         if self.playlist.ordered_tracks:
-            curtrack = \
-                self.playlist.ordered_tracks[self.playlist.get_current_pos()] 
+            curtrack = self.playlist.get_current()
         else:
             curtrack = None
 
@@ -419,10 +416,20 @@ class Playlist(gtk.VBox):
                 first = True
 
         current_tracks = self.playlist.get_tracks()
-        (tracks, playlists) = self.list.get_drag_data(locs)
+        for loc in locs:
+            loc = loc.replace('file://', '')
+            loc = urllib.unquote(loc)
+
+            # If the location we are handling is not in the current collection
+            # associated with this playlist then we have to perform extra
+            # work to verify if it is a legit file
+            c = collection.get_collection_by_loc(loc)
+            if c:
+                track = c.get_track_by_loc(loc)
+            else:
+                self.handle_unknown_drag_data(loc)
+                continue
             
-        #Determine what to do with the tracks
-        for track in tracks:
             if not drop_info:
                 self._append_track(track)
             else:

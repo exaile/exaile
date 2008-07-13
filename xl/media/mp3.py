@@ -70,7 +70,7 @@ def write_tag(tr):
         id3.delall(id3name)
     
     for k, v in IDS.iteritems():
-        if tr.tags[v]:
+        if tr[v]:
             try:
                 frame = mutagen.id3.Frames[k](encoding=3,
                     text = tr[v])

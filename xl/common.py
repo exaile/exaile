@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 from gettext import gettext as _
-import locale, os, time, threading, urllib, re
+import locale, os, time, threading, urllib, re, random, string
 import traceback
 import logging
 
@@ -30,7 +30,7 @@ VALID_TAGS = (
     # Other tags we like
     "arranger author composer conductor lyricist discnumber labelid part "
     "website language encodedby bpm albumartist originaldate originalalbum "
-    "originalartist recordingdate"
+    "originalartist recordingdate lyrics"
     ).split()
 
 PICKLE_PROTOCOL=2
@@ -209,6 +209,35 @@ class idict(dict):
             Returns the case sensitive values of the keys
         """
         return self.keys_dict.values()
+
+def random_string(n):
+    """
+        returns a random string of length n, comprised of ascii characters
+    """
+    s = ""
+    for x in range(n):
+        s += random.choice(string.ascii_letters)
+    return s
+
+
+def lstrip_special(field, the_cutter=False):
+    """
+        Strip special chars off the beginning of a field for sorting. If
+        stripping the chars leaves nothing the original field is returned with
+        only whitespace removed.
+    """
+    if field == None:
+        return field
+    lowered = field.lower()
+    stripped = lowered.lstrip(" `~!@#$%^&*()_+-={}|[]\\\";'<>?,./")
+    if stripped:
+        ret = stripped
+    else:
+        ret = lowered.lstrip()
+    if the_cutter:
+        if ret.startswith("the "):
+            ret = ret[4:]
+    return ret
 
 # vim: et sts=4 sw=4
 

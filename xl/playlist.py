@@ -163,10 +163,10 @@ def import_from_pls(path, handle=None):
             len = 0
         tr['length'] = len
         tr.read_tags()
-        pl.add(tr)
+        pl.add(tr, ignore_missing_files=False)
 
     handle.close()
-    
+
     return pl
 
     
@@ -319,7 +319,9 @@ class Playlist(object):
 
             @param name: the name of this playlist [string]
         """
-        self.ordered_tracks = []
+        self._ordered_tracks = []
+        self.filtered_tracks = []
+        self.filtered = False
         self.current_pos = -1
         self.current_playing = False
         self.random_enabled = False
@@ -333,6 +335,39 @@ class Playlist(object):
 
     def set_name(self, name):
         self.name = name
+
+    def get_ordered_tracks(self):
+        """
+            Returns _ordered_tracks, or filtered tracks if it's been set
+        """
+        if self.filtered:
+            return self.filtered_tracks
+        else:   
+            return self._ordered_tracks
+
+    def set_ordered_tracks(self, tracks):
+        """
+            Sets the ordered tracks
+        """
+        if self.filtered:
+            self.filtered_tracks = tracks
+        else:
+            self._ordered_tracks = tracks
+
+    ordered_tracks = property(get_ordered_tracks,
+        set_ordered_tracks)
+
+    def filter(self, keyword):
+        """
+            Filters the ordered tracks based on a keyword
+        """
+        if not keyword:
+            self.filtered = False
+            return self._ordered_tracks
+        else:
+            self.filtered_tracks = self.search(keyword)
+            self.filtered = True
+            return self.filtered_tracks
 
     def __len__(self):
         """
@@ -349,23 +384,36 @@ class Playlist(object):
         """
         return PlaylistIterator(self)
 
-    def add(self, track, location=None):
+    def add(self, track, location=None, ignore_missing_files = True):
         """
             insert the track into the playlist at the specified
-            location (default: append)
+            location (default: append). by default it the track can
+            not be found by the os it is not added
 
+            @param ignore_missing_files:
+                if true tracks that cannot be found are ignored
             track: the track to add [Track]
             location: the index to insert at [int]
         """
-        self.add_tracks([track], location)
+        if os.path.exists(track.get_loc_for_io()) or not ignore_missing_files:
+            self.add_tracks([track], location)
 
-    def add_tracks(self, tracks, location=None):
+    def add_tracks(self, tracks, location=None, add_duplicates=True):
         """
             like add(), but takes a list of tracks instead of a single one
 
             @param tracks: the tracks to add [list of Track]
             @param location: the index to insert at [int]
+            @param add_duplicates: Set to [False] if you wouldn't like to add
+                tracks that are already in the playlist
         """
+        if not add_duplicates:
+            new = []
+            for track in tracks:
+                if track not in self.tracks.values():
+                    new.append(track)
+            tracks = new
+
         if location == None:
             self.ordered_tracks.extend(tracks)
         else:
@@ -409,6 +457,21 @@ class Playlist(object):
             self.current_pos = start+1
 
         event.log_event('tracks_removed', self, (start, end, removed))
+
+    def clear(self):
+        """
+            Clears the playlist of any tracks
+        """
+        self.remove_tracks(0, len(self))
+
+    def set_tracks(self, tracks):
+        """
+            Clears the playlist and adds the specified tracks
+
+            @param tracks: the tracks to add
+        """
+        self.clear()
+        self.add_tracks(tracks)
 
     def get_tracks(self):
         """
@@ -893,26 +956,36 @@ class PlaylistExists(Exception):
 
 class PlaylistManager(object):
     """
-        TODO:  document me!
+        Manages saving and loading of playlists
     """
-    def __init__(self, collection):
-        self.playlist_dir = os.path.join(xdg.get_data_dirs()[0],'playlists')
-        self.smart_playlist_dir = os.path.join(xdg.get_data_dirs()[0],
-                'smart_playlists')
-        for dir in [self.playlist_dir, self.smart_playlist_dir]:
-            if not os.path.exists(dir):
-                os.makedirs(dir)
+    def __init__(self, playlist_dir='playlists', playlist_class=Playlist):
+        """
+            Initializes the playlist manager
+
+            @param data_dir: the data dir to save playlists to
+            @param smart_playlist_dir: the data dir to save smart playlists
+        """
+        self.playlist_class = playlist_class
+        self.playlist_dir = os.path.join(xdg.get_data_dirs()[0],playlist_dir)
+        if not os.path.exists(self.playlist_dir):
+            os.makedirs(self.playlist_dir)
         self.playlists = []
-        self.smart_playlists = {}
-        self.collection = collection
 
         self.load_names()
 
     def save_playlist(self, pl, overwrite=False):
+        """
+            Saves a playlist
+
+            @param pl: the playlist
+            @param overwrite: Set to [True] if you wish to overwrite a
+                playlist should it happen to already exist
+        """
         name = pl.get_name()
         if overwrite or name not in self.playlists:
             pl.save_to_location(os.path.join(self.playlist_dir, pl.get_name()))
-            if name not in self.playlists:
+
+            if not name in self.playlists: 
                 self.playlists.append(name)
             self.playlists.sort()
         else:
@@ -921,57 +994,69 @@ class PlaylistManager(object):
         event.log_event('playlist_added', self, name)
 
     def remove_playlist(self, name):
+        """
+            Removes a playlist from the manager, also
+            physically deletes its
+
+            @param name: the name of the playlist to remove
+        """
         if name in self.playlists:
+            try:
+                os.remove(os.path.join(self.playlist_dir, name))
+            except OSError:
+                pass
             self.playlists.remove(name)
             event.log_event('playlist_removed', self, name)
-
-    def add_smart_playlist(self, pl):
-        name = pl.get_name()
-        self.smart_playlists[name] = pl
-        event.log_event('smart_playlist_added', self, pl)
-
-    def remove_smart_playlist(self, pl):
-        if self.smart_playlists.has_key(name):
-            pl = self.smart_playlists[name]
-            del self.smart_playlists[name]
-            event.log_event('smart_playlist_removed', self, pl)
+            
+    def rename_playlist(self, old_name, new_name):
+        """
+            Renames the playlist at old_name to new_name
+        """
+        #TODO need to test that this works and is the right
+        #way to do it
+        old_path = os.path.join(self.playlist_dir, old_name)
+        new_path = os.path.join(self.playlist_dir, new_name)
+        print 'old path %s' %old_path
+        print 'new path %s' %new_path
+        os.rename(old_path, new_path)
+        # We also have to remove the old playlist so it does not 
+        # Save when we exit
+        self.remove_playlist(old_name)
 
     def save_all(self):
-        for pl in self.smart_playlists.values():
+        """
+            Saves all the playlists that are currently being managed
+        """
+        for name in self.playlists:
+            pl = self.get_playlist(name)
             if pl is not None:
                 pl.save_to_location(os.path.join(self.smart_playlist_dir, 
                         pl.get_name()))
 
     def load_names(self):
+        """
+            Loads the names of the playlists in the data directory
+        """
         self.playlists = os.listdir(self.playlist_dir)
-        smart_playlist_names = os.listdir(self.smart_playlist_dir)
-        for p in smart_playlist_names:
-            self.smart_playlists[p] = None
 
     def get_playlist(self, name):
+        """
+            Gets a playlist by name
+
+            @param name: the name of the playlist you wish to retrieve
+        """
         if name in self.playlists:
-            pl = Playlist()
+            pl = self.playlist_class(name=name)
             pl.load_from_location(os.path.join(self.playlist_dir, name))
             return pl
         else:
             raise ValueError("No such playlist")
 
     def list_playlists(self):
+        """
+            Returns all the contained playlist names
+        """
         return self.playlists[:]
-
-    def get_smart_playlist(self, name):
-        if self.smart_playlists.has_key(name):
-            pl = self.smart_playlists[name]
-            if pl == None:
-                pl = SmartPlaylist(collection=self.collection)
-                pl.load_from_location(os.path.join(self.smart_playlist_dir,name))
-                self.smart_playlists[name] = pl
-            return pl
-        else:
-            raise ValueError("No such playlist")
-
-    def list_smart_playlists(self):
-        return self.smart_playlists.keys()
 
 # vim: et sts=4 sw=4
 

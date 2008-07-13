@@ -3,6 +3,8 @@
 <!--*- mode: xml -*-->
 <glade-interface>
   <widget class="GtkWindow" id="ExaileWindow">
+    <property name="width_request">700</property>
+    <property name="height_request">400</property>
     <signal name="configure_event" handler="on_configure_event"/>
     <signal name="delete_event" handler="on_delete_event"/>
     <child>
@@ -242,32 +244,51 @@
           <widget class="GtkHPaned" id="splitter">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="position">129</property>
             <child>
-              <widget class="GtkNotebook" id="panel_notebook">
+              <widget class="GtkVBox" id="vbox6">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="tab_pos">GTK_POS_LEFT</property>
-                <property name="scrollable">True</property>
                 <child>
-                  <widget class="GtkHBox" id="hbox7">
+                  <widget class="GtkNotebook" id="panel_notebook">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="tab_pos">GTK_POS_LEFT</property>
+                    <property name="scrollable">True</property>
+                    <child>
+                      <widget class="GtkHBox" id="hbox7">
+                        <property name="visible">True</property>
+                        <child>
+                          <placeholder/>
+                        </child>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkLabel" id="label11">
+                        <property name="visible">True</property>
+                      </widget>
+                      <packing>
+                        <property name="type">tab</property>
+                        <property name="tab_fill">False</property>
+                      </packing>
+                    </child>
+                  </widget>
+                </child>
+                <child>
+                  <widget class="GtkVBox" id="progress_box">
                     <property name="visible">True</property>
                     <child>
                       <placeholder/>
                     </child>
                   </widget>
-                </child>
-                <child>
-                  <widget class="GtkLabel" id="label11">
-                    <property name="visible">True</property>
-                  </widget>
                   <packing>
-                    <property name="type">tab</property>
-                    <property name="tab_fill">False</property>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
               </widget>
               <packing>
-                <property name="resize">True</property>
+                <property name="resize">False</property>
                 <property name="shrink">True</property>
               </packing>
             </child>
@@ -303,13 +324,27 @@
                     <child>
                       <widget class="GtkVBox" id="vbox3">
                         <property name="visible">True</property>
+                        <property name="spacing">3</property>
                         <child>
-                          <widget class="GtkLabel" id="track_title_label">
+                          <widget class="GtkHBox" id="hbox8">
                             <property name="visible">True</property>
-                            <property name="xalign">0</property>
-                            <property name="xpad">4</property>
-                            <property name="label" translatable="yes">Not Playing</property>
+                            <child>
+                              <widget class="GtkLabel" id="track_title_label">
+                                <property name="visible">True</property>
+                                <property name="xalign">0</property>
+                                <property name="yalign">0.49000000953674316</property>
+                                <property name="xpad">4</property>
+                                <property name="label" translatable="yes">Not Playing</property>
+                              </widget>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
+                              </packing>
+                            </child>
                           </widget>
+                          <packing>
+                            <property name="expand">False</property>
+                          </packing>
                         </child>
                         <child>
                           <widget class="GtkHBox" id="hbox4">
@@ -368,6 +403,8 @@
                             </child>
                           </widget>
                           <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
                             <property name="position">1</property>
                           </packing>
                         </child>
@@ -516,22 +553,7 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkButton" id="stop_track">
-                        <property name="can_focus">True</property>
-                        <property name="relief">GTK_RELIEF_NONE</property>
-                        <property name="response_id">0</property>
-                        <signal name="clicked" handler="on_stop_track_clicked"/>
-                        <child>
-                          <widget class="GtkImage" id="image6">
-                            <property name="visible">True</property>
-                            <property name="stock">gtk-stop</property>
-                          </widget>
-                        </child>
-                      </widget>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="position">3</property>
-                      </packing>
+                      <placeholder/>
                     </child>
                     <child>
                       <widget class="GtkLabel" id="label7">
@@ -552,13 +574,13 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkEntry" id="playlist_search_entry">
+                      <widget class="GtkHBox" id="playlist_search_entry_box">
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <signal name="activate" handler="on_playlist_search_entry_activate"/>
+                        <child>
+                          <placeholder/>
+                        </child>
                       </widget>
                       <packing>
-                        <property name="padding">4</property>
                         <property name="position">6</property>
                       </packing>
                     </child>
@@ -724,12 +746,45 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkStatusbar" id="statusbar">
+          <widget class="GtkHSeparator" id="hseparator1">
             <property name="visible">True</property>
           </widget>
           <packing>
             <property name="expand">False</property>
+            <property name="padding">1</property>
             <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkHBox" id="hbox9">
+            <property name="visible">True</property>
+            <child>
+              <widget class="GtkLabel" id="left_statuslabel">
+                <property name="visible">True</property>
+                <property name="xalign">0</property>
+                <property name="xpad">4</property>
+              </widget>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <widget class="GtkLabel" id="track_count_label">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">0/0 tracks</property>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="padding">4</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">3</property>
           </packing>
         </child>
       </widget>

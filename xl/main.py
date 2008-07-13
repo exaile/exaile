@@ -93,7 +93,11 @@ class Exaile(object):
 
         #initalize PlaylistsManager
         from xl import playlist
-        self.playlists = playlist.PlaylistManager(self.collection)
+        self.playlists = playlist.PlaylistManager()
+        self.smart_playlists = playlist.PlaylistManager('smart_playlists',
+            playlist.SmartPlaylist)
+        self.stations = playlist.PlaylistManager('radio_stations')
+
         if firstrun:
             self._add_default_playlists() 
 
@@ -128,6 +132,7 @@ class Exaile(object):
         from xl import lyrics
         self.lyrics = lyrics.LyricsManager()
 
+        self.gui = None
         #setup GUI
         if self.options.startgui:
             logger.info("Loading interface...")
@@ -238,22 +243,22 @@ class Exaile(object):
         # entire playlist
         entire_lib = playlist.SmartPlaylist("Entire Library",
             collection=self.collection) 
-        self.playlists.add_smart_playlist(entire_lib)
-        
+        self.smart_playlists.save_playlist(entire_lib, overwrite=True)
+
         # random playlists
         for count in (100, 300, 500):
             pl = playlist.SmartPlaylist("Random %d" % count,
                 collection=self.collection)
             pl.set_return_limit(count)
             pl.set_random_sort(True)
-            self.playlists.add_smart_playlist(pl)
-        
+            self.smart_playlists.save_playlist(pl, overwrite=True)
+
         # rating based playlists
         for item in (3, 4):
             pl = playlist.SmartPlaylist("Rating > %d" % item, 
                 collection=self.collection)
             pl.add_param('rating', '>', item)
-            self.playlists.add_smart_playlist(pl)
+            self.smart_playlists.save_playlist(pl, overwrite=True)
 
     def mainloop_init(self):
         import gobject, dbus, dbus.mainloop.glib
@@ -302,9 +307,11 @@ class Exaile(object):
         logger.info("Saving state...")
         self.plugins.save_enabled()
 
-        #self.gui.quit()
+        if self.gui:
+            self.gui.quit()
 
         self.playlists.save_all()
+
         self.covers.save_cover_db()
 
         self.collection.save_to_location()

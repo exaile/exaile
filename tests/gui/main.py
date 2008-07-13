@@ -13,7 +13,7 @@ class GUIMainTestCase(base.BaseTestCase):
 
         assert x == y == 10, "Default position is incorrect"
         assert height == 600, "Default height is incorrect"
-        assert width >= 700 and width < 750, "Default width is incorrect"
+        assert width >= 660  and width < 750, "Default width is incorrect"
         assert height == 600, "Default height is incorrect"
 
 

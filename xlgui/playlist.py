@@ -13,11 +13,12 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import gtk, pango
-from xlgui import guiutil
+from xlgui import guiutil, menu
 from gettext import gettext as _
 from xl import playlist, event, track, collection
 import copy, urllib
 import logging
+import os, os.path
 logger = logging.getLogger(__name__)
 
 class Column(object):
@@ -80,9 +81,13 @@ class Playlist(gtk.VBox):
 
         self.main = main
         self.controller = controller
+        self.search_keyword = ''
         self.xml = main.xml
 
-        self.playlist = pl
+        self.playlist = copy.copy(pl)
+        self.playlist.tracks = copy.copy(pl.tracks)
+        self.playlist.ordered_tracks = pl.ordered_tracks[:]
+        self.playlist.current_pos = -1
 
         self.settings = controller.exaile.settings
         self.col_menus = dict()
@@ -91,6 +96,8 @@ class Playlist(gtk.VBox):
         self._setup_col_menus()
         self._setup_columns()
         self._set_tracks(self.playlist.get_tracks())
+
+        self.menu = menu.PlaylistMenu(self) 
 
         self.show_all()
 
@@ -143,6 +150,14 @@ class Playlist(gtk.VBox):
             menu.set_active(col_struct.id in column_ids)
             menu.connect('activate', self.change_column_settings,
                 ('gui/columns', col_struct))
+
+    def search(self, keyword):
+        """
+            Filter the playlist with a keyword
+        """
+        tracks = self.playlist.filter(keyword)
+        self._set_tracks(tracks)
+        self.search_keyword = keyword
 
     def change_column_settings(self, item, data):
         """
@@ -210,6 +225,7 @@ class Playlist(gtk.VBox):
         """
         self._set_tracks(playlist.get_tracks())
         self.reorder_songs()
+        self.main.update_track_counts()
 
     @guiutil.gtkrun
     def on_add_tracks(self, type, playlist, tracks):
@@ -218,6 +234,7 @@ class Playlist(gtk.VBox):
         """
         for track in tracks:
             self._append_track(track)
+        self.main.update_track_counts()
 
     def _set_tracks(self, tracks):
         """
@@ -231,6 +248,7 @@ class Playlist(gtk.VBox):
             self._append_track(track)
 
         self.list.set_model(self.model)
+        self.main.update_track_counts()
 
     def _get_ar(self, song):
         """
@@ -312,11 +330,16 @@ class Playlist(gtk.VBox):
         self.controller.exaile.player.stop()
         self.controller.exaile.queue.play()
 
-    def button_press(self, *e):
+    def button_press(self, button, event):
         """
-            stubb
+            Called when the user clicks on the playlist
         """
-        pass
+        if event.button == 3:
+            selection = self.list.get_selection()
+            self.menu.popup(event)
+
+            if selection.count_selected_rows() <= 1: return False
+            else: return True
 
     def _setup_tree(self):
         """
@@ -407,7 +430,7 @@ class Playlist(gtk.VBox):
             else:
                 self.handle_unknown_drag_data(loc)
                 continue
-
+            
             if not drop_info:
                 self._append_track(track)
             else:
@@ -433,7 +456,8 @@ class Playlist(gtk.VBox):
         else:
             context.finish(True, False, etime)
 
-        # update the tracks in the playlist
+        #iterates through the list and adds any tracks that are
+        # not in the playlist to the current playlist
         current_tracks = self.playlist.get_tracks()
         iter = self.model.get_iter_first()
         if not iter: return
@@ -444,6 +468,8 @@ class Playlist(gtk.VBox):
             iter = self.model.iter_next(iter)
             if not iter: break
 
+        #Re add all of the tracks so that they
+        # become ordered 
         iter = self.model.get_iter_first()
         if not iter: return
         self.playlist.ordered_tracks = []
@@ -452,6 +478,8 @@ class Playlist(gtk.VBox):
             self.playlist.ordered_tracks.append(track)
             iter = self.model.iter_next(iter)
             if not iter: break
+    
+        # We do not save the playlist because it is saved by the playlist manager?
 
         event.add_callback(self.on_add_tracks, 'tracks_added', self.playlist)
         event.add_callback(self.on_remove_tracks, 'tracks_removed',
@@ -466,8 +494,6 @@ class Playlist(gtk.VBox):
             Called after a drag data operation is complete
             and we want to delete the source data
         """
-        #TODO verify that it only deletes tracks when we 
-        # do a move operation and not a copy operation
         if context.drag_drop_succeeded():
             sel = self.list.get_selection()
             (model, paths) = sel.get_selected_rows()
@@ -479,25 +505,7 @@ class Playlist(gtk.VBox):
             for row in rows:
                 iter = self.model.get_iter(row.get_path()) 
                 self.model.remove(iter)
-        self._print_playlist('drag_data_delete')
-
-    #TODO have it take in the position to put the tracks as well
-    def handle_unknown_drag_data(self, loc):
-        """
-            Handles unknown drag data that has been recieved by
-            drag_data_received.  Unknown drag data is classified as
-            any loc (location) that is not in the collection of tracks
-            (i.e. a new song, or a new playlist)
-        """
-        if track.is_valid_track(loc):
-            #Adding a new song to the playlist
-            new_track = track.Track(loc)
-        elif playlist.is_valid_playlist(loc):
-            #User is dragging a playlist into the playlist list
-            # so we add all of the songs in the playlist
-            # to the list
-            new_playlist = playlist.import_playlist(loc)
-
+            
     def drag_get_data(self, treeview, context, selection, target_id, etime):
         """
             Called when a drag source wants data for this drag operation
@@ -510,11 +518,12 @@ class Playlist(gtk.VBox):
             iter = self.model.get_iter(path)
             song = self.model.get_value(iter, 0) 
 
+            if song.get_type() != 'file':
+                guiutil.DragTreeView.dragged_data[song.get_loc()] = song
             loc.append(urllib.quote(str(song.get_loc())))
 
         selection.set_uris(loc)
-        self._print_playlist('drag_get_data')
-
+        
     def setup_model(self, map):
         """
             Gets the array to build the two models
@@ -684,8 +693,12 @@ class Playlist(gtk.VBox):
         tracks = self.reorder_songs()
         self._set_tracks(tracks)
 
-        curtrack = \
-            self.playlist.ordered_tracks[self.playlist.get_current_pos()] 
+        if not self.playlist.ordered_tracks: return
+        try:
+            curtrack = \
+                self.playlist.ordered_tracks[self.playlist.get_current_pos()] 
+        except IndexError:
+            curtrac = self.playlist.ordered_tracks[0]
         self.playlist.ordered_tracks = tracks
         index = self.playlist.index(curtrack)
         self.playlist.set_current_pos(index)
@@ -696,7 +709,7 @@ class Playlist(gtk.VBox):
         """
         attr, reverse = self.get_sort_by()
 
-        songs = self.playlist.search('',
+        songs = self.playlist.search(self.search_keyword,
             (attr, 'artist', 'album', 'tracknumber', 'title'))
 
         if reverse:
@@ -726,10 +739,12 @@ class Playlist(gtk.VBox):
                 image = self.playimg
             elif self.controller.exaile.player.is_paused():
                 image = self.pauseimg
-#        elif item in self.exaile.player.queued:
-#            index = self.exaile.player.queued.index(item)
-#            image = xlmisc.get_text_icon(self.exaile.window,
-#                str(index + 1), 18, 18)
+
+        # queued items
+        elif item in self.controller.exaile.queue.ordered_tracks:
+            index = self.controller.exaile.queue.ordered_tracks.index(item)
+            image = guiutil.get_text_icon(self.main.window,
+                str(index + 1), 18, 18)
 
         cell.set_property('pixbuf', image)
 
@@ -741,11 +756,11 @@ class Playlist(gtk.VBox):
         item = model.get_value(iter, 0)
         image = None
        
-#        window = gtk.Window()
-#        if item == self.controller.exaile.player.stop_track:
-#            image = window.render_icon('gtk-stop', 
-#                gtk.ICON_SIZE_MENU) 
-#            image = image.scale_simple(12, 12, gtk.gdk.INTERP_BILINEAR)
+        window = gtk.Window()
+        if item == self.controller.exaile.queue.stop_track:
+            image = window.render_icon('gtk-stop', 
+                gtk.ICON_SIZE_MENU) 
+            image = image.scale_simple(12, 12, gtk.gdk.INTERP_BILINEAR)
         
         cell.set_property('pixbuf', image)  
 
@@ -789,6 +804,7 @@ class Playlist(gtk.VBox):
         """
             For use in CellRendererTexts that don't have special data funcs.
         """
+        if not self.model.iter_is_valid(iter): return
         item = model.get_value(iter, 0)
         self.set_cell_weight(cell, item)
 

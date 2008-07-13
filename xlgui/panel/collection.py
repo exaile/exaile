@@ -14,7 +14,9 @@
 
 import gtk, gobject, urllib
 from xl import xdg, common, track
-from xlgui import panel, guiutil
+from xlgui import panel, guiutil, menu
+from xl import xdg, common
+from xlgui import panel, guiutil, menu
 from gettext import gettext as _
 
 TRACK_NUM = 300
@@ -34,14 +36,14 @@ class CollectionPanel(panel.Panel):
         ('artist', 'date', 'album', 'tracknumber', 'title')
     )
 
-    def __init__(self, controller, collection):
+    def __init__(self, controller, settings, collection):
         """
             Initializes the collection panel
         """
         panel.Panel.__init__(self, controller)
 
         self.collection = collection
-        self.settings = controller.exaile.settings
+        self.settings = settings
         self.use_alphabet = self.settings.get_option('gui/use_alphabet', True)
         self.filter = self.xml.get_widget('collection_search_entry')
         self.choice = self.xml.get_widget('collection_combo_box')
@@ -52,6 +54,8 @@ class CollectionPanel(panel.Panel):
         self._setup_widgets()
         self._setup_images()
         self._connect_events()
+
+        self.menu = menu.CollectionPanelMenu(self, controller.main)
         self.load_tree()
 
     def _setup_widgets(self):
@@ -63,21 +67,9 @@ class CollectionPanel(panel.Panel):
         self.choice.set_active(active)
 
         box = self.xml.get_widget('collection_search_box')
-        self.filter = guiutil.EntryWithClearButton(self.on_filter_key_release)
+        self.filter = guiutil.SearchEntry()
         self.filter.connect('activate', self.on_search)
         box.pack_start(self.filter.entry, True, True)
-        self.key_id = None
-
-    def on_filter_key_release(self, *e):
-        """
-            Called when someone releases a key
-            Sets up a timer to simulate live-search
-        """
-        if self.key_id:
-            gobject.source_remove(self.key_id)
-            self.key_id = None
-
-        self.key_id = gobject.timeout_add(500, self.on_search)
 
     def _connect_events(self):
         """
@@ -123,7 +115,10 @@ class CollectionPanel(panel.Panel):
         """
             Called when a drag source wants data for this drag operation
         """
-        urls = self._get_urls_for(self.get_selected_tracks())
+        tracks = self.get_selected_tracks()
+        for track in tracks:
+            guiutil.DragTreeView.dragged_data[track.get_loc()] = track
+        urls = self._get_urls_for(tracks)
         selection.set_uris(urls)
 
     def _get_urls_for(self, items):
@@ -217,6 +212,9 @@ class CollectionPanel(panel.Panel):
         if event.type == gtk.gdk._2BUTTON_PRESS:
             self.append_to_playlist()
             return False
+        elif event.button == 3:
+            selection = self.tree.get_selection()
+            self.menu.popup(event)
 
     def on_expanded(self, tree, iter, path):
         if self.model.iter_n_children(iter) == 1 and self.model.get_value(self.model.iter_children(iter), 1) == None:

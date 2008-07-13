@@ -36,6 +36,7 @@ class PlayQueue(playlist.Playlist):
         playlist.Playlist.__init__(self, name="Queue")
         self.player = player
         player.set_queue(self)
+        self.stop_track = -1
 
     def set_current_playlist(self, playlist):
         self.current_playlist = playlist
@@ -51,6 +52,13 @@ class PlayQueue(playlist.Playlist):
         return track
 
     def next(self, player=True):
+        if player:
+            if self.player.current == self.stop_track:
+                self.player.stop()
+                event.log_event('stop_track', self, self.stop_track)
+                self.stop_track = -1
+                return
+
         track = playlist.Playlist.next(self)
         if track == None:
             if self.current_playlist:
@@ -78,7 +86,7 @@ class PlayQueue(playlist.Playlist):
         return track
 
     def get_current(self):
-        if self.player.current and self.current_pos != 0:
+        if self.player.current and self.current_pos > 0:
             current = self.player.current
         else:
             current = playlist.Playlist.get_current(self)
@@ -257,6 +265,15 @@ class BaseGSTPlayer(object):
             self.eof_func()
         elif message.type == gst.MESSAGE_ERROR:
             logger.error("%s %s" %(message, dir(message)) )
+        elif message.type == gst.MESSAGE_BUFFERING:
+            percent = message.parse_buffering()
+            if percent < 100:
+                self.playbin.set_state(gst.STATE_PAUSED)
+            else:
+                logger.info('Buffering complete')
+                self.playbin.set_state(gst.STATE_PLAYING)
+            if percent % 5 == 0:
+                event.log_event('playback_buffering', self, percent)
         return True
 
     def _get_gst_state(self):

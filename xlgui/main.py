@@ -21,7 +21,7 @@ from xl import xdg, event, track
 import xl.playlist
 from xlgui import playlist, cover, guiutil
 from gettext import gettext as _
-import xl.playlist
+import xl.playlist, re, os
 
 class PlaybackProgressBar(object):
     def __init__(self, bar, player):
@@ -88,6 +88,7 @@ class PlaybackProgressBar(object):
         if self.timer_id: gobject.source_remove(self.timer_id)
         self.timer_id = None
         self.bar.set_text(_('Not Playing'))
+        self.bar.set_fraction(0)
 
     def timer_update(self, *e):
         track = self.player.current
@@ -171,21 +172,22 @@ class MainWindow(object):
     """
         Main Exaile Window
     """
-    def __init__(self, controller):
+    def __init__(self, controller, xml, settings, collection, 
+        player, queue):
         """
             Initializes the main window
 
             @param controller: the main gui controller
         """
         self.controller = controller
-        self.settings = controller.exaile.settings
-        self.first_removed = False
+        self.settings = settings
+        self.collection =  collection
+        self.player = player
+        self.queue = queue
 
-        self.xml = gtk.glade.XML(xdg.get_data_path("glade/main.glade"),
-            'ExaileWindow', 'exaile')
+        self.xml = xml
         self.window = self.xml.get_widget('ExaileWindow')
         self.window.set_title(_('Exaile'))
-        self.panel_notebook = self.xml.get_widget('panel_notebook')
         self.playlist_notebook = self.xml.get_widget('playlist_notebook')
         self.playlist_notebook.remove_page(0)
         self.splitter = self.xml.get_widget('splitter')
@@ -194,8 +196,65 @@ class MainWindow(object):
         self._setup_widgets()
         self._setup_hotkeys()
         self._connect_events()
+        self.tab_manager = xl.playlist.PlaylistManager(
+            'saved_tabs')
+        self.load_saved_tabs()
 
-        self.add_playlist()
+    def load_saved_tabs(self):
+        """
+            Loads the saved tabs
+        """
+        names = self.tab_manager.list_playlists()
+        if not names:
+            self.add_playlist()
+            return
+
+        count = 0
+        names.sort()
+        for i, name in enumerate(names):
+            pl = self.tab_manager.get_playlist(name)
+            pl.name = re.sub(r'order\d\.', '', pl.name)
+            
+            if pl.name.startswith('current.'):
+                count = i
+                pl.name = pl.name.replace('current.', '')
+
+            # if the tracks are in the collection, use them instead of the
+            # ones loaded from the playlist (so that we don't have duplicated
+            # tracks object floating around)
+            tracks = pl.get_tracks()
+            new = []
+            
+            for track in tracks:
+                if track.get_loc() in \
+                    self.collection.tracks:
+                    track = self.collection.tracks[track.get_loc()]
+                 
+                new.append(track)
+
+            pl.set_tracks(new)
+
+            self.add_playlist(pl)
+
+        self.playlist_notebook.set_current_page(count)
+
+    def save_current_tabs(self):
+        """
+            Saves the open tabs
+        """
+        # first, delete the current tabs
+        names = self.tab_manager.list_playlists()
+        for name in names:
+            os.remove(os.path.join(self.tab_manager.playlist_dir, name))
+            self.tab_manager.remove_playlist(name)
+
+        for i in range(self.playlist_notebook.get_n_pages()):
+            pl = self.playlist_notebook.get_nth_page(i).playlist
+            current = ''
+            if i == self.playlist_notebook.get_current_page():
+                current = 'current.'
+            pl.name = "order%d.%s%s" % (i, current, pl.name)
+            self.tab_manager.save_playlist(pl, True)            
 
     def add_playlist(self, pl=None):
         """
@@ -217,7 +276,7 @@ class MainWindow(object):
             tab)
         self.playlist_notebook.set_current_page(
             self.playlist_notebook.get_n_pages() - 1)
-        pl.playlist.set_random(self.shuffle_toggle.get_active())
+        self.set_mode_toggles()
 
     def _setup_hotkeys(self):
         """
@@ -241,6 +300,9 @@ class MainWindow(object):
         self.shuffle_toggle = self.xml.get_widget('shuffle_button')
         self.shuffle_toggle.set_active(self.settings.get_option('playback/shuffle',
             False))
+        self.repeat_toggle = self.xml.get_widget('repeat_button')
+        self.repeat_toggle.set_active(self.settings.get_option('playback/repeat',
+            False))
 
         # cover box
         self.cover_event_box = self.xml.get_widget('cover_event_box')
@@ -263,6 +325,67 @@ class MainWindow(object):
         for button in bts:
             setattr(self, '%s_button' % button,
                 self.xml.get_widget('%s_button' % button))
+        
+        self.stop_button.connect('button-press-event',
+            self.on_stop_buttonpress)
+        self.status = guiutil.StatusBar(self.xml.get_widget('left_statuslabel'))
+        self.track_count_label = self.xml.get_widget('track_count_label')
+
+        # search filter
+        box = self.xml.get_widget('playlist_search_entry_box')
+        self.filter = guiutil.SearchEntry()
+        self.filter.connect('activate', self.on_playlist_search)
+        box.pack_start(self.filter.entry, True, True)
+
+    def on_playlist_search(self, *e):
+        """
+            Filters the currently selected playlist
+        """
+        pl = self.get_current_playlist()
+        if pl:
+            pl.search(self.filter.get_text())
+
+    def on_stop_buttonpress(self, widget, event):
+        """
+            Called when the user clicks on the stop button.  We're looking for
+            a right click so we can display the SPAT menu
+        """
+        if event.button != 3: return
+        menu = guiutil.Menu()
+        menu.append(_("Toggle: Stop after selected track"), self.on_spat_clicked,
+            'gtk-stop')
+        menu.popup(None, None, None, event.button, event.time)
+
+    def on_spat_clicked(self, *e):
+        """
+            Called when the user clicks on the SPAT item
+        """
+        queue = self.controller.exaile.queue
+        tracks = self.get_current_playlist().get_selected_tracks()
+        if not tracks: return
+        track = tracks[0]
+
+        if track == queue.stop_track:
+            queue.stop_track = None
+        else:
+            queue.stop_track = track
+
+        self.get_current_playlist().list.queue_draw()
+
+    def update_track_counts(self):
+        """
+            Updates the track count information
+        """
+        if not self.get_current_playlist(): return
+        message = "%d showing / %d in collection" \
+            % (len(self.get_current_playlist().playlist), \
+            len(self.collection.tracks))
+        
+        queuecount = len(self.queue)
+        if queuecount:
+            message += " : %d queued" % queuecount
+
+        self.track_count_label.set_label(message)
 
     def _connect_events(self):
         """
@@ -281,7 +404,8 @@ class MainWindow(object):
                 lambda *e: self.controller.exaile.queue.prev(),
             'on_stop_button_clicked':
                 lambda *e: self.controller.exaile.player.stop(),
-            'on_shuffle_button_toggled': self.on_shuffle_button_toggled,
+            'on_shuffle_button_toggled': self.set_mode_toggles,
+            'on_repeat_button_toggled': self.set_mode_toggles,
             'on_clear_playlist_button_clicked': self.on_clear_playlist,
             'on_playlist_notebook_remove': self.on_playlist_notebook_remove,
             'on_new_playlist_item_activated': lambda *e:
@@ -289,13 +413,34 @@ class MainWindow(object):
         })        
 
         event.add_callback(self.on_playback_end, 'playback_end',
-            self.controller.exaile.player)
+            self.player)
         event.add_callback(self.on_playback_start, 'playback_start',
-            self.controller.exaile.player) 
+            self.player) 
         event.add_callback(self.on_toggle_pause, 'playback_toggle_pause',
-            self.controller.exaile.player)
+            self.player)
         event.add_callback(self.on_tags_parsed, 'tags_parsed',
-            self.controller.exaile.player)
+            self.player)
+        event.add_callback(self.on_buffering, 'playback_buffering',
+            self.player)
+
+        # monitor the queue
+        event.add_callback(lambda *e: self.update_track_counts(),
+            'tracks_added', self.queue)
+        event.add_callback(lambda *e: self.update_track_counts(),
+            'tracks_removed', self.queue)
+        event.add_callback(lambda *e:
+            self.get_current_playlist().list.queue_draw, 'stop_track',
+            self.queue)
+
+    @guiutil.gtkrun
+    def on_buffering(self, type, player, percent):
+        """
+            Called when a stream is buffering
+        """
+        if percent < 100:
+            self.status.set_label("Buffering: %d%%..." % percent, 1000)
+        else:
+            self.status.set_label("Buffering: 100%...", 1000)
 
     @guiutil.gtkrun
     def on_tags_parsed(self, type, player, args):
@@ -306,7 +451,7 @@ class MainWindow(object):
         if tr.get_type() == 'file': return
         if track.parse_stream_tags(tr, args):
             self._update_track_information()
-            self.cover.on_playback_start('', self.controller.exaile.player, None)
+            self.cover.on_playback_start('', self.player, None)
             self.get_current_playlist().refresh_row(tr)
 
     @guiutil.gtkrun
@@ -352,16 +497,18 @@ class MainWindow(object):
         """
         playlist = self.get_current_playlist()
         if not playlist: return
-        playlist.playlist.remove_tracks(0, len(playlist.playlist))
+        playlist.playlist.clear()
 
-    def on_shuffle_button_toggled(self, button):
+    def set_mode_toggles(self, *e):
         """
-            Called when the user clicks the shuffle checkbox
+            Called when the user clicks one of the playback mode buttons
         """
-        self.settings['playback/shuffle'] = button.get_active()
+        self.settings['playback/shuffle'] = self.shuffle_toggle.get_active()
+        self.settings['playback/repeat'] = self.repeat_toggle.get_active()
         pl = self.get_current_playlist()
         if pl:
-            pl.playlist.set_random(button.get_active())
+            pl.playlist.set_random(self.shuffle_toggle.get_active())
+            pl.playlist.set_repeat(self.repeat_toggle.get_active())
 
     def get_current_playlist(self):
         """
@@ -390,6 +537,7 @@ class MainWindow(object):
         self.draw_playlist(type, player, object)
         self.play_button.set_image(gtk.image_new_from_stock('gtk-media-pause',
                 gtk.ICON_SIZE_SMALL_TOOLBAR))
+        self.update_track_counts()
 
     @guiutil.gtkrun
     def on_playback_end(self, type, player, object):
@@ -408,7 +556,7 @@ class MainWindow(object):
             Sets track information
         """
         # set track information
-        track = self.controller.exaile.player.current
+        track = self.player.current
 
         if track:
             artist = track['artist']
@@ -480,8 +628,9 @@ class MainWindow(object):
             Called when the page is changed in the playlist notebook
         """
         page = notebook.get_nth_page(page_num)
-        self.controller.exaile.queue.set_current_playlist(page.playlist)
-        page.playlist.set_random(self.shuffle_toggle.get_active())
+        self.queue.set_current_playlist(page.playlist)
+        self.set_mode_toggles()
+        self.update_track_counts()
 
     def _setup_position(self):
         """
@@ -524,18 +673,5 @@ class MainWindow(object):
 
         return False
 
-    def add_panel(self, child, name):
-        """
-            Adds a panel to the panel notebook
-        """
-        label = gtk.Label(name)
-        label.set_angle(90)
-        self.panel_notebook.append_page(child, label)
 
-        if not self.first_removed:
-            self.first_removed = True
-
-            # the first tab in the panel is a stub that just stops libglade from
-            # complaining
-            self.panel_notebook.remove_page(0)
 

@@ -19,7 +19,7 @@ from urlparse import urlparse
 from xl import common
 from xl.media import flac, mp3, mp4, mpc, ogg, tta, wma, wv, default
 
-from common import lstrip_special
+from xl.common import lstrip_special
 
 from mutagen.mp3 import HeaderNotFoundError
 from storm.locals import *
@@ -332,8 +332,13 @@ class Track(object):
             if artist.startswith('the '): #TODO: allow custom stemming
                 artist = artist[4:]
             return artist
+        elif field == 'length':
+            try:
+                return int(self[field])
+            except ValueError:
+                return 0
         else: 
-            return lstrip_special(self[field])
+            return lstrip_special(unicode(self[field]))
 
     def __repr__(self):
         return str(self)

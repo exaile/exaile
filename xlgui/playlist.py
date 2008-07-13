@@ -15,7 +15,7 @@
 import gtk, pango
 from xlgui import guiutil
 from gettext import gettext as _
-from xl import playlist, event, track
+from xl import playlist, event, track, collection
 import copy, urllib
 import logging
 logger = logging.getLogger(__name__)
@@ -80,12 +80,8 @@ class Playlist(gtk.VBox):
 
         self.main = main
         self.controller = controller
-        self.collection = controller.exaile.collection
         self.xml = main.xml
 
-        # note: care must be taken so that sorting and searching does
-        # not affect this object. However, changes in order and tracks
-        # should change this object.
         self.playlist = pl
 
         self.settings = controller.exaile.settings
@@ -368,8 +364,7 @@ class Playlist(gtk.VBox):
             Called when data is recieved
         """
         if self.playlist.ordered_tracks:
-            curtrack = \
-                self.playlist.ordered_tracks[self.playlist.get_current_pos()] 
+            curtrack = self.playlist.get_current()
         else:
             curtrack = None
 
@@ -406,10 +401,12 @@ class Playlist(gtk.VBox):
             # If the location we are handling is not in the current collection
             # associated with this playlist then we have to perform extra
             # work to verify if it is a legit file
-            if not loc in self.collection.tracks: 
+            c = collection.get_collection_by_loc(loc)
+            if c:
+                track = c.get_track_by_loc(loc)
+            else:
                 self.handle_unknown_drag_data(loc)
                 continue
-            track = self.collection.tracks[loc]
 
             if not drop_info:
                 self._append_track(track)

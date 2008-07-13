@@ -268,7 +268,7 @@ class TrackDB(object):
         ret = list(retset)
 
         if sort:
-            ret.sort(key=common.lstrip_special)
+            ret.sort(key=lambda x: common.lstrip_special(x, the_cutter=tag==u"artist" or tag == u"albumartist"))
         return ret
 
     def get_track_by_loc(self, loc, raw=False):
@@ -334,8 +334,8 @@ class TrackDB(object):
         # check to see if it's in one of our libraries, this speeds things
         # up if we have a slow DB
         lib = None
-        if hasattr(self, libraries):
-            for k, v in self.libraries:
+        if hasattr(self, 'libraries'):
+            for k, v in self.libraries.iteritems():
                 if loc.startswith(k):
                     lib = v
                     break

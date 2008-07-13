@@ -164,6 +164,13 @@ class Track(object):
         """
         return self['loc'].encode(common.get_default_encoding())
 
+    def get_type(self):
+        try:
+            type = self['loc'].split("://",1)[0]
+        except:
+            type = "file"
+        return type
+
     def get_tag(self, tag):
         """
             Common function for getting a tag.
@@ -411,7 +418,7 @@ def parse_stream_tags(track, tags):
         log.append('  New song, fetching cover.')
 
     for line in log:
-        logger.info(line)
+        logger.debug(line)
     return newsong
 
 

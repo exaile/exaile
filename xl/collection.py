@@ -398,11 +398,12 @@ class Library(object):
 
                 try:
                     trmtime = db.get_track_attr(fullpath, "modified")
+                    print trmtime
                     mtime = os.path.getmtime(fullpath)
                     if mtime == trmtime:
                         continue
                 except:
-                    continue
+                    pass
 
                 tr = db.get_track_by_loc(fullpath)
                 if tr:

@@ -78,7 +78,7 @@ xl.path.init(basedir, installed)
 # set up gettext for translations
 import gettext, locale
 import gtk.glade
-locale.setlocale(locale.LC_ALL, None)
+locale.setlocale(locale.LC_ALL, '')
 gettext.textdomain('exaile')
 gtk.glade.textdomain('exaile')
 gettext.bindtextdomain('exaile', xl.path.localedir)

@@ -408,8 +408,8 @@ class TrackSearcher(object):
         """
         search = " " + search + " "
 
-        search = search.replace(" OR ", "|")
-        search = search.replace(" NOT ", "!")
+        search = search.replace(" OR ", " | ")
+        search = search.replace(" NOT ", " ! ")
 
         newsearch = ""
         in_quotes = False
@@ -439,8 +439,10 @@ class TrackSearcher(object):
 
 
         # split the search into tokens to be parsed
+        print search
         search = " " + search.lower() + " "
         tokens = search.split(" ")
+        print tokens
 
         # handle "" grouping
         etokens = []

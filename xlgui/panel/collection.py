@@ -183,7 +183,7 @@ class CollectionPanel(panel.Panel):
     
         if not found: return None
        
-        found = list(reduce(lambda x, y: x.union(y), found))
+        found = list(set(reduce(lambda x, y: list(x) + list(y), found)))
         return found
 
 
@@ -248,7 +248,7 @@ class CollectionPanel(panel.Panel):
             try:
                 word = keywords[n]
                 if word:
-                    word = word.replace("\"","")
+                    word = word.replace("\"","\\\"")
                 else:
                     n += 1
                     continue

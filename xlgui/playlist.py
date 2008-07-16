@@ -606,7 +606,7 @@ class Playlist(gtk.VBox):
                 elif col_struct.id == 'bitrate':
                     col.set_cell_data_func(cellr, self.bitrate_data_func)
                 elif col_struct.id == 'tracknumber':
-#                    col.set_cell_data_func(cellr, self.track_data_func)
+                    col.set_cell_data_func(cellr, self.track_data_func)
 #                elif col_struct.id == 'rating':
 #                    col.set_attributes(cellr, pixbuf=1)
 #                    col.set_cell_data_func(cellr, self.rating_data_func)

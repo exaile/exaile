@@ -439,10 +439,9 @@ class TrackSearcher(object):
 
 
         # split the search into tokens to be parsed
-        print search
         search = " " + search.lower() + " "
         tokens = search.split(" ")
-        print tokens
+        tokens = [t for t in tokens if t != ""]
 
         # handle "" grouping
         etokens = []
@@ -595,7 +594,7 @@ class TrackSearcher(object):
                 content = token.strip().strip('"')
                 l = []
                 for item in SEARCH_ITEMS:
-                    l.append(Like(getattr(track.Track, item), "%"+content+"%"))
+                    l.append(And(Like(getattr(track.Track, item), "%"+content+"%"), Not(Eq(getattr(track.Track, item), None))))
                 val = Or(*l)
 
         if last_val:

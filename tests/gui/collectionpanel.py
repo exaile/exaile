@@ -18,7 +18,7 @@ class CollectionPanelTestCase(base.BaseTestCase):
         panel = self.gui.collection_panel
         selection = panel.tree.get_selection()
 
-        selection.select_path((2,))
+        selection.select_path((1,))
 
         model = panel.tree.get_model()
         

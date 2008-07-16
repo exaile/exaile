@@ -13,6 +13,7 @@ class ThreadHolder(threading.Thread):
         self.queue = []
         threading.Thread.__init__(self)
         self.process_event = threading.Event()
+        self.setDaemon(True)
         self.start()
 
     def run(self):

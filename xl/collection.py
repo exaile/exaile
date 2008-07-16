@@ -46,6 +46,7 @@ def get_collection_uri(type=None):
     """
         returns the URI of the collection
     """
+    settings = SettingsManager.settings
     if not type:
         type = settings.get_option("collection/db_type", "sqlite")
     if type == "sqlite":

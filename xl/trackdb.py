@@ -408,33 +408,35 @@ class TrackSearcher(object):
         """
         search = " " + search + " "
 
-        # convert bool ops to symbol
-        search = search.replace("|", " | ")
-        search = search.replace("!", " ! ")
-        search = search.replace("&", " ")
-        search = search.replace(" OR ", " | ")
-        search = search.replace(" NOT ", " ! ")
-        search = search.replace(" AND ", " ")
-        search = search.replace("(", " ( ")
-        search = search.replace(")", " ) ")
+        search = search.replace(" OR ", "|")
+        search = search.replace(" NOT ", "!")
 
-        # ensure spacing is uniform
-        replaces = [ 
-                ("  "," "),
-                (" =","="),
-                ("= ","="),
-                (" >",">"),
-                ("> ",">"),
-                (" <","<"),
-                ("< ","<") ]
-        oldsearch = search
-        for pair in replaces:
-            while True:
-                search = search.replace(pair[0], pair[1])
-                if search == oldsearch:
-                    break
-                else:
-                    oldsearch = search
+        newsearch = ""
+        in_quotes = False
+        n = 0
+        while n < len(search):
+            c = search[n]
+            if c == "\\":
+                n += 1
+                newsearch += search[n]
+            elif in_quotes and c != "\"":
+                newsearch += c
+            elif c == "\"":
+                in_quotes = in_quotes == False # toggle
+                newsearch += c
+            elif c in ["|", "!", "(", ")"]:
+                newsearch += " " + c + " "
+            elif c == " ":
+                try:
+                    if search[n+1] != " ":
+                        if search[n+1] not in ["=", ">", "<"]:
+                            newsearch += " "
+                except IndexError:
+                    pass
+            else:
+                newsearch += c
+            n += 1
+
 
         # split the search into tokens to be parsed
         search = " " + search.lower() + " "

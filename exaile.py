@@ -74,11 +74,15 @@ if options.settings:
     xl.path.set_configdir(options.settings)
 xl.path.init(basedir, installed)
 
+from xl import logger
 
 # set up gettext for translations
 import gettext, locale
 import gtk.glade
-locale.setlocale(locale.LC_ALL, '')
+try:
+    locale.setlocale(locale.LC_ALL, '')
+except locale.Error:
+    logger.log_exception()
 gettext.textdomain('exaile')
 gtk.glade.textdomain('exaile')
 gettext.bindtextdomain('exaile', xl.path.localedir)
@@ -88,7 +92,6 @@ from xl import common
 gtk.window_set_default_icon_from_file(xl.path.get_data('images', 'icon.png'))
 
 from xl.gui import main as exailemain
-from xl import xlmisc
 
 import urllib
 # set the user agent
@@ -125,7 +128,7 @@ def init():
 
     check_dirs()
 
-    xlmisc.log("Exaile " + __version__)
+    logger.log("Exaile " + __version__)
     exaile = exailemain.ExaileWindow(options, xl.path.firstrun)
 
 if __name__ == "__main__": 
@@ -135,4 +138,4 @@ if __name__ == "__main__":
     except SystemExit:
         raise
     except Exception:
-        xlmisc.log_exception()
+        logger.log_exception()

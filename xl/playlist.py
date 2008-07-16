@@ -584,14 +584,8 @@ class Playlist(object):
         """
             searches the playlist
         """
-        tracks = trackdb.TrackDB.search(self, phrase, sort_field)
-        if sort_field is None:
-            from copy import deepcopy
-            new_tracks = []
-            for tr in self.ordered_tracks:
-                if tr in tracks:
-                    new_tracks.append(tr)
-            tracks = new_tracks
+        searcher = trackdb.TrackSearcher()
+        tracks = searcher.search(phrase, self.ordered_tracks)
         return tracks
 
     def toggle_random(self):
@@ -691,7 +685,7 @@ class Playlist(object):
             line = f.readline()
             if line == "EOF\n" or line == "":
                 break
-            locs.append(line)
+            locs.append(line.strip())
         while True:
             line = f.readline()
             if line == "":
@@ -1032,7 +1026,7 @@ class PlaylistManager(object):
         for name in self.playlists:
             pl = self.get_playlist(name)
             if pl is not None:
-                pl.save_to_location(os.path.join(self.smart_playlist_dir, 
+                pl.save_to_location(os.path.join(self.playlist_dir, 
                         pl.get_name()))
 
     def load_names(self):

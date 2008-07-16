@@ -182,8 +182,9 @@ class CollectionPanel(panel.Panel):
             found.append(newset)
     
         if not found: return None
-       
+        
         found = list(set(reduce(lambda x, y: list(x) + list(y), found)))
+      
         return found
 
 

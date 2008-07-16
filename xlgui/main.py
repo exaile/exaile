@@ -222,17 +222,17 @@ class MainWindow(object):
             # if the tracks are in the collection, use them instead of the
             # ones loaded from the playlist (so that we don't have duplicated
             # tracks object floating around)
-            tracks = pl.get_tracks()
-            new = []
-            
-            for track in tracks:
-                if track.get_loc() in \
-                    self.collection.tracks:
-                    track = self.collection.tracks[track.get_loc()]
-                 
-                new.append(track)
+#            tracks = pl.get_tracks()
+#            new = []
+#            
+#            for track in tracks:
+#                if track.get_loc() in \
+#                    self.collection.tracks:
+#                    track = self.collection.tracks[track.get_loc()]
+#                 
+#                new.append(track)
 
-            pl.set_tracks(new)
+#            pl.set_tracks(new)
 
             self.add_playlist(pl)
 

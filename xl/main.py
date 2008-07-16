@@ -51,7 +51,7 @@ class Exaile(object):
                 sys.exit(0)
             self.dbus = xldbus.DbusManager(self)
         
-        #load the rest. this happens in a new thread
+        #load the rest.
         self.__init()
 
         #run the GUIs mainloop, if needed
@@ -59,7 +59,6 @@ class Exaile(object):
             import xlgui
             xlgui.mainloop()
 
-    @common.threaded
     def __init(self):
         """
             Initializes Exaile

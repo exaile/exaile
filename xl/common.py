@@ -30,7 +30,7 @@ VALID_TAGS = (
     # Other tags we like
     "arranger author composer conductor lyricist discnumber labelid part "
     "website language encodedby bpm albumartist originaldate originalalbum "
-    "originalartist recordingdate lyrics"
+    "originalartist recordingdate"
     ).split()
 
 PICKLE_PROTOCOL=2

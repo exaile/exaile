@@ -31,7 +31,7 @@ class ThreadHolder(threading.Thread):
             item[3].set()
 
     def enqueue(self, function, args, kwargs):
-        print "Storm: running %s, %s, %s"%(function, args, kwargs)
+        #print "Storm: running %s, %s, %s"%(function, args, kwargs)
         if threading.currentThread() == self:
             return function(*args, **kwargs)
         event = threading.Event()

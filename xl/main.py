@@ -59,6 +59,7 @@ class Exaile(object):
             import xlgui
             xlgui.mainloop()
 
+    @common.threaded
     def __init(self):
         """
             Initializes Exaile
@@ -72,8 +73,7 @@ class Exaile(object):
         # splash screen
         if self.options.startgui:
             import xlgui
-            xlgui.show_splash(show=self.settings.get_option('gui/show_splash',
-                True))
+            splash = xlgui.show_splash(show=self.settings.get_option('gui/show_splash', True))
 
         firstrun = self.settings.get_option("general/first_run", True)
 
@@ -137,6 +137,7 @@ class Exaile(object):
             logger.info("Loading interface...")
             import xlgui
             self.gui = xlgui.Main(self)
+            splash.destroy()
 
         #initialize PluginsManager
         from xl import plugins

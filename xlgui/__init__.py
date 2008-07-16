@@ -16,10 +16,9 @@ __all__ = ['main', 'panel', 'playlist']
 
 import gtk, gtk.glade, gobject
 from xl import xdg
-import xl.main as xlmain
-from xlgui import main, panel, guiutil
-from xlgui.panel import collection, radio, playlists, files
 from gettext import gettext as _
+
+from xlgui import guiutil
 
 gtk.window_set_default_icon_from_file(xdg.get_data_path("images/icon.png"))
 
@@ -37,6 +36,10 @@ class Main(object):
 
             @param exaile: The Exaile instance
         """
+        import xl.main as xlmain
+        from xlgui import main, panel
+        from xlgui.panel import collection, radio, playlists, files
+
         self.exaile = exaile
         self.first_removed = False
         self.xml = gtk.glade.XML(xdg.get_data_path("glade/main.glade"),
@@ -126,4 +129,5 @@ def show_splash(show=True):
     splash_screen.set_transient_for(None)
     splash_screen.show_all()
     #FIXME: should disappear when loading finishes, not at a fixed time
-    gobject.timeout_add(2500, splash_screen.destroy) 
+#    gobject.timeout_add(2500, splash_screen.destroy)
+    return splash_screen

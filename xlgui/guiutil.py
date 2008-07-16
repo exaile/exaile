@@ -32,7 +32,7 @@ def gtkrun(f):
     def wrapper(*args, **kwargs):
         gtk.gdk.threads_enter()
         try:
-            f(*args, **kwargs)
+            return f(*args, **kwargs)
         finally:
             gtk.gdk.threads_leave()
 

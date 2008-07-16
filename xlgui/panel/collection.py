@@ -180,6 +180,8 @@ class CollectionPanel(panel.Panel):
             iter = self.model.get_iter(path)
             newset = self._find_tracks(iter)
             found.append(newset)
+    
+        if not found: return None
        
         found = list(reduce(lambda x, y: x.union(y), found))
         return found
@@ -191,6 +193,7 @@ class CollectionPanel(panel.Panel):
             Adds items to the current playlist
         """
         add = self.get_selected_tracks()
+        if not add: return
 
         pl = self.controller.main.get_selected_playlist()
         if pl:
@@ -217,7 +220,8 @@ class CollectionPanel(panel.Panel):
             self.menu.popup(event)
 
     def on_expanded(self, tree, iter, path):
-        if self.model.iter_n_children(iter) == 1 and self.model.get_value(self.model.iter_children(iter), 1) == None:
+        if self.model.iter_n_children(iter) == 1 and \
+            self.model.get_value(self.model.iter_children(iter), 1) == None:
             iter_sep = self.model.iter_children(iter)
             self.load_subtree(iter)
             self.model.remove(iter_sep)

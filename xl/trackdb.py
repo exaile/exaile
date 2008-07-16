@@ -439,10 +439,10 @@ class TrackSearcher(object):
 
 
         # split the search into tokens to be parsed
-        print search
+#        print search
         search = " " + search.lower() + " "
         tokens = search.split(" ")
-        print tokens
+#        print tokens
 
         # handle "" grouping
         etokens = []

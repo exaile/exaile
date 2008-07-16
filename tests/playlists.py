@@ -22,7 +22,6 @@ class SmartPlaylistTestCase(BasePlaylistTestCase):
         if not sp: sp = self.sp
 
         p = sp.get_playlist()
-
         tracks = p.get_tracks()
 
         for i, track in enumerate(tracks):

@@ -455,8 +455,13 @@ class TrackSearcher(object):
                 while tk.count('"') - tk.count('\\"') < 2:
                     tk += " " + tokens[counter+1]
                     counter += 1
-                last = tk.index('"', -1)
                 first = tk.index('"', 0)
+                last = first
+                while True:
+                    try:
+                        last = tk.index('"', last+1)
+                    except ValueError:
+                        break
                 tk = tk[:first] + tk[first+1:last] + tk[last+1:]
                 etokens.append(tk)
                 counter += 1

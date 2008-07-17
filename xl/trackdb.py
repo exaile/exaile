@@ -20,7 +20,7 @@
 
 from xl import media, common, track, event, xdg
 
-import logging, random, time, os
+import logging, random, time, os, time
 logger = logging.getLogger(__name__)
 
 # this overrides storms' sqlite support to handle threading transparently
@@ -310,9 +310,10 @@ class TrackDB(object):
         if not query and sort_fields == 'RANDOM':
             ids = list(tracks.config(distinct=True).values(track.Track.id))
             random.shuffle(ids)
-            tracks = []
-            for item in ids[:return_lim]:
-                tracks.append(self._get_track_by_id(item))
+
+            tracks = self.store.find(track.Track,
+                track.Track.id.is_in(ids[:return_lim]))[:]
+
             return tracks
         else:
             #TODO: these can probably be done more-efficiently via storm

@@ -752,23 +752,23 @@ class Playlist(object):
         # only one, and this speeds up load times dramatically
         # TODO:  don't cache the collection object
         col = None
+        for c in collection.COLLECTIONS:
+            col = c
+            break
 
         for loc in locs:
             meta = None
-            if '\t' in loc:
+            if loc.find('\t') > -1:
                 (loc, meta) = loc.split('\t')
 
-            if not col:
-                for c in collection.COLLECTIONS:
-                    col = c
-                    break
             tr = None
-            if col:
+            if col is not None:
                 if loc.find("pk://") == 0:
                     id = int(loc.replace('pk://', ''))
                     tr = col._get_track_by_id(id)
                 else:
                     tr = col.get_track_by_loc(loc)
+
             if not tr:
                 tr = track.Track(uri=loc)
                 

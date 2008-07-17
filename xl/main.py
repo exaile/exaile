@@ -135,7 +135,8 @@ class Exaile(object):
             logger.info("Loading interface...")
             import xlgui
             self.gui = xlgui.Main(self)
-            self.splash.destroy()
+            import gobject
+            gobject.idle_add(self.splash.destroy)
 
         #initialize PluginsManager
         from xl import plugins

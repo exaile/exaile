@@ -358,7 +358,7 @@ class TrackDB(object):
         else:
             return False
 
-    def __len__(self):
+    def get_count(self):
         """
             Returns the number of tracks stored in this database
         """

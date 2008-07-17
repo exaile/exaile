@@ -366,7 +366,7 @@ class MainWindow(object):
         if not self.get_current_playlist(): return
 
         if self._cached_count == -1:
-            self._cached_count = len(self.collection)
+            self._cached_count = self.collection.get_count()
 
         message = "%d showing, %d in collection" \
             % (len(self.get_current_playlist().playlist), self._cached_count)

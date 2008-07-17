@@ -265,6 +265,8 @@ class BaseGSTPlayer(object):
             self.eof_func()
         elif message.type == gst.MESSAGE_ERROR:
             logger.error("%s %s" %(message, dir(message)) )
+            a = message.parse_error()[0]
+            self._on_playback_error(a.message)
         elif message.type == gst.MESSAGE_BUFFERING:
             percent = message.parse_buffering()
             if percent < 100:
@@ -366,8 +368,21 @@ class BaseGSTPlayer(object):
         source.set_property('device', device)
         self.playbin.disconnect(self.notify_id)
 
+    def _on_playback_error(self, message):
+        """
+            Called when there is an error during playback
+        """
+        event.log_event('playback_error', self, message)
+
     def play(self, track):
         self.stop()
+
+        # make sure the file exists if this is supposed to be a local track
+        if track.is_local():
+            if not os.path.exists(track.get_loc()):
+                self._on_playback_error("File does not exist: %s" % 
+                    track.get_loc())
+                return
        
         if track == None:
             return False

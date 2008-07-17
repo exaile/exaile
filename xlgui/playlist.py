@@ -255,7 +255,10 @@ class Playlist(gtk.VBox):
         """
         ar = [song, None, None]
         for field in self.append_map:
-            ar.append(str(song[field]))
+            value = song[field]
+            if value is None: value = ''
+
+            ar.append(value)
         return ar
 
     def _append_track(self, track):
@@ -416,20 +419,11 @@ class Playlist(gtk.VBox):
                 first = True
 
         current_tracks = self.playlist.get_tracks()
-        for loc in locs:
-            loc = loc.replace('file://', '')
-            loc = urllib.unquote(loc)
-
-            # If the location we are handling is not in the current collection
-            # associated with this playlist then we have to perform extra
-            # work to verify if it is a legit file
-            c = collection.get_collection_by_loc(loc)
-            if c:
-                track = c.get_track_by_loc(loc)
-            else:
-                self.handle_unknown_drag_data(loc)
-                continue
-            
+        (tracks, playlists) = self.list.get_drag_data(locs)            
+        #Determine what to do with the tracks
+        #by default we load all tracks.
+        #TODO: should we load tracks we find in the collection from there??
+        for track in tracks:            
             if not drop_info:
                 self._append_track(track)
             else:

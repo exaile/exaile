@@ -25,7 +25,7 @@
 from xl import trackdb, event, xdg, track, collection
 from xl.settings import SettingsManager
 SettingsManager = SettingsManager.settings
-import urllib, random, os, time
+import urllib, random, os, time, cgi
 
 try:
     import cPickle as pickle
@@ -35,12 +35,15 @@ except:
 try:
     import xml.etree.cElementTree as ETree
 except:
-    import xml.etree.ElementTree as ETree
+    import cElementTree as ETree
 
 from urlparse import urlparse
 
 #TODO: is this really needed?
 random.seed(time.time())
+
+class InvalidPlaylistTypeException(Exception):
+    pass
 
 def save_to_m3u(playlist, path):
     """
@@ -289,6 +292,26 @@ def import_playlist(path):
         return import_from_asx(path)
     elif extension == 'xspf':
         return import_from_xspf(path)
+    else:
+        raise InvalidPlaylistTypeException()
+    
+def export_playlist(playlist, path):
+    """
+        Exact same as @see import_playlist except 
+        it exports
+    """
+    sections = path.split('.')
+    extension = sections[-1]
+    if extension == 'm3u':
+        return save_to_m3u(playlist, path)
+    elif extension == 'pls':
+        return save_to_pls(playlist, path)
+    elif extension == 'asx':
+        return save_to_asx(playlist, path)
+    elif extension == 'xspf':
+        return save_to_xspf(playlist, path)
+    else:
+        raise InvalidPlaylistTypeException()
     
 
 class PlaylistIterator(object):
@@ -411,7 +434,7 @@ class Playlist(object):
         if not add_duplicates:
             new = []
             for track in tracks:
-                if track not in self.tracks.values():
+                if track not in self.get_tracks():
                     new.append(track)
             tracks = new
 
@@ -661,7 +684,15 @@ class Playlist(object):
         else:
             f = open(location, "w")
         for tr in self:
-            f.write(tr.get_loc() + "\n")
+            f.write(tr.get_loc())
+            # write track metadata
+            meta = {}
+            items = ('artist', 'album', 'tracknumber', 'title', 'genre')
+            for item in items:
+                value = tr[item]
+                if value is not None: meta[item] = value
+            f.write('\t%s\n' % urllib.urlencode(meta))
+
         f.write("EOF\n")
         for item in ['random_enabled', 'repeat_enabled', 'dynamic_enabled',
                 'current_pos', 'name']:
@@ -698,12 +729,23 @@ class Playlist(object):
 
         tracks = []
         for loc in locs:
+            meta = None
+            if '\t' in loc:
+                (loc, meta) = loc.split('\t')
+
             c = collection.get_collection_by_loc(loc)
             tr = None
             if c:
                 tr = c.get_track_by_loc(loc)
             if not tr:
                 tr = track.Track(uri=loc)
+                
+                # readd meta
+                if not tr.is_local() and meta is not None:
+                    meta = cgi.parse_qs(meta)
+                    for k, v in meta.iteritems():
+                        tr[k] = v[0]
+
                 if tr.is_local() and not tr._scan_valid:
                     tr = None
             if tr:
@@ -1012,12 +1054,10 @@ class PlaylistManager(object):
         #way to do it
         old_path = os.path.join(self.playlist_dir, old_name)
         new_path = os.path.join(self.playlist_dir, new_name)
-        print 'old path %s' %old_path
-        print 'new path %s' %new_path
         os.rename(old_path, new_path)
         # We also have to remove the old playlist so it does not 
         # Save when we exit
-        self.remove_playlist(old_name)
+        self.playlists.remove(old_name)
 
     def save_all(self):
         """

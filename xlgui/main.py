@@ -19,7 +19,7 @@ import gst
 import gtk, gtk.glade, gobject, pango
 from xl import xdg, event, track
 import xl.playlist
-from xlgui import playlist, cover, guiutil
+from xlgui import playlist, cover, guiutil, commondialogs
 from gettext import gettext as _
 import xl.playlist, re, os
 
@@ -406,6 +406,8 @@ class MainWindow(object):
             self.player)
         event.add_callback(self.on_buffering, 'playback_buffering',
             self.player)
+        event.add_callback(self.on_playback_error, 'playback_error', 
+            self.player)
 
         # monitor the queue
         event.add_callback(lambda *e: self.update_track_counts(),
@@ -415,6 +417,13 @@ class MainWindow(object):
         event.add_callback(lambda *e:
             self.get_current_playlist().list.queue_draw, 'stop_track',
             self.queue)
+
+    @guiutil.gtkrun
+    def on_playback_error(self, type, player, message):
+        """
+            Called when there has been a playback error
+        """
+        commondialogs.error(self.window, message)
 
     @guiutil.gtkrun
     def on_buffering(self, type, player, percent):
@@ -546,6 +555,9 @@ class MainWindow(object):
             artist = track['artist']
             album = track['album']
             title = track['title']
+            if title is None: title = ''
+            if album is None: album = ''
+            if artist is None: artist = ''
 
             if artist:
                 # TRANSLATORS: Window title

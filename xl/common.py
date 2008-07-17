@@ -182,6 +182,7 @@ class idict(dict):
         """
             Sets an item in the dict
         """
+        if item is None: return
         dict.__setitem__(self, item.lower(), val)
         if hasattr(self, 'keys_dict'):
             self.keys_dict[item.lower()] = item
@@ -202,6 +203,8 @@ class idict(dict):
         """
             Returns True if this dictionary contains the specified key
         """
+        if key is None:
+            return False
         return dict.has_key(self, key.lower())
 
     def keys(self): 

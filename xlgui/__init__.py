@@ -29,7 +29,6 @@ class Main(object):
     """
         This is the main gui controller for exaile
     """
-    @guiutil.gtkrun
     def __init__(self, exaile):
         """ 
             Initializes the GUI

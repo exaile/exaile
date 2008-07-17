@@ -25,11 +25,140 @@ class TrackWrapper(object):
 
     def __str__(self):
         text = self.track['title']
-        if text:
+        if text and self.track['artist'] is not None:
             text += " - " + self.track['artist']
         return text
 
-class PlaylistsPanel(panel.Panel):
+class BasePlaylistPanelMixin(object):
+    def __init__(self):
+        self.playlist_nodes = {}
+        self.track_image = gtk.gdk.pixbuf_new_from_file(
+            xdg.get_data_path('images/track.png'))
+
+    def remove_selected_playlist(self):
+        """
+            Removes the selected playlist from the UI
+            and from the underlying manager
+        """
+        selected_playlist = self.get_selected_playlist()
+        if selected_playlist is not None:
+            self.playlist_manager.remove_playlist(
+                selected_playlist.get_name())
+            #remove from UI
+            selection = self.tree.get_selection()
+            (model, iter) = selection.get_selected()
+            self.model.remove(iter)
+        
+    def rename_selected_playlist(self, name):
+        """
+            Renames the selected playlist
+            
+            @param name: the new name
+        """
+        pl = self.get_selected_playlist()
+        if pl is not None:
+            old_name = pl.get_name()
+            selection = self.tree.get_selection()
+            (model, iter) = selection.get_selected()
+            model.set_value(iter, 1, name)
+            pl.set_name(name)
+            model.set_value(iter, 2, pl)
+            #Update the manager aswell
+            self.playlist_manager.rename_playlist(old_name, name)
+        
+    def open_selected_playlist(self):
+        selection = self.tree.get_selection()
+        (model, iter) = selection.get_selected()
+        self.open_playlist(self.tree, model.get_path(iter), None)
+        
+    def get_selected_playlist(self):
+        """
+            Retrieves the currently selected playlist in
+            the playlists panel.  If a non-playlist is
+            selected it returns None
+            
+            @return: the playlist
+        """
+        selection = self.tree.get_selection()
+        (model, iter) = selection.get_selected()
+        pl = model.get_value(iter, 2)
+        # for smart playlists
+        if hasattr(pl, 'get_playlist'):
+            return pl.get_playlist()
+        elif isinstance(pl, playlist.Playlist) :
+            return pl
+        else:
+            return None
+            
+    def get_selected_tracks(self):
+        """
+            Used by the menu, just basically gets the selected
+            playlist and returns the tracks in it
+        """
+        pl = self.get_selected_playlist()
+        if pl:
+            return pl.get_tracks()
+        else:
+            return []
+
+    def open_playlist(self, tree, path, col):
+        """
+            Called when the user double clicks on a playlist
+        """
+        iter = self.model.get_iter(path)
+        pl = self.model.get_value(iter, 2)
+        if pl is not None:
+            # if it's not a playlist, bail
+            if not isinstance(pl, (playlist.Playlist,
+                playlist.SmartPlaylist)):
+                return
+
+            # for smart playlists
+            if hasattr(pl, 'get_playlist'):
+                pl = pl.get_playlist(self.collection)
+    
+            self.controller.main.add_playlist(pl)
+
+    def add_new_playlist(self, tracks = []):
+        dialog = commondialogs.TextEntryDialog(
+                _("Enter the name you want for your new playlist"),
+                _("New Playlist"))
+        result = dialog.run()
+        if result == gtk.RESPONSE_OK:
+            name = dialog.get_value()
+            if not name == "":
+                #Create the playlist from all of the tracks
+                new_playlist = playlist.Playlist(name)
+                new_playlist.add_tracks(tracks)
+                self.playlist_nodes[new_playlist] = \
+                    self.model.append(self.custom, [self.playlist_image, name,  
+                    new_playlist])
+                self.tree.expand_row(self.model.get_path(self.custom), False)
+                self._load_playlist_nodes(new_playlist)
+                # We are adding a completely new playlist with tracks so we save it
+                self.playlist_manager.save_playlist(new_playlist)  
+
+    def _load_playlist_nodes(self, playlist):
+        """
+            Loads the playlist tracks into the node for the specified playlist
+        """
+        if not playlist in self.playlist_nodes: return
+
+        expanded = self.tree.row_expanded(
+            self.model.get_path(self.playlist_nodes[playlist]))
+
+        self._clear_node(self.playlist_nodes[playlist])
+        tracks = playlist.ordered_tracks
+        for track in tracks:
+            wrapper = TrackWrapper(track, playlist)
+            self.model.append(self.playlist_nodes[playlist], 
+                [self.track_image, str(wrapper), wrapper])
+
+        if expanded:
+            self.tree.expand_row(
+                self.model.get_path(self.playlist_nodes[playlist]), False)
+
+class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
     """
         The playlists panel
     """
@@ -44,11 +173,11 @@ class PlaylistsPanel(panel.Panel):
             @param playlist_manager:  The playlist manager
         """
         panel.Panel.__init__(self, controller)
-        self.manager = playlist_manager
+        BasePlaylistPanelMixin.__init__(self)
+        self.playlist_manager = playlist_manager
         self.smart_manager = smart_manager
         self.collection = collection
         self.box = self.xml.get_widget('playlists_box')
-        self.playlist_nodes = {}
 
         self.targets = [('text/uri-list', 0, 0)]
 
@@ -78,10 +207,12 @@ class PlaylistsPanel(panel.Panel):
         self.open_folder = guiutil.get_icon('gnome-fs-directory-accept')
         self.playlist_image = gtk.gdk.pixbuf_new_from_file(
             xdg.get_data_path('images/playlist.png'))
-        self.track_image = gtk.gdk.pixbuf_new_from_file(
-            xdg.get_data_path('images/track.png'))
+
         
-        self.menu = menu.PlaylistsPanelMenu(self, controller.main)
+        # menus
+        self.playlist_menu = menu.PlaylistsPanelPlaylistMenu(self, controller.main)
+        self.default_menu = menu.PlaylistsPanelMenu(self)
+        self.track_menu  = menu.PlaylistsPanelTrackMenu(self)
 
         self._load_playlists()
 
@@ -99,8 +230,8 @@ class PlaylistsPanel(panel.Panel):
             self.model.append(self.smart, [self.playlist_image, name, 
                 self.smart_manager.get_playlist(name)])
             
-        for name in self.manager.playlists:
-            playlist = self.manager.get_playlist(name)
+        for name in self.playlist_manager.playlists:
+            playlist = self.playlist_manager.get_playlist(name)
             self.playlist_nodes[playlist] = self.model.append(
                 self.custom, [self.playlist_image, name, playlist])
             self._load_playlist_nodes(playlist)
@@ -108,49 +239,6 @@ class PlaylistsPanel(panel.Panel):
         self.tree.expand_row(self.model.get_path(self.smart), False)
         self.tree.expand_row(self.model.get_path(self.custom), False)
 
-    
-    def _load_playlist_nodes(self, playlist):
-        """
-            Loads the playlist tracks into the node for the specified playlist
-        """
-        if not playlist in self.playlist_nodes: return
-
-        expanded = self.tree.row_expanded(
-            self.model.get_path(self.playlist_nodes[playlist]))
-
-        self._clear_node(self.playlist_nodes[playlist])
-        tracks = playlist.ordered_tracks
-        for track in tracks:
-            wrapper = TrackWrapper(track, playlist)
-            self.model.append(self.playlist_nodes[playlist], 
-                [self.track_image, str(wrapper), wrapper])
-
-        if expanded:
-            self.tree.expand_row(
-                self.model.get_path(self.playlist_nodes[playlist]), False)
-        
-    def open_selected_playlist(self):
-        selection = self.tree.get_selection()
-        (model, iter) = selection.get_selected()
-        self.open_playlist(self.tree, model.get_path(iter), None)
-
-    def open_playlist(self, tree, path, col):
-        """
-            Called when the user double clicks on a playlist
-        """
-        iter = self.model.get_iter(path)
-        pl = self.model.get_value(iter, 2)
-        if pl:
-            # if it's not a playlist, bail
-            if not isinstance(pl, (playlist.Playlist,
-                playlist.SmartPlaylist)):
-                return
-
-            # for smart playlists
-            if hasattr(pl, 'get_playlist'):
-                pl = pl.get_playlist(self.collection)
-    
-            self.controller.main.add_playlist(pl)
 
     def drag_data_received(self, tv, context, x, y, selection, info, etime):
         """
@@ -178,7 +266,7 @@ class PlaylistsPanel(panel.Panel):
             self._load_playlist_nodes(current_playlist)
             # Do we save in the case when a user drags a file onto a playlist in the playlist panel?
             # note that the playlist does not have to be open for this to happen
-            self.manager.save_playlist(current_playlist, overwrite=True)
+            self.playlist_manager.save_playlist(current_playlist, overwrite=True)
         else:
             # If the user dragged files prompt for a new playlist name
             # else if they dragged a playlist add the playlist
@@ -194,28 +282,12 @@ class PlaylistsPanel(panel.Panel):
                 self._load_playlist_nodes(new_playlist)
 
                 # We are adding a completely new playlist with tracks so we save it
-                self.manager.save_playlist(new_playlist, overwrite=True)
+                self.playlist_manager.save_playlist(new_playlist, overwrite=True)
                     
             #After processing playlist proceed to ask the user for the 
             #name of the new playlist to add and add the tracks to it
             if len(tracks) > 0:
-                dialog = commondialogs.TextEntryDialog(
-                _("Enter the name you want for your new playlist"),
-                _("New Playlist"))
-                result = dialog.run()
-                if result == gtk.RESPONSE_OK:
-                    name = dialog.get_value()
-                    if not name == "":
-                        #Create the playlist from all of the tracks
-                        new_playlist = playlist.Playlist(name)
-                        new_playlist.add_tracks(tracks)
-                        self.playlist_nodes[new_playlist] = \
-                            self.model.append(self.custom, [self.playlist_image, name,  
-                            new_playlist])
-                        self.tree.expand_row(self.model.get_path(self.custom), False)
-                        self._load_playlist_nodes(new_playlist)
-                        # We are adding a completely new playlist with tracks so we save it
-                        self.manager.save_playlist(new_playlist)                
+                self.add_new_playlist(tracks)       
     
     def drag_data_delete(self, *e):
         """
@@ -235,77 +307,48 @@ class PlaylistsPanel(panel.Panel):
             track_uris.append(track.get_loc_for_io())
         selection_data.set_uris(track_uris)
         
-    def get_selected_playlist(self):
+    def remove_selected_track(self):
         """
-            Retrieves the currently selected playlist in
-            the playlists panel.  If a non-playlist is
-            selected it returns None
-            
-            @return: the playlist
+            Removes the selected track from its playlist
         """
         selection = self.tree.get_selection()
         (model, iter) = selection.get_selected()
-        playlist = model.get_value(iter, 2)
-        # for smart playlists
-        if hasattr(playlist, 'get_playlist'):
-            return playlist.get_playlist()
-        elif playlist is not None:
-            return playlist
-        else:
-            return None
-        
-    def remove_selected_playlist(self):
+        track = model.get_value(iter, 2)
+        if isinstance(track, TrackWrapper):
+            track.playlist.remove(track.playlist.index(track.track))
+            #Update the list
+            self.model.remove(iter)
+            #TODO do we save the playlist after this??
+
+    def export_selected_playlist(self, path):
         """
-            Removes the selected playlist both from view
-            of the user and from the underlying manager if 
-            they confirm
-        """
-        dialog = gtk.MessageDialog(None, 
-            gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, 
-            _("Are you sure you want to permanently delete the selected"
-            " playlist?"))
-        if dialog.run() == gtk.RESPONSE_YES:
-           selected_playlist = self.get_selected_playlist()
-           if selected_playlist is not None:
-                self.manager.remove_playlist(selected_playlist.get_name())
-                #remove from UI
-                selection = self.tree.get_selection()
-                (model, iter) = selection.get_selected()
-                self.model.remove(iter)
-        dialog.destroy()
+            Exports the selected playlist to path
             
-    def get_selected_tracks(self):
-        """
-            Used by the menu, just basically gets the selected
-            playlist and returns the tracks in it
+            @path where we we want it to be saved, with a 
+                valid extension we support
         """
         pl = self.get_selected_playlist()
-        if pl:
-            return pl.get_tracks()
-        
-    def rename_selected_playlist(self, name):
-        """
-            Renames the selected playlist
-            
-            @param name: the new name
-        """
-        #TODO fix! - it does not actially rename
-        pl = self.get_selected_playlist()
-        if pl:
-            old_name = pl.get_name()
-            selection = self.tree.get_selection()
-            (model, iter) = selection.get_selected()
-            model.set_value(iter, 1, name)
-            pl.set_name(name)
-            model.set_value(iter, 2, pl)
-            #Update the manager aswell
-            self.manager.rename_playlist(old_name, name)
+        if pl is not None:
+            playlist.export_playlist(pl, path)
         
     def button_press(self, button, event):
-        #TODO show different menu based on what is selected?
-        # or just disable/enable items?
+        """
+            Called when a button is pressed, is responsible
+            for showing the context menu
+        """
         if event.button == 3:
-            self.menu.popup(event)
+            (path, position) = self.tree.get_dest_row_at_pos(int(event.x), int(event.y))
+            iter = self.model.get_iter(path)
+            pl = self.model.get_value(iter, 2)
+            #Based on what is selected determines what
+            #menu we will show
+            if isinstance(pl, (playlist.Playlist,
+                playlist.SmartPlaylist)):
+                self.playlist_menu.popup(event)
+            elif isinstance(pl, TrackWrapper):
+                self.track_menu.popup(event)
+            else:
+                self.default_menu.popup(event)
 
     def _clear_node(self, node):
         """

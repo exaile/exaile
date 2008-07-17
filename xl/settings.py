@@ -29,7 +29,8 @@ TYPE_MAPPING = {
         'S': str,
         'F': float,
         'B': bool,
-        'L': list}
+        'L': list,
+        'U': unicode}
 
 class SettingsManager(SafeConfigParser):
     """
@@ -93,7 +94,8 @@ class SettingsManager(SafeConfigParser):
                     return k + ": " + repr(value)
                 else:
                     return k + ": " + str(value)
-        raise ValueError("We don't know how to store that kind of setting")
+        raise ValueError("We don't know how to store that kind of setting: ",
+            type(value))
 
     def _str_to_val(self, value):
         """

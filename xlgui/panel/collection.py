@@ -93,7 +93,7 @@ class CollectionPanel(panel.Panel):
         """
         window = gtk.Window()
         self.artist_image = gtk.gdk.pixbuf_new_from_file(xdg.get_data_path("images/artist.png"))
-        self.year_image = gtk.gdk.pixbuf_new_from_file(xdg.get_data_path('images/year.png'))
+        self.date_image = gtk.gdk.pixbuf_new_from_file(xdg.get_data_path('images/year.png'))
         self.album_image = window.render_icon('gtk-cdrom',
             gtk.ICON_SIZE_SMALL_TOOLBAR)
         self.title_image = gtk.gdk.pixbuf_new_from_file(xdg.get_data_path('images/track.png'))

@@ -21,7 +21,7 @@ from xl import xdg, event, track
 import xl.playlist
 from xlgui import playlist, cover, guiutil, commondialogs
 from gettext import gettext as _
-import xl.playlist, re, os
+import xl.playlist, re, os, threading
 
 class PlaybackProgressBar(object):
     def __init__(self, bar, player):
@@ -185,6 +185,7 @@ class MainWindow(object):
         self.player = player
         self.queue = queue
         self._cached_count = -1
+        self.current_page = 0
 
         self.xml = xml
         self.window = self.xml.get_widget('ExaileWindow')
@@ -508,15 +509,6 @@ class MainWindow(object):
             pl.playlist.set_random(self.shuffle_toggle.get_active())
             pl.playlist.set_repeat(self.repeat_toggle.get_active())
 
-    def get_current_playlist(self):
-        """
-            Returns the currently selected playlist
-        """
-        page = self.playlist_notebook.get_current_page()
-        if page is None: return
-        page = self.playlist_notebook.get_nth_page(page)
-        return page
-
     @guiutil.gtkrun
     def on_playback_start(self, type, player, object):
         """
@@ -604,9 +596,12 @@ class MainWindow(object):
         """
             Returns teh currently selected playlist
         """
+        return self.playlist_notebook.get_nth_page(self.current_page)
         num = self.playlist_notebook.get_current_page()
         page = self.playlist_notebook.get_nth_page(num)
         return page
+
+    get_current_playlist = get_selected_playlist
 
     def on_play_clicked(self, *e):
         """
@@ -629,6 +624,7 @@ class MainWindow(object):
             Called when the page is changed in the playlist notebook
         """
         page = notebook.get_nth_page(page_num)
+        self.current_page = page_num
         self.queue.set_current_playlist(page.playlist)
         self.set_mode_toggles()
         self.update_track_counts()

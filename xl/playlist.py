@@ -699,7 +699,10 @@ class Playlist(object):
         else:
             f = open(location, "w")
         for tr in self:
-            f.write(tr.get_loc())
+            if tr.id:
+                f.write("pk://%d" % tr.id)
+            else:
+                f.write(tr.get_loc())
             # write track metadata
             meta = {}
             items = ('artist', 'album', 'tracknumber', 'title', 'genre')
@@ -743,15 +746,27 @@ class Playlist(object):
         f.close()
 
         tracks = []
+
+        ## 
+        # for now, we cache the collection object, because as of now, there's
+        # only one, and this speeds up load times dramatically
+        # TODO:  don't cache the collection object
+        col = None
+
         for loc in locs:
             meta = None
             if '\t' in loc:
                 (loc, meta) = loc.split('\t')
 
-            c = collection.get_collection_by_loc(loc)
+            if not col:
+                col = collection.get_collection_by_loc(loc)
             tr = None
-            if c:
-                tr = c.get_track_by_loc(loc)
+            if col:
+                if loc.find("pk://") == 0:
+                    id = int(loc.replace('pk://', ''))
+                    tr = col._get_track_by_id(id)
+                else:
+                    tr = col.get_track_by_loc(loc)
             if not tr:
                 tr = track.Track(uri=loc)
                 

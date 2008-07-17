@@ -256,7 +256,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         for name in self.smart_manager.playlists:
             self.model.append(self.smart, [self.playlist_image, name, 
                 self.smart_manager.get_playlist(name)])
-            
+           
         for name in self.playlist_manager.playlists:
             playlist = self.playlist_manager.get_playlist(name)
             self.playlist_nodes[playlist] = self.model.append(

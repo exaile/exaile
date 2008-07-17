@@ -477,6 +477,7 @@ class Playlist(gtk.VBox):
         event.add_callback(self.on_add_tracks, 'tracks_added', self.playlist)
         event.add_callback(self.on_remove_tracks, 'tracks_removed',
             self.playlist)
+        self.main.update_track_counts()
         
         if curtrack is not None:
             index = self.playlist.index(curtrack)

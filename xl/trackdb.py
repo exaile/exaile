@@ -277,7 +277,6 @@ class TrackDB(object):
             track exists, returns None
         """
         res = self.store.find(track.Track, Like(track.Track.loc, loc, case_sensitive=True))
-#        res = self.store.find(track.Track, track.Track.loc == unicode(loc))
         if raw:
             return res
         else:
@@ -288,7 +287,7 @@ class TrackDB(object):
         return res.values(getattr(track.Track, attr))[0]
 
     def _get_track_by_id(self, id):
-        res = self.store.find(track.Track, id=id)
+        res = self.store.get(track.Track, id)
         return res
 
     def search(self, query, sort_fields=None, return_lim=-1, 
@@ -307,15 +306,24 @@ class TrackDB(object):
         searcher = TrackSearcher()
         tracks = searcher.search_store(query, self.store)
 
-        #TODO: these can probably be done more-efficiently via storm
-        if sort_fields:
-            tracks = list(tracks)
-            if sort_fields == 'RANDOM':
-                random.shuffle(tracks)
-            else:
-                tracks = sort_tracks(sort_fields, tracks)
-        if return_lim != -1:
-            tracks = list(tracks)[:return_lim]
+        # random sorting with no query
+        if not query and sort_fields == 'RANDOM':
+            ids = list(tracks.config(distinct=True).values(track.Track.id))
+            random.shuffle(ids)
+            tracks = []
+            for item in ids[:return_lim]:
+                tracks.append(self._get_track_by_id(item))
+            return tracks
+        else:
+            #TODO: these can probably be done more-efficiently via storm
+            if sort_fields:
+                tracks = list(tracks)
+                if sort_fields == 'RANDOM':
+                    random.shuffle(tracks)
+                else:
+                    tracks = sort_tracks(sort_fields, tracks)
+            if return_lim != -1:
+                tracks = tracks[:return_lim]
 
         if not use_resultset:
             tracks = list(tracks)
@@ -622,7 +630,8 @@ class TrackSearcher(object):
 
     def search_store(self, query, store):
         if query == "":
-            return store.find(track.Track)
+            res = store.find(track.Track)
+            return res
         else:
             tokens = self.tokenize_query(query)
             storm_tokens = self.stormize(tokens)

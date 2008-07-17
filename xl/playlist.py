@@ -759,7 +759,9 @@ class Playlist(object):
                 (loc, meta) = loc.split('\t')
 
             if not col:
-                col = collection.get_collection_by_loc(loc)
+                for c in collection.COLLECTIONS:
+                    col = c
+                    break
             tr = None
             if col:
                 if loc.find("pk://") == 0:

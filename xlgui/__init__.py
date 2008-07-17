@@ -128,6 +128,9 @@ def show_splash(show=True):
     box.pack_start(image, True, True)
     splash_screen.set_transient_for(None)
     splash_screen.show_all()
-    #FIXME: should disappear when loading finishes, not at a fixed time
-#    gobject.timeout_add(2500, splash_screen.destroy)
+
+    #ensure that the splash gets completely drawn before we move on
+    while gtk.events_pending():
+        gtk.main_iteration()
+
     return splash_screen

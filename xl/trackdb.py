@@ -347,7 +347,15 @@ class TrackDB(object):
             return True
         else:
             return False
- 
+
+    def __len__(self):
+        """
+            Returns the number of tracks stored in this database
+        """
+        count = 0
+        for items in self.store.find(track.Track).values(track.Track.id):
+            count += 1
+        return count
 
 class EditableTrackDB(TrackDB):
     """

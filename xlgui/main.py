@@ -184,6 +184,7 @@ class MainWindow(object):
         self.collection =  collection
         self.player = player
         self.queue = queue
+        self._cached_count = -1
 
         self.xml = xml
         self.window = self.xml.get_widget('ExaileWindow')
@@ -362,8 +363,12 @@ class MainWindow(object):
             Updates the track count information
         """
         if not self.get_current_playlist(): return
-        message = "%d showing" \
-            % (len(self.get_current_playlist().playlist))
+
+        if self._cached_count == -1:
+            self._cached_count = len(self.collection)
+
+        message = "%d showing, %d in collection" \
+            % (len(self.get_current_playlist().playlist), self._cached_count)
         
         queuecount = len(self.queue)
         if queuecount:

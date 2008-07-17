@@ -603,12 +603,27 @@ class Playlist(object):
         event.log_event('pl_current_changed', self, self.current_pos)
         return self.get_current()
 
-    def search(self, phrase, sort_field=None):
+    def search(self, phrase, sort_fields=None, return_lim=-1,
+        use_resultset=False):
         """
             searches the playlist
         """
         searcher = trackdb.TrackSearcher()
         tracks = searcher.search(phrase, self.ordered_tracks)
+
+        #TODO: these can probably be done more-efficiently via storm
+        if sort_fields:
+            tracks = list(tracks)
+            if sort_fields == 'RANDOM':
+                random.shuffle(tracks)
+            else:
+                tracks = trackdb.sort_tracks(sort_fields, tracks)
+        if return_lim != -1:
+            tracks = list(tracks)[:return_lim]
+
+        if not use_resultset:
+            tracks = list(tracks)
+
         return tracks
 
     def toggle_random(self):

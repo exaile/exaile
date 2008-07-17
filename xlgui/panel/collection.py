@@ -13,7 +13,7 @@
 # foundation, inc., 675 mass ave, cambridge, ma 02139, usa.
 
 import gtk, gobject, urllib
-from xl import xdg, common, track
+from xl import xdg, common, track, trackdb
 from xlgui import panel, guiutil, menu
 from xl import xdg, common
 from xlgui import panel, guiutil, menu
@@ -185,8 +185,7 @@ class CollectionPanel(panel.Panel):
         
         found = list(set(reduce(lambda x, y: list(x) + list(y), found)))
       
-        return found
-
+        return trackdb.sort_tracks(('artist', 'album', 'tracknumber'), found)
 
     #FIXME: this should probably be moved into the playlist part of the UI
     def append_to_playlist(self, item=None, event=None):

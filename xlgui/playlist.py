@@ -691,7 +691,7 @@ class Playlist(gtk.VBox):
             curtrack = \
                 self.playlist.ordered_tracks[self.playlist.get_current_pos()] 
         except IndexError:
-            curtrac = self.playlist.ordered_tracks[0]
+            curtrack = self.playlist.ordered_tracks[0]
         self.playlist.ordered_tracks = tracks
         index = self.playlist.index(curtrack)
         self.playlist.set_current_pos(index)

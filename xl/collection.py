@@ -378,7 +378,7 @@ class Library(object):
             Rescan the associated folder and add the contained files
             to the Collection
         """
-        if not self.collection:
+        if self.collection is None:
             return True
 
         if self.scanning: return

@@ -1,12 +1,23 @@
 import pynotify, cgi
 from xl import event
+from gettext import gettext as _
 
 pynotify.init('exailenotify')
 
 def on_play(type, player, track):
-    summary = cgi.escape(track['title'])
-    body = "%s\non <i>%s</i>" % (cgi.escape(track['artist']), 
-        cgi.escape(track['album']))
+    title = track['title'] or _("Unknown")
+    artist = track['artist']
+    album = track['album']
+    summary = cgi.escape(title)
+    if artist and album:
+        body = _("by %s\non <i>%s</i>") % (cgi.escape(artist), 
+            cgi.escape(album))
+    elif artist:
+        body = _("by %s" % (cgi.escape(artist)))
+    elif album:
+        body = _("from %s" % (cgi.escape(album)))
+    else:
+        body = ""
     notify = pynotify.Notification(summary, body)
 
     notify.show()

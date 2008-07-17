@@ -55,8 +55,8 @@ class CoverDB(object):
             @param album: the album
             @return: the location of the cover, or None if no cover exists
         """
-        if artist in self.artists:
-            if album in self.artists[artist]:
+        if artist and artist in self.artists:
+            if album and album in self.artists[artist]:
                 return self.artists[artist][album]
         return None
         

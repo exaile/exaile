@@ -469,6 +469,9 @@ class GaplessPlayer(BaseGSTPlayer):
         # this really should be peek(), but since the 'audio-changed'
         # signal isn't functional we have to do it this way.
         next = self.queue.next()
+        if next is None:
+            self.stop() #does this cut off part of the track?
+            return
         uri = self._get_track_uri(next)
         self.playbin.set_property('uri', uri) #playbin2 takes care of the rest
     

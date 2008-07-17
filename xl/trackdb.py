@@ -418,7 +418,10 @@ class TrackSearcher(object):
             c = search[n]
             if c == "\\":
                 n += 1
-                newsearch += search[n]
+                try:
+                    newsearch += search[n]
+                except IndexError:
+                    pass
             elif in_quotes and c != "\"":
                 newsearch += c
             elif c == "\"":
@@ -449,10 +452,12 @@ class TrackSearcher(object):
         while counter < len(tokens):
             if '"' in tokens[counter]:
                 tk = tokens[counter]
-                while tk.count('"') < 2:
+                while tk.count('"') - tk.count('\\"') < 2:
                     tk += " " + tokens[counter+1]
                     counter += 1
-                tk.replace('"', "")
+                last = tk.index('"', -1)
+                first = tk.index('"', 0)
+                tk = tk[:first] + tk[first+1:last] + tk[last+1:]
                 etokens.append(tk)
                 counter += 1
             else:

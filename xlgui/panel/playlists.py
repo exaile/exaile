@@ -30,7 +30,15 @@ class TrackWrapper(object):
         return text
 
 class BasePlaylistPanelMixin(object):
+    """
+        Base playlist tree object.  
+
+        Used by the radio and playlists panels to display playlists
+    """
     def __init__(self):
+        """
+            Initializes the mixin
+        """
         self.playlist_nodes = {}
         self.track_image = gtk.gdk.pixbuf_new_from_file(
             xdg.get_data_path('images/track.png'))
@@ -99,7 +107,13 @@ class BasePlaylistPanelMixin(object):
         if pl:
             return pl.get_tracks()
         else:
-            return []
+            selection = self.tree.get_selection()
+            (model, iter) = selection.get_selected()
+            i = model.get_value(iter, 2)
+            if isinstance(i, TrackWrapper):
+                return [i.track]
+
+        return None
 
     def open_playlist(self, tree, path, col):
         """
@@ -157,6 +171,19 @@ class BasePlaylistPanelMixin(object):
         if expanded:
             self.tree.expand_row(
                 self.model.get_path(self.playlist_nodes[playlist]), False)
+
+    def remove_selected_track(self):
+        """
+            Removes the selected track from its playlist
+        """
+        selection = self.tree.get_selection()
+        (model, iter) = selection.get_selected()
+        track = model.get_value(iter, 2)
+        if isinstance(track, TrackWrapper):
+            track.playlist.remove(track.playlist.index(track.track))
+            #Update the list
+            self.model.remove(iter)
+            #TODO do we save the playlist after this??
 
 class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
     """
@@ -257,7 +284,12 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             # Add whatever we received to the playlist at path
             iter = self.model.get_iter(path[0])
             current_playlist = self.model.get_value(iter, 2)
-            if not isinstance(current_playlist, playlist.Playlist):
+            
+            # if the current item is a track, use the parent playlist
+            if isinstance(current_playlist, TrackWrapper):
+                current_playlist = current_playlist.playlist
+
+            elif not isinstance(current_playlist, playlist.Playlist):
                 #Can't add songs to a smart playlists
                 context.drop_finish(False, etime)
                 return
@@ -299,13 +331,19 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         """
             Called when someone drags something from the playlist
         """
-        # Find the currently selected playlist
-        tracks = self.get_selected_playlist().get_tracks()
-        # Put the songs in a list of uris
-        track_uris = []
+        pl = self.get_selected_playlist()
+        if pl:
+            tracks = pl.get_tracks()
+        else:
+            tracks = self.get_selected_tracks()
+           
+        if not tracks: return
+
         for track in tracks:
-            track_uris.append(track.get_loc_for_io())
-        selection_data.set_uris(track_uris)
+            guiutil.DragTreeView.dragged_data[track.get_loc()] = track
+        
+        urls = guiutil.get_urls_for(tracks)
+        selection_data.set_uris(urls)
         
     def remove_selected_track(self):
         """

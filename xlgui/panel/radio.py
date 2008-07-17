@@ -52,6 +52,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         # menus
         self.playlist_menu = menu.RadioPanelPlaylistMenu(self,
             controller.main)
+        self.track_menu = menu.PlaylistsPanelTrackMenu(self)
 
         self.load_streams()
 
@@ -108,7 +109,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             Sets up the tree that displays the radio panel
         """
         box = self.xml.get_widget('RadioPanel')
-        self.tree = guiutil.DragTreeView(self, True, False)
+        self.tree = guiutil.DragTreeView(self, True, True)
         self.tree.set_headers_visible(False)
 
         self.targets = [('text/uri-list', 0, 0)]
@@ -188,6 +189,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
                         menu.popup(None, None, None, event.button, event.time)
                 elif isinstance(item, xl.playlist.Playlist):
                     self.playlist_menu.popup(event)
+                elif isinstance(item, playlistpanel.TrackWrapper):
+                    self.track_menu.popup(event)
 
     def cell_data_func(self, column, cell, model, iter):
         """
@@ -213,7 +216,12 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             # Add whatever we received to the playlist at path
             iter = self.model.get_iter(path[0])
             current_playlist = self.model.get_value(iter, 2)
-            if not isinstance(current_playlist, xl.playlist.Playlist):
+
+            # if it's a track that we've dragged to, get the parent
+            if isinstance(current_playlist, playlistpanel.TrackWrapper):
+                current_playlist = current_playlist.playlist
+
+            elif not isinstance(current_playlist, xl.playlist.Playlist):
                 self._add_new_station(locs)
                 return
             (tracks, playlists) = self.tree.get_drag_data(locs)
@@ -262,8 +270,23 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
                     self.playlist_manager.save_playlist(new_playlist)                
                     self._load_playlist_nodes(new_playlist)
 
-    def drag_get_data(self, *e):
-        pass
+    def drag_get_data(self, tv, context, selection_data, info, time):
+        """
+            CAlled when the user drags a playlist from the radio panel
+        """
+        pl = self.get_selected_playlist()
+        if pl:
+            tracks = pl.get_tracks()
+        else:
+            tracks = self.get_selected_tracks()
+           
+        if not tracks: return
+
+        for track in tracks:
+            guiutil.DragTreeView.dragged_data[track.get_loc()] = track
+        
+        urls = guiutil.get_urls_for(tracks)
+        selection_data.set_uris(urls)
     
     def drag_data_delete(self, *e):
         """

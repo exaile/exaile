@@ -16,7 +16,7 @@
 
 import gtk, os.path, urllib, time, md5
 import gtk.gdk, pango, gobject
-from xl import xdg, track, playlist
+from xl import xdg, track, playlist, common
 
 try:
     import sexy
@@ -513,3 +513,10 @@ class StatusBar(object):
             Clears the label
         """
         self.label.set_label('')
+
+def get_urls_for(items):
+    """
+        Returns the items' URLs
+    """
+    return [urllib.quote(item.get_loc().encode(common.get_default_encoding()))
+        for item in items]

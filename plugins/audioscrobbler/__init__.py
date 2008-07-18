@@ -100,8 +100,8 @@ class ExaileScrobbler(object):
 
     def on_play(self, type, player, track):
 
-        self.time_started = track['playcount']
-        if self.time_started == "":
+        self.time_started = track['playtime']
+        if self.time_started == "" or self.time_started is None:
             self.time_started = 0
         self.start_time = time.time()
 

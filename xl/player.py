@@ -417,6 +417,12 @@ class BaseGSTPlayer(object):
     def unpause(self):
         if self.is_paused():
             self.reset_playtime_stamp()
+
+            # gstreamer does not buffer paused network streams, so if the user
+            # is unpausing a stream, just restart playback
+            if not self.current.is_local():
+                self.playbin.set_state(gst.STATE_READY)
+
             self.playbin.set_state(gst.STATE_PLAYING)
             event.log_event('playback_resume', self, self.current)
 

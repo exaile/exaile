@@ -185,7 +185,7 @@ class MainWindow(object):
         self.player = player
         self.queue = queue
         self._cached_count = -1
-        self.current_page = 0
+        self.current_page = -1 
 
         self.xml = xml
         self.window = self.xml.get_widget('ExaileWindow')
@@ -328,7 +328,7 @@ class MainWindow(object):
         """
             Filters the currently selected playlist
         """
-        pl = self.get_current_playlist()
+        pl = self.get_selected_playlist()
         if pl:
             pl.search(self.filter.get_text())
 
@@ -348,7 +348,7 @@ class MainWindow(object):
             Called when the user clicks on the SPAT item
         """
         queue = self.controller.exaile.queue
-        tracks = self.get_current_playlist().get_selected_tracks()
+        tracks = self.get_selected_playlist().get_selected_tracks()
         if not tracks: return
         track = tracks[0]
 
@@ -357,19 +357,19 @@ class MainWindow(object):
         else:
             queue.stop_track = track
 
-        self.get_current_playlist().list.queue_draw()
+        self.get_selected_playlist().list.queue_draw()
 
     def update_track_counts(self):
         """
             Updates the track count information
         """
-        if not self.get_current_playlist(): return
+        if not self.get_selected_playlist(): return
 
         if self._cached_count == -1:
             self._cached_count = self.collection.get_count()
 
         message = "%d showing, %d in collection" \
-            % (len(self.get_current_playlist().playlist), self._cached_count)
+            % (len(self.get_selected_playlist().playlist), self._cached_count)
         
         queuecount = len(self.queue)
         if queuecount:
@@ -421,7 +421,7 @@ class MainWindow(object):
         event.add_callback(lambda *e: self.update_track_counts(),
             'tracks_removed', self.queue)
         event.add_callback(lambda *e:
-            self.get_current_playlist().list.queue_draw, 'stop_track',
+            self.get_selected_playlist().list.queue_draw, 'stop_track',
             self.queue)
 
     @guiutil.gtkrun
@@ -451,7 +451,7 @@ class MainWindow(object):
         if track.parse_stream_tags(tr, args):
             self._update_track_information()
             self.cover.on_playback_start('', self.player, None)
-            self.get_current_playlist().refresh_row(tr)
+            self.get_selected_playlist().refresh_row(tr)
 
     @guiutil.gtkrun
     def on_toggle_pause(self, type, player, object):
@@ -494,7 +494,7 @@ class MainWindow(object):
         """
             Clears the current playlist tab
         """
-        playlist = self.get_current_playlist()
+        playlist = self.get_selected_playlist()
         if not playlist: return
         playlist.playlist.clear()
 
@@ -504,7 +504,7 @@ class MainWindow(object):
         """
         self.settings['playback/shuffle'] = self.shuffle_toggle.get_active()
         self.settings['playback/repeat'] = self.repeat_toggle.get_active()
-        pl = self.get_current_playlist()
+        pl = self.get_selected_playlist()
         if pl:
             pl.playlist.set_random(self.shuffle_toggle.get_active())
             pl.playlist.set_repeat(self.repeat_toggle.get_active())
@@ -516,7 +516,7 @@ class MainWindow(object):
             Sets the currently playing track visible in the currently selected
             playlist if the user has chosen this setting
         """
-        pl = self.get_current_playlist()
+        pl = self.get_selected_playlist()
         if player.current in pl.playlist.ordered_tracks:
             path = (pl.playlist.index(player.current),)
             pl.list.scroll_to_cell(path)

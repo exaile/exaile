@@ -176,6 +176,13 @@ def get_database_connection(uri):
             logger.debug("Added index for %s"%item)
         except: #YET MORE BAD
             pass
+    for item in ("loc", "rating"):
+        try:
+            query = "CREATE INDEX %s_index ON tracks(%s(100))"%(item, item)
+            store.execute(query)
+            logger.debug("Added index for %s"%item)
+        except: #EVEN MORE BAD
+            pass
     store.commit()
 
     return db
@@ -282,6 +289,24 @@ class TrackDB(object):
         else:
             return res.one()
 
+    def get_tracks_by_locs(self, locs):
+        """
+            returns the track having the given loc. if no such
+            track exists, returns None
+        """
+        locs = [ unicode(l) for l in locs ]
+        n = 0
+        reses = []
+        while n < len(locs):
+            locs2 = locs[n:n+100]
+            res = self.store.find(track.Track, In(track.Track.loc, locs2))
+            reses.append(res)
+            n += 100
+        res = []
+        for r in reses:
+            res += list(r)
+        return res
+
     def get_track_attr(self, loc, attr):
         res = self.get_track_by_loc(loc, raw=True)
         return res.values(getattr(track.Track, attr))[0]
@@ -348,7 +373,7 @@ class TrackDB(object):
             for k, v in self.libraries.iteritems():
                 if loc.startswith(k):
                     lib = v
-                    break
+                    return True
             if not lib:
                 return False
 

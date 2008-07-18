@@ -744,29 +744,30 @@ class Playlist(object):
 
         tracks = []
 
+        for col in collection.COLLECTIONS:
+            new = col.get_tracks_by_locs(locs)
+            for tr in new:
+                locs.remove(tr.get_loc())
+            tracks += new 
+
         for loc in locs:
             meta = None
             if loc.find('\t') > -1:
                 (loc, meta) = loc.split('\t')
 
-            col = collection.get_collection_by_loc(loc)
-            tr = None
-            if col is not None:
-                tr = col.get_track_by_loc(loc)
+            tr = track.Track(uri=loc)
+            
+            # readd meta
+            if not tr.is_local() and meta is not None:
+                meta = cgi.parse_qs(meta)
+                for k, v in meta.iteritems():
+                    tr[k] = v[0]
 
-            if not tr:
-                tr = track.Track(uri=loc)
-                
-                # readd meta
-                if not tr.is_local() and meta is not None:
-                    meta = cgi.parse_qs(meta)
-                    for k, v in meta.iteritems():
-                        tr[k] = v[0]
-
-                if tr.is_local() and not tr._scan_valid:
-                    tr = None
+            if tr.is_local() and not tr._scan_valid:
+                tr = None
             if tr:
                 tracks.append(tr)
+
         self.ordered_tracks = tracks
 
 

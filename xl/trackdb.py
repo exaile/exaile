@@ -276,7 +276,7 @@ class TrackDB(object):
             returns the track having the given loc. if no such
             track exists, returns None
         """
-        res = self.store.find(track.Track, Like(track.Track.loc, loc, case_sensitive=True))
+        res = self.store.find(track.Track, track.Track.loc == unicode(loc))
         if raw:
             return res
         else:

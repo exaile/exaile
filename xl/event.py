@@ -29,7 +29,7 @@
 # most appropriate spot is immediately before a return statement.
 
 
-import threading, time, logging, traceback
+import threading, time, logging, traceback, weakref
 from xl import common
 
 # define these here so the interperter doesn't complain about them
@@ -212,9 +212,15 @@ class EventManager(object):
                 traceback.print_exc()
                 # the function we're trying to call disappeared
                 self.remove_callback(call, event.type, event.object)
+            except ReferenceError:
+                try:
+                    self.remove_callback(call, event.type, event.object)
+                except:
+                    pass
             except:
                 # something went wrong inside the function we're calling
-                if not _TESTING: common.log_exception(logger)
+                if not _TESTING: 
+                    common.log_exception(logger)
                 else:
                     traceback.print_exc()
         self.lock.release()
@@ -236,6 +242,7 @@ class EventManager(object):
             @param object:   The object to listen to events from. Defaults
                 to any. [string]
         """
+        function = weakref.proxy(function)
         # add the specified categories if needed.
         if not self.callbacks.has_key(type):
             self.callbacks[type] = {}

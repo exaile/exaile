@@ -3,7 +3,7 @@ It should also be used to keep track of what each contributor is
 currently working on.
 
 Current projects:
-    Aren Olson - Persistence, Mass Storage MP3 Player (base), StormDB
+    Aren Olson - Persistence, Mass Storage MP3 Player (base)
     Adam Olsen - GUI
     Anthony Waters - 
     thiblahute - CD Burning (hasn't been seen in a while)
@@ -14,8 +14,6 @@ Implemented:
     Libraries
         now has realtime watching!
     Playlists
-        random, repeat
-        import/export for m3u/pls/asx/xspf
     Player
     Queue
     Settings
@@ -34,7 +32,6 @@ Implemented:
     HAL Support
         only for cd right now
     Playlists Manager
-        manages persistence of playlists and smart playlists.
     Plugins System
         file format: tar archive (optionally with gzip/bzip2), gets extracted
                 into XDG_DATA_HOME, loads from there or XDG_DATA_DIRS
@@ -57,6 +54,7 @@ Implemented:
     Replaygain
         doesn't support creating tags, only reading them
     CD Ripping
+    StormDB
 
 Things that can probably be implemented at this stage:
     CD Burning
@@ -103,8 +101,6 @@ Things that can probably be implemented at this stage:
         todo list:
             make queue, player persistent
             periodic save to disk so that in event of crash eveything is saved
-            how to deal with streams or devices, which cannot be guaranteed
-                to be present upon resume?
     GUI
         see GUIPLANNING
     Visualizations
@@ -118,22 +114,23 @@ Things that can probably be implemented at this stage:
             translateable
         DEBUG logs do not need to be, as they are largely not intended to be
             seen by users
-    StormDB
-        database based on Storm instead of pickle.
-        development will happen in a separate branch until feature-parity
-            with pickle is reached.
+    One Tag Reading
+        make the tagging backends capable of reading a single tag (or a 
+        specified subset of tags) on demand. this is needed for things like 
+        embedded covers and lyrics which are too large to store in the DB.
+        ideally, access to these tags would be exposed transparently via the
+        regular track[tag] syntax.
 
 Minor Tasks:
     add comments and docstrings in xl/player.py
-    implement buffering handling in xl/player.py (see gstreamer playbin docs)
     store current sort field in xl.playlist.Playlist, use this in the GUI
     create a method of exposing what the current UI is to plugins, so they can
         load widgets and such appropriately. (xlgui.Main.name?)
     make rating system be a float from 0-100, this lets us seamlessly handle
         information coming from sources that use differing rating systems.
         a negative value will mean "not rated"
-    make event.py use weakref so it won't hold things in memory after they're
-        deleted elsewhere.
+        ui will collapse the float value to the nearest value on the scale
+            chosen by the user for display, bu tnot alter it until it is changed
     santize plugin extraction (current method is a potential security 
         vulnerability)
     ensure the log file doesn't grow to insane sizes
@@ -148,6 +145,8 @@ Other Work-Items:
             saving a little bit of time and memory.
         alternatively, only import it if firstrun is True. this is likely
             a cleaner and more-efficient method.
+        this should also be designed flexibly enough to also handle future
+            0.3.x to 0.3.y upgrades, should that be necessary.
     
 GUIPLANNING:
     Implemented:
@@ -162,6 +161,10 @@ GUIPLANNING:
         Playlist Tabs
             still need to be able to recieve track dragged from a file
                 manager like nautilus
+        
+        Tray Icon
+            still needs everything, only does toggle hide now. Egg based
+                tray icon not implemented at all.
     
     Needs to be implemented:
         Album Art Manager
@@ -171,7 +174,10 @@ GUIPLANNING:
         Podcasts?
         Queueing tracks, display of queued tracks, queue manager
         Rating
+            idea - bar of stars widget, allows dragging to partially fill stars,
+                click fills up through clicked star.
         Plugin Manager
+            allow local install
         About Dialog
         Visualizations
         SPAT... "stop after track button" like we had in 0.2.  Frankly, I
@@ -180,6 +186,8 @@ GUIPLANNING:
         Better search interface (allow for custom queries and etc)
         Smart Playlist editor
         Various Device Panels
+            there will be two kinds of these, playlist-based (eg CDs) and 
+                collection-based (eg MP3 players)
         Major cleanup of code in xlgui/playlists.py
 
     Notes:
@@ -202,6 +210,7 @@ GUIPLANNING:
             - alternatively, replace tray tooltip with OSD if enabled
         OSD progressbar should be togglable (perhaps make {progressbar}
             element available in customizer?)
+        merge SPAT into stop button via right-click or dropdown menu
     feature requests:
         PPAT - like SPAT, but pauses instead of stopping. this could easily
             be a toggle for SPAT. (this would let me stop listening between 

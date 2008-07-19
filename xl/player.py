@@ -377,6 +377,9 @@ class BaseGSTPlayer(object):
     def play(self, track):
         self.stop()
 
+        if track is None:
+            return False
+
         # make sure the file exists if this is supposed to be a local track
         if track.is_local():
             if not os.path.exists(track.get_loc()):
@@ -384,8 +387,6 @@ class BaseGSTPlayer(object):
                     track.get_loc())
                 return
        
-        if track == None:
-            return False
         self.current = track
         
         uri = self._get_track_uri(track)

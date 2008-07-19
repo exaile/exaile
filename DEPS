@@ -12,6 +12,7 @@ essential:
     dbus-python
     pygtk (>= 2.10)
     python-glade2
+    storm (>= 0.13)
 
 replaygain, equalizer:
     gstreamer-plugins-bad 10.5 or later
@@ -22,7 +23,7 @@ device detection:
 cd info:
     python-cddb
 
-library watching:
+library realtime watching:
     pyinotify 
 
 clear button on search fields:

@@ -42,7 +42,7 @@ class SettingsManager(SafeConfigParser):
             Sets up the SettingsManager. Expects a loc to a file
             where settings will be stored.
         """
-        logger.info("Loading settings")
+        logger.info(_("Loading settings"))
         SafeConfigParser.__init__(self)
         self.loc = loc
 

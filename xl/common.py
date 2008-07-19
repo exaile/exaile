@@ -14,7 +14,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from gettext import gettext as _
 import locale, os, time, threading, urllib, re, random, string
 import traceback
 import logging
@@ -46,7 +45,7 @@ def log(message):
 
 # use this for general logging of exceptions
 def log_exception(log=logger):
-    log.error("Exception caught!\n" + traceback.format_exc())
+    log.error(_("Exception caught!\n") + traceback.format_exc())
 
 
 def to_unicode(x, default_encoding=None):

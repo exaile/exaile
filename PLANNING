@@ -134,6 +134,8 @@ Minor Tasks:
     santize plugin extraction (current method is a potential security 
         vulnerability)
     ensure the log file doesn't grow to insane sizes
+    sanitize logger to not print passwords when connecting to databases.
+        passwords of ANY kind should never be logged, even to debug.
 
 Other Work-Items:
     Conversion

@@ -22,8 +22,16 @@
 __version__ = '0.3.0devel'
 
 from xl import common, xdg, event
-import os, sys, logging, time
+import os, sys, logging, time, gettext, locale
 
+# set the locale to LANG, or the user's default
+locale.setlocale(locale.LC_ALL, '')
+
+# this installs _ into python's global namespace, so we don't have to
+# explicitly import it elsewhere
+gettext.install("exaile")
+
+# initiate the logger. logger params are set later
 logger = logging.getLogger(__name__)
 
 
@@ -63,7 +71,7 @@ class Exaile(object):
         """
             Initializes Exaile
         """
-        logger.info("Loading Exaile...")
+        logger.info(_("Loading Exaile..."))
         #initialize SettingsManager
         from xl import settings
         self.settings = settings.SettingsManager( os.path.join(
@@ -76,7 +84,7 @@ class Exaile(object):
         firstrun = self.settings.get_option("general/first_run", True)
 
         # Initialize the collection
-        logger.info("Loading collection...")
+        logger.info(_("Loading collection..."))
         from xl import collection
         self.collection = collection.Collection("Collection",
                 location=collection.get_collection_uri() )

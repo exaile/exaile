@@ -14,13 +14,14 @@
 
 __all__ = ['main', 'panel', 'playlist']
 
-import gtk, gtk.glade, gobject
-from xl import xdg
+import gtk, gtk.glade, gobject, logging
+from xl import xdg, common, event
 from gettext import gettext as _
 
 from xlgui import guiutil
 
 gtk.window_set_default_icon_from_file(xdg.get_data_path("images/icon.png"))
+logger = logging.getLogger(__name__)
 
 def mainloop():
     gtk.main()
@@ -36,13 +37,15 @@ class Main(object):
             @param exaile: The Exaile instance
         """
         import xl.main as xlmain
-        from xlgui import main, panel, tray
+        from xlgui import main, panel, tray, progress
         from xlgui.panel import collection, radio, playlists, files
 
         self.exaile = exaile
         self.first_removed = False
         self.xml = gtk.glade.XML(xdg.get_data_path("glade/main.glade"),
             'ExaileWindow', 'exaile')
+        self.progress_box = self.xml.get_widget('progress_box')
+        self.progress_manager = progress.ProgressManager(self.progress_box)
 
         self.main = main.MainWindow(self, self.xml, exaile.settings, 
             exaile.collection,
@@ -68,8 +71,31 @@ class Main(object):
             Connects the various events to their handlers
         """
         self.xml.signal_autoconnect({
-            'on_about_item_activated': self.show_about_dialog
+            'on_about_item_activate': self.show_about_dialog,
+            'on_scan_collection_item_activate': self.on_rescan_collection,
+            'on_collection_manager_item_activate': self.collection_manager,
         })
+
+    def collection_manager(self, *e):
+        """
+            Invokes the collection manager dialog
+        """
+        from xlgui import collection as guicol
+        dialog = guicol.CollectionManagerDialog(self.main.window,
+            self, self.exaile.collection)
+        result = dialog.run()
+        dialog.destroy()
+        if result == gtk.RESPONSE_APPLY:
+            self.on_rescan_collection()
+
+    def on_rescan_collection(self, *e):
+        """
+            Called when the user wishes to rescan the collection
+        """
+        from xlgui import collection as guicol
+        thread = guicol.CollectionScanThread(self.exaile.collection)
+        self.progress_manager.add_monitor(thread,
+            _("Scanning collection..."), 'gtk-refresh')
 
     def add_panel(self, child, name):
         """

@@ -213,11 +213,13 @@ class EventManager(object):
                 # the function we're trying to call disappeared
                 self.remove_callback(call, event.type, event.object)
             except ReferenceError:
+                print traceback.print_exc()
                 try:
                     self.remove_callback(call, event.type, event.object)
                 except:
                     pass
             except:
+                traceback.print_exc()
                 # something went wrong inside the function we're calling
                 if not _TESTING: 
                     common.log_exception(logger)
@@ -242,7 +244,7 @@ class EventManager(object):
             @param object:   The object to listen to events from. Defaults
                 to any. [string]
         """
-        function = weakref.proxy(function)
+#        function = weakref.proxy(function)
         # add the specified categories if needed.
         if not self.callbacks.has_key(type):
             self.callbacks[type] = {}

@@ -59,6 +59,19 @@
                 <property name="visible">True</property>
                 <property name="label" translatable="yes">_Edit</property>
                 <property name="use_underline">True</property>
+                <child>
+                  <widget class="GtkMenu" id="menu2">
+                    <property name="visible">True</property>
+                    <child>
+                      <widget class="GtkMenuItem" id="collection_manager_item">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">_Collection Manager</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="on_collection_manager_item_activate"/>
+                      </widget>
+                    </child>
+                  </widget>
+                </child>
               </widget>
             </child>
             <child>
@@ -213,6 +226,19 @@
                 <property name="visible">True</property>
                 <property name="label" translatable="yes">_Tools</property>
                 <property name="use_underline">True</property>
+                <child>
+                  <widget class="GtkMenu" id="menu1">
+                    <property name="visible">True</property>
+                    <child>
+                      <widget class="GtkMenuItem" id="scan_collection_item">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">_Rescan Collection</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="on_scan_collection_item_activate"/>
+                      </widget>
+                    </child>
+                  </widget>
+                </child>
               </widget>
             </child>
             <child>
@@ -228,7 +254,7 @@
                         <property name="label">gtk-about</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <signal name="activate" handler="on_about_item_activated"/>
+                        <signal name="activate" handler="on_about_item_activate"/>
                       </widget>
                     </child>
                   </widget>

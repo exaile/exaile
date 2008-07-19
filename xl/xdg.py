@@ -15,6 +15,7 @@
 import os
 
 homedir = os.getenv("HOME")
+lastdir = homedir
 
 data_home = os.getenv("XDG_DATA_HOME")
 if data_home == None:
@@ -57,13 +58,15 @@ def get_data_dirs():
 def get_cache_dir():
     return cache_home
 
-
 def get_data_path(subpath):
     for dir in data_dirs:
         path = os.path.join(dir, subpath)
         if os.path.exists(path):
             return path
     return None
+
+def get_last_dir():
+    return lastdir
 
 # vim: et sts=4 sw=4
 

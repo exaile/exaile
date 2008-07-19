@@ -21,7 +21,7 @@
 # A library finds tracks in a specified directory and adds them to an
 # associated collection.
 
-from xl import trackdb, media, track, common, xdg
+from xl import trackdb, media, track, common, xdg, event
 from xl.settings import SettingsManager
 settings = SettingsManager.settings
 
@@ -90,6 +90,8 @@ class Collection(trackdb.TrackDB):
         self.libraries = dict()
         self.settings = SettingsManager.settings
         self.name = name
+        self._scanning = False
+        self._scan_stopped = False
         trackdb.TrackDB.__init__(self, location=location)
 
         if self.settings:
@@ -123,6 +125,12 @@ class Collection(trackdb.TrackDB):
             if v == library:
                 del self.libraries[k]
                 return
+
+    def stop_scan(self):
+        """
+            Stops the library scan
+        """
+        self._scan_stopped = True
     
     def get_libraries(self):
         """
@@ -137,12 +145,48 @@ class Collection(trackdb.TrackDB):
         """
             Rescans all libraries associated with this Collection
         """
+        if self._scanning:
+            raise Exception("Collection is already being scanned")
+
+        self._scanning = True
+        self._scan_stopped = False
+
+        self.file_count = 0
         for library in self.libraries.values():
-            library.rescan()
+            if self._scan_stopped: 
+                self._scanning = False
+                return
+            self.file_count += library._count_files()
+
+        logger.info("File count: %d" % self.file_count)
+
+        scan_interval = self.file_count / len(self.libraries.values()) / 100
+
+        for library in self.libraries.values():
+            event.add_callback(self._progress_update, 'tracks_scanned',
+                library)
+            library.rescan(notify_interval=scan_interval)
+            event.remove_callback(self._progress_update, 'tracks_scanned',
+                library)
+            if self._scan_stopped: 
+                self._scanning = False
+                return
         try:
             self.save_to_location()
         except AttributeError:
             pass
+
+        event.log_event('scan_progress_update', self, 100)
+
+        self._scanning = False
+
+    def _progress_update(self, type, library, count):
+        """
+            Called when a progress update should be emitted while scanning
+            tracks
+        """
+        event.log_event('scan_progress_update', self,
+            int((float(count) / float(self.file_count)) * 100))
 
     def save_libraries(self):
         """
@@ -373,7 +417,20 @@ class Library(object):
 
             self.collection.remove(track)
 
-    def rescan(self):
+    def _count_files(self):
+        """
+            Counts the number of files present in this directory
+        """
+        count = 0
+        for folder in os.walk(self.location):
+            if self.collection:
+                if self.collection._scan_stopped: 
+                    return
+            count += len(folder[2])
+
+        return count
+
+    def rescan(self, notify_interval=None):
         """
             Rescan the associated folder and add the contained files
             to the Collection
@@ -389,9 +446,15 @@ class Library(object):
         db = self.collection.get_editable()
         num_added = 0
 
+        count = 0
         for folder in os.walk(self.location):
             basepath = folder[0]
             for filename in folder[2]:
+                if self.collection:
+                    if self.collection._scan_stopped: 
+                        self.scanning = False
+                        return False
+                count += 1
                 if num_added > 500:
                     db.commit()
                     num_added = 0
@@ -415,6 +478,16 @@ class Library(object):
                     if tr._scan_valid == True:
                         db.add(tr)
                         num_added += 1
+
+                # notify scanned tracks
+                if notify_interval is not None:
+                    if count % notify_interval == 0:
+                        event.log_event('tracks_scanned', self, count)
+
+
+        if notify_interval is not None:
+            event.log_event('tracks_scanned', self, count)
+
         db.commit()
         db.close()
         self.scanning = False

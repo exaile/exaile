@@ -154,3 +154,74 @@ def info(parent, message):
     dialog.set_markup(message)
     dialog.run()
     dialog.destroy()
+
+# TODO: combine this and list dialog
+class ListBox(object):
+    """
+        Represents a list box
+    """
+    def __init__(self, widget, rows=None):
+        """
+            Initializes the widget
+        """
+        self.list = widget
+        self.store = gtk.ListStore(str)
+        widget.set_headers_visible(False)
+        cell = gtk.CellRendererText()
+        col = gtk.TreeViewColumn('', cell, text=0)
+        self.list.append_column(col)
+        self.rows = rows
+        if not rows: self.rows = []
+        
+        if rows:
+            for row in rows:
+                self.store.append([row])
+
+        self.list.set_model(self.store)
+
+    def connect(self, signal, func, data=None):
+        """
+            Connects a signal to the underlying treeview
+        """
+        self.list.connect(signal, func, data)
+
+    def append(self, row):
+        """
+            Appends a row to the list
+        """
+        self.rows.append(row)
+        self.set_rows(self.rows)
+
+    def remove(self, row):
+        """
+            Removes a row
+        """
+        try:
+            index = self.rows.index(row)
+        except ValueError:
+            return
+        path = (index,)
+        iter = self.store.get_iter(path)
+        self.store.remove(iter)
+        del self.rows[index]
+
+    def set_rows(self, rows):
+        """
+            Sets the rows
+        """
+        self.rows = rows
+        self.store = gtk.ListStore(str)
+        for row in rows:
+            self.store.append([row])
+
+        self.list.set_model(self.store)
+
+    def get_selection(self):
+        """
+            Returns the selection
+        """
+        selection = self.list.get_selection()
+        (model, iter) = selection.get_selected()
+        if not iter: return None
+        return model.get_value(iter, 0)
+

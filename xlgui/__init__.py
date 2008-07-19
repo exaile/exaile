@@ -36,7 +36,7 @@ class Main(object):
             @param exaile: The Exaile instance
         """
         import xl.main as xlmain
-        from xlgui import main, panel
+        from xlgui import main, panel, tray
         from xlgui.panel import collection, radio, playlists, files
 
         self.exaile = exaile
@@ -58,6 +58,8 @@ class Main(object):
             exaile.playlists, exaile.smart_playlists, exaile.collection)
         self.files_panel = files.FilesPanel(self, exaile.settings,
             exaile.collection)
+
+        self.tray_icon = tray.TrayIcon(self)
 
         self.main.window.show_all()
 

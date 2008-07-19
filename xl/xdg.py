@@ -43,7 +43,7 @@ if data_dirs == None:
 data_dirs = [ os.path.join(dir, "exaile") for dir in data_dirs.split(":") ]
 
 exaile_dir = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
-if os.path.exists(os.path.join(exaile_dir, 'Makefile')):
+if os.path.exists(os.path.join(exaile_dir, 'Makefile')): #hack
     data_dirs.insert(0, os.path.join(exaile_dir, 'data'))
 
 data_dirs.insert(0, data_home)
@@ -52,7 +52,7 @@ def get_config_dir():
     return config_home
 
 def get_data_dirs():
-    return data_dirs
+    return data_dirs[:]
 
 def get_cache_dir():
     return cache_home

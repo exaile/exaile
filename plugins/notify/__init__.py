@@ -10,7 +10,7 @@ def on_play(type, player, track):
     album = track['album']
     summary = cgi.escape(title)
     if artist and album:
-        body = _("by %s\non <i>%s</i>") % (cgi.escape(artist), 
+        body = _("by %s\nfrom <i>%s</i>") % (cgi.escape(artist), 
             cgi.escape(album))
     elif artist:
         body = _("by %s" % (cgi.escape(artist)))

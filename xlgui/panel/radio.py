@@ -263,8 +263,9 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
                     #Create the playlist from all of the tracks
                     new_playlist = xl.playlist.Playlist(name)
                     new_playlist.add_tracks(tracks)
-                    self.model.append(self.custom, [self.playlist_image,
-                    new_playlist.name, new_playlist])
+                    self.playlist_nodes[new_playlist] = self.model.append(self.custom, 
+                        [self.playlist_image,
+                        new_playlist.name, new_playlist])
                     self.tree.expand_row(self.model.get_path(self.custom), False)
                     # We are adding a completely new playlist with tracks so we save it
                     self.playlist_manager.save_playlist(new_playlist)                

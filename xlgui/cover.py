@@ -58,6 +58,7 @@ class CoverWidget(guiutil.ScalableImageWidget):
                 update_track=True)
         except cover.NoCoverFoundException:
             logger.warning("No covers found")
+            self.set_image(xdg.get_data_path('images/nocover.png'))
             return
 
         if self.player.current == self.current_track:

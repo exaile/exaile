@@ -596,7 +596,8 @@ class MainWindow(object):
         """
             Returns teh currently selected playlist
         """
-        return self.playlist_notebook.get_nth_page(self.current_page)
+        page = self.playlist_notebook.get_nth_page(self.current_page)
+        if page: return page
         num = self.playlist_notebook.get_current_page()
         page = self.playlist_notebook.get_nth_page(num)
         return page

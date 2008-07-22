@@ -77,6 +77,7 @@ class CollectionPanel(panel.Panel):
         """
         self.xml.signal_autoconnect({
             'on_collection_combo_box_changed': lambda *e: self.load_tree(),
+            'on_refresh_button_clicked': lambda *e: self.load_tree()
         })
 
     def on_search(self, *e):
@@ -274,7 +275,7 @@ class CollectionPanel(panel.Panel):
         self.load_subtree(None)
 
         self.tree.set_model(self.model)
-
+        self.controller.main.update_track_counts()
 
     def load_subtree(self, parent):
         if parent == None:

@@ -44,6 +44,8 @@ class ProgressMonitor(gtk.Frame):
         self.progress.set_fraction(float(percent) / 100)
         self.progress.set_text('%d%%' % percent)
         if percent == 100 or percent == 'complete':
+            if hasattr(self.thread, 'thread_complete'):
+                self.thread.thread_complete()
             self.stop_monitor()
 
     def stop_monitor(self, *e):

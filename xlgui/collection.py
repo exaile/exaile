@@ -21,7 +21,7 @@ class CollectionScanThread(threading.Thread):
     """
         Scans the collection
     """
-    def __init__(self, collection):
+    def __init__(self, main, collection):
         """
             Initializes the thread
         
@@ -29,7 +29,8 @@ class CollectionScanThread(threading.Thread):
         """
         threading.Thread.__init__(self)
         self.setDaemon(True)
-
+    
+        self.main = main
         self.collection = collection
         self.stopped = False
 
@@ -41,6 +42,12 @@ class CollectionScanThread(threading.Thread):
 
     def progress_update(self, type, collection, progress):
         event.log_event('progress_update', self, progress)
+
+    def thread_complete(self):
+        """
+            Called when the thread has finished normally
+        """
+        self.main.collection_panel.load_tree()
 
     def run(self):
         """
@@ -106,21 +113,6 @@ class CollectionManagerDialog(object):
         """
         return self.list.rows
 
-    def on_apply(self, widget):
-        """
-            Saves the paths in the dialog, and updates the library
-        """
-        items = self.get_items()
-        for item in items:
-            if not item in self.collection.libraries.keys():
-                self.collection.add_library(collection.Library(item))
-
-        for k, library in self.collection.libraries.iteritems():
-            if not k in items:
-                self.collection.remove_library(library)
-        
-        self.dialog.response(gtk.RESPONSE_APPLY)
-
     def on_remove(self, widget):
         """
             removes a path from the list
@@ -142,7 +134,7 @@ class CollectionManagerDialog(object):
             Adds a path to the list
         """
         dialog = gtk.FileChooserDialog(_("Add a directory"),
-            self.exaile.window, gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER,
+            self.parent, gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER,
             (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
             gtk.STOCK_ADD, gtk.RESPONSE_OK))
         dialog.set_current_folder(xdg.get_last_dir())
@@ -151,7 +143,7 @@ class CollectionManagerDialog(object):
 
         if response == gtk.RESPONSE_OK:
             path = dialog.get_filename()
-            tmp_items = self.items
+            tmp_items = self.get_items()
 
             for item in tmp_items:
                 if not item: continue

@@ -63,11 +63,17 @@
                   <widget class="GtkMenu" id="menu2">
                     <property name="visible">True</property>
                     <child>
-                      <widget class="GtkMenuItem" id="collection_manager_item">
+                      <widget class="GtkImageMenuItem" id="collection_manager_item">
                         <property name="visible">True</property>
                         <property name="label" translatable="yes">_Collection Manager</property>
                         <property name="use_underline">True</property>
                         <signal name="activate" handler="on_collection_manager_item_activate"/>
+                        <child internal-child="image">
+                          <widget class="GtkImage" id="menu-item-image2">
+                            <property name="visible">True</property>
+                            <property name="stock">gtk-home</property>
+                          </widget>
+                        </child>
                       </widget>
                     </child>
                   </widget>
@@ -230,11 +236,17 @@
                   <widget class="GtkMenu" id="menu1">
                     <property name="visible">True</property>
                     <child>
-                      <widget class="GtkMenuItem" id="scan_collection_item">
+                      <widget class="GtkImageMenuItem" id="scan_collection_item">
                         <property name="visible">True</property>
                         <property name="label" translatable="yes">_Rescan Collection</property>
                         <property name="use_underline">True</property>
                         <signal name="activate" handler="on_scan_collection_item_activate"/>
+                        <child internal-child="image">
+                          <widget class="GtkImage" id="menu-item-image3">
+                            <property name="visible">True</property>
+                            <property name="stock">gtk-refresh</property>
+                          </widget>
+                        </child>
                       </widget>
                     </child>
                   </widget>

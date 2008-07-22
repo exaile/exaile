@@ -80,12 +80,23 @@ class Main(object):
         """
             Invokes the collection manager dialog
         """
+        from xl import collection
         from xlgui import collection as guicol
         dialog = guicol.CollectionManagerDialog(self.main.window,
             self, self.exaile.collection)
         result = dialog.run()
-        dialog.destroy()
+        dialog.dialog.hide()
         if result == gtk.RESPONSE_APPLY:
+            items = dialog.get_items()
+            dialog.destroy()
+            for item in items:
+                if not item in self.exaile.collection.libraries.keys():
+                    self.exaile.collection.add_library(collection.Library(item))
+
+            for k, library in self.exaile.collection.libraries.iteritems():
+                if not k in items:
+                    self.exaile.collection.remove_library(library)
+
             self.on_rescan_collection()
 
     def on_rescan_collection(self, *e):
@@ -93,7 +104,7 @@ class Main(object):
             Called when the user wishes to rescan the collection
         """
         from xlgui import collection as guicol
-        thread = guicol.CollectionScanThread(self.exaile.collection)
+        thread = guicol.CollectionScanThread(self, self.exaile.collection)
         self.progress_manager.add_monitor(thread,
             _("Scanning collection..."), 'gtk-refresh')
 

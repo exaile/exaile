@@ -428,15 +428,17 @@ class EditableTrackDB(TrackDB):
             event.log_event("track_removed", self.trackdb, tr.get_loc())
 
     def commit(self):
-        self.store.commit()
         self.trackdb._on_commit()
+        self.store.commit()
+        #self.trackdb._on_commit()
 
     def rollback(self):
         self.store.rollback()
 
     def close(self):
-        self.store.close()
         self.trackdb._on_commit()
+        self.store.close()
+        #self.trackdb._on_commit()
         
 
 class TrackSearcher(object):

@@ -176,8 +176,6 @@ GUIPLANNING:
         Podcasts?
         Queueing tracks, display of queued tracks, queue manager
         Rating
-            idea - bar of stars widget, allows dragging to partially fill stars,
-                click fills up through clicked star.
         Plugin Manager
             allow local install
         About Dialog

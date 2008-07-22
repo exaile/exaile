@@ -356,11 +356,6 @@ class TrackDB(object):
 
         return tracks
 
-    def _on_commit(self):
-        # reloads the data from the db after changes are made
-        self.store.rollback()
-        self.store.flush()
-
     def loc_is_member(self, loc):
         """
             returns True if loc is a track in this collection, False
@@ -390,17 +385,6 @@ class TrackDB(object):
         count = len(list(self.store.find(track.Track).values(track.Track.id)))
         return count
 
-class EditableTrackDB(TrackDB):
-    """
-        to keep things smooth, we require edits to the DB to be made
-        via these. the main TrackDB instance is for read-only purposes,
-        any changes to it will be lost
-    """
-    def __init__(self, trackdb, db):
-        self.trackdb = trackdb
-        self.db = db
-        self.store = Store(db)
-
     def add(self, track):
         """
             Adds a track to the database of tracks
@@ -412,7 +396,7 @@ class EditableTrackDB(TrackDB):
     def add_tracks(self, tracks):
         for tr in tracks:
             self.store.add(tr)
-            event.log_event("track_added", self.trackdb, tr.get_loc())        
+            event.log_event("track_added", self, tr.get_loc())        
 
     def remove(self, track):
         """
@@ -425,20 +409,16 @@ class EditableTrackDB(TrackDB):
     def remove_tracks(self, tracks):
         for tr in tracks:
             self.store.remove(tr)
-            event.log_event("track_removed", self.trackdb, tr.get_loc())
+            event.log_event("track_removed", self, tr.get_loc())
 
     def commit(self):
-        self.trackdb._on_commit()
         self.store.commit()
-        #self.trackdb._on_commit()
 
     def rollback(self):
         self.store.rollback()
 
     def close(self):
-        self.trackdb._on_commit()
         self.store.close()
-        #self.trackdb._on_commit()
         
 
 class TrackSearcher(object):

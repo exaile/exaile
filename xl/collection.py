@@ -385,7 +385,7 @@ class Library(object):
 
             locations: a list of locations to check
         """
-        db = self.collection.get_editable()
+        db = self.collection
         for fullpath in locations:
             tr = db.get_track_by_loc(fullpath)
             if tr:
@@ -401,7 +401,6 @@ class Library(object):
             if tr._scan_valid == True:
                 db.add(tr)
         db.commit()
-        db.close()
 
     def _remove_locations(self, locations):
         """
@@ -443,7 +442,7 @@ class Library(object):
         logger.info("Scanning library: %s" % self.location)
         self.scanning = True
         formats = track.formats.keys()
-        db = self.collection.get_editable()
+        db = self.collection
         num_added = 0
 
         count = 0
@@ -489,7 +488,6 @@ class Library(object):
             event.log_event('tracks_scanned', self, count)
 
         db.commit()
-        db.close()
         self.scanning = False
         return True
 

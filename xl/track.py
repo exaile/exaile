@@ -13,6 +13,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import os, time
+from copy import deepcopy
 
 from urlparse import urlparse
 
@@ -21,8 +22,8 @@ from xl.media import flac, mp3, mp4, mpc, ogg, tta, wma, wv, default
 
 from xl.common import lstrip_special
 
+#TODO: find a way to remove this
 from mutagen.mp3 import HeaderNotFoundError
-from storm.locals import *
 
 import logging
 logger = logging.getLogger(__name__)
@@ -64,36 +65,18 @@ class Track(object):
     """
         Represents a single track.
     """
-    # list of properties for storm. these should never be set
-    # from outside an instance of this class.
-    __storm_table__ = "tracks"
-    id = Int(primary=True)
-
-    #tags
-    for t in common.VALID_TAGS:
-        locals()[t] = Unicode()
-
-    # exaile internal fields
-    playcount = Int()
-    bitrate = Int()
-    length = Float()
-    blacklisted = Bool()
-    rating = Float()
-    loc = Unicode()
-    encoding = Unicode()
-    modified = Int()
-
-
-
-    def __init__(self, uri=None):
+    def __init__(self, uri=None, _unpickles=None):
         """
             loads and initializes the tag information
             
             uri: path to the track [string]
         """
+        self.tags = {}
 
         self._scan_valid = False
-        if uri:
+        if _unpickles:
+            self._unpickles(_unpickles)
+        elif uri:
             self.set_loc(uri)
             if self.read_tags() is not None:
                 self._scan_valid = True
@@ -135,7 +118,8 @@ class Track(object):
 
     def get_type(self):
         b = self['loc'].find('://')
-        if b == -1: return 'file'
+        if b == -1: 
+            return 'file'
         return self['loc'][:b]
 
     def get_tag(self, tag):
@@ -145,7 +129,7 @@ class Track(object):
             tag: tag to get [string]
         """
         try:
-            values = getattr(self, tag)
+            values = self.tags[tag]
             if type(values) == unicode and u'\x00' in values:
                 values = values.split(u'\x00')
             return values
@@ -170,7 +154,7 @@ class Track(object):
 
         # for lists, filter out empty values and convert to unicode
         if isinstance(values, list):
-            values = [common.to_unicode(x, self.encoding) for x in values
+            values = [common.to_unicode(x, self['encoding']) for x in values
                 if x not in (None, '')]
             if append:
                 values = list(self.get_tag(tag)).extend(values)
@@ -179,19 +163,17 @@ class Track(object):
         # set the value, replacing "" with None
         if values == u"":
             values = None
-        setattr(self, tag, values)
+        self.tags[tag] = values
         
     def __getitem__(self, tag):
         """
             Allows retrieval of tags via Track[tag] syntax.
-            Returns a list of values for the tag, even for single values.
         """
         return self.get_tag(tag)
 
     def __setitem__(self, tag, values):
         """
             Allows setting of tags via Track[tag] syntax.
-            Expects a list of values, even for single values.
 
             Use set_tag if you want to do appending instead of
             always overwriting.
@@ -282,8 +264,8 @@ class Track(object):
         """
             Returns the length of the track as an int in seconds
         """
-        if not self['length']: self['length'] = 0
-        return int(float(self['length']))
+        l = self['length'] or 0
+        return int(float(l))
 
     def sort_param(self, field):
         """ 
@@ -327,18 +309,26 @@ class Track(object):
             ret += " from '%s'" % album
         return ret
 
-class TrackWrapper(Track):
-    # simple track wrapper so we can easily get values from the db without
-    # instantiating the whole object
-    def __init__(self, id, store):
-        self.idn = id
-        self.store = store
+    def _pickles(self):
+        """
+            returns a data repr of the track suitable for pickling
 
-    def __getattr__(self, name):
-        try:
-            return self.store.find(Track, id == self.idn).values(getattr(Track, name)).one()
-        except:
-            return None
+            internal use only please
+
+            returns: (tags, info) [tuple of dicts]
+        """
+        return deepcopy(self.tags)
+
+    def _unpickles(self, pickle_str):
+        """
+            restores the state from the pickle-able repr
+
+            internal use only please
+
+            pickle_str: the pickle repr [tuple of dicts]
+        """
+        self.tags = pickle_str
+
 
 def parse_stream_tags(track, tags):
     """

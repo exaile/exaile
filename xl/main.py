@@ -87,7 +87,7 @@ class Exaile(object):
         logger.info(_("Loading collection..."))
         from xl import collection
         self.collection = collection.Collection("Collection",
-                location=collection.get_collection_uri() )
+                location=os.path.join(xdg.get_data_dirs()[0], 'music.db') )
 
         #Set up the player itself.
         from xl import player

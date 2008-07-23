@@ -42,30 +42,6 @@ def get_collection_by_loc(loc):
             return c
     return None
 
-def get_collection_uri(type=None):
-    """
-        returns the URI of the collection
-    """
-    settings = SettingsManager.settings
-    if not type:
-        type = settings.get_option("collection/db_type", "sqlite")
-    if type == "sqlite":
-        return "sqlite:%s"%os.path.join(xdg.get_data_dirs()[0], 'music.db')
-    elif type == "mysql":
-        port = settings.get_option("collection/mysql_port", None)
-        host = settings.get_option("collection/mysql_host", None)
-        user = settings.get_option("collection/mysql_user", None)
-        passwd = settings.get_option("collection/mysql_pass", None)
-        dbname = settings.get_option("collection/mysql_db", None)
-        if None in [port, host, user, passwd, dbname]:
-            logger.error("MYSQL connection information missing, falling back to SQLite")
-            return get_collection_uri(type="sqlite")
-        return "mysql://%s:%s@%s:%s/%s"%(user, passwd, host, port, dbname)
-    
-    logger.warning("Invalid collection type was set, falling back to SQLite")
-    return get_collection_uri(type="sqlite")
-
-
 class Collection(trackdb.TrackDB):
     """
         Manages a persistent track database.
@@ -81,7 +57,7 @@ class Collection(trackdb.TrackDB):
         5
         >>> 
     """
-    def __init__(self, name, location=None):
+    def __init__(self, name, location=None, pickle_attrs=[]):
         """
             Set up the collection
 
@@ -89,10 +65,10 @@ class Collection(trackdb.TrackDB):
         """
         self.libraries = dict()
         self.settings = SettingsManager.settings
-        self.name = name
         self._scanning = False
         self._scan_stopped = False
-        trackdb.TrackDB.__init__(self, location=location)
+        trackdb.TrackDB.__init__(self, name, location=location,
+                pickle_attrs=pickle_attrs)
 
         if self.settings:
             lib_paths = self.settings.get_option("collection/libraries", [])
@@ -400,7 +376,6 @@ class Library(object):
             tr = track.Track(fullpath)
             if tr._scan_valid == True:
                 db.add(tr)
-        db.commit()
 
     def _remove_locations(self, locations):
         """
@@ -443,7 +418,6 @@ class Library(object):
         self.scanning = True
         formats = track.formats.keys()
         db = self.collection
-        num_added = 0
 
         count = 0
         for folder in os.walk(self.location):
@@ -454,14 +428,10 @@ class Library(object):
                         self.scanning = False
                         return False
                 count += 1
-                if num_added > 500:
-                    db.commit()
-                    num_added = 0
                 fullpath = os.path.join(basepath, filename)
 
                 try:
                     trmtime = db.get_track_attr(fullpath, "modified")
-                    print trmtime
                     mtime = os.path.getmtime(fullpath)
                     if mtime == trmtime:
                         continue
@@ -471,12 +441,10 @@ class Library(object):
                 tr = db.get_track_by_loc(fullpath)
                 if tr:
                     tr.read_tags()
-                    num_added += 1
                 else:
                     tr = track.Track(fullpath)
                     if tr._scan_valid == True:
                         db.add(tr)
-                        num_added += 1
 
                 # notify scanned tracks
                 if notify_interval is not None:
@@ -487,7 +455,6 @@ class Library(object):
         if notify_interval is not None:
             event.log_event('tracks_scanned', self, count)
 
-        db.commit()
         self.scanning = False
         return True
 

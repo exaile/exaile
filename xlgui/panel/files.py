@@ -330,8 +330,8 @@ class FilesPanel(panel.Panel):
         """
             Returns a single track from a path
         """
-        if path in self.collection.tracks:
-            return self.collection.tracks[path]
+        tr = self.collection.get_track_by_loc(path)
+        if tr: return tr
 
         tr = xl.track.Track(path)
         return tr

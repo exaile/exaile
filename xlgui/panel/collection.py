@@ -306,13 +306,29 @@ class CollectionPanel(panel.Panel):
         bottom = False
         if depth == len(self.order)-1:
             bottom = True
+
+        unknown_items = []
         for v in values:
             if not v:
-                v = _("Unknown")
+                if depth == 0:
+                    # if the value is unknown and this is the top level,
+                    # append this item to the unknown list
+                    unknown_items.append(v)
+                    continue
+                else:
+                    v = _("Unknown")
             iter = self.model.append(parent, [image, v])
             if not bottom:
                 self.model.append(iter, [None, None])
             #self.load_subtree(iter, depth+1)
+
+        if unknown_items:
+            for v in unknown_items:
+                if not v:
+                    v = _('Unknown')
+            iter = self.model.append(parent, [image, v])
+            if not bottom:
+                self.model.append(iter, [None, None])
 
     def load_tree_old(self):
         """

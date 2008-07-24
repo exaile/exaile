@@ -311,8 +311,11 @@ class Exaile(object):
         """
         if self.quitting: return
         self.quitting = True
-        event.IDLE_MANAGER.stop()
         logger.info("Exaile is shutting down...")
+
+        # stop the various idle based threads so they don't freak out when the
+        # program exits.  Silly Python.
+        event.IDLE_MANAGER.stop()
 
         # this event should be used by plugins and modules that dont need
         # to be saved in any particular order. modules that might be 

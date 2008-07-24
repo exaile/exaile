@@ -72,6 +72,7 @@
                           <widget class="GtkImage" id="menu-item-image2">
                             <property name="visible">True</property>
                             <property name="stock">gtk-home</property>
+                            <property name="icon_size">1</property>
                           </widget>
                         </child>
                       </widget>
@@ -245,6 +246,7 @@
                           <widget class="GtkImage" id="menu-item-image3">
                             <property name="visible">True</property>
                             <property name="stock">gtk-refresh</property>
+                            <property name="icon_size">1</property>
                           </widget>
                         </child>
                       </widget>

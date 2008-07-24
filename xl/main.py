@@ -311,6 +311,7 @@ class Exaile(object):
         """
         if self.quitting: return
         self.quitting = True
+        event.IDLE_MANAGER.stop()
         logger.info("Exaile is shutting down...")
 
         # this event should be used by plugins and modules that dont need

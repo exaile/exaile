@@ -136,8 +136,16 @@ class IdleManager(threading.Thread):
         self.setDaemon(True)
         self.queue = []
         self.event = threading.Event()
+        self._stopped = False
 
         self.start()
+
+    def stop(self):
+        """
+            Stops the thread
+        """
+        self._stopped = True
+        logger.info("Stopping IdleManager thread...")
 
     def run(self):
         """
@@ -146,16 +154,17 @@ class IdleManager(threading.Thread):
         # This is quite simple. If we have a job, wake up and run it.
         # If we run out of jobs, sleep until we have another one to do.
         while True:
-            if self.queue is None or self.event is None: 
-                return
+            if self._stopped: return 
             while len(self.queue) == 0:
                 self.event.wait()
             self.event.clear()
             func, args = self.queue[0]
             self.queue = self.queue[1:]
             
+            if self._stopped: return 
             try:
                 func.__call__(*args)
+                if self._stopped: return 
             except:
                 common.log_exception(logger)
 
@@ -253,8 +262,17 @@ class EventManager(object):
 
         # add the actual callback
         self.callbacks[type][object].append(Callback(function, time.time()))
-
+    
     def remove_callback(self, function, type=None, object=None):
+        """
+            Unsets a callback
+
+            The parameters must match those given when the callback was
+            registered.
+        """
+        self.idle.add(self._remove_callback, function, type, object)
+
+    def _remove_callback(self, function, type, object):
         """
             Unsets a callback. 
 

@@ -45,10 +45,6 @@ class CollectionScanThread(threading.Thread):
     def progress_update(self, type, collection, progress):
         event.log_event('progress_update', self, progress)
 
-        if progress == 100 or progress == 'complete':
-            event.remove_callback(self.progress_update, 'scan_progress_update',
-                self.collection)
-
     def thread_complete(self):
         """
             Called when the thread has finished normally
@@ -64,6 +60,8 @@ class CollectionScanThread(threading.Thread):
 
         self.collection.rescan_libraries()
 
+        event.remove_callback(self.progress_update, 'scan_progress_update',
+            self.collection)
 
 class CollectionManagerDialog(object):
     """

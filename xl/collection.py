@@ -137,6 +137,7 @@ class Collection(trackdb.TrackDB):
         logger.info("File count: %d" % self.file_count)
 
         scan_interval = self.file_count / len(self.libraries.values()) / 100
+        if not scan_interval: scan_interval = 1
 
         for library in self.libraries.values():
             event.add_callback(self._progress_update, 'tracks_scanned',

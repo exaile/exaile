@@ -93,9 +93,12 @@ class Main(object):
                 if not item in self.exaile.collection.libraries.keys():
                     self.exaile.collection.add_library(collection.Library(item))
 
+            remove = []
             for k, library in self.exaile.collection.libraries.iteritems():
                 if not k in items:
-                    self.exaile.collection.remove_library(library)
+                    remove.append(library)
+
+            map(self.exaile.collection.remove_library, remove)
 
             self.on_rescan_collection()
 

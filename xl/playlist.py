@@ -743,19 +743,16 @@ class Playlist(object):
         f.close()
 
         tracks = []
-
-        for col in collection.COLLECTIONS:
-            new = col.get_tracks_by_locs(locs)
-            for tr in new:
-                locs.remove(tr.get_loc())
-            tracks += new 
+        col = list(collection.COLLECTIONS)[0]
 
         for loc in locs:
             meta = None
             if loc.find('\t') > -1:
                 (loc, meta) = loc.split('\t')
-
-            tr = track.Track(uri=loc)
+                
+            tr = col.get_track_by_loc(loc)
+            if not tr:
+                tr = track.Track(uri=loc)
             
             # readd meta
             if not tr.is_local() and meta is not None:

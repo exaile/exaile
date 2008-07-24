@@ -241,7 +241,7 @@ class TrackDB(object):
             track exists, returns None
         """
         try:
-            return self.tracks[loc]
+            return self.tracks[unicode(loc)]
         except KeyError:
             return None
 
@@ -250,7 +250,7 @@ class TrackDB(object):
             returns the track having the given loc. if no such
             track exists, returns None
         """
-        return [ self.get_track_by_loc(loc) for loc in locs ]
+        return [self.get_track_by_loc(loc) for loc in locs]
 
     def get_track_attr(self, loc, attr):
         return self.get_track_by_loc(loc)[attr]
@@ -266,22 +266,17 @@ class TrackDB(object):
                 maximum
         """
         searcher = TrackSearcher()
-        tracks = searcher.search(query, self.tracks.values())
+        tracks = searcher.search(query, self.tracks)
 
-        tracks = list(tracks)
+        tracks = tracks.values()
 
-        # random sorting with no query
-        if not query and sort_fields == 'RANDOM':
-            random.shuffle(tracks)
-        else:
-            #TODO: these can probably be done more-efficiently via storm
-            if sort_fields:
-                if sort_fields == 'RANDOM':
-                    random.shuffle(tracks)
-                else:
-                    tracks = sort_tracks(sort_fields, tracks)
-            if return_lim != -1:
-                tracks = tracks[:return_lim]
+        if sort_fields:
+            if sort_fields == 'RANDOM':
+                random.shuffle(tracks)
+            else:
+                tracks = sort_tracks(sort_fields, tracks)
+        if return_lim != -1:
+            tracks = tracks[:return_lim]
 
         return tracks
 

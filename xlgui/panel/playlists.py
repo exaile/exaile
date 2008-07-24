@@ -164,6 +164,7 @@ class BasePlaylistPanelMixin(object):
         self._clear_node(self.playlist_nodes[playlist])
         tracks = playlist.ordered_tracks
         for track in tracks:
+            if not track: continue
             wrapper = TrackWrapper(track, playlist)
             self.model.append(self.playlist_nodes[playlist], 
                 [self.track_image, str(wrapper), wrapper])

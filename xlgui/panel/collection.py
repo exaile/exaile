@@ -167,7 +167,7 @@ class CollectionPanel(panel.Panel):
             finds tracks matching a given iter. returns a resultset.
         """
         search = " ".join(self.get_node_search_terms(iter))
-        return self.collection.search(search, use_resultset=True)
+        return self.collection.search(search)
         
     def get_selected_tracks(self):
         """

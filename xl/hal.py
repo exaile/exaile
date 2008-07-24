@@ -71,6 +71,7 @@ class HAL(object):
             return
 
         dev = handler.device_from_udi(self, device_udi)
+        if not dev: return
         dev.connect()
 
         self.devicemanager.add_device(dev)

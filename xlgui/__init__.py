@@ -127,6 +127,7 @@ class Main(object):
         """
             Displays the about dialog
         """
+        import xl.main as xlmain
         xml = gtk.glade.XML(xdg.get_data_path('glade/about_dialog.glade'),
             'AboutDialog', 'exaile')
         dialog = xml.get_widget('AboutDialog')

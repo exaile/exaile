@@ -233,7 +233,7 @@ class TrackDB(object):
         tset = set()
         for t in self.search(search_terms):
             tset.add(t[tag]) 
-        return list(tset)
+        return sorted(list(tset))
 
     def get_track_by_loc(self, loc, raw=False):
         """

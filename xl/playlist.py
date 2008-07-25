@@ -753,6 +753,8 @@ class Playlist(object):
             tr = col.get_track_by_loc(loc)
             if not tr:
                 tr = track.Track(uri=loc)
+                if tr.is_local() and not tr._scan_valid:
+                    tr = None
             
             # readd meta
             if not tr.is_local() and meta is not None:
@@ -760,8 +762,6 @@ class Playlist(object):
                 for k, v in meta.iteritems():
                     tr[k] = v[0]
 
-            if tr.is_local() and not tr._scan_valid:
-                tr = None
             if tr:
                 tracks.append(tr)
 
@@ -1073,16 +1073,6 @@ class PlaylistManager(object):
         # We also have to remove the old playlist so it does not 
         # Save when we exit
         self.playlists.remove(old_name)
-
-    def save_all(self):
-        """
-            Saves all the playlists that are currently being managed
-        """
-        for name in self.playlists:
-            pl = self.get_playlist(name)
-            if pl is not None:
-                pl.save_to_location(os.path.join(self.playlist_dir, 
-                        pl.get_name()))
 
     def load_names(self):
         """

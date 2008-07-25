@@ -67,3 +67,5 @@ effect: makes the enclosed terms appear as one term to outside
 search terms are case-insensitive, but operators are not. thus,
     "or" is a search term while "OR" is an operator.
 if no operator is specified, terms are implicitly linked with AND
+\ may be used to escape characters that would normally be a keyword. this
+    does not work for multi-character keywords like OR and AND however.

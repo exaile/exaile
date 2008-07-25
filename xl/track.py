@@ -160,9 +160,10 @@ class Track(object):
                 values = list(self.get_tag(tag)).extend(values)
             values = u'\x00'.join(values)
 
-        # set the value, replacing "" with None
-        if values == u"":
-            values = None
+        # don't bother storing it if its a null value. this saves us a 
+        # little memory
+        if values in [None, u""]:
+            return
         self.tags[tag] = values
         
     def __getitem__(self, tag):

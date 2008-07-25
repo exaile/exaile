@@ -54,7 +54,6 @@ Implemented:
     Replaygain
         doesn't support creating tags, only reading them
     CD Ripping
-    StormDB
 
 Things that can probably be implemented at this stage:
     CD Burning
@@ -211,6 +210,8 @@ GUIPLANNING:
         OSD progressbar should be togglable (perhaps make {progressbar}
             element available in customizer?)
         merge SPAT into stop button via right-click or dropdown menu
+        allow using any arbitrary tag for a column in the playlist area
+        allow custom tag trees for the collection pane
     feature requests:
         PPAT - like SPAT, but pauses instead of stopping. this could easily
             be a toggle for SPAT. (this would let me stop listening between 

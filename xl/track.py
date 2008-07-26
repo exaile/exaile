@@ -25,7 +25,7 @@ from xl.common import lstrip_special
 #TODO: find a way to remove this
 from mutagen.mp3 import HeaderNotFoundError
 
-import logging
+import logging, traceback
 logger = logging.getLogger(__name__)
 
 # map file extensions to tag modules
@@ -129,6 +129,12 @@ class Track(object):
             tag: tag to get [string]
         """
         try:
+            # if we are trying to fetch the title, and there's no title, no
+            # album, and no artist, return the location of the file
+            if tag == 'title' and not tag in self.tags:
+                if not self.get_tag('album') and not self.get_tag('artist'):
+                    return self.get_loc()
+
             values = self.tags[tag]
             if type(values) == unicode and u'\x00' in values:
                 values = values.split(u'\x00')

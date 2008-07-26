@@ -308,6 +308,10 @@ class CollectionPanel(panel.Panel):
             bottom = True
 
         unknown_items = []
+
+        draw_seps = self.settings.get_option('gui/draw_separators', True)
+        last_char = ''
+        first = True
         for v in values:
             if not v:
                 if depth == 0:
@@ -317,6 +321,22 @@ class CollectionPanel(panel.Panel):
                     continue
                 else:
                     v = _("Unknown")
+
+            if depth == 0 and draw_seps:
+                if not first:
+                    check_val = v
+                    if check_val.lower().startswith('the '):
+                        check_val = check_val.replace('the ', '')
+                    char = check_val.lower()[0]
+
+                    # check to see if it's a number
+                    if char.isdigit(): char = '0'
+
+                    if char != last_char:
+                        self.model.append(parent, [None, None])
+                    last_char = char
+
+            first = False
             iter = self.model.append(parent, [image, v])
             if not bottom:
                 self.model.append(iter, [None, None])

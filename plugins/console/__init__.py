@@ -1,4 +1,4 @@
-import sys, traceback, gtk
+import sys, traceback, gtk, gobject
 from cStringIO import StringIO
 from gettext import gettext as _
 from xlgui import guiutil
@@ -71,12 +71,14 @@ class PyConsole(gtk.Window):
         self.text_view.scroll_to_mark(self.end_mark, 0)
 
 PLUGIN = None
-@guiutil.gtkrun
-def enable(exaile):
+def _enable(exaile):
     global PLUGIN
     PLUGIN = PyConsole({'exaile': exaile})
     PLUGIN.connect('destroy', console_destroyed)
     PLUGIN.present()
+
+def enable(exaile):
+    gobject.idle_add(_enable, exaile)
 
 def console_destroyed(*args):
     global PLUGIN

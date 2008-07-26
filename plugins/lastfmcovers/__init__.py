@@ -24,8 +24,8 @@ class LastFMCoverSearch(CoverSearchMethod):
 
         data = urllib.urlopen(self.url % 
         {
-            'album': track['album'],
-            'artist': track['artist']
+            'album': urllib.quote_plus(track['album']),
+            'artist': urllib.quote_plus(track['artist'])
         }).read()
 
         m = self.regex.search(data)

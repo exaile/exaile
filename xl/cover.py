@@ -219,7 +219,7 @@ class CoverManager(SimpleManager):
             @param update_track: if True, update the coverdb to reflect the
                 new art
         """
-        cover = self.coverdb.get_cover(track['artist'], track['album'])
+        cover = self.coverdb.get_cover(track['artist'][0], track['album'][0])
         if not cover:
             covers = self.find_covers(track, limit=1)
             if not covers:
@@ -228,7 +228,7 @@ class CoverManager(SimpleManager):
                 cover = covers[0]
 
         if update_track:
-            self.coverdb.set_cover(track['artist'], track['album'], cover)
+            self.coverdb.set_cover(track['artist'][0], track['album'][0], cover)
 
         return cover
 

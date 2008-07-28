@@ -236,19 +236,22 @@ class Track(object):
         if field == 'tracknumber': 
             return self.get_track()
         elif field == 'artist':
-            artist = lstrip_special(self['artist'])
+            try:
+                artist = lstrip_special(self['artist'][0])
+            except:
+                artist = None
             if artist == None:
                 artist = u""
             if artist.startswith('the '): #TODO: allow custom stemming
                 artist = artist[4:]
             return artist
         elif field == 'length':
-            try:
-                return int(self[field])
-            except ValueError:
-                return 0
+            return self.get_duration()
         else: 
-            return lstrip_special(unicode(self[field]))
+            try:
+                return lstrip_special(unicode(self[field][0]))
+            except:
+                return u""
 
     def __repr__(self):
         return str(self)

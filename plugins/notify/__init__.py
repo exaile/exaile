@@ -5,9 +5,9 @@ from gettext import gettext as _
 pynotify.init('exailenotify')
 
 def on_play(type, player, track):
-    title = track['title'] or _("Unknown")
-    artist = track['artist']
-    album = track['album']
+    title = " / ".join(track['title'] or _("Unknown"))
+    artist = " / ".join(track['artist'] or "")
+    album = " / ".join(track['album'] or "")
     summary = cgi.escape(title)
     if artist and album:
         body = _("by %s\nfrom <i>%s</i>") % (cgi.escape(artist), 

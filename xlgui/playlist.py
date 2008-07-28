@@ -255,7 +255,10 @@ class Playlist(gtk.VBox):
         """
         ar = [song, None, None]
         for field in self.append_map:
-            value = song[field]
+            try:
+                value = " / ".join(song[field])
+            except TypeError:
+                value = song[field]
             if value is None: value = ''
 
             ar.append(value)
@@ -764,7 +767,7 @@ class Playlist(gtk.VBox):
         """
         item = model.get_value(iter, 0)
         try:
-            seconds = int(item['length'])
+            seconds = item.get_duration()
             text = "%s:%02d" % (seconds / 60, seconds % 60)
         except ValueError:
             text = "0:00"

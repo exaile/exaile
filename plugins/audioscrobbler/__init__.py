@@ -95,11 +95,10 @@ class ExaileScrobbler(object):
         if player.current != track: return
 
         logger.info("Attempting to submit now playing information...")
-        scrobbler.now_playing(track['artist'], track['title'], track['album'],
-            track.get_duration(), track.get_track())
+        scrobbler.now_playing(track['artist'][0], track['title'][0], 
+                track['album'][0], track.get_duration(), track.get_track())
 
     def on_play(self, type, player, track):
-
         self.time_started = track['playtime']
         if self.time_started == "" or self.time_started is None:
             self.time_started = 0
@@ -146,9 +145,9 @@ class ExaileScrobbler(object):
     def submit_to_scrobbler(self, track, time_started, time_played):
         if scrobbler.SESSION_ID:
             try:
-                scrobbler.submit(track['artist'], track['title'],
+                scrobbler.submit(track['artist'][0], track['title'][0],
                     int(time_started), 'P', '', track.get_duration(), 
-                    track['album'], track.get_track(), autoflush=True)
+                    track['album'][0], track.get_track(), autoflush=True)
             except:
                 common.log_exception()
                 logger.warning("LastFM: Failed to submit track")

@@ -106,7 +106,7 @@ class Track(object):
         try:
             values = self.tags[tag]
             return values
-        except:
+        except KeyError:
             return None
 
     def set_tag(self, tag, values, append=False):
@@ -119,7 +119,7 @@ class Track(object):
         """
         # handle values that aren't lists
         if not isinstance(values, list):
-            if append:
+            if tag in common.VALID_TAGS:
                 values = [values]
 
         # for lists, filter out empty values and convert to unicode
@@ -131,9 +131,13 @@ class Track(object):
 
         # don't bother storing it if its a null value. this saves us a 
         # little memory
-        if values in [None, u""]:
-            return
-        self.tags[tag] = values
+        if values in [None, u"", []]:
+            try:
+                del self.tags[tag]
+            except KeyError:
+                pass
+        else:
+            self.tags[tag] = values
         
     def __getitem__(self, tag):
         """
@@ -195,7 +199,7 @@ class Track(object):
         t = self.get_tag('tracknumber')
         if t == None:
             return -1
-        t = t.split("/")[0]
+        t = t[0].split("/")[0]
         return int(t)
 
     def get_bitrate(self): 
@@ -253,16 +257,16 @@ class Track(object):
         """
             returns a string representing the track
         """
-        title = self['title']
-        album = self['album']
-        artist = self['artist']
-        if title:
+        if self['title']:
+            title = " / ".join(self['title'])
             ret = "'"+str(title)+"'"
         else:
             ret = "'Unknown'"
-        if artist:
+        if self['artist']:
+            artist = " / ".join(self['artist'])
             ret += " by '%s'" % artist
-        if album:
+        if self['album']:
+            album = " / ".join(self['album'])
             ret += " from '%s'" % album
         return ret
 
@@ -284,7 +288,7 @@ class Track(object):
 
             pickle_str: the pickle repr [tuple of dicts]
         """
-        self.tags = pickle_str
+        self.tags = deepcopy(pickle_str)
 
 
 def parse_stream_tags(track, tags):
@@ -305,17 +309,20 @@ def parse_stream_tags(track, tags):
 
         log.append('  ' + key + ': ' + value)
 
-        if key == 'bitrate': track['bitrate'] = int(value) / 1000
+        value = [value]
+
+        if key == 'bitrate': track['bitrate'] = int(value[0]) / 1000
 
         # if there's a comment, but no album, set album to the comment
         elif key == 'comment' and not track.get_loc().endswith('.mp3'): 
             track['album'] = value
+
         elif key == 'album': track['album'] = value
         elif key == 'artist': track['artist'] = value
         elif key == 'duration': track['length'] = value
-        elif key == 'track-number': 
-            track['tracknumber'] = value
+        elif key == 'track-number': track['tracknumber'] = value
         elif key == 'genre': track['genre'] = value
+
         elif key == 'title': 
             try:
                 if track['rawtitle'] != value:
@@ -325,13 +332,13 @@ def parse_stream_tags(track, tags):
                 track['rawtitle'] = value
                 newsong = True
 
-            title_array = value.split(' - ', 1)
+            title_array = value[0].split(' - ', 1)
             if len(title_array) == 1 or (track.get_loc().endswith(".mp3") and \
                 not track.get_loc().endswith("lastfm.mp3")):
                 track['title'] = value
             else:
-                track['artist'] = title_array[0]
-                track['title'] = title_array[1]
+                track['artist'] = [title_array[0]]
+                track['title'] = [title_array[1]]
 
     if newsong:
         log.append('  New song, fetching cover.')

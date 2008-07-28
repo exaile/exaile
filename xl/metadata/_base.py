@@ -22,8 +22,6 @@ class NotWritable(Exception):
 class BaseFormat(object):
     MutagenType = None
     tag_mapping = {}
-    encoders = {}
-    decoders = {}
     others = True
 
     def __init__(self, loc):
@@ -78,21 +76,19 @@ class BaseFormat(object):
                 try:
                     t = self._get_tag(raw, self.tag_mapping[tag])
                 except KeyError:
-                    if tag in INFO_TAGS:
-                        try:
-                            t = self.get_info(tag)
-                        except KeyError:
-                            pass
+                    pass
             elif self.others:
                 try:
                     t = self._get_tag(raw, tag)
                 except KeyError:
-                    if tag in INFO_TAGS:
-                        try:
-                            t = self.get_info(tag)
-                        except KeyError:
-                            pass
-            if t is not None:
+                    pass
+            elif tag in INFO_TAGS:
+                try:
+                    t = self.get_info(tag)
+                except KeyError:
+                    pass
+
+            if t not in [None, []]:
                 td[tag] = t
         return td
 
@@ -120,19 +116,20 @@ class BaseFormat(object):
             return self.get_length()
         elif info == "bitrate":
             return self.get_bitrate()
-        raise KeyError
+        else:
+            raise KeyError
 
     def get_length(self):
         try:
             return self.mutagen.info.length
         except:
-            return -1
+            raise
 
     def get_bitrate(self):
         try:
             return self.mutagen.info.bitrate
         except:
-            return -1
+            raise
 
 # vim: et sts=4 sw=4
 

@@ -564,21 +564,23 @@ class TrackSearcher(object):
                 if content == "NONE":
                     content == None
                 for l,tr in current_list.iteritems():
-                    for t in tr[tag]:
-                        try:
+                    try:
+                        for t in tr[tag]:
                             if str(t).lower() == content or t == content:
                                 new_list[l]=tr
                                 break
-                        except:
-                            pass
+                    except:
+                        pass
             # keyword in tag
             elif "=" in token:
                 tag, sym, content = token.partition("=")
                 content = content.strip().strip('"')
                 for l,tr in current_list.iteritems():
                     try:
-                        if content in [str(t).lower() for t in tr[tag]]:
-                            new_list[l]=tr
+                        for t in tr[tag]:
+                            if content in str(t).lower():
+                                new_list[l]=tr
+                                break
                     except:
                         pass
             # greater than
@@ -607,8 +609,10 @@ class TrackSearcher(object):
                 for l,tr in current_list.iteritems():
                     for item in SEARCH_ITEMS:
                         try:
-                            if content in [tr[t].lower() for t in tr[item]]:
-                                new_list[l]=tr
+                            for t in tr[item]:
+                                if content in t.lower():
+                                    new_list[l]=tr
+                                    break
                         except:
                             pass
 

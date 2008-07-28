@@ -51,7 +51,7 @@ class PlaybackProgressBar(object):
 
         track = self.player.current
         if not track or track.get_type() != 'file': return
-        length = int(track['length'])
+        length = track.get_duration()
 
         seconds = float(value * length)
         self.player.seek(seconds)
@@ -75,7 +75,7 @@ class PlaybackProgressBar(object):
         if value > 1: value = 1
 
         self.bar.set_fraction(value)
-        length = int(track['length'])
+        length = track.get_duration()
         seconds = float(value * length)
         remaining_seconds = length - seconds
         self.bar.set_text("%d:%02d / %d:%02d" % ((seconds / 60), 
@@ -96,7 +96,7 @@ class PlaybackProgressBar(object):
         if track.get_type() != 'file':
             self.bar.set_text('Streaming...')
             return
-        length = int(track['length'])
+        length = track.get_duration()
 
         self.bar.set_fraction(self.player.get_progress())
 
@@ -552,9 +552,18 @@ class MainWindow(object):
             artist = track['artist']
             album = track['album']
             title = track['title']
-            if title is None: title = ''
-            if album is None: album = ''
-            if artist is None: artist = ''
+            if title is None: 
+                title = ''
+            else:
+                title = " / ".join(title)
+            if album is None: 
+                album = ''
+            else:
+                album = " / ".join(album)
+            if artist is None: 
+                artist = ''
+            else:
+                artist = " / ".join(artist)
 
             if artist:
                 # TRANSLATORS: Window title

@@ -332,7 +332,7 @@ class BaseGSTPlayer(object):
             Gets current playback progress in percent
         """
         try:
-            progress = self.get_time()/float(self.current['length'])
+            progress = self.get_time()/float(self.current.get_duration())
         except ZeroDivisionError:
             progress = 0
         return progress

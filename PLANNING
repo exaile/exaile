@@ -54,7 +54,9 @@ Implemented:
     Replaygain
         doesn't support creating tags, only reading them
     CD Ripping
-
+    One Tag Reading
+        needs to be made available via track[tag] syntax (efficiency?)
+        
 Things that can probably be implemented at this stage:
     CD Burning
         class in cd.py, takes a Playlist and burns it in order
@@ -68,8 +70,7 @@ Things that can probably be implemented at this stage:
                 hash only part (eg the last 512k), to make it fast.
     DBUS
         allow greater freedom to query, eg allow listing artists, albums
-            in collection, searching collection, etc. best wait til after
-            StormDB to implement this.
+            in collection, searching collection, etc. 
     Podcasts
         separate from radio
         allow flexibility in choice of when (if?) and where to download
@@ -113,12 +114,7 @@ Things that can probably be implemented at this stage:
             translateable
         DEBUG logs do not need to be, as they are largely not intended to be
             seen by users
-    One Tag Reading
-        make the tagging backends capable of reading a single tag (or a 
-        specified subset of tags) on demand. this is needed for things like 
-        embedded covers and lyrics which are too large to store in the DB.
-        ideally, access to these tags would be exposed transparently via the
-        regular track[tag] syntax.
+
 
 Minor Tasks:
     add comments and docstrings in xl/player.py
@@ -133,8 +129,6 @@ Minor Tasks:
     santize plugin extraction (current method is a potential security 
         vulnerability)
     ensure the log file doesn't grow to insane sizes
-    sanitize logger to not print passwords when connecting to databases.
-        passwords of ANY kind should never be logged, even to debug.
 
 Other Work-Items:
     Conversion

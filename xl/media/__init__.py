@@ -27,6 +27,7 @@ formats = {
     'wav': wav,
     'wma': wma,
     'wv': wv,
+    'xm': None,
 }
 
 SUPPORTED_MEDIA = ['.' + ext for ext in formats.iterkeys()]

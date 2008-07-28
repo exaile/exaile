@@ -248,8 +248,8 @@ class FilesPanel(panel.Panel):
 
             else:
                 (stuff, ext) = os.path.splitext(path)
-                if ext.lower() in xl.track.SUPPORTED_MEDIA:
-                    files.append(path)
+                #if ext.lower() in xl.track.SUPPORTED_MEDIA:
+                files.append(path)
 
         directories.sort()
         files.sort()

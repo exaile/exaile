@@ -18,7 +18,7 @@
 #
 # TrackSearcher - fast, advanced method for searching a dictionary of tracks
 
-from xl import media, common, track, event, xdg
+from xl import common, track, event, xdg
 
 try:
     import cPickle as pickle
@@ -232,7 +232,11 @@ class TrackDB(object):
         """
         tset = set()
         for t in self.search(search_terms):
-            tset.add(t[tag]) 
+            try:
+                for i in t[tag]:
+                    tset.add(i)
+            except:
+                tset.add(t[tag])
         return sorted(list(tset))
 
     def get_track_by_loc(self, loc, raw=False):
@@ -560,18 +564,20 @@ class TrackSearcher(object):
                 if content == "NONE":
                     content == None
                 for l,tr in current_list.iteritems():
-                    try:
-                        if str(tr[tag]).lower() == content or tr[tag] == content:
-                            new_list[l]=tr
-                    except:
-                        pass
+                    for t in tr[tag]:
+                        try:
+                            if str(t).lower() == content or t == content:
+                                new_list[l]=tr
+                                break
+                        except:
+                            pass
             # keyword in tag
             elif "=" in token:
                 tag, sym, content = token.partition("=")
                 content = content.strip().strip('"')
                 for l,tr in current_list.iteritems():
                     try:
-                        if content in str(tr[tag]).lower():
+                        if content in [str(t).lower() for t in tr[tag]]:
                             new_list[l]=tr
                     except:
                         pass
@@ -601,7 +607,7 @@ class TrackSearcher(object):
                 for l,tr in current_list.iteritems():
                     for item in SEARCH_ITEMS:
                         try:
-                            if content in tr[item].lower():
+                            if content in [tr[t].lower() for t in tr[item]]:
                                 new_list[l]=tr
                         except:
                             pass

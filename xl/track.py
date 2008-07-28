@@ -18,38 +18,13 @@ from copy import deepcopy
 from urlparse import urlparse
 
 from xl import common
-from xl.media import flac, mp3, mp4, mpc, ogg, tta, wma, wv, default
+import xl.metadata as metadata
 
 from xl.common import lstrip_special
-
-#TODO: find a way to remove this
-from mutagen.mp3 import HeaderNotFoundError
 
 import logging, traceback
 logger = logging.getLogger(__name__)
 
-# map file extensions to tag modules
-formats = {
-    'aac' : mp4,
-    'ac3' : default,
-    'flac': flac,
-    'm4a' : mp4,
-    'mp+' : mpc,
-    'mp2' : mp3,
-    'mp3' : mp3,
-    'mp4' : mp4,
-    'mod' : default,
-    'mpc' : mpc,
-    'oga' : ogg,
-    'ogg' : ogg,
-    's3m' : default,
-    'tta' : tta,
-    'wav' : default,
-    'wma' : wma,
-    'wv'  : wv,
-}
-
-SUPPORTED_MEDIA = ['.' + ext for ext in formats.iterkeys()]
 
 def is_valid_track(loc):
     """
@@ -78,7 +53,7 @@ class Track(object):
             self._unpickles(_unpickles)
         elif uri:
             self.set_loc(uri)
-            if self.read_tags() is not None:
+            if self.read_tags():
                 self._scan_valid = True
 
     def set_loc(self, loc):
@@ -129,15 +104,7 @@ class Track(object):
             tag: tag to get [string]
         """
         try:
-            # if we are trying to fetch the title, and there's no title, no
-            # album, and no artist, return the location of the file
-            if tag == 'title' and not tag in self.tags:
-                if not self.get_tag('album') and not self.get_tag('artist'):
-                    return self.get_loc()
-
             values = self.tags[tag]
-            if type(values) == unicode and u'\x00' in values:
-                values = values.split(u'\x00')
             return values
         except:
             return None
@@ -150,13 +117,10 @@ class Track(object):
             values: list of values for the tag [list]
             append: whether to append to existing values [bool]
         """
-        # handle values tat aren't lists
+        # handle values that aren't lists
         if not isinstance(values, list):
             if append:
                 values = [values]
-            else:
-                if type(values) == str:
-                    values = unicode(values)
 
         # for lists, filter out empty values and convert to unicode
         if isinstance(values, list):
@@ -164,7 +128,6 @@ class Track(object):
                 if x not in (None, '')]
             if append:
                 values = list(self.get_tag(tag)).extend(values)
-            values = u'\x00'.join(values)
 
         # don't bother storing it if its a null value. this saves us a 
         # little memory
@@ -191,49 +154,36 @@ class Track(object):
         """
             Writes tags to file
         """
-        (path, ext) = os.path.splitext(self.get_loc().lower())
-        ext = ext[1:]
-
-        if not formats.get(ext):
-            logger.info("Writing metadata to type '%s' is not supported" % 
-                    ext)
-        else:
-            formats[ext].write_tag(self)
+        if not self.is_local():
+            return False #not a local file
+        try:
+            f = metadata.getFormat(self.get_loc_for_io())
+            if f is None:
+                return False # nto a supported type
+            f.write_tags(self.tags)
+            return f
+        except:
+            common.log_exception()
+            return False
 
     def read_tags(self):
         """
             Reads tags from file
         """
         if not self.is_local():
-            return None #not a local file
-        (path, ext) = os.path.splitext(self.get_loc().lower())
-        ext = ext[1:]
-
-        if ext not in formats:
-            logger.debug('%s format is not understood' % ext)
-            return None
-
-        format = formats.get(ext)
-        if not format: 
-            return None
+            return False #not a local file
 
         try:
-            self['modified'] = os.path.getmtime(self.get_loc_for_io())
-        except OSError:
-            pass
-
-        #TODO: it might be better to pass these exceptions up to whatever
-        # is calling rather than just failing, since then we can do things
-        # like showing files that create warnings in the UI.
-        try:
-            format.fill_tag_from_path(self)
-        except HeaderNotFoundError:
-            logger.warning("Possibly corrupt file: " + self.get_loc())
-            return None
+            f = metadata.getFormat(self.get_loc_for_io())
+            if f is None:
+                return False # nto a supported type
+            ntags = f.read_all()
+            for k,v in ntags.iteritems():
+                self[k] = v
+            return f
         except:
-            common.log_exception(logger)
-            return None
-        return self
+            common.log_exception()
+            return False
 
     def is_local(self):
         return urlparse(self.get_loc())[0] == ""
@@ -306,13 +256,13 @@ class Track(object):
         title = self['title']
         album = self['album']
         artist = self['artist']
-        if title and title.strip():
-            ret = "'"+title+"'"
+        if title:
+            ret = "'"+str(title)+"'"
         else:
             ret = "'Unknown'"
-        if artist and artist.strip():
+        if artist:
             ret += " by '%s'" % artist
-        if album and album.strip():
+        if album:
             ret += " from '%s'" % album
         return ret
 

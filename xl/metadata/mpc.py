@@ -12,7 +12,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-__all__ = ['flac', 'mp3', 'm4a', 'ogg', 'wma', 'mpc', 'wv', 'tta']
+from xl.metadata._apev2 import ApeFormat
+from mutagen import musepack
+
+class MpcFormat(ApeFormat):
+    MutagenType = musepack.Musepack
 
 # vim: et sts=4 sw=4
 

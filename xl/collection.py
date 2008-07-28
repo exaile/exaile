@@ -21,7 +21,7 @@
 # A library finds tracks in a specified directory and adds them to an
 # associated collection.
 
-from xl import trackdb, media, track, common, xdg, event
+from xl import trackdb, track, common, xdg, event, metadata
 from xl.settings import SettingsManager
 settings = SettingsManager.settings
 
@@ -417,7 +417,7 @@ class Library(object):
 
         logger.info("Scanning library: %s" % self.location)
         self.scanning = True
-        formats = track.formats.keys()
+        formats = metadata.formats.keys()
         db = self.collection
 
         count = 0

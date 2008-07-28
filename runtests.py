@@ -56,7 +56,7 @@ if __name__ == '__main__':
                 
     if not guitest:
         print " **** guitest is not available. Cannot perform gui tests."
-        print "Please download it from http://gintas.gov.lt/guitest/"
+        print "Please download it from http://gintas.pov.lt/guitest/"
     else:
         # test gui elements
         # in order for these to work, you're going to need guitest from 

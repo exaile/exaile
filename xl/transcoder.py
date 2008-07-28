@@ -61,6 +61,14 @@ FORMATS = {
             "extension" : "mp3",
             "plugins"   : ("lame", "id3mux"),
             "desc"      : "A proprietary and older, but also popular, lossy audio format that produces larger files at lower bitrates. CBR gives less quality than VBR, but is compatible with any player."
+            },
+        "WavPack (Lossless)" : {
+            "default"   : 2,
+            "raw_steps" : (1,2,3,4),
+            "kbs_steps" : (1,2,3,4),
+            "command"   : "wavpackenc mode=%s ! apev2mux",
+            "plugins"   : ("wavpackenc", "apev2mux"),
+            "desc"      : "A very fast Free lossless audio format with good compression"
             }
         }
 

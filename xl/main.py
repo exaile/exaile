@@ -151,7 +151,6 @@ class Exaile(object):
         logger.info("Loading plugins...")
         self.plugins = plugins.PluginsManager(self)
 
-    @common.threaded
     def __show_splash(self):
         """
             Displays the splash screen

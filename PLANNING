@@ -3,7 +3,7 @@ It should also be used to keep track of what each contributor is
 currently working on.
 
 Current projects:
-    Aren Olson - Persistence, Mass Storage MP3 Player (base)
+    Aren Olson - Mass Storage MP3 Player (base)
     Adam Olsen - GUI
     Anthony Waters - 
     thiblahute - CD Burning (hasn't been seen in a while)
@@ -54,8 +54,6 @@ Implemented:
     Replaygain
         doesn't support creating tags, only reading them
     CD Ripping
-    One Tag Reading
-        needs to be made available via track[tag] syntax (efficiency?)
         
 Things that can probably be implemented at this stage:
     CD Burning
@@ -68,6 +66,13 @@ Things that can probably be implemented at this stage:
         needed? amarok handles files moving by storing the file's checksum in
             the db, perhaps we should do this too.
                 hash only part (eg the last 512k), to make it fast.
+                problem: some tags (id3v1, some apev2) are stored at the end
+                    of the file. most tags (id3v2) are at the front. we don't
+                    want to hash the part containing tags, as that could change
+                    unlike the actual music itself.
+                        hash based on filetype? eg for id3v2-using formats
+                        like mp3 use the last part, and for ones like wavpack 
+                        that use the end of the file, hash the front?
     DBUS
         allow greater freedom to query, eg allow listing artists, albums
             in collection, searching collection, etc. 
@@ -79,14 +84,16 @@ Things that can probably be implemented at this stage:
         generic classes subclassable for iPod, MTP and MassStorage players
         support for each type of player implemented as a plugin
         create a special Collection for each, load Playlists, etc.
-        also should handle transfer, nto necessariliy at first
+        also should handle transfer, not necessariliy at first
             transcode on transfer also good
-                auto-detect supported formats (allow choosing too)
+                auto-detect supported formats (allow choosing too?)
                 transcode only if
                     not in specified format
                     above certain bitrate/filesize?
             algorithms to handle sync?
             allow custom file layout if applicable
+            same general transfer mechanism could be used with the main
+                collection for importing music.
         podcast support
             limit number / autodelete old ?
             autosync - allow selecting which ones to sync
@@ -95,6 +102,8 @@ Things that can probably be implemented at this stage:
             transfer all the associated songs and generate the playlist 
             on my player. No other app was able to do this." - this is a GOOD 
             IDEA, we should aim for this sort of "Just Works" wherever possible
+        we should display to the user how much space is used/available on the 
+            device, and take this into account when transferring
     Persistence 
         everything should be persistent, ie. when opening exaile it should appear 
             EXACTLY as it was when you exited.
@@ -114,6 +123,12 @@ Things that can probably be implemented at this stage:
             translateable
         DEBUG logs do not need to be, as they are largely not intended to be
             seen by users
+    Formats
+        wma not supported, must be fixed
+        are there other formats supported by gstreamer we can add?
+            (speex, au, ra, dts? [from ffmpeg: alac, shorten, aiff])
+        all formats should have read/write test cases (status: none do)
+        non-direct audio formats? (ram, smil, wpl)
 
 
 Minor Tasks:
@@ -125,7 +140,7 @@ Minor Tasks:
         information coming from sources that use differing rating systems.
         a negative value will mean "not rated"
         ui will collapse the float value to the nearest value on the scale
-            chosen by the user for display, bu tnot alter it until it is changed
+            chosen by the user for display, but not alter it until it is changed
     santize plugin extraction (current method is a potential security 
         vulnerability)
     ensure the log file doesn't grow to insane sizes
@@ -139,28 +154,27 @@ Other Work-Items:
         implement as plugin? that way it can just be unloaded afterwards
             saving a little bit of time and memory.
         alternatively, only import it if firstrun is True. this is likely
-            a cleaner and more-efficient method.
+            a cleaner and more-efficient method.         
         this should also be designed flexibly enough to also handle future
-            0.3.x to 0.3.y upgrades, should that be necessary.
+            0.3.x to 0.3.y upgrades, should that be necessary. 
+                possibly also allow import from other players, eg rhythmbox,
+                amarok, etc. these importers would be implemented as plugins.
     
 GUIPLANNING:
     Implemented:
         Collection Panel
             still needs right click menu, double click actions, etc
-
         Playlists Panel
             still needs right click menu, a way to add custom playlists and
                 smart playlists
             still needs to display custom playlists
-
         Playlist Tabs
             still need to be able to recieve track dragged from a file
-                manager like nautilus
-        
+                manager like nautilus   
         Tray Icon
             still needs everything, only does toggle hide now. Egg based
                 tray icon not implemented at all.
-    
+        SPAT - as right-click on stop
     Needs to be implemented:
         Album Art Manager
         Preferences Dialog
@@ -169,13 +183,11 @@ GUIPLANNING:
         Podcasts?
         Queueing tracks, display of queued tracks, queue manager
         Rating
+            allow arbitrary numbers of ranking levels, default to 5
+                this is converted into the range from 0-100 for the backend
         Plugin Manager
             allow local install
         About Dialog
-        Visualizations
-        SPAT... "stop after track button" like we had in 0.2.  Frankly, I
-            wouldn't mind seeing this in a menu instead of on the toolbar.  I hate
-            the thing anyway.
         Better search interface (allow for custom queries and etc)
         Smart Playlist editor
         Various Device Panels
@@ -203,13 +215,8 @@ GUIPLANNING:
             - alternatively, replace tray tooltip with OSD if enabled
         OSD progressbar should be togglable (perhaps make {progressbar}
             element available in customizer?)
-        merge SPAT into stop button via right-click or dropdown menu
         allow using any arbitrary tag for a column in the playlist area
         allow custom tag trees for the collection pane
-    feature requests:
-        PPAT - like SPAT, but pauses instead of stopping. this could easily
-            be a toggle for SPAT. (this would let me stop listening between 
-            songs, without losing my place like SPAT does) --reacocard
 
 
 ==== NOTES ====
@@ -224,6 +231,8 @@ experience.
 
 idea: plugin method allowing it to determine whether it is appropriate to
     enable itself on first run, eg. enable gnomemmkeys only if under gnome.
+
+idea: plugin method to test dependencies
 
 plugins to enable by default: 
     all mmkeys plugins

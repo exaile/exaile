@@ -8,7 +8,7 @@ Example search query:
 days artist==flow NOT (album="Complete Best" OR album=OST)
 
 ==disection of example==
-days - general search query, matches any field
+days - general search query, matches any default field
 artist==flow - matches only the artist "flow", not "flowing" or "the flow"
 NOT - exclude items that match the following term
 () - parentheses can be used to group terms. without these the
@@ -22,7 +22,7 @@ album=OST - match albums containing "OST"
 
 so, this query would match tracks by the artist "flow", that are 
 in albums not containing "complete best" or "ost", and that 
-contain the phrase "days" in any tag.
+contain the phrase "days" in any default tag.
 
 ==list of search operators==
 
@@ -67,5 +67,4 @@ effect: makes the enclosed terms appear as one term to outside
 search terms are case-insensitive, but operators are not. thus,
     "or" is a search term while "OR" is an operator.
 if no operator is specified, terms are implicitly linked with AND
-\ may be used to escape characters that would normally be a keyword. this
-    does not work for multi-character keywords like OR and AND however.
+\ may be used to escape characters that would normally be a keyword

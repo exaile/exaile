@@ -1,0 +1,51 @@
+
+random thoughts for beyond 0.3.0. many of these are user requests.
+
+
+migration:
+    allow import of libraries/ratings/album art from amarok, etc.
+        we could use the 0.2 -> 0.3 upgrade framework, assuming it
+                is made flexibly enough.
+
+ratings system:
+    click on rating column to set
+    replace current dropdown with a bar of stars widget, allows dragging to partially fill stars, double click fills up through clicked star.
+
+UPnP support:
+    client
+    server
+    noone else supports this yet, so this could be quite a boon if done right.
+
+DAAP Server:
+    would require patching python-daap to have server support (likely doable)
+
+Playback Bookmarks:
+    allow bookmarking places in the audio file for quick jumping to
+    UI? (custom cairo-drawn on/near progressbar?)
+
+Cuesheet support:
+    expose as permanent bookmarks? (would still have to handle metadata change)
+
+Shuffling albums:
+    no clue how to do this UI-wise.
+
+Library structure handling:
+    allow exaile to manage the libraries' on-disk structure
+    use ex-falso-like system to determine path
+    we can then expose in the UI methods of copying tracks directly into this structure
+    this is espeically useful for import from mp3players/cds/etc
+    if multiple libraries, allow to specify one as default or to choose which to use on each copy.
+
+Video Playback:
+    this could be tricky UI-wise. perhaps expose as another tab in playlist view, with buttons to go fullscreen or separate window.
+    should probably wait until compiz/video issues are resolved, so we dont have to deal with those complaints.
+    use for video podcasts, have a separate collection for videos.
+    too heavyweight for main perhaps? (is it possible to do as plugin?)
+
+Keybindings:
+    allow full user-customizable keybinding support
+    this may only be doable for when exaile has focus, idk how to make it work globally without using a C library (though with ctypes I guess we can use that)
+    
+
+musicbrainz:
+    use for cd tagging

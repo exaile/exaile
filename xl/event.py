@@ -29,7 +29,7 @@
 # most appropriate spot is immediately before a return statement.
 
 
-import threading, time, logging, traceback, weakref
+import threading, time, logging, traceback
 from xl import common
 
 # define these here so the interperter doesn't complain about them
@@ -145,7 +145,7 @@ class IdleManager(threading.Thread):
             Stops the thread
         """
         self._stopped = True
-        logger.info("Stopping IdleManager thread...")
+        logger.debug("Stopping IdleManager thread...")
 
     def run(self):
         """
@@ -253,7 +253,6 @@ class EventManager(object):
             @param object:   The object to listen to events from. Defaults
                 to any. [string]
         """
-#        function = weakref.proxy(function)
         # add the specified categories if needed.
         if not self.callbacks.has_key(type):
             self.callbacks[type] = {}

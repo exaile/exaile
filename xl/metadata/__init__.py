@@ -16,6 +16,8 @@
 import os
 from xl import common
 import mutagen
+
+# do this so formats can inherit from stuff in _base
 from _base import *
 
 import flac, mp3, mp4, mpc, ogg, tta, wv
@@ -35,6 +37,7 @@ formats = {
         'tta'   : tta.TTAFormat,
         'wav'   : None,
         'wv'    : wv.WavpackFormat,
+        'xm'    : None,
         }
 
 # pass get_loc_for_io() to this.

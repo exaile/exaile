@@ -20,24 +20,34 @@ import mutagen
 # do this so formats can inherit from stuff in _base
 from _base import *
 
-import flac, mp3, mp4, mpc, ogg, tta, wv
+import flac, mod, mp3, mp4, mpc, ogg, tta, wv
 
 formats = {
+        '669'   : mod.ModFormat,
         'aac'   : mp4.MP4Format,
         'ac3'   : None,
+        'amf'   : mod.ModFormat,
+        'dsm'   : mod.ModFormat,
+        'far'   : mod.ModFormat,
         'flac'  : flac.FlacFormat,
+        'it'    : mod.ModFormat,
         'm4a'   : mp4.MP4Format,
+        'med'   : mod.ModFormat,
         'mp2'   : mp3.MP3Format,
         'mp3'   : mp3.MP3Format,
         'mp4'   : mp4.MP4Format,
-        'mod'   : None,
+        'mod'   : mod.ModFormat,
+        'mtm'   : mod.ModFormat,
         'oga'   : ogg.OggFormat,
         'ogg'   : ogg.OggFormat,
-        's3m'   : None,
+        'okt'   : mod.ModFormat,
+        's3m'   : mod.ModFormat,
+        'stm'   : mod.ModFormat,
         'tta'   : tta.TTAFormat,
+        'ult'   : mod.ModFormat,
         'wav'   : None,
         'wv'    : wv.WavpackFormat,
-        'xm'    : None,
+        'xm'    : mod.ModFormat,
         }
 
 # pass get_loc_for_io() to this.

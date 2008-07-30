@@ -12,6 +12,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+import os
 from xl import common
 
 INFO_TAGS = ['bitrate', 'length']
@@ -72,19 +73,19 @@ class BaseFormat(object):
         td = {}
         for tag in tags:
             t = None
-            if tag in self.tag_mapping:
+            if tag in INFO_TAGS:
+                try:
+                    t = self.get_info(tag)
+                except KeyError:
+                    pass
+            if not t and tag in self.tag_mapping:
                 try:
                     t = self._get_tag(raw, self.tag_mapping[tag])
                 except KeyError:
                     pass
-            elif self.others:
+            if not t and self.others:
                 try:
                     t = self._get_tag(raw, tag)
-                except KeyError:
-                    pass
-            elif tag in INFO_TAGS:
-                try:
-                    t = self.get_info(tag)
                 except KeyError:
                     pass
 
@@ -104,6 +105,7 @@ class BaseFormat(object):
             raise NotWritable
         else:
             raw = self._get_raw()
+
             for tag in tagdict:
                 if tag in self.tag_mapping:
                     self._set_tag(raw, self.tag_mapping[tag], tagdict[tag])

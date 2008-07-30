@@ -34,7 +34,7 @@ def is_valid_track(loc):
         the file and determining
     """
     sections = loc.split('.');
-    return sections[-1] in formats
+    return sections[-1] in metadata.formats
 
 class Track(object):
     """

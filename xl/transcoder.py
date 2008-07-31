@@ -63,7 +63,7 @@ FORMATS = {
             "plugins"   : ("lame"),
             "desc"      : "A proprietary and older, but also popular, lossy audio format that produces larger files at lower bitrates. CBR gives less quality than VBR, but is compatible with any player."
             },
-        "WavPack (Lossless)" : {
+        "WavPack" : {
             "default"   : 2,
             "raw_steps" : (1,2,3,4),
             "kbs_steps" : (1,2,3,4),
@@ -71,15 +71,6 @@ FORMATS = {
             "extension" : "wv",
             "plugins"   : ("wavpackenc"),
             "desc"      : "A very fast Free lossless audio format with good compression"
-            },
-        "WavPack (Lossy)" : {
-            "default"   : 160000,
-            "raw_steps" : (32000, 48000, 64000, 96000, 128000, 160000, 192000, 224000, 256000, 320000),
-            "kbs_steps" : (32, 48, 64, 96, 128, 160, 192, 224, 256, 320),
-            "command"   : "wavpackenc bitrate=%s",
-            "extension" : "wv",
-            "plugins"   : ("wavpackenc"),
-            "desc"      : "A very fast Free audio format with good compression"
             },
         }
 

@@ -24,6 +24,7 @@ class BaseFormat(object):
     MutagenType = None
     tag_mapping = {}
     others = True
+    writable = False
 
     def __init__(self, loc):
         self.loc = loc
@@ -42,7 +43,7 @@ class BaseFormat(object):
         """
             Saves any changes to the tags.
         """
-        if self.can_write() and self.mutagen:
+        if self.writable and self.mutagen:
             self.mutagen.save()
 
     def _get_raw(self):
@@ -93,13 +94,9 @@ class BaseFormat(object):
                 td[tag] = t
         return td
 
-    def can_write(self):
-        return False
-
     def _set_tag(self, raw, tag, value):
         raw[tag] = value
 
-    #TODO: detect from the mutagen type whether we can write
     def write_tags(self, tagdict):
         if not self.MutagenType:
             raise NotWritable

@@ -25,8 +25,11 @@ class TrackWrapper(object):
 
     def __str__(self):
         text = self.track['title']
-        if text and self.track['artist'] is not None:
-            text += " - " + self.track['artist']
+
+        if text: text = ' / '.join(text)
+        if text and self.track['artist']:
+            text += " - " + ' / '.join(self.track['artist'])
+
         return text
 
 class BasePlaylistPanelMixin(object):

@@ -17,6 +17,7 @@ from mutagen import flac
 
 class FlacFormat(BaseFormat):
     MutagenType = flac.FLAC
+    writable = True
     
     def get_bitrate(self):
         return -1

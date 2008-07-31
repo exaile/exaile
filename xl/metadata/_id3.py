@@ -46,6 +46,7 @@ class ID3Format(BaseFormat):
         "bpm": "TBPM",
         }
     others = False #disallow tags not in the mapping
+    writable = True
 
     def _get_tag(self, raw, t):
         field = raw.tags.getall(t)

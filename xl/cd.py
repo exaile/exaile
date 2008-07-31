@@ -238,6 +238,8 @@ class CDImporter(object):
             self.cont.wait()
             if not self.running:
                 break
+            tr.set_loc(self.get_output_location(tr))
+            tr.write_tags()
             incr = tr['length'] / self.duration
             self.progress += incr
         self.progress = 100.0

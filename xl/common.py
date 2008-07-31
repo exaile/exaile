@@ -45,7 +45,7 @@ def log(message):
 
 # use this for general logging of exceptions
 def log_exception(log=logger):
-    log.error(_("Exception caught!\n") + traceback.format_exc())
+    log.error("Exception caught!\n" + traceback.format_exc())
 
 
 def to_unicode(x, default_encoding=None):

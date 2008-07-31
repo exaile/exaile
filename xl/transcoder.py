@@ -19,9 +19,9 @@ import gst
 FORMATS = {
         "Ogg Vorbis" : {
             "default"   : 5,
-            "raw_steps" : (0 ,  1,  2,   3,   4,   5,   6,   7,   8,   9,  10),
+            "raw_steps" : (0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.10),
             "kbs_steps" : (64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 400),
-            "command"   : "vorbisenc quality=0.%s ! oggmux",
+            "command"   : "vorbisenc quality=%s ! oggmux",
             "extension" : "ogg",
             "plugins"   : ("vorbisenc", "oggmux"),
             "desc"      : "Vorbis is an open source, lossy audio codec with high quality output at a lower file size than MP3."
@@ -29,6 +29,7 @@ FORMATS = {
         "FLAC" : {
             "default"   : 5,
             "raw_steps" : (0 ,  1,  2,   3,   4,   5,   6,   7,   8,   9),
+            "kbs_steps" : (0 ,  1,  2,   3,   4,   5,   6,   7,   8,   9),
             "command"   : "flacenc quality=%s",
             "extension" : "flac",
             "plugins"   : ("flacenc"),
@@ -48,29 +49,43 @@ FORMATS = {
             "default"   : 160,
             "raw_steps" : (32, 48, 64, 96, 128, 160, 192, 224, 256, 320),
             "kbs_steps" : (32, 48, 64, 96, 128, 160, 192, 224, 256, 320),
-            "command"   : "lame vbr=4 vbr-mean-bitrate=%s ! id3mux",
+            "command"   : "lame vbr=4 vbr-mean-bitrate=%s",
             "extension" : "mp3",
-            "plugins"   : ("lame", "id3mux"),
+            "plugins"   : ("lame"),
             "desc"      : "A proprietary and older, but also popular, lossy audio format that produces larger files at lower bitrates. VBR gives higher quality than CBR, but may be incompatible with some players."
             },
         "MP3 (CBR)" : {
             "default"   : 160,
             "raw_steps" : (32, 48, 64, 96, 128, 160, 192, 224, 256, 320),
             "kbs_steps" : (32, 48, 64, 96, 128, 160, 192, 224, 256, 320),
-            "command"   : "lame bitrate=%s ! id3mux",
+            "command"   : "lame bitrate=%s",
             "extension" : "mp3",
-            "plugins"   : ("lame", "id3mux"),
+            "plugins"   : ("lame"),
             "desc"      : "A proprietary and older, but also popular, lossy audio format that produces larger files at lower bitrates. CBR gives less quality than VBR, but is compatible with any player."
             },
         "WavPack (Lossless)" : {
             "default"   : 2,
             "raw_steps" : (1,2,3,4),
             "kbs_steps" : (1,2,3,4),
-            "command"   : "wavpackenc mode=%s ! apev2mux",
-            "plugins"   : ("wavpackenc", "apev2mux"),
+            "command"   : "wavpackenc mode=%s",
+            "extension" : "wv",
+            "plugins"   : ("wavpackenc"),
             "desc"      : "A very fast Free lossless audio format with good compression"
-            }
+            },
+        "WavPack (Lossy)" : {
+            "default"   : 160000,
+            "raw_steps" : (32000, 48000, 64000, 96000, 128000, 160000, 192000, 224000, 256000, 320000),
+            "kbs_steps" : (32, 48, 64, 96, 128, 160, 192, 224, 256, 320),
+            "command"   : "wavpackenc bitrate=%s",
+            "extension" : "wv",
+            "plugins"   : ("wavpackenc"),
+            "desc"      : "A very fast Free audio format with good compression"
+            },
         }
+
+# NOTE: the transcoder is NOT designed to transfer tags. You will need to
+# manually write the tags after transcoding has completed.
+
 
 def get_formats(self):
     ret = {}

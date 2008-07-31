@@ -17,6 +17,7 @@ from mutagen import oggvorbis
 
 class OggFormat(BaseFormat):
     MutagenType = oggvorbis.OggVorbis
+    writable = True
     
 # vim: et sts=4 sw=4
 

@@ -18,5 +18,8 @@ from mutagen import wavpack
 class WavpackFormat(ApeFormat):
     MutagenType = wavpack.WavPack
 
+    def get_bitrate(self):
+        return -1
+
 # vim: et sts=4 sw=4
 

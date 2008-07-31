@@ -22,6 +22,7 @@ class ApeFormat(BaseFormat):
             'tracknumber':  'track',
         }
     others = True
+    writable = True
 
 # vim: et sts=4 sw=4
 

@@ -105,6 +105,18 @@ class BaseFormat(object):
             raise NotWritable
         else:
             raw = self._get_raw()
+            # add tags if it doesn't have them
+            try:
+                raw.add_tags()
+            except ValueError:
+                pass
+
+            # info tags are not actually writable
+            for tag in INFO_TAGS:
+                try:
+                    del tagdict[tag]
+                except:
+                    pass
 
             for tag in tagdict:
                 if tag in self.tag_mapping:

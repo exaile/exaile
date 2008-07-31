@@ -12,10 +12,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
 import os
-from xl import common
-import mutagen
 
 # do this so formats can inherit from stuff in _base
 from _base import *

@@ -19,6 +19,10 @@ from _base import *
 
 import flac, mod, mp3, mp4, mpc, ogg, tta, wv
 
+# lossy:    aac, mp2, mp3, vorbis
+# lossless: flac, tta, wav, wavpack
+# chip:     669, amf, dsm, far, it, med, mod, mtm, okt, s3m, stm, ult, xm
+# other:    midi, ac3
 formats = {
         '669'   : mod.ModFormat,
         'aac'   : mp4.MP4Format,
@@ -33,6 +37,8 @@ formats = {
         'mp2'   : mp3.MP3Format,
         'mp3'   : mp3.MP3Format,
         'mp4'   : mp4.MP4Format,
+        'mid'   : None,
+        'midi'  : None,
         'mod'   : mod.ModFormat,
         'mtm'   : mod.ModFormat,
         'oga'   : ogg.OggFormat,

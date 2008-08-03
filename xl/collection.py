@@ -64,19 +64,18 @@ class Collection(trackdb.TrackDB):
             args: see TrackDB
         """
         self.libraries = dict()
-        self.settings = SettingsManager.settings
         self._scanning = False
         self._scan_stopped = False
         trackdb.TrackDB.__init__(self, name, location=location,
                 pickle_attrs=pickle_attrs)
 
-        if self.settings:
-            lib_paths = self.settings.get_option("collection/libraries", [])
-            for (loc, realtime, interval) in lib_paths:
-                if len(loc.strip()) > 0:
-                    self.add_library(Library(loc, realtime, interval))
-        
         COLLECTIONS.add(self)
+
+    def setup_libraries(self):
+        lib_paths = settings.get_option("collection/libraries", [])
+        for (loc, realtime, interval) in lib_paths:
+            if len(loc.strip()) > 0:
+                self.add_library(Library(loc, realtime, interval))
 
     def add_library(self, library):
         """
@@ -172,7 +171,7 @@ class Collection(trackdb.TrackDB):
         libraries = []
         for k, v in self.libraries.iteritems():
             libraries.append((v.location, v.realtime, v.scan_interval))
-        self.settings.set_option("collection/libraries", libraries)
+        settings.set_option("collection/libraries", libraries)
 
     def close(self):
         """

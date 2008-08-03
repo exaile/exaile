@@ -25,8 +25,6 @@ Implemented:
     Smart Playlists
     CD Playback
         doesn't support mp3 CDs yet
-    Track Syncronization
-        very prelimiary, will need careful watching
     Device Manager
         only for cd right now
     HAL Support
@@ -81,29 +79,7 @@ Things that can probably be implemented at this stage:
         allow flexibility in choice of when (if?) and where to download
         allow streaming if not downloaded
     MP3 Player Support
-        generic classes subclassable for iPod, MTP and MassStorage players
-        support for each type of player implemented as a plugin
-        create a special Collection for each, load Playlists, etc.
-        also should handle transfer, not necessariliy at first
-            transcode on transfer also good
-                auto-detect supported formats (allow choosing too?)
-                transcode only if
-                    not in specified format
-                    above certain bitrate/filesize?
-            algorithms to handle sync?
-            allow custom file layout if applicable
-            same general transfer mechanism could be used with the main
-                collection for importing music.
-        podcast support
-            limit number / autodelete old ?
-            autosync - allow selecting which ones to sync
-        found on ubuntu forums: "With amarok I can grab a playlist, drag 
-            it to my player and Amarok will automatically 
-            transfer all the associated songs and generate the playlist 
-            on my player. No other app was able to do this." - this is a GOOD 
-            IDEA, we should aim for this sort of "Just Works" wherever possible
-        we should display to the user how much space is used/available on the 
-            device, and take this into account when transferring
+        see player_planning
     Persistence 
         everything should be persistent, ie. when opening exaile it should appear 
             EXACTLY as it was when you exited.
@@ -129,11 +105,14 @@ Things that can probably be implemented at this stage:
             (speex, au, ra, dts? [from ffmpeg: alac, shorten, aiff])
         all formats should have read/write test cases (status: none do)
         non-direct audio formats? (ram, smil, wpl)
+        speex has native mutagen support (mutagen.oggspeex.OggSpeex)
+        does mutagen's m4a support handle alac correctly?
+            if not, we can probably make it do so easily, since all that should
+                need overriding is the M4AInfo class
 
 
 Minor Tasks:
     add comments and docstrings in xl/player.py
-    store current sort field in xl.playlist.Playlist, use this in the GUI
     create a method of exposing what the current UI is to plugins, so they can
         load widgets and such appropriately. (xlgui.Main.name?)
     make rating system be a float from 0-100, this lets us seamlessly handle

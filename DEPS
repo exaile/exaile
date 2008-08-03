@@ -3,6 +3,8 @@ List of dependencies for Exaile 0.3
 plugin dependencies should be listed in their description
 
 (TBI) = not yet made optional in trunk
+(R) - recommended
+(S) - suggested
 
 essential:
     python (>= 2.5)
@@ -12,19 +14,18 @@ essential:
     dbus-python
     pygtk (>= 2.10)
     python-glade2
-    storm (>= 0.13)
 
 replaygain, equalizer:
-    gstreamer-plugins-bad (>= 10.5)
+    gstreamer-plugins-bad (>= 10.5) (S)
 
 device detection:
-    hal
+    hal (R)
 
 cd info:
-    python-cddb
+    python-cddb (R)
 
 library realtime watching:
-    pyinotify 
+    pyinotify (R)
 
 clear button on search fields:
-    sexy-python
+    sexy-python (R)

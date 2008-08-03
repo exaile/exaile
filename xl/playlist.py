@@ -96,6 +96,12 @@ def import_from_m3u(path):
                 current = track.Track()
             if not os.path.isabs(line):
                 line = os.path.join(os.path.dirname(path), line)
+            if not line.startswith("/"):
+                if line[1:3] = ":/": # windows path
+                    pass #TODO: handle this better
+                else:
+                    # convert the relative path to absolute
+                    line = os.path.join(os.path.dirname(path), line)
             current.set_loc(line)
             current.read_tags()
             pl.add(current)
@@ -1015,8 +1021,8 @@ class PlaylistManager(object):
         """
             Initializes the playlist manager
 
-            @param data_dir: the data dir to save playlists to
-            @param smart_playlist_dir: the data dir to save smart playlists
+            @param playlist_dir: the data dir to save playlists to
+            @param playlist_class: the playlist class to use
         """
         self.playlist_class = playlist_class
         self.playlist_dir = os.path.join(xdg.get_data_dirs()[0],playlist_dir)

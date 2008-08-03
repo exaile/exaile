@@ -81,7 +81,5 @@ class Device(object):
         return self.playlists
 
 
-
-
 # vim: et sts=4 sw=4
 

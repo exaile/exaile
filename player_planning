@@ -102,20 +102,9 @@ playing:
 
 display:
     device manager:
-        show all devices currently recognized, allow connecting to them
-            something like
-            
-            Attached Devices:                               [connect]
-            S | Name | {picture/icon} | Location | Details  [disconnect]
-            S | Name | {picture/icon} | Location | Details  [edit]
-                                                            [add...]
-            Detached Devices:
-            S | Name | {picture/icon} | Location | Details  [delete]
-            S | Name | {picture/icon} | Location | Details
-                                                            [close]
-
-            (S - status icon indicating that its connected)
-
+        show all configured devices, allow connection/disconnection
+        add dialog will show detected devices
+        - hal's storage.icon.[drive|volume] keys could be used for the icon column
         also exposes any possible prefs for that device
             path to music location (default: root/music)
             path to podcast location (default: root/podcasts)

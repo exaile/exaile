@@ -1,3 +1,16 @@
+
+import locale, gettext
+
+# set the locale to LANG, or the user's default
+locale.setlocale(locale.LC_ALL, '')
+
+# this installs _ into python's global namespace, so we don't have to
+# explicitly import it elsewhere
+gettext.install("exaile")
+
+
+
+
 try:
     import guitest
 except ImportError:

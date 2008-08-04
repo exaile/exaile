@@ -17,17 +17,21 @@ import os
 # do this so formats can inherit from stuff in _base
 from _base import *
 
-import flac, mod, mp3, mp4, mpc, ogg, tta, wv
+import asf, flac, mod, mp3, mp4, mpc, ogg, speex, tta, wav, wv
 
-# lossy:    aac, mp2, mp3, vorbis
+# lossy:    aac, mp2, mp3, speex, vorbis, wma
 # lossless: flac, tta, wav, wavpack
 # chip:     669, amf, dsm, far, it, med, mod, mtm, okt, s3m, stm, ult, xm
-# other:    midi, ac3
+# other:    ac3, aiff, au, midi
+# tags not read:  real, shorten (can we fix these?)
 formats = {
         '669'   : mod.ModFormat,
         'aac'   : mp4.MP4Format,
         'ac3'   : None,
+        'aif'   : None,
+        'aiff'  : None,
         'amf'   : mod.ModFormat,
+        'au'    : None, 
         'dsm'   : mod.ModFormat,
         'far'   : mod.ModFormat,
         'flac'  : flac.FlacFormat,
@@ -44,11 +48,17 @@ formats = {
         'oga'   : ogg.OggFormat,
         'ogg'   : ogg.OggFormat,
         'okt'   : mod.ModFormat,
+        'ra'    : None,
+        'ram'   : None,
         's3m'   : mod.ModFormat,
+        'shn'   : None,
+        'snd'   : None,
+        'spx'   : speex.SpeexFormat,
         'stm'   : mod.ModFormat,
         'tta'   : tta.TTAFormat,
         'ult'   : mod.ModFormat,
-        'wav'   : None,
+        'wav'   : wav.WavFormat,
+        'wma'   : asf.AsfFormat,
         'wv'    : wv.WavpackFormat,
         'xm'    : mod.ModFormat,
         }

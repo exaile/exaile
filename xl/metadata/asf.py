@@ -13,23 +13,26 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 from xl.metadata import BaseFormat
-from mutagen import mp4
+from mutagen import asf
 
-class MP4Format(BaseFormat):
-    MutagenType = mp4.MP4
+class AsfFormat(BaseFormat):
+    MutagenType = asf.ASF
     tag_mapping = {
-            'title':       '\xa9nam',
-            'artist':      '\xa9ART',
-            'album':       '\xa9alb',
-            'genre':       '\xa9gen',
-            'date':        '\xa9day',
-            'tracknumber': 'trkn',
-            'discnumber':  'disk',
-            'copyright':   'cprt',
+            "artist"    : "Author",
+            "album"     : "AlbumTitle",
+            "title"     : "Title",
+            "genre"     : "Genre",
+            "tracknumber":"TrackNumber",
+            "date"      : "Year",
         }
     others = False
     writable = True
-    
-# vim: et sts=4 sw=4
 
+    def get_bitrate(self):
+        self.mutagen.info["max_bitrate"]
+
+    def get_length(self):
+        self.mutagen.info["playtime_seconds"]
+
+# vim: et sts=4 sw=4
 

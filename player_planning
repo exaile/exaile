@@ -36,7 +36,8 @@ device recognition/persistence:
                     wma - 'audio/x-ms-wma'
             input_formats
                 values: 'audio/x-wav', 'audio/mpeg', 'audio/x-ms-wma', 'audio/amr', 'audio/x-amr', 'audio/aac', 'audio/AMR', 'audio/midi'
-                not sure what this is for...
+                this is what formats the device can record to. probably not 
+                    useful to us.
             playlist_path
                 values: 'PLAYLISTS/%File', 'Playlists/', 'MUSIC/AllMyMusic.m3u', 'PLAYLIST/%File', 'Playlist/', 'Music/playlists', 'Playlists/%File'
                 I -think- this is for defining the playlist containing the song order on devices that don't do tag or path browsing, but im not sure.

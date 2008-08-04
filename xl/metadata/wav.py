@@ -13,23 +13,17 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 from xl.metadata import BaseFormat
-from mutagen import mp4
+import wave
 
-class MP4Format(BaseFormat):
-    MutagenType = mp4.MP4
-    tag_mapping = {
-            'title':       '\xa9nam',
-            'artist':      '\xa9ART',
-            'album':       '\xa9alb',
-            'genre':       '\xa9gen',
-            'date':        '\xa9day',
-            'tracknumber': 'trkn',
-            'discnumber':  'disk',
-            'copyright':   'cprt',
-        }
-    others = False
-    writable = True
-    
-# vim: et sts=4 sw=4
-
+class WavFormat(BaseFormat):
+    def load(self):
+        try:
+            f = wave.open(self.loc, "rb")
+            bitrate = f.getframerate()
+            length = f.getnframes() / bitrate
+            self.mutagen = {'bitrate': bitrate, 'length': length}
+        except IOError:
+            pass
+        self.mutagen = {'bitrate': -1, 'length': -1}
+        
 

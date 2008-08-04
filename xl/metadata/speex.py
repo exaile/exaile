@@ -13,23 +13,11 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 from xl.metadata import BaseFormat
-from mutagen import mp4
+from mutagen import oggspeex
 
-class MP4Format(BaseFormat):
-    MutagenType = mp4.MP4
-    tag_mapping = {
-            'title':       '\xa9nam',
-            'artist':      '\xa9ART',
-            'album':       '\xa9alb',
-            'genre':       '\xa9gen',
-            'date':        '\xa9day',
-            'tracknumber': 'trkn',
-            'discnumber':  'disk',
-            'copyright':   'cprt',
-        }
-    others = False
+class SpeexFormat(BaseFormat):
+    MutagenType = oggspeex.OggSpeex
     writable = True
     
 # vim: et sts=4 sw=4
-
 

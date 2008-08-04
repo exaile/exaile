@@ -21,8 +21,7 @@
 
 __version__ = '0.3.0devel'
 
-from xl import common, xdg, event
-import os, sys, logging, time, gettext, locale
+import locale, gettext
 
 # set the locale to LANG, or the user's default
 locale.setlocale(locale.LC_ALL, '')
@@ -30,6 +29,9 @@ locale.setlocale(locale.LC_ALL, '')
 # this installs _ into python's global namespace, so we don't have to
 # explicitly import it elsewhere
 gettext.install("exaile")
+
+from xl import common, xdg, event
+import os, sys, logging, time
 
 # initiate the logger. logger params are set later
 logger = logging.getLogger(__name__)

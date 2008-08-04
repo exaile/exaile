@@ -8,9 +8,6 @@ locale.setlocale(locale.LC_ALL, '')
 # explicitly import it elsewhere
 gettext.install("exaile")
 
-
-
-
 try:
     import guitest
 except ImportError:

@@ -19,9 +19,8 @@ class WavFormat(BaseFormat):
     def load(self):
         try:
             f = wave.open(self.loc, "rb")
-            bitrate = f.getframerate()
-            length = f.getnframes() / bitrate
-            self.mutagen = {'bitrate': bitrate, 'length': length}
+            length = f.getnframes() / f.getframerate()
+            self.mutagen = {'bitrate': -1, 'length': length}
         except IOError:
             pass
         self.mutagen = {'bitrate': -1, 'length': -1}

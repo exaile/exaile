@@ -12,15 +12,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-# FIXME: needs documentation badly
-
 import pygst
 pygst.require('0.10')
 import gst
+
 import gobject
 
 from xl import common, event, playlist, settings
-import random, time, re, os, md5, thread, logging
+import random, time, os, logging
 from urlparse import urlparse
 
 settings = settings.SettingsManager.settings
@@ -98,6 +97,10 @@ class PlayQueue(playlist.Playlist):
         return 0
 
     def play(self, track=None):
+        """
+            start playback, either from the passed track or from already 
+            queued tracks
+        """
         if self.player.is_playing() and not track:
             return
         if not track:
@@ -142,27 +145,43 @@ class BaseGSTPlayer(object):
         event.add_callback(self._on_setting_change, 'option_set')
 
     def setup_playbin(self):
+        """
+            setup the playbin to use for playback
+            needs to be overridden in subclasses
+        """
         raise NotImplementedError
 
     def setup_bus(self):
+        """
+            setup the gstreamer message bus and callacks
+        """
         self.bus = self.playbin.get_bus()
         self.bus.add_signal_watch()
         self.bus.enable_sync_message_emission()
         self.bus.connect('message', self.on_message)
 
     def _on_setting_change(self, name, object, data):
+        """
+            handle setting change events
+        """
         if 'player/volume' == data:
             self._load_volume()
         elif 'equalizer/band-' in data:
             self._load_equalizer_values()
 
     def _load_equalizer_values(self):
+        """
+            load EQ values from settings
+        """
         if self.equalizer:
             for band in range(0, 10):
                 value = settings.get_option("equalizer/band-%s"%band, 0.0)
                 self.equalizer.set_property("band%s"%band, value)
 
     def _load_volume(self):
+        """
+            load volume from settings
+        """
         volume = settings.get_option("player/volume", 1.0)
         self.set_volume(volume)
 
@@ -170,8 +189,6 @@ class BaseGSTPlayer(object):
         """
             sets up additional gst elements
         """
-        # TODO: implement eq, replaygain
-
         elements = []
 
         # equalizer
@@ -229,7 +246,6 @@ class BaseGSTPlayer(object):
                 logger.warning("Could not set parameter %s for %s"%(param, name))
         elements.append(self.audio_sink)
 
-
         # join everything together into a Bin to use as the playbin's sink
         sinkbin = gst.Bin()
         sinkbin.add(*elements)
@@ -237,21 +253,30 @@ class BaseGSTPlayer(object):
         sinkpad = elements[0].get_static_pad("sink")
         sinkbin.add_pad(gst.GhostPad('sink', sinkpad))
 
-        
         self.playbin.set_property("audio-sink", sinkbin)
 
     def tag_func(self, *args):
         event.log_event('tags_parsed', self, (self.current, args[0]))
 
     def eof_func(self, *args):
+        """
+            called at the end of a stream
+            override in subclasses
+        """
         raise NotImplementedError
 
     def set_queue(self, queue):
+        """
+            sets the queue object to use for playback
+        """
         self.queue = queue
 
     def set_volume(self, vol):
         """
             sets the volume
+
+            this does NOT save the volume to settings. modifying the volume in 
+            setings however will call this automatically
         """
         self.volume_control.set_property("volume", vol)
 
@@ -338,6 +363,9 @@ class BaseGSTPlayer(object):
         return progress
 
     def update_playtime(self):
+        """
+            updates the total playtime for the currently playing track
+        """
         if self.current and self.playtime_stamp:
             last = self.current['playtime']
             if type(last) == str:
@@ -363,6 +391,7 @@ class BaseGSTPlayer(object):
         return uri
 
     def __notify_source(self, *args):
+        # this is for handling multiple CD devices properly
         source = self.playbin.get_property('source')
         device = self.current.get_loc_for_io().split("#")[-1]
         source.set_property('device', device)
@@ -375,6 +404,11 @@ class BaseGSTPlayer(object):
         event.log_event('playback_error', self, message)
 
     def play(self, track):
+        """
+            plays the specified track, overriding any currently playing track
+
+            if the track cannot be played, playback stops completely
+        """
         self.stop()
 
         if track is None:
@@ -383,9 +417,9 @@ class BaseGSTPlayer(object):
         # make sure the file exists if this is supposed to be a local track
         if track.is_local():
             if not os.path.exists(track.get_loc()):
-                self._on_playback_error("File does not exist: %s" % 
+                logger.error("File does not exist: %s" % 
                     track.get_loc())
-                return
+                return False
        
         self.current = track
         
@@ -401,6 +435,9 @@ class BaseGSTPlayer(object):
         event.log_event('playback_start', self, track)
 
     def stop(self):
+        """
+            stop playback
+        """
         if self.is_playing() or self.is_paused():
             self.update_playtime()
             current = self.current
@@ -409,6 +446,9 @@ class BaseGSTPlayer(object):
             event.log_event('playback_end', self, current)
 
     def pause(self):
+        """
+            pause playback. DOES NOT TOGGLE
+        """
         if self.is_playing():
             self.update_playtime()
             self.playbin.set_state(gst.STATE_PAUSED)
@@ -416,6 +456,9 @@ class BaseGSTPlayer(object):
             event.log_event('playback_pause', self, self.current)
  
     def unpause(self):
+        """
+            unpause playback
+        """
         if self.is_paused():
             self.reset_playtime_stamp()
 
@@ -428,14 +471,18 @@ class BaseGSTPlayer(object):
             event.log_event('playback_resume', self, self.current)
 
     def toggle_pause(self):
+        """
+            toggle playback pause state
+        """
         if self.is_paused():
             self.unpause()
         else:
             self.pause()
 
-        event.log_event('playback_toggle_pause', self, self.current)
-
     def seek(self, value):
+        """
+            seek to the given position in the current stream
+        """
         value = int(gst.SECOND * value)
         event = gst.event_new_seek(1.0, gst.FORMAT_TIME,
             gst.SEEK_FLAG_FLUSH|gst.SEEK_FLAG_ACCURATE,
@@ -463,6 +510,7 @@ class GSTPlayer(BaseGSTPlayer):
     def eof_func(self, *args):
         self.queue.next()
 
+
 class GaplessPlayer(BaseGSTPlayer):
     """
         Gstreamer engine, using playbin2 for gapless
@@ -479,7 +527,6 @@ class GaplessPlayer(BaseGSTPlayer):
         
         # This signal doesn't work yet (as of gst 0.10.19)
         # self.playbin.connect('audio-changed', self.on_changed)
-
 
     def on_finish(self, *args):
         gobject.idle_add(self._on_finish)

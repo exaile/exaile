@@ -31,7 +31,7 @@ locale.setlocale(locale.LC_ALL, '')
 gettext.install("exaile")
 
 from xl import common, xdg, event
-import os, sys, logging, time
+import os, sys, logging, logging.handlers, time
 
 # initiate the logger. logger params are set later
 logger = logging.getLogger(__name__)
@@ -165,23 +165,27 @@ class Exaile(object):
         loglevel = logging.INFO
         if self.options.debug:
             loglevel = logging.DEBUG
-            console_format += " (%(name)s)"
+            console_format += " (%(name)s)" # add module name in debug mode
         elif self.options.quiet:
             loglevel = logging.WARNING
+        # logfile level should always be INFO or higher
         if self.options.quiet:
             logfilelevel = logging.INFO
         else:
             logfilelevel = loglevel
-        logging.basicConfig(level=logfilelevel,
-                format='%(asctime)s %(levelname)-8s: %(message)s (%(name)s)',
-                datefmt="%m-%d %H:%M",
-                filename=os.path.join(xdg.get_config_dir(), "exaile.log"),
-                filemode="a")
-        console = logging.StreamHandler()
-        console.setLevel(loglevel)
-        formatter = logging.Formatter(console_format)
-        console.setFormatter(formatter)
-        logging.getLogger("").addHandler(console)
+
+        # logging to terminal
+        logging.basicConfig(level=loglevel, format=console_format)
+
+        # logging to file. this also automatically rotates the logs
+        logfile = logging.handlers.RotatingFileHandler(
+                os.path.join(xdg.get_config_dir(), "exaile.log"),
+                mode='a', backupCount=5)
+        logfile.doRollover() # each session gets its own file
+        logfile.setLevel(logfilelevel)
+        formatter = logging.Formatter('%(asctime)s %(levelname)-8s: %(message)s (%(name)s)', datefmt="%m-%d %H:%M")
+        logfile.setFormatter(formatter)
+        logging.getLogger("").addHandler(logfile)
 
     def get_options(self):
         """
@@ -340,6 +344,7 @@ class Exaile(object):
         self.settings.save()
 
         logger.info("Bye!")
+        logging.shutdown()
         exit()
 
 # vim: et sts=4 sw=4

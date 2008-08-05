@@ -3,7 +3,7 @@ It should also be used to keep track of what each contributor is
 currently working on.
 
 Current projects:
-    Aren Olson - Mass Storage MP3 Player (base)
+    Aren Olson - MP3 Player Support
     Adam Olsen - GUI
     Anthony Waters - 
     thiblahute - CD Burning (hasn't been seen in a while)
@@ -100,29 +100,20 @@ Things that can probably be implemented at this stage:
         DEBUG logs do not need to be, as they are largely not intended to be
             seen by users
     Formats
-        wma not supported, must be fixed
-        are there other formats supported by gstreamer we can add?
-            (speex, au, ra, dts? [from ffmpeg: alac, shorten, aiff])
         all formats should have read/write test cases (status: none do)
-        non-direct audio formats? (ram, smil, wpl)
-        speex has native mutagen support (mutagen.oggspeex.OggSpeex)
+        non-direct audio formats? (smil, wpl)
         does mutagen's m4a support handle alac correctly?
             if not, we can probably make it do so easily, since all that should
                 need overriding is the M4AInfo class
+        tag support for ra/ram?
 
 
 Minor Tasks:
-    add comments and docstrings in xl/player.py
-    create a method of exposing what the current UI is to plugins, so they can
-        load widgets and such appropriately. (xlgui.Main.name?)
     make rating system be a float from 0-100, this lets us seamlessly handle
         information coming from sources that use differing rating systems.
         a negative value will mean "not rated"
         ui will collapse the float value to the nearest value on the scale
             chosen by the user for display, but not alter it until it is changed
-    santize plugin extraction (current method is a potential security 
-        vulnerability)
-    ensure the log file doesn't grow to insane sizes
 
 Other Work-Items:
     Conversion

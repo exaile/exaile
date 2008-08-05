@@ -22,6 +22,9 @@ logger = logging.getLogger(__name__)
 # list of plugins to enable by default on new installs
 DEFAULT_PLUGINS = ['shoutcast', 'amazoncovers', 'console', 'lastfmcovers']
 
+class InvalidPluginError(Exception):
+    pass
+
 class PluginsManager(object):
     def __init__(self, exaile):
         self.plugindirs = [ os.path.join(p, 'plugins') \
@@ -59,7 +62,15 @@ class PluginsManager(object):
 
     def install_plugin(self, path):
         tar = tarfile.open(path, "r:*") #transparently supports gz, bz2
-        tar.extractall(self.plugindirs[0]) #FIXME: this is unsafe
+
+        #ensure the paths in the archive are sane
+        mems = tar.getmembers()
+        base = os.path.basename(path)[:-4]
+        for m in mems:
+            if not m.name.startswith(base):
+                raise InvalidPluginError("Plugin archive contains an unsafe path")
+
+        tar.extractall(self.plugindirs[0])
 
     def uninstall_plugin(self, pluginname):
         self.disable_plugin(pluginname)

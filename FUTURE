@@ -4,12 +4,14 @@ random thoughts for beyond 0.3.0. many of these are user requests.
 
 migration:
     allow import of libraries/ratings/album art from amarok, etc.
-        we could use the 0.2 -> 0.3 upgrade framework, assuming it
-                is made flexibly enough.
+        - we could use the 0.2 -> 0.3 upgrade framework, assuming it
+            is made flexibly enough.
 
 ratings system:
     click on rating column to set
-    replace current dropdown with a bar of stars widget, allows dragging to partially fill stars, double click fills up through clicked star.
+    replace current dropdown with a bar of stars widget, allows dragging to 
+        partially fill stars, double click fills up through clicked star.
+        - could reuse same widget for rating column
 
 UPnP support:
     client
@@ -22,9 +24,14 @@ DAAP Server:
 Playback Bookmarks:
     allow bookmarking places in the audio file for quick jumping to
     UI? (custom cairo-drawn on/near progressbar?)
+    auto-save last position
 
 Cuesheet support:
     expose as permanent bookmarks? (would still have to handle metadata change)
+    alternately, parse the CUE at import time and create separate tracks for
+        each entry. This would require extra work in both player.py and 
+        collection.py to handle it correctly, but allows full integration with 
+        the rest of exaile's features.
 
 Shuffling albums:
     no clue how to do this UI-wise.
@@ -41,6 +48,13 @@ Video Playback:
     should probably wait until compiz/video issues are resolved, so we dont have to deal with those complaints.
     use for video podcasts, have a separate collection for videos.
     too heavyweight for main perhaps? (is it possible to do as plugin?)
+
+Audiobooks:
+    allow a separate collection for audiobooks
+    plugin?
+    could be automatic by grabbing eveything with a genre of audiobook, but 
+        give right-click menu for manual marking as well.
+    automatically save/resume position in book (thru bookmarking support above)
 
 Keybindings:
     allow full user-customizable keybinding support

@@ -1,6 +1,5 @@
 
 
-
 dist: clean
 	python dist_plugin.py amazoncovers
 	python dist_plugin.py audioscrobbler

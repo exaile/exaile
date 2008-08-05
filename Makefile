@@ -1,4 +1,6 @@
 
+all: compile doc
+	@echo "Ready to install... except there's no install rule yet :P"
 
 compile:
 	python -m compileall xl lib xlgui

@@ -49,3 +49,6 @@ Keybindings:
 
 musicbrainz:
     use for cd tagging
+
+custom stemming:
+    allow trimming of 'A', not just 'The'

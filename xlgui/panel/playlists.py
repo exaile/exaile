@@ -29,7 +29,8 @@ class TrackWrapper(object):
         if text: text = ' / '.join(text)
         if text and self.track['artist']:
             text += " - " + ' / '.join(self.track['artist'])
-
+        
+        if not text: return self.track.get_loc()
         return text
 
 class BasePlaylistPanelMixin(object):

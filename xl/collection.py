@@ -70,6 +70,7 @@ class Collection(trackdb.TrackDB):
                 pickle_attrs=pickle_attrs)
 
         COLLECTIONS.add(self)
+        self.setup_libraries()
 
     def setup_libraries(self):
         lib_paths = settings.get_option("collection/libraries", [])

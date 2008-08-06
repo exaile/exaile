@@ -185,3 +185,15 @@ per-device considerations:
                 there anything that supports 7?
         upnp:
             need to find bindings
+
+
+code planning:
+    Device class:
+        .collection - collection object for all tracks on the device
+        .playlists - playlists manager for playlists on the device
+        .connect() - connect to the device, load tracks/playlists
+        .disconnect() - safely disconnect from the device
+        .transfer() - execute pending operations on the device
+
+needs subclasses of PlaylistManager, Collection and Library that will
+handle the sync to the device automatically when transfer() gets called

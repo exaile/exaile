@@ -19,7 +19,7 @@ from _base import *
 
 import aiff, asf, au, flac, mod, mp3, mp4, mpc, ogg, speex, tta, wav, wv
 
-# lossy:    aac, mp2, mp3, speex, vorbis, wma
+# lossy:    aac, mp2, mp3, musepack, speex, vorbis, wma
 # lossless: flac, tta, wav, wavpack
 # chip:     669, amf, dsm, far, it, med, mod, mtm, okt, s3m, stm, ult, xm
 # other:    ac3, aiff, au, midi
@@ -41,6 +41,7 @@ formats = {
         'mp2'   : mp3.MP3Format,
         'mp3'   : mp3.MP3Format,
         'mp4'   : mp4.MP4Format,
+        'mpc'   : mpc.MpcFormat,
         'mid'   : None,
         'midi'  : None,
         'mod'   : mod.ModFormat,

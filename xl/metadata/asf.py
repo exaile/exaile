@@ -28,11 +28,5 @@ class AsfFormat(BaseFormat):
     others = False
     writable = True
 
-    def get_bitrate(self):
-        self.mutagen.info["max_bitrate"]
-
-    def get_length(self):
-        self.mutagen.info["playtime_seconds"]
-
 # vim: et sts=4 sw=4
 

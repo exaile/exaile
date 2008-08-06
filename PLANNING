@@ -37,6 +37,7 @@ Implemented:
     Covers
         todo: support embedded covers, cover from filename via tag 
             info (eg. %artist-%album.jpg)
+            - also support unix-style globbing on filenames (eg *.jpg)
     Internet Radio
         not at all feature-complete
     Lyrics Manager
@@ -106,6 +107,9 @@ Things that can probably be implemented at this stage:
             if not, we can probably make it do so easily, since all that should
                 need overriding is the M4AInfo class
         tag support for ra/ram?
+        tracknumber saving is broken on aac, other formats that have test files 
+            in tests/data appear to work perfectly.
+        
 
 
 Minor Tasks:

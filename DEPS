@@ -10,7 +10,7 @@ essential:
     python (>= 2.5)
     pygst 0.10
     gstreamer-plugins-good 0.10
-    mutagen (>= 1.9)
+    mutagen (>= 1.10)
     dbus-python
     pygtk (>= 2.10)
     python-glade2

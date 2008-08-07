@@ -763,13 +763,13 @@ class Playlist(object):
                     tr = None
             
             # readd meta
+            if not tr: continue
             if not tr.is_local() and meta is not None:
                 meta = cgi.parse_qs(meta)
                 for k, v in meta.iteritems():
                     tr[k] = v[0]
 
-            if tr:
-                tracks.append(tr)
+            tracks.append(tr)
 
         self.ordered_tracks = tracks
 

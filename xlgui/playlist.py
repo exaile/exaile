@@ -239,7 +239,6 @@ class Playlist(gtk.VBox):
         """
             Sets the tracks that this playlist should display
         """
-
         self.model.clear()
         self.list.set_model(self.model_blank)
 
@@ -400,6 +399,9 @@ class Playlist(gtk.VBox):
         event.remove_callback(self.on_add_tracks, 'tracks_added', self.playlist)
         event.remove_callback(self.on_remove_tracks, 'tracks_removed',
             self.playlist)
+        # Make sure the callbacks actually get removed before proceeding
+        event.wait_for_pending_events()          
+
         self.list.unset_rows_drag_dest()
         self.list.drag_dest_set(gtk.DEST_DEFAULT_ALL,
             self.list.targets,
@@ -456,7 +458,10 @@ class Playlist(gtk.VBox):
         # not in the playlist to the current playlist
         current_tracks = self.playlist.get_tracks()
         iter = self.model.get_iter_first()
-        if not iter: return
+        if not iter:
+            # Do we need to reactivate the callbacks when this happens?
+            self.add_track_callbacks()
+            return
         while True:
             track = self.model.get_value(iter, 0)
             if not track in current_tracks: 
@@ -467,7 +472,9 @@ class Playlist(gtk.VBox):
         #Re add all of the tracks so that they
         # become ordered 
         iter = self.model.get_iter_first()
-        if not iter: return
+        if not iter:
+            self.add_track_callbacks()
+            return
         self.playlist.ordered_tracks = []
         while True:
             track = self.model.get_value(iter, 0)
@@ -476,15 +483,21 @@ class Playlist(gtk.VBox):
             if not iter: break
     
         # We do not save the playlist because it is saved by the playlist manager?
-
-        event.add_callback(self.on_add_tracks, 'tracks_added', self.playlist)
-        event.add_callback(self.on_remove_tracks, 'tracks_removed',
-            self.playlist)
+        
+        self.add_track_callbacks()
         self.main.update_track_counts()
         
         if curtrack is not None:
             index = self.playlist.index(curtrack)
             self.playlist.set_current_pos(index)
+            
+    def add_track_callbacks(self):
+        """
+            Adds callbacks for added and removed tracks.
+        """
+        event.add_callback(self.on_add_tracks, 'tracks_added', self.playlist)
+        event.add_callback(self.on_remove_tracks, 'tracks_removed',
+            self.playlist)
             
     def drag_data_delete(self, tv, context):
         """

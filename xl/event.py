@@ -83,6 +83,7 @@ def remove_callback(function, type=None, object=None):
         The parameters passed should match those that were passed when adding
         the callback
     """
+    global EVENT_MANAGER
     EVENT_MANAGER.remove_callback(function, type, object)
 
 def idle_add(func, *args):
@@ -99,6 +100,27 @@ def idle_add(func, *args):
     """
     global IDLE_MANAGER
     IDLE_MANAGER.add(func, *args)
+    
+def events_pending():
+    """
+        Returns true if there are any events pending in the IdleManager.
+    """
+    global IDLE_MANAGER
+    return IDLE_MANAGER.events_pending()
+    
+def event_iteration():
+    """
+        Explicitly processes one event in the IdleManager.
+    """
+    global IDLE_MANAGER
+    IDLE_MANAGER.event_iteration()
+    
+def wait_for_pending_events():
+    """
+        Blocks until there are no pending events in the IdleManager.
+    """
+    global IDLE_MANAGER
+    IDLE_MANAGER.wait_for_pending_events()
 
 class Event(object):
     """
@@ -157,7 +179,7 @@ class IdleManager(threading.Thread):
             if self._stopped: return 
             while len(self.queue) == 0:
                 self.event.wait()
-            self.event.clear()
+                self.event.clear()
             func, args = self.queue[0]
             self.queue = self.queue[1:]
             
@@ -167,6 +189,28 @@ class IdleManager(threading.Thread):
                 if self._stopped: return 
             except:
                 common.log_exception(logger)
+                
+    def events_pending(self):
+        """ 
+            Returns true if there are events pending in the event queue.    
+        """
+        if len(self.queue) > 0:
+            return True
+        else:
+            return False
+            
+    def event_iteration(self):
+        """
+            Forces an event from the event queue to be processed.
+        """
+        self.event.set()
+        
+    def wait_for_pending_events(self):
+        """ 
+            Blocks until the event queue is empty.
+        """
+        while self.events_pending():
+            self.event_iteration()
 
     def add(self, func, *args):
         """

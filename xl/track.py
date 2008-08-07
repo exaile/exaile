@@ -197,10 +197,17 @@ class Track(object):
             Gets the track number in int format.  
         """
         t = self.get_tag('tracknumber')
-        if t == None:
-            return -1
-        t = t[0].split("/")[0]
-        return int(t)
+    
+        try:
+            if type(t) is tuple:
+                return int(t[0])
+
+            if t == None:
+                return -1
+            t = t[0].split("/")[0]
+            return int(t)
+        except ValueError:
+            return t
 
     def get_bitrate(self): 
         """

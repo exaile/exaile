@@ -13,16 +13,25 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 from xl.metadata import BaseFormat
-import wave
+import wave, sunau, aifc, sndhdr
+
+type_map = {
+        "aifc": aifc,
+        "aiff": aifc,
+        "au"  : sunau,
+        "wav" : wave,
+        }
 
 class WavFormat(BaseFormat):
     def load(self):
         try:
-            f = wave.open(self.loc, "rb")
+            opener = type_map[sndhdr.what(self.loc)]
+            f = opener.open(self.loc, "rb")
             length = f.getnframes() / f.getframerate()
             self.mutagen = {'bitrate': -1, 'length': length}
-        except IOError:
-            pass
-        self.mutagen = {'bitrate': -1, 'length': -1}
+        except (IOError, KeyError):
+            self.mutagen = {'bitrate': -1, 'length': -1}
+
+
         
 

@@ -79,7 +79,7 @@ class BaseFormat(object):
                     t = self.get_info(tag)
                 except KeyError:
                     pass
-            if not t and tag in self.tag_mapping:
+            if t == None and tag in self.tag_mapping:
                 try:
                     t = self._get_tag(raw, self.tag_mapping[tag])
                     if type(t) in [str, unicode]:
@@ -88,7 +88,7 @@ class BaseFormat(object):
                         t = [unicode(u) for u in list(t)]
                 except (KeyError, TypeError):
                     pass
-            if not t and self.others:
+            if t == None and self.others:
                 try:
                     t = self._get_tag(raw, tag)
                     if type(t) in [str, unicode]:
@@ -142,13 +142,19 @@ class BaseFormat(object):
         try:
             return self.mutagen.info.length
         except:
-            pass
+            try:
+                return self.mutagen['length']
+            except:
+                return None
 
     def get_bitrate(self):
         try:
             return self.mutagen.info.bitrate
         except:
-            pass
+            try:
+                return self.mutagen['bitrate']
+            except:
+                return None
 
 # vim: et sts=4 sw=4
 

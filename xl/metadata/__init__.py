@@ -20,7 +20,7 @@ from _base import *
 import asf, flac, mod, mp3, mp4, mpc, ogg, speex, tta, wav, wv
 
 # lossy:    aac, mp2, mp3, musepack, speex, vorbis, wma
-# lossless: flac, tta, wav, wavpack
+# lossless: alac (in m4a), flac, tta, wav, wavpack
 # chip:     669, amf, dsm, far, it, med, mod, mtm, okt, s3m, stm, ult, xm
 # other:    ac3, aiff, au, midi
 # tags not read:  real, shorten (can we fix these?)

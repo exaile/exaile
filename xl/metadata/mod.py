@@ -48,3 +48,6 @@ class ModFormat(BaseFormat):
 
     def get_bitrate(self):
         return -1
+
+# vim: et sts=4 sw=4
+

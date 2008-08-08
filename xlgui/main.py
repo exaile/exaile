@@ -17,11 +17,13 @@ pygtk.require('2.0')
 pygst.require('0.10')
 import gst
 import gtk, gtk.glade, gobject, pango
-from xl import xdg, event, track
+from xl import xdg, event, track, settings
 import xl.playlist
 from xlgui import playlist, cover, guiutil, commondialogs
 from gettext import gettext as _
 import xl.playlist, re, os, threading
+
+settings = settings.SettingsManager.settings
 
 class PlaybackProgressBar(object):
     def __init__(self, bar, player):
@@ -668,14 +670,17 @@ class MainWindow(object):
             Called when the window is resized or moved
         """
         (width, height) = self.window.get_size()
-        self.settings['gui/mainw_height'] = height
-        self.settings['gui/mainw_width'] = width
+        if [width, height] != [ settings.get_option("gui/mainw_"+key, -1) for \
+                key in ["width", "height"] ]:
+            self.settings['gui/mainw_height'] = height
+            self.settings['gui/mainw_width'] = width
         (x, y) = self.window.get_position()
-        self.settings['gui/mainw_x'] = x
-        self.settings['gui/mainw_y'] = y
-
+        if [x, y] != [ settings.get_option("gui/mainw_"+key, -1) for \
+                key in ["x", "y"] ]:
+            self.settings['gui/mainw_x'] = x
+            self.settings['gui/mainw_y'] = y
         pos = self.splitter.get_position()
-        if pos > 10:
+        if pos > 10 and pos != self.settings.get_option("gui/mainw_sash_pos", -1):
             self.settings['gui/mainw_sash_pos'] = pos
 
         return False

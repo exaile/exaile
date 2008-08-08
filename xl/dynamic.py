@@ -12,15 +12,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from xl import xdg, common, manager, event
+from xl import xdg, common, event, providers
 import os, time, urllib, random
 
-class DynamicManager(manager.SimpleManager):
+class DynamicManager(providers.ProviderHandler):
     """
         handles matching of songs for dynamic playlists
     """
     def __init__(self, collection):
-        manager.SimpleManager.__init__(self)
+        providers.ProviderHandler.__init__(self, "dynamic_playlists")
         self.buffersize = 5
         self.collection = collection
         self.cachedir = os.path.join(xdg.get_cache_dir(), 'dynamic')
@@ -28,7 +28,6 @@ class DynamicManager(manager.SimpleManager):
             os.makedirs(self.cachedir)
 
         event.add_callback(self._dynamic_callback, 'pl_current_changed')
-
 
     def find_similar_tracks(self, track, limit=-1, exclude=[]):
         """
@@ -62,7 +61,7 @@ class DynamicManager(manager.SimpleManager):
 
     def _query_sources(self, track):
         info = []
-        for source in self.get_methods():
+        for source in self.get_providers():
             sinfo = source.get_results(track['artist'])
             info += sinfo
         info.sort(reverse=True) #TODO: merge artists that are the same
@@ -134,4 +133,5 @@ class DynamicSource(object):
         self.manager = manager
 
 
+# vim: et sts=4 sw=4
 

@@ -662,7 +662,9 @@ class Playlist(gtk.VBox):
         """
         col_struct = self.column_by_display[col.get_title()]
         name = 'gui/col_width_%s' % col_struct.id
-        self.settings[name] = col.get_width()
+        w = col.get_width()
+        if w != self.settings.get_option(name, -1):
+            self.settings[name] = w
         if col_struct.id == 'rating':
             self.rating_width = min(col.get_width(), self.row_height * 4)
             # create_rating_images(self)

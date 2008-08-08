@@ -4,12 +4,18 @@ except:
     import xml.etree.ElementTree as ETree
 import urllib
 from xl.dynamic import DynamicSource
+from xl import providers
+
+LFMS = None
 
 def enable(exaile):
-    exaile.dynamic.add_search_method(LastfmSource())
+    global LFMS
+    LFMS = LastfmSource()
+    providers.register("dynamic_playlists", LFMS)
 
 def disable(exaile):
-    exaile.dynamic.remove_search_method_by_name('lastfm')
+    global LFMS
+    providers.unregister("dynamic_playlists", LFMS)
 
 
 class LastfmSource(DynamicSource):

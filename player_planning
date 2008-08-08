@@ -61,6 +61,8 @@ device recognition/persistence:
             - if we also store the fs UUID the we coudl just require that
                 when HAL is absent devices be manually added, and therafter
                 use one of the above methods to detect insetion/removal
+            - this also wouldn't handle pure-mtp devices, so we'd have to poll
+                libmtp if we want auto-detect
 
 transfer&syncing:
     drag and drop from collection to device or vv. should work perfectly
@@ -185,6 +187,28 @@ per-device considerations:
                 there anything that supports 7?
         upnp:
             need to find bindings
+            python-coherence?
+
+
+what this should all look like to the user:
+    cd (and similar) media: 
+        user inserts disk
+        a new tab in exaile appears for the disk, automatically listing
+            all the tacks and retrieving metadata
+    devices (eg ipod):
+        user plugs in device
+        a new tab appears with the name of the device
+        the user clicks the connect button in this tab to connect to the
+            device, retrieving the track listing and playlists
+    network shares:
+        user opens the device manager
+        user clicks "Add" button
+        user selects the type of share to connect to, a list of detected
+            shares is displayed, along with an option to manually specify
+            the share location
+        user selects a share and presses OK
+        a new tab appears with the name of the share. the track listing and
+            any other info is displayed
 
 
 code planning:
@@ -193,7 +217,4 @@ code planning:
         .playlists - playlists manager for playlists on the device
         .connect() - connect to the device, load tracks/playlists
         .disconnect() - safely disconnect from the device
-        .transfer() - execute pending operations on the device
 
-needs subclasses of PlaylistManager, Collection and Library that will
-handle the sync to the device automatically when transfer() gets called

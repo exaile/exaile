@@ -52,6 +52,7 @@ unregister = MANAGER.unregister_provider
 
 class ProviderHandler(object):
     def __init__(self, servicename):
+        self.servicename = servicename
         event.add_callback(self._new_cb, "%s_provider_added"%servicename)
         event.add_callback(self._del_cb, "%s_provider_removed"%servicename)
 
@@ -67,5 +68,9 @@ class ProviderHandler(object):
     def on_del_provider(self, provider):
         pass # for overriding
 
+    def get_providers(self):
+        return MANAGER.get_providers(self.servicename)
 
+
+# vim: et sts=4 sw=4
 

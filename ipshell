@@ -2,6 +2,7 @@
 
 # for those of us who rather like ipython :P
 from IPython.Shell import IPShellEmbed
+from xl import settings
 import exaile as ex
 from xl import playlist
 ex.main()

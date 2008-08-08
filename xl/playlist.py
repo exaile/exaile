@@ -395,7 +395,8 @@ class Playlist(object):
             self.filtered = False
             return self._ordered_tracks
         else:
-            self.filtered_tracks = self.search(keyword)
+            self.filtered_tracks = self.search(keyword, sort_fields=('artist',
+                'album', 'tracknumber'))
             self.filtered = True
             return self.filtered_tracks
 
@@ -609,26 +610,25 @@ class Playlist(object):
         event.log_event('pl_current_changed', self, self.current_pos)
         return self.get_current()
 
-    def search(self, phrase, sort_fields=None, return_lim=-1,
-        use_resultset=False):
+    def search(self, phrase, sort_fields=None, return_lim=-1):
         """
             searches the playlist
         """
         searcher = trackdb.TrackSearcher()
-        tracks = searcher.search(phrase, self.ordered_tracks)
 
-        #TODO: these can probably be done more-efficiently via storm
+        search_db = {}
+        for track in self.ordered_tracks:
+            search_db[track.get_loc()] = track
+        tracks = searcher.search(phrase, search_db)
+        tracks = tracks.values()
+
         if sort_fields:
-            tracks = list(tracks)
             if sort_fields == 'RANDOM':
                 random.shuffle(tracks)
             else:
                 tracks = trackdb.sort_tracks(sort_fields, tracks)
         if return_lim != -1:
-            tracks = list(tracks)[:return_lim]
-
-        if not use_resultset:
-            tracks = list(tracks)
+            tracks = tracks[:return_lim]
 
         return tracks
 
@@ -763,13 +763,13 @@ class Playlist(object):
                     tr = None
             
             # readd meta
+            if not tr: continue
             if not tr.is_local() and meta is not None:
                 meta = cgi.parse_qs(meta)
                 for k, v in meta.iteritems():
                     tr[k] = v[0]
 
-            if tr:
-                tracks.append(tr)
+            tracks.append(tr)
 
         self.ordered_tracks = tracks
 

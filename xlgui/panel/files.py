@@ -298,7 +298,7 @@ class FilesPanel(panel.Panel):
             (stuff, ext) = os.path.splitext(value)
             if os.path.isdir(value):
                 self.append_recursive(tracks, value)
-            elif xl.track.is_valid_track(path):
+            elif xl.track.is_valid_track(value):
                 tr = self.get_track(value)
                 if tr:
                     tracks.append(tr)

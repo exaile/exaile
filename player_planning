@@ -52,17 +52,9 @@ device recognition/persistence:
         - if there's a HAL key that would work instead that may be better
             storage.serial?
         - is there a non-HAL way to detect when new fses are mounted?
-            - we could pyinotify /media and /mnt I guess, but that may not be
-                terribly reliable. it also means having to come up with a way to
-                detect the type of the device from its contents.
-            - alternatively, we could just watch /etc/mtab, which is liekly 
-                more-efficient. we can also read the fs type from mtab which 
-                would let us at a minimum disinguish cds from drives
-            - if we also store the fs UUID the we coudl just require that
-                when HAL is absent devices be manually added, and therafter
-                use one of the above methods to detect insetion/removal
-            - this also wouldn't handle pure-mtp devices, so we'd have to poll
-                libmtp if we want auto-detect
+            - best solution thus far: don't try to auto-detect, just poll
+                mtab and libmtp when the device manager is open and require
+                users to manually connect through the device manager
 
 transfer&syncing:
     drag and drop from collection to device or vv. should work perfectly
@@ -122,7 +114,7 @@ display:
             - plugins can set which of these are visible and change the defaults
     panel:
         show remaining space at bottom of the panel
-            also show battery status if possible (ETA to charged would be nice)
+            also show battery status if possible
             Battery:        xx% 
             Space used:     xx%
         how should we expose playlists/podcasts?
@@ -146,6 +138,12 @@ display:
             while transferring the progressbar will appear below all panels, 
                 just as the rescan collection and other tasks do
             queue should be editable while transferring, at least for append
+        info panel:
+            another entry in the drop-down with playlists/queue/etc, displays
+                stuff like device name, model, version, vendor name, device
+                type, detailed battery/space information.
+                - libmtp has built-in support for getting this info, other
+                    devices will have to rely on HAL
 
 per-device considerations:
     mp3 players:
@@ -161,8 +159,8 @@ per-device considerations:
             - show one transfer queue per mount point
             - can we detect these situations via HAL?
                 storage.originating_device?
-            - when transferring songs due to a playlist, try to put them all
-                on the same device
+            - when transferring songs due to a playlist/podcast, try to put 
+                them all on the same device
     optical media:
         cds:
             audio:
@@ -185,9 +183,12 @@ per-device considerations:
         daap:
             python-daap is currently limited to version 6 of the protocol, is 
                 there anything that supports 7?
+                - may not be feasable, as v7 uses certificate authentication
         upnp:
             need to find bindings
             python-coherence?
+            - rhythmbox has a upnp plugin based on coherence we can use as 
+                an example
 
 
 what this should all look like to the user:
@@ -202,13 +203,30 @@ what this should all look like to the user:
             device, retrieving the track listing and playlists
     network shares:
         user opens the device manager
+        detected shares are displayed along with other devices
+        user selects share to connect to and presses "Connect"
+        a new tab appears with the name of the share. the track listing and
+            any other info is displayed
+
+    manual:
+        user opens the device manager        
         user clicks "Add" button
-        user selects the type of share to connect to, a list of detected
-            shares is displayed, along with an option to manually specify
-            the share location
+        user selects the type of device to connect to, a list of detected
+            devices is displayed, along with an option to manually specify
+            the device location
         user selects a share and presses OK
         a new tab appears with the name of the share. the track listing and
             any other info is displayed
+
+
+rockbox:
+    detect whether rockbox is installed and adjust appropriately
+    update rb db in-place?
+        - use rb lib? (may be difficult, as we can't embed C)
+        - reimplement lib? (more portable but will need constant maintenance)
+            - db is supposed to be really simple (because some devices dont 
+                have much power), so should be possible
+            - may have to take endianness issues into account
 
 
 code planning:

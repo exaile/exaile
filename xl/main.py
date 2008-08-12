@@ -43,7 +43,8 @@ class Exaile(object):
         """
             Initializes Exaile.
         """
-        self.quitting = False
+        self.quitting = Fals
+        self.loading = True
         (self.options, self.args) = self.get_options().parse_args()
         if self.options.debugevent:
             event.EVENT_MANAGER.use_logger = True
@@ -85,28 +86,32 @@ class Exaile(object):
 
         firstrun = self.settings.get_option("general/first_run", True)
 
+        #initialize PluginsManager
+        from xl import plugins
+        logger.info("Loading plugins...")
+        self.plugins = plugins.PluginsManager(self)
+
         # Initialize the collection
         logger.info(_("Loading collection..."))
         from xl import collection
         self.collection = collection.Collection("Collection",
                 location=os.path.join(xdg.get_data_dirs()[0], 'music.db') )
+        event.log_event("collection_loaded", self, None)
 
-        #Set up the player itself.
+        #Set up the player and playbakc queue
         from xl import player
         self.player = player.get_player()()
-
-        #Set up the playback Queue
         self.queue = player.PlayQueue(self.player)
+        event.log_event("player_loaded", self, None)
 
         #initalize PlaylistsManager
         from xl import playlist
         self.playlists = playlist.PlaylistManager()
         self.smart_playlists = playlist.PlaylistManager('smart_playlists',
             playlist.SmartPlaylist)
-        self.stations = playlist.PlaylistManager('radio_stations')
-
         if firstrun:
             self._add_default_playlists() 
+        event.log_event("playlists_loaded", self, None)
 
         #initialize dynamic playlist support
         from xl import dynamic
@@ -125,6 +130,7 @@ class Exaile(object):
         #add cd device support to hal
         from xl import cd
         self.hal.add_handler(cd.CDHandler())
+        event.log_event("devices_loaded", self, None)
 
         # cover manager
         from xl import cover
@@ -133,6 +139,7 @@ class Exaile(object):
 
         # Radio Manager
         from xl import radio
+        self.stations = playlist.PlaylistManager('radio_stations')
         self.radio = radio.RadioManager()
 
         #initialize LyricsManager
@@ -147,11 +154,10 @@ class Exaile(object):
             self.gui = xlgui.Main(self)
             import gobject
             gobject.idle_add(self.splash.destroy)
+            event.log_event("gui_loaded", self, None)
 
-        #initialize PluginsManager
-        from xl import plugins
-        logger.info("Loading plugins...")
-        self.plugins = plugins.PluginsManager(self)
+        self.loading = False
+        event.log_event("exaile_loaded", self, None)
 
     def __show_splash(self):
         """

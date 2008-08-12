@@ -46,6 +46,11 @@ device recognition/persistence:
                 not very informative, only defined for 16 player classes
                 probably goes with playlist_path
             audio_folders
+                list of folders where audo can be found: sometimes also includes
+                    the directory recordings go to, but the first entry appears 
+                    to always be the music dir not the record dir.
+                - handle by always choosing the first, unless others reside
+                    on different fses
     require user to explicitly connect to a device the first time, but after that
         attempt to auto-connect
         - we could use filesystem UUIDs to recognize players with 100% accuracy
@@ -142,8 +147,25 @@ display:
             another entry in the drop-down with playlists/queue/etc, displays
                 stuff like device name, model, version, vendor name, device
                 type, detailed battery/space information.
-                - libmtp has built-in support for getting this info, other
-                    devices will have to rely on HAL
+                - libmtp provides the following info:
+                    device name
+                    device serial number
+                    manufacturer
+                    battery level
+                    model name
+                    device version
+                    free / total / used space
+                - HAL provides the following info:
+                    info.vendor
+                    info.product
+                    storage.vendor - same as info.vendor, usually
+                    storage.model
+                    storage.size
+                    storage.serial
+                - gpod provides nothing useful
+                - rockbox:
+                    rockbox-info.txt
+                    
 
 per-device considerations:
     mp3 players:
@@ -161,6 +183,8 @@ per-device considerations:
                 storage.originating_device?
             - when transferring songs due to a playlist/podcast, try to put 
                 them all on the same device
+        devices are auto-tabbed when possible but are not auto-connected
+            - device prefs will allow opt-in autoconnect 
     optical media:
         cds:
             audio:
@@ -179,6 +203,8 @@ per-device considerations:
                 do these exist? we can support them anyway I guess since they'd
                     essentially be mp3 cds with a different HAL signature and more
                     capacity
+        all optical media are auto-tabbed and auto-connected, track metadata is
+            loaded asynchronously
     network:
         daap:
             python-daap is currently limited to version 6 of the protocol, is 
@@ -189,6 +215,8 @@ per-device considerations:
             python-coherence?
             - rhythmbox has a upnp plugin based on coherence we can use as 
                 an example
+        network shares are never auto-tabbed or -connected
+            - device prefs will allow opt-in autoconnect 
 
 
 what this should all look like to the user:
@@ -221,18 +249,69 @@ what this should all look like to the user:
 
 rockbox:
     detect whether rockbox is installed and adjust appropriately
+        - just treat this as another device class that overrides all others
+            - this won't handle dual-booting ipods nicely, but all other
+                players will be fine
     update rb db in-place?
         - use rb lib? (may be difficult, as we can't embed C)
+            - appears difficult to build rb lib for 386 - need to ask rb devs
+                - if we can build for 32-bit x86, that would handle most use
+                    cases ad would probably be sufficient, though not ideal
+                - alternatively, this could be a plugin that has to be either
+                    built into a distro package (so it'd work fine for any arch),
+                    or compiled by the user
+                - this is still ugly >.<
         - reimplement lib? (more portable but will need constant maintenance)
             - db is supposed to be really simple (because some devices dont 
                 have much power), so should be possible
             - may have to take endianness issues into account
-
+            - this would be WAY more portable than the C lib method, but may 
+                be more difficult to maintain
+                - need to ask rb devs if there are docs on the DB format. i can 
+                    probably replicate it given time, but docs would be WAY 
+                    better.
+                - will need a method to ensure we don't accidentally corrupt 
+                    users' DBs due to version differences. setting a lower 
+                    bound on rb ver is easy enough, but upper bounds will 
+                    be more difficult
+                    - we could store the highest known good ver, and if there's
+                        any irregularity in handling the DB and the rb ver is
+                        higher than the known good ver, dont continue.
+    allow updating rockbox firmware through exaile?
+        - would need auto-detection of device type
+            can probably be done via rockbox-info.txt
+        - save a backup of the old version and allow reversion to the backup
+            in the event something bad happens
+            - where should this be saved?
+                probably on the local computer rather than the device, as
+                    rb is decently large (5-20 MB uncompressed)
+        - allow other items to be updated as well? fonts/etc?
+            - offering an exaile rockbox theme would be really cool
+    offer to install rb firmware for user if supported device is detected?
+        - probably too complex for us, but notifying the user that their
+            device is supported and linking them to install instructions
+            is feasable
 
 code planning:
     Device class:
         .collection - collection object for all tracks on the device
         .playlists - playlists manager for playlists on the device
+        .podcasts - podcasts manager for podcasts on the device
         .connect() - connect to the device, load tracks/playlists
         .disconnect() - safely disconnect from the device
+        .add(object) - add an object to the device. this can be a track object,
+                a podcast, or a playlist.
 
+    Library:
+        .set_layout(layout) - sets the layout for files in the library, uses
+            the same syntax as ex falso (default: <albumartist|<albumartist>|<artist|<artist>|Unknown>>/<album|<album>|Unknown>/<tracknumber|<tracknumber> - ><title|<title>|Unknown> - this uses a basic /artist/album/num - title structure, but takes into account albumartist and the possibility of missing tags.)
+        .add(loc, move=False) - adds the file from loc to the library. the optional move argument allows the file to be moved into the library structure rather than copied
+        .delete(loc) - permanently deletes a file
+        .get_freespace()
+        .get_totalspace()
+        .get_usedspace()
+        .get_usedspace_percent()
+
+
+mtp is going to need temporary copying of files for playing off the device, need an API for this
+    handle in get_loc_for_io()? would mean a potentially lengthy delay however.

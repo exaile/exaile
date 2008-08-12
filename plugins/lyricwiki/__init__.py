@@ -1,5 +1,6 @@
 from xl.lyrics import LyricSearchMethod
 from xl.lyrics import LyricsNotFoundException
+from xl import event
 
 try:
     import xml.etree.cElementTree as cETree
@@ -15,6 +16,12 @@ def enable(exaile):
         Enables the lyric wiki plugin that fetches track lyrics
         from lyricswiki.org
     """
+    if exaile.loading:
+        event.add_callback(_enable, "exaile_loaded")
+    else:
+        _enable(None, exaile, None)
+
+def _enable(eventname, exaile, nothing):
     search_method = LyricWiki()
     exaile.lyrics.add_search_method(search_method)
 

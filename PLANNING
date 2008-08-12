@@ -41,6 +41,8 @@ Implemented:
     Internet Radio
         not at all feature-complete
     Lyrics Manager
+        should we cache in ~/.lyrics instead of our own place?
+            format: standard text in ~/.lyrics/artist/title.lyric
     Dynamic Playlists
     MMKeys
         Only for gnome >= 2.20
@@ -109,7 +111,13 @@ Things that can probably be implemented at this stage:
         tag support for ra/ram?
         tracknumber saving is broken on aac, other formats that have test files 
             in tests/data appear to work perfectly.
-        
+    Providers Conversion:
+        the following systems still need to be converted to providers:
+        - covers
+        - lyrics
+        - radio
+        - devices/hal (assignee: Aren Olson)
+        - all plugins providing backends for the above
 
 
 Minor Tasks:
@@ -189,7 +197,9 @@ GUIPLANNING:
             - alternatively, replace tray tooltip with OSD if enabled
         OSD progressbar should be togglable (perhaps make {progressbar}
             element available in customizer?)
-        allow using any arbitrary tag for a column in the playlist area
+        themable OSD? eg allow choice of background image, round corners, etc.
+        allow using any arbitrary tag for a column in the playlist area/element
+            in OSD
         allow custom tag trees for the collection pane
 
 

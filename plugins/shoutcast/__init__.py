@@ -1,11 +1,17 @@
 import re, urllib, os
 from xl.radio import *
-from xl import common, playlist, xdg
+from xl import common, playlist, xdg, event
 from xlgui import guiutil, commondialogs
 from gettext import gettext as _
 import gtk, gobject
 
 def enable(exaile):
+    if exaile.loading:
+        event.add_callback(_enable, "exaile_loaded")
+    else:
+        _enable(None, exaile, None)
+
+def _enable(devicename, exaile, nothing):
     exaile.radio.add_station(ShoutcastRadioStation())
 
 def disable(exaile):

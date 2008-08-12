@@ -78,7 +78,13 @@ def _enable(exaile):
     PLUGIN.present()
 
 def enable(exaile):
-    gobject.idle_add(_enable, exaile)
+    def enb(eventname, exaile, nothing):
+        gobject.idle_add(_enable, exaile)
+
+    if exaile.loading:
+        event.add_callback(enb, "exaile_loaded")
+    else:
+        enb(None, exaile, None)
 
 def console_destroyed(*args):
     global PLUGIN

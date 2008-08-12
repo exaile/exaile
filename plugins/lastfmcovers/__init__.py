@@ -1,7 +1,14 @@
 import md5, re, urllib
 from xl.cover import *
+from xl import event
 
 def enable(exaile):
+    if exaile.loading:
+        event.add_callback(_enable, "exaile_loaded")
+    else:
+        _enable(None, exaile, None)
+
+def _enable(eventname, exaile, nothing):
     exaile.covers.add_search_method(LastFMCoverSearch())
 
 def disable(exaile):

@@ -1,10 +1,16 @@
 import _ecs as ecs
 import urllib, md5
 from xl.cover import *
-from xl import common
+from xl import common, event
 
 AMAZON_KEY = "15VDQG80MCS2K1W2VRR2" # Adam Olsen's key
 def enable(exaile):
+    if exaile.loading:
+        event.add_callback(_enable, "exaile_loaded")
+    else:
+        _enable(None, exaile, None)
+
+def _enable(eventname, exaile, nothing):
     exaile.covers.add_search_method(
         AmazonCoverSearch(AMAZON_KEY) 
     )

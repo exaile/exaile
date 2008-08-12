@@ -1,11 +1,12 @@
 from xl.lyrics import LyricSearchMethod
 from xl.lyrics import LyricsNotFoundException
 import cgi, re
+from xl import event
 
 try:
     import xml.etree.cElementTree as cETree
 except:
-    import cElementTree as cETree
+    import xml.etree.ElementTree as cETree
 
 import urllib
 
@@ -13,7 +14,7 @@ search_method = None
 
 ##
 ## Notice.  Please request your own key from lyricswiki.com/api.  DO NOT USE
-## KEY FOR YOUR OWN SOFTWARE.
+## THIS KEY FOR YOUR OWN SOFTWARE.
 ##
 ## Yeah, key is encoded.  No, it's not a good way to protect it, but there's
 ## not really a great way to do it.
@@ -24,6 +25,12 @@ def enable(exaile):
         Enables the lyric wiki plugin that fetches track lyrics
         from lyricwiki.org
     """
+    if exaile.loading:
+        event.add_callback(_enable, "exaile_loaded")
+    else:
+        _enable(None, exaile, None)
+
+def _enable(eventname, exaile, nothing):
     search_method = LyricsFly()
     exaile.lyrics.add_search_method(search_method)
 

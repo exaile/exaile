@@ -19,14 +19,13 @@ from _base import *
 
 import asf, flac, mod, mp3, mp4, mpc, ogg, speex, tta, wav, wv
 
-# lossy:    aac, mp2, mp3, musepack, speex, vorbis, wma
+# lossy:    aac (in m4a), mp2, mp3, musepack, speex, vorbis, wma
 # lossless: alac (in m4a), flac, tta, wav, wavpack
 # chip:     669, amf, dsm, far, it, med, mod, mtm, okt, s3m, stm, ult, xm
 # other:    ac3, aiff, au, midi
 # tags not read:  real, shorten (can we fix these?)
 formats = {
         '669'   : mod.ModFormat,
-        'aac'   : mp4.MP4Format,
         'ac3'   : None,
         'aif'   : wav.WavFormat,
         'aiff'  : wav.WavFormat,

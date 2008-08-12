@@ -3,6 +3,7 @@
 dist: clean
 	python dist_plugin.py amazoncovers
 	python dist_plugin.py audioscrobbler
+	python dist_plugin.py console
 	python dist_plugin.py gnomemmkeys	
 	python dist_plugin.py lastfmcovers
 	python dist_plugin.py lastfmdynamic

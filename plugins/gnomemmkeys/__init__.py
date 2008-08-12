@@ -2,7 +2,7 @@
 GNOME_MMKEYS = None
 EXAILE = None
 
-from xl import common
+from xl import common, event
 import dbus, logging, traceback
 logger = logging.getLogger(__name__)
 
@@ -23,9 +23,14 @@ def callback(key):
         EXAILE.queue.next()
 
 def enable(exaile):
+    if exaile.loading:
+        event.add_callback(_enable, "player_loaded")
+    else:
+        _enable(None, exaile, None)
+
+def _enable(eventname, exaile, nothing):
     global GNOME_MMKEYS, EXAILE
     EXAILE = exaile
-
     def on_gnome_mmkey(app, key):
         if app == "Exaile":
             callback(key)

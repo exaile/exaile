@@ -5,7 +5,7 @@ from tests.base import BaseTestCase
 class CollectionTestCase(BaseTestCase):
     def testCount(self):
         tracks = list(self.collection.search(''))
-        assert len(tracks) == 7, "Number of tracks scanned is incorrect"
+        assert len(tracks) == 15, "Number of tracks scanned is incorrect"
 
     def testSaveLoad(self):
         self.collection.save_to_location()
@@ -13,7 +13,7 @@ class CollectionTestCase(BaseTestCase):
         # test col
         col = collection.Collection("TestCollection2", self.temp_col_loc)
         tracks = list(col.search(''))
-        assert len(tracks) == 7, "Number of tracks scanned is incorrect"
+        assert len(tracks) == 15, "Number of tracks scanned is incorrect"
 
         # test libraries
         l = col.get_libraries()
@@ -27,7 +27,7 @@ class CollectionTestCase(BaseTestCase):
         tracks = list(c.search('Black', sort_fields=('artist', 'album',
             'tracknumber')))
         assert len(tracks) == 1, "Keyword search failed"
-        assert tracks[0]['title'].find('black') > -1, "Keyword search failed"
+        assert tracks[0]['title'][0].find('black') > -1, "Keyword search failed"
 
     def testNotSearch(self):
         tracks = list(self.collection.search(

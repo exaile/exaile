@@ -241,7 +241,7 @@ class EventManager(object):
 
             event: the Event to emit [Event]
         """
-        self.lock.acquire()
+        if not _TESTING: self.lock.acquire()
         # find callbacks that match the Event
         callbacks = []
         for tcall in [None, event.type]:
@@ -266,7 +266,7 @@ class EventManager(object):
                 # the function we're trying to call disappeared
                 self.remove_callback(call, event.type, event.object)
             except ReferenceError:
-                print traceback.print_exc()
+                traceback.print_exc()
                 try:
                     self.remove_callback(call, event.type, event.object)
                 except:
@@ -278,7 +278,7 @@ class EventManager(object):
                     common.log_exception(logger)
                 else:
                     traceback.print_exc()
-        self.lock.release()
+        if not _TESTING: self.lock.release()
 
     def emit_async(self, event):
         """

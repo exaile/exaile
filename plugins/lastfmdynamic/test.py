@@ -8,8 +8,8 @@ class LastFMDymamic(BaseTestCase):
         BaseTestCase.setUp(self)
 
         self.dm = dynamic.DynamicManager(collection.Collection('Test'))
-        self.plugin = lastfmdynamic.LastfmSource()
-        self.dm.add_search_method(self.plugin)
+        self.plugin = self.load_plugin('lastfmdynamic')
+        self.plugin.enable(self)
 
     def testFindSimilarArtists(self):
         

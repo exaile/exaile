@@ -35,8 +35,8 @@ class LyricWiki(LyricSearchMethod):
     name= "lyricwiki"
     def find_lyrics(self, track):
         search = "http://lyricwiki.org/api.php?artist=%s&song=%s&fmt=xml" % (
-            urllib.quote_plus(track["artist"]), 
-            urllib.quote_plus(track["title"]))
+            urllib.quote_plus(track["artist"][0]), 
+            urllib.quote_plus(track["title"][0]))
         sock = urllib.urlopen(search)
         xml = sock.read()
         sock.close()

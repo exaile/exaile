@@ -18,7 +18,7 @@ class CollectionPanelTestCase(base.BaseTestCase):
         panel = self.gui.collection_panel
         selection = panel.tree.get_selection()
 
-        selection.select_path((1,))
+        selection.select_path((0,))
 
         model = panel.tree.get_model()
         
@@ -28,5 +28,5 @@ class CollectionPanelTestCase(base.BaseTestCase):
         selection.select_path((3,))
     
         track = page.get_selected_tracks()[0]
-        assert track['title'] == 'foo', "Collection panel " \
+        assert track['title'][0] == 'Truly', "Collection panel " \
             "append_to_playlist failed"

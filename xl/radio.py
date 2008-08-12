@@ -25,7 +25,7 @@ class RadioManager(object):
         >>> manager.add_station(RadioStation())
         >>> lists = manager.get_lists('test_station')
         >>> pl = lists[0].get_playlist()
-        >>> print pl.get_tracks()[0]['title']
+        >>> print pl.get_tracks()[0]['title'][0]
         Test Track
         >>>
     """

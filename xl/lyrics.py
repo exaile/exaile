@@ -66,7 +66,7 @@ class LyricsManager(SimpleManager):
         # See if we want to update the track,
         # but only if we have lyrics
         if update_track:
-            track["lyrics"] = lyrics
+            track["lyrics"] = [lyrics]
             track.write_tags()
         
         return (lyrics, source, url)
@@ -106,4 +106,7 @@ class LocalLyricSearch(LyricSearchMethod):
     name="local"
     def find_lyrics(self, track):
         # TODO do people store lyrics in other files?
-        return (track["lyrics"], "file", "")
+        if track['lyrics'] == None:
+            raise LyricsNotFoundException()
+        return (track["lyrics"][0], "file", "")
+            

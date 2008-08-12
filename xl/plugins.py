@@ -14,7 +14,7 @@
 
 
 from xl import xdg, common, settings
-import os, sys, imp, urllib, tarfile, shutil
+import os, sys, imp, urllib, tarfile, shutil, traceback
 
 import logging
 logger = logging.getLogger(__name__)
@@ -90,6 +90,7 @@ class PluginsManager(object):
             self.enabled_plugins[pluginname] = plugin
             logger.debug("Loaded plugin %s"%pluginname)
         except:
+            traceback.print_exc()
             logger.warning("Unable to enable plugin %s"%pluginname)
             common.log_exception(logger)
             return False
@@ -101,6 +102,7 @@ class PluginsManager(object):
             plugin.disable(self.exaile)
             del self.enabled_plugins[pluginname]
         except:
+            traceback.print_exc()
             logger.warning("Unable to fully disable plugin %s"%pluginname)
             common.log_exception(logger)
             return False

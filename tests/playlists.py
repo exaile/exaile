@@ -25,7 +25,7 @@ class SmartPlaylistTestCase(BasePlaylistTestCase):
         tracks = p.get_tracks()
 
         for i, track in enumerate(tracks):
-            assert i+1 == int(track['tracknumber']), \
+            assert i+1 == track.get_track(), \
                 "SmartPlaylist search failed"
 
     def testSaveLoad(self):

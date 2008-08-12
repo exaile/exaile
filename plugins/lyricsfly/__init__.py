@@ -52,8 +52,8 @@ class LyricsFly(LyricSearchMethod):
     def find_lyrics(self, track):
         search = "http://lyricsfly.com/api/api.php?i=%s&a=%s&t=%s" % (
             license_key.decode('rot13').decode('base64'),
-            rep(track["artist"]), 
-            rep(track["title"]))
+            rep(track["artist"][0]), 
+            rep(track["title"][0]))
         sock = urllib.urlopen(search)
         xml = sock.read()
         sock.close()

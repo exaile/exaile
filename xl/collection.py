@@ -452,7 +452,6 @@ class Library(object):
                     if count % notify_interval == 0:
                         event.log_event('tracks_scanned', self, count)
 
-
         if notify_interval is not None:
             event.log_event('tracks_scanned', self, count)
 

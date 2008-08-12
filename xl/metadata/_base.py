@@ -15,7 +15,7 @@
 import os
 from xl import common
 
-INFO_TAGS = ['bitrate', 'length']
+INFO_TAGS = ['bitrate', 'length', 'lyrics']
 
 class NotWritable(Exception):
     pass

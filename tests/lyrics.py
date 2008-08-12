@@ -25,6 +25,7 @@ class LyricsBaseTestCase(BaseTestCase):
         self.fail_track = Track("tests/data/music/testartist/first/1-black.ogg")
         # Setup plugins
         self.lyricsfly_plugin =  self.load_plugin("lyricsfly")
+        self.lyricsfly_plugin.enable(self)
         # Remove all existing methods from lyrics manager
         methods = self.lyrics.methods;
         self.lyrics.methods = {}
@@ -68,7 +69,7 @@ class LyricsTestCase(LyricsBaseTestCase):
         # Load the track to see if it saved
         track = Track("tests/data/music/delerium/chimera/05 - Truly.mp3")
 
-        assert(track["lyrics"] == self.track["lyrics"]), "Lyrics not saved to track"
+        assert(track["lyrics"][0] == self.track["lyrics"][0]), "Lyrics not saved to track"
         
     def testSaveLyricsOgg(self):
         """

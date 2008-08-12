@@ -58,18 +58,10 @@ class Track(object):
 
     def set_loc(self, loc):
         """
-            Sets the location. It is always in unicode.
-
-            If the value is not unicode, convert it into unicode using some
-            default mapping. This way, when we want to access the file, we
-            decode it back into the ascii and don't worry about botched up
-            characters (ie the value should be exactly identical to the 
-            one given)
-
+            Sets the location. 
+            
             loc: the location [string]
         """
-        loc = common.to_unicode(loc, 
-                common.get_default_encoding())
         if loc.startswith("file://"):
             loc = loc[7:]
         self['loc'] = loc
@@ -78,18 +70,21 @@ class Track(object):
         """
             Gets the location as unicode (might contain garbled characters)
 
-            returns: the location [string]
+            returns: the location [unicode]
         """
-        return self['loc']
+        try:
+            return common.to_unicode(self['loc'],
+                    common.get_default_encoding())
+        except:
+            return self['loc']
 
     def get_loc_for_io(self):
         """
-            Gets the location as ascii. Should always be correct, see 
-            set_loc.
+            Gets the location in its original form. should always be correct.
 
             returns: the location [string]
         """
-        return self['loc'].encode(common.get_default_encoding())
+        return self['loc']
 
     def get_type(self):
         b = self['loc'].find('://')

@@ -43,7 +43,7 @@ class Exaile(object):
         """
             Initializes Exaile.
         """
-        self.quitting = Fals
+        self.quitting = False
         self.loading = True
         (self.options, self.args) = self.get_options().parse_args()
         if self.options.debugevent:

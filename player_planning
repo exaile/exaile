@@ -291,6 +291,8 @@ rockbox:
         - probably too complex for us, but notifying the user that their
             device is supported and linking them to install instructions
             is feasable
+    option to strip "the" (or other words) from the beginning of tags on 
+        transfer, as rockbox doesnt strip those itself yet
 
 code planning:
     Device class:

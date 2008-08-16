@@ -17,7 +17,7 @@ import os
 # do this so formats can inherit from stuff in _base
 from _base import *
 
-import asf, flac, mod, mp3, mp4, mpc, ogg, speex, tta, wav, wv
+import asf, flac, mod, mp3, mp4, mpc, ogg, sid, speex, tta, wav, wv
 
 # lossy:    aac (in m4a), mp2, mp3, musepack, speex, vorbis, wma
 # lossless: alac (in m4a), flac, tta, wav, wavpack
@@ -51,6 +51,7 @@ formats = {
         'ra'    : None,
         'ram'   : None,
         's3m'   : mod.ModFormat,
+        'sid'   : sid.SidFormat,
         'shn'   : None,
         'snd'   : wav.WavFormat,
         'spx'   : speex.SpeexFormat,

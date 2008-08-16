@@ -123,6 +123,8 @@ class Collection(trackdb.TrackDB):
         """
         if self._scanning:
             raise Exception("Collection is already being scanned")
+        if len(self.libraries) == 0:
+            return # no libraries, no need to scan :)
 
         self._scanning = True
         self._scan_stopped = False

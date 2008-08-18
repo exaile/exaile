@@ -15,7 +15,7 @@ clean:
 
 doc: docclean
 	mkdir -p ./doc/
-	epydoc -n Exaile -vo ./doc/ --html xl xlgui
+	epydoc -n Exaile -vo ./doc/ --html xl xlgui || echo "Epydoc not available, skipping docs generation"
 	make clean
 
 docclean:

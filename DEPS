@@ -15,6 +15,9 @@ essential:
     pygtk (>= 2.10)
     python-glade2
 
+documentation:
+    epydoc
+
 replaygain, equalizer:
     gstreamer-plugins-bad (>= 10.5) (S)
 

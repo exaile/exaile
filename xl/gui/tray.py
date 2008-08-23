@@ -78,6 +78,9 @@ class BaseTrayIcon(gobject.GObject):
         self.menu.append(_("Next"), lambda *e: self.exaile.player.next(), 'gtk-media-next')
         self.menu.append(_("Previous"), lambda *e: self.exaile.player.previous(),
             'gtk-media-previous')
+        self.menu.append(_("Stop"), lambda *e: self.exaile.player.stop(),
+            'gtk-media-stop')
+
 
         star_icon = gtk.gdk.pixbuf_new_from_file_at_size(
             xl.path.get_data('images', 'star.png'), 16, 16)

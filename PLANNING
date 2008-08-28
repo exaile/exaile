@@ -118,6 +118,9 @@ Things that can probably be implemented at this stage:
         - radio
         - devices/hal (assignee: Aren Olson)
         - all plugins providing backends for the above
+    Sorting Tags:
+        ID3 defines TSOA/TSOP/TSOT for purpose of "sort" tags,
+        we should support them.
 
 
 Minor Tasks:

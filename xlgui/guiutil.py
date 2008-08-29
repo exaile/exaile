@@ -100,7 +100,8 @@ class DragTreeView(gtk.TreeView):
 
         if receive:
             self.drag_dest_set(gtk.DEST_DEFAULT_ALL, self.targets, 
-                gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_DEFAULT)
+                gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_DEFAULT|
+                gtk.gdk.ACTION_MOVE)
             self.connect('drag_data_received', 
                 self.cont.drag_data_received)
             self.connect('drag_data_delete',
@@ -201,7 +202,7 @@ class DragTreeView(gtk.TreeView):
         return self.cont.button_press(button, event)
     
     #TODO maybe move this somewhere else? (along with _handle_unknown_drag_data)
-    def get_drag_data(self, locs, compile_tracks = True):
+    def get_drag_data(self, locs, compile_tracks = True, existing_tracks = []):
         """
             Handles the locations from drag data
         
@@ -209,12 +210,16 @@ class DragTreeView(gtk.TreeView):
                 be anything from a file to a folder)
             @param compile_tracks: if true any tracks in the playlists
                 that are not found as tracks are added to the list of tracks
+            @param existing_tracks: a list of tracks that have already
+                been loaded from files (used to skip loading the dragged 
+                tracks from the filesystem)
             
             @returns: a 2 tuple in which the first part is a list of tracks
                 and the second is a list of playlist (note: any files that are
                 in a playlist are not added to the list of tracks, but a track could
                 be both in as a found track and part of a playlist)
         """
+        #TODO handle if they pass in existing tracks
         tracks = []
         playlists = []
         for loc in locs:

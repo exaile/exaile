@@ -247,6 +247,18 @@ class Playlist(gtk.VBox):
 
         self.list.set_model(self.model)
         self.main.update_track_counts()
+        
+        #Whenever we reset the model of the list
+        #we need to mark the search column again
+        self._set_search_column()
+        
+    def _set_search_column(self):
+        count = 3
+        search_column = self.settings.get_option("gui/search_column", "Title")
+        for col in self.list.get_columns():
+            if col.get_title() == search_column:
+                self.list.set_search_column(count)
+            count = count + 1  
 
     def _get_ar(self, song):
         """
@@ -333,7 +345,47 @@ class Playlist(gtk.VBox):
         self.playlist.set_current_pos(index)
         self.controller.exaile.player.stop()
         self.controller.exaile.queue.play()
-
+        
+    def on_closing(self):
+        """
+            Called by the NotebookTab when this playlist
+            is about to be closed.  Handles such things
+            as confirming a close on a modified playlist
+            
+            @return: True if we should continue to close,
+                False otherwise
+        """
+        #Before closing check whether the playlist
+        #changed, and if it did give the user an option to do something
+        try:
+            current_tracks = self.playlist.get_tracks()
+            original_tracks = self.controller.exaile.playlists.get_playlist \
+                (self.playlist.get_name()).get_tracks()
+            dirty = False
+            if len(current_tracks) != len(original_tracks):
+                dirty = True
+            else:
+                for i in range(0, len(original_tracks)):
+                    o_track = original_tracks[i]
+                    c_track = current_tracks[i]
+                    if o_track != c_track:
+                        dirty = True
+                        break
+            
+            if dirty == True:
+                dialog = ConfirmCloseDialog(self.playlist.get_name())
+                result = dialog.run()
+                if result == 110:
+                    # Save the playlist then close
+                    self.controller.exaile.playlists.save_playlist(self.playlist, overwrite = True)
+                    return True
+                elif result == gtk.RESPONSE_CANCEL:
+                    return False
+        except ValueError:
+            # Usually means that it was a smart playlist
+            pass
+        return True
+            
     def button_press(self, button, event):
         """
             Called when the user clicks on the playlist
@@ -385,6 +437,7 @@ class Playlist(gtk.VBox):
 
         self.settings['gui/col_order'] = cols
         self._setup_columns()
+        self._set_tracks(self.playlist.get_tracks())
 
     def drag_data_received(self, tv, context, x, y, selection, info, etime):
         """
@@ -498,6 +551,21 @@ class Playlist(gtk.VBox):
         event.add_callback(self.on_add_tracks, 'tracks_added', self.playlist)
         event.add_callback(self.on_remove_tracks, 'tracks_removed',
             self.playlist)
+        
+    def remove_selected_tracks(self):
+        sel = self.list.get_selection()
+        (model, paths) = sel.get_selected_rows()
+        #Since we want to modify the model we make references to it
+        # This allows us to remove rows without it messing up
+        rows = []
+        for path in paths:
+            rows.append(gtk.TreeRowReference(model, path))
+        for row in rows:
+            iter = self.model.get_iter(row.get_path())
+            #Also update the playlist we have
+            track = self.model.get_value(iter, 0)
+            self.playlist.remove(self.playlist.index(track))  
+            self.model.remove(iter)
             
     def drag_data_delete(self, tv, context):
         """
@@ -505,16 +573,7 @@ class Playlist(gtk.VBox):
             and we want to delete the source data
         """
         if context.drag_drop_succeeded():
-            sel = self.list.get_selection()
-            (model, paths) = sel.get_selected_rows()
-            #Since we want to modify the model we make references to it
-            # This allows us to remove rows without it messing up
-            rows = []
-            for path in paths:
-                rows.append(gtk.TreeRowReference(model, path))
-            for row in rows:
-                iter = self.model.get_iter(row.get_path()) 
-                self.model.remove(iter)
+            self.remove_selected_tracks()
             
     def drag_get_data(self, treeview, context, selection, target_id, etime):
         """
@@ -847,3 +906,27 @@ class Playlist(gtk.VBox):
         for track in tracks:
             print track.get_loc()
         print '---Done printing playlist'
+
+
+class ConfirmCloseDialog(gtk.MessageDialog):
+    """
+        Shows the dialog to confirm closing of the playlist
+    """
+    def __init__(self, document_name):
+        """
+            Initializes the dialog
+        """
+        gtk.MessageDialog.__init__(self, type = gtk.MESSAGE_WARNING)
+
+        self.set_title(_('Confirm Close'))
+        self.set_markup(_('<b>Save changes to %s before closing?</b>') % document_name)
+        self.format_secondary_text(_('Your changes will be lost if you don\'t save them'))
+
+        self.add_buttons(_('Close Without Saving'), 100, gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+                        _('Save'), 110)
+
+    def run(self):
+        self.show_all()
+        response = gtk.Dialog.run(self)
+        self.hide()
+        return response

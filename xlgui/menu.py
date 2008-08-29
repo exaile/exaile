@@ -16,6 +16,7 @@
 
 import gtk
 from xlgui import guiutil, commondialogs
+from xl import playlist
 from gettext import gettext as _
 
 class GenericTrackMenu(guiutil.Menu):
@@ -75,6 +76,51 @@ class GenericTrackMenu(guiutil.Menu):
             Displays the menu
         """
         guiutil.Menu.popup(self, None, None, None, event.button, event.time)
+        
+class AddToPlaylistMenu(guiutil.Menu):
+    """
+        Menu item that expands to allow the user to add
+        the selected tracks to an existing playlist (or the 
+        option to create a new playlist)
+    """
+    def __init__(self, widget, playlist_manager):
+        """
+            @param widget: widget that exposes
+            get_selected_tracks() and returns a list of
+            valid tracks
+        """
+        guiutil.Menu.__init__(self)
+        self.widget = widget
+        self.playlist_manager = playlist_manager
+        self._create_add_playlist_menu()
+        
+    def _create_add_playlist_menu(self):
+        self.append(_('New Playlist'), lambda *e: self.on_add_new_playlist(),
+            'gtk-new')
+        self.append_separator()
+        for name in self.playlist_manager.playlists:
+            self.append(_(name), self.on_add_to_playlist, data = name)
+            
+        
+    def on_add_new_playlist(self, selected = None):
+        self.widget.controller.playlists_panel.add_new_playlist(self.widget.get_selected_tracks())
+        
+    def on_add_to_playlist(self, selected = None, pl_name = None):
+        """
+            Adds the selected tracks the playlist, saves the playlist
+            and finally updates the playlist panel with the new tracks
+        """
+        pl = self.playlist_manager.get_playlist(pl_name)
+        tracks = self.widget.get_selected_tracks()
+        pl.add_tracks(tracks)
+        self.playlist_manager.save_playlist(pl, overwrite = True)
+        self.widget.controller.playlists_panel.update_playlist_node(pl)
+
+    def popup(self, event):
+        """
+            Displays the menu
+        """
+        guiutil.Menu.popup(self, None, None, None, event.button, event.time)      
 
 class PlaylistMenu(GenericTrackMenu):
     """
@@ -83,6 +129,17 @@ class PlaylistMenu(GenericTrackMenu):
     def __init__(self, playlist):
         GenericTrackMenu.__init__(self, playlist,
             playlist.controller.exaile.queue)
+        self.add_playlist_menu = AddToPlaylistMenu(playlist, playlist.controller.exaile.playlists)
+        self.append_menu(_('Add to Playlist'), self.add_playlist_menu, 'gtk-add')
+        self.append(_('Remove'), lambda *e: self.remove_selected_tracks(), 'gtk-remove')
+                    
+    def remove_selected_tracks(self, selected = None):
+        """
+            Removes the selected tracks from the playlist
+            Note: does not update/save the playlist, user
+            has to save the playlist themselves
+        """
+        self.widget.remove_selected_tracks()
 
 class TrackSelectMenu(GenericTrackMenu):
     """
@@ -205,34 +262,35 @@ class PlaylistsPanelPlaylistMenu(TrackSelectMenu, PlaylistsPanelMenu):
             operation, export type is determined by the extension 
             entered
         """
-        filter = gtk.FileFilter()
-        filter.add_pattern('*.m3u')
-        filter.add_pattern('*.pls')
-        filter.add_pattern('*.asx')
-        filter.add_pattern('*.xspf')
-
-        #TODO maybe something that tells them that based on the
-        # extension is what format it will be in
-        dialog = gtk.FileChooserDialog(_("Choose a file"),
+        dialog = commondialogs.FileOperationDialog(_("Choose a file"),
             None, gtk.FILE_CHOOSER_ACTION_SAVE, 
             buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
             gtk.STOCK_SAVE, gtk.RESPONSE_OK))
+        
+        extensions = { 'm3u' : _('M3U Playlist'), 
+                                'pls' : _('PLS Playlist'),
+                                'asx' : _('ASX Playlist'), 
+                                'xspf' : _('XSPF Playlist') }
+        
+        dialog.add_extensions(extensions)
+        
         #Find the name of currently selected playlist and put it in the name box
         selected_playlist = self.widget.get_selected_playlist()
         if selected_playlist is not None:
             dialog.set_current_name(selected_playlist.get_name())
         #dialog.set_current_folder(self.exaile.get_last_dir())
-        dialog.set_filter(filter)
 
         result = dialog.run()
         if result == gtk.RESPONSE_OK:
+            #TODO recover last directory from prefs
             #self.exaile.last_open_dir = dialog.get_current_folder()
             path = unicode(dialog.get_filename(), 'utf-8')
             try:
                 self.widget.export_selected_playlist(path)
-            except:
-                #TODO handle InvalidPlaylistTypeException and notify user
-                pass
+            except playlist.InvalidPlaylistTypeException:
+                #TODO should we show an error or just append a default
+                #extension?
+                commondialogs.error(None, _('Invalid file extension, file not saved'))
         dialog.destroy()
                     
     def on_delete_playlist(self, selected = None):

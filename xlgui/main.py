@@ -167,8 +167,9 @@ class NotebookTab(gtk.EventBox):
         """
             Called when the user clicks the close button on the tab
         """
-        num = self.nb.page_num(self.page)
-        self.nb.remove_page(num)
+        if self.page.on_closing():
+            num = self.nb.page_num(self.page)
+            self.nb.remove_page(num)
 
 class MainWindow(object):
     """
@@ -251,7 +252,7 @@ class MainWindow(object):
 
             @param pl: the xl.playlist.Playlist instance to add
         """
-        if not pl:
+        if pl is None:
             pl = xl.playlist.Playlist()
         name = pl.name
         pl = playlist.Playlist(self, self.controller, pl)

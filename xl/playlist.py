@@ -711,7 +711,7 @@ class Playlist(object):
             items = ('artist', 'album', 'tracknumber', 'title', 'genre')
             for item in items:
                 value = tr[item]
-                if value is not None: meta[item] = value
+                if value is not None: meta[item] = value[0]
             f.write('\t%s\n' % urllib.urlencode(meta))
 
         f.write("EOF\n")

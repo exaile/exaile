@@ -648,7 +648,7 @@ class MainWindow(object):
             when it was last moved or resized
         """
         width = self.settings.get_option('gui/mainw_width', 500)
-        height = self.settings.get_option('gui/mainw_height', 600)
+        height = self.settings.get_option('gui/mainw_height', 475)
         x = self.settings.get_option('gui/mainw_x', 10)
         y = self.settings.get_option('gui/mainw_y', 10)
 

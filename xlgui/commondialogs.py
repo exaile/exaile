@@ -1,7 +1,7 @@
 from gettext import gettext as _
 import pygtk
 pygtk.require('2.0')
-import gtk, gtk.glade
+import gtk, gtk.glade, os.path
 from xl import xdg
 
 
@@ -54,7 +54,6 @@ class TextEntryDialog(gtk.Dialog):
         response = gtk.Dialog.run(self)
         self.hide()
         return response
-
 
 class ListDialog(gtk.Dialog):
     """
@@ -225,3 +224,72 @@ class ListBox(object):
         if not iter: return None
         return model.get_value(iter, 0)
 
+class FileOperationDialog(gtk.FileChooserDialog):
+    """
+        An extension of the gtk.FileChooserDialog that
+        adds a collapsable panel to the bottom listing
+        valid file extensions that the file can be
+        saved in. (similar to the one in GIMP)
+    """
+    
+    def __init__(self, title=None, parent=None, action=gtk.FILE_CHOOSER_ACTION_OPEN, 
+                 buttons=None, backend=None):
+        """
+            Standard __init__ of the gtk.FileChooserDialog.
+            Also sets up the expander and list for extensions
+        """
+        gtk.FileChooserDialog.__init__(self, title, parent, action, buttons, backend)
+        
+        self.expander = gtk.Expander(_('Select File Type (By Extension)'))
+        
+        #Create the list that will hold the file type/extensions pair
+        self.liststore = gtk.ListStore(str, str)
+        self.list = gtk.TreeView(self.liststore)
+        
+        #Create the columns        
+        filetype_cell = gtk.CellRendererText()
+        filetype_col = gtk.TreeViewColumn(_('File Type'), filetype_cell, text=0)
+        
+        extension_cell = gtk.CellRendererText()
+        extension_col = gtk.TreeViewColumn(_('Extension'), extension_cell, text=1)
+        
+        self.list.append_column(filetype_col)
+        self.list.append_column(extension_col)
+        
+        self.list.show_all()
+        
+        #Setup the dialog
+        self.expander.add(self.list)
+        self.vbox.pack_start(self.expander, True, True, 0)
+        self.expander.show()
+        
+        #Connect signals
+        selection = self.list.get_selection()
+        selection.connect('changed', self.on_selection_changed)
+    
+    def on_selection_changed(self, selection):
+        """
+            When the user selects an extension the filename
+            that is entered will have its extension changed
+            to the selected extension
+        """
+        model, iter = selection.get_selected()
+        extension, = model.get(iter, 1)
+        filename = os.path.basename(self.get_filename())
+        filename, old_extension = os.path.splitext(filename)
+        filename += '.' + extension
+        self.set_current_name(filename)
+        
+
+        
+    def add_extensions(self, extensions):
+        """
+            Adds extensions to the list
+            
+            @param extensions: a dictionary of extension:file type pairs
+            i.e. { 'm3u':'M3U Playlist' }
+        """
+        keys = extensions.keys()
+        for key in keys:
+            self.liststore.append([extensions[key], key])
+    

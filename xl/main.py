@@ -344,6 +344,10 @@ class Exaile(object):
 
         self.collection.save_to_location()
         self.collection.save_libraries()
+        
+        #Save order of custom playlists
+        self.playlists.save_order()
+        self.stations.save_order()
 
         #TODO: save player, queue
 

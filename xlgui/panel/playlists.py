@@ -81,7 +81,7 @@ class BasePlaylistPanelMixin(object):
     def open_selected_playlist(self):
         selection = self.tree.get_selection()
         (model, iter) = selection.get_selected()
-        self.open_playlist(self.tree, model.get_path(iter), None)
+        self.open_item(self.tree, model.get_path(iter), None)
         
     def get_selected_playlist(self):
         """
@@ -91,14 +91,31 @@ class BasePlaylistPanelMixin(object):
             
             @return: the playlist
         """
+        item = self.get_selected_item()
+        if isinstance(item, playlist.Playlist):
+            return item 
+        else:
+            return None
+        
+    
+    def get_selected_track(self):
+        item = self.get_selected_item()
+        if isinstance(item, TrackWrapper):
+            return item.track
+        else:
+            return None
+    
+    def get_selected_item(self):
         selection = self.tree.get_selection()
         (model, iter) = selection.get_selected()
-        pl = model.get_value(iter, 2)
+        item = model.get_value(iter, 2)
         # for smart playlists
-        if hasattr(pl, 'get_playlist'):
-            return pl.get_playlist()
-        elif isinstance(pl, playlist.Playlist) :
-            return pl
+        if isinstance(item, playlist.SmartPlaylist):
+            return item.get_playlist(self.collection)
+        elif isinstance(item, playlist.Playlist) :
+            return item
+        elif isinstance(item, TrackWrapper):
+            return item
         else:
             return None
             
@@ -108,34 +125,40 @@ class BasePlaylistPanelMixin(object):
             playlist and returns the tracks in it
         """
         pl = self.get_selected_playlist()
-        if pl:
+        if pl is not None:
             return pl.get_tracks()
         else:
-            selection = self.tree.get_selection()
-            (model, iter) = selection.get_selected()
-            i = model.get_value(iter, 2)
-            if isinstance(i, TrackWrapper):
-                return [i.track]
+            return self.get_selected_track()
 
         return None
 
-    def open_playlist(self, tree, path, col):
+    def open_item(self, tree, path, col):
         """
-            Called when the user double clicks on a playlist
+            Called when the user double clicks on a playlist,
+            also called when the user double clicks on a track beneath
+            a playlist.  When they active a track it opens the playlist
+            and starts playing that track
         """
         iter = self.model.get_iter(path)
-        pl = self.model.get_value(iter, 2)
-        if pl is not None:
-            # if it's not a playlist, bail
-            if not isinstance(pl, (playlist.Playlist,
+        item = self.model.get_value(iter, 2)
+        if item is not None:
+            if isinstance(item, (playlist.Playlist,
                 playlist.SmartPlaylist)):
-                return
-
-            # for smart playlists
-            if hasattr(pl, 'get_playlist'):
-                pl = pl.get_playlist(self.collection)
-    
-            self.controller.main.add_playlist(pl)
+                # for smart playlists
+                if hasattr(item, 'get_playlist'):
+                    item = item.get_playlist(self.collection)
+                else:
+                    #Get an up to date copy
+                    item = self.playlist_manager.get_playlist(item.get_name())
+        
+                self.controller.main.add_playlist(item)
+            else:
+                #Its a track
+                pl = self.playlist_manager.get_playlist(item.playlist.get_name())
+                pl.set_current_pos(pl.index(item.track))
+                self.controller.main.add_playlist(pl)
+                self.controller.exaile.queue.play(item.track)
+                pass
 
     def add_new_playlist(self, tracks = []):
         dialog = commondialogs.TextEntryDialog(
@@ -167,11 +190,12 @@ class BasePlaylistPanelMixin(object):
 
         self._clear_node(self.playlist_nodes[playlist])
         tracks = playlist.ordered_tracks
+        parent = self.playlist_nodes[playlist]
         for track in tracks:
             if not track: continue
             wrapper = TrackWrapper(track, playlist)
-            self.model.append(self.playlist_nodes[playlist], 
-                [self.track_image, str(wrapper), wrapper])
+            ar = [self.track_image, str(wrapper), wrapper]
+            self.model.append(parent, ar)
 
         if expanded:
             self.tree.expand_row(
@@ -180,6 +204,7 @@ class BasePlaylistPanelMixin(object):
     def remove_selected_track(self):
         """
             Removes the selected track from its playlist
+            and saves the playlist
         """
         selection = self.tree.get_selection()
         (model, iter) = selection.get_selected()
@@ -189,6 +214,7 @@ class BasePlaylistPanelMixin(object):
             #Update the list
             self.model.remove(iter)
             #TODO do we save the playlist after this??
+            self.playlist_manager.save_playlist(track.playlist, overwrite=True)
 
 class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
     """
@@ -210,12 +236,19 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         self.smart_manager = smart_manager
         self.collection = collection
         self.box = self.xml.get_widget('playlists_box')
-
-        self.targets = [('text/uri-list', 0, 0)]
-
+        
+        self.playlist_name_info = 500
+        self.track_target = ("text/uri-list", 0, 0)
+        self.playlist_target = ("playlist_name", gtk.TARGET_SAME_WIDGET, self.playlist_name_info)
+        self.deny_targets = [('',0,0)]
+        
         self.tree = guiutil.DragTreeView(self, True, True)
-        self.tree.connect('row-activated', self.open_playlist)
+        self.tree.connect('row-activated', self.open_item)
         self.tree.set_headers_visible(False)
+        self.tree.connect('drag-motion', self.drag_motion)
+        self.tree.drag_source_set(
+                gtk.gdk.BUTTON1_MASK, [self.track_target, self.playlist_target],
+                gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
 
         self.scroll = gtk.ScrolledWindow()
         self.scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
@@ -270,37 +303,118 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
         self.tree.expand_row(self.model.get_path(self.smart), False)
         self.tree.expand_row(self.model.get_path(self.custom), False)
+        
+    def update_playlist_node(self, pl):
+        """
+            Updates the playlist node of the playlist
+            to reflect any changes in it (i.e. tracks
+            being added to the playlist)
+            
+            @param pl: the playlist to be updated
+        """
+        playlists = self.playlist_nodes.keys()
+        for playlist in playlists:
+            if playlist.get_name() == pl.get_name():
+                node = self.playlist_nodes[playlist]
+                del self.playlist_nodes[playlist]
+                self.playlist_nodes[pl] = node
+                self._load_playlist_nodes(pl)
 
 
     def drag_data_received(self, tv, context, x, y, selection, info, etime):
         """
             Called when someone drags some thing onto the playlist panel
         """
-        #if the drag originated from playlist view deny it
-        #TODO this might change if we are allowed to change the order of playlist
-        if tv == context.get_source_widget():
-            context.drop_finish(False, etime)
-            return  
-        
+        if info == self.playlist_name_info:
+            # We are being dragged a playlist so 
+            # we have to reorder them
+            playlist_name = selection.get_text()
+            drag_source = self.get_selected_playlist()
+            #verify names
+            if drag_source is not None:
+                if drag_source.get_name() == playlist_name:
+                    drop_info = tv.get_dest_row_at_pos(x, y)
+                    drag_source_iter = self.playlist_nodes[drag_source]
+                    if drop_info:
+                        path, position = drop_info
+                        drop_target_iter = self.model.get_iter(path)
+                        drop_target = self.model.get_value(drop_target_iter, 2)
+                        if position == gtk.TREE_VIEW_DROP_BEFORE:
+                            #Put the playlist before drop_target
+                            self.model.move_before(drag_source_iter, drop_target_iter)
+                            self.playlist_manager.move(playlist_name, drop_target.get_name(), after = False)
+                        else:
+                            #put the playlist after drop_target
+                            self.model.move_after(drag_source_iter, drop_target_iter)
+                            self.playlist_manager.move(playlist_name, drop_target.get_name(), after = True)
+            #Even though we are doing a move we still don't
+            #call the delete method because we take care
+            #of it above by moving instead of inserting/deleting
+            context.finish(True, False, etime)
+        else:
+            self._drag_data_received_uris(tv, context, x, y, selection, info, etime)
+                    
+    def _drag_data_received_uris(self, tv, context, x, y, selection, info, etime):
+        """
+            Called by drag_data_received when the user drags URIs onto us
+        """
         locs = list(selection.get_uris())
-        
-        path = self.tree.get_path_at_pos(x, y)
-        if path: 
-            # Add whatever we received to the playlist at path
-            iter = self.model.get_iter(path[0])
-            current_playlist = self.model.get_value(iter, 2)
+        drop_info = tv.get_dest_row_at_pos(x, y)
+        if drop_info:
+            path, position = drop_info
+            iter = self.model.get_iter(path)
+            drop_target = self.model.get_value(iter, 2)
             
-            # if the current item is a track, use the parent playlist
-            if isinstance(current_playlist, TrackWrapper):
-                current_playlist = current_playlist.playlist
 
-            elif not isinstance(current_playlist, playlist.Playlist):
-                #Can't add songs to a smart playlists
-                context.drop_finish(False, etime)
-                return
+            # if the current item is a track, use the parent playlist
+            insert_index = None
+            if isinstance(drop_target, TrackWrapper):
+                current_playlist = drop_target.playlist
+                drop_target_index = current_playlist.index(drop_target.track)
+                #Adjust insert position based on drop position
+                if (position == gtk.TREE_VIEW_DROP_BEFORE or
+                    position == gtk.TREE_VIEW_DROP_INTO_OR_BEFORE):
+                    #By default adding tracks inserts it before so we do not
+                    #have to modify the insert index
+                    insert_index =drop_target_index
+                else:
+                    #If we want to go after we have to append 1
+                    insert_index = drop_target_index + 1
+            else:
+                current_playlist = drop_target;
+                
+            #Since the playlist do not have very good support for
+            #duplicate tracks we have to perform some trickery
+            #to make this work properly in all cases
+            try:
+                remove_track_index = current_playlist.index(self.get_selected_track())
+            except:
+                remove_track_index = None
+            if insert_index is not None and remove_track_index is not None:
+                #Since remove_track_index will be removed before
+                #the new track is inserted we have to offset the
+                #insert index
+                 if insert_index > remove_track_index:
+                     insert_index = insert_index - 1
+                
+            #Delete the track before adding the other one
+            #so we do not get duplicates
+            #right now the playlist does not support
+            #duplicate tracks very well
+            if context.action == gtk.gdk.ACTION_MOVE:
+                #On a move action the second True makes the
+                # drag_data_delete function called
+                context.finish(True, True, etime)
+            else:
+                context.finish(True, False, etime)
+                
+            # Add the tracks we found to the internal playlist
+            #TODO have it pass in existing tracks?
             (tracks, playlists) = self.tree.get_drag_data(locs)
-            current_playlist.add_tracks(tracks)
+            current_playlist.add_tracks(tracks, insert_index, False)
+                
             self._load_playlist_nodes(current_playlist)
+            
             # Do we save in the case when a user drags a file onto a playlist in the playlist panel?
             # note that the playlist does not have to be open for this to happen
             self.playlist_manager.save_playlist(current_playlist, overwrite=True)
@@ -324,44 +438,103 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             #After processing playlist proceed to ask the user for the 
             #name of the new playlist to add and add the tracks to it
             if len(tracks) > 0:
-                self.add_new_playlist(tracks)       
-    
-    def drag_data_delete(self, *e):
+                self.add_new_playlist(tracks) 
+
+    def drag_data_delete(self,  tv, context):
         """
-            stub
+            Called after a drag data operation is complete
+            and we want to delete the source data
         """
-        pass
-    
+        if context.drag_drop_succeeded():
+            self.remove_selected_track()
+                
     def drag_get_data(self, tv, context, selection_data, info, time):
         """
             Called when someone drags something from the playlist
         """
-        pl = self.get_selected_playlist()
-        if pl:
-            tracks = pl.get_tracks()
+        #TODO based on info determine what we set in selection_data
+        if info == self.playlist_name_info:
+            pl = self.get_selected_playlist()
+            if pl is not None:
+                selection_data.set(gtk.gdk.SELECTION_TYPE_STRING, 8, pl.get_name())
         else:
-            tracks = self.get_selected_tracks()
-           
-        if not tracks: return
-
-        for track in tracks:
-            guiutil.DragTreeView.dragged_data[track.get_loc()] = track
+            pl = self.get_selected_playlist()
+            if pl is not None:
+                tracks = pl.get_tracks()
+            else:
+                tracks = [self.get_selected_tracks()]
+               
+            if not tracks: return
+    
+            for track in tracks:
+                guiutil.DragTreeView.dragged_data[track.get_loc()] = track
+            
+            urls = guiutil.get_urls_for(tracks)
+            selection_data.set_uris(urls)
         
-        urls = guiutil.get_urls_for(tracks)
-        selection_data.set_uris(urls)
+    def drag_motion(self, tv, context, x, y, time):
+        """
+            Sets the appropriate drag action based on what we are hovering over
+            
+            hovering over playlists causes the copy action to occur
+            hovering over tracks within the same playlist causes the move 
+                action to occur
+            hovering over tracks within different playlist causes the move action
+                to occur
+                
+            Called on the destination widget
+        """
+        #Reset any target to be default to moving tracks
+        self.tree.enable_model_drag_dest([self.track_target],
+            gtk.gdk.ACTION_DEFAULT)
+        #Determine where the drag is coming from
+        dragging_playlist = False
+        if tv == self.tree:
+            selected_playlist = self.get_selected_playlist()
+            if selected_playlist is not None:
+                dragging_playlist = True
         
-    def remove_selected_track(self):
-        """
-            Removes the selected track from its playlist
-        """
-        selection = self.tree.get_selection()
-        (model, iter) = selection.get_selected()
-        track = model.get_value(iter, 2)
-        if isinstance(track, TrackWrapper):
-            track.playlist.remove(track.playlist.index(track.track))
-            #Update the list
-            self.model.remove(iter)
-            #TODO do we save the playlist after this??
+        #Find out where they are dropping onto 
+        drop_info = tv.get_dest_row_at_pos(x, y)
+        if drop_info:
+            path, position = drop_info
+            iter = self.model.get_iter(path)
+            drop_target = self.model.get_value(iter, 2)
+            
+            if isinstance(drop_target, playlist.Playlist):
+                if dragging_playlist:
+                    #If we drag onto  we copy, if we drag between we move
+                    if position == gtk.TREE_VIEW_DROP_INTO_OR_BEFORE or \
+                        position == gtk.TREE_VIEW_DROP_INTO_OR_AFTER:
+                        context.drag_status(gtk.gdk.ACTION_COPY, time)
+                    else:
+                        context.drag_status(gtk.gdk.ACTION_MOVE, time)
+                        #Change target as well
+                        self.tree.enable_model_drag_dest([self.playlist_target],
+                                                         gtk.gdk.ACTION_DEFAULT)
+                else:
+                    context.drag_status(gtk.gdk.ACTION_COPY, time)
+            elif isinstance(drop_target, TrackWrapper):
+                #We are dragging onto another track
+                #make it a move operation if we are only dragging
+                # tracks within our widget
+                # We do a copy if we are draggin from another playlist
+                if context.get_source_widget() == tv and dragging_playlist == False:
+                    context.drag_status(gtk.gdk.ACTION_MOVE, time)
+                else:
+                    context.drag_status(gtk.gdk.ACTION_COPY, time)
+            else:
+                #Prevent drop operation by changing the targets
+                self.tree.enable_model_drag_dest(self.deny_targets,
+                                                 gtk.gdk.ACTION_DEFAULT)
+                return False
+            return True
+        else: #No drop info
+            if dragging_playlist:
+                context.drag_status(gtk.gdk.ACTION_MOVE, time)
+                #Change target as well
+                self.tree.enable_model_drag_dest([self.playlist_target],
+                                                     gtk.gdk.ACTION_DEFAULT)
 
     def export_selected_playlist(self, path):
         """

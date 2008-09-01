@@ -1028,6 +1028,7 @@ class PlaylistManager(object):
         self.playlist_dir = os.path.join(xdg.get_data_dirs()[0],playlist_dir)
         if not os.path.exists(self.playlist_dir):
             os.makedirs(self.playlist_dir)
+        self.order_file = os.path.join(self.playlist_dir, 'order_file')
         self.playlists = []
 
         self.load_names()
@@ -1046,7 +1047,7 @@ class PlaylistManager(object):
 
             if not name in self.playlists: 
                 self.playlists.append(name)
-            self.playlists.sort()
+            #self.playlists.sort()
         else:
             raise PlaylistExists
 
@@ -1082,9 +1083,17 @@ class PlaylistManager(object):
 
     def load_names(self):
         """
-            Loads the names of the playlists in the data directory
+            Loads the names of the playlists from the order file
         """
-        self.playlists = os.listdir(self.playlist_dir)
+        if os.path.isfile(self.order_file):
+            ordered_playlists = self.load_from_location(self.order_file)
+        else:
+            ordered_playlists = []
+            playlists = os.listdir(self.playlist_dir)
+            for playlist in playlists:
+                if playlist not in ordered_playlists:
+                    ordered_playlists.append(playlist)
+        self.playlists = ordered_playlists 
 
     def get_playlist(self, name):
         """
@@ -1104,6 +1113,69 @@ class PlaylistManager(object):
             Returns all the contained playlist names
         """
         return self.playlists[:]
+        
+    def move(self, playlist, position, after = True):
+        """
+            Moves the playlist to where position is
+        """
+        #Remove the playlist first
+        playlist_index = self.playlists.index(playlist)
+        self.playlists.pop(playlist_index)
+        #insert it now after position
+        position_index = self.playlists.index(position)
+        if after:
+            position_index = position_index + 1
+        self.playlists.insert(position_index, playlist)
+    
+    def save_order(self):
+        """
+            Saves the order to the order file
+        """
+        self.save_to_location(self.order_file)
+    
+    def save_to_location(self, location):
+        """
+            Saves the names of the playlist to a file that is
+            used to restore their order
+        """
+        if os.path.exists(location):
+            f = open(location + ".new", "w")
+        else:
+            f = open(location, "w")
+        for playlist in self.playlists:
+            f.write(playlist)
+            f.write('\n')
+
+        f.write("EOF\n")
+        f.close()
+        if os.path.exists(location + ".new"):
+            os.remove(location)
+            os.rename(location + ".new", location)
+
+    def load_from_location(self, location):
+        """
+            Loads the names of the playlist from a file.
+            Their load order is their view order
+            
+            @return: a list of the playlist names
+        """
+        f = None
+        for loc in [location, location+".new"]:
+            try:
+                f = open(loc, 'r')
+                break
+            except:
+                pass
+        if f is None:
+            return []
+        playlists = []
+        while True:
+            line = f.readline()
+            if line == "EOF\n" or line == "":
+                break
+            playlists.append(line.strip())
+        f.close()
+        return playlists
 
 # vim: et sts=4 sw=4
 

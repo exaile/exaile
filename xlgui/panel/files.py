@@ -12,7 +12,7 @@
 # along with this program; if not, write to the free software
 # foundation, inc., 675 mass ave, cambridge, ma 02139, usa.
 
-import gtk, os, locale, re
+import gtk, gobject, os, locale, re
 import xl.track, urllib
 from xl import common, trackdb
 from xlgui import panel, guiutil, xdg, menu

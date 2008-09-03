@@ -16,7 +16,6 @@ __all__ = ['main', 'panel', 'playlist']
 
 import gtk, gtk.glade, gobject, logging
 from xl import xdg, common, event
-from gettext import gettext as _
 
 from xlgui import guiutil
 

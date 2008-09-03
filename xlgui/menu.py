@@ -17,7 +17,6 @@
 import gtk
 from xlgui import guiutil, commondialogs
 from xl import playlist
-from gettext import gettext as _
 
 class GenericTrackMenu(guiutil.Menu):
     """

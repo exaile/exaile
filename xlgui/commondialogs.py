@@ -1,9 +1,7 @@
-from gettext import gettext as _
 import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade, os.path
 from xl import xdg
-
 
 #Taken from 0.2 branch, not quite sure if this is the right way to do it
 class TextEntryDialog(gtk.Dialog):

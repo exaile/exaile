@@ -14,7 +14,6 @@
 
 import gtk, pango
 from xlgui import guiutil, menu
-from gettext import gettext as _
 from xl import playlist, event, track, collection
 import copy, urllib
 import logging

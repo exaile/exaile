@@ -20,7 +20,6 @@ import gtk, gtk.glade, gobject, pango
 from xl import xdg, event, track, settings
 import xl.playlist
 from xlgui import playlist, cover, guiutil, commondialogs
-from gettext import gettext as _
 import xl.playlist, re, os, threading
 
 settings = settings.SettingsManager.settings

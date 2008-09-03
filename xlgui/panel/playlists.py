@@ -16,7 +16,6 @@ import gtk, urllib, os.path
 from xlgui import panel, guiutil, xdg, commondialogs
 from xlgui import menu
 from xl import playlist
-from gettext import gettext as _
 
 class TrackWrapper(object):
     def __init__(self, track, playlist):

@@ -16,7 +16,6 @@ import gtk, gobject, os, locale, re
 import xl.track, urllib
 from xl import common, trackdb
 from xlgui import panel, guiutil, xdg, menu
-from gettext import gettext as _
 locale.setlocale(locale.LC_ALL, '')
 
 class FilesPanel(panel.Panel):

@@ -14,7 +14,6 @@
 
 import gtk, gtk.glade, gobject
 from xl import xdg
-from gettext import gettext as _
 
 class Panel(object):
     """

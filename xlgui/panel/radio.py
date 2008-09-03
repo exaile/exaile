@@ -18,7 +18,6 @@ import xlgui.panel.playlists as playlistpanel
 from xl import xdg, event, common
 import xl.radio
 import threading
-from gettext import gettext as _
 import xl.playlist
 
 class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):

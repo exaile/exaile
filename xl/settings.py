@@ -23,6 +23,7 @@ import os, logging
 logger = logging.getLogger(__name__)
 
 from xl import event
+# FIXME: Drop this after getting rid of non-callable 'unicode' object error
 from gettext import gettext as _
 
 TYPE_MAPPING = {

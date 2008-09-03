@@ -17,7 +17,6 @@ from xl import xdg, common, track, trackdb
 from xlgui import panel, guiutil, menu
 from xl import xdg, common
 from xlgui import panel, guiutil, menu
-from gettext import gettext as _
 
 TRACK_NUM = 300
 

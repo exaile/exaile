@@ -1313,7 +1313,7 @@ class ExaileWindow(gobject.GObject):
                 scrobbler.submit(track.artist, track.title, self.submit_time, 'P',
                     '', int(track.duration), track.album, track.track, autoflush=True)
             except:
-                gobject.idle_add(self.status.set_first, _("Error submitting"
+                gobject.idle_add(self.status.set_first, _("Error submitting "
                     "to audioscrobbler"), 3000)
         track.submitted = True
 

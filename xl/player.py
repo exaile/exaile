@@ -50,26 +50,33 @@ class PlayQueue(playlist.Playlist):
                 track = self.current_playlist.peek()
         return track
 
-    def next(self, player=True):
-        if player:
-            if self.player.current == self.stop_track:
-                self.player.stop()
-                event.log_event('stop_track', self, self.stop_track)
-                self.stop_track = -1
-                return
+    def next(self, player=True, track=None):
+        """
+            Goes to the next track, either in the queue, or in the current
+            playlist.  If a track is passed in, that track is played
 
-        track = playlist.Playlist.next(self)
-        if track == None:
-            if self.current_playlist:
-                track = self.current_playlist.next()
-                self.current_playlist.current_playing = True
-                self.current_playing = False
-        else:
-            self.ordered_tracks = self.ordered_tracks[1:]
-            self.current_pos -= 1
-            self.current_playing = True
-            if self.current_playlist:
-                self.current_playlist.current_playing = False
+            @param player: play the track in addition to returning it
+            @param track: if passed, play this track
+        """
+        if not track:
+            if player:
+                if self.player.current == self.stop_track:
+                    self.player.stop()
+                    event.log_event('stop_track', self, self.stop_track)
+                    self.stop_track = -1
+                    return
+
+            if not self.ordered_tracks:
+                if self.current_playlist:
+                    track = self.current_playlist.next()
+                    self.current_playlist.current_playing = True
+                    self.current_playing = False
+            else:
+                track = self.ordered_tracks.pop(0)
+                self.current_pos = 0
+                self.current_playing = True
+                if self.current_playlist:
+                    self.current_playlist.current_playing = False
         if player:
             self.player.play(track)
         return track

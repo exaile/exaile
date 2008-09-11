@@ -343,7 +343,7 @@ class Playlist(gtk.VBox):
         index = self.playlist.index(track)
         self.playlist.set_current_pos(index)
         self.controller.exaile.player.stop()
-        self.controller.exaile.queue.play()
+        self.controller.exaile.queue.play(track=track)
         
     def on_closing(self):
         """
@@ -354,8 +354,8 @@ class Playlist(gtk.VBox):
             @return: True if we should continue to close,
                 False otherwise
         """
-        #Before closing check whether the playlist
-        #changed, and if it did give the user an option to do something
+        # Before closing check whether the playlist
+        # changed, and if it did give the user an option to do something
         try:
             current_tracks = self.playlist.get_tracks()
             original_tracks = self.controller.exaile.playlists.get_playlist \

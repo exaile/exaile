@@ -8,6 +8,13 @@ Current projects:
     Anthony Waters - 
     thiblahute - CD Burning (hasn't been seen in a while)
 
+release naming scheme:
+
+alphas: 0.2.99.x
+betas:  0.2.999.x
+RCs:    0.2.9999.x
+final:  0.3.0
+
 
 Implemented:
     Collection
@@ -33,7 +40,6 @@ Implemented:
     Plugins System
         file format: tar archive (optionally with gzip/bzip2), gets extracted
                 into XDG_DATA_HOME, loads from there or XDG_DATA_DIRS
-        does not yet allow retrieval from remote server (has stubs)
     Covers
         todo: support embedded covers, cover from filename via tag 
             info (eg. %artist-%album.jpg)
@@ -55,11 +61,92 @@ Implemented:
     Replaygain
         doesn't support creating tags, only reading them
     CD Ripping
-        
-Things that can probably be implemented at this stage:
+       
+Things needed for alpha 1 (0.2.99.1) release:
+    Installing
+        makefile currently has no install rules
+        this will also need a way to handle which plugins get installed by 
+            default, though for now we can just install all of them
+    Persistence 
+        everything should be persistent, ie. when opening exaile it should appear 
+            EXACTLY as it was when you exited.
+        todo list:
+            make queue, player persistent
+            periodic save to disk so that in event of crash eveything is saved
+                save when new songs happen? that way we keep disk i/o together
+                    which will be nice for laptop users
+    Rating    
+        make rating system use a float from 0-100, this lets us seamlessly handle
+            information coming from sources that use differing rating systems.
+        a negative value will mean "not rated"
+        ui will collapse the float value to the nearest value on the scale
+            chosen by the user for display (default 5), but not alter it 
+            until it is changed
+    GUI
+        see GUIPLANNING
+
+Things needed for alpha 2 (0.2.99.2) release:
+    Plugins
+        retrieval from server
+    MP3 Player Support
+        see player_planning
+    Providers Conversion
+        the following systems still need to be converted to providers:
+        - covers
+        - lyrics
+        - radio
+        - devices/hal (assignee: Aren Olson)
+        - all plugins providing backends for the above
+
+Things needed for beta 1 (0.2.999.1) release:
+    Conversion
+        we need to handle the upgrade process from 0.2->0.3 smoothly
+        this should include the collection, settings, plugins,
+            playlists, and anything else still relevant in 0.3
+        should be the last primary 'feature' implemented
+        implement as plugin? that way it can just be unloaded afterwards
+            saving a little bit of time and memory.
+        alternatively, only import it if firstrun is True. this is likely
+            a cleaner and more-efficient method.         
+        this should also be designed flexibly enough to also handle future
+            0.3.x to 0.3.y upgrades, should that be necessary. 
+                possibly also allow import from other players, eg rhythmbox,
+                amarok, etc. these importers would be implemented as plugins.
+    Plugins
+        we should have asystem for instlaling inyl a fixed set of plugins at this point
+        using a list in the plugins Makefile is probably acceptable
+        method for choosing which plugins to enable on first run?
+            Firstrun="true" in PLUGININFO? if missing/false don't load on firstrun
+            only applies to first start, plugin added afterwards are never loaded until
+                the user explicitly requests so (instlaloing via the plugins manager
+                may be treated as such a request, this is mainly for the benefit of
+                plugins distributed in packages)
+
+
+Things needed for final release:
     CD Burning
         class in cd.py, takes a Playlist and burns it in order
         allow mp3 cd burning?
+    Podcasts
+        separate from radio
+        allow flexibility in choice of when (if?) and where to download
+        allow streaming if not downloaded
+    Visualizations
+        implement as plugin (if possible)
+        we now support adding arbitrary gstreamer elements to the pipeline,
+            so this should be possible
+    Localization
+        not only the GUI but all INFO, WARNING and ERROR logs should be 
+            translateable
+        DEBUG logs do not need to be, as they are largely not intended to be
+            seen by users
+    Test cases
+        the follow still need test cases:
+        - tag reading/writing for all formats
+
+
+
+Other things that would be nice to have:
     Content-Matching (involved)
         matching tracks based on tag content rather than loc.
         useful for: detecting moves withing the library, xspf playlists
@@ -77,74 +164,17 @@ Things that can probably be implemented at this stage:
     DBUS
         allow greater freedom to query, eg allow listing artists, albums
             in collection, searching collection, etc. 
-    Podcasts
-        separate from radio
-        allow flexibility in choice of when (if?) and where to download
-        allow streaming if not downloaded
-    MP3 Player Support
-        see player_planning
-    Persistence 
-        everything should be persistent, ie. when opening exaile it should appear 
-            EXACTLY as it was when you exited.
-        todo list:
-            make queue, player persistent
-            periodic save to disk so that in event of crash eveything is saved
-    GUI
-        see GUIPLANNING
-    Visualizations
-        implement as plugin (if possible)
     Cross-Fade
         use gst's adder element to combine streams
         use peek() methods on playlists and queue to see next track
             without actually switching to it.
-    Localization
-        not only the GUI but all INFO, WARNING and ERROR logs should be 
-            translateable
-        DEBUG logs do not need to be, as they are largely not intended to be
-            seen by users
-    Formats
-        all formats should have read/write test cases (status: none do)
-        non-direct audio formats? (smil, wpl)
-        does mutagen's m4a support handle alac correctly?
-            if not, we can probably make it do so easily, since all that should
-                need overriding is the M4AInfo class
-        tag support for ra/ram?
-        tracknumber saving is broken on aac, other formats that have test files 
-            in tests/data appear to work perfectly.
-    Providers Conversion:
-        the following systems still need to be converted to providers:
-        - covers
-        - lyrics
-        - radio
-        - devices/hal (assignee: Aren Olson)
-        - all plugins providing backends for the above
-    Sorting Tags:
+    Sorting Tags
         ID3 defines TSOA/TSOP/TSOT for purpose of "sort" tags,
         we should support them.
+            MP4 also provides such tags
+            are there ones for APE/OGG?
 
 
-Minor Tasks:
-    make rating system be a float from 0-100, this lets us seamlessly handle
-        information coming from sources that use differing rating systems.
-        a negative value will mean "not rated"
-        ui will collapse the float value to the nearest value on the scale
-            chosen by the user for display, but not alter it until it is changed
-
-Other Work-Items:
-    Conversion
-        we need to handle the upgrade process from 0.2->0.3 smoothly
-        this should include the collection, settings, plugins,
-            playlists, and anything else still relevant in 0.3
-        should be the last primary 'feature' implemented
-        implement as plugin? that way it can just be unloaded afterwards
-            saving a little bit of time and memory.
-        alternatively, only import it if firstrun is True. this is likely
-            a cleaner and more-efficient method.         
-        this should also be designed flexibly enough to also handle future
-            0.3.x to 0.3.y upgrades, should that be necessary. 
-                possibly also allow import from other players, eg rhythmbox,
-                amarok, etc. these importers would be implemented as plugins.
-    
 GUIPLANNING:
     Implemented:
         Collection Panel

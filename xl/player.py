@@ -431,6 +431,7 @@ class BaseGSTPlayer(object):
         self.current = track
         
         uri = self._get_track_uri(track)
+        logger.info("Playing %s" % uri)
         self.reset_playtime_stamp()
 
         self.playbin.set_property("uri", uri)

@@ -273,6 +273,7 @@ class MainWindow(object):
         """
         hotkeys = (
             ('<Control>W', lambda *e: self.close_playlist_tab()),
+            ('<Control>C', lambda *e: self.on_clear_playlist()),
         )
 
         self.accel_group = gtk.AccelGroup()

@@ -14,9 +14,9 @@ def on_play(type, player, track):
             'artist' : cgi.escape(artist), 
             'album' : cgi.escape(album)}
     elif artist:
-        body = _("by %(artist)s" % {'artist' : cgi.escape(artist)})
+        body = _("by %(artist)s") % {'artist' : cgi.escape(artist)}
     elif album:
-        body = _("from %(album)s" % {'album' : cgi.escape(album)})
+        body = _("from %(album)s") % {'album' : cgi.escape(album)}
     else:
         body = ""
     notify = pynotify.Notification(summary, body)

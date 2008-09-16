@@ -487,6 +487,8 @@ class BaseGSTPlayer(object):
         else:
             self.pause()
 
+        event.log_event('playback_toggle_pause', self, self.current)
+
     def seek(self, value):
         """
             seek to the given position in the current stream

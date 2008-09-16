@@ -10,12 +10,13 @@ def on_play(type, player, track):
     album = " / ".join(track['album'] or "")
     summary = cgi.escape(title)
     if artist and album:
-        body = _("by %s\nfrom <i>%s</i>") % (cgi.escape(artist), 
-            cgi.escape(album))
+        body = _("by %(artist)s\nfrom <i>%(album)s</i>") % {
+            'artist' : cgi.escape(artist), 
+            'album' : cgi.escape(album)}
     elif artist:
-        body = _("by %s" % (cgi.escape(artist)))
+        body = _("by %(artist)s" % {'artist' : cgi.escape(artist)})
     elif album:
-        body = _("from %s" % (cgi.escape(album)))
+        body = _("from %(album)s" % {'album' : cgi.escape(album)})
     else:
         body = ""
     notify = pynotify.Notification(summary, body)

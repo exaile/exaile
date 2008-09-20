@@ -124,7 +124,7 @@ Things needed for beta 1 (0.2.999.1) release:
                 plugins distributed in packages)
 
 
-Things needed for final release:
+Things needed for RCs/final release:
     CD Burning
         class in cd.py, takes a Playlist and burns it in order
         allow mp3 cd burning?
@@ -148,21 +148,7 @@ Things needed for final release:
 
 
 Other things that would be nice to have:
-    Content-Matching (involved)
-        matching tracks based on tag content rather than loc.
-        useful for: detecting moves withing the library, xspf playlists
-        ?match by everything or a subset? if x% is the same? efficiency?
-        needed? amarok handles files moving by storing the file's checksum in
-            the db, perhaps we should do this too.
-                hash only part (eg the last 512k), to make it fast.
-                problem: some tags (id3v1, some apev2) are stored at the end
-                    of the file. most tags (id3v2) are at the front. we don't
-                    want to hash the part containing tags, as that could change
-                    unlike the actual music itself.
-                        hash based on filetype? eg for id3v2-using formats
-                        like mp3 use the last part, and for ones like wavpack 
-                        that use the end of the file, hash the front?
-    DBUS
+    Advanced DBUS
         allow greater freedom to query, eg allow listing artists, albums
             in collection, searching collection, etc. 
     Cross-Fade

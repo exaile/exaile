@@ -1,5 +1,5 @@
 
-random thoughts for beyond 0.3.0. many of these are user requests.
+random thoughts for beyond 0.3.0; many of these are user requests.
 
 
 migration:
@@ -16,7 +16,8 @@ ratings system:
 UPnP support:
     client
     server
-    noone else supports this yet, so this could be quite a boon if done right.
+    very few players support this yet 
+        - rb has a plugin (python)
 
 DAAP Server:
     would require patching python-daap to have server support (likely doable)
@@ -34,19 +35,24 @@ Cuesheet support:
         the rest of exaile's features.
 
 Shuffling albums:
-    no clue how to do this UI-wise.
+    no clue how to do this UI-wise
 
 Library structure handling:
     allow exaile to manage the libraries' on-disk structure
     use ex-falso-like system to determine path
-    we can then expose in the UI methods of copying tracks directly into this structure
+    we can then expose in the UI methods of copying tracks directly into 
+        this structure
     this is espeically useful for import from mp3players/cds/etc
-    if multiple libraries, allow to specify one as default or to choose which to use on each copy.
+    if multiple libraries, allow to specify one as default or to choose 
+        which to use on each copy.
 
 Video Playback:
-    this could be tricky UI-wise. perhaps expose as another tab in playlist view, with buttons to go fullscreen or separate window.
-    should probably wait until compiz/video issues are resolved, so we dont have to deal with those complaints.
-    use for video podcasts, have a separate collection for videos.
+    this could be tricky UI-wise. perhaps expose as another tab in 
+        playlist view, with buttons to go fullscreen or separate window
+    should probably wait until compiz/video issues are resolved, so we dont 
+        have to deal with those complaints
+        - resolved as of intrepid for intel, nvidia (maybe ati?)
+    use for video podcasts, have a separate collection for videos
     too heavyweight for main perhaps? (is it possible to do as plugin?)
 
 Audiobooks:
@@ -58,11 +64,52 @@ Audiobooks:
 
 Keybindings:
     allow full user-customizable keybinding support
-    this may only be doable for when exaile has focus, idk how to make it work globally without using a C library (though with ctypes I guess we can use that)
+    this may only be doable for when exaile has focus, idk how to make it work 
+        globally without using a C library (though with ctypes I guess we can 
+        use that)
     
-
 musicbrainz:
     use for cd tagging
+    allow analysis and retagging of files, like picard?
 
 custom stemming:
-    allow trimming of 'A', not just 'The'
+    e.g. allow trimming of 'A', not just 'The'
+    allow locale-dependant stemming?
+
+Context tab/Revamped Info tab:
+    simple method:
+        - allow plugins to make new tabs
+        - move wikipedia info out to a plugin
+        - allow putting info panel as a whole or individual tabs into
+            the side panel
+    advanced method:
+        - add an optional amarok-style context tab to the side pane
+            - should also allow sub-tabs like amarok's lyrics tab
+        - all previous tabs in the info tab can now be added as a pane
+            in this context tab (or a sub-tab), siliar to how amarok's
+            context pane is divided
+        - the info tab would work the same way as the new context tab,
+            except as its often wider it should allow panes to be in 
+            multiple columns
+            - eg: you might have the first tab within info
+                display statistics and releated artists, each in its own 
+                column, while another tab might show wikipedia info accross 
+                the full width
+    in either case, we could also provide last.fm album/artist info
+
+Content-Matching (involved)
+    matching tracks based on tag content rather than loc.
+    useful for: detecting moves withing the library, xspf playlists
+    ?match by everything or a subset? if x% is the same? efficiency?
+    needed? amarok handles files moving by storing the file's checksum in
+        the db, perhaps we should do this too.
+            hash only part (eg the last 512k), to make it fast.
+            problem: some tags (id3v1, some apev2) are stored at the end
+                of the file. most tags (id3v2) are at the front. we don't
+                want to hash the part containing tags, as that could change
+                unlike the actual music itself.
+                    hash based on filetype? eg for id3v2-using formats
+                    like mp3 use the last part, and for ones like wavpack 
+                    that use the end of the file, hash the front?
+
+

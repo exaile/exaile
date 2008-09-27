@@ -112,4 +112,23 @@ Content-Matching (involved)
                     like mp3 use the last part, and for ones like wavpack 
                     that use the end of the file, hash the front?
 
+Advanced DBUS
+    allow greater freedom to query, eg allow listing artists, albums
+        in collection, searching collection, etc. 
+Cross-Fade
+    use gst's adder element to combine streams
+    use peek() methods on playlists and queue to see next track
+        without actually switching to it.
+Sorting Tags
+    ID3 defines TSOA/TSOP/TSOT for purpose of "sort" tags,
+    we should support them.
+        MP4 also provides such tags
+        are there ones for APE/OGG?
+
+
+random plugin ideas:
+    jamendo
+    magnatune
+    ladspa plugins
+    pitch/tempo adjust
 

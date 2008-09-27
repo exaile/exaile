@@ -127,11 +127,6 @@ class Exaile(object):
         self.hal = hal.HAL(self.devices)
         self.hal.connect()
 
-        #add cd device support to hal
-        from xl import cd
-        self.hal.add_handler(cd.CDHandler())
-        event.log_event("devices_loaded", self, None)
-
         # cover manager
         from xl import cover
         self.covers = cover.CoverManager(cache_dir=os.path.join(

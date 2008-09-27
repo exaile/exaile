@@ -1,22 +1,11 @@
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 3, or (at your option)
-# any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-# CD.py
-#
-# Handles cd playback, burning, import
-#
-#
+from xl import providers
+from xl.hal import Handler
+from xl.devices import Device
+import logging
+logger = logging.getLogger(__name__)
+
+PROVIDER = None
 
 import dbus, threading, os, struct
 from fcntl import ioctl
@@ -40,6 +29,18 @@ CDROMREADTOCENTRY = 0x5306
 CDROM_LEADOUT = 0xAA
 CDROM_MSF = 0x02
 CDROM_DATA_TRACK = 0x04
+
+
+def enable(exaile):
+    global PROVIDER
+    PROVIDER = CDHandler()
+    providers.register("hal", PROVIDER)
+
+def disable(exaile):
+    global PROVIDER
+    providers.unregister("hal", PROVIDER)
+    PROVIDER = None
+    
 
 class CDTocParser(object):
     #based on code from http://carey.geek.nz/code/python-cdrom/cdtoc.py
@@ -115,7 +116,7 @@ class CDPlaylist(playlist.Playlist):
             song['length'] = length
             songs[song.get_loc()] = song
 
-        sort_tups = [ (int(s['tracknumber']),s) for s in songs.values() ]
+        sort_tups = [ (int(s['tracknumber'][0]),s) for s in songs.values() ]
         sort_tups.sort()
 
         sorted = [ s[1] for s in sort_tups ]
@@ -159,7 +160,7 @@ class CDPlaylist(playlist.Playlist):
         self.set_name(title[1].decode('iso-8859-15', 'replace'))
 
 
-class CDDevice(devices.Device):
+class CDDevice(Device):
     """
         represents a CD
     """
@@ -174,8 +175,7 @@ class CDDevice(devices.Device):
     def disconnect(self):
         self.playlists = []
 
-
-class CDHandler(hal.Handler):
+class CDHandler(Handler):
     name = "cd"
     def is_type(self, device, capabilities):
         if "volume.disc" in capabilities:
@@ -190,89 +190,11 @@ class CDHandler(hal.Handler):
         cd_obj = hal.bus.get_object("org.freedesktop.Hal", udi)
         cd = dbus.Interface(cd_obj, "org.freedesktop.Hal.Device")
         if not cd.GetProperty("volume.disc.has_audio"):
-            return #not CD-Audio
-            #TODO: implement mp3 cd support
+            return
+
         device = str(cd.GetProperty("block.device"))
 
-        cddev = CDDevice( dev=device)
+        cddev = CDDevice(dev=device)
 
         return cddev
-
-class CDImporter(object):
-    def __init__(self, tracks):
-        self.tracks = [ t for t in tracks if t.get_loc_for_io().startswith("cdda") ]
-        self.duration = float(sum( [ t['length'] for t in self.tracks ] ))
-        self.transcoder = transcoder.Transcoder()
-        self.current = None
-        self.progress = 0.0
-
-        self.running = False
-
-        self.outpath = settings.get_option("cd_import/outpath", "%s/${artist}/${album}/${tracknumber} - ${title}"%os.getenv("HOME"))
-
-        self.format = settings.get_option("cd_import/format", "Ogg Vorbis")
-        self.quality = settings.get_option("cd_import/quality", -1)
-
-        self.cont = None
-
-    @common.threaded
-    def do_import(self):
-        self.running = True
-
-        self.cont = threading.Event()
-
-        self.transcoder.set_format(self.format)
-        if self.quality != -1:
-            self.transcoder.set_quality(self.quality)
-        self.transcoder.end_cb = self._end_cb
-
-        for tr in self.tracks:
-            self.cont.clear()
-            self.current = tr
-            loc = tr.get_loc_for_io()
-            track, device = loc[7:].split("#")
-            src = "cdparanoiasrc track=%s device=\"%s\""%(track, device)
-            self.transcoder.set_raw_input(src)
-            self.transcoder.set_output(self.get_output_location(tr))
-            self.transcoder.start_transcode()
-            self.cont.wait()
-            if not self.running:
-                break
-            tr.set_loc(self.get_output_location(tr))
-            tr.write_tags()
-            incr = tr['length'] / self.duration
-            self.progress += incr
-        self.progress = 100.0
-
-    def _end_cb(self):
-        self.cont.set()
-
-    def get_output_location(self, tr):
-        parts = self.outpath.split(os.sep)
-        parts2 = []
-        replacedict = {}
-        for tag in common.VALID_TAGS:
-            replacedict["${%s}"%tag] = tag
-        for part in parts:
-            for k, v in replacedict.iteritems():
-                part = part.replace(k, str(tr[v]))
-            part = part.replace(os.sep, "") # strip os.sep
-            parts2.append(part)
-        dirpath = "/" + os.path.join(*parts2[:-1]) 
-        if not os.path.exists(dirpath):
-            os.makedirs(dirpath)
-        ext = transcoder.FORMATS[self.transcoder.dest_format]['extension']
-        path = "/" + os.path.join(*parts2) + "." + ext
-        return path
-
-    def stop(self):
-        self.running = False
-        self.transcoder.stop()
-
-    def get_progress(self):
-        incr = self.current['length'] / self.duration
-        pos = self.transcoder.get_time()/float(self.current['length'])
-        return self.progress + pos*incr
-
-# vim: et sts=4 sw=4
 

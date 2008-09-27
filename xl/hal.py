@@ -14,23 +14,23 @@
 
 import dbus
 
-from xl import common
+from xl import common, providers
 
 import logging
 logger = logging.getLogger(__name__)
 
 
-class HAL(object):
+class HAL(providers.ProviderHandler):
     """
         HAL interface
     """
     def __init__(self, devicemanager):
+        providers.ProviderHandler.__init__(self, "hal")
         self.devicemanager = devicemanager
         
         self.bus = None
         self.hal = None
 
-        self.handlers = {}
         self.hal_devices = {}
 
     def connect(self):
@@ -39,26 +39,27 @@ class HAL(object):
             hal_obj = self.bus.get_object('org.freedesktop.Hal', 
                 '/org/freedesktop/Hal/Manager')
             self.hal = dbus.Interface(hal_obj, 'org.freedesktop.Hal.Manager')
+            for p in self.get_providers():
+                self.on_new_provider(p)
+            self.setup_device_events()
             logger.debug("Connected to HAL")
             return True
         except:
             logger.warning("Failed to connect to HAL, autodetection of devices will be disabled.")
             return False
 
-    def add_handler(self, handler):
-        self.handlers[handler.name] = handler
-        udis = handler.get_udis(self)
-        for udi in udis:
+    def on_new_provider(self, provider):
+        for udi in provider.get_udis(self):
             self.add_device(udi)
 
-    def remove_handler(self, name):
-        del self.handlers[name]
+    def on_del_provider(self, provider):
+        pass #TODO: disconnect and remove all devices of this type
 
     def get_handler(self, udi):
         dev_obj = self.bus.get_object("org.freedesktop.Hal", udi)
         device = dbus.Interface(dev_obj, "org.freedesktop.Hal.Device")
         capabilities = device.GetProperty("info.capabilities")
-        for handler in self.handlers.itervalues():
+        for handler in self.get_providers():
             if handler.is_type(device, capabilities):
                 return handler
         return None
@@ -69,6 +70,7 @@ class HAL(object):
         if handler is None:
             logger.debug("Found no HAL device handler for %s"%device_udi)
             return
+        logger.debug("Found new %s device at %s"%(handler.name, device_udi))
 
         dev = handler.device_from_udi(self, device_udi)
         if not dev: return

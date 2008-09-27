@@ -114,14 +114,16 @@ Things needed for beta 1 (0.2.999.1) release:
                 possibly also allow import from other players, eg rhythmbox,
                 amarok, etc. these importers would be implemented as plugins.
     Plugins
-        we should have asystem for instlaling inyl a fixed set of plugins at this point
+        we should have a system for installing onyl a fixed set of plugins at 
+            this point
         using a list in the plugins Makefile is probably acceptable
         method for choosing which plugins to enable on first run?
-            Firstrun="true" in PLUGININFO? if missing/false don't load on firstrun
-            only applies to first start, plugin added afterwards are never loaded until
-                the user explicitly requests so (instlaloing via the plugins manager
-                may be treated as such a request, this is mainly for the benefit of
-                plugins distributed in packages)
+            Firstrun="true" in PLUGININFO? if missing/false don't load on 
+                first run
+            only applies to first start, plugins added afterwards are never 
+                loaded until the user explicitly requests so (installing via 
+                the plugins manager may be treated as such a request, this is 
+                mainly for the benefit of plugins distributed in packages)
 
 
 Things needed for RCs/final release:
@@ -142,24 +144,9 @@ Things needed for RCs/final release:
         DEBUG logs do not need to be, as they are largely not intended to be
             seen by users
     Test cases
-        the follow still need test cases:
+        the following still need test cases:
         - tag reading/writing for all formats
-
-
-
-Other things that would be nice to have:
-    Advanced DBUS
-        allow greater freedom to query, eg allow listing artists, albums
-            in collection, searching collection, etc. 
-    Cross-Fade
-        use gst's adder element to combine streams
-        use peek() methods on playlists and queue to see next track
-            without actually switching to it.
-    Sorting Tags
-        ID3 defines TSOA/TSOP/TSOT for purpose of "sort" tags,
-        we should support them.
-            MP4 also provides such tags
-            are there ones for APE/OGG?
+        - add more here!
 
 
 GUIPLANNING:

@@ -115,10 +115,12 @@ Content-Matching (involved)
 Advanced DBUS
     allow greater freedom to query, eg allow listing artists, albums
         in collection, searching collection, etc. 
+
 Cross-Fade
     use gst's adder element to combine streams
     use peek() methods on playlists and queue to see next track
         without actually switching to it.
+
 Sorting Tags
     ID3 defines TSOA/TSOP/TSOT for purpose of "sort" tags,
     we should support them.
@@ -131,4 +133,19 @@ random plugin ideas:
     magnatune
     ladspa plugins
     pitch/tempo adjust
+
+
+DB optimization:
+    the current DB in 0.3 is quite fast but also uses a lot of memory
+    ideas:
+        keep only frequently-used fields in memory, ie. filename, title,
+            artist, album, albumartist, genre, tracknumber, and any other
+            currently-displayed columns in either collection pane or
+            playlist view
+        other fields should implement some sort of index on-disk that allows
+            fast searching - space used on disk is a non-issue (within reason)
+        all of this should be completely transparent, requiring no change to 
+            the Track/TrackDB external API
+
+
 

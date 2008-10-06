@@ -506,5 +506,33 @@ class Library(object):
 
         self.scan_interval = interval
 
+    def set_layout(self, layout, default="Unknown"):
+        pass
+
+    def add(self, loc, move=False):
+        pass
+
+    def delete(self, loc):
+        pass
+
+    def organize(self):
+        pass
+
+    def keep_organized(self, bool):
+        pass
+
+    def get_freespace(self):
+        pass
+
+    def get_totalspace(self):
+        pass
+
+    def get_usedspace(self):
+        pass
+
+    def get_usedspace_percent(self):
+        pass
+
+
 # vim: et sts=4 sw=4
 

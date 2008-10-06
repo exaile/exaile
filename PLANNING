@@ -16,6 +16,12 @@ betas:  0.2.999.x
 RCs:    0.2.9999.x
 final:  0.3.0
 
+releases so far:
+    0.2.99.0 - aka 0.3a
+
+next release:
+    0.2.99.1 - aka 0.3a2
+
 
 Implemented:
     Collection

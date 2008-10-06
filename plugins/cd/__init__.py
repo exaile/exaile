@@ -9,7 +9,7 @@ PROVIDER = None
 
 import dbus, threading, os, struct
 from fcntl import ioctl
-from xl import playlist, settings, track, common, hal, devices, transcoder
+from xl import playlist, settings, track, common, transcoder
 settings=settings.SettingsManager.settings
 
 try:

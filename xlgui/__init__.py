@@ -17,7 +17,7 @@ __all__ = ['main', 'panel', 'playlist']
 import gtk, gtk.glade, gobject, logging
 from xl import xdg, common, event
 
-from xlgui import guiutil
+from xlgui import guiutil, preferences
 
 gtk.window_set_default_icon_from_file(xdg.get_data_path("images/icon.png"))
 logger = logging.getLogger(__name__)
@@ -73,7 +73,14 @@ class Main(object):
             'on_about_item_activate': self.show_about_dialog,
             'on_scan_collection_item_activate': self.on_rescan_collection,
             'on_collection_manager_item_activate': self.collection_manager,
+            'on_preferences_item_activate': self.show_preferences,
         })
+
+    def show_preferences(self, *e):
+        """
+            Shows the preferences dialog
+        """
+        dialog = preferences.PreferencesDialog(self.main.window, self)
 
     def collection_manager(self, *e):
         """
@@ -161,6 +168,7 @@ def show_splash(show=True):
 
         @param show: [bool] show the splash screen
     """
+    if not show: return
     image = gtk.Image()
     image.set_from_file(xdg.get_data_path("images/splash.png"))
     xml = gtk.glade.XML(xdg.get_data_path("glade/splash.glade"), 'SplashScreen', 'exaile')

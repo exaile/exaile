@@ -148,7 +148,9 @@ class Exaile(object):
             import xlgui
             self.gui = xlgui.Main(self)
             import gobject
-            gobject.idle_add(self.splash.destroy)
+
+            if self.splash is not None:
+                gobject.idle_add(self.splash.destroy)
             event.log_event("gui_loaded", self, None)
 
         self.loading = False
@@ -159,7 +161,7 @@ class Exaile(object):
             Displays the splash screen
         """
         import xlgui
-        self.splash = xlgui.show_splash(show=self.settings.get_option('gui/show_splash', True))
+        self.splash = xlgui.show_splash(show=self.settings.get_option('gui/use_splash', True))
 
     def setup_logging(self):
         console_format = "%(levelname)-8s: %(message)s"

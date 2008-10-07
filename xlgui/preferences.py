@@ -16,7 +16,7 @@
 
 import thread, os, shlex, string, urllib2
 from gettext import gettext as _
-import pygtk, common
+import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade
 from xl import xdg
@@ -63,7 +63,7 @@ class PrefsItem(object):
         if not self.widget:
             xlmisc.log("Widget not found: %s" % (self.name))
             return
-        self.widget.set_text(str(settings.get_str(self.name, default=self.default)))
+        self.widget.set_text(str(settings.get_option(self.name, default=self.default)))
 
     def do_done(self):
         """
@@ -76,24 +76,24 @@ class PrefsItem(object):
             applies this setting
         """
         if self.done and not self.do_done(): return False
-        settings.set_str(self.name, unicode(self.widget.get_text(), 'utf-8'))
+        settings[self.name] = unicode(self.widget.get_text(), 'utf-8')
         return True
 
-class CryptedPrefsItem(PrefsItem):
-    """
-        An encrypted preferences item
-    """
-    def __init__(self, name, default, change=None, done=None):
-        PrefsItem.__init__(self, name, default, change, done)
+#class CryptedPrefsItem(PrefsItem):
+#    """
+#        An encrypted preferences item
+#    """
+#    def __init__(self, name, default, change=None, done=None):
+#        PrefsItem.__init__(self, name, default, change, done)
 
-    def set_pref(self):
-        self.widget.set_text(settings.get_crypted(self.name,
-            default=self.default))
+#    def set_pref(self):
+#        self.widget.set_text(settings.get_crypted(self.name,
+#            default=self.default))
 
-    def apply(self):
-        if self.done and not self.do_done(): return False
-        settings.set_crypted(self.name, unicode(self.widget.get_text(), 'utf-8'))
-        return True
+#    def apply(self):
+#        if self.done and not self.do_done(): return False
+#        settings.set_crypted(self.name, unicode(self.widget.get_text(), 'utf-8'))
+#        return True
 
 class PrefsTextViewItem(PrefsItem):
     """
@@ -125,7 +125,7 @@ class PrefsTextViewItem(PrefsItem):
         """
             Sets the value of this widget
         """
-        self.widget.get_buffer().set_text(str(settings.get_str(self.name,
+        self.widget.get_buffer().set_text(str(settings.get_option(self.name,
             default=self.default)))
 
     def do_done(self):
@@ -139,7 +139,7 @@ class PrefsTextViewItem(PrefsItem):
             Applies the setting
         """
         if self.done and not self.do_done(): return False
-        settings.set_str(self.name, self.get_all_text())
+        settings['self.name'] = self.get_all_text()
         return True
        
 class CheckPrefsItem(PrefsItem):
@@ -154,12 +154,12 @@ class CheckPrefsItem(PrefsItem):
             self.change)
 
     def set_pref(self):
-        self.widget.set_active(settings.get_boolean(self.name,
+        self.widget.set_active(settings.get_option(self.name,
             self.default))
 
     def apply(self):
         if self.done and not self.do_done(): return False
-        settings.set_boolean(self.name, self.widget.get_active())
+        settings[self.name] = self.widget.get_active()
         return True
 
 class ListPrefsItem(PrefsItem):
@@ -170,7 +170,7 @@ class ListPrefsItem(PrefsItem):
         PrefsItem.__init__(self, name, default, change, done)
 
     def set_pref(self):
-        items = settings.get_list(self.name, default=self.default)
+        items = settings.get_option(self.name, default=self.default)
         try:
             items = " ".join(items)
         except:
@@ -183,12 +183,12 @@ class ListPrefsItem(PrefsItem):
         # afterwards.
         values = shlex.split(self.widget.get_text())
         values = [unicode(value, 'utf-8') for value in values]
-        settings.set_list(self.name, values)
+        settings[self.name] = values
         return True
 
 class SpinPrefsItem(PrefsItem):
     def set_pref(self):
-        value = settings.get_float(self.name, default=self.default)
+        value = settings.get_option(self.name, default=self.default)
         self.widget.set_value(value)
 
 class FloatPrefsItem(PrefsItem):
@@ -199,11 +199,11 @@ class FloatPrefsItem(PrefsItem):
         PrefsItem.__init__(self, name, default, change, done)
 
     def set_pref(self):
-        self.widget.set_text(str(settings.get_float(self.name, default=self.default)))
+        self.widget.set_text(str(settings.get_option(self.name, default=self.default)))
 
     def apply(self):
         if self.done and not self.do_done(): return False
-        settings.set_float(self.name, float(self.widget.get_text()))
+        settings[self.name] = float(self.widget.get_text())
         return True
 
 class ColorButtonPrefsItem(PrefsItem):
@@ -219,7 +219,7 @@ class ColorButtonPrefsItem(PrefsItem):
 
     def set_pref(self):
         self.widget.set_color(gtk.gdk.color_parse(
-            settings.get_str(self.name, self.default)))
+            settings.get_option(self.name, self.default)))
 
     def apply(self):
         if self.done and not self.do_done(): return False
@@ -240,7 +240,7 @@ class FontButtonPrefsItem(ColorButtonPrefsItem):
         self.widget.connect('font-set', self.change, self.name)
 
     def set_pref(self):
-        font = settings.get_str(self.name, self.default)
+        font = settings.get_option(self.name, self.default)
         self.widget.set_font_name(font)
         
     def apply(self):
@@ -263,7 +263,7 @@ class DirPrefsItem(PrefsItem):
         """
             Sets the current directory
         """
-        directory = os.path.expanduser(settings.get_str(self.name, self.default))
+        directory = os.path.expanduser(settings.get_option(self.name, self.default))
         if not os.path.exists(directory):
             os.makedirs(directory)
         self.widget.set_filename(directory)
@@ -288,10 +288,10 @@ class ComboPrefsItem(PrefsItem):
             self.change)
 
     def set_pref(self):
-        item = settings.get_str(self.name, self.default)
+        item = settings.get_option(self.name, self.default)
 
         if self.use_index:
-            index = settings.get_int(self.name, self.default)
+            index = settings.get_option(self.name, self.default)
             self.widget.set_active(index)
             return
 
@@ -316,7 +316,7 @@ class ComboPrefsItem(PrefsItem):
             settings[self.name] = self.widget.get_active_text()
         return True
 
-class Preferences(object):
+class PreferencesDialog(object):
     """
         Preferences Dialog
     """
@@ -344,7 +344,7 @@ class Preferences(object):
         self.parent = parent
         settings = self.main.exaile.settings
         self.popup = None
-        self.xml = gtk.glade.XML(xdg.get_data_path('glade/preferences_dialog.glade', 
+        self.xml = gtk.glade.XML(xdg.get_data_path('glade/preferences_dialog.glade'), 
             'PreferencesDialog', 'exaile')
         xml = self.xml
         self.window = self.xml.get_widget('PreferencesDialog')
@@ -358,13 +358,6 @@ class Preferences(object):
         self.nb.set_show_tabs(False)
 
         self._connect_events()
-
-        self.xml.get_widget('prefs_cancel_button').connect('clicked',
-            lambda *e: self.cancel())
-        self.xml.get_widget('prefs_apply_button').connect('clicked',
-            self.apply)
-        self.xml.get_widget('prefs_ok_button').connect('clicked',
-            self.ok)
 
         self.label = self.xml.get_widget('prefs_frame_label')
 
@@ -395,9 +388,9 @@ class Preferences(object):
             Connects the various events to their handlers
         """
         self.xml.signal_autoconnect({
-            'on_cancel_button_activate': lambda *e: self.cancel(),
-            'on_apply_button_activate': self.apply,
-            'on_ok_button_activate': self.ok,
+            'on_cancel_button_clicked': lambda *e: self.cancel(),
+            'on_apply_button_clicked': self.apply,
+            'on_ok_button_clicked': self.ok,
         })
 
     def setup_settings(self):
@@ -407,9 +400,6 @@ class Preferences(object):
         global settings
 
         self.fields = []
-           
-        self.fields.append(ComboPrefsItem('ui/tab_placement',
-            0, None, self.setup_tabs, use_index=True))
 
         simple_settings = ({
             'gui/use_splash': (CheckPrefsItem, True),
@@ -446,8 +436,6 @@ class Preferences(object):
                 print item.name
                 return False
 
-        xlmisc.POPUP = None
-
         return True
 
     def cancel(self):
@@ -472,7 +460,7 @@ class Preferences(object):
         page = self.nb.get_nth_page(index)
         title = self.nb.get_tab_label(page)
         self.label.set_markup("<b>%s</b>" %
-            common.escape_xml(title.get_label()))
+            title.get_label())
  
     def run(self):
         """

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Mon Oct  6 17:42:07 2008 -->
+<!--Generated with glade3 3.4.5 on Tue Oct  7 13:19:42 2008 -->
 <glade-interface>
   <widget class="GtkDialog" id="PreferencesDialog">
-    <property name="width_request">550</property>
+    <property name="width_request">600</property>
     <property name="visible">True</property>
     <property name="title" translatable="yes">Preferences</property>
     <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
@@ -56,7 +56,7 @@
                             <property name="visible">True</property>
                             <property name="border_width">3</property>
                             <child>
-                              <widget class="GtkCheckButton" id="prefs_ui_use_splash">
+                              <widget class="GtkCheckButton" id="prefs_gui_use_splash">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="label" translatable="yes">Show splash screen on startup</property>
@@ -70,7 +70,7 @@
                               </packing>
                             </child>
                             <child>
-                              <widget class="GtkCheckButton" id="prefs_ui_use_tray">
+                              <widget class="GtkCheckButton" id="prefs_gui_use_tray">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="label" translatable="yes">Show tray icon</property>
@@ -85,7 +85,7 @@
                               </packing>
                             </child>
                             <child>
-                              <widget class="GtkCheckButton" id="prefs_ui_ensure_visible">
+                              <widget class="GtkCheckButton" id="prefs_gui_ensure_visible">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="label" translatable="yes" comments="TRANSLATORS: Keep the current track visible in playlist">Jump to current song on track change</property>
@@ -404,7 +404,7 @@ osssink</property>
                 <property name="label">gtk-apply</property>
                 <property name="use_stock">True</property>
                 <property name="response_id">-10</property>
-                <signal name="activate" handler="on_apply_button_activate"/>
+                <signal name="clicked" handler="on_apply_button_clicked"/>
               </widget>
             </child>
             <child>
@@ -415,7 +415,7 @@ osssink</property>
                 <property name="label">gtk-cancel</property>
                 <property name="use_stock">True</property>
                 <property name="response_id">-6</property>
-                <signal name="activate" handler="on_cancel_button_activate"/>
+                <signal name="clicked" handler="on_cancel_button_clicked"/>
               </widget>
               <packing>
                 <property name="position">1</property>
@@ -429,7 +429,7 @@ osssink</property>
                 <property name="label">gtk-ok</property>
                 <property name="use_stock">True</property>
                 <property name="response_id">-5</property>
-                <signal name="activate" handler="on_ok_button_activate"/>
+                <signal name="clicked" handler="on_ok_button_clicked"/>
               </widget>
               <packing>
                 <property name="position">2</property>

@@ -38,9 +38,8 @@ except:
     import cElementTree as ETree
 
 from urlparse import urlparse
-
-#TODO: is this really needed?
-random.seed(time.time())
+import logging
+logger = logging.getLogger(__name__)
 
 class InvalidPlaylistTypeException(Exception):
     pass
@@ -567,8 +566,12 @@ class Playlist(object):
                     len(self.tracks_history) == 1:
                 return None
             
-            next = random.choice([ x for x in self.ordered_tracks \
+            try:
+                next = random.choice([ x for x in self.ordered_tracks \
                     if x not in self.tracks_history])
+            except IndexError:
+                logger.info('Ran out of tracks to shuffle')
+                return None
             self.current_pos = self.ordered_tracks.index(next)            
         else:
             if len(self.ordered_tracks) == 0:

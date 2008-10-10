@@ -323,14 +323,9 @@ class PreferencesDialog(object):
 
     CATEGORIES = [
         # TRANSLATORS: Category of the preferences dialog
-        (_("General"), [
-            # TRANSLATORS: Category of the preferences dialog
-            _("Library"),
-        ]),
+        (_("General"), []),
         # TRANSLATORS: Category of the preferences dialog
-        (_("Advanced"), [
-            _("After"),
-        ]),
+        (_("Advanced"), []),
     ]
 
     def __init__(self, parent, main):

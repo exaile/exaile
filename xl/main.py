@@ -186,7 +186,8 @@ class Exaile(object):
                 mode='a', backupCount=5)
         logfile.doRollover() # each session gets its own file
         logfile.setLevel(logfilelevel)
-        formatter = logging.Formatter('%(asctime)s %(levelname)-8s: %(message)s (%(name)s)', datefmt="%m-%d %H:%M")
+        formatter = logging.Formatter('%(asctime)s %(levelname)-8s: %(message)s (%(name)s)', 
+            datefmt="%m-%d %H:%M")
         logfile.setFormatter(formatter)
         logging.getLogger("").addHandler(logfile)
 

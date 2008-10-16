@@ -12,10 +12,134 @@
 # along with this program; if not, write to the free software
 # foundation, inc., 675 mass ave, cambridge, ma 02139, usa.
 
-import gtk, urllib, os.path
+import gtk, urllib, os.path, time
 from xlgui import panel, guiutil, xdg, commondialogs
-from xlgui import menu
+from xlgui import menu, filtergui
 from xl import playlist
+from xlgui.filtergui import MultiEntryField, EntryField
+from gettext import gettext as _
+
+N_ = lambda x: x
+
+class EntrySecondsField(MultiEntryField):
+    def __init__(self):
+        MultiEntryField.__init__(self, n=1,
+            labels=(None, _('seconds')),
+            widths=(50,))
+
+class EntryAndEntryField(MultiEntryField):
+    def __init__(self):
+        MultiEntryField.__init__(self, n=2,
+            # TRANSLATORS: Logical AND used for smart playlists
+            labels=(None, _('and'), None),
+            widths=(50, 50))
+
+class EntryDaysField(MultiEntryField):
+    def __init__(self):
+        MultiEntryField.__init__(self, n=1,
+            labels=(None, _('days')),
+            widths=(50,))
+
+DATE_FIELDS = (_('seconds'), _('minutes'), _('hours'), _('days'), _('weeks'))
+class SpinDateField(filtergui.SpinButtonAndComboField):
+    def __init__(self):
+        filtergui.SpinButtonAndComboField.__init__(self, 
+            DATE_FIELDS)
+
+class SpinSecondsField(filtergui.SpinLabelField):
+    def __init__(self):
+        filtergui.SpinLabelField.__init__(self, 
+            _('seconds'))
+
+class SpinRating(filtergui.SpinLabelField):
+    def __init__(self):
+        filtergui.SpinLabelField.__init__(self, '',
+            8, -8)
+
+class SpinNothing(filtergui.SpinLabelField):
+    def __init__(self):
+        filtergui.SpinLabelField.__init__(self, '')
+
+CRITERIA = [
+    (N_('Artist'), [
+        # TRANSLATORS: True if haystack is equal to needle
+        (N_('is'), EntryField),
+        # TRANSLATORS: True if haystack is not equal to needle
+        (N_('is not'), EntryField),
+        # TRANSLATORS: True if haystack contains needle
+        (N_('contains'), EntryField),
+        # TRANSLATORS: True if haystack does not contain needle
+        (N_('does not contain'), EntryField)
+    ]),
+    (N_('Album'), [
+        (N_('is'), EntryField),
+        (N_('is not'), EntryField),
+        (N_('contains'), EntryField),
+        (N_('does not contain'), EntryField),
+    ]),
+    (N_('Genre'), [
+        (N_('is'), EntryField),
+        (N_('is not'), EntryField),
+        (N_('contains'), EntryField),
+        (N_('does not contain'), EntryField),
+    ]),
+    (N_('Rating'), [
+        # TRANSLATORS: Example: rating >= 5
+        (N_('at least'), SpinRating),
+        # TRANSLATORS: Example: rating <= 3
+        (N_('at most'), SpinRating),
+    ]),
+    (N_('Number of Plays'), [
+        (N_('at least'), SpinNothing),
+        (N_('at most'), SpinNothing),
+    ]),
+    (N_('Year'), [
+        # TRANSLATORS: Example: year < 1999
+        (N_('before'), EntryField),
+        # TRANSLATORS: Example: year > 2002
+        (N_('after'), EntryField),
+        # TRANSLATORS: Example: 1980 <= year <= 1987
+#        (N_('between'), (EntryAndEntryField, lambda x, y:
+#            'year BETWEEN %s AND %s' % (x, y))),
+    ]),
+#    (N_('Length'), [
+#        (N_('at least'), (SpinSecondsField, lambda x:
+#            'length >= %s' % x)),
+#        (N_('at most'), (SpinSecondsField, lambda x:
+#            'length <= %s' % x)),
+#        ]),
+#    (N_('Date Added'), [
+        # TRANSLATORS: Example: track has been added in the last 2 days
+#        (N_('in the last'), (SpinDateField, 
+#            lambda x, i: day_calc(x, i, 'time_added'))),
+        # TRANSLATORS: Example: track has not been added in the last 5 hours
+#        (N_('not in the last'), (SpinDateField, 
+#            lambda x, i: day_calc(x, i, 'time_added', '<'))),
+#        ]),
+#    (N_('Last Played'), [
+#        (N_('in the last'), (SpinDateField, 
+#            lambda x, i: day_calc(x, i, 'last_played'))),
+#        (N_('not in the last'), (SpinDateField, 
+#            lambda x, i: day_calc(x, i, 'last_played', '<'))),
+#        ]),
+    (N_('Location'), [
+        (N_('is'), EntryField),
+        (N_('is not'), EntryField),
+        (N_('contains'), EntryField),
+        (N_('does not contain'), EntryField),
+    ]),
+]
+
+_TRANS = {
+    'is': '==',
+    'is not': '!==',
+    'contains': '=',
+    'does not contain': '!=',
+    'at least': '>=',
+    'at most': '<=',
+    'before': '<',
+    'after': '>',
+}
 
 class TrackWrapper(object):
     def __init__(self, track, playlist):
@@ -51,10 +175,14 @@ class BasePlaylistPanelMixin(object):
             Removes the selected playlist from the UI
             and from the underlying manager
         """
-        selected_playlist = self.get_selected_playlist()
+        selected_playlist = self.get_selected_playlist(raw=True)
         if selected_playlist is not None:
-            self.playlist_manager.remove_playlist(
-                selected_playlist.get_name())
+            if isinstance(selected_playlist, playlist.SmartPlaylist):
+                self.smart_manager.remove_playlist(
+                    selected_playlist.get_name())
+            else:
+                self.playlist_manager.remove_playlist(
+                    selected_playlist.get_name())
             #remove from UI
             selection = self.tree.get_selection()
             (model, iter) = selection.get_selected()
@@ -82,7 +210,7 @@ class BasePlaylistPanelMixin(object):
         (model, iter) = selection.get_selected()
         self.open_item(self.tree, model.get_path(iter), None)
         
-    def get_selected_playlist(self):
+    def get_selected_playlist(self, raw=False):
         """
             Retrieves the currently selected playlist in
             the playlists panel.  If a non-playlist is
@@ -90,12 +218,12 @@ class BasePlaylistPanelMixin(object):
             
             @return: the playlist
         """
-        item = self.get_selected_item()
-        if isinstance(item, playlist.Playlist):
+        item = self.get_selected_item(raw=raw)
+        if isinstance(item, (playlist.Playlist,
+            playlist.SmartPlaylist)):
             return item 
         else:
             return None
-        
     
     def get_selected_track(self):
         item = self.get_selected_item()
@@ -104,12 +232,13 @@ class BasePlaylistPanelMixin(object):
         else:
             return None
     
-    def get_selected_item(self):
+    def get_selected_item(self, raw=False):
         selection = self.tree.get_selection()
         (model, iter) = selection.get_selected()
         item = model.get_value(iter, 2)
         # for smart playlists
         if isinstance(item, playlist.SmartPlaylist):
+            if raw: return item
             return item.get_playlist(self.collection)
         elif isinstance(item, playlist.Playlist) :
             return item
@@ -272,11 +401,12 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         self.playlist_image = gtk.gdk.pixbuf_new_from_file(
             xdg.get_data_path('images/playlist.png'))
 
-        
         # menus
         self.playlist_menu = menu.PlaylistsPanelPlaylistMenu(self, controller.main)
+        self.smart_menu = menu.PlaylistsPanelPlaylistMenu(self,
+            controller.main, smart=True)
         self.default_menu = menu.PlaylistsPanelMenu(self)
-        self.track_menu  = menu.PlaylistsPanelTrackMenu(self)
+        self.track_menu = menu.PlaylistsPanelTrackMenu(self)
 
         self._load_playlists()
 
@@ -319,6 +449,125 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 self.playlist_nodes[pl] = node
                 self._load_playlist_nodes(pl)
 
+    def add_smart_playlist(self):
+        """
+            Adds a new smart playlist
+        """
+        dialog = filtergui.FilterDialog(_('Add Smart Playlist'),
+            CRITERIA)
+
+        dialog.set_transient_for(self.controller.main.window)
+        result = dialog.run()
+        dialog.hide()
+        if result == gtk.RESPONSE_ACCEPT:
+            name = dialog.get_name()
+            matchany = dialog.get_match_any()
+            limit = dialog.get_limit()
+            state = dialog.get_state()
+            random = dialog.get_random()
+
+            if not name:
+                commondialogs.error(self.controller.main.window, _("You did "
+                    "not enter a name for your playlist"))
+                return
+
+            try:
+                pl = self.smart_manager.get_playlist(name)
+                commondialogs.error(self.controller.main.window, _("The "
+                    "playlist name you specified already exists."))
+                return
+            except ValueError:
+                pass # playlist didn't exist
+
+            pl = playlist.SmartPlaylist(name, self.collection)
+            pl.set_or_match(matchany)
+            pl.set_return_limit(limit)
+            pl.set_random_sort(random)
+
+            for item in state:
+                (field, op) = item[0]
+                value = item[1]
+                pl.add_param(field.lower(), _TRANS[op], '"%s"' % value)
+
+            self.smart_manager.save_playlist(pl)
+            self.model.append(self.smart, [self.playlist_image, name, pl])
+
+    def edit_selected_smart_playlist(self):
+        """
+            Shows a dialog for editing the currently selected smart playlist
+        """
+        _REV = {}
+        for k, v in _TRANS.iteritems():
+            _REV[v] = k
+
+        pl = self.get_selected_playlist(raw=True)
+        if not isinstance(pl, playlist.SmartPlaylist): return
+
+        params = pl.search_params
+        state = []
+
+        for param in params:
+            (field, op, value) = param
+            field = field.capitalize()
+            if value.startswith('"') and value.endswith('"'):
+                value = value[1:len(value)-1]
+
+            state.append(([field, _REV[op]], value))
+
+        state.reverse()
+
+        dialog = filtergui.FilterDialog(_('Edit Smart Playlist'),
+            CRITERIA)
+
+        dialog.set_transient_for(self.controller.main.window)
+        dialog.set_name(pl.get_name())
+        dialog.set_match_any(pl.get_or_match())
+        dialog.set_limit(pl.get_return_limit())
+        dialog.set_random(pl.get_random_sort())
+
+        dialog.set_state(state)
+
+        result = dialog.run()
+        dialog.hide()
+
+        if result == gtk.RESPONSE_ACCEPT:
+            name = dialog.get_name()
+            matchany = dialog.get_match_any()
+            limit = dialog.get_limit()
+            state = dialog.get_state()
+            random = dialog.get_random()
+
+            if not name:
+                commondialogs.error(self.controller.main.window, _("You did "
+                    "not enter a name for your playlist"))
+                return
+
+            if not name == pl.name:
+                try:
+                    pl = self.smart_manager.get_playlist(name)
+                    commondialogs.error(self.controller.main.window, _("The "
+                        "playlist name you specified already exists."))
+                    return
+                except ValueError:
+                    pass # playlist didn't exist
+          
+            self.smart_manager.remove_playlist(pl.get_name())
+            pl = playlist.SmartPlaylist(name, self.collection)
+            pl.set_or_match(matchany)
+            pl.set_return_limit(limit)
+            pl.set_random_sort(random)
+
+            for item in state:
+                (field, op) = item[0]
+                value = item[1]
+                pl.add_param(field.lower(), _TRANS[op], value)
+
+            self.smart_manager.save_playlist(pl)
+
+            selection = self.tree.get_selection()
+            (model, iter) = selection.get_selected()
+            model.set_value(iter, 1, name)
+            model.set_value(iter, 2, pl)
 
     def drag_data_received(self, tv, context, x, y, selection, info, etime):
         """
@@ -557,9 +806,10 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             pl = self.model.get_value(iter, 2)
             #Based on what is selected determines what
             #menu we will show
-            if isinstance(pl, (playlist.Playlist,
-                playlist.SmartPlaylist)):
+            if isinstance(pl, playlist.Playlist):
                 self.playlist_menu.popup(event)
+            elif isinstance(pl, playlist.SmartPlaylist):
+                self.smart_menu.popup(event)
             elif isinstance(pl, TrackWrapper):
                 self.track_menu.popup(event)
             else:

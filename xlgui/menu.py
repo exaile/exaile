@@ -217,7 +217,7 @@ class PlaylistsPanelMenu(guiutil.Menu):
         self.widget.add_new_playlist()
     
     def on_add_smart_playlist(self, selected = None):
-        pass
+        self.widget.add_smart_playlist()
 
     def popup(self, event):
         """
@@ -231,7 +231,7 @@ class PlaylistsPanelPlaylistMenu(TrackSelectMenu, PlaylistsPanelMenu):
         when the user right clicks on an actual playlist
         entry
     """
-    def __init__(self, widget, main):
+    def __init__(self, widget, main, smart=False):
         """
             @param widget: playlists panel widget
         """
@@ -242,11 +242,16 @@ class PlaylistsPanelPlaylistMenu(TrackSelectMenu, PlaylistsPanelMenu):
         #Adds track menu options (like append, queue)
         TrackSelectMenu.__init__(self, widget, main)
         self.widget = widget
+        self.smart = smart
         
         self.append_separator()
         self.append(_('Open'), lambda *e: self.on_open_playlist(),
                     'gtk-open')
-        self.append(_('Rename'), lambda *e: self.on_rename_playlist(),
+
+        name = _('Rename')
+        if self.smart:
+            name = _('Edit')
+        self.append(name, lambda *e: self.on_rename_playlist(),
                     'gtk-edit')
         self.append(_('Export'), lambda *e: self.on_export_playlist(),
                     'gtk-save')
@@ -302,6 +307,10 @@ class PlaylistsPanelPlaylistMenu(TrackSelectMenu, PlaylistsPanelMenu):
         dialog.destroy()
         
     def on_rename_playlist(self, selected = None):
+        if self.smart:
+            self.widget.edit_selected_smart_playlist()
+            return
+
         # Ask for new name
         dialog = commondialogs.TextEntryDialog(
             _("Enter the new name you want for your playlist"),

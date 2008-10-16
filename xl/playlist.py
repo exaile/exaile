@@ -833,7 +833,7 @@ class SmartPlaylist(object):
 
             @param sort: bool
         """
-        self.random_sort = True
+        self.random_sort = sort
         self._dirty = True
 
     def get_random_sort(self):

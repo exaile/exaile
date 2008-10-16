@@ -279,7 +279,7 @@ class TrackDB(object):
                 random.shuffle(tracks)
             else:
                 tracks = sort_tracks(sort_fields, tracks)
-        if return_lim != -1:
+        if return_lim > 0:
             tracks = tracks[:return_lim]
 
         return tracks

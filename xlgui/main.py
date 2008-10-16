@@ -346,17 +346,22 @@ class MainWindow(object):
 
         self.update_rating_combo()
 
-    def update_rating_combo(self):
+    def update_rating_combo(self, rating=None):
         """
             Updates the rating combo box
         """
-        track = self.player.current
-        if not track: return
+        track = None
+        if rating is None:
+            track = self.player.current
+            if not track: return
+            rating = track.get_rating()
 
         if self.rating_id:
             self.rating_combo.disconnect(self.rating_id)
 
-        self.rating_combo.set_active(track.get_rating())
+        self.rating_combo.set_active(rating)
+        if track:
+            self.get_selected_playlist().refresh_row(track)
 
         self.rating_id = self.rating_combo.connect('changed',
             self.set_current_track_rating)
@@ -566,7 +571,7 @@ class MainWindow(object):
                 gtk.ICON_SIZE_SMALL_TOOLBAR))
         self.update_track_counts()
 
-        self.rating_combo.set_active(True)
+        self.rating_combo.set_sensitive(True)
         self.update_rating_combo()
 
     @guiutil.gtkrun
@@ -581,8 +586,8 @@ class MainWindow(object):
         self.play_button.set_image(gtk.image_new_from_stock('gtk-media-play',
                 gtk.ICON_SIZE_SMALL_TOOLBAR))
 
-        self.rating_combo.set_active(False)
-        self.rating_combo.set_active(0)
+        self.rating_combo.set_sensitive(False)
+        self.update_rating_combo(0)
 
     def _update_track_information(self):
         """

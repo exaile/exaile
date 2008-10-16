@@ -327,6 +327,40 @@ class MainWindow(object):
         self.filter.connect('activate', self.on_playlist_search)
         box.pack_start(self.filter.entry, True, True)
 
+        self.rating_combo = self.xml.get_widget('rating_combo_box')
+        self.rating_combo.set_active(0)
+        self.rating_combo.set_sensitive(False)
+        self.rating_id = self.rating_combo.connect('changed',
+            self.set_current_track_rating)
+
+    def set_current_track_rating(self, *e):
+        """
+            Sets the currently playing track's rating
+        """
+        track = self.player.current
+        if not track:
+            return
+
+        rating = int(self.rating_combo.get_active())
+        track['rating'] = rating
+
+        self.update_rating_combo()
+
+    def update_rating_combo(self):
+        """
+            Updates the rating combo box
+        """
+        track = self.player.current
+        if not track: return
+
+        if self.rating_id:
+            self.rating_combo.disconnect(self.rating_id)
+
+        self.rating_combo.set_active(track.get_rating())
+
+        self.rating_id = self.rating_combo.connect('changed',
+            self.set_current_track_rating)
+
     def on_playlist_search(self, *e):
         """
             Filters the currently selected playlist
@@ -532,6 +566,9 @@ class MainWindow(object):
                 gtk.ICON_SIZE_SMALL_TOOLBAR))
         self.update_track_counts()
 
+        self.rating_combo.set_active(True)
+        self.update_rating_combo()
+
     @guiutil.gtkrun
     def on_playback_end(self, type, player, object):
         """
@@ -543,6 +580,9 @@ class MainWindow(object):
         self.draw_playlist(type, player, object)
         self.play_button.set_image(gtk.image_new_from_stock('gtk-media-play',
                 gtk.ICON_SIZE_SMALL_TOOLBAR))
+
+        self.rating_combo.set_active(False)
+        self.rating_combo.set_active(0)
 
     def _update_track_information(self):
         """

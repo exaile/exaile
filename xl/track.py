@@ -204,6 +204,24 @@ class Track(object):
         except ValueError:
             return t
 
+    def get_rating(self):
+        """
+            Returns the current track rating.  Default is 2
+        """
+        try:
+            rating = int(self['rating'])
+        except TypeError:
+            return 2
+        except KeyError:
+            return 2
+        except ValueError:
+            return 2
+
+        if rating > 5: return 5
+        elif rating < 0: return 0
+
+        return rating
+
     def get_bitrate(self): 
         """
             Returns the bitrate

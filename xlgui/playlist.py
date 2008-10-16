@@ -12,13 +12,38 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import gtk, pango
+import gtk, pango, gtk.gdk
 from xlgui import guiutil, menu
-from xl import playlist, event, track, collection
+from xl import playlist, event, track, collection, xdg
 import copy, urllib
 import logging
 import os, os.path
 logger = logging.getLogger(__name__)
+
+# creates the rating images for the caller
+def create_rating_images(rating_width):
+    """
+        Called to (re)create the pixmaps used for the Rating column.
+    """
+    if rating_width != 0:
+        rating_images = []
+        star_size = rating_width / 5
+
+        star = gtk.gdk.pixbuf_new_from_file_at_size(
+            xdg.get_data_path('images/star.png'), star_size, star_size)
+
+        full_image = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, rating_width, star_size)
+        full_image.fill(0xffffff00) # transparent white
+        for x in range(0, 5):
+            star.copy_area(0, 0, star_size, star_size, full_image, star_size * x, 0)
+        rating_images.insert(0, full_image)
+        for x in range(5, 0, -1):
+            this_image = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, rating_width, star_size)
+            this_image.fill(0xffffff00) # transparent white
+            full_image.copy_area(0, 0, int(x * star_size), star_size, this_image, 0, 0)
+            rating_images.insert(0, this_image)
+
+        return rating_images
 
 class Column(object):
     def __init__(self, id, display, size):
@@ -103,6 +128,8 @@ class Playlist(gtk.VBox):
         event.add_callback(self.on_add_tracks, 'tracks_added', self.playlist)
         event.add_callback(self.on_remove_tracks, 'tracks_removed',
             self.playlist)
+
+        self.rating_images = create_rating_images(64)
 
     def _setup_col_menus(self):
         """
@@ -646,9 +673,9 @@ class Playlist(gtk.VBox):
         for col_struct in cols:
             # get cell renderer
             cellr = gtk.CellRendererText()
-#            if col_struct.id == 'rating':
-#                cellr = gtk.CellRendererPixbuf()
-#                cellr.set_property("follow-state", False)
+            if col_struct.id == 'rating':
+                cellr = gtk.CellRendererPixbuf()
+                cellr.set_property("follow-state", False)
 
             if col_struct.id in columns_settings:
                 if first_col:
@@ -676,10 +703,9 @@ class Playlist(gtk.VBox):
                     col.set_cell_data_func(cellr, self.bitrate_data_func)
                 elif col_struct.id == 'tracknumber':
                     col.set_cell_data_func(cellr, self.track_data_func)
-#                elif col_struct.id == 'rating':
-#                    col.set_attributes(cellr, pixbuf=1)
-#                    col.set_cell_data_func(cellr, self.rating_data_func)
-                    pass
+                elif col_struct.id == 'rating':
+                    col.set_attributes(cellr, pixbuf=1)
+                    col.set_cell_data_func(cellr, self.rating_data_func)
                 else:
                     col.set_cell_data_func(cellr, self.default_data_func)
 
@@ -736,9 +762,6 @@ class Playlist(gtk.VBox):
         w = col.get_width()
         if w != self.settings.get_option(name, -1):
             self.settings[name] = w
-        if col_struct.id == 'rating':
-            self.rating_width = min(col.get_width(), self.row_height * 4)
-            # create_rating_images(self)
 
     # sort functions courtesy of listen (http://listengnome.free.fr), which
     # are in turn, courtesy of quodlibet.  
@@ -817,6 +840,17 @@ class Playlist(gtk.VBox):
                 str(index + 1), 18, 18)
 
         cell.set_property('pixbuf', image)
+
+    def rating_data_func(self, col, cell, model, iter):
+        item = model.get_value(iter, 0)
+        if not item.get_rating(): return
+        try:
+            idx = item.get_rating() - 1
+            cell.set_property('pixbuf', self.rating_images[idx])
+        except IndexError:
+            if idx > 5: idx = 5
+            elif idx < 0: idx = 0
+            cell.set_property('pixbuf', self.rating_images[idx])
 
     def stop_icon_data_func(self, col, cell, model, iter):
         """

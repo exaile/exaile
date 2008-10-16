@@ -99,15 +99,12 @@ CRITERIA = [
         # TRANSLATORS: Example: year > 2002
         (N_('after'), EntryField),
         # TRANSLATORS: Example: 1980 <= year <= 1987
-#        (N_('between'), (EntryAndEntryField, lambda x, y:
-#            'year BETWEEN %s AND %s' % (x, y))),
+        (N_('between'), EntryAndEntryField),
     ]),
-#    (N_('Length'), [
-#        (N_('at least'), (SpinSecondsField, lambda x:
-#            'length >= %s' % x)),
-#        (N_('at most'), (SpinSecondsField, lambda x:
-#            'length <= %s' % x)),
-#        ]),
+    (N_('Length'), [
+        (N_('at least'), SpinSecondsField),
+        (N_('at most'), SpinSecondsField),
+    ]),
 #    (N_('Date Added'), [
         # TRANSLATORS: Example: track has been added in the last 2 days
 #        (N_('in the last'), (SpinDateField, 
@@ -139,6 +136,7 @@ _TRANS = {
     'at most': '<=',
     'before': '<',
     'after': '>',
+    'between': '><',
 }
 
 class TrackWrapper(object):
@@ -487,7 +485,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             for item in state:
                 (field, op) = item[0]
                 value = item[1]
-                pl.add_param(field.lower(), _TRANS[op], '"%s"' % value)
+                pl.add_param(field.lower(), _TRANS[op], value)
 
             self.smart_manager.save_playlist(pl)
             self.model.append(self.smart, [self.playlist_image, name, pl])
@@ -509,8 +507,6 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         for param in params:
             (field, op, value) = param
             field = field.capitalize()
-            if value.startswith('"') and value.endswith('"'):
-                value = value[1:len(value)-1]
 
             state.append(([field, _REV[op]], value))
 

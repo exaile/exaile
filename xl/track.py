@@ -211,11 +211,11 @@ class Track(object):
         try:
             rating = int(self['rating'])
         except TypeError:
-            return 2
+            return 0
         except KeyError:
-            return 2
+            return 0
         except ValueError:
-            return 2
+            return 0
 
         if rating > 5: return 5
         elif rating < 0: return 0

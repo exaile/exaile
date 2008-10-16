@@ -56,7 +56,6 @@ class FilesPanel(panel.Panel):
         self.model = gtk.ListStore(gtk.gdk.Pixbuf, str, str)
         self.tree = guiutil.DragTreeView(self, True, True)
         self.tree.set_model(self.model)
-        self.tree.set_headers_visible(False)
         self.tree.connect('row-activated', self.row_activated)
 
         self.scroll = gtk.ScrolledWindow()

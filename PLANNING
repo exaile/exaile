@@ -1,3 +1,9 @@
+NOTE:  We should start using launchpad for this, either the blueprints section
+or the issue tracker.  I've started putting in blueprints and assigning the
+goal as 0.3-devel.  This way we'll have a better record of what's been done
+and who's working on what.  
+
+
 This is for notes and plans regarding exaile 0.3. 
 It should also be used to keep track of what each contributor is
 currently working on.
@@ -170,6 +176,11 @@ GUIPLANNING:
             still needs everything, only does toggle hide now. Egg based
                 tray icon not implemented at all.
         SPAT - as right-click on stop
+        Smart Playlist editor
+        About Dialog
+        use banshee-type progressbars, ie display a list of all active
+            progressbars below the side pane area. This can be used for
+            things like collection rescan, cd import, mp3 player sync, etc.
     Needs to be implemented:
         Album Art Manager
         Preferences Dialog
@@ -182,9 +193,7 @@ GUIPLANNING:
                 this is converted into the range from 0-100 for the backend
         Plugin Manager
             allow local install
-        About Dialog
         Better search interface (allow for custom queries and etc)
-        Smart Playlist editor
         Various Device Panels
             there will be two kinds of these, playlist-based (eg CDs) and 
                 collection-based (eg MP3 players)
@@ -203,9 +212,6 @@ GUIPLANNING:
                         more than 3 devices will be plugged in at a time
 
     Ideas:
-        use banshee-type progressbars, ie display a list of all active
-            progressbars below the side pane area. This can be used for
-            things like collection rescan, cd import, mp3 player sync, etc.
         use libsexy to put album art in tray tooltip (possible?)
             - alternatively, replace tray tooltip with OSD if enabled
         OSD progressbar should be togglable (perhaps make {progressbar}

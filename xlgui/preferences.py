@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import thread, os, shlex, string, urllib2
-from gettext import gettext as _
+from xl.nls import gettext as _
 import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade

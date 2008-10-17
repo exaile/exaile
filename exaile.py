@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import sys
+import sys, os, os.path
 
 if sys.platform == 'linux2':
     # Set process name.  Only works on Linux >= 2.1.57.
@@ -29,6 +29,15 @@ if sys.platform == 'linux2':
              libc.call('prctl', 15, 'exaile\0', 0, 0, 0) # 15 is PR_SET_NAME
         except:
             pass
+
+# Find out the location of exaile's working directory, and insert it to sys.path
+basedir = os.path.dirname(os.path.realpath(__file__))
+if not os.path.exists(os.path.join(basedir, "exaile.py")):
+    cwd = os.getcwd()
+    if os.path.exists(os.path.join(cwd, "exaile.py")):
+        basedir = cwd
+sys.path.insert(0, basedir)
+print basedir
 
 def main():
     from xl import main

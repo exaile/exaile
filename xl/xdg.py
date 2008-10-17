@@ -40,7 +40,7 @@ if not os.path.exists(cache_home):
 
 data_dirs = os.getenv("XDG_DATA_DIRS")
 if data_dirs == None:
-    data_dirs = "/usr/local/share/:/usr/share/"
+    data_dirs = "/usr/local/share/:/usr/share/:/opt/share/"
 data_dirs = [ os.path.join(dir, "exaile") for dir in data_dirs.split(":") ]
 
 exaile_dir = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]

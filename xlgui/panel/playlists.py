@@ -17,7 +17,7 @@ from xlgui import panel, guiutil, xdg, commondialogs
 from xlgui import menu, filtergui
 from xl import playlist
 from xlgui.filtergui import MultiEntryField, EntryField
-from gettext import gettext as _
+from xl.nls import gettext as _
 
 N_ = lambda x: x
 

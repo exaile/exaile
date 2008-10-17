@@ -1,6 +1,6 @@
 import sys, traceback, gtk, gobject
 from cStringIO import StringIO
-from gettext import gettext as _
+from xl.nls import gettext as _
 from xlgui import guiutil
 from xl import event
 

@@ -21,8 +21,7 @@ They resemble the configuration dialogs of Evolution's mail filters
 and Rhythmbox's automatic playlists.
 """
 
-from gettext import gettext as _
-
+from xl.nls import gettext as _
 import gtk, gobject
 
 class FilterDialog(gtk.Dialog):

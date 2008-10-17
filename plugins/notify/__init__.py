@@ -1,6 +1,6 @@
 import pynotify, cgi
 from xl import event
-from gettext import gettext as _
+from xl.nls import gettext as _
 
 pynotify.init('exailenotify')
 

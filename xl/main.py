@@ -46,6 +46,9 @@ class Exaile(object):
         self.quitting = False
         self.loading = True
         (self.options, self.args) = self.get_options().parse_args()
+        if self.options.datadir:
+            xdg.data_dirs.insert(1, self.options.datadir)
+
         if self.options.debugevent:
             event.EVENT_MANAGER.use_logger = True
 
@@ -248,6 +251,7 @@ class Exaile(object):
             default=False, help="Start Exaile minimized to tray, if possible")
 
         # development and debug options
+        p.add_option("--datadir", dest="datadir", help="Set data dir")
         p.add_option("--debug", dest="debug", action="store_true",
             default=False, help="Show debugging output")
         p.add_option("--eventdebug", dest="debugevent", 

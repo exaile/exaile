@@ -16,7 +16,7 @@
 
 import gtk
 from xlgui import guiutil, commondialogs
-from xl import playlist
+from xl import playlist, xdg
 
 class GenericTrackMenu(guiutil.Menu):
     """
@@ -35,8 +35,37 @@ class GenericTrackMenu(guiutil.Menu):
         """
             Creates the menu
         """
+        star_icon = gtk.gdk.pixbuf_new_from_file_at_size(
+            xdg.get_data_path('images/star.png'), 16, 16)
+        icon_set = gtk.IconSet(star_icon)
+        factory = gtk.IconFactory()
+        factory.add_default()        
+        factory.add('exaile-star-icon', icon_set)
         self.queue_item = self.append(_('Toggle Queue'), lambda *e: self.on_queue(),
             'exaile-queue-icon')
+        rm = guiutil.Menu()
+        for i in range(0, 6):
+            if i == 0:
+                item = rm.append('-', lambda w, e, i=i:
+                    self.update_rating(i))
+            else:
+                item = rm.append_image(self.widget.rating_images[i-1],
+                    lambda w, e, i=i: self.update_rating(i))
+
+        self.append_menu(_("Set Rating"), rm, 'exaile-star-icon')
+
+    def update_rating(self, i, selected=None):
+        """
+            Called when the user updates the rating for selected tracks
+        """
+        if not selected:
+            selected = self.widget.get_selected_tracks()
+
+        for track in selected:
+            track['rating'] = i
+
+        if hasattr(self.widget, 'queue_draw'):
+            self.widget.queue_draw()
 
     def on_queue(self, selected=None):
         """

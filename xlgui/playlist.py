@@ -77,6 +77,7 @@ class Playlist(gtk.VBox):
 
         self.settings = controller.exaile.settings
         self.col_menus = dict()
+        self.rating_images = create_rating_images(64)
 
         self._setup_tree()
         self._setup_col_menus()
@@ -92,7 +93,6 @@ class Playlist(gtk.VBox):
         event.add_callback(self.on_remove_tracks, 'tracks_removed',
             self.playlist)
 
-        self.rating_images = create_rating_images(64)
 
     def _setup_col_menus(self):
         """

@@ -14,9 +14,8 @@
 
 import gtk, gobject, urllib
 from xl import xdg, common, track, trackdb
-from xlgui import panel, guiutil, menu
+from xlgui import panel, guiutil, menu, playlist
 from xl import xdg, common
-from xlgui import panel, guiutil, menu
 
 TRACK_NUM = 300
 
@@ -40,6 +39,7 @@ class CollectionPanel(panel.Panel):
             Initializes the collection panel
         """
         panel.Panel.__init__(self, controller)
+        self.rating_images = playlist.create_rating_images(64)
 
         self.collection = collection
         self.settings = settings

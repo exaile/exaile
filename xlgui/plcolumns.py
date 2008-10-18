@@ -13,6 +13,13 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import gtk
+from xl.nls import gettext as _
+
+"""
+    If you want to add a column to the Playlist object, or to the view columns
+    menu(s), you just define the class here and have it inherit from "Column".
+    The rest will be done automatically
+"""
 
 # various column definitions
 class Column(object):
@@ -167,18 +174,35 @@ class PlayCountColumn(Column):
     def set_properties(self, col, cellr):
         cellr.set_property('xalign', 1.0)
 
-COLUMNS = {
-    'tracknumber':      TrackNumberColumn,
-    'title':            TitleColumn,
-    'artist':           ArtistColumn,
-    'album':            AlbumColumn,
-    'length':           LengthColumn,
-    'discnumber':       DiscNumberColumn,
-    'rating':           RatingColumn,
-    'date':             DateColumn,
-    'genre':            GenreColumn,
-    'bitrate':          BitrateColumn,
-    'io_loc':           IoLocColumn,
-    'filename':         FilenameColumn,
-    'playcount':        PlayCountColumn,
-}
+# this is where everything gets set up, including the menu items
+COLUMNS = {}
+
+items = globals()
+keys = items.keys()
+for key in keys:
+    if type(items[key]) == type and \
+        'Column' in key and key != 'Column':
+        item = items[key]
+        COLUMNS[item.id] = item
+
+def setup_menu(menu, menu_items):
+    items = ['tracknumber', 'title', 'artist', 'album',
+        'length', 'genre', 'rating', 'date']
+
+    for key in COLUMNS.keys():
+        if not key in items:
+            items.append(key)
+
+    for item in items:
+        col = COLUMNS[item]
+        display = col.display
+        if col.id == 'tracknumber':
+            display = _('Track Number')
+        elif col.id == 'discnumber':
+            display = _('Disc Number')
+
+        menu_item = gtk.CheckMenuItem(display)
+        menu_item.set_name('%s_col' % col.id)
+        menu.insert(menu_item, items.index(item))
+
+        menu_items[col.id] = menu_item

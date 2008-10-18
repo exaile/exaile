@@ -49,6 +49,10 @@ def create_rating_images(rating_width):
 class Playlist(gtk.VBox):
     """
         Represents an xl.playlist.Playlist in the GUI
+
+        If you want to add a possible column to the display of each playlist,
+        just define a class for it in plcolumns.py and the rest will be done
+        automatically
     """
     COLUMNS = plcolumns.COLUMNS
     column_by_display = {}
@@ -56,6 +60,7 @@ class Playlist(gtk.VBox):
         column_by_display[col.display] = col
 
     default_columns = ['tracknumber', 'title', 'album', 'artist', 'length']
+    menu_items = {}
 
     def __init__(self, main, controller, pl):
         """
@@ -76,8 +81,12 @@ class Playlist(gtk.VBox):
         self.playlist.current_pos = -1
 
         self.settings = controller.exaile.settings
-        self.col_menus = dict()
         self.rating_images = create_rating_images(64)
+
+        # see plcolumns.py for more information on the columns menu
+        if not Playlist.menu_items:
+            plcolumns.setup_menu(self.xml.get_widget('columns_menu_menu'), 
+                Playlist.menu_items)
 
         self._setup_tree()
         self._setup_col_menus()
@@ -92,7 +101,7 @@ class Playlist(gtk.VBox):
         event.add_callback(self.on_add_tracks, 'tracks_added', self.playlist)
         event.add_callback(self.on_remove_tracks, 'tracks_removed',
             self.playlist)
-
+        
 
     def _setup_col_menus(self):
         """
@@ -127,10 +136,9 @@ class Playlist(gtk.VBox):
             column_ids = frozenset(ids)
 
         for col_struct in self.COLUMNS.values():
-            self.col_menus[col_struct.id] = menu = self.xml.get_widget(
-                '%s_col' % col_struct.id)
-
-            if menu is None:
+            try:
+                menu = Playlist.menu_items[col_struct.id] 
+            except KeyError:
                 logger.warning("No such column: %s" % col_struct.id)
                 continue
 

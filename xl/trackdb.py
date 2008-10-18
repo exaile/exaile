@@ -170,6 +170,10 @@ class TrackDB(object):
             
             location: the location to save the data to [string]
         """
+        for k, track in self.tracks.iteritems():
+            if track._dirty: self._dirty = True
+            track._dirty = False
+
         if not self._dirty:
             return
 

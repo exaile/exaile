@@ -49,6 +49,7 @@ class Track(object):
         self.tags = {}
 
         self._scan_valid = False
+        self._dirty = False
         if _unpickles:
             self._unpickles(_unpickles)
         elif uri:
@@ -133,6 +134,8 @@ class Track(object):
                 pass
         else:
             self.tags[tag] = values
+
+        self._dirty = True
         
     def __getitem__(self, tag):
         """

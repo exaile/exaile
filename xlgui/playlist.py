@@ -13,7 +13,8 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import gtk, pango, gtk.gdk
-from xlgui import guiutil, menu
+from xlgui import guiutil, menu, plcolumns
+from xlgui.plcolumns import *
 from xl import playlist, event, track, collection, xdg
 import copy, urllib
 import logging
@@ -45,54 +46,16 @@ def create_rating_images(rating_width):
 
         return rating_images
 
-class Column(object):
-    def __init__(self, id, display, size):
-        self.id = id
-        self.display = display
-        self.size = size
-
-    def data_func(self, col, cell, model, iter):
-        """
-            Generic data function
-        """
-        track = model.get_value(iter, 0)
-        value = track[self.id]
-        cell.set_property('text', value)
-        self.set_cell_weight(cell, value)
-    
-    def __repr__(self):
-        return '%s(%s, %s, %s)' % (self.__class__.__name__,
-            `self.id`, `self.display`, `self.size`)
-
 class Playlist(gtk.VBox):
     """
         Represents an xl.playlist.Playlist in the GUI
     """
-    COLUMNS = [
-        Column('tracknumber', _('#'), 30),
-        Column('title', _('Title'), 200),
-        Column('artist', _('Artist'), 150),
-        Column('album', _('Album'), 150),
-        Column('length', _('Length'), 50),
-        Column('discnumber', _('Disc'), 30),
-        Column('rating', _('Rating'), 64),
-        Column('date', _('Year'), 50),
-        Column('genre', _('Genre'), 100),
-        Column('bitrate', _('Bitrate'), 30),
-        Column('io_loc', _('Location'), 200),
-        Column('filename', _('Filename'), 200),
-        Column('playcount', _('Playcount'), 50),
-    ]
-
-    COLUMN_IDS = []
-    column_by_id = {}
+    COLUMNS = plcolumns.COLUMNS
     column_by_display = {}
-    for col in COLUMNS:
-        COLUMN_IDS.append(col.id)
-        column_by_id[col.id] = col
+    for col in COLUMNS.values():
         column_by_display[col.display] = col
 
-    default_column_ids = ['tracknumber', 'title', 'album', 'artist', 'length']
+    default_columns = ['tracknumber', 'title', 'album', 'artist', 'length']
 
     def __init__(self, main, controller, pl):
         """
@@ -151,20 +114,19 @@ class Playlist(gtk.VBox):
             column_ids = set()
             ids = self.settings.get_option("gui/columns", [])
             # Don't add invalid columns.
-            all_ids = frozenset(self.COLUMN_IDS)
+            all_ids = frozenset(self.COLUMNS.keys())
             for id in ids:
                 if id in all_ids:
                     column_ids.add(id)
 
         if not column_ids:
             # Use default.
-            ids = self.default_column_ids
+            ids = self.default_columns
             self.settings['gui/trackslist_defaults_set'] = True
             self.settings['gui/columns'] = ids
             column_ids = frozenset(ids)
 
-
-        for col_struct in self.COLUMNS:
+        for col_struct in self.COLUMNS.values():
             self.col_menus[col_struct.id] = menu = self.xml.get_widget(
                 '%s_col' % col_struct.id)
 
@@ -461,7 +423,7 @@ class Playlist(gtk.VBox):
             cols.append(self.column_by_display[col.get_title()].id)
             self.list.remove_column(col)
 
-        self.settings['gui/col_order'] = cols
+        self.settings['gui/columns'] = cols
         self._setup_columns()
         self._set_tracks(self.playlist.get_tracks())
 
@@ -638,118 +600,91 @@ class Playlist(gtk.VBox):
         """
 
         self._col_count = 0
-        self._length_id = -1
 
-        col_ids = self.settings.get_option("gui/col_order", [])
+        col_ids = self.settings.get_option("gui/columns", [])
         search_column = self.settings.get_option("gui/search_column", "Title")
         
-        cols = None
+        # make sure all the entries are good
         if col_ids:
             cols = []
-            for col_id in col_ids[:]:
-                col = self.column_by_id.get(col_id)
-                if col: # Good entries only
+            for col in col_ids:
+                if col in self.COLUMNS:
                     cols.append(col)
-                else:
-                    col_ids.remove(col_id)
-        if cols:
-            for col in self.COLUMNS:
-                if not col in cols:
-                    cols.append(col)
-                    col_ids.append(col.id)
-        else:
-            cols = self.COLUMNS[:]
-            col_ids = self.COLUMN_IDS[:]
+            col_ids = cols
+
+        if not col_ids:
+            col_ids = self.default_columns
 
         self.append_map = col_ids
         self.setup_model(col_ids)
 
         count = 3
         first_col = True
-        columns_settings = self.settings.get_option("gui/columns", [])
-        if not columns_settings:
-            columns_settings = self.default_column_ids
 
-        for col_struct in cols:
-            # get cell renderer
-            cellr = gtk.CellRendererText()
-            if col_struct.id == 'rating':
-                cellr = gtk.CellRendererPixbuf()
-                cellr.set_property("follow-state", False)
+        for col in col_ids:
+            column = self.COLUMNS[col](self)
+            cellr = column.renderer()
 
-            if col_struct.id in columns_settings:
-                if first_col:
-                    first_col = False
-                    pb = gtk.CellRendererPixbuf()
-                    pb.set_fixed_size(20, 20)
-                    pb.set_property('xalign', 0.0)
-                    stop_pb = gtk.CellRendererPixbuf()
-                    stop_pb.set_fixed_size(12, 12)
-                    col = gtk.TreeViewColumn(col_struct.display)
-                    col.pack_start(pb, False)
-                    col.pack_start(stop_pb, False)
-                    col.pack_start(cellr, True)
-                    col.set_attributes(cellr, text=count)
-                    col.set_attributes(pb, pixbuf=1)
-                    col.set_attributes(stop_pb, pixbuf=2)
-                    col.set_cell_data_func(pb, self.icon_data_func)
-                    col.set_cell_data_func(stop_pb, self.stop_icon_data_func)
-                else:
-                    col = gtk.TreeViewColumn(col_struct.display, cellr, text=count)
+            if first_col:
+                first_col = False
+                pb = gtk.CellRendererPixbuf()
+                pb.set_fixed_size(20, 20)
+                pb.set_property('xalign', 0.0)
+                stop_pb = gtk.CellRendererPixbuf()
+                stop_pb.set_fixed_size(12, 12)
+                col = gtk.TreeViewColumn(column.display)
+                col.pack_start(pb, False)
+                col.pack_start(stop_pb, False)
+                col.pack_start(cellr, True)
+                col.set_attributes(cellr, text=count)
+                col.set_attributes(pb, pixbuf=1)
+                col.set_attributes(stop_pb, pixbuf=2)
+                col.set_cell_data_func(pb, self.icon_data_func)
+                col.set_cell_data_func(stop_pb, self.stop_icon_data_func)
+            else:
+                col = gtk.TreeViewColumn(column.display, cellr, text=count)
 
-                if col_struct.id == 'length':
-                    col.set_cell_data_func(cellr, self.length_data_func)
-                elif col_struct.id == 'bitrate':
-                    col.set_cell_data_func(cellr, self.bitrate_data_func)
-                elif col_struct.id == 'tracknumber':
-                    col.set_cell_data_func(cellr, self.track_data_func)
-                elif col_struct.id == 'rating':
-                    col.set_attributes(cellr, pixbuf=1)
-                    col.set_cell_data_func(cellr, self.rating_data_func)
-                else:
-                    col.set_cell_data_func(cellr, self.default_data_func)
+            col.set_cell_data_func(cellr, column.data_func)
+            column.set_properties(col, cellr)
 
-                setting_name = "gui/col_width_%s" % col_struct.id
-                width = self.settings.get_option(setting_name, 
-                    col_struct.size)
-                col.set_fixed_width(width)
+            setting_name = "gui/col_width_%s" % column.id
+            width = self.settings.get_option(setting_name, 
+                column.size)
+            col.set_fixed_width(width)
 
-                resizable = self.settings.get_option('gui/resizable_cols',
-                    False)
+            resizable = self.settings.get_option('gui/resizable_cols',
+                False)
 
-                col.connect('clicked', self.set_sort_by)
-                col.connect('notify::width', self.set_column_width)
-                col.set_clickable(True)
-                col.set_reorderable(True)
-                col.set_resizable(False)
-                col.set_sort_indicator(False)
+            col.connect('clicked', self.set_sort_by)
+            col.connect('notify::width', self.set_column_width)
+            col.set_clickable(True)
+            col.set_reorderable(True)
+            col.set_resizable(False)
+            col.set_sort_indicator(False)
 
-                if not resizable:
-                    if col_struct.id in ('title', 'artist', 'album', 'io_loc', 'genre'):
-                        if col_struct.id != 'genre': 
-                            col.set_expand(True)
-                            col.set_fixed_width(1)
-                        else:
-                            col.set_fixed_width(80)
-                        col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
-                        cellr.set_property('ellipsize', pango.ELLIPSIZE_END)
+            if not resizable:
+                if column.id in ('title', 'artist', 'album', 'io_loc', 'genre'):
+                    if column.id != 'genre': 
+                        col.set_expand(True)
+                        col.set_fixed_width(1)
                     else:
-                        col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
-                else:
-                    col.set_resizable(True)
+                        col.set_fixed_width(80)
                     col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+                    cellr.set_property('ellipsize', pango.ELLIPSIZE_END)
+                else:
+                    col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
+            else:
+                col.set_resizable(True)
+                col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
 
-                if col_struct.id in ('tracknumber', 'playcount'):
-                    cellr.set_property('xalign', 1.0)
-                    
-                # Update which column to search for when columns are changed
-                if col_struct.display == search_column:
-                    self.list.set_search_column(count)
-                col.set_widget(gtk.Label(col_struct.display))
-                col.get_widget().show()
-                self.list.append_column(col)
-                col.get_widget().get_ancestor(gtk.Button).connect('button_press_event', 
-                    self.press_header)
+            # Update which column to search for when columns are changed
+            if column.display == search_column:
+                self.list.set_search_column(count)
+            col.set_widget(gtk.Label(column.display))
+            col.get_widget().show()
+            self.list.append_column(col)
+            col.get_widget().get_ancestor(gtk.Button).connect('button_press_event', 
+                self.press_header)
             count = count + 1
         self.changed_id = self.list.connect('columns-changed', self.column_changed)
 
@@ -841,16 +776,6 @@ class Playlist(gtk.VBox):
 
         cell.set_property('pixbuf', image)
 
-    def rating_data_func(self, col, cell, model, iter):
-        item = model.get_value(iter, 0)
-        if not item.get_rating(): return
-        try:
-            idx = item.get_rating() - 1
-            cell.set_property('pixbuf', self.rating_images[idx])
-        except IndexError:
-            if idx > 5: idx = 5
-            elif idx < 0: idx = 0
-            cell.set_property('pixbuf', self.rating_images[idx])
 
     def stop_icon_data_func(self, col, cell, model, iter):
         """
@@ -868,49 +793,6 @@ class Playlist(gtk.VBox):
         
         cell.set_property('pixbuf', image)  
 
-    def length_data_func(self, col, cell, model, iter):
-        """ 
-            Formats the track length
-        """
-        item = model.get_value(iter, 0)
-        try:
-            seconds = item.get_duration()
-            text = "%s:%02d" % (seconds / 60, seconds % 60)
-        except ValueError:
-            text = "0:00"
-        except:
-            text = "0:00"
-        cell.set_property('text', text)
-        self.set_cell_weight(cell, item)
-
-    def bitrate_data_func(self, col, cell, model, iter):
-        """
-            Shows the bitrate
-        """
-        item = model.get_value(iter, 0)
-        cell.set_property('text', item.get_bitrate())
-        self.set_cell_weight(cell, item)
-
-    def track_data_func(self, col, cell, model, iter):
-        """
-            Track number
-        """
-        item = model.get_value(iter, 0)
-
-        track = item.get_track()
-        if track == -1:
-            cell.set_property('text', '')
-        else:
-            cell.set_property('text', track)
-        self.set_cell_weight(cell, item)
-    
-    def default_data_func(self, col, cell, model, iter):
-        """
-            For use in CellRendererTexts that don't have special data funcs.
-        """
-        if not self.model.iter_is_valid(iter): return
-        item = model.get_value(iter, 0)
-        self.set_cell_weight(cell, item)
 
     def set_cell_weight(self, cell, item):
         """
@@ -939,7 +821,6 @@ class Playlist(gtk.VBox):
         for track in tracks:
             print track.get_loc()
         print '---Done printing playlist'
-
 
 class ConfirmCloseDialog(gtk.MessageDialog):
     """

@@ -186,10 +186,27 @@ class TrackSelectMenu(GenericTrackMenu):
         """
             Actually adds the menu items
         """
+        star_icon = gtk.gdk.pixbuf_new_from_file_at_size(
+            xdg.get_data_path('images/star.png'), 16, 16)
+        icon_set = gtk.IconSet(star_icon)
+        factory = gtk.IconFactory()
+        factory.add_default()        
+        factory.add('exaile-star-icon', icon_set)
+
         self.append_item = self.append(_('Append to Current'), lambda *e:
             self.on_append_items(), 'gtk-add')
         self.queue_item = self.append(_('Queue Items'), lambda *e: self.on_queue(),
             'exaile-queue-icon')
+        rm = guiutil.Menu()
+        for i in range(0, 6):
+            if i == 0:
+                item = rm.append('-', lambda w, e, i=i:
+                    self.update_rating(i))
+            else:
+                item = rm.append_image(self.widget.rating_images[i-1],
+                    lambda w, e, i=i: self.update_rating(i))
+
+        self.append_menu(_("Set Rating"), rm, 'exaile-star-icon')
 
     def on_append_items(self, selected=None):
         """

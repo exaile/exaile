@@ -15,7 +15,7 @@
 import gtk, gobject, os, locale, re
 import xl.track, urllib
 from xl import common, trackdb
-from xlgui import panel, guiutil, xdg, menu
+from xlgui import panel, guiutil, xdg, menu, playlist
 locale.setlocale(locale.LC_ALL, '')
 
 class FilesPanel(panel.Panel):
@@ -30,6 +30,7 @@ class FilesPanel(panel.Panel):
             Initializes the files panel
         """
         panel.Panel.__init__(self, controller)
+        self.rating_images = playlist.create_rating_images(64)
         self.settings = settings
         self.collection = collection
 

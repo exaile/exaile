@@ -15,6 +15,7 @@
 import gtk, urllib, os.path, time
 from xlgui import panel, guiutil, xdg, commondialogs
 from xlgui import menu, filtergui
+from xlgui import playlist as guiplaylist
 from xl import playlist
 from xlgui.filtergui import MultiEntryField, EntryField
 from xl.nls import gettext as _
@@ -358,6 +359,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         """
         panel.Panel.__init__(self, controller)
         BasePlaylistPanelMixin.__init__(self)
+        self.rating_images = guiplaylist.create_rating_images(64)
         self.playlist_manager = playlist_manager
         self.smart_manager = smart_manager
         self.collection = collection

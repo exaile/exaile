@@ -14,6 +14,7 @@
 
 import gtk, gobject
 from xlgui import panel, guiutil, commondialogs, menu
+from xlgui import playlist as guiplaylist
 import xlgui.panel.playlists as playlistpanel
 from xl import xdg, event, common
 import xl.radio
@@ -33,6 +34,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         """
         panel.Panel.__init__(self, controller)
         playlistpanel.BasePlaylistPanelMixin.__init__(self)
+        self.rating_images = guiplaylist.create_rating_images(64)
       
         self.settings = settings
         self.collection = collection

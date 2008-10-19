@@ -613,8 +613,8 @@ class MainWindow(object):
 
             if artist:
                 # TRANSLATORS: Window title
-                self.window.set_title(_("%(title)s (by %(artist)s)") %
-                    { 'title': title, 'artist': artist } + " - Exaile")
+                self.window.set_title(_("%(title)s (by %(artist)s)" %
+                    { 'title': title, 'artist': artist }) + " - Exaile")
             else:
                 self.window.set_title(title + " - Exaile")
 

@@ -61,6 +61,7 @@ class Playlist(gtk.VBox):
 
     default_columns = ['tracknumber', 'title', 'album', 'artist', 'length']
     menu_items = {}
+    _is_drag_source = False
 
     def __init__(self, main, controller, pl):
         """
@@ -101,7 +102,6 @@ class Playlist(gtk.VBox):
         event.add_callback(self.on_add_tracks, 'tracks_added', self.playlist)
         event.add_callback(self.on_remove_tracks, 'tracks_removed',
             self.playlist)
-        
 
     def _setup_col_menus(self):
         """
@@ -325,9 +325,6 @@ class Playlist(gtk.VBox):
             iter = self.model.iter_next(iter)
             if not iter: break
       
-        if not paths: return
-        for path in paths:
-            selection.select_path(path)
         self.list.queue_draw()
 
     def on_row_activated(self, *e):
@@ -444,7 +441,7 @@ class Playlist(gtk.VBox):
         else:
             curtrack = None
 
-        #Remove callbacks so they are not fired when we perform actions
+        # Remove callbacks so they are not fired when we perform actions
         event.remove_callback(self.on_add_tracks, 'tracks_added', self.playlist)
         event.remove_callback(self.on_remove_tracks, 'tracks_removed',
             self.playlist)
@@ -474,10 +471,13 @@ class Playlist(gtk.VBox):
 
         current_tracks = self.playlist.get_tracks()
         (tracks, playlists) = self.list.get_drag_data(locs)            
-        #Determine what to do with the tracks
-        #by default we load all tracks.
-        #TODO: should we load tracks we find in the collection from there??
+
+        # Determine what to do with the tracks
+        # by default we load all tracks.
+        # TODO: should we load tracks we find in the collection from there??
         for track in tracks:            
+            if not Playlist._is_drag_source and track in current_tracks:
+                continue
             if not drop_info:
                 self._append_track(track)
             else:
@@ -496,14 +496,15 @@ class Playlist(gtk.VBox):
                     else:
                         iter = self.model.append(ar)
 
+        Playlist._is_drag_source = False
         if context.action == gtk.gdk.ACTION_MOVE:
-            #On a move action the second True makes the
+            # On a move action the second True makes the
             # drag_data_delete function called
             context.finish(True, True, etime)
         else:
             context.finish(True, False, etime)
 
-        #iterates through the list and adds any tracks that are
+        # iterates through the list and adds any tracks that are
         # not in the playlist to the current playlist
         current_tracks = self.playlist.get_tracks()
         iter = self.model.get_iter_first()
@@ -518,12 +519,13 @@ class Playlist(gtk.VBox):
             iter = self.model.iter_next(iter)
             if not iter: break
 
-        #Re add all of the tracks so that they
+        # Re add all of the tracks so that they
         # become ordered 
         iter = self.model.get_iter_first()
         if not iter:
             self.add_track_callbacks()
             return
+
         self.playlist.ordered_tracks = []
         while True:
             track = self.model.get_value(iter, 0)
@@ -551,7 +553,7 @@ class Playlist(gtk.VBox):
     def remove_selected_tracks(self):
         sel = self.list.get_selection()
         (model, paths) = sel.get_selected_rows()
-        #Since we want to modify the model we make references to it
+        # Since we want to modify the model we make references to it
         # This allows us to remove rows without it messing up
         rows = []
         for path in paths:
@@ -575,6 +577,7 @@ class Playlist(gtk.VBox):
         """
             Called when a drag source wants data for this drag operation
         """
+        Playlist._is_drag_source = True
         loc = []
         delete = []
         sel = self.list.get_selection()

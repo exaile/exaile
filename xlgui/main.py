@@ -360,11 +360,9 @@ class MainWindow(object):
             self.rating_combo.disconnect(self.rating_id)
 
         self.rating_combo.set_active(rating)
-        if track:
-            self.get_selected_playlist().refresh_row(track)
-
         self.rating_id = self.rating_combo.connect('changed',
             self.set_current_track_rating)
+        self.get_selected_playlist().queue_draw()
 
     def on_playlist_search(self, *e):
         """
@@ -561,9 +559,9 @@ class MainWindow(object):
         pl = self.get_selected_playlist()
         if player.current in pl.playlist.ordered_tracks:
             path = (pl.playlist.index(player.current),)
-            pl.list.scroll_to_cell(path)
-            pl.list.set_cursor(path)
         
+            pl.list.scroll_to_cell(path)
+            gobject.idle_add(pl.list.set_cursor, path)
 
         self._update_track_information()
         self.draw_playlist(type, player, object)

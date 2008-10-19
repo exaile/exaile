@@ -15,6 +15,7 @@ make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xl/metadata
 	mkdir -p $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui
 	mkdir -p $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui/panel
+	mkdir -p $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui/prefs
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/data
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/data/images
@@ -34,6 +35,10 @@ install: make-install-dirs compile
 		$(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui/panel
 	install -m 644 xlgui/panel/*.py \
 		$(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui/panel
+	install -m 644 xlgui/prefs/*.py[co] \
+		$(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui/prefs
+	install -m 644 xlgui/prefs/*.py \
+		$(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui/prefs
 	install -m 644 lib/*.py[co] $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/lib
 	install -m 644 lib/*.py $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/lib
 	install -m 644 data/images/*.png \

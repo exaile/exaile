@@ -17,7 +17,7 @@ __all__ = ['main', 'panel', 'playlist']
 import gtk, gtk.glade, gobject, logging
 from xl import xdg, common, event
 
-from xlgui import guiutil, preferences
+from xlgui import guiutil, prefs
 
 gtk.window_set_default_icon_from_file(xdg.get_data_path("images/icon.png"))
 logger = logging.getLogger(__name__)
@@ -80,7 +80,8 @@ class Main(object):
         """
             Shows the preferences dialog
         """
-        dialog = preferences.PreferencesDialog(self.main.window, self)
+        dialog = prefs.PreferencesDialog(self.main.window, self)
+        dialog.run()
 
     def collection_manager(self, *e):
         """

@@ -344,6 +344,7 @@ class PreferencesDialog(object):
         xml = self.xml
         self.window = self.xml.get_widget('PreferencesDialog')
         self.window.set_transient_for(parent)
+        self.window.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         self.window.connect('delete-event', lambda *e: self.cancel())
 #        self.xml.get_widget('show_advanced_button').connect('clicked',
 #            lambda *e: advancededitor.AdvancedConfigEditor(self.exaile,

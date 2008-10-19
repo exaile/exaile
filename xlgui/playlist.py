@@ -661,7 +661,7 @@ class Playlist(gtk.VBox):
             setting_name = "gui/col_width_%s" % column.id
             width = self.settings.get_option(setting_name, 
                 column.size)
-            col.set_fixed_width(width)
+            col.set_fixed_width(int(width))
 
             resizable = self.settings.get_option('gui/resizable_cols',
                 False)

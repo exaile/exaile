@@ -12,9 +12,8 @@ class GUIMainTestCase(base.BaseTestCase):
         (width, height) = window.get_size()
 
         assert x == y == 10, "Default position is incorrect"
-        assert height == 600, "Default height is incorrect"
+        assert height == 475, "Default height is incorrect"
         assert width >= 660  and width < 750, "Default width is incorrect"
-        assert height == 600, "Default height is incorrect"
 
 
     def testPlaylistNotebook(self):

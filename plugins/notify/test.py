@@ -17,9 +17,9 @@ class NotifyTestCase(BaseTestCase):
         self.plugin.enable(self)
         self.player = DummyPlayer()
         self.player.current = {
-            'title': 'Truly',
-            'artist': 'Delerium',
-            'album': 'Chimera'
+            'title': ['Truly'],
+            'artist': ['Delerium'],
+            'album': ['Chimera'],
         }
 
     def testNotify(self):

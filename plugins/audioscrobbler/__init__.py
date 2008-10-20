@@ -1,5 +1,6 @@
 
 import _scrobbler as scrobbler
+import asprefs
 from xl import common, event,xdg
 import gobject, logging, time, md5, pickle, os
 
@@ -28,6 +29,8 @@ def disable(exaile):
         SCROBBLER.stop()
         SCROBBLER = None
 
+def get_prefs_pane():
+    return asprefs
 
 class ExaileScrobbler(object):
     def __init__(self):

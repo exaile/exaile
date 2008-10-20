@@ -38,6 +38,7 @@ class PreferencesDialog(object):
         self.last_child = None
         self.parent = parent
         self.settings = self.main.exaile.settings
+        self.plugins = self.main.exaile.plugins.enabled_plugins
         self.fields = {} 
         self.panes = {}
         self.xmls = {}
@@ -66,6 +67,16 @@ class PreferencesDialog(object):
         # sets up the default panes
         for page in self.PAGES:
             self.model.append(None, [page.name, page])
+
+        plugin_pages = []
+        for k, plugin in self.plugins.iteritems():
+            if hasattr(plugin, 'get_prefs_pane'):
+                plugin_pages.append(plugin.get_prefs_pane())
+
+        if plugin_pages:
+            self.model.append(None, [_('-- Plugins --'), None])
+            for page in plugin_pages:
+                self.model.append(None, [page.name, page])
 
         selection = self.tree.get_selection()
         selection.connect('changed', self.switch_pane)
@@ -117,6 +128,7 @@ class PreferencesDialog(object):
         (model, iter) = selection.get_selected()
         if not iter: return
         page = self.model.get_value(iter, 1)
+        if not page: return
         self.label.set_markup("<b>%s</b>" %
             page.name)
 

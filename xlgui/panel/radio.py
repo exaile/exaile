@@ -87,6 +87,14 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             driver.name, False):
             self.tree.expand_row(self.model.get_path(node), False)
 
+    def remove_driver(self, driver):
+        """
+            Removes a driver from the radio panel
+        """
+        if driver in self.nodes:
+            self.model.remove(self.nodes[driver])
+            del self.nodes[driver]
+
     def _setup_widgets(self):
         """
             Sets up the various widgets required for this panel
@@ -103,7 +111,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
         event.add_callback(lambda type, m, station:
             self.add_driver(station), 'station_added', self.manager)
-        # TODO: handle removing of drivers
+        event.add_callback(lambda type, m, station:
+            self.remove_driver(station), 'station_removed', self.manager)
 
     def _setup_tree(self):
         """

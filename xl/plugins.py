@@ -44,7 +44,6 @@ class PluginsManager(object):
         
         self.load_enabled()
 
-
     def __findplugin(self, pluginname):
         for dir in self.plugindirs:
             if os.path.exists(os.path.join(dir, pluginname)):
@@ -125,12 +124,12 @@ class PluginsManager(object):
         pass
 
     def get_plugin_info(self, pluginname):
-        path = os.path.join(self.__findplugin(pluginname), PLUGININFO)
+        path = os.path.join(self.__findplugin(pluginname), 'PLUGININFO')
         f = open(path)
         infodict = {}
         for line in f:
             try:
-                key, val = ln.split("=",1)
+                key, val = line.split("=",1)
                 infodict[key] = eval(val)
             except ValueError:
                 pass # this happens on blank lines

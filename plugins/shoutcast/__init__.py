@@ -10,11 +10,16 @@ def enable(exaile):
     else:
         _enable(None, exaile, None)
 
+STATION = None
 def _enable(devicename, exaile, nothing):
-    exaile.radio.add_station(ShoutcastRadioStation())
+    global STATION
+    STATION = ShoutcastRadioStation()
+    exaile.radio.add_station(STATION)
 
 def disable(exaile):
-    exaile.radio.add_station("shoutcast")
+    global STATION
+    exaile.radio.remove_station(STATION)
+    STATION = None
 
 class ShoutcastRadioStation(RadioStation):
     """

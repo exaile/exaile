@@ -17,7 +17,7 @@ __all__ = ['main', 'panel', 'playlist']
 import gtk, gtk.glade, gobject, logging
 from xl import xdg, common, event
 
-from xlgui import guiutil, prefs
+from xlgui import guiutil, prefs, plugins
 
 gtk.window_set_default_icon_from_file(xdg.get_data_path("images/icon.png"))
 logger = logging.getLogger(__name__)
@@ -79,7 +79,16 @@ class Main(object):
             'on_scan_collection_item_activate': self.on_rescan_collection,
             'on_collection_manager_item_activate': self.collection_manager,
             'on_preferences_item_activate': self.show_preferences,
+            'on_plugins_item_activate': self.show_plugins,
         })
+
+    def show_plugins(self, *e):
+        """
+            Shows the plugins dialog
+        """
+        dialog = plugins.PluginManager(self.main.window, 
+            self.exaile.plugins)
+        dialog.run()
 
     def show_preferences(self, *e):
         """

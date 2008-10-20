@@ -1,7 +1,7 @@
 
 import gtk
 
-from xl import xdg
+from xl import xdg, event
 
 class BaseTrayIcon(object):
 
@@ -49,3 +49,20 @@ if hasattr(gtk, 'StatusIcon'):
             self.icon.set_visible(False)
 
     TrayIcon = GtkTrayIcon
+
+MAIN = None
+
+def get_options(type, settings, option):
+    if option == 'gui/use_tray':
+        value = settings.get_option(option, False)
+
+        if MAIN.tray_icon and not value:
+            MAIN.tray_icon.destroy()
+            MAIN.tray_icon = None
+        elif value and not MAIN.tray_icon:
+            MAIN.tray_icon = TrayIcon(MAIN)
+
+def connect_events(main, settings):
+    global MAIN
+    MAIN = main
+    event.add_callback(get_options, 'option_set')

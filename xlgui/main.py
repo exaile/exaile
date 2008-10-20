@@ -208,6 +208,9 @@ class MainWindow(object):
         """
             Loads the saved tabs
         """
+        if not self.settings.get_option('playlist/open_last', True):
+            self.add_playlist()
+            return
         names = self.tab_manager.list_playlists()
         if not names:
             self.add_playlist()
@@ -560,7 +563,9 @@ class MainWindow(object):
         if player.current in pl.playlist.ordered_tracks:
             path = (pl.playlist.index(player.current),)
         
-            pl.list.scroll_to_cell(path)
+            if self.settings.get_option('gui/ensure_visible', True):
+                pl.list.scroll_to_cell(path)
+
             gobject.idle_add(pl.list.set_cursor, path)
 
         self._update_track_information()

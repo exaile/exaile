@@ -33,10 +33,9 @@ class PrefsItem(object):
         self.widget = widget
         self.prefs = prefs
 
+        self._set_pref()
         if hasattr(self, 'change'):
             self._setup_change()
-
-        self._set_pref()
 
     def _get_name(self):
         return self.name

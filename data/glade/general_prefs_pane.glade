@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Mon Oct 20 11:15:38 2008 -->
+<!--Generated with glade3 3.4.5 on Mon Oct 20 14:10:55 2008 -->
 <glade-interface>
   <widget class="GtkWindow" id="prefs_window">
     <child>
@@ -37,7 +37,7 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkCheckButton" id="prefs_gui_ensure_visible">
+          <widget class="GtkCheckButton" id="gui/ensure_visible">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="label" translatable="yes" comments="TRANSLATORS: Keep the current track visible in playlist">Jump to current song on track change</property>
@@ -52,9 +52,9 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkCheckButton" id="prefs_open_last">
+          <widget class="GtkCheckButton" id="playlist/open_last">
             <property name="can_focus">True</property>
-            <property name="label" translatable="yes">Open last playlist on startup</property>
+            <property name="label" translatable="yes">Open last playlists on startup</property>
             <property name="use_underline">True</property>
             <property name="response_id">0</property>
             <property name="draw_indicator">True</property>
@@ -66,7 +66,7 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkCheckButton" id="prefs_save_queue">
+          <widget class="GtkCheckButton" id="playlist/save_queue">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="label" translatable="yes">Save queue status</property>

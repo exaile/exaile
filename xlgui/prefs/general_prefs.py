@@ -16,6 +16,7 @@
 
 from xlgui.prefs import widgets
 from xl import xdg
+from xlgui import commondialogs
 
 name = "General"
 glade = xdg.get_data_path('glade/general_prefs_pane.glade')
@@ -28,10 +29,17 @@ class TrayPreference(widgets.CheckPrefsItem):
     default = False
     name = 'gui/use_tray' 
 
-    def done(self):
-        """
-            Called when the user wants to disable the tray icon
-        """
-        print "Would have disabled the tray icon"
+class EnsureVisiblePreference(widgets.CheckPrefsItem):
+    default = True
+    name = 'gui/ensure_visible'
 
-        return True
+class OpenLastPreference(widgets.CheckPrefsItem):
+    default = True
+    name = 'playlist/open_last'
+
+class QueueSavePreferences(widgets.CheckPrefsItem):
+    default = True
+    name = 'playlist/save_queue'
+
+    def change(self, *e):
+        commondialogs.error(self.prefs.window, "Doesn't work yet")

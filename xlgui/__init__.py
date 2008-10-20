@@ -61,7 +61,12 @@ class Main(object):
         self.files_panel = files.FilesPanel(self, exaile.settings,
             exaile.collection)
 
-        self.tray_icon = tray.TrayIcon(self)
+        if exaile.settings.get_option('gui/use_tray', False):
+            self.tray_icon = tray.TrayIcon(self)
+        else:
+            self.tray_icon = False
+
+        tray.connect_events(self, exaile.settings)
 
         self.main.window.show_all()
 

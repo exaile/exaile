@@ -22,13 +22,16 @@ import gtk, gtk.glade
 from xl import xdg
 from xlgui.prefs.widgets import *
 from xlgui.prefs import general_prefs, osd_prefs
+import logging
+
+logger = logging.getLogger(__name__)
 
 class PreferencesDialog(object):
     """
         Preferences Dialog
     """
 
-    PAGES = (general_prefs, osd_prefs)
+    PAGES = (general_prefs,)# osd_prefs)
 
     def __init__(self, parent, main):
         """
@@ -160,12 +163,19 @@ class PreferencesDialog(object):
 
         attributes = dir(page)
         for attr in attributes:
-            if not 'Preference' in attr: continue
-            klass = getattr(page, attr)
-            if not type(klass) == type: continue
+            try:
+                if not 'Preference' in attr: continue
+                klass = getattr(page, attr)
+                if not type(klass) == type: continue
 
-            field = klass(self, xml.get_widget(klass.name))
-            self.fields[page].append(field)
+                widget = xml.get_widget(klass.name)
+                if not widget:
+                    logger.warning('Invalid prefs widget: %s' % klass.name) 
+                    continue
+                field = klass(self, widget)
+                self.fields[page].append(field)
+            except:
+                logger.warning('Broken prefs class: %s' % attr)
  
     def run(self):
         """

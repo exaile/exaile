@@ -60,7 +60,7 @@ class ExaileScrobbler(object):
             password = settings.get_option('plugin/lastfm/password', '')
             self.submit = settings.get_option('plugin/lastfm/submit', True)
 
-            if not self.connected:
+            if not self.connected and self.submit:
                 if username and password:
                     self.initialize(username, password)
 

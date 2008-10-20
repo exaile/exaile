@@ -22,6 +22,10 @@ name = 'Audioscrobbler'
 basedir = os.path.dirname(os.path.realpath(__file__))
 glade = "%s/asprefs_pane.glade" % basedir
 
+class SubmitPreference(widgets.CheckPrefsItem):
+    default = True
+    name = 'plugin/lastfm/submit'
+
 class UserPreference(widgets.PrefsItem):
     name = 'plugin/lastfm/user'
 

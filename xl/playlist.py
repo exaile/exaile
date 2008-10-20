@@ -729,6 +729,7 @@ class Playlist(object):
             os.rename(location + ".new", location)
 
     def load_from_location(self, location):
+        f = None
         for loc in [location, location+".new"]:
             try:
                 f = open(loc, 'r')
@@ -736,6 +737,7 @@ class Playlist(object):
             except:
                 pass
         locs = []
+        if not f: return
         while True:
             line = f.readline()
             if line == "EOF\n" or line == "":

@@ -77,9 +77,9 @@ class PreferencesDialog(object):
                 plugin_pages.append(plugin.get_prefs_pane())
 
         if plugin_pages:
-            self.model.append(None, [_('-- Plugins --'), None])
+            plug_root = self.model.append(None, [_('Plugins'), None])
             for page in plugin_pages:
-                self.model.append(None, [page.name, page])
+                self.model.append(plug_root, [page.name, page])
 
         selection = self.tree.get_selection()
         selection.connect('changed', self.switch_pane)

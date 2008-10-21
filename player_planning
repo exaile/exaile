@@ -1,4 +1,17 @@
 
+
+required for 0.3.0:
+    device auto-detection
+    MSC, MTP and iPod plugins
+    all functionality from 0.2.14
+
+additional targets for 0.3.0:
+    rockbox support
+    file layout support
+    transcode-on-transfer
+
+
+
 devices we want to support: (see per-device section FMI)
     ipods (via python-gpod)
     mtp devices (via pymtp)

@@ -67,26 +67,18 @@
                                     <property name="column_spacing">3</property>
                                     <property name="row_spacing">3</property>
                                     <child>
-                                      <widget class="GtkLabel" id="label3">
+                                      <widget class="GtkLabel" id="author_label">
                                         <property name="visible">True</property>
                                         <property name="xalign">0</property>
-                                        <property name="yalign">0</property>
-                                        <property name="label" translatable="yes">Authors:</property>
+                                        <property name="label">
+</property>
+                                        <property name="wrap">True</property>
                                       </widget>
                                       <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="right_attach">2</property>
                                         <property name="top_attach">1</property>
                                         <property name="bottom_attach">2</property>
-                                        <property name="x_options">GTK_FILL</property>
-                                        <property name="y_options"></property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <widget class="GtkLabel" id="label2">
-                                        <property name="visible">True</property>
-                                        <property name="xalign">0</property>
-                                        <property name="label" translatable="yes">Version:</property>
-                                      </widget>
-                                      <packing>
                                         <property name="x_options">GTK_FILL</property>
                                         <property name="y_options"></property>
                                       </packing>
@@ -104,16 +96,24 @@
                                       </packing>
                                     </child>
                                     <child>
-                                      <widget class="GtkLabel" id="author_label">
+                                      <widget class="GtkLabel" id="label2">
                                         <property name="visible">True</property>
                                         <property name="xalign">0</property>
-                                        <property name="label">
-</property>
-                                        <property name="wrap">True</property>
+                                        <property name="label" translatable="yes">Version:</property>
                                       </widget>
                                       <packing>
-                                        <property name="left_attach">1</property>
-                                        <property name="right_attach">2</property>
+                                        <property name="x_options">GTK_FILL</property>
+                                        <property name="y_options"></property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkLabel" id="label3">
+                                        <property name="visible">True</property>
+                                        <property name="xalign">0</property>
+                                        <property name="yalign">0</property>
+                                        <property name="label" translatable="yes">Authors:</property>
+                                      </widget>
+                                      <packing>
                                         <property name="top_attach">1</property>
                                         <property name="bottom_attach">2</property>
                                         <property name="x_options">GTK_FILL</property>
@@ -202,6 +202,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="response_id">0</property>
+                                    <signal name="clicked" handler="on_configure_button_clicked"/>
                                     <child>
                                       <widget class="GtkAlignment" id="alignment2">
                                         <property name="visible">True</property>
@@ -334,26 +335,18 @@
                                     <property name="column_spacing">3</property>
                                     <property name="row_spacing">3</property>
                                     <child>
-                                      <widget class="GtkLabel" id="label10">
+                                      <widget class="GtkLabel" id="avail_author_label">
                                         <property name="visible">True</property>
                                         <property name="xalign">0</property>
-                                        <property name="yalign">0</property>
-                                        <property name="label" translatable="yes">Authors:</property>
+                                        <property name="label">
+</property>
+                                        <property name="wrap">True</property>
                                       </widget>
                                       <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="right_attach">2</property>
                                         <property name="top_attach">1</property>
                                         <property name="bottom_attach">2</property>
-                                        <property name="x_options">GTK_FILL</property>
-                                        <property name="y_options"></property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <widget class="GtkLabel" id="label345">
-                                        <property name="visible">True</property>
-                                        <property name="xalign">0</property>
-                                        <property name="label" translatable="yes">Version:</property>
-                                      </widget>
-                                      <packing>
                                         <property name="x_options">GTK_FILL</property>
                                         <property name="y_options"></property>
                                       </packing>
@@ -371,16 +364,24 @@
                                       </packing>
                                     </child>
                                     <child>
-                                      <widget class="GtkLabel" id="avail_author_label">
+                                      <widget class="GtkLabel" id="label345">
                                         <property name="visible">True</property>
                                         <property name="xalign">0</property>
-                                        <property name="label">
-</property>
-                                        <property name="wrap">True</property>
+                                        <property name="label" translatable="yes">Version:</property>
                                       </widget>
                                       <packing>
-                                        <property name="left_attach">1</property>
-                                        <property name="right_attach">2</property>
+                                        <property name="x_options">GTK_FILL</property>
+                                        <property name="y_options"></property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkLabel" id="label10">
+                                        <property name="visible">True</property>
+                                        <property name="xalign">0</property>
+                                        <property name="yalign">0</property>
+                                        <property name="label" translatable="yes">Authors:</property>
+                                      </widget>
+                                      <packing>
                                         <property name="top_attach">1</property>
                                         <property name="bottom_attach">2</property>
                                         <property name="x_options">GTK_FILL</property>
@@ -603,26 +604,16 @@
                                     <property name="column_spacing">3</property>
                                     <property name="row_spacing">3</property>
                                     <child>
-                                      <widget class="GtkLabel" id="label350">
+                                      <widget class="GtkLabel" id="update_author_label">
                                         <property name="visible">True</property>
                                         <property name="xalign">0</property>
-                                        <property name="yalign">0</property>
-                                        <property name="label" translatable="yes">Authors:</property>
+                                        <property name="wrap">True</property>
                                       </widget>
                                       <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="right_attach">2</property>
                                         <property name="top_attach">1</property>
                                         <property name="bottom_attach">2</property>
-                                        <property name="x_options">GTK_FILL</property>
-                                        <property name="y_options"></property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <widget class="GtkLabel" id="label351">
-                                        <property name="visible">True</property>
-                                        <property name="xalign">0</property>
-                                        <property name="label" translatable="yes">Version:</property>
-                                      </widget>
-                                      <packing>
                                         <property name="x_options">GTK_FILL</property>
                                         <property name="y_options"></property>
                                       </packing>
@@ -640,14 +631,24 @@
                                       </packing>
                                     </child>
                                     <child>
-                                      <widget class="GtkLabel" id="update_author_label">
+                                      <widget class="GtkLabel" id="label351">
                                         <property name="visible">True</property>
                                         <property name="xalign">0</property>
-                                        <property name="wrap">True</property>
+                                        <property name="label" translatable="yes">Version:</property>
                                       </widget>
                                       <packing>
-                                        <property name="left_attach">1</property>
-                                        <property name="right_attach">2</property>
+                                        <property name="x_options">GTK_FILL</property>
+                                        <property name="y_options"></property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkLabel" id="label350">
+                                        <property name="visible">True</property>
+                                        <property name="xalign">0</property>
+                                        <property name="yalign">0</property>
+                                        <property name="label" translatable="yes">Authors:</property>
+                                      </widget>
+                                      <packing>
                                         <property name="top_attach">1</property>
                                         <property name="bottom_attach">2</property>
                                         <property name="x_options">GTK_FILL</property>

@@ -15,15 +15,17 @@
 from xl import xdg
 from xl.nls import gettext as _
 import gtk, gtk.glade
+from xlgui import commondialogs
 
 class PluginManager(object):
     """
         Gui to manage plugins
     """
-    def __init__(self, parent, plugins):
+    def __init__(self, guimain, parent, plugins):
         """
             Initializes the manager
         """
+        self.guimain = guimain
         self.parent = parent
         self.plugins = plugins
 
@@ -35,6 +37,8 @@ class PluginManager(object):
         self.dialog.set_transient_for(parent)
 
         self.list = self.xml.get_widget('plugin_tree')
+        self.configure_button = self.xml.get_widget('configure_button')
+        self.configure_button.set_sensitive(False)
 
         self.version_label = self.xml.get_widget('version_label')
         self.author_label = self.xml.get_widget('author_label')
@@ -45,6 +49,7 @@ class PluginManager(object):
         self._connect_signals()
         self._setup_tree()
         self._load_plugin_list()
+        self.list.get_selection().select_path((0,))
 
     def _load_plugin_list(self):
         """
@@ -89,7 +94,27 @@ class PluginManager(object):
         """
         self.xml.signal_autoconnect({
             'on_close_button_clicked':  lambda *e: self.destroy(),
+            'on_configure_button_clicked': lambda *e: self.configure(),
         })
+
+    def configure(self):
+        """
+            Called when the user wants to configure a plugin
+        """
+        (model, iter) = self.list.get_selection().get_selected()
+        if not iter: return
+
+        pluginname = model.get_value(iter, 2)
+        if not pluginname in self.plugins.enabled_plugins:
+            return
+
+        plugin = self.plugins.enabled_plugins[pluginname]
+        if not hasattr(plugin, 'get_prefs_pane'):
+            commondialogs.error(self.parent, _("The selecte " 
+                "plugin doesn't have any configuration options"))
+            return
+
+        self.guimain.show_preferences(plugin_page=pluginname)
 
     def row_selected(self, selection, user_data=None):
         """
@@ -105,6 +130,10 @@ class PluginManager(object):
         self.description.get_buffer().set_text(
             info['Description'].replace(r'\n', "\n"))
         self.name_label.set_markup("<b>%s</b>" % info['Name'])
+        if pluginname in self.plugins.enabled_plugins:
+            self.configure_button.set_sensitive(True)
+        else:
+            self.configure_button.set_sensitive(False)
 
     def run(self):
         return self.dialog.run()
@@ -115,6 +144,7 @@ class PluginManager(object):
         """
         plugin = model[path][2]
         enable = model[path][1] = not model[path][1]
+        self.configure_button.set_sensitive(enable)
 
         if enable:
             self.plugins.enable_plugin(plugin)

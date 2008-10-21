@@ -78,7 +78,7 @@ class Main(object):
             'on_about_item_activate': self.show_about_dialog,
             'on_scan_collection_item_activate': self.on_rescan_collection,
             'on_collection_manager_item_activate': self.collection_manager,
-            'on_preferences_item_activate': self.show_preferences,
+            'on_preferences_item_activate': lambda *e: self.show_preferences(),
             'on_plugins_item_activate': self.show_plugins,
         })
 
@@ -86,15 +86,16 @@ class Main(object):
         """
             Shows the plugins dialog
         """
-        dialog = plugins.PluginManager(self.main.window, 
+        dialog = plugins.PluginManager(self, self.main.window, 
             self.exaile.plugins)
         dialog.run()
 
-    def show_preferences(self, *e):
+    def show_preferences(self, plugin_page=None):
         """
             Shows the preferences dialog
         """
-        dialog = prefs.PreferencesDialog(self.main.window, self)
+        dialog = prefs.PreferencesDialog(self.main.window, self,
+            plugin_page=plugin_page)
         dialog.run()
 
     def collection_manager(self, *e):

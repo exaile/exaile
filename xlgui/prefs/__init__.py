@@ -33,7 +33,7 @@ class PreferencesDialog(object):
 
     PAGES = (general_prefs,)# osd_prefs)
 
-    def __init__(self, parent, main):
+    def __init__(self, parent, main, plugin_page=None):
         """
             Initilizes the preferences dialog
         """
@@ -66,6 +66,8 @@ class PreferencesDialog(object):
 
         self.model = gtk.TreeStore(str, object)
         self.tree.set_model(self.model)
+        count = 0
+        select_path = (0,)
 
         # sets up the default panes
         for page in self.PAGES:
@@ -74,16 +76,23 @@ class PreferencesDialog(object):
         plugin_pages = []
         for k, plugin in self.plugins.iteritems():
             if hasattr(plugin, 'get_prefs_pane'):
+                if k == plugin_page:
+                    select_path = count
                 plugin_pages.append(plugin.get_prefs_pane())
+                count += 1
 
         if plugin_pages:
             plug_root = self.model.append(None, [_('Plugins'), None])
             for page in plugin_pages:
                 self.model.append(plug_root, [page.name, page])
 
+        if not type(select_path) == tuple:
+            self.tree.expand_row(self.model.get_path(plug_root), False)
+            select_path = (1, select_path)
+
         selection = self.tree.get_selection()
         selection.connect('changed', self.switch_pane)
-        selection.select_path((0,))
+        selection.select_path(select_path)
 
     def _connect_events(self):
         """

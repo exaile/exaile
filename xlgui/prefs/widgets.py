@@ -90,6 +90,38 @@ class CheckPrefsItem(PrefsItem):
         self.prefs.settings[self._get_name()] = self.widget.get_active()
         return True
 
+class DirPrefsItem(PrefsItem):
+    """
+        Directory chooser button
+    """
+    def __init__(self, prefs, widget):
+        PrefsItem.__init__(self, prefs, widget)
+
+    def _setup_change(self):
+        pass
+
+    def _set_pref(self):
+        """
+            Sets the current directory
+        """
+        directory = os.path.expanduser(
+            self.prefs.settings.get_option(self._get_name(), self.default))
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+        self.widget.set_filename(directory)
+
+    def apply(self):
+        if hasattr(self, 'done') and not self.done(): return False
+        directory = self.widget.get_filename()
+        self.prefs.settings[self._get_name()] = directory
+        return True
+
+####
+## TODO
+## ALL THE WIDGETS BELOW THIS LINE HAVE NOT YET BEEN CONVERTED FROM THE 0.2
+## FORMAT.  PLEASE CONVERT THEM AND PLACE THEM ABOVE THIS LINE.
+##
+
 #class CryptedPrefsItem(PrefsItem):
 #    """
 #        An encrypted preferences item
@@ -242,30 +274,6 @@ class FontButtonPrefsItem(ColorButtonPrefsItem):
         settings[self.name] = font
         return True
 
-class DirPrefsItem(PrefsItem):
-    """
-        Directory chooser button
-    """
-    def __init__(self, name, default, change=None, done=None):
-        PrefsItem.__init__(self, name, default, change, done)
-
-    def setup_change(self):
-        pass
-
-    def set_pref(self):
-        """
-            Sets the current directory
-        """
-        directory = os.path.expanduser(settings.get_option(self.name, self.default))
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-        self.widget.set_filename(directory)
-
-    def apply(self):
-        if self.done and not self.do_done(): return False
-        directory = self.widget.get_filename()
-        settings[self.name] = directory
-        return True
 
 class ComboPrefsItem(PrefsItem):
     """

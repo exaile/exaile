@@ -50,6 +50,7 @@ class Main(object):
             exaile.collection,
             exaile.player, exaile.queue)
         self.panel_notebook = self.xml.get_widget('panel_notebook')
+        self.play_toolbar = self.xml.get_widget('play_toolbar')
         self._connect_events()
 
         self.collection_panel = collection.CollectionPanel(self,

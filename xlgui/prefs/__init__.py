@@ -22,7 +22,7 @@ import gtk, gtk.glade
 from xl import xdg
 from xlgui.prefs.widgets import *
 from xlgui.prefs import general_prefs, osd_prefs
-import logging
+import logging, traceback
 
 logger = logging.getLogger(__name__)
 
@@ -185,6 +185,7 @@ class PreferencesDialog(object):
                 self.fields[page].append(field)
             except:
                 logger.warning('Broken prefs class: %s' % attr)
+                traceback.print_exc()
  
     def run(self):
         """

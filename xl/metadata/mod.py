@@ -15,9 +15,10 @@
 from xl.metadata import BaseFormat
 from mutagen import FileType
 
-import os, ctypes
+import os
 
 try:
+    import ctypes
     modplug = ctypes.cdll.LoadLibrary("libmodplug.so.0")
     modplug.ModPlug_GetName.restype = ctypes.c_char_p
 except (ImportError, OSError):

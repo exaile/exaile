@@ -4,6 +4,10 @@ LIBDIR ?= /lib
 all: compile doc
 	@echo "Ready to install..."
 
+install:
+	@echo "Installation isn't implemented yet!"
+	@echo "Just run from the source with ./exaile"
+
 compile:
 	python -O -m compileall xl lib xlgui
 
@@ -54,7 +58,7 @@ install: make-install-dirs compile
 	 > exaile && \
 	chmod 755 exaile
 
-plugins:
+plugins_dist:
 	cd plugins && make dist && cd ..
 
 clean:

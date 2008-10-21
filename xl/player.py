@@ -120,6 +120,7 @@ class PlayQueue(playlist.Playlist):
 
 def get_player():
     if settings.get_option("player/gapless", False):
+        logger.debug("Gapless enabled")
         return GaplessPlayer
     else:
         return GSTPlayer
@@ -536,7 +537,7 @@ class GaplessPlayer(BaseGSTPlayer):
         self.playbin.connect('about-to-finish', self.on_finish)
         
         # This signal doesn't work yet (as of gst 0.10.19)
-        # self.playbin.connect('audio-changed', self.on_changed)
+        self.playbin.connect('audio-changed', self.on_changed)
 
     def on_finish(self, *args):
         gobject.idle_add(self._on_finish)
@@ -553,6 +554,12 @@ class GaplessPlayer(BaseGSTPlayer):
             return
         uri = self._get_track_uri(next)
         self.playbin.set_property('uri', uri) #playbin2 takes care of the rest
+
+    def on_changed(self, *args):
+        gobject.idle_add(self._on_changed)
+
+    def _on_changed(self, *args):
+        logger.debug("GST AUDIO CHANGED")
     
 
 # vim: et sts=4 sw=4

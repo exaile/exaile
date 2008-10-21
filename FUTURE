@@ -148,4 +148,9 @@ DB optimization:
             the Track/TrackDB external API
 
 
+HAL outputs:
+    allow selection of device to output to via halaudiosink
+        - this would very neatly solve the problem of how to allow
+            user to select their output device
+
 

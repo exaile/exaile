@@ -15,14 +15,15 @@
 import pygtk, pygst
 pygtk.require('2.0')
 pygst.require('0.10')
-import gst
+import gst, logging
 import gtk, gtk.glade, gobject, pango
-from xl import xdg, event, track, settings
+from xl import xdg, event, track, settings, common
 import xl.playlist
 from xlgui import playlist, cover, guiutil, commondialogs
 import xl.playlist, re, os, threading
 
 settings = settings.SettingsManager.settings
+logger = logging.getLogger(__name__)
 
 class PlaybackProgressBar(object):
     def __init__(self, bar, player):
@@ -296,6 +297,9 @@ class MainWindow(object):
         self.repeat_toggle = self.xml.get_widget('repeat_button')
         self.repeat_toggle.set_active(self.settings.get_option('playback/repeat',
             False))
+        self.dynamic_toggle = self.xml.get_widget('dynamic_button')
+        self.dynamic_toggle.set_active(self.settings.get_option('playback/dynamic',
+            False))
 
         # cover box
         self.cover_event_box = self.xml.get_widget('cover_event_box')
@@ -439,6 +443,7 @@ class MainWindow(object):
                 lambda *e: self.controller.exaile.player.stop(),
             'on_shuffle_button_toggled': self.set_mode_toggles,
             'on_repeat_button_toggled': self.set_mode_toggles,
+            'on_dynamic_button_toggled': self.set_mode_toggles,
             'on_clear_playlist_button_clicked': self.on_clear_playlist,
             'on_playlist_notebook_remove': self.on_playlist_notebook_remove,
             'on_new_playlist_item_activated': lambda *e:
@@ -547,6 +552,8 @@ class MainWindow(object):
         """
         self.settings['playback/shuffle'] = self.shuffle_toggle.get_active()
         self.settings['playback/repeat'] = self.repeat_toggle.get_active()
+        self.settings['playback/dynamic'] = self.dynamic_toggle.get_active()
+
         pl = self.get_selected_playlist()
         if pl:
             pl.playlist.set_random(self.shuffle_toggle.get_active())
@@ -576,6 +583,8 @@ class MainWindow(object):
 
         self.rating_combo.set_sensitive(True)
         self.update_rating_combo()
+        if self.settings.get_option('playback/dynamic', False):
+            self._get_dynamic_tracks()
 
     @guiutil.gtkrun
     def on_playback_end(self, type, player, object):
@@ -591,6 +600,35 @@ class MainWindow(object):
 
         self.rating_combo.set_sensitive(False)
         self.update_rating_combo(0)
+
+    @common.threaded
+    def _get_dynamic_tracks(self):
+        """
+            Gets some dynamic tracks from the dynamic manager.  
+
+            This tries to keep at least 5 tracks the current playlist... if
+            there are already 5, it just adds one
+        """
+        playlist = self.get_selected_playlist()
+        if not playlist: return
+
+        if not self.controller.exaile.dynamic.get_providers():
+            logger.warning("Dynamic mode is enabled, but there "
+                "are no dynamic providers!")
+            return
+
+        pl = playlist.playlist
+
+        number = 5 - len(pl)
+        if number <= 0: number = 1
+
+        logger.info("Dynamic: attempting to get %d tracks" % number)
+        tracks = self.controller.exaile.dynamic.find_similar_tracks(
+            self.player.current, number, pl.ordered_tracks)
+
+        logger.info("Dynamic: %d tracks fetched" % len(tracks))
+
+        pl.add_tracks(tracks) 
 
     def _update_track_information(self):
         """

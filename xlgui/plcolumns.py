@@ -111,7 +111,7 @@ class DiscNumberColumn(Column):
     id = 'discnumber'
 
 class RatingColumn(Column):
-    size = 64
+    size = 64 * 5
     display = _('Rating')
     renderer = gtk.CellRendererPixbuf
     id = 'rating'

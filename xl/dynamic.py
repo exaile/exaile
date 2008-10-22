@@ -62,13 +62,13 @@ class DynamicManager(providers.ProviderHandler):
     def _query_sources(self, track):
         info = []
         for source in self.get_providers():
-            sinfo = source.get_results(track['artist'])
+            sinfo = source.get_results(','.join(track['artist']))
             info += sinfo
         info.sort(reverse=True) #TODO: merge artists that are the same
         return info
 
     def _load_saved_info(self, track):
-        filename = os.path.join(self.cachedir, track['artist'])
+        filename = os.path.join(self.cachedir, ','.join(track['artist']))
         if not os.path.exists(filename):
             return []
         f = open(filename)
@@ -94,7 +94,7 @@ class DynamicManager(providers.ProviderHandler):
     def _save_info(self, track, info):
         if info == []:
             return
-        filename = os.path.join(self.cachedir, track['artist'])
+        filename = os.path.join(self.cachedir, '/'.join(track['artist']))
         f = open(filename, 'w')
         f.write("%s\n"%time.time())
         for item in info:

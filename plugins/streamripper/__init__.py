@@ -38,7 +38,7 @@ def get_prefs_pane():
     return srprefs
 
 def toggle_record(widget=None, event=None):
-    global STREAMRIPPER_PID, CURRENT_TRACK
+    global STREAMRIPPER_PID, CURRENT_TRACK, STREAMRIPPER_OUT
 
     track = APP.player.current
     settings = APP.settings

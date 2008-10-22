@@ -37,9 +37,9 @@ class OpenLastPreference(widgets.CheckPrefsItem):
     default = True
     name = 'playlist/open_last'
 
-class QueueSavePreferences(widgets.CheckPrefsItem):
-    default = True
-    name = 'playlist/save_queue'
+#class QueueSavePreferences(widgets.CheckPrefsItem):
+#    default = True
+#    name = 'playlist/save_queue'
 
-    def change(self, *e):
-        commondialogs.error(self.prefs.window, "Doesn't work yet")
+#    def change(self, *e):
+#        commondialogs.error(self.prefs.window, "Doesn't work yet")

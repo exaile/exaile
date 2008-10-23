@@ -77,7 +77,7 @@ class Exaile(object):
         """
             Initializes Exaile
         """
-        logger.info(_("Loading Exaile..."))
+        logger.info(_("Loading Exaile %s...") % __version__)
         #initialize SettingsManager
         from xl import settings
         self.settings = settings.SettingsManager( os.path.join(

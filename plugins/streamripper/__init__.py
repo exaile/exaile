@@ -17,7 +17,7 @@
 import subprocess, logging, os
 from xl import event, xdg
 from xl.nls import gettext as _
-import gst, time, sys
+import time, sys
 import srprefs
 
 # trying to not rely on the gui parts of exaile
@@ -39,6 +39,8 @@ def get_prefs_pane():
 
 def toggle_record(widget=None, event=None):
     global STREAMRIPPER_PID, CURRENT_TRACK, STREAMRIPPER_OUT
+
+    import gst
 
     track = APP.player.current
     settings = APP.settings
@@ -157,7 +159,10 @@ def enable(exaile):
     """
         Enables the streamripper plugin
     """
-    event.add_callback(initialize, 'exaile_loaded', exaile)
+    if exaile.loading:
+        event.add_callback(initialize, 'exaile_loaded', exaile)
+    else:
+        initialize(None, exaile)
 
 def disable(exaile):
     global BUTTON

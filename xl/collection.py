@@ -25,7 +25,7 @@ from xl import trackdb, track, common, xdg, event, metadata
 from xl.settings import SettingsManager
 settings = SettingsManager.settings
 
-import os, time, os.path, logging
+import os, time, os.path, shutil, logging
 import gobject
 
 logger = logging.getLogger(__name__)
@@ -506,13 +506,38 @@ class Library(object):
 
         self.scan_interval = interval
 
-    def set_layout(self, layout, default="Unknown"):
-        pass
-
     def add(self, loc, move=False):
-        pass
+        """
+            Copies (or moves) a file into the library and adds it to the 
+            collection
+        """
+        newloc = os.path.join(self.location, os.path.basename(loc))
+        if move:
+            shutil.move(loc, newloc)
+        else:
+            shutil.copy(loc, newloc)
+        tr = track.Track(newloc)
+        if tr._scan_valid == True:
+            self.collection.add(tr)
 
     def delete(self, loc):
+        """
+            PERMANENTLY deletes a file from the disk and from the collection
+        """
+        tr = self.collection.get_track_by_loc(loc)
+        if tr:
+            self.collection.remove(tr)
+            try:
+                os.unlink(tr.get_loc_for_io())
+            except OSError: # file not found?
+                pass
+            except:
+                common.log_exception(logger)
+
+    # the below are not essential for 0.3.0, should be implemented only 
+    # if time allows for it
+
+    def set_layout(self, layout, default="Unknown"):
         pass
 
     def organize(self):

@@ -16,6 +16,7 @@ def enable(exaile):
 def disable(exaile):
     global LFMS
     providers.unregister("dynamic_playlists", LFMS)
+    LFMS = None
 
 
 class LastfmSource(DynamicSource):

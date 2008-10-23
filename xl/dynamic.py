@@ -120,7 +120,9 @@ class DynamicManager(providers.ProviderHandler):
         curr = playlist.get_current()
         tracks = self.find_similar_tracks(curr, needed, 
                 playlist.get_tracks())
-        playlist.add_tracks(tracks)
+        for track in tracks:
+            playlist.add(track)
+#        playlist.add_tracks(tracks)
 
 class DynamicSource(object):
     def __init__(self):

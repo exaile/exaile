@@ -20,7 +20,7 @@ from xl import xdg
 
 name = 'Audioscrobbler'
 basedir = os.path.dirname(os.path.realpath(__file__))
-glade = "%s/asprefs_pane.glade" % basedir
+glade = os.path.join(basedir, "asprefs_pane.glade")
 
 class SubmitPreference(widgets.CheckPrefsItem):
     default = True

@@ -21,12 +21,13 @@ class PyConsole(gtk.Window):
         sw = gtk.ScrolledWindow()
         vbox.pack_start(sw)
         sw.set_shadow_type(gtk.SHADOW_IN)
+        sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_ALWAYS) 
         self.text_view = tv = gtk.TextView()
         sw.add(tv)
         tv.set_editable(False)
-        tv.set_wrap_mode = gtk.WRAP_CHAR
         self.text_buffer = buff = tv.get_buffer()
         self.end_mark = buff.create_mark(None, buff.get_end_iter(), False)
+        tv.set_wrap_mode(gtk.WRAP_WORD)
 
         hbox = gtk.HBox(False, 6)
         vbox.pack_start(hbox, False)
@@ -70,6 +71,7 @@ class PyConsole(gtk.Window):
         self.text_buffer.insert(self.text_buffer.get_end_iter(), result)
         # Can't use iter, won't scroll correctly.
         self.text_view.scroll_to_mark(self.end_mark, 0)
+        self.entry.grab_focus()
 
 PLUGIN = None
 def _enable(exaile):

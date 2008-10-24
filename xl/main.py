@@ -36,7 +36,6 @@ import os, sys, logging, logging.handlers, time
 # initiate the logger. logger params are set later
 logger = logging.getLogger(__name__)
 
-
 class Exaile(object):
     
     def __init__(self):

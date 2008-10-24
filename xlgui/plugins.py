@@ -143,13 +143,21 @@ class PluginManager(object):
             Called when the checkbox is toggled
         """
         plugin = model[path][2]
-        enable = model[path][1] = not model[path][1]
-        self.configure_button.set_sensitive(enable)
+        enable = not model[path][1]
 
         if enable:
-            self.plugins.enable_plugin(plugin)
+            if not self.plugins.enable_plugin(plugin):
+                commondialogs.error(self.parent, _('Could '
+                    'not enable plugin.'))
+                return
         else:
-            self.plugins.disable_plugin(plugin)
+            if not self.plugins.disable_plugin(plugin):
+                commondialogs.error(self.parent, _('Could '
+                    'not disable plugin.'))
+                return
+
+        self.configure_button.set_sensitive(enable)
+        model[path][1] = enable
 
     def destroy(self, *e):
         self.dialog.destroy()

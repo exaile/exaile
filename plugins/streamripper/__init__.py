@@ -130,12 +130,6 @@ def initialize(type, exaile, stuff=None):
 
     APP = exaile
 
-    try:
-        subprocess.call(['streamripper'], stdout=-1, stderr=-1)
-    except OSError:
-        raise NotImplementedError('Streamripper is not available.')
-        return False
-
     # if the gui is available, add the record button
     if exaile.gui:
         import gtk
@@ -159,6 +153,12 @@ def enable(exaile):
     """
         Enables the streamripper plugin
     """
+    try:
+        subprocess.call(['streamripper'], stdout=-1, stderr=-1)
+    except OSError:
+        raise NotImplementedError('Streamripper is not available.')
+        return False
+
     if exaile.loading:
         event.add_callback(initialize, 'exaile_loaded', exaile)
     else:

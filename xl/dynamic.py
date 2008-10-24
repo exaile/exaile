@@ -12,8 +12,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from xl import xdg, common, event, providers
+from xl import xdg, common, event, providers, settings
 import os, time, urllib, random
+
+settings = settings.SettingsManager.settings
 
 class DynamicManager(providers.ProviderHandler):
     """
@@ -21,7 +23,7 @@ class DynamicManager(providers.ProviderHandler):
     """
     def __init__(self, collection):
         providers.ProviderHandler.__init__(self, "dynamic_playlists")
-        self.buffersize = 5
+        self.buffersize = settings.get_option("playback/dynamic_buffer", 5)
         self.collection = collection
         self.cachedir = os.path.join(xdg.get_cache_dir(), 'dynamic')
         if not os.path.exists(self.cachedir):
@@ -120,9 +122,7 @@ class DynamicManager(providers.ProviderHandler):
         curr = playlist.get_current()
         tracks = self.find_similar_tracks(curr, needed, 
                 playlist.get_tracks())
-        for track in tracks:
-            playlist.add(track)
-#        playlist.add_tracks(tracks)
+        playlist.add_tracks(tracks)
 
 class DynamicSource(object):
     def __init__(self):
@@ -133,6 +133,7 @@ class DynamicSource(object):
 
     def _set_manager(self, manager):
         self.manager = manager
+
 
 
 # vim: et sts=4 sw=4

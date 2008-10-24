@@ -450,7 +450,7 @@ class Playlist(object):
             self.ordered_tracks = self.ordered_tracks[:location] + \
                     tracks + self.ordered_tracks[location:]
         
-        if location <= self.current_pos:
+        if location != None and location <= self.current_pos:
             self.current_pos += len(tracks)
 
         event.log_event('tracks_added', self, tracks)

@@ -12,7 +12,7 @@ def _enable(eventname, exaile, nothing):
     exaile.covers.add_search_method(LastFMCoverSearch())
 
 def disable(exaile):
-    exaile.covers.remove_search_method('lastfm')
+    exaile.covers.remove_search_method_by_name('lastfm')
 
 class LastFMCoverSearch(CoverSearchMethod):
     """

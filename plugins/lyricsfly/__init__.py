@@ -10,8 +10,6 @@ except:
 
 import urllib
 
-search_method = None
-
 ##
 ## Notice.  Please request your own key from lyricswiki.com/api.  DO NOT USE
 ## THIS KEY FOR YOUR OWN SOFTWARE.
@@ -31,13 +29,11 @@ def enable(exaile):
         _enable(None, exaile, None)
 
 def _enable(eventname, exaile, nothing):
-    search_method = LyricsFly()
-    exaile.lyrics.add_search_method(search_method)
+    exaile.lyrics.add_search_method(LyricsFly())
 
 
 def disable(exaile):
-    if search_method:
-        exaile.lyrics.remove_search_method(search_method)
+    exaile.lyrics.remove_search_method_by_name("lyricsfly")
 
 def rep(m):
     """

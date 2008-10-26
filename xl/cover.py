@@ -14,8 +14,7 @@
 
 import os.path, os
 import urllib, traceback
-from xl import common
-from xl.manager import SimpleManager
+from xl import common, providers, event
 import logging
 from copy import deepcopy
 logger = logging.getLogger(__name__)
@@ -154,7 +153,7 @@ class CoverDB(object):
         
         self._dirty = False
 
-class CoverManager(SimpleManager):
+class CoverManager(providers.ProviderHandler):
     """
         Cover manager.
 
@@ -166,12 +165,96 @@ class CoverManager(SimpleManager):
 
             @param cache_dir:  directory to save remotely downloaded art
         """
-        SimpleManager.__init__(self)
+        providers.ProviderHandler.__init__(self, "covers")
+        self.methods = {}
+        self.preferred_order = []
+        self.add_defaults()
         self.cache_dir = cache_dir
         if not os.path.isdir(cache_dir):
             os.mkdir(cache_dir, 0755)
 
         self.coverdb = CoverDB(location='%s/cover.db' % self.cache_dir)
+
+    def add_search_method(self, method):
+        """
+            Adds a search method to the provider list.
+            
+            @param method: the search method instance
+        """
+        providers.register(self.servicename, method)
+        
+    def remove_search_method(self, method):
+        """
+            Removes the given search method from the provider list.
+            
+            @param method: the search method instance
+        """
+        providers.unregister(self.servicename, method)
+        
+    def remove_search_method_by_name(self, name):
+        """
+            Removes a search method from the provider list.
+            
+            @param name: the search method name
+        """
+        try:
+            providers.unregister(self.servicename, self.methods[name])
+        except KeyError:
+            return
+
+    def set_preferred_order(self, order):
+        """
+            Sets the preferred search order
+
+            @param order: a list containing the order you'd like to search
+                first
+        """
+        if not type(order) in (list, tuple):
+            raise AttributeError("order must be a list or tuple")
+        self.preferred_order = order
+
+    def on_new_provider(self, provider):
+        """
+            Adds the new provider to the methods dict and passes a
+            reference of the manager instance to the provider.
+            
+            @param provider: the provider instance being added.
+        """
+        if not provider.name in self.methods:
+            self.methods[provider.name] = provider
+            provider._set_manager(self)
+            event.log_event('cover_search_method_added', self, provider) 
+
+    def on_del_provider(self, provider):
+        """
+            Remove the provider from the methods dict, and the
+            preferred_order dict if needed.
+            
+            @param provider: the provider instance being removed.
+        """
+        try:
+            del self.methods[provider.name]
+            event.log_event('cover_search_method_removed', self, provider) 
+        except KeyError:
+            pass
+        try:
+            self.preferred_order.remove(provider.name)
+        except (ValueError, AttributeError):
+            pass     
+
+    def get_methods(self):
+        """
+            Returns a list of Methods, sorted by preference
+        """
+        methods = []
+        
+        for name in self.preferred_order:
+            if name in self.methods:
+                methods.append(self.methods[name])
+        for k, method in self.methods.iteritems():
+            if k not in self.preferred_order:
+                methods.append(method)
+        return methods
 
     def get_cover_db(self):
         """

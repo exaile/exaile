@@ -9,8 +9,6 @@ except:
 
 import urllib
 
-search_method = None
-
 def enable(exaile):
     """
         Enables the lyric wiki plugin that fetches track lyrics
@@ -22,13 +20,11 @@ def enable(exaile):
         _enable(None, exaile, None)
 
 def _enable(eventname, exaile, nothing):
-    search_method = LyricWiki()
-    exaile.lyrics.add_search_method(search_method)
+    exaile.lyrics.add_search_method(LyricWiki())
 
 
 def disable(exaile):
-    if search_method:
-        exaile.lyrics.remove_search_method(search_method)
+    exaile.lyrics.remove_search_method_by_name("lyricwiki")
 
 class LyricWiki(LyricSearchMethod):
     

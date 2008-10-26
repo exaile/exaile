@@ -1,2 +1,4 @@
+lastfm://user/reacocard/recommended/100
+lastfm://user/reacocard/personal
 lastfm://user/synic/personal
 lastfm://group/%23utah

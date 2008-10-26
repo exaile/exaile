@@ -27,8 +27,8 @@ class LyricsBaseTestCase(BaseTestCase):
         self.lyricsfly_plugin =  self.load_plugin("lyricsfly")
         self.lyricsfly_plugin.enable(self)
         # Remove all existing methods from lyrics manager
-        methods = self.lyrics.methods;
-        self.lyrics.methods = {}
+        for method in self.lyrics.get_providers():
+            self.lyrics.remove_search_method(method)
 
 
 class LyricsTestCase(LyricsBaseTestCase):

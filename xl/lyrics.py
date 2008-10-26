@@ -15,17 +15,110 @@
 
 #Lyrics manager.
 #
-from xl.manager import SimpleManager
+from xl import providers, event
 
 class LyricsNotFoundException(Exception):
     pass
 
-class LyricsManager(SimpleManager):
+class LyricsManager(providers.ProviderHandler):
     """
         Lyrics Manager
     
         Manages talking to the lyrics plugins and updating the track
     """
+    
+    def __init__(self):
+        providers.ProviderHandler.__init__(self, "lyrics")
+        self.methods = {}
+        self.preferred_order = []
+        self.add_defaults()
+        
+    def add_search_method(self, method):
+        """
+            Adds a search method to the provider list.
+            
+            @param method: the search method instance
+        """
+        providers.register(self.servicename, method)
+        
+    def remove_search_method(self, method):
+        """
+            Removes the given search method from the provider list.
+            
+            @param method: the search method instance
+        """
+        providers.unregister(self.servicename, method)
+        
+    def remove_search_method_by_name(self, name):
+        """
+            Removes a search method from the provider list.
+            
+            @param name: the search method name
+        """
+        try:
+            providers.unregister(self.servicename, self.methods[name])
+        except KeyError:
+            return
+
+    def set_preferred_order(self, order):
+        """
+            Sets the preferred search order
+
+            @param order: a list containing the order you'd like to search
+                first
+        """
+        if not type(order) in (list, tuple):
+            raise AttributeError("order must be a list or tuple")
+        self.preferred_order = order
+
+    def on_new_provider(self, provider):
+        """
+            Adds the new provider to the methods dict and passes a
+            reference of the manager instance to the provider.
+            
+            @param provider: the provider instance being added.
+        """
+        if not provider.name in self.methods:
+            self.methods[provider.name] = provider
+            provider._set_manager(self)
+            event.log_event('lyrics_search_method_added', self, provider) 
+
+    def on_del_provider(self, provider):
+        """
+            Remove the provider from the methods dict, and the
+            preferred_order dict if needed.
+            
+            @param provider: the provider instance being removed.
+        """
+        try:
+            del self.methods[provider.name]
+            event.log_event('lyrics_search_method_removed', self, provider) 
+        except KeyError:
+            pass
+        try:
+            self.preferred_order.remove(provider.name)
+        except (ValueError, AttributeError):
+            pass     
+
+    def get_methods(self):
+        """
+            Returns a list of Methods, sorted by preference
+        """
+        methods = []
+        
+        for name in self.preferred_order:
+            if name in self.methods:
+                methods.append(self.methods[name])
+        for k, method in self.methods.iteritems():
+            if k not in self.preferred_order:
+                methods.append(method)
+        return methods
+    
+    def add_defaults(self):
+        """
+            Adds default search methods
+        """
+        self.add_search_method(LocalLyricSearch())
         
     def find_lyrics(self, track, update_track = False):
         """
@@ -71,11 +164,6 @@ class LyricsManager(SimpleManager):
         
         return (lyrics, source, url)
     
-    def add_defaults(self):
-        """
-            Adds default search methods
-        """
-        self.add_search_method(LocalLyricSearch())
         
 class LyricSearchMethod(object):
     """
@@ -92,18 +180,18 @@ class LyricSearchMethod(object):
     
     def _set_manager(self, manager):
         """
-            Sets the cover manager.  
+            Sets the lyrics manager.  
 
-            Called when this method is added to the cover manager via
-            add_search_method()
+            Called when this method is added to the lyrics manager.
 
-            @param manager: the cover manager
+            @param manager: the lyrics manager
         """
         self.manager = manager
 
 class LocalLyricSearch(LyricSearchMethod):
     
     name="local"
+
     def find_lyrics(self, track):
         # TODO do people store lyrics in other files?
         if track['lyrics'] == None:

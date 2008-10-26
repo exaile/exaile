@@ -58,7 +58,13 @@ class HAL(providers.ProviderHandler):
     def get_handler(self, udi):
         dev_obj = self.bus.get_object("org.freedesktop.Hal", udi)
         device = dbus.Interface(dev_obj, "org.freedesktop.Hal.Device")
-        capabilities = device.GetProperty("info.capabilities")
+        try:
+            capabilities = device.GetProperty("info.capabilities")
+        except dbus.exceptions.DBusException,e:
+            if e.get_dbus_name() == "org.freedesktop.Hal.NoSuchProperty":
+                return None
+            else:
+                common.log_exception(logger)
         for handler in self.get_providers():
             if handler.is_type(device, capabilities):
                 return handler

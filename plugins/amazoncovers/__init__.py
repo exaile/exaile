@@ -16,7 +16,7 @@ def _enable(eventname, exaile, nothing):
     )
 
 def disable(exaile):
-    exaile.covers.remove_search_method('amazon')
+    exaile.covers.remove_search_method_by_name('amazon')
 
 class AmazonCoverSearch(CoverSearchMethod):
     """

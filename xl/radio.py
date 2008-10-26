@@ -13,9 +13,9 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import urllib, re
-from xl import playlist, track, event
+from xl import playlist, track, event, providers
 
-class RadioManager(object):
+class RadioManager(providers.ProviderHandler):
     """
         Radio Station Manager
 
@@ -33,6 +33,7 @@ class RadioManager(object):
         """ 
             Initializes the radio manager
         """
+        providers.ProviderHandler.__init__(self, "radio")
         self.stations = {}
 
     def add_station(self, station):
@@ -41,6 +42,9 @@ class RadioManager(object):
 
             @param station: The station to add
         """
+        providers.register(self.servicename, station)
+        
+    def on_new_provider(self, station):
         if not station.name in self.stations:
             self.stations[station.name] = station
             event.log_event('station_added', self, station) 
@@ -51,6 +55,9 @@ class RadioManager(object):
     
             @param station: The station to remvoe
         """
+        providers.unregister(self.servicename, station)
+        
+    def on_del_station(self, station):
         if station.name in self.stations:
             del self.stations[station.name]
             event.log_event('station_removed', self, station)

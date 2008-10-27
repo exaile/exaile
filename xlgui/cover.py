@@ -182,6 +182,10 @@ class CoverManager(object):
         self.progress.set_fraction(0)
         self._stopped = True
         self.manager.save_cover_db()
+        self.stop_button.set_use_stock(False)
+        self.stop_button.set_label(_('Start'))
+        self.stop_button.set_image(gtk.image_new_from_stock('gtk-yes',
+            gtk.ICON_SIZE_BUTTON))
 
     def _on_destroy(self, *e):
         self._do_stop()

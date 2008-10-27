@@ -166,7 +166,12 @@ class CollectionPanel(panel.Panel):
             finds tracks matching a given iter. returns a resultset.
         """
         search = " ".join(self.get_node_search_terms(iter))
-        return self.collection.search(search)
+        new = self.collection.search(search)
+        tracks = []
+        for track in new:
+            if track in self.tracks:
+                tracks.append(track)
+        return tracks
         
     def get_selected_tracks(self):
         """
@@ -295,6 +300,7 @@ class CollectionPanel(panel.Panel):
             pass # tracknumber isnt in the list
         try:
             tag = self.order[depth]
+            self.tracks = self.collection.search(search)
             values = self.collection.list_tag(tag, search, use_albumartist=False, sort=True)
         except IndexError:
             return # at the bottom of the tree
@@ -348,126 +354,3 @@ class CollectionPanel(panel.Panel):
             iter = self.model.append(parent, [image, v])
             if not bottom:
                 self.model.append(iter, [None, None])
-
-    def load_tree_old(self):
-        """
-            Builds the tree
-        """
-        self.current_start_count = self.start_count
-        self.model.clear()
-        self.tree.set_model(self.model_blank)
-
-        self.root = None
-        self.order = self.orders[self.choice.get_active()]
-
-        self.image_map = {
-            "album": self.album_image,
-            "artist": self.artist_image,
-            "genre": self.genre_image,
-            "title": self.title_image,
-            "date": self.year_image,
-        }
-
-        # save the active view setting
-        self.settings['gui/collection_active_view'] = self.choice.get_active()
-
-        tracks = self.collection.search(self.keyword, self.order)
-
-        if self.current_start_count != self.start_count: return
-        self.append_tracks(self.root, tracks)
-
-    def append_tracks(self, node, tracks=None, unknown=False,
-        expanded_paths=None):
-        """
-            Adds tracks to the tree in the correct order
-        """
-        current_tracks = tracks[:TRACK_NUM]
-        order_nodes = common.idict()
-        order = []
-        last_songs = []
-
-        for field in self.order:
-            if field == 'tracknumber': continue
-            order.append(field)
-
-        for field in order:
-            order_nodes[field] = common.idict()
-
-        last_char = None
-        if not expanded_paths: expanded_paths = []
-
-        for track in current_tracks:
-            parent = node
-            last_parent = None
-            string = ""
-            first = True
-
-            for field in order:
-                node_for = order_nodes[field]
-                if field == 'tracknumber': continue
-                info = track[field]
-
-                # print separators
-                if first and info and self.use_alphabet:
-                    temp = info.upper()
-
-                    # remove 'the' if it's the artist field
-                    if field == 'artist':
-                        if temp.find('THE ') == 0:
-                            temp = temp[4:]
-
-                    if not temp: first_char = ' '
-                    else: first_char = temp[0]
-
-                    if not last_char: # first row, don't add separator
-                        last_char = first_char
-
-                    if first_char != last_char:
-                        if not first_char.isalpha():
-                            first_char = '0-9'
-                        if first_char != last_char:
-                            last_char = first_char
-                            self.model.append(parent, [None, None, None]) 
-
-                if not info or info == u'':
-                    if not unknown and first:
-                        last_songs.append(track)
-                        break
-                    info = _('Unknown')
-                first = False
-
-                if field == 'title':
-                    n = self.model.append(parent, [self.track_image,
-                        track.id, field])
-                else:
-                    string = '%s - %s' % (string, info)
-                    if not string in node_for:
-                        parent = self.model.append(parent,
-                            [self.image_map[field], track.id, field])
-
-                        if info == 'tracknumber': info = track
-                        node_for[string] = parent
-                    else:
-                        parent = node_for[string]
-
-                if self.keyword and last_parent:
-                    if self.keyword.lower() in common.to_unicode(info).lower():
-                        expanded_paths.append(self.model.get_path(
-                            last_parent))
-
-                last_parent = parent
-
-        newtracks = tracks[TRACK_NUM:]
-        if newtracks:
-            gobject.idle_add(self.append_tracks, node, newtracks, unknown,
-                expanded_paths)
-        else:
-            # make sure 'unknown' items end up at the end of the list
-            if not unknown and last_songs:
-                self.append_tracks(self.root, last_songs, True,
-                    expanded_paths)
-
-            self.tree.set_model(self.model)
-
-            for path in expanded_paths:
-                self.tree.expand_to_path(path)

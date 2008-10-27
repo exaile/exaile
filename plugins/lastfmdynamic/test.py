@@ -14,8 +14,8 @@ class LastFMDymamic(BaseTestCase):
     def testFindSimilarArtists(self):
         
         items = self.dm.find_similar_artists({
-            'artist': 'Hooverphonic',
-            'album': 'A New Stereophonic Sound Spectacular'
+            'artist': ['Hooverphonic'],
+            'album': ['A New Stereophonic Sound Spectacular'],
         })
 
         assert len(items) > 2, "Similar artist search failed"

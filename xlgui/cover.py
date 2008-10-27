@@ -16,8 +16,8 @@
 
 from xl import xdg, event, cover, common
 from xlgui import guiutil
-import gtk, gobject, gtk.glade
-import logging
+import gtk, gobject, gtk.glade, time
+import logging, traceback
 logger = logging.getLogger(__name__)
 
 COVER_WIDTH = 100
@@ -37,6 +37,7 @@ class CoverManager(object):
 
         self.cover_nodes = {}
         self.covers = {}
+        self._stopped = True
 
         self.xml = gtk.glade.XML(xdg.get_data_path('glade/covermanager.glade'),
             'CoverManager', 'exaile')
@@ -45,6 +46,8 @@ class CoverManager(object):
         self.window.set_transient_for(parent)
 
         self.icons = self.xml.get_widget('cover_icon_view')
+        self.progress = self.xml.get_widget('progress')
+        self.stop_button = self.xml.get_widget('stop_button')
         self.model = gtk.ListStore(str, gtk.gdk.Pixbuf, object)
         self.icons.set_item_width(90)
 
@@ -64,11 +67,12 @@ class CoverManager(object):
         items = list(set([('/'.join(t['artist']), '/'.join(t['album'])) for t
             in tracks if t['artist'] and t['album']]))
         self.items = items
+        self.items.sort()
 
         nocover = gtk.gdk.pixbuf_new_from_file(NOCOVER_IMAGE)
         nocover = nocover.scale_simple(80, 80, gtk.gdk.INTERP_BILINEAR)
         self.nocover = nocover
-        self.count = 0
+        self.needs = 0
         for item in items:
             try:
                 cover = self.manager.coverdb.get_cover(item[0], item[1])
@@ -83,19 +87,120 @@ class CoverManager(object):
                     image = nocover
             else:
                 image = nocover
+
+            if image == nocover:
+                self.needs += 1
+
             self.cover_nodes[item] = self.model.append(
                 ["%s - %s" % (item[0], item[1]), 
                 image, item[0]])
             self.covers[item] = image
-            self.count += 1
         self.icons.set_model(self.model)
+        self.progress.set_text('%d covers to fetch' % self.needs)
 
     def _connect_events(self):
         """
             Connects the various events
         """
         self.xml.signal_autoconnect({
+            'stop_button_clicked': self._toggle_find,
+            'cancel_button_clicked': self._on_destroy
         })
+
+        self.window.connect('delete-event', self._on_destroy)
+
+    @common.threaded
+    def _find_covers(self):
+        """
+            Finds covers for albums that don't already have one
+        """
+        self.count = 0
+        self._stopped = False
+        for item in self.items:
+            if self._stopped:
+                gobject.idle_add(self._do_stop)
+                return
+            starttime = time.time()
+            if not self.covers[item] == self.nocover:
+                continue
+
+            try:
+                c = self.manager.get_cover(
+                    {
+                        'artist': [item[0]],
+                        'album': [item[1]],
+                    }, update_track=True)
+            except:
+                logger.warning("No cover found")
+                c = None
+
+            if c:
+                logger.info(c)
+                node = self.cover_nodes[item]
+
+                try:
+                    image = gtk.gdk.pixbuf_new_from_file(c)
+                    image = image.scale_simple(80, 80, gtk.gdk.INTERP_BILINEAR)
+
+                    gobject.idle_add(self.model.set_value, node, 1, image)
+                except:
+                    traceback.print_exc()
+        
+            gobject.idle_add(self.progress.set_fraction, float(self.count) /
+                float(self.needs))
+            gobject.idle_add(self.progress.set_text, "%s/%s fetched" % (self.count,
+                self.needs))
+
+            # wait at least 1 second until the next attempt
+            waittime = 1 - (time.time() - starttime)
+            if waittime > 0: time.sleep(waittime)
+            self.count += 1
+
+            if self.count % 20 == 0:
+                logger.info("Saving cover database")
+                self.manager.save_cover_db()
+
+        # we're done!
+        gobject.idle_add(self._do_stop)
+
+    def _calculate_needed(self):
+        """
+            Calculates the number of needed covers
+        """
+        self.needs = 0
+        for item in self.items:
+            cover = self.covers[item]
+            if cover == self.nocover:
+                self.needs += 1
+
+    def _do_stop(self):
+        """
+            Actually stop the finder thread
+        """
+        self._calculate_needed()
+        self.progress.set_text('%d covers to fetch' % self.needs)
+        self.progress.set_fraction(0)
+        self._stopped = True
+        self.manager.save_cover_db()
+
+    def _on_destroy(self, *e):
+        self._do_stop()
+        self.window.hide()
+
+    def _toggle_find(self, *e):
+        """
+            Toggles cover finding
+        """
+        if self._stopped:
+            self.stop_button.set_use_stock(True)
+            self.stop_button.set_label('gtk-stop')
+            self._find_covers()
+        else:
+            self._stopped = True
+            self.stop_button.set_use_stock(False)
+            self.stop_button.set_label(_('Start'))
+            self.stop_button.set_image(gtk.image_new_from_stock('gtk-yes',
+                gtk.ICON_SIZE_BUTTON))
 
 class CoverWidget(guiutil.ScalableImageWidget):
     """

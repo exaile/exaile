@@ -39,7 +39,11 @@ class LastFMCoverSearch(CoverSearchMethod):
         if not m:
             raise NoCoverFoundException()
 
-        h = urllib.urlopen(m.group(1))
+        image = m.group(1)
+        if image.lower().endswith('.gif'):
+            raise NoCoverFoundException()
+
+        h = urllib.urlopen(image)
         data = h.read()
         h.close()
 

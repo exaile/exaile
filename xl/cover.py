@@ -303,7 +303,8 @@ class CoverManager(providers.ProviderHandler):
                 new art
         """
         try:
-            cover = self.coverdb.get_cover(track['artist'][0], track['album'][0])
+            cover = self.coverdb.get_cover('/'.join(track['artist']), 
+                '/'.join(track['album']))
         except TypeError: # one of the fields is missing
             raise NoCoverFoundException() 
         if not cover:
@@ -314,7 +315,10 @@ class CoverManager(providers.ProviderHandler):
                 cover = covers[0]
 
         if update_track:
-            self.coverdb.set_cover(track['artist'][0], track['album'][0], cover)
+            self.coverdb.set_cover('/'.join(track['artist']), 
+                '/'.join(track['album']), cover)
+
+        event.log_event('cover_found', self, (track, cover))
 
         return cover
 
@@ -324,6 +328,10 @@ class CoverManager(providers.ProviderHandler):
 
             Searches the preferred order first, and then the rest of the
             available methods.  The first cover that is found is returned.
+
+            @param track: the track 
+            @para limit: Set to -1 to return all covers, or the max number of
+                covers you want returned
         """
         logger.info("Attempting to find covers for %s" % track)
         for method in self.get_methods():
@@ -336,12 +344,6 @@ class CoverManager(providers.ProviderHandler):
 
         # no covers were found, raise an exception
         raise NoCoverFoundException()
-
-    def find_all_covers(self, track):
-        """
-            finds all available covers for a track
-        """
-        raise NotImplementedError # this isnt really needed til GUI
 
 class CoverSearchMethod(object):
     """

@@ -33,7 +33,8 @@ class AmazonCoverSearch(CoverSearchMethod):
         cache_dir = self.manager.cache_dir
         try:
             albums = ecs.ItemSearch(Keywords="%s - %s" %
-                (track['artist'][0], track['album'][0]), SearchIndex="Music",
+                ('/'.join(track['artist']), 
+                '/'.join(track['album'])), SearchIndex="Music",
                 ResponseGroup="ItemAttributes,Images")
         except ecs.NoExactMatches:
             raise NoCoverFoundException()

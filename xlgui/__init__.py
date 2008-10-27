@@ -17,7 +17,7 @@ __all__ = ['main', 'panel', 'playlist']
 import gtk, gtk.glade, gobject, logging
 from xl import xdg, common, event
 
-from xlgui import guiutil, prefs, plugins
+from xlgui import guiutil, prefs, plugins, cover
 
 gtk.window_set_default_icon_from_file(xdg.get_data_path("images/icon.png"))
 logger = logging.getLogger(__name__)
@@ -81,7 +81,15 @@ class Main(object):
             'on_collection_manager_item_activate': self.collection_manager,
             'on_preferences_item_activate': lambda *e: self.show_preferences(),
             'on_plugins_item_activate': self.show_plugins,
+            'on_album_art_item_activate': self.show_cover_manager,
         })
+
+    def show_cover_manager(self, *e):
+        """
+            Shows the cover manager
+        """
+        window = cover.CoverManager(self.main.window, self.exaile.covers,
+            self.exaile.collection)
 
     def show_plugins(self, *e):
         """

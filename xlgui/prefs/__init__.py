@@ -41,7 +41,7 @@ class PreferencesDialog(object):
         self.last_child = None
         self.parent = parent
         self.settings = self.main.exaile.settings
-        self.plugins = self.main.exaile.plugins.enabled_plugins
+        self.plugins = self.main.exaile.plugins.list_installed_plugins()
         self.fields = {} 
         self.panes = {}
         self.xmls = {}
@@ -74,9 +74,18 @@ class PreferencesDialog(object):
             self.model.append(None, [page.name, page])
 
         plugin_pages = []
-        for k, plugin in self.plugins.iteritems():
+        for plugin in self.plugins:
+            name = plugin
+            if plugin in self.main.exaile.plugins.enabled_plugins:
+                plugin = self.main.exaile.plugins.enabled_plugins[plugin]
+            else:
+                try:
+                    plugin = self.main.exaile.plugins.load_plugin(plugin)
+                    if not plugin: continue
+                except:
+                    continue
             if hasattr(plugin, 'get_prefs_pane'):
-                if k == plugin_page:
+                if name == plugin_page:
                     select_path = count
                 plugin_pages.append(plugin.get_prefs_pane())
                 count += 1

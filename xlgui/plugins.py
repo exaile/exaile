@@ -38,7 +38,6 @@ class PluginManager(object):
 
         self.list = self.xml.get_widget('plugin_tree')
         self.configure_button = self.xml.get_widget('configure_button')
-        self.configure_button.set_sensitive(False)
 
         self.version_label = self.xml.get_widget('version_label')
         self.author_label = self.xml.get_widget('author_label')
@@ -130,10 +129,6 @@ class PluginManager(object):
         self.description.get_buffer().set_text(
             info['Description'].replace(r'\n', "\n"))
         self.name_label.set_markup("<b>%s</b>" % info['Name'])
-        if pluginname in self.plugins.enabled_plugins:
-            self.configure_button.set_sensitive(True)
-        else:
-            self.configure_button.set_sensitive(False)
 
     def run(self):
         return self.dialog.run()
@@ -156,7 +151,6 @@ class PluginManager(object):
                     'not disable plugin.'))
                 return
 
-        self.configure_button.set_sensitive(enable)
         model[path][1] = enable
 
     def destroy(self, *e):

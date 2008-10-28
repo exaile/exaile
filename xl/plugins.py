@@ -38,6 +38,7 @@ class PluginsManager(object):
                 pass
 
         self.plugindirs = [ x for x in self.plugindirs if os.path.exists(x) ]
+        self.loaded_plugins = {}
 
         self.exaile = exaile 
         self.enabled_plugins = {}
@@ -51,13 +52,17 @@ class PluginsManager(object):
                 return os.path.join(dir, pluginname)
         return None
 
-    def load_plugin(self, pluginname):
+    def load_plugin(self, pluginname, reload=False):
+        if not reload and pluginname in self.loaded_plugins:
+            return self.loaded_plugins[pluginname]
+
         path = self.__findplugin(pluginname)
         if path is None:
             return False
         sys.path.insert(0, path)
         plugin = imp.load_source(pluginname, os.path.join(path,'__init__.py'))
         sys.path = sys.path[1:]
+        self.loaded_plugins[pluginname] = plugin
         return plugin
 
     def install_plugin(self, path):

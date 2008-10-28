@@ -165,13 +165,12 @@ class CollectionPanel(panel.Panel):
         """
             finds tracks matching a given iter. returns a resultset.
         """
+        from xl import playlist
         search = " ".join(self.get_node_search_terms(iter))
-        new = self.collection.search(search)
-        tracks = []
-        for track in new:
-            if track in self.tracks:
-                tracks.append(track)
-        return tracks
+
+        pl = playlist.Playlist('')
+        pl.add_tracks(self.tracks)
+        return pl.search(search) 
         
     def get_selected_tracks(self):
         """

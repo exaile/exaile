@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 from xl import xdg, event, cover, common
-from xlgui import guiutil
+from xlgui import guiutil, commondialogs
 import gtk, gobject, gtk.glade, time
 import logging, traceback
 logger = logging.getLogger(__name__)
@@ -613,7 +613,7 @@ class CoverChooser(gobject.GObject):
         """
             Creates a new search string
         """
-        dialog = common.TextEntryDialog(self.parent,
+        dialog = commondialogs.TextEntryDialog(
             _("Enter the search text"), _("Enter the search text"))
         dialog.set_value(self.last_search)
         result = dialog.run()
@@ -631,7 +631,7 @@ class CoverChooser(gobject.GObject):
         self.covers = []
         self.current = 0
         
-        if type(search) == str or type(search) == str:
+        if type(search) == str or type(search) == unicode:
             covers = self.manager.search_covers(search)
         else:
             covers = self.manager.find_covers(search)
@@ -639,6 +639,9 @@ class CoverChooser(gobject.GObject):
         if covers:
             self.covers = covers
             gobject.idle_add(self.show_cover, covers[0])
+        else:
+            commondialogs.error(self.parent, _('No covers found'))
+            self.window.show_all()
 
     def on_ok(self, widget=None):
         """

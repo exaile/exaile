@@ -30,11 +30,15 @@ class AmazonCoverSearch(CoverSearchMethod):
         """
             Searches amazon for album covers
         """
+        return self.search_covers("%s - %s" % 
+            ('/'.join(track['artist']), '/'.join(track['album'])),
+            limit)
+
+    def search_covers(self, search, limit=-1):
         cache_dir = self.manager.cache_dir
         try:
-            albums = ecs.ItemSearch(Keywords="%s - %s" %
-                ('/'.join(track['artist']), 
-                '/'.join(track['album'])), SearchIndex="Music",
+            albums = ecs.ItemSearch(Keywords=search,
+                SearchIndex="Music",
                 ResponseGroup="ItemAttributes,Images")
         except ecs.NoExactMatches:
             raise NoCoverFoundException()

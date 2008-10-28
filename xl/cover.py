@@ -45,16 +45,17 @@ class CoverDB(object):
         if location:
             self.load_from_location(location)
 
-    def remove_cover(self, artist, albumn):
+    def remove_cover(self, artist, album):
         """
             Removes a cover for an album
 
-            @param artst: the artist
+            @param artist: the artist
             @param album: the album
         """
         if artist and artist in self.artists:
             if album and album in self.artists[artist]:
-                del self.artist[artist][album]
+                item = self.artists[artist]
+                del self.artists[artist][album]
 
     def get_cover(self, artist, album):
         """
@@ -76,6 +77,8 @@ class CoverDB(object):
             @param artist: the artist
             @param album: the album
         """
+        logger.info("CoverDB: set cover %s for '%s - %s'" %
+            (cover, album, artist))
         if not artist in self.artists:
             self.artists[artist] = common.idict()
 
@@ -265,7 +268,7 @@ class CoverManager(providers.ProviderHandler):
             if name in self.methods:
                 methods.append(self.methods[name])
         for k, method in self.methods.iteritems():
-            if k not in methods:
+            if method not in methods:
                 methods.append(method)
         return methods
 
@@ -342,6 +345,36 @@ class CoverManager(providers.ProviderHandler):
 
         return cover
 
+    def search_covers(self, search_string, limit=-1):
+        """
+            Finds a cover for a search string
+
+            @param search_string: the search string
+            @param limit: Set to -1 to return all covers, or to the max number
+            of covers you want returned
+        """
+        covers = []
+        logger.info("Attempting to find covers for %s" % search_string)
+        for method in self.get_methods():
+            if hasattr(method, 'search_covers'):
+                try:
+                    c = method.search_covers(search_string, limit)
+                    logger.info("Found covers from %s" % method.name)
+                    if limit == -1:
+                        covers.extend(c)
+                    else:
+                        return c
+                except NoCoverFoundException:
+                    pass
+            else:
+                logger.warning("%s method doesn't support searching" %
+                    method.name)
+
+        if not covers:
+            # no covers were found, raise an exception
+            raise NoCoverFoundException()
+        return covers
+
     def find_covers(self, track, limit=-1):
         """
             Finds a cover for a track.  
@@ -353,17 +386,23 @@ class CoverManager(providers.ProviderHandler):
             @para limit: Set to -1 to return all covers, or the max number of
                 covers you want returned
         """
+        covers = []
         logger.info("Attempting to find covers for %s" % track)
         for method in self.get_methods():
             try:
                 c = method.find_covers(track, limit)
                 logger.info("Found covers from %s" % method.name)
-                return c
+                if limit == -1:
+                    covers.extend(c)
+                else:
+                    return c
             except NoCoverFoundException:
                 pass
-
-        # no covers were found, raise an exception
-        raise NoCoverFoundException()
+        
+        if not covers:
+            # no covers were found, raise an exception
+            raise NoCoverFoundException()
+        return covers
 
 class CoverSearchMethod(object):
     """
@@ -404,7 +443,11 @@ class LocalCoverSearch(CoverSearchMethod):
 
     def find_covers(self, track, limit=-1):
         covers = []
-        search_dir = os.path.dirname(track.get_loc())
+        try:
+            search_dir = os.path.dirname(track.get_loc())
+        except AttributeError:
+            raise NoCoverFoundException()
+
         if not os.path.isdir(search_dir):
             raise NoCoverFoundException()
         for file in os.listdir(search_dir):

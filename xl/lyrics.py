@@ -112,7 +112,7 @@ class LyricsManager(providers.ProviderHandler):
             if name in self.methods:
                 methods.append(self.methods[name])
         for k, method in self.methods.iteritems():
-            if k not in methods:
+            if method not in methods:
                 methods.append(method)
         return methods
     

@@ -198,6 +198,12 @@ class idict(dict):
         """
         return self.has_key(key)
 
+    def __delitem__(self, key=None):
+        if key is None: return
+        key = key.lower()
+        dict.__delitem__(self, key)
+        del self.keys_dict[key]
+
     def has_key(self, key): 
         """
             Returns True if this dictionary contains the specified key

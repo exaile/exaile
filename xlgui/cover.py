@@ -21,6 +21,7 @@ import logging, traceback
 logger = logging.getLogger(__name__)
 
 from xl.nls import gettext as _
+import gobject
 
 COVER_WIDTH = 100
 NOCOVER_IMAGE = xdg.get_data_path("images/nocover.png")
@@ -73,6 +74,13 @@ class CoverManager(object):
         elif event.button == 3:
             self.menu.popup(event)
 
+        # select the current icon
+        x, y = map(int, event.get_coords())
+        path = self.icons.get_path_at_pos(x, y)
+        if not path: return
+
+        self.icons.select_path(path)
+
     def get_selected_cover(self):
         """
             Returns the currently selected cover tuple
@@ -92,11 +100,50 @@ class CoverManager(object):
         window = CoverWindow(self.parent, cover)
         window.show_all()
 
-    def fetch_cover(self, *e):
-        pass
+    def fetch_cover(self):
+        """
+            Fetches a cover for the current track
+        """
+        item = self._get_selected_item()
+        if not item: return
+        window = CoverChooser(self.window, 
+            self.manager,
+            {
+                'artist': [item[0]],
+                'album': [item[1]],
+            }) 
+        window.connect('cover-chosen', self.on_cover_chosen)
+
+    def on_cover_chosen(self, object, cover):
+        paths = self.icons.get_selected_items()
+        if not paths: return None
+        path = paths[0]
+
+        iter = self.model.get_iter(path)
+        item = self.model.get_value(iter, 2)
+
+        image = gtk.gdk.pixbuf_new_from_file(cover)
+        image = image.scale_simple(80, 80, gtk.gdk.INTERP_BILINEAR)
+        self.covers[item] = image
+        self.model.set_value(iter, 1, image)
+
+    def _get_selected_item(self):
+        """
+            Returns the selected item
+        """
+        paths = self.icons.get_selected_items()
+        if not paths: return None
+        path = paths[0]
+
+        iter = self.model.get_iter(path)
+        item = self.model.get_value(iter, 2)
+        return item
 
     def remove_cover(self, *e):
-        pass
+        item = self._get_selected_item()
+        self.manager.coverdb.remove_cover(item[0], item[1])
+        self.covers[item] = self.nocover
+        self.model.set_value(iter, 1, self.nocover)
 
     def _find_initial(self):
         """
@@ -313,7 +360,14 @@ class CoverWidget(gtk.EventBox):
         """
             Fetches a cover for the current track
         """
-        self.on_playback_start(None, self.main.player, None)
+        if not self.player.current: return
+        window = CoverChooser(self.main.window, 
+            self.covers,
+            self.player.current) 
+        window.connect('cover-chosen', self.on_cover_chosen)
+
+    def on_cover_chosen(self, object, cover):
+        self.image.set_image(cover) 
 
     def remove_cover(self):
         """
@@ -503,3 +557,133 @@ class CoverWindow(object):
             self.update_widgets()
             self.cover_window_width = allocation.width
             self.cover_window_height = allocation.height
+
+class CoverChooser(gobject.GObject):
+    """
+        Fetches all album covers for a string, and allows the user to choose
+        one out of the list
+    """
+    __gsignals__ = {
+        'cover-chosen': (gobject.SIGNAL_RUN_LAST, None, (str,)),
+    }
+    def __init__(self, parent, covers, track, search=None):
+        """
+            Expects the parent control, a track, an an optional search string
+        """
+        gobject.GObject.__init__(self)
+        self.manager = covers
+        self.parent = parent
+        self.xml = gtk.glade.XML(xdg.get_data_path('glade/coverchooser.glade'), 
+            'CoverChooser', 'exaile')
+        self.window = self.xml.get_widget('CoverChooser')
+        self.window.set_title("%s - %s" % 
+            (
+                '/'.join(track['artist']), 
+                '/'.join(track['album'])
+            ))
+        self.window.set_transient_for(parent)
+
+        self.track = track
+        self.current = 0
+        self.prev = self.xml.get_widget('cover_back_button')
+        self.prev.connect('clicked', self.go_prev)
+        self.prev.set_sensitive(False)
+        self.next = self.xml.get_widget('cover_forward_button')
+        self.next.connect('clicked', self.go_next)
+        self.xml.get_widget('cover_newsearch_button').connect('clicked',
+            self.new_search)
+        self.xml.get_widget('cover_cancel_button').connect('clicked',
+            lambda *e: self.window.destroy())
+        self.ok = self.xml.get_widget('cover_ok_button')
+        self.ok.connect('clicked',
+            self.on_ok)
+        self.box = self.xml.get_widget('cover_image_box')
+        self.cover = guiutil.ScalableImageWidget()
+        self.cover.set_image_size(350, 350)
+        self.box.pack_start(self.cover, True, True)
+
+        self.last_search = "%s - %s" % (
+            '/'.join(track['artist']), 
+            '/'.join(track['album'])
+        )
+
+        self.fetch_cover(track)
+
+    def new_search(self, widget=None):
+        """
+            Creates a new search string
+        """
+        dialog = common.TextEntryDialog(self.parent,
+            _("Enter the search text"), _("Enter the search text"))
+        dialog.set_value(self.last_search)
+        result = dialog.run()
+        if result == gtk.RESPONSE_OK:
+            self.last_search = dialog.get_value()
+            self.window.hide()
+
+            self.fetch_cover(self.last_search)
+
+    @common.threaded
+    def fetch_cover(self, search):
+        """
+            Searches for a cover
+        """
+        self.covers = []
+        self.current = 0
+        
+        if type(search) == str or type(search) == str:
+            covers = self.manager.search_covers(search)
+        else:
+            covers = self.manager.find_covers(search)
+
+        if covers:
+            self.covers = covers
+            gobject.idle_add(self.show_cover, covers[0])
+
+    def on_ok(self, widget=None):
+        """
+            Chooses the current cover and saves it to the database
+        """
+        track = self.track
+        cover = self.covers[self.current]
+
+        self.manager.coverdb.set_cover(
+            '/'.join(track['artist']),
+            '/'.join(track['album']),
+            cover)
+
+        self.emit('cover-chosen', cover)
+        self.window.destroy()
+
+    def go_next(self, widget):
+        """
+            Shows the next cover
+        """
+        if self.current + 1 >= len(self.covers): return
+        self.current = self.current + 1
+        self.show_cover(self.covers[self.current])
+        if self.current + 1 >= len(self.covers):
+            self.next.set_sensitive(False)
+        if self.current - 1 >= 0:
+            self.prev.set_sensitive(True)
+
+    def go_prev(self, widget):
+        """
+            Shows the previous cover
+        """
+        if self.current - 1 < 0: return
+        self.current = self.current - 1
+        self.show_cover(self.covers[self.current])
+
+        if self.current + 1 < len(self.covers):
+            self.next.set_sensitive(True)
+        if self.current - 1 < 0:
+            self.prev.set_sensitive(False)
+
+    def show_cover(self, c):
+        """
+            Shows the current cover
+        """
+        logger.info(c)
+        self.cover.set_image(c)
+        self.window.show_all()

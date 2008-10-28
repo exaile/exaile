@@ -1,0 +1,4 @@
+Version="0.0.1"
+Authors=["Adam Olsen <arolsen@gmail.com>"]
+Name="AudioScrobbler"
+Description="Submits listening information to Last.FM via audioscrobbler"

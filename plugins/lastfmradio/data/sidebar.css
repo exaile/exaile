@@ -1,0 +1,61 @@
+body { 
+    font-family: sans-serif; 
+    margin: 0; 
+}
+div { 
+    white-space: nowrap;
+}
+#lfmp {
+    padding: 0; 
+}
+#lfmp-header { 
+    padding: 5px;
+    background: #91998e; 
+    color: white; 
+    font-weight: bold; 
+}
+#lfmp-header a {
+    color: white; 
+}
+#lfmp-version {
+    font-size: small;
+}
+#lfmp-main {
+    padding: 5px;
+    background: #E3E6D8; 
+    color: black; 
+}
+#lfmp-main a {
+    color: black; 
+}
+#lfmp-main div {
+    padding: 3px;
+}
+#lfmp-footer {
+    padding: 5px;
+    background: #d20039; 
+    color: white; 
+}
+#lfmp-footer a {
+    color: white; 
+}
+#lfmp-bookmarks {
+    font-size: small;
+}
+#lfmp-lasttracks {
+    padding: 5px;
+    background: #E3E6D8; 
+    color: #91998e; 
+    font-size: small;
+}
+#lfmp-lasttracks ul {
+    margin: 0;
+    padding-left: 15px;
+}
+#lfmp-lasttracks a {
+    color: #91998e; 
+}
+#lfmp-buttons {
+    font-size: small;
+}
+

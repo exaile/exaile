@@ -1,0 +1,4 @@
+Version="0.0.1"
+Authors=["Adam Olsen <arolsen@gmail.com>"]
+Name="PythonConsole"
+Description="Displays a python console with which to interact with Exaile"

@@ -1,0 +1,4 @@
+Version="0.0.1"
+Authors=["Adam Olsen <arolsen@gmail.com>"]
+Name="Streamripper"
+Description="Allows you to record streams with streamripper.  Requires the command line version of streamripper to be installed"

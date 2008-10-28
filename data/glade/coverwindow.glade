@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
+<!--Generated with glade3 3.4.5 on Mon Oct 27 19:36:59 2008 -->
+<glade-interface>
+  <widget class="GtkWindow" id="CoverWindow">
+    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+    <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
+    <property name="destroy_with_parent">True</property>
+    <child>
+      <widget class="GtkVBox" id="vbox">
+        <property name="visible">True</property>
+        <child>
+          <widget class="GtkToolbar" id="toolbar">
+            <property name="visible">True</property>
+            <property name="toolbar_style">GTK_TOOLBAR_BOTH</property>
+            <child>
+              <widget class="GtkToolButton" id="zoom_in">
+                <property name="visible">True</property>
+                <property name="stock_id">gtk-zoom-in</property>
+              </widget>
+              <packing>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkToolButton" id="zoom_out">
+                <property name="visible">True</property>
+                <property name="stock_id">gtk-zoom-out</property>
+              </widget>
+              <packing>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkToolButton" id="zoom_100">
+                <property name="visible">True</property>
+                <property name="stock_id">gtk-zoom-100</property>
+              </widget>
+              <packing>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkToolButton" id="zoom_fit">
+                <property name="visible">True</property>
+                <property name="stock_id">gtk-zoom-fit</property>
+              </widget>
+              <packing>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkScrolledWindow" id="scrolledwindow">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+            <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+            <child>
+              <widget class="GtkLayout" id="layout">
+                <property name="visible">True</property>
+                <property name="has_focus">True</property>
+                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                <property name="width">400</property>
+                <property name="height">400</property>
+                <child>
+                  <widget class="GtkImage" id="image">
+                    <property name="width_request">0</property>
+                    <property name="height_request">0</property>
+                    <property name="visible">True</property>
+                    <property name="stock">gtk-missing-image</property>
+                  </widget>
+                </child>
+              </widget>
+            </child>
+          </widget>
+          <packing>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkStatusbar" id="statusbar">
+            <property name="visible">True</property>
+          </widget>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+</glade-interface>

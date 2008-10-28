@@ -1,0 +1,258 @@
+NOTE:  We should start using launchpad for this, either the blueprints section
+or the issue tracker.  I've started putting in blueprints and assigning the
+goal as 0.3-devel.  This way we'll have a better record of what's been done
+and who's working on what.  
+
+
+This is for notes and plans regarding exaile 0.3. 
+It should also be used to keep track of what each contributor is
+currently working on.
+
+Current projects:
+    Aren Olson - MP3 Player Support
+    Adam Olsen - GUI
+    Anthony Waters - 
+    thiblahute - CD Burning (hasn't been seen in a while)
+    Cory Gagliardi - Rating System
+
+release naming scheme:
+
+alphas: 0.2.99.x
+betas:  0.2.999.x
+RCs:    0.2.9999.x
+final:  0.3.0
+
+releases so far:
+    0.2.99.0 - aka 0.3a
+
+next release:
+    0.2.99.1 - aka 0.3a2
+
+
+Implemented:
+    Collection
+    Libraries
+        now has realtime watching!
+    Playlists
+    Player
+    Queue
+    Settings
+    Event
+        signals-like system that doesn't require reference passing
+    XDG
+        exaile's config and data files now stored according to xdg spec
+    Logging System
+    Smart Playlists
+    CD Playback
+        doesn't support mp3 CDs yet
+    Device Manager
+        only for cd right now
+    HAL Support
+        only for cd right now
+    Playlists Manager
+    Plugins System
+        file format: tar archive (optionally with gzip/bzip2), gets extracted
+                into XDG_DATA_HOME, loads from there or XDG_DATA_DIRS
+    Covers
+        todo: support embedded covers, cover from filename via tag 
+            info (eg. %artist-%album.jpg)
+            - also support unix-style globbing on filenames (eg *.jpg)
+    Internet Radio
+        not at all feature-complete
+    Lyrics Manager
+        should we cache in ~/.lyrics instead of our own place?
+            format: standard text in ~/.lyrics/artist/title.lyric
+    Dynamic Playlists
+    MMKeys
+        Only for gnome >= 2.20
+    Gapless Playback
+        limitation: the UI will see the track as changing when the next track
+            is 'spooled up', rather than when the change happens. This is a 
+            limitation of the current playbin2. In most cases the difference
+            should be negligible.
+    Equalizer
+    Replaygain
+        doesn't support creating tags, only reading them
+    CD Ripping
+       
+Things needed for alpha 1 (0.2.99.1) release:
+    Installing
+        makefile currently has no install rules
+        this will also need a way to handle which plugins get installed by 
+            default, though for now we can just install all of them
+    Persistence 
+        everything should be persistent, ie. when opening exaile it should appear 
+            EXACTLY as it was when you exited.
+        todo list:
+            make queue, player persistent
+            periodic save to disk so that in event of crash eveything is saved
+                save when new songs happen? that way we keep disk i/o together
+                    which will be nice for laptop users
+    Rating    
+        make rating system use a float from 0-100, this lets us seamlessly handle
+            information coming from sources that use differing rating systems.
+        a negative value will mean "not rated"
+        ui will collapse the float value to the nearest value on the scale
+            chosen by the user for display (default 5), but not alter it 
+            until it is changed
+    GUI
+        see GUIPLANNING
+
+Things needed for alpha 2 (0.2.99.2) release:
+    Plugins
+        retrieval from server
+    MP3 Player Support
+        see player_planning
+    Providers Conversion
+        the following systems still need to be converted to providers:
+        - covers
+        - lyrics
+        - radio
+        - devices/hal (assignee: Aren Olson)
+        - all plugins providing backends for the above
+
+Things needed for beta 1 (0.2.999.1) release:
+    Conversion
+        we need to handle the upgrade process from 0.2->0.3 smoothly
+        this should include the collection, settings, plugins,
+            playlists, and anything else still relevant in 0.3
+        should be the last primary 'feature' implemented
+        implement as plugin? that way it can just be unloaded afterwards
+            saving a little bit of time and memory.
+        alternatively, only import it if firstrun is True. this is likely
+            a cleaner and more-efficient method.         
+        this should also be designed flexibly enough to also handle future
+            0.3.x to 0.3.y upgrades, should that be necessary. 
+                possibly also allow import from other players, eg rhythmbox,
+                amarok, etc. these importers would be implemented as plugins.
+    Plugins
+        we should have a system for installing onyl a fixed set of plugins at 
+            this point
+        using a list in the plugins Makefile is probably acceptable
+        method for choosing which plugins to enable on first run?
+            Firstrun="true" in PLUGININFO? if missing/false don't load on 
+                first run
+            only applies to first start, plugins added afterwards are never 
+                loaded until the user explicitly requests so (installing via 
+                the plugins manager may be treated as such a request, this is 
+                mainly for the benefit of plugins distributed in packages)
+
+
+Things needed for RCs/final release:
+    CD Burning
+        class in cd.py, takes a Playlist and burns it in order
+        allow mp3 cd burning?
+    Podcasts
+        separate from radio
+        allow flexibility in choice of when (if?) and where to download
+        allow streaming if not downloaded
+    Visualizations
+        implement as plugin (if possible)
+        we now support adding arbitrary gstreamer elements to the pipeline,
+            so this should be possible
+    Localization
+        not only the GUI but all INFO, WARNING and ERROR logs should be 
+            translateable
+        DEBUG logs do not need to be, as they are largely not intended to be
+            seen by users
+    Test cases
+        the following still need test cases:
+        - tag reading/writing for all formats
+        - add more here!
+
+
+GUIPLANNING:
+    Implemented:
+        Collection Panel
+            still needs right click menu, double click actions, etc
+        Playlists Panel
+            still needs right click menu, a way to add custom playlists and
+                smart playlists
+            still needs to display custom playlists
+        Playlist Tabs
+            still need to be able to recieve track dragged from a file
+                manager like nautilus   
+        Tray Icon
+            still needs everything, only does toggle hide now. Egg based
+                tray icon not implemented at all.
+        SPAT - as right-click on stop
+        Smart Playlist editor
+        About Dialog
+        use banshee-type progressbars, ie display a list of all active
+            progressbars below the side pane area. This can be used for
+            things like collection rescan, cd import, mp3 player sync, etc.
+    Needs to be implemented:
+        Album Art Manager
+        Preferences Dialog
+        Library Manager
+        Radio Panel
+        Podcasts?
+        Queueing tracks, display of queued tracks, queue manager
+        Rating
+            allow arbitrary numbers of ranking levels, default to 5
+                this is converted into the range from 0-100 for the backend
+        Plugin Manager
+            allow local install
+        Better search interface (allow for custom queries and etc)
+        Various Device Panels
+            there will be two kinds of these, playlist-based (eg CDs) and 
+                collection-based (eg MP3 players)
+        Major cleanup of code in xlgui/playlists.py
+
+    Notes:
+        use gtk.glade.XML.signal_autoconnect *whenever* possible... this
+            is something we didn't do in 0.2 and it was a pain
+        devices:
+            idea: use separate side tab for each device, with device manager
+                option in Tools for advanced config. tabs would be
+                auto-generated as new devices are connected, either via HAL
+                or the device manager.
+                    possible issue: space
+                        not likely needing concern, as it is unlikely that
+                        more than 3 devices will be plugged in at a time
+
+    Ideas:
+        use libsexy to put album art in tray tooltip (possible?)
+            - alternatively, replace tray tooltip with OSD if enabled
+        OSD progressbar should be togglable (perhaps make {progressbar}
+            element available in customizer?)
+        themable OSD? eg allow choice of background image, round corners, etc.
+        allow using any arbitrary tag for a column in the playlist area/element
+            in OSD
+        allow custom tag trees for the collection pane
+
+
+==== NOTES ====
+xl is to be split into xl and xlgui. All code concerning the display of 
+data and receipt of user input through the gui should go into xlgui. code 
+that is not dependent upon the gui implementation should go in xl.
+
+all pluggable backends should have all backends implemented as plugins 
+unless there is a really good reason to do otherwise. we will ship and 
+enable some plugins by default to provide the best out-of-the-box 
+experience.
+
+idea: plugin method allowing it to determine whether it is appropriate to
+    enable itself on first run, eg. enable gnomemmkeys only if under gnome.
+
+idea: plugin method to test dependencies
+
+plugins to enable by default: 
+    all mmkeys plugins
+    all lyrics plugins
+    all covers plugins
+    all dynamic plugins
+    all radio plugins
+
+plugins to ship but not enable:
+    audioscrobbler - reason: if user doesnt have a lastfm account, useless
+            OTOH, should be enlabled if lastfm info was set in 0.2
+
+plugins not to ship:
+    helloworld - reason: example plugin not useful to end-user
+    any plugin demonstrating regular instability
+
+=== Contributors ===
+list other contributors to 0.3 here so they may be given due credit
+
+AlphaCluster - playlist export for m3u/pls/asx/xspf

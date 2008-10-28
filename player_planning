@@ -1,0 +1,377 @@
+
+
+required for 0.3.0:
+    device auto-detection
+    MSC, MTP and iPod plugins
+    all functionality from 0.2.14
+
+additional targets for 0.3.0:
+    rockbox support
+    file layout support
+    transcode-on-transfer
+
+
+
+devices we want to support: (see per-device section FMI)
+    ipods (via python-gpod)
+    mtp devices (via pymtp)
+    mass storage (no library needed)
+    audio cds (no library needed to play, pycddb for metadata)
+    mp3 cds (no library needed)
+    SACDs? 
+    audio dvds? 
+    mp3 dvds? (do these even exist?)
+    DAAP shares (via python-daap and python-avahi)
+    UPnP shares?
+
+device recognition/persistence:
+    are there flags in HAL that are 100% guaranteed to recognize players?
+        if info.capabilities contains portable_audio_player we know it is
+            hal-info defines around 60 player classes this way
+            libmtp defines 130+ players
+            devices not caught this way can be manually added in the 
+                device manager, though we should file bugs against hal-info
+                and/or libmtp for them
+        the portable_audio_player.* keys have some info on the capabilities of
+            players. while these are not definitive, they are likely good 
+            enough to handle the majority of circumstances. keys of interest:
+            access_method.protocols 
+                values: storage, ipod, mtp
+            output_formats 
+                values: 'audio/aac', 'audio/x-ms-wma', 'audio/x-wav', 'audio/audible', 'application/ogg', 'video/x-ms-asf', 'audio/flac', 'audio/x-ms-asf', 'audio/ogg', 'audio/vnd.sony.atrac3', 'audio/amr', 'audio/3gpp', 'audio/mp4', 'audio/vnd.rn-realaudio', 'audio/x-amr', 'audio/x-imy', 'audio/x-midi', 'audio/AMR', 'audio/amr-wb', 'audio/vnd.m-realaudio', 'audio/x-m4b', 'audio/midi', 'video/x-smv', 'audio/mpeg'
+                relevant mappings:
+                    aac - 'audio/aac', 'audio/mp4'
+                    flac - 'audio/flac'
+                    mp3 - 'audio/mpeg'
+                    ogg - 'application/ogg', 'audio/ogg'
+                    wav - 'audio/x-wav'
+                    wma - 'audio/x-ms-wma'
+            input_formats
+                values: 'audio/x-wav', 'audio/mpeg', 'audio/x-ms-wma', 'audio/amr', 'audio/x-amr', 'audio/aac', 'audio/AMR', 'audio/midi'
+                this is what formats the device can record to. probably not 
+                    useful to us.
+            playlist_path
+                values: 'PLAYLISTS/%File', 'Playlists/', 'MUSIC/AllMyMusic.m3u', 'PLAYLIST/%File', 'Playlist/', 'Music/playlists', 'Playlists/%File'
+                I -think- this is for defining the playlist containing the song order on devices that don't do tag or path browsing, but im not sure.
+            playlist_format
+                values: 'audio/x-mpegurl', 'audio/x-scpls', 'application/vnd.ms-wpl', 'audio/x-iriver-pla'
+                not very informative, only defined for 16 player classes
+                probably goes with playlist_path
+            audio_folders
+                list of folders where audio can be found: sometimes also includes
+                    the directory recordings go to, but the first entry appears 
+                    to always be the music dir not the record dir.
+                - handle by always choosing the first, unless others reside
+                    on different fses
+    require user to explicitly connect to a device the first time, but after that
+        attempt to auto-connect
+        - we could use filesystem UUIDs to recognize players with 100% accuracy
+        - if there's a HAL key that would work instead that may be better
+            storage.serial?
+        - is there a non-HAL way to detect when new fses are mounted?
+            - best solution thus far: don't try to auto-detect, just poll
+                mtab and libmtp when the device manager is open and require
+                users to manually connect through the device manager
+
+transfer&syncing:
+    drag and drop from collection to device or vv. should work perfectly
+    allow sending an enitre playlist to the device (from tab, playlist manager 
+        or file). this should also ensure that all tracks in the playlist also
+        are transferred to the device
+    cover art should be synced if possible
+    calculate the space needed for the transfer before we begin, and tell the 
+        user if there's not enough space to complete the operation
+        - offer possible ways of resolving the issue? eg remove old podcasts, 
+            songs, reencode to a lower bitrate, etc? 
+            - may be slightly overkill
+    allow transcoding on transfer
+        by default, transcode only if not in a supported format
+        also allow transcoding by bitrate thresholds (eg >128kbps)
+            - allow transcode of VBR mp3 to CBR option? may be difficult, but 
+                could be quite useful for some cheap or old players.
+            - other thresholds? filesize, lossless, etc?
+
+playlists:
+    subclass playlist manager or something else?
+    if done right we can also just subclass the ui's playlist manager to keep 
+        everything really simple
+
+podcasts:
+    ????? (podcasts not yet implemented in trunk)
+    auto-delete old? (by date thresh? count thresh? played/not?)
+    should we download podcasts on sync if not downloaded, or skip
+        them until they are ready?
+        - if manual download, download on sync (but dont block other transfers)
+        - if auto download, prioritize in download queue
+    allow user to choose what podcasts to auto-sync
+
+playing:
+    allow playing right off the device
+    dont use the stupid device URI schema introduced in 0.2. instead, just use 
+        full filesystem paths and the COLLECTIONS set (with library path 
+        regonition) to find where a track comes from.
+        - how to handle this with MTP as we cant actually play off the
+            device itself
+    hide tracks that are DRM-encypted as we can't play them (can we recognize 
+        this?) (could also be useful for main collection)
+
+display:
+    device manager:
+        show all configured devices, allow connection/disconnection
+        add dialog will show detected devices
+        - hal's storage.icon.[drive|volume] keys could be used for the icon column
+        also exposes any possible prefs for that device
+            path to music location (default: root/music)
+            path to podcast location (default: root/podcasts)
+            path to playlists location (default: root/playlists)
+            music subpaths (default: artist/album/num - title.ext)
+            supported file formats (default: from plugin)
+            playlist format to use (default: m3u)
+            transcode threshold (default: disabled)
+            transcode format(s) (default: from plugin) 
+            name to use for the device (default: auto-detect)
+            whether to auto-connect when available (default: no)
+            - plugins can set which of these are visible and change the defaults
+    panel:
+        show remaining space at bottom of the panel
+            also show battery status if possible
+            Battery:        xx% 
+            Space used:     xx%
+        how should we expose playlists/podcasts?
+            0.2 method: they just appear as extra entries on top of the tree
+                pros: simple, easily seen
+                cons: inconsistent with main UI, interferes with using the tree,
+                    doesn't handle podcasts
+            alternative: add a new combo box at the top to select the view
+                pros: simple, clean separation, easily extensible, allows reuse
+                    of panel code from the rest of exaile
+                cons: less obvious, takes up some space
+        transfer queue:
+            show as simple button at bottom 
+                [xx songs to transfer] [start]
+            clicking on the [xx ...] will open the list as a new tab in the 
+                playlist area that can be edited
+            alternatively, the transfer queue could be exposed as another view 
+                of the device panel as outlined above for playlists/podcasts
+                this is likely both cleaner and easier. in this case clicking
+                the [xx...] will switch to the queue view.
+            while transferring the progressbar will appear below all panels, 
+                just as the rescan collection and other tasks do
+        info panel:
+            another entry in the drop-down with playlists/queue/etc, displays
+                stuff like device name, model, version, vendor name, device
+                type, detailed battery/space information.
+                - libmtp provides the following info:
+                    device name
+                    device serial number
+                    manufacturer
+                    battery level
+                    model name
+                    device version
+                    free / total / used space
+                - HAL provides the following info:
+                    info.vendor
+                    info.product
+                    storage.vendor - same as info.vendor, usually
+                    storage.model
+                    storage.size
+                    storage.serial
+                - gpod provides nothing useful
+                - rockbox:
+                    rockbox-info.txt
+        file panel? (was requested on forums)
+                    
+
+per-device considerations:
+    mp3 players:
+        ipod:
+            supported formats: mp3, aac, alac
+        mtp:
+            supported formats: varies, usually mp3 and wma
+        mass:
+            supported formats: varies, usually mp3 and wma
+        devices that can have multiple mount points (eg those with expansion
+            slots for flash memory) need to be merged smoothly.
+            - merge in main tree, playlists
+            - show one transfer queue per mount point
+            - can we detect these situations via HAL?
+                storage.originating_device?
+            - when transferring songs due to a playlist/podcast, try to put 
+                them all on the same device
+        devices are auto-tabbed when possible but are not auto-connected
+            - device prefs will allow opt-in autoconnect 
+    optical media:
+        cds:
+            audio:
+                musicbrainz tag-finding support? (submission?)
+                can burning be sensibly exposed via the same transfer method?
+            mp3:
+                how to distinguish from data cd
+                view as one large playlist by default, but allow a tree view
+                burning?
+            SACD:
+                need to get one for testing first
+        dvds:
+            audio:
+                need to get one for testing first
+            mp3:
+                do these exist? we can support them anyway I guess since they'd
+                    essentially be mp3 cds with a different HAL signature and more
+                    capacity
+        all optical media are auto-tabbed and auto-connected, track metadata is
+            loaded asynchronously
+    network:
+        daap:
+            python-daap is currently limited to version 6 of the protocol, is 
+                there anything that supports 7?
+                - may not be feasable, as v7 uses certificate authentication
+        upnp:
+            need to find bindings
+            python-coherence?
+            - rhythmbox has a upnp plugin based on coherence we can use as 
+                an example
+        network shares are never auto-tabbed or -connected
+            - device prefs will allow opt-in autoconnect 
+
+
+what this should all look like to the user:
+    cd (and similar) media: 
+        user inserts disk
+        a new tab in exaile appears for the disk, automatically listing
+            all the tacks and retrieving metadata
+    devices (eg ipod):
+        user plugs in device
+        a new tab appears with the name of the device
+        the user clicks the connect button in this tab to connect to the
+            device, retrieving the track listing and playlists
+    network shares:
+        user opens the device manager
+        detected shares are displayed along with other devices
+        user selects share to connect to and presses "Connect"
+        a new tab appears with the name of the share. the track listing and
+            any other info is displayed
+
+    manual:
+        user opens the device manager        
+        user clicks "Add" button
+        user selects the type of device to connect to, a list of detected
+            devices is displayed, along with an option to manually specify
+            the device location
+        user selects a share and presses OK
+        a new tab appears with the name of the share. the track listing and
+            any other info is displayed
+
+
+rockbox:
+    detect whether rockbox is installed and adjust appropriately
+        - just treat this as another device class that overrides all others
+            - this won't handle dual-booting ipods nicely, but all other
+                players will be fine
+    update rb db in-place?
+        - use rb lib? (may be difficult, as we can't embed C)
+            - appears difficult to build rb lib for 386 - need to ask rb devs
+                - if we can build for 32-bit x86, that would handle most use
+                    cases ad would probably be sufficient, though not ideal
+                - alternatively, this could be a plugin that has to be either
+                    built into a distro package (so it'd work fine for any arch),
+                    or compiled by the user
+                - this is still ugly >.<
+        - reimplement lib? (more portable but will need constant maintenance)
+            - db is supposed to be really simple (because some devices dont 
+                have much power), so should be possible
+            - may have to take endianness issues into account
+            - this would be WAY more portable than the C lib method, but may 
+                be more difficult to maintain
+                - need to ask rb devs if there are docs on the DB format. i can 
+                    probably replicate it given time, but docs would be WAY 
+                    better.
+                - will need a method to ensure we don't accidentally corrupt 
+                    users' DBs due to version differences. setting a lower 
+                    bound on rb ver is easy enough, but upper bounds will 
+                    be more difficult
+                    - we could store the highest known good ver, and if there's
+                        any irregularity in handling the DB and the rb ver is
+                        higher than the known good ver, dont continue.
+    allow updating rockbox firmware through exaile?
+        - would need auto-detection of device type
+            can probably be done via rockbox-info.txt
+        - save a backup of the old version and allow reversion to the backup
+            in the event something bad happens
+            - where should this be saved?
+                probably on the local computer rather than the device, as
+                    rb is decently large (5-20 MB uncompressed)
+        - allow other items to be updated as well? fonts/etc?
+            - offering an exaile rockbox theme would be really cool
+    offer to install rb firmware for user if supported device is detected?
+        - possibly too complex for us, but notifying the user that their
+            device is supported and linking them to install instructions
+            is feasable
+        - OTOH now that rockbox is going with stable releases like 3.0,
+            this now looks a lot more feasable, though it will depend
+            on HAL to let us recognize supported devices.
+    option to strip "the" (or other words) from the beginning of tags on 
+        transfer, as rockbox doesnt strip those itself yet
+    album art:
+        rockbox doesnt like embedded album art, so we should strip it
+            from the tags on transfer
+        use ./albumname.bmp (rockbox only supports bmp, not jpeg or png)
+        rockbox cannot scale the image, so we should do that beforehand
+            - we can just read the max dimensions out of the wps file. The path
+                to this file is stored in the wps key in config.cfg. If the key 
+                does not exist, then it's the rockbox default, cabbiev2.
+                - the %Cl line contains the max size info.
+                    - ex: %Cl|29|20|c120|c120|, max is 120x120. char in front
+                        indicates alignment and can be ignored
+                - never upscale images (give user option?)
+                - allow user to override the auto-detected size
+                - give option to generate for all installed themes, using
+                    *.100x100.bmp naming to allow the multiple images
+    rockbox supports logging scrobbling info to /.scrobbler.log, we should
+        support this for sending info
+        - file format: http://www.audioscrobbler.net/wiki/Portable_Player_Logging
+        - handle this in the audioscrobbler plugin as other devices may support
+            it as well
+    because rockbox stores the mtime in the DB, we'll need to inform users that
+        the rockbox clock needs to be synced to the computer's clock
+        - gpod will let us do this silently for the user
+            - we should only do an auto-sync if its off by <20 minutes. 
+
+                more than that and its likely to be a timezone issue instead
+                which we shouldnt clobber
+        - allow user to specify a timezone offset in case they need to be on
+            different zones?
+            - likewise for DST
+    DB auto-update should not be enabled at the same time as our DB updater, so
+        as to avoid duplicate work on the device. There are two ways to handle
+        this:
+        - dont update the DB if auto-update is set
+        - turn off auto-update when updating the DB
+        perhaps the best way is to simply ask the user which they prefer on
+            the first transfer if auto-update is enabled. rockbox doesnt 
+            auto-update the DB by default, so most users wouldnt see it and 
+            we can handle it silently.
+
+code planning:
+    Device class:
+        .collection - collection object for all tracks on the device
+        .playlists - playlists manager for playlists on the device
+        .podcasts - podcasts manager for podcasts on the device
+        .connect() - connect to the device, load tracks/playlists
+        .disconnect() - safely disconnect from the device
+        .add(object) - add an object to the device. this can be a track object,
+                a podcast, or a playlist.
+
+    Library:
+        .set_layout(layout) - sets the layout for files in the library, uses
+            the same syntax as ex falso (default: <albumartist|<albumartist>|<artist|<artist>|Unknown>>/<album|<album>|Unknown>/<tracknumber|<tracknumber> - ><title|<title>|Unknown> - this uses a basic /artist/album/num - title structure, but takes into account albumartist and the possibility of missing tags.)
+        .add(loc, move=False) - adds the file from loc to the library. the optional move argument allows the file to be moved into the library structure rather than copied
+        .delete(loc) - permanently deletes a file
+        .get_freespace()
+        .get_totalspace()
+        .get_usedspace()
+        .get_usedspace_percent()
+        .organize() - move all existing files in the library to match the layout
+            specified by set_layout.
+        .keep_organized(bool) - whether to keep all files in the layout 
+            specified by set_layout. will only work in realtime if pynotify
+            is enabled.

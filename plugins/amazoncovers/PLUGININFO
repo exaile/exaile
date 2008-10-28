@@ -1,0 +1,4 @@
+Version="0.0.1"
+Authors=["Adam Olsen <arolsen@gmail.com>"]
+Name="Amazon Album Art"
+Description="Fetches album art from amazon"

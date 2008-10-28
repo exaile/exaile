@@ -131,7 +131,8 @@ class Exaile(object):
 
         # cover manager
         from xl import cover
-        self.covers = cover.CoverManager(cache_dir=os.path.join(
+        self.covers = cover.CoverManager(self.settings, 
+            cache_dir=os.path.join(
             xdg.get_data_dirs()[0], "covers"))
 
         # Radio Manager
@@ -141,7 +142,7 @@ class Exaile(object):
 
         #initialize LyricsManager
         from xl import lyrics
-        self.lyrics = lyrics.LyricsManager()
+        self.lyrics = lyrics.LyricsManager(self.settings)
 
         self.gui = None
         #setup GUI

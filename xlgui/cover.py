@@ -34,6 +34,7 @@ class CoverManager(object):
             Initializes the window
         """
 
+        self.parent = parent
         self.collection = collection
         self.manager = covers
 
@@ -61,7 +62,7 @@ class CoverManager(object):
         self._connect_events()
         self.window.show_all()
         gobject.idle_add(self._find_initial)
-        self.menu = gtk.CoverMenu(self)
+        self.menu = CoverMenu(self)
 
     def _on_button_press(self, button, event):
         """
@@ -389,7 +390,12 @@ class CoverWindow(object):
                                    self.statusbar.size_request()[1]
         self.cover_window.set_default_size(self.cover_window_width, \
                                            self.cover_window_height)
-        self.image_original_pixbuf = gtk.gdk.pixbuf_new_from_file(cover)
+
+        if type(cover) == str or type(cover) == unicode:
+            self.image_original_pixbuf = gtk.gdk.pixbuf_new_from_file(cover)
+        else:
+            self.image_original_pixbuf = cover
+
         self.image_pixbuf = self.image_original_pixbuf
         self.min_percent = 1
         self.max_percent = 500

@@ -169,15 +169,17 @@ class CoverManager(providers.ProviderHandler):
 
         Manages different pluggable album art interfaces
     """
-    def __init__(self, cache_dir):
+    def __init__(self, settings, cache_dir):
         """
             Initializes the cover manager
 
             @param cache_dir:  directory to save remotely downloaded art
         """
         providers.ProviderHandler.__init__(self, "covers")
+        self.settings = settings
         self.methods = {}
-        self.preferred_order = []
+        self.preferred_order = settings.get_option('covers/preferred_order',
+            [])
         self.add_defaults()
         self.cache_dir = cache_dir
         if not os.path.isdir(cache_dir):
@@ -222,6 +224,7 @@ class CoverManager(providers.ProviderHandler):
         if not type(order) in (list, tuple):
             raise AttributeError("order must be a list or tuple")
         self.preferred_order = order
+        self.settings['covers/preferred_order'] = list(order)
 
     def on_new_provider(self, provider):
         """
@@ -262,7 +265,7 @@ class CoverManager(providers.ProviderHandler):
             if name in self.methods:
                 methods.append(self.methods[name])
         for k, method in self.methods.iteritems():
-            if k not in self.preferred_order:
+            if k not in methods:
                 methods.append(method)
         return methods
 

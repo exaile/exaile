@@ -48,6 +48,8 @@ class CoverManager(object):
         self.window.set_transient_for(parent)
 
         self.icons = self.xml.get_widget('cover_icon_view')
+        self.icons.connect('button-press-event', 
+            self._on_button_press)
         self.progress = self.xml.get_widget('progress')
         self.stop_button = self.xml.get_widget('stop_button')
         self.model = gtk.ListStore(str, gtk.gdk.Pixbuf, object)
@@ -59,6 +61,41 @@ class CoverManager(object):
         self._connect_events()
         self.window.show_all()
         gobject.idle_add(self._find_initial)
+        self.menu = gtk.CoverMenu(self)
+
+    def _on_button_press(self, button, event):
+        """
+            Called when someone clicks on the cover widget
+        """
+        if event.type == gtk.gdk._2BUTTON_PRESS:
+            self.show_cover()
+        elif event.button == 3:
+            self.menu.popup(event)
+
+    def get_selected_cover(self):
+        """
+            Returns the currently selected cover tuple
+        """
+        paths = self.icons.get_selected_items()
+        if not paths: return
+        path = paths[0]
+
+        iter = self.model.get_iter(path)
+        return self.model.get_value(iter, 2)
+
+    def show_cover(self, *e):
+        """
+            Shows the currently selected cover
+        """
+        cover = self.covers[self.get_selected_cover()]
+        window = CoverWindow(self.parent, cover)
+        window.show_all()
+
+    def fetch_cover(self, *e):
+        pass
+
+    def remove_cover(self, *e):
+        pass
 
     def _find_initial(self):
         """
@@ -95,7 +132,7 @@ class CoverManager(object):
 
             self.cover_nodes[item] = self.model.append(
                 ["%s - %s" % (item[0], item[1]), 
-                image, item[0]])
+                image, item])
             self.covers[item] = image
         self.icons.set_model(self.model)
         self.progress.set_text('%d covers to fetch' % self.needs)

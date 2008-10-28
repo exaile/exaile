@@ -20,6 +20,8 @@ import gtk, gobject, gtk.glade, time
 import logging, traceback
 logger = logging.getLogger(__name__)
 
+from xl.nls import gettext as _
+
 COVER_WIDTH = 100
 NOCOVER_IMAGE = xdg.get_data_path("images/nocover.png")
 
@@ -206,6 +208,33 @@ class CoverManager(object):
             self.stop_button.set_image(gtk.image_new_from_stock('gtk-yes',
                 gtk.ICON_SIZE_BUTTON))
 
+class CoverMenu(guiutil.Menu):
+    """
+        Cover menu
+    """
+    def __init__(self, widget):
+        """
+            Initializes the menu
+        """
+        guiutil.Menu.__init__(self)
+        self.widget = widget
+        
+        self.append(_('Show Cover'), self.on_show_clicked)
+        self.append(_('Fetch Cover'), self.on_fetch_clicked)
+        self.append(_('Remove Cover'), self.on_remove_clicked)
+
+    def on_show_clicked(self, *e):
+        """
+            Shows the current cover
+        """
+        self.widget.show_cover()
+
+    def on_fetch_clicked(self, *e):
+        self.widget.fetch_cover()
+
+    def on_remove_clicked(self, *e):
+        self.widget.remove_cover()
+
 class CoverWidget(gtk.EventBox):
     """
         Represents the album art widget displayed by the track information
@@ -233,6 +262,27 @@ class CoverWidget(gtk.EventBox):
 
         event.add_callback(self.on_playback_start, 'playback_start', player)
         event.add_callback(self.on_playback_end, 'playback_end', player)
+        self.menu = CoverMenu(self)
+
+    def show_cover(self):
+        """
+            Shows the current cover
+        """
+        window = CoverWindow(self.main.window, self.image.loc)
+        window.show_all()
+
+    def fetch_cover(self):
+        """
+            Fetches a cover for the current track
+        """
+        self.on_playback_start(None, self.main.player, None)
+
+    def remove_cover(self):
+        """
+            Removes the cover for the current track from the database
+        """
+        self.covers.remove_cover(self.player.current)
+        self.on_playback_end(None, None, None)
 
     def _on_button_press(self, button, event):
         """
@@ -240,6 +290,10 @@ class CoverWidget(gtk.EventBox):
         """
         if event.type == gtk.gdk._2BUTTON_PRESS:
             window = CoverWindow(self.main.window, self.image.loc)
+            window.show_all()
+        elif event.button == 3:
+            if self.player.current:
+                self.menu.popup(event)
 
     @common.threaded
     def on_playback_start(self, type, player, object):
@@ -307,6 +361,8 @@ class CoverWindow(object):
         self.image_fitted = True
         self.set_ratio_to_fit()
         self.update_widgets()
+
+    def show_all(self):
         self.cover_window.show_all()
  
     def available_image_width(self):

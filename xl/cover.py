@@ -45,6 +45,16 @@ class CoverDB(object):
         if location:
             self.load_from_location(location)
 
+    def remove_cover(self, artist, albumn):
+        """
+            Removes a cover for an album
+
+            @param artst: the artist
+            @param album: the album
+        """
+        if artist and artist in self.artists:
+            if album and album in self.artists[artist]:
+                del self.artist[artist][album]
 
     def get_cover(self, artist, album):
         """
@@ -273,6 +283,13 @@ class CoverManager(providers.ProviderHandler):
             Adds default search methods
         """
         self.add_search_method(LocalCoverSearch())
+
+    def remove_cover(self, track):
+        """
+            Removes the cover for a track
+        """
+        self.coverdb.remove_cover('/'.join(track['artist']),
+            '/'.join(track['album']))
 
     def set_cover(self, track, order=None):
         """ 

@@ -493,6 +493,16 @@ class Menu(gtk.Menu):
         item.show()
         gtk.Menu.append(self, item)
 
+    def popup(self, *e):
+        """
+            Shows the menu
+        """
+        if len(e) == 1:
+            event = e[0]
+            gtk.Menu.popup(self, None, None, None, event.button, event.time)
+        else:
+            gtk.Menu.popup(self, *e)
+
 class StatusBar(object):
     """
         A basic statusbar to replace gtk.StatusBar

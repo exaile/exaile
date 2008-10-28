@@ -116,6 +116,46 @@ class DirPrefsItem(PrefsItem):
         self.prefs.settings[self._get_name()] = directory
         return True
 
+class OrderListPrefsItem(PrefsItem):
+    """ 
+        A list box with reorderable items
+    """
+    def __init__(self, prefs, widget):
+        self.model = gtk.ListStore(str)
+        self.items = []
+        PrefsItem.__init__(self, prefs, widget)
+        widget.set_headers_visible(False)
+        widget.set_reorderable(True)
+
+        text = gtk.CellRendererText()
+        col = gtk.TreeViewColumn("Item", text, text=0)
+        self.widget.append_column(col)
+        self.widget.set_model(self.model)
+
+    def _set_pref(self):
+        """
+            Sets the preferences for this widget
+        """
+        items = self.prefs.settings.get_option(self._get_name(),
+            self.default)
+
+        self.model.clear()
+        for item in items:
+            self.model.append([item])
+
+    def apply(self):
+        if hasattr(self, 'done') and not self.done(): return False
+        items = []
+        iter = self.model.get_iter_first()
+        while True:
+            if not iter: break
+            items.append(self.model.get_value(iter, 0))
+            iter = self.model.iter_next(iter)
+
+        self.prefs.settings[self._get_name()] = items
+        self.items = items
+        return True
+
 ####
 ## TODO
 ## ALL THE WIDGETS BELOW THIS LINE HAVE NOT YET BEEN CONVERTED FROM THE 0.2

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
+<!--Generated with glade3 3.4.5 on Tue Oct 28 14:41:55 2008 -->
+<glade-interface>
+  <widget class="GtkWindow" id="CoverChooser">
+    <property name="width_request">352</property>
+    <property name="height_request">349</property>
+    <property name="title" translatable="yes">Cover Finder</property>
+    <property name="resizable">False</property>
+    <property name="modal">True</property>
+    <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
+    <child>
+      <widget class="GtkVBox" id="vbox25">
+        <property name="visible">True</property>
+        <child>
+          <widget class="GtkHBox" id="cover_image_box">
+            <property name="visible">True</property>
+            <property name="border_width">2</property>
+            <child>
+              <placeholder/>
+            </child>
+          </widget>
+        </child>
+        <child>
+          <widget class="GtkHSeparator" id="hseparator2">
+            <property name="visible">True</property>
+          </widget>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkHBox" id="hbox34">
+            <property name="visible">True</property>
+            <property name="border_width">3</property>
+            <property name="spacing">3</property>
+            <child>
+              <widget class="GtkHBox" id="hbox35">
+                <property name="visible">True</property>
+                <child>
+                  <placeholder/>
+                </child>
+              </widget>
+            </child>
+            <child>
+              <widget class="GtkButton" id="cover_back_button">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="response_id">0</property>
+                <child>
+                  <widget class="GtkImage" id="image127">
+                    <property name="visible">True</property>
+                    <property name="stock">gtk-go-back</property>
+                  </widget>
+                </child>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkButton" id="cover_forward_button">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="response_id">0</property>
+                <child>
+                  <widget class="GtkImage" id="image128">
+                    <property name="visible">True</property>
+                    <property name="stock">gtk-go-forward</property>
+                  </widget>
+                </child>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkButton" id="cover_newsearch_button">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="label" translatable="yes">New Search</property>
+                <property name="use_underline">True</property>
+                <property name="response_id">0</property>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">3</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkButton" id="cover_cancel_button">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="label">gtk-cancel</property>
+                <property name="use_stock">True</property>
+                <property name="response_id">0</property>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">4</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkButton" id="cover_ok_button">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="label">gtk-ok</property>
+                <property name="use_stock">True</property>
+                <property name="response_id">0</property>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">5</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkHBox" id="hbox36">
+                <property name="visible">True</property>
+                <child>
+                  <placeholder/>
+                </child>
+              </widget>
+              <packing>
+                <property name="position">6</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+</glade-interface>

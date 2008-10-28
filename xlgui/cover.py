@@ -206,7 +206,7 @@ class CoverManager(object):
             self.stop_button.set_image(gtk.image_new_from_stock('gtk-yes',
                 gtk.ICON_SIZE_BUTTON))
 
-class CoverWidget(guiutil.ScalableImageWidget):
+class CoverWidget(gtk.EventBox):
     """
         Represents the album art widget displayed by the track information
     """
@@ -217,17 +217,29 @@ class CoverWidget(guiutil.ScalableImageWidget):
             @param main: The Main window
             @param player: the xl.player.Player object
         """
-        guiutil.ScalableImageWidget.__init__(self)
+        gtk.EventBox.__init__(self)
+        self.image = guiutil.ScalableImageWidget()
         self.main = main
         self.current_track = None
         self.covers = covers
         self.player = player
 
-        self.set_image_size(COVER_WIDTH, COVER_WIDTH)
-        self.set_image(xdg.get_data_path('images/nocover.png'))
+        self.image.set_image_size(COVER_WIDTH, COVER_WIDTH)
+        self.image.set_image(xdg.get_data_path('images/nocover.png'))
+        self.add(self.image)
+        self.image.show()
+        
+        self.connect('button-press-event', self._on_button_press)
 
         event.add_callback(self.on_playback_start, 'playback_start', player)
         event.add_callback(self.on_playback_end, 'playback_end', player)
+
+    def _on_button_press(self, button, event):
+        """
+            Called when someone clicks on the cover widget
+        """
+        if event.type == gtk.gdk._2BUTTON_PRESS:
+            window = CoverWindow(self.main.window, self.image.loc)
 
     @common.threaded
     def on_playback_start(self, type, player, object):
@@ -242,15 +254,153 @@ class CoverWidget(guiutil.ScalableImageWidget):
                 update_track=True)
         except cover.NoCoverFoundException:
             logger.warning("No covers found")
-            self.set_image(xdg.get_data_path('images/nocover.png'))
+            self.image.set_image(xdg.get_data_path('images/nocover.png'))
             return
 
         if self.player.current == self.current_track:
-            gobject.idle_add(self.set_image, cov)
+            gobject.idle_add(self.image.set_image, cov)
             self.loc = cov
 
     def on_playback_end(self, type, player, object):
         """
             Called when playback stops.  Resets to the nocover image
         """
-        self.set_image(xdg.get_data_path('images/nocover.png'))
+        self.image.set_image(xdg.get_data_path('images/nocover.png'))
+
+class CoverWindow(object):
+    """Shows the cover in a simple image viewer"""
+
+    def __init__(self, parent, cover, title=''):
+        """Initializes and shows the cover"""
+        self.widgets = gtk.glade.XML(xdg.get_data_path('glade/coverwindow.glade'), 
+            'CoverWindow', 'exaile')
+        self.widgets.signal_autoconnect(self)
+        self.cover_window = self.widgets.get_widget('CoverWindow')
+        self.layout = self.widgets.get_widget('layout')
+        self.toolbar = self.widgets.get_widget('toolbar')
+        self.zoom_in = self.widgets.get_widget('zoom_in')
+        self.zoom_in.connect('clicked', self.zoom_in_clicked)
+        self.zoom_out = self.widgets.get_widget('zoom_out')
+        self.zoom_out.connect('clicked', self.zoom_out_clicked)
+        self.zoom_100 = self.widgets.get_widget('zoom_100')
+        self.zoom_100.connect('clicked', self.zoom_100_clicked)
+        self.zoom_fit = self.widgets.get_widget('zoom_fit')
+        self.zoom_fit.connect('clicked', self.zoom_fit_clicked)
+        self.image = self.widgets.get_widget('image')
+        self.statusbar = self.widgets.get_widget('statusbar')
+        self.scrolledwindow = self.widgets.get_widget('scrolledwindow')
+        self.scrolledwindow.set_hadjustment(self.layout.get_hadjustment())
+        self.scrolledwindow.set_vadjustment(self.layout.get_vadjustment())
+        self.cover_window.set_title(title)
+        self.cover_window.set_transient_for(parent)
+        self.cover_window_width = 500
+        self.cover_window_height = 500 + self.toolbar.size_request()[1] + \
+                                   self.statusbar.size_request()[1]
+        self.cover_window.set_default_size(self.cover_window_width, \
+                                           self.cover_window_height)
+        self.image_original_pixbuf = gtk.gdk.pixbuf_new_from_file(cover)
+        self.image_pixbuf = self.image_original_pixbuf
+        self.min_percent = 1
+        self.max_percent = 500
+        self.ratio = 1.5
+        self.image_interp = gtk.gdk.INTERP_BILINEAR
+        self.image_fitted = True
+        self.set_ratio_to_fit()
+        self.update_widgets()
+        self.cover_window.show_all()
+ 
+    def available_image_width(self):
+        """Returns the available horizontal space for the image"""
+        return self.cover_window.get_size()[0]
+
+    def available_image_height(self):
+        """Returns the available vertical space for the image"""
+        return self.cover_window.get_size()[1] - \
+               self.toolbar.size_request()[1] - \
+               self.statusbar.size_request()[1]
+
+    def center_image(self):
+        """Centers the image in the layout"""
+        new_x = max(0, int((self.available_image_width() - \
+                            self.image_pixbuf.get_width()) / 2))
+        new_y = max(0, int((self.available_image_height() - \
+                            self.image_pixbuf.get_height()) / 2))
+        self.layout.move(self.image, new_x, new_y)
+
+    def update_widgets(self):
+        """Updates image, layout, scrolled window, tool bar and status bar"""
+        if self.cover_window.window:
+            self.cover_window.window.freeze_updates()
+        self.apply_zoom()
+        self.layout.set_size(self.image_pixbuf.get_width(), \
+                             self.image_pixbuf.get_height())
+        if self.image_fitted or \
+           (self.image_pixbuf.get_width() == self.available_image_width() and \
+           self.image_pixbuf.get_height() == self.available_image_height()):
+            self.scrolledwindow.set_policy(gtk.POLICY_NEVER, gtk.POLICY_NEVER)
+        else:
+            self.scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC,
+                                           gtk.POLICY_AUTOMATIC)
+        percent = int(100 * self.image_ratio)
+        message = str(self.image_original_pixbuf.get_width()) + " x " + \
+                      str(self.image_original_pixbuf.get_height()) + \
+                      " pixels " + str(percent) + '%'
+        self.zoom_in.set_sensitive(percent < self.max_percent)
+        self.zoom_out.set_sensitive(percent > self.min_percent)
+        self.statusbar.pop(self.statusbar.get_context_id(''))
+        self.statusbar.push(self.statusbar.get_context_id(''), message)
+        self.image.set_from_pixbuf(self.image_pixbuf)
+        self.center_image()
+        if self.cover_window.window:
+            self.cover_window.window.thaw_updates()
+
+    def apply_zoom(self):
+        """Scales the image if needed"""
+        new_width = int(self.image_original_pixbuf.get_width() * \
+                        self.image_ratio)
+        new_height = int(self.image_original_pixbuf.get_height() * \
+                         self.image_ratio)
+        if new_width != self.image_pixbuf.get_width() or \
+           new_height != self.image_pixbuf.get_height(): 
+            self.image_pixbuf = self.image_original_pixbuf.scale_simple(new_width, \
+                                  new_height, self.image_interp)
+
+    def set_ratio_to_fit(self):
+        """Calculates and sets the needed ratio to show the full image"""
+        width_ratio = float(self.image_original_pixbuf.get_width()) / \
+                            self.available_image_width()
+        height_ratio = float(self.image_original_pixbuf.get_height()) / \
+                             self.available_image_height()
+        self.image_ratio = 1 / max(1, width_ratio, height_ratio)
+
+    def cover_window_destroy(self, widget):
+        self.cover_window.destroy()
+
+    def zoom_in_clicked(self, widget):
+        self.image_fitted = False
+        self.image_ratio *= self.ratio 
+        self.update_widgets()
+
+    def zoom_out_clicked(self, widget):
+        self.image_fitted = False
+        self.image_ratio *= 1 / self.ratio
+        self.update_widgets()
+
+    def zoom_100_clicked(self, widget):
+        self.image_fitted = False
+        self.image_ratio = 1
+        self.update_widgets()
+
+    def zoom_fit_clicked(self, widget):
+        self.image_fitted = True
+        self.set_ratio_to_fit()
+        self.update_widgets()
+
+    def cover_window_size_allocate(self, widget, allocation):
+        if self.cover_window_width != allocation.width or \
+           self.cover_window_height != allocation.height:
+            if self.image_fitted:
+                self.set_ratio_to_fit()
+            self.update_widgets()
+            self.cover_window_width = allocation.width
+            self.cover_window_height = allocation.height

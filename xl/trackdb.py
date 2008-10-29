@@ -263,7 +263,7 @@ class TrackDB(object):
     def get_track_attr(self, loc, attr):
         return self.get_track_by_loc(loc)[attr]
 
-    def search(self, query, sort_fields=None, return_lim=-1):
+    def search(self, query, sort_fields=None, return_lim=-1, tracks=None):
         """
             Search the trackDB, optionally sorting by sort_field
 
@@ -274,7 +274,15 @@ class TrackDB(object):
                 maximum
         """
         searcher = TrackSearcher()
-        tracks = searcher.search(query, self.tracks)
+        if not tracks:
+            tracks = self.tracks
+        else:
+            do_search = {}
+            for track in tracks:
+                do_search[track.get_loc()] = track
+            tracks = do_search
+
+        tracks = searcher.search(query, tracks)
 
         tracks = tracks.values()
 

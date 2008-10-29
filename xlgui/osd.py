@@ -13,7 +13,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import gtk, gtk.glade, cairo, gobject
-from xl import xdg
+from xl import xdg, common
 from xl.nls import gettext as _
 from xlgui import guiutil, cover
 from xlgui.main import PlaybackProgressBar
@@ -118,6 +118,7 @@ class OSDWindow(object):
             self.settings.get_option('osd/display_text', 
                 "<b>{title}</b>\n{artist}\non {album} - {length}"))
         self.title.set_markup(text)
+        self.text = text
 
         self.window.set_size_request(
             settings.get_option('osd/w', 400), 
@@ -181,6 +182,26 @@ class OSDWindow(object):
         self.window.hide()
 
     def show(self, track, timeout=4000):
+
+        text = self.text.replace('&', '&amp;')
+        for item in ('title', 'artist', 'album', 'length', 'track', 'bitrate',
+            'genre', 'year', 'rating'):
+            value = track[item]
+            if not value: value = ''
+            elif type(value) == list or type(value) == tuple:
+                value = '/'.join(value)
+
+            if not isinstance(value, basestring):
+                value = unicode(value)
+            text = text.replace('{%s}' % item, common.escape_xml(value))
+        text = text.replace("\\{", "{")
+        text = text.replace("\\}", "}")
+
+        text = "<span font_desc='%s' foreground='%s'>%s</span>" % \
+            (self.settings.get_option('osd/text_font', 'Sans 11'),
+            self.settings.get_option('osd/text_color', '#ffffff'),
+                text)
+        self.title.set_markup(text)
         self.window.show_all()
         if self._timeout:
             gobject.source_remove(self._timeout)

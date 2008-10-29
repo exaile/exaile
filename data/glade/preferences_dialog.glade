@@ -6,7 +6,6 @@
     <property name="width_request">550</property>
     <property name="height_request">440</property>
     <property name="title" translatable="yes">Preferences</property>
-    <property name="modal">True</property>
     <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
     <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
     <child internal-child="vbox">

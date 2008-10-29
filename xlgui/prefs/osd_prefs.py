@@ -16,10 +16,68 @@
 
 from xlgui.prefs import widgets
 from xl import xdg
+from xlgui import osd
 
 name = 'Notification'
 glade = xdg.get_data_path('glade/osd_prefs_pane.glade')
 
-class OsdPreference(widgets.CheckPrefsItem):
+def page_enter(prefs):
+    global OSD
+    OSD = osd.OSDWindow(prefs.settings, draggable=True)
+    OSD.window.show_all()
+
+def page_leave(prefs):
+    global OSD
+    if OSD:
+        OSD.window.destroy()
+        OSD = None
+
+class OSDItem(object):
+    """
+        This basically just assures that every single osd preference does the
+        same thing: resets up the osd window
+    """
+    def change(self, *e):
+        self.apply()
+        if OSD:
+            OSD.window.destroy()
+            OSD.setup_osd(self.prefs.settings)
+            OSD.window.show_all()
+
+class OsdPreference(widgets.CheckPrefsItem, OSDItem):
     default = True
     name = 'osd/enabled'
+
+class OsdHoverTrayPreference(widgets.CheckPrefsItem, OSDItem):
+    default = True
+    name = 'osd/hover_tray'
+
+class OsdTextFontPreference(widgets.FontButtonPrefsItem, OSDItem):
+    default = 'Sans 11'
+    name = 'osd/text_font'
+
+class OsdTextColorPreference(widgets.ColorButtonPrefsItem, OSDItem):
+    default = '#ffffff'
+    name = 'osd/text_color'
+
+class OsdBGColorPreference(widgets.ColorButtonPrefsItem, OSDItem):
+    default = '#567ea2'
+    name = 'osd/bg_color'
+
+class OsdOpacityPreference(widgets.SpinPrefsItem, OSDItem):
+    default = 75
+    name = 'osd/opacity'
+
+class OsdWidthPreference(widgets.IntPrefsItem, OSDItem):
+    default = 400
+    name = 'osd/w'
+
+class OsdHeightPreference(widgets.IntPrefsItem, OSDItem):
+    default = 95
+    name = 'osd/h'
+
+class OsdTextPreference(widgets.TextViewPrefsItem, OSDItem):
+    default = """<b>{title}</b>
+{artist}
+on {album} - {length}"""
+    name = 'osd/display_text'

@@ -39,8 +39,9 @@ class PreferencesDialog(object):
         """
         self.main = main
         self.last_child = None
+        self.last_page = None
         self.parent = parent
-        self.settings = self.main.exaile.settings
+        self.settings = self.main.exaile.settings.clone()
         self.plugins = self.main.exaile.plugins.list_installed_plugins()
         self.fields = {} 
         self.panes = {}
@@ -121,6 +122,8 @@ class PreferencesDialog(object):
             self.cancel()
             self.window.hide()
             self.window.destroy()
+            if hasattr(self.last_page, 'page_leave'):
+                self.last_page.page_leave(self)
 
     def apply(self, widget):
         """
@@ -132,6 +135,8 @@ class PreferencesDialog(object):
                     print field.name
                     return False
 
+        self.settings.copy_settings(self.main.exaile.settings)
+
         return True
 
     def cancel(self):
@@ -139,6 +144,8 @@ class PreferencesDialog(object):
             Closes the preferences dialog, ensuring that the osd popup isn't
             still showing
         """
+        if hasattr(self.last_page, 'page_leave'):
+            self.last_page.page_leave(self)
         self.window.hide()
         self.window.destroy()
 
@@ -156,6 +163,12 @@ class PreferencesDialog(object):
         if self.last_child:
             self.box.remove(self.last_child)
 
+        if self.last_page:
+            if hasattr(self.last_page, 'page_leave'): 
+                self.last_page.page_leave(self)
+
+        self.last_page = page
+
         if not page in self.panes:
             xml = gtk.glade.XML(page.glade, 'prefs_window')
             window = xml.get_widget('prefs_window')
@@ -168,6 +181,9 @@ class PreferencesDialog(object):
 
         if not page in self.fields:
             self._populate_fields(page, self.xmls[page])
+
+        if hasattr(page, 'page_enter'):
+            page.page_enter(self)
                 
         self.box.pack_start(child, True, True)
         self.last_child = child
@@ -201,6 +217,3 @@ class PreferencesDialog(object):
             Runs the dialog
         """
         self.window.show_all()
-
-class BlankClass(object):
-    pass

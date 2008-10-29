@@ -39,7 +39,7 @@ class SettingsManager(SafeConfigParser):
         Manages exaile's settings
     """
     settings = None
-    def __init__(self, loc):
+    def __init__(self, loc=None):
         """
             Sets up the SettingsManager. Expects a loc to a file
             where settings will be stored.
@@ -48,12 +48,31 @@ class SettingsManager(SafeConfigParser):
         SafeConfigParser.__init__(self)
         self.loc = loc
 
-        try:
-            self.read(self.loc)
-        except:
-            pass
+        if loc:
+            try:
+                self.read(self.loc)
+            except:
+                pass
 
-        SettingsManager.settings = self
+        if not SettingsManager.settings:
+            SettingsManager.settings = self
+
+    def copy_settings(self, settings):
+        """
+            Copies one all of the settings contained in this instance to
+            another
+        """
+        for section in self.sections():
+            for (key, value) in self.items(section):
+                settings._set_direct('%s/%s' % (section, key), value)
+
+    def clone(self):
+        """
+            Creates a copy of this settings object
+        """
+        settings = SettingsManager()
+        self.copy_settings(settings)
+        return settings
 
     def set_option(self, option, value):
         """
@@ -84,6 +103,20 @@ class SettingsManager(SafeConfigParser):
         except NoOptionError:
             value = default
         return value
+
+    def _set_direct(self, option, value):
+        """
+            Sets the option directly to the value, only for use in copying
+            settings.
+        """
+        splitvals = option.split('/')
+        section, key = "".join(splitvals[:-1]), splitvals[-1]
+        try:
+            self.set(section, key, value)
+        except NoSectionError:
+            self.add_section(section)
+            self.set(section, key, value)
+        event.log_event('option_set', self, option)
 
     def _val_to_str(self, value):
         """

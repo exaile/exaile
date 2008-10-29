@@ -159,7 +159,7 @@ class OrderListPrefsItem(PrefsItem):
         self.items = items
         return True
 
-class PrefsTextViewItem(PrefsItem):
+class TextViewPrefsItem(PrefsItem):
     """
         Represents a gtk.TextView
     """
@@ -228,6 +228,9 @@ class SpinPrefsItem(PrefsItem):
             default=self.default)
         self.widget.set_value(value)
 
+    def _setup_change(self):
+        self.widget.connect('value-changed', self.change)
+
 class FloatPrefsItem(PrefsItem):
     """
         A class to represent a floating point number in the preferences window
@@ -245,6 +248,12 @@ class FloatPrefsItem(PrefsItem):
         self.prefs.settings[self._get_name()] = float(self.widget.get_text())
         return True
 
+class IntPrefsItem(FloatPrefsItem):
+    def apply(self):
+        if hasattr(self, 'done') and not self.done(): return False
+        self.prefs.settings[self._get_name()] = int(self.widget.get_text())
+        return True
+
 class ColorButtonPrefsItem(PrefsItem):
     """
         A class to represent the color button in the prefs window
@@ -253,7 +262,7 @@ class ColorButtonPrefsItem(PrefsItem):
         PrefsItem.__init__(self, prefs, widget)
 
     def _setup_change(self):
-        pass
+        self.widget.connect('color-set', self.change)
 
     def _set_pref(self):
         self.widget.set_color(gtk.gdk.color_parse(
@@ -274,6 +283,9 @@ class FontButtonPrefsItem(ColorButtonPrefsItem):
     """
     def __init__(self, prefs, widget):
         ColorButtonPrefsItem.__init__(self, prefs, widget)
+
+    def _setup_change(self):
+        self.widget.connect('font-set', self.change)
 
     def _set_pref(self):
         font = self.prefs.settings.get_option(self._get_name(), 

@@ -288,6 +288,9 @@ class BaseGSTPlayer(object):
         """
         self.volume_control.set_property("volume", vol)
 
+    def get_volume(self):
+        return self.volume_control.get_property('volume')
+
     def on_message(self, bus, message, reading_tag = False):
         """
             Called when a message is received from gstreamer

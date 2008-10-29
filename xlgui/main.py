@@ -300,6 +300,7 @@ class MainWindow(object):
         """
             Sets up the various widgets
         """
+        self.xml.get_widget('volume_slider').set_value(self.player.get_volume())
         self.shuffle_toggle = self.xml.get_widget('shuffle_button')
         self.shuffle_toggle.set_active(self.settings.get_option('playback/shuffle',
             False))
@@ -388,6 +389,10 @@ class MainWindow(object):
         if pl:
             pl.search(self.filter.get_text())
 
+    def on_volume_changed(self, range):
+        self.settings['player/volume'] = range.get_value()
+        self.player.set_volume(range.get_value())
+
     def on_stop_buttonpress(self, widget, event):
         """
             Called when the user clicks on the stop button.  We're looking for
@@ -457,6 +462,7 @@ class MainWindow(object):
             'on_playlist_notebook_remove': self.on_playlist_notebook_remove,
             'on_new_playlist_item_activated': lambda *e:
                 self.add_playlist(),
+            'on_volume_slider_value_changed': self.on_volume_changed,
         })        
 
         event.add_callback(self.on_playback_end, 'playback_end',

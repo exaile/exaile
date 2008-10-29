@@ -152,5 +152,22 @@ HAL outputs:
     allow selection of device to output to via halaudiosink
         - this would very neatly solve the problem of how to allow
             user to select their output device
+        - the following HAL keys may be useful:
+            - sound cards have sound.* namespace and sound in info.capabilities
+                - sound.card_id 
+            - info.capabilities will contain oss.* or alsa.* namespaces for 
+                sound devices
+                - .device exists on playback devices
+                - .originating_device can be used to group by card
+                - .device_id is a string for displaying to user
+
+            
+
+
+Session management:
+    we should properly support x session management
+        the gnome implementation is available in gnome.ui
+
+
 
 

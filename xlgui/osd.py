@@ -12,31 +12,58 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import gtk, gtk.glade, cairo
+import gtk, gtk.glade, cairo, gobject
 from xl import xdg
 from xl.nls import gettext as _
-from xlgui import guiutil
+from xlgui import guiutil, cover
 from xlgui.main import PlaybackProgressBar
+
+class CoverWidget(guiutil.ScalableImageWidget):
+    def __init__(self):
+        guiutil.ScalableImageWidget.__init__(self)
+        self.set_image_size(cover.COVER_WIDTH, cover.COVER_WIDTH)
+        self.set_image(xdg.get_data_path('images/nocover.png'))
+
+    def cover_found(self, object, cover):
+        self.set_image(cover)
 
 class OSDWindow(object):
     """
         A popup window to show information on the current playing track
     """
-    def __init__(self, settings, player=None, draggable=False):
+    def __init__(self, settings, cover=None, covers=None, 
+        player=None, draggable=False):
         """
             Initializes the popup
         """
         self.draggable = draggable
         self.settings = settings
         self.player = player
+        self.covers = covers
+        self.cover = cover
+        self.progress_widget = None
         self.setup_osd()
         self._handler = None
-        self.start_timer = None
+        self._cover_sig = None
         self._timeout = None
+
+    def destroy(self):
+        if self.progress_widget:
+            self.progress_widget.destroy()
+            self.progress_widget = None
+        if self._cover_sig:
+            self.cover.disconnect(self._cover_sig)
+        self.window.destroy()
 
     def setup_osd(self, settings=None):
         if not settings:
             settings = self.settings
+
+        # if there are current progress widgets, destroy them to
+        # remove unneeded signals
+        if self.progress_widget:
+            self.progress_widget.destroy()
+
         self.settings = settings
         self.xml = gtk.glade.XML(xdg.get_data_path('glade/osd_window.glade'), 
             'OSDWindow', 'exaile')
@@ -48,7 +75,19 @@ class OSDWindow(object):
         self.box = self.xml.get_widget('image_box')
 
         self.progress = self.xml.get_widget('osd_progressbar')
+        self.cover_widget = CoverWidget()
+        if self.cover:
+            self._cover_sig = self.cover.connect('cover-found', 
+                self.cover_widget.cover_found)
+        self.cover_widget.set_image_size(
+            settings.get_option('osd/h', 95) - 8,
+            settings.get_option('osd/h', 95) - 8)
 
+        if self.player:
+            self.progress_widget = PlaybackProgressBar(self.progress,
+                self.player)
+
+        self.box.pack_start(self.cover_widget)
         # Try to set the window opacity.  To do that we need the RGBA colormap,
         # which for some reason may not be available even if
         # Widget.is_composited is true.  In GTK+ >=2.12 all this can just be
@@ -83,12 +122,9 @@ class OSDWindow(object):
         self.window.set_size_request(
             settings.get_option('osd/w', 400), 
             settings.get_option('osd/h', 95))
-        self.cover = guiutil.ScalableImageWidget()
-        self.box.pack_start(self.cover, False, False)
         self.window.move(settings.get_option('osd/x', 0), 
             settings.get_option('osd/y', 0))
-        self.cover.set_image_size(
-            settings.get_option('osd/h', 95) - 8, settings.get_option('osd/h', 95) - 8)
+
         self.event.connect('button_press_event', self.start_dragging)
         self.event.connect('button_release_event', self.stop_dragging)
         self._handler = None
@@ -118,8 +154,6 @@ class OSDWindow(object):
         self._start = event.x, event.y
         self._handler = self.window.connect('motion_notify_event',
             self.dragging)
-        if self._timeout: gobject.source_remove(self._timeout)
-        self._timeout = None
 
     def stop_dragging(self, widget, event):
         """
@@ -127,8 +161,6 @@ class OSDWindow(object):
         """
         if self._handler: self.window.disconnect(self._handler)
         self._handler = None
-        if self.start_timer:
-            self._timeout = gobject.timeout_add(4000, self.window.hide)
         settings = self.settings
         (w, h) = self.window.get_size()
         (x, y) = self.window.get_position()
@@ -144,3 +176,13 @@ class OSDWindow(object):
         """
         self.window.move(int(event.x_root - self._start[0]),
             int(event.y_root - self._start[1]))
+
+    def hide(self):
+        self.window.hide()
+
+    def show(self, track, timeout=4000):
+        self.window.show_all()
+        if self._timeout:
+            gobject.source_remove(self._timeout)
+        self._timeout = gobject.timeout_add(timeout, self.hide)
+

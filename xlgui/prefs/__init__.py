@@ -135,6 +135,10 @@ class PreferencesDialog(object):
                     print field.name
                     return False
 
+        for k, v in self.panes.iteritems():
+            if hasattr(k, 'apply'):
+                k.apply(self)
+
         self.settings.copy_settings(self.main.exaile.settings)
 
         return True

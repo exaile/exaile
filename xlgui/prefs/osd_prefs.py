@@ -29,8 +29,11 @@ def page_enter(prefs):
 def page_leave(prefs):
     global OSD
     if OSD:
-        OSD.window.destroy()
+        OSD.destroy()
         OSD = None
+
+def apply(prefs):
+    prefs.main.main.osd.setup_osd(prefs.settings)
 
 class OSDItem(object):
     """
@@ -40,7 +43,7 @@ class OSDItem(object):
     def change(self, *e):
         self.apply()
         if OSD:
-            OSD.window.destroy()
+            OSD.destroy()
             OSD.setup_osd(self.prefs.settings)
             OSD.window.show_all()
 

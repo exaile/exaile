@@ -324,6 +324,9 @@ class CoverWidget(gtk.EventBox):
     """
         Represents the album art widget displayed by the track information
     """
+    __gsignals__ = {
+        'cover-found': (gobject.SIGNAL_RUN_LAST, None, (str,)),
+    }
     def __init__(self, main, covers, player):
         """
             Initializes the widget
@@ -343,11 +346,16 @@ class CoverWidget(gtk.EventBox):
         self.add(self.image)
         self.image.show()
         
-        self.connect('button-press-event', self._on_button_press)
+        if main:
+            self.connect('button-press-event', self._on_button_press)
 
         event.add_callback(self.on_playback_start, 'playback_start', player)
         event.add_callback(self.on_playback_end, 'playback_end', player)
         self.menu = CoverMenu(self)
+
+    def destroy(self):
+        event.remove_callback(self.on_playback_start, 'playback_start', player)
+        event.removeadd_callback(self.on_playback_end, 'playback_end', player)
 
     def show_cover(self):
         """
@@ -406,12 +414,18 @@ class CoverWidget(gtk.EventBox):
         if self.player.current == self.current_track:
             gobject.idle_add(self.image.set_image, cov)
             self.loc = cov
+            gobject.idle_add(self._fire_event)
+
+    def _fire_event(self):
+        self.emit('cover-found', self.loc)
 
     def on_playback_end(self, type, player, object):
         """
             Called when playback stops.  Resets to the nocover image
         """
+        self.loc = xdg.get_data_path('images/nocover.png')
         self.image.set_image(xdg.get_data_path('images/nocover.png'))
+        self.emit('cover-found', self.loc)
 
 class CoverWindow(object):
     """Shows the cover in a simple image viewer"""

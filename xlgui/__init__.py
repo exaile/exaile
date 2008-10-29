@@ -48,7 +48,7 @@ class Main(object):
 
         self.main = main.MainWindow(self, self.xml, exaile.settings, 
             exaile.collection,
-            exaile.player, exaile.queue)
+            exaile.player, exaile.queue, exaile.covers)
         self.panel_notebook = self.xml.get_widget('panel_notebook')
         self.play_toolbar = self.xml.get_widget('play_toolbar')
         self._connect_events()

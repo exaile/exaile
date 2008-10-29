@@ -31,6 +31,7 @@ class PlaybackProgressBar(object):
         self.player = player
         self.timer_id = None
         self.seeking = False
+        self.player = player
 
         self.bar.set_text(_('Not Playing'))
         self.bar.connect('button-press-event', self.seek_begin)
@@ -39,6 +40,10 @@ class PlaybackProgressBar(object):
 
         event.add_callback(self.playback_start, 'playback_start', player)
         event.add_callback(self.playback_end, 'playback_end', player)
+
+    def destroy(self):
+        event.remove_callback(self.playback_start, 'playback_start', self.player)
+        event.remove_callback(self.playback_end, 'playback_end', self.player)
 
     def seek_begin(self, *e):
         self.seeking = True
@@ -176,14 +181,16 @@ class MainWindow(object):
         Main Exaile Window
     """
     def __init__(self, controller, xml, settings, collection, 
-        player, queue):
+        player, queue, covers):
         """
             Initializes the main window
 
             @param controller: the main gui controller
         """
+        from xlgui import osd
         self.controller = controller
         self.settings = settings
+        self.covers = covers
         self.collection =  collection
         self.player = player
         self.queue = queue
@@ -201,6 +208,8 @@ class MainWindow(object):
         self._setup_widgets()
         self._setup_hotkeys()
         self._connect_events()
+        self.osd = osd.OSDWindow(self.settings, self.cover,
+            self.covers, self.player)
         self.tab_manager = xl.playlist.PlaylistManager(
             'saved_tabs')
         self.load_saved_tabs()
@@ -585,6 +594,9 @@ class MainWindow(object):
         self.update_rating_combo()
         if self.settings.get_option('playback/dynamic', False):
             self._get_dynamic_tracks()
+
+        if self.settings.get_option('osd/enabled', True):
+            self.osd.show(self.player.current)
 
     @guiutil.gtkrun
     def on_playback_end(self, type, player, object):

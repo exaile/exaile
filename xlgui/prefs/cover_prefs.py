@@ -21,6 +21,10 @@ name = 'Album Art'
 glade = xdg.get_data_path('glade/cover_prefs_pane.glade')
 
 class CoverOrderPreference(widgets.OrderListPrefsItem):
+    """
+        This little preference item shows kind of a complicated preference
+        widget in action.  The defaults are dynamic.
+    """
     name = 'covers/preferred_order'
 
     def __init__(self, prefs, widget):

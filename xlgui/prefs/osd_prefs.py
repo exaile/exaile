@@ -22,4 +22,4 @@ glade = xdg.get_data_path('glade/osd_prefs_pane.glade')
 
 class OsdPreference(widgets.CheckPrefsItem):
     default = True
-    name = 'gui/use_osd'
+    name = 'osd/enabled'

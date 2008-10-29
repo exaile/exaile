@@ -27,7 +27,7 @@ class InvalidPluginError(Exception):
     pass
 
 class PluginsManager(object):
-    def __init__(self, exaile):
+    def __init__(self, exaile, load=True):
         self.plugindirs = [ os.path.join(p, 'plugins') \
                 for p in xdg.get_data_dirs() ]
         
@@ -44,7 +44,7 @@ class PluginsManager(object):
         self.enabled_plugins = {}
         self.settings = settings.SettingsManager.settings
         
-        self.load_enabled()
+        if load: self.load_enabled()
 
     def __findplugin(self, pluginname):
         for dir in self.plugindirs:

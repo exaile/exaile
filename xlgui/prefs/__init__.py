@@ -31,7 +31,7 @@ class PreferencesDialog(object):
         Preferences Dialog
     """
 
-    PAGES = (general_prefs, cover_prefs)# osd_prefs)
+    PAGES = (general_prefs, osd_prefs, cover_prefs)
 
     def __init__(self, parent, main, plugin_page=None):
         """

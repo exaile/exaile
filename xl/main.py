@@ -89,9 +89,14 @@ class Exaile(object):
         firstrun = self.settings.get_option("general/first_run", True)
 
         #initialize PluginsManager
-        from xl import plugins
-        logger.info("Loading plugins...")
-        self.plugins = plugins.PluginsManager(self)
+        if not self.options.safemode:
+            from xl import plugins
+            logger.info("Loading plugins...")
+            self.plugins = plugins.PluginsManager(self)
+        else:
+            from xl import plugins
+            logger.info("Safe mode enabled, not loading plugins.")
+            self.plugins = plugins.PluginsManager(self, load=False)
 
         # Initialize the collection
         logger.info(_("Loading collection..."))
@@ -249,6 +254,9 @@ class Exaile(object):
         p.add_option("--version", dest="show_version", action="store_true")
         p.add_option("--start-minimized", dest="minim", action="store_true",
             default=False, help="Start Exaile minimized to tray, if possible")
+        p.add_option("--safemode", dest="safemode", action="store_true",
+            default=False, help="Start in safe mode - sometimes useful "
+            "when you're running into problems")
 
         # development and debug options
         p.add_option("--datadir", dest="datadir", help="Set data dir")

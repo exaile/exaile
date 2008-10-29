@@ -132,6 +132,9 @@ class OrderListPrefsItem(PrefsItem):
         self.widget.append_column(col)
         self.widget.set_model(self.model)
 
+    def _setup_change(self):
+        self.widget.connect('drag-end', self.change)
+
     def _set_pref(self):
         """
             Sets the preferences for this widget
@@ -156,44 +159,18 @@ class OrderListPrefsItem(PrefsItem):
         self.items = items
         return True
 
-####
-## TODO
-## ALL THE WIDGETS BELOW THIS LINE HAVE NOT YET BEEN CONVERTED FROM THE 0.2
-## FORMAT.  PLEASE CONVERT THEM AND PLACE THEM ABOVE THIS LINE.
-##
-
-#class CryptedPrefsItem(PrefsItem):
-#    """
-#        An encrypted preferences item
-#    """
-#    def __init__(self, name, default, change=None, done=None):
-#        PrefsItem.__init__(self, name, default, change, done)
-
-#    def set_pref(self):
-#        self.widget.set_text(settings.get_crypted(self.name,
-#            default=self.default))
-
-#    def apply(self):
-#        if self.done and not self.do_done(): return False
-#        settings.set_crypted(self.name, unicode(self.widget.get_text(), 'utf-8'))
-#        return True
-
 class PrefsTextViewItem(PrefsItem):
     """
         Represents a gtk.TextView
     """
-    def __init__(self, name, default, change=None, done=None):
+    def __init__(self, prefs, widget):
         """
             Initializes the object
         """
-        PrefsItem.__init__(self, name, default, change, done)
+        PrefsItem.__init__(self, prefs, widget)
 
-    def setup_change(self):
-        """
-            Detects changes in this widget
-        """
-        self.widget.connect('focus-out-event',
-            self.change, self.name, self.get_all_text())
+    def _setup_change(self):
+        self.widget.connect('focus-out-event', self.change)
 
     def get_all_text(self):
         """
@@ -204,38 +181,32 @@ class PrefsTextViewItem(PrefsItem):
         end = buf.get_end_iter()
         return unicode(buf.get_text(start, end), 'utf-8')
 
-    def set_pref(self):
+    def _set_pref(self):
         """
             Sets the value of this widget
         """
-        self.widget.get_buffer().set_text(str(settings.get_option(self.name,
+        self.widget.get_buffer().set_text(str(
+            self.prefs.settings.get_option(self._get_name(),
             default=self.default)))
-
-    def do_done(self):
-        """
-            Calls the done function
-        """
-        return self.done(self.widget)
 
     def apply(self):    
         """
             Applies the setting
         """
-        if self.done and not self.do_done(): return False
-        settings['self.name'] = self.get_all_text()
+        if hasattr(self, 'done') and not self.done(): return False
+        self.prefs.settings[self._get_name()] = self.get_all_text()
         return True
-       
-
 
 class ListPrefsItem(PrefsItem):
     """
         A class to represent a space separated list in the preferences window
     """
-    def __init__(self, name, default, change=None, done=None):
-        PrefsItem.__init__(self, name, default, change, done)
+    def __init__(self, prefs, widget):
+        PrefsItem.__init__(self, prefs, widget)
 
-    def set_pref(self):
-        items = settings.get_option(self.name, default=self.default)
+    def _set_pref(self):
+        items = self.prefs.settings.get_option(self._get_name(), 
+            default=self.default)
         try:
             items = " ".join(items)
         except:
@@ -243,96 +214,96 @@ class ListPrefsItem(PrefsItem):
         self.widget.set_text(items)
 
     def apply(self):
-        if self.done and not self.do_done(): return False
+        if hasattr(self, 'done') and not self.done(): return False
         # shlex is broken with unicode, so we feed it UTF-8 and encode
         # afterwards.
         values = shlex.split(self.widget.get_text())
         values = [unicode(value, 'utf-8') for value in values]
-        settings[self.name] = values
+        self.prefs.settings[self._get_name()] = values
         return True
 
 class SpinPrefsItem(PrefsItem):
     def set_pref(self):
-        value = settings.get_option(self.name, default=self.default)
+        value = self.prefs.settings.get_option(self._get_name(), 
+            default=self.default)
         self.widget.set_value(value)
 
 class FloatPrefsItem(PrefsItem):
     """
         A class to represent a floating point number in the preferences window
     """
-    def __init__(self, name, default, change=None, done=None):
-        PrefsItem.__init__(self, name, default, change, done)
+    def __init__(self, prefs, widget):
+        PrefsItem.__init__(self, prefs, widget)
 
-    def set_pref(self):
-        self.widget.set_text(str(settings.get_option(self.name, default=self.default)))
+    def _set_pref(self):
+        self.widget.set_text(str(
+            self.prefs.settings.get_option(self._get_name(), 
+            default=self.default)))
 
     def apply(self):
-        if self.done and not self.do_done(): return False
-        settings[self.name] = float(self.widget.get_text())
+        if hasattr(self, 'done') and not self.done(): return False
+        self.prefs.settings[self._get_name()] = float(self.widget.get_text())
         return True
 
 class ColorButtonPrefsItem(PrefsItem):
     """
         A class to represent the color button in the prefs window
     """
-    def __init__(self, name, default, change=None, done=None):
-        PrefsItem.__init__(self, name, default, change, done)
+    def __init__(self, prefs, widget):
+        PrefsItem.__init__(self, prefs, widget)
 
-    def setup_change(self):
-        self.widget.connect('color-set',
-            self.change, self.name)
+    def _setup_change(self):
+        pass
 
-    def set_pref(self):
+    def _set_pref(self):
         self.widget.set_color(gtk.gdk.color_parse(
-            settings.get_option(self.name, self.default)))
+            self.prefs.settings.get_option(self._get_name(), 
+            self.default)))
 
     def apply(self):
-        if self.done and not self.do_done(): return False
+        if hasattr(self, 'done') and not self.done(): return False
         color = self.widget.get_color()
         string = "#%.2x%.2x%.2x" % (color.red / 257, color.green / 257, 
             color.blue / 257)
-        settings[self.name] = string
+        self.prefs.settings[self._get_name()] = string
         return True
 
 class FontButtonPrefsItem(ColorButtonPrefsItem):
     """
         Font button
     """
-    def __init__(self, name, default, change=None, done=None):
-        ColorButtonPrefsItem.__init__(self, name, default, change, done)
+    def __init__(self, prefs, widget):
+        ColorButtonPrefsItem.__init__(self, prefs, widget)
 
-    def setup_change(self):
-        self.widget.connect('font-set', self.change, self.name)
-
-    def set_pref(self):
-        font = settings.get_option(self.name, self.default)
+    def _set_pref(self):
+        font = self.prefs.settings.get_option(self._get_name(), 
+            self.default)
         self.widget.set_font_name(font)
         
     def apply(self):
-        if self.done and not self.do_don(): return False
+        if hasattr(self, 'done') and not self.done(): return False
         font = self.widget.get_font_name()
-        settings[self.name] = font
+        self.prefs.settings[self._get_name()] = font
         return True
-
 
 class ComboPrefsItem(PrefsItem):
     """
         combo box
     """
-    def __init__(self, name, default, change=None, done=None, 
-        use_index=False):
+    def __init__(self, prefs, widget, use_index=False):
         self.use_index = use_index
-        PrefsItem.__init__(self, name, default, change, done)
+        PrefsItem.__init__(self, prefs, widget)
 
-    def setup_change(self):
-        self.widget.connect('changed',
-            self.change)
+    def _setup_change(self):
+        self.widget.connect('changed', self.change)
 
-    def set_pref(self):
-        item = settings.get_option(self.name, self.default)
+    def _set_pref(self):
+        item = self.prefs.settings.get_option(self._get_name(), 
+            self.default)
 
         if self.use_index:
-            index = settings.get_option(self.name, self.default)
+            index = self.prefs.settings.get_option(self._get_name(), 
+                self.default)
             self.widget.set_active(index)
             return
 
@@ -349,10 +320,10 @@ class ComboPrefsItem(PrefsItem):
             if not iter: break
 
     def apply(self):
-        if self.done and not self.do_done(): return False
+        if hasattr(self, 'done') and not self.done(): return False
 
         if self.use_index:
-            settings[self.name] = self.widget.get_active()
+            self.prefs.settings[self._get_name()] = self.widget.get_active()
         else:
-            settings[self.name] = self.widget.get_active_text()
+            self.prefs.settings[self._get_name()] = self.widget.get_active_text()
         return True

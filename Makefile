@@ -59,6 +59,9 @@ plugins_dist:
 
 clean:
 	find . -name "*.py[co]" -exec rm -f {} \;
+	find . -name "*.class" -exec rm -f {} \;
+	find . -name "*.bak" -exec rm -f {} \;
+	rm -rf doc
 	cd plugins && make clean && cd ..
 
 doc: docclean

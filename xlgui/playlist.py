@@ -33,13 +33,15 @@ def create_rating_images(rating_width):
         star = gtk.gdk.pixbuf_new_from_file_at_size(
             xdg.get_data_path('images/star.png'), star_size, star_size)
 
-        full_image = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, rating_width, star_size)
+        full_image = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, 
+            rating_width, star_size)
         full_image.fill(0xffffff00) # transparent white
         for x in range(0, 5):
             star.copy_area(0, 0, star_size, star_size, full_image, star_size * x, 0)
         rating_images.insert(0, full_image)
         for x in range(5, 0, -1):
-            this_image = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, rating_width, star_size)
+            this_image = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, 
+                rating_width, star_size)
             this_image.fill(0xffffff00) # transparent white
             full_image.copy_area(0, 0, int(x * star_size), star_size, this_image, 0, 0)
             rating_images.insert(0, this_image)

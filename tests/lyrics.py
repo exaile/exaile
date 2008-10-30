@@ -15,7 +15,7 @@ class LyricsBaseTestCase(BaseTestCase):
     def setUp(self):
         BaseTestCase.setUp(self)
         self.plugindirs = 'plugins'
-        self.lyrics = LyricsManager()
+        self.lyrics = LyricsManager(self.settings)
         # Create a track object
         # (copying the file here so that it doesn't keep updating in bzr when
         # the lyrics manager finds the lyrics and changes the file)

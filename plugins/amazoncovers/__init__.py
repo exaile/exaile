@@ -23,6 +23,7 @@ class AmazonCoverSearch(CoverSearchMethod):
         Searches amazon for an album cover
     """
     name = 'amazon'
+    type = 'remote' # fetches remotely as opposed to locally
     def __init__(self, amazon_key):
         ecs.setLicenseKey(amazon_key)
 

@@ -353,6 +353,7 @@ class CoverManager(providers.ProviderHandler):
                 raise NoCoverFoundException()
             else:
                 cover = covers[0]
+        else: return cover
 
         if update_track:
             self.coverdb.set_cover('/'.join(track['artist']), 

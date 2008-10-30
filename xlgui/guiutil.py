@@ -51,7 +51,6 @@ class ScalableImageWidget(gtk.Image):
             Initializes the image
         """
         gtk.Image.__init__(self)
-        self.loc = ''
 
     def set_image_size(self, width, height):
         """
@@ -63,17 +62,16 @@ class ScalableImageWidget(gtk.Image):
         """
             Sets the image
         """
-        self.loc = image
-        pixbuf = gtk.gdk.pixbuf_new_from_file(image)
+        self.pixbuf = gtk.gdk.pixbuf_new_from_file(image)
 
-        self._set_image(pixbuf, fill)
+        self._set_image(self.pixbuf, fill)
 
     def set_image_data(self, data, fill=False):
         loader = gtk.gdk.PixbufLoader()
         loader.write(data)
         loader.close()
-        pixbuf = loader.get_pixbuf()
-        self._set_image(pixbuf, fill)
+        self.pixbuf = loader.get_pixbuf()
+        self._set_image(self.pixbuf, fill)
 
     def _set_image(self, pixbuf, fill=False):
         width, height = self.size

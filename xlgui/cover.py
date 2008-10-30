@@ -361,7 +361,7 @@ class CoverWidget(gtk.EventBox):
         """
             Shows the current cover
         """
-        window = CoverWindow(self.main.window, self.image.loc)
+        window = CoverWindow(self.main.window, self.image.pixbuf)
         window.show_all()
 
     def fetch_cover(self):
@@ -389,7 +389,7 @@ class CoverWidget(gtk.EventBox):
             Called when someone clicks on the cover widget
         """
         if event.type == gtk.gdk._2BUTTON_PRESS:
-            window = CoverWindow(self.main.window, self.image.loc)
+            window = CoverWindow(self.main.window, self.image.pixbuf)
             window.show_all()
         elif event.button == 3:
             if self.player.current:
@@ -458,7 +458,6 @@ class CoverWindow(object):
                                    self.statusbar.size_request()[1]
         self.cover_window.set_default_size(self.cover_window_width, \
                                            self.cover_window_height)
-
         if type(cover) == str or type(cover) == unicode:
             self.image_original_pixbuf = gtk.gdk.pixbuf_new_from_file(cover)
         else:

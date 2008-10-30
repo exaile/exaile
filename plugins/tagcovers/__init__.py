@@ -81,10 +81,16 @@ if __name__ == '__main__':
                 continue
 
             a = id3.ID3(track.get_loc())
+            done = False
             for v in a.values():
                 if isinstance(v, id3.APIC):
-                    if v.desc == '__exaile_cover__': continue
+                    if v.desc == '__exaile_cover__': 
+                        done = True
+                        break
                     print "track %s already had an image!!!" % track.get_loc()
+                    done = True
+                    break
+            if done: continue
 
             print "Writing cover to %s..." % track.get_loc(),
             data = open(c).read()

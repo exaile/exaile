@@ -190,7 +190,7 @@ class BaseGSTPlayer(object):
         """
             load volume from settings
         """
-        volume = settings.get_option("player/volume", 1.0)
+        volume = settings.get_option("player/volume", .7)
         self.set_volume(volume)
 
     def setup_gst_elements(self):

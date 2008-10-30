@@ -23,6 +23,7 @@ class AmazonCoverSearch(CoverSearchMethod):
         Searches amazon for an album cover
     """
     name = 'amazon'
+    type = 'remote' # fetches remotely as opposed to locally
     def __init__(self, amazon_key):
         ecs.setLicenseKey(amazon_key)
 
@@ -58,7 +59,7 @@ class AmazonCoverSearch(CoverSearchMethod):
                 h.close()
 
                 covers.append(covername)
-                if limit != -1 and len(covers) == limit:
+                if limit != -1 and len(covers) >= limit:
                     return covers
             except AttributeError: continue
             except:

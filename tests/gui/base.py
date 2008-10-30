@@ -24,6 +24,9 @@ class TestPlayer(player.BaseGSTPlayer):
         self.current = track
         event.log_event('playback_start', self, track)
 
+    def get_volume(self):
+        return 1
+
     def stop(self):
         self.playing = False
         self.paused = False
@@ -67,7 +70,8 @@ class BaseTestCase(GtkTestCase,
         self.setup_logging()
         self.radio = FakeRadio()
         tests.base.BaseTestCase.setUp(self)
-        self.covers = cover.CoverManager('.testtemp/covers')
+        self.covers = cover.CoverManager(self.settings, 
+            '.testtemp/covers')
         self.player = TestPlayer()
         self.queue = player.PlayQueue(self.player)
         self.playlists = playlist.PlaylistManager()

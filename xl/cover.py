@@ -24,6 +24,20 @@ try:
 except ImportError:
     import pickle
 
+class CoverData(object):
+    def __init__(self, data):
+        self.data = data
+
+def get_cover_data(info):
+    if isinstance(info, CoverData):
+        return info.data
+
+    h = open(info, 'r')
+    data = h.read()
+    h.close()
+
+    return data
+
 class NoCoverFoundException(Exception):
     pass
 
@@ -77,6 +91,9 @@ class CoverDB(object):
             @param artist: the artist
             @param album: the album
         """
+        if not type(cover) == str and not type(cover) == unicode:
+            return
+        if not os.path.isfile(cover): return
         logger.info("CoverDB: set cover %s for '%s - %s'" %
             (cover, album, artist))
         if not artist in self.artists:
@@ -353,29 +370,9 @@ class CoverManager(providers.ProviderHandler):
             @param limit: Set to -1 to return all covers, or to the max number
             of covers you want returned
         """
-        covers = []
-        logger.info("Attempting to find covers for %s" % search_string)
-        for method in self.get_methods():
-            if hasattr(method, 'search_covers'):
-                try:
-                    c = method.search_covers(search_string, limit)
-                    logger.info("Found covers from %s" % method.name)
-                    if limit == -1:
-                        covers.extend(c)
-                    else:
-                        return c
-                except NoCoverFoundException:
-                    pass
-            else:
-                logger.warning("%s method doesn't support searching" %
-                    method.name)
+        return self.find_covers(search_string, limit=-1, search=True)
 
-        if not covers:
-            # no covers were found, raise an exception
-            raise NoCoverFoundException()
-        return covers
-
-    def find_covers(self, track, limit=-1):
+    def find_covers(self, track, limit=-1, search=False):
         """
             Finds a cover for a track.  
 
@@ -390,18 +387,28 @@ class CoverManager(providers.ProviderHandler):
         logger.info("Attempting to find covers for %s" % track)
         for method in self.get_methods():
             try:
-                c = method.find_covers(track, limit)
-                logger.info("Found covers from %s" % method.name)
-                if limit == -1:
-                    covers.extend(c)
+                if not search:
+                    c = method.find_covers(track, limit)
                 else:
-                    return c
+                    if not hasattr(method, 'search_covers'):
+                        logger.info("%s method doesn't "
+                            "support searching, skipping" % method.name)
+                        continue
+                    c = method.search_covers(track, limit)
+
+                logger.info("Found covers from %s" % method.name)
+                covers.extend(c)
+                if limit != -1:
+                    event.log_event('cover_found', self, (covers, method.type))
+                    break
             except NoCoverFoundException:
                 pass
         
         if not covers:
             # no covers were found, raise an exception
             raise NoCoverFoundException()
+
+        event.log_event('covers_found', self, covers) 
         return covers
 
 class CoverSearchMethod(object):
@@ -433,6 +440,7 @@ class LocalCoverSearch(CoverSearchMethod):
         Searches the local path for an album cover
     """
     name = 'local'
+    type = 'local'
     def __init__(self):
         """
             Sets up the cover search method

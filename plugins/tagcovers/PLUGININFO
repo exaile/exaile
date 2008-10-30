@@ -1,0 +1,4 @@
+Version="0.0.1"
+Authors=["Adam Olsen <arolsen@gmail.com>"]
+Name="Tag Cover Search"
+Description="Searches for album art in track tags"

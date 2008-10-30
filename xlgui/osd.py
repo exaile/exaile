@@ -25,7 +25,8 @@ class CoverWidget(guiutil.ScalableImageWidget):
         self.set_image(xdg.get_data_path('images/nocover.png'))
 
     def cover_found(self, object, cover):
-        self.set_image(cover)
+        from xl import cover as c
+        self.set_image_data(c.get_cover_data(cover))
 
 class OSDWindow(object):
     """

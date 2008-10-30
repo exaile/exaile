@@ -65,6 +65,17 @@ class ScalableImageWidget(gtk.Image):
         """
         self.loc = image
         pixbuf = gtk.gdk.pixbuf_new_from_file(image)
+
+        self._set_image(pixbuf, fill)
+
+    def set_image_data(self, data, fill=False):
+        loader = gtk.gdk.PixbufLoader()
+        loader.write(data)
+        loader.close()
+        pixbuf = loader.get_pixbuf()
+        self._set_image(pixbuf, fill)
+
+    def _set_image(self, pixbuf, fill=False):
         width, height = self.size
         if not fill:
             origw = float(pixbuf.get_width())

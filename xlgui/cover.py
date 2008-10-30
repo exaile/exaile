@@ -325,7 +325,7 @@ class CoverWidget(gtk.EventBox):
         Represents the album art widget displayed by the track information
     """
     __gsignals__ = {
-        'cover-found': (gobject.SIGNAL_RUN_LAST, None, (str,)),
+        'cover-found': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
     def __init__(self, main, covers, player):
         """
@@ -375,7 +375,7 @@ class CoverWidget(gtk.EventBox):
         window.connect('cover-chosen', self.on_cover_chosen)
 
     def on_cover_chosen(self, object, cover):
-        self.image.set_image(cover) 
+        self.image.set_image_data(cover.get_cover_data(cover)) 
 
     def remove_cover(self):
         """
@@ -412,7 +412,7 @@ class CoverWidget(gtk.EventBox):
             return
 
         if self.player.current == self.current_track:
-            gobject.idle_add(self.image.set_image, cov)
+            gobject.idle_add(self.image.set_image_data, cover.get_cover_data(cov))
             self.loc = cov
             gobject.idle_add(self._fire_event)
 
@@ -702,5 +702,5 @@ class CoverChooser(gobject.GObject):
             Shows the current cover
         """
         logger.info(c)
-        self.cover.set_image(c)
+        self.cover.set_image(cover.get_cover_data(c))
         self.window.show_all()

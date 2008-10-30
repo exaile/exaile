@@ -619,7 +619,10 @@ class Playlist(object):
         """
         searcher = trackdb.TrackSearcher()
 
-        tracks = searcher.search(phrase, self.ordered_tracks)
+        search_db = {}
+        for track in self.ordered_tracks:
+            search_db[track.get_loc()] = track
+        tracks = searcher.search(phrase, search_db)
         tracks = tracks.values()
 
         if sort_fields:

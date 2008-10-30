@@ -283,7 +283,6 @@ class TrackDB(object):
             tracks = do_search
 
         tracks = searcher.search(query, tracks)
-
         tracks = tracks.values()
 
         if sort_fields:

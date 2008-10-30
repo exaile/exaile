@@ -58,7 +58,10 @@ class PluginManager(object):
         plugins.sort()
 
         for plugin in plugins:
-            info = self.plugins.get_plugin_info(plugin)
+            try:
+                info = self.plugins.get_plugin_info(plugin)
+            except IOError:
+                continue
             enabled = plugin in self.plugins.enabled_plugins.keys()
             self.model.append([info['Name'], enabled, plugin])
 

@@ -1,11 +1,5 @@
 from mutagen import id3
-import traceback
-"""
-    In [27]: item = id['APIC:9eb3f9035a51833415404e5271a896d6.jpg']
-In [32]: h = open('/home/synic/foo.jpg', 'w')
-In [33]: h.write(item.data)
-In [34]: h.close()
-"""
+import traceback, time
 from xl.cover import *
 import os, os.path
 
@@ -59,3 +53,50 @@ class TagCoverSearch(CoverSearchMethod):
             raise NoCoverFoundException()
 
         return covers
+
+if __name__ == '__main__':
+    from mutagen import id3
+    from xl import cover, settings, xdg, settings
+    
+    settings = settings.SettingsManager(os.path.join(
+        xdg.get_config_dir(), 'settings.ini'))
+
+    from xl import collection
+    print os.path.join(xdg.get_data_dirs()[0], 'music.db')
+    collection = collection.Collection('Collection',    
+        os.path.join(xdg.get_data_dirs()[0], 'music.db'))
+    covers = cover.CoverManager(settings, cache_dir=os.path.join(
+        xdg.get_data_dirs()[0], 'covers'))
+
+    tracks = collection.search('')
+    for track in tracks:
+        if not track.get_loc().endswith('.mp3'):
+            continue
+
+        try:
+            try:
+                c = covers.get_cover(track)
+                if not c: continue
+            except cover.NoCoverFoundException:
+                continue
+
+            a = id3.ID3(track.get_loc())
+            for v in a.values():
+                if isinstance(v, id3.APIC):
+                    if v.desc == '__exaile_cover__': continue
+                    print "track %s already had an image!!!" % track.get_loc()
+
+            print "Writing cover to %s..." % track.get_loc(),
+            data = open(c).read()
+
+            i = id3.APIC(type=3, desc='__exaile_cover__', data=data,
+                encoding=3, mime='image/jpg')
+            a.add(i)
+            a.save()
+            print "Done..."
+        except:
+            traceback.print_exc()
+
+    print "Done!!!!"
+    covers.save_cover_db()
+

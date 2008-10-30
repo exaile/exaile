@@ -3,8 +3,8 @@
 <!--*- mode: xml -*-->
 <glade-interface>
   <widget class="GtkDialog" id="PreferencesDialog">
-    <property name="width_request">550</property>
-    <property name="height_request">440</property>
+    <property name="width_request">630</property>
+    <property name="height_request">500</property>
     <property name="title" translatable="yes">Preferences</property>
     <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
     <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>

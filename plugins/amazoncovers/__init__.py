@@ -1,5 +1,5 @@
 import _ecs as ecs
-import urllib, md5
+import urllib, md5, time
 from xl.cover import *
 from xl import common, event
 
@@ -26,6 +26,7 @@ class AmazonCoverSearch(CoverSearchMethod):
     type = 'remote' # fetches remotely as opposed to locally
     def __init__(self, amazon_key):
         ecs.setLicenseKey(amazon_key)
+        self.startime = 0
 
     def find_covers(self, track, limit=-1):
         """
@@ -37,12 +38,19 @@ class AmazonCoverSearch(CoverSearchMethod):
 
     def search_covers(self, search, limit=-1):
         cache_dir = self.manager.cache_dir
+
+        # wait at least 1 second until the next attempt
+        waittime = 1 - (time.time() - self.starttime)
+        if waittime > 0: time.sleep(waittime)
+
+        self.starttime = time.time()
         try:
             albums = ecs.ItemSearch(Keywords=search,
                 SearchIndex="Music",
                 ResponseGroup="ItemAttributes,Images")
         except ecs.NoExactMatches:
             raise NoCoverFoundException()
+
 
         covers = []
         for album in albums:

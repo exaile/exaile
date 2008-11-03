@@ -41,6 +41,7 @@ class CoverManager(object):
 
         self.cover_nodes = {}
         self.covers = {}
+        self.track_dict = {}
         self._stopped = True
 
         self.xml = gtk.glade.XML(xdg.get_data_path('glade/covermanager.glade'),
@@ -106,12 +107,9 @@ class CoverManager(object):
         """
         item = self._get_selected_item()
         if not item: return
+        track = self.track_dict[item[0]][item[1]][0]
         window = CoverChooser(self.window, 
-            self.manager,
-            {
-                'artist': [item[0]],
-                'album': [item[1]],
-            }) 
+            self.manager, track)
         window.connect('cover-chosen', self.on_cover_chosen)
 
     def on_cover_chosen(self, object, cover):
@@ -151,8 +149,26 @@ class CoverManager(object):
         """
         tracks = self.collection.search('') # find all tracks
 
-        items = list(set([('/'.join(t['artist']), '/'.join(t['album'])) for t
-            in tracks if t['artist'] and t['album']]))
+        items = []
+        for track in tracks:
+            try:
+                artist = '/'.join(track['artist'])
+                album = '/'.join(track['album'])
+            except KeyError:
+                continue
+            except TypeError:
+                continue
+
+            if not artist in self.track_dict:
+                self.track_dict[artist] = {}
+
+            if not album in self.track_dict[artist]:
+                self.track_dict[artist][album] = []
+
+            self.track_dict[artist][album].append(track)
+            items.append((artist, album))
+
+        items = list(set(items))
         self.items = items
         self.items.sort()
 
@@ -212,12 +228,12 @@ class CoverManager(object):
                 continue
 
             try:
-                c = self.manager.get_cover(
-                    {
-                        'artist': [item[0]],
-                        'album': [item[1]],
-                    }, update_track=True)
+                c = self.manager.get_cover(self.track_dict[item[0]][item[1]][0], 
+                    update_track=True)
+            except cover.NoCoverFoundException:
+                continue
             except:
+                traceback.print_exc()
                 logger.warning("No cover found")
                 c = None
 
@@ -238,9 +254,6 @@ class CoverManager(object):
             gobject.idle_add(self.progress.set_text, "%s/%s fetched" % (self.count,
                 self.needs))
 
-            # wait at least 1 second until the next attempt
-            waittime = 1 - (time.time() - starttime)
-            if waittime > 0: time.sleep(waittime)
             self.count += 1
 
             if self.count % 20 == 0:

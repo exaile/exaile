@@ -14,14 +14,10 @@
 
 import os, time
 from copy import deepcopy
-
 from urlparse import urlparse
-
 from xl import common
 import xl.metadata as metadata
-
 from xl.common import lstrip_special
-
 import logging, traceback
 logger = logging.getLogger(__name__)
 

@@ -96,8 +96,10 @@ class TrackDB(object):
         self.tracks = {}
         self.pickle_attrs = pickle_attrs
         self.pickle_attrs += ['tracks', 'name']
+        self._saving = False
         if location:
             self.load_from_location()
+            event.timeout_add(300000, self.save_to_location)
 
     def set_name(self, name):
         """
@@ -182,6 +184,9 @@ class TrackDB(object):
         if not location:
             raise AttributeError("You did not specify a location to save the db")
 
+        if self._saving: return
+        self._saving = True
+
         try:
             f = file(location, 'rb')
             pdata = pickle.load(f)
@@ -226,6 +231,7 @@ class TrackDB(object):
             pass
         
         self._dirty = False
+        self._saving = False
 
     def list_tag(self, tag, search_terms="", use_albumartist=False, sort=False):
         """

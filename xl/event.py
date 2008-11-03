@@ -40,6 +40,40 @@ _TESTING = False  # this is used by the testsuite to make all events syncronous
 
 logger = logging.getLogger(__name__)
 
+class EventTimer(object):
+    def __init__(self, interval, function, 
+        *args, **kwargs):
+        self.args = args
+        self.kwargs = kwargs
+        self.interval = interval
+        self.function = function
+        self.timer = None
+        self._stopped = False
+
+        self._start_timer()
+
+    def _start_timer(self):
+        if self._stopped or self.timer: return
+        self.timer = threading.Timer(float(self.interval) / 1000.0,
+            self._run_function)
+        self.timer.start()
+
+    def _run_function(self):
+        retval = self.function(*self.args, **self.kwargs)
+        if retval:
+            self.timer = None
+            self.start_timer()
+
+    def cancel(self):
+        self._stopped = True
+        if self.timer:
+            self.timer.cancel()
+
+def timeout_add(interval, function, *args, **kwargs):
+    timer = EventTimer(interval, function, *args, **kwargs)
+
+    return timer    
+
 def log_event(type, object, data, async=True):
     """
         Sends an event.

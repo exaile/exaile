@@ -47,6 +47,8 @@ class SettingsManager(SafeConfigParser):
         logger.info(_("Loading settings"))
         SafeConfigParser.__init__(self)
         self.loc = loc
+        self._saving = False
+        self._dirty = False
 
         if loc:
             try:
@@ -56,6 +58,9 @@ class SettingsManager(SafeConfigParser):
 
         if not SettingsManager.settings:
             SettingsManager.settings = self
+
+            # save settings every 30 seconds
+            event.timeout_add(30000, self.save)
 
     def copy_settings(self, settings):
         """
@@ -86,6 +91,7 @@ class SettingsManager(SafeConfigParser):
         except NoSectionError:
             self.add_section(section)
             self.set(section, key, value)
+        self._dirty = True
         event.log_event('option_set', self, option)
 
     def get_option(self, option, default=None):
@@ -168,8 +174,12 @@ class SettingsManager(SafeConfigParser):
         """
             Save the settings to disk
         """
+        if self._saving or self._dirty: return
+        self._saving = True
         f = open(self.loc, 'w')
         self.write(f)
+        self._saving = False
+        self._dirty = False
 
 # vim: et sts=4 sw=4
 

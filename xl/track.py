@@ -155,7 +155,7 @@ class Track(object):
         if not self.is_local():
             return False #not a local file
         try:
-            f = metadata.getFormat(self.get_loc_for_io())
+            f = metadata.get_format(self.get_loc_for_io())
             if f is None:
                 return False # nto a supported type
             f.write_tags(self.tags)
@@ -172,7 +172,7 @@ class Track(object):
             return False #not a local file
 
         try:
-            f = metadata.getFormat(self.get_loc_for_io())
+            f = metadata.get_format(self.get_loc_for_io())
             if f is None:
                 return False # nto a supported type
             ntags = f.read_all()

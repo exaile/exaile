@@ -65,7 +65,7 @@ formats = {
         }
 
 # pass get_loc_for_io() to this.
-def getFormat(loc):
+def get_format(loc):
     """
         get a Format object appropriate for the file at loc.
         if no suitable object can be found, a default object that

@@ -26,7 +26,7 @@ class AmazonCoverSearch(CoverSearchMethod):
     type = 'remote' # fetches remotely as opposed to locally
     def __init__(self, amazon_key):
         ecs.setLicenseKey(amazon_key)
-        self.startime = 0
+        self.starttime = 0
 
     def find_covers(self, track, limit=-1):
         """

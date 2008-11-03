@@ -86,7 +86,7 @@ def get_format(loc):
 
 def j(value):
     if hasattr(value, '__iter__'):
-        return '/'.join(value)
+        return u'\u0000'.join(value)
     else:
         return value
 

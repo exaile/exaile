@@ -1,7 +1,7 @@
 from mutagen import id3
 import traceback, time
 from xl.cover import *
-import os, os.path
+import os, os.path, md5
 
 def enable(exaile):
     if exaile.loading:
@@ -26,6 +26,7 @@ class TagCoverSearch(CoverSearchMethod):
         """
             Searches track tags for album art
         """
+        cache_dir = self.manager.cache_dir
         try:
             loc = track.get_loc()
         except AttributeError:
@@ -43,7 +44,14 @@ class TagCoverSearch(CoverSearchMethod):
             item = id3.ID3(loc)
             for value in item.values():
                 if isinstance(value, id3.APIC):
-                    covers.append(CoverData(value.data))
+                    m = md5.new()
+                    m.update(value.data)
+                    covername = os.path.join(cache_dir, m.hexdigest())
+                    covername += '.jpg'
+                    h = open(covername, 'w')
+                    h.write(value.data)
+                    h.close()
+                    covers.append(covername)
                     if limit != -1 and len(covers) >= limit:
                         return covers
         except:

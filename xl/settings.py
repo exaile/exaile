@@ -60,7 +60,11 @@ class SettingsManager(SafeConfigParser):
             SettingsManager.settings = self
 
             # save settings every 30 seconds
-            event.timeout_add(30000, self.save)
+            event.timeout_add(30000, self._timeout_save)
+
+    def _timeout_save(self):
+        self.save()
+        return True
 
     def copy_settings(self, settings):
         """

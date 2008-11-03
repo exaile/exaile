@@ -99,7 +99,11 @@ class TrackDB(object):
         self._saving = False
         if location:
             self.load_from_location()
-            event.timeout_add(300000, self.save_to_location)
+            event.timeout_add(300000, self._timeout_save)
+
+    def _timeout_save(self):
+        self.save()
+        return True
 
     def set_name(self, name):
         """

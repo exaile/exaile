@@ -56,13 +56,14 @@ class EventTimer(object):
         if self._stopped or self.timer: return
         self.timer = threading.Timer(float(self.interval) / 1000.0,
             self._run_function)
+        self.timer.setDaemon(True)
         self.timer.start()
 
     def _run_function(self):
         retval = self.function(*self.args, **self.kwargs)
         if retval:
             self.timer = None
-            self.start_timer()
+            self._start_timer()
 
     def cancel(self):
         self._stopped = True

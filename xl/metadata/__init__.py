@@ -84,5 +84,11 @@ def get_format(loc):
 
     return format(loc)
 
+def j(value):
+    if hasattr(value, '__iter__'):
+        return '/'.join(value)
+    else:
+        return value
+
 # vim: et sts=4 sw=4
 

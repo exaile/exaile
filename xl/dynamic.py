@@ -12,7 +12,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from xl import xdg, common, event, providers, settings
+from xl import xdg, common, event, providers, settings, metadata
 import os, time, urllib, random
 
 settings = settings.SettingsManager.settings
@@ -98,7 +98,7 @@ class DynamicManager(providers.ProviderHandler):
     def _save_info(self, track, info):
         if info == []:
             return
-        filename = os.path.join(self.cachedir, '/'.join(track['artist']))
+        filename = os.path.join(self.cachedir, metadata.j(track['artist']))
         f = open(filename, 'w')
         f.write("%s\n"%time.time())
         for item in info:

@@ -1,7 +1,6 @@
-
 import _scrobbler as scrobbler
 import asprefs
-from xl import common, event,xdg
+from xl import common, event, xdg, metadata
 import gobject, logging, time, md5, pickle, os
 
 from xl.settings import SettingsManager
@@ -99,8 +98,8 @@ class ExaileScrobbler(object):
 
         logger.info("Attempting to submit now playing information...")
         scrobbler.now_playing(
-            '/'.join(track['artist']), '/'.join(track['title']), 
-            '/'.join(track['album']), 
+            metadata.j(track['artist']), metadata.j(track['title']), 
+            metadata.j(track['album']), 
             track.get_duration(), track.get_track())
 
     def on_play(self, type, player, track):
@@ -151,10 +150,10 @@ class ExaileScrobbler(object):
         if scrobbler.SESSION_ID:
             try:
                 scrobbler.submit(
-                    '/'.join(track['artist']), 
-                    '/'.join(track['title']),
+                    metadata.j(track['artist']), 
+                    metadata.j(track['title']),
                     int(time_started), 'P', '', track.get_duration(), 
-                    '/'.join(track['album']), track.get_track(), autoflush=True)
+                    metadata.j(track['album']), track.get_track(), autoflush=True)
             except:
                 common.log_exception()
                 logger.warning("LastFM: Failed to submit track")

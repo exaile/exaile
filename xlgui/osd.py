@@ -13,7 +13,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import gtk, gtk.glade, cairo, gobject
-from xl import xdg, common
+from xl import xdg, common, metadata
 from xl.nls import gettext as _
 from xlgui import guiutil, cover
 from xlgui.main import PlaybackProgressBar
@@ -190,7 +190,7 @@ class OSDWindow(object):
             value = track[item]
             if not value: value = ''
             elif type(value) == list or type(value) == tuple:
-                value = '/'.join(value)
+                value = metadata.j(value)
 
             if not isinstance(value, basestring):
                 value = unicode(value)

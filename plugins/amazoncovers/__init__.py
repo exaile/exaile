@@ -1,7 +1,7 @@
 import _ecs as ecs
 import urllib, md5, time
 from xl.cover import *
-from xl import common, event
+from xl import common, event, metadata
 
 AMAZON_KEY = "15VDQG80MCS2K1W2VRR2" # Adam Olsen's key
 def enable(exaile):
@@ -33,7 +33,7 @@ class AmazonCoverSearch(CoverSearchMethod):
             Searches amazon for album covers
         """
         return self.search_covers("%s - %s" % 
-            ('/'.join(track['artist']), '/'.join(track['album'])),
+            (metadata.j(track['artist']), metadata.j(track['album'])),
             limit)
 
     def search_covers(self, search, limit=-1):

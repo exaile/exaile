@@ -14,7 +14,7 @@
 
 import os.path, os
 import urllib, traceback
-from xl import common, providers, event
+from xl import common, providers, event, metadata
 import logging
 from copy import deepcopy
 logger = logging.getLogger(__name__)
@@ -311,8 +311,8 @@ class CoverManager(providers.ProviderHandler):
         """
             Removes the cover for a track
         """
-        self.coverdb.remove_cover('/'.join(track['artist']),
-            '/'.join(track['album']))
+        self.coverdb.remove_cover(metadata.j(track['artist']),
+            metadata.j(track['album']))
 
     def set_cover(self, track, order=None):
         """ 
@@ -343,8 +343,8 @@ class CoverManager(providers.ProviderHandler):
                 new art
         """
         try:
-            cover = self.coverdb.get_cover('/'.join(track['artist']), 
-                '/'.join(track['album']))
+            cover = self.coverdb.get_cover(metadata.j(track['artist']), 
+                metadata.j(track['album']))
         except TypeError: # one of the fields is missing
             raise NoCoverFoundException() 
         if not cover:
@@ -356,8 +356,8 @@ class CoverManager(providers.ProviderHandler):
         else: return cover
 
         if update_track:
-            self.coverdb.set_cover('/'.join(track['artist']), 
-                '/'.join(track['album']), cover)
+            self.coverdb.set_cover(metadata.j(track['artist']), 
+                metadata.j(track['album']), cover)
 
         event.log_event('cover_found', self, (track, cover))
 

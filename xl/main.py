@@ -337,6 +337,8 @@ class Exaile(object):
         # stop the various idle based threads so they don't freak out when the
         # program exits.  Silly Python.
         event.IDLE_MANAGER.stop()
+        for timer in event._TIMERS:
+            timer.cancel()
 
         # this event should be used by plugins and modules that dont need
         # to be saved in any particular order. modules that might be 

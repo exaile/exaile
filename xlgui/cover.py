@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from xl import xdg, event, cover, common
+from xl import xdg, event, cover, common, metadata
 from xlgui import guiutil, commondialogs
 import gtk, gobject, gtk.glade, time
 import logging, traceback
@@ -152,8 +152,8 @@ class CoverManager(object):
         items = []
         for track in tracks:
             try:
-                artist = '/'.join(track['artist'])
-                album = '/'.join(track['album'])
+                artist = metadata.j(track['artist'])
+                album = metadata.j(track['album'])
             except KeyError:
                 continue
             except TypeError:
@@ -604,8 +604,8 @@ class CoverChooser(gobject.GObject):
         self.window = self.xml.get_widget('CoverChooser')
         self.window.set_title("%s - %s" % 
             (
-                '/'.join(track['artist']), 
-                '/'.join(track['album'])
+                metadata.j(track['artist']), 
+                metadata.j(track['album'])
             ))
         self.window.set_transient_for(parent)
 
@@ -629,8 +629,8 @@ class CoverChooser(gobject.GObject):
         self.box.pack_start(self.cover, True, True)
 
         self.last_search = "%s - %s" % (
-            '/'.join(track['artist']), 
-            '/'.join(track['album'])
+            metadata.j(track['artist']), 
+            metadata.j(track['album'])
         )
 
         self.fetch_cover(track)
@@ -677,8 +677,8 @@ class CoverChooser(gobject.GObject):
         cover = self.covers[self.current]
 
         self.manager.coverdb.set_cover(
-            '/'.join(track['artist']),
-            '/'.join(track['album']),
+            metadata.j(track['artist']),
+            metadata.j(track['album']),
             cover)
 
         self.emit('cover-chosen', cover)

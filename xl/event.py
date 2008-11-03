@@ -35,6 +35,7 @@ from xl import common
 # define these here so the interperter doesn't complain about them
 EVENT_MANAGER = None
 IDLE_MANAGER  = None
+_TIMERS = []
 
 _TESTING = False  # this is used by the testsuite to make all events syncronous
 
@@ -72,6 +73,7 @@ class EventTimer(object):
 
 def timeout_add(interval, function, *args, **kwargs):
     timer = EventTimer(interval, function, *args, **kwargs)
+    _TIMERS.append(timer)
 
     return timer    
 

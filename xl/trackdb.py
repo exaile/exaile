@@ -102,7 +102,7 @@ class TrackDB(object):
             event.timeout_add(300000, self._timeout_save)
 
     def _timeout_save(self):
-        self.save()
+        self.save_to_location()
         return True
 
     def set_name(self, name):

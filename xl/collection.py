@@ -407,6 +407,27 @@ class Library(object):
 
         return count
 
+    def _check_compilation(self, ccheck, compilations, tr):
+
+        # check for compilations
+        basedir = tr['basedir']
+        album = metadata.j(tr['album'])
+        artist = metadata.j(tr['artist'])
+        if not basedir or not album or not artist: return
+        if not basedir in ccheck:
+            ccheck[basedir] = {}
+
+        if not album in ccheck[basedir]:
+            ccheck[basedir][album] = []
+
+        if ccheck[basedir][album] and not \
+            artist in ccheck[basedir][album]:
+            if not (basedir, album) in compilations:
+                compilations.append((basedir, album))
+            logger.info("Compilation detected: %s" % ((basedir, album),))
+
+        ccheck[basedir][album].append(artist)
+
     def rescan(self, notify_interval=None):
         """
             Rescan the associated folder and add the contained files
@@ -421,6 +442,9 @@ class Library(object):
         self.scanning = True
         formats = metadata.formats.keys()
         db = self.collection
+
+        compilations = []
+        ccheck = {} # compilations dict
 
         count = 0
         for folder in os.walk(self.location):
@@ -449,10 +473,19 @@ class Library(object):
                     if tr._scan_valid == True:
                         db.add(tr)
 
+                self._check_compilation(ccheck, compilations, tr)
+
                 # notify scanned tracks
                 if notify_interval is not None:
                     if count % notify_interval == 0:
                         event.log_event('tracks_scanned', self, count)
+
+        for (basedir, album) in compilations:
+            print "*** ", (basedir, album)
+            items = db.search('basedir="%s" album="%s"' % (basedir, album))
+            print items
+            for item in items:
+                item['compilation'] = (basedir, album)
 
         if notify_interval is not None:
             event.log_event('tracks_scanned', self, count)

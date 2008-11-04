@@ -108,11 +108,11 @@ class ExaileScrobbler(object):
             self.time_started = 0
         self.start_time = time.time()
 
-        if track.get_type() == 'file':
+        if track.is_local():
             self.now_playing(player, track)
 
     def on_stop(self, type, player, track):
-        if not track or track.get_type() != 'file': 
+        if not track or not track.is_local(): 
             return
         playtime = track['playtime'] - self.time_started
         if playtime > 240 or playtime > float(track['length']) / 2.0:

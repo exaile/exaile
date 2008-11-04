@@ -57,7 +57,7 @@ class PlaybackProgressBar(object):
         if value > 1: value = 1
 
         track = self.player.current
-        if not track or track.get_type() != 'file': return
+        if not track or not track.is_local(): return
         length = track.get_duration()
 
         seconds = float(value * length)
@@ -71,7 +71,7 @@ class PlaybackProgressBar(object):
 
     def seek_motion_notify(self, widget, event):
         track = self.player.current
-        if not track or track.get_type() != 'file': return
+        if not track or not track.is_local(): return
 
         mouse_x, mouse_y = event.get_coords()
         progress_loc = self.bar.get_allocation()
@@ -100,7 +100,7 @@ class PlaybackProgressBar(object):
     def timer_update(self, *e):
         track = self.player.current
 
-        if track.get_type() != 'file':
+        if not track.is_local():
             self.bar.set_text('Streaming...')
             return
         length = track.get_duration()
@@ -510,7 +510,7 @@ class MainWindow(object):
             Called when tags are parsed from a stream/track
         """
         (tr, args) = args
-        if tr.get_type() == 'file': return
+        if tr.is_local(): return
         if track.parse_stream_tags(tr, args):
             self._update_track_information()
             self.cover.on_playback_start('', self.player, None)

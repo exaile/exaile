@@ -178,6 +178,12 @@ class Track(object):
             ntags = f.read_all()
             for k,v in ntags.iteritems():
                 self[k] = v
+                
+
+            # fill out file specific items
+            mtime = os.path.getmtime(self.get_loc_for_io())
+            self['modified'] = mtime
+            self['basedir'] = os.path.dirname(self.get_loc_for_io())
             return f
         except:
             common.log_exception()

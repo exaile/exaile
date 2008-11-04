@@ -414,6 +414,8 @@ class Library(object):
         album = metadata.j(tr['album'])
         artist = metadata.j(tr['artist'])
         if not basedir or not album or not artist: return
+        album = album.lower()
+        artist = artist.lower()
         if not basedir in ccheck:
             ccheck[basedir] = {}
 

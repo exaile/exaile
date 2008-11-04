@@ -71,7 +71,7 @@ class Track(object):
         """
         try:
             return common.to_unicode(self['loc'],
-                    common.get_default_encoding())
+                common.get_default_encoding())
         except:
             return self['loc']
 
@@ -87,7 +87,7 @@ class Track(object):
         """
             Returns the album tuple for use in the coverdb
         """
-        # idealy, this will use album artist, but for now, it just uses
+        # TODO: idealy, this will use album artist, but for now, it just uses
         # compilation by directory support, or just (artist, album)
 
         if self['compilation']:

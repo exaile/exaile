@@ -83,6 +83,19 @@ class Track(object):
         """
         return self['loc']
 
+    def get_album_tuple(self):
+        """
+            Returns the album tuple for use in the coverdb
+        """
+        # idealy, this will use album artist, but for now, it just uses
+        # compilation by directory support, or just (artist, album)
+
+        if self['compilation']:
+            return self['compilation']
+        else:
+            return (metadata.j(self['artist']), 
+                metadata.j(self['album']))
+
     def get_type(self):
         b = self['loc'].find('://')
         if b == -1: 
@@ -137,6 +150,8 @@ class Track(object):
         """
             Allows retrieval of tags via Track[tag] syntax.
         """
+        if tag == 'basedir':
+            return [self.get_tag(tag)]
         return self.get_tag(tag)
 
     def __setitem__(self, tag, values):

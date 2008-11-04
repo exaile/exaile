@@ -49,6 +49,7 @@ class ID3Format(BaseFormat):
     writable = True
 
     def _get_tag(self, raw, t):
+        if not raw.tags: return []
         field = raw.tags.getall(t)
         if len(field) <= 0:
             return []

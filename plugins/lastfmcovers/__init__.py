@@ -29,11 +29,12 @@ class LastFMCoverSearch(CoverSearchMethod):
             Searches last.fm for album covers
         """
         cache_dir = self.manager.cache_dir
+        (artist, album) = track.get_album_tuple()
 
         data = urllib.urlopen(self.url % 
         {
-            'album': urllib.quote_plus(track['album'][0]),
-            'artist': urllib.quote_plus(track['artist'][0])
+            'album': urllib.quote_plus(album),
+            'artist': urllib.quote_plus(artist)
         }).read()
 
         m = self.regex.search(data)

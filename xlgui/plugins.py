@@ -133,9 +133,6 @@ class PluginManager(object):
             info['Description'].replace(r'\n', "\n"))
         self.name_label.set_markup("<b>%s</b>" % info['Name'])
 
-    def run(self):
-        return self.dialog.run()
-
     def toggle_cb(self, cell, path, model):
         """
             Called when the checkbox is toggled

@@ -227,7 +227,7 @@ class TrackDB(object):
         try:
             os.rename(location, location + ".old")
         except:
-            pass # if it doesn'texist we don't care
+            pass # if it doesn't exist, we don't care
         os.rename(location + ".new", location)
         try:
             os.remove(location + ".old")
@@ -582,9 +582,12 @@ class TrackSearcher(object):
             if "==" in token:
                 tag, sym, content = token.partition("==")
                 content = content.strip().strip('"')
-                if content == "NONE":
-                    content == None
+                if content == "__null__":
+                    content = None
                 for l,tr in current_list.iteritems():
+                    if content == tr[tag]:
+                        new_list[l] = tr
+                        continue
                     try:
                         for t in tr[tag]:
                             if str(t).lower() == content or t == content:

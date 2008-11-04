@@ -156,8 +156,8 @@ class CollectionPanel(panel.Panel):
         self.tree.set_row_separator_func(
             lambda m, i: m.get_value(i, 1) is None)
 
-        self.model = gtk.TreeStore(gtk.gdk.Pixbuf, str)
-        self.model_blank = gtk.TreeStore(gtk.gdk.Pixbuf, str)
+        self.model = gtk.TreeStore(gtk.gdk.Pixbuf, str, str)
+        self.model_blank = gtk.TreeStore(gtk.gdk.Pixbuf, str, str)
 
         self.tree.connect("row-expanded", self.on_expanded)
 
@@ -229,7 +229,10 @@ class CollectionPanel(panel.Panel):
     def get_node_keywords(self, parent):
         if not parent:
             return []
-        values = [self.model.get_value(parent, 1)]
+        if self.model.get_value(parent, 2):
+            values = ["\a\a" + self.model.get_value(parent, 2)]
+        else:
+            values = [self.model.get_value(parent, 1)]
         iter = self.model.iter_parent(parent)
         newvals = self.get_node_keywords(iter)
         if values[0]:
@@ -247,14 +250,19 @@ class CollectionPanel(panel.Panel):
                 continue
             try:
                 word = keywords[n]
+
                 if word:
                     word = word.replace("\"","\\\"")
                 else:
                     n += 1
                     continue
                 if word == _("Unknown"):
-                    word = "NONE"
-                terms.append("%s==\"%s\""%(field, word))
+                    word = "__null__"
+
+                if word.startswith('\a\a'): 
+                    terms.append(word[2:])
+                else:
+                    terms.append("%s==\"%s\""%(field, word))
                 n += 1
             except IndexError:
                 break
@@ -333,19 +341,29 @@ class CollectionPanel(panel.Panel):
                     if char.isdigit(): char = '0'
 
                     if char != last_char:
-                        self.model.append(parent, [None, None])
+                        self.model.append(parent, [None, None, None])
                     last_char = char
 
             first = False
-            iter = self.model.append(parent, [image, v])
+            iter = self.model.append(parent, [image, v, None])
             if not bottom:
-                self.model.append(iter, [None, None])
+                self.model.append(iter, [None, None, None])
             #self.load_subtree(iter, depth+1)
+
+        # various
+        if tag == 'artist':
+            tracks = self.collection.search('! compilation==__null__',
+                tracks=self.tracks)
+            if tracks:
+                self.model.append(parent, [None, None, None])
+                iter = self.model.append(parent, [image, _('Various Artists'), 
+                    '! compilation==__null__'])
+                self.model.append(iter, [None, None, None])
 
         if unknown_items:
             for v in unknown_items:
                 if not v:
                     v = _('Unknown')
-            iter = self.model.append(parent, [image, v])
+            iter = self.model.append(parent, [image, v, None])
             if not bottom:
-                self.model.append(iter, [None, None])
+                self.model.append(iter, [None, None, None])

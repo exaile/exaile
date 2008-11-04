@@ -410,7 +410,7 @@ class Library(object):
     def _check_compilation(self, ccheck, compilations, tr):
 
         # check for compilations
-        basedir = tr['basedir']
+        basedir = metadata.j(tr['basedir'])
         album = metadata.j(tr['album'])
         artist = metadata.j(tr['artist'])
         if not basedir or not album or not artist: return
@@ -481,9 +481,7 @@ class Library(object):
                         event.log_event('tracks_scanned', self, count)
 
         for (basedir, album) in compilations:
-            print "*** ", (basedir, album)
             items = db.search('basedir="%s" album="%s"' % (basedir, album))
-            print items
             for item in items:
                 item['compilation'] = (basedir, album)
 

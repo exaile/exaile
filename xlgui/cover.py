@@ -152,12 +152,13 @@ class CoverManager(object):
         items = []
         for track in tracks:
             try:
-                artist = metadata.j(track['artist'])
-                album = metadata.j(track['album'])
+                (artist, album) = track.get_album_tuple()
             except KeyError:
                 continue
             except TypeError:
                 continue
+
+            if not album or not artist: continue
 
             if not artist in self.track_dict:
                 self.track_dict[artist] = {}
@@ -177,6 +178,7 @@ class CoverManager(object):
         self.nocover = nocover
         self.needs = 0
         for item in items:
+            if not item[0] or not item[1]: continue
             try:
                 cover = self.manager.coverdb.get_cover(item[0], item[1])
             except TypeError:
@@ -194,9 +196,12 @@ class CoverManager(object):
             if image == nocover:
                 self.needs += 1
 
+            display = "%s - %s" % (item[0], item[1])
+            if self.track_dict[item[0]][item[1]][0]['compilation']:
+                display = item[1]
+
             self.cover_nodes[item] = self.model.append(
-                ["%s - %s" % (item[0], item[1]), 
-                image, item])
+                [display, image, item])
             self.covers[item] = image
         self.icons.set_model(self.model)
         self.progress.set_text('%d covers to fetch' % self.needs)
@@ -714,5 +719,5 @@ class CoverChooser(gobject.GObject):
             Shows the current cover
         """
         logger.info(c)
-        self.cover.set_image(cover.get_cover_data(c))
+        self.cover.set_image_data(cover.get_cover_data(c))
         self.window.show_all()

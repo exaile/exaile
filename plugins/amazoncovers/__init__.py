@@ -32,9 +32,9 @@ class AmazonCoverSearch(CoverSearchMethod):
         """
             Searches amazon for album covers
         """
+        (artist, album) = track.get_album_tuple()
         return self.search_covers("%s - %s" % 
-            (metadata.j(track['artist']), metadata.j(track['album'])),
-            limit)
+            (artist, album), limit)
 
     def search_covers(self, search, limit=-1):
         cache_dir = self.manager.cache_dir

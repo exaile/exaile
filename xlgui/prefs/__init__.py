@@ -22,7 +22,7 @@ import gtk, gtk.glade
 from xl import xdg
 from xlgui.prefs.widgets import *
 from xlgui.prefs import general_prefs, osd_prefs, cover_prefs
-import logging, traceback
+import logging, traceback, gobject
 
 logger = logging.getLogger(__name__)
 
@@ -85,6 +85,7 @@ class PreferencesDialog(object):
                     if not plugin: continue
                 except:
                     continue
+
             if hasattr(plugin, 'get_prefs_pane'):
                 if name == plugin_page:
                     select_path = count
@@ -98,11 +99,12 @@ class PreferencesDialog(object):
 
         if not type(select_path) == tuple:
             self.tree.expand_row(self.model.get_path(plug_root), False)
-            select_path = (1, select_path)
+            select_path = (self.model.get_path(plug_root)[0], select_path)
 
         selection = self.tree.get_selection()
         selection.connect('changed', self.switch_pane)
-        selection.select_path(select_path)
+
+        gobject.idle_add(selection.select_path, select_path)
 
     def _connect_events(self):
         """

@@ -97,7 +97,7 @@ class Main(object):
         """
         dialog = plugins.PluginManager(self, self.main.window, 
             self.exaile.plugins)
-        dialog.run()
+        dialog.dialog.show_all()
 
     def show_preferences(self, plugin_page=None):
         """

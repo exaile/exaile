@@ -178,7 +178,7 @@ class SettingsManager(SafeConfigParser):
         """
             Save the settings to disk
         """
-        if self._saving or self._dirty: return
+        if self._saving or not self._dirty: return
         self._saving = True
         f = open(self.loc, 'w')
         self.write(f)

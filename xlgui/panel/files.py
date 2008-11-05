@@ -249,7 +249,7 @@ class FilesPanel(panel.Panel):
 
             else:
                 (stuff, ext) = os.path.splitext(path)
-                if ext.lower() in metadata.formats:
+                if ext.lower()[1:] in metadata.formats:
                     files.append(path)
 
         directories.sort()

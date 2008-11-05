@@ -208,6 +208,7 @@ class Track(object):
             mtime = os.path.getmtime(self.get_loc_for_io())
             self['modified'] = mtime
             self['basedir'] = os.path.dirname(self.get_loc_for_io())
+            self._dirty = True
             return f
         except:
             common.log_exception()

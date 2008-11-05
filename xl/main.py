@@ -130,9 +130,10 @@ class Exaile(object):
         self.devices = devices.DeviceManager()
 
         #initialize HAL
-        from xl import hal
-        self.hal = hal.HAL(self.devices)
-        self.hal.connect()
+        if self.options.hal:
+            from xl import hal
+            self.hal = hal.HAL(self.devices)
+            self.hal.connect()
 
         # cover manager
         from xl import cover
@@ -269,6 +270,8 @@ class Exaile(object):
             default=False, help="Reduce level of output")
         p.add_option('--startgui', dest='startgui', action='store_true',
             default=False)
+        p.add_option('--no-hal', dest='hal', action='store_false',
+            default=True, help="Disable HAL support.")
         return p
 
     def _add_default_playlists(self):

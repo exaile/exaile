@@ -24,6 +24,9 @@ try:
     import cPickle as pickle
 except:
     import pickle
+
+import shelve
+
 from copy import deepcopy
 import logging, random, time, os, time
 logger = logging.getLogger(__name__)
@@ -138,25 +141,28 @@ class TrackDB(object):
         if not location:
             raise AttributeError("You did not specify a location to save the db")
 
-        pdata = None
-        for loc in [location, location+".old", location+".new"]:
-            try:
-                f = open(loc, 'rb')
-                pdata = pickle.load(f)
-                f.close()
-            except:
-                pdata = None
-            if pdata:
-                break
-        if not pdata:
-            pdata = dict()
+#       pdata = None
+#       for loc in [location, location+".old", location+".new"]:
+#           try:
+#               f = open(loc, 'rb')
+#               pdata = pickle.load(f)
+#               f.close()
+#           except:
+#               pdata = None
+#           if pdata:
+#               break
+#       if not pdata:
+#           pdata = dict()
+
+        pdata = shelve.open(self.location, flag='c', 
+                protocol=common.PICKLE_PROTOCOL)
 
         for attr in self.pickle_attrs:
             try:
                 if 'tracks' in attr:
                     if type(pdata[attr]) == list:
-                        setattr(self, attr,
-                                [ track.Track(_unpickles=x) for x in pdata[attr] ] )
+                        setattr(self, attr, [ track.Track(_unpickles=x) 
+                                for x in pdata[attr] ] )
                     elif type(pdata[attr]) == dict:
                         data = pdata[attr]
                         for k, v in data.iteritems():
@@ -166,6 +172,8 @@ class TrackDB(object):
                     setattr(self, attr, pdata[attr])
             except:
                 pass #FIXME
+
+        pdata.close()
 
         self._dirty = False 
 
@@ -177,8 +185,9 @@ class TrackDB(object):
             location: the location to save the data to [string]
         """
         for k, track in self.tracks.iteritems():
-            if track._dirty: self._dirty = True
-            track._dirty = False
+            if track._dirty: 
+                self._dirty = True
+                break
 
         if not self._dirty:
             return
@@ -188,51 +197,61 @@ class TrackDB(object):
         if not location:
             raise AttributeError("You did not specify a location to save the db")
 
-        if self._saving: return
+        if self._saving: 
+            return
         self._saving = True
 
-        try:
-            f = file(location, 'rb')
-            pdata = pickle.load(f)
-            f.close()
-        except:
-            pdata = dict()
+#       try:
+#           f = file(location, 'rb')
+#           pdata = pickle.load(f)
+#           f.close()
+#       except:
+#           pdata = dict()
+
+        pdata = shelve.open(self.location, flag='c', 
+                protocol=common.PICKLE_PROTOCOL)
+
         for attr in self.pickle_attrs:
             if True:
                 # bad hack to allow saving of lists/dicts of Tracks
                 if 'tracks' in attr:
                     if type(getattr(self, attr)) == list:
                         pdata[attr] = [ x._pickles() \
-                                for x in getattr(self, attr) ]
+                                for x in getattr(self, attr) if x._dirty ]
                     elif type(getattr(self, attr)) == dict:
                         data = deepcopy(getattr(self, attr))
                         for k,v in data.iteritems():
-                            data[k] = v._pickles()
+                            if v._dirty:
+                                data[k] = v._pickles()
                         pdata[attr] = data
                 else:
                     pdata[attr] = deepcopy(getattr(self, attr))
             else:
                 pass
-        try:
-            os.remove(location + ".old")
-        except:
-            pass
-        try:
-            os.remove(location + ".new")
-        except:
-            pass
-        f = file(location + ".new", 'wb')
-        pickle.dump(pdata, f, common.PICKLE_PROTOCOL)
-        f.close()
-        try:
-            os.rename(location, location + ".old")
-        except:
-            pass # if it doesn't exist, we don't care
-        os.rename(location + ".new", location)
-        try:
-            os.remove(location + ".old")
-        except:
-            pass
+
+        pdata.sync()
+        pdata.close()
+
+#       try:
+#           os.remove(location + ".old")
+#       except:
+#           pass
+#       try:
+#           os.remove(location + ".new")
+#       except:
+#           pass
+#       f = file(location + ".new", 'wb')
+#       pickle.dump(pdata, f, common.PICKLE_PROTOCOL)
+#       f.close()
+#       try:
+#           os.rename(location, location + ".old")
+#       except:
+#           pass # if it doesn't exist, we don't care
+#       os.rename(location + ".new", location)
+#       try:
+#           os.remove(location + ".old")
+#       except:
+#           pass
         
         self._dirty = False
         self._saving = False
@@ -259,7 +278,7 @@ class TrackDB(object):
             track exists, returns None
         """
         try:
-            return self.tracks[unicode(loc)]
+            return self.tracks[loc]
         except KeyError:
             return None
 

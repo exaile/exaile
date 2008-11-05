@@ -127,13 +127,11 @@ Sorting Tags
         MP4 also provides such tags
         are there ones for APE/OGG?
 
-
 random plugin ideas:
     jamendo
     magnatune
     ladspa plugins
     pitch/tempo adjust
-
 
 DB optimization:
     the current DB in 0.3 is quite fast but also uses a lot of memory
@@ -147,22 +145,25 @@ DB optimization:
         all of this should be completely transparent, requiring no change to 
             the Track/TrackDB external API
 
-
 HAL outputs:
     allow selection of device to output to via halaudiosink
         - this would very neatly solve the problem of how to allow
             user to select their output device
         - the following HAL keys may be useful:
             - sound cards have sound.* namespace and sound in info.capabilities
-                - sound.card_id 
+                - sound.card_id is a string for displaying to user
             - info.capabilities will contain oss.* or alsa.* namespaces for 
                 sound devices
-                - .device exists on playback devices
+                - alsa.type is playback on playback devices, there
+                    doesn't seem to be an equivalent key for oss.
                 - .originating_device can be used to group by card
                 - .device_id is a string for displaying to user
-
-            
-
+            - info.capabilities will have access_control and alsa/oss
+                for mixers, which might be a better target than the 
+                outputs themselves
+                - .type is mixer
+                - .originating_device can be used to group by card
+                - .device_id is a string for displaying to user
 
 Session management:
     we should properly support x session management

@@ -408,7 +408,21 @@ class Library(object):
         return count
 
     def _check_compilation(self, ccheck, compilations, tr):
+        """
+            This is the hacky way to test to see if a particular track is a
+            part of a compilation.
 
+            Basically, if there is more than one track in a directory that has
+            the same album but different artist, we assume that it's part of a
+            compilation.
+
+            @param ccheck: dictionary for internal use
+            @param compilations: if a compilation is found, it'll be appended
+                to this list
+            @param tr: the track to check
+        """
+        # TODO: make this optional, probably in the advanced configuration
+        # editor
         # check for compilations
         basedir = metadata.j(tr['basedir'])
         album = metadata.j(tr['album'])

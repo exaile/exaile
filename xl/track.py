@@ -87,10 +87,19 @@ class Track(object):
         """
             Returns the album tuple for use in the coverdb
         """
-        # TODO: idealy, this will use album artist, but for now, it just uses
-        # compilation by directory support, or just (artist, album)
-
-        if self['compilation']:
+        # TODO: support albumartist tags in id3 somehow, right now only ogg is
+        # supported. See collection.Collection._check_compilations for how
+        # we're currently supporting compilations for tracks that don't have
+        # this tags
+        if self['albumartist']:
+            # most of the cover stuff is expecting a 2 item tuple, so we just
+            # return the albumartist twice
+            return (metadata.j(self['albumartist']),
+                metadata.j(self['albumartist']))
+        elif self['compilation']:
+            # this should be a 2 item tuple, containing the basedir and the
+            # album.  It is populated in
+            # collection.Collection._check_compilations
             return self['compilation']
         else:
             return (metadata.j(self['artist']), 

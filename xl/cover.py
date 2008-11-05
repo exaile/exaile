@@ -343,6 +343,8 @@ class CoverManager(providers.ProviderHandler):
         """
         try:
             item = track.get_album_tuple()
+            if not item[0] or not item[1]: 
+                raise NoCoverFoundException()
             cover = self.coverdb.get_cover(item[0], item[1]) 
         except TypeError: # one of the fields is missing
             raise NoCoverFoundException() 

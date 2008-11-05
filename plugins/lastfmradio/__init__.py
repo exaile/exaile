@@ -95,14 +95,15 @@ def disable(exaile):
     global STATION, PROXY
 
     exaile.radio.remove_station(STATION)
-    STATION = None
     if PROXY:
         PROXY.np_image_func = None
         PROXY.quit = True
 
     PROXY = True
-    event.remove_callback(STATION.on_playback_start, 'playback_start',
-        exaile.player)
+    if STATION:
+        event.remove_callback(STATION.on_playback_start, 'playback_start',
+            exaile.player)
+    STATION = None
 
 class LastFMRadioStation(RadioStation):
     """

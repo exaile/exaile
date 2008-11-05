@@ -14,7 +14,7 @@
 
 import gtk, gobject, os, locale, re
 import xl.track, urllib
-from xl import common, trackdb
+from xl import common, trackdb, metadata
 from xlgui import panel, guiutil, xdg, menu, playlist
 locale.setlocale(locale.LC_ALL, '')
 
@@ -59,6 +59,8 @@ class FilesPanel(panel.Panel):
         self.tree.set_model(self.model)
         self.tree.connect('row-activated', self.row_activated)
 
+        selection = self.tree.get_selection()
+        selection.set_mode(gtk.SELECTION_MULTIPLE)
         self.scroll = gtk.ScrolledWindow()
         self.scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         self.scroll.add(self.tree)
@@ -247,8 +249,8 @@ class FilesPanel(panel.Panel):
 
             else:
                 (stuff, ext) = os.path.splitext(path)
-                #if ext.lower() in xl.track.SUPPORTED_MEDIA:
-                files.append(path)
+                if ext.lower() in metadata.formats:
+                    files.append(path)
 
         directories.sort()
         files.sort()
@@ -352,6 +354,7 @@ class FilesPanel(panel.Panel):
             Called when a drag source wants data for this drag operation
         """
         tracks = self.get_selected_tracks()
+        if not tracks: return
         for track in tracks:
             guiutil.DragTreeView.dragged_data[track.get_loc()] = track
         urls = guiutil.get_urls_for(tracks)

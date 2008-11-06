@@ -99,6 +99,7 @@ class PlaybackProgressBar(object):
 
     def timer_update(self, *e):
         track = self.player.current
+        if not track: return
 
         if not track.is_local():
             self.bar.set_text('Streaming...')

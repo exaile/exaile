@@ -90,7 +90,7 @@ class Track(object):
         # TODO: support albumartist tags in id3 somehow, right now only ogg is
         # supported. See collection.Collection._check_compilations for how
         # we're currently supporting compilations for tracks that don't have
-        # this tags
+        # this tag
         if self['albumartist']:
             # most of the cover stuff is expecting a 2 item tuple, so we just
             # return the albumartist twice
@@ -224,14 +224,15 @@ class Track(object):
         t = self.get_tag('tracknumber')
     
         try:
-            if type(t) is tuple:
-                return int(t[0])
+            if type(t) == tuple or type(t) == list:
+                t = t[0]
 
             if t == None:
                 return -1
-            t = t[0].split("/")[0]
+            t = t.split("/")[0]
             return int(t)
         except ValueError:
+            print "AAAA"
             return t
 
     def get_rating(self):

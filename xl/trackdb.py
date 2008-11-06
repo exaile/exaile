@@ -68,7 +68,7 @@ def sort_tracks(fields, tracks, reverse=False):
     tracks.sort()
     if reverse: tracks.reverse()
 
-    return [t[-1:][0] for t in tracks]
+    return [t[-1] for t in tracks]
 
 class TrackDB(object):
     """

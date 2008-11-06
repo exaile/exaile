@@ -306,7 +306,8 @@ class FilesPanel(panel.Panel):
 
         if tracks:
             # sort the tracks
-            tracks = trackdb.sort_tracks(('artist', 'album', 'tracknumber'),
+            tracks = trackdb.sort_tracks(
+                ('artist', 'album', 'discnumber', 'tracknumber'),
                 tracks)
             return tracks
 

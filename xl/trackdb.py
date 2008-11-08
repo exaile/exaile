@@ -217,7 +217,7 @@ class TrackDB(object):
                 if 'tracks' in attr:
                     if type(getattr(self, attr)) == list:
                         pdata[attr] = [ x._pickles() \
-                                for x in getattr(self, attr) if x._dirty ]
+                                for x in getattr(self, attr) ]
                     elif type(getattr(self, attr)) == dict:
                         data = deepcopy(getattr(self, attr))
                         for k,v in data.iteritems():
@@ -253,6 +253,10 @@ class TrackDB(object):
 #       except:
 #           pass
         
+        for track in self.tracks.itervalues():
+            if track._dirty: 
+                track._dirty = False
+
         self._dirty = False
         self._saving = False
 

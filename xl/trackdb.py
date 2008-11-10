@@ -129,6 +129,7 @@ class TrackDB(object):
         self.location = location
         self._dirty = True
 
+    @common.synchronized
     def load_from_location(self, location=None):
         """
             Restores TrackDB state from the pickled representation
@@ -177,6 +178,7 @@ class TrackDB(object):
 
         self._dirty = False 
 
+    @common.synchronized
     def save_to_location(self, location=None):
         """
             Saves a pickled representation of this TrackDB to the 
@@ -365,6 +367,7 @@ class TrackDB(object):
         """
         self.add_tracks([track])
 
+    @common.synchronized
     def add_tracks(self, tracks):
         for tr in tracks:
             self.tracks[tr.get_loc()] = tr
@@ -378,7 +381,8 @@ class TrackDB(object):
             track: the Track to remove [Track]    
         """
         self.remove_tracks([track])
-                
+    
+    @common.synchronized            
     def remove_tracks(self, tracks):
         for tr in tracks:
             del self.tracks[tr.get_loc()]

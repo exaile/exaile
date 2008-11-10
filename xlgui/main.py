@@ -195,7 +195,6 @@ class MainWindow(object):
         self.collection =  collection
         self.player = player
         self.queue = queue
-        self._cached_count = -1
         self.current_page = -1 
 
         self.xml = xml
@@ -427,11 +426,9 @@ class MainWindow(object):
         """
         if not self.get_selected_playlist(): return
 
-        if self._cached_count == -1:
-            self._cached_count = self.collection.get_count()
-
         message = "%d showing, %d in collection" \
-            % (len(self.get_selected_playlist().playlist), self._cached_count)
+            % (len(self.get_selected_playlist().playlist), 
+               self.collection.get_count())
         
         queuecount = len(self.queue)
         if queuecount:

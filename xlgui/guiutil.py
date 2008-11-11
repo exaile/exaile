@@ -361,8 +361,15 @@ def get_icon(id, size=gtk.ICON_SIZE_BUTTON):
     except gobject.GError:
         pass
     
-    return gtk.gdk.pixbuf_new_from_file(
-        os.path.join(xdg.get_image_dir(), 'default_theme', id + '.png'))
+    # If no stock icon exists for the specified ID, search in the "images" data
+    # directory.
+    path = xdg.get_data_path('images', id + '.png')
+    
+    # Fallback to the "track.png" file.
+    if not path:
+        path = xdg.get_data_path('images', 'track.png')
+    
+    return gtk.gdk.pixbuf_new_from_file(path)
 
 BITMAP_CACHE = dict()
 def get_text_icon(widget, text, width, height, bgcolor='#456eac',   

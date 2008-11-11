@@ -58,7 +58,7 @@ class Exaile(object):
         self.mainloop_init()
         
         #initialize DbusManager
-        if self.options.startgui:
+        if self.options.startgui and self.options.dbus:
             from xl import xldbus
             if xldbus.check_exit(self.options, self.args):
                 sys.exit(0)
@@ -270,6 +270,8 @@ class Exaile(object):
             default=False, help="Reduce level of output")
         p.add_option('--startgui', dest='startgui', action='store_true',
             default=False)
+        p.add_option('--no-dbus', dest='dbus', action='store_false',
+            default=True, help="Disable D-Bus support")
         p.add_option('--no-hal', dest='hal', action='store_false',
             default=True, help="Disable HAL support.")
         return p
@@ -300,11 +302,13 @@ class Exaile(object):
             self.smart_playlists.save_playlist(pl, overwrite=True)
 
     def mainloop_init(self):
-        import gobject, dbus, dbus.mainloop.glib
+        import gobject
         gobject.threads_init()
-        dbus_loop = dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
-        dbus.mainloop.glib.threads_init()
-        dbus.mainloop.glib.gthreads_init()
+        if self.options.dbus:
+            import dbus, dbus.mainloop.glib
+            dbus_loop = dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+            dbus.mainloop.glib.threads_init()
+            dbus.mainloop.glib.gthreads_init()
         if self.options.startgui:
             import gtk
             gtk.gdk.threads_init()

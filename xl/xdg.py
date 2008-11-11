@@ -58,7 +58,8 @@ def get_data_dirs():
 def get_cache_dir():
     return cache_home
 
-def get_data_path(subpath):
+def get_data_path(*subpath_elements):
+    subpath = os.path.join(*subpath_elements)
     for dir in data_dirs:
         path = os.path.join(dir, subpath)
         if os.path.exists(path):

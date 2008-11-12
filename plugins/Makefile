@@ -1,16 +1,28 @@
+PREFIX 		?= /usr/local
+PLUGINSDIR 	?= /share/exaile/plugins/
 
+INSTALL_PLUGINS := amazoncovers audioscrobbler gnomemmkeys lastfmdynamic \
+	lyricwiki notify shoutcast cd lastfmradio
 
-dist: clean
-	python dist_plugin.py amazoncovers
-	python dist_plugin.py audioscrobbler
-	python dist_plugin.py console
-	python dist_plugin.py gnomemmkeys	
-	python dist_plugin.py lastfmcovers
-	python dist_plugin.py lastfmdynamic
-	python dist_plugin.py lyricsfly
-	python dist_plugin.py lyricwiki
-	python dist_plugin.py notify
-	python dist_plugin.py shoutcast
+DIST_PLUGINS := amazoncovers audioscrobbler console gnomemmkeys lastfmcovers \
+	lastfmdynamic lyricsfly lyricwiki notify shoutcast cd lastfmradio \
+	streamripper tagcovers
+
+dist:	clean
+	python dist_plugin.py $(DIST_PLUGINS)
+
+compile:
+	python -m compileall .
+	python -O -m compileall .
+
+install: compile
+	mkdir -p $(PREFIX)$(PLUGINSDIR)
+	for plugin in $(INSTALL_PLUGINS); do \
+	    cp -r $${plugin} $(PREFIX)$(PLUGINSDIR) ; \
+	    done ;
+
+uninstall:
+	rm -rf $(PREFIX)$(PLUGINSDIR)*
 
 clean:
 	find . -name "*.py[co]" -exec rm -f {} \;

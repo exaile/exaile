@@ -7,6 +7,7 @@
 # outputs the built plugin to the current directory, overwriting any current
 # build of that plugin
 
+# TODO: let these globals be set with commandline options
 
 # allowed values: "", "gz", "bz2"
 COMPRESSION = "bz2"
@@ -19,30 +20,34 @@ IGNORED_FILES = ["test.py"]
 
 import sys, os, tarfile
 
-dir = sys.argv[1]
+for dir in sys.argv[1:]:
 
-if not os.path.exists(dir):
-    print "No such folder %s" % dir
-    sys.exit(1)
+    if not os.path.exists(dir):
+        print "No such folder %s" % dir
+        break
 
-tfile = tarfile.open(dir + ".exz", "w:%s"%COMPRESSION)
-tfile.posix = True # we like being standards-compilant
+    print "Making plugin %s..."%dir
 
-for fold, subdirs, files in os.walk(dir):
-    for file in files:
-        stop = False
-        for ext in IGNORED_EXTENSIONS:
-            if file.endswith(ext):
-                stop = True
-                break
-        if stop: break
-        for name in IGNORED_FILES:
-            if file == name:
-                stop = True
-                break
-        if stop: continue
+    tfile = tarfile.open(dir + ".exz", "w:%s"%COMPRESSION)
+    tfile.posix = True # we like being standards-compilant
 
-        path = os.path.join(fold, file)
-        tfile.add(path)
+    for fold, subdirs, files in os.walk(dir):
+        for file in files:
+            stop = False
+            for ext in IGNORED_EXTENSIONS:
+                if file.endswith(ext):
+                    stop = True
+                    break
+            if stop: break
+            for name in IGNORED_FILES:
+                if file == name:
+                    stop = True
+                    break
+            if stop: continue
 
-tfile.close()
+            path = os.path.join(fold, file)
+            tfile.add(path)
+
+    tfile.close()
+
+print "Done."

@@ -21,6 +21,22 @@ make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/data/images
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/data/glade
 
+uninstall:
+	rm -f  $(DESTDIR)$(PREFIX)/bin/exaile
+	rm -rf $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile
+	rm -rf $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/lib
+	rm -rf $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xl
+	rm -rf $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xl/metadata
+	rm -rf $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui
+	rm -rf $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui/panel
+	rm -rf $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui/prefs
+	rm -rf $(DESTDIR)$(PREFIX)/share/exaile
+	rm -rf $(DESTDIR)$(PREFIX)/share/exaile/data
+	rm -rf $(DESTDIR)$(PREFIX)/share/exaile/data/images
+	rm -rf $(DESTDIR)$(PREFIX)/share/exaile/data/glade
+	cd plugins && make uninstall && cd ..
+
+
 install: make-install-dirs compile
 	install -m 644 exaile.py $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile	
 	install -m 644 xl/*.py[co] $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xl
@@ -53,6 +69,8 @@ install: make-install-dirs compile
 	 "--datadir=$(PREFIX)/share/exaile/data --startgui \"\$$@\"" \
 	 > exaile && \
 	chmod 755 exaile
+
+	cd plugins && make install PREFIX=$(PREFIX)
 
 plugins_dist:
 	cd plugins && make dist && cd ..

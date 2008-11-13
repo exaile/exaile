@@ -142,21 +142,12 @@ class TrackDB(object):
         if not location:
             raise AttributeError("You did not specify a location to save the db")
 
-#       pdata = None
-#       for loc in [location, location+".old", location+".new"]:
-#           try:
-#               f = open(loc, 'rb')
-#               pdata = pickle.load(f)
-#               f.close()
-#           except:
-#               pdata = None
-#           if pdata:
-#               break
-#       if not pdata:
-#           pdata = dict()
-
-        pdata = shelve.open(self.location, flag='c', 
-                protocol=common.PICKLE_PROTOCOL)
+        try:
+            pdata = shelve.open(self.location, flag='c', 
+                    protocol=common.PICKLE_PROTOCOL)
+        except:
+            logger.error("Failed to open music DB.")
+            return
 
         for attr in self.pickle_attrs:
             try:
@@ -203,15 +194,17 @@ class TrackDB(object):
             return
         self._saving = True
 
-#       try:
-#           f = file(location, 'rb')
-#           pdata = pickle.load(f)
-#           f.close()
-#       except:
-#           pdata = dict()
-
-        pdata = shelve.open(self.location, flag='c', 
-                protocol=common.PICKLE_PROTOCOL)
+        try:
+            pdata = shelve.open(self.location, flag='c', 
+                    protocol=common.PICKLE_PROTOCOL)
+        except:
+            try:
+                os.remove(self.location)
+                pdata = shelve.open(self.location, flag='c', 
+                        protocol=common.PICKLE_PROTOCOL)
+            except:
+                logger.error("Failed to open music DB for write.")
+                return
 
         for attr in self.pickle_attrs:
             if True:
@@ -233,27 +226,6 @@ class TrackDB(object):
 
         pdata.sync()
         pdata.close()
-
-#       try:
-#           os.remove(location + ".old")
-#       except:
-#           pass
-#       try:
-#           os.remove(location + ".new")
-#       except:
-#           pass
-#       f = file(location + ".new", 'wb')
-#       pickle.dump(pdata, f, common.PICKLE_PROTOCOL)
-#       f.close()
-#       try:
-#           os.rename(location, location + ".old")
-#       except:
-#           pass # if it doesn't exist, we don't care
-#       os.rename(location + ".new", location)
-#       try:
-#           os.remove(location + ".old")
-#       except:
-#           pass
         
         for track in self.tracks.itervalues():
             if track._dirty: 

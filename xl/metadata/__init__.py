@@ -54,6 +54,7 @@ formats = {
         'sid'   : sid.SidFormat,
         'shn'   : None,
         'snd'   : wav.WavFormat,
+        'spc'   : None,
         'spx'   : speex.SpeexFormat,
         'stm'   : mod.ModFormat,
         'tta'   : tta.TTAFormat,

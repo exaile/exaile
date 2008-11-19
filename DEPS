@@ -5,6 +5,7 @@ plugin dependencies should be listed in their description
 (TBI) = not yet made optional in trunk
 (R) - recommended
 (S) - suggested
+(C) - compile-time
 
 essential:
     python (>= 2.5)
@@ -15,8 +16,11 @@ essential:
     pygtk (>= 2.10)
     python-glade2
 
+translation:
+    gettext (C)(R)
+
 documentation:
-    epydoc
+    epydoc (C)(R)
 
 replaygain, equalizer:
     gstreamer-plugins-bad (>= 10.5) (S)

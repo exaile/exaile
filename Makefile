@@ -1,7 +1,7 @@
 PREFIX ?= /usr/local
 LIBDIR ?= /lib
 
-all: compile doc
+all: compile
 	@echo "Ready to install..."
 
 compile:

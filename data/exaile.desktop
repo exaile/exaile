@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Exaile Music Player
+GenericName=Music Player
+Comment=Listen to, explore, or manage your audio collection
+Icon=exaile
+Exec=exaile %F
+Terminal=false
+Categories=AudioVideo;Audio;Player;GTK;

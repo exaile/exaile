@@ -16,6 +16,9 @@ except ImportError:
     guitest = None
 
 import unittest, doctest, os, shutil, sys, imp
+
+sys.path.append(os.getcwd())
+
 from tests import base
 import xl
 

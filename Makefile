@@ -5,7 +5,8 @@ all: compile
 	@echo "Ready to install..."
 
 compile:
-	python -O -m compileall xl lib xlgui
+	python -m compileall xl lib xlgui
+	-python -O -m compileall xl lib xlgui
 
 make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
@@ -20,6 +21,8 @@ make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/data
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/data/images
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/data/glade
+	mkdir -p $(DESTDIR)$(PREFIX)/share/pixmaps
+	mkdir -p $(DESTDIR)$(PREFIX)/share/applications
 
 uninstall:
 	rm -f  $(DESTDIR)$(PREFIX)/bin/exaile
@@ -34,6 +37,8 @@ uninstall:
 	rm -rf $(DESTDIR)$(PREFIX)/share/exaile/data
 	rm -rf $(DESTDIR)$(PREFIX)/share/exaile/data/images
 	rm -rf $(DESTDIR)$(PREFIX)/share/exaile/data/glade
+	rm -f $(DESTDIR)$(PREFIX)/share/applications/exaile.desktop
+	rm -f $(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
 	cd plugins && make uninstall && cd ..
 
 
@@ -61,6 +66,10 @@ install: make-install-dirs compile
 		$(DESTDIR)$(PREFIX)/share/exaile/data/images
 	install -m 644 data/glade/*.glade \
 		$(DESTDIR)$(PREFIX)/share/exaile/data/glade
+	install -m 644 data/images/largeicon.png \
+		$(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
+	install -m 644 data/exaile.desktop \
+		$(DESTDIR)$(PREFIX)/share/applications/	
 	cd $(DESTDIR)$(PREFIX)/bin && \
 	 /bin/echo -e \
 	 "#!/bin/sh\n" \
@@ -91,16 +100,16 @@ docclean:
 	rm -rf ./doc/*
 
 test:
-	python runtests.py all
+	python tools/runtests.py all
 
 testplugins:
-	python runtests.py plugins
+	python tools/runtests.py plugins
 
 testmain:
-	python runtests.py main
+	python tools/runtests.py main
 
 doctests:
-	python runtests.py doctests
+	python tools/runtests.py doctests
 
 
 commit: test clean

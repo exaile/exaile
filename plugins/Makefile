@@ -16,9 +16,9 @@ compile:
 	python -O -m compileall .
 
 install: compile
-	mkdir -p $(PREFIX)$(PLUGINSDIR)
+	mkdir -p $(DESTDIR)$(PREFIX)$(PLUGINSDIR)
 	for plugin in $(INSTALL_PLUGINS); do \
-	    cp -r $${plugin} $(PREFIX)$(PLUGINSDIR) ; \
+	    cp -r $${plugin} $(DESTDIR)$(PREFIX)$(PLUGINSDIR) ; \
 	    done ;
 
 uninstall:

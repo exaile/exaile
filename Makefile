@@ -78,23 +78,21 @@ install: make-install-dirs compile
 	 "--datadir=$(PREFIX)/share/exaile/data --startgui \"\$$@\"" \
 	 > exaile && \
 	chmod 755 exaile
-
-	cd plugins && make install PREFIX=$(PREFIX)
+	cd plugins && make install DESTDIR=$(DESTDIR) PREFIX=$(PREFIX) \
+		&& cd ..
 
 plugins_dist:
 	cd plugins && make dist && cd ..
 
 clean:
-	find . -name "*.py[co]" -exec rm -f {} \;
+	-find . -name "*.py[co]" -exec rm -f {} \;
 	find . -name "*.class" -exec rm -f {} \;
 	find . -name "*.bak" -exec rm -f {} \;
-	rm -rf doc
 	cd plugins && make clean && cd ..
 
 doc: docclean
 	mkdir -p ./doc/
-	epydoc -n Exaile -vo ./doc/ --html xl xlgui || echo "Epydoc not available, skipping docs generation"
-	make clean
+	-epydoc -n Exaile -vo ./doc/ --html xl xlgui || echo "Epydoc not available, skipping docs generation"
 
 docclean:
 	rm -rf ./doc/*

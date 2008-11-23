@@ -76,6 +76,7 @@ class OSDWindow(object):
         self.box = self.xml.get_widget('image_box')
 
         self.progress = self.xml.get_widget('osd_progressbar')
+
         self.cover_widget = CoverWidget()
         if self.cover:
             self._cover_sig = self.cover.connect('cover-found', 
@@ -183,28 +184,34 @@ class OSDWindow(object):
         self.window.hide()
 
     def show(self, track, timeout=4000):
+        if track:
+            text = self.text.replace('&', '&amp;')
+            for item in ('title', 'artist', 'album', 'length', 'track', 'bitrate',
+                'genre', 'year', 'rating'):
+                value = track[item]
+                if not value: value = ''
+                elif type(value) == list or type(value) == tuple:
+                    value = metadata.j(value)
 
-        text = self.text.replace('&', '&amp;')
-        for item in ('title', 'artist', 'album', 'length', 'track', 'bitrate',
-            'genre', 'year', 'rating'):
-            value = track[item]
-            if not value: value = ''
-            elif type(value) == list or type(value) == tuple:
-                value = metadata.j(value)
+                if not isinstance(value, basestring):
+                    value = unicode(value)
+                text = text.replace('{%s}' % item, common.escape_xml(value))
+            text = text.replace("\\{", "{")
+            text = text.replace("\\}", "}")
 
-            if not isinstance(value, basestring):
-                value = unicode(value)
-            text = text.replace('{%s}' % item, common.escape_xml(value))
-        text = text.replace("\\{", "{")
-        text = text.replace("\\}", "}")
-
-        text = "<span font_desc='%s' foreground='%s'>%s</span>" % \
-            (self.settings.get_option('osd/text_font', 'Sans 11'),
-            self.settings.get_option('osd/text_color', '#ffffff'),
-                text)
-        self.title.set_markup(text)
+            text = "<span font_desc='%s' foreground='%s'>%s</span>" % \
+                (self.settings.get_option('osd/text_font', 'Sans 11'),
+                self.settings.get_option('osd/text_color', '#ffffff'),
+                    text)
+            self.title.set_markup(text)
         self.window.show_all()
+        self.hide_progress()
         if self._timeout:
             gobject.source_remove(self._timeout)
-        self._timeout = gobject.timeout_add(timeout, self.hide)
+        if timeout != 0:
+            self._timeout = gobject.timeout_add(timeout, self.hide)
+
+    def hide_progress(self, *args):
+        if not self.settings.get_option('osd/show_progress', True):
+            self.progress.hide_all()
 

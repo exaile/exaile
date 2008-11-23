@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Wed Oct 29 14:09:40 2008 -->
+<!--*- mode: xml -*-->
 <glade-interface>
   <widget class="GtkWindow" id="prefs_window">
     <child>
@@ -47,32 +47,13 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkHBox" id="hbox49">
+          <widget class="GtkCheckButton" id="osd/show_progress">
             <property name="visible">True</property>
-            <child>
-              <widget class="GtkLabel" id="label62">
-                <property name="visible">True</property>
-                <property name="ypad">5</property>
-                <property name="label" translatable="yes">Text Font:</property>
-              </widget>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-              </packing>
-            </child>
-            <child>
-              <widget class="GtkFontButton" id="osd/text_font">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="response_id">0</property>
-              </widget>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="pack_type">GTK_PACK_END</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
+            <property name="can_focus">True</property>
+            <property name="label" translatable="yes">Display a progressbar in the OSD</property>
+            <property name="use_underline">True</property>
+            <property name="response_id">0</property>
+            <property name="draw_indicator">True</property>
           </widget>
           <packing>
             <property name="expand">False</property>
@@ -115,12 +96,13 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkHBox" id="hbox24">
+          <widget class="GtkHBox" id="hbox49">
             <property name="visible">True</property>
             <child>
-              <widget class="GtkLabel" id="label31">
+              <widget class="GtkLabel" id="label62">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes">Background Color:</property>
+                <property name="ypad">5</property>
+                <property name="label" translatable="yes">Text Font:</property>
               </widget>
               <packing>
                 <property name="expand">False</property>
@@ -128,7 +110,7 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkColorButton" id="osd/bg_color">
+              <widget class="GtkFontButton" id="osd/text_font">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="response_id">0</property>
@@ -183,12 +165,12 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkHBox" id="hbox25">
+          <widget class="GtkHBox" id="hbox24">
             <property name="visible">True</property>
             <child>
-              <widget class="GtkLabel" id="label32">
+              <widget class="GtkLabel" id="label31">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes">Window Width:</property>
+                <property name="label" translatable="yes">Background Color:</property>
               </widget>
               <packing>
                 <property name="expand">False</property>
@@ -196,10 +178,10 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkEntry" id="osd/w">
+              <widget class="GtkColorButton" id="osd/bg_color">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="width_chars">7</property>
+                <property name="response_id">0</property>
               </widget>
               <packing>
                 <property name="expand">False</property>
@@ -249,10 +231,31 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkLabel" id="label59">
+          <widget class="GtkHBox" id="hbox25">
             <property name="visible">True</property>
-            <property name="xalign">0</property>
-            <property name="label" translatable="yes">Display Text:</property>
+            <child>
+              <widget class="GtkLabel" id="label32">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Window Width:</property>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkEntry" id="osd/w">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="width_chars">7</property>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="pack_type">GTK_PACK_END</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
           </widget>
           <packing>
             <property name="expand">False</property>
@@ -285,6 +288,18 @@ on {album} - {length}</property>
           </packing>
         </child>
         <child>
+          <widget class="GtkLabel" id="label59">
+            <property name="visible">True</property>
+            <property name="xalign">0</property>
+            <property name="label" translatable="yes">Display Text:</property>
+          </widget>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">11</property>
+          </packing>
+        </child>
+        <child>
           <widget class="GtkLabel" id="label60">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
@@ -294,7 +309,7 @@ on {album} - {length}</property>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
-            <property name="position">11</property>
+            <property name="position">12</property>
           </packing>
         </child>
       </widget>

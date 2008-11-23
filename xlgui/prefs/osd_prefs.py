@@ -24,7 +24,7 @@ glade = xdg.get_data_path('glade/osd_prefs_pane.glade')
 def page_enter(prefs):
     global OSD
     OSD = osd.OSDWindow(prefs.settings, draggable=True)
-    OSD.window.show_all()
+    OSD.show(None, timeout=0)
 
 def page_leave(prefs):
     global OSD
@@ -45,7 +45,7 @@ class OSDItem(object):
         if OSD:
             OSD.destroy()
             OSD.setup_osd(self.prefs.settings)
-            OSD.window.show_all()
+            OSD.show(None, timeout=0)
 
 class OsdPreference(widgets.CheckPrefsItem, OSDItem):
     default = True
@@ -54,6 +54,10 @@ class OsdPreference(widgets.CheckPrefsItem, OSDItem):
 class OsdHoverTrayPreference(widgets.CheckPrefsItem, OSDItem):
     default = True
     name = 'osd/hover_tray'
+
+class OsdProgressPreference(widgets.CheckPrefsItem, OSDItem):
+    default = True
+    name = 'osd/show_progress'
 
 class OsdTextFontPreference(widgets.FontButtonPrefsItem, OSDItem):
     default = 'Sans 11'

@@ -45,12 +45,24 @@ class DynamicManager(providers.ProviderHandler):
         artists = self.find_similar_artists(track)
         if artists == []:
             return []
-        query = " OR ".join( [ 'artist=="%s"'%(x[1].lower().replace('"', '')) for x in artists ] )
-        tracks = self.collection.search(query)
-        if exclude != []:
-            tracks = [ x for x in tracks if x not in exclude ]
-        if limit < len(tracks) and limit > 0:
-            tracks = random.sample(tracks, limit)
+        tracks = []
+        random.shuffle(artists)
+        i = 0
+        while limit > len(tracks) and  limit > 0 and i < len(artists):
+            artist = artists[i]
+            i += 1
+            choices = self.collection.search(" OR ".join(['artist=="%s"'%a.lower().replace('"', '') for a in artist ]))
+            print choices
+            if choices == []:
+                continue
+            random.shuffle(choices)
+            j = 0
+            while j < len(choices):
+                track = choices[j]
+                if track not in exclude:
+                    tracks.append(track)
+                    break
+                j += 1
         return tracks
 
     def find_similar_artists(self, track):

@@ -20,7 +20,7 @@ New System:
                 |       |                       |       |
     Stream2 ----| Adder |----Postprocessing ----|  Tee  |---- AudioSink
                 |       |                       |       |
-    Stream3 ----|       |                       |       |---- Visualization
+    Stream3 ----|       |                       |       |---- VisualizationSink
                 +-------+                       +-------+
 
 
@@ -55,10 +55,6 @@ Adder:
 Postprocessing:
     Contains:
         equalizer
-        volume control (for user control)
-            - maybe this should be on the sink instead? that way
-                things like the icecast plugin aren't affected by 
-                the user changing exaile's volume.
 
 Tee:
     Contains:
@@ -66,6 +62,7 @@ Tee:
 
 AudioSink:
     Contains:
+        volume control
         alsasink/pulsesink/etc
         any processing needed right before the sink
 
@@ -133,4 +130,74 @@ Misc Notes:
 
 
 Useful Info:
-    the RB patch for crossfading (good comments!): http://bugzilla.gnome.org/attachment.cgi?id=85250
+    the RB patch for crossfading (good comments!): 
+            http://bugzilla.gnome.org/attachment.cgi?id=85250
+
+
+
+Code Design:
+    Player:
+        set_queue(queue)
+        set_volume(vol)
+        get_volume()
+        get_state()
+        is_playing()
+        is_paused()
+        get_position()
+        get_time()
+        get_progress()
+        play(track)
+        stop()
+        pause()
+        unpause()
+        toggle_pause()
+        seek(value)
+
+        add_sink(sink)
+        remove_sink(sink)
+        add_stream(stream)
+        remove_stream(stream)
+        <incomplete?>
+    Stream:
+        set_track(track)
+        set_volume(vol)
+        <methods needed for playback control>
+        <incomplete?>
+    Postprocessor:
+        <no public methods>
+    AudioSink:
+        set_volume(vol)
+        <other options vary by sink>
+    VisualizationSink:
+        set_visualizer(visualizer)
+        <visualizers may provide other methods>
+
+Communication with most elements will take place through providers and settings.
+
+Providers:
+    stream_element - provides a gst element to add to all streams and an index
+        for the element. the index is used to determine relative ordering of 
+        elements.
+    postprocessing_element - same as stream_element
+    sink_element - same as stream_element. Sinks are not required to implement
+        support for these. (alsa/oss/pulse/esd/hal/auto/gconf all will)
+    sink_method - provides an AudioSink and a name for it. May also expose
+        configuration methods.
+    visualization_method - provides a VisualizationSink and a name for it.
+        May also expose configuration methods.
+
+Settings:
+    the following elements are controlled purely by settings:
+        equalizer
+            player/equalizer
+            equalizer/band-*
+        replaygain
+            player/replaygain
+            replaygain/album_mode
+            replaygain/preamp
+            replaygain/fallback
+        volume
+            player/volume
+
+
+

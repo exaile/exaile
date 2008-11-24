@@ -52,7 +52,6 @@ class DynamicManager(providers.ProviderHandler):
             artist = artists[i]
             i += 1
             choices = self.collection.search(" OR ".join(['artist=="%s"'%a.lower().replace('"', '') for a in artist ]))
-            print choices
             if choices == []:
                 continue
             random.shuffle(choices)

@@ -120,13 +120,7 @@ Misc Notes:
     during this rewrite might be a good time to implement CUE support
         (at least the player side of it), as we have to revisit most of this
         anyway. 
-        - I'd suggest using a scheme similar to how we specifiy cd devices, eg.
-            /path/to/a/file.flac#CUE:1
-          where 1 is the track we want to play from the CUE. This assumes we 
-            can auto-detect the cuesheet's filename. The stream object will
-            then take care of translating the progress and other data from
-            gstreamer's raw values to ones appropriate for the subsection of 
-            the file we're actually using.
+
 
 
 Useful Info:

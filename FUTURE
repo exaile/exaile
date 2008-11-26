@@ -12,6 +12,9 @@ ratings system:
     replace current dropdown with a bar of stars widget, allows dragging to 
         partially fill stars, double click fills up through clicked star.
         - could reuse same widget for rating column
+        - this would also work nicely with the new rating system storing values
+            as a float, as it can represent and set such a value much more
+            accurately than a dropdown.
 
 UPnP support:
     client
@@ -28,11 +31,19 @@ Playback Bookmarks:
     auto-save last position
 
 Cuesheet support:
-    expose as permanent bookmarks? (would still have to handle metadata change)
-    alternately, parse the CUE at import time and create separate tracks for
+    parse the CUE at import time and create separate tracks for
         each entry. This would require extra work in both player.py and 
         collection.py to handle it correctly, but allows full integration with 
         the rest of exaile's features.
+        - CUE information could be encoded into the URL using a scheme like
+            /path/to/a/file.flac#CUE:1
+          where 1 is the track we want to play from the CUE.  The player will
+            then take care of translating the progress and other data from
+            gstreamer's raw values to ones appropriate for the subsection of 
+            the file we're actually using.
+            - edge cases that may need special handling:
+                gapless transition between tracks in the same file
+                    - needs to happen for both sequential and random access
 
 Shuffling albums:
     no clue how to do this UI-wise
@@ -71,6 +82,7 @@ Keybindings:
 musicbrainz:
     use for cd tagging
     allow analysis and retagging of files, like picard?
+        - gst has an ofa element for scanning we can use.
 
 custom stemming:
     e.g. allow trimming of 'A', not just 'The'

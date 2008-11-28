@@ -4,7 +4,7 @@ LIBDIR ?= /lib
 all: compile
 	@echo "Ready to install..."
 
-compile:
+compile: translations
 	python -m compileall xl lib xlgui
 	-python -O -m compileall xl lib xlgui
 
@@ -109,6 +109,15 @@ testmain:
 doctests:
 	python tools/runtests.py doctests
 
+pot:
+	@echo "[encoding: UTF-8]" > po/POTFILES.in
+	find xl -name "*.py" >> po/POTFILES.in
+	find xlgui -name "*.py" >> po/POTFILES.in
+	find data/glade/ -name "*.glade" >> po/POTFILES.in
+	python po/createpot.py
+
+translations:
+	python po/createpot.py compile
 
 commit: test clean
 	./commit || (bzr pull && bzr commit)

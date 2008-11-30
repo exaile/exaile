@@ -1,7 +1,7 @@
+from tests.base import BaseTestCase
 import unittest, time, md5, shutil, sys
 from xl.lyrics import LyricsManager
 from xl.lyrics import LyricsNotFoundException
-from tests.base import BaseTestCase
 from xl.track import Track
 
 import os, imp

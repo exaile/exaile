@@ -1,9 +1,3 @@
-from xl import settings
-settings.SettingsManager('.testtemp/test_exaile_settings.ini')
-import logging
-from xl import collection, event, common, xdg
-import unittest, md5, time, imp, os
-
 import locale, gettext
 
 # set the locale to LANG, or the user's default
@@ -13,10 +7,19 @@ locale.setlocale(locale.LC_ALL, '')
 # explicitly import it elsewhere
 gettext.install("exaile")
 
+
+from xl import settings
+settings.SettingsManager('.testtemp/test_exaile_settings.ini')
+import logging
+from xl import collection, event, common, xdg
+import unittest, md5, time, imp, os
+
+
 event._TESTING = True
 common._TESTING = True
 class BaseTestCase(unittest.TestCase):
     def setUp(self):
+        gettext.install("exaile")
         self.loading = False
         self.setup_logging()
         self.settings = settings.SettingsManager('.testtemp/test_exaile_settings.ini')

@@ -120,7 +120,7 @@ class PlayQueue(playlist.Playlist):
 
 def get_player():
     if settings.get_option("player/gapless", False):
-        logger.debug("Gapless enabled")
+        logger.debug(_("Gapless enabled"))
         return GaplessPlayer
     else:
         return GSTPlayer
@@ -208,7 +208,7 @@ class BaseGSTPlayer(object):
                 elements.append(self.equalizer)
                 elements.append(gst.element_factory_make('audioconvert'))
             except:
-                logger.warning("Failed to enable equalizer")
+                logger.warning(_("Failed to enable equalizer"))
                 self.equalizer = None
         else:
             self.equalizer = None
@@ -226,7 +226,7 @@ class BaseGSTPlayer(object):
                         settings.get_option("replaygain/fallback", 0.0) )
                 elements.append(self.replaygain)
             except:
-                logger.warning("Failed to enable replaygain")
+                logger.warning(_("Failed to enable replaygain"))
                 self.replay_gain = None
         else:
             self.replay_gain = None
@@ -239,10 +239,10 @@ class BaseGSTPlayer(object):
         # set up the link to the sound card
         name = settings.get_option("player/sink", "autoaudiosink")
         if not gst.element_factory_find(name):
-            logger.warning("Could not find playback sink %s, falling back to autoaudiosink"%name)
+            logger.warning(_("Could not find playback sink %s, falling back to autoaudiosink")%name)
             name = 'autoaudiosink'
             options = []
-        logger.debug("Using %s for playback"%name)
+        logger.debug(_("Using %s for playback")%name)
         self.audio_sink = gst.element_factory_make(name, "sink")
         # this setting is a list of strings of the form "param=value"
         options = settings.get_option("player/sink_options", [])
@@ -251,7 +251,7 @@ class BaseGSTPlayer(object):
                 param, value = option.split("=", 1)
                 self.audio_sink.set_property(param, value)
             except:
-                logger.warning("Could not set parameter %s for %s"%(param, name))
+                logger.warning(_("Could not set parameter %s for %s")%(param, name))
         elements.append(self.audio_sink)
 
         # join everything together into a Bin to use as the playbin's sink
@@ -308,7 +308,7 @@ class BaseGSTPlayer(object):
             if percent < 100:
                 self.playbin.set_state(gst.STATE_PAUSED)
             else:
-                logger.info('Buffering complete')
+                logger.info(_('Buffering complete'))
                 self.playbin.set_state(gst.STATE_PLAYING)
             if percent % 5 == 0:
                 event.log_event('playback_buffering', self, percent)
@@ -428,14 +428,14 @@ class BaseGSTPlayer(object):
         # make sure the file exists if this is supposed to be a local track
         if track.is_local():
             if not os.path.exists(track.get_loc()):
-                logger.error("File does not exist: %s" % 
+                logger.error(_("File does not exist: %s") % 
                     track.get_loc())
                 return False
        
         self.current = track
         
         uri = self._get_track_uri(track)
-        logger.info("Playing %s" % uri)
+        logger.info(_("Playing %s") % uri)
         self.reset_playtime_stamp()
 
         self.playbin.set_property("uri", uri)
@@ -506,7 +506,7 @@ class BaseGSTPlayer(object):
         if res:
             self.playbin.set_new_stream_time(0L)
         else:
-            logger.debug("Couldn't send seek event")
+            logger.debug(_("Couldn't send seek event"))
 
         self.last_seek_pos = value
     

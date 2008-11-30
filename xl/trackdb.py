@@ -146,7 +146,7 @@ class TrackDB(object):
             pdata = shelve.open(self.location, flag='c', 
                     protocol=common.PICKLE_PROTOCOL)
         except:
-            logger.error("Failed to open music DB.")
+            logger.error(_("Failed to open music DB."))
             return
 
         for attr in self.pickle_attrs:
@@ -203,7 +203,7 @@ class TrackDB(object):
                 pdata = shelve.open(self.location, flag='c', 
                         protocol=common.PICKLE_PROTOCOL)
             except:
-                logger.error("Failed to open music DB for write.")
+                logger.error(_("Failed to open music DB for write."))
                 return
 
         for attr in self.pickle_attrs:
@@ -572,7 +572,7 @@ class TrackSearcher(object):
             elif subtoken == "(":
                 new_list = self.__do_search(token[1], current_list)
             else:
-                logger.warning("bad search token")
+                logger.warning(_("bad search token"))
                 return current_list
 
         # normal token

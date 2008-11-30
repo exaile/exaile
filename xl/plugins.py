@@ -94,10 +94,10 @@ class PluginsManager(object):
             if not plugin: raise Exception("Error loading plugin")
             plugin.enable(self.exaile)
             self.enabled_plugins[pluginname] = plugin
-            logger.debug("Loaded plugin %s"%pluginname)
+            logger.debug(_("Loaded plugin %s")%pluginname)
         except:
             traceback.print_exc()
-            logger.warning("Unable to enable plugin %s"%pluginname)
+            logger.warning(_("Unable to enable plugin %s")%pluginname)
             common.log_exception(logger)
             return False
         return True
@@ -109,7 +109,7 @@ class PluginsManager(object):
             del self.enabled_plugins[pluginname]
         except:
             traceback.print_exc()
-            logger.warning("Unable to fully disable plugin %s"%pluginname)
+            logger.warning(_("Unable to fully disable plugin %s")%pluginname)
             common.log_exception(logger)
             return False
         return True

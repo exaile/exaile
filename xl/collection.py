@@ -21,6 +21,7 @@
 # A library finds tracks in a specified directory and adds them to an
 # associated collection.
 
+
 from xl import trackdb, track, common, xdg, event, metadata
 from xl.settings import SettingsManager
 settings = SettingsManager.settings
@@ -31,6 +32,7 @@ import gobject
 logger = logging.getLogger(__name__)
 
 COLLECTIONS = set()
+
 
 def get_collection_by_loc(loc):
     """
@@ -136,7 +138,7 @@ class Collection(trackdb.TrackDB):
                 return
             self.file_count += library._count_files()
 
-        logger.info("File count: %d" % self.file_count)
+        logger.info(_("File count: %d") % self.file_count)
 
         scan_interval = self.file_count / len(self.libraries.values()) / 100
         if not scan_interval: scan_interval = 1
@@ -228,7 +230,7 @@ class INotifyEventProcessor(ProcessEvent):
             self.mask, rec=True, auto_add=True)
 
         self.libraries.append((library, wdd))
-        logger.info("Watching directory: %s" % library.location)
+        logger.info(_("Watching directory: %s") % library.location)
         if not self.started:
             self.notifier.start()
             self.started = True
@@ -258,7 +260,7 @@ class INotifyEventProcessor(ProcessEvent):
             Called when a file is deleted
         """
         pathname = os.path.join(event.path, event.name)
-        logger.info("Location deleted: %s" % pathname)
+        logger.info(_("Location deleted: %s") % pathname)
         for (library, wdd) in self.libraries:
             if pathname.find(library.location) > -1:
                 library._remove_locations([pathname])         
@@ -269,7 +271,7 @@ class INotifyEventProcessor(ProcessEvent):
             Called when a file is changed
         """
         pathname = os.path.join(event.path, event.name)
-        logger.info("Location modified: %s" % pathname)
+        logger.info(_("Location modified: %s") % pathname)
         for (library, wdd) in self.libraries:
             if pathname.find(library.location) > -1:
                 library._scan_locations([pathname])         
@@ -330,8 +332,8 @@ class Library(object):
         try:
             self.set_realtime(realtime)
         except PyInotifyNotSupportedException:
-            logger.warning("PyInotify not installed or not supported.  "
-                "Not watching library: %s" % location)
+            logger.warning(_("PyInotify not installed or not supported.  ") +
+                _("Not watching library: %s") % location)
         except:
             common.log_exception()
 
@@ -440,7 +442,7 @@ class Library(object):
             artist in ccheck[basedir][album]:
             if not (basedir, album) in compilations:
                 compilations.append((basedir, album))
-            logger.info("Compilation detected: %s" % ((basedir, album),))
+            logger.info(_("Compilation detected: %s") % ((basedir, album),))
 
         ccheck[basedir][album].append(artist)
 
@@ -454,7 +456,7 @@ class Library(object):
 
         if self.scanning: return
 
-        logger.info("Scanning library: %s" % self.location)
+        logger.info(_("Scanning library: %s") % self.location)
         self.scanning = True
         formats = metadata.formats.keys()
         db = self.collection

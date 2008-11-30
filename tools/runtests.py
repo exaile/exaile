@@ -10,6 +10,7 @@ locale.setlocale(locale.LC_ALL, '')
 # explicitly import it elsewhere
 gettext.install("exaile")
 
+
 try:
     import guitest
 except ImportError:
@@ -46,7 +47,7 @@ if __name__ == '__main__':
             mod = imp.load_source(file.replace('.py', ''), 
                 os.path.join('xl', file))
             try:
-                suite.addTest(doctest.DocTestSuite(mod))
+                suite.addTest(doctest.DocTestSuite(mod, setUp=lambda self: gettext.install("exaile")))
             except ValueError:
                 pass
 

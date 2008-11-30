@@ -24,7 +24,7 @@ FORMATS = {
             "command"   : "vorbisenc quality=%s ! oggmux",
             "extension" : "ogg",
             "plugins"   : ("vorbisenc", "oggmux"),
-            "desc"      : "Vorbis is an open source, lossy audio codec with high quality output at a lower file size than MP3."
+            "desc"      : _("Vorbis is an open source, lossy audio codec with high quality output at a lower file size than MP3.")
             },
         "FLAC" : {
             "default"   : 5,
@@ -33,7 +33,7 @@ FORMATS = {
             "command"   : "flacenc quality=%s",
             "extension" : "flac",
             "plugins"   : ("flacenc"),
-            "desc"      : "Free Lossless Audio Codec (FLAC) is an open source codec that compresses but does not degrade audio quality."
+            "desc"      : _("Free Lossless Audio Codec (FLAC) is an open source codec that compresses but does not degrade audio quality.")
             },
         "AAC"       : {
             "default"   : 160000,
@@ -41,9 +41,9 @@ FORMATS = {
                     192000, 224000, 256000, 320000),
             "kbs_steps" : (32, 48, 64, 96, 128, 160, 192, 224, 256, 320),
             "command"   : "faac bitrate=%s ! ffmux_mp4",
-            "extension" : "aac",
+            "extension" : "m4a",
             "plugins"   : ("faac", "ffmux_mp4"),
-            "desc"      : "Apple's proprietary lossy audio format that achieves better sound quality than MP3 at lower bitrates."
+            "desc"      : _("Apple's proprietary lossy audio format that achieves better sound quality than MP3 at lower bitrates.")
             },
         "MP3 (VBR)" : {
             "default"   : 160,
@@ -52,7 +52,7 @@ FORMATS = {
             "command"   : "lame vbr=4 vbr-mean-bitrate=%s",
             "extension" : "mp3",
             "plugins"   : ("lame"),
-            "desc"      : "A proprietary and older, but also popular, lossy audio format that produces larger files at lower bitrates. VBR gives higher quality than CBR, but may be incompatible with some players."
+            "desc"      : _("A proprietary and older, but also popular, lossy audio format. VBR gives higher quality than CBR, but may be incompatible with some players.")
             },
         "MP3 (CBR)" : {
             "default"   : 160,
@@ -61,7 +61,7 @@ FORMATS = {
             "command"   : "lame bitrate=%s",
             "extension" : "mp3",
             "plugins"   : ("lame"),
-            "desc"      : "A proprietary and older, but also popular, lossy audio format that produces larger files at lower bitrates. CBR gives less quality than VBR, but is compatible with any player."
+            "desc"      : _("A proprietary and older, but also popular, lossy audio format. CBR gives less quality than VBR, but is compatible with any player.")
             },
         "WavPack" : {
             "default"   : 2,
@@ -70,7 +70,7 @@ FORMATS = {
             "command"   : "wavpackenc mode=%s",
             "extension" : "wv",
             "plugins"   : ("wavpackenc"),
-            "desc"      : "A very fast Free lossless audio format with good compression"
+            "desc"      : _("A very fast Free lossless audio format with good compression.")
             },
         }
 

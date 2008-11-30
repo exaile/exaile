@@ -42,10 +42,10 @@ class HAL(providers.ProviderHandler):
             for p in self.get_providers():
                 self.on_new_provider(p)
             self.setup_device_events()
-            logger.debug("Connected to HAL")
+            logger.debug(_("Connected to HAL"))
             return True
         except:
-            logger.warning("Failed to connect to HAL, autodetection of devices will be disabled.")
+            logger.warning(_("Failed to connect to HAL, autodetection of devices will be disabled."))
             return False
 
     def on_new_provider(self, provider):
@@ -74,9 +74,9 @@ class HAL(providers.ProviderHandler):
     def add_device(self, device_udi):
         handler = self.get_handler(device_udi)
         if handler is None:
-            logger.debug("Found no HAL device handler for %s"%device_udi)
+            logger.debug(_("Found no HAL device handler for %s")%device_udi)
             return
-        logger.debug("Found new %s device at %s"%(handler.name, device_udi))
+        logger.debug(_("Found new %s device at %s")%(handler.name, device_udi))
 
         dev = handler.device_from_udi(self, device_udi)
         if not dev: return

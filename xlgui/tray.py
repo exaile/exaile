@@ -98,36 +98,7 @@ class BaseTrayIcon(object):
 TrayIcon = BaseTrayIcon
 
 
-if hasattr(gtk, 'StatusIcon'):
-    class GtkTrayIcon(BaseTrayIcon):
-
-        def __init__(self, guimain):
-            BaseTrayIcon.__init__(self, guimain)
-            self.icon = gtk.StatusIcon()
-            self.icon.set_from_file(xdg.get_data_path('images/trayicon.png'))
-            self.icon.connect('activate', self.activated)
-            self.icon.connect('popup-menu', self.popup)
-            self.set_tooltip(_("Exaile Music Player"))
-
-        def activated(self, icon):
-            self.toggle_exaile_visibility()
-            
-        def set_tooltip(self, tip):
-            self.icon.set_tooltip(tip)
-
-        def popup(self, icon, button, time):
-            self.update_menu()
-            self.menu.popup(None, None, gtk.status_icon_position_menu,
-                button, time, self.icon)
-
-        def destroy(self):
-            BaseTrayIcon.destroy(self)
-            self.icon.set_visible(False)
-
-    TrayIcon = GtkTrayIcon
-
-
-elif EGG_AVAIL:
+if EGG_AVAIL:
     class EggTrayIcon(BaseTrayIcon):
         def __init__(self, guimain):
             BaseTrayIcon.__init__(self, guimain)
@@ -164,6 +135,35 @@ elif EGG_AVAIL:
             self.icon.destroy()
             
     TrayIcon = EggTrayIcon
+
+elif hasattr(gtk, 'StatusIcon'):
+    class GtkTrayIcon(BaseTrayIcon):
+
+        def __init__(self, guimain):
+            BaseTrayIcon.__init__(self, guimain)
+            self.icon = gtk.StatusIcon()
+            self.icon.set_from_file(xdg.get_data_path('images/trayicon.png'))
+            self.icon.connect('activate', self.activated)
+            self.icon.connect('popup-menu', self.popup)
+            self.set_tooltip(_("Exaile Music Player"))
+
+        def activated(self, icon):
+            self.toggle_exaile_visibility()
+            
+        def set_tooltip(self, tip):
+            self.icon.set_tooltip(tip)
+
+        def popup(self, icon, button, time):
+            self.update_menu()
+            self.menu.popup(None, None, gtk.status_icon_position_menu,
+                button, time, self.icon)
+
+        def destroy(self):
+            BaseTrayIcon.destroy(self)
+            self.icon.set_visible(False)
+
+    TrayIcon = GtkTrayIcon
+
 
 
 MAIN = None

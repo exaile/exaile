@@ -12,7 +12,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-_ = _
+from xl.nls import gettext as _
 import pygst
 pygst.require('0.10')
 import gst

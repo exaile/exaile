@@ -12,6 +12,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+from xl.nls import gettext as _
 import pygtk, pygst
 pygtk.require('2.0')
 pygst.require('0.10')

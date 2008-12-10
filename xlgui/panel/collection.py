@@ -12,6 +12,7 @@
 # along with this program; if not, write to the free software
 # foundation, inc., 675 mass ave, cambridge, ma 02139, usa.
 
+from xl.nls import gettext as _
 import gtk, gobject, urllib
 from xl import xdg, common, track, trackdb
 from xlgui import panel, guiutil, menu, playlist

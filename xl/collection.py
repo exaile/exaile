@@ -426,9 +426,15 @@ class Library(object):
         # TODO: make this optional, probably in the advanced configuration
         # editor
         # check for compilations
-        basedir = metadata.j(tr['basedir'])
-        album = metadata.j(tr['album'])
-        artist = metadata.j(tr['artist'])
+        if not settings.get_option('collection/file_based_compilations', True):
+            return 
+        try:
+            basedir = metadata.j(tr['basedir'])
+            album = metadata.j(tr['album'])
+            artist = metadata.j(tr['artist'])
+        except UnicodeDecodeError: #TODO: figure out why this happens
+            logger.warning("Encoding error, skipping compilation check")
+            return
         if not basedir or not album or not artist: return
         album = album.lower()
         artist = artist.lower()

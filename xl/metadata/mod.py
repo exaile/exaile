@@ -38,9 +38,6 @@ class ModFormat(BaseFormat):
         else:
             self.mutagen = {'title':os.path.split(self.loc)[-1]}
 
-    def save(self):
-        pass
-
     def get_length(self):
         try:
             return self.mutagen['length']

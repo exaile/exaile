@@ -253,7 +253,7 @@ class CollectionPanel(panel.Panel):
                 word = keywords[n]
 
                 if word:
-                    word = word.replace("\"","\\\"")
+                    word = word#.replace("\"","\\\"")
                 else:
                     n += 1
                     continue

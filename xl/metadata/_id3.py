@@ -12,8 +12,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+from xl import common
 from xl.metadata import BaseFormat
 from mutagen import id3
+
+import logging
+logger = logging.getLogger(__name__)
+
 
 class ID3Format(BaseFormat):
     MutagenType = id3.ID3
@@ -71,7 +76,7 @@ class ID3Format(BaseFormat):
                         for x in value.text])
                 except:
                     logger.warning("Can't parse ID3 field")
-                    common.log_exception()
+                    common.log_exception(logger)
         return ret
 
     def _set_tag(self, raw, tag, data):

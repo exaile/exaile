@@ -15,9 +15,15 @@
 import os
 from xl import common
 
+import logging
+logger = logging.getLogger(__name__)
+
 INFO_TAGS = ['bitrate', 'length', 'lyrics']
 
 class NotWritable(Exception):
+    pass
+
+class NotReadable(Exception):
     pass
 
 class BaseFormat(object):
@@ -37,7 +43,13 @@ class BaseFormat(object):
             Loads the tags from the file.
         """
         if self.MutagenType:
-            self.mutagen = self.MutagenType(self.loc)
+            try:
+                self.mutagen = self.MutagenType(self.loc)
+            except:
+                logger.error("Couldn't read tags from possibly corrupt" \
+                        "file %s"%self.loc)
+                #common.log_exception(logger)
+                raise NotReadable
 
     def save(self):
         """

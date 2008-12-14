@@ -438,11 +438,14 @@ class Library(object):
         if not basedir or not album or not artist: return
         album = album.lower()
         artist = artist.lower()
-        if not basedir in ccheck:
-            ccheck[basedir] = {}
+        try:
+            if not basedir in ccheck:
+                ccheck[basedir] = {}
 
-        if not album in ccheck[basedir]:
-            ccheck[basedir][album] = []
+            if not album in ccheck[basedir]:
+                ccheck[basedir][album] = []
+        except TypeError:
+            return
 
         if ccheck[basedir][album] and not \
             artist in ccheck[basedir][album]:

@@ -83,8 +83,15 @@ def get_format(loc):
     if format is None:
         format = BaseFormat
 
-    return format(loc)
+    try:
+        return format(loc)
+    except NotReadable:
+        return None
+    except:
+        common.log_exception(logger)
+        return None
 
+#FIXME: give this a better name. and a docstring.
 def j(value):
     if not value: return value
     if hasattr(value, '__iter__'):

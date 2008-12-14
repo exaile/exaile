@@ -580,7 +580,9 @@ class TrackSearcher(object):
             # exact match in tag
             if "==" in token:
                 tag, sym, content = token.partition("==")
-                content = content.strip().strip('"')
+                if content[0] == "\"" and content[-1] == "\"":
+                    content = content[1:-1]
+                #content = content.strip().strip('"')
                 if content == "__null__":
                     content = None
                 for l,tr in current_list.iteritems():

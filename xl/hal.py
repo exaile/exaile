@@ -15,6 +15,7 @@
 import dbus
 
 from xl import common, providers
+from xl.nls import gettext as _
 
 import logging
 logger = logging.getLogger(__name__)
@@ -60,14 +61,14 @@ class HAL(providers.ProviderHandler):
         device = dbus.Interface(dev_obj, "org.freedesktop.Hal.Device")
         try:
             capabilities = device.GetProperty("info.capabilities")
+            for handler in self.get_providers():
+                if handler.is_type(device, capabilities):
+                    return handler
         except dbus.exceptions.DBusException,e:
             if e.get_dbus_name() == "org.freedesktop.Hal.NoSuchProperty":
                 return None
             else:
                 common.log_exception(logger)
-        for handler in self.get_providers():
-            if handler.is_type(device, capabilities):
-                return handler
         return None
 
     @common.threaded
@@ -76,10 +77,11 @@ class HAL(providers.ProviderHandler):
         if handler is None:
             logger.debug(_("Found no HAL device handler for %s")%device_udi)
             return
-        logger.debug(_("Found new %s device at %s")%(handler.name, device_udi))
 
         dev = handler.device_from_udi(self, device_udi)
         if not dev: return
+        
+        logger.debug(_("Found new %s device at %s")%(handler.name, device_udi))
         dev.connect()
 
         self.devicemanager.add_device(dev)

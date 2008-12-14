@@ -28,7 +28,10 @@ locale.setlocale(locale.LC_ALL, '')
 
 # this installs _ into python's global namespace, so we don't have to
 # explicitly import it elsewhere
-gettext.install("exaile")
+#TODO: make this work
+#gettext.install("exaile")
+
+from xl.nls import gettext as _
 
 from xl import common, xdg, event
 import os, sys, logging, logging.handlers, time
@@ -103,6 +106,11 @@ class Exaile(object):
         from xl import collection
         self.collection = collection.Collection("Collection",
                 location=os.path.join(xdg.get_data_dirs()[0], 'music.db') )
+        lib_paths = self.settings.get_option("collection/libraries", [])
+        for (loc, realtime, interval) in lib_paths:
+            if len(loc.strip()) > 0:
+                self.collection.add_library(
+                        collection.Library(loc, realtime, interval) )
         event.log_event("collection_loaded", self, None)
 
         #Set up the player and playbakc queue

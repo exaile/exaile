@@ -13,6 +13,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
+from xl.nls import gettext as _
 from xl import xdg, common, settings
 import os, sys, imp, urllib, tarfile, shutil, traceback
 

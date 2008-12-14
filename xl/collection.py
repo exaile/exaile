@@ -21,7 +21,7 @@
 # A library finds tracks in a specified directory and adds them to an
 # associated collection.
 
-
+from xl.nls import gettext as _
 from xl import trackdb, track, common, xdg, event, metadata
 from xl.settings import SettingsManager
 settings = SettingsManager.settings
@@ -72,13 +72,6 @@ class Collection(trackdb.TrackDB):
                 pickle_attrs=pickle_attrs)
 
         COLLECTIONS.add(self)
-        self.setup_libraries()
-
-    def setup_libraries(self):
-        lib_paths = settings.get_option("collection/libraries", [])
-        for (loc, realtime, interval) in lib_paths:
-            if len(loc.strip()) > 0:
-                self.add_library(Library(loc, realtime, interval))
 
     def add_library(self, library):
         """

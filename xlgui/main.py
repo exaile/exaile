@@ -690,14 +690,14 @@ class MainWindow(object):
             #    ' ' + ' '.join(desc))
             desc_newline = '\n'.join(desc)
             self.track_info_label.set_label(desc_newline)
-#            if self.tray_icon:
-#                self.tray_icon.set_tooltip(_("Playing %s") % title + '\n' +
-#                    desc_newline)
+            if self.controller.tray_icon:
+                self.controller.tray_icon.set_tooltip(_("Playing %s") % title +
+                    '\n' + desc_newline)
         else:
             self.window.set_title(_("Exaile: playing %s") % title)
             self.track_info_label.set_label("")
-#            if self.tray_icon:
-#                self.tray_icon.set_tooltip(_("Playing %s") % title)
+            if self.controller.tray_icon:
+                self.controller.tray_icon.set_tooltip(_("Playing %s") % title)
 
     def draw_playlist(self, *e):
         """

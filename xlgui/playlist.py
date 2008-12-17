@@ -94,6 +94,7 @@ class Playlist(gtk.VBox):
         self._setup_tree()
         self._setup_col_menus()
         self._setup_columns()
+        self._setup_events()
         self._set_tracks(self.playlist.get_tracks())
 
         self.menu = menu.PlaylistMenu(self) 
@@ -238,7 +239,6 @@ class Playlist(gtk.VBox):
             Sets the tracks that this playlist should display
         """
         self.model.clear()
-        self.list.set_model(self.model_blank)
 
         for track in tracks:
             self._append_track(track)
@@ -391,7 +391,14 @@ class Playlist(gtk.VBox):
 
             if selection.count_selected_rows() <= 1: return False
             else: return True
-
+            
+    def _setup_events(self):
+        self.list.connect('key_release_event', self.key_released)
+        
+    def key_released(self, widget, event):
+        if event.keyval == gtk.keysyms.Delete:
+            self.remove_selected_tracks()
+        
     def _setup_tree(self):
         """
             Sets up the TreeView for this Playlist

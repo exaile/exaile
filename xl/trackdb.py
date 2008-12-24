@@ -35,7 +35,8 @@ logger = logging.getLogger(__name__)
 SEARCH_ITEMS = ('artist', 'albumartist', 'album', 'title')
 SORT_FALLBACK = ('tracknumber', 'album')
 
-
+import sys
+sys.setrecursionlimit(1000)
 
 def get_sort_tuple(fields, track):
     """
@@ -70,6 +71,19 @@ def sort_tracks(fields, tracks, reverse=False):
 
     return [t[-1] for t in tracks]
 
+class TrackHolder(object):
+    def __init__(self, track, key, **kwargs):
+        self._track = track
+        self._key = key
+        self._attrs = kwargs
+
+    def __getitem__(self, tag):
+        return self._track[tag]
+
+    def __setitem__(self, tag, values):
+        self._track[tag] = values
+
+
 class TrackDB(object):
     """
         Manages a track database. 
@@ -98,8 +112,9 @@ class TrackDB(object):
         self._dirty = False
         self.tracks = {}
         self.pickle_attrs = pickle_attrs
-        self.pickle_attrs += ['tracks', 'name']
+        self.pickle_attrs += ['tracks', 'name', '_key']
         self._saving = False
+        self._key = 0
         if location:
             self.load_from_location()
             event.timeout_add(300000, self._timeout_save)
@@ -151,15 +166,14 @@ class TrackDB(object):
 
         for attr in self.pickle_attrs:
             try:
-                if 'tracks' in attr:
-                    if type(pdata[attr]) == list:
-                        setattr(self, attr, [ track.Track(_unpickles=x) 
-                                for x in pdata[attr] ] )
-                    elif type(pdata[attr]) == dict:
-                        data = pdata[attr]
-                        for k, v in data.iteritems():
-                            data[k] = track.Track(_unpickles=v)
-                        setattr(self, attr, data)
+                if 'tracks' == attr:
+                    data = {}
+                    for k in (x for x in pdata.keys() \
+                            if x.startswith("tracks-")):
+                        p = pdata[k]
+                        data[k] = TrackHolder(
+                                track.Track(_unpickles=p[0]), p[1], **p[2])
+                    setattr(self, attr, data)
                 else:
                     setattr(self, attr, pdata[attr])
             except:
@@ -177,10 +191,12 @@ class TrackDB(object):
             
             location: the location to save the data to [string]
         """
-        for k, track in self.tracks.iteritems():
-            if track._dirty: 
-                self._dirty = True
-                break
+        logger.debug(_("Saving %s DB to %s."%(self.name, location or self.location)))
+        if not self._dirty:
+            for k, track in self.tracks.iteritems():
+                if track._track._dirty: 
+                    self._dirty = True
+                    break
 
         if not self._dirty:
             return
@@ -198,37 +214,26 @@ class TrackDB(object):
             pdata = shelve.open(self.location, flag='c', 
                     protocol=common.PICKLE_PROTOCOL)
         except:
-            try:
-                os.remove(self.location)
-                pdata = shelve.open(self.location, flag='c', 
-                        protocol=common.PICKLE_PROTOCOL)
-            except:
-                logger.error(_("Failed to open music DB for write."))
-                return
+            logger.error(_("Failed to open music DB for write."))
+            return
 
         for attr in self.pickle_attrs:
-            if True:
-                # bad hack to allow saving of lists/dicts of Tracks
-                if 'tracks' in attr:
-                    if type(getattr(self, attr)) == list:
-                        pdata[attr] = [ x._pickles() \
-                                for x in getattr(self, attr) ]
-                    elif type(getattr(self, attr)) == dict:
-                        data = deepcopy(getattr(self, attr))
-                        for k,v in data.iteritems():
-                            if v._dirty:
-                                data[k] = v._pickles()
-                        pdata[attr] = data
-                else:
-                    pdata[attr] = deepcopy(getattr(self, attr))
+            # bad hack to allow saving of lists/dicts of Tracks
+            if 'tracks' == attr:
+                for k, track in self.tracks.iteritems():
+                    if track._track._dirty or "tracks-%s"%track._key not in pdata:
+                        pdata["tracks-%s"%track._key] = (
+                                track._track._pickles(),
+                                track._key,
+                                deepcopy(track._attrs))
             else:
-                pass
+                pdata[attr] = deepcopy(getattr(self, attr))
 
         pdata.sync()
         pdata.close()
         
         for track in self.tracks.itervalues():
-            if track._dirty: 
+            if track._track._dirty: 
                 track._dirty = False
 
         self._dirty = False
@@ -256,7 +261,7 @@ class TrackDB(object):
             track exists, returns None
         """
         try:
-            return self.tracks[loc]
+            return self.tracks[loc].__track
         except KeyError:
             return None
 
@@ -283,14 +288,25 @@ class TrackDB(object):
         searcher = TrackSearcher()
         if not tracks:
             tracks = self.tracks
-        else:
+        elif type(tracks) == list:
             do_search = {}
             for track in tracks:
                 do_search[track.get_loc()] = track
             tracks = do_search
+        elif type(tracks) == dict:
+            pass
+        else:
+            raise ValueError
 
-        tracks = searcher.search(query, tracks)
-        tracks = tracks.values()
+        tracksres = searcher.search(query, tracks)
+        tracks = []
+        for tr in tracksres.itervalues():
+            if hasattr(tr, '_track'):
+                #print "GOOD"
+                tracks.append(tr._track)
+            else:
+                #print "BAD"
+                tracks.append(tr)
 
         if sort_fields:
             if sort_fields == 'RANDOM':
@@ -308,13 +324,12 @@ class TrackDB(object):
             if it is not
         """
         # check to see if it's in one of our libraries, this speeds things
-        # up if we have a slow DB
+        # up if it isn't
         lib = None
         if hasattr(self, 'libraries'):
             for k, v in self.libraries.iteritems():
                 if loc.startswith(k):
                     lib = v
-                    return True
             if not lib:
                 return False
 
@@ -342,7 +357,8 @@ class TrackDB(object):
     @common.synchronized
     def add_tracks(self, tracks):
         for tr in tracks:
-            self.tracks[tr.get_loc()] = tr
+            self.tracks[tr.get_loc()] = TrackHolder(tr, self._key)
+            self._key += 1
             event.log_event("track_added", self, tr.get_loc())
         self._dirty = True 
 

@@ -95,12 +95,6 @@ def import_from_m3u(path):
                 current = track.Track()
             if not os.path.isabs(line):
                 line = os.path.join(os.path.dirname(path), line)
-            if not line.startswith("/"):
-                if line[1:3] == ":/": # windows path
-                    pass #TODO: handle this better
-                else:
-                    # convert the relative path to absolute
-                    line = os.path.join(os.path.dirname(path), line)
             current.set_loc(line)
             current.read_tags()
             pl.add(current)

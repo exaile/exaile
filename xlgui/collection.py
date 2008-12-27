@@ -12,10 +12,10 @@
 # along with this program; if not, write to the free software
 # foundation, inc., 675 mass ave, cambridge, ma 02139, usa.
 
+import logging, os, threading
+import gtk
 from xl import event, xdg, collection
 from xlgui import commondialogs
-import threading, logging
-import gtk
 
 logger = logging.getLogger(__name__)
 
@@ -147,9 +147,23 @@ class CollectionManagerDialog(object):
             path = dialog.get_filename()
             tmp_items = self.get_items()
 
+            # Append os.sep so /ab is not detected as descendant of /a.
+            sep = os.sep
+            if path.endswith(sep):
+                path_sep = path
+            else:
+                path_sep = path + sep
+
+            # TODO: Copy the code from 0.2 to handle the opposite, e.g. adding
+            # /a after /a/b should add /a and remove /a/b.
+
             for item in tmp_items:
                 if not item: continue
-                if path.startswith(item):
+                if item.endswith(sep):
+                    item_sep = item
+                else:
+                    item_sep = item + sep
+                if (path_sep.startswith(item_sep):
                     # our added path is a subdir of an existing path
                     commondialogs.error(self.parent, _('Path is already '
                         'in your collection, or is a subdirectory of '

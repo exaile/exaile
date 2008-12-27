@@ -322,6 +322,7 @@ class Library(object):
         self.scan_interval = scan_interval
         self.scan_id = 0
         self.scanning = False
+        self.realtime = False
         try:
             self.set_realtime(realtime)
         except PyInotifyNotSupportedException:

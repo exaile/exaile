@@ -10,6 +10,10 @@ additional targets for 0.3.0:
     file layout support
     transcode-on-transfer
 
+future:
+    device manager
+    lots of miscelanious useful/cool features
+    more plugins!
 
 
 devices we want to support: (see per-device section FMI)
@@ -137,6 +141,9 @@ display:
             also show battery status if possible
             Battery:        xx% 
             Space used:     xx%
+            - use mini progressbars instead/as well?
+            - show detailed info in tooltip
+                - charge ETA, xxGB of xxGB used
         how should we expose playlists/podcasts?
             0.2 method: they just appear as extra entries on top of the tree
                 pros: simple, easily seen
@@ -209,6 +216,9 @@ per-device considerations:
                 how to distinguish from data cd
                 view as one large playlist by default, but allow a tree view
                 burning?
+                - as an extension to transcoding, allow auto-adjustment
+                    of bitrate to provide the best quality that will fit
+                    - warn if will go below threshold?
             SACD:
                 need to get one for testing first
         dvds:
@@ -335,7 +345,6 @@ rockbox:
         the rockbox clock needs to be synced to the computer's clock
         - gpod will let us do this silently for the user
             - we should only do an auto-sync if its off by <20 minutes. 
-
                 more than that and its likely to be a timezone issue instead
                 which we shouldnt clobber
         - allow user to specify a timezone offset in case they need to be on

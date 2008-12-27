@@ -41,11 +41,22 @@ if not os.path.exists(cache_home):
 data_dirs = os.getenv("XDG_DATA_DIRS")
 if data_dirs == None:
     data_dirs = "/usr/local/share/:/usr/share/:/opt/share/"
-data_dirs = [ os.path.join(dir, "exaile") for dir in data_dirs.split(":") ]
+data_dirs = [ os.path.join(d, "exaile") for d in data_dirs.split(":") ]
 
 exaile_dir = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
-if os.path.exists(os.path.join(exaile_dir, 'Makefile')): #hack
-    data_dirs.insert(0, os.path.join(exaile_dir, 'data'))
+# Detect if Exaile is not installed.
+if os.path.exists(os.path.join(exaile_dir, 'Makefile')):
+    # Insert the "data" directory to data_dirs.
+    data_dir = os.path.join(exaile_dir, 'data')
+    data_dirs.insert(0, data_dir)
+    # Create a symlink from plugins to data/plugins.
+    plugins_dir = os.path.join(data_dir, 'plugins')
+    if not os.path.exists(plugins_dir):
+        try:
+            os.symlink(os.path.join(exaile_dir, 'plugins'), plugins_dir)
+        except AttributeError:
+            # If the system does not support symlinks, ignore.
+            pass
 
 data_dirs.insert(0, data_home)
 

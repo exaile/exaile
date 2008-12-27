@@ -95,12 +95,6 @@ def import_from_m3u(path):
                 current = track.Track()
             if not os.path.isabs(line):
                 line = os.path.join(os.path.dirname(path), line)
-            if not line.startswith("/"):
-                if line[1:3] == ":/": # windows path
-                    pass #TODO: handle this better
-                else:
-                    # convert the relative path to absolute
-                    line = os.path.join(os.path.dirname(path), line)
             current.set_loc(line)
             current.read_tags()
             pl.add(current)
@@ -394,8 +388,8 @@ class Playlist(object):
             self.filtered = False
             return self._ordered_tracks
         else:
-            self.filtered_tracks = self.search(keyword, sort_fields=('artist',
-                'album', 'tracknumber'))
+            self.filtered_tracks = self.search(keyword,
+                sort_fields=('artist', 'album', 'discnumber', 'tracknumber'))
             self.filtered = True
             return self.filtered_tracks
 
@@ -932,7 +926,7 @@ class SmartPlaylist(object):
         if self.random_sort: 
             sort_field = 'RANDOM'
         else:
-            sort_field = ('artist', 'album', 'tracknumber', 'title')
+            sort_field = ('artist', 'album', 'discnumber', 'tracknumber', 'title')
 
         pl = Playlist(name=self.get_name())
 

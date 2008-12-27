@@ -167,7 +167,7 @@ class CollectionPanel(panel.Panel):
             finds tracks matching a given iter. returns a resultset.
         """
         search = " ".join(self.get_node_search_terms(iter))
-        return self.collection.search(search, tracks=self.tracks) 
+        return self.collection.search(search) #, tracks=self.tracks) 
         
     def get_selected_tracks(self):
         """
@@ -186,7 +186,9 @@ class CollectionPanel(panel.Panel):
         
         found = list(set(reduce(lambda x, y: list(x) + list(y), found)))
       
-        return trackdb.sort_tracks(('artist', 'album', 'tracknumber'), found)
+        return trackdb.sort_tracks(
+            ('artist', 'album', 'discnumber', 'tracknumber'),
+            found)
 
     #FIXME: this should probably be moved into the playlist part of the UI
     def append_to_playlist(self, item=None, event=None):
@@ -353,8 +355,8 @@ class CollectionPanel(panel.Panel):
 
         # various
         if tag == 'artist':
-            tracks = self.collection.search('! compilation==__null__',
-                tracks=self.tracks)
+            tracks = self.collection.search('! compilation==__null__')#,
+                #tracks=self.tracks)
             if tracks:
                 self.model.append(parent, [None, None, None])
                 iter = self.model.append(parent, [image, _('Various Artists'), 

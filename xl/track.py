@@ -232,7 +232,6 @@ class Track(object):
             t = t.split("/")[0]
             return int(t)
         except ValueError:
-            print "AAAA"
             return t
 
     def get_rating(self):
@@ -329,25 +328,21 @@ class Track(object):
             returns a data repr of the track suitable for pickling
 
             internal use only please
-
-            returns: (tags, info) [tuple of dicts]
         """
         return deepcopy(self.tags)
 
-    def _unpickles(self, pickle_str):
+    def _unpickles(self, pickle_obj):
         """
             restores the state from the pickle-able repr
 
             internal use only please
-
-            pickle_str: the pickle repr [tuple of dicts]
         """
-        self.tags = deepcopy(pickle_str)
+        self.tags = deepcopy(pickle_obj)
 
 
 def parse_stream_tags(track, tags):
     """
-        Called when a tag is found in a stream
+        Called when a tag is found in a stream.
     """
 
     log = ['Stream tag:']

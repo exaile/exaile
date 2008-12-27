@@ -14,7 +14,7 @@
 
 import dbus
 
-from xl import common, providers
+from xl import common, providers, event
 from xl.nls import gettext as _
 
 import logging
@@ -34,6 +34,7 @@ class HAL(providers.ProviderHandler):
 
         self.hal_devices = {}
 
+    @common.threaded
     def connect(self):
         try:
             self.bus = dbus.SystemBus()
@@ -44,10 +45,9 @@ class HAL(providers.ProviderHandler):
                 self.on_new_provider(p)
             self.setup_device_events()
             logger.debug(_("Connected to HAL"))
-            return True
+            event.log_event("hal_connected", self, None)
         except:
             logger.warning(_("Failed to connect to HAL, autodetection of devices will be disabled."))
-            return False
 
     def on_new_provider(self, provider):
         for udi in provider.get_udis(self):

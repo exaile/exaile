@@ -20,6 +20,7 @@ from xl import xdg, event, common
 import xl.radio
 import threading
 import xl.playlist
+from xl.nls import gettext as _
 
 class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
     """

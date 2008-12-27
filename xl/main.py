@@ -94,11 +94,11 @@ class Exaile(object):
         #initialize PluginsManager
         if not self.options.safemode:
             from xl import plugins
-            logger.info("Loading plugins...")
+            logger.info(_("Loading plugins..."))
             self.plugins = plugins.PluginsManager(self)
         else:
             from xl import plugins
-            logger.info("Safe mode enabled, not loading plugins.")
+            logger.info(_("Safe mode enabled, not loading plugins."))
             self.plugins = plugins.PluginsManager(self, load=False)
 
         # Initialize the collection
@@ -133,15 +133,18 @@ class Exaile(object):
         self.dynamic = dynamic.DynamicManager(self.collection)
 
         #initalize device manager
-        logger.info("Loading devices...")
+        logger.info(_("Loading devices..."))
         from xl import devices
         self.devices = devices.DeviceManager()
+        event.log_event("device_manager_ready", self, None)
 
         #initialize HAL
         if self.options.hal:
             from xl import hal
             self.hal = hal.HAL(self.devices)
             self.hal.connect()
+        else:
+            self.hal = None
 
         # cover manager
         from xl import cover
@@ -161,7 +164,7 @@ class Exaile(object):
         self.gui = None
         #setup GUI
         if self.options.startgui:
-            logger.info("Loading interface...")
+            logger.info(_("Loading interface..."))
             import xlgui
             self.gui = xlgui.Main(self)
             import gobject
@@ -347,7 +350,7 @@ class Exaile(object):
         """
         if self.quitting: return
         self.quitting = True
-        logger.info("Exaile is shutting down...")
+        logger.info(_("Exaile is shutting down..."))
 
         # stop the various idle based threads so they don't freak out when the
         # program exits.  Silly Python.
@@ -361,7 +364,7 @@ class Exaile(object):
         # below.
         event.log_event("quit_application", self, self, async=False)
 
-        logger.info("Saving state...")
+        logger.info(_("Saving state..."))
         self.plugins.save_enabled()
 
         if self.gui:

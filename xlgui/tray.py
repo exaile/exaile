@@ -11,6 +11,7 @@ except ImportError:
     EGG_AVAIL = False
     
 from xl import xdg, event
+from xl.nls import gettext as _
 from xlgui import guiutil
 
 class BaseTrayIcon(object):

@@ -388,8 +388,8 @@ class Playlist(object):
             self.filtered = False
             return self._ordered_tracks
         else:
-            self.filtered_tracks = self.search(keyword, sort_fields=('artist',
-                'album', 'tracknumber'))
+            self.filtered_tracks = self.search(keyword,
+                sort_fields=('artist', 'album', 'discnumber', 'tracknumber'))
             self.filtered = True
             return self.filtered_tracks
 
@@ -926,7 +926,7 @@ class SmartPlaylist(object):
         if self.random_sort: 
             sort_field = 'RANDOM'
         else:
-            sort_field = ('artist', 'album', 'tracknumber', 'title')
+            sort_field = ('artist', 'album', 'discnumber', 'tracknumber', 'title')
 
         pl = Playlist(name=self.get_name())
 

@@ -186,7 +186,9 @@ class CollectionPanel(panel.Panel):
         
         found = list(set(reduce(lambda x, y: list(x) + list(y), found)))
       
-        return trackdb.sort_tracks(('artist', 'album', 'tracknumber'), found)
+        return trackdb.sort_tracks(
+            ('artist', 'album', 'discnumber', 'tracknumber'),
+            found)
 
     #FIXME: this should probably be moved into the playlist part of the UI
     def append_to_playlist(self, item=None, event=None):

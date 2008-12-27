@@ -163,7 +163,7 @@ class CollectionManagerDialog(object):
                     item_sep = item
                 else:
                     item_sep = item + sep
-                if (path_sep.startswith(item_sep):
+                if (path_sep.startswith(item_sep)):
                     # our added path is a subdir of an existing path
                     commondialogs.error(self.parent, _('Path is already '
                         'in your collection, or is a subdirectory of '

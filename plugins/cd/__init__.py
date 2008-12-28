@@ -164,6 +164,8 @@ class CDDevice(Device):
     """
         represents a CD
     """
+    class_autoconnect = True
+
     def __init__(self, dev="/dev/cdrom"):
         devices.Device.__init__(self, dev)
         self.dev = dev

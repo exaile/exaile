@@ -23,6 +23,7 @@ import os, logging
 logger = logging.getLogger(__name__)
 
 from xl import event
+from xl.nls import gettext as _
 
 TYPE_MAPPING = {
         'I': int,

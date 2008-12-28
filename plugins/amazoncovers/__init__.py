@@ -1,5 +1,5 @@
 import _ecs as ecs
-import urllib, md5, time
+import urllib, hashlib, time
 from xl.cover import *
 from xl import common, event, metadata
 
@@ -60,7 +60,7 @@ class AmazonCoverSearch(CoverSearchMethod):
                 h.close()
 
                 covername = os.path.join(cache_dir,
-                    md5.new(album.LargeImage.URL).hexdigest())
+                    hashlib.md5(album.LargeImage.URL).hexdigest())
                 covername += ".jpg"
                 h = open(covername, 'w')
                 h.write(data)

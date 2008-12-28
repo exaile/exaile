@@ -44,8 +44,8 @@ def log(message):
     logger.info(message + "  (Warning, using depreciated logger)")
 
 # use this for general logging of exceptions
-def log_exception(log=logger):
-    log.error("Exception caught!\n" + traceback.format_exc())
+def log_exception(log=logger, message="Exception caught!"):
+    log.error(message + "\n" + traceback.format_exc())
 
 
 def to_unicode(x, default_encoding=None):
@@ -61,7 +61,8 @@ def threaded(f):
     """
         A decorator that will make any function run in a new thread
     """
-
+    
+    # TODO: make this bad hack unneeded
     if _TESTING: return f
     def wrapper(*args, **kwargs):
         t = threading.Thread(target=f, args=args, kwargs=kwargs)

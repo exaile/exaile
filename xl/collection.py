@@ -21,7 +21,7 @@
 # A library finds tracks in a specified directory and adds them to an
 # associated collection.
 
-
+from xl.nls import gettext as _
 from xl import trackdb, track, common, xdg, event, metadata
 from xl.settings import SettingsManager
 settings = SettingsManager.settings
@@ -65,20 +65,14 @@ class Collection(trackdb.TrackDB):
 
             args: see TrackDB
         """
+        global COLLECTIONS
         self.libraries = dict()
         self._scanning = False
         self._scan_stopped = False
+        pickle_attrs += ['_serial_libraries']
         trackdb.TrackDB.__init__(self, name, location=location,
                 pickle_attrs=pickle_attrs)
-
         COLLECTIONS.add(self)
-        self.setup_libraries()
-
-    def setup_libraries(self):
-        lib_paths = settings.get_option("collection/libraries", [])
-        for (loc, realtime, interval) in lib_paths:
-            if len(loc.strip()) > 0:
-                self.add_library(Library(loc, realtime, interval))
 
     def add_library(self, library):
         """
@@ -92,6 +86,8 @@ class Collection(trackdb.TrackDB):
             library.set_collection(self)
         else:
             pass # TODO: raise an exception or something here
+        self.serialize_libraries()
+        self._dirty = True
 
     def remove_library(self, library):
         """
@@ -102,7 +98,9 @@ class Collection(trackdb.TrackDB):
         for k, v in self.libraries.iteritems():
             if v == library:
                 del self.libraries[k]
-                return
+                break
+        self.serialize_libraries()
+        self._dirty = True
 
     def stop_scan(self):
         """
@@ -169,14 +167,32 @@ class Collection(trackdb.TrackDB):
         event.log_event('scan_progress_update', self,
             int((float(count) / float(self.file_count)) * 100))
 
-    def save_libraries(self):
+    def serialize_libraries(self):
         """
-            Save information about libraries into settings
+            Save information about libraries
+
+            called whenver the libraries's settings are changed
         """
-        libraries = []
+        _serial_libraries = []
         for k, v in self.libraries.iteritems():
-            libraries.append((v.location, v.realtime, v.scan_interval))
-        settings.set_option("collection/libraries", libraries)
+            l = {}
+            l['location'] = v.location
+            l['realtime'] = v.realtime
+            l['scan_interval'] = v.scan_interval
+            _serial_libraries.append(l)
+        return _serial_libraries
+
+    def unserialize_libraries(self, _serial_libraries):
+        """
+            restores libraries from their serialized state.
+
+            Should only be called once, from the constructor.
+        """
+        for l in _serial_libraries:
+            self.add_library( Library( l['location'],
+                        l['realtime'], l['scan_interval'] ))
+
+    _serial_libraries = property(serialize_libraries, unserialize_libraries)
 
     def close(self):
         """

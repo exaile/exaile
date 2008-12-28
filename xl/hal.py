@@ -12,13 +12,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import dbus
+import dbus, time
 
-from xl import common, providers
+from xl import common, providers, event, devices, settings
+from xl.nls import gettext as _
 
 import logging
 logger = logging.getLogger(__name__)
 
+settings = settings.SettingsManager.settings
 
 class HAL(providers.ProviderHandler):
     """
@@ -33,6 +35,7 @@ class HAL(providers.ProviderHandler):
 
         self.hal_devices = {}
 
+    @common.threaded
     def connect(self):
         try:
             self.bus = dbus.SystemBus()
@@ -40,13 +43,17 @@ class HAL(providers.ProviderHandler):
                 '/org/freedesktop/Hal/Manager')
             self.hal = dbus.Interface(hal_obj, 'org.freedesktop.Hal.Manager')
             for p in self.get_providers():
-                self.on_new_provider(p)
+                try:
+                    self.on_new_provider(p)
+                except:
+                    logger.warning(
+                            _("Failed to load HAL devices for %s")%p.name)
+                    common.log_exception(logger)
             self.setup_device_events()
             logger.debug(_("Connected to HAL"))
-            return True
+            event.log_event("hal_connected", self, None)
         except:
             logger.warning(_("Failed to connect to HAL, autodetection of devices will be disabled."))
-            return False
 
     def on_new_provider(self, provider):
         for udi in provider.get_udis(self):
@@ -60,14 +67,14 @@ class HAL(providers.ProviderHandler):
         device = dbus.Interface(dev_obj, "org.freedesktop.Hal.Device")
         try:
             capabilities = device.GetProperty("info.capabilities")
+            for handler in self.get_providers():
+                if handler.is_type(device, capabilities):
+                    return handler
         except dbus.exceptions.DBusException,e:
             if e.get_dbus_name() == "org.freedesktop.Hal.NoSuchProperty":
                 return None
             else:
                 common.log_exception(logger)
-        for handler in self.get_providers():
-            if handler.is_type(device, capabilities):
-                return handler
         return None
 
     @common.threaded
@@ -76,15 +83,23 @@ class HAL(providers.ProviderHandler):
         if handler is None:
             logger.debug(_("Found no HAL device handler for %s")%device_udi)
             return
-        logger.debug(_("Found new %s device at %s")%(handler.name, device_udi))
+        
+        # give the device time to settle (eg. mount)
+        # TODO: find a better way to do this (ie. listen for mount?)
+        time.sleep(settings.get_option("devices/hal_settle_time", 5)) 
 
         dev = handler.device_from_udi(self, device_udi)
-        if not dev: return
-        dev.connect()
+        if not dev: 
+            logger.debug(_("Failed to create device for %s")%device_udi)
+            return
+        
+        logger.debug(_("Found new %s device at %s")%(handler.name, device_udi))
+        dev.autoconnect()
 
         self.devicemanager.add_device(dev)
         self.hal_devices[device_udi] = dev
 
+    @common.threaded
     def remove_device(self, device_udi):
         try:
             self.devicemanager.remove_device(self.hal_devices[device_udi])
@@ -101,6 +116,7 @@ class HAL(providers.ProviderHandler):
 
 class Handler(object):
     name = 'base'
+
     def __init__(self):
         pass
 

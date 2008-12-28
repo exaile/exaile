@@ -1,7 +1,7 @@
 import _scrobbler as scrobbler
 import asprefs
 from xl import common, event, xdg, metadata
-import gobject, logging, time, md5, pickle, os
+import gobject, logging, time, pickle, os
 
 from xl.settings import SettingsManager
 settings = SettingsManager.settings

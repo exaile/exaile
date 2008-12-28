@@ -12,7 +12,7 @@ from xl import settings
 settings.SettingsManager('.testtemp/test_exaile_settings.ini')
 import logging
 from xl import collection, event, common, xdg
-import unittest, md5, time, imp, os
+import unittest, hashlib, time, imp, os
 
 
 event._TESTING = True
@@ -24,13 +24,12 @@ class BaseTestCase(unittest.TestCase):
         self.setup_logging()
         self.settings = settings.SettingsManager('.testtemp/test_exaile_settings.ini')
         self.temp_col_loc = '.testtemp/col%s.db' % \
-            md5.new(str(time.time())).hexdigest()
+            hashlib.md5(str(time.time())).hexdigest()
         self.collection = collection.Collection("TestCollection", 
             self.temp_col_loc)
 
         self.library1 = collection.Library("./tests/data")
         self.collection.add_library(self.library1)
-        self.collection.save_libraries()
         self.collection.rescan_libraries()
 
     def load_plugin(self, pluginname):

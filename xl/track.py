@@ -145,7 +145,7 @@ class Track(object):
 
         # don't bother storing it if its a null value. this saves us a 
         # little memory
-        if values in [None, u"", []]:
+        if not values:
             try:
                 del self.tags[tag]
             except KeyError:

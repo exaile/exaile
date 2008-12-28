@@ -28,6 +28,14 @@ class DeviceManager(object):
         self.devices = {}
 
     def add_device(self, device):
+        # make sure we don't overwrite existing devices
+        count = 3
+        if device.get_name() in self.devices:
+            device.name += " (2)"
+        while device.get_name() in self.devices:
+            device.name = device.name[:-4] + " (%s)"%count
+            count += 1
+
         self.devices[device.get_name()] = device
         event.log_event("device_added", self, device)
 
@@ -47,13 +55,24 @@ class Device(object):
 
         must be subclassed for use
     """
+    class_autoconnect = False
+
     def __init__(self, name):
         self.name = name
         self.collection = None
         self.playlists = []
+        self.connected = False
 
     def get_name(self):
         return self.name
+
+    # will need revisiting when we get a UI device manager
+    def autoconnect(self):
+        if self.class_autoconnect == True:
+            self.connect()
+
+    def is_connected(self):
+        return self.connected
 
     def connect(self):
         """

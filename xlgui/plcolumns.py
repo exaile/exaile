@@ -97,11 +97,9 @@ class LengthColumn(Column):
         item = model.get_value(iter, 0)
         try:
             seconds = item.get_duration()
-            text = "%s:%02d" % (seconds / 60, seconds % 60)
-        except ValueError:
-            text = "0:00"
+            text = _("%d:%02d") % (seconds // 60, seconds % 60)
         except:
-            text = "0:00"
+            text = _("0:00")
         cell.set_property('text', text)
         self.playlist.set_cell_weight(cell, item)
 

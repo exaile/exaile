@@ -189,7 +189,10 @@ class OSDWindow(object):
             for item in ('title', 'artist', 'album', 'length', 'track', 'bitrate',
                 'genre', 'year', 'rating'):
                 value = track[item]
-                if not value: value = ''
+                if item == 'length':
+                    assert isinstance(value, (int, float))
+                    value = _("%d:%02d") % (value // 60, value % 60)
+                elif not value: value = ''
                 elif type(value) == list or type(value) == tuple:
                     value = metadata.j(value)
 

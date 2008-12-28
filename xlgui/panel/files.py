@@ -296,13 +296,7 @@ class FilesPanel(panel.Panel):
             iter = self.model.get_iter(path)
             value = unicode(model.get_value(iter, 1), 'utf-8')
             value = os.path.join(self.current, value)
-            (stuff, ext) = os.path.splitext(value)
-            if os.path.isdir(value):
-                self.append_recursive(tracks, value)
-            elif xl.track.is_valid_track(value):
-                tr = self.get_track(value)
-                if tr:
-                    tracks.append(tr)
+            self.append_recursive(tracks, value)
 
         if tracks:
             # sort the tracks
@@ -314,19 +308,18 @@ class FilesPanel(panel.Panel):
         # no tracks found
         return None
 
-    def append_recursive(self, songs, dir):
+    def append_recursive(self, songs, value):
         """
             Appends recursively
         """
-        for file in os.listdir(dir):
-            if os.path.isdir(os.path.join(dir, file)):
-                self.append_recursive(songs, os.path.join(dir, file))
-            else:
-                (stuff, ext) = os.path.splitext(file)
-                if xl.track.is_valid_track(file):
-                    tr = self.get_track(os.path.join(dir, file))
-                    if tr:
-                        songs.append(tr)
+        if os.path.isdir(value):
+            for filename in os.listdir(value):
+                self.append_recursive(songs, os.path.join(value, filename))
+        else:
+            if xl.track.is_valid_track(value):
+                tr = self.get_track(value)
+                if tr:
+                    songs.append(tr)
 
     def get_track(self, path):
         """

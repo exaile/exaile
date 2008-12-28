@@ -12,14 +12,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import dbus
+import dbus, time
 
-from xl import common, providers, event, devices
+from xl import common, providers, event, devices, settings
 from xl.nls import gettext as _
 
 import logging
 logger = logging.getLogger(__name__)
 
+settings = settings.SettingsManager.settings
 
 class HAL(providers.ProviderHandler):
     """
@@ -42,7 +43,12 @@ class HAL(providers.ProviderHandler):
                 '/org/freedesktop/Hal/Manager')
             self.hal = dbus.Interface(hal_obj, 'org.freedesktop.Hal.Manager')
             for p in self.get_providers():
-                self.on_new_provider(p)
+                try:
+                    self.on_new_provider(p)
+                except:
+                    logger.warning(
+                            _("Failed to load HAL devices for %s")%p.name)
+                    common.log_exception(logger)
             self.setup_device_events()
             logger.debug(_("Connected to HAL"))
             event.log_event("hal_connected", self, None)
@@ -77,9 +83,15 @@ class HAL(providers.ProviderHandler):
         if handler is None:
             logger.debug(_("Found no HAL device handler for %s")%device_udi)
             return
+        
+        # give the device time to settle (eg. mount)
+        # TODO: find a better way to do this (ie. listen for mount?)
+        time.sleep(settings.get_option("devices/hal_settle_time", 5)) 
 
         dev = handler.device_from_udi(self, device_udi)
-        if not dev: return
+        if not dev: 
+            logger.debug(_("Failed to create device for %s")%device_udi)
+            return
         
         logger.debug(_("Found new %s device at %s")%(handler.name, device_udi))
         dev.autoconnect()

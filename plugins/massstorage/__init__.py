@@ -71,7 +71,9 @@ class MassStorageHandler(Handler):
         for udi in udis:
             dev_obj = hal.bus.get_object("org.freedesktop.Hal", udi)
             device = dbus.Interface(dev_obj, "org.freedesktop.Hal.Device")
-            if "storage" in device.GetProperty(
+            if device.PropertyExists(
+                    "portable_audio_player.access_method.protocols") and \
+                    "storage" in device.GetProperty(
                     "portable_audio_player.access_method.protocols"):
                 ret.append(udi)
         return ret
@@ -79,7 +81,7 @@ class MassStorageHandler(Handler):
     def device_from_udi(self, hal, udi):
         mass_obj = hal.bus.get_object("org.freedesktop.Hal", udi)
         mass = dbus.Interface(mass_obj, "org.freedesktop.Hal.Device")
-        if not "storage" in mass.GetProperty(
+        if "storage" not in mass.GetProperty(
                 "portable_audio_player.access_method.protocols"):
             return
 
@@ -94,7 +96,8 @@ class MassStorageHandler(Handler):
         if mountpoints == []:
             return
 
-        name = mass.GetProperty("info.vendor")
+        name = mass.GetProperty("info.vendor") + " " + \
+                mass.GetProperty("info.product")
         massdev = MassStorageDevice(mountpoints, name)
 
         return massdev

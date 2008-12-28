@@ -28,6 +28,14 @@ class DeviceManager(object):
         self.devices = {}
 
     def add_device(self, device):
+        # make sure we don't overwrite existing devices
+        count = 3
+        if device.get_name() in self.devices:
+            device.name += " (2)"
+        while device.get_name() in self.devices:
+            device.name = device.name[:-4] + " (%s)"%count
+            count += 1
+
         self.devices[device.get_name()] = device
         event.log_event("device_added", self, device)
 

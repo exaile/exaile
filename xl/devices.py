@@ -47,13 +47,24 @@ class Device(object):
 
         must be subclassed for use
     """
+    class_autoconnect = False
+
     def __init__(self, name):
         self.name = name
         self.collection = None
         self.playlists = []
+        self.connected = False
 
     def get_name(self):
         return self.name
+
+    # will need revisiting when we get a UI device manager
+    def autoconnect(self):
+        if self.class_autoconnect == True:
+            self.connect()
+
+    def is_connected(self):
+        return self.connected
 
     def connect(self):
         """

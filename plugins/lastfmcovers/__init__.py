@@ -1,4 +1,4 @@
-import md5, re, urllib
+import hashlib, re, urllib
 from xl.cover import *
 from xl import event
 
@@ -49,7 +49,7 @@ class LastFMCoverSearch(CoverSearchMethod):
         data = h.read()
         h.close()
 
-        covername = os.path.join(cache_dir, md5.new(m.group(1)).hexdigest())
+        covername = os.path.join(cache_dir, hashlib.md5(m.group(1)).hexdigest())
         covername += ".jpg"
         h = open(covername, 'w')
         h.write(data)

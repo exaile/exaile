@@ -106,12 +106,6 @@ class Exaile(object):
         from xl import collection
         self.collection = collection.Collection("Collection",
                 location=os.path.join(xdg.get_data_dirs()[0], 'music.db') )
-        lib_paths = self.settings.get_option("collection/libraries", [])
-        for (loc, realtime, interval) in lib_paths:
-            if len(loc.strip()) > 0:
-                self.collection.add_library(
-                        collection.Library(loc, realtime, interval) )
-        event.log_event("collection_loaded", self, None)
 
         #Set up the player and playbakc queue
         from xl import player
@@ -374,7 +368,6 @@ class Exaile(object):
         self.covers.save_cover_db()
 
         self.collection.save_to_location()
-        self.collection.save_libraries()
         
         #Save order of custom playlists
         self.playlists.save_order()

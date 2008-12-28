@@ -3,7 +3,7 @@
 import sys
 import time
 import socket
-import md5
+import hashlib
 import threading
 import cgi
 import os
@@ -741,7 +741,7 @@ class proxy:
 
         print "Connecting to last.fm server..."
         self.lastfm = lastfm.lastfm();
-        self.lastfm.connect(self.username, self.hexify(md5.md5(self.password).digest()))
+        self.lastfm.connect(self.username, self.hexify(hashlib.md5(self.password).digest()))
         #print self.lastfm.info
 
         if not self.lastfm.info.has_key("session"):

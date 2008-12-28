@@ -5,7 +5,7 @@ backend)
 import urllib, urllib2, logging
 from time import mktime
 from datetime import datetime, timedelta
-from md5 import md5
+from hashlib import md5
 
 logger = logging.getLogger(__name__)
 

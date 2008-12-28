@@ -1,6 +1,6 @@
 from tests.base import BaseTestCase
 from xl import playlist
-import time, md5
+import time, hashlib
 
 class BasePlaylistTestCase(BaseTestCase):
     """
@@ -13,7 +13,7 @@ class SmartPlaylistTestCase(BasePlaylistTestCase):
         BasePlaylistTestCase.setUp(self)
 
         self.sp_loc = ".testtemp/sp_exaile%s.playlist" % \
-            md5.new(str(time.time())).hexdigest()
+            hashlib.md5(str(time.time())).hexdigest()
         self.sp = playlist.SmartPlaylist(collection=self.collection)
         self.sp.add_param("artist", "=", "TestArtist")
         self.sp.add_param("album", "!=", "First")

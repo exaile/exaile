@@ -18,6 +18,7 @@
 #
 # TrackSearcher - fast, advanced method for searching a dictionary of tracks
 
+from xl.nls import gettext as _
 from xl import common, track, event, xdg
 
 try:

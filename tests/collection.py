@@ -1,5 +1,5 @@
 from tests.base import BaseTestCase
-import unittest, time, md5
+import unittest, time
 from xl import collection, settings
 
 class CollectionTestCase(BaseTestCase):
@@ -17,7 +17,8 @@ class CollectionTestCase(BaseTestCase):
 
         # test libraries
         l = col.get_libraries()
-        assert len(l) == 1, "Number of saved libraries is incorrect"
+        assert len(l) == 1, "Number of saved libraries is incorrect" + \
+                "\n\tExpected: 1    Found: %s" % len(l)
         assert l[0].location == './tests/data', "Saved library is incorrect"
 
     def testAllFieldSearch(self):

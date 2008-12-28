@@ -14,7 +14,7 @@
 
 import dbus
 
-from xl import common, providers, event
+from xl import common, providers, event, devices
 from xl.nls import gettext as _
 
 import logging
@@ -82,11 +82,12 @@ class HAL(providers.ProviderHandler):
         if not dev: return
         
         logger.debug(_("Found new %s device at %s")%(handler.name, device_udi))
-        dev.connect()
+        dev.autoconnect()
 
         self.devicemanager.add_device(dev)
         self.hal_devices[device_udi] = dev
 
+    @common.threaded
     def remove_device(self, device_udi):
         try:
             self.devicemanager.remove_device(self.hal_devices[device_udi])
@@ -103,6 +104,7 @@ class HAL(providers.ProviderHandler):
 
 class Handler(object):
     name = 'base'
+
     def __init__(self):
         pass
 

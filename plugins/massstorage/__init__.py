@@ -35,6 +35,8 @@ def disable(exaile):
 
 class MassStorageDevice(Device):
     def __init__(self, mountpoints, name=""):
+        if len(mountpoints) == 0:
+            raise ValueError, "Must specify at least one mount point"
         if not name:
             name = mountpoints[0].split(os.sep)[-1]
         Device.__init__(self, name)
@@ -58,7 +60,8 @@ class MassStorageHandler(Handler):
     name = "massstorage"
     def is_type(self, device, capabilities):
         if "portable_audio_player" in capabilities:
-            if "storage" in device.GetProperty("portable_audio_player.access_method.protocols"):
+            if "storage" in device.GetProperty(
+                    "portable_audio_player.access_method.protocols"):
                 return True
         return False
 
@@ -68,14 +71,16 @@ class MassStorageHandler(Handler):
         for udi in udis:
             dev_obj = hal.bus.get_object("org.freedesktop.Hal", udi)
             device = dbus.Interface(dev_obj, "org.freedesktop.Hal.Device")
-            if "storage" in device.GetProperty("portable_audio_player.access_method.protocols"):
+            if "storage" in device.GetProperty(
+                    "portable_audio_player.access_method.protocols"):
                 ret.append(udi)
         return ret
 
     def device_from_udi(self, hal, udi):
         mass_obj = hal.bus.get_object("org.freedesktop.Hal", udi)
         mass = dbus.Interface(mass_obj, "org.freedesktop.Hal.Device")
-        if not "storage" in mass.GetProperty("portable_audio_player.access_method.protocols"):
+        if not "storage" in mass.GetProperty(
+                "portable_audio_player.access_method.protocols"):
             return
 
         mountpoints = []

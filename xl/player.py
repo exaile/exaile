@@ -13,6 +13,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 from xl.nls import gettext as _
+
 import pygst
 pygst.require('0.10')
 import gst
@@ -22,6 +23,12 @@ import gobject
 from xl import common, event, playlist, settings
 import random, time, os, logging
 from urlparse import urlparse
+
+
+try:
+    import cPickle as pickle
+except:
+    import pickle
 
 settings = settings.SettingsManager.settings
 
@@ -120,6 +127,39 @@ class PlayQueue(playlist.Playlist):
             self.player.play(track)
         else:
             self.next()
+
+    def _save_player_state(self, location):
+        state = {}
+        state['state'] = self.player.get_state()
+        state['position'] = self.player.get_time()
+        state['playtime_stamp'] = self.player.playtime_stamp
+        f = open(location, 'wb')
+        pickle.dump(state, f, protocol = 2)
+        f.close()
+
+    @common.threaded
+    def _restore_player_state(self, location):
+        try:
+            f = open(location, 'rb')
+            state = pickle.load(f)
+            f.close()
+        except:
+            return
+
+        for req in ['state', 'position', 'playtime_stamp']:
+            if req not in state:
+                return
+
+        if state['state'] != 'stopped':
+            print "Restoring"
+            vol = self.player.get_volume()
+            self.player.set_volume(0)
+            self.play()
+            time.sleep(1) # let it settle
+            self.player.seek(state['position'])
+            self.player.set_volume(vol)
+            self.player.playtime_stamp = state['playtime_stamp']
+            print "Restored"
 
 
 def get_player():

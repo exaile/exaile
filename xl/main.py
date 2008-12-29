@@ -168,6 +168,9 @@ class Exaile(object):
                 gobject.idle_add(self.splash.destroy)
             event.log_event("gui_loaded", self, None)
 
+        self.queue._restore_player_state(
+                os.path.join(xdg.get_data_dirs()[0], 'player.state') )
+
         self.loading = False
         event.log_event("exaile_loaded", self, None)
 
@@ -365,7 +368,6 @@ class Exaile(object):
         if self.gui:
             self.gui.quit()
 
-        self.player.stop()
         self.covers.save_cover_db()
 
         self.collection.save_to_location()
@@ -374,10 +376,12 @@ class Exaile(object):
         self.playlists.save_order()
         self.stations.save_order()
 
-        #TODO: save player
-
+        # save player, queue
+        self.queue._save_player_state(
+                os.path.join(xdg.get_data_dirs()[0], 'player.state') )
         self.queue.save_to_location(
                 os.path.join(xdg.get_data_dirs()[0], 'queue.state') )
+        self.player.stop()
 
         self.settings.save()
 

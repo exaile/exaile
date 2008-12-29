@@ -151,7 +151,6 @@ class PlayQueue(playlist.Playlist):
                 return
 
         if state['state'] != 'stopped':
-            print "Restoring"
             vol = self.player.get_volume()
             self.player.set_volume(0)
             self.play()
@@ -159,7 +158,6 @@ class PlayQueue(playlist.Playlist):
             self.player.seek(state['position'])
             self.player.set_volume(vol)
             self.player.playtime_stamp = state['playtime_stamp']
-            print "Restored"
 
 
 def get_player():

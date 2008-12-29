@@ -264,7 +264,7 @@ class MainWindow(object):
         for i in range(self.playlist_notebook.get_n_pages()):
             pl = self.playlist_notebook.get_nth_page(i).playlist
             tag = ''
-            if pl == self.queue.current_playlist:
+            if pl is self.queue.current_playlist:
                 tag = 'playing.'
             elif i == self.playlist_notebook.get_current_page():
                 tag = 'current.'

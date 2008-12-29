@@ -237,6 +237,8 @@ class MainWindow(object):
             if pl.name.startswith('current.'):
                 count = i
                 pl.name = pl.name[len('current.'):]
+                if self.queue.current_playlist == None:
+                    self.queue.set_current_playlist(pl)
             elif pl.name.startswith('playing.'):
                 count2 = i
                 pl.name = pl.name[len('playing.'):]

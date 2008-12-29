@@ -9,10 +9,9 @@ It should also be used to keep track of what each contributor is
 currently working on.
 
 Current projects:
-    Aren Olson - MP3 Player Support
+    Aren Olson - Persistence
     Adam Olsen - GUI
     Anthony Waters - 
-    thiblahute - CD Burning
 
 release naming scheme:
 
@@ -78,7 +77,8 @@ Implemented:
         xl/plugins.py has a list of plugins to enable by default
             - this is maybe suboptimal, but it'll do for now
     Installing
-
+    MP3 Player Support
+        - still lacks UI, plugins other than mass storage
        
 Things needed for alpha 1 (0.2.99.1) release:
     Persistence 
@@ -89,7 +89,7 @@ Things needed for alpha 1 (0.2.99.1) release:
             periodic save to disk so that in event of crash eveything is saved
                 save when new songs happen? that way we keep disk i/o together
                     which will be nice for laptop users
-    Rating    
+    Rating
         make rating system use a float from 0-100, this lets us seamlessly handle
             information coming from sources that use differing rating systems.
         a negative value will mean "not rated"
@@ -105,8 +105,6 @@ Things needed for alpha 1 (0.2.99.1) release:
 Things needed for alpha 2 (0.2.99.2) release:
     Plugins
         retrieval from server
-    MP3 Player Support
-        see player_planning
 
 Things needed for beta 1 (0.2.999.1) release:
     Conversion

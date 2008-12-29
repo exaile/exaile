@@ -262,7 +262,7 @@ class TrackDB(object):
             track exists, returns None
         """
         try:
-            return self.tracks[loc].__track
+            return self.tracks[loc]._track
         except KeyError:
             return None
 

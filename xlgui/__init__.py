@@ -14,6 +14,7 @@
 
 __all__ = ['main', 'panel', 'playlist']
 
+from xl.nls import gettext as _
 import gtk, gtk.glade, gobject, logging
 from xl import xdg, common, event
 

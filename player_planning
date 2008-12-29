@@ -3,17 +3,25 @@
 required for 0.3.0:
     device auto-detection
     MSC, MTP and iPod plugins
-    all functionality from 0.2.14
+    basic transfer support
 
 additional targets for 0.3.0:
-    rockbox support
-    file layout support
-    transcode-on-transfer
+    audioscrobbler support
+    file layout support (depends on device manager for config)
+        - useful for main as well, so worth implementing
+
+targets for 0.3.1:
+    device manager (removes UI dependence on HAL)
+    transcode-on-transfer (depends on device manager for config)
+    rockbox support 
+    full UI described below
+    anything deferred from 0.3.0
 
 future:
-    device manager
-    lots of miscelanious useful/cool features
-    more plugins!
+    UPnP (client and server)
+    DAAP server
+
+==========================================================================
 
 
 devices we want to support: (see per-device section FMI)
@@ -26,52 +34,13 @@ devices we want to support: (see per-device section FMI)
     audio dvds? 
     mp3 dvds? (do these even exist?)
     DAAP shares (via python-daap and python-avahi)
-    UPnP shares?
+    UPnP shares? (via python-coherence?)
 
 device recognition/persistence:
-    are there flags in HAL that are 100% guaranteed to recognize players?
-        if info.capabilities contains portable_audio_player we know it is
-            hal-info defines around 60 player classes this way
-            libmtp defines 130+ players
-            devices not caught this way can be manually added in the 
-                device manager, though we should file bugs against hal-info
-                and/or libmtp for them
-        the portable_audio_player.* keys have some info on the capabilities of
-            players. while these are not definitive, they are likely good 
-            enough to handle the majority of circumstances. keys of interest:
-            access_method.protocols 
-                values: storage, ipod, mtp
-            output_formats 
-                values: 'audio/aac', 'audio/x-ms-wma', 'audio/x-wav', 'audio/audible', 'application/ogg', 'video/x-ms-asf', 'audio/flac', 'audio/x-ms-asf', 'audio/ogg', 'audio/vnd.sony.atrac3', 'audio/amr', 'audio/3gpp', 'audio/mp4', 'audio/vnd.rn-realaudio', 'audio/x-amr', 'audio/x-imy', 'audio/x-midi', 'audio/AMR', 'audio/amr-wb', 'audio/vnd.m-realaudio', 'audio/x-m4b', 'audio/midi', 'video/x-smv', 'audio/mpeg'
-                relevant mappings:
-                    aac - 'audio/aac', 'audio/mp4'
-                    flac - 'audio/flac'
-                    mp3 - 'audio/mpeg'
-                    ogg - 'application/ogg', 'audio/ogg'
-                    wav - 'audio/x-wav'
-                    wma - 'audio/x-ms-wma'
-            input_formats
-                values: 'audio/x-wav', 'audio/mpeg', 'audio/x-ms-wma', 'audio/amr', 'audio/x-amr', 'audio/aac', 'audio/AMR', 'audio/midi'
-                this is what formats the device can record to. probably not 
-                    useful to us.
-            playlist_path
-                values: 'PLAYLISTS/%File', 'Playlists/', 'MUSIC/AllMyMusic.m3u', 'PLAYLIST/%File', 'Playlist/', 'Music/playlists', 'Playlists/%File'
-                I -think- this is for defining the playlist containing the song order on devices that don't do tag or path browsing, but im not sure.
-            playlist_format
-                values: 'audio/x-mpegurl', 'audio/x-scpls', 'application/vnd.ms-wpl', 'audio/x-iriver-pla'
-                not very informative, only defined for 16 player classes
-                probably goes with playlist_path
-            audio_folders
-                list of folders where audio can be found: sometimes also includes
-                    the directory recordings go to, but the first entry appears 
-                    to always be the music dir not the record dir.
-                - handle by always choosing the first, unless others reside
-                    on different fses
-    require user to explicitly connect to a device the first time, but after that
-        attempt to auto-connect
-        - we could use filesystem UUIDs to recognize players with 100% accuracy
-        - if there's a HAL key that would work instead that may be better
-            storage.serial?
+    require user to explicitly connect to a devices until configured otherwise
+        in the device manager
+        - ask user on first connect if they want to auto-connect in the future?
+        - HAL's udis are perfect for recognizing repeat devices
         - is there a non-HAL way to detect when new fses are mounted?
             - best solution thus far: don't try to auto-detect, just poll
                 mtab and libmtp when the device manager is open and require
@@ -85,7 +54,7 @@ transfer&syncing:
     cover art should be synced if possible
     calculate the space needed for the transfer before we begin, and tell the 
         user if there's not enough space to complete the operation
-        - offer possible ways of resolving the issue? eg remove old podcasts, 
+        - offer possible ways of resolving the issue? eg remove old podcasts/ 
             songs, reencode to a lower bitrate, etc? 
             - may be slightly overkill
     allow transcoding on transfer
@@ -115,9 +84,15 @@ playing:
         full filesystem paths and the COLLECTIONS set (with library path 
         regonition) to find where a track comes from.
         - how to handle this with MTP as we cant actually play off the
-            device itself
+            device itself?
     hide tracks that are DRM-encypted as we can't play them (can we recognize 
         this?) (could also be useful for main collection)
+
+audioscrobbler:
+    Many players support logging tracks for submission to 
+        audioscrobbler/last.fm
+        - file format: http://www.audioscrobbler.net/wiki/Portable_Player_Logging
+        - handle this in the audioscrobbler plugin as it's device-independant
 
 display:
     device manager:
@@ -236,8 +211,7 @@ per-device considerations:
                 there anything that supports 7?
                 - may not be feasable, as v7 uses certificate authentication
         upnp:
-            need to find bindings
-            python-coherence?
+            python-coherence
             - rhythmbox has a upnp plugin based on coherence we can use as 
                 an example
         network shares are never auto-tabbed or -connected
@@ -260,15 +234,14 @@ what this should all look like to the user:
         user selects share to connect to and presses "Connect"
         a new tab appears with the name of the share. the track listing and
             any other info is displayed
-
     manual:
         user opens the device manager        
         user clicks "Add" button
         user selects the type of device to connect to, a list of detected
             devices is displayed, along with an option to manually specify
             the device location
-        user selects a share and presses OK
-        a new tab appears with the name of the share. the track listing and
+        user selects a device/location and presses OK
+        a new tab appears with the name of the device. the track listing and
             any other info is displayed
 
 
@@ -277,31 +250,12 @@ rockbox:
         - just treat this as another device class that overrides all others
             - this won't handle dual-booting ipods nicely, but all other
                 players will be fine
+        - if rockbox's internal MSC support is enabled, we can use HAL flags
+            to tell that we're using rockbox. (ie. info.vendor == Rockbox)
     update rb db in-place?
-        - use rb lib? (may be difficult, as we can't embed C)
-            - appears difficult to build rb lib for 386 - need to ask rb devs
-                - if we can build for 32-bit x86, that would handle most use
-                    cases ad would probably be sufficient, though not ideal
-                - alternatively, this could be a plugin that has to be either
-                    built into a distro package (so it'd work fine for any arch),
-                    or compiled by the user
-                - this is still ugly >.<
-        - reimplement lib? (more portable but will need constant maintenance)
-            - db is supposed to be really simple (because some devices dont 
-                have much power), so should be possible
-            - may have to take endianness issues into account
-            - this would be WAY more portable than the C lib method, but may 
-                be more difficult to maintain
-                - need to ask rb devs if there are docs on the DB format. i can 
-                    probably replicate it given time, but docs would be WAY 
-                    better.
-                - will need a method to ensure we don't accidentally corrupt 
-                    users' DBs due to version differences. setting a lower 
-                    bound on rb ver is easy enough, but upper bounds will 
-                    be more difficult
-                    - we could store the highest known good ver, and if there's
-                        any irregularity in handling the DB and the rb ver is
-                        higher than the known good ver, dont continue.
+        - incomplete DB format docs and preliminary python code are 
+            available here:
+            http://www.rockbox.org/twiki/bin/view/Main/TagcacheDBFormat
     allow updating rockbox firmware through exaile?
         - would need auto-detection of device type
             can probably be done via rockbox-info.txt
@@ -313,43 +267,23 @@ rockbox:
         - allow other items to be updated as well? fonts/etc?
             - offering an exaile rockbox theme would be really cool
     offer to install rb firmware for user if supported device is detected?
-        - possibly too complex for us, but notifying the user that their
+        - we shouldn't do this as it requires root to install the bootloader
+            on most rockbox devices, but notifying the user that their
             device is supported and linking them to install instructions
             is feasable
-        - OTOH now that rockbox is going with stable releases like 3.0,
-            this now looks a lot more feasable, though it will depend
-            on HAL to let us recognize supported devices.
     option to strip "the" (or other words) from the beginning of tags on 
         transfer, as rockbox doesnt strip those itself yet
+        - may be a better idea to just work on supporting this in rockbox
+            itself instead. 
     album art:
-        rockbox doesnt like embedded album art, so we should strip it
-            from the tags on transfer
+        rockbox doesnt (currently) like embedded album art, so we should 
+            strip it from the tags on transfer
         use ./albumname.bmp (rockbox only supports bmp, not jpeg or png)
-        rockbox cannot scale the image, so we should do that beforehand
-            - we can just read the max dimensions out of the wps file. The path
-                to this file is stored in the wps key in config.cfg. If the key 
-                does not exist, then it's the rockbox default, cabbiev2.
-                - the %Cl line contains the max size info.
-                    - ex: %Cl|29|20|c120|c120|, max is 120x120. char in front
-                        indicates alignment and can be ignored
-                - never upscale images (give user option?)
-                - allow user to override the auto-detected size
-                - give option to generate for all installed themes, using
-                    *.100x100.bmp naming to allow the multiple images
-    rockbox supports logging scrobbling info to /.scrobbler.log, we should
-        support this for sending info
-        - file format: http://www.audioscrobbler.net/wiki/Portable_Player_Logging
-        - handle this in the audioscrobbler plugin as other devices may support
-            it as well
-    because rockbox stores the mtime in the DB, we'll need to inform users that
-        the rockbox clock needs to be synced to the computer's clock
-        - gpod will let us do this silently for the user
-            - we should only do an auto-sync if its off by <20 minutes. 
-                more than that and its likely to be a timezone issue instead
-                which we shouldnt clobber
-        - allow user to specify a timezone offset in case they need to be on
-            different zones?
-            - likewise for DST
+        in 3.1 and later rockbox supports scaling the artwork, so we should
+            just pick the biggest image we have on hand for the album and
+            use that.
+            - allow user to limit size of image to avoid excessive 
+                disk/cpu use in rockbox?
     DB auto-update should not be enabled at the same time as our DB updater, so
         as to avoid duplicate work on the device. There are two ways to handle
         this:
@@ -360,27 +294,4 @@ rockbox:
             auto-update the DB by default, so most users wouldnt see it and 
             we can handle it silently.
 
-code planning:
-    Device class:
-        .collection - collection object for all tracks on the device
-        .playlists - playlists manager for playlists on the device
-        .podcasts - podcasts manager for podcasts on the device
-        .connect() - connect to the device, load tracks/playlists
-        .disconnect() - safely disconnect from the device
-        .add(object) - add an object to the device. this can be a track object,
-                a podcast, or a playlist.
 
-    Library:
-        .set_layout(layout) - sets the layout for files in the library, uses
-            the same syntax as ex falso (default: <albumartist|<albumartist>|<artist|<artist>|Unknown>>/<album|<album>|Unknown>/<tracknumber|<tracknumber> - ><title|<title>|Unknown> - this uses a basic /artist/album/num - title structure, but takes into account albumartist and the possibility of missing tags.)
-        .add(loc, move=False) - adds the file from loc to the library. the optional move argument allows the file to be moved into the library structure rather than copied
-        .delete(loc) - permanently deletes a file
-        .get_freespace()
-        .get_totalspace()
-        .get_usedspace()
-        .get_usedspace_percent()
-        .organize() - move all existing files in the library to match the layout
-            specified by set_layout.
-        .keep_organized(bool) - whether to keep all files in the layout 
-            specified by set_layout. will only work in realtime if pynotify
-            is enabled.

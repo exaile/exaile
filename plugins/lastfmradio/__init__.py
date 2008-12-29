@@ -23,6 +23,7 @@
     uses directly
 """
 
+from xl.nls import gettext as _
 from xl import event, common, playlist, track
 from xl.radio import *
 import os, os.path, logging

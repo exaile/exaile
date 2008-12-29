@@ -1,4 +1,5 @@
 
+from xl.nls import gettext as _
 from xl import providers
 from xl.hal import Handler
 from xl.devices import Device

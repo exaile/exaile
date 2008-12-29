@@ -352,6 +352,8 @@ class Playlist(object):
         self.dynamic_enabled = False
         self.name = name
         self.tracks_history = []
+        self.extra_save_items = ['random_enabled', 'repeat_enabled', 
+                'dynamic_enabled', 'current_pos', 'name']
 
     def get_name(self):
         return self.name
@@ -712,8 +714,7 @@ class Playlist(object):
             f.write('\t%s\n' % urllib.urlencode(meta))
 
         f.write("EOF\n")
-        for item in ['random_enabled', 'repeat_enabled', 'dynamic_enabled',
-                'current_pos', 'name']:
+        for item in self.extra_save_items:
             val = getattr(self, item)
             strn = SettingsManager._val_to_str(val)
             f.write("%s=%s\n"%(item,strn))

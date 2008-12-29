@@ -19,7 +19,7 @@ import gst
 
 import gobject
 
-from xl import common, event, playlist, settings, xdg
+from xl import common, event, playlist, settings
 import random, time, os, logging
 from urlparse import urlparse
 
@@ -31,12 +31,15 @@ class PlayQueue(playlist.Playlist):
     """
         Manages the queue of songs to be played
     """
-    def __init__(self, player):
+    def __init__(self, player, location=None):
         self.current_playlist = None
+        self.current_pl_track = None
         playlist.Playlist.__init__(self, name="Queue")
         self.player = player
         player.set_queue(self)
         self.stop_track = -1
+        if location is not None:
+            self.load_from_location(location)
 
     def set_current_playlist(self, playlist):
         self.current_playlist = playlist

@@ -110,7 +110,8 @@ class Exaile(object):
         #Set up the player and playbakc queue
         from xl import player
         self.player = player.get_player()()
-        self.queue = player.PlayQueue(self.player)
+        self.queue = player.PlayQueue(self.player, 
+                location=os.path.join(xdg.get_data_dirs()[0], 'queue.state') )
         event.log_event("player_loaded", self, None)
 
         #initalize PlaylistsManager
@@ -373,7 +374,10 @@ class Exaile(object):
         self.playlists.save_order()
         self.stations.save_order()
 
-        #TODO: save player, queue
+        #TODO: save player
+
+        self.queue.save_to_location(
+                os.path.join(xdg.get_data_dirs()[0], 'queue.state') )
 
         self.settings.save()
 

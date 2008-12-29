@@ -227,7 +227,8 @@ class MainWindow(object):
             self.add_playlist()
             return
 
-        count = 0
+        count = -1
+        count2 = 0
         names.sort()
         for i, name in enumerate(names):
             pl = self.tab_manager.get_playlist(name)
@@ -235,9 +236,18 @@ class MainWindow(object):
             
             if pl.name.startswith('current.'):
                 count = i
-                pl.name = pl.name.replace('current.', '')
+                pl.name = pl.name[len('current.'):]
+            elif pl.name.startswith('playing.'):
+                count2 = i
+                pl.name = pl.name[len('playing.'):]
+                self.queue.set_current_playlist(pl)
 
             self.add_playlist(pl)
+
+        # If there's no selected playlist saved, use the currently 
+        # playing
+        if count == -1:
+            count = count2 
 
         self.playlist_notebook.set_current_page(count)
 
@@ -253,10 +263,12 @@ class MainWindow(object):
 
         for i in range(self.playlist_notebook.get_n_pages()):
             pl = self.playlist_notebook.get_nth_page(i).playlist
-            current = ''
-            if i == self.playlist_notebook.get_current_page():
-                current = 'current.'
-            pl.name = "order%d.%s%s" % (i, current, pl.name)
+            tag = ''
+            if pl == self.queue.current_playlist:
+                tag = 'playing.'
+            elif i == self.playlist_notebook.get_current_page():
+                tag = 'current.'
+            pl.name = "order%d.%s%s" % (i, tag, pl.name)
             self.tab_manager.save_playlist(pl, True)            
 
     def add_playlist(self, pl=None):
@@ -728,7 +740,7 @@ class MainWindow(object):
             exaile.player.toggle_pause()
         else:
             pl = self.get_selected_playlist()
-            exaile.queue.set_current_playlist(pl)
+            exaile.queue.set_current_playlist(pl.playlist)
             if pl:
                 track = pl.get_selected_track()
                 if track:

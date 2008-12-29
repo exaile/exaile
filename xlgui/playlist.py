@@ -340,6 +340,7 @@ class Playlist(gtk.VBox):
         self.playlist.set_current_pos(index)
         self.controller.exaile.player.stop()
         self.controller.exaile.queue.play(track=track)
+        self.controller.exaile.queue.set_current_playlist(self.playlist)
         
     def on_closing(self):
         """

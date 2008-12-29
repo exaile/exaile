@@ -728,6 +728,7 @@ class MainWindow(object):
             exaile.player.toggle_pause()
         else:
             pl = self.get_selected_playlist()
+            exaile.queue.set_current_playlist(pl)
             if pl:
                 track = pl.get_selected_track()
                 if track:
@@ -741,7 +742,6 @@ class MainWindow(object):
         """
         page = notebook.get_nth_page(page_num)
         self.current_page = page_num
-        self.queue.set_current_playlist(page.playlist)
         self.set_mode_toggles()
         self.update_track_counts()
 

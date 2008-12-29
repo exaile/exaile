@@ -751,7 +751,7 @@ class Playlist(gtk.VBox):
         attr, reverse = self.get_sort_by()
 
         songs = self.playlist.search(self.search_keyword,
-            (attr, 'artist', 'album', 'discnumber', 'tracknumber', 'title'))
+            (attr, 'artist', 'date', 'album', 'discnumber', 'tracknumber', 'title'))
 
         if reverse:
             songs.reverse()

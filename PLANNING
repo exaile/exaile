@@ -9,7 +9,7 @@ It should also be used to keep track of what each contributor is
 currently working on.
 
 Current projects:
-    Aren Olson - Persistence
+    Aren Olson - 
     Adam Olsen - GUI
     Anthony Waters - 
 
@@ -30,23 +30,18 @@ next release:
 Implemented:
     Collection
     Libraries
-        now has realtime watching!
     Playlists
     Player
     Queue
     Settings
     Event
-        signals-like system that doesn't require reference passing
     XDG
-        exaile's config and data files now stored according to xdg spec
     Logging System
     Smart Playlists
     CD Playback
         doesn't support mp3 CDs yet
     Device Manager
-        only for cd right now
     HAL Support
-        only for cd right now
     Playlists Manager
     Plugins System
         file format: tar archive (optionally with gzip/bzip2), gets extracted
@@ -81,14 +76,6 @@ Implemented:
         - still lacks UI, plugins other than mass storage
        
 Things needed for alpha 1 (0.2.99.1) release:
-    Persistence 
-        everything should be persistent, ie. when opening exaile it should appear 
-            EXACTLY as it was when you exited.
-        todo list:
-            make queue, player persistent
-            periodic save to disk so that in event of crash eveything is saved
-                save when new songs happen? that way we keep disk i/o together
-                    which will be nice for laptop users
     Rating
         make rating system use a float from 0-100, this lets us seamlessly handle
             information coming from sources that use differing rating systems.
@@ -99,12 +86,16 @@ Things needed for alpha 1 (0.2.99.1) release:
         - scale should perhaps be stored in the collection object? that
             way tracks played off devices can use the native rating scale for 
             that device (if applicable, mainly of use for ipods)
-    GUI
-        see GUIPLANNING
 
 Things needed for alpha 2 (0.2.99.2) release:
     Plugins
         retrieval from server
+    Localization
+        not only the GUI but all INFO, WARNING and ERROR logs should be 
+            translateable
+        DEBUG logs do not need to be, as they are largely not intended to be
+            seen by users
+        This should be a continuing effort until final.
 
 Things needed for beta 1 (0.2.999.1) release:
     Conversion
@@ -135,11 +126,6 @@ Things needed for RCs/final release:
         allow streaming if not downloaded
     Visualizations
         implement as plugin
-    Localization
-        not only the GUI but all INFO, WARNING and ERROR logs should be 
-            translateable
-        DEBUG logs do not need to be, as they are largely not intended to be
-            seen by users
     Test cases
         the following still need test cases:
         - tag reading/writing for all formats

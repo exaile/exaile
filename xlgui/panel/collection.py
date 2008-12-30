@@ -307,8 +307,13 @@ class CollectionPanel(panel.Panel):
         try:
             tag = self.order[depth]
             self.tracks = self.collection.search(search)
+            sort_by = []
+            if depth > 0 and self.order[depth-1] == "tracknumber":
+                print "USING SORT"
+                sort_by = ['discnumber', 'tracknumber']
             values = self.collection.list_tag(tag, search, use_albumartist=False, 
-                                              ignore_the=True, sort=True)
+                                              ignore_the=True, sort=True, 
+                                              sort_by=sort_by)
         except IndexError:
             return # at the bottom of the tree
         try:

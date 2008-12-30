@@ -34,10 +34,7 @@ logger = logging.getLogger(__name__)
 
 #FIXME: make these user-customizable
 SEARCH_ITEMS = ('artist', 'albumartist', 'album', 'title')
-SORT_FALLBACK = ('tracknumber', 'album')
-
-import sys
-sys.setrecursionlimit(1000)
+SORT_FALLBACK = ('tracknumber', 'discnumber', 'album')
 
 def get_sort_tuple(fields, track):
     """
@@ -46,14 +43,11 @@ def get_sort_tuple(fields, track):
         fields: the tag(s) to sort by (a single string or iterable of strings)
         track: the track to sort [Track]
     """
+    items = []
     if not type(fields) in (list, tuple):
         items = [track.sort_param(field)]
     else:
-        items = [track.sort_param(field) for field in fields]
-
-    for item in ('album', 'track', 'artist', 'title'):
-        if track.sort_param(item) not in items:
-            items.append(track.sort_param(item))
+        items = [track[field] for field in fields]
 
     items.append(track)
     return tuple(items)
@@ -67,9 +61,7 @@ def sort_tracks(fields, tracks, reverse=False):
         reverse: sort in reverse? [bool]
     """
     tracks = [get_sort_tuple(fields, t) for t in tracks]
-    tracks.sort()
-    if reverse: tracks.reverse()
-
+    tracks.sort(reverse=reverse)
     return [t[-1] for t in tracks]
 
 class TrackHolder(object):
@@ -241,7 +233,7 @@ class TrackDB(object):
         self._saving = False
 
     def list_tag(self, tag, search_terms="", use_albumartist=False, 
-                 ignore_the=False, sort=False):
+                 ignore_the=False, sort=False, sort_by=[]):
         """
             lists out all the values for a particular, tag, without duplicates
             
@@ -254,20 +246,32 @@ class TrackDB(object):
             if isinstance(y, basestring) and y[:4].lower() == 'the ':
                 y = y[4:]
             return cmp(x, y)
-            
-        tset = set()
-        for t in self.search(search_terms):
-            try:
-                for i in t[tag]:
-                    tset.add(i)
-            except:
-                tset.add(t[tag])
-        
-        if ignore_the:
-            cmp_type = the_cmp
+
+        if sort_by == []:
+            tset = set()
+            for t in self.search(search_terms):
+                try:
+                    for i in t[tag]:
+                        tset.add(i)
+                except:
+                    tset.add(t[tag])
+            vals = list(tset)
+            if ignore_the:
+                cmp_type = the_cmp
+            else:
+                cmp_type = None
+            vals = sorted(vals, cmp=cmp_type)
         else:
-            cmp_type = None
-        return sorted(list(tset), cmp=cmp_type)
+            tracks = self.search(search_terms)
+            tracks = sort_tracks(sort_by, tracks)
+            count = 1
+            while count < len(tracks):
+                if tracks[count][tag] == tracks[count-1][tag]:
+                    del tracks[count]
+                count += 1
+            vals = [ u" / ".join(x[tag]) for x in tracks]
+
+        return vals
 
     def get_track_by_loc(self, loc, raw=False):
         """

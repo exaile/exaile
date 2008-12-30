@@ -47,7 +47,7 @@ def get_sort_tuple(fields, track):
     if not type(fields) in (list, tuple):
         items = [track.sort_param(field)]
     else:
-        items = [track[field] for field in fields]
+        items = [track.sort_param(field) for field in fields]
 
     items.append(track)
     return tuple(items)

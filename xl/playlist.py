@@ -391,7 +391,7 @@ class Playlist(object):
             return self._ordered_tracks
         else:
             self.filtered_tracks = self.search(keyword,
-                sort_fields=('artist', 'album', 'discnumber', 'tracknumber'))
+                sort_fields=('artist', 'date', 'album', 'discnumber', 'tracknumber'))
             self.filtered = True
             return self.filtered_tracks
 
@@ -914,7 +914,7 @@ class SmartPlaylist(object):
         """
             Generates a playlist by querying the collection
             
-            @param collection: the collection to search (leave none to search
+            @param collection: the collection to search (leave None to search
                         internal ref)
         """
         if not collection:
@@ -927,7 +927,7 @@ class SmartPlaylist(object):
         if self.random_sort: 
             sort_field = 'RANDOM'
         else:
-            sort_field = ('artist', 'album', 'discnumber', 'tracknumber', 'title')
+            sort_field = ('artist', 'date', 'album', 'discnumber', 'tracknumber', 'title')
 
         pl = Playlist(name=self.get_name())
 

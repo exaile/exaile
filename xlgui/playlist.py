@@ -81,7 +81,6 @@ class Playlist(gtk.VBox):
 
         self.playlist = copy.copy(pl)
         self.playlist.ordered_tracks = pl.ordered_tracks[:]
-        self.playlist.current_pos = -1
 
         self.settings = controller.exaile.settings
         self.rating_images = create_rating_images(64)

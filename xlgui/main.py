@@ -238,13 +238,15 @@ class MainWindow(object):
                 count = i
                 pl.name = pl.name[len('current.'):]
                 if self.queue.current_playlist == None:
-                    self.queue.set_current_playlist(pl)
+                    self.queue.set_current_playlist(
+                            self.add_playlist(pl).playlist )
             elif pl.name.startswith('playing.'):
                 count2 = i
                 pl.name = pl.name[len('playing.'):]
-                self.queue.set_current_playlist(pl)
-
-            self.add_playlist(pl)
+                self.queue.set_current_playlist(
+                        self.add_playlist(pl).playlist )
+            else:
+                self.add_playlist(pl)
 
         # If there's no selected playlist saved, use the currently 
         # playing
@@ -294,6 +296,8 @@ class MainWindow(object):
         self.playlist_notebook.set_current_page(
             self.playlist_notebook.get_n_pages() - 1)
         self.set_mode_toggles()
+
+        return pl
 
     def _setup_hotkeys(self):
         """

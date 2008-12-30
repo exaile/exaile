@@ -240,13 +240,21 @@ class TrackDB(object):
         self._dirty = False
         self._saving = False
 
-    def list_tag(self, tag, search_terms="", use_albumartist=False, sort=False):
+    def list_tag(self, tag, search_terms="", use_albumartist=False, 
+                 ignore_the=False, sort=False):
         """
             lists out all the values for a particular, tag, without duplicates
             
             can also optionally prefer albumartist's value over artist's,
             this is primarily useful for the collection panel
         """
+        def the_cmp(x, y):
+            if isinstance(x, basestring) and x[:4].lower() == 'the ':
+                x = x[4:]
+            if isinstance(y, basestring) and y[:4].lower() == 'the ':
+                y = y[4:]
+            return cmp(x, y)
+            
         tset = set()
         for t in self.search(search_terms):
             try:
@@ -254,7 +262,12 @@ class TrackDB(object):
                     tset.add(i)
             except:
                 tset.add(t[tag])
-        return sorted(list(tset))
+        
+        if ignore_the:
+            cmp_type = the_cmp
+        else:
+            cmp_type = None
+        return sorted(list(tset), cmp=cmp_type)
 
     def get_track_by_loc(self, loc, raw=False):
         """

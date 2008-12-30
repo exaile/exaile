@@ -30,6 +30,28 @@ class MP4Format(BaseFormat):
     others = False
     writable = True
     
+    def _get_tag(self, f, name):
+        if not f.has_key(name):
+            return [] 
+        elif name in ['trkn', 'disk']: 
+            ret = []
+            for value in f[name]:
+                ret.append("%d/%d" % (value[0], value[1]))
+            return ret
+        else: return [t for t in f[name]]
+    
+    def _set_tag(f, name, value):
+        if type(value) is not list: value = [value]
+        if name in ['trkn', 'disk']:
+            try:
+                f[name] = []
+                for val in value:
+                    tmp = map(int, val.split('/'))
+                    f[name].append(tuple(tmp))
+            except:
+                #TODO log something?
+                pass
+        else:
+            f[name] = value
+    
 # vim: et sts=4 sw=4
-
-

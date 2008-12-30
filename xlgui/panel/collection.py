@@ -307,7 +307,8 @@ class CollectionPanel(panel.Panel):
         try:
             tag = self.order[depth]
             self.tracks = self.collection.search(search)
-            values = self.collection.list_tag(tag, search, use_albumartist=False, sort=True)
+            values = self.collection.list_tag(tag, search, use_albumartist=False, 
+                                              ignore_the=True, sort=True)
         except IndexError:
             return # at the bottom of the tree
         try:
@@ -332,12 +333,12 @@ class CollectionPanel(panel.Panel):
                     continue
                 else:
                     v = _("Unknown")
-
+    
             if depth == 0 and draw_seps:
                 if not first:
                     check_val = v
                     if check_val.lower().startswith('the '):
-                        check_val = check_val.replace('the ', '')
+                        check_val = check_val[4:]
                     char = check_val.lower()[0]
 
                     # check to see if it's a number

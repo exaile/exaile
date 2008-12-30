@@ -462,6 +462,7 @@ class MainWindow(object):
         self.splitter.connect('notify::position', self.configure_event)
         self.xml.signal_autoconnect({
             'on_configure_event':   self.configure_event,
+            'on_window_state_event': self.window_state_change_event,
             'on_delete_event':      self.delete_event,
             'on_quit_item_activated': self.delete_event,
             'on_playlist_notebook_switch':  self.playlist_switch_event,
@@ -768,6 +769,9 @@ class MainWindow(object):
             Sets up the position and sized based on the size the window was
             when it was last moved or resized
         """
+        if self.settings.get_option('gui/mainw_maximized', False):
+            self.window.maximize()
+            
         width = self.settings.get_option('gui/mainw_width', 500)
         height = self.settings.get_option('gui/mainw_height', 475)
         x = self.settings.get_option('gui/mainw_x', 10)
@@ -791,6 +795,8 @@ class MainWindow(object):
         """
             Called when the window is resized or moved
         """
+        if self.settings.get_option('gui/mainw_maximized', False):
+            return False
         (width, height) = self.window.get_size()
         if [width, height] != [ settings.get_option("gui/mainw_"+key, -1) for \
                 key in ["width", "height"] ]:
@@ -807,5 +813,11 @@ class MainWindow(object):
 
         return False
 
-
-
+    def window_state_change_event(self, widget, event):
+        """
+            Saves the current maximized state
+        """
+        if event.changed_mask & gtk.gdk.WINDOW_STATE_MAXIMIZED:
+            self.settings.set_option('gui/mainw_maximized',
+                bool(event.new_window_state & gtk.gdk.WINDOW_STATE_MAXIMIZED))
+        return False

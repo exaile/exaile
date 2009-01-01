@@ -45,9 +45,9 @@ def get_sort_tuple(fields, track):
     """
     items = []
     if not type(fields) in (list, tuple):
-        items = [track.sort_param(field)]
+        items = [track.sort_param(field).lower()]
     else:
-        items = [track.sort_param(field) for field in fields]
+        items = [track.sort_param(field).lower() for field in fields]
 
     items.append(track)
     return tuple(items)
@@ -242,9 +242,9 @@ class TrackDB(object):
         """
         def the_cmp(x, y):
             if isinstance(x, basestring) and x[:4].lower() == 'the ':
-                x = x[4:]
+                x = x[4:].lower()
             if isinstance(y, basestring) and y[:4].lower() == 'the ':
-                y = y[4:]
+                y = y[4:].lower()
             return cmp(x, y)
 
         if sort_by == []:
@@ -259,7 +259,7 @@ class TrackDB(object):
             if ignore_the:
                 cmp_type = the_cmp
             else:
-                cmp_type = None
+                cmp_type = lambda x,y: cmp(x.lower(), y.lower())
             vals = sorted(vals, cmp=cmp_type)
         else:
             tracks = self.search(search_terms)

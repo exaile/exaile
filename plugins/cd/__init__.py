@@ -168,7 +168,7 @@ class CDDevice(Device):
     class_autoconnect = True
 
     def __init__(self, dev="/dev/cdrom"):
-        devices.Device.__init__(self, dev)
+        Device.__init__(self, dev)
         self.dev = dev
 
     def connect(self):
@@ -247,8 +247,12 @@ class CDImporter(object):
                 break
             tr.set_loc(self.get_output_location(tr))
             tr.write_tags()
-            incr = tr['length'] / self.duration
-            self.progress += incr
+            tr.read_tags() # make sure everything is reloaded nicely
+            try:
+                incr = tr['length'] / self.duration
+                self.progress += incr
+            except:
+                pass
         self.progress = 100.0
 
     def _end_cb(self):
@@ -262,7 +266,10 @@ class CDImporter(object):
             replacedict["${%s}"%tag] = tag
         for part in parts:
             for k, v in replacedict.iteritems():
-                part = part.replace(k, str(tr[v]))
+                val = tr[v]
+                if type(val) in (list, tuple):
+                    val = u" & ".join(val) 
+                part = part.replace(k, str(val))
             part = part.replace(os.sep, "") # strip os.sep
             parts2.append(part)
         dirpath = "/" + os.path.join(*parts2[:-1]) 

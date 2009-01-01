@@ -704,14 +704,15 @@ class Playlist(object):
         else:
             f = open(location, "w")
         for tr in self:
-            f.write(tr.get_loc())
+            buffer = tr.get_loc()
             # write track metadata
             meta = {}
             items = ('artist', 'album', 'tracknumber', 'title', 'genre')
             for item in items:
                 value = tr[item]
                 if value is not None: meta[item] = value[0]
-            f.write('\t%s\n' % urllib.urlencode(meta))
+            buffer += '\t%s\n' % urllib.urlencode(meta)
+            f.write(buffer.encode('utf-8'))
 
         f.write("EOF\n")
         for item in self.extra_save_items:
@@ -737,7 +738,7 @@ class Playlist(object):
             line = f.readline()
             if line == "EOF\n" or line == "":
                 break
-            locs.append(line.strip())
+            locs.append(line.decode('utf-8').strip())
         while True:
             line = f.readline()
             if line == "":
@@ -749,14 +750,16 @@ class Playlist(object):
         f.close()
 
         tracks = []
-        col = list(collection.COLLECTIONS)[0]
 
         for loc in locs:
             meta = None
             if loc.find('\t') > -1:
                 (loc, meta) = loc.split('\t')
-                
-            tr = col.get_track_by_loc(loc)
+               
+            tr = None
+            col = collection.get_collection_by_loc(loc)
+            if col:
+                tr = col.get_track_by_loc(loc)
             if not tr:
                 tr = track.Track(uri=loc)
                 if tr.is_local() and not tr._scan_valid:

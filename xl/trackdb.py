@@ -164,8 +164,8 @@ class TrackDB(object):
                     for k in (x for x in pdata.keys() \
                             if x.startswith("tracks-")):
                         p = pdata[k]
-                        data[k] = TrackHolder(
-                                track.Track(_unpickles=p[0]), p[1], **p[2])
+                        tr = track.Track(_unpickles=p[0])
+                        data[tr.get_loc()] = TrackHolder(tr, p[1], **p[2])
                     setattr(self, attr, data)
                 else:
                     setattr(self, attr, pdata[attr])

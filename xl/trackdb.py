@@ -43,11 +43,15 @@ def get_sort_tuple(fields, track):
         fields: the tag(s) to sort by (a single string or iterable of strings)
         track: the track to sort [Track]
     """
+    def lower(x):
+        if type(x) == type(""):
+            return x.lower()
+        return x
     items = []
     if not type(fields) in (list, tuple):
-        items = [track.sort_param(field)]
+        items = [lower(track.sort_param(field))]
     else:
-        items = [track.sort_param(field) for field in fields]
+        items = [lower(track.sort_param(field)) for field in fields]
 
     items.append(track)
     return tuple(items)
@@ -241,10 +245,14 @@ class TrackDB(object):
             this is primarily useful for the collection panel
         """
         def the_cmp(x, y):
-            if isinstance(x, basestring) and x[:4].lower() == 'the ':
-                x = x[4:].lower()
-            if isinstance(y, basestring) and y[:4].lower() == 'the ':
-                y = y[4:].lower()
+            if isinstance(x, basestring):
+                x = x.lower()
+                if x[:4] == 'the ':
+                    x = x[4:]
+            if isinstance(y, basestring):
+                y = y.lower()
+                if y[:4] == 'the ':
+                    y = y[4:]
             return cmp(x, y)
 
         if sort_by == []:

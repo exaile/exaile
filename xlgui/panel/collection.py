@@ -309,7 +309,6 @@ class CollectionPanel(panel.Panel):
             self.tracks = self.collection.search(search)
             sort_by = []
             if depth > 0 and self.order[depth-1] == "tracknumber":
-                print "USING SORT"
                 sort_by = ['discnumber', 'tracknumber']
             values = self.collection.list_tag(tag, search, use_albumartist=False, 
                                               ignore_the=True, sort=True, 
@@ -362,7 +361,7 @@ class CollectionPanel(panel.Panel):
         # various
         if tag == 'artist':
             tracks = self.collection.search('! compilation==__null__',
-                tracks=self.tracks)
+                tracks=self.tracks, sort_fields=sort_by)
             if tracks:
                 self.model.append(parent, [None, None, None])
                 iter = self.model.append(parent, [image, _('Various Artists'), 

@@ -30,22 +30,26 @@ Sadly we can't use playbin, as two playbins can't share an element for
 
 Stream:
     Contains:
-        uridecodebin
+        [filesrc|cdparanoiasrc|neonhttpsrc]
+        [queue|] (only enabled on remote streams)
+        decodebin2 
         selector? (in case there are multiple streams)
-        queue (for buffering)
         audioconvert?
         audioresample?
-        replaygain (this way each stream automatically gets the right RG)
+        rgvolume (this way each stream automatically gets the right RG)
+        rglimiter
+        <custom elements from plugins>
+        queue (for buffering)
         volume control (for fading, should be 100% normally)
 
-    RB uses "src [ ! queue ] ! decodebin ! audioconvert ! audioresample ! caps ! queue ! volume"
-        - the first queue is only enabled on non-local streams.    
+    streams which are not playing should be disconnected and have their src
+        pads blocked
 
-    RB also has a persistent "silence" stream - lets the sink start w/o an 
-        active stream and prevents potential transition problems.
-
-    In RB streams are only connected if they're actually playing not paused 
-        or prerolling. When not connected their src pad is blocked.
+    there will be a persistent "silence" stream to avoid some potential issues
+        - audiotestsrc wave=4
+        - so as to play nice, we should release the sink after x seconds
+            if there are no active streams. That way exaile doesn't lock the
+            sound device to whatever audio sink its using.
 
 Adder:
     Contains:
@@ -55,6 +59,7 @@ Adder:
 Postprocessing:
     Contains:
         equalizer
+        <custom elements from plugins>
 
 Tee:
     Contains:
@@ -63,6 +68,7 @@ Tee:
 AudioSink:
     Contains:
         volume control
+        <custom elements from plugins>
         alsasink/pulsesink/etc
         any processing needed right before the sink
 
@@ -71,20 +77,31 @@ Visualization:
         the visualization plugin
 
 How it works:
+    Gapless:
+        decodebin2 fires a "drained" signal when it runs out of data.
+        When we get this signal, we should setup the next stream and
+            let it preroll, but not playing or linked to the adder.
+        When the queue for the first stream sends the "underrun" signal,
+            connect the next stream and set it to playing, then disconnect
+            the current stream
+            - we should ensure the queue always stores enough data to handle
+                this smoothly, a few (5?) seconds should be sufficient for
+                even very slow srcs. This could perhaps be configurable in
+                the advanced settings editor.
+
     Crossfading:
-        When we start a stream, we set a timer to wake up when the 
-            stream is close to ending. (if the user seeks/pauses we 
-            reset the timer appropriately)
-        When the timer wakes up, it sets up a new stream and starts 
-            it fading in while fading out the other. We should
-            probably wake up slightly before we need to to give the 
-            stream time to preroll.
+        Same as gapless, except
+            - we set the queue size to be <fade duration> seconds bigger
+            - when we get the drained signal, we set a timer to start us
+                fading at the right time
+            - we connect the second stream when we start fading, but 
+                disconnecting the current stream still happens on "underrun"
 
     Visualizations:
         We just create the visualization element and add it to tee. Tee
             should let us do this without disrupting the stream at all.
-        - this makes adding new visualization backends REALLY easy, as
-            long as there's already a gstreamer element for it.
+            - this makes adding new visualization backends REALLY easy, as
+                long as there's already a gstreamer element for it.
 
     Switching audio sinks:
         Make the new sink, add it to tee and remove the old. Just as
@@ -104,6 +121,7 @@ Plugin interface:
         - add new sinks 
         - add elements to streams
         - add elements to postprocessing
+        - add elements to sinks
 
 Things to watch out for:
     - seek/pause after the new stream has begun prerolling/fading
@@ -122,11 +140,9 @@ Misc Notes:
         anyway. 
 
 
-
 Useful Info:
     the RB patch for crossfading (good comments!): 
             http://bugzilla.gnome.org/attachment.cgi?id=85250
-
 
 
 Code Design:

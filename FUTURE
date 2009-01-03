@@ -182,6 +182,7 @@ Session management:
     we should properly support x session management
         the gnome implementation is available in gnome.ui
 
-
+GIO/GVFS support:
+    requires patching mutagen
 
 

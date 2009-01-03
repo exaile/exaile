@@ -378,9 +378,11 @@ class MainWindow(object):
             return
 
         rating = int(self.rating_combo.get_active())
-        track['rating'] = rating
+        steps = self.settings.get_option("miscellaneous/rating_steps", 5)
 
-        self.update_rating_combo()
+        track['rating'] = float((100.0*rating)/steps)
+
+        self.update_rating_combo(rating)
 
     def update_rating_combo(self, rating=None):
         """

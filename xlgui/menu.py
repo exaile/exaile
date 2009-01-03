@@ -16,8 +16,10 @@
 
 import gtk
 from xlgui import guiutil, commondialogs
-from xl import playlist, xdg
+from xl import playlist, xdg, settings
 from xl.nls import gettext as _
+
+settings = settings.SettingsManager.settings
 
 class GenericTrackMenu(guiutil.Menu):
     """
@@ -62,8 +64,10 @@ class GenericTrackMenu(guiutil.Menu):
         if not selected:
             selected = self.widget.get_selected_tracks()
 
+        steps = settings.get_option("miscellaneous/rating_steps", 5)
+
         for track in selected:
-            track['rating'] = i
+            track['rating'] = float((100.0*i)/steps)
 
         if hasattr(self.widget, 'queue_draw'):
             self.widget.queue_draw()

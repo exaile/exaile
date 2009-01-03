@@ -122,6 +122,7 @@ class RatingColumn(Column):
             cell.set_property('pixbuf', 
                 self.playlist.rating_images[idx])
         except IndexError:
+            print "idx_error"
             if idx > 5: idx = 5
             elif idx < 0: idx = 0
             cell.set_property('pixbuf', 

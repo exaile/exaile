@@ -15,12 +15,13 @@
 import os, time
 from copy import deepcopy
 from urlparse import urlparse
-from xl import common
+from xl import common, settings
 import xl.metadata as metadata
 from xl.common import lstrip_special
 import logging, traceback
 logger = logging.getLogger(__name__)
 
+settings = settings.SettingsManager.settings
 
 def is_valid_track(loc):
     """
@@ -239,7 +240,7 @@ class Track(object):
             Returns the current track rating.  Default is 2
         """
         try:
-            rating = int(self['rating'])
+            rating = float(self['rating'])
         except TypeError:
             return 0
         except KeyError:
@@ -247,7 +248,10 @@ class Track(object):
         except ValueError:
             return 0
 
-        if rating > 5: return 5
+        steps = settings.get_option("miscellaneous/rating_steps", 5)
+        rating = int(rating*steps/100.0)
+
+        if rating > steps: return int(steps)
         elif rating < 0: return 0
 
         return rating

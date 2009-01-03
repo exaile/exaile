@@ -62,6 +62,13 @@ install: make-install-dirs compile
 		$(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui/prefs
 	install -m 644 lib/*.py[co] $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/lib
 	install -m 644 lib/*.py $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/lib
+	for f in `find po -name exaile.mo` ; do \
+	  install -d -m 755 \
+	    `echo $$f | sed "s|^po|$(DESTDIR)$(PREFIX)/share/locale|" | \
+	      xargs dirname` && \
+	  install -m 644 $$f \
+	    `echo $$f | sed "s|^po|$(DESTDIR)$(PREFIX)/share/locale|"` ; \
+	  done
 	install -m 644 data/images/*.png \
 		$(DESTDIR)$(PREFIX)/share/exaile/data/images
 	install -m 644 data/glade/*.glade \

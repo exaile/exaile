@@ -140,3 +140,5 @@ backup.bzr
 random
 data/plugins
 
+po/messages.pot
+po/POTFILES.in

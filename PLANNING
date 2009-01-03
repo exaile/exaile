@@ -21,71 +21,19 @@ RCs:    0.2.9999.x
 final:  0.3.0
 
 releases so far:
-    0.2.99.0 - aka 0.3a
+    0.2.99.0 - aka 0.3a (internal version is 0.3.0devel)
 
 next release:
     0.2.99.1 - aka 0.3a2
 
+future releases:
+    0.2.99.2 - aka 0.3a3
+    0.2.999.1 - aka 0.3b1
+    0.2.999.2 - aka 0.3b2
+    0.2.9999.1 - aka 0.3rc1
+    0.2.9999.x (more rcs, only if needed)
+    0.3.0 final
 
-Implemented:
-    Collection
-    Libraries
-    Playlists
-    Player
-    Queue
-    Settings
-    Event
-    XDG
-    Logging System
-    Smart Playlists
-    CD Playback
-        doesn't support mp3 CDs yet
-    Device Manager
-    HAL Support
-    Playlists Manager
-    Plugins System
-        file format: tar archive (optionally with gzip/bzip2), gets extracted
-                into XDG_DATA_HOME, loads from there or XDG_DATA_DIRS
-    Covers
-        todo: support embedded covers, cover from filename via tag 
-            info (eg. %artist-%album.jpg)
-            - also support unix-style globbing on filenames (eg *.jpg)
-    Internet Radio
-        not at all feature-complete
-    Lyrics Manager
-        should we cache in ~/.lyrics instead of our own place?
-            format: standard text in ~/.lyrics/artist/title.lyric
-    Dynamic Playlists
-    MMKeys
-        Only for gnome >= 2.20
-    Gapless Playback
-        limitation: the UI will see the track as changing when the next track
-            is 'spooled up', rather than when the change happens. This is a 
-            limitation of the current playbin2. In most cases the difference
-            should be negligible.
-    Equalizer
-    Replaygain
-        doesn't support creating tags, only reading them
-    CD Ripping
-    Plugins
-        plugins Makefile allows setting list of plugins to install
-        xl/plugins.py has a list of plugins to enable by default
-            - this is maybe suboptimal, but it'll do for now
-    Installing
-    MP3 Player Support
-        - still lacks UI, plugins other than mass storage
-       
-Things needed for alpha 1 (0.2.99.1) release:
-    Rating
-        make rating system use a float from 0-100, this lets us seamlessly handle
-            information coming from sources that use differing rating systems.
-        a negative value will mean "not rated"
-        ui will collapse the float value to the nearest value on the scale
-            chosen by the user for display (default 5), but not alter it 
-            until it is changed
-        - scale should perhaps be stored in the collection object? that
-            way tracks played off devices can use the native rating scale for 
-            that device (if applicable, mainly of use for ipods)
 
 Things needed for alpha 2 (0.2.99.2) release:
     Plugins
@@ -96,6 +44,9 @@ Things needed for alpha 2 (0.2.99.2) release:
         DEBUG logs do not need to be, as they are largely not intended to be
             seen by users
         This should be a continuing effort until final.
+    Visualizations
+        implement as plugin?
+    Basic Device UI
 
 Things needed for beta 1 (0.2.999.1) release:
     Conversion
@@ -114,9 +65,6 @@ Things needed for beta 1 (0.2.999.1) release:
                 possibly also allow import from other players, eg rhythmbox,
                 amarok, etc. these importers would be implemented as plugins
                 and use the Providers system to expose their upgraders.
-
-
-Things needed for RCs/final release:
     CD Burning
         class in cd.py, takes a Playlist and burns it in order
         allow mp3 cd burning?
@@ -124,8 +72,8 @@ Things needed for RCs/final release:
         separate from radio
         allow flexibility in choice of when (if?) and where to download
         allow streaming if not downloaded
-    Visualizations
-        implement as plugin
+
+Things needed for RCs/final release:
     Test cases
         the following still need test cases:
         - tag reading/writing for all formats
@@ -141,7 +89,7 @@ Things needed for RCs/final release:
             - not necessarily critical for release, but testing 0.3 for
                 the presence of all current bugs would be useful
     Plugins
-        port all relevant 0.2 plugns to 0.3
+        port all relevant 0.2 plugins to 0.3
 
 
 GUIPLANNING:
@@ -186,14 +134,6 @@ GUIPLANNING:
     Notes:
         use gtk.glade.XML.signal_autoconnect *whenever* possible... this
             is something we didn't do in 0.2 and it was a pain
-        devices:
-            idea: use separate side tab for each device, with device manager
-                option in Tools for advanced config. tabs would be
-                auto-generated as new devices are connected, either via HAL
-                or the device manager.
-                    possible issue: space
-                        not likely needing concern, as it is unlikely that
-                        more than 3 devices will be plugged in at a time
 
     Ideas:
         use libsexy to put album art in tray tooltip (possible?)

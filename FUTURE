@@ -186,3 +186,6 @@ GIO/GVFS support:
     requires patching mutagen
 
 
+Misc UI ideas:
+    allow arbitrary tags to be playlist columns
+

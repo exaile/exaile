@@ -80,6 +80,11 @@ class ArtistColumn(Column):
     display = _('Artist')
     id = 'artist'
 
+class ComposerColumn(Column):
+    size = 150
+    display = _('Composer')
+    id = 'composer'
+
 class AlbumColumn(Column):
     size = 150
     display = _('Album')

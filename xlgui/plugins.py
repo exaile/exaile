@@ -112,7 +112,7 @@ class PluginManager(object):
 
         plugin = self.plugins.enabled_plugins[pluginname]
         if not hasattr(plugin, 'get_prefs_pane'):
-            commondialogs.error(self.parent, _("The selecte " 
+            commondialogs.error(self.parent, _("The selected " 
                 "plugin doesn't have any configuration options"))
             return
 

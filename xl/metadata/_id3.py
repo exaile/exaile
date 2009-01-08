@@ -19,6 +19,21 @@ from mutagen import id3
 import logging
 logger = logging.getLogger(__name__)
 
+# Support legacy encodings
+_unicode=unicode
+def unicode(string, encoding='utf8', errors='strict'):
+    try:
+        string = string.decode('utf8').encode('iso8859-1')
+    except:
+        return _unicode(string)
+    for enc in ('utf8', 'gb2312', 'big5', 'gb18030', 'big5hkscs', 'euc-jp', 
+            'euc_kr', 'cp1251', 'utf16'):
+        try:
+            return string.decode(enc)
+        except:
+            pass
+    return string
+
 
 class ID3Format(BaseFormat):
     MutagenType = id3.ID3
@@ -64,7 +79,7 @@ class ID3Format(BaseFormat):
                 ret.extend([unicode(x) for x in value.text])
         elif t == 'USLT': # Lyrics are stored in plan old strings
             for value in field:
-                ret.append(value.text)
+                ret.append(unicode(value.text))
         elif t == 'WOAR': # URLS are stored in url not text
             for value in field:
                 ret.extend([unicode(x.replace('\n','').replace('\r','')) \

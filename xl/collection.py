@@ -525,7 +525,9 @@ class Library(object):
                         event.log_event('tracks_scanned', self, count)
 
         for (basedir, album) in compilations:
-            items = db.search('basedir="%s" album="%s"' % (basedir, album))
+            base = basedir.replace('"', '\\"')
+            alb = album.replace('"', '\\"')
+            items = db.search('basedir="%s" album="%s"' % (base, alb))
             for item in items:
                 item['compilation'] = (basedir, album)
 

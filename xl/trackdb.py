@@ -459,8 +459,11 @@ class TrackSearcher(object):
             if '"' in tokens[counter]:
                 tk = tokens[counter]
                 while tk.count('"') - tk.count('\\"') < 2:
-                    tk += " " + tokens[counter+1]
-                    counter += 1
+                    try:
+                        tk += " " + tokens[counter+1]
+                        counter += 1
+                    except IndexError: # someone didnt match their "s
+                        break
                 first = tk.index('"', 0)
                 last = first
                 while True:

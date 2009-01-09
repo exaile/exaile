@@ -17,7 +17,7 @@
 # stores settings
 
 
-from ConfigParser import SafeConfigParser, NoSectionError, NoOptionError
+from ConfigParser import RawConfigParser, NoSectionError, NoOptionError
 
 import os, logging
 logger = logging.getLogger(__name__)
@@ -33,7 +33,7 @@ TYPE_MAPPING = {
         'L': list,
         'U': unicode}
 
-class SettingsManager(SafeConfigParser):
+class SettingsManager(RawConfigParser):
     """
         Manages exaile's settings
     """
@@ -44,7 +44,7 @@ class SettingsManager(SafeConfigParser):
             where settings will be stored.
         """
         logger.info(_("Loading settings"))
-        SafeConfigParser.__init__(self)
+        RawConfigParser.__init__(self)
         self.loc = loc
         self._saving = False
         self._dirty = False

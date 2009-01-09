@@ -145,8 +145,7 @@ class SettingsManager(RawConfigParser):
         """
             Convert setting strings back to normal values.
         """
-        kind = value.split(':')[0]
-        value = value.split(':')[1][1:]
+        kind, value = value.split(': ', 1)
 
         # lists are special case
         if kind == 'L':

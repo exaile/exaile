@@ -16,6 +16,13 @@
 
 import sys, os, os.path
 
+# allow disabling of pyc generation. Only works on python >= 2.6
+if os.getenv("EXAILE_NO_OPTIMIZE"):
+    try:
+        sys.dont_write_bytecode = True
+    except:
+        pass
+
 if sys.platform == 'linux2':
     # Set process name.  Only works on Linux >= 2.1.57.
     try:

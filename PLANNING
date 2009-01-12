@@ -22,12 +22,12 @@ final:  0.3.0
 
 releases so far:
     0.2.99.0 - aka 0.3a (internal version is 0.3.0devel)
+    0.2.99.1 - aka 0.3a1
 
 next release:
-    0.2.99.1 - aka 0.3a2
+    0.2.99.2 - aka 0.3a2
 
 future releases:
-    0.2.99.2 - aka 0.3a3
     0.2.999.1 - aka 0.3b1
     0.2.999.2 - aka 0.3b2
     0.2.9999.1 - aka 0.3rc1

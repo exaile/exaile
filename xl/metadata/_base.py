@@ -46,8 +46,8 @@ class BaseFormat(object):
             try:
                 self.mutagen = self.MutagenType(self.loc)
             except:
-                logger.error("Couldn't read tags from possibly corrupt" \
-                        "file %s"%self.loc)
+                logger.error("Couldn't read tags from possibly corrupt " \
+                        "file %s" % self.loc)
                 #common.log_exception(logger)
                 raise NotReadable
 

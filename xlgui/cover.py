@@ -441,9 +441,10 @@ class CoverWidget(gtk.EventBox):
         """
             Called when playback stops.  Resets to the nocover image
         """
-        self.loc = xdg.get_data_path('images/nocover.png')
-        self.image.set_image(xdg.get_data_path('images/nocover.png'))
-        self.emit('cover-found', self.loc)
+        nocover = xdg.get_data_path('images/nocover.png')
+        self.loc = nocover
+        self.image.set_image(nocover)
+        self.emit('cover-found', nocover)
 
 class CoverWindow(object):
     """Shows the cover in a simple image viewer"""

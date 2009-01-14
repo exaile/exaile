@@ -347,14 +347,16 @@ class CoverManager(providers.ProviderHandler):
                 raise NoCoverFoundException()
             cover = self.coverdb.get_cover(item[0], item[1]) 
         except TypeError: # one of the fields is missing
-            raise NoCoverFoundException() 
-        if not cover:
-            covers = self.find_covers(track, limit=1)
-            if not covers:
-                raise NoCoverFoundException()
-            else:
-                cover = covers[0]
-        else: return cover
+            raise NoCoverFoundException()
+
+        if cover:
+            return cover
+
+        covers = self.find_covers(track, limit=1)
+        if covers:
+            cover = covers[0]
+        else:
+            raise NoCoverFoundException()
 
         if update_track:
             self.coverdb.set_cover(item[0], item[1], cover)

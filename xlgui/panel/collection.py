@@ -26,13 +26,13 @@ class CollectionPanel(panel.Panel):
     """
     gladeinfo = ('collection_panel.glade', 'CollectionPanelWindow')
     orders = (
-        ('artist', 'album', 'tracknumber', 'title'),
-        ('album', 'tracknumber', 'title'),
-        ('genre', 'artist', 'album', 'tracknumber', 'title'),
-        ('genre', 'album', 'artist', 'tracknumber', 'title'),
-        ('date', 'artist', 'album', 'tracknumber', 'title'),
-        ('date', 'album', 'artist', 'tracknumber', 'title'),
-        ('artist', 'date', 'album', 'tracknumber', 'title')
+        ['artist', 'album', 'tracknumber', 'title'],
+        ['album', 'tracknumber', 'title'],
+        ['genre', 'artist', 'album', 'tracknumber', 'title'],
+        ['genre', 'album', 'artist', 'tracknumber', 'title'],
+        ['date', 'artist', 'album', 'tracknumber', 'title'],
+        ['date', 'album', 'artist', 'tracknumber', 'title'],
+        ['artist', 'date', 'album', 'tracknumber', 'title'],
     )
 
     def __init__(self, controller, settings, collection):
@@ -300,7 +300,7 @@ class CollectionPanel(panel.Panel):
         if self.keyword.strip():
             search += " " + self.keyword
         try:
-            if list(self.order).index("tracknumber") <= depth:
+            if self.order.index("tracknumber") <= depth:
                 depth += 1
         except ValueError:
             pass # tracknumber isnt in the list

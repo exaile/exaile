@@ -1,0 +1,4 @@
+Version="1.0.0"
+Authors=["Johannes Sasongko <sasongko@gmail.com>"]
+Name="Desktop Cover"
+Description="Displays the current album cover on the desktop"

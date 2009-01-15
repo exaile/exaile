@@ -97,13 +97,11 @@ class CoverDisplay:
     def display(self, cover):
         if self.cover != cover:
             self.cover = cover
-            print cover and cover[-8:]
             timeout_add_seconds(1, self._display, cover)
 
     def _display(self, cover):
         # Only process the last request.
         if cover != self.cover: return True
-        print "Proc", cover and cover[-8:]
 
         if cover is None:
             self.image.clear()

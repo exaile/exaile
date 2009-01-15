@@ -94,9 +94,12 @@ class PlayQueue(playlist.Playlist):
 
     def prev(self):
         track = None
-        if self.current_pos == -1:
-            if self.current_playlist:
-                track = self.current_playlist.prev()
+        if self.current_pos == 0:
+            if self.player.get_time() < 5:
+                if self.current_playlist:
+                    track = self.current_playlist.prev()
+            else:
+                track = self.player.current
         else:
             track = self.get_current()
         self.player.play(track)

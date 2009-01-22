@@ -8,12 +8,14 @@ DIST_PLUGINS := amazoncovers audioscrobbler console gnomemmkeys lastfmcovers \
 	lastfmdynamic lyricsfly lyricwiki notify shoutcast cd lastfmradio \
 	streamripper tagcovers
 
+all: compile
+
 dist:	clean
 	python dist_plugin.py $(DIST_PLUGINS)
 
 compile:
-	python -m compileall .
-	python -O -m compileall .
+	python -m compileall -q .
+	python -O -m compileall -q .
 
 install: compile
 	mkdir -p $(DESTDIR)$(PREFIX)$(PLUGINSDIR)

@@ -5,8 +5,8 @@ all: compile
 	@echo "Ready to install..."
 
 compile: translations
-	python -m compileall xl lib xlgui
-	-python -O -m compileall xl lib xlgui
+	python -m compileall -q xl lib xlgui
+	-python -O -m compileall -q xl lib xlgui
 
 make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/bin

@@ -1,7 +1,7 @@
 
 # script to turn a plugin dir into a .exz file suitable for distribution
 
-# takes one commandline parameter: the name of the ptlugin to build, which must
+# takes one commandline parameter: the name of the plugin to build, which must
 # be a subdirectory of the current directory
 
 # outputs the built plugin to the current directory, overwriting any current

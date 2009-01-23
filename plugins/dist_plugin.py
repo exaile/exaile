@@ -47,12 +47,14 @@ for dir in args:
                 if file.endswith(ext):
                     stop = True
                     break
-            if stop: break
+            if stop: 
+                continue
             for name in IGNORED_FILES:
                 if file == name:
                     stop = True
                     break
-            if stop: continue
+            if stop: 
+                continue
 
             path = os.path.join(fold, file)
             tfile.add(path)

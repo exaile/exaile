@@ -97,6 +97,9 @@ Context tab/Revamped Info tab:
     advanced method:
         - add an optional amarok-style context tab to the side pane
             - should also allow sub-tabs like amarok's lyrics tab
+            - allow hiding of current now-playing area if context tab
+                is enabled? may not be feasable as we put buttons in that
+                area too.
         - all previous tabs in the info tab can now be added as a pane
             in this context tab (or a sub-tab), siliar to how amarok's
             context pane is divided
@@ -107,6 +110,10 @@ Context tab/Revamped Info tab:
                 display statistics and releated artists, each in its own 
                 column, while another tab might show wikipedia info accross 
                 the full width
+        - in this setup, the context tab would always change to match the 
+            current song while the info tab would remain the same. This
+            eliminates the current solution of using a checkbox, which takes
+            up space and is easy to forget about
     in either case, we could also provide last.fm album/artist info
 
 Content-Matching (involved)
@@ -157,6 +164,9 @@ DB optimization:
             fast searching - space used on disk is a non-issue (within reason)
         all of this should be completely transparent, requiring no change to 
             the Track/TrackDB external API
+        memory actually seems to be less of an issue than speed, particularly
+            on large collections. perhaps just adding some sort of indexing
+            to the common fields would be best
 
 HAL outputs:
     allow selection of device to output to via halaudiosink
@@ -184,7 +194,7 @@ Session management:
 
 GIO/GVFS support:
     requires patching mutagen
-
+    would allow seamless use of music on smb/ftp/sftp shares
 
 Misc UI ideas:
     allow arbitrary tags to be playlist columns

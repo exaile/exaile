@@ -624,7 +624,7 @@ class TrackSearcher(object):
         else:
             # exact match in tag
             if "==" in token:
-                tag, sym, content = token.partition("==")
+                tag, content = token.split("==", 1)
                 if content[0] == "\"" and content[-1] == "\"":
                     content = content[1:-1]
                 #content = content.strip().strip('"')
@@ -643,7 +643,7 @@ class TrackSearcher(object):
                         pass
             # keyword in tag
             elif "=" in token:
-                tag, sym, content = token.partition("=")
+                tag, content = token.split("=", 1)
                 content = content.strip().strip('"')
                 for l,tr in current_list.iteritems():
                     try:
@@ -655,7 +655,7 @@ class TrackSearcher(object):
                         pass
             # greater than
             elif ">" in token:
-                tag, sym, content = token.partition(">")
+                tag, content = token.split(">", 1)
                 content = content.strip().strip('"')
                 for l,tr in current_list.iteritems():
                     try:
@@ -665,7 +665,7 @@ class TrackSearcher(object):
                         pass
             # less than
             elif "<" in token:
-                tag, sym, content = token.partition("<")
+                tag, content = token.split("<", 1)
                 content = content.strip().strip('"')
                 for l,tr in current_list.iteritems():
                     try:

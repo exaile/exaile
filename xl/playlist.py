@@ -34,8 +34,11 @@ except:
 
 try:
     import xml.etree.cElementTree as ETree
-except:
-    import cElementTree as ETree
+except ImportError:
+    try:
+        import cElementTree as ETree
+    except ImportError:
+        import elementtree as ETree
 
 from urlparse import urlparse
 import logging
@@ -196,7 +199,7 @@ def save_to_asx(playlist, path):
     handle.close()
     
 def import_from_asx(path):
-    tree = cETree.ElementTree(file=open(path))
+    tree = ETree.ElementTree(file=open(path))
     tracks = tree.findall("entry")
     name = tree.find("title").text.strip()
     pl = Playlist(name=name)

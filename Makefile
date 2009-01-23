@@ -1,5 +1,5 @@
-PREFIX ?= /usr/local
-LIBDIR ?= /lib
+PREFIX = /usr/local
+LIBDIR = /lib
 
 all: compile
 	@echo "Ready to install..."

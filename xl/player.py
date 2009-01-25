@@ -454,20 +454,25 @@ class AudioStream(gst.Bin):
         gst.Bin.__init__(self, name)
         self.notify_id = None
         self.track = None
+        self.setup_elems()
+
+    def setup_elems(self):
         self.dec = gst.element_factory_make("uridecodebin")
 #        self.provided = ProviderBin("stream_element")
         self.vol = gst.element_factory_make("volume")
         self.add(self.dec, self.vol)
-        self.dec.connect('pad-added', self._dec_pad_cb, self.vol)
+        self.dec.connect('no-more-pads', self._dec_pad_cb, self.vol)
 
         self.src = gst.GhostPad("src", self.vol.get_static_pad("src"))
         self.add_pad(self.src)
 
-    def _dec_pad_cb(self, dec, smth, v):
+    def _dec_pad_cb(self, dec, v):
+        print "BEFORE"
         try:
             dec.link(v)
         except:
             pass
+        print "AFTER"
 
     def set_volume(self, vol):
         self.vol.set_property("volume", vol)
@@ -493,9 +498,6 @@ class AudioStream(gst.Bin):
         if uri.startswith("cdda://"):
             self.notify_id = self.dec.connect('notify::source',
                     self.__notify_source)
-
-        # set state to paused so we're ready to play when it's time
-        self.set_state(gst.STATE_PAUSED)
 
     def __notify_source(self, *args):
         # this is for handling multiple CD devices properly

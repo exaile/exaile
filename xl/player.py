@@ -454,25 +454,25 @@ class AudioStream(gst.Bin):
         gst.Bin.__init__(self, name)
         self.notify_id = None
         self.track = None
+        self.playtime_stamp = None
         self.setup_elems()
 
     def setup_elems(self):
         self.dec = gst.element_factory_make("uridecodebin")
-#        self.provided = ProviderBin("stream_element")
+        self.provided = ProviderBin("stream_element")
         self.vol = gst.element_factory_make("volume")
-        self.add(self.dec, self.vol)
-        self.dec.connect('no-more-pads', self._dec_pad_cb, self.vol)
+        self.add(self.dec, self.provided, self.vol)
+        self.provided.link(self.vol)
+        self.dec.connect('no-more-pads', self._dec_pad_cb, self.provided)
 
         self.src = gst.GhostPad("src", self.vol.get_static_pad("src"))
         self.add_pad(self.src)
 
     def _dec_pad_cb(self, dec, v):
-        print "BEFORE"
         try:
             dec.link(v)
         except:
             pass
-        print "AFTER"
 
     def set_volume(self, vol):
         self.vol.set_property("volume", vol)
@@ -492,7 +492,7 @@ class AudioStream(gst.Bin):
             uri = "file://%s"%uri #TODO: is there a better way to do this?
 
         logger.info(_("Playing %s") % uri)
-#        self.reset_playtime_stamp()
+        self.reset_playtime_stamp()
         
         self.dec.set_property("uri", uri)
         if uri.startswith("cdda://"):
@@ -505,6 +505,39 @@ class AudioStream(gst.Bin):
         device = self.track.get_loc().split("#")[-1]
         source.set_property('device', device)
         self.dec.disconnect(self.notify_id)
+
+    def update_playtime(self):
+        """
+            updates the total playtime for the currently playing track
+        """
+        if self.track and self.playtime_stamp:
+            last = self.track['playtime']
+            if type(last) == str:
+                try:
+                    last = int(last)
+                except:
+                    last = 0
+            elif type(last) != int:
+                last = 0
+            self.track['playtime'] = last + int(time.time() - \
+                    self.playtime_stamp)
+            self.playtime_stamp = None
+
+    def reset_playtime_stamp(self):
+        self.playtime_stamp = int(time.time())
+
+    def set_state(self, state):
+        if state == gst.STATE_PLAYING:
+            gst.Bin.set_state(self, state)
+            self.reset_playtime_stamp()
+        elif state == gst.STATE_PAUSED:
+            self.update_playtime()
+            gst.Bin.set_state(self, state)
+            self.reset_playtime_stamp()
+        else:
+            self.update_playtime()
+            gst.Bin.set_state(self, state)
+
 
 
 class Postprocessing(ProviderBin):
@@ -524,7 +557,7 @@ class BaseAudioSink(BaseSink):
         self.vol = gst.element_factory_make("volume")
         self.sink = gst.element_factory_make(self.sink_elem)
         elems = [self.provided, self.vol, self.sink]
-        self.add_many(*elems)
+        self.add(*elems)
         gst.element_link_many(*elems)
         self.sinkghost = gst.GhostPad("sink", self.provided.get_static_pad("sink"))
         self.add_pad(self.sinkghost)

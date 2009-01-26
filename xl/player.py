@@ -286,14 +286,14 @@ class BaseGSTPlayer(object):
 
         # set up the link to the sound card
         name = settings.get_option("player/sink", "autoaudiosink")
+        # this setting is a list of strings of the form "param=value"
+        options = settings.get_option("player/sink_options", [])
         if not gst.element_factory_find(name):
             logger.warning(_("Could not find playback sink %s, falling back to autoaudiosink")%name)
             name = 'autoaudiosink'
             options = []
         logger.debug(_("Using %s for playback")%name)
         self.audio_sink = gst.element_factory_make(name, "sink")
-        # this setting is a list of strings of the form "param=value"
-        options = settings.get_option("player/sink_options", [])
         for option in options:
             try:
                 param, value = option.split("=", 1)

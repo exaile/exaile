@@ -534,6 +534,14 @@ class Library(object):
         if notify_interval is not None:
             event.log_event('tracks_scanned', self, count)
 
+        removals = []
+        for f in (x for x in db.tracks.iterkeys() 
+                if x.startswith(self.location)):
+            if not os.path.exists(f):
+                removals.append(db.get_track_by_loc(f))
+        for tr in removals:
+            db.remove(tr)
+
         self.scanning = False
         return True
 

@@ -50,11 +50,12 @@ class ID3Format(BaseFormat):
         "discnumber": "TPOS",
         "bpm": "TBPM",
         }
-    others = False #disallow tags not in the mapping
     writable = True
 
     def _get_tag(self, raw, t):
         if not raw.tags: return []
+        if t not in self.tag_mapping.itervalues():
+            t = "TXXX:" + t
         field = raw.tags.getall(t)
         if len(field) <= 0:
             return []

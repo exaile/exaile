@@ -698,6 +698,8 @@ class MainWindow(object):
                     { 'title': title, 'artist': artist }) + " - Exaile")
             else:
                 self.window.set_title(title + " - Exaile")
+        else:
+            return
 
         self.track_title_label.set_label(title)
         if album or artist:

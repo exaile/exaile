@@ -174,7 +174,6 @@ def get_player():
 
 class UnifiedPlayer(object):
     def __init__(self):
-        self.current = None
         self.playing = False
         self.last_position = 0
         self.queue = None
@@ -186,15 +185,14 @@ class UnifiedPlayer(object):
         self.audio_queue = gst.element_factory_make("queue")
         self.tee = gst.element_factory_make("tee")
     
-        self.stream0 = AudioStream("Stream1")
-        self.stream1 = AudioStream("Stream2")
-        self.streams = [self.stream0, self.stream1]
+        self.streams = [None, None]
         self.pp = Postprocessing()
         self.audio_sink = AutoAudioSink() # FIXME
         self.sinks = []
 
         self._load_queue_values()
         self._setup_pipeline()
+        self.setup_bus()
 
         event.add_callback(self._on_setting_change, 'option_set')
 
@@ -216,6 +214,29 @@ class UnifiedPlayer(object):
         self.audio_queue.link(self.pp)
         self.pp.link(self.tee)
         self.tee.link(self.audio_sink)
+
+    def _on_drained(self, dec):
+        tr = self.queue.next(player=False)
+        self.play(tr)
+
+    def setup_bus(self):
+        """
+            setup the gstreamer message bus and callacks
+        """
+        self.bus = self.pipe.get_bus()
+        self.bus.add_signal_watch()
+        self.bus.enable_sync_message_emission()
+        self.bus.connect('message', self.on_message)
+
+    def on_message(self, bus, message, reading_tag = False):
+        if message.type == gst.MESSAGE_EOS and not self.is_paused():
+            print "EOS: ", message
+
+    def _get_current(self):
+        if self.streams[self.current_stream]:
+            return self.streams[self.current_stream].get_current()
+
+    current = property(_get_current)
 
     def set_queue(self, queue):
         """
@@ -270,17 +291,8 @@ class UnifiedPlayer(object):
         return self._get_gst_state() == gst.STATE_PAUSED
 
     def get_position(self):
-        if self.is_paused(): 
-            return self.last_position
-        try:
-            self.last_position = \
-                    self.streams[self.current_stream].dec.query_position(
-                            gst.FORMAT_TIME )[0]
-        except gst.QueryError:
-            self.last_position = 0
-
-        return self.last_position
-
+        return self.streams[self.current_stream].get_position()
+        
     def get_time(self):
         return self.get_position()/gst.SECOND        
 
@@ -291,49 +303,53 @@ class UnifiedPlayer(object):
             progress = 0
         return progress
 
-    def update_playtime(self):
-        pass
-
-    def reset_playtime_stamp(self):
-        pass
 
     def play(self, track):
-        if self.current_stream == 1:
-            next_stream = self.stream0
-            current_stream = self.stream1
-        else:
-            next_stream = self.stream1
-            current_stream = self.stream0
+        logger.debug("Attmepting to play \"%s\""%track)
+        next = 1-self.current_stream
 
-        self.pipe.add(next_stream)
-        next_stream.link(self.adder)
-        next_stream.set_track(track)
+        self.unlink_stream(self.streams[self.current_stream])
+       
+        self.streams[next] = AudioStream("Stream%s"%(next))
+        self.streams[next].dec.connect("drained", self._on_drained)
 
-        try:
-            pad = current_stream.get_static_pad("src").get_peer()
-            current_stream.unlink(self.adder)
-            self.adder.release_request_pad(pad)
-            self.pipe.remove(current_stream)
-            current_stream.set_state(gst.STATE_READY)
-        except:
-            pass # should only happen if there was no playing stream
+        self.link_stream(self.streams[next])
+        if not self.streams[next].set_track(track):
+            logger.error("Failed to start playing \"%s\""%track)
+            self.stop()
+            return False
 
-        self.current = track
         self.pipe.set_state(gst.STATE_PLAYING)
+        gobject.idle_add(self.streams[next].set_state, gst.STATE_PLAYING)
 
-        self.current_stream = 1 - self.current_stream
+        self.current_stream = next
 
         event.log_event('playback_start', self, track)
+
+        return True
+
+    def unlink_stream(self, stream):
+        try:
+            pad = stream.get_static_pad("src").get_peer()
+            stream.unlink(self.adder)
+            self.adder.release_request_pad(pad)
+            gobject.idle_add(stream.set_state,gst.STATE_NULL)
+            self.pipe.remove(stream)
+        except:
+            pass # should only happen if there was no playing stream
+                 # TODO: handle this better
+
+    def link_stream(self, stream):
+        self.pipe.add(stream)
+        stream.link(self.adder)
 
     def stop(self):
         """
             stop playback
         """
         if self.is_playing() or self.is_paused():
-            self.update_playtime()
             current = self.current
             self.pipe.set_state(gst.STATE_NULL)
-            self.current = None
             event.log_event('playback_end', self, current)
 
     def pause(self):
@@ -341,9 +357,7 @@ class UnifiedPlayer(object):
             pause playback. DOES NOT TOGGLE
         """
         if self.is_playing():
-            self.update_playtime()
             self.streams[self.current_stream].set_state(gst.STATE_PAUSED)
-            self.reset_playtime_stamp()
             event.log_event('playback_pause', self, self.current)
  
     def unpause(self):
@@ -351,8 +365,6 @@ class UnifiedPlayer(object):
             unpause playback
         """
         if self.is_paused():
-            self.reset_playtime_stamp()
-
             # gstreamer does not buffer paused network streams, so if the user
             # is unpausing a stream, just restart playback
             if not self.current.is_local():
@@ -374,16 +386,8 @@ class UnifiedPlayer(object):
         """
             seek to the given position in the current stream
         """
-        value = int(gst.SECOND * value)
-        event = gst.event_new_seek(1.0, gst.FORMAT_TIME,
-            gst.SEEK_FLAG_FLUSH|gst.SEEK_FLAG_ACCURATE,
-            gst.SEEK_TYPE_SET, value, gst.SEEK_TYPE_NONE, 0)
+        self.streams[self.current_stream].seek(value)
 
-        current_stream = self.streams[self.current_stream]
-
-        current_stream.vol.send_event(event)
-
-        self.last_seek_pos = value
     
 
 class ProviderBin(gst.Bin, ProviderHandler):
@@ -455,6 +459,9 @@ class AudioStream(gst.Bin):
         self.notify_id = None
         self.track = None
         self.playtime_stamp = None
+
+        self.last_position = 0
+
         self.setup_elems()
 
     def setup_elems(self):
@@ -478,6 +485,8 @@ class AudioStream(gst.Bin):
         self.vol.set_property("volume", vol)
 
     def set_track(self, track):
+        if not track:
+            return False
         if track.is_local():
             if not os.path.exists(track.get_loc()):
                 logger.error(_("File does not exist: %s") %
@@ -498,6 +507,8 @@ class AudioStream(gst.Bin):
         if uri.startswith("cdda://"):
             self.notify_id = self.dec.connect('notify::source',
                     self.__notify_source)
+
+        return True
 
     def __notify_source(self, *args):
         # this is for handling multiple CD devices properly
@@ -527,6 +538,7 @@ class AudioStream(gst.Bin):
         self.playtime_stamp = int(time.time())
 
     def set_state(self, state):
+        print "Setting state on %s %s"%(self.get_name(), state)
         if state == gst.STATE_PLAYING:
             gst.Bin.set_state(self, state)
             self.reset_playtime_stamp()
@@ -538,6 +550,54 @@ class AudioStream(gst.Bin):
             self.update_playtime()
             gst.Bin.set_state(self, state)
 
+    def _get_gst_state(self):
+        """
+            Returns the raw GStreamer state
+        """
+        return self.get_state(timeout=50*gst.MSECOND)[1]
+
+    def is_playing(self):
+        """
+            Returns True if the player is currently playing
+        """
+        return self._get_gst_state() == gst.STATE_PLAYING
+
+    def is_paused(self):
+        """
+            Returns True if the player is currently paused
+        """
+        return self._get_gst_state() == gst.STATE_PAUSED
+
+    def get_current(self):
+        if self.is_playing() or self.is_paused():
+            return self.track
+        else:
+            return None
+
+    def get_position(self):
+        if self.is_paused(): 
+            return self.last_position
+        try:
+            self.last_position = self.dec.query_position(gst.FORMAT_TIME)[0]
+        except gst.QueryError:
+            common.log_exception(logger)
+            self.last_position = 0
+
+        return self.last_position
+
+    def seek(self, value):
+        """
+            seek to the given position in the current stream
+        """
+        value = int(gst.SECOND * value)
+        event = gst.event_new_seek(1.0, gst.FORMAT_TIME,
+            gst.SEEK_FLAG_FLUSH|gst.SEEK_FLAG_ACCURATE,
+            gst.SEEK_TYPE_SET, value, gst.SEEK_TYPE_NONE, 0)
+
+        self.vol.send_event(event)
+
+        self.last_seek_pos = value
+    
 
 
 class Postprocessing(ProviderBin):

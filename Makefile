@@ -135,7 +135,7 @@ commit: test clean
 
 
 # TODO: figure out how to ignore all files not under BZR control
-dist: clean docclean
+dist: test clean docclean
 	tar --bzip2 --format=posix -cf exaile-dist.tar.bz2 ./ \
 	    --exclude=*~ --exclude=exaile-dist.tar.bz2 \
 	    --exclude=./.bzr* --transform s/./exaile/

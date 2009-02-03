@@ -18,7 +18,8 @@ except ImportError:
 
 import unittest, doctest, os, shutil, sys, imp
 
-sys.path.append(os.getcwd())
+sys.path.insert(0, os.getcwd())
+
 
 from tests import base
 import xl

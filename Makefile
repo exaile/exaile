@@ -4,9 +4,10 @@ LIBDIR = /lib
 all: compile
 	@echo "Ready to install..."
 
-compile: translations
+compile:
 	python -m compileall -q xl lib xlgui
 	-python -O -m compileall -q xl lib xlgui
+	cd plugins && make && cd ..
 
 make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
@@ -95,6 +96,8 @@ clean:
 	-find . -name "*.py[co]" -exec rm -f {} \;
 	find . -name "*.class" -exec rm -f {} \;
 	find . -name "*.bak" -exec rm -f {} \;
+	rm -f po/POTFILES.in
+	rm -f po/messages.pot
 	cd plugins && make clean && cd ..
 
 doc: docclean
@@ -129,3 +132,10 @@ translations:
 commit: test clean
 	./commit || (bzr pull && bzr commit)
 	@echo "Use bzr push to send to launchpad"
+
+
+# TODO: figure out how to ignore all files not under BZR control
+dist: clean docclean
+	tar --bzip2 --format=posix -cf exaile-dist.tar.bz2 ./ \
+	    --exclude=*~ --exclude=exaile-dist.tar.bz2 \
+	    --exclude=./.bzr* --transform s/./exaile/

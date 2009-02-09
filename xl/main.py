@@ -48,6 +48,9 @@ class Exaile(object):
         self.quitting = False
         self.loading = True
         (self.options, self.args) = self.get_options().parse_args()
+        if self.options.show_version:
+            self.version()
+
         if self.options.datadir:
             xdg.data_dirs.insert(1, self.options.datadir)
 
@@ -284,6 +287,14 @@ class Exaile(object):
         p.add_option('--no-hal', dest='hal', action='store_false',
             default=True, help="Disable HAL support.")
         return p
+
+    def version(self):
+        print r"""   ____          _ __    __
+  / __/_ _____ _(_) /__ / /
+ / _/ \ \ / _ `/ / / -_)_/ 
+/___//_\_\\_,_/_/_/\__(_)   v%s
+"""%__version__
+        exit()
 
     def _add_default_playlists(self):
         """

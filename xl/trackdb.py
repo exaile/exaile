@@ -112,6 +112,7 @@ class TrackDB(object):
         self.pickle_attrs += ['tracks', 'name', '_key']
         self._saving = False
         self._key = 0
+        self._deleted_keys = []
         if location:
             self.load_from_location()
             event.timeout_add(300000, self._timeout_save)
@@ -225,6 +226,10 @@ class TrackDB(object):
                                 deepcopy(track._attrs))
             else:
                 pdata[attr] = deepcopy(getattr(self, attr))
+
+        for key in self._deleted_keys:
+            if "tracks-%s"%key in pdata:
+                del pdata["tracks-%s"%key]
 
         pdata.sync()
         pdata.close()
@@ -399,6 +404,7 @@ class TrackDB(object):
     @common.synchronized            
     def remove_tracks(self, tracks):
         for tr in tracks:
+            self._deleted_keys.append(self.tracks[tr.get_loc()]._key)
             del self.tracks[tr.get_loc()]
             event.log_event("track_removed", self, tr.get_loc())
         self._dirty = True

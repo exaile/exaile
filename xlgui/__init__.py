@@ -83,7 +83,24 @@ class Main(object):
             'on_preferences_item_activate': lambda *e: self.show_preferences(),
             'on_plugins_item_activate': self.show_plugins,
             'on_album_art_item_activate': self.show_cover_manager,
+            'on_open_item_activate': self.open_dialog,
         })
+
+    def open_dialog(self, *e):
+        """
+            Shows a dialog for opening playlists and tracks
+        """
+        dialog = gtk.FileChooserDialog(_("Choose a file to open"),
+            self.main.window, buttons=(_('Open'), gtk.RESPONSE_OK, 
+            _('Cancel'), gtk.RESPONSE_CANCEL))
+        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+
+        result = dialog.run()
+        dialog.hide()
+        if result == gtk.RESPONSE_OK:
+            files = dialog.get_filenames()
+            for file in files:
+                self.open_uri(file, play=False)
 
     def open_uri(self, uri, play=True):
         """

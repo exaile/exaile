@@ -177,7 +177,7 @@ class Exaile(object):
             args = sys.argv[2:]
             if not [x for x in args if x.startswith('-')]:
                 for arg in args:
-                    self.gui.play_uri(arg)
+                    self.gui.open_uri(arg)
 
         self.queue._restore_player_state(
                 os.path.join(xdg.get_data_dirs()[0], 'player.state') )

@@ -151,4 +151,4 @@ class DbusManager(dbus.service.Object):
         """
             Plays the specified file
         """
-        self.exaile.gui.play_uri(filename)
+        self.exaile.gui.open_uri(filename)

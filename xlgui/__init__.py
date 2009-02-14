@@ -85,17 +85,18 @@ class Main(object):
             'on_album_art_item_activate': self.show_cover_manager,
         })
 
-    def play_uri(self, uri):
+    def open_uri(self, uri, play=True):
         """
             Proxy for _play_uri
         """
         if self.exaile.loading:
-            event.add_callback(lambda a, b, c, uri=uri: self._play_uri(uri), 
+            event.add_callback(lambda a, b, c, uri=uri, play=play: 
+                self._open_uri(uri, play), 
                 'exaile_loaded')
         else:
-            self._play_uri(uri)
+            self._open_uri(uri, play)
 
-    def _play_uri(self, uri, play=True):
+    def _open_uri(self, uri, play=True):
         """
             Determines the type of a uri, imports it into a playlist, and
             starts playing it

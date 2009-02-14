@@ -171,6 +171,14 @@ class Exaile(object):
                 gobject.idle_add(self.splash.destroy)
             event.log_event("gui_loaded", self, None)
 
+            # Find out if the user just passed in a list of songs
+            # TODO: find a better place to put this
+            # using arg[2:] because arg[1:] will include --startgui
+            args = sys.argv[2:]
+            if not [x for x in args if x.startswith('-')]:
+                for arg in args:
+                    self.gui.play_uri(arg)
+
         self.queue._restore_player_state(
                 os.path.join(xdg.get_data_dirs()[0], 'player.state') )
 

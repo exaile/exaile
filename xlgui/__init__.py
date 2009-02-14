@@ -85,6 +85,34 @@ class Main(object):
             'on_album_art_item_activate': self.show_cover_manager,
         })
 
+    def play_uri(self, uri):
+        """
+            Proxy for _play_uri
+        """
+        if self.exaile.loading:
+            event.add_callback(lambda a, b, c, uri=uri: self._play_uri(uri), 
+                'exaile_loaded')
+        else:
+            self._play_uri(uri)
+
+    def _play_uri(self, uri, play=True):
+        """
+            Determines the type of a uri, imports it into a playlist, and
+            starts playing it
+        """
+        from xl import playlist, track
+        if playlist.is_valid_playlist(uri):
+            pl = playlist.import_playlist(uri)
+            self.main.add_playlist(pl)
+            if play:
+                self.exaile.queue.play()
+        else:
+            pl = self.main.get_selected_playlist()
+            tr = track.Track(uri)
+            pl.playlist.add(tr)
+            if play:
+                self.exaile.queue.play(tr)
+
     def show_cover_manager(self, *e):
         """
             Shows the cover manager

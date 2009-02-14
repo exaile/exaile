@@ -12,7 +12,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import dbus, dbus.service, gobject
+import dbus, dbus.service, gobject, sys
 from optparse import OptionParser
 
 def check_dbus(bus, interface):
@@ -36,6 +36,13 @@ def check_exit(options, args):
             iface = dbus.Interface(remote_object,
                 'org.exaile.ExaileInterface')
             iface.test_service('testing dbus service')
+
+            # check for one argument, if it doesn't begin with a it's probably
+            # a url
+            args = sys.argv[2:]
+            if not [x for x in args if x.startswith('-')]:
+                for arg in args:
+                    iface.play_file(arg)
 
             info_commands = ('get_artist', 'get_title', 'get_album',
                 'get_length', 'get_rating')
@@ -138,3 +145,10 @@ class DbusManager(dbus.service.Object):
     @dbus.service.method("org.exaile.ExaileInterface", None, "s")
     def get_version(self):
         return self.exaile.get_version()
+
+    @dbus.service.method("org.exaile.ExaileInterface", "s")
+    def play_file(self, filename):
+        """
+            Plays the specified file
+        """
+        self.exaile.gui.play_uri(filename)

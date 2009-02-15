@@ -18,7 +18,7 @@ from xl.nls import gettext as _
 import gtk, gtk.glade, gobject, logging
 from xl import xdg, common, event
 
-from xlgui import guiutil, prefs, plugins, cover
+from xlgui import guiutil, prefs, plugins, cover, commondialogs
 
 gtk.window_set_default_icon_from_file(xdg.get_data_path("images/icon.png"))
 logger = logging.getLogger(__name__)
@@ -84,7 +84,23 @@ class Main(object):
             'on_plugins_item_activate': self.show_plugins,
             'on_album_art_item_activate': self.show_cover_manager,
             'on_open_item_activate': self.open_dialog,
+            'on_open_url_item_activate': self.open_url,
         })
+
+    def open_url(self, *e):
+        """
+            Displays a dialog to open a url
+        """
+        dialog = commondialogs.TextEntryDialog(_('Enter the URL to open'),
+        _('Open URL'))
+        dialog.set_transient_for(self.main.window)
+        dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        
+        result = dialog.run()
+        dialog.hide()
+        if result == gtk.RESPONSE_OK:
+            url = dialog.get_value()
+            self.open_uri(url, play=False)
 
     def open_dialog(self, *e):
         """
@@ -127,7 +143,7 @@ class Main(object):
         else:
             pl = self.main.get_selected_playlist()
             tr = track.Track(uri)
-            pl.playlist.add(tr)
+            pl.playlist.add_tracks([tr])
             if play:
                 self.exaile.queue.play(tr)
 

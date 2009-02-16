@@ -24,7 +24,7 @@ class Panel(object):
     """
     gladeinfo = ('panel.glade', 'PanelWindow')
 
-    def __init__(self, controller):
+    def __init__(self, controller, name=None):
         """
             Intializes the panel
             
@@ -36,10 +36,19 @@ class Panel(object):
             self.gladeinfo[0]), self.gladeinfo[1], 'exaile')
 
         window = self.xml.get_widget(self.gladeinfo[1])
-        child = window.get_child()
-        window.remove(child)
+        self._child = window.get_child()
+        window.remove(self._child)
 
-        self.controller.add_panel(child, window.get_title())
+        if name == None:
+            name = window.get_title()
+        self.controller.add_panel(self._child, name)
         window.destroy()
+
+
+    def __del__(self):
+        try:
+            self.controller.remove_panel(self._child)
+        except ValueError:
+            pass
 
 

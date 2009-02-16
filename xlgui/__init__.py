@@ -72,6 +72,10 @@ class Main(object):
 
         self.main.window.show_all()
 
+        self.device_panels = {}
+        event.add_callback(self.add_device_panel, 'device_added')
+        event.add_callback(self.remove_device_panel, 'device_removed')
+
     def _connect_events(self):
         """
             Connects the various events to their handlers
@@ -220,6 +224,13 @@ class Main(object):
             # complaining
             self.panel_notebook.remove_page(0)
 
+    def remove_panel(self, child):
+        for n in range(self.panel_notebook.get_n_pages()):
+            if child == self.panel_notebook.get_nth_page(n):
+                self.panel_notebook.remove_page(n)
+                return
+        raise ValueError("No such panel")
+
     def show_about_dialog(self, *e):
         """
             Displays the about dialog
@@ -248,6 +259,15 @@ class Main(object):
 
         # save open tabs
         self.main.save_current_tabs()
+
+    def add_device_panel(self, type, obj, device):
+        from xlgui.panel.collection import CollectionPanel
+        panel = CollectionPanel(self, self.exaile.settings, device.collection,
+                device.get_name())
+        self.device_panels[device.get_name()] = panel
+
+    def remove_device_panel(self, type, obj, device):
+        del self.device_panels[device.get_name()]
 
 @guiutil.gtkrun
 def show_splash(show=True):

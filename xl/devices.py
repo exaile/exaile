@@ -55,7 +55,7 @@ class Device(object):
 
         must be subclassed for use
     """
-    class_autoconnect = False
+    class_autoconnect = True # BAD
 
     def __init__(self, name):
         self.name = name

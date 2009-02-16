@@ -1,3 +1,4 @@
+lastfm://user/reacocard/neighbours
 lastfm://user/synic/neighbours
 lastfm://user/synic/personal
 lastfm://group/%23utah

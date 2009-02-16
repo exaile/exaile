@@ -35,11 +35,11 @@ class CollectionPanel(panel.Panel):
         ['artist', 'date', 'album', 'tracknumber', 'title'],
     )
 
-    def __init__(self, controller, settings, collection):
+    def __init__(self, controller, settings, collection, name=None):
         """
             Initializes the collection panel
         """
-        panel.Panel.__init__(self, controller)
+        panel.Panel.__init__(self, controller, name)
         self.rating_images = playlist.create_rating_images(64)
 
         self.collection = collection

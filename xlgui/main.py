@@ -175,6 +175,8 @@ class NotebookTab(gtk.EventBox):
             Called when the user clicks the close button on the tab
         """
         if self.page.on_closing():
+            if self.main.queue.current_playlist == self.page.playlist:
+                self.main.queue.set_current_playlist(None)
             num = self.nb.page_num(self.page)
             self.nb.remove_page(num)
 

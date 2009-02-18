@@ -1,16 +1,16 @@
-PREFIX 		?= /usr/local
-PLUGINSDIR 	?= /share/exaile/plugins/
+PREFIX = /usr/local
+PLUGINSDIR = /share/exaile/plugins/
 
-INSTALL_PLUGINS := amazoncovers audioscrobbler gnomemmkeys lastfmdynamic \
+INSTALL_PLUGINS = amazoncovers audioscrobbler gnomemmkeys lastfmdynamic \
 	lyricwiki notify shoutcast cd lastfmradio
 
-DIST_PLUGINS := amazoncovers audioscrobbler console gnomemmkeys lastfmcovers \
+DIST_PLUGINS = amazoncovers audioscrobbler console gnomemmkeys lastfmcovers \
 	lastfmdynamic lyricsfly lyricwiki notify shoutcast cd lastfmradio \
 	streamripper tagcovers
 
 all: compile
 
-dist:	clean
+dist: clean
 	python dist_plugin.py $(DIST_PLUGINS)
 
 compile:

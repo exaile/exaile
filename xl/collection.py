@@ -99,6 +99,13 @@ class Collection(trackdb.TrackDB):
             if v == library:
                 del self.libraries[k]
                 break
+ 
+        to_rem = []
+        for tr in self.tracks:
+            if tr.startswith(library.location):
+                to_rem.append(self.tracks[tr]._track)
+        self.remove_tracks(to_rem)       
+       
         self.serialize_libraries()
         self._dirty = True
 
@@ -124,6 +131,7 @@ class Collection(trackdb.TrackDB):
         if self._scanning:
             raise Exception("Collection is already being scanned")
         if len(self.libraries) == 0:
+            event.log_event('scan_progress_update', self, 100)
             return # no libraries, no need to scan :)
 
         self._scanning = True
@@ -139,7 +147,8 @@ class Collection(trackdb.TrackDB):
         logger.info(_("File count: %d") % self.file_count)
 
         scan_interval = self.file_count / len(self.libraries.values()) / 100
-        if not scan_interval: scan_interval = 1
+        if not scan_interval: 
+            scan_interval = 1
 
         for library in self.libraries.values():
             event.add_callback(self._progress_update, 'tracks_scanned',
@@ -266,6 +275,7 @@ class INotifyEventProcessor(ProcessEvent):
                 self.wm.rm_watch(wdd[l.location], rec=True)        
                 break
             i += 1
+
 
         self.libraries.pop(i)
         if not self.libraries:

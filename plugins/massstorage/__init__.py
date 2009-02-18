@@ -41,19 +41,19 @@ class MassStorageDevice(Device):
             name = mountpoints[0].split(os.sep)[-1]
         Device.__init__(self, name)
         self.mountpoints = mountpoints
+        self.collection = collection.Collection(name=self.name)
 
     def connect(self):
         self.mountpoints = [ x for x in self.mountpoints if os.path.exists(x) ]
         if self.mountpoints == []:
             raise IOError, "Mountpoint does not exist"
-        self.collection = collection.Collection(name=self.name)
         for mountpoint in self.mountpoints:
             library = collection.Library(mountpoint)
             self.collection.add_library(library)
         self.collection.rescan_libraries()
 
     def disconnect(self):
-        self.collection = None
+        self.collection = collection.Collection(name=self.name)
 
 
 class MassStorageHandler(Handler):

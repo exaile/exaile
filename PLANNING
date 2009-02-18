@@ -9,7 +9,7 @@ It should also be used to keep track of what each contributor is
 currently working on.
 
 Current projects:
-    Aren Olson - 
+    Aren Olson - Basic Device UI
     Adam Olsen - GUI
     Anthony Waters - 
 
@@ -46,7 +46,9 @@ Things needed for alpha 2 (0.2.99.2) release:
         This should be a continuing effort until final.
     Visualizations
         implement as plugin?
-    Basic Device UI
+    GUI:
+        Basic Device UI
+        
 
 Things needed for beta 1 (0.2.999.1) release:
     Conversion
@@ -72,6 +74,15 @@ Things needed for beta 1 (0.2.999.1) release:
         separate from radio
         allow flexibility in choice of when (if?) and where to download
         allow streaming if not downloaded
+    Blacklisting
+    GUI:
+        Tag Editor
+        right-click menus for side tabs, playlists
+        Podcasts panel
+        clean up plugin manager
+            - button for installing from .exz file
+            - maybe integrate into prefs dialog?
+        Queue Manager
 
 Things needed for RCs/final release:
     Test cases
@@ -90,58 +101,10 @@ Things needed for RCs/final release:
                 the presence of all current bugs would be useful
     Plugins
         port all relevant 0.2 plugins to 0.3
-
-
-GUIPLANNING:
-    Implemented:
-        Collection Panel
-            still needs right click menu, double click actions, etc
-        Playlists Panel
-            still needs right click menu, a way to add custom playlists and
-                smart playlists
-            still needs to display custom playlists
-        Playlist Tabs
-            still need to be able to recieve track dragged from a file
-                manager like nautilus   
-        Tray Icon
-            still needs everything, only does toggle hide now. Egg based
-                tray icon not implemented at all.
-        SPAT - as right-click on stop
-        Smart Playlist editor
-        About Dialog
-        use banshee-type progressbars, ie display a list of all active
-            progressbars below the side pane area. This can be used for
-            things like collection rescan, cd import, mp3 player sync, etc.
-        Album Art Manager
-        Preferences Dialog
-        Library Manager
-        Radio Panel
-        Queueing tracks, display of queued tracks
-    Needs to be implemented:
-        Podcasts?
-        Queue Manager
-        Rating
-            allow arbitrary numbers of ranking levels, default to 5
-                this is converted into the range from 0-100 for the backend
-        Plugin Manager
-            allow local install
-        Better search interface (allow for custom queries and etc)
-        Various Device Panels
-            there will be two kinds of these, playlist-based (eg CDs) and 
-                collection-based (eg MP3 players)
-        Major cleanup of code in xlgui/playlists.py
-
-    Notes:
-        use gtk.glade.XML.signal_autoconnect *whenever* possible... this
-            is something we didn't do in 0.2 and it was a pain
-
-    Ideas:
-        use libsexy to put album art in tray tooltip (possible?)
-            - alternatively, replace tray tooltip with OSD if enabled
-        themable OSD? eg allow choice of background image, round corners, etc.
-        allow using any arbitrary tag for a column in the playlist area/element
-            in OSD
-        allow custom tag trees for the collection pane
+    GUI:
+        playlist export
+        equalizer GUI
+        
 
 
 ==== NOTES ====

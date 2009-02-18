@@ -44,7 +44,7 @@ class BaseTrayIcon(object):
         self.menu.append_item(self.playpause)
 
         self.menu.append(_("Next"), lambda *e: self.main.queue.next(), 'gtk-media-next')
-        self.menu.append(_("Previous"), lambda *e: self.main.queue.previous(),
+        self.menu.append(_("Previous"), lambda *e: self.main.queue.prev(),
             'gtk-media-previous')
         self.menu.append(_("Stop"), lambda *e: self.main.player.stop(),
             'gtk-media-stop')

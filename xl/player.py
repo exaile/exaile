@@ -22,7 +22,7 @@ import gobject
 
 from xl import common, event, playlist, settings
 from xl.providers import ProviderHandler
-import random, time, os, logging
+import random, time, os, logging, copy
 from urlparse import urlparse
 
 try:
@@ -187,6 +187,7 @@ class UnifiedPlayer(object):
     
         self.streams = [None, None]
         self.pp = Postprocessing()
+        self.fakesink = FakeAudioSink()
         self.audio_sink = AutoAudioSink() # FIXME
         self.sinks = []
 
@@ -208,16 +209,25 @@ class UnifiedPlayer(object):
                 settings.get_option("player/queue_duration", 100000))
 
     def _setup_pipeline(self):
-        self.pipe.add(self.adder, self.audio_queue, self.pp,
-                self.tee, self.audio_sink)
+        self.pipe.add(
+                self.adder, 
+                self.audio_queue, 
+                self.pp,
+                self.tee, 
+                #self.fakesink, 
+                self.audio_sink
+                )
         self.adder.link(self.audio_queue)
         self.audio_queue.link(self.pp)
         self.pp.link(self.tee)
         self.tee.link(self.audio_sink)
+        #self.tee.link(self.fakesink)
 
-    def _on_drained(self, dec):
-        tr = self.queue.next(player=False)
-        self.play(tr)
+    def _on_drained(self, dec, stream):
+        self.unlink_stream(stream)
+        if not settings.get_option("player/crossfading", False):
+            tr = self.queue.next(player=False)
+            self.play(tr, user=False)
 
     def setup_bus(self):
         """
@@ -291,7 +301,10 @@ class UnifiedPlayer(object):
         return self._get_gst_state() == gst.STATE_PAUSED
 
     def get_position(self):
-        return self.streams[self.current_stream].get_position()
+        try:
+            return self.streams[self.current_stream].get_position()
+        except AttributeError:
+            return 0
         
     def get_time(self):
         return self.get_position()/gst.SECOND        
@@ -304,19 +317,20 @@ class UnifiedPlayer(object):
         return progress
 
 
-    def play(self, track):
+    def play(self, track, user=True):
         logger.debug("Attmepting to play \"%s\""%track)
         next = 1-self.current_stream
 
-        self.unlink_stream(self.streams[self.current_stream])
-       
+        if user:
+            if settings.get_option("player/user_fade_enabled", True):
+                return self.fade_to(track)
+            else:
+                self.unlink_stream(self.streams[current_stream])
+ 
         self.streams[next] = AudioStream("Stream%s"%(next))
-        self.streams[next].dec.connect("drained", self._on_drained)
+        self.streams[next].dec.connect("drained", self._on_drained, self.streams[next])
 
-        self.link_stream(self.streams[next])
-        if not self.streams[next].set_track(track):
-            logger.error("Failed to start playing \"%s\""%track)
-            self.stop()
+        if not self.link_stream(self.streams[next]):
             return False
 
         self.pipe.set_state(gst.STATE_PLAYING)
@@ -328,20 +342,57 @@ class UnifiedPlayer(object):
 
         return True
 
+    def fade_to(self, track, duration=settings.get_option("player/user_fade", 1000)):
+        next = 1-self.current_stream
+        self.streams[next] = AudioStream("Stream%s"%(next))
+        self.streams[next].dec.connect("drained", self._on_drained, self.streams[next])
+
+        if not self.link_stream(self.streams[next], track):
+            return False
+
+        self.streams[next].set_volume(0)
+        self.pipe.set_state(gst.STATE_PLAYING)
+        gobject.idle_add(self.streams[next].set_state, gst.STATE_PLAYING)
+
+        timeout = duration/float(100)
+        if self.streams[next]:
+            gobject.timeout_add(timeout, self._fade_stream, self.streams[next], 0, 1)
+        if self.streams[self.current_stream]:
+            gobject.timeout_add(timeout, self._fade_stream, 
+                    self.streams[self.current_stream], 100, -1)
+
+        self.current_stream = next
+        event.log_event('playback_start', self, track)
+        
+    # this should really be part of the stream class
+    def _fade_stream(self, stream, current, direction):
+        current += direction
+        stream.set_volume(current)
+        return 0 <= current <= 100 
+
     def unlink_stream(self, stream):
         try:
             pad = stream.get_static_pad("src").get_peer()
             stream.unlink(self.adder)
             self.adder.release_request_pad(pad)
-            gobject.idle_add(stream.set_state,gst.STATE_NULL)
+            gobject.idle_add(stream.set_state, gst.STATE_NULL)
             self.pipe.remove(stream)
+            if stream in self.streams:
+                self.streams[self.streams.index(stream)] = None
+            return True
         except:
             pass # should only happen if there was no playing stream
                  # TODO: handle this better
+        return False
 
-    def link_stream(self, stream):
+    def link_stream(self, stream, track):
         self.pipe.add(stream)
         stream.link(self.adder)
+        if not self.streams[1-self.current_stream].set_track(track):
+            logger.error("Failed to start playing \"%s\""%track)
+            self.stop()
+            return False
+        return True
 
     def stop(self):
         """
@@ -611,6 +662,7 @@ class BaseSink(gst.Bin):
 # for subclassing only
 class BaseAudioSink(BaseSink):
     sink_elem = None
+    default_options = {}
     def __init__(self, *args, **kwargs):
         BaseSink.__init__(self, *args, **kwargs)
         self.provided = ProviderBin('sink_element')
@@ -621,12 +673,30 @@ class BaseAudioSink(BaseSink):
         gst.element_link_many(*elems)
         self.sinkghost = gst.GhostPad("sink", self.provided.get_static_pad("sink"))
         self.add_pad(self.sinkghost)
+        self.load_options()
+
+    def load_options(self):
+        #TODO: make this reset any non-explicitly set options to default
+        #TODO: make each sink have its own place to store settings
+        # this setting is a list of strings of the form "param=value"
+        options = settings.get_option("player/sink_options", [])
+        optdict = copy.copy(self.default_options)
+        optdict.update(dict([v.split("=") for v in options]))
+        for param, value in optdict.iteritems():
+            try:
+                self.audio_sink.set_property(param, value)
+            except:
+                logger.warning(_("Could not set parameter %s for %s")%(param, self.sink_elem))
 
     def set_volume(self, vol):
         self.vol.set_property("volume", vol)
 
 class AutoAudioSink(BaseAudioSink):
     sink_elem = "autoaudiosink"
+
+class FakeAudioSink(BaseAudioSink):
+    sink_elem = "fakesink"
+    default_options = {"sync": "true"}
 
 # vim: et sts=4 sw=4
 

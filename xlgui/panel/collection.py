@@ -166,6 +166,7 @@ class CollectionPanel(panel.Panel):
         """
             finds tracks matching a given iter. returns a resultset.
         """
+        self.load_subtree(iter)
         search = " ".join(self.get_node_search_terms(iter))
         return self.collection.search(search, tracks=self.tracks) 
         

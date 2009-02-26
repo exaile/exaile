@@ -54,7 +54,7 @@ if os.path.exists(os.path.join(exaile_dir, 'Makefile')):
     if not os.path.exists(plugins_dir):
         try:
             os.symlink(os.path.join(exaile_dir, 'plugins'), plugins_dir)
-        except AttributeError:
+        except (AttributeError, OSError):
             # If the system does not support symlinks, ignore.
             pass
 

@@ -16,52 +16,13 @@
               <widget class="GtkHBox" id="hbox20">
                 <property name="visible">True</property>
                 <child>
-                  <widget class="GtkButton" id="files_refresh_button">
-                    <property name="width_request">32</property>
-                    <property name="height_request">32</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="tooltip" translatable="yes">Refresh</property>
-                    <property name="response_id">0</property>
-                    <child>
-                      <widget class="GtkImage" id="image43">
-                        <property name="visible">True</property>
-                        <property name="stock">gtk-refresh</property>
-                      </widget>
-                    </child>
-                  </widget>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                  </packing>
-                </child>
-                <child>
-                  <widget class="GtkButton" id="files_up_button">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="tooltip" translatable="yes">Up One Directory</property>
-                    <property name="response_id">0</property>
-                    <child>
-                      <widget class="GtkImage" id="image46">
-                        <property name="visible">True</property>
-                        <property name="stock">gtk-go-up</property>
-                      </widget>
-                    </child>
-                  </widget>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">False</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-                <child>
                   <widget class="GtkButton" id="files_back_button">
                     <property name="width_request">32</property>
                     <property name="height_request">32</property>
                     <property name="visible">True</property>
                     <property name="sensitive">False</property>
                     <property name="can_focus">True</property>
-                    <property name="tooltip" translatable="yes">Previous</property>
+                    <property name="tooltip" translatable="yes">Previous visited directory</property>
                     <property name="response_id">0</property>
                     <child>
                       <widget class="GtkImage" id="image44">
@@ -73,15 +34,14 @@
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">False</property>
-                    <property name="position">2</property>
                   </packing>
                 </child>
                 <child>
-                  <widget class="GtkButton" id="files_next_button">
+                  <widget class="GtkButton" id="files_forward_button">
                     <property name="visible">True</property>
                     <property name="sensitive">False</property>
                     <property name="can_focus">True</property>
-                    <property name="tooltip" translatable="yes">Next</property>
+                    <property name="tooltip" translatable="yes">Next visited directory</property>
                     <property name="response_id">0</property>
                     <child>
                       <widget class="GtkImage" id="image45">
@@ -93,11 +53,69 @@
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">False</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="GtkButton" id="files_up_button">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="tooltip" translatable="yes">Up one directory</property>
+                    <property name="response_id">0</property>
+                    <child>
+                      <widget class="GtkImage" id="image46">
+                        <property name="visible">True</property>
+                        <property name="stock">gtk-go-up</property>
+                      </widget>
+                    </child>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="GtkButton" id="files_refresh_button">
+                    <property name="width_request">32</property>
+                    <property name="height_request">32</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="tooltip" translatable="yes">Refresh directory listing</property>
+                    <property name="response_id">0</property>
+                    <child>
+                      <widget class="GtkImage" id="image43">
+                        <property name="visible">True</property>
+                        <property name="stock">gtk-refresh</property>
+                      </widget>
+                    </child>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
                     <property name="position">3</property>
                   </packing>
                 </child>
                 <child>
-                  <placeholder/>
+                  <widget class="GtkButton" id="files_home_button">
+                    <property name="width_request">32</property>
+                    <property name="height_request">32</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="tooltip" translatable="yes">Home directory</property>
+                    <property name="response_id">0</property>
+                    <child>
+                      <widget class="GtkImage" id="image47">
+                        <property name="visible">True</property>
+                        <property name="stock">gtk-home</property>
+                      </widget>
+                    </child>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                    <property name="position">4</property>
+                  </packing>
                 </child>
               </widget>
               <packing>

@@ -109,16 +109,18 @@ class FilesPanel(panel.Panel):
         self.directory = guiutil.get_icon('gnome-fs-directory')
         self.track = gtk.gdk.pixbuf_new_from_file(
             xdg.get_data_path('images/track.png'))
+        self.back = self.xml.get_widget('files_back_button')
+        self.back.connect('clicked', self.go_back)
+        self.forward = self.xml.get_widget('files_forward_button')
+        self.forward.connect('clicked', self.go_forward)
         self.up = self.xml.get_widget('files_up_button')
         self.up.connect('clicked', self.go_up)
-        self.back = self.xml.get_widget('files_back_button')
-        self.back.connect('clicked', self.go_prev)
-        self.next = self.xml.get_widget('files_next_button')
-        self.next.connect('clicked', self.go_next)
-        self.entry = self.xml.get_widget('files_entry')
-        self.entry.connect('activate', self.entry_activate)
         self.xml.get_widget('files_refresh_button').connect('clicked',
             self.refresh)
+        self.xml.get_widget('files_home_button').connect('clicked',
+            self.go_home)
+        self.entry = self.xml.get_widget('files_entry')
+        self.entry.connect('activate', self.entry_activate)
 
         # set up the search entry
         self.search = self.xml.get_widget('files_search_entry')
@@ -184,39 +186,41 @@ class FilesPanel(panel.Panel):
         if not os.path.isdir(dir):
             self.entry.set_text(self.current)
             return
-        self.load_directory(dir)
+        self.load_directory(os.path.normpath(dir))
 
-    def go_next(self, widget):
+    def go_forward(self, widget):
         """
             Goes to the next entry in history
         """
         self.i += 1 
         self.load_directory(self.history[self.i], False)
         if self.i >= len(self.history) - 1:
-            self.next.set_sensitive(False)
+            self.forward.set_sensitive(False)
         if len(self.history):
             self.back.set_sensitive(True)
             
-    def go_prev(self, widget):
+    def go_back(self, widget):
         """
-            Previous entry
+            Goes to the previous entry in history
         """
         self.i -= 1
         self.load_directory(self.history[self.i], False)
         if self.i == 0:
             self.back.set_sensitive(False)
         if len(self.history):
-            self.next.set_sensitive(True)
+            self.forward.set_sensitive(True)
 
     def go_up(self, widget):
         """
             Moves up one directory
         """
-        cur = re.sub('(.*)%s[^%s]*$' % (os.sep, os.sep),
-            r'\1', self.current)
-        if not cur: cur = os.sep
+        self.load_directory(os.path.dirname(self.current))
 
-        self.load_directory(cur)
+    def go_home(self, widget):
+        """
+            Goes to the user's home directory
+        """
+        self.load_directory(xdg.homedir)
 
     def set_column_width(self, col, stuff=None):
         """
@@ -283,7 +287,7 @@ class FilesPanel(panel.Panel):
             self.history = self.history[:self.i + 1]
             self.history.append(self.current)
             self.i = len(self.history) - 1
-            self.next.set_sensitive(False)
+            self.forward.set_sensitive(False)
 
     def get_selected_tracks(self):
         """

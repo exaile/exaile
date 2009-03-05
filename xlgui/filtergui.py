@@ -385,35 +385,35 @@ class Criterion(gtk.HBox):
 class MultiEntryField(gtk.HBox):
     """Helper field that can be subclassed to get fields with multiple
        GtkEntry widgets and multiple labels."""
-    def __init__(self, n=2, labels=None, widths=None):
+    def __init__(self, labels):
+        """Create a field with the specified labels and widths.
+
+        Parameter:
+        - labels: sequence of string, integer, or None values;
+          string represents label,
+          integer represents Entry widget with a specific width,
+          None represents Entry widget with default width
+        """
         gtk.HBox.__init__(self, spacing=5)
         self.entries = []
-        for iEntry in xrange(n):
-            entry = gtk.Entry()
-            if iEntry < len(widths):
-                w = widths[iEntry]
-                if w is not None:
-                    entry.set_size_request(w, -1)
-            self.entries.append(entry)
-            if iEntry < len(labels):
-                txt = labels[iEntry]
-                if txt is not None:
-                    l = gtk.Label(txt)
-                    self.pack_start(l, False)
-                    l.show()
-            self.pack_start(entry)
-            entry.show()
-        if n < len(labels):
-            txt = labels[n]
-            if txt is not None:
-                l = gtk.Label(txt)
-                self.pack_start(l, False)
-                l.show()
+        for label in labels:
+            if label is None:
+                widget = gtk.Entry()
+                self.entries.append(widget)
+            elif isinstance(label, (int, long, float)):
+                widget = gtk.Entry()
+                widget.set_size_request(label, -1)
+                self.entries.append(widget)
+            else:
+                widget = gtk.Label(unicode(label))
+            self.pack_start(widget, False)
+            widget.show()
     def get_state(self):
         return [unicode(e.get_text(), 'utf-8') for e in self.entries]
     def set_state(self, state):
-        for i, e in enumerate(self.entries):
-            if len(state) > i: e.set_text(unicode(state[i]))
+        entries = self.entries
+        for i in xrange(min(len(entries), len(state))):
+            entries[i].set_text(unicode(state[i]))
 
 class EntryField(gtk.Entry):
     def __init__(self):
@@ -427,16 +427,14 @@ class EntryField(gtk.Entry):
 
 class EntryLabelEntryField(MultiEntryField):
     def __init__(self, label):
-        MultiEntryField.__init__(self, result_generator, n=2,
-            labels=(None, label, None),
-            widths=(50, 50))
+        MultiEntryField.__init__(self, (50, label, 50))
 
 class SpinLabelField(gtk.HBox):
     def __init__(self, label='', top=99999, lower=-99999):
         gtk.HBox.__init__(self, spacing=5)
         self.spin = gtk.SpinButton(gtk.Adjustment(0, lower, top, 1, 0, 0))
-        self.pack_start(self.spin)
-        self.pack_start(gtk.Label(label))
+        self.pack_start(self.spin, False)
+        self.pack_start(gtk.Label(label), False)
         self.show_all()
     def get_state(self):
         return self.spin.get_value()
@@ -451,6 +449,7 @@ class SpinLabelField(gtk.HBox):
 class SpinButtonAndComboField(gtk.HBox):
     def __init__(self, items=()):
         gtk.HBox.__init__(self, spacing=5)
+        self.items = items
 
         adjustment = gtk.Adjustment(0, 0, 99999, 1, 0, 0)
         self.entry = gtk.SpinButton(adjustment=adjustment)
@@ -458,7 +457,7 @@ class SpinButtonAndComboField(gtk.HBox):
 
         self.combo = gtk.combo_box_new_text()
         for item in items:
-            self.combo.append_text(item)
+            self.combo.append_text(_(item))
         self.combo.set_active(0)
         self.pack_start(self.combo)
         self.show_all()
@@ -467,25 +466,19 @@ class SpinButtonAndComboField(gtk.HBox):
         if not isinstance(state, (tuple, list)):
             return
 
-        print state
-
         # TODO: Check length.
         try:
             self.entry.set_value(int(state[0]))
         except ValueError:
             pass
-        count = 0
-        model = self.combo.get_model()
-        iter = model.get_iter_first()
-        while True:
-            text = model.get_value(iter, 0)
-            if text == state[1]:
-                self.combo.set_active(count)
-
-            count += 1
-            iter = model.iter_next(iter)
-            if not iter: break
+        combo_state = _(state[1])
+        try:
+            index = self.items.index(combo_state)
+        except ValueError:
+            pass
+        else:
+            self.combo.set_active(index)
 
     def get_state(self):
         return [self.entry.get_value(), 
-            unicode(self.combo.get_active_text(), 'utf-8')]
+            unicode(self.items[self.combo.get_active()], 'utf-8')]

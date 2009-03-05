@@ -24,38 +24,30 @@ N_ = lambda x: x
 
 class EntrySecondsField(MultiEntryField):
     def __init__(self):
-        MultiEntryField.__init__(self, n=1,
-            labels=(None, _('seconds')),
-            widths=(50,))
+        MultiEntryField.__init__(self, (50, _('seconds')))
 
 class EntryAndEntryField(MultiEntryField):
     def __init__(self):
-        MultiEntryField.__init__(self, n=2,
-            # TRANSLATORS: Logical AND used for smart playlists
-            labels=(None, _('and'), None),
-            widths=(50, 50))
+        # TRANSLATORS: Logical AND used for smart playlists
+        MultiEntryField.__init__(self, (50, _('and'), 50))
 
 class EntryDaysField(MultiEntryField):
     def __init__(self):
-        MultiEntryField.__init__(self, n=1,
-            labels=(None, _('days')),
-            widths=(50,))
+        MultiEntryField.__init__(self, (50, _('days')))
 
-DATE_FIELDS = (_('seconds'), _('minutes'), _('hours'), _('days'), _('weeks'))
+DATE_FIELDS = [
+    N_('seconds'), N_('minutes'), N_('hours'), N_('days'), N_('weeks')]
 class SpinDateField(filtergui.SpinButtonAndComboField):
     def __init__(self):
-        filtergui.SpinButtonAndComboField.__init__(self, 
-            DATE_FIELDS)
+        filtergui.SpinButtonAndComboField.__init__(self, DATE_FIELDS)
 
 class SpinSecondsField(filtergui.SpinLabelField):
     def __init__(self):
-        filtergui.SpinLabelField.__init__(self, 
-            _('seconds'))
+        filtergui.SpinLabelField.__init__(self, _('seconds'))
 
 class SpinRating(filtergui.SpinLabelField):
     def __init__(self):
-        filtergui.SpinLabelField.__init__(self, '',
-            8, -8)
+        filtergui.SpinLabelField.__init__(self, '', 8, -8)
 
 class SpinNothing(filtergui.SpinLabelField):
     def __init__(self):

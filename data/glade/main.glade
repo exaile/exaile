@@ -84,7 +84,7 @@
 		  <child>
 		    <widget class="GtkImageMenuItem" id="open_url_item">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Open _Url</property>
+		      <property name="label" translatable="yes">Open _URL</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_open_url_item_activate" last_modification_time="Sun, 15 Feb 2009 02:14:43 GMT"/>
 

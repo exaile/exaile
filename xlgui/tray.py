@@ -40,7 +40,7 @@ class BaseTrayIcon(object):
         hbox.pack_start(self.image, False, True)
         hbox.pack_start(self.label, True, True)
         self.playpause.add(hbox)
-        self.id = self.playpause.connect('activate', lambda *e: self.main.player.toggle_pause())
+        self.id = self.playpause.connect('activate', self._play)
         self.menu.append_item(self.playpause)
 
         self.menu.append(_("Next"), lambda *e: self.main.queue.next(), 'gtk-media-next')
@@ -59,6 +59,12 @@ class BaseTrayIcon(object):
         self.menu.append_separator()
         self.menu.append(_("Quit"), lambda *e: self.guimain.exaile.quit(), 
                          'gtk-quit')
+
+    def _play(self, *args):
+        if self.main.player.current:
+            self.main.player.toggle_pause()
+        else:
+            self.main.queue.play()
 
     def update_menu(self):
         track = self.main.player.current

@@ -792,9 +792,19 @@ class MainWindow(object):
         """
             Called when the user attempts to close the window
         """
-        self.window.hide()
-        gobject.idle_add(self.controller.exaile.quit)
-        return True
+        if self.controller.tray_icon:
+            gobject.idle_add(self.toggle_visible)
+        else:
+            self.window.hide()
+            gobject.idle_add(self.controller.exaile.quit)
+            return True
+
+    def toggle_visible(self):
+        w = self.window
+        if w.is_active(): # focused
+            w.hide()
+        else:
+            w.present()
 
     def configure_event(self, *e):
         """

@@ -73,6 +73,10 @@ class Exaile(object):
         #load the rest.
         self.__init()
 
+        # On SIGTERM, quit normally.
+        import signal
+        signal.signal(signal.SIGTERM, (lambda sig, stack: self.quit()))
+
         #run the GUIs mainloop, if needed
         if self.options.startgui:
             import xlgui

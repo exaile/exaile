@@ -199,6 +199,7 @@ class MainWindow(object):
         self.player = player
         self.queue = queue
         self.current_page = -1 
+        self._fullscreen = False
 
         self.xml = xml
         self.window = self.xml.get_widget('ExaileWindow')
@@ -793,16 +794,29 @@ class MainWindow(object):
         """
             Called when the user attempts to close the window
         """
-        self.window.hide()
-        gobject.idle_add(self.controller.exaile.quit)
-        return True
+        if self.controller.tray_icon:
+            gobject.idle_add(self.toggle_visible)
+        else:
+            self.window.hide()
+            gobject.idle_add(self.controller.exaile.quit)
+            return True
+
+    def toggle_visible(self):
+        w = self.window
+        if w.is_active(): # focused
+            w.hide()
+        else:
+            w.present()
 
     def configure_event(self, *e):
         """
             Called when the window is resized or moved
         """
-        if self.settings.get_option('gui/mainw_maximized', False):
+        # Don't save window size if it is maximized or fullscreen.
+        if self.settings.get_option('gui/mainw_maximized', False) or \
+                self._fullscreen:
             return False
+
         (width, height) = self.window.get_size()
         if [width, height] != [ settings.get_option("gui/mainw_"+key, -1) for \
                 key in ["width", "height"] ]:
@@ -821,9 +835,11 @@ class MainWindow(object):
 
     def window_state_change_event(self, widget, event):
         """
-            Saves the current maximized state
+            Saves the current maximized and fullscreen states
         """
         if event.changed_mask & gtk.gdk.WINDOW_STATE_MAXIMIZED:
             self.settings.set_option('gui/mainw_maximized',
                 bool(event.new_window_state & gtk.gdk.WINDOW_STATE_MAXIMIZED))
+        if event.changed_mask & gtk.gdk.WINDOW_STATE_FULLSCREEN:
+            self._fullscreen = bool(event.new_window_state & gtk.gdk.WINDOW_STATE_FULLSCREEN)
         return False

@@ -112,7 +112,8 @@ class ExaileScrobbler(object):
             self.now_playing(player, track)
 
     def on_stop(self, type, player, track):
-        if not track or not track.is_local(): 
+        if not track or not track.is_local() \
+           or track['playtime'] is None: 
             return
         playtime = (track['playtime'] or 0) - self.time_started
         if playtime > 240 or playtime > float(track['length']) / 2.0:

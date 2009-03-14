@@ -31,7 +31,8 @@ TYPE_MAPPING = {
         'F': float,
         'B': bool,
         'L': list,
-        'U': unicode}
+        'U': unicode
+        }
 
 class SettingsManager(RawConfigParser):
     """

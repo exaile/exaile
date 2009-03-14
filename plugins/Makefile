@@ -2,7 +2,7 @@ PREFIX = /usr/local
 PLUGINSDIR = /share/exaile/plugins/
 
 INSTALL_PLUGINS = amazoncovers audioscrobbler gnomemmkeys lastfmdynamic \
-	lyricwiki notify shoutcast cd lastfmradio
+	lyricwiki notify shoutcast cd lastfmradio ipod massstorage
 
 DIST_PLUGINS = amazoncovers audioscrobbler console gnomemmkeys lastfmcovers \
 	lastfmdynamic lyricsfly lyricwiki notify shoutcast cd lastfmradio \

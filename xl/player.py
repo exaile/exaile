@@ -325,12 +325,14 @@ class UnifiedPlayer(object):
             if settings.get_option("player/user_fade_enabled", True):
                 return self.fade_to(track)
             else:
-                self.unlink_stream(self.streams[current_stream])
+                self.unlink_stream(self.streams[self.current_stream])
+        else:
+            self.unlink_stream(self.streams[self.current_stream])
  
         self.streams[next] = AudioStream("Stream%s"%(next))
         self.streams[next].dec.connect("drained", self._on_drained, self.streams[next])
 
-        if not self.link_stream(self.streams[next]):
+        if not self.link_stream(self.streams[next], track):
             return False
 
         self.pipe.set_state(gst.STATE_PLAYING)
@@ -380,10 +382,11 @@ class UnifiedPlayer(object):
             if stream in self.streams:
                 self.streams[self.streams.index(stream)] = None
             return True
+        except AttributeError:
+            return True
         except:
-            pass # should only happen if there was no playing stream
-                 # TODO: handle this better
-        return False
+            common.log_exception(log=logger)
+            return False
 
     def link_stream(self, stream, track):
         self.pipe.add(stream)
@@ -512,6 +515,7 @@ class AudioStream(gst.Bin):
         self.playtime_stamp = None
 
         self.last_position = 0
+        self._settle_flag = 0
 
         self.setup_elems()
 
@@ -590,8 +594,10 @@ class AudioStream(gst.Bin):
 
     def set_state(self, state):
         print "Setting state on %s %s"%(self.get_name(), state)
+        self._settle_flag = 0
         if state == gst.STATE_PLAYING:
             gst.Bin.set_state(self, state)
+            self._settle_state()
             self.reset_playtime_stamp()
         elif state == gst.STATE_PAUSED:
             self.update_playtime()
@@ -633,8 +639,26 @@ class AudioStream(gst.Bin):
         except gst.QueryError:
             common.log_exception(logger)
             self.last_position = 0
-
         return self.last_position
+
+    def _settle_state(self):
+        self._settle_flag = 1
+        gobject.idle_add(self._settle_state_sub)
+
+    def _settle_state_sub(self):
+        """
+            hack to reset gstreamer states.
+            TODO: find a cleaner way of doing this.
+        """
+        if self._settle_flag == 0:
+            return False # stop trying
+        if self._get_gst_state() == gst.STATE_PAUSED:
+            logger.debug("Settling state on %s."%repr(self))
+            self.set_state(gst.STATE_PLAYING)
+            return True
+        # if we get this far, there's definitely nothing to do.
+        self._settle_flag = 0
+        return False
 
     def seek(self, value):
         """
@@ -696,7 +720,7 @@ class AutoAudioSink(BaseAudioSink):
 
 class FakeAudioSink(BaseAudioSink):
     sink_elem = "fakesink"
-    default_options = {"sync": "true"}
+    default_options = {"sync": True}
 
 # vim: et sts=4 sw=4
 

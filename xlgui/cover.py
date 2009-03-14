@@ -414,12 +414,12 @@ class CoverWidget(gtk.EventBox):
                 self.menu.popup(event)
 
     @common.threaded
-    def on_playback_start(self, type, player, object):
+    def on_playback_start(self, type, player, track):
         """
             Called when playback starts.  Fetches album covers, and displays
             them
         """
-        self.current_track = player.current
+        self.current_track = track
 
         try:
             cov = self.covers.get_cover(self.current_track,

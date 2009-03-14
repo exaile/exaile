@@ -88,6 +88,9 @@ class PlayQueue(playlist.Playlist):
                 self.current_playing = True
                 if self.current_playlist:
                     self.current_playlist.current_playing = False
+        if not track:
+            self.player.stop()
+            return
         if player:
             self.player.play(track)
         return track
@@ -153,13 +156,15 @@ class PlayQueue(playlist.Playlist):
             if req not in state:
                 return
 
-        if state['state'] != 'stopped':
+        if state['state'] in ['playing', 'paused']:
             vol = self.player.get_volume()
             self.player.set_volume(0)
             self.play()
             time.sleep(0.5) # let the player settle
                             # TODO: find a better way to handle this, is
                             # there a specific bus message we can listen for?
+            if not self.player.current:
+                return
 
             self.player.seek(state['position'])
             if state['state'] == 'paused' or \
@@ -224,6 +229,8 @@ class UnifiedPlayer(object):
         #self.tee.link(self.fakesink)
 
     def _on_drained(self, dec, stream):
+        if stream.track != self.current:
+            return
         self.unlink_stream(stream)
         if not settings.get_option("player/crossfading", False):
             tr = self.queue.next(player=False)
@@ -318,11 +325,14 @@ class UnifiedPlayer(object):
 
 
     def play(self, track, user=True):
+        if not track:
+            return # we cant play nothing
+
         logger.debug("Attmepting to play \"%s\""%track)
         next = 1-self.current_stream
 
         if user:
-            if settings.get_option("player/user_fade_enabled", True):
+            if False: #settings.get_option("player/user_fade_enabled", True):
                 return self.fade_to(track)
             else:
                 self.unlink_stream(self.streams[self.current_stream])
@@ -339,7 +349,6 @@ class UnifiedPlayer(object):
         gobject.idle_add(self.streams[next].set_state, gst.STATE_PLAYING)
 
         self.current_stream = next
-
         event.log_event('playback_start', self, track)
 
         return True
@@ -376,7 +385,10 @@ class UnifiedPlayer(object):
         try:
             pad = stream.get_static_pad("src").get_peer()
             stream.unlink(self.adder)
-            self.adder.release_request_pad(pad)
+            try:
+                self.adder.release_request_pad(pad)
+            except TypeError:
+                pass
             gobject.idle_add(stream.set_state, gst.STATE_NULL)
             self.pipe.remove(stream)
             if stream in self.streams:
@@ -391,7 +403,7 @@ class UnifiedPlayer(object):
     def link_stream(self, stream, track):
         self.pipe.add(stream)
         stream.link(self.adder)
-        if not self.streams[1-self.current_stream].set_track(track):
+        if not stream.set_track(track):
             logger.error("Failed to start playing \"%s\""%track)
             self.stop()
             return False
@@ -404,6 +416,8 @@ class UnifiedPlayer(object):
         if self.is_playing() or self.is_paused():
             current = self.current
             self.pipe.set_state(gst.STATE_NULL)
+            for stream in self.streams:           
+                self.unlink_stream(stream)
             event.log_event('playback_end', self, current)
 
     def pause(self):
@@ -593,7 +607,7 @@ class AudioStream(gst.Bin):
         self.playtime_stamp = int(time.time())
 
     def set_state(self, state):
-        print "Setting state on %s %s"%(self.get_name(), state)
+        logger.debug("Setting state on %s %s"%(self.get_name(), state))
         self._settle_flag = 0
         if state == gst.STATE_PLAYING:
             gst.Bin.set_state(self, state)

@@ -178,6 +178,11 @@ class PlayCountColumn(Column):
     def set_properties(self, col, cellr):
         cellr.set_property('xalign', 1.0)
 
+class BPMColumn(Column):
+    size = 50
+    display = _('BPM')
+    id = 'bpm'
+
 # this is where everything gets set up, including the menu items
 COLUMNS = {}
 

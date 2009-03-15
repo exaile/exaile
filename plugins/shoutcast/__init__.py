@@ -3,6 +3,7 @@ from xl.radio import *
 from xl import common, playlist, xdg, event
 from xlgui import guiutil, commondialogs
 import gtk, gobject
+from xl.nls import gettext as _
 
 def enable(exaile):
     if exaile.loading:

@@ -22,7 +22,7 @@ import gobject
 
 from xl import common, event, playlist, settings
 from xl.providers import ProviderHandler
-import random, time, os, logging, copy
+import random, time, os, logging, copy, threading
 from urlparse import urlparse
 
 try:
@@ -160,7 +160,7 @@ class PlayQueue(playlist.Playlist):
             vol = self.player.get_volume()
             self.player.set_volume(0)
             self.play()
-            time.sleep(0.5) # let the player settle
+            #time.sleep(0.5) # let the player settle
                             # TODO: find a better way to handle this, is
                             # there a specific bus message we can listen for?
             if not self.player.current:
@@ -530,6 +530,7 @@ class AudioStream(gst.Bin):
 
         self.last_position = 0
         self._settle_flag = 0
+        self._seek_event = threading.Event()
 
         self.setup_elems()
 
@@ -664,20 +665,24 @@ class AudioStream(gst.Bin):
             hack to reset gstreamer states.
             TODO: find a cleaner way of doing this.
         """
-        if self._settle_flag == 0:
-            return False # stop trying
-        if self._get_gst_state() == gst.STATE_PAUSED:
+        if self._settle_flag == 1 and self._get_gst_state() == gst.STATE_PAUSED:
             logger.debug("Settling state on %s."%repr(self))
             self.set_state(gst.STATE_PLAYING)
             return True
-        # if we get this far, there's definitely nothing to do.
-        self._settle_flag = 0
-        return False
+        else:
+            self._settle_flag = 0
+            event.log_event("stream_settled", self, None)
+            return False 
 
     def seek(self, value):
         """
             seek to the given position in the current stream
         """
+        if self._settle_flag == 1:
+            event.add_callback(self._seek_delayed, "stream_settled")
+            self._seek_event.clear()
+            self._seek_event.wait() 
+
         value = int(gst.SECOND * value)
         event = gst.event_new_seek(1.0, gst.FORMAT_TIME,
             gst.SEEK_FLAG_FLUSH|gst.SEEK_FLAG_ACCURATE,
@@ -686,7 +691,15 @@ class AudioStream(gst.Bin):
         self.vol.send_event(event)
 
         self.last_seek_pos = value
-    
+
+    def _seek_delayed(self, type, object, value):
+        """
+            internal code used if seek is called before the stream is ready
+        """
+        if self._settle_flag == 1 or object != self:
+            return 
+        event.remove_callback(self._seek_delayed, type, object)
+        self._seek_event.set()    
 
 
 class Postprocessing(ProviderBin):

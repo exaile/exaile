@@ -57,6 +57,14 @@ def check_exit(options, args):
                     getattr(iface, command)()
                     sys.exit(0)
 
+            other_commands = ('current_position', )
+            for command in other_commands:
+                if getattr(options, command):
+                    val = getattr(iface, command)()
+                    if val is not None:
+                        print val
+                    do_exit = True
+
             if not do_exit:
                 print "You have entered an invalid option"
 
@@ -133,14 +141,12 @@ class DbusManager(dbus.service.Object):
         """
         self.exaile.player.toggle_pause()
 
-    @dbus.service.method("org.exaile.ExaileInterface", None, "y")
+    @dbus.service.method("org.exaile.ExaileInterface", None, "i")
     def current_position(self):
         """
             Returns the position inside the current track as a percentage
         """
-        if not self.exaile.player.current:
-            return 0
-        return self.exaile.player.get_progress()
+        return self.exaile.player.get_progress()*100
 
     @dbus.service.method("org.exaile.ExaileInterface", None, "s")
     def get_version(self):

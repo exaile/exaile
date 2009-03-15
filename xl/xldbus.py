@@ -140,7 +140,7 @@ class DbusManager(dbus.service.Object):
         """
         if not self.exaile.player.current:
             return 0
-        return self.exaile.player.get_current_position()
+        return self.exaile.player.get_progress()
 
     @dbus.service.method("org.exaile.ExaileInterface", None, "s")
     def get_version(self):

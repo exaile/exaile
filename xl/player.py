@@ -425,7 +425,8 @@ class UnifiedPlayer(object):
             pause playback. DOES NOT TOGGLE
         """
         if self.is_playing():
-            self.streams[self.current_stream].set_state(gst.STATE_PAUSED)
+            #self.streams[self.current_stream].set_state(gst.STATE_PAUSED)
+            self.pipe.set_state(gst.STATE_PAUSED)
             event.log_event('playback_pause', self, self.current)
  
     def unpause(self):
@@ -438,7 +439,8 @@ class UnifiedPlayer(object):
             if not self.current.is_local():
                 self.pipe.set_state(gst.STATE_READY)
 
-            self.streams[self.current_stream].set_state(gst.STATE_PLAYING)
+            #self.streams[self.current_stream].set_state(gst.STATE_PLAYING)
+            self.pipe.set_state(gst.STATE_PLAYING)
             event.log_event('playback_resume', self, self.current)
 
     def toggle_pause(self):

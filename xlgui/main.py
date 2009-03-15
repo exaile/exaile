@@ -469,7 +469,7 @@ class MainWindow(object):
             'on_configure_event':   self.configure_event,
             'on_window_state_event': self.window_state_change_event,
             'on_delete_event':      self.delete_event,
-            'on_quit_item_activated': self.delete_event,
+            'on_quit_item_activated': self.quit,
             'on_playlist_notebook_switch':  self.playlist_switch_event,
             'on_play_button_clicked': self.on_play_clicked,
             'on_next_button_clicked':
@@ -795,9 +795,15 @@ class MainWindow(object):
         if self.controller.tray_icon:
             gobject.idle_add(self.toggle_visible)
         else:
-            self.window.hide()
-            gobject.idle_add(self.controller.exaile.quit)
-            return True
+            self.quit()
+
+    def quit(self, *e):
+        """
+            quits exaile
+        """
+        self.window.hide()
+        gobject.idle_add(self.controller.exaile.quit)
+        return True
 
     def toggle_visible(self):
         w = self.window

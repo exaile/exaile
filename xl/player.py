@@ -229,7 +229,7 @@ class UnifiedPlayer(object):
         self.audio_queue.link(self.pp)
         self.pp.link(self.tee)
         self.tee.link(self.audio_sink)
-        #self.tee.link(self.fakesink)
+        #self.tee.link(self.fakesink)m/
 
     def _on_drained(self, dec, stream):
         if stream.track != self.current:
@@ -270,6 +270,8 @@ class UnifiedPlayer(object):
         """
         if 'player/volume' == data:
             self._load_volume()
+        elif 'player/queue_duration' == data:
+            self._load_queue_values()
 
     def _load_volume(self):
         pass # FIXME
@@ -335,7 +337,7 @@ class UnifiedPlayer(object):
         next = 1-self.current_stream
 
         if user:
-            if settings.get_option("player/user_fade_enabled", False):
+            if settings.get_option("player/user_fade_enabled", True):
                 return self.fade_to(track)
             else:
                 self.unlink_stream(self.streams[self.current_stream])
@@ -549,11 +551,13 @@ class AudioStream(gst.Bin):
 
     def setup_elems(self):
         self.dec = gst.element_factory_make("uridecodebin")
+        self.audioconv = gst.element_factory_make("audioconvert")
         self.provided = ProviderBin("stream_element")
         self.vol = gst.element_factory_make("volume")
-        self.add(self.dec, self.provided, self.vol)
+        self.add(self.dec, self.audioconv, self.provided, self.vol)
+        self.audioconv.link(self.provided)
         self.provided.link(self.vol)
-        self.dec.connect('no-more-pads', self._dec_pad_cb, self.provided)
+        self.dec.connect('no-more-pads', self._dec_pad_cb, self.audioconv)
 
         self.src = gst.GhostPad("src", self.vol.get_static_pad("src"))
         self.add_pad(self.src)

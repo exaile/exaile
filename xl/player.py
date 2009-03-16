@@ -335,7 +335,7 @@ class UnifiedPlayer(object):
         next = 1-self.current_stream
 
         if user:
-            if False: #settings.get_option("player/user_fade_enabled", True):
+            if settings.get_option("player/user_fade_enabled", False):
                 return self.fade_to(track)
             else:
                 self.unlink_stream(self.streams[self.current_stream])
@@ -359,6 +359,9 @@ class UnifiedPlayer(object):
 
     def fade_to(self, track, duration=settings.get_option("player/user_fade", 1000)):
         next = 1-self.current_stream
+        if self.streams[next]:
+            self.unlink_stream(self.streams[next])
+
         self.streams[next] = AudioStream("Stream%s"%(next))
         self.streams[next].dec.connect("drained", self._on_drained, self.streams[next])
 
@@ -371,19 +374,23 @@ class UnifiedPlayer(object):
 
         timeout = duration/float(100)
         if self.streams[next]:
-            gobject.timeout_add(timeout, self._fade_stream, self.streams[next], 0, 1)
+            gobject.timeout_add(timeout, self._fade_stream, self.streams[next], 1)
         if self.streams[self.current_stream]:
             gobject.timeout_add(timeout, self._fade_stream, 
-                    self.streams[self.current_stream], 100, -1)
+                    self.streams[self.current_stream], -1, True)
 
         self.current_stream = next
         event.log_event('playback_start', self, track)
         
     # this should really be part of the stream class
-    def _fade_stream(self, stream, current, direction):
-        current += direction
+    def _fade_stream(self, stream, direction, delete=False):
+        current = stream.get_volume()
+        current += direction/100.0
         stream.set_volume(current)
-        return 0 <= current <= 100 
+        if delete and current < 0.01:
+            self.unlink_stream(stream)
+            return False
+        return 0.01 <= current <= 1
 
     def unlink_stream(self, stream):
         try:
@@ -559,6 +566,9 @@ class AudioStream(gst.Bin):
 
     def set_volume(self, vol):
         self.vol.set_property("volume", vol)
+
+    def get_volume(self):
+        return self.vol.get_property("volume")
 
     def set_track(self, track):
         if not track:

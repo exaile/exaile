@@ -104,7 +104,7 @@ class Bookmarks:
 #            print 'bk: seeking to ', pos,type(pos)
             idx = exaile.queue.current_playlist.index(track)
             exaile.queue.current_playlist.set_current_pos(idx)
-            exaile.player.stop()
+            #exaile.player.stop()
             exaile.queue.play(track)
             exaile.player.seek(pos)
 

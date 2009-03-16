@@ -685,7 +685,6 @@ class AudioStream(gst.Bin):
         """
             seek to the given position in the current stream
         """
-        print "ENTER"
         if self._settle_flag == 1:
             event.add_callback(self._seek_delayed, "stream_settled")
             self._seek_event.clear()
@@ -699,13 +698,11 @@ class AudioStream(gst.Bin):
         self.vol.send_event(seekevent)
 
         self.last_seek_pos = value
-        print "EXIT"
 
     def _seek_delayed(self, type, object, value):
         """
             internal code used if seek is called before the stream is ready
         """
-        print "DELAYED"
         if self._settle_flag == 1 or object != self:
             return 
         event.remove_callback(self._seek_delayed, type, object)

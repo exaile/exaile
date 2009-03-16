@@ -142,6 +142,9 @@ class PlayQueue(playlist.Playlist):
 
     @common.threaded
     def _restore_player_state(self, location):
+        if not settings.get_option("player/resume_playback", True):
+            return
+
         try:
             f = open(location, 'rb')
             state = pickle.load(f)

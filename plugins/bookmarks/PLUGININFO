@@ -1,0 +1,5 @@
+Version="0.1.1"
+Authors=["Brian Parma <execrable@gmail.com>"]
+Name="Bookmarks"
+Description="Allows saving/resuming bookmark positions in audio files."
+

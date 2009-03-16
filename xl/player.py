@@ -349,6 +349,7 @@ class UnifiedPlayer(object):
             return False
 
         self.pipe.set_state(gst.STATE_PLAYING)
+        self.streams[next]._settle_flag = 1
         gobject.idle_add(self.streams[next].set_state, gst.STATE_PLAYING)
 
         self.current_stream = next
@@ -679,28 +680,32 @@ class AudioStream(gst.Bin):
             event.log_event("stream_settled", self, None)
             return False 
 
+    @common.threaded #BAD
     def seek(self, value):
         """
             seek to the given position in the current stream
         """
+        print "ENTER"
         if self._settle_flag == 1:
             event.add_callback(self._seek_delayed, "stream_settled")
             self._seek_event.clear()
-            self._seek_event.wait() 
+            self._seek_event.wait()
 
         value = int(gst.SECOND * value)
-        event = gst.event_new_seek(1.0, gst.FORMAT_TIME,
+        seekevent = gst.event_new_seek(1.0, gst.FORMAT_TIME,
             gst.SEEK_FLAG_FLUSH|gst.SEEK_FLAG_ACCURATE,
             gst.SEEK_TYPE_SET, value, gst.SEEK_TYPE_NONE, 0)
 
-        self.vol.send_event(event)
+        self.vol.send_event(seekevent)
 
         self.last_seek_pos = value
+        print "EXIT"
 
     def _seek_delayed(self, type, object, value):
         """
             internal code used if seek is called before the stream is ready
         """
+        print "DELAYED"
         if self._settle_flag == 1 or object != self:
             return 
         event.remove_callback(self._seek_delayed, type, object)

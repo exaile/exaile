@@ -349,7 +349,7 @@ class CollectionPanel(panel.Panel):
                     # check to see if it's a number
                     if char.isdigit(): char = '0'
 
-                    if char != last_char:
+                    if char != last_char and last_char != '':
                         self.model.append(parent, [None, None, None])
                     last_char = char
 

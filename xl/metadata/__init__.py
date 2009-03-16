@@ -65,6 +65,8 @@ formats = {
         'xm'    : mod.ModFormat,
         }
 
+SUPPORTED_MEDIA = ['.' + ext for ext in formats.iterkeys()]
+
 # pass get_loc_for_io() to this.
 def get_format(loc):
     """

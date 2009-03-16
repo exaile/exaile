@@ -112,8 +112,10 @@ class Playlist(gtk.VBox):
         self.resizable_cols = self.xml.get_widget('col_resizable_item')
         self.not_resizable_cols = \
             self.xml.get_widget('col_not_resizable_item')
-        self.resizable_cols.set_active(self.settings.get_option('gui/resizable_cols',
-            False))
+        if not self.resizable_cols and not self.not_resizable_cols:
+            return # potentially dangerous if someone breaks the gladefile...
+        self.resizable_cols.set_active(
+                self.settings.get_option('gui/resizable_cols', False))
         self.not_resizable_cols.set_active(not \
             self.settings.get_option('gui/resizable_cols', False))
         self.resizable_cols.connect('activate', self.activate_cols_resizable)

@@ -78,12 +78,12 @@ install: make-install-dirs compile
 		$(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
 	install -m 644 data/exaile.desktop \
 		$(DESTDIR)$(PREFIX)/share/applications/	
+	# the printf here is for bsd compat, dont use echo!
 	cd $(DESTDIR)$(PREFIX)/bin && \
-	 /bin/echo -e \
-	 "#!/bin/sh\n" \
-	 "cd $(PREFIX)/share/exaile\n" \
-	 "exec python $(PREFIX)$(LIBDIR)/exaile/exaile.py " \
-	 "--datadir=$(PREFIX)/share/exaile/data --startgui \"\$$@\"" \
+	 printf "#!/bin/sh\n\
+	 cd $(PREFIX)/share/exaile\n\
+	 exec python $(PREFIX)$(LIBDIR)/exaile/exaile.py \
+	 --datadir=$(PREFIX)/share/exaile/data --startgui \"\$$@\"" \
 	 > exaile && \
 	chmod 755 exaile
 	cd plugins && make install DESTDIR=$(DESTDIR) PREFIX=$(PREFIX) \

@@ -21,7 +21,7 @@ pygtk.require('2.0')
 import gtk, gtk.glade
 from xl import xdg
 from xlgui.prefs.widgets import *
-from xlgui.prefs import general_prefs, osd_prefs, cover_prefs
+from xlgui.prefs import general_prefs, osd_prefs, cover_prefs, playback_prefs
 import logging, traceback, gobject
 
 logger = logging.getLogger(__name__)
@@ -31,7 +31,7 @@ class PreferencesDialog(object):
         Preferences Dialog
     """
 
-    PAGES = (general_prefs, osd_prefs, cover_prefs)
+    PAGES = (general_prefs, playback_prefs, osd_prefs, cover_prefs)
 
     def __init__(self, parent, main, plugin_page=None):
         """

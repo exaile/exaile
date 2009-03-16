@@ -16,7 +16,7 @@ __all__ = ['main', 'panel', 'playlist']
 
 from xl.nls import gettext as _
 import gtk, gtk.glade, gobject, logging
-from xl import xdg, common, event
+from xl import xdg, common, event, metadata
 
 from xlgui import guiutil, prefs, plugins, cover, commondialogs
 
@@ -114,6 +114,31 @@ class Main(object):
             self.main.window, buttons=(_('Open'), gtk.RESPONSE_OK, 
             _('Cancel'), gtk.RESPONSE_CANCEL))
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+
+        supported_file_filter = gtk.FileFilter()
+        supported_file_filter.set_name(_("Supported Files"))
+        audio_file_filter = gtk.FileFilter()
+        audio_file_filter.set_name(_("Music Files"))
+        playlist_file_filter = gtk.FileFilter()
+        playlist_file_filter.set_name(_("Playlist Files"))
+        all_file_filter = gtk.FileFilter()
+        all_file_filter.set_name(_("All Files"))
+
+        for ext in metadata.SUPPORTED_MEDIA:
+            supported_file_filter.add_pattern('*' + ext)
+            audio_file_filter.add_pattern('*' + ext)
+	
+	playlist_file_types = ('m3u', 'pls', 'asx', 'xspf')
+	for playlist_file_type in playlist_file_types:
+		supported_file_filter.add_pattern('*.' + playlist_file_type)
+		playlist_file_filter.add_pattern('*.' + playlist_file_type)
+
+	all_file_filter.add_pattern('*')
+
+	dialog.add_filter(supported_file_filter)
+	dialog.add_filter(audio_file_filter)
+	dialog.add_filter(playlist_file_filter)
+	dialog.add_filter(all_file_filter)
 
         result = dialog.run()
         dialog.hide()

@@ -796,6 +796,7 @@ class MainWindow(object):
             gobject.idle_add(self.toggle_visible)
         else:
             self.quit()
+        return True
 
     def quit(self, *e):
         """

@@ -552,10 +552,16 @@ class AudioStream(gst.Bin):
     def setup_elems(self):
         self.dec = gst.element_factory_make("uridecodebin")
         self.audioconv = gst.element_factory_make("audioconvert")
+        self.audioresam = gst.element_factory_make("audioresample")
         self.provided = ProviderBin("stream_element")
         self.vol = gst.element_factory_make("volume")
-        self.add(self.dec, self.audioconv, self.provided, self.vol)
-        self.audioconv.link(self.provided)
+        self.add(self.dec, 
+                self.audioconv, 
+                self.audioresam, 
+                self.provided, 
+                self.vol)
+        self.audioconv.link(self.audioresam)
+        self.audioresam.link(self.provided)
         self.provided.link(self.vol)
         self.dec.connect('no-more-pads', self._dec_pad_cb, self.audioconv)
 

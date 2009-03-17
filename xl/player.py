@@ -768,7 +768,7 @@ class AutoAudioSink(BaseAudioSink):
 
 class FakeAudioSink(BaseAudioSink):
     sink_elem = "fakesink"
-    default_options = {"sync": True}
+    default_options = {"sync": 'true'}
 
 # vim: et sts=4 sw=4
 

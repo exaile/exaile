@@ -29,3 +29,19 @@ class PausedPreference(widgets.CheckPrefsItem):
     default = False
     name = 'player/resume_paused' 
 
+class UserFadeTogglePreference(widgets.CheckPrefsItem):
+    default = False
+    name = 'player/user_fade_enabled' 
+
+class UserFadeDurationPreference(widgets.SpinPrefsItem):
+    default = 1000
+    name = 'player/user_fade'
+
+class CrossfadingPreference(widgets.CheckPrefsItem):
+    default = False
+    name = 'player/crossfading'
+
+class CrossfadeDurationPreference(widgets.SpinPrefsItem):
+    default = 1000
+    name = 'player/crossfade_duration'
+

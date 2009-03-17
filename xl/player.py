@@ -337,7 +337,7 @@ class UnifiedPlayer(object):
         next = 1-self.current_stream
 
         if user:
-            if settings.get_option("player/user_fade_enabled", True):
+            if settings.get_option("player/user_fade_enabled", False):
                 return self.fade_to(track)
             else:
                 self.unlink_stream(self.streams[self.current_stream])

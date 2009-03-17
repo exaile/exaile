@@ -300,6 +300,10 @@ class MainWindow(object):
             self.playlist_notebook.get_n_pages() - 1)
         self.set_mode_toggles()
 
+        queue = self.controller.exaile.queue
+        if not queue.current_playlist:
+            queue.current_playlist = pl.playlist
+
         return pl
 
     def _setup_hotkeys(self):
@@ -567,6 +571,10 @@ class MainWindow(object):
         """
         if tab is None:
             tab = self.playlist_notebook.get_current_page()
+        pl = self.playlist_notebook.get_nth_page(tab)
+        queue = self.controller.exaile.queue
+        if queue.current_playlist == pl.playlist:
+            queue.current_playlist = None
         self.playlist_notebook.remove_page(tab)
 
     def on_playlist_notebook_remove(self, notebook, widget):
@@ -798,6 +806,7 @@ class MainWindow(object):
             gobject.idle_add(self.toggle_visible)
         else:
             self.quit()
+        return True
 
     def quit(self, *e):
         """

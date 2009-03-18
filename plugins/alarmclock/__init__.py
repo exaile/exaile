@@ -67,10 +67,10 @@ class VolumeControl:
 
     def load_settings( self ):
         self.use_fading     = settings.get_option("plugin/alarmclock/alarm_use_fading", default="False")
-        self.min_volume     = int(settings.get_option("plugin/alarmclock/alarm_min_volume", default="0"))
-        self.max_volume     = int(settings.get_option("plugin/alarmclock/alarm_max_volume", default="100"))
-        self.increment      = int(settings.get_option("plugin/alarmclock/alarm_increment", default="1"))
-        self.time_per_inc   = int(settings.get_option("plugin/alarmclock/alarm_time_per_inc", default="1"))
+        self.min_volume     = int(settings.get_option("plugin/alarmclock/alarm_min_volume", default=0))
+        self.max_volume     = int(settings.get_option("plugin/alarmclock/alarm_max_volume", default=100))
+        self.increment      = int(settings.get_option("plugin/alarmclock/alarm_increment", default=1))
+        self.time_per_inc   = int(settings.get_option("plugin/alarmclock/alarm_time_per_inc", default=1))
 
 
 class Alarmclock(object):
@@ -86,16 +86,18 @@ class Alarmclock(object):
         nothing.  If the current time matches the time specified, it starts
         playing
         """
-        self.hour=int(settings.get_option('plugin/alarmclock/hour'))
-        self.minuts=int(settings.get_option('plugin/alarmclock/minuts'))
+        self.hour=int(settings.get_option('plugin/alarmclock/hour', 15))
+        self.minuts=int(settings.get_option('plugin/alarmclock/minuts', 20))
         self.volume_control.load_settings()
-        active_days_dict = [ settings.get_option('plugin/alarmclock/sunday'), 
-                            settings.get_option('plugin/alarmclock/monday'),
-                            settings.get_option('plugin/alarmclock/tuesday'),
-                            settings.get_option('plugin/alarmclock/thursday'),
-                            settings.get_option('plugin/alarmclock/wednesday'),
-                            settings.get_option('plugin/alarmclock/friday'),
-                            settings.get_option('plugin/alarmclock/saturday') ]
+        active_days_dict = [
+            settings.get_option('plugin/alarmclock/sunday', False), 
+            settings.get_option('plugin/alarmclock/monday', False),
+            settings.get_option('plugin/alarmclock/tuesday', False),
+            settings.get_option('plugin/alarmclock/thursday', False),
+            settings.get_option('plugin/alarmclock/wednesday', False),
+            settings.get_option('plugin/alarmclock/friday', False),
+            settings.get_option('plugin/alarmclock/saturday', False) 
+        ]
         
         if not self.hour and self.minuts: return True
         if not active_days_dict: return True

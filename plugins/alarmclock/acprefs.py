@@ -23,11 +23,11 @@ basedir = os.path.dirname(os.path.realpath(__file__))
 glade = os.path.join(basedir, "acprefs_pane.glade")
 
 class HourPreference(widgets.SpinPrefsItem):
-    default = "12"
+    default = 12
     name = 'plugin/alarmclock/hour'
 
 class MinutsPreference(widgets.SpinPrefsItem):
-    default = "30"
+    default = 30
     name = 'plugin/alarmclock/minuts'
 
 class MondayPreference(widgets.CheckPrefsItem):

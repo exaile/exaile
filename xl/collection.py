@@ -173,8 +173,11 @@ class Collection(trackdb.TrackDB):
             Called when a progress update should be emitted while scanning
             tracks
         """
-        event.log_event('scan_progress_update', self,
-            int((float(count) / float(self.file_count)) * 100))
+        try:
+            event.log_event('scan_progress_update', self,
+                int((float(count) / float(self.file_count)) * 100))
+        except ZeroDivisionError:
+            print type, library, count
 
     def serialize_libraries(self):
         """

@@ -223,13 +223,19 @@ class ListPrefsItem(PrefsItem):
         return True
 
 class SpinPrefsItem(PrefsItem):
-    def set_pref(self):
+    def _set_pref(self):
         value = self.prefs.settings.get_option(self._get_name(), 
             default=self.default)
         self.widget.set_value(value)
 
     def _setup_change(self):
         self.widget.connect('value-changed', self.change)
+
+    def apply(self):
+        if hasattr(self, 'done') and not self.done(): return False
+        self.prefs.settings[self._get_name()] = self.widget.get_value()
+        return True
+
 
 class FloatPrefsItem(PrefsItem):
     """

@@ -195,13 +195,15 @@ class UnifiedPlayer(object):
     
         self.streams = [None, None]
         self.pp = Postprocessing()
-        self.fakesink = FakeAudioSink()
-        self.audio_sink = AutoAudioSink() # FIXME
+        #self.fakesink = FakeAudioSink()
+        self.audio_sink = OssAudioSink() # FIXME
         self.sinks = []
 
         self._load_queue_values()
         self._setup_pipeline()
         self.setup_bus()
+       
+        self.audio_sink.load_options()
 
         event.add_callback(self._on_setting_change, 'option_set')
 
@@ -374,7 +376,7 @@ class UnifiedPlayer(object):
         self.pipe.set_state(gst.STATE_PLAYING)
         gobject.idle_add(self.streams[next].set_state, gst.STATE_PLAYING)
 
-        timeout = duration/float(100)
+        timeout = float(duration)/float(100)
         if self.streams[next]:
             gobject.timeout_add(timeout, self._fade_stream, self.streams[next], 1)
         if self.streams[self.current_stream]:
@@ -762,8 +764,9 @@ class BaseAudioSink(BaseSink):
         optdict.update(dict([v.split("=") for v in options]))
         for param, value in optdict.iteritems():
             try:
-                self.audio_sink.set_property(param, value)
+                self.sink.set_property(param, value)
             except:
+                common.log_exception(log=logger)
                 logger.warning(_("Could not set parameter %s for %s")%(param, self.sink_elem))
 
     def set_volume(self, vol):
@@ -771,10 +774,19 @@ class BaseAudioSink(BaseSink):
 
 class AutoAudioSink(BaseAudioSink):
     sink_elem = "autoaudiosink"
+#    default_options = {"async-handling": True}
+
+class AlsaAudioSink(BaseAudioSink):
+    sink_elem = "alsasink"
+    default_options = {"sync": False,
+            "provide-clock": False}
+
+class OssAudioSink(BaseAudioSink):
+    sink_elem = "osssink"
 
 class FakeAudioSink(BaseAudioSink):
     sink_elem = "fakesink"
-    default_options = {"sync": 'true'}
+    default_options = {"sync": True}
 
 # vim: et sts=4 sw=4
 

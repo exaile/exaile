@@ -188,6 +188,8 @@ class UnifiedPlayer(object):
         self.playtime_stamp = None
         self.current_stream = 1
 
+        self.caps = gst.Caps("audio/x-raw-float, rate=(int)44100;" 
+                "audio/x-raw-int, rate=(int)44100") # default to cd quality. 
         self.pipe = gst.Pipeline()
         self.adder = gst.element_factory_make("adder")
         self.audio_queue = gst.element_factory_make("queue")
@@ -195,15 +197,14 @@ class UnifiedPlayer(object):
     
         self.streams = [None, None]
         self.pp = Postprocessing()
-        #self.fakesink = FakeAudioSink()
-        self.audio_sink = OssAudioSink() # FIXME
+        self.audio_sink = sink_from_preset(
+                settings.get_option("player/sink", "auto"))
         self.sinks = []
 
         self._load_queue_values()
         self._setup_pipeline()
         self.setup_bus()
        
-        self.audio_sink.load_options()
 
         event.add_callback(self._on_setting_change, 'option_set')
 
@@ -224,14 +225,12 @@ class UnifiedPlayer(object):
                 self.audio_queue, 
                 self.pp,
                 self.tee, 
-                #self.fakesink, 
                 self.audio_sink
                 )
         self.adder.link(self.audio_queue)
         self.audio_queue.link(self.pp)
         self.pp.link(self.tee)
         self.tee.link(self.audio_sink)
-        #self.tee.link(self.fakesink)m/
 
     def _on_drained(self, dec, stream):
         if stream.track != self.current:
@@ -346,7 +345,7 @@ class UnifiedPlayer(object):
         else:
             self.unlink_stream(self.streams[self.current_stream])
  
-        self.streams[next] = AudioStream("Stream%s"%(next))
+        self.streams[next] = AudioStream("Stream%s"%(next), caps=self.caps)
         self.streams[next].dec.connect("drained", self._on_drained, self.streams[next])
 
         if not self.link_stream(self.streams[next], track):
@@ -366,7 +365,7 @@ class UnifiedPlayer(object):
         if self.streams[next]:
             self.unlink_stream(self.streams[next])
 
-        self.streams[next] = AudioStream("Stream%s"%(next))
+        self.streams[next] = AudioStream("Stream%s"%(next), caps=self.caps)
         self.streams[next].dec.connect("drained", self._on_drained, self.streams[next])
 
         if not self.link_stream(self.streams[next], track):
@@ -539,7 +538,7 @@ class ProviderBin(gst.Bin, ProviderHandler):
             pass
 
 class AudioStream(gst.Bin):
-    def __init__(self, name):
+    def __init__(self, name, caps=None):
         gst.Bin.__init__(self, name)
         self.notify_id = None
         self.track = None
@@ -549,6 +548,7 @@ class AudioStream(gst.Bin):
         self._settle_flag = 0
         self._seek_event = threading.Event()
 
+        self.caps = caps
         self.setup_elems()
 
     def setup_elems(self):
@@ -556,7 +556,6 @@ class AudioStream(gst.Bin):
         self.audioconv = gst.element_factory_make("audioconvert")
         self.audioresam = gst.element_factory_make("audioresample")
         self.provided = ProviderBin("stream_element")
-        self.caps = gst.Caps("audio/x-raw-float, rate=(int)44100; audio/x-raw-int, rate=(int)44100")
         self.capsfilter = gst.element_factory_make("capsfilter")
         self.capsfilter.set_property("caps", self.caps)
         self.vol = gst.element_factory_make("volume")
@@ -707,7 +706,6 @@ class AudioStream(gst.Bin):
             event.log_event("stream_settled", self, None)
             return False 
 
-    @common.threaded #BAD
     def seek(self, value):
         """
             seek to the given position in the current stream
@@ -744,12 +742,41 @@ class Postprocessing(ProviderBin):
 class BaseSink(gst.Bin):
     pass
 
-# for subclassing only
-class BaseAudioSink(BaseSink):
-    sink_elem = None
-    default_options = {}
-    def __init__(self, *args, **kwargs):
+
+SINK_PRESETS = {
+        "auto"  : {
+            "name"      : _("Automatic"), 
+            "elem"      : "autoaudiosink", 
+            "options"   : {},
+            },
+        "alsa"  : {
+            "name"      : _("Alsa"),
+            "elem"      : "alsasink",
+            "options"   : {},
+            },
+        "oss"   : {
+            "name"      : _("Oss"),
+            "elem"      : "osssink",
+            "options"   : {},
+            },
+        "pulse" : {
+            "name"      : _("Pulseaudio"),
+            "elem"      : "pulsesink",
+            "options"   : {},
+            },
+        }
+
+def sink_from_preset(preset):
+    d = SINK_PRESETS[preset]
+    sink = AudioSink(d['name'], d['elem'], d['options'])
+    return sink
+
+class AudioSink(BaseSink):
+    def __init__(self, name, elem, options, *args, **kwargs):
         BaseSink.__init__(self, *args, **kwargs)
+        self.name = name
+        self.sink_elem = elem
+        self.options = options
         self.provided = ProviderBin('sink_element')
         self.vol = gst.element_factory_make("volume")
         self.sink = gst.element_factory_make(self.sink_elem)
@@ -762,10 +789,9 @@ class BaseAudioSink(BaseSink):
 
     def load_options(self):
         #TODO: make this reset any non-explicitly set options to default
-        #TODO: make each sink have its own place to store settings
         # this setting is a list of strings of the form "param=value"
-        options = settings.get_option("player/sink_options", [])
-        optdict = copy.copy(self.default_options)
+        options = settings.get_option("player/%s_sink_options"%self.name, [])
+        optdict = copy.copy(self.options)
         optdict.update(dict([v.split("=") for v in options]))
         for param, value in optdict.iteritems():
             try:
@@ -777,21 +803,6 @@ class BaseAudioSink(BaseSink):
     def set_volume(self, vol):
         self.vol.set_property("volume", vol)
 
-class AutoAudioSink(BaseAudioSink):
-    sink_elem = "autoaudiosink"
-#    default_options = {"async-handling": True}
-
-class AlsaAudioSink(BaseAudioSink):
-    sink_elem = "alsasink"
-    default_options = {"sync": False,
-            "provide-clock": False}
-
-class OssAudioSink(BaseAudioSink):
-    sink_elem = "osssink"
-
-class FakeAudioSink(BaseAudioSink):
-    sink_elem = "fakesink"
-    default_options = {"sync": True}
 
 # vim: et sts=4 sw=4
 

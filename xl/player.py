@@ -197,8 +197,13 @@ class UnifiedPlayer(object):
     
         self.streams = [None, None]
         self.pp = Postprocessing()
+
         self.audio_sink = sink_from_preset(
-                settings.get_option("player/sink", "auto"))
+                settings.get_option("player/audiosink", "auto"))
+        if not self.audio_sink:
+            logger.warning("Could not enable %s sink, attempting to autoselect."
+                    %settings.get_option("player/audiosink", "auto"))
+            self.audio_sink = sink_from_preset("auto")
         self.sinks = []
 
         self._load_queue_values()
@@ -375,7 +380,7 @@ class UnifiedPlayer(object):
         self.pipe.set_state(gst.STATE_PLAYING)
         gobject.idle_add(self.streams[next].set_state, gst.STATE_PLAYING)
 
-        timeout = float(duration)/float(100)
+        timeout = int(float(duration)/float(100))
         if self.streams[next]:
             gobject.timeout_add(timeout, self._fade_stream, self.streams[next], 1)
         if self.streams[self.current_stream]:
@@ -767,9 +772,12 @@ SINK_PRESETS = {
         }
 
 def sink_from_preset(preset):
-    d = SINK_PRESETS[preset]
-    sink = AudioSink(d['name'], d['elem'], d['options'])
-    return sink
+    try:
+        d = SINK_PRESETS[preset]
+        sink = AudioSink(d['name'], d['elem'], d['options'])
+        return sink
+    except:
+        return None
 
 class AudioSink(BaseSink):
     def __init__(self, name, elem, options, *args, **kwargs):

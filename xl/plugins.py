@@ -106,8 +106,8 @@ class PluginsManager(object):
     def disable_plugin(self, pluginname):
         try:
             plugin = self.enabled_plugins[pluginname]
-            plugin.disable(self.exaile)
             del self.enabled_plugins[pluginname]
+            plugin.disable(self.exaile)
         except:
             traceback.print_exc()
             logger.warning(_("Unable to fully disable plugin %s")%pluginname)

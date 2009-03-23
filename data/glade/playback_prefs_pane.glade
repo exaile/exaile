@@ -90,7 +90,7 @@
         </child>
         <child>
           <widget class="GtkCheckButton" id="player/crossfading">
-            <property name="label" translatable="yes">Use crossfading (NOT IMPLEMENTED)</property>
+            <property name="label" translatable="yes">Use crossfading (EXPERIMENTAL)</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
@@ -118,7 +118,7 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkSpinButton" id="player/crossfading_duration">
+              <widget class="GtkSpinButton" id="player/crossfade_duration">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="xalign">1</property>

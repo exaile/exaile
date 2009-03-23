@@ -88,10 +88,10 @@ class PlayQueue(playlist.Playlist):
                 self.current_playing = True
                 if self.current_playlist:
                     self.current_playlist.current_playing = False
-        if not track:
-            self.player.stop()
-            return
         if player:
+            if not track:
+                self.player.stop()
+                return
             self.player.play(track)
         return track
 
@@ -187,6 +187,7 @@ class UnifiedPlayer(object):
         self.queue = None
         self.playtime_stamp = None
         self.current_stream = 1
+        self.timer_id = 0
 
         self.caps = gst.Caps("audio/x-raw-float, rate=(int)44100;" 
                 "audio/x-raw-int, rate=(int)44100") # default to cd quality. 
@@ -238,13 +239,13 @@ class UnifiedPlayer(object):
         self.tee.link(self.audio_sink)
 
     def _on_drained(self, dec, stream):
-        if stream.track != self.current:
-            return
+        #if stream.track != self.current:
+        #    return
         self.unlink_stream(stream)
         if not settings.get_option("player/crossfading", False):
             tr = self.queue.next(player=False)
             self.play(tr, user=False)
-
+    
     def setup_bus(self):
         """
             setup the gstreamer message bus and callacks
@@ -342,55 +343,66 @@ class UnifiedPlayer(object):
         logger.debug("Attmepting to play \"%s\""%track)
         next = 1-self.current_stream
 
+        if self.streams[next]:
+            self.unlink_stream(self.streams[next])
+
+        fading = False
+        duration = 0
+
         if user:
             if settings.get_option("player/user_fade_enabled", False):
-                return self.fade_to(track)
+                fading = True
+                duration = settings.get_option("player/user_fade", 1000)
             else:
                 self.unlink_stream(self.streams[self.current_stream])
         else:
-            self.unlink_stream(self.streams[self.current_stream])
- 
+            if settings.get_option("player/crossfading", False):
+                fading = True
+                duration = settings.get_option(
+                        "player/crossfade_duration", 3000)
+            else:
+                self.unlink_stream(self.streams[self.current_stream])
+
         self.streams[next] = AudioStream("Stream%s"%(next), caps=self.caps)
-        self.streams[next].dec.connect("drained", self._on_drained, self.streams[next])
+        self.streams[next].dec.connect("drained", self._on_drained, 
+                self.streams[next])
 
         if not self.link_stream(self.streams[next], track):
             return False
 
+        if fading:
+            self.streams[next].set_volume(0)
+
         self.pipe.set_state(gst.STATE_PLAYING)
         self.streams[next]._settle_flag = 1
         gobject.idle_add(self.streams[next].set_state, gst.STATE_PLAYING)
+        gobject.idle_add(self._set_state, self.pipe, gst.STATE_PLAYING)
 
+        if fading:
+            timeout = int(float(duration)/float(100))
+            if self.streams[next]:
+                gobject.timeout_add(timeout, self._fade_stream, 
+                        self.streams[next], 1)
+            if self.streams[self.current_stream]:
+                gobject.timeout_add(timeout, self._fade_stream, 
+                        self.streams[self.current_stream], -1, True)
+            if settings.get_option("player/crossfading", False):
+                time = int(track.get_duration()*1000 - duration)
+                gobject.timer_id = gobject.timeout_add(time, 
+                        self._start_crossfade)
+                
         self.current_stream = next
         event.log_event('playback_start', self, track)
 
         return True
 
-    def fade_to(self, track, duration=settings.get_option("player/user_fade", 1000)):
-        next = 1-self.current_stream
-        if self.streams[next]:
-            self.unlink_stream(self.streams[next])
-
-        self.streams[next] = AudioStream("Stream%s"%(next), caps=self.caps)
-        self.streams[next].dec.connect("drained", self._on_drained, self.streams[next])
-
-        if not self.link_stream(self.streams[next], track):
+    def _set_state(self, thing, state):
+        ret = thing.set_state(state)
+        if ret == gst.STATE_CHANGE_SUCCESS:
             return False
-
-        self.streams[next].set_volume(0)
-        self.pipe.set_state(gst.STATE_PLAYING)
-        gobject.idle_add(self.streams[next].set_state, gst.STATE_PLAYING)
-
-        timeout = int(float(duration)/float(100))
-        if self.streams[next]:
-            gobject.timeout_add(timeout, self._fade_stream, self.streams[next], 1)
-        if self.streams[self.current_stream]:
-            gobject.timeout_add(timeout, self._fade_stream, 
-                    self.streams[self.current_stream], -1, True)
-
-        self.current_stream = next
-        event.log_event('playback_start', self, track)
+        else:
+            return True
         
-    # this should really be part of the stream class
     def _fade_stream(self, stream, direction, delete=False):
         current = stream.get_volume()
         current += direction/100.0
@@ -399,6 +411,33 @@ class UnifiedPlayer(object):
             self.unlink_stream(stream)
             return False
         return 0.01 <= current <= 1
+
+    def _start_crossfade(self, *args):
+        tr = self.queue.next(player=False)
+        if tr is not None:
+            self.play(tr, user=False)
+        if self.timer_id:
+            gobject.source_remove(self.timer_id)
+        if tr is None:
+            self.timer_id = gobject.timeout_add(
+                    1000*(self.current.get_duration() - self.get_time()),
+                    self.stop)
+        return False
+
+    def _reset_crossfade_timer(self):
+        if self.timer_id:
+            gobject.source_remove(self.timer_id)
+        if not self.is_playing():
+            return
+        if not settings.get_option("player/crossfading", False):
+            return
+        duration = settings.get_option("player/crossfade_duration", 3000)
+        time = int( self.current.get_duration()*1000 - \
+                (self.get_time()*1000 + duration) )
+        if time < duration: # start crossfade now, we're late!
+            gobject.idle_add(self._start_crossfade)
+        else:
+            self.timer_id = gobject.timeout_add(time, self._start_crossfade)
 
     def unlink_stream(self, stream):
         try:
@@ -437,6 +476,7 @@ class UnifiedPlayer(object):
             self.pipe.set_state(gst.STATE_NULL)
             for stream in self.streams:           
                 self.unlink_stream(stream)
+            self._reset_crossfade_timer()
             event.log_event('playback_end', self, current)
 
     def pause(self):
@@ -444,8 +484,8 @@ class UnifiedPlayer(object):
             pause playback. DOES NOT TOGGLE
         """
         if self.is_playing():
-            #self.streams[self.current_stream].set_state(gst.STATE_PAUSED)
             self.pipe.set_state(gst.STATE_PAUSED)
+            self._reset_crossfade_timer()
             event.log_event('playback_pause', self, self.current)
  
     def unpause(self):
@@ -458,8 +498,8 @@ class UnifiedPlayer(object):
             if not self.current.is_local():
                 self.pipe.set_state(gst.STATE_READY)
 
-            #self.streams[self.current_stream].set_state(gst.STATE_PLAYING)
             self.pipe.set_state(gst.STATE_PLAYING)
+            self._reset_crossfade_timer()
             event.log_event('playback_resume', self, self.current)
 
     def toggle_pause(self):
@@ -476,6 +516,7 @@ class UnifiedPlayer(object):
             seek to the given position in the current stream
         """
         self.streams[self.current_stream].seek(value)
+        self._reset_crossfade_timer()
 
     
 

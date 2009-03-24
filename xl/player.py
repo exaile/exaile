@@ -613,7 +613,7 @@ class GaplessPlayer(BaseGSTPlayer):
         gobject.idle_add(self._on_changed)
 
     def _on_changed(self, *args):
-        logger.debug("GST AUDIO CHANGED")
+        logger.debug(_("GST AUDIO CHANGED"))
     
 
 # vim: et sts=4 sw=4

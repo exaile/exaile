@@ -12,6 +12,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+from xl.nls import gettext as _
 import dbus, dbus.service, gobject, sys
 from optparse import OptionParser
 
@@ -58,7 +59,7 @@ def check_exit(options, args):
                     sys.exit(0)
 
             if not do_exit:
-                print "You have entered an invalid option"
+                print _("You have entered an invalid option")
 
             return True
 

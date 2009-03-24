@@ -204,7 +204,7 @@ class IdleManager(threading.Thread):
             Stops the thread
         """
         self._stopped = True
-        logger.debug("Stopping IdleManager thread...")
+        logger.debug(_("Stopping IdleManager thread..."))
 
     def run(self):
         """
@@ -291,7 +291,7 @@ class EventManager(object):
                     pass
 
         if self.use_logger:
-            logger.debug("Sent '%s' event from '%s' with data '%s'."%(event.type, repr(event.object), repr(event.data)))
+            logger.debug(_("Sent '%s' event from '%s' with data '%s'.") %(event.type, repr(event.object), repr(event.data)))
 
         # now call them
         for cb in callbacks:

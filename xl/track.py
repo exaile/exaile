@@ -12,6 +12,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+from xl.nls import gettext as _
 import os, time
 from copy import deepcopy
 from urlparse import urlparse
@@ -394,7 +395,7 @@ def parse_stream_tags(track, tags):
                 track['title'] = [title_array[1]]
 
     if newsong:
-        log.append('  New song, fetching cover.')
+        log.append(_('  New song, fetching cover.'))
 
     for line in log:
         logger.debug(line)

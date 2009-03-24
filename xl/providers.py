@@ -12,6 +12,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+from xl.nls import gettext as _
 from xl import event
 import logging
 logger = logging.getLogger(__name__)
@@ -24,7 +25,7 @@ class ProviderManager(object):
         if servicename not in self.services:
             self.services[servicename] = []
         self.services[servicename].append(provider)
-        logger.debug("Provider %s registered for service %s" % \
+        logger.debug(_("Provider %s registered for service %s") % \
                 (provider.name, servicename))
         event.log_event("%s_provider_added"%servicename, self, provider)
 
@@ -34,7 +35,7 @@ class ProviderManager(object):
         try:
             if provider in self.services[servicename]:
                 self.services[servicename].remove(provider)
-            logger.debug("Provider %s unregistered from service %s" % \
+            logger.debug(_("Provider %s unregistered from service %s") % \
                     (provider.name, servicename))
             event.log_event("%s_provider_removed"%servicename, self, provider)
         except KeyError:

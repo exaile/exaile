@@ -69,7 +69,7 @@ class LyricsManager(providers.ProviderHandler):
                 first
         """
         if not type(order) in (list, tuple):
-            raise AttributeError("order must be a list or tuple")
+            raise AttributeError(_("order must be a list or tuple"))
         self.preferred_order = order
         self.settings['lyrics/preferred_order'] = list(order)
 

@@ -139,7 +139,7 @@ class SettingsManager(RawConfigParser):
                     return k + ": " + repr(value)
                 else:
                     return k + ": " + str(value)
-        raise ValueError("We don't know how to store that kind of setting: ",
+        raise ValueError(_("We don't know how to store that kind of setting: "),
             type(value))
 
     def _str_to_val(self, value):
@@ -159,7 +159,7 @@ class SettingsManager(RawConfigParser):
             value = TYPE_MAPPING[kind](value)
             return value
         else:
-            raise ValueError("An Unknown type of setting was found!")
+            raise ValueError(_("An Unknown type of setting was found!"))
 
     def __setitem__(self, option, value):
         """

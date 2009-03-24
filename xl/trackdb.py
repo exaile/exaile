@@ -153,7 +153,7 @@ class TrackDB(object):
         if not location:
             location = self.location
         if not location:
-            raise AttributeError("You did not specify a location to save the db")
+            raise AttributeError(_("You did not specify a location to save the db"))
 
         try:
             pdata = shelve.open(self.location, flag='c', 
@@ -202,7 +202,7 @@ class TrackDB(object):
         if not location:
             location = self.location
         if not location:
-            raise AttributeError("You did not specify a location to save the db")
+            raise AttributeError(_("You did not specify a location to save the db"))
 
         if self._saving: 
             return

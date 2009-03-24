@@ -75,7 +75,7 @@ class PluginsManager(object):
         base = os.path.basename(path)[:-4]
         for m in mems:
             if not m.name.startswith(base):
-                raise InvalidPluginError("Plugin archive contains an unsafe path")
+                raise InvalidPluginError(_("Plugin archive contains an unsafe path"))
 
         tar.extractall(self.plugindirs[0])
 
@@ -92,7 +92,7 @@ class PluginsManager(object):
     def enable_plugin(self, pluginname):
         try:
             plugin = self.load_plugin(pluginname)
-            if not plugin: raise Exception("Error loading plugin")
+            if not plugin: raise Exception(_("Error loading plugin"))
             plugin.enable(self.exaile)
             self.enabled_plugins[pluginname] = plugin
             logger.debug(_("Loaded plugin %s")%pluginname)

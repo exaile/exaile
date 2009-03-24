@@ -12,6 +12,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+from xl.nls import gettext as _
 import os.path, os
 import urllib, traceback
 from xl import common, providers, event, metadata
@@ -94,7 +95,7 @@ class CoverDB(object):
         if not type(cover) == str and not type(cover) == unicode:
             return
         if not os.path.isfile(cover): return
-        logger.info("CoverDB: set cover %s for '%s - %s'" %
+        logger.info(_("CoverDB: set cover %s for '%s - %s'") %
             (cover, album, artist))
         if not artist in self.artists:
             self.artists[artist] = common.idict()
@@ -115,7 +116,7 @@ class CoverDB(object):
         if not location:
             location = self.location
         if not location:
-            raise AttributeError("You did not specify a location to save the db")
+            raise AttributeError(_("You did not specify a location to save the db"))
 
         pdata = None
         for loc in [location, location+".old", location+".new"]:
@@ -149,7 +150,7 @@ class CoverDB(object):
         if not location:
             location = self.location
         if not location:
-            raise AttributeError("You did not specify a location to save the db")
+            raise AttributeError(_("You did not specify a location to save the db"))
 
         try:
             f = file(location, 'rb')
@@ -242,7 +243,7 @@ class CoverManager(providers.ProviderHandler):
                 first
         """
         if not type(order) in (list, tuple):
-            raise AttributeError("order must be a list or tuple")
+            raise AttributeError(_("order must be a list or tuple"))
         self.preferred_order = order
         self.settings['covers/preferred_order'] = list(order)
 
@@ -387,7 +388,7 @@ class CoverManager(providers.ProviderHandler):
                 covers you want returned
         """
         covers = []
-        logger.info("Attempting to find covers for %s" % track)
+        logger.info(_("Attempting to find covers for %s") % track)
         for method in self.get_methods():
             try:
                 if not search:
@@ -399,7 +400,7 @@ class CoverManager(providers.ProviderHandler):
                         continue
                     c = method.search_covers(track, limit)
 
-                logger.info("Found covers from %s" % method.name)
+                logger.info(_("Found covers from %s") % method.name)
                 covers.extend(c)
                 if limit != -1:
                     event.log_event('cover_found', self, (covers, method.type))

@@ -89,8 +89,12 @@ class PreferencesDialog(object):
             if hasattr(plugin, 'get_prefs_pane'):
                 if name == plugin_page:
                     select_path = count
-                plugin_pages.append(plugin.get_prefs_pane())
-                count += 1
+                try:
+                    plugin_pages.append(plugin.get_prefs_pane())
+                    count += 1
+                except:
+                    logger.warning(_('Error loading preferences pane'))
+                    traceback.print_exc()
 
         if plugin_pages:
             plug_root = self.model.append(None, [_('Plugins'), None])

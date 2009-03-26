@@ -31,6 +31,7 @@
 
 import threading, time, logging, traceback
 from xl import common
+from xl.nls import gettext as _
 
 # define these here so the interperter doesn't complain about them
 EVENT_MANAGER = None

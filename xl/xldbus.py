@@ -13,6 +13,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 from xl.nls import gettext as _
+from xl.track import Track
 import dbus, dbus.service, gobject, sys
 from optparse import OptionParser
 
@@ -38,12 +39,16 @@ def check_exit(options, args):
                 'org.exaile.ExaileInterface')
             iface.test_service('testing dbus service')
 
-            # check for one argument, if it doesn't begin with a it's probably
-            # a url
-            args = sys.argv[2:]
-            if not [x for x in args if x.startswith('-')]:
-                for arg in args:
-                    iface.play_file(arg)
+            # Assume that args are files to be added to the current playlist.
+            # This enables:    exaile PATH/*.mp3
+            if args:
+                # if '-' is the first argument then we look for a null 
+                # separated list of filenames from stdin.
+                # This enables:    find PATH -name *.mp3 -print0 | exaile -
+                if args[0] == '-':
+                    args = sys.stdin.read().split('\0')
+                iface.enqueue(args)
+                do_exit = True
 
             info_commands = ('get_artist', 'get_title', 'get_album',
                 'get_length', 'get_rating')
@@ -153,3 +158,12 @@ class DbusManager(dbus.service.Object):
             Plays the specified file
         """
         self.exaile.gui.open_uri(filename)
+
+    @dbus.service.method("org.exaile.ExaileInterface", "as")
+    def enqueue(self, filenames):
+        """
+            Adds the specified files to the current playlist
+        """
+        tracks = [Track(f) for f in filenames]
+        self.exaile.queue.current_playlist.add_tracks(tracks)
+

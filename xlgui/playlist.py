@@ -16,6 +16,7 @@ import gtk, pango, gtk.gdk
 from xlgui import guiutil, menu, plcolumns
 from xlgui.plcolumns import *
 from xl import playlist, event, track, collection, xdg
+from xl.nls import gettext as _
 import copy, urllib
 import logging
 import os, os.path

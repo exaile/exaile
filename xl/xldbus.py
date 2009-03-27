@@ -42,11 +42,11 @@ def check_exit(options, args):
             # Assume that args are files to be added to the current playlist.
             # This enables:    exaile PATH/*.mp3
             if args:
-                # if '-' is the first argument then we look for a null 
+                # if '-' is the first argument then we look for a newline 
                 # separated list of filenames from stdin.
-                # This enables:    find PATH -name *.mp3 -print0 | exaile -
+                # This enables:    find PATH -name *.mp3 | exaile -
                 if args[0] == '-':
-                    args = sys.stdin.read().split('\0')
+                    args = sys.stdin.read().split('\n')
                 iface.enqueue(args)
                 do_exit = True
 

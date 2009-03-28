@@ -1,0 +1,4 @@
+Version="0.0.1"
+Authors=["Solyanov Michael <Crantisz@gmail.com>"]
+Name="moodbar"
+Description="Replace standart progress bar with moodbar"

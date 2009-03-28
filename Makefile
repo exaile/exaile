@@ -107,32 +107,17 @@ doc: docclean
 docclean:
 	rm -rf ./doc/*
 
-test:
-	python tools/runtests.py all
-
-testplugins:
-	python tools/runtests.py plugins
-
-testmain:
-	python tools/runtests.py main
-
-doctests:
-	python tools/runtests.py doctests
-
 pot:
 	@echo "[encoding: UTF-8]" > po/POTFILES.in
 	find xl -name "*.py" >> po/POTFILES.in
 	find xlgui -name "*.py" >> po/POTFILES.in
 	find data/glade/ -name "*.glade" >> po/POTFILES.in
+	find plugins -name "*.py" >> po/POTFILES.in
+	find plugins -name "*.glade" >> pl/POTFILES.in
 	python po/createpot.py
 
 translations:
 	python po/createpot.py compile
-
-commit: test clean
-	./commit || (bzr pull && bzr commit)
-	@echo "Use bzr push to send to launchpad"
-
 
 # TODO: figure out how to ignore all files not under BZR control
 dist: test clean docclean

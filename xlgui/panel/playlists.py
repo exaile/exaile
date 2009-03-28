@@ -185,16 +185,20 @@ class BasePlaylistPanelMixin(object):
             
             @param name: the new name
         """
+        if name in self.playlist_manager.playlists:
+            # name is already in use
+            commondialogs.error(self.controller.main.window, _("The "
+                "playlist name you specified already exists."))
+            return
+
         pl = self.get_selected_playlist()
         if pl is not None:
             old_name = pl.get_name()
             selection = self.tree.get_selection()
             (model, iter) = selection.get_selected()
             model.set_value(iter, 1, name)
-            pl.set_name(name)
-            model.set_value(iter, 2, pl)
             #Update the manager aswell
-            self.playlist_manager.rename_playlist(old_name, name)
+            self.playlist_manager.rename_playlist(pl, name)
         
     def open_selected_playlist(self):
         selection = self.tree.get_selection()
@@ -288,7 +292,12 @@ class BasePlaylistPanelMixin(object):
         result = dialog.run()
         if result == gtk.RESPONSE_OK:
             name = dialog.get_value()
-            if not name == "":
+            if name in self.playlist_manager.playlists:
+                # name is already in use
+                commondialogs.error(self.controller.main.window, _("The "
+                    "playlist name you specified already exists."))
+                return
+            elif name != "":
                 #Create the playlist from all of the tracks
                 new_playlist = playlist.Playlist(name)
                 new_playlist.add_tracks(tracks)

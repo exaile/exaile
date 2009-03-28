@@ -1074,18 +1074,15 @@ class PlaylistManager(object):
             self.playlists.remove(name)
             event.log_event('playlist_removed', self, name)
             
-    def rename_playlist(self, old_name, new_name):
+    def rename_playlist(self, playlist, new_name):
         """
-            Renames the playlist at old_name to new_name
+            Renames the playlist to new_name
         """
-        #TODO need to test that this works and is the right
-        #way to do it
-        old_path = os.path.join(self.playlist_dir, old_name)
-        new_path = os.path.join(self.playlist_dir, new_name)
-        os.rename(old_path, new_path)
-        # We also have to remove the old playlist so it does not 
-        # Save when we exit
-        self.playlists.remove(old_name)
+        old_name = playlist.get_name()
+        if old_name in self.playlists:
+            self.remove_playlist(old_name)
+            playlist.set_name(new_name)
+            self.save_playlist(playlist)
 
     def load_names(self):
         """

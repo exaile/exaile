@@ -103,7 +103,7 @@ class PlaybackProgressBar(object):
         if not track: return
 
         if not track.is_local():
-            self.bar.set_text('Streaming...')
+            self.bar.set_text(_('Streaming...'))
             return
         length = track.get_duration()
 
@@ -454,13 +454,13 @@ class MainWindow(object):
         """
         if not self.get_selected_playlist(): return
 
-        message = "%d showing, %d in collection" \
+        message = _("%d showing, %d in collection") \
             % (len(self.get_selected_playlist().playlist), 
                self.collection.get_count())
         
         queuecount = len(self.queue)
         if queuecount:
-            message += " : %d queued" % queuecount
+            message += _(" : %d queued") % queuecount
 
         self.track_count_label.set_label(message)
 
@@ -527,9 +527,9 @@ class MainWindow(object):
             Called when a stream is buffering
         """
         if percent < 100:
-            self.status.set_label("Buffering: %d%%..." % percent, 1000)
+            self.status.set_label(_("Buffering: %d%%...") % percent, 1000)
         else:
-            self.status.set_label("Buffering: 100%...", 1000)
+            self.status.set_label(_("Buffering: 100%..."), 1000)
 
     @guiutil.gtkrun
     def on_tags_parsed(self, type, player, args):
@@ -662,8 +662,8 @@ class MainWindow(object):
         if not playlist: return
 
         if not self.controller.exaile.dynamic.get_providers():
-            logger.warning("Dynamic mode is enabled, but there "
-                "are no dynamic providers!")
+            logger.warning(_("Dynamic mode is enabled, but there "
+                "are no dynamic providers!"))
             return
 
         pl = playlist.playlist
@@ -671,11 +671,11 @@ class MainWindow(object):
         number = 5 - len(pl)
         if number <= 0: number = 1
 
-        logger.info("Dynamic: attempting to get %d tracks" % number)
+        logger.info(_("Dynamic: attempting to get %d tracks") % number)
         tracks = self.controller.exaile.dynamic.find_similar_tracks(
             self.player.current, number, pl.ordered_tracks)
 
-        logger.info("Dynamic: %d tracks fetched" % len(tracks))
+        logger.info(_("Dynamic: %d tracks fetched") % len(tracks))
 
         pl.add_tracks(tracks) 
 

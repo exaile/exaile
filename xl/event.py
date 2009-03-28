@@ -28,7 +28,7 @@
 # Events should be emitted AFTER the given event has taken place. Often the
 # most appropriate spot is immediately before a return statement.
 
-
+from xl.nls import gettext as _
 import threading, time, logging, traceback
 from xl import common
 from xl.nls import gettext as _

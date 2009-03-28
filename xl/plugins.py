@@ -92,7 +92,7 @@ class PluginsManager(object):
     def enable_plugin(self, pluginname):
         try:
             plugin = self.load_plugin(pluginname)
-            if not plugin: raise Exception(_("Error loading plugin"))
+            if not plugin: raise Exception("Error loading plugin")
             plugin.enable(self.exaile)
             self.enabled_plugins[pluginname] = plugin
             logger.debug(_("Loaded plugin %s")%pluginname)

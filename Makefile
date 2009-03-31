@@ -81,9 +81,9 @@ install: make-install-dirs compile
 	# the printf here is for bsd compat, dont use echo!
 	cd $(DESTDIR)$(PREFIX)/bin && \
 	 printf "#!/bin/sh\n\
-	 cd $(DESTDIR)$(PREFIX)/share/exaile\n\
-	 exec python $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/exaile.py \
-	 --datadir=$(DESTDIR)$(PREFIX)/share/exaile/data --startgui \"\$$@\"" \
+	 cd $(PREFIX)/share/exaile\n\
+	 exec python $(PREFIX)$(LIBDIR)/exaile/exaile.py \
+	 --datadir=$(PREFIX)/share/exaile/data --startgui \"\$$@\"" \
 	 > exaile && \
 	chmod 755 exaile
 	cd plugins && make install DESTDIR=$(DESTDIR) PREFIX=$(PREFIX) \

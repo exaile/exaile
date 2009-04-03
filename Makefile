@@ -113,14 +113,20 @@ pot:
 	find xlgui -name "*.py" >> po/POTFILES.in
 	find data/glade/ -name "*.glade" >> po/POTFILES.in
 	find plugins -name "*.py" >> po/POTFILES.in
-	find plugins -name "*.glade" >> pl/POTFILES.in
-	python po/createpot.py
+	find plugins -name "*.glade" >> po/POTFILES.in
+	python tools/createpot.py
 
 translations:
-	python po/createpot.py compile
+	python tools/createpot.py compile
+
+potball:
+	tar --bzip2 --format=posix -cf exaile-po.tar.bz2 po/ \
+	    --transform s/po/./
 
 # TODO: figure out how to ignore all files not under BZR control
 dist: test clean docclean
 	tar --bzip2 --format=posix -cf exaile-dist.tar.bz2 ./ \
 	    --exclude=*~ --exclude=exaile-dist.tar.bz2 \
 	    --exclude=./.bzr* --transform s/./exaile/
+
+

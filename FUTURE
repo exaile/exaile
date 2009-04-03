@@ -198,4 +198,5 @@ GIO/GVFS support:
 
 Misc UI ideas:
     allow arbitrary tags to be playlist columns
+    minimode-like playback controls on trayicon mouseover
 

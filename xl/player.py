@@ -21,7 +21,7 @@ import gst
 import gobject
 
 from xl import common, event, playlist, settings
-import random, time, os, logging
+import random, time, os, logging, urllib
 from urlparse import urlparse
 
 
@@ -448,7 +448,8 @@ class BaseGSTPlayer(object):
         uri = track.get_loc_for_io()
         parsed = urlparse(uri)
         if parsed[0] == "":
-            uri = "file://%s"%uri #TODO: is there a better way to do this?
+            #TODO: is there a better way to do this?
+            uri = "file://%s" % urllib.pathname2url(uri)
         uri = uri.encode(common.get_default_encoding())
         return uri
 

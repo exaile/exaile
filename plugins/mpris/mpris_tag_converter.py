@@ -2,6 +2,9 @@
 A converter utility to convert from exaile tags to mpris Metadata
 """
 
+import logging
+_LOG = logging.getLogger('exaile.plugins.mpris.mpris_tag_converter')
+
 # Dictionary to map MPRIS tags to Exaile Tags
 # Each key is the mpris tag, each value is a dictionary with possible keys:
 #   * out_type: REQUIRED, function that will convert to the MPRIS type
@@ -45,6 +48,7 @@ MPRIS_TAG_INFORMATION = {
                         },
         'year'       : {'out_type'  : int,
                         'exaile_tag': 'date',
+                        'conv'      : lambda x: x.split('-')[0],
                         'desc'      : 'The year of performing',
                         },
         'date'       : {'out_type'  : int,
@@ -79,6 +83,14 @@ def __fill_exaile_tag_information():
         EXAILE_TAG_INFORMATION[exaile_tag] = mpris_tag
 __fill_exaile_tag_information()
 
+class OutputTypeMismatchException(Exception):
+    def __init__(self, exaile_tag, mpris_tag, val):
+        Exception.__init__(self,
+                "Could not convert tag exaile:'%s' to mpris:'%s':"
+                "Error converting '%s' to type '%s"
+                % (exaile_tag, mpris_tag, val,
+                    MPRIS_TAG_INFORMATION[mpris_tag]['out_type']))
+
 class ExaileTagConverter(object):
 
     """
@@ -97,8 +109,12 @@ class ExaileTagConverter(object):
             if exaile_tag not in EXAILE_TAG_INFORMATION:
                 continue
             val = ExaileTagConverter.__get_first_item(track.tags[exaile_tag])
-            mpris_tag, mpris_val = ExaileTagConverter.convert_tag(exaile_tag,
-                                                                    val)
+            try:
+                mpris_tag, mpris_val = ExaileTagConverter.convert_tag(
+                        exaile_tag, val)
+            except OutputTypeMismatchException, e:
+                _LOG.exception(e)
+                continue
             if mpris_tag is None:
                 continue
             metadata[mpris_tag] = mpris_val
@@ -110,7 +126,16 @@ class ExaileTagConverter(object):
                             track
                         )
                 if val is not None:
-                    metadata[mpris_tag] = MPRIS_TAG_INFORMATION['out_type'](val)
+                    try:
+                        metadata[mpris_tag] = \
+                            MPRIS_TAG_INFORMATION[mpris_tag]['out_type'](val)
+                    except ValueError:
+                        raise OutputTypeMismatchException(exaile_tag,
+                                                          mpris_tag,
+                                                          val,
+                                                          )
+
+                        
         return metadata
 
     @staticmethod
@@ -140,6 +165,12 @@ class ExaileTagConverter(object):
             mpris_value = info['conv'](exaile_value)
         else:
             mpris_value = exaile_value
-        mpris_value = info['out_type'](mpris_value)
+        try:
+            mpris_value = info['out_type'](mpris_value)
+        except ValueError:
+            raise OutputTypeMismatchException(exaile_tag,
+                                              mpris_tag,
+                                              exaile_value,
+                                              )
         return (mpris_tag, mpris_value)
 

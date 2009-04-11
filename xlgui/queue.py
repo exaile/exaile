@@ -33,21 +33,24 @@ class QueueManager(object):
         self.__populate_queue()
 
         self._queue_view = self._xml.get_widget('queue_tree')
+        self.__setup_queue()
         self._queue_view.set_model(self._model)
         self._selection = self._queue_view.get_selection()
-        self.__setup_queue()
 
     def __setup_queue(self):
         """Adds columns to _queue_view"""
         text = gtk.CellRendererText()
-
         col = gtk.TreeViewColumn(_('#'), text, text=0)
         col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
         self._queue_view.append_column(col)
 
+        text = gtk.CellRendererText()
         col = gtk.TreeViewColumn(_('Title'), text, text=0)
         col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
         self._queue_view.append_column(col)
+        for title in map(gtk.TreeViewColumn.get_title,
+                        self._queue_view.get_columns()):
+                print title
 
     def __populate_queue(self):
         """Populates the _model with tracks"""

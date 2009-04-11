@@ -60,7 +60,7 @@ class QueueManager(object):
             self.__last_tracks = tracks
         #TODO Clear column
         for i, track in zip(xrange(1, len(tracks) + 1), tracks):
-            self._model.append((i, unicode(track))
+            self._model.append((i, unicode(track)))
 
     def show(self):
         """

@@ -42,6 +42,7 @@
                     <property name="receives_default">True</property>
                     <property name="tooltip" translatable="yes">Move song to top in queue</property>
                     <property name="use_stock">True</property>
+                    <signal name="clicked" handler="on_top_button_clicked"/>
                   </widget>
                   <packing>
                     <property name="expand">False</property>
@@ -57,6 +58,7 @@
                     <property name="receives_default">True</property>
                     <property name="tooltip" translatable="yes">Move song up in queue</property>
                     <property name="use_stock">True</property>
+                    <signal name="clicked" handler="on_up_button_clicked"/>
                   </widget>
                   <packing>
                     <property name="expand">False</property>
@@ -72,6 +74,7 @@
                     <property name="receives_default">True</property>
                     <property name="tooltip" translatable="yes">Remove song from queue</property>
                     <property name="use_stock">True</property>
+                    <signal name="clicked" handler="on_remove_button_clicked"/>
                   </widget>
                   <packing>
                     <property name="expand">False</property>
@@ -87,6 +90,7 @@
                     <property name="receives_default">True</property>
                     <property name="tooltip" translatable="yes">Move song down in queue</property>
                     <property name="use_stock">True</property>
+                    <signal name="clicked" handler="on_down_button_clicked"/>
                   </widget>
                   <packing>
                     <property name="expand">False</property>
@@ -102,6 +106,7 @@
                     <property name="receives_default">True</property>
                     <property name="tooltip" translatable="yes">Move song to bottom of queue</property>
                     <property name="use_stock">True</property>
+                    <signal name="clicked" handler="on_bottom_button_clicked"/>
                   </widget>
                   <packing>
                     <property name="expand">False</property>

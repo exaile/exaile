@@ -162,7 +162,27 @@ class ExaileMprisPlayer(dbus.service.Object):
         """
         return int(self.exaile.player.get_position() / 1000000)
 
+    @dbus.service.signal(INTERFACE_NAME, signature="a{sv}")
+    def TrackChange(self, metadata):
+        """
+            Signal is emitted when the "Media Player" plays another "Track".
+            Argument of the signal is the metadata attached to the new "Track"
+        """
+        pass
 
+    @dbus.service.signal(INTERFACE_NAME, signature="(iiii)")
+    def StatusChange(self, struct):
+        """
+            Signal is emitted when the status of the "Media Player" change. The
+            argument has the same meaning as the value returned by GetStatus.
+        """
+        pass
 
-
+    @dbus.service.signal(INTERFACE_NAME)
+    def CapsChange(self):
+        """
+            Signal is emitted when the "Media Player" changes capabilities, see
+            GetCaps method.
+        """
+        pass
 

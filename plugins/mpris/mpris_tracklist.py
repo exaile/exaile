@@ -92,3 +92,16 @@ class ExaileMprisTrackList(dbus.service.Object):
         """
         self.exaile.queue.current_playlist.set_random(random)
 
+    @dbus.service.signal(INTERFACE_NAME, signature="i")
+    def TrackListChange(self, num_of_elements):
+        """
+            Signal is emitted when the "TrackList" content has changed: 
+              * When one or more elements have been added 
+              * When one or more elements have been removed 
+              * When the ordering of elements has changed 
+
+            The argument is the number of elements in the TrackList after the
+            change happened.
+        """
+        pass
+

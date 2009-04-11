@@ -1,4 +1,6 @@
+import dbus
 import dbus.service
+
 import xl.track
 import xl.event
 
@@ -12,8 +14,8 @@ class ExaileMprisTrackList(dbus.service.Object):
         /TrackList object methods
     """
 
-    def __init__(self, exaile, bus_name):
-        dbus.service.Object.__init__(self, bus_name, '/TrackList')
+    def __init__(self, exaile, bus):
+        dbus.service.Object.__init__(self, bus, '/TrackList')
         self.exaile = exaile
         self.tag_converter = mpris_tag_converter.ExaileTagConverter(exaile)
         for event in ('tracks_removed', 'tracks_added'):

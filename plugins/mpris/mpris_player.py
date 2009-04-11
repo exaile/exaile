@@ -1,5 +1,6 @@
 from __future__ import division
 
+import dbus
 import dbus.service
 
 import xl.event
@@ -35,8 +36,8 @@ class ExaileMprisPlayer(dbus.service.Object):
         /Player (Root) object methods
     """
 
-    def __init__(self, exaile, bus_name):
-        dbus.service.Object.__init__(self, bus_name, '/Player')
+    def __init__(self, exaile, bus):
+        dbus.service.Object.__init__(self, bus, '/Player')
         self.exaile = exaile
         self._tag_converter = mpris_tag_converter.ExaileTagConverter(exaile)
         xl.event.add_callback(self.track_change_cb, 'playback_start')

@@ -11,8 +11,8 @@ class ExaileMprisRoot(dbus.service.Object):
         / (Root) object methods
     """
 
-    def __init__(self, exaile, bus_name):
-        dbus.service.Object.__init__(self, bus_name, '/')
+    def __init__(self, exaile, bus):
+        dbus.service.Object.__init__(self, bus, '/')
         self.exaile = exaile
 
     @dbus.service.method(INTERFACE_NAME, out_signature="s")

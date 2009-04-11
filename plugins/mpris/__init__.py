@@ -12,9 +12,9 @@ def enable(exaile):
     if _MPRIS is None:
         global _MPRIS
         _MPRIS = exaile_mpris.ExaileMpris(exaile)
+    _MPRIS.exaile = exaile
+    _MPRIS.acquire()
 
 def disable(exaile):
     LOG.debug("Disabling MPRIS")
-    global _MPRIS
-    del _MPRIS
-    _MPRIS = None
+    _MPRIS.release()

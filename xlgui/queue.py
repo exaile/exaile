@@ -41,15 +41,13 @@ class QueueManager(object):
         """Adds columns to _queue_view"""
         renderer = gtk.CellRendererText()
         col = gtk.TreeViewColumn(_('#'), renderer, text=0)
-        col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+        col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
         self._queue_view.append_column(col)
 
         renderer = gtk.CellRendererText()
         col = gtk.TreeViewColumn(_('Title'), renderer, text=1)
-        col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+        col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
         self._queue_view.append_column(col)
-        for col in self._queue_view.get_columns():
-            print col.get_title()
 
     def __populate_queue(self):
         """Populates the _model with tracks"""
@@ -83,7 +81,7 @@ def main():
         def __str(self):
             return str(unicode(self))
     class Foo(object):
-        ordered_tracks=lambda self: [Track('foo'), Track('bar')]
+        ordered_tracks=lambda self: [Track('Track Foo by bar on baz'), Track('bar')]
     dialog = QueueManager(Foo())
     dialog.show()
     try:

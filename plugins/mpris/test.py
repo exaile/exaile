@@ -16,6 +16,10 @@
 """
 Simple test case for MPRIS. Make sure you set the global variable FILE with an
 absolute path to a valid playable, local music piece before running this test
+
+@warning: DO not run this with an old unpatched Notifications plugin enabled.
+Your Galago daemon will get DoS'd. It is normal for your songs to randomly
+start over and over
 """
 import unittest
 import dbus

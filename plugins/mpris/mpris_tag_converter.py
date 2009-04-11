@@ -1,0 +1,145 @@
+"""
+A converter utility to convert from exaile tags to mpris Metadata
+"""
+
+# Dictionary to map MPRIS tags to Exaile Tags
+# Each key is the mpris tag, each value is a dictionary with possible keys:
+#   * out_type: REQUIRED, function that will convert to the MPRIS type
+#   * exaile_tag: the name of the tag in exaile, defaults to the mpris tag
+#   * conv: a conversion function to call on the exaile metadata, defaults to
+#           lambda x: x
+#   * desc: a description of what's in the tag
+#   * constructor: a function to call that takes (exaile, track) and returns
+#                  the value for the key. If it returns None, the tag is not
+#                  set
+MPRIS_TAG_INFORMATION = {
+        'location   ': {'out_type'  : unicode,
+                        'exaile_tag': 'loc',
+                        'conv'      : lambda x: "file://" + x,
+                        'desc'      : 'Name',
+                        },
+        'title'      : {'out_type'  : unicode,
+                        'desc'      : 'Name of artist or band',
+                        },
+        'album'      : {'out_type'  : unicode,
+                        'desc'      : 'Name of compilation',
+                        },
+        'tracknumber': {'out_type'  : unicode,
+                        'desc'      : 'The position in album',
+                        },
+        'time'       : {'out_type'  : int,
+                        'exaile_tag': 'length',
+                        'desc'      : 'The duration in seconds',
+                        },
+        'mtime'      : {'out_type'  : int, 
+                        'desc'      : 'The duration in milliseconds',
+                        },
+        'genre'      : {'out_type'  : unicode,
+                        'desc'      : 'The genre',
+                        },
+        'comment'    : {'out_type'  : unicode,
+                        'desc'      : 'A comment about the work',
+                        },
+        'rating'     : {'out_type'  : int,
+                        'desc'      : 'A "taste" rate value, out of 5',
+                        },
+        'year'       : {'out_type'  : int,
+                        'exaile_tag': 'date',
+                        'desc'      : 'The year of performing',
+                        },
+        'date'       : {'out_type'  : int,
+                        'exaile_tag': None,
+                        'desc'      : 'When the performing was realized, '
+                                      'since epoch',
+                        },
+        'arturl'     : {'out_type'  : unicode,
+                        'desc'      : 'an URI to an image',
+                        },
+        'audio-bitrate': {'out_type': int,
+                        'exaile_tag': 'bitrate',
+                        'desc'      : 'The number of bits per second',
+                        },
+        'audio-samplerate': {'out_type': int,
+                        'desc'      : 'The number of samples per second',
+                        },
+        }
+EXAILE_TAG_INFORMATION = {}
+def __fill_exaile_tag_information():
+    """
+        Fille EXAILE_TAG_INFORMATION with the exaile_tag: mpris_tag, the
+        inverse of MPRIS_TAG_INFORMATION
+    """
+    for mpris_tag in MPRIS_TAG_INFORMATION:
+        if 'exaile_tag' in MPRIS_TAG_INFORMATION[mpris_tag]:
+            exaile_tag = MPRIS_TAG_INFORMATION[mpris_tag]['exaile_tag']
+        else:
+            exaile_tag = mpris_tag
+        if exaile_tag is None:
+            continue
+        EXAILE_TAG_INFORMATION[exaile_tag] = mpris_tag
+__fill_exaile_tag_information()
+
+class ExaileTagConverter(object):
+
+    """
+    Class to convert tags from Exaile to Metadata for MPRIS
+    """
+
+    def __init__(self, exaile):
+        self.exaile = exaile
+
+    def get_metadata(self, track):
+        """
+            Returns the Metadata for track as defined by MPRIS standard
+        """
+        metadata = {}
+        for exaile_tag in track.tags:
+            if exaile_tag not in EXAILE_TAG_INFORMATION:
+                continue
+            val = ExaileTagConverter.__get_first_item(track.tags[exaile_tag])
+            mpris_tag, mpris_val = ExaileTagConverter.convert_tag(exaile_tag,
+                                                                    val)
+            if mpris_tag is None:
+                continue
+            metadata[mpris_tag] = mpris_val
+
+        for mpris_tag in MPRIS_TAG_INFORMATION:
+            if 'constructor' in MPRIS_TAG_INFORMATION[mpris_tag]:
+                val = MPRIS_TAG_INFORMATION[mpris_tag]['constructor'](
+                            self.exaile,
+                            track
+                        )
+                if val is not None:
+                    metadata[mpris_tag] = MPRIS_TAG_INFORMATION['out_type'](val)
+        return metadata
+
+    @staticmethod
+    def __get_first_item(value):
+        """
+            Unlists lists and returns the first value, if not a lists,
+            returns value
+        """
+        if not isinstance(value, basestring) and hasattr(value, "__getitem__"):
+            if len(value):
+                return value[0]
+            return None
+        return value
+
+    @staticmethod
+    def convert_tag(exaile_tag, exaile_value):
+        """
+            Converts a single tag into MPRIS form, return a 2-tuple of
+            (mpris_tag, mpris_val). Returns (None, None) if there is no
+            translation
+        """
+        if exaile_tag not in EXAILE_TAG_INFORMATION:
+            return (None, None)
+        mpris_tag = EXAILE_TAG_INFORMATION[exaile_tag]
+        info = MPRIS_TAG_INFORMATION[mpris_tag]
+        if 'conv' in info:
+            mpris_value = info['conv'](exaile_value)
+        else:
+            mpris_value = exaile_value
+        mpris_value = info['out_type'](mpris_value)
+        return (mpris_tag, mpris_value)
+

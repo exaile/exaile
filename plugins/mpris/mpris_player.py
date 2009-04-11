@@ -1,0 +1,168 @@
+from __future__ import division
+
+import dbus.service
+import mpris_tag_converter
+
+INTERFACE_NAME = 'org.freedesktop.MediaPlayer'
+
+class MprisCaps(object):
+    """
+        Specification for the capabilities field in MPRIS
+    """
+    NONE                  = 0
+    CAN_GO_NEXT           = 1 << 0
+    CAN_GO_PREV           = 1 << 1
+    CAN_PAUSE             = 1 << 2
+    CAN_PLAY              = 1 << 3
+    CAN_SEEK              = 1 << 4
+    CAN_PROVIDE_METADATA  = 1 << 5
+    CAN_HAS_TRACKLIST     = 1 << 6
+
+EXAILE_CAPS = (MprisCaps.CAN_GO_NEXT
+                | MprisCaps.CAN_GO_PREV
+                | MprisCaps.CAN_PAUSE
+                | MprisCaps.CAN_PLAY
+                | MprisCaps.CAN_SEEK
+                | MprisCaps.CAN_PROVIDE_METADATA
+                | MprisCaps.CAN_HAS_TRACKLIST)
+
+class ExaileMprisPlayer(dbus.service.Object):
+
+    """
+        /Player (Root) object methods
+    """
+
+    def __init__(self, exaile, bus_name):
+        dbus.service.Object.__init__(self, bus_name, '/Player')
+        self.exaile = exaile
+        self._tag_converter = mpris_tag_converter.ExaileTagConverter(exaile)
+
+    @dbus.service.method(INTERFACE_NAME)
+    def Next(self):
+        """
+            Goes to the next element
+        """
+        self.exaile.queue.next()
+
+    @dbus.service.method(INTERFACE_NAME)
+    def Prev(self):
+        """
+            Goes to the previous element
+        """
+        self.exaile.queue.prev()
+
+    @dbus.service.method(INTERFACE_NAME)
+    def Pause(self):
+        """
+            If playing, pause. If paused, unpause.
+        """
+        self.exaile.player.toggle_pause()
+
+    @dbus.service.method(INTERFACE_NAME)
+    def Stop(self):
+        """
+            Stop playing
+        """
+        self.exaile.player.stop()
+
+    @dbus.service.method(INTERFACE_NAME)
+    def Play(self):
+        """
+            If Playing, rewind to the beginning of the current track, else.
+            start playing
+        """
+        if self.exaile.player.is_playing():
+            self.exaile.player.play(self.exaile.player.current)
+        else:
+            self.exaile.queue.play()
+
+    @dbus.service.method(INTERFACE_NAME, in_signature="b")
+    def Repeat(self, repeat):
+        """
+            Toggle the current track repeat
+        """
+        pass
+
+    @dbus.service.method(INTERFACE_NAME, out_signature="(iiii)")
+    def GetStatus(self):
+        """
+            Return the status of "Media Player" as a struct of 4 ints: 
+              * First integer: 0 = Playing, 1 = Paused, 2 = Stopped. 
+              * Second interger: 0 = Playing linearly , 1 = Playing randomly. 
+              * Third integer: 0 = Go to the next element once the current has
+                finished playing , 1 = Repeat the current element 
+              * Fourth integer: 0 = Stop playing once the last element has been
+                played, 1 = Never give up playing
+        """
+        if self.exaile.player.is_playing():
+            playing = 0
+        elif self.exaile.player.is_paused():
+            playing = 1
+        else:
+            playing = 2
+
+        if not self.exaile.queue.current_playlist.random_enabled:
+            random = 0
+        else:
+            random = 1
+
+        go_to_next = 0 # Do not have ability to repeat single track
+        
+        if not self.exaile.queue.current_playlist.repeat_enabled:
+            repeat = 0
+        else:
+            repeat = 1
+
+        return (playing, random, go_to_next, repeat)
+
+    @dbus.service.method(INTERFACE_NAME, out_signature="a{sv}")
+    def GetMetadata(self):
+        """
+            Gives all meta data available for the currently played element.
+        """
+        return self._tag_converter.get_metadata(self.exaile.player.current)
+
+    @dbus.service.method(INTERFACE_NAME, out_signature="i")
+    def GetCaps(self):
+        """
+            Returns the "Media player"'s current capabilities, see MprisCaps
+        """
+        return EXAILE_CAPS
+
+    @dbus.service.method(INTERFACE_NAME, in_signature="i")
+    def VolumeSet(self, volume):
+        """
+            Sets the volume, arument in the range [0, 100]
+        """
+        if volume < 0 or volume > 100:
+            pass
+
+        self.exaile.settings['player/volume'] = volume / 100
+
+    @dbus.service.method(INTERFACE_NAME, out_signature="i")
+    def VolumeGet(self):
+        """
+            Returns the current volume (must be in [0;100])
+        """
+        return self.exaile.settings['player/volume'] * 100
+
+    @dbus.service.method(INTERFACE_NAME, in_signature="i")
+    def PositionSet(self, millisec):
+        """
+            Sets the playing position (argument must be in [0, <track_length>]
+            in milliseconds)
+        """
+        self.exaile.player.seek(millisec / 1000)
+
+    @dbus.service.method(INTERFACE_NAME, out_signature="i")
+    def PositionGet(self):
+        """
+            Returns the playing position (will be [0, track_length] in
+            milliseconds)
+        """
+        return int(self.exaile.player.get_position() / 1000000)
+
+
+
+
+

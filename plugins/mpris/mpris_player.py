@@ -1,6 +1,9 @@
 from __future__ import division
 
 import dbus.service
+
+import xl.event
+
 import mpris_tag_converter
 
 INTERFACE_NAME = 'org.freedesktop.MediaPlayer'
@@ -36,6 +39,13 @@ class ExaileMprisPlayer(dbus.service.Object):
         dbus.service.Object.__init__(self, bus_name, '/Player')
         self.exaile = exaile
         self._tag_converter = mpris_tag_converter.ExaileTagConverter(exaile)
+        xl.event.add_callback(self.track_change_cb, 'playback_start')
+        # FIXME: Does not watch for shuffle, repeat
+        # TODO: playback_start does not distinguish if play button was pressed
+        #       or we simply moved to a new track
+        for event in ('stop_track', 'playback_start', 'playback_toggle_pause'):
+            xl.event.add_callback(self.status_change_cb, event)
+
 
     @dbus.service.method(INTERFACE_NAME)
     def Next(self):
@@ -161,6 +171,29 @@ class ExaileMprisPlayer(dbus.service.Object):
             milliseconds)
         """
         return int(self.exaile.player.get_position() / 1000000)
+
+    def track_change_cb(self, type, object, data):
+        """
+            Callback will emit the dbus signal TrackChange with the current
+            songs metadata
+        """
+        metadata = self.GetMetadata()
+        self.TrackChange(metadata)
+
+    def status_change_cb(self, type, object, data):
+        """
+            Callback will emit the dbus signal StatusChange with the current
+            status
+        """
+        struct = self.GetStatus()
+        self.StatusChange(struct)
+
+    def caps_change_cb(self, type, object, data):
+        """
+            Callback will emit the dbus signal CapsChange with the current Caps
+        """
+        caps = self.GetCaps()
+        self.CapsChange(caps)
 
     @dbus.service.signal(INTERFACE_NAME, signature="a{sv}")
     def TrackChange(self, metadata):

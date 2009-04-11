@@ -1,5 +1,6 @@
 import dbus.service
 import xl.track
+import xl.event
 
 import mpris_tag_converter
 
@@ -15,6 +16,8 @@ class ExaileMprisTrackList(dbus.service.Object):
         dbus.service.Object.__init__(self, bus_name, '/TrackList')
         self.exaile = exaile
         self.tag_converter = mpris_tag_converter.ExaileTagConverter(exaile)
+        for event in ('tracks_removed', 'tracks_added'):
+            xl.event.add_callback(self.tracklist_change_cb, event)
 
     def __get_playlist(self):
         """
@@ -91,6 +94,13 @@ class ExaileMprisTrackList(dbus.service.Object):
             Sets the player's "random" setting
         """
         self.exaile.queue.current_playlist.set_random(random)
+
+    def tracklist_change_cb(self, type, object, data):
+        """
+            Callback for a track list change
+        """
+        len = self.GetLength()
+        self.TrackListChange(len)
 
     @dbus.service.signal(INTERFACE_NAME, signature="i")
     def TrackListChange(self, num_of_elements):

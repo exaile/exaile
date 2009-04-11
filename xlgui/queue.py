@@ -48,9 +48,8 @@ class QueueManager(object):
         col = gtk.TreeViewColumn(_('Title'), text, text=0)
         col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
         self._queue_view.append_column(col)
-        for title in map(gtk.TreeViewColumn.get_title,
-                        self._queue_view.get_columns()):
-                print title
+        for col in self._queue_view.get_columns():
+            print col.get_title()
 
     def __populate_queue(self):
         """Populates the _model with tracks"""
@@ -60,11 +59,8 @@ class QueueManager(object):
         else:
             self.__last_tracks = tracks
         #TODO Clear column
-        set(map(self._model.append,
-                ((i, unicode(track)) for i, track in
-                                zip(xrange(1, len(tracks)+1), tracks))
-                )
-           )
+        for i, track in zip(xrange(1, len(tracks) + 1), tracks):
+            self._model.append((i, unicode(track))
 
     def show(self):
         """

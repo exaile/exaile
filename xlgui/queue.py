@@ -24,21 +24,33 @@ class QueueManager(object):
                     'QueueManagerDialog', 'exaile')
 
         self._dialog = self._xml.get_widget('QueueManagerDialog')
-        self._queue_tree = self._xml.get_widget('queue_tree')
-
         self._xml.signal_autoconnect({
             'on_ok_button_clicked': self.destroy,
             })
-        self._model = gtk.ListStore(str, str)
 
-        self.__setup_queue()
-        self._queue_tree.set_model(self._model)
-
+        self._model = gtk.ListStore(int, str)
         self.__last_tracks = None
         self.__populate_queue()
 
+        self._queue_view = self._xml.get_widget('queue_tree')
+        self._queue_view.set_model(self._model)
+        self._selection = self._queue_view.get_selection()
+        self.__setup_queue()
+
+    def __setup_queue(self):
+        """Adds columns to _queue_view"""
+        text = gtk.CellRendererText()
+
+        col = gtk.TreeViewColumn(_('#'), text, text=0)
+        col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+        self._queue_view.append_column(col)
+
+        col = gtk.TreeViewColumn(_('Title'), text, text=0)
+        col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+        self._queue_view.append_column(col)
+
     def __populate_queue(self):
-        """Populates the _queue_tree with tracks"""
+        """Populates the _model with tracks"""
         tracks = self._queue.ordered_tracks()
         if tracks == self.__last_tracks:
             return
@@ -50,19 +62,6 @@ class QueueManager(object):
                                 zip(xrange(1, len(tracks)+1), tracks))
                 )
            )
-        self._model.append(("foo", "bar"))
-
-    def __setup_queue(self):
-        """Adds columns to _queue_tree"""
-        text = gtk.CellRendererText()
-
-        col = gtk.TreeViewColumn(_('Foo'), text)
-        col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
-        self._queue_tree.append_column(col)
-
-        col = gtk.TreeViewColumn(_('Title'), text)
-        col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
-        self._queue_tree.append_column(col)
 
     def show(self):
         """
@@ -80,6 +79,10 @@ def main():
     class Track(object):
         def __init__(self, title):
             self.tags = {'title': title}
+        def __unicode__(self):
+            return self.tags['title']
+        def __str(self):
+            return str(unicode(self))
     class Foo(object):
         ordered_tracks=lambda self: [Track('foo')]
     dialog = QueueManager(Foo())

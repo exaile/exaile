@@ -30,10 +30,11 @@ class QueueManager(object):
             'on_ok_button_clicked': self.destroy,
             })
         self._model = gtk.ListStore(str, str)
-        self.__last_tracks = None
 
         self.__setup_queue()
         self._queue_tree.set_model(self._model)
+
+        self.__last_tracks = None
         self.__populate_queue()
 
     def __populate_queue(self):
@@ -45,7 +46,7 @@ class QueueManager(object):
             self.__last_tracks = tracks
         #TODO Clear column
         set(map(self._model.append,
-                ((i, track) for i, track in
+                ((i, unicode(track)) for i, track in
                                 zip(xrange(1, len(tracks)+1), tracks))
                 )
            )
@@ -55,7 +56,7 @@ class QueueManager(object):
         """Adds columns to _queue_tree"""
         text = gtk.CellRendererText()
 
-        col = gtk.TreeViewColumn(_('#'), text)
+        col = gtk.TreeViewColumn(_('Foo'), text)
         col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
         self._queue_tree.append_column(col)
 

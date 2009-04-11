@@ -39,13 +39,13 @@ class QueueManager(object):
 
     def __setup_queue(self):
         """Adds columns to _queue_view"""
-        text = gtk.CellRendererText()
-        col = gtk.TreeViewColumn(_('#'), text, text=0)
+        renderer = gtk.CellRendererText()
+        col = gtk.TreeViewColumn(_('#'), renderer, text=0)
         col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
         self._queue_view.append_column(col)
 
-        text = gtk.CellRendererText()
-        col = gtk.TreeViewColumn(_('Title'), text, text=0)
+        renderer = gtk.CellRendererText()
+        col = gtk.TreeViewColumn(_('Title'), renderer, text=1)
         col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
         self._queue_view.append_column(col)
         for col in self._queue_view.get_columns():
@@ -83,7 +83,7 @@ def main():
         def __str(self):
             return str(unicode(self))
     class Foo(object):
-        ordered_tracks=lambda self: [Track('foo')]
+        ordered_tracks=lambda self: [Track('foo'), Track('bar')]
     dialog = QueueManager(Foo())
     dialog.show()
     try:

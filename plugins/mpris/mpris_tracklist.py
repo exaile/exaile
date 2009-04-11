@@ -49,8 +49,11 @@ class ExaileMprisTrackList(dbus.service.Object):
             TrackList is 0. The behavior of this method is unspecified if
             there are zero elements in the TrackList.
         """
-        return self.exaile.queue.current_playlist.index(
-                self.exaile.player.current)
+        try:
+            return self.exaile.queue.current_playlist.index(
+                    self.exaile.player.current)
+        except ValueError:
+            return -1
 
     @dbus.service.method(INTERFACE_NAME, out_signature="i")
     def GetLength(self):

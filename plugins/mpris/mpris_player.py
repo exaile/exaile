@@ -131,6 +131,8 @@ class ExaileMprisPlayer(dbus.service.Object):
         """
             Gives all meta data available for the currently played element.
         """
+        if self.exaile.player.current is None:
+            return []
         return self._tag_converter.get_metadata(self.exaile.player.current)
 
     @dbus.service.method(INTERFACE_NAME, out_signature="i")

@@ -1,3 +1,18 @@
+# Copyright (C) 2009 Abhishek Mukherjee
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 1, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 """
 Simple test case for MPRIS. Make sure you set the global variable FILE with an
 absolute path to a valid playable, local music piece before running this test
@@ -9,7 +24,8 @@ import time
 
 OBJECT_NAME = 'org.mpris.exaile'
 INTERFACE = 'org.freedesktop.MediaPlayer'
-FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), os.path.pardir, os.path.pardir,
+FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                    os.path.pardir, os.path.pardir,
                     'tests', 'data', 'music', 'delerium', 'chimera',
                     '05 - Truly.mp3')
 assert os.path.isfile(FILE), FILE + " must be a valid musical piece"

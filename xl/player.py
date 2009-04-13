@@ -447,11 +447,9 @@ class BaseGSTPlayer(object):
     def _get_track_uri(self, track):
         uri = track.get_loc_for_io()
         split = urlparse.urlsplit(uri)
-        uri = urlparse.urlunsplit((split.scheme,
-                                    split.netloc,
-                                    urllib.pathname2url(split.path),
-                                    split.query,
-                                    split.fragment))
+        path = urlparse.urlunsplit(('', '') + split[2:])
+        path = urllib.pathname2url(path)
+        uri = urlparse.urlunsplit((split.scheme, split.netloc, path, '', ''))
         return uri
 
     def __notify_source(self, *args):

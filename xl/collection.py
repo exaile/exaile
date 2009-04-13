@@ -512,7 +512,7 @@ class Library(object):
                         self.scanning = False
                         return False
                 count += 1
-                path = os.path.join(basepath, filename)
+                path = os.path.abspath(os.path.join(basepath, filename))
                 fullpath = "file://" + path
 
                 try:

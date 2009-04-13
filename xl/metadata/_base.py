@@ -19,7 +19,7 @@ import urllib
 import urllib2
 
 import logging
-logger = logging.getLogger('exaile.xl.metadata')
+logger = logging.getLogger(__name__)
 
 INFO_TAGS = ['bitrate', 'length', 'lyrics']
 

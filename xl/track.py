@@ -65,6 +65,8 @@ class Track(object):
         """
         split = urlparse.urlsplit(loc)
         if split.scheme == "":
+            loc = os.path.abspath(loc)
+            split = urlparse.urlsplit(loc)
             loc = urlparse.urlunsplit(('file',) + split[1:])
         self['loc'] = loc
        

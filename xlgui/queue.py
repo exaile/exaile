@@ -32,8 +32,9 @@ class QueueManager(object):
                gtk.image_new_from_stock(gtk.STOCK_REMOVE, gtk.ICON_SIZE_BUTTON))
 
         self._dialog = self._xml.get_widget('QueueManagerDialog')
+        self._dialog.connect('destroy', self.destroy)
         self._xml.signal_autoconnect({
-            'on_ok_button_clicked': self.destroy,
+            'close_dialog': self.destroy,
             'on_top_button_clicked': self.selected_to_top,
             'on_up_button_clicked': self.selected_up,
             'on_remove_button_clicked': self.remove_selected,
@@ -42,11 +43,7 @@ class QueueManager(object):
             'on_remove_all_button_clicked': self.remove_all,
             })
 
-        xl.event.add_callback(lambda *e: self.__populate_queue(),
-                              'playback_start')
-        xl.event.add_callback(lambda *e: self.__populate_queue(),
-                              'tracks_added',
-                              self._queue)
+        self.__setup_callbacks()
 
         self._model = gtk.ListStore(int, str, object)
         self._queue_view = self._xml.get_widget('queue_tree')
@@ -54,6 +51,22 @@ class QueueManager(object):
         self.__last_tracks = []
         self.__populate_queue()
         self.__setup_queue()
+
+    def __setup_callbacks(self):
+        for callback in self.__callbacks():
+            xl.event.add_callback(*callback)
+
+    def __teardown_callbacks(self):
+        LOG.critical("Tearing down callbacks")
+        for callback in self.__callbacks():
+            xl.event.remove_callback(*callback)
+
+    def __populate_queue_cb(self, *e):
+        self.__populate_queue()
+
+    def __callbacks(self):
+        yield (self.__populate_queue_cb, 'playback_start')
+        yield (self.__populate_queue_cb, 'tracks_added', self._queue)
 
     def __setup_queue(self):
         """Adds columns to _queue_view"""
@@ -74,14 +87,16 @@ class QueueManager(object):
             LOG.debug("Tracks did not change, no need to update")
             return
         # Find the row that will be selected
-        model, iter = self._queue_view.get_selection().get_selected()
-        if iter:
-            target = model.get_value(iter, 2)
-            try:
-                new_cursor_pos = tracks.index(target)
-            except ValueError:
-                new_cursor_pos = None
-        else: 
+
+        if self._queue_view is not None:
+            model, iter = self._queue_view.get_selection().get_selected()
+            if iter:
+                target = model.get_value(iter, 2)
+                try:
+                    new_cursor_pos = tracks.index(target)
+                except ValueError:
+                    pass
+        if 'new_cursor_pos' not in locals():
             new_cursor_pos = None
         self.__last_tracks = copy(tracks)
         self._model.clear()
@@ -103,6 +118,7 @@ class QueueManager(object):
             Destroys this window
         """
         self._dialog.destroy()
+        self.__teardown_callbacks()
 
 # removing items
     def remove_selected(self, button, *userparams):

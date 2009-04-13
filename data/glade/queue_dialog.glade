@@ -159,6 +159,22 @@
                 <property name="position">0</property>
               </packing>
             </child>
+            <child>
+              <widget class="GtkButton" id="remove_all_button">
+                <property name="label" translatable="yes" comments="Remove all from queue">Remove _All</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
+                <signal name="clicked" handler="on_remove_all_button_clicked"/>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">1</property>
+                <property name="secondary">True</property>
+              </packing>
+            </child>
           </widget>
           <packing>
             <property name="expand">False</property>

@@ -28,6 +28,8 @@ class QueueManager(object):
         self._xml = gtk.glade.XML(
                 xdg.get_data_path(os.path.join('glade', 'queue_dialog.glade')),
                     'QueueManagerDialog', 'exaile')
+        self._xml.get_widget('remove_all_button').set_image(
+               gtk.image_new_from_stock(gtk.STOCK_REMOVE, gtk.ICON_SIZE_BUTTON))
 
         self._dialog = self._xml.get_widget('QueueManagerDialog')
         self._xml.signal_autoconnect({
@@ -37,6 +39,7 @@ class QueueManager(object):
             'on_remove_button_clicked': self.remove_selected,
             'on_down_button_clicked': self.selected_down,
             'on_bottom_button_clicked': self.selected_to_bottom,
+            'on_remove_all_button_clicked': self.remove_all,
             })
 
         xl.event.add_callback(lambda *e: self.__populate_queue(),
@@ -51,7 +54,6 @@ class QueueManager(object):
         self.__last_tracks = []
         self.__populate_queue()
         self.__setup_queue()
-
 
     def __setup_queue(self):
         """Adds columns to _queue_view"""

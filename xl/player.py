@@ -22,7 +22,7 @@ import gobject
 
 from xl import common, event, playlist, settings
 import random, time, os, logging, urllib
-from urlparse import urlparse
+import urlparse
 
 
 try:
@@ -446,11 +446,6 @@ class BaseGSTPlayer(object):
 
     def _get_track_uri(self, track):
         uri = track.get_loc_for_io()
-        parsed = urlparse(uri)
-        if parsed[0] == "":
-            #TODO: is there a better way to do this?
-            uri = "file://%s" % urllib.pathname2url(uri)
-        uri = uri.encode(common.get_default_encoding())
         return uri
 
     def __notify_source(self, *args):
@@ -479,7 +474,7 @@ class BaseGSTPlayer(object):
 
         # make sure the file exists if this is supposed to be a local track
         if track.is_local():
-            if not os.path.exists(track.get_loc()):
+            if not track.exists():
                 logger.error(_("File does not exist: %s") % 
                     track.get_loc())
                 return False
@@ -491,7 +486,7 @@ class BaseGSTPlayer(object):
         self.reset_playtime_stamp()
 
         self.playbin.set_property("uri", uri)
-        if uri.startswith("cdda://"):
+        if urlparse.urlsplit(uri).scheme == "cdda":
             self.notify_id = self.playbin.connect('notify::source',
                     self.__notify_source)
 

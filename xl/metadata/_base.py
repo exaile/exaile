@@ -14,6 +14,9 @@
 
 import os
 from xl import common
+import urlparse
+import urllib
+import urllib2
 
 import logging
 logger = logging.getLogger(__name__)
@@ -42,14 +45,23 @@ class BaseFormat(object):
         """
             Loads the tags from the file.
         """
-        if self.MutagenType:
-            try:
-                self.mutagen = self.MutagenType(self.loc)
-            except:
-                logger.error("Couldn't read tags from possibly corrupt " \
-                        "file %s" % self.loc)
-                #common.log_exception(logger)
-                raise NotReadable
+        try:
+            self.url = urllib2.urlopen(self.loc)
+        except urllib2.URLError, urllib2.HTTPError:
+            logger.error("Couldn't read tags from possibly corrupt " \
+                    "file %s" % self.loc)
+            raise NotReadable
+        loc = urlparse.urlsplit(self.loc)
+        if loc.scheme == "file":
+            if self.MutagenType:
+                path = urllib.url2pathname(loc.path)
+                try:
+                    self.mutagen = self.MutagenType(path)
+                except:
+                    logger.error("Couldn't read tags from possibly corrupt " \
+                            "file %s" % self.loc)
+                    #common.log_exception(logger)
+                    raise NotReadable
 
     def save(self):
         """
@@ -62,7 +74,9 @@ class BaseFormat(object):
         if self.MutagenType:
             return self.mutagen            
         else:
-            return {'title':os.path.split(self.loc)[-1]}
+            loc = urlparse.urlsplit(self.loc)
+            path = urllib.url2pathname(loc.path)
+            return {'title':os.path.split(path)[-1]}
 
     def _get_tag(self, raw, tag):
         try:

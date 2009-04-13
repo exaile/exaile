@@ -20,6 +20,8 @@ from xl import common, settings
 import xl.metadata as metadata
 from xl.common import lstrip_special
 import logging, traceback
+import urlparse
+import urllib
 logger = logging.getLogger(__name__)
 
 settings = settings.SettingsManager.settings
@@ -61,8 +63,7 @@ class Track(object):
             
             loc: the location [string]
         """
-        if loc.startswith("file://"):
-            loc = loc[7:]
+        assert urlparse.urlsplit(loc).scheme != "", urlparse.urlsplit(loc)
         self['loc'] = loc
        
     def get_loc(self):
@@ -76,6 +77,14 @@ class Track(object):
                 common.get_default_encoding())
         except:
             return self['loc']
+
+    def exists(self):
+        if self.is_local():
+            split = urlparse.urlsplit(self.get_loc_for_io())
+            path = urllib.url2pathname(split.path)
+            return os.path.exists(path)
+        else:
+            raise NotImplementedException
 
     def get_loc_for_io(self):
         """
@@ -207,9 +216,11 @@ class Track(object):
                 
 
             # fill out file specific items
-            mtime = os.path.getmtime(self.get_loc_for_io())
+            split = urlparse.urlsplit(self.get_loc_for_io())
+            unurl_path = urllib.url2pathname(split.path)
+            mtime = os.path.getmtime(unurl_path)
             self['modified'] = mtime
-            self['basedir'] = os.path.dirname(self.get_loc_for_io())
+            self['basedir'] = os.path.dirname(unurl_path)
             self._dirty = True
             return f
         except:
@@ -217,7 +228,7 @@ class Track(object):
             return False
 
     def is_local(self):
-        return urlparse(self.get_loc())[0] == ""
+        return urlparse.urlsplit(self.get_loc()).scheme == "file"
 
     def get_track(self):
         """

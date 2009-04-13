@@ -19,7 +19,7 @@ import urllib
 import urllib2
 
 import logging
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('exaile.xl.metadata')
 
 INFO_TAGS = ['bitrate', 'length', 'lyrics']
 
@@ -48,18 +48,17 @@ class BaseFormat(object):
         try:
             self.url = urllib2.urlopen(self.loc)
         except urllib2.URLError, urllib2.HTTPError:
-            logger.error("Couldn't read tags from possibly corrupt " \
-                    "file %s" % self.loc)
+            logger.error("Couldn't open url to file %s" % self.loc)
             raise NotReadable
         loc = urlparse.urlsplit(self.loc)
         if loc.scheme == "file":
             if self.MutagenType:
-                path = urllib.url2pathname(loc.path)
+                file_loc = urlparse.urlunsplit(('', '') + loc[2:])
                 try:
-                    self.mutagen = self.MutagenType(path)
+                    self.mutagen = self.MutagenType(file_loc)
                 except:
                     logger.error("Couldn't read tags from possibly corrupt " \
-                            "file %s" % self.loc)
+                            "file %s" % file_loc)
                     #common.log_exception(logger)
                     raise NotReadable
 
@@ -75,7 +74,7 @@ class BaseFormat(object):
             return self.mutagen            
         else:
             loc = urlparse.urlsplit(self.loc)
-            path = urllib.url2pathname(loc.path)
+            path = urlparse.urlunsplit(('', '') +  loc[2:])
             return {'title':os.path.split(path)[-1]}
 
     def _get_tag(self, raw, tag):

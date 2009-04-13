@@ -155,18 +155,6 @@ def escape_xml(text):
         text = text.replace(old, new)
     return text
 
-def to_url(path):
-    """
-        Converts filesystem path to URL. Returns the input unchanged if it's not
-        an FS path (i.e. a URL or something invalid).
-    """
-    if re.search(r'^[\w]+://', path):
-        return path
-    try:
-        return 'file://' + urllib.pathname2url(path)
-    except IOError:
-        return path
-
 class idict(dict): 
     """
         Case insensitive dictionary

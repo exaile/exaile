@@ -80,11 +80,15 @@ class Track(object):
 
     def exists(self):
         if self.is_local():
-            split = urlparse.urlsplit(self.get_loc_for_io())
-            path = urllib.url2pathname(split.path)
-            return os.path.exists(path)
+            return os.path.exists(self.local_file_name())
         else:
             raise NotImplementedException
+
+    def local_file_name(self):
+        if not self.is_local():
+            return None
+        split = urlparse.urlsplit(self.get_loc_for_io())
+        return urlparse.urlunsplit(('', '') + split[2:])
 
     def get_loc_for_io(self):
         """
@@ -217,10 +221,10 @@ class Track(object):
 
             # fill out file specific items
             split = urlparse.urlsplit(self.get_loc_for_io())
-            unurl_path = urllib.url2pathname(split.path)
-            mtime = os.path.getmtime(unurl_path)
+            path = urlparse.urlunsplit(('', '') + split[2:])
+            mtime = os.path.getmtime(path)
             self['modified'] = mtime
-            self['basedir'] = os.path.dirname(unurl_path)
+            self['basedir'] = os.path.dirname(path)
             self._dirty = True
             return f
         except:

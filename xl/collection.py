@@ -513,8 +513,7 @@ class Library(object):
                         return False
                 count += 1
                 path = os.path.join(basepath, filename)
-                fullpath = "file://" + urllib.pathname2url(path)
-                logger.critical(fullpath)
+                fullpath = "file://" + path
 
                 try:
                     trmtime = db.get_track_attr(fullpath, "modified")
@@ -630,7 +629,7 @@ class Library(object):
         if tr:
             self.collection.remove(tr)
             path = urlparse.urlsplit(tr.get_loc_for_io()).path
-            path = urllib.url2pathname(path)
+            path = urlparse.urlunsplit(('', '') + path[2:])
             try:
                 os.unlink(path)
             except OSError: # file not found?

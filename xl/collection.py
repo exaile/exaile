@@ -628,8 +628,7 @@ class Library(object):
         tr = self.collection.get_track_by_loc(loc)
         if tr:
             self.collection.remove(tr)
-            path = urlparse.urlsplit(tr.get_loc_for_io()).path
-            path = urlparse.urlunsplit(('', '') + path[2:])
+            path = common.local_file_from_url(tr.get_loc_for_io())
             try:
                 os.unlink(path)
             except OSError: # file not found?

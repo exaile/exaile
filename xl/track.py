@@ -87,8 +87,7 @@ class Track(object):
     def local_file_name(self):
         if not self.is_local():
             return None
-        split = urlparse.urlsplit(self.get_loc_for_io())
-        return urlparse.urlunsplit(('', '') + split[2:])
+        return common.local_file_from_url(self.get_loc_for_io())
 
     def get_loc_for_io(self):
         """
@@ -221,7 +220,7 @@ class Track(object):
 
             # fill out file specific items
             split = urlparse.urlsplit(self.get_loc_for_io())
-            path = urlparse.urlunsplit(('', '') + split[2:])
+            path = self.local_file_name()
             mtime = os.path.getmtime(path)
             self['modified'] = mtime
             self['basedir'] = os.path.dirname(path)

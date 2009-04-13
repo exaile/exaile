@@ -53,7 +53,7 @@ class BaseFormat(object):
         loc = urlparse.urlsplit(self.loc)
         if loc.scheme == "file":
             if self.MutagenType:
-                file_loc = urlparse.urlunsplit(('', '') + loc[2:])
+                file_loc = common.local_file_from_url(self.loc)
                 try:
                     self.mutagen = self.MutagenType(file_loc)
                 except:
@@ -73,8 +73,7 @@ class BaseFormat(object):
         if self.MutagenType:
             return self.mutagen            
         else:
-            loc = urlparse.urlsplit(self.loc)
-            path = urlparse.urlunsplit(('', '') +  loc[2:])
+            path = common.local_file_from_url(self.loc)
             return {'title':os.path.split(path)[-1]}
 
     def _get_tag(self, raw, tag):

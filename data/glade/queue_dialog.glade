@@ -34,7 +34,7 @@
             <child>
               <widget class="GtkVButtonBox" id="vbuttonbox1">
                 <property name="visible">True</property>
-                <property name="layout_style">center</property>
+                <property name="layout_style">spread</property>
                 <child>
                   <widget class="GtkButton" id="top_button">
                     <property name="label" translatable="yes">gtk-goto-top</property>

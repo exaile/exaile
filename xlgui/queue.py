@@ -7,9 +7,14 @@ from future_builtins import map, zip
 from xl import xdg
 from xl.nls import gettext as _
 from operator import itemgetter
+from copy import copy
+import xl.event
 import os
 import gtk
 import gtk.glade
+import logging
+
+LOG = logging.getLogger('exaile.xlgui.queue')
 
 class QueueManager(object):
 
@@ -29,17 +34,24 @@ class QueueManager(object):
             'on_ok_button_clicked': self.destroy,
             'on_top_button_clicked': self.selected_to_top,
             'on_up_button_clicked': self.selected_up,
+            'on_remove_button_clicked': self.remove_selected,
             'on_down_button_clicked': self.selected_down,
             'on_bottom_button_clicked': self.selected_to_bottom,
             })
 
-        self._model = gtk.ListStore(int, str)
-        self.__last_tracks = None
-        self.__populate_queue()
+        xl.event.add_callback(lambda *e: self.__populate_queue(),
+                              'playback_start')
+        xl.event.add_callback(lambda *e: self.__populate_queue(),
+                              'tracks_added',
+                              self._queue)
 
+        self._model = gtk.ListStore(int, str, object)
         self._queue_view = self._xml.get_widget('queue_tree')
-        self.__setup_queue()
         self._queue_view.set_model(self._model)
+        self.__last_tracks = []
+        self.__populate_queue()
+        self.__setup_queue()
+
 
     def __setup_queue(self):
         """Adds columns to _queue_view"""
@@ -55,14 +67,29 @@ class QueueManager(object):
 
     def __populate_queue(self):
         """Populates the _model with tracks"""
+        LOG.debug("Repopulating queue window")
         tracks = self._queue.get_ordered_tracks()
         if tracks == self.__last_tracks:
+            LOG.debug("Tracks did not change, no need to update")
             return
-        else:
-            self.__last_tracks = tracks
+        # Find the row that will be selected
+        model, iter = self._queue_view.get_selection().get_selected()
+        if iter:
+            target = model.get_value(iter, 2)
+            try:
+                new_cursor_pos = tracks.index(target)
+            except ValueError:
+                new_cursor_pos = None
+        else: 
+            new_cursor_pos = None
+        self.__last_tracks = copy(tracks)
         self._model.clear()
+        # Add the rows
         for i, track in zip(xrange(1, len(tracks) + 1), tracks):
-            self._model.append((i, unicode(track)))
+            self._model.append((i, unicode(track), track))
+        # Select new row
+        if new_cursor_pos is not None and hasattr(self, '_queue_view'):
+            self._queue_view.set_cursor((new_cursor_pos,))
 
     def show(self):
         """
@@ -76,20 +103,48 @@ class QueueManager(object):
         """
         self._dialog.destroy()
 
+# removing items
+    def remove_selected(self, button, *userparams):
+        model, iter = self._queue_view.get_selection().get_selected()
+        if not iter:
+            return
+        i = model.get_value(iter, 0) - 1
+        self.remove(i)
+
+    def remove_all(self, button, *userparams):
+        while len(self._queue.get_ordered_tracks()):
+            self.remove(0)
+
+    def remove(self, i):
+        """Removes the ith item from the queue, 0-indexed"""
+        cur_queue = self._queue.get_ordered_tracks()
+        if i < 0 or i >= len(cur_queue):
+            LOG.error("Gave an invalid number to remove")
+            return
+        cur_queue.pop(i)
+        self.__populate_queue()
+
 # Moving callbacks
     def selected_to_top(self, button, *userparams):
         self.reorder(lambda x, l: 0)
 
     def selected_up(self, button, *userparams):
-        self.reorder(lambda x, l: x-1)
+        self.reorder(lambda x, l: x - 1)
 
     def selected_down(self, button, *userparams):
-        self.reorder(lambda x, l: x+1)
+        self.reorder(lambda x, l: x + 1)
 
     def selected_to_bottom(self, button, *userparams):
-        self.reorder(lambda x, l: len(l) - 1)
+        self.reorder(lambda x, l: l - 1)
 
     def reorder(self, new_loc):
+        """Reorders the tracks in the queue.
+
+        new_loc is a function that takes two variables, x and l. x will be the
+        the index of the currently selected item. l will be the size of the
+        queue. The function need not bounds check.
+
+        """
         model, iter = self._queue_view.get_selection().get_selected()
         if not iter:
             return
@@ -106,10 +161,6 @@ class QueueManager(object):
 
         self._queue.set_ordered_tracks(list(map(itemgetter(1), new_order)))
         self.__populate_queue()
-
-        model.rows_reordered(None, None, list(map(itemgetter(0), new_order)))
-        self._queue_view.set_cursor((new_order[i][0],))
-
 
 def main():
     class Track(object):

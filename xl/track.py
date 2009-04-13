@@ -63,7 +63,9 @@ class Track(object):
             
             loc: the location [string]
         """
-        assert urlparse.urlsplit(loc).scheme != "", urlparse.urlsplit(loc)
+        split = urlparse.urlsplit(loc)
+        if split.scheme == "":
+            loc = urlparse.urlunsplit(('file',) + split[1:])
         self['loc'] = loc
        
     def get_loc(self):

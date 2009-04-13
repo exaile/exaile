@@ -69,7 +69,6 @@ class QueueManager(object):
 
     def __populate_queue(self):
         """Populates the _model with tracks"""
-        LOG.debug("Repopulating queue window")
         tracks = self._queue.get_ordered_tracks()
         if tracks == self.__last_tracks:
             LOG.debug("Tracks did not change, no need to update")

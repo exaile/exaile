@@ -18,7 +18,7 @@ from xl.nls import gettext as _
 import gtk, gtk.glade, gobject, logging
 from xl import xdg, common, event, metadata
 
-from xlgui import guiutil, prefs, plugins, cover, commondialogs
+from xlgui import guiutil, prefs, plugins, cover, commondialogs, queue
 
 gtk.window_set_default_icon_from_file(xdg.get_data_path("images/icon.png"))
 logger = logging.getLogger(__name__)
@@ -84,6 +84,7 @@ class Main(object):
             'on_about_item_activate': self.show_about_dialog,
             'on_scan_collection_item_activate': self.on_rescan_collection,
             'on_collection_manager_item_activate': self.collection_manager,
+            'on_queue_manager_item_activate': self.queue_manager,
             'on_preferences_item_activate': lambda *e: self.show_preferences(),
             'on_plugins_item_activate': self.show_plugins,
             'on_album_art_item_activate': self.show_cover_manager,
@@ -198,6 +199,10 @@ class Main(object):
         dialog = prefs.PreferencesDialog(self.main.window, self,
             plugin_page=plugin_page)
         dialog.run()
+
+    def queue_manager(self, *e):
+        dialog = queue.QueueManager(self.exaile.queue)
+        dialog.show()
 
     def collection_manager(self, *e):
         """

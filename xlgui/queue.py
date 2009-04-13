@@ -57,7 +57,6 @@ class QueueManager(object):
             xl.event.add_callback(*callback)
 
     def __teardown_callbacks(self):
-        LOG.critical("Tearing down callbacks")
         for callback in self.__callbacks():
             xl.event.remove_callback(*callback)
 

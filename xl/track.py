@@ -22,6 +22,7 @@ from xl.common import lstrip_special
 import logging, traceback
 import urlparse
 import urllib
+import urllib2
 logger = logging.getLogger(__name__)
 
 settings = settings.SettingsManager.settings
@@ -86,7 +87,12 @@ class Track(object):
         if self.is_local():
             return os.path.exists(self.local_file_name())
         else:
-            raise NotImplementedException
+            try:
+                urllib2.urlopen(self.get_loc_for_io())
+            except urllib2.URLError, urllib2.HTTPError:
+                return False
+            else:
+                return True
 
     def local_file_name(self):
         if not self.is_local():

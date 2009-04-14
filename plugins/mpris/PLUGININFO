@@ -1,0 +1,4 @@
+Version="0.0.1"
+Authors=["Abhishek Mukherjee <abhishek.mukher.g@gmail.com"]
+Name="MPRIS"
+Description="Creates an MPRIS D-Bus object to control Exaile"

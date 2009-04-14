@@ -2,8 +2,6 @@
     Queue manager dialog
 """
 
-from future_builtins import map, zip
-
 from xl import xdg
 from xl.nls import gettext as _
 from operator import itemgetter

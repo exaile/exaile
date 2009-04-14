@@ -47,6 +47,23 @@ logger = logging.getLogger(__name__)
 class InvalidPlaylistTypeException(Exception):
     pass
 
+def encode_filename(name):
+    """Converts name into a valid filename.
+    """
+    import string
+    # list of invalid chars that need to be encoded
+    # Note: '%' is the prefix for encoded chars so blacklist it too
+    blacklist = r'<>:"/\|?*%'
+
+    def encode_char(c):
+        return '%' + hex(ord(c))[2:] if c in blacklist else c
+
+    # encode any blacklisted chars
+    name = ''.join([encode_char(c) for c in name]) + '.playlist'
+
+    return name
+
+
 def save_to_m3u(playlist, path):
     """
         Saves a Playlist to an m3u file
@@ -1049,7 +1066,8 @@ class PlaylistManager(object):
         """
         name = pl.get_name()
         if overwrite or name not in self.playlists:
-            pl.save_to_location(os.path.join(self.playlist_dir, pl.get_name()))
+            pl.save_to_location(os.path.join(self.playlist_dir,
+                encode_filename(name)))
 
             if not name in self.playlists: 
                 self.playlists.append(name)
@@ -1068,7 +1086,8 @@ class PlaylistManager(object):
         """
         if name in self.playlists:
             try:
-                os.remove(os.path.join(self.playlist_dir, name))
+                os.remove(os.path.join(self.playlist_dir,
+                    encode_filename(name)))
             except OSError:
                 pass
             self.playlists.remove(name)
@@ -1088,15 +1107,21 @@ class PlaylistManager(object):
         """
             Loads the names of the playlists from the order file
         """
+        # collect the names of all playlists in playlist_dir
+        existing = []
+        for f in os.listdir(self.playlist_dir):
+            # everything except the order file shold be a playlist
+            if f != os.path.basename(self.order_file):
+                pl = self.playlist_class()
+                pl.load_from_location(os.path.join(self.playlist_dir, f))
+                existing.append(pl.name)
+
+        # if order_file exists then use it
         if os.path.isfile(self.order_file):
             ordered_playlists = self.load_from_location(self.order_file)
+            self.playlists = [n for n in ordered_playlists if n in existing]
         else:
-            ordered_playlists = []
-            playlists = os.listdir(self.playlist_dir)
-            for playlist in playlists:
-                if playlist not in ordered_playlists:
-                    ordered_playlists.append(playlist)
-        self.playlists = ordered_playlists 
+            self.playlists = existing 
 
     def get_playlist(self, name):
         """
@@ -1106,7 +1131,8 @@ class PlaylistManager(object):
         """
         if name in self.playlists:
             pl = self.playlist_class(name=name)
-            pl.load_from_location(os.path.join(self.playlist_dir, name))
+            pl.load_from_location(os.path.join(self.playlist_dir,
+                encode_filename(name)))
             return pl
         else:
             raise ValueError("No such playlist")

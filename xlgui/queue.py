@@ -81,7 +81,7 @@ class QueueManager(object):
         """Populates the _model with tracks"""
         tracks = self._queue.get_ordered_tracks()
         if tracks == self.__last_tracks:
-            LOG.debug("Tracks did not change, no need to update")
+            LOG.debug(_("Tracks did not change, no need to update"))
             return
         # Find the row that will be selected
 
@@ -133,7 +133,7 @@ class QueueManager(object):
         """Removes the ith item from the queue, 0-indexed"""
         cur_queue = self._queue.get_ordered_tracks()
         if i < 0 or i >= len(cur_queue):
-            LOG.error("Gave an invalid number to remove")
+            LOG.error(_("Gave an invalid number to remove"))
             return
         cur_queue.pop(i)
         self.__populate_queue()

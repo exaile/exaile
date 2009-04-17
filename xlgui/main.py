@@ -265,7 +265,6 @@ class MainWindow(object):
         # first, delete the current tabs
         names = self.tab_manager.list_playlists()
         for name in names:
-            os.remove(os.path.join(self.tab_manager.playlist_dir, name))
             self.tab_manager.remove_playlist(name)
 
         for i in range(self.playlist_notebook.get_n_pages()):

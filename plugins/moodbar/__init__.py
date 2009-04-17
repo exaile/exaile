@@ -117,17 +117,20 @@ def changeBarToMod(exaile):
 def changeModToBar(exaile):
     pr=exaile.gui.main.progress_bar
     #pr.mod.hide()
-    pr.mod.destroy()
+    if hasattr(pr, 'mod'):
+        pr.mod.destroy()
 
 def showMod(exaile):
     pr=exaile.gui.main.progress_bar
     pr.bar.hide()
-    pr.mod.show()
+    if hasattr(pr, 'mod'):
+        pr.mod.show()
     print('showing modbar')  
 
 def hideMod(exaile):
     pr=exaile.gui.main.progress_bar
-    pr.mod.hide()
+    if hasattr(pr, 'mod'):
+        pr.mod.hide()
     pr.bar.show() 
     print('hideing modbar') 
 """
@@ -286,6 +289,12 @@ def enable(exaile):
     if not os.access(moodsDir, 0): os.mkdir(moodsDir)
     readMod('')
     global runed
+
+    try:
+        subprocess.call(['moodbar', '--help'], stdout=-1, stderr=-1)
+    except OSError:
+        raise NotImplementedError('Moodbar executable is not available.')
+        return False
 
     if runed:
           runed=True;

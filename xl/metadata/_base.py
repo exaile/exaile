@@ -51,7 +51,7 @@ class BaseFormat(object):
             logger.error("Couldn't open url to file %s" % self.loc)
             raise NotReadable
         loc = urlparse.urlsplit(self.loc)
-        if loc.scheme == "file":
+        if loc[0] == "file":
             if self.MutagenType:
                 file_loc = common.local_file_from_url(self.loc)
                 try:

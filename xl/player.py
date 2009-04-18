@@ -452,7 +452,7 @@ class BaseGSTPlayer(object):
                                          % xdg.data_home
         path = common.local_file_from_url(uri)
         path = urllib.pathname2url(path)
-        uri = urlparse.urlunsplit((split.scheme, split.netloc, path, '', ''))
+        uri = urlparse.urlunsplit(split[0:2] + (path, '', ''))
         return uri
 
     def __notify_source(self, *args):
@@ -493,7 +493,7 @@ class BaseGSTPlayer(object):
         self.reset_playtime_stamp()
 
         self.playbin.set_property("uri", uri)
-        if urlparse.urlsplit(uri).scheme == "cdda":
+        if urlparse.urlsplit(uri)[0] == "cdda":
             self.notify_id = self.playbin.connect('notify::source',
                     self.__notify_source)
 

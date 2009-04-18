@@ -72,7 +72,9 @@ class Track(object):
        
     def get_loc(self):
         """
-            Gets the location as unicode (might contain garbled characters)
+            Gets the location as unicode (might contain garbled characters) in
+            full absolute url form, i.e. "file:///home/foo/bar baz". If you are
+            trying to get the path for a local file, use local_file_name(..)
 
             returns: the location [unicode]
         """
@@ -83,6 +85,9 @@ class Track(object):
             return self['loc']
 
     def exists(self):
+        """
+            Returns if the file exists
+        """
         if self.is_local():
             return os.path.exists(self.local_file_name())
         else:
@@ -94,6 +99,10 @@ class Track(object):
                 return True
 
     def local_file_name(self):
+        """
+            If the file is a local file, return a standard path to it, i.e.
+            "/home/foo/bar", If the file is not local, return None
+        """
         if not self.is_local():
             return None
         return common.local_file_from_url(self.get_loc_for_io())

@@ -13,6 +13,7 @@
 # foundation, inc., 675 mass ave, cambridge, ma 02139, usa.
 
 from xl import xdg
+from xl import plugins as plugs
 from xl.nls import gettext as _
 import gtk, gtk.glade
 from xlgui import commondialogs
@@ -97,7 +98,41 @@ class PluginManager(object):
         self.xml.signal_autoconnect({
             'on_close_button_clicked':  lambda *e: self.destroy(),
             'on_configure_button_clicked': lambda *e: self.configure(),
+            'on_install_plugin_button_clicked': lambda *e:
+                self.choose_plugin_dialog(),
         })
+
+    def choose_plugin_dialog(self):
+        """
+            Shows a dialog allowing the user to choose a plugin to install
+            from the filesystem
+        """
+        dialog = gtk.FileChooserDialog(_('Choose a plugin'), self.parent, 
+            buttons=(_('Cancel'), gtk.RESPONSE_CANCEL, _('Choose'),
+            gtk.RESPONSE_OK))
+
+        filter = gtk.FileFilter()
+        filter.set_name(_('Plugin Archives'))
+        filter.add_pattern("*.exz")
+        filter.add_pattern("*.tar.gz")
+        filter.add_pattern("*.tar.bz2")
+        dialog.add_filter(filter)
+
+        filter = gtk.FileFilter()
+        filter.set_name(_('All Files'))
+        filter.add_pattern('*')
+        dialog.add_filter(filter)
+
+        result = dialog.run()
+        dialog.hide()
+        if result == gtk.RESPONSE_OK:   
+            try:
+                self.plugins.install_plugin(dialog.get_filename())
+            except plugs.InvalidPluginError, e:
+                commondialogs.error(self.parent, e.message)
+                return
+                
+            self._load_plugin_list()
 
     def configure(self):
         """

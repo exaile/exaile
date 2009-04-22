@@ -99,6 +99,7 @@ clean:
 	rm -f po/POTFILES.in
 	rm -f po/messages.pot
 	cd plugins && make clean && cd ..
+	rm -f data/plugins
 
 doc: docclean
 	mkdir -p ./doc/

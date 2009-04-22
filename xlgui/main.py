@@ -140,7 +140,6 @@ class NotebookTab(gtk.EventBox):
 
         self.main = main
         self.nb = notebook
-        self.title = title
         self.page = page
         self.tips = gtk.Tooltips()
 
@@ -156,7 +155,7 @@ class NotebookTab(gtk.EventBox):
         btn.set_focus_on_click(False)
         btn.connect('clicked', self.do_close)
         btn.connect('button_press_event', self.on_button_press)
-        self.tips.set_tip(btn, _("Close Tab"))
+        self.tips.set_tip(btn, _("Close tab"))
         image = gtk.Image()
         image.set_from_stock('gtk-close', gtk.ICON_SIZE_MENU)
         btn.add(image)
@@ -164,11 +163,30 @@ class NotebookTab(gtk.EventBox):
 
         self.show_all()
 
+    def get_title(self):
+        return self.label.get_text()
+    def set_title(self, title):
+        self.label.set_text(title)
+    title = property(get_title, set_title)
+
     def on_button_press(self, widget, event):
         """
             Called when the user clicks on the tab
         """
-        pass
+        if event.button == 3:
+            menu = guiutil.Menu()
+            menu.append(_("_Rename"), self.do_rename, gtk.STOCK_EDIT)
+            menu.append(_("_Close"), self.do_close, gtk.STOCK_CLOSE)
+            menu.popup(None, None, None, event.button, event.time)
+
+    def do_rename(self, *args):
+        dialog = commondialogs.TextEntryDialog(
+            _("New playlist title:"), _("Rename Playlist"),
+            self.title, self.main.window)
+        response = dialog.run()
+        if response == gtk.RESPONSE_OK:
+            self.title = title = dialog.get_value()
+            self.label.set_text(title)
 
     def do_close(self, *args):
         """

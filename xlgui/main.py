@@ -185,8 +185,7 @@ class NotebookTab(gtk.EventBox):
             self.title, self.main.window)
         response = dialog.run()
         if response == gtk.RESPONSE_OK:
-            self.title = title = dialog.get_value()
-            self.label.set_text(title)
+            self.title = dialog.get_value()
 
     def do_close(self, *args):
         """

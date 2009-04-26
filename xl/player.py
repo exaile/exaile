@@ -20,7 +20,7 @@ import gst
 
 import gobject
 
-from xl import common, event, playlist, settings
+from xl import common, event, playlist, settings, xdg
 import random, time, os, logging, urllib
 import urlparse
 

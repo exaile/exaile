@@ -109,6 +109,10 @@ class PreferencesDialog(object):
 
         selection = self.tree.get_selection()
         selection.connect('changed', self.switch_pane)
+        # Disallow selection on rows with no widget to show
+        # (e.g. the "Plugins" parent node).
+        selection.set_select_function(lambda path:
+            self.model[path][1] is not None)
 
         gobject.idle_add(selection.select_path, select_path)
 

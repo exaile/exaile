@@ -157,7 +157,8 @@ def escape_xml(text):
 
 def local_file_from_url(url):
     """
-        Returns a local file path based on a url
+        Returns a local file path based on a url. If you get strange errors,
+        try running .encode() on the result
     """
     split = urlparse.urlsplit(url)
     return urlparse.urlunsplit(('', '') + split[2:])

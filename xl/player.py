@@ -35,9 +35,11 @@ settings = settings.SettingsManager.settings
 logger = logging.getLogger(__name__)
 
 class PlayQueue(playlist.Playlist):
+
     """
         Manages the queue of songs to be played
     """
+
     def __init__(self, player, location=None):
         self.current_playlist = None
         self.current_pl_track = None
@@ -450,7 +452,7 @@ class BaseGSTPlayer(object):
         assert split[0] != "", _("Exaile now uses absolute URI's, please "
                                  "delete/rename your %s directory") \
                                          % xdg.data_home
-        path = common.local_file_from_url(uri)
+        path = common.local_file_from_url(uri).encode()
         path = urllib.pathname2url(path)
         uri = urlparse.urlunsplit(split[0:2] + (path, '', ''))
         return uri

@@ -1,7 +1,7 @@
 from mutagen import id3
 import traceback, time
 from xl.cover import *
-import os, os.path, md5
+import os, os.path, hashlib
 
 def enable(exaile):
     if exaile.loading:
@@ -44,7 +44,7 @@ class TagCoverSearch(CoverSearchMethod):
             item = id3.ID3(loc)
             for value in item.values():
                 if isinstance(value, id3.APIC):
-                    m = md5.new()
+                    m = hashlib.sha1()
                     m.update(value.data)
                     covername = os.path.join(cache_dir, m.hexdigest())
                     covername += '.jpg'

@@ -172,6 +172,8 @@ class Main(object):
         else:
             pl = self.main.get_selected_playlist()
             tr = track.Track(uri)
+            tr['artist'] = uri
+            tr['title'] = uri
             pl.playlist.add_tracks([tr])
             if play:
                 self.exaile.queue.play(tr)

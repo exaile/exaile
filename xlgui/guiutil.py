@@ -443,24 +443,17 @@ class Menu(gtk.Menu):
         item.show_all()
         return item
 
-    def append(self, label, callback, stock_id=None, data=None):
+    def append(self, label, callback, stock_img=None, data=None):
         """
             Appends a menu item
         """
-        if stock_id:
-            item = gtk.MenuItem()
-            hbox = gtk.HBox()
-            hbox.set_spacing(5)
-            item.add(hbox)
-            image = gtk.image_new_from_stock(stock_id,
+        if stock_img:
+            item = gtk.ImageMenuItem(label)
+            image = gtk.image_new_from_stock(stock_img,
                 gtk.ICON_SIZE_MENU)
-            hbox.pack_start(image, False, True)
-            label = gtk.Label(label)
-            label.set_alignment(0, 0)
-            hbox.pack_start(label, True, True)
+            item.set_image(image)
         else:
             item = gtk.MenuItem(label)
-            self.label = item.get_child()
 
         if callback: item.connect('activate', callback, data)
         gtk.Menu.append(self, item)

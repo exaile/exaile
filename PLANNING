@@ -77,6 +77,10 @@ Things needed for beta 1 (0.2.999.1) release:
     Blacklisting
     GUI:
         Tag Editor
+            I'm thinking this shouldn't be anything more than a simple editor
+            for the first release.  Something like rhythmbox has.  Even with
+            the "more featureful" editor in 0.2.14, I always ended up using
+            exfalso for anything more than a few tracks.
         right-click menus for side tabs, playlists
         Podcasts panel
         clean up plugin manager

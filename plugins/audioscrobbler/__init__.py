@@ -41,33 +41,35 @@ class ExaileScrobbler(object):
         self.connected = False
         self.cachefile = os.path.join(xdg.get_data_dirs()[0], 
                 "audioscrobbler.cache")
-        self.get_options('','','plugin/lastfm/cache_size')
-        self.get_options('','','plugin/lastfm/user')
+        self.get_options('','','plugin/ascrobbler/cache_size')
+        self.get_options('','','plugin/ascrobbler/user')
         self.load_cache()
         event.add_callback(self.get_options, 'option_set')
         event.add_callback(self._save_cache_cb, 'quit_application')
 
     def get_options(self, type, sm, option):
-        if option == 'plugin/lastfm/cache_size':
+        if option == 'plugin/ascrobbler/cache_size':
             self.set_cache_size(
-                    settings.get_option('plugin/lastfm/cache_size', 100), False)
+                    settings.get_option('plugin/ascrobbler/cache_size', 100), False)
             return
         
-        if option in ['plugin/lastfm/user', 'plugin/lastfm/password',
-                'plugin/lastfm/submit' ]:
-            username = settings.get_option('plugin/lastfm/user', '')
-            password = settings.get_option('plugin/lastfm/password', '')
-            self.submit = settings.get_option('plugin/lastfm/submit', True)
+        if option in ['plugin/ascrobbler/user', 'plugin/ascrobbler/password',
+                'plugin/ascrobbler/submit' ]:
+            username = settings.get_option('plugin/ascrobbler/user', '')
+            password = settings.get_option('plugin/ascrobbler/password', '')
+            server = settings.get_option('plugin/ascrobbler/url',
+                'http://post.audioscrobbler.com/')
+            self.submit = settings.get_option('plugin/ascrobbler/submit', True)
 
             if not self.connected and self.submit:
                 if username and password:
-                    self.initialize(username, password)
+                    self.initialize(username, password, server)
 
     def stop(self):
         """
             Stops submitting
         """
-        logger.info("LastFM: Stopping submissions")
+        logger.info("AS: Stopping submissions")
         if self.connected:
             event.remove_callback(self.on_play, 'playback_start')
             event.remove_callback(self.on_stop, 'playback_end')
@@ -75,15 +77,15 @@ class ExaileScrobbler(object):
             self.save_cache()
 
     @common.threaded
-    def initialize(self, username, password):
+    def initialize(self, username, password, server):
         try:
-            logger.info("LastFM: attempting to connect to audioscrobbler")
-            scrobbler.login(username, password, hashpw=True)
+            logger.info("AS: attempting to connect to audioscrobbler")
+            scrobbler.login(username, password, hashpw=True, post_url=server)
         except:
             common.log_exception()
             return
        
-        logger.info("LastFM: Connected to audioscrobbler")
+        logger.info("AS: Connected to audioscrobbler")
 
         event.add_callback(self.on_play, 'playback_start')
         event.add_callback(self.on_stop, 'playback_end')
@@ -126,7 +128,7 @@ class ExaileScrobbler(object):
     def set_cache_size(self, size, save=True):
         scrobbler.MAX_CACHE = size
         if save:
-            settings.set_option("plugin/lastfm/cache_size", size)
+            settings.set_option("plugin/ascrobbler/cache_size", size)
 
     def _save_cache_cb(self, a, b, c):
         self.save_cache()
@@ -157,4 +159,4 @@ class ExaileScrobbler(object):
                     metadata.j(track['album']), track.get_track(), autoflush=True)
             except:
                 common.log_exception()
-                logger.warning("LastFM: Failed to submit track")
+                logger.warning("AS: Failed to submit track")

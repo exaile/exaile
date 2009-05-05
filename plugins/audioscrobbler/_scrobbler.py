@@ -37,7 +37,8 @@ class ProtocolError(Exception):
    "Raised on general Protocol errors"
    pass
 
-def login( user, password, hashpw=False, client=('tst', '1.0') ):
+def login( user, password, hashpw=False, client=('tst', '1.0'),
+   post_url='post.audioscrobbler.com' ):
    """Authencitate with AS (The Handshake)
 
    @param user:     The username
@@ -64,7 +65,7 @@ def login( user, password, hashpw=False, client=('tst', '1.0') ):
    LAST_HS = datetime.now()
 
    tstamp = int(mktime(datetime.now().timetuple()))
-   url    = "http://post.audioscrobbler.com/"
+   url    = post_url
 
    if hashpw is True:
       __LOGIN['p'] = md5(password).hexdigest()
@@ -110,7 +111,7 @@ Consider using an NTP-client to keep you system time in sync.''')
       NOW_URL    = lines[2]
       POST_URL   = lines[3]
       HARD_FAILS = 0
-      logger.info("[Last.FM]: Logged in successfully")
+      logger.info("[AS]: Logged in successfully (%s)" % url)
 
    else:
       # some hard error
@@ -174,7 +175,7 @@ def now_playing( artist, track, album="", length="", trackno="", mbid="",
    result = response.read()
 
    if result.strip() == "OK":
-      logger.info("[Last.FM]: Submitted 'now playing' succesfully")
+      logger.info("[AS]: Submitted 'now playing' succesfully")
       return True
    elif result.strip() == "BADSESSION" :
       if inner_call is False:
@@ -183,7 +184,7 @@ def now_playing( artist, track, album="", length="", trackno="", mbid="",
       else:
          raise SessionError('Invalid session')
    else:
-      logger.warning("[Last.FM]: Error submitting 'now playing'")
+      logger.warning("[AS]: Error submitting 'now playing'")
       return False
 
 def submit(artist, track, time, source='P', rating="", length="", album="",
@@ -301,7 +302,7 @@ you login?''')
 
    if lines[0] == "OK":
       SUBMIT_CACHE = SUBMIT_CACHE[MAX_SUBMIT:]
-      logger.info("[Last.FM]: OK: %s" % data)
+      logger.info("[AS]: OK: %s" % data)
       return True
    elif lines[0] == "BADSESSION" :
       if inner_call is False:

@@ -45,22 +45,24 @@ class PreferencesDialog(object):
         self.plugins = self.main.exaile.plugins.list_installed_plugins()
         self.fields = {} 
         self.panes = {}
-        self.xmls = {}
+        self.builders = {}
         self.popup = None
-        self.xml = gtk.glade.XML(xdg.get_data_path('glade/preferences_dialog.glade'), 
+
+        self.xml = xml = gtk.glade.XML(
+            xdg.get_data_path('glade/preferences_dialog.glade'), 
             'PreferencesDialog', 'exaile')
-        xml = self.xml
-        self.window = self.xml.get_widget('PreferencesDialog')
+
+        self.window = xml.get_widget('PreferencesDialog')
         self.window.set_transient_for(parent)
         self.window.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         self.window.connect('delete-event', lambda *e: self.cancel())
 
         self._connect_events()
 
-        self.label = self.xml.get_widget('prefs_frame_label')
-        self.box = self.xml.get_widget('prefs_box')
+        self.label = xml.get_widget('prefs_frame_label')
+        self.box = xml.get_widget('prefs_box')
 
-        self.tree = self.xml.get_widget('prefs_tree')
+        self.tree = xml.get_widget('prefs_tree')
         text = gtk.CellRendererText()
         col = gtk.TreeViewColumn(_('Preferences'), text, text=0)
         self.tree.append_column(col)
@@ -107,6 +109,10 @@ class PreferencesDialog(object):
 
         selection = self.tree.get_selection()
         selection.connect('changed', self.switch_pane)
+        # Disallow selection on rows with no widget to show
+        # (e.g. the "Plugins" parent node).
+        selection.set_select_function(lambda path:
+            self.model[path][1] is not None)
 
         gobject.idle_add(selection.select_path, select_path)
 
@@ -179,18 +185,22 @@ class PreferencesDialog(object):
 
         self.last_page = page
 
-        if not page in self.panes:
-            xml = gtk.glade.XML(page.glade, 'prefs_window')
-            window = xml.get_widget('prefs_window')
-            child = xml.get_widget('prefs_pane')
-            window.remove(child)
+        child = self.panes.get(page)
+        if not child:
+            if hasattr(page, 'ui'):
+                builder = gtk.Builder()
+                builder.add_from_file(page.ui)
+            else:
+                builder = gtk.glade.XML(page.glade, 'prefs_pane')
+                builder.get_object = builder.get_widget
+            child = builder.get_object('prefs_pane')
+            init = getattr(page, 'init', None)
+            if init: init(builder)
             self.panes[page] = child
-            self.xmls[page] = xml
-        else:
-            child = self.panes[page]
+            self.builders[page] = builder
 
         if not page in self.fields:
-            self._populate_fields(page, self.xmls[page])
+            self._populate_fields(page, self.builders[page])
 
         if hasattr(page, 'page_enter'):
             page.page_enter(self)
@@ -199,7 +209,7 @@ class PreferencesDialog(object):
         self.last_child = child
         self.box.show_all()
 
-    def _populate_fields(self, page, xml):
+    def _populate_fields(self, page, builder):
         """
             Populates field pages
         """
@@ -208,11 +218,11 @@ class PreferencesDialog(object):
         attributes = dir(page)
         for attr in attributes:
             try:
-                if not 'Preference' in attr: continue
+                if not attr.endswith('Preference'): continue
                 klass = getattr(page, attr)
                 if not type(klass) == type: continue
 
-                widget = xml.get_widget(klass.name)
+                widget = builder.get_object(klass.name)
                 if not widget:
                     logger.warning('Invalid prefs widget: %s' % klass.name) 
                     continue

@@ -61,8 +61,6 @@ install: make-install-dirs compile
 		$(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui/prefs
 	install -m 644 xlgui/prefs/*.py \
 		$(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui/prefs
-	install -m 644 lib/*.py[co] $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/lib
-	install -m 644 lib/*.py $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/lib
 	for f in `find po -name exaile.mo` ; do \
 	  install -d -m 755 \
 	    `echo $$f | sed "s|^po|$(DESTDIR)$(PREFIX)/share/locale|" | \
@@ -99,6 +97,7 @@ clean:
 	rm -f po/POTFILES.in
 	rm -f po/messages.pot
 	cd plugins && make clean && cd ..
+	rm -f data/plugins
 
 doc: docclean
 	mkdir -p ./doc/

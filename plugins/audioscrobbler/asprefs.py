@@ -24,10 +24,14 @@ glade = os.path.join(basedir, "asprefs_pane.glade")
 
 class SubmitPreference(widgets.CheckPrefsItem):
     default = True
-    name = 'plugin/lastfm/submit'
+    name = 'plugin/ascrobbler/submit'
 
 class UserPreference(widgets.PrefsItem):
-    name = 'plugin/lastfm/user'
+    name = 'plugin/ascrobbler/user'
 
 class PassPreference(widgets.PrefsItem):
-    name = 'plugin/lastfm/password'
+    name = 'plugin/ascrobbler/password'
+
+class UrlPreference(widgets.PrefsItem):
+    name = 'plugin/ascrobbler/url'
+    default = 'http://post.audioscrobbler.com/'

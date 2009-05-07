@@ -43,7 +43,7 @@ class ExaileNotification(object):
         event.add_callback(self.get_options, 'option_set')
 
     def __get_resize(self):
-        '''Returns if we should resize covers before outputting them'''
+        '''Resize covers before outputting them'''
         return settings.get_option(notifyprefs.ResizeCovers.name,
                                 notifyprefs.ResizeCovers.default or None)
 

@@ -20,7 +20,7 @@ from xl import xdg
 
 name = 'Notify'
 basedir = os.path.dirname(os.path.realpath(__file__))
-glade = os.path.join(basedir, "notifprefs_pane.glade")
+glade = os.path.join(basedir, "notifyprefs_pane.glade")
 
 class ResizeCovers(widgets.CheckPrefsItem):
     default = True

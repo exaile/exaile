@@ -43,21 +43,21 @@ uninstall:
 	cd plugins && make uninstall && cd ..
 
 
-install: make-install-dirs compile
+install: make-install-dirs
 	install -m 644 exaile.py $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile	
-	install -m 644 xl/*.py[co] $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xl
+	-install -m 644 xl/*.py[co] $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xl
 	install -m 644 xl/*.py $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xl
-	install -m 644 xl/metadata/*.py[co] \
+	-install -m 644 xl/metadata/*.py[co] \
 		$(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xl/metadata
 	install -m 644 xl/metadata/*.py \
 		$(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xl/metadata
-	install -m 644 xlgui/*.py[co] $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui
+	-install -m 644 xlgui/*.py[co] $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui
 	install -m 644 xlgui/*.py $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui
-	install -m 644 xlgui/panel/*.py[co] \
+	-install -m 644 xlgui/panel/*.py[co] \
 		$(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui/panel
 	install -m 644 xlgui/panel/*.py \
 		$(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui/panel
-	install -m 644 xlgui/prefs/*.py[co] \
+	-install -m 644 xlgui/prefs/*.py[co] \
 		$(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui/prefs
 	install -m 644 xlgui/prefs/*.py \
 		$(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui/prefs

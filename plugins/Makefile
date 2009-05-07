@@ -15,9 +15,9 @@ dist: clean
 
 compile:
 	python -m compileall -q .
-	python -O -m compileall -q .
+	-python -O -m compileall -q .
 
-install: compile
+install:
 	mkdir -p $(DESTDIR)$(PREFIX)$(PLUGINSDIR)
 	for plugin in $(INSTALL_PLUGINS); do \
 	    cp -r $${plugin} $(DESTDIR)$(PREFIX)$(PLUGINSDIR) ; \

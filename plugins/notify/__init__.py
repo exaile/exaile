@@ -28,54 +28,44 @@ settings = SettingsManager.settings
 
 pynotify.init('exailenotify')
 
-PREFERENCES = [getattr(notifyprefs, klass) for klass in dir(notifyprefs)
-                if inspect.isclass(getattr(notifyprefs, klass))
-                and issubclass(getattr(notifyprefs, klass), widgets.PrefsItem)]
-
-logger.critical(PREFERENCES)
-
 class ExaileNotification(object):
 
     def __init__(self):
         self.notification = pynotify.Notification("Exaile")
         self.exaile = None
-        self.__initialize_settings()
-        event.add_callback(self.get_options, 'option_set')
 
-    def __get_resize(self):
-        '''Resize covers before outputting them'''
-        return settings.get_option(notifyprefs.ResizeCovers.name,
-                                notifyprefs.ResizeCovers.default or None)
+    def __inner_preference(klass):
+        def getter(self):
+            return settings.get_option(klass.name,
+                                    klass.default or None)
 
-    def __set_resize(self, val):
-        settings.set_option(notifyprefs.ResizeCovers.name, val)
+        def setter(self, val):
+            settings.set_option(klass.name, val)
 
-    resize = property(__get_resize, __set_resize)
+        return property(getter, setter)
 
-    def __initialize_settings(self):
-        '''Initialize the settings if they aren't already'''
-        for p in PREFERENCES:
-            if hasattr(p, 'default'):
-                if settings.get_option(p.name) is None:
-                    settings.set_option(p.name, p.default)
-        logger.critical(self.resize)
-
+    resize = __inner_preference(notifyprefs.ResizeCovers)
+    body_artistalbum = __inner_preference(notifyprefs.BodyArtistAlbum)
+    body_artist= __inner_preference(notifyprefs.BodyArtist)
+    body_album = __inner_preference(notifyprefs.BodyAlbum)
 
     def on_play(self, type, player, track):
         title = " / ".join(track['title'] or _("Unknown"))
         artist = " / ".join(track['artist'] or "")
         album = " / ".join(track['album'] or "")
-        summary = title
-        if artist and album:
-            body = _("by %(artist)s\nfrom <i>%(album)s</i>") % {
-                'artist' : cgi.escape(artist), 
-                'album' : cgi.escape(album)}
+        if artist and album: 
+            body_format = self.body_artistalbum
         elif artist:
-            body = _("by %(artist)s") % {'artist' : cgi.escape(artist)}
+            body_format = self.body_artist
         elif album:
-            body = _("from %(album)s") % {'album' : cgi.escape(album)}
+            body_format = self.body_album
         else:
-            body = ""
+            body_format = ""
+        summary = title
+        body = body_format % {'title': cgi.escape(title),
+                              'artist': cgi.escape(artist),
+                              'album': cgi.escape(album),
+                              }
         self.notification.update(summary, body)
         item = track.get_album_tuple()
         image = None
@@ -85,11 +75,6 @@ class ExaileNotification(object):
             image = 'exaile'
         self.notification.set_property('icon-name', image)
         self.notification.show()
-
-    def get_options(self, type, sm, option):
-        """Callback for when a setting is set in exaile"""
-        if option in (p.name for p in PREFERENCES):
-            logger.critical("wtf? %s %s %s" % (type, sm, option))
 
 EXAILE_NOTIFICATION = ExaileNotification()
 

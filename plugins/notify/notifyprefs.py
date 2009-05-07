@@ -17,12 +17,30 @@
 import os
 from xlgui.prefs import widgets
 from xl import xdg
+from xl.nls import gettext as _
+
 
 name = 'Notify'
 basedir = os.path.dirname(os.path.realpath(__file__))
 glade = os.path.join(basedir, "notifyprefs_pane.glade")
 
+
 class ResizeCovers(widgets.CheckPrefsItem):
     default = True
     name = 'plugin/notify/resize'
+
+
+class BodyArtistAlbum(widgets.PrefsItem):
+    default = _("by %(artist)s\nfrom <i>%(album)s</i>")
+    name = 'plugin/notify/body_artistalbum'
+
+
+class BodyArtist(widgets.PrefsItem):
+    default = _("by %(artist)s")
+    name = 'plugin/notify/body_artist'
+
+
+class BodyAlbum(widgets.PrefsItem):
+    default = _("by %(album)s")
+    name = 'plugin/notify/body_album'
 

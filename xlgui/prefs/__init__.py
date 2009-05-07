@@ -218,9 +218,8 @@ class PreferencesDialog(object):
         attributes = dir(page)
         for attr in attributes:
             try:
-                if not attr.endswith('Preference'): continue
                 klass = getattr(page, attr)
-                if not type(klass) == type: continue
+                if not isinstance(klass, widgets.PrefsItem): continue
 
                 widget = builder.get_object(klass.name)
                 if not widget:

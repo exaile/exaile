@@ -16,6 +16,7 @@
 
 import thread, os, shlex, string, urllib2
 from xl.nls import gettext as _
+import inspect
 import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade
@@ -219,14 +220,14 @@ class PreferencesDialog(object):
         for attr in attributes:
             try:
                 klass = getattr(page, attr)
-                if not isinstance(klass, widgets.PrefsItem): continue
-
-                widget = builder.get_object(klass.name)
-                if not widget:
-                    logger.warning('Invalid prefs widget: %s' % klass.name) 
-                    continue
-                field = klass(self, widget)
-                self.fields[page].append(field)
+                if inspect.isclass(klass) and \
+                    issubclass(klass, widgets.PrefsItem): 
+                    widget = builder.get_object(klass.name)
+                    if not widget:
+                        logger.warning('Invalid prefs widget: %s' % klass.name) 
+                        continue
+                    field = klass(self, widget)
+                    self.fields[page].append(field)
             except:
                 logger.warning('Broken prefs class: %s' % attr)
                 traceback.print_exc()

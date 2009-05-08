@@ -30,17 +30,22 @@ class ResizeCovers(widgets.CheckPrefsItem):
     name = 'plugin/notify/resize'
 
 
-class BodyArtistAlbum(widgets.PrefsItem):
+class BodyArtistAlbum(widgets.TextViewPrefsItem):
     default = _("by %(artist)s\nfrom <i>%(album)s</i>")
     name = 'plugin/notify/body_artistalbum'
 
 
-class BodyArtist(widgets.PrefsItem):
+class BodyArtist(widgets.TextViewPrefsItem):
     default = _("by %(artist)s")
     name = 'plugin/notify/body_artist'
 
 
-class BodyAlbum(widgets.PrefsItem):
+class BodyAlbum(widgets.TextViewPrefsItem):
     default = _("by %(album)s")
     name = 'plugin/notify/body_album'
+
+
+class Summary(widgets.TextViewPrefsItem):
+    default = _("%(title)s")
+    name = 'plugin/notify/summary'
 

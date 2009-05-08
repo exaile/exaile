@@ -18,6 +18,7 @@ import pynotify, cgi
 import notifyprefs
 import logging
 import inspect
+import notify_cover
 from xlgui.prefs import widgets
 from xl import event, common
 from xl.nls import gettext as _
@@ -25,8 +26,10 @@ from xl.settings import SettingsManager
 
 logger = logging.getLogger(__name__)
 settings = SettingsManager.settings
+UNKNOWN_TEXT = _("Unknown")
 
 pynotify.init('exailenotify')
+
 
 class ExaileNotification(object):
 
@@ -35,9 +38,9 @@ class ExaileNotification(object):
         self.exaile = None
 
     def __inner_preference(klass):
+        """Function will make a property for a given subclass of PrefsItem"""
         def getter(self):
-            return settings.get_option(klass.name,
-                                    klass.default or None)
+            return settings.get_option(klass.name, klass.default or None)
 
         def setter(self, val):
             settings.set_option(klass.name, val)
@@ -48,9 +51,10 @@ class ExaileNotification(object):
     body_artistalbum = __inner_preference(notifyprefs.BodyArtistAlbum)
     body_artist= __inner_preference(notifyprefs.BodyArtist)
     body_album = __inner_preference(notifyprefs.BodyAlbum)
+    summary = __inner_preference(notifyprefs.Summary)
 
     def on_play(self, type, player, track):
-        title = " / ".join(track['title'] or _("Unknown"))
+        title = " / ".join(track['title'] or "")
         artist = " / ".join(track['artist'] or "")
         album = " / ".join(track['album'] or "")
         if artist and album: 
@@ -61,19 +65,20 @@ class ExaileNotification(object):
             body_format = self.body_album
         else:
             body_format = ""
-        summary = title
-        body = body_format % {'title': cgi.escape(title),
-                              'artist': cgi.escape(artist),
-                              'album': cgi.escape(album),
+        summary = self.summary % {'title': title or UNKNOWN_TEXT,
+                                  'artist': artist or UNKNOWN_TEXT,
+                                  'album': album or UNKNOWN_TEXT,
+                                  }
+        body = body_format % {'title': cgi.escape(title or UNKNOWN_TEXT),
+                              'artist': cgi.escape(artist or UNKNOWN_TEXT),
+                              'album': cgi.escape(album or UNKNOWN_TEXT),
                               }
         self.notification.update(summary, body)
-        item = track.get_album_tuple()
-        image = None
-        if all(item) and hasattr(self.exaile, 'covers'):
-            image = self.exaile.covers.coverdb.get_cover(*item)
-        if image is None:
-            image = 'exaile'
-        self.notification.set_property('icon-name', image)
+        self.notification.set_icon_from_pixbuf(
+                notify_cover.get_image_for_track(track,
+                                                 self.exaile,
+                                                 self.resize,
+                                                 ))
         self.notification.show()
 
 EXAILE_NOTIFICATION = ExaileNotification()

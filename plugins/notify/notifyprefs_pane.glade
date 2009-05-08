@@ -21,6 +21,19 @@
           </packing>
         </child>
         <child>
+          <widget class="GtkCheckButton" id="plugin/notify/attach_tray">
+            <property name="label" translatable="yes">Attach to tray icon	</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="tooltip" translatable="yes">Attach to the tray icon, if present.</property>
+            <property name="draw_indicator">True</property>
+          </widget>
+          <packing>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
           <widget class="GtkHBox" id="hbox1">
             <property name="visible">True</property>
             <child>
@@ -59,7 +72,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="padding">5</property>
-            <property name="position">1</property>
+            <property name="position">2</property>
           </packing>
         </child>
         <child>
@@ -212,7 +225,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="padding">5</property>
-            <property name="position">2</property>
+            <property name="position">3</property>
           </packing>
         </child>
       </widget>

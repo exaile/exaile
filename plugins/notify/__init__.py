@@ -34,7 +34,7 @@ pynotify.init('exailenotify')
 class ExaileNotification(object):
 
     def __init__(self):
-        self.notification = pynotify.Notification("Exaile")
+        self.notification_id = None
         self.exaile = None
 
     def __inner_preference(klass):
@@ -52,8 +52,14 @@ class ExaileNotification(object):
     body_artist= __inner_preference(notifyprefs.BodyArtist)
     body_album = __inner_preference(notifyprefs.BodyAlbum)
     summary = __inner_preference(notifyprefs.Summary)
+    attach_tray = __inner_preference(notifyprefs.AttachToTray)
 
     def on_play(self, type, player, track):
+        '''Callback when we want to display a notification
+
+        type and player arguments are ignored.
+
+        '''
         title = " / ".join(track['title'] or "")
         artist = " / ".join(track['artist'] or "")
         album = " / ".join(track['album'] or "")
@@ -65,6 +71,8 @@ class ExaileNotification(object):
             body_format = self.body_album
         else:
             body_format = ""
+        # Get the replaced text. UNKNOWN_TEXT substituted here because we check
+        # against the empty string above
         summary = self.summary % {'title': title or UNKNOWN_TEXT,
                                   'artist': artist or UNKNOWN_TEXT,
                                   'album': album or UNKNOWN_TEXT,
@@ -73,13 +81,21 @@ class ExaileNotification(object):
                               'artist': cgi.escape(artist or UNKNOWN_TEXT),
                               'album': cgi.escape(album or UNKNOWN_TEXT),
                               }
-        self.notification.update(summary, body)
-        self.notification.set_icon_from_pixbuf(
-                notify_cover.get_image_for_track(track,
+        notif = pynotify.Notification(summary, body)
+        notif.set_icon_from_pixbuf(notify_cover.get_image_for_track(track,
                                                  self.exaile,
                                                  self.resize,
                                                  ))
-        self.notification.show()
+        # Attach to tray, if that's how we roll
+        if self.attach_tray and hasattr(self.exaile, 'gui'):
+            gui = self.exaile.gui
+            if hasattr(gui, 'tray_icon') and gui.tray_icon:
+                notif.attach_to_status_icon(gui.tray_icon.icon)
+        # replace the last notification
+        if self.notification_id is not None:
+            notif.props.id = self.notification_id
+        notif.show()
+        self.notification_id = notif.props.id
 
 EXAILE_NOTIFICATION = ExaileNotification()
 

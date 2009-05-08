@@ -30,6 +30,11 @@ class ResizeCovers(widgets.CheckPrefsItem):
     name = 'plugin/notify/resize'
 
 
+class AttachToTray(widgets.CheckPrefsItem):
+    default = True
+    name = 'plugin/notify/attach_tray'
+
+
 class BodyArtistAlbum(widgets.TextViewPrefsItem):
     default = _("by %(artist)s\nfrom <i>%(album)s</i>")
     name = 'plugin/notify/body_artistalbum'

@@ -50,7 +50,7 @@ def get_image_for_track(track, exaile, resize=False):
         big = RESIZE_SIZE
         little = int(round(scale * little, 0))
         if width > height:
-            height, width = litte, big
+            height, width = little, big
         else:
             width, height = little, big
         logger.debug("Resize to %dx%d" % (width, height))

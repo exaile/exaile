@@ -30,7 +30,7 @@ def get_image_for_track(track, exaile, resize=False):
     RESIZE_SIZE
 
     '''
-    logger.debug("Getting cover for")
+    logger.debug("Getting cover for " + str(track))
     item = track.get_album_tuple()
     image = None
     if all(item) and hasattr(exaile, 'covers'):
@@ -40,8 +40,8 @@ def get_image_for_track(track, exaile, resize=False):
         image = DEFAULT_COVER
     pixbuf = gtk.gdk.pixbuf_new_from_file(image)
     if resize:
+        logger.debug("Resizing cover")
         width, height = pixbuf.get_width(), pixbuf.get_height()
-        logger.debug("Resizing cover from %dx%d" % (width, height))
         if width > height:
             little, big = height, width
         else:
@@ -53,9 +53,6 @@ def get_image_for_track(track, exaile, resize=False):
             height, width = little, big
         else:
             width, height = little, big
-        logger.debug("Resize to %dx%d" % (width, height))
         pixbuf = pixbuf.scale_simple(width, height, gtk.gdk.INTERP_BILINEAR)
     return pixbuf
-
-
 

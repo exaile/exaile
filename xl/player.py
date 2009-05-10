@@ -20,9 +20,9 @@ import gst
 
 import gobject
 
-from xl import common, event, playlist, settings
+from xl import common, event, playlist, settings, xdg
 import random, time, os, logging, urllib
-from urlparse import urlparse
+import urlparse
 
 
 try:
@@ -30,14 +30,14 @@ try:
 except:
     import pickle
 
-settings = settings.SettingsManager.settings
-
 logger = logging.getLogger(__name__)
 
 class PlayQueue(playlist.Playlist):
+
     """
         Manages the queue of songs to be played
     """
+
     def __init__(self, player, location=None):
         self.current_playlist = None
         self.current_pl_track = None
@@ -446,10 +446,13 @@ class BaseGSTPlayer(object):
 
     def _get_track_uri(self, track):
         uri = track.get_loc_for_io()
-        parsed = urlparse(uri)
-        if parsed[0] == "":
-            uri = "file://" + urllib.pathname2url(uri)
-        uri = uri.encode(common.get_default_encoding())
+        split = urlparse.urlsplit(uri)
+        assert split[0] != "", _("Exaile now uses absolute URI's, please "
+                                 "delete/rename your %s directory") \
+                                         % xdg.data_home
+        path = common.local_file_from_url(uri).encode()
+        path = urllib.pathname2url(path)
+        uri = urlparse.urlunsplit(split[0:2] + (path, '', ''))
         return uri
 
     def __notify_source(self, *args):
@@ -478,7 +481,7 @@ class BaseGSTPlayer(object):
 
         # make sure the file exists if this is supposed to be a local track
         if track.is_local():
-            if not os.path.exists(track.get_loc()):
+            if not track.exists():
                 logger.error(_("File does not exist: %s") % 
                     track.get_loc())
                 return False
@@ -490,7 +493,7 @@ class BaseGSTPlayer(object):
         self.reset_playtime_stamp()
 
         self.playbin.set_property("uri", uri)
-        if uri.startswith("cdda://"):
+        if urlparse.urlsplit(uri)[0] == "cdda":
             self.notify_id = self.playbin.connect('notify::source',
                     self.__notify_source)
 

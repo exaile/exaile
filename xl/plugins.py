@@ -44,9 +44,9 @@ class PluginsManager(object):
 
         self.exaile = exaile 
         self.enabled_plugins = {}
-        self.settings = settings.SettingsManager.settings
         
-        if load: self.load_enabled()
+        if load: 
+            self.load_enabled()
 
     def __findplugin(self, pluginname):
         for dir in self.plugindirs:
@@ -152,10 +152,10 @@ class PluginsManager(object):
         return infodict
 
     def save_enabled(self):
-        self.settings.set_option("plugins/enabled", self.enabled_plugins.keys())
+        settings.set_option("plugins/enabled", self.enabled_plugins.keys())
 
     def load_enabled(self):
-        to_enable = self.settings.get_option("plugins/enabled", DEFAULT_PLUGINS)
+        to_enable = settings.get_option("plugins/enabled", DEFAULT_PLUGINS)
         for plugin in to_enable:
             self.enable_plugin(plugin)
 

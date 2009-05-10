@@ -22,9 +22,7 @@
 #
 # also contains functions for saving and loading various playlist formats.
 
-from xl import trackdb, event, xdg, track, collection
-from xl.settings import SettingsManager
-SettingsManager = SettingsManager.settings
+from xl import trackdb, event, xdg, track, collection, settings
 import urllib, random, os, time, cgi
 
 try:
@@ -40,7 +38,7 @@ except ImportError:
     except ImportError:
         import elementtree as ETree
 
-from urlparse import urlparse
+import urlparse
 import logging
 logger = logging.getLogger(__name__)
 
@@ -209,7 +207,7 @@ def save_to_asx(playlist, path):
     for track in playlist:
         handle.write("<entry>\n")
         handle.write("  <title>%s</title>\n" % track['title'])
-        handle.write("  <ref href=\"%s\" />\n" % urllib.quote(track.get_loc()))
+        handle.write("  <ref href=\"%s\" />\n" % track.get_loc())
         handle.write("</entry>\n")
     
     handle.write("</asx>")
@@ -222,7 +220,7 @@ def import_from_asx(path):
     pl = Playlist(name=name)
     for t in tracks:
         tr = track.Track()
-        loc = urllib.unquote(t.find("ref").get("href"))
+        loc = t.find("ref").get("href")
         tr.set_loc(loc)
         tr['title'] = t.find("title").text.strip()
         tr.read_tags()
@@ -254,11 +252,8 @@ def save_to_xspf(playlist, path):
             if track[tag] == u"":
                 continue
             handle.write("      <%s>%s</%s>\n" % (xs, track[tag],xs) )
-        url = urllib.quote(track.get_loc())
-        if urlparse(track.get_loc())[0] == "":
-            handle.write("      <location>file://%s</location>\n" % url)
-        else:
-            handle.write("      <location>%s</location>\n" % url)
+        url = track.get_loc()
+        handle.write("      <location>%s</location>\n" % url)
         handle.write("    </track>\n")
     
     handle.write("  </trackList>\n")
@@ -274,7 +269,7 @@ def import_from_xspf(path):
     pl = Playlist(name=name)
     for t in tracks:
         tr = track.Track()
-        loc = urllib.unquote(t.find("%slocation"%ns).text.strip())
+        loc = t.find("%slocation"%ns).text.strip()
         tr.set_loc(loc)
         for xs, tag in XSPF_MAPPING.iteritems():
             try:
@@ -441,7 +436,7 @@ class Playlist(object):
             track: the track to add [Track]
             location: the index to insert at [int]
         """
-        if os.path.exists(track.get_loc_for_io()) or not ignore_missing_files:
+        if track.exists() or not ignore_missing_files:
             self.add_tracks([track], location)
 
     def add_tracks(self, tracks, location=None, add_duplicates=True):
@@ -737,7 +732,7 @@ class Playlist(object):
         f.write("EOF\n")
         for item in self.extra_save_items:
             val = getattr(self, item)
-            strn = SettingsManager._val_to_str(val)
+            strn = settings.SETTINGSMANAGER._val_to_str(val)
             f.write("%s=%s\n"%(item,strn))
         f.close()
         if os.path.exists(location + ".new"):
@@ -764,7 +759,7 @@ class Playlist(object):
             if line == "":
                 break
             item, strn = line[:-1].split("=",1)
-            val = SettingsManager._str_to_val(strn)
+            val = settings.SETTINGSMANAGER._str_to_val(strn)
             if hasattr(self, item):
                 setattr(self, item, val)
         f.close()

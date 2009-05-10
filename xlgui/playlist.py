@@ -15,7 +15,7 @@
 import gtk, pango, gtk.gdk
 from xlgui import guiutil, menu, plcolumns
 from xlgui.plcolumns import *
-from xl import playlist, event, track, collection, xdg
+from xl import playlist, event, track, collection, xdg, settings
 from xl.nls import gettext as _
 import copy, urllib
 import logging
@@ -83,7 +83,7 @@ class Playlist(gtk.VBox):
         self.playlist = copy.copy(pl)
         self.playlist.ordered_tracks = pl.ordered_tracks[:]
 
-        self.settings = controller.exaile.settings
+        self.settings = settings
         self.rating_images = create_rating_images(64)
 
         # see plcolumns.py for more information on the columns menu
@@ -136,8 +136,8 @@ class Playlist(gtk.VBox):
         if not column_ids:
             # Use default.
             ids = self.default_columns
-            self.settings['gui/trackslist_defaults_set'] = True
-            self.settings['gui/columns'] = ids
+            self.settings.set_option('gui/trackslist_defaults_set', True)
+            self.settings.set_option('gui/columns', ids)
             column_ids = frozenset(ids)
 
         for col_struct in self.COLUMNS.values():
@@ -175,7 +175,7 @@ class Playlist(gtk.VBox):
             if col_struct.id in column_ids:
                 logger.info("removing %s column from %s" % (id, pref))
                 column_ids.remove(id)
-        self.settings[pref] = column_ids
+        self.settings.set_option(pref, column_ids)
 
         for i in range(0, self.main.playlist_notebook.get_n_pages()):
             page = self.main.playlist_notebook.get_nth_page(i)
@@ -191,7 +191,7 @@ class Playlist(gtk.VBox):
         else: 
             resizable = True
 
-        self.settings['gui/resizable_cols'] = resizable
+        self.settings.set_option('gui/resizable_cols', resizable)
         for i in range(0, self.main.playlist_notebook.get_n_pages()):
             page = self.main.playlist_notebook.get_nth_page(i)
             page.update_col_settings()
@@ -440,7 +440,7 @@ class Playlist(gtk.VBox):
             cols.append(self.column_by_display[col.get_title()].id)
             self.list.remove_column(col)
 
-        self.settings['gui/columns'] = cols
+        self.settings.set_option('gui/columns', cols)
         self._setup_columns()
         self._set_tracks(self.playlist.get_tracks())
 
@@ -722,7 +722,7 @@ class Playlist(gtk.VBox):
         name = 'gui/col_width_%s' % col_struct.id
         w = col.get_width()
         if w != self.settings.get_option(name, -1):
-            self.settings[name] = w
+            self.settings.set_option(name, w)
 
     # sort functions courtesy of listen (http://listengnome.free.fr), which
     # are in turn, courtesy of quodlibet.  

@@ -54,5 +54,6 @@ def get_image_for_track(track, exaile, resize=False):
         else:
             width, height = little, big
         pixbuf = pixbuf.scale_simple(width, height, gtk.gdk.INTERP_BILINEAR)
+    logger.debug("Returning new cover pixbuf")
     return pixbuf
 

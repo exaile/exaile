@@ -27,6 +27,7 @@ from xl.settings import SettingsManager
 logger = logging.getLogger(__name__)
 settings = SettingsManager.settings
 UNKNOWN_TEXT = _("Unknown")
+ATTACH_COVERS_OPTION_ALLOWED = False
 
 pynotify.init('exailenotify')
 
@@ -87,15 +88,21 @@ class ExaileNotification(object):
                                                  self.resize,
                                                  ))
         # Attach to tray, if that's how we roll
-        if self.attach_tray and hasattr(self.exaile, 'gui'):
-            gui = self.exaile.gui
-            if hasattr(gui, 'tray_icon') and gui.tray_icon:
-                notif.attach_to_status_icon(gui.tray_icon.icon)
+        if ATTACH_COVERS_OPTION_ALLOWED:
+            logger.debug("Attaching to tray")
+            if self.attach_tray and hasattr(self.exaile, 'gui'):
+                gui = self.exaile.gui
+                if hasattr(gui, 'tray_icon') and gui.tray_icon:
+                    notif.attach_to_status_icon(gui.tray_icon.icon)
         # replace the last notification
+        logger.debug("Setting id")
         if self.notification_id is not None:
             notif.props.id = self.notification_id
+        logger.debug("Showing notification")
         notif.show()
+        logger.debug("Storing id")
         self.notification_id = notif.props.id
+        logger.debug("Notification done")
 
 EXAILE_NOTIFICATION = ExaileNotification()
 

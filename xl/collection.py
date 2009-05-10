@@ -22,9 +22,8 @@
 # associated collection.
 
 from xl.nls import gettext as _
-from xl import trackdb, track, common, xdg, event, metadata
+from xl import trackdb, track, common, xdg, event, metadata, settings
 from xl.settings import SettingsManager
-settings = SettingsManager.settings
 
 import os, time, os.path, shutil, logging
 import gobject

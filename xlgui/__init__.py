@@ -18,7 +18,7 @@ from xl.nls import gettext as _
 import gtk, gtk.glade, gobject, logging
 from xl import xdg, common, event, metadata, settings
 
-from xlgui import guiutil, prefs, plugins, cover, commondialogs
+from xlgui import guiutil, prefs, plugins, cover, commondialogs, devices
 
 gtk.window_set_default_icon_from_file(xdg.get_data_path("images/icon.png"))
 logger = logging.getLogger(__name__)
@@ -73,8 +73,8 @@ class Main(object):
         self.main.window.show_all()
 
         self.device_panels = {}
-        event.add_callback(self.add_device_panel, 'device_added')
-        event.add_callback(self.remove_device_panel, 'device_removed')
+        event.add_callback(self.add_device_panel, 'device_connected')
+        event.add_callback(self.remove_device_panel, 'device_disconnected')
 
     def _connect_events(self):
         """
@@ -85,6 +85,7 @@ class Main(object):
             'on_scan_collection_item_activate': self.on_rescan_collection,
             'on_collection_manager_item_activate': self.collection_manager,
             'on_preferences_item_activate': lambda *e: self.show_preferences(),
+            'on_device_manager_item_activate': lambda *e: self.show_devices(),
             'on_plugins_item_activate': self.show_plugins,
             'on_album_art_item_activate': self.show_cover_manager,
             'on_open_item_activate': self.open_dialog,
@@ -201,6 +202,10 @@ class Main(object):
             plugin_page=plugin_page)
         dialog.run()
 
+    def show_devices(self):
+        dialog = devices.ManagerDialog(self.main.window, self)
+        dialog.run()
+
     def collection_manager(self, *e):
         """
             Invokes the collection manager dialog
@@ -289,11 +294,15 @@ class Main(object):
 
     def add_device_panel(self, type, obj, device):
         from xlgui.panel.collection import CollectionPanel
-        panel = CollectionPanel(self, self.exaile.settings, device.collection,
+        panel = CollectionPanel(self, device.collection,
                 device.get_name())
         self.device_panels[device.get_name()] = panel
 
     def remove_device_panel(self, type, obj, device):
+        try:
+            self.remove_panel(self.device_panels[device.get_name()]._child)
+        except ValueError:
+            logger.debug("Couldn't remove panel for %s"%device.get_name())
         del self.device_panels[device.get_name()]
 
 @guiutil.gtkrun

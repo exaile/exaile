@@ -23,7 +23,6 @@ import xl.playlist
 from xlgui import playlist, cover, guiutil, commondialogs
 import xl.playlist, re, os, threading
 
-settings = settings.SettingsManager.settings
 logger = logging.getLogger(__name__)
 
 class PlaybackProgressBar(object):
@@ -201,7 +200,7 @@ class MainWindow(object):
     """
         Main Exaile Window
     """
-    def __init__(self, controller, xml, settings, collection, 
+    def __init__(self, controller, xml, collection, 
         player, queue, covers):
         """
             Initializes the main window
@@ -434,7 +433,7 @@ class MainWindow(object):
             pl.search(self.filter.get_text())
 
     def on_volume_changed(self, range):
-        self.settings['player/volume'] = range.get_value()
+        self.settings.set_option('player/volume', range.get_value())
         self.player.set_volume(range.get_value())
 
     def on_stop_buttonpress(self, widget, event):
@@ -612,9 +611,12 @@ class MainWindow(object):
         """
             Called when the user clicks one of the playback mode buttons
         """
-        self.settings['playback/shuffle'] = self.shuffle_toggle.get_active()
-        self.settings['playback/repeat'] = self.repeat_toggle.get_active()
-        self.settings['playback/dynamic'] = self.dynamic_toggle.get_active()
+        self.settings.set_option('playback/shuffle', 
+                self.shuffle_toggle.get_active())
+        self.settings.set_option('playback/repeat', 
+                self.repeat_toggle.get_active())
+        self.settings.set_option('playback/dynamic', 
+                self.dynamic_toggle.get_active())
 
         pl = self.get_selected_playlist()
         if pl:
@@ -849,16 +851,16 @@ class MainWindow(object):
         (width, height) = self.window.get_size()
         if [width, height] != [ settings.get_option("gui/mainw_"+key, -1) for \
                 key in ["width", "height"] ]:
-            self.settings['gui/mainw_height'] = height
-            self.settings['gui/mainw_width'] = width
+            self.settings.set_option('gui/mainw_height', height)
+            self.settings.set_option('gui/mainw_width', width)
         (x, y) = self.window.get_position()
         if [x, y] != [ settings.get_option("gui/mainw_"+key, -1) for \
                 key in ["x", "y"] ]:
-            self.settings['gui/mainw_x'] = x
-            self.settings['gui/mainw_y'] = y
+            self.settings.set_option('gui/mainw_x', x)
+            self.settings.set_option('gui/mainw_y', y)
         pos = self.splitter.get_position()
         if pos > 10 and pos != self.settings.get_option("gui/mainw_sash_pos", -1):
-            self.settings['gui/mainw_sash_pos'] = pos
+            self.settings.set_option('gui/mainw_sash_pos', pos)
 
         return False
 

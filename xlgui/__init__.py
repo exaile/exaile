@@ -16,7 +16,7 @@ __all__ = ['main', 'panel', 'playlist']
 
 from xl.nls import gettext as _
 import gtk, gtk.glade, gobject, logging
-from xl import xdg, common, event, metadata
+from xl import xdg, common, event, metadata, settings
 
 from xlgui import guiutil, prefs, plugins, cover, commondialogs
 
@@ -47,7 +47,7 @@ class Main(object):
         self.progress_box = self.xml.get_widget('progress_box')
         self.progress_manager = progress.ProgressManager(self.progress_box)
 
-        self.main = main.MainWindow(self, self.xml, exaile.settings, 
+        self.main = main.MainWindow(self, self.xml,
             exaile.collection,
             exaile.player, exaile.queue, exaile.covers)
         self.panel_notebook = self.xml.get_widget('panel_notebook')
@@ -55,20 +55,20 @@ class Main(object):
         self._connect_events()
 
         self.collection_panel = collection.CollectionPanel(self,
-            exaile.settings, exaile.collection)
-        self.radio_panel = radio.RadioPanel(self, exaile.settings, 
+            exaile.collection)
+        self.radio_panel = radio.RadioPanel(self,
             exaile.collection, exaile.radio, exaile.stations)
         self.playlists_panel = playlists.PlaylistsPanel(self,
             exaile.playlists, exaile.smart_playlists, exaile.collection)
-        self.files_panel = files.FilesPanel(self, exaile.settings,
+        self.files_panel = files.FilesPanel(self,
             exaile.collection)
 
-        if exaile.settings.get_option('gui/use_tray', False):
+        if settings.get_option('gui/use_tray', False):
             self.tray_icon = tray.TrayIcon(self)
         else:
             self.tray_icon = False
 
-        tray.connect_events(self, exaile.settings)
+        tray.connect_events(self)
 
         self.main.window.show_all()
 

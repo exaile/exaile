@@ -15,7 +15,7 @@
 
 #Lyrics manager.
 #
-from xl import providers, event
+from xl import providers, event, settings
 
 class LyricsNotFoundException(Exception):
     pass
@@ -27,7 +27,7 @@ class LyricsManager(providers.ProviderHandler):
         Manages talking to the lyrics plugins and updating the track
     """
     
-    def __init__(self, settings):
+    def __init__(self):
         providers.ProviderHandler.__init__(self, "lyrics")
         self.methods = {}
         self.preferred_order = settings.get_option('lyrics/preferred_order',

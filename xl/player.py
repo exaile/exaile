@@ -30,8 +30,6 @@ try:
 except:
     import pickle
 
-settings = settings.SettingsManager.settings
-
 logger = logging.getLogger(__name__)
 
 class PlayQueue(playlist.Playlist):

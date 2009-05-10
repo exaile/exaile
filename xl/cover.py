@@ -15,7 +15,7 @@
 from xl.nls import gettext as _
 import os.path, os
 import urllib, traceback
-from xl import common, providers, event, metadata
+from xl import common, providers, event, metadata, settings
 import logging
 from copy import deepcopy
 logger = logging.getLogger(__name__)
@@ -190,7 +190,7 @@ class CoverManager(providers.ProviderHandler):
 
         Manages different pluggable album art interfaces
     """
-    def __init__(self, settings, cache_dir):
+    def __init__(self, cache_dir):
         """
             Initializes the cover manager
 

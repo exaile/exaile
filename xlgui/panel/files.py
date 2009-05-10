@@ -14,7 +14,7 @@
 
 import gtk, gobject, os, locale, re
 import xl.track, urllib
-from xl import common, trackdb, metadata
+from xl import common, trackdb, metadata, settings
 from xlgui import panel, guiutil, xdg, menu, playlist
 from xl.nls import gettext as _
 locale.setlocale(locale.LC_ALL, '')
@@ -26,7 +26,7 @@ class FilesPanel(panel.Panel):
 
     gladeinfo = ('files_panel.glade', 'FilesPanelWindow')
 
-    def __init__(self, controller, settings, collection):
+    def __init__(self, controller, collection):
         """
             Initializes the files panel
         """
@@ -227,7 +227,7 @@ class FilesPanel(panel.Panel):
             Called when the user resizes a column
         """
         name = "gui/files_%s_col_width" % col.get_title()
-        self.settings[name] = col.get_width()
+        self.settings.set_option(name, col.get_width())
 
     def load_directory(self, dir, history=True, keyword=None):
         """
@@ -239,7 +239,7 @@ class FilesPanel(panel.Panel):
         except OSError:
             paths = os.listdir(xdg.homedir)
 
-        self.settings['gui/files_panel_dir'] = dir
+        self.settings.set_option('gui/files_panel_dir', dir)
         self.current = dir
         directories = []
         files = []

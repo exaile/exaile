@@ -15,8 +15,6 @@
 from xl import xdg, common, event, providers, settings, metadata
 import os, time, urllib, random
 
-settings = settings.SettingsManager.settings
-
 class DynamicManager(providers.ProviderHandler):
     """
         handles matching of songs for dynamic playlists

@@ -22,9 +22,7 @@
 #
 # also contains functions for saving and loading various playlist formats.
 
-from xl import trackdb, event, xdg, track, collection
-from xl.settings import SettingsManager
-SettingsManager = SettingsManager.settings
+from xl import trackdb, event, xdg, track, collection, settings
 import urllib, random, os, time, cgi
 
 try:
@@ -737,7 +735,7 @@ class Playlist(object):
         f.write("EOF\n")
         for item in self.extra_save_items:
             val = getattr(self, item)
-            strn = SettingsManager._val_to_str(val)
+            strn = settings.SETTINGSMANAGER._val_to_str(val)
             f.write("%s=%s\n"%(item,strn))
         f.close()
         if os.path.exists(location + ".new"):
@@ -764,7 +762,7 @@ class Playlist(object):
             if line == "":
                 break
             item, strn = line[:-1].split("=",1)
-            val = SettingsManager._str_to_val(strn)
+            val = settings.SETTINGSMANAGER._str_to_val(strn)
             if hasattr(self, item):
                 setattr(self, item, val)
         f.close()

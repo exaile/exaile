@@ -456,7 +456,7 @@ class LocalCoverSearch(CoverSearchMethod):
     def find_covers(self, track, limit=-1):
         covers = []
         try:
-            search_dir = os.path.dirname(track.get_loc())
+            search_dir = os.path.dirname(track.local_file_name())
         except AttributeError:
             raise NoCoverFoundException()
 

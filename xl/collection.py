@@ -28,6 +28,7 @@ settings = SettingsManager.settings
 
 import os, time, os.path, shutil, logging
 import gobject
+import urllib
 
 logger = logging.getLogger(__name__)
 
@@ -504,23 +505,24 @@ class Library(object):
         ccheck = {} # compilations dict
 
         count = 0
-        for folder in os.walk(self.location):
-            basepath = folder[0]
-            for filename in folder[2]:
+        for basepath, dirnames, filenames in os.walk(self.location):
+            for filename in filenames:
                 if self.collection:
                     if self.collection._scan_stopped: 
                         self.scanning = False
                         return False
                 count += 1
-                fullpath = os.path.join(basepath, filename)
+                path = os.path.abspath(os.path.join(basepath, filename))
+                fullpath = "file://" + path
 
                 try:
                     trmtime = db.get_track_attr(fullpath, "modified")
-                    mtime = os.path.getmtime(fullpath)
-                    if mtime == trmtime:
-                        continue
                 except:
                     pass
+                else:
+                    mtime = os.path.getmtime(path)
+                    if mtime == trmtime:
+                        continue
 
                 tr = db.get_track_by_loc(fullpath)
                 if tr:
@@ -553,6 +555,7 @@ class Library(object):
             if not os.path.exists(f):
                 removals.append(db.get_track_by_loc(f))
         for tr in removals:
+            logging.info(u"Removing " + unicode(tr))
             db.remove(tr)
 
         self.scanning = False
@@ -625,8 +628,9 @@ class Library(object):
         tr = self.collection.get_track_by_loc(loc)
         if tr:
             self.collection.remove(tr)
+            path = common.local_file_from_url(tr.get_loc_for_io())
             try:
-                os.unlink(tr.get_loc_for_io())
+                os.unlink(path)
             except OSError: # file not found?
                 pass
             except:

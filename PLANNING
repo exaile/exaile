@@ -1,117 +1,162 @@
-NOTE:  We should start using launchpad for this, either the blueprints section
-or the issue tracker.  I've started putting in blueprints and assigning the
-goal as 0.3-devel.  This way we'll have a better record of what's been done
-and who's working on what.  
+Planning
+========
+
+.. note:: We should start using launchpad for this, either the blueprints
+   section or the issue tracker. I've started putting in blueprints and
+   assigning the goal as 0.3-devel. This way we'll have a better record of
+   what's been done and who's working on what.  
 
 
-This is for notes and plans regarding exaile 0.3. 
-It should also be used to keep track of what each contributor is
-currently working on.
+This is for notes and plans regarding Exaile 0.3. It should also be used to
+keep track of what each contributor is currently working on.
 
-Current projects:
-    Aren Olson - Device UI
-    Adam Olsen - GUI
-    Anthony Waters - 
+Current projects
+----------------
+
+* Aren Olson - Device UI
+* Adam Olsen - GUI
+* Anthony Waters - 
+
+Nomenclature
+------------
 
 release naming scheme:
 
-alphas: 0.2.99.x
-betas:  0.2.999.x
-RCs:    0.2.9999.x
-final:  0.3.0
+* alphas: 0.2.99.x
+* betas:  0.2.999.x
+* RCs:    0.2.9999.x
+* final:  0.3.0
 
 releases so far:
-    0.2.99.0 - aka 0.3a (internal version is 0.3.0devel)
-    0.2.99.1 - aka 0.3a1
+
+* 0.2.99.0 - aka 0.3a (internal version is 0.3.0devel)
+* 0.2.99.1 - aka 0.3a1
 
 next release:
-    0.2.99.2 - aka 0.3a2
+
+* 0.2.99.2 - aka 0.3a2
 
 future releases:
-    0.2.999.1 - aka 0.3b1
-    0.2.999.2 - aka 0.3b2
-    0.2.9999.1 - aka 0.3rc1
-    0.2.9999.x (more rcs, only if needed)
-    0.3.0 final
 
+* 0.2.999.1 - aka 0.3b1
+* 0.2.999.2 - aka 0.3b2
+* 0.2.9999.1 - aka 0.3rc1
+* 0.2.9999.x (more rcs, only if needed)
+* 0.3.0 final
+
+Requirements
+------------
 
 Things needed for alpha 2 (0.2.99.2) release:
-    Plugins
-        retrieval from server
-    Localization
-        not only the GUI but all INFO, WARNING and ERROR logs should be 
-            translateable
-        DEBUG logs do not need to be, as they are largely not intended to be
-            seen by users
-        This should be a continuing effort until final.
-    Visualizations
-        implement as plugin?
-    GUI:
-        Basic Device UI
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Plugins
+
+  * retrieval from server
+
+* Localization
+
+  * not only the GUI but all INFO, WARNING and ERROR logs should be
+    translateable. DEBUG logs do not need to be, as they are largely not
+    intended to be seen by users
+  * This should be a continuing effort until final.
+
+* Visualizations
+
+  * implement as plugin?
+
+* GUI:
+
+  * Basic Device UI
         
 
 Things needed for beta 1 (0.2.999.1) release:
-    Conversion
-        we need to handle the upgrade process from 0.2->0.3 smoothly
-        this should include the collection, settings, plugins,
-            playlists, and anything else still relevant in 0.3
-        should be the last primary 'feature' implemented
-        implement as plugin? that way it can just be unloaded afterwards
-            saving a little bit of time and memory.
-        alternatively, only import it if firstrun is True. this is likely
-            a cleaner and more-efficient method. 
-            - should be in its own folder in xl/ if this method is chosen 
-                (xl/upgrade/?)
-        this should also be designed flexibly enough to also handle future
-            0.3.x to 0.3.y upgrades, should that be necessary. 
-                possibly also allow import from other players, eg rhythmbox,
-                amarok, etc. these importers would be implemented as plugins
-                and use the Providers system to expose their upgraders.
-    CD Burning
-        class in cd.py, takes a Playlist and burns it in order
-        allow mp3 cd burning?
-    Podcasts
-        separate from radio
-        allow flexibility in choice of when (if?) and where to download
-        allow streaming if not downloaded
-    Blacklisting
-    GUI:
-        Tag Editor
-            I'm thinking this shouldn't be anything more than a simple editor
-            for the first release.  Something like rhythmbox has.  Even with
-            the "more featureful" editor in 0.2.14, I always ended up using
-            exfalso for anything more than a few tracks.
-        right-click menus for side tabs, playlists
-        Podcasts panel
-        clean up plugin manager
-            - button for installing from .exz file
-            - maybe integrate into prefs dialog?
-        Queue Manager
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Conversion
+
+  * we need to handle the upgrade process from 0.2->0.3 smoothly this should
+    include the collection, settings, plugins, playlists, and anything else
+    still relevant in 0.3
+  * should be the last primary 'feature' implemented implement as plugin?
+    that way it can just be unloaded afterwards saving a little bit of time
+    and memory.
+  * alternatively, only import it if firstrun is True. this is likely
+    a cleaner and more-efficient method. 
+
+    * should be in its own folder in ``xl/`` if this method is chosen
+      (``xl/upgrade/``?)
+
+  * this should also be designed flexibly enough to also handle future 0.3.x
+    to 0.3.y upgrades, should that be necessary. 
+
+    * possibly also allow import from other players, eg rhythmbox, amarok,
+      etc. these importers would be implemented as plugins and use the
+      Providers system to expose their upgraders.
+
+* CD Burning
+
+  * class in cd.py, takes a Playlist and burns it in order
+  * allow mp3 cd burning?
+
+* Podcasts
+
+  * separate from radio
+  * allow flexibility in choice of when (if?) and where to download
+  * allow streaming if not downloaded
+
+* Blacklisting (?)
+
+* GUI:
+
+  * Tag Editor
+
+    * I'm thinking this shouldn't be anything more than a simple editor for
+      the first release.  Something like rhythmbox has.  Even with the "more
+      featureful" editor in 0.2.14, I always ended up using exfalso for
+      anything more than a few tracks.
+
+  * right-click menus for side tabs, playlists
+  * Podcasts panel
+  * clean up plugin manager
+
+    * button for installing from .exz file
+    * maybe integrate into prefs dialog?
+
+  * Queue Manager
 
 Things needed for RCs/final release:
-    Test cases
-        the following still need test cases:
-        - tag reading/writing for all formats
-        - add more here!
-    Launchpad
-        - all bugs targeted to 0.3.0 must be resolved or retargeted
-        - all critical bugs in 0.2.x must be confirmed fixed in 0.3.0 (barring
-            severe techincal problems making them unresolvable)
-        ? we should go back through all the currently open bugs and see what
-            can be closed. (there's a lot of "fix committed" bugs that
-            can probably be changed to "fix released", and various old
-            bugs that should be marked either released or incomplete)
-            - not necessarily critical for release, but testing 0.3 for
-                the presence of all current bugs would be useful
-    Plugins
-        port all relevant 0.2 plugins to 0.3
-    GUI:
-        playlist export
-        equalizer GUI
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  * Test cases
+
+    * the following still need test cases:
+
+      * tag reading/writing for all formats
+      * add more here!
+
+  * Launchpad
+
+    * all bugs targeted to 0.3.0 must be resolved or retargeted
+    * all critical bugs in 0.2.x must be confirmed fixed in 0.3.0 (barring
+      severe techincal problems making them unresolvable)
+    * we should go back through all the currently open bugs and see what can be
+      closed. (there's a lot of "fix committed" bugs that can probably be
+      changed to "fix released", and various old bugs that should be marked
+      either released or incomplete)
+    * not necessarily critical for release, but testing 0.3 for the presence of
+      all current bugs would be useful
+
+  * Plugins
+
+    * port all relevant 0.2 plugins to 0.3
+
+  * GUI:
+
+    * playlist export
+    * equalizer GUI
         
 
 
-==== NOTES ====
+Notes
+-----
 xl is to be split into xl and xlgui. All code concerning the display of 
 data and receipt of user input through the gui should go into xlgui. code 
 that is not dependent upon the gui implementation should go in xl.
@@ -121,12 +166,16 @@ unless there is a really good reason to do otherwise. we will ship and
 enable some plugins by default to provide the best out-of-the-box 
 experience.
 
-idea: plugin method to test dependencies
+.. admonition:: idea
 
-=== Contributors ===
+   plugin method to test dependencies
+
+Contributors
+------------
 list other contributors to 0.3 here so they may be given due credit
 
-AlphaCluster - playlist export for m3u/pls/asx/xspf
-Dan O'Reilly (dano) - various patches
-Dafydd Crosby - various patches
+* AlphaCluster - playlist export for m3u/pls/asx/xspf
+* Dan O'Reilly (dano) - various patches
+* Dafydd Crosby - various patches
+* Abhishek Mukherjee - various patches
 

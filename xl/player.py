@@ -500,6 +500,8 @@ class BaseGSTPlayer(object):
         self.playbin.set_state(gst.STATE_PLAYING)
         event.log_event('playback_start', self, track)
 
+        return True
+
     def stop(self):
         """
             stop playback
@@ -510,6 +512,8 @@ class BaseGSTPlayer(object):
             self.playbin.set_state(gst.STATE_NULL)
             self.current = None
             event.log_event('playback_end', self, current)
+            return True
+        return False
 
     def pause(self):
         """
@@ -520,6 +524,8 @@ class BaseGSTPlayer(object):
             self.playbin.set_state(gst.STATE_PAUSED)
             self.reset_playtime_stamp()
             event.log_event('playback_pause', self, self.current)
+            return True
+        return False
  
     def unpause(self):
         """
@@ -535,6 +541,8 @@ class BaseGSTPlayer(object):
 
             self.playbin.set_state(gst.STATE_PLAYING)
             event.log_event('playback_resume', self, self.current)
+            return True
+        return False
 
     def toggle_pause(self):
         """

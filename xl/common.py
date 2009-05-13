@@ -41,7 +41,7 @@ def get_default_encoding():
 # log() exists only so as to not break compatibility, new code
 # should not use it as it may br dropped in the future
 def log(message):
-    logger.info(message + "  (Warning, using depreciated logger)")
+    logger.info(message + "  (Warning, using deprecated logger)")
 
 # use this for general logging of exceptions
 def log_exception(log=logger, message="Exception caught!"):

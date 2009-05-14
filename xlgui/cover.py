@@ -24,7 +24,7 @@ from xl.nls import gettext as _
 import gobject
 
 COVER_WIDTH = 100
-NOCOVER_IMAGE = xdg.get_data_path("images/nocover.png")
+NOCOVER_IMAGE = xdg.get_data_path("images", "nocover.png")
 
 class CoverManager(object):
     """
@@ -360,7 +360,7 @@ class CoverWidget(gtk.EventBox):
         self.player = player
 
         self.image.set_image_size(COVER_WIDTH, COVER_WIDTH)
-        self.image.set_image(xdg.get_data_path('images/nocover.png'))
+        self.image.set_image(NOCOVER_IMAGE)
         self.add(self.image)
         self.image.show()
         

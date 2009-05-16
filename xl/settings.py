@@ -167,6 +167,11 @@ class SettingsManager(RawConfigParser):
         self._saving = True
         f = open(self.loc, 'w')
         self.write(f)
+        try:
+            # make it readable by current user only, to protect private data
+            os.fchmod(f.fileno(), 384)
+        except:
+            pass # fail gracefully, eg if on windows
         self._saving = False
         self._dirty = False
 

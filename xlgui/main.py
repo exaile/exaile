@@ -346,6 +346,7 @@ class MainWindow(object):
         hotkeys = (
             ('<Control>W', lambda *e: self.close_playlist_tab()),
             ('<Control>C', lambda *e: self.on_clear_playlist()),
+            ('<Control>D', lambda *e: self.on_queue()),
         )
 
         self.accel_group = gtk.AccelGroup()
@@ -408,6 +409,12 @@ class MainWindow(object):
         self.rating_combo.set_sensitive(False)
         self.rating_id = self.rating_combo.connect('changed',
             self.set_current_track_rating)
+
+    def on_queue(self):
+        """Toggles queue on the current playlist"""
+        cur_page = self.playlist_notebook.get_children()[
+                self.playlist_notebook.get_current_page()]
+        cur_page.menu.on_queue()
 
     def set_current_track_rating(self, *e):
         """

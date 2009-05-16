@@ -14,9 +14,8 @@
 
 from xl.nls import gettext as _
 import gtk, gobject, urllib
-from xl import xdg, common, track, trackdb
+from xl import xdg, common, track, trackdb, settings
 from xlgui import panel, guiutil, menu, playlist
-from xl import xdg, common
 
 TRACK_NUM = 300
 
@@ -35,7 +34,7 @@ class CollectionPanel(panel.Panel):
         ['artist', 'date', 'album', 'tracknumber', 'title'],
     )
 
-    def __init__(self, controller, settings, collection, name=None):
+    def __init__(self, controller, collection, name=None):
         """
             Initializes the collection panel
         """
@@ -281,7 +280,8 @@ class CollectionPanel(panel.Panel):
         self.order = self.orders[self.choice.get_active()]
 
         # save the active view setting
-        self.settings['gui/collection_active_view'] = self.choice.get_active()
+        self.settings.set_option('gui/collection_active_view', 
+                self.choice.get_active())
 
         self.load_subtree(None)
 

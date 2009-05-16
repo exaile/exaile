@@ -20,8 +20,6 @@ from xl.nls import gettext as _
 import logging
 logger = logging.getLogger(__name__)
 
-settings = settings.SettingsManager.settings
-
 class HAL(providers.ProviderHandler):
     """
         HAL interface
@@ -77,17 +75,12 @@ class HAL(providers.ProviderHandler):
                 common.log_exception(logger)
         return None
 
-    @common.threaded
     def add_device(self, device_udi):
         handler = self.get_handler(device_udi)
         if handler is None:
             logger.debug(_("Found no HAL device handler for %s")%device_udi)
             return
         
-        # give the device time to settle (eg. mount)
-        # TODO: find a better way to do this (ie. listen for mount?)
-        time.sleep(settings.get_option("devices/hal_settle_time", 5)) 
-
         dev = handler.device_from_udi(self, device_udi)
         if not dev: 
             logger.debug(_("Failed to create device for %s")%device_udi)
@@ -99,7 +92,6 @@ class HAL(providers.ProviderHandler):
         self.devicemanager.add_device(dev)
         self.hal_devices[device_udi] = dev
 
-    @common.threaded
     def remove_device(self, device_udi):
         try:
             self.devicemanager.remove_device(self.hal_devices[device_udi])

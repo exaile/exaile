@@ -185,7 +185,7 @@ def get_options(type, settings, option):
         elif value and not MAIN.tray_icon:
             MAIN.tray_icon = TrayIcon(MAIN)
 
-def connect_events(main, settings):
+def connect_events(main):
     global MAIN
     MAIN = main
     event.add_callback(get_options, 'option_set')

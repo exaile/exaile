@@ -9,7 +9,7 @@ It should also be used to keep track of what each contributor is
 currently working on.
 
 Current projects:
-    Aren Olson - Basic Device UI
+    Aren Olson - Device UI
     Adam Olsen - GUI
     Anthony Waters - 
 
@@ -36,8 +36,6 @@ future releases:
 
 
 Things needed for alpha 2 (0.2.99.2) release:
-    Plugins
-        retrieval from server
     Localization
         not only the GUI but all INFO, WARNING and ERROR logs should be 
             translateable
@@ -46,8 +44,8 @@ Things needed for alpha 2 (0.2.99.2) release:
         This should be a continuing effort until final.
     Visualizations
         implement as plugin?
-    GUI:
-        Basic Device UI
+    GUI
+        Device UI
         
 
 Things needed for beta 1 (0.2.999.1) release:
@@ -75,7 +73,7 @@ Things needed for beta 1 (0.2.999.1) release:
         allow flexibility in choice of when (if?) and where to download
         allow streaming if not downloaded
     Blacklisting
-    GUI:
+    GUI
         Tag Editor
             I'm thinking this shouldn't be anything more than a simple editor
             for the first release.  Something like rhythmbox has.  Even with
@@ -105,7 +103,7 @@ Things needed for RCs/final release:
                 the presence of all current bugs would be useful
     Plugins
         port all relevant 0.2 plugins to 0.3
-    GUI:
+    GUI
         playlist export
         equalizer GUI
         

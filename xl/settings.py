@@ -22,7 +22,7 @@ from ConfigParser import RawConfigParser, NoSectionError, NoOptionError
 import os, logging
 logger = logging.getLogger(__name__)
 
-from xl import event
+from xl import event, xdg
 from xl.nls import gettext as _
 
 TYPE_MAPPING = {
@@ -34,12 +34,14 @@ TYPE_MAPPING = {
         'U': unicode
         }
 
+SETTINGSMANAGER = None
+
 class SettingsManager(RawConfigParser):
     """
         Manages exaile's settings
     """
     settings = None
-    def __init__(self, loc=None):
+    def __init__(self, loc):
         """
             Sets up the SettingsManager. Expects a loc to a file
             where settings will be stored.
@@ -50,17 +52,13 @@ class SettingsManager(RawConfigParser):
         self._saving = False
         self._dirty = False
 
-        if loc:
-            try:
-                self.read(self.loc)
-            except:
-                pass
+        try:
+            self.read(self.loc)
+        except:
+            pass
 
-        if not SettingsManager.settings:
-            SettingsManager.settings = self
-
-            # save settings every 30 seconds
-            event.timeout_add(30000, self._timeout_save)
+        # save settings every 30 seconds
+        event.timeout_add(30000, self._timeout_save)
 
     def _timeout_save(self):
         self.save()
@@ -141,7 +139,7 @@ class SettingsManager(RawConfigParser):
                     return k + ": " + str(value)
         raise ValueError(_("We don't know how to store that kind of setting: "),
             type(value))
-
+    
     def _str_to_val(self, value):
         """
             Convert setting strings back to normal values.
@@ -161,18 +159,6 @@ class SettingsManager(RawConfigParser):
         else:
             raise ValueError(_("An Unknown type of setting was found!"))
 
-    def __setitem__(self, option, value):
-        """
-            same as set_option
-        """
-        self.set_option(option, value)
-
-    def __getitem__(self, option):
-        """
-            same as get_option
-        """
-        return self.get_option(option)
-
     def save(self):
         """
             Save the settings to disk
@@ -181,8 +167,20 @@ class SettingsManager(RawConfigParser):
         self._saving = True
         f = open(self.loc, 'w')
         self.write(f)
+        try:
+            # make it readable by current user only, to protect private data
+            os.fchmod(f.fileno(), 384)
+        except:
+            pass # fail gracefully, eg if on windows
         self._saving = False
         self._dirty = False
+
+
+SETTINGSMANAGER = SettingsManager( os.path.join(
+    xdg.get_config_dir(), "settings.ini" ) )
+
+get_option = SETTINGSMANAGER.get_option
+set_option = SETTINGSMANAGER.set_option
 
 # vim: et sts=4 sw=4
 

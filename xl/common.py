@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import locale, os, time, threading, urllib, re, random, string
+import locale, os, time, threading, urllib, re, random, string, urlparse
 import traceback
 import logging
 
@@ -41,7 +41,7 @@ def get_default_encoding():
 # log() exists only so as to not break compatibility, new code
 # should not use it as it may br dropped in the future
 def log(message):
-    logger.info(message + "  (Warning, using depreciated logger)")
+    logger.info(message + "  (Warning, using deprecated logger)")
 
 # use this for general logging of exceptions
 def log_exception(log=logger, message="Exception caught!"):
@@ -155,17 +155,13 @@ def escape_xml(text):
         text = text.replace(old, new)
     return text
 
-def to_url(path):
+def local_file_from_url(url):
     """
-        Converts filesystem path to URL. Returns the input unchanged if it's not
-        an FS path (i.e. a URL or something invalid).
+        Returns a local file path based on a url. If you get strange errors,
+        try running .encode() on the result
     """
-    if re.search(r'^[\w]+://', path):
-        return path
-    try:
-        return 'file://' + urllib.pathname2url(path)
-    except IOError:
-        return path
+    split = urlparse.urlsplit(url)
+    return urlparse.urlunsplit(('', '') + split[2:])
 
 class idict(dict): 
     """

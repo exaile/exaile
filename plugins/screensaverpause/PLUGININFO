@@ -1,0 +1,4 @@
+Version="0.0.0"
+Authors=["Johannes Sasongko <sasongko@gmail.com>"]
+Name="Pause on Screensaver"
+Description="Pauses/resumes playback on screensaver start/stop"

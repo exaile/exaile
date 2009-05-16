@@ -17,13 +17,12 @@ import pygtk, pygst
 pygtk.require('2.0')
 pygst.require('0.10')
 import gst, logging
-import gtk, gtk.glade, gobject, pango
+import gtk, gtk.glade, gobject, pango, datetime
 from xl import xdg, event, track, settings, common
 import xl.playlist
 from xlgui import playlist, cover, guiutil, commondialogs
 import xl.playlist, re, os, threading
 
-settings = settings.SettingsManager.settings
 logger = logging.getLogger(__name__)
 
 class PlaybackProgressBar(object):
@@ -65,9 +64,7 @@ class PlaybackProgressBar(object):
         self.player.seek(seconds)
         self.seeking = False
         self.bar.set_fraction(value)
-        remaining_seconds = length - seconds
-        self.bar.set_text("%d:%02d / %d:%02d" % ((seconds / 60), 
-            (seconds % 60), (remaining_seconds / 60), (remaining_seconds % 60))) 
+        self._set_bar_text(seconds, length)
 #        self.emit('seek', seconds)
 
     def seek_motion_notify(self, widget, event):
@@ -86,8 +83,7 @@ class PlaybackProgressBar(object):
         length = track.get_duration()
         seconds = float(value * length)
         remaining_seconds = length - seconds
-        self.bar.set_text("%d:%02d / %d:%02d" % ((seconds / 60), 
-            (seconds % 60), (remaining_seconds / 60), (remaining_seconds % 60))) 
+        self._set_bar_text(seconds, length)
        
     def playback_start(self, type, player, object):
         self.timer_id = gobject.timeout_add(1000, self.timer_update)
@@ -110,12 +106,33 @@ class PlaybackProgressBar(object):
         self.bar.set_fraction(self.player.get_progress())
 
         seconds = self.player.get_time()
-        remaining_seconds = length - seconds
-        self.bar.set_text("%d:%02d / %d:%02d" %
-            ( seconds // 60, seconds % 60, remaining_seconds // 60,
-            remaining_seconds % 60))
+        self._set_bar_text(seconds, length)
 
         return True
+
+    def _set_bar_text(self, seconds, length):
+        """
+            Sets the text of the progress bar based on the number of seconds
+            into the song
+        """
+        remaining_seconds = length - seconds
+        time = datetime.timedelta(seconds=int(seconds))
+        time_left = datetime.timedelta(seconds=int(remaining_seconds))
+        def str_time(t):
+            """
+                Converts a datetime.timedelta object to a sensible human-
+                readable format
+            """
+            text = unicode(t)
+            if t.seconds > 3600:
+                return text
+            elif t.seconds > 60:
+                return text.lstrip(_("0:"))
+            else:
+                # chop off first zero to get 0:20
+                return text[3:]
+        self.bar.set_text("%s / %s" % (str_time(time), str_time(time_left)))
+
 
 # Reduce the notebook tabs' close button padding size.
 gtk.rc_parse_string("""
@@ -201,7 +218,7 @@ class MainWindow(object):
     """
         Main Exaile Window
     """
-    def __init__(self, controller, xml, settings, collection, 
+    def __init__(self, controller, xml, collection, 
         player, queue, covers):
         """
             Initializes the main window
@@ -329,6 +346,7 @@ class MainWindow(object):
         hotkeys = (
             ('<Control>W', lambda *e: self.close_playlist_tab()),
             ('<Control>C', lambda *e: self.on_clear_playlist()),
+            ('<Control>D', lambda *e: self.on_queue()),
         )
 
         self.accel_group = gtk.AccelGroup()
@@ -392,6 +410,12 @@ class MainWindow(object):
         self.rating_id = self.rating_combo.connect('changed',
             self.set_current_track_rating)
 
+    def on_queue(self):
+        """Toggles queue on the current playlist"""
+        cur_page = self.playlist_notebook.get_children()[
+                self.playlist_notebook.get_current_page()]
+        cur_page.menu.on_queue()
+
     def set_current_track_rating(self, *e):
         """
             Sets the currently playing track's rating
@@ -434,7 +458,7 @@ class MainWindow(object):
             pl.search(self.filter.get_text())
 
     def on_volume_changed(self, range):
-        self.settings['player/volume'] = range.get_value()
+        self.settings.set_option('player/volume', range.get_value())
         self.player.set_volume(range.get_value())
 
     def on_stop_buttonpress(self, widget, event):
@@ -612,9 +636,12 @@ class MainWindow(object):
         """
             Called when the user clicks one of the playback mode buttons
         """
-        self.settings['playback/shuffle'] = self.shuffle_toggle.get_active()
-        self.settings['playback/repeat'] = self.repeat_toggle.get_active()
-        self.settings['playback/dynamic'] = self.dynamic_toggle.get_active()
+        self.settings.set_option('playback/shuffle', 
+                self.shuffle_toggle.get_active())
+        self.settings.set_option('playback/repeat', 
+                self.repeat_toggle.get_active())
+        self.settings.set_option('playback/dynamic', 
+                self.dynamic_toggle.get_active())
 
         pl = self.get_selected_playlist()
         if pl:
@@ -849,16 +876,16 @@ class MainWindow(object):
         (width, height) = self.window.get_size()
         if [width, height] != [ settings.get_option("gui/mainw_"+key, -1) for \
                 key in ["width", "height"] ]:
-            self.settings['gui/mainw_height'] = height
-            self.settings['gui/mainw_width'] = width
+            self.settings.set_option('gui/mainw_height', height)
+            self.settings.set_option('gui/mainw_width', width)
         (x, y) = self.window.get_position()
         if [x, y] != [ settings.get_option("gui/mainw_"+key, -1) for \
                 key in ["x", "y"] ]:
-            self.settings['gui/mainw_x'] = x
-            self.settings['gui/mainw_y'] = y
+            self.settings.set_option('gui/mainw_x', x)
+            self.settings.set_option('gui/mainw_y', y)
         pos = self.splitter.get_position()
         if pos > 10 and pos != self.settings.get_option("gui/mainw_sash_pos", -1):
-            self.settings['gui/mainw_sash_pos'] = pos
+            self.settings.set_option('gui/mainw_sash_pos', pos)
 
         return False
 

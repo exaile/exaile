@@ -87,16 +87,14 @@ class Exaile(object):
             Initializes Exaile
         """
         logger.info(_("Loading Exaile %s...") % __version__)
-        #initialize SettingsManager
-        from xl import settings
-        self.settings = settings.SettingsManager( os.path.join(
-                xdg.get_config_dir(), "settings.ini" ) )
         
         # splash screen
         if self.options.startgui:
             self.__show_splash()
 
-        firstrun = self.settings.get_option("general/first_run", True)
+        from xl import settings
+
+        firstrun = settings.get_option("general/first_run", True)
 
         #initialize PluginsManager
         if not self.options.safemode:
@@ -150,9 +148,8 @@ class Exaile(object):
 
         # cover manager
         from xl import cover
-        self.covers = cover.CoverManager(self.settings, 
-            cache_dir=os.path.join(
-            xdg.get_data_dirs()[0], "covers"))
+        self.covers = cover.CoverManager(
+                cache_dir=os.path.join(xdg.get_data_dirs()[0], "covers"))
 
         # Radio Manager
         from xl import radio
@@ -161,7 +158,7 @@ class Exaile(object):
 
         #initialize LyricsManager
         from xl import lyrics
-        self.lyrics = lyrics.LyricsManager(self.settings)
+        self.lyrics = lyrics.LyricsManager()
 
         self.gui = None
         #setup GUI
@@ -194,7 +191,8 @@ class Exaile(object):
             Displays the splash screen
         """
         import xlgui
-        self.splash = xlgui.show_splash(show=self.settings.get_option('gui/use_splash', True))
+        from xl import settings
+        self.splash = xlgui.show_splash(show=settings.get_option('gui/use_splash', True))
 
     def setup_logging(self):
         console_format = "%(levelname)-8s: %(message)s"
@@ -369,9 +367,12 @@ class Exaile(object):
 
             takes care of saving prefs, databases, etc.
         """
-        if self.quitting: return
+        if self.quitting: 
+            return
         self.quitting = True
         logger.info(_("Exaile is shutting down..."))
+
+        from xl import settings
 
         # stop the various idle based threads so they don't freak out when the
         # program exits.  Silly Python.
@@ -406,7 +407,7 @@ class Exaile(object):
                 os.path.join(xdg.get_data_dirs()[0], 'queue.state') )
         self.player.stop()
 
-        self.settings.save()
+        settings.SETTINGSMANAGER.save()
 
         logger.info(_("Bye!"))
         logging.shutdown()

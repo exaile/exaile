@@ -16,7 +16,7 @@ import gtk, gobject
 from xlgui import panel, guiutil, commondialogs, menu
 from xlgui import playlist as guiplaylist
 import xlgui.panel.playlists as playlistpanel
-from xl import xdg, event, common
+from xl import xdg, event, common, settings
 import xl.radio
 import threading
 import xl.playlist
@@ -28,7 +28,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
     """
     gladeinfo = ('radio_panel.glade', 'RadioPanelWindow')
 
-    def __init__(self, controller, settings, collection, 
+    def __init__(self, controller, collection, 
         radio_manager, station_manager):
         """
             Initializes the radio panel

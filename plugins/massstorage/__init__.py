@@ -50,10 +50,12 @@ class MassStorageDevice(Device):
         for mountpoint in self.mountpoints:
             library = collection.Library(mountpoint)
             self.collection.add_library(library)
+        self.connected = True # set this here so the UI can react 
         self.collection.rescan_libraries()
 
     def disconnect(self):
         self.collection = collection.Collection(name=self.name)
+        self.connected = False
 
 
 class MassStorageHandler(Handler):

@@ -63,7 +63,7 @@ class ID3Format(BaseFormat):
         if t == 'TDRC' or t == 'TDOR': # values are ID3TimeStamps
             for value in field:
                 ret.extend([unicode(x) for x in value.text])
-        elif t == 'USLT': # Lyrics are stored in plan old strings
+        elif t == 'USLT': # Lyrics are stored in plain old strings
             for value in field:
                 ret.append(unicode(value.text))
         elif t == 'WOAR': # URLS are stored in url not text

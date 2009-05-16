@@ -17,7 +17,7 @@ import pygtk, pygst
 pygtk.require('2.0')
 pygst.require('0.10')
 import gst, logging
-import gtk, gtk.glade, gobject, pango
+import gtk, gtk.glade, gobject, pango, datetime
 from xl import xdg, event, track, settings, common
 import xl.playlist
 from xlgui import playlist, cover, guiutil, commondialogs
@@ -64,9 +64,7 @@ class PlaybackProgressBar(object):
         self.player.seek(seconds)
         self.seeking = False
         self.bar.set_fraction(value)
-        remaining_seconds = length - seconds
-        self.bar.set_text("%d:%02d / %d:%02d" % ((seconds / 60), 
-            (seconds % 60), (remaining_seconds / 60), (remaining_seconds % 60))) 
+        self._set_bar_text(seconds, length)
 #        self.emit('seek', seconds)
 
     def seek_motion_notify(self, widget, event):
@@ -85,8 +83,7 @@ class PlaybackProgressBar(object):
         length = track.get_duration()
         seconds = float(value * length)
         remaining_seconds = length - seconds
-        self.bar.set_text("%d:%02d / %d:%02d" % ((seconds / 60), 
-            (seconds % 60), (remaining_seconds / 60), (remaining_seconds % 60))) 
+        self._set_bar_text(seconds, length)
        
     def playback_start(self, type, player, object):
         self.timer_id = gobject.timeout_add(1000, self.timer_update)
@@ -109,12 +106,33 @@ class PlaybackProgressBar(object):
         self.bar.set_fraction(self.player.get_progress())
 
         seconds = self.player.get_time()
-        remaining_seconds = length - seconds
-        self.bar.set_text("%d:%02d / %d:%02d" %
-            ( seconds // 60, seconds % 60, remaining_seconds // 60,
-            remaining_seconds % 60))
+        self._set_bar_text(seconds, length)
 
         return True
+
+    def _set_bar_text(self, seconds, length):
+        """
+            Sets the text of the progress bar based on the number of seconds
+            into the song
+        """
+        remaining_seconds = length - seconds
+        time = datetime.timedelta(seconds=int(seconds))
+        time_left = datetime.timedelta(seconds=int(remaining_seconds))
+        def str_time(t):
+            """
+                Converts a datetime.timedelta object to a sensible human-
+                readable format
+            """
+            text = unicode(t)
+            if t.seconds > 3600:
+                return text
+            elif t.seconds > 60:
+                return text.lstrip(_("0:"))
+            else:
+                # chop off first zero to get 0:20
+                return text[3:]
+        self.bar.set_text("%s / %s" % (str_time(time), str_time(time_left)))
+
 
 # Reduce the notebook tabs' close button padding size.
 gtk.rc_parse_string("""
@@ -328,6 +346,7 @@ class MainWindow(object):
         hotkeys = (
             ('<Control>W', lambda *e: self.close_playlist_tab()),
             ('<Control>C', lambda *e: self.on_clear_playlist()),
+            ('<Control>D', lambda *e: self.on_queue()),
         )
 
         self.accel_group = gtk.AccelGroup()
@@ -390,6 +409,12 @@ class MainWindow(object):
         self.rating_combo.set_sensitive(False)
         self.rating_id = self.rating_combo.connect('changed',
             self.set_current_track_rating)
+
+    def on_queue(self):
+        """Toggles queue on the current playlist"""
+        cur_page = self.playlist_notebook.get_children()[
+                self.playlist_notebook.get_current_page()]
+        cur_page.menu.on_queue()
 
     def set_current_track_rating(self, *e):
         """

@@ -130,8 +130,14 @@ class AddToPlaylistMenu(guiutil.Menu):
     def _create_add_playlist_menu(self):
         self.append(_('New Playlist'), lambda *e: self.on_add_new_playlist(),
             'gtk-new')
-        self.append_separator()
-        for name in self.playlist_manager.playlists:
+        # As for the list of playlists, we have to redo it every time
+        # the user right clicks
+        self.add_dynamic_builder(self._create_playlist_menu_items)
+
+    def _create_playlist_menu_items(self):
+        playlists = self.playlist_manager.playlists
+        if playlists: self.append_separator()
+        for name in playlists:
             self.append(_(name), self.on_add_to_playlist, data = name)
             
         

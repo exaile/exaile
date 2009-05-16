@@ -13,7 +13,7 @@ class ExaileNotification(object):
         title = " / ".join(track['title'] or _("Unknown"))
         artist = " / ".join(track['artist'] or "")
         album = " / ".join(track['album'] or "")
-        summary = cgi.escape(title)
+        summary = title
         if artist and album:
             body = _("by %(artist)s\nfrom <i>%(album)s</i>") % {
                 'artist' : cgi.escape(artist), 

@@ -82,9 +82,16 @@ def save_to_m3u(playlist, path):
     handle.close()
 
 def import_from_m3u(path):
-    handle = open(path, 'r')
-
-    name = os.path.split(path)[-1].replace(".m3u","")
+    url_parsed = urlparse(path)
+    # Local file, possibly on Windows ?
+    if not url_parsed[0] or len(url_parsed[0]) == 1:
+        handle = open(path, 'r')
+        name = os.path.basename(path).replace(".m3u","")
+        is_local = True
+    else:
+        handle = urllib.urlopen(path)
+        name = url_parsed[2].split('/')[-1].replace('.m3u', '')
+        is_local = False
     
     #if not handle.readline().startswith("#EXTM3U"):
     #    return None
@@ -100,22 +107,27 @@ def import_from_m3u(path):
             pl.set_name(line[12:])
         elif line.startswith("#EXTINF:"):
             current = track.Track()
-            len, title = line[9:].split(",", 1)
-            len = float(len)
-            if len < 1:
-                len = 0
+            comma_separated = line[9:].split(",", 1)
+            title = comma_separated[-1]
+            if len(comma_separated) > 1:
+                length = float(comma_separated[0])
+                if length < 1:
+                    length = 0
+            else:
+                length = 0
             current['title'] = title
-            current['length'] = len
+            current['length'] = length
         elif line.startswith("#"):
             pass
         else:
             if not current:
                 current = track.Track()
-            if not os.path.isabs(line):
+            track_is_local = len(urlparse(line)[0]) <= 1
+            if track_is_local and not os.path.isabs(line):
                 line = os.path.join(os.path.dirname(path), line)
             current.set_loc(line)
             current.read_tags()
-            pl.add(current)
+            pl.add(current, ignore_missing_files=track_is_local)
             current = None
 
     handle.close()

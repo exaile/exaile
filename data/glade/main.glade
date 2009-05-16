@@ -175,6 +175,20 @@
                 <child>
                   <widget class="GtkMenu" id="menuitem5_menu">
                     <child>
+                      <widget class="GtkImageMenuItem" id="queue_manager_item">
+                        <property name="label" translatable="yes">Queue Manager</property>
+                        <property name="visible">True</property>
+                        <property name="use_stock">False</property>
+                        <signal name="activate" handler="on_queue_manager_item_activate"/>
+                        <child internal-child="image">
+                          <widget class="GtkImage" id="image7">
+                            <property name="visible">True</property>
+                            <property name="stock">gtk-add</property>
+                          </widget>
+                        </child>
+                      </widget>
+                    </child>
+                    <child>
                       <widget class="GtkImageMenuItem" id="device_manager_item">
                         <property name="label" translatable="yes">Device Manager</property>
                         <property name="visible">True</property>

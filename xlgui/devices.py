@@ -14,7 +14,7 @@
 
 from xl.nls import gettext as _
 import gtk, gtk.glade
-from xl import xdg, settings, event
+from xl import xdg, settings, event, devices
 import logging
 
 logger = logging.getLogger(__name__)
@@ -46,18 +46,19 @@ class ManagerDialog(object):
             'on_btn_close_clicked': self.on_close,
             })
 
-        self.model = gtk.ListStore(gtk.gdk.Pixbuf, str)
+        # object should really be devices.Device, but it doesnt work :/
+        self.model = gtk.ListStore(object, gtk.gdk.Pixbuf, str)
         self.tree = self.xml.get_widget('tree_devices')
         self.tree.set_model(self.model)
 
         render = gtk.CellRendererPixbuf()
         col = gtk.TreeViewColumn("Icon", render)
-        col.add_attribute(render, "pixbuf", 0)
+        col.add_attribute(render, "pixbuf", 1)
         self.tree.append_column(col)
 
         render = gtk.CellRendererText()
         col = gtk.TreeViewColumn("Information", render)
-        col.add_attribute(render, "text", 1)
+        col.add_attribute(render, "text", 2)
         self.tree.append_column(col)
 
         self.populate_tree()
@@ -67,22 +68,42 @@ class ManagerDialog(object):
     def populate_tree(self, *args):
         self.model.clear()
         for d in self.device_manager.list_devices():
-            self.model.append([None, d.get_name()])
+            self.model.append([d, None, d.get_name()])
+
+    def _get_selected_devices(self):
+        sel = self.tree.get_selection()
+        (model, paths) = sel.get_selected_rows()
+        devices = []
+        for path in paths:
+            iter = self.model.get_iter(path)
+            device = self.model.get_value(iter, 0)
+            devices.append(device)
+
+        return devices
+
 
     def on_connect(self, *args):
-        pass
+        devices = self._get_selected_devices()
+
+        # FIXME: this should be asynchronous
+        for d in devices:
+            d.connect()
 
     def on_disconnect(self, *args):
-        pass
+        devices = self._get_selected_devices()
+
+        # FIXME: this should be asynchronous
+        for d in devices:
+            d.disconnect()
 
     def on_edit(self, *args):
-        pass
+        logger.warning("NOT IMPLEMENTED")
 
     def on_add(self, *args):
-        pass
+        logger.warning("NOT IMPLEMENTED")
 
     def on_remove(self, *args):
-        pass
+        logger.warning("NOT IMPLEMENTED")
 
     def on_close(self, *args):
         self.window.hide()

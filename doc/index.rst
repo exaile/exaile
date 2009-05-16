@@ -9,7 +9,8 @@ Welcome to Exaile's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+
+   planning/index
 
 Indices and tables
 ==================

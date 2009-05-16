@@ -38,6 +38,7 @@ def get_image_for_track(track, exaile, resize=False):
     if image is None:
         logger.debug("Did not find cover, using DEFAULT_COVER")
         image = DEFAULT_COVER
+    logger.debug("Using image %s" % repr(image))
     pixbuf = gtk.gdk.pixbuf_new_from_file(image)
     if resize:
         logger.debug("Resizing cover")

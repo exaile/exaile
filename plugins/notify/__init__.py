@@ -22,10 +22,9 @@ import notify_cover
 from xlgui.prefs import widgets
 from xl import event, common
 from xl.nls import gettext as _
-from xl.settings import SettingsManager
+from xl.settings import SETTINGSMANAGER
 
 logger = logging.getLogger(__name__)
-settings = SettingsManager.settings
 UNKNOWN_TEXT = _("Unknown")
 ATTACH_COVERS_OPTION_ALLOWED = False
 
@@ -41,10 +40,10 @@ class ExaileNotification(object):
     def __inner_preference(klass):
         """Function will make a property for a given subclass of PrefsItem"""
         def getter(self):
-            return settings.get_option(klass.name, klass.default or None)
+            return SETTINGSMANAGER.get_option(klass.name, klass.default or None)
 
         def setter(self, val):
-            settings.set_option(klass.name, val)
+            SETTINGSMANAGER.set_option(klass.name, val)
 
         return property(getter, setter)
 

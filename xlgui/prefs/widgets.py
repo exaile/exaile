@@ -60,14 +60,22 @@ class PrefsItem(object):
         self.widget.set_text(str(self.prefs.settings.get_option(
             self._get_name(), self.default)))
 
-    def apply(self):
+    def _settings_value(self):
+        """
+            Value to be stored into the settings file
+        """
+        return unicode(self.widget.get_text(), 'utf-8')
+
+    def apply(self, value=None):
         """
             applies this setting
         """
         if hasattr(self, 'done') and not self.done(): return False
-        self.prefs.settings[self._get_name()] = \
-            unicode(self.widget.get_text(), 'utf-8')
+        if value is None:
+            value = self._settings_value()
+        self.prefs.settings.set_option(self._get_name(), value)
         return True
+
 
 class CheckPrefsItem(PrefsItem):
     """
@@ -85,10 +93,9 @@ class CheckPrefsItem(PrefsItem):
             self.prefs.settings.get_option(self._get_name(),
             self.default))
 
-    def apply(self):
-        if hasattr(self, 'done') and not self.done(): return False
-        self.prefs.settings[self._get_name()] = self.widget.get_active()
-        return True
+    def _settings_value(self):
+        return self.widget.get_active()
+
 
 class DirPrefsItem(PrefsItem):
     """
@@ -110,11 +117,9 @@ class DirPrefsItem(PrefsItem):
             os.makedirs(directory)
         self.widget.set_filename(directory)
 
-    def apply(self):
-        if hasattr(self, 'done') and not self.done(): return False
-        directory = self.widget.get_filename()
-        self.prefs.settings[self._get_name()] = directory
-        return True
+    def _settings_value(self):
+        return self.widget.get_filename()
+
 
 class OrderListPrefsItem(PrefsItem):
     """ 
@@ -146,18 +151,16 @@ class OrderListPrefsItem(PrefsItem):
         for item in items:
             self.model.append([item])
 
-    def apply(self):
-        if hasattr(self, 'done') and not self.done(): return False
+    def _settings_value(self):
         items = []
         iter = self.model.get_iter_first()
-        while True:
-            if not iter: break
+        while not iter:
             items.append(self.model.get_value(iter, 0))
             iter = self.model.iter_next(iter)
-
         self.prefs.settings[self._get_name()] = items
         self.items = items
-        return True
+        return items
+
 
 class TextViewPrefsItem(PrefsItem):
     """
@@ -189,13 +192,12 @@ class TextViewPrefsItem(PrefsItem):
             self.prefs.settings.get_option(self._get_name(),
             default=self.default)))
 
-    def apply(self):    
+    def _settings_value(self):    
         """
             Applies the setting
         """
-        if hasattr(self, 'done') and not self.done(): return False
-        self.prefs.settings[self._get_name()] = self.get_all_text()
-        return True
+        return self.get_all_text()
+
 
 class ListPrefsItem(PrefsItem):
     """
@@ -213,14 +215,13 @@ class ListPrefsItem(PrefsItem):
             items = ""
         self.widget.set_text(items)
 
-    def apply(self):
-        if hasattr(self, 'done') and not self.done(): return False
+    def _settings_value(self):
         # shlex is broken with unicode, so we feed it UTF-8 and encode
         # afterwards.
         values = shlex.split(self.widget.get_text())
         values = [unicode(value, 'utf-8') for value in values]
-        self.prefs.settings[self._get_name()] = values
-        return True
+        return values
+
 
 class SpinPrefsItem(PrefsItem):
     def _set_pref(self):
@@ -231,10 +232,8 @@ class SpinPrefsItem(PrefsItem):
     def _setup_change(self):
         self.widget.connect('value-changed', self.change)
 
-    def apply(self):
-        if hasattr(self, 'done') and not self.done(): return False
-        self.prefs.settings[self._get_name()] = self.widget.get_value()
-        return True
+    def _settings_value(self):
+        return self.widget.get_value()
 
 
 class FloatPrefsItem(PrefsItem):
@@ -249,16 +248,15 @@ class FloatPrefsItem(PrefsItem):
             self.prefs.settings.get_option(self._get_name(), 
             default=self.default)))
 
-    def apply(self):
-        if hasattr(self, 'done') and not self.done(): return False
-        self.prefs.settings[self._get_name()] = float(self.widget.get_text())
-        return True
+    def _settings_value(self):
+        return float(self.widget.get_text())
+
 
 class IntPrefsItem(FloatPrefsItem):
-    def apply(self):
-        if hasattr(self, 'done') and not self.done(): return False
-        self.prefs.settings[self._get_name()] = int(self.widget.get_text())
-        return True
+
+    def _settings_value(self):
+        return int(self.widget.get_text())
+
 
 class ColorButtonPrefsItem(PrefsItem):
     """
@@ -275,13 +273,12 @@ class ColorButtonPrefsItem(PrefsItem):
             self.prefs.settings.get_option(self._get_name(), 
             self.default)))
 
-    def apply(self):
-        if hasattr(self, 'done') and not self.done(): return False
+    def _settings_value(self):
         color = self.widget.get_color()
         string = "#%.2x%.2x%.2x" % (color.red / 257, color.green / 257, 
             color.blue / 257)
-        self.prefs.settings[self._get_name()] = string
-        return True
+        return string
+
 
 class FontButtonPrefsItem(ColorButtonPrefsItem):
     """
@@ -298,11 +295,10 @@ class FontButtonPrefsItem(ColorButtonPrefsItem):
             self.default)
         self.widget.set_font_name(font)
         
-    def apply(self):
-        if hasattr(self, 'done') and not self.done(): return False
+    def _settings_value(self):
         font = self.widget.get_font_name()
-        self.prefs.settings[self._get_name()] = font
-        return True
+        return font
+
 
 class ComboPrefsItem(PrefsItem):
     """
@@ -337,11 +333,8 @@ class ComboPrefsItem(PrefsItem):
             iter = model.iter_next(iter)
             if not iter: break
 
-    def apply(self):
-        if hasattr(self, 'done') and not self.done(): return False
-
+    def _settings_value(self):
         if self.use_index:
-            self.prefs.settings[self._get_name()] = self.widget.get_active()
+            return self.widget.get_active()
         else:
-            self.prefs.settings[self._get_name()] = self.widget.get_active_text()
-        return True
+            return self.widget.get_active_text()

@@ -12,21 +12,23 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-# Provides a signals-like system for sending and listening for 'events'
-#
-#
-# Events are kind of like signals, except they may be listened for on a 
-# global scale, rather than connected on a per-object basis like signals 
-# are. This means that ANY object can emit ANY event, and these events may 
-# be listened for by ANY object. Events may be emitted either syncronously 
-# or asyncronously, the default is asyncronous.
-#
-# The events module also provides an idle_add() function similar to that of
-# gobject's. However this should not be used for long-running tasks as they
-# may block other events queued via idle_add().
-#
-# Events should be emitted AFTER the given event has taken place. Often the
-# most appropriate spot is immediately before a return statement.
+"""
+Provides a signals-like system for sending and listening for 'events'
+
+
+Events are kind of like signals, except they may be listened for on a 
+global scale, rather than connected on a per-object basis like signals 
+are. This means that ANY object can emit ANY event, and these events may 
+be listened for by ANY object. Events may be emitted either syncronously 
+or asyncronously, the default is asyncronous.
+
+The events module also provides an idle_add() function similar to that of
+gobject's. However this should not be used for long-running tasks as they
+may block other events queued via idle_add().
+
+Events should be emitted AFTER the given event has taken place. Often the
+most appropriate spot is immediately before a return statement.
+"""
 
 from xl.nls import gettext as _
 import threading, time, logging, traceback

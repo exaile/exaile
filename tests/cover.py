@@ -2,11 +2,13 @@ from tests.base import BaseTestCase
 from xl import cover
 import time, hashlib, os, re
 
+import xl.settings
+print xl.settings.SETTINGSMANAGER.loc
+
 class CoverBaseTestCase(BaseTestCase):
     def setUp(self):
         BaseTestCase.setUp(self)
-        self.cm = cover.CoverManager(self.settings,
-            cache_dir=".testtemp/exaile_cache%s" %
+        self.cm = cover.CoverManager(cache_dir=".testtemp/exaile_cache%s" %
             hashlib.md5(str(time.time())).hexdigest())
         self.cm.add_defaults()
 

@@ -157,7 +157,6 @@ class OrderListPrefsItem(PrefsItem):
         while not iter:
             items.append(self.model.get_value(iter, 0))
             iter = self.model.iter_next(iter)
-        self.prefs.settings[self._get_name()] = items
         self.items = items
         return items
 

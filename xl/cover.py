@@ -15,7 +15,8 @@
 from xl.nls import gettext as _
 import os.path, os
 import urllib, traceback
-from xl import common, providers, event, metadata, settings
+from xl import common, providers, event, metadata
+from settings import SETTINGSMANAGER
 import logging
 from copy import deepcopy
 logger = logging.getLogger(__name__)
@@ -197,10 +198,9 @@ class CoverManager(providers.ProviderHandler):
             @param cache_dir:  directory to save remotely downloaded art
         """
         providers.ProviderHandler.__init__(self, "covers")
-        self.settings = settings
         self.methods = {}
-        self.preferred_order = settings.get_option('covers/preferred_order',
-            [])
+        self.preferred_order = SETTINGSMANAGER.get_option(
+                'covers/preferred_order', [])
         self.add_defaults()
         self.cache_dir = cache_dir
         if not os.path.isdir(cache_dir):
@@ -245,7 +245,7 @@ class CoverManager(providers.ProviderHandler):
         if not type(order) in (list, tuple):
             raise AttributeError(_("order must be a list or tuple"))
         self.preferred_order = order
-        self.settings['covers/preferred_order'] = list(order)
+        SETTINGSMANAGER.set_option('covers/preferred_order', list(order))
 
     def on_new_provider(self, provider):
         """

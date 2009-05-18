@@ -246,8 +246,7 @@ class MainWindow(object):
         self._setup_widgets()
         self._setup_hotkeys()
         self._connect_events()
-        self.osd = osd.OSDWindow(SETTINGSMANAGER, self.cover,
-            self.covers, self.player)
+        self.osd = osd.OSDWindow(self.cover, self.covers, self.player)
         self.tab_manager = xl.playlist.PlaylistManager(
             'saved_tabs')
         self.load_saved_tabs()

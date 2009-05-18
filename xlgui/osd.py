@@ -17,6 +17,7 @@ from xl import xdg, common, metadata
 from xl.nls import gettext as _
 from xlgui import guiutil, cover
 from xlgui.main import PlaybackProgressBar
+from xl.settings import SETTINGSMANAGER
 
 class CoverWidget(guiutil.ScalableImageWidget):
     def __init__(self):
@@ -32,13 +33,14 @@ class OSDWindow(object):
     """
         A popup window to show information on the current playing track
     """
-    def __init__(self, settings, cover=None, covers=None, 
+    def __init__(self, cover=None, covers=None, 
         player=None, draggable=False):
         """
             Initializes the popup
         """
+        import xl.settings
+        assert not isinstance(cover, xl.settings.SettingsManager)
         self.draggable = draggable
-        self.settings = settings
         self.player = player
         self.covers = covers
         self.cover = cover
@@ -56,22 +58,18 @@ class OSDWindow(object):
             self.cover.disconnect(self._cover_sig)
         self.window.destroy()
 
-    def setup_osd(self, settings=None):
-        if not settings:
-            settings = self.settings
-
+    def setup_osd(self):
         # if there are current progress widgets, destroy them to
         # remove unneeded signals
         if self.progress_widget:
             self.progress_widget.destroy()
 
-        self.settings = settings
         self.xml = gtk.glade.XML(xdg.get_data_path('glade/osd_window.glade'), 
             'OSDWindow', 'exaile')
         self.window = self.xml.get_widget('OSDWindow')
 
-        self.color = gtk.gdk.color_parse(settings.get_option('osd/bg_color',
-            '#567ea2'))
+        self.color = gtk.gdk.color_parse(
+                SETTINGSMANAGER.get_option('osd/bg_color', '#567ea2'))
         self.event = self.xml.get_widget('osd_event_box')
         self.box = self.xml.get_widget('image_box')
 
@@ -82,8 +80,8 @@ class OSDWindow(object):
             self._cover_sig = self.cover.connect('cover-found', 
                 self.cover_widget.cover_found)
         self.cover_widget.set_image_size(
-            settings.get_option('osd/h', 95) - 8,
-            settings.get_option('osd/h', 95) - 8)
+            SETTINGSMANAGER.get_option('osd/h', 95) - 8,
+            SETTINGSMANAGER.get_option('osd/h', 95) - 8)
 
         if self.player:
             self.progress_widget = PlaybackProgressBar(self.progress,
@@ -115,18 +113,19 @@ class OSDWindow(object):
             
         self.title = self.xml.get_widget('osd_title_label')
         text = "<span font_desc='%s' foreground='%s'>%s</span>" % \
-            (self.settings.get_option('osd/text_font', 'Sans 11'),
-            self.settings.get_option('osd/text_color', '#ffffff'),
-            self.settings.get_option('osd/display_text', 
+            (SETTINGSMANAGER.get_option('osd/text_font', 'Sans 11'),
+            SETTINGSMANAGER.get_option('osd/text_color', '#ffffff'),
+            SETTINGSMANAGER.get_option('osd/display_text', 
                 "<b>{title}</b>\n{artist}\non {album} - {length}"))
         self.title.set_markup(text)
         self.text = text
 
         self.window.set_size_request(
-            settings.get_option('osd/w', 400), 
-            settings.get_option('osd/h', 95))
-        self.window.move(settings.get_option('osd/x', 0), 
-            settings.get_option('osd/y', 0))
+            SETTINGSMANAGER.get_option('osd/w', 400), 
+            SETTINGSMANAGER.get_option('osd/h', 95))
+        self.window.move(
+            SETTINGSMANAGER.get_option('osd/x', 0), 
+            SETTINGSMANAGER.get_option('osd/y', 0))
 
         self.event.connect('button_press_event', self.start_dragging)
         self.event.connect('button_release_event', self.stop_dragging)
@@ -140,7 +139,7 @@ class OSDWindow(object):
             event.area.width, event.area.height)
         cr.clip()
 
-        opacity = int(self.settings.get_option('osd/opacity', 75))
+        opacity = int(SETTINGSMANAGER.get_option('osd/opacity', 75))
         
         cr.set_source_rgba(self.color.red/65535.0, self.color.green/65535.0, 
                 self.color.blue/65535.0, opacity/100.0)
@@ -164,14 +163,14 @@ class OSDWindow(object):
         """
         if self._handler: self.window.disconnect(self._handler)
         self._handler = None
-        settings = self.settings
         (w, h) = self.window.get_size()
         (x, y) = self.window.get_position()
 
-        settings['osd/x'] = int(x)
-        settings['osd/y'] = int(y)
-        settings['osd/h'] = int(h)
-        settings['osd/w'] = int(w)
+        for key, val in (('osd/x', int(x)), 
+                            ('osd/y', int(y)),
+                            ('osd/h', int(h)),
+                            ('osd/w', int(w))):
+            SETTINGSMANAGER.set_option(key, val)
     
     def dragging(self, widget, event):
         """
@@ -205,8 +204,8 @@ class OSDWindow(object):
             text = text.replace("\\}", "}")
 
             text = "<span font_desc='%s' foreground='%s'>%s</span>" % \
-                (self.settings.get_option('osd/text_font', 'Sans 11'),
-                self.settings.get_option('osd/text_color', '#ffffff'),
+                (SETTINGSMANAGER.get_option('osd/text_font', 'Sans 11'),
+                SETTINGSMANAGER.get_option('osd/text_color', '#ffffff'),
                     text)
             self.title.set_markup(text)
         self.window.show_all()
@@ -217,6 +216,6 @@ class OSDWindow(object):
             self._timeout = gobject.timeout_add(timeout, self.hide)
 
     def hide_progress(self, *args):
-        if not self.settings.get_option('osd/show_progress', True):
+        if not SETTINGSMANAGER.get_option('osd/show_progress', True):
             self.progress.hide_all()
 

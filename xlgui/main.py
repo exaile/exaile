@@ -18,7 +18,8 @@ pygtk.require('2.0')
 pygst.require('0.10')
 import gst, logging
 import gtk, gtk.glade, gobject, pango, datetime
-from xl import xdg, event, track, settings, common
+from xl import xdg, event, track, common
+from xl.settings import SETTINGSMANAGER
 import xl.playlist
 from xlgui import playlist, cover, guiutil, commondialogs
 import xl.playlist, re, os, threading
@@ -227,7 +228,6 @@ class MainWindow(object):
         """
         from xlgui import osd
         self.controller = controller
-        self.settings = settings
         self.covers = covers
         self.collection =  collection
         self.player = player
@@ -246,7 +246,7 @@ class MainWindow(object):
         self._setup_widgets()
         self._setup_hotkeys()
         self._connect_events()
-        self.osd = osd.OSDWindow(self.settings, self.cover,
+        self.osd = osd.OSDWindow(SETTINGSMANAGER, self.cover,
             self.covers, self.player)
         self.tab_manager = xl.playlist.PlaylistManager(
             'saved_tabs')
@@ -256,7 +256,7 @@ class MainWindow(object):
         """
             Loads the saved tabs
         """
-        if not self.settings.get_option('playlist/open_last', True):
+        if not SETTINGSMANAGER.get_option('playlist/open_last', False):
             self.add_playlist()
             return
         names = self.tab_manager.list_playlists()
@@ -362,14 +362,14 @@ class MainWindow(object):
         """
         self.xml.get_widget('volume_slider').set_value(self.player.get_volume())
         self.shuffle_toggle = self.xml.get_widget('shuffle_button')
-        self.shuffle_toggle.set_active(self.settings.get_option('playback/shuffle',
-            False))
+        self.shuffle_toggle.set_active(SETTINGSMANAGER.get_option(
+            'playback/shuffle', False))
         self.repeat_toggle = self.xml.get_widget('repeat_button')
-        self.repeat_toggle.set_active(self.settings.get_option('playback/repeat',
-            False))
+        self.repeat_toggle.set_active(SETTINGSMANAGER.get_option(
+            'playback/repeat', False))
         self.dynamic_toggle = self.xml.get_widget('dynamic_button')
-        self.dynamic_toggle.set_active(self.settings.get_option('playback/dynamic',
-            False))
+        self.dynamic_toggle.set_active(SETTINGSMANAGER.get_option(
+            'playback/dynamic', False))
 
         # cover box
         self.cover_event_box = self.xml.get_widget('cover_event_box')
@@ -425,7 +425,7 @@ class MainWindow(object):
             return
 
         rating = int(self.rating_combo.get_active())
-        steps = self.settings.get_option("miscellaneous/rating_steps", 5)
+        steps = SETTINGSMANAGER.get_option("miscellaneous/rating_steps", 5)
 
         track['rating'] = float((100.0*rating)/steps)
 
@@ -458,7 +458,7 @@ class MainWindow(object):
             pl.search(self.filter.get_text())
 
     def on_volume_changed(self, range):
-        self.settings.set_option('player/volume', range.get_value())
+        SETTINGSMANAGER.set_option('player/volume', range.get_value())
         self.player.set_volume(range.get_value())
 
     def on_stop_buttonpress(self, widget, event):
@@ -636,11 +636,11 @@ class MainWindow(object):
         """
             Called when the user clicks one of the playback mode buttons
         """
-        self.settings.set_option('playback/shuffle', 
+        SETTINGSMANAGER.set_option('playback/shuffle', 
                 self.shuffle_toggle.get_active())
-        self.settings.set_option('playback/repeat', 
+        SETTINGSMANAGER.set_option('playback/repeat', 
                 self.repeat_toggle.get_active())
-        self.settings.set_option('playback/dynamic', 
+        SETTINGSMANAGER.set_option('playback/dynamic', 
                 self.dynamic_toggle.get_active())
 
         pl = self.get_selected_playlist()
@@ -659,7 +659,7 @@ class MainWindow(object):
         if player.current in pl.playlist.ordered_tracks:
             path = (pl.playlist.index(player.current),)
         
-            if self.settings.get_option('gui/ensure_visible', True):
+            if SETTINGSMANAGER.get_option('gui/ensure_visible', True):
                 pl.list.scroll_to_cell(path)
 
             gobject.idle_add(pl.list.set_cursor, path)
@@ -672,10 +672,10 @@ class MainWindow(object):
 
         self.rating_combo.set_sensitive(True)
         self.update_rating_combo()
-        if self.settings.get_option('playback/dynamic', False):
+        if SETTINGSMANAGER.get_option('playback/dynamic', False):
             self._get_dynamic_tracks()
 
-        if self.settings.get_option('osd/enabled', True):
+        if SETTINGSMANAGER.get_option('osd/enabled', True):
             self.osd.show(self.player.current)
 
     @guiutil.gtkrun
@@ -825,18 +825,18 @@ class MainWindow(object):
             Sets up the position and sized based on the size the window was
             when it was last moved or resized
         """
-        if self.settings.get_option('gui/mainw_maximized', False):
+        if SETTINGSMANAGER.get_option('gui/mainw_maximized', False):
             self.window.maximize()
             
-        width = self.settings.get_option('gui/mainw_width', 500)
-        height = self.settings.get_option('gui/mainw_height', 475)
-        x = self.settings.get_option('gui/mainw_x', 10)
-        y = self.settings.get_option('gui/mainw_y', 10)
+        width = SETTINGSMANAGER.get_option('gui/mainw_width', 500)
+        height = SETTINGSMANAGER.get_option('gui/mainw_height', 475)
+        x = SETTINGSMANAGER.get_option('gui/mainw_x', 10)
+        y = SETTINGSMANAGER.get_option('gui/mainw_y', 10)
 
         self.window.move(x, y)
         self.window.resize(width, height)
 
-        pos = self.settings.get_option('gui/mainw_sash_pos', 200)
+        pos = SETTINGSMANAGER.get_option('gui/mainw_sash_pos', 200)
         self.splitter.set_position(pos)
 
     def delete_event(self, *e):
@@ -869,23 +869,24 @@ class MainWindow(object):
             Called when the window is resized or moved
         """
         # Don't save window size if it is maximized or fullscreen.
-        if self.settings.get_option('gui/mainw_maximized', False) or \
+        if SETTINGSMANAGER.get_option('gui/mainw_maximized', False) or \
                 self._fullscreen:
             return False
 
         (width, height) = self.window.get_size()
-        if [width, height] != [ settings.get_option("gui/mainw_"+key, -1) for \
+        if [width, height] != [ SETTINGSMANAGER.get_option("gui/mainw_"+key, -1) for \
                 key in ["width", "height"] ]:
-            self.settings.set_option('gui/mainw_height', height)
-            self.settings.set_option('gui/mainw_width', width)
+            SETTINGSMANAGER.set_option('gui/mainw_height', height)
+            SETTINGSMANAGER.set_option('gui/mainw_width', width)
         (x, y) = self.window.get_position()
-        if [x, y] != [ settings.get_option("gui/mainw_"+key, -1) for \
+        if [x, y] != [ SETTINGSMANAGER.get_option("gui/mainw_"+key, -1) for \
                 key in ["x", "y"] ]:
-            self.settings.set_option('gui/mainw_x', x)
-            self.settings.set_option('gui/mainw_y', y)
+            SETTINGSMANAGER.set_option('gui/mainw_x', x)
+            SETTINGSMANAGER.set_option('gui/mainw_y', y)
         pos = self.splitter.get_position()
-        if pos > 10 and pos != self.settings.get_option("gui/mainw_sash_pos", -1):
-            self.settings.set_option('gui/mainw_sash_pos', pos)
+        if pos > 10 and pos != SETTINGSMANAGER.get_option(
+                "gui/mainw_sash_pos", -1):
+            SETTINGSMANAGER.set_option('gui/mainw_sash_pos', pos)
 
         return False
 
@@ -894,7 +895,7 @@ class MainWindow(object):
             Saves the current maximized and fullscreen states
         """
         if event.changed_mask & gtk.gdk.WINDOW_STATE_MAXIMIZED:
-            self.settings.set_option('gui/mainw_maximized',
+            SETTINGSMANAGER.set_option('gui/mainw_maximized',
                 bool(event.new_window_state & gtk.gdk.WINDOW_STATE_MAXIMIZED))
         if event.changed_mask & gtk.gdk.WINDOW_STATE_FULLSCREEN:
             self._fullscreen = bool(event.new_window_state & gtk.gdk.WINDOW_STATE_FULLSCREEN)

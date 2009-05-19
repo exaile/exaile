@@ -1,6 +1,6 @@
 from tests.base import BaseTestCase
 import unittest, time
-from xl import collection, settings
+from xl import collection
 
 class CollectionTestCase(BaseTestCase):
     def testCount(self):

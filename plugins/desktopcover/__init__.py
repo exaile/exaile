@@ -18,7 +18,7 @@
 import gobject, gtk
 from xl import event
 from xl.nls import gettext as _
-from xl.settings import SettingsManager
+from xl import settings
 
 
 timeout_add_seconds = getattr(gobject, 'timeout_add_seconds', None) \
@@ -311,7 +311,6 @@ SETTINGS_PREFIX = 'plugin/desktopcover/'
 cover_display = None
 cover_connection = None
 cover_widget = None
-settings = SettingsManager.settings
 
 def enable(exaile):
     if exaile.loading:
@@ -332,15 +331,22 @@ def _enable(eventname, exaile, nothing):
     cover_widget = exaile.gui.main.cover
 
     cover_display = CoverDisplay()
-    cover_display.set_keep_center(settings.get_option(SETTINGS_PREFIX + 'keep_center', True))
+    cover_display.set_keep_center(settings.get_option(
+        SETTINGS_PREFIX + 'keep_center', True))
     gravity = settings.get_option(SETTINGS_PREFIX + 'gravity', 0)
     cover_display.set_gravity(GRAVITIES[gravity][1])
-    x = settings.get_option(SETTINGS_PREFIX + 'x', cover_display.DEFAULT_X)
-    y = settings.get_option(SETTINGS_PREFIX + 'y', cover_display.DEFAULT_Y)
+    x = settings.get_option(SETTINGS_PREFIX + 'x',
+            cover_display.DEFAULT_X)
+    y = settings.get_option(SETTINGS_PREFIX + 'y',
+            cover_display.DEFAULT_Y)
     cover_display.set_position(x, y)
-    cover_display.set_use_image_size(settings.get_option(SETTINGS_PREFIX + 'use_image_size', True))
-    width = settings.get_option(SETTINGS_PREFIX + 'width', cover_display.DEFAULT_WIDTH)
-    height = settings.get_option(SETTINGS_PREFIX + 'height', cover_display.DEFAULT_HEIGHT)
+    cover_display.set_use_image_size(
+            settings.get_option(SETTINGS_PREFIX + 'use_image_size',
+                True))
+    width = settings.get_option(SETTINGS_PREFIX + 'width',
+            cover_display.DEFAULT_WIDTH)
+    height = settings.get_option(SETTINGS_PREFIX + 'height',
+            cover_display.DEFAULT_HEIGHT)
     cover_display.set_size(width, height)
 
     player = exaile.player

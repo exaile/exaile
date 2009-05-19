@@ -3,8 +3,7 @@ from gettext import gettext as _
 from xl import player
 from xl.plugins import PluginsManager
 import acprefs
-from xl.settings import SettingsManager
-settings = SettingsManager.settings
+from xl import settings
 ALARM=None
 RANG = dict()
 
@@ -66,11 +65,17 @@ class VolumeControl:
         self.thread.exit()
 
     def load_settings( self ):
-        self.use_fading     = settings.get_option("plugin/alarmclock/alarm_use_fading", default="False")
-        self.min_volume     = int(settings.get_option("plugin/alarmclock/alarm_min_volume", default=0))
-        self.max_volume     = int(settings.get_option("plugin/alarmclock/alarm_max_volume", default=100))
-        self.increment      = int(settings.get_option("plugin/alarmclock/alarm_increment", default=1))
-        self.time_per_inc   = int(settings.get_option("plugin/alarmclock/alarm_time_per_inc", default=1))
+        prefix = "plugin/alarmclock/"
+        # Setting name, property to save to, default value
+        settings = (('alarm_use_fading', 'use_fading', False),
+                ('alarm_min_volume', 'min_volume', 0),
+                ('alarm_max_volume', 'max_volume', 100),
+                ('alarm_increment', 'increment', 1),
+                ('alarm_time_per_inc', 'time_per_inc', 1),
+                )
+        for name, prop, default in settings:
+            setattr(self, prop,
+                    settings.get_option(prefix + name, default))
 
 
 class Alarmclock(object):

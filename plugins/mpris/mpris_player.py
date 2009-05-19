@@ -21,6 +21,8 @@ http://wiki.xmms2.xmms.se/wiki/MPRIS#.2FPlayer_object_methods
 
 from __future__ import division
 
+from xl import settings
+
 import dbus
 import dbus.service
 
@@ -171,14 +173,14 @@ class ExaileMprisPlayer(dbus.service.Object):
         if volume < 0 or volume > 100:
             pass
 
-        self.exaile.settings['player/volume'] = volume / 100
+        settings.set_option('player/volume', volume / 100)
 
     @dbus.service.method(INTERFACE_NAME, out_signature="i")
     def VolumeGet(self):
         """
             Returns the current volume (must be in [0;100])
         """
-        return self.exaile.settings['player/volume'] * 100
+        return settings.get_option('player/volume', 0) * 100
 
     @dbus.service.method(INTERFACE_NAME, in_signature="i")
     def PositionSet(self, millisec):

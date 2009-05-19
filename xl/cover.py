@@ -198,8 +198,8 @@ class CoverManager(providers.ProviderHandler):
         """
         providers.ProviderHandler.__init__(self, "covers")
         self.methods = {}
-        self.preferred_order = settings.get_option('covers/preferred_order',
-            [])
+        self.preferred_order = settings.get_option(
+                'covers/preferred_order', [])
         self.add_defaults()
         self.cache_dir = cache_dir
         if not os.path.isdir(cache_dir):
@@ -394,8 +394,8 @@ class CoverManager(providers.ProviderHandler):
                     c = method.find_covers(track, limit)
                 else:
                     if not hasattr(method, 'search_covers'):
-                        logger.info("%s method doesn't "
-                            "support searching, skipping" % method.name)
+                        logger.info(_("%s method doesn't "
+                            "support searching, skipping") % method.name)
                         continue
                     c = method.search_covers(track, limit)
 

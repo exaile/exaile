@@ -463,7 +463,7 @@ class Library(object):
             album = metadata.j(tr['album'])
             artist = metadata.j(tr['artist'])
         except UnicodeDecodeError: #TODO: figure out why this happens
-            logger.warning("Encoding error, skipping compilation check")
+            logger.warning(_("Encoding error, skipping compilation check"))
             return
         if not basedir or not album or not artist: return
         album = album.lower()

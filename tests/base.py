@@ -9,7 +9,7 @@ gettext.install("exaile")
 
 
 from xl import settings
-settings.SettingsManager('.testtemp/test_exaile_settings.ini')
+settings.SETTINGSMANAGER = settings.SettingsManager('.testtemp/test_exaile_settings.ini')
 import logging
 from xl import collection, event, common, xdg
 import unittest, hashlib, time, imp, os

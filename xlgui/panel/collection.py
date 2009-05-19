@@ -14,7 +14,8 @@
 
 from xl.nls import gettext as _
 import gtk, gobject, urllib
-from xl import xdg, common, track, trackdb, settings
+from xl import xdg, common, track, trackdb
+from xl import settings
 from xlgui import panel, guiutil, menu, playlist
 
 TRACK_NUM = 300
@@ -42,8 +43,7 @@ class CollectionPanel(panel.Panel):
         self.rating_images = playlist.create_rating_images(64)
 
         self.collection = collection
-        self.settings = settings
-        self.use_alphabet = self.settings.get_option('gui/use_alphabet', True)
+        self.use_alphabet = settings.get_option('gui/use_alphabet', True)
         self.filter = self.xml.get_widget('collection_search_entry')
         self.choice = self.xml.get_widget('collection_combo_box')
 
@@ -62,7 +62,7 @@ class CollectionPanel(panel.Panel):
             Sets up the various widgets to be used in this panel
         """
         self.choice = self.xml.get_widget('collection_combo_box')
-        active = self.settings.get_option('gui/collection_active_view', 0)
+        active = settings.get_option('gui/collection_active_view', 0)
         self.choice.set_active(active)
 
         box = self.xml.get_widget('collection_search_box')
@@ -280,7 +280,8 @@ class CollectionPanel(panel.Panel):
         self.order = self.orders[self.choice.get_active()]
 
         # save the active view setting
-        self.settings.set_option('gui/collection_active_view', 
+        settings.set_option(
+                'gui/collection_active_view', 
                 self.choice.get_active())
 
         self.load_subtree(None)
@@ -326,7 +327,7 @@ class CollectionPanel(panel.Panel):
 
         unknown_items = []
 
-        draw_seps = self.settings.get_option('gui/draw_separators', True)
+        draw_seps = settings.get_option('gui/draw_separators', True)
         last_char = ''
         first = True
         for v in values:

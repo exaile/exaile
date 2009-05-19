@@ -21,6 +21,7 @@ import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade
 from xl import xdg
+from xl.settings import _SETTINGSMANAGER
 from xlgui.prefs.widgets import *
 from xlgui.prefs import general_prefs, osd_prefs, cover_prefs, playback_prefs
 import logging, traceback, gobject
@@ -42,7 +43,7 @@ class PreferencesDialog(object):
         self.last_child = None
         self.last_page = None
         self.parent = parent
-        self.settings = self.main.exaile.settings.clone()
+        self.settings = _SETTINGSMANAGER.clone()
         self.plugins = self.main.exaile.plugins.list_installed_plugins()
         self.fields = {} 
         self.panes = {}
@@ -152,7 +153,7 @@ class PreferencesDialog(object):
             if hasattr(k, 'apply'):
                 k.apply(self)
 
-        self.settings.copy_settings(self.main.exaile.settings)
+        self.settings.copy_settings(_SETTINGSMANAGER)
 
         return True
 

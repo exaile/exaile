@@ -407,7 +407,7 @@ class Exaile(object):
                 os.path.join(xdg.get_data_dirs()[0], 'queue.state') )
         self.player.stop()
 
-        settings.SETTINGSMANAGER.save()
+        settings._SETTINGSMANAGER.save()
 
         logger.info(_("Bye!"))
         logging.shutdown()

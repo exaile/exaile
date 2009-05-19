@@ -34,7 +34,7 @@ TYPE_MAPPING = {
         'U': unicode
         }
 
-SETTINGSMANAGER = None
+_SETTINGSMANAGER = None
 
 class SettingsManager(RawConfigParser):
     """
@@ -45,6 +45,9 @@ class SettingsManager(RawConfigParser):
         """
             Sets up the SettingsManager. Expects a loc to a file
             where settings will be stored.
+
+            If loc is None, these settings will never be stored nor read from a
+            file
         """
         logger.info(_("Loading settings"))
         RawConfigParser.__init__(self)
@@ -52,10 +55,11 @@ class SettingsManager(RawConfigParser):
         self._saving = False
         self._dirty = False
 
-        try:
-            self.read(self.loc)
-        except:
-            pass
+        if loc is not None:
+            try:
+                self.read(self.loc)
+            except:
+                pass
 
         # save settings every 30 seconds
         event.timeout_add(30000, self._timeout_save)
@@ -77,7 +81,7 @@ class SettingsManager(RawConfigParser):
         """
             Creates a copy of this settings object
         """
-        settings = SettingsManager()
+        settings = SettingsManager(None)
         self.copy_settings(settings)
         return settings
 
@@ -163,6 +167,9 @@ class SettingsManager(RawConfigParser):
         """
             Save the settings to disk
         """
+        if self.loc is None:
+            logger.info("Save requested but :ot saving settings, loc is None")
+            return
         if self._saving or not self._dirty: return
         self._saving = True
         f = open(self.loc, 'w')
@@ -176,11 +183,11 @@ class SettingsManager(RawConfigParser):
         self._dirty = False
 
 
-SETTINGSMANAGER = SettingsManager( os.path.join(
+_SETTINGSMANAGER = SettingsManager( os.path.join(
     xdg.get_config_dir(), "settings.ini" ) )
 
-get_option = SETTINGSMANAGER.get_option
-set_option = SETTINGSMANAGER.set_option
+get_option = _SETTINGSMANAGER.get_option
+set_option = _SETTINGSMANAGER.set_option
 
 # vim: et sts=4 sw=4
 

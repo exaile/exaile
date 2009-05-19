@@ -198,8 +198,8 @@ class CoverManager(providers.ProviderHandler):
         """
         providers.ProviderHandler.__init__(self, "covers")
         self.methods = {}
-        self.preferred_order = settings.get_option('covers/preferred_order',
-            [])
+        self.preferred_order = settings.get_option(
+                'covers/preferred_order', [])
         self.add_defaults()
         self.cache_dir = cache_dir
         if not os.path.isdir(cache_dir):

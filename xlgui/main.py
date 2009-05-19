@@ -267,23 +267,36 @@ class MainWindow(object):
         count = -1
         count2 = 0
         names.sort()
+        # holds the order#'s of the already added tabs
+        added_tabs = {}
+        name_re = re.compile(
+                r'^order(?P<tab>\d+)\.((?P<tag>[^.]+)\.)?(?P<name>.*)$')
         for i, name in enumerate(names):
+            match = name_re.match(name)
+            assert match
+            assert match.group('tab')
+            assert match.group('name')
+
+            logger.debug("Adding playlist %d: %s" % (i, name))
+            logger.debug("Tab:%s; Tag:%s; Name:%s" % (match.group('tab'),
+                                                     match.group('tag'),
+                                                     match.group('name'),
+                                                     ))
             pl = self.tab_manager.get_playlist(name)
-            pl.name = re.sub(r'order\d\.', '', pl.name)
-            
-            if pl.name.startswith('current.'):
+            pl.name = match.group('name')
+
+            if match.group('tab') not in added_tabs:
+                pl = self.add_playlist(pl)
+                added_tabs[match.group('tab')] = pl
+            pl = added_tabs[match.group('tab')]
+
+            if match.group('tag') == 'current':
                 count = i
-                pl.name = pl.name[len('current.'):]
-                if self.queue.current_playlist == None:
-                    self.queue.set_current_playlist(
-                            self.add_playlist(pl).playlist )
-            elif pl.name.startswith('playing.'):
+                if self.queue.current_playlist is None:
+                    self.queue.set_current_playlist(pl.playlist)
+            elif match.group('tag') == 'playing':
                 count2 = i
-                pl.name = pl.name[len('playing.'):]
-                self.queue.set_current_playlist(
-                        self.add_playlist(pl).playlist )
-            else:
-                self.add_playlist(pl)
+                self.queue.set_current_playlist(pl.playlist)
 
         # If there's no selected playlist saved, use the currently 
         # playing
@@ -299,6 +312,7 @@ class MainWindow(object):
         # first, delete the current tabs
         names = self.tab_manager.list_playlists()
         for name in names:
+            logger.debug("Removing tab %s" % name)
             self.tab_manager.remove_playlist(name)
 
         for i in range(self.playlist_notebook.get_n_pages()):
@@ -309,6 +323,7 @@ class MainWindow(object):
             elif i == self.playlist_notebook.get_current_page():
                 tag = 'current.'
             pl.name = "order%d.%s%s" % (i, tag, pl.name)
+            logger.debug("Saving tab %d: %s" % (i, pl.name))
             self.tab_manager.save_playlist(pl, True)            
 
     def add_playlist(self, pl=None):

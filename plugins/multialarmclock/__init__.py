@@ -21,7 +21,7 @@ from __future__ import with_statement
 import gtk, time, gobject, thread, os
 from gettext import gettext as _        # Not sure how to apply this sort of thing to glade files...
 from xl import event, xdg
-from xl.settings import SETTINGSMANAGER
+from xl import settings
 #import xl.plugins as plugins
 #import xl.path as xlpath
 #import cPickle as pickle
@@ -104,27 +104,27 @@ class AlarmClock:
         
     def minvolume_changed(self, widget):
         self.min_volume = widget.get_value()
-        SETTINGSMANAGER.set_option('plugin/multialarmclock/fade_min_volume',
+        settings.set_option('plugin/multialarmclock/fade_min_volume',
                 self.min_volume)
         #SETTINGS.set_float("alarm_min_volume", self.min_volume, plugin=plugins.name(__file__))
 #        print 'AC: minvol change',self.min_volume,SETTINGS.get_float("alarm_min_volume", plugin=plugins.name(__file__))
 
     def maxvolume_changed(self, widget):
         self.max_volume = widget.get_value()        
-        SETTINGSMANAGER.set_option('plugin/multialarmclock/fade_max_volume',
+        settings.set_option('plugin/multialarmclock/fade_max_volume',
                 self.max_volume)
 #        print 'AC: maxvol change'
 
     def increment_changed(self, widget):
         self.increment = widget.get_value()
-        SETTINGSMANAGER.set_option('plugin/multialarmclock/fade_increment',
+        settings.set_option('plugin/multialarmclock/fade_increment',
                 self.increment)
         #SETTINGS.set_float("alarm_increment", self.increment, plugin=plugins.name(__file__))
 #        print 'AC: inc change'
 
     def time_changed(self, widget):
         self.time_per_inc = widget.get_value()
-        SETTINGSMANAGER.set_option('plugin/multialarmclock/fade_time_per_inc',
+        settings.set_option('plugin/multialarmclock/fade_time_per_inc',
                 self.time_per_inc)
         #SETTINGS.set_float("alarm_time_per_inc", self.time_per_inc, plugin=plugins.name(__file__))
 #        print 'AC: time change'
@@ -144,7 +144,7 @@ class AlarmClock:
         
     def fading_cb(self, widget):
         self.fading = widget.get_active()
-        SETTINGSMANAGER.set_option('plugin/multialarmclock/fading_on',
+        settings.set_option('plugin/multialarmclock/fading_on',
                 self.fading)
         #SETTINGS.set_boolean("alarm_fading", self.fading, plugin=plugins.name(__file__))
 #        print 'AC: fading ',self.fading
@@ -162,7 +162,7 @@ class AlarmClock:
         
     def restart_cb(self, widget):
         self.restart = widget.get_active()
-        SETTINGSMANAGER.set_option('plugin/multialarmclock/restart_playlist_on',
+        settings.set_option('plugin/multialarmclock/restart_playlist_on',
                 self.restart)
         #SETTINGS.set_boolean("alarm_restart", self.restart, plugin=plugins.name(__file__))
 #        print 'AC: restart: ',self.restart
@@ -257,17 +257,17 @@ class AlarmClock:
             
     def load_settings(self):
         print 'AC: load settings'
-        self.fading = SETTINGSMANAGER.get_option(
+        self.fading = settings.get_option(
                 'plugin/multialarmclock/fading_on', self.fading)
-        self.min_volume = SETTINGSMANAGER.get_option(
+        self.min_volume = settings.get_option(
                 'plugin/multialarmclock/fade_min_volume', self.min_volume)
-        self.max_volume = SETTINGSMANAGER.get_option(
+        self.max_volume = settings.get_option(
                 'plugin/multialarmclock/fade_max_volume', self.max_volume)
-        self.increment = SETTINGSMANAGER.get_option(
+        self.increment = settings.get_option(
                 'plugin/multialarmclock/fade_increment', self.increment)
-        self.time_per_inc = SETTINGSMANAGER.get_option(
+        self.time_per_inc = settings.get_option(
                 'plugin/multialarmclock/fade_time_per_inc', self.time_per_inc)
-        self.restart = SETTINGSMANAGER.get_option(
+        self.restart = settings.get_option(
                 'plugin/multialarmclock/restart_playlist_on', self.restart)
 
     def load_list(self):

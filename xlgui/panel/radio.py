@@ -17,7 +17,7 @@ from xlgui import panel, guiutil, commondialogs, menu
 from xlgui import playlist as guiplaylist
 import xlgui.panel.playlists as playlistpanel
 from xl import xdg, event, common
-from xl.settings import SETTINGSMANAGER
+from xl import settings
 import xl.radio
 import threading
 import xl.playlist
@@ -84,7 +84,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             _('Loading streams...'), None])
         self.tree.expand_row(self.model.get_path(self.radio_root), False)
 
-        if SETTINGSMANAGER.get_option('gui/radio/%s_station_expanded' % 
+        if settings.get_option('gui/radio/%s_station_expanded' % 
                 driver.name, False):
             self.tree.expand_row(self.model.get_path(node), False)
 
@@ -327,7 +327,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
     @staticmethod
     def set_station_expanded_value(station, value):
-        SETTINGSMANAGER.set_option(
+        settings.set_option(
                 'gui/radio/%s_station_expanded' % station,
                 True,
                 )

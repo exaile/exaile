@@ -17,7 +17,7 @@
 import subprocess, logging, os
 from xl import event, xdg
 from xl.nls import gettext as _
-from xl.settings import SETTINGSMANAGER
+from xl import settings
 import time, sys
 import srprefs
 
@@ -54,12 +54,12 @@ def toggle_record(widget=None, event=None):
                     'can only record streams.'))
             return True
 
-        savedir = SETTINGSMANAGER.get_option(
+        savedir = settings.get_option(
                     'plugin/streamripper/save_location', 
                     os.getenv('HOME'))
         
         try:
-            port = int(SETTINGSMANAGER.get_option(
+            port = int(settings.get_option(
                 'plugin/streamripper/relay_port', 8888))
         except ValueError:
             port = 8888

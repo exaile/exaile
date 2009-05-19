@@ -15,8 +15,7 @@
 from xl.nls import gettext as _
 import os.path, os
 import urllib, traceback
-from xl import common, providers, event, metadata
-from settings import SETTINGSMANAGER
+from xl import common, providers, event, metadata, settings
 import logging
 from copy import deepcopy
 logger = logging.getLogger(__name__)
@@ -199,7 +198,7 @@ class CoverManager(providers.ProviderHandler):
         """
         providers.ProviderHandler.__init__(self, "covers")
         self.methods = {}
-        self.preferred_order = SETTINGSMANAGER.get_option(
+        self.preferred_order = settings.get_option(
                 'covers/preferred_order', [])
         self.add_defaults()
         self.cache_dir = cache_dir
@@ -245,7 +244,7 @@ class CoverManager(providers.ProviderHandler):
         if not type(order) in (list, tuple):
             raise AttributeError(_("order must be a list or tuple"))
         self.preferred_order = order
-        SETTINGSMANAGER.set_option('covers/preferred_order', list(order))
+        settings.set_option('covers/preferred_order', list(order))
 
     def on_new_provider(self, provider):
         """

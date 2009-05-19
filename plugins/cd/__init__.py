@@ -11,7 +11,7 @@ PROVIDER = None
 import dbus, threading, os, struct
 from fcntl import ioctl
 from xl import playlist, track, common, transcoder
-from xl.settings import SETTINGSMANAGER
+from xl import settings
 
 try:
     import DiscID, CDDB
@@ -213,13 +213,13 @@ class CDImporter(object):
 
         self.running = False
 
-        self.outpath = SETTINGSMANAGER.get_option("cd_import/outpath", 
+        self.outpath = settings.get_option("cd_import/outpath", 
                 "%s/${artist}/${album}/${tracknumber} - ${title}" % \
                 os.getenv("HOME"))
 
-        self.format = SETTINGSMANAGER.get_option("cd_import/format",
+        self.format = settings.get_option("cd_import/format",
                                 "Ogg Vorbis")
-        self.quality = SETTINGSMANAGER.get_option("cd_import/quality", -1)
+        self.quality = settings.get_option("cd_import/quality", -1)
 
         self.cont = None
 

@@ -3,7 +3,7 @@ from gettext import gettext as _
 from xl import player
 from xl.plugins import PluginsManager
 import acprefs
-from xl.settings import SETTINGSMANAGER
+from xl import settings
 ALARM=None
 RANG = dict()
 
@@ -75,7 +75,7 @@ class VolumeControl:
                 )
         for name, prop, default in settings:
             setattr(self, prop,
-                    SETTINGSMANAGER.get_option(prefix + name, default))
+                    settings.get_option(prefix + name, default))
 
 
 class Alarmclock(object):

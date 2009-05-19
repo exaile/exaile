@@ -23,7 +23,7 @@ import logging, traceback
 import urlparse
 import urllib
 import urllib2
-from xl.settings import SETTINGSMANAGER
+from xl import settings
 logger = logging.getLogger(__name__)
 
 def is_valid_track(loc):
@@ -280,7 +280,7 @@ class Track(object):
         except ValueError:
             return 0
 
-        steps = SETTINGSMANAGER.get_option("miscellaneous/rating_steps", 5)
+        steps = settings.get_option("miscellaneous/rating_steps", 5)
         rating = int(rating*steps/100.0)
 
         if rating > steps: return int(steps)

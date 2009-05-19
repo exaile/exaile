@@ -16,7 +16,7 @@
 #Lyrics manager.
 #
 from xl import providers, event
-from xl.settings import SETTINGSMANAGER
+from xl import settings
 
 class LyricsNotFoundException(Exception):
     pass
@@ -31,7 +31,7 @@ class LyricsManager(providers.ProviderHandler):
     def __init__(self):
         providers.ProviderHandler.__init__(self, "lyrics")
         self.methods = {}
-        self.preferred_order = SETTINGSMANAGER.get_option(
+        self.preferred_order = settings.get_option(
                 'lyrics/preferred_order', [])
         self.add_defaults()
         
@@ -72,7 +72,7 @@ class LyricsManager(providers.ProviderHandler):
         if not type(order) in (list, tuple):
             raise AttributeError(_("order must be a list or tuple"))
         self.preferred_order = order
-        SETTINGSMANAGER.set_option('lyrics/preferred_order', list(order))
+        settings.set_option('lyrics/preferred_order', list(order))
 
     def on_new_provider(self, provider):
         """

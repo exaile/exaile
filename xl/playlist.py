@@ -744,7 +744,7 @@ class Playlist(object):
         f.write("EOF\n")
         for item in self.extra_save_items:
             val = getattr(self, item)
-            strn = settings.SETTINGSMANAGER._val_to_str(val)
+            strn = settings._SETTINGSMANAGER._val_to_str(val)
             f.write("%s=%s\n"%(item,strn))
         f.close()
         if os.path.exists(location + ".new"):
@@ -771,7 +771,7 @@ class Playlist(object):
             if line == "":
                 break
             item, strn = line[:-1].split("=",1)
-            val = settings.SETTINGSMANAGER._str_to_val(strn)
+            val = settings._SETTINGSMANAGER._str_to_val(strn)
             if hasattr(self, item):
                 setattr(self, item, val)
         f.close()

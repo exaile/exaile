@@ -34,7 +34,7 @@ TYPE_MAPPING = {
         'U': unicode
         }
 
-SETTINGSMANAGER = None
+_SETTINGSMANAGER = None
 
 class SettingsManager(RawConfigParser):
     """
@@ -183,11 +183,11 @@ class SettingsManager(RawConfigParser):
         self._dirty = False
 
 
-SETTINGSMANAGER = SettingsManager( os.path.join(
+_SETTINGSMANAGER = SettingsManager( os.path.join(
     xdg.get_config_dir(), "settings.ini" ) )
 
-get_option = SETTINGSMANAGER.get_option
-set_option = SETTINGSMANAGER.set_option
+get_option = _SETTINGSMANAGER.get_option
+set_option = _SETTINGSMANAGER.set_option
 
 # vim: et sts=4 sw=4
 

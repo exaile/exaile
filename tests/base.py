@@ -9,7 +9,8 @@ gettext.install("exaile")
 
 
 from xl import settings
-settings.SettingsManager('.testtemp/test_exaile_settings.ini')
+settings._SETTINGSMANAGER = \
+        settings.SettingsManager('.testtemp/test_exaile_settings.ini')
 import logging
 from xl import collection, event, common, xdg
 import unittest, hashlib, time, imp, os
@@ -22,7 +23,6 @@ class BaseTestCase(unittest.TestCase):
         gettext.install("exaile")
         self.loading = False
         self.setup_logging()
-        self.settings = settings.SettingsManager('.testtemp/test_exaile_settings.ini')
         self.temp_col_loc = '.testtemp/col%s.db' % \
             hashlib.md5(str(time.time())).hexdigest()
         self.collection = collection.Collection("TestCollection", 

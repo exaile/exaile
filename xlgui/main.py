@@ -18,7 +18,8 @@ pygtk.require('2.0')
 pygst.require('0.10')
 import gst, logging
 import gtk, gtk.glade, gobject, pango, datetime
-from xl import xdg, event, track, settings, common
+from xl import xdg, event, track, common
+from xl import settings
 import xl.playlist
 from xlgui import playlist, cover, guiutil, commondialogs
 import xl.playlist, re, os, threading
@@ -227,7 +228,6 @@ class MainWindow(object):
         """
         from xlgui import osd
         self.controller = controller
-        self.settings = settings
         self.covers = covers
         self.collection =  collection
         self.player = player
@@ -246,8 +246,7 @@ class MainWindow(object):
         self._setup_widgets()
         self._setup_hotkeys()
         self._connect_events()
-        self.osd = osd.OSDWindow(self.settings, self.cover,
-            self.covers, self.player)
+        self.osd = osd.OSDWindow(self.cover, self.covers, self.player)
         self.tab_manager = xl.playlist.PlaylistManager(
             'saved_tabs')
         self.load_saved_tabs()
@@ -256,7 +255,7 @@ class MainWindow(object):
         """
             Loads the saved tabs
         """
-        if not self.settings.get_option('playlist/open_last', True):
+        if not settings.get_option('playlist/open_last', False):
             self.add_playlist()
             return
         names = self.tab_manager.list_playlists()
@@ -267,23 +266,36 @@ class MainWindow(object):
         count = -1
         count2 = 0
         names.sort()
+        # holds the order#'s of the already added tabs
+        added_tabs = {}
+        name_re = re.compile(
+                r'^order(?P<tab>\d+)\.((?P<tag>[^.]+)\.)?(?P<name>.*)$')
         for i, name in enumerate(names):
+            match = name_re.match(name)
+            assert match
+            assert match.group('tab')
+            assert match.group('name')
+
+            logger.debug("Adding playlist %d: %s" % (i, name))
+            logger.debug("Tab:%s; Tag:%s; Name:%s" % (match.group('tab'),
+                                                     match.group('tag'),
+                                                     match.group('name'),
+                                                     ))
             pl = self.tab_manager.get_playlist(name)
-            pl.name = re.sub(r'order\d\.', '', pl.name)
-            
-            if pl.name.startswith('current.'):
+            pl.name = match.group('name')
+
+            if match.group('tab') not in added_tabs:
+                pl = self.add_playlist(pl)
+                added_tabs[match.group('tab')] = pl
+            pl = added_tabs[match.group('tab')]
+
+            if match.group('tag') == 'current':
                 count = i
-                pl.name = pl.name[len('current.'):]
-                if self.queue.current_playlist == None:
-                    self.queue.set_current_playlist(
-                            self.add_playlist(pl).playlist )
-            elif pl.name.startswith('playing.'):
+                if self.queue.current_playlist is None:
+                    self.queue.set_current_playlist(pl.playlist)
+            elif match.group('tag') == 'playing':
                 count2 = i
-                pl.name = pl.name[len('playing.'):]
-                self.queue.set_current_playlist(
-                        self.add_playlist(pl).playlist )
-            else:
-                self.add_playlist(pl)
+                self.queue.set_current_playlist(pl.playlist)
 
         # If there's no selected playlist saved, use the currently 
         # playing
@@ -299,6 +311,7 @@ class MainWindow(object):
         # first, delete the current tabs
         names = self.tab_manager.list_playlists()
         for name in names:
+            logger.debug("Removing tab %s" % name)
             self.tab_manager.remove_playlist(name)
 
         for i in range(self.playlist_notebook.get_n_pages()):
@@ -309,6 +322,7 @@ class MainWindow(object):
             elif i == self.playlist_notebook.get_current_page():
                 tag = 'current.'
             pl.name = "order%d.%s%s" % (i, tag, pl.name)
+            logger.debug("Saving tab %d: %s" % (i, pl.name))
             self.tab_manager.save_playlist(pl, True)            
 
     def add_playlist(self, pl=None):
@@ -362,14 +376,14 @@ class MainWindow(object):
         """
         self.xml.get_widget('volume_slider').set_value(self.player.get_volume())
         self.shuffle_toggle = self.xml.get_widget('shuffle_button')
-        self.shuffle_toggle.set_active(self.settings.get_option('playback/shuffle',
-            False))
+        self.shuffle_toggle.set_active(settings.get_option(
+            'playback/shuffle', False))
         self.repeat_toggle = self.xml.get_widget('repeat_button')
-        self.repeat_toggle.set_active(self.settings.get_option('playback/repeat',
-            False))
+        self.repeat_toggle.set_active(settings.get_option(
+            'playback/repeat', False))
         self.dynamic_toggle = self.xml.get_widget('dynamic_button')
-        self.dynamic_toggle.set_active(self.settings.get_option('playback/dynamic',
-            False))
+        self.dynamic_toggle.set_active(settings.get_option(
+            'playback/dynamic', False))
 
         # cover box
         self.cover_event_box = self.xml.get_widget('cover_event_box')
@@ -425,7 +439,7 @@ class MainWindow(object):
             return
 
         rating = int(self.rating_combo.get_active())
-        steps = self.settings.get_option("miscellaneous/rating_steps", 5)
+        steps = settings.get_option("miscellaneous/rating_steps", 5)
 
         track['rating'] = float((100.0*rating)/steps)
 
@@ -458,7 +472,7 @@ class MainWindow(object):
             pl.search(self.filter.get_text())
 
     def on_volume_changed(self, range):
-        self.settings.set_option('player/volume', range.get_value())
+        settings.set_option('player/volume', range.get_value())
         self.player.set_volume(range.get_value())
 
     def on_stop_buttonpress(self, widget, event):
@@ -636,11 +650,11 @@ class MainWindow(object):
         """
             Called when the user clicks one of the playback mode buttons
         """
-        self.settings.set_option('playback/shuffle', 
+        settings.set_option('playback/shuffle', 
                 self.shuffle_toggle.get_active())
-        self.settings.set_option('playback/repeat', 
+        settings.set_option('playback/repeat', 
                 self.repeat_toggle.get_active())
-        self.settings.set_option('playback/dynamic', 
+        settings.set_option('playback/dynamic', 
                 self.dynamic_toggle.get_active())
 
         pl = self.get_selected_playlist()
@@ -659,7 +673,7 @@ class MainWindow(object):
         if player.current in pl.playlist.ordered_tracks:
             path = (pl.playlist.index(player.current),)
         
-            if self.settings.get_option('gui/ensure_visible', True):
+            if settings.get_option('gui/ensure_visible', True):
                 pl.list.scroll_to_cell(path)
 
             gobject.idle_add(pl.list.set_cursor, path)
@@ -672,10 +686,10 @@ class MainWindow(object):
 
         self.rating_combo.set_sensitive(True)
         self.update_rating_combo()
-        if self.settings.get_option('playback/dynamic', False):
+        if settings.get_option('playback/dynamic', False):
             self._get_dynamic_tracks()
 
-        if self.settings.get_option('osd/enabled', True):
+        if settings.get_option('osd/enabled', True):
             self.osd.show(self.player.current)
 
     @guiutil.gtkrun
@@ -825,18 +839,18 @@ class MainWindow(object):
             Sets up the position and sized based on the size the window was
             when it was last moved or resized
         """
-        if self.settings.get_option('gui/mainw_maximized', False):
+        if settings.get_option('gui/mainw_maximized', False):
             self.window.maximize()
             
-        width = self.settings.get_option('gui/mainw_width', 500)
-        height = self.settings.get_option('gui/mainw_height', 475)
-        x = self.settings.get_option('gui/mainw_x', 10)
-        y = self.settings.get_option('gui/mainw_y', 10)
+        width = settings.get_option('gui/mainw_width', 500)
+        height = settings.get_option('gui/mainw_height', 475)
+        x = settings.get_option('gui/mainw_x', 10)
+        y = settings.get_option('gui/mainw_y', 10)
 
         self.window.move(x, y)
         self.window.resize(width, height)
 
-        pos = self.settings.get_option('gui/mainw_sash_pos', 200)
+        pos = settings.get_option('gui/mainw_sash_pos', 200)
         self.splitter.set_position(pos)
 
     def delete_event(self, *e):
@@ -869,23 +883,24 @@ class MainWindow(object):
             Called when the window is resized or moved
         """
         # Don't save window size if it is maximized or fullscreen.
-        if self.settings.get_option('gui/mainw_maximized', False) or \
+        if settings.get_option('gui/mainw_maximized', False) or \
                 self._fullscreen:
             return False
 
         (width, height) = self.window.get_size()
         if [width, height] != [ settings.get_option("gui/mainw_"+key, -1) for \
                 key in ["width", "height"] ]:
-            self.settings.set_option('gui/mainw_height', height)
-            self.settings.set_option('gui/mainw_width', width)
+            settings.set_option('gui/mainw_height', height)
+            settings.set_option('gui/mainw_width', width)
         (x, y) = self.window.get_position()
         if [x, y] != [ settings.get_option("gui/mainw_"+key, -1) for \
                 key in ["x", "y"] ]:
-            self.settings.set_option('gui/mainw_x', x)
-            self.settings.set_option('gui/mainw_y', y)
+            settings.set_option('gui/mainw_x', x)
+            settings.set_option('gui/mainw_y', y)
         pos = self.splitter.get_position()
-        if pos > 10 and pos != self.settings.get_option("gui/mainw_sash_pos", -1):
-            self.settings.set_option('gui/mainw_sash_pos', pos)
+        if pos > 10 and pos != settings.get_option(
+                "gui/mainw_sash_pos", -1):
+            settings.set_option('gui/mainw_sash_pos', pos)
 
         return False
 
@@ -894,7 +909,7 @@ class MainWindow(object):
             Saves the current maximized and fullscreen states
         """
         if event.changed_mask & gtk.gdk.WINDOW_STATE_MAXIMIZED:
-            self.settings.set_option('gui/mainw_maximized',
+            settings.set_option('gui/mainw_maximized',
                 bool(event.new_window_state & gtk.gdk.WINDOW_STATE_MAXIMIZED))
         if event.changed_mask & gtk.gdk.WINDOW_STATE_FULLSCREEN:
             self._fullscreen = bool(event.new_window_state & gtk.gdk.WINDOW_STATE_FULLSCREEN)

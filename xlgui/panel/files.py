@@ -14,7 +14,8 @@
 
 import gtk, gobject, os, locale, re
 import xl.track, urllib
-from xl import common, trackdb, metadata, settings
+from xl import common, trackdb, metadata
+from xl import settings
 from xlgui import panel, guiutil, xdg, menu, playlist
 from xl.nls import gettext as _
 locale.setlocale(locale.LC_ALL, '')
@@ -32,7 +33,6 @@ class FilesPanel(panel.Panel):
         """
         panel.Panel.__init__(self, controller)
         self.rating_images = playlist.create_rating_images(64)
-        self.settings = settings
         self.collection = collection
 
         self.box = self.xml.get_widget('files_box')
@@ -46,7 +46,7 @@ class FilesPanel(panel.Panel):
         self.key_id = None
         self.i = 0
 
-        self.first_dir = self.settings.get_option('gui/files_panel_dir',
+        self.first_dir = settings.get_option('gui/files_panel_dir',
             xdg.homedir)
         self.history = [self.first_dir]
         self.load_directory(self.first_dir, False)
@@ -76,7 +76,7 @@ class FilesPanel(panel.Panel):
         col.pack_start(text, True)
         col.connect('notify::width', self.set_column_width)
 
-        width = self.settings.get_option('gui/files_%s_col_width' %
+        width = settings.get_option('gui/files_%s_col_width' %
             _('Filename'), 130)
 
         col.set_fixed_width(width)
@@ -87,7 +87,7 @@ class FilesPanel(panel.Panel):
 
         self.tree.append_column(col)
 
-        width = self.settings.get_option('gui/files_%s_col_width' %
+        width = settings.get_option('gui/files_%s_col_width' %
             _('Size'), 50)
 
         text = gtk.CellRendererText()
@@ -227,7 +227,7 @@ class FilesPanel(panel.Panel):
             Called when the user resizes a column
         """
         name = "gui/files_%s_col_width" % col.get_title()
-        self.settings.set_option(name, col.get_width())
+        settings.set_option(name, col.get_width())
 
     def load_directory(self, dir, history=True, keyword=None):
         """
@@ -239,7 +239,7 @@ class FilesPanel(panel.Panel):
         except OSError:
             paths = os.listdir(xdg.homedir)
 
-        self.settings.set_option('gui/files_panel_dir', dir)
+        settings.set_option('gui/files_panel_dir', dir)
         self.current = dir
         directories = []
         files = []

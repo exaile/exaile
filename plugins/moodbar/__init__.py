@@ -13,7 +13,7 @@
 # foundation, inc., 675 mass ave, cambridge, ma 02139, usa.
 
 import cgi, gtk, gobject, os, os.path, subprocess
-from xl import event
+from xl import event, xdg
 from xl.nls import gettext as _
 
 moodbar=''
@@ -285,7 +285,8 @@ def enable(exaile):
     exaile1 =exaile
 
     global moodsDir
-    moodsDir=exaile.settings.loc.replace("settings.ini","")+'moods'
+    moodsDir=os.path.join(xdg.get_config_dir(), "moods")
+#    moodsDir=exaile.settings.loc.replace("settings.ini","")+'moods'
     if not os.access(moodsDir, 0): os.mkdir(moodsDir)
     readMod('')
     global runed

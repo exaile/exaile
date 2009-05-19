@@ -197,10 +197,9 @@ class CoverManager(providers.ProviderHandler):
             @param cache_dir:  directory to save remotely downloaded art
         """
         providers.ProviderHandler.__init__(self, "covers")
-        self.settings = settings
         self.methods = {}
-        self.preferred_order = settings.get_option('covers/preferred_order',
-            [])
+        self.preferred_order = settings.get_option(
+                'covers/preferred_order', [])
         self.add_defaults()
         self.cache_dir = cache_dir
         if not os.path.isdir(cache_dir):
@@ -245,7 +244,7 @@ class CoverManager(providers.ProviderHandler):
         if not type(order) in (list, tuple):
             raise AttributeError(_("order must be a list or tuple"))
         self.preferred_order = order
-        self.settings['covers/preferred_order'] = list(order)
+        settings.set_option('covers/preferred_order', list(order))
 
     def on_new_provider(self, provider):
         """
@@ -395,8 +394,8 @@ class CoverManager(providers.ProviderHandler):
                     c = method.find_covers(track, limit)
                 else:
                     if not hasattr(method, 'search_covers'):
-                        logger.info("%s method doesn't "
-                            "support searching, skipping" % method.name)
+                        logger.info(_("%s method doesn't "
+                            "support searching, skipping") % method.name)
                         continue
                     c = method.search_covers(track, limit)
 

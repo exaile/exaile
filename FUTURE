@@ -140,6 +140,7 @@ Cross-Fade
     use peek() methods on playlists and queue to see next track
         without actually switching to it.
     see crossfade_design for some thoughts on a possible design
+    this is now in-progress in the unified_playback branch
 
 Sorting Tags
     ID3 defines TSOA/TSOP/TSOT for purpose of "sort" tags,

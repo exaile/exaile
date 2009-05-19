@@ -16,16 +16,15 @@ from xl.nls import gettext as _
 import os, time
 from copy import deepcopy
 from urlparse import urlparse
-from xl import common, settings
+from xl import common
 import xl.metadata as metadata
 from xl.common import lstrip_special
 import logging, traceback
 import urlparse
 import urllib
 import urllib2
+from xl import settings
 logger = logging.getLogger(__name__)
-
-settings = settings.SettingsManager.settings
 
 def is_valid_track(loc):
     """

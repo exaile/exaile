@@ -169,11 +169,11 @@ class Playlist(gtk.VBox):
         column_ids = list(self.settings.get_option(pref, []))
         if item.get_active():
             if id not in column_ids:
-                logger.info("adding %s column to %s" % (id, pref))
+                logger.info(_("adding %s column to %s") % (id, pref))
                 column_ids.append(id)
         else:
             if col_struct.id in column_ids:
-                logger.info("removing %s column from %s" % (id, pref))
+                logger.info(_("removing %s column from %s") % (id, pref))
                 column_ids.remove(id)
         self.settings.set_option(pref, column_ids)
 

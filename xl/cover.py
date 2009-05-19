@@ -394,8 +394,8 @@ class CoverManager(providers.ProviderHandler):
                     c = method.find_covers(track, limit)
                 else:
                     if not hasattr(method, 'search_covers'):
-                        logger.info("%s method doesn't "
-                            "support searching, skipping" % method.name)
+                        logger.info(_("%s method doesn't "
+                            "support searching, skipping") % method.name)
                         continue
                     c = method.search_covers(track, limit)
 

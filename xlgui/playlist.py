@@ -267,6 +267,8 @@ class Playlist(gtk.VBox):
         ar = [song, None, None]
         for field in self.append_map:
             try:
+                if isinstance(song[field], basestring):
+                    raise TypeError
                 value = " / ".join(song[field])
             except TypeError:
                 value = song[field]
@@ -689,7 +691,7 @@ class Playlist(gtk.VBox):
             col.set_sort_indicator(False)
 
             if not resizable:
-                if column.id in ('title', 'artist', 'album', 'io_loc', 'genre'):
+                if column.id in ('title', 'artist', 'album', 'loc', 'genre'):
                     if column.id != 'genre': 
                         col.set_expand(True)
                         col.set_fixed_width(1)

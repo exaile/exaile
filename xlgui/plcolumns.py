@@ -163,7 +163,7 @@ class BitrateColumn(Column):
 class IoLocColumn(Column):
     size = 200
     display = _('Location')
-    id = 'io_loc'
+    id = 'loc'
 
 class FilenameColumn(Column):
     size = 200

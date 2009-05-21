@@ -716,26 +716,9 @@ class MainWindow(object):
             This tries to keep at least 5 tracks the current playlist... if
             there are already 5, it just adds one
         """
-        playlist = self.get_selected_playlist()
-        if not playlist: return
-
-        if not self.controller.exaile.dynamic.get_providers():
-            logger.warning(_("Dynamic mode is enabled, but there "
-                "are no dynamic providers!"))
-            return
-
-        pl = playlist.playlist
-
-        number = 5 - len(pl)
-        if number <= 0: number = 1
-
-        logger.info(_("Dynamic: attempting to get %d tracks") % number)
-        tracks = self.controller.exaile.dynamic.find_similar_tracks(
-            self.player.current, number, pl.ordered_tracks)
-
-        logger.info(_("Dynamic: %d tracks fetched") % len(tracks))
-
-        pl.add_tracks(tracks) 
+        playlist = self.get_selected_playlist().playlist
+        
+        self.controller.exaile.dynamic.populate_playlist(playlist)
 
     def _update_track_information(self):
         """

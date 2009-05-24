@@ -272,9 +272,10 @@ class MainWindow(object):
                 r'^order(?P<tab>\d+)\.((?P<tag>[^.]+)\.)?(?P<name>.*)$')
         for i, name in enumerate(names):
             match = name_re.match(name)
-            assert match
-            assert match.group('tab')
-            assert match.group('name')
+            if not match or not match.group('tab') or not match.group('name'):
+                logger.error("%s did not match valid playlist file"
+                        % repr(name))
+                continue
 
             logger.debug("Adding playlist %d: %s" % (i, name))
             logger.debug("Tab:%s; Tag:%s; Name:%s" % (match.group('tab'),

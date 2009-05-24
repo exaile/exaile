@@ -67,13 +67,14 @@ class VolumeControl:
     def load_settings( self ):
         prefix = "plugin/alarmclock/"
         # Setting name, property to save to, default value
-        settings = (('alarm_use_fading', 'use_fading', False),
-                ('alarm_min_volume', 'min_volume', 0),
-                ('alarm_max_volume', 'max_volume', 100),
-                ('alarm_increment', 'increment', 1),
-                ('alarm_time_per_inc', 'time_per_inc', 1),
-                )
-        for name, prop, default in settings:
+        setting_values = (
+            ('alarm_use_fading', 'use_fading', False),
+            ('alarm_min_volume', 'min_volume', 0),
+            ('alarm_max_volume', 'max_volume', 100),
+            ('alarm_increment', 'increment', 1),
+            ('alarm_time_per_inc', 'time_per_inc', 1),
+        )
+        for name, prop, default in setting_values:
             setattr(self, prop,
                     settings.get_option(prefix + name, default))
 

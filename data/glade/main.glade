@@ -98,6 +98,7 @@
                         <property name="visible">True</property>
                         <property name="label" translatable="yes">Pl_ugins</property>
                         <property name="use_underline">True</property>
+                        <signal name="activate" handler="on_plugins_item_activate"/>
                       </widget>
                     </child>
                     <child>

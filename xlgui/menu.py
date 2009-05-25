@@ -19,7 +19,7 @@ from xlgui import guiutil, commondialogs
 from xl import playlist, xdg, settings
 from xl.nls import gettext as _
 
-settings = settings.SettingsManager.settings
+#settings = settings.SettingsManager.settings
 
 class GenericTrackMenu(guiutil.Menu):
     """
@@ -42,18 +42,14 @@ class GenericTrackMenu(guiutil.Menu):
             xdg.get_data_path('images/star.png'), 16, 16)
         icon_set = gtk.IconSet(star_icon)
         factory = gtk.IconFactory()
-        factory.add_default()        
+        factory.add_default()
         factory.add('exaile-star-icon', icon_set)
         self.queue_item = self.append(_('Toggle Queue'), lambda *e: self.on_queue(),
             'exaile-queue-icon')
         rm = guiutil.Menu()
-        for i in range(0, 6):
-            if i == 0:
-                item = rm.append('-', lambda w, e, i=i:
-                    self.update_rating(i))
-            else:
-                item = rm.append_image(self.widget.rating_images[i-1],
-                    lambda w, e, i=i: self.update_rating(i))
+        for i in range(0, 6): #TODO: read number of steps from settings
+            item = rm.append_image(self.widget.rating_images[i],
+                lambda w, e, i=i: self.update_rating(i))
 
         self.append_menu(_("Set Rating"), rm, 'exaile-star-icon')
 
@@ -109,11 +105,11 @@ class GenericTrackMenu(guiutil.Menu):
             Displays the menu
         """
         guiutil.Menu.popup(self, None, None, None, event.button, event.time)
-        
+
 class AddToPlaylistMenu(guiutil.Menu):
     """
         Menu item that expands to allow the user to add
-        the selected tracks to an existing playlist (or the 
+        the selected tracks to an existing playlist (or the
         option to create a new playlist)
     """
     def __init__(self, widget, playlist_manager):
@@ -126,7 +122,7 @@ class AddToPlaylistMenu(guiutil.Menu):
         self.widget = widget
         self.playlist_manager = playlist_manager
         self._create_add_playlist_menu()
-        
+
     def _create_add_playlist_menu(self):
         self.append(_('New Playlist'), lambda *e: self.on_add_new_playlist(),
             'gtk-new')
@@ -139,11 +135,11 @@ class AddToPlaylistMenu(guiutil.Menu):
         if playlists: self.append_separator()
         for name in playlists:
             self.append(_(name), self.on_add_to_playlist, data = name)
-            
-        
+
+
     def on_add_new_playlist(self, selected = None):
         self.widget.controller.playlists_panel.add_new_playlist(self.widget.get_selected_tracks())
-        
+
     def on_add_to_playlist(self, selected = None, pl_name = None):
         """
             Adds the selected tracks the playlist, saves the playlist
@@ -159,7 +155,7 @@ class AddToPlaylistMenu(guiutil.Menu):
         """
             Displays the menu
         """
-        guiutil.Menu.popup(self, None, None, None, event.button, event.time)      
+        guiutil.Menu.popup(self, None, None, None, event.button, event.time)
 
 class PlaylistMenu(GenericTrackMenu):
     """
@@ -171,7 +167,7 @@ class PlaylistMenu(GenericTrackMenu):
         self.add_playlist_menu = AddToPlaylistMenu(playlist, playlist.controller.exaile.playlists)
         self.append_menu(_('Add to Playlist'), self.add_playlist_menu, 'gtk-add')
         self.append(_('Remove'), lambda *e: self.remove_selected_tracks(), 'gtk-remove')
-                    
+
     def remove_selected_tracks(self, selected = None):
         """
             Removes the selected tracks from the playlist
@@ -201,7 +197,7 @@ class TrackSelectMenu(GenericTrackMenu):
             xdg.get_data_path('images/star.png'), 16, 16)
         icon_set = gtk.IconSet(star_icon)
         factory = gtk.IconFactory()
-        factory.add_default()        
+        factory.add_default()
         factory.add('exaile-star-icon', icon_set)
 
         self.append_item = self.append(_('Append to Current'), lambda *e:
@@ -209,13 +205,9 @@ class TrackSelectMenu(GenericTrackMenu):
         self.queue_item = self.append(_('Queue Items'), lambda *e: self.on_queue(),
             'exaile-queue-icon')
         rm = guiutil.Menu()
-        for i in range(0, 6):
-            if i == 0:
-                item = rm.append('-', lambda w, e, i=i:
-                    self.update_rating(i))
-            else:
-                item = rm.append_image(self.widget.rating_images[i-1],
-                    lambda w, e, i=i: self.update_rating(i))
+        for i in range(0, 6): #TODO: read number of steps from settings
+            item = rm.append_image(self.widget.rating_images[i],
+                lambda w, e, i=i: self.update_rating(i))
 
         self.append_menu(_("Set Rating"), rm, 'exaile-star-icon')
 
@@ -245,7 +237,7 @@ class TrackSelectMenu(GenericTrackMenu):
 # these are stubbs for now
 FilesPanelMenu = TrackSelectMenu
 CollectionPanelMenu = TrackSelectMenu
-    
+
 class PlaylistsPanelMenu(guiutil.Menu):
     """
         Menu for xlgui.panel.playlists.PlaylistsPanel, for when the
@@ -259,20 +251,20 @@ class PlaylistsPanelMenu(guiutil.Menu):
         self.widget = widget
         self.radio = radio
         self._create_playlist_menu()
-        
+
     def _create_playlist_menu(self):
         if self.radio:
             self.append(_('Add Station'), lambda *e: self.on_add_playlist(),
                         'gtk-add')
-        else: 
+        else:
             self.append(_('Add Playlist'), lambda *e: self.on_add_playlist(),
                         'gtk-add')
             self.append(_('Add Smart Playlist'), lambda *e: self.on_add_smart_playlist(),
                         'gtk-add')
-        
+
     def on_add_playlist(self, selected = None):
         self.widget.add_new_playlist()
-    
+
     def on_add_smart_playlist(self, selected = None):
         self.widget.add_smart_playlist()
 
@@ -281,7 +273,7 @@ class PlaylistsPanelMenu(guiutil.Menu):
             Displays the menu
         """
         guiutil.Menu.popup(self, None, None, None, event.button, event.time)
-        
+
 class PlaylistsPanelPlaylistMenu(TrackSelectMenu, PlaylistsPanelMenu):
     """
         Menu for xlgui.panel.playlists.PlaylistsPanel, for
@@ -300,7 +292,7 @@ class PlaylistsPanelPlaylistMenu(TrackSelectMenu, PlaylistsPanelMenu):
         TrackSelectMenu.__init__(self, widget, main)
         self.widget = widget
         self.smart = smart
-        
+
         self.append_separator()
         self.append(_('Open'), lambda *e: self.on_open_playlist(),
                     'gtk-open')
@@ -313,28 +305,28 @@ class PlaylistsPanelPlaylistMenu(TrackSelectMenu, PlaylistsPanelMenu):
         self.append(_('Export'), lambda *e: self.on_export_playlist(),
                     'gtk-save')
         self.append_separator()
-        self.append(_('Delete Playlist'), lambda *e: self.on_delete_playlist(), 
-                    'gtk-remove') 
-        
+        self.append(_('Delete Playlist'), lambda *e: self.on_delete_playlist(),
+                    'gtk-remove')
+
     def on_export_playlist(self, selected = None):
         """
             Asks the user where to save the file, then passes
             that information onto the widget to perform the save
-            operation, export type is determined by the extension 
+            operation, export type is determined by the extension
             entered
         """
         dialog = commondialogs.FileOperationDialog(_("Choose a file"),
-            None, gtk.FILE_CHOOSER_ACTION_SAVE, 
+            None, gtk.FILE_CHOOSER_ACTION_SAVE,
             buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
             gtk.STOCK_SAVE, gtk.RESPONSE_OK))
-        
-        extensions = { 'm3u' : _('M3U Playlist'), 
+
+        extensions = { 'm3u' : _('M3U Playlist'),
                                 'pls' : _('PLS Playlist'),
-                                'asx' : _('ASX Playlist'), 
+                                'asx' : _('ASX Playlist'),
                                 'xspf' : _('XSPF Playlist') }
-        
+
         dialog.add_extensions(extensions)
-        
+
         #Find the name of currently selected playlist and put it in the name box
         selected_playlist = self.widget.get_selected_playlist()
         if selected_playlist is not None:
@@ -353,16 +345,16 @@ class PlaylistsPanelPlaylistMenu(TrackSelectMenu, PlaylistsPanelMenu):
                 #extension?
                 commondialogs.error(None, _('Invalid file extension, file not saved'))
         dialog.destroy()
-                    
+
     def on_delete_playlist(self, selected = None):
-        dialog = gtk.MessageDialog(None, 
-            gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, 
+        dialog = gtk.MessageDialog(None,
+            gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO,
             _("Are you sure you want to permanently delete the selected"
             " playlist?"))
         if dialog.run() == gtk.RESPONSE_YES:
             self.widget.remove_selected_playlist()
         dialog.destroy()
-        
+
     def on_rename_playlist(self, selected = None):
         if self.smart:
             self.widget.edit_selected_smart_playlist()
@@ -377,10 +369,10 @@ class PlaylistsPanelPlaylistMenu(TrackSelectMenu, PlaylistsPanelMenu):
             name = dialog.get_value()
             if not name == "":
                 self.widget.rename_selected_playlist(name)
-    
+
     def on_open_playlist(self, selected = None):
         self.widget.open_selected_playlist()
-    
+
     def popup(self, event):
         """
             Displays the menu
@@ -394,8 +386,8 @@ class RadioPanelPlaylistMenu(PlaylistsPanelPlaylistMenu):
         entry
     """
     def __init__(self, widget, main):
-        PlaylistsPanelPlaylistMenu.__init__(self, widget, main)        
-        
+        PlaylistsPanelPlaylistMenu.__init__(self, widget, main)
+
 class PlaylistsPanelTrackMenu(guiutil.Menu):
     """
         Menu for xlgui.panel.playlists.PlaylistsPanel, for when the
@@ -407,13 +399,13 @@ class PlaylistsPanelTrackMenu(guiutil.Menu):
         """
         guiutil.Menu.__init__(self)
         self.widget = widget
-        
+
         self.append(_('Remove'), lambda *e: self.on_remove_track(),
                     'gtk-remove')
-        
+
     def on_remove_track(self, selected = None):
         self.widget.remove_selected_track()
-    
+
     def popup(self, event):
         """
             Displays the menu

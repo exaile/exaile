@@ -21,7 +21,9 @@ from xl.nls import gettext as _
 import copy, urllib
 import logging
 import os, os.path
+import math
 logger = logging.getLogger(__name__)
+
 
 # creates the rating images for the caller
 def create_rating_images(rating_width):
@@ -30,23 +32,27 @@ def create_rating_images(rating_width):
     """
     if rating_width != 0:
         rating_images = []
-        star_size = rating_width / 5
+        icon_size = rating_width / 5
+        steps = settings.get_option("miscellaneous/rating_steps", 5)
 
-        star = gtk.gdk.pixbuf_new_from_file_at_size(
-            xdg.get_data_path('images/star.png'), star_size, star_size)
+        icon = gtk.gdk.pixbuf_new_from_file_at_size(
+            xdg.get_data_path('images/star.png'), icon_size, icon_size)
+        void_icon = gtk.gdk.pixbuf_new_from_file_at_size(
+            xdg.get_data_path('images/brightstar.png'), icon_size, icon_size)
 
-        full_image = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, 
-            rating_width, star_size)
-        full_image.fill(0xffffff00) # transparent white
-        for x in range(0, 5):
-            star.copy_area(0, 0, star_size, star_size, full_image, star_size * x, 0)
-        rating_images.insert(0, full_image)
-        for x in range(5, 0, -1):
-            this_image = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8, 
-                rating_width, star_size)
-            this_image.fill(0xffffff00) # transparent white
-            full_image.copy_area(0, 0, int(x * star_size), star_size, this_image, 0, 0)
-            rating_images.insert(0, this_image)
+        icons_image = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8,
+            rating_width, icon_size)
+        icons_image.fill(0xffffff00) # transparent white
+        for x in range(0, steps + 1):
+            for y in range(0, steps):
+                if y < x:
+                    icon.copy_area(0, 0, icon_size, icon_size, icons_image, icon_size * y, 0)
+                else:
+                    void_icon.copy_area(0, 0, icon_size, icon_size, icons_image, icon_size * y, 0)
+            rating_images.append(icons_image)
+            icons_image = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8,
+                rating_width, icon_size)
+            icons_image.fill(0xffffff00) # transparent white
 
         return rating_images
 
@@ -88,7 +94,7 @@ class Playlist(gtk.VBox):
 
         # see plcolumns.py for more information on the columns menu
         if not Playlist.menu_items:
-            plcolumns.setup_menu(self.xml.get_widget('columns_menu_menu'), 
+            plcolumns.setup_menu(self.xml.get_widget('columns_menu_menu'),
                 Playlist.menu_items)
 
         self._setup_tree()
@@ -97,7 +103,7 @@ class Playlist(gtk.VBox):
         self._setup_events()
         self._set_tracks(self.playlist.get_tracks())
 
-        self.menu = menu.PlaylistMenu(self) 
+        self.menu = menu.PlaylistMenu(self)
 
         self.show_all()
 
@@ -142,7 +148,7 @@ class Playlist(gtk.VBox):
 
         for col_struct in self.COLUMNS.values():
             try:
-                menu = Playlist.menu_items[col_struct.id] 
+                menu = Playlist.menu_items[col_struct.id]
             except KeyError:
                 logger.warning("No such column: %s" % col_struct.id)
                 continue
@@ -188,7 +194,7 @@ class Playlist(gtk.VBox):
         """
         if 'not' in widget.name:
             resizable = False
-        else: 
+        else:
             resizable = True
 
         settings.set_option('gui/resizable_cols', resizable)
@@ -202,7 +208,7 @@ class Playlist(gtk.VBox):
         """
         selection = self.list.get_selection()
         info = selection.get_selected_rows()
-        
+
         self.list.disconnect(self.changed_id)
         columns = self.list.get_columns()
         for col in columns:
@@ -247,18 +253,18 @@ class Playlist(gtk.VBox):
 
         self.list.set_model(self.model)
         self.main.update_track_counts()
-        
+
         #Whenever we reset the model of the list
         #we need to mark the search column again
         self._set_search_column()
-        
+
     def _set_search_column(self):
         count = 3
         search_column = settings.get_option("gui/search_column", "Title")
         for col in self.list.get_columns():
             if col.get_title() == search_column:
                 self.list.set_search_column(count)
-            count = count + 1  
+            count = count + 1
 
     def _get_ar(self, song):
         """
@@ -330,7 +336,7 @@ class Playlist(gtk.VBox):
                 break
             iter = self.model.iter_next(iter)
             if not iter: break
-      
+
         self.list.queue_draw()
 
     def on_row_activated(self, *e):
@@ -345,13 +351,13 @@ class Playlist(gtk.VBox):
         self.controller.exaile.player.stop()
         self.controller.exaile.queue.play(track=track)
         self.controller.exaile.queue.set_current_playlist(self.playlist)
-        
+
     def on_closing(self):
         """
             Called by the NotebookTab when this playlist
             is about to be closed.  Handles such things
             as confirming a close on a modified playlist
-            
+
             @return: True if we should continue to close,
                 False otherwise
         """
@@ -371,7 +377,7 @@ class Playlist(gtk.VBox):
                     if o_track != c_track:
                         dirty = True
                         break
-            
+
             if dirty == True:
                 dialog = ConfirmCloseDialog(self.playlist.get_name())
                 result = dialog.run()
@@ -385,7 +391,7 @@ class Playlist(gtk.VBox):
             # Usually means that it was a smart playlist
             pass
         return True
-            
+
     def button_press(self, button, event):
         """
             Called when the user clicks on the playlist
@@ -396,14 +402,15 @@ class Playlist(gtk.VBox):
 
             if selection.count_selected_rows() <= 1: return False
             else: return True
-            
+
     def _setup_events(self):
         self.list.connect('key_release_event', self.key_released)
-        
+        self.list.connect('button-release-event', self.update_rating)
+
     def key_released(self, widget, event):
         if event.keyval == gtk.keysyms.Delete:
             self.remove_selected_tracks()
-        
+
     def _setup_tree(self):
         """
             Sets up the TreeView for this Playlist
@@ -421,7 +428,7 @@ class Playlist(gtk.VBox):
 
         selection = self.list.get_selection()
         selection.set_mode(gtk.SELECTION_MULTIPLE)
-        
+
         window = gtk.Window()
         img = window.render_icon('gtk-media-play',
             gtk.ICON_SIZE_SMALL_TOOLBAR)
@@ -460,7 +467,7 @@ class Playlist(gtk.VBox):
         event.remove_callback(self.on_remove_tracks, 'tracks_removed',
             self.playlist)
         # Make sure the callbacks actually get removed before proceeding
-        event.wait_for_pending_events()          
+        event.wait_for_pending_events()
 
         self.list.unset_rows_drag_dest()
         self.list.drag_dest_set(gtk.DEST_DEFAULT_ALL,
@@ -484,12 +491,12 @@ class Playlist(gtk.VBox):
                 first = True
 
         current_tracks = self.playlist.get_tracks()
-        (tracks, playlists) = self.list.get_drag_data(locs)            
+        (tracks, playlists) = self.list.get_drag_data(locs)
 
         # Determine what to do with the tracks
         # by default we load all tracks.
         # TODO: should we load tracks we find in the collection from there??
-        for track in tracks:            
+        for track in tracks:
             if not Playlist._is_drag_source and track in current_tracks:
                 continue
             if not drop_info:
@@ -528,13 +535,13 @@ class Playlist(gtk.VBox):
             return
         while True:
             track = self.model.get_value(iter, 0)
-            if not track in current_tracks: 
+            if not track in current_tracks:
                 self.playlist.add_tracks((track,))
             iter = self.model.iter_next(iter)
             if not iter: break
 
         # Re add all of the tracks so that they
-        # become ordered 
+        # become ordered
         iter = self.model.get_iter_first()
         if not iter:
             self.add_track_callbacks()
@@ -546,16 +553,16 @@ class Playlist(gtk.VBox):
             self.playlist.ordered_tracks.append(track)
             iter = self.model.iter_next(iter)
             if not iter: break
-    
+
         # We do not save the playlist because it is saved by the playlist manager?
-        
+
         self.add_track_callbacks()
         self.main.update_track_counts()
-        
+
         if curtrack is not None:
             index = self.playlist.index(curtrack)
             self.playlist.set_current_pos(index)
-            
+
     def add_track_callbacks(self):
         """
             Adds callbacks for added and removed tracks.
@@ -563,7 +570,7 @@ class Playlist(gtk.VBox):
         event.add_callback(self.on_add_tracks, 'tracks_added', self.playlist)
         event.add_callback(self.on_remove_tracks, 'tracks_removed',
             self.playlist)
-        
+
     def remove_selected_tracks(self):
         sel = self.list.get_selection()
         (model, paths) = sel.get_selected_rows()
@@ -576,9 +583,9 @@ class Playlist(gtk.VBox):
             iter = self.model.get_iter(row.get_path())
             #Also update the playlist we have
             track = self.model.get_value(iter, 0)
-            self.playlist.remove(self.playlist.index(track))  
+            self.playlist.remove(self.playlist.index(track))
             self.model.remove(iter)
-            
+
     def drag_data_delete(self, tv, context):
         """
             Called after a drag data operation is complete
@@ -586,7 +593,7 @@ class Playlist(gtk.VBox):
         """
         if context.drag_drop_succeeded():
             self.remove_selected_tracks()
-            
+
     def drag_get_data(self, treeview, context, selection, target_id, etime):
         """
             Called when a drag source wants data for this drag operation
@@ -598,7 +605,7 @@ class Playlist(gtk.VBox):
         (model, paths) = sel.get_selected_rows()
         for path in paths:
             iter = self.model.get_iter(path)
-            song = self.model.get_value(iter, 0) 
+            song = self.model.get_value(iter, 0)
 
             if song.is_local():
                 uri = 'file://' + urllib.quote(song.get_loc())
@@ -608,7 +615,7 @@ class Playlist(gtk.VBox):
             loc.append(uri)
 
         selection.set_uris(loc)
-        
+
     def setup_model(self, map):
         """
             Gets the array to build the two models
@@ -631,7 +638,7 @@ class Playlist(gtk.VBox):
 
         col_ids = settings.get_option("gui/columns", [])
         search_column = settings.get_option("gui/search_column", "Title")
-        
+
         # make sure all the entries are good
         if col_ids:
             cols = []
@@ -676,7 +683,7 @@ class Playlist(gtk.VBox):
             column.set_properties(col, cellr)
 
             setting_name = "gui/col_width_%s" % column.id
-            width = settings.get_option(setting_name, 
+            width = settings.get_option(setting_name,
                 column.size)
             col.set_fixed_width(int(width))
 
@@ -692,7 +699,7 @@ class Playlist(gtk.VBox):
 
             if not resizable:
                 if column.id in ('title', 'artist', 'album', 'loc', 'genre'):
-                    if column.id != 'genre': 
+                    if column.id != 'genre':
                         col.set_expand(True)
                         col.set_fixed_width(1)
                     else:
@@ -711,7 +718,7 @@ class Playlist(gtk.VBox):
             col.set_widget(gtk.Label(column.display))
             col.get_widget().show()
             self.list.append_column(col)
-            col.get_widget().get_ancestor(gtk.Button).connect('button_press_event', 
+            col.get_widget().get_ancestor(gtk.Button).connect('button_press_event',
                 self.press_header)
             count = count + 1
         self.changed_id = self.list.connect('columns-changed', self.column_changed)
@@ -727,7 +734,7 @@ class Playlist(gtk.VBox):
             settings.set_option(name, w)
 
     # sort functions courtesy of listen (http://listengnome.free.fr), which
-    # are in turn, courtesy of quodlibet.  
+    # are in turn, courtesy of quodlibet.
     def set_sort_by(self, column):
         """
             Sets the sort column
@@ -752,7 +759,7 @@ class Playlist(gtk.VBox):
         if not self.playlist.ordered_tracks: return
         try:
             curtrack = \
-                self.playlist.ordered_tracks[self.playlist.get_current_pos()] 
+                self.playlist.ordered_tracks[self.playlist.get_current_pos()]
         except IndexError:
             curtrack = self.playlist.ordered_tracks[0]
         self.playlist.ordered_tracks = tracks
@@ -812,14 +819,14 @@ class Playlist(gtk.VBox):
 
         item = model.get_value(iter, 0)
         image = None
-       
+
         window = gtk.Window()
         if item == self.controller.exaile.queue.stop_track:
-            image = window.render_icon('gtk-stop', 
-                gtk.ICON_SIZE_MENU) 
+            image = window.render_icon('gtk-stop',
+                gtk.ICON_SIZE_MENU)
             image = image.scale_simple(12, 12, gtk.gdk.INTERP_BILINEAR)
-        
-        cell.set_property('pixbuf', image)  
+
+        cell.set_property('pixbuf', image)
 
 
     def set_cell_weight(self, cell, item):
@@ -849,6 +856,41 @@ class Playlist(gtk.VBox):
         for track in tracks:
             print track.get_loc()
         print '---Done printing playlist'
+
+    def update_rating(self, w, e):
+        """
+            Called when the user clicks on the playlist. If the user
+            clicked on rating column the rating of the selected track
+            is updated.
+        """
+        rating_col_width = 0
+        left_edge = 0
+        steps = settings.get_option("miscellaneous/rating_steps", 5)
+        cols = self.list.get_columns()
+        i = 0
+        #calculate rating column size and position
+        for col in self.append_map:
+            gui_col = self.list.get_column(i)
+            if col == "rating":
+                rating_col_width = gui_col.get_width()
+                break
+            else:
+                left_edge = left_edge + gui_col.get_width()
+            i = i + 1
+
+        (x, y) = e.get_coords()
+        #check if the click is within rating column and on a list entry
+        if self.list.get_path_at_pos(int(x), int(y)) \
+            and left_edge < x < left_edge + rating_col_width:
+                track = self.get_selected_track()
+                i = int(math.ceil((x-left_edge)/12))
+                new_rating = float((100*i)/steps)
+                if track['rating'] == new_rating:
+                    track['rating'] = 0.0
+                else:
+                    track['rating'] = new_rating
+                if hasattr(w, 'queue_draw'):
+                    w.queue_draw()
 
 class ConfirmCloseDialog(gtk.MessageDialog):
     """

@@ -129,18 +129,18 @@ class Main(object):
         for ext in metadata.SUPPORTED_MEDIA:
             supported_file_filter.add_pattern('*' + ext)
             audio_file_filter.add_pattern('*' + ext)
-	
-	playlist_file_types = ('m3u', 'pls', 'asx', 'xspf')
-	for playlist_file_type in playlist_file_types:
-		supported_file_filter.add_pattern('*.' + playlist_file_type)
-		playlist_file_filter.add_pattern('*.' + playlist_file_type)
 
-	all_file_filter.add_pattern('*')
+        playlist_file_types = ('m3u', 'pls', 'asx', 'xspf')
+        for playlist_file_type in playlist_file_types:
+            supported_file_filter.add_pattern('*.' + playlist_file_type)
+            playlist_file_filter.add_pattern('*.' + playlist_file_type)
 
-	dialog.add_filter(supported_file_filter)
-	dialog.add_filter(audio_file_filter)
-	dialog.add_filter(playlist_file_filter)
-	dialog.add_filter(all_file_filter)
+        all_file_filter.add_pattern('*')
+
+        dialog.add_filter(supported_file_filter)
+        dialog.add_filter(audio_file_filter)
+        dialog.add_filter(playlist_file_filter)
+        dialog.add_filter(all_file_filter)
 
         result = dialog.run()
         dialog.hide()
@@ -320,7 +320,8 @@ def show_splash(show=True):
     if not show: return
     image = gtk.Image()
     image.set_from_file(xdg.get_data_path("images/splash.png"))
-    xml = gtk.glade.XML(xdg.get_data_path("glade/splash.glade"), 'SplashScreen', 'exaile')
+    xml = gtk.glade.XML(xdg.get_data_path("glade/splash.glade"), 'SplashScreen',
+        'exaile')
     splash_screen = xml.get_widget('SplashScreen')
     box = xml.get_widget('splash_box')
     box.pack_start(image, True, True)

@@ -44,7 +44,7 @@ class Column(object):
 
     def set_properties(self, col, cellr):
         return
-    
+
     def __repr__(self):
         return '%s(%s, %s, %s)' % (self.__class__.__name__,
             `self.id`, `self.display`, `self.size`)
@@ -96,7 +96,7 @@ class LengthColumn(Column):
     id = 'length'
 
     def data_func(self, col, cell, model, iter):
-        """ 
+        """
             Formats the track length
         """
         item = model.get_value(iter, 0)
@@ -121,16 +121,15 @@ class RatingColumn(Column):
 
     def data_func(self, col, cell, model, iter):
         item = model.get_value(iter, 0)
-        if not item.get_rating(): return
         try:
-            idx = item.get_rating() - 1
-            cell.set_property('pixbuf', 
+            idx = item.get_rating()
+            cell.set_property('pixbuf',
                 self.playlist.rating_images[idx])
         except IndexError:
             print "idx_error"
             if idx > 5: idx = 5
             elif idx < 0: idx = 0
-            cell.set_property('pixbuf', 
+            cell.set_property('pixbuf',
                 self.playlist.rating_images[idx])
 
     def set_properties(self, col, cellr):

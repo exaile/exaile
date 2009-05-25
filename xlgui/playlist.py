@@ -24,7 +24,6 @@ import os, os.path
 import math
 logger = logging.getLogger(__name__)
 
-
 # creates the rating images for the caller
 def create_rating_images(rating_width):
     """
@@ -32,8 +31,8 @@ def create_rating_images(rating_width):
     """
     if rating_width != 0:
         rating_images = []
-        icon_size = rating_width / 5
         steps = settings.get_option("miscellaneous/rating_steps", 5)
+        icon_size = rating_width / steps
 
         icon = gtk.gdk.pixbuf_new_from_file_at_size(
             xdg.get_data_path('images/star.png'), icon_size, icon_size)
@@ -90,6 +89,7 @@ class Playlist(gtk.VBox):
         self.playlist = copy.copy(pl)
         self.playlist.ordered_tracks = pl.ordered_tracks[:]
 
+        self._rating_width = 64
         self.rating_images = create_rating_images(64)
 
         # see plcolumns.py for more information on the columns menu
@@ -866,6 +866,7 @@ class Playlist(gtk.VBox):
         rating_col_width = 0
         left_edge = 0
         steps = settings.get_option("miscellaneous/rating_steps", 5)
+        icon_size = self._rating_width / steps
         cols = self.list.get_columns()
         i = 0
         #calculate rating column size and position
@@ -883,7 +884,7 @@ class Playlist(gtk.VBox):
         if self.list.get_path_at_pos(int(x), int(y)) \
             and left_edge < x < left_edge + rating_col_width:
                 track = self.get_selected_track()
-                i = int(math.ceil((x-left_edge)/12))
+                i = int(math.ceil((x-left_edge)/icon_size))
                 new_rating = float((100*i)/steps)
                 if track['rating'] == new_rating:
                     track['rating'] = 0.0

@@ -404,30 +404,10 @@
                                   <widget class="GtkHBox" id="hbox6">
                                     <property name="visible">True</property>
                                     <child>
-                                      <widget class="GtkLabel" id="label5">
-                                        <property name="visible">True</property>
-                                        <property name="label" translatable="yes">Rating: </property>
-                                      </widget>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="position">0</property>
-                                      </packing>
+                                      <placeholder/>
                                     </child>
                                     <child>
-                                      <widget class="GtkComboBox" id="rating_combo_box">
-                                        <property name="visible">True</property>
-                                        <property name="items" translatable="yes">0
-1
-2
-3
-4
-5</property>
-                                        <signal name="changed" handler="on_rating_combo_box_changed" object="set_current_track_rating"/>
-                                      </widget>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="position">1</property>
-                                      </packing>
+                                      <placeholder/>
                                     </child>
                                     <child>
                                       <placeholder/>
@@ -508,6 +488,9 @@
                             </child>
                           </widget>
                           <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
+                            <property name="pack_type">end</property>
                             <property name="position">2</property>
                           </packing>
                         </child>

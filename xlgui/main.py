@@ -419,50 +419,11 @@ class MainWindow(object):
         self.filter.connect('activate', self.on_playlist_search)
         box.pack_start(self.filter.entry, True, True)
 
-        self.rating_combo = self.xml.get_widget('rating_combo_box')
-        self.rating_combo.set_active(0)
-        self.rating_combo.set_sensitive(False)
-        self.rating_id = self.rating_combo.connect('changed',
-            self.set_current_track_rating)
-
     def on_queue(self):
         """Toggles queue on the current playlist"""
         cur_page = self.playlist_notebook.get_children()[
                 self.playlist_notebook.get_current_page()]
         cur_page.menu.on_queue()
-
-    def set_current_track_rating(self, *e):
-        """
-            Sets the currently playing track's rating
-        """
-        track = self.player.current
-        if not track:
-            return
-
-        rating = int(self.rating_combo.get_active())
-        steps = settings.get_option("miscellaneous/rating_steps", 5)
-
-        track['rating'] = float((100.0*rating)/steps)
-
-        self.update_rating_combo(rating)
-
-    def update_rating_combo(self, rating=None):
-        """
-            Updates the rating combo box
-        """
-        track = None
-        if rating is None:
-            track = self.player.current
-            if not track: return
-            rating = track.get_rating()
-
-        if self.rating_id:
-            self.rating_combo.disconnect(self.rating_id)
-
-        self.rating_combo.set_active(rating)
-        self.rating_id = self.rating_combo.connect('changed',
-            self.set_current_track_rating)
-        self.get_selected_playlist().queue_draw()
 
     def on_playlist_search(self, *e):
         """
@@ -686,7 +647,6 @@ class MainWindow(object):
         self.update_track_counts()
 
         self.rating_combo.set_sensitive(True)
-        self.update_rating_combo()
         if settings.get_option('playback/dynamic', False):
             self._get_dynamic_tracks()
 
@@ -706,7 +666,6 @@ class MainWindow(object):
                 gtk.ICON_SIZE_SMALL_TOOLBAR))
 
         self.rating_combo.set_sensitive(False)
-        self.update_rating_combo(0)
 
     @common.threaded
     def _get_dynamic_tracks(self):

@@ -90,6 +90,7 @@
                         <property name="visible">True</property>
                         <property name="label" translatable="yes">_Collection Manager</property>
                         <property name="use_underline">True</property>
+                        <signal name="activate" handler="on_collection_manager_item_activate"/>
                       </widget>
                     </child>
                     <child>

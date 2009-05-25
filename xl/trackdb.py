@@ -359,7 +359,7 @@ class TrackDB(object):
         lib = None
         if hasattr(self, 'libraries'):
             for k, v in self.libraries.iteritems():
-                if loc.startswith(k):
+                if loc.startswith('file://%s' % k):
                     lib = v
             if not lib:
                 return False

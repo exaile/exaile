@@ -19,10 +19,10 @@ def disable(exaile):
     """
         Stops the timer for this plugin
     """
-    ALARM.disable_alarm()
+    if ALARM: ALARM.disable_alarm()
     
 def get_prefs_pane():
-    ALARM.enable_alarm()    
+    if ALARM: ALARM.enable_alarm()    
     return acprefs
 
 class VolumeControl:

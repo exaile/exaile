@@ -83,7 +83,8 @@ class PluginsManager(object):
 
         for m in mems:
             if not m.name.startswith(base):
-                raise InvalidPluginError(_("Plugin archive contains an unsafe path"))
+                raise InvalidPluginError(_("Plugin archive contains an unsafe"
+                    " path"))
 
         tar.extractall(self.plugindirs[0])
 

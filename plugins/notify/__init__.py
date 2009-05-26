@@ -20,12 +20,14 @@ import logging
 import inspect
 import notify_cover
 from xlgui.prefs import widgets
-from xl import event, common
+from xl import event, common, settings
 from xl.nls import gettext as _
-from xl.settings import SETTINGSMANAGER
 
 logger = logging.getLogger(__name__)
 UNKNOWN_TEXT = _("Unknown")
+
+# This breaks stuff. if you want to enable it, set this to True and uncomment
+# the commented section in the glade file
 ATTACH_COVERS_OPTION_ALLOWED = False
 
 pynotify.init('exailenotify')
@@ -40,10 +42,10 @@ class ExaileNotification(object):
     def __inner_preference(klass):
         """Function will make a property for a given subclass of PrefsItem"""
         def getter(self):
-            return SETTINGSMANAGER.get_option(klass.name, klass.default or None)
+            return settings.get_option(klass.name, klass.default or None)
 
         def setter(self, val):
-            SETTINGSMANAGER.set_option(klass.name, val)
+            settings.set_option(klass.name, val)
 
         return property(getter, setter)
 

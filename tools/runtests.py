@@ -32,6 +32,12 @@ try:
 except IndexError:
     pass
 
+excludes = []
+try:
+    excludes = [ x[1:] for x in sys.argv[2:] if x.startswith("^") ]
+except IndexError:
+    pass
+
 if __name__ == '__main__':
     print " -- Exaile Test Suite --\n"
     if not os.path.isdir(".testtemp"):
@@ -63,6 +69,8 @@ if __name__ == '__main__':
 
     if checks in ('plugins', 'all'):
         for file in os.listdir('plugins'):
+            if file in excludes:
+                continue
             path = os.path.join('plugins', file)
             if os.path.isdir(path):
                 if not os.path.isfile(os.path.join(path, 'test.py')):

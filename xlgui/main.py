@@ -646,7 +646,6 @@ class MainWindow(object):
                 gtk.ICON_SIZE_SMALL_TOOLBAR))
         self.update_track_counts()
 
-        self.rating_combo.set_sensitive(True)
         if settings.get_option('playback/dynamic', False):
             self._get_dynamic_tracks()
 
@@ -664,8 +663,6 @@ class MainWindow(object):
         self.draw_playlist(type, player, object)
         self.play_button.set_image(gtk.image_new_from_stock('gtk-media-play',
                 gtk.ICON_SIZE_SMALL_TOOLBAR))
-
-        self.rating_combo.set_sensitive(False)
 
     @common.threaded
     def _get_dynamic_tracks(self):

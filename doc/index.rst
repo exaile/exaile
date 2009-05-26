@@ -11,6 +11,8 @@ Contents:
 .. toctree::
 
    planning/index
+   xl/collection
+   xl/trackdb
 
 Indices and tables
 ==================

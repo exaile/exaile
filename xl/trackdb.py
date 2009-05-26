@@ -12,11 +12,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-# TrackDB
-#
-# TrackDB - a track database. basis for playlist, collection
-#
-# TrackSearcher - fast, advanced method for searching a dictionary of tracks
+"""
+TrackDB
+
+:class:`TrackDB`:
+    a track database. basis for playlist, collection
+
+:class:`TrackSearcher`
+    fast, advanced method for searching a dictionary of tracks
+"""
 
 from xl.nls import gettext as _
 from xl import common, track, event, xdg
@@ -40,8 +44,10 @@ def get_sort_tuple(fields, track):
     """
         Returns the sort tuple for a single track
 
-        fields: the tag(s) to sort by (a single string or iterable of strings)
-        track: the track to sort [Track]
+        :param fields: the tag(s) to sort by
+        :type fields: a single string or iterable of strings
+        :param track: the track to sort
+        :type track: :class:`xl.track.Track`
     """
     def lower(x):
         if type(x) == type(""):
@@ -60,9 +66,14 @@ def sort_tracks(fields, tracks, reverse=False):
     """
         Sorts tracks by the field passed
 
-        fields: field(s) to sort by [string] or [list] of strings
-        tracks: tracks to sort [list of Track]
-        reverse: sort in reverse? [bool]
+        :param fields: field(s) to sort by 
+        :type fields: string or list of strings
+
+        :param tracks: tracks to sort 
+        :type tracks: list of :class:`xl.track.Track`
+
+        :param reverse: sort in reverse?
+        :type reverse: bool
     """
     tracks = [get_sort_tuple(fields, t) for t in tracks]
     tracks.sort(reverse=reverse)
@@ -89,20 +100,23 @@ class TrackDB(object):
         Track objects.
 
         This particular implementation is done using storm
+
+        :param name:   The name of this TrackDB.
+        :type name: string
+        :param location:   Path to a file where this trackDB
+                should be stored.
+        :type location: string
+        :param pickle_attrs:   A list of attributes to store in the
+                pickled representation of this object. All
+                attributes listed must be built-in types, with
+                one exception: If the object contains the phrase
+                'tracks' in its name it may be a list or dict
+                or :class:`xl.track.Track` objects.
+        :type pickle_attrs: list of strings
     """
     def __init__(self, name='', location="", pickle_attrs=[]):
         """
             Sets up the trackDB.
-
-            @param name:   The name of this TrackDB. [string]
-            @param location:   Path to a file where this trackDB
-                    should be stored. [string]
-            @param pickle_attrs:   A list of attributes to store in the
-                    pickled representation of this object. All
-                    attributes listed must be built-in types, with
-                    one exception: If the object contains the phrase
-                    'tracks' in its name it may be a list or dict
-                    or Track objects. [list of string]
         """
         self.name = name
         self.location = location
@@ -123,18 +137,20 @@ class TrackDB(object):
 
     def set_name(self, name):
         """
-            Sets the name of this TrackDB
+            Sets the name of this :class:`TrackDB`
 
-            name:   The new name. [string]
+            :param name:   The new name.
+            :type name: string
         """
         self.name = name
         self._dirty = True
 
     def get_name(self):
         """
-            Gets the name of this TrackDB
+            Gets the name of this :class:`TrackDB`
 
-            returns: The name. [string]
+            :return: The name.
+            :rtype: string
         """
         return self.name
 
@@ -145,10 +161,11 @@ class TrackDB(object):
     @common.synchronized
     def load_from_location(self, location=None):
         """
-            Restores TrackDB state from the pickled representation
+            Restores :class:`TrackDB` state from the pickled representation
             stored at the specified location.
 
-            @param location: the location to load the data from [string]
+            :param location: the location to load the data from
+            :type location: string
         """
         if not location:
             location = self.location
@@ -184,10 +201,11 @@ class TrackDB(object):
     @common.synchronized
     def save_to_location(self, location=None):
         """
-            Saves a pickled representation of this TrackDB to the 
+            Saves a pickled representation of this :class:`TrackDB` to the
             specified location.
             
-            location: the location to save the data to [string]
+            :param location: the location to save the data to
+            :type location: string
         """
         logger.debug(_("Saving %s DB to %s."%(self.name, location or self.location)))
         if not self._dirty:
@@ -246,8 +264,8 @@ class TrackDB(object):
         """
             lists out all the values for a particular, tag, without duplicates
             
-            can also optionally prefer albumartist's value over artist's,
-            this is primarily useful for the collection panel
+            can also optionally prefer albumartist's value over artist's, this
+            is primarily useful for the collection panel
         """
         def the_cmp(x, y):
             if isinstance(x, basestring):
@@ -288,8 +306,8 @@ class TrackDB(object):
 
     def get_track_by_loc(self, loc, raw=False):
         """
-            returns the track having the given loc. if no such
-            track exists, returns None
+            returns the track having the given loc. if no such track exists,
+            returns None
         """
         try:
             return self.tracks[loc]._track
@@ -298,8 +316,8 @@ class TrackDB(object):
 
     def get_tracks_by_locs(self, locs):
         """
-            returns the track having the given loc. if no such
-            track exists, returns None
+            returns the track having the given loc. if no such track exists,
+            returns None
         """
         return [self.get_track_by_loc(loc) for loc in locs]
 
@@ -310,10 +328,11 @@ class TrackDB(object):
         """
             Search the trackDB, optionally sorting by sort_field
 
-            @param query:  the search
-            @param sort_fields:  the field(s) to sort by.  Use RANDOM to sort
-                randomly.  A [string] or [list] of strings
-            @param return_lim:  limit the number of tracks returned to a
+            :param query:  the search
+            :param sort_fields:  the field(s) to sort by.  Use RANDOM to sort
+                randomly.
+            :type sort_fields: A string or list of strings
+            :param return_lim:  limit the number of tracks returned to a
                 maximum
         """
         searcher = TrackSearcher()
@@ -351,7 +370,7 @@ class TrackDB(object):
 
     def loc_is_member(self, loc):
         """
-            returns True if loc is a track in this collection, False
+            Returns True if loc is a track in this collection, False
             if it is not
         """
         # check to see if it's in one of our libraries, this speeds things
@@ -381,7 +400,8 @@ class TrackDB(object):
         """
             Adds a track to the database of tracks
 
-            track: The Track to add [Track]
+            :param track: The Track to add 
+            :type track: :class:`xl.track.Track`
         """
         self.add_tracks([track])
 
@@ -397,7 +417,8 @@ class TrackDB(object):
         """
             Removes a track from the database
 
-            track: the Track to remove [Track]    
+            :param track: the Track to remove 
+            :type track: Track]   
         """
         self.remove_tracks([track])
     
@@ -496,7 +517,8 @@ class TrackSearcher(object):
         """ 
             optimizes token order for fast search 
 
-            tokens: tokens to optimize [token list]
+            :param tokens: tokens to optimize 
+            :type tokens: token list
         """
         # only optimizes the top level of tokens, the speed
         # gains from optimizing recursively are usually negligible
@@ -522,7 +544,8 @@ class TrackSearcher(object):
         """ 
             reduce tokens to a parsable format 
 
-            tokens: the list of tokens to reduce [list of string]
+            :param tokens: the list of tokens to reduce 
+            :type tokens: list of string
         """
         # base case since we use recursion
         if tokens == []:
@@ -581,8 +604,10 @@ class TrackSearcher(object):
             executes a search using the passed query and (optionally) 
             the passed tracks
 
-            query: the query to search for [string]
-            tracks: the dict of tracks to use [dict of tracks]
+            :param query: the query to search for
+            :type query: string
+            :param tracks: the dict of tracks to use 
+            :type tracks: dict of :class:`xl.track.Track`
         """
         tokens = self.tokenize_query(query)
         tracks = self.__do_search(tokens, tracks)
@@ -592,8 +617,10 @@ class TrackSearcher(object):
         """ 
             search for tracks by using the parsed tokens 
 
-            tokens: tokens to use when searching [token list]
-            current_list: dict of tracks to search [dict of Track]
+            :param tokens: tokens to use when searching 
+            :type tokens: token list
+            :param current_list: dict of tracks to search 
+            :type current_list: dict of Track
         """
         new_list = {}
         # if there's no more tokens, everything matches!

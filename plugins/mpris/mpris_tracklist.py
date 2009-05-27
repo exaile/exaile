@@ -87,8 +87,6 @@ class ExaileMprisTrackList(dbus.service.Object):
         """
             Appends an URI in the TrackList.
         """
-        if not uri.startswith("file://"):
-            return -1
         uri = uri[7:]
         track = self.exaile.collection.get_track_by_loc(unicode(uri))
         if track is None:

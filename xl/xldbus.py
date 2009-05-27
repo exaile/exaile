@@ -13,7 +13,6 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 from xl.nls import gettext as _
-from xl.track import Track
 import dbus, dbus.service, gobject, sys
 from optparse import OptionParser
 
@@ -28,7 +27,7 @@ def check_exit(options, args):
         Check to see if dbus is running, and if it is, call the appropriate
         methods
     """
-    do_exit = False
+    iface = False
     if not options.new:
         # TODO: handle dbus stuff
         bus = dbus.SessionBus()
@@ -48,25 +47,28 @@ def check_exit(options, args):
                 if args[0] == '-':
                     args = sys.stdin.read().split('\n')
                 iface.enqueue(args)
-                do_exit = True
+                iface = True
 
-            info_commands = ('get_artist', 'get_title', 'get_album',
-                'get_length', 'get_rating')
-            for command in info_commands:
-                if getattr(options, command):
-                    print iface.get_track_attr(command.replace('get_', ''))
-                    do_exit = True
+    comm = False
+    info_commands = ('get_artist', 'get_title', 'get_album',
+        'get_length', 'get_rating')
+    for command in info_commands:
+        if getattr(options, command):
+            if iface:
+                print iface.get_track_attr(command.replace('get_', ''))
+            comm = True
 
-            run_commands = ('play', 'stop', 'next', 'prev', 'play_pause')
-            for command in run_commands:
-                if getattr(options, command):
-                    getattr(iface, command)()
-                    sys.exit(0)
+    run_commands = ('play', 'stop', 'next', 'prev', 'play_pause')
+    for command in run_commands:
+        if getattr(options, command):
+            if iface:
+                getattr(iface, command)()
+            comm = True
 
-            if not do_exit:
-                print _("You have entered an invalid option")
-
-            return True
+    if comm:
+        if not iface:
+            print _("Invalid command")
+        return True
 
     return False
 
@@ -164,6 +166,8 @@ class DbusManager(dbus.service.Object):
         """
             Adds the specified files to the current playlist
         """
+        from xl.track import Track  # do this here to avoid loading 
+                                    # settings when issuing dbus commands
         tracks = [Track(f) for f in filenames]
         self.exaile.queue.current_playlist.add_tracks(tracks)
 

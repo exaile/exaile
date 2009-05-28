@@ -33,7 +33,6 @@ _LOG = logging.getLogger('exaile.plugins.mpris.mpris_tag_converter')
 MPRIS_TAG_INFORMATION = {
         'location'   : {'out_type'  : unicode,
                         'exaile_tag': 'loc',
-                        'conv'      : lambda x: "file://" + x,
                         'desc'      : 'Name',
                         },
         'artist'      : {'out_type'  : unicode,

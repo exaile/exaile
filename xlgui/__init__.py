@@ -208,7 +208,7 @@ class Main(object):
         dialog.run()
 
     def queue_manager(self, *e):
-        dialog = queue.QueueManager(self.exaile.queue)
+        dialog = queue.QueueManager(self.main.window, self.exaile.queue)
         dialog.show()
 
     def collection_manager(self, *e):

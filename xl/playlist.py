@@ -190,12 +190,19 @@ def import_from_pls(path, handle=None):
     for n in range(1,num+1):
         tr = track.Track()
         tr.set_loc(linedict["file%s"%n])
-        tr['title'] = linedict["title%s"%n]
-        len = float(linedict["length%s"%n])
+        if "title%s"%n in linedict:
+            tr['title'] = linedict["title%s"%n]
+        else:
+            tr['title'] = linedict["file%s"%n].split("/")[-1]
+        if "length%s"%n in linedict:
+            len = float(linedict["length%s"%n])
+        else:
+            len = 0
         if len < 1:
             len = 0
         tr['length'] = len
-        tr.read_tags()
+        if tr.get_type() == 'file': # FIXME
+            tr.read_tags()
         pl.add(tr, ignore_missing_files=False)
 
     handle.close()

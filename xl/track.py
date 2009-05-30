@@ -90,6 +90,8 @@ class Track(object):
         if self.is_local():
             return os.path.exists(self.local_file_name())
         else:
+            return  #FIXME: how to handle hanging on missing servers?
+
             try:
                 urllib2.urlopen(self.get_loc_for_io())
             except urllib2.URLError, urllib2.HTTPError:

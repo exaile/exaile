@@ -16,6 +16,7 @@
 #Lyrics manager.
 #
 from xl import providers, event
+from xl import settings
 
 class LyricsNotFoundException(Exception):
     pass
@@ -27,11 +28,11 @@ class LyricsManager(providers.ProviderHandler):
         Manages talking to the lyrics plugins and updating the track
     """
     
-    def __init__(self, settings):
+    def __init__(self):
         providers.ProviderHandler.__init__(self, "lyrics")
         self.methods = {}
-        self.preferred_order = settings.get_option('lyrics/preferred_order',
-            [])
+        self.preferred_order = settings.get_option(
+                'lyrics/preferred_order', [])
         self.add_defaults()
         
     def add_search_method(self, method):
@@ -69,9 +70,9 @@ class LyricsManager(providers.ProviderHandler):
                 first
         """
         if not type(order) in (list, tuple):
-            raise AttributeError("order must be a list or tuple")
+            raise AttributeError(_("order must be a list or tuple"))
         self.preferred_order = order
-        self.settings['lyrics/preferred_order'] = list(order)
+        settings.set_option('lyrics/preferred_order', list(order))
 
     def on_new_provider(self, provider):
         """

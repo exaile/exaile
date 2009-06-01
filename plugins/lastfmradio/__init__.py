@@ -24,7 +24,7 @@
 """
 
 from xl.nls import gettext as _
-from xl import event, common, playlist, track
+from xl import event, common, playlist, track, settings
 from xl.radio import *
 import os, os.path, logging
 import lastfmmain
@@ -69,7 +69,6 @@ SHOW_COVER = None
 def _enable(devicename, exaile, nothing):
     global STATION, PROXY, HTTP_CLIENT, BUTTONS, SHOW_COVER
 
-    settings = exaile.settings
     port = settings.get_option('plugin/lastfm/listenport', 1881)
     config.listenport = port
 

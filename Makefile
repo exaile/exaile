@@ -1,5 +1,5 @@
-PREFIX = /usr/local
-LIBDIR = /lib
+PREFIX ?= /usr/local
+LIBINSTALLDIR ?= /lib
 
 all: compile
 	@echo "Ready to install..."
@@ -11,13 +11,13 @@ compile:
 
 make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
-	mkdir -p $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile
-	mkdir -p $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/lib
-	mkdir -p $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xl
-	mkdir -p $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xl/metadata
-	mkdir -p $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui
-	mkdir -p $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui/panel
-	mkdir -p $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui/prefs
+	mkdir -p $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile
+	mkdir -p $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/lib
+	mkdir -p $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xl
+	mkdir -p $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xl/metadata
+	mkdir -p $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xlgui
+	mkdir -p $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xlgui/panel
+	mkdir -p $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xlgui/prefs
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/data
 	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/data/images
@@ -27,13 +27,13 @@ make-install-dirs:
 
 uninstall:
 	rm -f  $(DESTDIR)$(PREFIX)/bin/exaile
-	rm -rf $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile
-	rm -rf $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/lib
-	rm -rf $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xl
-	rm -rf $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xl/metadata
-	rm -rf $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui
-	rm -rf $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui/panel
-	rm -rf $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui/prefs
+	rm -rf $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile
+	rm -rf $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/lib
+	rm -rf $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xl
+	rm -rf $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xl/metadata
+	rm -rf $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xlgui
+	rm -rf $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xlgui/panel
+	rm -rf $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xlgui/prefs
 	rm -rf $(DESTDIR)$(PREFIX)/share/exaile
 	rm -rf $(DESTDIR)$(PREFIX)/share/exaile/data
 	rm -rf $(DESTDIR)$(PREFIX)/share/exaile/data/images
@@ -43,26 +43,24 @@ uninstall:
 	cd plugins && make uninstall && cd ..
 
 
-install: make-install-dirs compile
-	install -m 644 exaile.py $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile	
-	install -m 644 xl/*.py[co] $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xl
-	install -m 644 xl/*.py $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xl
-	install -m 644 xl/metadata/*.py[co] \
-		$(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xl/metadata
+install: make-install-dirs
+	install -m 644 exaile.py $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile	
+	-install -m 644 xl/*.py[co] $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xl
+	install -m 644 xl/*.py $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xl
+	-install -m 644 xl/metadata/*.py[co] \
+		$(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xl/metadata
 	install -m 644 xl/metadata/*.py \
-		$(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xl/metadata
-	install -m 644 xlgui/*.py[co] $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui
-	install -m 644 xlgui/*.py $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui
-	install -m 644 xlgui/panel/*.py[co] \
-		$(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui/panel
+		$(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xl/metadata
+	-install -m 644 xlgui/*.py[co] $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xlgui
+	install -m 644 xlgui/*.py $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xlgui
+	-install -m 644 xlgui/panel/*.py[co] \
+		$(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xlgui/panel
 	install -m 644 xlgui/panel/*.py \
-		$(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui/panel
-	install -m 644 xlgui/prefs/*.py[co] \
-		$(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui/prefs
+		$(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xlgui/panel
+	-install -m 644 xlgui/prefs/*.py[co] \
+		$(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xlgui/prefs
 	install -m 644 xlgui/prefs/*.py \
-		$(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/xlgui/prefs
-	install -m 644 lib/*.py[co] $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/lib
-	install -m 644 lib/*.py $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile/lib
+		$(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xlgui/prefs
 	for f in `find po -name exaile.mo` ; do \
 	  install -d -m 755 \
 	    `echo $$f | sed "s|^po|$(DESTDIR)$(PREFIX)/share/locale|" | \
@@ -82,7 +80,7 @@ install: make-install-dirs compile
 	cd $(DESTDIR)$(PREFIX)/bin && \
 	 printf "#!/bin/sh\n\
 	 cd $(PREFIX)/share/exaile\n\
-	 exec python $(PREFIX)$(LIBDIR)/exaile/exaile.py \
+	 exec python $(PREFIX)$(LIBINSTALLDIR)/exaile/exaile.py \
 	 --datadir=$(PREFIX)/share/exaile/data --startgui \"\$$@\"" \
 	 > exaile && \
 	chmod 755 exaile
@@ -99,6 +97,7 @@ clean:
 	rm -f po/POTFILES.in
 	rm -f po/messages.pot
 	cd plugins && make clean && cd ..
+	rm -f data/plugins
 
 doc: docclean
 	mkdir -p ./doc/
@@ -107,35 +106,26 @@ doc: docclean
 docclean:
 	rm -rf ./doc/*
 
-test:
-	python tools/runtests.py all
-
-testplugins:
-	python tools/runtests.py plugins
-
-testmain:
-	python tools/runtests.py main
-
-doctests:
-	python tools/runtests.py doctests
-
 pot:
 	@echo "[encoding: UTF-8]" > po/POTFILES.in
 	find xl -name "*.py" >> po/POTFILES.in
 	find xlgui -name "*.py" >> po/POTFILES.in
 	find data/glade/ -name "*.glade" >> po/POTFILES.in
-	python po/createpot.py
+	find plugins -name "*.py" >> po/POTFILES.in
+	find plugins -name "*.glade" >> po/POTFILES.in
+	python tools/createpot.py
 
 translations:
-	python po/createpot.py compile
+	python tools/createpot.py compile
 
-commit: test clean
-	./commit || (bzr pull && bzr commit)
-	@echo "Use bzr push to send to launchpad"
-
+potball:
+	tar --bzip2 --format=posix -cf exaile-po.tar.bz2 po/ \
+	    --transform s/po/./
 
 # TODO: figure out how to ignore all files not under BZR control
 dist: test clean docclean
 	tar --bzip2 --format=posix -cf exaile-dist.tar.bz2 ./ \
 	    --exclude=*~ --exclude=exaile-dist.tar.bz2 \
 	    --exclude=./.bzr* --transform s/./exaile/
+
+

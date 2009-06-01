@@ -24,7 +24,7 @@ from xl.nls import gettext as _
 import gobject
 
 COVER_WIDTH = 100
-NOCOVER_IMAGE = xdg.get_data_path("images/nocover.png")
+NOCOVER_IMAGE = xdg.get_data_path("images", "nocover.png")
 
 class CoverManager(object):
     """
@@ -239,7 +239,7 @@ class CoverManager(object):
                 continue
             except:
                 traceback.print_exc()
-                logger.warning("No cover found")
+                logger.warning(_("No cover found"))
                 c = None
 
             if c:
@@ -262,7 +262,7 @@ class CoverManager(object):
             self.count += 1
 
             if self.count % 20 == 0:
-                logger.info("Saving cover database")
+                logger.info(_("Saving cover database"))
                 self.manager.save_cover_db()
 
         # we're done!
@@ -283,7 +283,7 @@ class CoverManager(object):
             Actually stop the finder thread
         """
         self._calculate_needed()
-        self.progress.set_text('%d covers to fetch' % self.needs)
+        self.progress.set_text(_('%d covers to fetch') % self.needs)
         self.progress.set_fraction(0)
         self._stopped = True
         self.manager.save_cover_db()
@@ -360,7 +360,7 @@ class CoverWidget(gtk.EventBox):
         self.player = player
 
         self.image.set_image_size(COVER_WIDTH, COVER_WIDTH)
-        self.image.set_image(xdg.get_data_path('images/nocover.png'))
+        self.image.set_image(NOCOVER_IMAGE)
         self.add(self.image)
         self.image.show()
         
@@ -425,7 +425,7 @@ class CoverWidget(gtk.EventBox):
             cov = self.covers.get_cover(self.current_track,
                 update_track=True)
         except cover.NoCoverFoundException:
-            logger.warning("No covers found")
+            logger.warning(_("No covers found"))
             self.image.set_image(xdg.get_data_path('images/nocover.png'))
             return
 

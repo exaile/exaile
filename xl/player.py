@@ -20,9 +20,9 @@ import gst
 
 import gobject
 
-from xl import common, event, playlist, settings
+from xl import common, event, playlist, settings, xdg
 from xl.providers import ProviderHandler
-import random, time, os, logging, copy, threading
+import random, time, os, logging, copy, threading, urllib
 from urlparse import urlparse
 
 try:
@@ -30,14 +30,14 @@ try:
 except:
     import pickle
 
-settings = settings.SettingsManager.settings
-
 logger = logging.getLogger(__name__)
 
 class PlayQueue(playlist.Playlist):
+
     """
         Manages the queue of songs to be played
     """
+
     def __init__(self, player, location=None):
         self.current_playlist = None
         self.current_pl_track = None
@@ -97,7 +97,7 @@ class PlayQueue(playlist.Playlist):
 
     def prev(self):
         track = None
-        if self.current_pos in [0, -1]:
+        if self.player.current:
             if self.player.get_time() < 5:
                 if self.current_playlist:
                     track = self.current_playlist.prev()
@@ -344,7 +344,6 @@ class UnifiedPlayer(object):
             progress = 0
         return progress
 
-
     def play(self, track, user=True):
         if not track:
             return # we cant play nothing
@@ -487,6 +486,8 @@ class UnifiedPlayer(object):
                 self.unlink_stream(stream)
             self._reset_crossfade_timer()
             event.log_event('playback_end', self, current)
+            return True
+        return False
 
     def pause(self):
         """
@@ -496,6 +497,8 @@ class UnifiedPlayer(object):
             self.pipe.set_state(gst.STATE_PAUSED)
             self._reset_crossfade_timer()
             event.log_event('playback_pause', self, self.current)
+            return True
+        return False
  
     def unpause(self):
         """
@@ -510,6 +513,8 @@ class UnifiedPlayer(object):
             self.pipe.set_state(gst.STATE_PLAYING)
             self._reset_crossfade_timer()
             event.log_event('playback_resume', self, self.current)
+            return True
+        return False
 
     def toggle_pause(self):
         """
@@ -645,7 +650,7 @@ class AudioStream(gst.Bin):
         if not track:
             return False
         if track.is_local():
-            if not os.path.exists(track.get_loc()):
+            if not track.exists():
                 logger.error(_("File does not exist: %s") %
                         track.get_loc())
                 return False
@@ -653,9 +658,6 @@ class AudioStream(gst.Bin):
         self.track = track
 
         uri = track.get_loc_for_io()
-        parsed = urlparse(uri)
-        if parsed[0] == "":
-            uri = "file://%s"%uri #TODO: is there a better way to do this?
 
         logger.info(_("Playing %s") % uri)
         self.reset_playtime_stamp()

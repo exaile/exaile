@@ -12,9 +12,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+from xl.nls import gettext as _
 import os.path, os
 import urllib, traceback
-from xl import common, providers, event, metadata
+from xl import common, providers, event, metadata, settings
 import logging
 from copy import deepcopy
 logger = logging.getLogger(__name__)
@@ -94,7 +95,7 @@ class CoverDB(object):
         if not type(cover) == str and not type(cover) == unicode:
             return
         if not os.path.isfile(cover): return
-        logger.info("CoverDB: set cover %s for '%s - %s'" %
+        logger.info(_("CoverDB: set cover %s for '%s - %s'") %
             (cover, album, artist))
         if not artist in self.artists:
             self.artists[artist] = common.idict()
@@ -115,7 +116,7 @@ class CoverDB(object):
         if not location:
             location = self.location
         if not location:
-            raise AttributeError("You did not specify a location to save the db")
+            raise AttributeError(_("You did not specify a location to save the db"))
 
         pdata = None
         for loc in [location, location+".old", location+".new"]:
@@ -149,7 +150,7 @@ class CoverDB(object):
         if not location:
             location = self.location
         if not location:
-            raise AttributeError("You did not specify a location to save the db")
+            raise AttributeError(_("You did not specify a location to save the db"))
 
         try:
             f = file(location, 'rb')
@@ -189,17 +190,16 @@ class CoverManager(providers.ProviderHandler):
 
         Manages different pluggable album art interfaces
     """
-    def __init__(self, settings, cache_dir):
+    def __init__(self, cache_dir):
         """
             Initializes the cover manager
 
             @param cache_dir:  directory to save remotely downloaded art
         """
         providers.ProviderHandler.__init__(self, "covers")
-        self.settings = settings
         self.methods = {}
-        self.preferred_order = settings.get_option('covers/preferred_order',
-            [])
+        self.preferred_order = settings.get_option(
+                'covers/preferred_order', [])
         self.add_defaults()
         self.cache_dir = cache_dir
         if not os.path.isdir(cache_dir):
@@ -242,9 +242,9 @@ class CoverManager(providers.ProviderHandler):
                 first
         """
         if not type(order) in (list, tuple):
-            raise AttributeError("order must be a list or tuple")
+            raise AttributeError(_("order must be a list or tuple"))
         self.preferred_order = order
-        self.settings['covers/preferred_order'] = list(order)
+        settings.set_option('covers/preferred_order', list(order))
 
     def on_new_provider(self, provider):
         """
@@ -387,19 +387,19 @@ class CoverManager(providers.ProviderHandler):
                 covers you want returned
         """
         covers = []
-        logger.info("Attempting to find covers for %s" % track)
+        logger.info(_("Attempting to find covers for %s") % track)
         for method in self.get_methods():
             try:
                 if not search:
                     c = method.find_covers(track, limit)
                 else:
                     if not hasattr(method, 'search_covers'):
-                        logger.info("%s method doesn't "
-                            "support searching, skipping" % method.name)
+                        logger.info(_("%s method doesn't "
+                            "support searching, skipping") % method.name)
                         continue
                     c = method.search_covers(track, limit)
 
-                logger.info("Found covers from %s" % method.name)
+                logger.info(_("Found covers from %s") % method.name)
                 covers.extend(c)
                 if limit != -1:
                     event.log_event('cover_found', self, (covers, method.type))
@@ -455,7 +455,7 @@ class LocalCoverSearch(CoverSearchMethod):
     def find_covers(self, track, limit=-1):
         covers = []
         try:
-            search_dir = os.path.dirname(track.get_loc())
+            search_dir = os.path.dirname(track.local_file_name())
         except AttributeError:
             raise NoCoverFoundException()
 

@@ -22,9 +22,7 @@
 #
 # also contains functions for saving and loading various playlist formats.
 
-from xl import trackdb, event, xdg, track, collection
-from xl.settings import SettingsManager
-SettingsManager = SettingsManager.settings
+from xl import trackdb, event, xdg, track, collection, settings
 import urllib, random, os, time, cgi
 
 try:
@@ -40,12 +38,29 @@ except ImportError:
     except ImportError:
         import elementtree as ETree
 
-from urlparse import urlparse
+import urlparse
 import logging
 logger = logging.getLogger(__name__)
 
 class InvalidPlaylistTypeException(Exception):
     pass
+
+def encode_filename(name):
+    """Converts name into a valid filename.
+    """
+    import string
+    # list of invalid chars that need to be encoded
+    # Note: '%' is the prefix for encoded chars so blacklist it too
+    blacklist = r'<>:"/\|?*%'
+
+    def encode_char(c):
+        return '%' + hex(ord(c))[2:] if c in blacklist else c
+
+    # encode any blacklisted chars
+    name = ''.join([encode_char(c) for c in name]) + '.playlist'
+
+    return name
+
 
 def save_to_m3u(playlist, path):
     """
@@ -67,9 +82,16 @@ def save_to_m3u(playlist, path):
     handle.close()
 
 def import_from_m3u(path):
-    handle = open(path, 'r')
-
-    name = os.path.split(path)[-1].replace(".m3u","")
+    url_parsed = urlparse(path)
+    # Local file, possibly on Windows ?
+    if not url_parsed[0] or len(url_parsed[0]) == 1:
+        handle = open(path, 'r')
+        name = os.path.basename(path).replace(".m3u","")
+        is_local = True
+    else:
+        handle = urllib.urlopen(path)
+        name = url_parsed[2].split('/')[-1].replace('.m3u', '')
+        is_local = False
     
     #if not handle.readline().startswith("#EXTM3U"):
     #    return None
@@ -85,22 +107,27 @@ def import_from_m3u(path):
             pl.set_name(line[12:])
         elif line.startswith("#EXTINF:"):
             current = track.Track()
-            len, title = line[9:].split(",", 1)
-            len = float(len)
-            if len < 1:
-                len = 0
+            comma_separated = line[9:].split(",", 1)
+            title = comma_separated[-1]
+            if len(comma_separated) > 1:
+                length = float(comma_separated[0])
+                if length < 1:
+                    length = 0
+            else:
+                length = 0
             current['title'] = title
-            current['length'] = len
+            current['length'] = length
         elif line.startswith("#"):
             pass
         else:
             if not current:
                 current = track.Track()
-            if not os.path.isabs(line):
+            track_is_local = len(urlparse(line)[0]) <= 1
+            if track_is_local and not os.path.isabs(line):
                 line = os.path.join(os.path.dirname(path), line)
             current.set_loc(line)
             current.read_tags()
-            pl.add(current)
+            pl.add(current, ignore_missing_files=track_is_local)
             current = None
 
     handle.close()
@@ -163,12 +190,19 @@ def import_from_pls(path, handle=None):
     for n in range(1,num+1):
         tr = track.Track()
         tr.set_loc(linedict["file%s"%n])
-        tr['title'] = linedict["title%s"%n]
-        len = float(linedict["length%s"%n])
+        if "title%s"%n in linedict:
+            tr['title'] = linedict["title%s"%n]
+        else:
+            tr['title'] = linedict["file%s"%n].split("/")[-1]
+        if "length%s"%n in linedict:
+            len = float(linedict["length%s"%n])
+        else:
+            len = 0
         if len < 1:
             len = 0
         tr['length'] = len
-        tr.read_tags()
+        if tr.get_type() == 'file': # FIXME
+            tr.read_tags()
         pl.add(tr, ignore_missing_files=False)
 
     handle.close()
@@ -192,7 +226,7 @@ def save_to_asx(playlist, path):
     for track in playlist:
         handle.write("<entry>\n")
         handle.write("  <title>%s</title>\n" % track['title'])
-        handle.write("  <ref href=\"%s\" />\n" % urllib.quote(track.get_loc()))
+        handle.write("  <ref href=\"%s\" />\n" % track.get_loc())
         handle.write("</entry>\n")
     
     handle.write("</asx>")
@@ -205,7 +239,7 @@ def import_from_asx(path):
     pl = Playlist(name=name)
     for t in tracks:
         tr = track.Track()
-        loc = urllib.unquote(t.find("ref").get("href"))
+        loc = t.find("ref").get("href")
         tr.set_loc(loc)
         tr['title'] = t.find("title").text.strip()
         tr.read_tags()
@@ -237,11 +271,8 @@ def save_to_xspf(playlist, path):
             if track[tag] == u"":
                 continue
             handle.write("      <%s>%s</%s>\n" % (xs, track[tag],xs) )
-        url = urllib.quote(track.get_loc())
-        if urlparse(track.get_loc())[0] == "":
-            handle.write("      <location>file://%s</location>\n" % url)
-        else:
-            handle.write("      <location>%s</location>\n" % url)
+        url = track.get_loc()
+        handle.write("      <location>%s</location>\n" % url)
         handle.write("    </track>\n")
     
     handle.write("  </trackList>\n")
@@ -257,7 +288,7 @@ def import_from_xspf(path):
     pl = Playlist(name=name)
     for t in tracks:
         tr = track.Track()
-        loc = urllib.unquote(t.find("%slocation"%ns).text.strip())
+        loc = t.find("%slocation"%ns).text.strip()
         tr.set_loc(loc)
         for xs, tag in XSPF_MAPPING.iteritems():
             try:
@@ -424,7 +455,7 @@ class Playlist(object):
             track: the track to add [Track]
             location: the index to insert at [int]
         """
-        if os.path.exists(track.get_loc_for_io()) or not ignore_missing_files:
+        if track.exists() or not ignore_missing_files:
             self.add_tracks([track], location)
 
     def add_tracks(self, tracks, location=None, add_duplicates=True):
@@ -720,7 +751,7 @@ class Playlist(object):
         f.write("EOF\n")
         for item in self.extra_save_items:
             val = getattr(self, item)
-            strn = SettingsManager._val_to_str(val)
+            strn = settings._SETTINGSMANAGER._val_to_str(val)
             f.write("%s=%s\n"%(item,strn))
         f.close()
         if os.path.exists(location + ".new"):
@@ -747,7 +778,7 @@ class Playlist(object):
             if line == "":
                 break
             item, strn = line[:-1].split("=",1)
-            val = SettingsManager._str_to_val(strn)
+            val = settings._SETTINGSMANAGER._str_to_val(strn)
             if hasattr(self, item):
                 setattr(self, item, val)
         f.close()
@@ -1049,7 +1080,8 @@ class PlaylistManager(object):
         """
         name = pl.get_name()
         if overwrite or name not in self.playlists:
-            pl.save_to_location(os.path.join(self.playlist_dir, pl.get_name()))
+            pl.save_to_location(os.path.join(self.playlist_dir,
+                encode_filename(name)))
 
             if not name in self.playlists: 
                 self.playlists.append(name)
@@ -1068,38 +1100,42 @@ class PlaylistManager(object):
         """
         if name in self.playlists:
             try:
-                os.remove(os.path.join(self.playlist_dir, name))
+                os.remove(os.path.join(self.playlist_dir,
+                    encode_filename(name)))
             except OSError:
                 pass
             self.playlists.remove(name)
             event.log_event('playlist_removed', self, name)
             
-    def rename_playlist(self, old_name, new_name):
+    def rename_playlist(self, playlist, new_name):
         """
-            Renames the playlist at old_name to new_name
+            Renames the playlist to new_name
         """
-        #TODO need to test that this works and is the right
-        #way to do it
-        old_path = os.path.join(self.playlist_dir, old_name)
-        new_path = os.path.join(self.playlist_dir, new_name)
-        os.rename(old_path, new_path)
-        # We also have to remove the old playlist so it does not 
-        # Save when we exit
-        self.playlists.remove(old_name)
+        old_name = playlist.get_name()
+        if old_name in self.playlists:
+            self.remove_playlist(old_name)
+            playlist.set_name(new_name)
+            self.save_playlist(playlist)
 
     def load_names(self):
         """
             Loads the names of the playlists from the order file
         """
+        # collect the names of all playlists in playlist_dir
+        existing = []
+        for f in os.listdir(self.playlist_dir):
+            # everything except the order file shold be a playlist
+            if f != os.path.basename(self.order_file):
+                pl = self.playlist_class()
+                pl.load_from_location(os.path.join(self.playlist_dir, f))
+                existing.append(pl.name)
+
+        # if order_file exists then use it
         if os.path.isfile(self.order_file):
             ordered_playlists = self.load_from_location(self.order_file)
+            self.playlists = [n for n in ordered_playlists if n in existing]
         else:
-            ordered_playlists = []
-            playlists = os.listdir(self.playlist_dir)
-            for playlist in playlists:
-                if playlist not in ordered_playlists:
-                    ordered_playlists.append(playlist)
-        self.playlists = ordered_playlists 
+            self.playlists = existing 
 
     def get_playlist(self, name):
         """
@@ -1109,7 +1145,8 @@ class PlaylistManager(object):
         """
         if name in self.playlists:
             pl = self.playlist_class(name=name)
-            pl.load_from_location(os.path.join(self.playlist_dir, name))
+            pl.load_from_location(os.path.join(self.playlist_dir,
+                encode_filename(name)))
             return pl
         else:
             raise ValueError("No such playlist")

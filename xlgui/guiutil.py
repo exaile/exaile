@@ -426,6 +426,11 @@ class Menu(gtk.Menu):
             Initializes the menu
         """
         gtk.Menu.__init__(self)
+        self._dynamic_builders = []    # list of (callback, args, kwargs)
+        self._destroy_dynamic = []     # list of children added by dynamic
+                                       # builders. Will be destroyed and
+                                       # recreated at each map()
+        self.connect('map', self._check_dynamic)
 
         self.show()
 
@@ -443,24 +448,17 @@ class Menu(gtk.Menu):
         item.show_all()
         return item
 
-    def append(self, label, callback, stock_id=None, data=None):
+    def append(self, label, callback, stock_img=None, data=None):
         """
             Appends a menu item
         """
-        if stock_id:
-            item = gtk.MenuItem()
-            hbox = gtk.HBox()
-            hbox.set_spacing(5)
-            item.add(hbox)
-            image = gtk.image_new_from_stock(stock_id,
+        if stock_img:
+            item = gtk.ImageMenuItem(label)
+            image = gtk.image_new_from_stock(stock_img,
                 gtk.ICON_SIZE_MENU)
-            hbox.pack_start(image, False, True)
-            label = gtk.Label(label)
-            label.set_alignment(0, 0)
-            hbox.pack_start(label, True, True)
+            item.set_image(image)
         else:
             item = gtk.MenuItem(label)
-            self.label = item.get_child()
 
         if callback: item.connect('activate', callback, data)
         gtk.Menu.append(self, item)
@@ -508,6 +506,39 @@ class Menu(gtk.Menu):
         item = gtk.SeparatorMenuItem()
         item.show()
         gtk.Menu.append(self, item)
+
+    def add_dynamic_builder(self, callback, *args, **kwargs):
+        """
+            Adds a callback that will be run every time the menu is mapped,
+            to add any items that change frequently. The items they add are
+            destroyed and re-created with each map event.
+
+        """
+        self._dynamic_builders.append((callback, args, kwargs))
+
+    def remove_dynamic_builder(self, callback):
+        """
+            Removes the given dynamic builder callback.
+        """
+        self._dynamic_builders = [ tuple for tuple in self._dynamic_builders
+                                   if tuple[0] != callback ]
+
+    def _check_dynamic(self, *args):
+        """
+           Deletes and builds again items added by the last batch of
+           dynamic builder callbacks.
+        """
+        if self._destroy_dynamic:
+            for child in self._destroy_dynamic:
+                self.remove(child)
+            self._destroy_dynamic = []
+
+        if self._dynamic_builders:
+            children_before = set(self.get_children())
+            for callback, args, kwargs in self._dynamic_builders:
+                callback(*args, **kwargs)
+            self._destroy_dynamic = [ child for child in self.get_children()
+                                      if child not in children_before ]
 
     def popup(self, *e):
         """

@@ -78,8 +78,7 @@ class BaseTestCase(GtkTestCase,
         self.setup_logging()
         self.radio = FakeRadio()
         tests.base.BaseTestCase.setUp(self)
-        self.covers = cover.CoverManager(self.settings, 
-            '.testtemp/covers')
+        self.covers = cover.CoverManager('.testtemp/covers')
         self.player = TestPlayer()
         self.queue = player.PlayQueue(self.player)
         self.playlists = playlist.PlaylistManager()

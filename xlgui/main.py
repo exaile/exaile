@@ -17,13 +17,13 @@ import pygtk, pygst
 pygtk.require('2.0')
 pygst.require('0.10')
 import gst, logging
-import gtk, gtk.glade, gobject, pango
-from xl import xdg, event, track, settings, common
+import gtk, gtk.glade, gobject, pango, datetime
+from xl import xdg, event, track, common
+from xl import settings
 import xl.playlist
 from xlgui import playlist, cover, guiutil, commondialogs
 import xl.playlist, re, os, threading
 
-settings = settings.SettingsManager.settings
 logger = logging.getLogger(__name__)
 
 class PlaybackProgressBar(object):
@@ -65,9 +65,7 @@ class PlaybackProgressBar(object):
         self.player.seek(seconds)
         self.seeking = False
         self.bar.set_fraction(value)
-        remaining_seconds = length - seconds
-        self.bar.set_text("%d:%02d / %d:%02d" % ((seconds / 60), 
-            (seconds % 60), (remaining_seconds / 60), (remaining_seconds % 60))) 
+        self._set_bar_text(seconds, length)
 #        self.emit('seek', seconds)
 
     def seek_motion_notify(self, widget, event):
@@ -86,8 +84,7 @@ class PlaybackProgressBar(object):
         length = track.get_duration()
         seconds = float(value * length)
         remaining_seconds = length - seconds
-        self.bar.set_text("%d:%02d / %d:%02d" % ((seconds / 60), 
-            (seconds % 60), (remaining_seconds / 60), (remaining_seconds % 60))) 
+        self._set_bar_text(seconds, length)
        
     def playback_start(self, type, player, object):
         self.timer_id = gobject.timeout_add(1000, self.timer_update)
@@ -103,19 +100,40 @@ class PlaybackProgressBar(object):
         if not track: return
 
         if not track.is_local():
-            self.bar.set_text('Streaming...')
+            self.bar.set_text(_('Streaming...'))
             return
         length = track.get_duration()
 
         self.bar.set_fraction(self.player.get_progress())
 
         seconds = self.player.get_time()
-        remaining_seconds = length - seconds
-        self.bar.set_text("%d:%02d / %d:%02d" %
-            ( seconds // 60, seconds % 60, remaining_seconds // 60,
-            remaining_seconds % 60))
+        self._set_bar_text(seconds, length)
 
         return True
+
+    def _set_bar_text(self, seconds, length):
+        """
+            Sets the text of the progress bar based on the number of seconds
+            into the song
+        """
+        remaining_seconds = length - seconds
+        time = datetime.timedelta(seconds=int(seconds))
+        time_left = datetime.timedelta(seconds=int(remaining_seconds))
+        def str_time(t):
+            """
+                Converts a datetime.timedelta object to a sensible human-
+                readable format
+            """
+            text = unicode(t)
+            if t.seconds > 3600:
+                return text
+            elif t.seconds > 60:
+                return text.lstrip(_("0:"))
+            else:
+                # chop off first zero to get 0:20
+                return text[3:]
+        self.bar.set_text("%s / %s" % (str_time(time), str_time(time_left)))
+
 
 # Reduce the notebook tabs' close button padding size.
 gtk.rc_parse_string("""
@@ -140,7 +158,6 @@ class NotebookTab(gtk.EventBox):
 
         self.main = main
         self.nb = notebook
-        self.title = title
         self.page = page
         self.tips = gtk.Tooltips()
 
@@ -156,7 +173,7 @@ class NotebookTab(gtk.EventBox):
         btn.set_focus_on_click(False)
         btn.connect('clicked', self.do_close)
         btn.connect('button_press_event', self.on_button_press)
-        self.tips.set_tip(btn, _("Close Tab"))
+        self.tips.set_tip(btn, _("Close tab"))
         image = gtk.Image()
         image.set_from_stock('gtk-close', gtk.ICON_SIZE_MENU)
         btn.add(image)
@@ -164,11 +181,29 @@ class NotebookTab(gtk.EventBox):
 
         self.show_all()
 
+    def get_title(self):
+        return self.label.get_text()
+    def set_title(self, title):
+        self.label.set_text(title)
+    title = property(get_title, set_title)
+
     def on_button_press(self, widget, event):
         """
             Called when the user clicks on the tab
         """
-        pass
+        if event.button == 3:
+            menu = guiutil.Menu()
+            menu.append(_("_Rename"), self.do_rename, gtk.STOCK_EDIT)
+            menu.append(_("_Close"), self.do_close, gtk.STOCK_CLOSE)
+            menu.popup(None, None, None, event.button, event.time)
+
+    def do_rename(self, *args):
+        dialog = commondialogs.TextEntryDialog(
+            _("New playlist title:"), _("Rename Playlist"),
+            self.title, self.main.window)
+        response = dialog.run()
+        if response == gtk.RESPONSE_OK:
+            self.title = dialog.get_value()
 
     def do_close(self, *args):
         """
@@ -184,7 +219,7 @@ class MainWindow(object):
     """
         Main Exaile Window
     """
-    def __init__(self, controller, xml, settings, collection, 
+    def __init__(self, controller, xml, collection, 
         player, queue, covers):
         """
             Initializes the main window
@@ -193,7 +228,6 @@ class MainWindow(object):
         """
         from xlgui import osd
         self.controller = controller
-        self.settings = settings
         self.covers = covers
         self.collection =  collection
         self.player = player
@@ -212,8 +246,7 @@ class MainWindow(object):
         self._setup_widgets()
         self._setup_hotkeys()
         self._connect_events()
-        self.osd = osd.OSDWindow(self.settings, self.cover,
-            self.covers, self.player)
+        self.osd = osd.OSDWindow(self.cover, self.covers, self.player)
         self.tab_manager = xl.playlist.PlaylistManager(
             'saved_tabs')
         self.load_saved_tabs()
@@ -222,7 +255,7 @@ class MainWindow(object):
         """
             Loads the saved tabs
         """
-        if not self.settings.get_option('playlist/open_last', True):
+        if not settings.get_option('playlist/open_last', False):
             self.add_playlist()
             return
         names = self.tab_manager.list_playlists()
@@ -233,23 +266,37 @@ class MainWindow(object):
         count = -1
         count2 = 0
         names.sort()
+        # holds the order#'s of the already added tabs
+        added_tabs = {}
+        name_re = re.compile(
+                r'^order(?P<tab>\d+)\.((?P<tag>[^.]+)\.)?(?P<name>.*)$')
         for i, name in enumerate(names):
+            match = name_re.match(name)
+            if not match or not match.group('tab') or not match.group('name'):
+                logger.error("%s did not match valid playlist file"
+                        % repr(name))
+                continue
+
+            logger.debug("Adding playlist %d: %s" % (i, name))
+            logger.debug("Tab:%s; Tag:%s; Name:%s" % (match.group('tab'),
+                                                     match.group('tag'),
+                                                     match.group('name'),
+                                                     ))
             pl = self.tab_manager.get_playlist(name)
-            pl.name = re.sub(r'order\d\.', '', pl.name)
-            
-            if pl.name.startswith('current.'):
+            pl.name = match.group('name')
+
+            if match.group('tab') not in added_tabs:
+                pl = self.add_playlist(pl)
+                added_tabs[match.group('tab')] = pl
+            pl = added_tabs[match.group('tab')]
+
+            if match.group('tag') == 'current':
                 count = i
-                pl.name = pl.name[len('current.'):]
-                if self.queue.current_playlist == None:
-                    self.queue.set_current_playlist(
-                            self.add_playlist(pl).playlist )
-            elif pl.name.startswith('playing.'):
+                if self.queue.current_playlist is None:
+                    self.queue.set_current_playlist(pl.playlist)
+            elif match.group('tag') == 'playing':
                 count2 = i
-                pl.name = pl.name[len('playing.'):]
-                self.queue.set_current_playlist(
-                        self.add_playlist(pl).playlist )
-            else:
-                self.add_playlist(pl)
+                self.queue.set_current_playlist(pl.playlist)
 
         # If there's no selected playlist saved, use the currently 
         # playing
@@ -265,7 +312,7 @@ class MainWindow(object):
         # first, delete the current tabs
         names = self.tab_manager.list_playlists()
         for name in names:
-            os.remove(os.path.join(self.tab_manager.playlist_dir, name))
+            logger.debug("Removing tab %s" % name)
             self.tab_manager.remove_playlist(name)
 
         for i in range(self.playlist_notebook.get_n_pages()):
@@ -276,6 +323,7 @@ class MainWindow(object):
             elif i == self.playlist_notebook.get_current_page():
                 tag = 'current.'
             pl.name = "order%d.%s%s" % (i, tag, pl.name)
+            logger.debug("Saving tab %d: %s" % (i, pl.name))
             self.tab_manager.save_playlist(pl, True)            
 
     def add_playlist(self, pl=None):
@@ -313,6 +361,7 @@ class MainWindow(object):
         hotkeys = (
             ('<Control>W', lambda *e: self.close_playlist_tab()),
             ('<Control>C', lambda *e: self.on_clear_playlist()),
+            ('<Control>D', lambda *e: self.on_queue()),
         )
 
         self.accel_group = gtk.AccelGroup()
@@ -328,14 +377,14 @@ class MainWindow(object):
         """
         self.xml.get_widget('volume_slider').set_value(self.player.get_volume())
         self.shuffle_toggle = self.xml.get_widget('shuffle_button')
-        self.shuffle_toggle.set_active(self.settings.get_option('playback/shuffle',
-            False))
+        self.shuffle_toggle.set_active(settings.get_option(
+            'playback/shuffle', False))
         self.repeat_toggle = self.xml.get_widget('repeat_button')
-        self.repeat_toggle.set_active(self.settings.get_option('playback/repeat',
-            False))
+        self.repeat_toggle.set_active(settings.get_option(
+            'playback/repeat', False))
         self.dynamic_toggle = self.xml.get_widget('dynamic_button')
-        self.dynamic_toggle.set_active(self.settings.get_option('playback/dynamic',
-            False))
+        self.dynamic_toggle.set_active(settings.get_option(
+            'playback/dynamic', False))
 
         # cover box
         self.cover_event_box = self.xml.get_widget('cover_event_box')
@@ -370,44 +419,11 @@ class MainWindow(object):
         self.filter.connect('activate', self.on_playlist_search)
         box.pack_start(self.filter.entry, True, True)
 
-        self.rating_combo = self.xml.get_widget('rating_combo_box')
-        self.rating_combo.set_active(0)
-        self.rating_combo.set_sensitive(False)
-        self.rating_id = self.rating_combo.connect('changed',
-            self.set_current_track_rating)
-
-    def set_current_track_rating(self, *e):
-        """
-            Sets the currently playing track's rating
-        """
-        track = self.player.current
-        if not track:
-            return
-
-        rating = int(self.rating_combo.get_active())
-        steps = self.settings.get_option("miscellaneous/rating_steps", 5)
-
-        track['rating'] = float((100.0*rating)/steps)
-
-        self.update_rating_combo(rating)
-
-    def update_rating_combo(self, rating=None):
-        """
-            Updates the rating combo box
-        """
-        track = None
-        if rating is None:
-            track = self.player.current
-            if not track: return
-            rating = track.get_rating()
-
-        if self.rating_id:
-            self.rating_combo.disconnect(self.rating_id)
-
-        self.rating_combo.set_active(rating)
-        self.rating_id = self.rating_combo.connect('changed',
-            self.set_current_track_rating)
-        self.get_selected_playlist().queue_draw()
+    def on_queue(self):
+        """Toggles queue on the current playlist"""
+        cur_page = self.playlist_notebook.get_children()[
+                self.playlist_notebook.get_current_page()]
+        cur_page.menu.on_queue()
 
     def on_playlist_search(self, *e):
         """
@@ -418,7 +434,7 @@ class MainWindow(object):
             pl.search(self.filter.get_text())
 
     def on_volume_changed(self, range):
-        self.settings['player/volume'] = range.get_value()
+        settings.set_option('player/volume', range.get_value())
         self.player.set_volume(range.get_value())
 
     def on_stop_buttonpress(self, widget, event):
@@ -454,13 +470,13 @@ class MainWindow(object):
         """
         if not self.get_selected_playlist(): return
 
-        message = "%d showing, %d in collection" \
+        message = _("%d showing, %d in collection") \
             % (len(self.get_selected_playlist().playlist), 
                self.collection.get_count())
         
         queuecount = len(self.queue)
         if queuecount:
-            message += " : %d queued" % queuecount
+            message += _(" : %d queued") % queuecount
 
         self.track_count_label.set_label(message)
 
@@ -527,9 +543,9 @@ class MainWindow(object):
             Called when a stream is buffering
         """
         if percent < 100:
-            self.status.set_label("Buffering: %d%%..." % percent, 1000)
+            self.status.set_label(_("Buffering: %d%%...") % percent, 1000)
         else:
-            self.status.set_label("Buffering: 100%...", 1000)
+            self.status.set_label(_("Buffering: 100%..."), 1000)
 
     @guiutil.gtkrun
     def on_tags_parsed(self, type, player, args):
@@ -596,9 +612,12 @@ class MainWindow(object):
         """
             Called when the user clicks one of the playback mode buttons
         """
-        self.settings['playback/shuffle'] = self.shuffle_toggle.get_active()
-        self.settings['playback/repeat'] = self.repeat_toggle.get_active()
-        self.settings['playback/dynamic'] = self.dynamic_toggle.get_active()
+        settings.set_option('playback/shuffle', 
+                self.shuffle_toggle.get_active())
+        settings.set_option('playback/repeat', 
+                self.repeat_toggle.get_active())
+        settings.set_option('playback/dynamic', 
+                self.dynamic_toggle.get_active())
 
         pl = self.get_selected_playlist()
         if pl:
@@ -616,7 +635,7 @@ class MainWindow(object):
         if player.current in pl.playlist.ordered_tracks:
             path = (pl.playlist.index(player.current),)
         
-            if self.settings.get_option('gui/ensure_visible', True):
+            if settings.get_option('gui/ensure_visible', True):
                 pl.list.scroll_to_cell(path)
 
             gobject.idle_add(pl.list.set_cursor, path)
@@ -627,12 +646,10 @@ class MainWindow(object):
                 gtk.ICON_SIZE_SMALL_TOOLBAR))
         self.update_track_counts()
 
-        self.rating_combo.set_sensitive(True)
-        self.update_rating_combo()
-        if self.settings.get_option('playback/dynamic', False):
+        if settings.get_option('playback/dynamic', False):
             self._get_dynamic_tracks()
 
-        if self.settings.get_option('osd/enabled', True):
+        if settings.get_option('osd/enabled', True):
             self.osd.show(self.player.current)
 
     @guiutil.gtkrun
@@ -647,9 +664,6 @@ class MainWindow(object):
         self.play_button.set_image(gtk.image_new_from_stock('gtk-media-play',
                 gtk.ICON_SIZE_SMALL_TOOLBAR))
 
-        self.rating_combo.set_sensitive(False)
-        self.update_rating_combo(0)
-
     @common.threaded
     def _get_dynamic_tracks(self):
         """
@@ -658,26 +672,9 @@ class MainWindow(object):
             This tries to keep at least 5 tracks the current playlist... if
             there are already 5, it just adds one
         """
-        playlist = self.get_selected_playlist()
-        if not playlist: return
-
-        if not self.controller.exaile.dynamic.get_providers():
-            logger.warning("Dynamic mode is enabled, but there "
-                "are no dynamic providers!")
-            return
-
-        pl = playlist.playlist
-
-        number = 5 - len(pl)
-        if number <= 0: number = 1
-
-        logger.info("Dynamic: attempting to get %d tracks" % number)
-        tracks = self.controller.exaile.dynamic.find_similar_tracks(
-            self.player.current, number, pl.ordered_tracks)
-
-        logger.info("Dynamic: %d tracks fetched" % len(tracks))
-
-        pl.add_tracks(tracks) 
+        playlist = self.get_selected_playlist().playlist
+        
+        self.controller.exaile.dynamic.populate_playlist(playlist)
 
     def _update_track_information(self):
         """
@@ -784,18 +781,18 @@ class MainWindow(object):
             Sets up the position and sized based on the size the window was
             when it was last moved or resized
         """
-        if self.settings.get_option('gui/mainw_maximized', False):
+        if settings.get_option('gui/mainw_maximized', False):
             self.window.maximize()
             
-        width = self.settings.get_option('gui/mainw_width', 500)
-        height = self.settings.get_option('gui/mainw_height', 475)
-        x = self.settings.get_option('gui/mainw_x', 10)
-        y = self.settings.get_option('gui/mainw_y', 10)
+        width = settings.get_option('gui/mainw_width', 500)
+        height = settings.get_option('gui/mainw_height', 475)
+        x = settings.get_option('gui/mainw_x', 10)
+        y = settings.get_option('gui/mainw_y', 10)
 
         self.window.move(x, y)
         self.window.resize(width, height)
 
-        pos = self.settings.get_option('gui/mainw_sash_pos', 200)
+        pos = settings.get_option('gui/mainw_sash_pos', 200)
         self.splitter.set_position(pos)
 
     def delete_event(self, *e):
@@ -828,23 +825,24 @@ class MainWindow(object):
             Called when the window is resized or moved
         """
         # Don't save window size if it is maximized or fullscreen.
-        if self.settings.get_option('gui/mainw_maximized', False) or \
+        if settings.get_option('gui/mainw_maximized', False) or \
                 self._fullscreen:
             return False
 
         (width, height) = self.window.get_size()
         if [width, height] != [ settings.get_option("gui/mainw_"+key, -1) for \
                 key in ["width", "height"] ]:
-            self.settings['gui/mainw_height'] = height
-            self.settings['gui/mainw_width'] = width
+            settings.set_option('gui/mainw_height', height)
+            settings.set_option('gui/mainw_width', width)
         (x, y) = self.window.get_position()
         if [x, y] != [ settings.get_option("gui/mainw_"+key, -1) for \
                 key in ["x", "y"] ]:
-            self.settings['gui/mainw_x'] = x
-            self.settings['gui/mainw_y'] = y
+            settings.set_option('gui/mainw_x', x)
+            settings.set_option('gui/mainw_y', y)
         pos = self.splitter.get_position()
-        if pos > 10 and pos != self.settings.get_option("gui/mainw_sash_pos", -1):
-            self.settings['gui/mainw_sash_pos'] = pos
+        if pos > 10 and pos != settings.get_option(
+                "gui/mainw_sash_pos", -1):
+            settings.set_option('gui/mainw_sash_pos', pos)
 
         return False
 
@@ -853,7 +851,7 @@ class MainWindow(object):
             Saves the current maximized and fullscreen states
         """
         if event.changed_mask & gtk.gdk.WINDOW_STATE_MAXIMIZED:
-            self.settings.set_option('gui/mainw_maximized',
+            settings.set_option('gui/mainw_maximized',
                 bool(event.new_window_state & gtk.gdk.WINDOW_STATE_MAXIMIZED))
         if event.changed_mask & gtk.gdk.WINDOW_STATE_FULLSCREEN:
             self._fullscreen = bool(event.new_window_state & gtk.gdk.WINDOW_STATE_FULLSCREEN)

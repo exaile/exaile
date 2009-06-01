@@ -55,13 +55,27 @@ class Device(object):
 
         must be subclassed for use
     """
-    class_autoconnect = True # BAD
+    class_autoconnect = False
 
     def __init__(self, name):
         self.name = name
         self.collection = None
         self.playlists = []
-        self.connected = False
+        self._connected = False
+
+    def __get_connected(self):
+        return self._connected
+
+    def __set_connected(self, val):
+        prior = self._connected
+        self._connected = val
+        if prior != val:
+            if val:
+                event.log_event("device_connected", self, self)
+            else:
+                event.log_event("device_disconnected", self, self)
+
+    connected = property(__get_connected, __set_connected)
 
     def get_name(self):
         return self.name

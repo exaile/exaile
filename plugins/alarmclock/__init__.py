@@ -3,8 +3,7 @@ from gettext import gettext as _
 from xl import player
 from xl.plugins import PluginsManager
 import acprefs
-from xl.settings import SettingsManager
-settings = SettingsManager.settings
+from xl import settings
 ALARM=None
 RANG = dict()
 
@@ -20,10 +19,10 @@ def disable(exaile):
     """
         Stops the timer for this plugin
     """
-    ALARM.disable_alarm()
+    if ALARM: ALARM.disable_alarm()
     
 def get_prefs_pane():
-    ALARM.enable_alarm()    
+    if ALARM: ALARM.enable_alarm()    
     return acprefs
 
 class VolumeControl:
@@ -66,11 +65,18 @@ class VolumeControl:
         self.thread.exit()
 
     def load_settings( self ):
-        self.use_fading     = settings.get_option("plugin/alarmclock/alarm_use_fading", default="False")
-        self.min_volume     = int(settings.get_option("plugin/alarmclock/alarm_min_volume", default="0"))
-        self.max_volume     = int(settings.get_option("plugin/alarmclock/alarm_max_volume", default="100"))
-        self.increment      = int(settings.get_option("plugin/alarmclock/alarm_increment", default="1"))
-        self.time_per_inc   = int(settings.get_option("plugin/alarmclock/alarm_time_per_inc", default="1"))
+        prefix = "plugin/alarmclock/"
+        # Setting name, property to save to, default value
+        setting_values = (
+            ('alarm_use_fading', 'use_fading', False),
+            ('alarm_min_volume', 'min_volume', 0),
+            ('alarm_max_volume', 'max_volume', 100),
+            ('alarm_increment', 'increment', 1),
+            ('alarm_time_per_inc', 'time_per_inc', 1),
+        )
+        for name, prop, default in setting_values:
+            setattr(self, prop,
+                    settings.get_option(prefix + name, default))
 
 
 class Alarmclock(object):
@@ -86,16 +92,18 @@ class Alarmclock(object):
         nothing.  If the current time matches the time specified, it starts
         playing
         """
-        self.hour=int(settings.get_option('plugin/alarmclock/hour'))
-        self.minuts=int(settings.get_option('plugin/alarmclock/minuts'))
+        self.hour=int(settings.get_option('plugin/alarmclock/hour', 15))
+        self.minuts=int(settings.get_option('plugin/alarmclock/minuts', 20))
         self.volume_control.load_settings()
-        active_days_dict = [ settings.get_option('plugin/alarmclock/sunday'), 
-                            settings.get_option('plugin/alarmclock/monday'),
-                            settings.get_option('plugin/alarmclock/tuesday'),
-                            settings.get_option('plugin/alarmclock/thursday'),
-                            settings.get_option('plugin/alarmclock/wednesday'),
-                            settings.get_option('plugin/alarmclock/friday'),
-                            settings.get_option('plugin/alarmclock/saturday') ]
+        active_days_dict = [
+            settings.get_option('plugin/alarmclock/sunday', False), 
+            settings.get_option('plugin/alarmclock/monday', False),
+            settings.get_option('plugin/alarmclock/tuesday', False),
+            settings.get_option('plugin/alarmclock/thursday', False),
+            settings.get_option('plugin/alarmclock/wednesday', False),
+            settings.get_option('plugin/alarmclock/friday', False),
+            settings.get_option('plugin/alarmclock/saturday', False) 
+        ]
         
         if not self.hour and self.minuts: return True
         if not active_days_dict: return True

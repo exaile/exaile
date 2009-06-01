@@ -19,7 +19,7 @@
 #
 # Also takes care of parsing commandline options.
 
-__version__ = '0.2.99.1+'
+__version__ = '0.2.99.2+'
 
 import locale, gettext
 
@@ -87,16 +87,14 @@ class Exaile(object):
             Initializes Exaile
         """
         logger.info(_("Loading Exaile %s...") % __version__)
-        #initialize SettingsManager
-        from xl import settings
-        self.settings = settings.SettingsManager( os.path.join(
-                xdg.get_config_dir(), "settings.ini" ) )
         
         # splash screen
         if self.options.startgui:
             self.__show_splash()
 
-        firstrun = self.settings.get_option("general/first_run", True)
+        from xl import settings
+
+        firstrun = settings.get_option("general/first_run", True)
 
         #initialize PluginsManager
         if not self.options.safemode:
@@ -150,9 +148,8 @@ class Exaile(object):
 
         # cover manager
         from xl import cover
-        self.covers = cover.CoverManager(self.settings, 
-            cache_dir=os.path.join(
-            xdg.get_data_dirs()[0], "covers"))
+        self.covers = cover.CoverManager(
+                cache_dir=os.path.join(xdg.get_data_dirs()[0], "covers"))
 
         # Radio Manager
         from xl import radio
@@ -161,7 +158,7 @@ class Exaile(object):
 
         #initialize LyricsManager
         from xl import lyrics
-        self.lyrics = lyrics.LyricsManager(self.settings)
+        self.lyrics = lyrics.LyricsManager()
 
         self.gui = None
         #setup GUI
@@ -194,7 +191,8 @@ class Exaile(object):
             Displays the splash screen
         """
         import xlgui
-        self.splash = xlgui.show_splash(show=self.settings.get_option('gui/use_splash', True))
+        from xl import settings
+        self.splash = xlgui.show_splash(show=settings.get_option('gui/use_splash', True))
 
     def setup_logging(self):
         console_format = "%(levelname)-8s: %(message)s"
@@ -234,70 +232,70 @@ class Exaile(object):
         
         # Playback options
         p.add_option("-n", "--next", dest="next", action="store_true",
-            default=False, help="Play the next track")
+            default=False, help=_("Play the next track"))
         p.add_option("-p", "--prev", dest="prev", action="store_true",
-            default=False,   help="Play the previous track")
+            default=False,   help=_("Play the previous track"))
         p.add_option("-s", "--stop", dest="stop", action="store_true",
-            default=False, help="Stop playback")
+            default=False, help=_("Stop playback"))
         p.add_option("-a", "--play", dest="play", action="store_true",
-            default=False, help="Play")
+            default=False, help=_("Play"))
         p.add_option("-t", "--play-pause", dest="play_pause", 
-            action="store_true", default=False, help="Toggle Play or Pause")
+            action="store_true", default=False, help=_("Toggle Play or Pause"))
 
         # Current song options
         p.add_option("-q", "--query", dest="query", action="store_true",
-            default=False, help="Query player")
+            default=False, help=_("Query player"))
         p.add_option("--gui-query", dest="guiquery", action="store_true",
-            default=False, help="Show a popup of the currently playing track")
+            default=False, help=_("Show a popup of the currently playing track"))
         p.add_option("--get-title", dest="get_title", action="store_true",
-            default=False, help="Print the title of current track")
+            default=False, help=_("Print the title of current track"))
         p.add_option("--get-album", dest="get_album", action="store_true",
-            default=False, help="Print th   e album of current track")
+            default=False, help=_("Print the album of current track"))
         p.add_option("--get-artist", dest="get_artist", action="store_true",
-            default=False, help="Print the artist of current track")
+            default=False, help=_("Print the artist of current track"))
         p.add_option("--get-length", dest="get_length", action="store_true",
-            default=False, help="Print the length of current track")
+            default=False, help=_("Print the length of current track"))
         p.add_option('--set-rating', dest='rating', 
-            help='Set rating for current song')
-        p.add_option('--get-rating', dest='get_rating', help='Get rating for '
-            'current song', default=False, action='store_true')
+            help=_('Set rating for current song'))
+        p.add_option('--get-rating', dest='get_rating', help=_('Get rating for current song'), 
+            default=False, action='store_true')
         p.add_option("--current-position", dest="current_position", 
             action="store_true", default=False, 
-            help="Print the position inside the current track as a percentage")
+            help=_("Print the position inside the current track as a percentage"))
 
         # Volume options
         p.add_option("-i","--increase_vol", dest="inc_vol",action="store", 
-            type="int",metavar="VOL",help="Increases the volume by VOL")
+            type="int",metavar="VOL",help=_("Increases the volume by VOL"))
         p.add_option("-l","--decrease_vol", dest="dec_vol",action="store",
-            type="int",metavar="VOL",help="Decreases the volume by VOL")
+            type="int",metavar="VOL",help=_("Decreases the volume by VOL"))
         p.add_option("--get-volume", dest="get_volume", action="store_true",
-            default=False, help="Print the current volume")
+            default=False, help=_("Print the current volume"))
 
         # Other options
         p.add_option("--new", dest="new", action="store_true",
-            default=False, help="Start new instance")
+            default=False, help=_("Start new instance"))
         p.add_option("--version", dest="show_version", action="store_true")
         p.add_option("--start-minimized", dest="minim", action="store_true",
-            default=False, help="Start Exaile minimized to tray, if possible")
+            default=False, help=_("Start Exaile minimized to tray, if possible"))
         p.add_option("--safemode", dest="safemode", action="store_true",
-            default=False, help="Start in safe mode - sometimes useful "
-            "when you're running into problems")
+            default=False, help=_("Start in safe mode - sometimes useful "
+            "when you're running into problems"))
 
         # development and debug options
-        p.add_option("--datadir", dest="datadir", help="Set data dir")
+        p.add_option("--datadir", dest="datadir", help=_("Set data directory"))
         p.add_option("--debug", dest="debug", action="store_true",
-            default=False, help="Show debugging output")
+            default=False, help=_("Show debugging output"))
         p.add_option("--eventdebug", dest="debugevent", 
             action="store_true", default=False, 
-            help="Enable debugging of xl.event. Generates LOTS of output")
+            help=_("Enable debugging of xl.event. Generates LOTS of output"))
         p.add_option("--quiet", dest="quiet", action="store_true",
-            default=False, help="Reduce level of output")
+            default=False, help=_("Reduce level of output"))
         p.add_option('--startgui', dest='startgui', action='store_true',
             default=False)
         p.add_option('--no-dbus', dest='dbus', action='store_false',
-            default=True, help="Disable D-Bus support")
+            default=True, help=_("Disable D-Bus support"))
         p.add_option('--no-hal', dest='hal', action='store_false',
-            default=True, help="Disable HAL support.")
+            default=True, help=_("Disable HAL support."))
         return p
 
     def version(self):
@@ -314,13 +312,13 @@ class Exaile(object):
         """
         from xl import playlist
         # entire playlist
-        entire_lib = playlist.SmartPlaylist("Entire Library",
+        entire_lib = playlist.SmartPlaylist(_("Entire Library"),
             collection=self.collection) 
         self.smart_playlists.save_playlist(entire_lib, overwrite=True)
 
         # random playlists
         for count in (100, 300, 500):
-            pl = playlist.SmartPlaylist("Random %d" % count,
+            pl = playlist.SmartPlaylist(_("Random %d") % count,
                 collection=self.collection)
             pl.set_return_limit(count)
             pl.set_random_sort(True)
@@ -328,7 +326,7 @@ class Exaile(object):
 
         # rating based playlists
         for item in (3, 4):
-            pl = playlist.SmartPlaylist("Rating > %d" % item, 
+            pl = playlist.SmartPlaylist(_("Rating > %d") % item, 
                 collection=self.collection)
             pl.add_param('rating', '>', item)
             self.smart_playlists.save_playlist(pl, overwrite=True)
@@ -369,9 +367,12 @@ class Exaile(object):
 
             takes care of saving prefs, databases, etc.
         """
-        if self.quitting: return
+        if self.quitting: 
+            return
         self.quitting = True
         logger.info(_("Exaile is shutting down..."))
+
+        from xl import settings
 
         # stop the various idle based threads so they don't freak out when the
         # program exits.  Silly Python.
@@ -406,9 +407,9 @@ class Exaile(object):
                 os.path.join(xdg.get_data_dirs()[0], 'queue.state') )
         self.player.stop()
 
-        self.settings.save()
+        settings._SETTINGSMANAGER.save()
 
-        logger.info("Bye!")
+        logger.info(_("Bye!"))
         logging.shutdown()
         exit()
 

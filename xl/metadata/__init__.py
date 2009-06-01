@@ -16,6 +16,7 @@ import os
 
 # do this so formats can inherit from stuff in _base
 from _base import *
+import urlparse
 
 import asf, flac, mod, mp3, mp4, mpc, ogg, sid, speex, tta, wav, wv
 

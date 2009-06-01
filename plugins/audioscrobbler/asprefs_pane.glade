@@ -1,34 +1,37 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Mon Oct 20 11:54:12 2008 -->
+<?xml version="1.0"?>
 <glade-interface>
+  <!-- interface-requires gtk+ 2.16 -->
+  <!-- interface-naming-policy toplevel-contextual -->
   <widget class="GtkWindow" id="prefs_window">
     <child>
       <widget class="GtkVBox" id="prefs_pane">
         <property name="visible">True</property>
         <property name="border_width">3</property>
         <child>
-          <widget class="GtkCheckButton" id="plugin/lastfm/submit">
+          <widget class="GtkCheckButton" id="plugin/ascrobbler/submit">
+            <property name="label" translatable="yes">Submit tracks using Audioscrobbler</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="label" translatable="yes">Submit tracks to Last.FM</property>
-            <property name="response_id">0</property>
+            <property name="receives_default">False</property>
+            <property name="use_underline">True</property>
             <property name="draw_indicator">True</property>
           </widget>
           <packing>
             <property name="expand">False</property>
+            <property name="position">0</property>
           </packing>
         </child>
         <child>
           <widget class="GtkTable" id="table1">
             <property name="visible">True</property>
-            <property name="n_rows">2</property>
+            <property name="n_rows">3</property>
             <property name="n_columns">2</property>
             <child>
-              <widget class="GtkEntry" id="plugin/lastfm/password">
+              <widget class="GtkEntry" id="plugin/ascrobbler/password">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="visibility">False</property>
+                <property name="invisible_char">&#x25CF;</property>
               </widget>
               <packing>
                 <property name="left_attach">1</property>
@@ -38,9 +41,10 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkEntry" id="plugin/lastfm/user">
+              <widget class="GtkEntry" id="plugin/ascrobbler/user">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="invisible_char">&#x25CF;</property>
               </widget>
               <packing>
                 <property name="left_attach">1</property>
@@ -64,9 +68,30 @@
                 <property name="xalign">0</property>
                 <property name="label" translatable="yes">Username:</property>
               </widget>
+            </child>
+            <child>
+              <widget class="GtkLabel" id="label4">
+                <property name="visible">True</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">URL:</property>
+              </widget>
               <packing>
-                <property name="x_options">GTK_FILL</property>
-                <property name="y_options">GTK_FILL</property>
+                <property name="top_attach">2</property>
+                <property name="bottom_attach">3</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkEntry" id="plugin/ascrobbler/url">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="invisible_char">&#x25CF;</property>
+              </widget>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="right_attach">2</property>
+                <property name="top_attach">2</property>
+                <property name="bottom_attach">3</property>
+                <property name="y_options"></property>
               </packing>
             </child>
           </widget>

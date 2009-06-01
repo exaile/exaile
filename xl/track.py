@@ -12,16 +12,19 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+from xl.nls import gettext as _
 import os, time
 from copy import deepcopy
 from urlparse import urlparse
-from xl import common, settings
+from xl import common
 import xl.metadata as metadata
 from xl.common import lstrip_special
 import logging, traceback
+import urlparse
+import urllib
+import urllib2
+from xl import settings
 logger = logging.getLogger(__name__)
-
-settings = settings.SettingsManager.settings
 
 def is_valid_track(loc):
     """
@@ -60,13 +63,17 @@ class Track(object):
             
             loc: the location [string]
         """
-        if loc.startswith("file://"):
-            loc = loc[7:]
+        split = urlparse.urlsplit(loc)
+        if split[0] == "":
+            loc = os.path.abspath(loc)
+            loc = urlparse.urlunsplit(('file', split[1], loc, '', ''))
         self['loc'] = loc
        
     def get_loc(self):
         """
-            Gets the location as unicode (might contain garbled characters)
+            Gets the location as unicode (might contain garbled characters) in
+            full absolute url form, i.e. "file:///home/foo/bar baz". If you are
+            trying to get the path for a local file, use local_file_name(..)
 
             returns: the location [unicode]
         """
@@ -75,6 +82,31 @@ class Track(object):
                 common.get_default_encoding())
         except:
             return self['loc']
+
+    def exists(self):
+        """
+            Returns if the file exists
+        """
+        if self.is_local():
+            return os.path.exists(self.local_file_name())
+        else:
+            return  #FIXME: how to handle hanging on missing servers?
+
+            try:
+                urllib2.urlopen(self.get_loc_for_io())
+            except urllib2.URLError, urllib2.HTTPError:
+                return False
+            else:
+                return True
+
+    def local_file_name(self):
+        """
+            If the file is a local file, return a standard path to it, i.e.
+            "/home/foo/bar", If the file is not local, return None
+        """
+        if not self.is_local():
+            return None
+        return common.local_file_from_url(self.get_loc_for_io())
 
     def get_loc_for_io(self):
         """
@@ -206,9 +238,11 @@ class Track(object):
                 
 
             # fill out file specific items
-            mtime = os.path.getmtime(self.get_loc_for_io())
+            split = urlparse.urlsplit(self.get_loc_for_io())
+            path = self.local_file_name()
+            mtime = os.path.getmtime(path)
             self['modified'] = mtime
-            self['basedir'] = os.path.dirname(self.get_loc_for_io())
+            self['basedir'] = os.path.dirname(path)
             self._dirty = True
             return f
         except:
@@ -216,7 +250,7 @@ class Track(object):
             return False
 
     def is_local(self):
-        return urlparse(self.get_loc())[0] == ""
+        return urlparse.urlsplit(self.get_loc()).scheme == "file"
 
     def get_track(self):
         """
@@ -394,7 +428,7 @@ def parse_stream_tags(track, tags):
                 track['title'] = [title_array[1]]
 
     if newsong:
-        log.append('  New song, fetching cover.')
+        log.append(_('  New song, fetching cover.'))
 
     for line in log:
         logger.debug(line)

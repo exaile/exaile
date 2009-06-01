@@ -12,10 +12,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+from xl.nls import gettext as _
 from xl import xdg, common, event, providers, settings, metadata
-import os, time, urllib, random
+import os, time, urllib, random, logging
 
-settings = settings.SettingsManager.settings
+logger = logging.getLogger(__name__)
 
 class DynamicManager(providers.ProviderHandler):
     """
@@ -29,8 +30,6 @@ class DynamicManager(providers.ProviderHandler):
         if not os.path.exists(self.cachedir):
             os.makedirs(self.cachedir)
 
-        event.add_callback(self._dynamic_callback, 'pl_current_changed')
-
     def find_similar_tracks(self, track, limit=-1, exclude=[]):
         """
             finds tracks from the collection that are similar 
@@ -42,6 +41,8 @@ class DynamicManager(providers.ProviderHandler):
                 found, a random selection of those tracks is
                 returned.
         """
+        logger.debug(_(u"Searching for %s tracks related to %s") % 
+                (limit, track))
         artists = self.find_similar_artists(track)
         if artists == []:
             return []
@@ -116,26 +117,31 @@ class DynamicManager(providers.ProviderHandler):
             f.write("%.2f %s\n"%item)
         f.close()
 
-    @common.threaded
-    def _dynamic_callback(self, type, playlist, current_pos):
+    def populate_playlist(self, playlist):
         """
             adds tracks to playlists as needed.
             called when the position of a playlist changes.
         """
-        if not playlist.is_dynamic():
+        if not playlist: # or not playlist.is_dynamic():
             return
+        current_pos = playlist.get_current_pos()
         if current_pos < 0 or current_pos >= len(playlist):
             return
-        time.sleep(5) # wait five seconds before adding to allow for skips
-        if playlist.get_current_pos() != current_pos:
-            return # we skipped in that 5 seconds, so ignore it
         needed = self.buffersize - (len(playlist) - current_pos)
+        
         if needed < 1:
             needed = 1
         curr = playlist.get_current()
         tracks = self.find_similar_tracks(curr, needed, 
                 playlist.get_tracks())
+
+        time.sleep(5)   # wait five seconds before adding to allow for skips
+                        # we're searching for new tracks during this time 
+                        # anyway so its not wasted 
+        if playlist.get_current_pos() != current_pos:
+            return # we skipped in that 5 seconds, so ignore it
         playlist.add_tracks(tracks)
+        logger.debug(_("Added %s tracks.")%len(tracks))
 
 class DynamicSource(object):
     def __init__(self):
@@ -146,8 +152,6 @@ class DynamicSource(object):
 
     def _set_manager(self, manager):
         self.manager = manager
-
-
 
 # vim: et sts=4 sw=4
 

@@ -73,7 +73,7 @@ class BaseTrayIcon(object):
                 gtk.ICON_SIZE_MENU)
             self.label.set_label(_("Play"))
             self.playpause.disconnect(self.id)
-            self.id = self.playpause.connect('activate', lambda *e: self.main.queue.play())
+            self.id = self.playpause.connect('activate', self._play)
         elif self.main.player.is_playing():
             self.image.set_from_stock('gtk-media-pause',
                 gtk.ICON_SIZE_MENU)
@@ -185,7 +185,7 @@ def get_options(type, settings, option):
         elif value and not MAIN.tray_icon:
             MAIN.tray_icon = TrayIcon(MAIN)
 
-def connect_events(main, settings):
+def connect_events(main):
     global MAIN
     MAIN = main
     event.add_callback(get_options, 'option_set')

@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--*- mode: xml -*-->
+<?xml version="1.0"?>
 <glade-interface>
+  <!-- interface-requires gtk+ 2.16 -->
+  <!-- interface-naming-policy toplevel-contextual -->
   <widget class="GtkWindow" id="prefs_window">
     <child>
       <widget class="GtkVBox" id="prefs_pane">
@@ -15,49 +15,50 @@
             <property name="use_markup">True</property>
             <property name="wrap">True</property>
           </widget>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">0</property>
+          </packing>
         </child>
         <child>
           <widget class="GtkCheckButton" id="osd/enabled">
+            <property name="label" translatable="yes">Show OSD on track change</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="label" translatable="yes">Show OSD on track change</property>
+            <property name="receives_default">False</property>
             <property name="use_underline">True</property>
-            <property name="response_id">0</property>
             <property name="draw_indicator">True</property>
           </widget>
           <packing>
             <property name="expand">False</property>
-            <property name="fill">False</property>
             <property name="position">1</property>
           </packing>
         </child>
         <child>
           <widget class="GtkCheckButton" id="osd/hover_tray">
+            <property name="label" translatable="yes">Display OSD when hovering over tray icon</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="label" translatable="yes">Display OSD when hovering over tray icon</property>
+            <property name="receives_default">False</property>
             <property name="use_underline">True</property>
-            <property name="response_id">0</property>
             <property name="draw_indicator">True</property>
           </widget>
           <packing>
             <property name="expand">False</property>
-            <property name="fill">False</property>
             <property name="position">2</property>
           </packing>
         </child>
         <child>
           <widget class="GtkCheckButton" id="osd/show_progress">
+            <property name="label" translatable="yes">Display a progressbar in the OSD</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="label" translatable="yes">Display a progressbar in the OSD</property>
+            <property name="receives_default">False</property>
             <property name="use_underline">True</property>
-            <property name="response_id">0</property>
             <property name="draw_indicator">True</property>
           </widget>
           <packing>
             <property name="expand">False</property>
-            <property name="fill">False</property>
             <property name="position">3</property>
           </packing>
         </child>
@@ -73,25 +74,25 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
+                <property name="position">0</property>
               </packing>
             </child>
             <child>
               <widget class="GtkColorButton" id="osd/text_color">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="response_id">0</property>
+                <property name="receives_default">False</property>
               </widget>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
-                <property name="pack_type">GTK_PACK_END</property>
+                <property name="pack_type">end</property>
                 <property name="position">1</property>
               </packing>
             </child>
           </widget>
           <packing>
             <property name="expand">False</property>
-            <property name="fill">False</property>
             <property name="position">4</property>
           </packing>
         </child>
@@ -107,25 +108,25 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
+                <property name="position">0</property>
               </packing>
             </child>
             <child>
               <widget class="GtkFontButton" id="osd/text_font">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="response_id">0</property>
+                <property name="receives_default">False</property>
               </widget>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
-                <property name="pack_type">GTK_PACK_END</property>
+                <property name="pack_type">end</property>
                 <property name="position">1</property>
               </packing>
             </child>
           </widget>
           <packing>
             <property name="expand">False</property>
-            <property name="fill">False</property>
             <property name="position">5</property>
           </packing>
         </child>
@@ -141,6 +142,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
+                <property name="position">0</property>
               </packing>
             </child>
             <child>
@@ -150,17 +152,18 @@
                 <property name="adjustment">75 0 100 1 10 0</property>
                 <property name="climb_rate">1</property>
                 <property name="numeric">True</property>
-                <property name="update_policy">GTK_UPDATE_IF_VALID</property>
+                <property name="update_policy">if-valid</property>
               </widget>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
-                <property name="pack_type">GTK_PACK_END</property>
+                <property name="pack_type">end</property>
                 <property name="position">1</property>
               </packing>
             </child>
           </widget>
           <packing>
+            <property name="expand">False</property>
             <property name="position">6</property>
           </packing>
         </child>
@@ -175,25 +178,25 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
+                <property name="position">0</property>
               </packing>
             </child>
             <child>
               <widget class="GtkColorButton" id="osd/bg_color">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="response_id">0</property>
+                <property name="receives_default">False</property>
               </widget>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
-                <property name="pack_type">GTK_PACK_END</property>
+                <property name="pack_type">end</property>
                 <property name="position">1</property>
               </packing>
             </child>
           </widget>
           <packing>
             <property name="expand">False</property>
-            <property name="fill">False</property>
             <property name="position">7</property>
           </packing>
         </child>
@@ -208,6 +211,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
+                <property name="position">0</property>
               </packing>
             </child>
             <child>
@@ -219,14 +223,13 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
-                <property name="pack_type">GTK_PACK_END</property>
+                <property name="pack_type">end</property>
                 <property name="position">1</property>
               </packing>
             </child>
           </widget>
           <packing>
             <property name="expand">False</property>
-            <property name="fill">False</property>
             <property name="position">8</property>
           </packing>
         </child>
@@ -241,6 +244,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
+                <property name="position">0</property>
               </packing>
             </child>
             <child>
@@ -252,14 +256,13 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
-                <property name="pack_type">GTK_PACK_END</property>
+                <property name="pack_type">end</property>
                 <property name="position">1</property>
               </packing>
             </child>
           </widget>
           <packing>
             <property name="expand">False</property>
-            <property name="fill">False</property>
             <property name="position">9</property>
           </packing>
         </child>
@@ -267,9 +270,9 @@
           <widget class="GtkScrolledWindow" id="scrolledwindow16">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-            <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-            <property name="shadow_type">GTK_SHADOW_IN</property>
+            <property name="hscrollbar_policy">automatic</property>
+            <property name="vscrollbar_policy">automatic</property>
+            <property name="shadow_type">in</property>
             <child>
               <widget class="GtkTextView" id="osd/display_text">
                 <property name="visible">True</property>
@@ -282,34 +285,7 @@ on {album} - {length}</property>
             </child>
           </widget>
           <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
             <property name="position">10</property>
-          </packing>
-        </child>
-        <child>
-          <widget class="GtkLabel" id="label59">
-            <property name="visible">True</property>
-            <property name="xalign">0</property>
-            <property name="label" translatable="yes">Display Text:</property>
-          </widget>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">11</property>
-          </packing>
-        </child>
-        <child>
-          <widget class="GtkLabel" id="label60">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="label" translatable="yes">See http://www.exaile.org/trac/wiki/OSD for examples</property>
-            <property name="selectable">True</property>
-          </widget>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">12</property>
           </packing>
         </child>
       </widget>

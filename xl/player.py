@@ -189,8 +189,16 @@ class UnifiedPlayer(object):
         self.current_stream = 1
         self.timer_id = 0
 
-        self.caps = gst.Caps("audio/x-raw-float, rate=(int)44100;" 
-                "audio/x-raw-int, rate=(int)44100") # default to cd quality. 
+        # have to fix the caps because gst cant deal with having them change.
+        #TODO: make this a preference and/or autodetect optimal based on the
+        #   output device - if its a 48000hz-only chip we dont want to send it
+        #   44100hz audio all the time.
+        self.caps = gst.Caps(
+                "audio/x-raw-int, " 
+                "rate=(int)44100, "
+                "width=(int)16, "
+                "depth=(int)16, "
+                "channels=(int)2")
         self.pipe = gst.Pipeline()
         self.adder = gst.element_factory_make("adder")
         self.audio_queue = gst.element_factory_make("queue")
@@ -239,6 +247,7 @@ class UnifiedPlayer(object):
         self.tee.link(self.audio_sink)
 
     def _on_drained(self, dec, stream):
+        logger.debug("%s drained"%stream.get_name())
         #if stream.track != self.current:
         #    return
         self.unlink_stream(stream)
@@ -612,9 +621,9 @@ class AudioStream(gst.Bin):
                 self.capsfilter,
                 self.vol)
         self.audioconv.link(self.audioresam)
-        self.audioresam.link(self.provided)
-        self.provided.link(self.capsfilter)
-        self.capsfilter.link(self.vol)
+        self.audioresam.link(self.capsfilter)
+        self.capsfilter.link(self.provided)
+        self.provided.link(self.vol)
         self.dec.connect('no-more-pads', self._dec_pad_cb, self.audioconv)
 
         self.src = gst.GhostPad("src", self.vol.get_static_pad("src"))

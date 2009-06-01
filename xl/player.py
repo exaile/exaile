@@ -266,7 +266,7 @@ class BaseGSTPlayer(object):
         """
             load volume from settings
         """
-        volume = settings.get_option("player/volume", .7)
+        volume = settings.get_option("player/volume", 1)
         self.set_volume(volume)
 
     def setup_gst_elements(self):
@@ -275,61 +275,25 @@ class BaseGSTPlayer(object):
         """
         elements = []
 
-        # equalizer
-        if settings.get_option("player/equalizer", False):
-            try:
-                self.equalizer = gst.element_factory_make("equalizer-10bands",
-                        "equalizer")
-                self._load_equalizer_values()
-                elements.append(self.equalizer)
-                elements.append(gst.element_factory_make('audioconvert'))
-            except:
-                logger.warning(_("Failed to enable equalizer"))
-                self.equalizer = None
-        else:
-            self.equalizer = None
+        self.provided = ProviderBin("stream_element")
+        elements.append(self.provided)
 
-        # replaygain
-        if settings.get_option("player/replaygain", False):
-            try:
-                self.replay_gain = gst.element_factory_make("rgvolume", 
-                        "replaygain")
-                self.replay_gain.set_property(
-                        settings.get_option("replaygain/album_mode", False) )
-                self.replay_gain.set_property(
-                        settings.get_option("replaygain/preamp", 0.0) )
-                self.replay_gain.set_property(
-                        settings.get_option("replaygain/fallback", 0.0) )
-                elements.append(self.replaygain)
-            except:
-                logger.warning(_("Failed to enable replaygain"))
-                self.replay_gain = None
-        else:
-            self.replay_gain = None
-        
-        # add volume control element
-        self.volume_control = gst.element_factory_make("volume", "vol")
+        self.pp = Postprocessing()
+        elements.append(self.pp)
+
+
+        self.audio_sink = sink_from_preset(
+        settings.get_option("player/audiosink", "auto"))
+        if not self.audio_sink:
+            logger.warning("Could not enable %s sink, attempting to autoselect."
+                    %settings.get_option("player/audiosink", "auto"))
+            self.audio_sink = sink_from_preset("auto")
+        self.sinks = []
         self._load_volume()
-        elements.append(self.volume_control)
-
-        # set up the link to the sound card
-        name = settings.get_option("player/sink", "autoaudiosink")
-        # this setting is a list of strings of the form "param=value"
-        options = settings.get_option("player/sink_options", [])
-        if not gst.element_factory_find(name):
-            logger.warning(_("Could not find playback sink %s, falling back to autoaudiosink")%name)
-            name = 'autoaudiosink'
-            options = []
-        logger.debug(_("Using %s for playback")%name)
-        self.audio_sink = gst.element_factory_make(name, "sink")
-        for option in options:
-            try:
-                param, value = option.split("=", 1)
-                self.audio_sink.set_property(param, value)
-            except:
-                logger.warning(_("Could not set parameter %s for %s")%(param, name))
         elements.append(self.audio_sink)
 
+
+        
         # join everything together into a Bin to use as the playbin's sink
         sinkbin = gst.Bin()
         sinkbin.add(*elements)
@@ -362,10 +326,7 @@ class BaseGSTPlayer(object):
             this does NOT save the volume to settings. modifying the volume in 
             setings however will call this automatically
         """
-        self.volume_control.set_property("volume", vol)
-
-    def get_volume(self):
-        return self.volume_control.get_property('volume')
+        self.audio_sink.set_volume(vol)
 
     def on_message(self, bus, message, reading_tag = False):
         """
@@ -758,10 +719,7 @@ class UnifiedPlayer(object):
         pass # FIXME
 
     def set_volume(self, vol):
-        pass
-
-    def get_volume(self):
-        return 1.0
+        self.audio_sink.set_volume(vol)
 
     def _get_gst_state(self):
         """
@@ -1327,6 +1285,9 @@ class AudioSink(BaseSink):
 
     def set_volume(self, vol):
         self.vol.set_property("volume", vol)
+
+    def get_volume(self):
+        self.vol.get_property("volume")
 
 
 # vim: et sts=4 sw=4

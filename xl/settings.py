@@ -61,8 +61,8 @@ class SettingsManager(RawConfigParser):
             except:
                 pass
 
-        # save settings every 30 seconds
-        event.timeout_add(30000, self._timeout_save)
+            # save settings every 30 seconds
+            event.timeout_add(30000, self._timeout_save)
 
     def _timeout_save(self):
         self.save()
@@ -168,7 +168,7 @@ class SettingsManager(RawConfigParser):
             Save the settings to disk
         """
         if self.loc is None:
-            logger.info("Save requested but :ot saving settings, loc is None")
+            logger.debug("Save requested but not saving settings, loc is None")
             return
         if self._saving or not self._dirty: return
         self._saving = True

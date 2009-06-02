@@ -141,17 +141,25 @@ class PluginManager(object):
         (model, iter) = self.list.get_selection().get_selected()
         if not iter: return
 
-        pluginname = model.get_value(iter, 2)
-        if not pluginname in self.plugins.enabled_plugins:
-            return
-
-        plugin = self.plugins.enabled_plugins[pluginname]
-        if not hasattr(plugin, 'get_prefs_pane'):
+        pluginname = model.get_value(iter, 2)[0]
+        if not self.__configure_available(pluginname):
             commondialogs.error(self.parent, _("The selected " 
                 "plugin doesn't have any configuration options"))
             return
 
         self.guimain.show_preferences(plugin_page=pluginname)
+
+    def __configure_available(self, pluginname):
+        """
+            Returns if a plugin given by pluginname has the ability to open a
+            configure dialog
+        """
+        if pluginname not in self.plugins.enabled_plugins:
+            return False
+        plugin = self.plugins.enabled_plugins[pluginname]
+        if not hasattr(plugin, 'get_prefs_pane'):
+            return False
+        return True
 
     def row_selected(self, selection, user_data=None):
         """
@@ -167,6 +175,12 @@ class PluginManager(object):
         self.description.get_buffer().set_text(
             info['Description'].replace(r'\n', "\n"))
         self.name_label.set_markup("<b>%s</b>" % info['Name'])
+        (model, iter) = selection.get_selected()
+        pluginname = model.get(iter, 2)[0]
+        if self.__configure_available(pluginname):
+            self.configure_button.set_sensitive(True)
+        else:
+            self.configure_button.set_sensitive(False)
 
     def toggle_cb(self, cell, path, model):
         """
@@ -185,8 +199,8 @@ class PluginManager(object):
                 commondialogs.error(self.parent, _('Could '
                     'not disable plugin.'))
                 return
-
         model[path][1] = enable
+        self.row_selected(self.list.get_selection())
 
     def destroy(self, *e):
         self.dialog.destroy()

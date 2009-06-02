@@ -31,6 +31,8 @@ class TagCoverSearch(CoverSearchMethod):
             loc = track.get_loc()
         except AttributeError:
             raise NoCoverFoundException()
+        if loc.startswith("file://"):
+            loc = loc[7:]
 
         (path, ext) = os.path.splitext(loc.lower())
         ext = ext[1:]

@@ -8,7 +8,14 @@ from xl import playlist, radio, player, cover, event, xdg
 
 event._TESTING = True
 
-class TestPlayer(player.BaseGSTPlayer):
+class TestStream():
+    def __init__(self, track):
+        self.track = track
+
+    def get_current(self):
+        return self.track
+
+class TestPlayer(player.UnifiedPlayer):
     """
         Fake player.  Overrides most of the settings and playback info... the
         real GST player takes time to emit playback and stop signals.  This
@@ -17,11 +24,12 @@ class TestPlayer(player.BaseGSTPlayer):
     def __init__(self):
         self.playing = False
         self.paused = False
-        self.current = None
+        self.streams=[None, None]
+        self.current_stream = 0
 
     def play(self, track):
         self.playing = True
-        self.current = track
+        self.streams[0] = TestStream(track)
         event.log_event('playback_start', self, track)
 
     def get_volume(self):
@@ -31,7 +39,7 @@ class TestPlayer(player.BaseGSTPlayer):
         self.playing = False
         self.paused = False
         current = self.current
-        self.current = None
+        self.streams[0] = None
         event.log_event('playback_end', self, current)
 
     def pause(self):
@@ -70,8 +78,7 @@ class BaseTestCase(GtkTestCase,
         self.setup_logging()
         self.radio = FakeRadio()
         tests.base.BaseTestCase.setUp(self)
-        self.covers = cover.CoverManager(self.settings, 
-            '.testtemp/covers')
+        self.covers = cover.CoverManager('.testtemp/covers')
         self.player = TestPlayer()
         self.queue = player.PlayQueue(self.player)
         self.playlists = playlist.PlaylistManager()

@@ -15,87 +15,79 @@ Current System:
 
 New System:
 
-                +-------+                       +-------+
-    Stream1 ----|       |                       |       |---- AudioSink
-                |       |                       |       |
-    Stream2 ----| Adder |----Postprocessing ----|  Tee  |---- AudioSink
-                |       |                       |       |
-    Stream3 ----|       |                       |       |---- VisualizationSink
-                +-------+                       +-------+
+                +-------+       
+    Stream1 ----|       |
+                | Adder |
+    Stream2 ----|       |
+                +-------+
+                    |
+                  Queue
+                    |
+              Postprocessing
+                    |
+                +-------+
+                |       |---- FakeSink
+                |       |
+                |       |---- AudioSink
+                |  Tee  |
+                |       |---- VisualizationSink
+                |       |
+                |       |---- <other sinks>
+                +-------+
 
 
-Sadly we can't use playbin, as two playbins can't share an element for
-    their sink. However decodebin will take care of most of playbin's
-    work for us.
+
 
 Stream:
+    A source for music. There will be exactly two of these, which will be
+        switched between whenever the track changes.
     Contains:
-        [filesrc|cdparanoiasrc|neonhttpsrc]
-        [queue|] (only enabled on remote streams)
-        decodebin2 
+        uridecodebin
         selector? (in case there are multiple streams)
         audioconvert?
-        audioresample?
-        rgvolume (this way each stream automatically gets the right RG)
-        rglimiter
         <custom elements from plugins>
-        queue (for buffering)
         volume control (for fading, should be 100% normally)
 
-    streams which are not playing should be disconnected and have their src
-        pads blocked
-
-    there will be a persistent "silence" stream to avoid some potential issues
-        - audiotestsrc wave=4
-        - so as to play nice, we should release the sink after x seconds
-            if there are no active streams. That way exaile doesn't lock the
-            sound device to whatever audio sink its using.
-
-Adder:
+Queue:
+    Needed so that playback is smooth when swapping streams.
     Contains:
-        adder (duh)
-
+        queue
 
 Postprocessing:
     Contains:
-        equalizer
         <custom elements from plugins>
 
-Tee:
+FakeSink:
+    Needed so that the pipeline is never incomplete, even when hot-swapping
+        AudioSinks
+        - maybe we could just use fakesink's handoff option to pass data
+            to the actual sink?
     Contains:
-        tee (duh)
+        fakesink sync=true (sync is needed so it doesnt run too quickly
+            when there are no other sinks to keep it in check.)
 
 AudioSink:
     Contains:
-        volume control
         <custom elements from plugins>
-        alsasink/pulsesink/etc
         any processing needed right before the sink
+        [alsa|pulse|oss|oss4|esd|auto|gconf|halaudio|...]sink
 
-Visualization:
+VisualizationSink:
     Contains:
         the visualization plugin
 
 How it works:
     Gapless:
-        decodebin2 fires a "drained" signal when it runs out of data.
-        When we get this signal, we should setup the next stream and
-            let it preroll, but not playing or linked to the adder.
-        When the queue for the first stream sends the "underrun" signal,
-            connect the next stream and set it to playing, then disconnect
-            the current stream
-            - we should ensure the queue always stores enough data to handle
-                this smoothly, a few (5?) seconds should be sufficient for
-                even very slow srcs. This could perhaps be configurable in
-                the advanced settings editor.
+        uridecodebin fires a "drained" signal when it runs out of data.
+        When we get this signal, we set up the next stream and connect it to 
+            the music adder. The queue immediately after the adder will give
+            the new stream time to preroll and ensures a perfect transition.
 
     Crossfading:
-        Same as gapless, except
-            - we set the queue size to be <fade duration> seconds bigger
-            - when we get the drained signal, we set a timer to start us
-                fading at the right time
-            - we connect the second stream when we start fading, but 
-                disconnecting the current stream still happens on "underrun"
+        We set a timer to wake up x seconds before the current stream ends.
+        When the timer wakes up, it sets up the new stream and adds another
+            timer to do the fading.
+        When the fading is done, teardown the first stream.
 
     Visualizations:
         We just create the visualization element and add it to tee. Tee
@@ -106,33 +98,35 @@ How it works:
     Switching audio sinks:
         Make the new sink, add it to tee and remove the old. Just as
             with visualizations tee should let us do this seamlessly.
+            - many sinks prevent any other kinds of sink from accessing
+                the device, so maybe we need to remove the current before
+                adding a new one.
 
     Streaming to icecast/etc:
         Just add the sink to tee. It can be done midstream even. The normal 
             sink can be run in parallel.
-
         (icecast specifically can be done with shout2send, which expects
             an input stream in either ogg or mpg[13] format so we'll 
             have to add an encoder to the pipeline)
 
 Plugin interface:
     plugins will be able to
-        - add new streams
         - add new sinks 
         - add elements to streams
         - add elements to postprocessing
         - add elements to sinks
 
 Things to watch out for:
-    - seek/pause after the new stream has begun prerolling/fading
+    - seek/pause after the new stream has begun fading
     - next stream being bad/missing
     - method for selecting order when plugins add elements
+    - next stream failing to preroll in time
 
 Misc Notes:
     this setup precludes video playback support (as we can't mix video
         streams), though there's no reason we couldn't just make another
         player for video support if we want to add it. Alternatively,
-        video playback could just force crossfade duration to 0 and then
+        video playback could just force gapless mode and then
         do some voodoo to capture the video from the current Stream.
 
     during this rewrite might be a good time to implement CUE support

@@ -29,7 +29,7 @@ class LastFMCoverSearch(CoverSearchMethod):
             Searches last.fm for album covers
         """
         cache_dir = self.manager.cache_dir
-        (artist, album) = track['artist'], track['album']
+        (artist, album) = track['artist'][0], track['album'][0]
 
         data = urllib.urlopen(self.url % 
         {

@@ -13,7 +13,7 @@ keep track of what each contributor is currently working on.
 Current projects
 ----------------
 
-* Aren Olson - Device UI
+* Aren Olson - Devices
 * Adam Olsen - GUI
 * Anthony Waters - 
 
@@ -31,87 +31,94 @@ releases so far:
 
 * 0.2.99.0 - aka 0.3a (internal version is 0.3.0devel)
 * 0.2.99.1 - aka 0.3a1
+* 0.2.99.2 - aka 0.3a2
 
 next release:
 
-* 0.2.99.2 - aka 0.3a2
+* 0.2.999.1 - aka 0.3b1
 
 future releases:
 
-* 0.2.999.1 - aka 0.3b1
-* 0.2.999.2 - aka 0.3b2
+* 0.2.999.x (more betas, as needed)
 * 0.2.9999.1 - aka 0.3rc1
 * 0.2.9999.x (more rcs, only if needed)
 * 0.3.0 final
 
-Requirements
-------------
-
-Things needed for alpha 2 (0.2.99.2) release:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Localization
-  * not only the GUI but all INFO, WARNING and ERROR logs should be translateable
-  * DEBUG logs do not need to be, as they are largely not intended to be seen by users
-  * This should be a continuing effort until final.
-* Visualizations
-  * implement as plugin?
-* GUI
-  * Device UI
-        
-
 Things needed for beta 1 (0.2.999.1) release:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Conversion
+  Split this into two beta if needed? frequent releases are good.
 
-  * we need to handle the upgrade process from 0.2->0.3 smoothly
-  * this should include the collection, settings, plugins, playlists, and
-    anything else still relevant in 0.3
-  * should be the last primary 'feature' implemented
-  * implement as plugin? that way it can just be unloaded afterwards saving a
-    little bit of time and memory.
-  * alternatively, only import it if firstrun is True. this is likely a cleaner
-    and more-efficient method. 
+  * Conversion - we need to handle the upgrade process from 0.2->0.3 smoothly
 
-    * should be in its own folder in xl/ if this method is chosen (xl/upgrade/?)
+    * this should include the collection, settings, plugins, playlists, and
+      anything else still relevant in 0.3
+    * should be the last primary 'feature' implemented
+    * implement as plugin? that way it can just be unloaded afterwards saving a
+      little bit of time and memory.
+    * alternatively, only import it if firstrun is True. this is likely a
+      cleaner and more-efficient method. 
 
-  * this should also be designed flexibly enough to also handle future
+      * should be in its own folder in xl/ if this method is chosen
+        (xl/upgrade/?)
 
-    * 0.3.x to 0.3.y upgrades, should that be necessary. 
+    * this should also be designed flexibly enough to also handle future 0.3.x
+      to 0.3.y upgrades, should that be necessary. 
+    * possibly also allow import from other players, eg rhythmbox, amarok, etc.
+      these importers would be implemented as plugins and use the Providers
+      system to expose their upgraders.
+  * CD Burning
 
-      * possibly also allow import from other players, eg rhythmbox, amarok,
-        etc. these importers would be implemented as plugins and use the
-        Providers system to expose their upgraders.
+    * part of cd plugin, takes a Playlist and burns it in order
+    * allow mp3 cd burning?
 
-* CD Burning
+      * defer til 0.3.1 probably
 
-  * class in cd.py, takes a Playlist and burns it in order
-  * allow mp3 cd burning?
+    * best case: use libburn for this, if we can get python bindings in time
 
-* Podcasts
+      * worling on low-level ctypes bindings. barring significant complication
+        and delay they should be available. full pythonic bindings can be
+        migrated to at some later date.
 
-  * separate from radio
-  * allow flexibility in choice of when (if?) and where to download
-  * allow streaming if not downloaded
+    * fallback: allow external burners, include option for a custom external
+      burner command
+  * Podcasts
+        separate from radio
+        allow flexibility in choice of when (if?) and where to download
+        allow streaming if not downloaded
+  * Blacklisting
+  * GUI
 
-* Blacklisting
+    * Tag Editor
 
-* GUI:
+      * I'm thinking this shouldn't be anything more than a simple editor
+            for the first release.  Something like rhythmbox has.  Even with
+            the "more featureful" editor in 0.2.14, I always ended up using
+            exfalso for anything more than a few tracks.
 
-  * Tag Editor
+    * right-click menus for side tabs, playlists
+    * Podcasts panel
+    * clean up plugin manager
 
-    * I'm thinking this shouldn't be anything more than a simple editor for
-      the first release.  Something like rhythmbox has.  Even with the "more
-      featureful" editor in 0.2.14, I always ended up using exfalso for
-      anything more than a few tracks.
+      * button for installing from .exz file
+      * maybe integrate into prefs dialog?
 
-  * right-click menus for side tabs, playlists
-  * Podcasts panel
-  * clean up plugin manager
+    * playlist export
+    * equalizer GUI
 
-    * button for installing from .exz file
-    * maybe integrate into prefs dialog?
+  * Devices
 
-  * Queue Manager
+    * improve device manager with basic prefs, hal-less connections,
+      autoconnect
+    * improve device panel with cleaner code, internal subpanels for
+      collection, playlists, etc
+    * implement cd device panel (ie flat playlist vs collection)
+    * implement transfer to device
+    * mtp/ipod plugins
+
+  * Visualizations
+
+    * implement as plugin
+    * do after merging unified_playback, since the pipeline improvements should
+      make this easier.
 
 Things needed for RCs/final release:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -138,10 +145,6 @@ Things needed for RCs/final release:
 
     * port all relevant 0.2 plugins to 0.3
 
-  * GUI:
-
-    * playlist export
-    * equalizer GUI
 
 Notes
 -----
@@ -166,4 +169,3 @@ list other contributors to 0.3 here so they may be given due credit
 * Dan O'Reilly (dano) - various patches
 * Dafydd Crosby - various patches
 * Abhishek Mukherjee - various patches
-

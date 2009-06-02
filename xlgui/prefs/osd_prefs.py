@@ -23,7 +23,7 @@ glade = xdg.get_data_path('glade/osd_prefs_pane.glade')
 
 def page_enter(prefs):
     global OSD
-    OSD = osd.OSDWindow(prefs.settings, draggable=True)
+    OSD = osd.OSDWindow(draggable=True)
     OSD.show(None, timeout=0)
 
 def page_leave(prefs):
@@ -33,7 +33,7 @@ def page_leave(prefs):
         OSD = None
 
 def apply(prefs):
-    prefs.main.main.osd.setup_osd(prefs.settings)
+    prefs.main.main.osd.setup_osd()
 
 class OSDItem(object):
     """
@@ -44,7 +44,7 @@ class OSDItem(object):
         self.apply()
         if OSD:
             OSD.destroy()
-            OSD.setup_osd(self.prefs.settings)
+            OSD.setup_osd()
             OSD.show(None, timeout=0)
 
 class OsdPreference(widgets.CheckPrefsItem, OSDItem):

@@ -5,7 +5,7 @@ import time, hashlib, os, re
 class CoverBaseTestCase(BaseTestCase):
     def setUp(self):
         BaseTestCase.setUp(self)
-        self.cm = cover.CoverManager(self.settings,
+        self.cm = cover.CoverManager(
             cache_dir=".testtemp/exaile_cache%s" %
             hashlib.md5(str(time.time())).hexdigest())
         self.cm.add_defaults()

@@ -26,9 +26,16 @@
                         <property name="label">_New Playlist</property>
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
+                        <property name="use_stock">False</property>
                         <signal name="activate" handler="on_new_playlist_item_activated"/>
                         <accelerator key="T" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                        <child internal-child="image">
+                          <widget class="GtkImage" id="image8">
+                            <property name="visible">True</property>
+                            <property name="stock">gtk-new</property>
+                            <property name="icon-size">1</property>
+                          </widget>
+                        </child>
                       </widget>
                     </child>
                     <child>
@@ -46,11 +53,10 @@
                       </widget>
                     </child>
                     <child>
-                      <widget class="GtkImageMenuItem" id="open_url_item">
-                        <property name="label">Open _URL</property>
+                      <widget class="GtkMenuItem" id="open_url_item">
                         <property name="visible">True</property>
+                        <property name="label" translatable="yes">Open _URL</property>
                         <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
                         <signal name="activate" handler="on_open_url_item_activate"/>
                       </widget>
                     </child>
@@ -80,20 +86,18 @@
                 <child>
                   <widget class="GtkMenu" id="menuitem2_menu">
                     <child>
-                      <widget class="GtkImageMenuItem" id="collection_manager_item">
-                        <property name="label">_Collection Manager</property>
+                      <widget class="GtkMenuItem" id="collection_manager_item">
                         <property name="visible">True</property>
+                        <property name="label" translatable="yes">_Collection Manager</property>
                         <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
                         <signal name="activate" handler="on_collection_manager_item_activate"/>
                       </widget>
                     </child>
                     <child>
-                      <widget class="GtkImageMenuItem" id="plugins1">
-                        <property name="label">Pl_ugins</property>
+                      <widget class="GtkMenuItem" id="plugins1">
                         <property name="visible">True</property>
+                        <property name="label" translatable="yes">Pl_ugins</property>
                         <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
                         <signal name="activate" handler="on_plugins_item_activate"/>
                       </widget>
                     </child>
@@ -122,7 +126,14 @@
                         <property name="label">_Go to Playing Track</property>
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
+                        <property name="use_stock">False</property>
+                        <child internal-child="image">
+                          <widget class="GtkImage" id="image9">
+                            <property name="visible">True</property>
+                            <property name="stock">gtk-jump-to</property>
+                            <property name="icon-size">1</property>
+                          </widget>
+                        </child>
                       </widget>
                     </child>
                     <child>
@@ -184,6 +195,7 @@
                           <widget class="GtkImage" id="image7">
                             <property name="visible">True</property>
                             <property name="stock">gtk-add</property>
+                            <property name="icon-size">1</property>
                           </widget>
                         </child>
                       </widget>
@@ -198,6 +210,7 @@
                           <widget class="GtkImage" id="image3">
                             <property name="visible">True</property>
                             <property name="stock">gtk-harddisk</property>
+                            <property name="icon-size">1</property>
                           </widget>
                         </child>
                       </widget>
@@ -220,6 +233,7 @@
                           <widget class="GtkImage" id="image6">
                             <property name="visible">True</property>
                             <property name="stock">gtk-refresh</property>
+                            <property name="icon-size">1</property>
                           </widget>
                         </child>
                       </widget>
@@ -390,30 +404,10 @@
                                   <widget class="GtkHBox" id="hbox6">
                                     <property name="visible">True</property>
                                     <child>
-                                      <widget class="GtkLabel" id="label5">
-                                        <property name="visible">True</property>
-                                        <property name="label" translatable="yes">Rating: </property>
-                                      </widget>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="position">0</property>
-                                      </packing>
+                                      <placeholder/>
                                     </child>
                                     <child>
-                                      <widget class="GtkComboBox" id="rating_combo_box">
-                                        <property name="visible">True</property>
-                                        <property name="items" translatable="yes">0
-1
-2
-3
-4
-5</property>
-                                        <signal name="changed" handler="on_rating_combo_box_changed" object="set_current_track_rating"/>
-                                      </widget>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="position">1</property>
-                                      </packing>
+                                      <placeholder/>
                                     </child>
                                     <child>
                                       <placeholder/>
@@ -494,6 +488,9 @@
                             </child>
                           </widget>
                           <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
+                            <property name="pack_type">end</property>
                             <property name="position">2</property>
                           </packing>
                         </child>

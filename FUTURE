@@ -149,6 +149,11 @@ Cross-Fade
   * use peek() methods on playlists and queue to see next track
     without actually switching to it.
   * see crossfade_design for some thoughts on a possible design
+  * use gst's adder element to combine streams
+  * use peek() methods on playlists and queue to see next track without
+    actually switching to it.
+  * see crossfade_design for some thoughts on a possible design this is now
+    in-progress in the unified_playback branch
 
 Sorting Tags
   * ID3 defines TSOA/TSOP/TSOT for purpose of "sort" tags,
@@ -199,16 +204,16 @@ HAL outputs:
           * .device_id is a string for displaying to user
 
 Session management:
-    we should properly support x session management
-        the gnome implementation is available in gnome.ui
+  * we should properly support x session management the gnome implementation is
+    available in gnome.ui
 
 GIO/GVFS support:
-    requires patching mutagen
-    would allow seamless use of music on smb/ftp/sftp shares
+  * requires patching mutagen
+  * would allow seamless use of music on smb/ftp/sftp shares
 
 Misc UI ideas:
-    allow arbitrary tags to be playlist columns
-    minimode-like playback controls on trayicon mouseover
+  * allow arbitrary tags to be playlist columns
+  * minimode-like playback controls on trayicon mouseover
 
 random plugin ideas
 -------------------

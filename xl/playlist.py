@@ -190,12 +190,19 @@ def import_from_pls(path, handle=None):
     for n in range(1,num+1):
         tr = track.Track()
         tr.set_loc(linedict["file%s"%n])
-        tr['title'] = linedict["title%s"%n]
-        len = float(linedict["length%s"%n])
+        if "title%s"%n in linedict:
+            tr['title'] = linedict["title%s"%n]
+        else:
+            tr['title'] = linedict["file%s"%n].split("/")[-1]
+        if "length%s"%n in linedict:
+            len = float(linedict["length%s"%n])
+        else:
+            len = 0
         if len < 1:
             len = 0
         tr['length'] = len
-        tr.read_tags()
+        if tr.get_type() == 'file': # FIXME
+            tr.read_tags()
         pl.add(tr, ignore_missing_files=False)
 
     handle.close()
@@ -744,7 +751,7 @@ class Playlist(object):
         f.write("EOF\n")
         for item in self.extra_save_items:
             val = getattr(self, item)
-            strn = settings.SETTINGSMANAGER._val_to_str(val)
+            strn = settings._SETTINGSMANAGER._val_to_str(val)
             f.write("%s=%s\n"%(item,strn))
         f.close()
         if os.path.exists(location + ".new"):
@@ -771,7 +778,7 @@ class Playlist(object):
             if line == "":
                 break
             item, strn = line[:-1].split("=",1)
-            val = settings.SETTINGSMANAGER._str_to_val(strn)
+            val = settings._SETTINGSMANAGER._str_to_val(strn)
             if hasattr(self, item):
                 setattr(self, item, val)
         f.close()

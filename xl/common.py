@@ -17,6 +17,7 @@
 import locale, os, time, threading, urllib, re, random, string, urlparse
 import traceback
 import logging
+from functools import wraps
 
 logger = logging.getLogger(__name__)
 _TESTING = False  # set to True for testing
@@ -64,14 +65,11 @@ def threaded(f):
     
     # TODO: make this bad hack unneeded
     if _TESTING: return f
+    @wraps(f)
     def wrapper(*args, **kwargs):
         t = threading.Thread(target=f, args=args, kwargs=kwargs)
         t.setDaemon(True)
         t.start()
-
-    wrapper.__name__ = f.__name__
-    wrapper.__dict__ = f.__dict__
-    wrapper.__doc__ = f.__doc__
 
     return wrapper
 
@@ -80,6 +78,7 @@ def synchronized(func):
         A decorator to make a function synchronized - which means only one
         thread is allowed to access it at a time
     """
+    @wraps(func)
     def wrapper(self,*__args,**__kw):
         try:
             rlock = self._sync_lock
@@ -91,9 +90,6 @@ def synchronized(func):
             return func(self,*__args,**__kw)
         finally:
             rlock.release()
-    wrapper.__name__ = func.__name__
-    wrapper.__dict__ = func.__dict__
-    wrapper.__doc__ = func.__doc__
     return wrapper
 
 

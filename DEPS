@@ -1,38 +1,59 @@
 List of dependencies for Exaile 0.3
+===================================
 
-plugin dependencies should be listed in their description
+.. note:plugin dependencies should be listed in their description
 
-(TBI) = not yet made optional in trunk
-(R) - recommended
-(S) - suggested
-(C) - compile-time
+Dependencies
+------------
+Essential:
 
-essential:
-    python (>= 2.5)
-    pygst 0.10
-    gstreamer-plugins-good 0.10
-    mutagen (>= 1.10)
-    dbus-python
-    pygtk (>= 2.10)
-    python-glade2
+* python (>= 2.5)
+* pygst 0.10
+* gstreamer-plugins-good 0.10
+* mutagen (>= 1.10)
+* dbus-python
+* pygtk (>= 2.10)
+* python-glade2
 
-translation:
-    gettext (C)(R)
+Translation:
 
-documentation:
-    epydoc (C)(R)
+* gettext
 
-replaygain, equalizer:
-    gstreamer-plugins-bad (>= 10.5) (S)
+Documentation:
 
-device detection:
-    hal (R)
+* sphinx
 
-cd info:
-    python-cddb (R)
+Replaygain, Equalizer:
 
-library realtime watching:
-    pyinotify (R)
+* gstreamer-plugins-bad (>= 10.5)
 
-clear button on search fields:
-    sexy-python (R)
+Device detection:
+
+* hal
+
+CD info:
+
+* python-cddb
+
+Library realtime watching:
+
+* pyinotify
+
+Clear button on search fields:
+
+* sexy-python
+
+Dependency Priorities
+---------------------
+
+===================== ===================== ============
+Dependency            Recommended/Suggested Compile-time
+===================== ===================== ============
+gettext               Recommended           Yes
+sphinx                Recommended           Yes
+gstreamer-plugins-bad Suggested             No
+hal                   Recommended           No
+python-cddb           Recommended           No
+pyinotify             Recommended           No
+sexy-python           Recommended           No
+===================== ===================== ============

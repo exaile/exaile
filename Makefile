@@ -99,13 +99,6 @@ clean:
 	cd plugins && make clean && cd ..
 	rm -f data/plugins
 
-doc: docclean
-	mkdir -p ./doc/
-	-epydoc -n Exaile -vo ./doc/ --html xl xlgui || echo "Epydoc not available, skipping docs generation"
-
-docclean:
-	rm -rf ./doc/*
-
 pot:
 	@echo "[encoding: UTF-8]" > po/POTFILES.in
 	find xl -name "*.py" >> po/POTFILES.in

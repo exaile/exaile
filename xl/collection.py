@@ -12,14 +12,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+"""
+Classes representing collections and libraries
 
-# Classes representing collections and libraries
-#
-# A collection is a database of tracks. It is based on TrackDB but
-# has the ability to be linked with libraries.
-#
-# A library finds tracks in a specified directory and adds them to an
-# associated collection.
+A collection is a database of tracks. It is based on :class:`TrackDB` but has
+the ability to be linked with libraries.
+
+A library finds tracks in a specified directory and adds them to an associated
+collection.
+"""
 
 from xl.nls import gettext as _
 from xl import trackdb, track, common, xdg, event, metadata, settings
@@ -36,8 +37,11 @@ COLLECTIONS = set()
 
 def get_collection_by_loc(loc):
     """
-        returns the collection containing a track having the
-        given loc. returns None if no such collection exists.
+        gets the collection by a location.
+        
+        :param loc: Location of the collection
+        :return: collection at location or None
+        :rtype: Collection
     """
     for c in COLLECTIONS:
         if c.loc_is_member(loc):
@@ -47,6 +51,8 @@ def get_collection_by_loc(loc):
 class Collection(trackdb.TrackDB):
     """
         Manages a persistent track database.
+
+        :param args: see :class:`xl.trackdb.TrackDB`
 
         Simple usage:
 
@@ -60,11 +66,6 @@ class Collection(trackdb.TrackDB):
         >>> 
     """
     def __init__(self, name, location=None, pickle_attrs=[]):
-        """
-            Set up the collection
-
-            args: see TrackDB
-        """
         global COLLECTIONS
         self.libraries = dict()
         self._scanning = False
@@ -78,7 +79,8 @@ class Collection(trackdb.TrackDB):
         """
             Add this library to the collection
 
-            library: the library to add [Library]
+            :param library: the library to add
+            :type library: :class:`Library`
         """
         loc = library.get_location()
         if loc not in self.libraries.keys():
@@ -93,7 +95,8 @@ class Collection(trackdb.TrackDB):
         """
             Remove a library from the collection
 
-            library: the library to remove [Library]
+            :param library: the library to remove
+            :type library: :class:`Library`
         """
         for k, v in self.libraries.iteritems():
             if v == library:
@@ -120,7 +123,7 @@ class Collection(trackdb.TrackDB):
             Gets a list of all the Libraries associated with this 
             Collection
 
-            returns: [list of Library]
+            :rtype: list of :class:`Library`
         """
         return self.libraries.values()
 
@@ -183,7 +186,7 @@ class Collection(trackdb.TrackDB):
         """
             Save information about libraries
 
-            called whenver the libraries's settings are changed
+            Called whenever the library's settings are changed
         """
         _serial_libraries = []
         for k, v in self.libraries.iteritems():
@@ -217,8 +220,9 @@ class Collection(trackdb.TrackDB):
 
 class ProcessEvent(object):
     """
-        Stub ProcessEvent.  This is here so that the INotifyEventProcessor
-        declaration doesn't fail if pyinotify doesn't import correctly
+        Stub ProcessEvent.  This is here so that the
+        :class:`INotifyEventProcessor` declaration doesn't fail if
+        :mod:`pyinotify` doesn't import correctly
     """
     pass
 
@@ -248,11 +252,11 @@ class INotifyEventProcessor(ProcessEvent):
 
     def add_library(self, library):
         """
-            Adds a library to be monitored by inotify.
-            If the ThreadedNotifier hasn't been started already, it will be
-            started
+            Adds a library to be monitored by inotify.  If the ThreadedNotifier
+            hasn't been started already, it will be started
 
-            library:  the Library to be watched
+            :param library:  the library to be watched
+            :type library: :class:`Library`
         """
         wdd = self.wm.add_watch(library.location,
             self.mask, rec=True, auto_add=True)
@@ -269,7 +273,8 @@ class INotifyEventProcessor(ProcessEvent):
             specified library there are no more libraries being watched, the
             notifier thread is stopped
 
-            library: the Library to remove
+            :param library: the library to remove
+            :type library: :class:`Library`
         """
         if not self.libraries: return
         i = 0
@@ -333,6 +338,11 @@ class Library(object):
         Scans and watches a folder for tracks, and adds them to
         a Collection.
 
+        :param location: the directory this library will scan
+        :type location: string
+        :param collection: the Collection to associate with
+        :type collection: :class:`Collection`
+
         Simple usage:
 
         >>> from xl.collection import *
@@ -350,9 +360,6 @@ class Library(object):
     def __init__(self, location, realtime=False, scan_interval=0):
         """
             Sets up the Library
-
-            location: the directory this library will scan [string]
-            collection: the Collection to associate with [Collection]
         """
         self.location = location
         self.scan_interval = scan_interval
@@ -374,7 +381,8 @@ class Library(object):
         """
             Changes the location of this Library
 
-            location: the new location to use [string]
+            :param location: the new location to use
+            :type location: string
         """
         self.location = location
 
@@ -382,7 +390,8 @@ class Library(object):
         """
             Gets the current location associated with this Library
 
-            returns: the current location [string]
+            :return: the current location
+            :rtype: string
         """
         return self.location
 
@@ -394,7 +403,7 @@ class Library(object):
         """
             Scans locations for tracks and adds them to the collection
 
-            locations: a list of locations to check
+            :param locations: a list of locations to check
         """
         db = self.collection
         for fullpath in locations:
@@ -416,7 +425,7 @@ class Library(object):
         """
             Removes tracks at the specified locations from the collection
 
-            locations: the paths to remove
+            :param locations: the paths to remove
         """
         for loc in locations:
             try:
@@ -448,10 +457,10 @@ class Library(object):
             the same album but different artist, we assume that it's part of a
             compilation.
 
-            @param ccheck: dictionary for internal use
-            @param compilations: if a compilation is found, it'll be appended
+            :param ccheck: dictionary for internal use
+            :param compilations: if a compilation is found, it'll be appended
                 to this list
-            @param tr: the track to check
+            :param tr: the track to check
         """
         # TODO: make this optional, probably in the advanced configuration
         # editor
@@ -562,13 +571,16 @@ class Library(object):
 
     def is_realtime(self):
         """
-            Returns True if this is library is being watched
+            :return: True if this is library is being watched
         """
         return self.realtime
 
     def set_realtime(self, realtime):
         """
-            Sets to True if you want this library to be monitored
+            Set to True if you want this library to be monitored
+
+            :raises PyInotifyNotSupportedException: The collection is not set
+                to realtime or :mod:`pyinotify` is not available
         """
         if realtime and not pyinotify:
             raise PyInotifyNotSupportedException()           
@@ -582,7 +594,7 @@ class Library(object):
 
     def get_rescan_interval(self):
         """
-            Returns the scan interval in seconds
+            :return: the scan interval in seconds
         """
         return self.scan_interval
 
@@ -591,7 +603,8 @@ class Library(object):
             Sets the scan interval in seconds.  If the interval is 0 seconds,
             the scan interval is stopped
 
-            interval: scan interval (int) in seconds
+            :param interval: scan interval in seconds
+            :type interval: int
         """
         if not interval:
             if self.scan_id:
@@ -622,7 +635,10 @@ class Library(object):
 
     def delete(self, loc):
         """
-            PERMANENTLY deletes a file from the disk and from the collection
+            Deletes a file from the disk
+
+            .. warning::
+               This permanently deletes the file from the hard disk.
         """
         tr = self.collection.get_track_by_loc(loc)
         if tr:

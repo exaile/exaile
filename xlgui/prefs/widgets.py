@@ -154,10 +154,11 @@ class OrderListPrefsItem(PrefsItem):
     def _settings_value(self):
         items = []
         iter = self.model.get_iter_first()
-        while not iter:
+        while iter:
             items.append(self.model.get_value(iter, 0))
             iter = self.model.iter_next(iter)
         self.items = items
+        print items
         return items
 
 

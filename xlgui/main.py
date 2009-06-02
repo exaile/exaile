@@ -375,7 +375,7 @@ class MainWindow(object):
         """
             Sets up the various widgets
         """
-        self.xml.get_widget('volume_slider').set_value(self.player.get_volume())
+        self.xml.get_widget('volume_slider').set_value(settings.get_option("player/volume", 1))
         self.shuffle_toggle = self.xml.get_widget('shuffle_button')
         self.shuffle_toggle.set_active(settings.get_option(
             'playback/shuffle', False))
@@ -706,6 +706,8 @@ class MainWindow(object):
                     { 'title': title, 'artist': artist }) + " - Exaile")
             else:
                 self.window.set_title(title + " - Exaile")
+        else:
+            return
 
         self.track_title_label.set_label(title)
         if album or artist:

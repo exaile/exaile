@@ -21,6 +21,13 @@ from xlgui import commondialogs
 name = "Playback"
 glade = xdg.get_data_path('glade/playback_prefs_pane.glade')
 
+class EnginePreference(widgets.ComboPrefsItem):
+    default = "normal"
+    name = 'player/engine'
+    map = ["normal", "gapless", "unified"]
+    def __init__(self, prefs, widget):
+        widgets.ComboPrefsItem.__init__(self, prefs, widget, use_map=True)
+
 class ResumePreference(widgets.CheckPrefsItem):
     default = True
     name = 'player/resume_playback'
@@ -28,4 +35,22 @@ class ResumePreference(widgets.CheckPrefsItem):
 class PausedPreference(widgets.CheckPrefsItem):
     default = False
     name = 'player/resume_paused' 
+
+# The following only work on the Unified engine
+
+class UserFadeTogglePreference(widgets.CheckPrefsItem):
+    default = False
+    name = 'player/user_fade_enabled' 
+
+class UserFadeDurationPreference(widgets.SpinPrefsItem):
+    default = 1000
+    name = 'player/user_fade'
+
+class CrossfadingPreference(widgets.CheckPrefsItem):
+    default = False
+    name = 'player/crossfading'
+
+class CrossfadeDurationPreference(widgets.SpinPrefsItem):
+    default = 1000
+    name = 'player/crossfade_duration'
 

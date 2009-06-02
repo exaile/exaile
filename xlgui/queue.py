@@ -20,7 +20,7 @@ class QueueManager(object):
         GUI to manage a queue
     """
 
-    def __init__(self, queue):
+    def __init__(self, parent, queue):
         self._queue = queue
 
         self._xml = gtk.glade.XML(
@@ -30,6 +30,7 @@ class QueueManager(object):
                gtk.image_new_from_stock(gtk.STOCK_REMOVE, gtk.ICON_SIZE_BUTTON))
 
         self._dialog = self._xml.get_widget('QueueManagerDialog')
+        self._dialog.set_transient_for(parent)
         self._dialog.connect('destroy', self.destroy)
         self._xml.signal_autoconnect({
             'close_dialog': self.destroy,

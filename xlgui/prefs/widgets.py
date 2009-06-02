@@ -154,10 +154,11 @@ class OrderListPrefsItem(PrefsItem):
     def _settings_value(self):
         items = []
         iter = self.model.get_iter_first()
-        while not iter:
+        while iter:
             items.append(self.model.get_value(iter, 0))
             iter = self.model.iter_next(iter)
         self.items = items
+        print items
         return items
 
 
@@ -303,8 +304,9 @@ class ComboPrefsItem(PrefsItem):
     """
         combo box
     """
-    def __init__(self, prefs, widget, use_index=False):
+    def __init__(self, prefs, widget, use_index=False, use_map=False):
         self.use_index = use_index
+        self.use_map = use_map
         PrefsItem.__init__(self, prefs, widget)
 
     def _setup_change(self):
@@ -313,6 +315,12 @@ class ComboPrefsItem(PrefsItem):
     def _set_pref(self):
         item = self.prefs.settings.get_option(self._get_name(), 
             self.default)
+
+        if self.use_map:
+            index = self.map.index(self.prefs.settings.get_option(
+                        self._get_name(), self.default))
+            self.widget.set_active(index)
+            return
 
         if self.use_index:
             index = self.prefs.settings.get_option(self._get_name(), 
@@ -333,7 +341,9 @@ class ComboPrefsItem(PrefsItem):
             if not iter: break
 
     def _settings_value(self):
-        if self.use_index:
+        if self.use_map:
+            return self.map[self.widget.get_active()]
+        elif self.use_index:
             return self.widget.get_active()
         else:
             return self.widget.get_active_text()

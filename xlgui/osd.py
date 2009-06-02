@@ -185,8 +185,8 @@ class OSDWindow(object):
     def show(self, track, timeout=4000):
         if track:
             text = self.text.replace('&', '&amp;')
-            for item in ('title', 'artist', 'album', 'length', 'track', 'bitrate',
-                'genre', 'year', 'rating'):
+            for item in ('title', 'artist', 'album', 'length', 'tracknumber', 
+                    'bitrate', 'genre', 'year', 'rating'):
                 value = track[item]
                 if item == 'length':
                     if not isinstance(value, (int, float)):

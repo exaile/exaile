@@ -1,12 +1,12 @@
 PREFIX = /usr/local
 PLUGINSDIR = /share/exaile/plugins/
 
-INSTALL_PLUGINS = amazoncovers audioscrobbler gnomemmkeys lastfmdynamic \
+INSTALL_PLUGINS = audioscrobbler gnomemmkeys lastfmdynamic lastfmcovers \
 	lyricwiki notify shoutcast cd lastfmradio ipod massstorage
 
-DIST_PLUGINS = amazoncovers audioscrobbler console gnomemmkeys lastfmcovers \
-	lastfmdynamic lyricsfly lyricwiki notify shoutcast cd lastfmradio \
-	streamripper tagcovers
+EXTRA_PLUGINS = amazoncovers console lyricsfly streamripper tagcovers
+
+DIST_PLUGINS = $(INSTALL_PLUGINS) $(EXTRA_PLUGINS)
 
 all: compile
 
@@ -20,6 +20,12 @@ compile:
 install:
 	mkdir -p $(DESTDIR)$(PREFIX)$(PLUGINSDIR)
 	for plugin in $(INSTALL_PLUGINS); do \
+	    cp -r $${plugin} $(DESTDIR)$(PREFIX)$(PLUGINSDIR) ; \
+	    done ;
+
+extra_install:
+	mkdir -p $(DESTDIR)$(PREFIX)$(PLUGINSDIR)
+	for plugin in $(EXTRA_PLUGINS); do \
 	    cp -r $${plugin} $(DESTDIR)$(PREFIX)$(PLUGINSDIR) ; \
 	    done ;
 

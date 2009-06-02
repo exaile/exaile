@@ -87,6 +87,10 @@ install: make-install-dirs
 	cd plugins && make install DESTDIR=$(DESTDIR) PREFIX=$(PREFIX) \
 		&& cd ..
 
+plugins_extra_install:
+	cd plugins && make extra_install DESTDIR=$(DESTDIR) PREFIX=$(PREFIX) \
+	    && cd ..
+
 plugins_dist:
 	cd plugins && make dist && cd ..
 
@@ -115,10 +119,14 @@ potball:
 	tar --bzip2 --format=posix -cf exaile-po.tar.bz2 po/ \
 	    --transform s/po/./
 
-# TODO: figure out how to ignore all files not under BZR control
-dist: test clean docclean
-	tar --bzip2 --format=posix -cf exaile-dist.tar.bz2 ./ \
-	    --exclude=*~ --exclude=exaile-dist.tar.bz2 \
-	    --exclude=./.bzr* --transform s/./exaile/
+.PHONY: dist 
+
+# TODO: embed version information
+dist:
+	mkdir -p dist
+	rm -rf dist/copy
+	bzr co --lightweight ./ dist/copy
+	tar --bzip2 --format=posix -cf dist/exaile-dist.tar.bz2 dist/copy \
+	    --exclude=dist/copy/.bzr* --transform s/dist\\/copy/exaile/
 
 

@@ -1,17 +1,40 @@
-PREFIX = /usr/local
+PREFIX ?= /usr/local
 PLUGINSDIR = /share/exaile/plugins/
 
-INSTALL_PLUGINS = audioscrobbler gnomemmkeys lastfmdynamic lastfmcovers \
-	lyricwiki notify shoutcast cd lastfmradio ipod massstorage
+INSTALL_PLUGINS = alarmclock \
+		  amazoncovers \
+		  audioscrobbler \
+		  bookmarks \
+		  cd \
+		  desktopcover \
+		  gnomemmkeys \
+		  ipod \
+		  lastfmdynamic \
+		  lastfmcovers \
+		  lastfmradio \
+		  lyricsfly \
+		  lyricwiki \
+		  massstorage \
+		  moodbar \
+		  mpris \
+		  multialarmclock \
+		  notify \
+		  screensaverpause \
+		  shoutcast \
+		  streamripper \
+		  tagcovers 
 
-EXTRA_PLUGINS = amazoncovers console lyricsfly streamripper tagcovers
+EXTRA_PLUGINS = console \
+	       	ipconsole \
+	       	helloworld
 
 DIST_PLUGINS = $(INSTALL_PLUGINS) $(EXTRA_PLUGINS)
 
 all: compile
 
-dist: clean
-	python dist_plugin.py $(DIST_PLUGINS)
+dist:
+	mkdir -p ../dist/plugins/
+	python dist_plugin.py --output ../dist/plugins/ $(DIST_PLUGINS)
 
 compile:
 	python -m compileall -q .
@@ -34,4 +57,3 @@ uninstall:
 
 clean:
 	find . -name "*.py[co]" -exec rm -f {} \;
-	rm -f *.exz

@@ -28,6 +28,7 @@ playingTrack=''
 exaile1=1
 runed=False
 pid=0
+uptime=0
 """
 def on_play(type, player, track):
     title = " / ".join(track['title'] or _("Unknown"))
@@ -40,46 +41,116 @@ def genBuff(moodbar,width):
     global modwidth
     modwidth=width
     b=''
-    hh=[0.4,0.1,0.4,0.5,0.6,0.7,0.8,1,1,1,0.9,0.85,0.8,0.75,0.7,0.63,0.55,0.47,0.39,0.3,0.2,0,0.6,0.2]
+    hh=[0.2,0.4,0.7,0.8,0.9,1,1,1,1,1,1,1,1,1,1,1,1,1,0.9,0.8,0.7,0.6,0.4,0.2]
     for h in range(24):
        for x in range(width):
           for i in range(3):
              b=b+chr(int(ord(moodbar[int(x*1000/width)*3+i])*hh[h]))
     return b
 
+
 def redrawMod(self):
     global moodbar
     global modwidth
     global curpos
     global buff
+    global uptime
     sizes=self.get_allocation()
     global brush
     res=True
-    brush.function=gtk.gdk.COPY
-    try:
-       if not sizes.width==modwidth : buff=genBuff(moodbar, sizes.width)
-       self.window.draw_rgb_image(brush, 0, 0, modwidth, 24, gtk.gdk.RGB_DITHER_NONE, buff, modwidth*3)
-    except:
-       global haveMod 
-       self.window.draw_rectangle(brush, True, 0, 0, modwidth, 24)
-       haveMod=False  
-       res=False   
-    brush.line_style=gtk.gdk.LINE_SOLID
-    brush.line_width=2
-    brush.function=gtk.gdk.INVERT
- 
+    global haveMod
+
+  
+    #try:
+    #brush.function=gtk.gdk.COPY
+    #brush.set_foreground(gtk.gdk.Color("#FF0"))
     
-    self.window.draw_arc(brush, True, int(curpos*modwidth)-15, -5, 30, 30,  60*64, 60*64)
+    #except:
+    # print('eror changing color')
+     
+    uptime+=1
+    gc = brush 
+    color = self.get_colormap().alloc_color(0x0000, 0x0000, 0x0000)
+    gc.foreground = color
+
+    try: 
+      
+       if not sizes.width==modwidth : buff=genBuff(moodbar, sizes.width)
+       if (haveMod):
+           self.window.draw_rgb_image(gc, 0, 0, modwidth, 24, gtk.gdk.RGB_DITHER_NONE, buff, modwidth*3)
+       else:
+           for i in range(5):  
+              color = self.get_colormap().alloc_color(0xAAAA*i/5, 0xAAAA*i/5, 0xAAAA*i/5)
+              gc.foreground = color 
+              self.window.draw_rectangle(gc, True, 0, 0+i, modwidth, 24-i*2)
+        
+           color = self.get_colormap().alloc_color(0xBBBB, 0xBBBB, 0xBBBB)
+           gc.foreground = color
+           if modTimer:    
+              self.window.draw_rectangle(gc, True,  (modwidth/10)*(uptime%10), 5, modwidth/10, 14)
+           
+       #python: ../../src/xcb_lock.c:77: _XGetXCBBuffer: Assertion `((int) ((xcb_req) - (dpy->request)) >= 0)' failed.
+       #python: ../../src/xcb_io.c:176: process_responses: Assertion `!(req && current_request && !(((long) (req->sequence) - (long) (current_request)) <= 0))' failed.
+
+
+
+    except:
+       for i in range(5):  
+         color = self.get_colormap().alloc_color(0xFFFF*i/5, 0x0000, 0x0000)
+         gc.foreground = color 
+         self.window.draw_rectangle(gc, True, 0, 0+i, modwidth, 24-i*2)
+        
+       haveMod=False  
+       res=False  
+       exit
+       return False
+    if modTimer:
+
+      color = self.get_colormap().alloc_color(0xFFFF, 0xFFFF, 0xFFFF)
+      gc.foreground = color
+      #brush.line_style=gtk.gdk.LINE_SOLID
+      brush.line_width=2
+      #brush.function=gtk.gdk.INVERT
+ 
+
+      self.window.draw_arc(brush, True, int(curpos*modwidth)-15, -5, 30, 30,  60*64, 60*64)
+
+
+      color = self.get_colormap().alloc_color(0x0000, 0x0000, 0x0000)
+      gc.foreground = color
+
+      self.window.draw_line(brush,  int(curpos*modwidth), 10, int(curpos*modwidth)-10, -5)
+      self.window.draw_line(brush,  int(curpos*modwidth), 10, int(curpos*modwidth)+10, -5)
+  
+      
+
+      global exaile1
+      
+      length = exaile1.player.current.get_duration()
+      seconds = exaile1.player.get_time()
+      remaining_seconds = length - seconds
+      text = ("%d:%02d / %d:%02d" %
+            ( seconds // 60, seconds % 60, remaining_seconds // 60,
+            remaining_seconds % 60))
+      #print(text)
+      #brush.function=gtk.gdk.INVERT
+      self.pangolayout.set_text(text)
+      self.window.draw_layout(gc, modwidth/2-50, 3, self.pangolayout)
+      self.window.draw_layout(gc, modwidth/2-52, 1, self.pangolayout)
+      color = self.get_colormap().alloc_color(0xFFFF, 0xFFFF, 0xFFFF)
+      gc.foreground = color
+
+      self.window.draw_layout(gc, modwidth/2-51, 2, self.pangolayout)
     return res
 
 def drawMod(self, area):
     redrawMod(self)
     
 
-
 def readMod(moodLoc):
    
   global moodbar
+  retur=True
   try:  
     if moodLoc=='':
        moodbar=''
@@ -90,10 +161,20 @@ def readMod(moodLoc):
        moodbar=''
        for i in range(3000):
          r=f.read(1)
+         if r=='':
+            r=chr(0)
+            retur=False
          moodbar=moodbar+r
        f.close()
-       return True  
-  except: return False 
+       
+       return retur 
+    print(moodbar)
+  except: 
+       print('read faled')
+       moodbar=''
+       for i in range(3000):
+           moodbar=moodbar+chr(0)
+       return False 
 
 """
 ####################################################3      replace bar to mod                
@@ -105,7 +186,7 @@ def changeBarToMod(exaile):
     place=pr.bar.get_parent()
     #print(place)
     pr.mod = gtk.DrawingArea()
-
+    pr.mod.pangolayout = pr.mod.create_pango_layout("")
     #mod = gtk.Button()
     pr.mod.set_size_request(-1, 24)
     place.pack_start(pr.mod, False, True, 0)
@@ -121,17 +202,17 @@ def changeModToBar(exaile):
         pr.mod.destroy()
 
 def showMod(exaile):
-    pr=exaile.gui.main.progress_bar
-    pr.bar.hide()
-    if hasattr(pr, 'mod'):
-        pr.mod.show()
+    #pr=exaile.gui.main.progress_bar
+    #pr.bar.hide()
+    #if hasattr(pr, 'mod'):
+    #    pr.mod.show()
     print('showing modbar')  
 
 def hideMod(exaile):
-    pr=exaile.gui.main.progress_bar
-    if hasattr(pr, 'mod'):
-        pr.mod.hide()
-    pr.bar.show() 
+    #pr=exaile.gui.main.progress_bar
+    #if hasattr(pr, 'mod'):
+    #    pr.mod.hide()
+    #pr.bar.show() 
     print('hideing modbar') 
 """
 ##########################################################3    seeking               
@@ -156,7 +237,8 @@ def modSeekEnd(self,  event):
         global curpos         
         curpos=value
         length = track.get_duration()
-        redrawMod(self)
+	self.queue_draw_area(0, 0, progress_loc.width, 24)
+        #redrawMod(self)
 
         seconds = float(value * length)
         exaile1.player.seek(seconds)
@@ -178,8 +260,8 @@ def modSeekMotionNotify(self,  event):
         
         global curpos         
         curpos=value
-        
-        redrawMod(self)
+        self.queue_draw_area(0, 0, progress_loc.width, 24)
+        #redrawMod(self)
 """
 ##########################################################3    play / start               
 """
@@ -214,10 +296,11 @@ def play_start(type, player, track):
     
     haveMod=False
     playingTrack=str(track.get_loc())
-    #playingTrack=playingTrack.replace("\'","\\\'")
+    playingTrack=playingTrack.replace("file://","")
     #playingTrack=playingTrack.replace("\"","\\\"")
     modLoc=moodsDir+'/'+ playingTrack.replace('/','-')+".mood"
     modLoc=modLoc.replace("'",'')
+  
     if os.access(modLoc, 0):
          modwidth=0
          showMod(exaile1)   
@@ -237,8 +320,13 @@ def play_start(type, player, track):
 
 def play_end (type, player, track):
     global modTimer
+    global haveMod
     if modTimer: gobject.source_remove(modTimer)
     modTimer = None
+    haveMod = False
+    global exaile1
+    progress_loc = exaile1.gui.main.progress_bar.mod.get_allocation()
+    exaile1.gui.main.progress_bar.mod.queue_draw_area(0, 0, progress_loc.width, 24)
 
 def updateMod():
     global haveMod
@@ -248,22 +336,23 @@ def updateMod():
     global modwidth
     global modTimer
     global pid
-    if haveMod: 
-       updateplayerpos()
+    #if haveMod:
+      
+    updateplayerpos()
        
-    else:
-       
-       modLoc=moodsDir+'/'+ playingTrack.replace('/','-')+".mood"
-       modLoc=modLoc.replace("'",'')
-       print ("haven't Mod")
-       if readMod(modLoc):
-           
-           print ("find!!")  
+    #else:
+     
+    modLoc=moodsDir+'/'+ playingTrack.replace('/','-')+".mood"
+    modLoc=modLoc.replace("'",'')
+    
+    if readMod(modLoc):
+           haveMod=True 
            modwidth=0
-           haveMod=True
-           
-           if updateplayerpos():
-              showMod(exaile1)
+          
+           #showMod(exaile1)  
+           #if not updateplayerpos():
+           #   hideMod(exaile1)  
+                    
     
     modTimer = gobject.timeout_add(1000, updateMod)
 
@@ -272,9 +361,10 @@ def updateplayerpos():
     global curpos  
     curpos=exaile1.player.get_progress()
     #eprint (curpos)
-    return redrawMod(exaile1.gui.main.progress_bar.mod)
-
-
+    #return redrawMod(exaile1.gui.main.progress_bar.mod)
+    progress_loc = exaile1.gui.main.progress_bar.mod.get_allocation()
+    exaile1.gui.main.progress_bar.mod.queue_draw_area(0, 0, progress_loc.width, 24)
+    return True
     """
 ##########################################################3    enable plugin              
     """

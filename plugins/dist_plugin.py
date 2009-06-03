@@ -15,16 +15,18 @@ p.add_option("-e", "--ignore-extension", dest="extensions",
         action="append", default=(".pyc", ".pyo"))
 p.add_option("-f", "--ignore-file", dest="files",
         action="append", default=("test.py"))
+p.add_option("-O", "--output", dest="output",
+        action="store", default="")
 options, args = p.parse_args()
 
 # allowed values: "", "gz", "bz2"
 COMPRESSION = options.compression
 
 # don't add files with these extensions to the archive
-IGNORED_EXTENSIONS = options.extensions #[".pyc", ".pyo" ]
+IGNORED_EXTENSIONS = options.extensions
 
 # don't add files with this exact name to the archive
-IGNORED_FILES = options.files # ["test.py"]
+IGNORED_FILES = options.files
 
 
 import sys, os, tarfile
@@ -34,10 +36,33 @@ for dir in args:
     if not os.path.exists(dir):
         print "No such folder %s" % dir
         break
+    
+    print "Making plugin %s..." % dir
 
-    print "Making plugin %s..."%dir
+    if not os.path.exists(os.path.join(dir, "PLUGININFO")):
+        print "ERROR: no valid info for %s, skipping..." % dir
+        continue
 
-    tfile = tarfile.open(dir + ".exz", "w:%s"%COMPRESSION)
+    f = open(os.path.join(dir, "PLUGININFO"))
+    info = {}
+    for line in f:
+        try:
+            key, val = line.split("=",1)
+        except ValueError:
+            continue
+        key = key.strip()
+        val = eval(val)
+        info[key] = val
+    f.close()
+
+    if "Version" not in info:
+        print "ERROR: couldn't get version for %s, skipping..." % dir
+        continue
+
+
+    tfile = tarfile.open(
+            options.output + dir + "-%s.exz"%info["Version"], 
+            "w:%s"%COMPRESSION)
     tfile.posix = True # we like being standards-compilant
 
     for fold, subdirs, files in os.walk(dir):

@@ -200,6 +200,7 @@ def changeModToBar(exaile):
     #pr.mod.hide()
     if hasattr(pr, 'mod'):
         pr.mod.destroy()
+        pr.bar.show()
 
 def showMod(exaile):
     #pr=exaile.gui.main.progress_bar

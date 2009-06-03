@@ -34,12 +34,11 @@ class BaseTrayIcon(object):
         self.label = gtk.Label(_("Play"))
         self.label.set_alignment(0, 0)
 
-        self.playpause = gtk.MenuItem()
+        self.playpause = gtk.ImageMenuItem()
         hbox = gtk.HBox()
-        hbox.set_spacing(5)
-        hbox.pack_start(self.image, False, True)
-        hbox.pack_start(self.label, True, True)
+        hbox.pack_start(self.label, False, True)
         self.playpause.add(hbox)
+        self.playpause.set_image(self.image)
         self.id = self.playpause.connect('activate', self._play)
         self.menu.append_item(self.playpause)
 

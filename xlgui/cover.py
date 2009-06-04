@@ -56,7 +56,7 @@ class CoverManager(object):
         self.progress = self.xml.get_widget('progress')
         self.stop_button = self.xml.get_widget('stop_button')
         self.model = gtk.ListStore(str, gtk.gdk.Pixbuf, object)
-        self.icons.set_item_width(90)
+        self.icons.set_item_width(100)
 
         self.icons.set_text_column(0)
         self.icons.set_pixbuf_column(1)

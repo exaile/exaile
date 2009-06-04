@@ -33,8 +33,8 @@ class LastFMCoverSearch(CoverSearchMethod):
 
         data = urllib.urlopen(self.url % 
         {
-            'album': urllib.quote_plus(album),
-            'artist': urllib.quote_plus(artist)
+            'album': urllib.quote_plus(album.encode("utf-8")),
+            'artist': urllib.quote_plus(artist.encode("utf-8"))
         }).read()
 
         m = self.regex.search(data)

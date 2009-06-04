@@ -617,7 +617,7 @@ class UnifiedPlayer(object):
 
         # have to fix the caps because gst cant deal with having them change.
         #TODO: make this a preference and/or autodetect optimal based on the
-        #   output device - if its a 48000hz-only chip we dont want to send it
+        #   output device - if its a 48000hz-native chip we dont want to send it
         #   44100hz audio all the time.
         self.caps = gst.Caps(
                 "audio/x-raw-int, " 
@@ -879,7 +879,10 @@ class UnifiedPlayer(object):
             except TypeError:
                 pass
             gobject.idle_add(stream.set_state, gst.STATE_NULL)
-            self.pipe.remove(stream)
+            try:
+                self.pipe.remove(stream)
+            except RemoveError:
+                pass # bad?
             if stream in self.streams:
                 self.streams[self.streams.index(stream)] = None
             return True

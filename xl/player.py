@@ -66,8 +66,8 @@ class PlayQueue(playlist.Playlist):
             Goes to the next track, either in the queue, or in the current
             playlist.  If a track is passed in, that track is played
 
-            @param player: play the track in addition to returning it
-            @param track: if passed, play this track
+            :param player: play the track in addition to returning it
+            :param track: if passed, play this track
         """
         if not track:
             if player:
@@ -194,17 +194,9 @@ def get_player():
         return GSTPlayer
 
 
-
-
-
-
-
-
-
 class BaseGSTPlayer(object):
     """
         base player object
-        player implementations will subclass this
     """
     def __init__(self):
         self.current = None
@@ -616,9 +608,10 @@ class UnifiedPlayer(object):
         self.timer_id = 0
 
         # have to fix the caps because gst cant deal with having them change.
-        #TODO: make this a preference and/or autodetect optimal based on the
+        # TODO: make this a preference and/or autodetect optimal based on the
         #   output device - if its a 48000hz-native chip we dont want to send it
         #   44100hz audio all the time.
+        #   Or better yet, fix gst to handle changing caps :D
         self.caps = gst.Caps(
                 "audio/x-raw-int, " 
                 "rate=(int)44100, "
@@ -882,7 +875,7 @@ class UnifiedPlayer(object):
             try:
                 self.pipe.remove(stream)
             except RemoveError:
-                pass # bad?
+                logger.debug("Failed to remove stream %s"%stream)
             if stream in self.streams:
                 self.streams[self.streams.index(stream)] = None
             return True
@@ -972,7 +965,7 @@ class ProviderBin(gst.Bin, ProviderHandler):
     """
     def __init__(self, servicename, name=None):
         """
-            @param servicename: the Provider name to listen for
+            :param servicename: the Provider name to listen for
         """
         if name:
             gst.Bin.__init__(self, name)
@@ -1089,6 +1082,8 @@ class AudioStream(gst.Bin):
         self.reset_playtime_stamp()
         
         self.dec.set_property("uri", uri)
+
+        # TODO: abstract this into generic uri handling via providers
         if uri.startswith("cdda://"):
             self.notify_id = self.dec.connect('notify::source',
                     self.__notify_source)
@@ -1269,7 +1264,8 @@ class AudioSink(BaseSink):
         elems = [self.provided, self.vol, self.sink]
         self.add(*elems)
         gst.element_link_many(*elems)
-        self.sinkghost = gst.GhostPad("sink", self.provided.get_static_pad("sink"))
+        self.sinkghost = gst.GhostPad("sink", 
+                self.provided.get_static_pad("sink"))
         self.add_pad(self.sinkghost)
         self.load_options()
 
@@ -1284,7 +1280,8 @@ class AudioSink(BaseSink):
                 self.sink.set_property(param, value)
             except:
                 common.log_exception(log=logger)
-                logger.warning(_("Could not set parameter %s for %s")%(param, self.sink_elem))
+                logger.warning(_("Could not set parameter %s for %s") % 
+                        (param, self.sink_elem))
 
     def set_volume(self, vol):
         self.vol.set_property("volume", vol)

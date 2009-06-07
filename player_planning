@@ -1,21 +1,19 @@
 
 
-required for 0.3.0:
+targets for 0.3.0:
     device auto-detection
     MSC, MTP and iPod plugins
     basic transfer support
+    device manager (removes UI dependence on HAL)
 
-additional targets for 0.3.0:
-    audioscrobbler support
-    file layout support (depends on device manager for config)
-        - useful for main as well, so worth implementing
 
 targets for 0.3.1:
-    device manager (removes UI dependence on HAL)
-    transcode-on-transfer (depends on device manager for config)
+    improvements to device panels and manager (see below)
+    transcode-on-transfer
     rockbox support 
-    full UI described below
-    anything deferred from 0.3.0
+    audioscrobbler support
+    file layout support
+        - useful for main as well, so worth implementing
 
 future:
     UPnP (client and server)
@@ -28,6 +26,9 @@ devices we want to support: (see per-device section FMI)
     ipods (via python-gpod)
     mtp devices (via pymtp)
     mass storage (no library needed)
+    rockbox devices (no library needed to treat as MSC device, for
+            full DB updating a lib will be needed, prelimiary python
+            code for such is on the rockbox wiki)
     audio cds (no library needed to play, pycddb for metadata)
     mp3 cds (no library needed)
     SACDs? 
@@ -39,7 +40,7 @@ devices we want to support: (see per-device section FMI)
 device recognition/persistence:
     require user to explicitly connect to a devices until configured otherwise
         in the device manager
-        - ask user on first connect if they want to auto-connect in the future?
+        - prefs option to autoconnect in future, per-device
         - HAL's udis are perfect for recognizing repeat devices
         - is there a non-HAL way to detect when new fses are mounted?
             - best solution thus far: don't try to auto-detect, just poll
@@ -85,6 +86,7 @@ playing:
         regonition) to find where a track comes from.
         - how to handle this with MTP as we cant actually play off the
             device itself?
+        - uri rewriting may form a solution to this
     hide tracks that are DRM-encypted as we can't play them (can we recognize 
         this?) (could also be useful for main collection)
 
@@ -124,7 +126,7 @@ display:
                 pros: simple, easily seen
                 cons: inconsistent with main UI, interferes with using the tree,
                     doesn't handle podcasts
-            alternative: add a new combo box at the top to select the view
+            alternative: add a new combo box/tabs at the top to select the view
                 pros: simple, clean separation, easily extensible, allows reuse
                     of panel code from the rest of exaile
                 cons: less obvious, takes up some space
@@ -172,16 +174,15 @@ per-device considerations:
             supported formats: varies, usually mp3 and wma
         mass:
             supported formats: varies, usually mp3 and wma
-        devices that can have multiple mount points (eg those with expansion
-            slots for flash memory) need to be merged smoothly.
-            - merge in main tree, playlists
-            - show one transfer queue per mount point
-            - can we detect these situations via HAL?
-                storage.originating_device?
-            - when transferring songs due to a playlist/podcast, try to put 
-                them all on the same device
-        devices are auto-tabbed when possible but are not auto-connected
-            - device prefs will allow opt-in autoconnect 
+        rockbox:
+            supported formats: varies,
+                    general: mp3, vorbis, mpc, ac3, aac, wma, speex,
+                            wav, aiff, flac, alac, wavpack, shorten, monkey's,
+                            sid, mod, nsf, spc, sap
+                    ipod 1g-3g: same, but without ac3, nsf, sap
+                    archos: mp3 only?
+        mp3 players are not auto-connected unless explicitly enabled in 
+            that device's options.
     optical media:
         cds:
             audio:
@@ -203,7 +204,7 @@ per-device considerations:
                 do these exist? we can support them anyway I guess since they'd
                     essentially be mp3 cds with a different HAL signature and more
                     capacity
-        all optical media are auto-tabbed and auto-connected, track metadata is
+        all optical media are auto-connected, track metadata is
             loaded asynchronously
     network:
         daap:
@@ -214,7 +215,7 @@ per-device considerations:
             python-coherence
             - rhythmbox has a upnp plugin based on coherence we can use as 
                 an example
-        network shares are never auto-tabbed or -connected
+        network shares are never auto-connected
             - device prefs will allow opt-in autoconnect 
 
 
@@ -225,9 +226,9 @@ what this should all look like to the user:
             all the tacks and retrieving metadata
     devices (eg ipod):
         user plugs in device
-        a new tab appears with the name of the device
-        the user clicks the connect button in this tab to connect to the
-            device, retrieving the track listing and playlists
+        user opens the device manager, selects the device, and presses connect
+        a new tab appears with the name of the device the track listing and
+            any other info is displayed
     network shares:
         user opens the device manager
         detected shares are displayed along with other devices
@@ -242,8 +243,7 @@ what this should all look like to the user:
             the device location
         user selects a device/location and presses OK
         a new tab appears with the name of the device. the track listing and
-            any other info is displayed
-
+            any other info is displayed. 
 
 rockbox:
     detect whether rockbox is installed and adjust appropriately
@@ -293,5 +293,8 @@ rockbox:
             the first transfer if auto-update is enabled. rockbox doesnt 
             auto-update the DB by default, so most users wouldnt see it and 
             we can handle it silently.
+            - alternatively, just show a warning to the user
+                about it. clicking the warning would show additional
+                information and show how to disable it.
 
 

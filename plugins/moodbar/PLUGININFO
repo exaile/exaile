@@ -1,4 +1,4 @@
 Version="0.0.4"
 Authors=["Solyanov Michael <Crantisz@gmail.com>"]
 Name="Moodbar"
-Description="Replace standard progress bar with moodbar"
+Description="Replace standard progress bar with moodbar. NOTE: You must install moodbar on your PC before using this plugin. Install moodbar from your repository and after this activate the plugin."

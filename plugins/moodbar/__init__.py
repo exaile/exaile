@@ -16,18 +16,17 @@
 # foundation, inc., 675 mass ave, cambridge, ma 02139, usa.
 
 
-## TODO use openGL
-
-
 import cgi, gtk, gobject, os, os.path, subprocess
 from xl import event, xdg
 from xl.nls import gettext as _
 
+import logging
+logger = logging.getLogger(__name__)
 
 ExaileModbar = None
 
 class ExModbar:
-    #Setup and getting values------------------------------------------
+    #Setup and getting values------------------------------------------------
     
     def __init__(self):
          self.moodbar=''
@@ -44,8 +43,9 @@ class ExModbar:
          self.pid=0
          self.uptime=0
 
-         self.moodsDir=os.path.join(xdg.get_config_dir(), "moods")
-         if not os.access(self.moodsDir, 0): os.mkdir(self.moodsDir)
+         self.moodsDir=os.path.join(xdg.get_cache_dir(), "moods")
+         if not os.path.exists(self.moodsDir): 
+             os.mkdir(self.moodsDir)
 
     def set_ex(self, ex):
          self.exaile=ex
@@ -54,7 +54,7 @@ class ExModbar:
          progress_loc = self.mod.get_allocation()
          return progress_loc.width
 
-    #Setup----------------------------------------------------------------
+    #Setup-------------------------------------------------------------------
    
     def changeBarToMod(self):
          place=self.pr.bar.get_parent()
@@ -94,10 +94,10 @@ class ExModbar:
          if self.modTimer: gobject.source_remove(self.modTimer)
 
 
-    #playing ---------------------------------------------------------------------------
+    #playing ----------------------------------------------------------------
    
     def lookformod(self,track):
-         if not hasattr(track, 'get_loc'): 
+         if not track or not track.is_local(): 
              return
 
          self.playingTrack=str(track.get_loc())
@@ -108,11 +108,13 @@ class ExModbar:
          self.curpos=self.exaile.player.get_progress()
          if os.access(modLoc, 0):
              self.modwidth=0
-             if not self.readMod(modLoc): needGen=True                             
+             if not self.readMod(modLoc): 
+                 needGen=True
              self.updateplayerpos() 
          else: needGen=True
          if needGen:
-             self.pid = subprocess.Popen(['/usr/bin/moodbar',self.playingTrack, '-o', modLoc])
+             self.pid = subprocess.Popen(['/usr/bin/moodbar',
+                 self.playingTrack, '-o', modLoc])
          self.haveMod=not needGen
        
          if self.modTimer: gobject.source_remove(self.modTimer)
@@ -128,15 +130,16 @@ class ExModbar:
          self.haveMod = False
          self.mod.queue_draw_area(0, 0, self.get_size(), 24)
 
-    #update player's ui -----------------------------------------------------------------
+    #update player's ui -----------------------------------------------------
+
     def updateMod(self):
          self.updateplayerpos()
          if not self.haveMod:
-           print('serth mood')
+           logger.debug(_('Searching for mood...'))
            modLoc=self.moodsDir+'/'+ self.playingTrack.replace('/','-')+".mood"
            modLoc=modLoc.replace("'",'')
            if self.readMod(modLoc):
-              print('find')
+              logger.debug(_("Mood found."))
               self.haveMod=True 
               self.modwidth=0
          self.modTimer = gobject.timeout_add(1000, self.updateMod)
@@ -146,7 +149,7 @@ class ExModbar:
          self.mod.queue_draw_area(0, 0, self.get_size(), 24)
 
 
-    #reading mod from file and update mood preview ---------------------------------------
+    #reading mod from file and update mood preview --------------------------
    
     def readMod(self, moodLoc):
        retur=True
@@ -168,7 +171,7 @@ class ExModbar:
              return retur 
           
        except: 
-          print('read falled')
+          logger.debug(_('Could not read moodbar.'))
           self.moodbar=''
           for i in range(3000):
               self.moodbar=self.moodbar+chr(0)
@@ -179,49 +182,59 @@ class ExModbar:
         width=self.get_size()
         self.modwidth=width
         b=''
-        hh=[0.2,0.4,0.7,0.8,0.9,1,1,0.98,0.93,0.85,0.80,0.80,0.80,0.85,0.93,0.98,1,1,0.9,0.8,0.7,0.6,0.4,0.2]
-        #hh=[0.5,0.55,0.6,0.65,0.7,1,0.95,0.92,0.88,0.84,0.80,0.80,0.80,0.84,0.88,0.92,0.95,1,0.7,0.65,0.6,0.55,0.5,0.45]
-        #hh=[0.2,0.4,0.7,0.8,0.9,1,1,1,1,1,1,1,1,1,1,1,1,1,0.9,0.8,0.7,0.6,0.4,0.2]
+        hh=[0.2,0.4,0.7,0.8,0.9,1,1,0.98,0.93,0.85,0.80,0.80,0.80,
+                0.85,0.93,0.98,1,1,0.9,0.8,0.7,0.6,0.4,0.2]
+        #hh=[0.5,0.55,0.6,0.65,0.7,1,0.95,0.92,0.88,0.84,0.80,0.80,
+                #0.80,0.84,0.88,0.92,0.95,1,0.7,0.65,0.6,0.55,0.5,0.45]
+        #hh=[0.2,0.4,0.7,0.8,0.9,1,1,1,1,1,1,1,1,1,1,1,1,1,0.9,0.8,
+                # 0.7,0.6,0.4,0.2]
         for h in range(24):
              for x in range(width):
                    for i in range(3):
-                         b=b+chr(int(ord(self.moodbar[int(x*1000/width)*3+i])*hh[h]))
+                         b=b+chr(int(ord(
+                             self.moodbar[int(x*1000/width)*3+i])*hh[h]))
         return b
 
  
-    #Drawing mood UI--------------------------------------------------------------------------
+    #Drawing mood UI---------------------------------------------------------
   
     def drawMod(self,this,area):
         
          self.uptime+=1
          gc = self.brush 
          this=self.mod
-         gc.foreground = this.get_colormap().alloc_color(0x0000, 0x0000, 0x0000)
+         gc.foreground = this.get_colormap().alloc_color(0x0000, 
+                 0x0000, 0x0000)
          track = self.exaile.player.current
          
          try:
             if not self.get_size()==self.modwidth: 
                   self.buff=self.genBuff()
             if (self.haveMod):
-                 this.window.draw_rgb_image(gc, 0, 0, self.modwidth, 24, gtk.gdk.RGB_DITHER_NONE,
-                              self.buff, self.modwidth*3)
+                 this.window.draw_rgb_image(gc, 0, 0, self.modwidth, 24, 
+                         gtk.gdk.RGB_DITHER_NONE, self.buff, self.modwidth*3)
             else:
                
                for i in range(5): 
                    gc.foreground = this.get_colormap().alloc_color(0xAAAA*i/5,
                               0xAAAA*i/5, 0xAAAA*i/5)
-                   this.window.draw_rectangle(gc, True, 0, 0+i, self.modwidth, 24-i*2)
+                   this.window.draw_rectangle(gc, True, 0, 0+i, 
+                           self.modwidth, 24-i*2)
 
                if self.modTimer and track.is_local():    
-                   gc.foreground = this.get_colormap().alloc_color(0xBBBB, 0xBBBB, 0xBBBB)
+                   gc.foreground = this.get_colormap().alloc_color(0xBBBB, 
+                           0xBBBB, 0xBBBB)
                    this.window.draw_rectangle(gc, True,  
-                             (self.modwidth/10)*(self.uptime%10), 5, self.modwidth/10, 14)
+                             (self.modwidth/10)*(self.uptime%10), 
+                             5, self.modwidth/10, 14)
                
       
          except:
             for i in range(5):  
-              gc.foreground = this.get_colormap().alloc_color(0xFFFF*i/5, 0x0000, 0x0000)
-              this.window.draw_rectangle(gc, True, 0, 0+i, self.modwidth, 24-i*2)
+              gc.foreground = this.get_colormap().alloc_color(0xFFFF*i/5, 
+                      0x0000, 0x0000)
+              this.window.draw_rectangle(gc, True, 0, 0+i, 
+                      self.modwidth, 24-i*2)
             
             if track and track.is_local(): 
               self.lookformod(track)
@@ -232,11 +245,13 @@ class ExModbar:
          if not track or not track.is_local(): return
 
          if self.modTimer:
-            gc.foreground = this.get_colormap().alloc_color(0xFFFF, 0xFFFF, 0xFFFF)
+            gc.foreground = this.get_colormap().alloc_color(0xFFFF, 
+                    0xFFFF, 0xFFFF)
             gc.line_width=2
-            this.window.draw_arc(gc, True, int(self.curpos*self.modwidth)-15, -5,
-                                          30, 30,  60*64, 60*64)
-            gc.foreground = this.get_colormap().alloc_color(0x0000, 0x0000, 0x0000)
+            this.window.draw_arc(gc, True, int(self.curpos*self.modwidth)-15, 
+                    -5, 30, 30,  60*64, 60*64)
+            gc.foreground = this.get_colormap().alloc_color(0x0000, 
+                    0x0000, 0x0000)
 
             this.window.draw_line(gc, int(self.curpos*self.modwidth), 10, 
                                       int(self.curpos*self.modwidth)-10, -5)
@@ -251,14 +266,18 @@ class ExModbar:
                remaining_seconds % 60))
    
             this.pangolayout.set_text(text)
-            this.window.draw_layout(gc, self.modwidth/2-50, 3, this.pangolayout)
-            this.window.draw_layout(gc, self.modwidth/2-52, 1, this.pangolayout)
-            gc.foreground = this.get_colormap().alloc_color(0xFFFF, 0xFFFF, 0xFFFF)
+            this.window.draw_layout(gc, self.modwidth/2-50, 
+                    3, this.pangolayout)
+            this.window.draw_layout(gc, self.modwidth/2-52, 
+                    1, this.pangolayout)
+            gc.foreground = this.get_colormap().alloc_color(0xFFFF, 
+                    0xFFFF, 0xFFFF)
 
-            this.window.draw_layout(gc, self.modwidth/2-51, 2, this.pangolayout)
+            this.window.draw_layout(gc, self.modwidth/2-51, 
+                    2, this.pangolayout)
          
  
-    #seeking--------------------------------------------------------------------------
+    #seeking-----------------------------------------------------------------
 
     def modSeekBegin(self,this,event):
         self.seeking = True
@@ -278,7 +297,7 @@ class ExModbar:
         
         self.curpos=value
         length = track.get_duration()
-	self.mod.queue_draw_area(0, 0, progress_loc, 24)
+        self.mod.queue_draw_area(0, 0, progress_loc, 24)
         #redrawMod(self)
 
         seconds = float(value * length)
@@ -300,7 +319,7 @@ class ExModbar:
             self.mod.queue_draw_area(0, 0, progress_loc, 24)
     
 
-    #-----------------------------------------------------------------------------------------
+    #------------------------------------------------------------------------
 
 
 
@@ -312,7 +331,7 @@ def enable(exaile):
     try:
         subprocess.call(['moodbar', '--help'], stdout=-1, stderr=-1)
     except OSError:
-        raise NotImplementedError('Moodbar executable is not available.')
+        raise NotImplementedError(_('Moodbar executable is not available.'))
         return False
 
     if exaile.loading:
@@ -321,14 +340,9 @@ def enable(exaile):
         _enable(None, exaile, None)
 
 def _enable(eventname, exaile, nothing):
-
-
     global ExaileModbar
     track = ExaileModbar.exaile.player.current
-
-    
-
-    ExaileModbar.readMod('')                                                       
+    ExaileModbar.readMod('')
     ExaileModbar.setupUi()       
     event.add_callback(ExaileModbar.play_start, 'playback_start')
     event.add_callback(ExaileModbar.play_end, 'playback_end')

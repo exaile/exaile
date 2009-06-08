@@ -298,9 +298,8 @@ class Main(object):
         self.main.save_current_tabs()
 
     def add_device_panel(self, type, obj, device):
-        from xlgui.panel.collection import CollectionPanel
-        panel = CollectionPanel(self, device.collection,
-                device.get_name())
+        from xlgui.panel.device import DevicePanel
+        panel = DevicePanel(self, device, device.get_name())
         self.device_panels[device.get_name()] = panel
 
     def remove_device_panel(self, type, obj, device):

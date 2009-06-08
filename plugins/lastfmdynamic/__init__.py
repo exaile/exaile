@@ -4,7 +4,7 @@ except:
     import xml.etree.ElementTree as ETree
 import urllib
 from xl.dynamic import DynamicSource
-from xl import providers
+from xl import providers, common
 
 LFMS = None
 

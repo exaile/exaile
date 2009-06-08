@@ -69,6 +69,7 @@ class CollectionPanel(panel.Panel):
         self.filter = guiutil.SearchEntry()
         self.filter.connect('activate', self.on_search)
         box.pack_start(self.filter.entry, True, True)
+        box.show_all()
 
     def _connect_events(self):
         """

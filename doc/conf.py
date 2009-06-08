@@ -38,7 +38,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Exaile'
-copyright = u'2009, Adam Olsen <arolsen@gmail.com>, Johannes Sasongko <sasongko@gmail.com>, Aren Olsen <reacocard@gmail.com>'
+copyright = u'2009, Adam Olsen <arolsen@gmail.com>, Johannes Sasongko <sasongko@gmail.com>, Aren Olson <reacocard@gmail.com>'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

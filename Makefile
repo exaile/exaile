@@ -1,6 +1,9 @@
 PREFIX ?= /usr/local
 LIBINSTALLDIR ?= /lib
 
+EXAILELIBDIR = $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile
+EXAILESHAREDIR = (DESTDIR)$(PREFIX)/share/exaile
+
 all: compile
 	@echo "Ready to install..."
 
@@ -11,67 +14,55 @@ compile:
 
 make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
-	mkdir -p $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile
-	mkdir -p $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/lib
-	mkdir -p $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xl
-	mkdir -p $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xl/metadata
-	mkdir -p $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xlgui
-	mkdir -p $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xlgui/panel
-	mkdir -p $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xlgui/prefs
-	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile
-	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/data
-	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/data/images
-	mkdir -p $(DESTDIR)$(PREFIX)/share/exaile/data/glade
+	mkdir -p $(EXAILELIBDIR)
+	mkdir -p $(EXAILELIBDIR)/lib
+	mkdir -p $(EXAILELIBDIR)/xl
+	mkdir -p $(EXAILELIBDIR)/xl/metadata
+	mkdir -p $(EXAILELIBDIR)/xlgui
+	mkdir -p $(EXAILELIBDIR)/xlgui/panel
+	mkdir -p $(EXAILELIBDIR)/xlgui/prefs
+	mkdir -p $(EXAILESHAREDIR)
+	mkdir -p $(EXAILESHAREDIR)/data
+	mkdir -p $(EXAILESHAREDIR)/data/images
+	mkdir -p $(EXAILESHAREDIR)/data/glade
 	mkdir -p $(DESTDIR)$(PREFIX)/share/pixmaps
 	mkdir -p $(DESTDIR)$(PREFIX)/share/applications
 
 uninstall:
 	rm -f  $(DESTDIR)$(PREFIX)/bin/exaile
-	rm -rf $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile
-	rm -rf $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/lib
-	rm -rf $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xl
-	rm -rf $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xl/metadata
-	rm -rf $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xlgui
-	rm -rf $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xlgui/panel
-	rm -rf $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xlgui/prefs
-	rm -rf $(DESTDIR)$(PREFIX)/share/exaile
-	rm -rf $(DESTDIR)$(PREFIX)/share/exaile/data
-	rm -rf $(DESTDIR)$(PREFIX)/share/exaile/data/images
-	rm -rf $(DESTDIR)$(PREFIX)/share/exaile/data/glade
+	rm -rf $(EXAILELIBDIR)
+	rm -rf $(EXAILELIBDIR)/lib
+	rm -rf $(EXAILELIBDIR)/xl
+	rm -rf $(EXAILELIBDIR)/xl/metadata
+	rm -rf $(EXAILELIBDIR)/xlgui
+	rm -rf $(EXAILELIBDIR)/xlgui/panel
+	rm -rf $(EXAILELIBDIR)/xlgui/prefs
+	rm -rf $(EXAILESHAREDIR)
+	rm -rf $(EXAILESHAREDIR)/data
+	rm -rf $(EXAILESHAREDIR)/data/images
+	rm -rf $(EXAILESHAREDIR)/data/glade
 	rm -f $(DESTDIR)$(PREFIX)/share/applications/exaile.desktop
 	rm -f $(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
 	cd plugins && make uninstall && cd ..
 
+install: make-install-dirs install-target locale
 
-install: make-install-dirs
-	install -m 644 exaile.py $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile	
-	-install -m 644 xl/*.py[co] $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xl
-	install -m 644 xl/*.py $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xl
-	-install -m 644 xl/metadata/*.py[co] \
-		$(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xl/metadata
-	install -m 644 xl/metadata/*.py \
-		$(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xl/metadata
-	-install -m 644 xlgui/*.py[co] $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xlgui
-	install -m 644 xlgui/*.py $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xlgui
-	-install -m 644 xlgui/panel/*.py[co] \
-		$(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xlgui/panel
-	install -m 644 xlgui/panel/*.py \
-		$(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xlgui/panel
-	-install -m 644 xlgui/prefs/*.py[co] \
-		$(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xlgui/prefs
-	install -m 644 xlgui/prefs/*.py \
-		$(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile/xlgui/prefs
-	for f in `find po -name exaile.mo` ; do \
-	  install -d -m 755 \
-	    `echo $$f | sed "s|^po|$(DESTDIR)$(PREFIX)/share/locale|" | \
-	      xargs dirname` && \
-	  install -m 644 $$f \
-	    `echo $$f | sed "s|^po|$(DESTDIR)$(PREFIX)/share/locale|"` ; \
-	  done
-	install -m 644 data/images/*.png \
-		$(DESTDIR)$(PREFIX)/share/exaile/data/images
-	install -m 644 data/glade/*.glade \
-		$(DESTDIR)$(PREFIX)/share/exaile/data/glade
+install_no_locale: make-install-dirs install-target
+
+install-target:
+	install -m 644 exaile.py $(EXAILELIBDIR)	
+	-install -m 644 xl/*.py[co] $(EXAILELIBDIR)/xl
+	install -m 644 xl/*.py $(EXAILELIBDIR)/xl
+	-install -m 644 xl/metadata/*.py[co] $(EXAILELIBDIR)/xl/metadata
+	install -m 644 xl/metadata/*.py $(EXAILELIBDIR)/xl/metadata
+	-install -m 644 xlgui/*.py[co] $(EXAILELIBDIR)/xlgui
+	install -m 644 xlgui/*.py $(EXAILELIBDIR)/xlgui
+	-install -m 644 xlgui/panel/*.py[co] $(EXAILELIBDIR)/xlgui/panel
+	install -m 644 xlgui/panel/*.py $(EXAILELIBDIR)/xlgui/panel
+	-install -m 644 xlgui/prefs/*.py[co] $(EXAILELIBDIR)/xlgui/prefs
+	install -m 644 xlgui/prefs/*.py $(EXAILELIBDIR)/xlgui/prefs
+	install -m 644 data/images/*.png $(EXAILESHAREDIR)/data/images
+	install -m 644 data/glade/*.glade $(EXAILESHAREDIR)/data/glade
 	install -m 644 data/images/largeicon.png \
 		$(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
 	install -m 644 data/exaile.desktop \
@@ -86,6 +77,15 @@ install: make-install-dirs
 	chmod 755 exaile
 	cd plugins && make install DESTDIR=$(DESTDIR) PREFIX=$(PREFIX) \
 		&& cd ..
+
+locale:
+	for f in `find po -name exaile.mo` ; do \
+	  install -d -m 755 \
+	    `echo $$f | sed "s|^po|$(DESTDIR)$(PREFIX)/share/locale|" | \
+	      xargs dirname` && \
+	  install -m 644 $$f \
+	    `echo $$f | sed "s|^po|$(DESTDIR)$(PREFIX)/share/locale|"` ; \
+	  done
 
 plugins_extra_install:
 	cd plugins && make extra_install DESTDIR=$(DESTDIR) PREFIX=$(PREFIX) \

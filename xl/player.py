@@ -713,6 +713,9 @@ class UnifiedPlayer(object):
     def _load_volume(self):
         pass # FIXME
 
+    def get_volume(self):
+        return self.audio_sink.get_volume()
+
     def set_volume(self, vol):
         self.audio_sink.set_volume(vol)
 

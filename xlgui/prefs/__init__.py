@@ -84,11 +84,7 @@ class PreferencesDialog(object):
             if plugin in self.main.exaile.plugins.enabled_plugins:
                 plugin = self.main.exaile.plugins.enabled_plugins[plugin]
             else:
-                try:
-                    plugin = self.main.exaile.plugins.load_plugin(plugin)
-                    if not plugin: continue
-                except:
-                    continue
+                continue
 
             if hasattr(plugin, 'get_prefs_pane'):
                 if name == plugin_page:

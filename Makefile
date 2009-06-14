@@ -2,20 +2,19 @@ PREFIX ?= /usr/local
 LIBINSTALLDIR ?= /lib
 
 EXAILELIBDIR = $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile
-EXAILESHAREDIR = (DESTDIR)$(PREFIX)/share/exaile
+EXAILESHAREDIR = $(DESTDIR)$(PREFIX)/share/exaile
 
 all: compile
 	@echo "Ready to install..."
 
 compile:
-	python -m compileall -q xl lib xlgui
-	-python -O -m compileall -q xl lib xlgui
+	python -m compileall -q xl xlgui
+	-python -O -m compileall -q xl xlgui
 	cd plugins && make && cd ..
 
 make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
 	mkdir -p $(EXAILELIBDIR)
-	mkdir -p $(EXAILELIBDIR)/lib
 	mkdir -p $(EXAILELIBDIR)/xl
 	mkdir -p $(EXAILELIBDIR)/xl/metadata
 	mkdir -p $(EXAILELIBDIR)/xlgui
@@ -31,7 +30,6 @@ make-install-dirs:
 uninstall:
 	rm -f  $(DESTDIR)$(PREFIX)/bin/exaile
 	rm -rf $(EXAILELIBDIR)
-	rm -rf $(EXAILELIBDIR)/lib
 	rm -rf $(EXAILELIBDIR)/xl
 	rm -rf $(EXAILELIBDIR)/xl/metadata
 	rm -rf $(EXAILELIBDIR)/xlgui

@@ -24,7 +24,7 @@ glade = xdg.get_data_path('glade/playback_prefs_pane.glade')
 class EnginePreference(widgets.ComboPrefsItem):
     default = "normal"
     name = 'player/engine'
-    map = ["normal", "gapless", "unified"]
+    map = ["normal", "unified"]
     def __init__(self, prefs, widget):
         widgets.ComboPrefsItem.__init__(self, prefs, widget, use_map=True)
 

@@ -116,8 +116,9 @@ class Exaile(object):
 
         #Set up the player and playbakc queue
         from xl import player
+        from xl.player import queue
         self.player = player.get_player()()
-        self.queue = player.PlayQueue(self.player, 
+        self.queue = player.queue.PlayQueue(self.player, 
                 location=os.path.join(xdg.get_data_dirs()[0], 'queue.state') )
         event.log_event("player_loaded", self, None)
 

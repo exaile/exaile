@@ -17,6 +17,7 @@ make-install-dirs:
 	mkdir -p $(EXAILELIBDIR)
 	mkdir -p $(EXAILELIBDIR)/xl
 	mkdir -p $(EXAILELIBDIR)/xl/metadata
+	mkdir -p $(EXAILELIBDIR)/xl/player
 	mkdir -p $(EXAILELIBDIR)/xlgui
 	mkdir -p $(EXAILELIBDIR)/xlgui/panel
 	mkdir -p $(EXAILELIBDIR)/xlgui/prefs
@@ -32,6 +33,7 @@ uninstall:
 	rm -rf $(EXAILELIBDIR)
 	rm -rf $(EXAILELIBDIR)/xl
 	rm -rf $(EXAILELIBDIR)/xl/metadata
+	rm -rf $(EXAILELIBDIR)/xl/player
 	rm -rf $(EXAILELIBDIR)/xlgui
 	rm -rf $(EXAILELIBDIR)/xlgui/panel
 	rm -rf $(EXAILELIBDIR)/xlgui/prefs
@@ -53,6 +55,8 @@ install-target:
 	install -m 644 xl/*.py $(EXAILELIBDIR)/xl
 	-install -m 644 xl/metadata/*.py[co] $(EXAILELIBDIR)/xl/metadata
 	install -m 644 xl/metadata/*.py $(EXAILELIBDIR)/xl/metadata
+	-install -m 644 xl/player/*.py[co] $(EXAILELIBDIR)/xl/player
+	install -m 644 xl/player/*.py $(EXAILELIBDIR)/xl/player
 	-install -m 644 xlgui/*.py[co] $(EXAILELIBDIR)/xlgui
 	install -m 644 xlgui/*.py $(EXAILELIBDIR)/xlgui
 	-install -m 644 xlgui/panel/*.py[co] $(EXAILELIBDIR)/xlgui/panel

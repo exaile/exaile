@@ -224,11 +224,7 @@ class CollectionPanel(panel.Panel):
             self.menu.popup(event)
 
     def on_expanded(self, tree, iter, path):
-        if self.model.iter_n_children(iter) == 1 and \
-            self.model.get_value(self.model.iter_children(iter), 1) == None:
-            iter_sep = self.model.iter_children(iter)
-            self.load_subtree(iter)
-            self.model.remove(iter_sep)
+        self.load_subtree(iter)
 
     def get_node_keywords(self, parent):
         if not parent:
@@ -291,10 +287,16 @@ class CollectionPanel(panel.Panel):
         self.controller.main.update_track_counts()
 
     def load_subtree(self, parent):
+        iter_sep = None
         if parent == None:
             depth = 0
         else:
-            depth = self.model.iter_depth(parent) +1
+            if self.model.iter_n_children(parent) != 1 or \
+                self.model.get_value(self.model.iter_children(parent), 1) != None:
+                return
+            iter_sep = self.model.iter_children(parent)
+            depth = self.model.iter_depth(parent) + 1
+
         terms = self.get_node_search_terms(parent)
         if terms:
             search = " ".join(terms)
@@ -378,3 +380,6 @@ class CollectionPanel(panel.Panel):
             iter = self.model.append(parent, [image, v, None])
             if not bottom:
                 self.model.append(iter, [None, None, None])
+
+        if iter_sep is not None:
+            self.model.remove(iter_sep)

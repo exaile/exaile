@@ -219,6 +219,7 @@ class UnifiedPlayer(_base.ExailePlayer):
 
     def unlink_stream(self, stream):
         try:
+            current = self.current
             pad = stream.get_static_pad("src").get_peer()
             stream.unlink(self.adder)
             try:
@@ -232,6 +233,7 @@ class UnifiedPlayer(_base.ExailePlayer):
                 logger.debug("Failed to remove stream %s"%stream)
             if stream in self.streams:
                 self.streams[self.streams.index(stream)] = None
+            event.log_event("playback_end", self, current)
             return True
         except AttributeError:
             return True
@@ -253,12 +255,10 @@ class UnifiedPlayer(_base.ExailePlayer):
             stop playback
         """
         if self.is_playing() or self.is_paused():
-            current = self.current
             self.pipe.set_state(gst.STATE_NULL)
             for stream in self.streams:           
                 self.unlink_stream(stream)
             self._reset_crossfade_timer()
-            event.log_event('playback_end', self, current)
             return True
         return False
 

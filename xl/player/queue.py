@@ -16,6 +16,8 @@
 
 
 from xl import playlist, settings, event, common
+import logging, time
+logger = logging.getLogger(__name__)
 
 try:
     import cPickle as pickle
@@ -153,9 +155,7 @@ class PlayQueue(playlist.Playlist):
             vol = self.player.get_volume()
             self.player.set_volume(0)
             self.play()
-            #time.sleep(0.5) # let the player settle
-                            # TODO: find a better way to handle this, is
-                            # there a specific bus message we can listen for?
+            
             if not self.player.current:
                 return
 
@@ -165,5 +165,5 @@ class PlayQueue(playlist.Playlist):
                 self.player.toggle_pause()
             self.player.set_volume(vol)
             self.player._playtime_stamp = state['_playtime_stamp']
-
+            print "RESUMED"
 

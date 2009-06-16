@@ -84,6 +84,8 @@ class ExailePlayer(object):
         else:
             self.pause()
 
+        event.log_event("playback_toggle_pause", self, self.current)
+
     def seek(self, value):
         raise NotImplementedError
 

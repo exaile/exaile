@@ -244,8 +244,16 @@ class INotifyEventProcessor(ProcessEvent):
             Initializes the Event Processor
         """
         self.libraries = []
-        self.mask = EventsCodes.IN_MOVED_TO|EventsCodes.IN_MOVED_FROM|\
-            EventsCodes.IN_CREATE|EventsCodes.IN_DELETE|EventsCodes.IN_CLOSE_WRITE
+        try:
+            # pyinotify > 0.8
+            self.mask = pyinotify.IN_MOVED_TO|pyinotify.IN_MOVED_FROM|\
+                pyinotify.IN_CREATE|pyinotify.IN_DELETE|\
+                pyinotify.IN_CLOSE_WRITE
+        except AttributeError:
+            # pyinotify < 0.8
+            self.mask = EventsCodes.IN_MOVED_TO|EventsCodes.IN_MOVED_FROM|\
+                EventsCodes.IN_CREATE|EventsCodes.IN_DELETE|\
+                EventsCodes.IN_CLOSE_WRITE
             
         self.wm = pyinotify.WatchManager()
         self.notifier = pyinotify.ThreadedNotifier(self.wm, self)

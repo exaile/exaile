@@ -30,9 +30,9 @@ _MPRIS = None
 
 def enable(exaile):
     """Opens an object reference for D-BUS"""
+    global _MPRIS
     LOG.debug("Enabling MPRIS")
     if _MPRIS is None:
-        global _MPRIS
         _MPRIS = exaile_mpris.ExaileMpris(exaile)
     _MPRIS.exaile = exaile
     _MPRIS.acquire()

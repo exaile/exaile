@@ -18,7 +18,7 @@ from xl.nls import gettext as _
 
 import logging, threading, time
 import gst, gobject
-from xl import event, settings
+from xl import event, settings, common
 from xl.player import _base, pipe
 
 logger = logging.getLogger(__name__)

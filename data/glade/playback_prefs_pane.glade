@@ -41,6 +41,42 @@ Unified (unstable)</property>
           </packing>
         </child>
         <child>
+          <widget class="GtkHBox" id="hbox4">
+            <property name="visible">True</property>
+            <child>
+              <widget class="GtkLabel" id="label6">
+                <property name="visible">True</property>
+                <property name="xalign">0</property>
+                <property name="ypad">1</property>
+                <property name="label" translatable="yes"> Audio Sink:  </property>
+              </widget>
+              <packing>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkComboBox" id="player/audiosink">
+                <property name="visible">True</property>
+                <property name="active">0</property>
+                <property name="items" translatable="yes">Automatic
+Alsa
+Oss
+Pulseaudio
+Jack</property>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
           <widget class="GtkCheckButton" id="player/resume_playback">
             <property name="label" translatable="yes">Resume playback on start</property>
             <property name="visible">True</property>
@@ -53,7 +89,7 @@ Unified (unstable)</property>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
-            <property name="position">1</property>
+            <property name="position">2</property>
           </packing>
         </child>
         <child>
@@ -68,7 +104,7 @@ Unified (unstable)</property>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
-            <property name="position">2</property>
+            <property name="position">3</property>
           </packing>
         </child>
         <child>
@@ -76,8 +112,7 @@ Unified (unstable)</property>
             <property name="visible">True</property>
           </widget>
           <packing>
-            <property name="expand">False</property>
-            <property name="position">3</property>
+            <property name="position">4</property>
           </packing>
         </child>
         <child>
@@ -88,7 +123,7 @@ Unified (unstable)</property>
           </widget>
           <packing>
             <property name="expand">False</property>
-            <property name="position">4</property>
+            <property name="position">5</property>
           </packing>
         </child>
         <child>
@@ -103,7 +138,7 @@ Unified (unstable)</property>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
-            <property name="position">5</property>
+            <property name="position">6</property>
           </packing>
         </child>
         <child>
@@ -138,7 +173,7 @@ Unified (unstable)</property>
           </widget>
           <packing>
             <property name="expand">False</property>
-            <property name="position">6</property>
+            <property name="position">7</property>
           </packing>
         </child>
         <child>
@@ -153,7 +188,7 @@ Unified (unstable)</property>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
-            <property name="position">7</property>
+            <property name="position">8</property>
           </packing>
         </child>
         <child>
@@ -188,23 +223,8 @@ Unified (unstable)</property>
           </widget>
           <packing>
             <property name="expand">False</property>
-            <property name="position">8</property>
+            <property name="position">9</property>
           </packing>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
         </child>
       </widget>
     </child>

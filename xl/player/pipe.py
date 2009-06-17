@@ -193,12 +193,17 @@ SINK_PRESETS = {
             "elem"      : "pulsesink",
             "options"   : {},
             },
+        "jack" : {
+            "name"      : _("Jack"),
+            "elem"      : "jackaudiosink",
+            "options"   : {},
+            }
         }
 
 def sink_from_preset(preset):
     try:
         d = SINK_PRESETS[preset]
-        sink = AudioSink(d['name'], d['elem'], d['options'])
+        sink = AudioSink(d['name'], d['elem'], d['options'], preset=preset)
         return sink
     except:
         common.log_exception(log=logger, 
@@ -206,11 +211,12 @@ def sink_from_preset(preset):
         return None
 
 class AudioSink(BaseSink):
-    def __init__(self, name, elem, options, *args, **kwargs):
+    def __init__(self, name, elem, options, preset=None, *args, **kwargs):
         BaseSink.__init__(self, *args, **kwargs)
         self.name = name
         self.sink_elem = elem
         self.options = options
+        self.preset = preset
         self.provided = ProviderBin('sink_element')
         self.vol = gst.element_factory_make("volume")
         self.sink = gst.element_factory_make(self.sink_elem)
@@ -225,9 +231,13 @@ class AudioSink(BaseSink):
     def load_options(self):
         # TODO: make this reset any non-explicitly set options to default
         # this setting is a list of strings of the form "param=value"
-        options = settings.get_option("player/%s_sink_options"%self.name, [])
         optdict = copy.copy(self.options)
-        optdict.update(dict([v.split("=") for v in options]))
+        if self.preset:
+            options = settings.get_option(
+                    "audiosink/%s_options"%self.preset, "")
+            options = dict([ x.split("=") for x in options.split() ])
+            optdict.update(options)
+
         for param, value in optdict.iteritems():
             try:
                 self.sink.set_property(param, value)

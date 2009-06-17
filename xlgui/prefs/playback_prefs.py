@@ -28,6 +28,13 @@ class EnginePreference(widgets.ComboPrefsItem):
     def __init__(self, prefs, widget):
         widgets.ComboPrefsItem.__init__(self, prefs, widget, use_map=True)
 
+class AudioSinkPreference(widgets.ComboPrefsItem):
+    default = "auto"
+    name = 'player/audiosink'
+    map = ["auto", "alsa", "oss", "pulse", "jack"]
+    def __init__(self, prefs, widget):
+        widgets.ComboPrefsItem.__init__(self, prefs, widget, use_map=True)
+
 class ResumePreference(widgets.CheckPrefsItem):
     default = True
     name = 'player/resume_playback'

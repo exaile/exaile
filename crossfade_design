@@ -110,17 +110,11 @@ How it works:
             have to add an encoder to the pipeline)
 
 Plugin interface:
-    plugins will be able to
+    plugins are able to
         - add new sinks 
         - add elements to streams
         - add elements to postprocessing
         - add elements to sinks
-
-Things to watch out for:
-    - seek/pause after the new stream has begun fading
-    - next stream being bad/missing
-    - method for selecting order when plugins add elements
-    - next stream failing to preroll in time
 
 Misc Notes:
     this setup precludes video playback support (as we can't mix video
@@ -128,53 +122,6 @@ Misc Notes:
         player for video support if we want to add it. Alternatively,
         video playback could just force gapless mode and then
         do some voodoo to capture the video from the current Stream.
-
-    during this rewrite might be a good time to implement CUE support
-        (at least the player side of it), as we have to revisit most of this
-        anyway. 
-
-
-Useful Info:
-    the RB patch for crossfading (good comments!): 
-            http://bugzilla.gnome.org/attachment.cgi?id=85250
-
-
-Code Design:
-    Player:
-        set_queue(queue)
-        set_volume(vol)
-        get_volume()
-        get_state()
-        is_playing()
-        is_paused()
-        get_position()
-        get_time()
-        get_progress()
-        play(track)
-        stop()
-        pause()
-        unpause()
-        toggle_pause()
-        seek(value)
-
-        add_sink(sink)
-        remove_sink(sink)
-        add_stream(stream)
-        remove_stream(stream)
-        <incomplete?>
-    Stream:
-        set_track(track)
-        set_volume(vol)
-        <methods needed for playback control>
-        <incomplete?>
-    Postprocessor:
-        <no public methods>
-    AudioSink:
-        set_volume(vol)
-        <other options vary by sink>
-    VisualizationSink:
-        set_visualizer(visualizer)
-        <visualizers may provide other methods>
 
 Communication with most elements will take place through providers and settings.
 
@@ -193,13 +140,11 @@ Providers:
 Settings:
     the following elements are controlled purely by settings:
         equalizer
-            player/equalizer
             equalizer/band-*
         replaygain
-            player/replaygain
-            replaygain/album_mode
-            replaygain/preamp
-            replaygain/fallback
+            replaygain/album-mode
+            replaygain/pre-amp
+            replaygain/fallback-gain
         volume
             player/volume
 

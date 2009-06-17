@@ -165,5 +165,4 @@ class PlayQueue(playlist.Playlist):
                 self.player.toggle_pause()
             self.player.set_volume(vol)
             self.player._playtime_stamp = state['_playtime_stamp']
-            print "RESUMED"
 

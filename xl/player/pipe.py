@@ -67,58 +67,59 @@ class MainBin(gst.Bin):
     # TODO: visualizations
 
 
+class ElementBin(gst.Bin):
+    """
+        A bin for easily containing elements
 
-class ProviderBin(gst.Bin, ProviderHandler):
+        elements are added to the elements dictionary in the form of
+            elements[position] = element
+        where position is a value from 0-100 indicating its position
+        in the resulting bin, and element is the gst.Element itself.
+
+        changes made to elements do not apply until setup_elements()
+        is called
     """
-        A ProviderBin is a gst.Bin that adds and removes elements from itself
-        using the providers system. Providers should be a subclass of 
-        gst.Element and provide the following attributes:
-            name  - name to use for this element
-            index - priority within the pipeline. range [0-100] integer.
-                    lower numbers are higher priority, elements having the
-                    same index are ordered arbitrarily.
-    """
-    def __init__(self, servicename, name=None):
-        """
-            :param servicename: the Provider name to listen for
-        """
+    def __init__(self, name=None):
         if name:
             gst.Bin.__init__(self, name)
         else:
             gst.Bin.__init__(self)
-        ProviderHandler.__init__(self, servicename)
-        self.elements = {}  # FIXME: needs to initialize itself from the 
-                            # provider system, in case things are already 
-                            # registered.
+        self.elements = {}
         self.added_elems = []
         self.srcpad = None
         self.sinkpad = None
         self.src = None
         self.sink = None
-        self.setup_elements()
 
     def setup_elements(self):
         state = self.get_state()[1]
 
         if len(self.added_elems) > 0:
-            self.remove(*self.added_elems)
+            for elem in self.added_elems:
+                try:
+                    self.remove(elem)
+                    elem.set_state(gst.STATE_NULL)
+                except gst.RemoveError:
+                    pass 
         
         elems = list(self.elements.iteritems())
         elems.sort()
         if len(elems) == 0:
             elems.append(gst.element_factory_make('identity'))
+        else:
+            elems = [ x[1] for x in elems ]
         self.add(*elems)
         if len(elems) > 1:
             gst.element_link_many(*elems)
 
         self.srcpad = elems[-1].get_static_pad("src")
-        if self.src:
+        if self.src is not None:
             self.src.set_target(self.srcpad)
         else:
             self.src = gst.GhostPad('src', self.srcpad)
         self.add_pad(self.src)
         self.sinkpad = elems[0].get_static_pad("sink")
-        if self.sink:
+        if self.sink is not None:
             self.sink.set_target(self.sinkpad)
         else:
             self.sink = gst.GhostPad('sink', self.sinkpad)
@@ -127,17 +128,39 @@ class ProviderBin(gst.Bin, ProviderHandler):
         self.added_elems = elems
         self.set_state(state)
 
-    def on_new_provider(self, provider):
-        self.elements[provider.index] = \
-                self.elements.get(provider.index, []) + [provider]
+
+
+class ProviderBin(ElementBin, ProviderHandler):
+    """
+        A ProviderBin is a gst.Bin that adds and removes elements from itself
+        using the providers system. Providers should be a subclass of 
+        gst.Element and provide the following attributes:
+            name  - name to use for this element
+            index - priority within the pipeline. range [0-100] integer.
+                    lower numbers are higher priority. elements must
+                    choose a unique number.
+    """
+    # TODO: allow duplicate #s
+    def __init__(self, servicename, name=None):
+        """
+            :param servicename: the Provider name to listen for
+        """
+        ElementBin.__init__(self, name=name) 
+        ProviderHandler.__init__(self, servicename)
+
+        self.reset_providers()
+
+    def reset_providers(self):
+        self.elements = {}
+        for provider in self.get_providers():
+            self.elements[provider.index] = provider
         self.setup_elements()
 
+    def on_new_provider(self, provider):
+        self.reset_providers()
+
     def on_del_provider(self, provider):
-        try:
-            self.elements[provider.index].remove(provider)
-        except:
-            pass
-        self.setup_elements()
+        self.reset_providers()
 
 
 class Postprocessing(ProviderBin):

@@ -19,6 +19,7 @@ INSTALL_PLUGINS = alarmclock \
 		  mpris \
 		  multialarmclock \
 		  notify \
+		  replaygain \
 		  screensaverpause \
 		  shoutcast \
 		  streamripper \

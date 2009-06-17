@@ -24,12 +24,14 @@ logger = logging.getLogger(__name__)
 
 # list of plugins to enable by default on new installs
 # TODO: move this out of the code itself
-DEFAULT_PLUGINS = ['shoutcast', 
-    'lastfmcovers',
-    'lastfmdynamic', 
-    'gnomemmkeys', 
-    'lyricwiki',
-    'cd']
+DEFAULT_PLUGINS = [
+        'cd',
+        'lastfmcovers',
+        'lastfmdynamic', 
+        'lyricwiki',
+        'replaygain',
+        'shoutcast', 
+        ]
 
 class InvalidPluginError(Exception):
     pass

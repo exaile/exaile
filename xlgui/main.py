@@ -194,6 +194,7 @@ class NotebookTab(gtk.EventBox):
         if event.button == 3:
             menu = guiutil.Menu()
             menu.append(_("_Rename"), self.do_rename, gtk.STOCK_EDIT)
+            menu.append(_("C_lear"), self.do_clear, gtk.STOCK_CLEAR)
             menu.append(_("_Close"), self.do_close, gtk.STOCK_CLOSE)
             menu.popup(None, None, None, event.button, event.time)
 
@@ -214,6 +215,14 @@ class NotebookTab(gtk.EventBox):
                 self.main.queue.set_current_playlist(None)
             num = self.nb.page_num(self.page)
             self.nb.remove_page(num)
+
+    def do_clear(self, *args):
+        """
+            Clears the current playlist tab
+        """
+        playlist = self.main.get_selected_playlist()
+        if not playlist: return
+        playlist.playlist.clear()
 
 class MainWindow(object):
     """

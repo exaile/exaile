@@ -447,7 +447,7 @@ class EventManager(object):
         remove = []
         try:
             for cb in self.callbacks[type][object]:
-                if cb.function == function:
+                if cb.wfunction() == function:
                     remove.append(cb)
         except KeyError:
             return

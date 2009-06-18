@@ -48,7 +48,7 @@ class ExailePlayer(object):
             load volume from settings
         """
         volume = settings.get_option("player/volume", 1)
-        self.set_volume(volume)
+        self._set_volume(volume)
 
     def _set_queue(self, queue):
         self._queue = queue

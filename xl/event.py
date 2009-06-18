@@ -371,6 +371,8 @@ class EventManager(object):
                             callbacks.append(call)
                 except KeyError:
                     pass
+                except TypeError:
+                    pass
 
         if self.use_logger:
             logger.debug(_("Sent '%s' event from '%s' with data '%s'.") % 
@@ -416,7 +418,10 @@ class EventManager(object):
         """
         # add the specified categories if needed.
         if not self.callbacks.has_key(type):
-            self.callbacks[type] = {}
+            if object is not None:
+                self.callbacks[type] = weakref.WeakKeyDictionary()
+            else:
+                self.callbacks[type] = {}
         if not self.callbacks[type].has_key(object):
             self.callbacks[type][object] = []
 
@@ -440,9 +445,14 @@ class EventManager(object):
             registered.
         """
         remove = []
-        for cb in self.callbacks[type][object]:
-            if cb.function == function:
-                remove.append(cb)
+        try:
+            for cb in self.callbacks[type][object]:
+                if cb.function == function:
+                    remove.append(cb)
+        except KeyError:
+            return
+        except TypeError:
+            return
 
         for cb in remove:
             self.callbacks[type][object].remove(cb)

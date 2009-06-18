@@ -152,8 +152,8 @@ class PlayQueue(playlist.Playlist):
                 return
 
         if state['state'] in ['playing', 'paused']:
-            vol = self.player.get_volume()
-            self.player.set_volume(0)
+            vol = self.player._get_volume()
+            self.player._set_volume(0)
             self.play()
             
             if not self.player.current:
@@ -163,6 +163,6 @@ class PlayQueue(playlist.Playlist):
             if state['state'] == 'paused' or \
                     settings.get_option("player/resume_paused", False):
                 self.player.toggle_pause()
-            self.player.set_volume(vol)
+            self.player._set_volume(vol)
             self.player._playtime_stamp = state['_playtime_stamp']
 

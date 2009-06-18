@@ -53,10 +53,18 @@ class ExailePlayer(object):
     def _set_queue(self, queue):
         self._queue = queue
 
-    def get_volume(self):
+    def _get_volume(self):
+        """
+            Gets the current actual volume.  This does not reflect what is
+            shown to the user, see the player/volume setting for that.
+        """
         return self.mainbin.get_volume()
 
-    def set_volume(self, volume):
+    def _set_volume(self, volume):
+        """
+            Sets the volume. This does NOT update the setting value,
+            and should be used only internally.
+        """
         self.mainbin.set_volume(volume)
 
     def _get_current(self):

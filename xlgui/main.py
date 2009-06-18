@@ -444,7 +444,6 @@ class MainWindow(object):
 
     def on_volume_changed(self, range):
         settings.set_option('player/volume', range.get_value())
-        self.player.set_volume(range.get_value())
 
     def on_stop_buttonpress(self, widget, event):
         """

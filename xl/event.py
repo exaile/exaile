@@ -33,7 +33,9 @@ most appropriate spot is immediately before a return statement.
 """
 
 from xl.nls import gettext as _
-import threading, time, logging, traceback
+import threading, time, logging, traceback, weakref
+from new import instancemethod 
+from inspect import ismethod
 from xl import common
 from xl.nls import gettext as _
 
@@ -188,8 +190,82 @@ class Callback(object):
             @param function: the function to call
             @param time: the time this callback was added
         """
-        self.function = function
+        self.valid = True
+        self.wfunction = _getWeakRef(function, self.vanished)
         self.time = time
+
+    def vanished(self, ref):
+        self.valid = False
+
+
+
+
+class _WeakMethod:
+    """Represent a weak bound method, i.e. a method doesn't keep alive the 
+    object that it is bound to. It uses WeakRef which, used on its own, 
+    produces weak methods that are dead on creation, not very useful. 
+    Typically, you will use the getRef() function instead of using
+    this class directly. """
+    
+    def __init__(self, method, notifyDead = None):
+        """
+            The method must be bound. notifyDead will be called when 
+            object that method is bound to dies.
+        """
+        assert ismethod(method)
+        if method.im_self is None:
+            raise ValueError, "We need a bound method!"
+        if notifyDead is None:
+            self.objRef = weakref.ref(method.im_self)
+        else:
+            self.objRef = weakref.ref(method.im_self, notifyDead)
+        self.fun = method.im_func
+        self.cls = method.im_class
+        
+    def __call__(self):
+        if self.objRef() is None:
+            return None
+        else:
+            return instancemethod(self.fun, self.objRef(), self.cls)
+        
+    def __eq__(self, method2):
+        if not isinstance(method2, _WeakMethod):
+            return False 
+        return      self.fun      is method2.fun \
+                and self.objRef() is method2.objRef() \
+                and self.objRef() is not None
+    
+    def __hash__(self):
+        return hash(self.fun)
+    
+    def __repr__(self):
+        dead = ''
+        if self.objRef() is None: 
+            dead = '; DEAD'
+        obj = '<%s at %s%s>' % (self.__class__, id(self), dead)
+        return obj
+        
+    def refs(self, weakRef):
+        """Return true if we are storing same object referred to by weakRef."""
+        return self.objRef == weakRef
+
+def _getWeakRef(obj, notifyDead=None):
+    """
+        Get a weak reference to obj. If obj is a bound method, a _WeakMethod
+        object, that behaves like a WeakRef, is returned, if it is
+        anything else a WeakRef is returned. If obj is an unbound method,
+        a ValueError will be raised.
+    """
+    if ismethod(obj):
+        createRef = _WeakMethod
+    else:
+        createRef = weakref.ref
+        
+    if notifyDead is None:
+        return createRef(obj)
+    else:
+        return createRef(obj, notifyDead)
+
 
 class IdleManager(threading.Thread):
     """
@@ -290,29 +366,26 @@ class EventManager(object):
             for ocall in [None, event.object]:
                 try:
                     for call in self.callbacks[tcall][ocall]:
+                        # FIXME: this is inefficient
                         if call not in callbacks:
                             callbacks.append(call)
                 except KeyError:
                     pass
 
         if self.use_logger:
-            logger.debug(_("Sent '%s' event from '%s' with data '%s'.") %(event.type, repr(event.object), repr(event.data)))
+            logger.debug(_("Sent '%s' event from '%s' with data '%s'.") % 
+                    (event.type, repr(event.object), repr(event.data)))
 
         # now call them
         for cb in callbacks:
             try:
-                if event.time >= cb.time:
-                    cb.function.__call__(event.type, event.object, event.data)
-            except NameError:
-                traceback.print_exc()
-                # the function we're trying to call disappeared
-                self.remove_callback(call, event.type, event.object)
-            except ReferenceError:
-                traceback.print_exc()
-                try:
-                    self.remove_callback(call, event.type, event.object)
-                except:
-                    pass
+                if not cb.valid:
+                    try:
+                        self.callbacks[type][object].remove(cb)
+                    except KeyError:
+                        pass
+                elif event.time >= cb.time:
+                    cb.wfunction().__call__(event.type, event.object, event.data)
             except:
                 traceback.print_exc()
                 # something went wrong inside the function we're calling
@@ -320,7 +393,9 @@ class EventManager(object):
                     common.log_exception(logger)
                 else:
                     traceback.print_exc()
-        if not _TESTING: self.lock.release()
+
+        if not _TESTING: 
+            self.lock.release()
 
     def emit_async(self, event):
         """

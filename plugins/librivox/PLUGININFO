@@ -1,0 +1,5 @@
+Version="1.2"
+Authors=["Arunas Radzvilavicius <arunas.rv@gmail.com>"]
+Name="Librivox"
+Description="Browse and listen to audiobooks from Librivox.org."
+

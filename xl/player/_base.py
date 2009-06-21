@@ -37,6 +37,7 @@ class ExailePlayer(object):
 
         self.mainbin = pipe.MainBin()
 
+        self._load_volume()
         event.add_callback(self._on_setting_change, 'option_set')
 
     def _on_setting_change(self, name, object, data):

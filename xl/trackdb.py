@@ -126,6 +126,7 @@ class TrackDB(object):
         self.pickle_attrs += ['tracks', 'name', '_key']
         self._saving = False
         self._key = 0
+        self._dbversion = 1
         self._deleted_keys = []
         if location:
             self.load_from_location()
@@ -170,11 +171,14 @@ class TrackDB(object):
         if not location:
             location = self.location
         if not location:
-            raise AttributeError(_("You did not specify a location to save the db"))
+            raise AttributeError(_("You did not specify a location to load the db from"))
 
         try:
             pdata = shelve.open(self.location, flag='c', 
                     protocol=common.PICKLE_PROTOCOL)
+            if pdata.has_key("_dbversion"):
+                if pdata['_dbversion'] > self._dbversion:
+                    raise ValueError, "DB was created on a newer Exaile version."
         except:
             logger.error(_("Failed to open music DB."))
             return
@@ -229,6 +233,9 @@ class TrackDB(object):
         try:
             pdata = shelve.open(self.location, flag='c', 
                     protocol=common.PICKLE_PROTOCOL)
+            if pdata.has_key("_dbversion"):
+                if pdata['_dbversion'] > self._dbversion:
+                    raise ValueError, "DB was created on a newer Exaile version."
         except:
             logger.error(_("Failed to open music DB for write."))
             return
@@ -244,6 +251,8 @@ class TrackDB(object):
                                 deepcopy(track._attrs))
             else:
                 pdata[attr] = deepcopy(getattr(self, attr))
+
+        pdata['_dbversion'] = self._dbversion
 
         for key in self._deleted_keys:
             if "tracks-%s"%key in pdata:

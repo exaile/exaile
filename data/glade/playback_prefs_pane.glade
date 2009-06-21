@@ -59,10 +59,11 @@ Unified (unstable)</property>
                 <property name="visible">True</property>
                 <property name="active">0</property>
                 <property name="items" translatable="yes">Automatic
-Alsa
-Oss
-Pulseaudio
-Jack</property>
+GNOME
+ALSA
+OSS
+PulseAudio
+JACK</property>
               </widget>
               <packing>
                 <property name="expand">False</property>

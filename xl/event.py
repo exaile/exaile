@@ -48,6 +48,11 @@ _TESTING = False  # this is used by the testsuite to make all events syncronous
 
 logger = logging.getLogger(__name__)
 
+class Nothing(object):
+    pass
+
+_NONE = Nothing()
+
 class EventTimer(object):
     def __init__(self, interval, function, 
         *args, **kwargs):
@@ -362,8 +367,8 @@ class EventManager(object):
         if not _TESTING: self.lock.acquire()
         # find callbacks that match the Event
         callbacks = []
-        for tcall in [None, event.type]:
-            for ocall in [None, event.object]:
+        for tcall in [_NONE, event.type]:
+            for ocall in [_NONE, event.object]:
                 try:
                     for call in self.callbacks[tcall][ocall]:
                         # FIXME: this is inefficient
@@ -383,7 +388,7 @@ class EventManager(object):
             try:
                 if not cb.valid:
                     try:
-                        self.callbacks[type][object].remove(cb)
+                        self.callbacks[event.type][event.object].remove(cb)
                     except KeyError:
                         pass
                 elif event.time >= cb.time:
@@ -418,10 +423,9 @@ class EventManager(object):
         """
         # add the specified categories if needed.
         if not self.callbacks.has_key(type):
-            if object is not None:
-                self.callbacks[type] = weakref.WeakKeyDictionary()
-            else:
-                self.callbacks[type] = {}
+            self.callbacks[type] = weakref.WeakKeyDictionary()
+        if object is None:
+            object = _NONE
         if not self.callbacks[type].has_key(object):
             self.callbacks[type][object] = []
 
@@ -444,6 +448,8 @@ class EventManager(object):
             The parameters must match those given when the callback was
             registered.
         """
+        if object is None:
+            object = _NONE
         remove = []
         try:
             for cb in self.callbacks[type][object]:

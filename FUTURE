@@ -206,6 +206,7 @@ Misc UI ideas:
     to put a progressbar in our search box on queries that take a long time
     to process.
   * allow reordering of tabs in side pane and playlists
+  * album view like genjengel: http://gejengel.googlecode.com/svn/trunk/web/screenshots.html
 
 random plugin ideas
 -------------------

@@ -8,15 +8,6 @@ migration
   * we could use the 0.2 -> 0.3 upgrade framework, assuming it is made flexibly
     enough.
 
-ratings system
-  * click on rating column to set
-  * replace current dropdown with a bar of stars widget, allows dragging to
-    partially fill stars, double click fills up through clicked star.
-  * could reuse same widget for rating column
-  * this would also work nicely with the new rating system storing values as a
-    float, as it can represent and set such a value much more accurately than a
-    dropdown.
-
 UPnP support
   * client
   * server
@@ -24,12 +15,13 @@ UPnP support
     * rb has a plugin (python)
 
 DAAP Server
-  would require patching python-daap to have server support (likely doable)
+  * would require patching python-daap to have server support (likely doable)
 
 Playback Bookmarks
   * allow bookmarking places in the audio file for quick jumping to
   * UI? (custom cairo-drawn on/near progressbar?)
   * auto-save last position
+  * partially available in 0.3 with the Bookmarks plugin
 
 Cuesheet support
   * parse the CUE at import time and create separate tracks for each entry. This
@@ -44,11 +36,17 @@ Cuesheet support
 
     * Very bad idea, the reason why we have special issues with ``#``'s in
       filename -- Abhishek Mukherjee
+      * nonsense, if done right there's no reason it can't work. the splitting 
+        on #s just needs to be handled sensibly. eg. only split if it comes 
+        after an extension we recognize.
 
   * edge cases that may need special handling:
 
     * gapless transition between tracks in the same file
-    * needs to happen for both sequential and random access
+      * probably not a huge issue - we'll jsut have two handles open to the 
+        same file. less efficient than using the same handle, but much easier.
+        * if the transition is between sequential tracks, might be worth 
+          optimizing to just keep using the same AudioStream
 
 Shuffling albums
   * no clue how to do this UI-wise
@@ -63,9 +61,6 @@ Library structure handling
 Video Playback:
   * this could be tricky UI-wise. perhaps expose as another tab in playlist
     view, with buttons to go fullscreen or separate window
-  * should probably wait until compiz/video issues are resolved, so we dont
-    have to deal with those complaints
-    * resolved as of intrepid for intel, nvidia (maybe ati?)
   * use for video podcasts, have a separate collection for videos too
     heavyweight for main perhaps? (is it possible to do as plugin?)
 
@@ -78,9 +73,10 @@ Audiobooks
 
 Keybindings
   * allow full user-customizable keybinding support
-  * this may only be doable for when exaile has focus, idk how to make it work
-    globally without using a C library (though with ctypes I guess we can use
-    that)
+  * should be doable both when exaile has focus and globally (with different
+    settings for each, though in the same settings pane).  This will merge the 
+    functionality of the "Keyboard Shortcuts" plugin (xkey.py) from 0.2.14 into 
+    exaile itself and add a dep (optional?) on python-xlib.
     
 musicbrainz
   * use for cd tagging
@@ -144,23 +140,11 @@ Advanced DBUS
   allow greater freedom to query, eg allow listing artists, albums in
   collection, searching collection, etc. 
 
-Cross-Fade
-  * use gst's adder element to combine streams
-  * use peek() methods on playlists and queue to see next track
-    without actually switching to it.
-  * see crossfade_design for some thoughts on a possible design
-  * use gst's adder element to combine streams
-  * use peek() methods on playlists and queue to see next track without
-    actually switching to it.
-  * see crossfade_design for some thoughts on a possible design this is now
-    in-progress in the unified_playback branch
-
 Sorting Tags
   * ID3 defines TSOA/TSOP/TSOT for purpose of "sort" tags,
   * we should support them.
     * MP4 also provides such tags
     * are there ones for APE/OGG?
-
 
 DB optimization:
   * the current DB in 0.3 is quite fast but also uses a lot of memory ideas:
@@ -202,9 +186,13 @@ HAL outputs:
           * .type is mixer
           * .originating_device can be used to group by card
           * .device_id is a string for displaying to user
+    
+    * could also allow support for multiple sound devices at once, though
+      at that point we would be starting to impinge on pulseaudio territory,
+      which is probably not ideal.
 
 Session management:
-  * we should properly support x session management the gnome implementation is
+  * we should properly support x session management. the gnome implementation is
     available in gnome.ui
 
 GIO/GVFS support:
@@ -214,6 +202,10 @@ GIO/GVFS support:
 Misc UI ideas:
   * allow arbitrary tags to be playlist columns
   * minimode-like playback controls on trayicon mouseover
+  * replace libsexy with gtk 2.16. additionally, this would make it possible
+    to put a progressbar in our search box on queries that take a long time
+    to process.
+  * allow reordering of tabs in side pane and playlists
 
 random plugin ideas
 -------------------

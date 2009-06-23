@@ -13,9 +13,8 @@ keep track of what each contributor is currently working on.
 Current projects
 ----------------
 
-* Aren Olson - Devices
+* Aren Olson - device framework and UI, playback engine
 * Adam Olsen - GUI
-* Anthony Waters - 
 
 Nomenclature
 ------------
@@ -93,6 +92,8 @@ Things needed for beta 1 (0.2.999.1) release:
             for the first release.  Something like rhythmbox has.  Even with
             the "more featureful" editor in 0.2.14, I always ended up using
             exfalso for anything more than a few tracks.
+
+        * +1 from me (Aren)
 
     * right-click menus for side tabs, playlists
     * Podcasts panel

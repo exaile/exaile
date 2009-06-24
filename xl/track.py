@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 from xl.nls import gettext as _
-import os, time
+import os, time, urlparse
 from copy import deepcopy
 from urlparse import urlparse
 from xl import common
@@ -37,6 +37,25 @@ def is_valid_track(loc):
     """
     sections = loc.split('.');
     return sections[-1] in metadata.formats
+
+def get_tracks_from_uri(uri):
+    """
+        Returns all valid tracks located at uri
+    """
+    tracks = []
+    uri = "file://" + uri if urlparse.urlparse(uri).scheme == "" else uri
+    if uri.startswith("file://") and os.path.isdir(uri[7:]):
+        tracks = [
+                    Track(os.path.join(uri, file))
+                    for file in os.listdir(uri[7:])
+                    if is_valid_track(file)
+                 ]
+    else:
+        tracks = [Track(uri)]
+        tracks[0]['artist'] = tracks[0]['artist'] or uri
+        tracks[0]['title'] = tracks[0]['title'] or uri
+    return tracks
+
 
 class Track(object):
     """

@@ -193,8 +193,16 @@ class DbusManager(dbus.service.Object):
         """
             Adds the specified files to the current playlist
         """
-        from xl.track import Track  # do this here to avoid loading 
-                                    # settings when issuing dbus commands
-        tracks = [Track(f) for f in filenames]
+        from xl import track  # do this here to avoid loading 
+                              # settings when issuing dbus commands
+        tracks = []
+        for file in filenames:
+            tracks.extend(track.get_tracks_from_uri(file))
         self.exaile.queue.current_playlist.add_tracks(tracks)
+
+        if not self.exaile.player.is_playing():
+            try:
+                self.exaile.queue.play(tracks[0])
+            except IndexError:
+                pass
 

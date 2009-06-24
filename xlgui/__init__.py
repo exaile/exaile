@@ -168,27 +168,13 @@ class Main(object):
                 self.exaile.queue.play()
         else:
             pl = self.main.get_selected_playlist()
-            uri = "file://" + uri if urlparse.urlparse(uri).scheme == "" else uri
-            # Load content of directories separately
-            if uri.startswith("file://") and os.path.isdir(uri[7:]):
-                tracks = [
-                            track.Track(os.path.join(uri, file))
-                            for file in os.listdir(uri[7:])
-                            if track.is_valid_track(file)
-                         ]
-                try:
-                    tr = tracks[0]
-                    pl.playlist.add_tracks(tracks)
-                # Directory could be empty
-                except IndexError:
-                    play = False
-            else:
-                tr = track.Track(uri)
-                tr['artist'] = tr['artist'] or uri
-                tr['title'] = tr['title'] or uri
-                pl.playlist.add_tracks([tr])
-            if play:
-                self.exaile.queue.play(tr)
+            tracks = track.get_tracks_from_uri(uri)
+            try:
+                pl.playlist.add_tracks(tracks)
+                self.exaile.queue.play(tracks[0])
+            # Catch empty directories
+            except IndexError:
+                pass
 
     def show_cover_manager(self, *e):
         """

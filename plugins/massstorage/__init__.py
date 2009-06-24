@@ -12,7 +12,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from xl import providers, collection
+from xl import providers, collection, common
 from xl.nls import gettext as _
 from xl.hal import Handler
 from xl.devices import Device
@@ -41,7 +41,6 @@ class MassStorageDevice(Device):
             name = mountpoints[0].split(os.sep)[-1]
         Device.__init__(self, name)
         self.mountpoints = mountpoints
-        self.collection = collection.Collection(name=self.name)
 
     def connect(self):
         self.mountpoints = [ x for x in self.mountpoints if os.path.exists(x) ]
@@ -51,7 +50,6 @@ class MassStorageDevice(Device):
             library = collection.Library(mountpoint)
             self.collection.add_library(library)
         self.connected = True # set this here so the UI can react 
-        self.collection.rescan_libraries()
 
     def disconnect(self):
         self.collection = collection.Collection(name=self.name)

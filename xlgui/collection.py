@@ -14,7 +14,7 @@
 
 from xl.nls import gettext as _
 import logging, os, threading
-import gtk
+import gtk, gobject
 from xl import event, xdg, collection
 from xlgui import commondialogs
 
@@ -24,7 +24,7 @@ class CollectionScanThread(threading.Thread):
     """
         Scans the collection
     """
-    def __init__(self, main, collection):
+    def __init__(self, main, collection, panel):
         """
             Initializes the thread
         
@@ -36,6 +36,7 @@ class CollectionScanThread(threading.Thread):
         self.main = main
         self.collection = collection
         self.stopped = False
+        self.panel = panel
 
     def stop_thread(self):
         """
@@ -50,7 +51,7 @@ class CollectionScanThread(threading.Thread):
         """
             Called when the thread has finished normally
         """
-        self.main.collection_panel.load_tree()
+        gobject.idle_add(self.panel.load_tree)
 
     def run(self):
         """

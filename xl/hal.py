@@ -53,7 +53,8 @@ class HAL(providers.ProviderHandler):
             logger.debug(_("Connected to HAL"))
             event.log_event("hal_connected", self, None)
         except:
-            logger.warning(_("Failed to connect to HAL, autodetection of devices will be disabled."))
+            logger.warning(_("Failed to connect to HAL, " \
+                    "autodetection of devices will be disabled."))
 
     def on_new_provider(self, provider):
         for udi in provider.get_udis(self):

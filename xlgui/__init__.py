@@ -238,7 +238,8 @@ class Main(object):
             Called when the user wishes to rescan the collection
         """
         from xlgui import collection as guicol
-        thread = guicol.CollectionScanThread(self, self.exaile.collection)
+        thread = guicol.CollectionScanThread(self, self.exaile.collection, 
+                self.collection_panel)
         self.progress_manager.add_monitor(thread,
             _("Scanning collection..."), 'gtk-refresh')
 
@@ -297,6 +298,10 @@ class Main(object):
         from xlgui.panel.device import DevicePanel
         panel = DevicePanel(self, device, device.get_name())
         self.device_panels[device.get_name()] = panel
+        thread = collection.CollectionScanThread(self.main, 
+                device.get_collection(), panel )
+        self.progress_manager.add_monitor(thread,
+                _("Scanning %s..."%device.name), 'gtk-refresh')
 
     def remove_device_panel(self, type, obj, device):
         try:

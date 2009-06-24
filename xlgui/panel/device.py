@@ -43,3 +43,6 @@ class DevicePanel(panel.Panel):
     def add_panel(self, child, name):
         label = gtk.Label(name)
         self.notebook.append_page(child, label)
+
+    def load_tree(self, *args):
+        self.collectionpanel.load_tree(*args)

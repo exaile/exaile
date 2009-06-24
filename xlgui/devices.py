@@ -15,6 +15,7 @@
 from xl.nls import gettext as _
 import gtk, gtk.glade
 from xl import xdg, settings, event, devices
+from xlgui import collection
 import logging
 
 logger = logging.getLogger(__name__)
@@ -85,14 +86,12 @@ class ManagerDialog(object):
     def on_connect(self, *args):
         devices = self._get_selected_devices()
 
-        # FIXME: this should be asynchronous
         for d in devices:
             d.connect()
 
     def on_disconnect(self, *args):
         devices = self._get_selected_devices()
 
-        # FIXME: this should be asynchronous
         for d in devices:
             d.disconnect()
 

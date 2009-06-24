@@ -20,7 +20,7 @@ Devices
 contains the DeviceManager and some generic Device classes
 """
 
-from xl import common, event
+from xl import common, event, collection
 
 
 class DeviceManager(object):
@@ -62,7 +62,7 @@ class Device(object):
 
     def __init__(self, name):
         self.name = name
-        self.collection = None
+        self.collection = collection.Collection(name=self.name)
         self.playlists = []
         self._connected = False
 
@@ -83,7 +83,6 @@ class Device(object):
     def get_name(self):
         return self.name
 
-    # will need revisiting when we get a UI device manager
     def autoconnect(self):
         if self.class_autoconnect == True:
             self.connect()

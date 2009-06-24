@@ -153,12 +153,7 @@ class Main(object):
         """
             Proxy for _play_uri
         """
-        if self.exaile.loading:
-            event.add_callback(lambda a, b, c, uri=uri, play=play: 
-                self._open_uri(uri, play), 
-                'exaile_loaded')
-        else:
-            self._open_uri(uri, play)
+        self._open_uri(uri, play)
 
     def _open_uri(self, uri, play=True):
         """

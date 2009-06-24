@@ -15,7 +15,7 @@
 __all__ = ['main', 'panel', 'playlist']
 
 from xl.nls import gettext as _
-import gtk, gtk.glade, gobject, logging, os
+import gtk, gtk.glade, gobject, logging, os, urlparse
 from xl import xdg, common, event, metadata, settings
 
 from xlgui import guiutil, prefs, plugins, cover, commondialogs, devices, queue
@@ -168,6 +168,7 @@ class Main(object):
                 self.exaile.queue.play()
         else:
             pl = self.main.get_selected_playlist()
+            uri = "file://" + uri if urlparse.urlparse(uri).scheme == "" else uri
             # Load content of directories separately
             if uri.startswith("file://") and os.path.isdir(uri[7:]):
                 tracks = [
@@ -175,9 +176,12 @@ class Main(object):
                             for file in os.listdir(uri[7:])
                             if track.is_valid_track(file)
                          ]
-                tracks.sort()
-                tr = tracks[0]
-                pl.playlist.add_tracks(tracks)
+                try:
+                    tr = tracks[0]
+                    pl.playlist.add_tracks(tracks)
+                # Directory could be empty
+                except IndexError:
+                    play = False
             else:
                 tr = track.Track(uri)
                 tr['artist'] = tr['artist'] or uri

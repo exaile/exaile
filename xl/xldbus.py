@@ -15,8 +15,11 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 from xl.nls import gettext as _
+import logging
 import dbus, dbus.service, gobject, sys
 from optparse import OptionParser
+
+logger = logging.getLogger(__name__)
 
 def check_dbus(bus, interface):
     obj = bus.get_object('org.freedesktop.DBus', '/org/freedesktop/DBus')
@@ -49,30 +52,52 @@ def check_exit(options, args):
                 if args[0] == '-':
                     args = sys.stdin.read().split('\n')
                 iface.enqueue(args)
-                iface = True
+            
+    if not iface:
+        return False
 
     comm = False
-    info_commands = ('get_artist', 'get_title', 'get_album',
-        'get_length', 'get_rating')
+    info_commands = (
+            'get_artist', 
+            'get_title', 
+            'get_album',
+            'get_length', 
+            'get_rating'
+            )
     for command in info_commands:
         if getattr(options, command):
-            if iface:
-                print iface.get_track_attr(command.replace('get_', ''))
+            v = iface.get_track_attr(command.replace('get_', ''))
+            print v
             comm = True
 
-    run_commands = ('play', 'stop', 'next', 'prev', 'play_pause')
+    run_commands = (
+            'play', 
+            'stop', 
+            'next', 
+            'prev', 
+            'play_pause'
+            )
     for command in run_commands:
         if getattr(options, command):
-            if iface:
-                getattr(iface, command)()
+            getattr(iface, command)()
             comm = True
 
-    if comm:
-        if not iface:
-            print _("Invalid command")
-        return True
 
-    return False
+    to_implement = (
+            'query',
+            'guiquery',
+            'rating',
+            'current_position',
+            'inc_vol',
+            'dec_vol',
+            'get_volume',
+            )
+    for command in to_implement:
+        if getattr(options, command):
+            logger.warning("FIXME: command not implemented")
+            comm = True
+
+    return True
 
 class DbusManager(dbus.service.Object):
     """
@@ -93,7 +118,7 @@ class DbusManager(dbus.service.Object):
         """
             Just test the dbus object
         """
-        print arg
+        logger.debug(arg)
 
     @dbus.service.method('org.exaile.ExaileInterface', 's')
     def get_track_attr(self, attr):
@@ -105,6 +130,8 @@ class DbusManager(dbus.service.Object):
         except ValueError:
             value = None
         if value:
+            if type(value) == list:
+                return u"\n".join(value)
             return unicode(value)
         return u''
 

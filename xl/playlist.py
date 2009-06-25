@@ -26,6 +26,7 @@
 
 from xl import trackdb, event, xdg, track, collection, settings
 import urllib, random, os, time, cgi
+from xl.nls import gettext as _
 
 try:
     import cPickle as pickle

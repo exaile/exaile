@@ -62,12 +62,14 @@ class PlayQueue(playlist.Playlist):
             :param track: if passed, play this track
         """
         if not track:
-            if player:
-                if self.player.current == self.stop_track:
+            print self.stop_track
+            print self.player.current
+            if self.player.current == self.stop_track:
+                if player:
                     self.player.stop()
-                    event.log_event('stop_track', self, self.stop_track)
-                    self.stop_track = -1
-                    return
+                event.log_event('stop_track', self, self.stop_track)
+                self.stop_track = -1
+                return None
 
             if not self.ordered_tracks:
                 if self.current_playlist:

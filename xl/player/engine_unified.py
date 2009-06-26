@@ -76,13 +76,15 @@ class UnifiedPlayer(_base.ExailePlayer):
         logger.debug("%s drained"%stream.get_name())
         #if stream.track != self.current:
         #    return
-        self.unlink_stream(stream)
         if not settings.get_option("player/crossfading", False):
             tr = self._queue.next(player=False)
+            self.unlink_stream(stream)
             if tr is None:
                 self.stop()
             else:
                 self.play(tr, user=False)
+        else:
+            self.unlink_stream(stream)
     
     def setup_bus(self):
         """

@@ -344,7 +344,9 @@ class CollectionPanel(panel.Panel):
                     v = _("Unknown")
     
             if depth == 0 and draw_seps:
-                if not first:
+                if first:
+                    last_char = v.lower()[0]
+                else:
                     check_val = v
                     if check_val.lower().startswith('the '):
                         check_val = check_val[4:]

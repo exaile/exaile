@@ -154,7 +154,7 @@ class NormalPlayer(_base.ExailePlayer):
 
             if the track cannot be played, playback stops completely
         """
-        self.stop()
+        self.stop(fire=False)
 
         if track is None:
             return False
@@ -183,7 +183,7 @@ class NormalPlayer(_base.ExailePlayer):
 
         return True
 
-    def stop(self):
+    def stop(self, fire=True):
         """
             stop playback
         """
@@ -192,7 +192,8 @@ class NormalPlayer(_base.ExailePlayer):
             current = self.current
             self.playbin.set_state(gst.STATE_NULL)
             self._current = None
-            event.log_event('playback_player_end', self, current)
+            if fire:
+                event.log_event('playback_player_end', self, current)
             return True
         return False
 

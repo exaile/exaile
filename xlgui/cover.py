@@ -367,13 +367,17 @@ class CoverWidget(gtk.EventBox):
         if main:
             self.connect('button-press-event', self._on_button_press)
 
-        event.add_callback(self.on_playback_start, 'playback_start', player)
-        event.add_callback(self.on_playback_end, 'playback_end', player)
+        event.add_callback(self.on_playback_start, 
+                'playback_track_start', player)
+        event.add_callback(self.on_playback_end, 
+                'playback_player_end', player)
         self.menu = CoverMenu(self)
 
     def destroy(self):
-        event.remove_callback(self.on_playback_start, 'playback_start', player)
-        event.removeadd_callback(self.on_playback_end, 'playback_end', player)
+        event.remove_callback(self.on_playback_start, 
+                'playback_track_start', player)
+        event.remove_callback(self.on_playback_end, 
+                'playback_player_end', player)
 
     def show_cover(self):
         """

@@ -39,12 +39,16 @@ class PlaybackProgressBar(object):
         self.bar.connect('button-release-event', self.seek_end)
         self.bar.connect('motion-notify-event', self.seek_motion_notify)
 
-        event.add_callback(self.playback_start, 'playback_start', player)
-        event.add_callback(self.playback_end, 'playback_end', player)
+        event.add_callback(self.playback_start, 
+                'playback_player_start', player)
+        event.add_callback(self.playback_end, 
+                'playback_player_end', player)
 
     def destroy(self):
-        event.remove_callback(self.playback_start, 'playback_start', self.player)
-        event.remove_callback(self.playback_end, 'playback_end', self.player)
+        event.remove_callback(self.playback_start, 
+                'playback_player_start', self.player)
+        event.remove_callback(self.playback_end, 
+                'playback_player_end', self.player)
 
     def seek_begin(self, *e):
         self.seeking = True
@@ -517,9 +521,9 @@ class MainWindow(object):
             'on_volume_slider_value_changed': self.on_volume_changed,
         })        
 
-        event.add_callback(self.on_playback_end, 'playback_end',
+        event.add_callback(self.on_playback_end, 'playback_player_end',
             self.player)
-        event.add_callback(self.on_playback_start, 'playback_start',
+        event.add_callback(self.on_playback_start, 'playback_track_start',
             self.player) 
         event.add_callback(self.on_toggle_pause, 'playback_toggle_pause',
             self.player)
@@ -565,7 +569,8 @@ class MainWindow(object):
             Called when tags are parsed from a stream/track
         """
         (tr, args) = args
-        if tr.is_local(): return
+        if not tr or tr.is_local(): 
+            return
         if track.parse_stream_tags(tr, args):
             self._update_track_information()
             self.cover.on_playback_start('', self.player, None)

@@ -57,9 +57,6 @@ class NormalPlayer(_base.ExailePlayer):
         """
         self.playbin.set_property("audio-sink", self.mainbin)
 
-    def tag_func(self, *args):
-        event.log_event('tags_parsed', self, (self.current, args[0]))
-
     def eof_func(self, *args):
         """
             called at the end of a stream
@@ -151,12 +148,6 @@ class NormalPlayer(_base.ExailePlayer):
         source.set_property('device', device)
         self.playbin.disconnect(self.notify_id)
 
-    def _on_playback_error(self, message):
-        """
-            Called when there is an error during playback
-        """
-        event.log_event('playback_error', self, message)
-
     def play(self, track):
         """
             plays the specified track, overriding any currently playing track
@@ -187,7 +178,8 @@ class NormalPlayer(_base.ExailePlayer):
                     self.__notify_source)
 
         self.playbin.set_state(gst.STATE_PLAYING)
-        event.log_event('playback_start', self, track)
+        event.log_event('playback_player_start', self, track)
+        event.log_event('playback_track_start', self, track)
 
         return True
 
@@ -200,7 +192,7 @@ class NormalPlayer(_base.ExailePlayer):
             current = self.current
             self.playbin.set_state(gst.STATE_NULL)
             self._current = None
-            event.log_event('playback_end', self, current)
+            event.log_event('playback_player_end', self, current)
             return True
         return False
 
@@ -212,7 +204,7 @@ class NormalPlayer(_base.ExailePlayer):
             self.update_playtime()
             self.playbin.set_state(gst.STATE_PAUSED)
             self.reset_playtime_stamp()
-            event.log_event('playback_pause', self, self.current)
+            event.log_event('playback_player_pause', self, self.current)
             return True
         return False
  
@@ -229,7 +221,7 @@ class NormalPlayer(_base.ExailePlayer):
                 self.playbin.set_state(gst.STATE_READY)
 
             self.playbin.set_state(gst.STATE_PLAYING)
-            event.log_event('playback_resume', self, self.current)
+            event.log_event('playback_player_resume', self, self.current)
             return True
         return False
 

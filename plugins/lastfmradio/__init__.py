@@ -101,7 +101,7 @@ def disable(exaile):
 
     PROXY = True
     if STATION:
-        event.remove_callback(STATION.on_playback_start, 'playback_start',
+        event.remove_callback(STATION.on_playback_start, 'playback_track_start',
             exaile.player)
     STATION = None
 

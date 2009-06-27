@@ -51,6 +51,12 @@ class Bookmarks:
         
      
     def do_bookmark(self, widget, data):
+        """
+            This is called to resume a bookmark.
+            It first checks to see if the song is currently playing, then it searches
+            the current_playlist, then the currently selected playlist, then the colleciton.
+            If it's not in any of those, we try to load the file itself. 
+        """
         key, pos = data
         exaile = self.exaile
         
@@ -104,12 +110,15 @@ class Bookmarks:
 #            print 'bk: seeking to ', pos,type(pos)
             idx = exaile.queue.current_playlist.index(track)
             exaile.queue.current_playlist.set_current_pos(idx)
-            #exaile.player.stop()
+            #exaile.player.stop()   # prevents crossfading
             exaile.queue.play(track)
             exaile.player.seek(pos)
 
      
     def add_bookmark(self, widget, menus):
+        """
+            Create bookmark for current track/position.
+        """
         # get currently playing track
         track = self.exaile.player.current
         if track is None:
@@ -122,8 +131,16 @@ class Bookmarks:
         self.display_bookmark(key, pos, menus)
     
     def display_bookmark(self, key, pos, menus):
+        """
+            Create menu entrees for this bookmark.
+        """
         # add menu item 
-        title = _track.Track(key)['title'][0]
+        try: 
+            title = _track.Track(key)['title'][0]
+        except:
+            print 'BM: Cannot open %s' % key
+            # delete offending key?
+            return
         time = '%d:%2d' % (pos/60, pos%60)
         label = '%s @ %s' % ( title , time )
         menu_item = gtk.MenuItem(label)
@@ -140,6 +157,9 @@ class Bookmarks:
         self.save_db()
 
     def clear(self, widget, menus):
+        """
+            Delete all bookmarks.
+        """
         # how to remove widgets?
         for x in menus[0].get_children()[3:]:
             x.destroy()
@@ -150,6 +170,9 @@ class Bookmarks:
         self.save_db()
         
     def delete_bookmark(self, widget, targets):
+        """
+            Delete a bookmark.
+        """
         #print targets
         menus, label, key, pos = targets
         
@@ -167,6 +190,9 @@ class Bookmarks:
         self.save_db()
 
     def load_db(self, menus):
+        """
+            Load previously saved bookmarks from a file.
+        """
         path = os.path.join(xdg.get_data_dirs()[0],'bookmarklist.dat')
         try:
             # Load Bookmark List from file.
@@ -177,31 +203,46 @@ class Bookmarks:
                     self.bookmarks += db
                     for (key,pos) in db:
                         self.display_bookmark(key, pos, menus)
-                except:
-                    print 'BM: bad bookmark file'
+                except Exception, s:
+                    print 'BM: bad bookmark file:',s
+                    return None
+                    
+                for (key,pos) in db:
+                    self.display_bookmark(key, pos, menus)
         
         except IOError, (e,s):  # File might not exist
             print 'BM: could not open file:', s
 
     
     def save_db(self):
+        """
+            Save list of bookmarks to a file.
+        """
         # Save List
         path = os.path.join(xdg.get_data_dirs()[0],'bookmarklist.dat')
         with open(path,'wb') as f:
             f.write(str(self.bookmarks))
 
 
+def __enb(eventname, exaile, nothing):
+    gobject.idle_add(_enable, exaile)
+
 def enable(exaile):
-    def enb(eventname, exaile, nothing):
-        gobject.idle_add(_enable, exaile)
+    """
+        Dummy initialization function, calls _enable when exaile is fully loaded.
+    """
         
     if exaile.loading:
-        event.add_callback(enb, 'exaile_loaded')
+        event.add_callback(__enb, 'exaile_loaded')
     else:
-        enb(None, exaile, None)
+        __enb(None, exaile, None)
 
 
 def _enable(exaile):
+    """
+        Called when plugin is enabled.  Set up the menus, create the bookmark class, and 
+        load any saved bookmarks.
+    """
     global MENU_ITEM
     
     bm = Bookmarks(exaile)
@@ -227,7 +268,10 @@ def _enable(exaile):
     bm.load_db(menus)
     
 
-def destroy():
+def disable(exaile):
+    """
+        Called when the plugin is disabled.  Destroy menu.
+    """
     global MENU_ITEM
     if MENU_ITEM:
         MENU_ITEM.hide()

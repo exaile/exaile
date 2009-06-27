@@ -106,7 +106,6 @@ class AlarmClock:
         self.min_volume = widget.get_value()
         settings.set_option('plugin/multialarmclock/fade_min_volume',
                 self.min_volume)
-        #SETTINGS.set_float("alarm_min_volume", self.min_volume, plugin=plugins.name(__file__))
 #        print 'AC: minvol change',self.min_volume,SETTINGS.get_float("alarm_min_volume", plugin=plugins.name(__file__))
 
     def maxvolume_changed(self, widget):
@@ -119,14 +118,12 @@ class AlarmClock:
         self.increment = widget.get_value()
         settings.set_option('plugin/multialarmclock/fade_increment',
                 self.increment)
-        #SETTINGS.set_float("alarm_increment", self.increment, plugin=plugins.name(__file__))
 #        print 'AC: inc change'
 
     def time_changed(self, widget):
         self.time_per_inc = widget.get_value()
         settings.set_option('plugin/multialarmclock/fade_time_per_inc',
                 self.time_per_inc)
-        #SETTINGS.set_float("alarm_time_per_inc", self.time_per_inc, plugin=plugins.name(__file__))
 #        print 'AC: time change'
         
     def selection_change(self, selection):
@@ -146,7 +143,6 @@ class AlarmClock:
         self.fading = widget.get_active()
         settings.set_option('plugin/multialarmclock/fading_on',
                 self.fading)
-        #SETTINGS.set_boolean("alarm_fading", self.fading, plugin=plugins.name(__file__))
 #        print 'AC: fading ',self.fading
         
     def enable_cb(self, widget):
@@ -164,7 +160,6 @@ class AlarmClock:
         self.restart = widget.get_active()
         settings.set_option('plugin/multialarmclock/restart_playlist_on',
                 self.restart)
-        #SETTINGS.set_boolean("alarm_restart", self.restart, plugin=plugins.name(__file__))
 #        print 'AC: restart: ',self.restart
         
     def show_ui(self, widget, exaile):
@@ -172,7 +167,7 @@ class AlarmClock:
             Display main window, which is not Modal.
         '''
         if self.window:
-            self.present()
+            self.window.present()
             return
             
         self.signals = {'on_AddButton_clicked':self.add_button,
@@ -344,7 +339,7 @@ class AddAlarm:
 def fade_in(main, exaile):
     temp_volume = main.min_volume
     while temp_volume <= main.max_volume:
-#        print "AC: set volume to %s" % str(temp_volume / 100.0)
+        #print "AC: set volume to %s" % str(temp_volume / 100.0)
         exaile.player.set_volume( ( temp_volume / 100.0 ) )
         temp_volume += main.increment
         time.sleep( main.time_per_inc )
@@ -394,14 +389,15 @@ def check_alarms(main, exaile):
         
 ###><><><### Plugin Handling Functions ###><><><###
 
+def __enb(eventname, exaile, nothing):
+    gobject.idle_add(_enable, exaile)
+
 def enable(exaile):
-    def enb(eventname, exaile, nothing):
-        gobject.idle_add(_enable, exaile)
        
     if exaile.loading:
-        event.add_callback(enb,'exaile_loaded')
+        event.add_callback(__enb,'exaile_loaded')
     else:
-        enb(None, exaile, None)
+        __enb(None, exaile, None)
         
 def _enable(exaile):
     '''
@@ -412,14 +408,14 @@ def _enable(exaile):
     
     TIMER_ID = gobject.timeout_add(5000, check_alarms, main, exaile)
     
-    MENU_ITEM = gtk.MenuItem(_('Alarm Clock'))
+    MENU_ITEM = gtk.MenuItem(_('Multi-Alarm Clock'))
     MENU_ITEM.connect('activate', main.show_ui, exaile)
     exaile.gui.xml.get_widget('menuitem5').get_submenu().append(MENU_ITEM)
     MENU_ITEM.show()
 
     
     
-def disable():
+def disable(exaile):
     '''
         Called when plugin is unloaded.  Stop timer, destroy main window if it exists, and save current alarms.
     '''

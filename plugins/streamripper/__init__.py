@@ -148,7 +148,7 @@ def initialize(type, exaile, stuff=None):
 
         BUTTON.show()
 
-    event.add_callback(playback_stop, 'playback_end', 
+    event.add_callback(playback_stop, 'playback_player_end', 
         exaile.player)
 
 def enable(exaile):
@@ -176,5 +176,5 @@ def disable(exaile):
 
         BUTTON = None
 
-    event.remove_callback(playback_stop, 'playback_end',
+    event.remove_callback(playback_stop, 'playback_player_end',
         exaile.player)

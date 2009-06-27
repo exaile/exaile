@@ -143,3 +143,13 @@ class ExailePlayer(object):
     def is_paused(self):
         return self._get_gst_state() == gst.STATE_PAUSED
 
+    def _on_playback_error(self, message):
+        """
+            Called when there is an error during playback
+        """
+        event.log_event('playback_error', self, message)
+
+    def tag_func(self, *args):
+        event.log_event('tags_parsed', self, (self.current, args[0]))
+
+

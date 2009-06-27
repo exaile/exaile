@@ -109,10 +109,10 @@ EXAILE_NOTIFICATION = ExaileNotification()
 
 def enable(exaile):
     EXAILE_NOTIFICATION.exaile = exaile
-    event.add_callback(EXAILE_NOTIFICATION.on_play, 'playback_start')
+    event.add_callback(EXAILE_NOTIFICATION.on_play, 'playback_track_start')
 
 def disable(exaile):
-    event.remove_callback(EXAILE_NOTIFICATION.on_play, 'playback_start')
+    event.remove_callback(EXAILE_NOTIFICATION.on_play, 'playback_track_start')
 
 def get_prefs_pane():
     return notifyprefs

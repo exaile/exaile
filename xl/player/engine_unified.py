@@ -97,7 +97,14 @@ class UnifiedPlayer(_base.ExailePlayer):
 
     def on_message(self, bus, message, reading_tag = False):
         if message.type == gst.MESSAGE_EOS and not self.is_paused():
-            print "EOS: ", message
+            logger.warning("EOS: ", message)
+        elif message.type == gst.MESSAGE_TAG and self.tag_func:
+            self.tag_func(message.parse_tag())
+        elif message.type == gst.MESSAGE_ERROR:
+            logger.error("%s %s" %(message, dir(message)) )
+            a = message.parse_error()[0]
+            self._on_playback_error(a.message)
+        return True
 
     def _get_current(self):
         if self.streams[self._current_stream]:
@@ -172,7 +179,8 @@ class UnifiedPlayer(_base.ExailePlayer):
                         self._start_crossfade)
                 
         self._current_stream = next
-        event.log_event('playback_start', self, track)
+        event.log_event('playback_player_start', self, track)
+        event.log_event('playback_track_start', self, track)
 
         return True
 
@@ -235,7 +243,7 @@ class UnifiedPlayer(_base.ExailePlayer):
                 logger.debug("Failed to remove stream %s"%stream)
             if stream in self.streams:
                 self.streams[self.streams.index(stream)] = None
-            event.log_event("playback_end", self, current)
+            event.log_event("playback_track_end", self, current)
             return True
         except AttributeError:
             return True
@@ -257,10 +265,12 @@ class UnifiedPlayer(_base.ExailePlayer):
             stop playback
         """
         if self.is_playing() or self.is_paused():
+            current = self.current
             self.pipe.set_state(gst.STATE_NULL)
             for stream in self.streams:           
                 self.unlink_stream(stream)
             self._reset_crossfade_timer()
+            event.log_event('playback_player_end', self, current)
             return True
         return False
 
@@ -271,7 +281,7 @@ class UnifiedPlayer(_base.ExailePlayer):
         if self.is_playing():
             self.pipe.set_state(gst.STATE_PAUSED)
             self._reset_crossfade_timer()
-            event.log_event('playback_pause', self, self.current)
+            event.log_event('playback_player_pause', self, self.current)
             return True
         return False
  
@@ -287,7 +297,7 @@ class UnifiedPlayer(_base.ExailePlayer):
 
             self.pipe.set_state(gst.STATE_PLAYING)
             self._reset_crossfade_timer()
-            event.log_event('playback_resume', self, self.current)
+            event.log_event('playback_player_resume', self, self.current)
             return True
         return False
 

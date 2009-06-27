@@ -33,8 +33,6 @@ class ExaileScrobbler(object):
         """
             Connects events to the player object, loads settings and cache
         """
-        self.start_time = 0
-        self.time_started = 0
         self.connected = False
         self.cachefile = os.path.join(xdg.get_data_dirs()[0], 
                 "audioscrobbler.cache")
@@ -68,8 +66,8 @@ class ExaileScrobbler(object):
         """
         logger.info("AS: Stopping submissions")
         if self.connected:
-            event.remove_callback(self.on_play, 'playback_start')
-            event.remove_callback(self.on_stop, 'playback_end')
+            event.remove_callback(self.on_play, 'playback_track_start')
+            event.remove_callback(self.on_stop, 'playback_track_end')
             self.connected = False
             self.save_cache()
 
@@ -84,8 +82,8 @@ class ExaileScrobbler(object):
        
         logger.info("AS: Connected to audioscrobbler")
 
-        event.add_callback(self.on_play, 'playback_start')
-        event.add_callback(self.on_stop, 'playback_end')
+        event.add_callback(self.on_play, 'playback_track_start')
+        event.add_callback(self.on_stop, 'playback_track_end')
         self.connected = True
         
 
@@ -93,7 +91,8 @@ class ExaileScrobbler(object):
     def now_playing(self, player, track):
         # wait 5 seconds before now playing to allow for skipping
         time.sleep(5)
-        if player.current != track: return
+        if player.current != track: 
+            return
 
         logger.info("Attempting to submit now playing information...")
         scrobbler.now_playing(
@@ -102,10 +101,8 @@ class ExaileScrobbler(object):
             track.get_duration(), track.get_track())
 
     def on_play(self, type, player, track):
-        self.time_started = track['playtime']
-        if self.time_started == "" or self.time_started is None:
-            self.time_started = 0
-        self.start_time = time.time()
+        track['__audioscrobbler_playtime'] = track['playtime']
+        track['__audioscrobbler_starttime'] = time.time()
 
         if track.is_local():
             self.now_playing(player, track)
@@ -114,13 +111,15 @@ class ExaileScrobbler(object):
         if not track or not track.is_local() \
            or track['playtime'] is None: 
             return
-        playtime = (track['playtime'] or 0) - self.time_started
+        playtime = (track['playtime'] or 0) - \
+                (track['__audioscrobbler_playtime'] or 0)
         if playtime > 240 or playtime > float(track['length']) / 2.0:
             if self.submit and track['length'] > 30:
-                self.submit_to_scrobbler(track, self.start_time, playtime)
+                self.submit_to_scrobbler(track, 
+                    track['__audioscrobbler_starttime'], playtime)
 
-        self.time_started = 0
-        self.start_time = 0
+        track['__audioscrobbler_starttime'] = None
+        track['__audioscrobbler_playtime'] = None
 
     def set_cache_size(self, size, save=True):
         scrobbler.MAX_CACHE = size
@@ -147,7 +146,7 @@ class ExaileScrobbler(object):
 
     @common.threaded
     def submit_to_scrobbler(self, track, time_started, time_played):
-        if scrobbler.SESSION_ID:
+        if scrobbler.SESSION_ID and track and time_started and time_played:
             try:
                 scrobbler.submit(
                     metadata.j(track['artist']), 

@@ -249,6 +249,7 @@ class MainWindow(object):
         self.window.set_title(_('Exaile'))
         self.playlist_notebook = self.xml.get_widget('playlist_notebook')
         self.playlist_notebook.remove_page(0)
+        self.playlist_notebook.set_show_tabs(settings.get_option('gui/show_tabbar', True))
         self.splitter = self.xml.get_widget('splitter')
 
         self._setup_position()
@@ -529,7 +530,7 @@ class MainWindow(object):
         event.add_callback(self.on_playback_error, 'playback_error', 
             self.player)
 
-        # monitor the queue
+        # Monitor the queue
         event.add_callback(lambda *e: self.update_track_counts(),
             'tracks_added', self.queue)
         event.add_callback(lambda *e: self.update_track_counts(),
@@ -537,6 +538,9 @@ class MainWindow(object):
         event.add_callback(lambda *e:
             self.get_selected_playlist().list.queue_draw, 'stop_track',
             self.queue)
+        
+        # Settings
+        event.add_callback(self._on_setting_change, 'option_set')
 
     @guiutil.gtkrun
     def on_playback_error(self, type, player, message):
@@ -672,6 +676,16 @@ class MainWindow(object):
         self.draw_playlist(type, player, object)
         self.play_button.set_image(gtk.image_new_from_stock('gtk-media-play',
                 gtk.ICON_SIZE_SMALL_TOOLBAR))
+
+    @guiutil.gtkrun
+    def _on_setting_change(self, name, object, data):
+        """
+           Handles changes of settings
+        """
+        if data == 'gui/show_tabbar':
+            self.playlist_notebook.set_show_tabs(
+                settings.get_option('gui/show_tabbar', True)
+            )
 
     @common.threaded
     def _get_dynamic_tracks(self):

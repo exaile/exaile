@@ -18,16 +18,21 @@ from xlgui.prefs import widgets
 from xl import xdg
 from xlgui import commondialogs
 
-name = "General"
-glade = xdg.get_data_path('glade/general_prefs_pane.glade')
+name = "Appearance"
+glade = xdg.get_data_path('glade/appearance_prefs_pane.glade')
 
-class OpenLastPreference(widgets.CheckPrefsItem):
+class SplashPreference(widgets.CheckPrefsItem):
     default = True
-    name = 'playlist/open_last'
+    name = 'gui/use_splash'
 
-#class QueueSavePreferences(widgets.CheckPrefsItem):
-#    default = True
-#    name = 'playlist/save_queue'
+class TrayPreference(widgets.CheckPrefsItem):
+    default = False
+    name = 'gui/use_tray' 
 
-#    def change(self, *e):
-#        commondialogs.error(self.prefs.window, "Doesn't work yet")
+class EnsureVisiblePreference(widgets.CheckPrefsItem):
+    default = True
+    name = 'gui/ensure_visible'
+
+class ShowTabBarPreference(widgets.CheckPrefsItem):
+    default = True
+    name = 'gui/show_tabbar'

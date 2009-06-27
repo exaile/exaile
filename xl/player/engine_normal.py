@@ -154,10 +154,11 @@ class NormalPlayer(_base.ExailePlayer):
 
             if the track cannot be played, playback stops completely
         """
-        self.stop(fire=False)
-
         if track is None:
+            self.stop()
             return False
+        else:
+            self.stop(fire=False)
 
         # make sure the file exists if this is supposed to be a local track
         if track.is_local():

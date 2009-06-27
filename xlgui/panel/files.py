@@ -38,7 +38,7 @@ class FilesPanel(panel.Panel):
         self.box = self.xml.get_widget('files_box')
 
         self.targets = [('text/uri-list', 0, 0)]
-       
+
         self._setup_tree()
         self._setup_widgets()
         self.menu = menu.FilesPanelMenu(self, controller.main)
@@ -304,10 +304,9 @@ class FilesPanel(panel.Panel):
             self.append_recursive(tracks, value)
 
         if tracks:
-            # sort the tracks
-            tracks = trackdb.sort_tracks(
-                ('artist', 'date', 'album', 'discnumber', 'tracknumber'),
-                tracks)
+            pl = self.controller.main.get_selected_playlist()
+            column, descending = pl.get_sort_by()
+            tracks.sort(key=lambda track: track.sort_param(column), reverse=descending)
             return tracks
 
         # no tracks found

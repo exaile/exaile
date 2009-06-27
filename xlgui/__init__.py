@@ -151,7 +151,7 @@ class Main(object):
 
     def open_uri(self, uri, play=True):
         """
-            Proxy for _play_uri
+            Proxy for _open_uri
         """
         self._open_uri(uri, play)
 

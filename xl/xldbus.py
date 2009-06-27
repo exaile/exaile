@@ -195,9 +195,16 @@ class DbusManager(dbus.service.Object):
         """
         from xl import track  # do this here to avoid loading 
                               # settings when issuing dbus commands
+        # FIXME: Get rid of dependency on xlgui
+        #        by moving sorting column somewhere else
+        pl = self.exaile.gui.main.get_selected_playlist()
+        column, descending = pl.get_sort_by()
         tracks = []
+
         for file in filenames:
             tracks.extend(track.get_tracks_from_uri(file))
+
+        tracks.sort(key=lambda track: track.sort_param(column), reverse=descending)
         self.exaile.queue.current_playlist.add_tracks(tracks)
 
         if not self.exaile.player.is_playing():

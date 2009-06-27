@@ -90,7 +90,7 @@ class Exaile(object):
         """
         logger.info(_("Loading Exaile %s...") % __version__)
         
-        # splash screen
+        # Splash screen
         if self.options.startgui:
             self.__show_splash()
 
@@ -98,7 +98,7 @@ class Exaile(object):
 
         firstrun = settings.get_option("general/first_run", True)
 
-        #initialize PluginsManager
+        # Initialize plugin manager
         if not self.options.safemode:
             from xl import plugins
             logger.info(_("Loading plugins..."))
@@ -114,7 +114,7 @@ class Exaile(object):
         self.collection = collection.Collection("Collection",
                 location=os.path.join(xdg.get_data_dirs()[0], 'music.db') )
 
-        #Set up the player and playbakc queue
+        # Set up the player and playback queue
         from xl import player
         from xl.player import queue
         self.player = player.get_player()()
@@ -122,7 +122,7 @@ class Exaile(object):
                 location=os.path.join(xdg.get_data_dirs()[0], 'queue.state') )
         event.log_event("player_loaded", self, None)
 
-        #initalize PlaylistsManager
+        # Initalize playlist manager
         from xl import playlist
         self.playlists = playlist.PlaylistManager()
         self.smart_playlists = playlist.PlaylistManager('smart_playlists',
@@ -131,17 +131,17 @@ class Exaile(object):
             self._add_default_playlists() 
         event.log_event("playlists_loaded", self, None)
 
-        #initialize dynamic playlist support
+        # Initialize dynamic playlist support
         from xl import dynamic
         self.dynamic = dynamic.DynamicManager(self.collection)
 
-        #initalize device manager
+        # Initalize device manager
         logger.info(_("Loading devices..."))
         from xl import devices
         self.devices = devices.DeviceManager()
         event.log_event("device_manager_ready", self, None)
 
-        #initialize HAL
+        # Initialize HAL
         if self.options.hal:
             from xl import hal
             self.hal = hal.HAL(self.devices)
@@ -149,7 +149,7 @@ class Exaile(object):
         else:
             self.hal = None
 
-        # cover manager
+        # Cover manager
         from xl import cover
         self.covers = cover.CoverManager(
                 cache_dir=os.path.join(xdg.get_data_dirs()[0], "covers"))
@@ -159,12 +159,12 @@ class Exaile(object):
         self.stations = playlist.PlaylistManager('radio_stations')
         self.radio = radio.RadioManager()
 
-        #initialize LyricsManager
+        # Initialize lyrics manager
         from xl import lyrics
         self.lyrics = lyrics.LyricsManager()
 
         self.gui = None
-        #setup GUI
+        # Setup GUI
         if self.options.startgui:
             logger.info(_("Loading interface..."))
             import xlgui

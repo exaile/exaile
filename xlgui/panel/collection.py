@@ -177,19 +177,21 @@ class CollectionPanel(panel.Panel):
 
         selection = self.tree.get_selection()
         (model, paths) = selection.get_selected_rows()
-        found = [] 
+        tracks = [] 
         for path in paths:
             iter = self.model.get_iter(path)
             newset = self._find_tracks(iter)
-            found.append(newset)
+            tracks.append(newset)
     
-        if not found: return None
+        if not tracks: return None
         
-        found = list(set(reduce(lambda x, y: list(x) + list(y), found)))
+        tracks = list(set(reduce(lambda x, y: list(x) + list(y), tracks)))
+
+        pl = self.controller.main.get_selected_playlist()
+        column, descending = pl.get_sort_by()
+        tracks.sort(key=lambda track: track.sort_param(column), reverse=descending)
       
-        return trackdb.sort_tracks(
-            ('artist', 'date', 'album', 'discnumber', 'tracknumber'),
-            found)
+        return tracks
 
     #FIXME: this should probably be moved into the playlist part of the UI
     def append_to_playlist(self, item=None, event=None):

@@ -36,3 +36,10 @@ class EnsureVisiblePreference(widgets.CheckPrefsItem):
 class ShowTabBarPreference(widgets.CheckPrefsItem):
     default = True
     name = 'gui/show_tabbar'
+
+class TabPlacementPreference(widgets.ComboPrefsItem):
+    default = 'top'
+    name = 'gui/tab_placement'
+    map = ['left', 'right', 'top', 'bottom']
+    def __init__(self, prefs, widget):
+        widgets.ComboPrefsItem.__init__(self, prefs, widget, use_map=True)

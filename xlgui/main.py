@@ -254,6 +254,14 @@ class MainWindow(object):
         self.playlist_notebook = self.xml.get_widget('playlist_notebook')
         self.playlist_notebook.remove_page(0)
         self.playlist_notebook.set_show_tabs(settings.get_option('gui/show_tabbar', True))
+        map = {
+            'left': gtk.POS_LEFT,
+            'right': gtk.POS_RIGHT,
+            'top': gtk.POS_TOP,
+            'bottom': gtk.POS_BOTTOM
+        }
+        self.playlist_notebook.set_tab_pos(map.get(
+            settings.get_option('gui/tab_placement', 'top')))
         self.splitter = self.xml.get_widget('splitter')
 
         self._setup_position()
@@ -691,6 +699,16 @@ class MainWindow(object):
             self.playlist_notebook.set_show_tabs(
                 settings.get_option('gui/show_tabbar', True)
             )
+        
+        if data == 'gui/tab_placement':
+            map = {
+                'left': gtk.POS_LEFT,
+                'right': gtk.POS_RIGHT,
+                'top': gtk.POS_TOP,
+                'bottom': gtk.POS_BOTTOM
+            }
+            self.playlist_notebook.set_tab_pos(map.get(
+                settings.get_option('gui/tab_placement', 'top')))
 
     @common.threaded
     def _get_dynamic_tracks(self):

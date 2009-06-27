@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-# This plugin is adapted from the Python Console plugin and the IPython cookbook at:
+# This plugin is adapted from the Python Console plugin and the IPython 
+# cookbook at:
 #   http://ipython.scipy.org/moin/Cookbook/EmbeddingInGTK
 # Copyright (C) 2009 Brian Parma
 #
@@ -34,15 +35,9 @@ import ipython_view as ip
 import pango
 import __builtin__, site
 
-FONT = "Luxi Mono 10"
+# FIXME: make font, colors into settings?
 
-# From the 0.2.4 version... now in separate text file (Icon?)
-#PLUGIN_NAME             = _("IPython Console")
-#PLUGIN_VERSION          = '0.1.1'
-#PLUGIN_AUTHORS          = ["Brian Parma"]
-#PLUGIN_DESCRIPTION      = _(r"""Provides an IPython console that can be used to manipulate Exaile.""")
-#PLUGIN_ICON             = None
-#PLUGIN_ENABLED          = False
+FONT = "Luxi Mono 10"
 
 PLUGIN                  = None
 MENU_ITEM               = None
@@ -106,7 +101,8 @@ class IPyConsole(gtk.Window):
         ipv.updateNamespace({'exit':None,
                              'quit':None})
                              
-        # This is so when exaile calls exit(), IP doesn't prompt and preven it from closing
+        # This is so when exaile calls exit(), IP doesn't prompt and prevent
+        # it from closing
         __builtin__.exit = Quitter(ipv.IP.magic_Exit, 'exit')
         __builtin__.quit = Quitter(ipv.IP.magic_Exit, 'quit')
         
@@ -134,19 +130,19 @@ def _enable(exaile):
     MENU_ITEM.show()
 #    return True    # bad! crashes compiz
 
+def __enb(event, exaile, nothing):
+    gobject.idle_add(_enable, exaile)
+
 def enable(exaile):
     """
         Called when plugin is enabled, or when exaile is loaded with the plugin
         on by default.
             Wait for exaile to fully load, then call _enable with idle priority.
     """
-    def enb(eventname, exaile, nothing):
-        gobject.idle_add(_enable, exaile)
-
     if exaile.loading:
-        event.add_callback(enb, "exaile_loaded")
+        event.add_callback(__enb, "exaile_loaded")
     else:
-        enb(None, exaile, None)
+        __enb(None, exaile, None)
 
 def disable(exaile):
     """

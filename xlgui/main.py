@@ -667,6 +667,7 @@ class MainWindow(object):
         """
         self.track_title_label.set_label(_('Not Playing'))
         self.track_info_label.set_label(_('Stopped'))
+        self.window.set_title(_("Exaile"))
 
         self.draw_playlist(type, player, object)
         self.play_button.set_image(gtk.image_new_from_stock('gtk-media-play',

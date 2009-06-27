@@ -740,7 +740,6 @@ class Playlist(gtk.VBox):
             Sets the sort column
         """
         title = column.get_title()
-        count = 0
         for col in self.list.get_columns():
             if title == col.get_title():
                 order = column.get_sort_order()
@@ -787,7 +786,7 @@ class Playlist(gtk.VBox):
             if col.get_sort_indicator():
                 return (self.column_by_display[col.get_title()].id,
                     col.get_sort_order() == gtk.SORT_DESCENDING)
-        return 'album', False
+        return 'tracknumber', False
 
     def icon_data_func(self, col, cell, model, iter):
         """

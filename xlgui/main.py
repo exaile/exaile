@@ -21,7 +21,7 @@ import gtk, gtk.glade, gobject, pango, datetime
 from xl import xdg, event, track, common
 from xl import settings
 import xl.playlist
-from xlgui import playlist, cover, guiutil, commondialogs
+from xlgui import playlist, cover, guiutil, menu, commondialogs
 import xl.playlist, re, os, threading
 
 logger = logging.getLogger(__name__)
@@ -171,6 +171,8 @@ class NotebookTab(gtk.EventBox):
         self.label = gtk.Label(title)
         hbox.pack_start(self.label, False, False)
 
+        self.menu = menu.PlaylistTabMenu(self)
+
         self.button = btn = gtk.Button()
         btn.set_name('tabCloseButton')
         btn.set_relief(gtk.RELIEF_NONE)
@@ -196,11 +198,7 @@ class NotebookTab(gtk.EventBox):
             Called when the user clicks on the tab
         """
         if event.button == 3:
-            menu = guiutil.Menu()
-            menu.append(_("_Rename"), self.do_rename, gtk.STOCK_EDIT)
-            menu.append(_("C_lear"), self.do_clear, gtk.STOCK_CLEAR)
-            menu.append(_("_Close"), self.do_close, gtk.STOCK_CLOSE)
-            menu.popup(None, None, None, event.button, event.time)
+            self.menu.popup(None, None, None, event.button, event.time)
 
     def do_rename(self, *args):
         dialog = commondialogs.TextEntryDialog(
@@ -778,7 +776,7 @@ class MainWindow(object):
 
     def draw_playlist(self, *e):
         """
-            Called when playback starts, redraws teh playlist
+            Called when playback starts, redraws the playlist
         """
         page = self.playlist_notebook.get_current_page()
         page = self.playlist_notebook.get_nth_page(page)
@@ -786,7 +784,7 @@ class MainWindow(object):
 
     def get_selected_playlist(self):
         """
-            Returns teh currently selected playlist
+            Returns the currently selected playlist
         """
         page = self.playlist_notebook.get_nth_page(self.current_page)
         if page: return page
@@ -795,6 +793,18 @@ class MainWindow(object):
         return page
 
     get_current_playlist = get_selected_playlist
+
+    def get_selected_tab(self):
+        """
+            Returns the currently selected tab
+        """
+        page = self.playlist_notebook.get_nth_page(self.current_page)
+        if not page:
+            num = self.playlist_notebook.get_current_page()
+            page = self.playlist_notebook.get_nth_page(num)
+        return self.playlist_notebook.get_tab_label(page)
+
+    get_current_tab = get_selected_tab
 
     def on_play_clicked(self, *e):
         """

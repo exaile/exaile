@@ -397,11 +397,14 @@ class Playlist(gtk.VBox):
             Called when the user clicks on the playlist
         """
         if event.button == 3:
-            selection = self.list.get_selection()
-            self.menu.popup(event)
-
-            if selection.count_selected_rows() <= 1: return False
-            else: return True
+            tab = self.main.get_current_tab()
+            (x, y) = event.get_coords()
+            path = self.list.get_path_at_pos(int(x), int(y))
+            if path:
+                self.menu.popup(event)
+            else:
+                tab.menu.popup(None, None, None, event.button, event.time)
+        return False
 
     def _setup_events(self):
         self.list.connect('key_release_event', self.key_released)

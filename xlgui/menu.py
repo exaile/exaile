@@ -16,7 +16,7 @@
 
 import gtk
 from xlgui import guiutil, commondialogs
-from xl import playlist, xdg, settings
+from xl import event, playlist, xdg, settings
 from xl.nls import gettext as _
 
 #settings = settings.SettingsManager.settings
@@ -164,9 +164,25 @@ class PlaylistMenu(GenericTrackMenu):
     def __init__(self, playlist):
         GenericTrackMenu.__init__(self, playlist,
             playlist.controller.exaile.queue)
-        self.add_playlist_menu = AddToPlaylistMenu(playlist, playlist.controller.exaile.playlists)
+        self.playlist = playlist
+        self.add_playlist_menu = AddToPlaylistMenu(playlist,
+            playlist.controller.exaile.playlists)
         self.append_menu(_('Add to Playlist'), self.add_playlist_menu, 'gtk-add')
         self.append(_('Remove'), lambda *e: self.remove_selected_tracks(), 'gtk-remove')
+
+        self.playlist_tab_menu = None
+        # Defer menu setup until exaile is loaded
+        event.add_callback(self.on_exaile_loaded, 'exaile_loaded')
+
+    def on_exaile_loaded(self, event, exaile, nothing):
+        """
+            Finalizes the menu setup
+        """
+        tab = self.playlist.main.get_current_tab()
+        if tab:
+            self.playlist_tab_menu = PlaylistTabMenu(tab)
+            self.playlist_tab_menu = self.append_menu(_('Playlist'),
+                self.playlist_tab_menu)
 
     def remove_selected_tracks(self, selected = None):
         """
@@ -175,6 +191,30 @@ class PlaylistMenu(GenericTrackMenu):
             has to save the playlist themselves
         """
         self.widget.remove_selected_tracks()
+
+    def popup(self, event):
+        """
+            Displays the menu
+        """
+        if self.playlist_tab_menu:
+          if settings.get_option('gui/show_tabbar', True):
+              self.playlist_tab_menu.hide_all()
+          else:
+              self.playlist_tab_menu.show_all()
+        GenericTrackMenu.popup(self, event)
+
+class PlaylistTabMenu(guiutil.Menu):
+    """
+        Menu for playlist tabs
+    """
+    def __init__(self, tab):
+        """
+            Initializes the menu
+        """
+        guiutil.Menu.__init__(self)
+        self.append(_("_Rename"), tab.do_rename, gtk.STOCK_EDIT)
+        self.append(_("C_lear"), tab.do_clear, gtk.STOCK_CLEAR)
+        self.append(_("_Close"), tab.do_close, gtk.STOCK_CLOSE)
 
 class TrackSelectMenu(GenericTrackMenu):
     """

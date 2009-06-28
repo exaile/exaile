@@ -137,12 +137,13 @@ class DragTreeView(gtk.TreeView):
         if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
             return True
         selection = self.get_selection()
+        selection.unselect_all()
+
         x, y = event.get_coords()
         x = int(x); y = int(y)
 
         path = self.get_path_at_pos(x, y)
         if not path: return False
-        selection.unselect_all()
         selection.select_path(path[0])
 
     def drag_end(self, list, context):
@@ -189,25 +190,25 @@ class DragTreeView(gtk.TreeView):
         x = int(x)
         y = int(y)
         path = self.get_path_at_pos(x, y)
-        if not path: return True
             
-        if event.button != 3: 
-            if event.type == gtk.gdk._2BUTTON_PRESS:
-                self.cont.button_press(button, event)
+        if path:
+            if event.button != 3: 
+                if event.type == gtk.gdk._2BUTTON_PRESS:
+                    self.cont.button_press(button, event)
 
-            if selection.count_selected_rows() <= 1: 
-                return False
-            else: 
-                if selection.path_is_selected(path[0]): 
-                    if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
-                        selection.unselect_path(path[0])
-                    return True
-                elif not event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
-                    return True
-                return False
+                if selection.count_selected_rows() <= 1: 
+                    return False
+                else: 
+                    if selection.path_is_selected(path[0]): 
+                        if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
+                            selection.unselect_path(path[0])
+                        return True
+                    elif not event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
+                        return True
+                    return False
 
-        if not selection.count_selected_rows():
-            selection.select_path(path[0])
+            if not selection.count_selected_rows():
+                selection.select_path(path[0])
         return self.cont.button_press(button, event)
     
     #TODO maybe move this somewhere else? (along with _handle_unknown_drag_data)

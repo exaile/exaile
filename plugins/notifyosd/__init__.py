@@ -73,7 +73,8 @@ class ExaileNotifyOsd(object):
         else :
             self.notify.update(self.summary, self.body)
         
-        self.notify.show()
+        if not self.exaile.gui.main.window.is_active() :
+            self.notify.show()
         
     def on_pause(self, type, player, track):
         self.update_track_notify(type, player, track, self.pauseicon)

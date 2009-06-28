@@ -153,7 +153,7 @@ class ProviderBin(ElementBin, ProviderHandler):
     def reset_providers(self):
         self.elements = {}
         for provider in self.get_providers():
-            self.elements[provider.index] = provider
+            self.elements[provider.index] = provider()
         self.setup_elements()
 
     def on_new_provider(self, provider):

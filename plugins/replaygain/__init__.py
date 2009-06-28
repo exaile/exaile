@@ -19,23 +19,14 @@ from xl.player.pipe import ElementBin
 
 import gst
 
-RGVOL = None
-RGLIMIT = None
-
 
 def enable(exaile):
-    global RGVOL, RGLIMIT
-    RGVOL = ReplaygainVolume()
-    RGLIMIT = ReplaygainLimiter()
-    providers.register("postprocessing_element", RGVOL)
-    providers.register("postprocessing_element", RGLIMIT)
+    providers.register("postprocessing_element", ReplaygainVolume)
+    providers.register("postprocessing_element", ReplaygainLimiter)
 
 def disable(exaile):
-    global RGVOL, RGLIMIT
-    providers.unregister("postprocessing_element", RGVOL)
-    providers.unregister("postprocessing_element", RGLIMIT)
-    RGVOL = None
-    RGLIMIT = None
+    providers.unregister("postprocessing_element", ReplaygainVolume)
+    providers.unregister("postprocessing_element", ReplaygainLimiter)
 
 
 class ReplaygainVolume(ElementBin):

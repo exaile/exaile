@@ -50,6 +50,8 @@ Things needed for beta 1 (0.2.999.1) release:
         * +1 from me (Aren)
     * right-click menus for side tabs, playlists
     * playlist export
+    * lyrics pane
+    * properties pane
 
   * Devices
     * improve device manager with basic prefs, hal-less connections
@@ -86,8 +88,6 @@ Optional Milestones
 
   * Visualizations
     * implement as plugin
-    * do after merging unified_playback, since the pipeline improvements should
-      make this easier.
 
   * Plugins
     * port all relevant 0.2 plugins to 0.3

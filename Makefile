@@ -1,5 +1,6 @@
 PREFIX ?= /usr/local
 LIBINSTALLDIR ?= /lib
+XDGCONFDIR ?= /etc/xdg
 
 EXAILELIBDIR = $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile
 EXAILESHAREDIR = $(DESTDIR)$(PREFIX)/share/exaile
@@ -27,6 +28,7 @@ make-install-dirs:
 	mkdir -p $(EXAILESHAREDIR)/data/glade
 	mkdir -p $(DESTDIR)$(PREFIX)/share/pixmaps
 	mkdir -p $(DESTDIR)$(PREFIX)/share/applications
+	mkdir -p $(XDGCONFDIR)/exaile
 
 uninstall:
 	rm -f  $(DESTDIR)$(PREFIX)/bin/exaile
@@ -41,6 +43,7 @@ uninstall:
 	rm -rf $(EXAILESHAREDIR)/data
 	rm -rf $(EXAILESHAREDIR)/data/images
 	rm -rf $(EXAILESHAREDIR)/data/glade
+	rm -rf $(XDGCONFDIR)/exaile
 	rm -f $(DESTDIR)$(PREFIX)/share/applications/exaile.desktop
 	rm -f $(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
 	cd plugins && make uninstall && cd ..
@@ -69,6 +72,7 @@ install-target:
 		$(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
 	install -m 644 data/exaile.desktop \
 		$(DESTDIR)$(PREFIX)/share/applications/	
+	install -m 644 data/config/settings.ini $(XDGCONFDIR)/exaile
 	# the printf here is for bsd compat, dont use echo!
 	cd $(DESTDIR)$(PREFIX)/bin && \
 	 printf "#!/bin/sh\n\
@@ -76,7 +80,7 @@ install-target:
 	 exec python $(PREFIX)$(LIBINSTALLDIR)/exaile/exaile.py \
 	 --datadir=$(PREFIX)/share/exaile/data --startgui \"\$$@\"" \
 	 > exaile && \
-	chmod 755 exaile
+	 chmod 755 exaile
 	cd plugins && make install DESTDIR=$(DESTDIR) PREFIX=$(PREFIX) \
 		&& cd ..
 

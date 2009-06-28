@@ -58,7 +58,7 @@ class ExaileNotifyOsd(object):
         
         self.summary = cgi.escape(title)
         if artist and album:
-            body = _("%(artist)s\n%(album)s") % {
+            self.body = _("%(artist)s\n%(album)s") % {
                 'artist' : cgi.escape(artist), 
                 'album' : cgi.escape(album)}
         elif artist:

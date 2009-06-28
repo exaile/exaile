@@ -43,13 +43,15 @@ class SettingsManager(RawConfigParser):
         Manages exaile's settings
     """
     settings = None
-    def __init__(self, loc):
+    def __init__(self, loc, defaultloc=None):
         """
             Sets up the SettingsManager. Expects a loc to a file
             where settings will be stored.
 
             If loc is None, these settings will never be stored nor read from a
             file
+
+            defaultloc is a loc to initialize settings from
         """
         logger.info(_("Loading settings"))
         RawConfigParser.__init__(self)
@@ -57,6 +59,12 @@ class SettingsManager(RawConfigParser):
         self._saving = False
         self._dirty = False
 
+        if defaultloc is not None:
+            try:
+                self.read(defaultloc)
+            except:
+                pass
+        
         if loc is not None:
             try:
                 self.read(self.loc)
@@ -185,8 +193,11 @@ class SettingsManager(RawConfigParser):
         self._dirty = False
 
 
-_SETTINGSMANAGER = SettingsManager( os.path.join(
-    xdg.get_config_dir(), "settings.ini" ) )
+
+_SETTINGSMANAGER = SettingsManager( 
+        os.path.join(xdg.get_config_dir(), "settings.ini" ),
+        xdg.get_config_path("settings.ini")
+        )
 
 get_option = _SETTINGSMANAGER.get_option
 set_option = _SETTINGSMANAGER.set_option

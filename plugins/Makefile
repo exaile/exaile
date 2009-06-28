@@ -12,6 +12,7 @@ INSTALL_PLUGINS = alarmclock \
 		  lastfmdynamic \
 		  lastfmcovers \
 		  lastfmradio \
+		  librivox \
 		  lyricsfly \
 		  lyricwiki \
 		  massstorage \
@@ -19,6 +20,7 @@ INSTALL_PLUGINS = alarmclock \
 		  mpris \
 		  multialarmclock \
 		  notify \
+		  notifyosd \
 		  replaygain \
 		  screensaverpause \
 		  shoutcast \

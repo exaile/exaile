@@ -85,7 +85,7 @@ def save_to_m3u(playlist, path):
     handle.close()
 
 def import_from_m3u(path):
-    url_parsed = urlparse(path)
+    url_parsed = urlparse.urlparse(path)
     # Local file, possibly on Windows ?
     if not url_parsed[0] or len(url_parsed[0]) == 1:
         handle = open(path, 'r')

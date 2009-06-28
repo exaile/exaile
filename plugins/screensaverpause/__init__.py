@@ -65,7 +65,7 @@ def _enable():
 def disable(exaile):
     if bus is None: return
     for match in frozenset(matches):
-        bus.remove_match_string_non_blocking(match)
+        match.remove()
         matches.remove(match)
 
 

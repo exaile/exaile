@@ -89,7 +89,8 @@ class HAL(providers.ProviderHandler):
             logger.debug(_("Failed to create device for %s")%device_udi)
             return
         
-        logger.debug(_("Found new %s device at %s")%(handler.name, device_udi))
+        logger.debug(_("Found new %(handler)s device at %(device_udi)s") %
+                {'handler' : handler.name, 'device_udi' : device_udi})
         dev.autoconnect()
 
         self.devicemanager.add_device(dev)

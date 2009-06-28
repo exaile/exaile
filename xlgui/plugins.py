@@ -38,7 +38,7 @@ class PluginManager(object):
         self.dialog.set_transient_for(parent)
 
         self.list = self.xml.get_widget('plugin_tree')
-        self.configure_button = self.xml.get_widget('configure_button')
+        #self.configure_button = self.xml.get_widget('configure_button')
 
         self.version_label = self.xml.get_widget('version_label')
         self.author_label = self.xml.get_widget('author_label')

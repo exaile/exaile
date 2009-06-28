@@ -248,8 +248,8 @@ class AudioSink(BaseSink):
                 self.sink.set_property(param, value)
             except:
                 common.log_exception(log=logger)
-                logger.warning(_("Could not set parameter %s for %s") % 
-                        (param, self.sink_elem))
+                logger.warning(_("Could not set parameter %(parameter)s for %(sink)s") % 
+                    {'parameter' : param, 'sink': self.sink_elem})
 
     def set_volume(self, vol):
         self.vol.set_property("volume", vol)

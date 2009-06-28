@@ -380,8 +380,8 @@ class EventManager(object):
                     pass
 
         if self.use_logger:
-            logger.debug(_("Sent '%s' event from '%s' with data '%s'.") % 
-                    (event.type, repr(event.object), repr(event.data)))
+            logger.debug(_("Sent '%(type)s' event from '%(object)s' with data '%(data)s'.") % 
+                {'type' : event.type, 'object' : repr(event.object), 'data' : repr(event.data)})
 
         # now call them
         for cb in callbacks:

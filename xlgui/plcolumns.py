@@ -51,6 +51,7 @@ class Column(object):
 
 class TrackNumberColumn(Column):
     size = '30'
+    #TRANSLATORS: Title of the track number column
     display = _('#')
     id = 'tracknumber'
 
@@ -102,8 +103,10 @@ class LengthColumn(Column):
         item = model.get_value(iter, 0)
         try:
             seconds = item.get_duration()
-            text = _("%d:%02d") % (seconds // 60, seconds % 60)
+            text = _("%(minutes)d:%02(seconds)d") % \
+                {'minutes' : seconds // 60, 'seconds' : seconds % 60}
         except:
+            #TRANSLATORS: Default track length
             text = _("0:00")
         cell.set_property('text', text)
         self.playlist.set_cell_weight(cell, item)

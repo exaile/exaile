@@ -160,6 +160,8 @@ class NormalPlayer(_base.ExailePlayer):
         else:
             self.stop(fire=False)
 
+        playing = self.is_playing()
+
         # make sure the file exists if this is supposed to be a local track
         if track.is_local():
             if not track.exists():
@@ -179,7 +181,8 @@ class NormalPlayer(_base.ExailePlayer):
                     self.__notify_source)
 
         self.playbin.set_state(gst.STATE_PLAYING)
-        event.log_event('playback_player_start', self, track)
+        if not playing:
+            event.log_event('playback_player_start', self, track)
         event.log_event('playback_track_start', self, track)
 
         return True

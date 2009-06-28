@@ -127,6 +127,8 @@ class UnifiedPlayer(_base.ExailePlayer):
         if not track:
             return # we cant play nothing
 
+        playing = self.is_playing()
+
         logger.debug("Attmepting to play \"%s\""%track)
         next = 1-self._current_stream
 
@@ -179,7 +181,8 @@ class UnifiedPlayer(_base.ExailePlayer):
                         self._start_crossfade)
                 
         self._current_stream = next
-        event.log_event('playback_player_start', self, track)
+        if not playing:
+            event.log_event('playback_player_start', self, track)
         event.log_event('playback_track_start', self, track)
 
         return True

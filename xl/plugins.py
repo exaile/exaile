@@ -22,17 +22,6 @@ import os, sys, imp, urllib, tarfile, shutil, traceback
 import logging
 logger = logging.getLogger(__name__)
 
-# list of plugins to enable by default on new installs
-# TODO: move this out of the code itself
-DEFAULT_PLUGINS = [
-        'cd',
-        'lastfmcovers',
-        'lastfmdynamic', 
-        'lyricwiki',
-        'replaygain',
-        'shoutcast', 
-        ]
-
 class InvalidPluginError(Exception):
     pass
 
@@ -164,7 +153,7 @@ class PluginsManager(object):
         settings.set_option("plugins/enabled", self.enabled_plugins.keys())
 
     def load_enabled(self):
-        to_enable = settings.get_option("plugins/enabled", DEFAULT_PLUGINS)
+        to_enable = settings.get_option("plugins/enabled", [])
         for plugin in to_enable:
             self.enable_plugin(plugin)
 

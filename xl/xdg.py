@@ -45,12 +45,20 @@ if data_dirs == None:
     data_dirs = "/usr/local/share/:/usr/share/:/opt/share/"
 data_dirs = [ os.path.join(d, "exaile") for d in data_dirs.split(":") ]
 
+config_dirs = os.getenv("XDG_CONFIG_DIRS")
+if config_dirs == None:
+    config_dirs = "/etc/xdg"
+config_dirs = [ os.path.join(d, "exaile") for d in config_dirs.split(":") ]
+
 exaile_dir = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
 # Detect if Exaile is not installed.
 if os.path.exists(os.path.join(exaile_dir, 'Makefile')):
     # Insert the "data" directory to data_dirs.
     data_dir = os.path.join(exaile_dir, 'data')
     data_dirs.insert(0, data_dir)
+    # insert the config dir
+    config_dir = os.path.join(exaile_dir, 'data', 'config')
+    config_dirs.insert(0, config_dir)
     # Create a symlink from plugins to data/plugins.
     plugins_dir = os.path.join(data_dir, 'plugins')
     if not os.path.exists(plugins_dir):
@@ -65,6 +73,9 @@ data_dirs.insert(0, data_home)
 def get_config_dir():
     return config_home
 
+def get_config_dirs():
+    return config_dirs
+
 def get_data_dirs():
     return data_dirs[:]
 
@@ -74,6 +85,14 @@ def get_cache_dir():
 def get_data_path(*subpath_elements):
     subpath = os.path.join(*subpath_elements)
     for dir in data_dirs:
+        path = os.path.join(dir, subpath)
+        if os.path.exists(path):
+            return path
+    return None
+
+def get_config_path(*subpath_elements):
+    subpath = os.path.join(*subpath_elements)
+    for dir in config_dirs:
         path = os.path.join(dir, subpath)
         if os.path.exists(path):
             return path

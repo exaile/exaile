@@ -50,21 +50,21 @@ class ExaileNotifyOsd(object):
         if icon :
             self.cover = icon
         else :
-            if self.cover == self.stopicon and self.summary == cgi.escape(title):
+            if self.cover == self.stopicon and self.summary == title:
                 # this is for when the song has been stopped previously
                 self.cover = self.resumeicon
             else :
                 self.cover = notify_cover.get_image_for_track(track, self.exaile)
         
-        self.summary = cgi.escape(title)
+        self.summary = title
         if artist and album:
             self.body = _("%(artist)s\n%(album)s") % {
-                'artist' : cgi.escape(artist), 
-                'album' : cgi.escape(album)}
+                'artist' : artist, 
+                'album' : album}
         elif artist:
-            self.body = _("%(artist)s") % {'artist' : cgi.escape(artist)}
+            self.body = _("%(artist)s") % {'artist' : artist}
         elif album:
-            self.body = _("%(album)s") % {'album' : cgi.escape(album)}
+            self.body = _("%(album)s") % {'album' : album}
         else:
             self.body = ""
         

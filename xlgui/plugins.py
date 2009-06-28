@@ -177,10 +177,10 @@ class PluginManager(object):
         self.name_label.set_markup("<b>%s</b>" % info['Name'])
         (model, iter) = selection.get_selected()
         pluginname = model.get(iter, 2)[0]
-        if self.__configure_available(pluginname):
-            self.configure_button.set_sensitive(True)
-        else:
-            self.configure_button.set_sensitive(False)
+        #if self.__configure_available(pluginname):
+        #    self.configure_button.set_sensitive(True)
+        #else:
+        #    self.configure_button.set_sensitive(False)
 
     def toggle_cb(self, cell, path, model):
         """

@@ -211,7 +211,8 @@ class TrackDB(object):
             :param location: the location to save the data to
             :type location: string
         """
-        logger.debug(_("Saving %s DB to %s."%(self.name, location or self.location)))
+        logger.debug(_("Saving %(name)s DB to %(location)s." %
+            {'name' : self.name, 'location' : location or self.location}))
         if not self._dirty:
             for k, track in self.tracks.iteritems():
                 if track._track._dirty: 

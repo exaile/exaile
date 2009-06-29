@@ -95,8 +95,8 @@ class CoverDB(object):
         if not type(cover) == str and not type(cover) == unicode:
             return
         if not os.path.isfile(cover): return
-        logger.info(_("CoverDB: set cover %s for '%s - %s'") %
-            (cover, album, artist))
+        logger.info(_("CoverDB: set cover %(cover)s for '%(album)s - %(artist)s'") %
+            {'cover' : cover, 'album' : album, 'artist' : artist})
         if not artist in self.artists:
             self.artists[artist] = common.idict()
 

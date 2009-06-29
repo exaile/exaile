@@ -192,7 +192,8 @@ class OSDWindow(object):
                     if not isinstance(value, (int, float)):
                         value = 'N/A'
                     else:
-                        value = _("%d:%02d") % (value // 60, value % 60)
+                        value = _("%(minutes)d:%02(seconds)d") % \
+                            {'minutes' : value // 60, 'seconds' : value % 60}
                 elif not value: value = ''
                 elif type(value) == list or type(value) == tuple:
                     value = metadata.j(value)

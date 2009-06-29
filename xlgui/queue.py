@@ -69,6 +69,7 @@ class QueueManager(object):
     def __setup_queue(self):
         """Adds columns to _queue_view"""
         renderer = gtk.CellRendererText()
+        #TRANSLATORS: Title of the track number column
         col = gtk.TreeViewColumn(_('#'), renderer, text=0)
         col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
         self._queue_view.append_column(col)

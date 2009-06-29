@@ -132,7 +132,7 @@ class PlaybackProgressBar(object):
             if t.seconds > 3600:
                 return text
             elif t.seconds > 60:
-                return text.lstrip(_("0:"))
+                return text.lstrip("0:")
             else:
                 # chop off first zero to get 0:20
                 return text[3:]
@@ -248,7 +248,7 @@ class MainWindow(object):
 
         self.xml = xml
         self.window = self.xml.get_widget('ExaileWindow')
-        self.window.set_title(_('Exaile'))
+        self.window.set_title('Exaile')
         self.playlist_notebook = self.xml.get_widget('playlist_notebook')
         self.playlist_notebook.remove_page(0)
         self.playlist_notebook.set_show_tabs(settings.get_option('gui/show_tabbar', True))
@@ -489,13 +489,13 @@ class MainWindow(object):
         """
         if not self.get_selected_playlist(): return
 
-        message = _("%d showing, %d in collection") \
-            % (len(self.get_selected_playlist().playlist), 
-               self.collection.get_count())
+        message = _("%(playlist_count)d showing, %(collection_count)d in collection") \
+            % {'playlist_count' : len(self.get_selected_playlist().playlist), 
+                'collection_count' : self.collection.get_count()}
         
         queuecount = len(self.queue)
         if queuecount:
-            message += _(" : %d queued") % queuecount
+          message += _("(%(queue_count)d queued)") % {'queue_count' : queuecount}
 
         self.track_count_label.set_label(message)
 
@@ -682,7 +682,7 @@ class MainWindow(object):
         """
         self.track_title_label.set_label(_('Not Playing'))
         self.track_info_label.set_label(_('Stopped'))
-        self.window.set_title(_("Exaile"))
+        self.window.set_title('Exaile')
 
         self.draw_playlist(type, player, object)
         self.play_button.set_image(gtk.image_new_from_stock('gtk-media-play',
@@ -757,9 +757,9 @@ class MainWindow(object):
         if album or artist:
             desc = []
             # TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-            if artist: desc.append(_("by %s") % artist)
+            if artist: desc.append(_("by %(artist)s") % {'artist' : artist})
             # TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-            if album: desc.append(_("from %s") % album)
+            if album: desc.append(_("from %(album)s") % {'album' : album})
 
             #self.window.set_title(_("Exaile: playing %s") % title +
             #    ' ' + ' '.join(desc))

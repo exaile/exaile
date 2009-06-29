@@ -280,9 +280,9 @@ class Main(object):
         dialog.set_logo(logo)
         # HACK: GTK+ < 2.12 (2007-09-14) use set_name.
         try:
-            dialog.set_program_name(_("Exaile"))
+            dialog.set_program_name('Exaile')
         except AttributeError:
-            dialog.set_name(_("Exaile"))
+            dialog.set_name('Exaile')
         dialog.set_version("\n" + str(xlmain.__version__))
         dialog.set_transient_for(self.main.window)
         dialog.run()

@@ -94,6 +94,19 @@ class ElementBin(gst.Bin):
     def setup_elements(self):
         state = self.get_state()[1]
 
+#       if self.srcpad is not None:
+#           self.srcpad.set_blocked_async(True, self._setup_finish, state)
+#       else:
+        if True:
+            self._setup_finish(None, True, state)
+
+
+    def _setup_finish(self, elem, blocked, state):
+        if not blocked:
+            logger.warning("Could not block pipeline, skipping element "
+                    "reconstruction.")
+            return
+
         if len(self.added_elems) > 0:
             for elem in self.added_elems:
                 try:
@@ -101,7 +114,7 @@ class ElementBin(gst.Bin):
                     elem.set_state(gst.STATE_NULL)
                 except gst.RemoveError:
                     pass 
-        
+
         elems = list(self.elements.iteritems())
         elems.sort()
         if len(elems) == 0:
@@ -117,17 +130,24 @@ class ElementBin(gst.Bin):
             self.src.set_target(self.srcpad)
         else:
             self.src = gst.GhostPad('src', self.srcpad)
-        self.add_pad(self.src)
+            self.add_pad(self.src)
         self.sinkpad = elems[0].get_static_pad("sink")
         if self.sink is not None:
             self.sink.set_target(self.sinkpad)
         else:
             self.sink = gst.GhostPad('sink', self.sinkpad)
-        self.add_pad(self.sink)
+            self.add_pad(self.sink)
 
         self.added_elems = elems
-        self.set_state(state)
 
+        self.set_state(state)
+#        self.srcpad.set_blocked_async(False, lambda *args: False, state)
+
+    def set_state(self, state):
+        if state == gst.STATE_PLAYING and \
+                self.get_state() == gst.STATE_NULL:
+            self.setup_elements()
+        gst.Bin.set_state(self, state)
 
 
 class ProviderBin(ElementBin, ProviderHandler):
@@ -149,12 +169,13 @@ class ProviderBin(ElementBin, ProviderHandler):
         ProviderHandler.__init__(self, servicename)
 
         self.reset_providers()
+        self.setup_elements()
 
     def reset_providers(self):
         self.elements = {}
         for provider in self.get_providers():
             self.elements[provider.index] = provider()
-        self.setup_elements()
+        #self.setup_elements()
 
     def on_new_provider(self, provider):
         self.reset_providers()

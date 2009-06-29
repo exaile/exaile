@@ -16,7 +16,7 @@ def disable(exaile):
 
 class LastFMCoverSearch(CoverSearchMethod):
     """
-        Searches Last.FM for album art
+        Searches Last.FM for covers
     """
     name = 'lastfm'
     type = 'remote' # fetches remotely as opposed to locally

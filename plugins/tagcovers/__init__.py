@@ -17,14 +17,14 @@ def disable(exaile):
 
 class TagCoverSearch(CoverSearchMethod):
     """
-        Looks for album art in track tags
+        Looks for covers in track tags
     """
     name = 'tagcover'
     type = 'local'
 
     def find_covers(self, track, limit=-1):
         """
-            Searches track tags for album art
+            Searches track tags for covers
         """
         cache_dir = self.manager.cache_dir
         try:

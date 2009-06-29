@@ -39,7 +39,7 @@ class ExaileMprisRoot(dbus.service.Object):
         """
             Identify the "media player"
         """
-        return _("Exaile %(version)s") % {'version': self.exaile.get_version()}
+        return "Exaile %s" % self.exaile.get_version()
 
     @dbus.service.method(INTERFACE_NAME)
     def Quit(self):

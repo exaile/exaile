@@ -275,8 +275,8 @@ rockbox:
         transfer, as rockbox doesnt strip those itself yet
         - may be a better idea to just work on supporting this in rockbox
             itself instead. 
-    album art:
-        rockbox doesnt (currently) like embedded album art, so we should 
+    covers:
+        rockbox doesnt (currently) like embedded covers, so we should 
             strip it from the tags on transfer
         use ./albumname.bmp (rockbox only supports bmp, not jpeg or png)
         in 3.1 and later rockbox supports scaling the artwork, so we should

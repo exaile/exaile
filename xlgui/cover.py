@@ -340,7 +340,7 @@ class CoverMenu(guiutil.Menu):
 
 class CoverWidget(gtk.EventBox):
     """
-        Represents the album art widget displayed by the track information
+        Represents the cover widget displayed by the track information
     """
     __gsignals__ = {
         'cover-found': (gobject.SIGNAL_RUN_LAST, None, (object,)),

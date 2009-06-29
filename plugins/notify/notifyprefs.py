@@ -46,7 +46,7 @@ class BodyArtist(widgets.TextViewPrefsItem):
 
 
 class BodyAlbum(widgets.TextViewPrefsItem):
-    default = _("by %(album)s")
+    default = _("from %(album)s")
     name = 'plugin/notify/body_album'
 
 

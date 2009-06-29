@@ -8,7 +8,7 @@ class LastFMCoverTestCase(CoverBaseTestCase):
 
     def testLastFMCovers(self):
         # amazon doesn't have this cover, so lastfm should return a lastfm url
-        # for the album art
+        # for the cover
         track = {
             'album': 'faith',
             'artist': 'fatali'

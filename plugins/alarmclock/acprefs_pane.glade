@@ -14,7 +14,7 @@
             <child>
               <widget class="GtkLabel" id="label1">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes" context="yes">Alarm Time :</property>
+                <property name="label" translatable="yes" context="yes">Alarm Time:</property>
                 <property name="justify">GTK_JUSTIFY_CENTER</property>
               </widget>
               <packing>
@@ -36,7 +36,7 @@
             <child>
               <widget class="GtkLabel" id="label81">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes" context="yes">:</property>
+                <property name="label" context="yes">:</property>
               </widget>
               <packing>
                 <property name="expand">False</property>
@@ -210,7 +210,7 @@
                   <widget class="GtkLabel" id="label2">
                     <property name="visible">True</property>
                     <property name="xalign">0</property>
-                    <property name="label" translatable="yes" context="yes">Minimum Volume:                </property>
+                    <property name="label" translatable="yes" context="yes">Minimum Volume:</property>
                   </widget>
                 </child>
                 <child>
@@ -239,7 +239,7 @@
                   <widget class="GtkLabel" id="label5">
                     <property name="visible">True</property>
                     <property name="xalign">0</property>
-                    <property name="label" translatable="yes" context="yes">Timer per Inc:</property>
+                    <property name="label" translatable="yes" context="yes">Timer per Increment:</property>
                   </widget>
                   <packing>
                     <property name="top_attach">3</property>

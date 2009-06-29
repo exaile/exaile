@@ -188,7 +188,7 @@ class CoverManager(providers.ProviderHandler):
     """
         Cover manager.
 
-        Manages different pluggable album art interfaces
+        Manages different pluggable cover interfaces
     """
     def __init__(self, cache_dir):
         """
@@ -334,7 +334,7 @@ class CoverManager(providers.ProviderHandler):
         """
             Finds one cover for a specified track.
 
-            This function first checks the cover database.  If the album art
+            This function first checks the cover database.  If the cover
             is not there, it searches the available methods
 
             @param track: the track to search for covers

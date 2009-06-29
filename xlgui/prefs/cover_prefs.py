@@ -17,7 +17,7 @@
 from xlgui.prefs import widgets
 from xl import xdg
 
-name = 'Album Art'
+name = 'Covers'
 glade = xdg.get_data_path('glade/cover_prefs_pane.glade')
 
 class CoverOrderPreference(widgets.OrderListPrefsItem):

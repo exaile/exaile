@@ -80,4 +80,4 @@ class GUIMainTestCase(base.BaseTestCase):
         self.testStartStopPlayback()
 
         assert self.gui.main.cover.loc.find('somesweet') > -1, \
-            "Album art did not set on playback event"
+            "Cover did not set on playback event"

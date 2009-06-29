@@ -4,7 +4,7 @@ Future Thoughts
 random thoughts for beyond 0.3.0; many of these are user requests.
 
 migration
-  * allow import of libraries/ratings/album art from amarok, etc.
+  * allow import of libraries/ratings/covers from amarok, etc.
   * we could use the 0.2 -> 0.3 upgrade framework, assuming it is made flexibly
     enough.
 

@@ -192,7 +192,7 @@ class OSDWindow(object):
                     if not isinstance(value, (int, float)):
                         value = 'N/A'
                     else:
-                        value = _("%(minutes)d:%02(seconds)d") % \
+                        value = _("%(minutes)d:%(seconds)02d") % \
                             {'minutes' : value // 60, 'seconds' : value % 60}
                 elif not value: value = ''
                 elif type(value) == list or type(value) == tuple:

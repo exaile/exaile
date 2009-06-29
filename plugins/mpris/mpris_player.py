@@ -67,7 +67,7 @@ class ExaileMprisPlayer(dbus.service.Object):
         # FIXME: Does not watch for shuffle, repeat
         # TODO: playback_start does not distinguish if play button was pressed
         #       or we simply moved to a new track
-        for event in ('stop_track', 'playback_track_start', 
+        for event in ('playback_player_end', 'playback_player_start',
                 'playback_toggle_pause'):
             xl.event.add_callback(self.status_change_cb, event)
 

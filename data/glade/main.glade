@@ -535,6 +535,7 @@
                         <property name="receives_default">True</property>
                         <property name="tooltip" translatable="yes">Repeat playlist</property>
                         <property name="relief">none</property>
+                        <signal name="toggled" handler="on_repeat_button_toggled"/>
                         <child>
                           <widget class="GtkImage" id="repeat_button_image">
                             <property name="visible">True</property>
@@ -555,6 +556,7 @@
                         <property name="receives_default">True</property>
                         <property name="tooltip" translatable="yes">Dynamically add similar tracks to the playlist</property>
                         <property name="relief">none</property>
+                        <signal name="toggled" handler="on_dynamic_button_toggled"/>
                         <child>
                           <widget class="GtkImage" id="dynamic_button_image">
                             <property name="visible">True</property>

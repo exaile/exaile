@@ -5,6 +5,7 @@ import xlgui
 import tests.base
 import logging
 from xl import playlist, radio, player, cover, event, xdg
+from xl.player import engine_unified, queue
 
 event._TESTING = True
 
@@ -15,7 +16,7 @@ class TestStream():
     def get_current(self):
         return self.track
 
-class TestPlayer(player.UnifiedPlayer):
+class TestPlayer(engine_unified.UnifiedPlayer):
     """
         Fake player.  Overrides most of the settings and playback info... the
         real GST player takes time to emit playback and stop signals.  This
@@ -25,7 +26,7 @@ class TestPlayer(player.UnifiedPlayer):
         self.playing = False
         self.paused = False
         self.streams=[None, None]
-        self.current_stream = 0
+        self._current_stream = 0
 
     def play(self, track):
         self.playing = True
@@ -80,7 +81,7 @@ class BaseTestCase(GtkTestCase,
         tests.base.BaseTestCase.setUp(self)
         self.covers = cover.CoverManager('.testtemp/covers')
         self.player = TestPlayer()
-        self.queue = player.PlayQueue(self.player)
+        self.queue = queue.PlayQueue(self.player)
         self.playlists = playlist.PlaylistManager()
         self.smart_playlists = playlist.PlaylistManager('smart_playlists')
         self.stations = playlist.PlaylistManager('radio_stations')

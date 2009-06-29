@@ -218,7 +218,7 @@
                     <child>
                       <widget class="GtkMenuItem" id="album_art_item">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">_Album Art Manager</property>
+                        <property name="label" translatable="yes">_Cover Manager</property>
                         <property name="use_underline">True</property>
                         <signal name="activate" handler="on_album_art_item_activate"/>
                       </widget>
@@ -508,59 +508,75 @@
                   <widget class="GtkHBox" id="hbox2">
                     <property name="visible">True</property>
                     <child>
-                      <widget class="GtkCheckButton" id="shuffle_button">
-                        <property name="label" translatable="yes">Shuffle</property>
+                      <widget class="GtkToggleButton" id="shuffle_button">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="receives_default">False</property>
-                        <property name="use_underline">True</property>
-                        <property name="draw_indicator">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="tooltip" translatable="yes">Shuffle playback order</property>
+                        <property name="relief">none</property>
                         <signal name="toggled" handler="on_shuffle_button_toggled"/>
+                        <child>
+                          <widget class="GtkImage" id="shuffle_button_image">
+                            <property name="visible">True</property>
+                            <property name="icon_name">media-playlist-shuffle</property>
+                          </widget>
+                        </child>
                       </widget>
                       <packing>
                         <property name="expand">False</property>
+                        <property name="fill">False</property>
                         <property name="position">0</property>
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkCheckButton" id="repeat_button">
-                        <property name="label" translatable="yes">Repeat</property>
+                      <widget class="GtkToggleButton" id="repeat_button">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="receives_default">False</property>
-                        <property name="use_underline">True</property>
-                        <property name="draw_indicator">True</property>
-                        <signal name="toggled" handler="on_repeat_button_toggled"/>
+                        <property name="receives_default">True</property>
+                        <property name="tooltip" translatable="yes">Repeat playlist</property>
+                        <property name="relief">none</property>
+                        <child>
+                          <widget class="GtkImage" id="repeat_button_image">
+                            <property name="visible">True</property>
+                            <property name="icon_name">media-playlist-repeat</property>
+                          </widget>
+                        </child>
                       </widget>
                       <packing>
                         <property name="expand">False</property>
+                        <property name="fill">False</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkCheckButton" id="dynamic_button">
-                        <property name="label" translatable="yes">Dynamic</property>
+                      <widget class="GtkToggleButton" id="dynamic_button">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="receives_default">False</property>
-                        <property name="use_underline">True</property>
-                        <property name="draw_indicator">True</property>
-                        <signal name="toggled" handler="on_dynamic_button_toggled"/>
+                        <property name="receives_default">True</property>
+                        <property name="tooltip" translatable="yes">Dynamically add similar tracks to the playlist</property>
+                        <property name="relief">none</property>
+                        <child>
+                          <widget class="GtkImage" id="dynamic_button_image">
+                            <property name="visible">True</property>
+                            <property name="icon_name">media-playlist-dynamic</property>
+                          </widget>
+                        </child>
                       </widget>
                       <packing>
                         <property name="expand">False</property>
+                        <property name="fill">False</property>
                         <property name="position">2</property>
                       </packing>
                     </child>
                     <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <widget class="GtkLabel" id="label7">
+                      <widget class="GtkAlignment" id="alignment1">
                         <property name="visible">True</property>
+                        <child>
+                          <placeholder/>
+                        </child>
                       </widget>
                       <packing>
-                        <property name="position">4</property>
+                        <property name="position">3</property>
                       </packing>
                     </child>
                     <child>
@@ -570,7 +586,7 @@
                       </widget>
                       <packing>
                         <property name="expand">False</property>
-                        <property name="position">5</property>
+                        <property name="position">4</property>
                       </packing>
                     </child>
                     <child>
@@ -582,12 +598,13 @@
                       </widget>
                       <packing>
                         <property name="padding">3</property>
-                        <property name="position">6</property>
+                        <property name="position">5</property>
                       </packing>
                     </child>
                   </widget>
                   <packing>
                     <property name="expand">False</property>
+                    <property name="fill">False</property>
                     <property name="position">2</property>
                   </packing>
                 </child>
@@ -714,6 +731,7 @@
                   </widget>
                   <packing>
                     <property name="expand">False</property>
+                    <property name="fill">False</property>
                     <property name="padding">3</property>
                     <property name="position">3</property>
                   </packing>

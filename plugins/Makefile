@@ -27,8 +27,7 @@ INSTALL_PLUGINS = alarmclock \
 		  streamripper \
 		  tagcovers 
 
-EXTRA_PLUGINS = console \
-	       	ipconsole \
+EXTRA_PLUGINS = ipconsole \
 	       	helloworld
 
 DIST_PLUGINS = $(INSTALL_PLUGINS) $(EXTRA_PLUGINS)

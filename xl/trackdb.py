@@ -280,12 +280,10 @@ class TrackDB(object):
         def the_cmp(x, y):
             if isinstance(x, basestring):
                 x = x.lower()
-                if x[:4] == 'the ':
-                    x = x[4:]
+                x = common.the_cutter(x)
             if isinstance(y, basestring):
                 y = y.lower()
-                if y[:4] == 'the ':
-                    y = y[4:]
+                y = common.the_cutter(y)
             return cmp(x, y)
 
         if sort_by == []:

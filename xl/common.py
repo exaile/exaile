@@ -220,6 +220,17 @@ def random_string(n):
         s += random.choice(string.ascii_letters)
     return s
 
+def the_cutter(field):
+    """
+        Cuts "the"-like words off of the beginning of any field for better
+        sorting
+    """
+    lowered = field.lower()
+    for word in ("el ", "l'", "la ", "le ", "les ", "los ", "the "):
+        if lowered.startswith(word):
+            field = field[len(word):]
+            break
+    return field
 
 def lstrip_special(field, the_cutter=False):
     """
@@ -236,8 +247,7 @@ def lstrip_special(field, the_cutter=False):
     else:
         ret = lowered.lstrip()
     if the_cutter:
-        if ret.startswith("the "):
-            ret = ret[4:]
+        ret = the_cutter(ret)
     return ret
 
 # vim: et sts=4 sw=4

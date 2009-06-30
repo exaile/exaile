@@ -142,7 +142,6 @@ class PreferencesDialog(object):
         for page in self.fields.values():
             for field in page:
                 if not field.apply():
-                    print field.name
                     return False
 
         for k, v in self.panes.iteritems():

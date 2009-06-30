@@ -62,8 +62,6 @@ class PlayQueue(playlist.Playlist):
             :param track: if passed, play this track
         """
         if not track:
-            print self.stop_track
-            print self.player.current
             if self.player.current == self.stop_track:
                 if player:
                     self.player.stop()

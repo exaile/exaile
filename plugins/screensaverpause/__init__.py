@@ -92,7 +92,6 @@ def test():
     mainloop = gobject.MainLoop()
 
     def active_changed(new_value):
-        print "Active:", repr(new_value)
         if not new_value:
             mainloop.quit()
     interface.connect_to_signal('ActiveChanged', active_changed)

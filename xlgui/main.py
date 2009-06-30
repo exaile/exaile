@@ -397,16 +397,13 @@ class MainWindow(object):
         """
         self.xml.get_widget('volume_slider').set_value(settings.get_option("player/volume", 1))
         self.shuffle_toggle = self.xml.get_widget('shuffle_button')
-        self.shuffle_toggle.set_active(settings.get_option(
-            'playback/shuffle', False))
+        self.shuffle_toggle.set_active(settings.get_option('playback/shuffle', False))
         self.repeat_toggle = self.xml.get_widget('repeat_button')
-        self.repeat_toggle.set_active(settings.get_option(
-            'playback/repeat', False))
+        self.repeat_toggle.set_active(settings.get_option('playback/repeat', False))
         self.dynamic_toggle = self.xml.get_widget('dynamic_button')
-        self.dynamic_toggle.set_active(settings.get_option(
-            'playback/dynamic', False))
+        self.dynamic_toggle.set_active(settings.get_option('playback/dynamic', False))
 
-        # cover box
+        # Cover box
         self.cover_event_box = self.xml.get_widget('cover_event_box')
         self.cover = cover.CoverWidget(self, self.controller.exaile.covers,
             self.controller.exaile.player)
@@ -422,9 +419,15 @@ class MainWindow(object):
             self.xml.get_widget('playback_progressbar'),
             self.controller.exaile.player)
 
-        # playback buttons
-        bts = ('play', 'next', 'prev', 'stop')
-        for button in bts:
+        # Custom playback control icons
+        for name in ('shuffle', 'repeat', 'dynamic'):
+            for size in (16, 22, 24, 32):
+                pixbuf = gtk.gdk.pixbuf_new_from_file(
+                    xdg.get_data_path('images/media-playlist-%s%d.png' % (name, size)))
+                gtk.icon_theme_add_builtin_icon('media-playlist-%s' % name, size, pixbuf)
+
+        # Playback buttons
+        for button in ('play', 'next', 'prev', 'stop'):
             setattr(self, '%s_button' % button,
                 self.xml.get_widget('%s_button' % button))
         
@@ -433,7 +436,7 @@ class MainWindow(object):
         self.status = guiutil.StatusBar(self.xml.get_widget('left_statuslabel'))
         self.track_count_label = self.xml.get_widget('track_count_label')
 
-        # search filter
+        # Search filter
         box = self.xml.get_widget('playlist_search_entry_box')
         self.filter = guiutil.SearchEntry()
         self.filter.connect('activate', self.on_playlist_search)

@@ -14,6 +14,8 @@
 
 import gtk
 from xl.nls import gettext as _
+import logging
+logger = logging.getLogger(__name__)
 
 """
     If you want to add a column to the Playlist object, or to the view columns
@@ -129,7 +131,7 @@ class RatingColumn(Column):
             cell.set_property('pixbuf',
                 self.playlist.rating_images[idx])
         except IndexError:
-            print "idx_error"
+            logger.debug("idx_error")
             if idx > 5: idx = 5
             elif idx < 0: idx = 0
             cell.set_property('pixbuf',

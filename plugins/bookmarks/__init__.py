@@ -25,6 +25,8 @@ from xlgui import commondialogs
 import gtk
 import gobject
 import os
+import logging
+logger = logging.getLogger(__name__)
 
 
 MENU_ITEM                   = None
@@ -32,9 +34,8 @@ MENU_ITEM                   = None
 #TODO: to dict or not to dict.  dict prevents duplicates, list of tuples preserves order (using tuples atm)
 
 def error(text):
-    print "%s: %s" % ('Bookmarks', text)
+    logger.error("%s: %s" % ('Bookmarks', text))
     commondialogs.error(None, exaile.gui.main, text)
-    # logging?
 
 class Bookmarks:
     def __init__(self, exaile):
@@ -138,7 +139,7 @@ class Bookmarks:
         try: 
             title = _track.Track(key)['title'][0]
         except:
-            print 'BM: Cannot open %s' % key
+            logger.debug('BM: Cannot open %s' % key)
             # delete offending key?
             return
         time = '%d:%2d' % (pos/60, pos%60)
@@ -204,14 +205,14 @@ class Bookmarks:
                     for (key,pos) in db:
                         self.display_bookmark(key, pos, menus)
                 except Exception, s:
-                    print 'BM: bad bookmark file:',s
+                    logger.error('BM: bad bookmark file: %s'%s)
                     return None
                     
                 for (key,pos) in db:
                     self.display_bookmark(key, pos, menus)
         
         except IOError, (e,s):  # File might not exist
-            print 'BM: could not open file:', s
+            logger.error('BM: could not open file: %s'%s)
 
     
     def save_db(self):

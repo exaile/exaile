@@ -25,10 +25,10 @@ class lastfm:
             if len(x) == 2:
                 res[x[0]] = x[1]
             elif x != [""]:
-                print "(urk?", x, ")"
+                #print "(urk?", x, ")"
                 numerrors = numerrors + 1
             if numerrors > 5:
-                print "Too many errors parsing response."
+                #print "Too many errors parsing response."
                 return {}
         return res
 
@@ -57,7 +57,7 @@ class lastfm:
                 f.write(s.response)
                 f.close()
             elif False:
-                print "No playlist?? Using cached version instead..."
+                #print "No playlist?? Using cached version instead..."
                 f = open("playlist.xspf", "r")
                 cache = f.read()
                 f.close()

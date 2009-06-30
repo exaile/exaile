@@ -57,7 +57,7 @@ class httpclient:
             url = self.path
 
         if not url:
-            print "httpclient: No URL?"
+            # print "httpclient: No URL?"
             return
 
         method = "GET"

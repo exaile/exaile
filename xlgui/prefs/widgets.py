@@ -158,7 +158,6 @@ class OrderListPrefsItem(PrefsItem):
             items.append(self.model.get_value(iter, 0))
             iter = self.model.iter_next(iter)
         self.items = items
-        print items
         return items
 
 

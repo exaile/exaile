@@ -103,7 +103,7 @@ class proxy:
         # Check request method
         req[0] = string.split(req[0], " ")
         if len(req[0]) != 3 or req[0][0] != "GET":
-            print "Unhandled method:", req[0]
+            # print "Unhandled method:", req[0]
             try:
                 clientsock.sendall("HTTP/1.0 405 Method Not Allowed\r\n");
                 clientsock.sendall("Content-Type: text/html\r\n")
@@ -256,7 +256,7 @@ class proxy:
             if res.has_key("response"):
                 res = res["response"]
             else:
-                print "hmm?", repr(res)
+                # print "hmm?", repr(res)
                 res = "INTERNALERROR"
 
             cont = "result = '" + res + "';\n"
@@ -545,7 +545,7 @@ class proxy:
                     clientsock.sendall(tmp + "\r\n")
             clientsock.sendall("\r\n")
         except:
-            print "Error sending HTTP headers"
+            #print "Error sending HTTP headers"
             self.stop = True
 
         while not self.quit and not self.stop:
@@ -557,7 +557,7 @@ class proxy:
                 if not playlist.data or playlist.pos >= len(playlist.data.tracks):
                     if not self.lastfm.getplaylist():
                         
-                        print "Strangeness! No tracks in playlist? Sending station update..."
+                        #print "Strangeness! No tracks in playlist? Sending station update..."
                         retries = retries + 1
                         if retries < 3:
                             if len(self.bookmarks) >= retries:
@@ -565,14 +565,14 @@ class proxy:
                             else:
                                 tmpstation = "lastfm://user/" + self.username + "/neighbours"
 
-                            print "Trying station " + tmpstation
+                            #print "Trying station " + tmpstation
                             res = self.lastfm.changestation(tmpstation)
                             if res.has_key("response") and res["response"] == "OK":
                                 if self.lastfm.getplaylist():
                                     retries = 0
                                     continue
 
-                        print "Unable to change station or get a playlist. Stopping."
+                        #print "Unable to change station or get a playlist. Stopping."
                         self.stop = 1
                         break
 
@@ -654,7 +654,7 @@ class proxy:
                     try:
                         data = streamsock.recv(l)
                     except socket.error:
-                        print "Error receiving data from server"
+                        #print "Error receiving data from server"
                         data = ""
 
                 if data == "":
@@ -664,7 +664,7 @@ class proxy:
                         try:
                             clientsock.sendall("\0" * l)
                         except socket.error, (val,msg):
-                            print "Error sending data to client:", msg
+                            #print "Error sending data to client:", msg
                             self.stop = 1
                             break
 
@@ -674,7 +674,7 @@ class proxy:
                         try:
                             clientsock.sendall(icytag)
                         except socket.error, (val,msg):
-                            print "Error sending data to client:", msg
+                            #print "Error sending data to client:", msg
                             self.stop = 1
                             break
 
@@ -692,7 +692,7 @@ class proxy:
                 try:
                     clientsock.sendall(data)
                 except socket.error, (val,msg):
-                    print "Error sending data to client:", msg
+                    #print "Error sending data to client:", msg
                     self.stop = 1
                     break
 
@@ -708,7 +708,7 @@ class proxy:
                     try:
                         clientsock.sendall(icytag)
                     except socket.error, (val,msg):
-                        print "Error sending data to client:", msg
+                        #print "Error sending data to client:", msg
                         self.stop = 1
                         break
 
@@ -730,7 +730,7 @@ class proxy:
         self.streaming = 0
 
     def run(self, bind_address, port):
-        print "Starting LastFMProxy " + self.version + "..."
+        #print "Starting LastFMProxy " + self.version + "..."
 
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # Set socket options to allow binding to the same address
@@ -739,20 +739,20 @@ class proxy:
         s.bind((bind_address, port))
         s.listen(5)
 
-        print "Connecting to last.fm server..."
+        #print "Connecting to last.fm server..."
         self.lastfm = lastfm.lastfm();
         self.lastfm.connect(self.username, self.hexify(hashlib.md5(self.password).digest()))
         #print self.lastfm.info
 
         if not self.lastfm.info.has_key("session"):
-            print "Handshake failed."
-            print "DEBUG:", self.lastfm.info
+            #print "Handshake failed."
+            #print "DEBUG:", self.lastfm.info
             s.close()
             return
 
         if self.lastfm.info["session"] == "FAILED":
-            print "Handshake failed. Bad login info, perhaps?"
-            print "DEBUG:", self.lastfm.info
+            #print "Handshake failed. Bad login info, perhaps?"
+            #print "DEBUG:", self.lastfm.info
             s.close()
             return
 
@@ -777,8 +777,8 @@ class proxy:
         if bind_address == "127.0.0.1" or bind_address == "0.0.0.0":
             bind_address = "localhost"
 
-        print "To tune in, point your browser to:"
-        print "  http://" + bind_address + ":" + str(port) + "/"
+        #print "To tune in, point your browser to:"
+        #print "  http://" + bind_address + ":" + str(port) + "/"
 
         self.proxy_ready = True
         runningthreads = []
@@ -796,10 +796,10 @@ class proxy:
         except KeyboardInterrupt:
             self.quit = 1
 
-        print "Shutting down..."
+        #print "Shutting down..."
         for t in runningthreads:
             t.join()
-        print "Done! Bye!"
+        #print "Done! Bye!"
 
         s.close()
         return

@@ -17,6 +17,8 @@
 import urllib
 from xml.etree import ElementTree
 from xl import common
+import logging
+logger = logging.getLogger(__name__)
 
 class AppURLopener(urllib.FancyURLopener):
     version = "App/1.7"
@@ -48,7 +50,7 @@ class Book():
 			self.xmldata=urllib.urlopen(self.rssurl).read()
 			self.xmltree=ElementTree.XML(self.xmldata)
 		except:
-			print "LIBRIVOX: XML or connection error"
+			logger.error("LIBRIVOX: XML or connection error")
 			return
 		self.chapters=[]
 		items=self.xmltree.findall("channel/item")
@@ -86,7 +88,7 @@ def find_books(keyword):
 		data = urllib.urlopen(url).read()
 		tree=ElementTree.XML(data)
 	except:
-		print "LIBRIVOX: XML or connection error"
+		logger.error("LIBRIVOX: XML or connection error")
 		return []
 	booksXML=tree.findall("book")
 	books=[]

@@ -73,7 +73,7 @@ class PluginsManager(object):
 
         #ensure the paths in the archive are sane
         mems = tar.getmembers()
-        base = os.path.basename(path)[:-4]
+        base = os.path.basename(path)[:-4].split("-")[0]
         if os.path.isdir(os.path.join(self.plugindirs[0], base)):
             raise InvalidPluginError(_('A plugin with the name "%s" is '
                 'already installed') % base)

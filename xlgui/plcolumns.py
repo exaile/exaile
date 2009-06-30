@@ -105,7 +105,7 @@ class LengthColumn(Column):
         item = model.get_value(iter, 0)
         try:
             seconds = item.get_duration()
-            text = _("%(minutes)d:%02(seconds)d") % \
+            text = _("%(minutes)d:%(seconds)02d") % \
                 {'minutes' : seconds // 60, 'seconds' : seconds % 60}
         except:
             #TRANSLATORS: Default track length

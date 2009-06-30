@@ -21,7 +21,7 @@ from xl import xdg
 logger = logging.getLogger(__name__)
 
 DEFAULT_COVER = xdg.get_data_path('images/nocover.png')
-RESIZE_SIZE = 64
+RESIZE_SIZE = 48
 
 def get_image_for_track(track, exaile, resize=False):
     '''Get a Pixbuf for a track

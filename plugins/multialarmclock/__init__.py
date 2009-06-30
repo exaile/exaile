@@ -325,7 +325,7 @@ class AddAlarm:
             hour = self.alarm_hour.get_value()
             minute = self.alarm_minute.get_value()
             alarm.time = '%02d:%02d' % (hour,minute)
-            alarm.name = self.alarm_name.get_text()
+            alarm.name = unicode(self.alarm_name.get_text(), 'utf-8')
             for i in range(7):
                 alarm.days[i] = self.alarm_days[i].get_active()
         

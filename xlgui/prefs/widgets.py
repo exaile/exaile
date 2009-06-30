@@ -215,7 +215,7 @@ class ListPrefsItem(PrefsItem):
         self.widget.set_text(items)
 
     def _settings_value(self):
-        # shlex is broken with unicode, so we feed it UTF-8 and encode
+        # shlex is broken with unicode, so we feed it UTF-8 and decode
         # afterwards.
         values = shlex.split(self.widget.get_text())
         values = [unicode(value, 'utf-8') for value in values]

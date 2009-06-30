@@ -181,11 +181,11 @@ class Bookmarks:
             self.bookmarks.remove((key,pos))
             
         if menus[0]:
-            item = [x for x in menus[0].get_children() if (x.get_name() == 'GtkMenuItem') and (x.get_child().get_text() == label)]
+            item = [x for x in menus[0].get_children() if (x.get_name() == 'GtkMenuItem') and (unicode(x.get_child().get_text(), 'utf-8') == label)]
             item[0].destroy()
             
         if menus[1]:
-            item = [x for x in menus[1].get_children() if (x.get_name() == 'GtkMenuItem') and (x.get_child().get_text() == label)]
+            item = [x for x in menus[1].get_children() if (x.get_name() == 'GtkMenuItem') and (unicode(x.get_child().get_text(), 'utf-8') == label)]
             item[0].destroy()
             
         self.save_db()

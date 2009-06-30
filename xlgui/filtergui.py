@@ -419,7 +419,7 @@ class EntryField(gtk.Entry):
     def __init__(self):
         gtk.Entry.__init__(self)
     def get_state(self):
-        return self.get_text()
+        return unicode(self.get_text(), 'utf-8')
     def set_state(self, state):
         if type(state) == list or type(state) == tuple:
             state = state[0]

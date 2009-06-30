@@ -188,7 +188,7 @@ class NotebookTab(gtk.EventBox):
         self.show_all()
 
     def get_title(self):
-        return self.label.get_text()
+        return unicode(self.label.get_text(), 'utf-8')
     def set_title(self, title):
         self.label.set_text(title)
     title = property(get_title, set_title)
@@ -454,7 +454,7 @@ class MainWindow(object):
         """
         pl = self.get_selected_playlist()
         if pl:
-            pl.search(self.filter.get_text())
+            pl.search(unicode(self.filter.get_text(), 'utf-8'))
 
     def on_volume_changed(self, range):
         settings.set_option('player/volume', range.get_value())

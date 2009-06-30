@@ -346,13 +346,9 @@ class Track(object):
             return self.get_track()
         elif field == 'artist':
             try:
-                artist = lstrip_special(self['artist'][0])
+                artist = lstrip_special(self['artist'][0], true)
             except:
-                artist = None
-            if artist == None:
                 artist = u""
-            if artist.startswith('the '): #TODO: allow custom stemming
-                artist = artist[4:]
             return artist
         elif field == 'length':
             return self.get_duration()

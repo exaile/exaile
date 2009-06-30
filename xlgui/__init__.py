@@ -83,6 +83,7 @@ class Main(object):
         self.xml.signal_autoconnect({
             'on_about_item_activate': self.show_about_dialog,
             'on_scan_collection_item_activate': self.on_rescan_collection,
+            'on_randomize_playlist_item_activate': self.on_randomize_playlist,
             'on_collection_manager_item_activate': self.collection_manager,
             'on_queue_manager_item_activate': self.queue_manager,
             'on_preferences_item_activate': lambda *e: self.show_preferences(),
@@ -244,6 +245,12 @@ class Main(object):
                 self.collection_panel)
         self.progress_manager.add_monitor(thread,
             _("Scanning collection..."), 'gtk-refresh')
+
+    def on_randomize_playlist(self, *e):
+        pl = self.main.get_selected_playlist()
+        pl.playlist.randomize()
+        pl._set_tracks(pl.playlist.get_tracks())
+        pl.reorder_songs()
 
     def add_panel(self, child, name):
         """

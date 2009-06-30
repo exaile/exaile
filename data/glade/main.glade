@@ -224,6 +224,15 @@
                       </widget>
                     </child>
                     <child>
+                      <widget class="GtkMenuItem" id="randomize_playlist_item">
+                        <property name="visible">True</property>
+                        <property name="tooltip" translatable="yes">Randomize the order of the current playlist</property>
+                        <property name="label" translatable="yes">Randomize Playlist</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="on_randomize_playlist_item_activate"/>
+                      </widget>
+                    </child>
+                    <child>
                       <widget class="GtkImageMenuItem" id="scan_collection_item">
                         <property name="label" translatable="yes">Rescan Collection</property>
                         <property name="visible">True</property>

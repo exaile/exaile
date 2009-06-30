@@ -813,6 +813,14 @@ class Playlist(object):
 
         self.ordered_tracks = tracks
 
+    def randomize(self):
+        """
+            Randomize the track order
+        """
+        trs = self.ordered_tracks
+        random.shuffle(trs)
+        self.ordered_tracks = trs
+
 
 class SmartPlaylist(object):
     """ 

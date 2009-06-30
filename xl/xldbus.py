@@ -70,6 +70,15 @@ def check_exit(options, args):
             print v
             comm = True
 
+    modify_commands = (
+           'set_rating',
+           )
+    for command in modify_commands:
+        value = getattr(options, command)
+        if value:
+            iface.set_track_attr(command, value)
+            comm = True
+
     run_commands = (
             'play', 
             'stop', 
@@ -82,11 +91,9 @@ def check_exit(options, args):
             getattr(iface, command)()
             comm = True
 
-
     to_implement = (
             'query',
             'guiquery',
-            'rating',
             'current_position',
             'inc_vol',
             'dec_vol',
@@ -129,11 +136,27 @@ class DbusManager(dbus.service.Object):
             value = self.exaile.player.current[attr]
         except ValueError:
             value = None
+        except TypeError:
+            value = None
+
         if value:
             if type(value) == list:
                 return u"\n".join(value)
             return unicode(value)
         return u''
+
+    @dbus.service.method("org.exaile.ExaileInterface", 'sv')
+    def set_track_attr(self, attr, value):
+        """
+            Sets rating of a track
+        """
+        try:
+            set_attr = getattr(self.exaile.player.current, attr)
+            set_attr(value)
+        except AttributeError:
+            pass
+        except TypeError:
+            pass
 
     @dbus.service.method("org.exaile.ExaileInterface")
     def prev(self):

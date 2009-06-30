@@ -261,19 +261,19 @@ class Exaile(object):
             default=False, help=_("Print the artist of current track"))
         p.add_option("--get-length", dest="get_length", action="store_true",
             default=False, help=_("Print the length of current track"))
-        p.add_option('--set-rating', dest='rating', 
-            help=_('Set rating for current song'))
-        p.add_option('--get-rating', dest='get_rating', help=_('Get rating for current song'), 
-            default=False, action='store_true')
+        p.add_option('--set-rating', dest="set_rating", action='store',
+            type='int', metavar='RATING', help=_('Set rating for current song'))
+        p.add_option('--get-rating', dest='get_rating', action='store_true',
+            default=False, help=_('Get rating for current song'))
         p.add_option("--current-position", dest="current_position", 
             action="store_true", default=False, 
             help=_("Print the position inside the current track as a percentage"))
 
         # Volume options
-        p.add_option("-i","--increase_vol", dest="inc_vol",action="store", 
-            type="int",metavar="VOL",help=_("Increases the volume by VOL"))
-        p.add_option("-l","--decrease_vol", dest="dec_vol",action="store",
-            type="int",metavar="VOL",help=_("Decreases the volume by VOL"))
+        p.add_option("-i", "--increase_vol", dest="inc_vol", action="store", 
+            type="int", metavar="VOL", help=_("Increases the volume by VOL"))
+        p.add_option("-l", "--decrease_vol", dest="dec_vol", action="store",
+            type="int", metavar="VOL", help=_("Decreases the volume by VOL"))
         p.add_option("--get-volume", dest="get_volume", action="store_true",
             default=False, help=_("Print the current volume"))
 

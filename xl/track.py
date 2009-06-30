@@ -311,6 +311,22 @@ class Track(object):
 
         return rating
 
+    def set_rating(self, rating):
+        """
+            Sets the current track rating
+        """
+        steps = settings.get_option("miscellaneous/rating_steps", 5)
+
+        try:
+            rating = min(rating, steps)
+            rating = max(0, rating)
+            rating = float(rating * 100 / steps)
+        except TypeError: return
+        except KeyError: return
+        except ValueError: return
+
+        self['rating'] = rating
+
     def get_bitrate(self): 
         """
             Returns the bitrate

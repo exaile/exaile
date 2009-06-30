@@ -38,7 +38,9 @@ def _enable(o1, exaile, o2):
     
 def disable(exaile):
     global panel
-    panel.aboutwindow.win.destroy()
+    if panel.aboutwindow!=None:
+        panel.aboutwindow.win.destroy()
+
     exaile.gui.remove_panel(panel.vbox)
 
 class LVPanel():

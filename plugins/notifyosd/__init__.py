@@ -18,7 +18,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 import pynotify, cgi
 import logging
-import notify_cover
+import notifyosd_cover
 from xl import event
 from xl.nls import gettext as _
 
@@ -54,7 +54,7 @@ class ExaileNotifyOsd(object):
                 # this is for when the song has been stopped previously
                 self.cover = self.resumeicon
             else :
-                self.cover = notify_cover.get_image_for_track(track, self.exaile)
+                self.cover = notifyosd_cover.notifyosd_get_image_for_track(track, self.exaile)
         
         self.summary = title
         if artist and album:

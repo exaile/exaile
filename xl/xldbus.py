@@ -66,9 +66,12 @@ def check_exit(options, args):
             )
     for command in info_commands:
         if getattr(options, command):
-            v = iface.get_track_attr(command.replace('get_', ''))
-            print v
+            print iface.get_track_attr(command.replace('get_', ''))
             comm = True
+
+    if getattr(options, 'current_position'):
+        print iface.current_position()
+        comm = True
 
     modify_commands = (
            'set_rating',
@@ -94,7 +97,6 @@ def check_exit(options, args):
     to_implement = (
             'query',
             'guiquery',
-            'current_position',
             'inc_vol',
             'dec_vol',
             'get_volume',
@@ -193,12 +195,15 @@ class DbusManager(dbus.service.Object):
         """
         self.exaile.player.toggle_pause()
 
-    @dbus.service.method("org.exaile.ExaileInterface", None, "i")
+    @dbus.service.method("org.exaile.ExaileInterface", None, "s")
     def current_position(self):
         """
             Returns the position inside the current track as a percentage
         """
-        return self.exaile.player.get_progress()*100
+        progress = self.exaile.player.get_progress()
+        if progress == -1:
+            return ""
+        return "%d%%" % (progress * 100)
 
     @dbus.service.method("org.exaile.ExaileInterface", None, "s")
     def get_version(self):

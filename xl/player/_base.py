@@ -115,6 +115,8 @@ class ExailePlayer(object):
             progress = self.get_time()/float(self.current.get_duration())
         except ZeroDivisionError:
             progress = 0
+        except AttributeError:
+            progress = -1
         return progress
 
     def _get_gst_state(self):

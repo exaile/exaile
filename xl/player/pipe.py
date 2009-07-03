@@ -32,9 +32,9 @@ class MainBin(gst.Bin):
         The main bin - handles processing and output of audio after it
         is decoded by the engine.
     """
-    def __init__(self):
+    def __init__(self, pre_elems=[]):
         gst.Bin.__init__(self)
-        self._elements = []
+        self._elements = pre_elems
 
         self.pp = Postprocessing()
         self._elements.append(self.pp)

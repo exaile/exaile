@@ -28,12 +28,12 @@ except: # fail gracefully if we cant set up the UI
 
 
 def enable(exaile):
-    providers.register("postprocessing_element", ReplaygainVolume)
-    providers.register("postprocessing_element", ReplaygainLimiter)
+    providers.register("stream_element", ReplaygainVolume)
+    providers.register("stream_element", ReplaygainLimiter)
 
 def disable(exaile):
-    providers.unregister("postprocessing_element", ReplaygainVolume)
-    providers.unregister("postprocessing_element", ReplaygainLimiter)
+    providers.unregister("stream_element", ReplaygainVolume)
+    providers.unregister("stream_element", ReplaygainLimiter)
 
 
 class ReplaygainVolume(ElementBin):

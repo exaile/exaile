@@ -26,7 +26,8 @@ logger = logging.getLogger(__name__)
 
 class NormalPlayer(_base.ExailePlayer):
     def __init__(self):
-        _base.ExailePlayer.__init__(self)
+        _base.ExailePlayer.__init__(self, 
+                pre_elems=[pipe.ProviderBin("stream_element")])
 
         self._current = None
         self.playbin = None

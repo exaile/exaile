@@ -30,12 +30,12 @@ class ExailePlayer(object):
     """
         Base class all players must inherit from and implement.
     """
-    def __init__(self):
+    def __init__(self, pre_elems=[]):
         self._queue = None
         self._playtime_stamp = None
         self._last_position = 0
 
-        self.mainbin = pipe.MainBin()
+        self.mainbin = pipe.MainBin(pre_elems=pre_elems)
 
         self._load_volume()
         event.add_callback(self._on_setting_change, 'option_set')

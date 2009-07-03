@@ -101,7 +101,7 @@ class SettingsManager(RawConfigParser):
         """
         value = self._val_to_str(value)
         splitvals = option.split('/')
-        section, key = "".join(splitvals[:-1]), splitvals[-1]
+        section, key = "/".join(splitvals[:-1]), splitvals[-1]
         try:
             self.set(section, key, value)
         except NoSectionError:
@@ -116,7 +116,7 @@ class SettingsManager(RawConfigParser):
             default if the key does not exist yet.
         """
         splitvals = option.split('/')
-        section, key = "".join(splitvals[:-1]), splitvals[-1]
+        section, key = "/".join(splitvals[:-1]), splitvals[-1]
         try:
             value = self.get(section, key)
             value = self._str_to_val(value)
@@ -132,7 +132,7 @@ class SettingsManager(RawConfigParser):
             settings.
         """
         splitvals = option.split('/')
-        section, key = "".join(splitvals[:-1]), splitvals[-1]
+        section, key = "/".join(splitvals[:-1]), splitvals[-1]
         try:
             self.set(section, key, value)
         except NoSectionError:

@@ -242,7 +242,7 @@ class UnifiedPlayer(_base.ExailePlayer):
             gobject.idle_add(stream.set_state, gst.STATE_NULL)
             try:
                 self.pipe.remove(stream)
-            except RemoveError:
+            except gst.RemoveError:
                 logger.debug("Failed to remove stream %s"%stream)
             if stream in self.streams:
                 self.streams[self.streams.index(stream)] = None

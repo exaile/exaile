@@ -113,7 +113,9 @@ class ExailePlayer(object):
     def get_progress(self):
         try:
             progress = self.get_time()/float(self.current.get_duration())
-        except ZeroDivisionError:
+        except ZeroDivisionError: # track doesnt have duration info
+            progress = 0
+        except AttributeError: # no current track
             progress = 0
         except AttributeError:
             progress = -1

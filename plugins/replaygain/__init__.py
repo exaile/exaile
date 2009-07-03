@@ -19,6 +19,13 @@ from xl.player.pipe import ElementBin
 
 import gst
 
+try:
+    import replaygainprefs
+    def get_prefs_pane():
+        return replaygainprefs
+except: # fail gracefully if we cant set up the UI
+    pass
+
 
 def enable(exaile):
     providers.register("postprocessing_element", ReplaygainVolume)
@@ -54,7 +61,7 @@ class ReplaygainVolume(ElementBin):
                     settings.get_option("replaygain/album-mode", True))
         elif data == "replaygain/pre-amp":
             self.rgvol.set_property("pre-amp",
-                    settings.get_option("replaygain/pre-amp", 6))
+                    settings.get_option("replaygain/pre-amp", 0))
         elif data == "replaygain/fallback-gain":
             self.rgvol.set_property("fallback-gain",
                     settings.get_option("replaygain/fallback-gain", 0))
@@ -81,7 +88,7 @@ class ReplaygainLimiter(ElementBin):
 
     def _on_setting_change(self, name, object, data):
         if data == "replaygain/clipping-protection":
-            self.rgvol.set_property("enabled", 
+            self.rglimit.set_property("enabled", 
                     settings.get_option("replaygain/clipping-protection", 
                         True))
 

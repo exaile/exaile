@@ -254,7 +254,7 @@ class CollectionPanel(panel.Panel):
                 word = keywords[n]
 
                 if word:
-                    word = word#.replace("\"","\\\"")
+                    word = word.replace("\"","\\\"")
                 else:
                     n += 1
                     continue
@@ -317,9 +317,14 @@ class CollectionPanel(panel.Panel):
             sort_by = []
             if depth > 0 and self.order[depth-1] == "tracknumber":
                 sort_by = ['discnumber', 'tracknumber']
-            values = self.collection.list_tag(tag, search, use_albumartist=False, 
-                                              ignore_the=True, sort=True, 
-                                              sort_by=sort_by)
+            if tag == 'artist':
+                _search = "compilation==__null__ " + search
+            else:
+                _search = search
+            values = self.collection.list_tag(tag, 
+                    _search, 
+                    use_albumartist=False, ignore_the=True, sort=True, 
+                    sort_by=sort_by)
         except IndexError:
             return # at the bottom of the tree
         try:
@@ -346,17 +351,17 @@ class CollectionPanel(panel.Panel):
                     v = _("Unknown")
     
             if depth == 0 and draw_seps:
+                check_val = v
+                if check_val.lower().startswith('the '):
+                    check_val = check_val[4:]
+                char = check_val.lower()[0]
+                
+                if char.isdigit(): 
+                    char = '0'
+
                 if first:
-                    last_char = v.lower()[0]
+                    last_char = char
                 else:
-                    check_val = v
-                    if check_val.lower().startswith('the '):
-                        check_val = check_val[4:]
-                    char = check_val.lower()[0]
-
-                    # check to see if it's a number
-                    if char.isdigit(): char = '0'
-
                     if char != last_char and last_char != '':
                         self.model.append(parent, [None, None, None])
                     last_char = char

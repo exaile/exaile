@@ -76,8 +76,7 @@ class FilesPanel(panel.Panel):
         col.pack_start(text, True)
         col.connect('notify::width', self.set_column_width)
 
-        width = settings.get_option('gui/files_%s_col_width' %
-            _('Filename'), 130)
+        width = settings.get_option('gui/files_filename_col_width', 130)
 
         col.set_fixed_width(width)
         col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
@@ -87,8 +86,7 @@ class FilesPanel(panel.Panel):
 
         self.tree.append_column(col)
 
-        width = settings.get_option('gui/files_%s_col_width' %
-            _('Size'), 50)
+        width = settings.get_option('gui/files_size_col_width', 50)
 
         text = gtk.CellRendererText()
         text.set_property('xalign', 1.0)

@@ -33,6 +33,7 @@ def check_exit(options, args):
         methods
     """
     iface = False
+    exaile = None
     if not options.new:
         # TODO: handle dbus stuff
         bus = dbus.SessionBus()
@@ -42,6 +43,7 @@ def check_exit(options, args):
             iface = dbus.Interface(remote_object,
                 'org.exaile.ExaileInterface')
             iface.test_service('testing dbus service')
+            exaile = remote_object.exaile
 
             # Assume that args are files to be added to the current playlist.
             # This enables:    exaile PATH/*.mp3
@@ -64,10 +66,16 @@ def check_exit(options, args):
             'get_length', 
             'get_rating'
             )
+
+    playing = iface.is_playing()
     for command in info_commands:
         if getattr(options, command):
-            print iface.get_track_attr(command.replace('get_', ''))
             comm = True
+            if not playing:
+                print "Not playing."
+                break
+            else:
+                print iface.get_track_attr(command.replace('get_', ''))
 
     if getattr(options, 'current_position'):
         print iface.current_position()
@@ -76,6 +84,8 @@ def check_exit(options, args):
     modify_commands = (
            'set_rating',
            )
+
+
     for command in modify_commands:
         value = getattr(options, command)
         if value:
@@ -128,6 +138,15 @@ class DbusManager(dbus.service.Object):
             Just test the dbus object
         """
         logger.debug(arg)
+
+    @dbus.service.method('org.exaile.ExaileInterface', None, 'b')
+    def is_playing(self):
+        """
+            Returns True if Exaile is playing (or paused), False if it's not
+        """
+
+        if self.exaile.player.current: return True
+        else: return False
 
     @dbus.service.method('org.exaile.ExaileInterface', 's')
     def get_track_attr(self, attr):

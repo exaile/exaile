@@ -24,6 +24,14 @@ class ProviderManager(object):
         self.services = {}
 
     def register_provider(self, servicename, provider):
+        """
+            Registers a provider.
+
+            @type servicename: string
+            @param servicename: the name of the service [string]
+            @type provider: object
+            @param provider: the object that is the provider [object]
+        """
         if servicename not in self.services:
             self.services[servicename] = []
         self.services[servicename].append(provider)
@@ -32,6 +40,14 @@ class ProviderManager(object):
         event.log_event("%s_provider_added"%servicename, self, provider)
 
     def unregister_provider(self, servicename, provider):
+        """
+            Unregisters a provider.
+
+            @type servicename: string
+            @param servicename: the name of the service
+            @type provider: object
+            @param provider: the provider to be removed
+        """
         if servicename not in self.services:
             return
         try:
@@ -44,6 +60,14 @@ class ProviderManager(object):
             return
 
     def get_providers(self, servicename):
+        """
+            Returns a list of providers for the specified servicename.
+
+            @type servicename: strring
+            @param servicename: the service name to get providers for
+            @rtype: list of objects 
+            @return: list of providers
+        """
         try:
             return self.services[servicename][:]
         except KeyError:
@@ -63,15 +87,33 @@ class ProviderHandler(object):
         self.on_new_provider(provider)
 
     def on_new_provider(self, provider):
+        """
+            Called when a new provider is added.
+
+            @type provider: object
+            @param provider: the new provider
+        """
         pass # for overriding
 
     def _del_cb(self, name, obj, provider):
         self.on_del_provider(provider)
 
     def on_del_provider(self, provider):
+        """
+            Called when a provider is deleted.
+
+            @type provider: object
+            @param provider: the removed provider
+        """
         pass # for overriding
 
     def get_providers(self):
+        """
+            Returns a list of providers for this service.
+
+            @rtype: list of objects 
+            @return: list of providers
+        """
         return MANAGER.get_providers(self.servicename)
 
 

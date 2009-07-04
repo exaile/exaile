@@ -209,6 +209,11 @@ class CollectionPanel(panel.Panel):
                 if not track in tracks:
                     found.append(track)
             pl.playlist.add_tracks(found)
+            if not self.controller.exaile.player.is_playing():
+               try:
+                   self.controller.exaile.queue.play(found[0])
+               except IndexError:
+                   pass
 
 
     def button_press(self, widget, event):

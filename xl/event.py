@@ -105,7 +105,7 @@ def log_event(type, object, data, async=True):
     else:
         EVENT_MANAGER.emit(e)
 
-def add_callback(function, type=None, object=None):
+def add_callback(function, type=None, object=None, *args, **kwargs):
     """
         Sets an Event callback
 
@@ -121,9 +121,10 @@ def add_callback(function, type=None, object=None):
         @param object: the object to listen to events from, eg exaile.collection, 
                 exaile.cover_manager. Defaults to any object if not 
                 specified. [object]
+        Any additional paramaters will be passed to the callback.
     """
     global EVENT_MANAGER
-    EVENT_MANAGER.add_callback(function, type, object)
+    EVENT_MANAGER.add_callback(function, type, object, args, kwargs)
 
 def remove_callback(function, type=None, object=None):
     """
@@ -190,7 +191,7 @@ class Callback(object):
     """
         Represents a callback
     """
-    def __init__(self, function, time):
+    def __init__(self, function, time, args, kwargs):
         """
             @param function: the function to call
             @param time: the time this callback was added
@@ -198,6 +199,8 @@ class Callback(object):
         self.valid = True
         self.wfunction = _getWeakRef(function, self.vanished)
         self.time = time
+        self.args = args
+        self.kwargs = kwargs
 
     def vanished(self, ref):
         self.valid = False
@@ -392,7 +395,8 @@ class EventManager(object):
                     except KeyError:
                         pass
                 elif event.time >= cb.time:
-                    cb.wfunction().__call__(event.type, event.object, event.data)
+                    cb.wfunction().__call__(event.type, event.object, 
+                            event.data, *cb.args, **cb.kwargs)
             except:
                 traceback.print_exc()
                 # something went wrong inside the function we're calling
@@ -410,7 +414,7 @@ class EventManager(object):
         """
         self.idle.add(self.emit, event)
 
-    def add_callback(self, function, type=None, object=None):
+    def add_callback(self, function, type, object, args, kwargs):
         """
             Registers a callback.
             You should always specify at least one of type or object.
@@ -430,14 +434,15 @@ class EventManager(object):
             self.callbacks[type][object] = []
 
         # add the actual callback
-        self.callbacks[type][object].append(Callback(function, time.time()))
+        self.callbacks[type][object].append(
+                Callback(function, time.time(), args, kwargs))
     
     def remove_callback(self, function, type=None, object=None):
         """
             Unsets a callback
 
             The parameters must match those given when the callback was
-            registered.
+            registered. (minus any additional args)
         """
         self.idle.add(self._remove_callback, function, type, object)
 

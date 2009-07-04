@@ -8,14 +8,14 @@ class CollectionPanelTestCase(base.BaseTestCase):
         base.BaseTestCase.setUp(self)
 
     def testCollectionPanel(self):
-        assert type(self.gui.collection_panel) == collection.CollectionPanel, \
+        assert type(self.gui.panels['collection']) == collection.CollectionPanel, \
             "Collection panel type is incorrect"
 
     def testAddAlbum(self):
         pl = playlist.Playlist('CollectionPanelTest')
         self.gui.main.add_playlist(pl)
 
-        panel = self.gui.collection_panel
+        panel = self.gui.panels['collection']
         selection = panel.tree.get_selection()
 
         selection.select_path((0,))

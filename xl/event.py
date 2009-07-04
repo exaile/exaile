@@ -95,7 +95,7 @@ def log_event(type, object, data, async=True):
 
         type: the 'type' or 'name' of the event. [string]
         object: the object sending the event. [object]
-        data: some data about the event. [object]
+        data: some data about the event, None if not required [object]
         async: whether or not to emit asyncronously. [bool]
     """
     global EVENT_MANAGER

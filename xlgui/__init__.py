@@ -42,6 +42,7 @@ class Main(object):
 
         self.exaile = exaile
         self.first_removed = False
+        self.panels = {}
         self.xml = gtk.glade.XML(xdg.get_data_path("glade/main.glade"),
             'ExaileWindow', 'exaile')
         self.progress_box = self.xml.get_widget('progress_box')
@@ -54,14 +55,22 @@ class Main(object):
         self.play_toolbar = self.xml.get_widget('play_toolbar')
         self._connect_events()
 
-        self.collection_panel = collection.CollectionPanel(self,
+        self.last_selected_panel = settings.get_option('gui/last_selected_panel', None)
+        self.panels['collection'] = collection.CollectionPanel(self,
             exaile.collection)
-        self.radio_panel = radio.RadioPanel(self,
+        self.panels['radio'] = radio.RadioPanel(self,
             exaile.collection, exaile.radio, exaile.stations)
-        self.playlists_panel = playlists.PlaylistsPanel(self,
+        self.panels['playlists'] = playlists.PlaylistsPanel(self,
             exaile.playlists, exaile.smart_playlists, exaile.collection)
-        self.files_panel = files.FilesPanel(self,
+        self.panels['files'] = files.FilesPanel(self,
             exaile.collection)
+
+        try:
+            selected_panel = self.panels[self.last_selected_panel]._child
+            selected_panel_num = self.panel_notebook.page_num(selected_panel)
+            self.panel_notebook.set_current_page(selected_panel_num)
+        except KeyError:
+            pass
 
         if settings.get_option('gui/use_tray', False):
             self.tray_icon = tray.TrayIcon(self)
@@ -69,6 +78,8 @@ class Main(object):
             self.tray_icon = False
 
         tray.connect_events(self)
+
+        event.add_callback(self._update_settings, 'quit_application')
 
         self.main.window.show_all()
 
@@ -92,7 +103,14 @@ class Main(object):
             'on_album_art_item_activate': self.show_cover_manager,
             'on_open_item_activate': self.open_dialog,
             'on_open_url_item_activate': self.open_url,
+            'on_panel_notebook_switch_page': self.on_panel_switch,
         })
+
+    def _update_settings(self, event, sender, data):
+        """
+            Updates settings affected by GUI interaction
+        """
+        settings.set_option('gui/last_selected_panel', self.last_selected_panel)
 
     def open_url(self, *e):
         """
@@ -242,7 +260,7 @@ class Main(object):
         """
         from xlgui import collection as guicol
         thread = guicol.CollectionScanThread(self, self.exaile.collection, 
-                self.collection_panel)
+                self.panels['collection'])
         self.progress_manager.add_monitor(thread,
             _("Scanning collection..."), 'gtk-refresh')
 
@@ -273,6 +291,12 @@ class Main(object):
                 self.panel_notebook.remove_page(n)
                 return
         raise ValueError("No such panel")
+
+    def on_panel_switch(self, notebook, page, pagenum):
+        page = notebook.get_nth_page(pagenum)
+        for id, panel in self.panels.items():
+            if panel._child == page:
+                self.last_selected_panel = id
 
     def show_about_dialog(self, *e):
         """

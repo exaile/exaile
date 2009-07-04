@@ -406,6 +406,7 @@ class Playlist(gtk.VBox):
                 self.menu.popup(event)
             else:
                 tab.menu.popup(None, None, None, event.button, event.time)
+            if len(self.get_selected_tracks()) > 1: return True
         return False
 
     def _setup_events(self):

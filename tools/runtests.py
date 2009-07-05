@@ -114,6 +114,7 @@ if __name__ == '__main__':
     result = runner.run(suite)
 
     shutil.rmtree('.testtemp')
+    shutil.rmtree('.xdgtest')
 
     if not result.wasSuccessful():
         sys.exit(1) # use this so make recognizes that we failed and aborts

@@ -43,12 +43,12 @@ if not os.path.exists(cache_home):
 data_dirs = os.getenv("XDG_DATA_DIRS")
 if data_dirs == None:
     data_dirs = "/usr/local/share/:/usr/share/:/opt/share/"
-data_dirs = [ os.path.join(d, "exaile") for d in data_dirs.split(":") ]
+data_dirs = [os.path.join(d, "exaile") for d in data_dirs.split(":")]
 
 config_dirs = os.getenv("XDG_CONFIG_DIRS")
 if config_dirs == None:
     config_dirs = "/etc/xdg"
-config_dirs = [ os.path.join(d, "exaile") for d in config_dirs.split(":") ]
+config_dirs = [os.path.join(d, "exaile") for d in config_dirs.split(":")]
 
 exaile_dir = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
 # Detect if Exaile is not installed.

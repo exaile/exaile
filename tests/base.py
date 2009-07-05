@@ -23,7 +23,6 @@ locale.setlocale(locale.LC_ALL, '')
 # explicitly import it elsewhere
 gettext.install("exaile")
 
-
 from xl import settings
 settings._SETTINGSMANAGER = \
         settings.SettingsManager('.testtemp/test_exaile_settings.ini')
@@ -32,12 +31,24 @@ from xl import collection, event, common, xdg
 import unittest, hashlib, time, imp, os
 import sys
 
-
 event._TESTING = True
 common._TESTING = True
 class BaseTestCase(unittest.TestCase):
     def setUp(self):
         gettext.install("exaile")
+
+        # set up the xdg test directories
+        base = '.xdgtest'
+        for item in ('data_home', 'config_home', 'cache_home', 'data_dirs',
+            'config_dirs'):
+            path = os.path.join(base, item)
+
+            try:
+                os.makedirs(path)
+            except OSError, e:
+                if e.errno != 17: raise e
+            setattr(xdg, item, path)
+
         self.loading = False
         self.setup_logging()
         self.temp_col_loc = '.testtemp/col%s.db' % \

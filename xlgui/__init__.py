@@ -110,6 +110,8 @@ class Main(object):
         """
             Updates settings affected by GUI interaction
         """
+        if not self.last_selected_panel:
+            self.last_selected_panel = 0
         settings.set_option('gui/last_selected_panel', self.last_selected_panel)
 
     def open_url(self, *e):

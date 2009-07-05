@@ -288,12 +288,22 @@ class TrackDB(object):
 
         if sort_by == []:
             tset = set()
+
+            displayed = []
             for t in self.search(search_terms):
+                if not t[tag]: continue
                 try:
                     for i in t[tag]:
+                        if i.lower() in displayed:
+                            continue
                         tset.add(i)
+                        displayed.append(i.lower())
                 except:
+                    if t[tag].lower() in displayed:
+                        continue
                     tset.add(t[tag])
+                    displayed.append(t[tag].lower())
+
             vals = list(tset)
             if ignore_the:
                 cmp_type = the_cmp
@@ -308,7 +318,7 @@ class TrackDB(object):
                 if tracks[count][tag] == tracks[count-1][tag]:
                     del tracks[count]
                 count += 1
-            vals = [ u" / ".join(x[tag]) for x in tracks]
+            vals = [u" / ".join(x[tag]) for x in tracks]
 
         return vals
 

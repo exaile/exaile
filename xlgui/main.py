@@ -385,8 +385,7 @@ class MainWindow(object):
         if nb.get_n_pages() > 1:
             nb.set_show_tabs(True)
 
-        queue = self.controller.exaile.queue
-        queue.set_current_playlist(pl.playlist)
+        self.queue.set_current_playlist(pl.playlist)
 
         return pl
 
@@ -422,8 +421,7 @@ class MainWindow(object):
 
         # Cover box
         self.cover_event_box = self.xml.get_widget('cover_event_box')
-        self.cover = cover.CoverWidget(self, self.controller.exaile.covers,
-            self.controller.exaile.player)
+        self.cover = cover.CoverWidget(self, self.covers, self.player)
         self.cover_event_box.add(self.cover)
         self.track_title_label = self.xml.get_widget('track_title_label')
         attr = pango.AttrList()
@@ -434,7 +432,7 @@ class MainWindow(object):
 
         self.progress_bar = PlaybackProgressBar(
             self.xml.get_widget('playback_progressbar'),
-            self.controller.exaile.player)
+            self.player)
 
         # Custom playback control icons
         for name in ('shuffle', 'repeat', 'dynamic'):
@@ -491,15 +489,14 @@ class MainWindow(object):
         """
             Called when the user clicks on the SPAT item
         """
-        queue = self.controller.exaile.queue
         tracks = self.get_selected_playlist().get_selected_tracks()
         if not tracks: return
         track = tracks[0]
 
-        if track == queue.stop_track:
-            queue.stop_track = None
+        if track == self.queue.stop_track:
+            self.queue.stop_track = None
         else:
-            queue.stop_track = track
+            self.queue.stop_track = track
 
         self.get_selected_playlist().list.queue_draw()
 
@@ -531,11 +528,11 @@ class MainWindow(object):
             'on_quit_item_activated': self.quit,
             'on_play_button_clicked': self.on_play_clicked,
             'on_next_button_clicked':
-                lambda *e: self.controller.exaile.queue.next(),
+                lambda *e: self.queue.next(),
             'on_prev_button_clicked':
-                lambda *e: self.controller.exaile.queue.prev(),
+                lambda *e: self.queue.prev(),
             'on_stop_button_clicked':
-                lambda *e: self.controller.exaile.player.stop(),
+                lambda *e: self.player.stop(),
             'on_shuffle_button_toggled': self.set_mode_toggles,
             'on_repeat_button_toggled': self.set_mode_toggles,
             'on_dynamic_button_toggled': self.set_mode_toggles,
@@ -632,9 +629,8 @@ class MainWindow(object):
         if tab is None:
             tab = self.playlist_notebook.get_current_page()
         pl = self.playlist_notebook.get_nth_page(tab)
-        queue = self.controller.exaile.queue
-        if queue.current_playlist == pl.playlist:
-            queue.current_playlist = None
+        if self.queue.current_playlist == pl.playlist:
+            self.queue.current_playlist = None
         self.playlist_notebook.remove_page(tab)
 
     def on_playlist_notebook_switch(self, notebook, page, page_num):
@@ -850,18 +846,17 @@ class MainWindow(object):
         """
             Called when the play button is clicked
         """
-        exaile = self.controller.exaile
-        if exaile.player.is_paused() or exaile.player.is_playing():
-            exaile.player.toggle_pause()
+        if self.player.is_paused() or self.player.is_playing():
+            self.player.toggle_pause()
         else:
             pl = self.get_selected_playlist()
-            exaile.queue.set_current_playlist(pl.playlist)
+            self.queue.set_current_playlist(pl.playlist)
             if pl:
                 track = pl.get_selected_track()
                 if track:
                     pl.playlist.set_current_pos(
                         pl.playlist.index(track))
-            exaile.queue.play()
+            self.queue.play()
 
     def _setup_position(self):
         """

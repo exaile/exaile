@@ -53,6 +53,7 @@ transfer&syncing:
         or file). this should also ensure that all tracks in the playlist also
         are transferred to the device
     cover art should be synced if possible
+    possibly also support uploading lyrics, in various formats
     calculate the space needed for the transfer before we begin, and tell the 
         user if there's not enough space to complete the operation
         - offer possible ways of resolving the issue? eg remove old podcasts/ 

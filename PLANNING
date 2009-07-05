@@ -59,8 +59,6 @@ Things needed for beta 1 (0.2.999.1) release:
     * implement transfer to device
     * mtp/ipod plugins
 
-Things needed for RCs/final release:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   * Conversion - we need to handle the upgrade process from 0.2.14 -> 0.3.0
     * this should include the collection, settings, plugins, playlists, and
       anything else still relevant in 0.3
@@ -70,6 +68,10 @@ Things needed for RCs/final release:
       to 0.3.y upgrades, should that be necessary. 
     * No need to handle exaile < 0.2.14, its been almost a year so people 
         should have migrated already.
+
+
+Final
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   * Launchpad
     * all bugs targeted to 0.3.0 must be resolved or retargeted

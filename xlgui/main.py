@@ -199,6 +199,12 @@ class NotebookTab(gtk.EventBox):
         """
         if event.button == 3:
             self.menu.popup(None, None, None, event.button, event.time)
+            return True
+        elif event.button == 2:
+            self.do_close()
+            return True
+        elif event.button == 1 and event.type == gtk.gdk._2BUTTON_PRESS:
+            return True # stop the event propagating
 
     def do_new_playlist(self, *args):
         self.main.add_playlist()
@@ -642,7 +648,8 @@ class MainWindow(object):
             self.add_playlist()
 
     def on_playlist_notebook_button_press(self, notebook, event):
-        if event.type == gtk.gdk._2BUTTON_PRESS:
+        if (event.type == gtk.gdk._2BUTTON_PRESS and event.button == 1) or \
+                (event.type == gtk.gdk.BUTTON_PRESS and event.button == 2):
             self.add_playlist()
 
     def on_clear_playlist(self, *e):

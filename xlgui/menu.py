@@ -197,10 +197,12 @@ class PlaylistMenu(GenericTrackMenu):
             Displays the menu
         """
         if self.playlist_tab_menu:
-          if settings.get_option('gui/show_tabbar', True):
+          pagecount = self.playlist.controller.main.playlist_notebook.get_n_pages()
+          if settings.get_option('gui/show_tabbar', True) or pagecount > 1:
               self.playlist_tab_menu.hide_all()
           else:
-              self.playlist_tab_menu.show_all()
+              if pagecount == 1:
+                  self.playlist_tab_menu.show_all()
         GenericTrackMenu.popup(self, event)
 
 class PlaylistTabMenu(guiutil.Menu):

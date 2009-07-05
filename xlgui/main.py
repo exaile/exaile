@@ -359,9 +359,10 @@ class MainWindow(object):
             pl = xl.playlist.Playlist()
         name = pl.name
         pl = playlist.Playlist(self, self.controller, pl)
+        nb = self.playlist_notebook
 
         try:
-            name = name % (self.playlist_notebook.get_n_pages() + 1)
+            name = name % (nb.get_n_pages() + 1)
         except TypeError:
             pass
         
@@ -369,12 +370,14 @@ class MainWindow(object):
         if len(name) > 20:
             name = name[:20] + "..."
 
-        tab = NotebookTab(self, self.playlist_notebook, name, pl)
-        self.playlist_notebook.append_page(pl,
-            tab)
-        self.playlist_notebook.set_current_page(
-            self.playlist_notebook.get_n_pages() - 1)
+        tab = NotebookTab(self, nb, name, pl)
+        nb.append_page(pl, tab)
+        nb.set_current_page(nb.get_n_pages() - 1)
         self.set_mode_toggles()
+        
+        # Always show tab bar for more than one tab
+        if nb.get_n_pages() > 1:
+            nb.set_show_tabs(True)
 
         queue = self.controller.exaile.queue
         if not queue.current_playlist:
@@ -632,7 +635,10 @@ class MainWindow(object):
         """
             Called when a tab is removed from the playlist notebook
         """
-        if notebook.get_n_pages() == 0:
+        pagecount = notebook.get_n_pages()
+        if pagecount == 1:
+            notebook.set_show_tabs(settings.get_option('gui/show_tabbar', True))
+        elif pagecount == 0:
             self.add_playlist()
 
     def on_playlist_notebook_button_press(self, notebook, event):

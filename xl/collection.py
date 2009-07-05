@@ -72,6 +72,8 @@ class Collection(trackdb.TrackDB):
         self.libraries = dict()
         self._scanning = False
         self._scan_stopped = False
+        self._running_count = 0
+        self._running_total_count = 0
         pickle_attrs += ['_serial_libraries']
         trackdb.TrackDB.__init__(self, name, location=location,
                 pickle_attrs=pickle_attrs)
@@ -106,8 +108,12 @@ class Collection(trackdb.TrackDB):
                 break
  
         to_rem = []
+        if not "://" in library.location:
+            location = u"file://" + library.location
+        else:
+            location = library.location
         for tr in self.tracks:
-            if tr.startswith(library.location):
+            if tr.startswith(location):
                 to_rem.append(self.tracks[tr]._track)
         self.remove_tracks(to_rem)       
        
@@ -161,16 +167,19 @@ class Collection(trackdb.TrackDB):
             library.rescan(notify_interval=scan_interval)
             event.remove_callback(self._progress_update, 'tracks_scanned',
                 library)
+            self._running_total_count += self._running_count
             if self._scan_stopped: 
-                self._scanning = False
-                return
-        try:
-            self.save_to_location()
-        except AttributeError:
-            pass
+                break
+        else: # didnt break
+            try:
+                self.save_to_location()
+            except AttributeError:
+                pass
 
         event.log_event('scan_progress_update', self, 100)
 
+        self._running_total_count = 0
+        self._running_count = 0
         self._scanning = False
 
     def _progress_update(self, type, library, count):
@@ -178,6 +187,8 @@ class Collection(trackdb.TrackDB):
             Called when a progress update should be emitted while scanning
             tracks
         """
+        self._running_count = count
+        count = count + self._running_total_count
         try:
             event.log_event('scan_progress_update', self,
                 int((float(count) / float(self.file_count)) * 100))
@@ -568,9 +579,15 @@ class Library(object):
             event.log_event('tracks_scanned', self, count)
 
         removals = []
+        location = self.location
+        if "://" not in location:
+            location = u"file://" + location
         for f in (x for x in db.tracks.iterkeys() 
-                if x.startswith(self.location)):
-            if not os.path.exists(f):
+                if x.startswith(location)):
+            if not f.startswith("file://"):
+                continue
+            f2 = f[7:]
+            if not os.path.exists(f2):
                 removals.append(db.get_track_by_loc(f))
         for tr in removals:
             logging.info(u"Removing " + unicode(tr))

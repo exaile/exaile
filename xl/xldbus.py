@@ -67,24 +67,14 @@ def check_exit(options, args):
             'get_rating'
             )
 
-    playing = iface.is_playing()
     for command in info_commands:
         if getattr(options, command):
+            print iface.get_track_attr(command.replace('get_', ''))
             comm = True
-            if not playing:
-                print "Not playing."
-                break
-            else:
-                print iface.get_track_attr(command.replace('get_', ''))
-
-    if getattr(options, 'current_position'):
-        print iface.current_position()
-        comm = True
 
     modify_commands = (
            'set_rating',
            )
-
 
     for command in modify_commands:
         value = getattr(options, command)
@@ -92,24 +82,41 @@ def check_exit(options, args):
             iface.set_track_attr(command, value)
             comm = True
 
+    volume_commands = (
+            'inc_vol',
+            'dec_vol',
+            )
+
+    for command in volume_commands:
+        value = getattr(options, command)
+        if value:
+            iface.change_volume(command.replace('_vol', ''), value)
+
     run_commands = (
             'play', 
             'stop', 
             'next', 
             'prev', 
-            'play_pause'
+            'play_pause',
             )
     for command in run_commands:
         if getattr(options, command):
             getattr(iface, command)()
             comm = True
 
+    query_commands = (
+            'current_position',
+            'get_volume',
+            )
+
+    for command in query_commands:
+        if getattr(options, command):
+            print getattr(iface, command)()
+            comm = True
+
     to_implement = (
             'query',
             'guiquery',
-            'inc_vol',
-            'dec_vol',
-            'get_volume',
             )
     for command in to_implement:
         if getattr(options, command):
@@ -164,7 +171,7 @@ class DbusManager(dbus.service.Object):
             if type(value) == list:
                 return u"\n".join(value)
             return unicode(value)
-        return u''
+        return _('Not playing.')
 
     @dbus.service.method("org.exaile.ExaileInterface", 'sv')
     def set_track_attr(self, attr, value):
@@ -178,6 +185,18 @@ class DbusManager(dbus.service.Object):
             pass
         except TypeError:
             pass
+
+    @dbus.service.method("org.exaile.ExaileInterface", 'si')
+    def change_volume(self, action, value):
+        """
+            Increases the volume by percentage
+        """
+        vol = self.exaile.player.get_volume()
+        if action == 'inc':
+            vol += value
+        elif action == 'dec':
+            vol -= value
+        self.exaile.player.set_volume(vol)
 
     @dbus.service.method("org.exaile.ExaileInterface")
     def prev(self):
@@ -223,6 +242,14 @@ class DbusManager(dbus.service.Object):
         if progress == -1:
             return ""
         return "%d%%" % (progress * 100)
+
+    @dbus.service.method("org.exaile.ExaileInterface", None, "s")
+    def get_volume(self):
+        """
+            Returns the current volume level as percentage
+        """
+        vol = self.exaile.player.get_volume()
+        return "%d%%" % vol
 
     @dbus.service.method("org.exaile.ExaileInterface", None, "s")
     def get_version(self):

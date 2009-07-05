@@ -129,6 +129,7 @@ class NormalPlayer(_base.ExailePlayer):
     def reset_playtime_stamp(self):
         self._playtime_stamp = int(time.time())
 
+    # TODO: make this part of the track object
     def _get_track_uri(self, track):
         uri = track.get_loc_for_io()
         split = urlparse.urlsplit(uri)

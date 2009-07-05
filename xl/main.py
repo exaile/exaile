@@ -270,12 +270,12 @@ class Exaile(object):
             help=_("Print the position inside the current track as a percentage"))
 
         # Volume options
-        p.add_option("-i", "--increase_vol", dest="inc_vol", action="store", 
-            type="int", metavar="VOL", help=_("Increases the volume by VOL"))
-        p.add_option("-l", "--decrease_vol", dest="dec_vol", action="store",
-            type="int", metavar="VOL", help=_("Decreases the volume by VOL"))
+        p.add_option("-i", "--increase-vol", dest="inc_vol", action="store", 
+            type="int", metavar="VOL", help=_("Increases the volume by VOL%"))
+        p.add_option("-l", "--decrease-vol", dest="dec_vol", action="store",
+            type="int", metavar="VOL", help=_("Decreases the volume by VOL%"))
         p.add_option("--get-volume", dest="get_volume", action="store_true",
-            default=False, help=_("Print the current volume"))
+            default=False, help=_("Print the current volume percentage"))
 
         # Other options
         p.add_option("--new", dest="new", action="store_true",

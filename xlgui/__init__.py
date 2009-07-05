@@ -79,7 +79,7 @@ class Main(object):
 
         tray.connect_events(self)
 
-        event.add_callback(self._update_settings, 'quit_application')
+        event.add_callback(self._on_quit_application, 'quit_application')
 
         self.main.window.show_all()
 
@@ -106,7 +106,7 @@ class Main(object):
             'on_panel_notebook_switch_page': self.on_panel_switch,
         })
 
-    def _update_settings(self, event, sender, data):
+    def _on_quit_application(self, event, sender, data):
         """
             Updates settings affected by GUI interaction
         """

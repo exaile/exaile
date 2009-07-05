@@ -5,6 +5,7 @@
   <widget class="GtkWindow" id="PluginManagerDialog">
     <property name="width_request">600</property>
     <property name="height_request">450</property>
+    <property name="title" translatable="yes">Plugin Manager</property>
     <child>
       <widget class="GtkVBox" id="vbox1">
         <property name="visible">True</property>

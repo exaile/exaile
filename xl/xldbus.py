@@ -67,15 +67,10 @@ def check_exit(options, args):
             'get_rating'
             )
 
-    playing = iface.is_playing()
     for command in info_commands:
         if getattr(options, command):
+            print iface.get_track_attr(command.replace('get_', ''))
             comm = True
-            if not playing:
-                print "Not playing."
-                break
-            else:
-                print iface.get_track_attr(command.replace('get_', ''))
 
     modify_commands = (
            'set_rating',
@@ -176,7 +171,7 @@ class DbusManager(dbus.service.Object):
             if type(value) == list:
                 return u"\n".join(value)
             return unicode(value)
-        return u''
+        return _('Not playing.')
 
     @dbus.service.method("org.exaile.ExaileInterface", 'sv')
     def set_track_attr(self, attr, value):

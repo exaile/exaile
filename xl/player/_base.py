@@ -68,6 +68,20 @@ class ExailePlayer(object):
         """
         self.mainbin.set_volume(volume)
 
+    def get_volume(self):
+        """
+            Gets the current volume percentage
+        """
+        return (settings.get_option("player/volume", 1) * 100)
+
+    def set_volume(self, volume):
+        """
+            Sets the current volume percentage
+        """
+        volume = min(volume, 100)
+        volume = max(0, volume)
+        settings.set_option("player/volume", volume / 100.0)
+
     def _get_current(self):
         raise NotImplementedError
 

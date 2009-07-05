@@ -412,7 +412,8 @@ class MainWindow(object):
         """
             Sets up the various widgets
         """
-        self.xml.get_widget('volume_slider').set_value(settings.get_option("player/volume", 1))
+        self.volume_slider = self.xml.get_widget('volume_slider')
+        self.volume_slider.set_value(settings.get_option("player/volume", 1))
         self.shuffle_toggle = self.xml.get_widget('shuffle_button')
         self.shuffle_toggle.set_active(settings.get_option('playback/shuffle', False))
         self.repeat_toggle = self.xml.get_widget('repeat_button')
@@ -529,7 +530,6 @@ class MainWindow(object):
             'on_window_state_event': self.window_state_change_event,
             'on_delete_event':      self.delete_event,
             'on_quit_item_activated': self.quit,
-            'on_playlist_notebook_switch':  self.playlist_switch_event,
             'on_play_button_clicked': self.on_play_clicked,
             'on_next_button_clicked':
                 lambda *e: self.controller.exaile.queue.next(),
@@ -541,6 +541,7 @@ class MainWindow(object):
             'on_repeat_button_toggled': self.set_mode_toggles,
             'on_dynamic_button_toggled': self.set_mode_toggles,
             'on_clear_playlist_button_clicked': self.on_clear_playlist,
+            'on_playlist_notebook_switch':  self.on_playlist_notebook_switch,
             'on_playlist_notebook_remove': self.on_playlist_notebook_remove,
             'on_playlist_notebook_button_press': self.on_playlist_notebook_button_press,
             'on_new_playlist_item_activated': lambda *e:
@@ -637,6 +638,15 @@ class MainWindow(object):
             queue.current_playlist = None
         self.playlist_notebook.remove_page(tab)
 
+    def on_playlist_notebook_switch(self, notebook, page, page_num):
+        """
+            Called when the page is changed in the playlist notebook
+        """
+        page = notebook.get_nth_page(page_num)
+        self.current_page = page_num
+        self.set_mode_toggles()
+        self.update_track_counts()
+
     def on_playlist_notebook_remove(self, notebook, widget):
         """
             Called when a tab is removed from the playlist notebook
@@ -722,6 +732,8 @@ class MainWindow(object):
         """
            Handles changes of settings
         """
+        if data == 'player/volume':
+            self.volume_slider.set_value(settings.get_option("player/volume", 1))
         if data == 'gui/show_tabbar':
             self.playlist_notebook.set_show_tabs(
                 settings.get_option('gui/show_tabbar', True)
@@ -851,15 +863,6 @@ class MainWindow(object):
                     pl.playlist.set_current_pos(
                         pl.playlist.index(track))
             exaile.queue.play()
-
-    def playlist_switch_event(self, notebook, page, page_num):
-        """
-            Called when the page is changed in the playlist notebook
-        """
-        page = notebook.get_nth_page(page_num)
-        self.current_page = page_num
-        self.set_mode_toggles()
-        self.update_track_counts()
 
     def _setup_position(self):
         """

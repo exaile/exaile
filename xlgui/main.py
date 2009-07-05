@@ -386,8 +386,7 @@ class MainWindow(object):
             nb.set_show_tabs(True)
 
         queue = self.controller.exaile.queue
-        if not queue.current_playlist:
-            queue.current_playlist = pl.playlist
+        queue.set_current_playlist(pl.playlist)
 
         return pl
 

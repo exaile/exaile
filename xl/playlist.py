@@ -1078,7 +1078,6 @@ class PlaylistManager(object):
             os.makedirs(self.playlist_dir)
         self.order_file = os.path.join(self.playlist_dir, 'order_file')
         self.playlists = []
-
         self.load_names()
 
     def save_playlist(self, pl, overwrite=False):

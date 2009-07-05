@@ -30,6 +30,7 @@ settings._SETTINGSMANAGER = \
 import logging
 from xl import collection, event, common, xdg
 import unittest, hashlib, time, imp, os
+import sys
 
 
 event._TESTING = True
@@ -52,7 +53,9 @@ class BaseTestCase(unittest.TestCase):
         path = 'plugins/' + pluginname
         if path is None:
             return False
+        sys.path.insert(0, path)
         plugin = imp.load_source(pluginname, os.path.join(path,'__init__.py'))
+        del sys.path[0]
         return plugin
 
     def setup_logging(self):

@@ -78,6 +78,7 @@ class GUIMainTestCase(base.BaseTestCase):
 
     def testCoverBox(self):
         self.testStartStopPlayback()
+        cover = self.gui.main.cover
 
-        assert self.gui.main.cover.loc.find('somesweet') > -1, \
+        assert cover.image.loc.find('somesweet') > -1, \
             "Cover did not set on playback event"

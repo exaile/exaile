@@ -205,9 +205,6 @@ class Callback(object):
     def vanished(self, ref):
         self.valid = False
 
-
-
-
 class _WeakMethod:
     """Represent a weak bound method, i.e. a method doesn't keep alive the 
     object that it is bound to. It uses WeakRef which, used on its own, 

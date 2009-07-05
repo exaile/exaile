@@ -74,6 +74,9 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         for name, value in self.manager.stations.iteritems():
             self.add_driver(value)
 
+    def _add_driver_cb(self, type, object, driver):
+        self.add_driver(driver)
+
     def add_driver(self, driver):
         """
             Adds a driver to the radio panel
@@ -87,6 +90,9 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         if settings.get_option('gui/radio/%s_station_expanded' % 
                 driver.name, False):
             self.tree.expand_row(self.model.get_path(node), False)
+
+    def _remove_driver_cb(self, type, object, driver):
+        self.remove_driver(driver)
 
     def remove_driver(self, driver):
         """
@@ -110,10 +116,10 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         self.tree.connect('row-collapsed', self.on_collapsed)
         self.tree.connect('row-activated', self.on_row_activated)
 
-        event.add_callback(lambda type, m, station:
-            self.add_driver(station), 'station_added', self.manager)
-        event.add_callback(lambda type, m, station:
-            self.remove_driver(station), 'station_removed', self.manager)
+        event.add_callback(self._add_driver_cb, 'station_added', 
+                self.manager)
+        event.add_callback(self._remove_driver_cb, 'station_removed', 
+                self.manager)
 
     def _setup_tree(self):
         """

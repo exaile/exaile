@@ -586,8 +586,8 @@ class Library(object):
                 if x.startswith(location)):
             if not f.startswith("file://"):
                 continue
-            f = f[7:]
-            if not os.path.exists(f):
+            f2 = f[7:]
+            if not os.path.exists(f2):
                 removals.append(db.get_track_by_loc(f))
         for tr in removals:
             logging.info(u"Removing " + unicode(tr))

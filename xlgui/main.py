@@ -200,6 +200,9 @@ class NotebookTab(gtk.EventBox):
         if event.button == 3:
             self.menu.popup(None, None, None, event.button, event.time)
 
+    def do_new_playlist(self, *args):
+        self.main.add_playlist()
+
     def do_rename(self, *args):
         dialog = commondialogs.TextEntryDialog(
             _("New playlist title:"), _("Rename Playlist"),
@@ -356,6 +359,11 @@ class MainWindow(object):
             pl = xl.playlist.Playlist()
         name = pl.name
         pl = playlist.Playlist(self, self.controller, pl)
+
+        try:
+            name = name % (self.playlist_notebook.get_n_pages() + 1)
+        except TypeError:
+            pass
         
         # make sure the name isn't too long
         if len(name) > 20:
@@ -525,6 +533,7 @@ class MainWindow(object):
             'on_dynamic_button_toggled': self.set_mode_toggles,
             'on_clear_playlist_button_clicked': self.on_clear_playlist,
             'on_playlist_notebook_remove': self.on_playlist_notebook_remove,
+            'on_playlist_notebook_button_press': self.on_playlist_notebook_button_press,
             'on_new_playlist_item_activated': lambda *e:
                 self.add_playlist(),
             'on_volume_slider_value_changed': self.on_volume_changed,
@@ -624,6 +633,10 @@ class MainWindow(object):
             Called when a tab is removed from the playlist notebook
         """
         if notebook.get_n_pages() == 0:
+            self.add_playlist()
+
+    def on_playlist_notebook_button_press(self, notebook, event):
+        if event.type == gtk.gdk._2BUTTON_PRESS:
             self.add_playlist()
 
     def on_clear_playlist(self, *e):

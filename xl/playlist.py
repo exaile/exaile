@@ -369,7 +369,7 @@ class Playlist(object):
         Represents a playlist, which is basically just a TrackDB
         with ordering.
     """
-    def __init__(self, name="Playlist"):
+    def __init__(self, name=_("Playlist %d")):
         """
             Sets up the Playlist
 

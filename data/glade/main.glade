@@ -488,6 +488,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="border_width">3</property>
+                    <signal name="button_press_event" handler="on_playlist_notebook_button_press"/>
                     <signal name="remove" handler="on_playlist_notebook_remove"/>
                     <signal name="switch_page" handler="on_playlist_notebook_switch"/>
                     <child>

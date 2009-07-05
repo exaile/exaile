@@ -138,7 +138,7 @@ class AddToPlaylistMenu(guiutil.Menu):
 
 
     def on_add_new_playlist(self, selected = None):
-        self.widget.controller.playlists_panel.add_new_playlist(self.widget.get_selected_tracks())
+        self.widget.controller.panels['playlists'].add_new_playlist(self.widget.get_selected_tracks())
 
     def on_add_to_playlist(self, selected = None, pl_name = None):
         """
@@ -149,7 +149,7 @@ class AddToPlaylistMenu(guiutil.Menu):
         tracks = self.widget.get_selected_tracks()
         pl.add_tracks(tracks)
         self.playlist_manager.save_playlist(pl, overwrite = True)
-        self.widget.controller.playlists_panel.update_playlist_node(pl)
+        self.widget.controller.panels['playlists'].update_playlist_node(pl)
 
     def popup(self, event):
         """
@@ -212,6 +212,7 @@ class PlaylistTabMenu(guiutil.Menu):
             Initializes the menu
         """
         guiutil.Menu.__init__(self)
+        self.append(_("_New Playlist"), tab.do_new_playlist, gtk.STOCK_NEW)
         self.append(_("_Rename"), tab.do_rename, gtk.STOCK_EDIT)
         self.append(_("C_lear"), tab.do_clear, gtk.STOCK_CLEAR)
         self.append(_("_Close"), tab.do_close, gtk.STOCK_CLOSE)

@@ -290,7 +290,6 @@ class TrackDB(object):
             tset = set()
 
             for t in self.search(search_terms):
-                if not t[tag]: continue
                 try:
                     for i in t[tag]:
                         tset.add(i)

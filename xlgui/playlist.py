@@ -16,7 +16,7 @@ import gtk, pango, gtk.gdk
 from xlgui import guiutil, menu, plcolumns
 from xlgui.plcolumns import *
 from xl import playlist, event, track, collection, xdg
-from xl import settings
+from xl import settings, trackdb
 from xl.nls import gettext as _
 import copy, urllib
 import logging
@@ -525,6 +525,10 @@ class Playlist(gtk.VBox):
 
         current_tracks = self.playlist.get_tracks()
         (tracks, playlists) = self.list.get_drag_data(locs)
+
+        tracks = trackdb.sort_tracks(
+            ('artist', 'date', 'album', 'discnumber', 'tracknumber'),
+            tracks)
 
         # Determine what to do with the tracks
         # by default we load all tracks.

@@ -19,7 +19,7 @@ pygst.require('0.10')
 import gst, logging
 import gtk, gtk.glade, gobject, pango, datetime
 from xl import xdg, event, track, common
-from xl import settings
+from xl import settings, trackdb
 import xl.playlist
 from xlgui import playlist, cover, guiutil, menu, commondialogs
 import xl.playlist, re, os, threading
@@ -613,9 +613,9 @@ class MainWindow(object):
         pl = self.get_selected_playlist()
 
         if sort:
-            column, descending = pl.get_sort_by()
-            items.sort(key=lambda track: track.sort_param(column),
-                reverse=descending)
+            items = trackdb.sort_tracks(
+                ('artist', 'date', 'album', 'discnumber', 'tracknumber'),
+                items)
 
         pl.playlist.add_tracks(items, add_duplicates=False)
         if queue:

@@ -31,7 +31,8 @@ class TestPlayer(engine_unified.UnifiedPlayer):
     def play(self, track):
         self.playing = True
         self.streams[0] = TestStream(track)
-        event.log_event('playback_start', self, track)
+        event.log_event('playback_player_start', self, track)
+        event.log_event('playback_track_start', self, track)
 
     def get_volume(self):
         return 1
@@ -41,15 +42,16 @@ class TestPlayer(engine_unified.UnifiedPlayer):
         self.paused = False
         current = self.current
         self.streams[0] = None
-        event.log_event('playback_end', self, current)
+        event.log_event('playback_player_end', self, current)
+        event.log_event('playback_track_end', self, current)
 
     def pause(self):
         self.paused = True
-        event.log_event('playback_pause', self, self.current)
+        event.log_event('playback_player_pause', self, self.current)
 
     def unpause(self):
         self.paused = False
-        event.log_event('playback_resume', self, self.current)
+        event.log_event('playback_player_resume', self, self.current)
 
     def toggle_pause(self):
         if self.is_paused():
@@ -90,13 +92,8 @@ class BaseTestCase(GtkTestCase,
 
     def setup_logging(self):
         console_format = "%(levelname)-8s: %(message)s"
-        loglevel = logging.INFO
-        logging.basicConfig(level=logging.INFO,
-                format='%(asctime)s %(levelname)-8s: %(message)s (%(name)s)',
-                datefmt="%m-%d %H:%M",
-                filename=os.path.join(xdg.get_config_dir(), "exaile.log"),
-                filemode="a")
-        console = logging.StreamHandler()
-        console.setLevel(loglevel)
-        formatter = logging.Formatter(console_format)
-        console.setFormatter(formatter)       
+#        loglevel = logging.DEBUG
+#        loglevel = logging.INFO
+        loglevel = logging.ERROR
+        logging.basicConfig(level=loglevel, format=console_format)
+#        event.EVENT_MANAGER.use_logger = True

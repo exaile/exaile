@@ -81,4 +81,5 @@ class GUIMainTestCase(base.BaseTestCase):
         cover = self.gui.main.cover
 
         assert cover.image.loc.find('somesweet') > -1, \
-            "Cover did not set on playback event"
+            "Cover did not set on playback event, got %s instead" % \
+            cover.image.loc

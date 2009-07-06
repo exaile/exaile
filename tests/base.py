@@ -15,6 +15,18 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import locale, gettext
+import os
+from xl import xdg
+# set up the xdg test directories
+base = '.xdgtest'
+for item in ('data_home', 'config_home', 'config_dirs'):
+    path = os.path.join(base, item)
+
+    try:
+        os.makedirs(path)
+    except OSError, e:
+        if e.errno != 17: raise e
+    setattr(xdg, item, path)
 
 # set the locale to LANG, or the user's default
 locale.setlocale(locale.LC_ALL, '')
@@ -23,12 +35,9 @@ locale.setlocale(locale.LC_ALL, '')
 # explicitly import it elsewhere
 gettext.install("exaile")
 
-from xl import settings
-settings._SETTINGSMANAGER = \
-        settings.SettingsManager('.testtemp/test_exaile_settings.ini')
 import logging
-from xl import collection, event, common, xdg
-import unittest, hashlib, time, imp, os
+from xl import collection, event, common
+import unittest, hashlib, time, imp
 import sys
 
 event._TESTING = True
@@ -36,17 +45,6 @@ common._TESTING = True
 class BaseTestCase(unittest.TestCase):
     def setUp(self):
         gettext.install("exaile")
-
-        # set up the xdg test directories
-        base = '.xdgtest'
-        for item in ('data_home', 'config_home'):
-            path = os.path.join(base, item)
-
-            try:
-                os.makedirs(path)
-            except OSError, e:
-                if e.errno != 17: raise e
-            setattr(xdg, item, path)
 
         self.loading = False
         self.setup_logging()

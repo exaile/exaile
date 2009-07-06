@@ -192,8 +192,6 @@ class SettingsManager(RawConfigParser):
         self._saving = False
         self._dirty = False
 
-
-
 _SETTINGSMANAGER = SettingsManager( 
         os.path.join(xdg.get_config_dir(), "settings.ini" ),
         xdg.get_config_path("settings.ini")
@@ -203,4 +201,3 @@ get_option = _SETTINGSMANAGER.get_option
 set_option = _SETTINGSMANAGER.set_option
 
 # vim: et sts=4 sw=4
-

@@ -434,6 +434,7 @@ class CoverWidget(gtk.EventBox):
             return
 
         if self.player.current == self.current_track:
+            self.image.loc = cov
             gobject.idle_add(self.image.set_image_data, cover.get_cover_data(cov))
             self.loc = cov
             gobject.idle_add(self._fire_event)

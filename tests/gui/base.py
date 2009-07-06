@@ -69,7 +69,6 @@ class TestPlayer(engine_unified.UnifiedPlayer):
         if not self.playing: return False
         return True
 
-
 class FakeRadio(object):
     stations = {}
 

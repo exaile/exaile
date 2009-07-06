@@ -24,7 +24,6 @@ locale.setlocale(locale.LC_ALL, '')
 # explicitly import it elsewhere
 gettext.install("exaile")
 
-
 try:
     import guitest
 except ImportError:
@@ -33,7 +32,6 @@ except ImportError:
 import unittest, doctest, os, shutil, sys, imp
 
 sys.path.insert(0, os.getcwd())
-
 
 from tests import base
 import xl
@@ -113,7 +111,7 @@ if __name__ == '__main__':
     runner = unittest.TextTestRunner(verbosity=2)
     result = runner.run(suite)
 
-    shutil.rmtree('.testtemp')
+    #shutil.rmtree('.testtemp')
     shutil.rmtree('.xdgtest')
 
     if not result.wasSuccessful():

@@ -348,11 +348,14 @@ class CoverManager(providers.ProviderHandler):
             cover = self.coverdb.get_cover(item[0], item[1]) 
         except TypeError: # one of the fields is missing
             raise NoCoverFoundException()
+        except AttributeError:
+            pass
 
         if cover:
             return cover
 
         covers = self.find_covers(track, limit=1)
+
         if covers:
             cover = covers[0]
         else:

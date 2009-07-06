@@ -18,7 +18,7 @@ class NotifyTestCase(BaseTestCase):
         self.player = DummyPlayer()
         self.player.current = track.Track()
         
-        self.player.current['title'] ='Truly'
+        self.player.current['title'] = 'Truly'
         self.player.current['artist'] = 'Delerium'
         self.player.current['album'] = 'Chimera'
 

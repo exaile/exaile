@@ -577,13 +577,13 @@ class MainWindow(object):
         # panels
         panels = self.controller.panels
 
-        for panel in ('playlists', 'radio', 'files', 'collection'):
-            panel = panels[panel]
+        for panel_name in ('playlists', 'radio', 'files', 'collection'):
+            panel = panels[panel_name]
             sort = False
-            if panel in ('files', 'collection'): sort = True
-            panel.connect('append-items', lambda panel, items:
+            if panel_name in ('files', 'collection'): sort = True
+            panel.connect('append-items', lambda panel, items, sort=sort:
                 self.on_append_items(items, sort=sort))
-            panel.connect('queue-items', lambda panel, items:
+            panel.connect('queue-items', lambda panel, items, sort=sort:
                 self.on_append_items(items, queue=True, sort=sort))
 
         ## Collection Panel

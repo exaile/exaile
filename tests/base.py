@@ -39,8 +39,7 @@ class BaseTestCase(unittest.TestCase):
 
         # set up the xdg test directories
         base = '.xdgtest'
-        for item in ('data_home', 'config_home', 'cache_home', 'data_dirs',
-            'config_dirs'):
+        for item in ('data_home', 'config_home'):
             path = os.path.join(base, item)
 
             try:

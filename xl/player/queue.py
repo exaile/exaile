@@ -123,6 +123,8 @@ class PlayQueue(playlist.Playlist):
             track = self.get_current()
         if track:
             self.player.play(track)
+            if track in self.ordered_tracks:
+                self.ordered_tracks.remove(track)
         else:
             self.next()
 

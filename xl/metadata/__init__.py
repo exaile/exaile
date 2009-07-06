@@ -79,6 +79,7 @@ def get_format(loc):
     """
     (path, ext) = os.path.splitext(loc.lower())
     ext = ext[1:] # remove the pesky .
+    ext = ext.lower()
 
     try:
         format = formats[ext]

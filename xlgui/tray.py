@@ -22,14 +22,21 @@ class BaseTrayIcon(object):
         self.window = guimain.main.window
         self.setup_menu()
 
+        event.add_callback(self._on_playback_change_state, 'playback_player_start')
+        event.add_callback(self._on_playback_change_state, 'playback_toggle_pause')
+        event.add_callback(self._on_playback_change_state, 'playback_player_end')
+
+    def _on_playback_change_state(self, event, player, current):
+        pass # To be overridden
+
     def setup_menu(self):
         """
             Sets up the popup menu for the tray icon
         """
         self.menu = guiutil.Menu()
 
-        self.image = gtk.Image()
-        self.image.set_from_stock('gtk-media-play',
+        self.playpause_image = gtk.Image()
+        self.playpause_image.set_from_stock('gtk-media-play',
             gtk.ICON_SIZE_MENU)
         self.label = gtk.Label(_("Play"))
         self.label.set_alignment(0, 0)
@@ -38,7 +45,7 @@ class BaseTrayIcon(object):
         hbox = gtk.HBox()
         hbox.pack_start(self.label, False, True)
         self.playpause.add(hbox)
-        self.playpause.set_image(self.image)
+        self.playpause.set_image(self.playpause_image)
         self.id = self.playpause.connect('activate', self._play)
         self.menu.append_item(self.playpause)
 
@@ -68,13 +75,13 @@ class BaseTrayIcon(object):
     def update_menu(self):
         track = self.main.player.current
         if not track or not self.main.player.is_playing():
-            self.image.set_from_stock('gtk-media-play',
+            self.playpause_image.set_from_stock('gtk-media-play',
                 gtk.ICON_SIZE_MENU)
             self.label.set_label(_("Play"))
             self.playpause.disconnect(self.id)
             self.id = self.playpause.connect('activate', self._play)
         elif self.main.player.is_playing():
-            self.image.set_from_stock('gtk-media-pause',
+            self.playpause_image.set_from_stock('gtk-media-pause',
                 gtk.ICON_SIZE_MENU)
             self.label.set_label(_("Pause"))
             self.playpause.disconnect(self.id)
@@ -103,7 +110,6 @@ class BaseTrayIcon(object):
 
 TrayIcon = BaseTrayIcon
 
-
 if EGG_AVAIL:
     class EggTrayIcon(BaseTrayIcon):
         def __init__(self, guimain):
@@ -114,12 +120,21 @@ if EGG_AVAIL:
             self.box = gtk.EventBox()
             self.icon.add(self.box)
     
-            image = gtk.Image()
-            image.set_from_file(xdg.get_data_path('images/trayicon.png'))
-            self.box.add(image)
+            self.image = gtk.Image()
+            self.image.set_from_file(xdg.get_data_path('images/trayicon.png'))
+            self.box.add(self.image)
             self.box.connect('button_press_event', self.button_pressed)
             self.icon.show_all()
             self.set_tooltip(_("Exaile Music Player"))
+
+        def _on_playback_change_state(self, event, player, current):
+            if player.current is not None:
+                if player.is_paused():
+                    self.image.set_from_stock('gtk-media-pause', gtk.ICON_SIZE_MENU)
+                else:
+                    self.image.set_from_stock('gtk-media-play', gtk.ICON_SIZE_MENU) 
+            else:
+                self.image.set_from_file(xdg.get_data_path('images/trayicon.png'))
     
         def button_pressed(self, item, event, data=None):
             """
@@ -152,6 +167,15 @@ elif hasattr(gtk, 'StatusIcon'):
             self.icon.connect('activate', self.activated)
             self.icon.connect('popup-menu', self.popup)
             self.set_tooltip(_("Exaile Music Player"))
+            
+        def _on_playback_change_state(self, event, player, current):
+            if player.current is not None:
+                if player.is_paused():
+                    self.icon.set_from_stock('gtk-media-pause')
+                else:
+                    self.icon.set_from_stock('gtk-media-play') 
+            else:
+                self.icon.set_from_file(xdg.get_data_path('images/trayicon.png'))
 
         def activated(self, icon):
             self.toggle_exaile_visibility()
@@ -169,8 +193,6 @@ elif hasattr(gtk, 'StatusIcon'):
             self.icon.set_visible(False)
 
     TrayIcon = GtkTrayIcon
-
-
 
 MAIN = None
 

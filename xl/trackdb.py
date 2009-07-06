@@ -289,20 +289,13 @@ class TrackDB(object):
         if sort_by == []:
             tset = set()
 
-            displayed = []
             for t in self.search(search_terms):
                 if not t[tag]: continue
                 try:
                     for i in t[tag]:
-                        if i.lower() in displayed:
-                            continue
                         tset.add(i)
-                        displayed.append(i.lower())
                 except:
-                    if t[tag].lower() in displayed:
-                        continue
                     tset.add(t[tag])
-                    displayed.append(t[tag].lower())
 
             vals = list(tset)
             if ignore_the:

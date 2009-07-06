@@ -197,7 +197,7 @@ class ShoutcastRadioStation(RadioStation):
 
     @guiutil.gtkrun
     def done_getting_playlist(self, pl):
-        self._parent.controller.main.add_playlist(pl)
+        self._parent.emit('playlist-selected', pl)
 
     def get_menu(self, parent):
         """

@@ -341,6 +341,7 @@ class CoverManager(providers.ProviderHandler):
             @param update_track: if True, update the coverdb to reflect the
                 new art
         """
+        cover = None
         try:
             item = track.get_album_tuple()
             if not item[0] or not item[1]: 

@@ -364,8 +364,9 @@ class EventManager(object):
 
             event: the Event to emit [Event]
         """
-        if not _TESTING: self.lock.acquire()
-        # find callbacks that match the Event
+        if not _TESTING: 
+            self.lock.acquire()
+
         callbacks = []
         for tcall in [_NONE, event.type]:
             for ocall in [_NONE, event.object]:
@@ -380,8 +381,10 @@ class EventManager(object):
                     pass
 
         if self.use_logger:
-            logger.debug(_("Sent '%(type)s' event from '%(object)s' with data '%(data)s'.") % 
-                {'type' : event.type, 'object' : repr(event.object), 'data' : repr(event.data)})
+            logger.debug(_("Sent '%(type)s' event from "
+                "'%(object)s' with data '%(data)s'.") % 
+                    {'type' : event.type, 'object' : repr(event.object), 
+                    'data' : repr(event.data)})
 
         # now call them
         for cb in callbacks:
@@ -391,6 +394,8 @@ class EventManager(object):
                         self.callbacks[event.type][event.object].remove(cb)
                     except KeyError:
                         pass
+                    except ValueError:
+                        pass
                 elif event.time >= cb.time:
                     cb.wfunction().__call__(event.type, event.object, 
                             event.data, *cb.args, **cb.kwargs)
@@ -398,7 +403,8 @@ class EventManager(object):
                 traceback.print_exc()
                 # something went wrong inside the function we're calling
                 if not _TESTING: 
-                    common.log_exception(logger)
+                    common.log_exception(logger, 
+                            message="Event callback exception caught!")
                 else:
                     traceback.print_exc()
 

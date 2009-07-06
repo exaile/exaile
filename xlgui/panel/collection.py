@@ -13,10 +13,12 @@
 # foundation, inc., 675 mass ave, cambridge, ma 02139, usa.
 
 from xl.nls import gettext as _
-import gtk, gobject, urllib
+import gtk, gobject, urllib, logging
 from xl import xdg, common, track, trackdb
 from xl import settings
 from xlgui import panel, guiutil, menu, playlist
+
+logger = logging.getLogger(__name__)
 
 TRACK_NUM = 300
 
@@ -24,6 +26,11 @@ class CollectionPanel(panel.Panel):
     """
         The collection panel
     """
+    __gsignals__ = {
+        'append-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+    }
+
     gladeinfo = ('collection_panel.glade', 'CollectionPanelWindow')
     orders = (
         ['artist', 'album', 'tracknumber', 'title'],
@@ -35,12 +42,11 @@ class CollectionPanel(panel.Panel):
         ['artist', 'date', 'album', 'tracknumber', 'title'],
     )
 
-    def __init__(self, controller, collection, name=None):
+    def __init__(self, parent, collection, name=None):
         """
             Initializes the collection panel
         """
-        panel.Panel.__init__(self, controller, name)
-        self.rating_images = playlist.create_rating_images(64)
+        panel.Panel.__init__(self, parent, name)
 
         self.collection = collection
         self.use_alphabet = settings.get_option('gui/use_alphabet', True)
@@ -54,8 +60,20 @@ class CollectionPanel(panel.Panel):
         self._setup_images()
         self._connect_events()
 
-        self.menu = menu.CollectionPanelMenu(self, controller.main)
+        self.menu = menu.CollectionPanelMenu()
+        self.menu.connect('append-items', lambda *e:
+            self.emit('append-items', self.get_selected_tracks()))
+        self.menu.connect('queue-items', lambda *e:
+            self.emit('queue-items', self.get_selected_tracks()))
+        self.menu.connect('rating-set', self.set_rating)
+
         self.load_tree()
+
+    def set_rating(self, widget, rating):
+        tracks = self.get_selected_tracks()
+        steps = settings.get_option('miscellaneous/rating_steps', 5)
+        for track in tracks:
+            track['rating'] = float((100.0*rating)/steps)
 
     def _setup_widgets(self):
         """
@@ -187,34 +205,13 @@ class CollectionPanel(panel.Panel):
         
         tracks = list(set(reduce(lambda x, y: list(x) + list(y), tracks)))
 
-        pl = self.controller.main.get_selected_playlist()
-        column, descending = pl.get_sort_by()
-        tracks.sort(key=lambda track: track.sort_param(column), reverse=descending)
-      
         return tracks
 
-    #FIXME: this should probably be moved into the playlist part of the UI
     def append_to_playlist(self, item=None, event=None):
         """
             Adds items to the current playlist
         """
-        add = self.get_selected_tracks()
-        if not add: return
-
-        pl = self.controller.main.get_selected_playlist()
-        if pl:
-            tracks = pl.playlist.get_tracks()
-            found = []
-            for track in add:
-                if not track in tracks:
-                    found.append(track)
-            pl.playlist.add_tracks(found)
-            if not self.controller.exaile.player.is_playing():
-               try:
-                   self.controller.exaile.queue.play(found[0])
-               except IndexError:
-                   pass
-
+        self.emit('append-items', self.get_selected_tracks())
 
     def button_press(self, widget, event):
         """ 
@@ -291,7 +288,9 @@ class CollectionPanel(panel.Panel):
         self.load_subtree(None)
 
         self.tree.set_model(self.model)
-        self.controller.main.update_track_counts()
+
+        logger.info("FIXME!!!: update track count signal here")
+        # self.controller.main.update_track_counts()
 
     def load_subtree(self, parent):
         iter_sep = None

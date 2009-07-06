@@ -128,8 +128,10 @@ class QueueManager(object):
         self.remove(i)
 
     def remove_all(self, button, *userparams):
-        while len(self._queue.get_ordered_tracks()):
-            self.remove(0)
+        self._queue.clear()
+        self.__populate_queue()
+#        while len(self._queue.get_ordered_tracks()):
+#            self.remove(0)
 
     def remove(self, i):
         """Removes the ith item from the queue, 0-indexed"""

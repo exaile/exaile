@@ -15,7 +15,7 @@
 import gtk, gtk.glade, gobject
 from xl import xdg
 
-class Panel(object):
+class Panel(gobject.GObject):
     """
         The base panel class.
 
@@ -24,26 +24,29 @@ class Panel(object):
     """
     gladeinfo = ('panel.glade', 'PanelWindow')
 
-    def __init__(self, controller, name=None):
+    def __init__(self, parent, name=None):
         """
             Intializes the panel
             
             @param controller: the main gui controller
         """
-        self.controller = controller
-
+        gobject.GObject.__init__(self)
+        self.name = name
+        self.parent = parent
         self.xml = gtk.glade.XML(xdg.get_data_path("glade/%s" %
             self.gladeinfo[0]), self.gladeinfo[1], 'exaile')
+        self._child = None
 
-        window = self.xml.get_widget(self.gladeinfo[1])
-        self._child = window.get_child()
-        window.remove(self._child)
+    def get_panel(self):
+        if not self._child:
+            window = self.xml.get_widget(self.gladeinfo[1])
+            self._child = window.get_child()
+            window.remove(self._child)
+            if not self.name:
+                self.name = window.get_title()
+            window.destroy()
 
-        if name == None:
-            name = window.get_title()
-        self.controller.add_panel(self._child, name)
-        window.destroy()
-
+        return (self._child, self.name)
 
     def __del__(self):
         try:

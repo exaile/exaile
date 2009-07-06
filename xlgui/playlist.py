@@ -103,7 +103,10 @@ class Playlist(gtk.VBox):
         self._setup_events()
         self._set_tracks(self.playlist.get_tracks())
 
-        self.menu = menu.PlaylistMenu(self)
+        self.menu = menu.PlaylistMenu(self, controller.exaile.playlists)
+        self.menu.connect('rating-set', self.set_rating)
+        self.menu.connect('remove-items', lambda *e:
+            self.remove_selected_tracks())
 
         self.show_all()
 
@@ -111,6 +114,12 @@ class Playlist(gtk.VBox):
         event.add_callback(self.on_add_tracks, 'tracks_added', self.playlist)
         event.add_callback(self.on_remove_tracks, 'tracks_removed',
             self.playlist)
+
+    def set_rating(self, widget, rating):
+        tracks = self.get_selected_tracks()
+        steps = settings.get_option('miscellaneous/rating_steps', 5)
+        for track in tracks:
+            track['rating'] = float((100.0*rating)/steps)
 
     def _setup_col_menus(self):
         """

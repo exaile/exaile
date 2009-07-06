@@ -165,4 +165,3 @@ class PlayQueue(playlist.Playlist):
                 self.player.toggle_pause()
             self.player._set_volume(vol)
             self.player._playtime_stamp = state['_playtime_stamp']
-

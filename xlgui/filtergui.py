@@ -30,7 +30,7 @@ class FilterDialog(gtk.Dialog):
     Consists of a FilterWidget and an Add button.
     """
 
-    def __init__(self, title, criteria):
+    def __init__(self, title, parent, criteria):
         """Create a filter dialog.
 
         Parameters:
@@ -38,9 +38,11 @@ class FilterDialog(gtk.Dialog):
         - criteria: possible criteria; see FilterWindow
         """
 
-        gtk.Dialog.__init__(self, title, buttons=(
+        gtk.Dialog.__init__(self, title, parent, buttons=(
             gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT,
             gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
+
+        self.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
 
         top = gtk.HBox()
         top.set_border_width(5)

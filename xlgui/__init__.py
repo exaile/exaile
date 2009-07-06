@@ -49,21 +49,22 @@ class Main(object):
         self.progress_manager = progress.ProgressManager(self.progress_box)
 
         self.main = main.MainWindow(self, self.xml,
-            exaile.collection,
-            exaile.player, exaile.queue, exaile.covers)
+            exaile.collection, exaile.player, exaile.queue, exaile.covers)
         self.panel_notebook = self.xml.get_widget('panel_notebook')
         self.play_toolbar = self.xml.get_widget('play_toolbar')
-        self._connect_events()
 
-        self.last_selected_panel = settings.get_option('gui/last_selected_panel', None)
-        self.panels['collection'] = collection.CollectionPanel(self,
+        self.last_selected_panel = settings.get_option(
+            'gui/last_selected_panel', None)
+        self.panels['collection'] = collection.CollectionPanel(self.main.window,
             exaile.collection)
-        self.panels['radio'] = radio.RadioPanel(self,
-            exaile.collection, exaile.radio, exaile.stations)
-        self.panels['playlists'] = playlists.PlaylistsPanel(self,
+        self.panels['radio'] = radio.RadioPanel(self.main.window, exaile.collection, 
+            exaile.radio, exaile.stations)
+        self.panels['playlists'] = playlists.PlaylistsPanel(self.main.window, 
             exaile.playlists, exaile.smart_playlists, exaile.collection)
-        self.panels['files'] = files.FilesPanel(self,
-            exaile.collection)
+        self.panels['files'] = files.FilesPanel(self.main.window, exaile.collection)
+
+        for panel in ('collection', 'radio', 'playlists', 'files'):
+            self.add_panel(*self.panels[panel].get_panel())
 
         try:
             selected_panel = self.panels[self.last_selected_panel]._child
@@ -71,6 +72,9 @@ class Main(object):
             self.panel_notebook.set_current_page(selected_panel_num)
         except KeyError:
             pass
+        
+        self.main._connect_panel_events()
+        self._connect_events()
 
         if settings.get_option('gui/use_tray', False):
             self.tray_icon = tray.TrayIcon(self)

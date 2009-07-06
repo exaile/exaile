@@ -12,11 +12,11 @@
 # along with this program; if not, write to the free software
 # foundation, inc., 675 mass ave, cambridge, ma 02139, usa.
 
-import gtk, urllib, os.path, time
+import gtk, urllib, os.path, time, gobject
 from xlgui import panel, guiutil, xdg, commondialogs
 from xlgui import menu, filtergui
 from xlgui import playlist as guiplaylist
-from xl import playlist
+from xl import playlist, settings
 from xlgui.filtergui import MultiEntryField, EntryField
 from xl.nls import gettext as _
 
@@ -147,16 +147,23 @@ class TrackWrapper(object):
         if not text: return self.track.get_loc()
         return text
 
-class BasePlaylistPanelMixin(object):
+class BasePlaylistPanelMixin(gobject.GObject):
     """
         Base playlist tree object.  
 
         Used by the radio and playlists panels to display playlists
     """
+    __gsignals__ = {
+        'playlist-selected': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'tracks-selected': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'append-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+    }
     def __init__(self):
         """
             Initializes the mixin
         """
+        gobject.GObject.__init__(self)
         self.playlist_nodes = {}
         self.track_image = gtk.gdk.pixbuf_new_from_file(
             xdg.get_data_path('images/track.png'))
@@ -257,6 +264,12 @@ class BasePlaylistPanelMixin(object):
 
         return None
 
+    def set_rating(self, widget, rating):
+        tracks = self.get_selected_tracks()
+        steps = settings.get_option('miscellaneous/rating_steps', 5)
+        for track in tracks:
+            track['rating'] = float((100.0*rating)/steps)
+
     def open_item(self, tree, path, col):
         """
             Called when the user double clicks on a playlist,
@@ -276,14 +289,8 @@ class BasePlaylistPanelMixin(object):
                     #Get an up to date copy
                     item = self.playlist_manager.get_playlist(item.get_name())
         
-                self.controller.main.add_playlist(item)
-            else:
-                #Its a track
-                pl = self.playlist_manager.get_playlist(item.playlist.get_name())
-                pl.set_current_pos(pl.index(item.track))
-                self.controller.main.add_playlist(pl)
-                self.controller.exaile.queue.play(item.track)
-                pass
+#                self.controller.main.add_playlist(item)
+                self.emit('playlist-selected', item)
 
     def add_new_playlist(self, tracks = []):
         dialog = commondialogs.TextEntryDialog(
@@ -352,7 +359,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
     """
     gladeinfo = ('playlists_panel.glade', 'PlaylistsPanelWindow')
 
-    def __init__(self, controller, playlist_manager, 
+    def __init__(self, parent, playlist_manager, 
         smart_manager, collection):
         """
             Intializes the playlists panel
@@ -360,9 +367,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             @param controller:  The main gui controller
             @param playlist_manager:  The playlist manager
         """
-        panel.Panel.__init__(self, controller)
+        panel.Panel.__init__(self, parent)
         BasePlaylistPanelMixin.__init__(self)
-        self.rating_images = guiplaylist.create_rating_images(64)
         self.playlist_manager = playlist_manager
         self.smart_manager = smart_manager
         self.collection = collection
@@ -405,13 +411,41 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             xdg.get_data_path('images/playlist.png'))
 
         # menus
-        self.playlist_menu = menu.PlaylistsPanelPlaylistMenu(self, controller.main)
-        self.smart_menu = menu.PlaylistsPanelPlaylistMenu(self,
-            controller.main, smart=True)
-        self.default_menu = menu.PlaylistsPanelMenu(self)
-        self.track_menu = menu.PlaylistsPanelTrackMenu(self)
+        self.playlist_menu = menu.PlaylistsPanelPlaylistMenu()
+        self.smart_menu = menu.PlaylistsPanelPlaylistMenu(smart=True)
+        self.default_menu = menu.PlaylistsPanelMenu()
+        self.track_menu = menu.PlaylistsPanelTrackMenu()
 
+        self._connect_events()
         self._load_playlists()
+
+    def _connect_events(self):
+        for item in ('playlist', 'smart', 'default'):
+            menu = getattr(self, '%s_menu' % item)
+            menu.connect('add-playlist', lambda *e:
+                self.add_new_playlist()) 
+            menu.connect('add-smart-playlist', lambda *e:
+                self.add_smart_playlist())
+
+            if item != 'default':
+                menu.connect('append-items', lambda *e:
+                    self.emit('append-items', self.get_selected_tracks()))
+                menu.connect('queue-items', lambda *e:
+                    self.emit('queue-items', self.get_selected_tracks()))
+                menu.connect('rating-set', self.set_rating)
+
+                menu.connect('open-playlist', lambda *e: 
+                    self.open_selected_playlist())
+                menu.connect('export-playlist', lambda widget, path:
+                    self.export_selected_playlist(path))
+                menu.connect('rename-playlist', lambda widget, name:
+                    self.rename_selected_playlist(name))
+                menu.connect('remove-playlist', lambda *e:
+                    self.remove_selected_playlist())
+            
+            if item == 'smart':
+                menu.connect('edit-playlist', lambda *e:
+                    self.edit_selected_smart_playlist())
 
     def _load_playlists(self):
         """
@@ -456,10 +490,10 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         """
             Adds a new smart playlist
         """
-        dialog = filtergui.FilterDialog(_('Add Smart Playlist'),
+        dialog = filtergui.FilterDialog(_('Add Smart Playlist'), self.parent,
             CRITERIA)
 
-        dialog.set_transient_for(self.controller.main.window)
+        dialog.set_transient_for(self.parent)
         result = dialog.run()
         dialog.hide()
         if result == gtk.RESPONSE_ACCEPT:
@@ -517,10 +551,10 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
         state.reverse()
 
-        dialog = filtergui.FilterDialog(_('Edit Smart Playlist'),
+        dialog = filtergui.FilterDialog(_('Edit Smart Playlist'), self.parent,
             CRITERIA)
 
-        dialog.set_transient_for(self.controller.main.window)
+        dialog.set_transient_for(self.parent)
         dialog.set_name(pl.get_name())
         dialog.set_match_any(pl.get_or_match())
         dialog.set_limit(pl.get_return_limit())

@@ -451,6 +451,9 @@ class PlaylistsPanelTrackMenu(guiutil.Menu):
         Menu for xlgui.panel.playlists.PlaylistsPanel, for when the
         user right clicks on a track under a custom playlist
     """
+    __gsignals__ = {
+        'remove-track': (gobject.SIGNAL_RUN_LAST, None, ()),
+    }
     def __init__(self):
         """
             @param widget: playlists panel widget
@@ -461,7 +464,7 @@ class PlaylistsPanelTrackMenu(guiutil.Menu):
                     'gtk-remove')
 
     def on_remove_track(self, selected = None):
-        self.widget.remove_selected_track()
+        self.emit('remove-track')
 
     def popup(self, event):
         """

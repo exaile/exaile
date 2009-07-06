@@ -149,6 +149,10 @@ class FilesPanel(panel.Panel):
         if event.button == 3:
             selection = self.tree.get_selection()
             self.menu.popup(event)
+            
+            if len(self.get_selected_tracks()) > 2: return True
+
+        return False
 
     def row_activated(self, *i):
         """
@@ -163,14 +167,8 @@ class FilesPanel(panel.Panel):
             dir = os.path.join(self.current, value)
             if os.path.isdir(dir):
                 self.load_directory(dir)
-#            else:
-#                if common.any(dir.endswith(ext) for ext in xlmisc.PLAYLIST_EXTS):
-#                    self.exaile.import_playlist(dir, True)
-#                else:
-#                    tr = library.read_track(self.exaile.db, self.exaile.all_songs,
-#                        dir)
-#                    if tr:
-#                        self.exaile.playlist_manager.append_songs((tr, ))
+            else:
+                self.emit('append-items', self.get_selected_tracks())
 
     def key_release(self, *e):
         """

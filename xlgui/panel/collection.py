@@ -29,6 +29,7 @@ class CollectionPanel(panel.Panel):
     __gsignals__ = {
         'append-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'collection-tree-loaded': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
 
     gladeinfo = ('collection_panel.glade', 'CollectionPanelWindow')
@@ -289,8 +290,7 @@ class CollectionPanel(panel.Panel):
 
         self.tree.set_model(self.model)
 
-        logger.info("FIXME!!!: update track count signal here")
-        # self.controller.main.update_track_counts()
+        self.emit('collection-tree-loaded')
 
     def load_subtree(self, parent):
         iter_sep = None

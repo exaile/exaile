@@ -363,7 +363,6 @@ class PlaylistIterator(object):
         except:
             raise StopIteration
 
-
 class Playlist(object):
     """
         Represents a playlist, which is basically just a TrackDB

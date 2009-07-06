@@ -586,6 +586,11 @@ class MainWindow(object):
             panel.connect('queue-items', lambda panel, items:
                 self.on_append_items(items, queue=True, sort=sort))
 
+        ## Collection Panel
+        panel = panels['collection']
+        panel.connect('collection-tree-loaded', lambda *e:
+            self.update_track_counts())
+
         ## Playlist Panel
         panel = panels['playlists']
         panel.connect('playlist-selected',

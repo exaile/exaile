@@ -250,5 +250,14 @@ def lstrip_special(field, the_cutter=False):
         ret = the_cutter(ret)
     return ret
 
+# python<2.5 compatibility. Drop this when python2.4 isn't used so much anymore.
+try:
+    any = any
+except NameError:
+    def any(seq):
+        for e in seq:
+            if e: return True
+        return False
+
 # vim: et sts=4 sw=4
 

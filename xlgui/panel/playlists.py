@@ -291,6 +291,8 @@ class BasePlaylistPanelMixin(gobject.GObject):
         
 #                self.controller.main.add_playlist(item)
                 self.emit('playlist-selected', item)
+            else:
+                self.emit('append-items', [item.track])
 
     def add_new_playlist(self, tracks = []):
         dialog = commondialogs.TextEntryDialog(
@@ -420,6 +422,9 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         self._load_playlists()
 
     def _connect_events(self):
+        self.track_menu.connect('remove-track', lambda *e: 
+            self.remove_selected_track())
+
         for item in ('playlist', 'smart', 'default'):
             menu = getattr(self, '%s_menu' % item)
             menu.connect('add-playlist', lambda *e:

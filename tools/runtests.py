@@ -111,7 +111,7 @@ if __name__ == '__main__':
     runner = unittest.TextTestRunner(verbosity=2)
     result = runner.run(suite)
 
-    #shutil.rmtree('.testtemp')
+    shutil.rmtree('.testtemp')
     shutil.rmtree('.xdgtest')
 
     if not result.wasSuccessful():

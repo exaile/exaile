@@ -24,14 +24,18 @@ class FilesPanel(panel.Panel):
     """
         The Files panel
     """
+    __gsignals__ = {
+        'append-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+    }
 
     gladeinfo = ('files_panel.glade', 'FilesPanelWindow')
 
-    def __init__(self, controller, collection):
+    def __init__(self, parent, collection):
         """
             Initializes the files panel
         """
-        panel.Panel.__init__(self, controller)
+        panel.Panel.__init__(self, parent)
         self.rating_images = playlist.create_rating_images(64)
         self.collection = collection
 
@@ -41,7 +45,12 @@ class FilesPanel(panel.Panel):
 
         self._setup_tree()
         self._setup_widgets()
-        self.menu = menu.FilesPanelMenu(self, controller.main)
+        self.menu = menu.FilesPanelMenu()
+        self.menu.connect('append-items', lambda *e:
+            self.emit('append-items', self.get_selected_tracks()))
+        self.menu.connect('queue-items', lambda *e:
+            self.emit('queue-items', self.get_selected_tracks()))
+        self.menu.connect('rating-set', self.set_rating)
 
         self.key_id = None
         self.i = 0
@@ -50,6 +59,12 @@ class FilesPanel(panel.Panel):
             xdg.homedir)
         self.history = [self.first_dir]
         self.load_directory(self.first_dir, False)
+
+    def set_rating(self, widget, rating):
+        tracks = self.get_selected_tracks()
+        steps = settings.get_option('miscellaneous/rating_steps', 5)
+        for track in tracks:
+            track['rating'] = float((100.0*rating)/steps)
 
     def _setup_tree(self):
         """
@@ -302,9 +317,6 @@ class FilesPanel(panel.Panel):
             self.append_recursive(tracks, value)
 
         if tracks:
-            pl = self.controller.main.get_selected_playlist()
-            column, descending = pl.get_sort_by()
-            tracks.sort(key=lambda track: track.sort_param(column), reverse=descending)
             return tracks
 
         # no tracks found

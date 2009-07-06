@@ -512,7 +512,7 @@ class MainWindow(object):
         
         queuecount = len(self.queue)
         if queuecount:
-          message += _("(%(queue_count)d queued)") % {'queue_count' : queuecount}
+          message += _(" (%(queue_count)d queued)") % {'queue_count' : queuecount}
 
         self.track_count_label.set_label(message)
 
@@ -569,6 +569,53 @@ class MainWindow(object):
         
         # Settings
         event.add_callback(self._on_setting_change, 'option_set')
+
+    def _connect_panel_events(self):
+        """
+            Sets up panel events
+        """
+        # panels
+        panels = self.controller.panels
+
+        for panel in ('playlists', 'radio', 'files', 'collection'):
+            panel = panels[panel]
+            sort = False
+            if panel in ('files', 'collection'): sort = True
+            panel.connect('append-items', lambda panel, items:
+                self.on_append_items(items, sort=sort))
+            panel.connect('queue-items', lambda panel, items:
+                self.on_append_items(items, queue=True, sort=sort))
+
+        ## Playlist Panel
+        panel = panels['playlists']
+        panel.connect('playlist-selected',
+            lambda panel, playlist: self.add_playlist(playlist))
+
+        ## Radio Panel
+        panel = panels['radio']
+        panel.connect('playlist-selected',
+            lambda panel, playlist: self.add_playlist(playlist))
+
+        ## Files Panel
+        panel = panels['files']
+
+    def on_append_items(self, items, queue=False, sort=False):
+        """
+            Called when a panel (or other component) has tracks to append and
+            possibly queue
+        """
+        if not items: return
+        pl = self.get_selected_playlist()
+
+        if sort:
+            column, descending = pl.get_sort_by()
+            items.sort(key=lambda track: track.sort_param(column),
+                reverse=descending)
+
+        pl.playlist.add_tracks(items, add_duplicates=False)
+        if queue:
+            self.queue.add_tracks(items, add_duplicates=False)
+        pl.list.queue_draw()
 
     @guiutil.gtkrun
     def on_playback_error(self, type, player, message):

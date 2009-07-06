@@ -140,7 +140,6 @@ class QueueManager(object):
         cur_queue.pop(i)
         self.__populate_queue()
 
-# Moving callbacks
     def selected_to_top(self, button, *userparams):
         self.reorder(lambda x, l: 0)
 

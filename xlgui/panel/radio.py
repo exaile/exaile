@@ -27,16 +27,20 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
     """
         The Radio Panel
     """
+    __gsignals__ = {
+        'playlist-selected': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'append-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+        'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
+    }
     gladeinfo = ('radio_panel.glade', 'RadioPanelWindow')
 
-    def __init__(self, controller, collection, 
+    def __init__(self, parent, collection, 
         radio_manager, station_manager):
         """
             Initializes the radio panel
         """
-        panel.Panel.__init__(self, controller)
+        panel.Panel.__init__(self, parent)
         playlistpanel.BasePlaylistPanelMixin.__init__(self)
-        self.rating_images = guiplaylist.create_rating_images(64)
       
         self.collection = collection
         self.manager = radio_manager
@@ -52,9 +56,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             xdg.get_data_path('images/playlist.png'))
 
         # menus
-        self.playlist_menu = menu.RadioPanelPlaylistMenu(self,
-            controller.main)
-        self.track_menu = menu.PlaylistsPanelTrackMenu(self)
+        self.playlist_menu = menu.RadioPanelPlaylistMenu()
+        self.track_menu = menu.PlaylistsPanelTrackMenu()
 
         self.load_streams()
 
@@ -165,7 +168,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         iter = self.model.get_iter(path)
         item = self.model.get_value(iter, 2)
         if isinstance(item, xl.radio.RadioItem):
-            self.controller.main.add_playlist(item.get_playlist())
+            self.emit('playlist-selected', item.get_playlist())
         elif isinstance(item, xl.playlist.Playlist):
             self.open_station(item)
 
@@ -173,7 +176,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         """
             Opens a saved station
         """
-        self.controller.main.add_playlist(playlist)
+        self.emit('playlist-selected', playlist)
 
     def get_menu(self):
         """

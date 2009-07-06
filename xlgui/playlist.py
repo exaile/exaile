@@ -83,6 +83,7 @@ class Playlist(gtk.VBox):
 
         self.main = main
         self.controller = controller
+        self.exaile = controller.exaile
         self.search_keyword = ''
         self.xml = main.xml
 
@@ -107,6 +108,8 @@ class Playlist(gtk.VBox):
         self.menu.connect('rating-set', self.set_rating)
         self.menu.connect('remove-items', lambda *e:
             self.remove_selected_tracks())
+        self.menu.connect('queue-items', lambda *e:
+            self.queue_selected_tracks())
 
         self.show_all()
 
@@ -114,6 +117,21 @@ class Playlist(gtk.VBox):
         event.add_callback(self.on_add_tracks, 'tracks_added', self.playlist)
         event.add_callback(self.on_remove_tracks, 'tracks_removed',
             self.playlist)
+
+    def queue_selected_tracks(self):
+        """
+            Toggles queue of selected tracks
+        """
+        tracks = self.get_selected_tracks()
+
+        queue_tracks = self.exaile.queue.ordered_tracks
+        for track in tracks:
+            if track in queue_tracks:
+                queue_tracks.remove(track)
+            else:
+                queue_tracks.append(track)
+
+        self.list.queue_draw()
 
     def set_rating(self, widget, rating):
         tracks = self.get_selected_tracks()

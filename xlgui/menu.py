@@ -28,6 +28,7 @@ class GenericTrackMenu(guiutil.Menu):
     """
     __gsignals__ = {
         'rating-set': (gobject.SIGNAL_RUN_LAST, None, (int,)),
+        'queue-items': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
     def __init__(self):
         guiutil.Menu.__init__(self)
@@ -61,35 +62,12 @@ class GenericTrackMenu(guiutil.Menu):
             Called when the user updates the rating for selected tracks
         """
         self.emit('rating-set', i)
-#        if not selected:
-#            selected = self.widget.get_selected_tracks()
 
-#        steps = settings.get_option("miscellaneous/rating_steps", 5)
-
-#        for track in selected:
-#            track['rating'] = float((100.0*i)/steps)
-
-#        if hasattr(self.widget, 'queue_draw'):
-#            self.widget.queue_draw()
-
-    def on_queue(self, selected=None):
+    def on_queue(self):
         """
             Called when the user clicks the "toggle queue" item
         """
-        if not selected:
-            selected = self.widget.get_selected_tracks()
-        current = self.queue.get_tracks()
-
-        for track in selected:
-            if track in current:
-                current.remove(track)
-            else:
-                current.append(track)
-
-        self.queue.clear()
-        self.queue.add_tracks(current)
-        if hasattr(self.widget, 'queue_draw'):
-            self.widget.queue_draw()
+        self.emit('queue-items')
 
     def _add_queue_pixbuf(self):
         """
@@ -231,7 +209,6 @@ class TrackSelectMenu(GenericTrackMenu):
     """
     __gsignals__ = {
         'append-items': (gobject.SIGNAL_RUN_LAST, None, ()),
-        'queue-items': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
     def __init__(self):
         """

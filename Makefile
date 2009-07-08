@@ -1,6 +1,6 @@
-PREFIX ?= /usr/local
+PREFIX ?= $(DESTDIR)/usr/local
 LIBINSTALLDIR ?= /lib
-XDGCONFDIR ?= /etc/xdg
+XDGCONFDIR ?= $(DESTDIR)/etc/xdg
 
 EXAILELIBDIR = $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile
 EXAILESHAREDIR = $(DESTDIR)$(PREFIX)/share/exaile

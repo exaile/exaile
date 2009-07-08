@@ -705,8 +705,7 @@ class MainWindow(object):
             self.add_playlist()
 
     def on_playlist_notebook_button_press(self, notebook, event):
-        if (event.type == gtk.gdk._2BUTTON_PRESS and event.button == 1) or \
-                (event.type == gtk.gdk.BUTTON_PRESS and event.button == 2):
+        if event.type == gtk.gdk.BUTTON_PRESS and event.button == 2:
             self.add_playlist()
 
     def on_clear_playlist(self, *e):

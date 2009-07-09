@@ -200,6 +200,7 @@ class NormalPlayer(_base.ExailePlayer):
             self._current = None
             if fire:
                 event.log_event('playback_player_end', self, current)
+                event.log_event('playback_track_end', self, current)
             return True
         return False
 

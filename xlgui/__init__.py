@@ -337,6 +337,7 @@ class Main(object):
         from xlgui.panel.device import DevicePanel
         panel = DevicePanel(self, device, device.get_name())
         self.device_panels[device.get_name()] = panel
+        gobject.idle_add(self.add_panel, *panel.get_panel())
         thread = collection.CollectionScanThread(self.main, 
                 device.get_collection(), panel )
         self.progress_manager.add_monitor(thread,
@@ -344,7 +345,8 @@ class Main(object):
 
     def remove_device_panel(self, type, obj, device):
         try:
-            self.remove_panel(self.device_panels[device.get_name()]._child)
+            self.remove_panel(
+                    self.device_panels[device.get_name()].get_panel()[0])
         except ValueError:
             logger.debug("Couldn't remove panel for %s"%device.get_name())
         del self.device_panels[device.get_name()]

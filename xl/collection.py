@@ -582,9 +582,12 @@ class Library(object):
         location = self.location
         if "://" not in location:
             location = u"file://" + location
-        for f in (x for x in db.tracks.iterkeys() 
-                if x.startswith(location)):
-            if not f.startswith("file://"):
+        
+        for f in (x for x in db.tracks.iterkeys()):
+            try:
+                if not f.startswith(u"file://%s"%location):
+                    continue
+            except UnicodeDecodeError:
                 continue
             f2 = f[7:]
             if not os.path.exists(f2):

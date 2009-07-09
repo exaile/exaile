@@ -68,17 +68,25 @@ class HAL(providers.ProviderHandler):
         device = dbus.Interface(dev_obj, "org.freedesktop.Hal.Device")
         try:
             capabilities = device.GetProperty("info.capabilities")
-            for handler in self.get_providers():
-                if handler.is_type(device, capabilities):
-                    return handler
         except dbus.exceptions.DBusException,e:
-            if e.get_dbus_name() == "org.freedesktop.Hal.NoSuchProperty":
-                return None
-            else:
+            if not e.get_dbus_name() == "org.freedesktop.Hal.NoSuchProperty":
                 common.log_exception(logger)
+            return None
+        handlers = []
+        for handler in self.get_providers():
+            rank = handler.is_type(device, capabilities)
+            if rank == 0:
+                continue
+            handlers.append((rank, handler))
+        if handlers != []:
+            return max(handlers)[1]
         return None
 
     def add_device(self, device_udi):
+        if device_udi in self.hal_devices:
+            logger.warning("Device %s already in hal list, skipping."%device_udi)
+            return
+
         handler = self.get_handler(device_udi)
         if handler is None:
             logger.debug(_("Found no HAL device handler for %s")%device_udi)

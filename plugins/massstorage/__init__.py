@@ -40,12 +40,14 @@ class MassStorageDevice(Device):
         if not name:
             name = mountpoints[0].split(os.sep)[-1]
         Device.__init__(self, name)
-        self.mountpoints = mountpoints
+        self._mountpoints = mountpoints
+        self.mountpoints = []
 
     def connect(self):
-        self.mountpoints = [ x for x in self.mountpoints if os.path.exists(x) ]
+        self.mountpoints = [ str(x) for x in self._mountpoints if 
+                str(x) is not None and os.path.exists(unicode(x)) ]
         if self.mountpoints == []:
-            raise IOError, "Mountpoint does not exist"
+            raise IOError, "Device is not mounted."
         for mountpoint in self.mountpoints:
             library = collection.Library(mountpoint)
             self.collection.add_library(library)
@@ -54,16 +56,40 @@ class MassStorageDevice(Device):
     def disconnect(self):
         self.collection = collection.Collection(name=self.name)
         self.connected = False
+        self.mountpoints = []
+
+
+class HalMountpoint(object):
+    """
+        Class to represent a mountpoint so we can delay HAL
+        mountpoint resolution.  
+    """
+    def __init__(self, hal, udi):
+        self.hal = hal
+        self.udi = udi
+
+    def __str__(self):
+        udis = self.hal.hal.FindDeviceStringMatch("info.parent", self.udi)
+        for u in udis:
+            obj = self.hal.bus.get_object("org.freedesktop.Hal", u)
+            dev = dbus.Interface(obj, "org.freedesktop.Hal.Device")
+            if dev.GetProperty("volume.is_mounted") == True:
+                return str(dev.GetProperty("volume.mount_point"))
+        return None
 
 
 class MassStorageHandler(Handler):
     name = "massstorage"
     def is_type(self, device, capabilities):
         if "portable_audio_player" in capabilities:
-            if "storage" in device.GetProperty(
-                    "portable_audio_player.access_method.protocols"):
-                return True
-        return False
+            try:
+                if "storage" in device.GetProperty(
+                        "portable_audio_player.access_method.protocols"):
+                    return 10
+            except dbus.exceptions.DBusException,e:
+                if not e.get_dbus_name() == "org.freedesktop.Hal.NoSuchProperty":
+                    common.log_exception(log=logger)
+        return 0
 
     def get_udis(self, hal):
         udis = hal.hal.FindDeviceByCapability("portable_audio_player")
@@ -85,16 +111,9 @@ class MassStorageHandler(Handler):
                 "portable_audio_player.access_method.protocols"):
             return
 
-        mountpoints = []
-        udis = hal.hal.FindDeviceStringMatch("info.parent", udi)
-        for u in udis:
-            obj = hal.bus.get_object("org.freedesktop.Hal", u)
-            dev = dbus.Interface(obj, "org.freedesktop.Hal.Device")
-            if dev.GetProperty("volume.is_mounted") == True:
-                mountpoints.append(str(dev.GetProperty("volume.mount_point")))
 
-        if mountpoints == []:
-            return
+        u = mass.GetProperty("portable_audio_player.storage_device")
+        mountpoints = [HalMountpoint(hal, u)]
 
         name = mass.GetProperty("info.vendor") + " " + \
                 mass.GetProperty("info.product")

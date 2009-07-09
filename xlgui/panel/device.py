@@ -38,7 +38,10 @@ class DevicePanel(panel.Panel):
         self.notebook = self.xml.get_widget("device_notebook")
 
         self.collectionpanel = CollectionPanel(self, 
-                device.collection, name=_("Collection"))
+                device.collection, name=self.name)
+
+    def get_panel(self):
+        return self.collectionpanel.get_panel()
 
     def add_panel(self, child, name):
         label = gtk.Label(name)

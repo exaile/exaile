@@ -198,9 +198,9 @@ class NormalPlayer(_base.ExailePlayer):
             current = self.current
             self.playbin.set_state(gst.STATE_NULL)
             self._current = None
+            event.log_event('playback_track_end', self, current)
             if fire:
                 event.log_event('playback_player_end', self, current)
-                event.log_event('playback_track_end', self, current)
             return True
         return False
 

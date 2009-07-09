@@ -83,8 +83,13 @@ class PlayQueue(playlist.Playlist):
         if player:
             if not track:
                 self.player.stop()
+                event.log_event("playback_playlist_end", self, 
+                        self.current_playlist)
                 return
             self.player.play(track)
+        if not track:
+            event.log_event("playback_playlist_end", self, 
+                        self.current_playlist)
         return track
 
     def prev(self):

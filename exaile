@@ -10,4 +10,4 @@ if [ -z "$PROGRAM_DIR" ]; then
 fi
 
 cd ${PROGRAM_DIR}
-exec python exaile.py --startgui "$@"
+exec python -O exaile.py --startgui "$@"

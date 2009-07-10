@@ -49,7 +49,7 @@ class ExaileScrobbler(object):
             return
         
         if option in ['plugin/ascrobbler/user', 'plugin/ascrobbler/password',
-                'plugin/ascrobbler/submit' ]:
+                'plugin/ascrobbler/submit']:
             username = settings.get_option('plugin/ascrobbler/user', '')
             password = settings.get_option('plugin/ascrobbler/password', '')
             server = settings.get_option('plugin/ascrobbler/url',

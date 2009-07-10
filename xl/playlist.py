@@ -800,7 +800,7 @@ class Playlist(object):
                 tr = track.Track(uri=loc)
                 if tr.is_local() and not tr._scan_valid:
                     tr = None
-            
+
             # readd meta
             if not tr: continue
             if not tr.is_local() and meta is not None:

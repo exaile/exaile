@@ -34,6 +34,7 @@ class ExaileScrobbler(object):
             Connects events to the player object, loads settings and cache
         """
         self.connected = False
+        self.connecting = False
         self.cachefile = os.path.join(xdg.get_data_dirs()[0], 
                 "audioscrobbler.cache")
         self.get_options('','','plugin/ascrobbler/cache_size')
@@ -47,7 +48,7 @@ class ExaileScrobbler(object):
             self.set_cache_size(
                     settings.get_option('plugin/ascrobbler/cache_size', 100), False)
             return
-        
+
         if option in ['plugin/ascrobbler/user', 'plugin/ascrobbler/password',
                 'plugin/ascrobbler/submit']:
             username = settings.get_option('plugin/ascrobbler/user', '')
@@ -56,8 +57,9 @@ class ExaileScrobbler(object):
                 'http://post.audioscrobbler.com/')
             self.submit = settings.get_option('plugin/ascrobbler/submit', True)
 
-            if not self.connected and self.submit:
+            if (not self.connecting and not self.connected) and self.submit:
                 if username and password:
+                    self.connecting = True
                     self.initialize(username, password, server)
 
     def stop(self):
@@ -77,6 +79,7 @@ class ExaileScrobbler(object):
             logger.info("AS: attempting to connect to audioscrobbler")
             scrobbler.login(username, password, hashpw=True, post_url=server)
         except:
+            self.connecting = False
             common.log_exception()
             return
        
@@ -85,7 +88,7 @@ class ExaileScrobbler(object):
         event.add_callback(self.on_play, 'playback_track_start')
         event.add_callback(self.on_stop, 'playback_track_end')
         self.connected = True
-        
+        self.connecting = False
 
     @common.threaded
     def now_playing(self, player, track):

@@ -2,6 +2,7 @@ import os
 import traceback
 from xl import xdg, track, collection
 from xl import settings
+from xl.playlist import PlaylistManager, Playlist
 from ConfigParser import SafeConfigParser
 import urlparse
 import olddb, oldexailelib
@@ -161,6 +162,26 @@ def _migrate_old_settings(oldsettings):
         except:
             traceback.print_exc()
 
+def _migrate_playlists(db, newdb, playlists):
+    p_rows = db.select('SELECT name, id, type FROM playlists ORDER BY name') 
+
+    for p_row in p_rows:
+        if p_row[2]: continue
+
+        pl = Playlist(p_row[0])
+   
+        rows = db.select('SELECT paths.name FROM playlist_items,paths WHERE '
+            'playlist_items.path=paths.id AND playlist=?', (p_row[1],))
+
+        locs = ['file://%s' % row[0] for row in rows]
+        tracks = newdb.get_tracks_by_locs(locs)
+
+        if tracks:
+            pl.add_tracks(tracks, add_duplicates=False)
+            playlists.save_playlist(pl)
+
+    playlists.save_order()
+
 def migrate():
     if not migration_needed():
         print "Will not migrate and overwrite data."
@@ -179,6 +200,10 @@ def migrate():
     _migrate_old_tracks(oldsettings, db, newdb)
     _migrate_old_settings(oldsettings)
     settings._SETTINGSMANAGER.save()
+
+    playlists = PlaylistManager()
+
+    _migrate_playlists(db, newdb, playlists)
 
 if __name__ == '__main__':
     migrate()

@@ -90,7 +90,8 @@ def check_exit(options, args):
     for command in volume_commands:
         value = getattr(options, command)
         if value:
-            iface.change_volume(command.replace('_vol', ''), value)
+            if command == 'dec_vol': value = -value
+            iface.change_volume(value)
 
     run_commands = (
             'play', 
@@ -186,17 +187,13 @@ class DbusManager(dbus.service.Object):
         except TypeError:
             pass
 
-    @dbus.service.method("org.exaile.ExaileInterface", 'si')
-    def change_volume(self, action, value):
+    @dbus.service.method("org.exaile.ExaileInterface", 'i')
+    def change_volume(self, value):
         """
-            Increases the volume by percentage
+            Changes volume by the specified amount (in percent, can be negative)
         """
-        vol = self.exaile.player.get_volume()
-        if action == 'inc':
-            vol += value
-        elif action == 'dec':
-            vol -= value
-        self.exaile.player.set_volume(vol)
+        player = self.exaile.player
+        player.set_volume(player.get_volume() + value)
 
     @dbus.service.method("org.exaile.ExaileInterface")
     def prev(self):

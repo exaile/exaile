@@ -485,7 +485,7 @@ class TrackSearcher(object):
 
 
         # split the search into tokens to be parsed
-        search = " " + search.lower() + " "
+        search = " " + newsearch.lower() + " "
         tokens = search.split(" ")
         tokens = [t for t in tokens if t != ""]
 

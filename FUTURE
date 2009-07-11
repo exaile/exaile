@@ -208,6 +208,14 @@ Misc UI ideas:
   * allow reordering of tabs in side pane and playlists
   * album view like genjengel: http://gejengel.googlecode.com/svn/trunk/web/screenshots.html
 
+Dynamic Enhancements
+    * Combine data from multiple sources to enhance reliability
+    * candidate sources:
+        * musicbrainz (artist)
+        * last.fm (track)
+        * rateyourmusic.com? doesnt appear to have an api and is slow...
+        * others?
+
 random plugin ideas
 -------------------
   * jamendo

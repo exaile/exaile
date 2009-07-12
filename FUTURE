@@ -208,6 +208,10 @@ Misc UI ideas:
   * allow reordering of tabs in side pane and playlists
   * album view like genjengel: http://gejengel.googlecode.com/svn/trunk/web/screenshots.html
 
+Enhance support for GtkStatusIcon
+  * Enable scrolling and middle click (requires PyGtk built again GTK >= 2.15.0)
+  * Use gobject.signal_lookup('signal', gtk.StatusIcon) to check above
+
 Dynamic Enhancements
     * Combine data from multiple sources to enhance reliability
     * candidate sources:

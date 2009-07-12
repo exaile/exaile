@@ -125,7 +125,7 @@ def import_from_m3u(path):
         else:
             if not current:
                 current = track.Track()
-            track_is_local = len(urlparse(line)[0]) <= 1
+            track_is_local = len(urlparse.urlparse(line)[0]) <= 1
             if track_is_local and not os.path.isabs(line):
                 line = os.path.join(os.path.dirname(path), line)
             current.set_loc(line)

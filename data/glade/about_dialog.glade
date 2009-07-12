@@ -46,7 +46,8 @@ Mathias Brodala
     <property name="translator_credits" translatable="yes">Mathias Brodala
    &lt;info@noctus.net&gt;
     Translation Manager</property>
-    <property name="artists">Aron Homberg
+  <property name="artists">Tuomas Kuosmanen
+Aron Homberg
 Josip Lisec</property>
     <child internal-child="vbox">
       <widget class="GtkVBox" id="dialog-vbox1">

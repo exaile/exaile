@@ -1,35 +1,48 @@
 
 import gtk
 
-import warnings
-warnings.filterwarnings('ignore', 'the module egg.trayicon is deprecated',
-                        DeprecationWarning)
-try:
-    import egg.trayicon
-    EGG_AVAIL = True
-except ImportError:
-    EGG_AVAIL = False
-    
 from xl import xdg, event
 from xl.nls import gettext as _
 from xlgui import guiutil
 
-class BaseTrayIcon(object):
+class TrayIcon(object):
+    VOLUME_SCROLL_AMOUNT = 5
 
     def __init__(self, guimain):
         self.guimain = guimain
         self.main = guimain.main
         self.window = guimain.main.window
-        self.setup_menu()
+        self._setup_menu()
+
+        self.icon = gtk.StatusIcon()
+        self.icon.set_from_file(xdg.get_data_path('images/trayicon.png'))
+        self.icon.connect('activate', self._activated)
+        self.icon.connect('popup-menu', self._popup)
+        try:
+            # Since GTK+ 2.14
+            self.icon.connect('button-press-event', self._button_pressed)
+            # Since GTK+ 2.16 (or 2.14?)
+            self.icon.connect('scroll-event', self._scrolled)
+        except TypeError:
+            pass
+        self.set_tooltip(_("Exaile Music Player"))
 
         event.add_callback(self._on_playback_change_state, 'playback_player_start')
         event.add_callback(self._on_playback_change_state, 'playback_toggle_pause')
         event.add_callback(self._on_playback_change_state, 'playback_player_end')
 
-    def _on_playback_change_state(self, event, player, current):
-        pass # To be overridden
+    def set_tooltip(self, tip):
+        self.icon.set_tooltip(tip)
 
-    def setup_menu(self):
+    def destroy(self):
+        """
+            Unhides the window and removes the tray icon
+        """
+        if not self.window.get_property('visible'):
+            self.window.present()
+        self.icon.set_visible(False)
+
+    def _setup_menu(self):
         """
             Sets up the popup menu for the tray icon
         """
@@ -72,7 +85,7 @@ class BaseTrayIcon(object):
         else:
             self.main.queue.play()
 
-    def update_menu(self):
+    def _update_menu(self):
         track = self.main.player.current
         if not track or not self.main.player.is_playing():
             self.playpause_image.set_from_stock('gtk-media-play',
@@ -87,112 +100,52 @@ class BaseTrayIcon(object):
             self.playpause.disconnect(self.id)
             self.id = self.playpause.connect('activate', lambda *e: self.main.player.toggle_pause())
 
-    def toggle_exaile_visibility(self):
+    # Playback state event
+
+    def _on_playback_change_state(self, event, player, current):
+        if player.current is None:
+            self.icon.set_from_file(xdg.get_data_path('images/trayicon.png'))
+        elif player.is_paused():
+            self.icon.set_from_stock('gtk-media-pause')
+        else:
+            self.icon.set_from_stock('gtk-media-play') 
+
+    # Mouse events
+
+    def _activated(self, icon):
         w = self.window
         if w.is_active(): # focused
             w.hide()
         else:
             w.present()
 
-    def activated(self):
-        pass # ovderride this
+    def _button_pressed(self, icon, event):
+        if event.button == 2:
+            self.main.player.toggle_pause()
 
-    def destroy(self): # to be overridden
-        """
-            Unhides the window and removes the tray icon
+    def _popup(self, icon, button, time):
+        self.update_menu()
+        self.menu.popup(None, None, gtk.status_icon_position_menu,
+            button, time, self.icon)
 
-            The unhiding is done here, while the removal needs to be
-            done in a subclass. Don't forget to call this superclass
-            method when you override it.
-        """
-        if not self.window.get_property('visible'):
-            self.window.present()
-
-TrayIcon = BaseTrayIcon
-
-if EGG_AVAIL:
-    class EggTrayIcon(BaseTrayIcon):
-        def __init__(self, guimain):
-            BaseTrayIcon.__init__(self, guimain)
-    
-            self.tips = gtk.Tooltips()
-            self.icon = egg.trayicon.TrayIcon('Exaile')
-            self.box = gtk.EventBox()
-            self.icon.add(self.box)
-    
-            self.image = gtk.Image()
-            self.image.set_from_file(xdg.get_data_path('images/trayicon.png'))
-            self.box.add(self.image)
-            self.box.connect('button_press_event', self.button_pressed)
-            self.icon.show_all()
-            self.set_tooltip(_("Exaile Music Player"))
-
-        def _on_playback_change_state(self, event, player, current):
-            if player.current is not None:
-                if player.is_paused():
-                    self.image.set_from_stock('gtk-media-pause', gtk.ICON_SIZE_MENU)
-                else:
-                    self.image.set_from_stock('gtk-media-play', gtk.ICON_SIZE_MENU) 
-            else:
-                self.image.set_from_file(xdg.get_data_path('images/trayicon.png'))
-    
-        def button_pressed(self, item, event, data=None):
-            """
-                Called when someone clicks on the icon
-            """
-            if event.button == 3:
-                self.update_menu()
-                self.menu.popup(None, None, None, event.button, event.time)
-            elif event.button == 2:
-                self.main.player.toggle_pause()
-            elif event.button == 1: 
-                self.toggle_exaile_visibility()
-    
-        def set_tooltip(self, tip):
-            self.tips.set_tip(self.icon, tip)
-    
-        def destroy(self):
-            BaseTrayIcon.destroy(self)
-            self.icon.destroy()
-            
-    TrayIcon = EggTrayIcon
-
-elif hasattr(gtk, 'StatusIcon'):
-    class GtkTrayIcon(BaseTrayIcon):
-
-        def __init__(self, guimain):
-            BaseTrayIcon.__init__(self, guimain)
-            self.icon = gtk.StatusIcon()
-            self.icon.set_from_file(xdg.get_data_path('images/trayicon.png'))
-            self.icon.connect('activate', self.activated)
-            self.icon.connect('popup-menu', self.popup)
-            self.set_tooltip(_("Exaile Music Player"))
-            
-        def _on_playback_change_state(self, event, player, current):
-            if player.current is not None:
-                if player.is_paused():
-                    self.icon.set_from_stock('gtk-media-pause')
-                else:
-                    self.icon.set_from_stock('gtk-media-play') 
-            else:
-                self.icon.set_from_file(xdg.get_data_path('images/trayicon.png'))
-
-        def activated(self, icon):
-            self.toggle_exaile_visibility()
-            
-        def set_tooltip(self, tip):
-            self.icon.set_tooltip(tip)
-
-        def popup(self, icon, button, time):
-            self.update_menu()
-            self.menu.popup(None, None, gtk.status_icon_position_menu,
-                button, time, self.icon)
-
-        def destroy(self):
-            BaseTrayIcon.destroy(self)
-            self.icon.set_visible(False)
-
-    TrayIcon = GtkTrayIcon
+    def _scrolled(self, icon, event):
+        exaile = self.main
+        if event.state & gtk.gdk.SHIFT_MASK:
+            if event.direction == gtk.gdk.SCROLL_UP:
+                exaile.queue.prev()
+            elif event.direction == gtk.gdk.SCROLL_DOWN:
+                exaile.queue.next()
+        else:
+            if event.direction == gtk.gdk.SCROLL_UP:
+                volume = exaile.player.get_volume()
+                exaile.player.set_volume(volume + self.VOLUME_SCROLL_AMOUNT)
+            elif event.direction == gtk.gdk.SCROLL_DOWN:
+                volume = exaile.player.get_volume()
+                exaile.player.set_volume(volume - self.VOLUME_SCROLL_AMOUNT)
+            elif event.direction == gtk.gdk.SCROLL_LEFT:
+                exaile.queue.prev()
+            elif event.direction == gtk.gdk.SCROLL_RIGHT:
+                exaile.queue.next()
 
 MAIN = None
 

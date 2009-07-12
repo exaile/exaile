@@ -811,52 +811,48 @@ class MainWindow(object):
         """
             Sets track information
         """
-        # set track information
         track = self.player.current
+        if not track: return
 
-        if track:
-            artist = track['artist']
-            album = track['album']
-            title = track['title']
-            if title is None: 
-                title = ''
-            else:
-                title = " / ".join(title)
-            if album is None: 
-                album = ''
-            else:
-                album = " / ".join(album)
-            if artist is None: 
-                artist = ''
-            else:
-                artist = " / ".join(artist)
-
-            if artist:
-                # TRANSLATORS: Window title
-                self.window.set_title(_("%(title)s (by %(artist)s)" %
-                    { 'title': title, 'artist': artist }) + " - Exaile")
-            else:
-                self.window.set_title(title + " - Exaile")
+        artist = track['artist']
+        album = track['album']
+        title = track['title']
+        if title is None: 
+            title = ''
         else:
-            return
+            title = " / ".join(title)
+        if album is None: 
+            album = ''
+        else:
+            album = " / ".join(album)
+        if artist is None: 
+            artist = ''
+        else:
+            artist = " / ".join(artist)
 
+        # Update window title.
+        if artist:
+            # TRANSLATORS: Window title
+            self.window.set_title(_("%(title)s (by %(artist)s)" %
+                { 'title': title, 'artist': artist }) + " - Exaile")
+        else:
+            self.window.set_title(title + " - Exaile")
+
+        # Update track info display and tray tooltip.
         self.track_title_label.set_label(title)
         if album or artist:
             desc = []
             # TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-            if artist: desc.append(_("by %(artist)s") % {'artist' : artist})
+            if artist: desc.append(_("by %s") % artist)
             # TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
-            if album: desc.append(_("from %(album)s") % {'album' : album})
+            if album: desc.append(_("from %s") % album)
 
-            #self.window.set_title(_("Exaile: playing %s") % title +
-            #    ' ' + ' '.join(desc))
             desc_newline = '\n'.join(desc)
             self.track_info_label.set_label(desc_newline)
             if self.controller.tray_icon:
                 self.controller.tray_icon.set_tooltip(_("Playing %s") % title +
                     '\n' + desc_newline)
         else:
-            self.window.set_title(_("Exaile: playing %s") % title)
             self.track_info_label.set_label("")
             if self.controller.tray_icon:
                 self.controller.tray_icon.set_tooltip(_("Playing %s") % title)

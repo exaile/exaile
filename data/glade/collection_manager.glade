@@ -1,14 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Sat Jul 19 13:55:08 2008 -->
+<?xml version="1.0"?>
 <glade-interface>
+  <!-- interface-requires gtk+ 2.16 -->
+  <!-- interface-naming-policy toplevel-contextual -->
   <widget class="GtkDialog" id="CollectionManager">
     <property name="width_request">377</property>
     <property name="height_request">228</property>
     <property name="title" translatable="yes">Collection Manager</property>
-    <property name="resizable">False</property>
     <property name="modal">True</property>
-    <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
+    <property name="type_hint">dialog</property>
     <child internal-child="vbox">
       <widget class="GtkVBox" id="dialog-vbox11">
         <property name="visible">True</property>
@@ -21,9 +20,9 @@
               <widget class="GtkScrolledWindow" id="scrolledwindow10">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-                <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-                <property name="shadow_type">GTK_SHADOW_IN</property>
+                <property name="hscrollbar_policy">automatic</property>
+                <property name="vscrollbar_policy">automatic</property>
+                <property name="shadow_type">in</property>
                 <child>
                   <widget class="GtkViewport" id="viewport2">
                     <property name="visible">True</property>
@@ -48,6 +47,9 @@
                   </widget>
                 </child>
               </widget>
+              <packing>
+                <property name="position">0</property>
+              </packing>
             </child>
             <child>
               <widget class="GtkVBox" id="vbox12">
@@ -55,25 +57,26 @@
                 <property name="spacing">5</property>
                 <child>
                   <widget class="GtkButton" id="add_button">
+                    <property name="label">gtk-add</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="label">gtk-add</property>
+                    <property name="receives_default">False</property>
                     <property name="use_stock">True</property>
-                    <property name="response_id">0</property>
                     <signal name="clicked" handler="on_add_button_clicked"/>
                   </widget>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">False</property>
+                    <property name="position">0</property>
                   </packing>
                 </child>
                 <child>
                   <widget class="GtkButton" id="remove_button">
+                    <property name="label">gtk-remove</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="label">gtk-remove</property>
+                    <property name="receives_default">False</property>
                     <property name="use_stock">True</property>
-                    <property name="response_id">0</property>
                     <signal name="clicked" handler="on_remove_button_clicked"/>
                   </widget>
                   <packing>
@@ -100,36 +103,46 @@
         <child internal-child="action_area">
           <widget class="GtkHButtonBox" id="dialog-action_area11">
             <property name="visible">True</property>
-            <property name="layout_style">GTK_BUTTONBOX_END</property>
+            <property name="layout_style">end</property>
             <child>
               <widget class="GtkButton" id="cancel_button">
+                <property name="label">gtk-cancel</property>
+                <property name="response_id">-6</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
-                <property name="label">gtk-cancel</property>
+                <property name="receives_default">False</property>
                 <property name="use_stock">True</property>
-                <property name="response_id">-6</property>
                 <signal name="clicked" handler="on_cancel_button_clicked"/>
               </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+              </packing>
             </child>
             <child>
               <widget class="GtkButton" id="apply_button">
+                <property name="label">gtk-apply</property>
+                <property name="response_id">-10</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
-                <property name="label">gtk-apply</property>
+                <property name="receives_default">False</property>
                 <property name="use_stock">True</property>
-                <property name="response_id">-10</property>
                 <signal name="clicked" handler="on_apply_button_clicked"/>
               </widget>
               <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
                 <property name="position">1</property>
               </packing>
             </child>
           </widget>
           <packing>
             <property name="expand">False</property>
-            <property name="pack_type">GTK_PACK_END</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
           </packing>
         </child>
       </widget>

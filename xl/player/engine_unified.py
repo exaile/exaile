@@ -321,6 +321,7 @@ class AudioStream(gst.Bin):
 
         self.last_position = 0
         self._settle_flag = 0
+        self._settle_trap = 0
         self._seek_event = threading.Event()
 
         self.caps = caps
@@ -464,21 +465,29 @@ class AudioStream(gst.Bin):
 
     def _settle_state(self):
         self._settle_flag = 1
+        if self._settle_trap > 10:
+            self._settle_trap = 0
+            self._settle_flag = 0
+            logger.debug("Failed to settle state on %s."%self)
+            gst.Bin.set_state(self, gst.STATE_NULL)
+            event.log_event("stream_settled", self, None)
+            return 
         gobject.idle_add(self._settle_state_sub)
 
+    @common.threaded
     def _settle_state_sub(self):
         """
             hack to reset gstreamer states.
             TODO: find a cleaner way of doing this.
         """
         if self._settle_flag == 1 and self._get_gst_state() == gst.STATE_PAUSED:
+            self._settle_trap += 1
             logger.debug("Settling state on %s."%repr(self))
             self.set_state(gst.STATE_PLAYING)
-            return True
         else:
             self._settle_flag = 0
+            self._settle_trap = 0
             event.log_event("stream_settled", self, None)
-            return False 
 
     def seek(self, value):
         """

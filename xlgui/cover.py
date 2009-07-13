@@ -424,13 +424,17 @@ class CoverWidget(gtk.EventBox):
             them
         """
         self.current_track = track
+        nocover = xdg.get_data_path('images/nocover.png')
+        self.loc = nocover
+        self.emit('cover-found', nocover)
+        gobject.idle_add(self.image.set_image, xdg.get_data_path('images/nocover.png'))
 
         try:
             cov = self.covers.get_cover(self.current_track,
                 update_track=True)
         except cover.NoCoverFoundException:
             logger.warning(_("No covers found"))
-            self.image.set_image(xdg.get_data_path('images/nocover.png'))
+            gobject.idle_add(self.image.set_image, xdg.get_data_path('images/nocover.png'))
             return
 
         if self.player.current == self.current_track:

@@ -43,6 +43,7 @@ class SettingsManager(RawConfigParser):
         Manages exaile's settings
     """
     settings = None
+    __version__ = 1
     def __init__(self, loc, defaultloc=None):
         """
             Sets up the SettingsManager. Expects a loc to a file
@@ -71,8 +72,11 @@ class SettingsManager(RawConfigParser):
             except:
                 pass
 
-            # save settings every 30 seconds
-            event.timeout_add(30000, self._timeout_save)
+        if not self.get_option('settings/version', ''):
+            self.set_option('settings/version', self.__version__)
+
+        # save settings every 30 seconds
+        event.timeout_add(30000, self._timeout_save)
 
     def _timeout_save(self):
         self.save()

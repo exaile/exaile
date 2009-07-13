@@ -77,11 +77,9 @@ class Main(object):
         self._connect_events()
 
         if settings.get_option('gui/use_tray', False):
-            self.tray_icon = tray.TrayIcon(self)
+            self.tray_icon = tray.TrayIcon(self.main)
         else:
-            self.tray_icon = False
-
-        tray.connect_events(self)
+            self.tray_icon = None
 
         event.add_callback(self._on_quit_application, 'quit_application')
 

@@ -21,7 +21,7 @@ import gtk, gtk.glade, gobject, pango, datetime
 from xl import xdg, event, track, common
 from xl import settings, trackdb
 import xl.playlist
-from xlgui import playlist, cover, guiutil, menu, commondialogs
+from xlgui import playlist, cover, guiutil, menu, commondialogs, tray
 import xl.playlist, re, os, threading
 
 logger = logging.getLogger(__name__)
@@ -776,18 +776,19 @@ class MainWindow(object):
                 gtk.ICON_SIZE_SMALL_TOOLBAR))
 
     @guiutil.gtkrun
-    def _on_setting_change(self, name, object, data):
+    def _on_setting_change(self, name, object, option):
         """
            Handles changes of settings
         """
-        if data == 'player/volume':
-            self.volume_slider.set_value(settings.get_option("player/volume", 1))
-        if data == 'gui/show_tabbar':
+        if option == 'player/volume':
+            self.volume_slider.set_value(settings.get_option(option, 1))
+
+        if option == 'gui/show_tabbar':
             self.playlist_notebook.set_show_tabs(
-                settings.get_option('gui/show_tabbar', True)
+                settings.get_option(option, True)
             )
-        
-        if data == 'gui/tab_placement':
+
+        if option == 'gui/tab_placement':
             map = {
                 'left': gtk.POS_LEFT,
                 'right': gtk.POS_RIGHT,
@@ -795,7 +796,15 @@ class MainWindow(object):
                 'bottom': gtk.POS_BOTTOM
             }
             self.playlist_notebook.set_tab_pos(map.get(
-                settings.get_option('gui/tab_placement', 'top')))
+                settings.get_option(option, 'top')))
+
+        if option == 'gui/use_tray':
+            usetray = settings.get_option(option, False)
+            if self.controller.tray_icon and not usetray:
+                self.controller.tray_icon.destroy()
+                self.controller.tray_icon = None
+            elif not self.controller.tray_icon and usetray:
+                self.controller.tray_icon = tray.TrayIcon(self)
 
     @common.threaded
     def _get_dynamic_tracks(self):

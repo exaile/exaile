@@ -250,6 +250,16 @@ def lstrip_special(field, the_cutter=False):
         ret = the_cutter(ret)
     return ret
 
+class VersionError(Exception):
+    """
+       Represents version discrepancies
+    """
+    def __init__(self, message):
+        self.message = message
+
+    def __str__(self):
+        return repr(self.message)
+
 # python<2.5 compatibility. Drop this when python2.4 isn't used so much anymore.
 try:
     any = any

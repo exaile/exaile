@@ -35,7 +35,7 @@ locale.setlocale(locale.LC_ALL, '')
 
 from xl.nls import gettext as _
 
-from xl import common, xdg, event, settings
+from xl import common, xdg, event
 import os, sys, logging, logging.handlers, time
 
 # initiate the logger. logger params are set later
@@ -91,8 +91,10 @@ class Exaile(object):
         logger.info(_("Loading Exaile %s...") % __version__)
 
         logger.info(_("Loading settings..."))
-        if settings.get_option('settings/version', 0) > settings.get_version():
-            logger.error(_("Settings version is newer than current, aborting."))
+        try:
+            from xl import settings
+        except common.VersionError, e:
+            logger.error(e.message)
             exit()
         
         # Splash screen
@@ -200,6 +202,7 @@ class Exaile(object):
             Displays the splash screen
         """
         import xlgui
+        from xl import settings
         self.splash = xlgui.show_splash(show=settings.get_option('gui/use_splash', True))
 
     def setup_logging(self):
@@ -412,6 +415,8 @@ class Exaile(object):
         self.queue.save_to_location(
                 os.path.join(xdg.get_data_dirs()[0], 'queue.state') )
         self.player.stop()
+
+        from xl import settings
 
         settings._SETTINGSMANAGER.save()
 

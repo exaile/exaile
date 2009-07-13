@@ -25,6 +25,7 @@ import os, logging
 logger = logging.getLogger(__name__)
 
 from xl import event, xdg
+from xl.common import VersionError
 from xl.nls import gettext as _
 
 TYPE_MAPPING = {
@@ -73,6 +74,9 @@ class SettingsManager(RawConfigParser):
 
         if not self.get_option('settings/version', 0):
             self.set_option('settings/version', self.__version__)
+
+        if self.get_option('settings/version', 0) > self.__version__:
+            raise VersionError(_('Settings version is newer than current.'))
 
         # save settings every 30 seconds
         event.timeout_add(30000, self._timeout_save)
@@ -128,12 +132,6 @@ class SettingsManager(RawConfigParser):
         except NoOptionError:
             value = default
         return value
-
-    def get_version(self):
-        """
-            Returns the current settings version
-        """
-        return self.__version__
 
     def _set_direct(self, option, value):
         """
@@ -208,6 +206,5 @@ _SETTINGSMANAGER = SettingsManager(
 
 get_option = _SETTINGSMANAGER.get_option
 set_option = _SETTINGSMANAGER.set_option
-get_version = _SETTINGSMANAGER.get_version
 
 # vim: et sts=4 sw=4

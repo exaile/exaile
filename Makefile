@@ -68,7 +68,7 @@ install-target:
 	install -m 644 xlgui/prefs/*.py $(EXAILELIBDIR)/xlgui/prefs
 	install -m 644 data/images/*.png $(EXAILESHAREDIR)/data/images
 	install -m 644 data/glade/*.glade $(EXAILESHAREDIR)/data/glade
-	install -m 644 data/images/largeicon.png \
+	install -m 644 data/images/icon.png \
 		$(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
 	install -m 644 data/exaile.desktop \
 		$(DESTDIR)$(PREFIX)/share/applications/	

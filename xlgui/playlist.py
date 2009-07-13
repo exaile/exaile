@@ -526,9 +526,7 @@ class Playlist(gtk.VBox):
         current_tracks = self.playlist.get_tracks()
         (tracks, playlists) = self.list.get_drag_data(locs)
 
-        tracks = trackdb.sort_tracks(
-            ('artist', 'date', 'album', 'discnumber', 'tracknumber'),
-            tracks)
+        tracks = sort_tracks(tracks)
 
         # Determine what to do with the tracks
         # by default we load all tracks.
@@ -928,6 +926,23 @@ class Playlist(gtk.VBox):
                     track['rating'] = new_rating
                 if hasattr(w, 'queue_draw'):
                     w.queue_draw()
+
+def sort_tracks(tracks):
+    from xlgui import main
+
+    pl = main.get_selected_playlist()
+    column, descending = pl.get_sort_by()
+    
+    if column != 'tracknumber':
+        tracks.sort(key=lambda track: track.sort_param(column),
+            reverse=descending)
+    else:
+        tracks = trackdb.sort_tracks(
+            ('artist', 'date', 'album', 'discnumber', 'tracknumber'),
+            tracks)
+        if descending: tracks.reverse()
+
+    return tracks
 
 class ConfirmCloseDialog(gtk.MessageDialog):
     """

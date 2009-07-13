@@ -239,6 +239,7 @@ class MainWindow(object):
     """
         Main Exaile Window
     """
+    _mainwindow = None
     def __init__(self, controller, xml, collection, 
         player, queue, covers):
         """
@@ -279,6 +280,7 @@ class MainWindow(object):
         self.tab_manager = xl.playlist.PlaylistManager(
             'saved_tabs')
         self.load_saved_tabs()
+        MainWindow._mainwindow = self
 
     def load_saved_tabs(self):
         """
@@ -985,3 +987,6 @@ class MainWindow(object):
         if event.changed_mask & gtk.gdk.WINDOW_STATE_FULLSCREEN:
             self._fullscreen = bool(event.new_window_state & gtk.gdk.WINDOW_STATE_FULLSCREEN)
         return False
+
+def get_selected_playlist():
+    return MainWindow._mainwindow.get_selected_playlist()

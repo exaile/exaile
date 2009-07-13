@@ -49,7 +49,7 @@ class XSPFParser( handler.ContentHandler):
             self.track["playlisttitle"] = self.title
         
         if self.path == "/playlist/trackList/track/location":
-            self.track["location"]=self.content
+            self.track["__loc"]=self.content
         if self.path == "/playlist/trackList/track/title":
             self.track["title"]=self.content.encode('utf8')
         if self.path == "/playlist/trackList/track/creator":

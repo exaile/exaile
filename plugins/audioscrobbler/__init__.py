@@ -116,8 +116,8 @@ class ExaileScrobbler(object):
             return
         playtime = (track['playtime'] or 0) - \
                 (track['__audioscrobbler_playtime'] or 0)
-        if playtime > 240 or playtime > float(track['length']) / 2.0:
-            if self.submit and track['length'] > 30:
+        if playtime > 240 or playtime > float(track['__length']) / 2.0:
+            if self.submit and track['__length'] > 30:
                 self.submit_to_scrobbler(track, 
                     track['__audioscrobbler_starttime'], playtime)
 

@@ -76,7 +76,7 @@ def save_to_m3u(playlist, path):
         handle.write("#PLAYLIST: %s\n" % playlist.get_name())
 
     for track in playlist:
-        leng = float(track['length'])
+        leng = float(track['__length'])
         if leng < 1: 
             leng = -1
         handle.write("#EXTINF:%d,%s\n%s\n" % (leng,
@@ -119,7 +119,7 @@ def import_from_m3u(path):
             else:
                 length = 0
             current['title'] = title
-            current['length'] = length
+            current['__length'] = length
         elif line.startswith("#"):
             pass
         else:
@@ -151,10 +151,10 @@ def save_to_pls(playlist, path):
     for track in playlist:
         handle.write("File%d=%s\n" % (count, track.get_loc()))
         handle.write("Title%d=%s\n" % (count, track['title']))
-        if track['length'] < 1:
+        if track['__length'] < 1:
             handle.write("Length%d=%d\n\n" % (count, -1))
         else:
-            handle.write("Length%d=%d\n\n" % (count, float(track['length'])))
+            handle.write("Length%d=%d\n\n" % (count, float(track['__length'])))
         count += 1
     
     handle.write("Version=2")
@@ -197,13 +197,13 @@ def import_from_pls(path, handle=None):
             tr['title'] = linedict["title%s"%n]
         else:
             tr['title'] = linedict["file%s"%n].split("/")[-1]
-        if "length%s"%n in linedict:
-            len = float(linedict["length%s"%n])
+        if "__length%s"%n in linedict:
+            len = float(linedict["__length%s"%n])
         else:
             len = 0
         if len < 1:
             len = 0
-        tr['length'] = len
+        tr['__length'] = len
         if tr.get_type() == 'file': # FIXME
             tr.read_tags()
         pl.add(tr, ignore_missing_files=False)
@@ -1000,7 +1000,7 @@ class SmartPlaylist(object):
             (field, op, value) = param
             s = ""
 
-            if field == 'rating':
+            if field == '__rating':
                 value = float((100.0*value)/steps)
             if op == ">=" or op == "<=":
                 s += '( %(field)s%(op)s%(value)s ' \

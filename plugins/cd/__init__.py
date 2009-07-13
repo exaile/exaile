@@ -114,7 +114,7 @@ class CDPlaylist(playlist.Playlist):
             song.set_loc("cdda://%d#%s" % (count, self.device))
             song['title'] = "Track %d" % count
             song['tracknumber'] = count
-            song['length'] = length
+            song['__length'] = length
             songs[song.get_loc()] = song
 
         sort_tups = [ (int(s['tracknumber'][0]),s) for s in songs.values() ]
@@ -206,7 +206,7 @@ class CDImporter(object):
     def __init__(self, tracks):
         self.tracks = [ t for t in tracks if 
                 t.get_loc_for_io().startswith("cdda") ]
-        self.duration = float(sum( [ t['length'] for t in self.tracks ] ))
+        self.duration = float(sum( [ t['__length'] for t in self.tracks ] ))
         self.transcoder = transcoder.Transcoder()
         self.current = None
         self.progress = 0.0
@@ -250,7 +250,7 @@ class CDImporter(object):
             tr.write_tags()
             tr.read_tags() # make sure everything is reloaded nicely
             try:
-                incr = tr['length'] / self.duration
+                incr = tr['__length'] / self.duration
                 self.progress += incr
             except:
                 pass
@@ -285,8 +285,8 @@ class CDImporter(object):
         self.transcoder.stop()
 
     def get_progress(self):
-        incr = self.current['length'] / self.duration
-        pos = self.transcoder.get_time()/float(self.current['length'])
+        incr = self.current['__length'] / self.duration
+        pos = self.transcoder.get_time()/float(self.current['__length'])
         return self.progress + pos*incr
 
 # vim: et sts=4 sw=4

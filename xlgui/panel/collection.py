@@ -74,7 +74,7 @@ class CollectionPanel(panel.Panel):
         tracks = self.get_selected_tracks()
         steps = settings.get_option('miscellaneous/rating_steps', 5)
         for track in tracks:
-            track['rating'] = float((100.0*rating)/steps)
+            track['__rating'] = float((100.0*rating)/steps)
 
     def _setup_widgets(self):
         """
@@ -322,7 +322,7 @@ class CollectionPanel(panel.Panel):
             if depth > 0 and self.order[depth-1] == "tracknumber":
                 sort_by = ['discnumber', 'tracknumber']
             if tag == 'artist':
-                _search = "compilation==__null__ " + search
+                _search = "__compilation==__null__ " + search
             else:
                 _search = search
             values = self.collection.list_tag(tag, 
@@ -378,12 +378,12 @@ class CollectionPanel(panel.Panel):
 
         # various
         if tag == 'artist':
-            tracks = self.collection.search('! compilation==__null__',
+            tracks = self.collection.search('! __compilation==__null__',
                 tracks=self.tracks, sort_fields=sort_by)
             if tracks:
                 self.model.append(parent, [None, None, None])
                 iter = self.model.append(parent, [image, _('Various Artists'), 
-                    '! compilation==__null__'])
+                    '! __compilation==__null__'])
                 self.model.append(iter, [None, None, None])
 
         if unknown_items:

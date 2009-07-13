@@ -268,7 +268,7 @@ class BasePlaylistPanelMixin(gobject.GObject):
         tracks = self.get_selected_tracks()
         steps = settings.get_option('miscellaneous/rating_steps', 5)
         for track in tracks:
-            track['rating'] = float((100.0*rating)/steps)
+            track['__rating'] = float((100.0*rating)/steps)
 
     def open_item(self, tree, path, col):
         """

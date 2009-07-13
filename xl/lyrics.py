@@ -195,7 +195,7 @@ class LyricSearchMethod(object):
 
 class LocalLyricSearch(LyricSearchMethod):
     
-    name="local"
+    name="__local"
 
     def find_lyrics(self, track):
         # TODO do people store lyrics in other files?

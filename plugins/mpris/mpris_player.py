@@ -189,7 +189,7 @@ class ExaileMprisPlayer(dbus.service.Object):
             Sets the playing position (argument must be in [0, <track_length>]
             in milliseconds)
         """
-        if millisec > self.exaile.player.current.tags['length'] * 1000 \
+        if millisec > self.exaile.player.current.tags['__length'] * 1000 \
                 or millisec < 0:
             return
         self.exaile.player.seek(millisec / 1000)

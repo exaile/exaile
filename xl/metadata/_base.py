@@ -23,7 +23,7 @@ import urllib2
 import logging
 logger = logging.getLogger(__name__)
 
-INFO_TAGS = ['bitrate', 'length', 'lyrics']
+INFO_TAGS = ['__bitrate', '__length', 'lyrics']
 
 class NotWritable(Exception):
     pass
@@ -157,7 +157,7 @@ class BaseFormat(object):
             self.save()
 
     def get_info(self, info):
-        if info == "length":
+        if info == "__length":
             return self.get_length()
         elif info == "bitrate":
             return self.get_bitrate()
@@ -169,7 +169,7 @@ class BaseFormat(object):
             return self.mutagen.info.length
         except:
             try:
-                return self.mutagen['length']
+                return self.mutagen['__length']
             except:
                 return None
 
@@ -178,7 +178,7 @@ class BaseFormat(object):
             return self.mutagen.info.bitrate
         except:
             try:
-                return self.mutagen['bitrate']
+                return self.mutagen['__bitrate']
             except:
                 return None
 

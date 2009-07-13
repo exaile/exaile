@@ -68,7 +68,7 @@ class Playlist(gtk.VBox):
     for col in COLUMNS.values():
         column_by_display[col.display] = col
 
-    default_columns = ['tracknumber', 'title', 'album', 'artist', 'length']
+    default_columns = ['tracknumber', 'title', 'album', 'artist', '__length']
     menu_items = {}
     _is_drag_source = False
 
@@ -137,7 +137,7 @@ class Playlist(gtk.VBox):
         tracks = self.get_selected_tracks()
         steps = settings.get_option('miscellaneous/rating_steps', 5)
         for track in tracks:
-            track['rating'] = float((100.0*rating)/steps)
+            track['__rating'] = float((100.0*rating)/steps)
 
     def _setup_col_menus(self):
         """
@@ -733,7 +733,7 @@ class Playlist(gtk.VBox):
             col.set_sort_indicator(False)
 
             if not resizable:
-                if column.id in ('title', 'artist', 'album', 'loc', 'genre'):
+                if column.id in ('title', 'artist', 'album', '__loc', 'genre'):
                     if column.id != 'genre':
                         col.set_expand(True)
                         col.set_fixed_width(1)
@@ -906,7 +906,7 @@ class Playlist(gtk.VBox):
         #calculate rating column size and position
         for col in self.append_map:
             gui_col = self.list.get_column(i)
-            if col == "rating":
+            if col == "__rating":
                 rating_col_width = gui_col.get_width()
                 break
             else:
@@ -920,10 +920,10 @@ class Playlist(gtk.VBox):
                 track = self.get_selected_track()
                 i = int(math.ceil((x-left_edge)/icon_size))
                 new_rating = float((100*i)/steps)
-                if track['rating'] == new_rating:
-                    track['rating'] = 0.0
+                if track['__rating'] == new_rating:
+                    track['__rating'] = 0.0
                 else:
-                    track['rating'] = new_rating
+                    track['__rating'] = new_rating
                 if hasattr(w, 'queue_draw'):
                     w.queue_draw()
 

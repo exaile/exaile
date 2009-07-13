@@ -32,7 +32,7 @@ _LOG = logging.getLogger('exaile.plugins.mpris.mpris_tag_converter')
 #                  set
 MPRIS_TAG_INFORMATION = {
         'location'   : {'out_type'  : unicode,
-                        'exaile_tag': 'loc',
+                        'exaile_tag': '__loc',
                         'desc'      : 'Name',
                         },
         'artist'      : {'out_type'  : unicode,
@@ -48,7 +48,7 @@ MPRIS_TAG_INFORMATION = {
                         'desc'      : 'The position in album',
                         },
         'time'       : {'out_type'  : int,
-                        'exaile_tag': 'length',
+                        'exaile_tag': '__length',
                         'desc'      : 'The duration in seconds',
                         },
         'mtime'      : {'out_type'  : int, 
@@ -77,7 +77,7 @@ MPRIS_TAG_INFORMATION = {
                         'desc'      : 'an URI to an image',
                         },
         'audio-bitrate': {'out_type': int,
-                        'exaile_tag': 'bitrate',
+                        'exaile_tag': '__bitrate',
                         'desc'      : 'The number of bits per second',
                         },
         'audio-samplerate': {'out_type': int,

@@ -78,7 +78,7 @@ def toggle_record(widget=None, event=None):
             str(port), '-d', savedir], stdout=STREAMRIPPER_OUT)
         ret = sub.poll()
 
-        logger.info("Using streamripper to play location: %s" % track['loc'])
+        logger.info("Using streamripper to play location: %s" % track['__loc'])
 
         if ret != None:
             logger.warning('There was an error executing streamripper')
@@ -99,7 +99,7 @@ def toggle_record(widget=None, event=None):
     else:
         os.system('kill -9 %d' % STREAMRIPPER_PID)
         APP.player.playbin.set_state(gst.STATE_READY)
-        APP.player.playbin.set_property('uri', track['loc'])
+        APP.player.playbin.set_property('uri', track['__loc'])
         CURRENT_TRACK = None
         APP.player.playbin.set_state(gst.STATE_PLAYING)
         STREAMRIPPER_PID = None

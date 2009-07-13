@@ -197,7 +197,7 @@ class CoverManager(object):
                 self.needs += 1
 
             display = "%s - %s" % (item[0], item[1])
-            if self.track_dict[item[0]][item[1]][0]['compilation']:
+            if self.track_dict[item[0]][item[1]][0]['__compilation']:
                 display = item[1]
 
             self.cover_nodes[item] = self.model.append(

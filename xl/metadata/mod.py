@@ -36,13 +36,13 @@ class ModFormat(BaseFormat):
             if f:
                 name = modplug.ModPlug_GetName(f) or os.path.split(self.loc)[-1]
                 length = modplug.ModPlug_GetLength(f) / 1000.0 or -1
-                self.mutagen = {'title': name, 'length':length}
+                self.mutagen = {'title': name, '__length':length}
         else:
             self.mutagen = {'title':os.path.split(self.loc)[-1]}
 
     def get_length(self):
         try:
-            return self.mutagen['length']
+            return self.mutagen['__length']
         except:
             return -1
 

@@ -320,8 +320,8 @@ class Main(object):
             dialog.set_name('Exaile')
         dialog.set_version("\n" + str(xlmain.__version__))
         dialog.set_transient_for(self.main.window)
-        dialog.run()
-        dialog.destroy()
+        dialog.connect('response', lambda *x: dialog.destroy())
+        dialog.show()
         
     def quit(self):
         """

@@ -991,6 +991,7 @@ class SmartPlaylist(object):
         """
 
         params = [] # parameter list
+        steps = settings.get_option('miscellaneous/rating_steps', 5)
 
         for param in self.search_params:
             if type(param) == str:
@@ -998,6 +999,9 @@ class SmartPlaylist(object):
                 continue
             (field, op, value) = param
             s = ""
+
+            if field == 'rating':
+                value = float((100.0*value)/steps)
             if op == ">=" or op == "<=":
                 s += '( %(field)s%(op)s%(value)s ' \
                     'OR %(field)s==%(value)s )' % \

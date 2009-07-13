@@ -39,10 +39,18 @@ class ExailePlayer(object):
 
         self._load_volume()
         event.add_callback(self._on_setting_change, 'option_set')
+        event.add_callback(self._on_track_end, 'playback_track_end', self)
 
     def _on_setting_change(self, name, object, data):
         if data == "player/volume":
             self._load_volume()
+
+    def _on_track_end(self, name, object, track):
+        try:
+            i = int(track['playcount'])
+        except:
+            i = 0
+        track['playcount'] = i + 1
 
     def _load_volume(self):
         """

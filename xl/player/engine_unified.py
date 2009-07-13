@@ -232,7 +232,7 @@ class UnifiedPlayer(_base.ExailePlayer):
 
     def unlink_stream(self, stream):
         try:
-            current = self.current
+            current = stream.get_track()
             pad = stream.get_static_pad("src").get_peer()
             stream.unlink(self.adder)
             try:
@@ -361,6 +361,9 @@ class AudioStream(gst.Bin):
 
     def get_volume(self):
         return self.vol.get_property("volume")
+
+    def get_track(self):
+        return self.track
 
     def set_track(self, track):
         if not track:

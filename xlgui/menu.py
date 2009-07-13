@@ -220,23 +220,10 @@ class TrackSelectMenu(GenericTrackMenu):
         """
             Actually adds the menu items
         """
-        star_icon = gtk.gdk.pixbuf_new_from_file_at_size(
-            xdg.get_data_path('images/star.png'), 16, 16)
-        icon_set = gtk.IconSet(star_icon)
-        factory = gtk.IconFactory()
-        factory.add_default()
-        factory.add('exaile-star-icon', icon_set)
-
         self.append_item = self.append(_('Append to Current'), lambda *e:
             self.on_append_items(), 'gtk-add')
         self.queue_item = self.append(_('Queue Items'), lambda *e: self.on_queue(),
             'exaile-queue-icon')
-        rm = guiutil.Menu()
-        for i in range(0, 6): #TODO: read number of steps from settings
-            item = rm.append_image(self.rating_images[i],
-                lambda w, e, i=i: self.update_rating(i))
-
-        self.append_menu(_("Set Rating"), rm, 'exaile-star-icon')
 
     def on_append_items(self, selected=None):
         """
@@ -263,9 +250,37 @@ class TrackSelectMenu(GenericTrackMenu):
 #            pl.playlist.add_tracks(selected, add_duplicates=False)
 #            pl.list.queue_draw()
 
+class RatedTrackSelectMenu(TrackSelectMenu):
+    """
+        Menu for any panel that operates on selecting tracks
+        including an option to rate tracks
+    """
+    def __init__(self):
+        TrackSelectMenu.__init__(self)
+
+    def _create_menu(self):
+        """
+            Actually adds the menu items
+        """
+        TrackSelectMenu._create_menu(self)
+
+        star_icon = gtk.gdk.pixbuf_new_from_file_at_size(
+            xdg.get_data_path('images/star.png'), 16, 16)
+        icon_set = gtk.IconSet(star_icon)
+        factory = gtk.IconFactory()
+        factory.add_default()
+        factory.add('exaile-star-icon', icon_set)
+
+        rm = guiutil.Menu()
+        for i in range(0, 6): #TODO: read number of steps from settings
+            item = rm.append_image(self.rating_images[i],
+                lambda w, e, i=i: self.update_rating(i))
+
+        self.append_menu(_("Set Rating"), rm, 'exaile-star-icon')
+
 # these are stubbs for now
 FilesPanelMenu = TrackSelectMenu
-CollectionPanelMenu = TrackSelectMenu
+CollectionPanelMenu = RatedTrackSelectMenu
 
 class PlaylistsPanelMenu(guiutil.Menu):
     """
@@ -286,13 +301,13 @@ class PlaylistsPanelMenu(guiutil.Menu):
 
     def _create_playlist_menu(self):
         if self.radio:
-            self.append(_('Add Station'), lambda *e: self.on_add_playlist(),
-                        'gtk-add')
+            self.append(_('New Station'), lambda *e: self.on_add_playlist(),
+                        'gtk-new')
         else:
-            self.append(_('Add Playlist'), lambda *e: self.on_add_playlist(),
-                        'gtk-add')
-            self.append(_('Add Smart Playlist'), lambda *e: self.on_add_smart_playlist(),
-                        'gtk-add')
+            self.append(_('New Playlist'), lambda *e: self.on_add_playlist(),
+                        'gtk-new')
+            self.append(_('New Smart Playlist'), lambda *e: self.on_add_smart_playlist(),
+                        'gtk-new')
 
     def on_add_playlist(self, selected = None):
         self.emit('add-playlist')
@@ -347,7 +362,7 @@ class PlaylistsPanelPlaylistMenu(TrackSelectMenu, PlaylistsPanelMenu):
                     'gtk-save')
         self.append_separator()
         self.append(_('Delete Playlist'), lambda *e: self.on_delete_playlist(),
-                    'gtk-remove')
+                    'gtk-delete')
 
     def on_export_playlist(self, selected = None):
         """

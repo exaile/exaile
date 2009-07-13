@@ -82,7 +82,7 @@ CRITERIA = [
         # TRANSLATORS: Example: rating <= 3
         (N_('at most'), SpinRating),
     ]),
-    (N_('Number of Plays'), [
+    (N_('Plays'), [
         (N_('at least'), SpinNothing),
         (N_('at most'), SpinNothing),
     ]),

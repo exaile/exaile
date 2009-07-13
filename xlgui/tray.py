@@ -19,9 +19,8 @@ class TrayIcon(object):
         self.icon.connect('activate', self._activated)
         self.icon.connect('popup-menu', self._popup)
         try:
-            # Since GTK+ 2.14
+            # Available if PyGtk was built against GTK >= 2.15.0
             self.icon.connect('button-press-event', self._button_pressed)
-            # Since GTK+ 2.16 (or 2.14?)
             self.icon.connect('scroll-event', self._scrolled)
         except TypeError:
             pass
@@ -124,7 +123,7 @@ class TrayIcon(object):
             self.main.player.toggle_pause()
 
     def _popup(self, icon, button, time):
-        self.update_menu()
+        self._update_menu()
         self.menu.popup(None, None, gtk.status_icon_position_menu,
             button, time, self.icon)
 

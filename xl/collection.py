@@ -585,7 +585,7 @@ class Library(object):
         
         for f in (x for x in db.tracks.iterkeys()):
             try:
-                if not f.startswith(u"file://%s"%location):
+                if not f.startswith(location):
                     continue
             except UnicodeDecodeError:
                 continue

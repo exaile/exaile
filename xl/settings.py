@@ -54,7 +54,6 @@ class SettingsManager(RawConfigParser):
 
             defaultloc is a loc to initialize settings from
         """
-        logger.info(_("Loading settings"))
         RawConfigParser.__init__(self)
         self.loc = loc
         self._saving = False
@@ -72,7 +71,7 @@ class SettingsManager(RawConfigParser):
             except:
                 pass
 
-        if not self.get_option('settings/version', ''):
+        if not self.get_option('settings/version', 0):
             self.set_option('settings/version', self.__version__)
 
         # save settings every 30 seconds
@@ -129,6 +128,12 @@ class SettingsManager(RawConfigParser):
         except NoOptionError:
             value = default
         return value
+
+    def get_version(self):
+        """
+            Returns the current settings version
+        """
+        return self.__version__
 
     def _set_direct(self, option, value):
         """
@@ -203,5 +208,6 @@ _SETTINGSMANAGER = SettingsManager(
 
 get_option = _SETTINGSMANAGER.get_option
 set_option = _SETTINGSMANAGER.set_option
+get_version = _SETTINGSMANAGER.get_version
 
 # vim: et sts=4 sw=4

@@ -35,7 +35,7 @@ locale.setlocale(locale.LC_ALL, '')
 
 from xl.nls import gettext as _
 
-from xl import common, xdg, event
+from xl import common, xdg, event, settings
 import os, sys, logging, logging.handlers, time
 
 # initiate the logger. logger params are set later
@@ -89,12 +89,15 @@ class Exaile(object):
             Initializes Exaile
         """
         logger.info(_("Loading Exaile %s...") % __version__)
+
+        logger.info(_("Loading settings..."))
+        if settings.get_option('settings/version', 0) > settings.get_version():
+            logger.error(_("Settings version is newer than current, aborting."))
+            exit()
         
         # Splash screen
         if self.options.startgui:
             self.__show_splash()
-
-        from xl import settings
 
         firstrun = settings.get_option("general/first_run", True)
 
@@ -197,7 +200,6 @@ class Exaile(object):
             Displays the splash screen
         """
         import xlgui
-        from xl import settings
         self.splash = xlgui.show_splash(show=settings.get_option('gui/use_splash', True))
 
     def setup_logging(self):
@@ -377,8 +379,6 @@ class Exaile(object):
             return
         self.quitting = True
         logger.info(_("Exaile is shutting down..."))
-
-        from xl import settings
 
         # stop the various idle based threads so they don't freak out when the
         # program exits.  Silly Python.

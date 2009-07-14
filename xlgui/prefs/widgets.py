@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import os, gtk.gdk
+import os, gtk.gdk, hashlib
 
 class PrefsItem(object):
     """
@@ -37,17 +37,14 @@ class PrefsItem(object):
         if hasattr(self, 'change'):
             self._setup_change()
 
-    def _get_name(self):
-        return self.name
-
     def _setup_change(self):
         """
             Sets up the function to be called when this preference is changed
         """
         self.widget.connect('focus-out-event',
-            self.change, self._get_name(), unicode(self.widget.get_text(), 'utf-8'))
+            self.change, self.name, unicode(self.widget.get_text(), 'utf-8'))
         self.widget.connect('activate',
-            lambda *e: self.change(self.widget, None, self._get_name(),
+            lambda *e: self.change(self.widget, None, self.name,
                 unicode(self.widget.get_text(), 'utf-8')))
 
     def _set_pref(self):
@@ -58,7 +55,7 @@ class PrefsItem(object):
             xlmisc.log("Widget not found: %s" % (self.name))
             return
         self.widget.set_text(str(self.prefs.settings.get_option(
-            self._get_name(), self.default)))
+            self.name, self.default)))
 
     def _settings_value(self):
         """
@@ -68,14 +65,48 @@ class PrefsItem(object):
 
     def apply(self, value=None):
         """
-            applies this setting
+            Applies this setting
         """
         if hasattr(self, 'done') and not self.done(): return False
         if value is None:
             value = self._settings_value()
-        self.prefs.settings.set_option(self._get_name(), value)
+        self.prefs.settings.set_option(self.name, value)
         return True
 
+class HashedPrefsItem(PrefsItem):
+    """
+        Represents a text entry with automated hashing
+    """
+    def __init__(self, prefs, widget):
+        PrefsItem.__init__(self, prefs, widget)
+        self._dirty = False
+
+    def _setup_change(self):
+        self.widget.connect('changed', self.change)
+
+    def change(self, *e):
+        self._dirty = True
+
+    def apply(self, value=None):
+        """
+            Applies this setting
+        """
+        if hasattr(self, 'done') and not self.done(): return False
+        if value is None:
+            value = self._settings_value()
+        if value is None:
+            return True
+
+        if self._dirty:
+            try:
+                hashfunc = getattr(hashlib, self.type)
+                value = hashfunc(value).hexdigest()
+                self._dirty = False
+            except AttributeError:
+                value = ''
+
+        self.prefs.settings.set_option(self.name, value)
+        return True
 
 class CheckPrefsItem(PrefsItem):
     """
@@ -90,7 +121,7 @@ class CheckPrefsItem(PrefsItem):
 
     def _set_pref(self):
         self.widget.set_active(
-            self.prefs.settings.get_option(self._get_name(),
+            self.prefs.settings.get_option(self.name,
             self.default))
 
     def _settings_value(self):
@@ -112,7 +143,7 @@ class DirPrefsItem(PrefsItem):
             Sets the current directory
         """
         directory = os.path.expanduser(
-            self.prefs.settings.get_option(self._get_name(), self.default))
+            self.prefs.settings.get_option(self.name, self.default))
         if not os.path.exists(directory):
             os.makedirs(directory)
         self.widget.set_filename(directory)
@@ -144,7 +175,7 @@ class OrderListPrefsItem(PrefsItem):
         """
             Sets the preferences for this widget
         """
-        items = self.prefs.settings.get_option(self._get_name(),
+        items = self.prefs.settings.get_option(self.name,
             self.default)
 
         self.model.clear()
@@ -188,7 +219,7 @@ class TextViewPrefsItem(PrefsItem):
             Sets the value of this widget
         """
         self.widget.get_buffer().set_text(str(
-            self.prefs.settings.get_option(self._get_name(),
+            self.prefs.settings.get_option(self.name,
             default=self.default)))
 
     def _settings_value(self):    
@@ -206,7 +237,7 @@ class ListPrefsItem(PrefsItem):
         PrefsItem.__init__(self, prefs, widget)
 
     def _set_pref(self):
-        items = self.prefs.settings.get_option(self._get_name(), 
+        items = self.prefs.settings.get_option(self.name, 
             default=self.default)
         try:
             items = " ".join(items)
@@ -224,7 +255,7 @@ class ListPrefsItem(PrefsItem):
 
 class SpinPrefsItem(PrefsItem):
     def _set_pref(self):
-        value = self.prefs.settings.get_option(self._get_name(), 
+        value = self.prefs.settings.get_option(self.name, 
             default=self.default)
         self.widget.set_value(value)
 
@@ -244,7 +275,7 @@ class FloatPrefsItem(PrefsItem):
 
     def _set_pref(self):
         self.widget.set_text(str(
-            self.prefs.settings.get_option(self._get_name(), 
+            self.prefs.settings.get_option(self.name, 
             default=self.default)))
 
     def _settings_value(self):
@@ -269,7 +300,7 @@ class ColorButtonPrefsItem(PrefsItem):
 
     def _set_pref(self):
         self.widget.set_color(gtk.gdk.color_parse(
-            self.prefs.settings.get_option(self._get_name(), 
+            self.prefs.settings.get_option(self.name, 
             self.default)))
 
     def _settings_value(self):
@@ -290,7 +321,7 @@ class FontButtonPrefsItem(ColorButtonPrefsItem):
         self.widget.connect('font-set', self.change)
 
     def _set_pref(self):
-        font = self.prefs.settings.get_option(self._get_name(), 
+        font = self.prefs.settings.get_option(self.name, 
             self.default)
         self.widget.set_font_name(font)
         
@@ -312,17 +343,17 @@ class ComboPrefsItem(PrefsItem):
         self.widget.connect('changed', self.change)
 
     def _set_pref(self):
-        item = self.prefs.settings.get_option(self._get_name(), 
+        item = self.prefs.settings.get_option(self.name, 
             self.default)
 
         if self.use_map:
             index = self.map.index(self.prefs.settings.get_option(
-                        self._get_name(), self.default))
+                        self.name, self.default))
             self.widget.set_active(index)
             return
 
         if self.use_index:
-            index = self.prefs.settings.get_option(self._get_name(), 
+            index = self.prefs.settings.get_option(self.name, 
                 self.default)
             self.widget.set_active(index)
             return

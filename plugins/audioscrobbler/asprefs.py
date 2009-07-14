@@ -29,8 +29,9 @@ class SubmitPreference(widgets.CheckPrefsItem):
 class UserPreference(widgets.PrefsItem):
     name = 'plugin/ascrobbler/user'
 
-class PassPreference(widgets.PrefsItem):
+class PassPreference(widgets.HashedPrefsItem):
     name = 'plugin/ascrobbler/password'
+    type = 'md5'
 
 class UrlPreference(widgets.PrefsItem):
     name = 'plugin/ascrobbler/url'

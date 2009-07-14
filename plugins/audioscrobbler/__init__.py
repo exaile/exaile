@@ -77,7 +77,7 @@ class ExaileScrobbler(object):
     def initialize(self, username, password, server):
         try:
             logger.info("AS: attempting to connect to audioscrobbler")
-            scrobbler.login(username, password, hashpw=True, post_url=server)
+            scrobbler.login(username, password, hashpw=False, post_url=server)
         except:
             self.connecting = False
             common.log_exception()

@@ -136,8 +136,8 @@ class Main(object):
             Shows a dialog for opening playlists and tracks
         """
         dialog = gtk.FileChooserDialog(_("Choose a file to open"),
-            self.main.window, buttons=(_('Open'), gtk.RESPONSE_OK, 
-            _('Cancel'), gtk.RESPONSE_CANCEL))
+            self.main.window, buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+                gtk.STOCK_OPEN, gtk.RESPONSE_OK))
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
 
         supported_file_filter = gtk.FileFilter()

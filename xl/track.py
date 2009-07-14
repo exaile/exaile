@@ -439,7 +439,7 @@ def parse_stream_tags(track, tags):
 
         elif key == 'album': track['album'] = value
         elif key == 'artist': track['artist'] = value
-        elif key == 'duration': track['__length'] = value
+        elif key == 'duration': track['__length'] = float(value[0])/1000000000
         elif key == 'track-number': track['tracknumber'] = value
         elif key == 'genre': track['genre'] = value
 

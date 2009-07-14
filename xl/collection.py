@@ -432,7 +432,7 @@ class Library(object):
             if tr:
                 # check to see if we need to scan this track
                 mtime = os.path.getmtime(fullpath)
-                if unicode(mtime) == tr['modified']:
+                if unicode(mtime) == tr['__modified']:
                     continue
                 else:
                     tr.read_tags()
@@ -489,7 +489,7 @@ class Library(object):
         if not settings.get_option('collection/file_based_compilations', True):
             return 
         try:
-            basedir = metadata.j(tr['basedir'])
+            basedir = metadata.j(tr['__basedir'])
             album = metadata.j(tr['album'])
             artist = metadata.j(tr['artist'])
         except UnicodeDecodeError: #TODO: figure out why this happens
@@ -545,7 +545,7 @@ class Library(object):
                 fullpath = "file://" + path
 
                 try:
-                    trmtime = db.get_track_attr(fullpath, "modified")
+                    trmtime = db.get_track_attr(fullpath, '__modified')
                 except:
                     pass
                 else:
@@ -571,9 +571,9 @@ class Library(object):
         for (basedir, album) in compilations:
             base = basedir.replace('"', '\\"')
             alb = album.replace('"', '\\"')
-            items = db.search('basedir="%s" album="%s"' % (base, alb))
+            items = db.search('__basedir="%s" album="%s"' % (base, alb))
             for item in items:
-                item['compilation'] = (basedir, album)
+                item['__compilation'] = (basedir, album)
 
         if notify_interval is not None:
             event.log_event('tracks_scanned', self, count)

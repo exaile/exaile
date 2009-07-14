@@ -581,7 +581,7 @@ class proxy:
 
             track = playlist.data.tracks[playlist.pos]
 
-            url = track["location"]
+            url = track["__loc"]
             url = "%s" % url
             url = string.split(url, "/", 3)
 

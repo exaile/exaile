@@ -23,7 +23,7 @@ import urllib2
 import logging
 logger = logging.getLogger(__name__)
 
-INFO_TAGS = ['bitrate', 'length', 'lyrics']
+INFO_TAGS = ['__bitrate', '__length', 'lyrics']
 
 class NotWritable(Exception):
     pass
@@ -42,6 +42,8 @@ class BaseFormat(object):
         self.open = False
         self.mutagen = None
         self.load()
+        self._reverse_mapping = dict(( 
+            (v,k) for k,v in self.tag_mapping.iteritems() ))
 
     def load(self):
         """
@@ -84,8 +86,18 @@ class BaseFormat(object):
         except KeyError:
             return None
 
+    def _get_keys(self):
+        keys = []
+        for k in self._get_raw().keys():
+            if k in self._reverse_mapping:
+                keys.append(self._reverse_mapping[k])
+            else:
+                keys.append(k)
+        return keys
+
     def read_all(self):
-        all = self.read_tags(common.VALID_TAGS)
+        tags = self._get_keys()
+        all = self.read_tags(tags)
         all.update(self.read_tags(INFO_TAGS))
         return all
 
@@ -157,9 +169,9 @@ class BaseFormat(object):
             self.save()
 
     def get_info(self, info):
-        if info == "length":
+        if info == "__length":
             return self.get_length()
-        elif info == "bitrate":
+        elif info == "__bitrate":
             return self.get_bitrate()
         else:
             raise KeyError
@@ -169,7 +181,7 @@ class BaseFormat(object):
             return self.mutagen.info.length
         except:
             try:
-                return self.mutagen['length']
+                return self.mutagen['__length']
             except:
                 return None
 
@@ -178,7 +190,7 @@ class BaseFormat(object):
             return self.mutagen.info.bitrate
         except:
             try:
-                return self.mutagen['bitrate']
+                return self.mutagen['__bitrate']
             except:
                 return None
 

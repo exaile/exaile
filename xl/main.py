@@ -339,7 +339,7 @@ class Exaile(object):
         for item in (3, 4):
             pl = playlist.SmartPlaylist(_("Rating > %d") % item, 
                 collection=self.collection)
-            pl.add_param('rating', '>', item)
+            pl.add_param('__rating', '>', item)
             self.smart_playlists.save_playlist(pl, overwrite=True)
 
     def mainloop_init(self):

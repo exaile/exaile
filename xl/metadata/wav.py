@@ -30,9 +30,9 @@ class WavFormat(BaseFormat):
             opener = type_map[sndhdr.what(self.loc)]
             f = opener.open(self.loc, "rb")
             length = f.getnframes() / f.getframerate()
-            self.mutagen = {'bitrate': -1, 'length': length}
+            self.mutagen = {'__bitrate': -1, '__length': length}
         except (IOError, KeyError):
-            self.mutagen = {'bitrate': -1, 'length': -1}
+            self.mutagen = {'__bitrate': -1, '__length': -1}
 
 
         

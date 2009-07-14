@@ -100,7 +100,7 @@ def get_format(loc):
 #FIXME: give this a better name. and a docstring.
 def j(value):
     if not value: return value
-    if hasattr(value, '__iter__'):
+    if hasattr(value, '__iter__') and type(value) not in (str, unicode):
         try:
             return u'\u0000'.join(value)
         except TypeError:

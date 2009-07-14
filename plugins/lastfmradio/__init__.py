@@ -78,7 +78,7 @@ def _enable(devicename, exaile, nothing):
     if not STATION:
         STATION = LastFMRadioStation(config)
         exaile.radio.add_station(STATION)
-        HTTP_CLIENT = httpclient.httpclient('localhost', config.listenport)
+        HTTP_CLIENT = httpclient.httpclient('__localhost', config.listenport)
 
     PROXY = lastfmmain.proxy(config.username, config.password)
     PROXY.np_image_func = album_callback

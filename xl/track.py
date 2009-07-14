@@ -88,7 +88,7 @@ class Track(object):
         if split[0] == "":
             loc = os.path.abspath(loc)
             loc = urlparse.urlunsplit(('file', split[1], loc, '', ''))
-        self['loc'] = loc
+        self['__loc'] = loc
        
     def get_loc(self):
         """
@@ -99,10 +99,10 @@ class Track(object):
             returns: the location [unicode]
         """
         try:
-            return common.to_unicode(self['loc'],
+            return common.to_unicode(self['__loc'],
                 common.get_default_encoding())
         except:
-            return self['loc']
+            return self['__loc']
 
     def exists(self):
         """
@@ -135,7 +135,7 @@ class Track(object):
 
             returns: the location [string]
         """
-        return self['loc']
+        return self['__loc']
 
     def get_album_tuple(self):
         """
@@ -150,20 +150,20 @@ class Track(object):
             # return the albumartist twice
             return (metadata.j(self['albumartist']),
                 metadata.j(self['albumartist']))
-        elif self['compilation']:
+        elif self['__compilation']:
             # this should be a 2 item tuple, containing the basedir and the
             # album.  It is populated in
             # collection.Collection._check_compilations
-            return self['compilation']
+            return self['__compilation']
         else:
             return (metadata.j(self['artist']), 
                 metadata.j(self['album']))
 
     def get_type(self):
-        b = self['loc'].find('://')
+        b = self['__loc'].find('://')
         if b == -1: 
             return 'file'
-        return self['loc'][:b]
+        return self['__loc'][:b]
 
     def get_tag(self, tag):
         """
@@ -213,7 +213,7 @@ class Track(object):
         """
             Allows retrieval of tags via Track[tag] syntax.
         """
-        if tag == 'basedir':
+        if tag == '__basedir':
             return [self.get_tag(tag)]
         return self.get_tag(tag)
 
@@ -262,8 +262,8 @@ class Track(object):
             split = urlparse.urlsplit(self.get_loc_for_io())
             path = self.local_file_name()
             mtime = os.path.getmtime(path)
-            self['modified'] = mtime
-            self['basedir'] = os.path.dirname(path)
+            self['__modified'] = mtime
+            self['__basedir'] = os.path.dirname(path)
             self._dirty = True
             return f
         except:
@@ -295,7 +295,7 @@ class Track(object):
             Returns the current track rating.  Default is 2
         """
         try:
-            rating = float(self['rating'])
+            rating = float(self['__rating'])
         except TypeError:
             return 0
         except KeyError:
@@ -325,32 +325,32 @@ class Track(object):
         except KeyError: return
         except ValueError: return
 
-        self['rating'] = rating
+        self['__rating'] = rating
 
     def get_bitrate(self): 
         """
             Returns the bitrate
         """
         if self.get_type() != 'file':
-            if self['bitrate']:
+            if self['__bitrate']:
                 try:
-                    return "%sk" % self['bitrate'].replace('k', '')
+                    return "%sk" % self['__bitrate'].replace('k', '')
                 except AttributeError:
-                    return str(self['bitrate']) + "k"
+                    return str(self['__bitrate']) + "k"
             else:
                 return ''
         try:
-            rate = int(self['bitrate']) / 1000
+            rate = int(self['__bitrate']) / 1000
             if rate: return "%dk" % rate
             else: return ""
         except:
-            return self['bitrate']
+            return self['__bitrate']
 
     def get_duration(self):
         """
             Returns the length of the track as an int in seconds
         """
-        l = self['length'] or 0
+        l = self['__length'] or 0
         return int(float(l))
 
     def sort_param(self, field):
@@ -366,7 +366,7 @@ class Track(object):
             except:
                 artist = u""
             return artist
-        elif field == 'length':
+        elif field == '__length':
             return self.get_duration()
         else: 
             try:
@@ -431,7 +431,7 @@ def parse_stream_tags(track, tags):
 
         value = [value]
 
-        if key == 'bitrate': track['bitrate'] = int(value[0]) / 1000
+        if key == '__bitrate': track['__bitrate'] = int(value[0]) / 1000
 
         # if there's a comment, but no album, set album to the comment
         elif key == 'comment' and not track.get_loc().endswith('.mp3'): 
@@ -439,22 +439,22 @@ def parse_stream_tags(track, tags):
 
         elif key == 'album': track['album'] = value
         elif key == 'artist': track['artist'] = value
-        elif key == 'duration': track['length'] = value
+        elif key == 'duration': track['__length'] = value
         elif key == 'track-number': track['tracknumber'] = value
         elif key == 'genre': track['genre'] = value
 
         elif key == 'title': 
             try:
-                if track['rawtitle'] != value:
-                    track['rawtitle'] = value
+                if track['__rawtitle'] != value:
+                    track['__rawtitle'] = value
                     newsong = True
             except AttributeError:
-                track['rawtitle'] = value
+                track['__rawtitle'] = value
                 newsong = True
 
             title_array = value[0].split(' - ', 1)
             if len(title_array) == 1 or (track.get_loc().endswith(".mp3") and \
-                not track.get_loc().endswith("lastfm.mp3")):
+                    not track.get_loc().endswith("lastfm.mp3")): # FIXME: HACK!
                 track['title'] = value
             else:
                 track['artist'] = [title_array[0]]

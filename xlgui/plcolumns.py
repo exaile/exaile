@@ -96,7 +96,7 @@ class AlbumColumn(Column):
 class LengthColumn(Column):
     size = 50
     display = _('Length')
-    id = 'length'
+    id = '__length'
 
     def data_func(self, col, cell, model, iter):
         """
@@ -122,7 +122,7 @@ class RatingColumn(Column):
     size = 64 * 5
     display = _('Rating')
     renderer = gtk.CellRendererPixbuf
-    id = 'rating'
+    id = '__rating'
 
     def data_func(self, col, cell, model, iter):
         item = model.get_value(iter, 0)
@@ -154,7 +154,7 @@ class GenreColumn(Column):
 class BitrateColumn(Column):
     size = 30
     display = _('Bitrate')
-    id = 'bitrate'
+    id = '__bitrate'
 
     def data_func(self, col, cell, model, iter):
         """
@@ -167,7 +167,7 @@ class BitrateColumn(Column):
 class IoLocColumn(Column):
     size = 200
     display = _('Location')
-    id = 'loc'
+    id = '__loc'
 
 class FilenameColumn(Column):
     size = 200
@@ -200,7 +200,7 @@ for key in keys:
 
 def setup_menu(menu, menu_items):
     items = ['tracknumber', 'title', 'artist', 'album',
-        'length', 'genre', 'rating', 'date']
+        '__length', 'genre', '__rating', 'date']
 
     for key in COLUMNS.keys():
         if not key in items:

@@ -165,7 +165,10 @@ class SettingsManager(RawConfigParser):
         """
             Convert setting strings back to normal values.
         """
-        kind, value = value.split(': ', 1)
+        try:
+            kind, value = value.split(': ', 1)
+        except ValueError:
+            return ''
 
         # lists are special case
         if kind == 'L':

@@ -83,6 +83,8 @@ class ID3Format(BaseFormat):
         return ret
 
     def _set_tag(self, raw, tag, data):
+        if tag not in self.tag_mapping.itervalues():
+            tag = "TXXX:" + tag
         raw.delall(tag)
         frame = id3.Frames[tag](encoding=3, text=data)
         raw.add(frame)

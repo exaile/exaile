@@ -174,6 +174,7 @@ class ExailePlayer(object):
             Called when there is an error during playback
         """
         event.log_event('playback_error', self, message, async=False)
+        self.stop()
 
     def tag_func(self, *args):
         event.log_event('tags_parsed', self, (self.current, args[0]))

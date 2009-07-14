@@ -33,6 +33,9 @@ class NormalPlayer(_base.ExailePlayer):
         self.playbin = None
         self.bus = None
 
+        self.setup_pipe()
+
+    def setup_pipe(self):
         self.setup_playbin()
         self.setup_bus()
         self.setup_gst_elements()
@@ -76,6 +79,15 @@ class NormalPlayer(_base.ExailePlayer):
             logger.error("%s %s" %(message, dir(message)) )
             a = message.parse_error()[0]
             self._on_playback_error(a.message)
+
+            # TODO: merge this into stop() and make it engine-agnostic somehow
+            curr = self.current
+            self._current = None
+            self.playbin.set_state(gst.STATE_NULL)
+            self.setup_pipe()
+            event.log_event("playback_track_end", self, curr)
+            event.log_event("playback_player_end", self, curr)
+            self.eof_func()
         elif message.type == gst.MESSAGE_BUFFERING:
             percent = message.parse_buffering()
             if percent < 100:

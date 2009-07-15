@@ -42,6 +42,7 @@ class Main(object):
 
         self.exaile = exaile
         self.first_removed = False
+        self.tray_icon = None
         self.panels = {}
         self.xml = gtk.glade.XML(xdg.get_data_path("glade/main.glade"),
             'ExaileWindow', 'exaile')
@@ -78,8 +79,6 @@ class Main(object):
 
         if settings.get_option('gui/use_tray', False):
             self.tray_icon = tray.TrayIcon(self.main)
-        else:
-            self.tray_icon = None
 
         event.add_callback(self._on_quit_application, 'quit_application')
 

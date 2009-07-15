@@ -136,8 +136,10 @@ class Playlist(gtk.VBox):
     def set_rating(self, widget, rating):
         tracks = self.get_selected_tracks()
         steps = settings.get_option('miscellaneous/rating_steps', 5)
+        r = float((100.0*rating)/steps)
         for track in tracks:
-            track['__rating'] = float((100.0*rating)/steps)
+            track['__rating'] = r
+        event.log_event('rating_changed', self, r)
 
     def _setup_col_menus(self):
         """
@@ -926,6 +928,7 @@ class Playlist(gtk.VBox):
                     track['__rating'] = new_rating
                 if hasattr(w, 'queue_draw'):
                     w.queue_draw()
+                event.log_event('rating_changed', self, i)
 
 def sort_tracks(tracks):
     from xlgui import main

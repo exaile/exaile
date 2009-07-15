@@ -806,6 +806,21 @@ class MainWindow(object):
             elif not self.controller.tray_icon and usetray:
                 self.controller.tray_icon = tray.TrayIcon(self)
 
+        if option == 'playback/dynamic':
+            if self.controller.tray_icon:
+                self.controller.tray_icon.check_dyna.set_active(settings.get_option('playback/dynamic', False))
+            self.dynamic_toggle.set_active(settings.get_option('playback/dynamic', False))
+
+        if option == 'playback/shuffle':
+            if self.controller.tray_icon:
+                self.controller.tray_icon.check_shuffle.set_active(settings.get_option('playback/shuffle', False))
+            self.shuffle_toggle.set_active(settings.get_option('playback/shuffle', False))
+
+        if option == 'playback/repeat':
+            if self.controller.tray_icon:
+                self.controller.tray_icon.check_repeat.set_active(settings.get_option('playback/repeat', False))
+            self.repeat_toggle.set_active(settings.get_option('playback/repeat', False))
+
     @common.threaded
     def _get_dynamic_tracks(self):
         """

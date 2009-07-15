@@ -1,0 +1,1010 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2009-05-11 09:51+0000\n"
+"Last-Translator: Salpebre <Unknown>\n"
+"Language-Team: Catalan <ca@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid "  New song, fetching cover."
+msgstr "  Nova peça, s'està obtenint la caràtula"
+
+msgid " + "
+msgstr " + "
+
+msgid " - "
+msgstr " - "
+
+msgid " : %d queued"
+msgstr " :%d a la cua"
+
+msgid " songs"
+msgstr " Cançons"
+
+msgid "#"
+msgstr "#"
+
+msgid "%d showing, %d in collection"
+msgstr "se'n mostren %d, %d dins la col·lecció"
+
+msgid "%d:%02d"
+msgstr "%d:%02d"
+
+msgid "%s KB"
+msgstr "%s KB"
+
+msgid "(c) 2008"
+msgstr "(c) 2008"
+
+msgid "(drag to reorder)"
+msgstr "(arrastreu per a reordenar)"
+
+msgid "..."
+msgstr "..."
+
+msgid ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+msgstr ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+
+msgid "0/0 tracks"
+msgstr "0/0 Pistes"
+
+msgid "0:00"
+msgstr "0:00"
+
+msgid "0:00 / 0:00"
+msgstr "0:00 / 0:00"
+
+msgid ":"
+msgstr ":"
+
+msgid "<b>General</b>"
+msgstr "<b>General</b>"
+
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to appear</"
+"b>"
+msgstr "<b>Mou la pantalla de selecció al lloc on vols que aparegui</b>"
+
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>No s'ha seleccionat cap complement</b>"
+
+msgid ""
+"<b>OSD</b>\n"
+"Drag to the location you'd like the\n"
+"OSD to appear"
+msgstr ""
+"<b>OSD</b>\n"
+"Arrosegueu a la posició on vulgueu\n"
+"que aparegui l'OSD"
+
+msgid "<b>Save changes to %s before closing?</b>"
+msgstr "<b>Voleu guardar els canvis a %s abans de tancar?</b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{títol}</b>\n"
+"{artista}\n"
+"a {àlbum} - {durada}"
+
+msgid ""
+"A proprietary and older, but also popular, lossy audio format. CBR gives "
+"less quality than VBR, but is compatible with any player."
+msgstr ""
+"Format d'àudio propietari amb pèrdua i antic, però que també és força "
+"popular. El format CBR proporciona una qualitat d'àudio inferior respecte al "
+"format VBR, però és compatible amb qualsevol reproductor."
+
+msgid ""
+"A proprietary and older, but also popular, lossy audio format. VBR gives "
+"higher quality than CBR, but may be incompatible with some players."
+msgstr ""
+"Format d'àudio propietari amb pèrdua i antic, però que també és força "
+"popular. El format VBR proporciona una qualitat d'àudio superior respecte al "
+"format CBR, encara que pot ser incompatible amb alguns reproductors."
+
+msgid "A very fast Free lossless audio format with good compression."
+msgstr ""
+"Format d'àudio sense pèrdua, molt ràpid i amb bon nivell de compressió."
+
+msgid "ASX Playlist"
+msgstr "Llista de reproducció ASX"
+
+msgid "About Exaile"
+msgstr "Sobre Exaile"
+
+msgid "Add"
+msgstr "Afegeix"
+
+msgid "Add Playlist"
+msgstr "Afegeix llista de reproducció"
+
+msgid "Add Station"
+msgstr "Afegeix emisora"
+
+msgid "Add a directory"
+msgstr "Afegir un directori"
+
+msgid "Add device"
+msgstr "Afegir dispositiu"
+
+msgid "Add to Playlist"
+msgstr "Afegeix a la llista de reproducció"
+
+msgid "Alarm Name:"
+msgstr "Nom alarma:"
+
+msgid "Alarm Time:"
+msgstr "Temps alarma:"
+
+msgid "Alarm:"
+msgstr "Alarma:"
+
+msgid "Album"
+msgstr "Àlbum"
+
+msgid "Album Art"
+msgstr "Art de l'Àlbum"
+
+msgid "All Files"
+msgstr "Tots els fitxers"
+
+msgid "An Unknown type of setting was found!"
+msgstr "S'ha trobat un tipus de paràmetre desconegut!"
+
+msgid "Append to Current"
+msgstr "Afegeix a l'actual"
+
+msgid ""
+"Apple's proprietary lossy audio format that achieves better sound quality "
+"than MP3 at lower bitrates."
+msgstr ""
+"Format d'àudio propietari de Apple que aconsegueix millor qualitat de so que "
+"un MP3, però amb menys taxes de bits."
+
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr ""
+"Estas segur de voler eliminar permanentment la llista de reproducció "
+"seleccionada?"
+
+msgid "Artist"
+msgstr "Artista"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"Artista\n"
+"Àlbum\n"
+"Gènere - Artista\n"
+"Gènere - Àlbum\n"
+"Any - Artista\n"
+"Any - Àlbum\n"
+"Artista - Any - Àlbum"
+
+msgid "Attempting to find covers for %s"
+msgstr "S'està intentant trobar caràtules per a '%s'"
+
+msgid "Authors:"
+msgstr "Autors:"
+
+msgid "Autosize"
+msgstr "Mida automàtica"
+
+msgid "Available Plugins"
+msgstr "Connectors disponibles"
+
+msgid "Background Color:"
+msgstr "Color del fons:"
+
+msgid "Bitrate"
+msgstr "Ràtio de bits"
+
+msgid "Bottom left"
+msgstr "Part inferior a l'esquerra"
+
+msgid "Bottom right"
+msgstr "Part inferior a la dreta"
+
+msgid "Bye!"
+msgstr "Adéu!"
+
+msgid "Cancel"
+msgstr "Cancel·la"
+
+msgid "Choose a file"
+msgstr "Selecciona un arxiu"
+
+msgid "Choose a file to open"
+msgstr "Trieu un fitxer per obrir"
+
+msgid "Clear Playlist"
+msgstr "Netejar Llista de Reproducció"
+
+msgid "Close Tab"
+msgstr "Tanca la pestanya"
+
+msgid "Close Without Saving"
+msgstr "Tanca sense guardar."
+
+msgid "Collection"
+msgstr "Col·lecció"
+
+msgid "Compilation detected: %s"
+msgstr "Compilació detectada: %s"
+
+msgid "Composer"
+msgstr "Compositor"
+
+msgid "Configure"
+msgstr "Configura"
+
+msgid "Connected to HAL"
+msgstr "Connectat a HAL"
+
+msgid ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+msgstr ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+
+msgid "Could not disable plugin."
+msgstr "No s'ha pogut desactivar el complement."
+
+msgid "Could not enable plugin."
+msgstr "No s'ha pogut activar el complement."
+
+msgid "Could not set parameter %s for %s"
+msgstr "No s'ha pogut establir el paràmetre %s per %s"
+
+msgid "Cover Finder"
+msgstr "Cercador de Cobertes"
+
+msgid "Cover Search Order:"
+msgstr "Ordre de cerca de caràtules:"
+
+msgid "CoverDB: set cover %s for '%s - %s'"
+msgstr "CoverDB: assigna la caràtula %s per a '%s - %s'"
+
+msgid "Custom Playlists"
+msgstr "Llistes de reproducció personalitzades"
+
+msgid "Custom: "
+msgstr "Personalitzat: "
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Decreases the volume by VOL"
+msgstr "Disminueix el volum per VOL"
+
+msgid "Delete"
+msgstr "Esborrar"
+
+msgid "Delete Playlist"
+msgstr "Borra la llista de reproducció"
+
+msgid "Description:"
+msgstr "Descripció:"
+
+msgid "Detected devices:"
+msgstr "Dispositius detectats"
+
+msgid "Device Manager"
+msgstr "Administrador de dispositius"
+
+msgid "Disable D-Bus support"
+msgstr "Desactiva la compatibilitat amb D-BUS"
+
+msgid "Disable HAL support."
+msgstr "Desactiva la compatibilitat amb HAL."
+
+msgid "Disc"
+msgstr "Disc"
+
+msgid "Disc Number"
+msgstr "Número del disc"
+
+msgid "Display a progressbar in the OSD"
+msgstr "Mostra una barra de progrés a l'OSD"
+
+msgid "Dynamic"
+msgstr "Dinamic"
+
+msgid "Dynamic mode is enabled, but there are no dynamic providers!"
+msgstr "El mode dinàmic està activat, però no hi ha proveedors dinàmics!"
+
+msgid "Dynamic: %d tracks fetched"
+msgstr "Dinàmic: s'han recollit %d peces"
+
+msgid "Dynamic: attempting to get %d tracks"
+msgstr "Dinàmic: s'està intentant obtenir %d peces"
+
+msgid "Edit"
+msgstr "Edita"
+
+msgid "Enable debugging of xl.event. Generates LOTS of output"
+msgstr "Activa la depuració de xl.event. Això generarà MOLTES sortides"
+
+msgid "Enabled"
+msgstr "Habilitat"
+
+msgid "Enter the name you want for your new playlist"
+msgstr "Introduïu el nom de la nova llista de reproducció"
+
+msgid "Enter the search text"
+msgstr "Introduïu el text de cerca"
+
+msgid "Entire Library"
+msgstr "Tota la biblioteca"
+
+msgid "Error loading preferences pane"
+msgstr "S'ha produït un error en carregar el panell de preferències"
+
+msgid "Exaile"
+msgstr "Exaile"
+
+msgid "Exaile Music Player"
+msgstr "Reproductor de Musica Exaile"
+
+msgid "Exaile is shutting down..."
+msgstr "Exaile s'està tancant ..."
+
+msgid "Exaile: playing %s"
+msgstr "Exaile: s'està reproduïnt %s"
+
+msgid "Export"
+msgstr "Exporta"
+
+msgid "Extension"
+msgstr "Extensió"
+
+msgid "Failed to connect to HAL, autodetection of devices will be disabled."
+msgstr ""
+"No s'ha pogut connectar amb HAL, es desactivarà la detecció automàtica de "
+"dispositius."
+
+msgid "Failed to create device for %s"
+msgstr "No s'ha pogut crear el dispositiu per a %s"
+
+msgid "Failed to enable equalizer"
+msgstr "No es va poder habilitar l'equalitzador"
+
+msgid "Fetch Cover"
+msgstr "Recollir caràtula"
+
+msgid "File Type"
+msgstr "Tipus de fitxer"
+
+msgid "File count: %d"
+msgstr "Quantitat d'arxius: %d"
+
+msgid "File does not exist: %s"
+msgstr "No existeix el fitxer: %s"
+
+msgid "Filename"
+msgstr "Nom de l'arxiu"
+
+msgid "Files"
+msgstr "Fitxers"
+
+msgid "Found covers from %s"
+msgstr "S'han trobat caràtules a %s"
+
+msgid "Found new %s device at %s"
+msgstr "Nou dispositiu %s trobat a %s"
+
+msgid "Found no HAL device handler for %s"
+msgstr "No s'ha trobat cap controlador de dispositius HAL per a %s"
+
+msgid ""
+"Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
+"does not degrade audio quality."
+msgstr ""
+"Free Lossless Audio Codec (FLAC) és un còdec d'àudio de codi obert que "
+"comprimeix sense pèrdua de qualitat en el so."
+
+msgid "Friday"
+msgstr "Divendres"
+
+msgid "Gapless enabled"
+msgstr "Gaples habilitat"
+
+msgid "Genre"
+msgstr "Gènere"
+
+msgid "Home directory"
+msgstr "Carpeta d'inici"
+
+msgid "Increases the volume by VOL"
+msgstr "Incrementa el volum per VOL"
+
+msgid "Install"
+msgstr "Instal·lar"
+
+msgid "Install Updates"
+msgstr "Instal·lar actualitzacions"
+
+msgid "Installed Plugins"
+msgstr "Complements instal·lats"
+
+msgid "Invalid file extension, file not saved"
+msgstr "L'arxiu no s'ha guardat perquè l'extensió no és vàlida"
+
+msgid "Jump to current song on track change"
+msgstr "Salta a la cançó actual quan hi hagi un canvi de pista"
+
+msgid "LastFM Radio"
+msgstr "LastFM Radio"
+
+msgid "LastFM: %s"
+msgstr "LastFM: %s"
+
+msgid "Length"
+msgstr "Duarada"
+
+msgid "Limit to: "
+msgstr "Limitar a: "
+
+msgid "Loaded plugin %s"
+msgstr "S'ha carregat el complement %s"
+
+msgid "Loading Exaile %s..."
+msgstr "Carregant Exaile %s..."
+
+msgid "Loading collection..."
+msgstr "Carregant col·lecció..."
+
+msgid "Loading devices..."
+msgstr "Carregant dispositius..."
+
+msgid "Loading interface..."
+msgstr "Carregant interfície..."
+
+msgid "Loading plugins..."
+msgstr "Carregant plugins..."
+
+msgid "Loading settings"
+msgstr "Carregant configuració"
+
+msgid "Location"
+msgstr "Ubicació"
+
+msgid "Location deleted: %s"
+msgstr "Ubicació eliminada: %s"
+
+msgid "Location modified: %s"
+msgstr "Ubicació  modificada: %s"
+
+msgid "Loved Tracks"
+msgstr "Peces preferides"
+
+msgid "M3U Playlist"
+msgstr "Llista de reproducció M3U"
+
+msgid "Monday"
+msgstr "Dilluns"
+
+msgid "Music Files"
+msgstr "Fitxers de Música"
+
+msgid "Name - Time"
+msgstr "Nom - Temps"
+
+msgid "Name:"
+msgstr "Nom:"
+
+msgid "New Playlist"
+msgstr "Nova Llista de Reproducció"
+
+msgid "New Search"
+msgstr "Recerca nova"
+
+msgid "Next"
+msgstr "Següent"
+
+msgid "Next Track"
+msgstr "Pista següent"
+
+msgid "Next visited directory"
+msgstr "Següent directori visitat"
+
+msgid "No cover found"
+msgstr "Portada no trobada"
+
+msgid "No covers found"
+msgstr "No s'han trobat caràtules"
+
+msgid "Not Playing"
+msgstr "No s'està reproduint"
+
+msgid "Not watching library: %s"
+msgstr "No supervisant biblioteca: %s"
+
+msgid "Number of Plays"
+msgstr "Número de reproduccions"
+
+msgid "Ok"
+msgstr "Ok"
+
+msgid "Opacity Level:"
+msgstr "Nivell d'opacitat"
+
+msgid "Open"
+msgstr "Obrir"
+
+msgid "Open URL"
+msgstr "Obre URL"
+
+msgid "Open _URL"
+msgstr "Obrir _URL"
+
+msgid "Open last playlists on startup"
+msgstr "Obre les últimes llistes de reproducció en iniciar"
+
+msgid "PLS Playlist"
+msgstr "Llista de reproducció PLS"
+
+msgid "Page 1"
+msgstr "Pàgina 1"
+
+msgid "Password:"
+msgstr "Contrassenya:"
+
+msgid "Pause"
+msgstr "Pausa"
+
+msgid "Personal"
+msgstr "Personal"
+
+msgid "Play"
+msgstr "Reprodueix"
+
+msgid "Play the next track"
+msgstr "Reprodueix la pista següent"
+
+msgid "Play the previous track"
+msgstr "Reprodueix la pista anterior"
+
+msgid "Playcount"
+msgstr "Recompte de reproduccions"
+
+msgid "Playing %s"
+msgstr "Reproduïnt %s"
+
+msgid "Playlists"
+msgstr "Repertori"
+
+msgid "Plugin"
+msgstr "Complement"
+
+msgid "Plugins"
+msgstr "Complements"
+
+msgid "Popup"
+msgstr "Emergent"
+
+msgid "Preferences"
+msgstr "Preferències"
+
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "Previous Track"
+msgstr "Pista anterior"
+
+msgid "Previous visited directory"
+msgstr "Anterior directori visitat"
+
+msgid "Print the album of current track"
+msgstr "Mostra l'àlbum de la peça actual"
+
+msgid "Print the artist of current track"
+msgstr "Mostra l'artista de la peça actual"
+
+msgid "Print the current volume"
+msgstr "Mostra el volum actual"
+
+msgid "Print the length of current track"
+msgstr "Mostra la durada de la peça actual"
+
+msgid "Print the position inside the current track as a percentage"
+msgstr "Mostra la posició dins de la peça actual com a percentatge"
+
+msgid "Print the title of current track"
+msgstr "Mostra el títol de la peça actual"
+
+msgid "PyInotify not installed or not supported.  "
+msgstr "Pylnotify no es troba instal·lat o no està suportat.  "
+
+msgid "Queue Items"
+msgstr "Elements llistats"
+
+msgid "Quit"
+msgstr "Sortir"
+
+msgid "Radio"
+msgstr "Ràdio"
+
+msgid "Radio Streams"
+msgstr "Fluxos de ràdio"
+
+msgid "Random %d"
+msgstr "Aleatori %d"
+
+msgid "Rating"
+msgstr "Valoració"
+
+msgid "Rating > %d"
+msgstr "Puntuació > %d"
+
+msgid "Rating: "
+msgstr "Puntuació: "
+
+msgid "Recommended"
+msgstr "Recomanat"
+
+msgid "Reduce level of output"
+msgstr "Redueix el nivell de sortida"
+
+msgid "Refresh"
+msgstr "Refresca"
+
+msgid "Refresh directory listing"
+msgstr "Refresca la llista de directoris"
+
+msgid "Remove"
+msgstr "Esborra"
+
+msgid "Remove Cover"
+msgstr "Elimina la caràtula"
+
+msgid "Rename"
+msgstr "Canvia el Nom"
+
+msgid "Rename Playlist"
+msgstr "Canvia el nom de la llista de reproducció"
+
+msgid "Repeat"
+msgstr "Repeteix"
+
+msgid "Resizable"
+msgstr "Redimensionable"
+
+msgid "Restart Playlist"
+msgstr "Reinicia la llista de reproducció"
+
+msgid "Resume playback in paused state"
+msgstr "Reprèn la reproducció"
+
+msgid "Resume playback on start"
+msgstr "Reprèn la reproducció en iniciar"
+
+msgid "Safe mode enabled, not loading plugins."
+msgstr "S'ha habilitat el mode segur, els complements no es carregaran."
+
+msgid "Saturday"
+msgstr "Dissabte"
+
+msgid "Save"
+msgstr "Guarda"
+
+msgid "Saved Stations"
+msgstr "Emisores guardades"
+
+msgid "Saving cover database"
+msgstr "S'està guardant la base de dades de caràtules"
+
+msgid "Saving state..."
+msgstr "Guardant estat..."
+
+msgid "Scanning collection..."
+msgstr "Escanejant la col·lecció..."
+
+msgid "Scanning library: %s"
+msgstr "Escanejant biblioteca: %s"
+
+msgid "Search"
+msgstr "Cerca"
+
+msgid "Search Results"
+msgstr "Resultats de la cerca"
+
+msgid "Search: "
+msgstr "Cerca: "
+
+msgid "Select File Type (By Extension)"
+msgstr "Seleccioneu el tipus de fitxer (per extensió)"
+
+msgid "Set Rating"
+msgstr "Puntua"
+
+msgid "Set data directory"
+msgstr "Estableix el directori de dades"
+
+msgid "Set rating for current song"
+msgstr "Puntua la peça actual"
+
+msgid "Show Cover"
+msgstr "Mostra Portada"
+
+msgid "Show OSD on track change"
+msgstr "Mostra el OSD quan canvii la pista"
+
+msgid "Show a popup of the currently playing track"
+msgstr "Mostra una notificació emergent amb la peça que s'està reproduïnt"
+
+msgid "Show debugging output"
+msgstr "Mostra la sortida de depuració"
+
+msgid "Show splash screen on startup"
+msgstr "Mostrar splash screen a l'iniciar"
+
+msgid "Shuffle"
+msgstr "Mescla"
+
+msgid "Size"
+msgstr "Tamany"
+
+msgid "Start"
+msgstr "Inicia"
+
+msgid "Start new instance"
+msgstr "Inicia una instància nova"
+
+msgid "Stop"
+msgstr "Atura"
+
+msgid "Stop Playback"
+msgstr "Atura la reproducció"
+
+msgid "Stop playback"
+msgstr "Atura la reproducció"
+
+msgid "Stopped"
+msgstr "Parat"
+
+msgid "Streaming..."
+msgstr "Streaming..."
+
+msgid "Submit tracks to Last.FM"
+msgstr "Tramet peces a Last.FM"
+
+msgid "Sunday"
+msgstr "Diumenge"
+
+msgid "Supported Files"
+msgstr "Fitxers suportats"
+
+msgid "Text Color"
+msgstr "Color del text"
+
+msgid "Text Font:"
+msgstr "Tipografia del Text"
+
+msgid "The playlist name you specified already exists."
+msgstr "El nom que heu introduït per a la llista de reproducció ja existeix."
+
+msgid "The selected plugin doesn't have any configuration options"
+msgstr "El complement que heu seleccionat no té opcions de configuració"
+
+msgid "Thursday"
+msgstr "Dijous"
+
+msgid "Title"
+msgstr "Títol"
+
+msgid "Toggle Queue"
+msgstr "Activa/Desactiva la cua"
+
+msgid "Toggle: Stop after selected track"
+msgstr "Atura/Continua després de la peça seleccionada"
+
+msgid "Top left"
+msgstr "Part superior a l'esquerra"
+
+msgid "Top right"
+msgstr "Part superior a la dreta"
+
+msgid "Track Number"
+msgstr "Número de la pista"
+
+msgid "Tuesday"
+msgstr "Dimarts"
+
+msgid "Type of device:"
+msgstr "Tipus de dispositiu:"
+
+msgid "Unable to enable plugin %s"
+msgstr "No es va poder habilitar el complement %s"
+
+msgid "Unable to fully disable plugin %s"
+msgstr "No es va poder deshabilitar completament el complement %s"
+
+msgid "Unknown"
+msgstr "Desconegut"
+
+msgid "Up one directory"
+msgstr "Puja un directori"
+
+msgid "Updates"
+msgstr "Actualitzacions"
+
+msgid "Username:"
+msgstr "Nom d'usuari:"
+
+msgid "Using %s for playback"
+msgstr "S'està utilitzant %s per a la reproducció"
+
+msgid "Various Artists"
+msgstr "Artistes diversos"
+
+msgid "Version:"
+msgstr "Versió:"
+
+msgid "Vol:"
+msgstr "Vol:"
+
+msgid ""
+"Vorbis is an open source, lossy audio codec with high quality output at a "
+"lower file size than MP3."
+msgstr ""
+"Vorbis es un còdec de compressió d'àudio amb pèrdua i de codi obert que "
+"proporciona un so de gran qualitat amb una mida d'arxiu inferior al d'un MP3."
+
+msgid "Watching directory: %s"
+msgstr "Revisant directori: %s"
+
+msgid "We don't know how to store that kind of setting: "
+msgstr "No sabem com emmagatzemar aquest tipus de paràmetre: "
+
+msgid "Wednesday"
+msgstr "Dimecres"
+
+msgid "Window Height:"
+msgstr "Alçada de finestra:"
+
+msgid "Window Width:"
+msgstr "Amplada de finestra:"
+
+msgid "XSPF Playlist"
+msgstr "Llista de reproducció XSPF"
+
+msgid "Year"
+msgstr "Any"
+
+msgid "You did not enter a name for your playlist"
+msgstr "No heu introduït el nom de la llista de reproducció"
+
+msgid "You have entered an invalid option"
+msgstr "Ha introduït una opció no vàlida"
+
+msgid "Your changes will be lost if you don't save them"
+msgstr "Els canvis es perdràn si no els guarda"
+
+msgid "_Close"
+msgstr "_Tancar"
+
+msgid "_Columns"
+msgstr "_Columnes"
+
+msgid "_Edit"
+msgstr "_Editar"
+
+msgid "_File"
+msgstr "_Fitxer"
+
+msgid "_Help"
+msgstr "_Ajuda"
+
+msgid "_Tools"
+msgstr "_Eines"
+
+msgid "_View"
+msgstr "_Visualitza"
+
+msgid "after"
+msgstr "després"
+
+msgid "and"
+msgstr "i"
+
+msgid "at least"
+msgstr "almenys"
+
+msgid "at most"
+msgstr "com a molt"
+
+msgid "before"
+msgstr "abans de"
+
+msgid "between"
+msgstr "entre"
+
+msgid "by %s"
+msgstr "de %s"
+
+msgid "contains"
+msgstr "conté"
+
+msgid "days"
+msgstr "dies"
+
+msgid "does not contain"
+msgstr "no conté"
+
+msgid "from %s"
+msgstr "de %s"
+
+msgid "hours"
+msgstr "hores"
+
+msgid "is"
+msgstr "és"
+
+msgid "is not"
+msgstr "no és"
+
+msgid "minutes"
+msgstr "minuts"
+
+msgid "order must be a list or tuple"
+msgstr "l'ordre ha de ser una llista o una tupla"
+
+msgid "seconds"
+msgstr "segons"
+
+msgid "weeks"
+msgstr "setmanes"

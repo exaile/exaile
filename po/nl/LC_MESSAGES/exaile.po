@@ -1,0 +1,1148 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2009-04-20 18:03+0000\n"
+"Last-Translator: mark0495 <Unknown>\n"
+"Language-Team: Dutch <nl@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid "  New song, fetching cover."
+msgstr "  Nieuw nummer, albumhoes ophalen."
+
+msgid " + "
+msgstr " + "
+
+msgid " - "
+msgstr " - "
+
+msgid " : %d queued"
+msgstr " : %d in wachtrij"
+
+msgid " songs"
+msgstr " nummers"
+
+msgid "#"
+msgstr "#"
+
+msgid "%(title)s (by %(artist)s)"
+msgstr "%(title)s (door %(artist)s)"
+
+msgid "%d covers to fetch"
+msgstr "%d albumhoezen om op te halen"
+
+msgid "%d:%02d"
+msgstr "%d:%02d"
+
+msgid "%s KB"
+msgstr "%s KB"
+
+msgid "(c) 2008"
+msgstr "(c) 2008"
+
+msgid "(drag to reorder)"
+msgstr "(sleep om te reorganiseren)"
+
+msgid "..."
+msgstr "..."
+
+msgid ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+msgstr ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+
+msgid "0/0 tracks"
+msgstr "0/0 muziekbestanden"
+
+msgid "0:00"
+msgstr "0:00"
+
+msgid "0:00 / 0:00"
+msgstr "0:00 / 0:00"
+
+msgid ":"
+msgstr ":"
+
+msgid "<b>General</b>"
+msgstr "<b>Algemeen</b>"
+
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to appear</"
+"b>"
+msgstr ""
+"<b>Verplaats het infovenster naar de plaats waar u het wilt laten "
+"verschijnen</b>"
+
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Geen invoegtoepassing geselecteerd</b>"
+
+msgid ""
+"<b>OSD</b>\n"
+"Drag to the location you'd like the\n"
+"OSD to appear"
+msgstr ""
+"<b>Infovenster</b>\n"
+"Sleep naar de locatie waar u zou willen\n"
+"dat het infovenster verschijnt"
+
+msgid "<b>Save changes to %s before closing?</b>"
+msgstr "<b>Wijzigingen aan %s opslaan voor sluiten?</b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"op {album} - {length}"
+
+msgid "A very fast Free lossless audio format with good compression."
+msgstr "Een zeer snel, Vrij, verliesvrij audio-formaat met goede compressie."
+
+msgid "ASX Playlist"
+msgstr "ASX-Afspeellijst"
+
+msgid "About Exaile"
+msgstr "Over Exaile"
+
+msgid "Add"
+msgstr "Toevoegen"
+
+msgid "Add Playlist"
+msgstr "Afspeellijst Toevoegen"
+
+msgid "Add Smart Playlist"
+msgstr "Slimme Afspeellijst Toevoegen"
+
+msgid "Add Station"
+msgstr "Zender Toevoegen"
+
+msgid "Add a directory"
+msgstr "Map toevoegen"
+
+msgid "Add device"
+msgstr "Apparaat toevoegen"
+
+msgid "Add to Playlist"
+msgstr "Toevoegen aan Afspeellijst"
+
+msgid "Alarm Clock"
+msgstr "Wekker"
+
+msgid "Alarm Days:"
+msgstr "Wekdagen:"
+
+msgid "Alarm Time :"
+msgstr "Wekkertijd:"
+
+msgid "Album"
+msgstr "Album"
+
+msgid "Album Art"
+msgstr "Albumhoezen"
+
+msgid "All Files"
+msgstr "Alle bestanden"
+
+msgid "An Unknown type of setting was found!"
+msgstr "Er is een onbekend type instelling gevonden!"
+
+msgid "Append to Current"
+msgstr "Toevoegen aan Huidige"
+
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr ""
+"Weet u zeker dat u de geselecteerde afspeellijst definitief wilt verwijderen?"
+
+msgid "Artist"
+msgstr "Artiest"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"Artiest\n"
+"Album\n"
+"Genre - Artiest\n"
+"Genre - Album\n"
+"Jaar - Artiest\n"
+"Jaar - Album\n"
+"Artiest - Jaar - Album"
+
+msgid "Attempting to find covers for %s"
+msgstr "Poberen albumhoezen te zoeken voor %s"
+
+msgid "Authors:"
+msgstr "Auteurs:"
+
+msgid "Autosize"
+msgstr "Autoformaat"
+
+msgid "Available Plugins"
+msgstr "Beschikbare invoegtoepassingen"
+
+msgid "BPM"
+msgstr "BPM"
+
+msgid "Background Color:"
+msgstr "Achtergrondkleur:"
+
+msgid "Bitrate"
+msgstr "Bitsnelheid"
+
+msgid "Bottom left"
+msgstr "Linksonder"
+
+msgid "Bottom right"
+msgstr "Rechtsonder"
+
+msgid "Buffering complete"
+msgstr "Bufferen klaar"
+
+msgid "Buffering: %d%%..."
+msgstr "Bufferen: %d%%..."
+
+msgid "Buffering: 100%..."
+msgstr "Bufferen: 100%..."
+
+msgid "Bye!"
+msgstr "Tot ziens!"
+
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgid "Choose a file"
+msgstr "Bestand kiezen"
+
+msgid "Choose a file to open"
+msgstr "Selecteer een bestand om te openen"
+
+msgid "Clear Playlist"
+msgstr "Afspeellijst Leegmaken"
+
+msgid "Close Tab"
+msgstr "Tabblad Sluiten"
+
+msgid "Close Without Saving"
+msgstr "Sluiten Zonder Opslaan"
+
+msgid "Collection"
+msgstr "Collectie"
+
+msgid "Collection Manager"
+msgstr "Collectie-Beheerder"
+
+msgid "Compilation detected: %s"
+msgstr "Compilatie gedetecteerd: %s"
+
+msgid "Composer"
+msgstr "Componist"
+
+msgid "Configure"
+msgstr "Configureren"
+
+msgid "Confirm Close"
+msgstr "Sluiten Bevestigen"
+
+msgid "Connected to HAL"
+msgstr "Verbonden met HAL"
+
+msgid ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+msgstr ""
+"Auteursrecht (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"Dit Programma is vrije software; U kan het verspreiden en/of wijzigen onder "
+"de\n"
+"bepalingen van de GNU Algemene Publieke Licentie zoals uitgegeven door de "
+"Free\n"
+"Software Foundation; hetzij versie 2 van de Licentie, hetzij (naar vrije "
+"keuze) een\n"
+"latere versie.\n"
+"\n"
+"Dit Programma is verspreid met de hoop dat het nuttig zal zijn maar \n"
+"ZONDER EENDER WELKE GARANTIE; zelfs zonder de impliciete garantie van \n"
+"VERKOOPBAARHEID of GESCHIKTHEID VOOR EEN BEPAALD DOEL. \n"
+"Zie de GNU Algemene Publieke Licentie voor meer details.\n"
+"\n"
+"U zou een kopie van de GNU Algemene Publieke Licentie ontvangen moeten\n"
+"hebben samen met dit Programma; indien dit niet zo is, schrijf naar\n"
+"de Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, \n"
+"Boston, MA 02111-1301 USA.\n"
+
+msgid "Could not disable plugin."
+msgstr "Kon plugin niet desactiveren."
+
+msgid "Could not enable plugin."
+msgstr "Kon plugin niet activeren."
+
+msgid "Could not set parameter %s for %s"
+msgstr "Kon parameter %s niet instellen voor %s"
+
+msgid "Couldn't send seek event"
+msgstr "Kon zoek-gebeurtenis niet verzenden"
+
+msgid "Cover Finder"
+msgstr "Hoezenzoeker"
+
+msgid "Cover Search Order:"
+msgstr "Albumhoes zoekvolgorde"
+
+msgid "CoverDB: set cover %s for '%s - %s'"
+msgstr "CoverDB: zet albumhoes %s voor '%s - %s'"
+
+msgid "Custom Playlists"
+msgstr "Aangepaste Afspeellijsten"
+
+msgid "Custom: "
+msgstr "Aangepast: "
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Decreases the volume by VOL"
+msgstr "Verlaag het volume met VOL"
+
+msgid "Delete Playlist"
+msgstr "Afspeellijst Verwijderen"
+
+msgid "Description:"
+msgstr "Beschrijving:"
+
+msgid "Detected devices:"
+msgstr "Gedetecteerde apparaten:"
+
+msgid "Device Manager"
+msgstr "Apparaatbeheerder"
+
+msgid "Disable D-Bus support"
+msgstr "Schakel D-Bus ondersteuning uit"
+
+msgid "Disable HAL support."
+msgstr "Schakel HAL ondersteuning uit"
+
+msgid "Disc"
+msgstr "Schijf"
+
+msgid "Disc Number"
+msgstr "Schijfnummer"
+
+msgid "Display OSD when hovering over tray icon"
+msgstr "Infovenster tonen bij zweven boven systeemvakpictogram"
+
+msgid "Display a progressbar in the OSD"
+msgstr "Een voortgangsbalk tonen in het infovenster"
+
+msgid "Dynamic"
+msgstr "Dynamisch"
+
+msgid "Dynamic: %d tracks fetched"
+msgstr "Dynamisch: %d nummers opgehaald"
+
+msgid "Dynamic: attempting to get %d tracks"
+msgstr "Dynamisch: proberen %d nummers op te halen"
+
+msgid "Edit"
+msgstr "Bewerken"
+
+msgid "Edit Smart Playlist"
+msgstr "Slimme Afspeellijst Bewerken"
+
+msgid "Enable debugging of xl.event. Generates LOTS of output"
+msgstr "Schakel debuggen van xl.even in. Genereert VEEL uitvoer"
+
+msgid "Enabled"
+msgstr "Geactiveerd"
+
+msgid "Enter the URL to open"
+msgstr "Voer de URL om te openen in"
+
+msgid "Enter the name you want for your new playlist"
+msgstr "Voer de naam in die je wenst voor je nieuwe afspeellijst"
+
+msgid "Enter the new name you want for your playlist"
+msgstr "Geef de nieuwe naam die u voor de afspeellijst wilt in"
+
+msgid "Enter the search keywords"
+msgstr "Vul de zoektermen in"
+
+msgid "Enter the search text"
+msgstr "Geef de zoektekst"
+
+msgid "Entire Library"
+msgstr "Volledige bibliotheek"
+
+msgid "Error executing streamripper"
+msgstr "Error tijdens het uitvoeren van streamripper"
+
+msgid "Error loading preferences pane"
+msgstr "Fout tijdens het laden van het voorkeuren-paneel"
+
+msgid "Exaile"
+msgstr "Exaile"
+
+msgid "Exaile Music Player"
+msgstr "Exaile Muziekspeler"
+
+msgid "Exaile is shutting down..."
+msgstr "Exaile is aan het afsluiten..."
+
+msgid "Exaile: playing %s"
+msgstr "Exaile: %s aan het afspelen"
+
+msgid "Export"
+msgstr "Exporteren"
+
+msgid "Extension"
+msgstr "Extensie"
+
+msgid "Failed to connect to HAL, autodetection of devices will be disabled."
+msgstr ""
+"Kon niet verbinden met HAL, autodetectie van apparaten wordt gedesactiveerd."
+
+msgid "Failed to create device for %s"
+msgstr "Kon apparaat niet creëren voor %s"
+
+msgid "Failed to enable equalizer"
+msgstr "Kon de equalizer niet starten"
+
+msgid "Failed to enable replaygain"
+msgstr "Kon replaygain niet starten"
+
+msgid "Failed to load HAL devices for %s"
+msgstr "Kon HAL-apparaten niet laden voor %s"
+
+msgid "Failed to open music DB for write."
+msgstr "Kon muziek-DB niet openen om te schrijven."
+
+msgid "Failed to open music DB."
+msgstr "Kon muziek-DB niet openen."
+
+msgid "Fetch Cover"
+msgstr "Hoes Ophalen"
+
+msgid "File Type"
+msgstr "Bestandstype"
+
+msgid "File count: %d"
+msgstr "Aantal bestanden: %d"
+
+msgid "File does not exist: %s"
+msgstr "Bestand bestaat niet: %s"
+
+msgid "Filename"
+msgstr "Bestandsnaam"
+
+msgid "Files"
+msgstr "Bestanden"
+
+msgid "Found covers from %s"
+msgstr "Covers gevonden van %s"
+
+msgid "Found new %s device at %s"
+msgstr "Nieuw %s apparaat gevonden op %s"
+
+msgid "Found no HAL device handler for %s"
+msgstr "Kon geen HAL-apparaatbeheerder vinden voor %s"
+
+msgid ""
+"Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
+"does not degrade audio quality."
+msgstr ""
+"Free Lossless Audio Codec (FLAC) is een open bron codec die wel comprimeert "
+"maar de geluidskwaliteit niet vermindert."
+
+msgid "Friday"
+msgstr "Vrijdag"
+
+msgid "Gapless enabled"
+msgstr "Geen pauzes geactiveerd"
+
+msgid "Genre"
+msgstr "Genre"
+
+msgid "Get rating for current song"
+msgstr "Haal de waardering voor het huidige nummer op"
+
+msgid "Increases the volume by VOL"
+msgstr "Verhoog het volume met VOL"
+
+msgid "Increment:"
+msgstr "Verhogen:"
+
+msgid "Install"
+msgstr "Installeren"
+
+msgid "Install Updates"
+msgstr "Updates Installeren"
+
+msgid "Installed Plugins"
+msgstr "Geïnstalleerde invoegtoepassingen"
+
+msgid "Invalid file extension, file not saved"
+msgstr "Ongeldige bestandsextensie, bestand niet opgeslagen."
+
+msgid "Jump to current song on track change"
+msgstr "Bij trackwijziging naar huidige nummer springen"
+
+msgid "LastFM Radio"
+msgstr "LastFM Radio"
+
+msgid "LastFM: %s"
+msgstr "LastFM: %s"
+
+msgid "Length"
+msgstr "Duur"
+
+msgid "Limit to: "
+msgstr "Beperk tot: "
+
+msgid "Loaded plugin %s"
+msgstr "Geladen plugin %s"
+
+msgid "Loading Exaile %s..."
+msgstr "Exaile aan het laden %s..."
+
+msgid "Loading collection..."
+msgstr "Collectie aan het laden..."
+
+msgid "Loading devices..."
+msgstr "Apparaten aan het laden..."
+
+msgid "Loading interface..."
+msgstr "Interface laden..."
+
+msgid "Loading plugins..."
+msgstr "Plugins aan het laden..."
+
+msgid "Loading settings"
+msgstr "Instellingen aan het laden..."
+
+msgid "Loading streams..."
+msgstr "Bezig met laden stromen..."
+
+msgid "Location"
+msgstr "Locatie"
+
+msgid "Location deleted: %s"
+msgstr "Locatie verwijderd: %s"
+
+msgid "Location modified: %s"
+msgstr "Locatie aangepast: %s"
+
+msgid "Loved Tracks"
+msgstr "Lievelingsnummers"
+
+msgid "M3U Playlist"
+msgstr "M3U-Afspeellijst"
+
+msgid "Match any of the criteria"
+msgstr "Overeenkomen met om het even welke van de criteria"
+
+msgid "Maximum Volume:"
+msgstr "Maximum volume:"
+
+msgid "Minimum Volume:"
+msgstr "Minimum volume:"
+
+msgid "Minimum Volume:                "
+msgstr "Minimum volume:                "
+
+msgid "Monday"
+msgstr "Maandag"
+
+msgid "Music Files"
+msgstr "Muziekbestanden"
+
+msgid "Name - Time"
+msgstr "Naam - Tijd"
+
+msgid "Name:"
+msgstr "Naam:"
+
+msgid "Neighbourhood"
+msgstr "Buurt"
+
+msgid "New Playlist"
+msgstr "Nieuwe Afspeellijst"
+
+msgid "New Search"
+msgstr "Nieuwe Zoekopdracht"
+
+msgid "Next"
+msgstr "Volgende"
+
+msgid "Next Track"
+msgstr "Volgend Nummer"
+
+msgid "Next visited directory"
+msgstr "Volgende bezochte map"
+
+msgid "No cover found"
+msgstr "Geen albumhoes gevonden"
+
+msgid "No covers found"
+msgstr "Geen hoezen gevonden"
+
+msgid "Not Playing"
+msgstr "Niet aan het afspelen"
+
+msgid "Number of Plays"
+msgstr "Aantal keer afgespeeld"
+
+msgid "Ok"
+msgstr "Ok"
+
+msgid "Opacity Level:"
+msgstr "Transparantie-Niveau:"
+
+msgid "Open"
+msgstr "Openen"
+
+msgid "Open URL"
+msgstr "URL openen"
+
+msgid "Open _URL"
+msgstr "Open _URL"
+
+msgid "Open last playlists on startup"
+msgstr "Laatste afspeellijsten openen bij het opstarten"
+
+msgid "PLS Playlist"
+msgstr "PLS-Afspeellijst"
+
+msgid "Page 1"
+msgstr "Pagina 1"
+
+msgid "Password:"
+msgstr "Wachtwoord:"
+
+msgid ""
+"Path is already in your collection, or is a subdirectory of another path in "
+"your collection"
+msgstr ""
+"Map is reeds opgenomen in uw collectie, of is een submap van een andere map "
+"in uw collectie"
+
+msgid "Pause"
+msgstr "Pauzeren"
+
+msgid "Personal"
+msgstr "Persoonlijk"
+
+msgid "Pl_ugins"
+msgstr "Toevoegingen"
+
+msgid "Play"
+msgstr "Afspelen"
+
+msgid "Play the next track"
+msgstr "Speel het volgende nummer af"
+
+msgid "Play the previous track"
+msgstr "Speel het vorige nummer af"
+
+msgid "Playcount"
+msgstr "Afspeelteller"
+
+msgid "Playing %s"
+msgstr "Bezig met afspelen %s"
+
+msgid "Playlist Files"
+msgstr "Afspeellijstbestanden"
+
+msgid "Playlists"
+msgstr "Afspeellijsten"
+
+msgid "Plugin"
+msgstr "Invoegtoepassing"
+
+msgid "Plugin archive contains an unsafe path"
+msgstr "Het pluginarchief bevat een onveilig pad"
+
+msgid "Plugins"
+msgstr "Invoegtoepassingen"
+
+msgid "Popup"
+msgstr "Popup"
+
+msgid "Preferences"
+msgstr "Voorkeuren"
+
+msgid "Previous"
+msgstr "Vorige"
+
+msgid "Previous Track"
+msgstr "Vorig Nummer"
+
+msgid "Previous visited directory"
+msgstr "Vorige bezochte map"
+
+msgid "Print the album of current track"
+msgstr "Print het album van het huidige nummer"
+
+msgid "Print the artist of current track"
+msgstr "Print de artiest van het huidige nummer"
+
+msgid "Print the current volume"
+msgstr "Print het huidige volume"
+
+msgid "Print the length of current track"
+msgstr "Print de lengte van het huidige nummer"
+
+msgid "Print the position inside the current track as a percentage"
+msgstr "Print de positie in het huidige nummer as percentage"
+
+msgid "Print the title of current track"
+msgstr "Print de titel van het huidige nummer"
+
+msgid "PyInotify not installed or not supported.  "
+msgstr "Pylnotify is niet geïnstalleerd of het wordt niet ondersteund.  "
+
+msgid "Python Console - Exaile"
+msgstr "Python opdrachtregel - Exaile"
+
+msgid "Queue Items"
+msgstr "Items in wachtrij plaatsen"
+
+msgid "Quit"
+msgstr "Afsluiten"
+
+msgid "Radio"
+msgstr "Radio"
+
+msgid "Radio Streams"
+msgstr "Radiostreams"
+
+msgid "Ran out of tracks to shuffle"
+msgstr "De nummes om te shuffelen zijn op"
+
+msgid "Random %d"
+msgstr "Willekeurig %d"
+
+msgid "Randomize results"
+msgstr "Resultaten willekeurig maken"
+
+msgid "Rating"
+msgstr "Waardering"
+
+msgid "Rating > %d"
+msgstr "Waardering > %d"
+
+msgid "Rating: "
+msgstr "Waardering: "
+
+msgid "Recommended"
+msgstr "Aangeraden"
+
+msgid "Reduce level of output"
+msgstr "Verminder hoeveelheid uitvoer"
+
+msgid "Refresh"
+msgstr "Verversen"
+
+msgid "Refresh directory listing"
+msgstr "Ververs mappenlijst"
+
+msgid "Relay Port:"
+msgstr "Doorgavepoort:"
+
+msgid "Remove"
+msgstr "Verwijderen"
+
+msgid "Remove Cover"
+msgstr "Hoes Verwijderen"
+
+msgid "Rename"
+msgstr "Hernoemen"
+
+msgid "Rename Playlist"
+msgstr "Afspeellijst Hernoemen"
+
+msgid "Repeat"
+msgstr "Herhalen"
+
+msgid "Resizable"
+msgstr "Herschaalbaar"
+
+msgid "Resume playback in paused state"
+msgstr "Afspelen hervatten in gepauseerde status"
+
+msgid "Resume playback on start"
+msgstr "Afspelen hervatten bij start"
+
+msgid "Safe mode enabled, not loading plugins."
+msgstr "Veilige modus geactiveerd, plugins worden niet geladen."
+
+msgid "Saturday"
+msgstr "Zaterdag"
+
+msgid "Save"
+msgstr "Opslaan"
+
+msgid "Save Location:     "
+msgstr "Opslaglocatie:     "
+
+msgid "Saved Stations"
+msgstr "Opgeslagen Zenders"
+
+msgid "Saving %s DB to %s."
+msgstr "%s DB aan het opslaan naar %s."
+
+msgid "Saving cover database"
+msgstr "Albumhoesdatabase opslaan"
+
+msgid "Saving state..."
+msgstr "Status aan het opslaan..."
+
+msgid "Scanning collection..."
+msgstr "Verzameling aan het doorzoeken..."
+
+msgid "Scanning library: %s"
+msgstr "Bibliotheek aan het scannen: %s"
+
+msgid "Search"
+msgstr "Zoeken"
+
+msgid "Search Results"
+msgstr "Zoekresultaten"
+
+msgid "Search: "
+msgstr "Zoek: "
+
+msgid "Select File Type (By Extension)"
+msgstr "Bestandstype Selecteren (Op Extensie)"
+
+msgid "Sent '%s' event from '%s' with data '%s'."
+msgstr "'%s' gebeurtenis verstuurd van '%s' met data '%s'."
+
+msgid "Set Rating"
+msgstr "Waardering Instellen"
+
+msgid "Set data directory"
+msgstr "Stel de gegevensmap in"
+
+msgid "Set rating for current song"
+msgstr "Stel de waardering voor het huidige nummer in"
+
+msgid "Show Cover"
+msgstr "Hoes Weergeven"
+
+msgid "Show OSD on track change"
+msgstr "Infovenster tonen bij nummerswijziging"
+
+msgid "Show a popup of the currently playing track"
+msgstr "Laat een popup van het huidige nummer zien"
+
+msgid "Show debugging output"
+msgstr "Laat debug uitvoer zien"
+
+msgid "Show splash screen on startup"
+msgstr "Openingsscherm tonen bij starten"
+
+msgid "Show tray icon"
+msgstr "Systeemvakpictogram tonen"
+
+msgid "Shuffle"
+msgstr "Willekeurig"
+
+msgid "Size"
+msgstr "Grootte"
+
+msgid "Smart Playlists"
+msgstr "Slimme Afspeellijsten"
+
+msgid "Start"
+msgstr "Begin"
+
+msgid "Start Exaile minimized to tray, if possible"
+msgstr "Start Exaile geminimaliseerd naar het systeemvak, indien mogelijk"
+
+msgid "Start in safe mode - sometimes useful when you're running into problems"
+msgstr "Start in veilige modus - soms handig wanneer je problemen ondervindt"
+
+msgid "Stop"
+msgstr "Stop"
+
+msgid "Stop Playback"
+msgstr "Afspelen Stoppen"
+
+msgid "Stop playback"
+msgstr "Afspelen stoppen"
+
+msgid "Stopped"
+msgstr "Gestopt"
+
+msgid "Streaming..."
+msgstr "Streamen..."
+
+msgid "Streamripper can only record streams."
+msgstr "Streamripper kan alleen streams opnemen."
+
+msgid "Sunday"
+msgstr "Zondag"
+
+msgid "Supported Files"
+msgstr "Ondersteunde bestanden"
+
+msgid "Text Color"
+msgstr "Tekstkleur"
+
+msgid "Text Font:"
+msgstr "Lettertype:"
+
+msgid "The playlist name you specified already exists."
+msgstr "De afspeellijstnaam die u specifieerde bestaat reeds."
+
+msgid "The selected plugin doesn't have any configuration options"
+msgstr "De geselecteerde plugin heeft geen enkele configuratie-optie"
+
+msgid "Thursday"
+msgstr "Donderdag"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Toggle Play or Pause"
+msgstr "Afspelen/pauzeren"
+
+msgid "Toggle Queue"
+msgstr "Wel/niet in wachtrij"
+
+msgid "Top left"
+msgstr "Linksboven"
+
+msgid "Top right"
+msgstr "Rechtsboven"
+
+msgid "Track Number"
+msgstr "Tracknummer"
+
+msgid "Tuesday"
+msgstr "Dinsdag"
+
+msgid "Type of device:"
+msgstr "Type apparaat:"
+
+msgid "Unable to enable plugin %s"
+msgstr "Niet mogelijk om de plugin %s te laden"
+
+msgid "Unable to fully disable plugin %s"
+msgstr "Kan plugin %s niet volledig desactiveren"
+
+msgid "Unknown"
+msgstr "Onbekend"
+
+msgid "Up one directory"
+msgstr "Een map omhoog"
+
+msgid "Updates"
+msgstr "Updates"
+
+msgid "Use Fading"
+msgstr "Draai geluid weg aan einde"
+
+msgid "Username:"
+msgstr "Gebruikersnaam:"
+
+msgid "Using %s for playback"
+msgstr "%s aan het gebruiken voor afspelen"
+
+msgid "Various Artists"
+msgstr "Diverse Artiesten"
+
+msgid "Version:"
+msgstr "Versie:"
+
+msgid "Vol:"
+msgstr "Volume:"
+
+msgid ""
+"Vorbis is an open source, lossy audio codec with high quality output at a "
+"lower file size than MP3."
+msgstr ""
+"Vorbis is een open source, kwaliteitsverliezende geluidscodec met hoge "
+"kwaliteit uitvoer en een kleinere bestandsgrootte dan MP3."
+
+msgid "Watching directory: %s"
+msgstr "Huidige map: %s"
+
+msgid "We don't know how to store that kind of setting: "
+msgstr "We weten niet hoe we zulke instelling op moeten slaan: "
+
+msgid "Wednesday"
+msgstr "Woensdag"
+
+msgid "Window Height:"
+msgstr "Vensterhoogte:"
+
+msgid "Window Width:"
+msgstr "Vensterbreedte:"
+
+msgid "XSPF Playlist"
+msgstr "XSPF-Afspeellijst"
+
+msgid "Year"
+msgstr "Jaar"
+
+msgid "You did not enter a name for your playlist"
+msgstr "Je hebt geen naam ingevoerd voor je afspeellijst"
+
+msgid "You have entered an invalid option"
+msgstr "Je hebt een ongeldige optie ingevuld"
+
+msgid "Your changes will be lost if you don't save them"
+msgstr "Uw veranderingen zullen verloren gaan, als u ze niet eerst bewaart"
+
+msgid "_Album Art Manager"
+msgstr "_Albumhoezen Beheerder"
+
+msgid "_Close"
+msgstr "_Sluiten"
+
+msgid "_Collection Manager"
+msgstr "_Collectie-Beheerder"
+
+msgid "_Columns"
+msgstr "_Kolommen"
+
+msgid "_Edit"
+msgstr "Be_werken"
+
+msgid "_File"
+msgstr "_Bestand"
+
+msgid "_Help"
+msgstr "_Help"
+
+msgid "_Rescan Collection"
+msgstr "_Collectie opnieuw doorzoeken"
+
+msgid "_Tools"
+msgstr "E_xtra"
+
+msgid "_View"
+msgstr "Beel_d"
+
+msgid "after"
+msgstr "na"
+
+msgid "and"
+msgstr "en"
+
+msgid "at least"
+msgstr "ten minste"
+
+msgid "at most"
+msgstr "ten hoogste"
+
+msgid "bad search token"
+msgstr "ongeldig zoekteken"
+
+msgid "before"
+msgstr "voor"
+
+msgid "between"
+msgstr "tussen"
+
+msgid "by %(artist)s"
+msgstr "door %(artist)s"
+
+msgid ""
+"by %(artist)s\n"
+"from <i>%(album)s</i>"
+msgstr ""
+"door %(artist)s\n"
+"van <i>%(album)s</i>"
+
+msgid "by %s"
+msgstr "door %s"
+
+msgid "contains"
+msgstr "bevat"
+
+msgid "days"
+msgstr "dagen"
+
+msgid "does not contain"
+msgstr "bevat niet"
+
+msgid "from %s"
+msgstr "van het album %s"
+
+msgid "gtk-add"
+msgstr "gtk-toevoegen"
+
+msgid "gtk-cancel"
+msgstr "gtk-annuleren"
+
+msgid "gtk-close"
+msgstr "gtk-sluiten"
+
+msgid "gtk-connect"
+msgstr "gtk-verbinden"
+
+msgid "gtk-disconnect"
+msgstr "gtk-verbinding verbreken"
+
+msgid "gtk-edit"
+msgstr "gtk-bewerken"
+
+msgid "gtk-ok"
+msgstr "gtk-ok"
+
+msgid "gtk-remove"
+msgstr "gtk-verwijderen"
+
+msgid "hours"
+msgstr "uren"
+
+msgid "is"
+msgstr "is gelijk aan"
+
+msgid "is not"
+msgstr "is niet gelijk aan"
+
+msgid "minutes"
+msgstr "minuten"
+
+msgid "seconds"
+msgstr "seconden"
+
+msgid "weeks"
+msgstr "weken"

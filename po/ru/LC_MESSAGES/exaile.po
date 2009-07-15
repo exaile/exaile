@@ -1,0 +1,1216 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2009-04-26 15:04+0000\n"
+"Last-Translator: Alexei <jleexa@gmail.com>\n"
+"Language-Team: Russian <ru@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
+"X-Poedit-Language: Russian\n"
+
+msgid "  New song, fetching cover."
+msgstr "  Новая песня, загрузка обложки."
+
+msgid " + "
+msgstr " + "
+
+msgid " - "
+msgstr " - "
+
+msgid " : %d queued"
+msgstr " : %d добавлен в очередь"
+
+msgid " songs"
+msgstr " песни"
+
+msgid "#"
+msgstr "#"
+
+msgid "%(title)s (by %(artist)s)"
+msgstr "%(title)s (в исполнении %(artist)s)"
+
+msgid "%d covers to fetch"
+msgstr "%d обложек запрошено"
+
+msgid "%d:%02d"
+msgstr "%d:%02d"
+
+msgid "%s KB"
+msgstr "%s КБ"
+
+msgid "(c) 2008"
+msgstr "(c) 2008"
+
+msgid "(drag to reorder)"
+msgstr "(тащить для переупорядочивания)"
+
+msgid "..."
+msgstr "..."
+
+msgid ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+msgstr ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+
+msgid "0/0 tracks"
+msgstr "0/0 треков"
+
+msgid "0:00"
+msgstr "0:00"
+
+msgid "0:00 / 0:00"
+msgstr "0:00 / 0:00"
+
+msgid ":"
+msgstr ":"
+
+msgid "<b>General</b>"
+msgstr "<b>Общие</b>"
+
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to appear</"
+"b>"
+msgstr "<b>Переместите OSD окно в место где вы хотите чтобы оно появлялось</b>"
+
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Ни один модуль не выбран</b>"
+
+msgid ""
+"<b>OSD</b>\n"
+"Drag to the location you'd like the\n"
+"OSD to appear"
+msgstr ""
+"<b>OSD</b>\n"
+"Перетащите, куда хотите\n"
+"OSD, чтобы появился"
+
+msgid "<b>Save changes to %s before closing?</b>"
+msgstr "<b>Сохранить изменения в %s перед закрытием?</b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"из {album} - {length}"
+
+msgid ""
+"A proprietary and older, but also popular, lossy audio format. CBR gives "
+"less quality than VBR, but is compatible with any player."
+msgstr ""
+"Закрытый, старый, но популярный аудиоформат. Качество CBR хуже, чем VBR, но "
+"он совместим с любыми плеерами."
+
+msgid ""
+"A proprietary and older, but also popular, lossy audio format. VBR gives "
+"higher quality than CBR, but may be incompatible with some players."
+msgstr ""
+"Закрытый, старый, но популярный аудиоформат. Качество VBR лучше, чем CBR, но "
+"он может оказаться несовместимым с некоторыми плеерами."
+
+msgid "A very fast Free lossless audio format with good compression."
+msgstr "Очень быстрый, свободный, аудиоформат с хорошим сжатием."
+
+msgid "ASX Playlist"
+msgstr "ASX список воспроизведения"
+
+msgid "About Exaile"
+msgstr "О Exaile"
+
+msgid "Add"
+msgstr "Добавить"
+
+msgid "Add Playlist"
+msgstr "Добавить список воспроизведения"
+
+msgid "Add Smart Playlist"
+msgstr "Добавить интеллектуальный список воспроизведения"
+
+msgid "Add Station"
+msgstr "Добавить станцию"
+
+msgid "Add a directory"
+msgstr "Добавить папку"
+
+msgid "Add device"
+msgstr "Добавить устройство"
+
+msgid "Add to Playlist"
+msgstr "Добавить в список воспроизведения"
+
+msgid "Alarm Clock"
+msgstr "Сигнал"
+
+msgid "Alarm Days:"
+msgstr "Дни сигнала"
+
+msgid "Alarm Name:"
+msgstr "Имя сигнала:"
+
+msgid "Alarm Time :"
+msgstr "Время сигнала:"
+
+msgid "Alarm Time:"
+msgstr "Время сигнала:"
+
+msgid "Alarm:"
+msgstr "Сигнал:"
+
+msgid "Album"
+msgstr "Альбом"
+
+msgid "Album Art"
+msgstr "Обложка альбома"
+
+msgid "All Files"
+msgstr "Все файлы"
+
+msgid "An Unknown type of setting was found!"
+msgstr "Обнаружен неизвестный тип настроек!"
+
+msgid "Append to Current"
+msgstr "Добавить в текущий список"
+
+msgid ""
+"Apple's proprietary lossy audio format that achieves better sound quality "
+"than MP3 at lower bitrates."
+msgstr ""
+"Закрытый аудиоформат Apple с потерей качества, который имеет лучшее качество "
+"звука чем MP3 на нижних битрейтах."
+
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr ""
+"Вы уверены, что хотите безвозвратно удалить выбранный список воспроизведения?"
+
+msgid "Artist"
+msgstr "Исполнитель"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"Исполнитель\n"
+"Альбом\n"
+"Жанр - Исполнитель\n"
+"Жанр - Альбом\n"
+"Год - Исполнитель\n"
+"Год - Альбом\n"
+"Исполнитель - Год - Альбом"
+
+msgid "Attempting to find covers for %s"
+msgstr "Пытаемся найти обложки для %s"
+
+msgid "Authors:"
+msgstr "Авторы:"
+
+msgid "Autosize"
+msgstr "Авторазмер"
+
+msgid "Available Plugins"
+msgstr "Доступные модули"
+
+msgid "BPM"
+msgstr "BPM"
+
+msgid "Background Color:"
+msgstr "Цвет фона:"
+
+msgid "Bitrate"
+msgstr "Битрейт"
+
+msgid "Bottom left"
+msgstr "Внизу слева"
+
+msgid "Bottom right"
+msgstr "Внизу справа"
+
+msgid "Buffering complete"
+msgstr "Буферизация завершена"
+
+msgid "Buffering: %d%%..."
+msgstr "Буферизация: %d%%..."
+
+msgid "Buffering: 100%..."
+msgstr "Буферизация: 100%..."
+
+msgid "Bye!"
+msgstr "Пока!"
+
+msgid "Cancel"
+msgstr "Отменить"
+
+msgid "Choose a file"
+msgstr "Выберите файл"
+
+msgid "Choose a file to open"
+msgstr "Выберите файл для открытия"
+
+msgid "Clear Playlist"
+msgstr "Очистить плейлист"
+
+msgid "Close Tab"
+msgstr "Закрыть вкладку"
+
+msgid "Close Without Saving"
+msgstr "Закрыть без сохранения"
+
+msgid "Collection"
+msgstr "Коллекция"
+
+msgid "Collection Manager"
+msgstr "Менеджер коллекции"
+
+msgid "Compilation detected: %s"
+msgstr "Обнаружена компиляция: %s"
+
+msgid "Composer"
+msgstr "Композитор"
+
+msgid "Configure"
+msgstr "Настройка"
+
+msgid "Confirm Close"
+msgstr "Подтверждение выхода"
+
+msgid "Connected to HAL"
+msgstr "Подключение к HAL установлено"
+
+msgid ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+msgstr ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+
+msgid "Could not disable plugin."
+msgstr "Невозможно отключить модуль."
+
+msgid "Could not enable plugin."
+msgstr "Невозможно включить модуль."
+
+msgid "Could not find playback sink %s, falling back to autoaudiosink"
+msgstr ""
+"Не возможно найти sink для воспроизведения %s, возвращаемся к autoaudiosink"
+
+msgid "Could not set parameter %s for %s"
+msgstr "Не удается присвоить параметр %s для %s"
+
+msgid "Couldn't send seek event"
+msgstr "Невозможно отправить поисковое событие"
+
+msgid "Cover Finder"
+msgstr "Поиск обложек"
+
+msgid "Cover Search Order:"
+msgstr "Порядок поиска обложки:"
+
+msgid "CoverDB: set cover %s for '%s - %s'"
+msgstr "CoverDB: установить обложку %s для '%s - %s'"
+
+msgid "Custom Playlists"
+msgstr "Пользовательские списки"
+
+msgid "Custom: "
+msgstr "Настройка: "
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Decreases the volume by VOL"
+msgstr "Уменьшает звук на VOL"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Delete Playlist"
+msgstr "Удалить список воспроизведения"
+
+msgid "Description:"
+msgstr "Описание:"
+
+msgid "Detected devices:"
+msgstr "Обнаруженные устройства:"
+
+msgid "Device Manager"
+msgstr "Диспетчер устройств"
+
+msgid "Disable D-Bus support"
+msgstr "Отключить поддержку D-Bus"
+
+msgid "Disable HAL support."
+msgstr "Отключить поддержку HAL."
+
+msgid "Disc"
+msgstr "Диск"
+
+msgid "Disc Number"
+msgstr "Диск номер"
+
+msgid "Display OSD when hovering over tray icon"
+msgstr "Показывать OSD при наведении курсора на иконку в области уведомлений"
+
+msgid "Display a progressbar in the OSD"
+msgstr "Отображать прогрессбар в OSD"
+
+msgid "Dynamic"
+msgstr "Динамически"
+
+msgid "Dynamic mode is enabled, but there are no dynamic providers!"
+msgstr "Динамический режим включён, но имеются не динамические постовщики!"
+
+msgid "Edit"
+msgstr "Редактировать"
+
+msgid "Edit Smart Playlist"
+msgstr "Редактировать автоматический список воспроизведения"
+
+msgid "Enable Fading"
+msgstr "Включить затухание"
+
+msgid "Enabled"
+msgstr "Включён"
+
+msgid "Enter the URL to open"
+msgstr "Введите ссылку, которую необходимо открыть"
+
+msgid "Enter the name you want for your new playlist"
+msgstr "Введите название нового списка воспроизведения"
+
+msgid "Enter the new name you want for your playlist"
+msgstr "Введите новое имя для вашего списка воспроизведения"
+
+msgid "Enter the search keywords"
+msgstr "Введите слово для поиска"
+
+msgid "Enter the search text"
+msgstr "Введите текст для поиска"
+
+msgid "Entire Library"
+msgstr "Вся фонотека"
+
+msgid "Error executing streamripper"
+msgstr "Ошибка выполнения streamripper"
+
+msgid "Error loading preferences pane"
+msgstr "Ошибка загрузки панели настроек"
+
+msgid "Exaile"
+msgstr "Exaile"
+
+msgid "Exaile Music Player"
+msgstr "Музыкальный проигрыватель Exaile"
+
+msgid "Exaile is shutting down..."
+msgstr "Завершение работы Exaile..."
+
+msgid "Exaile: playing %s"
+msgstr "Exaile: воспроизведение %s"
+
+msgid "Export"
+msgstr "Экспорт"
+
+msgid "Extension"
+msgstr "Расширение"
+
+msgid "Fading:"
+msgstr "Затухание:"
+
+msgid "Failed to connect to HAL, autodetection of devices will be disabled."
+msgstr ""
+"Не удалось подключиться к HAL, автоопределение устройств будет отключено."
+
+msgid "Failed to create device for %s"
+msgstr "Не удалось создать устройство для %s"
+
+msgid "Failed to enable equalizer"
+msgstr "Не удалось включить эквалайзер"
+
+msgid "Failed to enable replaygain"
+msgstr "Не удалось включить повтор воиспроизведения"
+
+msgid "Failed to load HAL devices for %s"
+msgstr "Не удалось загрузить HAL устройства для %s"
+
+msgid "Failed to open music DB for write."
+msgstr "Не удалось открыть музыкальную DB на запись."
+
+msgid "Failed to open music DB."
+msgstr "Не удалось открыть музыкальную DB."
+
+msgid "Fetch Cover"
+msgstr "Загрузить обложку"
+
+msgid "File Type"
+msgstr "Тип файла"
+
+msgid "File count: %d"
+msgstr "Количество файлов: %d"
+
+msgid "File does not exist: %s"
+msgstr "Файл не существует: %s"
+
+msgid "Filename"
+msgstr "Имя файла"
+
+msgid "Files"
+msgstr "Файлы"
+
+msgid "Found covers from %s"
+msgstr "Найдены обложки для %s"
+
+msgid "Found new %s device at %s"
+msgstr "Найдено новое устройство %s на %s"
+
+msgid "Found no HAL device handler for %s"
+msgstr "Для устройства %s не обнаружен обработчик HAL"
+
+msgid ""
+"Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
+"does not degrade audio quality."
+msgstr ""
+"Свободный аудиокодек без потери качества FLAC - это открытый аудиокодек, "
+"который сжимает без ухудшения качества звука."
+
+msgid "Friday"
+msgstr "Пятница"
+
+msgid "Gapless enabled"
+msgstr "Gapless включён"
+
+msgid "Genre"
+msgstr "Жанр"
+
+msgid "Get rating for current song"
+msgstr "Получить рейтинг текущей песни"
+
+msgid "Home directory"
+msgstr "Домашний каталог"
+
+msgid "Increases the volume by VOL"
+msgstr "Увеличивает звук на VOL"
+
+msgid "Increment:"
+msgstr "Увеличение:"
+
+msgid "Install"
+msgstr "Установить"
+
+msgid "Install Updates"
+msgstr "Установить обновления"
+
+msgid "Installed Plugins"
+msgstr "Установленные модули"
+
+msgid "Invalid file extension, file not saved"
+msgstr "Неправильное расширение файла, фай не сохранен"
+
+msgid "Jump to current song on track change"
+msgstr "Перейти к текущей песне при смене трека"
+
+msgid "LastFM Radio"
+msgstr "Радио LastFM"
+
+msgid "LastFM: %s"
+msgstr "LastFM: %s"
+
+msgid "Length"
+msgstr "Длительность"
+
+msgid "Limit to: "
+msgstr "Ограничение: "
+
+msgid "Loaded plugin %s"
+msgstr "Загруженный модуль %s"
+
+msgid "Loading Exaile %s..."
+msgstr "Загрузка Exaile %s..."
+
+msgid "Loading collection..."
+msgstr "Загрузка коллекции..."
+
+msgid "Loading devices..."
+msgstr "Загрузка устройств..."
+
+msgid "Loading interface..."
+msgstr "Загрузка интерфейса..."
+
+msgid "Loading plugins..."
+msgstr "Загрузка плагинов..."
+
+msgid "Loading settings"
+msgstr "Загрузка настроек"
+
+msgid "Loading streams..."
+msgstr "Загрузка потоков..."
+
+msgid "Location"
+msgstr "Путь"
+
+msgid "Location deleted: %s"
+msgstr "Местоположение удалено: %s"
+
+msgid "Location modified: %s"
+msgstr "Местоположение изменено: %s"
+
+msgid "Loved Tracks"
+msgstr "Любимые треки"
+
+msgid "M3U Playlist"
+msgstr "M3U список воспроизведения"
+
+msgid "Match any of the criteria"
+msgstr "Отвечает любому из критериев"
+
+msgid "Maximum Volume:"
+msgstr "Максимальная громкость:"
+
+msgid "Minimum Volume:"
+msgstr "Минимальная громкость:"
+
+msgid "Minimum Volume:                "
+msgstr "Минимальная громкость:                "
+
+msgid "Monday"
+msgstr "Понедельник"
+
+msgid "Music Files"
+msgstr "Музыкальные файлы"
+
+msgid "Name - Time"
+msgstr "Имя - Время"
+
+msgid "Name:"
+msgstr "Название:"
+
+msgid "Neighbourhood"
+msgstr "Соседи"
+
+msgid "New Playlist"
+msgstr "Новый список воспроизведения"
+
+msgid "New Search"
+msgstr "Новый поиск"
+
+msgid "Next"
+msgstr "Следующий"
+
+msgid "Next Track"
+msgstr "Следующая композиция"
+
+msgid "Next visited directory"
+msgstr "Следующая посещённая директория"
+
+msgid "No cover found"
+msgstr "Обложка не найдена"
+
+msgid "No covers found"
+msgstr "Обложки не найдены"
+
+msgid "Not Playing"
+msgstr "Не проигрывается"
+
+msgid "Not watching library: %s"
+msgstr "Нет библиотеки для отслеживания: %s"
+
+msgid "Number of Plays"
+msgstr "Количество проигрываний"
+
+msgid "Ok"
+msgstr "Согласен"
+
+msgid "Opacity Level:"
+msgstr "Уровень непрозрачности:"
+
+msgid "Open"
+msgstr "Открыть"
+
+msgid "Open URL"
+msgstr "Открыть ссылку"
+
+msgid "Open _URL"
+msgstr "Открыть _URL"
+
+msgid "Open last playlists on startup"
+msgstr "Открыть последние списки воспроизведения при запуске"
+
+msgid "PLS Playlist"
+msgstr "PLS список воспроизведения"
+
+msgid "Page 1"
+msgstr "Страница 1"
+
+msgid "Password:"
+msgstr "Пароль:"
+
+msgid ""
+"Path is already in your collection, or is a subdirectory of another path in "
+"your collection"
+msgstr ""
+"Путь уже в вашей коллекции, или является вложенной папкой другого пути в "
+"вашей коллекции"
+
+msgid "Pause"
+msgstr "Приостановить воспроизведение"
+
+msgid "Personal"
+msgstr "Личные"
+
+msgid "Pl_ugins"
+msgstr "_Модули"
+
+msgid "Play"
+msgstr "Начать воспроизведение"
+
+msgid "Play the next track"
+msgstr "Воспроизвести следующую композицию"
+
+msgid "Play the previous track"
+msgstr "Воспроизвести предыдущую композицию"
+
+msgid "Playcount"
+msgstr "Количество проигрываний"
+
+msgid "Playing %s"
+msgstr "Проигрывается %s"
+
+msgid "Playlist Files"
+msgstr "Файлы списков воспроизведения"
+
+msgid "Playlists"
+msgstr "Списки воспроизведения"
+
+msgid "Plugin"
+msgstr "Модуль"
+
+msgid "Plugin archive contains an unsafe path"
+msgstr "Архив плагина содержит небезопастный путь"
+
+msgid "Plugins"
+msgstr "Модули"
+
+msgid "Popup"
+msgstr "Всплывающее окно"
+
+msgid "Preferences"
+msgstr "Параметры"
+
+msgid "Previous"
+msgstr "Предыдущий"
+
+msgid "Previous Track"
+msgstr "Предыдущая композиция"
+
+msgid "Previous visited directory"
+msgstr "Предыдущая посещённая директория"
+
+msgid "Print the album of current track"
+msgstr "Вывести альбом текущей композиции"
+
+msgid "Print the artist of current track"
+msgstr "Вывести исполнителя текущей композиции"
+
+msgid "Print the current volume"
+msgstr "Выводить уровень звука"
+
+msgid "Print the length of current track"
+msgstr "Вывести длину текущей композиции"
+
+msgid "Print the position inside the current track as a percentage"
+msgstr "Выводить позицию воспроизведения текущей композиции в процентах"
+
+msgid "Print the title of current track"
+msgstr "Вывести название текущей композиции"
+
+msgid "PyInotify not installed or not supported.  "
+msgstr "PyInotify не установлена или не поддерживается  "
+
+msgid "Python Console - Exaile"
+msgstr "Консоль Python - Exaile"
+
+msgid "Query player"
+msgstr "Проигрыватель запроса"
+
+msgid "Queue Items"
+msgstr "Поставить в очередь"
+
+msgid "Quit"
+msgstr "Выход"
+
+msgid "Radio"
+msgstr "Радио"
+
+msgid "Radio Streams"
+msgstr "Потоковое радио"
+
+msgid "Ran out of tracks to shuffle"
+msgstr "Нет композиций для проигрывания в случайном порядке"
+
+msgid "Random %d"
+msgstr "Случайный %d"
+
+msgid "Randomize results"
+msgstr "Случайные результаты"
+
+msgid "Rating"
+msgstr "Рейтинг"
+
+msgid "Rating > %d"
+msgstr "Рейтинг > %d"
+
+msgid "Rating: "
+msgstr "Оценка: "
+
+msgid "Recommended"
+msgstr "Рекомендуемый"
+
+msgid "Reduce level of output"
+msgstr "Снизить уровень выходного сигнала"
+
+msgid "Refresh"
+msgstr "Обновить"
+
+msgid "Refresh directory listing"
+msgstr "Обновить список каталогов"
+
+msgid "Relay Port:"
+msgstr "Порт ретрансляции:"
+
+msgid "Remove"
+msgstr "Удалить"
+
+msgid "Remove Cover"
+msgstr "Удалить обложку"
+
+msgid "Rename"
+msgstr "Переименовать"
+
+msgid "Rename Playlist"
+msgstr "Переименовать список воспроизведения"
+
+msgid "Repeat"
+msgstr "Повтор"
+
+msgid "Resizable"
+msgstr "Изменяемого размера"
+
+msgid "Restart Playlist"
+msgstr "Перезагрузить плейлист"
+
+msgid "Resume playback in paused state"
+msgstr "Возобновить проигрывание с места останова"
+
+msgid "Resume playback on start"
+msgstr "Возобновить проигрывание при старте"
+
+msgid "Safe mode enabled, not loading plugins."
+msgstr "Включен безопасный режим, нет загруженных плагинов."
+
+msgid "Saturday"
+msgstr "Суббота"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Save Location:     "
+msgstr "Сохранить местоположение:     "
+
+msgid "Saved Stations"
+msgstr "Сохраненные странции"
+
+msgid "Saving %s DB to %s."
+msgstr "Сохранение %s DB в %s."
+
+msgid "Saving cover database"
+msgstr "Сохранение базы данных обложек"
+
+msgid "Saving state..."
+msgstr "Сохранение состояния..."
+
+msgid "Scanning collection..."
+msgstr "Сканируется коллекция..."
+
+msgid "Scanning library: %s"
+msgstr "Сканирование библиотеки: %s"
+
+msgid "Search"
+msgstr "Поиск"
+
+msgid "Search Results"
+msgstr "Результаты поиска"
+
+msgid "Search: "
+msgstr "Найти: "
+
+msgid "Select File Type (By Extension)"
+msgstr "Выберите тип файла (по расширению)"
+
+msgid "Sent '%s' event from '%s' with data '%s'."
+msgstr "Послать событие '%s'  из '%s' с данными  '%s'."
+
+msgid "Set Rating"
+msgstr "Оценить"
+
+msgid "Set data directory"
+msgstr "Установить директорию данных"
+
+msgid "Set rating for current song"
+msgstr "Выставить рейтинг текущей песни"
+
+msgid "Shoutcast Search"
+msgstr "Shoutcast Поиск"
+
+msgid "Show Cover"
+msgstr "Показать обложку"
+
+msgid "Show OSD on track change"
+msgstr "Показывать OSD при смене композиции"
+
+msgid "Show a popup of the currently playing track"
+msgstr "Показывать всплывающее окно с текущей композицией"
+
+msgid "Show debugging output"
+msgstr "Показать отладочный вывод"
+
+msgid "Show splash screen on startup"
+msgstr "Показывать заставку при запуске"
+
+msgid "Show tray icon"
+msgstr "Показывать иконку в области уведомлений"
+
+msgid "Shuffle"
+msgstr "Перемешать"
+
+msgid "Size"
+msgstr "Размер"
+
+msgid "Smart Playlists"
+msgstr "Интеллектуальные списки"
+
+msgid "Start"
+msgstr "Начать"
+
+msgid "Start Exaile minimized to tray, if possible"
+msgstr "Запускать Exaile свёрнутым в трей по возможности"
+
+msgid "Start in safe mode - sometimes useful when you're running into problems"
+msgstr ""
+"Запустить в безопасном режиме - иногда полезно в случае возникновения каких-"
+"либо проблем"
+
+msgid "Start new instance"
+msgstr "Запустить новый экземпляр"
+
+msgid "Stop"
+msgstr "Остановить"
+
+msgid "Stop Playback"
+msgstr "Остановить воспроизведение"
+
+msgid "Stop playback"
+msgstr "Остановить воспроизведение"
+
+msgid "Stopped"
+msgstr "Остановлено"
+
+msgid "Streaming..."
+msgstr "Вещание..."
+
+msgid "Streamripper can only record streams."
+msgstr "Streamripper может только записывать потоки"
+
+msgid "Sunday"
+msgstr "Воскресенье"
+
+msgid "Supported Files"
+msgstr "Поддерживаемые файлы"
+
+msgid "Text Color"
+msgstr "Цвет текста:"
+
+msgid "Text Font:"
+msgstr "Шрифт:"
+
+msgid "The playlist name you specified already exists."
+msgstr "Список воспроизведения с указанным названием уже существует."
+
+msgid "The selected plugin doesn't have any configuration options"
+msgstr "У выбранного плагина нет опций конфигурации"
+
+msgid "Thursday"
+msgstr "Четверг"
+
+msgid "Title"
+msgstr "Название"
+
+msgid "Toggle Play or Pause"
+msgstr "Переключить Воспроизведение и Паузу"
+
+msgid "Toggle Queue"
+msgstr "Поставить в очередь"
+
+msgid "Toggle: Stop after selected track"
+msgstr "Переключатель: Остановить после выбранного трека"
+
+msgid "Top left"
+msgstr "Вверху слева"
+
+msgid "Top right"
+msgstr "Вверху справа"
+
+msgid "Track Number"
+msgstr "Номер дорожки"
+
+msgid "Tuesday"
+msgstr "Вторник"
+
+msgid "Type of device:"
+msgstr "Тип устройства:"
+
+msgid "Unable to enable plugin %s"
+msgstr "Невозможно включить модуль %s"
+
+msgid "Unable to fully disable plugin %s"
+msgstr "Невозможно полностью отключить модуль %s"
+
+msgid "Unknown"
+msgstr "Неизвестно"
+
+msgid "Up one directory"
+msgstr "Вверх на одну директорию"
+
+msgid "Updates"
+msgstr "Обновления"
+
+msgid "Use Fading"
+msgstr "Использовать затухание"
+
+msgid "Username:"
+msgstr "Имя пользователя:"
+
+msgid "Using %s for playback"
+msgstr "Использование %s для воиспроизведения"
+
+msgid "Various Artists"
+msgstr "Разные исполнители"
+
+msgid "Version:"
+msgstr "Версия:"
+
+msgid "Vol:"
+msgstr "Громкость:"
+
+msgid ""
+"Vorbis is an open source, lossy audio codec with high quality output at a "
+"lower file size than MP3."
+msgstr ""
+"Vorbis - это открытый аудиокодек со сжатием и высоким качеством выходного "
+"сигнала, причем размер файлов меньше чем у MP3."
+
+msgid "Watching directory: %s"
+msgstr "Мониторинг папки: %s"
+
+msgid "We don't know how to store that kind of setting: "
+msgstr "Неизвестно как хранить такой тип настроек: "
+
+msgid "Wednesday"
+msgstr "Среда"
+
+msgid "Window Height:"
+msgstr "Высота окна:"
+
+msgid "Window Width:"
+msgstr "Ширина окна:"
+
+msgid "XSPF Playlist"
+msgstr "XSPF список воспроизведения"
+
+msgid "Year"
+msgstr "Год"
+
+msgid "You did not enter a name for your playlist"
+msgstr "Вы не ввели название для вашего списка воспроизведения"
+
+msgid "You did not specify a location to save the db"
+msgstr "Вы не указали место для сохранения БД"
+
+msgid "You have entered an invalid option"
+msgstr "Вы ввели неверный параметр"
+
+msgid "Your changes will be lost if you don't save them"
+msgstr "Ваши изменения будут утеряны, если вы не сохраните их."
+
+msgid "_Album Art Manager"
+msgstr "Менеджер _обложек альбомов"
+
+msgid "_Close"
+msgstr "_Закрыть"
+
+msgid "_Collection Manager"
+msgstr "Менеджер _коллекций"
+
+msgid "_Columns"
+msgstr "_Столбцы"
+
+msgid "_Edit"
+msgstr "_Правка"
+
+msgid "_File"
+msgstr "_Файл"
+
+msgid "_Go to Playing Track"
+msgstr "Перейти к проигрывающей композиции"
+
+msgid "_Help"
+msgstr "_Справка"
+
+msgid "_Rescan Collection"
+msgstr "_Повторное сканирование фонотеки"
+
+msgid "_Tools"
+msgstr "_Инструменты"
+
+msgid "_View"
+msgstr "_Вид"
+
+msgid "after"
+msgstr "после"
+
+msgid "and"
+msgstr "и"
+
+msgid "at least"
+msgstr "не менее"
+
+msgid "at most"
+msgstr "не более"
+
+msgid "bad search token"
+msgstr "неверный поисковый запрос"
+
+msgid "before"
+msgstr "до"
+
+msgid "between"
+msgstr "между"
+
+msgid "by %(artist)s"
+msgstr "исполняет %(artist)s"
+
+msgid ""
+"by %(artist)s\n"
+"from <i>%(album)s</i>"
+msgstr ""
+"исполняет %(artist)s\n"
+"альбом <i>%(album)s</i>"
+
+msgid "by %s"
+msgstr "в исполнении %s"
+
+msgid "contains"
+msgstr "содержит"
+
+msgid "days"
+msgstr "дней"
+
+msgid "does not contain"
+msgstr "не содержит"
+
+msgid "from %(album)s"
+msgstr "альбом %(album)s"
+
+msgid "from %s"
+msgstr "из альбома %s"
+
+msgid "gtk-add"
+msgstr "Добавить"
+
+msgid "gtk-cancel"
+msgstr "Отменить"
+
+msgid "gtk-close"
+msgstr "Закрыть"
+
+msgid "gtk-connect"
+msgstr "Соединить"
+
+msgid "gtk-disconnect"
+msgstr "Отсоединить"
+
+msgid "gtk-edit"
+msgstr "Редактировать"
+
+msgid "gtk-ok"
+msgstr "ОК"
+
+msgid "gtk-remove"
+msgstr "Удалить"
+
+msgid "hours"
+msgstr "часы"
+
+msgid "is"
+msgstr "равно"
+
+msgid "is not"
+msgstr "не равно"
+
+msgid "minutes"
+msgstr "минуты"
+
+msgid "order must be a list or tuple"
+msgstr "порядок должен быть списком или кортежом"
+
+msgid "seconds"
+msgstr "секунд"
+
+msgid "weeks"
+msgstr "недель"

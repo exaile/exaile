@@ -1,0 +1,118 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2008-02-14 08:01+0000\n"
+"Last-Translator: వీవెన్ (Veeven) <Unknown>\n"
+"Language-Team: Telugu <te@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid " songs"
+msgstr " పాటలు"
+
+msgid "<b>General</b>"
+msgstr "<b>సాధారణ</b>"
+
+msgid "Add"
+msgstr "చేర్చు"
+
+msgid "All Files"
+msgstr "అన్ని ఫైళ్ళు"
+
+msgid "Background Color:"
+msgstr "నేపధ్యపు రంగు:"
+
+msgid "Cancel"
+msgstr "రద్దు"
+
+msgid "Collection"
+msgstr "సేకరణ"
+
+msgid "Date"
+msgstr "తేది"
+
+msgid "Description:"
+msgstr "వివరణ:"
+
+msgid "Filename"
+msgstr "ఫైలు పేరు"
+
+msgid "Files"
+msgstr "ఫైళ్ళు"
+
+msgid "Friday"
+msgstr "శుక్రవారం"
+
+msgid "Length"
+msgstr "పొడవు"
+
+msgid "Monday"
+msgstr "సోమవారం"
+
+msgid "Name:"
+msgstr "పేరు:"
+
+msgid "Next"
+msgstr "తరువాత"
+
+msgid "Play"
+msgstr "ఆడించు"
+
+msgid "Preferences"
+msgstr "అభిరుచులు"
+
+msgid "Quit"
+msgstr "చాలించు"
+
+msgid "Radio"
+msgstr "రేడియో"
+
+msgid "Rating"
+msgstr "రేటింగు"
+
+msgid "Rating: "
+msgstr "రేటింగు: "
+
+msgid "Remove"
+msgstr "తొలగించు"
+
+msgid "Rename"
+msgstr "పేరు మార్చు"
+
+msgid "Saturday"
+msgstr "శనివారం"
+
+msgid "Search"
+msgstr "వెతుకు"
+
+msgid "Sunday"
+msgstr "ఆదివారం"
+
+msgid "Text Color"
+msgstr "పాఠ్యపు రంగు"
+
+msgid "Thursday"
+msgstr "గురువారం"
+
+msgid "Title"
+msgstr "శీర్షిక"
+
+msgid "Tuesday"
+msgstr "మంగళవారం"
+
+msgid "Wednesday"
+msgstr "బుధవారం"
+
+msgid "Year"
+msgstr "సంవత్సరం"
+
+msgid "_Help"
+msgstr "_సహాయం"
+
+msgid "_Tools"
+msgstr "పనిముట్లు (_T)"

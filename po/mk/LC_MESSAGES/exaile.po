@@ -1,0 +1,508 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2008-12-29 16:19+0000\n"
+"Last-Translator: Благој Најдов <blagoj.najdov@gmail.com>\n"
+"Language-Team: Macedonian <mk@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid "#"
+msgstr "#"
+
+msgid ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+msgstr ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+
+msgid "0:00 / 0:00"
+msgstr "0:00 / 0:00"
+
+msgid "<b>General</b>"
+msgstr "<b>Општо</b>"
+
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to appear</"
+"b>"
+msgstr ""
+"<b>Постави го известувањето (OSD) на местото на кое што сакате да се појави</"
+"b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{наслов}</b>\n"
+"{артист}\n"
+"{албум} - {времетраење}"
+
+msgid "ASX Playlist"
+msgstr "ASX Плејлиста"
+
+msgid "Add"
+msgstr "Додади"
+
+msgid "Add Playlist"
+msgstr "Додади плејлиста"
+
+msgid "Add Station"
+msgstr "Додади станица"
+
+msgid "Add a directory"
+msgstr "Додади директориум"
+
+msgid "Add device"
+msgstr "Додади уред"
+
+msgid "Album"
+msgstr "Албум"
+
+msgid "Album Art"
+msgstr "Обвивка на Албум"
+
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr ""
+"Дали сте сигурни дека сакате трајно да ја избришите селектираната плејлиста"
+
+msgid "Artist"
+msgstr "Изведувач"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"Артист\n"
+"Албум\n"
+"Жанр - Артист\n"
+"Жанр - Албум\n"
+"Година - Артист\n"
+"Година - Албум\n"
+"Артист - Година - Албум"
+
+msgid "Authors:"
+msgstr "Автори:"
+
+msgid "Autosize"
+msgstr "Автоматска големина"
+
+msgid "Background Color:"
+msgstr "Боја на позадина"
+
+msgid "Bitrate"
+msgstr "Брзина на битови"
+
+msgid "Choose a file"
+msgstr "Одберете датотека"
+
+msgid "Clear Playlist"
+msgstr "Исчисти листа со песни"
+
+msgid "Close Tab"
+msgstr "Затвори јазиче"
+
+msgid "Collection"
+msgstr "Колекција"
+
+msgid ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+msgstr ""
+"Авторски права: Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"Оваа програма е слободен софтвер; можете да ја редистрибуирате и/или "
+"модифицирате\n"
+"под одредбите на ГНУ-овата општа јавна лиценца која е објавена од\n"
+"Фондацијата за слободен софтвер; под 2та верзија, или\n"
+"(по ваш избор) било која подоцнежна верзија.\n"
+"\n"
+"Оваа програма е дистрибуирана со надеж дека ќе биде корисна,\n"
+"но БЕЗ НИКАКВА ГАРАНЦИЈА; дури и без имплицираната гаранција\n"
+" од КОМЕРЦИЈАЛНА ВРЕДНОСТ или ИСПОЛНУВАЊЕ НА ОДРЕДЕНА ПОТРЕБА. Погледнете "
+"ја\n"
+"ГНУ-овата општа јавна лиценца за повеќе детали.\n"
+"\n"
+"Би требало да имате примено копија од ГНУ-овата општа јавна лиценца заедно\n"
+"со оваа програмал; ако тоа не е случајот, пишете ѝ на Фондацијата\n"
+" за слободен софтвер на адресата: Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+
+msgid "Cover Finder"
+msgstr "Пребарувач на обвивки"
+
+msgid "Date"
+msgstr "Датум"
+
+msgid "Delete Playlist"
+msgstr "Избриши плејлиста"
+
+msgid "Description:"
+msgstr "Опис:"
+
+msgid "Detected devices:"
+msgstr "Пронајдени уреди:"
+
+msgid "Disc"
+msgstr "Диск"
+
+msgid "Disc Number"
+msgstr "Број на диск"
+
+msgid "Display OSD when hovering over tray icon"
+msgstr ""
+"Прикажи го OSD при поминување над иконата во зоната за известување на панелот"
+
+msgid "Dynamic"
+msgstr "Динамичко"
+
+msgid "Enter the new name you want for your playlist"
+msgstr "Внесете го новото име за вашата плејлиста"
+
+msgid "Enter the search text"
+msgstr "Внесете го бараниот текст"
+
+msgid "Exaile"
+msgstr "Exaile"
+
+msgid "Export"
+msgstr "Извези"
+
+msgid "Extension"
+msgstr "Наставка"
+
+msgid "Fetch Cover"
+msgstr "Најди обвивка"
+
+msgid "File Type"
+msgstr "Тип на датотека"
+
+msgid "Filename"
+msgstr "Име на датотека"
+
+msgid "Files"
+msgstr "Датотеки"
+
+msgid "Friday"
+msgstr "Петок"
+
+msgid "Genre"
+msgstr "Жанр"
+
+msgid "Install"
+msgstr "Инсталирај"
+
+msgid "Install Updates"
+msgstr "Инсталирај надградби"
+
+msgid "Installed Plugins"
+msgstr "Инсталирани додатоци"
+
+msgid "Length"
+msgstr "Должина"
+
+msgid "Location"
+msgstr "Локација"
+
+msgid "M3U Playlist"
+msgstr "M3U Плејлиста"
+
+msgid "Monday"
+msgstr "Понеделник"
+
+msgid "Name:"
+msgstr "Име:"
+
+msgid "New Playlist"
+msgstr "Нова плејлиста"
+
+msgid "New Search"
+msgstr "Ново пребарување"
+
+msgid "Next"
+msgstr "Следна"
+
+msgid "Next Track"
+msgstr "Следна песна"
+
+msgid "No covers found"
+msgstr "Не се најдени обвивки"
+
+msgid "Open"
+msgstr "Отвори"
+
+msgid "Open _URL"
+msgstr "Отвори _URL"
+
+msgid "Open last playlists on startup"
+msgstr "Отвори ја последната плејлиста на старт"
+
+msgid "PLS Playlist"
+msgstr "PLS Плејлиста"
+
+msgid "Password:"
+msgstr "Лозинка:"
+
+msgid ""
+"Path is already in your collection, or is a subdirectory of another path in "
+"your collection"
+msgstr ""
+"Патеката е веќе во вашата колекција, или е поддиректориум на патека која е "
+"во вашата колекција"
+
+msgid "Pause"
+msgstr "Пауза"
+
+msgid "Play"
+msgstr "Пушти"
+
+msgid "Playcount"
+msgstr "Бројач"
+
+msgid "Playlists"
+msgstr "Плејлисти"
+
+msgid "Plugins"
+msgstr "Додатоци"
+
+msgid "Preferences"
+msgstr "Преференции"
+
+msgid "Previous"
+msgstr "Претходна"
+
+msgid "Previous Track"
+msgstr "Претходна песна"
+
+msgid "Quit"
+msgstr "Излез"
+
+msgid "Radio"
+msgstr "Радио"
+
+msgid "Rating"
+msgstr "Рејтинг"
+
+msgid "Rating: "
+msgstr "Рејтинг: "
+
+msgid "Refresh"
+msgstr "Освежи"
+
+msgid "Remove"
+msgstr "Отстрани"
+
+msgid "Remove Cover"
+msgstr "Отстрани обвивка"
+
+msgid "Rename"
+msgstr "Преименувај"
+
+msgid "Rename Playlist"
+msgstr "Преименувај плејлиста"
+
+msgid "Repeat"
+msgstr "Повтори"
+
+msgid "Resizable"
+msgstr "Со променлива големина"
+
+msgid "Saturday"
+msgstr "Сабота"
+
+msgid "Save"
+msgstr "Зачувај"
+
+msgid "Scanning collection..."
+msgstr "Колекцијата се скенира..."
+
+msgid "Search: "
+msgstr "Барање: "
+
+msgid "Select File Type (By Extension)"
+msgstr "Селектирај тип на датотека (по екстензија)"
+
+msgid "Show Cover"
+msgstr "Прикажи обвивка"
+
+msgid "Show OSD on track change"
+msgstr "Прикажи OSD при промена песна"
+
+msgid "Show tray icon"
+msgstr "Икона во системската лента"
+
+msgid "Shuffle"
+msgstr "Мешај"
+
+msgid "Size"
+msgstr "Големина"
+
+msgid "Start"
+msgstr "Старт"
+
+msgid "Stop"
+msgstr "Стоп"
+
+msgid "Stopped"
+msgstr "Стопирано"
+
+msgid "Sunday"
+msgstr "Недела"
+
+msgid "Text Color"
+msgstr "Боја на Текст"
+
+msgid "The playlist name you specified already exists."
+msgstr "Името на плејлистата веќе постои"
+
+msgid "Thursday"
+msgstr "Четврток"
+
+msgid "Title"
+msgstr "Наслов"
+
+msgid "Toggle: Stop after selected track"
+msgstr "Промени: Стоп по следната песна"
+
+msgid "Track Number"
+msgstr "Број на песна"
+
+msgid "Tuesday"
+msgstr "Вторник"
+
+msgid "Type of device:"
+msgstr "Тип на уред:"
+
+msgid "Updates"
+msgstr "Надградби"
+
+msgid "Username:"
+msgstr "Корисничко име:"
+
+msgid "Various Artists"
+msgstr "Разни изведувачи"
+
+msgid "Version:"
+msgstr "Верзија:"
+
+msgid "Wednesday"
+msgstr "Среда"
+
+msgid "XSPF Playlist"
+msgstr "XSPF Плејлиста"
+
+msgid "Year"
+msgstr "Година"
+
+msgid "You did not enter a name for your playlist"
+msgstr "Не внесовте име на вашата плејлиста"
+
+msgid "_Close"
+msgstr "_Затвори"
+
+msgid "_Columns"
+msgstr "_Колони"
+
+msgid "_Edit"
+msgstr "_Уреди"
+
+msgid "_File"
+msgstr "_Датотека"
+
+msgid "_Help"
+msgstr "_Помош"
+
+msgid "_Tools"
+msgstr "_Алатки"
+
+msgid "_View"
+msgstr "_Поглед"
+
+msgid "after"
+msgstr "по"
+
+msgid "and"
+msgstr "и"
+
+msgid "at least"
+msgstr "најмалку"
+
+msgid "at most"
+msgstr "највеќе"
+
+msgid "before"
+msgstr "пред"
+
+msgid "between"
+msgstr "помеѓу"
+
+msgid "contains"
+msgstr "содржи"
+
+msgid "days"
+msgstr "денови"
+
+msgid "does not contain"
+msgstr "не содржи"
+
+msgid "gtk-add"
+msgstr "gtk-додади"
+
+msgid "gtk-cancel"
+msgstr "gtk-откажи"
+
+msgid "gtk-close"
+msgstr "gtk-затвори"
+
+msgid "gtk-ok"
+msgstr "gtk-ok"
+
+msgid "hours"
+msgstr "часови"
+
+msgid "is"
+msgstr "е"
+
+msgid "is not"
+msgstr "не е"
+
+msgid "minutes"
+msgstr "минути"
+
+msgid "seconds"
+msgstr "секунди"
+
+msgid "weeks"
+msgstr "недели"

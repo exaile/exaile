@@ -1,0 +1,236 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2009-05-05 14:56+0000\n"
+"Last-Translator: Kinshuk Sunil <kinshuksunil@gmail.com>\n"
+"Language-Team: Hindi <hi@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+msgstr ""
+"०\n"
+"१\n"
+"२\n"
+"३\n"
+"४\n"
+"५"
+
+msgid "<b>General</b>"
+msgstr "<b>सामान्य</b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{शीर्षक}</b>\n"
+"{गायक}\n"
+"'{एलबम}' से - ({देरी})"
+
+msgid "Album"
+msgstr "एल्बम"
+
+msgid "Album Art"
+msgstr "एलबमी कला"
+
+msgid "An Unknown type of setting was found!"
+msgstr "अज्ञात सेटिंग पायी गयी!"
+
+msgid "Artist"
+msgstr "गायक"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"गायक\n"
+"एलबम\n"
+"शैली - गायक\n"
+"शैली - एलबम\n"
+"वर्ष - गायक\n"
+"वर्ष - एलबम\n"
+"गायक - वर्ष - एलबम"
+
+msgid "Autosize"
+msgstr "स्वतः-विस्तरण"
+
+msgid "Background Color:"
+msgstr "पृष्ठभूमि का रंगः"
+
+msgid "Bitrate"
+msgstr "बिटरेट"
+
+msgid "Clear Playlist"
+msgstr "गीत-सूची खाली करे"
+
+msgid "Collection"
+msgstr "संकलन"
+
+msgid ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+msgstr ""
+"कॉपीराइट (C) २००७ एडम औलसन\n"
+"\n"
+"ये प्रोग्राम एक मुक्त सॉफ्टवेर है;  फ्री सॉफ्टवेर संस्थान के जी.एन.यू जनरल पब्लिक लाइसेन्स "
+"(वर्षन २ या आपके द्वारा चुना कोई भी नया वर्षन) के तहत आप इस सॉफ्टवेर को बाँट सकते है  "
+"और/या सुधार सकते है.\n"
+"\n"
+"ये प्रोग्राम इस आशा से वितरित किया जा रहा है के ये उपयोगी सिद्ध होगा, पर बिना किसी "
+"वॉरेंटी के, विक्रेता या उपयोगिता की निहित वॉरेंटी भी नही. अधिक जानकारी के लिए जी.एन."
+"यू जनरल पब्लिक लाइसेन्स देखे.\n"
+"\n"
+"जी.एन.यू जनरल पब्लिक लाइसेन्स की एक प्रति आपको इस सॉफ्टवेर के साथ मिली होगी; अगर नही "
+"मिली हो तो कृपया फ्री सॉफ्टवेर संस्थान को लिखें. पता है:\n"
+"फ्री सॉफ्टवेर फाउंडेशन, इंक., ५१ फ्रॅंक्लिन स्ट्रीट, पाँचवी मंज़िल, बोसटन, एम ए ०२११०-१३०१, "
+"यू एस ए\n"
+
+msgid "Disc"
+msgstr "डिस्क"
+
+msgid "Exaile"
+msgstr "एक्ज़ाइल"
+
+msgid "Filename"
+msgstr "फाइल नाम"
+
+msgid "Files"
+msgstr "फ़ाइलें"
+
+msgid "Genre"
+msgstr "शैली"
+
+msgid "Length"
+msgstr "लंबाई"
+
+msgid "Loading Exaile %s..."
+msgstr "एक्सेल शुरू हो रहा है... %s"
+
+msgid "Loading plugins..."
+msgstr "प्लगइन शुरू हो रहे है..."
+
+msgid "Location"
+msgstr "स्थान"
+
+msgid "New Search"
+msgstr "नए सिरे से ढूंढें"
+
+msgid "Next"
+msgstr "अगला"
+
+msgid "Next Track"
+msgstr "अगला गीत"
+
+msgid "Not Playing"
+msgstr "गीत बंद है"
+
+msgid "Open _URL"
+msgstr "_वेबसाइट बजाए"
+
+msgid "Password:"
+msgstr "कूटशब्द:"
+
+msgid "Play"
+msgstr "बजाओ"
+
+msgid "Play the next track"
+msgstr "अगला गीत बजाओ"
+
+msgid "Play the previous track"
+msgstr "पिछला गीत बजाओ"
+
+msgid "Playlists"
+msgstr "गीत-सूचियाँ"
+
+msgid "Popup"
+msgstr "पॉप अप"
+
+msgid "Preferences"
+msgstr "वरीयताएं"
+
+msgid "Previous"
+msgstr "पिछला"
+
+msgid "Previous Track"
+msgstr "पिछला गीत"
+
+msgid "Print the album of current track"
+msgstr "इस गाने का एल्बम दिखाओ"
+
+msgid "Print the artist of current track"
+msgstr "इस गाने के गायक को दिखाओ"
+
+msgid "Print the title of current track"
+msgstr "इस गाने का नाम दिखाओ"
+
+msgid "Radio"
+msgstr "रेडियो"
+
+msgid "Rating"
+msgstr "रेटिंग"
+
+msgid "Rating: "
+msgstr "रेटिंग: "
+
+msgid "Remove"
+msgstr "हटाएँ"
+
+msgid "Repeat"
+msgstr "दोहराएँ"
+
+msgid "Search: "
+msgstr "खोजें: "
+
+msgid "Show OSD on track change"
+msgstr "गीत बदलने पर ओ.एस.डी. दिखाए"
+
+msgid "Show tray icon"
+msgstr "ट्रे आइकान दिखाए"
+
+msgid "Shuffle"
+msgstr "फेंटें"
+
+msgid "Start"
+msgstr "प्रारंभ"
+
+msgid "Stop playback"
+msgstr "बजाना बंद करो"
+
+msgid "Stopped"
+msgstr "रुका हुआ"
+
+msgid "Title"
+msgstr "शीर्षक"
+
+msgid "Username:"
+msgstr "उपयोक्ता नाम:"

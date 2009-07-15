@@ -1,0 +1,250 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2007-12-16 21:44+0000\n"
+"Last-Translator: Yannig MARCHEGAY (Kokoyaya) <yannig@marchegay.org>\n"
+"Language-Team: Occitan (post 1500) <oc@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid "<b>General</b>"
+msgstr "<b>General</b>"
+
+msgid "Add"
+msgstr "Apondre"
+
+msgid "Add a directory"
+msgstr "Apondre un repertòri"
+
+msgid "Album"
+msgstr "Albom"
+
+msgid "All Files"
+msgstr "Totes los fichièrs"
+
+msgid "Artist"
+msgstr "Artista"
+
+msgid "Authors:"
+msgstr "Autors :"
+
+msgid "Cancel"
+msgstr "Anullar"
+
+msgid "Choose a file"
+msgstr "Causissètz un fichièr"
+
+msgid "Collection"
+msgstr "Colleccion"
+
+msgid "Composer"
+msgstr "Compositor"
+
+msgid "Configure"
+msgstr "Configurar"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Description:"
+msgstr "Descripcion :"
+
+msgid "Disc"
+msgstr "Disc"
+
+msgid "Dynamic"
+msgstr "Dinamic"
+
+msgid "Enabled"
+msgstr "Activat"
+
+msgid "Exaile"
+msgstr "Exaile"
+
+msgid "Filename"
+msgstr "Nom de fichièr"
+
+msgid "Files"
+msgstr "Fichièrs"
+
+msgid "Friday"
+msgstr "Divendres"
+
+msgid "Genre"
+msgstr "Mena"
+
+msgid "Length"
+msgstr "Longor"
+
+msgid "Location"
+msgstr "Emplaçament"
+
+msgid "Monday"
+msgstr "Diluns"
+
+msgid "Name:"
+msgstr "Nom :"
+
+msgid "New Playlist"
+msgstr "Tièra de lecturas novèla"
+
+msgid "Next"
+msgstr "Seguent"
+
+msgid "Next Track"
+msgstr "Cançon seguenta"
+
+msgid "Open"
+msgstr "Dobrir"
+
+msgid "Pause"
+msgstr "Pausa"
+
+msgid "Play"
+msgstr "Legir"
+
+msgid "Playlist Files"
+msgstr "Fichièrs de tièra de lecturas"
+
+msgid "Playlists"
+msgstr "Tièras de lectura"
+
+msgid "Plugin"
+msgstr "Ajuston"
+
+msgid "Plugins"
+msgstr "Ajustons"
+
+msgid "Preferences"
+msgstr "Preferéncias"
+
+msgid "Previous"
+msgstr "Precedent"
+
+msgid "Quit"
+msgstr "Sortir"
+
+msgid "Radio"
+msgstr "Radio"
+
+msgid "Refresh"
+msgstr "Actualizar"
+
+msgid "Remove"
+msgstr "Suprimir"
+
+msgid "Rename"
+msgstr "Renommar"
+
+msgid "Repeat"
+msgstr "Repetir"
+
+msgid "Saturday"
+msgstr "Dissabte"
+
+msgid "Search"
+msgstr "Recercar"
+
+msgid "Search: "
+msgstr "Recercar : "
+
+msgid "Size"
+msgstr "Talha"
+
+msgid "Sunday"
+msgstr "Dimenge"
+
+msgid "Text Color"
+msgstr "Color del tèxt"
+
+msgid "Text Font:"
+msgstr "Poliça del tèxt :"
+
+msgid "Thursday"
+msgstr "Dijòus"
+
+msgid "Title"
+msgstr "Títol"
+
+msgid "Tuesday"
+msgstr "Dimars"
+
+msgid "Unknown"
+msgstr "Desconegut"
+
+msgid "Version:"
+msgstr "Version :"
+
+msgid "Wednesday"
+msgstr "Dimècres"
+
+msgid "Year"
+msgstr "Annada"
+
+msgid "_Close"
+msgstr "_Tampar"
+
+msgid "_Columns"
+msgstr "_Colomnas"
+
+msgid "_Edit"
+msgstr "_Edicion"
+
+msgid "_File"
+msgstr "_Fichièr"
+
+msgid "_Help"
+msgstr "_Ajuda"
+
+msgid "_Tools"
+msgstr "_Espleches"
+
+msgid "_View"
+msgstr "_Visualizacion"
+
+msgid "after"
+msgstr "aprèp"
+
+msgid "and"
+msgstr "e"
+
+msgid "at least"
+msgstr "al mens"
+
+msgid "before"
+msgstr "abans"
+
+msgid "between"
+msgstr "entre"
+
+msgid "contains"
+msgstr "conten"
+
+msgid "days"
+msgstr "jorns"
+
+msgid "does not contain"
+msgstr "conten pas"
+
+msgid "hours"
+msgstr "oras"
+
+msgid "is"
+msgstr "es"
+
+msgid "is not"
+msgstr "es pas"
+
+msgid "minutes"
+msgstr "minutas"
+
+msgid "seconds"
+msgstr "segondas"
+
+msgid "weeks"
+msgstr "setmanas"

@@ -1,0 +1,923 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Exaile\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2009-01-27 19:19+0000\n"
+"Last-Translator: Yaron <sh.yaron@gmail.com>\n"
+"Language-Team: Hebrew <nahumoz@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+"X-Poedit-Country: ISRAEL\n"
+
+msgid " + "
+msgstr " + "
+
+msgid " - "
+msgstr " - "
+
+msgid " songs"
+msgstr " שירים"
+
+msgid "#"
+msgstr "מס'"
+
+msgid "%(title)s (by %(artist)s)"
+msgstr "%(title)s (על ידי %(artist)s)"
+
+msgid "%d:%02d"
+msgstr "%d:%02d"
+
+msgid "%s KB"
+msgstr "%s ק\"ב"
+
+msgid "(c) 2008"
+msgstr "(c) 2008"
+
+msgid "(drag to reorder)"
+msgstr "(גרירה לסידור מחדש)"
+
+msgid "..."
+msgstr "..."
+
+msgid ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+msgstr ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+
+msgid "0/0 tracks"
+msgstr "0/0 רצועות"
+
+msgid "0:00"
+msgstr "0:00"
+
+msgid "0:00 / 0:00"
+msgstr "0:00 / 0:00"
+
+msgid "<b>General</b>"
+msgstr "<b>כללי</b>"
+
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to appear</"
+"b>"
+msgstr "<b>יש להזיז את חלונית תצוגת המידע למיקום המבוקש</b>"
+
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>לא נבחר תוסף</b>"
+
+msgid ""
+"<b>OSD</b>\n"
+"Drag to the location you'd like the\n"
+"OSD to appear"
+msgstr ""
+"<b>חלונית המידע</b>\n"
+"יש לגרור אל המיקום בו תופיע\n"
+"חלונית המידע"
+
+msgid "<b>Save changes to %s before closing?</b>"
+msgstr "<b>האם לשמור את השינויים ל־%s לפני הסגירה?</b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"מתוך {album} - {length}"
+
+msgid ""
+"A proprietary and older, but also popular, lossy audio format. CBR gives "
+"less quality than VBR, but is compatible with any player."
+msgstr ""
+"סוג מקודד שמע ישן אך מוכר הגורע מאיכות השמע. CBR מעניק איכות נמוכה יותר "
+"מ־VBR, אך נתמך על ידי כל הנגנים."
+
+msgid ""
+"A proprietary and older, but also popular, lossy audio format. VBR gives "
+"higher quality than CBR, but may be incompatible with some players."
+msgstr ""
+"סוג מקודד שמע ישן אך מוכר הגורע מאיכות השמע. VBR מעניק איכות גבוהה יותר "
+"מ־CBR, אך אינו נתמך על ידי כמה מהנגנים."
+
+msgid "A very fast Free lossless audio format with good compression."
+msgstr "סוג מקודד מהיר וחופשי שאינו גורע מהאיכות בעל דחיסה מעולה."
+
+msgid "ASX Playlist"
+msgstr "רשימת השמעה ASX"
+
+msgid "About Exaile"
+msgstr "אודות Exaile"
+
+msgid "Add"
+msgstr "הוספה"
+
+msgid "Add Playlist"
+msgstr "הוספת רשימת השמעה"
+
+msgid "Add Smart Playlist"
+msgstr "הוספת רשימת השמעה חכמה"
+
+msgid "Add Station"
+msgstr "הוספת תחנה"
+
+msgid "Add a directory"
+msgstr "הוספת תיקייה"
+
+msgid "Add device"
+msgstr "הוספת התקן"
+
+msgid "Add to Playlist"
+msgstr "הוספה לרשימת ההשמעה"
+
+msgid "Alarm Clock"
+msgstr "שעון מעורר"
+
+msgid "Alarm Days:"
+msgstr "התראה בימים:"
+
+msgid "Album"
+msgstr "אלבום"
+
+msgid "Album Art"
+msgstr "עטיפת האלבום"
+
+msgid "All Files"
+msgstr "כל הקבצים"
+
+msgid "Append to Current"
+msgstr "הוספה לרשימה הנוכחית"
+
+msgid ""
+"Apple's proprietary lossy audio format that achieves better sound quality "
+"than MP3 at lower bitrates."
+msgstr ""
+"סוג מקודד השמע הקנייני של Apple גורע מאיכות השמע אך מגיע לאיכות שמע טובה "
+"יותר מ־MP3 בקצב סיביות נמוך יותר."
+
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr "האם אתה בטוח שברצונך למחוק לצמיתות את רשימת ההשמעה הנבחרת?"
+
+msgid "Artist"
+msgstr "אמן"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"אמן\n"
+"אלבום\n"
+"סגנון - אמן\n"
+"סגנון - אלבום\n"
+"שנה - אמן\n"
+"שנה - אלבום\n"
+"אמן - שנה - אלבום"
+
+msgid "Authors:"
+msgstr "יוצרים:"
+
+msgid "Autosize"
+msgstr "שינוי גודל אוטומטי"
+
+msgid "Available Plugins"
+msgstr "תוספים זמינים"
+
+msgid "BPM"
+msgstr "BPM"
+
+msgid "Background Color:"
+msgstr "צבע הרקע:"
+
+msgid "Bitrate"
+msgstr "קצב סיביות"
+
+msgid "Buffering complete"
+msgstr "הטענת החוצץ הושלמה"
+
+msgid "Cancel"
+msgstr "בטל"
+
+msgid "Choose a file"
+msgstr "יש לבחור קובץ"
+
+msgid "Clear Playlist"
+msgstr "ריקון רשימת השמעה"
+
+msgid "Close Tab"
+msgstr "סגור לשונית"
+
+msgid "Close Without Saving"
+msgstr "סגירה ללא שמירה"
+
+msgid "Collection"
+msgstr "אוסף"
+
+msgid "Collection Manager"
+msgstr "מנהל האוספים"
+
+msgid "Compilation detected: %s"
+msgstr "זוהתה תרכובת: %s"
+
+msgid "Composer"
+msgstr "מלחין"
+
+msgid "Configure"
+msgstr "הגדרה"
+
+msgid "Confirm Close"
+msgstr "אישור יציאה"
+
+msgid "Connected to HAL"
+msgstr "מחובר אל ה־HAL"
+
+msgid ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+msgstr ""
+"כל הזכויות שמורות (c) 2007 אדם אולסן <arolsen@gmail.com> \n"
+"\n"
+"תוכנה זו הינה תוכנה חופשית; ניתן להפיץ אותה מחדש ו/או לשנותה תחת תנאי הרשיון "
+"הציבורי הכללי של GNU כפי שפורסם על ידי קרן התוכנה החופשית; ניתן לפעול לפי "
+"גירסה 2, או (לבחירתך) לפי כל גירסה מאוחרת יותר.\n"
+"\n"
+"תוכנה זו מופצת בתקווה שתהיה שימושית, אך ללא כל אחריות; אפילו לא אחריות "
+"מרומזת למסחר או התאמה לצרכים מסויימים. יש לפנות לרשיון הציבורי הכללי של GNU "
+"לפרטים נוספים.\n"
+"\n"
+"לתוכנה זו אמור להיות מצורף עותק של הרשיון הציבורי הכללי של GNU. במידה ואינו "
+"מצורף ניתן לכתוב לנו אל Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+
+msgid "Could not disable plugin."
+msgstr "לא ניתן לנטרל את התוסף."
+
+msgid "Could not enable plugin."
+msgstr "לא ניתן לאפשר את התוסף."
+
+msgid "Could not set parameter %s for %s"
+msgstr "לא ניתן להגדיר את הפרמטר %s עבור %s"
+
+msgid "Couldn't send seek event"
+msgstr "לא ניתן לשלוח אירוע איתור"
+
+msgid "Cover Finder"
+msgstr "מאתר העטיפות"
+
+msgid "Cover Search Order:"
+msgstr "סדר חיפוש העטיפות:"
+
+msgid "Custom Playlists"
+msgstr "רשימות השמעה מותאמות אישית"
+
+msgid "Custom: "
+msgstr "מותאם אישית: "
+
+msgid "Date"
+msgstr "תאריך"
+
+msgid "Delete Playlist"
+msgstr "מחיקת רשימת השמעה"
+
+msgid "Description:"
+msgstr "תיאור:"
+
+msgid "Detected devices:"
+msgstr "התקנים שאותרו:"
+
+msgid "Device Manager"
+msgstr "מנהל ההתקנים"
+
+msgid "Disc"
+msgstr "תקליטור"
+
+msgid "Disc Number"
+msgstr "תקליטור מספר"
+
+msgid "Display OSD when hovering over tray icon"
+msgstr "הצגת חלונית מידע כאשר סמן העכבר חולף מעל הסמל במגש המערכת"
+
+msgid "Display a progressbar in the OSD"
+msgstr "הצגת מד ההתקדמות בחלונית המידע"
+
+msgid "Dynamic"
+msgstr "דינמי"
+
+msgid "Edit"
+msgstr "עריכה"
+
+msgid "Edit Smart Playlist"
+msgstr "עריכת רשימת השמעה חכמה"
+
+msgid "Enabled"
+msgstr "פעיל"
+
+msgid "Enter the name you want for your new playlist"
+msgstr "יש להזין את השם המבוקש עבור רשימת ההשמעה החדשה שלך"
+
+msgid "Enter the new name you want for your playlist"
+msgstr "יש להזין את השם החדש לרשימת ההשמעה שלך"
+
+msgid "Enter the search text"
+msgstr "הזן טקסט לחיפוש"
+
+msgid "Entire Library"
+msgstr "כל תיקיית השמע"
+
+msgid "Exaile"
+msgstr "Exaile"
+
+msgid "Exaile Music Player"
+msgstr "נגן המוסיקה Exaile"
+
+msgid "Exaile is shutting down..."
+msgstr "Exaile בתהליכי כיבוי..."
+
+msgid "Exaile: playing %s"
+msgstr "Exaile: מנגן %s"
+
+msgid "Export"
+msgstr "ייצוא"
+
+msgid "Extension"
+msgstr "הרחבה"
+
+msgid "Failed to connect to HAL, autodetection of devices will be disabled."
+msgstr "כשל בהתחברות אל ה־HAL, זיהוי ההתקנים באופן אוטומטי לא יפעל."
+
+msgid "Failed to create device for %s"
+msgstr "כשל ביצירת התקן עבור %s"
+
+msgid "Failed to enable equalizer"
+msgstr "כשל בהפעלת האקולייזר"
+
+msgid "Failed to enable replaygain"
+msgstr "כשל בהפעלת ניגון חוזר"
+
+msgid "Failed to load HAL devices for %s"
+msgstr "כשל בטעינת התקני ה־HAL עבור %s"
+
+msgid "Failed to open music DB for write."
+msgstr "כשל בפתיחת מסד נתוני המוסיקה לכתיבה."
+
+msgid "Failed to open music DB."
+msgstr "כשל בפתיחת מסד נתוני המוסיקה"
+
+msgid "Fetch Cover"
+msgstr "איחזור העטיפה"
+
+msgid "File Type"
+msgstr "סוג הקובץ"
+
+msgid "File count: %d"
+msgstr "ספירת קבצים: %d"
+
+msgid "File does not exist: %s"
+msgstr "הקובץ אינו קיים: %s"
+
+msgid "Filename"
+msgstr "שם הקובץ"
+
+msgid "Files"
+msgstr "קבצים"
+
+msgid "Found new %s device at %s"
+msgstr "נמצא התקן %s חדש ב־%s"
+
+msgid "Found no HAL device handler for %s"
+msgstr "לא נמצא מטפל בהתקני HAL עבור %s"
+
+msgid ""
+"Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
+"does not degrade audio quality."
+msgstr ""
+"מקודד השמע החופשי שאינו גורע (FLAC) הינו מקודד בקוד פתוח שדוחס אך לא גורע "
+"מאיכות השמע."
+
+msgid "Friday"
+msgstr "יום שישי"
+
+msgid "Gapless enabled"
+msgstr "ביטול ההשהיות הופעל"
+
+msgid "Genre"
+msgstr "סגנון"
+
+msgid "Install"
+msgstr "התקנה"
+
+msgid "Install Updates"
+msgstr "התקנת עדכונים"
+
+msgid "Installed Plugins"
+msgstr "תוספים מותקנים"
+
+msgid "Invalid file extension, file not saved"
+msgstr "סיומת הקובץ שגויה, הקובץ לא נשמע"
+
+msgid "Jump to current song on track change"
+msgstr "דילוג לרצועה זו בעת החלפת שיר"
+
+msgid "Length"
+msgstr "משך"
+
+msgid "Limit to: "
+msgstr "הגבל ל־: "
+
+msgid "Loaded plugin %s"
+msgstr "התוסף %s נטען"
+
+msgid "Loading Exaile %s..."
+msgstr "%s של Exaile בטעינה..."
+
+msgid "Loading collection..."
+msgstr "טעינת האוסף מתבצעת..."
+
+msgid "Loading devices..."
+msgstr "טעינת ההתקנים מתבצעת..."
+
+msgid "Loading interface..."
+msgstr "טעינת המנשק מתבצעת..."
+
+msgid "Loading plugins..."
+msgstr "התוספים נטענים..."
+
+msgid "Loading settings"
+msgstr "ההגדרות נטענות"
+
+msgid "Loading streams..."
+msgstr "טעינת התשדירים מתבצעת..."
+
+msgid "Location"
+msgstr "מיקום"
+
+msgid "Location deleted: %s"
+msgstr "המיקום נמחק: %s"
+
+msgid "Location modified: %s"
+msgstr "המיקום השתנה: %s"
+
+msgid "M3U Playlist"
+msgstr "רשימת השמעה M3U"
+
+msgid "Match any of the criteria"
+msgstr "תואם את הקריטריונים הבאים"
+
+msgid "Monday"
+msgstr "יום שני"
+
+msgid "Music Files"
+msgstr "קבצי מוסיקה"
+
+msgid "Name:"
+msgstr "שם:"
+
+msgid "New Playlist"
+msgstr "רשימת השמעה חדשה"
+
+msgid "New Search"
+msgstr "חיפוש חדש"
+
+msgid "Next"
+msgstr "הבא"
+
+msgid "Next Track"
+msgstr "הרצועה הבאה"
+
+msgid "No covers found"
+msgstr "לא נמצאו עטיפות"
+
+msgid "Not Playing"
+msgstr "לא מנגן"
+
+msgid "Not watching library: %s"
+msgstr "אין מעקב אחר הספריה: %s"
+
+msgid "Number of Plays"
+msgstr "מספר השמעות"
+
+msgid "Opacity Level:"
+msgstr "רמת האטימות:"
+
+msgid "Open"
+msgstr "פתיחה"
+
+msgid "Open _URL"
+msgstr "פתח _קישור"
+
+msgid "Open last playlists on startup"
+msgstr "פתיחת רשימות ההשמעה האחרונות עם ההפעלה"
+
+msgid "PLS Playlist"
+msgstr "רשימת השמעה PLS"
+
+msgid "Page 1"
+msgstr "עמוד 1"
+
+msgid "Password:"
+msgstr "סיסמה:"
+
+msgid ""
+"Path is already in your collection, or is a subdirectory of another path in "
+"your collection"
+msgstr "הנתיב כבר קיים באוסף שלך, או שהוא תת־תיקייה של נתיב אחר באוסף שלך"
+
+msgid "Pause"
+msgstr "השהה"
+
+msgid "Pl_ugins"
+msgstr "_תוספים"
+
+msgid "Play"
+msgstr "נגן"
+
+msgid "Playcount"
+msgstr "מספור השמעות"
+
+msgid "Playing %s"
+msgstr "מנגן את %s"
+
+msgid "Playlist Files"
+msgstr "קבצי רשימת השמעה"
+
+msgid "Playlists"
+msgstr "רשימות השמעה"
+
+msgid "Plugin"
+msgstr "תוסף"
+
+msgid "Plugins"
+msgstr "תוספים"
+
+msgid "Popup"
+msgstr "פריט מוקפץ"
+
+msgid "Preferences"
+msgstr "העדפות"
+
+msgid "Previous"
+msgstr "הקודם"
+
+msgid "Previous Track"
+msgstr "הרצועה הקודמת"
+
+msgid "PyInotify not installed or not supported.  "
+msgstr "PyInotify אינו מותקן או שאינו נתמך.  "
+
+msgid "Python Console - Exaile"
+msgstr "Python Console - Exaile"
+
+msgid "Queue Items"
+msgstr "הוספת שירים לתור"
+
+msgid "Quit"
+msgstr "יציאה"
+
+msgid "Radio"
+msgstr "רדיו"
+
+msgid "Radio Streams"
+msgstr "שידורי רדיו"
+
+msgid "Ran out of tracks to shuffle"
+msgstr "נגמרו הרצועות לנגינה מעורבת"
+
+msgid "Randomize results"
+msgstr "תוצאות אקראיות"
+
+msgid "Rating"
+msgstr "דירוג"
+
+msgid "Rating: "
+msgstr "דירוג: "
+
+msgid "Refresh"
+msgstr "רענן"
+
+msgid "Relay Port:"
+msgstr "Relay Port:"
+
+msgid "Remove"
+msgstr "הסרה"
+
+msgid "Remove Cover"
+msgstr "הסרת העטיפה"
+
+msgid "Rename"
+msgstr "שינוי שם"
+
+msgid "Rename Playlist"
+msgstr "שינוי שם לרשימת השמעה"
+
+msgid "Repeat"
+msgstr "חזרה"
+
+msgid "Resizable"
+msgstr "בעל גודל הניתן לשינוי"
+
+msgid "Safe mode enabled, not loading plugins."
+msgstr "נטען מצב בטוח, התוספים לא יטענו."
+
+msgid "Saturday"
+msgstr "יום שבת"
+
+msgid "Save"
+msgstr "שמירה"
+
+msgid "Saved Stations"
+msgstr "התחנות נשמרו"
+
+msgid "Saving %s DB to %s."
+msgstr "שמירת מסד הנתונים של %s אל %s"
+
+msgid "Saving state..."
+msgstr "המצב נשמר..."
+
+msgid "Scanning collection..."
+msgstr "סריקת האוסף מתבצעת..."
+
+msgid "Scanning library: %s"
+msgstr "התיקייה נסרקת: %s"
+
+msgid "Search"
+msgstr "חפש"
+
+msgid "Search: "
+msgstr "חיפוש: "
+
+msgid "Select File Type (By Extension)"
+msgstr "בחירת סוג הקובץ (לפי סיומת)"
+
+msgid "Set Rating"
+msgstr "הגדרת דירוג"
+
+msgid "Show Cover"
+msgstr "הצגת העטיפה"
+
+msgid "Show OSD on track change"
+msgstr "הצגת חלון המידע עם החלפת רצועה"
+
+msgid "Show splash screen on startup"
+msgstr "הצגת מסך פתיח בעת הפעלת התוכנה"
+
+msgid "Show tray icon"
+msgstr "הצגת סמל הנגן במגש המערכת"
+
+msgid "Shuffle"
+msgstr "מעורב"
+
+msgid "Size"
+msgstr "גודל"
+
+msgid "Smart Playlists"
+msgstr "רשימות השמעה חכמות"
+
+msgid "Start"
+msgstr "התחל"
+
+msgid "Stop"
+msgstr "עצור"
+
+msgid "Stop Playback"
+msgstr "עצור ניגון"
+
+msgid "Stopped"
+msgstr "נעצר"
+
+msgid "Sunday"
+msgstr "יום ראשון"
+
+msgid "Supported Files"
+msgstr "קבצים נתמכים"
+
+msgid "Text Color"
+msgstr "צבע הטקסט"
+
+msgid "Text Font:"
+msgstr "גופן הטקסט:"
+
+msgid "The playlist name you specified already exists."
+msgstr "שם רשימת ההשמעה שצויין כבר קיים."
+
+msgid "Thursday"
+msgstr "יום חמישי"
+
+msgid "Title"
+msgstr "כותרת"
+
+msgid "Toggle Queue"
+msgstr "החלפת התור"
+
+msgid "Toggle: Stop after selected track"
+msgstr "החלפה: עציאה לאחר הרצועה הנבחרת"
+
+msgid "Track Number"
+msgstr "מספר הרצועה"
+
+msgid "Tuesday"
+msgstr "יום שלישי"
+
+msgid "Type of device:"
+msgstr "סוג ההתקן:"
+
+msgid "Unable to enable plugin %s"
+msgstr "לא ניתן לאפשר את התוסף %s"
+
+msgid "Unable to fully disable plugin %s"
+msgstr "לא ניתן לבטל לחלוטין את התוסף %s"
+
+msgid "Unknown"
+msgstr "לא ידוע"
+
+msgid "Updates"
+msgstr "עדכונים"
+
+msgid "Use Fading"
+msgstr "השתמש בעמעום"
+
+msgid "Username:"
+msgstr "שם המשתמש:"
+
+msgid "Using %s for playback"
+msgstr "משתמש ב־%s לצורך נגינה"
+
+msgid "Various Artists"
+msgstr "אמנים שונים"
+
+msgid "Version:"
+msgstr "גירסה:"
+
+msgid "Vol:"
+msgstr "עצמת שמע:"
+
+msgid ""
+"Vorbis is an open source, lossy audio codec with high quality output at a "
+"lower file size than MP3."
+msgstr ""
+"Vorbis הינו מקודד המשבש את איכות השמע בקוד פתוח בעל פלט באיכות גבוהה ובנפח "
+"הקטן מ־MP3."
+
+msgid "Watching directory: %s"
+msgstr "מעקב אחר התיקייה: %s"
+
+msgid "Wednesday"
+msgstr "יום רביעי"
+
+msgid "Window Height:"
+msgstr "גובה החלון:"
+
+msgid "Window Width:"
+msgstr "רוחב החלון:"
+
+msgid "XSPF Playlist"
+msgstr "רשימת השמעה XSPF"
+
+msgid "Year"
+msgstr "שנה"
+
+msgid "You did not enter a name for your playlist"
+msgstr "לא הוזן שם עבור רשימת ההשמעה"
+
+msgid "Your changes will be lost if you don't save them"
+msgstr "השינויים שלך יאבדו אם לא תשמור אותם"
+
+msgid "_Album Art Manager"
+msgstr "מנהל _אומנות האלבומים"
+
+msgid "_Close"
+msgstr "_סגירה"
+
+msgid "_Collection Manager"
+msgstr "מנהל האו_ספים"
+
+msgid "_Columns"
+msgstr "_עמודות"
+
+msgid "_Edit"
+msgstr "ע_ריכה"
+
+msgid "_File"
+msgstr "_קובץ"
+
+msgid "_Go to Playing Track"
+msgstr "מעבר לרצועה ה_מתנגנת"
+
+msgid "_Help"
+msgstr "ע_זרה"
+
+msgid "_Rescan Collection"
+msgstr "_סריקת האוסף מחדש"
+
+msgid "_Tools"
+msgstr "_כלים"
+
+msgid "_View"
+msgstr "_תצוגה"
+
+msgid "after"
+msgstr "לאחר"
+
+msgid "and"
+msgstr "וגם"
+
+msgid "at least"
+msgstr "לפחות"
+
+msgid "at most"
+msgstr "לכל היותר"
+
+msgid "bad search token"
+msgstr "אסימון חיפוש שגוי"
+
+msgid "before"
+msgstr "לפני"
+
+msgid "between"
+msgstr "בין"
+
+msgid "by %s"
+msgstr "בביצוע האמן %s"
+
+msgid "contains"
+msgstr "מכיל"
+
+msgid "days"
+msgstr "ימים"
+
+msgid "does not contain"
+msgstr "אינו מכיל"
+
+msgid "from %s"
+msgstr "מתוך האלבום %s"
+
+msgid "gtk-add"
+msgstr "gtk-add"
+
+msgid "gtk-cancel"
+msgstr "gtk-cancel"
+
+msgid "gtk-close"
+msgstr "gtk-close"
+
+msgid "gtk-connect"
+msgstr "gtk-connect"
+
+msgid "gtk-disconnect"
+msgstr "gtk-disconnect"
+
+msgid "gtk-edit"
+msgstr "gtk-edit"
+
+msgid "gtk-ok"
+msgstr "gtk-ok"
+
+msgid "gtk-remove"
+msgstr "gtk-remove"
+
+msgid "hours"
+msgstr "שעות"
+
+msgid "is"
+msgstr "הינו"
+
+msgid "is not"
+msgstr "אינו"
+
+msgid "minutes"
+msgstr "דקות"
+
+msgid "seconds"
+msgstr "שניות"
+
+msgid "weeks"
+msgstr "שבועות"

@@ -1,0 +1,561 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2009-05-03 20:27+0000\n"
+"Last-Translator: Eraser <Unknown>\n"
+"Language-Team: Estonian <et@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid " songs"
+msgstr " laulud"
+
+msgid "#"
+msgstr "#"
+
+msgid "%s KB"
+msgstr "%s KB"
+
+msgid "(c) 2008"
+msgstr "(c) 2008"
+
+msgid "..."
+msgstr "..."
+
+msgid ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+msgstr ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+
+msgid "0:00"
+msgstr "0:00"
+
+msgid "0:00 / 0:00"
+msgstr "0:00 / 0:00"
+
+msgid "<b>General</b>"
+msgstr "<b>Üldine</b>"
+
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Lisandit pole valitud</b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{tiitel}</b>\n"
+"{artist}\n"
+" {album} - {length}"
+
+msgid "ASX Playlist"
+msgstr "ASX esitusnimekiri"
+
+msgid "Add"
+msgstr "Lisamine"
+
+msgid "Add Playlist"
+msgstr "Lisa esitusnimekiri"
+
+msgid "Add Smart Playlist"
+msgstr "Lisa nutikas nimekiri"
+
+msgid "Add Station"
+msgstr "Lisa jaam"
+
+msgid "Add a directory"
+msgstr "Lisa kaust"
+
+msgid "Add device"
+msgstr "Lisa seade"
+
+msgid "Alarm Clock"
+msgstr "Alarmkell"
+
+msgid "Alarm Days:"
+msgstr "Alarmi päevad:"
+
+msgid "Alarm:"
+msgstr "Alarm:"
+
+msgid "Album"
+msgstr "Album"
+
+msgid "Album Art"
+msgstr "Plaadikaane kujundus"
+
+msgid "All Files"
+msgstr "Kõik failid"
+
+msgid "Artist"
+msgstr "Esitaja"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"Esitaja\n"
+"Album\n"
+"žanr - Esitaja\n"
+"žanr - Album\n"
+"Aasta - Esitaja\n"
+"Aasta - Album\n"
+"Esitaja - Aasta - Album"
+
+msgid "Authors:"
+msgstr "Autorid:"
+
+msgid "Autosize"
+msgstr "Autosuurus"
+
+msgid "Available Plugins"
+msgstr "Saadavad lisandid"
+
+msgid "Background Color:"
+msgstr "Taustavärv:"
+
+msgid "Bitrate"
+msgstr "Bitikiirus"
+
+msgid "Bottom left"
+msgstr "All vasakul"
+
+msgid "Bottom right"
+msgstr "All paremal"
+
+msgid "Bye!"
+msgstr "Nägemist!"
+
+msgid "Cancel"
+msgstr "Tühista"
+
+msgid "Choose a file"
+msgstr "Vali fail"
+
+msgid "Clear Playlist"
+msgstr "Playlisti tühjendamine"
+
+msgid "Collection"
+msgstr "Kogumik"
+
+msgid "Composer"
+msgstr "Helilooja"
+
+msgid "Configure"
+msgstr "Seadistamine"
+
+msgid "Date"
+msgstr "Kuupäev"
+
+msgid "Delete"
+msgstr "Kustuta"
+
+msgid "Delete Playlist"
+msgstr "Kustuta nimekiri"
+
+msgid "Description:"
+msgstr "Kirjeldus:"
+
+msgid "Detected devices:"
+msgstr "Leitud seaded:"
+
+msgid "Device Manager"
+msgstr "Seadete haldamine"
+
+msgid "Disc"
+msgstr "Ketas"
+
+msgid "Disc Number"
+msgstr "Plaadi number"
+
+msgid "Dynamic"
+msgstr "Dünaamiline"
+
+msgid "Edit"
+msgstr "Muuda"
+
+msgid "Enabled"
+msgstr "Lubatud"
+
+msgid "Enter the name you want for your new playlist"
+msgstr "Sisesta uue nimekirja nimi"
+
+msgid "Exaile"
+msgstr "Exaile"
+
+msgid "Export"
+msgstr "Ekspordi"
+
+msgid "File Type"
+msgstr "Faili tüüp"
+
+msgid "Filename"
+msgstr "Failinimi"
+
+msgid "Files"
+msgstr "Faili"
+
+msgid "Friday"
+msgstr "Reede"
+
+msgid "Genre"
+msgstr "Stiil"
+
+msgid "Install"
+msgstr "Paigalda"
+
+msgid "Install Updates"
+msgstr "Installeeri uuendused"
+
+msgid "Installed Plugins"
+msgstr "Paigaltatud lisandid"
+
+msgid "LastFM Radio"
+msgstr "LastFM Raadio"
+
+msgid "LastFM: %s"
+msgstr "LastFM: %s"
+
+msgid "Length"
+msgstr "Pikkus"
+
+msgid "Loading devices..."
+msgstr "Seadmete laadimine..."
+
+msgid "Loading interface..."
+msgstr "Kasutajaliidese laadimine..."
+
+msgid "Loading plugins..."
+msgstr "Pluginate laadimine..."
+
+msgid "Loading settings"
+msgstr "Seadete laadimine"
+
+msgid "Loading streams..."
+msgstr "Voogud laadimine..."
+
+msgid "Location"
+msgstr "Asukoht"
+
+msgid "M3U Playlist"
+msgstr "M3U esitusnimekiri"
+
+msgid "Monday"
+msgstr "Esmaspäev"
+
+msgid "Name:"
+msgstr "Nimi:"
+
+msgid "New Playlist"
+msgstr "Uus esitusnimekiri"
+
+msgid "New Search"
+msgstr "Uus otsing"
+
+msgid "Next"
+msgstr "Järgmine"
+
+msgid "Next Track"
+msgstr "Järgmine rada"
+
+msgid "No covers found"
+msgstr "Kaanepilti ei leitud"
+
+msgid "Not Playing"
+msgstr "Ei Mängi"
+
+msgid "Number of Plays"
+msgstr "Mängimiste arv"
+
+msgid "Ok"
+msgstr "Ok"
+
+msgid "Opacity Level:"
+msgstr "Läbipaistmatuse tase:"
+
+msgid "Open"
+msgstr "Ava"
+
+msgid "Open URL"
+msgstr "Ava URL"
+
+msgid "Open _URL"
+msgstr "Ava _URL"
+
+msgid "PLS Playlist"
+msgstr "PLS esitusnimekiri"
+
+msgid "Password:"
+msgstr "Parool:"
+
+msgid "Pause"
+msgstr "Paus"
+
+msgid "Pl_ugins"
+msgstr "Pl_uginad"
+
+msgid "Play"
+msgstr "Esita"
+
+msgid "Play the next track"
+msgstr "Esita järgmine lugu"
+
+msgid "Play the previous track"
+msgstr "Esita eelmist lugu"
+
+msgid "Playcount"
+msgstr "Esitamiste arv"
+
+msgid "Playlists"
+msgstr "Lugude nimekirjad"
+
+msgid "Plugin"
+msgstr "Lisand"
+
+msgid "Plugins"
+msgstr "Pluginad"
+
+msgid "Preferences"
+msgstr "Eelistused"
+
+msgid "Previous"
+msgstr "Eelmine"
+
+msgid "Previous Track"
+msgstr "Eelmine lugu"
+
+msgid "Python Console - Exaile"
+msgstr "Pythoni konsool - Exaile"
+
+msgid "Quit"
+msgstr "Välju"
+
+msgid "Radio"
+msgstr "Raadio"
+
+msgid "Radio Streams"
+msgstr "Raadiovood"
+
+msgid "Rating"
+msgstr "Hinnang"
+
+msgid "Rating: "
+msgstr "Hinnang: "
+
+msgid "Refresh"
+msgstr "Värskenda"
+
+msgid "Remove"
+msgstr "Kustuta"
+
+msgid "Remove Cover"
+msgstr "Eemalda kaanepilt"
+
+msgid "Rename"
+msgstr "Nimeta ümber"
+
+msgid "Repeat"
+msgstr "Kordus"
+
+msgid "Resizable"
+msgstr "Muudetava suurusega"
+
+msgid "Saturday"
+msgstr "Laupäev"
+
+msgid "Save"
+msgstr "Salvesta"
+
+msgid "Saved Stations"
+msgstr "Salvestatud jaamad"
+
+msgid "Search"
+msgstr "Otsi"
+
+msgid "Search Results"
+msgstr "Otsingu tulemused"
+
+msgid "Search: "
+msgstr "Otsi: "
+
+msgid "Set data directory"
+msgstr "Määra andmete kataloog"
+
+msgid "Show Cover"
+msgstr "Näita kaanepilti"
+
+msgid "Show tray icon"
+msgstr "Näita salve ikooni"
+
+msgid "Shuffle"
+msgstr "Sega"
+
+msgid "Size"
+msgstr "Suurus"
+
+msgid "Smart Playlists"
+msgstr "Nutikad esitusnimekirjad"
+
+msgid "Start"
+msgstr "Alusta"
+
+msgid "Stop"
+msgstr "Peata"
+
+msgid "Stop Playback"
+msgstr "Peata esitus"
+
+msgid "Stop playback"
+msgstr "Peata esitamine"
+
+msgid "Stopped"
+msgstr "Peatatud"
+
+msgid "Sunday"
+msgstr "Pühapäev"
+
+msgid "Supported Files"
+msgstr "Toetatud failid"
+
+msgid "Text Color"
+msgstr "Teksti värv"
+
+msgid "Thursday"
+msgstr "Neljapäev"
+
+msgid "Title"
+msgstr "Pealkiri"
+
+msgid "Top left"
+msgstr "Üleval vasakul"
+
+msgid "Top right"
+msgstr "Üleval paremal"
+
+msgid "Track Number"
+msgstr "Loo number"
+
+msgid "Tuesday"
+msgstr "Teisipäev"
+
+msgid "Type of device:"
+msgstr "Seadme tüüp:"
+
+msgid "Updates"
+msgstr "Uuendused"
+
+msgid "Use Fading"
+msgstr "Kasuta hajumist"
+
+msgid "Username:"
+msgstr "Kasutajanimi:"
+
+msgid "Various Artists"
+msgstr "Erinevad esitajad"
+
+msgid "Version:"
+msgstr "Versioon:"
+
+msgid "Vol:"
+msgstr "Vol:"
+
+msgid "Wednesday"
+msgstr "Kolmapäev"
+
+msgid "Window Height:"
+msgstr "Akna kõrgus:"
+
+msgid "Window Width:"
+msgstr "Akna laius:"
+
+msgid "Year"
+msgstr "Aasta"
+
+msgid "You did not enter a name for your playlist"
+msgstr "Nimekirja nimi on puudu"
+
+msgid "_Close"
+msgstr "_Sulge"
+
+msgid "_Columns"
+msgstr "_Veerud"
+
+msgid "_Edit"
+msgstr "_Muuda"
+
+msgid "_File"
+msgstr "_Fail"
+
+msgid "_Help"
+msgstr "_Abi"
+
+msgid "_Tools"
+msgstr "_Tööriistad"
+
+msgid "_View"
+msgstr "_Vaade"
+
+msgid "after"
+msgstr "pärast"
+
+msgid "and"
+msgstr "ja"
+
+msgid "at least"
+msgstr "vähemalt"
+
+msgid "at most"
+msgstr "mitte rohkem kui"
+
+msgid "before"
+msgstr "enne"
+
+msgid "between"
+msgstr "vahemikus"
+
+msgid "contains"
+msgstr "sisaldab"
+
+msgid "days"
+msgstr "päeva"
+
+msgid "does not contain"
+msgstr "ei sisalda"
+
+msgid "hours"
+msgstr "tundi"
+
+msgid "is"
+msgstr "on"
+
+msgid "is not"
+msgstr "ei ole"
+
+msgid "minutes"
+msgstr "minutit"
+
+msgid "seconds"
+msgstr "sekundit"
+
+msgid "weeks"
+msgstr "nädalat"

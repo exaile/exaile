@@ -1,0 +1,954 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2009-05-22 19:36+0000\n"
+"Last-Translator: M. <Unknown>\n"
+"Language-Team: Esperanto <eo@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid "  New song, fetching cover."
+msgstr "  Nova muzikaĵo, kovrilo venigata"
+
+msgid " + "
+msgstr " + "
+
+msgid " - "
+msgstr " - "
+
+msgid " : %d queued"
+msgstr " : %d enviciĝis"
+
+msgid " songs"
+msgstr " kantoj"
+
+msgid "#"
+msgstr "#"
+
+msgid "%(title)s (by %(artist)s)"
+msgstr "%(title)s (fare de %(artist)s)"
+
+msgid "%d:%02d"
+msgstr "%d:%02d"
+
+msgid "%s KB"
+msgstr "%s kB"
+
+msgid "(c) 2008"
+msgstr "(c) 2008"
+
+msgid "(drag to reorder)"
+msgstr "(trenu por reorgidi)"
+
+msgid "..."
+msgstr "..."
+
+msgid ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+msgstr ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+
+msgid "0/0 tracks"
+msgstr "0/0 trakoj"
+
+msgid "0:00"
+msgstr "0:00"
+
+msgid "0:00 / 0:00"
+msgstr "0:00 / 0:00"
+
+msgid ":"
+msgstr ":"
+
+msgid "<b>General</b>"
+msgstr "<b>Ĝeneralaj</b>"
+
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to appear</"
+"b>"
+msgstr ""
+"<b>Movu la surekranan vidigfenestron al la situo kie vi deziras ĝin aperi</b>"
+
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Elektu kromprogramon</b>"
+
+msgid "<b>Save changes to %s before closing?</b>"
+msgstr "<b>Ĉu konservi ŝanĝojn de %s antaŭ ol fermi?</b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{titolo}</b>\n"
+"{artisto}\n"
+"sur {albumo} - {length}"
+
+msgid ""
+"A proprietary and older, but also popular, lossy audio format. CBR gives "
+"less quality than VBR, but is compatible with any player."
+msgstr ""
+"Malfermitkoda kaj pli maljuna, sed ankaŭ populara, perda sonformo. CBR donas "
+"malpli altan kvaliton ol VBR, sed estas kongrua kun ĉiuj ludiloj."
+
+msgid ""
+"A proprietary and older, but also popular, lossy audio format. VBR gives "
+"higher quality than CBR, but may be incompatible with some players."
+msgstr ""
+"Malfermitkoda kaj pli maljuna, sed ankaŭ populara, perda sonformo. VBR donas "
+"pli altan kvaliton ol CBR, sed povas esti malkongrua kun kelkaj ludiloj."
+
+msgid "A very fast Free lossless audio format with good compression."
+msgstr "Tre rapida senperda sonformo kun bona densigo."
+
+msgid "ASX Playlist"
+msgstr "ASX-ludlisto"
+
+msgid "About Exaile"
+msgstr "Pri Exaile"
+
+msgid "Add"
+msgstr "Aldoni"
+
+msgid "Add Playlist"
+msgstr "Aldoni kantaron"
+
+msgid "Add Smart Playlist"
+msgstr "Aldonu inteligentan ludliston"
+
+msgid "Add Station"
+msgstr "Aldoni stacion"
+
+msgid "Add a directory"
+msgstr "Aldoni dosierujon"
+
+msgid "Add device"
+msgstr "Aldoni aparaton"
+
+msgid "Add to Playlist"
+msgstr "Aldoni al kantaro"
+
+msgid "Alarm Clock"
+msgstr "Vekhorloĝo"
+
+msgid "Alarm Days:"
+msgstr "Vektagoj:"
+
+msgid "Album"
+msgstr "Albumo"
+
+msgid "Album Art"
+msgstr "Albumarto"
+
+msgid "All Files"
+msgstr "Ĉiuj dosieroj"
+
+msgid "An Unknown type of setting was found!"
+msgstr "Nekonata tipo da agordoj trovita!"
+
+msgid "Append to Current"
+msgstr "Aldoni post kurantaj"
+
+msgid ""
+"Apple's proprietary lossy audio format that achieves better sound quality "
+"than MP3 at lower bitrates."
+msgstr ""
+"Komerca perda sonformo de Apple, kiu donas pli bonan sonkvaliton ol MP3 je "
+"malpli alta bitrapido."
+
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr "Ĉu vi vere volas forviŝi la elektitan kantaron por ĉiam?"
+
+msgid "Artist"
+msgstr "Artisto"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"Artisto\n"
+"Albumo\n"
+"Kategorio - artisto\n"
+"Kategorio - albumo\n"
+"Jaro - artisto\n"
+"Jaro - albumo\n"
+"Artisto - jaro - albumo"
+
+msgid "Attempting to find covers for %s"
+msgstr "Provanta trovi kovrilojn por %s"
+
+msgid "Authors:"
+msgstr "Aŭtoroj:"
+
+msgid "Autosize"
+msgstr "Aŭtomate regrandigi"
+
+msgid "Available Plugins"
+msgstr "Disponeblaj kromprogramoj"
+
+msgid "BPM"
+msgstr "pulsoj minute"
+
+msgid "Background Color:"
+msgstr "Fonkoloro:"
+
+msgid "Bitrate"
+msgstr "Bitrapido"
+
+msgid "Bottom left"
+msgstr "Malsupra maldekstra"
+
+msgid "Bottom right"
+msgstr "Malsupra dekstra"
+
+msgid "Buffering complete"
+msgstr "Buferado finita"
+
+msgid "Buffering: %d%%..."
+msgstr "Bufrado: %d%%…"
+
+msgid "Buffering: 100%..."
+msgstr "Bufrado: 100%…"
+
+msgid "Bye!"
+msgstr "Ĝis!"
+
+msgid "Cancel"
+msgstr "Rezigni"
+
+msgid "Choose a file"
+msgstr "Elektu dosieron"
+
+msgid "Choose a file to open"
+msgstr "Elektu malfermotan dosieron"
+
+msgid "Clear Playlist"
+msgstr "Froviŝi kantaron"
+
+msgid "Close Tab"
+msgstr "Fermi langeton"
+
+msgid "Close Without Saving"
+msgstr "Fermi sen konservi"
+
+msgid "Collection"
+msgstr "Kolekto"
+
+msgid "Collection Manager"
+msgstr "Kolekto-administrilo"
+
+msgid "Composer"
+msgstr "Verkisto"
+
+msgid "Configure"
+msgstr "Agordi"
+
+msgid "Confirm Close"
+msgstr "Konfirmu malfermon"
+
+msgid "Connected to HAL"
+msgstr "Konektita al HAL"
+
+msgid ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+msgstr ""
+"Kopirajto © 2007 Adam Olsen <arolsen@gmail.com>\n"
+"\n"
+"Tiu programo estas publikaĵo; oni rajtas redistribuii kaj/aŭ modifi ĝin\n"
+"sub la kondiĉoj de GNU General Public License, disponigita de\n"
+"Free Software Foundation; aŭ versio 2 de GNU GPL, aŭ (laŭvole)\n"
+"iu ajn estonta versio.\n"
+"\n"
+"Tiu programo estas disdonita kun la espero, ke ĝi utilos,\n"
+"tamen SEN IU AJN GARANTIO; sen eĉ the implicis garantio de\n"
+"komerceco aŭ TAŬGECO POR APARTA CELO.\n"
+"Por pliaj detaloj vidu GNU General Public License.\n"
+"\n"
+"Vi devis ricevi \"copy\" de GNU General Public License kun tiu programo.\n"
+"Se vi ne ricevis, skribu al Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+
+msgid "Could not disable plugin."
+msgstr "Neeblas malŝalti la kromprogramon."
+
+msgid "Could not enable plugin."
+msgstr "Neeblis ŝalti la kromprogramon."
+
+msgid "Could not set parameter %s for %s"
+msgstr "Neeblas agordi parametron %s por %s"
+
+msgid "Cover Finder"
+msgstr "Trovi kovrilojn"
+
+msgid "CoverDB: set cover %s for '%s - %s'"
+msgstr "CoverDB: elektis kovrilon %s por '%s - %s'"
+
+msgid "Custom Playlists"
+msgstr "Propraj kantaroj"
+
+msgid "Date"
+msgstr "Dato"
+
+msgid "Decreases the volume by VOL"
+msgstr "Mallaŭtigi"
+
+msgid "Delete"
+msgstr "Forigi"
+
+msgid "Delete Playlist"
+msgstr "Forviŝi ludliston"
+
+msgid "Description:"
+msgstr "Priskribo:"
+
+msgid "Detected devices:"
+msgstr "Detektitaj aparatoj"
+
+msgid "Device Manager"
+msgstr "Aparata administrilo"
+
+msgid "Disc"
+msgstr "Disko"
+
+msgid "Disc Number"
+msgstr "Disknumero"
+
+msgid "Display OSD when hovering over tray icon"
+msgstr "Montri ekranan afiŝilon je musoŝvebo super la pleta piktogramo"
+
+msgid "Edit"
+msgstr "Redaktu"
+
+msgid "Edit Smart Playlist"
+msgstr "Redaktu inteligentan ludliston"
+
+msgid "Enabled"
+msgstr "Ŝaltita"
+
+msgid "Enter the name you want for your new playlist"
+msgstr "Nomu tiun novan kantaron"
+
+msgid "Enter the new name you want for your playlist"
+msgstr "Enigu la novan nomon de la ludlisto"
+
+msgid "Enter the search keywords"
+msgstr "Enigu serĉajn ŝlosilvortoj"
+
+msgid "Entire Library"
+msgstr "Tuta muzik-kolekto"
+
+msgid "Exaile Music Player"
+msgstr "Muzik-programo Ekzajlo"
+
+msgid "Exaile is shutting down..."
+msgstr "Exaile estas fermanta..."
+
+msgid "Exaile: playing %s"
+msgstr "Exaile: ludanta %s"
+
+msgid "Export"
+msgstr "Eksporti"
+
+msgid "Extension"
+msgstr "Sufikso"
+
+msgid "Failed to open music DB for write."
+msgstr "Malsukcesis malfermi muzikdatumbazon por skribi."
+
+msgid "Failed to open music DB."
+msgstr "Malsukcesis ŝargi muzikan datumbazon"
+
+msgid "File Type"
+msgstr "Dosiertipo"
+
+msgid "File count: %d"
+msgstr "Dosiernombro: %d"
+
+msgid "File does not exist: %s"
+msgstr "Ne ekzistas la dosiero: %s"
+
+msgid "Filename"
+msgstr "Dosiernomo"
+
+msgid "Files"
+msgstr "Dosieroj"
+
+msgid "Found covers from %s"
+msgstr "Kovriloj trovitaj por %s"
+
+msgid ""
+"Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
+"does not degrade audio quality."
+msgstr ""
+"Free Lossless Audio Codec (FLAC) estas malfermitkoda sonkodeko, kiu densigas "
+"sed ne malaltigas sonkvaliton."
+
+msgid "Friday"
+msgstr "Vendredo"
+
+msgid "Genre"
+msgstr "Kategorio"
+
+msgid "Get rating for current song"
+msgstr "Obteni takson pri la nuna muzikaĵo"
+
+msgid "Home directory"
+msgstr "Hejma dosiero"
+
+msgid "Increases the volume by VOL"
+msgstr "Laŭtigi"
+
+msgid "Install"
+msgstr "Instali"
+
+msgid "Install Updates"
+msgstr "Instali ĝisdatigojn"
+
+msgid "Installed Plugins"
+msgstr "Instalitaj kromprogramoj"
+
+msgid "Invalid file extension, file not saved"
+msgstr "Nevalida dosiersufikso, dosiero ne konservita"
+
+msgid "LastFM: %s"
+msgstr "LastFM: %s"
+
+msgid "Length"
+msgstr "Daŭro"
+
+msgid "Limit to: "
+msgstr "Limigi al: "
+
+msgid "Loaded plugin %s"
+msgstr "Kromprogramo %s ŝargita"
+
+msgid "Loading Exaile %s..."
+msgstr "Ŝarĝanta Exaile %s..."
+
+msgid "Loading collection..."
+msgstr "Ŝarganta kolekton..."
+
+msgid "Loading devices..."
+msgstr "Ŝarganta aranĝaĵojn..."
+
+msgid "Loading interface..."
+msgstr "Ŝarganta interfacon..."
+
+msgid "Loading plugins..."
+msgstr "Ŝarĝanta kromprogramojn..."
+
+msgid "Loading settings"
+msgstr "Ŝarĝanta agordojn"
+
+msgid "Loading streams..."
+msgstr "Ŝarganta fluojn…"
+
+msgid "Location"
+msgstr "Loko"
+
+msgid "Location deleted: %s"
+msgstr "Loko forigis: %s"
+
+msgid "Location modified: %s"
+msgstr "Loko ŝanĝiĝis: %s"
+
+msgid "M3U Playlist"
+msgstr "M3U-ludlisto"
+
+msgid "Match any of the criteria"
+msgstr "Kongruigi iun ajn kriterion"
+
+msgid "Maximum Volume:"
+msgstr "Maksimuma laŭteco"
+
+msgid "Minimum Volume:"
+msgstr "Minimuma laŭteco"
+
+msgid "Minimum Volume:                "
+msgstr "Minimuma laŭteco:                "
+
+msgid "Monday"
+msgstr "Lundo"
+
+msgid "Music Files"
+msgstr "Muzikdosieroj"
+
+msgid "Name - Time"
+msgstr "Nomo - Tempo"
+
+msgid "Name:"
+msgstr "Nomo:"
+
+msgid "New Playlist"
+msgstr "Nova ludlisto"
+
+msgid "New Search"
+msgstr "Nova serĉo"
+
+msgid "Next"
+msgstr "Sekva"
+
+msgid "Next Track"
+msgstr "Sekva trako"
+
+msgid "Next visited directory"
+msgstr "Sekva vizitota dosierujo"
+
+msgid "No cover found"
+msgstr "Neniu kovrilo trovita"
+
+msgid "No covers found"
+msgstr "Neniu kovrilo trovata"
+
+msgid "Not Playing"
+msgstr "Neleganta"
+
+msgid "Not watching library: %s"
+msgstr "Ne atentas kolekton: %s"
+
+msgid "Ok"
+msgstr "Akcepti"
+
+msgid "Open"
+msgstr "Malfermi"
+
+msgid "Open URL"
+msgstr "Malfermi URL"
+
+msgid "Open _URL"
+msgstr "Malfermi _URL-on"
+
+msgid "Open last playlists on startup"
+msgstr "Malfermi lastajn ludlistojn je lanĉo"
+
+msgid "PLS Playlist"
+msgstr "PSL-ludlisto"
+
+msgid "Page 1"
+msgstr "Paĝo 1"
+
+msgid "Password:"
+msgstr "Pasvorto:"
+
+msgid "Pause"
+msgstr "Paŭzu"
+
+msgid "Personal"
+msgstr "Persona"
+
+msgid "Play"
+msgstr "Iru"
+
+msgid "Play the next track"
+msgstr "Ludi la sekvan trakon"
+
+msgid "Play the previous track"
+msgstr "Ludi la antaŭan trakon"
+
+msgid "Playcount"
+msgstr "Ludnombrilo"
+
+msgid "Playing %s"
+msgstr "Ludas %s"
+
+msgid "Playlist Files"
+msgstr "Kantaraj dosieroj"
+
+msgid "Playlists"
+msgstr "Kantaroj"
+
+msgid "Plugin"
+msgstr "Kromprogramo"
+
+msgid "Plugins"
+msgstr "Kromprogramoj"
+
+msgid "Popup"
+msgstr "Ŝpruco"
+
+msgid "Preferences"
+msgstr "Agordaĵoj"
+
+msgid "Previous"
+msgstr "Antaŭen"
+
+msgid "Previous Track"
+msgstr "Antaŭa kanto"
+
+msgid "Previous visited directory"
+msgstr "Lasta vizitita dosierujo"
+
+msgid "Print the album of current track"
+msgstr "Montri la albumon de la nuna trako"
+
+msgid "Print the artist of current track"
+msgstr "Montri la artiston de la nuna trako"
+
+msgid "Print the current volume"
+msgstr "Montri la nunan laŭtecon"
+
+msgid "Print the length of current track"
+msgstr "Montri la longecon de la nuna trako"
+
+msgid "Print the position inside the current track as a percentage"
+msgstr "Montri la pozicion en la nuna trako kiel elcenton"
+
+msgid "Print the title of current track"
+msgstr "Montri la titolon de la nuna trako"
+
+msgid "Python Console - Exaile"
+msgstr "Python-konzolo de Ekzajlo"
+
+msgid "Queue Items"
+msgstr "Atendoviceroj"
+
+msgid "Quit"
+msgstr "Eliri"
+
+msgid "Radio"
+msgstr "Radio"
+
+msgid "Radio Streams"
+msgstr "Radiofluoj"
+
+msgid "Random %d"
+msgstr "Hazarda %d"
+
+msgid "Rating"
+msgstr "Takso"
+
+msgid "Rating > %d"
+msgstr "Takso > %d"
+
+msgid "Rating: "
+msgstr "Takso: "
+
+msgid "Recommended"
+msgstr "Rekomendata"
+
+msgid "Refresh"
+msgstr "Aktualigi"
+
+msgid "Remove"
+msgstr "Forigi"
+
+msgid "Remove Cover"
+msgstr "Forigi kovrilon"
+
+msgid "Rename"
+msgstr "Alinomi"
+
+msgid "Rename Playlist"
+msgstr "Alinomi kantaron"
+
+msgid "Repeat"
+msgstr "Ripeti"
+
+msgid "Resizable"
+msgstr "Ŝanĝebla grandeco"
+
+msgid "Restart Playlist"
+msgstr "Restartigi ludliston"
+
+msgid "Safe mode enabled, not loading plugins."
+msgstr "Sendanĝera moduso ebligita, kromprogramoj ne ŝargitaj."
+
+msgid "Saturday"
+msgstr "Sabato"
+
+msgid "Save"
+msgstr "Konservu"
+
+msgid "Save Location:     "
+msgstr "Konservi lokon:     "
+
+msgid "Saving cover database"
+msgstr "Konservanta kovril-datumbazo"
+
+msgid "Saving state..."
+msgstr "Konservanta la staton..."
+
+msgid "Scanning collection..."
+msgstr "Traridargado de la kolekto..."
+
+msgid "Scanning library: %s"
+msgstr "Analizanta kolekton: %s"
+
+msgid "Search"
+msgstr "Serĉi"
+
+msgid "Search: "
+msgstr "Serĉi: "
+
+msgid "Select File Type (By Extension)"
+msgstr "Elektu dosiertipon (laŭ finaĵo)"
+
+msgid "Sent '%s' event from '%s' with data '%s'."
+msgstr "Okazaĵo '%s' sendita de '%s' kun datumo '%s'"
+
+msgid "Set data directory"
+msgstr "Elekti datumdosieron"
+
+msgid "Set rating for current song"
+msgstr "Taksi la nunan muzikaĵon"
+
+msgid "Show Cover"
+msgstr "Montri kovrilon"
+
+msgid "Show OSD on track change"
+msgstr "Montri ekranan afiŝilon je trakŝanĝo"
+
+msgid "Show a popup of the currently playing track"
+msgstr "Montri ŝprucfenestron pri la legata trako"
+
+msgid "Show splash screen on startup"
+msgstr "Montri salutŝildon ĉe startigo"
+
+msgid "Show tray icon"
+msgstr "Montri piktogramon sur la pleto"
+
+msgid "Shuffle"
+msgstr "Miksu"
+
+msgid "Size"
+msgstr "Grando"
+
+msgid "Smart Playlists"
+msgstr "Inteligentaj ludlistoj"
+
+msgid "Start"
+msgstr "Ek"
+
+msgid "Start Exaile minimized to tray, if possible"
+msgstr "Lanĉi Exaile minimumigita al pleto, se eble"
+
+msgid "Start in safe mode - sometimes useful when you're running into problems"
+msgstr "Lanĉi en sendanĝera reĝimo – kelkfoje utile se vi renkontas problemojn"
+
+msgid "Stop"
+msgstr "Haltigi"
+
+msgid "Stop playback"
+msgstr "Halti la ludadon"
+
+msgid "Stopped"
+msgstr "Haltigita"
+
+msgid "Sunday"
+msgstr "Dimanĉo"
+
+msgid "Text Color"
+msgstr "Teksta koloro"
+
+msgid "Text Font:"
+msgstr "Teksta tiparo:"
+
+msgid "The playlist name you specified already exists."
+msgstr "La ludlista nomo, kiun vi enigis, jam ekzistas"
+
+msgid "Thursday"
+msgstr "Ĵaŭdo"
+
+msgid "Title"
+msgstr "Titolo"
+
+msgid "Toggle Play or Pause"
+msgstr "Baskuli Ludadon aŭ Paŭzon"
+
+msgid "Top left"
+msgstr "Supra maldekstra"
+
+msgid "Top right"
+msgstr "Supra dekstra"
+
+msgid "Track Number"
+msgstr "Kantnumero"
+
+msgid "Tuesday"
+msgstr "Mardo"
+
+msgid "Unable to enable plugin %s"
+msgstr "Neeblas ŝalti la kromprogramon %s"
+
+msgid "Unable to fully disable plugin %s"
+msgstr "Neeblas plene malŝalti la kromprogramon %s"
+
+msgid "Unknown"
+msgstr "Nekonata"
+
+msgid "Updates"
+msgstr "Ĝisdatigoj"
+
+msgid "Use Fading"
+msgstr "Uzi velkofinon"
+
+msgid "Username:"
+msgstr "Uzantonomo:"
+
+msgid "Using %s for playback"
+msgstr "Uzanta %s por reproduktado"
+
+msgid "Various Artists"
+msgstr "Diversaj Artistoj"
+
+msgid "Version:"
+msgstr "Versio:"
+
+msgid "Vol:"
+msgstr "Laŭto:"
+
+msgid ""
+"Vorbis is an open source, lossy audio codec with high quality output at a "
+"lower file size than MP3."
+msgstr ""
+"Vorbis estas malfermitkoda, perda sonkodero kun altkvalita kvalito je grando "
+"malpli granda ol MP3."
+
+msgid "Watching directory: %s"
+msgstr "Elrigardanta dosieron: %s"
+
+msgid "We don't know how to store that kind of setting: "
+msgstr "Ni ne scias kiel stoki tiun tipon da agordoj: "
+
+msgid "Wednesday"
+msgstr "Merkredo"
+
+msgid "Window Height:"
+msgstr "Fenestra alto:"
+
+msgid "Window Width:"
+msgstr "Fenestra larĝo:"
+
+msgid "XSPF Playlist"
+msgstr "XSPF-ludlisto"
+
+msgid "Year"
+msgstr "Jaro"
+
+msgid "You did not enter a name for your playlist"
+msgstr "Vi devas doni nomon al via kantaro"
+
+msgid "You did not specify a location to save the db"
+msgstr "Vi ne indikis lokon por konservi la datumbazon"
+
+msgid "You have entered an invalid option"
+msgstr "Vi enigis nevalidan elekteblon"
+
+msgid "Your changes will be lost if you don't save them"
+msgstr "Viaj ŝanĝoj perdiĝos, se vi ne konservos ilin"
+
+msgid "_Close"
+msgstr "_Fermi"
+
+msgid "_Columns"
+msgstr "_Kolumnoj"
+
+msgid "_Edit"
+msgstr "_Redakti"
+
+msgid "_File"
+msgstr "_Dosiero"
+
+msgid "_Help"
+msgstr "_Helpo"
+
+msgid "_View"
+msgstr "_Vidi"
+
+msgid "after"
+msgstr "post"
+
+msgid "and"
+msgstr "kaj"
+
+msgid "at least"
+msgstr "almenaŭ"
+
+msgid "at most"
+msgstr "maksimume"
+
+msgid "before"
+msgstr "antaŭ"
+
+msgid "between"
+msgstr "inter"
+
+msgid "by %(artist)s"
+msgstr "de %(artist)s"
+
+msgid ""
+"by %(artist)s\n"
+"from <i>%(album)s</i>"
+msgstr ""
+"de %(artist)s\n"
+"el <i>%(album)s</i>"
+
+msgid "by %s"
+msgstr "de %s"
+
+msgid "contains"
+msgstr "enhavas"
+
+msgid "days"
+msgstr "tagoj"
+
+msgid "does not contain"
+msgstr "ne enhavas"
+
+msgid "from %(album)s"
+msgstr "el %(album)s"
+
+msgid "from %s"
+msgstr "el %s"
+
+msgid "hours"
+msgstr "horoj"
+
+msgid "is"
+msgstr "estas"
+
+msgid "is not"
+msgstr "ne estas"
+
+msgid "minutes"
+msgstr "minutoj"
+
+msgid "seconds"
+msgstr "sekundoj"
+
+msgid "weeks"
+msgstr "semajnoj"

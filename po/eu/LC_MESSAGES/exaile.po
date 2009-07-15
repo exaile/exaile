@@ -1,0 +1,352 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2009-05-07 16:13+0000\n"
+"Last-Translator: tartalo <Unknown>\n"
+"Language-Team: Basque <eu@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid " songs"
+msgstr " abestiak"
+
+msgid "#"
+msgstr "#"
+
+msgid "%s KB"
+msgstr "%s KB"
+
+msgid "<b>General</b>"
+msgstr "<b>Orokorra</b>"
+
+msgid "Add"
+msgstr "Gehitu"
+
+msgid "Add Playlist"
+msgstr "Zerrenda gehitu"
+
+msgid "Add a directory"
+msgstr "Directorioa gehitu"
+
+msgid "Add to Playlist"
+msgstr "Zerrendara gehitu"
+
+msgid "Album"
+msgstr "Albuma"
+
+msgid "All Files"
+msgstr "Fitxategi guztiak"
+
+msgid "Append to Current"
+msgstr "Unekoari gehitu"
+
+msgid "Artist"
+msgstr "Artista"
+
+msgid "Authors:"
+msgstr "Egileak:"
+
+msgid "BPM"
+msgstr "BPM"
+
+msgid "Background Color:"
+msgstr "Atzeko planoaren kolorea:"
+
+msgid "Bitrate"
+msgstr "Bit-tasa"
+
+msgid "Cancel"
+msgstr "Utzi"
+
+msgid "Choose a file"
+msgstr "Hautatu fitxategi bat"
+
+msgid "Clear Playlist"
+msgstr "Zerrenda Garbitu"
+
+msgid "Collection"
+msgstr "Bilduma"
+
+msgid "Composer"
+msgstr "Konpositorea"
+
+msgid "Configure"
+msgstr "Konfiguratu"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Description:"
+msgstr "Deskribapena:"
+
+msgid "Disc"
+msgstr "Diska"
+
+msgid "Disc Number"
+msgstr "Disko-zenbakia"
+
+msgid "Exaile"
+msgstr "Exaile"
+
+msgid "Filename"
+msgstr "Fitxategi-izena"
+
+msgid "Files"
+msgstr "Fitxategiak"
+
+msgid "Friday"
+msgstr "Ostirala"
+
+msgid "Genre"
+msgstr "Generoa"
+
+msgid "Length"
+msgstr "Luzera"
+
+msgid "Limit to: "
+msgstr "Mugatu: "
+
+msgid "Loading Exaile %s..."
+msgstr "Exaile Kargatzen %s..."
+
+msgid "Loading collection..."
+msgstr "Bilduma kargatzen..."
+
+msgid "Loading devices..."
+msgstr "Gailuak kargatze..."
+
+msgid "Loading interface..."
+msgstr "Interfazea kargatzen..."
+
+msgid "Loading plugins..."
+msgstr "Gehigarriak kargatzen..."
+
+msgid "Location"
+msgstr "Kokalekua"
+
+msgid "Monday"
+msgstr "Astelehena"
+
+msgid "Name:"
+msgstr "Izena:"
+
+msgid "New Playlist"
+msgstr "Zerrenda berria"
+
+msgid "New Search"
+msgstr "Bilaketa berria"
+
+msgid "Next"
+msgstr "Hurrengoa"
+
+msgid "Next Track"
+msgstr "Hurrengo Pista"
+
+msgid "Not Playing"
+msgstr "Ez dago ezer erreproduzitzen"
+
+msgid "Open"
+msgstr "Ireki"
+
+msgid "Password:"
+msgstr "Pasahitza:"
+
+msgid "Pause"
+msgstr "Pausatu"
+
+msgid "Play"
+msgstr "Erreproduzitu"
+
+msgid "Play the previous track"
+msgstr "Jo aurreko kantua"
+
+msgid "Playcount"
+msgstr "Erreprodukzio-kontagailua"
+
+msgid "Playlists"
+msgstr "Erreprodukzio-zerrendak"
+
+msgid "Plugins"
+msgstr "Pluginak"
+
+msgid "Preferences"
+msgstr "Hobespenak"
+
+msgid "Previous"
+msgstr "Aurrekoa"
+
+msgid "Previous Track"
+msgstr "Aurreko pista"
+
+msgid "Python Console - Exaile"
+msgstr "Python kontsola - Exaile"
+
+msgid "Query player"
+msgstr "Eskaera jotzailea"
+
+msgid "Quit"
+msgstr "Irten"
+
+msgid "Radio"
+msgstr "Irratia"
+
+msgid "Rating"
+msgstr "Balioa"
+
+msgid "Rating: "
+msgstr "Balioa: "
+
+msgid "Refresh"
+msgstr "Freskatu"
+
+msgid "Remove"
+msgstr "Ezabatu"
+
+msgid "Remove Cover"
+msgstr "Kendu azala"
+
+msgid "Rename"
+msgstr "Berrizendatu"
+
+msgid "Rename Playlist"
+msgstr "Erreprodukzio-zerrendaren izena aldatu"
+
+msgid "Repeat"
+msgstr "Errepikatu"
+
+msgid "Resizable"
+msgstr "Tamaina aldagarria"
+
+msgid "Saturday"
+msgstr "Larunbata"
+
+msgid "Search"
+msgstr "Bilatu"
+
+msgid "Search: "
+msgstr "Bilatu: "
+
+msgid "Show a popup of the currently playing track"
+msgstr "Momentuan jotzen ari den kantuaren popup-a erakutsi"
+
+msgid "Show tray icon"
+msgstr "Erakutsi bandejako ikonoa"
+
+msgid "Shuffle"
+msgstr "Nahasirik"
+
+msgid "Size"
+msgstr "Tamaina"
+
+msgid "Start"
+msgstr "Hasi"
+
+msgid "Stop Playback"
+msgstr "Gelditu erreprodukzioa"
+
+msgid "Stop playback"
+msgstr "Playback-a gelditu"
+
+msgid "Stopped"
+msgstr "Geldituta"
+
+msgid "Sunday"
+msgstr "Igandea"
+
+msgid "Text Color"
+msgstr "Testuaren kolorea"
+
+msgid "Thursday"
+msgstr "Osteguna"
+
+msgid "Title"
+msgstr "Titulua"
+
+msgid "Track Number"
+msgstr "Pista-zenbakia"
+
+msgid "Tuesday"
+msgstr "Asteartea"
+
+msgid "Unknown"
+msgstr "Ezezaguna"
+
+msgid "Use Fading"
+msgstr "Iraungipena erabili"
+
+msgid "Username:"
+msgstr "Erabiltzaile izena:"
+
+msgid "Version:"
+msgstr "Bertsioa:"
+
+msgid "Vol:"
+msgstr "Bol:"
+
+msgid "Wednesday"
+msgstr "Asteazkena"
+
+msgid "Window Height:"
+msgstr "Leihoaren altuera:"
+
+msgid "Window Width:"
+msgstr "Leihoaren zabalera:"
+
+msgid "Year"
+msgstr "Urtea"
+
+msgid "_Close"
+msgstr "_Itxi"
+
+msgid "_Columns"
+msgstr "_Zutabeak"
+
+msgid "_Edit"
+msgstr "_Editatu"
+
+msgid "_File"
+msgstr "_Fitxategia"
+
+msgid "_Help"
+msgstr "_Laguntza"
+
+msgid "_Tools"
+msgstr "_Tresnak"
+
+msgid "_View"
+msgstr "_Ikusi"
+
+msgid "and"
+msgstr "eta"
+
+msgid "at least"
+msgstr "gutxienez"
+
+msgid "at most"
+msgstr "gehienez"
+
+msgid "before"
+msgstr "lehenago"
+
+msgid "days"
+msgstr "egun"
+
+msgid "hours"
+msgstr "ordu"
+
+msgid "is not"
+msgstr "ez da"
+
+msgid "minutes"
+msgstr "minutu"
+
+msgid "seconds"
+msgstr "segundu"
+
+msgid "weeks"
+msgstr "aste"

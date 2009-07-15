@@ -1,0 +1,707 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2009-03-19 08:20+0000\n"
+"Last-Translator: Petar Nedialkov <lord_diablo3@abv.bg>\n"
+"Language-Team: Bulgarian <bg@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid " + "
+msgstr " + "
+
+msgid " - "
+msgstr " - "
+
+msgid " songs"
+msgstr " песни"
+
+msgid "#"
+msgstr "номер"
+
+msgid "%(title)s (by %(artist)s)"
+msgstr "%(title)s (на %(artist)s)"
+
+msgid "%s KB"
+msgstr "%s KB"
+
+msgid "(c) 2008"
+msgstr "(c) 2008"
+
+msgid "..."
+msgstr "..."
+
+msgid ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+msgstr ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+
+msgid "0:00"
+msgstr "0:00"
+
+msgid "0:00 / 0:00"
+msgstr "0:00 / 0:00"
+
+msgid "<b>General</b>"
+msgstr "<b>Общи</b>"
+
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to appear</"
+"b>"
+msgstr "<b>Преместете табелката до мястото, където искате да се появява.</b>"
+
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Не е избрана приставка</b>"
+
+msgid "<b>Save changes to %s before closing?</b>"
+msgstr "<b>Запазване промените на %s преди затваряне?</b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"от {album} - {length}"
+
+msgid "About Exaile"
+msgstr "Относно Exaile"
+
+msgid "Add"
+msgstr "Добави"
+
+msgid "Add Playlist"
+msgstr "Добавяне на списък"
+
+msgid "Add Smart Playlist"
+msgstr "Добавяне на тематичен списък"
+
+msgid "Add Station"
+msgstr "Добавяне на станция"
+
+msgid "Add a directory"
+msgstr "Добавяне на папка"
+
+msgid "Add device"
+msgstr "Добавяне на устройство"
+
+msgid "Add to Playlist"
+msgstr "Добавяне към списъка с песни"
+
+msgid "Alarm Clock"
+msgstr "Будилник"
+
+msgid "Alarm Days:"
+msgstr "Дни за събуждане:"
+
+msgid "Album"
+msgstr "Албум"
+
+msgid "Album Art"
+msgstr "Обложки на албуми"
+
+msgid "All Files"
+msgstr "Всички файлове"
+
+msgid "Append to Current"
+msgstr "Добавяне към текущия списък"
+
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr "Наистина ли искате напълно да изтриете избрания списък с песни?"
+
+msgid "Artist"
+msgstr "Изпълнител"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"Изпълнител\n"
+"Албум\n"
+"Жанр - Изпълнител\n"
+"Жанр - Албум\n"
+"Година - Изпълнител\n"
+"Година - Албум\n"
+"Изпълнител - Година - Албум"
+
+msgid "Authors:"
+msgstr "Автори:"
+
+msgid "Autosize"
+msgstr "Автоматичен размер"
+
+msgid "Available Plugins"
+msgstr "Налични приставки"
+
+msgid "Background Color:"
+msgstr "Цвят на фона:"
+
+msgid "Bitrate"
+msgstr "Бит./сек."
+
+msgid "Buffering complete"
+msgstr "Буферирането е завършено"
+
+msgid "Cancel"
+msgstr "Отказ"
+
+msgid "Choose a file"
+msgstr "Изберете файл"
+
+msgid "Clear Playlist"
+msgstr "Изчистване на списъка"
+
+msgid "Close Tab"
+msgstr "Затваряне на подпрозорец"
+
+msgid "Close Without Saving"
+msgstr "Затвори без запазване"
+
+msgid "Collection"
+msgstr "Колекция"
+
+msgid "Collection Manager"
+msgstr "Мениджър на колекцията"
+
+msgid "Composer"
+msgstr "Композитор"
+
+msgid "Configure"
+msgstr "Настройки"
+
+msgid ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+msgstr ""
+"Авторски права (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"Това е свободна програма; можете да я разпространявате и/или променяте при "
+"условията на Общото Право за Обществено Ползване ГНУ публикувано от "
+"Фондацията за свободни програми; или версия 2 или (по Ваш избор) коя да е по "
+"късна версия.\n"
+"\n"
+"Тази програма се разпространява с надеждата , че ще бъде полезна но БЕЗ "
+"КАКВАТО И ДА Е ГАРАНЦИЯ ЗА ТОВА, дори без косвена гаранция за ПРИГОДНОСТ ЗА "
+"ОПРЕДЕЛЕНА ЦЕЛ. Виж условията на Общото Право за Обществено Ползване ГНУ за "
+"повече подробности.\n"
+"\n"
+"Би трябвало да сте получили препис от Общото Право за Обществено Ползване "
+"ГНУ заедно с тази програма. Ако не сте обърнете се към Фондация за Свободни "
+"Програми,Инк. 59 Темпъл плейс, Офис 330 Бостън MA 02111-1307 САЩ\n"
+
+msgid "Could not disable plugin."
+msgstr "Приставката не може да се изключи."
+
+msgid "Could not enable plugin."
+msgstr "Приставката не може да се включи."
+
+msgid "Cover Finder"
+msgstr "Намиране на обложки"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Delete Playlist"
+msgstr "Изтриване на списъка"
+
+msgid "Description:"
+msgstr "Описание:"
+
+msgid "Detected devices:"
+msgstr "Открити устройства:"
+
+msgid "Device Manager"
+msgstr "Мениджър на устройствата"
+
+msgid "Disc"
+msgstr "Диск"
+
+msgid "Disc Number"
+msgstr "Номер на диск"
+
+msgid "Display OSD when hovering over tray icon"
+msgstr "Показване на табелка при минаване над областта за уведомяване"
+
+msgid "Dynamic"
+msgstr "Динамичен"
+
+msgid "Edit"
+msgstr "Редактиране"
+
+msgid "Enabled"
+msgstr "Включена"
+
+msgid "Enter the name you want for your new playlist"
+msgstr "Въведете име за списъка с песни"
+
+msgid "Enter the search text"
+msgstr "Въведете текст за търсене"
+
+msgid "Entire Library"
+msgstr "Цялата фонотека"
+
+msgid "Exaile"
+msgstr "Exaile"
+
+msgid "Exaile Music Player"
+msgstr "Музикална програма Exaile"
+
+msgid "Exaile is shutting down..."
+msgstr "Exaile се спира..."
+
+msgid "Export"
+msgstr "Експортиране"
+
+msgid "Extension"
+msgstr "Разширение"
+
+msgid "Failed to enable equalizer"
+msgstr "Неуспешно включване на еквалайзера"
+
+msgid "File Type"
+msgstr "Вид на файла"
+
+msgid "File does not exist: %s"
+msgstr "Файлът не съществува: %s"
+
+msgid "Filename"
+msgstr "Име на файл"
+
+msgid "Files"
+msgstr "Файлове"
+
+msgid "Friday"
+msgstr "Петък"
+
+msgid "Genre"
+msgstr "Жанр"
+
+msgid "Install"
+msgstr "Инсталиране"
+
+msgid "Install Updates"
+msgstr "Инсталиране на обновяванията"
+
+msgid "Installed Plugins"
+msgstr "Инсталирани приставки"
+
+msgid "Jump to current song on track change"
+msgstr "Прелистване до текущата песен при смяна на песента"
+
+msgid "Length"
+msgstr "Времетраене"
+
+msgid "Limit to: "
+msgstr "Ограничаване до: "
+
+msgid "Loaded plugin %s"
+msgstr "Заредена приставка %s"
+
+msgid "Loading Exaile %s..."
+msgstr "Зареждане на Exaile %s..."
+
+msgid "Loading collection..."
+msgstr "Зареждане на колекцията..."
+
+msgid "Loading devices..."
+msgstr "Зареждане на устройствата..."
+
+msgid "Loading interface..."
+msgstr "Зареждане на интерфейса..."
+
+msgid "Loading plugins..."
+msgstr "Зареждане на приставките..."
+
+msgid "Loading settings"
+msgstr "Зареждане на настройките"
+
+msgid "Loading streams..."
+msgstr "Зареждане на потоци..."
+
+msgid "Location"
+msgstr "Местоположение"
+
+msgid "Location deleted: %s"
+msgstr "Местоположението е изтрито: %s"
+
+msgid "Location modified: %s"
+msgstr "Местоположението е променено: %s"
+
+msgid "Match any of the criteria"
+msgstr "Съвпадение на което и да е от условията"
+
+msgid "Monday"
+msgstr "Понеделник"
+
+msgid "Music Files"
+msgstr "Музикални файлове"
+
+msgid "Name:"
+msgstr "Име:"
+
+msgid "New Playlist"
+msgstr "Нов списък с песни"
+
+msgid "New Search"
+msgstr "Ново търсене"
+
+msgid "Next"
+msgstr "Следваща"
+
+msgid "Next Track"
+msgstr "Следваща песен"
+
+msgid "No covers found"
+msgstr "Няма намерени обложки"
+
+msgid "Not Playing"
+msgstr "Не се изпълнява нищо"
+
+msgid "Number of Plays"
+msgstr "Брой изпълнения"
+
+msgid "Opacity Level:"
+msgstr "Степен на прозрачност:"
+
+msgid "Open"
+msgstr "Отваряне"
+
+msgid "Open _URL"
+msgstr "Отваряне на _адрес"
+
+msgid "Open last playlists on startup"
+msgstr "Отваряне на последния списък за изпълнение при стартиране"
+
+msgid "Page 1"
+msgstr "Страница 1"
+
+msgid "Password:"
+msgstr "Парола:"
+
+msgid ""
+"Path is already in your collection, or is a subdirectory of another path in "
+"your collection"
+msgstr ""
+"Пътят вече е във вашата колекция или е поддиректория на друг път в колекцията"
+
+msgid "Pause"
+msgstr "Пауза"
+
+msgid "Pl_ugins"
+msgstr "При_ставки"
+
+msgid "Play"
+msgstr "Изпълнение"
+
+msgid "Playcount"
+msgstr "Брояч"
+
+msgid "Playing %s"
+msgstr "Изпълнение на %s"
+
+msgid "Playlist Files"
+msgstr "Файлове от списъците"
+
+msgid "Playlists"
+msgstr "Списъци с песни"
+
+msgid "Plugin"
+msgstr "Приставка"
+
+msgid "Plugins"
+msgstr "Приставки"
+
+msgid "Popup"
+msgstr "Изскачащ прозорец"
+
+msgid "Preferences"
+msgstr "Настройки"
+
+msgid "Previous"
+msgstr "Предишна"
+
+msgid "Previous Track"
+msgstr "Предишна песен"
+
+msgid "Python Console - Exaile"
+msgstr "Конзола на Python - Exaile"
+
+msgid "Queue Items"
+msgstr "Поставяне на опашка"
+
+msgid "Quit"
+msgstr "Спиране на програмата"
+
+msgid "Radio"
+msgstr "Радио"
+
+msgid "Radio Streams"
+msgstr "Радио потоци"
+
+msgid "Rating"
+msgstr "Класиране"
+
+msgid "Rating: "
+msgstr "Класиране: "
+
+msgid "Refresh"
+msgstr "Обновяване"
+
+msgid "Remove"
+msgstr "Премахване"
+
+msgid "Remove Cover"
+msgstr "Премахване на обложката"
+
+msgid "Rename"
+msgstr "Преименуване"
+
+msgid "Rename Playlist"
+msgstr "Преименуване на списъка"
+
+msgid "Repeat"
+msgstr "Повтаряне"
+
+msgid "Resizable"
+msgstr "Преоразмеримо"
+
+msgid "Safe mode enabled, not loading plugins."
+msgstr "Безопасен режим включен, не се зареждат приставки."
+
+msgid "Saturday"
+msgstr "Събота"
+
+msgid "Save"
+msgstr "Запазване"
+
+msgid "Saved Stations"
+msgstr "Запазени станции"
+
+msgid "Saving state..."
+msgstr "Запазване на състоянието..."
+
+msgid "Scanning collection..."
+msgstr "Претърсване на колекцията..."
+
+msgid "Scanning library: %s"
+msgstr "Сканиране на библиотеката: %s"
+
+msgid "Search"
+msgstr "Търсене"
+
+msgid "Search: "
+msgstr "Търсене: "
+
+msgid "Show Cover"
+msgstr "Показване на обложка"
+
+msgid "Show OSD on track change"
+msgstr "Уведомление при смяна на песните"
+
+msgid "Show splash screen on startup"
+msgstr "Начален екран при зареждане"
+
+msgid "Show tray icon"
+msgstr "Икона в областта за уведомяване"
+
+msgid "Shuffle"
+msgstr "Разбъркано"
+
+msgid "Size"
+msgstr "Размер"
+
+msgid "Smart Playlists"
+msgstr "Тематични списъци"
+
+msgid "Start"
+msgstr "Започване"
+
+msgid "Stop"
+msgstr "Стоп"
+
+msgid "Stop Playback"
+msgstr "Спиране на изпълнението"
+
+msgid "Stopped"
+msgstr "Спряно"
+
+msgid "Sunday"
+msgstr "Неделя"
+
+msgid "Supported Files"
+msgstr "Поддържани файлове"
+
+msgid "Text Color"
+msgstr "Цвят на текста"
+
+msgid "Text Font:"
+msgstr "Шрифт:"
+
+msgid "Thursday"
+msgstr "Четвъртък"
+
+msgid "Title"
+msgstr "Заглавие"
+
+msgid "Track Number"
+msgstr "Номер на песен"
+
+msgid "Tuesday"
+msgstr "Вторник"
+
+msgid "Type of device:"
+msgstr "Вид устройство:"
+
+msgid "Unable to enable plugin %s"
+msgstr "Приставката не може да се активира %s"
+
+msgid "Unable to fully disable plugin %s"
+msgstr "Приставката не може да се деактивира напълно %s"
+
+msgid "Unknown"
+msgstr "Неизвестно"
+
+msgid "Updates"
+msgstr "Обновявания"
+
+msgid "Use Fading"
+msgstr "Използване на затихвания"
+
+msgid "Username:"
+msgstr "Потребителско име:"
+
+msgid "Various Artists"
+msgstr "Различни изпълнители"
+
+msgid "Version:"
+msgstr "Версия:"
+
+msgid "Vol:"
+msgstr "Звук:"
+
+msgid "Wednesday"
+msgstr "Сряда"
+
+msgid "Window Height:"
+msgstr "Височина на прозореца:"
+
+msgid "Window Width:"
+msgstr "Широчина на прозолеца:"
+
+msgid "Year"
+msgstr "Година"
+
+msgid "You did not enter a name for your playlist"
+msgstr "Не сте въвели име за списъка с песни"
+
+msgid "Your changes will be lost if you don't save them"
+msgstr "Вашите промени ще се загубят ако не ги запазите"
+
+msgid "_Close"
+msgstr "_Затваряне"
+
+msgid "_Columns"
+msgstr "_Колони"
+
+msgid "_Edit"
+msgstr "_Редактиране"
+
+msgid "_File"
+msgstr "_Файл"
+
+msgid "_Help"
+msgstr "_Помощ"
+
+msgid "_Rescan Collection"
+msgstr "_Претърсване на колекцията"
+
+msgid "_Tools"
+msgstr "_Инструменти"
+
+msgid "_View"
+msgstr "_Изглед"
+
+msgid "after"
+msgstr "след"
+
+msgid "and"
+msgstr "и"
+
+msgid "at least"
+msgstr "поне"
+
+msgid "at most"
+msgstr "най-много"
+
+msgid "before"
+msgstr "преди"
+
+msgid "between"
+msgstr "между"
+
+msgid "by %s"
+msgstr "на %s"
+
+msgid "contains"
+msgstr "съдържа"
+
+msgid "days"
+msgstr "дни"
+
+msgid "does not contain"
+msgstr "не съдържа"
+
+msgid "from %s"
+msgstr "от %s"
+
+msgid "hours"
+msgstr "часа"
+
+msgid "is"
+msgstr "е"
+
+msgid "is not"
+msgstr "не е"
+
+msgid "minutes"
+msgstr "минути"
+
+msgid "seconds"
+msgstr "секунди"
+
+msgid "weeks"
+msgstr "седмици"

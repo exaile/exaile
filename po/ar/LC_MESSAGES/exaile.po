@@ -1,0 +1,647 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2009-05-06 02:29+0000\n"
+"Last-Translator: Waeel <waeelabdrabbo@hotmail.com>\n"
+"Language-Team: Arabic <ar@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid " + "
+msgstr " + "
+
+msgid " - "
+msgstr " - "
+
+msgid "#"
+msgstr "#"
+
+msgid "%(title)s (by %(artist)s)"
+msgstr "%(title)s (بواسطة %(artist)s)"
+
+msgid "%s KB"
+msgstr "%s كيلو بايت"
+
+msgid "(c) 2008"
+msgstr "(c) 2008"
+
+msgid "..."
+msgstr "..."
+
+msgid ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+msgstr ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+
+msgid "0:00"
+msgstr "0:00"
+
+msgid "0:00 / 0:00"
+msgstr "0:00 / 0:00"
+
+msgid "<b>General</b>"
+msgstr "<b>عام</b>"
+
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to appear</"
+"b>"
+msgstr "<b>قم بتحريك النافذة للمكان الذي تريده ان تظهر فيه</b>"
+
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>ﻻ ملحقات محدد</b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{عنوان}</b>\n"
+"{فنان}\n"
+"على {ألبوم} - {مدة}"
+
+msgid "ASX Playlist"
+msgstr "قائمة تشغيل ASX"
+
+msgid "Add"
+msgstr "اضف"
+
+msgid "Add Playlist"
+msgstr "أضف قائمة تشغيل"
+
+msgid "Add Smart Playlist"
+msgstr "أضف إسم للقائمه الذكيه"
+
+msgid "Add Station"
+msgstr "إضافه محطه"
+
+msgid "Add a directory"
+msgstr "أضف ملف"
+
+msgid "Add device"
+msgstr "أضف جهاز"
+
+msgid "Add to Playlist"
+msgstr "أضف إلى قائمه"
+
+msgid "Album"
+msgstr "الألبوم"
+
+msgid "Album Art"
+msgstr "صور الالبوم"
+
+msgid "All Files"
+msgstr "كل الملفات"
+
+msgid "An Unknown type of setting was found!"
+msgstr "نوع غير معروف من الإعدادات"
+
+msgid "Append to Current"
+msgstr "أضف إلى الحالى"
+
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr "هل أنت متأكد من أنك تريد حذف القائمه المختاره؟"
+
+msgid "Artist"
+msgstr "فنان"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"الفنان\n"
+"الالبوم\n"
+"النوع - الفنان\n"
+"النوع - الالبوم\n"
+"السنة - الفنان\n"
+"السنة - الالبوم\n"
+"الفنان - السنة - الالبوم"
+
+msgid "Autosize"
+msgstr "حجم تلقائي"
+
+msgid "Available Plugins"
+msgstr "الملحقات المتوفرة"
+
+msgid "Background Color:"
+msgstr "لون الخلفية:"
+
+msgid "Bitrate"
+msgstr "معدل بت"
+
+msgid "Cancel"
+msgstr "إلغاء"
+
+msgid "Choose a file"
+msgstr "إختر ملف"
+
+msgid "Choose a file to open"
+msgstr "اختيار ملف"
+
+msgid "Clear Playlist"
+msgstr "مسح قائمة التشغيل"
+
+msgid "Close Tab"
+msgstr "أغلق اللسان"
+
+msgid "Close Without Saving"
+msgstr "أغلق بدون حفظ"
+
+msgid "Collection"
+msgstr "مجموعة"
+
+msgid "Composer"
+msgstr "المؤلف"
+
+msgid "Confirm Close"
+msgstr "أكد الإغلاق"
+
+msgid "Could not disable plugin."
+msgstr "ﻻ يمكن تعطيل الملحق"
+
+msgid "Could not enable plugin."
+msgstr "ﻻ يمكن تفعيل الملحق"
+
+msgid "Cover Finder"
+msgstr "باحث الأغلفة"
+
+msgid "Date"
+msgstr "تاريخ"
+
+msgid "Delete Playlist"
+msgstr "أحذف قائمة التشغيل"
+
+msgid "Device Manager"
+msgstr "مدير الأجهزه"
+
+msgid "Disc"
+msgstr "قرص"
+
+msgid "Disc Number"
+msgstr "رقم القرص"
+
+msgid "Dynamic"
+msgstr "ديناميكى"
+
+msgid "Edit"
+msgstr "تحرير"
+
+msgid "Edit Smart Playlist"
+msgstr "عدل قائمة التشغيل الذكية"
+
+msgid "Enabled"
+msgstr "مفعل"
+
+msgid "Enter the URL to open"
+msgstr "إدخل العنوان لفتحه"
+
+msgid "Enter the name you want for your new playlist"
+msgstr "أدخل الإسم الذى تريده للقائمه الجديده"
+
+msgid "Enter the new name you want for your playlist"
+msgstr "أدخل الإسم الذى تريده للقائمه"
+
+msgid "Exaile is shutting down..."
+msgstr "جاري عملية إغلاق البرنامج...."
+
+msgid "Export"
+msgstr "صدر"
+
+msgid "Extension"
+msgstr "الإمتداد"
+
+msgid "Failed to enable equalizer"
+msgstr "فشل في تفعيل الموازن"
+
+msgid "Failed to open music DB for write."
+msgstr "فشل في فتح قاعدة بيانات الموسيقى للكتابة"
+
+msgid "Failed to open music DB."
+msgstr "فشل في فتح قاعدة بيانات الموسيقى"
+
+msgid "Fetch Cover"
+msgstr "جلب الغلاف"
+
+msgid "File Type"
+msgstr "نوع الملف"
+
+msgid "File count: %d"
+msgstr "عدد الملفات: %d"
+
+msgid "File does not exist: %s"
+msgstr "الملف غير موجود: %s"
+
+msgid "Filename"
+msgstr "إسم الملف"
+
+msgid "Files"
+msgstr "ملفات"
+
+msgid "Friday"
+msgstr "الجمعة"
+
+msgid "Genre"
+msgstr "الصنف"
+
+msgid "Get rating for current song"
+msgstr "الحصول على التصنيف الحالي للأغنية"
+
+msgid "Install Updates"
+msgstr "تثبيت التحديثات"
+
+msgid "Installed Plugins"
+msgstr "الملحقات المثبتة"
+
+msgid "Invalid file extension, file not saved"
+msgstr "الإمتداد غير متوفر ,لم يتم حفظ الملف"
+
+msgid "Length"
+msgstr "طول"
+
+msgid "Limit to: "
+msgstr "حدد إلى: "
+
+msgid "Loaded plugin %s"
+msgstr "استيراد الملحقات %s"
+
+msgid "Loading Exaile %s..."
+msgstr "تحميل إكسايل... %s"
+
+msgid "Loading collection..."
+msgstr "تحميل المجموعة ...."
+
+msgid "Loading devices..."
+msgstr "تحميل الأجهزة"
+
+msgid "Loading interface..."
+msgstr "واجهة التحميل..."
+
+msgid "Loading plugins..."
+msgstr "تحميل الملحقات..."
+
+msgid "Loading settings"
+msgstr "تحميل الإعدادات"
+
+msgid "Location"
+msgstr "الموقع"
+
+msgid "M3U Playlist"
+msgstr "قائمة تشغيل M3U"
+
+msgid "Monday"
+msgstr "الإثنين"
+
+msgid "Name:"
+msgstr "الإسم :"
+
+msgid "New Playlist"
+msgstr "قائمة تشغيل جديدة."
+
+msgid "New Search"
+msgstr "بحث جديد"
+
+msgid "Next"
+msgstr "تالي"
+
+msgid "Next Track"
+msgstr "المقطوعة التالية"
+
+msgid "No covers found"
+msgstr "لا توجد أغلفة"
+
+msgid "Not Playing"
+msgstr "غير مشغل"
+
+msgid "Number of Plays"
+msgstr "عدد مرات التشغيل"
+
+msgid "Open"
+msgstr "إفتح"
+
+msgid "Open URL"
+msgstr "إفتح عنوان"
+
+msgid "Open _URL"
+msgstr "إفتح عنوان"
+
+msgid "Open last playlists on startup"
+msgstr "إفتح أخر قائمة تشغيل عند بدأ البرنامج"
+
+msgid "PLS Playlist"
+msgstr "قائمة تشغيل PLS"
+
+msgid "Page 1"
+msgstr "صفحه 1"
+
+msgid "Password:"
+msgstr "كلمة السر:"
+
+msgid "Pause"
+msgstr "إيقاف مؤقت"
+
+msgid "Play"
+msgstr "شغل"
+
+msgid "Play the next track"
+msgstr "تشغيل الأغنية التالية"
+
+msgid "Play the previous track"
+msgstr "تشغيل الأغنية السابقة"
+
+msgid "Playcount"
+msgstr "عدد مرات التشغيل"
+
+msgid "Playing %s"
+msgstr "تشغيل %s"
+
+msgid "Playlists"
+msgstr "قوائم التشغيل"
+
+msgid "Plugin"
+msgstr "ملحق"
+
+msgid "Plugins"
+msgstr "إضافات"
+
+msgid "Popup"
+msgstr "نافذة منبثقة"
+
+msgid "Preferences"
+msgstr "تفضيلات"
+
+msgid "Previous"
+msgstr "السابق"
+
+msgid "Previous Track"
+msgstr "المقطوعة السابقة"
+
+msgid "Print the album of current track"
+msgstr "طباعة الألبوم من المسار الحالي"
+
+msgid "Print the artist of current track"
+msgstr "طباعة الفنان من المسار الحالي"
+
+msgid "Print the current volume"
+msgstr "طباعة المسار الحالي"
+
+msgid "Print the length of current track"
+msgstr "طباعة الطول من المسار الحالي"
+
+msgid "Print the position inside the current track as a percentage"
+msgstr "طباعة الموقف داخل المسار الحالي كنسبة مئوية"
+
+msgid "Print the title of current track"
+msgstr "طباعة عنوان المسار الحالي"
+
+msgid "Query player"
+msgstr "أستفسار المشغل"
+
+msgid "Quit"
+msgstr "خروج"
+
+msgid "Radio"
+msgstr "الإذاعة"
+
+msgid "Random %d"
+msgstr "عشوائي %d"
+
+msgid "Rating"
+msgstr "تقييم"
+
+msgid "Refresh"
+msgstr "تحديث"
+
+msgid "Remove"
+msgstr "إزالة"
+
+msgid "Remove Cover"
+msgstr "حذف الغلاف"
+
+msgid "Rename"
+msgstr "إعاده التسميه"
+
+msgid "Rename Playlist"
+msgstr "إعاده تسميه القائمه"
+
+msgid "Repeat"
+msgstr "تكرار"
+
+msgid "Resizable"
+msgstr "قابل للتحجيم"
+
+msgid "Safe mode enabled, not loading plugins."
+msgstr "وضع أمن مفعل , لا تحميل الملحقات."
+
+msgid "Saturday"
+msgstr "السبت"
+
+msgid "Save"
+msgstr "حفظ"
+
+msgid "Saved Stations"
+msgstr "المحطات المحفوظه"
+
+msgid "Saving state..."
+msgstr "حفظ الحالة..."
+
+msgid "Search: "
+msgstr "بحث: "
+
+msgid "Select File Type (By Extension)"
+msgstr "إختر نوع الملفات (بالإمتداد)"
+
+msgid "Set data directory"
+msgstr "وضع دليل بيانات"
+
+msgid "Set rating for current song"
+msgstr "حدد التصنيف الحالي للأغنية"
+
+msgid "Show Cover"
+msgstr "إظهار الغلاف"
+
+msgid "Show OSD on track change"
+msgstr "عرض الاغنية على الشاشة عند تغيرها"
+
+msgid "Show a popup of the currently playing track"
+msgstr "اظهر المعلومات على المسار الحالي"
+
+msgid "Show splash screen on startup"
+msgstr "أظهر شاشة الترحيب في بداية التشغيل"
+
+msgid "Show tray icon"
+msgstr "عرض أيقونة بدء التشغيل"
+
+msgid "Size"
+msgstr "المساحه"
+
+msgid "Start"
+msgstr "بدء"
+
+msgid "Start in safe mode - sometimes useful when you're running into problems"
+msgstr "البدء في الوضع الآمن -- من المفيد أحيانا اذا وقعت في مشاكل"
+
+msgid "Start new instance"
+msgstr "بداية مثال جديد"
+
+msgid "Stop"
+msgstr "إيقاف"
+
+msgid "Stop Playback"
+msgstr "إيقاف التشغيل"
+
+msgid "Stop playback"
+msgstr "إيقاف التشغيل"
+
+msgid "Stopped"
+msgstr "متوقف"
+
+msgid "Sunday"
+msgstr "الأحد"
+
+msgid "Text Color"
+msgstr "لون النص"
+
+msgid "Text Font:"
+msgstr "نوع الخط:"
+
+msgid "The playlist name you specified already exists."
+msgstr "الإسم المختار موجود بالفعل"
+
+msgid "The selected plugin doesn't have any configuration options"
+msgstr "الملحق المحدد ليس لديه تفضيﻻت"
+
+msgid "Thursday"
+msgstr "الخميس"
+
+msgid "Title"
+msgstr "العنوان"
+
+msgid "Toggle Play or Pause"
+msgstr "تشغيل/ايقاف التشغيل"
+
+msgid "Track Number"
+msgstr "رقم المقطوعة"
+
+msgid "Tuesday"
+msgstr "الثلاثاء"
+
+msgid "Type of device:"
+msgstr "نوع الجهاز"
+
+msgid "Unable to enable plugin %s"
+msgstr "غير قادر على تفعيل إضافة %s"
+
+msgid "Unable to fully disable plugin %s"
+msgstr "غير قادر على تعطيل إضافة %s بشكل كامل"
+
+msgid "Unknown"
+msgstr "غير معروف."
+
+msgid "Version:"
+msgstr "النسخة:"
+
+msgid "We don't know how to store that kind of setting: "
+msgstr "لا ندري كيف يمكن تخزين هذا النوع من الإعدادات "
+
+msgid "Wednesday"
+msgstr "الأربعاء"
+
+msgid "XSPF Playlist"
+msgstr "قائمة تشغيل XSPF"
+
+msgid "Year"
+msgstr "السنة"
+
+msgid "You did not enter a name for your playlist"
+msgstr "أنت لم تدخل إسم للقائمه"
+
+msgid "Your changes will be lost if you don't save them"
+msgstr "سيتم فقدان التغييرات إن لم يتم حفظها"
+
+msgid "_Close"
+msgstr "_إغلاق"
+
+msgid "_Edit"
+msgstr "حرّ_ر"
+
+msgid "_File"
+msgstr "_ملف"
+
+msgid "_Help"
+msgstr "م_ساعدة"
+
+msgid "_Tools"
+msgstr "أد_وات"
+
+msgid "_View"
+msgstr "_عرض"
+
+msgid "after"
+msgstr "بعد"
+
+msgid "and"
+msgstr "و"
+
+msgid "at least"
+msgstr "على الأقل"
+
+msgid "at most"
+msgstr "على الأكثر"
+
+msgid "before"
+msgstr "قبل"
+
+msgid "between"
+msgstr "مابين"
+
+msgid "by %s"
+msgstr "بواسطه %s"
+
+msgid "contains"
+msgstr "يحتوى على"
+
+msgid "days"
+msgstr "الأيام"
+
+msgid "does not contain"
+msgstr "لا يحتوي"
+
+msgid "from %s"
+msgstr "من %s"
+
+msgid "hours"
+msgstr "ساعات"
+
+msgid "is"
+msgstr "هو"
+
+msgid "is not"
+msgstr "ليس"
+
+msgid "minutes"
+msgstr "دقائق"
+
+msgid "seconds"
+msgstr "ثواني"
+
+msgid "weeks"
+msgstr "أسابيع"

@@ -1,0 +1,594 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2008-05-22 23:44+0000\n"
+"Last-Translator: Alexander De Sousa Macedo <Sefhilion@Hotmail.com>\n"
+"Language-Team: Galician <gl@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid " songs"
+msgstr " cancións"
+
+msgid "#"
+msgstr "#"
+
+msgid "%(title)s (by %(artist)s)"
+msgstr "%(title)s (de %(artist)s)"
+
+msgid "%s KB"
+msgstr "%s KiB"
+
+msgid ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+msgstr ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+
+msgid "<b>General</b>"
+msgstr "<b>Xeral</b>"
+
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to appear</"
+"b>"
+msgstr "<b>Move a notificación OSD onde queiras que apareza</b>"
+
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Ningún Complemento Seleccionado</b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"en {album} - {length}"
+
+msgid "Add"
+msgstr "Engadir"
+
+msgid "Add Playlist"
+msgstr "Engadir á Lista de Reproducción"
+
+msgid "Add Smart Playlist"
+msgstr "Engadir Lista Intelixente"
+
+msgid "Add Station"
+msgstr "Engadir Emisora"
+
+msgid "Add a directory"
+msgstr "Engadir un cartafol"
+
+msgid "Add to Playlist"
+msgstr "Engadir á Lista"
+
+msgid "Alarm Clock"
+msgstr "Alarma"
+
+msgid "Alarm Days:"
+msgstr "Días programados:"
+
+msgid "Album"
+msgstr "Álbume"
+
+msgid "Album Art"
+msgstr "Carátula"
+
+msgid "All Files"
+msgstr "Todos os arquivos"
+
+msgid "Append to Current"
+msgstr "Engadir á Actual"
+
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr "¿Estás seguro de querer eliminar permanentemente a lista seleccionada?"
+
+msgid "Artist"
+msgstr "Artista"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"Artista\n"
+"Álbume\n"
+"Xénero - Artista\n"
+"Xénero - Álbume\n"
+"Ano - Artista\n"
+"Ano - Álbume\n"
+"Artista - Ano - Álbume"
+
+msgid "Authors:"
+msgstr "Autores:"
+
+msgid "Autosize"
+msgstr "Autoaxustar"
+
+msgid "Available Plugins"
+msgstr "Complementos Dispoñibles"
+
+msgid "BPM"
+msgstr "BPM"
+
+msgid "Background Color:"
+msgstr "Cor de fondo:"
+
+msgid "Bitrate"
+msgstr "Taxa de bits"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Choose a file"
+msgstr "Escolle un arquivo"
+
+msgid "Clear Playlist"
+msgstr "Limpar a lista de reprodución"
+
+msgid "Collection"
+msgstr "Colección"
+
+msgid "Composer"
+msgstr "Compositor"
+
+msgid "Configure"
+msgstr "Configurar"
+
+msgid ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+msgstr ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"Este programa é software libre; podes redistribuílo e/ou modificalo\n"
+"baixo os termos da Licencia Pública Xeral de GNU publicada pola\n"
+"Free Software Foundation; tanto na versión 2 da licencia, ou\n"
+"(na túa opinion) calquera outra versión.\n"
+"\n"
+"Este programa distribúese coa esperanza de que sexa útil,\n"
+"pero SEN NENGUNHA GARANTÍA; incluso sen a garantía implícita\n"
+"MERCANTIL ou sen garantir o USO PARA Un PROPÓSITO PARTICULAR.\n"
+"Mira a Licencia Pública Xeral de GNU para máis detalles.\n"
+"\n"
+"Deberías ter recibido unha copia da Licencia Pública Xeral de GNU xunto\n"
+"con este programa; se non, escribe a Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+
+msgid "Cover Finder"
+msgstr "Buscador de Carátulas"
+
+msgid "Custom Playlists"
+msgstr "Listas Personalizadas"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Delete Playlist"
+msgstr "Borrar Lista"
+
+msgid "Description:"
+msgstr "Descrición:"
+
+msgid "Disc"
+msgstr "Disco"
+
+msgid "Disc Number"
+msgstr "Número de disco"
+
+msgid "Display OSD when hovering over tray icon"
+msgstr "Mostrar a OSD ó pasar por riba da icona da bandexa"
+
+msgid "Dynamic"
+msgstr "Dinámico"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Enabled"
+msgstr "Activado"
+
+msgid "Enter the name you want for your new playlist"
+msgstr "Introduce o nome que queres para a lista"
+
+msgid "Enter the search text"
+msgstr "Introduce o texto a procurar"
+
+msgid "Entire Library"
+msgstr "Biblioteca Enteira"
+
+msgid "Exaile"
+msgstr "Exaile"
+
+msgid "Exaile Music Player"
+msgstr "Reprodutor de Música Exaile"
+
+msgid "Filename"
+msgstr "Nome de arquivo"
+
+msgid "Files"
+msgstr "Arquivos"
+
+msgid "Friday"
+msgstr "Venres"
+
+msgid "Genre"
+msgstr "Xénero"
+
+msgid "Install"
+msgstr "Instalar"
+
+msgid "Install Updates"
+msgstr "Instalar Actualizacións"
+
+msgid "Installed Plugins"
+msgstr "Complementos Instalados"
+
+msgid "Jump to current song on track change"
+msgstr "Saltar á canción actual ó cambiar a pista"
+
+msgid "LastFM Radio"
+msgstr "Radio LastFM"
+
+msgid "Length"
+msgstr "Duración"
+
+msgid "Limit to: "
+msgstr "Limitar a: "
+
+msgid "Loading streams..."
+msgstr "Cargando fluxos..."
+
+msgid "Location"
+msgstr "Ubicación"
+
+msgid "Loved Tracks"
+msgstr "Pistas Preferidas"
+
+msgid "Match any of the criteria"
+msgstr "Coincidir calquera criterio"
+
+msgid "Monday"
+msgstr "Luns"
+
+msgid "Music Files"
+msgstr "Arquivos de Música"
+
+msgid "Name:"
+msgstr "Nome:"
+
+msgid "Neighbourhood"
+msgstr "Vecindario"
+
+msgid "New Playlist"
+msgstr "Nova Lista de Reproducción"
+
+msgid "New Search"
+msgstr "Nova Procura"
+
+msgid "Next"
+msgstr "Seguinte"
+
+msgid "Next Track"
+msgstr "Pista seguinte"
+
+msgid "Not Playing"
+msgstr "Sen Reproducción"
+
+msgid "Number of Plays"
+msgstr "Número de Reproduccións"
+
+msgid "Opacity Level:"
+msgstr "Nivel de Opacidade:"
+
+msgid "Open"
+msgstr "Abrir"
+
+msgid "Open _URL"
+msgstr "Abrir _URL"
+
+msgid "Password:"
+msgstr "Contrasinal:"
+
+msgid ""
+"Path is already in your collection, or is a subdirectory of another path in "
+"your collection"
+msgstr ""
+"A ruta xa está na túa colección, ou é un subcartafol doutro que xa está na "
+"túa colección"
+
+msgid "Pause"
+msgstr "Pausar"
+
+msgid "Personal"
+msgstr "Personal"
+
+msgid "Play"
+msgstr "Reproducir"
+
+msgid "Playcount"
+msgstr "Contador de reproduccións"
+
+msgid "Playing %s"
+msgstr "Reproducindo %s"
+
+msgid "Playlist Files"
+msgstr "Arquivos de Listas de Reproducción"
+
+msgid "Playlists"
+msgstr "Listas de reproducción"
+
+msgid "Plugin"
+msgstr "Complemento"
+
+msgid "Plugins"
+msgstr "Complementos"
+
+msgid "Popup"
+msgstr "Emerxente"
+
+msgid "Preferences"
+msgstr "Preferencias"
+
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "Previous Track"
+msgstr "Pista anterior"
+
+msgid "Python Console - Exaile"
+msgstr "Consola de Python - Exaile"
+
+msgid "Queue Items"
+msgstr "Cola de Artigos"
+
+msgid "Quit"
+msgstr "Saír"
+
+msgid "Radio"
+msgstr "Radio"
+
+msgid "Radio Streams"
+msgstr "Fluxos de Radio"
+
+msgid "Rating"
+msgstr "Valoración"
+
+msgid "Rating: "
+msgstr "Valoración: "
+
+msgid "Recommended"
+msgstr "Recomendado"
+
+msgid "Refresh"
+msgstr "Actualizar"
+
+msgid "Relay Port:"
+msgstr "Porto de Relay:"
+
+msgid "Remove"
+msgstr "Eliminar"
+
+msgid "Remove Cover"
+msgstr "Quitar carátula"
+
+msgid "Rename"
+msgstr "Renomear"
+
+msgid "Rename Playlist"
+msgstr "Renomear Lista de Reproducción"
+
+msgid "Repeat"
+msgstr "Repetir"
+
+msgid "Resizable"
+msgstr "Redimensionable."
+
+msgid "Saturday"
+msgstr "Sábado"
+
+msgid "Saved Stations"
+msgstr "Emisoras Gardadas"
+
+msgid "Scanning collection..."
+msgstr "Analizando colección..."
+
+msgid "Search"
+msgstr "Procurar"
+
+msgid "Search: "
+msgstr "Procurar: "
+
+msgid "Show OSD on track change"
+msgstr "Mostrar a OSD ó cambiar de pista"
+
+msgid "Show splash screen on startup"
+msgstr "Mostrar pantalla ó arrancar"
+
+msgid "Show tray icon"
+msgstr "Amosar icona na bandexa"
+
+msgid "Shuffle"
+msgstr "Misturar"
+
+msgid "Size"
+msgstr "Tamaño"
+
+msgid "Smart Playlists"
+msgstr "Listas Intelixentes"
+
+msgid "Start"
+msgstr "Comezar"
+
+msgid "Stop Playback"
+msgstr "Parar Reproducción"
+
+msgid "Stopped"
+msgstr "Detido"
+
+msgid "Sunday"
+msgstr "Domingo"
+
+msgid "Supported Files"
+msgstr "Arquivos Soportados"
+
+msgid "Text Color"
+msgstr "Cor do texto"
+
+msgid "Text Font:"
+msgstr "Fonte do texto:"
+
+msgid "Thursday"
+msgstr "Xoves"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Toggle Queue"
+msgstr "Alternar Cola"
+
+msgid "Track Number"
+msgstr "Número de Pista"
+
+msgid "Tuesday"
+msgstr "Martes"
+
+msgid "Unknown"
+msgstr "Descoñecido"
+
+msgid "Updates"
+msgstr "Actualizacións"
+
+msgid "Use Fading"
+msgstr "Usar Fundido"
+
+msgid "Username:"
+msgstr "Nome de usuario:"
+
+msgid "Version:"
+msgstr "Versión:"
+
+msgid "Vol:"
+msgstr "Vol:"
+
+msgid "Wednesday"
+msgstr "Mércores"
+
+msgid "Window Height:"
+msgstr "Altura da fiestra"
+
+msgid "Window Width:"
+msgstr "Largura da fiestra"
+
+msgid "Year"
+msgstr "Ano"
+
+msgid "You did not enter a name for your playlist"
+msgstr "Non introduciches un nome para a lista"
+
+msgid "_Close"
+msgstr "_Pechar"
+
+msgid "_Columns"
+msgstr "_Columnas"
+
+msgid "_Edit"
+msgstr "_Editar"
+
+msgid "_File"
+msgstr "Ar_quivo"
+
+msgid "_Help"
+msgstr "_Axuda"
+
+msgid "_Rescan Collection"
+msgstr "Escanea_r de novo a colección"
+
+msgid "_Tools"
+msgstr "Ferramen_tas"
+
+msgid "_View"
+msgstr "_Ver"
+
+msgid "after"
+msgstr "despois"
+
+msgid "and"
+msgstr "e"
+
+msgid "at least"
+msgstr "polo menos"
+
+msgid "at most"
+msgstr "como moito"
+
+msgid "before"
+msgstr "antes"
+
+msgid "between"
+msgstr "entre"
+
+msgid "by %s"
+msgstr "de %s"
+
+msgid "contains"
+msgstr "contén"
+
+msgid "days"
+msgstr "días"
+
+msgid "does not contain"
+msgstr "non contén"
+
+msgid "from %s"
+msgstr "de %s"
+
+msgid "hours"
+msgstr "horas"
+
+msgid "is"
+msgstr "é"
+
+msgid "is not"
+msgstr "non é"
+
+msgid "minutes"
+msgstr "minutos"
+
+msgid "seconds"
+msgstr "segundos"
+
+msgid "weeks"
+msgstr "semanas"

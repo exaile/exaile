@@ -1,0 +1,101 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2008-12-01 22:16+0000\n"
+"Last-Translator: Xuacu <xuacusk8@gmail.com>\n"
+"Language-Team: Asturian <ast@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid ""
+"Apple's proprietary lossy audio format that achieves better sound quality "
+"than MP3 at lower bitrates."
+msgstr ""
+"Formatu propietariu d'Apple d'audio con perda que algama meyor calidá de son "
+"que MP3 a menores tases de bits."
+
+msgid "Compilation detected: %s"
+msgstr "Deteutada compilación: %s"
+
+msgid "Connected to HAL"
+msgstr "Coneutau a HAL"
+
+msgid "Could not find playback sink %s, falling back to autoaudiosink"
+msgstr "Nun s'alcontró la salida de reproducción %s, axustando a autoaudiosink"
+
+msgid "Could not set parameter %s for %s"
+msgstr "Nun se pudo afitar el parámetru %s pa %s"
+
+msgid "Failed to connect to HAL, autodetection of devices will be disabled."
+msgstr ""
+"Falló la conexón con HAL,la deteición automática de preseos tará desactivada."
+
+msgid "Failed to enable equalizer"
+msgstr "Fallu al activar l'ecualizador"
+
+msgid "Failed to enable replaygain"
+msgstr "Fallu al activar replaygain"
+
+msgid "File count: %d"
+msgstr "Cuenta d'archivos: %d"
+
+msgid "Found new %s device at %s"
+msgstr "Alcontrose un preséu %s nuevu en %s"
+
+msgid "Found no HAL device handler for %s"
+msgstr "Nun s'alcontró un remanador HAL pa %s"
+
+msgid ""
+"Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
+"does not degrade audio quality."
+msgstr ""
+"Free Lossless Audio Codec (FLAC) ye un codec open source que comprime ensin "
+"rebaxar la calidá d'audio."
+
+msgid "Gapless enabled"
+msgstr "Ensin saltos activu"
+
+msgid "Loaded plugin %s"
+msgstr "Plugin %s cargáu"
+
+msgid "Loading Exaile %s..."
+msgstr "Cargando Exaile %s..."
+
+msgid "Loading collection..."
+msgstr "Cargando coleición..."
+
+msgid "Loading settings"
+msgstr "Cargando axustes"
+
+msgid "Location deleted: %s"
+msgstr "Allugamientu desaniciáu: %s"
+
+msgid "Location modified: %s"
+msgstr "Allugamientu modificáu: %s"
+
+msgid "PyInotify not installed or not supported.  "
+msgstr "PyInotify nun ta instaláu o nun ta sofitáu.  "
+
+msgid "Unable to enable plugin %s"
+msgstr "Nun se pudo activar el plugin %s"
+
+msgid "Unable to fully disable plugin %s"
+msgstr "Nun se pudo desactivar ensembre el plugin %s"
+
+msgid "Using %s for playback"
+msgstr "Usando %s pa reproducir"
+
+msgid ""
+"Vorbis is an open source, lossy audio codec with high quality output at a "
+"lower file size than MP3."
+msgstr ""
+"Vorbis ye un codec open source d'audio con perda, con salida d'alta calidá "
+"pa un tamañu d'archivu menor que MP3."
+
+msgid "Watching directory: %s"
+msgstr "Restolando direutoriu: %s"

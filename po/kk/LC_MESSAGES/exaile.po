@@ -1,0 +1,117 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2009-03-10 15:01+0000\n"
+"Last-Translator: baurzhan.m <Unknown>\n"
+"Language-Team: Kazakh <kk@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid "Buffering complete"
+msgstr "Буферизация аяқталды"
+
+msgid "Compilation detected: %s"
+msgstr "Компиляция табылды: %s"
+
+msgid "Connected to HAL"
+msgstr "HAL қызметіне қосулы тұр"
+
+msgid "Could not set parameter %s for %s"
+msgstr "%s параметрін %s үшін орнату мүмкін емес"
+
+msgid "Couldn't send seek event"
+msgstr "Іздеу оқиғасын жіберу қатесі"
+
+msgid "Exaile is shutting down..."
+msgstr "Exaile жұмысын аяқтау..."
+
+msgid "Failed to connect to HAL, autodetection of devices will be disabled."
+msgstr ""
+"HAL қызметіне қосылу мүмкін емес, құрылғыларды автоанықтау мүмкіндігі "
+"сөндіріледі."
+
+msgid "Failed to create device for %s"
+msgstr "%s үшін құрылғыны жасау қатемен аяқталды"
+
+msgid "Failed to enable equalizer"
+msgstr "Эквалайзерді қосу қатемен аяқталды"
+
+msgid "Failed to enable replaygain"
+msgstr "Ойнауды қайталауды қосу қатемен аяқталды"
+
+msgid "Failed to load HAL devices for %s"
+msgstr "%s үшін HAL құрылғыларын жүктеу қатемен аяқталды"
+
+msgid "File count: %d"
+msgstr "Файлдар саны: %d"
+
+msgid "File does not exist: %s"
+msgstr "Файл жоқ болып тұр: %s"
+
+msgid "Found no HAL device handler for %s"
+msgstr "%s құрылғысы үшін HAL өңдеуіші табылмады"
+
+msgid "Gapless enabled"
+msgstr "Gapless қосулы тұр"
+
+msgid "Loaded plugin %s"
+msgstr "Жүктелген плагин %s"
+
+msgid "Loading Exaile %s..."
+msgstr "Exaile %s жүктеу..."
+
+msgid "Loading collection..."
+msgstr "Жинақты жүктеу..."
+
+msgid "Loading devices..."
+msgstr "Құрылғыларды жүктеу..."
+
+msgid "Loading interface..."
+msgstr "Интерфейсті жүктеу..."
+
+msgid "Loading plugins..."
+msgstr "Плагиндерді жүктеу..."
+
+msgid "Loading settings"
+msgstr "Баптауларды жүктеу"
+
+msgid "Location deleted: %s"
+msgstr "Мекен-жай өшірілді: %s"
+
+msgid "Location modified: %s"
+msgstr "Мекен-жай өзгертілді: %s"
+
+msgid "Not watching library: %s"
+msgstr "Бақылау үшін бума жоқ: %s"
+
+msgid "Playing %s"
+msgstr "Ойналуда %s"
+
+msgid "PyInotify not installed or not supported.  "
+msgstr "PyInotify орнатылмаған не оған қолдау жоқ  "
+
+msgid "Ran out of tracks to shuffle"
+msgstr "Кездейсоқ кезегі үшін өлеңдер жоқ"
+
+msgid "Safe mode enabled, not loading plugins."
+msgstr "Қауіпсіз түрі, плагиндер жоқ."
+
+msgid "Saving state..."
+msgstr "Қалып-күйді сақтау..."
+
+msgid "Scanning library: %s"
+msgstr "Жинақты скандау: %s"
+
+msgid "Using %s for playback"
+msgstr "Ойнау үшін %s қолдану"
+
+msgid "Watching directory: %s"
+msgstr "Буманы қарап отыру: %s"
+
+msgid "bad search token"
+msgstr "қате іздеу сұранысы"

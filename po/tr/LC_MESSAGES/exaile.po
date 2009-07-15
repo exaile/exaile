@@ -1,0 +1,703 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2009-05-10 20:25+0000\n"
+"Last-Translator: Volkan Esgel <Unknown>\n"
+"Language-Team: Turkish <tr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid " + "
+msgstr " + "
+
+msgid " songs"
+msgstr " şarkılar"
+
+msgid "(drag to reorder)"
+msgstr "(yeniden sıralamak için sürükleyiniz)"
+
+msgid ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+msgstr ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+
+msgid "0:00"
+msgstr "0:00"
+
+msgid "0:00 / 0:00"
+msgstr "0:00 / 0:00"
+
+msgid "<b>General</b>"
+msgstr "<b>Genel</b>"
+
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Herhangi bir eklenti seçilmemiş</b>"
+
+msgid ""
+"<b>OSD</b>\n"
+"Drag to the location you'd like the\n"
+"OSD to appear"
+msgstr ""
+"<b>OSD</b>\n"
+"OSD' yi görünmesini istediğiniz\n"
+"yere sürükleyiniz"
+
+msgid "<b>Save changes to %s before closing?</b>"
+msgstr "<b>Kapatmadan önce değişikllikler %s için kaydedilsin mi?</b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+
+msgid "ASX Playlist"
+msgstr "ASX Çalma Listesi"
+
+msgid "About Exaile"
+msgstr "Exaile Hakkında"
+
+msgid "Add"
+msgstr "Ekle"
+
+msgid "Add Playlist"
+msgstr "Çalma Listesi Ekle"
+
+msgid "Add Smart Playlist"
+msgstr "Akıllı Çalma Listesi Ekle"
+
+msgid "Add Station"
+msgstr "İstasyon Ekle"
+
+msgid "Add a directory"
+msgstr "Bir dizin ekle"
+
+msgid "Add device"
+msgstr "Aygıt Ekle"
+
+msgid "Add to Playlist"
+msgstr "Çalma Listesine Ekle"
+
+msgid "Alarm Clock"
+msgstr "Çalar Saat"
+
+msgid "Alarm Days:"
+msgstr "Alarm Günleri:"
+
+msgid "Album"
+msgstr "Albüm"
+
+msgid "Album Art"
+msgstr "Albüm Kapağı"
+
+msgid "Append to Current"
+msgstr "Geçerli Listeye Ekle"
+
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr ""
+"Seçilen çalma listesini kalıcı olarak silmek istediğinize emin misiniz?"
+
+msgid "Artist"
+msgstr "Sanatçı"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"Sanatçı\n"
+"Albüm\n"
+"Tür - Sanatçı\n"
+"Tür - Albüm\n"
+"Yıl - Sanatçı\n"
+"Yıl - Albüm\n"
+"Sanatçı - Yıl - Albüm"
+
+msgid "Autosize"
+msgstr "Boyutu otomatik ayarla"
+
+msgid "Available Plugins"
+msgstr "Kullanılabilir Eklentiler"
+
+msgid "Background Color:"
+msgstr "Arka Plan Rengi:"
+
+msgid "Bitrate"
+msgstr "Bit oranı"
+
+msgid "Bye!"
+msgstr "Güle güle!"
+
+msgid "Cancel"
+msgstr "Vazgeç"
+
+msgid "Choose a file"
+msgstr "Bir dosya seçin"
+
+msgid "Clear Playlist"
+msgstr "Çalma Listesini Temizle"
+
+msgid "Close Tab"
+msgstr "Sekmeyi Kapat"
+
+msgid "Close Without Saving"
+msgstr "Kaydetmeden Kapat"
+
+msgid "Collection Manager"
+msgstr "Kolleksiyon Yöneticisi"
+
+msgid "Compilation detected: %s"
+msgstr "Derleme tespit edildi: %s"
+
+msgid "Configure"
+msgstr "Yapılandır"
+
+msgid "Confirm Close"
+msgstr "Kapatmayı Onayla"
+
+msgid "Connected to HAL"
+msgstr "HAL' a bağlanıldı"
+
+msgid "Could not disable plugin."
+msgstr "Eklenti etkisizleştirilemedi."
+
+msgid "Could not enable plugin."
+msgstr "Eklenti etkinleştirilemedi."
+
+msgid "Could not set parameter %s for %s"
+msgstr "%s parametresi %s için ayarlanamadı"
+
+msgid "Cover Finder"
+msgstr "Albüm Kapağı Bulucu:"
+
+msgid "Cover Search Order:"
+msgstr "Kapak Arama Düzeni"
+
+msgid "Custom Playlists"
+msgstr "Özel Çalma Listeleri"
+
+msgid "Custom: "
+msgstr "Özel: "
+
+msgid "Date"
+msgstr "Tarih"
+
+msgid "Delete Playlist"
+msgstr "Çalma Listesini Sil"
+
+msgid "Description:"
+msgstr "Tanım"
+
+msgid "Detected devices:"
+msgstr "Bulunan aygıtlar:"
+
+msgid "Device Manager"
+msgstr "Aygıt Yöneticisi"
+
+msgid "Disc"
+msgstr "Disk"
+
+msgid "Disc Number"
+msgstr "Disk Numarası"
+
+msgid "Display a progressbar in the OSD"
+msgstr "OSD içinde ilerleme çubuğu göster"
+
+msgid "Dynamic"
+msgstr "Dinamik"
+
+msgid "Edit"
+msgstr "Düzenle"
+
+msgid "Edit Smart Playlist"
+msgstr "Akıllı Çalma Listesi Düzenle"
+
+msgid "Enter the name you want for your new playlist"
+msgstr "Yeni müzik listeniz için istediğiniz bir isim giriniz"
+
+msgid "Enter the new name you want for your playlist"
+msgstr "Çalma listeniz için istediğiniz yeni ismi giriniz"
+
+msgid "Enter the search text"
+msgstr "Arama metnini giriniz"
+
+msgid "Exaile"
+msgstr "Exaile"
+
+msgid "Exaile Music Player"
+msgstr "Exaile Müzik Çalıcı"
+
+msgid "Exaile is shutting down..."
+msgstr "Exaile kapatılıyor..."
+
+msgid "Exaile: playing %s"
+msgstr "Exaile: %s oynatılıyor"
+
+msgid "Export"
+msgstr "Dışarı Aktar"
+
+msgid "Extension"
+msgstr "Uzantı"
+
+msgid "Failed to connect to HAL, autodetection of devices will be disabled."
+msgstr "HAL' a bağlanılamadı, aygıtların otomatik tanınması etkisizleştirildi."
+
+msgid "Failed to enable equalizer"
+msgstr "Ekolayzer etkinleştirilemedi"
+
+msgid "Failed to load HAL devices for %s"
+msgstr "%s için HAL servisleri yüklenemedi"
+
+msgid "Failed to open music DB for write."
+msgstr "Müzik veritabanı yazmak için açılamadı."
+
+msgid "Failed to open music DB."
+msgstr "Müzik veritabanı açılamadı."
+
+msgid "Fetch Cover"
+msgstr "Kapağı Getir"
+
+msgid "File Type"
+msgstr "Dosya Türü"
+
+msgid "File count: %d"
+msgstr "Dosya sayımı: %d"
+
+msgid "File does not exist: %s"
+msgstr "%s dosyası bulunamıyor"
+
+msgid "Filename"
+msgstr "Dosya Adı"
+
+msgid "Files"
+msgstr "Dosyalar"
+
+msgid "Found new %s device at %s"
+msgstr "Yeni %s aygıtı %s da bulundu"
+
+msgid "Found no HAL device handler for %s"
+msgstr "%s için bir HAL aygıt yönetici bulunamadı"
+
+msgid ""
+"Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
+"does not degrade audio quality."
+msgstr ""
+"Free Lossless Audio Codec (FLAC) açık kaynak kodlu, ses kalitesini "
+"düşürmeden sıkıştıran, kayıpsız bir kodlayıcı - kod çözücüdür."
+
+msgid "Friday"
+msgstr "Cuma"
+
+msgid "Genre"
+msgstr "Tür"
+
+msgid "Install"
+msgstr "Yükle"
+
+msgid "Install Updates"
+msgstr "Güncellemeleri Yükle"
+
+msgid "Installed Plugins"
+msgstr "Kurulu Eklentiler"
+
+msgid "Invalid file extension, file not saved"
+msgstr "Geçersiz dosya uzantısı, dosya kaydedilmedi"
+
+msgid "Jump to current song on track change"
+msgstr "Şarkı değiştiğinde geçerli şarkıya atla"
+
+msgid "Length"
+msgstr "Uzunluk"
+
+msgid "Loaded plugin %s"
+msgstr "%s eklentisi yüklendi"
+
+msgid "Loading Exaile %s..."
+msgstr "Exaile yükleniyor %s..."
+
+msgid "Loading collection..."
+msgstr "Kolleksiyon yükleniyor..."
+
+msgid "Loading devices..."
+msgstr "Aygıtlar yükleniyor..."
+
+msgid "Loading interface..."
+msgstr "Arayüz yükleniyor..."
+
+msgid "Loading plugins..."
+msgstr "Eklentiler yükleniyor..."
+
+msgid "Loading settings"
+msgstr "Ayarlar yükleniyor"
+
+msgid "Location"
+msgstr "Konum"
+
+msgid "Location deleted: %s"
+msgstr "Konum silindi: %s"
+
+msgid "Location modified: %s"
+msgstr "Konum değiştirildi: %s"
+
+msgid "M3U Playlist"
+msgstr "M3U Çalma Listesi"
+
+msgid "Match any of the criteria"
+msgstr "Ölçütlerin herhangi birine eşleştir"
+
+msgid "Monday"
+msgstr "Pazartesi"
+
+msgid "New Playlist"
+msgstr "Yeni Çalma Listesi"
+
+msgid "New Search"
+msgstr "Yeni Arama"
+
+msgid "Next"
+msgstr "Sonraki"
+
+msgid "Next Track"
+msgstr "Sonraki Parça"
+
+msgid "No covers found"
+msgstr "Hiç kapak bulunamadı"
+
+msgid "Not Playing"
+msgstr "Çalmıyor"
+
+msgid "Not watching library: %s"
+msgstr "Kütüphane izlenmiyor: %s"
+
+msgid "Number of Plays"
+msgstr "Çalınma Sayısı"
+
+msgid "Opacity Level:"
+msgstr "Opaklık seviyesi:"
+
+msgid "Open"
+msgstr "Aç"
+
+msgid "Open _URL"
+msgstr "Adresi _Aç"
+
+msgid "Open last playlists on startup"
+msgstr "Başlangıçta son çalma listesini aç"
+
+msgid "PLS Playlist"
+msgstr "PLS Çalma Listesi"
+
+msgid "Password:"
+msgstr "Parola:"
+
+msgid ""
+"Path is already in your collection, or is a subdirectory of another path in "
+"your collection"
+msgstr ""
+"Belirtilen yol zaten kolleksiyonunuzda var, ya da kolleksiyonunuzdaki bir "
+"diğer yolun alt dizini"
+
+msgid "Pause"
+msgstr "Duraklat"
+
+msgid "Play"
+msgstr "Çal"
+
+msgid "Playcount"
+msgstr "Çalma Sayısı"
+
+msgid "Playing %s"
+msgstr "%s çalınıyor"
+
+msgid "Playlists"
+msgstr "Çalma Listeleri"
+
+msgid "Plugin"
+msgstr "Eklenti"
+
+msgid "Plugins"
+msgstr "Eklentiler"
+
+msgid "Popup"
+msgstr "Açılır Pencere"
+
+msgid "Preferences"
+msgstr "Tercihler"
+
+msgid "Previous"
+msgstr "Önceki"
+
+msgid "Previous Track"
+msgstr "Önceki Parça"
+
+msgid "PyInotify not installed or not supported.  "
+msgstr "PyInotify yüklenmemiş ya da desteklenmiyor.  "
+
+msgid "Queue Items"
+msgstr "Öğeleri Sırala"
+
+msgid "Quit"
+msgstr "Çık"
+
+msgid "Radio"
+msgstr "Radyo"
+
+msgid "Radio Streams"
+msgstr "Radyo Yayınları"
+
+msgid "Randomize results"
+msgstr "Rastgele dağılımlı sonuçlar"
+
+msgid "Rating"
+msgstr "Derecelendirme"
+
+msgid "Rating: "
+msgstr "Derecelendirme: "
+
+msgid "Refresh"
+msgstr "Tazele"
+
+msgid "Remove"
+msgstr "Kaldır"
+
+msgid "Remove Cover"
+msgstr "Kapağı Kaldır"
+
+msgid "Rename Playlist"
+msgstr "Çalma Listesini Yeniden Adlandır"
+
+msgid "Repeat"
+msgstr "Yineleme"
+
+msgid "Resizable"
+msgstr "Yeniden boyutlandırılabilir"
+
+msgid "Safe mode enabled, not loading plugins."
+msgstr "Müvenli mod etkin, eklentiler yüklenmiyor."
+
+msgid "Saturday"
+msgstr "Cumartesi"
+
+msgid "Save"
+msgstr "Kaydet"
+
+msgid "Saved Stations"
+msgstr "Kayıtlı İstasyonlar"
+
+msgid "Saving state..."
+msgstr "Durum kaydediliyor..."
+
+msgid "Scanning collection..."
+msgstr "Kolleksiyon taranıyor..."
+
+msgid "Scanning library: %s"
+msgstr "Kütüphane taranıyor: %s"
+
+msgid "Search: "
+msgstr "Ara: "
+
+msgid "Select File Type (By Extension)"
+msgstr "Dosya türünü Seçiniz (Uzantı olarak)"
+
+msgid "Set Rating"
+msgstr "Derecelendirme yap"
+
+msgid "Show Cover"
+msgstr "Kapağı Göster"
+
+msgid "Show OSD on track change"
+msgstr "Şarkı değiştiğinde OSD göster"
+
+msgid "Show splash screen on startup"
+msgstr "Açılışta hoşgeldin ekranı göster"
+
+msgid "Show tray icon"
+msgstr "Sistem çekmecesi simgesini göster"
+
+msgid "Shuffle"
+msgstr "Karışık"
+
+msgid "Size"
+msgstr "Boyut"
+
+msgid "Smart Playlists"
+msgstr "Akıllı Çalma Listeleri"
+
+msgid "Start"
+msgstr "Başlat"
+
+msgid "Stop"
+msgstr "Dur"
+
+msgid "Stop Playback"
+msgstr "Çalmayı durdur"
+
+msgid "Stopped"
+msgstr "Durduruldu"
+
+msgid "Sunday"
+msgstr "Pazar"
+
+msgid "Text Color"
+msgstr "Metin Rengi"
+
+msgid "Text Font:"
+msgstr "Metin Yazı tipi"
+
+msgid "The playlist name you specified already exists."
+msgstr "Çalma listeniz için belirttiğiniz isim zaten var."
+
+msgid "The selected plugin doesn't have any configuration options"
+msgstr "Seçili eklenti için yapılandırma seçeneği mevcut değil"
+
+msgid "Thursday"
+msgstr "Perşembe"
+
+msgid "Title"
+msgstr "Başlık"
+
+msgid "Track Number"
+msgstr "Parça Numarası"
+
+msgid "Tuesday"
+msgstr "Salı"
+
+msgid "Type of device:"
+msgstr "Aygıt türü:"
+
+msgid "Unable to enable plugin %s"
+msgstr "%s eklentisi etkinleştirilemiyor"
+
+msgid "Unable to fully disable plugin %s"
+msgstr "%s eklentisi tamamen etkisizleştirilemiyor"
+
+msgid "Unknown"
+msgstr "Bilinmeyen"
+
+msgid "Updates"
+msgstr "Güncellemeler"
+
+msgid "Use Fading"
+msgstr "Şarkı bitiminde sesi azaltarak geçiş yap"
+
+msgid "Username:"
+msgstr "Kullanıcı Adı:"
+
+msgid "Using %s for playback"
+msgstr "Çalmak için %s kullanılıyor"
+
+msgid "Version:"
+msgstr "Sürüm:"
+
+msgid "Vol:"
+msgstr "Ses Seviyesi:"
+
+msgid ""
+"Vorbis is an open source, lossy audio codec with high quality output at a "
+"lower file size than MP3."
+msgstr ""
+"Vorbis açık kaynak kodlu, MP3' den daha yüksek kalitede çıkışı daha küçük "
+"dosya boyutunda veren, kayıplı bir ses verisi kodlayıcı - kod çözücüdür."
+
+msgid "Watching directory: %s"
+msgstr "Gözetleme dizini: %s"
+
+msgid "Wednesday"
+msgstr "Çarşamba"
+
+msgid "Window Height:"
+msgstr "Pencere Yüksekliği:"
+
+msgid "Window Width:"
+msgstr "Pencere Genişliği:"
+
+msgid "XSPF Playlist"
+msgstr "XSPF Çalma Listesi"
+
+msgid "Year"
+msgstr "Yıl"
+
+msgid "You did not enter a name for your playlist"
+msgstr "Çalma listeniz için bir isim girmediniz"
+
+msgid "Your changes will be lost if you don't save them"
+msgstr "Eğer kaydetmezseniz değişiklikler kaybedilecek"
+
+msgid "_Album Art Manager"
+msgstr "_Albüm Kapağı Yöneticisi"
+
+msgid "_Close"
+msgstr "_Kapat"
+
+msgid "_Collection Manager"
+msgstr "_Kolleksiyon Yöneticisi"
+
+msgid "_Columns"
+msgstr "_Sütunlar"
+
+msgid "_Edit"
+msgstr "_Düzenle"
+
+msgid "_File"
+msgstr "_Dosya"
+
+msgid "_Go to Playing Track"
+msgstr "_Çalan Parçaya Git"
+
+msgid "_Help"
+msgstr "_Yardım"
+
+msgid "_Rescan Collection"
+msgstr "_Tekrar Arama Koleksiyonu"
+
+msgid "_Tools"
+msgstr "_Araçlar"
+
+msgid "_View"
+msgstr "_Görünüm"
+
+msgid "at least"
+msgstr "en az"
+
+msgid "at most"
+msgstr "en fazla"
+
+msgid "between"
+msgstr "arasında"
+
+msgid "days"
+msgstr "gün"
+
+msgid "hours"
+msgstr "saat"
+
+msgid "minutes"
+msgstr "dakika"
+
+msgid "seconds"
+msgstr "saniye"
+
+msgid "weeks"
+msgstr "hafta"

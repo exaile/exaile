@@ -1,0 +1,579 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2008-09-13 10:19+0000\n"
+"Last-Translator: Vladimir Lazic <vlazic@gmail.com>\n"
+"Language-Team: Serbian <sr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid " songs"
+msgstr " нумере"
+
+msgid "#"
+msgstr "#"
+
+msgid "%(title)s (by %(artist)s)"
+msgstr "%(title)s (изводи %(artist)s)"
+
+msgid "%s KB"
+msgstr "%s KB"
+
+msgid ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+msgstr ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+
+msgid "<b>General</b>"
+msgstr "<b>Опште</b>"
+
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to appear</"
+"b>"
+msgstr "<b>Постави обавештење (OSD) на место где желите да се појави</b>"
+
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Ниједно проширење није изабрано</b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"са албума {album} - {length}"
+
+msgid "Add"
+msgstr "Додај"
+
+msgid "Add Playlist"
+msgstr "Додај листу нумера"
+
+msgid "Add Smart Playlist"
+msgstr "Додај динамичку листу нумера"
+
+msgid "Add Station"
+msgstr "Додај станицу"
+
+msgid "Add a directory"
+msgstr "Додај директоријум"
+
+msgid "Add to Playlist"
+msgstr "Додај у листу нумера"
+
+msgid "Alarm Clock"
+msgstr "Будилник"
+
+msgid "Alarm Days:"
+msgstr "Дани активирања аларма:"
+
+msgid "Album"
+msgstr "Албум"
+
+msgid "Album Art"
+msgstr "Омоти"
+
+msgid "All Files"
+msgstr "Све датотеке"
+
+msgid "Append to Current"
+msgstr "Додај у тренутну листу нумера"
+
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr "Да ли сте сигурани да желиште да обришеште изабрану листу нумера?"
+
+msgid "Artist"
+msgstr "Извођач"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"Извођач\n"
+"Албум\n"
+"Жанр - Извођач\n"
+"Жанр - Албум\n"
+"Година - Извођач\n"
+"Година - Албум\n"
+"Извођач - Година - Албум"
+
+msgid "Authors:"
+msgstr "Аутори:"
+
+msgid "Autosize"
+msgstr "Аутоматско мењање величине"
+
+msgid "Available Plugins"
+msgstr "Доступна проширења"
+
+msgid "BPM"
+msgstr "BPM"
+
+msgid "Background Color:"
+msgstr "Позадинска боја:"
+
+msgid "Bitrate"
+msgstr "Битски проток"
+
+msgid "Cancel"
+msgstr "Одустани"
+
+msgid "Choose a file"
+msgstr "Изаберите датотеку"
+
+msgid "Clear Playlist"
+msgstr "Очисти листу песама"
+
+msgid "Collection"
+msgstr "Збирка"
+
+msgid "Composer"
+msgstr "Композитор"
+
+msgid "Configure"
+msgstr "Подеси"
+
+msgid ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+msgstr ""
+"Ауторска права: Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"Овај програм је слободни софтвер; можете га расподелити и/или\n"
+"мењати под одредбама ГНУ-ове опште јавне лиценце коју је објавила\n"
+"Задужбина за слободни софтвер; и то, било верзије 2 Лиценце, или\n"
+"(по вашем избору) било које следеће верзије.\n"
+"\n"
+"Овај програм се расподељује у намери да буде користан, али БЕЗ\n"
+"ИКАКВЕ ГАРАНЦИЈЕ; чак и без имплицитне гаранције КОМЕРЦИЈАЛНЕ\n"
+"ВРЕДНОСТИ или ИСПУЊАВАЊА ОДРЕЂЕНЕ ПОТРЕБЕ. Погледајте ГНУ-ову\n"
+"општу јавну лиценцу за више детаља.\n"
+"\n"
+"Требало би да примите примерак ГНУ-ове опште јавне лиценце\n"
+"заједно са овим програмом; ако то није случај, пишите Задужбини за\n"
+"слободни софтвер на адресу: Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+
+msgid "Cover Finder"
+msgstr "Добављач омота"
+
+msgid "Custom Playlists"
+msgstr "Произвољне листе"
+
+msgid "Date"
+msgstr "Датум"
+
+msgid "Delete Playlist"
+msgstr "Обриши листу нумера"
+
+msgid "Description:"
+msgstr "Опис:"
+
+msgid "Disc"
+msgstr "Диск"
+
+msgid "Disc Number"
+msgstr "Број диска"
+
+msgid "Display OSD when hovering over tray icon"
+msgstr "Прикажи при преласку преко иконице у обавештајној зони панела"
+
+msgid "Dynamic"
+msgstr "Динамички"
+
+msgid "Edit"
+msgstr "Уреди"
+
+msgid "Enabled"
+msgstr "Омогућено"
+
+msgid "Enter the name you want for your new playlist"
+msgstr "Унеси име нове листе нумера"
+
+msgid "Enter the search text"
+msgstr "Унесите текст за претрагу"
+
+msgid "Entire Library"
+msgstr "Менаџер збирке"
+
+msgid "Exaile"
+msgstr "Exaile"
+
+msgid "Exaile Music Player"
+msgstr "Exaile музички програм"
+
+msgid "Filename"
+msgstr "Име датотеке"
+
+msgid "Files"
+msgstr "Датотеке"
+
+msgid "Friday"
+msgstr "петак"
+
+msgid "Genre"
+msgstr "Жанр"
+
+msgid "Install"
+msgstr "Инсталацоја"
+
+msgid "Installed Plugins"
+msgstr "Инсталирана проширења"
+
+msgid "Jump to current song on track change"
+msgstr "Пребаци се на тренутну нумеру након промене нумере"
+
+msgid "LastFM Radio"
+msgstr "LastFM радио"
+
+msgid "Length"
+msgstr "Дужина"
+
+msgid "Limit to: "
+msgstr "Ограничи на "
+
+msgid "Loading streams..."
+msgstr "Учитавам токове..."
+
+msgid "Location"
+msgstr "Путања"
+
+msgid "Match any of the criteria"
+msgstr "Поклопи бар један критеријум"
+
+msgid "Monday"
+msgstr "понедељак"
+
+msgid "Music Files"
+msgstr "Звучне датотеке"
+
+msgid "Name:"
+msgstr "Име:"
+
+msgid "New Playlist"
+msgstr "Нова листа нумера"
+
+msgid "New Search"
+msgstr "Нова претрага"
+
+msgid "Next"
+msgstr "Следећа"
+
+msgid "Next Track"
+msgstr "Следећа нумера"
+
+msgid "Not Playing"
+msgstr "Заустављено извођење"
+
+msgid "Number of Plays"
+msgstr "Број пуштања"
+
+msgid "Opacity Level:"
+msgstr "Ниво непровидности:"
+
+msgid "Open"
+msgstr "Отвори"
+
+msgid "Open _URL"
+msgstr "Отвори _урл"
+
+msgid "Password:"
+msgstr "Лозинка:"
+
+msgid ""
+"Path is already in your collection, or is a subdirectory of another path in "
+"your collection"
+msgstr ""
+"Путања је већ у збирци, или је поддиректоријум неке од путања из збирке"
+
+msgid "Pause"
+msgstr "Паузирај"
+
+msgid "Play"
+msgstr "Пусти"
+
+msgid "Playcount"
+msgstr "Број пуштања"
+
+msgid "Playing %s"
+msgstr "Пуштам %s"
+
+msgid "Playlist Files"
+msgstr "Датотеке листе нумера"
+
+msgid "Playlists"
+msgstr "Листе нумера"
+
+msgid "Plugin"
+msgstr "Проширење"
+
+msgid "Plugins"
+msgstr "Проширења"
+
+msgid "Popup"
+msgstr "Искачући прозор"
+
+msgid "Preferences"
+msgstr "Поставке"
+
+msgid "Previous"
+msgstr "Предходна"
+
+msgid "Previous Track"
+msgstr "Претходна нумера"
+
+msgid "Python Console - Exaile"
+msgstr "Питон конзола - Exaile"
+
+msgid "Queue Items"
+msgstr "Закажи пуштање"
+
+msgid "Quit"
+msgstr "Изађи"
+
+msgid "Radio"
+msgstr "Радио"
+
+msgid "Radio Streams"
+msgstr "Радио станице"
+
+msgid "Rating"
+msgstr "Оцена"
+
+msgid "Rating: "
+msgstr "Оцена: "
+
+msgid "Refresh"
+msgstr "Освежи"
+
+msgid "Relay Port:"
+msgstr "Порт за прослеђивање:"
+
+msgid "Remove"
+msgstr "Уклони"
+
+msgid "Remove Cover"
+msgstr "Уклони омот"
+
+msgid "Rename"
+msgstr "Преименуј"
+
+msgid "Rename Playlist"
+msgstr "Преименуј листу нумера"
+
+msgid "Repeat"
+msgstr "Понови"
+
+msgid "Resizable"
+msgstr "Ручно мењање величине"
+
+msgid "Saturday"
+msgstr "субота"
+
+msgid "Saved Stations"
+msgstr "Сачуване станице"
+
+msgid "Scanning collection..."
+msgstr "Претражујем збирку..."
+
+msgid "Search"
+msgstr "Претрага"
+
+msgid "Search: "
+msgstr "Тражи: "
+
+msgid "Show OSD on track change"
+msgstr "Прикажи при промени песме"
+
+msgid "Show splash screen on startup"
+msgstr "Прикажи уводни екран при покретању"
+
+msgid "Show tray icon"
+msgstr "Прикажи у обавештајној зони панела"
+
+msgid "Shuffle"
+msgstr "Насумично"
+
+msgid "Size"
+msgstr "Величина"
+
+msgid "Smart Playlists"
+msgstr "Динамичке листе нумера"
+
+msgid "Start"
+msgstr "Покрени"
+
+msgid "Stop Playback"
+msgstr "Заустави извођење"
+
+msgid "Stopped"
+msgstr "Заустављено"
+
+msgid "Sunday"
+msgstr "недеља"
+
+msgid "Supported Files"
+msgstr "Подржане датотеке"
+
+msgid "Text Color"
+msgstr "Боја текста"
+
+msgid "Text Font:"
+msgstr "Словни лик:"
+
+msgid "Thursday"
+msgstr "четвртак"
+
+msgid "Title"
+msgstr "Наслов"
+
+msgid "Toggle Queue"
+msgstr "Закажи пуштање"
+
+msgid "Track Number"
+msgstr "Број нумере"
+
+msgid "Tuesday"
+msgstr "уторак"
+
+msgid "Unknown"
+msgstr "Непознато"
+
+msgid "Updates"
+msgstr "Надоградња"
+
+msgid "Use Fading"
+msgstr "Постепено појачај"
+
+msgid "Username:"
+msgstr "Корисничко име:"
+
+msgid "Version:"
+msgstr "Верзија:"
+
+msgid "Vol:"
+msgstr "Јачина звука:"
+
+msgid "Wednesday"
+msgstr "среда"
+
+msgid "Window Height:"
+msgstr "Висина прозора:"
+
+msgid "Window Width:"
+msgstr "Ширина прозора:"
+
+msgid "Year"
+msgstr "Година"
+
+msgid "You did not enter a name for your playlist"
+msgstr "Није унесено име листе нумера"
+
+msgid "_Close"
+msgstr "_Затвори"
+
+msgid "_Columns"
+msgstr "_Колоне"
+
+msgid "_Edit"
+msgstr "_Уређивање"
+
+msgid "_File"
+msgstr "_Датотека"
+
+msgid "_Help"
+msgstr "_Помоћ"
+
+msgid "_Rescan Collection"
+msgstr "_Учитај измене збирке"
+
+msgid "_Tools"
+msgstr "_Алати"
+
+msgid "_View"
+msgstr "_Преглед"
+
+msgid "after"
+msgstr "након"
+
+msgid "and"
+msgstr "и"
+
+msgid "at least"
+msgstr "бар"
+
+msgid "at most"
+msgstr "највише"
+
+msgid "before"
+msgstr "пре"
+
+msgid "between"
+msgstr "између"
+
+msgid "by %s"
+msgstr "од %s"
+
+msgid "contains"
+msgstr "садржи"
+
+msgid "days"
+msgstr "дана"
+
+msgid "does not contain"
+msgstr "не садржи"
+
+msgid "from %s"
+msgstr "са %s"
+
+msgid "hours"
+msgstr "сати"
+
+msgid "is"
+msgstr "је"
+
+msgid "is not"
+msgstr "није"
+
+msgid "minutes"
+msgstr "минута"
+
+msgid "seconds"
+msgstr "секунди"
+
+msgid "weeks"
+msgstr "недеља"

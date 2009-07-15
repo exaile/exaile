@@ -1,0 +1,913 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2009-04-26 03:46+0000\n"
+"Last-Translator: Jay <jayscorpio1114@gmail.com>\n"
+"Language-Team: Simplified Chinese <zh_CN@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid " songs"
+msgstr " 歌曲"
+
+msgid "#"
+msgstr "#"
+
+msgid "%(title)s (by %(artist)s)"
+msgstr "%(artist)s) 的 %(title)s"
+
+msgid "%s KB"
+msgstr "%s KB"
+
+msgid ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+msgstr ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+
+msgid "<b>General</b>"
+msgstr "<b>常规</b>"
+
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to appear</"
+"b>"
+msgstr "<b>移动屏幕上的显示窗口至您想要的位置</b>"
+
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>没有选中任何插件</b>"
+
+msgid "<b>Save changes to %s before closing?</b>"
+msgstr "<b>关闭之前保存更改到%s?</b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"在 {album} - {length}"
+
+msgid "A very fast Free lossless audio format with good compression."
+msgstr "一款非常快速的无损音频格式提供较佳的压缩率。"
+
+msgid "ASX Playlist"
+msgstr "ASX播放列表"
+
+msgid "About Exaile"
+msgstr "关于Exaile"
+
+msgid "Add"
+msgstr "添加"
+
+msgid "Add Playlist"
+msgstr "添加播放列表"
+
+msgid "Add Smart Playlist"
+msgstr "添加到智能播放列表"
+
+msgid "Add Station"
+msgstr "添加电台"
+
+msgid "Add a directory"
+msgstr "添加文件路径"
+
+msgid "Add device"
+msgstr "添加设备"
+
+msgid "Add to Playlist"
+msgstr "添加到播放列表"
+
+msgid "Alarm Clock"
+msgstr "闹钟"
+
+msgid "Alarm Days:"
+msgstr "定时日期："
+
+msgid "Album"
+msgstr "专辑"
+
+msgid "Album Art"
+msgstr "专辑封面"
+
+msgid "All Files"
+msgstr "所有文件"
+
+msgid "An Unknown type of setting was found!"
+msgstr "发现未知的设置类型"
+
+msgid "Append to Current"
+msgstr "追加到当前列表"
+
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr "您确定要永久删除选定的播放列表吗？"
+
+msgid "Artist"
+msgstr "歌手"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"歌手\n"
+"专辑\n"
+"流派-歌手\n"
+"流派-专辑\n"
+"年份-歌手\n"
+"年份-专辑\n"
+"歌手-年份-专辑"
+
+msgid "Attempting to find covers for %s"
+msgstr "正在尝试为%s查找封面"
+
+msgid "Authors:"
+msgstr "作者："
+
+msgid "Autosize"
+msgstr "自适应宽度"
+
+msgid "Available Plugins"
+msgstr "可用插件"
+
+msgid "BPM"
+msgstr "BPM"
+
+msgid "Background Color:"
+msgstr "背景色："
+
+msgid "Bitrate"
+msgstr "比特率"
+
+msgid "Buffering complete"
+msgstr "缓冲完场"
+
+msgid "Bye!"
+msgstr "再见！"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Choose a file"
+msgstr "选择文件"
+
+msgid "Clear Playlist"
+msgstr "清空播放列表"
+
+msgid "Close Tab"
+msgstr "关闭标签"
+
+msgid "Close Without Saving"
+msgstr "不保存直接关闭"
+
+msgid "Collection"
+msgstr "收藏"
+
+msgid "Composer"
+msgstr "作曲家"
+
+msgid "Configure"
+msgstr "配置"
+
+msgid "Confirm Close"
+msgstr "确认关闭"
+
+msgid "Connected to HAL"
+msgstr "连接到 HAL"
+
+msgid ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+msgstr ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"此程序是自由软件；你可以遵照自由软件基金会出版\n"
+"的 GNU 通用公共许可证条款来修改和重新发布这一\n"
+"程序；使用许可证的第二版，或者（根据你的选择）\n"
+"选用任何更新的版本。\n"
+"\n"
+"发布这一程序的目的是希望它有用，\n"
+"但没有任何担保。甚至没有适合特定\n"
+"目的的隐含的担保。更详细的情况请\n"
+"参阅 GNU 通用公共许可证。\n"
+"\n"
+"你应该已经和程序一起收到一份 GNU 通用公共许可\n"
+"证的副本。如果还没有，写信给：Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+
+msgid "Could not disable plugin."
+msgstr "不能禁用插件"
+
+msgid "Could not enable plugin."
+msgstr "不能启用插件"
+
+msgid "Could not set parameter %s for %s"
+msgstr "无法将参数%s设置到%s中"
+
+msgid "Couldn't send seek event"
+msgstr "无法发送搜索定位事件"
+
+msgid "Cover Finder"
+msgstr "专辑封面查找器"
+
+msgid "CoverDB: set cover %s for '%s - %s'"
+msgstr "封面数据库：将封面%s设置到'%s - %s'"
+
+msgid "Custom Playlists"
+msgstr "自定义播放列表"
+
+msgid "Date"
+msgstr "日期"
+
+msgid "Decreases the volume by VOL"
+msgstr "用VOL降低音量"
+
+msgid "Delete Playlist"
+msgstr "删除播放列表"
+
+msgid "Description:"
+msgstr "描述："
+
+msgid "Device Manager"
+msgstr "设备管理器"
+
+msgid "Disable D-Bus support"
+msgstr "禁用D-Bus支持"
+
+msgid "Disable HAL support."
+msgstr "禁用HAL支持"
+
+msgid "Disc"
+msgstr "盘片"
+
+msgid "Disc Number"
+msgstr "盘片号"
+
+msgid "Display OSD when hovering over tray icon"
+msgstr "鼠标悬停在系统状态栏图标时显示歌曲OSD信息"
+
+msgid "Display a progressbar in the OSD"
+msgstr "在OSD中显示进度条"
+
+msgid "Dynamic"
+msgstr "动态"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Edit Smart Playlist"
+msgstr "编辑智能播放列表"
+
+msgid "Enable debugging of xl.event. Generates LOTS of output"
+msgstr "启用xl.event调试。这将会产生大量信息。"
+
+msgid "Enabled"
+msgstr "已启用"
+
+msgid "Enter the name you want for your new playlist"
+msgstr "为您的新播放列表命名"
+
+msgid "Enter the new name you want for your playlist"
+msgstr "输入新播放列表名"
+
+msgid "Enter the search text"
+msgstr "输入搜索文字"
+
+msgid "Entire Library"
+msgstr "整个媒体库"
+
+msgid "Exaile"
+msgstr "Exaile"
+
+msgid "Exaile Music Player"
+msgstr "Exaile 音乐播放器"
+
+msgid "Exaile is shutting down..."
+msgstr "正在关闭..."
+
+msgid "Exaile: playing %s"
+msgstr "Exaile: 正在播放 %s"
+
+msgid "Export"
+msgstr "导出"
+
+msgid "Extension"
+msgstr "扩展名"
+
+msgid "Failed to connect to HAL, autodetection of devices will be disabled."
+msgstr "连接到 HAL 失败，设备自动检测无法使用。"
+
+msgid "Failed to enable equalizer"
+msgstr "启用均衡器失败"
+
+msgid "Failed to enable replaygain"
+msgstr "启用回放增益失败"
+
+msgid "Failed to open music DB for write."
+msgstr "无法打开音乐数据库用于写入。"
+
+msgid "Failed to open music DB."
+msgstr "无法打开音乐数据库。"
+
+msgid "Fetch Cover"
+msgstr "获取专辑封面"
+
+msgid "File Type"
+msgstr "文件类型"
+
+msgid "File count: %d"
+msgstr "文件数:%d"
+
+msgid "File does not exist: %s"
+msgstr "文件不存在: %s"
+
+msgid "Filename"
+msgstr "文件名"
+
+msgid "Files"
+msgstr "文件"
+
+msgid "Found covers from %s"
+msgstr "从%s找到封面"
+
+msgid ""
+"Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
+"does not degrade audio quality."
+msgstr "FLAC是一个开源的无损音频编码"
+
+msgid "Friday"
+msgstr "星期五"
+
+msgid "GST AUDIO CHANGED"
+msgstr "GST 音频更改"
+
+msgid "Gapless enabled"
+msgstr "无间隙模式"
+
+msgid "Genre"
+msgstr "流派"
+
+msgid "Get rating for current song"
+msgstr "获取当前曲目的评分"
+
+msgid "Increases the volume by VOL"
+msgstr "用VOL提高音量"
+
+msgid "Install"
+msgstr "安装"
+
+msgid "Install Updates"
+msgstr "安装更新"
+
+msgid "Installed Plugins"
+msgstr "已安装的插件"
+
+msgid "Invalid file extension, file not saved"
+msgstr "无效文件扩展名,文件没有被保存"
+
+msgid "Jump to current song on track change"
+msgstr "转到当前播放曲目"
+
+msgid "LastFM Radio"
+msgstr "LastFM 电台"
+
+msgid "Length"
+msgstr "长度"
+
+msgid "Limit to: "
+msgstr "限制在： "
+
+msgid "Loaded plugin %s"
+msgstr "装载插件 %s"
+
+msgid "Loading Exaile %s..."
+msgstr "正在读取Exaile %s..."
+
+msgid "Loading collection..."
+msgstr "正在读取收藏..."
+
+msgid "Loading devices..."
+msgstr "载入设备信息..."
+
+msgid "Loading interface..."
+msgstr "载入图形界面..."
+
+msgid "Loading plugins..."
+msgstr "正在加载插件..."
+
+msgid "Loading settings"
+msgstr "正在载入设置"
+
+msgid "Loading streams..."
+msgstr "载入流..."
+
+msgid "Location"
+msgstr "位置"
+
+msgid "Location deleted: %s"
+msgstr "删除的位置：%s"
+
+msgid "Location modified: %s"
+msgstr "修改的位置：%s"
+
+msgid "Loved Tracks"
+msgstr "喜爱音轨"
+
+msgid "M3U Playlist"
+msgstr "M3U播放列表"
+
+msgid "Match any of the criteria"
+msgstr "符合其中任一条件"
+
+msgid "Monday"
+msgstr "星期一"
+
+msgid "Music Files"
+msgstr "音乐文件"
+
+msgid "Name:"
+msgstr "名称："
+
+msgid "Neighbourhood"
+msgstr "Neighbourhood"
+
+msgid "New Playlist"
+msgstr "新建播放列表"
+
+msgid "New Search"
+msgstr "新建搜索"
+
+msgid "Next"
+msgstr "下一首"
+
+msgid "Next Track"
+msgstr "下一曲目"
+
+msgid "No covers found"
+msgstr "未能找到专辑封面"
+
+msgid "Not Playing"
+msgstr "未播放"
+
+msgid "Number of Plays"
+msgstr "播放次数"
+
+msgid "Opacity Level:"
+msgstr "透明度"
+
+msgid "Open"
+msgstr "打开"
+
+msgid "Open _URL"
+msgstr "打开URL"
+
+msgid "Open last playlists on startup"
+msgstr "启动时打开上次的播放列表"
+
+msgid "PLS Playlist"
+msgstr "FLS播放列表"
+
+msgid "Password:"
+msgstr "密码："
+
+msgid ""
+"Path is already in your collection, or is a subdirectory of another path in "
+"your collection"
+msgstr "此路径已经在你的收藏中，或者是你收藏中另一个路径的子目录。"
+
+msgid "Pause"
+msgstr "暂停"
+
+msgid "Personal"
+msgstr "个人"
+
+msgid "Play"
+msgstr "播放"
+
+msgid "Play the next track"
+msgstr "播放下一曲目"
+
+msgid "Play the previous track"
+msgstr "播放上一曲目"
+
+msgid "Playcount"
+msgstr "播放计数"
+
+msgid "Playing %s"
+msgstr "正在播放 %s"
+
+msgid "Playlist Files"
+msgstr "播放列表文件"
+
+msgid "Playlists"
+msgstr "播放列表"
+
+msgid "Plugin"
+msgstr "插件"
+
+msgid "Plugins"
+msgstr "插件"
+
+msgid "Popup"
+msgstr "弹出"
+
+msgid "Preferences"
+msgstr "首选项"
+
+msgid "Previous"
+msgstr "上一首"
+
+msgid "Previous Track"
+msgstr "上一曲目"
+
+msgid "Print the album of current track"
+msgstr "打印当前曲目所属专辑"
+
+msgid "Print the artist of current track"
+msgstr "打印当前曲目的艺术家"
+
+msgid "Print the current volume"
+msgstr "打印当前音量"
+
+msgid "Print the length of current track"
+msgstr "打印当前曲目的长度"
+
+msgid "Print the position inside the current track as a percentage"
+msgstr "使用百分比显示播放进度"
+
+msgid "Print the title of current track"
+msgstr "打印当前曲目的标题"
+
+msgid "PyInotify not installed or not supported.  "
+msgstr "PyInotify 未安装或未被支持.  "
+
+msgid "Python Console - Exaile"
+msgstr "Python 终端 - Exaile"
+
+msgid "Query player"
+msgstr "队列播放"
+
+msgid "Queue Items"
+msgstr "添加到播放队列"
+
+msgid "Quit"
+msgstr "退出"
+
+msgid "Radio"
+msgstr "广播"
+
+msgid "Radio Streams"
+msgstr "电台流媒体"
+
+msgid "Random %d"
+msgstr "随机 %d"
+
+msgid "Rating"
+msgstr "评级"
+
+msgid "Rating > %d"
+msgstr "评分 > %d"
+
+msgid "Rating: "
+msgstr "评级： "
+
+msgid "Recommended"
+msgstr "推荐"
+
+msgid "Reduce level of output"
+msgstr "降低输出等级"
+
+msgid "Refresh"
+msgstr "刷新"
+
+msgid "Relay Port:"
+msgstr "中继端口:"
+
+msgid "Remove"
+msgstr "移除"
+
+msgid "Remove Cover"
+msgstr "删除封面"
+
+msgid "Rename"
+msgstr "重命名"
+
+msgid "Rename Playlist"
+msgstr "重命名播放列表"
+
+msgid "Repeat"
+msgstr "重复"
+
+msgid "Resizable"
+msgstr "可改变大小"
+
+msgid "Safe mode enabled, not loading plugins."
+msgstr "安全模式开启，不会装载插件。"
+
+msgid "Saturday"
+msgstr "星期六"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Saved Stations"
+msgstr "保存电台"
+
+msgid "Saving %s DB to %s."
+msgstr "正在保存%s数据库到%s。"
+
+msgid "Saving state..."
+msgstr "保存状态..."
+
+msgid "Scanning collection..."
+msgstr "扫描收藏 ..."
+
+msgid "Scanning library: %s"
+msgstr "扫描媒体库:%s"
+
+msgid "Search"
+msgstr "搜索"
+
+msgid "Search: "
+msgstr "搜索： "
+
+msgid "Select File Type (By Extension)"
+msgstr "选择文件类型(按扩展名)"
+
+msgid "Set Rating"
+msgstr "评分"
+
+msgid "Set data directory"
+msgstr "设置数据目录"
+
+msgid "Set rating for current song"
+msgstr "给当前曲目评分"
+
+msgid "Show Cover"
+msgstr "显示专辑封面"
+
+msgid "Show OSD on track change"
+msgstr "更换歌曲时显示屏幕提示"
+
+msgid "Show a popup of the currently playing track"
+msgstr "为当前播放音轨弹出提示"
+
+msgid "Show debugging output"
+msgstr "显示调试输出"
+
+msgid "Show splash screen on startup"
+msgstr "在启动时显示启动画面"
+
+msgid "Show tray icon"
+msgstr "显示托盘图标"
+
+msgid "Shuffle"
+msgstr "随机播放"
+
+msgid "Size"
+msgstr "大小"
+
+msgid "Smart Playlists"
+msgstr "智能播放列表"
+
+msgid "Start"
+msgstr "开始"
+
+msgid "Start Exaile minimized to tray, if possible"
+msgstr "可能的话,Exaile启动后最小化到系统托盘"
+
+msgid "Start in safe mode - sometimes useful when you're running into problems"
+msgstr "以安全模式启动——当运行出现问题时会有用"
+
+msgid "Start new instance"
+msgstr "启动新实例"
+
+msgid "Stop"
+msgstr "停止"
+
+msgid "Stop Playback"
+msgstr "停止回放"
+
+msgid "Stop playback"
+msgstr "停止回放"
+
+msgid "Stopped"
+msgstr "已停止"
+
+msgid "Stopping IdleManager thread..."
+msgstr "正在停止空闲管理器线程…"
+
+msgid "Sunday"
+msgstr "星期日"
+
+msgid "Supported Files"
+msgstr "支持的文件"
+
+msgid "Text Color"
+msgstr "文字颜色"
+
+msgid "Text Font:"
+msgstr "文字字体："
+
+msgid "The playlist name you specified already exists."
+msgstr "指定的播放列表名已经存在"
+
+msgid "The selected plugin doesn't have any configuration options"
+msgstr "插件没有能够设置的选项"
+
+msgid "Thursday"
+msgstr "星期四"
+
+msgid "Title"
+msgstr "标题"
+
+msgid "Toggle Play or Pause"
+msgstr "切换播放或暂停状态"
+
+msgid "Toggle Queue"
+msgstr "开关队列"
+
+msgid "Track Number"
+msgstr "曲目编号"
+
+msgid "Tuesday"
+msgstr "星期二"
+
+msgid "Type of device:"
+msgstr "设备类型:"
+
+msgid "Unable to enable plugin %s"
+msgstr "无法开启插件 %s"
+
+msgid "Unable to fully disable plugin %s"
+msgstr "无法完全关闭插件 %s"
+
+msgid "Unknown"
+msgstr "未知"
+
+msgid "Updates"
+msgstr "更新"
+
+msgid "Use Fading"
+msgstr "淡出淡入"
+
+msgid "Username:"
+msgstr "用户名："
+
+msgid "Using %s for playback"
+msgstr "使用 %s 播放"
+
+msgid "Version:"
+msgstr "版本："
+
+msgid "Vol:"
+msgstr "音量"
+
+msgid ""
+"Vorbis is an open source, lossy audio codec with high quality output at a "
+"lower file size than MP3."
+msgstr ""
+"Vorbis 是一款开源，有损音频编解码算法。相对MP3而言，能以更小的文件大小提供更"
+"高的输出质量。"
+
+msgid "Watching directory: %s"
+msgstr "监视目录:%s"
+
+msgid "We don't know how to store that kind of setting: "
+msgstr "无法保存该设置 "
+
+msgid "Wednesday"
+msgstr "星期三"
+
+msgid "Window Height:"
+msgstr "窗口高度"
+
+msgid "Window Width:"
+msgstr "窗口宽度"
+
+msgid "XSPF Playlist"
+msgstr "XSPF播放列表"
+
+msgid "Year"
+msgstr "年代"
+
+msgid "You did not enter a name for your playlist"
+msgstr "您还没有为您的播放列表命名."
+
+msgid "You did not specify a location to save the db"
+msgstr "您没有定义用于保存数据库的位置"
+
+msgid "You have entered an invalid option"
+msgstr "您输入了一个不正确的选项"
+
+msgid "Your changes will be lost if you don't save them"
+msgstr "你所做的更改如果不保存将会丢失"
+
+msgid "_Close"
+msgstr "关闭(_C)"
+
+msgid "_Columns"
+msgstr "列(_C)"
+
+msgid "_Edit"
+msgstr "编辑(_E)"
+
+msgid "_File"
+msgstr "文件(_F)"
+
+msgid "_Help"
+msgstr "帮助(_H)"
+
+msgid "_Rescan Collection"
+msgstr "重新扫描音乐库"
+
+msgid "_Tools"
+msgstr "工具(_T)"
+
+msgid "_View"
+msgstr "查看(_V)"
+
+msgid "after"
+msgstr "之后"
+
+msgid "and"
+msgstr "和"
+
+msgid "at least"
+msgstr "至少"
+
+msgid "at most"
+msgstr "至多"
+
+msgid "before"
+msgstr "之前"
+
+msgid "between"
+msgstr "之间"
+
+msgid "by %s"
+msgstr "%s 的"
+
+msgid "contains"
+msgstr "包含"
+
+msgid "days"
+msgstr "天"
+
+msgid "does not contain"
+msgstr "不包含"
+
+msgid "from %s"
+msgstr "从 %s"
+
+msgid "hours"
+msgstr "时"
+
+msgid "is"
+msgstr "是"
+
+msgid "is not"
+msgstr "不是"
+
+msgid "minutes"
+msgstr "分"
+
+msgid "order must be a list or tuple"
+msgstr "顺序必须是一个列表或元组"
+
+msgid "seconds"
+msgstr "秒"
+
+msgid "weeks"
+msgstr "周"

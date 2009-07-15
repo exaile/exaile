@@ -1,0 +1,874 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2009-04-13 20:31+0000\n"
+"Last-Translator: Dan Telecan <telecan_dan@yahoo.com>\n"
+"Language-Team: Romanian <mozilla-ro@googlegroups.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid " + "
+msgstr " + "
+
+msgid " - "
+msgstr " - "
+
+msgid " songs"
+msgstr " melodii"
+
+msgid "#"
+msgstr "#"
+
+msgid "%(title)s (by %(artist)s)"
+msgstr "%(title)s (de %(artist)s)"
+
+msgid "%s KB"
+msgstr "%s KB"
+
+msgid "(c) 2008"
+msgstr "(c) 2008"
+
+msgid "..."
+msgstr "..."
+
+msgid ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+msgstr ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+
+msgid "0/0 tracks"
+msgstr "0/0 piese"
+
+msgid "0:00 / 0:00"
+msgstr "0:00 / 0:00"
+
+msgid "<b>General</b>"
+msgstr "<b>General</b>"
+
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to appear</"
+"b>"
+msgstr "<b>Mutați fereastra OnScreenDisplay în poziţia dorită</b>"
+
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Niciun Plugin selectat</b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"din {album} - {length}"
+
+msgid ""
+"A proprietary and older, but also popular, lossy audio format. CBR gives "
+"less quality than VBR, but is compatible with any player."
+msgstr ""
+"Format proprietar mai vechi, dar popular, cu pierdere audio. CBR oferă "
+"calitate minoră decât VBR, dar este cel mai bine suportat."
+
+msgid ""
+"A proprietary and older, but also popular, lossy audio format. VBR gives "
+"higher quality than CBR, but may be incompatible with some players."
+msgstr ""
+"Format proprietar mai vechi, dar popular, cu pierdere audio. VBR oferă "
+"calitate mai bună decât CBR, dar poate fi mai puţin suportat."
+
+msgid "A very fast Free lossless audio format with good compression."
+msgstr ""
+"Format de sunet  Free cu comprimare bună, rapid şi fără pierdere audio."
+
+msgid "ASX Playlist"
+msgstr "Listă redare ASX"
+
+msgid "About Exaile"
+msgstr "Despre Exaile"
+
+msgid "Add"
+msgstr "Adaugă"
+
+msgid "Add Playlist"
+msgstr "Adaugă listă de redare"
+
+msgid "Add Smart Playlist"
+msgstr "Adaugă listă de redare inteligentă"
+
+msgid "Add Station"
+msgstr "Adaugă un post"
+
+msgid "Add a directory"
+msgstr "Adaugă un director"
+
+msgid "Add device"
+msgstr "Adaugă dispozitiv"
+
+msgid "Add to Playlist"
+msgstr "Adaugă la lista de redare"
+
+msgid "Alarm Clock"
+msgstr "Ceas cu alarmă"
+
+msgid "Alarm Days:"
+msgstr "Zile alarmă"
+
+msgid "Album"
+msgstr "Album"
+
+msgid "Album Art"
+msgstr "Coperţi album"
+
+msgid "All Files"
+msgstr "Toate fişierele"
+
+msgid "An Unknown type of setting was found!"
+msgstr "A fost găsit un tip necunoscut de setări!"
+
+msgid "Append to Current"
+msgstr "Adaugă la cea curentă"
+
+msgid ""
+"Apple's proprietary lossy audio format that achieves better sound quality "
+"than MP3 at lower bitrates."
+msgstr ""
+"Format proprietate Apple cu calitate mai bună decât MP3 iar viteză bit mai "
+"mică."
+
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr "Sigur doriți să ștergeți pentru totdeauna listele de redare selectate?"
+
+msgid "Artist"
+msgstr "Artist"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"Artist\n"
+"Album\n"
+"Gen - Artist\n"
+"Gen - Album\n"
+"An - Artist\n"
+"An - Album\n"
+"Artist - An - Album"
+
+msgid "Authors:"
+msgstr "Autori:"
+
+msgid "Autosize"
+msgstr "Dimensionare automată"
+
+msgid "Available Plugins"
+msgstr "Plugin-uri disponibile"
+
+msgid "BPM"
+msgstr "BPM"
+
+msgid "Background Color:"
+msgstr "Culoare fundal:"
+
+msgid "Bitrate"
+msgstr "Viteză bit"
+
+msgid "Cancel"
+msgstr "Anulează"
+
+msgid "Choose a file"
+msgstr "Alege un fișier"
+
+msgid "Clear Playlist"
+msgstr "Curăță lista de redare"
+
+msgid "Close Tab"
+msgstr "Închide Tab"
+
+msgid "Close Without Saving"
+msgstr "Închide fără a salva"
+
+msgid "Collection"
+msgstr "Colecție"
+
+msgid "Compilation detected: %s"
+msgstr "Compilație detectată: %s"
+
+msgid "Composer"
+msgstr "Compozitor"
+
+msgid "Configure"
+msgstr "Configurează"
+
+msgid "Confirm Close"
+msgstr "Confirmă închiderea"
+
+msgid "Connected to HAL"
+msgstr "Conectat la HAL"
+
+msgid ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+msgstr ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+
+msgid "Could not set parameter %s for %s"
+msgstr "Nu s-au putut seta parametrii %s pentru %s"
+
+msgid "Cover Finder"
+msgstr "Căutător de coperți"
+
+msgid "Cover Search Order:"
+msgstr "Ordinea de căutare a coperţilor:"
+
+msgid "Custom Playlists"
+msgstr "Liste personalizate de redare"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Delete Playlist"
+msgstr "Șterge lista de redare"
+
+msgid "Description:"
+msgstr "Descriere:"
+
+msgid "Detected devices:"
+msgstr "Dispozitive detectate:"
+
+msgid "Device Manager"
+msgstr "Administrator dispozitive"
+
+msgid "Disc"
+msgstr "Disc"
+
+msgid "Disc Number"
+msgstr "Număr disc"
+
+msgid "Display OSD when hovering over tray icon"
+msgstr "Afișează OSD când trec peste iconița din zona de notificare."
+
+msgid "Display a progressbar in the OSD"
+msgstr "Arată bara de avansare în OnScreenDisplay"
+
+msgid "Dynamic"
+msgstr "Dinamică"
+
+msgid "Edit"
+msgstr "Editare"
+
+msgid "Edit Smart Playlist"
+msgstr "Editează Lista Inteligentă"
+
+msgid "Enabled"
+msgstr "Activat"
+
+msgid "Enter the name you want for your new playlist"
+msgstr "Introduceţi un nume care doriţi pentru noua listă de redare"
+
+msgid "Enter the new name you want for your playlist"
+msgstr "Introdu un nume nou pentru lista de redare"
+
+msgid "Enter the search text"
+msgstr "Introduceți textul de căutat"
+
+msgid "Entire Library"
+msgstr "Toată colecţia"
+
+msgid "Exaile"
+msgstr "Exaile"
+
+msgid "Exaile Music Player"
+msgstr "Exaile Music Player"
+
+msgid "Exaile is shutting down..."
+msgstr "Se închide Exaile"
+
+msgid "Exaile: playing %s"
+msgstr "Exaile: redare %s"
+
+msgid "Export"
+msgstr "Exportă"
+
+msgid "Extension"
+msgstr "Extensie"
+
+msgid "Failed to connect to HAL, autodetection of devices will be disabled."
+msgstr ""
+"Eroare la comunicare cu HAL, autodetectarea dispozitivelor va fi dezactivată."
+
+msgid "Failed to create device for %s"
+msgstr "A eșuat crearea unui dispozitiv pentru %s"
+
+msgid "Failed to enable equalizer"
+msgstr "Activare egalizator eşuată"
+
+msgid "Failed to load HAL devices for %s"
+msgstr "A eșuat încărcarea dispozitivelor HAL pentru %s"
+
+msgid "Fetch Cover"
+msgstr "Preia coperta"
+
+msgid "File Type"
+msgstr "Tip fișier"
+
+msgid "File count: %d"
+msgstr "Număr de fişiere: %d"
+
+msgid "File does not exist: %s"
+msgstr "Fişier inexistent: %s"
+
+msgid "Filename"
+msgstr "Nume"
+
+msgid "Files"
+msgstr "Fișiere"
+
+msgid "Found new %s device at %s"
+msgstr "S-a gasit un dispozitiv nou %s la %s"
+
+msgid ""
+"Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
+"does not degrade audio quality."
+msgstr ""
+"Free Lossless Audio Codec (FLAC) e o decodare liberă, cu compresie de sunet, "
+"dar fără a altera calitatea."
+
+msgid "Friday"
+msgstr "Vineri"
+
+msgid "Genre"
+msgstr "Gen muzical"
+
+msgid "Install"
+msgstr "Instalare"
+
+msgid "Install Updates"
+msgstr "Instalare actualizări"
+
+msgid "Installed Plugins"
+msgstr "Module instalate"
+
+msgid "Invalid file extension, file not saved"
+msgstr "Extensie erată, fişier nesalvat"
+
+msgid "Jump to current song on track change"
+msgstr "Sari la melodia curentă la schimbarea piesei"
+
+msgid "LastFM Radio"
+msgstr "Radio LastFM"
+
+msgid "Length"
+msgstr "Durată"
+
+msgid "Limit to: "
+msgstr "Limitează la: "
+
+msgid "Loaded plugin %s"
+msgstr "S-a încărcat modulul %s"
+
+msgid "Loading Exaile %s..."
+msgstr "Se încarcă Exaile %s..."
+
+msgid "Loading collection..."
+msgstr "Se încarcă colecţia..."
+
+msgid "Loading devices..."
+msgstr "Se încarcă dispozitivele..."
+
+msgid "Loading interface..."
+msgstr "Se încarcă interfaţa..."
+
+msgid "Loading plugins..."
+msgstr "Se încarcă modulele..."
+
+msgid "Loading settings"
+msgstr "Se încarcă setările"
+
+msgid "Loading streams..."
+msgstr "Încarc fluxuri..."
+
+msgid "Location"
+msgstr "Locație"
+
+msgid "Location deleted: %s"
+msgstr "Locaţie ştearsă: %s"
+
+msgid "Location modified: %s"
+msgstr "Locaţie modificată: %s"
+
+msgid "Loved Tracks"
+msgstr "Piese plăcute"
+
+msgid "M3U Playlist"
+msgstr "Listă redare M3U"
+
+msgid "Match any of the criteria"
+msgstr "Corespunde cu oricare criteriu"
+
+msgid "Monday"
+msgstr "Luni"
+
+msgid "Music Files"
+msgstr "Fişiere muzicale"
+
+msgid "Name:"
+msgstr "Nume:"
+
+msgid "Neighbourhood"
+msgstr "Vecinătate"
+
+msgid "New Playlist"
+msgstr "Listă de redare nouă"
+
+msgid "New Search"
+msgstr "Căutare nouă"
+
+msgid "Next"
+msgstr "Următoarea"
+
+msgid "Next Track"
+msgstr "Melodia următoare"
+
+msgid "No covers found"
+msgstr "Nu s-au găsit coperţi"
+
+msgid "Not Playing"
+msgstr "Nu se redă nimic"
+
+msgid "Not watching library: %s"
+msgstr "Bibliotecă neurmarită: %s"
+
+msgid "Number of Plays"
+msgstr "Număr de redări"
+
+msgid "Opacity Level:"
+msgstr "Nivel opacitate:"
+
+msgid "Open"
+msgstr "Deschide"
+
+msgid "Open _URL"
+msgstr "Deschide _URL"
+
+msgid "Open last playlists on startup"
+msgstr "La pornire, deschide ultima listă de redare"
+
+msgid "PLS Playlist"
+msgstr "Listă redare PLS"
+
+msgid "Page 1"
+msgstr "Pagina 1"
+
+msgid "Password:"
+msgstr "Parolă:"
+
+msgid ""
+"Path is already in your collection, or is a subdirectory of another path in "
+"your collection"
+msgstr ""
+"Director deja în colecţie, sau e un subdirector al unui alt director din "
+"colecţie"
+
+msgid "Pause"
+msgstr "Pauză"
+
+msgid "Personal"
+msgstr "Personal"
+
+msgid "Pl_ugins"
+msgstr "Pl_ugin-uri"
+
+msgid "Play"
+msgstr "Redare"
+
+msgid "Playcount"
+msgstr "Număr redări"
+
+msgid "Playing %s"
+msgstr "Redare %s"
+
+msgid "Playlist Files"
+msgstr "Fişiere din lista de redare"
+
+msgid "Playlists"
+msgstr "Liste de redare"
+
+msgid "Plugin"
+msgstr "Plugin"
+
+msgid "Plugins"
+msgstr "Module"
+
+msgid "Popup"
+msgstr "Popup"
+
+msgid "Preferences"
+msgstr "Preferințe"
+
+msgid "Previous"
+msgstr "Precedentă"
+
+msgid "Previous Track"
+msgstr "Melodia precedentă"
+
+msgid "PyInotify not installed or not supported.  "
+msgstr "PyInotify nu este instalat sau nu este suportat.  "
+
+msgid "Python Console - Exaile"
+msgstr "Terminal Python - Exaile"
+
+msgid "Queue Items"
+msgstr "Pune la coadă"
+
+msgid "Quit"
+msgstr "Ieșire"
+
+msgid "Radio"
+msgstr "Radio"
+
+msgid "Radio Streams"
+msgstr "Fluxuri Radio"
+
+msgid "Rating"
+msgstr "Evaluare"
+
+msgid "Rating: "
+msgstr "Evaluare: "
+
+msgid "Recommended"
+msgstr "Recomandat"
+
+msgid "Refresh"
+msgstr "Reîmprospătare"
+
+msgid "Relay Port:"
+msgstr "Port releu:"
+
+msgid "Remove"
+msgstr "Elimină"
+
+msgid "Remove Cover"
+msgstr "Elimină coperta"
+
+msgid "Rename"
+msgstr "Redenumește"
+
+msgid "Rename Playlist"
+msgstr "Redenumește lista de redare"
+
+msgid "Repeat"
+msgstr "Repetă"
+
+msgid "Resizable"
+msgstr "Redimensionabil"
+
+msgid "Saturday"
+msgstr "Sâmbătă"
+
+msgid "Save"
+msgstr "Salvează"
+
+msgid "Saved Stations"
+msgstr "Posturi salvate"
+
+msgid "Saving %s DB to %s."
+msgstr "Se salvează DB %s la %s"
+
+msgid "Saving state..."
+msgstr "Se salvează..."
+
+msgid "Scanning collection..."
+msgstr "Scanez colecția..."
+
+msgid "Scanning library: %s"
+msgstr "Scanează biblioteca: %s"
+
+msgid "Search"
+msgstr "Caută:"
+
+msgid "Search: "
+msgstr "Caută: "
+
+msgid "Select File Type (By Extension)"
+msgstr "Alege tip fişier ( după extensie)"
+
+msgid "Set Rating"
+msgstr "Setează evaluare"
+
+msgid "Show Cover"
+msgstr "Arată coperta"
+
+msgid "Show OSD on track change"
+msgstr "Arată OSD la schimbarea piesei"
+
+msgid "Show splash screen on startup"
+msgstr "Arată imaginea de pornire"
+
+msgid "Show tray icon"
+msgstr "Arată iconiţă în zona de notificare"
+
+msgid "Shuffle"
+msgstr "Aleator"
+
+msgid "Size"
+msgstr "Dimensiune"
+
+msgid "Smart Playlists"
+msgstr "Liste inteligente de redare"
+
+msgid "Start"
+msgstr "Start"
+
+msgid "Stop"
+msgstr "Oprește"
+
+msgid "Stop Playback"
+msgstr "Oprește redarea"
+
+msgid "Stopped"
+msgstr "Oprit"
+
+msgid "Sunday"
+msgstr "Duminică"
+
+msgid "Supported Files"
+msgstr "Fişiere suportate"
+
+msgid "Text Color"
+msgstr "Culoare text"
+
+msgid "Text Font:"
+msgstr "Caracter text:"
+
+msgid "The playlist name you specified already exists."
+msgstr "Numele specificat pentru lista de redare deja existent."
+
+msgid "Thursday"
+msgstr "Joi"
+
+msgid "Title"
+msgstr "Titlu"
+
+msgid "Toggle Queue"
+msgstr "Alternează coada"
+
+msgid "Toggle: Stop after selected track"
+msgstr "Comută: Opreşte după piesa selectată"
+
+msgid "Track Number"
+msgstr "Numărul piesei"
+
+msgid "Tuesday"
+msgstr "Marţi"
+
+msgid "Type of device:"
+msgstr "Tip dispozitiv:"
+
+msgid "Unable to enable plugin %s"
+msgstr "Nu am putut activa modulul %s"
+
+msgid "Unable to fully disable plugin %s"
+msgstr "Nu am putut dezactiva complet modulul %s"
+
+msgid "Unknown"
+msgstr "Necunoscut"
+
+msgid "Updates"
+msgstr "Actualizări"
+
+msgid "Use Fading"
+msgstr "Atenuare"
+
+msgid "Username:"
+msgstr "Nume utilizator:"
+
+msgid "Using %s for playback"
+msgstr "Se folosește %s pentru redare"
+
+msgid "Various Artists"
+msgstr "Artişti diverşi"
+
+msgid "Version:"
+msgstr "Versiune:"
+
+msgid "Vol:"
+msgstr "Volum:"
+
+msgid ""
+"Vorbis is an open source, lossy audio codec with high quality output at a "
+"lower file size than MP3."
+msgstr ""
+"Vorbis este o decodare  Open Source, cu pierdere audio dar calitate mai "
+"bună, fişierul fiind mai compact decât formatul MP3."
+
+msgid "Watching directory: %s"
+msgstr "Controlez directorul: %s"
+
+msgid "We don't know how to store that kind of setting: "
+msgstr "Nu se știe modul de stocare a acestui tip de setare: "
+
+msgid "Wednesday"
+msgstr "Miercuri"
+
+msgid "Window Height:"
+msgstr "Înălțime fereastră:"
+
+msgid "Window Width:"
+msgstr "Lățime fereastră:"
+
+msgid "XSPF Playlist"
+msgstr "Listă redare XSPF"
+
+msgid "Year"
+msgstr "An"
+
+msgid "You did not enter a name for your playlist"
+msgstr "Nu ați introdus un nume pentru lista de redare"
+
+msgid "Your changes will be lost if you don't save them"
+msgstr "Modificările vor fi pierdute dacă nu salvaţi"
+
+msgid "_Close"
+msgstr "În_chide"
+
+msgid "_Columns"
+msgstr "_Coloane"
+
+msgid "_Edit"
+msgstr "_Editare"
+
+msgid "_File"
+msgstr "_Fișier"
+
+msgid "_Help"
+msgstr "_Ajutor"
+
+msgid "_Rescan Collection"
+msgstr "Re_scanează colecția"
+
+msgid "_Tools"
+msgstr "Unel_te"
+
+msgid "_View"
+msgstr "_Vedere"
+
+msgid "after"
+msgstr "după"
+
+msgid "and"
+msgstr "și"
+
+msgid "at least"
+msgstr "cel puțin"
+
+msgid "at most"
+msgstr "cel mult"
+
+msgid "before"
+msgstr "înainte"
+
+msgid "between"
+msgstr "între"
+
+msgid "by %s"
+msgstr "de %s"
+
+msgid "contains"
+msgstr "conține"
+
+msgid "days"
+msgstr "zile"
+
+msgid "does not contain"
+msgstr "nu conține"
+
+msgid "from %s"
+msgstr "din %s"
+
+msgid "gtk-add"
+msgstr "gtk-add"
+
+msgid "gtk-cancel"
+msgstr "gtk-cancel"
+
+msgid "gtk-close"
+msgstr "gtk-close"
+
+msgid "gtk-connect"
+msgstr "gtk-connect"
+
+msgid "gtk-disconnect"
+msgstr "gtk-disconnect"
+
+msgid "gtk-edit"
+msgstr "gtk-edit"
+
+msgid "gtk-ok"
+msgstr "gtk-ok"
+
+msgid "gtk-remove"
+msgstr "gtk-remove"
+
+msgid "hours"
+msgstr "ore"
+
+msgid "is"
+msgstr "este"
+
+msgid "is not"
+msgstr "nu este"
+
+msgid "minutes"
+msgstr "minute"
+
+msgid "seconds"
+msgstr "secunde"
+
+msgid "weeks"
+msgstr "săptămâni"

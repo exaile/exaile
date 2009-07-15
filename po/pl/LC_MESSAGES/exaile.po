@@ -1,0 +1,1062 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Exaile PL\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2009-05-17 15:26+0000\n"
+"Last-Translator: Michał Pławsiuk (razit.pl) <mp3-10@o2.pl>\n"
+"Language-Team: Piotr Zaryk (Aviary.pl) <pzaryk@aviary.pl>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+"X-Poedit-Country: POLAND\n"
+"X-Poedit-Language: Polish\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+msgid "  New song, fetching cover."
+msgstr "  Nowa piosenka, pobieranie okładki."
+
+msgid " + "
+msgstr " + "
+
+msgid " - "
+msgstr " - "
+
+msgid " songs"
+msgstr " ścieżek"
+
+msgid "#"
+msgstr "Nr ścieżki"
+
+msgid "%(title)s (by %(artist)s)"
+msgstr "„%(title)s” w wykonaniu „%(artist)s”"
+
+msgid "%d:%02d"
+msgstr "%d:%02d"
+
+msgid "%s KB"
+msgstr "%s KB"
+
+msgid "(c) 2008"
+msgstr "(c) 2008"
+
+msgid "(drag to reorder)"
+msgstr "(przeciągnij aby zmienić kolejność)"
+
+msgid "..."
+msgstr "..."
+
+msgid ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+msgstr ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+
+msgid "0/0 tracks"
+msgstr "0/0 utworów"
+
+msgid "0:00"
+msgstr "0:00"
+
+msgid "0:00 / 0:00"
+msgstr "0:00 / 0:00"
+
+msgid "<b>General</b>"
+msgstr "<b>Ogólne</b>"
+
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to appear</"
+"b>"
+msgstr "<b>Należy przesunąć okno powiadomień w żądane miejsce wyświetlania</b>"
+
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Nie zaznaczono żadnej wtyczki</b>"
+
+msgid ""
+"<b>OSD</b>\n"
+"Drag to the location you'd like the\n"
+"OSD to appear"
+msgstr ""
+"<b>OSD</b>\n"
+"Przeciągnij w miejsce, gdzie\n"
+"OSD ma się pojawiać"
+
+msgid "<b>Save changes to %s before closing?</b>"
+msgstr "<b>Zapisać zmiany do %s przed zamknięciem?</b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<big><b>{title} [{length}]</b></big>\n"
+"w wykonaniu „{artist}”\n"
+"z albumu „{album}”"
+
+msgid ""
+"A proprietary and older, but also popular, lossy audio format. CBR gives "
+"less quality than VBR, but is compatible with any player."
+msgstr ""
+"Własnościowy i starszy ale także popularny, stratny kodek audio. CBR oferuje "
+"niższą jakość od VBR lecz jest kompatybilny z każdym odtwarzaczem."
+
+msgid ""
+"A proprietary and older, but also popular, lossy audio format. VBR gives "
+"higher quality than CBR, but may be incompatible with some players."
+msgstr ""
+"Własnościowy i starszy ale także popularny, stratny kodek audio. VBR oferuje "
+"wyższą jakość od CBR lecz może być niekompatybilny z niektórymi "
+"odtwarzaczami."
+
+msgid "A very fast Free lossless audio format with good compression."
+msgstr ""
+"Bardzo szybki darmowy i bezstratny format audio z dobrą kompresją danych."
+
+msgid "ASX Playlist"
+msgstr "Playlista ASX"
+
+msgid "About Exaile"
+msgstr "O Programie Exaile"
+
+msgid "Add"
+msgstr "Dodaj"
+
+msgid "Add Playlist"
+msgstr "Dodaj listę odtwarzania"
+
+msgid "Add Smart Playlist"
+msgstr "Dodaj inteligentną listę odtwarzania"
+
+msgid "Add Station"
+msgstr "Dodaj stację"
+
+msgid "Add a directory"
+msgstr "Wybór katalogu"
+
+msgid "Add device"
+msgstr "Dodaj urządzenie"
+
+msgid "Add to Playlist"
+msgstr "Dodaj do listy odtwarzania"
+
+msgid "Alarm Clock"
+msgstr "Budzik"
+
+msgid "Alarm Days:"
+msgstr "Dni alarmu:"
+
+msgid "Album"
+msgstr "Album"
+
+msgid "Album Art"
+msgstr "Okładka albumu"
+
+msgid "All Files"
+msgstr "Wszystkie pliki"
+
+msgid "An Unknown type of setting was found!"
+msgstr "Znaleziono nieznany typ ustawień!"
+
+msgid "Append to Current"
+msgstr "Dodaj do bieżącej listy odtwarzania"
+
+msgid ""
+"Apple's proprietary lossy audio format that achieves better sound quality "
+"than MP3 at lower bitrates."
+msgstr ""
+"Stratny kodek audio firmy Apple, który na niższym bitrate osiąga lepszą "
+"jakość dźwięku niż MP3."
+
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr "Usunąć zaznaczoną listę odtwarzania?"
+
+msgid "Artist"
+msgstr "Artysta"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"Artysta\n"
+"Album\n"
+"Gatunek - Artysta\n"
+"Gatunek - Album\n"
+"Rok - Artysta\n"
+"Rok - Album\n"
+"Artysta - Rok - Album"
+
+msgid "Attempting to find covers for %s"
+msgstr "Próba znalezienia okładek dla %s"
+
+msgid "Authors:"
+msgstr "Autorzy:"
+
+msgid "Autosize"
+msgstr "Automatyczne dopasowanie rozmiaru"
+
+msgid "Available Plugins"
+msgstr "Dostępne wtyczki"
+
+msgid "BPM"
+msgstr "BPM"
+
+msgid "Background Color:"
+msgstr "Kolor tła:"
+
+msgid "Bitrate"
+msgstr "Gęstość bitowa"
+
+msgid "Buffering complete"
+msgstr "Buforowanie zakończone"
+
+msgid "Buffering: %d%%..."
+msgstr "Buforowanie: %d%%..."
+
+msgid "Buffering: 100%..."
+msgstr "Buforowanie: 100%..."
+
+msgid "Bye!"
+msgstr "Cześć!"
+
+msgid "Cancel"
+msgstr "Anuluj"
+
+msgid "Choose a file"
+msgstr "Wybierz plik"
+
+msgid "Choose a file to open"
+msgstr "Wybór pliku do otwarcia"
+
+msgid "Clear Playlist"
+msgstr "Wyczyść listę odtwarzania"
+
+msgid "Close Tab"
+msgstr "Zamyka kartę"
+
+msgid "Close Without Saving"
+msgstr "Zamknij bez zapisywania"
+
+msgid "Collection"
+msgstr "Kolekcja"
+
+msgid "Collection Manager"
+msgstr "Menedżer Kolekcji"
+
+msgid "Compilation detected: %s"
+msgstr "Wykryto kompilację: %s"
+
+msgid "Composer"
+msgstr "Kompozytor"
+
+msgid "Configure"
+msgstr "Konfiguruj"
+
+msgid "Confirm Close"
+msgstr "Proszę potwierdzić zamknięcie"
+
+msgid "Connected to HAL"
+msgstr "Podłączono do HAL"
+
+msgid ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+msgstr ""
+"Copyright © 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"To jest darmowe oprogramowanie, możesz je rozpowszechniać i modyfikować\n"
+"na zasadach zgodnych z licencją GNU General Public License wydaną przez\n"
+"Free Software Foundation w wersji 2 lub późniejszej.\n"
+"\n"
+"Ten program jest rozpowszechniany w nadziei, że bedzie użyteczny,\n"
+"lecz BEZ ŻADNYCH GWARANCJI; nawet bez gwarancji zdatności \n"
+"HANDLOWEJ lub UŻYTECZNOŚCI W KONKRETNYM ZASTOSOWANIU.\n"
+"Więcej szczegółów w tekście GNU General Public License.\n"
+"Wraz z tym programem powinieneś otrzymać kopię Licencji\n"
+"GNU General Public License, jeśli nie napisz do Free Software\n"
+"Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+
+msgid "Could not disable plugin."
+msgstr "Nie można wyłączyć wtyczki."
+
+msgid "Could not enable plugin."
+msgstr "Nie można włączyć wtyczki."
+
+msgid "Could not find playback sink %s, falling back to autoaudiosink"
+msgstr "Nie znaleziono ujścia strumienia dźwięku %s, powrót do autoaudiosink"
+
+msgid "Could not set parameter %s for %s"
+msgstr "Nie można ustawić parametru %s dla %s"
+
+msgid "Couldn't send seek event"
+msgstr "Nie powiodło się wywołanie zdarzenia przewijania"
+
+msgid "Cover Finder"
+msgstr "Wyszukiwarka okładek"
+
+msgid "Cover Search Order:"
+msgstr "Kolejność wyszukiwania okładek:"
+
+msgid "Custom Playlists"
+msgstr "Własne"
+
+msgid "Custom: "
+msgstr "Użytkownika: "
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Delete Playlist"
+msgstr "Usuń"
+
+msgid "Description:"
+msgstr "Opis:"
+
+msgid "Detected devices:"
+msgstr "Wykryte urządzenia:"
+
+msgid "Device Manager"
+msgstr "Menedżer urządzeń"
+
+msgid "Disable D-Bus support"
+msgstr "Wsparcie D-Bus"
+
+msgid "Disable HAL support."
+msgstr "Wsparcie HAL"
+
+msgid "Disc"
+msgstr "Nr dysku"
+
+msgid "Disc Number"
+msgstr "Nr dysku"
+
+msgid "Display OSD when hovering over tray icon"
+msgstr "Po umieszczeniu kursora nad ikoną obszaru powiadamiania"
+
+msgid "Display a progressbar in the OSD"
+msgstr "Wyświetlanie paska postępu w menu ekranowym (OSD)"
+
+msgid "Dynamic"
+msgstr "Dynamicznie"
+
+msgid "Edit"
+msgstr "Edytuj"
+
+msgid "Edit Smart Playlist"
+msgstr "Edytuj inteligentną listę odtwarzania"
+
+msgid "Enabled"
+msgstr "Włączona"
+
+msgid "Enter the URL to open"
+msgstr "Proszę wprowadzić URL do otwarcia"
+
+msgid "Enter the name you want for your new playlist"
+msgstr "Proszę wprowadzić nazwę nowej listy odtwarzania:"
+
+msgid "Enter the new name you want for your playlist"
+msgstr "Podaj nową nazwę dla listy odtwarzania"
+
+msgid "Enter the search text"
+msgstr "Proszę wprowadzić szukany tekst"
+
+msgid "Entire Library"
+msgstr "Cała kolekcja"
+
+msgid "Exaile"
+msgstr "Exaile"
+
+msgid "Exaile Music Player"
+msgstr "Odtwarzacz muzyki Exaile"
+
+msgid "Exaile is shutting down..."
+msgstr "Kończenie programu..."
+
+msgid "Exaile: playing %s"
+msgstr "Exaile: odtwarzanie %s"
+
+msgid "Export"
+msgstr "Eksportuj"
+
+msgid "Extension"
+msgstr "Rozszerzenie"
+
+msgid "Failed to connect to HAL, autodetection of devices will be disabled."
+msgstr ""
+"Podłączenie do HAL nie powiodło się, automatyczne wykrywanie urządzeń "
+"zostanie wyłączone."
+
+msgid "Failed to create device for %s"
+msgstr "Nie powiodło się utworzenie urządzenia dla %s"
+
+msgid "Failed to enable equalizer"
+msgstr "Nie udało się włączyć korektora graficznego"
+
+msgid "Failed to enable replaygain"
+msgstr "Nie udało się włączyć replaygain"
+
+msgid "Failed to load HAL devices for %s"
+msgstr "Nie udało się wczytać urządzeń HAL dla %s"
+
+msgid "Failed to open music DB for write."
+msgstr "Nie udało się otworzyć muzycznej bazy danych do zapisu."
+
+msgid "Failed to open music DB."
+msgstr "Nie udało się otworzyć muzycznej bazy danych."
+
+msgid "Fetch Cover"
+msgstr "Pobierz okładkę"
+
+msgid "File Type"
+msgstr "Typ pliku"
+
+msgid "File count: %d"
+msgstr "Ilość plików: %d"
+
+msgid "File does not exist: %s"
+msgstr "Plik nie istnieje: %s"
+
+msgid "Filename"
+msgstr "Nazwa pliku"
+
+msgid "Files"
+msgstr "Pliki"
+
+msgid "Found covers from %s"
+msgstr "Znaleziono okładki z %s"
+
+msgid "Found new %s device at %s"
+msgstr "Znaleziono nowe %s urządzenie na %s"
+
+msgid "Found no HAL device handler for %s"
+msgstr "Nie znaleziono uchwytu HAL urządzenia %s"
+
+msgid ""
+"Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
+"does not degrade audio quality."
+msgstr ""
+"Free Lossless Audio Codec (FLAC) to otwarty kodek, który kompresuje, lecz "
+"nie pogarsza jakości audio."
+
+msgid "Friday"
+msgstr "piątek"
+
+msgid "Gapless enabled"
+msgstr "Odtwarzanie bez przerw włączone"
+
+msgid "Genre"
+msgstr "Gatunek"
+
+msgid "Home directory"
+msgstr "Katalog domowy"
+
+msgid "Install"
+msgstr "Zainstaluj"
+
+msgid "Install Updates"
+msgstr "Zainstaluj aktualizacje"
+
+msgid "Installed Plugins"
+msgstr "Zainstalowane wtyczki"
+
+msgid "Invalid file extension, file not saved"
+msgstr "Nieprawidłowe rozszerzenie pliku. Plik nie został zapisany."
+
+msgid "Jump to current song on track change"
+msgstr "Przechodzenie do bieżącej ścieżki podczas zmiany ścieżek"
+
+msgid "LastFM Radio"
+msgstr "Radio LastFM"
+
+msgid "LastFM: %s"
+msgstr "lastFM: %s"
+
+msgid "Length"
+msgstr "Czas trwania"
+
+msgid "Limit to: "
+msgstr "Ograniczenie do "
+
+msgid "Loaded plugin %s"
+msgstr "Wczytano wtyczkę %s"
+
+msgid "Loading Exaile %s..."
+msgstr "Wczytywanie Exaile %s..."
+
+msgid "Loading collection..."
+msgstr "Wczytywanie kolekcji..."
+
+msgid "Loading devices..."
+msgstr "Wczytywanie urządzeń..."
+
+msgid "Loading interface..."
+msgstr "Wczytywanie interfejsu..."
+
+msgid "Loading plugins..."
+msgstr "Wczytywanie wtyczek..."
+
+msgid "Loading settings"
+msgstr "Wczytywanie ustawień"
+
+msgid "Loading streams..."
+msgstr "Wczytywanie strumieni..."
+
+msgid "Location"
+msgstr "Położenie"
+
+msgid "Location deleted: %s"
+msgstr "Usunięto położenie: %s"
+
+msgid "Location modified: %s"
+msgstr "Zmieniono położenie: %s"
+
+msgid "Loved Tracks"
+msgstr "Ulubione ścieżki"
+
+msgid "M3U Playlist"
+msgstr "Playlista M3U"
+
+msgid "Match any of the criteria"
+msgstr "Dopasowanie do dowolnego z powyższych kryteriów"
+
+msgid "Monday"
+msgstr "poniedziałek"
+
+msgid "Music Files"
+msgstr "Pliki muzyczne"
+
+msgid "Name:"
+msgstr "Nazwa:"
+
+msgid "Neighbourhood"
+msgstr "Sąsiedzi"
+
+msgid "New Playlist"
+msgstr "Nowa lista odtwarzania..."
+
+msgid "New Search"
+msgstr "Nowe wyszukiwanie"
+
+msgid "Next"
+msgstr "Przechodzi do następnego katalogu"
+
+msgid "Next Track"
+msgstr "Następna ścieżka"
+
+msgid "Next visited directory"
+msgstr "Następny odwiedzany katalog"
+
+msgid "No cover found"
+msgstr "Nie znaleziono żadnej okładki"
+
+msgid "No covers found"
+msgstr "Nie znaleziono okładek"
+
+msgid "Not Playing"
+msgstr "Nie odtwarza"
+
+msgid "Not watching library: %s"
+msgstr "Nie obserwowane biblioteki: %s"
+
+msgid "Number of Plays"
+msgstr "Ilość odtworzeń"
+
+msgid "Opacity Level:"
+msgstr "Stopień przezroczystości:"
+
+msgid "Open"
+msgstr "Otwórz"
+
+msgid "Open URL"
+msgstr "Otwarcie URL"
+
+msgid "Open _URL"
+msgstr "Otwórz  adres _URL"
+
+msgid "Open last playlists on startup"
+msgstr "Przy starcie otwieraj ostatnią listę odtwarzania"
+
+msgid "PLS Playlist"
+msgstr "Playlista PLS"
+
+msgid "Page 1"
+msgstr "Strona 1"
+
+msgid "Password:"
+msgstr "Hasło:"
+
+msgid ""
+"Path is already in your collection, or is a subdirectory of another path in "
+"your collection"
+msgstr "Wprowadzona ścieżka znajduje się już w kolekcji."
+
+msgid "Pause"
+msgstr "Wstrzymuje odtwarzanie"
+
+msgid "Personal"
+msgstr "Osobiste"
+
+msgid "Pl_ugins"
+msgstr "_Wtyczki"
+
+msgid "Play"
+msgstr "Odtwarzaj"
+
+msgid "Play the next track"
+msgstr "Odtwórz następny utwór"
+
+msgid "Play the previous track"
+msgstr "Odtwórz poprzedni utwór"
+
+msgid "Playcount"
+msgstr "Ilość odtworzeń"
+
+msgid "Playing %s"
+msgstr "Odtwarzanie %s"
+
+msgid "Playlist Files"
+msgstr "Pliki list odtwarzania"
+
+msgid "Playlists"
+msgstr "Listy odtwarzania"
+
+msgid "Plugin"
+msgstr "Wtyczka"
+
+msgid "Plugins"
+msgstr "Wtyczki"
+
+msgid "Popup"
+msgstr "Okno z komunikatem"
+
+msgid "Preferences"
+msgstr "Preferencje"
+
+msgid "Previous"
+msgstr "Przechodzi do poprzedniego katalogu"
+
+msgid "Previous Track"
+msgstr "Poprzednia ścieżka"
+
+msgid "Previous visited directory"
+msgstr "Poprzedni odwiedzany katalog"
+
+msgid "Print the title of current track"
+msgstr "Drukuj tytuł tego utworu"
+
+msgid "PyInotify not installed or not supported.  "
+msgstr "PyInotify niezainstalowane lub niewspierane.  "
+
+msgid "Python Console - Exaile"
+msgstr "Konsola python - program Exaile"
+
+msgid "Query player"
+msgstr "Lista odtwarzania"
+
+msgid "Queue Items"
+msgstr "Dodaj do kolejki odtwarzania"
+
+msgid "Quit"
+msgstr "Zakończ"
+
+msgid "Radio"
+msgstr "Radio"
+
+msgid "Radio Streams"
+msgstr "Strumienie radiowe"
+
+msgid "Ran out of tracks to shuffle"
+msgstr "Skończyły się pliki do losowego odtwarzania"
+
+msgid "Random %d"
+msgstr "Losowy %d"
+
+msgid "Randomize results"
+msgstr "Pomieszaj wyniki"
+
+msgid "Rating"
+msgstr "Ocena"
+
+msgid "Rating > %d"
+msgstr "Pozycja > %d"
+
+msgid "Rating: "
+msgstr "Ocena: "
+
+msgid "Recommended"
+msgstr "Rekomendowane"
+
+msgid "Refresh"
+msgstr "Odśwież"
+
+msgid "Refresh directory listing"
+msgstr "Odśwież drzewo katalogów"
+
+msgid "Relay Port:"
+msgstr "Port przekierowania:"
+
+msgid "Remove"
+msgstr "Usuń"
+
+msgid "Remove Cover"
+msgstr "Usuń okładkę"
+
+msgid "Rename"
+msgstr "Zmień nazwę karty"
+
+msgid "Rename Playlist"
+msgstr "Zmień nazwę listy odtwarzania"
+
+msgid "Repeat"
+msgstr "Powtarzanie"
+
+msgid "Resizable"
+msgstr "Własny rozmiar"
+
+msgid "Safe mode enabled, not loading plugins."
+msgstr "Włączony jest tryb bezpieczny. Wtyczki nie zostaną wczytane."
+
+msgid "Saturday"
+msgstr "sobota"
+
+msgid "Save"
+msgstr "Zapisz"
+
+msgid "Saved Stations"
+msgstr "Zapisane stacje"
+
+msgid "Saving %s DB to %s."
+msgstr "Zapisywanie %s bazy danych do %s"
+
+msgid "Saving cover database"
+msgstr "Zapisywanie bazy okładek"
+
+msgid "Saving state..."
+msgstr "Zapisywanie stanu ..."
+
+msgid "Scanning collection..."
+msgstr "Przeszukiwanie kolekcji..."
+
+msgid "Scanning library: %s"
+msgstr "Skanowanie biblioteki: %s"
+
+msgid "Search"
+msgstr "Wyszukaj"
+
+msgid "Search: "
+msgstr "Wyszukiwanie: "
+
+msgid "Select File Type (By Extension)"
+msgstr "Wybierz typ pliku (po rozszerzeniu)"
+
+msgid "Set Rating"
+msgstr "Ustaw ocenę"
+
+msgid "Set data directory"
+msgstr "Ustaw katalog danych"
+
+msgid "Set rating for current song"
+msgstr "Oceń obecną piosenkę"
+
+msgid "Show Cover"
+msgstr "Pokazuj okładkę"
+
+msgid "Show OSD on track change"
+msgstr "Wyświetlanie okna powiadomień podczas zmiany utworu"
+
+msgid "Show a popup of the currently playing track"
+msgstr "Powiadomienie o odtwarzanym utworze"
+
+msgid "Show debugging output"
+msgstr "Wypisuje komunikaty debugowania"
+
+msgid "Show splash screen on startup"
+msgstr "Wyświetlanie ekranu powitalnego podczas uruchamiania"
+
+msgid "Show tray icon"
+msgstr "Wyświetlanie ikony w obszarze powiadamiania"
+
+msgid "Shuffle"
+msgstr "Losowo"
+
+msgid "Size"
+msgstr "Rozmiar"
+
+msgid "Smart Playlists"
+msgstr "Inteligentne"
+
+msgid "Start"
+msgstr "Rozpocznij"
+
+msgid "Start Exaile minimized to tray, if possible"
+msgstr ""
+"Uruchomienie Exaile zminimalizowanego do obszaru powiadomień, jeśli to "
+"możliwe"
+
+msgid "Start in safe mode - sometimes useful when you're running into problems"
+msgstr ""
+"Uruchom w trybie awaryjnym - użyteczne kiedy występują problemy z programem"
+
+msgid "Stop"
+msgstr "Stop"
+
+msgid "Stop Playback"
+msgstr "Zatrzymaj odtwarzanie"
+
+msgid "Stop playback"
+msgstr "Zatrzymuje odtwarzanie"
+
+msgid "Stopped"
+msgstr "Zatrzymano odtwarzanie"
+
+msgid "Streaming..."
+msgstr "Odtwarzanie strumienia..."
+
+msgid "Sunday"
+msgstr "niedziela"
+
+msgid "Supported Files"
+msgstr "Obsługiwane pliki"
+
+msgid "Text Color"
+msgstr "Kolor tekstu"
+
+msgid "Text Font:"
+msgstr "Czcionka:"
+
+msgid "The playlist name you specified already exists."
+msgstr "Lista odtwarzania o podanej nazwie już istnieje."
+
+msgid "The selected plugin doesn't have any configuration options"
+msgstr "Wybrana wtyczka nie posiada opcji konfiguracyjnych."
+
+msgid "Thursday"
+msgstr "czwartek"
+
+msgid "Title"
+msgstr "Tytuł"
+
+msgid "Toggle Queue"
+msgstr "Przełącz kolejkę odtwarzania"
+
+msgid "Toggle: Stop after selected track"
+msgstr "Przełącznik: Zatrzymaj po wybranym utworze"
+
+msgid "Track Number"
+msgstr "Nr ścieżki"
+
+msgid "Tuesday"
+msgstr "wtorek"
+
+msgid "Type of device:"
+msgstr "Typ urządzenia:"
+
+msgid "Unable to enable plugin %s"
+msgstr "Nie można włączyć wtyczki %s"
+
+msgid "Unable to fully disable plugin %s"
+msgstr "Nie można całkowicie wyłączyć wtyczki %s"
+
+msgid "Unknown"
+msgstr "Nieznany"
+
+msgid "Up one directory"
+msgstr "Do katalogu nadrzędnego"
+
+msgid "Updates"
+msgstr "Aktualizacje"
+
+msgid "Use Fading"
+msgstr "Płynne przejścia"
+
+msgid "Username:"
+msgstr "Nazwa użytkownika:"
+
+msgid "Using %s for playback"
+msgstr "Używanie %s do odtwarzania"
+
+msgid "Various Artists"
+msgstr "Różni wykonawcy"
+
+msgid "Version:"
+msgstr "Wersja:"
+
+msgid "Vol:"
+msgstr "Głośność:"
+
+msgid ""
+"Vorbis is an open source, lossy audio codec with high quality output at a "
+"lower file size than MP3."
+msgstr ""
+"Vorbis to otwarty, stratny kodek audio z wysoką jakością dźwięku wynikowego "
+"przy mniejszym rozmiarze pliku niż MP3."
+
+msgid "Watching directory: %s"
+msgstr "Obserwowany katalog: %s"
+
+msgid "We don't know how to store that kind of setting: "
+msgstr "Nie wiemy jak przechować taki typ ustawień: "
+
+msgid "Wednesday"
+msgstr "środa"
+
+msgid "Window Height:"
+msgstr "Wysokość okna:"
+
+msgid "Window Width:"
+msgstr "Szerokość okna:"
+
+msgid "XSPF Playlist"
+msgstr "Playlista XSPF"
+
+msgid "Year"
+msgstr "Rok"
+
+msgid "You did not enter a name for your playlist"
+msgstr "Nie wprowadzono nazwy listy odtwarzania"
+
+msgid "You have entered an invalid option"
+msgstr "Podałeś nieprawidłową opcję"
+
+msgid "Your changes will be lost if you don't save them"
+msgstr "Zmiany zostaną utracone jeśli ich nie zachowasz"
+
+msgid "_Album Art Manager"
+msgstr "Menadżer okładek _albumów"
+
+msgid "_Close"
+msgstr "Za_kończ"
+
+msgid "_Collection Manager"
+msgstr "Menadżer kolek_cji"
+
+msgid "_Columns"
+msgstr "_Kolumny"
+
+msgid "_Edit"
+msgstr "_Edycja"
+
+msgid "_File"
+msgstr "_Plik"
+
+msgid "_Go to Playing Track"
+msgstr "Przejdź do odtwarzane_go utworu"
+
+msgid "_Help"
+msgstr "P_omoc"
+
+msgid "_Rescan Collection"
+msgstr "W_czytaj kolekcję ponownie"
+
+msgid "_Tools"
+msgstr "_Narzędzia"
+
+msgid "_View"
+msgstr "_Widok"
+
+msgid "after"
+msgstr "po"
+
+msgid "and"
+msgstr "i"
+
+msgid "at least"
+msgstr "co najmniej"
+
+msgid "at most"
+msgstr "co najwyżej"
+
+msgid "bad search token"
+msgstr "Niewłaściwy token wyszukiwania"
+
+msgid "before"
+msgstr "przed"
+
+msgid "between"
+msgstr "pomiędzy"
+
+msgid "by %s"
+msgstr "w wykonaniu „%s”"
+
+msgid "contains"
+msgstr "zawiera"
+
+msgid "days"
+msgstr "dni"
+
+msgid "does not contain"
+msgstr "nie zawiera"
+
+msgid "from %s"
+msgstr "z albumu „%s”"
+
+msgid "gtk-add"
+msgstr "Dodaj"
+
+msgid "gtk-cancel"
+msgstr "Anuluj"
+
+msgid "gtk-close"
+msgstr "Zakończ"
+
+msgid "gtk-connect"
+msgstr "Połącz"
+
+msgid "gtk-disconnect"
+msgstr "gtk-rozłącz"
+
+msgid "gtk-edit"
+msgstr "Edytuj"
+
+msgid "gtk-ok"
+msgstr "OK"
+
+msgid "gtk-remove"
+msgstr "Usuń"
+
+msgid "hours"
+msgstr "godziny"
+
+msgid "is"
+msgstr "jest"
+
+msgid "is not"
+msgstr "nie jest"
+
+msgid "minutes"
+msgstr "minuty"
+
+msgid "seconds"
+msgstr "sekundy"
+
+msgid "weeks"
+msgstr "tygodnie"

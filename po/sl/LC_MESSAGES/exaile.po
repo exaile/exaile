@@ -1,0 +1,597 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2008-10-07 17:56+0000\n"
+"Last-Translator: Robert Hrovat <robi@hipnos.net>\n"
+"Language-Team: Slovenian <sl@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+"X-Poedit-Country: SLOVENIA\n"
+"X-Poedit-Language: Slovenian\n"
+
+msgid " songs"
+msgstr " skladb"
+
+msgid "#"
+msgstr "#"
+
+msgid "%(title)s (by %(artist)s)"
+msgstr "%(title)s - %(artist)s"
+
+msgid "%s KB"
+msgstr "%s KB"
+
+msgid ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+msgstr ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+
+msgid "<b>General</b>"
+msgstr "<b>Splošno</b>"
+
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to appear</"
+"b>"
+msgstr ""
+"<b>Premaknite okno zaslonskega prikaza tja, kjer želite, da se prikaže</b>"
+
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Noben vtičnik ni izbran</b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"na {album} - {length}"
+
+msgid "Add"
+msgstr "Dodaj"
+
+msgid "Add Playlist"
+msgstr "Dodaj predvajalni seznam"
+
+msgid "Add Smart Playlist"
+msgstr "Dodaj pametni predvajalni seznam"
+
+msgid "Add Station"
+msgstr "Dodaj postajo"
+
+msgid "Add a directory"
+msgstr "Dodaj v mapo"
+
+msgid "Add to Playlist"
+msgstr "Dodaj na predvajalni seznam"
+
+msgid "Alarm Clock"
+msgstr "Budilka"
+
+msgid "Alarm Days:"
+msgstr "Dnevi budilke:"
+
+msgid "Album"
+msgstr "Album"
+
+msgid "Album Art"
+msgstr "Sličice albumov"
+
+msgid "All Files"
+msgstr "Vse datoteke"
+
+msgid "Append to Current"
+msgstr "Pripni k seznamu"
+
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr "Ste prepričani, da želite trajno izbrisati izbran predvajalni seznam?"
+
+msgid "Artist"
+msgstr "Izvajalec"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"Izvajalec\n"
+"Album\n"
+"Zvrst - Izvajalec\n"
+"Zvrst - Album\n"
+"Leto - Izvajalec\n"
+"Leto - Album\n"
+"Izvajalec - Leto - Album"
+
+msgid "Authors:"
+msgstr "Avtorji:"
+
+msgid "Autosize"
+msgstr "Samodejna velikost"
+
+msgid "Available Plugins"
+msgstr "Vtičniki, ki so na voljo"
+
+msgid "BPM"
+msgstr "BPM"
+
+msgid "Background Color:"
+msgstr "Barva ozadja"
+
+msgid "Bitrate"
+msgstr "Vzorčenje"
+
+msgid "Cancel"
+msgstr "Prekliči"
+
+msgid "Choose a file"
+msgstr "Izberi datoteko"
+
+msgid "Clear Playlist"
+msgstr "Počisti predvajalni seznam"
+
+msgid "Collection"
+msgstr "Zbirka"
+
+msgid "Composer"
+msgstr "Skladatelj"
+
+msgid "Configure"
+msgstr "Nastavi"
+
+msgid ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+msgstr ""
+"Avtorske pravice (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"\n"
+"Ta program spada med prosto programje; lahko ga razširjate in/ali\n"
+"spreminjate pod pogoji Splošnega dovoljenja GNU (GNU General Public\n"
+"License), kot ga je objavila ustanova Free Software Foundation; bodisi\n"
+"različice 2 ali (po vaši izbiri) katerekoli poznejše različice.\n"
+"\n"
+"Ta program se razširja v upanju, da bo uporaben, vendar BREZ VSAKRŠNEGA\n"
+"JAMSTVA; tudi brez posredne zagotovitve CENOVNE VREDNOSTI ali PRIMERNOSTI\n"
+"ZA DOLOČEN NAMEN.  Za podrobnosti glejte besedilo GNU General Public\n"
+"License.\n"
+"\n"
+"Skupaj s tem programom bi morali prejeti izvod Splošnega dovoljenja \n"
+"GNU (GNU General Public License); če ga niste, pišite na Free Software \n"
+"Foundation, Inc., Temple Place - Suite 330, Boston, MA 02111-1307, USA.\n"
+
+msgid "Cover Finder"
+msgstr "Iskalnik ovitkov"
+
+msgid "Custom Playlists"
+msgstr "Lastni predvajalni seznami"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Delete Playlist"
+msgstr "Izbriši predvajalni seznam"
+
+msgid "Description:"
+msgstr "Opis:"
+
+msgid "Disc"
+msgstr "Plošča"
+
+msgid "Disc Number"
+msgstr "Številka plošče"
+
+msgid "Display OSD when hovering over tray icon"
+msgstr "Prikaži zaslonski prikaz, če gre miška čez ikonco v pladnju"
+
+msgid "Dynamic"
+msgstr "Dinamično"
+
+msgid "Edit"
+msgstr "Uredi"
+
+msgid "Enabled"
+msgstr "Omogočen"
+
+msgid "Enter the name you want for your new playlist"
+msgstr "Vpišite ime za nov predvajalni seznam"
+
+msgid "Enter the search text"
+msgstr "Vnesite iskalni niz"
+
+msgid "Entire Library"
+msgstr "Celotna zbirka"
+
+msgid "Exaile"
+msgstr "Exaile"
+
+msgid "Exaile Music Player"
+msgstr "Glasbeni predvajalnik Exaile"
+
+msgid "Filename"
+msgstr "Ime datoteke"
+
+msgid "Files"
+msgstr "Datoteke"
+
+msgid "Friday"
+msgstr "Petek"
+
+msgid "Genre"
+msgstr "Zvrst"
+
+msgid "Install"
+msgstr "Namesti"
+
+msgid "Install Updates"
+msgstr "Namesti posodobitve"
+
+msgid "Installed Plugins"
+msgstr "Nameščeni vtičniki"
+
+msgid "Jump to current song on track change"
+msgstr "Skoči na trenutno skladbo, ko se le ta spremeni"
+
+msgid "LastFM Radio"
+msgstr "LastFM Radio"
+
+msgid "Length"
+msgstr "Dolžina"
+
+msgid "Limit to: "
+msgstr "Omeji na: "
+
+msgid "Loading streams..."
+msgstr "Nalagam tokove..."
+
+msgid "Location"
+msgstr "Pot"
+
+msgid "Loved Tracks"
+msgstr "Priljubljeni posnetki"
+
+msgid "Match any of the criteria"
+msgstr "Ustreza kateremukoli kriteriju"
+
+msgid "Monday"
+msgstr "Ponedeljek"
+
+msgid "Music Files"
+msgstr "Glasbene datoteke"
+
+msgid "Name:"
+msgstr "Naziv:"
+
+msgid "Neighbourhood"
+msgstr "Soseščina"
+
+msgid "New Playlist"
+msgstr "Nov predvajalni seznam"
+
+msgid "New Search"
+msgstr "Novo iskanje"
+
+msgid "Next"
+msgstr "Naslednja"
+
+msgid "Next Track"
+msgstr "Naslednja skladba"
+
+msgid "Not Playing"
+msgstr "Ne predvajam"
+
+msgid "Number of Plays"
+msgstr "Število predvajanj"
+
+msgid "Opacity Level:"
+msgstr "Nivo prosojnosti:"
+
+msgid "Open"
+msgstr "Odpri"
+
+msgid "Open _URL"
+msgstr "Odpri _URL"
+
+msgid "Password:"
+msgstr "Geslo:"
+
+msgid ""
+"Path is already in your collection, or is a subdirectory of another path in "
+"your collection"
+msgstr ""
+"Pot je že v vaši zbirki ali pa vsebuje podimenik, ki je tudi že v zbirki."
+
+msgid "Pause"
+msgstr "Premor"
+
+msgid "Personal"
+msgstr "Osebno"
+
+msgid "Play"
+msgstr "Predvajaj"
+
+msgid "Playcount"
+msgstr "Predvajano"
+
+msgid "Playing %s"
+msgstr "Predvajam %s"
+
+msgid "Playlist Files"
+msgstr "Datoteke predvajalnih seznamov"
+
+msgid "Playlists"
+msgstr "Predvajalni seznami"
+
+msgid "Plugin"
+msgstr "Vtičnik"
+
+msgid "Plugins"
+msgstr "Vtičniki"
+
+msgid "Popup"
+msgstr "Pojavno okno"
+
+msgid "Preferences"
+msgstr "Lastnosti"
+
+msgid "Previous"
+msgstr "Predhodna"
+
+msgid "Previous Track"
+msgstr "Predhodna skladba"
+
+msgid "Python Console - Exaile"
+msgstr "Python konzola - Exaile"
+
+msgid "Queue Items"
+msgstr "Določi zaporedje skladb"
+
+msgid "Quit"
+msgstr "Izhod"
+
+msgid "Radio"
+msgstr "Radio"
+
+msgid "Radio Streams"
+msgstr "Radijske postaje"
+
+msgid "Rating"
+msgstr "Ocena"
+
+msgid "Rating: "
+msgstr "Ocena: "
+
+msgid "Recommended"
+msgstr "Priporočen"
+
+msgid "Refresh"
+msgstr "Osveži"
+
+msgid "Relay Port:"
+msgstr "Vrata posredovanja:"
+
+msgid "Remove"
+msgstr "Odstrani"
+
+msgid "Remove Cover"
+msgstr "Odstrani ovitek"
+
+msgid "Rename"
+msgstr "Preimenuj"
+
+msgid "Rename Playlist"
+msgstr "Preimenuj predvajalni seznam"
+
+msgid "Repeat"
+msgstr "Ponavljanje"
+
+msgid "Resizable"
+msgstr "Spremenljive velikosti"
+
+msgid "Saturday"
+msgstr "Sobota"
+
+msgid "Saved Stations"
+msgstr "Shranjene postaje"
+
+msgid "Scanning collection..."
+msgstr "Preiskujem zbirko..."
+
+msgid "Search"
+msgstr "Poišči"
+
+msgid "Search: "
+msgstr "Poišči: "
+
+msgid "Show OSD on track change"
+msgstr "Pokaži zaslonski prikaz pri zamenjavi skladbe"
+
+msgid "Show splash screen on startup"
+msgstr "Ob zagonu pokaži pozdravni zaslon"
+
+msgid "Show tray icon"
+msgstr "Pokaži ikono v pladnju"
+
+msgid "Shuffle"
+msgstr "Premešaj"
+
+msgid "Size"
+msgstr "Velikost"
+
+msgid "Smart Playlists"
+msgstr "Pametni predvajalni seznam"
+
+msgid "Start"
+msgstr "Začni"
+
+msgid "Stop Playback"
+msgstr "Ustavi predvajanje"
+
+msgid "Stopped"
+msgstr "Ustavljeno"
+
+msgid "Sunday"
+msgstr "Nedelja"
+
+msgid "Supported Files"
+msgstr "Podprte datoteke"
+
+msgid "Text Color"
+msgstr "Barva besedila"
+
+msgid "Text Font:"
+msgstr "Pisava besedila:"
+
+msgid "Thursday"
+msgstr "Četrtek"
+
+msgid "Title"
+msgstr "Naslov"
+
+msgid "Toggle Queue"
+msgstr "Preklopi vrsto"
+
+msgid "Track Number"
+msgstr "Številka skladbe"
+
+msgid "Tuesday"
+msgstr "Torek"
+
+msgid "Unknown"
+msgstr "Neznan"
+
+msgid "Updates"
+msgstr "Posodobitve"
+
+msgid "Use Fading"
+msgstr "Uporabi presih"
+
+msgid "Username:"
+msgstr "Uporabniško ime:"
+
+msgid "Version:"
+msgstr "Različica:"
+
+msgid "Vol:"
+msgstr "Glasnost:"
+
+msgid "Wednesday"
+msgstr "Sreda"
+
+msgid "Window Height:"
+msgstr "Višina okna"
+
+msgid "Window Width:"
+msgstr "Širina okna:"
+
+msgid "Year"
+msgstr "Leto"
+
+msgid "You did not enter a name for your playlist"
+msgstr "Niste vnesli naziva predvajalnega seznama"
+
+msgid "_Close"
+msgstr "_Zapri"
+
+msgid "_Columns"
+msgstr "_Stolpci"
+
+msgid "_Edit"
+msgstr "_Uredi"
+
+msgid "_File"
+msgstr "_Datoteka"
+
+msgid "_Help"
+msgstr "_Pomoč"
+
+msgid "_Rescan Collection"
+msgstr "_Posodobi zbirko"
+
+msgid "_Tools"
+msgstr "_Orodja"
+
+msgid "_View"
+msgstr "P_ogled"
+
+msgid "after"
+msgstr "po"
+
+msgid "and"
+msgstr "in"
+
+msgid "at least"
+msgstr "vsaj"
+
+msgid "at most"
+msgstr "v glavnem"
+
+msgid "before"
+msgstr "pred"
+
+msgid "between"
+msgstr "med"
+
+msgid "by %s"
+msgstr "%s"
+
+msgid "contains"
+msgstr "vsebuje"
+
+msgid "days"
+msgstr "dni"
+
+msgid "does not contain"
+msgstr "ne vsebuje"
+
+msgid "from %s"
+msgstr "z albuma %s"
+
+msgid "hours"
+msgstr "ur"
+
+msgid "is"
+msgstr "je"
+
+msgid "is not"
+msgstr "ni"
+
+msgid "minutes"
+msgstr "minut"
+
+msgid "seconds"
+msgstr "sekund"
+
+msgid "weeks"
+msgstr "tednov"

@@ -1,0 +1,899 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2009-03-26 12:06+0000\n"
+"Last-Translator: riesal <riesal@gmail.com>\n"
+"Language-Team: Indonesian <id@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid " + "
+msgstr " + "
+
+msgid " - "
+msgstr " - "
+
+msgid " songs"
+msgstr " lagu"
+
+msgid "#"
+msgstr "#"
+
+msgid "%(title)s (by %(artist)s)"
+msgstr "%(title)s (by %(artist)s)"
+
+msgid "%d:%02d"
+msgstr "%d:%02d"
+
+msgid "%s KB"
+msgstr "%s KB"
+
+msgid "(c) 2008"
+msgstr "(c) 2008"
+
+msgid "(drag to reorder)"
+msgstr "(tarik untuk menyusun kembali)"
+
+msgid "..."
+msgstr "..."
+
+msgid ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+msgstr ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+
+msgid "0/0 tracks"
+msgstr "0/0 trek"
+
+msgid "0:00"
+msgstr "00:00"
+
+msgid "0:00 / 0:00"
+msgstr "0:00 / 0:00"
+
+msgid "<b>General</b>"
+msgstr "<b>Umum</b>"
+
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to appear</"
+"b>"
+msgstr ""
+"<b>Pindahkan jendela Tampilan Di Layar ke tempat yang anda inginkan</b>"
+
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Tidak ada Plugin Dipilih</b>"
+
+msgid "<b>Save changes to %s before closing?</b>"
+msgstr "<b>Simpan perubahan ke %s sebelum menutup?</b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"di {album} - {length}"
+
+msgid ""
+"A proprietary and older, but also popular, lossy audio format. CBR gives "
+"less quality than VBR, but is compatible with any player."
+msgstr ""
+"Yang dimiliki dan sebelumnya, tapi juga populer, format suara rendah. CBR "
+"memberikan kualitas rendah daripada VBR, tapi sesuai dengan semua pemutar."
+
+msgid ""
+"A proprietary and older, but also popular, lossy audio format. VBR gives "
+"higher quality than CBR, but may be incompatible with some players."
+msgstr ""
+"Yang dimiliki dan sebelumnya, tapi juga populer, format suara rendah. VBR "
+"memberikan kualitas tinggi daripada CBR, tapi mungkin tidak sesuai dengan "
+"beberapa pemutar."
+
+msgid "A very fast Free lossless audio format with good compression."
+msgstr "Format lossless yang gratis dengan kompresi baik"
+
+msgid "ASX Playlist"
+msgstr "Daftar lagu ASX"
+
+msgid "About Exaile"
+msgstr "Tentang Exaile"
+
+msgid "Add"
+msgstr "Tambah"
+
+msgid "Add Playlist"
+msgstr "Tambahkan Daftar lagu"
+
+msgid "Add Smart Playlist"
+msgstr "Tambah Daftar lagu Pintar"
+
+msgid "Add Station"
+msgstr "Tambahkan Stasiun"
+
+msgid "Add a directory"
+msgstr "Tambah sebuah direktori"
+
+msgid "Add device"
+msgstr "Tambahkan perangkat"
+
+msgid "Add to Playlist"
+msgstr "Tambahkan ke Daftar main"
+
+msgid "Alarm Clock"
+msgstr "Alarm Waktu"
+
+msgid "Alarm Days:"
+msgstr "Hari Alarm:"
+
+msgid "Album"
+msgstr "Album"
+
+msgid "Album Art"
+msgstr "cover album"
+
+msgid "All Files"
+msgstr "Semua Berkas"
+
+msgid "Append to Current"
+msgstr "Tambahkan ke Saat ini"
+
+msgid ""
+"Apple's proprietary lossy audio format that achieves better sound quality "
+"than MP3 at lower bitrates."
+msgstr ""
+"Apple's memiliki format suara rendah yang kualitas suaranya lebih bagus "
+"daripada MP3 pada getaran rendah."
+
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr ""
+"Apakah Anda yakin ingin menghapus daftar lagu terpilih secara permanen?"
+
+msgid "Artist"
+msgstr "Artis"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"Artist:\n"
+"Album:\n"
+"Jenis - Artis:\n"
+"Jenis - Album:\n"
+"Tahun - Artis:\n"
+"Tahun - Album:\n"
+"Artis -Tahun -Album:"
+
+msgid "Authors:"
+msgstr "Penulis:"
+
+msgid "Autosize"
+msgstr "Ukuran otomatis"
+
+msgid "Available Plugins"
+msgstr "Plugin yang Tersedia"
+
+msgid "Background Color:"
+msgstr "Warna Latar:"
+
+msgid "Bitrate"
+msgstr "Bitrate"
+
+msgid "Buffering complete"
+msgstr "Membuat penyangga selesai"
+
+msgid "Cancel"
+msgstr "Batal"
+
+msgid "Choose a file"
+msgstr "Pilih berkas"
+
+msgid "Choose a file to open"
+msgstr "Pilih berkas untuk dibuka"
+
+msgid "Clear Playlist"
+msgstr "hapus playlist"
+
+msgid "Close Tab"
+msgstr "Tutup Tab"
+
+msgid "Close Without Saving"
+msgstr "Tutup Tanpa Menyimpan"
+
+msgid "Collection"
+msgstr "Koleksi"
+
+msgid "Collection Manager"
+msgstr "Pengelola Koleksi"
+
+msgid "Compilation detected: %s"
+msgstr "Kompilasi dideteksi: %s"
+
+msgid "Composer"
+msgstr "Pengarang"
+
+msgid "Configure"
+msgstr "Mengatur"
+
+msgid "Confirm Close"
+msgstr "Menegaskan Menutup"
+
+msgid "Connected to HAL"
+msgstr "Tersambung ke HAL"
+
+msgid ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+msgstr ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com>\n"
+"program ini didstribusikan dengan harapan akan sangat berguna\n"
+"tetapi tanpa garansi (termsuk merchantibilitas atau uji fitnes untuk tujuan "
+"tertentu). untuk lebih detilnya lihat di lisensi umum GNU\n"
+
+msgid "Could not disable plugin."
+msgstr "Tidak dapat menonaktifkan plugin."
+
+msgid "Could not enable plugin."
+msgstr "Tidak dapat mengaktifkan plugin."
+
+msgid "Could not set parameter %s for %s"
+msgstr "Tidak dapat menetapkan parameter %s untuk %s"
+
+msgid "Couldn't send seek event"
+msgstr "Gagal mengirim permintaan kejadian"
+
+msgid "Cover Finder"
+msgstr "pencari cover"
+
+msgid "Cover Search Order:"
+msgstr "minta pencarian cover"
+
+msgid "Custom Playlists"
+msgstr "Daftar Buatan"
+
+msgid "Date"
+msgstr "Tanggal"
+
+msgid "Delete Playlist"
+msgstr "Menghapus Daftar lagu"
+
+msgid "Description:"
+msgstr "Penjelasan:"
+
+msgid "Detected devices:"
+msgstr "Perangkat yang terdeteksi:"
+
+msgid "Device Manager"
+msgstr "Pengatur Perangkat"
+
+msgid "Disc"
+msgstr "Disk"
+
+msgid "Disc Number"
+msgstr "Nomor Cakram"
+
+msgid "Display OSD when hovering over tray icon"
+msgstr "menampilkan OSD mendekati ikon di tray"
+
+msgid "Display a progressbar in the OSD"
+msgstr "Tampilkan progressbar di OSD"
+
+msgid "Dynamic"
+msgstr "Dinamis"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Edit Smart Playlist"
+msgstr "Sunting Daftar lagu Pintar"
+
+msgid "Enabled"
+msgstr "Diaktifkan"
+
+msgid "Enter the URL to open"
+msgstr "Masukkan URL untuk membuka"
+
+msgid "Enter the name you want for your new playlist"
+msgstr "Masukkan nama yang anda inginkan untuk daftar putar yang baru"
+
+msgid "Enter the new name you want for your playlist"
+msgstr "Masukkan nama baru untuk daftar lagu anda"
+
+msgid "Enter the search text"
+msgstr "Masukkan teks yang dicari"
+
+msgid "Exaile"
+msgstr "Exaile"
+
+msgid "Exaile Music Player"
+msgstr "Pemutar Musik Exaile"
+
+msgid "Exaile is shutting down..."
+msgstr "Exaile akan nonaktif..."
+
+msgid "Exaile: playing %s"
+msgstr "Exaile: sedang memainkan %s"
+
+msgid "Export"
+msgstr "Ekspor"
+
+msgid "Extension"
+msgstr "Ekstensi"
+
+msgid "Failed to connect to HAL, autodetection of devices will be disabled."
+msgstr ""
+"Gagal menyambung ke HAL, deteksi otomatis peralatan akan dinonaktifkan."
+
+msgid "Failed to create device for %s"
+msgstr "Gagal ketika membuat perangkat untuk %s"
+
+msgid "Failed to enable equalizer"
+msgstr "Gagal mengaktifkan equalizer"
+
+msgid "Failed to load HAL devices for %s"
+msgstr "Gagal ketika memuat perangkat HAL untuk %s"
+
+msgid "Failed to open music DB for write."
+msgstr "Gagal membuka DB musik untuk menulis."
+
+msgid "Failed to open music DB."
+msgstr "Gagal membuka DB musik."
+
+msgid "Fetch Cover"
+msgstr "Ambil Sampul"
+
+msgid "File Type"
+msgstr "Jenis Berkas"
+
+msgid "File count: %d"
+msgstr "Banyaknya berkas: %d"
+
+msgid "File does not exist: %s"
+msgstr "Berkas tidak ada: %s"
+
+msgid "Filename"
+msgstr "Nama Berkas"
+
+msgid "Files"
+msgstr "Berkas"
+
+msgid "Found new %s device at %s"
+msgstr "Ditemukan perangkat baru %s di %s"
+
+msgid "Found no HAL device handler for %s"
+msgstr "Tidak ditemukan perangkat pendukun HAL untuk %s"
+
+msgid ""
+"Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
+"does not degrade audio quality."
+msgstr ""
+"Free Lossless Audio Codec (FLAC) adalah kode sumber terbuka yang mengkompres "
+"tapi tidak menurunkan kualitas suara."
+
+msgid "Friday"
+msgstr "Jumat"
+
+msgid "Gapless enabled"
+msgstr "Jarak berfungsi"
+
+msgid "Genre"
+msgstr "Aliran"
+
+msgid "Install"
+msgstr "Instal"
+
+msgid "Install Updates"
+msgstr "Instal Perbaruan"
+
+msgid "Installed Plugins"
+msgstr "Plugin yang yang Terinstal"
+
+msgid "Invalid file extension, file not saved"
+msgstr "Ektensi berkas tidak cocok, berkas tidak disimpan"
+
+msgid "Jump to current song on track change"
+msgstr "Pindah ke lagu saat ini pada perubahan trek"
+
+msgid "Length"
+msgstr "Panjang"
+
+msgid "Limit to: "
+msgstr "Batasi dengan: "
+
+msgid "Loaded plugin %s"
+msgstr "Plugin yang dimuat %s"
+
+msgid "Loading Exaile %s..."
+msgstr "Memuat Exaile %s..."
+
+msgid "Loading collection..."
+msgstr "Sedang memuat koleksi..."
+
+msgid "Loading devices..."
+msgstr "Memuat perangkat..."
+
+msgid "Loading interface..."
+msgstr "Memuat tampilan..."
+
+msgid "Loading plugins..."
+msgstr "Memuat"
+
+msgid "Loading streams..."
+msgstr "Memuat aliran..."
+
+msgid "Location"
+msgstr "Lokasi"
+
+msgid "Location deleted: %s"
+msgstr "Lokasi yang dihapus: %s"
+
+msgid "Location modified: %s"
+msgstr "Lokasi yang diubah: %s"
+
+msgid "M3U Playlist"
+msgstr "Daftar lagu M3U"
+
+msgid "Match any of the criteria"
+msgstr "Cocok dengan kriteria apapun"
+
+msgid "Monday"
+msgstr "Senin"
+
+msgid "Music Files"
+msgstr "Berkas Musik"
+
+msgid "Name:"
+msgstr "Nama:"
+
+msgid "New Playlist"
+msgstr "Daftar lagu Baru"
+
+msgid "New Search"
+msgstr "Penelusuran Baru"
+
+msgid "Next"
+msgstr "Berikutnya"
+
+msgid "Next Track"
+msgstr "Lagu Berikutnya"
+
+msgid "Next visited directory"
+msgstr "direktori selanjutnya"
+
+msgid "No covers found"
+msgstr "Sampul tidak ditemukan"
+
+msgid "Not Playing"
+msgstr "Tidak Dimainkan"
+
+msgid "Not watching library: %s"
+msgstr "Tidak mengawasi pustaka: %s"
+
+msgid "Number of Plays"
+msgstr "Banyaknya Diputar"
+
+msgid "Opacity Level:"
+msgstr "Tingkat Opasitas"
+
+msgid "Open"
+msgstr "Buka"
+
+msgid "Open URL"
+msgstr "Buka URL"
+
+msgid "Open _URL"
+msgstr "Buka_URL"
+
+msgid "Open last playlists on startup"
+msgstr "Buka daftar lagu terakhir saat memulai"
+
+msgid "PLS Playlist"
+msgstr "Daftar lagu PLS"
+
+msgid "Page 1"
+msgstr "Halaman 1"
+
+msgid "Password:"
+msgstr "Kata Sandi:"
+
+msgid ""
+"Path is already in your collection, or is a subdirectory of another path in "
+"your collection"
+msgstr "path sudah ada dalam daftar koleksi"
+
+msgid "Pause"
+msgstr "Jeda"
+
+msgid "Pl_ugins"
+msgstr "Pl_ugin"
+
+msgid "Play"
+msgstr "Putar"
+
+msgid "Playcount"
+msgstr "Jumlah putar"
+
+msgid "Playing %s"
+msgstr "Memainkan %s"
+
+msgid "Playlists"
+msgstr "Daftar Lagu"
+
+msgid "Plugin"
+msgstr "Plugin"
+
+msgid "Plugins"
+msgstr "Plugin"
+
+msgid "Popup"
+msgstr "Popup"
+
+msgid "Preferences"
+msgstr "Preferensi"
+
+msgid "Previous"
+msgstr "Sebelumnya"
+
+msgid "Previous Track"
+msgstr "Trek sebelumnya"
+
+msgid "Previous visited directory"
+msgstr "direktori sebelumnya"
+
+msgid "PyInotify not installed or not supported.  "
+msgstr "Pylnotify tidak diinstal atau tidak didukung.  "
+
+msgid "Python Console - Exaile"
+msgstr "Konsole Python - Exaile"
+
+msgid "Queue Items"
+msgstr "Antrian Item"
+
+msgid "Quit"
+msgstr "Keluar"
+
+msgid "Radio"
+msgstr "Radio"
+
+msgid "Radio Streams"
+msgstr "Radio Stream"
+
+msgid "Ran out of tracks to shuffle"
+msgstr "Jalankan keluar dari trek untuk mengacak"
+
+msgid "Randomize results"
+msgstr "Mengacak hasil"
+
+msgid "Rating"
+msgstr "Rating"
+
+msgid "Rating: "
+msgstr "Rating: "
+
+msgid "Refresh"
+msgstr "Segarkan"
+
+msgid "Refresh directory listing"
+msgstr "refresh daftar direktori"
+
+msgid "Remove"
+msgstr "Hapus"
+
+msgid "Remove Cover"
+msgstr "Hapus Sampul"
+
+msgid "Rename"
+msgstr "Ganti Nama"
+
+msgid "Rename Playlist"
+msgstr "Ganti Nama Daftar lagu"
+
+msgid "Repeat"
+msgstr "Berulang"
+
+msgid "Resizable"
+msgstr "Dapat diubah ukurannya"
+
+msgid "Safe mode enabled, not loading plugins."
+msgstr "Modus aman digunakan, tidak memuat tambahan."
+
+msgid "Saturday"
+msgstr "Sabtu"
+
+msgid "Save"
+msgstr "Simpan"
+
+msgid "Saved Stations"
+msgstr "Stasiun yang Disimpan"
+
+msgid "Saving %s DB to %s."
+msgstr "Simpan %s DB ke %s."
+
+msgid "Saving state..."
+msgstr "Menyimpan kondisi..."
+
+msgid "Scanning collection..."
+msgstr "Sedang memindai koleksi..."
+
+msgid "Scanning library: %s"
+msgstr "Memindai pustaka: %s"
+
+msgid "Search: "
+msgstr "Cari: "
+
+msgid "Select File Type (By Extension)"
+msgstr "Pilih Jenis Berkas (Berdasarkan Ekstensi)"
+
+msgid "Set Rating"
+msgstr "Tetapkan Penilaian"
+
+msgid "Show Cover"
+msgstr "Tampilkan Sampul"
+
+msgid "Show OSD on track change"
+msgstr "Tampilkan OSD pada pergantian lagu"
+
+msgid "Show splash screen on startup"
+msgstr "Perlihatkan splash screen pada saat mulai"
+
+msgid "Show tray icon"
+msgstr "Tampilkan ikon tray"
+
+msgid "Shuffle"
+msgstr "Acak"
+
+msgid "Size"
+msgstr "Ukuran"
+
+msgid "Smart Playlists"
+msgstr "Daftar lagu Pintar"
+
+msgid "Start"
+msgstr "Mulai"
+
+msgid "Stop"
+msgstr "Berhenti"
+
+msgid "Stop Playback"
+msgstr "Hentikan Pemutaran"
+
+msgid "Stopped"
+msgstr "Telah dihentikan"
+
+msgid "Sunday"
+msgstr "Minggu"
+
+msgid "Supported Files"
+msgstr "Berkas Didukung"
+
+msgid "Text Color"
+msgstr "Warna Teks:"
+
+msgid "Text Font:"
+msgstr "Huruf Teks:"
+
+msgid "The playlist name you specified already exists."
+msgstr "Nama daftar lagu yang anda tentukan sudah ada."
+
+msgid "Thursday"
+msgstr "Kamis"
+
+msgid "Title"
+msgstr "Judul"
+
+msgid "Toggle Queue"
+msgstr "Beralih Antrian"
+
+msgid "Toggle: Stop after selected track"
+msgstr "Beralih: Berhenti setelah lagu yang dipilih"
+
+msgid "Track Number"
+msgstr "Nomor Trek"
+
+msgid "Tuesday"
+msgstr "Selasa"
+
+msgid "Type of device:"
+msgstr "Jenis perangkat:"
+
+msgid "Unable to enable plugin %s"
+msgstr "Tidak dapat mengaktifkan plugin %s"
+
+msgid "Unable to fully disable plugin %s"
+msgstr "Tidak dapat menonaktifkan plugin sepenuhnya %s"
+
+msgid "Unknown"
+msgstr "Tidak Dikenal"
+
+msgid "Up one directory"
+msgstr "naik satu level direktori"
+
+msgid "Updates"
+msgstr "Perbaruan"
+
+msgid "Username:"
+msgstr "Nama Pengguna:"
+
+msgid "Using %s for playback"
+msgstr "Menggunakan %s untuk memainkan"
+
+msgid "Various Artists"
+msgstr "Berbagai Artis"
+
+msgid "Version:"
+msgstr "Versi"
+
+msgid "Vol:"
+msgstr "VOL:"
+
+msgid ""
+"Vorbis is an open source, lossy audio codec with high quality output at a "
+"lower file size than MP3."
+msgstr ""
+"Vorbis adalah sumber terbuka, sedikit kode suara dengan hasil kualitas "
+"tinggi pada ukuran berkas lebih kecil daripada MP3."
+
+msgid "Watching directory: %s"
+msgstr "Mengawasi direktori: %s"
+
+msgid "Wednesday"
+msgstr "Rabu"
+
+msgid "Window Height:"
+msgstr "Tinggi Jendela:"
+
+msgid "Window Width:"
+msgstr "Lebar Jendela:"
+
+msgid "XSPF Playlist"
+msgstr "Daftar Lagu XSPF"
+
+msgid "Year"
+msgstr "Tahun"
+
+msgid "You did not enter a name for your playlist"
+msgstr "Anda tidak memasukkan naman untuk daftar lagu"
+
+msgid "Your changes will be lost if you don't save them"
+msgstr "Perubahan akan hilanh jika anda tidak menyimpannya"
+
+msgid "_Album Art Manager"
+msgstr "Pengelola _Album Seni"
+
+msgid "_Close"
+msgstr "_Tutup"
+
+msgid "_Collection Manager"
+msgstr "_manager koleksi"
+
+msgid "_Columns"
+msgstr "_Kolom"
+
+msgid "_Edit"
+msgstr "_Sunting"
+
+msgid "_File"
+msgstr "_Berkas"
+
+msgid "_Go to Playing Track"
+msgstr "Per_gi ke Trek yang Diputar"
+
+msgid "_Help"
+msgstr "_Bantuan"
+
+msgid "_Rescan Collection"
+msgstr "Pindai _Ulang Koleksi"
+
+msgid "_Tools"
+msgstr "_Perkakas"
+
+msgid "_View"
+msgstr "_Tampil"
+
+msgid "after"
+msgstr "sesudah"
+
+msgid "and"
+msgstr "dan"
+
+msgid "at least"
+msgstr "sekurang-kurangnya"
+
+msgid "at most"
+msgstr "paling banyak"
+
+msgid "before"
+msgstr "sebelum"
+
+msgid "between"
+msgstr "antara"
+
+msgid "by %s"
+msgstr "oleh %s"
+
+msgid "contains"
+msgstr "mengandung"
+
+msgid "days"
+msgstr "hari"
+
+msgid "does not contain"
+msgstr "tidak mengandung"
+
+msgid "from %s"
+msgstr "dari %s"
+
+msgid "gtk-add"
+msgstr "gtk-add"
+
+msgid "gtk-cancel"
+msgstr "gtk-cancel"
+
+msgid "gtk-close"
+msgstr "gtk-close"
+
+msgid "gtk-connect"
+msgstr "gtk-connect"
+
+msgid "gtk-disconnect"
+msgstr "gtk-disconnect"
+
+msgid "gtk-edit"
+msgstr "gtk-edit"
+
+msgid "gtk-ok"
+msgstr "gtk-ok"
+
+msgid "gtk-remove"
+msgstr "gtk-remove"
+
+msgid "hours"
+msgstr "jam"
+
+msgid "is"
+msgstr "adalah"
+
+msgid "is not"
+msgstr "bukan"
+
+msgid "minutes"
+msgstr "menit"
+
+msgid "seconds"
+msgstr "detik"
+
+msgid "weeks"
+msgstr "minggu"

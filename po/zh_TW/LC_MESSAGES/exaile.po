@@ -1,0 +1,264 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2009-05-11 16:26+0000\n"
+"Last-Translator: Yen-Chin,Lee <Unknown>\n"
+"Language-Team: Traditional Chinese <zh_TW@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid "%(title)s (by %(artist)s)"
+msgstr "%(title)s (由 %(artist)s演出)"
+
+msgid "%s KB"
+msgstr "%s KB"
+
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to appear</"
+"b>"
+msgstr "移動訊息視窗至您想要出現在螢幕的位置。"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{標題}</b>\n"
+"{歌手}\n"
+"on {專輯} - {長度}"
+
+msgid "Add a directory"
+msgstr "新增資料夾"
+
+msgid "Album"
+msgstr "專輯"
+
+msgid "Album Art"
+msgstr "專輯歌手"
+
+msgid "Artist"
+msgstr "演出者"
+
+msgid "Buffering complete"
+msgstr "緩沖完畢"
+
+msgid "Clear Playlist"
+msgstr "清空播放清單"
+
+msgid "Close Tab"
+msgstr "關閉標籤"
+
+msgid "Collection"
+msgstr "音樂集"
+
+msgid "Confirm Close"
+msgstr "確認關閉"
+
+msgid ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+msgstr ""
+"版權所有 (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"這款軟體屬於自由軟體，您可以重製、新增或修改，不論是GPL2或是之後的版本，只要"
+"該軟體(您所修改並發行的)使用由自由軟體基金會所發行的GNU GPL授權。\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+
+msgid "Cover Finder"
+msgstr "封面搜羅器"
+
+msgid "Custom Playlists"
+msgstr "自訂播放清單"
+
+msgid "Disc"
+msgstr "唱片"
+
+msgid "Display OSD when hovering over tray icon"
+msgstr "游標移到通知圖示時顯示摘要"
+
+msgid "Enter the name you want for your new playlist"
+msgstr "請輸入新播放清單起的名稱"
+
+msgid "Enter the search text"
+msgstr "輸入搜尋字串"
+
+msgid "Exaile"
+msgstr "Exaile"
+
+msgid "Exaile is shutting down..."
+msgstr "正在關閉Exaile..."
+
+msgid "Failed to enable equalizer"
+msgstr "無法使用等化器"
+
+msgid "Failed to open music DB."
+msgstr "無法打開音樂數據庫"
+
+msgid "File count: %d"
+msgstr "文件合計: %d"
+
+msgid "File does not exist: %s"
+msgstr "此文件不存在: %s"
+
+msgid "Filename"
+msgstr "檔名"
+
+msgid "Gapless enabled"
+msgstr "無縫播放已啟用"
+
+msgid "Genre"
+msgstr "類型"
+
+msgid "Length"
+msgstr "曲目長度"
+
+msgid "Loaded plugin %s"
+msgstr "已載入%s插件"
+
+msgid "Loading collection..."
+msgstr "正在裝載收集中... ..."
+
+msgid "Loading devices..."
+msgstr "正在裝載設備中... ..."
+
+msgid "Loading interface..."
+msgstr "正在裝載界面中... ..."
+
+msgid "Loading plugins..."
+msgstr "裝載插件中... ..."
+
+msgid "Loading settings"
+msgstr "正在載入設定"
+
+msgid "Loading streams..."
+msgstr "正在載入串流..."
+
+msgid "Location"
+msgstr "位置"
+
+msgid "Location deleted: %s"
+msgstr "所刪除之位置: %s"
+
+msgid "Location modified: %s"
+msgstr "所變更之位置： %s"
+
+msgid "Name:"
+msgstr "名稱:"
+
+msgid "No covers found"
+msgstr "沒有找到封面圖像"
+
+msgid "Not Playing"
+msgstr "沒有播放樂曲"
+
+msgid "Opacity Level:"
+msgstr "透明度:"
+
+msgid "Open _URL"
+msgstr "開啟 _URL"
+
+msgid "Play"
+msgstr "播放"
+
+msgid "Play the next track"
+msgstr "播放下一段音軌"
+
+msgid "Play the previous track"
+msgstr "播放上一段音軌"
+
+msgid "Playing %s"
+msgstr "正在播放 %s"
+
+msgid "Rating"
+msgstr "評分"
+
+msgid "Remove Cover"
+msgstr "移除封面像"
+
+msgid "Safe mode enabled, not loading plugins."
+msgstr "正在使用安全模式中，將不會裝載插件."
+
+msgid "Saved Stations"
+msgstr "已儲存站台"
+
+msgid "Saving state..."
+msgstr "正在儲存程序狀態... ..."
+
+msgid "Scanning library: %s"
+msgstr "正在掃瞄程式庫: %s"
+
+msgid "Show Cover"
+msgstr "顯示封面圖像"
+
+msgid "Stopped"
+msgstr "已停止"
+
+msgid "The playlist name you specified already exists."
+msgstr "這個播放清單名稱已被使用"
+
+msgid "Toggle Play or Pause"
+msgstr "切換播放或暫停"
+
+msgid "Unable to enable plugin %s"
+msgstr "無法使用%s插件"
+
+msgid "Unable to fully disable plugin %s"
+msgstr "無法完全停用%s插件"
+
+msgid "Various Artists"
+msgstr "多位演出者"
+
+msgid "Year"
+msgstr "年"
+
+msgid "You did not enter a name for your playlist"
+msgstr "你還未命名你的播放清單"
+
+msgid "and"
+msgstr "及"
+
+msgid "at least"
+msgstr "最少"
+
+msgid "at most"
+msgstr "最多"
+
+msgid "days"
+msgstr "天"
+
+msgid "hours"
+msgstr "小時"
+
+msgid "minutes"
+msgstr "分鐘"
+
+msgid "seconds"
+msgstr "秒"
+
+msgid "weeks"
+msgstr "星期"

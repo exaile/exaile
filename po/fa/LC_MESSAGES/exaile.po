@@ -1,0 +1,836 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2009-04-29 09:36+0000\n"
+"Last-Translator: Azamy Seeyar <seeyar_007@hotmail.com>\n"
+"Language-Team: Persian <fa@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid " + "
+msgstr " + "
+
+msgid " - "
+msgstr " - "
+
+msgid " : %d queued"
+msgstr " :%d وارد صف شده"
+
+msgid " songs"
+msgstr " آهنگ ها"
+
+msgid "#"
+msgstr "#"
+
+msgid "%s KB"
+msgstr "%s کیلوبایت"
+
+msgid "(c) 2008"
+msgstr "(c) 2008"
+
+msgid "(drag to reorder)"
+msgstr "مرتب سازي) (درگ كنيد براي دوباره"
+
+msgid "..."
+msgstr "..."
+
+msgid "0/0 tracks"
+msgstr "شيار 0/0"
+
+msgid "0:00"
+msgstr "0:00"
+
+msgid "0:00 / 0:00"
+msgstr "0:00 / 0:00"
+
+msgid ":"
+msgstr ":"
+
+msgid "<b>General</b>"
+msgstr "<b>کلیات</b>"
+
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to appear</"
+"b>"
+msgstr "<b>پنجره روی صفحه را به مکانی که میخواهید آنجا ظاهر شود حرکت دهید </b>"
+
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>هیچ افزونه‌ی انتخاب نشده</b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{عنوان}</b>\n"
+"{هنرمند}\n"
+"on {آلبوم} -  {طول}l"
+
+msgid "About Exaile"
+msgstr "Exaile در مورد"
+
+msgid "Add"
+msgstr "افزودن"
+
+msgid "Add Playlist"
+msgstr "افزودن فهرست پخش"
+
+msgid "Add Smart Playlist"
+msgstr "زياد كردن ليست پخش هوشمند"
+
+msgid "Add Station"
+msgstr "اضافه کردن ایستگاه"
+
+msgid "Add a directory"
+msgstr "زياد كردن دايرکتورى"
+
+msgid "Add device"
+msgstr "زياد كرد قطه"
+
+msgid "Add to Playlist"
+msgstr "افزودن به فهرست پخش"
+
+msgid "Alarm Clock"
+msgstr "ساعت هشدار"
+
+msgid "Alarm Days:"
+msgstr "روزهای هشدار:"
+
+msgid "Alarm Name:"
+msgstr ":نام هشدار"
+
+msgid "Alarm Time :"
+msgstr ":زمان هشدار"
+
+msgid "Alarm Time:"
+msgstr ":زمان هشدار"
+
+msgid "Alarm:"
+msgstr ":هشدار"
+
+msgid "Album"
+msgstr "آلبوم"
+
+msgid "Album Art"
+msgstr "طرح آلبوم"
+
+msgid "All Files"
+msgstr "همه‌ی پرونده‌ها"
+
+msgid "An Unknown type of setting was found!"
+msgstr "يك نوع ناشناخته تنظيم پيدا شد."
+
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr "آيا مطمئناً ميخواهيد كه ليست پخش را براي هميشه حذف كنيد؟"
+
+msgid "Artist"
+msgstr "هنرمند"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"هنرمتد\n"
+"آلبوم\n"
+"ژانر - هنرمند\n"
+"ژانر - آلبوم\n"
+"سال - هنرمند\n"
+"سال - آلبوم\n"
+"هنرمند - سال - آلبوم"
+
+msgid "Attempting to find covers for %s"
+msgstr "در حال جستوي جلد براي %s"
+
+msgid "Authors:"
+msgstr "نویسندگان:"
+
+msgid "Autosize"
+msgstr "اندازه خود كار"
+
+msgid "Available Plugins"
+msgstr "افزونه‌های دردسترس"
+
+msgid "Background Color:"
+msgstr "رنگ پسزمینه:"
+
+msgid "Bitrate"
+msgstr "میزان ارسال بیت"
+
+msgid "Bottom left"
+msgstr "پايان طرف چپ"
+
+msgid "Bottom right"
+msgstr "پايان طرف راست"
+
+msgid "Buffering: 100%..."
+msgstr "در حال ميانگيري: 100%....."
+
+msgid "Bye!"
+msgstr "خدا نگهدار"
+
+msgid "Cancel"
+msgstr "انصراف"
+
+msgid "Choose a file"
+msgstr "انتخاب یک پرونده"
+
+msgid "Choose a file to open"
+msgstr "يك فايل براي باز كردن انتخاب كنيد"
+
+msgid "Clear Playlist"
+msgstr "پاک کردن Playlist"
+
+msgid "Close Without Saving"
+msgstr "بسته كن بدون ذخيره كردن"
+
+msgid "Collection"
+msgstr "مجموعه"
+
+msgid "Composer"
+msgstr "مؤلف"
+
+msgid "Configure"
+msgstr "پیکر بندی"
+
+msgid "Confirm Close"
+msgstr "تاييد كردن بستن"
+
+msgid "Connected to HAL"
+msgstr "متصل شده به HAL"
+
+msgid "Could not disable plugin."
+msgstr "پلاگين نمي تواند غير فعال شود"
+
+msgid "Could not enable plugin."
+msgstr "پلاگين نمي تواند فعال شود."
+
+msgid "Cover Finder"
+msgstr "جستجوگر جلد"
+
+msgid "Cover Search Order:"
+msgstr "ترتيب جستجوي جلد:"
+
+msgid "Custom Playlists"
+msgstr "سفارشي سازي ليست پخش"
+
+msgid "Custom: "
+msgstr "فرمايشي: "
+
+msgid "Date"
+msgstr "تاریخ"
+
+msgid "Decreases the volume by VOL"
+msgstr "VOL كاهش درجه صدا همراه با"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Delete Playlist"
+msgstr "حذف کردن فهرست"
+
+msgid "Description:"
+msgstr "شرح:"
+
+msgid "Detected devices:"
+msgstr "قطعات كشف شده:"
+
+msgid "Device Manager"
+msgstr "مديريت قطعات"
+
+msgid "Disc"
+msgstr "دیسک"
+
+msgid "Disc Number"
+msgstr "شمارۀ دیسک"
+
+msgid "Display a progressbar in the OSD"
+msgstr "نمايش نوار حركت كننده در حالت نمايش بروي صفحه"
+
+msgid "Dynamic"
+msgstr "پویا"
+
+msgid "Edit"
+msgstr "ویرایش کردن"
+
+msgid "Edit Smart Playlist"
+msgstr "ويرايش كردن ليست پخش هوشمند"
+
+msgid "Enable Fading"
+msgstr "فعال سازي پژمردن"
+
+msgid "Enabled"
+msgstr "فعال"
+
+msgid "Enter the name you want for your new playlist"
+msgstr "نام را كه براي ليست پخش جديد ميخواهيد وارد كنيد"
+
+msgid "Enter the new name you want for your playlist"
+msgstr "نام جديد را كه براي لست باز پخش تان مي خواهيد وارد كنيد"
+
+msgid "Enter the search keywords"
+msgstr "كلمه كليدي جستجو را وارد كنيد"
+
+msgid "Enter the search text"
+msgstr "متن جستجو را وارد كنيد"
+
+msgid "Entire Library"
+msgstr "تمام كتابخانه"
+
+msgid "Exaile"
+msgstr "Exaile"
+
+msgid "Exaile Music Player"
+msgstr "Exaile Music Player"
+
+msgid "Exaile is shutting down..."
+msgstr "Exail در حال خاموش شدن..."
+
+msgid "Exaile: playing %s"
+msgstr "Exaile: درحال نواختن %s"
+
+msgid "Export"
+msgstr "صادر"
+
+msgid "Extension"
+msgstr "پسوند"
+
+msgid "Fading:"
+msgstr "پژمردن‌:"
+
+msgid "Failed to create device for %s"
+msgstr "موفق به ساختن قطعه نميباشد %s"
+
+msgid "Failed to open music DB."
+msgstr "موفق به باز كردن بانك اطلاعاتي موسيقي نميباشد."
+
+msgid "Fetch Cover"
+msgstr "واكشي جلد"
+
+msgid "File Type"
+msgstr "نوع فايل"
+
+msgid "File count: %d"
+msgstr "شمارش فايل: %d"
+
+msgid "File does not exist: %s"
+msgstr "%s: عدم موجوديت فايل"
+
+msgid "Filename"
+msgstr "نام پرونده"
+
+msgid "Files"
+msgstr "پرونده ها"
+
+msgid "Found covers from %s"
+msgstr "جلد پيدا شد از %s"
+
+msgid "Friday"
+msgstr "جمعه"
+
+msgid "Genre"
+msgstr "نوع"
+
+msgid "Get rating for current song"
+msgstr "گرفتن درجه آهنگ جاري"
+
+msgid "Home directory"
+msgstr "دايركتوري شخصي"
+
+msgid "Increases the volume by VOL"
+msgstr "VOL افزايش درجه صدا همراه"
+
+msgid "Increment:"
+msgstr "زياد شونده:"
+
+msgid "Install"
+msgstr "نصب"
+
+msgid "Install Updates"
+msgstr "نصب بروز رساني ها"
+
+msgid "Installed Plugins"
+msgstr "افزونه‌های نصب شده"
+
+msgid "Invalid file extension, file not saved"
+msgstr "پسوند نا درست، فايل ذخيره نشد"
+
+msgid "LastFM Radio"
+msgstr "رايو اخير اف ام"
+
+msgid "LastFM: %s"
+msgstr "%s :اخير اف ام"
+
+msgid "Length"
+msgstr "طول‌"
+
+msgid "Limit to: "
+msgstr "محدود به: "
+
+msgid "Loaded plugin %s"
+msgstr "پلاگين بارگزاري شده %s"
+
+msgid "Loading Exaile %s..."
+msgstr "بارگذاری Exaile %s..."
+
+msgid "Loading collection..."
+msgstr "بارگذاری مجموعه..."
+
+msgid "Loading devices..."
+msgstr "بارگذاری دستگاه ها..."
+
+msgid "Loading interface..."
+msgstr "بارگذاری واسط کاربری"
+
+msgid "Loading plugins..."
+msgstr "در حال بارگزاري پلاگين ها"
+
+msgid "Loading settings"
+msgstr "درحال بارگزاري تنظيمات"
+
+msgid "Location"
+msgstr "مکان"
+
+msgid "Location deleted: %s"
+msgstr "موقيعيت حذف شد: %s"
+
+msgid "Location modified: %s"
+msgstr "موقيعيت اصلاح شد: %s"
+
+msgid "Loved Tracks"
+msgstr "شيار هاي دوستداشتني"
+
+msgid "Maximum Volume:"
+msgstr ":حد اكثر درجه صدا"
+
+msgid "Minimum Volume:"
+msgstr "حد اكثر درجه صدا:"
+
+msgid "Minimum Volume:                "
+msgstr ":حد اكثر درجه صدا                "
+
+msgid "Monday"
+msgstr "دوشنبه"
+
+msgid "Music Files"
+msgstr "پرونده‌های صوتی"
+
+msgid "Name - Time"
+msgstr "نام - زمان"
+
+msgid "Name:"
+msgstr "نام:"
+
+msgid "Neighbourhood"
+msgstr "همسايگي"
+
+msgid "New Playlist"
+msgstr "فهرست پخش جدید"
+
+msgid "New Search"
+msgstr "جستجوی جدید"
+
+msgid "Next"
+msgstr "بعدی"
+
+msgid "Next Track"
+msgstr "شیار بعدی"
+
+msgid "Next visited directory"
+msgstr "دايركتوري بعدي ديده شده"
+
+msgid "No cover found"
+msgstr "جلد پيدا نشد"
+
+msgid "No covers found"
+msgstr "جلد پيدا نشد"
+
+msgid "Not Playing"
+msgstr "در حال اجرا نیست"
+
+msgid "Number of Plays"
+msgstr "شماره پخش ها"
+
+msgid "Ok"
+msgstr "بسيار خوب"
+
+msgid "Opacity Level:"
+msgstr "ميزان مكدريت"
+
+msgid "Open"
+msgstr "باز کردن"
+
+msgid "Open _URL"
+msgstr "گشودن ـURL"
+
+msgid "Page 1"
+msgstr "صفحه 1"
+
+msgid "Password:"
+msgstr "رمز عبور:"
+
+msgid "Pause"
+msgstr "مکث"
+
+msgid "Personal"
+msgstr "شخصي"
+
+msgid "Play"
+msgstr "پخش"
+
+msgid "Play the next track"
+msgstr "شيار بعدي را بنواز"
+
+msgid "Play the previous track"
+msgstr "شيار قبلي را بنواز"
+
+msgid "Playcount"
+msgstr "شمارش پخش"
+
+msgid "Playing %s"
+msgstr "در حال پخش %s"
+
+msgid "Playlist Files"
+msgstr "پرونده‌ی فهرستِ پخش"
+
+msgid "Playlists"
+msgstr "فهرستهای پخش"
+
+msgid "Plugin"
+msgstr "افزونه"
+
+msgid "Plugin archive contains an unsafe path"
+msgstr "آرشيف پلاگين يك مسير نام امن دارد"
+
+msgid "Plugins"
+msgstr "افزونه‌ها"
+
+msgid "Preferences"
+msgstr "تنظیمات‌"
+
+msgid "Previous"
+msgstr "قبلی"
+
+msgid "Previous Track"
+msgstr "شیار قبلی"
+
+msgid "Previous visited directory"
+msgstr "دايركتوري بعدي ديده شده"
+
+msgid "Print the album of current track"
+msgstr "آلبوم شيار جاري را چاپ كن"
+
+msgid "Print the artist of current track"
+msgstr "هنرمند شيار جاري راچاپ كن"
+
+msgid "Print the current volume"
+msgstr "چاپ كن درجه صداي فعلي"
+
+msgid "Print the length of current track"
+msgstr "مدت شيار جاري را چاپ كن"
+
+msgid "Print the title of current track"
+msgstr "عنوان شيار جاري را چاپ كن"
+
+msgid "Queue Items"
+msgstr "آيتم هاي داخل صف"
+
+msgid "Quit"
+msgstr "خروج"
+
+msgid "Radio"
+msgstr "رادیو"
+
+msgid "Random %d"
+msgstr "%d تصادفي"
+
+msgid "Randomize results"
+msgstr "نتايج تصادفي"
+
+msgid "Rating"
+msgstr "ارزیابی"
+
+msgid "Rating > %d"
+msgstr "%d امتياز دادن"
+
+msgid "Rating: "
+msgstr "درجه بندي "
+
+msgid "Recommended"
+msgstr "توصيه شده"
+
+msgid "Refresh"
+msgstr "بازآوری‌"
+
+msgid "Relay Port:"
+msgstr "درگاه بازپخش کننده:"
+
+msgid "Remove"
+msgstr "حذف"
+
+msgid "Remove Cover"
+msgstr "حذف پوشش"
+
+msgid "Rename"
+msgstr "تغییر نام‌"
+
+msgid "Rename Playlist"
+msgstr "تغییر نام"
+
+msgid "Repeat"
+msgstr "تکرار کردن"
+
+msgid "Resizable"
+msgstr "قابل تغییر اندازه"
+
+msgid "Restart Playlist"
+msgstr "دوباره راه اندازي ليست پخش"
+
+msgid "Safe mode enabled, not loading plugins."
+msgstr "حالت امن فعال هست، پلاگين ها بازگزاري نمي شود."
+
+msgid "Saturday"
+msgstr "شنبه"
+
+msgid "Save"
+msgstr "ذخيره"
+
+msgid "Save Location:     "
+msgstr "ذخيره موقيعيت:     "
+
+msgid "Saving cover database"
+msgstr "در حال ذخيره سازي بانك اطلاعاتي جلد ها"
+
+msgid "Saving state..."
+msgstr "ذخیره سازی وضعیت..."
+
+msgid "Scanning collection..."
+msgstr "درحال بررسی مجموعه..."
+
+msgid "Scanning library: %s"
+msgstr "پویش کتابخانه : %s"
+
+msgid "Search"
+msgstr "جستجو"
+
+msgid "Search Results"
+msgstr "نتايج جستجو"
+
+msgid "Search: "
+msgstr "جستجو: "
+
+msgid "Select File Type (By Extension)"
+msgstr "انتخاب نوع فايل (توسط پسوند)"
+
+msgid "Set Rating"
+msgstr "دادن امتياز"
+
+msgid "Set rating for current song"
+msgstr "تنظيم درجه بندي براي آهنگ جاري"
+
+msgid "Show Cover"
+msgstr "نمايش جلد"
+
+msgid "Show OSD on track change"
+msgstr "نمايش نمايش بروي صفحه همراه تغير شيار"
+
+msgid "Show splash screen on startup"
+msgstr "نمايش پرده اسپلاش در هنگام شروع"
+
+msgid "Shuffle"
+msgstr "بُر زدن"
+
+msgid "Size"
+msgstr "اندازه‌"
+
+msgid "Smart Playlists"
+msgstr "فهرستهای پخش هوشمند"
+
+msgid "Start"
+msgstr "شروع"
+
+msgid "Stop"
+msgstr "توقف"
+
+msgid "Stop Playback"
+msgstr "متوقف كردن باز نواخت"
+
+msgid "Stop playback"
+msgstr "توقف بازنواخت"
+
+msgid "Stopped"
+msgstr "متوقف شده‌"
+
+msgid "Sunday"
+msgstr "یک‌شنبه"
+
+msgid "Supported Files"
+msgstr "پرونده‌های پشتیبانی شده"
+
+msgid "Text Color"
+msgstr "رنگ متن"
+
+msgid "Text Font:"
+msgstr "قلمِ متن:"
+
+msgid "The playlist name you specified already exists."
+msgstr "نامي را كه براي ليست پخش مشخص كرديد قبلا موجود هست."
+
+msgid "Thursday"
+msgstr "پنج شنبه"
+
+msgid "Title"
+msgstr "عنوان"
+
+msgid "Top left"
+msgstr "بالا طرف چپ"
+
+msgid "Top right"
+msgstr "بالا طرف راست"
+
+msgid "Track Number"
+msgstr "شماره‌ی شیار"
+
+msgid "Tuesday"
+msgstr "سه‌شنبه"
+
+msgid "Type of device:"
+msgstr "نوع قطعه:"
+
+msgid "Unable to enable plugin %s"
+msgstr "قادر به فعال سازي پلاگين نميباشد %s"
+
+msgid "Unknown"
+msgstr "ناشناخته"
+
+msgid "Updates"
+msgstr "بروز رساني ها"
+
+msgid "Use Fading"
+msgstr "استفاده از محوسازی"
+
+msgid "Username:"
+msgstr "نام کاربر:"
+
+msgid "Various Artists"
+msgstr "هنرمند هاي محتلف"
+
+msgid "Version:"
+msgstr "نسخه:"
+
+msgid "Vol:"
+msgstr "درجه صدا:"
+
+msgid "We don't know how to store that kind of setting: "
+msgstr "ما نميدانيم كه چگونه اين نوع تنظيمات را ذخيره كنيم: "
+
+msgid "Wednesday"
+msgstr "چهارشنبه"
+
+msgid "Window Height:"
+msgstr "ارتفاع پنجره:"
+
+msgid "Window Width:"
+msgstr "عرض پنجره:"
+
+msgid "Year"
+msgstr "سال"
+
+msgid "You did not enter a name for your playlist"
+msgstr "شما نامي براي ليست پخش وارد نكرديد"
+
+msgid "You did not specify a location to save the db"
+msgstr "شما جاي را براي ذخيره بانك اطلاعات نكرديد"
+
+msgid "You have entered an invalid option"
+msgstr "شما انتخات نادرست وارد كرديد"
+
+msgid "Your changes will be lost if you don't save them"
+msgstr "تغيرات گم خواهد شد اگر شما آنها را ذخيره نكنيد"
+
+msgid "_Close"
+msgstr "_بستن"
+
+msgid "_Columns"
+msgstr "_ستون ها"
+
+msgid "_Edit"
+msgstr "_ویرایش"
+
+msgid "_File"
+msgstr "_پرونده"
+
+msgid "_Help"
+msgstr "_راهنما"
+
+msgid "_Tools"
+msgstr "_ابزارها"
+
+msgid "_View"
+msgstr "_نما"
+
+msgid "after"
+msgstr "پس از"
+
+msgid "and"
+msgstr "و"
+
+msgid "at least"
+msgstr "حداقل"
+
+msgid "at most"
+msgstr "حداکثر"
+
+msgid "bad search token"
+msgstr "نشانه جستجوي بد"
+
+msgid "before"
+msgstr "پیش از"
+
+msgid "between"
+msgstr "بین"
+
+msgid "by %s"
+msgstr "توسط %s"
+
+msgid "contains"
+msgstr "شامل‌"
+
+msgid "days"
+msgstr "روز"
+
+msgid "does not contain"
+msgstr "ندارد"
+
+msgid "from %s"
+msgstr "از %s"
+
+msgid "hours"
+msgstr "ساعت"
+
+msgid "is"
+msgstr "هست"
+
+msgid "is not"
+msgstr "نیست‌"
+
+msgid "minutes"
+msgstr "دقیقه‌"
+
+msgid "order must be a list or tuple"
+msgstr "ترتيب بايد ليست و يا چندگانه باشد"
+
+msgid "seconds"
+msgstr "ثانیه"
+
+msgid "weeks"
+msgstr "هفته"

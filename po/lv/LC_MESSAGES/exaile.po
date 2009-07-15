@@ -1,0 +1,734 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2009-02-11 00:49+0000\n"
+"Last-Translator: JohnLM <Unknown>\n"
+"Language-Team: Latvian <lv@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid " + "
+msgstr " + "
+
+msgid " - "
+msgstr " - "
+
+msgid " songs"
+msgstr " dziesmas"
+
+msgid "#"
+msgstr "#"
+
+msgid "%s KB"
+msgstr "%s KB"
+
+msgid "(c) 2008"
+msgstr "(c) 2008"
+
+msgid "(drag to reorder)"
+msgstr "(vilkt lai pārkārtotu)"
+
+msgid "..."
+msgstr "..."
+
+msgid ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+msgstr ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+
+msgid "0/0 tracks"
+msgstr "0/0 dziesmas"
+
+msgid "0:00 / 0:00"
+msgstr "0:00 / 0:00"
+
+msgid "<b>General</b>"
+msgstr "<b>Vispārīgi</b>"
+
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Neviens papildinājums nav iezīmēts</b>"
+
+msgid ""
+"<b>OSD</b>\n"
+"Drag to the location you'd like the\n"
+"OSD to appear"
+msgstr ""
+"<b>OSD</b>\n"
+"Ievadiet atrasanas vietu, kur Jums patiktu\n"
+"redzēt OSD"
+
+msgid "<b>Save changes to %s before closing?</b>"
+msgstr "<b>Saglabāt izmaiņas %s pirms aizvērt?</b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"no {album} - {length}"
+
+msgid "A very fast Free lossless audio format with good compression."
+msgstr "Ļoti ātrs, brīvais bezzaudējumu audio formāts, ar labu kompresiju."
+
+msgid "ASX Playlist"
+msgstr "ASX Dziesmu Saraksts"
+
+msgid "About Exaile"
+msgstr "Par Exaile"
+
+msgid "Add"
+msgstr "Pievienot"
+
+msgid "Add Playlist"
+msgstr "Pievienot dziesmu sarakstu"
+
+msgid "Add Smart Playlist"
+msgstr "Pievienot automātisko sarakstu"
+
+msgid "Add Station"
+msgstr "Pievienot Staciju"
+
+msgid "Add a directory"
+msgstr "Pievienot mapi"
+
+msgid "Add device"
+msgstr "Pievienot ierīci"
+
+msgid "Add to Playlist"
+msgstr "Pievienot saraktam"
+
+msgid "Alarm Clock"
+msgstr "Modinātājpūlkstenis"
+
+msgid "Alarm Days:"
+msgstr "Brīdināšanas diena:"
+
+msgid "Album"
+msgstr "Albūms"
+
+msgid "Album Art"
+msgstr "Albūma vāciņš"
+
+msgid "Append to Current"
+msgstr "Pievienot aktīvajam"
+
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr ""
+"Vai esat pārliecināts, ka vēlaties neatgriezeniski dzēst izvēlēto dziesmu "
+"sarakstu?"
+
+msgid "Artist"
+msgstr "Izpildītājs"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"Izpildītājs\n"
+"Albūms\n"
+"Žanrs - Izpildītājs\n"
+"Žanrs - Albūms\n"
+"Gads - Izpildītājs\n"
+"Gads - Albūms\n"
+"Izpildītājs - Gads - Albūms"
+
+msgid "Authors:"
+msgstr "Autori:"
+
+msgid "Autosize"
+msgstr "Auto-izmērs"
+
+msgid "Available Plugins"
+msgstr "Pieejamaie Papildinājumi"
+
+msgid "Background Color:"
+msgstr "Fona krāsa:"
+
+msgid "Bitrate"
+msgstr "Bitu ātrums"
+
+msgid "Buffering complete"
+msgstr "Savienošanās pabeigta"
+
+msgid "Choose a file"
+msgstr "Izvēlieties failu"
+
+msgid "Clear Playlist"
+msgstr "Iztukšot dziesmu sarakstu"
+
+msgid "Close Tab"
+msgstr "Aizvērt Cilni"
+
+msgid "Close Without Saving"
+msgstr "Aizvērt Bez Saglabāšanas"
+
+msgid "Collection"
+msgstr "Kolekcija"
+
+msgid "Collection Manager"
+msgstr "Kolekcijas Menedžeris"
+
+msgid "Composer"
+msgstr "Komponists"
+
+msgid "Configure"
+msgstr "Konfigurēt"
+
+msgid "Confirm Close"
+msgstr "Apstiprināt aizvēršanu"
+
+msgid "Connected to HAL"
+msgstr "Savienots ar HAL"
+
+msgid "Could not disable plugin."
+msgstr "Papildinājumu neizdevās ieslēgt."
+
+msgid "Could not enable plugin."
+msgstr "Papildinājumu neizdevās ieslēgt."
+
+msgid "Cover Finder"
+msgstr "Vāciņa Meklētājs"
+
+msgid "Cover Search Order:"
+msgstr "Vāciņu meklēšanas kārtība:"
+
+msgid "Custom Playlists"
+msgstr "Paša saraksti"
+
+msgid "Date"
+msgstr "Datums"
+
+msgid "Delete Playlist"
+msgstr "Dzēst dziesmu sarakstu"
+
+msgid "Description:"
+msgstr "Apraksts:"
+
+msgid "Detected devices:"
+msgstr "Atrastās ierīces:"
+
+msgid "Device Manager"
+msgstr "Ierīces Pārvaldnieks"
+
+msgid "Disc"
+msgstr "Disks"
+
+msgid "Disc Number"
+msgstr "Diska numurs"
+
+msgid "Display a progressbar in the OSD"
+msgstr "Rādīt progresa joslu OSD logā"
+
+msgid "Dynamic"
+msgstr "Dinamiska"
+
+msgid "Edit"
+msgstr "Rediģēt"
+
+msgid "Edit Smart Playlist"
+msgstr "Labot automātisko sarakstu"
+
+msgid "Enabled"
+msgstr "Ieslēgts"
+
+msgid "Enter the name you want for your new playlist"
+msgstr "Ievadit nosaukumu jaunajam dziesmu sarakstam"
+
+msgid "Enter the new name you want for your playlist"
+msgstr "Ievadiet jaunu nosaukumu dziesmu sarakstam"
+
+msgid "Exaile Music Player"
+msgstr "Exaile Mūzikas Atskaņotājs"
+
+msgid "Exaile is shutting down..."
+msgstr "Exaile tiek aizvērts..."
+
+msgid "Exaile: playing %s"
+msgstr "Exaile: atskaņo %s"
+
+msgid "Export"
+msgstr "Eksportēt"
+
+msgid "Extension"
+msgstr "Paplašinājums"
+
+msgid "Failed to connect to HAL, autodetection of devices will be disabled."
+msgstr ""
+"Savienojums ar HAL neizdevās, ierīču automātiska atrašana nebūs iespējama."
+
+msgid "Failed to enable equalizer"
+msgstr "Neizdevās iedarbināt ekvolaizeru."
+
+msgid "Failed to open music DB for write."
+msgstr "Atvērt mūzikas datubāzi rakstīšanai neizdevās."
+
+msgid "Failed to open music DB."
+msgstr "Atvērt mūzikas datubāzi neizdevās."
+
+msgid "Fetch Cover"
+msgstr "Lejuplādēt Vāciņu"
+
+msgid "File Type"
+msgstr "Faila Tips"
+
+msgid "File count: %d"
+msgstr "Failu skaits: %d"
+
+msgid "File does not exist: %s"
+msgstr "Fails neeksistē: %s"
+
+msgid "Filename"
+msgstr "Faila nosaukums"
+
+msgid "Files"
+msgstr "Faili"
+
+msgid ""
+"Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
+"does not degrade audio quality."
+msgstr ""
+"Brīvais bezzaudējuma audio kodeks (FLAC) ir atvērtā koda audio formāts, kas "
+"kompresē mūziku bez kvalitātes degradācijas."
+
+msgid "Friday"
+msgstr "Piektdiena"
+
+msgid "Install"
+msgstr "Instalēt"
+
+msgid "Install Updates"
+msgstr "Instalēt jauninājumus"
+
+msgid "Installed Plugins"
+msgstr "Instalētie papildinājumi"
+
+msgid "Invalid file extension, file not saved"
+msgstr "Nepareizs faila palašinājums. Fails netika saglabāts."
+
+msgid "Length"
+msgstr "Garums"
+
+msgid "Limit to: "
+msgstr "Ierobežot līdz: "
+
+msgid "Loaded plugin %s"
+msgstr "Ielādē papildinājumu %s"
+
+msgid "Loading Exaile %s..."
+msgstr "Ielādē Exaile %s..."
+
+msgid "Loading collection..."
+msgstr "Ielādē kolekciju..."
+
+msgid "Loading devices..."
+msgstr "Ielādē ierīces..."
+
+msgid "Loading interface..."
+msgstr "Ielādē saskarni..."
+
+msgid "Loading plugins..."
+msgstr "Ielādē papildinājumus..."
+
+msgid "Loading settings"
+msgstr "Ielādē uzstādījumus"
+
+msgid "Loading streams..."
+msgstr "Ielādē straumes..."
+
+msgid "Location"
+msgstr "Atrašanās vieta"
+
+msgid "M3U Playlist"
+msgstr "M3U Dziesmu Saraksts"
+
+msgid "Monday"
+msgstr "Pirmdiena"
+
+msgid "Name:"
+msgstr "Nosaukums:"
+
+msgid "New Playlist"
+msgstr "Jauns dziesmu saraksts"
+
+msgid "New Search"
+msgstr "Jauna Meklēšana"
+
+msgid "Next"
+msgstr "Nākamā"
+
+msgid "Next Track"
+msgstr "Nākamā dziesma"
+
+msgid "No covers found"
+msgstr "Vāciņs nav atrasts"
+
+msgid "Not Playing"
+msgstr "Neatskaņo"
+
+msgid "Number of Plays"
+msgstr "Atskaņošanas reizes"
+
+msgid "Opacity Level:"
+msgstr "Caurspīdīgums:"
+
+msgid "Open"
+msgstr "Atvērt"
+
+msgid "Open _URL"
+msgstr "Atvērt _adresi"
+
+msgid "Open last playlists on startup"
+msgstr "Atvērt pēdējos dziesmu sarakstus palaižot programmu"
+
+msgid "PLS Playlist"
+msgstr "PLS Dziesmu Saraksts"
+
+msgid "Page 1"
+msgstr "Lapa 1"
+
+msgid "Password:"
+msgstr "Parole:"
+
+msgid "Pause"
+msgstr "Pauze"
+
+msgid "Pl_ugins"
+msgstr "_Spraudņi"
+
+msgid "Play"
+msgstr "Atskaņot"
+
+msgid "Playcount"
+msgstr "Atskaņot"
+
+msgid "Playing %s"
+msgstr "Atskaņo %s"
+
+msgid "Playlists"
+msgstr "Dziesmu saraksti"
+
+msgid "Plugin"
+msgstr "Papildinājums"
+
+msgid "Plugins"
+msgstr "Papildinājumi"
+
+msgid "Popup"
+msgstr "Izlecošais logs"
+
+msgid "Preferences"
+msgstr "Uzstādījumi"
+
+msgid "Previous"
+msgstr "Iepriekšējā"
+
+msgid "Previous Track"
+msgstr "Iepriekšējā dziesma"
+
+msgid "Queue Items"
+msgstr "Sarindot ieraktus"
+
+msgid "Quit"
+msgstr "Iziet"
+
+msgid "Radio"
+msgstr "Radio"
+
+msgid "Radio Streams"
+msgstr "Radio straumes"
+
+msgid "Randomize results"
+msgstr "Sajaukt rezultātus"
+
+msgid "Rating"
+msgstr "Vērtējums"
+
+msgid "Rating: "
+msgstr "Vērtējums: "
+
+msgid "Refresh"
+msgstr "Atsvaidzināt"
+
+msgid "Remove"
+msgstr "Noņemt"
+
+msgid "Remove Cover"
+msgstr "Aizvākt Vāciņu"
+
+msgid "Rename"
+msgstr "Pārdēvēt"
+
+msgid "Rename Playlist"
+msgstr "Pārdēvēt Dziemu Sarakstu"
+
+msgid "Repeat"
+msgstr "Atkārtot"
+
+msgid "Resizable"
+msgstr "Maināma izmēra"
+
+msgid "Safe mode enabled, not loading plugins."
+msgstr "Ieslēgts drošības režīms, papildinājumi netiks ielādēti."
+
+msgid "Saturday"
+msgstr "Sestdiena"
+
+msgid "Save"
+msgstr "Saglabāt"
+
+msgid "Saved Stations"
+msgstr "Saglabātās Stacijas"
+
+msgid "Saving %s DB to %s."
+msgstr "%s datubāze tiek saglabāta uz %s."
+
+msgid "Scanning collection..."
+msgstr "Skenē kolekciju..."
+
+msgid "Search: "
+msgstr "Meklēt: "
+
+msgid "Select File Type (By Extension)"
+msgstr "Faila tips (pēc paplašinājuma)"
+
+msgid "Set Rating"
+msgstr "Novērtēt"
+
+msgid "Show Cover"
+msgstr "Pārādīt Vāciņu"
+
+msgid "Show OSD on track change"
+msgstr "Parādīt OSD logu mainoties dziesmai"
+
+msgid "Show splash screen on startup"
+msgstr "Rādīt šļaksta logu palaižot programmu"
+
+msgid "Shuffle"
+msgstr "Sajaukt"
+
+msgid "Size"
+msgstr "Izmērs"
+
+msgid "Smart Playlists"
+msgstr "Automātiskie saraksti"
+
+msgid "Start"
+msgstr "Sākt"
+
+msgid "Stop"
+msgstr "Apturēt"
+
+msgid "Stop Playback"
+msgstr "Pārtraukt atskaņošanu"
+
+msgid "Stopped"
+msgstr "Apturēts"
+
+msgid "Sunday"
+msgstr "Svētdiena"
+
+msgid "Text Color"
+msgstr "Teksta krāsa"
+
+msgid "Text Font:"
+msgstr "Teksta šrifts:"
+
+msgid "The playlist name you specified already exists."
+msgstr "Ievadītais nosaukums jau eksistē."
+
+msgid "The selected plugin doesn't have any configuration options"
+msgstr "Izvēlētam papildinājumam nav maināmu uzstādījumu."
+
+msgid "Thursday"
+msgstr "Ceturtdiena"
+
+msgid "Title"
+msgstr "Virsraksts"
+
+msgid "Toggle: Stop after selected track"
+msgstr "Apstādināt pēc iezīmētā ieraksta"
+
+msgid "Track Number"
+msgstr "Dziesmas numurs"
+
+msgid "Tuesday"
+msgstr "Otrdiena"
+
+msgid "Type of device:"
+msgstr "Ierīces tips:"
+
+msgid "Unable to enable plugin %s"
+msgstr "Ieslēgt papildinājumu %s neizdevās"
+
+msgid "Unable to fully disable plugin %s"
+msgstr "Pilnībā izslēgt papildinājumu %s neizdevās"
+
+msgid "Unknown"
+msgstr "Nezināms"
+
+msgid "Updates"
+msgstr "Jauninājumi"
+
+msgid "Username:"
+msgstr "Lietotājvārds:"
+
+msgid "Using %s for playback"
+msgstr "Atskaņošanai tiek izmantots %s"
+
+msgid "Various Artists"
+msgstr "Dažādi izpildītāji"
+
+msgid "Version:"
+msgstr "Versija:"
+
+msgid "Vol:"
+msgstr "Izlaidums:"
+
+msgid ""
+"Vorbis is an open source, lossy audio codec with high quality output at a "
+"lower file size than MP3."
+msgstr ""
+"Vorbis ir atvērtā koda audio formāts, ar augstu izejošo kvalitāti, un mazāku "
+"izmēru par MP3."
+
+msgid "Wednesday"
+msgstr "Trešdiena"
+
+msgid "Window Height:"
+msgstr "Loga augstums:"
+
+msgid "Window Width:"
+msgstr "Loga platums:"
+
+msgid "XSPF Playlist"
+msgstr "XSPF Dziesmu Saraksts"
+
+msgid "Year"
+msgstr "Gads"
+
+msgid "You did not enter a name for your playlist"
+msgstr "Jūs neievadījāt nosaukumu dziesmu sarakstam"
+
+msgid "Your changes will be lost if you don't save them"
+msgstr "Jūsu veiktās izmaiņas būs zaudētas, ja nesaglabāsiet tās"
+
+msgid "_Album Art Manager"
+msgstr "_Albūmu Vāciņu Menedžeris"
+
+msgid "_Close"
+msgstr "_Aizvērt"
+
+msgid "_Collection Manager"
+msgstr "_Kolekcijas Menedžeris"
+
+msgid "_Columns"
+msgstr "_Kolonnas"
+
+msgid "_Edit"
+msgstr "R_ediģēt"
+
+msgid "_File"
+msgstr "_Fails"
+
+msgid "_Help"
+msgstr "_Palīdzība"
+
+msgid "_Rescan Collection"
+msgstr "Pā_rskenēt Kolekciju"
+
+msgid "_Tools"
+msgstr "_Rīki"
+
+msgid "_View"
+msgstr "_Skatīt"
+
+msgid "after"
+msgstr "pēc"
+
+msgid "and"
+msgstr "un"
+
+msgid "at least"
+msgstr "vismaz"
+
+msgid "at most"
+msgstr "ne vairāk kā"
+
+msgid "before"
+msgstr "pirms"
+
+msgid "between"
+msgstr "starp"
+
+msgid "by %s"
+msgstr "izpilda %s"
+
+msgid "contains"
+msgstr "satur"
+
+msgid "days"
+msgstr "dienas"
+
+msgid "does not contain"
+msgstr "nesatur"
+
+msgid "from %s"
+msgstr "no albūma %s"
+
+msgid "gtk-add"
+msgstr "gtk-add"
+
+msgid "gtk-cancel"
+msgstr "gtk-cancel"
+
+msgid "gtk-close"
+msgstr "gtk-close"
+
+msgid "gtk-edit"
+msgstr "gtk-edit"
+
+msgid "gtk-ok"
+msgstr "gtk-ok"
+
+msgid "gtk-remove"
+msgstr "gtk-remove"
+
+msgid "hours"
+msgstr "stundas"
+
+msgid "is"
+msgstr "ir"
+
+msgid "is not"
+msgstr "nav"
+
+msgid "minutes"
+msgstr "minūtes"
+
+msgid "seconds"
+msgstr "sekundes"
+
+msgid "weeks"
+msgstr "nedēļas"

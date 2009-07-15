@@ -1,0 +1,1250 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2009-04-21 17:26+0000\n"
+"Last-Translator: Daniel Nylander <yeager@ubuntu.com>\n"
+"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid "  New song, fetching cover."
+msgstr "  Ny låt, hämtar omslaget."
+
+msgid " + "
+msgstr " + "
+
+msgid " - "
+msgstr " - "
+
+msgid " : %d queued"
+msgstr " : %d kö"
+
+msgid " songs"
+msgstr " låtar"
+
+msgid "#"
+msgstr "nr."
+
+msgid "%(title)s (by %(artist)s)"
+msgstr "%(title)s (av %(artist)s)"
+
+msgid "%d covers to fetch"
+msgstr "%d omfattar att hämta"
+
+msgid "%d showing, %d in collection"
+msgstr "%d visar. %d i samligen"
+
+msgid "%d:%02d"
+msgstr "%d:%02d"
+
+msgid "%s KB"
+msgstr "%s KB"
+
+msgid "(c) 2008"
+msgstr "© 2008"
+
+msgid "(drag to reorder)"
+msgstr "(dra för att sortera)"
+
+msgid "..."
+msgstr "..."
+
+msgid ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+msgstr ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+
+msgid "0/0 tracks"
+msgstr "0/0 spår"
+
+msgid "0:00"
+msgstr "0:00"
+
+msgid "0:00 / 0:00"
+msgstr "0:00 / 0:00"
+
+msgid ":"
+msgstr ":"
+
+msgid "<b>General</b>"
+msgstr "<b>Allmänt</b>"
+
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to appear</"
+"b>"
+msgstr ""
+"<b>Flytta skärmtextfönstret till den plats där du vill att den ska visas</b>"
+
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Ingen insticksmodul vald</b>"
+
+msgid ""
+"<b>OSD</b>\n"
+"Drag to the location you'd like the\n"
+"OSD to appear"
+msgstr ""
+"<b>Skärmtext</b>\n"
+"Dra till platsen som du vill att\n"
+"skärmtexten ska visas"
+
+msgid "<b>Save changes to %s before closing?</b>"
+msgstr "<b>Spara ändringar till %s innan stängning?</b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"från {album} - {length}"
+
+msgid ""
+"A proprietary and older, but also popular, lossy audio format. CBR gives "
+"less quality than VBR, but is compatible with any player."
+msgstr ""
+"Ett proprietärt och äldre, men också populärt, ljudformat med förluster. CBR "
+"ger mindre kvalitet än VBR men är kompatibelt med alla spelare."
+
+msgid ""
+"A proprietary and older, but also popular, lossy audio format. VBR gives "
+"higher quality than CBR, but may be incompatible with some players."
+msgstr ""
+"Ett proprietärt och äldre, men också populärt, ljudformat med förluster. VBR "
+"ger högre kvalitet än CBR men kan vara inkompatibelt med vissa spelare."
+
+msgid "A very fast Free lossless audio format with good compression."
+msgstr ""
+"Ett mycket snabbt fritt och förlustfritt ljudformat med bra komprimering."
+
+msgid "ASX Playlist"
+msgstr "ASX-spellista"
+
+msgid "About Exaile"
+msgstr "Om Exaile"
+
+msgid "Add"
+msgstr "Lägg till"
+
+msgid "Add Playlist"
+msgstr "Lägg till spellista"
+
+msgid "Add Smart Playlist"
+msgstr "Lägg till smart spellista"
+
+msgid "Add Station"
+msgstr "Lägg till station"
+
+msgid "Add a directory"
+msgstr "Lägg till en katalog"
+
+msgid "Add device"
+msgstr "Lägg till enhet"
+
+msgid "Add to Playlist"
+msgstr "Lägg till i spellista"
+
+msgid "Alarm Clock"
+msgstr "Alarmklocka"
+
+msgid "Alarm Days:"
+msgstr "Dagar med alarm:"
+
+msgid "Alarm Name:"
+msgstr "Alarm Namn:"
+
+msgid "Alarm Time :"
+msgstr "Alarm tid :"
+
+msgid "Alarm Time:"
+msgstr "Larm tid:"
+
+msgid "Alarm:"
+msgstr "Alarm:"
+
+msgid "Album"
+msgstr "Album"
+
+msgid "Album Art"
+msgstr "Albumomslag"
+
+msgid "All Files"
+msgstr "Alla filer"
+
+msgid "An Unknown type of setting was found!"
+msgstr "En okänd typ av inställning hittades!"
+
+msgid "Append to Current"
+msgstr "Lägg till i aktuell"
+
+msgid ""
+"Apple's proprietary lossy audio format that achieves better sound quality "
+"than MP3 at lower bitrates."
+msgstr ""
+"Apples proprietära ljudformat med förluster som ger bättre ljudkvalitet än "
+"MP3 vid lägre bitfrekvenser."
+
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr "Är du säker på att du vill permanent ta bort den markerade spellistan?"
+
+msgid "Artist"
+msgstr "Artist"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"År - Artist\n"
+"År - Album\n"
+"Artist - År - Album"
+
+msgid "Attempting to find covers for %s"
+msgstr "Försök att hitta täcker för %s"
+
+msgid "Authors:"
+msgstr "Upphovsmän:"
+
+msgid "Autosize"
+msgstr "Ändra storlek automatiskt"
+
+msgid "Available Plugins"
+msgstr "Tillgängliga insticksmoduler"
+
+msgid "BPM"
+msgstr "BPM"
+
+msgid "Background Color:"
+msgstr "Bakgrundsfärg:"
+
+msgid "Bitrate"
+msgstr "Bithastighet"
+
+msgid "Bottom left"
+msgstr "Nedre vänster"
+
+msgid "Bottom right"
+msgstr "Nedre höger"
+
+msgid "Buffering complete"
+msgstr "Buffring färdig"
+
+msgid "Buffering: %d%%..."
+msgstr "Buffrar: %d%%..."
+
+msgid "Buffering: 100%..."
+msgstr "Bruffrat: 100%..."
+
+msgid "Bye!"
+msgstr "Hej då!"
+
+msgid "Cancel"
+msgstr "Avbryt"
+
+msgid "Choose a file"
+msgstr "Välj en fil"
+
+msgid "Choose a file to open"
+msgstr "Välj en fil att öppna"
+
+msgid "Clear Playlist"
+msgstr "Töm spellista"
+
+msgid "Close Tab"
+msgstr "Stäng flik"
+
+msgid "Close Without Saving"
+msgstr "Stäng utan att spara"
+
+msgid "Collection"
+msgstr "Samling"
+
+msgid "Collection Manager"
+msgstr "Samlingshanterare"
+
+msgid "Compilation detected: %s"
+msgstr "Samling upptäcktes: %s"
+
+msgid "Composer"
+msgstr "Kompositör"
+
+msgid "Configure"
+msgstr "Konfigurera"
+
+msgid "Confirm Close"
+msgstr "Bekräfta stängning"
+
+msgid "Connected to HAL"
+msgstr "Ansluten till HAL"
+
+msgid ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+msgstr ""
+"Copyright © 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"Följande text är en informell översättning som enbart tillhandahålls i\n"
+"informativt syfte. För alla juridiska tolkningar gäller den engelska\n"
+"originaltexten.\n"
+"\n"
+"Detta program är fri programvara. Du kan distribuera det och/eller\n"
+"modifiera det under villkoren i GNU General Public License, publicerad\n"
+"av Free Software Foundation, antingen version 2 eller (om du så vill)\n"
+"någon senare version.\n"
+"\n"
+"Detta program distribueras i hopp om att det ska vara användbart,\n"
+"men UTAN NÅGON SOM HELST GARANTI, även utan underförstådd garanti\n"
+"om SÄLJBARHET eller LÄMPLIGHET FÖR NÅGOT SPECIELLT ÄNDAMÅL. Se\n"
+"GNU General Public License för ytterligare information.\n"
+"\n"
+"Du bör ha fått en kopia av GNU General Public License tillsammans\n"
+"med detta program. Om inte, skriv till Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+
+msgid "Could not disable plugin."
+msgstr "Kunde inte inaktivera insticksmodul."
+
+msgid "Could not enable plugin."
+msgstr "Kunde inte aktivera insticksmodul."
+
+msgid "Could not find playback sink %s, falling back to autoaudiosink"
+msgstr "Kunde inte hitta uppspelningssink %s, faller tillbaka på autoaudiosink"
+
+msgid "Could not set parameter %s for %s"
+msgstr "Kunde inte ställa in parametern %s för %s"
+
+msgid "Couldn't send seek event"
+msgstr "Kunde inte skicka spolningshändelse"
+
+msgid "Cover Finder"
+msgstr "Hitta omslagsbild"
+
+msgid "Cover Search Order:"
+msgstr "Sökordning för omslag:"
+
+msgid "CoverDB: set cover %s for '%s - %s'"
+msgstr "OmslagsDatabasen: sätt omslag %s för '%s - %s'"
+
+msgid "Custom Playlists"
+msgstr "Anpassade spellistor"
+
+msgid "Custom: "
+msgstr "Anpassad: "
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Decreases the volume by VOL"
+msgstr "Minska volymen med VOL"
+
+msgid "Delete"
+msgstr "Ta bort"
+
+msgid "Delete Playlist"
+msgstr "Ta bort spellista"
+
+msgid "Description:"
+msgstr "Beskrivning:"
+
+msgid "Detected devices:"
+msgstr "Upptäckta enheter:"
+
+msgid "Device Manager"
+msgstr "Enhetshanterare"
+
+msgid "Disable D-Bus support"
+msgstr "Inaktivera D-Bus-stöd"
+
+msgid "Disable HAL support."
+msgstr "Inaktivera HAL-stöd"
+
+msgid "Disc"
+msgstr "Skiva"
+
+msgid "Disc Number"
+msgstr "Skivnummer"
+
+msgid "Display OSD when hovering over tray icon"
+msgstr "Visa skärmtext när muspekaren är över ikonen"
+
+msgid "Display a progressbar in the OSD"
+msgstr "Visa en förloppsmätare i skärmtexten"
+
+msgid "Dynamic"
+msgstr "Dynamisk"
+
+msgid "Dynamic mode is enabled, but there are no dynamic providers!"
+msgstr "Dynamic-läget är aktiverat, men det finns inga dynamiska leverantörer!"
+
+msgid "Dynamic: %d tracks fetched"
+msgstr "Dynamiskt: %d spår hämtas"
+
+msgid "Dynamic: attempting to get %d tracks"
+msgstr "Dynamisk: försöker få %d spår"
+
+msgid "Edit"
+msgstr "Redigera"
+
+msgid "Edit Smart Playlist"
+msgstr "Redigera smart spellista"
+
+msgid "Enable Fading"
+msgstr "Aktivera Fading"
+
+msgid "Enable debugging of xl.event. Generates LOTS of output"
+msgstr "Aktivera felsökning av xl.event. Skapar MASSA utdata"
+
+msgid "Enabled"
+msgstr "Aktiverad"
+
+msgid "Enter the URL to open"
+msgstr "Ange URL:en att öppna"
+
+msgid "Enter the name you want for your new playlist"
+msgstr "Ange namnet på din nya spellista"
+
+msgid "Enter the new name you want for your playlist"
+msgstr "Ange nya namnet för din spellista"
+
+msgid "Enter the search keywords"
+msgstr "Ange sökordet"
+
+msgid "Enter the search text"
+msgstr "Ange söktext"
+
+msgid "Entire Library"
+msgstr "Hela biblioteket"
+
+msgid "Error executing streamripper"
+msgstr "Fel verkställande streamripper"
+
+msgid "Error loading preferences pane"
+msgstr "Fel vid laddning inställningspanelen"
+
+msgid "Exaile"
+msgstr "Exaile"
+
+msgid "Exaile Music Player"
+msgstr "Musikspelaren Exaile"
+
+msgid "Exaile is shutting down..."
+msgstr "Exaile håller på att stängas av..."
+
+msgid "Exaile: playing %s"
+msgstr "Exaile: spelar upp %s"
+
+msgid "Export"
+msgstr "Exportera"
+
+msgid "Extension"
+msgstr "Filändelse"
+
+msgid "Fading:"
+msgstr "Fading:"
+
+msgid "Failed to connect to HAL, autodetection of devices will be disabled."
+msgstr ""
+"Misslyckades med att ansluta till HAL, automatisk upptäckt av enheter kommer "
+"att inaktiveras."
+
+msgid "Failed to create device for %s"
+msgstr "Misslyckades med att skapa enhet för %s"
+
+msgid "Failed to enable equalizer"
+msgstr "Misslyckades med att aktivera equalizer"
+
+msgid "Failed to enable replaygain"
+msgstr "Misslyckades med att aktivera uppspelningsförstärkning"
+
+msgid "Failed to load HAL devices for %s"
+msgstr "Misslyckades med att läsa in HAL-enheter för %s"
+
+msgid "Failed to open music DB for write."
+msgstr "Misslyckades med att öppna musikdatabas för skrivning."
+
+msgid "Failed to open music DB."
+msgstr "Misslyckades med att öppna musikdatabas."
+
+msgid "Fetch Cover"
+msgstr "Hämta omslag"
+
+msgid "File Type"
+msgstr "Filtyp"
+
+msgid "File count: %d"
+msgstr "Filantal: %d"
+
+msgid "File does not exist: %s"
+msgstr "Filen finns inte: %s"
+
+msgid "Filename"
+msgstr "Filnamn"
+
+msgid "Files"
+msgstr "Filer"
+
+msgid "Found covers from %s"
+msgstr "Hitta omslag från %s"
+
+msgid "Found new %s device at %s"
+msgstr "Hittade ny %s-enhet på %s"
+
+msgid "Found no HAL device handler for %s"
+msgstr "Hittade ingen HAL-enhetshanterare för %s"
+
+msgid ""
+"Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
+"does not degrade audio quality."
+msgstr ""
+"Free Lossless Audio Codec (FLAC) är en kodek med öppen källkod som "
+"komprimerar utan att förlora ljudkvalitet."
+
+msgid "Friday"
+msgstr "Fredag"
+
+msgid "GST AUDIO CHANGED"
+msgstr "GST LJUD FÖRÄNDRINGAR"
+
+msgid "Gapless enabled"
+msgstr "Sömlös uppspelning aktiverad"
+
+msgid "Genre"
+msgstr "Genre"
+
+msgid "Get rating for current song"
+msgstr "Få betyg för aktuella låten"
+
+msgid "Home directory"
+msgstr "Hemkatalog"
+
+msgid "Increases the volume by VOL"
+msgstr "Öka volymen med VOL"
+
+msgid "Increment:"
+msgstr "Ökning:"
+
+msgid "Install"
+msgstr "Installera"
+
+msgid "Install Updates"
+msgstr "Installera uppdateringar"
+
+msgid "Installed Plugins"
+msgstr "Installerade insticksmoduler"
+
+msgid "Invalid file extension, file not saved"
+msgstr "Ogiltig filändelse, filen inte sparad"
+
+msgid "Jump to current song on track change"
+msgstr "Hoppa till aktuell låt vid spårbyte"
+
+msgid "LastFM Radio"
+msgstr "LastFM-radio"
+
+msgid "LastFM: %s"
+msgstr "LastFM: %s"
+
+msgid "Length"
+msgstr "Speltid"
+
+msgid "Limit to: "
+msgstr "Begränsa till: "
+
+msgid "Loaded plugin %s"
+msgstr "Läste in insticksmoduler %s"
+
+msgid "Loading Exaile %s..."
+msgstr "Läser in Exaile %s..."
+
+msgid "Loading collection..."
+msgstr "Läser in samling..."
+
+msgid "Loading devices..."
+msgstr "Läser in enheter..."
+
+msgid "Loading interface..."
+msgstr "Läser in gränssnitt..."
+
+msgid "Loading plugins..."
+msgstr "Laddar in instickmoduler..."
+
+msgid "Loading settings"
+msgstr "Läser in inställningar"
+
+msgid "Loading streams..."
+msgstr "Läser in strömmar..."
+
+msgid "Location"
+msgstr "Plats"
+
+msgid "Location deleted: %s"
+msgstr "Platsen borttagen: %s"
+
+msgid "Location modified: %s"
+msgstr "Platsen ändrad: %s"
+
+msgid "Loved Tracks"
+msgstr "Älskade spår"
+
+msgid "M3U Playlist"
+msgstr "M3U-spellista"
+
+msgid "Match any of the criteria"
+msgstr "Matchar något av kriterierna"
+
+msgid "Maximum Volume:"
+msgstr "Högsta volym:"
+
+msgid "Minimum Volume:"
+msgstr "Lägsta volym"
+
+msgid "Minimum Volume:                "
+msgstr "Lägsta volym:                "
+
+msgid "Monday"
+msgstr "Måndag"
+
+msgid "Music Files"
+msgstr "Musikfiler"
+
+msgid "Name - Time"
+msgstr "Namn - Tid"
+
+msgid "Name:"
+msgstr "Namn:"
+
+msgid "Neighbourhood"
+msgstr "Grannskap"
+
+msgid "New Playlist"
+msgstr "Ny spellista"
+
+msgid "New Search"
+msgstr "Ny sökning"
+
+msgid "Next"
+msgstr "Nästa"
+
+msgid "Next Track"
+msgstr "Nästa spår"
+
+msgid "Next visited directory"
+msgstr "Nästa besökta katalog"
+
+msgid "No cover found"
+msgstr "Inget omslag hittades"
+
+msgid "No covers found"
+msgstr "Inga omslag hittades"
+
+msgid "Not Playing"
+msgstr "Ingen uppspelning"
+
+msgid "Not watching library: %s"
+msgstr "Bevakar inte bibliotek: %s"
+
+msgid "Number of Plays"
+msgstr "Antal spelningar"
+
+msgid "Ok"
+msgstr "Ok"
+
+msgid "Opacity Level:"
+msgstr "Opakhetsnivå:"
+
+msgid "Open"
+msgstr "Öppna"
+
+msgid "Open URL"
+msgstr "Öppna URL"
+
+msgid "Open _URL"
+msgstr "Öppna _url"
+
+msgid "Open last playlists on startup"
+msgstr "Öppna senaste spellistorna vid uppstart"
+
+msgid "PLS Playlist"
+msgstr "PLS-spellista"
+
+msgid "Page 1"
+msgstr "Sida 1"
+
+msgid "Password:"
+msgstr "Lösenord:"
+
+msgid ""
+"Path is already in your collection, or is a subdirectory of another path in "
+"your collection"
+msgstr ""
+"Sökvägen är redan i din samling eller är en underkatalog till en annan "
+"sökväg i din samling"
+
+msgid "Pause"
+msgstr "Paus"
+
+msgid "Personal"
+msgstr "Personligt"
+
+msgid "Pl_ugins"
+msgstr "Insticks_moduler"
+
+msgid "Play"
+msgstr "Spela upp"
+
+msgid "Play the next track"
+msgstr "Spela upp nästa spår"
+
+msgid "Play the previous track"
+msgstr "Spela upp föregående spår"
+
+msgid "Playcount"
+msgstr "Spelräknare"
+
+msgid "Playing %s"
+msgstr "Spelar upp %s"
+
+msgid "Playlist Files"
+msgstr "Spellistefiler"
+
+msgid "Playlists"
+msgstr "Spellistor"
+
+msgid "Plugin"
+msgstr "Insticksmodul"
+
+msgid "Plugin archive contains an unsafe path"
+msgstr "Plugin-arkiv innehåller en farlig väg"
+
+msgid "Plugins"
+msgstr "Insticksmoduler"
+
+msgid "Popup"
+msgstr "Popupp"
+
+msgid "Preferences"
+msgstr "Inställningar"
+
+msgid "Previous"
+msgstr "Föregående"
+
+msgid "Previous Track"
+msgstr "Föregående spår"
+
+msgid "Previous visited directory"
+msgstr "Föregående besökta katalog"
+
+msgid "Print the album of current track"
+msgstr "Visa albumnamnet för det spelade spåret"
+
+msgid "Print the artist of current track"
+msgstr "Visa artistnamnet för det spelade spåret"
+
+msgid "Print the current volume"
+msgstr "Visa nuvarande volym"
+
+msgid "Print the length of current track"
+msgstr "Visa spårlängden för det spelade spåret"
+
+msgid "Print the position inside the current track as a percentage"
+msgstr "Visa uppspelad andel av spåret i procent"
+
+msgid "Print the title of current track"
+msgstr "Visa titeln för det spelade spåret"
+
+msgid "Provider %s registered for service %s"
+msgstr "Provider %s är registrerade för tjänsten %s"
+
+msgid "Provider %s unregistered from service %s"
+msgstr "Provider %s oregistrerade från tjänsten %s"
+
+msgid "PyInotify not installed or not supported.  "
+msgstr "PyInotify är inte installerat eller stöds inte.  "
+
+msgid "Python Console - Exaile"
+msgstr "Python-konsoll - Exaile"
+
+msgid "Query player"
+msgstr "Query spelare"
+
+msgid "Queue Items"
+msgstr "Lägg objekt i kö"
+
+msgid "Quit"
+msgstr "Avsluta"
+
+msgid "Radio"
+msgstr "Radio"
+
+msgid "Radio Streams"
+msgstr "Radioströmmar"
+
+msgid "Ran out of tracks to shuffle"
+msgstr "Fick slut på spår att blanda"
+
+msgid "Random %d"
+msgstr "Slumpa %d"
+
+msgid "Randomize results"
+msgstr "Slumpmässiga resultat"
+
+msgid "Rating"
+msgstr "Betyg"
+
+msgid "Rating > %d"
+msgstr "Betyg större än %d"
+
+msgid "Rating: "
+msgstr "Betyg: "
+
+msgid "Recommended"
+msgstr "Rekommenderad"
+
+msgid "Reduce level of output"
+msgstr "Minska mängden utdata"
+
+msgid "Refresh"
+msgstr "Uppdatera"
+
+msgid "Refresh directory listing"
+msgstr "Uppdatera kataloglistning"
+
+msgid "Relay Port:"
+msgstr "Reläport:"
+
+msgid "Remove"
+msgstr "Ta bort"
+
+msgid "Remove Cover"
+msgstr "Ta bort omslag"
+
+msgid "Rename"
+msgstr "Byt namn"
+
+msgid "Rename Playlist"
+msgstr "Byt namn på spellista"
+
+msgid "Repeat"
+msgstr "Upprepa"
+
+msgid "Resizable"
+msgstr "Ändringsbar"
+
+msgid "Restart Playlist"
+msgstr "Starta om spelningslistan"
+
+msgid "Resume playback in paused state"
+msgstr "Återuppta uppspelning i pausat tillstånd"
+
+msgid "Resume playback on start"
+msgstr "Återuppta uppspelning vid start"
+
+msgid "Safe mode enabled, not loading plugins."
+msgstr "Säkert läge aktiverat, läser inte in några insticksmoduler."
+
+msgid "Saturday"
+msgstr "Lördag"
+
+msgid "Save"
+msgstr "Spara"
+
+msgid "Save Location:     "
+msgstr "Sparar platsen:     "
+
+msgid "Saved Stations"
+msgstr "Sparade stationer"
+
+msgid "Saving %s DB to %s."
+msgstr "Sparar %s-databas till %s."
+
+msgid "Saving cover database"
+msgstr "Sparar omslag databasen"
+
+msgid "Saving state..."
+msgstr "Sparar tillstånd..."
+
+msgid "Scanning collection..."
+msgstr "Söker av samling..."
+
+msgid "Scanning library: %s"
+msgstr "Söker av bibliotek: %s"
+
+msgid "Search"
+msgstr "Sök"
+
+msgid "Search Results"
+msgstr "Sökresultat"
+
+msgid "Search: "
+msgstr "Sök: "
+
+msgid "Select File Type (By Extension)"
+msgstr "Välj filtyp (efter filändelse)"
+
+msgid "Sent '%s' event from '%s' with data '%s'."
+msgstr "Skickade '%s' händelsen frn '%s' med data '%s'"
+
+msgid "Set Rating"
+msgstr "Betygsätt"
+
+msgid "Set data directory"
+msgstr "Ange datakatalog"
+
+msgid "Set rating for current song"
+msgstr "Betygsätt spåret"
+
+msgid "Shoutcast Search"
+msgstr "Shoutcast Sök"
+
+msgid "Show Cover"
+msgstr "Visa omslag"
+
+msgid "Show OSD on track change"
+msgstr "Visa skärmtext vid spårbyte"
+
+msgid "Show a popup of the currently playing track"
+msgstr "Visa ett popuppfönster av det spelade spåret"
+
+msgid "Show debugging output"
+msgstr "Visa felsökningsutdata"
+
+msgid "Show splash screen on startup"
+msgstr "Visa uppstartsbild vid uppstart"
+
+msgid "Show tray icon"
+msgstr "Visa ikon i systembrickan"
+
+msgid "Shuffle"
+msgstr "Blanda"
+
+msgid "Size"
+msgstr "Storlek"
+
+msgid "Smart Playlists"
+msgstr "Smarta spellistor"
+
+msgid "Start"
+msgstr "Starta"
+
+msgid "Start Exaile minimized to tray, if possible"
+msgstr "Starta Exaile minimerat till informationsfältet om möjligt"
+
+msgid "Start in safe mode - sometimes useful when you're running into problems"
+msgstr "Starta i säkert läge - ibland nyttigt om du stöter på problem"
+
+msgid "Start new instance"
+msgstr "Starta ny instans"
+
+msgid "Stop"
+msgstr "Stoppa"
+
+msgid "Stop Playback"
+msgstr "Stoppa uppspelning"
+
+msgid "Stop playback"
+msgstr "Stoppa uppspelning"
+
+msgid "Stopped"
+msgstr "Stoppad"
+
+msgid "Stopping IdleManager thread..."
+msgstr "Stoppar IdleManager-tråden"
+
+msgid "Streaming..."
+msgstr "Streamar..."
+
+msgid "Streamripper can only record streams."
+msgstr "Streamripper kan bara spela in strömmar."
+
+msgid "Submit tracks to Last.FM"
+msgstr "Sänd in låtar till Last.FM"
+
+msgid "Sunday"
+msgstr "Söndag"
+
+msgid "Supported Files"
+msgstr "Filer som stöds"
+
+msgid "Text Color"
+msgstr "Textfärg"
+
+msgid "Text Font:"
+msgstr "Texttypsnitt:"
+
+msgid "The playlist name you specified already exists."
+msgstr "Spellistans namn används redan."
+
+msgid "The selected plugin doesn't have any configuration options"
+msgstr "Den valda insticksmodulen har inga konfigurationsalternativ"
+
+msgid "Thursday"
+msgstr "Torsdag"
+
+msgid "Time per Inc:"
+msgstr "Tid per inc:"
+
+msgid "Timer per Inc:"
+msgstr "Tid per inc:"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Toggle Play or Pause"
+msgstr "Växla mellan Uppspelning och Pause-läge"
+
+msgid "Toggle Queue"
+msgstr "Växla kö"
+
+msgid "Toggle: Stop after selected track"
+msgstr "Växla: Stoppa efter markerat spår"
+
+msgid "Top left"
+msgstr "Övre vänster"
+
+msgid "Top right"
+msgstr "Övre höger"
+
+msgid "Track Number"
+msgstr "Spårnummer"
+
+msgid "Tuesday"
+msgstr "Tisdag"
+
+msgid "Type of device:"
+msgstr "Typ av enhet:"
+
+msgid "Unable to enable plugin %s"
+msgstr "Kunde inte aktivera insticksmodulen %s"
+
+msgid "Unable to fully disable plugin %s"
+msgstr "Kunde inte fullständigt inaktivera insticksmodulen %s"
+
+msgid "Unknown"
+msgstr "Okänd"
+
+msgid "Up one directory"
+msgstr "Upp en katalog"
+
+msgid "Updates"
+msgstr "Uppdateringar"
+
+msgid "Use Fading"
+msgstr "Använd toning"
+
+msgid "Username:"
+msgstr "Användarnamn:"
+
+msgid "Using %s for playback"
+msgstr "Använder %s för uppspelning"
+
+msgid "Various Artists"
+msgstr "Diverse artister"
+
+msgid "Version:"
+msgstr "Version:"
+
+msgid "Vol:"
+msgstr "Vol:"
+
+msgid ""
+"Vorbis is an open source, lossy audio codec with high quality output at a "
+"lower file size than MP3."
+msgstr ""
+"Vorbis är en ljudkodek för förluster och öppen källkod men högkvalitativ "
+"utmatning vid lägre filstorlek än MP3."
+
+msgid "Watching directory: %s"
+msgstr "Bevakar katalog: %s"
+
+msgid "We don't know how to store that kind of setting: "
+msgstr "Vi vet inte hur man ska spara den sortens inställning: "
+
+msgid "Wednesday"
+msgstr "Onsdag"
+
+msgid "Window Height:"
+msgstr "Fönsterhöjd:"
+
+msgid "Window Width:"
+msgstr "Fönsterbredd:"
+
+msgid "XSPF Playlist"
+msgstr "XSPF-spellista"
+
+msgid "Year"
+msgstr "År"
+
+msgid "You did not enter a name for your playlist"
+msgstr "Du angav inte ett namn för din spellista"
+
+msgid "You did not specify a location to save the db"
+msgstr "Du specifierade ingen plats att spara databasen på"
+
+msgid "You have entered an invalid option"
+msgstr "Du har ställt in en felaktig inställning"
+
+msgid "Your changes will be lost if you don't save them"
+msgstr "Dina ändringar går förlorade om du inte sparar dem"
+
+msgid "_Album Art Manager"
+msgstr "Hanterare för al_bumomslag"
+
+msgid "_Close"
+msgstr "_Stäng"
+
+msgid "_Collection Manager"
+msgstr "Sam_lingshanterare"
+
+msgid "_Columns"
+msgstr "_Kolumner"
+
+msgid "_Edit"
+msgstr "R_edigera"
+
+msgid "_File"
+msgstr "_Arkiv"
+
+msgid "_Go to Playing Track"
+msgstr "_Gå till uppspelat spår"
+
+msgid "_Help"
+msgstr "_Hjälp"
+
+msgid "_Rescan Collection"
+msgstr "_Uppdatera samling"
+
+msgid "_Tools"
+msgstr "Ver_ktyg"
+
+msgid "_View"
+msgstr "_Visa"
+
+msgid "after"
+msgstr "efter"
+
+msgid "and"
+msgstr "och"
+
+msgid "at least"
+msgstr "minst"
+
+msgid "at most"
+msgstr "som mest"
+
+msgid "bad search token"
+msgstr "felaktig sökning"
+
+msgid "before"
+msgstr "före"
+
+msgid "between"
+msgstr "mellan"
+
+msgid "by %(artist)s"
+msgstr "av %(artist)s"
+
+msgid ""
+"by %(artist)s\n"
+"from <i>%(album)s</i>"
+msgstr ""
+"av %(artist)s\n"
+"från <i>%(album)s)</li>"
+
+msgid "by %s"
+msgstr "av %s"
+
+msgid "contains"
+msgstr "innehåller"
+
+msgid "days"
+msgstr "dygn"
+
+msgid "does not contain"
+msgstr "innehåller inte"
+
+msgid "from %(album)s"
+msgstr "från %(album)s"
+
+msgid "from %s"
+msgstr "från %s"
+
+msgid "gtk-add"
+msgstr "Lägg till"
+
+msgid "gtk-cancel"
+msgstr "Avbryt"
+
+msgid "gtk-close"
+msgstr "Stäng"
+
+msgid "gtk-connect"
+msgstr "Anslut"
+
+msgid "gtk-disconnect"
+msgstr "Koppla från"
+
+msgid "gtk-edit"
+msgstr "Redigera"
+
+msgid "gtk-ok"
+msgstr "OK"
+
+msgid "gtk-remove"
+msgstr "Ta bort"
+
+msgid "hours"
+msgstr "timmar"
+
+msgid "is"
+msgstr "är"
+
+msgid "is not"
+msgstr "är inte"
+
+msgid "minutes"
+msgstr "minuter"
+
+msgid "order must be a list or tuple"
+msgstr "ordningen måste vara en lista eller en tupel"
+
+msgid "seconds"
+msgstr "sekunder"
+
+msgid "weeks"
+msgstr "veckor"

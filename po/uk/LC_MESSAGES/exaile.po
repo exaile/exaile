@@ -1,0 +1,640 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2009-05-13 15:03+0000\n"
+"Last-Translator: tivasyk <tivasyk@gmail.com>\n"
+"Language-Team: Ukrainian <uk@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid "  New song, fetching cover."
+msgstr "  Новий трек! Завантажується обкладинка."
+
+msgid " : %d queued"
+msgstr " : %d в черзі"
+
+msgid " songs"
+msgstr " пісні"
+
+msgid "%d showing, %d in collection"
+msgstr "%d показано, %d у колекції"
+
+msgid "0/0 tracks"
+msgstr "0/0 доріжок"
+
+msgid "0:00"
+msgstr "0:00"
+
+msgid "<b>General</b>"
+msgstr "<b>Загальне</b>"
+
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to appear</"
+"b>"
+msgstr ""
+"<b>Перенесіть вікно Екранного Дисплею туди, де воно повинно з'являтися</b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"з {album} - {length}"
+
+msgid "About Exaile"
+msgstr "Про Exaile"
+
+msgid "Add"
+msgstr "Додати"
+
+msgid "Add Playlist"
+msgstr "Додати список відтворення"
+
+msgid "Add Station"
+msgstr "Додати станцію"
+
+msgid "Add a directory"
+msgstr "Додати директорію"
+
+msgid "Add device"
+msgstr "Додати пристрій"
+
+msgid "Add to Playlist"
+msgstr "Додати до списку відтворення"
+
+msgid "Alarm Clock"
+msgstr "Будильник"
+
+msgid "Album"
+msgstr "Альбом"
+
+msgid "Album Art"
+msgstr "Обкладинки альбомів"
+
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr "Дійсно хочете назавжди видалити вибрані списки відтворення?"
+
+msgid "Artist"
+msgstr "Виконавець"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"Artist\n"
+"Альбом\n"
+"Жанр - Виконавець\n"
+"Жанр - Альбом\n"
+"Рік - Виконавець\n"
+"Рік - Альбом\n"
+"Виконавець - Рік - Альбом"
+
+msgid "Attempting to find covers for %s"
+msgstr "Спроба знайти обкладинки для %s"
+
+msgid "Autosize"
+msgstr "Авторозмір"
+
+msgid "Available Plugins"
+msgstr "Доступні модулі"
+
+msgid "Background Color:"
+msgstr "Колір тла:"
+
+msgid "Bitrate"
+msgstr "Бітова швидкість"
+
+msgid "Buffering complete"
+msgstr "Буферизацію завершено"
+
+msgid "Buffering: %d%%..."
+msgstr "Буферизація: %d%%..."
+
+msgid "Buffering: 100%..."
+msgstr "Буферизація: 100%..."
+
+msgid "Bye!"
+msgstr "Бувайте!"
+
+msgid "Clear Playlist"
+msgstr "Очистити список відтворення"
+
+msgid "Close Tab"
+msgstr "Закрити вкладку"
+
+msgid "Close Without Saving"
+msgstr "Закрити без збереження"
+
+msgid "Collection"
+msgstr "Колекція"
+
+msgid "Collection Manager"
+msgstr "Управління колекцією"
+
+msgid "Compilation detected: %s"
+msgstr "Знайдено збірку: %s"
+
+msgid "Connected to HAL"
+msgstr "З'єднано з HAL"
+
+msgid ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+msgstr ""
+"Всі права належать (C) 2007 Адаму Олсену (Adam Olsen) <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+
+msgid "Could not disable plugin."
+msgstr "Неможливо вимкнути модуль."
+
+msgid "Could not enable plugin."
+msgstr "Неможливо увімкнути модуль."
+
+msgid "Couldn't send seek event"
+msgstr "Не вдалося перейти до вибраної позиції в треку"
+
+msgid "Cover Finder"
+msgstr "Пошук обкладинок"
+
+msgid "CoverDB: set cover %s for '%s - %s'"
+msgstr "База даних обкладинок: задати обкладинку %s для '%s - %s'"
+
+msgid "Delete Playlist"
+msgstr "Видалити список відтворення"
+
+msgid "Device Manager"
+msgstr "Управління пристроями"
+
+msgid "Disable D-Bus support"
+msgstr "Вимкнути підтримку D-Bus"
+
+msgid "Disable HAL support."
+msgstr "Вимкнути підтримку HAL"
+
+msgid "Disc"
+msgstr "Диск"
+
+msgid "Display OSD when hovering over tray icon"
+msgstr "При наведенні на значок в треї відобразати спливаюче вікно OSD"
+
+msgid "Dynamic"
+msgstr "Динамічне"
+
+msgid "Dynamic: %d tracks fetched"
+msgstr "Динамічне наповнення: %d треків отримано"
+
+msgid "Dynamic: attempting to get %d tracks"
+msgstr "Динамічне наповнення: намагаюсь отримати %d треків"
+
+msgid "Enter the name you want for your new playlist"
+msgstr "Введіть назву нового списку відтворення"
+
+msgid "Enter the new name you want for your playlist"
+msgstr "Введіть назву для вашого списку відтворення"
+
+msgid "Enter the search keywords"
+msgstr "Введіть ключові слова для пошуку"
+
+msgid "Enter the search text"
+msgstr "Введіть текст для пошуку"
+
+msgid "Entire Library"
+msgstr "Уся бібліотека"
+
+msgid "Error loading preferences pane"
+msgstr "Помилка при завантаженні вікна налаштувань"
+
+msgid "Exaile"
+msgstr "Exaile"
+
+msgid "Exaile Music Player"
+msgstr "Музичний програвач Exaile"
+
+msgid "Exaile is shutting down..."
+msgstr "Exaile закривається..."
+
+msgid "Exaile: playing %s"
+msgstr "Exaile: відтворення %s"
+
+msgid "Failed to connect to HAL, autodetection of devices will be disabled."
+msgstr "Неможливо з'єднатися з HAL, автовизначення пристроїв буде вимкнено."
+
+msgid "Failed to enable equalizer"
+msgstr "Неможливо увімкнути еквалайзер"
+
+msgid "Failed to open music DB for write."
+msgstr "Неможливо відкрити музичну базу даних для запису"
+
+msgid "Failed to open music DB."
+msgstr "Неможливо відкрити музичну базу даних."
+
+msgid "File count: %d"
+msgstr "Кількість файлів: %d"
+
+msgid "File does not exist: %s"
+msgstr "Файл не існує: %s"
+
+msgid "Filename"
+msgstr "Назва файлу"
+
+msgid "Files"
+msgstr "Файли"
+
+msgid "Found covers from %s"
+msgstr "Обкладинки знайдено в %s"
+
+msgid "Friday"
+msgstr "П'ятниця"
+
+msgid "Gapless enabled"
+msgstr "Увімкнене програвання без пауз"
+
+msgid "Genre"
+msgstr "Жанр"
+
+msgid "Get rating for current song"
+msgstr "Запитати оцінку поточоного треку"
+
+msgid "Home directory"
+msgstr "Домашня директорія"
+
+msgid "Install Updates"
+msgstr "Встановити оновлення"
+
+msgid "Installed Plugins"
+msgstr "Встановлені модулі"
+
+msgid "Jump to current song on track change"
+msgstr "Відображати поточний трек в списку відтворення"
+
+msgid "LastFM Radio"
+msgstr "Радіо LastFM"
+
+msgid "LastFM: %s"
+msgstr "LastFM: %s"
+
+msgid "Length"
+msgstr "Довжина"
+
+msgid "Loaded plugin %s"
+msgstr "Завантажено модуль %s"
+
+msgid "Loading Exaile %s..."
+msgstr "Завантаження Exaile %s..."
+
+msgid "Loading collection..."
+msgstr "Завантаження колекції..."
+
+msgid "Loading devices..."
+msgstr "Завантаження пристроїв..."
+
+msgid "Loading interface..."
+msgstr "Завантаження інтерфейсу..."
+
+msgid "Loading plugins..."
+msgstr "Завантаження модулів..."
+
+msgid "Loading settings"
+msgstr "Завантаження налаштувань"
+
+msgid "Location"
+msgstr "Розташування"
+
+msgid "Loved Tracks"
+msgstr "Улублені пісні"
+
+msgid "Monday"
+msgstr "Понеділок"
+
+msgid "Music Files"
+msgstr "Музичні файли"
+
+msgid "Name:"
+msgstr "Назва:"
+
+msgid "New Playlist"
+msgstr "Новий список відтворення"
+
+msgid "New Search"
+msgstr "Новий пошук"
+
+msgid "Next"
+msgstr "Наступний"
+
+msgid "Next Track"
+msgstr "Наступна доріжка"
+
+msgid "No cover found"
+msgstr "Обкладинку не знайдено"
+
+msgid "No covers found"
+msgstr "Обкладинок не знайдено"
+
+msgid "Not Playing"
+msgstr "Не граю"
+
+msgid "Number of Plays"
+msgstr "Кількість разів відтворено"
+
+msgid "Opacity Level:"
+msgstr "Рівень прозорості:"
+
+msgid "Open _URL"
+msgstr "Відкрити _посилання"
+
+msgid "Open last playlists on startup"
+msgstr "Відкривати останній список відтворення при старті"
+
+msgid "Password:"
+msgstr "Пароль:"
+
+msgid "Play"
+msgstr "Грати"
+
+msgid "Play the next track"
+msgstr "Програти наступну доріжку"
+
+msgid "Play the previous track"
+msgstr "Програти попередню доріжку"
+
+msgid "Playcount"
+msgstr "Рахунок програвання"
+
+msgid "Playing %s"
+msgstr "Відтворення %s"
+
+msgid "Playlist Files"
+msgstr "Файли списку відтворення"
+
+msgid "Playlists"
+msgstr "Список відтворення"
+
+msgid "Popup"
+msgstr "Контекстне вікно"
+
+msgid "Preferences"
+msgstr "Налаштування"
+
+msgid "Previous"
+msgstr "Попередній"
+
+msgid "Previous Track"
+msgstr "Попередня доріжка"
+
+msgid "Print the album of current track"
+msgstr "Друкувати назву альбома відтворюваної доріжки"
+
+msgid "Print the artist of current track"
+msgstr "Друкувати ім'я виконавця відтворюваної доріжки"
+
+msgid "Print the current volume"
+msgstr "Показати поточний рівень гучності"
+
+msgid "Print the length of current track"
+msgstr "Друкувати тривалість відтворюваної доріжки"
+
+msgid "Print the position inside the current track as a percentage"
+msgstr "Показути позицію в поточному треку як відсоток"
+
+msgid "Print the title of current track"
+msgstr "Друкувати назву відтворюваної доріжки"
+
+msgid "PyInotify not installed or not supported.  "
+msgstr "Модуль PyInotify не встановлено або не підтримується.  "
+
+msgid "Python Console - Exaile"
+msgstr "Термінал Python - Exaile"
+
+msgid "Radio"
+msgstr "Радіо"
+
+msgid "Ran out of tracks to shuffle"
+msgstr "Скінчилися треки для випадкового програвання"
+
+msgid "Rating"
+msgstr "Оцінка"
+
+msgid "Rating > %d"
+msgstr "Рейтинг > %d"
+
+msgid "Rating: "
+msgstr "Оцінка: "
+
+msgid "Refresh"
+msgstr "Оновити"
+
+msgid "Remove"
+msgstr "Видалити"
+
+msgid "Remove Cover"
+msgstr "Видалити обкладинку"
+
+msgid "Repeat"
+msgstr "Повтор"
+
+msgid "Resizable"
+msgstr "Із змінюваними розмірами"
+
+msgid "Safe mode enabled, not loading plugins."
+msgstr "Увімкнено безпечний режим, модулі недоступні."
+
+msgid "Saturday"
+msgstr "Субота"
+
+msgid "Save Location:     "
+msgstr "Зберегти місце розташування:     "
+
+msgid "Saved Stations"
+msgstr "Збережені станції"
+
+msgid "Saving cover database"
+msgstr "Збереження бази даних обкладинок"
+
+msgid "Scanning collection..."
+msgstr "Сканування колекції..."
+
+msgid "Scanning library: %s"
+msgstr "Сканування бібліотеки: %s"
+
+msgid "Search: "
+msgstr "Пошук: "
+
+msgid "Set rating for current song"
+msgstr "Оцінити поточний трек"
+
+msgid "Show Cover"
+msgstr "Показати обкладинку"
+
+msgid "Show OSD on track change"
+msgstr "Показувати Екранне Сповіщення при зміні композиції"
+
+msgid "Show splash screen on startup"
+msgstr "Показувати заставку під час запуску"
+
+msgid "Show tray icon"
+msgstr "Показувати піктограму в лотку"
+
+msgid "Shuffle"
+msgstr "У випадковій послідовності"
+
+msgid "Start"
+msgstr "Запустити"
+
+msgid "Start Exaile minimized to tray, if possible"
+msgstr "Завантажувати Exaile прихованим до системного лотка"
+
+msgid "Stop Playback"
+msgstr "Зупини програвання"
+
+msgid "Stop playback"
+msgstr "Зупинити відтворення"
+
+msgid "Stopped"
+msgstr "Зупинено"
+
+msgid "Sunday"
+msgstr "Неділя"
+
+msgid "Text Color"
+msgstr "Колір тексту"
+
+msgid "Text Font:"
+msgstr "Шрифт тексту:"
+
+msgid "The playlist name you specified already exists."
+msgstr "Список відтворення із вказаною назвою вже існує."
+
+msgid "Thursday"
+msgstr "Четвер"
+
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "Toggle Play or Pause"
+msgstr "Грати/Пауза"
+
+msgid "Toggle: Stop after selected track"
+msgstr "Зупинити після завершення вибраного треку"
+
+msgid "Track Number"
+msgstr "Номер треку"
+
+msgid "Tuesday"
+msgstr "Вівторок"
+
+msgid "Type of device:"
+msgstr "Тип пристрою"
+
+msgid "Unable to enable plugin %s"
+msgstr "Не вдалося включити модуль %s"
+
+msgid "Unable to fully disable plugin %s"
+msgstr "Не вдалося повністю відключити модуль %s"
+
+msgid "Use Fading"
+msgstr "Затухання треку"
+
+msgid "Username:"
+msgstr "Ім’я користувача:"
+
+msgid "Vol:"
+msgstr "Гучн.:"
+
+msgid "Watching directory: %s"
+msgstr "Наглядати за текою: %s"
+
+msgid "Wednesday"
+msgstr "Середа"
+
+msgid "Window Height:"
+msgstr "Висота вікна:"
+
+msgid "Window Width:"
+msgstr "Ширина вікна:"
+
+msgid "Year"
+msgstr "Рік"
+
+msgid "You did not enter a name for your playlist"
+msgstr "Ви не вказали назви для списку відтворення"
+
+msgid "You did not specify a location to save the db"
+msgstr "Ви не вказали місце для збереження бази даних"
+
+msgid "_Album Art Manager"
+msgstr "_Управління обкладинками"
+
+msgid "_Close"
+msgstr "_Закрити"
+
+msgid "_Collection Manager"
+msgstr "_Управління колекцією"
+
+msgid "_Columns"
+msgstr "_Стовпчики"
+
+msgid "_Edit"
+msgstr "_Редагувати"
+
+msgid "_File"
+msgstr "_Файл"
+
+msgid "_Help"
+msgstr "_Довідка"
+
+msgid "_Rescan Collection"
+msgstr "Оновити фонотеку"
+
+msgid "_Tools"
+msgstr "_Інструменти"
+
+msgid "_View"
+msgstr "_Вигляд"
+
+msgid "by %(artist)s"
+msgstr "у виконанні %(artist)s"
+
+msgid ""
+"by %(artist)s\n"
+"from <i>%(album)s</i>"
+msgstr ""
+"у виконанні %(artist)s\n"
+"з альбому <i>%(album)s</i>"

@@ -1,0 +1,55 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2009-01-11 10:36+0000\n"
+"Last-Translator: BKD <Unknown>\n"
+"Language-Team: Gujarati <gu@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid "Exaile is shutting down..."
+msgstr "એક્ઝાઇલ બંદ થઇ રહ્યુ છે..."
+
+msgid "File count: %d"
+msgstr "ફાઇલોની સંખ્યાઃ  %d"
+
+msgid "Loaded plugin %s"
+msgstr "ઉમેરો %s લોડ થઇ ગયો"
+
+msgid "Loading Exaile %s..."
+msgstr "એક્ઝાઇલ %s લોડ કરી રહ્યા છીએ..."
+
+msgid "Loading collection..."
+msgstr "સંકલન લોડ કરી રહ્યા છીએ..."
+
+msgid "Loading devices..."
+msgstr "સાધનો લોડ કરી રહ્યા છીએ..."
+
+msgid "Loading plugins..."
+msgstr "ઉમેરાઓ લોડ કરી રહ્યા છીએ..."
+
+msgid "Location deleted: %s"
+msgstr "%s સ્થાન રદ્દ કરવામાં આવ્યુ છે."
+
+msgid "Location modified: %s"
+msgstr "%s સ્થાન બદલવામાં આવ્યુ છે."
+
+msgid "Safe mode enabled, not loading plugins."
+msgstr "સુરક્ષા ઢબ સક્રિય, કોઇ ઉમેરાઓ લોડ નહી કરીએ."
+
+msgid "Saving state..."
+msgstr "સ્થિતિ જાળવી રહ્યા છીએ..."
+
+msgid "Unable to enable plugin %s"
+msgstr "ઉમેરો %s સક્રિય કરવામાં નિષ્ફળ ગયા"
+
+msgid "Unable to fully disable plugin %s"
+msgstr "ઉમેરો %s સંપૂર્ણ પણે નિષ્ક્રિય કરવામાં નિષ્ફળ ગયા"
+
+msgid "Watching directory: %s"
+msgstr "%s ડિરેક્ટરી જોઇ રહ્યા છીએ."

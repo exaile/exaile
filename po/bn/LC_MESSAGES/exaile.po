@@ -1,0 +1,55 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2009-03-07 02:39+0000\n"
+"Last-Translator: techwizrd <theninja@bluedevs.net>\n"
+"Language-Team: Bengali <bn@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid " + "
+msgstr " + "
+
+msgid " - "
+msgstr " - "
+
+msgid "#"
+msgstr "#"
+
+msgid "%d:%02d"
+msgstr "%d:%02d"
+
+msgid "%s KB"
+msgstr "%s KB"
+
+msgid ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+msgstr ""
+"০\n"
+"১\n"
+"২\n"
+"৩\n"
+"৪\n"
+"৫"
+
+msgid "0:00"
+msgstr "০:০০"
+
+msgid "0:00 / 0:00"
+msgstr "০:০০ / ০:০০"
+
+msgid "Exaile"
+msgstr "Exaile"
+
+msgid "Name:"
+msgstr "নাম:"

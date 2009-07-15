@@ -1,0 +1,257 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2008-02-22 23:55+0000\n"
+"Last-Translator: David Machakhelidze <david.machakhelidze@gmail.com>\n"
+"Language-Team: Georgian <ka@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid "<b>General</b>"
+msgstr "<b>მთავარი</b>"
+
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to appear</"
+"b>"
+msgstr "<b>გადაიტანეთ OSD ფანჯარა  თქვენთვის სასურველ ადგილას<b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{სათაური}</b>\n"
+"{ალბომი}\n"
+"on {ალბომი} - {ხანგრძლივობა}"
+
+msgid "Add"
+msgstr "დამატება"
+
+msgid "Alarm Clock"
+msgstr "მაღვიძარა"
+
+msgid "Album"
+msgstr "ალბომი"
+
+msgid "Album Art"
+msgstr "ალბომის ილუსტრაცია"
+
+msgid "Artist"
+msgstr "შემსრულებელი"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"შემსრულებელი\n"
+"ალბომი\n"
+"ჟანრი - შემსრულებელი\n"
+"ჟანრი - ალბომი\n"
+"წელი - შემსრულებელი\n"
+"წელი - ალბომი\n"
+"შემსრულებელი - წელი - ალბომი"
+
+msgid "Authors:"
+msgstr "ავტორები:"
+
+msgid "Available Plugins"
+msgstr "ხელმისაწვდომი მოდულები"
+
+msgid "Cancel"
+msgstr "გუქმება"
+
+msgid "Collection"
+msgstr "კოლექცია"
+
+msgid "Configure"
+msgstr "კონფიგურაცია"
+
+msgid "Cover Finder"
+msgstr "ყდის ძიება"
+
+msgid "Description:"
+msgstr "აღწერილობა:"
+
+msgid "Disc"
+msgstr "დისკი"
+
+msgid "Display OSD when hovering over tray icon"
+msgstr "OSD-ს ჩვენება სისტემურ პანელზე მაუსის გადატარებისას"
+
+msgid "Dynamic"
+msgstr "დინამიური"
+
+msgid "Exaile"
+msgstr "ექსაილი"
+
+msgid "Filename"
+msgstr "ფაილის სახელი"
+
+msgid "Files"
+msgstr "ფაილები"
+
+msgid "Friday"
+msgstr "პარასკევი"
+
+msgid "Genre"
+msgstr "ჟანრი"
+
+msgid "Installed Plugins"
+msgstr "დაყენებული მოდულები"
+
+msgid "Length"
+msgstr "სიგრძე"
+
+msgid "Location"
+msgstr "მდებარეობა"
+
+msgid "Monday"
+msgstr "ორშაბათი"
+
+msgid "New Playlist"
+msgstr "ახალი ფლეილისტი"
+
+msgid "New Search"
+msgstr "ახალი ძიება"
+
+msgid "Next"
+msgstr "შემდეგი"
+
+msgid "Next Track"
+msgstr "შემდეგი ბილიკი"
+
+msgid "Not Playing"
+msgstr "არ უკრავს"
+
+msgid "Opacity Level:"
+msgstr "გამჭვირვალობის დონე"
+
+msgid "Open _URL"
+msgstr "ბმულის გახნა"
+
+msgid "Password:"
+msgstr "პაროლი:"
+
+msgid "Pause"
+msgstr "პაუზა"
+
+msgid "Playcount"
+msgstr "დაკვრების რაოდენობა"
+
+msgid "Playlists"
+msgstr "რეპერტუარები"
+
+msgid "Preferences"
+msgstr "პარამეტრები"
+
+msgid "Previous"
+msgstr "წინა"
+
+msgid "Previous Track"
+msgstr "წინა ბილიკი"
+
+msgid "Python Console - Exaile"
+msgstr "პითონის ტერმინალი - ექსაილი"
+
+msgid "Radio"
+msgstr "რადიო"
+
+msgid "Rating"
+msgstr "რეიტინგი"
+
+msgid "Rating: "
+msgstr "რეიტინგი: "
+
+msgid "Refresh"
+msgstr "განახლება"
+
+msgid "Remove"
+msgstr "ამოშლა"
+
+msgid "Repeat"
+msgstr "გმეორება"
+
+msgid "Resizable"
+msgstr "ცვლადი ზომით"
+
+msgid "Saturday"
+msgstr "შაბათი"
+
+msgid "Search: "
+msgstr "ძიება: "
+
+msgid "Show OSD on track change"
+msgstr "აჩვენე OSD ბილიკის შეცვლისას"
+
+msgid "Show splash screen on startup"
+msgstr "პროგრამის აბრის ჩვენება გაშვებისას"
+
+msgid "Shuffle"
+msgstr "შემთხვევითი შერჩევა"
+
+msgid "Start"
+msgstr "დაწყება"
+
+msgid "Sunday"
+msgstr "კვირა"
+
+msgid "Text Color"
+msgstr "ტექსტის ფერი"
+
+msgid "Text Font:"
+msgstr "ტექსტის ფონტი:"
+
+msgid "Thursday"
+msgstr "ხუთშაბათი"
+
+msgid "Title"
+msgstr "სათაური"
+
+msgid "Track Number"
+msgstr "ბილიკის ნომერი"
+
+msgid "Tuesday"
+msgstr "სამშაბათი"
+
+msgid "Username:"
+msgstr "სახელი:"
+
+msgid "Version:"
+msgstr "ვერსია:"
+
+msgid "Wednesday"
+msgstr "ოთხშაბათი"
+
+msgid "Window Height:"
+msgstr "ფანჯრის სიმაღლე:"
+
+msgid "Window Width:"
+msgstr "ფანჯრის სიგანე"
+
+msgid "Year"
+msgstr "წელი"
+
+msgid "_Close"
+msgstr "დახურვა"
+
+msgid "_Columns"
+msgstr "კოლონები"
+
+msgid "_Edit"
+msgstr "რედაქტირება"
+
+msgid "_File"
+msgstr "ფაილი"
+
+msgid "_Help"
+msgstr "_დახმარება"

@@ -1,0 +1,923 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2009-03-16 23:19+0000\n"
+"Last-Translator: gentagelse <chalze06@gmail.com>\n"
+"Language-Team: Danish <da@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid " + "
+msgstr " + "
+
+msgid " - "
+msgstr " - "
+
+msgid " songs"
+msgstr " sange"
+
+msgid "#"
+msgstr "nr."
+
+msgid "%(title)s (by %(artist)s)"
+msgstr "%(title)s (af %(artist)s)"
+
+msgid "%d:%02d"
+msgstr "%d:%02d"
+
+msgid "%s KB"
+msgstr "%s Kb"
+
+msgid "(c) 2008"
+msgstr "(c) 2008"
+
+msgid "..."
+msgstr "..."
+
+msgid ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+msgstr ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+
+msgid "0/0 tracks"
+msgstr "0/0"
+
+msgid "0:00"
+msgstr "0:00"
+
+msgid "0:00 / 0:00"
+msgstr "0:00 / 0:00"
+
+msgid "<b>General</b>"
+msgstr "<b>Generelt</b>"
+
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to appear</"
+"b>"
+msgstr "<b>Bevæg On Screen Display-vinduet dertil hvor det skal dukke op</b>"
+
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Intet Plugin valgt</b>"
+
+msgid ""
+"<b>OSD</b>\n"
+"Drag to the location you'd like the\n"
+"OSD to appear"
+msgstr ""
+"<b>OSD</b>\n"
+"Vælg den position, hvor du ænsker\n"
+"OSD skal fremkomme"
+
+msgid "<b>Save changes to %s before closing?</b>"
+msgstr "<b>Gem ændringer til %s før lukning?</b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"fra {album} - {length}"
+
+msgid ""
+"A proprietary and older, but also popular, lossy audio format. CBR gives "
+"less quality than VBR, but is compatible with any player."
+msgstr ""
+"CBR er et ældre men også populært panteret lydformat. Det bevarer mere "
+"kvalitet end VBR, men er til gengæld kompatibelt med alle afspillere."
+
+msgid ""
+"A proprietary and older, but also popular, lossy audio format. VBR gives "
+"higher quality than CBR, but may be incompatible with some players."
+msgstr ""
+"VBR er et ældre panteret og populært lydformat, som giver bedre kvalitet end "
+"CBR, men som ikke er kompatibelt med mange afspillere."
+
+msgid "A very fast Free lossless audio format with good compression."
+msgstr "Et meget hurtigt, frit og tabsfrit, lydformat med god komprimering."
+
+msgid "ASX Playlist"
+msgstr "ASX afspilningsliste"
+
+msgid "About Exaile"
+msgstr "Om Exaile"
+
+msgid "Add"
+msgstr "Tilføj"
+
+msgid "Add Playlist"
+msgstr "Tilføj spilleliste"
+
+msgid "Add Smart Playlist"
+msgstr "Tilføj Smart afspilningsliste"
+
+msgid "Add Station"
+msgstr "Tilføj station"
+
+msgid "Add a directory"
+msgstr "Tilføj mappe"
+
+msgid "Add device"
+msgstr "Tilføj enhed"
+
+msgid "Add to Playlist"
+msgstr "Tilføj til spilleliste"
+
+msgid "Alarm Clock"
+msgstr "Vækkeur"
+
+msgid "Alarm Days:"
+msgstr "Alarm dage:"
+
+msgid "Album"
+msgstr "Album"
+
+msgid "Album Art"
+msgstr "Omslag"
+
+msgid "All Files"
+msgstr "Alle filer"
+
+msgid "Append to Current"
+msgstr "Tilføj til nuværende"
+
+msgid ""
+"Apple's proprietary lossy audio format that achieves better sound quality "
+"than MP3 at lower bitrates."
+msgstr ""
+"Apples panterede lydformat opnår en bedre lydkvalitet end MP3 ved lavere "
+"bitrater."
+
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr "Er du sikker på, at du permanent vil slette den valgte spilleliste?"
+
+msgid "Artist"
+msgstr "Kunstner"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"År - Artist\n"
+"År - Album\n"
+"Artist - År - Album"
+
+msgid "Authors:"
+msgstr "Forfattere:"
+
+msgid "Autosize"
+msgstr "Ændr størrelse automatisk"
+
+msgid "Available Plugins"
+msgstr "Tilgængelige plugins"
+
+msgid "BPM"
+msgstr "taktslag/min"
+
+msgid "Background Color:"
+msgstr "Baggrundsfarve:"
+
+msgid "Bitrate"
+msgstr "Bitrate"
+
+msgid "Buffering complete"
+msgstr "Buffering afsluttet."
+
+msgid "Cancel"
+msgstr "Afbryd"
+
+msgid "Choose a file"
+msgstr "Vælg en fil"
+
+msgid "Choose a file to open"
+msgstr "Vælg en fil at åbne"
+
+msgid "Clear Playlist"
+msgstr "Ryd spilleliste"
+
+msgid "Close Tab"
+msgstr "Luk faneblad"
+
+msgid "Close Without Saving"
+msgstr "Luk uden at gemme"
+
+msgid "Collection"
+msgstr "Samling"
+
+msgid "Collection Manager"
+msgstr "Kollektions Håndtering"
+
+msgid "Compilation detected: %s"
+msgstr "Samling registreret: %s"
+
+msgid "Composer"
+msgstr "Komponist"
+
+msgid "Configure"
+msgstr "Konfigurér"
+
+msgid "Confirm Close"
+msgstr "Bekræft lukning"
+
+msgid "Connected to HAL"
+msgstr "Forbundet til HAL"
+
+msgid ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+msgstr ""
+"Copyright © 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"Den efterfølgende oversættelse tjener alene som information. For den "
+"juridisk\n"
+" gældende tekst henvises til den engelske originaltekst. \n"
+"\n"
+"Dette program er et frit software, som du kan distribuere og/eller ændre \n"
+"indenfor rammerne af GNU General Public License, udgivet af Free Software\n"
+"Foundation, enten version 2 af licensen eller (efter dit eget valg) alle \n"
+"senere versioner.\n"
+"\n"
+"Programmet distribueres i håbet om at det vil være brugbart, men UDEN\n"
+"NOGEN SOM HELST GARANTI, eller underforstået garanti om at det er\n"
+"SALGBART eller KLAR TIL EN BESTEMT ANVENDELSE. Læs GNU\n"
+"General Public License for flere oplysninger.\n"
+"\n"
+"Du bør modtage en kopi af GNU General Public License  sammen med\n"
+"dette program; hvis ikke så skriv til Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+
+msgid "Could not disable plugin."
+msgstr "Kan ikke deaktivere plugin."
+
+msgid "Could not enable plugin."
+msgstr "Kan ikke aktivere plugin."
+
+msgid "Could not set parameter %s for %s"
+msgstr "Kan ikke sætte paramter %s for %s"
+
+msgid "Couldn't send seek event"
+msgstr "Kan ikke finde begivenhed"
+
+msgid "Cover Finder"
+msgstr "Omslagssøgning"
+
+msgid "Custom Playlists"
+msgstr "Tilpasset spilleliste"
+
+msgid "Date"
+msgstr "Dato"
+
+msgid "Delete Playlist"
+msgstr "Slet spilleliste"
+
+msgid "Description:"
+msgstr "Beskrivelse:"
+
+msgid "Detected devices:"
+msgstr "Fundne enheder"
+
+msgid "Device Manager"
+msgstr "Enhedshåndtering"
+
+msgid "Disc"
+msgstr "Disk"
+
+msgid "Disc Number"
+msgstr "Disknummer"
+
+msgid "Display OSD when hovering over tray icon"
+msgstr "Vis OSD"
+
+msgid "Display a progressbar in the OSD"
+msgstr "Vis en statusbar i OSD"
+
+msgid "Dynamic"
+msgstr "Dynamisk"
+
+msgid "Edit"
+msgstr "Redigér"
+
+msgid "Edit Smart Playlist"
+msgstr "Redigér smart spilleliste"
+
+msgid "Enabled"
+msgstr "Aktiveret"
+
+msgid "Enter the URL to open"
+msgstr "Indtast URL der skal åbnes"
+
+msgid "Enter the name you want for your new playlist"
+msgstr "Angiv det navn du ønsker for din nye spilleliste"
+
+msgid "Enter the new name you want for your playlist"
+msgstr "Indtast det ønskede navn for afspilningslisten"
+
+msgid "Enter the search text"
+msgstr "Angiv søgetekst"
+
+msgid "Entire Library"
+msgstr "Hele biblioteket"
+
+msgid "Exaile"
+msgstr "Exaile"
+
+msgid "Exaile Music Player"
+msgstr "Exaile musikafspiller"
+
+msgid "Exaile is shutting down..."
+msgstr "Exaile lukker ned."
+
+msgid "Exaile: playing %s"
+msgstr "Exaile: afspiller %s"
+
+msgid "Export"
+msgstr "Eksportér"
+
+msgid "Extension"
+msgstr "Filendelse"
+
+msgid "Failed to connect to HAL, autodetection of devices will be disabled."
+msgstr ""
+"Automatisk registrering af enheder er slået fra, da der ikke kan forbindes "
+"til HAL"
+
+msgid "Failed to create device for %s"
+msgstr "Kan ikke lave enhed for %s"
+
+msgid "Failed to enable equalizer"
+msgstr "Kan ikke starte equalizer"
+
+msgid "Failed to enable replaygain"
+msgstr "Kan ikke aktivere replaygain"
+
+msgid "Failed to load HAL devices for %s"
+msgstr "Kan ikke hente HAL enheder for %s"
+
+msgid "Failed to open music DB."
+msgstr "Kan ikke åben musik DB."
+
+msgid "Fetch Cover"
+msgstr "Hent omslag"
+
+msgid "File Type"
+msgstr "Filtype"
+
+msgid "File count: %d"
+msgstr "Antal filer: %d"
+
+msgid "File does not exist: %s"
+msgstr "Filen eksisterer ikke: %s"
+
+msgid "Filename"
+msgstr "Filnavn"
+
+msgid "Files"
+msgstr "Filer"
+
+msgid "Found new %s device at %s"
+msgstr "Fundet ny %s enhed på %s"
+
+msgid "Found no HAL device handler for %s"
+msgstr "Ingen HAL enhedshåndtering fundet for %s"
+
+msgid ""
+"Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
+"does not degrade audio quality."
+msgstr ""
+"Free Lossless Audio Codec (FLAC) er et open source codec, der komprimerer "
+"uden at forringe lydkvaliteten."
+
+msgid "Friday"
+msgstr "Fredag"
+
+msgid "Gapless enabled"
+msgstr "Gapless aktiveret"
+
+msgid "Genre"
+msgstr "Genre"
+
+msgid "Home directory"
+msgstr "Hjemmemappe"
+
+msgid "Install"
+msgstr "Installér"
+
+msgid "Install Updates"
+msgstr "Installér opdateringer"
+
+msgid "Installed Plugins"
+msgstr "Installerede plugins"
+
+msgid "Invalid file extension, file not saved"
+msgstr "Filen er ikke gemt da filendelsen ikke er gyldig"
+
+msgid "Jump to current song on track change"
+msgstr "Spring til den nuværende sang ved næste skift"
+
+msgid "Length"
+msgstr "Længde"
+
+msgid "Limit to: "
+msgstr "Begræns til: "
+
+msgid "Loaded plugin %s"
+msgstr "Indlæst plugin %s"
+
+msgid "Loading Exaile %s..."
+msgstr "Indlæser Exaile %s..."
+
+msgid "Loading collection..."
+msgstr "Indlæser samling."
+
+msgid "Loading devices..."
+msgstr "Indlæser enheder."
+
+msgid "Loading interface..."
+msgstr "Indlæser interface."
+
+msgid "Loading plugins..."
+msgstr "Indlæser plugins..."
+
+msgid "Loading settings"
+msgstr "Indlæser indstillinger."
+
+msgid "Loading streams..."
+msgstr "Indlæser streams..."
+
+msgid "Location"
+msgstr "Placering"
+
+msgid "Location deleted: %s"
+msgstr "Placering slettet: %s"
+
+msgid "Location modified: %s"
+msgstr "Placering ændret: %s"
+
+msgid "M3U Playlist"
+msgstr "M3U afspilningsliste"
+
+msgid "Match any of the criteria"
+msgstr "Match nogle af kriterierne"
+
+msgid "Monday"
+msgstr "Mandag"
+
+msgid "Music Files"
+msgstr "Musik filer"
+
+msgid "Name:"
+msgstr "Navn:"
+
+msgid "New Playlist"
+msgstr "Ny spilleliste"
+
+msgid "New Search"
+msgstr "Ny søgning"
+
+msgid "Next"
+msgstr "Næste"
+
+msgid "Next Track"
+msgstr "Næste spor"
+
+msgid "No covers found"
+msgstr "Ingen omslag fundet"
+
+msgid "Not Playing"
+msgstr "Afspiller ikke"
+
+msgid "Not watching library: %s"
+msgstr "Overvåger ikke bibliotek: %s"
+
+msgid "Number of Plays"
+msgstr "Antal afspilninger"
+
+msgid "Opacity Level:"
+msgstr "Gennemsigtighed"
+
+msgid "Open"
+msgstr "Åbn"
+
+msgid "Open URL"
+msgstr "Åben URL"
+
+msgid "Open _URL"
+msgstr "Åben _URL"
+
+msgid "Open last playlists on startup"
+msgstr "Åben sidste afspilningsliste ved opstart"
+
+msgid "PLS Playlist"
+msgstr "PLS afspilningsliste"
+
+msgid "Page 1"
+msgstr "Side 1"
+
+msgid "Password:"
+msgstr "Adgangskode:"
+
+msgid ""
+"Path is already in your collection, or is a subdirectory of another path in "
+"your collection"
+msgstr ""
+"Stien er allerede i din samling eller i en sti tilhørende en undermappe i "
+"din samling."
+
+msgid "Pause"
+msgstr "Pause"
+
+msgid "Pl_ugins"
+msgstr "_Udvidelser"
+
+msgid "Play"
+msgstr "Afspil"
+
+msgid "Playcount"
+msgstr "Afspilningstæller"
+
+msgid "Playing %s"
+msgstr "Afspiller %s"
+
+msgid "Playlist Files"
+msgstr "Spilleliste filer"
+
+msgid "Playlists"
+msgstr "Afspilningslister"
+
+msgid "Plugin"
+msgstr "Plugin"
+
+msgid "Plugins"
+msgstr "Tilføjelser"
+
+msgid "Popup"
+msgstr "Popup"
+
+msgid "Preferences"
+msgstr "Præferencer"
+
+msgid "Previous"
+msgstr "Forrige"
+
+msgid "Previous Track"
+msgstr "Forrige spor"
+
+msgid "PyInotify not installed or not supported.  "
+msgstr "Pylnotify er enten ikke installeret eller understøttet.  "
+
+msgid "Python Console - Exaile"
+msgstr "Python konsol - Exaile"
+
+msgid "Queue Items"
+msgstr "Læg emner i kø"
+
+msgid "Quit"
+msgstr "Afslut"
+
+msgid "Radio"
+msgstr "Radio"
+
+msgid "Radio Streams"
+msgstr "Radio streams"
+
+msgid "Ran out of tracks to shuffle"
+msgstr "Ikke flere sport at blande"
+
+msgid "Randomize results"
+msgstr "Bland resultater"
+
+msgid "Rating"
+msgstr "Rating"
+
+msgid "Rating: "
+msgstr "Rating: "
+
+msgid "Refresh"
+msgstr "Opdatér"
+
+msgid "Remove"
+msgstr "Fjern"
+
+msgid "Remove Cover"
+msgstr "Fjern omslag"
+
+msgid "Rename"
+msgstr "Omdøb"
+
+msgid "Rename Playlist"
+msgstr "Omdøb spilleliste"
+
+msgid "Repeat"
+msgstr "Gentag"
+
+msgid "Resizable"
+msgstr "Kan ændre størrelse"
+
+msgid "Safe mode enabled, not loading plugins."
+msgstr "Fejlsikret tilstand er aktiviteret. Der indlæses ingen plugins."
+
+msgid "Saturday"
+msgstr "Lørdag"
+
+msgid "Save"
+msgstr "Gem"
+
+msgid "Saved Stations"
+msgstr "Gemte stationer."
+
+msgid "Saving %s DB to %s."
+msgstr "Gemmer %s DB på %s"
+
+msgid "Saving state..."
+msgstr "Gemmer status."
+
+msgid "Scanning collection..."
+msgstr "Søger i samling..."
+
+msgid "Scanning library: %s"
+msgstr "Skanner bibliotek: %s"
+
+msgid "Search"
+msgstr "Søgning"
+
+msgid "Search: "
+msgstr "Søg: "
+
+msgid "Select File Type (By Extension)"
+msgstr "Vælg filtype (efter endelse)"
+
+msgid "Set Rating"
+msgstr "Bedømmelse"
+
+msgid "Show Cover"
+msgstr "Vis omslag"
+
+msgid "Show OSD on track change"
+msgstr "Vis OSD ved skift af nummer"
+
+msgid "Show splash screen on startup"
+msgstr "Vis splash ved opstart"
+
+msgid "Show tray icon"
+msgstr "Vis statusikon"
+
+msgid "Shuffle"
+msgstr "Bland"
+
+msgid "Size"
+msgstr "Størrelse"
+
+msgid "Smart Playlists"
+msgstr "Smarte spillelister"
+
+msgid "Start"
+msgstr "Start"
+
+msgid "Stop"
+msgstr "Stop"
+
+msgid "Stop Playback"
+msgstr "Stop afspilning"
+
+msgid "Stopped"
+msgstr "Stoppet"
+
+msgid "Sunday"
+msgstr "Søndag"
+
+msgid "Supported Files"
+msgstr "Understøttede filer"
+
+msgid "Text Color"
+msgstr "Skriftfarve"
+
+msgid "Text Font:"
+msgstr "Skrifttype:"
+
+msgid "The playlist name you specified already exists."
+msgstr "Afspilningslistens navn eksisterer allerede."
+
+msgid "The selected plugin doesn't have any configuration options"
+msgstr "Det valgte plugin har ingen konfigurationsmuligheder"
+
+msgid "Thursday"
+msgstr "Torsdag"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Toggle Queue"
+msgstr "Håndter kø"
+
+msgid "Toggle: Stop after selected track"
+msgstr "Håndter: Stop efter valgte spor"
+
+msgid "Track Number"
+msgstr "Spornummer"
+
+msgid "Tuesday"
+msgstr "Tirsdag"
+
+msgid "Type of device:"
+msgstr "Type af enhed:"
+
+msgid "Unable to enable plugin %s"
+msgstr "Ikke i stand til at aktivere plugin %s"
+
+msgid "Unable to fully disable plugin %s"
+msgstr "Ikke i stand til at deaktivere plugin %s"
+
+msgid "Unknown"
+msgstr "Ukendt"
+
+msgid "Updates"
+msgstr "Opdateringer"
+
+msgid "Use Fading"
+msgstr "Brug fading"
+
+msgid "Username:"
+msgstr "Brugernavn:"
+
+msgid "Using %s for playback"
+msgstr "Bruger %s for afspilning."
+
+msgid "Various Artists"
+msgstr "Diverse kunstnere"
+
+msgid "Version:"
+msgstr "Version:"
+
+msgid "Vol:"
+msgstr "Lydstyrke:"
+
+msgid ""
+"Vorbis is an open source, lossy audio codec with high quality output at a "
+"lower file size than MP3."
+msgstr ""
+"Vorbis er et open source codec med høj kvalitets lyd, men som fylder mindre "
+"end MP3."
+
+msgid "Watching directory: %s"
+msgstr "Overvåger mappe: %s"
+
+msgid "Wednesday"
+msgstr "Onsdag"
+
+msgid "Window Height:"
+msgstr "Vindueshøjde:"
+
+msgid "Window Width:"
+msgstr "Vinduesbredde:"
+
+msgid "XSPF Playlist"
+msgstr "XSPF afspilningsliste"
+
+msgid "Year"
+msgstr "År"
+
+msgid "You did not enter a name for your playlist"
+msgstr "Du angav ikke et navn til din spilleliste"
+
+msgid "Your changes will be lost if you don't save them"
+msgstr "Du mister dine ændringer, hvis du ikke gemmer dem."
+
+msgid "_Close"
+msgstr "_Luk"
+
+msgid "_Columns"
+msgstr "_Kolonner"
+
+msgid "_Edit"
+msgstr "_Rediger"
+
+msgid "_File"
+msgstr "_Arkivér"
+
+msgid "_Help"
+msgstr "_Hjælp"
+
+msgid "_Rescan Collection"
+msgstr "_Genskan samling"
+
+msgid "_Tools"
+msgstr "Værk_tøjer"
+
+msgid "_View"
+msgstr "_Vis"
+
+msgid "after"
+msgstr "efter"
+
+msgid "and"
+msgstr "og"
+
+msgid "at least"
+msgstr "mindst"
+
+msgid "at most"
+msgstr "højst"
+
+msgid "bad search token"
+msgstr "dårligt søgemærke"
+
+msgid "before"
+msgstr "før"
+
+msgid "between"
+msgstr "mellem"
+
+msgid "by %s"
+msgstr "af %s"
+
+msgid "contains"
+msgstr "indeholder"
+
+msgid "days"
+msgstr "dage"
+
+msgid "does not contain"
+msgstr "indeholder ikke"
+
+msgid "from %s"
+msgstr "fra %s"
+
+msgid "gtk-add"
+msgstr "gtk-tilføj"
+
+msgid "gtk-cancel"
+msgstr "gtk-annullér"
+
+msgid "gtk-close"
+msgstr "gtk-luk"
+
+msgid "gtk-connect"
+msgstr "gtk-tilslut"
+
+msgid "gtk-disconnect"
+msgstr "gtk-afbryd"
+
+msgid "gtk-edit"
+msgstr "gtk-redigér"
+
+msgid "gtk-ok"
+msgstr "gtk-ok"
+
+msgid "gtk-remove"
+msgstr "gtk-fjern"
+
+msgid "hours"
+msgstr "timer"
+
+msgid "is"
+msgstr "er"
+
+msgid "is not"
+msgstr "er ikke"
+
+msgid "minutes"
+msgstr "minutter"
+
+msgid "seconds"
+msgstr "sekunder"
+
+msgid "weeks"
+msgstr "uger"

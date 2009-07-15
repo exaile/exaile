@@ -1,0 +1,1203 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: _exaile-hu\n"
+"Report-Msgid-Bugs-To: Avramucz Péter <muczyjoe@gmail.com>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2009-05-18 23:33+0000\n"
+"Last-Translator: Balázs Attila <battila9@freemail.hu>\n"
+"Language-Team: hungarian <lisovszki@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid "  New song, fetching cover."
+msgstr "  Új szám, borító letöltése."
+
+msgid " + "
+msgstr " + "
+
+msgid " - "
+msgstr " - "
+
+msgid " : %d queued"
+msgstr " : %d sorbaállítva"
+
+msgid " songs"
+msgstr " dalok"
+
+msgid "#"
+msgstr "#"
+
+msgid "%(title)s (by %(artist)s)"
+msgstr "%(title)s (Előadó: %(artist)s)"
+
+msgid "%d covers to fetch"
+msgstr "%d borító letöltése"
+
+msgid "%d showing, %d in collection"
+msgstr "%d szám a listán, %d a gyűjteményben"
+
+msgid "%d:%02d"
+msgstr "%d.%02d"
+
+msgid "%s KB"
+msgstr "%s KB"
+
+msgid "(c) 2008"
+msgstr "(c) 2008"
+
+msgid "(drag to reorder)"
+msgstr "(húzd az újrarendezéshez)"
+
+msgid "..."
+msgstr "..."
+
+msgid ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+msgstr ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+
+msgid "0/0 tracks"
+msgstr "0/0 szám"
+
+msgid "0:00"
+msgstr "0:00"
+
+msgid "0:00 / 0:00"
+msgstr "0:00 / 0:00"
+
+msgid "<b>General</b>"
+msgstr "<b>Általános</b>"
+
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to appear</"
+"b>"
+msgstr ""
+"<b>Mozgasd az On Screen Display ablakot arra a helyre, ahol meg kívánod "
+"jeleníteni </b>"
+
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Nincs kiválasztott bővítmény</b>"
+
+msgid ""
+"<b>OSD</b>\n"
+"Drag to the location you'd like the\n"
+"OSD to appear"
+msgstr ""
+"<b>OSD<b>\n"
+"Húzd oda, ahol szeretnéd,\n"
+"hogy az OSD megjelenjen"
+
+msgid "<b>Save changes to %s before closing?</b>"
+msgstr "<b>Elmented a(z) %s változásait, mielőtt kilépsz?<b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"album: {album} - {length}"
+
+msgid ""
+"A proprietary and older, but also popular, lossy audio format. CBR gives "
+"less quality than VBR, but is compatible with any player."
+msgstr ""
+"Egy szabadalmaztatott és régi, ugyanakkor szintén népszerű hangformátum a "
+"CBR, ami rosszabb minőséggel bír a VBR-nél, de bármilyen lejátszóval "
+"kompatibilis."
+
+msgid ""
+"A proprietary and older, but also popular, lossy audio format. VBR gives "
+"higher quality than CBR, but may be incompatible with some players."
+msgstr ""
+"Egy szabadalmaztatott és régi, ugyanakkor szintén népszerű hangformátum a "
+"VBR, ami jobb minőséggel bír a CBR-nél, de néhány lejátszó nem támogatja."
+
+msgid "A very fast Free lossless audio format with good compression."
+msgstr "Egy gyors és szabad, veszteségmentes hangformátum, jó tömörítéssel."
+
+msgid "ASX Playlist"
+msgstr "ASX lejátszólista"
+
+msgid "About Exaile"
+msgstr "Névjegy"
+
+msgid "Add"
+msgstr "Hozzáad"
+
+msgid "Add Playlist"
+msgstr "Lejátszólista hozzáadása"
+
+msgid "Add Smart Playlist"
+msgstr "Intelligens lejátszólista hozzáadása"
+
+msgid "Add Station"
+msgstr "Állomás hozzáadása"
+
+msgid "Add a directory"
+msgstr "Könyvtár hozzáadása"
+
+msgid "Add device"
+msgstr "Eszköz hozzáadása"
+
+msgid "Add to Playlist"
+msgstr "Hozzáadás a lejátszólistához"
+
+msgid "Alarm Clock"
+msgstr "Ébresztőóra"
+
+msgid "Alarm Days:"
+msgstr "Ébresztési napok"
+
+msgid "Alarm Name:"
+msgstr "Figyelmeztetés neve"
+
+msgid "Alarm Time :"
+msgstr "Figyelmeztetés ideje"
+
+msgid "Alarm Time:"
+msgstr "Figyelmeztetés ideje"
+
+msgid "Alarm:"
+msgstr "Figyelmeztetés"
+
+msgid "Album"
+msgstr "Album"
+
+msgid "Album Art"
+msgstr "Album borítók"
+
+msgid "All Files"
+msgstr "Minden fájl"
+
+msgid "An Unknown type of setting was found!"
+msgstr "Egy ismeretlen típusú beállítást észleltem!"
+
+msgid "Append to Current"
+msgstr "Hozzáfűzés a jelenlegihez"
+
+msgid ""
+"Apple's proprietary lossy audio format that achieves better sound quality "
+"than MP3 at lower bitrates."
+msgstr ""
+"Apple, szabadalmaztatott hangformátum, ami jobb hangminőséget eredményez MP3 "
+"fájlok esetén."
+
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr "Biztos, hogy véglegesen törölni akarod a kiválasztott lejátszólistát?"
+
+msgid "Artist"
+msgstr "Előadó"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"Előadó\n"
+"Album\n"
+"Műfaj - Előadó\n"
+"Műfaj - Album\n"
+"Év - Előadó\n"
+"Év - Album\n"
+"Előadó - Év - Album"
+
+msgid "Attempting to find covers for %s"
+msgstr "Borító keresése %s-hez"
+
+msgid "Authors:"
+msgstr "A szerzők:"
+
+msgid "Autosize"
+msgstr "Automatikus méret"
+
+msgid "Available Plugins"
+msgstr "Elérhető bővítmények"
+
+msgid "BPM"
+msgstr "BPM"
+
+msgid "Background Color:"
+msgstr "Háttérszín:"
+
+msgid "Bitrate"
+msgstr "Bitráta"
+
+msgid "Bottom left"
+msgstr "Lent balra"
+
+msgid "Bottom right"
+msgstr "Lent jobbra"
+
+msgid "Buffering complete"
+msgstr "Pufferelés befejezve"
+
+msgid "Buffering: %d%%..."
+msgstr "Pufferelés: %d%%..."
+
+msgid "Buffering: 100%..."
+msgstr "Pufferelés: 100%..."
+
+msgid "Bye!"
+msgstr "Viszlát!"
+
+msgid "Cancel"
+msgstr "Mégsem"
+
+msgid "Choose a file"
+msgstr "Válassz egy fájlt"
+
+msgid "Choose a file to open"
+msgstr "Válaszd ki a megjelenítendő fájlt"
+
+msgid "Clear Playlist"
+msgstr "Lejátszólista törlése"
+
+msgid "Close Tab"
+msgstr "A lap bezárása"
+
+msgid "Close Without Saving"
+msgstr "Kilépés mentés nélkül"
+
+msgid "Collection"
+msgstr "Gyűjtemény"
+
+msgid "Collection Manager"
+msgstr "Gyűjteménykezelő"
+
+msgid "Compilation detected: %s"
+msgstr "Válogatást találtam: %s"
+
+msgid "Composer"
+msgstr "Zeneszerző"
+
+msgid "Configure"
+msgstr "Beállítás"
+
+msgid "Confirm Close"
+msgstr "Bezárás megerősítése"
+
+msgid "Connected to HAL"
+msgstr "Csatlakozva a HAL-hoz"
+
+msgid ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+msgstr ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com>\n"
+"\n"
+"Ez egy szabad szoftver; terjeszthető illetve módosítható a GNU\n"
+"Általános Közreadási Feltételek dokumentumában leírtak szerint -- 2.\n"
+"vagy későbbi verzió --, melyet a Szabad Szoftver Alapítvány ad ki.\n"
+"  \n"
+"Ez a program abban a reményben kerül közreadásra, hogy hasznos lesz,\n"
+"de minden egyéb GARANCIA NÉLKÜL, az eladhatóságra vagy valamely célra\n"
+"való alkalmazhatóságra való származtatott garanciát is beleértve.\n"
+"További részletekért lásd a GNU Általános Közreadási Feltételek\n"
+"dokumentumát.\n"
+"  \n"
+"A programmal együtt kellett, hogy érkezzen egy példány a GNU    \n"
+"Általános Közreadási Feltételek dokumentumából is. Ha mégsem akkor\n"
+"ezt a Szabad Szoftver Alapítványnak küldött levélben jelezni kell.\n"
+"  \n"
+" A szabad szoftver alapítvány címe:\n"
+"Free Software Foundation, Inc., \n"
+"59 Temple Place, Suite 330, \n"
+"Boston, MA  02111-1307  USA.\n"
+
+msgid "Could not disable plugin."
+msgstr "A bővítményt nem lehet letiltani."
+
+msgid "Could not enable plugin."
+msgstr "A bővítményt nem lehet betölteni."
+
+msgid "Could not find playback sink %s, falling back to autoaudiosink"
+msgstr "Nem találom a %s lejátszósinket, visszaállok az automata hangsinkre"
+
+msgid "Could not set parameter %s for %s"
+msgstr "Nem lett megadva %s érték ennek: %s"
+
+msgid "Couldn't send seek event"
+msgstr "Nem lehet küldeni kerítő eseményt"
+
+msgid "Cover Finder"
+msgstr "Borító kereső"
+
+msgid "Cover Search Order:"
+msgstr "Borító keresési sorrend:"
+
+msgid "Custom Playlists"
+msgstr "Saját lejátszólista"
+
+msgid "Custom: "
+msgstr "Egyéni: "
+
+msgid "Date"
+msgstr "Dátum"
+
+msgid "Decreases the volume by VOL"
+msgstr "Hangerő csökkentése"
+
+msgid "Delete"
+msgstr "Törlés"
+
+msgid "Delete Playlist"
+msgstr "Lejátszólista törlése"
+
+msgid "Description:"
+msgstr "Leírás:"
+
+msgid "Detected devices:"
+msgstr "Felismert eszközök:"
+
+msgid "Device Manager"
+msgstr "Eszközkezelő"
+
+msgid "Disable D-Bus support"
+msgstr "D-Bus támogatás letiltása"
+
+msgid "Disable HAL support."
+msgstr "HAL támogatás letiltása."
+
+msgid "Disc"
+msgstr "Korong"
+
+msgid "Disc Number"
+msgstr "Lemezszám"
+
+msgid "Display OSD when hovering over tray icon"
+msgstr "OSD mutatása ha az egér a tálcaikon fölé ér"
+
+msgid "Display a progressbar in the OSD"
+msgstr "Folyamatjelző megjelenítése az OSD-ben"
+
+msgid "Dynamic"
+msgstr "Dinamikus"
+
+msgid "Dynamic mode is enabled, but there are no dynamic providers!"
+msgstr "A dinamikus mód engedélyezett, de nincsenek dinamikus szolgáltatók!"
+
+msgid "Dynamic: %d tracks fetched"
+msgstr "Dinamikus: %d szám hozzáadva"
+
+msgid "Dynamic: attempting to get %d tracks"
+msgstr "Dinamikus: kísérlet %d hozzáféréséhez"
+
+msgid "Edit"
+msgstr "Szerkesztés"
+
+msgid "Edit Smart Playlist"
+msgstr "Intelligens lejátszólista szerkesztése"
+
+msgid "Enable Fading"
+msgstr "Áttűnés engedélyezése"
+
+msgid "Enable debugging of xl.event. Generates LOTS of output"
+msgstr ""
+"XL esemény hibakeresésének engedélyezése nagyméretű kivitel létrehozásával."
+
+msgid "Enabled"
+msgstr "Engedélyezve"
+
+msgid "Enter the URL to open"
+msgstr "Írd be a megnyitni kívánt URL-t"
+
+msgid "Enter the name you want for your new playlist"
+msgstr "Írjd be az új lejátszólista nevét."
+
+msgid "Enter the new name you want for your playlist"
+msgstr "Írjd be a lejátszólista új nevét"
+
+msgid "Enter the search keywords"
+msgstr "Keresési feltétel megadása"
+
+msgid "Enter the search text"
+msgstr "Írjd be a keresendő szöveget"
+
+msgid "Entire Library"
+msgstr "Egész gyűjtemény"
+
+msgid "Exaile"
+msgstr "Exaile"
+
+msgid "Exaile Music Player"
+msgstr "Exaile zenelejátszó"
+
+msgid "Exaile is shutting down..."
+msgstr "Az Exaile kilép..."
+
+msgid "Exaile: playing %s"
+msgstr "Exaile: %s lejátszása"
+
+msgid "Export"
+msgstr "Exportálás"
+
+msgid "Extension"
+msgstr "Kiterjesztés"
+
+msgid "Fading:"
+msgstr "Áttűnés"
+
+msgid "Failed to connect to HAL, autodetection of devices will be disabled."
+msgstr ""
+"Nem sikerült kapcsolódni a HAL-hoz, az eszközök automatikus felismerése "
+"tíltva lesz."
+
+msgid "Failed to create device for %s"
+msgstr "Nem bírtam létrehozni eszközt ennek: %s"
+
+msgid "Failed to enable equalizer"
+msgstr "Hangszínszabályzó engedélyezése sikertelen"
+
+msgid "Failed to enable replaygain"
+msgstr "Replaygain engedélyezése nem sikerült"
+
+msgid "Failed to load HAL devices for %s"
+msgstr "Nem sikerült betölteni a HAL eszközöket ehhez: %s"
+
+msgid "Failed to open music DB for write."
+msgstr "Zenei adatbázis megnyitása írásra sikertelen"
+
+msgid "Failed to open music DB."
+msgstr "Zenei adatbázis megnyitása sikertelen"
+
+msgid "Fetch Cover"
+msgstr "Borító keresése"
+
+msgid "File Type"
+msgstr "Fájltípus"
+
+msgid "File count: %d"
+msgstr "Fájlok száma: %d"
+
+msgid "File does not exist: %s"
+msgstr "Nincs ilyen fájl: %s"
+
+msgid "Filename"
+msgstr "Fájlnév"
+
+msgid "Files"
+msgstr "Fájlok"
+
+msgid "Found covers from %s"
+msgstr "Talált borítók: %s"
+
+msgid "Found new %s device at %s"
+msgstr "Új %s eszközt találtam itt: %s"
+
+msgid "Found no HAL device handler for %s"
+msgstr "Nem találtam HAL eszköz kezelőt ehhez: %s"
+
+msgid ""
+"Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
+"does not degrade audio quality."
+msgstr ""
+"A Free Lossless Audio Codec (FLAC), egy nyílt forráskódú tömörítő kodek, ami "
+"nem ront a hangminőségen."
+
+msgid "Friday"
+msgstr "Péntek"
+
+msgid "GST AUDIO CHANGED"
+msgstr "GST AUDIÓ MEGVÁLTOZOTT"
+
+msgid "Gapless enabled"
+msgstr "Hézagcsökkentés engedélyezve"
+
+msgid "Genre"
+msgstr "Műfaj"
+
+msgid "Get rating for current song"
+msgstr "Jelenlegi zeneszám értékelésének lekérdezése"
+
+msgid "Home directory"
+msgstr "Saját könyvtár"
+
+msgid "Increases the volume by VOL"
+msgstr "Hangerő növelése"
+
+msgid "Install"
+msgstr "Telepítés"
+
+msgid "Install Updates"
+msgstr "Frissítések telepítése"
+
+msgid "Installed Plugins"
+msgstr "Telepített bővítmények"
+
+msgid "Invalid file extension, file not saved"
+msgstr "Hibás fájlkiterjesztés, a fájl nincs mentve"
+
+msgid "Jump to current song on track change"
+msgstr "Ugrás a jelenlegi dalhoz számváltásnál"
+
+msgid "LastFM Radio"
+msgstr "LastFM Rádió"
+
+msgid "LastFM: %s"
+msgstr "LastFM: %s"
+
+msgid "Length"
+msgstr "Hossz"
+
+msgid "Limit to: "
+msgstr "Korlátozás: "
+
+msgid "Loaded plugin %s"
+msgstr "%s bővítmény betöltve"
+
+msgid "Loading Exaile %s..."
+msgstr "Exaile %s betöltése..."
+
+msgid "Loading collection..."
+msgstr "Gyűjtemény betöltése..."
+
+msgid "Loading devices..."
+msgstr "Eszközök betöltése..."
+
+msgid "Loading interface..."
+msgstr "Felület betöltése..."
+
+msgid "Loading plugins..."
+msgstr "Bővítmények betöltése..."
+
+msgid "Loading settings"
+msgstr "Beállítások betöltése"
+
+msgid "Loading streams..."
+msgstr "Adatfolyamok betöltése..."
+
+msgid "Location"
+msgstr "Hely"
+
+msgid "Location deleted: %s"
+msgstr "Hely törölve: %s"
+
+msgid "Location modified: %s"
+msgstr "Hely megváltoztatva: %s"
+
+msgid "Loved Tracks"
+msgstr "Kedvenc számok"
+
+msgid "M3U Playlist"
+msgstr "M3U lejátszólista"
+
+msgid "Match any of the criteria"
+msgstr "Bármely feltétel esetén"
+
+msgid "Maximum Volume:"
+msgstr "Maximum hangerő"
+
+msgid "Minimum Volume:"
+msgstr "Minimum hangerő"
+
+msgid "Minimum Volume:                "
+msgstr "Minimum hangerő                "
+
+msgid "Monday"
+msgstr "Hétfő"
+
+msgid "Music Files"
+msgstr "Hangfájlok"
+
+msgid "Name - Time"
+msgstr "Név - Idő"
+
+msgid "Name:"
+msgstr "Név:"
+
+msgid "Neighbourhood"
+msgstr "Szomszédos"
+
+msgid "New Playlist"
+msgstr "Új lejátszólista"
+
+msgid "New Search"
+msgstr "Új keresés"
+
+msgid "Next"
+msgstr "Következő"
+
+msgid "Next Track"
+msgstr "Következő szám"
+
+msgid "Next visited directory"
+msgstr "Következő látogatott könyvtár"
+
+msgid "No cover found"
+msgstr "Borító nem található"
+
+msgid "No covers found"
+msgstr "Nincs elérhető borító"
+
+msgid "Not Playing"
+msgstr "Megállítva"
+
+msgid "Not watching library: %s"
+msgstr "Nem ellenőrzött könyvtár: %s"
+
+msgid "Number of Plays"
+msgstr "Lejátszások száma"
+
+msgid "Ok"
+msgstr "OK"
+
+msgid "Opacity Level:"
+msgstr "Átlátszatlanság szintje:"
+
+msgid "Open"
+msgstr "Megnyitás"
+
+msgid "Open URL"
+msgstr "Az URL megnyitása"
+
+msgid "Open _URL"
+msgstr "_URL megnyitása"
+
+msgid "Open last playlists on startup"
+msgstr "A legutóbbi lejátszólisták megnyitása programinduláskor"
+
+msgid "PLS Playlist"
+msgstr "PLS lejátszólista"
+
+msgid "Page 1"
+msgstr "1. oldal"
+
+msgid "Password:"
+msgstr "Jelszó:"
+
+msgid ""
+"Path is already in your collection, or is a subdirectory of another path in "
+"your collection"
+msgstr ""
+"Az útvonal már a gyűjteményben van,, vagy egy másik könyvtár alkönyvtára"
+
+msgid "Pause"
+msgstr "Szünet"
+
+msgid "Personal"
+msgstr "Személyes"
+
+msgid "Pl_ugins"
+msgstr "Bő_vítmények"
+
+msgid "Play"
+msgstr "Lejátszás"
+
+msgid "Play the next track"
+msgstr "Következő szám lejátszása"
+
+msgid "Play the previous track"
+msgstr "Előző szám lejátszása"
+
+msgid "Playcount"
+msgstr "Lejátszások száma"
+
+msgid "Playing %s"
+msgstr "%s lejátszása"
+
+msgid "Playlist Files"
+msgstr "Lejátszólista-fájlok"
+
+msgid "Playlists"
+msgstr "Lejátszólisták"
+
+msgid "Plugin"
+msgstr "Bővítmény"
+
+msgid "Plugin archive contains an unsafe path"
+msgstr "A plugin nem biztonságos útvonalat tartalmaz"
+
+msgid "Plugins"
+msgstr "Bővítmények"
+
+msgid "Popup"
+msgstr "Felugró ablak"
+
+msgid "Preferences"
+msgstr "Beállítások"
+
+msgid "Previous"
+msgstr "Előző"
+
+msgid "Previous Track"
+msgstr "Előző szám"
+
+msgid "Previous visited directory"
+msgstr "Előző látogatott könyvtár"
+
+msgid "Print the album of current track"
+msgstr "A jelenlegi szám albumának kiírása"
+
+msgid "Print the artist of current track"
+msgstr "A jelenlegi szám előadójának kiírása"
+
+msgid "Print the current volume"
+msgstr "Aktuális hangerő kiírása"
+
+msgid "Print the length of current track"
+msgstr "A jelenlegi szám hosszának kiírása"
+
+msgid "Print the position inside the current track as a percentage"
+msgstr "Aktuális zeneszám jelenlegi pozíciójának megjelenítése százalékban"
+
+msgid "Print the title of current track"
+msgstr "A jelenlegi szám címének kiírása"
+
+msgid "Provider %s registered for service %s"
+msgstr "%s szolgáltató regisztrált %s szolgáltatásra"
+
+msgid "Provider %s unregistered from service %s"
+msgstr "%s szolgáltató leiratkozott %s szolgáltatásról"
+
+msgid "PyInotify not installed or not supported.  "
+msgstr "PyInotify nincs telepítve, vagy nem támogatott.  "
+
+msgid "Python Console - Exaile"
+msgstr "Python konzol - Exaile"
+
+msgid "Query player"
+msgstr "Lekérdezéses lejátszó"
+
+msgid "Queue Items"
+msgstr "Elemek sorba rendezése"
+
+msgid "Quit"
+msgstr "Kilépés"
+
+msgid "Radio"
+msgstr "Rádió"
+
+msgid "Radio Streams"
+msgstr "Rádió adók"
+
+msgid "Ran out of tracks to shuffle"
+msgstr "Nincs több szám a keveréshez"
+
+msgid "Random %d"
+msgstr "Véletlen %d"
+
+msgid "Randomize results"
+msgstr "Eredmények összekeverése"
+
+msgid "Rating"
+msgstr "Értékelés"
+
+msgid "Rating > %d"
+msgstr "Érték > %d"
+
+msgid "Rating: "
+msgstr "Értékelés: "
+
+msgid "Recommended"
+msgstr "Ajánlott"
+
+msgid "Reduce level of output"
+msgstr "Kimeneti jel csökkentése"
+
+msgid "Refresh"
+msgstr "Frissítés"
+
+msgid "Refresh directory listing"
+msgstr "Könyvtár lista frissítése"
+
+msgid "Relay Port:"
+msgstr "Relay Port:"
+
+msgid "Remove"
+msgstr "Eltávolítás"
+
+msgid "Remove Cover"
+msgstr "Borító törlése"
+
+msgid "Rename"
+msgstr "Átnevezés"
+
+msgid "Rename Playlist"
+msgstr "Lejátszólista átnevezése"
+
+msgid "Repeat"
+msgstr "Ismétlés"
+
+msgid "Resizable"
+msgstr "Átméretezhető"
+
+msgid "Restart Playlist"
+msgstr "Lejátszólista újraindítása"
+
+msgid "Resume playback on start"
+msgstr "Lejátszás folytatása indításkor"
+
+msgid "Safe mode enabled, not loading plugins."
+msgstr "Biztonságos mód bekapcsolva, bővítmények nem kerülnek betöltésre."
+
+msgid "Saturday"
+msgstr "Szombat"
+
+msgid "Save"
+msgstr "Mentés"
+
+msgid "Save Location:     "
+msgstr "Mentés helye     "
+
+msgid "Saved Stations"
+msgstr "Mentett Állomások"
+
+msgid "Saving %s DB to %s."
+msgstr "%s adatbázis mentése: %s"
+
+msgid "Saving cover database"
+msgstr "Borító adatbázis mentése"
+
+msgid "Saving state..."
+msgstr "Állapot mentése..."
+
+msgid "Scanning collection..."
+msgstr "Gyűjtemény átvizsgálása..."
+
+msgid "Scanning library: %s"
+msgstr "Könyvtár átnézése: %s"
+
+msgid "Search"
+msgstr "Keresés"
+
+msgid "Search Results"
+msgstr "Keresési Eredmények"
+
+msgid "Search: "
+msgstr "Keresés: "
+
+msgid "Select File Type (By Extension)"
+msgstr "Válaszd ki a fájl típusát (kiterjesztés szerint)"
+
+msgid "Set Rating"
+msgstr "Értékelés beállítása"
+
+msgid "Set data directory"
+msgstr "Adatkönyvtár beállítása"
+
+msgid "Set rating for current song"
+msgstr "Zeneszám értékelése"
+
+msgid "Shoutcast Search"
+msgstr "Shoutcast keresés"
+
+msgid "Show Cover"
+msgstr "Borító mutatása"
+
+msgid "Show OSD on track change"
+msgstr "Mutasd az OSD-t számváltáskor"
+
+msgid "Show a popup of the currently playing track"
+msgstr "Üzenet megjelenítése az éppen lejátszott számról"
+
+msgid "Show debugging output"
+msgstr "Hibajelentés megjelenítése"
+
+msgid "Show splash screen on startup"
+msgstr "Nyitóképernyő mutatása indításkor"
+
+msgid "Show tray icon"
+msgstr "Rendszertálca ikon megjelenítése"
+
+msgid "Shuffle"
+msgstr "Kevert"
+
+msgid "Size"
+msgstr "Méret"
+
+msgid "Smart Playlists"
+msgstr "Intelligens lejátszólisták"
+
+msgid "Start"
+msgstr "Indítás"
+
+msgid "Start Exaile minimized to tray, if possible"
+msgstr "Tálcára minimalizálva induljon az Exaile, ha lehetséges"
+
+msgid "Start in safe mode - sometimes useful when you're running into problems"
+msgstr "Indítás csökkentett módban - hasznos, ha probléma merülne fel"
+
+msgid "Start new instance"
+msgstr "Új lejátszó indítása"
+
+msgid "Stop"
+msgstr "Leállítás"
+
+msgid "Stop Playback"
+msgstr "Lejátszás megállítása"
+
+msgid "Stop playback"
+msgstr "Lejátszás leállítása"
+
+msgid "Stopped"
+msgstr "Leállítva"
+
+msgid "Streaming..."
+msgstr "Betöltés..."
+
+msgid "Submit tracks to Last.FM"
+msgstr "Számok elküldése Last.FM-nek"
+
+msgid "Sunday"
+msgstr "Vasárnap"
+
+msgid "Supported Files"
+msgstr "Támogatott fájlok"
+
+msgid "Text Color"
+msgstr "Szövegszín"
+
+msgid "Text Font:"
+msgstr "Szöveg betűtípusa:"
+
+msgid "The playlist name you specified already exists."
+msgstr "A megadott lejátszólista már létezik."
+
+msgid "The selected plugin doesn't have any configuration options"
+msgstr "A kiválasztott bővítménynek nincsenek beállítási lehetőségei"
+
+msgid "Thursday"
+msgstr "Csütörtök"
+
+msgid "Title"
+msgstr "Cím"
+
+msgid "Toggle Play or Pause"
+msgstr "Váltás a lejátszás és a szüneteltetés között"
+
+msgid "Toggle Queue"
+msgstr "lejátszási-sorba illesztés"
+
+msgid "Toggle: Stop after selected track"
+msgstr "Váltás: Leállítás a kijelölt szám után"
+
+msgid "Top left"
+msgstr "Bal fent"
+
+msgid "Top right"
+msgstr "Fent jobbra"
+
+msgid "Track Number"
+msgstr "Zeneszám"
+
+msgid "Tuesday"
+msgstr "Kedd"
+
+msgid "Type of device:"
+msgstr "Eszköz típusa:"
+
+msgid "Unable to enable plugin %s"
+msgstr "%s bővítmény betöltése sikertelen"
+
+msgid "Unable to fully disable plugin %s"
+msgstr "%s bővítmény teljes kikapcsolása sikertelen"
+
+msgid "Unknown"
+msgstr "Ismeretlen"
+
+msgid "Up one directory"
+msgstr "Egy könyvtárral feljebb"
+
+msgid "Updates"
+msgstr "Frissítések"
+
+msgid "Use Fading"
+msgstr "Elhalványodás használata"
+
+msgid "Username:"
+msgstr "Felhasználónév:"
+
+msgid "Using %s for playback"
+msgstr "%s használata lejátszásra"
+
+msgid "Various Artists"
+msgstr "Különböző előadók"
+
+msgid "Version:"
+msgstr "Verzió:"
+
+msgid "Vol:"
+msgstr "Hangerő:"
+
+msgid ""
+"Vorbis is an open source, lossy audio codec with high quality output at a "
+"lower file size than MP3."
+msgstr ""
+"A Vorbis, egy nyílt forráskódú hang kódek, kiváló minőségben adja vissza a "
+"kisméretű fájlok (mint az MP3) hangját ."
+
+msgid "Watching directory: %s"
+msgstr "Könyvtár figyelése: %s"
+
+msgid "We don't know how to store that kind of setting: "
+msgstr "Ezek a beállítások nem menthetők: "
+
+msgid "Wednesday"
+msgstr "Szerda"
+
+msgid "Window Height:"
+msgstr "Ablak magasság:"
+
+msgid "Window Width:"
+msgstr "Ablak szélesség:"
+
+msgid "XSPF Playlist"
+msgstr "XSPF lejátszólista"
+
+msgid "Year"
+msgstr "Év"
+
+msgid "You did not enter a name for your playlist"
+msgstr "Nem adtad meg a lejátszólista nevét."
+
+msgid "You did not specify a location to save the db"
+msgstr "A db mentési helyen nincs kijelölve"
+
+msgid "You have entered an invalid option"
+msgstr "Hibás beállítást vitt be"
+
+msgid "Your changes will be lost if you don't save them"
+msgstr "A változtatások elvesznek, ha nem mented őket"
+
+msgid "_Album Art Manager"
+msgstr "_Album borító kezelő"
+
+msgid "_Close"
+msgstr "_Bezárás"
+
+msgid "_Collection Manager"
+msgstr "_Gyűjtemény kezelő"
+
+msgid "_Columns"
+msgstr "_Oszlopok"
+
+msgid "_Edit"
+msgstr "_Szerkesztés"
+
+msgid "_File"
+msgstr "_Fájl"
+
+msgid "_Go to Playing Track"
+msgstr "_Ugrás a most hallható számra"
+
+msgid "_Help"
+msgstr "_Súgó"
+
+msgid "_Rescan Collection"
+msgstr "_Gyűjtemény átvizsgálása"
+
+msgid "_Tools"
+msgstr "_Eszközök"
+
+msgid "_View"
+msgstr "_Nézet"
+
+msgid "after"
+msgstr "ez után:"
+
+msgid "and"
+msgstr "és"
+
+msgid "at least"
+msgstr "legalább"
+
+msgid "at most"
+msgstr "legfeljebb"
+
+msgid "bad search token"
+msgstr "rossz keresési jelsor"
+
+msgid "before"
+msgstr "ez előtt:"
+
+msgid "between"
+msgstr "ezek közé esik:"
+
+msgid "by %s"
+msgstr "Előadó %s"
+
+msgid "contains"
+msgstr "tartalmazza"
+
+msgid "days"
+msgstr "nap"
+
+msgid "does not contain"
+msgstr "nem tartalmazza"
+
+msgid "from %s"
+msgstr "%s albumról"
+
+msgid "gtk-add"
+msgstr "gtk-add"
+
+msgid "gtk-cancel"
+msgstr "gtk-cancel"
+
+msgid "gtk-close"
+msgstr "gtk-close"
+
+msgid "gtk-connect"
+msgstr "gtk-connect"
+
+msgid "gtk-disconnect"
+msgstr "gtk-disconnect"
+
+msgid "gtk-edit"
+msgstr "gtk-edit"
+
+msgid "gtk-ok"
+msgstr "gtk-ok"
+
+msgid "gtk-remove"
+msgstr "gtk-remove"
+
+msgid "hours"
+msgstr "óra"
+
+msgid "is"
+msgstr "azonos"
+
+msgid "is not"
+msgstr "nem azonos"
+
+msgid "minutes"
+msgstr "perc"
+
+msgid "seconds"
+msgstr "másodperc"
+
+msgid "weeks"
+msgstr "hét"

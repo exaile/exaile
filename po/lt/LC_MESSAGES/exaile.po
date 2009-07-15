@@ -1,0 +1,310 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2008-08-01 19:54+0000\n"
+"Last-Translator: Arunas Radzvilavicius <arunas.rv@gmail.com>\n"
+"Language-Team: Lithuanian <lt@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid "<b>General</b>"
+msgstr "<b>Bendrieji</b>"
+
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to appear</"
+"b>"
+msgstr ""
+"<b>Perkelkite langą į tą vietą, kurioje norėtumėte jį matyti visą laiką</b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{pavadinimas}</b>\n"
+"{atlikėjas}\n"
+"iš {albumas} - {trukmė}"
+
+msgid "Add"
+msgstr "Pridėti"
+
+msgid "Alarm Clock"
+msgstr "Žadintuvas"
+
+msgid "Alarm Days:"
+msgstr "Perspėjimo dienos:"
+
+msgid "Album"
+msgstr "Albumas"
+
+msgid "Album Art"
+msgstr "Albumo apipavidalinimas"
+
+msgid "Artist"
+msgstr "Atlikėjas"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"Atlikėjas\n"
+"Albumas\n"
+"Žanras - atlikėjas\n"
+"Žanras - albumas\n"
+"Išleidimo metai - atlikėjas\n"
+"Išleidimo metai - albumas\n"
+"Atlikėjas - išleidimo metai - albumas"
+
+msgid "Autosize"
+msgstr "Automatiškai nustatyti dydį"
+
+msgid "Background Color:"
+msgstr "Fono spalva:"
+
+msgid "Bitrate"
+msgstr "Sparta bitais"
+
+msgid "Clear Playlist"
+msgstr "Išvalyti grojaraštį"
+
+msgid "Collection"
+msgstr "Rinkinys"
+
+msgid ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+msgstr ""
+"Autoriaus teisės (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"Ši programa yra nemokama. Galite ją platinti ir/arba keisti laikydamiesi\n"
+"Free Software Foundation sukurtos GNU Bendros Viešosios Licencijos (GNU "
+"GPL) \n"
+"2 versijos arba bet kurios vėlesnės versijos reikalavimų.\n"
+"\n"
+"Programa platinama tikintis, kad ji bus kam nors naudinga,\n"
+"tačiau NESUTEIKIAMOS JOKIOS, net numanomos\n"
+"PERKAMUMO ar TINKAMUMO TAM TIKRAM TIKSLUI, GARANTIJOS. Detalesnės\n"
+"informacijos ieškokite GNU Bendroje Viešoje Licencijoje (GNU GPL).\n"
+"\n"
+"Jūs turėjote gauti GNU Bendrą Viešąją Licenciją (GNU GPL) kartu\n"
+"su šia programa, jeigu negavote kreipkitės į Free Software Foundation, "
+"Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+
+msgid "Cover Finder"
+msgstr "Albumų viršelių paieška"
+
+msgid "Disc"
+msgstr "Diskas"
+
+msgid "Display OSD when hovering over tray icon"
+msgstr "Rodyti OSD užvedus žymeklį ant piktogramos dėkle"
+
+msgid "Dynamic"
+msgstr "Dinaminis"
+
+msgid "Exaile"
+msgstr "Exaile"
+
+msgid "Filename"
+msgstr "Failo vardas"
+
+msgid "Files"
+msgstr "Failai"
+
+msgid "Friday"
+msgstr "Penktadienis"
+
+msgid "Genre"
+msgstr "Žanras"
+
+msgid "Jump to current song on track change"
+msgstr "Parinkti veikiamąją dainą kūrinių pakeitimo metu"
+
+msgid "Length"
+msgstr "Ilgis"
+
+msgid "Location"
+msgstr "Vieta"
+
+msgid "Monday"
+msgstr "Pirmadienis"
+
+msgid "New Search"
+msgstr "Nauja paieška:"
+
+msgid "Next"
+msgstr "Kitas"
+
+msgid "Next Track"
+msgstr "Tolesnis takelis"
+
+msgid "Not Playing"
+msgstr "Negroja"
+
+msgid "Opacity Level:"
+msgstr "Dengiamumo lygmuo"
+
+msgid "Open _URL"
+msgstr "Atverti _URL"
+
+msgid "Password:"
+msgstr "Slaptažodis:"
+
+msgid "Playcount"
+msgstr "Grojimo dažnumas"
+
+msgid "Playlists"
+msgstr "Grojaraščiai"
+
+msgid "Popup"
+msgstr "Iškylantysis langas"
+
+msgid "Preferences"
+msgstr "Nuostatos"
+
+msgid "Previous"
+msgstr "Ankstesnis"
+
+msgid "Previous Track"
+msgstr "Ankstesnė daina"
+
+msgid "Python Console - Exaile"
+msgstr "Python pultas - Exaile"
+
+msgid "Radio"
+msgstr "Radijas"
+
+msgid "Rating"
+msgstr "Vertinimas"
+
+msgid "Rating: "
+msgstr "Vertinimas: "
+
+msgid "Refresh"
+msgstr "Atnaujinti"
+
+msgid "Remove"
+msgstr "Pašalinti"
+
+msgid "Repeat"
+msgstr "Kartoti"
+
+msgid "Resizable"
+msgstr "Keičiamo dydžio"
+
+msgid "Saturday"
+msgstr "Šeštadienis"
+
+msgid "Search: "
+msgstr "Ieškoti: "
+
+msgid "Show OSD on track change"
+msgstr "Rodyti OSD keičiantis kūriniams"
+
+msgid "Show splash screen on startup"
+msgstr "Rodyti pristatymo langą programos paleidimo metu"
+
+msgid "Show tray icon"
+msgstr "Rodyti piktogramą dėkle"
+
+msgid "Shuffle"
+msgstr "Sumaišyti"
+
+msgid "Start"
+msgstr "Pradėti"
+
+msgid "Stop Playback"
+msgstr "Stabdyti perklausą"
+
+msgid "Stopped"
+msgstr "Sustabdyta"
+
+msgid "Sunday"
+msgstr "Sekmadienis"
+
+msgid "Text Color"
+msgstr "Teksto spalva"
+
+msgid "Text Font:"
+msgstr "Teksto šriftas:"
+
+msgid "Thursday"
+msgstr "Ketvirtadienis"
+
+msgid "Title"
+msgstr "Pavadinimas"
+
+msgid "Track Number"
+msgstr "Kūrinio numeris"
+
+msgid "Tuesday"
+msgstr "Antradienis"
+
+msgid "Use Fading"
+msgstr "Naudoti stelbimą"
+
+msgid "Username:"
+msgstr "Naudotojo vardas:"
+
+msgid "Vol:"
+msgstr "Gars:"
+
+msgid "Wednesday"
+msgstr "Trečiadienis"
+
+msgid "Window Height:"
+msgstr "Lango aukštis"
+
+msgid "Window Width:"
+msgstr "Lango plotis"
+
+msgid "Year"
+msgstr "Metai"
+
+msgid "_Close"
+msgstr "_Užverti"
+
+msgid "_Columns"
+msgstr "_Stulpeliai"
+
+msgid "_Edit"
+msgstr "_Keisti"
+
+msgid "_File"
+msgstr "_Failas"
+
+msgid "_Help"
+msgstr "_Žinynas"
+
+msgid "_Rescan Collection"
+msgstr "_Dar kartą tikrinti kolekciją"
+
+msgid "_Tools"
+msgstr "_Priemonės"
+
+msgid "_View"
+msgstr "_Rodyti"

@@ -1,0 +1,1020 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2009-04-04 21:27+0000\n"
+"Last-Translator: Jiří Jursa <jursaj@centrum.cz>\n"
+"Language-Team: Czech <cs@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+msgid " + "
+msgstr " + "
+
+msgid " - "
+msgstr " - "
+
+msgid " : %d queued"
+msgstr " : %d ve frontě"
+
+msgid " songs"
+msgstr " písní"
+
+msgid "#"
+msgstr "#"
+
+msgid "%(title)s (by %(artist)s)"
+msgstr "%(title)s (od %(artist)s)"
+
+msgid "%d covers to fetch"
+msgstr "%d obaly stáhnuty"
+
+msgid "%d showing, %d in collection"
+msgstr "%d zobrazeno, %d v kolekci"
+
+msgid "%d:%02d"
+msgstr "%d:%02d"
+
+msgid "%s KB"
+msgstr "%s KB"
+
+msgid "(c) 2008"
+msgstr "(c) 2008"
+
+msgid "..."
+msgstr "..."
+
+msgid ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+msgstr ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+
+msgid "0/0 tracks"
+msgstr "0/0 skladeb"
+
+msgid "0:00"
+msgstr "0:00"
+
+msgid "0:00 / 0:00"
+msgstr "0:00 / 0:00"
+
+msgid "<b>General</b>"
+msgstr "<b>Obecné</b>"
+
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to appear</"
+"b>"
+msgstr ""
+"<b>Přesuňte vyskakovací okno na místo, kde chcete, aby se objevovalo</b>"
+
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Není vybrán zásuvný modul</b>"
+
+msgid ""
+"<b>OSD</b>\n"
+"Drag to the location you'd like the\n"
+"OSD to appear"
+msgstr ""
+"<b>OSD</b>\n"
+"Přesuňte vyskakovací okno na místo, \n"
+"kde chcete, aby se objevovalo"
+
+msgid "<b>Save changes to %s before closing?</b>"
+msgstr "<b>Uložit změny do %s před uzavřením?</b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"z alba {album} - {length}"
+
+msgid ""
+"A proprietary and older, but also popular, lossy audio format. CBR gives "
+"less quality than VBR, but is compatible with any player."
+msgstr ""
+"Proprietární a starší, ale také populární, ztrátový audio formát. CBR má "
+"menší kvalitu, než VBR, ale je kompatibilní se všemi přehrávači."
+
+msgid ""
+"A proprietary and older, but also popular, lossy audio format. VBR gives "
+"higher quality than CBR, but may be incompatible with some players."
+msgstr ""
+"Proprietární a starší, ale také populární, ztrátový audio formát. VBR má "
+"vyšší kvalitu, než CBR, ale nemusí jít přehrát všude."
+
+msgid "A very fast Free lossless audio format with good compression."
+msgstr "Velmi rychlý a volný bezztrátový zvukový formát s dobrou kompresí."
+
+msgid "ASX Playlist"
+msgstr "ASX seznam skladeb"
+
+msgid "About Exaile"
+msgstr "O Exaile"
+
+msgid "Add"
+msgstr "Přidat"
+
+msgid "Add Playlist"
+msgstr "Přidat seznam skladeb"
+
+msgid "Add Smart Playlist"
+msgstr "Přidat inteligentní seznam sladeb"
+
+msgid "Add Station"
+msgstr "Přidat stanici"
+
+msgid "Add a directory"
+msgstr "Přidat adresář"
+
+msgid "Add device"
+msgstr "Přidat zařízení"
+
+msgid "Add to Playlist"
+msgstr "Přidat do seznamu skladeb"
+
+msgid "Alarm Clock"
+msgstr "Budík"
+
+msgid "Alarm Days:"
+msgstr "Aktivní dny:"
+
+msgid "Album"
+msgstr "Album"
+
+msgid "Album Art"
+msgstr "Obaly alb"
+
+msgid "All Files"
+msgstr "Všechny soubory"
+
+msgid "Append to Current"
+msgstr "Přidat do stávajícího seznamu skladeb"
+
+msgid ""
+"Apple's proprietary lossy audio format that achieves better sound quality "
+"than MP3 at lower bitrates."
+msgstr ""
+"Apple proprietární ztrátový audio formát, který dosahuje lepší kvality zvuku "
+"než MP3 na nižších rychlostech."
+
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr "Jste si jisti, že chcete trvale odstranit vybraný seznam skladeb?"
+
+msgid "Artist"
+msgstr "Interpret"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"Interpret\n"
+"Album\n"
+"Žánr - Interpret\n"
+"Žánr - Album\n"
+"Rok - Interpret\n"
+"Rok - Album\n"
+"Interpret - Rok - Album"
+
+msgid "Authors:"
+msgstr "Autoři:"
+
+msgid "Autosize"
+msgstr "Automatická velikost"
+
+msgid "Available Plugins"
+msgstr "Dostupné zásuvné moduly"
+
+msgid "BPM"
+msgstr "BPM"
+
+msgid "Background Color:"
+msgstr "Barva pozadí:"
+
+msgid "Bitrate"
+msgstr "Datový tok"
+
+msgid "Buffering complete"
+msgstr "Načítání dokončeno"
+
+msgid "Bye!"
+msgstr "Nashle!"
+
+msgid "Cancel"
+msgstr "Zrušit"
+
+msgid "Choose a file"
+msgstr "Vybrat soubor"
+
+msgid "Choose a file to open"
+msgstr "Vyberte soubor pro otevření"
+
+msgid "Clear Playlist"
+msgstr "Vymazat seznam skladeb"
+
+msgid "Close Tab"
+msgstr "Zavřít panel"
+
+msgid "Close Without Saving"
+msgstr "Zavřít bez uložení"
+
+msgid "Collection"
+msgstr "Kolekce"
+
+msgid "Collection Manager"
+msgstr "Správce kolekce"
+
+msgid "Composer"
+msgstr "Skladatel"
+
+msgid "Configure"
+msgstr "Nastavit"
+
+msgid "Confirm Close"
+msgstr "Potvrdit zavření"
+
+msgid "Connected to HAL"
+msgstr "Připojuji se na HAL"
+
+msgid ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+msgstr ""
+"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"Tento program je svobodný software; můžete jej šířit a modifikovat \n"
+"podle ustanovení GNU General Public License, vydávané \n"
+"Free Software Foundation; a to buď verze 2 této licence \n"
+"anebo (podle vlastního uvážení) kterékoliv pozdější verze.\n"
+"\n"
+"Tento program je rozšiřován v naději, že bude užitečný, \n"
+"avšak BEZ JAKÉKOLIV ZÁRUKY; neposkytují se ani odvozené \n"
+"záruky PRODEJNOSTI anebo VHODNOSTI PRO URČITÝ ÚČEL. \n"
+"Další podrobnosti hledejte v GNU General Public License.\n"
+"\n"
+"Kopii GNU General Public License jste měl(a) obdržet \n"
+"spolu s tímto programem; pokud se tak nestalo, \n"
+"napište o ni Free Software Foundation, Inc., 51 Franklin Street, \n"
+"Fifth Floor, Boston, MA  02110-1301, USA.\n"
+
+msgid "Could not disable plugin."
+msgstr "Nelze zakázat zásuvný modul."
+
+msgid "Could not enable plugin."
+msgstr "Nelze povolit zásuvný modul."
+
+msgid "Could not set parameter %s for %s"
+msgstr "Nelze nastavit parametr %s pro %s"
+
+msgid "Cover Finder"
+msgstr "Hledač obalů"
+
+msgid "Cover Search Order:"
+msgstr "Pořadí hledání obalů:"
+
+msgid "Custom Playlists"
+msgstr "Vlastní seznamy skladeb"
+
+msgid "Custom: "
+msgstr "Vlastní: "
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Delete Playlist"
+msgstr "Odstranit seznam skladeb"
+
+msgid "Description:"
+msgstr "Popis:"
+
+msgid "Detected devices:"
+msgstr "Zjištěná zařízení:"
+
+msgid "Device Manager"
+msgstr "Správce zařízení"
+
+msgid "Disable D-Bus support"
+msgstr "Zakázat podporu D-Bus"
+
+msgid "Disable HAL support."
+msgstr "Zakázat podporu HAL"
+
+msgid "Disc"
+msgstr "Disk"
+
+msgid "Disc Number"
+msgstr "Číslo disku"
+
+msgid "Display OSD when hovering over tray icon"
+msgstr "Ukazovat OSD při přejetí kurzorem přes ikonu"
+
+msgid "Display a progressbar in the OSD"
+msgstr "Zobrazit processbar v OSD"
+
+msgid "Dynamic"
+msgstr "Dynamický"
+
+msgid "Edit"
+msgstr "Upravit"
+
+msgid "Edit Smart Playlist"
+msgstr "Upravit inteligentní seznam skladeb"
+
+msgid "Enabled"
+msgstr "Povoleno"
+
+msgid "Enter the URL to open"
+msgstr "Zadejte URL pro otevření"
+
+msgid "Enter the name you want for your new playlist"
+msgstr "Zadejte název, pokud chcete přidat jako nový seznam skladeb"
+
+msgid "Enter the new name you want for your playlist"
+msgstr "Zadejte nový název pro Váš seznam skladeb"
+
+msgid "Enter the search text"
+msgstr "Vložte hledaný text"
+
+msgid "Entire Library"
+msgstr "Celá knihovna"
+
+msgid "Error loading preferences pane"
+msgstr "Chyba při nahrávání nastavení"
+
+msgid "Exaile"
+msgstr "Exaile"
+
+msgid "Exaile Music Player"
+msgstr "Přehrávač hudby Exaile"
+
+msgid "Exaile is shutting down..."
+msgstr "Exaile se vypíná..."
+
+msgid "Exaile: playing %s"
+msgstr "Exaile: přehrávám %s"
+
+msgid "Export"
+msgstr "Exportovat"
+
+msgid "Extension"
+msgstr "Přípona"
+
+msgid "Failed to connect to HAL, autodetection of devices will be disabled."
+msgstr "Nepodařilo se připojit k HAL. Automatická detekce bude vypnuta."
+
+msgid "Failed to create device for %s"
+msgstr "Nepodařilo se vytvořit zařízení pro %s"
+
+msgid "Failed to enable equalizer"
+msgstr "Nepodařilo se zapnout ekvalizér"
+
+msgid "Failed to enable replaygain"
+msgstr "Nepodařilo se aktivovat korekci hlasitosti přehrávání"
+
+msgid "Failed to load HAL devices for %s"
+msgstr "Selhalo nahrávání HAL pro zařízení %s"
+
+msgid "Failed to open music DB for write."
+msgstr "Nepodařilo se otevřít hudební databázi pro zápis."
+
+msgid "Failed to open music DB."
+msgstr "Nepodařilo se otevřít hudební databázi."
+
+msgid "Fetch Cover"
+msgstr "Stáhnout obal"
+
+msgid "File Type"
+msgstr "Typ souboru"
+
+msgid "File count: %d"
+msgstr "Počet souborů: %d"
+
+msgid "File does not exist: %s"
+msgstr "Soubor neexistuje: %s"
+
+msgid "Filename"
+msgstr "Soubor"
+
+msgid "Files"
+msgstr "Soubory"
+
+msgid "Found covers from %s"
+msgstr "Nalezen obal pro %s"
+
+msgid "Found new %s device at %s"
+msgstr "Nalezeno nové zařízení %s na %s"
+
+msgid "Found no HAL device handler for %s"
+msgstr "Nenalezeno žádné HAL obslužné zařízení pro %s"
+
+msgid ""
+"Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
+"does not degrade audio quality."
+msgstr ""
+"Free Lossless Audio Codec (FLAC) je open source kodek, který komprimuje, ale "
+"nesnižuje kvalitu zvuku."
+
+msgid "Friday"
+msgstr "Pátek"
+
+msgid "Gapless enabled"
+msgstr "Přehrávání bez mezer zapnuto"
+
+msgid "Genre"
+msgstr "Žánr"
+
+msgid "Home directory"
+msgstr "Domovská složka"
+
+msgid "Install"
+msgstr "Nainstalovat"
+
+msgid "Install Updates"
+msgstr "Nainstalovat aktualizace"
+
+msgid "Installed Plugins"
+msgstr "Nainstalované moduly"
+
+msgid "Invalid file extension, file not saved"
+msgstr "Neplatná přípona, soubor neuložen"
+
+msgid "Jump to current song on track change"
+msgstr "Skočit na aktuální píseň při změně skladby"
+
+msgid "Length"
+msgstr "Délka"
+
+msgid "Limit to: "
+msgstr "Omezit na: "
+
+msgid "Loaded plugin %s"
+msgstr "Načítám zásuvný modul %s"
+
+msgid "Loading Exaile %s..."
+msgstr "Načítám Exaile %s..."
+
+msgid "Loading collection..."
+msgstr "Načítám kolekci..."
+
+msgid "Loading devices..."
+msgstr "Načítám zařízení..."
+
+msgid "Loading interface..."
+msgstr "Načítám rozhraní..."
+
+msgid "Loading plugins..."
+msgstr "Načítám zásuvné moduly..."
+
+msgid "Loading settings"
+msgstr "Načítám nastavení"
+
+msgid "Loading streams..."
+msgstr "Načítám stream..."
+
+msgid "Location"
+msgstr "Umístění"
+
+msgid "Location deleted: %s"
+msgstr "Umístění zrušeno: %s"
+
+msgid "Location modified: %s"
+msgstr "Modifikováno umístění: %s"
+
+msgid "M3U Playlist"
+msgstr "M3U seznam skladeb"
+
+msgid "Match any of the criteria"
+msgstr "Splňuje alespoň jedno kritérium"
+
+msgid "Monday"
+msgstr "Pondělí"
+
+msgid "Music Files"
+msgstr "Hudební soubory"
+
+msgid "Name:"
+msgstr "Jméno:"
+
+msgid "New Playlist"
+msgstr "Nový seznam skladeb"
+
+msgid "New Search"
+msgstr "Nové hledání"
+
+msgid "Next"
+msgstr "Další"
+
+msgid "Next Track"
+msgstr "Další skladba"
+
+msgid "Next visited directory"
+msgstr "Další navštívené složky"
+
+msgid "No cover found"
+msgstr "Nenalezen žádný obal"
+
+msgid "No covers found"
+msgstr "Obaly nebyly nalezeny"
+
+msgid "Not Playing"
+msgstr "Nepřehrává se"
+
+msgid "Not watching library: %s"
+msgstr "Nesledovat knihovnu: %s"
+
+msgid "Number of Plays"
+msgstr "Počet přehrání"
+
+msgid "Opacity Level:"
+msgstr "Průhlednost:"
+
+msgid "Open"
+msgstr "Otevřít"
+
+msgid "Open URL"
+msgstr "Otevřít URL"
+
+msgid "Open _URL"
+msgstr "Otevřít _URL"
+
+msgid "Open last playlists on startup"
+msgstr "Otevřít poslední seznam skladeb při startu"
+
+msgid "PLS Playlist"
+msgstr "PLS seznam skladeb"
+
+msgid "Page 1"
+msgstr "Strana 1"
+
+msgid "Password:"
+msgstr "Heslo:"
+
+msgid ""
+"Path is already in your collection, or is a subdirectory of another path in "
+"your collection"
+msgstr ""
+"Soubor je již ve sbírce nebo se jedná o podadresář na jiné cesty v kolekci"
+
+msgid "Pause"
+msgstr "Pozastavit"
+
+msgid "Personal"
+msgstr "Osobní"
+
+msgid "Pl_ugins"
+msgstr "_Zásuvné moduly"
+
+msgid "Play"
+msgstr "Hrát"
+
+msgid "Play the next track"
+msgstr "Přehrát další skladbu"
+
+msgid "Play the previous track"
+msgstr "Přehrát předchozí skladbu"
+
+msgid "Playcount"
+msgstr "Počet přehrávání"
+
+msgid "Playing %s"
+msgstr "Přehrávám %s"
+
+msgid "Playlist Files"
+msgstr "Soubory seznamu skladeb"
+
+msgid "Playlists"
+msgstr "Seznamy skladeb"
+
+msgid "Plugin"
+msgstr "Zásuvný modul"
+
+msgid "Plugins"
+msgstr "Zásuvné moduly"
+
+msgid "Popup"
+msgstr "Kontextová nabídka"
+
+msgid "Preferences"
+msgstr "Nastavení"
+
+msgid "Previous"
+msgstr "Předchozí"
+
+msgid "Previous Track"
+msgstr "Předchozí stopa"
+
+msgid "Previous visited directory"
+msgstr "Předchozí navštívené složky"
+
+msgid "Provider %s registered for service %s"
+msgstr "Poskytovatel %s registrován pro službu %s"
+
+msgid "Provider %s unregistered from service %s"
+msgstr "Poskytovatel %s odregistrován od služby %s"
+
+msgid "PyInotify not installed or not supported.  "
+msgstr "PyInotify není nainstalován nebo není podporován.  "
+
+msgid "Python Console - Exaile"
+msgstr "Python konzole - Exaile"
+
+msgid "Queue Items"
+msgstr "Položky fronty"
+
+msgid "Quit"
+msgstr "Ukončit"
+
+msgid "Radio"
+msgstr "Rádio"
+
+msgid "Radio Streams"
+msgstr "Vysílání rádia"
+
+msgid "Ran out of tracks to shuffle"
+msgstr "Vyčerpány všechny skladby k náhodnému přehrávání"
+
+msgid "Randomize results"
+msgstr "Náhodné výsledky"
+
+msgid "Rating"
+msgstr "Hodnocení"
+
+msgid "Rating > %d"
+msgstr "Hodnocení > %d"
+
+msgid "Rating: "
+msgstr "Hodnocení: "
+
+msgid "Recommended"
+msgstr "Doporučeno"
+
+msgid "Reduce level of output"
+msgstr "Snížit úroveň výstupu"
+
+msgid "Refresh"
+msgstr "Obnovit"
+
+msgid "Relay Port:"
+msgstr "Port:"
+
+msgid "Remove"
+msgstr "Odebrat"
+
+msgid "Remove Cover"
+msgstr "Odstranit obal"
+
+msgid "Rename"
+msgstr "Přejmenovat"
+
+msgid "Rename Playlist"
+msgstr "Přejmenovat seznam skladeb"
+
+msgid "Repeat"
+msgstr "Opakovat"
+
+msgid "Resizable"
+msgstr "Měnitelná velikost"
+
+msgid "Safe mode enabled, not loading plugins."
+msgstr "Bezpečný režim aktivován, nenačítám zásuvné moduly"
+
+msgid "Saturday"
+msgstr "Sobota"
+
+msgid "Save"
+msgstr "Uložit"
+
+msgid "Saved Stations"
+msgstr "Uložené stanice"
+
+msgid "Saving %s DB to %s."
+msgstr "Ukládám %s databázi do %s"
+
+msgid "Saving cover database"
+msgstr "Uložit databázi obalů"
+
+msgid "Saving state..."
+msgstr "Ukládám aktuální stav..."
+
+msgid "Scanning collection..."
+msgstr "Skenuji kolekci..."
+
+msgid "Scanning library: %s"
+msgstr "Skenuji knihovnu: %s"
+
+msgid "Search"
+msgstr "Hledat"
+
+msgid "Search: "
+msgstr "Hledat: "
+
+msgid "Select File Type (By Extension)"
+msgstr "Vyberte typ souboru (podle přípony)"
+
+msgid "Sent '%s' event from '%s' with data '%s'."
+msgstr "Odeslané '%s' z akce '%s' s daty '%s'."
+
+msgid "Set Rating"
+msgstr "Nastavit hodnocení"
+
+msgid "Set rating for current song"
+msgstr "Změnit hodnocení aktuální skladby"
+
+msgid "Show Cover"
+msgstr "Zobrazit obaly"
+
+msgid "Show OSD on track change"
+msgstr "Ukázat OSD při změně skladby"
+
+msgid "Show a popup of the currently playing track"
+msgstr "Zobrazit kontextovou nabídku právě hrající skladby"
+
+msgid "Show debugging output"
+msgstr "Zobrazovat ladicí výstup"
+
+msgid "Show splash screen on startup"
+msgstr "Zobrazit úvodní obrazovku při startu"
+
+msgid "Show tray icon"
+msgstr "Zobrazovat ikonu v panelu"
+
+msgid "Shuffle"
+msgstr "Náhodně"
+
+msgid "Size"
+msgstr "Velikost"
+
+msgid "Smart Playlists"
+msgstr "Inteligentní seznamy skladeb"
+
+msgid "Start"
+msgstr "Start"
+
+msgid "Start Exaile minimized to tray, if possible"
+msgstr "Spouštět Exaile minimalizován na liště, pokud je to možné"
+
+msgid "Start in safe mode - sometimes useful when you're running into problems"
+msgstr "Start v nouzovém režimu - užitečné, pokud máte problémy"
+
+msgid "Stop"
+msgstr "Zastavit"
+
+msgid "Stop Playback"
+msgstr "Zastavit přehrávání"
+
+msgid "Stop playback"
+msgstr "Zastavit přehrávání"
+
+msgid "Stopped"
+msgstr "Zastaveno"
+
+msgid "Sunday"
+msgstr "Neděle"
+
+msgid "Supported Files"
+msgstr "Podporované soubory"
+
+msgid "Text Color"
+msgstr "Barva textu"
+
+msgid "Text Font:"
+msgstr "Písmo:"
+
+msgid "The playlist name you specified already exists."
+msgstr "Název seznamu skladeb, který jste zadali, již existuje."
+
+msgid "The selected plugin doesn't have any configuration options"
+msgstr "Vybraný zásuvný modul nemá žádné možnosti konfigurace"
+
+msgid "Thursday"
+msgstr "Čtvrtek"
+
+msgid "Title"
+msgstr "Název"
+
+msgid "Toggle Play or Pause"
+msgstr "Přepínač Hrát nebo pozastavit"
+
+msgid "Toggle Queue"
+msgstr "Přepínač fronty"
+
+msgid "Toggle: Stop after selected track"
+msgstr "Přepínač: Zastavit po vybrané skladbě"
+
+msgid "Track Number"
+msgstr "Číslo skladby"
+
+msgid "Tuesday"
+msgstr "Úterý"
+
+msgid "Type of device:"
+msgstr "Typ zařízení:"
+
+msgid "Unable to enable plugin %s"
+msgstr "Nemohu povolit zásuvný modul %s"
+
+msgid "Unable to fully disable plugin %s"
+msgstr "Nelze zcela zakázat zásuvný modul %s"
+
+msgid "Unknown"
+msgstr "Neznámý"
+
+msgid "Updates"
+msgstr "Aktualizace"
+
+msgid "Use Fading"
+msgstr "Povolit slábnutí"
+
+msgid "Username:"
+msgstr "Uživatelské jméno:"
+
+msgid "Using %s for playback"
+msgstr "Používám %s pro přehrávání"
+
+msgid "Various Artists"
+msgstr "Různí interpreti"
+
+msgid "Version:"
+msgstr "Verze:"
+
+msgid "Vol:"
+msgstr "Hlasitost:"
+
+msgid ""
+"Vorbis is an open source, lossy audio codec with high quality output at a "
+"lower file size than MP3."
+msgstr ""
+"Vorbis je open-source ztrátový zvukový kodek s vysoce kvalitním výstupem při "
+"nižší velikosti souboru, než MP3."
+
+msgid "Watching directory: %s"
+msgstr "Hlídat adresář: %s"
+
+msgid "Wednesday"
+msgstr "Středa"
+
+msgid "Window Height:"
+msgstr "Výška okna:"
+
+msgid "Window Width:"
+msgstr "Šířka okna:"
+
+msgid "XSPF Playlist"
+msgstr "XSPF seznam skladeb"
+
+msgid "Year"
+msgstr "Rok"
+
+msgid "You did not enter a name for your playlist"
+msgstr "Nezadali jste název pro Váš seznam skladeb"
+
+msgid "You did not specify a location to save the db"
+msgstr "Nezadali jste přesné místo pro uložení db"
+
+msgid "You have entered an invalid option"
+msgstr "Zadali jste neplatné volby"
+
+msgid "Your changes will be lost if you don't save them"
+msgstr "Vaše změny budou ztraceny, pokud je neuložíte"
+
+msgid "_Album Art Manager"
+msgstr "Správce _obalů"
+
+msgid "_Close"
+msgstr "_Zavřít"
+
+msgid "_Collection Manager"
+msgstr "Správce _kolekce"
+
+msgid "_Columns"
+msgstr "Sloup_ce"
+
+msgid "_Edit"
+msgstr "_Upravit"
+
+msgid "_File"
+msgstr "_Soubor"
+
+msgid "_Go to Playing Track"
+msgstr "_Jdi na přehrávač skladeb"
+
+msgid "_Help"
+msgstr "_Nápověda"
+
+msgid "_Rescan Collection"
+msgstr "_Přeskenovat kolekci"
+
+msgid "_Tools"
+msgstr "Nás_troje"
+
+msgid "_View"
+msgstr "_Zobrazit"
+
+msgid "after"
+msgstr "po"
+
+msgid "and"
+msgstr "a"
+
+msgid "at least"
+msgstr "nejméně"
+
+msgid "at most"
+msgstr "nejvíce"
+
+msgid "before"
+msgstr "před"
+
+msgid "between"
+msgstr "je mezi"
+
+msgid "by %s"
+msgstr "od %s"
+
+msgid "contains"
+msgstr "obsahuje"
+
+msgid "days"
+msgstr "dny/dní"
+
+msgid "does not contain"
+msgstr "neobsahuje"
+
+msgid "from %s"
+msgstr "z %s"
+
+msgid "gtk-add"
+msgstr "gtk-přidat"
+
+msgid "gtk-cancel"
+msgstr "gtk-zrušit"
+
+msgid "gtk-close"
+msgstr "gtk-zavřít"
+
+msgid "gtk-connect"
+msgstr "gtk-připojit"
+
+msgid "gtk-disconnect"
+msgstr "gtk-odpojit"
+
+msgid "gtk-edit"
+msgstr "gtk-upravit"
+
+msgid "gtk-ok"
+msgstr "gtk-ok"
+
+msgid "gtk-remove"
+msgstr "gtk-odstranit"
+
+msgid "hours"
+msgstr "hodin"
+
+msgid "is"
+msgstr "je"
+
+msgid "is not"
+msgstr "není"
+
+msgid "minutes"
+msgstr "minut"
+
+msgid "seconds"
+msgstr "sekund"
+
+msgid "weeks"
+msgstr "týdny"

@@ -1,0 +1,473 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Exaile\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-04-03 15:02-0500\n"
+"PO-Revision-Date: 2009-03-02 07:14+0000\n"
+"Last-Translator: Joni Kemppainen <joni.kemppainen@windowslive.com>\n"
+"Language-Team: Finnish/fi <myrtti@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+"X-Poedit-Country: FINLAND\n"
+"X-Poedit-Language: Finnish\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+msgid ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+msgstr ""
+"0\n"
+"1\n"
+"2\n"
+"3\n"
+"4\n"
+"5"
+
+msgid "0:00"
+msgstr "0:00"
+
+msgid "<b>General</b>"
+msgstr "<b>Yleistä</b>"
+
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to appear</"
+"b>"
+msgstr "<b>Siirrä kuvaruutunäyttöikkunaa kohtaan, jossa haluat sen olevan</b>"
+
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Ei valittuja laajennoksia</b>"
+
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"{album}lla - {length}"
+
+msgid "Add"
+msgstr "Lisää"
+
+msgid "Add Playlist"
+msgstr "Lisää soittolista"
+
+msgid "Add Station"
+msgstr "Lisää asema"
+
+msgid "Add a directory"
+msgstr "Lisää hakemisto"
+
+msgid "Add to Playlist"
+msgstr "Lisää soittolistaan"
+
+msgid "Alarm Clock"
+msgstr "Herätyskello"
+
+msgid "Album"
+msgstr "Albumi"
+
+msgid "Album Art"
+msgstr "Albumien kansikuvat"
+
+msgid "Append to Current"
+msgstr "Lisää nykyiseen"
+
+msgid ""
+"Apple's proprietary lossy audio format that achieves better sound quality "
+"than MP3 at lower bitrates."
+msgstr ""
+"Applen omistama häviöllinen ääniformaatti joka saavuttaa paremman "
+"äänenlaadun kuin MP3 alhaisella bittinopeudella."
+
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr "Oletko varma, että haluat pysyvästi poistaa valitut soittolistat?"
+
+msgid "Artist"
+msgstr "Esittäjä"
+
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"Artisti\n"
+"Albumi\n"
+"Musiikkimuoto - Artisti\n"
+"Musiikkimuoto - Albumi\n"
+"Vuosi - Artisti\n"
+"Vuosi - Albumi\n"
+"Artisti - Vuosi - Albumi"
+
+msgid "Authors:"
+msgstr "Tekijät:"
+
+msgid "Autosize"
+msgstr "Muuta kokoa automaattisesti"
+
+msgid "Available Plugins"
+msgstr "Saatavilla olevat laajennokset"
+
+msgid "Background Color:"
+msgstr "Taustaväri:"
+
+msgid "Bitrate"
+msgstr "Näytteenottotaajuus"
+
+msgid "Cancel"
+msgstr "Peruuta"
+
+msgid "Choose a file"
+msgstr "Valitse tiedosto"
+
+msgid "Clear Playlist"
+msgstr "Tyhjennä soittolista"
+
+msgid "Collection"
+msgstr "Kokoelma"
+
+msgid "Configure"
+msgstr "Muokkaa"
+
+msgid "Custom Playlists"
+msgstr "Mukautetut soittolistat"
+
+msgid "Description:"
+msgstr "Kuvaus:"
+
+msgid "Disc"
+msgstr "Levy"
+
+msgid "Dynamic"
+msgstr "Dynaaminen"
+
+msgid "Enabled"
+msgstr "Käytössä"
+
+msgid "Enter the name you want for your new playlist"
+msgstr "Anna uudelle soittolistallesi haluamasi nimi"
+
+msgid "Enter the search text"
+msgstr "Anna etsittävä teksti"
+
+msgid "Exaile"
+msgstr "Exaile"
+
+msgid "Filename"
+msgstr "Tiedostonimi"
+
+msgid "Files"
+msgstr "Tiedostot"
+
+msgid ""
+"Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
+"does not degrade audio quality."
+msgstr ""
+"Free Lossless Audio Codec (FLAC) on avoimen lähdekoodin koodekki joka pakkaa "
+"mutta ei huononna äänenlaatua."
+
+msgid "Friday"
+msgstr "Perjantai"
+
+msgid "Genre"
+msgstr "Tyylilaji"
+
+msgid "Installed Plugins"
+msgstr "Asennetut laajennokset"
+
+msgid "Jump to current song on track change"
+msgstr "Siirry seuraavaan kappaleeseen raidan vaihtuessa"
+
+msgid "Length"
+msgstr "Kesto"
+
+msgid "Location"
+msgstr "Sijainti"
+
+msgid "Monday"
+msgstr "Maanantai"
+
+msgid "Name:"
+msgstr "Nimi:"
+
+msgid "New Playlist"
+msgstr "Uusi soittolista"
+
+msgid "New Search"
+msgstr "Uusi haku"
+
+msgid "Next"
+msgstr "Seuraava"
+
+msgid "Next Track"
+msgstr "Seuraava raita"
+
+msgid "Not Playing"
+msgstr "Soitto pysäytetty"
+
+msgid "Number of Plays"
+msgstr "Soittokertoja"
+
+msgid "Opacity Level:"
+msgstr "Läpinäkyvyys:"
+
+msgid "Open"
+msgstr "Avaa"
+
+msgid "Open _URL"
+msgstr "Avaa _Osoite"
+
+msgid "Password:"
+msgstr "Salasana:"
+
+msgid "Pause"
+msgstr "Tauota"
+
+msgid "Play"
+msgstr "Toista"
+
+msgid "Playcount"
+msgstr "Soittokerrat"
+
+msgid "Playlists"
+msgstr "Soittolistat"
+
+msgid "Plugin"
+msgstr "Liitännäinen"
+
+msgid "Plugins"
+msgstr "Liitännäiset"
+
+msgid "Popup"
+msgstr "Ponnahdusikkuna"
+
+msgid "Preferences"
+msgstr "Asetukset"
+
+msgid "Previous"
+msgstr "Edellinen"
+
+msgid "Previous Track"
+msgstr "Edellinen raita"
+
+msgid "Python Console - Exaile"
+msgstr "Python -konsoli - Exaile"
+
+msgid "Queue Items"
+msgstr "Lisää soittojonoon"
+
+msgid "Quit"
+msgstr "Lopeta"
+
+msgid "Radio"
+msgstr "Radio"
+
+msgid "Rating"
+msgstr "Arviointi"
+
+msgid "Rating: "
+msgstr "Arviointi: "
+
+msgid "Refresh"
+msgstr "Päivitä"
+
+msgid "Relay Port:"
+msgstr "Välitysportti:"
+
+msgid "Remove"
+msgstr "Poista"
+
+msgid "Remove Cover"
+msgstr "Poista kansikuva"
+
+msgid "Rename"
+msgstr "Uudelleennimeä"
+
+msgid "Rename Playlist"
+msgstr "Uudelleennimeä soittolista"
+
+msgid "Repeat"
+msgstr "Toista"
+
+msgid "Resizable"
+msgstr "Kokosäädettävä"
+
+msgid "Saturday"
+msgstr "Lauantai"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Scanning collection..."
+msgstr "Tutkitaan kokoelmaa..."
+
+msgid "Search"
+msgstr "Etsi"
+
+msgid "Search: "
+msgstr "Etsi_ "
+
+msgid "Show OSD on track change"
+msgstr "Näytä kuvaruutunäyttö raidan vaihtuessa"
+
+msgid "Show splash screen on startup"
+msgstr "Näytä käynnistysruutu ohjelman käynnistyessä"
+
+msgid "Show tray icon"
+msgstr "Näytä ilmoitusalueen kuvake"
+
+msgid "Shuffle"
+msgstr "Sekoita tiedostot"
+
+msgid "Smart Playlists"
+msgstr "Fiksut soittolistat"
+
+msgid "Start"
+msgstr "Käynnistys"
+
+msgid "Stop Playback"
+msgstr "Pysäytä soitto"
+
+msgid "Stopped"
+msgstr "Pysähtynyt"
+
+msgid "Sunday"
+msgstr "Sunnuntai"
+
+msgid "Text Color"
+msgstr "Tekstiväri"
+
+msgid "Text Font:"
+msgstr "Tekstin kirjaisin:"
+
+msgid "Thursday"
+msgstr "Torstai"
+
+msgid "Title"
+msgstr "Nimi"
+
+msgid "Track Number"
+msgstr "Raidan numero"
+
+msgid "Tuesday"
+msgstr "Tiistai"
+
+msgid "Unknown"
+msgstr "Tuntematon"
+
+msgid "Use Fading"
+msgstr "Käytä häivytystä"
+
+msgid "Username:"
+msgstr "Käyttäjätunnus:"
+
+msgid "Version:"
+msgstr "Versio:"
+
+msgid "Vol:"
+msgstr "Vol:"
+
+msgid ""
+"Vorbis is an open source, lossy audio codec with high quality output at a "
+"lower file size than MP3."
+msgstr ""
+"Vorbis on avoimen lähdekoodin häviöllinen äänikoodekki korkealaatuisella "
+"ulostulolla jonka tuottama tiedostokoko on pienempi kuin MP3 -koodekin."
+
+msgid "Watching directory: %s"
+msgstr "Tarkkailtava kansio: %s"
+
+msgid "Wednesday"
+msgstr "Keskiviikko"
+
+msgid "Window Height:"
+msgstr "Ikkunan korkeus:"
+
+msgid "Window Width:"
+msgstr "Ikkunan leveys:"
+
+msgid "Year"
+msgstr "Vuosi:"
+
+msgid "You did not enter a name for your playlist"
+msgstr "Et antanut soittolistallesi nimeä"
+
+msgid "_Close"
+msgstr "_Sulje"
+
+msgid "_Columns"
+msgstr "_Sarakkeet"
+
+msgid "_Edit"
+msgstr "_Muokkaa"
+
+msgid "_File"
+msgstr "_Tiedosto"
+
+msgid "_Help"
+msgstr "_Ohje"
+
+msgid "_Rescan Collection"
+msgstr "Käy läpi kokoelma uudestaan"
+
+msgid "_Tools"
+msgstr "_Työkalut"
+
+msgid "_View"
+msgstr "_Näytä"
+
+msgid "after"
+msgstr "jälkeen"
+
+msgid "and"
+msgstr "ja"
+
+msgid "at least"
+msgstr "vähintään"
+
+msgid "at most"
+msgstr "enintään"
+
+msgid "before"
+msgstr "ennen"
+
+msgid "between"
+msgstr "välillä"
+
+msgid "contains"
+msgstr "sisältää"
+
+msgid "days"
+msgstr "päivää"
+
+msgid "does not contain"
+msgstr "ei sisällä"
+
+msgid "hours"
+msgstr "tuntia"
+
+msgid "is"
+msgstr "on"
+
+msgid "is not"
+msgstr "ei ole"
+
+msgid "minutes"
+msgstr "minuuttia"
+
+msgid "seconds"
+msgstr "sekuntia"
+
+msgid "weeks"
+msgstr "viikkoja"

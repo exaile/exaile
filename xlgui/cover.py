@@ -397,7 +397,6 @@ class CoverWidget(gtk.EventBox):
         window.connect('cover-chosen', self.on_cover_chosen)
 
     def on_cover_chosen(self, object, cover):
-        self.image.set_image_data(cover.get_cover_data(cover)) 
         self.image.set_image(cover)
 
     def remove_cover(self):

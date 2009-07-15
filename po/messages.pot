@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-13 22:21+0200\n"
+"POT-Creation-Date: 2009-07-16 01:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,29 +53,29 @@ msgstr ""
 msgid "Unified playback engine selected."
 msgstr ""
 
-#: ../xl/player/engine_normal.py:84
+#: ../xl/player/engine_normal.py:96
 msgid "Buffering complete"
 msgstr ""
 
 #. TODO: remove this before 0.3.0 since it is not needed for
 #. stable->stable upgrades
-#: ../xl/player/engine_normal.py:138
+#: ../xl/player/engine_normal.py:150
 #, python-format
 msgid "Exaile now uses absolute URI's, please delete/rename your %s directory"
 msgstr ""
 
-#: ../xl/player/engine_normal.py:170 ../xl/player/engine_unified.py:373
+#: ../xl/player/engine_normal.py:182 ../xl/player/engine_unified.py:373
 #, python-format
 msgid "File does not exist: %s"
 msgstr ""
 
-#: ../xl/player/engine_normal.py:177 ../xl/player/engine_unified.py:381
+#: ../xl/player/engine_normal.py:189 ../xl/player/engine_unified.py:381
 #: ../xlgui/main.py:864 ../xlgui/main.py:869
 #, python-format
 msgid "Playing %s"
 msgstr ""
 
-#: ../xl/player/engine_normal.py:249
+#: ../xl/player/engine_normal.py:261
 msgid "Couldn't send seek event"
 msgstr ""
 
@@ -84,157 +84,161 @@ msgstr ""
 msgid "Loading Exaile %s..."
 msgstr ""
 
-#: ../xl/main.py:104
+#: ../xl/main.py:93
+msgid "Loading settings..."
+msgstr ""
+
+#: ../xl/main.py:109
 msgid "Loading plugins..."
 msgstr ""
 
-#: ../xl/main.py:108
+#: ../xl/main.py:113
 msgid "Safe mode enabled, not loading plugins."
 msgstr ""
 
 #. Initialize the collection
-#: ../xl/main.py:112
+#: ../xl/main.py:117
 msgid "Loading collection..."
 msgstr ""
 
 #. Initalize device manager
-#: ../xl/main.py:139
+#: ../xl/main.py:144
 msgid "Loading devices..."
 msgstr ""
 
-#: ../xl/main.py:169
+#: ../xl/main.py:174
 msgid "Loading interface..."
 msgstr ""
 
-#: ../xl/main.py:241
+#: ../xl/main.py:246
 msgid "Play the next track"
 msgstr ""
 
-#: ../xl/main.py:243
+#: ../xl/main.py:248
 msgid "Play the previous track"
 msgstr ""
 
-#: ../xl/main.py:245
+#: ../xl/main.py:250 ../plugins/minimode/__init__.py:125
 msgid "Stop playback"
 msgstr ""
 
-#: ../xl/main.py:247 ../xlgui/tray.py:86 ../xlgui/tray.py:128
+#: ../xl/main.py:252 ../xlgui/tray.py:85 ../xlgui/tray.py:127
 msgid "Play"
 msgstr ""
 
-#: ../xl/main.py:249
+#: ../xl/main.py:254
 msgid "Toggle Play or Pause"
 msgstr ""
 
-#: ../xl/main.py:253
+#: ../xl/main.py:258
 msgid "Query player"
 msgstr ""
 
-#: ../xl/main.py:255
+#: ../xl/main.py:260
 msgid "Show a popup of the currently playing track"
 msgstr ""
 
-#: ../xl/main.py:257
+#: ../xl/main.py:262
 msgid "Print the title of current track"
 msgstr ""
 
-#: ../xl/main.py:259
+#: ../xl/main.py:264
 msgid "Print the album of current track"
 msgstr ""
 
-#: ../xl/main.py:261
+#: ../xl/main.py:266
 msgid "Print the artist of current track"
 msgstr ""
 
-#: ../xl/main.py:263
+#: ../xl/main.py:268
 msgid "Print the length of current track"
 msgstr ""
 
-#: ../xl/main.py:265
+#: ../xl/main.py:270
 msgid "Set rating for current song"
 msgstr ""
 
-#: ../xl/main.py:267
+#: ../xl/main.py:272
 msgid "Get rating for current song"
 msgstr ""
 
-#: ../xl/main.py:270
+#: ../xl/main.py:275
 msgid "Print the position inside the current track as a percentage"
 msgstr ""
 
-#: ../xl/main.py:274
+#: ../xl/main.py:279
 msgid "Increases the volume by VOL%"
 msgstr ""
 
-#: ../xl/main.py:276
+#: ../xl/main.py:281
 msgid "Decreases the volume by VOL%"
 msgstr ""
 
-#: ../xl/main.py:278
+#: ../xl/main.py:283
 msgid "Print the current volume percentage"
 msgstr ""
 
-#: ../xl/main.py:282
+#: ../xl/main.py:287
 msgid "Start new instance"
 msgstr ""
 
-#: ../xl/main.py:285
+#: ../xl/main.py:290
 msgid "Start Exaile minimized to tray, if possible"
 msgstr ""
 
-#: ../xl/main.py:287
+#: ../xl/main.py:292
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
 
 #. development and debug options
-#: ../xl/main.py:291
+#: ../xl/main.py:296
 msgid "Set data directory"
 msgstr ""
 
-#: ../xl/main.py:293
+#: ../xl/main.py:298
 msgid "Show debugging output"
 msgstr ""
 
-#: ../xl/main.py:296
+#: ../xl/main.py:301
 msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgstr ""
 
-#: ../xl/main.py:298
+#: ../xl/main.py:303
 msgid "Reduce level of output"
 msgstr ""
 
-#: ../xl/main.py:302
+#: ../xl/main.py:307
 msgid "Disable D-Bus support"
 msgstr ""
 
-#: ../xl/main.py:304
+#: ../xl/main.py:309
 msgid "Disable HAL support."
 msgstr ""
 
 #. entire playlist
-#: ../xl/main.py:321
+#: ../xl/main.py:326
 msgid "Entire Library"
 msgstr ""
 
-#: ../xl/main.py:327
+#: ../xl/main.py:332
 #, python-format
 msgid "Random %d"
 msgstr ""
 
-#: ../xl/main.py:335
+#: ../xl/main.py:340
 #, python-format
 msgid "Rating > %d"
 msgstr ""
 
-#: ../xl/main.py:379
+#: ../xl/main.py:384
 msgid "Exaile is shutting down..."
 msgstr ""
 
-#: ../xl/main.py:395
+#: ../xl/main.py:398
 msgid "Saving state..."
 msgstr ""
 
-#: ../xl/main.py:418
+#: ../xl/main.py:423
 msgid "Bye!"
 msgstr ""
 
@@ -376,15 +380,15 @@ msgstr ""
 msgid "Scanning library: %s"
 msgstr ""
 
-#: ../xl/settings.py:57
-msgid "Loading settings"
+#: ../xl/settings.py:79
+msgid "Settings version is newer than current."
 msgstr ""
 
-#: ../xl/settings.py:158
+#: ../xl/settings.py:161
 msgid "We don't know how to store that kind of setting: "
 msgstr ""
 
-#: ../xl/settings.py:178
+#: ../xl/settings.py:184
 msgid "An Unknown type of setting was found!"
 msgstr ""
 
@@ -496,7 +500,7 @@ msgstr ""
 msgid "New playlist title:"
 msgstr ""
 
-#: ../xlgui/main.py:214 ../xlgui/menu.py:401
+#: ../xlgui/main.py:214 ../xlgui/menu.py:416
 msgid "Rename Playlist"
 msgstr ""
 
@@ -549,11 +553,11 @@ msgstr ""
 msgid "Toggle Queue"
 msgstr ""
 
-#: ../xlgui/menu.py:58 ../xlgui/menu.py:239
+#: ../xlgui/menu.py:58 ../xlgui/menu.py:279
 msgid "Set Rating"
 msgstr ""
 
-#: ../xlgui/menu.py:109 ../xlgui/panel/playlists.py:300
+#: ../xlgui/menu.py:109 ../xlgui/menu.py:307 ../xlgui/panel/playlists.py:300
 #: ../xlgui/panel/radio.py:278
 msgid "New Playlist"
 msgstr ""
@@ -562,7 +566,7 @@ msgstr ""
 msgid "Add to Playlist"
 msgstr ""
 
-#: ../xlgui/menu.py:154 ../xlgui/menu.py:440
+#: ../xlgui/menu.py:154 ../xlgui/menu.py:455
 msgid "Remove"
 msgstr ""
 
@@ -570,7 +574,7 @@ msgstr ""
 msgid "Playlist"
 msgstr ""
 
-#: ../xlgui/menu.py:200
+#: ../xlgui/menu.py:200 ../data/glade/main.glade.h:32
 msgid "_New Playlist"
 msgstr ""
 
@@ -586,77 +590,73 @@ msgstr ""
 msgid "_Close"
 msgstr ""
 
-#: ../xlgui/menu.py:230
+#: ../xlgui/menu.py:223
 msgid "Append to Current"
 msgstr ""
 
-#: ../xlgui/menu.py:232
+#: ../xlgui/menu.py:225
 msgid "Queue Items"
 msgstr ""
 
-#: ../xlgui/menu.py:289
-msgid "Add Station"
+#: ../xlgui/menu.py:304
+msgid "New Station"
 msgstr ""
 
-#: ../xlgui/menu.py:292
-msgid "Add Playlist"
+#: ../xlgui/menu.py:309
+msgid "New Smart Playlist"
 msgstr ""
 
-#: ../xlgui/menu.py:294 ../xlgui/panel/playlists.py:498
-msgid "Add Smart Playlist"
-msgstr ""
-
-#: ../xlgui/menu.py:338 ../xlgui/__init__.py:139
+#: ../xlgui/menu.py:353
 msgid "Open"
 msgstr ""
 
-#: ../xlgui/menu.py:341
+#: ../xlgui/menu.py:356
 msgid "Rename"
 msgstr ""
 
-#: ../xlgui/menu.py:343
+#: ../xlgui/menu.py:358
 msgid "Edit"
 msgstr ""
 
-#: ../xlgui/menu.py:346
+#: ../xlgui/menu.py:361
 msgid "Export"
 msgstr ""
 
-#: ../xlgui/menu.py:349
+#: ../xlgui/menu.py:364
 msgid "Delete Playlist"
 msgstr ""
 
-#: ../xlgui/menu.py:359
+#: ../xlgui/menu.py:374
 msgid "Choose a file"
 msgstr ""
 
-#: ../xlgui/menu.py:364
+#: ../xlgui/menu.py:379
 msgid "M3U Playlist"
 msgstr ""
 
-#: ../xlgui/menu.py:365
+#: ../xlgui/menu.py:380
 msgid "PLS Playlist"
 msgstr ""
 
-#: ../xlgui/menu.py:366
+#: ../xlgui/menu.py:381
 msgid "ASX Playlist"
 msgstr ""
 
-#: ../xlgui/menu.py:367
+#: ../xlgui/menu.py:382
 msgid "XSPF Playlist"
 msgstr ""
 
 #. TODO should we show an error or just append a default
 #. extension?
-#: ../xlgui/menu.py:381
+#: ../xlgui/menu.py:396
 msgid "Invalid file extension, file not saved"
 msgstr ""
 
-#: ../xlgui/menu.py:387
+#: ../xlgui/menu.py:402
 msgid "Are you sure you want to permanently delete the selected playlist?"
 msgstr ""
 
-#: ../xlgui/menu.py:400
+#: ../xlgui/menu.py:415
 msgid "Enter the new name you want for your playlist"
 msgstr ""
 
@@ -713,10 +713,6 @@ msgstr ""
 
 #: ../xlgui/__init__.py:138
 msgid "Choose a file to open"
-msgstr ""
-
-#: ../xlgui/__init__.py:140 ../xlgui/plugins.py:111
-msgid "Cancel"
 msgstr ""
 
 #: ../xlgui/__init__.py:144
@@ -897,6 +893,10 @@ msgid "Choose a plugin"
 msgstr ""
 
 #: ../xlgui/plugins.py:111
+msgid "Cancel"
+msgstr ""
+
+#: ../xlgui/plugins.py:111
 msgid "Choose"
 msgstr ""
 
@@ -1050,6 +1050,10 @@ msgstr ""
 msgid "Custom Playlists"
 msgstr ""
 
+#: ../xlgui/panel/playlists.py:498
+msgid "Add Smart Playlist"
+msgstr ""
+
 #: ../xlgui/panel/playlists.py:512 ../xlgui/panel/playlists.py:581
 msgid "You did not enter a name for your playlist"
 msgstr ""
@@ -1095,7 +1099,7 @@ msgstr ""
 msgid "Various Artists"
 msgstr ""
 
-#: ../xlgui/prefs/__init__.py:69 ../xlgui/tray.py:113
+#: ../xlgui/prefs/__init__.py:69 ../xlgui/tray.py:112
 #: ../data/glade/preferences_dialog.glade.h:2
 msgid "Preferences"
 msgstr ""
@@ -1104,7 +1108,7 @@ msgstr ""
 msgid "Error loading preferences pane"
 msgstr ""
 
-#: ../xlgui/prefs/__init__.py:100 ../xlgui/tray.py:110
+#: ../xlgui/prefs/__init__.py:100 ../xlgui/tray.py:109
 msgid "Plugins"
 msgstr ""
 
@@ -1112,23 +1116,23 @@ msgstr ""
 msgid "Exaile Music Player"
 msgstr ""
 
-#: ../xlgui/tray.py:98
+#: ../xlgui/tray.py:97 ../plugins/minimode/minimodeprefs.py:68
 msgid "Next"
 msgstr ""
 
-#: ../xlgui/tray.py:101
+#: ../xlgui/tray.py:100 ../plugins/minimode/minimodeprefs.py:65
 msgid "Previous"
 msgstr ""
 
-#: ../xlgui/tray.py:104
+#: ../xlgui/tray.py:103 ../plugins/minimode/minimodeprefs.py:67
 msgid "Stop"
 msgstr ""
 
-#: ../xlgui/tray.py:119
+#: ../xlgui/tray.py:118
 msgid "Quit"
 msgstr ""
 
-#: ../xlgui/tray.py:132
+#: ../xlgui/tray.py:131
 msgid "Pause"
 msgstr ""
 
@@ -1534,14 +1538,18 @@ msgid "_File"
 msgstr ""
 
 #: ../data/glade/main.glade.h:30
-msgid "_Help"
+msgid "_Go to Playing Track"
 msgstr ""
 
 #: ../data/glade/main.glade.h:31
+msgid "_Help"
+msgstr ""
+
+#: ../data/glade/main.glade.h:33
 msgid "_Tools"
 msgstr ""
 
-#: ../data/glade/main.glade.h:32
+#: ../data/glade/main.glade.h:34
 msgid "_View"
 msgstr ""
 
@@ -1732,6 +1740,50 @@ msgstr ""
 msgid "Show IPython Console"
 msgstr ""
 
+#: ../plugins/minimode/__init__.py:54
+msgid "Exaile"
+msgstr ""
+
+#: ../plugins/minimode/__init__.py:118
+msgid "Previous track"
+msgstr ""
+
+#: ../plugins/minimode/__init__.py:121
+msgid "Next track"
+msgstr ""
+
+#: ../plugins/minimode/__init__.py:123
+msgid "Start playback"
+msgstr ""
+
+#: ../plugins/minimode/__init__.py:127
+msgid "Restore main window"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs.py:62
+msgid "Available controls"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs.py:63
+msgid "Selected controls"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs.py:66
+msgid "Play/Pause"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs.py:69
+msgid "Track selector"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs.py:70
+msgid "Progress bar"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs.py:73
+msgid "Restore"
+msgstr ""
+
 #: ../plugins/streamripper/__init__.py:53
 msgid "Streamripper can only record streams."
 msgstr ""
@@ -1899,6 +1951,42 @@ msgstr ""
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:8
 msgid "Summary"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:1
+msgid "<b>Position</b>"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:2
+msgid "Always on top"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:3
+msgid "Center horizontally"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:4
+msgid "Center vertically"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:5
+msgid "Display window decorations"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:6
+msgid "Horizontal:"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:7
+msgid "Mini mode button in main window"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:8
+msgid "Show in panel"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:9
+msgid "Vertical:"
 msgstr ""
 
 #: ../plugins/streamripper/streamripper.glade.h:1

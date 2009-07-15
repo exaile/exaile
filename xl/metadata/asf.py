@@ -19,13 +19,15 @@ from mutagen import asf
 
 class AsfFormat(BaseFormat):
     MutagenType = asf.ASF
+    # TODO: figure out the the WM/ prefix is universal
     tag_mapping = {
-            "artist"    : "Author",
-            "album"     : "AlbumTitle",
-            "title"     : "Title",
-            "genre"     : "Genre",
-            "tracknumber":"TrackNumber",
-            "date"      : "Year",
+            "artist"        : "Author",
+            "album"         : "WM/AlbumTitle",
+            "title"         : "Title",
+            "genre"         : "WM/Genre",
+            "tracknumber"   : "WM/TrackNumber",
+            "date"          : "WM/Year",
+            "albumartist"   : "WM/AlbumArtist"
         }
     others = False
     writable = True

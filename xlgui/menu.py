@@ -374,7 +374,7 @@ class PlaylistsPanelPlaylistMenu(TrackSelectMenu, PlaylistsPanelMenu):
             operation, export type is determined by the extension
             entered
         """
-        dialog = commondialogs.FileOperationDialog(_("Choose a file"),
+        dialog = commondialogs.FileOperationDialog(_("Export as..."),
             None, gtk.FILE_CHOOSER_ACTION_SAVE,
             buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
             gtk.STOCK_SAVE, gtk.RESPONSE_OK))
@@ -391,12 +391,7 @@ class PlaylistsPanelPlaylistMenu(TrackSelectMenu, PlaylistsPanelMenu):
             #TODO recover last directory from prefs
             #self.exaile.last_open_dir = dialog.get_current_folder()
             path = unicode(dialog.get_filename(), 'utf-8')
-            try:
-                self.emit('export-playlist', path)
-            except playlist.InvalidPlaylistTypeException:
-                #TODO should we show an error or just append a default
-                #extension?
-                commondialogs.error(None, _('Invalid file extension, file not saved'))
+            self.emit('export-playlist', path)
         dialog.destroy()
 
     def on_delete_playlist(self, selected = None):

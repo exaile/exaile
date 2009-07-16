@@ -833,7 +833,14 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         """
         pl = self.get_selected_playlist()
         if pl is not None:
-            playlist.export_playlist(pl, path)
+            try:
+                playlist.export_playlist(pl, path)
+            except playlist.InvalidPlaylistTypeException:
+                path = path + ".m3u"
+                try:
+                    playlist.export_playlist(pl, path)
+                except playlist.InvalidPlaylistTypeException:
+                    commondialogs.error(None, _('Invalid file extension, file not saved'))
         
     def button_press(self, button, event):
         """

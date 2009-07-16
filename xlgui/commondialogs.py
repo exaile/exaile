@@ -260,12 +260,14 @@ class FileOperationDialog(gtk.FileChooserDialog):
         
         #Setup the dialog
         self.expander.add(self.list)
-        self.vbox.pack_start(self.expander, True, True, 0)
+        self.vbox.pack_start(self.expander, False, False, 0)
         self.expander.show()
         
         #Connect signals
         selection = self.list.get_selection()
         selection.connect('changed', self.on_selection_changed)
+        
+        self.set_do_overwrite_confirmation(True)
     
     def on_selection_changed(self, selection):
         """
@@ -275,12 +277,14 @@ class FileOperationDialog(gtk.FileChooserDialog):
         """
         model, iter = selection.get_selected()
         extension, = model.get(iter, 1)
-        filename = os.path.basename(self.get_filename())
-        filename, old_extension = os.path.splitext(filename)
-        filename += '.' + extension
+        filename = ""
+        if self.get_filename():
+            filename = os.path.basename(self.get_filename())
+            filename, old_extension = os.path.splitext(filename)
+            filename += '.' + extension
+        else:
+            filename = '*.' + extension
         self.set_current_name(filename)
-        
-
         
     def add_extensions(self, extensions):
         """

@@ -15,7 +15,7 @@
           <widget class="GtkMenuBar" id="menubar1">
             <property name="visible">True</property>
             <child>
-              <widget class="GtkMenuItem" id="menuitem1">
+              <widget class="GtkMenuItem" id="file_menu">
                 <property name="visible">True</property>
                 <property name="label" translatable="yes">_File</property>
                 <property name="use_underline">True</property>
@@ -23,7 +23,7 @@
                   <widget class="GtkMenu" id="menuitem1_menu">
                     <child>
                       <widget class="GtkImageMenuItem" id="new_playlist_item">
-                        <property name="label">_New Playlist</property>
+                        <property name="label" translatable="yes">_New Playlist</property>
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">False</property>
@@ -79,7 +79,7 @@
               </widget>
             </child>
             <child>
-              <widget class="GtkMenuItem" id="menuitem2">
+              <widget class="GtkMenuItem" id="edit_menu">
                 <property name="visible">True</property>
                 <property name="label" translatable="yes">_Edit</property>
                 <property name="use_underline">True</property>
@@ -123,7 +123,7 @@
                   <widget class="GtkMenu" id="view_menu_menu">
                     <child>
                       <widget class="GtkImageMenuItem" id="goto_playing_item">
-                        <property name="label">_Go to Playing Track</property>
+                        <property name="label" translatable="yes">_Go to Playing Track</property>
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">False</property>
@@ -179,7 +179,7 @@
               </widget>
             </child>
             <child>
-              <widget class="GtkMenuItem" id="menuitem5">
+              <widget class="GtkMenuItem" id="tools_menu">
                 <property name="visible">True</property>
                 <property name="label" translatable="yes">_Tools</property>
                 <property name="use_underline">True</property>
@@ -252,7 +252,7 @@
               </widget>
             </child>
             <child>
-              <widget class="GtkMenuItem" id="menuitem4">
+              <widget class="GtkMenuItem" id="help_menu">
                 <property name="visible">True</property>
                 <property name="label" translatable="yes">_Help</property>
                 <property name="use_underline">True</property>

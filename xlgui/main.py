@@ -966,7 +966,7 @@ class MainWindow(object):
             Called when the user attempts to close the window
         """
         if self.controller.tray_icon:
-            gobject.idle_add(self.toggle_visible)
+            self.window.hide()
         else:
             self.quit()
         return True

@@ -66,6 +66,26 @@
                       </widget>
                     </child>
                     <child>
+                      <widget class="GtkImageMenuItem" id="export_current_playlist">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">_Export current playlist</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="on_export_current_playlist_activate"/>
+                        <child internal-child="image">
+                          <widget class="GtkImage" id="image1001">
+                            <property name="visible">True</property>
+                            <property name="stock">gtk-save</property>
+                            <property name="icon-size">1</property>
+                          </widget>
+                        </child>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkSeparatorMenuItem" id="separatormenuitem1">
+                        <property name="visible">True</property>
+                      </widget>
+                    </child>
+                    <child>
                       <widget class="GtkImageMenuItem" id="quit_item">
                         <property name="label">gtk-quit</property>
                         <property name="visible">True</property>

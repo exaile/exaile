@@ -16,7 +16,7 @@ __all__ = ['main', 'panel', 'playlist']
 
 from xl.nls import gettext as _
 import gtk, gtk.glade, gobject, logging, os, urlparse
-from xl import xdg, common, event, metadata, settings
+from xl import xdg, common, event, metadata, settings, playlist as _xpl
 
 from xlgui import guiutil, prefs, plugins, cover, commondialogs, devices, queue
 
@@ -105,6 +105,7 @@ class Main(object):
             'on_album_art_item_activate': self.show_cover_manager,
             'on_open_item_activate': self.open_dialog,
             'on_open_url_item_activate': self.open_url,
+            'on_export_current_playlist_activate': self.export_current_playlist,
             'on_panel_notebook_switch_page': self.on_panel_switch,
         })
 
@@ -115,7 +116,37 @@ class Main(object):
         if not self.last_selected_panel:
             self.last_selected_panel = 0
         settings.set_option('gui/last_selected_panel', self.last_selected_panel)
+        
+    def export_current_playlist(self, *e):
+        pl = self.main.get_current_playlist ().playlist
+        name = pl.get_name() + ".m3u"
+        
+        dialog = commondialogs.FileOperationDialog(_("Export current playlist..."),
+            None, gtk.FILE_CHOOSER_ACTION_SAVE,
+            buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+            gtk.STOCK_SAVE, gtk.RESPONSE_OK))
 
+        extensions = { 'm3u' : _('M3U Playlist'),
+                       'pls' : _('PLS Playlist'),
+                       'asx' : _('ASX Playlist'),
+                       'xspf' : _('XSPF Playlist') }
+
+        dialog.add_extensions(extensions)
+        dialog.set_current_name (name)
+
+        result = dialog.run()
+        if result == gtk.RESPONSE_OK:
+            path = unicode(dialog.get_filename(), 'utf-8')
+            try:
+                _xpl.export_playlist(pl, path)
+            except _xpl.InvalidPlaylistTypeException:
+                path = path + ".m3u"
+                try:
+                    _xpl.export_playlist(pl, path)
+                except _xpl.InvalidPlaylistTypeException:
+                    commondialogs.error(None, _('Invalid file extension, file not saved'))
+        dialog.destroy()
+        
     def open_url(self, *e):
         """
             Displays a dialog to open a url

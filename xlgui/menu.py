@@ -152,7 +152,7 @@ class PlaylistMenu(GenericTrackMenu):
         GenericTrackMenu.__init__(self)
         self.playlist = playlist
         self.add_playlist_menu = AddToPlaylistMenu(playlist, playlists)
-        self.append_menu(_('Add to Playlist'), self.add_playlist_menu, 'gtk-add')
+        self.append_menu(_('Add to custom playlist'), self.add_playlist_menu, 'gtk-add')
         self.append(_('Remove'), lambda *e: self.remove_selected_tracks(), 'gtk-remove')
 
         self.playlist_tab_menu = None

@@ -273,6 +273,10 @@ class Playlist(gtk.VBox):
         for track in tracks:
             self._append_track(track)
         self.main.update_track_counts()
+        
+        if tracks:
+            self.list.scroll_to_cell(self.playlist.index(tracks[-1]))
+            #self.list.scroll_to_cell(self.playlist.index(tracks[0]))
 
     def _set_tracks(self, tracks):
         """

@@ -97,6 +97,7 @@ class Main(object):
             'on_scan_collection_item_activate': self.on_rescan_collection,
             'on_randomize_playlist_item_activate': self.on_randomize_playlist,
             'on_collection_manager_item_activate': self.collection_manager,
+            'on_goto_playing_track_activate': self.on_goto_playing_track,
             'on_queue_manager_item_activate': self.queue_manager,
             'on_preferences_item_activate': lambda *e: self.show_preferences(),
             'on_device_manager_item_activate': lambda *e: self.show_devices(),
@@ -257,6 +258,15 @@ class Main(object):
 
             self.on_rescan_collection()
 
+    def on_goto_playing_track(self, *e):
+        track = self.exaile.queue.get_current()
+        pl = self.main.get_current_playlist()
+        if track in pl.playlist:
+            index = pl.playlist.index(track)
+            pl.list.scroll_to_cell(index)
+            pl.list.set_cursor(index)
+        #TODO implement a way to browse through all playlists and search for the track
+            
     def on_rescan_collection(self, *e):
         """
             Called when the user wishes to rescan the collection

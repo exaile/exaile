@@ -13,6 +13,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import gtk
+from xl import settings
 from xl.nls import gettext as _
 import logging
 logger = logging.getLogger(__name__)
@@ -119,7 +120,8 @@ class DiscNumberColumn(Column):
     id = 'discnumber'
 
 class RatingColumn(Column):
-    size = 64 * 5
+    steps = settings.get_option('miscellaneous/rating_steps', 5)
+    size = 12 * steps
     display = _('Rating')
     renderer = gtk.CellRendererPixbuf
     id = '__rating'
@@ -132,7 +134,7 @@ class RatingColumn(Column):
                 self.playlist.rating_images[idx])
         except IndexError:
             logger.debug("idx_error")
-            if idx > 5: idx = 5
+            if idx > steps: idx = steps
             elif idx < 0: idx = 0
             cell.set_property('pixbuf',
                 self.playlist.rating_images[idx])

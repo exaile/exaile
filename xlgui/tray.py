@@ -143,11 +143,12 @@ class TrayIcon(object):
     def _change_rating(self, w, e):
         current = self.controller.main.queue.get_current ()
         if current:
+            steps = settings.get_option('miscellaneous/rating_steps', 5)
             (x, y) = e.get_coords()
             (u, v) =  self.rating.translate_coordinates(self.rating_image, int(x), int(y))
             if -12 <= u < 0:
                 r = 0
-            elif 0 <= u < 60:
+            elif 0 <= u < steps*12:
                 r = (u / 12) + 1
             else:
                 r = -1
@@ -166,8 +167,9 @@ class TrayIcon(object):
             try:
                 return self.controller.main.get_current_playlist ().rating_images[track.get_rating()]
             except IndexError:
+                steps = settings.get_option('miscellaneous/rating_steps', 5)
                 idx = track.get_rating()
-                if idx > 5: idx = 5
+                if idx > steps: idx = steps
                 elif idx < 0: idx = 0
                 return self.controller.main.get_current_playlist ().rating_images[idx]
         else:

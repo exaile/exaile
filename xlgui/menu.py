@@ -33,7 +33,8 @@ class GenericTrackMenu(guiutil.Menu):
     def __init__(self):
         guiutil.Menu.__init__(self)
         from xlgui import playlist 
-        self.rating_images = playlist.create_rating_images(64)
+        steps = settings.get_option("miscellaneous/rating_steps", 5)
+        self.rating_images = playlist.create_rating_images(12*steps)
 
         self._add_queue_pixbuf()
         self._create_menu()
@@ -42,8 +43,9 @@ class GenericTrackMenu(guiutil.Menu):
         """
             Creates the menu
         """
+        steps = settings.get_option("miscellaneous/rating_steps", 5)
         star_icon = gtk.gdk.pixbuf_new_from_file_at_size(
-            xdg.get_data_path('images/star.png'), 16, 16)
+            xdg.get_data_path('images/star.png'), 12, 12)
         icon_set = gtk.IconSet(star_icon)
         factory = gtk.IconFactory()
         factory.add_default()
@@ -51,7 +53,7 @@ class GenericTrackMenu(guiutil.Menu):
         self.queue_item = self.append(_('Toggle Queue'), lambda *e: self.on_queue(),
             'exaile-queue-icon')
         rm = guiutil.Menu()
-        for i in range(0, 6): #TODO: read number of steps from settings
+        for i in range(0, steps+1):
             item = rm.append_image(self.rating_images[i],
                 lambda w, e, i=i: self.update_rating(i))
 
@@ -263,20 +265,21 @@ class RatedTrackSelectMenu(TrackSelectMenu):
             Actually adds the menu items
         """
         TrackSelectMenu._create_menu(self)
+        steps = settings.get_option("miscellaneous/rating_steps", 5)
 
         star_icon = gtk.gdk.pixbuf_new_from_file_at_size(
-            xdg.get_data_path('images/star.png'), 16, 16)
+            xdg.get_data_path('images/star.png'), 12, 12)
         icon_set = gtk.IconSet(star_icon)
         factory = gtk.IconFactory()
         factory.add_default()
         factory.add('exaile-star-icon', icon_set)
 
         rm = guiutil.Menu()
-        for i in range(0, 6): #TODO: read number of steps from settings
+        for i in range(0, steps+1):
             item = rm.append_image(self.rating_images[i],
                 lambda w, e, i=i: self.update_rating(i))
 
-        self.append_menu(_("Set Rating"), rm, 'exaile-star-icon')
+        self.append_menu(_("Rating:"), rm, 'exaile-star-icon')
 
 # these are stubbs for now
 FilesPanelMenu = TrackSelectMenu

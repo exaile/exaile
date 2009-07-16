@@ -90,8 +90,9 @@ class Playlist(gtk.VBox):
         self.playlist = copy.copy(pl)
         self.playlist.ordered_tracks = pl.ordered_tracks[:]
 
-        self._rating_width = 64
-        self.rating_images = create_rating_images(64)
+        steps = settings.get_option('miscellaneous/rating_steps', 5)
+        self._rating_width = 12 * steps
+        self.rating_images = create_rating_images(12 * steps)
 
         # see plcolumns.py for more information on the columns menu
         if not Playlist.menu_items:

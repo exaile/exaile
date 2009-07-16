@@ -17,7 +17,7 @@
 
 from xl.nls import gettext as _
 from xl import xdg, common, settings
-import os, sys, imp, urllib, tarfile, shutil, traceback
+import os, sys, imp, inspect, urllib, tarfile, shutil, traceback
 
 import logging
 logger = logging.getLogger(__name__)
@@ -148,6 +148,22 @@ class PluginsManager(object):
             except ValueError:
                 pass # this happens on blank lines
         return infodict
+
+    def get_plugin_default_preferences(self, pluginname):
+        """
+            Returns the default preferences for a plugin
+        """
+        path = self.__findplugin(pluginname)
+        preffile = imp.load_source(pluginname, os.path.join(path, pluginname + 'prefs.py'))
+        preflist = {}
+        for c in dir(preffile):
+            attr = getattr(preffile, c)
+            if inspect.isclass(attr):
+                try:
+                    preflist[attr.name] = attr.default
+                except AttributeError:
+                    pass
+        return preflist
 
     def save_enabled(self):
         settings.set_option("plugins/enabled", self.enabled_plugins.keys())

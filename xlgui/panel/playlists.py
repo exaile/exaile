@@ -194,7 +194,7 @@ class BasePlaylistPanelMixin(gobject.GObject):
         """
         if name in self.playlist_manager.playlists:
             # name is already in use
-            commondialogs.error(self.controller.main.window, _("The "
+            commondialogs.error(self.parent, _("The "
                 "playlist name you specified already exists."))
             return
 
@@ -303,10 +303,13 @@ class BasePlaylistPanelMixin(gobject.GObject):
             name = dialog.get_value()
             if name in self.playlist_manager.playlists:
                 # name is already in use
-                commondialogs.error(self.controller.main.window, _("The "
+                commondialogs.error(self.parent, _("The "
                     "playlist name you specified already exists."))
                 return
-            elif name != "":
+            elif name == "":
+                commondialogs.error(self.parent, _("You did "
+                    "not enter a name for your playlist"))
+            else:
                 #Create the playlist from all of the tracks
                 new_playlist = playlist.Playlist(name)
                 new_playlist.add_tracks(tracks)
@@ -509,13 +512,13 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             random = dialog.get_random()
 
             if not name:
-                commondialogs.error(self.controller.main.window, _("You did "
+                commondialogs.error(self.parent, _("You did "
                     "not enter a name for your playlist"))
                 return
 
             try:
                 pl = self.smart_manager.get_playlist(name)
-                commondialogs.error(self.controller.main.window, _("The "
+                commondialogs.error(self.parent, _("The "
                     "playlist name you specified already exists."))
                 return
             except ValueError:
@@ -578,14 +581,14 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             random = dialog.get_random()
 
             if not name:
-                commondialogs.error(self.controller.main.window, _("You did "
+                commondialogs.error(self.parent, _("You did "
                     "not enter a name for your playlist"))
                 return
 
             if not name == pl.name:
                 try:
                     pl = self.smart_manager.get_playlist(name)
-                    commondialogs.error(self.controller.main.window, _("The "
+                    commondialogs.error(self.parent, _("The "
                         "playlist name you specified already exists."))
                     return
                 except ValueError:

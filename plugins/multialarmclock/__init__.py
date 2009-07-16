@@ -339,8 +339,8 @@ class AddAlarm:
 def fade_in(main, exaile):
     temp_volume = main.min_volume
     while temp_volume <= main.max_volume:
-        #print "AC: set volume to %s" % str(temp_volume / 100.0)
-        exaile.player.set_volume( ( temp_volume / 100.0 ) )
+        #print "AC: set volume to %s" % str(temp_volume)
+        exaile.player.set_volume( ( temp_volume ) )
         temp_volume += main.increment
         time.sleep( main.time_per_inc )
         if exaile.player.is_paused() or not exaile.player.is_playing():

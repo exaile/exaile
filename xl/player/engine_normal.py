@@ -73,6 +73,13 @@ class NormalPlayer(_base.ExailePlayer):
         """
         if message.type == gst.MESSAGE_TAG and self.tag_func:
             self.tag_func(message.parse_tag())
+            if not self.current['__length']:
+                try:
+                    duration = float(self.playbin.query_duration(gst.FORMAT_TIME, None)[0])/1000000000
+                    if duration > 0:
+                        self.current['__length'] = duration
+                except gst.QueryError:
+                    logger.error("Couldn't query duration")
         elif message.type == gst.MESSAGE_EOS and not self.is_paused():
             self.eof_func()
         elif message.type == gst.MESSAGE_ERROR:
@@ -90,11 +97,8 @@ class NormalPlayer(_base.ExailePlayer):
             self.eof_func()
         elif message.type == gst.MESSAGE_BUFFERING:
             percent = message.parse_buffering()
-            if percent < 100:
-                self.playbin.set_state(gst.STATE_PAUSED)
-            else:
+            if not percent < 100:
                 logger.info(_('Buffering complete'))
-                self.playbin.set_state(gst.STATE_PLAYING)
             if percent % 5 == 0:
                 event.log_event('playback_buffering', self, percent)
         return True
@@ -237,7 +241,7 @@ class NormalPlayer(_base.ExailePlayer):
 
             # gstreamer does not buffer paused network streams, so if the user
             # is unpausing a stream, just restart playback
-            if not self.current.is_local():
+            if not (self.current.is_local() or self.current['__length']):
                 self.playbin.set_state(gst.STATE_READY)
 
             self.playbin.set_state(gst.STATE_PLAYING)
@@ -251,7 +255,7 @@ class NormalPlayer(_base.ExailePlayer):
         """
         value = int(gst.SECOND * value)
         event = gst.event_new_seek(1.0, gst.FORMAT_TIME,
-            gst.SEEK_FLAG_FLUSH|gst.SEEK_FLAG_ACCURATE,
+            gst.SEEK_FLAG_FLUSH,
             gst.SEEK_TYPE_SET, value, gst.SEEK_TYPE_NONE, 0)
 
         res = self.playbin.send_event(event)

@@ -41,6 +41,8 @@ class PlaybackProgressBar(object):
 
         event.add_callback(self.playback_start, 
                 'playback_player_start', player)
+        event.add_callback(self.playback_toggle_pause, 'playback_toggle_pause',
+            player)
         event.add_callback(self.playback_end, 
                 'playback_player_end', player)
 
@@ -62,7 +64,7 @@ class PlaybackProgressBar(object):
         if value > 1: value = 1
 
         track = self.player.current
-        if not track or not track.is_local(): return
+        if not track or not (track.is_local() or track['__length']): return
         length = track.get_duration()
 
         seconds = float(value * length)
@@ -74,7 +76,7 @@ class PlaybackProgressBar(object):
 
     def seek_motion_notify(self, widget, event):
         track = self.player.current
-        if not track or not track.is_local(): return
+        if not track or not(track.is_local() or track['__length']): return
 
         mouse_x, mouse_y = event.get_coords()
         progress_loc = self.bar.get_allocation()
@@ -93,6 +95,13 @@ class PlaybackProgressBar(object):
     def playback_start(self, type, player, object):
         self.timer_id = gobject.timeout_add(1000, self.timer_update)
 
+    def playback_toggle_pause(self, type, player, object):
+        if self.timer_id: 
+            gobject.source_remove(self.timer_id)
+            self.timer_id = None
+        if not player.is_paused():
+            self.timer_id = gobject.timeout_add(1000, self.timer_update)
+
     def playback_end(self, type, player, object):
         if self.timer_id: gobject.source_remove(self.timer_id)
         self.timer_id = None
@@ -101,11 +110,13 @@ class PlaybackProgressBar(object):
 
     def timer_update(self, *e):
         track = self.player.current
-        if not track or self.seeking: return
+        if not track: return
+        if self.seeking: return True
 
-        if not track.is_local():
+        if not track.is_local() and not track['__length']:
+            self.bar.set_fraction(0)
             self.bar.set_text(_('Streaming...'))
-            return
+            return True
         length = track.get_duration()
 
         self.bar.set_fraction(self.player.get_progress())

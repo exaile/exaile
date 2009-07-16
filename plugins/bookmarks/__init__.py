@@ -20,12 +20,13 @@
 
 from __future__ import with_statement
 from xl.nls import gettext as _
-from xl import event, xdg, track as _track
-from xlgui import commondialogs
+from xl import event, xdg, track as _track, settings
+from xlgui import commondialogs, guiutil
 import gtk
 import gobject
 import os
 import logging
+import bookmarksprefs
 logger = logging.getLogger(__name__)
 
 
@@ -42,6 +43,7 @@ class Bookmarks:
         self.bookmarks = []
 #        self.auto_db = {}
         self.exaile = exaile
+        self.use_covers = settings.get_option('plugin/bookmarks/use_covers', False)
         
         # TODO: automatic bookmarks, not yet possible
         #  - needs a way to get the time a file is inturrupted at
@@ -113,6 +115,7 @@ class Bookmarks:
             exaile.queue.current_playlist.set_current_pos(idx)
             #exaile.player.stop()   # prevents crossfading
             exaile.queue.play(track)
+            exaile.player.unpause()
             exaile.player.seek(pos)
 
      
@@ -130,29 +133,44 @@ class Bookmarks:
         key = track.get_loc()
         self.bookmarks.append((key,pos))
         self.display_bookmark(key, pos, menus)
+        menus[0].get_children()[1].set_sensitive(True)
+        menus[0].get_children()[2].set_sensitive(True)
     
     def display_bookmark(self, key, pos, menus):
         """
             Create menu entrees for this bookmark.
         """
+        pix = None
         # add menu item 
         try: 
-            title = _track.Track(key)['title'][0]
+            item = _track.Track(key)
+            title = " / ".join(item['title'] or "")
+            if title == "":
+                title = _("Unknown")
+            if self.use_covers:
+                albtp = item.get_album_tuple()
+                if all(albtp) and hasattr(self.exaile, 'covers'):
+                    image = self.exaile.covers.coverdb.get_cover(*albtp)
+                    pix = gtk.gdk.pixbuf_new_from_file_at_size(image, 16, 16)
+                
         except:
             logger.debug('BM: Cannot open %s' % key)
             # delete offending key?
             return
-        time = '%d:%2d' % (pos/60, pos%60)
+        time = '%d:%02d' % (pos/60, pos%60)
         label = '%s @ %s' % ( title , time )
-        menu_item = gtk.MenuItem(label)
+        
+        menu_item = gtk.ImageMenuItem(label)
+        if pix:
+            menu_item.set_image(gtk.image_new_from_pixbuf(pix))
         menu_item.connect('activate', self.do_bookmark, (key,pos))
-        menu_item.show()
-        menus[0].append(menu_item)
-
-        menu_item = gtk.MenuItem(label)
-        menu_item.connect('activate', self.delete_bookmark, (menus, label, key, pos)) # simply passing the menu_items doesn't work :(
-        menu_item.show()
-        menus[1].append(menu_item)
+        menus[0].append_item(menu_item)
+        
+        menu_item = gtk.ImageMenuItem(label)
+        if pix:
+            menu_item.set_image(gtk.image_new_from_pixbuf(pix))
+        menu_item.connect('activate', self.delete_bookmark, (menus,label,key,pos))
+        menus[1].append_item(menu_item)
         
         # save addition
         self.save_db()
@@ -169,6 +187,8 @@ class Bookmarks:
             
         self.bookmarks = []
         self.save_db()
+        menus[0].get_children()[1].set_sensitive(False)
+        menus[0].get_children()[2].set_sensitive(False)
         
     def delete_bookmark(self, widget, targets):
         """
@@ -189,6 +209,7 @@ class Bookmarks:
             item[0].destroy()
             
         self.save_db()
+        self.set_sensitive_items(menus)
 
     def load_db(self, menus):
         """
@@ -207,9 +228,6 @@ class Bookmarks:
                 except Exception, s:
                     logger.error('BM: bad bookmark file: %s'%s)
                     return None
-                    
-                for (key,pos) in db:
-                    self.display_bookmark(key, pos, menus)
         
         except IOError, (e,s):  # File might not exist
             logger.error('BM: could not open file: %s'%s)
@@ -223,6 +241,13 @@ class Bookmarks:
         path = os.path.join(xdg.get_data_dirs()[0],'bookmarklist.dat')
         with open(path,'wb') as f:
             f.write(str(self.bookmarks))
+    
+    def set_sensitive_items(self, menus):
+        try:
+            foo = menus[0].get_children()[4].get_name() == 'GtkSeparatorMenuItem'
+        except IndexError:
+            menus[0].get_children()[1].set_sensitive(False)
+            menus[0].get_children()[2].set_sensitive(False)
 
 
 def __enb(eventname, exaile, nothing):
@@ -248,26 +273,33 @@ def _enable(exaile):
     
     bm = Bookmarks(exaile)
     
-    MENU_ITEM = gtk.MenuItem(_('Bookmarks'))
+    MENU_ITEM = gtk.ImageMenuItem(_('Bookmarks'))
     exaile.gui.xml.get_widget('menuitem5').get_submenu().append(MENU_ITEM)
     
-    menus = [gtk.Menu(), gtk.Menu()]
-    menu_item = gtk.MenuItem(_('Add Bookmark'))
+    menus = [guiutil.Menu(), guiutil.Menu()]
+
+    menu_item = gtk.ImageMenuItem(_('Bookmark this track'))
     menu_item.connect('activate', bm.add_bookmark, menus)
-    menus[0].append(menu_item)
-    menu_item = gtk.MenuItem(_('Delete Bookmark'))
+    menu_item.set_image(gtk.image_new_from_icon_name('bookmark-new', gtk.ICON_SIZE_MENU))
+    menus[0].append_item(menu_item)
+    
+    menu_item = gtk.MenuItem(_('Delete bookmark'))
+    #FIXME : make 'del' grey if needed
     menu_item.set_submenu(menus[1])
-    menus[0].append(menu_item)
-    menu_item = gtk.MenuItem(_('Clear Bookmarks'))
-    menu_item.connect('activate', bm.clear, menus)
-    menus[0].append(menu_item)
-    menus[0].append(gtk.SeparatorMenuItem())
+    menus[0].append_item(menu_item)
+    
+    menus[0].append(_('Clear bookmarks'), bm.clear, 'gtk-clear', menus)
+
+    menus[0].append_separator()
+
+    bm.load_db(menus)
+    bm.set_sensitive_items(menus)
+
     MENU_ITEM.set_submenu(menus[0])
+    MENU_ITEM.set_image(gtk.image_new_from_icon_name('user-bookmarks', gtk.ICON_SIZE_MENU))
     
     MENU_ITEM.show_all()
-    
-    bm.load_db(menus)
-    
+
 
 def disable(exaile):
     """
@@ -284,3 +316,5 @@ if __name__ == '__main__':
     print get_time()
     
 # vi: et ts=4 sts=4 sw=4
+def get_prefs_pane():
+    return bookmarksprefs

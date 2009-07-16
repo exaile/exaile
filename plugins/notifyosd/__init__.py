@@ -43,7 +43,9 @@ class ExaileNotifyOsd(object):
 
 
     def update_track_notify(self, type, player, track, icon = None):
-        title = " / ".join(track['title'] or _("Unknown"))
+        title = " / ".join(track['title'] or "")
+        if title == "":
+        	title = _("Unknown")
         artist = " / ".join(track['artist'] or "")
         album = " / ".join(track['album'] or "")
         

@@ -93,9 +93,9 @@ class Exaile(object):
         logger.info(_("Loading settings..."))
         try:
             from xl import settings
-        except common.VersionError, e:
-            logger.error(e.message)
-            exit()
+        except common.VersionError:
+            common.log_exception(log=logger)
+            exit(1)
         
         # Splash screen
         if self.options.startgui:
@@ -116,8 +116,12 @@ class Exaile(object):
         # Initialize the collection
         logger.info(_("Loading collection..."))
         from xl import collection
-        self.collection = collection.Collection("Collection",
-                location=os.path.join(xdg.get_data_dirs()[0], 'music.db') )
+        try:
+            self.collection = collection.Collection("Collection",
+                    location=os.path.join(xdg.get_data_dirs()[0], 'music.db'))
+        except common.VersionError:
+            common.log_exception(log=logger)
+            exit(1)
 
         # Set up the player and playback queue
         from xl import player

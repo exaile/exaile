@@ -96,7 +96,12 @@ class BaseFormat(object):
         return keys
 
     def read_all(self):
-        tags = self._get_keys()
+        tags = []
+        for t in self._get_keys():
+            if t.startswith("__"):
+                logger.warning(_("Could not import tag %s from file %s "
+                        "because of possible conflict, please adjust "
+                        "your tags if you want to import this.")%(t, self.loc))
         all = self.read_tags(tags)
         all.update(self.read_tags(INFO_TAGS))
         return all

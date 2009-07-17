@@ -171,14 +171,18 @@ class TrackDB(object):
         if not location:
             location = self.location
         if not location:
-            raise AttributeError(_("You did not specify a location to load the db from"))
+            raise AttributeError(
+                    _("You did not specify a location to load the db from"))
 
         try:
             pdata = shelve.open(self.location, flag='c', 
                     protocol=common.PICKLE_PROTOCOL)
             if pdata.has_key("_dbversion"):
                 if pdata['_dbversion'] > self._dbversion:
-                    raise ValueError, "DB was created on a newer Exaile version."
+                    raise common.VersionError, \
+                            "DB was created on a newer Exaile version."
+        except common.VersionError:
+            raise
         except:
             logger.error(_("Failed to open music DB."))
             return

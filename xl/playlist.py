@@ -554,7 +554,8 @@ class Playlist(object):
     def set_current_pos(self, pos):
         if pos < len(self.ordered_tracks):
             self.current_pos = pos
-        event.log_event('pl_current_changed', self, pos)
+        event.log_event('playlist_current_changed', self,
+            self.ordered_tracks[pos])
 
     def get_current(self):
         """
@@ -617,7 +618,8 @@ class Playlist(object):
                 self.current_pos = -1
 
         self._dirty = True
-        event.log_event('pl_current_changed', self, self.current_pos)
+        event.log_event('playlist_current_changed', self,
+            self.ordered_tracks[self.current_pos])
         return self.get_current()
 
     def prev(self):
@@ -642,7 +644,8 @@ class Playlist(object):
                     self.current_pos = 0
 
         self._dirty = True
-        event.log_event('pl_current_changed', self, self.current_pos)
+        event.log_event('playlist_current_changed', self,
+            self.ordered_tracks[self.current_pos])
         return self.get_current()
 
     def search(self, phrase, sort_fields=None, return_lim=-1):

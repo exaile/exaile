@@ -294,32 +294,42 @@ class BasePlaylistPanelMixin(gobject.GObject):
             else:
                 self.emit('append-items', [item.track])
 
-    def add_new_playlist(self, tracks = []):
-        dialog = commondialogs.TextEntryDialog(
-                _("Enter the name you want for your new playlist"),
-                _("New Playlist"))
-        result = dialog.run()
-        if result == gtk.RESPONSE_OK:
-            name = dialog.get_value()
+    def add_new_playlist(self, tracks = [], name = None):
+        if name:
             if name in self.playlist_manager.playlists:
                 # name is already in use
                 commondialogs.error(self.parent, _("The "
                     "playlist name you specified already exists."))
-                return
-            elif name == "":
-                commondialogs.error(self.parent, _("You did "
-                    "not enter a name for your playlist"))
             else:
-                #Create the playlist from all of the tracks
-                new_playlist = playlist.Playlist(name)
-                new_playlist.add_tracks(tracks)
-                self.playlist_nodes[new_playlist] = \
-                    self.model.append(self.custom, [self.playlist_image, name,  
-                    new_playlist])
-                self.tree.expand_row(self.model.get_path(self.custom), False)
-                self._load_playlist_nodes(new_playlist)
-                # We are adding a completely new playlist with tracks so we save it
-                self.playlist_manager.save_playlist(new_playlist)  
+                do_add_playlist = True
+        else:
+            dialog = commondialogs.TextEntryDialog(
+                    _("Enter the name you want for your new playlist"),
+                    _("New Playlist"))
+            result = dialog.run()
+            if result == gtk.RESPONSE_OK:
+                name = dialog.get_value()
+                if name in self.playlist_manager.playlists:
+                    # name is already in use
+                    commondialogs.error(self.parent, _("The "
+                        "playlist name you specified already exists."))
+                    return
+                elif name == "":
+                    commondialogs.error(self.parent, _("You did "
+                        "not enter a name for your playlist"))
+                else:
+                    do_add_playlist = True
+        if do_add_playlist:
+            #Create the playlist from all of the tracks
+            new_playlist = playlist.Playlist(name)
+            new_playlist.add_tracks(tracks)
+            self.playlist_nodes[new_playlist] = \
+                self.model.append(self.custom, [self.playlist_image, name,  
+                new_playlist])
+            self.tree.expand_row(self.model.get_path(self.custom), False)
+            self._load_playlist_nodes(new_playlist)
+            # We are adding a completely new playlist with tracks so we save it
+            self.playlist_manager.save_playlist(new_playlist)  
 
     def _load_playlist_nodes(self, playlist):
         """
@@ -401,6 +411,10 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
         pb = gtk.CellRendererPixbuf()
         cell = gtk.CellRendererText()
+        if settings.get_option('gui/ellipsize_text_in_panels', False):
+            import pango
+            cell.set_property( 'ellipsize-set', True)
+            cell.set_property( 'ellipsize', pango.ELLIPSIZE_END)
         col = gtk.TreeViewColumn('Text')
         col.pack_start(pb, False)
         col.pack_start(cell, True)

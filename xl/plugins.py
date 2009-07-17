@@ -41,8 +41,10 @@ class PluginsManager(object):
 
         self.exaile = exaile 
         self.enabled_plugins = {}
+
+        self.load = load
         
-        if load: 
+        if self.load: 
             self.load_enabled()
 
     def __findplugin(self, pluginname):
@@ -166,7 +168,8 @@ class PluginsManager(object):
         return preflist
 
     def save_enabled(self):
-        settings.set_option("plugins/enabled", self.enabled_plugins.keys())
+        if self.load:
+            settings.set_option("plugins/enabled", self.enabled_plugins.keys())
 
     def load_enabled(self):
         to_enable = settings.get_option("plugins/enabled", [])

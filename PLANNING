@@ -59,16 +59,6 @@ Things needed for beta 1 (0.2.999.1) release:
     * implement transfer to device
     * mtp/ipod plugins
 
-  * Conversion - we need to handle the upgrade process from 0.2.14 -> 0.3.0
-    * this should include the collection, settings, plugins, playlists, and
-      anything else still relevant in 0.3
-    * only import it if firstrun is True. 
-      * should be in its own folder in xl/ 
-    * this should also be designed flexibly enough to also handle future 0.3.x
-      to 0.3.y upgrades, should that be necessary. 
-    * No need to handle exaile < 0.2.14, its been almost a year so people 
-        should have migrated already.
-
 
 Final
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -77,21 +67,6 @@ Final
     * all bugs targeted to 0.3.0 must be resolved or retargeted
     * all critical bugs in 0.2.x must be confirmed fixed in 0.3.0 (barring
       severe techincal problems making them unresolvable)
-
-
-Optional Milestones
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  * Podcasts
-    * separate from radio
-    * allow flexibility in choice of when (if?) and where to download
-    * allow streaming if not downloaded
-
-  * Blacklisting
-
-  * Visualizations
-    * implement as plugin
-
-  * Plugins
-    * port all relevant 0.2 plugins to 0.3
-
+  * Ubuntu
+    * Get into Xubuntu Karmic as default for release! :D
 

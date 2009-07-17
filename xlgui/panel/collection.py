@@ -166,6 +166,10 @@ class CollectionPanel(panel.Panel):
         selection.set_mode(gtk.SELECTION_MULTIPLE)
         pb = gtk.CellRendererPixbuf()
         cell = gtk.CellRendererText()
+        if settings.get_option('gui/ellipsize_text_in_panels', False):
+            import pango
+            cell.set_property( 'ellipsize-set', True)
+            cell.set_property( 'ellipsize', pango.ELLIPSIZE_END)
         col = gtk.TreeViewColumn('Text')
         col.pack_start(pb, False)
         col.pack_start(cell, True)

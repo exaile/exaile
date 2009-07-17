@@ -22,7 +22,7 @@
 import gtk, gobject
 import librivoxsearch as LS
 import about_window as AW
-from xl import track, playlist, event, xdg, common
+from xl import track, playlist, event, xdg, common, settings
 from xlgui import guiutil
 
 
@@ -125,6 +125,10 @@ class LVPanel():
         self.treeview.set_headers_visible(False)
         self.column = gtk.TreeViewColumn(None)
         self.cell = gtk.CellRendererText()
+        if settings.get_option('gui/ellipsize_text_in_panels', False):
+            import pango
+            self.cell.set_property( 'ellipsize-set', True)
+            self.cell.set_property( 'ellipsize', pango.ELLIPSIZE_END)
         self.cellpb = gtk.CellRendererPixbuf()
         self.column.pack_start(self.cellpb, False)
         self.column.pack_start(self.cell, True)

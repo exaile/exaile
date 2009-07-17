@@ -274,7 +274,7 @@ class Playlist(gtk.VBox):
             self._append_track(track)
         self.main.update_track_counts()
         
-        if tracks:
+        if tracks and settings.get_option("gui/scroll_when_appending_tracks", False):
             self.list.scroll_to_cell(self.playlist.index(tracks[-1]))
             #self.list.scroll_to_cell(self.playlist.index(tracks[0]))
 

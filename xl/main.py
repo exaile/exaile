@@ -103,6 +103,17 @@ class Exaile(object):
 
         firstrun = settings.get_option("general/first_run", True)
 
+        if firstrun:
+            try:
+                sys.path.insert(0, xdg.get_data_path("migrations"))
+                import migration_200907100931 as migrator
+                del sys.path[0]
+                migrator.migrate()
+                del migrator
+            except:
+                common.log_exception(log=logger, 
+                        message=_("Failed to migrate from 0.2.14"))
+
         # Initialize plugin manager
         if not self.options.safemode:
             from xl import plugins
@@ -197,6 +208,8 @@ class Exaile(object):
             for arg in args[1:]:
                 self.gui.open_uri(arg)
 
+        if firstrun:
+            settings.set_option("general/first_run", False)
 
         self.loading = False
         event.log_event("exaile_loaded", self, None)

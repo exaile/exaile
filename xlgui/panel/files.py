@@ -86,34 +86,43 @@ class FilesPanel(panel.Panel):
         pb = gtk.CellRendererPixbuf()
         text = gtk.CellRendererText()
         # TRANSLATORS: Filename column in the file browser
-        col = gtk.TreeViewColumn(_('Filename'))
-        col.pack_start(pb, False)
-        col.pack_start(text, True)
-        col.connect('notify::width', self.set_column_width)
+        self.colname = gtk.TreeViewColumn(_('Filename'))
+        self.colname.pack_start(pb, False)
+        self.colname.pack_start(text, True)
+        if settings.get_option('gui/ellipsize_text_in_panels', False):
+            import pango
+            text.set_property( 'ellipsize-set', True)
+            text.set_property( 'ellipsize', pango.ELLIPSIZE_END)
+        else:
+            self.colname.connect('notify::width', self.set_column_width)
 
-        width = settings.get_option('gui/files_filename_col_width', 130)
+            width = settings.get_option('gui/files_filename_col_width', 130)
 
-        col.set_fixed_width(width)
-        col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
-        col.set_resizable(True)
-        col.set_attributes(pb, pixbuf=0)
-        col.set_attributes(text, text=1)
+            self.colname.set_fixed_width(width)
+            self.colname.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
 
-        self.tree.append_column(col)
+        self.colname.set_resizable(True)
+        self.colname.set_attributes(pb, pixbuf=0)
+        self.colname.set_attributes(text, text=1)
+        self.colname.set_expand(True)
 
-        width = settings.get_option('gui/files_size_col_width', 50)
+        self.tree.append_column(self.colname)
 
         text = gtk.CellRendererText()
         text.set_property('xalign', 1.0)
         # TRANSLATORS: Filesize column in the file browser
-        col = gtk.TreeViewColumn(_('Size'))
-        col.set_fixed_width(width)
-        col.set_resizable(True)
-        col.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
-        col.pack_start(text, False)
-        col.set_attributes(text, text=2)
-        col.connect('notify::width', self.set_column_width)
-        self.tree.append_column(col)
+        self.colsize = gtk.TreeViewColumn(_('Size'))
+        self.colsize.set_resizable(True)
+        self.colsize.pack_start(text, False)
+        self.colsize.set_attributes(text, text=2)
+        self.colsize.set_expand(False)
+        self.tree.append_column(self.colsize)
+
+#        self.tree.resize_children()
+#        self.tree.realize()
+#        self.tree.columns_autosize()
+#        self.colsize.set_fixed_width(self.tree.get
+        
 
     def _setup_widgets(self):
         """
@@ -148,10 +157,18 @@ class FilesPanel(panel.Panel):
         """
         if event.button == 3:
             selection = self.tree.get_selection()
+            (x, y) = map(int, event.get_coords())
+            path = self.tree.get_path_at_pos(x, y)
             self.menu.popup(event)
             
-            if len(self.get_selected_tracks()) > 2: return True
-
+            if len(self.get_selected_tracks()) >= 2:
+                (mods,paths) = selection.get_selected_rows()
+                if (path[0] in paths):
+                    if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
+                        return False
+                    return True
+                else:
+                    return False
         return False
 
     def row_activated(self, *i):
@@ -232,7 +249,7 @@ class FilesPanel(panel.Panel):
             Goes to the user's home directory
         """
         self.load_directory(xdg.homedir)
-
+        
     def set_column_width(self, col, stuff=None):
         """
             Called when the user resizes a column

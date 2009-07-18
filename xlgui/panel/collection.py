@@ -229,8 +229,14 @@ class CollectionPanel(panel.Panel):
             self.append_to_playlist()
             return False
         elif event.button == 3:
-            selection = self.tree.get_selection()
             self.menu.popup(event)
+            (mods,paths) = selection.get_selected_rows()
+            if (path[0] in paths):
+                if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
+                    return False
+                return True
+            else:
+                return False
 
     def on_expanded(self, tree, iter, path):
         self.load_subtree(iter)

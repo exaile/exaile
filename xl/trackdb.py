@@ -314,7 +314,7 @@ class TrackDB(object):
                 if tracks[count][tag] == tracks[count-1][tag]:
                     del tracks[count]
                 count += 1
-            vals = [u" / ".join(x[tag]) for x in tracks]
+            vals = [u" / ".join(x[tag]) for x in tracks if x[tag]]
 
         return vals
 

@@ -32,7 +32,6 @@ class PlaybackProgressBar(object):
         self.player = player
         self.timer_id = None
         self.seeking = False
-        self.player = player
 
         self.bar.set_text(_('Not Playing'))
         self.bar.connect('button-press-event', self.seek_begin)
@@ -278,6 +277,12 @@ class MainWindow(object):
         self.queue = queue
         self.current_page = -1 
         self._fullscreen = False
+
+        if settings.get_option('gui/use_alpha', False):
+            gtk_screen = gtk.gdk.screen_get_default()
+            rgbamap = gtk_screen.get_rgba_colormap()
+            if rgbamap is not None:
+                gtk.widget_set_default_colormap(rgbamap)
 
         self.xml = xml
         self.window = self.xml.get_widget('ExaileWindow')

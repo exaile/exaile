@@ -410,7 +410,7 @@ def _enable(exaile):
     
     MENU_ITEM = gtk.MenuItem(_('Multi-Alarm Clock'))
     MENU_ITEM.connect('activate', main.show_ui, exaile)
-    exaile.gui.xml.get_widget('tools_menu').get_submenu().append(MENU_ITEM)
+    exaile.gui.xml.get_widget('tools_menu').append(MENU_ITEM)
     MENU_ITEM.show()
 
     

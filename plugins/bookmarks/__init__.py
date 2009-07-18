@@ -274,7 +274,7 @@ def _enable(exaile):
     bm = Bookmarks(exaile)
     
     MENU_ITEM = gtk.ImageMenuItem(_('Bookmarks'))
-    exaile.gui.xml.get_widget('tools_menu').get_submenu().append(MENU_ITEM)
+    exaile.gui.xml.get_widget('tools_menu').append(MENU_ITEM)
     
     menus = [guiutil.Menu(), guiutil.Menu()]
 

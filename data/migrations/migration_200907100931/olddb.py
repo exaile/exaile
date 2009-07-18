@@ -14,6 +14,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+from xl import common
+import logging
+
+logger = logging.getLogger(__name__)
+
 import threading, re, os, traceback
 import tempfile
 import shutil
@@ -113,7 +118,7 @@ class DBManager(object):
         if self.pool.has_key(name):
             self.pool[name].close()
             del self.pool[name]
-            print "Closed db for thread %s" % name
+            logger.debug("Closed db for thread %s" % name)
 
     def _get_from_pool(self):
         """
@@ -126,8 +131,8 @@ class DBManager(object):
             for tup in self.functions:
                 db.create_function(tup[0], tup[1], tup[2])
             self.pool[name] = db
-            print "Created db for thread %s" % name
-            print self.pool
+            logger.debug("Created db for thread %s" % name)
+            logger.debug(self.pool)
 
         db = self.pool[name]
         return db
@@ -176,9 +181,7 @@ class DBManager(object):
         try:
             cur.execute(query, args)
         except:
-            traceback.print_exc()
-            traceback.print_stack()
-            print query, args
+            common.log_exception(log=logger)
 
     def select(self, query, args=[]):
         """
@@ -197,7 +200,7 @@ class DBManager(object):
                 if not row: break
                 rows.append(row)
             except:
-                traceback.print_exc()
+                common.log_exception(log=logger)
 
         cur.close()
 

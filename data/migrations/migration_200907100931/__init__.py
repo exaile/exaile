@@ -1,11 +1,14 @@
 import os
 import traceback
 from xl import xdg, track, collection
-from xl import settings
+from xl import settings, common
 from xl.playlist import PlaylistManager, Playlist
 from ConfigParser import SafeConfigParser
 import urlparse
 import olddb, oldexailelib
+import logging
+
+logger = logging.getLogger(__name__)
 
 _SETTINGS_MAP = (
     (int,   'ui',       'mainw_x',          'gui/mainw_x', None),
@@ -37,17 +40,17 @@ def migration_needed():
     # check for the presence of old exaile settings
     for file in ('~/.exaile/music.db', '~/.exaile/settings.ini'):
         if not os.path.exists(os.path.expanduser(file)): 
-            print "%s did not exist, old exaile version not detected" % file
+            logger.debug("%s did not exist, old exaile version not detected" % file)
             return False
 
     # check for Exaile 0.3.x+ settings and music database
     if os.path.exists(os.path.join(xdg.get_data_dirs()[0], 'music.db')):
-        print "Found a newer version of the database, no migration needed"
+        logger.debug("Found a newer version of the database, no migration needed")
         return False
 
     if os.path.exists(os.path.join(xdg.get_config_dir(), 'settings.ini')):
-        print "Found a newer version of the settings " \
-            "file, no migration needed"
+        logger.debug("Found a newer version of the settings " \
+            "file, no migration needed")
         return False
 
     # open up the old database, and make sure it's at least the version used
@@ -58,7 +61,7 @@ def migration_needed():
     db.close()
 
     if row[0] != 4:
-        print "Cannot migrate from db_version %d" % row[0]
+        logger.debug("Cannot migrate from db_version %d" % row[0])
         return False
 
     return True
@@ -160,7 +163,7 @@ def _migrate_old_settings(oldsettings):
             value = t(value)
             settings.set_option(newspot, value)
         except:
-            traceback.print_exc()
+            common.log_exception(log=logger)
 
 def _migrate_playlists(db, newdb, playlists):
     p_rows = db.select('SELECT name, id, type FROM playlists ORDER BY name') 
@@ -184,8 +187,9 @@ def _migrate_playlists(db, newdb, playlists):
 
 def migrate():
     if not migration_needed():
-        print "Will not migrate and overwrite data."
+        logger.debug("Will not migrate and overwrite data.")
         return
+    logger.info("Migrating data from 0.2.14....")
 
     oldsettings = SafeConfigParser()
     oldsettings.read(os.path.expanduser('~/.exaile/settings.ini'))
@@ -204,6 +208,8 @@ def migrate():
     playlists = PlaylistManager()
 
     _migrate_playlists(db, newdb, playlists)
+
+    logger.info("Migration complete!")
 
 if __name__ == '__main__':
     migrate()

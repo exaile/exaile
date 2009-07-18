@@ -1,5 +1,8 @@
 import os.path, gobject, re
 import xlmisc
+from xl import common
+import logging
+logger = logging.getLogger(__name__)
 
 class timetype(long):
     """
@@ -471,10 +474,10 @@ def read_from_path(uri, track_type=Track):
     try:
         format.fill_tag_from_path(tr)
     except HeaderNotFoundError:
-        print "Possibly corrupt file: " + uri
+        logger.debug("Possibly corrupt file: " + uri)
         return None
     except:
-        xlmisc.log_exception()
+        common.log_exception(log=logger)
         return None
 
     return tr

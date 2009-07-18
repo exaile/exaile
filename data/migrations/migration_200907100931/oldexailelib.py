@@ -1,6 +1,7 @@
 import traceback, os
 import oldtrack
 from olddb import DBManager
+from xl import common
 
 def already_added(t, added):
     """
@@ -164,7 +165,7 @@ def load_tracks(db, current=None):
                 if not row: break
                 globals()[item][row[1]] = row[0]
             except: 
-                traceback.print_exc()
+                common.log_exception()
 
     cur.execute("SELECT artist, name, id FROM albums")
     while True:
@@ -173,7 +174,7 @@ def load_tracks(db, current=None):
             if not row: break
             ALBUMS["%d - %s" % (row[0], row[1])] = row[2]
         except:
-            traceback.print_exc()
+            common.log_exception()
 
     cur.close()
     db._close_thread()

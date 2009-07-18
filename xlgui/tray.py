@@ -48,6 +48,7 @@ class TrayIcon(object):
             # Available if PyGtk was built against GTK >= 2.15.0
             self.icon.connect('button-press-event', self._button_pressed)
             self.icon.connect('scroll-event', self._scrolled)
+            self.icon.connect('query-tooltip', self._query_tooltip)
         except TypeError:
             try:
                 self.icon = EggTrayIcon()
@@ -241,6 +242,10 @@ class TrayIcon(object):
             self.window.hide()
         else:
             self.window.present()
+
+    def _query_tooltip(self, *e):
+        if settings.get_option('osd/hover_tray', False):
+            self.controller.main.osd.show(self.queue.get_current())
 
     def _popup_menu(self, icon, button, time):
         self._update_menu()

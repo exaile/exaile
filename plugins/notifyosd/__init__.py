@@ -18,8 +18,8 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 import pynotify, cgi
 import logging
-import notifyosd_cover
-from xl import event
+import notifyosd_cover, notifyosdprefs
+from xl import event, settings
 from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)
@@ -27,50 +27,73 @@ pynotify.init('Exaile')
 
 class ExaileNotifyOsd(object):
 
+    def __inner_preference(klass):
+        """Function will make a property for a given subclass of PrefsItem"""
+        def getter(self):
+            return settings.get_option(klass.name, klass.default or None)
+
+        def setter(self, val):
+            settings.set_option(klass.name, val)
+
+        return property(getter, setter)
+
+    show_covers     = __inner_preference(notifyosdprefs.ShowCovers)
+    notify_play     = __inner_preference(notifyosdprefs.NotifyPlay)
+    notify_pause    = __inner_preference(notifyosdprefs.NotifyPause)
+    use_media_icons = __inner_preference(notifyosdprefs.UseMediaIcons)
+    tray_hover      = __inner_preference(notifyosdprefs.TrayHover)
+    format_summary  = __inner_preference(notifyosdprefs.Summary)
+    format_artist   = __inner_preference(notifyosdprefs.BodyArtist)
+    format_album    = __inner_preference(notifyosdprefs.BodyAlbum)
+
     def __init__(self):
-        self.notify = pynotify.Notification('Exaile')
-        self.exaile = None
-        self.body = None
-        self.summary = None
-        self.cover = None
-        self.pauseicon = 'notification-audio-pause'
-        self.resumeicon = 'notification-audio-play'
-        self.stopicon = 'notification-audio-stop'
+        self.notify         = pynotify.Notification('Exaile')
+        self.exaile         = None
+        self.cover          = None
+        self.pauseicon      = 'notification-audio-pause'
+        self.resumeicon     = 'notification-audio-play'
+        self.stopicon       = 'notification-audio-stop'
+        # TRANSLATORS : this replaces the title of a track when it's not known
+        self.unknown        = _('Unknown')
+        self.summary        = None
+        self.body           = None
+        self.gui_callback   = False
 
-#        self.pauseicon = 'gtk-media-pause'
-#        self.resumeicon = 'gtk-media-play-ltr'
-#        self.stopicon = 'gtk-media-stop'
-
-
-    def update_track_notify(self, type, player, track, icon = None):
+    def update_track_notify(self, type, player, track, media_icon = None):
+        # Get the title, artist and album values
         title = " / ".join(track['title'] or "")
         if title == "":
         	title = _("Unknown")
         artist = " / ".join(track['artist'] or "")
         album = " / ".join(track['album'] or "")
         
-        if icon :
-            self.cover = icon
-        else :
-            if self.cover == self.stopicon and self.summary == title:
+        # Find the icon we will use
+        icon_allowed = False
+        if media_icon and self.use_media_icons:
+            self.cover = media_icon
+            icon_allowed = True
+        else:
+            if self.cover == self.stopicon and self.summary == title and self.use_media_icons and self.notify_pause:
                 # this is for when the song has been stopped previously
                 self.cover = self.resumeicon
-            else :
+                icon_allowed = True
+            elif self.show_covers:
                 self.cover = notifyosd_cover.notifyosd_get_image_for_track(track, self.exaile)
+                icon_allowed = True
         
-        self.summary = title
+        # Setup the summary and body for the notification
+        self.summary = self.format_summary % {'title': title or self.unknown}
+        
         if artist and album:
-            self.body = _("%(artist)s\n%(album)s") % {
-                'artist' : artist, 
-                'album' : album}
+            self.body = self.format_artist % {'artist' : artist} + '\n' + self.format_album % {'album' : album}
         elif artist:
-            self.body = _("%(artist)s") % {'artist' : artist}
+            self.body = self.format_artist % {'artist' : artist}
         elif album:
-            self.body = _("%(album)s") % {'album' : album}
+            self.body = self.format_album % {'album' : album}
         else:
             self.body = ""
         
-        if self.cover :
+        if icon_allowed :
             self.notify.update(self.summary, self.body, self.cover)
         else :
             self.notify.update(self.summary, self.body)
@@ -79,20 +102,36 @@ class ExaileNotifyOsd(object):
             self.notify.show()
         
     def on_pause(self, type, player, track):
-        self.update_track_notify(type, player, track, self.pauseicon)
+        if self.notify_pause:
+            self.update_track_notify(type, player, track, self.pauseicon)
         
     def on_stop(self, type, player, track):
-        self.update_track_notify(type, player, track, self.stopicon)
+        if self.notify_pause:
+            self.update_track_notify(type, player, track, self.stopicon)
         
     def on_resume(self, type, player, track):
-        self.update_track_notify(type, player, track, self.resumeicon)
+        if self.notify_pause:
+            self.update_track_notify(type, player, track, self.resumeicon)
+        elif self.notify_play:
+            self.update_track_notify(type, player, track)
 
     def on_play(self, type, player, track):
-        self.update_track_notify(type, player, track)
+        if self.notify_play:
+            self.update_track_notify(type, player, track)
 
     def on_quit(self, type, exaile, data=None):
         self.notify.close()
-
+    
+    def on_tooltip(self, *e):
+        if self.tray_hover:
+            if self.cover == self.stopicon or self.cover == self.pauseicon:
+                if self.use_media_icons:
+                    self.update_track_notify(type, self.exaile.player, self.exaile.queue.get_current(), self.cover)
+                    return
+            self.update_track_notify(type, self.exaile.player, self.exaile.queue.get_current())
+    
+    def exaile_ready(self, type = None, data1 = None, data2 = None):
+        self.tray_connection = self.exaile.gui.tray_icon.icon.connect('query-tooltip', self.on_tooltip)
 
 EXAILE_NOTIFYOSD = ExaileNotifyOsd()
 
@@ -103,6 +142,11 @@ def enable(exaile):
     event.add_callback(EXAILE_NOTIFYOSD.on_stop, 'playback_player_end')
     event.add_callback(EXAILE_NOTIFYOSD.on_resume, 'playback_player_resume')
     event.add_callback(EXAILE_NOTIFYOSD.on_quit, 'quit_application')
+    if hasattr(exaile, 'gui'):
+        EXAILE_NOTIFYOSD.exaile_ready()
+    else:
+        event.add_callback(EXAILE_NOTIFYOSD.exaile_ready, 'gui_loaded')
+        EXAILE_NOTIFYOSD.gui_callback = True
 
 def disable(exaile):
     event.remove_callback(EXAILE_NOTIFYOSD.on_play, 'playback_player_start')
@@ -110,3 +154,11 @@ def disable(exaile):
     event.remove_callback(EXAILE_NOTIFYOSD.on_stop, 'playback_player_end')
     event.remove_callback(EXAILE_NOTIFYOSD.on_resume, 'playback_player_resume')
     event.remove_callback(EXAILE_NOTIFYOSD.on_quit, 'quit_application')
+    EXAILE_NOTIFYOSD.exaile.gui.tray_icon.icon.disconnect(EXAILE_NOTIFYOSD.tray_connection)
+    if EXAILE_NOTIFYOSD.gui_callback:
+        event.remove_callback(EXAILE_NOTIFYOSD.exaile_ready, 'gui_loaded')
+    if EXAILE_NOTIFYOSD.tray_connected:
+        EXAILE_NOTIFYOSD.disconnect_tray()
+
+def get_prefs_pane():
+    return notifyosdprefs

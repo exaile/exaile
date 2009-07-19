@@ -304,7 +304,7 @@ class Track(object):
             return 0
 
         steps = settings.get_option("miscellaneous/rating_steps", 5)
-        rating = int(rating*steps/100.0)
+        rating = int(round(rating*float(steps)/100.0))
 
         if rating > steps: return int(steps)
         elif rating < 0: return 0
@@ -320,11 +320,10 @@ class Track(object):
         try:
             rating = min(rating, steps)
             rating = max(0, rating)
-            rating = float(rating * 100 / steps)
+            rating = float(rating * 100.0 / float(steps))
         except TypeError: return
         except KeyError: return
         except ValueError: return
-
         self['__rating'] = rating
 
     def get_bitrate(self): 

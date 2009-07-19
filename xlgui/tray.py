@@ -106,6 +106,10 @@ class TrayIcon(gobject.GObject):
         self.menu.append(_("Previous"),
             lambda *e: self.queue.prev(),
             'gtk-media-previous')
+            
+        self.menu.append(_("Stop"),
+            lambda *e: self.player.stop(),
+            'gtk-media-stop')
 
         self.menu.append_separator()
 

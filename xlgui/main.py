@@ -696,6 +696,7 @@ class MainWindow(object):
                 gtk.ICON_SIZE_SMALL_TOOLBAR)
             
         self.play_button.set_image(image)
+        self._update_track_information()
         
         # refresh the current playlist
         pl = self.get_selected_playlist()
@@ -798,6 +799,7 @@ class MainWindow(object):
         self.track_title_label.set_label(_('Not Playing'))
         self.track_info_label.set_label(_('Stopped'))
         self.window.set_title('Exaile')
+        self._update_track_information()
 
         self.draw_playlist(type, player, object)
         self.play_button.set_image(gtk.image_new_from_stock('gtk-media-play',
@@ -866,7 +868,9 @@ class MainWindow(object):
             Sets track information
         """
         track = self.player.current
-        if not track: return
+        if not track:
+            self.controller.tray_icon.set_tooltip(_("Exaile Music Player\nNot playing"))
+            return
 
         artist = track['artist']
         album = track['album']
@@ -904,12 +908,19 @@ class MainWindow(object):
             desc_newline = '\n'.join(desc)
             self.track_info_label.set_label(desc_newline)
             if self.controller.tray_icon:
-                self.controller.tray_icon.set_tooltip(_("Playing %s") % title +
-                    '\n' + desc_newline)
+                if self.player.is_paused():
+                    self.controller.tray_icon.set_tooltip(_("In pause: %s") % title +
+                        '\n' + desc_newline)
+                else:
+                    self.controller.tray_icon.set_tooltip(_("Playing %s") % title +
+                        '\n' + desc_newline)
         else:
             self.track_info_label.set_label("")
             if self.controller.tray_icon:
-                self.controller.tray_icon.set_tooltip(_("Playing %s") % title)
+                if self.player.is_paused():
+                    self.controller.tray_icon.set_tooltip(_("In pause: %s") % title)
+                else:
+                    self.controller.tray_icon.set_tooltip(_("Playing %s") % title)
 
     def draw_playlist(self, *e):
         """

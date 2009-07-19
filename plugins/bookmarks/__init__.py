@@ -143,7 +143,9 @@ class Bookmarks:
         pix = None
         # add menu item 
         try: 
-            item = _track.Track(key)
+            item = self.exaile.collection.get_track_by_loc(key)
+            if not item:
+                item = _track.Track(key)
             title = " / ".join(item['title'] or "")
             if title == "":
                 title = _("Unknown")

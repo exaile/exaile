@@ -48,8 +48,8 @@ class MMBox(gtk.HBox):
             Returns a contained widget
         """
         all_widgets = []
-        all_widgets.extend([widget for widget in self])
-        all_widgets.extend(self._removed_widgets)
+        all_widgets += [widget for widget in self]
+        all_widgets += self._removed_widgets
         for widget in all_widgets:
             if widget.id == id:
                 return widget
@@ -166,6 +166,12 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
         self.queue = queue
         self.list = gtk.ListStore(gobject.TYPE_PYOBJECT)
         self.render_items = ['tracknumber', '-', 'title']
+        self.items_mapping = {
+            'length': '__length',
+            'rating': '__rating',
+            'bitrate': '__bitrate',
+            'location': '__loc'
+        }
         self.items_fallback = {
             'tracknumber': '',
             'length': '0:00'
@@ -211,6 +217,15 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
         except TypeError:
             return None
 
+    def map_item(self, item):
+        """
+            Maps items to internal representations
+        """
+        try:
+            return self.items_mapping[item]
+        except KeyError:
+            return item
+
     def text_data_func(self, celllayout, cell, model, iter):
         """
             Allows customization of the
@@ -221,11 +236,16 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
         if track is None:
             return
 
+        render_items = map(self.map_item, self.render_items)
         text = ''
-        for item in self.render_items:
+        for item in render_items:
             try:
+                try:
+                    values = [str(value) for value in track.tags[item]]
+                except TypeError:
+                    values = [str(track.tags[item])]
                 # TRANSLATORS: String multiple tag values will be joined with
-                text += _(' & ').join(track.tags[item])
+                text += _(' & ').join(values)
             except KeyError:
                 try:
                     text += self.items_fallback[item]

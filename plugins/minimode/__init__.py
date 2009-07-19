@@ -73,8 +73,6 @@ class MiniMode(gtk.Window):
         self.set_title(_('Exaile'))
 
         self.setup_controls()
-        self.update_window()
-        #self.update_position()
 
         self.menuitem = gtk.MenuItem(_('Mini Mode'))
         self.menuitem.connect('activate', self.on_menuitem_activate)

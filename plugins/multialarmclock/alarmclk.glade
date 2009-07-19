@@ -397,7 +397,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="xalign">1</property>
-                    <property name="adjustment">9 0 24 0 1 1</property>
+                    <property name="adjustment">9 0 24 1 1 1</property>
                     <property name="numeric">True</property>
                   </widget>
                   <packing>

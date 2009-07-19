@@ -41,6 +41,10 @@ class ShowInPanelPreference(widgets.CheckPrefsItem):
     name = 'plugin/minimode/show_in_panel'
     default = False
 
+class OnAllDesktopsPreference(widgets.CheckPrefsItem):
+    name = 'plugin/minimode/on_all_desktops'
+    default = True
+
 class DisplayWindowDecorationsPreference(widgets.CheckPrefsItem):
     name = 'plugin/minimode/display_window_decorations'
     default = True

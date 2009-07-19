@@ -188,7 +188,6 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
             Populates the track list based
             on the current playlist
         """
-        print self.get_model()
         self.list.clear()
         playlist = self.queue.current_playlist
         if playlist is not None:
@@ -293,19 +292,19 @@ class MMProgressBar(MMWidget, gtk.ProgressBar):
         track = self.player.current
 
         if track is not None:
+            total = track.get_duration()
+            current = self.player.get_progress() * total
+            text = '%d:%02d / %d:%02d' % \
+                (current // 60, current % 60,
+                 total // 60, total % 60)
+
             if self.player.is_paused():
                 self.disable_timer()
                 fraction = self.get_fraction()
-                text = 'FIXME: Paused'
             elif self.player.is_playing():
                 if track.is_local() and track['__length']:
                     self.enable_timer()
-                    total = track.get_duration()
-                    current = self.player.get_progress() * total
                     fraction = self.player.get_progress()
-                    text = '%d:%02d / %d:%02d' % \
-                        (current // 60, current % 60,
-                         total // 60, total % 60)
                 else:
                     self.disable_timer()
                     text = _('Streaming...')

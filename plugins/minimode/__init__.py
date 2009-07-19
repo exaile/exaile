@@ -156,6 +156,9 @@ class MiniMode(gtk.Window):
                 self.set_keep_above(value)
             elif option == 'plugin/minimode/show_in_panel':
                 self.set_property('skip-taskbar-hint', not value)
+            elif option == 'plugin/minimode/on_all_desktops':
+                if value: self.stick()
+                else: self.unstick()
             elif option == 'plugin/minimode/display_window_decorations':
                 self.set_decorated(value)
             elif option == 'plugin/minimode/horizontal_position':

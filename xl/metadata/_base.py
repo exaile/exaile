@@ -102,6 +102,8 @@ class BaseFormat(object):
                 logger.warning(_("Could not import tag %s from file %s "
                         "because of possible conflict, please adjust "
                         "your tags if you want to import this.")%(t, self.loc))
+                continue
+            tags.append(t)
         all = self.read_tags(tags)
         all.update(self.read_tags(INFO_TAGS))
         return all

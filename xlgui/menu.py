@@ -199,13 +199,13 @@ class PlaylistTabMenu(guiutil.Menu):
             Initializes the menu
         """
         guiutil.Menu.__init__(self)
-        self.append(_("_New playlist"), tab.do_new_playlist, gtk.STOCK_NEW)
+        self.append(_("_New Playlist"), tab.do_new_playlist, gtk.STOCK_NEW)
         self.append_separator()
-        self.append(_("_Rename playlist"), tab.do_rename, gtk.STOCK_EDIT)
-        self.append(_("_Save as custom playlist"), tab.do_save_custom, gtk.STOCK_SAVE)
-        self.append(_("C_lear all tracks"), tab.do_clear, gtk.STOCK_CLEAR)
+        self.append(_("_Rename Playlist"), tab.do_rename, gtk.STOCK_EDIT)
+        self.append(_("_Save As Custom Playlist"), tab.do_save_custom, gtk.STOCK_SAVE)
+        self.append(_("C_lear All Tracks"), tab.do_clear, gtk.STOCK_CLEAR)
         self.append_separator()
-        self.append(_("_Close playlist"), tab.do_close, gtk.STOCK_CLOSE)
+        self.append(_("_Close Playlist"), tab.do_close, gtk.STOCK_CLOSE)
 
 class TrackSelectMenu(GenericTrackMenu):
     """

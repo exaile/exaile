@@ -124,7 +124,7 @@ class MMPlayPauseButton(MMButton):
     """
     def __init__(self, player, callback):
         MMButton.__init__(self, 'play_pause', 'gtk-media-play',
-            _('Start playback'), callback)
+            _('Start Playback'), callback)
 
         self.player = player
         self.update_state()

@@ -131,8 +131,8 @@ class TrayIcon(gobject.GObject):
         self.menu.append_separator()
 
         self.rating = gtk.MenuItem()
-        hbox2 = gtk.HBox()
-        hbox2.pack_start(gtk.Label(_("Rating:   ")), False, False)
+        hbox2 = gtk.HBox(spacing=3)
+        hbox2.pack_start(gtk.Label(_("Rating:")), False, False)
         self.rating_image = gtk.image_new_from_pixbuf (self._get_rating_pixbuf(self.queue.get_current ()))
         hbox2.pack_start(self.rating_image, False, False, 4)
         self.rating.add(hbox2)

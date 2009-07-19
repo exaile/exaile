@@ -70,7 +70,7 @@ class MiniMode(gtk.Window):
         self.fixed_items = controlpref.fixed_items.keys() or []
 
         gtk.Window.__init__(self)
-        self.set_title(_('Exaile'))
+        self.set_title('Exaile')
 
         self.setup_controls()
 

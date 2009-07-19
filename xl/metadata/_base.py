@@ -99,9 +99,10 @@ class BaseFormat(object):
         tags = []
         for t in self._get_keys():
             if t.startswith("__"):
-                logger.warning(_("Could not import tag %s from file %s "
+                logger.warning(_("Could not import tag %(tag)s from file %(location)s "
                         "because of possible conflict, please adjust "
-                        "your tags if you want to import this.")%(t, self.loc))
+                        "your tags if you want to import this.") % {
+                            'tag': t, 'location': self.loc})
                 continue
             tags.append(t)
         all = self.read_tags(tags)

@@ -88,12 +88,12 @@ class MiniMode(gtk.Window):
         self.add_accel_group(self.accel_group)
 
         self._toggle_tray_id = None
+        self._configure_id = None
 
         if self.exaile.gui.tray_icon is not None:
-            self.toggle_visibility_id = self.exaile.gui.tray_icon.connect(
+            self.toggle_tray_id = self.exaile.gui.tray_icon.connect(
                 'toggle-tray', self.on_toggle_tray)
 
-        self._configure_id = self.connect('configure-event', self.on_configure)
         #event.add_callback(self.on_setting_change, 'option_set')
 
     def destroy(self):
@@ -102,9 +102,12 @@ class MiniMode(gtk.Window):
             the mini mode window
         """
         event.remove_callback(self.on_setting_change, 'option_set')
-        self.disconnect(self._configure_id)
+        if self._configure_id is not None:
+            self.disconnect(self._configure_id)
+            self._configure_id = None
         if self._toggle_tray_id is not None:
             self.disconnect(self._toggle_tray_id)
+            self._toggle_tray_id = None
 
         self.remove_accel_group(self.accel_group)
         self.exaile.gui.main.window.remove_accel_group(self.accel_group)
@@ -114,35 +117,23 @@ class MiniMode(gtk.Window):
         self.toggle_visibility()
         gtk.Window.destroy(self)
 
-    def _show(self):
-        """
-            Hides the main window and shows the mini mode
-        """
-        self.exaile.gui.main.window.hide()
-        self.show_all()
-        self.update_position()
-        self.update_controls()
-
-    def _hide(self):
-        """
-            Hides the mini mode and shows the main window
-        """
-        if self._active:
-            self.hide_all()
-            self.exaile.gui.main.window.present()
-
     def toggle_visibility(self):
         """
             Toggles visibility of the mini mode window
         """
         if self.get_property('visible'):
+            if self._configure_id is not None:
+                self.disconnect(self._configure_id)
+                self._configure_id = None
             self.hide_all()
             self.exaile.gui.main.window.show()
         else:
             self.exaile.gui.main.window.hide()
-            self.update_window()
             self.update_controls()
+            self.update_window()
             self.show_all()
+            if self._configure_id is None:
+                self._configure_id = self.connect('configure-event', self.on_configure)
 
     def update_window(self):
         """
@@ -314,6 +305,9 @@ class MiniMode(gtk.Window):
         x, y = self.get_position()
         self.set_option('plugin/minimode/horizontal_position', x)
         self.set_option('plugin/minimode/vertical_position', y)
+
+        width, height = self.get_size()
+        self.set_geometry_hints(self, max_width=width, max_height=height)
         return True
 
     def on_setting_change(self, event, settings_manager, option):

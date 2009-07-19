@@ -155,16 +155,20 @@ class PluginsManager(object):
         """
             Returns the default preferences for a plugin
         """
-        path = self.__findplugin(pluginname)
-        preffile = imp.load_source(pluginname, os.path.join(path, pluginname + 'prefs.py'))
         preflist = {}
-        for c in dir(preffile):
-            attr = getattr(preffile, c)
-            if inspect.isclass(attr):
-                try:
-                    preflist[attr.name] = attr.default
-                except AttributeError:
-                    pass
+        path = self.__findplugin(pluginname)
+        plugin = imp.load_source(pluginname, os.path.join(path,'__init__.py'))
+        try:
+            prefspane = plugin.get_prefs_pane()
+            for c in dir(prefspane):
+                attr = getattr(prefspane, c)
+                if inspect.isclass(attr):
+                    try:
+                        preflist[attr.name] = attr.default
+                    except AttributeError:
+                        pass
+        except AttributeError:
+            pass
         return preflist
 
     def save_enabled(self):

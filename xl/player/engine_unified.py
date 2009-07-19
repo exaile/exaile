@@ -123,6 +123,7 @@ class UnifiedPlayer(_base.ExailePlayer):
         except AttributeError:
             return 0
         
+    @common.synchronized
     def play(self, track, user=True):
         if not track:
             return # we cant play nothing
@@ -263,6 +264,7 @@ class UnifiedPlayer(_base.ExailePlayer):
             return False
         return True
 
+    @common.synchronized
     def stop(self):
         """
             stop playback
@@ -277,6 +279,7 @@ class UnifiedPlayer(_base.ExailePlayer):
             return True
         return False
 
+    @common.synchronized
     def pause(self):
         """
             pause playback. DOES NOT TOGGLE
@@ -288,6 +291,7 @@ class UnifiedPlayer(_base.ExailePlayer):
             return True
         return False
  
+    @common.synchronized
     def unpause(self):
         """
             unpause playback
@@ -304,6 +308,7 @@ class UnifiedPlayer(_base.ExailePlayer):
             return True
         return False
 
+    @common.synchronized
     def seek(self, value):
         """
             seek to the given position in the current stream

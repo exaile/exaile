@@ -163,6 +163,7 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
         Track display is configurable
     """
     def __init__(self, queue, callback):
+        self.callback = callback
         self.queue = queue
         self.list = gtk.ListStore(gobject.TYPE_PYOBJECT)
         self.render_items = ['tracknumber', '-', 'title']
@@ -176,6 +177,7 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
             'tracknumber': '',
             'length': '0:00'
         }
+        self.updating = False
 
         MMWidget.__init__(self, 'track_selector')
         gtk.ComboBox.__init__(self, self.list)
@@ -187,16 +189,21 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
 
         self.update_track_list()
 
-        self.connect('changed', callback)
+        self.connect('changed', self.callback_wrapper)
         event.add_callback(self.on_playlist_current_changed, 'playlist_current_changed')
         event.add_callback(self.on_tracks_added, 'tracks_added')
         event.add_callback(self.on_tracks_removed, 'tracks_removed')
+
+    def callback_wrapper(self, *args):
+        if not self.updating:
+            self.callback(*args)
 
     def update_track_list(self):
         """
             Populates the track list based
             on the current playlist
         """
+        self.updating = True
         self.list.clear()
         playlist = self.queue.current_playlist
         if playlist is not None:
@@ -206,6 +213,7 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
                 iter = self.list.append([track])
                 if track == current_track:
                     self.set_active_iter(iter)
+        self.updating = False
 
     def get_active_track(self):
         """

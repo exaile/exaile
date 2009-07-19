@@ -559,6 +559,7 @@ class Library(object):
                 else:
                     tr = track.Track(fullpath)
                     if tr._scan_valid == True:
+                        tr['__date_added'] = time.time()
                         db.add(tr)
 
                 self._check_compilation(ccheck, compilations, tr)

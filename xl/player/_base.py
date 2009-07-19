@@ -20,7 +20,7 @@ import gst
 
 from xl import event, settings
 from xl.player import pipe
-import logging
+import logging, time
 logger = logging.getLogger(__name__)
 
 
@@ -46,11 +46,14 @@ class ExailePlayer(object):
             self._load_volume()
 
     def _on_track_end(self, name, object, track):
+        if not track:
+            return
         try:
-            i = int(track['playcount'])
+            i = int(track['__playcount'])
         except:
             i = 0
-        track['playcount'] = i + 1
+        track['__playcount'] = i + 1
+        track['__last_played'] = time.time()
 
     def _load_volume(self):
         """

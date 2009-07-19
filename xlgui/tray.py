@@ -1,5 +1,5 @@
 
-import gtk
+import gobject, gtk
 
 from xl import xdg, event, settings
 from xl.nls import gettext as _
@@ -33,10 +33,14 @@ try:
 except ImportError:
     pass
 
-class TrayIcon(object):
+class TrayIcon(gobject.GObject):
     VOLUME_SCROLL_AMOUNT = 5
 
+    __gsignals__ = {'toggle-tray': (gobject.SIGNAL_RUN_LAST, bool, ())}
+
     def __init__(self, main):
+        gobject.GObject.__init__(self)
+
         self.controller = main.controller
         self.player = main.controller.exaile.player
         self.queue = main.controller.exaile.queue
@@ -71,9 +75,9 @@ class TrayIcon(object):
         """
             Unhides the window and removes the tray icon
         """
+        self.emit('toggle-tray')
         if not self.window.get_property('visible'):
             self.window.present()
-        self.icon.destroy()
 
     def _setup_menu(self):
         """
@@ -213,9 +217,10 @@ class TrayIcon(object):
 
     def _button_pressed(self, icon, event):
         if event.button == 1:
-            if self.window.is_active():
+            toggle_handled = self.emit('toggle-tray')
+            if not toggle_handled and self.window.is_active():
                 self.window.hide()
-            else:
+            elif not toggle_handled:
                 self.window.present()
         if event.button == 2:
             self._play_pause_clicked()
@@ -238,9 +243,10 @@ class TrayIcon(object):
             self.queue.play()
 
     def _activated(self, icon):
-        if self.window.is_active():
+        toggle_handled = self.emit('toggle-tray')
+        if not toggle_handled and self.window.is_active():
             self.window.hide()
-        else:
+        elif not toggle_handled:
             self.window.present()
 
     def _query_tooltip(self, *e):

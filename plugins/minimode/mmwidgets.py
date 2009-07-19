@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import gobject, gtk
+import gobject, gtk, pango
 from xl import event
 from xl.nls import gettext as _
 
@@ -165,16 +165,19 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
     def __init__(self, queue, callback):
         self.queue = queue
         self.list = gtk.ListStore(gobject.TYPE_PYOBJECT)
+        self.render_items = ['tracknumber', '-', 'title']
+        self.items_fallback = {
+            'tracknumber': '',
+            'length': '0:00'
+        }
 
         MMWidget.__init__(self, 'track_selector')
         gtk.ComboBox.__init__(self, self.list)
-
-        cellrenderer = gtk.CellRendererText()
-        self.pack_start(cellrenderer, True)
-        self.set_cell_data_func(cellrenderer, self.track_data_func)
         self.set_size_request(150, 0)
 
-        self.render_items = ['tracknumber', '-', 'title']
+        textrenderer = gtk.CellRendererText()
+        self.pack_start(textrenderer, True)
+        self.set_cell_data_func(textrenderer, self.text_data_func)
 
         self.update_track_list()
 
@@ -208,7 +211,7 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
         except TypeError:
             return None
 
-    def track_data_func(self, celllayout, cell, model, iter):
+    def text_data_func(self, celllayout, cell, model, iter):
         """
             Allows customization of the
             track data to be rendered
@@ -224,9 +227,22 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
                 # TRANSLATORS: String multiple tag values will be joined with
                 text += _(' & ').join(track.tags[item])
             except KeyError:
-                text += item
+                try:
+                    text += self.items_fallback[item]
+                except KeyError:
+                    text += item
             text += ' '
         cell.set_property('text', text)
+
+        active_iter = self.get_active_iter()
+
+        if active_iter is not None:
+            active_track = model.get_value(self.get_active_iter(), 0)
+
+            if track == active_track:
+                cell.set_property('weight', pango.WEIGHT_BOLD)
+            else:
+                cell.set_property('weight', pango.WEIGHT_NORMAL)
 
         return
 

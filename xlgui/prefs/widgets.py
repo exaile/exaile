@@ -191,6 +191,143 @@ class OrderListPrefsItem(PrefsItem):
         self.items = items
         return items
 
+class SelectionListPrefsItem(PrefsItem):
+    """
+        Two list boxes allowing to drag items
+        to each other, reorderable
+    """
+    def __init__(self, prefs, widget):
+        self.available_list = gtk.ListStore(str)
+        self.selected_list = gtk.ListStore(str)
+        self._update_lists(self.default)
+
+        # Make sure container is empty
+        for child in widget.get_children():
+            widget.remove(child)
+
+        PrefsItem.__init__(self, prefs, widget)
+
+        text = gtk.CellRendererText()
+        available_tree = gtk.TreeView(self.available_list)
+        available_col = gtk.TreeViewColumn(None, text, text=0)
+        try:
+            available_col.set_title(self.available_title)
+        except AttributeError:
+            pass
+        available_tree.append_column(available_col)
+        available_tree.set_reorderable(True)
+        widget.pack_start(available_tree)
+
+        selected_tree = gtk.TreeView(self.selected_list)
+        selected_col = gtk.TreeViewColumn(None, text, text=0)
+        try:
+            selected_col.set_title(self.selected_title)
+        except AttributeError:
+            pass
+        selected_tree.append_column(selected_col)
+        selected_tree.set_reorderable(True)
+        widget.pack_start(selected_tree)
+
+        # Allow to send rows to selected
+        available_tree.enable_model_drag_source(
+            gtk.gdk.BUTTON1_MASK,
+            [('TREE_MODEL_ROW', gtk.TARGET_SAME_APP, 0)],
+            gtk.gdk.ACTION_MOVE)
+        # Allow to receive rows from selected
+        available_tree.enable_model_drag_dest(
+            [('TREE_MODEL_ROW', gtk.TARGET_SAME_APP, 0)],
+            gtk.gdk.ACTION_MOVE)
+        # Allow to send rows to available
+        selected_tree.enable_model_drag_source(
+            gtk.gdk.BUTTON1_MASK,
+            [('TREE_MODEL_ROW', gtk.TARGET_SAME_APP, 0)],
+            gtk.gdk.ACTION_MOVE)
+        # Allow to receive rows from available
+        selected_tree.enable_model_drag_dest(
+            [('TREE_MODEL_ROW', gtk.TARGET_SAME_APP, 0)],
+            gtk.gdk.ACTION_MOVE)
+
+        available_tree.connect('drag-data-received', self._drag_data_received)
+        selected_tree.connect('drag-data-received', self._drag_data_received)
+
+        widget.set_homogeneous(True)
+        widget.set_spacing(6)
+
+    def _drag_data_received(self, target_treeview, context, x, y, data, info, time):
+        """
+            Handles movement of rows
+        """
+        source_treeview = context.get_source_widget()
+        source_list, path = source_treeview.get_selection().get_selected_rows()
+        source_iter = source_list.get_iter(path[0])
+        source_value = source_list.get_value(source_iter, 0)
+
+        if source_value in self.fixed_items.values():
+            return
+
+        source_list.remove(source_iter)
+        source_iter = None
+
+        target_list = target_treeview.get_model()
+        target_row = target_treeview.get_dest_row_at_pos(x, y)
+        if target_row is None:
+            target_list.append([source_value])
+        else:
+            target_path, drop_position = target_row
+            target_iter = target_list.get_iter(target_path)
+            if drop_position == gtk.TREE_VIEW_DROP_BEFORE or \
+                drop_position == gtk.TREE_VIEW_DROP_INTO_OR_BEFORE:
+                target_list.insert_before(target_iter, [source_value])
+            else:
+                target_list.insert_after(target_iter, [source_value])
+            target_iter = None
+
+    def _set_pref(self):
+        """
+            Sets the preferences for this widget
+        """
+        items = self.prefs.settings.get_option(self.name, self.default)
+        self._update_lists(items)
+
+    def _settings_value(self):
+        """
+            Value to be stored into the settings file
+        """
+        items = []
+        iter = self.selected_list.get_iter_first()
+        while iter:
+            selected_value = self.selected_list.get_value(iter, 0)
+            for id, title in self.available_items.iteritems():
+                if selected_value == title:
+                    items.append(id)
+                    break
+            iter = self.selected_list.iter_next(iter)
+        return items
+
+    def _update_lists(self, items):
+        """
+            Updates the two lists
+        """
+        available_set = set(self.available_items.keys())
+        available_set = available_set.difference(set(items))
+
+        self.available_list.clear()
+
+        for id in available_set:
+            self.available_list.append([self.available_items[id]])
+
+        self.selected_list.clear()
+
+        for id in items:
+            try:
+                self.selected_list.append([self.available_items[id]])
+            except KeyError:
+              pass
+        try:
+            for id, title in self.fixed_items.iteritems():
+                self.selected_list.append([title])
+        except AttributeError:
+            pass
 
 class TextViewPrefsItem(PrefsItem):
     """
@@ -254,6 +391,12 @@ class ListPrefsItem(PrefsItem):
 
 
 class SpinPrefsItem(PrefsItem):
+    """
+        A class to represent a numeric entry box with stepping buttons
+    """
+    def __init__(self, prefs, widget):
+        PrefsItem.__init__(self, prefs, widget)
+
     def _set_pref(self):
         value = self.prefs.settings.get_option(self.name, 
             default=self.default)

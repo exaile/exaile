@@ -21,7 +21,7 @@
 #
 # Also takes care of parsing commandline options.
 
-__version__ = '0.2.99.2+'
+__version__ = '0.2.99.3'
 
 import locale, gettext
 

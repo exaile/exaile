@@ -609,7 +609,7 @@ class MenuRatingWidget(gtk.MenuItem):
             Updates the rating of the tracks for this widget, meant to be used with a click event
         """
         tracks = self._get_tracks()
-        if tracks:
+        if tracks and tracks[0]:
             steps = settings.get_option('miscellaneous/rating_steps', 5)
             (x, y) = e.get_coords()
             (u, v) =  self.translate_coordinates(self.image, int(x), int(y))

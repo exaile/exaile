@@ -246,12 +246,14 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
         """
             Returns a properly formatted tracknumber
         """
-        try:
-            tracknumber = int(tracknumber)
-        except TypeError:
-            tracknumber = 0
+        try: # Valid number
+            tracknumber = '%02d' % int(tracknumber)
+        except TypeError: # None
+            tracknumber = '00'
+        except ValueError: # 'N/N'
+            pass
 
-        return '%02d' % tracknumber
+        return tracknumber
 
     def format_length(self, length):
         """

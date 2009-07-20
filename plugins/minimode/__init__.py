@@ -112,22 +112,30 @@ class MiniMode(gtk.Window):
         self.exaile.gui.xml.get_widget('view_menu').remove(self.menuitem)
 
         self._active = False
-        self.toggle_visibility()
+        self._hide()
         gtk.Window.destroy(self)
 
-    def toggle_visibility(self):
+    def _hide(self):
         """
-            Toggles visibility of the mini mode window
+            Hides the mini mode window, shows the main window
         """
-        if not self._active:
-            return
-
-        if self.get_property('visible'):
+        if self._active:
+            self.hide()
+            self.exaile.gui.main.window.show()
+        else:
             if self._configure_id is not None:
                 self.disconnect(self._configure_id)
                 self._configure_id = None
             self.hide_all()
             self.exaile.gui.main.window.show()
+
+    def _show(self):
+        """
+            Shows the mini mode window, hides the main window
+        """
+        if self._active:
+            self.exaile.gui.main.window.hide()
+            self.show()
         else:
             self.exaile.gui.main.window.hide()
             self.update_controls()
@@ -135,6 +143,15 @@ class MiniMode(gtk.Window):
             self.show_all()
             if self._configure_id is None:
                 self._configure_id = self.connect('configure-event', self.on_configure)
+
+    def toggle_visibility(self):
+        """
+            Toggles visibility of the mini mode window
+        """
+        if self.get_property('visible'):
+            self._hide()
+        else:
+            self._show()
 
     def update_window(self):
         """
@@ -295,7 +312,7 @@ class MiniMode(gtk.Window):
 
     def on_toggle_tray(self, trayicon):
         """
-            Dunno yet
+            Handles tray icon toggles
         """
         if self._active:
             if self.get_property('visible'):

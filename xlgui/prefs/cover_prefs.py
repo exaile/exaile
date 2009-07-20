@@ -31,7 +31,7 @@ class CoverOrderPreference(widgets.OrderListPrefsItem):
         self.default = prefs.main.exaile.covers.get_methods()
         widgets.OrderListPrefsItem.__init__(self, prefs, widget)
 
-    def _set_pref(self):
+    def _set_value(self):
         self.model.clear()
         for item in self.default:
             self.model.append([item.name])

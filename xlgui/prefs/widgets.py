@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import os, gtk.gdk, hashlib
+import gtk.gdk, hashlib, os, pango
 
 class PrefsItem(object):
     """
@@ -33,7 +33,7 @@ class PrefsItem(object):
         self.widget = widget
         self.prefs = prefs
 
-        self._set_pref()
+        self._set_value()
         if hasattr(self, 'change'):
             self._setup_change()
 
@@ -47,7 +47,7 @@ class PrefsItem(object):
             lambda *e: self.change(self.widget, None, self.name,
                 unicode(self.widget.get_text(), 'utf-8')))
 
-    def _set_pref(self):
+    def _set_value(self):
         """ 
             Sets the GUI widget up for this preference
         """
@@ -57,7 +57,7 @@ class PrefsItem(object):
         self.widget.set_text(str(self.prefs.settings.get_option(
             self.name, self.default)))
 
-    def _settings_value(self):
+    def _get_value(self):
         """
             Value to be stored into the settings file
         """
@@ -69,7 +69,7 @@ class PrefsItem(object):
         """
         if hasattr(self, 'done') and not self.done(): return False
         if value is None:
-            value = self._settings_value()
+            value = self._get_value()
         self.prefs.settings.set_option(self.name, value)
         return True
 
@@ -93,7 +93,7 @@ class HashedPrefsItem(PrefsItem):
         """
         if hasattr(self, 'done') and not self.done(): return False
         if value is None:
-            value = self._settings_value()
+            value = self._get_value()
         if value is None:
             return True
 
@@ -119,12 +119,12 @@ class CheckPrefsItem(PrefsItem):
         self.widget.connect('toggled',
             self.change)
 
-    def _set_pref(self):
+    def _set_value(self):
         self.widget.set_active(
             self.prefs.settings.get_option(self.name,
             self.default))
 
-    def _settings_value(self):
+    def _get_value(self):
         return self.widget.get_active()
 
 
@@ -138,7 +138,7 @@ class DirPrefsItem(PrefsItem):
     def _setup_change(self):
         pass
 
-    def _set_pref(self):
+    def _set_value(self):
         """
             Sets the current directory
         """
@@ -148,7 +148,7 @@ class DirPrefsItem(PrefsItem):
             os.makedirs(directory)
         self.widget.set_filename(directory)
 
-    def _settings_value(self):
+    def _get_value(self):
         return self.widget.get_filename()
 
 
@@ -171,7 +171,7 @@ class OrderListPrefsItem(PrefsItem):
     def _setup_change(self):
         self.widget.connect('drag-end', self.change)
 
-    def _set_pref(self):
+    def _set_value(self):
         """
             Sets the preferences for this widget
         """
@@ -182,7 +182,7 @@ class OrderListPrefsItem(PrefsItem):
         for item in items:
             self.model.append([item])
 
-    def _settings_value(self):
+    def _get_value(self):
         items = []
         iter = self.model.get_iter_first()
         while iter:
@@ -195,6 +195,12 @@ class SelectionListPrefsItem(PrefsItem):
     """
         Two list boxes allowing to drag items
         to each other, reorderable
+
+        Options:
+        * available_title (Title of the list of available items)
+        * selected_title (Title of the list of selected items)
+        * available_items (Dictionary of items and their titles)
+        * fixed_items (Dictionary of non-removable items and their titles)
     """
     def __init__(self, prefs, widget):
         self.available_list = gtk.ListStore(str)
@@ -282,14 +288,14 @@ class SelectionListPrefsItem(PrefsItem):
                 target_list.insert_after(target_iter, [source_value])
             target_iter = None
 
-    def _set_pref(self):
+    def _set_value(self):
         """
             Sets the preferences for this widget
         """
         items = self.prefs.settings.get_option(self.name, self.default)
         self._update_lists(items)
 
-    def _settings_value(self):
+    def _get_value(self):
         """
             Value to be stored into the settings file
         """
@@ -351,7 +357,7 @@ class TextViewPrefsItem(PrefsItem):
         end = buf.get_end_iter()
         return unicode(buf.get_text(start, end), 'utf-8')
 
-    def _set_pref(self):
+    def _set_value(self):
         """
             Sets the value of this widget
         """
@@ -359,7 +365,7 @@ class TextViewPrefsItem(PrefsItem):
             self.prefs.settings.get_option(self.name,
             default=self.default)))
 
-    def _settings_value(self):    
+    def _get_value(self):    
         """
             Applies the setting
         """
@@ -373,7 +379,7 @@ class ListPrefsItem(PrefsItem):
     def __init__(self, prefs, widget):
         PrefsItem.__init__(self, prefs, widget)
 
-    def _set_pref(self):
+    def _set_value(self):
         items = self.prefs.settings.get_option(self.name, 
             default=self.default)
         try:
@@ -382,7 +388,7 @@ class ListPrefsItem(PrefsItem):
             items = ""
         self.widget.set_text(items)
 
-    def _settings_value(self):
+    def _get_value(self):
         # shlex is broken with unicode, so we feed it UTF-8 and decode
         # afterwards.
         values = shlex.split(self.widget.get_text())
@@ -397,7 +403,7 @@ class SpinPrefsItem(PrefsItem):
     def __init__(self, prefs, widget):
         PrefsItem.__init__(self, prefs, widget)
 
-    def _set_pref(self):
+    def _set_value(self):
         value = self.prefs.settings.get_option(self.name, 
             default=self.default)
         self.widget.set_value(value)
@@ -405,7 +411,7 @@ class SpinPrefsItem(PrefsItem):
     def _setup_change(self):
         self.widget.connect('value-changed', self.change)
 
-    def _settings_value(self):
+    def _get_value(self):
         return self.widget.get_value()
 
 
@@ -416,18 +422,18 @@ class FloatPrefsItem(PrefsItem):
     def __init__(self, prefs, widget):
         PrefsItem.__init__(self, prefs, widget)
 
-    def _set_pref(self):
+    def _set_value(self):
         self.widget.set_text(str(
             self.prefs.settings.get_option(self.name, 
             default=self.default)))
 
-    def _settings_value(self):
+    def _get_value(self):
         return float(self.widget.get_text())
 
 
 class IntPrefsItem(FloatPrefsItem):
 
-    def _settings_value(self):
+    def _get_value(self):
         return int(self.widget.get_text())
 
 
@@ -441,12 +447,12 @@ class ColorButtonPrefsItem(PrefsItem):
     def _setup_change(self):
         self.widget.connect('color-set', self.change)
 
-    def _set_pref(self):
+    def _set_value(self):
         self.widget.set_color(gtk.gdk.color_parse(
             self.prefs.settings.get_option(self.name, 
             self.default)))
 
-    def _settings_value(self):
+    def _get_value(self):
         color = self.widget.get_color()
         string = "#%.2x%.2x%.2x" % (color.red / 257, color.green / 257, 
             color.blue / 257)
@@ -463,19 +469,19 @@ class FontButtonPrefsItem(ColorButtonPrefsItem):
     def _setup_change(self):
         self.widget.connect('font-set', self.change)
 
-    def _set_pref(self):
+    def _set_value(self):
         font = self.prefs.settings.get_option(self.name, 
             self.default)
         self.widget.set_font_name(font)
         
-    def _settings_value(self):
+    def _get_value(self):
         font = self.widget.get_font_name()
         return font
 
 
 class ComboPrefsItem(PrefsItem):
     """
-        combo box
+        A combo box
     """
     def __init__(self, prefs, widget, use_index=False, use_map=False):
         self.use_index = use_index
@@ -485,7 +491,7 @@ class ComboPrefsItem(PrefsItem):
     def _setup_change(self):
         self.widget.connect('changed', self.change)
 
-    def _set_pref(self):
+    def _set_value(self):
         item = self.prefs.settings.get_option(self.name, 
             self.default)
 
@@ -513,10 +519,134 @@ class ComboPrefsItem(PrefsItem):
             iter = model.iter_next(iter)
             if not iter: break
 
-    def _settings_value(self):
+    def _get_value(self):
         if self.use_map:
             return self.map[self.widget.get_active()]
         elif self.use_index:
             return self.widget.get_active()
         else:
             return self.widget.get_active_text()
+
+
+class ComboEntryPrefsItem(PrefsItem):
+    """
+        A combo box allowing for user defined
+        values, presets and auto completion
+
+        Options:
+        * completion_items (List of completion items or
+          dictionary of items and their titles)
+        * preset_items (List of preset items or
+          dictionary of items and their titles)
+    """
+    def __init__(self, prefs, widget):
+        PrefsItem.__init__(self, prefs, widget)
+
+        self.list = gtk.ListStore(str)
+
+        try:
+            try:
+                preset_items = self.preset_items.items()
+                self.list = gtk.ListStore(str, str)
+                text_renderer = self.widget.get_cells()[0]
+                text_renderer.set_property('weight', pango.WEIGHT_BOLD)
+
+                title_renderer = gtk.CellRendererText()
+                self.widget.pack_start(title_renderer, expand=False)
+                self.widget.add_attribute(title_renderer, 'text', 1)
+            except AttributeError:
+                preset_items = [[item] for item in self.preset_items]
+
+            for preset in preset_items:
+                self.list.append(preset)
+        except AttributeError:
+            pass
+
+        self.widget.set_model(self.list)
+        self.widget.set_text_column(0)
+
+        try:
+            completion = gtk.EntryCompletion()
+
+            try:
+                completion_items = self.completion_items.items()
+                self.completion_list = gtk.ListStore(str, str)
+
+                title_renderer = gtk.CellRendererText()
+                completion.pack_end(title_renderer)
+                completion.add_attribute(title_renderer, 'text', 1)
+            except AttributeError:
+                completion_items = [[item] for item in self.completion_items]
+                self.completion_list = gtk.ListStore(str)
+
+            keyword_renderer = gtk.CellRendererText()
+            keyword_renderer.set_property('weight', pango.WEIGHT_BOLD)
+            completion.pack_end(keyword_renderer)
+            completion.add_attribute(keyword_renderer, 'text', 0)
+            completion.set_match_func(self.on_matching)
+            completion.connect('match-selected', self.on_match_selected)
+
+            completion.set_popup_single_match(True)
+            completion.set_model(self.completion_list)
+            self.widget.child.set_completion(completion)
+
+            for item in completion_items:
+                self.completion_list.append(item)
+        except AttributeError:
+            pass
+
+    def _set_value(self):
+        """
+            Sets the preferences for this widget
+        """
+        value = self.prefs.settings.get_option(self.name, self.default)
+        self.widget.child.set_text(str(value))
+
+    def _get_value(self):
+        """
+            Value to be stored into the settings file
+        """
+        return self.widget.child.get_text()
+
+    def on_matching(self, completion, text, iter):
+        """
+            Matches the content of this box to
+            the list of available completions
+        """
+        cursor_pos = self.widget.child.get_position()
+        # Ignore the rest, allows for completions in the middle
+        text = text[:cursor_pos]
+        match = self.completion_list.get_value(iter, 0)
+
+        # Try to find match, from largest to smallest
+        for i in range(len(match), -1, -1):
+            # Find from the rear
+            match_pos = text.rfind(match[:i])
+            # Matched if not empty and match equal to
+            # text from the matched position to the end
+            if match[:i] and match[:i] == text[match_pos:]:
+                return True
+        return False
+
+    def on_match_selected(self, completion, list, iter):
+        """
+            Inserts the selected completion
+        """
+        cursor_pos = self.widget.child.get_position()
+        text = self.widget.child.get_text()[:cursor_pos]
+        match = list.get_value(iter, 0)
+
+        for i in range(len(match), -1, -1):
+            match_pos = text.rfind(match[:i])
+            if match[:i] and match[:i] == text[match_pos:]:
+                # Delete halfway typed text
+                self.widget.child.delete_text(
+                    match_pos, match_pos + len(match[:i]))
+                # Insert match at matched position
+                self.widget.child.insert_text(
+                    match, match_pos)
+                # Update cursor position
+                self.widget.child.set_position(match_pos + len(match))
+
+        return True
+

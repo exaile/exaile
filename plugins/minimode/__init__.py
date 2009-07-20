@@ -119,6 +119,9 @@ class MiniMode(gtk.Window):
         """
             Toggles visibility of the mini mode window
         """
+        if not self._active:
+            return
+
         if self.get_property('visible'):
             if self._configure_id is not None:
                 self.disconnect(self._configure_id)

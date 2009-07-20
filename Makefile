@@ -105,10 +105,7 @@ clean:
 	-find . -name "*.py[co]" -exec rm -f {} \;
 	find . -name "*.class" -exec rm -f {} \;
 	find . -name "*.bak" -exec rm -f {} \;
-	rm -f po/POTFILES.in
-	rm -f po/messages.pot
 	cd plugins && make clean && cd ..
-	rm -f data/plugins
 
 pot:
 	@echo "[encoding: UTF-8]" > po/POTFILES.in

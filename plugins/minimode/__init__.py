@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import gobject, gtk
+import gobject, gtk, os
 import minimodeprefs, mmwidgets
 from xl import event, plugins, settings, xdg
 from xl.nls import gettext as _
@@ -72,10 +72,10 @@ class MiniMode(gtk.Window):
         gtk.Window.__init__(self)
         self.set_title('Exaile')
 
+        self.register_icons(['exaile-minimode'])
         self.setup_controls()
 
-        self.menuitem = gtk.MenuItem(_('Mini Mode'))
-        self.menuitem.connect('activate', self.on_menuitem_activate)
+        self.menuitem = mmwidgets.MMMenuItem(self.on_menuitem_activate)
         self.exaile.gui.xml.get_widget('view_menu').append(self.menuitem)
         self.menuitem.show()
 
@@ -232,6 +232,23 @@ class MiniMode(gtk.Window):
                 self.box.show_child(id)
             except KeyError:
                 pass
+
+    def register_icons(self, stock_ids):
+        """
+            Registers stock icons
+        """
+        icon_factory = gtk.IconFactory()
+        icon_factory.add_default()
+        basedir = os.path.dirname(os.path.abspath(__file__))
+
+        for stock_id in stock_ids:
+            icon_set = gtk.IconSet()
+            for size in (16, 22, 24, 32):
+                icon_source = gtk.IconSource()
+                icon_source.set_filename(os.path.join(
+                    basedir, 'icons', str(size), stock_id + '.png'))
+                icon_set.add_source(icon_source)
+            icon_factory.add(stock_id, icon_set)
 
     def get_option(self, option):
         return settings.get_option(option, self.defaults[option])

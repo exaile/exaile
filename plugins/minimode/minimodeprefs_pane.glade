@@ -69,19 +69,7 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="GtkCheckButton" id="plugin/minimode/button_in_mainwindow">
-                    <property name="label" translatable="yes">Mini mode button in main window</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="draw_indicator">True</property>
-                  </widget>
-                  <packing>
-                    <property name="left_attach">1</property>
-                    <property name="right_attach">2</property>
-                    <property name="top_attach">1</property>
-                    <property name="bottom_attach">2</property>
-                  </packing>
+                  <placeholder/>
                 </child>
                 <child>
                   <placeholder/>

@@ -19,6 +19,24 @@ from string import Template
 from xl import event
 from xl.nls import gettext as _
 
+class MMMenuItem(gtk.ImageMenuItem):
+    """
+        Convenience wrapper, allows switching to mini mode
+    """
+    def __init__(self, callback):
+        gtk.ImageMenuItem.__init__(self, stock_id='exaile-minimode')
+        self.child.set_label(_('Mini Mode'))
+
+        self._callback_id = self.connect('activate', callback)
+
+    def destroy(self):
+        """
+            Does cleanup
+        """
+        self.disconnect(self._callback_id)
+        self.image.destroy()
+        gtk.ImageMenuItem.destroy(self)
+
 class MMWidget(gtk.Widget):
     """
         Wrapper for gtk.Widget,

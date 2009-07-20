@@ -199,14 +199,6 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
         self.pack_start(textrenderer, expand=True)
         self.set_cell_data_func(textrenderer, self.text_data_func)
 
-        gobject.type_register(type(self))
-        gobject.signal_new('render-title',
-            self,
-            gobject.SIGNAL_RUN_LAST,
-            gobject.TYPE_STRING,
-            ()
-        )
-
         try:
             self.connect('render-title', render_callback)
         except TypeError:
@@ -346,6 +338,10 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
         """
         self.update_track_list()
 
+gobject.type_register(MMTrackSelector)
+gobject.signal_new('render-title', MMTrackSelector,
+    gobject.SIGNAL_RUN_LAST, gobject.TYPE_STRING, ())
+
 class MMProgressBar(MMWidget, gtk.ProgressBar):
     """
         Wrapper class which updates itself
@@ -360,14 +356,6 @@ class MMProgressBar(MMWidget, gtk.ProgressBar):
         self._timer = None
         self._press_event = None
         self.update_state()
-
-        gobject.type_register(type(self))
-        gobject.signal_new('track-seeked',
-            self,
-            gobject.SIGNAL_RUN_FIRST,
-            gobject.TYPE_NONE,
-            (gobject.TYPE_FLOAT, )
-        )
 
         self.connect('track-seeked', callback)
 
@@ -490,11 +478,16 @@ class MMProgressBar(MMWidget, gtk.ProgressBar):
 
         total = self.player.current.get_duration()
         seekpos = (event.x / width) * total
-        text = _('Seeking:')
+        text = _('Seeking: ')
         text += '%d:%02d' % (seekpos // 60, seekpos % 60)
 
         self.set_fraction(event.x / width)
         self.set_text(text)
+
+gobject.type_register(MMProgressBar)
+gobject.signal_new('track-seeked', MMProgressBar,
+    gobject.SIGNAL_RUN_FIRST, gobject.TYPE_NONE,
+    (gobject.TYPE_FLOAT, ))
 
 class MMTrackBar(MMTrackSelector, MMProgressBar):
     """

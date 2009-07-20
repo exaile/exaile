@@ -16,7 +16,8 @@
 
 import gtk, os.path, urllib, time
 import gtk.gdk, pango, gobject
-from xl import xdg, track, playlist, common
+from xl import xdg, track, playlist, common, settings, event
+from xl.nls import gettext as _
 
 try:
     import sexy
@@ -578,6 +579,106 @@ class StatusBar(object):
             Clears the label
         """
         self.label.set_label('')
+
+
+class MenuRatingWidget(gtk.MenuItem):
+    """
+        A rating widget that can be used as a menu entry
+    """
+
+    def __init__(self, controller, _get_tracks):
+        gtk.MenuItem.__init__(self)
+        
+        self.controller = controller
+        self._get_tracks = _get_tracks
+        
+        self.hbox = gtk.HBox(spacing=3)
+        self.hbox.pack_start(gtk.Label(_("Rating:")), False, False)
+        self.image = gtk.image_new_from_pixbuf (self._get_rating_pixbuf(self._get_tracks()))
+        self.hbox.pack_start(self.image, False, False, 12)
+        
+        self.add(self.hbox)
+        
+        self.connect('button-release-event', self._update_rating)
+        event.add_callback(self.on_rating_change, 'rating_changed')
+        event.add_callback(self.on_rating_change, 'exaile_loaded')
+
+
+    def _update_rating(self, w, e):
+        """
+            Updates the rating of the tracks for this widget, meant to be used with a click event
+        """
+        tracks = self._get_tracks()
+        if tracks:
+            steps = settings.get_option('miscellaneous/rating_steps', 5)
+            (x, y) = e.get_coords()
+            (u, v) =  self.translate_coordinates(self.image, int(x), int(y))
+            if -12 <= u < 0:
+                r = 0
+            elif 0 <= u < steps*12:
+                r = (u / 12) + 1
+            else:
+                r = -1
+            
+            if r >= 0:
+                if r == tracks[0].get_rating() and self._all_ratings_equal(tracks):
+                    r = 0
+                
+                for track in tracks:
+                    track.set_rating(r)
+                
+                event.log_event('rating_changed', self, r)
+
+
+    def _all_ratings_equal(self, tracks = None):
+        """
+            Returns True if the rating of the tracks for this widget is equal
+        """
+        if not tracks:
+            tracks = self._get_tracks()
+            if not tracks:
+                return False
+        
+        val = tracks[0].get_rating()
+        
+        for track in tracks:
+            if val != track.get_rating():
+                return False
+        
+        return True
+
+
+    def _get_rating_pixbuf(self, tracks):
+        """
+            Returns the pixbuf for the rating of the tracks if they're identical
+            If they're not, returns a pixbuf for the rating 0
+        """
+        if not tracks:
+            tracks = self._get_tracks()
+            if not tracks:
+                return self.controller.rating_images[0]
+        
+        if self._all_ratings_equal(tracks):
+            try:
+                return self.controller.rating_images[tracks[0].get_rating()]
+            except IndexError:
+                steps = settings.get_option('miscellaneous/rating_steps', 5)
+                idx = tracks[0].get_rating()
+                if idx > steps: idx = steps
+                elif idx < 0: idx = 0
+                return self.controller.rating_images[idx]
+        else:
+            return self.controller.rating_images[0]
+            
+        
+    def on_rating_change(self, type = None, object = None, data = None):
+        """
+            Handles possible changes of track ratings
+        """
+        self.image.set_from_pixbuf (self._get_rating_pixbuf (self._get_tracks()))
+        self.realize()
+
+
 
 def get_urls_for(items):
     """

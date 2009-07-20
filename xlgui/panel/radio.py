@@ -35,7 +35,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
     gladeinfo = ('radio_panel.glade', 'RadioPanelWindow')
 
     def __init__(self, parent, collection, 
-        radio_manager, station_manager):
+        radio_manager, station_manager, controller):
         """
             Initializes the radio panel
         """
@@ -43,6 +43,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         playlistpanel.BasePlaylistPanelMixin.__init__(self)
       
         self.collection = collection
+        self.controller = controller
         self.manager = radio_manager
         self.playlist_manager = station_manager
         self.nodes = {}
@@ -56,8 +57,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             xdg.get_data_path('images/playlist.png'))
 
         # menus
-        self.playlist_menu = menu.RadioPanelPlaylistMenu()
-        self.track_menu = menu.PlaylistsPanelTrackMenu()
+        self.playlist_menu = menu.RadioPanelPlaylistMenu(self.controller)
+        self.track_menu = menu.PlaylistsPanelTrackMenu(self.controller)
 
         self.load_streams()
 

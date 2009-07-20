@@ -92,7 +92,7 @@ class Playlist(gtk.VBox):
 
         steps = settings.get_option('miscellaneous/rating_steps', 5)
         self._rating_width = 12 * steps
-        self.rating_images = create_rating_images(12 * steps)
+        self.rating_images = self.controller.rating_images
 
         # see plcolumns.py for more information on the columns menu
         if not Playlist.menu_items:
@@ -105,7 +105,7 @@ class Playlist(gtk.VBox):
         self._setup_events()
         self._set_tracks(self.playlist.get_tracks())
 
-        self.menu = menu.PlaylistMenu(self, controller.exaile.playlists)
+        self.menu = menu.PlaylistMenu(self, self.controller)
         self.menu.connect('rating-set', self.set_rating)
         self.menu.connect('remove-items', lambda *e:
             self.remove_selected_tracks())

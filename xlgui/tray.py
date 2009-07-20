@@ -130,16 +130,12 @@ class TrayIcon(gobject.GObject):
 
         self.menu.append_separator()
 
-        self.rating = gtk.MenuItem()
-        hbox2 = gtk.HBox(spacing=3)
-        hbox2.pack_start(gtk.Label(_("Rating:")), False, False)
-        self.rating_image = gtk.image_new_from_pixbuf (self._get_rating_pixbuf(self.queue.get_current ()))
-        hbox2.pack_start(self.rating_image, False, False, 4)
-        self.rating.add(hbox2)
-        self.menu.append_item(self.rating)
-        self.rating.connect('button-release-event', self._change_rating)
-        event.add_callback(self._on_rating_change, 'playback_track_start')
-        event.add_callback(self._on_rating_change, 'rating_changed')
+        self.rating_item = guiutil.MenuRatingWidget(self.controller, 
+            self._get_current_track_list)
+        
+        self.menu.append_item(self.rating_item)
+        event.add_callback(self.rating_item.on_rating_change, 'playback_track_start')
+        self.menu.connect('enter-notify-event', self.rating_item.on_rating_change)
         
         self.menu.append(_("Remove current track from playlist"), lambda *e: self._remove_current_song (), 'gtk-remove')
 
@@ -149,41 +145,11 @@ class TrayIcon(gobject.GObject):
             lambda *e: self.controller.exaile.quit(), 
             'gtk-quit')
     
-    def _change_rating(self, w, e):
-        current = self.controller.main.queue.get_current ()
-        if current:
-            steps = settings.get_option('miscellaneous/rating_steps', 5)
-            (x, y) = e.get_coords()
-            (u, v) =  self.rating.translate_coordinates(self.rating_image, int(x), int(y))
-            if -12 <= u < 0:
-                r = 0
-            elif 0 <= u < steps*12:
-                r = (u / 12) + 1
-            else:
-                r = -1
-            
-            if r >= 0:
-                if r == current.get_rating():
-                    r = 0
-                current.set_rating(r)
-                event.log_event('rating_changed', self, r)
-        
-    def _on_rating_change(self, type = None, dontuse1 = None, dontuse2 = None):
-        self.rating_image.set_from_pixbuf (self._get_rating_pixbuf (self.queue.get_current ()))
+    def _get_current_track_list(self):
+        l = []
+        l.append(self.queue.get_current())
+        return l
     
-    def _get_rating_pixbuf(self, track):
-        if track:
-            try:
-                return self.controller.main.get_current_playlist ().rating_images[track.get_rating()]
-            except IndexError:
-                steps = settings.get_option('miscellaneous/rating_steps', 5)
-                idx = track.get_rating()
-                if idx > steps: idx = steps
-                elif idx < 0: idx = 0
-                return self.controller.main.get_current_playlist ().rating_images[idx]
-        else:
-            return self.controller.main.get_current_playlist ().rating_images[0]
-
     def _update_menu(self):
         track = self.player.current
         if not track or not self.player.is_playing():

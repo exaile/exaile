@@ -48,6 +48,8 @@ class Main(object):
             'ExaileWindow', 'exaile')
         self.progress_box = self.xml.get_widget('progress_box')
         self.progress_manager = progress.ProgressManager(self.progress_box)
+        
+        self.rating_images = playlist.create_rating_images(12 * settings.get_option('miscellaneous/rating_steps', 5))
 
         self.main = main.MainWindow(self, self.xml,
             exaile.collection, exaile.player, exaile.queue, exaile.covers)
@@ -57,12 +59,13 @@ class Main(object):
         self.last_selected_panel = settings.get_option(
             'gui/last_selected_panel', None)
         self.panels['collection'] = collection.CollectionPanel(self.main.window,
-            exaile.collection)
+            exaile.collection, self)
         self.panels['radio'] = radio.RadioPanel(self.main.window, exaile.collection, 
-            exaile.radio, exaile.stations)
+            exaile.radio, exaile.stations, self)
         self.panels['playlists'] = playlists.PlaylistsPanel(self.main.window, 
-            exaile.playlists, exaile.smart_playlists, exaile.collection)
-        self.panels['files'] = files.FilesPanel(self.main.window, exaile.collection)
+            exaile.playlists, exaile.smart_playlists, exaile.collection, self)
+        self.panels['files'] = files.FilesPanel(self.main.window, exaile.collection, 
+            self)
 
         for panel in ('collection', 'radio', 'playlists', 'files'):
             self.add_panel(*self.panels[panel].get_panel())

@@ -30,11 +30,10 @@ class GenericTrackMenu(guiutil.Menu):
         'rating-set': (gobject.SIGNAL_RUN_LAST, None, (int,)),
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
-    def __init__(self):
+    def __init__(self, controller):
         guiutil.Menu.__init__(self)
-        from xlgui import playlist 
-        steps = settings.get_option("miscellaneous/rating_steps", 5)
-        self.rating_images = playlist.create_rating_images(12*steps)
+        
+        self.controller = controller
 
         self._add_queue_pixbuf()
         self._create_menu()
@@ -43,27 +42,8 @@ class GenericTrackMenu(guiutil.Menu):
         """
             Creates the menu
         """
-        steps = settings.get_option("miscellaneous/rating_steps", 5)
-        star_icon = gtk.gdk.pixbuf_new_from_file_at_size(
-            xdg.get_data_path('images/star.png'), 12, 12)
-        icon_set = gtk.IconSet(star_icon)
-        factory = gtk.IconFactory()
-        factory.add_default()
-        factory.add('exaile-star-icon', icon_set)
         self.queue_item = self.append(_('Toggle Queue'), lambda *e: self.on_queue(),
             'exaile-queue-icon')
-        rm = guiutil.Menu()
-        for i in range(0, steps+1):
-            item = rm.append_image(self.rating_images[i],
-                lambda w, e, i=i: self.update_rating(i))
-
-        self.append_menu(_("Set Rating"), rm, 'exaile-star-icon')
-
-    def update_rating(self, i):
-        """
-            Called when the user updates the rating for selected tracks
-        """
-        self.emit('rating-set', i)
 
     def on_queue(self):
         """
@@ -148,10 +128,18 @@ class PlaylistMenu(GenericTrackMenu):
     __gsignals__ = {
         'remove-items': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
-    def __init__(self, playlist, playlists):
-        GenericTrackMenu.__init__(self)
+    def __init__(self, playlist, controller):
+        GenericTrackMenu.__init__(self, controller)
         self.playlist = playlist
-        self.add_playlist_menu = AddToPlaylistMenu(playlist, playlists)
+        
+        self.rating_item = guiutil.MenuRatingWidget(self.controller, 
+            self.playlist.get_selected_tracks)
+        
+        self.append_item(self.rating_item)
+        event.add_callback(self.rating_item.on_rating_change, 'playback_track_start')
+        self.connect('enter-notify-event', self.rating_item.on_rating_change)
+
+        self.add_playlist_menu = AddToPlaylistMenu(playlist, controller.exaile.playlists)
         self.append_menu(_('Add to custom playlist'), self.add_playlist_menu, 'gtk-add')
         self.append(_('Remove'), lambda *e: self.remove_selected_tracks(), 'gtk-remove')
 
@@ -215,11 +203,11 @@ class TrackSelectMenu(GenericTrackMenu):
     __gsignals__ = {
         'append-items': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
-    def __init__(self):
+    def __init__(self, controller):
         """
             Initializes the menu
         """
-        GenericTrackMenu.__init__(self)
+        GenericTrackMenu.__init__(self, controller)
 
     def _create_menu(self):
         """
@@ -260,29 +248,23 @@ class RatedTrackSelectMenu(TrackSelectMenu):
         Menu for any panel that operates on selecting tracks
         including an option to rate tracks
     """
-    def __init__(self):
-        TrackSelectMenu.__init__(self)
+    def __init__(self, controller, get_selected_tracks):
+        
+        self.controller = controller
+        self.rating_item = guiutil.MenuRatingWidget(self.controller, 
+            get_selected_tracks)
+
+        TrackSelectMenu.__init__(self, controller)
+        
+        self.connect('enter-notify-event', self.rating_item.on_rating_change)
 
     def _create_menu(self):
         """
             Actually adds the menu items
         """
         TrackSelectMenu._create_menu(self)
-        steps = settings.get_option("miscellaneous/rating_steps", 5)
-
-        star_icon = gtk.gdk.pixbuf_new_from_file_at_size(
-            xdg.get_data_path('images/star.png'), 12, 12)
-        icon_set = gtk.IconSet(star_icon)
-        factory = gtk.IconFactory()
-        factory.add_default()
-        factory.add('exaile-star-icon', icon_set)
-
-        rm = guiutil.Menu()
-        for i in range(0, steps+1):
-            item = rm.append_image(self.rating_images[i],
-                lambda w, e, i=i: self.update_rating(i))
-
-        self.append_menu(_("Rating:"), rm, 'exaile-star-icon')
+        gtk.Menu.append(self, self.rating_item)
+        self.rating_item.show_all()
 
 # these are stubbs for now
 FilesPanelMenu = TrackSelectMenu
@@ -297,7 +279,7 @@ class PlaylistsPanelMenu(guiutil.Menu):
         'add-playlist': (gobject.SIGNAL_RUN_LAST, None, ()),
         'add-smart-playlist': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
-    def __init__(self, radio=False):
+    def __init__(self, controller, radio=False):
         """
             @param widget: playlists panel widget
         """
@@ -344,15 +326,15 @@ class PlaylistsPanelPlaylistMenu(TrackSelectMenu, PlaylistsPanelMenu):
         'edit-playlist': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
 
-    def __init__(self, radio=False, smart=False):
+    def __init__(self, controller, radio=False, smart=False):
         """
             @param widget: playlists panel widget
         """
         #Adds the menu options to add playlist
-        PlaylistsPanelMenu.__init__(self, radio)
+        PlaylistsPanelMenu.__init__(self, controller, radio)
         self.append_separator()
         #Adds track menu options (like append, queue)
-        TrackSelectMenu.__init__(self)
+        TrackSelectMenu.__init__(self, controller)
         self.smart = smart
 
         self.append_separator()
@@ -436,8 +418,8 @@ class RadioPanelPlaylistMenu(PlaylistsPanelPlaylistMenu):
         when the user right clicks on an actual playlist
         entry
     """
-    def __init__(self):
-        PlaylistsPanelPlaylistMenu.__init__(self, radio=True)
+    def __init__(self, controller):
+        PlaylistsPanelPlaylistMenu.__init__(self, controller, radio=True)
 
 class PlaylistsPanelTrackMenu(guiutil.Menu):
     """
@@ -447,7 +429,7 @@ class PlaylistsPanelTrackMenu(guiutil.Menu):
     __gsignals__ = {
         'remove-track': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
-    def __init__(self):
+    def __init__(self, controller):
         """
             @param widget: playlists panel widget
         """

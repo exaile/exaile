@@ -43,13 +43,14 @@ class CollectionPanel(panel.Panel):
         ['artist', 'date', 'album', 'tracknumber', 'title'],
     )
 
-    def __init__(self, parent, collection, name=None):
+    def __init__(self, parent, collection, controller, name=None):
         """
             Initializes the collection panel
         """
         panel.Panel.__init__(self, parent, name)
 
         self.collection = collection
+        self.controller = controller
         self.use_alphabet = settings.get_option('gui/use_alphabet', True)
         self.filter = self.xml.get_widget('collection_search_entry')
         self.choice = self.xml.get_widget('collection_combo_box')
@@ -61,7 +62,7 @@ class CollectionPanel(panel.Panel):
         self._setup_images()
         self._connect_events()
 
-        self.menu = menu.CollectionPanelMenu()
+        self.menu = menu.CollectionPanelMenu(self.controller, self.get_selected_tracks)
         self.menu.connect('append-items', lambda *e:
             self.emit('append-items', self.get_selected_tracks()))
         self.menu.connect('queue-items', lambda *e:

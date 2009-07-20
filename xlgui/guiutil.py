@@ -639,7 +639,10 @@ class MenuRatingWidget(gtk.MenuItem):
             if not tracks:
                 return False
         
-        val = tracks[0].get_rating()
+        try:
+            val = tracks[0].get_rating()
+        except AttributeError:
+            return False
         
         for track in tracks:
             if val != track.get_rating():

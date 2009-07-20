@@ -183,7 +183,7 @@ class MiniMode(gtk.Window):
         self.box.pack_start(mmwidgets.MMButton('restore',
           'gtk-fullscreen', _('Restore Main Window'), self.on_restore))
         self.box.pack_start(mmwidgets.MMTrackSelector(
-          self.exaile.queue, self.on_track_change))
+          self.exaile.queue, self.on_track_change, self.on_render_title))
         self.box.pack_start(mmwidgets.MMProgressBar(
           self.exaile.player, self.on_track_seeked))
 
@@ -276,6 +276,12 @@ class MiniMode(gtk.Window):
         track = track_selector.get_active_track()
         if track is not None:
             self.exaile.queue.play(track)
+
+    def on_render_title(self, track_selector):
+        """
+            Tells the track selector how to render its title
+        """
+        return self.get_option('plugin/minimode/track_selector_title')
 
     def on_track_seeked(self, progress_bar, position):
         """

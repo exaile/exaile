@@ -12,64 +12,83 @@
           <widget class="GtkVBox" id="vbox1">
             <property name="visible">True</property>
             <property name="orientation">vertical</property>
+            <property name="spacing">3</property>
             <child>
-              <widget class="GtkCheckButton" id="plugin/minimode/always_on_top">
-                <property name="label" translatable="yes">Always on top</property>
+              <widget class="GtkTable" id="table1">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="draw_indicator">True</property>
+                <property name="n_rows">3</property>
+                <property name="n_columns">2</property>
+                <property name="row_spacing">3</property>
+                <property name="homogeneous">True</property>
+                <child>
+                  <widget class="GtkCheckButton" id="plugin/minimode/always_on_top">
+                    <property name="label" translatable="yes">Always on top</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="draw_indicator">True</property>
+                  </widget>
+                </child>
+                <child>
+                  <widget class="GtkCheckButton" id="plugin/minimode/show_in_panel">
+                    <property name="label" translatable="yes">Show in panel</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="draw_indicator">True</property>
+                  </widget>
+                  <packing>
+                    <property name="top_attach">1</property>
+                    <property name="bottom_attach">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="GtkCheckButton" id="plugin/minimode/on_all_desktops">
+                    <property name="label" translatable="yes">Show on all desktops</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="draw_indicator">True</property>
+                  </widget>
+                  <packing>
+                    <property name="top_attach">2</property>
+                    <property name="bottom_attach">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="GtkCheckButton" id="plugin/minimode/display_window_decorations">
+                    <property name="label" translatable="yes">Display window decorations</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="draw_indicator">True</property>
+                  </widget>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="right_attach">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="GtkCheckButton" id="plugin/minimode/button_in_mainwindow">
+                    <property name="label" translatable="yes">Mini mode button in main window</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="draw_indicator">True</property>
+                  </widget>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="right_attach">2</property>
+                    <property name="top_attach">1</property>
+                    <property name="bottom_attach">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
               </widget>
               <packing>
                 <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <widget class="GtkCheckButton" id="plugin/minimode/show_in_panel">
-                <property name="label" translatable="yes">Show in panel</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="draw_indicator">True</property>
-              </widget>
-              <packing>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <widget class="GtkCheckButton" id="plugin/minimode/on_all_desktops">
-                <property name="label" translatable="yes">Show on all desktops</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="draw_indicator">True</property>
-              </widget>
-              <packing>
-                <property name="position">2</property>
-              </packing>
-            </child>
-            <child>
-              <widget class="GtkCheckButton" id="plugin/minimode/display_window_decorations">
-                <property name="label" translatable="yes">Display window decorations</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="draw_indicator">True</property>
-              </widget>
-              <packing>
-                <property name="position">3</property>
-              </packing>
-            </child>
-            <child>
-              <widget class="GtkCheckButton" id="plugin/minimode/button_in_mainwindow">
-                <property name="label" translatable="yes">Mini mode button in main window</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="draw_indicator">True</property>
-              </widget>
-              <packing>
-                <property name="position">4</property>
               </packing>
             </child>
             <child>
@@ -80,13 +99,18 @@
                 <child>
                   <widget class="GtkAlignment" id="alignment1">
                     <property name="visible">True</property>
+                    <property name="yalign">0</property>
+                    <property name="yscale">0</property>
                     <property name="left_padding">12</property>
                     <child>
-                      <widget class="GtkHBox" id="hbox1">
+                      <widget class="GtkHBox" id="hbox2">
                         <property name="visible">True</property>
+                        <property name="spacing">3</property>
+                        <property name="homogeneous">True</property>
                         <child>
                           <widget class="GtkHBox" id="hbox3">
                             <property name="visible">True</property>
+                            <property name="spacing">3</property>
                             <child>
                               <widget class="GtkLabel" id="label2">
                                 <property name="visible">True</property>
@@ -117,10 +141,11 @@
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
                                 <property name="no_show_all">True</property>
+                                <property name="has_tooltip">True</property>
                                 <property name="tooltip" translatable="yes">Center horizontally</property>
                                 <signal name="clicked" handler="on_center_horizontal_clicked"/>
                                 <child>
-                                  <widget class="GtkImage" id="image2">
+                                  <widget class="GtkImage" id="image1">
                                     <property name="visible">True</property>
                                     <property name="stock">gtk-justify-center</property>
                                   </widget>
@@ -140,6 +165,7 @@
                         <child>
                           <widget class="GtkHBox" id="hbox4">
                             <property name="visible">True</property>
+                            <property name="spacing">3</property>
                             <child>
                               <widget class="GtkLabel" id="label3">
                                 <property name="visible">True</property>
@@ -170,10 +196,11 @@
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
                                 <property name="no_show_all">True</property>
+                                <property name="has_tooltip">True</property>
                                 <property name="tooltip" translatable="yes">Center vertically</property>
                                 <signal name="clicked" handler="on_center_vertical_clicked"/>
                                 <child>
-                                  <widget class="GtkImage" id="image1">
+                                  <widget class="GtkImage" id="image2">
                                     <property name="visible">True</property>
                                     <property name="stock">gtk-justify-center</property>
                                   </widget>
@@ -206,7 +233,9 @@
                 </child>
               </widget>
               <packing>
-                <property name="position">5</property>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">1</property>
               </packing>
             </child>
           </widget>
@@ -228,6 +257,36 @@
           </widget>
           <packing>
             <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkHBox" id="hbox5">
+            <property name="visible">True</property>
+            <property name="spacing">3</property>
+            <child>
+              <widget class="GtkLabel" id="label4">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Track selector title:</property>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkComboBoxEntry" id="plugin/minimode/track_selector_title">
+                <property name="visible">True</property>
+              </widget>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">2</property>
           </packing>
         </child>
       </widget>

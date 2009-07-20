@@ -113,3 +113,32 @@ class SelectedControlsPreference(widgets.SelectionListPrefsItem):
         'restore': _('Restore')
     }
     default = ['previous', 'play_pause', 'next', 'track_selector', 'progress_bar']
+
+class TrackSelectorTitlePreference(widgets.ComboEntryPrefsItem):
+    name = 'plugin/minimode/track_selector_title'
+    completion_items = {
+        '$tracknumber': _('Track number'),
+        '$title': _('Title'),
+        '$artist': _('Artist'),
+        '$composer': _('Composer'),
+        '$album': _('Album'),
+        '$length': _('Length'),
+        '$discnumber': _('Disc number'),
+        '$rating': _('Rating'),
+        '$date': _('Date'),
+        '$genre': _('Genre'),
+        '$bitrate': _('Bitrate'),
+        '$location': _('Location'),
+        '$filename': _('Filename'),
+        '$playcount': _('Play count'),
+        '$bpm': _('BPM')
+    }
+    preset_items = [
+        # TRANSLATORS: Mini mode track selector title preset
+        _('$tracknumber - $title'),
+        # TRANSLATORS: Mini mode track selector title preset
+        _('$title by $artist'),
+        # TRANSLATORS: Mini mode track selector title preset
+        _('$title ($length)')
+    ]
+    default = _('$tracknumber - $title')

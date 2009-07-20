@@ -15,6 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import gobject, gtk, pango
+from string import Template
 from xl import event
 from xl.nls import gettext as _
 
@@ -162,34 +163,58 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
         automatically on playlist actions
         Track display is configurable
     """
-    def __init__(self, queue, callback):
-        self.callback = callback
+    def __init__(self, queue, changed_callback, render_callback=None):
         self.queue = queue
         self.list = gtk.ListStore(gobject.TYPE_PYOBJECT)
-        self.render_items = ['tracknumber', '-', 'title']
-        self.items_mapping = {
+        self._default = '$tracknumber - $title'
+        self._substitutions = {
+            'tracknumber': 'tracknumber',
+            'title': 'title',
+            'artist': 'artist',
+            'composer': 'composer',
+            'album': 'album',
             'length': '__length',
+            'discnumber': 'discnumber',
             'rating': '__rating',
+            'date': 'date',
+            'genre': 'genre',
             'bitrate': '__bitrate',
-            'location': '__loc'
+            'location': '__location',
+            'filename': 'filename',
+            'playcount': 'playcount',
+            'bpm': 'bpm'
         }
-        self.items_fallback = {
-            'tracknumber': '',
-            'length': '0:00'
+        self._formattings = {
+            'tracknumber': self.format_tracknumber,
+            'length': self.format_length
         }
-        self.updating = False
+        self._updating = False
+        self._changed_callback = changed_callback
 
         MMWidget.__init__(self, 'track_selector')
         gtk.ComboBox.__init__(self, self.list)
         self.set_size_request(150, 0)
 
         textrenderer = gtk.CellRendererText()
-        self.pack_start(textrenderer, True)
+        self.pack_start(textrenderer, expand=True)
         self.set_cell_data_func(textrenderer, self.text_data_func)
+
+        gobject.type_register(type(self))
+        gobject.signal_new('render-title',
+            self,
+            gobject.SIGNAL_RUN_LAST,
+            gobject.TYPE_STRING,
+            ()
+        )
+
+        try:
+            self.connect('render-title', render_callback)
+        except TypeError:
+            pass
 
         self.update_track_list()
 
-        self.connect('changed', self.callback_wrapper)
+        self.connect('changed', self.on_change)
         event.add_callback(self.on_playlist_current_changed, 'playlist_current_changed')
         event.add_callback(self.on_tracks_added, 'tracks_added')
         event.add_callback(self.on_tracks_removed, 'tracks_removed')
@@ -203,7 +228,7 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
             Populates the track list based
             on the current playlist
         """
-        self.updating = True
+        self._updating = True
         self.list.clear()
         playlist = self.queue.current_playlist
         if playlist is not None:
@@ -213,7 +238,7 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
                 iter = self.list.append([track])
                 if track == current_track:
                     self.set_active_iter(iter)
-        self.updating = False
+        self._updating = False
 
     def get_active_track(self):
         """
@@ -225,14 +250,50 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
         except TypeError:
             return None
 
-    def map_item(self, item):
+    def format_tracknumber(self, tracknumber):
         """
-            Maps items to internal representations
+            Returns a properly formatted tracknumber
         """
         try:
-            return self.items_mapping[item]
-        except KeyError:
-            return item
+            tracknumber = int(tracknumber)
+        except TypeError:
+            tracknumber = 0
+
+        return '%02d' % tracknumber
+
+    def format_length(self, length):
+        """
+            Returns a properly formatted track length
+        """
+        try:
+            length = float(length)
+        except TypeError:
+            length = 0
+
+        return '%d:%02d' % (length // 60, length % 60)
+
+    def get_substitutions(self, track):
+        """
+            Returns a map for keyword to tag value mapping
+        """
+        substitutions = self._substitutions.copy()
+
+        for keyword, tagname in substitutions.items():
+            try:
+                substitutions[keyword] = _(' & ').join(track[tagname])
+            except TypeError:
+                substitutions[keyword] = track[tagname]
+
+            try:
+                formatter = self._formattings[keyword]
+                substitutions[keyword] = formatter(substitutions[keyword])
+            except KeyError:
+                pass
+
+            if substitutions[keyword] is None:
+                substitutions[keyword] = _('Unknown')
+
+        return substitutions
 
     def text_data_func(self, celllayout, cell, model, iter):
         """
@@ -244,22 +305,8 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
         if track is None:
             return
 
-        render_items = map(self.map_item, self.render_items)
-        text = ''
-        for item in render_items:
-            try:
-                try:
-                    values = [str(value) for value in track.tags[item]]
-                except TypeError:
-                    values = [str(track.tags[item])]
-                # TRANSLATORS: String multiple tag values will be joined with
-                text += _(' & ').join(values)
-            except KeyError:
-                try:
-                    text += self.items_fallback[item]
-                except KeyError:
-                    text += item
-            text += ' '
+        template = Template(self.emit('render-title') or self._default)
+        text = template.safe_substitute(self.get_substitutions(track))
         cell.set_property('text', text)
 
         active_iter = self.get_active_iter()
@@ -273,6 +320,13 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
                 cell.set_property('weight', pango.WEIGHT_NORMAL)
 
         return
+
+    def on_change(self, *e):
+        """
+            Wrapper function to prevent race conditions
+        """
+        if not self._updating:
+            self._changed_callback(*e)
 
     def on_playlist_current_changed(self, event, playlist, track):
         """
@@ -308,9 +362,12 @@ class MMProgressBar(MMWidget, gtk.ProgressBar):
         self.update_state()
 
         gobject.type_register(type(self))
-        gobject.signal_new('track-seeked', self,
-            gobject.SIGNAL_RUN_FIRST, gobject.TYPE_NONE,
-            (gobject.TYPE_FLOAT, ))
+        gobject.signal_new('track-seeked',
+            self,
+            gobject.SIGNAL_RUN_FIRST,
+            gobject.TYPE_NONE,
+            (gobject.TYPE_FLOAT, )
+        )
 
         self.connect('track-seeked', callback)
 

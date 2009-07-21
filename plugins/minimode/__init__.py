@@ -203,9 +203,10 @@ class MiniMode(gtk.Window):
         self.box.pack_start(mmwidgets.MMButton('restore',
           'gtk-fullscreen', _('Restore Main Window'), self.on_restore))
         self.box.pack_start(mmwidgets.MMTrackSelector(
-          self.exaile.queue, self.on_track_change, self.on_render_title))
+          self.exaile.queue, self.on_track_change, self.on_format_title))
         self.box.pack_start(mmwidgets.MMProgressBar(
           self.exaile.player, self.on_track_seeked))
+        #self.box.pack_start(mmwidgets.MMPlaylistButton(None, None, None))
 
         # TODO: track_bar
 
@@ -217,9 +218,8 @@ class MiniMode(gtk.Window):
             Shows, hides and reorders controls
             based on user setting
         """
-        selected_controls = self.get_option('plugin/minimode/selected_controls')
-
         self.box.hide_all_children()
+        selected_controls = self.get_option('plugin/minimode/selected_controls')
 
         for id in selected_controls:
             try:
@@ -243,7 +243,7 @@ class MiniMode(gtk.Window):
 
         for stock_id in stock_ids:
             icon_set = gtk.IconSet()
-            for size in (16, 22, 24, 32):
+            for size in (32, 24, 22, 16):
                 icon_source = gtk.IconSource()
                 icon_source.set_filename(os.path.join(
                     basedir, 'icons', str(size), stock_id + '.png'))
@@ -251,9 +251,16 @@ class MiniMode(gtk.Window):
             icon_factory.add(stock_id, icon_set)
 
     def get_option(self, option):
+        """
+            Wrapper function, automatically inserts default values
+        """
         return settings.get_option(option, self.defaults[option])
 
     def set_option(self, option, value):
+        """
+            Wrapper function, automatically inserts default values
+            and sets value only if it has changed
+        """
         oldvalue = self.get_option(option)
         if value != oldvalue:
             settings.set_option(option, value)
@@ -312,11 +319,13 @@ class MiniMode(gtk.Window):
         """
         track = track_selector.get_active_track()
         if track is not None:
-            self.exaile.queue.play(track)
+            index = self.exaile.queue.current_playlist.index(track)
+            self.exaile.queue.current_playlist.set_current_pos(index)
+            self.exaile.queue.play()
 
-    def on_render_title(self, track_selector):
+    def on_format_title(self, track_selector):
         """
-            Tells the track selector how to render its title
+            Tells the track selector how to format its title
         """
         return self.get_option('plugin/minimode/track_selector_title')
 

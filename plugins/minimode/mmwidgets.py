@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright (C) 2009 Mathias Brodala
 #
 # This program is free software; you can redistribute it and/or modify
@@ -181,9 +182,12 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
         automatically on playlist actions
         Track display is configurable
     """
-    def __init__(self, queue, changed_callback, render_callback=None):
+    def __init__(self, queue, changed_callback, format_callback=None):
+        MMWidget.__init__(self, 'track_selector')
+        gtk.ComboBox.__init__(self)
+
         self.queue = queue
-        self.list = gtk.ListStore(gobject.TYPE_PYOBJECT)
+        self.list = gtk.ListStore(gobject.TYPE_PYOBJECT, gobject.TYPE_STRING)
         self._default = '$tracknumber - $title'
         self._substitutions = {
             'tracknumber': 'tracknumber',
@@ -200,17 +204,19 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
             'location': '__location',
             'filename': 'filename',
             'playcount': 'playcount',
-            'bpm': 'bpm'
+            'bpm': 'bpm',
         }
         self._formattings = {
             'tracknumber': self.format_tracknumber,
-            'length': self.format_length
+            'length': self.format_length,
+            'rating': self.format_rating,
+            'bitrate': self.format_bitrate,
         }
+        self._rating_steps = 5.0
         self._updating = False
         self._changed_callback = changed_callback
 
-        MMWidget.__init__(self, 'track_selector')
-        gtk.ComboBox.__init__(self, self.list)
+        self.set_model(self.list)
         self.set_size_request(150, 0)
 
         textrenderer = gtk.CellRendererText()
@@ -218,36 +224,34 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
         self.set_cell_data_func(textrenderer, self.text_data_func)
 
         try:
-            self.connect('render-title', render_callback)
+            self.connect('format-title', format_callback)
         except TypeError:
             pass
 
-        self.update_track_list()
+        self.update_track_list(self.queue.current_playlist)
 
         self.connect('changed', self.on_change)
         event.add_callback(self.on_playlist_current_changed, 'playlist_current_changed')
         event.add_callback(self.on_tracks_added, 'tracks_added')
         event.add_callback(self.on_tracks_removed, 'tracks_removed')
+        event.add_callback(self.on_tracks_reordered, 'tracks_reordered')
 
-    def callback_wrapper(self, *args):
-        if not self.updating:
-            self.callback(*args)
-
-    def update_track_list(self):
+    def update_track_list(self, playlist, tracks=None):
         """
             Populates the track list based
             on the current playlist
         """
+        if tracks is None:
+            tracks = playlist.get_tracks()
+
+        current_track = playlist.get_current()
+
         self._updating = True
         self.list.clear()
-        playlist = self.queue.current_playlist
-        if playlist is not None:
-            tracks = playlist.get_tracks()
-            current_track = playlist.get_current()
-            for track in tracks:
-                iter = self.list.append([track])
-                if track == current_track:
-                    self.set_active_iter(iter)
+        for track in tracks:
+            iter = self.list.append([track, self.get_formatted_title(track)])
+            if track == current_track:
+                self.set_active_iter(iter)
         self._updating = False
 
     def get_active_track(self):
@@ -259,6 +263,21 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
             return self.list.get_value(iter, 0)
         except TypeError:
             return None
+
+    def set_active_track(self, active_track):
+        """
+            Sets the currently selected track
+        """
+        iter = self.list.get_iter_first()
+
+        while iter is not None:
+            track = self.list.get_value(iter, 0)
+
+            if track == active_track:
+                self.set_active_iter(iter)
+                break
+
+            iter = self.list.iter_next(iter)
 
     def format_tracknumber(self, tracknumber):
         """
@@ -283,6 +302,41 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
             length = 0
 
         return '%d:%02d' % (length // 60, length % 60)
+
+    def format_rating(self, rating):
+        """
+            Returns a properly formatted rating
+        """
+        try:
+            rating = float(rating) / 100
+        except TypeError:
+            rating = 0
+
+        rating = self._rating_steps * rating
+
+        return '%s%s' % (
+            '★' * int(rating),
+            '☆' * int(self._rating_steps - rating)
+        )
+
+    def format_bitrate(self, bitrate):
+        """
+            Returns a properly formatted bitrate
+        """
+        try:
+            bitrate = int(bitrate)
+        except TypeError:
+            bitrate = 0
+
+        return '%d kbit/s' % (bitrate / 1000)
+
+    def get_formatted_title(self, track):
+        """
+            Returns the formatted title of a track
+        """
+        template = Template(self.emit('format-title') or self._default)
+        text = template.safe_substitute(self.get_substitutions(track))
+        return text
 
     def get_substitutions(self, track):
         """
@@ -309,29 +363,28 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
 
     def text_data_func(self, celllayout, cell, model, iter):
         """
-            Allows customization of the
-            track data to be rendered
+            Updates track titles and highlights
+            the current track if the popup is shown
         """
-        track = model.get_value(iter, 0)
+        title = model.get_value(iter, 1)
 
-        if track is None:
+        if title is None:
             return
 
-        template = Template(self.emit('render-title') or self._default)
-        text = template.safe_substitute(self.get_substitutions(track))
-        cell.set_property('text', text)
+        cell.set_property('text', title)
 
         active_iter = self.get_active_iter()
 
         if active_iter is not None:
-            active_track = model.get_value(self.get_active_iter(), 0)
+            track = model.get_value(iter, 0)
+            active_track = model.get_value(active_iter, 0)
+            weight = pango.WEIGHT_NORMAL
 
-            if track == active_track:
-                cell.set_property('weight', pango.WEIGHT_BOLD)
-            else:
-                cell.set_property('weight', pango.WEIGHT_NORMAL)
+            if self.get_property('popup-shown'):
+                if track == active_track:
+                    weight = pango.WEIGHT_BOLD
 
-        return
+            cell.set_property('weight', weight)
 
     def on_change(self, *e):
         """
@@ -342,24 +395,30 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
 
     def on_playlist_current_changed(self, event, playlist, track):
         """
-            Triggers change of the currently active track
+            Updates the currently selected track
         """
-        self.update_track_list()
+        self.set_active_track(track)
 
     def on_tracks_added(self, event, playlist, tracks):
         """
-            Triggers update of the track list on track removal
+            Triggers update of the track list on track addition
         """
-        self.update_track_list()
+        self.update_track_list(playlist, tracks)
 
     def on_tracks_removed(self, event, playlist, (start, end, removed)):
         """
-            Triggers update of the track list on track addition
+            Triggers update of the track list on track removal
         """
-        self.update_track_list()
+        self.update_track_list(playlist)
+
+    def on_tracks_reordered(self, event, playlist, tracks):
+        """
+            Triggers update of the track list on track reordering
+        """
+        self.update_track_list(playlist, tracks)
 
 gobject.type_register(MMTrackSelector)
-gobject.signal_new('render-title', MMTrackSelector,
+gobject.signal_new('format-title', MMTrackSelector,
     gobject.SIGNAL_RUN_LAST, gobject.TYPE_STRING, ())
 
 class MMProgressBar(MMWidget, gtk.ProgressBar):

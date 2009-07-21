@@ -74,6 +74,7 @@ class MiniMode(gtk.Window):
 
         self.register_icons(['exaile-minimode'])
         self.setup_controls()
+        self.update_position()
 
         self.menuitem = mmwidgets.MMMenuItem(self.on_menuitem_activate)
         self.exaile.gui.xml.get_widget('view_menu').append(self.menuitem)
@@ -91,6 +92,9 @@ class MiniMode(gtk.Window):
         if self.exaile.gui.tray_icon is not None:
             self.toggle_tray_id = self.exaile.gui.tray_icon.connect(
                 'toggle-tray', self.on_toggle_tray)
+
+        self.exaile.gui.xml.signal_connect('on_playlist_notebook_switch',
+            self.on_playlist_notebook_switch)
 
         #event.add_callback(self.on_setting_change, 'option_set')
 
@@ -312,6 +316,15 @@ class MiniMode(gtk.Window):
         """
         self.toggle_visibility()
         self._active = False
+
+    def on_playlist_notebook_switch(self, notebook, page, page_num):
+        """
+            Updates the track selector on playlist notebook switching
+        """
+        notebook_page = self.exaile.gui.main.get_selected_playlist()
+        if notebook_page is None:
+            return
+        self.box['track_selector'].update_track_list(notebook_page.playlist)
 
     def on_track_change(self, track_selector):
         """

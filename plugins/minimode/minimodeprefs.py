@@ -49,10 +49,6 @@ class DisplayWindowDecorationsPreference(widgets.CheckPrefsItem):
     name = 'plugin/minimode/display_window_decorations'
     default = True
 
-class ButtonInMainWindowPreference(widgets.CheckPrefsItem):
-    name = 'plugin/minimode/button_in_mainwindow'
-    default = False
-
 class HorizontalPositionPreference(widgets.SpinPrefsItem):
     name = 'plugin/minimode/horizontal_position'
     default = 10

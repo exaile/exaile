@@ -415,6 +415,8 @@ class Playlist(object):
         else:
             self._ordered_tracks = tracks
 
+        event.log_event('tracks_reordered', self, tracks)
+
     ordered_tracks = property(get_ordered_tracks,
         set_ordered_tracks)
 

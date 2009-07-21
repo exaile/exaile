@@ -321,7 +321,7 @@ class MiniMode(gtk.Window):
         if track is not None:
             index = self.exaile.queue.current_playlist.index(track)
             self.exaile.queue.current_playlist.set_current_pos(index)
-            self.exaile.queue.play()
+            self.exaile.queue.play(track)
 
     def on_format_title(self, track_selector):
         """

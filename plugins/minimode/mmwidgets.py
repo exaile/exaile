@@ -270,6 +270,7 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
         """
         iter = self.list.get_iter_first()
 
+        self._updating = True
         while iter is not None:
             track = self.list.get_value(iter, 0)
 
@@ -278,6 +279,7 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
                 break
 
             iter = self.list.iter_next(iter)
+        self._updating = False
 
     def format_tracknumber(self, tracknumber):
         """

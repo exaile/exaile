@@ -686,11 +686,17 @@ class MenuRatingWidget(gtk.MenuItem):
         self.image.set_from_pixbuf (self._get_rating_pixbuf (self._get_tracks()))
         self.realize()
 
-
-
 def get_urls_for(items):
     """
         Returns the items' URLs
     """
     return [urllib.quote(item.get_loc().encode(common.get_default_encoding()))
         for item in items]
+
+def finish(repeat=True):
+    """
+        Waits for current pending gtk events to finish
+    """
+    while gtk.events_pending():
+        gtk.main_iteration()
+        if not repeat: break

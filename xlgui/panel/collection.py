@@ -14,7 +14,7 @@
 
 from xl.nls import gettext as _
 import gtk, gobject, urllib, logging
-from xl import xdg, common, track, trackdb
+from xl import xdg, common, track, trackdb, metadata
 from xl import settings
 from xlgui import panel, guiutil, menu, playlist
 
@@ -54,6 +54,7 @@ class CollectionPanel(panel.Panel):
         self.use_alphabet = settings.get_option('gui/use_alphabet', True)
         self.filter = self.xml.get_widget('collection_search_entry')
         self.choice = self.xml.get_widget('collection_combo_box')
+        self._search_num = 0
 
         self.start_count = 0
         self.keyword = ''
@@ -303,6 +304,55 @@ class CollectionPanel(panel.Panel):
 
         self.emit('collection-tree-loaded')
 
+    def _expand_node_by_name(self, search_num, parent, name):
+        iter = self.model.iter_children(parent)
+        
+        while iter:
+            if search_num != self._search_num: return
+            value = self.model.get_value(iter, 1)
+            if not value:
+                value = self.model.get_value(iter, 2)
+            
+            if value == name:
+                self.tree.expand_row(self.model.get_path(iter), False)
+                return iter
+
+            iter = self.model.iter_next(iter)
+            
+    def _expand_to(self, search_num, track, tmporder):
+        expand = []
+        for item in tmporder:
+            if search_num != self._search_num: return
+            try:
+                value = metadata.j(track[item])
+                expand.append(value)
+            except (TypeError, KeyError):
+                continue
+
+        parent = None
+        for item in expand[:-1]:
+            parent = self._expand_node_by_name(search_num, parent, item)
+
+    def _expand_search_nodes(self, search_num):
+        if not self.keyword.strip(): return
+
+        for track in self.tracks:
+            if search_num != self._search_num: return
+            tmporder = self.order[:]
+            if 'tracknumber' in tmporder: tmporder.remove('tracknumber')
+            for item in reversed(tmporder):
+                try:
+                    value = metadata.j(track[item])
+                    if not value: continue
+                    
+                    if self.keyword.strip().lower() in value.lower():
+                        self._expand_to(search_num, track, tmporder)
+
+                except (TypeError, KeyError):  
+                    continue
+
+                tmporder.pop()
+
     def load_subtree(self, parent):
         iter_sep = None
         if parent == None:
@@ -326,9 +376,11 @@ class CollectionPanel(panel.Panel):
                 depth += 1
         except ValueError:
             pass # tracknumber isnt in the list
+
         try:
             tag = self.order[depth]
             self.tracks = self.collection.search(search)
+
             sort_by = []
             if depth > 0 and self.order[depth-1] == "tracknumber":
                 sort_by = ['discnumber', 'tracknumber']
@@ -407,3 +459,7 @@ class CollectionPanel(panel.Panel):
 
         if iter_sep is not None:
             self.model.remove(iter_sep)
+
+        if depth == 0 and len(self.keyword) > 2:
+            self._search_num += 1
+            gobject.idle_add(self._expand_search_nodes, self._search_num)

@@ -38,15 +38,6 @@ class MMMenuItem(gtk.ImageMenuItem):
         self.image.destroy()
         gtk.ImageMenuItem.destroy(self)
 
-class MMWidget(gtk.Widget):
-    """
-        Wrapper for gtk.Widget,
-        allows for identification of widgets
-    """
-    def __init__(self, id):
-        gtk.Widget.__init__(self)
-        self.id = id
-
 class MMBox(gtk.HBox):
     """
         Convenience wrapper around gtk.HBox, allows
@@ -65,7 +56,7 @@ class MMBox(gtk.HBox):
 
     def __getitem__(self, id):
         """
-            Returns a contained widget
+            Returns a contained child
         """
         all_widgets = []
         all_widgets += [widget for widget in self]
@@ -77,7 +68,7 @@ class MMBox(gtk.HBox):
 
     def show_child(self, id):
         """
-            Shows a contained widget
+            Shows a contained child
         """
         for widget in self._removed_widgets:
             if widget.id == id:
@@ -88,7 +79,7 @@ class MMBox(gtk.HBox):
 
     def show_all_children(self):
         """
-            Shows all contained widgets
+            Shows all contained children
         """
         for widget in self:
             self.show_child(widget.id)
@@ -110,6 +101,15 @@ class MMBox(gtk.HBox):
         """
         for widget in self:
             self.hide_child(widget.id)
+
+class MMWidget(gtk.Widget):
+    """
+        Wrapper for gtk.Widget,
+        allows for identification of widgets
+    """
+    def __init__(self, id):
+        gtk.Widget.__init__(self)
+        self.id = id
 
 class MMButton(MMWidget, gtk.Button):
     """
@@ -175,6 +175,39 @@ class MMPlayPauseButton(MMButton):
             Updates appearance on playback state change
         """
         self.update_state()
+
+class MMVolumeButton(MMWidget, gtk.VolumeButton):
+    """
+        Wrapper class around gtk.VolumeButton
+    """
+    def __init__(self, player, callback):
+        MMWidget.__init__(self, 'volume')
+        gtk.VolumeButton.__init__(self)
+
+        self.player = player
+
+        adjustment = gtk.Adjustment(upper=1, step_incr=0.1, page_incr=0.2)
+        self.set_adjustment(adjustment)
+
+        self._changed_callback = callback
+
+        self.connect('value-changed', self.on_change)
+        self.connect('expose-event', self.on_expose)
+
+    def on_change(self, *e):
+        """
+            Wrapper function to prevent race conditions
+        """
+        if not self._updating:
+            self._changed_callback(*e)
+
+    def on_expose(self, volume_button, event):
+        """
+            Updates value on repaint requests
+        """
+        self._updating = True
+        self.set_value(self.player.get_volume() / 100.0)
+        self._updating = False
 
 class MMTrackSelector(MMWidget, gtk.ComboBox):
     """

@@ -16,7 +16,7 @@
             <child>
               <widget class="GtkTable" id="table1">
                 <property name="visible">True</property>
-                <property name="n_rows">3</property>
+                <property name="n_rows">2</property>
                 <property name="n_columns">2</property>
                 <property name="row_spacing">3</property>
                 <property name="homogeneous">True</property>
@@ -51,8 +51,8 @@
                     <property name="draw_indicator">True</property>
                   </widget>
                   <packing>
-                    <property name="top_attach">2</property>
-                    <property name="bottom_attach">3</property>
+                    <property name="left_attach">1</property>
+                    <property name="right_attach">2</property>
                   </packing>
                 </child>
                 <child>
@@ -66,13 +66,9 @@
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="right_attach">2</property>
+                    <property name="top_attach">1</property>
+                    <property name="bottom_attach">2</property>
                   </packing>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
                 </child>
               </widget>
               <packing>

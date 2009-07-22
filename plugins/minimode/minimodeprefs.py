@@ -103,7 +103,8 @@ class SelectedControlsPreference(widgets.SelectionListPrefsItem):
         'stop': _('Stop'),
         'next': _('Next'),
         'track_selector': _('Track selector'),
-        'progress_bar': _('Progress bar')
+        'progress_bar': _('Progress bar'),
+        'volume': _('Volume'),
     }
     fixed_items = {
         'restore': _('Restore')
@@ -127,7 +128,7 @@ class TrackSelectorTitlePreference(widgets.ComboEntryPrefsItem):
         '$location': _('Location'),
         '$filename': _('Filename'),
         '$playcount': _('Play count'),
-        '$bpm': _('BPM')
+        '$bpm': _('BPM'),
     }
     preset_items = [
         # TRANSLATORS: Mini mode track selector title preset

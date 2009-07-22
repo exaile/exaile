@@ -104,7 +104,7 @@ class MiniMode(gtk.Window):
             Cleans up and hides
             the mini mode window
         """
-        event.remove_callback(self.on_setting_change, 'option_set')
+        #event.remove_callback(self.on_setting_change, 'option_set')
         if self._configure_id is not None:
             self.disconnect(self._configure_id)
             self._configure_id = None
@@ -211,6 +211,8 @@ class MiniMode(gtk.Window):
           self.exaile.queue, self.on_track_change, self.on_format_title))
         self.box.pack_start(mmwidgets.MMProgressBar(
           self.exaile.player, self.on_track_seeked))
+        self.box.pack_start(mmwidgets.MMVolumeButton(
+          self.exaile.player, self.on_volume_changed))
         #self.box.pack_start(mmwidgets.MMPlaylistButton(None, None, None))
 
         # TODO: track_bar
@@ -349,6 +351,12 @@ class MiniMode(gtk.Window):
         """
         duration = self.exaile.player.current.get_duration()
         self.exaile.player.seek(duration * float(position))
+
+    def on_volume_changed(self, volume_button, value):
+        """
+            Handles changes to the volume
+        """
+        settings.set_option('player/volume', value)
 
     def on_toggle_tray(self, trayicon):
         """

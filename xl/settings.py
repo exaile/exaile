@@ -68,7 +68,9 @@ class SettingsManager(RawConfigParser):
         
         if loc is not None:
             try:
-                self.read(self.loc)
+                if self.read(self.loc) == []:
+                    if self.read(self.loc + ".new") == []:
+                        self.read(self.loc + ".old")
             except:
                 pass
 
@@ -192,13 +194,25 @@ class SettingsManager(RawConfigParser):
             return
         if self._saving or not self._dirty: return
         self._saving = True
-        f = open(self.loc, 'w')
+        
+        f = open(self.loc + ".new", 'w')
         self.write(f)
         try:
             # make it readable by current user only, to protect private data
             os.fchmod(f.fileno(), 384)
         except:
             pass # fail gracefully, eg if on windows
+        try:
+            os.rename(self.loc, self.loc + ".old")
+        except:
+            pass # if it doesn'texist we don't care
+        os.rename(self.loc + ".new", self.loc)
+        try:
+            os.remove(self.loc + ".old")
+        except:
+            pass
+        f.flush()
+        
         self._saving = False
         self._dirty = False
 

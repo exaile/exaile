@@ -397,6 +397,9 @@ class EventManager(object):
                     except ValueError:
                         pass
                 elif event.time >= cb.time:
+                    if self.use_logger:
+                        logger.debug(_("Attempting to call %s in response "
+                            "to %s.")%(cb.wfunction(), event.type))
                     cb.wfunction().__call__(event.type, event.object, 
                             event.data, *cb.args, **cb.kwargs)
             except:

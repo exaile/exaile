@@ -35,7 +35,7 @@ def gtkrun(f):
         # if we're already in the main thread and you try to run
         # threads_enter, stuff will break horribly, so test for the main
         # thread and if we're currently in it we simply run the function
-        if threading.currentThread().name == 'MainThread':
+        if threading.currentThread().getName() == 'MainThread':
             return f(*args, **kwargs)
         else:
             gtk.gdk.threads_enter()

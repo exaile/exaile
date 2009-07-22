@@ -594,7 +594,7 @@ class Library(object):
             if not os.path.exists(f2):
                 removals.append(db.get_track_by_loc(f))
         for tr in removals:
-            logging.info(u"Removing " + unicode(tr))
+            logger.debug(u"Removing " + unicode(tr))
             db.remove(tr)
 
         self.scanning = False

@@ -18,7 +18,9 @@
 import gobject, gtk, pango
 from string import Template
 from xl import event
+from xl.track import Track
 from xl.nls import gettext as _
+from xlgui import guiutil
 
 class MMMenuItem(gtk.ImageMenuItem):
     """
@@ -219,8 +221,6 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
     """
     pass
 
-from xl import track as xltrack
-
 class MMTrackFormatter(gobject.GObject):
     """
         Formats track titles based on a format string
@@ -263,7 +263,7 @@ class MMTrackFormatter(gobject.GObject):
         """
             Returns the formatted title of a track
         """
-        if not isinstance(track, xltrack.Track):
+        if not isinstance(track, Track):
             return None
 
         template = Template(self.emit('format-request') or self._format)
@@ -381,6 +381,7 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
         event.add_callback(self.on_tracks_removed, 'tracks_removed')
         event.add_callback(self.on_tracks_reordered, 'tracks_reordered')
 
+    @guiutil.gtkrun
     def update_track_list(self, playlist=None, tracks=None):
         """
             Populates the track list based
@@ -447,12 +448,16 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
         if active_iter is not None:
             track = model.get_value(iter, 0)
             active_track = model.get_value(active_iter, 0)
+            #ellipsize = pango.ELLIPSIZE_NONE
             weight = pango.WEIGHT_NORMAL
 
             if self.get_property('popup-shown'):
                 if track == active_track:
                     weight = pango.WEIGHT_BOLD
+            #else:
+            #    ellipsize = pango.ELLIPSIZE_END
 
+            #cell.set_property('ellipsize', ellipsize)
             cell.set_property('weight', weight)
 
     def on_change(self, *e):
@@ -486,15 +491,19 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
         """
         self.update_track_list(playlist, tracks)
 
-class MMProgressBar(MMWidget, gtk.ProgressBar):
+class MMProgressBar(MMWidget, gtk.Alignment):
     """
         Wrapper class which updates itself
         based on the current track
     """
     def __init__(self, player, callback):
         MMWidget.__init__(self, 'progress_bar')
-        gtk.ProgressBar.__init__(self)
-        self.set_size_request(150, 0)
+        gtk.Alignment.__init__(self)
+        self.set_padding(3, 3, 0, 0)
+
+        self.bar = gtk.ProgressBar()
+        self.bar.set_size_request(150, -1)
+        self.add(self.bar)
 
         self.player = player
         self._timer = None
@@ -507,13 +516,13 @@ class MMProgressBar(MMWidget, gtk.ProgressBar):
         event.add_callback(self.on_playback_state_change, 'playback_toggle_pause')
         event.add_callback(self.on_playback_state_change, 'playback_player_end')
 
-        self.add_events(gtk.gdk.BUTTON_PRESS_MASK |
+        self.bar.add_events(gtk.gdk.BUTTON_PRESS_MASK |
             gtk.gdk.BUTTON_RELEASE_MASK |
             gtk.gdk.POINTER_MOTION_MASK)
 
-        self.connect('button-press-event', self.on_button_press)
-        self.connect('button-release-event', self.on_button_release)
-        self.connect('motion-notify-event', self.on_motion_notify)
+        self.bar.connect('button-press-event', self.on_button_press)
+        self.bar.connect('button-release-event', self.on_button_release)
+        self.bar.connect('motion-notify-event', self.on_motion_notify)
 
     def update_state(self):
         """
@@ -533,7 +542,7 @@ class MMProgressBar(MMWidget, gtk.ProgressBar):
 
             if self.player.is_paused():
                 self.disable_timer()
-                fraction = self.get_fraction()
+                fraction = self.bar.get_fraction()
             elif self.player.is_playing():
                 if track.is_local() and track['__length']:
                     self.enable_timer()
@@ -542,8 +551,8 @@ class MMProgressBar(MMWidget, gtk.ProgressBar):
                     self.disable_timer()
                     text = _('Streaming...')
 
-        self.set_fraction(fraction)
-        self.set_text(text)
+        self.bar.set_fraction(fraction)
+        self.bar.set_text(text)
         return True
 
     def enable_timer(self):
@@ -593,11 +602,11 @@ class MMProgressBar(MMWidget, gtk.ProgressBar):
         if self._press_event is None:
             return True
 
-        posx, posy, width, height = self.get_allocation()
+        posx, posy, width, height = self.bar.get_allocation()
         event.x = float(max(0, event.x))
         event.x = float(min(event.x, width - 1))
 
-        self.set_fraction(event.x / width)
+        self.bar.set_fraction(event.x / width)
         self.emit('track-seeked', event.x / width)
 
         self._press_event = None
@@ -611,7 +620,7 @@ class MMProgressBar(MMWidget, gtk.ProgressBar):
         if self._press_event is None:
             return True
 
-        posx, posy, width, height = self.get_allocation()
+        posx, posy, width, height = self.bar.get_allocation()
         event.x = float(max(0, event.x))
         event.x = float(min(event.x, width))
 
@@ -625,8 +634,8 @@ class MMProgressBar(MMWidget, gtk.ProgressBar):
         text = _('Seeking: ')
         text += '%d:%02d' % (seekpos // 60, seekpos % 60)
 
-        self.set_fraction(event.x / width)
-        self.set_text(text)
+        self.bar.set_fraction(event.x / width)
+        self.bar.set_text(text)
 
 gobject.type_register(MMProgressBar)
 gobject.signal_new('track-seeked', MMProgressBar,

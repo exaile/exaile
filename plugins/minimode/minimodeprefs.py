@@ -18,6 +18,7 @@ import os, gtk
 from xlgui.prefs import widgets
 from xl import event, settings, xdg
 from xl.nls import gettext as _
+from xlgui import guiutil
 
 name = 'Mini Mode'
 basedir = os.path.dirname(os.path.realpath(__file__))
@@ -62,6 +63,7 @@ class HorizontalPositionPreference(widgets.SpinPrefsItem):
         widgets.SpinPrefsItem.__init__(self, prefs, widget)
         event.add_callback(self._on_setting_change, 'option_set')
 
+    @guiutil.gtkrun
     def _on_setting_change(self, event, settings_manager, option):
         """
             Handles changed position triggered by
@@ -82,9 +84,10 @@ class VerticalPositionPreference(widgets.SpinPrefsItem):
         height, width = get_workarea_size()
         widget.set_range(0, height)
         widgets.SpinPrefsItem.__init__(self, prefs, widget)
-        event.add_callback(self._on_setting_change2, 'option_set')
+        event.add_callback(self._on_setting_change, 'option_set')
 
-    def _on_setting_change2(self, event, settings_manager, option):
+    @guiutil.gtkrun
+    def _on_setting_change(self, event, settings_manager, option):
         """
             Handles changed position triggered by
             moving the mini mode window

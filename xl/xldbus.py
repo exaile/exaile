@@ -37,12 +37,11 @@ def check_exit(options, args):
     if not options.new:
         # TODO: handle dbus stuff
         bus = dbus.SessionBus()
-        if check_dbus(bus, 'org.exaile.ExaileInterface'):
-            remote_object = bus.get_object('org.exaile.ExaileInterface', 
-                '/org/exaile')
-            iface = dbus.Interface(remote_object,
-                'org.exaile.ExaileInterface')
-            iface.test_service('testing dbus service')
+        if check_dbus(bus, 'org.exaile.Exaile'):
+            remote_object = bus.get_object('org.exaile.Exaile', 
+                '/org/exaile/Exaile')
+            iface = dbus.Interface(remote_object, 'org.exaile.Exaile')
+            iface.TestService('testing dbus service')
             exaile = remote_object.exaile
 
             # Assume that args are files to be added to the current playlist.
@@ -53,7 +52,7 @@ def check_exit(options, args):
                 # This enables:    find PATH -name *.mp3 | exaile -
                 if args[0] == '-':
                     args = sys.stdin.read().split('\n')
-                iface.enqueue(args)
+                iface.Enqueue(args)
             
     if not iface:
         return False
@@ -69,7 +68,7 @@ def check_exit(options, args):
 
     for command in info_commands:
         if getattr(options, command):
-            print iface.get_track_attr(command.replace('get_', ''))
+            print iface.GetTrackAttr(command[4:].lower())
             comm = True
 
     modify_commands = (
@@ -79,7 +78,7 @@ def check_exit(options, args):
     for command in modify_commands:
         value = getattr(options, command)
         if value:
-            iface.set_track_attr(command, value)
+            iface.SetTrackAttr(command[4:].lower(), value)
             comm = True
 
     volume_commands = (
@@ -91,7 +90,7 @@ def check_exit(options, args):
         value = getattr(options, command)
         if value:
             if command == 'dec_vol': value = -value
-            iface.change_volume(value)
+            iface.ChangeVolume(value)
 
     run_commands = (
             'play', 
@@ -136,28 +135,26 @@ class DbusManager(dbus.service.Object):
         """
         self.exaile = exaile
         self.bus = dbus.SessionBus()
-        self.bus_name = dbus.service.BusName('org.exaile.ExaileInterface',
+        self.bus_name = dbus.service.BusName('org.exaile.Exaile',
             bus=self.bus)
-        dbus.service.Object.__init__(self, self.bus_name, "/org/exaile")
+        dbus.service.Object.__init__(self, self.bus_name, "/org/exaile/Exaile")
 
-    @dbus.service.method('org.exaile.ExaileInterface', 's')
-    def test_service(self, arg):
+    @dbus.service.method('org.exaile.Exaile', 's')
+    def TestService(self, arg):
         """
             Just test the dbus object
         """
         logger.debug(arg)
 
-    @dbus.service.method('org.exaile.ExaileInterface', None, 'b')
-    def is_playing(self):
+    @dbus.service.method('org.exaile.Exaile', None, 'b')
+    def IsPlaying(self):
         """
             Returns True if Exaile is playing (or paused), False if it's not
         """
+        return bool(self.exaile.player.current)
 
-        if self.exaile.player.current: return True
-        else: return False
-
-    @dbus.service.method('org.exaile.ExaileInterface', 's')
-    def get_track_attr(self, attr):
+    @dbus.service.method('org.exaile.Exaile', 's')
+    def GetTrackAttr(self, attr):
         """
             Returns a attribute of a track
         """
@@ -174,8 +171,8 @@ class DbusManager(dbus.service.Object):
             return unicode(value)
         return _('Not playing.')
 
-    @dbus.service.method("org.exaile.ExaileInterface", 'sv')
-    def set_track_attr(self, attr, value):
+    @dbus.service.method("org.exaile.Exaile", 'sv')
+    def SetTrackAttr(self, attr, value):
         """
             Sets rating of a track
         """
@@ -187,80 +184,79 @@ class DbusManager(dbus.service.Object):
         except TypeError:
             pass
 
-    @dbus.service.method("org.exaile.ExaileInterface", 'i')
-    def change_volume(self, value):
+    @dbus.service.method("org.exaile.Exaile", 'i')
+    def ChangeVolume(self, value):
         """
             Changes volume by the specified amount (in percent, can be negative)
         """
         player = self.exaile.player
         player.set_volume(player.get_volume() + value)
 
-    @dbus.service.method("org.exaile.ExaileInterface")
-    def prev(self):
+    @dbus.service.method("org.exaile.Exaile")
+    def Prev(self):
         """
             Jumps to the previous track
         """
         self.exaile.queue.prev()
 
-    @dbus.service.method("org.exaile.ExaileInterface")
-    def stop(self):
+    @dbus.service.method("org.exaile.Exaile")
+    def Stop(self):
         """
             Stops playback
         """
         self.exaile.player.stop()
 
-    @dbus.service.method("org.exaile.ExaileInterface")
-    def next(self):
+    @dbus.service.method("org.exaile.Exaile")
+    def Next(self):
         """
             Jumps to the next track
         """
         self.exaile.queue.next()
 
-    @dbus.service.method("org.exaile.ExaileInterface")
-    def play(self):
+    @dbus.service.method("org.exaile.Exaile")
+    def Play(self):
         """
             Starts playback
         """
         self.exaile.queue.play()
 
-    @dbus.service.method("org.exaile.ExaileInterface")
-    def play_pause(self):
+    @dbus.service.method("org.exaile.Exaile")
+    def PlayPause(self):
         """
             Toggle Play or Pause
         """
         self.exaile.player.toggle_pause()
 
-    @dbus.service.method("org.exaile.ExaileInterface", None, "s")
-    def current_position(self):
+    @dbus.service.method("org.exaile.Exaile", None, "s")
+    def CurrentPosition(self):
         """
-            Returns the position inside the current track as a percentage
+            Returns the position inside the current track (in percent)
         """
         progress = self.exaile.player.get_progress()
         if progress == -1:
             return ""
-        return "%d%%" % (progress * 100)
+        return int(progress * 100)
 
-    @dbus.service.method("org.exaile.ExaileInterface", None, "s")
-    def get_volume(self):
+    @dbus.service.method("org.exaile.Exaile", None, "s")
+    def GetVolume(self):
         """
-            Returns the current volume level as percentage
+            Returns the current volume level (in percent)
         """
-        vol = self.exaile.player.get_volume()
-        return "%d%%" % vol
+        return self.exaile.player.get_volume()
 
-    @dbus.service.method("org.exaile.ExaileInterface", None, "s")
-    def get_version(self):
+    @dbus.service.method("org.exaile.Exaile", None, "s")
+    def GetVersion(self):
         return self.exaile.get_version()
 
-    @dbus.service.method("org.exaile.ExaileInterface", "s")
-    def play_file(self, filename):
+    @dbus.service.method("org.exaile.Exaile", "s")
+    def PlayFile(self, filename):
         """
             Plays the specified file
         """
         self.exaile.gui.open_uri(filename)
 
-    @dbus.service.method("org.exaile.ExaileInterface", "as")
-    def enqueue(self, filenames):
+    @dbus.service.method("org.exaile.Exaile", "as")
+    def Enqueue(self, filenames):
         """
             Adds the specified files to the current playlist
         """
@@ -283,4 +279,3 @@ class DbusManager(dbus.service.Object):
                 self.exaile.queue.play(tracks[0])
             except IndexError:
                 pass
-

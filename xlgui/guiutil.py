@@ -680,7 +680,7 @@ class MenuRatingWidget(gtk.MenuItem):
         else:
             return self.controller.rating_images[0]
             
-        
+    @gtkrun    
     def on_rating_change(self, type = None, object = None, data = None):
         """
             Handles possible changes of track ratings

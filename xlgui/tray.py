@@ -91,25 +91,14 @@ class TrayIcon(gobject.GObject):
         self.label = gtk.Label(_("Play"))
         self.label.set_alignment(0, 0)
 
-        self.playpause = gtk.ImageMenuItem()
-        hbox = gtk.HBox()
-        hbox.pack_start(self.label, False, True)
-        self.playpause.add(hbox)
-        self.playpause.set_image(self.playpause_image)
-        self.playpause.connect('activate',
-            lambda *e: self._play_pause_clicked())
-        self.menu.append_item(self.playpause)
-
-        self.menu.append(_("Next"),
-            lambda *e: self.queue.next(),
-            'gtk-media-next')
-        self.menu.append(_("Previous"),
-            lambda *e: self.queue.prev(),
-            'gtk-media-previous')
-            
-        self.menu.append(_("Stop"),
-            lambda *e: self.player.stop(),
-            'gtk-media-stop')
+        self.playpause = self.menu.append(stock_id='gtk-media-play',
+            callback=lambda *e: self._play_pause_clicked())
+        self.menu.append(stock_id='gtk-media-next',
+            callback=lambda *e: self.queue.next())
+        self.menu.append(stock_id='gtk-media-previous',
+            callback=lambda *e: self.queue.prev())
+        self.menu.append(stock_id='gtk-media-stop',
+            callback=lambda *e: self.player.stop())
 
         self.menu.append_separator()
 
@@ -132,31 +121,17 @@ class TrayIcon(gobject.GObject):
 
         self.rating_item = guiutil.MenuRatingWidget(self.controller, 
             self._get_current_track_list)
-        
         self.menu.append_item(self.rating_item)
-        event.add_callback(self._update_menu, 'playback_track_start')
-        
-        self.playpause_image = gtk.Image()
-        self.playpause_image.set_from_stock('gtk-media-play',
-            gtk.ICON_SIZE_MENU)
-        self.label = gtk.Label(_("Play"))
-        self.label.set_alignment(0, 0)
-
-        self.rm_item = gtk.ImageMenuItem()
-        hbox = gtk.HBox()
-        hbox.pack_start(gtk.Label(_("Remove current track from playlist")), False, True)
-        self.rm_item.add(hbox)
-        self.rm_item.set_image(gtk.image_new_from_stock('gtk-remove',
-            gtk.ICON_SIZE_MENU))
-        self.rm_item.connect('activate',
-            lambda *e: self._remove_current_song ())
-        self.menu.append_item(self.rm_item)
+        self.rm_item = self.menu.append(label=_("Remove current track from playlist"),
+            stock_id='gtk-remove',
+            callback=lambda *e: self._remove_current_song())
         
         self.menu.append_separator()
 
-        self.menu.append(_("_Quit"),
-            lambda *e: self.controller.exaile.quit(), 
-            'gtk-quit')
+        self.menu.append(stock_id='gtk-quit',
+            callback=lambda *e: self.controller.exaile.quit())
+
+        event.add_callback(self._update_menu, 'playback_track_start')
     
     def _get_current_track_list(self):
         l = []
@@ -166,15 +141,17 @@ class TrayIcon(gobject.GObject):
     def _update_menu(self, type=None, object=None, data=None):
         track = self.player.current
         if not track or not self.player.is_playing():
-            self.playpause_image.set_from_stock('gtk-media-play',
-                gtk.ICON_SIZE_MENU)
-            self.playpause.set_image(self.playpause_image)
-            self.label.set_label(_("Play"))
+            self.playpause.destroy()
+            self.playpause = gtk.ImageMenuItem(stock_id='gtk-media-play')
+            self.playpause.connect('activate',
+                lambda *e: self._play_pause_clicked())
+            self.menu.insert(self.playpause, 0)
         elif self.player.is_playing():
-            self.playpause_image.set_from_stock('gtk-media-pause',
-                gtk.ICON_SIZE_MENU)
-            self.playpause.set_image(self.playpause_image)
-            self.label.set_label(_("Pause"))
+            self.playpause.destroy()
+            self.playpause = gtk.ImageMenuItem(stock_id='gtk-media-pause')
+            self.playpause.connect('activate',
+                lambda *e: self._play_pause_clicked())
+            self.menu.insert(self.playpause, 0)
         
         if track:
             self.rating_item.set_sensitive(True)

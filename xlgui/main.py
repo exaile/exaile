@@ -173,7 +173,6 @@ class NotebookTab(gtk.EventBox):
         self.main = main
         self.nb = notebook
         self.page = page
-        self.tips = gtk.Tooltips()
 
         self.hbox = hbox = gtk.HBox(False, 2)
         self.add(hbox)
@@ -187,9 +186,9 @@ class NotebookTab(gtk.EventBox):
         btn.set_name('tabCloseButton')
         btn.set_relief(gtk.RELIEF_NONE)
         btn.set_focus_on_click(False)
+        btn.set_tooltip_text(_("Close tab"))
         btn.connect('clicked', self.do_close)
         btn.connect('button_press_event', self.on_button_press)
-        self.tips.set_tip(btn, _("Close tab"))
         image = gtk.Image()
         image.set_from_stock('gtk-close', gtk.ICON_SIZE_MENU)
         btn.add(image)
@@ -869,8 +868,11 @@ class MainWindow(object):
             Sets track information
         """
         track = self.player.current
+        tray_icon = self.controller.tray_icon
+
         if not track:
-            self.controller.tray_icon.set_tooltip(_("Exaile Music Player\nNot playing"))
+            if tray_icon:
+                tray_icon.set_tooltip(_("Exaile Music Player\nNot playing"))
             return
 
         artist = track['artist']
@@ -906,22 +908,18 @@ class MainWindow(object):
             # TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
             if album: desc.append(_("from %s") % album)
 
-            desc_newline = '\n'.join(desc)
-            self.track_info_label.set_label(desc_newline)
-            if self.controller.tray_icon:
-                if self.player.is_paused():
-                    self.controller.tray_icon.set_tooltip(_("In pause: %s") % title +
-                        '\n' + desc_newline)
-                else:
-                    self.controller.tray_icon.set_tooltip(_("Playing %s") % title +
-                        '\n' + desc_newline)
+            desc = '\n'.join(desc)
+            self.track_info_label.set_label(desc)
         else:
             self.track_info_label.set_label("")
-            if self.controller.tray_icon:
-                if self.player.is_paused():
-                    self.controller.tray_icon.set_tooltip(_("In pause: %s") % title)
-                else:
-                    self.controller.tray_icon.set_tooltip(_("Playing %s") % title)
+            desc = None
+        if tray_icon:
+            tip = title
+            if desc: tip += '\n' + desc
+            if self.player.is_paused():
+                tray_icon.set_tooltip(_("In pause: %s") % tip)
+            else:
+                tray_icon.set_tooltip(_("Playing %s") % tip)
 
     def draw_playlist(self, *e):
         """

@@ -51,11 +51,13 @@ class Main(object):
         
         self.rating_images = playlist.create_rating_images(12 * settings.get_option('miscellaneous/rating_steps', 5))
 
+        logger.info("Loading main window...")
         self.main = main.MainWindow(self, self.xml,
             exaile.collection, exaile.player, exaile.queue, exaile.covers)
         self.panel_notebook = self.xml.get_widget('panel_notebook')
         self.play_toolbar = self.xml.get_widget('play_toolbar')
 
+        logger.info("Loading panels...")
         self.last_selected_panel = settings.get_option(
             'gui/last_selected_panel', None)
         self.panels['collection'] = collection.CollectionPanel(self.main.window,
@@ -76,8 +78,11 @@ class Main(object):
             self.panel_notebook.set_current_page(selected_panel_num)
         except KeyError:
             pass
-        
+       
+        logger.info("Connecting panel events...")
         self.main._connect_panel_events()
+
+        logger.info("Connecting main window events...")
         self._connect_events()
 
         if settings.get_option('gui/use_tray', False):
@@ -90,6 +95,8 @@ class Main(object):
         self.device_panels = {}
         event.add_callback(self.add_device_panel, 'device_connected')
         event.add_callback(self.remove_device_panel, 'device_disconnected')
+
+        logger.info("Done loading main window...")
 
     def _connect_events(self):
         """

@@ -18,6 +18,7 @@ import subprocess, logging, os
 from xl import event, xdg
 from xl.nls import gettext as _
 from xl import settings
+from xlgui import gtkutil
 import time, sys
 import srprefs
 
@@ -127,6 +128,7 @@ def playback_stop(type, player, object):
         os.system("kill -9 %d" % STREAMRIPPER_PID)
         STREAMRIPPER_PID = None
 
+@guiutil.gtkrun
 def initialize(type, exaile, stuff=None):
     global BUTTON, APP
 

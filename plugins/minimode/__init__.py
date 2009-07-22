@@ -18,7 +18,7 @@ import gobject, gtk, os
 import minimodeprefs, mmwidgets
 from xl import event, plugins, settings, xdg
 from xl.nls import gettext as _
-from xlgui import main
+from xlgui import main, guiutil
 
 MINIMODE = None
 
@@ -31,6 +31,7 @@ def enable(exaile):
     else:
         _enable(None, exaile, None)
 
+@guiutil.gtkrun
 def _enable(event, exaile, nothing):
     """
         Handles the deferred enable call

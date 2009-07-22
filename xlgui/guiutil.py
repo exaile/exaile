@@ -18,6 +18,7 @@ import gtk, os.path, urllib, time
 import gtk.gdk, pango, gobject
 from xl import xdg, track, playlist, common, settings, event
 from xl.nls import gettext as _
+import threading
 
 try:
     import sexy
@@ -31,11 +32,17 @@ def gtkrun(f):
         ALL CODE MODIFYING THE UI SHOULD BE WRAPPED IN THIS
     """
     def wrapper(*args, **kwargs):
-        gtk.gdk.threads_enter()
-        try:
+        # if we're already in the main thread and you try to run
+        # threads_enter, stuff will break horribly, so test for the main
+        # thread and if we're currently in it we simply run the function
+        if threading.currentThread().name == 'MainThread':
             return f(*args, **kwargs)
-        finally:
-            gtk.gdk.threads_leave()
+        else:
+            gtk.gdk.threads_enter()
+            try:
+                return f(*args, **kwargs)
+            finally:
+                gtk.gdk.threads_leave()
 
     wrapper.__name__ = f.__name__
     wrapper.__dict__ = f.__dict__

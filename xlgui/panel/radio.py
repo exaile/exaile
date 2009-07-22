@@ -77,7 +77,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
         for name, value in self.manager.stations.iteritems():
             self.add_driver(value)
-
+    
+    @guiutil.gtkrun
     def _add_driver_cb(self, type, object, driver):
         self.add_driver(driver)
 
@@ -95,6 +96,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
                 driver.name, False):
             self.tree.expand_row(self.model.get_path(node), False)
 
+    @guiutil.gtkrun
     def _remove_driver_cb(self, type, object, driver):
         self.remove_driver(driver)
 

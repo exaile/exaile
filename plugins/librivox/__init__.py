@@ -31,7 +31,8 @@ def enable(exaile):
         event.add_callback(_enable, 'exaile_loaded')
     else:
         _enable(None, exaile, None)
-        
+       
+@guiutil.gtkrun
 def _enable(o1, exaile, o2):
     global panel
     panel=LVPanel(exaile)

@@ -90,6 +90,8 @@ class MiniMode(gtk.Window):
         self._toggle_tray_id = None
         self._configure_id = None
 
+        self.connect('show', self.on_show)
+
         if self.exaile.gui.tray_icon is not None:
             self.toggle_tray_id = self.exaile.gui.tray_icon.connect(
                 'toggle-tray', self.on_toggle_tray)
@@ -97,14 +99,11 @@ class MiniMode(gtk.Window):
         self.exaile.gui.xml.signal_connect('on_playlist_notebook_switch',
             self.on_playlist_notebook_switch)
 
-        #event.add_callback(self.on_setting_change, 'option_set')
-
     def destroy(self):
         """
             Cleans up and hides
             the mini mode window
         """
-        #event.remove_callback(self.on_setting_change, 'option_set')
         if self._configure_id is not None:
             self.disconnect(self._configure_id)
             self._configure_id = None
@@ -143,7 +142,6 @@ class MiniMode(gtk.Window):
             self.show()
         else:
             self.exaile.gui.main.window.hide()
-            self.update_controls()
             self.update_window()
             self.show_all()
             if self._configure_id is None:
@@ -379,16 +377,14 @@ class MiniMode(gtk.Window):
         self.set_option('plugin/minimode/horizontal_position', x)
         self.set_option('plugin/minimode/vertical_position', y)
 
-        width, height = self.get_size()
-        self.set_geometry_hints(self, max_width=width, max_height=height)
         return True
 
-    def on_setting_change(self, event, settings_manager, option):
+    def on_show(self, widget):
         """
-            Handles changes in settings
+            Updates window size on exposure
         """
-        if option not in self.defaults.keys():
-            return True
-
-        self.update_window()
+        self.resize(*self.size_request())
+        #self.show_all()
+        #self.realize()
+        self.queue_draw()
 

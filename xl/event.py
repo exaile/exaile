@@ -398,8 +398,10 @@ class EventManager(object):
                         pass
                 elif event.time >= cb.time:
                     if self.use_logger:
-                        logger.debug(_("Attempting to call %s in response "
-                            "to %s.")%(cb.wfunction(), event.type))
+                        logger.debug(_("Attempting to call %(function)s in response "
+                            "to %(event)s.") % {
+                                'function': cb.wfunction(),
+                                'event': event.type})
                     cb.wfunction().__call__(event.type, event.object, 
                             event.data, *cb.args, **cb.kwargs)
             except:

@@ -18,7 +18,7 @@ import subprocess, logging, os
 from xl import event, xdg
 from xl.nls import gettext as _
 from xl import settings
-from xlgui import gtkutil
+from xlgui import guiutil
 import time, sys
 import srprefs
 

@@ -91,11 +91,7 @@ class TrayIcon(gobject.GObject):
         self.label = gtk.Label(_("Play"))
         self.label.set_alignment(0, 0)
 
-        self.playpause = gtk.ImageMenuItem()
-        hbox = gtk.HBox()
-        hbox.pack_start(self.label, False, True)
-        self.playpause.add(hbox)
-        self.playpause.set_image(self.playpause_image)
+        self.playpause = gtk.ImageMenuItem(stock_id='gtk-media-play')
         self.playpause.connect('activate',
             lambda *e: self._play_pause_clicked())
         self.menu.append_item(self.playpause)
@@ -166,15 +162,17 @@ class TrayIcon(gobject.GObject):
     def _update_menu(self, type=None, object=None, data=None):
         track = self.player.current
         if not track or not self.player.is_playing():
-            self.playpause_image.set_from_stock('gtk-media-play',
-                gtk.ICON_SIZE_MENU)
-            self.playpause.set_image(self.playpause_image)
-            self.label.set_label(_("Play"))
+            self.playpause.destroy()
+            self.playpause = gtk.ImageMenuItem(stock_id='gtk-media-play')
+            self.playpause.connect('activate',
+                lambda *e: self._play_pause_clicked())
+            self.menu.insert(self.playpause, 0)
         elif self.player.is_playing():
-            self.playpause_image.set_from_stock('gtk-media-pause',
-                gtk.ICON_SIZE_MENU)
-            self.playpause.set_image(self.playpause_image)
-            self.label.set_label(_("Pause"))
+            self.playpause.destroy()
+            self.playpause = gtk.ImageMenuItem(stock_id='gtk-media-pause')
+            self.playpause.connect('activate',
+                lambda *e: self._play_pause_clicked())
+            self.menu.insert(self.playpause, 0)
         
         if track:
             self.rating_item.set_sensitive(True)

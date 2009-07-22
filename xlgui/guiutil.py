@@ -608,8 +608,6 @@ class MenuRatingWidget(gtk.MenuItem):
         
         self.connect('button-release-event', self._update_rating)
         event.add_callback(self.on_rating_change, 'rating_changed')
-        event.add_callback(self.on_rating_change, 'exaile_loaded')
-
 
     def _update_rating(self, w, e):
         """

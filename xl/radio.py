@@ -133,7 +133,7 @@ class RadioItem(object):
     def get_playlist(self):
         tr = track.Track()
         tr['title'] = 'Test Track'
-        pl = playlist.Playlist('Test Playlist')
+        pl = playlist.Playlist('Test Playlist', kind='radio')
         pl.add_tracks([tr])
         return pl
 

@@ -124,11 +124,20 @@ class ExaileNotifyOsd(object):
     
     def on_tooltip(self, *e):
         if self.tray_hover:
-            if self.cover == self.stopicon or self.cover == self.pauseicon:
+            track = self.exaile.player.current
+            if track:
+                if self.cover == self.stopicon or self.cover == self.pauseicon:
+                    if self.use_media_icons:
+                        self.update_track_notify(type, self.exaile.player, track, self.cover)
+                        return
+                self.update_track_notify(type, self.exaile.player, track)
+            elif self.notify_pause and self.cover == self.stopicon: # if there is no track, then status is stopped
                 if self.use_media_icons:
-                    self.update_track_notify(type, self.exaile.player, self.exaile.queue.get_current(), self.cover)
-                    return
-            self.update_track_notify(type, self.exaile.player, self.exaile.queue.get_current())
+                    self.notify.update(self.summary, self.body, self.cover)
+                else:
+                    self.notify.update(self.summary, self.body)
+                self.notify.show()
+                
     
     def exaile_ready(self, type = None, data1 = None, data2 = None):
         self.tray_connection = self.exaile.gui.tray_icon.icon.connect('query-tooltip', self.on_tooltip)

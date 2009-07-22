@@ -414,7 +414,7 @@ class Playlist(gtk.VBox):
                         dirty = True
                         break
 
-            if dirty == True:
+            if dirty == True and self.playlist.get_playlist_kind() == 'custom':
                 dialog = ConfirmCloseDialog(self.playlist.get_name())
                 result = dialog.run()
                 if result == 110:
@@ -960,12 +960,12 @@ class ConfirmCloseDialog(gtk.MessageDialog):
         """
         gtk.MessageDialog.__init__(self, type = gtk.MESSAGE_WARNING)
 
-        self.set_title(_('Confirm Close'))
+        self.set_title(_('Close %s' % document_name))
         self.set_markup(_('<b>Save changes to %s before closing?</b>') % document_name)
         self.format_secondary_text(_('Your changes will be lost if you don\'t save them'))
 
         self.add_buttons(_('Close Without Saving'), 100, gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-                        _('Save'), 110)
+                        gtk.STOCK_SAVE, 110)
 
     def run(self):
         self.show_all()

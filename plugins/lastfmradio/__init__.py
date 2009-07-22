@@ -163,7 +163,7 @@ class LastFMRadioStation(RadioStation):
         tr['artist'] = _("LastFM Radio")
         tr['lastfmstation'] = url
         
-        pl = playlist.Playlist(name=_("LastFM: %s") % name)
+        pl = playlist.Playlist(name=_("LastFM: %s") % name, kind='radio')
         pl.add_tracks([tr])
 
         return pl

@@ -238,6 +238,7 @@ class NotebookTab(gtk.EventBox):
             self.main.controller.panels['playlists'].add_new_playlist(self.main.get_selected_playlist().playlist.get_tracks())
         else:
             self.main.controller.panels['playlists'].add_new_playlist(self.main.get_selected_playlist().playlist.get_tracks(), self.title)
+        self.main.get_selected_playlist().kind = 'custom'
 
     def do_close(self, *args):
         """

@@ -368,7 +368,7 @@ class Playlist(object):
         Represents a playlist, which is basically just a TrackDB
         with ordering.
     """
-    def __init__(self, name=_("Playlist %d")):
+    def __init__(self, name=_("Playlist %d"), kind='normal'):
         """
             Sets up the Playlist
 
@@ -387,9 +387,10 @@ class Playlist(object):
         self.repeat_enabled = False
         self.dynamic_enabled = False
         self.name = name
+        self.kind = kind
         self.tracks_history = []
         self.extra_save_items = ['random_enabled', 'repeat_enabled', 
-                'dynamic_enabled', 'current_pos', 'name']
+                'dynamic_enabled', 'current_pos', 'name', 'kind']
 
     def get_name(self):
         return self.name
@@ -824,6 +825,9 @@ class Playlist(object):
         trs = self.ordered_tracks
         random.shuffle(trs)
         self.ordered_tracks = trs
+    
+    def get_playlist_kind(self):
+        return self.kind
 
 
 class SmartPlaylist(object):
@@ -981,7 +985,7 @@ class SmartPlaylist(object):
         else:
             sort_field = ('artist', 'date', 'album', 'discnumber', 'tracknumber', 'title')
 
-        pl = Playlist(name=self.get_name())
+        pl = Playlist(name=self.get_name(), kind='smart')
 
         tracks = list(collection.search(search_string, sort_field,
             self.track_count))

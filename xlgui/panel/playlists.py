@@ -288,6 +288,7 @@ class BasePlaylistPanelMixin(gobject.GObject):
                 else:
                     #Get an up to date copy
                     item = self.playlist_manager.get_playlist(item.get_name())
+                    item.kind = 'custom'
         
 #                self.controller.main.add_playlist(item)
                 self.emit('playlist-selected', item)
@@ -321,7 +322,7 @@ class BasePlaylistPanelMixin(gobject.GObject):
                     do_add_playlist = True
         if do_add_playlist:
             #Create the playlist from all of the tracks
-            new_playlist = playlist.Playlist(name)
+            new_playlist = playlist.Playlist(name, kind='custom')
             new_playlist.add_tracks(tracks)
             self.playlist_nodes[new_playlist] = \
                 self.model.append(self.custom, [self.playlist_image, name,  

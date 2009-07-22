@@ -134,23 +134,36 @@ class TrayIcon(gobject.GObject):
             self._get_current_track_list)
         
         self.menu.append_item(self.rating_item)
-        event.add_callback(self.rating_item.on_rating_change, 'playback_track_start')
-        self.menu.connect('enter-notify-event', self.rating_item.on_rating_change)
+        event.add_callback(self._update_menu, 'playback_track_start')
         
-        self.menu.append(_("Remove current track from playlist"), lambda *e: self._remove_current_song (), 'gtk-remove')
+        self.playpause_image = gtk.Image()
+        self.playpause_image.set_from_stock('gtk-media-play',
+            gtk.ICON_SIZE_MENU)
+        self.label = gtk.Label(_("Play"))
+        self.label.set_alignment(0, 0)
 
+        self.rm_item = gtk.ImageMenuItem()
+        hbox = gtk.HBox()
+        hbox.pack_start(gtk.Label(_("Remove current track from playlist")), False, True)
+        self.rm_item.add(hbox)
+        self.rm_item.set_image(gtk.image_new_from_stock('gtk-remove',
+            gtk.ICON_SIZE_MENU))
+        self.rm_item.connect('activate',
+            lambda *e: self._remove_current_song ())
+        self.menu.append_item(self.rm_item)
+        
         self.menu.append_separator()
 
-        self.menu.append(_("Quit"),
+        self.menu.append(_("_Quit"),
             lambda *e: self.controller.exaile.quit(), 
             'gtk-quit')
     
     def _get_current_track_list(self):
         l = []
-        l.append(self.queue.get_current())
+        l.append(self.player.current)
         return l
     
-    def _update_menu(self):
+    def _update_menu(self, type=None, object=None, data=None):
         track = self.player.current
         if not track or not self.player.is_playing():
             self.playpause_image.set_from_stock('gtk-media-play',
@@ -160,6 +173,14 @@ class TrayIcon(gobject.GObject):
             self.playpause_image.set_from_stock('gtk-media-pause',
                 gtk.ICON_SIZE_MENU)
             self.label.set_label(_("Pause"))
+        
+        if track:
+            self.rating_item.set_sensitive(True)
+            self.rm_item.set_sensitive(True)
+        else:
+            self.rating_item.set_sensitive(False)
+            self.rm_item.set_sensitive(False)
+        self.rating_item.on_rating_change()
 
     def _update_shuffle(self, data):
         settings.set_option('playback/shuffle', self.check_shuffle.get_active())
@@ -172,8 +193,8 @@ class TrayIcon(gobject.GObject):
 
     def _remove_current_song(self):
         _pl = self.controller.main.get_current_playlist ().playlist
-        if _pl:
-            _pl.remove (_pl.index (self.queue.get_current ()))
+        if _pl and self.player.current:
+            _pl.remove (_pl.index (self.player.current))
     
 
     # Playback state event
@@ -221,7 +242,7 @@ class TrayIcon(gobject.GObject):
 
     def _query_tooltip(self, *e):
         if settings.get_option('osd/hover_tray', False):
-            self.controller.main.osd.show(self.queue.get_current())
+            self.controller.main.osd.show(self.player.current)
 
     def _popup_menu(self, icon, button, time):
         self._update_menu()

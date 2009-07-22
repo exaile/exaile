@@ -286,7 +286,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
                 name = dialog.get_value()
                 if not name == "":
                     #Create the playlist from all of the tracks
-                    new_playlist = xl.playlist.Playlist(name)
+                    new_playlist = xl.playlist.Playlist(name, kind='radio')
                     new_playlist.add_tracks(tracks)
                     self.playlist_nodes[new_playlist] = self.model.append(self.custom, 
                         [self.playlist_image,

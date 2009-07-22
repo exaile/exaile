@@ -168,10 +168,12 @@ class TrayIcon(gobject.GObject):
         if not track or not self.player.is_playing():
             self.playpause_image.set_from_stock('gtk-media-play',
                 gtk.ICON_SIZE_MENU)
+            self.playpause.set_image(self.playpause_image)
             self.label.set_label(_("Play"))
         elif self.player.is_playing():
             self.playpause_image.set_from_stock('gtk-media-pause',
                 gtk.ICON_SIZE_MENU)
+            self.playpause.set_image(self.playpause_image)
             self.label.set_label(_("Pause"))
         
         if track:

@@ -459,9 +459,9 @@ class Menu(gtk.Menu):
         item.show_all()
         return item
 
-    def append(self, label=None, callback=None, stock_id=None, data=None):
+    def _insert(self, label=None, callback=None, stock_id=None, data=None, prepend=False):
         """
-            Appends a menu item
+            Inserts a menu item (append by default)
         """
         if stock_id:
             if label:
@@ -475,9 +475,26 @@ class Menu(gtk.Menu):
             item = gtk.MenuItem(label)
 
         if callback: item.connect('activate', callback, data)
-        gtk.Menu.append(self, item)
+
+        if prepend:
+            gtk.Menu.prepend(self, item)
+        else:
+            gtk.Menu.append(self, item)
+
         item.show_all()
         return item
+
+    def append(self, label=None, callback=None, stock_id=None, data=None):
+        """
+            Appends a menu item
+        """
+        return self._insert(label, callback, stock_id, data)
+
+    def prepend(self, label=None, callback=None, stock_id=None, data=None):
+        """
+            Prepends a menu item
+        """
+        return self._insert(label, callback, stock_id, data, prepend=True)
 
     def append_item(self, item):
         """

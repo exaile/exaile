@@ -142,16 +142,12 @@ class TrayIcon(gobject.GObject):
         track = self.player.current
         if not track or not self.player.is_playing():
             self.playpause.destroy()
-            self.playpause = gtk.ImageMenuItem(stock_id='gtk-media-play')
-            self.playpause.connect('activate',
-                lambda *e: self._play_pause_clicked())
-            self.menu.insert(self.playpause, 0)
+            self.playpause = self.menu.prepend(stock_id='gtk-media-play',
+                callback=lambda *e: self._play_pause_clicked())
         elif self.player.is_playing():
             self.playpause.destroy()
-            self.playpause = gtk.ImageMenuItem(stock_id='gtk-media-pause')
-            self.playpause.connect('activate',
-                lambda *e: self._play_pause_clicked())
-            self.menu.insert(self.playpause, 0)
+            self.playpause = self.menu.prepend(stock_id='gtk-media-pause',
+                callback=lambda *e: self._play_pause_clicked())
         
         if track:
             self.rating_item.set_sensitive(True)

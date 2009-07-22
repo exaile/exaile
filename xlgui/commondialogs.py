@@ -9,13 +9,18 @@ class TextEntryDialog(gtk.Dialog):
     """
         Shows a dialog with a single line of text
     """
-    def __init__(self, message, title, default_text=None, parent=None):
+    def __init__(self, message, title, default_text=None, parent=None,
+        cancelbutton=None, okbutton=None):
         """
             Initializes the dialog
         """
+        if not cancelbutton:
+            cancelbutton = gtk.STOCK_CANCEL
+        if not okbutton:
+            okbutton = gtk.STOCK_OK
         gtk.Dialog.__init__(self, title, parent, gtk.DIALOG_DESTROY_WITH_PARENT,
-            (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-            gtk.STOCK_OK, gtk.RESPONSE_OK))
+            (cancelbutton, gtk.RESPONSE_CANCEL,
+            okbutton, gtk.RESPONSE_OK))
 
         label = gtk.Label(message)
         label.set_alignment(0.0, 0.0)

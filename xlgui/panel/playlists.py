@@ -195,7 +195,7 @@ class BasePlaylistPanelMixin(gobject.GObject):
         if name in self.playlist_manager.playlists:
             # name is already in use
             commondialogs.error(self.parent, _("The "
-                "playlist name you specified already exists."))
+                "playlist name you entered is already in use."))
             return
 
         pl = self.get_selected_playlist()
@@ -296,24 +296,51 @@ class BasePlaylistPanelMixin(gobject.GObject):
                 self.emit('append-items', [item.track])
 
     def add_new_playlist(self, tracks = [], name = None):
+        do_add_playlist = False
         if name:
             if name in self.playlist_manager.playlists:
                 # name is already in use
                 commondialogs.error(self.parent, _("The "
-                    "playlist name you specified already exists."))
+                    "playlist name you entered is already in use."))
             else:
                 do_add_playlist = True
         else:
+            if tracks:
+                artist = tracks[0].get_tag('artist')
+                composer = tracks[0].get_tag('composer')
+                album = tracks[0].get_album_tuple()
+                sameartist = True
+                samecomposer = True
+                samealbum = True
+                
+                for track in tracks:
+                    if artist != track.get_tag('artist'):
+                        sameartist = False
+                    
+                    if composer != track.get_tag('composer'):
+                        samecomposer = False
+                    
+                    if album != track.get_album_tuple():
+                        samealbum = False
+                
+                if sameartist:
+                    name = " / ".join(tracks[0].get_tag('artist') or "")
+                elif samecomposer and composer:
+                    name = " / ".join(tracks[0].get_tag('composer') or "")
+                elif samealbum:
+                    print 'kitten'
+                    name = ' '.join([ x.capitalize() for x in str(album[1]).split() ])
+        
             dialog = commondialogs.TextEntryDialog(
-                    _("Enter the name you want for your new playlist"),
-                    _("New Playlist"))
+                    _("New custom playlist name:"),
+                    _("Add To New Playlist..."), name, okbutton=gtk.STOCK_ADD)
             result = dialog.run()
             if result == gtk.RESPONSE_OK:
                 name = dialog.get_value()
                 if name in self.playlist_manager.playlists:
                     # name is already in use
                     commondialogs.error(self.parent, _("The "
-                        "playlist name you specified already exists."))
+                        "playlist name you entered is already in use."))
                     return
                 elif name == "":
                     commondialogs.error(self.parent, _("You did "
@@ -535,7 +562,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             try:
                 pl = self.smart_manager.get_playlist(name)
                 commondialogs.error(self.parent, _("The "
-                    "playlist name you specified already exists."))
+                    "playlist name you entered is already in use."))
                 return
             except ValueError:
                 pass # playlist didn't exist
@@ -605,7 +632,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 try:
                     pl = self.smart_manager.get_playlist(name)
                     commondialogs.error(self.parent, _("The "
-                        "playlist name you specified already exists."))
+                        "playlist name you entered is already in use."))
                     return
                 except ValueError:
                     pass # playlist didn't exist

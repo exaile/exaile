@@ -227,15 +227,12 @@ class NotebookTab(gtk.EventBox):
             self.title = dialog.get_value()
 
     def do_save_custom(self, *args):
-#        dialog = commondialogs.TextEntryDialog(
-#            _("New playlist title:"), _("Rename Playlist"),
-#            self.title, self.main.window)
-#        response = dialog.run()
-#        if response == gtk.RESPONSE_OK:
-#            self.title = dialog.get_value()
-        if self.title in self.main.controller.panels['playlists'].playlist_manager.playlists:
-            self.main.controller.panels['playlists'].add_new_playlist(self.main.get_selected_playlist().playlist.get_tracks())
-        else:
+        dialog = commondialogs.TextEntryDialog(
+            _("Custom playlist name:"), _("Save As..."),
+            self.title, self.main.window, okbutton=gtk.STOCK_SAVE)
+        response = dialog.run()
+        if response == gtk.RESPONSE_OK:
+            self.title = dialog.get_value()
             self.main.controller.panels['playlists'].add_new_playlist(self.main.get_selected_playlist().playlist.get_tracks(), self.title)
         self.main.get_selected_playlist().kind = 'custom'
 

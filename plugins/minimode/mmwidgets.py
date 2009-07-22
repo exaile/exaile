@@ -49,6 +49,9 @@ class MMBox(gtk.HBox):
         self._removed_widgets = []
 
     def pack_start(self, child):
+        """
+            Inserts a child into this box
+        """
         if not isinstance(child, MMWidget):
             raise TypeError(
                 '%s is not instance of %s' % (child, MMWidget))
@@ -209,19 +212,28 @@ class MMVolumeButton(MMWidget, gtk.VolumeButton):
         self.set_value(self.player.get_volume() / 100.0)
         self._updating = False
 
-class MMTrackSelector(MMWidget, gtk.ComboBox):
+class MMPlaylistButton(MMWidget, gtk.ToggleButton):
     """
-        Wrapper class which updates its content
-        automatically on playlist actions
-        Track display is configurable
+        Displays the current track title and
+        the current playlist on activation
     """
-    def __init__(self, queue, changed_callback, format_callback=None):
-        MMWidget.__init__(self, 'track_selector')
-        gtk.ComboBox.__init__(self)
+    pass
 
-        self.queue = queue
-        self.list = gtk.ListStore(gobject.TYPE_PYOBJECT, gobject.TYPE_STRING)
-        self._default = '$tracknumber - $title'
+from xl import track as xltrack
+
+class MMTrackFormatter(gobject.GObject):
+    """
+        Formats track titles based on a format string
+    """
+    __gsignals__ = {
+        'format-request': (gobject.SIGNAL_RUN_LAST, gobject.TYPE_STRING, ()),
+        'rating-steps-request': (gobject.SIGNAL_RUN_LAST, gobject.TYPE_INT, ()),
+    }
+
+    def __init__(self):
+        gobject.GObject.__init__(self)
+
+        self._format = '$tracknumber - $title'
         self._substitutions = {
             'tracknumber': 'tracknumber',
             'title': 'title',
@@ -240,12 +252,112 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
             'bpm': 'bpm',
         }
         self._formattings = {
-            'tracknumber': self.format_tracknumber,
-            'length': self.format_length,
-            'rating': self.format_rating,
-            'bitrate': self.format_bitrate,
+            'tracknumber': self.__format_tracknumber,
+            'length': self.__format_length,
+            'rating': self.__format_rating,
+            'bitrate': self.__format_bitrate,
         }
         self._rating_steps = 5.0
+
+    def format(self, track):
+        """
+            Returns the formatted title of a track
+        """
+        if not isinstance(track, xltrack.Track):
+            return None
+
+        template = Template(self.emit('format-request') or self._format)
+        text = template.safe_substitute(self.__get_substitutions(track))
+
+        return text
+
+    def __get_substitutions(self, track):
+        """
+            Returns a map for keyword to tag value mapping
+        """
+        substitutions = self._substitutions.copy()
+
+        for keyword, tagname in substitutions.items():
+            try:
+                substitutions[keyword] = _(' & ').join(track[tagname])
+            except TypeError:
+                substitutions[keyword] = track[tagname]
+
+            try:
+                formatter = self._formattings[keyword]
+                substitutions[keyword] = formatter(substitutions[keyword])
+            except KeyError:
+                pass
+
+            if substitutions[keyword] is None:
+                substitutions[keyword] = _('Unknown')
+
+        return substitutions
+
+    def __format_tracknumber(self, tracknumber):
+        """
+            Returns a properly formatted tracknumber
+        """
+        try: # Valid number
+            tracknumber = '%02d' % int(tracknumber)
+        except TypeError: # None
+            tracknumber = '00'
+        except ValueError: # 'N/N'
+            pass
+
+        return tracknumber
+
+    def __format_length(self, length):
+        """
+            Returns a properly formatted track length
+        """
+        try:
+            length = float(length)
+        except TypeError:
+            length = 0
+
+        return '%d:%02d' % (length // 60, length % 60)
+
+    def __format_rating(self, rating):
+        """
+            Returns a properly formatted rating
+        """
+        try:
+            rating = float(rating) / 100
+        except TypeError:
+            rating = 0
+
+        rating_steps = self.emit('rating-steps-request') or self._rating_steps
+        rating = rating_steps * rating
+
+        return '%s%s' % (
+            '★' * int(rating),
+            '☆' * int(rating_steps - rating)
+        )
+
+    def __format_bitrate(self, bitrate):
+        """
+            Returns a properly formatted bitrate
+        """
+        try:
+            bitrate = int(bitrate)
+        except TypeError:
+            bitrate = 0
+
+        return '%d kbit/s' % (bitrate / 1000)
+
+class MMTrackSelector(MMWidget, gtk.ComboBox):
+    """
+        Control which updates its content automatically
+        on playlist actions, track display is configurable
+    """
+    def __init__(self, queue, changed_callback, format_callback=None):
+        MMWidget.__init__(self, 'track_selector')
+        gtk.ComboBox.__init__(self)
+
+        self.queue = queue
+        self.list = gtk.ListStore(gobject.TYPE_PYOBJECT, gobject.TYPE_STRING)
+        self.formatter = MMTrackFormatter()
         self._updating = False
         self._changed_callback = changed_callback
 
@@ -257,7 +369,7 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
         self.set_cell_data_func(textrenderer, self.text_data_func)
 
         try:
-            self.connect('format-title', format_callback)
+            self.formatter.connect('format-request', format_callback)
         except TypeError:
             pass
 
@@ -269,11 +381,15 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
         event.add_callback(self.on_tracks_removed, 'tracks_removed')
         event.add_callback(self.on_tracks_reordered, 'tracks_reordered')
 
-    def update_track_list(self, playlist, tracks=None):
+    def update_track_list(self, playlist=None, tracks=None):
         """
             Populates the track list based
             on the current playlist
         """
+        if playlist is None:
+            playlist = self.queue.current_playlist
+            tracks = playlist.get_tracks()
+
         if tracks is None:
             tracks = playlist.get_tracks()
 
@@ -282,7 +398,7 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
         self._updating = True
         self.list.clear()
         for track in tracks:
-            iter = self.list.append([track, self.get_formatted_title(track)])
+            iter = self.list.append([track, self.formatter.format(track)])
             if track == current_track:
                 self.set_active_iter(iter)
         self._updating = False
@@ -313,88 +429,6 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
 
             iter = self.list.iter_next(iter)
         self._updating = False
-
-    def format_tracknumber(self, tracknumber):
-        """
-            Returns a properly formatted tracknumber
-        """
-        try: # Valid number
-            tracknumber = '%02d' % int(tracknumber)
-        except TypeError: # None
-            tracknumber = '00'
-        except ValueError: # 'N/N'
-            pass
-
-        return tracknumber
-
-    def format_length(self, length):
-        """
-            Returns a properly formatted track length
-        """
-        try:
-            length = float(length)
-        except TypeError:
-            length = 0
-
-        return '%d:%02d' % (length // 60, length % 60)
-
-    def format_rating(self, rating):
-        """
-            Returns a properly formatted rating
-        """
-        try:
-            rating = float(rating) / 100
-        except TypeError:
-            rating = 0
-
-        rating = self._rating_steps * rating
-
-        return '%s%s' % (
-            '★' * int(rating),
-            '☆' * int(self._rating_steps - rating)
-        )
-
-    def format_bitrate(self, bitrate):
-        """
-            Returns a properly formatted bitrate
-        """
-        try:
-            bitrate = int(bitrate)
-        except TypeError:
-            bitrate = 0
-
-        return '%d kbit/s' % (bitrate / 1000)
-
-    def get_formatted_title(self, track):
-        """
-            Returns the formatted title of a track
-        """
-        template = Template(self.emit('format-title') or self._default)
-        text = template.safe_substitute(self.get_substitutions(track))
-        return text
-
-    def get_substitutions(self, track):
-        """
-            Returns a map for keyword to tag value mapping
-        """
-        substitutions = self._substitutions.copy()
-
-        for keyword, tagname in substitutions.items():
-            try:
-                substitutions[keyword] = _(' & ').join(track[tagname])
-            except TypeError:
-                substitutions[keyword] = track[tagname]
-
-            try:
-                formatter = self._formattings[keyword]
-                substitutions[keyword] = formatter(substitutions[keyword])
-            except KeyError:
-                pass
-
-            if substitutions[keyword] is None:
-                substitutions[keyword] = _('Unknown')
-
-        return substitutions
 
     def text_data_func(self, celllayout, cell, model, iter):
         """
@@ -451,10 +485,6 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
             Triggers update of the track list on track reordering
         """
         self.update_track_list(playlist, tracks)
-
-gobject.type_register(MMTrackSelector)
-gobject.signal_new('format-title', MMTrackSelector,
-    gobject.SIGNAL_RUN_LAST, gobject.TYPE_STRING, ())
 
 class MMProgressBar(MMWidget, gtk.ProgressBar):
     """

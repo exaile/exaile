@@ -622,9 +622,11 @@ class ComboEntryPrefsItem(PrefsItem):
         for i in range(len(match), -1, -1):
             # Find from the rear
             match_pos = text.rfind(match[:i])
-            # Matched if not empty and match equal to
-            # text from the matched position to the end
-            if match[:i] and match[:i] == text[match_pos:]:
+            # Matched if the match is not empty
+            # and equal to the text from the matched position to the end
+            # and not equal to the match itself
+            # (the latter hides the match if it was already fully typed)
+            if match[:i] and match[:i] == text[match_pos:] and match[:i] != match:
                 return True
         return False
 

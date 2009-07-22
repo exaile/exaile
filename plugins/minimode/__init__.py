@@ -181,6 +181,8 @@ class MiniMode(gtk.Window):
                 self.update_position()
             elif option == 'plugin/minimode/selected_controls':
                 self.update_controls()
+            elif option == 'plugin/minimode/track_selector_title':
+                self.box['track_selector'].update_track_list()
     
     def update_position(self):
         """
@@ -208,14 +210,13 @@ class MiniMode(gtk.Window):
         self.box.pack_start(mmwidgets.MMButton('restore',
           'gtk-fullscreen', _('Restore Main Window'), self.on_restore))
         self.box.pack_start(mmwidgets.MMTrackSelector(
-          self.exaile.queue, self.on_track_change, self.on_format_title))
+          self.exaile.queue, self.on_track_change, self.on_format_request))
         self.box.pack_start(mmwidgets.MMProgressBar(
           self.exaile.player, self.on_track_seeked))
         self.box.pack_start(mmwidgets.MMVolumeButton(
           self.exaile.player, self.on_volume_changed))
-        #self.box.pack_start(mmwidgets.MMPlaylistButton(None, None, None))
 
-        # TODO: track_bar
+        # TODO: track_bar, playlist_button
 
         self.update_controls()
         self.add(self.box)
@@ -339,9 +340,9 @@ class MiniMode(gtk.Window):
             self.exaile.queue.current_playlist.set_current_pos(index)
             self.exaile.queue.play(track)
 
-    def on_format_title(self, track_selector):
+    def on_format_request(self, formatter):
         """
-            Tells the track selector how to format its title
+            Tells the track formatter about the user preference
         """
         return self.get_option('plugin/minimode/track_selector_title')
 

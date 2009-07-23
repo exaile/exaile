@@ -415,6 +415,14 @@ class Playlist(gtk.VBox):
     def key_released(self, widget, event):
         if event.keyval == gtk.keysyms.Delete:
             self.remove_selected_tracks()
+        elif event.keyval == gtk.keysyms.Left:
+            # Modifying current position
+            self.player.scroll(-10)
+            self.main.progress_bar.timer_update() # Needed to evade progressbar lag
+        elif event.keyval == gtk.keysyms.Right:
+            # Modifying current position
+            self.player.scroll(10)
+            self.main.progress_bar.timer_update() # Needed to evade progressbar lag
 
     def _setup_tree(self):
         """

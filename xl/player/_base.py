@@ -123,6 +123,23 @@ class ExailePlayer(object):
     def seek(self, value):
         raise NotImplementedError
 
+    def scroll(self, value):
+        # Getting new position
+        tm = self.get_time() + value
+        
+        # If we are before the beginning of the track, restart it or go to prev
+        if tm < 0:
+            self._queue.prev()
+            return
+
+        # If we are after the end of the track, switch to the next one
+        elif tm > self.current.get_duration():
+            self._queue.next()
+            return
+
+        # Apply new position
+        self.seek(tm)
+
     def get_position(self):
         """
             Gets the current playback position of the playing track

@@ -336,6 +336,11 @@ class CollectionPanel(panel.Panel):
                 continue
 
         if not expand: return
+
+        # if we've already expanded this node, don't expand it again
+        if expand in self._expand_items: return
+        self._expand_items.append(expand)
+
         item = expand.pop(0)
         gobject.idle_add(self._expand_node_by_name, 
             search_num, None, item, expand)
@@ -343,6 +348,7 @@ class CollectionPanel(panel.Panel):
     def _expand_search_nodes(self, search_num):
         if not self.keyword.strip(): return
 
+        self._expand_items = []
         for track in self.tracks:
             if search_num != self._search_num: return
             tmporder = self.order[:]

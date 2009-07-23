@@ -31,7 +31,7 @@ def enable(exaile):
     else:
         _enable(None, exaile, None)
 
-@guiutil.gtkrun
+@guiutil.idle_add()
 def _enable(event, exaile, nothing):
     """
         Handles the deferred enable call

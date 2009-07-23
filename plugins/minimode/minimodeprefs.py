@@ -63,7 +63,7 @@ class HorizontalPositionPreference(widgets.SpinPrefsItem):
         widgets.SpinPrefsItem.__init__(self, prefs, widget)
         event.add_callback(self._on_setting_change, 'option_set')
 
-    @guiutil.gtkrun
+    @guiutil.idle_add()
     def _on_setting_change(self, event, settings_manager, option):
         """
             Handles changed position triggered by
@@ -86,7 +86,7 @@ class VerticalPositionPreference(widgets.SpinPrefsItem):
         widgets.SpinPrefsItem.__init__(self, prefs, widget)
         event.add_callback(self._on_setting_change, 'option_set')
 
-    @guiutil.gtkrun
+    @guiutil.idle_add()
     def _on_setting_change(self, event, settings_manager, option):
         """
             Handles changed position triggered by

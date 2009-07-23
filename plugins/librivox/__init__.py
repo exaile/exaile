@@ -32,7 +32,7 @@ def enable(exaile):
     else:
         _enable(None, exaile, None)
        
-@guiutil.gtkrun
+@guiutil.idle_add()
 def _enable(o1, exaile, o2):
     global panel
     panel=LVPanel(exaile)
@@ -73,7 +73,7 @@ class LVPanel():
         self.add_to_playlist(self.books[row].chapters, location)
         return
         
-    @guiutil.gtkrun
+    @guiutil.idle_add()
     def done_getting_chapters(self, row):
         # adds chapters to treeview and removes "Loading..." message
         l_iter=self.treestore.get_iter((row,0))

@@ -42,6 +42,7 @@ import os, sys, logging, logging.handlers, time
 logger = logging.getLogger(__name__)
 
 class Exaile(object):
+    _exaile = None
     
     def __init__(self):
         """
@@ -212,6 +213,7 @@ class Exaile(object):
             settings.set_option("general/first_run", False)
 
         self.loading = False
+        Exaile._exaile = self
         event.log_event("exaile_loaded", self, None)
 
     def __show_splash(self):
@@ -440,5 +442,13 @@ class Exaile(object):
         logger.info(_("Bye!"))
         logging.shutdown()
         exit()
+
+def exaile():
+    if not Exaile._exaile:
+        raise AttributeError(_("Exaile is not yet finished loading"
+            ". Perhaps you should listen for the exaile_loaded"
+            " signal?"))
+
+    return Exaile._exaile
 
 # vim: et sts=4 sw=4

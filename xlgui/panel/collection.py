@@ -16,7 +16,7 @@ from xl.nls import gettext as _
 import gtk, gobject, urllib, logging
 from xl import xdg, common, track, trackdb, metadata
 from xl import settings
-from xlgui import panel, guiutil, menu, playlist
+from xlgui import panel, guiutil, menu, playlist, rating
 
 logger = logging.getLogger(__name__)
 
@@ -46,6 +46,10 @@ class CollectionPanel(panel.Panel):
     def __init__(self, parent, collection, name=None):
         """
             Initializes the collection panel
+
+            @param parent: the parent dialog
+            @param collection: the xl.collection.Collection instance
+            @param name: an optional name for this panel
         """
         panel.Panel.__init__(self, parent, name)
 
@@ -67,15 +71,16 @@ class CollectionPanel(panel.Panel):
             self.emit('append-items', self.get_selected_tracks()))
         self.menu.connect('queue-items', lambda *e:
             self.emit('queue-items', self.get_selected_tracks()))
-        self.menu.connect('rating-set', self.set_rating)
+        self.menu.connect('rating-set', self._on_set_rating)
 
         self.load_tree()
 
-    def set_rating(self, widget, rating):
+    def _on_set_rating(self, widget, new_rating):
+        """
+            Called when a new rating is chosen from the rating menu
+        """
         tracks = self.get_selected_tracks()
-        steps = settings.get_option('miscellaneous/rating_steps', 5)
-        for track in tracks:
-            track['__rating'] = float((100.0*rating)/steps)
+        rating.set_rating(tracks, new_rating)
 
     def _setup_widgets(self):
         """
@@ -240,9 +245,21 @@ class CollectionPanel(panel.Panel):
                 return False
 
     def on_expanded(self, tree, iter, path):
+        """
+            Called when a user expands a tree item.
+
+            Loads the various nodes that belong under this node.
+        """
         self.load_subtree(iter)
 
     def get_node_keywords(self, parent):
+        """
+            Returns a list of keywords that are associated with this node, and
+            it's parent nodes
+            
+            @param parent: the node
+            @return: a list of keywords
+        """
         if not parent:
             return []
         if self.model.get_value(parent, 2):
@@ -258,6 +275,10 @@ class CollectionPanel(panel.Panel):
         return values
 
     def get_node_search_terms(self, node):
+        """
+            Finds all the related search terms for a particular node
+            @param node: the node you wish to create search terms
+        """
         keywords = self.get_node_keywords(node)
         terms = []
         n = 0
@@ -285,6 +306,12 @@ class CollectionPanel(panel.Panel):
         return terms
 
     def load_tree(self):
+        """
+            Loads the gtk.TreeView for this collection panel.
+
+            Loads tracks based on the current keyword, or all the tracks in
+            the collection associated with this panel
+        """
         self.current_start_count = self.start_count
         self.model.clear()
         self.tree.set_model(self.model_blank)
@@ -304,6 +331,15 @@ class CollectionPanel(panel.Panel):
         self.emit('collection-tree-loaded')
 
     def _expand_node_by_name(self, search_num, parent, name, rest=None):
+        """
+            Recursive function to expand all nodes in a hierarchical list of
+            names.
+
+            @param search_num: the current search number
+            @param parent: the parent node
+            @param name: the name of the node to expand
+            @param rest: the list of the nodes to expand after this one
+        """
         iter = self.model.iter_children(parent)
         
         while iter:
@@ -325,6 +361,13 @@ class CollectionPanel(panel.Panel):
                 parent, item, rest)
             
     def _expand_to(self, search_num, track, tmporder):
+        """
+            Expands to the specified track
+
+            @param search_num: the current search id
+            @param track: the track to expand
+            @param tmporder: the ordering list
+        """
         expand = []
         for item in tmporder:
             if search_num != self._search_num: return
@@ -345,6 +388,11 @@ class CollectionPanel(panel.Panel):
             search_num, None, item, expand)
 
     def _expand_search_nodes(self, search_num):
+        """
+            Expands the nodes in the tree that match the current search
+
+            @param search_num: the current search id
+        """
         if not self.keyword.strip(): return
 
         self._expand_items = []
@@ -367,6 +415,11 @@ class CollectionPanel(panel.Panel):
                 tmporder.pop()
 
     def load_subtree(self, parent):
+        """
+            Loads all the sub nodes for a specified node
+            
+            @param node: the node
+        """
         iter_sep = None
         if parent == None:
             depth = 0
@@ -474,5 +527,11 @@ class CollectionPanel(panel.Panel):
             self.model.remove(iter_sep)
 
         if depth == 0 and len(self.keyword.strip()) > 2:
+            
+            # the search number is an id for expanding nodes. 
+            # we set the id before we try expanding the nodes because
+            # expanding can happen in the background.  If the id changes, the
+            # expanding methods will know that they need to stop because the
+            # search is no longer valid
             self._search_num += 1
             gobject.idle_add(self._expand_search_nodes, self._search_num)

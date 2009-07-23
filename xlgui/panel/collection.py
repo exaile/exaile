@@ -304,7 +304,7 @@ class CollectionPanel(panel.Panel):
 
         self.emit('collection-tree-loaded')
 
-    def _expand_node_by_name(self, search_num, parent, name):
+    def _expand_node_by_name(self, search_num, parent, name, rest=None):
         iter = self.model.iter_children(parent)
         
         while iter:
@@ -315,9 +315,15 @@ class CollectionPanel(panel.Panel):
             
             if value == name:
                 self.tree.expand_row(self.model.get_path(iter), False)
-                return iter
+                parent = iter
+                break
 
             iter = self.model.iter_next(iter)
+
+        if rest:
+            item = rest.pop(0)
+            gobject.idle_add(self._expand_node_by_name, search_num,
+                parent, item, rest)
             
     def _expand_to(self, search_num, track, tmporder):
         expand = []
@@ -329,9 +335,10 @@ class CollectionPanel(panel.Panel):
             except (TypeError, KeyError):
                 continue
 
-        parent = None
-        for item in expand[:-1]:
-            parent = self._expand_node_by_name(search_num, parent, item)
+        if not expand: return
+        item = expand.pop(0)
+        gobject.idle_add(self._expand_node_by_name, 
+            search_num, None, item, expand)
 
     def _expand_search_nodes(self, search_num):
         if not self.keyword.strip(): return
@@ -346,7 +353,8 @@ class CollectionPanel(panel.Panel):
                     if not value: continue
                     
                     if self.keyword.strip().lower() in value.lower():
-                        self._expand_to(search_num, track, tmporder)
+                        self._expand_to( 
+                            search_num, track, tmporder)
 
                 except (TypeError, KeyError):  
                     continue
@@ -460,6 +468,6 @@ class CollectionPanel(panel.Panel):
         if iter_sep is not None:
             self.model.remove(iter_sep)
 
-        if depth == 0 and len(self.keyword) > 2:
+        if depth == 0 and len(self.keyword.strip()) > 2:
             self._search_num += 1
             gobject.idle_add(self._expand_search_nodes, self._search_num)

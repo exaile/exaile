@@ -26,6 +26,10 @@ class SubmitPreference(widgets.CheckPrefsItem):
     default = True
     name = 'plugin/ascrobbler/submit'
 
+class MenuCheck(widgets.CheckPrefsItem):
+    default = False
+    name = 'plugin/ascrobbler/menu_check'
+
 class UserPreference(widgets.PrefsItem):
     name = 'plugin/ascrobbler/user'
 

@@ -272,10 +272,14 @@ def _enable(exaile):
         load any saved bookmarks.
     """
     global MENU_ITEM
+    global SEP
     
     bm = Bookmarks(exaile)
     
     MENU_ITEM = gtk.ImageMenuItem(_('Bookmarks'))
+    SEP = gtk.SeparatorMenuItem()
+    
+    exaile.gui.xml.get_widget('tools_menu').append(SEP)
     exaile.gui.xml.get_widget('tools_menu').append(MENU_ITEM)
     
     menus = [guiutil.Menu(), guiutil.Menu()]
@@ -286,7 +290,6 @@ def _enable(exaile):
     menus[0].append_item(menu_item)
     
     menu_item = gtk.MenuItem(_('Delete bookmark'))
-    #FIXME : make 'del' grey if needed
     menu_item.set_submenu(menus[1])
     menus[0].append_item(menu_item)
     
@@ -300,6 +303,7 @@ def _enable(exaile):
     MENU_ITEM.set_submenu(menus[0])
     MENU_ITEM.set_image(gtk.image_new_from_icon_name('user-bookmarks', gtk.ICON_SIZE_MENU))
     
+    SEP.show_all()
     MENU_ITEM.show_all()
 
 
@@ -308,10 +312,17 @@ def disable(exaile):
         Called when the plugin is disabled.  Destroy menu.
     """
     global MENU_ITEM
+    global SEP
+    
     if MENU_ITEM:
         MENU_ITEM.hide()
         MENU_ITEM.destroy()
         MENU_ITEM = None
+    
+    if SEP:
+        SEP.hide()
+        SEP.destroy()
+        SEP = None
 
 if __name__ == '__main__':
     # test dialog outside of exaile

@@ -1,7 +1,9 @@
 import _scrobbler as scrobbler
 import asprefs
 from xl import common, event, xdg, metadata, settings
-import gobject, logging, time, pickle, os
+from xl.nls import gettext as _
+from xlgui import guiutil
+import gobject, logging, time, pickle, os, gtk
 
 logger = logging.getLogger(__name__)
 
@@ -13,14 +15,28 @@ def enable(exaile):
     """
     global SCROBBLER
 
-    SCROBBLER = ExaileScrobbler()
+    SCROBBLER = ExaileScrobbler(exaile)
+    
+    if exaile.loading:
+        event.add_callback(__enb, 'exaile_loaded')
+    else:
+        __enb(None, exaile, None)
+
+def __enb(eventname, exaile, nothing):
+    gobject.idle_add(_enable, exaile)
+
+@guiutil.gtkrun
+def _enable(exaile):
+    SCROBBLER.exaile_menu = exaile.gui.xml.get_widget('tools_menu')
+    SCROBBLER.get_options('','','plugin/ascrobbler/menu_check')
+    
 
 def disable(exaile):
     """
         Disables the audioscrobbler plugin
     """
     global SCROBBLER
-
+    
     if SCROBBLER:
         SCROBBLER.stop()
         SCROBBLER = None
@@ -29,12 +45,17 @@ def get_prefs_pane():
     return asprefs
 
 class ExaileScrobbler(object):
-    def __init__(self):
+    def __init__(self, exaile):
         """
             Connects events to the player object, loads settings and cache
         """
         self.connected = False
         self.connecting = False
+        self.use_menu = False
+        self.exaile_menu = None
+        self.menu_entry = None
+        self.exaile = exaile
+        self.menu_conn = 0
         self.cachefile = os.path.join(xdg.get_data_dirs()[0], 
                 "audioscrobbler.cache")
         self.get_options('','','plugin/ascrobbler/cache_size')
@@ -56,17 +77,64 @@ class ExaileScrobbler(object):
             server = settings.get_option('plugin/ascrobbler/url',
                 'http://post.audioscrobbler.com/')
             self.submit = settings.get_option('plugin/ascrobbler/submit', True)
-
+            
+            if self.use_menu and self.menu_entry:
+                self.menu_entry.set_active(self.submit)
+                
             if (not self.connecting and not self.connected) and self.submit:
                 if username and password:
                     self.connecting = True
                     self.initialize(username, password, server)
-
+            
+        if option == 'plugin/ascrobbler/menu_check':
+            self.use_menu = settings.get_option('plugin/ascrobbler/menu_check', False)
+            if self.use_menu and not self.menu_entry:
+                self.setup_menu()
+            elif self.menu_entry and not self.use_menu:
+                self.remove_menu()
+    
+    @guiutil.gtkrun
+    def setup_menu(self):
+        self.menu_agr = self.exaile.gui.main.accel_group
+        
+        self.menu_sep = gtk.SeparatorMenuItem()
+        
+        self.menu_entry = gtk.CheckMenuItem(_('Enable audioscrobbling'), self.menu_agr)
+        self.menu_entry.set_active(self.submit)
+        
+        self.exaile_menu.append(self.menu_sep)
+        self.exaile_menu.append(self.menu_entry)
+        
+        self.menu_conn = self.menu_entry.connect('toggled', self._menu_entry_toggled)
+        key, mod = gtk.accelerator_parse("<Control>L")
+        self.menu_entry.add_accelerator("activate", self.menu_agr, key, 
+            mod, gtk.ACCEL_VISIBLE)
+        
+        self.menu_entry.show_all()
+        self.menu_sep.show_all()
+    
+    @guiutil.gtkrun
+    def remove_menu(self):
+        self.menu_entry.disconnect(self.menu_conn)
+        
+        self.menu_entry.hide()
+        self.menu_entry.destroy()
+        self.menu_entry = None
+        
+        self.menu_sep.hide()
+        self.menu_sep.destroy()
+        self.menu_sep = None
+        
+    def _menu_entry_toggled(self, data):
+        settings.set_option('plugin/ascrobbler/submit', self.menu_entry.get_active())
+    
     def stop(self):
         """
             Stops submitting
         """
         logger.info("AS: Stopping submissions")
+        if self.use_menu:
+            self.remove_menu()
         if self.connected:
             event.remove_callback(self.on_play, 'playback_track_start')
             event.remove_callback(self.on_stop, 'playback_track_end')

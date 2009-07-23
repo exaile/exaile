@@ -198,6 +198,9 @@ class OSDWindow(object):
                 elif type(value) == list or type(value) == tuple:
                     value = metadata.j(value)
 
+                if item.startswith('__'):
+                    item = item[2:]
+
                 if not isinstance(value, basestring):
                     value = unicode(value)
                 text = text.replace('{%s}' % item, common.escape_xml(value))

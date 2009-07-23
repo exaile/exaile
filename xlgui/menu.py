@@ -152,7 +152,6 @@ class PlaylistMenu(GenericTrackMenu):
         # Defer menu setup until exaile is loaded
         event.add_callback(self.on_exaile_loaded, 'gui_loaded')
 
-    @guiutil.gtkrun
     def on_exaile_loaded(self, event, exaile, nothing):
         """
             Finalizes the menu setup

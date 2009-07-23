@@ -292,6 +292,15 @@ class IdleManager(threading.Thread):
         self._stopped = True
         logger.debug(_("Stopping IdleManager thread..."))
 
+    def _call_function(self, func, args):
+        """
+            Actually calls the function
+        """
+        try:
+            func.__call__(*args)
+        except:
+            common.log_exception(logger)
+
     def run(self):
         """
             The main loop.
@@ -307,11 +316,7 @@ class IdleManager(threading.Thread):
             self.queue = self.queue[1:]
             
             if self._stopped: return 
-            try:
-                func.__call__(*args)
-                if self._stopped: return 
-            except:
-                common.log_exception(logger)
+            self._call_function(func, args)
                 
     def events_pending(self):
         """ 
@@ -502,6 +507,12 @@ class Waiter(threading.Thread):
         """
         self.new_time = time.time()
 
+    def _call_function(self):
+        try:
+            self.func.__call__(*self.args, **self.kwargs)
+        except:
+            common.log_exception()
+
     def run(self):
         self.old_time = time.time()
         while True:
@@ -512,10 +523,8 @@ class Waiter(threading.Thread):
                 self.old_time = self.new_time
             else:
                 break
-        try:
-            self.func.__call__(*self.args, **self.kwargs)
-        except:
-            common.log_exception(logger)
+
+        self._call_function()
 
 # Instantiate our managers as globals. This lets us use the same instance
 # regardless of where this module is imported.

@@ -31,7 +31,6 @@ def enable(exaile):
     else:
         _enable(None, exaile, None)
 
-@guiutil.idle_add()
 def _enable(event, exaile, nothing):
     """
         Handles the deferred enable call
@@ -139,7 +138,7 @@ class MiniMode(gtk.Window):
         """
         if self._active:
             self.exaile.gui.main.window.hide()
-            self.show()
+            self.show_all()
         else:
             self.exaile.gui.main.window.hide()
             self.update_window()

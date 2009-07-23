@@ -173,7 +173,7 @@ class ShoutcastRadioStation(RadioStation):
 
         gobject.idle_add(self.search_done, keyword, lists)
 
-    @guiutil.gtkrun
+    @guiutil.idle_add()
     def search_done(self, keyword, lists):
         """
             Called when the search is finished
@@ -195,7 +195,7 @@ class ShoutcastRadioStation(RadioStation):
 
         gobject.idle_add(self.done_getting_playlist, pl)
 
-    @guiutil.gtkrun
+    @guiutil.idle_add()
     def done_getting_playlist(self, pl):
         self._parent.emit('playlist-selected', pl)
 

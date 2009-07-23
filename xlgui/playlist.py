@@ -223,7 +223,6 @@ class Playlist(gtk.VBox):
                 for path in paths:
                     selection.select_path(path)
 
-    @guiutil.gtkrun
     def on_remove_tracks(self, type, playlist, info):
         """
             Called when someone removes tracks from the contained playlist
@@ -232,7 +231,6 @@ class Playlist(gtk.VBox):
         self.reorder_songs()
         self.main.update_track_counts()
 
-    @guiutil.gtkrun
     def on_add_tracks(self, type, playlist, tracks):
         """
             Called when someone adds tracks to the contained playlist
@@ -367,7 +365,7 @@ class Playlist(gtk.VBox):
         # changed, and if it did give the user an option to do something
         try:
             current_tracks = self.playlist.get_tracks()
-            original_tracks = self.main.playlist_manager \
+            original_tracks = self.main.playlist_manager.get_playlist \
                 (self.playlist.get_name()).get_tracks()
             dirty = False
             if len(current_tracks) != len(original_tracks):

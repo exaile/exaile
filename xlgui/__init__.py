@@ -23,6 +23,12 @@ from xlgui import guiutil, prefs, plugins, cover, commondialogs, devices, queue
 gtk.window_set_default_icon_from_file(xdg.get_data_path("images/icon.png"))
 logger = logging.getLogger(__name__)
 
+###
+# Set up xl/event to work with the gtk event loop
+logger.info("Setting up deferred idle manager function...")
+event.IDLE_MANAGER._call_function = guiutil.idle_add()(
+    event.IDLE_MANAGER._call_function)
+
 def mainloop():
     gtk.main()
 
@@ -401,7 +407,6 @@ class Main(object):
             logger.debug("Couldn't remove panel for %s"%device.get_name())
         del self.device_panels[device.get_name()]
 
-@guiutil.gtkrun
 def show_splash(show=True):
     """
         Show a splash screen

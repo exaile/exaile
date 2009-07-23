@@ -58,6 +58,8 @@ def gtkrun(f):
 
         ALL CODE MODIFYING THE UI SHOULD BE WRAPPED IN THIS
     """
+    raise DeprecationWarning('We no longer need to use this '
+        'function for xl/event.')
     def wrapper(*args, **kwargs):
         # if we're already in the main thread and you try to run
         # threads_enter, stuff will break horribly, so test for the main
@@ -724,7 +726,6 @@ class MenuRatingWidget(gtk.MenuItem):
         else:
             return rating.rating_images[0]
             
-    @gtkrun    
     def on_rating_change(self, type = None, object = None, data = None):
         """
             Handles possible changes of track ratings

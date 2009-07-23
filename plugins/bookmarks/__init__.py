@@ -265,7 +265,6 @@ def enable(exaile):
     else:
         __enb(None, exaile, None)
 
-@guiutil.gtkrun
 def _enable(exaile):
     """
         Called when plugin is enabled.  Set up the menus, create the bookmark class, and 

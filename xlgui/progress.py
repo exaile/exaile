@@ -36,7 +36,6 @@ class ProgressMonitor(gtk.Frame):
         event.add_callback(self.progress_update, 'progress_update', thread)
         thread.start()
 
-    @guiutil.gtkrun
     def progress_update(self, type, thread, percent):
         """
             Called when the progress has been updated

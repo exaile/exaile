@@ -650,14 +650,12 @@ class MainWindow(object):
             self.queue.add_tracks(items, add_duplicates=False)
         pl.list.queue_draw()
 
-    @guiutil.gtkrun
     def on_playback_error(self, type, player, message):
         """
             Called when there has been a playback error
         """
         commondialogs.error(self.window, message)
 
-    @guiutil.gtkrun
     def on_buffering(self, type, player, percent):
         """
             Called when a stream is buffering
@@ -667,7 +665,6 @@ class MainWindow(object):
         else:
             self.status.set_label(_("Buffering: 100%..."), 1000)
 
-    @guiutil.gtkrun
     def on_tags_parsed(self, type, player, args):
         """
             Called when tags are parsed from a stream/track
@@ -680,7 +677,6 @@ class MainWindow(object):
             self.cover.on_playback_start('', self.player, None)
             self.get_selected_playlist().refresh_row(tr)
 
-    @guiutil.gtkrun
     def on_toggle_pause(self, type, player, object):
         """
             Called when the user clicks the play button after playback has
@@ -761,7 +757,6 @@ class MainWindow(object):
             pl.playlist.set_random(self.shuffle_toggle.get_active())
             pl.playlist.set_repeat(self.repeat_toggle.get_active())
 
-    @guiutil.gtkrun
     def on_playback_start(self, type, player, object):
         """
             Called when playback starts
@@ -789,7 +784,6 @@ class MainWindow(object):
         if settings.get_option('osd/enabled', True):
             self.osd.show(self.player.current)
 
-    @guiutil.gtkrun
     def on_playback_end(self, type, player, object):
         """
             Called when playback ends
@@ -803,7 +797,6 @@ class MainWindow(object):
         self.play_button.set_image(gtk.image_new_from_stock('gtk-media-play',
                 gtk.ICON_SIZE_SMALL_TOOLBAR))
 
-    @guiutil.gtkrun
     def _on_setting_change(self, name, object, option):
         """
            Handles changes of settings

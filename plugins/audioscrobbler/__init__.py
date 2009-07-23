@@ -2,7 +2,6 @@ import _scrobbler as scrobbler
 import asprefs
 from xl import common, event, xdg, metadata, settings
 from xl.nls import gettext as _
-from xlgui import guiutil
 import gobject, logging, time, pickle, os, gtk
 
 logger = logging.getLogger(__name__)
@@ -25,12 +24,10 @@ def enable(exaile):
 def __enb(eventname, exaile, nothing):
     gobject.idle_add(_enable, exaile)
 
-@guiutil.gtkrun
 def _enable(exaile):
     SCROBBLER.exaile_menu = exaile.gui.xml.get_widget('tools_menu')
     SCROBBLER.get_options('','','plugin/ascrobbler/menu_check')
     
-
 def disable(exaile):
     """
         Disables the audioscrobbler plugin
@@ -93,7 +90,6 @@ class ExaileScrobbler(object):
             elif self.menu_entry and not self.use_menu:
                 self.remove_menu()
     
-    @guiutil.gtkrun
     def setup_menu(self):
         self.menu_agr = self.exaile.gui.main.accel_group
         
@@ -113,7 +109,6 @@ class ExaileScrobbler(object):
         self.menu_entry.show_all()
         self.menu_sep.show_all()
     
-    @guiutil.gtkrun
     def remove_menu(self):
         self.menu_entry.disconnect(self.menu_conn)
         

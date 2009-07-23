@@ -112,7 +112,6 @@ def toggle_record(widget=None, event=None):
 
     return False
 
-@guiutil.gtkrun
 def playback_stop(type, player, object):
     global STREAMRIPPER_OUT, STREAMRIPPER_PID
     if BUTTON:
@@ -129,7 +128,6 @@ def playback_stop(type, player, object):
         os.system("kill -9 %d" % STREAMRIPPER_PID)
         STREAMRIPPER_PID = None
 
-@guiutil.idle_add()
 def initialize(type, exaile, stuff=None):
     global BUTTON, APP
 

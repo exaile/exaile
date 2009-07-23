@@ -32,7 +32,6 @@ def enable(exaile):
     else:
         _enable(None, exaile, None)
        
-@guiutil.idle_add()
 def _enable(o1, exaile, o2):
     global panel
     panel=LVPanel(exaile)
@@ -209,7 +208,7 @@ class LVPanel():
                 self.popup_menu.popup( None, None, None, event.button, time)
             return 1
 
-    @guiutil.gtkrun
+    @guiutil.idle_add()
     def generate_treestore(self, books):
         self.treestore.clear()
         for book in books:
@@ -273,7 +272,7 @@ class LVPanel():
         self.drop_after_getting(book, current_playlist, PLpath, after)    
 
     
-    @guiutil.gtkrun
+    @guiutil.idle_add()
     def drop_after_getting(self, book, current_playlist, PLpath, after):
         # simulates drag_data_received() function of xlgui/playlist.py
         if current_playlist.playlist.ordered_tracks:
@@ -315,7 +314,7 @@ class LVPanel():
             self.get_all(row)
         self.done_getting_info(row)
         
-    @guiutil.gtkrun    
+    @guiutil.idle_add()
     def done_getting_info(self, row):
         if self.aboutwindow==None:
             self.aboutwindow=AW.AboutWindow()

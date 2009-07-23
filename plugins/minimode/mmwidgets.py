@@ -21,6 +21,7 @@ from xl import event
 from xl.track import Track
 from xl.nls import gettext as _
 from xlgui import guiutil
+import threading
 
 class MMMenuItem(gtk.ImageMenuItem):
     """
@@ -86,14 +87,14 @@ class MMBox(gtk.HBox):
         """
             Shows all contained children
         """
-        for widget in self:
+        for widget in self.get_children():
             self.show_child(widget.id)
 
     def hide_child(self, id):
         """
             Hides a contained child
         """
-        for widget in self:
+        for widget in self.get_children():
             if widget.id == id:
                 self._removed_widgets.append(widget)
                 self.remove(widget)
@@ -104,7 +105,7 @@ class MMBox(gtk.HBox):
         """
             Hides all contained children
         """
-        for widget in self:
+        for widget in self.get_children():
             self.hide_child(widget.id)
 
 class MMWidget(gtk.Widget):
@@ -381,7 +382,6 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
         event.add_callback(self.on_tracks_removed, 'tracks_removed')
         event.add_callback(self.on_tracks_reordered, 'tracks_reordered')
 
-    @guiutil.gtkrun
     def update_track_list(self, playlist=None, tracks=None):
         """
             Populates the track list based

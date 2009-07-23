@@ -889,7 +889,7 @@ class Playlist(gtk.VBox):
         if self.list.get_path_at_pos(int(x), int(y)) \
             and left_edge < x < left_edge + rating_col_width:
                 track = self.get_selected_track()
-                leftpadding = (rating_col_width - self._rating_width) / 2
+                leftpadding = (rating_col_width - rating._rating_width) / 2
                 i = int(math.ceil((x-left_edge-leftpadding)/icon_size))
                 new_rating = float((100*i)/steps)
                 if track['__rating'] == new_rating:

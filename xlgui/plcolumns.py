@@ -15,6 +15,7 @@
 import gtk
 from xl import settings
 from xl.nls import gettext as _
+from xlgui import rating
 import logging
 logger = logging.getLogger(__name__)
 
@@ -131,13 +132,13 @@ class RatingColumn(Column):
         try:
             idx = item.get_rating()
             cell.set_property('pixbuf',
-                self.playlist.rating_images[idx])
+                rating.rating_images[idx])
         except IndexError:
             logger.debug("idx_error")
             if idx > steps: idx = steps
             elif idx < 0: idx = 0
             cell.set_property('pixbuf',
-                self.playlist.rating_images[idx])
+                rating.rating_images[idx])
 
     def set_properties(self, col, cellr):
         cellr.set_property('follow-state', False)

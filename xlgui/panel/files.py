@@ -31,22 +31,20 @@ class FilesPanel(panel.Panel):
 
     gladeinfo = ('files_panel.glade', 'FilesPanelWindow')
 
-    def __init__(self, parent, collection, controller):
+    def __init__(self, parent, collection):
         """
             Initializes the files panel
         """
         panel.Panel.__init__(self, parent)
-        self.rating_images = playlist.create_rating_images(64)
         self.collection = collection
 
         self.box = self.xml.get_widget('files_box')
 
         self.targets = [('text/uri-list', 0, 0)]
 
-        self.controller = controller
         self._setup_tree()
         self._setup_widgets()
-        self.menu = menu.FilesPanelMenu(self.controller)
+        self.menu = menu.FilesPanelMenu()
         self.menu.connect('append-items', lambda *e:
             self.emit('append-items', self.get_selected_tracks()))
         self.menu.connect('queue-items', lambda *e:

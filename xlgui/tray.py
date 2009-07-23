@@ -119,8 +119,7 @@ class TrayIcon(gobject.GObject):
 
         self.menu.append_separator()
 
-        self.rating_item = guiutil.MenuRatingWidget(self.controller, 
-            self._get_current_track_list)
+        self.rating_item = guiutil.MenuRatingWidget(self._get_current_track_list)
         self.menu.append_item(self.rating_item)
         self.rm_item = self.menu.append(label=_("Remove current track from playlist"),
             stock_id='gtk-remove',

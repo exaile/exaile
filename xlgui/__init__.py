@@ -26,10 +26,14 @@ logger = logging.getLogger(__name__)
 def mainloop():
     gtk.main()
 
+def controller():
+    return Main._main
+
 class Main(object):
     """
         This is the main gui controller for exaile
     """
+    _main = None
     def __init__(self, exaile):
         """ 
             Initializes the GUI
@@ -49,8 +53,6 @@ class Main(object):
         self.progress_box = self.xml.get_widget('progress_box')
         self.progress_manager = progress.ProgressManager(self.progress_box)
         
-        self.rating_images = playlist.create_rating_images(12 * settings.get_option('miscellaneous/rating_steps', 5))
-
         logger.info("Loading main window...")
         self.main = main.MainWindow(self, self.xml,
             exaile.collection, exaile.player, exaile.queue, exaile.covers)
@@ -61,13 +63,12 @@ class Main(object):
         self.last_selected_panel = settings.get_option(
             'gui/last_selected_panel', None)
         self.panels['collection'] = collection.CollectionPanel(self.main.window,
-            exaile.collection, self)
+            exaile.collection)
         self.panels['radio'] = radio.RadioPanel(self.main.window, exaile.collection, 
-            exaile.radio, exaile.stations, self)
+            exaile.radio, exaile.stations)
         self.panels['playlists'] = playlists.PlaylistsPanel(self.main.window, 
-            exaile.playlists, exaile.smart_playlists, exaile.collection, self)
-        self.panels['files'] = files.FilesPanel(self.main.window, exaile.collection, 
-            self)
+            exaile.playlists, exaile.smart_playlists, exaile.collection)
+        self.panels['files'] = files.FilesPanel(self.main.window, exaile.collection)
 
         for panel in ('collection', 'radio', 'playlists', 'files'):
             self.add_panel(*self.panels[panel].get_panel())
@@ -97,6 +98,7 @@ class Main(object):
         event.add_callback(self.remove_device_panel, 'device_disconnected')
 
         logger.info("Done loading main window...")
+        Main._main = self
 
     def _connect_events(self):
         """

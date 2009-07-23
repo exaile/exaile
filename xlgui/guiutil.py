@@ -19,6 +19,7 @@ import gtk.gdk, pango, gobject
 from xl import xdg, track, playlist, common, settings, event
 from xl.nls import gettext as _
 import threading
+from xlgui import rating
 
 try:
     import sexy
@@ -613,10 +614,9 @@ class MenuRatingWidget(gtk.MenuItem):
         A rating widget that can be used as a menu entry
     """
 
-    def __init__(self, controller, _get_tracks):
+    def __init__(self, _get_tracks):
         gtk.MenuItem.__init__(self)
         
-        self.controller = controller
         self._get_tracks = _get_tracks
         
         self.hbox = gtk.HBox(spacing=3)
@@ -684,19 +684,19 @@ class MenuRatingWidget(gtk.MenuItem):
         if not tracks:
             tracks = self._get_tracks()
             if not tracks:
-                return self.controller.rating_images[0]
+                return rating.rating_images[0]
         
         if self._all_ratings_equal(tracks):
             try:
-                return self.controller.rating_images[tracks[0].get_rating()]
+                return rating.rating_images[tracks[0].get_rating()]
             except IndexError:
                 steps = settings.get_option('miscellaneous/rating_steps', 5)
                 idx = tracks[0].get_rating()
                 if idx > steps: idx = steps
                 elif idx < 0: idx = 0
-                return self.controller.rating_images[idx]
+                return rating.rating_images[idx]
         else:
-            return self.controller.rating_images[0]
+            return rating.rating_images[0]
             
     @gtkrun    
     def on_rating_change(self, type = None, object = None, data = None):

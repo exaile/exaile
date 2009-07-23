@@ -271,6 +271,7 @@ class MainWindow(object):
         self.covers = covers
         self.collection =  collection
         self.player = player
+        self.playlist_manager = controller.exaile.playlists
         self.queue = queue
         self.current_page = -1 
         self._fullscreen = False
@@ -391,7 +392,7 @@ class MainWindow(object):
         if pl is None:
             pl = xl.playlist.Playlist()
         name = pl.name
-        pl = playlist.Playlist(self, self.controller, pl)
+        pl = playlist.Playlist(self, self.queue, pl)
         nb = self.playlist_notebook
 
         try:
@@ -1046,6 +1047,9 @@ class MainWindow(object):
         if event.changed_mask & gtk.gdk.WINDOW_STATE_FULLSCREEN:
             self._fullscreen = bool(event.new_window_state & gtk.gdk.WINDOW_STATE_FULLSCREEN)
         return False
+
+def get_playlist_nb():
+    return MainWindow._mainwindow.playlist_notebook
 
 def get_selected_playlist():
     return MainWindow._mainwindow.get_selected_playlist()

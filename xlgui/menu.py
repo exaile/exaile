@@ -15,7 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import gtk, gobject
-from xlgui import guiutil, commondialogs
+from xlgui import guiutil, commondialogs, rating
 from xl import event, playlist, xdg, settings
 from xl.nls import gettext as _
 
@@ -30,11 +30,9 @@ class GenericTrackMenu(guiutil.Menu):
         'rating-set': (gobject.SIGNAL_RUN_LAST, None, (int,)),
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
-    def __init__(self, controller):
+    def __init__(self):
         guiutil.Menu.__init__(self)
         
-        self.controller = controller
-
         self._add_queue_pixbuf()
         self._create_menu()
 
@@ -102,18 +100,25 @@ class AddToPlaylistMenu(guiutil.Menu):
 
 
     def on_add_new_playlist(self, selected = None):
-        self.widget.controller.panels['playlists'].add_new_playlist(self.widget.get_selected_tracks())
+        # TODO: use signals to do this stuff, instead of calling
+        # xlgui.controller()
+        import xlgui
+        xlgui.controller().panels['playlists'].add_new_playlist(
+            self.widget.get_selected_tracks())
 
     def on_add_to_playlist(self, selected = None, pl_name = None):
         """
             Adds the selected tracks the playlist, saves the playlist
             and finally updates the playlist panel with the new tracks
         """
+        # TODO: use signals to do this stuff, instead of calling
+        # xlgui.controller()
+        import xlgui
         pl = self.playlist_manager.get_playlist(pl_name)
         tracks = self.widget.get_selected_tracks()
         pl.add_tracks(tracks)
         self.playlist_manager.save_playlist(pl, overwrite = True)
-        self.widget.controller.panels['playlists'].update_playlist_node(pl)
+        xlgui.controller().panels['playlists'].update_playlist_node(pl)
 
     def popup(self, event):
         """
@@ -128,18 +133,18 @@ class PlaylistMenu(GenericTrackMenu):
     __gsignals__ = {
         'remove-items': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
-    def __init__(self, playlist, controller):
-        GenericTrackMenu.__init__(self, controller)
+    def __init__(self, playlist, playlists):
+        GenericTrackMenu.__init__(self)
         self.playlist = playlist
         
-        self.rating_item = guiutil.MenuRatingWidget(self.controller, 
+        self.rating_item = guiutil.MenuRatingWidget( 
             self.playlist.get_selected_tracks)
         
         self.append_item(self.rating_item)
         event.add_callback(self.rating_item.on_rating_change, 'playback_track_start')
         self.connect('enter-notify-event', self.rating_item.on_rating_change)
 
-        self.add_playlist_menu = AddToPlaylistMenu(playlist, controller.exaile.playlists)
+        self.add_playlist_menu = AddToPlaylistMenu(playlist, playlists)
         self.append_menu(_('Add to custom playlist'), self.add_playlist_menu, 'gtk-add')
         self.append(_('Remove'), lambda *e: self.remove_selected_tracks(), 'gtk-remove')
 
@@ -170,8 +175,9 @@ class PlaylistMenu(GenericTrackMenu):
         """
             Displays the menu
         """
+        from xlgui import main
         if self.playlist_tab_menu:
-          pagecount = self.playlist.controller.main.playlist_notebook.get_n_pages()
+          pagecount = main.get_playlist_nb().get_n_pages()
           if settings.get_option('gui/show_tabbar', True) or pagecount > 1:
               self.playlist_tab_menu.hide_all()
           else:
@@ -204,11 +210,11 @@ class TrackSelectMenu(GenericTrackMenu):
     __gsignals__ = {
         'append-items': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
-    def __init__(self, controller):
+    def __init__(self):
         """
             Initializes the menu
         """
-        GenericTrackMenu.__init__(self, controller)
+        GenericTrackMenu.__init__(self)
 
     def _create_menu(self):
         """
@@ -249,13 +255,12 @@ class RatedTrackSelectMenu(TrackSelectMenu):
         Menu for any panel that operates on selecting tracks
         including an option to rate tracks
     """
-    def __init__(self, controller, get_selected_tracks):
+    def __init__(self, get_selected_tracks):
         
-        self.controller = controller
-        self.rating_item = guiutil.MenuRatingWidget(self.controller, 
+        self.rating_item = guiutil.MenuRatingWidget(
             get_selected_tracks)
 
-        TrackSelectMenu.__init__(self, controller)
+        TrackSelectMenu.__init__(self)
         
         self.connect('enter-notify-event', self.rating_item.on_rating_change)
 
@@ -280,7 +285,7 @@ class PlaylistsPanelMenu(guiutil.Menu):
         'add-playlist': (gobject.SIGNAL_RUN_LAST, None, ()),
         'add-smart-playlist': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
-    def __init__(self, controller, radio=False):
+    def __init__(self, radio=False):
         """
             @param widget: playlists panel widget
         """
@@ -327,15 +332,15 @@ class PlaylistsPanelPlaylistMenu(TrackSelectMenu, PlaylistsPanelMenu):
         'edit-playlist': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
 
-    def __init__(self, controller, radio=False, smart=False):
+    def __init__(self, radio=False, smart=False):
         """
             @param widget: playlists panel widget
         """
         #Adds the menu options to add playlist
-        PlaylistsPanelMenu.__init__(self, controller, radio)
+        PlaylistsPanelMenu.__init__(self, radio)
         self.append_separator()
         #Adds track menu options (like append, queue)
-        TrackSelectMenu.__init__(self, controller)
+        TrackSelectMenu.__init__(self)
         self.smart = smart
 
         self.append_separator()
@@ -419,8 +424,8 @@ class RadioPanelPlaylistMenu(PlaylistsPanelPlaylistMenu):
         when the user right clicks on an actual playlist
         entry
     """
-    def __init__(self, controller):
-        PlaylistsPanelPlaylistMenu.__init__(self, controller, radio=True)
+    def __init__(self):
+        PlaylistsPanelPlaylistMenu.__init__(self, radio=True)
 
 class PlaylistsPanelTrackMenu(guiutil.Menu):
     """
@@ -430,7 +435,7 @@ class PlaylistsPanelTrackMenu(guiutil.Menu):
     __gsignals__ = {
         'remove-track': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
-    def __init__(self, controller):
+    def __init__(self):
         """
             @param widget: playlists panel widget
         """

@@ -14,6 +14,7 @@
 
 import gtk, pango, gtk.gdk
 from xlgui import guiutil, menu, plcolumns
+from xlgui import rating
 from xlgui.plcolumns import *
 from xl import playlist, event, track, collection, xdg
 from xl import settings, trackdb
@@ -23,37 +24,6 @@ import logging
 import os, os.path
 import math
 logger = logging.getLogger(__name__)
-
-# creates the rating images for the caller
-def create_rating_images(rating_width):
-    """
-        Called to (re)create the pixmaps used for the Rating column.
-    """
-    if rating_width != 0:
-        rating_images = []
-        steps = settings.get_option("miscellaneous/rating_steps", 5)
-        icon_size = rating_width / steps
-
-        icon = gtk.gdk.pixbuf_new_from_file_at_size(
-            xdg.get_data_path('images/star.png'), icon_size, icon_size)
-        void_icon = gtk.gdk.pixbuf_new_from_file_at_size(
-            xdg.get_data_path('images/brightstar.png'), icon_size, icon_size)
-
-        icons_image = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8,
-            rating_width, icon_size)
-        icons_image.fill(0xffffff00) # transparent white
-        for x in range(0, steps + 1):
-            for y in range(0, steps):
-                if y < x:
-                    icon.copy_area(0, 0, icon_size, icon_size, icons_image, icon_size * y, 0)
-                else:
-                    void_icon.copy_area(0, 0, icon_size, icon_size, icons_image, icon_size * y, 0)
-            rating_images.append(icons_image)
-            icons_image = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, True, 8,
-                rating_width, icon_size)
-            icons_image.fill(0xffffff00) # transparent white
-
-        return rating_images
 
 class Playlist(gtk.VBox):
     """
@@ -72,27 +42,24 @@ class Playlist(gtk.VBox):
     menu_items = {}
     _is_drag_source = False
 
-    def __init__(self, main, controller, pl):
+    def __init__(self, main, queue, pl):
         """
             Initializes the playlist
 
-            @param controller:  the main GUI controller
             @param pl: the playlist.Playlist instace to represent
         """
         gtk.VBox.__init__(self)
 
+        self.exaile = main.controller.exaile
+
         self.main = main
-        self.controller = controller
-        self.exaile = controller.exaile
+        self.player = self.exaile.player
+        self.queue = queue
         self.search_keyword = ''
         self.xml = main.xml
 
         self.playlist = copy.copy(pl)
         self.playlist.ordered_tracks = pl.ordered_tracks[:]
-
-        steps = settings.get_option('miscellaneous/rating_steps', 5)
-        self._rating_width = 12 * steps
-        self.rating_images = self.controller.rating_images
 
         # see plcolumns.py for more information on the columns menu
         if not Playlist.menu_items:
@@ -105,7 +72,7 @@ class Playlist(gtk.VBox):
         self._setup_events()
         self._set_tracks(self.playlist.get_tracks())
 
-        self.menu = menu.PlaylistMenu(self, self.controller)
+        self.menu = menu.PlaylistMenu(self, main.playlist_manager)
         self.menu.connect('rating-set', self.set_rating)
         self.menu.connect('remove-items', lambda *e:
             self.remove_selected_tracks())
@@ -125,7 +92,7 @@ class Playlist(gtk.VBox):
         """
         tracks = self.get_selected_tracks()
 
-        queue_tracks = self.exaile.queue.ordered_tracks
+        queue_tracks = self.queue.ordered_tracks
         for track in tracks:
             if track in queue_tracks:
                 queue_tracks.remove(track)
@@ -384,9 +351,8 @@ class Playlist(gtk.VBox):
 
         index = self.playlist.index(track)
         self.playlist.set_current_pos(index)
-        #self.controller.exaile.player.stop()
-        self.controller.exaile.queue.play(track=track)
-        self.controller.exaile.queue.set_current_playlist(self.playlist)
+        self.queue.play(track=track)
+        self.queue.set_current_playlist(self.playlist)
 
     def on_closing(self):
         """
@@ -401,7 +367,7 @@ class Playlist(gtk.VBox):
         # changed, and if it did give the user an option to do something
         try:
             current_tracks = self.playlist.get_tracks()
-            original_tracks = self.controller.exaile.playlists.get_playlist \
+            original_tracks = self.main.playlist_manager \
                 (self.playlist.get_name()).get_tracks()
             dirty = False
             if len(current_tracks) != len(original_tracks):
@@ -419,7 +385,8 @@ class Playlist(gtk.VBox):
                 result = dialog.run()
                 if result == 110:
                     # Save the playlist then close
-                    self.controller.exaile.playlists.save_playlist(self.playlist, overwrite = True)
+                    self.main.playlist_manager.save_playlist(
+                        self.playlist, overwrite = True)
                     return True
                 elif result == gtk.RESPONSE_CANCEL:
                     return False
@@ -835,15 +802,15 @@ class Playlist(gtk.VBox):
         item = model.get_value(iter, 0)
         image = None
 
-        if item == self.controller.exaile.player.current:
-            if self.controller.exaile.player.is_playing():
+        if item == self.player.current:
+            if self.player.is_playing():
                 image = self.playimg
-            elif self.controller.exaile.player.is_paused():
+            elif self.player.is_paused():
                 image = self.pauseimg
 
         # queued items
-        elif item in self.controller.exaile.queue.ordered_tracks:
-            index = self.controller.exaile.queue.ordered_tracks.index(item)
+        elif item in self.queue.ordered_tracks:
+            index = self.queue.ordered_tracks.index(item)
             image = guiutil.get_text_icon(self.main.window,
                 str(index + 1), 18, 18)
 
@@ -859,7 +826,7 @@ class Playlist(gtk.VBox):
         image = None
 
         window = gtk.Window()
-        if item == self.controller.exaile.queue.stop_track:
+        if item == self.queue.stop_track:
             image = window.render_icon('gtk-stop',
                 gtk.ICON_SIZE_MENU)
             image = image.scale_simple(12, 12, gtk.gdk.INTERP_BILINEAR)
@@ -872,7 +839,7 @@ class Playlist(gtk.VBox):
             Sets a CellRendererText's "weight" property according to whether
             `item` is the currently playing track.
         """
-        if item == self.controller.exaile.player.current:
+        if item == self.player.current:
             weight = pango.WEIGHT_HEAVY
         else:
             weight = pango.WEIGHT_NORMAL
@@ -904,7 +871,7 @@ class Playlist(gtk.VBox):
         rating_col_width = 0
         left_edge = 0
         steps = settings.get_option("miscellaneous/rating_steps", 5)
-        icon_size = self._rating_width / steps
+        icon_size = rating._rating_width / steps
         cols = self.list.get_columns()
         i = 0
         #calculate rating column size and position

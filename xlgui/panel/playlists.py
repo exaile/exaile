@@ -403,11 +403,10 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
     gladeinfo = ('playlists_panel.glade', 'PlaylistsPanelWindow')
 
     def __init__(self, parent, playlist_manager, 
-        smart_manager, collection, controller):
+        smart_manager, collection):
         """
             Intializes the playlists panel
 
-            @param controller:  The main gui controller
             @param playlist_manager:  The playlist manager
         """
         panel.Panel.__init__(self, parent)
@@ -415,7 +414,6 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         self.playlist_manager = playlist_manager
         self.smart_manager = smart_manager
         self.collection = collection
-        self.controller = controller
         self.box = self.xml.get_widget('playlists_box')
         
         self.playlist_name_info = 500
@@ -459,10 +457,10 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             xdg.get_data_path('images/playlist.png'))
 
         # menus
-        self.playlist_menu = menu.PlaylistsPanelPlaylistMenu(self.controller)
-        self.smart_menu = menu.PlaylistsPanelPlaylistMenu(self.controller, smart=True)
-        self.default_menu = menu.PlaylistsPanelMenu(self.controller)
-        self.track_menu = menu.PlaylistsPanelTrackMenu(self.controller)
+        self.playlist_menu = menu.PlaylistsPanelPlaylistMenu()
+        self.smart_menu = menu.PlaylistsPanelPlaylistMenu(smart=True)
+        self.default_menu = menu.PlaylistsPanelMenu()
+        self.track_menu = menu.PlaylistsPanelTrackMenu()
 
         self._connect_events()
         self._load_playlists()

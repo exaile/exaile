@@ -1,4 +1,4 @@
-PREFIX ?= $(DESTDIR)/usr/local
+PREFIX ?= /usr/local
 LIBINSTALLDIR ?= /lib
 XDGCONFDIR ?= $(DESTDIR)/etc/xdg
 

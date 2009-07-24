@@ -367,6 +367,11 @@ class Track(object):
             return artist
         elif field == '__length':
             return self.get_duration()
+        elif field in ['__last_played', '__date_added', '__playcount']:
+            try:
+                return int(self[field])
+            except:
+                return 0
         else: 
             try:
                 return lstrip_special(unicode(self[field][0]))

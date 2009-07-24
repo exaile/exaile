@@ -274,7 +274,7 @@ class TrackDB(object):
         self._saving = False
 
     def list_tag(self, tag, search_terms="", use_albumartist=False, 
-                 ignore_the=False, sort=False, sort_by=[]):
+                 ignore_the=False, sort=False, sort_by=[], reverse=False):
         """
             lists out all the values for a particular, tag, without duplicates
             
@@ -308,7 +308,7 @@ class TrackDB(object):
             vals = sorted(vals, cmp=cmp_type)
         else:
             tracks = self.search(search_terms)
-            tracks = sort_tracks(sort_by, tracks)
+            tracks = sort_tracks(sort_by, tracks, reverse)
             count = 1
             while count < len(tracks):
                 if tracks[count][tag] == tracks[count-1][tag]:
@@ -338,7 +338,7 @@ class TrackDB(object):
     def get_track_attr(self, loc, attr):
         return self.get_track_by_loc(loc)[attr]
 
-    def search(self, query, sort_fields=None, return_lim=-1, tracks=None):
+    def search(self, query, sort_fields=None, return_lim=-1, tracks=None, reverse=False):
         """
             Search the trackDB, optionally sorting by sort_field
 
@@ -376,7 +376,7 @@ class TrackDB(object):
             if sort_fields == 'RANDOM':
                 random.shuffle(tracks)
             else:
-                tracks = sort_tracks(sort_fields, tracks)
+                tracks = sort_tracks(sort_fields, tracks, reverse)
         if return_lim > 0:
             tracks = tracks[:return_lim]
 

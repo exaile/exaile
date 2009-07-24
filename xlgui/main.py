@@ -478,6 +478,7 @@ class MainWindow(object):
             self.on_stop_buttonpress)
         self.status = guiutil.StatusBar(self.xml.get_widget('left_statuslabel'))
         self.track_count_label = self.xml.get_widget('track_count_label')
+        self.queue_count_label = self.xml.get_widget('queue_count_label')
 
         # Search filter
         box = self.xml.get_widget('playlist_search_entry_box')
@@ -528,7 +529,7 @@ class MainWindow(object):
 
         self.get_selected_playlist().list.queue_draw()
 
-    def update_track_counts(self):
+    def update_track_counts(self, *e):
         """
             Updates the track count information
         """
@@ -538,11 +539,14 @@ class MainWindow(object):
             % {'playlist_count' : len(self.get_selected_playlist().playlist), 
                 'collection_count' : self.collection.get_count()}
         
+        self.track_count_label.set_label(message)
+
         queuecount = len(self.queue)
         if queuecount:
-          message += _(" (%(queue_count)d queued)") % {'queue_count' : queuecount}
-
-        self.track_count_label.set_label(message)
+            queuemessage = _(" (%(queue_count)d queued)") % {'queue_count' : queuecount}
+            self.queue_count_label.set_label(queuemessage)
+        else:
+            self.queue_count_label.set_label('')
 
     def _connect_events(self):
         """
@@ -571,6 +575,8 @@ class MainWindow(object):
             'on_new_playlist_item_activated': lambda *e:
                 self.add_playlist(),
             'on_volume_slider_value_changed': self.on_volume_changed,
+            'on_queue_count_event_box_button_press_event':
+                self.controller.queue_manager,
         })        
 
         event.add_callback(self.on_playback_end, 'playback_player_end',
@@ -587,13 +593,15 @@ class MainWindow(object):
             self.player)
 
         # Monitor the queue
-        event.add_callback(lambda *e: self.update_track_counts(),
+        event.add_callback(self.update_track_counts,
             'tracks_added', self.queue)
-        event.add_callback(lambda *e: self.update_track_counts(),
+        event.add_callback(self.update_track_counts,
             'tracks_removed', self.queue)
-        event.add_callback(lambda *e:
-            self.get_selected_playlist().list.queue_draw, 'stop_track',
-            self.queue)
+
+        def queue_playlist_draw(*e):
+            self.get_selected_playlist().list.queue_draw()
+
+        event.add_callback(queue_playlist_draw, 'stop_track', self.queue)
         
         # Settings
         event.add_callback(self._on_setting_change, 'option_set')

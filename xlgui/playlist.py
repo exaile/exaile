@@ -99,6 +99,7 @@ class Playlist(gtk.VBox):
             else:
                 queue_tracks.append(track)
 
+        self.main.update_track_counts()
         self.list.queue_draw()
 
     def set_rating(self, widget, rating):

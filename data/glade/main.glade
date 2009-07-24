@@ -821,6 +821,22 @@
                 <property name="position">2</property>
               </packing>
             </child>
+            <child>
+              <widget class="GtkEventBox" id="queue_count_event_box">
+                <property name="visible">True</property>
+                <signal name="button_press_event" handler="on_queue_count_event_box_button_press_event"/>
+                <child>
+                  <widget class="GtkLabel" id="queue_count_label">
+                    <property name="visible">True</property>
+                  </widget>
+                </child>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">3</property>
+              </packing>
+            </child>
           </widget>
           <packing>
             <property name="expand">False</property>

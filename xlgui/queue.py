@@ -137,7 +137,7 @@ class QueueManager(object):
         if i < 0 or i >= len(cur_queue):
             LOG.error(_("Gave an invalid number to remove"))
             return
-        cur_queue.pop(i)
+        self._queue.remove(i)
         self.__populate_queue()
 
     def selected_to_top(self, button, *userparams):

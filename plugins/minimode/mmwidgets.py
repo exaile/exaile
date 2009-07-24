@@ -20,8 +20,6 @@ from string import Template
 from xl import event
 from xl.track import Track
 from xl.nls import gettext as _
-from xlgui import guiutil
-import threading
 
 class MMMenuItem(gtk.ImageMenuItem):
     """
@@ -220,7 +218,37 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
         Displays the current track title and
         the current playlist on activation
     """
-    pass
+    # MainWindow, exaile.queue, exaile.queue.current_playlist
+    def __init__(self, main, queue, playlist):
+        MMWidget.__init__(self, 'playlist_button')
+        gtk.ToggleButton.__init__(self)
+
+        self.set_size_request(150, -1)
+
+        self.popup = gtk.Window(gtk.WINDOW_POPUP)
+        #self.popup.set_parent_window(self.get_parent())
+        #self.popup.connect('configure-event', self.on_configure)
+
+        self.connect('toggled', self.on_toggled)
+
+    def on_parent_configure(self, *e):
+        print "Moved"
+
+    def on_toggled(self, togglebutton):
+        """
+            Displays or hides the playlist on toggle
+        """
+        if self.popup.get_transient_for() is None:
+            self.popup.set_transient_for(self.get_toplevel())
+
+        x, y, width, height = self.get_allocation()
+        parentx, parenty = self.get_window().get_origin()
+
+        if self.get_active():
+            self.popup.move(parentx + x, parenty + y + height) # :-)
+            self.popup.show()
+        else:
+            self.popup.hide()
 
 class MMTrackFormatter(gobject.GObject):
     """

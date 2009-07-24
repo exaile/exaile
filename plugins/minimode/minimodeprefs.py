@@ -18,7 +18,6 @@ import os, gtk
 from xlgui.prefs import widgets
 from xl import event, settings, xdg
 from xl.nls import gettext as _
-from xlgui import guiutil
 
 name = 'Mini Mode'
 basedir = os.path.dirname(os.path.realpath(__file__))
@@ -106,14 +105,15 @@ class SelectedControlsPreference(widgets.SelectionListPrefsItem):
         'track_selector': _('Track selector'),
         'progress_bar': _('Progress bar'),
         'volume': _('Volume'),
+        'playlist_button': _('Playlist button'),
     }
     fixed_items = {
         'restore': _('Restore')
     }
     default = ['previous', 'play_pause', 'next', 'track_selector', 'progress_bar']
 
-class TrackSelectorTitlePreference(widgets.ComboEntryPrefsItem):
-    name = 'plugin/minimode/track_selector_title'
+class TrackTitleFormatPreference(widgets.ComboEntryPrefsItem):
+    name = 'plugin/minimode/track_title_format'
     completion_items = {
         '$tracknumber': _('Track number'),
         '$title': _('Title'),

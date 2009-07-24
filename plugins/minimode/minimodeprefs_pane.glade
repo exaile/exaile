@@ -250,7 +250,7 @@
             <child>
               <widget class="GtkLabel" id="label4">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes">Track selector title:</property>
+                <property name="label" translatable="yes">Track title format:</property>
               </widget>
               <packing>
                 <property name="expand">False</property>
@@ -259,7 +259,7 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkComboBoxEntry" id="plugin/minimode/track_selector_title">
+              <widget class="GtkComboBoxEntry" id="plugin/minimode/track_title_format">
                 <property name="visible">True</property>
               </widget>
               <packing>

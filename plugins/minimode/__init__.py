@@ -18,7 +18,6 @@ import gobject, gtk, os
 import minimodeprefs, mmwidgets
 from xl import event, plugins, settings, xdg
 from xl.nls import gettext as _
-from xlgui import main, guiutil
 
 MINIMODE = None
 
@@ -71,6 +70,7 @@ class MiniMode(gtk.Window):
 
         gtk.Window.__init__(self)
         self.set_title('Exaile')
+        self.set_resizable(False)
 
         self.register_icons(['exaile-minimode'])
         self.setup_controls()
@@ -82,7 +82,8 @@ class MiniMode(gtk.Window):
 
         key, modifier = gtk.accelerator_parse('<Control><Alt>M')
         self.accel_group = gtk.AccelGroup()
-        self.accel_group.connect_group(key, modifier, gtk.ACCEL_VISIBLE, self.on_accelerate)
+        self.accel_group.connect_group(key, modifier,
+            gtk.ACCEL_VISIBLE, self.on_accelerate)
         self.exaile.gui.main.window.add_accel_group(self.accel_group)
         self.add_accel_group(self.accel_group)
 
@@ -144,7 +145,8 @@ class MiniMode(gtk.Window):
             self.update_window()
             self.show_all()
             if self._configure_id is None:
-                self._configure_id = self.connect('configure-event', self.on_configure)
+                self._configure_id = self.connect('configure-event',
+                    self.on_configure)
 
     def toggle_visibility(self):
         """
@@ -178,7 +180,7 @@ class MiniMode(gtk.Window):
                 self.update_position()
             elif option == 'plugin/minimode/selected_controls':
                 self.update_controls()
-            elif option == 'plugin/minimode/track_selector_title':
+            elif option == 'plugin/minimode/track_title_format':
                 self.box['track_selector'].update_track_list()
     
     def update_position(self):
@@ -197,21 +199,24 @@ class MiniMode(gtk.Window):
         self.box = mmwidgets.MMBox(spacing=3)
 
         self.box.pack_start(mmwidgets.MMButton('previous',
-          'gtk-media-previous', _('Previous Track'), self.on_previous))
+            'gtk-media-previous', _('Previous Track'), self.on_previous))
         self.box.pack_start(mmwidgets.MMButton('next',
-          'gtk-media-next', _('Next Track'), self.on_next))
+            'gtk-media-next', _('Next Track'), self.on_next))
         self.box.pack_start(mmwidgets.MMPlayPauseButton(
-          self.exaile.player, self.on_play_pause))
+            self.exaile.player, self.on_play_pause))
         self.box.pack_start(mmwidgets.MMButton('stop',
-          'gtk-media-stop', _('Stop Playback'), self.on_stop))
+            'gtk-media-stop', _('Stop Playback'), self.on_stop))
         self.box.pack_start(mmwidgets.MMButton('restore',
-          'gtk-fullscreen', _('Restore Main Window'), self.on_restore))
+            'gtk-fullscreen', _('Restore Main Window'), self.on_restore))
         self.box.pack_start(mmwidgets.MMTrackSelector(
-          self.exaile.queue, self.on_track_change, self.on_format_request))
+            self.exaile.queue, self.on_track_change, self.on_format_request))
         self.box.pack_start(mmwidgets.MMProgressBar(
-          self.exaile.player, self.on_track_seeked))
+            self.exaile.player, self.on_track_seeked))
         self.box.pack_start(mmwidgets.MMVolumeButton(
-          self.exaile.player, self.on_volume_changed))
+            self.exaile.player, self.on_volume_changed))
+        self.box.pack_start(mmwidgets.MMPlaylistButton(
+            self.exaile.gui, self.exaile.queue,
+            self.exaile.queue.current_playlist))
 
         # TODO: track_bar, playlist_button
 
@@ -341,7 +346,7 @@ class MiniMode(gtk.Window):
         """
             Tells the track formatter about the user preference
         """
-        return self.get_option('plugin/minimode/track_selector_title')
+        return self.get_option('plugin/minimode/track_title_format')
 
     def on_track_seeked(self, progress_bar, position):
         """
@@ -375,8 +380,6 @@ class MiniMode(gtk.Window):
         x, y = self.get_position()
         self.set_option('plugin/minimode/horizontal_position', x)
         self.set_option('plugin/minimode/vertical_position', y)
-
-        return True
 
     def on_show(self, widget):
         """

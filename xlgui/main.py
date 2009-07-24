@@ -598,13 +598,13 @@ class MainWindow(object):
         event.add_callback(self.update_track_counts,
             'tracks_removed', self.queue)
 
-        def queue_playlist_draw(*e):
-            self.get_selected_playlist().list.queue_draw()
-
-        event.add_callback(queue_playlist_draw, 'stop_track', self.queue)
+        event.add_callback(self.queue_playlist_draw, 'stop_track', self.queue)
         
         # Settings
         event.add_callback(self._on_setting_change, 'option_set')
+
+    def queue_playlist_draw(self, *e):
+        self.get_selected_playlist().list.queue_draw()
 
     def _connect_panel_events(self):
         """

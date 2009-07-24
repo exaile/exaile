@@ -449,6 +449,11 @@ class EventManager(object):
         # add the actual callback
         self.callbacks[type][object].append(
                 Callback(function, time.time(), args, kwargs))
+
+        if self.use_logger:
+            logger.debug("Added callback %s for [%s, %s]" % 
+                    (function, type, object))
+        
     
     def remove_callback(self, function, type=None, object=None):
         """
@@ -480,6 +485,11 @@ class EventManager(object):
 
         for cb in remove:
             self.callbacks[type][object].remove(cb)
+
+        if self.use_logger:
+            logger.debug("Removed callback %s for [%s, %s]" % 
+                    (function, type, object))
+
 
 class Waiter(threading.Thread):
     """

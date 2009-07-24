@@ -10,10 +10,11 @@ targets for 0.3.0:
 targets for 0.3.1:
     improvements to device panels and manager (see below)
     transcode-on-transfer
-    rockbox support 
+    rockbox and DAAP plugins
     audioscrobbler support
     file layout support
         - useful for main as well, so worth implementing
+        - probably make it part of xl.collection.Library
 
 future:
     UPnP (client and server)
@@ -88,7 +89,7 @@ playing:
         - how to handle this with MTP as we cant actually play off the
             device itself?
         - uri rewriting may form a solution to this
-    hide tracks that are DRM-encypted as we can't play them (can we recognize 
+    hide tracks that are DRM-encrypted as we can't play them (can we recognize 
         this?) (could also be useful for main collection)
 
 audioscrobbler:
@@ -189,6 +190,7 @@ per-device considerations:
             audio:
                 musicbrainz tag-finding support? (submission?)
                 can burning be sensibly exposed via the same transfer method?
+                CD-TEXT? (need a spec sheet for this and a sample disc/iso)
             mp3:
                 how to distinguish from data cd
                 view as one large playlist by default, but allow a tree view
@@ -224,11 +226,11 @@ what this should all look like to the user:
     cd (and similar) media: 
         user inserts disk
         a new tab in exaile appears for the disk, automatically listing
-            all the tacks and retrieving metadata
+            all the tracks and retrieving metadata
     devices (eg ipod):
         user plugs in device
         user opens the device manager, selects the device, and presses connect
-        a new tab appears with the name of the device the track listing and
+        a new tab appears with the name of the device. the track listing and
             any other info is displayed
     network shares:
         user opens the device manager
@@ -271,7 +273,7 @@ rockbox:
         - we shouldn't do this as it requires root to install the bootloader
             on most rockbox devices, but notifying the user that their
             device is supported and linking them to install instructions
-            is feasable
+            is feasible
     option to strip "the" (or other words) from the beginning of tags on 
         transfer, as rockbox doesnt strip those itself yet
         - may be a better idea to just work on supporting this in rockbox

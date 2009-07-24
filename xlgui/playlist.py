@@ -12,7 +12,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import gtk, pango, gtk.gdk
+import gtk, pango, gtk.gdk, gobject
 from xlgui import guiutil, menu, plcolumns
 from xlgui import rating
 from xlgui.plcolumns import *
@@ -553,7 +553,7 @@ class Playlist(gtk.VBox):
         iter = self.model.get_iter_first()
         if not iter:
             # Do we need to reactivate the callbacks when this happens?
-            self.add_track_callbacks()
+            gobject.idle_add(self.add_track_callbacks)
             return
         while True:
             track = self.model.get_value(iter, 0)
@@ -566,7 +566,7 @@ class Playlist(gtk.VBox):
         # become ordered
         iter = self.model.get_iter_first()
         if not iter:
-            self.add_track_callbacks()
+            gobject.idle_add(self.add_track_callbacks)
             return
 
         self.playlist.ordered_tracks = []
@@ -578,7 +578,7 @@ class Playlist(gtk.VBox):
 
         # We do not save the playlist because it is saved by the playlist manager?
 
-        self.add_track_callbacks()
+        gobject.idle_add(self.add_track_callbacks)
         self.main.update_track_counts()
 
         if curtrack is not None:

@@ -104,24 +104,22 @@ class PluginsManager(object):
             plugin.enable(self.exaile)
             self.enabled_plugins[pluginname] = plugin
             logger.debug(_("Loaded plugin %s")%pluginname)
-        except:
+        except Exception, e:
             traceback.print_exc()
             logger.warning(_("Unable to enable plugin %s")%pluginname)
             common.log_exception(logger)
-            return False
-        return True
+            raise e
 
     def disable_plugin(self, pluginname):
         try:
             plugin = self.enabled_plugins[pluginname]
             del self.enabled_plugins[pluginname]
             plugin.disable(self.exaile)
-        except:
+        except Exception, e:
             traceback.print_exc()
             logger.warning(_("Unable to fully disable plugin %s")%pluginname)
             common.log_exception(logger)
-            return False
-        return True
+            raise e
 
     def list_installed_plugins(self):
         pluginlist = []

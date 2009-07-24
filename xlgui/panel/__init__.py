@@ -33,8 +33,16 @@ class Panel(gobject.GObject):
         gobject.GObject.__init__(self)
         self.name = name
         self.parent = parent
-        self.xml = gtk.glade.XML(xdg.get_data_path("glade/%s" %
-            self.gladeinfo[0]), self.gladeinfo[1], 'exaile')
+
+        # if the gladefile starts with file:// use the full path minus
+        # file://, otherwise check in the data directories
+        gladefile = self.gladeinfo[0]
+        if not gladefile.startswith('file://'):
+            gladefile = xdg.get_data_path('glade/%s' % gladefile)
+        else:
+            gladefile = gladefile[7:]
+
+        self.xml = gtk.glade.XML(gladefile, self.gladeinfo[1], 'exaile')
         self._child = None
 
     def get_panel(self):
@@ -49,8 +57,9 @@ class Panel(gobject.GObject):
         return (self._child, self.name)
 
     def __del__(self):
+        import xlgui
         try:
-            self.controller.remove_panel(self._child)
+            xlgui.controller().remove_panel(self._child)
         except ValueError:
             pass
 

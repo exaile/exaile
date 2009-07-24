@@ -1054,3 +1054,6 @@ def get_playlist_nb():
 
 def get_selected_playlist():
     return MainWindow._mainwindow.get_selected_playlist()
+
+def mainwindow():
+    return MainWindow._mainwindow

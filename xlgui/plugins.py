@@ -190,14 +190,18 @@ class PluginManager(object):
         enable = not model[path][1]
 
         if enable:
-            if not self.plugins.enable_plugin(plugin):
+            try:
+                self.plugins.enable_plugin(plugin)
+            except Exception, e:
                 commondialogs.error(self.parent, _('Could '
-                    'not enable plugin.'))
+                    'not enable plugin: %s') % str(e))
                 return
         else:
-            if not self.plugins.disable_plugin(plugin):
+            try:
+                self.plugins.disable_plugin(plugin)
+            except Exception, e:
                 commondialogs.error(self.parent, _('Could '
-                    'not disable plugin.'))
+                    'not disable plugin: %s') % str(e))
                 return
         model[path][1] = enable
         self.row_selected(self.list.get_selection())

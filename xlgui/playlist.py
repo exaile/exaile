@@ -220,6 +220,13 @@ class Playlist(gtk.VBox):
         if info:
             paths = info[1]
             if paths:
+                if paths[0]:
+                    iter = self.model.get_iter(paths[0])
+                    track = self.model.get_value(iter, 0)
+                    index = self.playlist.index(track)
+                    self.list.scroll_to_cell(index)
+                    self.list.set_cursor(index)
+                
                 for path in paths:
                     selection.select_path(path)
 

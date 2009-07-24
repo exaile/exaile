@@ -61,12 +61,18 @@ class TrayIcon(gobject.GObject):
             except NameError:
                 self.icon.connect('activate', self._activated)
                 self.icon.connect('popup-menu', self._popup_menu)
-        self.icon.set_from_file(xdg.get_data_path('images/trayicon.png'))
+        if self.player.current is None:
+            self.icon.set_from_file(xdg.get_data_path('images/trayicon.png'))
+        elif self.player.is_paused():
+            self.icon.set_from_stock('gtk-media-pause')
+        else:
+            self.icon.set_from_stock('gtk-media-play')
         self.set_tooltip(_("Exaile Music Player"))
 
         event.add_callback(self._on_playback_change_state, 'playback_player_start')
         event.add_callback(self._on_playback_change_state, 'playback_toggle_pause')
         event.add_callback(self._on_playback_change_state, 'playback_player_end')
+        event.log_event('tray_icon_toggled', self, True)
 
     def set_tooltip(self, tip):
         self.icon.set_tooltip(tip)
@@ -78,6 +84,10 @@ class TrayIcon(gobject.GObject):
         self.emit('toggle-tray')
         if not self.window.get_property('visible'):
             self.window.present()
+        self.menu = None
+        self.icon = None
+        event.log_event('tray_icon_toggled', self, False)
+        #FIXME shall all the other pointers be set to None too to avoid leaks ?
 
     def _setup_menu(self):
         """

@@ -16,8 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-import pynotify, cgi
-import logging
+import pynotify, cgi, gobject, logging
 import notifyosd_cover, notifyosdprefs
 from xl import event, settings
 from xl.nls import gettext as _
@@ -58,6 +57,8 @@ class ExaileNotifyOsd(object):
         self.summary        = None
         self.body           = None
         self.gui_callback   = False
+        self.tray_connection= -1
+        event.add_callback(self.on_tray_toggled, 'tray_icon_toggled')
 
     def update_track_notify(self, type, player, track, media_icon = None):
         # Get the title, artist and album values
@@ -140,7 +141,14 @@ class ExaileNotifyOsd(object):
                 
     
     def exaile_ready(self, type = None, data1 = None, data2 = None):
-        self.tray_connection = self.exaile.gui.tray_icon.icon.connect('query-tooltip', self.on_tooltip)
+        if self.exaile.gui.tray_icon:
+            self.tray_connection = self.exaile.gui.tray_icon.icon.connect('query-tooltip', self.on_tooltip)
+            
+    def on_tray_toggled(self, type, object, data):
+        if data and self.tray_connection == -1:
+            gobject.timeout_add(800, self.exaile_ready)
+        elif not data and self.tray_connection != -1:
+            self.tray_connection = -1
 
 EXAILE_NOTIFYOSD = ExaileNotifyOsd()
 
@@ -166,8 +174,6 @@ def disable(exaile):
     EXAILE_NOTIFYOSD.exaile.gui.tray_icon.icon.disconnect(EXAILE_NOTIFYOSD.tray_connection)
     if EXAILE_NOTIFYOSD.gui_callback:
         event.remove_callback(EXAILE_NOTIFYOSD.exaile_ready, 'gui_loaded')
-    if EXAILE_NOTIFYOSD.tray_connected:
-        EXAILE_NOTIFYOSD.disconnect_tray()
 
 def get_prefs_pane():
     return notifyosdprefs

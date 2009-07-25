@@ -40,8 +40,11 @@ class ProgressMonitor(gtk.Frame):
         """
             Called when the progress has been updated
         """
-        self.progress.set_fraction(float(percent) / 100)
-        self.progress.set_text('%d%%' % percent)
+        fraction = float(percent) / 100
+
+        if fraction >= 0 and fraction <= 1.0:
+            self.progress.set_fraction(float(percent) / 100)
+            self.progress.set_text('%d%%' % percent)
         if percent == 100 or percent == 'complete':
             if hasattr(self.thread, 'thread_complete'):
                 self.thread.thread_complete()
@@ -139,4 +142,3 @@ class ProgressManager(object):
             Removes a monitor from the manager
         """
         self.box.remove(monitor)
-        monitor.hide()

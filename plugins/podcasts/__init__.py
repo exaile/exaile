@@ -164,7 +164,7 @@ class PodcastPanel(panel.Panel):
             tracks = []
             for e in entries:
                 tr = track.Track()
-                tr.set_loc(e.links[0].href)
+                tr.set_loc(e['enclosures'][0].href)
                 date = e['updated_parsed']
                 tr['artist'] = title
                 tr['title'] = e['title']

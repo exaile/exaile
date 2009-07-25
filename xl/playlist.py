@@ -749,7 +749,8 @@ class Playlist(object):
             buffer = tr.get_loc()
             # write track metadata
             meta = {}
-            items = ('artist', 'album', 'tracknumber', 'title', 'genre')
+            items = ('artist', 'album', 'tracknumber', 'title', 'genre',
+                'date')
             for item in items:
                 value = tr[item]
                 if value is not None: meta[item] = value[0]

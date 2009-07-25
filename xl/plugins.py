@@ -176,7 +176,10 @@ class PluginsManager(object):
     def load_enabled(self):
         to_enable = settings.get_option("plugins/enabled", [])
         for plugin in to_enable:
-            self.enable_plugin(plugin)
+            try:
+                self.enable_plugin(plugin)
+            except:
+                pass
 
 # vim: et sts=4 sw=4
 

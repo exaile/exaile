@@ -74,10 +74,36 @@ class Collection(trackdb.TrackDB):
         self._scan_stopped = False
         self._running_count = 0
         self._running_total_count = 0
+        self._frozen = False
+        self._libraries_dirty = False
         pickle_attrs += ['_serial_libraries']
         trackdb.TrackDB.__init__(self, name, location=location,
                 pickle_attrs=pickle_attrs)
         COLLECTIONS.add(self)
+
+    def freeze_libraries(self):
+        """
+            Prevents "libraries_modified" events from being sent from individual
+            add and remove library calls.
+
+            Call this before making bulk changes to the libraries. Call
+            thaw_libraries when you are done; this sends a single event if the
+            libraries were modified.
+        """
+        self._frozen = True
+
+    def thaw_libraries(self):
+        """
+            Re-allow "libraries_modified" events from being sent from individual
+            add and remove library calls. Also sends a "libraries_modified"
+            event if the libraries have ben modified since the last call to
+            freeze_libraries.
+        """
+        # TODO: This method should probably be synchronized.
+        self._frozen = False
+        if self._libraries_dirty:
+            self._libraries_dirty = False
+            event.log_event('libraries_modified', self, None)
 
     def add_library(self, library):
         """
@@ -87,13 +113,18 @@ class Collection(trackdb.TrackDB):
             :type library: :class:`Library`
         """
         loc = library.get_location()
-        if loc not in self.libraries.keys():
+        if loc not in self.libraries:
             self.libraries[loc] = library
             library.set_collection(self)
         else:
             pass # TODO: raise an exception or something here
         self.serialize_libraries()
         self._dirty = True
+
+        if self._frozen:
+            self._libraries_dirty = True
+        else:
+            event.log_event('libraries_modified', self, None)
 
     def remove_library(self, library):
         """
@@ -119,6 +150,11 @@ class Collection(trackdb.TrackDB):
        
         self.serialize_libraries()
         self._dirty = True
+
+        if self._frozen:
+            self._libraries_dirty = True
+        else:
+            event.log_event('libraries_modified', self, None)
 
     def stop_scan(self):
         """

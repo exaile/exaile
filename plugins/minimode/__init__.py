@@ -49,8 +49,6 @@ def disable(exaile):
 def get_prefs_pane():
     return minimodeprefs
 
-gtk.window_set_default_icon_from_file(xdg.get_data_path('images/icon.png'))
-
 class MiniMode(gtk.Window):
     """
         A compact mode for Exaile

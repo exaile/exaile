@@ -462,13 +462,6 @@ class MainWindow(object):
             self.xml.get_widget('playback_progressbar'),
             self.player)
 
-        # Custom playback control icons
-        for name in ('shuffle', 'repeat', 'dynamic'):
-            for size in (16, 22, 24, 32):
-                pixbuf = gtk.gdk.pixbuf_new_from_file(
-                    xdg.get_data_path('images/media-playlist-%s%d.png' % (name, size)))
-                gtk.icon_theme_add_builtin_icon('media-playlist-%s' % name, size, pixbuf)
-
         # Playback buttons
         for button in ('play', 'next', 'prev', 'stop'):
             setattr(self, '%s_button' % button,

@@ -72,9 +72,13 @@ class MiniMode(gtk.Window):
         self.set_title('Exaile')
         self.set_resizable(False)
 
-        self.register_icons(['exaile-minimode'])
+        #self.register_icons(['exaile-minimode'])
         self.setup_controls()
         self.update_position()
+
+        basedir = os.path.dirname(os.path.abspath(__file__))
+        self.exaile.gui.icons.add_stock_from_directory('exaile-minimode',
+            os.path.join(basedir, 'icons'))
 
         self.menuitem = mmwidgets.MMMenuItem(self.on_menuitem_activate)
         self.exaile.gui.xml.get_widget('view_menu').append(self.menuitem)

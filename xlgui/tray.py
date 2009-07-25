@@ -30,6 +30,9 @@ try:
 
         def set_from_stock(self, stock_id):
             self.image.set_from_stock(stock_id, gtk.ICON_SIZE_MENU)
+
+        def set_from_icon_name(self, icon_name):
+            self.image.set_from_icon_name(icon_name, gtk.ICON_SIZE_MENU)
 except ImportError:
     pass
 
@@ -62,7 +65,7 @@ class TrayIcon(gobject.GObject):
                 self.icon.connect('activate', self._activated)
                 self.icon.connect('popup-menu', self._popup_menu)
         if self.player.current is None:
-            self.icon.set_from_file(xdg.get_data_path('images/trayicon.png'))
+            self.icon.set_from_icon_name('exaile')
         elif self.player.is_paused():
             self.icon.set_from_stock('gtk-media-pause')
         else:
@@ -184,7 +187,7 @@ class TrayIcon(gobject.GObject):
     # Playback state event
     def _on_playback_change_state(self, event, player, current):
         if player.current is None:
-            self.icon.set_from_file(xdg.get_data_path('images/trayicon.png'))
+            self.icon.set_from_icon_name('exaile')
         elif player.is_paused():
             self.icon.set_from_stock('gtk-media-pause')
         else:

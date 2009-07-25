@@ -67,10 +67,16 @@ install-target:
 	install -m 644 xlgui/panel/*.py $(EXAILELIBDIR)/xlgui/panel
 	-install -m 644 xlgui/prefs/*.py[co] $(EXAILELIBDIR)/xlgui/prefs
 	install -m 644 xlgui/prefs/*.py $(EXAILELIBDIR)/xlgui/prefs
+	install -m 644 data/images/16x16/*.png $(EXAILESHAREDIR)/data/images/16x16
+	install -m 644 data/images/22x22/*.png $(EXAILESHAREDIR)/data/images/22x22
+	install -m 644 data/images/24x24/*.png $(EXAILESHAREDIR)/data/images/24x24
+	install -m 644 data/images/32x32/*.png $(EXAILESHAREDIR)/data/images/32x32
+	install -m 644 data/images/48x48/*.png $(EXAILESHAREDIR)/data/images/48x48
+	install -m 644 data/images/svg/*.svg $(EXAILESHAREDIR)/data/images/svg
 	install -m 644 data/images/*.png $(EXAILESHAREDIR)/data/images
-	install -m 644 data/glade/*.glade $(EXAILESHAREDIR)/data/glade
-	install -m 644 data/images/icon.png \
+	install -m 644 data/images/48x48/exaile.png \
 		$(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
+	install -m 644 data/glade/*.glade $(EXAILESHAREDIR)/data/glade
 	install -m 644 data/exaile.desktop \
 		$(DESTDIR)$(PREFIX)/share/applications/	
 	install -m 644 data/config/settings.ini $(XDGCONFDIR)/exaile

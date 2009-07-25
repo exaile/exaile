@@ -18,9 +18,8 @@ from xl.nls import gettext as _
 import gtk, gtk.glade, gobject, logging, os, urlparse
 from xl import xdg, common, event, metadata, settings, playlist as _xpl
 
-from xlgui import guiutil, prefs, plugins, cover, commondialogs, devices, queue
+from xlgui import commondialogs, cover, devices, guiutil, icons, plugins, prefs, queue
 
-gtk.window_set_default_icon_from_file(xdg.get_data_path("images/icon.png"))
 logger = logging.getLogger(__name__)
 
 ###
@@ -58,7 +57,17 @@ class Main(object):
             'ExaileWindow', 'exaile')
         self.progress_box = self.xml.get_widget('progress_box')
         self.progress_manager = progress.ProgressManager(self.progress_box)
-        
+
+        self.icons = icons.IconManager()
+        self.icons.add_icon_name_from_directory('exaile',
+            xdg.get_data_path('images'))
+        gtk.window_set_default_icon_name('exaile')
+
+        for name in ('dynamic', 'repeat', 'shuffle'):
+            icon_name = 'media-playlist-%s' % name
+            self.icons.add_icon_name_from_directory(icon_name,
+                xdg.get_data_path('images'))
+
         logger.info("Loading main window...")
         self.main = main.MainWindow(self, self.xml,
             exaile.collection, exaile.player, exaile.queue, exaile.covers)

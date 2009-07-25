@@ -30,6 +30,14 @@ class MMMenuItem(gtk.ImageMenuItem):
         self.child.set_label(_('Mini Mode'))
 
         self._callback_id = self.connect('activate', callback)
+        event.add_callback(self.on_stock_icon_added, 'stock_icon_added')
+
+    def on_stock_icon_added(self, iconmanager, stock_id):
+        """
+            Handles deferred icon load
+        """
+        if stock_id == 'exaile-minimode':
+            self.set_image(gtk.gdk.image_new_from_stock(stock_id))
 
     def destroy(self):
         """

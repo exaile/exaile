@@ -34,6 +34,7 @@ TYPE_MAPPING = {
         'F': float,
         'B': bool,
         'L': list,
+        'D': dictionary,
         'U': unicode
         }
 
@@ -172,8 +173,12 @@ class SettingsManager(RawConfigParser):
         except ValueError:
             return ''
 
-        # lists are special case
+        # Lists are special case
         if kind == 'L':
+            return eval(value)
+
+        # So are dictionaries
+        if kind == 'D':
             return eval(value)
 
         if kind in TYPE_MAPPING.keys():

@@ -294,17 +294,21 @@ class Main(object):
         if result == gtk.RESPONSE_APPLY:
             items = dialog.get_items()
             dialog.destroy()
+
+            coll = self.exaile.collection
+            coll.freeze_libraries()
+
             for item in items:
-                if not item in self.exaile.collection.libraries.keys():
-                    self.exaile.collection.add_library(collection.Library(item))
+                if not item in coll.libraries:
+                    coll.add_library(collection.Library(item))
 
             remove = []
-            for k, library in self.exaile.collection.libraries.iteritems():
+            for k, library in coll.libraries.iteritems():
                 if not k in items:
                     remove.append(library)
+            map(coll.remove_library, remove)
 
-            map(self.exaile.collection.remove_library, remove)
-
+            coll.thaw_libraries()
             self.on_rescan_collection()
 
     def on_goto_playing_track(self, *e):

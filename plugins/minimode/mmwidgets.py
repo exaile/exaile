@@ -306,7 +306,7 @@ class MMTrackFormatter(gobject.GObject):
         """
         substitutions = self._substitutions.copy()
 
-        for keyword, tagname in substitutions.items():
+        for keyword, tagname in substitutions.iteritems():
             try:
                 substitutions[keyword] = _(' & ').join(track[tagname])
             except TypeError:

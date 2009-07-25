@@ -105,7 +105,6 @@ class SelectedControlsPreference(widgets.SelectionListPrefsItem):
         'track_selector': _('Track selector'),
         'progress_bar': _('Progress bar'),
         'volume': _('Volume'),
-        'playlist_button': _('Playlist button'),
     }
     fixed_items = {
         'restore': _('Restore')

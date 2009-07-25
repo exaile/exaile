@@ -34,7 +34,7 @@ TYPE_MAPPING = {
         'F': float,
         'B': bool,
         'L': list,
-        'D': dictionary,
+        'D': dict,
         'U': unicode
         }
 

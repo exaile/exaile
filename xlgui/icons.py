@@ -18,8 +18,7 @@ from xl import event
 class IconManager(object):
     """
         Provides convenience functions for adding
-        search paths used for icon lookup as well
-        as single icons and sets of icons
+        single icons as well as sets of icons
     """
     def __init__(self):
         self.icon_theme = gtk.icon_theme_get_default()

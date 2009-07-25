@@ -15,6 +15,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 import gtk.gdk, hashlib, os, pango
+from xl.nls import gettext as _
 
 class PrefsItem(object):
     """
@@ -191,6 +192,7 @@ class OrderListPrefsItem(PrefsItem):
         self.items = items
         return items
 
+
 class SelectionListPrefsItem(PrefsItem):
     """
         Two list boxes allowing to drag items
@@ -334,6 +336,96 @@ class SelectionListPrefsItem(PrefsItem):
                 self.selected_list.append([title])
         except AttributeError:
             pass
+
+
+class ShortcutListPrefsItem(PrefsItem):
+    """
+        A list showing available items and allowing
+        to assign/edit/remove key accelerators
+    """
+    def __init__(self, prefs, widget):
+        self.list = gtk.ListStore(str, str)
+
+        PrefsItem.__init__(self, prefs, widget)
+
+        self.widget.set_model(self.list)
+
+        title_renderer = gtk.CellRendererText()
+        title_column = gtk.TreeViewColumn(_('Action'), title_renderer, text=0)
+        title_column.set_expand(True)
+        title_column.set_cell_data_func(title_renderer, self.title_data_func)
+        accel_renderer = gtk.CellRendererAccel()
+        accel_renderer.set_property('editable', True)
+        accel_renderer.set_property('style', pango.STYLE_OBLIQUE)
+        accel_renderer.connect('accel-cleared', self.on_accel_cleared)
+        accel_renderer.connect('accel-edited', self.on_accel_edited)
+        accel_column = gtk.TreeViewColumn(_('Shortcut'), accel_renderer, text=1)
+        accel_column.set_expand(True)
+
+        self.widget.append_column(title_column)
+        self.widget.append_column(accel_column)
+
+    def title_data_func(self, celllayout, cell, model, iter):
+        """
+            Renders human readable titles instead of the actual keys
+        """
+        key = model.get_value(iter, 0)
+
+        try:
+            cell.set_property('text', self.available_items[key])
+        except:
+            pass
+
+    def on_accel_cleared(self, cellrenderer, path):
+        """
+            Clears accelerators in the list
+        """
+        iter = self.list.get_iter(path)
+        self.list.set_value(iter, 1, '')
+
+    def on_accel_edited(self, cellrenderer, path, accel_key, accel_mods, keycode):
+        """
+            Updates accelerators display in the list
+        """
+        accel = gtk.accelerator_name(accel_key, accel_mods)
+        iter = self.list.get_iter(path)
+        self.list.set_value(iter, 1, accel)
+
+    def _set_value(self):
+        """
+            Sets the preferences for this widget
+        """
+        items = self.prefs.settings.get_option(self.name, self.default)
+        self.update_list(items)
+
+    def _get_value(self):
+        """
+            Value to be stored into the settings file
+        """
+        option = {}
+
+        iter = self.list.get_iter_first()
+        while iter:
+            action = self.list.get_value(iter, 0)
+            accel = self.list.get_value(iter, 1)
+            if accel:
+                option[action] = accel
+            iter = self.list.iter_next(iter)
+        
+        return option
+
+    def update_list(self, items):
+        """
+            Updates the displayed items
+        """
+        self.list.clear()
+        for action in self.available_items.iterkeys():
+            try:
+                accel = items[action]
+            except KeyError:
+                accel = ''
+            self.list.append([action, accel])
+
 
 class TextViewPrefsItem(PrefsItem):
     """

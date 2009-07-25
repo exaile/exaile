@@ -14,8 +14,9 @@
 
 from xl.nls import gettext as _
 import gtk, gobject, urllib, logging
-from xl import xdg, common, track, trackdb, metadata
+from xl import event, xdg, common, track, trackdb, metadata
 from xl import settings
+import xlgui
 from xlgui import panel, guiutil, menu, playlist, rating
 
 logger = logging.getLogger(__name__)
@@ -55,16 +56,22 @@ class CollectionPanel(panel.Panel):
 
         self.collection = collection
         self.use_alphabet = settings.get_option('gui/use_alphabet', True)
+        self.vbox = self.xml.get_widget('CollectionPanel')
         self.filter = self.xml.get_widget('collection_search_entry')
         self.choice = self.xml.get_widget('collection_combo_box')
+        self.collection_empty_message = None
         self._search_num = 0
 
         self.start_count = 0
         self.keyword = ''
         self._setup_tree()
         self._setup_widgets()
+        self._check_collection_empty()
         self._setup_images()
         self._connect_events()
+
+        event.add_callback(self._check_collection_empty, 'libraries_modified',
+            collection)
 
         self.menu = menu.CollectionPanelMenu(self.get_selected_tracks)
         self.menu.connect('append-items', lambda *e:
@@ -95,6 +102,31 @@ class CollectionPanel(panel.Panel):
         self.filter.connect('activate', self.on_search)
         box.pack_start(self.filter.entry, True, True)
         box.show_all()
+
+    def _check_collection_empty(self, *e):
+        if self.collection.libraries:
+            message = self.collection_empty_message
+            if message:
+                self.vbox.remove_child(message)
+                self.collection_empty_message = None
+            return
+
+        self.collection_empty_message = vbox = gtk.VBox()
+
+        label = gtk.Label(_("You have no music in your collection."))
+        vbox.pack_start(label)
+        label.set_line_wrap(True) # FIXME: Doesn't actually work.
+
+        alignment = gtk.Alignment(1, 0, 0, 0)
+        vbox.pack_start(alignment)
+        button = gtk.Button(stock=gtk.STOCK_ADD)
+        alignment.add(button)
+        button.connect('clicked',
+            lambda *x: xlgui.controller().collection_manager())
+
+        vbox.show_all()
+        self.vbox.pack_start(vbox, False)
+        self.vbox.reorder_child(vbox, 0)
 
     def _connect_events(self):
         """

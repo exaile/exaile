@@ -188,7 +188,7 @@ class PlaylistTabMenu(guiutil.Menu):
     """
         Menu for playlist tabs
     """
-    def __init__(self, tab):
+    def __init__(self, tab, custom = False):
         """
             Initializes the menu
         """
@@ -196,7 +196,11 @@ class PlaylistTabMenu(guiutil.Menu):
         self.append(_("_New Playlist"), tab.do_new_playlist, gtk.STOCK_NEW)
         self.append_separator()
         self.append(_("_Rename Playlist"), tab.do_rename, gtk.STOCK_EDIT)
-        self.append(_("_Save As Custom Playlist"), tab.do_save_custom, gtk.STOCK_SAVE)
+        if not custom:
+            self.append(_("_Save As Custom Playlist"), tab.do_save_custom, gtk.STOCK_SAVE)
+        else:
+            self.append(_("_Save Changes To Playlist"), tab.do_save_changes_to_custom, gtk.STOCK_SAVE)
+            self.append(_("_Save As..."), tab.do_save_custom_as)
         self.append(_("C_lear All Tracks"), tab.do_clear, gtk.STOCK_CLEAR)
         self.append_separator()
         self.append(_("_Close Playlist"), tab.do_close, gtk.STOCK_CLOSE)

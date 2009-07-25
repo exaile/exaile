@@ -168,11 +168,14 @@ class NotebookTab(gtk.EventBox):
         gtk.EventBox.__init__(self)
         self.set_visible_window(False)
 
-        self.connect('button_press_event', self.on_button_press)
-
         self.main = main
         self.nb = notebook
         self.page = page
+        self.already_dirty = False
+
+        self.connect('button_press_event', self.on_button_press)
+        self.page.connect('playlist-content-changed', lambda widget, dirty:
+                    self.on_playlist_content_change(dirty))
 
         self.hbox = hbox = gtk.HBox(False, 2)
         self.add(hbox)
@@ -180,7 +183,7 @@ class NotebookTab(gtk.EventBox):
         self.label = gtk.Label(title)
         hbox.pack_start(self.label, False, False)
 
-        self.menu = menu.PlaylistTabMenu(self)
+        self.menu = menu.PlaylistTabMenu(self, self.page.playlist.get_playlist_kind() == 'custom')
 
         self.button = btn = gtk.Button()
         btn.set_name('tabCloseButton')
@@ -201,6 +204,15 @@ class NotebookTab(gtk.EventBox):
     def set_title(self, title):
         self.label.set_text(title)
     title = property(get_title, set_title)
+    
+    def on_playlist_content_change(self, dirty):
+        if self.page.playlist.get_playlist_kind() == 'custom':
+            if dirty and not self.already_dirty:
+                self.already_dirty = True
+                self.label.set_text('*' + self.label.get_text())
+            elif not dirty and self.already_dirty:
+                self.already_dirty = False
+                self.label.set_text(self.label.get_text()[1:])
 
     def on_button_press(self, widget, event):
         """
@@ -234,7 +246,18 @@ class NotebookTab(gtk.EventBox):
         if response == gtk.RESPONSE_OK:
             self.title = dialog.get_value()
             self.main.controller.panels['playlists'].add_new_playlist(self.main.get_selected_playlist().playlist.get_tracks(), self.title)
-        self.main.get_selected_playlist().kind = 'custom'
+            self.main.get_selected_playlist().kind = 'custom'
+            return self.title
+        return ""
+    
+    def do_save_custom_as(self, *args):
+        saved = self.do_save_custom(args)
+        if saved != "":
+            self.main.get_selected_playlist().playlist.name = saved
+        
+    def do_save_changes_to_custom(self, *args):
+        self.main.playlist_manager.save_playlist(self.main.get_selected_playlist().playlist, overwrite = True)
+        self.main.get_selected_playlist().unset_dirty()
 
     def do_close(self, *args):
         """

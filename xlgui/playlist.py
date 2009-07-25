@@ -41,7 +41,10 @@ class Playlist(gtk.VBox):
     default_columns = ['tracknumber', 'title', 'album', 'artist', '__length']
     menu_items = {}
     _is_drag_source = False
-
+    
+    __gsignals__ = {
+        'playlist-content-changed': (gobject.SIGNAL_RUN_LAST, None, (bool,)),
+    }
     def __init__(self, main, queue, pl):
         """
             Initializes the playlist
@@ -57,6 +60,7 @@ class Playlist(gtk.VBox):
         self.queue = queue
         self.search_keyword = ''
         self.xml = main.xml
+        self.dirty = False
 
         self.playlist = copy.copy(pl)
         self.playlist.ordered_tracks = pl.ordered_tracks[:]
@@ -238,6 +242,7 @@ class Playlist(gtk.VBox):
         self._set_tracks(playlist.get_tracks())
         self.reorder_songs()
         self.main.update_track_counts()
+        self.set_dirty()
 
     def on_add_tracks(self, type, playlist, tracks):
         """
@@ -250,6 +255,7 @@ class Playlist(gtk.VBox):
         if tracks and settings.get_option("gui/scroll_when_appending_tracks", False):
             self.list.scroll_to_cell(self.playlist.index(tracks[-1]))
             #self.list.scroll_to_cell(self.playlist.index(tracks[0]))
+        self.set_dirty()
 
     def _set_tracks(self, tracks):
         """
@@ -371,34 +377,35 @@ class Playlist(gtk.VBox):
         """
         # Before closing check whether the playlist
         # changed, and if it did give the user an option to do something
-        try:
-            current_tracks = self.playlist.get_tracks()
-            original_tracks = self.main.playlist_manager.get_playlist \
-                (self.playlist.get_name()).get_tracks()
-            dirty = False
-            if len(current_tracks) != len(original_tracks):
-                dirty = True
-            else:
-                for i in range(0, len(original_tracks)):
-                    o_track = original_tracks[i]
-                    c_track = current_tracks[i]
-                    if o_track != c_track:
-                        dirty = True
-                        break
+        if self.dirty:
+            try:
+                current_tracks = self.playlist.get_tracks()
+                original_tracks = self.main.playlist_manager.get_playlist \
+                    (self.playlist.get_name()).get_tracks()
+                dirty = False
+                if len(current_tracks) != len(original_tracks):
+                    dirty = True
+                else:
+                    for i in range(0, len(original_tracks)):
+                        o_track = original_tracks[i]
+                        c_track = current_tracks[i]
+                        if o_track != c_track:
+                            dirty = True
+                            break
 
-            if dirty == True and self.playlist.get_playlist_kind() == 'custom':
-                dialog = ConfirmCloseDialog(self.playlist.get_name())
-                result = dialog.run()
-                if result == 110:
-                    # Save the playlist then close
-                    self.main.playlist_manager.save_playlist(
-                        self.playlist, overwrite = True)
-                    return True
-                elif result == gtk.RESPONSE_CANCEL:
-                    return False
-        except ValueError:
-            # Usually means that it was a smart playlist
-            pass
+                if dirty == True and self.playlist.get_playlist_kind() == 'custom':
+                    dialog = ConfirmCloseDialog(self.playlist.get_name())
+                    result = dialog.run()
+                    if result == 110:
+                        # Save the playlist then close
+                        self.main.playlist_manager.save_playlist(
+                            self.playlist, overwrite = True)
+                        return True
+                    elif result == gtk.RESPONSE_CANCEL:
+                        return False
+            except ValueError:
+                # Usually means that it was a smart playlist
+                pass
         return True
 
     def button_press(self, button, event):
@@ -473,6 +480,14 @@ class Playlist(gtk.VBox):
         settings.set_option('gui/columns', cols)
         self._setup_columns()
         self._set_tracks(self.playlist.get_tracks())
+    
+    def set_dirty(self):
+        self.dirty = True
+        self.emit('playlist-content-changed', self.dirty)
+    
+    def unset_dirty(self):
+        self.dirty = False
+        self.emit('playlist-content-changed', self.dirty)
 
     def drag_data_received(self, tv, context, x, y, selection, info, etime):
         """
@@ -577,7 +592,8 @@ class Playlist(gtk.VBox):
             iter = self.model.iter_next(iter)
             if not iter: break
 
-        # We do not save the playlist because it is saved by the playlist manager?
+        if tracks:
+            self.set_dirty()
 
         gobject.idle_add(self.add_track_callbacks)
         self.main.update_track_counts()

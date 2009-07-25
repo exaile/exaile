@@ -17,7 +17,7 @@
 from xl.nls import gettext as _
 
 import urlparse, urllib, logging, time
-import gst
+import gst, gobject
 from xl import common, event
 from xl.player import pipe, _base
 
@@ -85,7 +85,7 @@ class NormalPlayer(_base.ExailePlayer):
         elif message.type == gst.MESSAGE_ERROR:
             logger.error("%s %s" %(message, dir(message)) )
             a = message.parse_error()[0]
-            self._on_playback_error(a.message)
+            gobject.idle_add(self._on_playback_error, a.message)
 
             # TODO: merge this into stop() and make it engine-agnostic somehow
             curr = self.current
@@ -94,7 +94,7 @@ class NormalPlayer(_base.ExailePlayer):
             self.setup_pipe()
             event.log_event("playback_track_end", self, curr)
             event.log_event("playback_player_end", self, curr)
-            self.eof_func()
+            gobject.idle_add(self.eof_func)
         elif message.type == gst.MESSAGE_BUFFERING:
             percent = message.parse_buffering()
             if not percent < 100:

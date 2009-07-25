@@ -139,11 +139,11 @@ class ListDialog(gtk.Dialog):
         object = model.get_value(iter, 0)
         cell.set_property('text', str(object))
 
-def error(parent, message): 
+def error(parent, message, _flags=gtk.DIALOG_MODAL): 
     """
         Shows an error dialog
     """
-    dialog = gtk.MessageDialog(parent, gtk.DIALOG_MODAL, gtk.MESSAGE_ERROR,
+    dialog = gtk.MessageDialog(parent, _flags, gtk.MESSAGE_ERROR,
         gtk.BUTTONS_OK)
     dialog.set_markup(message)
     dialog.run()

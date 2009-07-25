@@ -651,11 +651,20 @@ class MainWindow(object):
             self.queue.add_tracks(items, add_duplicates=False)
         pl.list.queue_draw()
 
+    @guiutil.idle_add()
     def on_playback_error(self, type, player, message):
         """
             Called when there has been a playback error
         """
-        commondialogs.error(self.window, message)
+        # for some reason using the gtk.MessageDialog.run() and
+        # gtk.MessageDialog.hide() here causes the whole system to lock up, so
+        # instead we just connect to the response method and hide it when the
+        # ok button is clicked
+        dialog = gtk.MessageDialog(self.window, gtk.DIALOG_MODAL, gtk.MESSAGE_INFO,
+            gtk.BUTTONS_OK)
+        dialog.set_markup(message)
+        dialog.connect('response', lambda dialog=dialog, *e: dialog.hide())
+        dialog.show_all()
 
     def on_buffering(self, type, player, percent):
         """

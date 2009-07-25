@@ -5,7 +5,6 @@ XDGCONFDIR ?= $(DESTDIR)/etc/xdg
 EXAILELIBDIR = $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile
 EXAILESHAREDIR = $(DESTDIR)$(PREFIX)/share/exaile
 
-
 all: compile
 	@echo "Ready to install..."
 

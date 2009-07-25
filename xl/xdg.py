@@ -101,5 +101,11 @@ def get_config_path(*subpath_elements):
 def get_last_dir():
     return lastdir
 
+def get_plugin_data_dir():
+    path = os.path.join(get_data_dirs()[0], 'plugin_data')
+    if not os.path.exists(path):
+        os.makedirs(path)
+    return path
+
 # vim: et sts=4 sw=4
 

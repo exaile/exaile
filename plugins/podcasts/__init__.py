@@ -7,6 +7,7 @@ from xlgui import guiutil
 from xl import xdg
 import xlgui, os, os.path
 import _feedparser as fp
+import traceback
 
 # set up logger
 import logging
@@ -15,6 +16,13 @@ logger = logging.getLogger(__name__)
 PODCASTS = None
 CURPATH = os.path.realpath(__file__)
 BASEDIR = os.path.dirname(CURPATH)
+
+try:
+    import hashlib
+    md5 = hashlib.md5
+except ImportError:
+    import md5
+    md5 = md5.new
 
 def enable(exaile):
     if exaile.loading:
@@ -45,11 +53,12 @@ class PodcastPanel(panel.Panel):
     def __init__(self, parent):
         panel.Panel.__init__(self, parent, _('Podcasts'))
         self.podcasts = []
-        self.podcast_playlists = {}
+        self.podcast_playlists = playlist.PlaylistManager(
+            'podcast_plugin_playlists')
         
         self._setup_widgets()
         self._connect_events()
-        self.podcast_file = os.path.join(xdg.get_data_dirs()[0],
+        self.podcast_file = os.path.join(xdg.get_plugin_data_dir(),
             'podcasts_plugin.db') 
         self._load_podcasts()
 
@@ -91,15 +100,16 @@ class PodcastPanel(panel.Panel):
             self.menu.popup(event)
 
     def _on_refresh(self, *e):
-        url = self.get_selected_url()
+        (url, title) = self.get_selected_podcast()
         self._parse_podcast(url)
 
     def _on_delete(self, *e):
-        url = self.get_selected_url()
+        (url, title) = self.get_selected_podcast()
         for item in self.podcasts:
             (title, _url) = item
             if _url == url:
                 self.podcasts.remove(item)
+                self.podcast_playlists.remove_playlist(md5(url).hexdigest())
                 break
 
         self._save_podcasts()
@@ -118,21 +128,21 @@ class PodcastPanel(panel.Panel):
             url = dialog.get_value()
             self._parse_podcast(url, True)
 
-    def get_selected_url(self):
+    def get_selected_podcast(self):
         selection = self.tree.get_selection()
         (model, iter) = selection.get_selected()
 
         url = self.model.get_value(iter, 1)
-        return url
+        title = self.model.get_value(iter, 0)
+        return (url, title)
 
     def _on_row_activated(self, *e):
-        url = self.get_selected_url()
+        (url, title) = self.get_selected_podcast()
 
-        if url in self.podcast_playlists:
-            pl = self.podcast_playlists[url]
-            self._open_podcast(pl)
-
-        else:
+        try:
+            pl = self.podcast_playlists.get_playlist(md5(url).hexdigest())
+            self._open_podcast(pl, title)
+        except ValueError:
             self._parse_podcast(url)
 
     @common.threaded
@@ -149,7 +159,7 @@ class PodcastPanel(panel.Panel):
             if add_to_db:
                 self._add_to_db(url, title)
 
-            pl = playlist.Playlist(title)
+            pl = playlist.Playlist(md5(url).hexdigest())
 
             tracks = []
             for e in entries:
@@ -163,13 +173,12 @@ class PodcastPanel(panel.Panel):
                 tracks.append(tr)
             
             pl.add_tracks(tracks)
-            self.podcast_playlists[url] = pl
             self._set_status('Idle.')
 
-            self._open_podcast(pl)
-            h = open('/asdfasdf/asdfasdf/')
-            print h.read()
+            self._open_podcast(pl, title)
+            self.podcast_playlists.save_playlist(pl, overwrite=True)
         except:
+            traceback.print_exc()
             self._set_status(_('Error loading podcast.'), 2000)
 
     @guiutil.idle_add()
@@ -179,8 +188,10 @@ class PodcastPanel(panel.Panel):
         self._load_podcasts()
 
     @guiutil.idle_add()
-    def _open_podcast(self, pl):
-        main.mainwindow().add_playlist(pl)
+    def _open_podcast(self, pl, title):
+        new_pl = playlist.Playlist(title)
+        new_pl.add_tracks(pl.get_tracks())
+        main.mainwindow().add_playlist(new_pl)
 
     @guiutil.idle_add()
     def _load_podcasts(self):

@@ -34,7 +34,7 @@ def check_exit(options, args):
     """
     iface = False
     exaile = None
-    if not options.new:
+    if not options.NewInstance:
         # TODO: handle dbus stuff
         bus = dbus.SessionBus()
         if check_dbus(bus, 'org.exaile.Exaile'):
@@ -58,21 +58,21 @@ def check_exit(options, args):
         return False
 
     comm = False
-    info_commands = (
-            'get_artist', 
-            'get_title', 
-            'get_album',
-            'get_length', 
-            'get_rating'
-            )
+    info_commands = {
+            'GetArtist': 'artist', 
+            'GetTitle': 'title', 
+            'GetAlbum': 'album',
+            'GetLength': '__length', 
+            'GetRating': 'rating',
+            }
 
-    for command in info_commands:
+    for command, attr in info_commands.iteritems():
         if getattr(options, command):
-            print iface.GetTrackAttr(command[4:].lower())
+            print iface.GetTrackAttr(attr)
             comm = True
 
     modify_commands = (
-           'set_rating',
+           'SetRating',
            )
 
     for command in modify_commands:
@@ -82,22 +82,22 @@ def check_exit(options, args):
             comm = True
 
     volume_commands = (
-            'inc_vol',
-            'dec_vol',
+            'IncreaseVolume',
+            'DecreaseVolume',
             )
 
     for command in volume_commands:
         value = getattr(options, command)
         if value:
-            if command == 'dec_vol': value = -value
+            if command == 'DecreaseVolume': value = -value
             iface.ChangeVolume(value)
 
     run_commands = (
-            'play', 
-            'stop', 
-            'next', 
-            'prev', 
-            'play_pause',
+            'Play', 
+            'Stop', 
+            'Next', 
+            'Prev', 
+            'PlayPause',
             )
     for command in run_commands:
         if getattr(options, command):
@@ -105,8 +105,8 @@ def check_exit(options, args):
             comm = True
 
     query_commands = (
-            'current_position',
-            'get_volume',
+            'CurrentPosition',
+            'GetVolume',
             )
 
     for command in query_commands:
@@ -115,8 +115,8 @@ def check_exit(options, args):
             comm = True
 
     to_implement = (
-            'query',
-            'guiquery',
+            'Query',
+            'GuiQuery',
             )
     for command in to_implement:
         if getattr(options, command):
@@ -235,14 +235,14 @@ class DbusManager(dbus.service.Object):
         progress = self.exaile.player.get_progress()
         if progress == -1:
             return ""
-        return int(progress * 100)
+        return str(int(progress * 100))
 
     @dbus.service.method("org.exaile.Exaile", None, "s")
     def GetVolume(self):
         """
             Returns the current volume level (in percent)
         """
-        return self.exaile.player.get_volume()
+        return str(self.exaile.player.get_volume())
 
     @dbus.service.method("org.exaile.Exaile", None, "s")
     def GetVersion(self):

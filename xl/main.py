@@ -51,13 +51,13 @@ class Exaile(object):
         self.quitting = False
         self.loading = True
         (self.options, self.args) = self.get_options().parse_args()
-        if self.options.show_version:
+        if self.options.ShowVersion:
             self.version()
 
-        if self.options.datadir:
-            xdg.data_dirs.insert(1, self.options.datadir)
+        if self.options.UseDataDir:
+            xdg.data_dirs.insert(1, self.options.UseDataDir)
 
-        if self.options.debugevent:
+        if self.options.DebugEvent:
             event.EVENT_MANAGER.use_logger = True
 
         #set up logging
@@ -67,7 +67,7 @@ class Exaile(object):
         self.mainloop_init()
         
         #initialize DbusManager
-        if self.options.startgui and self.options.dbus:
+        if self.options.StartGui and self.options.Dbus:
             from xl import xldbus
             if xldbus.check_exit(self.options, self.args):
                 sys.exit(0)
@@ -81,7 +81,7 @@ class Exaile(object):
         signal.signal(signal.SIGTERM, (lambda sig, stack: self.quit()))
 
         #run the GUIs mainloop, if needed
-        if self.options.startgui:
+        if self.options.StartGui:
             import xlgui
             xlgui.mainloop()
 
@@ -99,7 +99,7 @@ class Exaile(object):
             exit(1)
         
         # Splash screen
-        if self.options.startgui:
+        if self.options.StartGui:
             self.__show_splash()
 
         firstrun = settings.get_option("general/first_run", True)
@@ -116,7 +116,7 @@ class Exaile(object):
                         message=_("Failed to migrate from 0.2.14"))
 
         # Initialize plugin manager
-        if not self.options.safemode:
+        if not self.options.SafeMode:
             from xl import plugins
             logger.info(_("Loading plugins..."))
             self.plugins = plugins.PluginsManager(self)
@@ -163,7 +163,7 @@ class Exaile(object):
         event.log_event("device_manager_ready", self, None)
 
         # Initialize HAL
-        if self.options.hal:
+        if self.options.Hal:
             from xl import hal
             self.hal = hal.HAL(self.devices)
             self.hal.connect()
@@ -186,7 +186,7 @@ class Exaile(object):
 
         self.gui = None
         # Setup GUI
-        if self.options.startgui:
+        if self.options.StartGui:
             logger.info(_("Loading interface..."))
             import xlgui
             self.gui = xlgui.Main(self)
@@ -227,13 +227,13 @@ class Exaile(object):
     def setup_logging(self):
         console_format = "%(levelname)-8s: %(message)s"
         loglevel = logging.INFO
-        if self.options.debug:
+        if self.options.Debug:
             loglevel = logging.DEBUG
             console_format += " (%(name)s)" # add module name in debug mode
-        elif self.options.quiet:
+        elif self.options.Quiet:
             loglevel = logging.WARNING
         # logfile level should always be INFO or higher
-        if self.options.quiet:
+        if self.options.Quiet:
             logfilelevel = logging.INFO
         else:
             logfilelevel = loglevel
@@ -261,70 +261,70 @@ class Exaile(object):
         p = OptionParser(usage=usage)
         
         # Playback options
-        p.add_option("-n", "--next", dest="next", action="store_true",
+        p.add_option("-n", "--next", dest="Next", action="store_true",
             default=False, help=_("Play the next track"))
-        p.add_option("-p", "--prev", dest="prev", action="store_true",
+        p.add_option("-p", "--prev", dest="Prev", action="store_true",
             default=False,   help=_("Play the previous track"))
-        p.add_option("-s", "--stop", dest="stop", action="store_true",
+        p.add_option("-s", "--stop", dest="Stop", action="store_true",
             default=False, help=_("Stop playback"))
-        p.add_option("-a", "--play", dest="play", action="store_true",
+        p.add_option("-a", "--play", dest="Play", action="store_true",
             default=False, help=_("Play"))
-        p.add_option("-t", "--play-pause", dest="play_pause", 
+        p.add_option("-t", "--play-pause", dest="PlayPause", 
             action="store_true", default=False, help=_("Toggle Play or Pause"))
 
         # Current song options
-        p.add_option("-q", "--query", dest="query", action="store_true",
+        p.add_option("-q", "--query", dest="Query", action="store_true",
             default=False, help=_("Query player"))
-        p.add_option("--gui-query", dest="guiquery", action="store_true",
+        p.add_option("--gui-query", dest="GuiQuery", action="store_true",
             default=False, help=_("Show a popup of the currently playing track"))
-        p.add_option("--get-title", dest="get_title", action="store_true",
+        p.add_option("--get-title", dest="GetTitle", action="store_true",
             default=False, help=_("Print the title of current track"))
-        p.add_option("--get-album", dest="get_album", action="store_true",
+        p.add_option("--get-album", dest="GetAlbum", action="store_true",
             default=False, help=_("Print the album of current track"))
-        p.add_option("--get-artist", dest="get_artist", action="store_true",
+        p.add_option("--get-artist", dest="GetArtist", action="store_true",
             default=False, help=_("Print the artist of current track"))
-        p.add_option("--get-length", dest="get_length", action="store_true",
+        p.add_option("--get-length", dest="GetLength", action="store_true",
             default=False, help=_("Print the length of current track"))
-        p.add_option('--set-rating', dest="set_rating", action='store',
+        p.add_option('--set-rating', dest="SetRating", action='store',
             type='int', metavar='RATING', help=_('Set rating for current song'))
-        p.add_option('--get-rating', dest='get_rating', action='store_true',
+        p.add_option('--get-rating', dest='GetRating', action='store_true',
             default=False, help=_('Get rating for current song'))
-        p.add_option("--current-position", dest="current_position", 
+        p.add_option("--current-position", dest="CurrentPosition", 
             action="store_true", default=False, 
             help=_("Print the position inside the current track as a percentage"))
 
         # Volume options
-        p.add_option("-i", "--increase-vol", dest="inc_vol", action="store", 
+        p.add_option("-i", "--increase-vol", dest="IncreaseVolume", action="store", 
             type="int", metavar="VOL", help=_("Increases the volume by VOL%"))
-        p.add_option("-l", "--decrease-vol", dest="dec_vol", action="store",
+        p.add_option("-l", "--decrease-vol", dest="DecreaseVolume", action="store",
             type="int", metavar="VOL", help=_("Decreases the volume by VOL%"))
-        p.add_option("--get-volume", dest="get_volume", action="store_true",
+        p.add_option("--get-volume", dest="GetVolume", action="store_true",
             default=False, help=_("Print the current volume percentage"))
 
         # Other options
-        p.add_option("--new", dest="new", action="store_true",
+        p.add_option("--new", dest="NewInstance", action="store_true",
             default=False, help=_("Start new instance"))
-        p.add_option("--version", dest="show_version", action="store_true")
-        p.add_option("--start-minimized", dest="minim", action="store_true",
+        p.add_option("--version", dest="ShowVersion", action="store_true")
+        p.add_option("--start-minimized", dest="StartMinimized", action="store_true",
             default=False, help=_("Start Exaile minimized to tray, if possible"))
-        p.add_option("--safemode", dest="safemode", action="store_true",
+        p.add_option("--safemode", dest="SafeMode", action="store_true",
             default=False, help=_("Start in safe mode - sometimes useful "
             "when you're running into problems"))
 
         # development and debug options
-        p.add_option("--datadir", dest="datadir", help=_("Set data directory"))
-        p.add_option("--debug", dest="debug", action="store_true",
+        p.add_option("--datadir", dest="UseDataDir", help=_("Set data directory"))
+        p.add_option("--debug", dest="Debug", action="store_true",
             default=False, help=_("Show debugging output"))
-        p.add_option("--eventdebug", dest="debugevent", 
+        p.add_option("--eventdebug", dest="DebugEvent", 
             action="store_true", default=False, 
             help=_("Enable debugging of xl.event. Generates LOTS of output"))
-        p.add_option("--quiet", dest="quiet", action="store_true",
+        p.add_option("--quiet", dest="Quiet", action="store_true",
             default=False, help=_("Reduce level of output"))
-        p.add_option('--startgui', dest='startgui', action='store_true',
+        p.add_option('--startgui', dest='StartGui', action='store_true',
             default=False)
-        p.add_option('--no-dbus', dest='dbus', action='store_false',
+        p.add_option('--no-dbus', dest='Dbus', action='store_false',
             default=True, help=_("Disable D-Bus support"))
-        p.add_option('--no-hal', dest='hal', action='store_false',
+        p.add_option('--no-hal', dest='Hal', action='store_false',
             default=True, help=_("Disable HAL support."))
         return p
 
@@ -364,12 +364,12 @@ class Exaile(object):
     def mainloop_init(self):
         import gobject
         gobject.threads_init()
-        if self.options.dbus:
+        if self.options.Dbus:
             import dbus, dbus.mainloop.glib
             dbus_loop = dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
             dbus.mainloop.glib.threads_init()
             dbus.mainloop.glib.gthreads_init()
-        if self.options.startgui:
+        if self.options.StartGui:
             import gtk
             gtk.gdk.threads_init()
         else:

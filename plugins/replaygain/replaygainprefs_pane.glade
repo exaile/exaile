@@ -13,6 +13,7 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
+            <property name="tooltip" translatable="yes">Prefer replaygain's per-album correction over per-track correction.</property>
             <property name="draw_indicator">True</property>
           </widget>
           <packing>
@@ -26,6 +27,7 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
+            <property name="tooltip" translatable="yes">Protect against noise caused by over-amplification.</property>
             <property name="draw_indicator">True</property>
           </widget>
           <packing>
@@ -36,6 +38,7 @@
         <child>
           <widget class="GtkHBox" id="hbox1">
             <property name="visible">True</property>
+            <property name="tooltip" translatable="yes">Additional amplification to apply to all files.</property>
             <child>
               <widget class="GtkLabel" id="label2">
                 <property name="visible">True</property>
@@ -71,9 +74,11 @@
         <child>
           <widget class="GtkHBox" id="hbox2">
             <property name="visible">True</property>
+            <property name="tooltip" translatable="yes">Fallback correction for files that lack Replaygain information.</property>
             <child>
               <widget class="GtkLabel" id="label3">
                 <property name="visible">True</property>
+                <property name="ypad">2</property>
                 <property name="label" translatable="yes" comments="This is the fallback correction for files that don't contain replaygain information.">Fallback correction level (dB):</property>
               </widget>
               <packing>

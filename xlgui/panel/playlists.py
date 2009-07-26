@@ -20,8 +20,6 @@ from xl import playlist, settings
 from xlgui.filtergui import MultiEntryField, EntryField
 from xl.nls import gettext as _
 
-N_ = lambda x: x
-
 class EntrySecondsField(MultiEntryField):
     def __init__(self):
         MultiEntryField.__init__(self, (50, _('seconds')))
@@ -36,7 +34,7 @@ class EntryDaysField(MultiEntryField):
         MultiEntryField.__init__(self, (50, _('days')))
 
 DATE_FIELDS = [
-    N_('seconds'), N_('minutes'), N_('hours'), N_('days'), N_('weeks')]
+    _('seconds'), _('minutes'), _('hours'), _('days'), _('weeks')]
 class SpinDateField(filtergui.SpinButtonAndComboField):
     def __init__(self):
         filtergui.SpinButtonAndComboField.__init__(self, DATE_FIELDS)
@@ -54,69 +52,71 @@ class SpinNothing(filtergui.SpinLabelField):
         filtergui.SpinLabelField.__init__(self, '')
 
 CRITERIA = [
-    (N_('Artist'), [
+    (_('Artist'), [
         # TRANSLATORS: True if haystack is equal to needle
-        (N_('is'), EntryField),
+        (_('is'), EntryField),
         # TRANSLATORS: True if haystack is not equal to needle
-        (N_('is not'), EntryField),
+        (_('is not'), EntryField),
         # TRANSLATORS: True if haystack contains needle
-        (N_('contains'), EntryField),
+        (_('contains'), EntryField),
         # TRANSLATORS: True if haystack does not contain needle
-        (N_('does not contain'), EntryField)
+        (_('does not contain'), EntryField)
     ]),
-    (N_('Album'), [
-        (N_('is'), EntryField),
-        (N_('is not'), EntryField),
-        (N_('contains'), EntryField),
-        (N_('does not contain'), EntryField),
+    (_('Album'), [
+        (_('is'), EntryField),
+        (_('is not'), EntryField),
+        (_('contains'), EntryField),
+        (_('does not contain'), EntryField),
     ]),
-    (N_('Genre'), [
-        (N_('is'), EntryField),
-        (N_('is not'), EntryField),
-        (N_('contains'), EntryField),
-        (N_('does not contain'), EntryField),
+    (_('Genre'), [
+        (_('is'), EntryField),
+        (_('is not'), EntryField),
+        (_('contains'), EntryField),
+        (_('does not contain'), EntryField),
     ]),
-    (N_('Rating'), [
+    (_('Rating'), [
+        (_('greater than'), SpinRating),
+        (_('less than'), SpinRating),
         # TRANSLATORS: Example: rating >= 5
-        (N_('at least'), SpinRating),
+        (_('at least'), SpinRating),
         # TRANSLATORS: Example: rating <= 3
-        (N_('at most'), SpinRating),
+        (_('at most'), SpinRating),
     ]),
-    (N_('Plays'), [
-        (N_('at least'), SpinNothing),
-        (N_('at most'), SpinNothing),
+    (_('Plays'), [
+        (_('at least'), SpinNothing),
+        (_('at most'), SpinNothing),
     ]),
-    (N_('Year'), [
+    (_('Year'), [
         # TRANSLATORS: Example: year < 1999
-        (N_('before'), EntryField),
+        (_('before'), EntryField),
         # TRANSLATORS: Example: year > 2002
-        (N_('after'), EntryField),
+        (_('after'), EntryField),
         # TRANSLATORS: Example: 1980 <= year <= 1987
-        (N_('between'), EntryAndEntryField),
+        (_('between'), EntryAndEntryField),
     ]),
-    (N_('Length'), [
-        (N_('at least'), SpinSecondsField),
-        (N_('at most'), SpinSecondsField),
+    (_('Length'), [
+        (_('at least'), SpinSecondsField),
+        (_('at most'), SpinSecondsField),
     ]),
-#    (N_('Date Added'), [
+#    (_('Date Added'), [
         # TRANSLATORS: Example: track has been added in the last 2 days
-#        (N_('in the last'), (SpinDateField, 
+#        (_('in the last'), (SpinDateField, 
 #            lambda x, i: day_calc(x, i, 'time_added'))),
         # TRANSLATORS: Example: track has not been added in the last 5 hours
-#        (N_('not in the last'), (SpinDateField, 
+#        (_('not in the last'), (SpinDateField, 
 #            lambda x, i: day_calc(x, i, 'time_added', '<'))),
 #        ]),
-#    (N_('Last Played'), [
-#        (N_('in the last'), (SpinDateField, 
+#    (_('Last Played'), [
+#        (_('in the last'), (SpinDateField, 
 #            lambda x, i: day_calc(x, i, 'last_played'))),
-#        (N_('not in the last'), (SpinDateField, 
+#        (_('not in the last'), (SpinDateField, 
 #            lambda x, i: day_calc(x, i, 'last_played', '<'))),
 #        ]),
-    (N_('Location'), [
-        (N_('is'), EntryField),
-        (N_('is not'), EntryField),
-        (N_('contains'), EntryField),
-        (N_('does not contain'), EntryField),
+    (_('Location'), [
+        (_('is'), EntryField),
+        (_('is not'), EntryField),
+        (_('contains'), EntryField),
+        (_('does not contain'), EntryField),
     ]),
 ]
 
@@ -130,6 +130,19 @@ _TRANS = {
     'before': '<',
     'after': '>',
     'between': '><',
+    'greater than': '>',
+    'less than': '<',
+}
+
+_NMAP = {
+    _('Artist'): 'artist',
+    _('Title'): 'title',
+    _('Album'): 'album',
+    _('Length'): '__length',
+    _('Rating'): '__rating',
+    _('Plays'): '__playcount',
+    _('Year'): 'date',
+    _('Genre'): 'genre',
 }
 
 class TrackWrapper(object):
@@ -573,7 +586,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             for item in state:
                 (field, op) = item[0]
                 value = item[1]
-                pl.add_param(field.lower(), _TRANS[op], value)
+                pl.add_param(_NMAP[field], _TRANS[op], value)
 
             self.smart_manager.save_playlist(pl)
             self.model.append(self.smart, [self.playlist_image, name, pl])
@@ -586,6 +599,10 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         for k, v in _TRANS.iteritems():
             _REV[v] = k
 
+        _REV_NMAP = {}
+        for k, v in _NMAP.iteritems():
+            _REV_NMAP[v] = k
+
         pl = self.get_selected_playlist(raw=True)
         if not isinstance(pl, playlist.SmartPlaylist): return
 
@@ -594,7 +611,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
         for param in params:
             (field, op, value) = param
-            field = field.capitalize()
+            field = _REV_NMAP[field]
 
             state.append(([field, _REV[op]], value))
 

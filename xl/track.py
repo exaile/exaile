@@ -345,6 +345,9 @@ class Track(object):
         except:
             return self['__bitrate']
 
+    def get_size(self):
+        return os.path.getsize(self.get_loc())
+
     def get_duration(self):
         """
             Returns the length of the track as an int in seconds

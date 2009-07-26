@@ -82,6 +82,8 @@ class Playlist(gtk.VBox):
             self.remove_selected_tracks())
         self.menu.connect('queue-items', lambda *e:
             self.queue_selected_tracks())
+        self.menu.connect('properties', lambda *e:
+            self.properties_dialog())
 
         self.show_all()
 
@@ -89,6 +91,25 @@ class Playlist(gtk.VBox):
         event.add_callback(self.on_add_tracks, 'tracks_added', self.playlist)
         event.add_callback(self.on_remove_tracks, 'tracks_removed',
             self.playlist)
+
+    def properties_dialog(self):
+        """
+            Shows the properties dialog
+        """
+        from xlgui import properties
+        tracks = self.get_selected_tracks()
+
+        dialog = properties.TrackPropertiesDialog(self.main.window, 
+            tracks[0])
+        result = dialog.run()
+        dialog.hide()
+
+        if result == gtk.RESPONSE_OK:
+            selection = self.list.get_selection()
+            model, paths = selection.get_selected_rows()
+            iter = self.model.get_iter(paths[0])
+            self.update_iter(iter, tracks[0])
+            self.list.queue_draw()
 
     def queue_selected_tracks(self):
         """

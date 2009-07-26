@@ -132,6 +132,7 @@ class PlaylistMenu(GenericTrackMenu):
     """
     __gsignals__ = {
         'remove-items': (gobject.SIGNAL_RUN_LAST, None, ()),
+        'properties': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
     def __init__(self, playlist, playlists):
         GenericTrackMenu.__init__(self)
@@ -141,12 +142,17 @@ class PlaylistMenu(GenericTrackMenu):
             self.playlist.get_selected_tracks)
         
         self.append_item(self.rating_item)
-        event.add_callback(self.rating_item.on_rating_change, 'playback_track_start')
+        event.add_callback(self.rating_item.on_rating_change, 
+            'playback_track_start')
         self.connect('enter-notify-event', self.rating_item.on_rating_change)
 
         self.add_playlist_menu = AddToPlaylistMenu(playlist, playlists)
-        self.append_menu(_('Add to custom playlist'), self.add_playlist_menu, 'gtk-add')
-        self.append(_('Remove'), lambda *e: self.remove_selected_tracks(), 'gtk-remove')
+        self.append_menu(_('Add to custom playlist'), 
+            self.add_playlist_menu, 'gtk-add')
+        self.append(_('Properties'), lambda *e: self.emit('properties'),
+            'gtk-properties') 
+        self.append(_('Remove'), lambda *e: self.remove_selected_tracks(), 
+            'gtk-remove')
 
         self.playlist_tab_menu = None
         # Defer menu setup until exaile is loaded

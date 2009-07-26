@@ -20,6 +20,8 @@ from string import Template
 from xl import event
 from xl.track import Track
 from xl.nls import gettext as _
+from xlgui.playlist import Playlist
+from minimodeprefs import get_workarea_size
 
 class MMMenuItem(gtk.ImageMenuItem):
     """
@@ -38,6 +40,7 @@ class MMMenuItem(gtk.ImageMenuItem):
         """
         if stock_id == 'exaile-minimode':
             self.set_image(gtk.gdk.image_new_from_stock(stock_id))
+            event.remove_callback(self.on_stock_icon_added, 'stock_icon_added')
 
     def destroy(self):
         """
@@ -226,162 +229,134 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
         Displays the current track title and
         the current playlist on activation
     """
-    # MainWindow, exaile.queue, exaile.queue.current_playlist
-    def __init__(self, main, queue, playlist):
+    def __init__(self, main, queue, playlist, change_callback, format_callback=None):
         MMWidget.__init__(self, 'playlist_button')
-        gtk.ToggleButton.__init__(self)
+        gtk.ToggleButton.__init__(self, '')
 
         self.set_size_request(150, -1)
+        self.get_child().set_property('ellipsize', pango.ELLIPSIZE_END)
 
+        self.queue = queue
+        self.formatter = MMTrackFormatter()
         self.popup = gtk.Window(gtk.WINDOW_POPUP)
-        #self.popup.set_parent_window(self.get_parent())
-        #self.popup.connect('configure-event', self.on_configure)
+        self.popup.set_size_request(350, 400)
+        self.playlist = Playlist(main, queue, playlist)
+        self.popup.add(self.playlist)
 
+        self._parent_configure_id = None
+        self._parent_hide_id = None
+
+        try:
+            self.formatter.connect('format-request', format_callback)
+        except TypeError:
+            pass
+
+        self.connect('track-changed', change_callback)
         self.connect('toggled', self.on_toggled)
+        self.connect('scroll-event', self.on_scroll)
+        event.add_callback(self.on_playlist_current_changed, 'playlist_current_changed')
+        event.add_callback(self.on_playback_start, 'playback_player_start')
+        event.add_callback(self.on_playback_end, 'playback_player_end')
+
+    def move_popup(self):
+        """
+            Makes sure the popup is always fully visible
+        """
+        workarea_width, workarea_height = get_workarea_size() # 1280, 974
+        popup_width, popup_height = self.popup.size_request() #  350, 400
+        buttonx, buttony, button_width, button_height = self.get_allocation()
+        parentx, parenty = self.get_window().get_origin()
+        buttonx, buttony = parentx + buttonx, parenty + buttony
+
+        # E.g.       1280 - 1000    < 350
+        if workarea_width - buttonx < popup_width:
+            #           1000 + 150          - 350 = 800
+            popupx = buttonx + button_width - popup_width # Aligned right
+        else:
+            popupx = buttonx # Aligned left
+
+        # E.g.         974 - 800     < 400
+        if workarea_height - buttony < popup_height:
+            #            800 - 400 = 400 
+            popupy = buttony - popup_height # Aligned top
+        else:
+            popupy = buttony + button_height # Aligned bottom
+
+        self.popup.move(popupx, popupy)
+
+    def set_tracks(self, tracks):
+        """
+            Replaces the internal playlist
+        """
+        self.playlist._set_tracks(tracks)
+
+    def on_playlist_current_changed(self, event, playlist, track):
+        """
+            Updates the currently selected track
+        """
+        pos = self.playlist.playlist.index(track)
+        self.playlist.playlist.set_current_pos(pos)
+
+    def on_playback_start(self, event, player, track):
+        """
+            Updates appearance on playback start
+        """
+        self.set_label(self.formatter.format(track))
+
+    def on_playback_end(self, event, player, track):
+        """
+            Updates appearance on playback state change
+        """
+        self.set_label('')
 
     def on_parent_configure(self, *e):
-        print "Moved"
+        """
+            Passes parent window movement to the popup
+        """
+        self.move_popup()
+
+    def on_parent_hide(self, parent):
+        """
+            Makes sure to hide the popup
+        """
+        self.set_active(False)
+        self.popup.hide()
+
+    def on_scroll(self, togglebutton, event):
+        """
+            Handles scrolling on the button
+        """
+        track = None
+
+        if event.direction == gtk.gdk.SCROLL_UP:
+            track = self.playlist.playlist.prev()
+        elif event.direction == gtk.gdk.SCROLL_DOWN:
+            track = self.playlist.playlist.next()
+
+        self.emit('track-changed', track)
 
     def on_toggled(self, togglebutton):
         """
             Displays or hides the playlist on toggle
         """
-        if self.popup.get_transient_for() is None:
-            self.popup.set_transient_for(self.get_toplevel())
+        if self._parent_configure_id is None:
+            self._parent_configure_id = self.get_toplevel().connect(
+                'configure-event', self.on_parent_configure)
 
-        x, y, width, height = self.get_allocation()
-        parentx, parenty = self.get_window().get_origin()
+        if self._parent_hide_id is None:
+            self._parent_hide_id = self.get_toplevel().connect(
+                'hide', self.on_parent_hide)
 
         if self.get_active():
-            self.popup.move(parentx + x, parenty + y + height) # :-)
+            self.move_popup()
             self.popup.show()
         else:
             self.popup.hide()
 
-class MMTrackFormatter(gobject.GObject):
-    """
-        Formats track titles based on a format string
-    """
-    __gsignals__ = {
-        'format-request': (gobject.SIGNAL_RUN_LAST, gobject.TYPE_STRING, ()),
-        'rating-steps-request': (gobject.SIGNAL_RUN_LAST, gobject.TYPE_INT, ()),
-    }
-
-    def __init__(self):
-        gobject.GObject.__init__(self)
-
-        self._format = '$tracknumber - $title'
-        self._substitutions = {
-            'tracknumber': 'tracknumber',
-            'title': 'title',
-            'artist': 'artist',
-            'composer': 'composer',
-            'album': 'album',
-            'length': '__length',
-            'discnumber': 'discnumber',
-            'rating': '__rating',
-            'date': 'date',
-            'genre': 'genre',
-            'bitrate': '__bitrate',
-            'location': '__location',
-            'filename': 'filename',
-            'playcount': 'playcount',
-            'bpm': 'bpm',
-        }
-        self._formattings = {
-            'tracknumber': self.__format_tracknumber,
-            'length': self.__format_length,
-            'rating': self.__format_rating,
-            'bitrate': self.__format_bitrate,
-        }
-        self._rating_steps = 5.0
-
-    def format(self, track):
-        """
-            Returns the formatted title of a track
-        """
-        if not isinstance(track, Track):
-            return None
-
-        template = Template(self.emit('format-request') or self._format)
-        text = template.safe_substitute(self.__get_substitutions(track))
-
-        return text
-
-    def __get_substitutions(self, track):
-        """
-            Returns a map for keyword to tag value mapping
-        """
-        substitutions = self._substitutions.copy()
-
-        for keyword, tagname in substitutions.iteritems():
-            try:
-                substitutions[keyword] = _(' & ').join(track[tagname])
-            except TypeError:
-                substitutions[keyword] = track[tagname]
-
-            try:
-                formatter = self._formattings[keyword]
-                substitutions[keyword] = formatter(substitutions[keyword])
-            except KeyError:
-                pass
-
-            if substitutions[keyword] is None:
-                substitutions[keyword] = _('Unknown')
-
-        return substitutions
-
-    def __format_tracknumber(self, tracknumber):
-        """
-            Returns a properly formatted tracknumber
-        """
-        try: # Valid number
-            tracknumber = '%02d' % int(tracknumber)
-        except TypeError: # None
-            tracknumber = '00'
-        except ValueError: # 'N/N'
-            pass
-
-        return tracknumber
-
-    def __format_length(self, length):
-        """
-            Returns a properly formatted track length
-        """
-        try:
-            length = float(length)
-        except TypeError:
-            length = 0
-
-        return '%d:%02d' % (length // 60, length % 60)
-
-    def __format_rating(self, rating):
-        """
-            Returns a properly formatted rating
-        """
-        try:
-            rating = float(rating) / 100
-        except TypeError:
-            rating = 0
-
-        rating_steps = self.emit('rating-steps-request') or self._rating_steps
-        rating = rating_steps * rating
-
-        return '%s%s' % (
-            '★' * int(rating),
-            '☆' * int(rating_steps - rating)
-        )
-
-    def __format_bitrate(self, bitrate):
-        """
-            Returns a properly formatted bitrate
-        """
-        try:
-            bitrate = int(bitrate)
-        except TypeError:
-            bitrate = 0
-
-        return '%d kbit/s' % (bitrate / 1000)
+gobject.type_register(MMPlaylistButton)
+gobject.signal_new('track-changed', MMPlaylistButton,
+    gobject.SIGNAL_RUN_FIRST, gobject.TYPE_NONE,
+    (gobject.TYPE_PYOBJECT, ))
 
 class MMTrackSelector(MMWidget, gtk.ComboBox):
     """
@@ -396,7 +371,7 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
         self.list = gtk.ListStore(gobject.TYPE_PYOBJECT, gobject.TYPE_STRING)
         self.formatter = MMTrackFormatter()
         self._updating = False
-        self._changed_callback = changed_callback
+        #self._changed_callback = changed_callback
 
         self.set_model(self.list)
         self.set_size_request(150, 0)
@@ -413,6 +388,7 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
         self.update_track_list(self.queue.current_playlist)
 
         self.connect('changed', self.on_change)
+        self.connect('track-changed', changed_callback)
         event.add_callback(self.on_playlist_current_changed, 'playlist_current_changed')
         event.add_callback(self.on_tracks_added, 'tracks_added')
         event.add_callback(self.on_tracks_removed, 'tracks_removed')
@@ -425,6 +401,9 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
         """
         if playlist is None:
             playlist = self.queue.current_playlist
+            if playlist is None:
+                self.list.clear()
+                return
             tracks = playlist.get_tracks()
 
         if tracks is None:
@@ -501,7 +480,8 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
             Wrapper function to prevent race conditions
         """
         if not self._updating:
-            self._changed_callback(*e)
+            #self._changed_callback(*e)
+            self.emit('track-changed', self.get_active_track())
 
     def on_playlist_current_changed(self, event, playlist, track):
         """
@@ -526,6 +506,11 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
             Triggers update of the track list on track reordering
         """
         self.update_track_list(playlist, tracks)
+
+gobject.type_register(MMTrackSelector)
+gobject.signal_new('track-changed', MMTrackSelector,
+    gobject.SIGNAL_RUN_FIRST, gobject.TYPE_NONE,
+    (gobject.TYPE_PYOBJECT, ))
 
 class MMProgressBar(MMWidget, gtk.Alignment):
     """
@@ -683,3 +668,130 @@ class MMTrackBar(MMTrackSelector, MMProgressBar):
         Track selector + progress bar = WIN
     """
     pass
+
+class MMTrackFormatter(gobject.GObject):
+    """
+        Formats track titles based on a format string
+    """
+    __gsignals__ = {
+        'format-request': (gobject.SIGNAL_RUN_LAST, gobject.TYPE_STRING, ()),
+        'rating-steps-request': (gobject.SIGNAL_RUN_LAST, gobject.TYPE_INT, ()),
+    }
+
+    def __init__(self):
+        gobject.GObject.__init__(self)
+
+        self._format = '$tracknumber - $title'
+        self._substitutions = {
+            'tracknumber': 'tracknumber',
+            'title': 'title',
+            'artist': 'artist',
+            'composer': 'composer',
+            'album': 'album',
+            'length': '__length',
+            'discnumber': 'discnumber',
+            'rating': '__rating',
+            'date': 'date',
+            'genre': 'genre',
+            'bitrate': '__bitrate',
+            'location': '__location',
+            'filename': 'filename',
+            'playcount': 'playcount',
+            'bpm': 'bpm',
+        }
+        self._formattings = {
+            'tracknumber': self.__format_tracknumber,
+            'length': self.__format_length,
+            'rating': self.__format_rating,
+            'bitrate': self.__format_bitrate,
+        }
+        self._rating_steps = 5.0
+
+    def format(self, track):
+        """
+            Returns the formatted title of a track
+        """
+        if not isinstance(track, Track):
+            return None
+
+        template = Template(self.emit('format-request') or self._format)
+        text = template.safe_substitute(self.__get_substitutions(track))
+
+        return text
+
+    def __get_substitutions(self, track):
+        """
+            Returns a map for keyword to tag value mapping
+        """
+        substitutions = self._substitutions.copy()
+
+        for keyword, tagname in substitutions.iteritems():
+            try:
+                substitutions[keyword] = _(' & ').join(track[tagname])
+            except TypeError:
+                substitutions[keyword] = track[tagname]
+
+            try:
+                formatter = self._formattings[keyword]
+                substitutions[keyword] = formatter(substitutions[keyword])
+            except KeyError:
+                pass
+
+            if substitutions[keyword] is None:
+                substitutions[keyword] = _('Unknown')
+
+        return substitutions
+
+    def __format_tracknumber(self, tracknumber):
+        """
+            Returns a properly formatted tracknumber
+        """
+        try: # Valid number
+            tracknumber = '%02d' % int(tracknumber)
+        except TypeError: # None
+            tracknumber = '00'
+        except ValueError: # 'N/N'
+            pass
+
+        return tracknumber
+
+    def __format_length(self, length):
+        """
+            Returns a properly formatted track length
+        """
+        try:
+            length = float(length)
+        except TypeError:
+            length = 0
+
+        return '%d:%02d' % (length // 60, length % 60)
+
+    def __format_rating(self, rating):
+        """
+            Returns a properly formatted rating
+        """
+        try:
+            rating = float(rating) / 100
+        except TypeError:
+            rating = 0
+
+        rating_steps = self.emit('rating-steps-request') or self._rating_steps
+        rating = rating_steps * rating
+
+        return '%s%s' % (
+            '★' * int(rating),
+            '☆' * int(rating_steps - rating)
+        )
+
+    def __format_bitrate(self, bitrate):
+        """
+            Returns a properly formatted bitrate
+        """
+        try:
+            bitrate = int(bitrate)
+        except TypeError:
+            bitrate = 0
+
+        return '%d kbit/s' % (bitrate / 1000)
+
+

@@ -555,7 +555,7 @@ class Playlist(object):
         return self.current_pos
 
     def set_current_pos(self, pos):
-        if pos < len(self.ordered_tracks):
+        if pos > -1 and pos < len(self.ordered_tracks):
             self.current_pos = pos
         event.log_event('playlist_current_changed', self,
             self.ordered_tracks[pos])

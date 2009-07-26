@@ -70,7 +70,6 @@ class MiniMode(gtk.Window):
         self.set_title('Exaile')
         self.set_resizable(False)
 
-        #self.register_icons(['exaile-minimode'])
         self.setup_controls()
         self.update_position()
 
@@ -211,16 +210,18 @@ class MiniMode(gtk.Window):
         self.box.pack_start(mmwidgets.MMButton('restore',
             'gtk-fullscreen', _('Restore Main Window'), self.on_restore))
         self.box.pack_start(mmwidgets.MMTrackSelector(
-            self.exaile.queue, self.on_track_change, self.on_format_request))
+            self.exaile.queue,
+            self.on_track_change, self.on_format_request))
         self.box.pack_start(mmwidgets.MMProgressBar(
             self.exaile.player, self.on_track_seeked))
         self.box.pack_start(mmwidgets.MMVolumeButton(
             self.exaile.player, self.on_volume_changed))
         self.box.pack_start(mmwidgets.MMPlaylistButton(
-            self.exaile.gui, self.exaile.queue,
-            self.exaile.queue.current_playlist))
+            self.exaile.gui.main, self.exaile.queue,
+            self.exaile.queue.current_playlist,
+            self.on_track_change, self.on_format_request))
 
-        # TODO: track_bar, playlist_button
+        # TODO: track_bar
 
         self.update_controls()
         self.add(self.box)
@@ -332,13 +333,14 @@ class MiniMode(gtk.Window):
         notebook_page = self.exaile.gui.main.get_selected_playlist()
         if notebook_page is None:
             return
-        self.box['track_selector'].update_track_list(notebook_page.playlist)
+        playlist = notebook_page.playlist
+        self.box['track_selector'].update_track_list(playlist)
+        self.box['playlist_button'].set_tracks(playlist.get_tracks())
 
-    def on_track_change(self, track_selector):
+    def on_track_change(self, sender, track):
         """
-            Handles changes in the track selector
+            Handles changes in track list controls
         """
-        track = track_selector.get_active_track()
         if track is not None:
             index = self.exaile.queue.current_playlist.index(track)
             self.exaile.queue.current_playlist.set_current_pos(index)

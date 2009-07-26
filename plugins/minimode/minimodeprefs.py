@@ -29,9 +29,8 @@ def get_workarea_size():
     """
     rootwindow = gtk.gdk.get_default_root_window()
     workarea = gtk.gdk.atom_intern('_NET_WORKAREA')
-    width, height = rootwindow.property_get(workarea)[2][2:4]
 
-    return height, width
+    return rootwindow.property_get(workarea)[2][2:4] # W,H
 
 class AlwaysOnTopPreference(widgets.CheckPrefsItem):
     name = 'plugin/minimode/always_on_top'
@@ -57,7 +56,7 @@ class HorizontalPositionPreference(widgets.SpinPrefsItem):
             Sets the maximum value to the highest
             possible horizontal position
         """
-        height, width = get_workarea_size()
+        width, height = get_workarea_size()
         widget.set_range(0, width)
         widgets.SpinPrefsItem.__init__(self, prefs, widget)
         event.add_callback(self._on_setting_change, 'option_set')
@@ -79,7 +78,7 @@ class VerticalPositionPreference(widgets.SpinPrefsItem):
             Sets the maximum value to the highest
             possible vertical position
         """
-        height, width = get_workarea_size()
+        width, height = get_workarea_size()
         widget.set_range(0, height)
         widgets.SpinPrefsItem.__init__(self, prefs, widget)
         event.add_callback(self._on_setting_change, 'option_set')

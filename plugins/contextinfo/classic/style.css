@@ -1,0 +1,162 @@
+body {
+background-color: %(base-normal)s;
+margin: 5px 5px 5px 3px;
+color: %(text-normal)s;
+font-size: 0.9em;
+}
+
+a {
+color: %(text-prelight)s;      
+text-decoration: none;
+}
+
+.panel {
+border : 1px solid %(base-selected)s;
+background: %(bg-normal)s;# url(images/bg-bottom.png) repeat-x scroll 100%% 100%%;
+margin-bottom: 5px;
+float : left;
+width: 100%%;
+min-width: 200px;
+-webkit-border-radius:4px;
+}
+
+.panel-title {
+background: %(base-selected)s url(images/light.png) repeat-x scroll 50%% 50%%;
+font-weight: bold;
+color: %(text-selected)s;
+padding:2px;
+-webkit-border-radius:2px;
+cursor: pointer;
+}
+
+.panel-sub {
+background: %(base-selected)s url(images/light.png) repeat-x scroll 50%% 50%%;
+color: %(text-selected)s;
+padding:2px;
+margin: 3px -5px -5px -5px;
+-webkit-border-radius:2px;
+}
+
+.panel-sub a{
+font-weight: bold;
+color: %(text-selected)s;
+font-size: 0.9em;
+}
+
+.panel-content {
+background: transparent url(images/bg-top.png) repeat-x scroll 0%% 0%%;
+padding:5px;
+}
+
+.ellipsed {
+white-space:nowrap;
+text-overflow:ellipsis;
+overflow:hidden;
+display:block;
+}
+
+.center {
+text-align: center;
+}
+
+.panel-content table{
+table-layout:fixed;
+width:100%%;
+}
+
+.panel-content table a{
+font-size: 0.9em;
+}
+
+.panel-content .tracktd {
+white-space:nowrap;
+text-overflow:ellipsis;
+overflow:hidden;
+display:block;
+}
+
+.cd-title-td {
+padding-left: 65px;
+}
+
+hr {
+margin: 0px;
+heigth: -2px;
+color: %(base-selected)s
+background-color: %(base-selected)s
+#text-align: center;
+#width: 50%%;
+border : 1px solid %(base-selected)s;
+}
+
+.col-artist-link {
+font-style:italic;
+}
+
+.col {
+font-style:italic;
+}
+
+#playing-content a{
+font-size: 1.1em;
+font-weight: bold; 
+}
+
+#playing-title {
+#margin-bottom : -5px;
+}
+
+.current {
+font-style:italic;
+font-weight:bold;
+}
+
+.cd-img {
+width: 60px;
+height: 60px;
+padding: 0px 5px 5px 0px;
+background: transparent url(images/img-back60.png) 0%% 0%%; #toobad it's bugy...
+}
+
+#playing-content {
+padding:-5px;
+margin-top: 0px;
+text-align: right;
+}
+
+.cd-tr {
+cursor: pointer;
+}
+
+.cd-title-td {
+width: 70%%;
+}
+
+.cd-right-td {
+text-align: right;
+width: 30%%;
+}
+
+#artist-info a{
+text-decoration: underline;
+}
+
+#lyrics-content {
+text-align: center;
+}
+
+#artist-info-img {
+float: left;
+padding-bottom: 2px;
+padding-right: 5px;
+padding-top: 10px;
+}
+
+#cover-image {
+background: url(images/img-back100.png) 0%% 0%%;
+float: left;
+padding: 0px 5px 5px 0px;
+margin: 0px 0px 3px 0px;
+#-webkit-border-image: -webkit-gradient(linear, left top, left bottom, from(#00abeb), to(#fff), color-stop(0.5, #fff), color-stop(0.5, #66cc00)) 100 100 30 21 repeat repeat;
+#-webkit-box-reflect: below 1px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.5, transparent), to(rgba(255,255,255,0.5)));
+} 

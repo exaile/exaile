@@ -97,6 +97,7 @@ CRITERIA = [
     (_('Length'), [
         (_('at least'), SpinSecondsField),
         (_('at most'), SpinSecondsField),
+        (_('is'), SpinSecondsField),
     ]),
 #    (_('Date Added'), [
         # TRANSLATORS: Example: track has been added in the last 2 days

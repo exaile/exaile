@@ -203,7 +203,7 @@ class Exaile(object):
             # Find out if the user just passed in a list of songs
             # TODO: find a better place to put this
             # using arg[2:] because arg[1:] will include --startgui
-            args = self.args
+            args = [ os.path.abspath(arg) for arg in self.args ]
             if len(args) > 0:
                 self.gui.open_uri(args[0], play=True)
             for arg in args[1:]:

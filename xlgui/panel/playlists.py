@@ -342,7 +342,6 @@ class BasePlaylistPanelMixin(gobject.GObject):
                 elif samecomposer and composer:
                     name = " / ".join(tracks[0].get_tag('composer') or "")
                 elif samealbum:
-                    print 'kitten'
                     name = ' '.join([ x.capitalize() for x in str(album[1]).split() ])
         
             dialog = commondialogs.TextEntryDialog(

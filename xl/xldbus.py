@@ -16,7 +16,7 @@
 
 from xl.nls import gettext as _
 import logging
-import dbus, dbus.service, gobject, sys
+import dbus, dbus.service, gobject, sys, os
 from optparse import OptionParser
 
 logger = logging.getLogger(__name__)
@@ -52,6 +52,8 @@ def check_exit(options, args):
                 # This enables:    find PATH -name *.mp3 | exaile -
                 if args[0] == '-':
                     args = sys.stdin.read().split('\n')
+                args = [ os.path.abspath(arg) for arg in args ]
+                print args
                 iface.Enqueue(args)
             
     if not iface:
@@ -269,13 +271,18 @@ class DbusManager(dbus.service.Object):
         tracks = []
 
         for file in filenames:
-            tracks.extend(track.get_tracks_from_uri(file))
+            tracks += track.get_tracks_from_uri(file)
+
+        print tracks
+        print [t._scan_valid for t in tracks]
 
         tracks.sort(key=lambda track: track.sort_param(column), reverse=descending)
         self.exaile.queue.current_playlist.add_tracks(tracks)
 
         if not self.exaile.player.is_playing():
             try:
-                self.exaile.queue.play(tracks[0])
+                pos = self.exaile.queue.current_playlist.index(tracks[0])
+                self.exaile.queue.current_playlist.set_current_pos(pos)
+                self.exaile.queue.play()
             except IndexError:
                 pass

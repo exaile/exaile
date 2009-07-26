@@ -82,7 +82,6 @@ install-target:
 	# the printf here is for bsd compat, dont use echo!
 	cd $(DESTDIR)$(PREFIX)/bin && \
 	 printf "#!/bin/sh\n\
-	 cd $(PREFIX)/share/exaile\n\
 	 exec python $(PREFIX)$(LIBINSTALLDIR)/exaile/exaile.py \
 	 --datadir=$(PREFIX)/share/exaile/data --startgui \"\$$@\"" \
 	 > exaile && \

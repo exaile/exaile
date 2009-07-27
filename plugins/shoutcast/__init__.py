@@ -57,6 +57,12 @@ class ShoutcastRadioStation(RadioStation):
         """
         if os.path.isfile(self.cache_file):
             self.data = open(self.cache_file).read()
+            items = re.findall(r'<genre name="([^"]*)"></genre>', self.data)
+
+            # if there are no cached items, the cache isn't valid anyway, so
+            # don't use it
+            if not items:
+                self.data = None
 
     def _save_cache(self):
         """

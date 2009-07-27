@@ -384,11 +384,7 @@ class Main(object):
         logo = gtk.gdk.pixbuf_new_from_file(
             xdg.get_data_path('images/exailelogo.png'))
         dialog.set_logo(logo)
-        # HACK: GTK+ < 2.12 (2007-09-14) use set_name.
-        try:
-            dialog.set_program_name('Exaile')
-        except AttributeError:
-            dialog.set_name('Exaile')
+        dialog.set_program_name('Exaile')
         dialog.set_version("\n" + str(xlmain.__version__))
         dialog.set_transient_for(self.main.window)
         dialog.connect('response', lambda d, r: d.destroy())

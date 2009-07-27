@@ -90,12 +90,10 @@ class OSDWindow(object):
         self.box.pack_start(self.cover_widget)
         # Try to set the window opacity.  To do that we need the RGBA colormap,
         # which for some reason may not be available even if
-        # Widget.is_composited is true.  In GTK+ >=2.12 all this can just be
-        # modified to use Window.set_opacity.
+        # Widget.is_composited is true.  Note that we can't simply use
+        # Window.set_opacity because we want the text to be opaque.
         colormap = None
-        # Widget.is_composited is only in GTK+ >=2.10.
-        is_composited = getattr(self.window, 'is_composited', None)
-        if is_composited and is_composited():
+        if self.window.is_composited():
             screen = self.window.get_screen()
             colormap = screen.get_rgba_colormap()
         if colormap:

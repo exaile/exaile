@@ -57,9 +57,10 @@ class CollectionPanel(panel.Panel):
         self.collection = collection
         self.use_alphabet = settings.get_option('gui/use_alphabet', True)
         self.vbox = self.xml.get_widget('CollectionPanel')
+        self.message = self.xml.get_widget('EmptyCollectionPanel')
         self.filter = self.xml.get_widget('collection_search_entry')
         self.choice = self.xml.get_widget('collection_combo_box')
-        self.collection_empty_message = None
+        self.collection_empty_message = False
         self._search_num = 0
 
         self.start_count = 0
@@ -69,7 +70,7 @@ class CollectionPanel(panel.Panel):
         self._check_collection_empty()
         self._setup_images()
         self._connect_events()
-
+        
         event.add_callback(self._check_collection_empty, 'libraries_modified',
             collection)
 
@@ -104,29 +105,20 @@ class CollectionPanel(panel.Panel):
         box.show_all()
 
     def _check_collection_empty(self, *e):
-        if self.collection.libraries:
-            message = self.collection_empty_message
-            if message:
-                self.vbox.remove_child(message)
-                self.collection_empty_message = None
-            return
-
-        self.collection_empty_message = vbox = gtk.VBox()
-
-        label = gtk.Label(_("You have no music in your collection."))
-        vbox.pack_start(label)
-        label.set_line_wrap(True) # FIXME: Doesn't actually work.
-
-        alignment = gtk.Alignment(1, 0, 0, 0)
-        vbox.pack_start(alignment)
-        button = gtk.Button(stock=gtk.STOCK_ADD)
-        alignment.add(button)
-        button.connect('clicked',
-            lambda *x: xlgui.controller().collection_manager())
-
-        vbox.show_all()
-        self.vbox.pack_start(vbox, False)
-        self.vbox.reorder_child(vbox, 0)
+        if self.collection.libraries and self.collection_empty_message:
+            self.collection_empty_message = False
+            self.vbox.set_child_visible(True)
+            self.message.set_child_visible(False)
+            self.vbox.show_all()
+            self.message.hide_all()
+        
+        elif not self.collection.libraries and not self.collection_empty_message:
+            self.collection_empty_message = True
+            self.vbox.set_child_visible(False)
+            self.message.set_no_show_all(False)
+            self.message.set_child_visible(True)
+            self.vbox.hide_all()
+            self.message.show_all()
 
     def _connect_events(self):
         """
@@ -134,7 +126,8 @@ class CollectionPanel(panel.Panel):
         """
         self.xml.signal_autoconnect({
             'on_collection_combo_box_changed': lambda *e: self.load_tree(),
-            'on_refresh_button_clicked': lambda *e: self.load_tree()
+            'on_refresh_button_clicked': lambda *e: self.load_tree(),
+            'on_empty_collection_button_clicked': lambda *x: xlgui.controller().collection_manager()
         })
 
     def on_search(self, *e):

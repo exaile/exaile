@@ -151,6 +151,10 @@ def escape_xml(text):
         text = text.replace(old, new)
     return text
 
+## This function is broken, also, the bulk of it is already called in
+#  engine_normal.py, NormalPlayer._get_track_uri.
+#  TODO: fix this, if it's really needed.  ArgumentError is not a valid
+#  exception.
 def local_file_from_url(url):
     """
         Returns a local file path based on a url. If you get strange errors,

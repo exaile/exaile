@@ -154,8 +154,8 @@ class NormalPlayer(_base.ExailePlayer):
         assert split[0] != "", _("Exaile now uses absolute URI's, please "
                                  "delete/rename your %s directory") \
                                          % xdg.data_home
-        path = common.local_file_from_url(uri).encode()
-        if track.is_local(): path = urllib.pathname2url(path)
+        if track.is_local(): 
+            path = urllib.pathname2url(path)
         uri = urlparse.urlunsplit(split[0:2] + (path, '', ''))
         return uri
 

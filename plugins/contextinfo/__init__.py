@@ -725,7 +725,15 @@ class ArtistPage(DefaultPage):
     def __init__(self, theme, artist, base = 'artist://', template = 'artist.htm', async=[]):
         self.artist = artist
         self.artist_tracks = get_artist_tracks(artist)
-        DefaultPage.__init__(self, theme, base, template, async+['artist-info', 'artist-img', 'artist-tags', 'similar-artists', 'top-tracks'])
+        DefaultPage.__init__(self, theme, base, template, async+['compils', 'albums', 'artist-info', 'artist-img', 'artist-tags', 'similar-artists', 'top-tracks'])
+        
+    def get_template_fields(self):
+        fields = ContextPage.get_template_fields(self)
+        for field in fields:
+            if field[0] in ['albums', 'compils']:
+                fields.remove(field)
+                fields.insert(0, field)
+        return fields
         
     def track_in_collection(self, artist, title):
         if artist == self['artist']:

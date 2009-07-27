@@ -344,6 +344,7 @@ class FilesPanel(panel.Panel):
             for filename in os.listdir(value):
                 self.append_recursive(songs, os.path.join(value, filename))
         else:
+            value = 'file:' + urllib.pathname2url(value)
             if xl.track.is_valid_track(value):
                 tr = self.get_track(value)
                 if tr:

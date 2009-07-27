@@ -156,8 +156,11 @@ def local_file_from_url(url):
         Returns a local file path based on a url. If you get strange errors,
         try running .encode() on the result
     """
+    if not url.startswith('file:'):
+        raise ArgumentError(_("local_file_from_url must be called with a "
+                "file: URL."))
     split = urlparse.urlsplit(url)
-    return urlparse.urlunsplit(('', '') + split[2:])
+    return urllib.url2pathname(split[2])
 
 class idict(dict): 
     """

@@ -168,7 +168,11 @@ def url_from_local_file(path):
     """
         Returns a URL from a local file path. Path should be in unicode.
     """
-    return 'file:' + urllib.pathname2url(path.encode('utf-8'))
+    urlpath = urllib.pathname2url(path.encode('utf-8'))
+    if urlpath.startswith('//'):
+        return 'file:' + urlpath
+    else:
+        return 'file://' + urlpath
 
 class idict(dict): 
     """

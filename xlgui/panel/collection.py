@@ -282,9 +282,10 @@ class CollectionPanel(panel.Panel):
         if not parent:
             return []
         if self.model.get_value(parent, 2):
-            values = ["\a\a" + self.model.get_value(parent, 2)]
+            values = [u"\a\a" +
+                unicode(self.model.get_value(parent, 2), 'utf-8')]
         else:
-            values = [self.model.get_value(parent, 1)]
+            values = [unicode(self.model.get_value(parent, 1), 'utf-8')]
         iter = self.model.iter_parent(parent)
         newvals = self.get_node_keywords(iter)
         if values[0]:
@@ -363,9 +364,9 @@ class CollectionPanel(panel.Panel):
         
         while iter:
             if search_num != self._search_num: return
-            value = self.model.get_value(iter, 1)
+            value = unicode(self.model.get_value(iter, 1), 'utf-8')
             if not value:
-                value = self.model.get_value(iter, 2)
+                value = unicode(self.model.get_value(iter, 2), 'utf-8')
             
             if value == name:
                 self.tree.expand_row(self.model.get_path(iter), False)

@@ -144,7 +144,8 @@ class PluginsManager(object):
         for line in f:
             try:
                 key, val = line.split("=",1)
-                infodict[key] = eval(val)
+                # restricted eval - no bult-in funcs. marginally more secure.
+                infodict[key] = eval(val, {'__builtins__':None}, {})
             except ValueError:
                 pass # this happens on blank lines
         return infodict

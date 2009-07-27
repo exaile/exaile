@@ -67,9 +67,9 @@ class TrayIcon(gobject.GObject):
         if self.player.current is None:
             self.icon.set_from_icon_name('exaile')
         elif self.player.is_paused():
-            self.icon.set_from_stock('gtk-media-pause')
+            self.icon.set_from_icon_name('exaile-pause')
         else:
-            self.icon.set_from_stock('gtk-media-play')
+            self.icon.set_from_icon_name('exaile-play')
         self.set_tooltip(_("Exaile Music Player"))
 
         event.add_callback(self._on_playback_change_state, 'playback_player_start')
@@ -78,6 +78,9 @@ class TrayIcon(gobject.GObject):
         event.log_event('tray_icon_toggled', self, True)
 
     def set_tooltip(self, tip):
+        """
+            Sets the tooltip for the tray icon
+        """
         self.icon.set_tooltip(tip)
 
     def destroy(self):
@@ -97,12 +100,6 @@ class TrayIcon(gobject.GObject):
             Sets up the popup menu for the tray icon
         """
         self.menu = guiutil.Menu()
-
-        self.playpause_image = gtk.Image()
-        self.playpause_image.set_from_stock('gtk-media-play',
-            gtk.ICON_SIZE_MENU)
-        self.label = gtk.Label(_("Play"))
-        self.label.set_alignment(0, 0)
 
         self.playpause = self.menu.append(stock_id='gtk-media-play',
             callback=lambda *e: self._play_pause_clicked())
@@ -189,9 +186,9 @@ class TrayIcon(gobject.GObject):
         if player.current is None:
             self.icon.set_from_icon_name('exaile')
         elif player.is_paused():
-            self.icon.set_from_stock('gtk-media-pause')
+            self.icon.set_from_icon_name('exaile-pause')
         else:
-            self.icon.set_from_stock('gtk-media-play')
+            self.icon.set_from_icon_name('exaile-play')
 
     def _button_pressed(self, icon, event):
         if event.button == 1:

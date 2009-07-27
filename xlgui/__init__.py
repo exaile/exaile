@@ -62,6 +62,10 @@ class Main(object):
         self.icons.add_icon_name_from_directory('exaile',
             xdg.get_data_path('images'))
         gtk.window_set_default_icon_name('exaile')
+        self.icons.add_icon_name_from_directory('exaile-pause',
+            xdg.get_data_path('images'))
+        self.icons.add_icon_name_from_directory('exaile-play',
+            xdg.get_data_path('images'))
 
         for name in ('dynamic', 'repeat', 'shuffle'):
             icon_name = 'media-playlist-%s' % name

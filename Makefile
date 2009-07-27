@@ -28,6 +28,7 @@ make-install-dirs:
 	mkdir -p $(EXAILESHAREDIR)/data/images/22x22
 	mkdir -p $(EXAILESHAREDIR)/data/images/24x24
 	mkdir -p $(EXAILESHAREDIR)/data/images/32x32
+	mkdir -p $(EXAILESHAREDIR)/data/images/48x48
 	mkdir -p $(EXAILESHAREDIR)/data/images/svg
 	mkdir -p $(EXAILESHAREDIR)/data/glade
 	mkdir -p $(DESTDIR)$(PREFIX)/share/pixmaps

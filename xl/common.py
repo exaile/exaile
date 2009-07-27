@@ -164,6 +164,12 @@ def local_file_from_url(url):
     urlpath = unicode(split[2]).encode('ascii')
     return urllib.url2pathname(urlpath).decode('utf-8')
 
+def url_from_local_file(path):
+    """
+        Returns a URL from a local file path. Path should be in unicode.
+    """
+    return 'file:' + urllib.pathname2url(path.encode('utf-8'))
+
 class idict(dict): 
     """
         Case insensitive dictionary

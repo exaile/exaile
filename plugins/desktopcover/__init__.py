@@ -16,9 +16,9 @@
 
 
 import gobject, gtk
-from xl import event
+from xl import event, settings
 from xl.nls import gettext as _
-from xl import settings
+from xlgui import guiutil
 import prefs
 
 
@@ -91,10 +91,10 @@ class CoverDisplay:
             #~ self.window.parse_geometry('%s%s%s%s' % (xsgn, x, ysgn, y))
             width, height = self.window.get_size()
             if xsgn == '-':
-                x = int(gtk.gdk.screen_get_default().get_width() - width - x)
+                x = gtk.gdk.screen_get_default().get_width() - width - x
             if ysgn == '-':
-                y = int(gtk.gdk.screen_get_default().get_height() - height - y)
-            self.window.move(x, y)
+                y = gtk.gdk.screen_get_default().get_height() - height - y
+            self.window.move(int(x), int(y))
 
     def set_use_image_size(self, use_image_size=False):
         self.use_image_size = use_image_size
@@ -190,12 +190,12 @@ def disable(exaile):
 def get_prefs_pane():
     return prefs
 
+@guiutil.idle_add()
 def _enable(eventname, exaile, nothing):
     global cover_display, cover_connection
 
-    cover_widget = exaile.gui.main.cover
-
     cover_display = CoverDisplay(settings=SettingsBridge())
+    cover_widget = exaile.gui.main.cover
 
     player = exaile.player
     if player.current and (player.is_playing() or player.is_paused()):

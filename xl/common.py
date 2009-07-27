@@ -14,9 +14,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import locale, os, time, threading, urllib, re, random, string, urlparse
-import traceback
-import logging
+import locale, logging, os, random, re, string, threading, time, traceback, \
+    urllib, urlparse
 from functools import wraps
 
 logger = logging.getLogger(__name__)
@@ -37,7 +36,7 @@ PICKLE_PROTOCOL=2
 
 
 def get_default_encoding():
-    return 'utf-8'
+    return 'utf-8' # TODO: This is probably not right....
 
 # log() exists only so as to not break compatibility, new code
 # should not use it as it may br dropped in the future
@@ -151,21 +150,19 @@ def escape_xml(text):
         text = text.replace(old, new)
     return text
 
-## This function is broken, also, the bulk of it is already called in
-#  engine_normal.py, NormalPlayer._get_track_uri.
-#  TODO: fix this, if it's really needed.  ArgumentError is not a valid
-#  exception.
 def local_file_from_url(url):
     """
         Returns a local file path based on a url. If you get strange errors,
         try running .encode() on the result
     """
-#    if not url.startswith('file:'):
-#        raise ArgumentError(_("local_file_from_url must be called with a "
-#                "file: URL."))
+    if not url.startswith('file:'):
+        raise ValueError(
+            _("local_file_from_url must be called with a file: URL."))
     split = urlparse.urlsplit(url)
-    return urllib.url2pathname(split[2])
-#    return urlparse.urlunsplit(('', '') + split[2:])
+    # Workaround for Python bug: when given a unicode object,
+    # urllib.url2pathname returns UTF-8 string in a unicode object.
+    urlpath = unicode(split[2]).encode('ascii')
+    return urllib.url2pathname(urlpath).decode('utf-8')
 
 class idict(dict): 
     """

@@ -145,21 +145,6 @@ class NormalPlayer(_base.ExailePlayer):
     def reset_playtime_stamp(self):
         self._playtime_stamp = int(time.time())
 
-    # TODO: make this part of the track object
-    def _get_track_uri(self, track):
-        uri = track.get_loc_for_io()
-        split = urlparse.urlsplit(uri)
-        # TODO: remove this before 0.3.0 since it is not needed for
-        #   stable->stable upgrades
-        assert split[0] != "", _("Exaile now uses absolute URI's, please "
-                                 "delete/rename your %s directory") \
-                                         % xdg.data_home
-
-        path = common.local_file_from_url(uri).encode()
-        if track.is_local(): path = urllib.pathname2url(path)
-        uri = urlparse.urlunsplit(split[0:2] + (path, '', ''))
-        return uri
-
     def __notify_source(self, *args):
         # this is for handling multiple CD devices properly
         source = self.playbin.get_property('source')
@@ -190,7 +175,7 @@ class NormalPlayer(_base.ExailePlayer):
        
         self._current = track
         
-        uri = self._get_track_uri(track)
+        uri = track['__loc']
         logger.info(_("Playing %s") % uri)
         self.reset_playtime_stamp()
 

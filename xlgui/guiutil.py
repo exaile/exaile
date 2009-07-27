@@ -272,8 +272,6 @@ class DragTreeView(gtk.TreeView):
         tracks = []
         playlists = []
         for loc in locs:
-            loc = loc.replace('file://', '')
-            loc = urllib.unquote(loc)
             (found_tracks, found_playlist) = self._handle_unknown_drag_data(loc)
             tracks.extend(found_tracks)
             playlists.extend(found_playlist)

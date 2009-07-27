@@ -129,9 +129,10 @@ class Track(object):
             return None
         return common.local_file_from_url(self.get_loc_for_io())
 
+    # TODO: Get rid of this function. self['__loc'] is much cleaner.
     def get_loc_for_io(self):
         """
-            Gets the location in its original form. should always be correct.
+            Gets the location in its original URL form. should always be correct.
 
             returns: the location [string]
         """
@@ -250,7 +251,7 @@ class Track(object):
             return False #not a local file
 
         try:
-            f = metadata.get_format(self.get_loc_for_io())
+            f = metadata.get_format(self['__loc'])
             if f is None:
                 return False # nto a supported type
             ntags = f.read_all()
@@ -259,7 +260,7 @@ class Track(object):
                 
 
             # fill out file specific items
-            split = urlparse.urlsplit(self.get_loc_for_io())
+            split = urlparse.urlsplit(self['__loc'])
             path = self.local_file_name()
             mtime = os.path.getmtime(path)
             self['__modified'] = mtime

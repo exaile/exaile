@@ -368,7 +368,7 @@ class Playlist(object):
         Represents a playlist, which is basically just a TrackDB
         with ordering.
     """
-    def __init__(self, name=_("Playlist %d"), kind='normal'):
+    def __init__(self, name=_("Playlist %d"), is_custom=False):
         """
             Sets up the Playlist
 
@@ -386,17 +386,30 @@ class Playlist(object):
         self.random_enabled = False
         self.repeat_enabled = False
         self.dynamic_enabled = False
+        self._is_custom = is_custom
+        self._needs_save = False
         self.name = name
-        self.kind = kind
         self.tracks_history = []
         self.extra_save_items = ['random_enabled', 'repeat_enabled', 
-                'dynamic_enabled', 'current_pos', 'name', 'kind']
+                'dynamic_enabled', 'current_pos', 'name', '_is_custom', '_needs_save']
 
     def get_name(self):
         return self.name
 
     def set_name(self, name):
         self.name = name
+        
+    def get_is_custom(self):
+        return self._is_custom
+
+    def set_is_custom(self, val):
+        self._is_custom = val
+        
+    def get_needs_save(self):
+        return self._needs_save
+
+    def set_needs_save(self, val=True):
+        self._needs_save = val
 
     def get_ordered_tracks(self):
         """
@@ -714,7 +727,7 @@ class Playlist(object):
             @param value: [bool]
         """
         self.repeat_enabled = value
-        self.dirty = True
+        self._dirty = True
 
     def set_dynamic(self, value):
         """
@@ -827,9 +840,6 @@ class Playlist(object):
         random.shuffle(trs)
         self.ordered_tracks = trs
     
-    def get_playlist_kind(self):
-        return self.kind
-
 
 class SmartPlaylist(object):
     """ 
@@ -986,7 +996,7 @@ class SmartPlaylist(object):
         else:
             sort_field = ('artist', 'date', 'album', 'discnumber', 'tracknumber', 'title')
 
-        pl = Playlist(name=self.get_name(), kind='smart')
+        pl = Playlist(name=self.get_name())
 
         tracks = list(collection.search(search_string, sort_field,
             self.track_count))

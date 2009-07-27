@@ -206,7 +206,7 @@ class PlaylistTabMenu(guiutil.Menu):
             self.append(_("_Save As Custom Playlist"), tab.do_save_custom, gtk.STOCK_SAVE)
         else:
             self.append(_("_Save Changes To Playlist"), tab.do_save_changes_to_custom, gtk.STOCK_SAVE)
-            self.append(_("_Save As..."), tab.do_save_custom_as)
+            self.append(_("_Save As..."), tab.do_save_custom)
         self.append(_("C_lear All Tracks"), tab.do_clear, gtk.STOCK_CLEAR)
         self.append_separator()
         self.append(_("_Close Playlist"), tab.do_close, gtk.STOCK_CLOSE)

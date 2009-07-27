@@ -100,7 +100,7 @@ class ExaileNotifyOsd(object):
             self.notify.update(self.summary, self.body)
         
         if settings.get_option("plugin/notifyosd/show_when_focused", False) or \
-                self.exaile.gui.main.window.is_active() :
+                not self.exaile.gui.main.window.is_active():
             self.notify.show()
         
     def on_pause(self, type, player, track):

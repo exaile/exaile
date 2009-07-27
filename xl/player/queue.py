@@ -33,7 +33,7 @@ class PlayQueue(playlist.Playlist):
     def __init__(self, player, location=None):
         self.current_playlist = None
         self.current_pl_track = None
-        playlist.Playlist.__init__(self, name="Queue", kind='queue')
+        playlist.Playlist.__init__(self, name="Queue")
         self.player = player
         player._set_queue(self)
         self.stop_track = -1

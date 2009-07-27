@@ -171,19 +171,25 @@ class NotebookTab(gtk.EventBox):
         self.main = main
         self.nb = notebook
         self.page = page
-        self.already_dirty = False
-
+        self.already_needs_save = self.page.playlist.get_is_custom() and self.page.get_needs_save()
+        
         self.connect('button_press_event', self.on_button_press)
         self.page.connect('playlist-content-changed', lambda widget, dirty:
                     self.on_playlist_content_change(dirty))
+        self.page.connect('customness-changed', lambda widget, custom:
+                    self.on_customness_change(custom))
+        event.add_callback(self.on_playlist_removed, 'playlist_removed')
 
         self.hbox = hbox = gtk.HBox(False, 2)
         self.add(hbox)
 
-        self.label = gtk.Label(title)
+        if self.already_needs_save and self.page.playlist.get_is_custom():
+            self.label = gtk.Label("*" + title)
+        else:
+            self.label = gtk.Label(title)
         hbox.pack_start(self.label, False, False)
 
-        self.menu = menu.PlaylistTabMenu(self, self.page.playlist.get_playlist_kind() == 'custom')
+        self.menu = menu.PlaylistTabMenu(self, self.page.playlist.get_is_custom())
 
         self.button = btn = gtk.Button()
         btn.set_name('tabCloseButton')
@@ -205,14 +211,27 @@ class NotebookTab(gtk.EventBox):
         self.label.set_text(title)
     title = property(get_title, set_title)
     
+    def on_customness_change(self, custom):
+        self.menu.destroy()
+        self.menu = None
+        self.menu = menu.PlaylistTabMenu(self, custom)
+    
+    def on_playlist_removed(self, type, object, name):
+        if name == self.page.playlist.name and self.page.playlist.get_is_custom():
+            self.page.playlist.set_needs_save(False)
+            self.on_playlist_content_change(False)
+            self.page.playlist.set_is_custom(False)
+            self.on_customness_change(False)
+    
     def on_playlist_content_change(self, dirty):
-        if self.page.playlist.get_playlist_kind() == 'custom':
-            if dirty and not self.already_dirty:
-                self.already_dirty = True
+        if self.page.playlist.get_is_custom():
+            if dirty and not self.already_needs_save:
+                self.already_needs_save = True
                 self.label.set_text('*' + self.label.get_text())
-            elif not dirty and self.already_dirty:
-                self.already_dirty = False
-                self.label.set_text(self.label.get_text()[1:])
+            elif not dirty and self.already_needs_save:
+                self.already_needs_save = False
+                if self.label.get_text()[0] == '*':
+                    self.label.set_text(self.label.get_text()[1:])
 
     def on_button_press(self, widget, event):
         """
@@ -245,19 +264,16 @@ class NotebookTab(gtk.EventBox):
         response = dialog.run()
         if response == gtk.RESPONSE_OK:
             self.title = dialog.get_value()
-            self.main.controller.panels['playlists'].add_new_playlist(self.main.get_selected_playlist().playlist.get_tracks(), self.title)
-            self.main.get_selected_playlist().kind = 'custom'
-            return self.title
-        return ""
-    
-    def do_save_custom_as(self, *args):
-        saved = self.do_save_custom(args)
-        if saved != "":
-            self.main.get_selected_playlist().playlist.name = saved
+            pl = self.main.get_selected_playlist()
+            pl.set_name(self.title)
+            self.main.controller.panels['playlists'].add_new_playlist(pl.playlist.get_tracks(), self.title)
+            pl.playlist.set_is_custom(True)
+            pl.emit('customness-changed', True)
+            pl.set_needs_save(False)
         
     def do_save_changes_to_custom(self, *args):
+        self.main.get_selected_playlist().set_needs_save(False)
         self.main.playlist_manager.save_playlist(self.main.get_selected_playlist().playlist, overwrite = True)
-        self.main.get_selected_playlist().unset_dirty()
 
     def do_close(self, *args):
         """
@@ -366,7 +382,7 @@ class MainWindow(object):
             pl.name = match.group('name')
 
             if match.group('tab') not in added_tabs:
-                pl = self.add_playlist(pl)
+                pl = self.add_playlist(pl, erase_empty=False)
                 added_tabs[match.group('tab')] = pl
             pl = added_tabs[match.group('tab')]
 
@@ -406,17 +422,30 @@ class MainWindow(object):
             logger.debug("Saving tab %d: %s" % (i, pl.name))
             self.tab_manager.save_playlist(pl, True)            
 
-    def add_playlist(self, pl=None):
+    def add_playlist(self, pl=None, erase_empty=True):
         """
             Adds a playlist to the playlist tab
 
             @param pl: the xl.playlist.Playlist instance to add
         """
+        new_empty_pl = False
         if pl is None:
             pl = xl.playlist.Playlist()
-        name = pl.name
-        pl = playlist.Playlist(self, self.queue, pl)
+            new_empty_pl = True
+        if len(pl.get_tracks()) == 0:
+            new_empty_pl = True
+
+        name = pl.get_name()
         nb = self.playlist_notebook
+        if pl.get_is_custom():
+            for n in range(nb.get_n_pages()):
+                nth = nb.get_nth_page(n)
+                if nth.playlist.get_is_custom() and not nth.get_needs_save() \
+                    and nth.playlist.get_name() == pl.get_name():
+                    nb.set_current_page(n)
+                    return
+
+        pl = playlist.Playlist(self, self.queue, pl)
 
         try:
             name = name % (nb.get_n_pages() + 1)
@@ -428,8 +457,20 @@ class MainWindow(object):
             name = name[:20] + "..."
 
         tab = NotebookTab(self, nb, name, pl)
+        # We check if the current playlist is empty, to know if it should be replaced
+        cur = nb.get_current_page()
+        remove_cur = False
+        curpl = nb.get_nth_page(cur)
+        if curpl and len(curpl.playlist.get_tracks()) == 0:
+            remove_cur = True
+        
         nb.append_page(pl, tab)
-        nb.set_current_page(nb.get_n_pages() - 1)
+        if remove_cur and not new_empty_pl and erase_empty:
+            nb.remove_page(cur)
+            nb.reorder_child(pl, cur)
+            nb.set_current_page(cur)
+        else:
+            nb.set_current_page(nb.get_n_pages() - 1)
         self.set_mode_toggles()
         
         # Always show tab bar for more than one tab
@@ -437,7 +478,7 @@ class MainWindow(object):
             nb.set_show_tabs(True)
 
         self.queue.set_current_playlist(pl.playlist)
-
+        
         return pl
 
     def _setup_hotkeys(self):
@@ -739,9 +780,10 @@ class MainWindow(object):
         if tab is None:
             tab = self.playlist_notebook.get_current_page()
         pl = self.playlist_notebook.get_nth_page(tab)
-        if self.queue.current_playlist == pl.playlist:
-            self.queue.current_playlist = None
-        self.playlist_notebook.remove_page(tab)
+        if pl.on_closing():
+            if self.queue.current_playlist == pl.playlist:
+                self.queue.current_playlist = None
+            self.playlist_notebook.remove_page(tab)
 
     def on_playlist_notebook_switch(self, notebook, page, page_num):
         """

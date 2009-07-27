@@ -44,6 +44,7 @@ class Playlist(gtk.VBox):
     
     __gsignals__ = {
         'playlist-content-changed': (gobject.SIGNAL_RUN_LAST, None, (bool,)),
+        'customness-changed': (gobject.SIGNAL_RUN_LAST, None, (bool,)),
     }
     def __init__(self, main, queue, pl):
         """
@@ -60,7 +61,6 @@ class Playlist(gtk.VBox):
         self.queue = queue
         self.search_keyword = ''
         self.xml = main.xml
-        self.dirty = False
 
         self.playlist = copy.copy(pl)
         self.playlist.ordered_tracks = pl.ordered_tracks[:]
@@ -263,7 +263,7 @@ class Playlist(gtk.VBox):
         self._set_tracks(playlist.get_tracks())
         self.reorder_songs()
         self.main.update_track_counts()
-        self.set_dirty()
+        self.set_needs_save(True)
 
     def on_add_tracks(self, type, playlist, tracks):
         """
@@ -273,10 +273,20 @@ class Playlist(gtk.VBox):
             self._append_track(track)
         self.main.update_track_counts()
         
-        if tracks and settings.get_option("gui/scroll_when_appending_tracks", False):
-            self.list.scroll_to_cell(self.playlist.index(tracks[-1]))
-            #self.list.scroll_to_cell(self.playlist.index(tracks[0]))
-        self.set_dirty()
+        range = self.list.get_visible_range()
+        offset = 0
+        if range:
+            offset = range[1][0] - range[0][0]
+        
+        if tracks:
+            try:
+                if offset > len(tracks):
+                    self.list.scroll_to_cell(self.playlist.index(tracks[-1]))
+                else:
+                    self.list.scroll_to_cell(self.playlist.index(tracks[offset+1]))
+            except IndexError:
+                self.list.scroll_to_cell(self.playlist.index(tracks[0]))
+        self.set_needs_save(True)
 
     def _set_tracks(self, tracks):
         """
@@ -398,7 +408,7 @@ class Playlist(gtk.VBox):
         """
         # Before closing check whether the playlist
         # changed, and if it did give the user an option to do something
-        if self.dirty:
+        if self.get_needs_save():
             try:
                 current_tracks = self.playlist.get_tracks()
                 original_tracks = self.main.playlist_manager.get_playlist \
@@ -414,11 +424,13 @@ class Playlist(gtk.VBox):
                             dirty = True
                             break
 
-                if dirty == True and self.playlist.get_playlist_kind() == 'custom':
+                if dirty == True and self.playlist.get_is_custom() \
+                    and settings.get_option('playlist/ask_save', True):
                     dialog = ConfirmCloseDialog(self.playlist.get_name())
                     result = dialog.run()
                     if result == 110:
                         # Save the playlist then close
+                        self.set_needs_save(False)
                         self.main.playlist_manager.save_playlist(
                             self.playlist, overwrite = True)
                         return True
@@ -502,14 +514,13 @@ class Playlist(gtk.VBox):
         self._setup_columns()
         self._set_tracks(self.playlist.get_tracks())
     
-    def set_dirty(self):
-        self.dirty = True
-        self.emit('playlist-content-changed', self.dirty)
+    def get_needs_save(self):
+        return self.playlist.get_needs_save()
     
-    def unset_dirty(self):
-        self.dirty = False
-        self.emit('playlist-content-changed', self.dirty)
-
+    def set_needs_save(self, val=True):
+        self.playlist.set_needs_save(val)
+        self.emit('playlist-content-changed', self.get_needs_save())
+    
     def drag_data_received(self, tv, context, x, y, selection, info, etime):
         """
             Called when data is recieved
@@ -614,7 +625,7 @@ class Playlist(gtk.VBox):
             if not iter: break
 
         if tracks:
-            self.set_dirty()
+            self.set_needs_save(True)
 
         gobject.idle_add(self.add_track_callbacks)
         self.main.update_track_counts()

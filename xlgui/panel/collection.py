@@ -17,6 +17,7 @@ import gtk, gobject, urllib, logging
 from xl import event, xdg, common, track, trackdb, metadata
 from xl import settings
 import xlgui
+import traceback
 from xlgui import panel, guiutil, menu, playlist, rating
 
 logger = logging.getLogger(__name__)
@@ -405,10 +406,9 @@ class CollectionPanel(panel.Panel):
         if not expand: return
 
         # if we've already expanded this node, don't expand it again
-        if expand in self._expand_items: return
-        self._expand_items.add(expand)
+        if tuple(expand) in self._expand_items: return
+        self._expand_items.add(tuple(expand))
 
-        item = expand.pop(0)
         gobject.idle_add(self._expand_node_by_name, 
             search_num, None, item, expand)
 
@@ -435,6 +435,7 @@ class CollectionPanel(panel.Panel):
                             search_num, track, tmporder)
 
                 except (TypeError, KeyError):  
+                    traceback.print_exc()
                     continue
 
                 tmporder.pop()

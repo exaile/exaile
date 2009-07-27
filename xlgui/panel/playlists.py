@@ -661,7 +661,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             for item in state:
                 (field, op) = item[0]
                 value = item[1]
-                pl.add_param(field.lower(), _TRANS[op], value)
+                pl.add_param(_NMAP[field], _TRANS[op], value)
 
             self.smart_manager.save_playlist(pl)
 

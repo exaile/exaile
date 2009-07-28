@@ -266,14 +266,18 @@ class NotebookTab(gtk.EventBox):
             self.title = dialog.get_value()
             pl = self.main.get_selected_playlist()
             pl.set_name(self.title)
+            pl.playlist.set_name(self.title)
             self.main.controller.panels['playlists'].add_new_playlist(pl.playlist.get_tracks(), self.title)
             pl.playlist.set_is_custom(True)
             pl.emit('customness-changed', True)
             pl.set_needs_save(False)
+            event.log_event('custom_playlist_saved', self, pl.playlist)
         
     def do_save_changes_to_custom(self, *args):
-        self.main.get_selected_playlist().set_needs_save(False)
-        self.main.playlist_manager.save_playlist(self.main.get_selected_playlist().playlist, overwrite = True)
+        pl = self.main.get_selected_playlist()
+        pl.set_needs_save(False)
+        self.main.playlist_manager.save_playlist(pl.playlist, overwrite = True)
+        event.log_event('custom_playlist_saved', self, pl.playlist)
 
     def do_close(self, *args):
         """

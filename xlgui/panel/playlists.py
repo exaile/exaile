@@ -480,6 +480,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
 
     def _connect_events(self):
         event.add_callback(self.refresh_playlists, 'track_tags_changed')
+        event.add_callback(self.refresh_saved_playlist, 'custom_playlist_saved')
 
         self.track_menu.connect('remove-track', lambda *e: 
             self.remove_selected_track())
@@ -516,6 +517,12 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             for pl in self.playlist_nodes:
                 self.update_playlist_node(pl)
 
+    def refresh_saved_playlist(self, type, object, pl):
+        for plx in self.playlist_nodes:
+            if plx.get_name() == pl.get_name():
+                self.update_playlist_node(pl)
+                break
+        
     def _load_playlists(self):
         """
             Loads the currently saved playlists

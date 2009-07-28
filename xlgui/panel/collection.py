@@ -282,6 +282,8 @@ class CollectionPanel(panel.Panel):
             return False
         elif event.button == 3:
             self.menu.popup(event)
+            if not path:
+                return False
             (mods,paths) = selection.get_selected_rows()
             if (path[0] in paths):
                 if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):

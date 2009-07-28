@@ -191,6 +191,9 @@ class FilesPanel(panel.Panel):
             (x, y) = map(int, event.get_coords())
             path = self.tree.get_path_at_pos(x, y)
             self.menu.popup(event)
+
+            if not path:
+                return False
             
             if len(self.get_selected_tracks()) >= 2:
                 (mods,paths) = selection.get_selected_rows()

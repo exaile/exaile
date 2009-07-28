@@ -188,10 +188,14 @@ class Exaile(object):
         # Setup GUI
         if self.options.StartGui:
             logger.info(_("Loading interface..."))
+
             import xlgui
             self.gui = xlgui.Main(self)
-            import gobject
+            if self.options.StartMinimized:
+                self.gui.main.window.iconify()
+            self.gui.main.window.show_all()
 
+            import gobject
             if self.splash is not None:
                 gobject.idle_add(self.splash.destroy)
             event.log_event("gui_loaded", self, None)

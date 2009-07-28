@@ -545,7 +545,9 @@ class MainWindow(object):
         box.pack_start(self.filter.entry, True, True)
 
     def on_queue(self):
-        """Toggles queue on the current playlist"""
+        """
+            Toggles queue on the current playlist
+        """
         cur_page = self.playlist_notebook.get_children()[
                 self.playlist_notebook.get_current_page()]
         cur_page.menu.on_queue()
@@ -1115,6 +1117,13 @@ class MainWindow(object):
                 bool(event.new_window_state & gtk.gdk.WINDOW_STATE_MAXIMIZED))
         if event.changed_mask & gtk.gdk.WINDOW_STATE_FULLSCREEN:
             self._fullscreen = bool(event.new_window_state & gtk.gdk.WINDOW_STATE_FULLSCREEN)
+
+        if settings.get_option('gui/minimize_to_tray', False) and \
+           self.controller.tray_icon is not None and \
+           event.changed_mask & gtk.gdk.WINDOW_STATE_ICONIFIED and \
+           event.new_window_state & gtk.gdk.WINDOW_STATE_ICONIFIED:
+            self.window.hide()
+
         return False
 
 def get_playlist_nb():

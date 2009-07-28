@@ -111,8 +111,6 @@ class Main(object):
 
         event.add_callback(self._on_quit_application, 'quit_application')
 
-        self.main.window.show_all()
-
         self.device_panels = {}
         event.add_callback(self.add_device_panel, 'device_connected')
         event.add_callback(self.remove_device_panel, 'device_disconnected')

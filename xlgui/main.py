@@ -1110,7 +1110,8 @@ class MainWindow(object):
 
     def window_state_change_event(self, widget, event):
         """
-            Saves the current maximized and fullscreen states
+            Saves the current maximized and fullscreen
+            states and minimizes to tray if requested
         """
         if event.changed_mask & gtk.gdk.WINDOW_STATE_MAXIMIZED:
             settings.set_option('gui/mainw_maximized',

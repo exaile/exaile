@@ -298,7 +298,10 @@ class Exaile(object):
             default=False, help=_('Get rating for current song'))
         p.add_option("--current-position", dest="CurrentPosition", 
             action="store_true", default=False, 
-            help=_("Print the position inside the current track as a percentage"))
+            help=_("Print the position inside the current track as time"))
+        p.add_option("--current-progress", dest="CurrentProgress",
+            action="store_true", default=False,
+            help=_("Print the progress inside the current track as percentage"))
 
         # Volume options
         p.add_option("-i", "--increase-vol", dest="IncreaseVolume", action="store", 

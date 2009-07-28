@@ -23,7 +23,9 @@ import gtk, gtk.glade
 from xl import xdg
 from xl.settings import _SETTINGSMANAGER
 from xlgui.prefs.widgets import *
-from xlgui.prefs import playlists_prefs, osd_prefs, cover_prefs, playback_prefs, appearance_prefs
+from xlgui.prefs import playlists_prefs, osd_prefs
+from xlgui.prefs import cover_prefs, playback_prefs, appearance_prefs
+from xlgui.prefs import plugin_prefs
 import logging, traceback, gobject
 
 logger = logging.getLogger(__name__)
@@ -33,9 +35,10 @@ class PreferencesDialog(object):
         Preferences Dialog
     """
 
-    PAGES = (playlists_prefs, appearance_prefs, playback_prefs, osd_prefs, cover_prefs)
+    PAGES = (playlists_prefs, appearance_prefs, playback_prefs, 
+        osd_prefs, cover_prefs)
 
-    def __init__(self, parent, main, plugin_page=None):
+    def __init__(self, parent, main):
         """
             Initializes the preferences dialog
         """
@@ -71,39 +74,16 @@ class PreferencesDialog(object):
 
         self.model = gtk.TreeStore(str, object)
         self.tree.set_model(self.model)
-        count = 0
         select_path = (0,)
 
         # sets up the default panes
         for page in self.PAGES:
             self.model.append(None, [page.name, page])
 
-        plugin_pages = []
-        for plugin in self.plugins:
-            name = plugin
-            if plugin in self.main.exaile.plugins.enabled_plugins:
-                plugin = self.main.exaile.plugins.enabled_plugins[plugin]
-            else:
-                continue
+        self.plug_root = self.model.append(None, [_('Plugins'),
+            plugin_prefs])
 
-            if hasattr(plugin, 'get_prefs_pane'):
-                if name == plugin_page:
-                    select_path = count
-                try:
-                    plugin_pages.append(plugin.get_prefs_pane())
-                    count += 1
-                except:
-                    logger.warning(_('Error loading preferences pane'))
-                    traceback.print_exc()
-
-        if plugin_pages:
-            plug_root = self.model.append(None, [_('Plugins'), None])
-            for page in plugin_pages:
-                self.model.append(plug_root, [page.name, page])
-
-        if not type(select_path) == tuple:
-            self.tree.expand_row(self.model.get_path(plug_root), False)
-            select_path = (self.model.get_path(plug_root)[0], select_path)
+        self._load_plugin_pages()
 
         selection = self.tree.get_selection()
         selection.connect('changed', self.switch_pane)
@@ -113,6 +93,38 @@ class PreferencesDialog(object):
             self.model[path][1] is not None)
 
         gobject.idle_add(selection.select_path, select_path)
+
+    def _load_plugin_pages(self):
+        self._clear_children(self.plug_root)
+        plugin_pages = []
+        plugin_manager = self.main.exaile.plugins
+        
+        for plugin in self.plugins:
+            name = plugin
+            if plugin in plugin_manager.enabled_plugins:
+                plugin = plugin_manager.enabled_plugins[plugin]
+                if hasattr(plugin, 'get_prefs_pane'):
+                    try:
+                        plugin_pages.append(plugin.get_prefs_pane())
+                    except:
+                        logger.warning(_('Error loading preferences pane'))
+                        traceback.print_exc()
+
+        for page in plugin_pages:
+            self.model.append(self.plug_root, [page.name, page])
+
+        gobject.idle_add(self.tree.expand_row,
+            self.model.get_path(self.plug_root), False)
+
+    def _clear_children(self, node):
+        remove = []
+        iter = self.model.iter_children(node)
+        while iter:
+            remove.append(iter)
+            iter = self.model.iter_next(iter)
+
+        for iter in remove:
+            self.model.remove(iter)
 
     def _connect_events(self):
         """
@@ -192,7 +204,7 @@ class PreferencesDialog(object):
                 builder.get_object = builder.get_widget
             child = builder.get_object('prefs_pane')
             init = getattr(page, 'init', None)
-            if init: init(builder)
+            if init: init(self, builder)
             self.panes[page] = child
             self.builders[page] = builder
 

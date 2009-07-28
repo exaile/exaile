@@ -18,7 +18,8 @@ from xl.nls import gettext as _
 import gtk, gtk.glade, gobject, logging, os, urlparse
 from xl import xdg, common, event, metadata, settings, playlist as _xpl
 
-from xlgui import commondialogs, cover, devices, guiutil, icons, plugins, prefs, queue
+from xlgui import commondialogs, cover 
+from xlgui import devices, guiutil, icons, prefs, queue
 
 logger = logging.getLogger(__name__)
 
@@ -132,7 +133,6 @@ class Main(object):
             'on_queue_manager_item_activate': self.queue_manager,
             'on_preferences_item_activate': lambda *e: self.show_preferences(),
             'on_device_manager_item_activate': lambda *e: self.show_devices(),
-            'on_plugins_item_activate': self.show_plugins,
             'on_album_art_item_activate': self.show_cover_manager,
             'on_open_item_activate': self.open_dialog,
             'on_open_url_item_activate': self.open_url,
@@ -270,20 +270,11 @@ class Main(object):
         window = cover.CoverManager(self.main.window, self.exaile.covers,
             self.exaile.collection)
 
-    def show_plugins(self, *e):
-        """
-            Shows the plugins dialog
-        """
-        dialog = plugins.PluginManager(self, self.main.window, 
-            self.exaile.plugins)
-        dialog.dialog.show_all()
-
-    def show_preferences(self, plugin_page=None):
+    def show_preferences(self):
         """
             Shows the preferences dialog
         """
-        dialog = prefs.PreferencesDialog(self.main.window, self,
-            plugin_page=plugin_page)
+        dialog = prefs.PreferencesDialog(self.main.window, self)
         dialog.run()
 
     def show_devices(self):

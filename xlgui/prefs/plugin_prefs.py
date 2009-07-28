@@ -1,41 +1,40 @@
-# this program is free software; you can redistribute it and/or modify
-# it under the terms of the gnu general public license as published by
-# the free software foundation; either version 2, or (at your option)
+# Copyright (C) 2006 Adam Olsen
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 1, or (at your option)
 # any later version.
 #
-# this program is distributed in the hope that it will be useful,
-# but without any warranty; without even the implied warranty of
-# merchantability or fitness for a particular purpose.  see the
-# gnu general public license for more details.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
 #
-# you should have received a copy of the gnu general public license
-# along with this program; if not, write to the free software
-# foundation, inc., 675 mass ave, cambridge, ma 02139, usa.
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+import gtk, gtk.glade, gobject
+from xlgui.prefs import widgets
 from xl import xdg
-from xl import plugins as plugs
-from xl.nls import gettext as _
-import gtk, gtk.glade
 from xlgui import commondialogs
+from xl import main
+from xl.nls import gettext as _
+
+name = "Plugins"
+glade = xdg.get_data_path('glade/plugin_prefs_pane.glade')
 
 class PluginManager(object):
     """
         Gui to manage plugins
     """
-    def __init__(self, guimain, parent, plugins):
+    def __init__(self, prefs, xml):
         """
             Initializes the manager
         """
-        self.guimain = guimain
-        self.parent = parent
-        self.plugins = plugins
-
-        self.xml = gtk.glade.XML(
-            xdg.get_data_path('glade/plugin_dialog.glade'),
-            'PluginManagerDialog', 'exaile')
-
-        self.dialog = self.xml.get_widget('PluginManagerDialog')
-        self.dialog.set_transient_for(parent)
+        self.prefs = prefs
+        self.xml = xml
+        self.plugins = main.exaile().plugins
 
         self.list = self.xml.get_widget('plugin_tree')
         #self.configure_button = self.xml.get_widget('configure_button')
@@ -44,7 +43,7 @@ class PluginManager(object):
         self.author_label = self.xml.get_widget('author_label')
         self.name_label = self.xml.get_widget('name_label')
         self.description = self.xml.get_widget('description_view')
-        self.model = gtk.ListStore(str, bool, object)
+        self.model = gtk.ListStore(str, str, bool, object)
 
         self._connect_signals()
         self._setup_tree()
@@ -64,7 +63,8 @@ class PluginManager(object):
             except IOError:
                 continue
             enabled = plugin in self.plugins.enabled_plugins.keys()
-            self.model.append([info['Name'], enabled, plugin])
+            self.model.append([info['Name'], info['Version'], 
+                enabled, plugin])
 
         self.list.set_model(self.model)
 
@@ -80,11 +80,17 @@ class PluginManager(object):
 
         self.list.append_column(col)
 
+        text = gtk.CellRendererText()
+        col = gtk.TreeViewColumn(_('Version'), text, text=1)
+        col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
+
+        self.list.append_column(col)
+
         text = gtk.CellRendererToggle()
         text.set_property('activatable', True)
         text.connect('toggled', self.toggle_cb, self.model)
         col = gtk.TreeViewColumn(_('Enabled'), text)
-        col.add_attribute(text, 'active', 1)
+        col.add_attribute(text, 'active', 2)
         col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
         self.list.append_column(col)
 
@@ -96,8 +102,6 @@ class PluginManager(object):
             Connects signals
         """
         self.xml.signal_autoconnect({
-            'on_close_button_clicked':  lambda *e: self.destroy(),
-            'on_configure_button_clicked': lambda *e: self.configure(),
             'on_install_plugin_button_clicked': lambda *e:
                 self.choose_plugin_dialog(),
         })
@@ -107,7 +111,8 @@ class PluginManager(object):
             Shows a dialog allowing the user to choose a plugin to install
             from the filesystem
         """
-        dialog = gtk.FileChooserDialog(_('Choose a plugin'), self.parent, 
+        dialog = gtk.FileChooserDialog(_('Choose a plugin'), 
+            self.prefs.parent, 
             buttons=(_('Cancel'), gtk.RESPONSE_CANCEL, _('Choose'),
             gtk.RESPONSE_OK))
 
@@ -134,33 +139,6 @@ class PluginManager(object):
                 
             self._load_plugin_list()
 
-    def configure(self):
-        """
-            Called when the user wants to configure a plugin
-        """
-        (model, iter) = self.list.get_selection().get_selected()
-        if not iter: return
-
-        pluginname = model.get_value(iter, 2)[0]
-        if not self.__configure_available(pluginname):
-            commondialogs.error(self.parent, _("The selected " 
-                "plugin doesn't have any configuration options"))
-            return
-
-        self.guimain.show_preferences(plugin_page=pluginname)
-
-    def __configure_available(self, pluginname):
-        """
-            Returns if a plugin given by pluginname has the ability to open a
-            configure dialog
-        """
-        if pluginname not in self.plugins.enabled_plugins:
-            return False
-        plugin = self.plugins.enabled_plugins[pluginname]
-        if not hasattr(plugin, 'get_prefs_pane'):
-            return False
-        return True
-
     def row_selected(self, selection, user_data=None):
         """
             Called when a row is selected
@@ -168,10 +146,9 @@ class PluginManager(object):
         (model, iter) = selection.get_selected()
         if not iter: return
 
-        pluginname = model.get_value(iter, 2)
+        pluginname = model.get_value(iter, 3)
         info = self.plugins.get_plugin_info(pluginname)
-        self.version_label.set_label(info['Version'])
-        self.author_label.set_label(", ".join(info['Authors']))
+        self.author_label.set_label(",\n".join(info['Authors']))
         self.description.get_buffer().set_text(
             info['Description'].replace(r'\n', "\n"))
         self.name_label.set_markup("<b>%s</b>" % info['Name'])
@@ -186,8 +163,8 @@ class PluginManager(object):
         """
             Called when the checkbox is toggled
         """
-        plugin = model[path][2]
-        enable = not model[path][1]
+        plugin = model[path][3]
+        enable = not model[path][2]
 
         if enable:
             try:
@@ -203,8 +180,12 @@ class PluginManager(object):
                 commondialogs.error(self.parent, _('Could '
                     'not disable plugin: %s') % str(e))
                 return
-        model[path][1] = enable
+
+        if hasattr(self.plugins.loaded_plugins[plugin], 
+            'get_prefs_pane'):
+            self.prefs._load_plugin_pages()
+        model[path][2] = enable
         self.row_selected(self.list.get_selection())
 
-    def destroy(self, *e):
-        self.dialog.destroy()
+def init(prefs, xml):
+    manager = PluginManager(prefs, xml)

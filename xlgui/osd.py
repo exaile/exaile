@@ -204,12 +204,12 @@ class OSDWindow(object):
                 text = text.replace('{%s}' % item, common.escape_xml(value))
             text = text.replace("\\{", "{")
             text = text.replace("\\}", "}")
-
-            text = "<span font_desc='%s' foreground='%s'>%s</span>" % \
-                (settings.get_option('osd/text_font', 'Sans 11'),
-                settings.get_option('osd/text_color', '#ffffff'),
-                    text)
-            self.title.set_markup(text)
+        else: text = _("No track")
+        text = "<span font_desc='%s' foreground='%s'>%s</span>" % \
+            (settings.get_option('osd/text_font', 'Sans 11'),
+            settings.get_option('osd/text_color', '#ffffff'),
+                text)
+        self.title.set_markup(text)
         self.window.show_all()
         self.hide_progress()
         if self._timeout:

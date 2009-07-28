@@ -113,8 +113,10 @@ class PluginManager(object):
         """
         dialog = gtk.FileChooserDialog(_('Choose a plugin'), 
             self.prefs.parent, 
-            buttons=(_('Cancel'), gtk.RESPONSE_CANCEL, _('Choose'),
-            gtk.RESPONSE_OK))
+            buttons=(
+                gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+                gtk.STOCK_ADD, gtk.RESPONSE_OK)
+            )
 
         filter = gtk.FileFilter()
         filter.set_name(_('Plugin Archives'))

@@ -737,7 +737,7 @@ def get_urls_for(items):
     """
         Returns the items' URLs
     """
-    return [item.get_loc().encode(common.get_default_encoding())
+    return [urllib.quote(item.get_loc().encode(common.get_default_encoding()))
         for item in items]
 
 def finish(repeat=True):

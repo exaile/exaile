@@ -122,6 +122,42 @@
                       </widget>
                     </child>
                     <child>
+                      <widget class="GtkImageMenuItem" id="queue_manager_item">
+                        <property name="label" translatable="yes">Queue</property>
+                        <property name="visible">True</property>
+                        <property name="use_stock">False</property>
+                        <signal name="activate" handler="on_queue_manager_item_activate"/>
+                        <child internal-child="image">
+                          <widget class="GtkImage" id="image8">
+                            <property name="visible">True</property>
+                          </widget>
+                        </child>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkImageMenuItem" id="device_manager_item">
+                        <property name="label" translatable="yes">Devices</property>
+                        <property name="visible">True</property>
+                        <property name="use_stock">False</property>
+                        <signal name="activate" handler="on_device_manager_item_activate"/>
+                        <child internal-child="image">
+                          <widget class="GtkImage" id="image9">
+                            <property name="visible">True</property>
+                            <property name="stock">gtk-harddisk</property>
+                            <property name="icon-size">1</property>
+                          </widget>
+                        </child>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkMenuItem" id="cover_manager_item">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">_Covers</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="on_cover_manager_item_activate"/>
+                      </widget>
+                    </child>
+                    <child>
                       <widget class="GtkImageMenuItem" id="preferences1">
                         <property name="label">gtk-preferences</property>
                         <property name="visible">True</property>
@@ -206,42 +242,6 @@
                 <property name="use_underline">True</property>
                 <child>
                   <widget class="GtkMenu" id="tools_menu">
-                    <child>
-                      <widget class="GtkImageMenuItem" id="queue_manager_item">
-                        <property name="label" translatable="yes">Queue</property>
-                        <property name="visible">True</property>
-                        <property name="use_stock">False</property>
-                        <signal name="activate" handler="on_queue_manager_item_activate"/>
-                        <child internal-child="image">
-                          <widget class="GtkImage" id="image8">
-                            <property name="visible">True</property>
-                          </widget>
-                        </child>
-                      </widget>
-                    </child>
-                    <child>
-                      <widget class="GtkImageMenuItem" id="device_manager_item">
-                        <property name="label" translatable="yes">Devices</property>
-                        <property name="visible">True</property>
-                        <property name="use_stock">False</property>
-                        <signal name="activate" handler="on_device_manager_item_activate"/>
-                        <child internal-child="image">
-                          <widget class="GtkImage" id="image9">
-                            <property name="visible">True</property>
-                            <property name="stock">gtk-harddisk</property>
-                            <property name="icon-size">1</property>
-                          </widget>
-                        </child>
-                      </widget>
-                    </child>
-                    <child>
-                      <widget class="GtkMenuItem" id="album_art_item">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">_Covers</property>
-                        <property name="use_underline">True</property>
-                        <signal name="activate" handler="on_album_art_item_activate"/>
-                      </widget>
-                    </child>
                     <child>
                       <widget class="GtkMenuItem" id="randomize_playlist_item">
                         <property name="visible">True</property>

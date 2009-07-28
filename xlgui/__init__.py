@@ -131,7 +131,7 @@ class Main(object):
             'on_queue_manager_item_activate': self.queue_manager,
             'on_preferences_item_activate': lambda *e: self.show_preferences(),
             'on_device_manager_item_activate': lambda *e: self.show_devices(),
-            'on_album_art_item_activate': self.show_cover_manager,
+            'on_cover_manager_item_activate': self.show_cover_manager,
             'on_open_item_activate': self.open_dialog,
             'on_open_url_item_activate': self.open_url,
             'on_export_current_playlist_activate': self.export_current_playlist,

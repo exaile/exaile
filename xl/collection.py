@@ -631,7 +631,7 @@ class Library(object):
 
         for k, tr in db.tracks.iteritems():
             tr = tr._track
-            loc = urllib.url2pathname(tr.get_loc_for_io())
+            loc = tr.get_loc_for_io()
             try:
                 if not loc.startswith(location):
                     continue

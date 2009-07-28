@@ -123,6 +123,7 @@ pot:
 	find data/glade/ -name "*.glade" >> po/POTFILES.in
 	find plugins -name "*.py" >> po/POTFILES.in
 	find plugins -name "*.glade" >> po/POTFILES.in
+	find plugins -name PLUGININFO >> po/POTFILES.in
 	python tools/createpot.py
 
 translations:

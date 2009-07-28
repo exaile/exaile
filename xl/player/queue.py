@@ -36,7 +36,7 @@ class PlayQueue(playlist.Playlist):
         playlist.Playlist.__init__(self, name="Queue")
         self.player = player
         player._set_queue(self)
-        self.stop_track = -1
+        self.stop_track = None
         if location is not None:
             self.load_from_location(location)
 
@@ -63,10 +63,9 @@ class PlayQueue(playlist.Playlist):
         """
         if not track:
             if self.player.current == self.stop_track:
-                if player:
-                    self.player.stop()
+                self.player.stop()
                 event.log_event('stop_track', self, self.stop_track)
-                self.stop_track = -1
+                self.stop_track = None
                 return None
 
             if not self.ordered_tracks:

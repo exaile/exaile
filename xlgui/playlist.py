@@ -92,6 +92,7 @@ class Playlist(gtk.VBox):
         event.add_callback(self.on_remove_tracks, 'tracks_removed',
             self.playlist)
         event.add_callback(self.refresh_changed_tracks, 'track_tags_changed')
+        event.add_callback(self.on_stop_track, 'stop_track')
 
     def properties_dialog(self):
         """
@@ -121,6 +122,24 @@ class Playlist(gtk.VBox):
                     tracks.remove(track)
             it = self.model.iter_next(it)
         self.list.queue_draw()
+
+    def on_stop_track(self, event, queue, stop_track):
+        """
+            Makes sure to select the next track in the
+            playlist after playback has stopped due to SPAT
+        """
+        next_track = self.playlist.next()
+        iter = self.model.get_iter_first()
+        selection = self.list.get_selection()
+        selection.unselect_all()
+
+        while iter:
+            track = self.model.get_value(iter, 0)
+            if track == next_track:
+                path = self.model.get_path(iter)
+                selection.select_path(path)
+                break
+            iter = self.model.iter_next(iter)
 
     def queue_selected_tracks(self):
         """

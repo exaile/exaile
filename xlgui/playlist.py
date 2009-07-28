@@ -554,7 +554,6 @@ class Playlist(gtk.VBox):
             gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
 
         locs = list(selection.get_uris())
-        count = 0
 
         if context.action != gtk.gdk.ACTION_MOVE:
             pass
@@ -681,19 +680,13 @@ class Playlist(gtk.VBox):
             Called when a drag source wants data for this drag operation
         """
         Playlist._is_drag_source = True
-        loc = []
-        delete = []
-        sel = self.list.get_selection()
-        (model, paths) = sel.get_selected_rows()
-        for path in paths:
-            iter = self.model.get_iter(path)
-            song = self.model.get_value(iter, 0)
+        
+        tracks = self.get_selected_tracks()
+        for track in tracks:
+            guiutil.DragTreeView.dragged_data[track.get_loc()] = track
 
-            uri = urllib.quote(song.get_loc().encode("utf-8"))
-            guiutil.DragTreeView.dragged_data[song.get_loc()] = song
-            loc.append(uri)
-
-        selection.set_uris(loc)
+        locs = guiutil.get_urls_for(tracks)
+        selection.set_uris(locs)
 
     def setup_model(self, map):
         """

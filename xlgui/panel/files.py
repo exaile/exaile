@@ -381,10 +381,4 @@ class FilesPanel(panel.Panel):
             guiutil.DragTreeView.dragged_data[track.get_loc()] = track
         urls = guiutil.get_urls_for(tracks)
         selection.set_uris(urls)
-
-    def _get_urls_for(self, items):
-        """
-            Returns the items' URLs
-        """
-        return [urllib.quote(item.get_loc().encode(common.get_default_encoding()))
-            for item in items]
+        

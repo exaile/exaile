@@ -171,15 +171,8 @@ class CollectionPanel(panel.Panel):
         tracks = self.get_selected_tracks()
         for track in tracks:
             guiutil.DragTreeView.dragged_data[track.get_loc()] = track
-        urls = self._get_urls_for(tracks)
+        urls = guiutil.get_urls_for(tracks)
         selection.set_uris(urls)
-
-    def _get_urls_for(self, items):
-        """
-            Returns the items' URLs
-        """
-        return [urllib.quote(item.get_loc().encode(common.get_default_encoding()))
-            for item in items]
 
     def _setup_tree(self):
         """

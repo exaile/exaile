@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import gobject, gtk, pango
+import copy, gobject, gtk, pango
 from string import Template
 from xl import event
 from xl.track import Track
@@ -141,17 +141,6 @@ class MMButton(MMWidget, gtk.Button):
 
         self.connect('clicked', callback)
 
-    def set_tooltip_text(self, tooltip_text):
-        """
-            Convenience wrapper, automatically
-            trys a fallback for GTK < 2.12
-        """
-        try:
-            gtk.Button.set_tooltip_text(tooltip_text)
-        except:
-            tooltip = gtk.Tooltips()
-            tooltip.set_tip(self, tooltip_text)
-
 class MMPlayPauseButton(MMButton):
     """
         Special MMButton which automatically sets its
@@ -236,27 +225,44 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
         self.set_size_request(150, -1)
         self.get_child().set_property('ellipsize', pango.ELLIPSIZE_END)
 
+        self.main = main
         self.queue = queue
         self.formatter = MMTrackFormatter()
-        self.popup = gtk.Window(gtk.WINDOW_POPUP)
+        self.popup = gtk.Window(gtk.WINDOW_TOPLEVEL)
+        self.popup.set_decorated(False)
         self.popup.set_size_request(350, 400)
         self.playlist = Playlist(main, queue, playlist)
         self.popup.add(self.playlist)
 
+        self._updating = False
         self._parent_configure_id = None
         self._parent_hide_id = None
+        self._drag_motion_id = None
 
         try:
             self.formatter.connect('format-request', format_callback)
         except TypeError:
             pass
 
+        self.drag_dest_set(gtk.DEST_DEFAULT_ALL,
+            self.playlist.list.targets,
+            gtk.gdk.ACTION_COPY |
+            gtk.gdk.ACTION_DEFAULT |
+            gtk.gdk.ACTION_MOVE)
+
         self.connect('track-changed', change_callback)
-        self.connect('toggled', self.on_toggled)
         self.connect('scroll-event', self.on_scroll)
+        self.connect('toggled', self.on_toggled)
+        self.connect_object('drag-data-received',
+            self.playlist.drag_data_received, self.playlist.list)
+        self.connect('drag-leave', self.on_drag_leave)
+        self.connect('drag-motion', self.on_drag_motion)
         event.add_callback(self.on_playlist_current_changed, 'playlist_current_changed')
         event.add_callback(self.on_playback_start, 'playback_player_start')
         event.add_callback(self.on_playback_end, 'playback_player_end')
+        event.add_callback(self.on_tracks_changed, 'tracks_added')
+        event.add_callback(self.on_tracks_changed, 'tracks_removed')
+        event.add_callback(self.on_tracks_changed, 'tracks_reordered')
 
     def move_popup(self):
         """
@@ -286,7 +292,7 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
 
     def set_tracks(self, tracks):
         """
-            Replaces the internal playlist
+            Replaces the tracks of the playlist
         """
         self.playlist._set_tracks(tracks)
 
@@ -308,6 +314,20 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
             Updates appearance on playback state change
         """
         self.set_label('')
+
+    def on_tracks_changed(self, event, playlist, *args):
+        """
+            Updates the local playlist as well as the
+            currently selected playlist in the main window
+        """
+        if playlist == self.playlist.playlist:
+            tracks = self.playlist.playlist.get_tracks()
+            self.main.get_selected_playlist()._set_tracks(tracks)
+            self.main.get_selected_playlist().playlist._set_ordered_tracks(tracks)
+        else:
+            tracks = playlist.get_tracks()
+            self.playlist._set_tracks(tracks)
+            self.playlist.playlist._set_ordered_tracks(tracks)
 
     def on_parent_configure(self, *e):
         """
@@ -339,6 +359,9 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
         """
             Displays or hides the playlist on toggle
         """
+        if self.popup.get_transient_for() is None:
+            self.popup.set_transient_for(self.get_toplevel())
+
         if self._parent_configure_id is None:
             self._parent_configure_id = self.get_toplevel().connect(
                 'configure-event', self.on_parent_configure)
@@ -352,6 +375,36 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
             self.popup.show()
         else:
             self.popup.hide()
+
+    def on_drag_data_received(self, togglebutton, context, x, y, selection, info, timestamp):
+        """
+            Appends tracks to the playlist if
+            dropped on the button itself
+        """
+        print selection.get_uris()
+
+    def on_drag_leave(self, togglebutton, context, timestamp):
+        """
+            Prevents showing the playlist if the
+            pointer leaves the button prematurely
+        """
+        if self._drag_motion_id is not None:
+            gobject.source_remove(self._drag_motion_id)
+            self._drag_motion_id = None
+
+    def on_drag_motion(self, togglebutton, context, x, y, timestamp):
+        """
+            Sets up a timeout to show the playlist
+        """
+        if self._drag_motion_id is None:
+            self._drag_motion_id = gobject.timeout_add(500,
+                self.drag_motion_finish)
+
+    def drag_motion_finish(self):
+        """
+            Callback function for showing the playlist
+        """
+        self.set_active(True)
 
 gobject.type_register(MMPlaylistButton)
 gobject.signal_new('track-changed', MMPlaylistButton,

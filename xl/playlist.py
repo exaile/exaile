@@ -420,7 +420,7 @@ class Playlist(object):
         else:   
             return self._ordered_tracks
 
-    def set_ordered_tracks(self, tracks):
+    def _set_ordered_tracks(self, tracks):
         """
             Sets the ordered tracks
         """
@@ -429,6 +429,12 @@ class Playlist(object):
         else:
             self._ordered_tracks = tracks
 
+    def set_ordered_tracks(self, tracks):
+        """
+            Sets the ordered tracks, triggers
+            the 'tracks_reordered' event
+        """
+        self._set_ordered_tracks(tracks)
         event.log_event('tracks_reordered', self, tracks)
 
     ordered_tracks = property(get_ordered_tracks,
@@ -455,9 +461,9 @@ class Playlist(object):
 
     def __iter__(self):
         """
-            allows "for song in playlist" synatax
+            Allows "for song in playlist" syntax
 
-            warning: assumes playlist doesn't change while iterating.
+            Warning: assumes playlist doesn't change while iterating.
             behavior is undefined if playlist changes while iterating.
         """
         return PlaylistIterator(self)

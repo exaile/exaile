@@ -53,35 +53,46 @@ class Nothing(object):
 
 _NONE = Nothing()
 
-class EventTimer(object):
-    def __init__(self, interval, function, 
-        *args, **kwargs):
+class EventTimer(threading.Thread):
+    """
+        Runs a function periodically.
+
+        To terminate the timer, either return a True value from the function or
+        call `cancel`.
+
+        Set `sleeptime` if you want to set the wakeup interval (in sec). By
+        default, either the interval time or `DEFAULT_SLEEPTIME` will be used,
+        whichever is smaller.
+    """
+
+    DEFAULT_SLEEPTIME = 5
+
+    def __init__(self, interval, function, *args, **kwargs):
+        """Runs `function` every `interval` sec."""
+        threading.Thread.__init__(self)
+        self.daemon = True
+        self.interval = interval / 1000.0
+        self.function = function
         self.args = args
         self.kwargs = kwargs
-        self.interval = interval
-        self.function = function
-        self.timer = None
+        self.sleeptime = min(interval, self.DEFAULT_SLEEPTIME)
         self._stopped = False
+        self.start()
 
-        self._start_timer()
-
-    def _start_timer(self):
-        if self._stopped or self.timer: return
-        self.timer = threading.Timer(float(self.interval) / 1000.0,
-            self._run_function)
-        self.timer.setDaemon(True)
-        self.timer.start()
-
-    def _run_function(self):
-        retval = self.function(*self.args, **self.kwargs)
-        if retval:
-            self.timer = None
-            self._start_timer()
+    def run(self):
+        while not self._stopped:
+            endtime = time.time() + self.interval
+            while endtime > time.time():
+                time.sleep(self.sleeptime)
+                if self._stopped: return
+            try:
+                cancel = self.function(*self.args, **self.kwargs)
+                if cancel: return
+            except Exception:
+                common.log_exception(logger)
 
     def cancel(self):
         self._stopped = True
-        if self.timer:
-            self.timer.cancel()
 
 def timeout_add(interval, function, *args, **kwargs):
     timer = EventTimer(interval, function, *args, **kwargs)

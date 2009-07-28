@@ -391,7 +391,7 @@ class TrackDB(object):
         # up if it isn't
         lib = None
         if hasattr(self, 'libraries'):
-            for k, v in self.libraries.iteritems(): # TODO: URL
+            for k, v in self.libraries.iteritems():
                 if loc.startswith('file://%s' % k):
                     lib = v
             if not lib:

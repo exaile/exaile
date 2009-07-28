@@ -156,29 +156,8 @@ def local_file_from_url(url):
         Returns a local file path based on a url. If you get strange errors,
         try running .encode() on the result
     """
-    if not url.startswith('file:'):
-        raise ValueError(
-            _("local_file_from_url must be called with a file: URL."))
     split = urlparse.urlsplit(url)
-    # Workaround for Python bug: when given a unicode object,
-    # urllib.url2pathname returns UTF-8 string in a unicode object.
-    urlpath = unicode(split[2]).encode('ascii')
-    path = urllib.url2pathname(urlpath)
-    try:
-        return path.decode('utf-8')
-    except UnicodeDecodeError:
-        logger.warning(_("Invalid filename: %s.") % `path`)
-        return path
-
-def url_from_local_file(path):
-    """
-        Returns a URL from a local file path. Path should be in unicode.
-    """
-    urlpath = urllib.pathname2url(path.encode('utf-8'))
-    if urlpath.startswith('//'):
-        return 'file:' + urlpath
-    else:
-        return 'file://' + urlpath
+    return urlparse.urlunsplit(('', '') + split[2:])
 
 class idict(dict): 
     """

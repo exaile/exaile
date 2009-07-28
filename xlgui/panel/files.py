@@ -260,6 +260,7 @@ class FilesPanel(panel.Panel):
         """
             Loads a directory into the files view
         """
+        dir = str(dir)
         try:
             paths = os.listdir(dir)
         except OSError:
@@ -343,9 +344,8 @@ class FilesPanel(panel.Panel):
             for filename in os.listdir(value):
                 self.append_recursive(songs, os.path.join(value, filename))
         else:
-            url = common.url_from_local_file(value)
-            if xl.track.is_valid_track(url):
-                tr = self.get_track(url)
+            if xl.track.is_valid_track(value):
+                tr = self.get_track(value)
                 if tr:
                     songs.append(tr)
 
@@ -377,9 +377,14 @@ class FilesPanel(panel.Panel):
         """
         tracks = self.get_selected_tracks()
         if not tracks: return
-        uris = []
         for track in tracks:
-            uri = track['__loc']
-            guiutil.DragTreeView.dragged_data[uri] = track
-            uris.append(uri)
-        selection.set_uris(uris)
+            guiutil.DragTreeView.dragged_data[track.get_loc()] = track
+        urls = guiutil.get_urls_for(tracks)
+        selection.set_uris(urls)
+
+    def _get_urls_for(self, items):
+        """
+            Returns the items' URLs
+        """
+        return [urllib.quote(item.get_loc().encode(common.get_default_encoding()))
+            for item in items]

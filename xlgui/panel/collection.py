@@ -170,8 +170,15 @@ class CollectionPanel(panel.Panel):
         tracks = self.get_selected_tracks()
         for track in tracks:
             guiutil.DragTreeView.dragged_data[track.get_loc()] = track
-        urls = guiutil.get_urls_for(tracks)
+        urls = self._get_urls_for(tracks)
         selection.set_uris(urls)
+
+    def _get_urls_for(self, items):
+        """
+            Returns the items' URLs
+        """
+        return [urllib.quote(item.get_loc().encode(common.get_default_encoding()))
+            for item in items]
 
     def _setup_tree(self):
         """
@@ -282,10 +289,9 @@ class CollectionPanel(panel.Panel):
         if not parent:
             return []
         if self.model.get_value(parent, 2):
-            values = [u"\a\a" +
-                unicode(self.model.get_value(parent, 2), 'utf-8')]
+            values = ["\a\a" + self.model.get_value(parent, 2)]
         else:
-            values = [unicode(self.model.get_value(parent, 1), 'utf-8')]
+            values = [self.model.get_value(parent, 1)]
         iter = self.model.iter_parent(parent)
         newvals = self.get_node_keywords(iter)
         if values[0]:
@@ -364,9 +370,9 @@ class CollectionPanel(panel.Panel):
         
         while iter:
             if search_num != self._search_num: return
-            value = unicode(self.model.get_value(iter, 1), 'utf-8')
+            value = self.model.get_value(iter, 1)
             if not value:
-                value = unicode(self.model.get_value(iter, 2), 'utf-8')
+                value = self.model.get_value(iter, 2)
             
             if value == name:
                 self.tree.expand_row(self.model.get_path(iter), False)

@@ -313,7 +313,7 @@ class Exaile(object):
             default=False, help=_("Start new instance"))
         p.add_option("--version", dest="ShowVersion", action="store_true")
         p.add_option("--start-minimized", dest="StartMinimized", action="store_true",
-            default=False, help=_("Start Exaile minimized to tray, if possible"))
+            default=False, help=_("Start Exaile minimized (to tray, if possible)"))
         p.add_option("--safemode", dest="SafeMode", action="store_true",
             default=False, help=_("Start in safe mode - sometimes useful "
             "when you're running into problems"))

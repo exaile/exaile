@@ -18,7 +18,7 @@ from xlgui.prefs import widgets
 from xl import xdg
 from xlgui import osd
 
-name = 'Notification'
+name = 'OSD Preferences'
 glade = xdg.get_data_path('glade/osd_prefs_pane.glade')
 
 def page_enter(prefs):

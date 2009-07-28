@@ -136,6 +136,7 @@ class Main(object):
             'on_open_url_item_activate': self.open_url,
             'on_export_current_playlist_activate': self.export_current_playlist,
             'on_panel_notebook_switch_page': self.on_panel_switch,
+            'on_track_properties_activate':self.on_track_properties
         })
 
     def _on_quit_application(self, event, sender, data):
@@ -337,6 +338,10 @@ class Main(object):
         pl.playlist.randomize()
         pl._set_tracks(pl.playlist.get_tracks())
         pl.reorder_songs()
+    
+    def on_track_properties(self, *e):
+        pl = self.main.get_selected_playlist()
+        pl.properties_dialog()
 
     def add_panel(self, child, name):
         """

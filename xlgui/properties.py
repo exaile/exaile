@@ -38,7 +38,7 @@ class TrackPropertiesDialog(gobject.GObject):
     def _populate_from_track(self, track):
         
         for item in ('title', 'artist', 'album', 'tracknumber',
-            'date'):
+            'date', 'genre'):
             value = metadata.j(track[item])
             field = getattr(self, '%s_entry' % item)
             if not value: value = ''
@@ -70,7 +70,8 @@ class TrackPropertiesDialog(gobject.GObject):
 
     def _on_ok(self, *e):
         track = self.track
-        for item in ('title', 'artist', 'album', 'tracknumber', 'date'):
+        for item in ('title', 'artist', 'album', 'tracknumber', 'date',
+            'genre'):
             value = getattr(self, '%s_entry' % item).get_text()
             track[item] = value
 

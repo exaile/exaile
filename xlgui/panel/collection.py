@@ -373,6 +373,7 @@ class CollectionPanel(panel.Panel):
             value = self.model.get_value(iter, 1)
             if not value:
                 value = self.model.get_value(iter, 2)
+            value = unicode(value, 'utf-8')
             
             if value == name:
                 self.tree.expand_row(self.model.get_path(iter), False)

@@ -141,4 +141,6 @@ class ProgressManager(object):
         """
             Removes a monitor from the manager
         """
-        self.box.remove(monitor)
+        monitor.hide()
+        monitor.destroy()
+        #self.box.remove(monitor)

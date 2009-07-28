@@ -33,6 +33,7 @@ except:
     import pickle
 
 import shelve
+import traceback
 
 from copy import deepcopy
 import logging, random, time, os, time
@@ -362,7 +363,7 @@ class TrackDB(object):
         else:
             raise ValueError
 
-        tracksres = searcher.search(query, tracks)
+        tracksres = searcher.search(query, tracks.copy())
         tracks = []
         for tr in tracksres.itervalues():
             if hasattr(tr, '_track'):
@@ -468,7 +469,7 @@ class TrackSearcher(object):
                 try:
                     newsearch += search[n]
                 except IndexError:
-                    pass
+                    traceback.print_exc()
             elif in_quotes and c != "\"":
                 newsearch += c
             elif c == "\"":

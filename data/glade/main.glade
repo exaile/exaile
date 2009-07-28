@@ -109,7 +109,7 @@
                   <widget class="GtkMenu" id="edit_menu">
                     <child>
                       <widget class="GtkImageMenuItem" id="collection_manager_item">
-                        <property name="label" translatable="yes">_Collection Manager</property>
+                        <property name="label" translatable="yes">_Collection</property>
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">False</property>
@@ -208,7 +208,7 @@
                   <widget class="GtkMenu" id="tools_menu">
                     <child>
                       <widget class="GtkImageMenuItem" id="queue_manager_item">
-                        <property name="label" translatable="yes">Queue Manager</property>
+                        <property name="label" translatable="yes">Queue</property>
                         <property name="visible">True</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="on_queue_manager_item_activate"/>
@@ -221,7 +221,7 @@
                     </child>
                     <child>
                       <widget class="GtkImageMenuItem" id="device_manager_item">
-                        <property name="label" translatable="yes">Device Manager</property>
+                        <property name="label" translatable="yes">Devices</property>
                         <property name="visible">True</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="on_device_manager_item_activate"/>
@@ -237,7 +237,7 @@
                     <child>
                       <widget class="GtkMenuItem" id="album_art_item">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">_Cover Manager</property>
+                        <property name="label" translatable="yes">_Covers</property>
                         <property name="use_underline">True</property>
                         <signal name="activate" handler="on_album_art_item_activate"/>
                       </widget>
@@ -268,9 +268,9 @@
                     </child>
                     <child>
                       <widget class="GtkImageMenuItem" id="track_properties_item">
-                        <property name="tooltip" translatable="yes">Properties dialog of the track selected in the playlist</property>
                         <property name="label" translatable="yes">Track properties</property>
                         <property name="visible">True</property>
+                        <property name="tooltip" translatable="yes">Properties dialog of the track selected in the playlist</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="on_track_properties_activate"/>
                         <child internal-child="image">

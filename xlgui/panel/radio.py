@@ -23,6 +23,9 @@ import threading
 import xl.playlist
 from xl.nls import gettext as _
 
+class RadioException(Exception): pass
+class ConnectionException(RadioException): pass
+
 class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
     """
         The Radio Panel
@@ -33,6 +36,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
     gladeinfo = ('radio_panel.glade', 'RadioPanelWindow')
+    _radiopanel = None
 
     def __init__(self, parent, collection, 
         radio_manager, station_manager):
@@ -60,6 +64,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         self.track_menu = menu.PlaylistsPanelTrackMenu()
 
         self.load_streams()
+        RadioPanel._radiopanel = self
 
     def load_streams(self):
         """
@@ -109,7 +114,14 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         """
             Sets up the various widgets required for this panel
         """
-        pass
+        self.status = self.xml.get_widget('status_label')
+
+    @guiutil.idle_add()
+    def _set_status(self, message, timeout=0):
+        self.status.set_text(message)
+
+        if timeout:
+            gobject.timeout_add(timeout, self._set_status, _('Idle.'), 0)
 
     def _connect_events(self):
         """
@@ -378,17 +390,24 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         """
             Loads a radio station
         """
-
+        lists = None
         no_cache = False
         if driver in self.complete_reload:
             no_cache = True
             del self.complete_reload[driver]
 
         if isinstance(driver, xl.radio.RadioStation):
-            lists = driver.get_lists(no_cache=no_cache)
+            try:
+                lists = driver.get_lists(no_cache=no_cache)
+            except RadioException, e:
+                self._set_status(str(e), 2000)
         else:
-            lists = driver.get_items(no_cache=no_cache)
+            try:
+                lists = driver.get_items(no_cache=no_cache)
+            except RadioException, e:
+                self._set_status(str(e), 2000)
 
+        if not lists: return
         gobject.idle_add(self._done_loading, iter, driver, lists)
 
     def _done_loading(self, iter, object, items):
@@ -418,4 +437,5 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             self.model.remove(iter)
             iter = self.model.iter_children(node)
 
-
+def set_status(message, timeout=0):
+    RadioPanel._radiopanel._set_status(message, timeout)

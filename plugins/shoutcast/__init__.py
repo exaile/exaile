@@ -4,6 +4,15 @@ from xl import common, playlist, xdg, event
 from xlgui import guiutil, commondialogs
 import gtk, gobject
 from xl.nls import gettext as _
+import httplib
+import urllib2
+import socket
+urlparse = urllib2.urlparse
+
+try:
+    import StringIO
+except ImportError:
+    import cStringIO as StringIO
 
 def enable(exaile):
     if exaile.loading:
@@ -21,6 +30,10 @@ def disable(exaile):
     global STATION
     exaile.radio.remove_station(STATION)
     STATION = None
+
+def set_status(message, timeout=0):
+    from xlgui.panel import radio
+    radio.set_status(message, timeout)
 
 class ShoutcastRadioStation(RadioStation):
     """
@@ -76,8 +89,26 @@ class ShoutcastRadioStation(RadioStation):
         """
             Returns the rlists for shoutcast
         """
+        from xlgui.panel import radio
         if no_cache or not self.data:
-            data = urllib.urlopen(self.genre_url).read()
+            set_status(_('Contacting Shoutcast server...'))
+            hostinfo = urlparse.urlparse(self.genre_url)
+            c = httplib.HTTPConnection(hostinfo.netloc,
+                timeout=20)
+            try:
+                c.request('GET', hostinfo.path)
+                response = c.getresponse()
+            except (socket.timeout, socket.error):
+                raise radio.RadioException(
+                    _('Error connecting to Shoutcast server.'))
+
+            if response.status != 200:
+                raise radio.RadioException(
+                    _('Error connecting to shoutcast server.'))
+
+            data = response.read()
+            set_status(_('Idle.'))
+
             self.data = data
             self._save_cache()
         else:
@@ -100,15 +131,33 @@ class ShoutcastRadioStation(RadioStation):
         """
             Gets the subrlists for a rlist
         """
+        from xlgui.panel import radio
         if name in self.subs:
             return self.subs[name]
 
         url = self.cat_url % {'genre': name}
-        data = urllib.urlopen(url).read()
+
+        set_status(_('Contacting Shoutcast server...'))
+        hostinfo = urlparse.urlparse(url)
+        c = httplib.HTTPConnection(hostinfo.netloc, timeout=20)
+        try:
+            c.request('GET', "%s?%s" % (hostinfo.path, hostinfo.query))
+            response = c.getresponse()
+        except (socket.timeout, socket.error):
+            raise radio.RadioException(
+                _('Error connecting to Shoutcast server.'))
+
+        if response.status != 200:
+            raise radio.RadioException(
+                _('Error connecting to Shoutcast server.'))
+
+        data = response.read()
+        set_status(_('Idle.'))
+
         rlists = []
         items = re.findall(r'<station name="([^"]*)" .*? id="(\d+)" br="(\d+)"', data)
         found_names = []
-        
+
         for item in items:
             rlist = RadioItem(item[0], station=self)
             rlist.bitrate = item[2]
@@ -129,10 +178,30 @@ class ShoutcastRadioStation(RadioStation):
         """
             Gets the playlist for the given name and id
         """
+        from xlgui.panel import radio
+        set_status(_('Contacting Shoutcast server...'))
         if station_id in self.playlists:
             return self.playlists[station_id]
         url = self.playlist_url % {'id': station_id}
-        handle = urllib.urlopen(url)
+
+        hostinfo = urlparse.urlparse(url)
+        c = httplib.HTTPConnection(hostinfo.netloc, timeout=20)
+        try:
+            print "Reading %s" % url
+            c.request('GET', "%s?%s" % (hostinfo.path, hostinfo.query))
+            response = c.getresponse()
+        except (socket.timeout, socket.error):
+            set_status(
+                _('Error connecting to Shoutcast server.'))
+            return None
+
+        if response.status != 200:
+            set_status(
+                _('Error connecting to Shoutcast server.'))
+            return None
+
+        handle = StringIO.StringIO(response.read())
+        set_status(_('Idle.'))
 
         self.playlists[station_id] = playlist.import_from_pls(name + ".pls",
             handle)
@@ -144,8 +213,27 @@ class ShoutcastRadioStation(RadioStation):
             
             @param keyword: the keyword to search
         """
+        from xlgui.panel import radio
+        set_status(_('Contacting Shoutcast server...'))
         url = self.search_url % {'kw': keyword}
-        data = urllib.urlopen(url).read()
+
+        hostinfo = urlparse.urlparse(url)
+        c = httplib.HTTPConnection(hostinfo.netloc, timeout=20)
+        try:
+            c.request('GET', "%s?%s" % (hostinfo.path, hostinfo.query))
+            response = c.getresponse()
+        except (socket.timeout, socket.error):
+            set_status(
+                _('Error connecting to Shoutcast server.'))
+            return
+
+        if response.status != 200:
+            set_status(
+                _('Error connecting to Shoutcast server.'))
+            return
+
+        data = response.read()
+        set_status(_('Idle.'))
         rlists = []
         items = re.findall(r'<station name="([^"]*)" .*? id="(\d+)"', data)
 
@@ -186,17 +274,23 @@ class ShoutcastRadioStation(RadioStation):
         """
         dialog = commondialogs.ListDialog(_("Search Results"))
         dialog.set_items(lists)
+        dialog.connect('response', self._search_response)
+        dialog.show_all()
+        self._keyword = keyword
 
-        result = dialog.run()
+    def _search_response(self, dialog, result, *e):
+
+        dialog.hide()
         if result == gtk.RESPONSE_OK:
             items = dialog.get_items()
             if not items: return
 
-            self.do_get_playlist(keyword, items[0])
+            self.do_get_playlist(self._keyword, items[0])
 
     @common.threaded
     def do_get_playlist(self, keyword, item):
         pl = item.get_playlist()
+        if not pl: return
         pl.name = keyword
 
         gobject.idle_add(self.done_getting_playlist, pl)

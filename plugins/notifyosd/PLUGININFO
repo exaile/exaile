@@ -1,4 +1,4 @@
 Version='0.0.4'
 Authors=['Adam Olsen <arolsen@gmail.com>', 'Steve Dodier <sidnioulz@gmail.com>']
 Name=_('Notify-osd notifications')
-Description=_('This plugins displays notify-osd notification bubbles when a song is played/resumed or when the tray icon is hovered.\nIt does not automatically disable the Exaile OSD yet, and there is no configuration interface yet.\n\nWARNING : this plugin is designed for use with notify-osd in Ubuntu 9.04 and further. You can use it with another notification daemon, but at your own risk.')
+Description=_('This plugins displays notification bubbles when a song is played/resumed/stopped, with either the song cover or a media icon to indicate the latest action.\nIt shows notifications only when the main window isn\'t focused, to avoid useless notifications, and it does not spam different notifications when you browse your songs.\nDepends: libnotify\nRecommends: notify-osd')

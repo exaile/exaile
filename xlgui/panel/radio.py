@@ -130,6 +130,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         self.tree.connect('row-expanded', self.on_row_expand)
         self.tree.connect('row-collapsed', self.on_collapsed)
         self.tree.connect('row-activated', self.on_row_activated)
+        self.tree.connect('key-release-event', self.on_key_released)
 
         event.add_callback(self._add_driver_cb, 'station_added', 
                 self.manager)
@@ -201,6 +202,45 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         menu = guiutil.Menu()
         menu.append(_("Refresh"), self.on_reload, 'gtk-refresh')
         return menu
+        
+    def on_key_released(self, widget, event):
+        """
+            Called when a key is released in the tree
+        """
+        if event.keyval == gtk.keysyms.Menu:
+            (mods,paths) = self.tree.get_selection().get_selected_rows()
+            if paths and paths[0]:
+                iter = self.model.get_iter(paths[0])
+                item = self.model.get_value(iter, 2)
+                if isinstance(item, (xl.radio.RadioStation, xl.radio.RadioList,
+                    xl.radio.RadioItem)):
+                    if isinstance(item, xl.radio.RadioStation):
+                        station = item
+                    else:
+                        station = item.station
+
+                    if station and hasattr(station, 'get_menu'):
+                        menu = station.get_menu(self)
+                        gtk.Menu.popup(menu, None, None, None, 0, event.time)
+                elif isinstance(item, xl.playlist.Playlist):
+                    gtk.Menu.popup(self.playlist_menu, None, None, None, 0, event.time)
+                elif isinstance(item, playlistpanel.TrackWrapper):
+                    gtk.Menu.popup(self.track_menu, None, None, None, 0, event.time)
+            return True
+        
+        if event.keyval == gtk.keysyms.Left:
+            (mods,paths) = self.tree.get_selection().get_selected_rows()
+            if paths and paths[0]:
+                self.tree.collapse_row(paths[0])
+            return True
+        
+        if event.keyval == gtk.keysyms.Right:
+            (mods,paths) = self.tree.get_selection().get_selected_rows()
+            if paths and paths[0]:
+                self.tree.expand_row(paths[0], False)
+            return True
+        
+        return False
 
     def button_press(self, widget, event):
         """

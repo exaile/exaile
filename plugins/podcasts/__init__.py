@@ -40,11 +40,12 @@ def exaile_ready(event, exaile, nothing):
         controller.add_panel(*PODCASTS.get_panel())
 
 def disable(exaile):
+    global PODCASTS
+    
     if PODCASTS:
         conroller = xlgui.controller()
         conroller.remove_panel(PODCASTS.get_panel()[0])
         PODCASTS = None
-        PODCASTS.destroy()
 
 class PodcastPanel(panel.Panel):
     gladeinfo = ('file://' + os.path.join(BASEDIR, 'podcasts.glade'), 

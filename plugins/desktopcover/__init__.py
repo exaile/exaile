@@ -182,10 +182,11 @@ def enable(exaile):
 
 def disable(exaile):
     global cover_display, cover_connection
+    if cover_widget:
+        cover_widget.disconnect(cover_connection)
+        cover_connection = None
     cover_display.destroy()
     cover_display = None
-    cover_widget.disconnect(cover_connection)
-    cover_connection = None
 
 def get_prefs_pane():
     return prefs

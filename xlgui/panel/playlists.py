@@ -482,6 +482,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         event.add_callback(self.refresh_playlists, 'track_tags_changed')
         event.add_callback(self.refresh_saved_playlist, 'custom_playlist_saved')
 
+        self.tree.connect('key-release-event', self.on_key_released)
+
         self.track_menu.connect('remove-track', lambda *e: 
             self.remove_selected_track())
 
@@ -916,7 +918,60 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                     playlist.export_playlist(pl, path)
                 except playlist.InvalidPlaylistTypeException:
                     commondialogs.error(None, _('Invalid file extension, file not saved'))
+
+    def on_key_released(self, widget, event):
+        """
+            Called when a key is released in the tree
+        """
+        if event.keyval == gtk.keysyms.Menu:
+            (mods,paths) = self.tree.get_selection().get_selected_rows()
+            if paths and paths[0]:
+                iter = self.model.get_iter(paths[0])
+                pl = self.model.get_value(iter, 2)
+                #Based on what is selected determines what
+                #menu we will show
+                if isinstance(pl, playlist.Playlist):
+                    gtk.Menu.popup(self.playlist_menu, None, None, None, 0, event.time)
+                elif isinstance(pl, playlist.SmartPlaylist):
+                    gtk.Menu.popup(self.smart_menu, None, None, None, 0, event.time)
+                elif isinstance(pl, TrackWrapper):
+                    gtk.Menu.popup(self.track_menu, None, None, None, 0, event.time)
+                else:
+                    gtk.Menu.popup(self.default_menu, None, None, None, 0, event.time)
+            return True
         
+        if event.keyval == gtk.keysyms.Left:
+            (mods,paths) = self.tree.get_selection().get_selected_rows()
+            if paths and paths[0]:
+                self.tree.collapse_row(paths[0])
+            return True
+        
+        if event.keyval == gtk.keysyms.Right:
+            (mods,paths) = self.tree.get_selection().get_selected_rows()
+            if paths and paths[0]:
+                self.tree.expand_row(paths[0], False)
+            return True
+        
+        if event.keyval == gtk.keysyms.Delete:
+            (mods,paths) = self.tree.get_selection().get_selected_rows()
+            if paths and paths[0]:
+                iter = self.model.get_iter(paths[0])
+                pl = self.model.get_value(iter, 2)
+                #Based on what is selected determines what
+                #menu we will show
+                if isinstance(pl, playlist.Playlist) or isinstance(pl, playlist.SmartPlaylist):
+                    dialog = gtk.MessageDialog(None,
+                        gtk.DIALOG_MODAL, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO,
+                        _("Are you sure you want to permanently delete the selected"
+                        " playlist?"))
+                    if dialog.run() == gtk.RESPONSE_YES:
+                        self.remove_selected_playlist()
+                    dialog.destroy()
+                elif isinstance(pl, TrackWrapper):
+                    self.remove_selected_track()
+            return True
+        return False
+
     def button_press(self, button, event):
         """
             Called when a button is pressed, is responsible

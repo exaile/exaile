@@ -276,11 +276,10 @@ class AlarmClock:
 #                        print 'AC: loaded - ',al.__dict__
                         self.add_alarm(al)
                     except:
-                        print 'AC: bad alarm definition'
+                        print 'MultiAlarmClock plugin: bad alarm definition'
             
         except IOError, (e,s):  # File might not exist
-            print 'AC: could not open file:', s
-          
+            print 'MultiAlarmClock plugin: could not open file:', s
 
     def save_list(self):
         # Save List
@@ -403,8 +402,8 @@ def _enable(exaile):
     '''
         Called when plugin is loaded.  Start timer and load previously saved alarms.
     '''
-    main = AlarmClock(exaile) 
-    global TIMER_ID, MENU_ITEM
+    global TIMER_ID, MENU_ITEM, ALARM_CLOCK_MAIN
+    ALARM_CLOCK_MAIN = main = AlarmClock(exaile) 
     
     TIMER_ID = gobject.timeout_add(5000, check_alarms, main, exaile)
     
@@ -419,11 +418,11 @@ def disable(exaile):
     '''
         Called when plugin is unloaded.  Stop timer, destroy main window if it exists, and save current alarms.
     '''
-    global TIMER_ID, MENU_ITEM
+    global TIMER_ID, MENU_ITEM, ALARM_CLOCK_MAIN
         
     # Cleanup
-    if main.window:
-        main.window.destroy()
+    if ALARM_CLOCK_MAIN.window:
+        ALARM_CLOCK_MAIN.window.destroy()
         
 #    if main:
         #main.save_list()       # unnecessary

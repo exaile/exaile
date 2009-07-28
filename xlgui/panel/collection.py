@@ -130,8 +130,34 @@ class CollectionPanel(panel.Panel):
             'on_refresh_button_clicked': lambda *e: self.load_tree(),
             'on_empty_collection_button_clicked': lambda *x: xlgui.controller().collection_manager()
         })
+        self.tree.connect('key-release-event', self.on_key_released)
         event.add_callback(self.refresh_tags_in_tree, 'track_tags_changed')
-
+    
+    def on_key_released(self, widget, event):
+        """
+            Called when a key is released in the tree
+        """
+        if event.keyval == gtk.keysyms.Menu:
+            gtk.Menu.popup(self.menu, None, None, None, 0, event.time)
+            return True
+        
+        if event.keyval == gtk.keysyms.Left:
+            (mods,paths) = self.tree.get_selection().get_selected_rows()
+            for path in paths:
+                self.tree.collapse_row(path)
+            return True
+        
+        if event.keyval == gtk.keysyms.Right:
+            (mods,paths) = self.tree.get_selection().get_selected_rows()
+            for path in paths:
+                self.tree.expand_row(path, False)
+            return True
+        
+        if event.keyval == gtk.keysyms.Return:
+            self.append_to_playlist()
+            return True
+        return False
+    
     def on_search(self, *e):
         """
             Searches tracks and reloads the tree

@@ -73,6 +73,7 @@ class FilesPanel(panel.Panel):
         self.tree = guiutil.DragTreeView(self, True, True)
         self.tree.set_model(self.model)
         self.tree.connect('row-activated', self.row_activated)
+        self.tree.connect('key-release-event', self.on_key_released)
 
         selection = self.tree.get_selection()
         selection.set_mode(gtk.SELECTION_MULTIPLE)
@@ -150,6 +151,37 @@ class FilesPanel(panel.Panel):
             self.load_directory(self.current, history=False,
             keyword=unicode(self.search.get_text(), 'utf-8')))
 
+    def on_key_released(self, widget, event):
+        """
+            Called when a key is released in the tree
+        """
+        if event.keyval == gtk.keysyms.Menu:
+            gtk.Menu.popup(self.menu, None, None, None, 0, event.time)
+            return True
+        
+        if event.keyval == gtk.keysyms.Left and gtk.gdk.MOD1_MASK & event.state:
+            self.go_back(self.tree)
+            return True
+        
+        if event.keyval == gtk.keysyms.Right and gtk.gdk.MOD1_MASK & event.state:
+            self.go_forward(self.tree)
+            return True
+        
+        if event.keyval == gtk.keysyms.Up and gtk.gdk.MOD1_MASK & event.state:
+            self.go_up(self.tree)
+            return True
+        
+        if event.keyval == gtk.keysyms.F5:
+            (mods,paths) = self.tree.get_selection().get_selected_rows()
+            self.refresh(self.tree)
+            if paths and paths[0]:
+                try:
+                    self.tree.set_cursor(paths[0], None, False)
+                except:
+                    pass
+            return True
+        return False
+
     def button_press(self, button, event):
         """
             Called when the user clicks on the playlist
@@ -219,23 +251,29 @@ class FilesPanel(panel.Panel):
         """
             Goes to the next entry in history
         """
-        self.i += 1 
-        self.load_directory(self.history[self.i], False)
-        if self.i >= len(self.history) - 1:
-            self.forward.set_sensitive(False)
-        if len(self.history):
-            self.back.set_sensitive(True)
+        try:
+            self.i += 1 
+            self.load_directory(self.history[self.i], False)
+            if self.i >= len(self.history) - 1:
+                self.forward.set_sensitive(False)
+            if len(self.history):
+                self.back.set_sensitive(True)
+        except IndexError:
+            return
             
     def go_back(self, widget):
         """
             Goes to the previous entry in history
         """
-        self.i -= 1
-        self.load_directory(self.history[self.i], False)
-        if self.i == 0:
-            self.back.set_sensitive(False)
-        if len(self.history):
-            self.forward.set_sensitive(True)
+        try:
+            self.i -= 1
+            self.load_directory(self.history[self.i], False)
+            if self.i == 0:
+                self.back.set_sensitive(False)
+            if len(self.history):
+                self.forward.set_sensitive(True)
+        except IndexError:
+            return
 
     def go_up(self, widget):
         """

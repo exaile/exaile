@@ -1,4 +1,4 @@
 Version='0.0.1'
 Authors=['Guillaume Lecomte <guillaume86@gmail.com>']
-Name=_('Contextual Infos')
-Description=_('Show various informations about the track currently playing')
+Name=_('Contextual Info')
+Description=_('Show various informations about the track currently playing.\r\nNeeds libwebkit >= 1.0.1 and python-webkit >= 1.1.2')

@@ -30,7 +30,7 @@ class ContextPopup(menu.TrackSelectMenu):
             Appends the selected tracks to the current playlist
         """
         selected = self.widget.get_selected_tracks()
-        pl = ex.exaile().gui.main.get_selected_playlist()
+        pl = xlgui.controller().main.get_selected_playlist()
         if pl:
             pl.playlist.add_tracks(selected, add_duplicates=False)
 
@@ -39,23 +39,22 @@ class ContextPopup(menu.TrackSelectMenu):
             Called when the user clicks the "toggle queue" item
         """
         selected = self.widget.get_selected_tracks()
-        pl = ex.exaile().gui.main.get_selected_playlist()
+        pl = xlgui.controller().main.get_selected_playlist()
         ex.exaile().queue.add_tracks(selected, add_duplicates=False)
         if pl:
             pl.playlist.add_tracks(selected, add_duplicates=False)
             pl.list.queue_draw()
-        
 
 class BrowserPage(webkit.WebView, providers.ProviderHandler):
 
     refresh_script = '''document.getElementById("%s").innerHTML="%s";onPageRefresh("%s");''';
+    history_length = 6
     
-    def __init__(self, controller, xml, theme):
+    def __init__(self, xml, theme):
         webkit.WebView.__init__(self)
         providers.ProviderHandler.__init__(self, "context_page")
         self.connect_events()
         self.hover = ''
-        self.controller = controller
         self.theme = theme
         self.loaded = False
         
@@ -63,6 +62,7 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         self.nowplaying = None
         
         self.history = []
+        self.history_index = 0
         
         self.xml = xml        
         self.setup_dnd()        
@@ -77,6 +77,8 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
             ex.exaile().player)
         event.add_callback(self.on_playback_end, 'playback_track_end',
             ex.exaile().player)
+        event.add_callback(self.on_tags_parsed, 'tags_parsed',
+            ex.exaile().player)
         
         #FIXME: HACK! ajust zoom level for the new webkit version
         try:
@@ -86,6 +88,12 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
             pass        
         
         gobject.idle_add(self.on_home_clicked)
+        
+    def on_tags_parsed(self, type, player, args):
+        (tr, args) = args
+        if not tr or tr.is_local(): 
+            return
+        #TODO
 
     def on_playback_start(self, obj=None, player=None, track=None):
         self.set_playing(track)
@@ -105,6 +113,11 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         self.prev_button.set_sensitive(False)
         self.prev_button.connect('clicked', self.on_prev_clicked)
         
+        self.next_button = self.xml.get_widget('NextButton')
+        self.next_button.set_tooltip_text('Next')
+        self.next_button.set_sensitive(False)
+        self.next_button.connect('clicked', self.on_next_clicked)
+        
         self.home_button = self.xml.get_widget('HomeButton')
         self.home_button.set_tooltip_text('Home')
         self.home_button.connect('clicked', self.on_home_clicked)
@@ -122,7 +135,10 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         self.lyrics_button.connect('clicked', self.on_lyrics)
     
     def on_prev_clicked(self, widget=None,param=None):
-        self.pop()
+        self.prev()
+        
+    def on_next_clicked(self, widget=None,param=None):
+        self.next()
     
     def on_lyrics(self, widget=None,param=None):
         self.push(LyricsPage(self.theme, ex.exaile().player._get_current()))
@@ -148,16 +164,28 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         self.execute_script(self.refresh_script % (data[0], u'%s' % data[1].replace('"', '\\"').replace('\n', '\\\n'), data[0]))        
     
     def push(self, page):
-        if self.currentpage:
-            self.history.append(self.currentpage)
+        self.history = self.history[:self.history_index+1]
+        self.history.append(page)
+        if len(self.history)>1:
             self.prev_button.set_sensitive(True)
-        self.history = self.history[-5:]
+        self.next_button.set_sensitive(False)
+        self.history = self.history[-self.history_length:]
+        self.history_index = len(self.history)-1
         self.load(page)
         
-    def pop(self):
-        self.load(self.history.pop())
-        if len(self.history) == 0:
-            self.prev_button.set_sensitive(False) 
+    def prev(self):
+        self.history_index -= 1
+        self.load(self.history[self.history_index])
+        self.next_button.set_sensitive(True)
+        if self.history_index == 0:
+            self.prev_button.set_sensitive(False)
+            
+    def next(self):
+        self.history_index +=1
+        self.load(self.history[self.history_index])
+        self.prev_button.set_sensitive(True)
+        if len(self.history) == self.history_index+1:
+            self.next_button.set_sensitive(False)
     
     def load(self, page):
         if self.currentpage != page:
@@ -227,12 +255,8 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         tracks = self.get_selected_tracks()
         for track in tracks:
             guiutil.DragTreeView.dragged_data[track.get_loc()] = track
-        urls = self._get_urls_for(tracks)
+        urls = guiutil.get_urls_for(tracks)
         selection.set_uris(urls)
-
-    def _get_urls_for(self, items):
-        return [urllib.quote(item.get_loc().encode(common.get_default_encoding()))
-            for item in items]
         
     def connect_events(self):
         self.connect('navigation-requested', self._navigation_requested_cb)
@@ -253,13 +277,21 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
             
     def un_url(self, url):
         return '/'.join(urllib.unquote(urlsplit).decode('idna') for urlsplit in url.split('/'))
-            
+    
+    def on_append_items(self):
+        """
+            Appends the selected tracks to the current playlist
+        """
+        selected = self.get_selected_tracks()
+        pl = xlgui.controller().main.get_selected_playlist()
+        if pl:
+            pl.playlist.add_tracks(selected, add_duplicates=False)
+    
     def _navigation_requested_cb(self, view, frame, networkRequest):
         link = self.un_url(networkRequest.get_uri()).split('://', 1)
         self.currentpage.link_clicked(link)
         if link[0] == 'track':
-            track = self.currentpage.tracks[int(link[1])]
-            self.controller.append_to_playlist([track])
+            self.on_append_items()
         elif link[0] == 'artist':
             self.push(ArtistPage(self.theme,link[1]))
         elif link[0] == 'tag':
@@ -442,7 +474,10 @@ class ContextPage(object):
         event.log_event('loading_finished', self, None, async=True)
     
     def update_field(self, name, *params):
-        self[name] = getattr(self, '_'+name.replace('-', '_'))(*params)
+        try:
+            self[name] = getattr(self, '_'+name.replace('-', '_'))(*params)
+        except:
+            self[name] = ''
         if name in [f[0] for f in self.get_template_fields()]:
             event.log_event('field_refresh', self, (name, self[name]), async=True)
      
@@ -1004,7 +1039,7 @@ class ContextPanel(gobject.GObject):
         
         self.theme = ContextTheme(settings.get_option('context/theme', 'classic'))
         
-        self._browser = BrowserPage(self, self.xml, self.theme)
+        self._browser = BrowserPage(self.xml, self.theme)
         
         self.setup_widgets()
         
@@ -1040,23 +1075,6 @@ class ContextPanel(gobject.GObject):
             window.destroy()
 
         return (self._child, self.name)
-
-    def append_to_playlist(self, tracks):
-        """
-            Adds items to the current playlist
-        """
-        add = tracks
-        if not add: return
-        
-        pl = self.controller.get_selected_playlist()
-        if pl:
-            tracks = pl.playlist.get_tracks()
-            found = []
-            for track in add:
-                if not track in tracks:
-                    if track != None:
-                        found.append(track)
-            pl.playlist.add_tracks(found)
    
 def exaile_ready(object=None, a=None, b=None):
     global PANEL

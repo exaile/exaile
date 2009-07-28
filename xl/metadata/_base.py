@@ -38,11 +38,7 @@ class BaseFormat(object):
     writable = False
 
     def __init__(self, loc):
-        # Workaround for Python bug: urllib.urlopen doesn't work when given a
-        # non-Latin URL as unicode object.
-        # This is also an excuse for us to check that loc does not contain
-        # non-ASCII characters (i.e. invalid URL).
-        self.loc = unicode(loc).encode('ascii')
+        self.loc = loc
         self.open = False
         self.mutagen = None
         self.load()
@@ -58,10 +54,6 @@ class BaseFormat(object):
         except urllib2.URLError, urllib2.HTTPError:
             logger.error("Couldn't open url to file %s" % self.loc)
             raise NotReadable
-        except WindowsError:
-            # Workaround for Python bug: in Windows, urllib.urlopen can't open
-            # local files with non-Latin filenames.
-            self.url = open(common.local_file_from_url(self.loc))
         loc = urlparse.urlsplit(self.loc)
         if loc[0] == "file":
             if self.MutagenType:

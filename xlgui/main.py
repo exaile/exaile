@@ -465,6 +465,7 @@ class MainWindow(object):
             remove_cur = True
         
         nb.append_page(pl, tab)
+        nb.set_tab_reorderable(pl, True)
         if remove_cur and not new_empty_pl and erase_empty:
             nb.remove_page(cur)
             nb.reorder_child(pl, cur)

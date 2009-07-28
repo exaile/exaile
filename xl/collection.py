@@ -140,7 +140,7 @@ class Collection(trackdb.TrackDB):
                 break
  
         to_rem = []
-        if not "://" in library.location: # TODO: URL
+        if not "://" in library.location:
             location = u"file://" + library.location
         else:
             location = library.location
@@ -585,7 +585,7 @@ class Library(object):
                         return False
                 count += 1
                 path = os.path.abspath(os.path.join(basepath, filename))
-                fullpath = common.url_from_local_file(path)
+                fullpath = "file://" + path
 
                 try:
                     trmtime = db.get_track_attr(fullpath, '__modified')
@@ -626,12 +626,12 @@ class Library(object):
 
         removals = []
         location = self.location
-        if "://" not in location: # TODO: URL
+        if "://" not in location:
             location = u"file://" + location
 
         for k, tr in db.tracks.iteritems():
             tr = tr._track
-            loc = urllib.url2pathname(tr.get_loc_for_io())
+            loc = tr.get_loc_for_io()
             try:
                 if not loc.startswith(location):
                     continue

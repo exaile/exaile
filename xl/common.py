@@ -17,6 +17,7 @@
 import locale, logging, os, random, re, string, threading, time, traceback, \
     urllib, urlparse
 from functools import wraps
+from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)
 _TESTING = False  # set to True for testing
@@ -155,24 +156,8 @@ def local_file_from_url(url):
         Returns a local file path based on a url. If you get strange errors,
         try running .encode() on the result
     """
-    if not url.startswith('file:'):
-        raise ValueError(
-            _("local_file_from_url must be called with a file: URL."))
     split = urlparse.urlsplit(url)
-    # Workaround for Python bug: when given a unicode object,
-    # urllib.url2pathname returns UTF-8 string in a unicode object.
-    urlpath = unicode(split[2]).encode('ascii')
-    return urllib.url2pathname(urlpath).decode('utf-8')
-
-def url_from_local_file(path):
-    """
-        Returns a URL from a local file path. Path should be in unicode.
-    """
-    urlpath = urllib.pathname2url(path.encode('utf-8'))
-    if urlpath.startswith('//'):
-        return 'file:' + urlpath
-    else:
-        return 'file://' + urlpath
+    return urlparse.urlunsplit(('', '') + split[2:])
 
 class idict(dict): 
     """

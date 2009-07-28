@@ -232,7 +232,7 @@ class Main(object):
         if result == gtk.RESPONSE_OK:
             files = dialog.get_filenames()
             for file in files:
-                self.open_uri(common.url_from_local_file(file), play=False)
+                self.open_uri(file, play=False)
 
     def open_uri(self, uri, play=True):
         """

@@ -33,6 +33,7 @@
                           <widget class="GtkImage" id="image3">
                             <property name="visible">True</property>
                             <property name="stock">gtk-new</property>
+                            <property name="icon-size">1</property>
                           </widget>
                         </child>
                       </widget>
@@ -76,6 +77,7 @@
                           <widget class="GtkImage" id="image5">
                             <property name="visible">True</property>
                             <property name="stock">gtk-save-as</property>
+                            <property name="icon-size">1</property>
                           </widget>
                         </child>
                       </widget>
@@ -150,6 +152,7 @@
                           <widget class="GtkImage" id="image7">
                             <property name="visible">True</property>
                             <property name="stock">gtk-jump-to</property>
+                            <property name="icon-size">1</property>
                           </widget>
                         </child>
                       </widget>
@@ -256,6 +259,7 @@
                           <widget class="GtkImage" id="image10">
                             <property name="visible">True</property>
                             <property name="stock">gtk-refresh</property>
+                            <property name="icon-size">1</property>
                           </widget>
                         </child>
                       </widget>

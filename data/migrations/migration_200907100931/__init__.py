@@ -176,7 +176,7 @@ def _migrate_playlists(db, newdb, playlists):
         rows = db.select('SELECT paths.name FROM playlist_items,paths WHERE '
             'playlist_items.path=paths.id AND playlist=?', (p_row[1],))
 
-        locs = [common.url_from_local_file(row[0]) for row in rows]
+        locs = ['file://' + row[0] for row in rows]
         tracks = newdb.get_tracks_by_locs(locs)
 
         if tracks:

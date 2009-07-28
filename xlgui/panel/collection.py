@@ -448,13 +448,14 @@ class CollectionPanel(panel.Panel):
             
             @param node: the node
         """
+        previously_loaded = False
         iter_sep = None
         if parent == None:
             depth = 0
         else:
             if self.model.iter_n_children(parent) != 1 or \
                 self.model.get_value(self.model.iter_children(parent), 1) != None:
-                return
+                previously_loaded = True
             iter_sep = self.model.iter_children(parent)
             depth = self.model.iter_depth(parent) + 1
 
@@ -474,6 +475,8 @@ class CollectionPanel(panel.Panel):
         try:
             tag = self.order[depth]
             self.tracks = self.collection.search(search)
+            if previously_loaded:   # leave after setting self.tracks, so _find_tracks searches right branch
+                return
 
             sort_by = []
             if depth > 0 and self.order[depth-1] == "tracknumber":

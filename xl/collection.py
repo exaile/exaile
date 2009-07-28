@@ -31,6 +31,7 @@ from xl.settings import SettingsManager
 import os, time, os.path, shutil, logging
 import gobject
 import urllib
+import traceback
 
 logger = logging.getLogger(__name__)
 
@@ -117,7 +118,7 @@ class Collection(trackdb.TrackDB):
             self.libraries[loc] = library
             library.set_collection(self)
         else:
-            pass # TODO: raise an exception or something here
+            traceback.print_exc()
         self.serialize_libraries()
         self._dirty = True
 
@@ -210,7 +211,7 @@ class Collection(trackdb.TrackDB):
             try:
                 self.save_to_location()
             except AttributeError:
-                pass
+                traceback.print_exc()
 
         event.log_event('scan_progress_update', self, 100)
 
@@ -225,11 +226,15 @@ class Collection(trackdb.TrackDB):
         """
         self._running_count = count
         count = count + self._running_total_count
+
+        if self.file_count == 0:
+            event.log_event('scan_progress_update', self, 100)
+
         try:
             event.log_event('scan_progress_update', self,
                 int((float(count) / float(self.file_count)) * 100))
         except ZeroDivisionError:
-            print type, library, count
+            pass
 
     def serialize_libraries(self):
         """
@@ -488,6 +493,7 @@ class Library(object):
             try:
                 track = self.collection.tracks[loc]
             except KeyError:    
+                traceback.print_exc()
                 continue
 
             self.collection.remove(track)
@@ -541,6 +547,7 @@ class Library(object):
             if not album in ccheck[basedir]:
                 ccheck[basedir][album] = []
         except TypeError:
+            traceback.print_exc()
             return
 
         if ccheck[basedir][album] and not \
@@ -582,8 +589,10 @@ class Library(object):
 
                 try:
                     trmtime = db.get_track_attr(fullpath, '__modified')
-                except:
+                except TypeError:
                     pass
+                except:
+                    traceback.print_exc()
                 else:
                     mtime = os.path.getmtime(path)
                     if mtime == trmtime:
@@ -619,16 +628,19 @@ class Library(object):
         location = self.location
         if "://" not in location: # TODO: URL
             location = u"file://" + location
-        
-        for f in (x for x in db.tracks.iterkeys()):
+
+        for k, tr in db.tracks.iteritems():
+            tr = tr._track
+            loc = urllib.url2pathname(tr.get_loc_for_io())
             try:
-                if not f.startswith(location):
+                if not loc.startswith(location):
                     continue
             except UnicodeDecodeError:
                 continue
-            f2 = f[7:]
-            if not os.path.exists(f2):
-                removals.append(db.get_track_by_loc(f))
+
+            if not os.path.exists(loc.replace('file://', '')):
+                removals.append(tr)
+       
         for tr in removals:
             logger.debug(u"Removing " + unicode(tr))
             db.remove(tr)
@@ -714,6 +726,7 @@ class Library(object):
             try:
                 os.unlink(path)
             except OSError: # file not found?
+                traceback.print_exc()
                 pass
             except:
                 common.log_exception(logger)

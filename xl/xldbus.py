@@ -100,6 +100,7 @@ def check_exit(options, args):
             'Next', 
             'Prev', 
             'PlayPause',
+            'StopAfterCurrent'
             )
     for command in run_commands:
         if getattr(options, command):
@@ -228,6 +229,14 @@ class DbusManager(dbus.service.Object):
             Toggle Play or Pause
         """
         self.exaile.player.toggle_pause()
+
+    @dbus.service.method("org.exaile.Exaile")
+    def StopAfterCurrent(self):
+        """
+            Toggle stopping after current track
+        """
+        current_track = self.exaile.queue.get_current()
+        self.exaile.queue.stop_track = current_track
 
     @dbus.service.method("org.exaile.Exaile", None, "s")
     def CurrentPosition(self):

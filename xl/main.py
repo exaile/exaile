@@ -275,6 +275,9 @@ class Exaile(object):
             default=False, help=_("Play"))
         p.add_option("-t", "--play-pause", dest="PlayPause", 
             action="store_true", default=False, help=_("Toggle Play or Pause"))
+        p.add_option("--stop-after-current", dest="StopAfterCurrent",
+            action="store_true", default=False,
+            help=_("Stop playback after current track"))
 
         # Current song options
         p.add_option("-q", "--query", dest="Query", action="store_true",

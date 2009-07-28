@@ -272,6 +272,7 @@ class ShoutcastRadioStation(RadioStation):
         """
             Called when the search is finished
         """
+        if not lists: return
         dialog = commondialogs.ListDialog(_("Search Results"))
         dialog.set_items(lists)
         dialog.connect('response', self._search_response)

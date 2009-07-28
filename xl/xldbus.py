@@ -54,7 +54,7 @@ def check_exit(options, args):
                     args = sys.stdin.read().split('\n')
                 args = [ os.path.abspath(arg) for arg in args ]
                 print args
-                iface.Enqueue(args)
+                iface.enqueue(args)
             
     if not iface:
         return False
@@ -258,10 +258,11 @@ class DbusManager(dbus.service.Object):
         self.exaile.gui.open_uri(filename)
 
     @dbus.service.method("org.exaile.Exaile", "as")
-    def Enqueue(self, filenames):
+    def enqueue(self, filenames):
         """
             Adds the specified files to the current playlist
         """
+        import xl.playlist
         from xl import track  # do this here to avoid loading 
                               # settings when issuing dbus commands
         # FIXME: Get rid of dependency on xlgui
@@ -269,8 +270,18 @@ class DbusManager(dbus.service.Object):
         pl = self.exaile.gui.main.get_selected_playlist()
         column, descending = pl.get_sort_by()
         tracks = []
+        playlists = []
 
         for file in filenames:
+            try:
+                pl = xl.playlist.import_playlist(file)
+                tracks = pl.get_tracks()
+                continue
+            except xl.playlist.InvalidPlaylistTypeException:
+                pass
+            except:
+                traceback.print_exc()
+                
             tracks += track.get_tracks_from_uri(file)
 
         print tracks

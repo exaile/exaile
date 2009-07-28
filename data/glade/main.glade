@@ -538,6 +538,7 @@
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="tooltip" translatable="yes">Shuffle playback order</property>
+                        <property name="relief">none</property>
                         <signal name="toggled" handler="on_shuffle_button_toggled"/>
                         <child>
                           <widget class="GtkImage" id="shuffle_button_image">
@@ -558,6 +559,7 @@
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="tooltip" translatable="yes">Repeat playlist</property>
+                        <property name="relief">none</property>
                         <signal name="toggled" handler="on_repeat_button_toggled"/>
                         <child>
                           <widget class="GtkImage" id="repeat_button_image">
@@ -578,6 +580,7 @@
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="tooltip" translatable="yes">Dynamically add similar tracks to the playlist</property>
+                        <property name="relief">none</property>
                         <signal name="toggled" handler="on_dynamic_button_toggled"/>
                         <child>
                           <widget class="GtkImage" id="dynamic_button_image">

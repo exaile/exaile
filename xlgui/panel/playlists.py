@@ -16,7 +16,7 @@ import gtk, urllib, os.path, time, gobject
 from xlgui import panel, guiutil, xdg, commondialogs
 from xlgui import menu, filtergui
 from xlgui import playlist as guiplaylist
-from xl import playlist, settings
+from xl import playlist, settings, event
 from xlgui.filtergui import MultiEntryField, EntryField
 from xl.nls import gettext as _
 
@@ -479,6 +479,8 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         self._load_playlists()
 
     def _connect_events(self):
+        event.add_callback(self.refresh_playlists, 'track_tags_changed')
+
         self.track_menu.connect('remove-track', lambda *e: 
             self.remove_selected_track())
 
@@ -508,6 +510,11 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             if item == 'smart':
                 menu.connect('edit-playlist', lambda *e:
                     self.edit_selected_smart_playlist())
+
+    def refresh_playlists(self, type, object, tracks):
+        if settings.get_option('gui/sync_on_tag_change', True):
+            for pl in self.playlist_nodes:
+                self.update_playlist_node(pl)
 
     def _load_playlists(self):
         """

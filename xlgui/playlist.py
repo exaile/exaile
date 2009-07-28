@@ -91,6 +91,7 @@ class Playlist(gtk.VBox):
         event.add_callback(self.on_add_tracks, 'tracks_added', self.playlist)
         event.add_callback(self.on_remove_tracks, 'tracks_removed',
             self.playlist)
+        event.add_callback(self.refresh_changed_tracks, 'track_tags_changed')
 
     def properties_dialog(self):
         """
@@ -105,11 +106,21 @@ class Playlist(gtk.VBox):
         dialog.hide()
 
         if result == gtk.RESPONSE_OK:
-            selection = self.list.get_selection()
-            model, paths = selection.get_selected_rows()
-            iter = self.model.get_iter(paths[0])
-            self.update_iter(iter, tracks[0])
-            self.list.queue_draw()
+            event.log_event('track_tags_changed', self, [tracks[0]])
+    
+    def refresh_changed_tracks(self, type, object, tracks):
+        if not tracks or tracks == [] or not settings.get_option('gui/sync_on_tag_change', True):
+            return
+        it = self.model.get_iter_first()
+        while it:
+            cur = self.model.get_value(it, 0)
+            for track in tracks:
+                if cur.get_loc() == track.get_loc():
+                    newtrack = self.exaile.collection.get_track_by_loc(cur.get_loc())
+                    self.update_iter(it, newtrack)
+                    tracks.remove(track)
+            it = self.model.iter_next(it)
+        self.list.queue_draw()
 
     def queue_selected_tracks(self):
         """

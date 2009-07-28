@@ -130,6 +130,7 @@ class CollectionPanel(panel.Panel):
             'on_refresh_button_clicked': lambda *e: self.load_tree(),
             'on_empty_collection_button_clicked': lambda *x: xlgui.controller().collection_manager()
         })
+        event.add_callback(self.refresh_tags_in_tree, 'track_tags_changed')
 
     def on_search(self, *e):
         """
@@ -330,6 +331,13 @@ class CollectionPanel(panel.Panel):
             except IndexError:
                 break
         return terms
+        
+    def refresh_tags_in_tree(self, object, type, tracks):
+        """
+            For now, basically calls load_tree.
+        """
+        if settings.get_option('gui/sync_on_tag_change', True):
+            self.load_tree()
 
     def load_tree(self):
         """

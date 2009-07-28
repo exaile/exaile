@@ -1,5 +1,4 @@
-Version="0.0.1"
-Authors=["Aren Olson <reacocard@gmail.com>"]
-Name="Replaygain"
-Description="Enables replaygain support"
-
+Version='0.0.1'
+Authors=['Aren Olson <reacocard@gmail.com>']
+Name=_('Replaygain')
+Description=_('Enables replaygain support')

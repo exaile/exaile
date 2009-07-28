@@ -1,4 +1,4 @@
-Version="0.0.1"
-Authors=["Adam Olsen <arolsen@gmail.com>"]
-Name="Amazon Covers"
-Description="Searches Amazon for covers"
+Version='0.0.1'
+Authors=['Adam Olsen <arolsen@gmail.com>']
+Name=_('Amazon Covers')
+Description=_('Searches Amazon for covers')

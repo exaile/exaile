@@ -1,4 +1,4 @@
-Version="0.0.1"
-Authors=["Aren Olson <reacocard@gmail.com>"]
-Name="LastFM Dynamic Search"
-Description="The Last.fm backend for dynamic playlists"
+Version='0.0.1'
+Authors=['Aren Olson <reacocard@gmail.com>']
+Name=_('LastFM Dynamic Search')
+Description=_('The Last.fm backend for dynamic playlists')

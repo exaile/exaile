@@ -1,4 +1,4 @@
-Version="0.0.1"
-Authors=["Adam Olsen <arolsen@gmail.com"]
-Name="Shoutcast Radio"
-Description="Shoutcast Radio list"
+Version='0.0.1'
+Authors=['Adam Olsen <arolsen@gmail.com']
+Name=_('Shoutcast Radio')
+Description=_('Shoutcast Radio list')

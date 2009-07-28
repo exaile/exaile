@@ -1,5 +1,4 @@
-Version="0.0.1"
-Authors=["Anthony Waters <awaters1@gmail.com>"]
-Name="Lyrics Fly"
-Description="Plugin to fetch lyrics from lyricsfly.com"
-
+Version='0.0.1'
+Authors=['Anthony Waters <awaters1@gmail.com>']
+Name=_('Lyrics Fly')
+Description=_('Plugin to fetch lyrics from lyricsfly.com')

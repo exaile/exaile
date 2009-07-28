@@ -1,4 +1,4 @@
-Version="0.0.1"
-Authors=["Aren Olson <reacocard@gmail.com>"]
-Name="Gnome Multimedia Keys"
-Description="Adds support for controling Exaile via Gnome's multimedia key system. Compatible with Gnome >= 2.20.x"
+Version='0.0.1'
+Authors=['Aren Olson <reacocard@gmail.com>']
+Name=_('GNOME Multimedia Keys')
+Description=_('Adds support for controlling Exaile via Gnome\'s multimedia key system. Compatible with Gnome >= 2.20.x')

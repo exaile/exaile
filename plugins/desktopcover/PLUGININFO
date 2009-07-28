@@ -1,4 +1,4 @@
-Version="1.0.0"
-Authors=["Johannes Sasongko <sasongko@gmail.com>"]
-Name="Desktop Cover"
-Description="Displays the current album cover on the desktop"
+Version='1.0.0'
+Authors=['Johannes Sasongko <sasongko@gmail.com>']
+Name=_('Desktop Cover')
+Description=_('Displays the current album cover on the desktop')

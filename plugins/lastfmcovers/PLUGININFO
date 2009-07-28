@@ -1,4 +1,4 @@
-Version="0.0.1"
-Authors=["Adam Olsen <arolsen@gmail.com>"]
-Name="LastFM Cover Search"
-Description="Searches LastFM for covers"
+Version='0.0.1'
+Authors=['Adam Olsen <arolsen@gmail.com>']
+Name=_('LastFM Cover Search')
+Description=_('Searches LastFM for covers')

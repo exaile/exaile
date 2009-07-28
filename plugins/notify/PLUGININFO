@@ -1,4 +1,4 @@
-Version="0.0.1"
-Authors=["Adam Olsen <arolsen@gmail.com>"]
-Name="Notify"
-Description="Pops up a notification when playback of a track starts"
+Version='0.0.1'
+Authors=['Adam Olsen <arolsen@gmail.com>']
+Name=_('Notify')
+Description=_('Pops up a notification when playback of a track starts')

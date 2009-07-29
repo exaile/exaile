@@ -111,8 +111,6 @@ class Main(object):
 
         event.add_callback(self._on_quit_application, 'quit_application')
 
-        self.main.window.show_all()
-
         self.device_panels = {}
         event.add_callback(self.add_device_panel, 'device_connected')
         event.add_callback(self.remove_device_panel, 'device_disconnected')
@@ -133,11 +131,12 @@ class Main(object):
             'on_queue_manager_item_activate': self.queue_manager,
             'on_preferences_item_activate': lambda *e: self.show_preferences(),
             'on_device_manager_item_activate': lambda *e: self.show_devices(),
-            'on_album_art_item_activate': self.show_cover_manager,
+            'on_cover_manager_item_activate': self.show_cover_manager,
             'on_open_item_activate': self.open_dialog,
             'on_open_url_item_activate': self.open_url,
             'on_export_current_playlist_activate': self.export_current_playlist,
             'on_panel_notebook_switch_page': self.on_panel_switch,
+            'on_track_properties_activate':self.on_track_properties
         })
 
     def _on_quit_application(self, event, sender, data):
@@ -339,6 +338,10 @@ class Main(object):
         pl.playlist.randomize()
         pl._set_tracks(pl.playlist.get_tracks())
         pl.reorder_songs()
+    
+    def on_track_properties(self, *e):
+        pl = self.main.get_selected_playlist()
+        pl.properties_dialog()
 
     def add_panel(self, child, name):
         """

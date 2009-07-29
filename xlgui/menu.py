@@ -149,10 +149,12 @@ class PlaylistMenu(GenericTrackMenu):
         self.add_playlist_menu = AddToPlaylistMenu(playlist, playlists)
         self.append_menu(_('Add to custom playlist'), 
             self.add_playlist_menu, 'gtk-add')
-        self.append(_('Properties'), lambda *e: self.emit('properties'),
-            'gtk-properties') 
+        self.append_separator()
         self.append(_('Remove'), lambda *e: self.remove_selected_tracks(), 
             'gtk-remove')
+        self.append_separator()
+        self.append(_('Properties'), lambda *e: self.emit('properties'),
+            'gtk-properties') 
 
         self.playlist_tab_menu = None
         # Defer menu setup until exaile is loaded

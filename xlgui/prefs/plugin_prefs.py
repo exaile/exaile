@@ -136,7 +136,7 @@ class PluginManager(object):
             try:
                 self.plugins.install_plugin(dialog.get_filename())
             except plugs.InvalidPluginError, e:
-                commondialogs.error(self.parent, e.message)
+                commondialogs.error(self.xml.get_widget('PreferencesDialog'), e.message)
                 return
                 
             self._load_plugin_list()
@@ -172,14 +172,14 @@ class PluginManager(object):
             try:
                 self.plugins.enable_plugin(plugin)
             except Exception, e:
-                commondialogs.error(self.parent, _('Could '
+                commondialogs.error(self.xml.get_widget('PreferencesDialog'), _('Could '
                     'not enable plugin: %s') % str(e))
                 return
         else:
             try:
                 self.plugins.disable_plugin(plugin)
             except Exception, e:
-                commondialogs.error(self.parent, _('Could '
+                commondialogs.error(self.xml.get_widget('PreferencesDialog'), _('Could '
                     'not disable plugin: %s') % str(e))
                 return
 

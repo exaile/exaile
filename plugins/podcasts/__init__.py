@@ -40,11 +40,12 @@ def exaile_ready(event, exaile, nothing):
         controller.add_panel(*PODCASTS.get_panel())
 
 def disable(exaile):
+    global PODCASTS
+    
     if PODCASTS:
         conroller = xlgui.controller()
         conroller.remove_panel(PODCASTS.get_panel()[0])
         PODCASTS = None
-        PODCASTS.destroy()
 
 class PodcastPanel(panel.Panel):
     gladeinfo = ('file://' + os.path.join(BASEDIR, 'podcasts.glade'), 
@@ -193,8 +194,9 @@ class PodcastPanel(panel.Panel):
         new_pl.add_tracks(pl.get_tracks())
         main.mainwindow().add_playlist(new_pl)
 
-    @guiutil.idle_add()
+    @common.threaded
     def _load_podcasts(self):
+        self._set_status(_("Loading Podcasts..."))
         try:
             h = open(self.podcast_file)
 
@@ -207,11 +209,19 @@ class PodcastPanel(panel.Panel):
                 self.podcasts.append((title, url))
         except (IOError, OSError):
             logger.info('WARNING: could not open podcast file')
+            self._set_status(_('Idle.'))
+            return
 
+        self._done_loading_podcasts()
+
+    @guiutil.idle_add()
+    def _done_loading_podcasts(self):
         self.model.clear()
         self.podcasts.sort()
         for (title, url) in self.podcasts:
             self.model.append([title, url])
+
+        self._set_status(_('Idle.'))
 
     def _save_podcasts(self):
         try:

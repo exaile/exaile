@@ -70,7 +70,11 @@ def check_exit(options, args):
 
     for command, attr in info_commands.iteritems():
         if getattr(options, command):
-            print iface.GetTrackAttr(attr)
+            value = iface.GetTrackAttr(attr)
+            if value is None:
+                print _('Not playing.')
+            else:
+                print value
             comm = True
 
     modify_commands = (
@@ -100,6 +104,7 @@ def check_exit(options, args):
             'Next', 
             'Prev', 
             'PlayPause',
+            'StopAfterCurrent'
             )
     for command in run_commands:
         if getattr(options, command):
@@ -108,7 +113,9 @@ def check_exit(options, args):
 
     query_commands = (
             'CurrentPosition',
+            'CurrentProgress',
             'GetVolume',
+            'Query',
             )
 
     for command in query_commands:
@@ -117,7 +124,6 @@ def check_exit(options, args):
             comm = True
 
     to_implement = (
-            'Query',
             'GuiQuery',
             )
     for command in to_implement:
@@ -171,7 +177,7 @@ class DbusManager(dbus.service.Object):
             if type(value) == list:
                 return u"\n".join(value)
             return unicode(value)
-        return _('Not playing.')
+        return value
 
     @dbus.service.method("org.exaile.Exaile", 'sv')
     def SetTrackAttr(self, attr, value):
@@ -229,15 +235,36 @@ class DbusManager(dbus.service.Object):
         """
         self.exaile.player.toggle_pause()
 
-    @dbus.service.method("org.exaile.Exaile", None, "s")
-    def CurrentPosition(self):
+    @dbus.service.method("org.exaile.Exaile")
+    def StopAfterCurrent(self):
         """
-            Returns the position inside the current track (in percent)
+            Toggle stopping after current track
+        """
+        current_track = self.exaile.queue.get_current()
+        self.exaile.queue.stop_track = current_track
+
+    @dbus.service.method("org.exaile.Exaile", None, "s")
+    def CurrentProgress(self):
+        """
+            Returns the progress into the current track (in percent)
         """
         progress = self.exaile.player.get_progress()
         if progress == -1:
             return ""
         return str(int(progress * 100))
+
+    @dbus.service.method("org.exaile.Exaile", None, "s")
+    def CurrentPosition(self):
+        """
+            Returns the position inside the current track (as time)
+        """
+        progress = self.exaile.player.get_progress()
+        if progress == -1:
+            return ''
+        length = float(self.GetTrackAttr('__length'))
+        progress = length * progress
+
+        return '%d:%02d' % (progress // 60, progress % 60)
 
     @dbus.service.method("org.exaile.Exaile", None, "s")
     def GetVolume(self):
@@ -247,7 +274,37 @@ class DbusManager(dbus.service.Object):
         return str(self.exaile.player.get_volume())
 
     @dbus.service.method("org.exaile.Exaile", None, "s")
+    def Query(self):
+        """
+            Returns information about the currently playing track
+        """
+        current_track = self.exaile.queue.get_current()
+        if current_track is None or not \
+           (self.exaile.player.is_playing() or self.exaile.player.is_paused()):
+            return _('Not playing.')
+
+        length = float(self.GetTrackAttr('__length'))
+        length = '%d:%02d' % (length // 60, length % 60)
+
+        result = _('status: %(status)s, title: %(title)s, artist: %(artist)s,'
+                   ' album: %(album)s, length: %(length)s,'
+                   ' position: %(progress)s%% [%(position)s]') % {
+                         'status': self.exaile.player.get_state(),
+                         'title': self.GetTrackAttr('title'),
+                         'artist': self.GetTrackAttr('artist'),
+                         'album': self.GetTrackAttr('album'),
+                         'length': length,
+                         'progress': self.CurrentProgress(),
+                         'position': self.CurrentPosition(),
+                     }
+
+        return result
+
+    @dbus.service.method("org.exaile.Exaile", None, "s")
     def GetVersion(self):
+        """
+            Returns the version of Exaile
+        """
         return self.exaile.get_version()
 
     @dbus.service.method("org.exaile.Exaile", "s")

@@ -89,6 +89,7 @@ class TrayIcon(gobject.GObject):
         """
         self.emit('toggle-tray')
         if not self.window.get_property('visible'):
+            self.window.deiconify()
             self.window.present()
         self.menu = None
         self.icon = None
@@ -196,6 +197,7 @@ class TrayIcon(gobject.GObject):
             if not toggle_handled and self.window.is_active():
                 self.window.hide()
             elif not toggle_handled:
+                self.window.deiconify()
                 self.window.present()
         if event.button == 2:
             self._play_pause_clicked()
@@ -222,6 +224,7 @@ class TrayIcon(gobject.GObject):
         if not toggle_handled and self.window.is_active():
             self.window.hide()
         elif not toggle_handled:
+            self.window.deiconify()
             self.window.present()
 
     def _query_tooltip(self, *e):

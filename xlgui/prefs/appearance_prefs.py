@@ -25,9 +25,13 @@ class SplashPreference(widgets.CheckPrefsItem):
     default = True
     name = 'gui/use_splash'
 
-class TrayPreference(widgets.CheckPrefsItem):
+class UseTrayPreference(widgets.CheckPrefsItem):
     default = False
-    name = 'gui/use_tray' 
+    name = 'gui/use_tray'
+
+class MinimizeToTrayPreference(widgets.CheckPrefsItem):
+    default = False
+    name = 'gui/minimize_to_tray'
 
 class EnsureVisiblePreference(widgets.CheckPrefsItem):
     default = True

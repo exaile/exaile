@@ -188,10 +188,14 @@ class Exaile(object):
         # Setup GUI
         if self.options.StartGui:
             logger.info(_("Loading interface..."))
+
             import xlgui
             self.gui = xlgui.Main(self)
-            import gobject
+            if self.options.StartMinimized:
+                self.gui.main.window.iconify()
+            self.gui.main.window.show_all()
 
+            import gobject
             if self.splash is not None:
                 gobject.idle_add(self.splash.destroy)
             event.log_event("gui_loaded", self, None)
@@ -271,6 +275,9 @@ class Exaile(object):
             default=False, help=_("Play"))
         p.add_option("-t", "--play-pause", dest="PlayPause", 
             action="store_true", default=False, help=_("Toggle Play or Pause"))
+        p.add_option("--stop-after-current", dest="StopAfterCurrent",
+            action="store_true", default=False,
+            help=_("Stop playback after current track"))
 
         # Current song options
         p.add_option("-q", "--query", dest="Query", action="store_true",
@@ -291,7 +298,10 @@ class Exaile(object):
             default=False, help=_('Get rating for current song'))
         p.add_option("--current-position", dest="CurrentPosition", 
             action="store_true", default=False, 
-            help=_("Print the position inside the current track as a percentage"))
+            help=_("Print the position inside the current track as time"))
+        p.add_option("--current-progress", dest="CurrentProgress",
+            action="store_true", default=False,
+            help=_("Print the progress inside the current track as percentage"))
 
         # Volume options
         p.add_option("-i", "--increase-vol", dest="IncreaseVolume", action="store", 
@@ -306,7 +316,7 @@ class Exaile(object):
             default=False, help=_("Start new instance"))
         p.add_option("--version", dest="ShowVersion", action="store_true")
         p.add_option("--start-minimized", dest="StartMinimized", action="store_true",
-            default=False, help=_("Start Exaile minimized to tray, if possible"))
+            default=False, help=_("Start Exaile minimized (to tray, if possible)"))
         p.add_option("--safemode", dest="SafeMode", action="store_true",
             default=False, help=_("Start in safe mode - sometimes useful "
             "when you're running into problems"))

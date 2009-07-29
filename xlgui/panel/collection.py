@@ -130,7 +130,34 @@ class CollectionPanel(panel.Panel):
             'on_refresh_button_clicked': lambda *e: self.load_tree(),
             'on_empty_collection_button_clicked': lambda *x: xlgui.controller().collection_manager()
         })
-
+        self.tree.connect('key-release-event', self.on_key_released)
+        event.add_callback(self.refresh_tags_in_tree, 'track_tags_changed')
+    
+    def on_key_released(self, widget, event):
+        """
+            Called when a key is released in the tree
+        """
+        if event.keyval == gtk.keysyms.Menu:
+            gtk.Menu.popup(self.menu, None, None, None, 0, event.time)
+            return True
+        
+        if event.keyval == gtk.keysyms.Left:
+            (mods,paths) = self.tree.get_selection().get_selected_rows()
+            for path in paths:
+                self.tree.collapse_row(path)
+            return True
+        
+        if event.keyval == gtk.keysyms.Right:
+            (mods,paths) = self.tree.get_selection().get_selected_rows()
+            for path in paths:
+                self.tree.expand_row(path, False)
+            return True
+        
+        if event.keyval == gtk.keysyms.Return:
+            self.append_to_playlist()
+            return True
+        return False
+    
     def on_search(self, *e):
         """
             Searches tracks and reloads the tree
@@ -170,15 +197,8 @@ class CollectionPanel(panel.Panel):
         tracks = self.get_selected_tracks()
         for track in tracks:
             guiutil.DragTreeView.dragged_data[track.get_loc()] = track
-        urls = self._get_urls_for(tracks)
+        urls = guiutil.get_urls_for(tracks)
         selection.set_uris(urls)
-
-    def _get_urls_for(self, items):
-        """
-            Returns the items' URLs
-        """
-        return [urllib.quote(item.get_loc().encode(common.get_default_encoding()))
-            for item in items]
 
     def _setup_tree(self):
         """
@@ -262,6 +282,8 @@ class CollectionPanel(panel.Panel):
             return False
         elif event.button == 3:
             self.menu.popup(event)
+            if not path:
+                return False
             (mods,paths) = selection.get_selected_rows()
             if (path[0] in paths):
                 if event.state & (gtk.gdk.SHIFT_MASK|gtk.gdk.CONTROL_MASK):
@@ -330,6 +352,13 @@ class CollectionPanel(panel.Panel):
             except IndexError:
                 break
         return terms
+        
+    def refresh_tags_in_tree(self, object, type, tracks):
+        """
+            For now, basically calls load_tree.
+        """
+        if settings.get_option('gui/sync_on_tag_change', True):
+            self.load_tree()
 
     def load_tree(self):
         """
@@ -447,13 +476,14 @@ class CollectionPanel(panel.Panel):
             
             @param node: the node
         """
+        previously_loaded = False
         iter_sep = None
         if parent == None:
             depth = 0
         else:
             if self.model.iter_n_children(parent) != 1 or \
                 self.model.get_value(self.model.iter_children(parent), 1) != None:
-                return
+                previously_loaded = True
             iter_sep = self.model.iter_children(parent)
             depth = self.model.iter_depth(parent) + 1
 
@@ -473,6 +503,8 @@ class CollectionPanel(panel.Panel):
         try:
             tag = self.order[depth]
             self.tracks = self.collection.search(search)
+            if previously_loaded:   # leave after setting self.tracks, so _find_tracks searches right branch
+                return
 
             sort_by = []
             if depth > 0 and self.order[depth-1] == "tracknumber":

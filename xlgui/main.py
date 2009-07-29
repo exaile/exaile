@@ -266,14 +266,18 @@ class NotebookTab(gtk.EventBox):
             self.title = dialog.get_value()
             pl = self.main.get_selected_playlist()
             pl.set_name(self.title)
+            pl.playlist.set_name(self.title)
             self.main.controller.panels['playlists'].add_new_playlist(pl.playlist.get_tracks(), self.title)
             pl.playlist.set_is_custom(True)
             pl.emit('customness-changed', True)
             pl.set_needs_save(False)
+            event.log_event('custom_playlist_saved', self, pl.playlist)
         
     def do_save_changes_to_custom(self, *args):
-        self.main.get_selected_playlist().set_needs_save(False)
-        self.main.playlist_manager.save_playlist(self.main.get_selected_playlist().playlist, overwrite = True)
+        pl = self.main.get_selected_playlist()
+        pl.set_needs_save(False)
+        self.main.playlist_manager.save_playlist(pl.playlist, overwrite = True)
+        event.log_event('custom_playlist_saved', self, pl.playlist)
 
     def do_close(self, *args):
         """
@@ -545,7 +549,9 @@ class MainWindow(object):
         box.pack_start(self.filter.entry, True, True)
 
     def on_queue(self):
-        """Toggles queue on the current playlist"""
+        """
+            Toggles queue on the current playlist
+        """
         cur_page = self.playlist_notebook.get_children()[
                 self.playlist_notebook.get_current_page()]
         cur_page.menu.on_queue()
@@ -1108,13 +1114,21 @@ class MainWindow(object):
 
     def window_state_change_event(self, widget, event):
         """
-            Saves the current maximized and fullscreen states
+            Saves the current maximized and fullscreen
+            states and minimizes to tray if requested
         """
         if event.changed_mask & gtk.gdk.WINDOW_STATE_MAXIMIZED:
             settings.set_option('gui/mainw_maximized',
                 bool(event.new_window_state & gtk.gdk.WINDOW_STATE_MAXIMIZED))
         if event.changed_mask & gtk.gdk.WINDOW_STATE_FULLSCREEN:
             self._fullscreen = bool(event.new_window_state & gtk.gdk.WINDOW_STATE_FULLSCREEN)
+
+        if settings.get_option('gui/minimize_to_tray', False) and \
+           self.controller.tray_icon is not None and \
+           event.changed_mask & gtk.gdk.WINDOW_STATE_ICONIFIED and \
+           event.new_window_state & gtk.gdk.WINDOW_STATE_ICONIFIED:
+            self.window.hide()
+
         return False
 
 def get_playlist_nb():

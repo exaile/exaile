@@ -23,7 +23,7 @@
                   <widget class="GtkMenu" id="file_menu">
                     <child>
                       <widget class="GtkImageMenuItem" id="new_playlist_item">
-                        <property name="label">_New Playlist</property>
+                        <property name="label" translatable="yes">_New Playlist</property>
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">False</property>
@@ -67,7 +67,7 @@
                     </child>
                     <child>
                       <widget class="GtkImageMenuItem" id="export_current_playlist">
-                        <property name="label">_Export current playlist</property>
+                        <property name="label" translatable="yes">_Export current playlist</property>
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">False</property>
@@ -109,7 +109,7 @@
                   <widget class="GtkMenu" id="edit_menu">
                     <child>
                       <widget class="GtkImageMenuItem" id="collection_manager_item">
-                        <property name="label">_Collection Manager</property>
+                        <property name="label" translatable="yes">_Collection</property>
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">False</property>
@@ -119,6 +119,42 @@
                             <property name="visible">True</property>
                           </widget>
                         </child>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkImageMenuItem" id="queue_manager_item">
+                        <property name="label" translatable="yes">Queue</property>
+                        <property name="visible">True</property>
+                        <property name="use_stock">False</property>
+                        <signal name="activate" handler="on_queue_manager_item_activate"/>
+                        <child internal-child="image">
+                          <widget class="GtkImage" id="image8">
+                            <property name="visible">True</property>
+                          </widget>
+                        </child>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkImageMenuItem" id="device_manager_item">
+                        <property name="label" translatable="yes">Devices</property>
+                        <property name="visible">True</property>
+                        <property name="use_stock">False</property>
+                        <signal name="activate" handler="on_device_manager_item_activate"/>
+                        <child internal-child="image">
+                          <widget class="GtkImage" id="image9">
+                            <property name="visible">True</property>
+                            <property name="stock">gtk-harddisk</property>
+                            <property name="icon-size">1</property>
+                          </widget>
+                        </child>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkMenuItem" id="cover_manager_item">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">_Covers</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="on_cover_manager_item_activate"/>
                       </widget>
                     </child>
                     <child>
@@ -143,7 +179,7 @@
                   <widget class="GtkMenu" id="view_menu">
                     <child>
                       <widget class="GtkImageMenuItem" id="goto_playing_item">
-                        <property name="label">_Go to Playing Track</property>
+                        <property name="label" translatable="yes">_Go to Playing Track</property>
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">False</property>
@@ -207,40 +243,6 @@
                 <child>
                   <widget class="GtkMenu" id="tools_menu">
                     <child>
-                      <widget class="GtkImageMenuItem" id="queue_manager_item">
-                        <property name="label">Queue Manager</property>
-                        <property name="visible">True</property>
-                        <property name="use_stock">False</property>
-                        <signal name="activate" handler="on_queue_manager_item_activate"/>
-                        <child internal-child="image">
-                          <widget class="GtkImage" id="image8">
-                            <property name="visible">True</property>
-                          </widget>
-                        </child>
-                      </widget>
-                    </child>
-                    <child>
-                      <widget class="GtkImageMenuItem" id="device_manager_item">
-                        <property name="label">Device Manager</property>
-                        <property name="visible">True</property>
-                        <property name="use_stock">False</property>
-                        <signal name="activate" handler="on_device_manager_item_activate"/>
-                        <child internal-child="image">
-                          <widget class="GtkImage" id="image9">
-                            <property name="visible">True</property>
-                          </widget>
-                        </child>
-                      </widget>
-                    </child>
-                    <child>
-                      <widget class="GtkMenuItem" id="album_art_item">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">_Cover Manager</property>
-                        <property name="use_underline">True</property>
-                        <signal name="activate" handler="on_album_art_item_activate"/>
-                      </widget>
-                    </child>
-                    <child>
                       <widget class="GtkMenuItem" id="randomize_playlist_item">
                         <property name="visible">True</property>
                         <property name="tooltip" translatable="yes">Randomize the order of the current playlist</property>
@@ -251,7 +253,7 @@
                     </child>
                     <child>
                       <widget class="GtkImageMenuItem" id="scan_collection_item">
-                        <property name="label">Rescan Collection</property>
+                        <property name="label" translatable="yes">Rescan Collection</property>
                         <property name="visible">True</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="on_scan_collection_item_activate"/>
@@ -259,6 +261,22 @@
                           <widget class="GtkImage" id="image10">
                             <property name="visible">True</property>
                             <property name="stock">gtk-refresh</property>
+                            <property name="icon-size">1</property>
+                          </widget>
+                        </child>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkImageMenuItem" id="track_properties_item">
+                        <property name="label" translatable="yes">Track properties</property>
+                        <property name="visible">True</property>
+                        <property name="tooltip" translatable="yes">Properties dialog of the track selected in the playlist</property>
+                        <property name="use_stock">False</property>
+                        <signal name="activate" handler="on_track_properties_activate"/>
+                        <child internal-child="image">
+                          <widget class="GtkImage" id="image10001">
+                            <property name="visible">True</property>
+                            <property name="stock">gtk-properties</property>
                             <property name="icon-size">1</property>
                           </widget>
                         </child>

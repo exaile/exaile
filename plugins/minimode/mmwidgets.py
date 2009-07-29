@@ -223,7 +223,14 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
         gtk.ToggleButton.__init__(self, '')
 
         self.set_size_request(150, -1)
-        self.get_child().set_property('ellipsize', pango.ELLIPSIZE_END)
+        box = gtk.HBox()
+        self.arrow = gtk.Arrow(gtk.ARROW_RIGHT, gtk.SHADOW_OUT)
+        box.pack_start(self.arrow, expand=False)
+        self.label = gtk.Label('')
+        self.label.set_property('ellipsize', pango.ELLIPSIZE_END)
+        box.pack_start(self.label)
+        self.remove(self.child)
+        self.add(box)
 
         self.main = main
         self.queue = queue
@@ -295,6 +302,18 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
             Replaces the tracks of the playlist
         """
         self.playlist._set_tracks(tracks)
+
+    def set_label(self, text):
+        """
+            Sets the label of the button
+        """
+        self.label.set_text(text)
+
+    def set_arrow_direction(self, direction):
+        """
+            Sets the direction of the arrow
+        """
+        self.arrow.set(direction, gtk.SHADOW_OUT)
 
     def on_playlist_current_changed(self, event, playlist, track):
         """
@@ -372,9 +391,11 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
 
         if self.get_active():
             self.move_popup()
+            self.set_arrow_direction(gtk.ARROW_DOWN)
             self.popup.show()
         else:
             self.popup.hide()
+            self.set_arrow_direction(gtk.ARROW_RIGHT)
 
     def on_drag_data_received(self, togglebutton, context, x, y, selection, info, timestamp):
         """

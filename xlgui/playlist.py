@@ -91,6 +91,8 @@ class Playlist(gtk.VBox):
         event.add_callback(self.on_add_tracks, 'tracks_added', self.playlist)
         event.add_callback(self.on_remove_tracks, 'tracks_removed',
             self.playlist)
+        event.add_callback(self.refresh_changed_tracks, 'track_tags_changed')
+        event.add_callback(self.on_stop_track, 'stop_track')
 
     def properties_dialog(self):
         """
@@ -105,11 +107,39 @@ class Playlist(gtk.VBox):
         dialog.hide()
 
         if result == gtk.RESPONSE_OK:
-            selection = self.list.get_selection()
-            model, paths = selection.get_selected_rows()
-            iter = self.model.get_iter(paths[0])
-            self.update_iter(iter, tracks[0])
-            self.list.queue_draw()
+            event.log_event('track_tags_changed', self, [tracks[0]])
+    
+    def refresh_changed_tracks(self, type, object, tracks):
+        if not tracks or tracks == [] or not settings.get_option('gui/sync_on_tag_change', True):
+            return
+        it = self.model.get_iter_first()
+        while it:
+            cur = self.model.get_value(it, 0)
+            for track in tracks:
+                if cur.get_loc() == track.get_loc():
+                    newtrack = self.exaile.collection.get_track_by_loc(cur.get_loc())
+                    self.update_iter(it, newtrack)
+                    tracks.remove(track)
+            it = self.model.iter_next(it)
+        self.list.queue_draw()
+
+    def on_stop_track(self, event, queue, stop_track):
+        """
+            Makes sure to select the next track in the
+            playlist after playback has stopped due to SPAT
+        """
+        next_track = self.playlist.next()
+        iter = self.model.get_iter_first()
+        selection = self.list.get_selection()
+        selection.unselect_all()
+
+        while iter:
+            track = self.model.get_value(iter, 0)
+            if track == next_track:
+                path = self.model.get_path(iter)
+                selection.select_path(path)
+                break
+            iter = self.model.iter_next(iter)
 
     def queue_selected_tracks(self):
         """
@@ -543,7 +573,6 @@ class Playlist(gtk.VBox):
             gtk.gdk.ACTION_COPY|gtk.gdk.ACTION_MOVE)
 
         locs = list(selection.get_uris())
-        count = 0
 
         if context.action != gtk.gdk.ACTION_MOVE:
             pass
@@ -670,19 +699,13 @@ class Playlist(gtk.VBox):
             Called when a drag source wants data for this drag operation
         """
         Playlist._is_drag_source = True
-        loc = []
-        delete = []
-        sel = self.list.get_selection()
-        (model, paths) = sel.get_selected_rows()
-        for path in paths:
-            iter = self.model.get_iter(path)
-            song = self.model.get_value(iter, 0)
+        
+        tracks = self.get_selected_tracks()
+        for track in tracks:
+            guiutil.DragTreeView.dragged_data[track.get_loc()] = track
 
-            uri = urllib.quote(song.get_loc().encode("utf-8"))
-            guiutil.DragTreeView.dragged_data[song.get_loc()] = song
-            loc.append(uri)
-
-        selection.set_uris(loc)
+        locs = guiutil.get_urls_for(tracks)
+        selection.set_uris(locs)
 
     def setup_model(self, map):
         """

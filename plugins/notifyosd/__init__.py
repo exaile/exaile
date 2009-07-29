@@ -172,7 +172,8 @@ def disable(exaile):
     event.remove_callback(EXAILE_NOTIFYOSD.on_stop, 'playback_player_end')
     event.remove_callback(EXAILE_NOTIFYOSD.on_resume, 'playback_player_resume')
     event.remove_callback(EXAILE_NOTIFYOSD.on_quit, 'quit_application')
-    EXAILE_NOTIFYOSD.exaile.gui.tray_icon.icon.disconnect(EXAILE_NOTIFYOSD.tray_connection)
+    if EXAILE_NOTIFYOSD.exaile.gui.tray_icon:
+        EXAILE_NOTIFYOSD.exaile.gui.tray_icon.icon.disconnect(EXAILE_NOTIFYOSD.tray_connection)
     if EXAILE_NOTIFYOSD.gui_callback:
         event.remove_callback(EXAILE_NOTIFYOSD.exaile_ready, 'gui_loaded')
 

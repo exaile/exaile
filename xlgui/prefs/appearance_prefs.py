@@ -25,6 +25,14 @@ class SplashPreference(widgets.CheckPrefsItem):
     default = True
     name = 'gui/use_splash'
 
+class ShowTabBarPreference(widgets.CheckPrefsItem):
+    default = True
+    name = 'gui/show_tabbar'
+
+class UseAlphaTransparencyPreference(widgets.CheckPrefsItem):
+    default = False
+    name = 'gui/use_alpha'
+
 class UseTrayPreference(widgets.CheckPrefsItem):
     default = False
     name = 'gui/use_tray'
@@ -36,10 +44,6 @@ class MinimizeToTrayPreference(widgets.CheckPrefsItem):
 class EnsureVisiblePreference(widgets.CheckPrefsItem):
     default = True
     name = 'gui/ensure_visible'
-
-class ShowTabBarPreference(widgets.CheckPrefsItem):
-    default = True
-    name = 'gui/show_tabbar'
 
 class TabPlacementPreference(widgets.ComboPrefsItem):
     default = 'top'

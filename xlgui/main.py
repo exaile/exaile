@@ -492,7 +492,11 @@ class MainWindow(object):
         """
         hotkeys = (
             ('<Control>W', lambda *e: self.close_playlist_tab()),
-            ('<Control>C', lambda *e: self.on_clear_playlist()),
+            ('<Control>S', lambda *e: self.on_save_playlist()),
+            ('<Shift><Control>S', lambda *e: self.on_save_playlist_as()),
+            ('<Control>F', lambda *e: self.on_search_collection_focus()),
+            ('<Control>G', lambda *e: self.on_search_playlist_focus()),
+            ('<Control>L', lambda *e: self.on_clear_playlist()),
             ('<Control>D', lambda *e: self.on_queue()),
         )
 
@@ -814,6 +818,41 @@ class MainWindow(object):
     def on_playlist_notebook_button_press(self, notebook, event):
         if event.type == gtk.gdk.BUTTON_PRESS and event.button == 2:
             self.add_playlist()
+
+    def on_search_collection_focus(self, *e):
+        """
+            Gives focus to the collection search bar
+        """
+        
+        self.controller.panels['collection'].filter.grab_focus()
+
+    def on_search_playlist_focus(self, *e):
+        """
+            Gives focus to the playlist search bar
+        """
+        self.filter.grab_focus()
+
+    def on_save_playlist(self, *e):
+        """
+            Called when the user presses Ctrl+S
+            Spawns the save dialog of the currently selected playlist tab if
+            not custom, saves changes directly if custom
+        """
+        tab = self.get_selected_tab()
+        if not tab: return
+        if tab.page.playlist.get_is_custom():
+            tab.do_save_changes_to_custom()
+        else:
+            tab.do_save_custom()
+
+    def on_save_playlist_as(self, *e):
+        """
+            Called when the user presses Ctrl+S
+            Spawns the save as dialog of the current playlist tab
+        """
+        tab = self.get_selected_tab()
+        if not tab: return
+        tab.do_save_custom()
 
     def on_clear_playlist(self, *e):
         """

@@ -102,7 +102,7 @@ class ExaileScrobbler(object):
         self.exaile_menu.append(self.menu_entry)
         
         self.menu_conn = self.menu_entry.connect('toggled', self._menu_entry_toggled)
-        key, mod = gtk.accelerator_parse("<Control>L")
+        key, mod = gtk.accelerator_parse("<Control>B")
         self.menu_entry.add_accelerator("activate", self.menu_agr, key, 
             mod, gtk.ACCEL_VISIBLE)
         

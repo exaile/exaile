@@ -72,7 +72,7 @@
                         <property name="use_underline">True</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="on_export_current_playlist_activate"/>
-                        <accelerator key="S" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                        <accelerator key="S" signal="activate" modifiers="GDK_MOD1_MASK|GDK_CONTROL_MASK"/>
                         <child internal-child="image">
                           <widget class="GtkImage" id="image5">
                             <property name="visible">True</property>
@@ -123,8 +123,9 @@
                     </child>
                     <child>
                       <widget class="GtkImageMenuItem" id="queue_manager_item">
-                        <property name="label" translatable="yes">Queue</property>
+                        <property name="label" translatable="yes">_Queue</property>
                         <property name="visible">True</property>
+                        <property name="use_underline">True</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="on_queue_manager_item_activate"/>
                         <child internal-child="image">
@@ -136,8 +137,9 @@
                     </child>
                     <child>
                       <widget class="GtkImageMenuItem" id="device_manager_item">
-                        <property name="label" translatable="yes">Devices</property>
+                        <property name="label" translatable="yes">_Devices</property>
                         <property name="visible">True</property>
+                        <property name="use_underline">True</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="on_device_manager_item_activate"/>
                         <child internal-child="image">
@@ -152,7 +154,7 @@
                     <child>
                       <widget class="GtkMenuItem" id="cover_manager_item">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">_Covers</property>
+                        <property name="label" translatable="yes">C_overs</property>
                         <property name="use_underline">True</property>
                         <signal name="activate" handler="on_cover_manager_item_activate"/>
                       </widget>
@@ -213,7 +215,7 @@
                             <child>
                               <widget class="GtkRadioMenuItem" id="col_resizable_item">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">Resizable</property>
+                                <property name="label" translatable="yes">_Resizable</property>
                                 <property name="use_underline">True</property>
                                 <property name="active">True</property>
                               </widget>
@@ -221,7 +223,7 @@
                             <child>
                               <widget class="GtkRadioMenuItem" id="col_not_resizable_item">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">Autosize</property>
+                                <property name="label" translatable="yes">_Autosize</property>
                                 <property name="use_underline">True</property>
                                 <property name="active">True</property>
                                 <property name="group">col_resizable_item</property>
@@ -246,15 +248,16 @@
                       <widget class="GtkMenuItem" id="randomize_playlist_item">
                         <property name="visible">True</property>
                         <property name="tooltip" translatable="yes">Randomize the order of the current playlist</property>
-                        <property name="label" translatable="yes">Randomize Playlist</property>
+                        <property name="label" translatable="yes">_Randomize Playlist</property>
                         <property name="use_underline">True</property>
                         <signal name="activate" handler="on_randomize_playlist_item_activate"/>
                       </widget>
                     </child>
                     <child>
                       <widget class="GtkImageMenuItem" id="scan_collection_item">
-                        <property name="label" translatable="yes">Rescan Collection</property>
+                        <property name="label" translatable="yes">Re_scan Collection</property>
                         <property name="visible">True</property>
+                        <property name="use_underline">True</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="on_scan_collection_item_activate"/>
                         <child internal-child="image">
@@ -268,9 +271,10 @@
                     </child>
                     <child>
                       <widget class="GtkImageMenuItem" id="track_properties_item">
-                        <property name="label" translatable="yes">Track properties</property>
+                        <property name="label" translatable="yes">Track _properties</property>
                         <property name="visible">True</property>
                         <property name="tooltip" translatable="yes">Properties dialog of the track selected in the playlist</property>
+                        <property name="use_underline">True</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="on_track_properties_activate"/>
                         <child internal-child="image">

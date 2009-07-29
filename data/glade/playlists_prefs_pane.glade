@@ -23,7 +23,7 @@
         </child>
         <child>
           <widget class="GtkCheckButton" id="playlist/ask_save">
-            <property name="label" translatable="yes">When a custom playlist is closed, ask if it should be saved</property>
+            <property name="label" translatable="yes">Prompt for saving custom playlists on close</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="use_underline">True</property>
@@ -34,33 +34,6 @@
             <property name="fill">False</property>
             <property name="position">1</property>
           </packing>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
         </child>
       </widget>
     </child>

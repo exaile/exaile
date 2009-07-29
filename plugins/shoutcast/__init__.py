@@ -115,7 +115,14 @@ class ShoutcastRadioStation(RadioStation):
             data = self.data
         items = re.findall(r'<genre name="([^"]*)"></genre>', data)
         rlists = []
+
+        repl = {'&amp;' : '&',
+                '&lt;' : '<',
+                '&gt;' : '>'}
+
         for item in items:
+            for k, v in repl.items():
+                item = item.replace(k, v)
             rlist = RadioList(item, station=self)
             rlist.get_items = lambda no_cache, name=item: \
                 self._get_subrlists(name=name, no_cache=no_cache)

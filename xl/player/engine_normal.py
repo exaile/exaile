@@ -130,7 +130,7 @@ class NormalPlayer(_base.ExailePlayer):
             updates the total playtime for the currently playing track
         """
         if self.current and self._playtime_stamp:
-            last = self.current['playtime']
+            last = self.current['__playtime']
             if type(last) == str:
                 try:
                     last = int(last)
@@ -138,7 +138,7 @@ class NormalPlayer(_base.ExailePlayer):
                     last = 0
             elif type(last) != int:
                 last = 0
-            self.current['playtime'] = last + int(time.time() - \
+            self.current['__playtime'] = last + int(time.time() - \
                     self._playtime_stamp)
             self._playtime_stamp = None
 

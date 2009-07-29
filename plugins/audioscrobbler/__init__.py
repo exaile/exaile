@@ -170,7 +170,7 @@ class ExaileScrobbler(object):
             track.get_duration(), track.get_track())
 
     def on_play(self, type, player, track):
-        track['__audioscrobbler_playtime'] = track['playtime']
+        track['__audioscrobbler_playtime'] = track['__playtime']
         track['__audioscrobbler_starttime'] = time.time()
 
         if track.is_local():
@@ -178,9 +178,9 @@ class ExaileScrobbler(object):
 
     def on_stop(self, type, player, track):
         if not track or not track.is_local() \
-           or track['playtime'] is None: 
+           or track['__playtime'] is None: 
             return
-        playtime = (track['playtime'] or 0) - \
+        playtime = (track['__playtime'] or 0) - \
                 (track['__audioscrobbler_playtime'] or 0)
         if playtime > 240 or playtime > float(track['__length']) / 2.0:
             if self.submit and track['__length'] > 30:

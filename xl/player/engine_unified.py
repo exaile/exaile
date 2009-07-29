@@ -407,7 +407,7 @@ class AudioStream(gst.Bin):
             updates the total playtime for the currently playing track
         """
         if self.track and self._playtime_stamp:
-            last = self.track['playtime']
+            last = self.track['__playtime']
             if type(last) == str:
                 try:
                     last = int(last)
@@ -415,7 +415,7 @@ class AudioStream(gst.Bin):
                     last = 0
             elif type(last) != int:
                 last = 0
-            self.track['playtime'] = last + int(time.time() - \
+            self.track['__playtime'] = last + int(time.time() - \
                     self._playtime_stamp)
             self._playtime_stamp = None
 

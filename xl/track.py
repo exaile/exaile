@@ -25,7 +25,7 @@ import logging, traceback
 import urlparse
 import urllib
 import urllib2
-from xl import settings
+from xl import settings, event
 logger = logging.getLogger(__name__)
 
 def is_valid_track(loc):
@@ -73,6 +73,7 @@ class Track(object):
         self._dirty = False
         if _unpickles:
             self._unpickles(_unpickles)
+            self._scan_valid = True # allow tag event firing
         elif uri:
             self.set_loc(uri)
             if self.read_tags():
@@ -208,6 +209,8 @@ class Track(object):
             self.tags[tag] = values
 
         self._dirty = True
+        if self._scan_valid:
+            event.log_event("track-tags-changed", self, tag)
         
     def __getitem__(self, tag):
         """

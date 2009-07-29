@@ -341,7 +341,13 @@ class Main(object):
     
     def on_track_properties(self, *e):
         pl = self.main.get_selected_playlist()
-        pl.properties_dialog()
+        if not pl.properties_dialog():
+            if self.exaile.player.current:
+                dialog = properties.TrackPropertiesDialog(self.main.window,
+                        self.exaile.player.current)
+                result = dialog.run()
+                dialog.hide()
+
 
     def add_panel(self, child, name):
         """

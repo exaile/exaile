@@ -101,6 +101,9 @@ class Playlist(gtk.VBox):
         from xlgui import properties
         tracks = self.get_selected_tracks()
 
+        if len(tracks) == 0:
+            return False
+
         dialog = properties.TrackPropertiesDialog(self.main.window, 
             tracks[0])
         result = dialog.run()
@@ -108,6 +111,7 @@ class Playlist(gtk.VBox):
 
         if result == gtk.RESPONSE_OK:
             event.log_event('track_tags_changed', self, [tracks[0]])
+        return True
     
     def refresh_changed_tracks(self, type, object, tracks):
         if not tracks or tracks == [] or not settings.get_option('gui/sync_on_tag_change', True):

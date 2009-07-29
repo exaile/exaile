@@ -326,6 +326,7 @@ class Playlist(gtk.VBox):
         """
             Sets the tracks that this playlist should display
         """
+        self.list.set_model(self.model_blank)
         self.model.clear()
 
         for track in tracks:

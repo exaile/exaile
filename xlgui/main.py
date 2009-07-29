@@ -802,6 +802,8 @@ class MainWindow(object):
         """
         page = notebook.get_nth_page(page_num)
         self.current_page = page_num
+        playlist = self.get_selected_playlist()
+        self.queue.set_current_playlist(playlist.playlist)
         self.set_mode_toggles()
         self.update_track_counts()
 

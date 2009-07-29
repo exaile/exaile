@@ -54,7 +54,7 @@ def check_exit(options, args):
                     args = sys.stdin.read().split('\n')
                 args = [ os.path.abspath(arg) for arg in args ]
                 print args
-                iface.enqueue(args)
+                iface.Enqueue(args)
             
     if not iface:
         return False
@@ -315,7 +315,7 @@ class DbusManager(dbus.service.Object):
         self.exaile.gui.open_uri(filename)
 
     @dbus.service.method("org.exaile.Exaile", "as")
-    def enqueue(self, filenames):
+    def Enqueue(self, filenames):
         """
             Adds the specified files to the current playlist
         """

@@ -312,14 +312,17 @@ class Playlist(gtk.VBox):
         if range:
             offset = range[1][0] - range[0][0]
         
-        if tracks:
-            try:
-                if offset > len(tracks):
-                    self.list.scroll_to_cell(self.playlist.index(tracks[-1]))
-                else:
-                    self.list.scroll_to_cell(self.playlist.index(tracks[offset+1]))
-            except IndexError:
-                self.list.scroll_to_cell(self.playlist.index(tracks[0]))
+        # not sure why we're trying to scroll to the newly added tracks here.
+        # it makes no sense to do so.  The cursor should remain in the same
+        # position.
+#        if tracks:
+#            try:
+#                if offset > len(self.tracks):
+#                    self.list.scroll_to_cell(self.playlist.index(tracks[-1]))
+#                else:
+#                    self.list.scroll_to_cell(self.playlist.index(tracks[offset+1]))
+#            except IndexError:
+#                self.list.scroll_to_cell(self.playlist.index(tracks[0]))
         self.set_needs_save(True)
 
     def _set_tracks(self, tracks):

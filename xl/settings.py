@@ -119,6 +119,7 @@ class SettingsManager(RawConfigParser):
             self.set(section, key, value)
         self._dirty = True
         event.log_event('option_set', self, option)
+        event.log_event('%s_option_set'%section, self, option)
 
     def get_option(self, option, default=None):
         """

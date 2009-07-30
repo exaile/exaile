@@ -53,7 +53,12 @@ class ReplaygainVolume(ElementBin):
         self.elements[50] = self.rgvol
         self.setup_elements()
 
-        event.add_callback(self._on_setting_change, "option_set")
+        event.add_callback(self._on_setting_change, "replaygain_option_set")
+
+        # load settings
+        for x in ("album-mode", "pre-amp", "fallback-gain"):
+            self._on_setting_change("reaplygain_option_set", None, 
+                    "replaygain/%s"%x)
 
     def _on_setting_change(self, name, object, data):
         if data == "replaygain/album-mode":
@@ -84,7 +89,9 @@ class ReplaygainLimiter(ElementBin):
         self.elements[60] = self.audioconvert
         self.setup_elements()
 
-        event.add_callback(self._on_setting_change, "option_set")
+        event.add_callback(self._on_setting_change, "replaygain_option_set")
+        self._on_setting_change("replaygain_option_set", None, 
+                "replaygain/clipping-protection")
 
     def _on_setting_change(self, name, object, data):
         if data == "replaygain/clipping-protection":

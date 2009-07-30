@@ -130,6 +130,7 @@
                         <property name="use_underline">True</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="on_queue_manager_item_activate"/>
+                        <accelerator key="m" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                         <child internal-child="image">
                           <widget class="GtkImage" id="image8">
                             <property name="visible">True</property>

@@ -7,6 +7,7 @@
     <property name="height_request">330</property>
     <property name="border_width">5</property>
     <property name="title" translatable="yes">Queue Manager</property>
+    <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
     <property name="type_hint">normal</property>
     <property name="has_separator">False</property>

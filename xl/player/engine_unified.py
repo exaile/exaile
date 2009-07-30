@@ -100,6 +100,12 @@ class UnifiedPlayer(_base.ExailePlayer):
             logger.warning("EOS: ", message)
         elif message.type == gst.MESSAGE_TAG and self.tag_func:
             self.tag_func(message.parse_tag())
+            if not self.current['__length']:
+                try:
+                    duration = float(self.mainbin.query_duration(gst.FORMAT_TIME, None)[0])/1000000000
+                    if duration > 0: self.current['__length'] = duration
+                except gst.QueryError:
+                    logger.debug("Couldn't query duration via GStreamer")
         elif message.type == gst.MESSAGE_ERROR:
             logger.error("%s %s" %(message, dir(message)) )
             a = message.parse_error()[0]
@@ -508,8 +514,8 @@ class AudioStream(gst.Bin):
 
         value = int(gst.SECOND * value)
         seekevent = gst.event_new_seek(1.0, gst.FORMAT_TIME,
-            gst.SEEK_FLAG_FLUSH|gst.SEEK_FLAG_ACCURATE,
-            gst.SEEK_TYPE_SET, value, gst.SEEK_TYPE_NONE, 0)
+            gst.SEEK_FLAG_FLUSH,gst.SEEK_TYPE_SET, value, 
+            gst.SEEK_TYPE_NONE, 0)
 
         self.vol.send_event(seekevent)
 

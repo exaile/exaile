@@ -56,6 +56,7 @@ class QueueManager(object):
         """
             Destroys this window
         """
+        main.mainwindow().queue_playlist_draw()
         self._dialog.hide()
 
     def remove_all(self, button, *userparams):

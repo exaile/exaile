@@ -489,6 +489,7 @@ class Playlist(gtk.VBox):
         """
             Called when the user clicks on the playlist
         """
+        if self._is_queue: return
         if event.button == 3:
             tab = self.main.get_current_tab()
             (x, y) = event.get_coords()
@@ -501,18 +502,20 @@ class Playlist(gtk.VBox):
         return False
 
     def _setup_events(self):
-        self.list.connect('key_release_event', self.key_released)
+        self.list.connect('key-press-event', self.key_pressed)
         self.list.connect('button-release-event', self.update_rating)
 
-    def key_released(self, widget, event):
+    def key_pressed(self, widget, event):
         if event.keyval == gtk.keysyms.Delete:
             self.remove_selected_tracks()
         elif event.keyval == gtk.keysyms.Left:
             # Modifying current position
+            if not self.player.current: return
             self.player.scroll(-10)
             self.main.progress_bar.timer_update() # Needed to evade progressbar lag
         elif event.keyval == gtk.keysyms.Right:
             # Modifying current position
+            if not self.player.current: return
             self.player.scroll(10)
             self.main.progress_bar.timer_update() # Needed to evade progressbar lag
 

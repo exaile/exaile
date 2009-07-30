@@ -72,7 +72,7 @@
                         <property name="use_underline">True</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="on_export_current_playlist_activate"/>
-                        <accelerator key="S" signal="activate" modifiers="GDK_MOD1_MASK|GDK_CONTROL_MASK"/>
+                        <accelerator key="S" signal="activate" modifiers="GDK_CONTROL_MASK | GDK_MOD1_MASK"/>
                         <child internal-child="image">
                           <widget class="GtkImage" id="image5">
                             <property name="visible">True</property>
@@ -117,6 +117,8 @@
                         <child internal-child="image">
                           <widget class="GtkImage" id="image6">
                             <property name="visible">True</property>
+                            <property name="stock">gtk-harddisk</property>
+                            <property name="icon-size">1</property>
                           </widget>
                         </child>
                       </widget>
@@ -131,22 +133,6 @@
                         <child internal-child="image">
                           <widget class="GtkImage" id="image8">
                             <property name="visible">True</property>
-                          </widget>
-                        </child>
-                      </widget>
-                    </child>
-                    <child>
-                      <widget class="GtkImageMenuItem" id="device_manager_item">
-                        <property name="label" translatable="yes">_Devices</property>
-                        <property name="visible">True</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">False</property>
-                        <signal name="activate" handler="on_device_manager_item_activate"/>
-                        <child internal-child="image">
-                          <widget class="GtkImage" id="image9">
-                            <property name="visible">True</property>
-                            <property name="stock">gtk-harddisk</property>
-                            <property name="icon-size">1</property>
                           </widget>
                         </child>
                       </widget>
@@ -244,6 +230,22 @@
                 <property name="use_underline">True</property>
                 <child>
                   <widget class="GtkMenu" id="tools_menu">
+                    <child>
+                      <widget class="GtkImageMenuItem" id="device_manager_item">
+                        <property name="label" translatable="yes">_Device Manager</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">False</property>
+                        <signal name="activate" handler="on_device_manager_item_activate"/>
+                        <child internal-child="image">
+                          <widget class="GtkImage" id="image17">
+                            <property name="visible">True</property>
+                            <property name="stock">gtk-harddisk</property>
+                            <property name="icon-size">1</property>
+                          </widget>
+                        </child>
+                      </widget>
+                    </child>
                     <child>
                       <widget class="GtkMenuItem" id="randomize_playlist_item">
                         <property name="visible">True</property>

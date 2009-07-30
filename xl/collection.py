@@ -585,6 +585,14 @@ class Library(object):
                         return False
                 count += 1
                 path = os.path.abspath(os.path.join(basepath, filename))
+                if os.path.islink(path):
+                    link_loc = os.readlink(path)
+                    if not link_loc.startswith(os.sep):
+                        link_loc = os.path.realpath(os.path.join(os.path.dirname(path), link_loc))
+                    if link_loc.startswith(os.path.realpath(self.location)):
+                        logger.info(_("Ignoring symlink %s pointing to %s") % (path, link_loc))
+                        continue
+
                 fullpath = "file://" + path
 
                 try:

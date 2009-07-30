@@ -47,11 +47,11 @@ def enable(exaile_):
     global exaile
     exaile = exaile_
     if exaile_.loading:
-        event.add_callback((lambda e, x, d: _enable()), 'exaile_loaded')
+        event.add_callback(_enable, 'exaile_loaded')
     else:
         _enable()
 
-def _enable():
+def _enable(*a):
     global bus
     try:
         bus = dbus.SessionBus()

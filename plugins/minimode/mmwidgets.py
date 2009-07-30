@@ -319,7 +319,10 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
         """
             Updates the currently selected track
         """
-        pos = self.playlist.playlist.index(track)
+        try:
+            pos = self.playlist.playlist.index(track)
+        except ValueError:
+            return
         self.playlist.playlist.set_current_pos(pos)
 
     def on_playback_start(self, event, player, track):

@@ -498,6 +498,7 @@ class MainWindow(object):
             ('<Control>G', lambda *e: self.on_search_playlist_focus()),
             ('<Control>L', lambda *e: self.on_clear_playlist()),
             ('<Control>D', lambda *e: self.on_queue()),
+            ('<Control><Alt>l', lambda *e: self.on_clear_queue()),
         )
 
         self.accel_group = gtk.AccelGroup()
@@ -855,6 +856,13 @@ class MainWindow(object):
         tab = self.get_selected_tab()
         if not tab: return
         tab.do_save_custom()
+
+    def on_clear_queue(self):
+        """
+            Called when the user requests to clear the queue
+        """
+        self.queue.clear()
+        self.queue_playlist_draw()
 
     def on_clear_playlist(self, *e):
         """

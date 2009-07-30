@@ -193,7 +193,7 @@ def get_prefs_pane():
 
 @guiutil.idle_add()
 def _enable(eventname, exaile, nothing):
-    global cover_display, cover_connection
+    global cover_display, cover_connection, cover_widget
 
     cover_display = CoverDisplay(settings=SettingsBridge())
     cover_widget = exaile.gui.main.cover

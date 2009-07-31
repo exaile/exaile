@@ -14,6 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+import locale
 import gtk, gtk.glade, gobject
 from xlgui.prefs import widgets
 from xl import xdg
@@ -55,16 +56,20 @@ class PluginManager(object):
             Loads the plugin list
         """
         plugins = self.plugins.list_installed_plugins()
-        plugins.sort()
 
+        plugins_list = []
         for plugin in plugins:
             try:
                 info = self.plugins.get_plugin_info(plugin)
             except IOError:
                 continue
-            enabled = plugin in self.plugins.enabled_plugins.keys()
-            self.model.append([info['Name'], info['Version'], 
-                enabled, plugin])
+            enabled = plugin in self.plugins.enabled_plugins
+            plugins_list.append((info['Name'], info['Version'], enabled,
+                plugin))
+        plugins_list.sort(key=lambda x: locale.strxfrm(x[0]))
+
+        for plugin in plugins_list:
+            self.model.append(plugin)
 
         self.list.set_model(self.model)
 

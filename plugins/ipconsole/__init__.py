@@ -101,7 +101,7 @@ class IPyConsole(gtk.Window):
         opacity = settings.get_option('plugin/ipconsole/opacity', 80.0)
         print "Opacity: %f" % (float(opacity) / 100.0)
 
-        if opacity < 1.0: self.set_opacity(float(opacity) / 100.0)   # add a little transparency :)
+        if opacity < 100: self.set_opacity(float(opacity) / 100.0)   # add a little transparency :)
         ipv.updateNamespace(namespace)      # expose exaile (passed in)
         ipv.updateNamespace({'self':self})  # Expose self to IPython
 
@@ -137,8 +137,15 @@ def _enable(exaile):
     MENU_ITEM.show()
 #    return True    # bad! crashes compiz
 
-def __enb(event, exaile, nothing):
+def on_setting_change(event, settings, option):
+    if option == 'plugin/ipconsole/opacity' and PLUGIN:
+        value = settings.get_option(option, 80.0)
+        value = float(value) / 100.0
+        PLUGIN.set_opacity(value)
+
+def __enb(evt, exaile, nothing):
     gobject.idle_add(_enable, exaile)
+    event.add_callback(on_setting_change, 'option_set')
 
 def enable(exaile):
     """

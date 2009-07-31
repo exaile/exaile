@@ -506,6 +506,12 @@ class SpinPrefsItem(PrefsItem):
     def _get_value(self):
         return self.widget.get_value()
 
+class ScalePrefsItem(SpinPrefsItem):
+    """
+        Representation of gtk.Scale widgets
+    """
+    def __init__(self, prefs, widget):
+        SpinPrefsItem.__init__(self, prefs, widget)
 
 class FloatPrefsItem(PrefsItem):
     """

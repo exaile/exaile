@@ -22,6 +22,8 @@
 import sys
 import gtk
 import gobject
+import ipconsoleprefs
+from xl import settings
 
 try:    # xl doesn't exist outside of exaile
     from xl.nls import gettext as _
@@ -41,6 +43,9 @@ FONT = "Luxi Mono 10"
 
 PLUGIN                  = None
 MENU_ITEM               = None
+
+def get_prefs_pane():
+    return ipconsoleprefs
 
 class Quitter(object):
     """Simple class to handle exit, similar to Python 2.5's.
@@ -93,7 +98,10 @@ class IPyConsole(gtk.Window):
 #        ipv.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse('black'))
 #        ipv.IP.magic_colors('LightBG') # IPython color scheme
 
-        self.set_opacity(0.8)   # add a little transparency :)
+        opacity = settings.get_option('plugin/ipconsole/opacity', 80.0)
+        print "Opacity: %f" % (float(opacity) / 100.0)
+
+        if opacity < 1.0: self.set_opacity(float(opacity) / 100.0)   # add a little transparency :)
         ipv.updateNamespace(namespace)      # expose exaile (passed in)
         ipv.updateNamespace({'self':self})  # Expose self to IPython
 

@@ -299,10 +299,8 @@ class Playlist(gtk.VBox):
         """
             Called when someone removes tracks from the contained playlist
         """
-        self._set_tracks(playlist.get_tracks())
-        self.reorder_songs()
-        self.emit('track-count-changed', len(self.playlist))
-        self.set_needs_save(True)
+        removed = info[2]
+        self.remove_tracks(removed)
 
     def on_add_tracks(self, type, playlist, tracks, scroll=False):
         """
@@ -679,19 +677,36 @@ class Playlist(gtk.VBox):
             self.playlist)
 
     def remove_selected_tracks(self):
-        sel = self.list.get_selection()
-        (model, paths) = sel.get_selected_rows()
-        # Since we want to modify the model we make references to it
-        # This allows us to remove rows without it messing up
+        self.remove_tracks(self.get_selected_tracks())
+
+    def remove_tracks(self, tracks):
+        event.remove_callback(self.on_remove_tracks, 'tracks_removed',
+            self.playlist)
+
+        # Make sure the callback actually gets removed before proceeding
+        event.wait_for_pending_events()
+        tracks = set(tracks) # for faster traversing
+
         rows = []
-        for path in paths:
-            rows.append(gtk.TreeRowReference(model, path))
+        iter = self.model.get_iter_first()
+        while iter:
+            value = self.model.get_value(iter, 0)
+            if value in tracks: rows.append(iter)
+            iter = self.model.iter_next(iter)
+
         for row in rows:
-            iter = self.model.get_iter(row.get_path())
-            #Also update the playlist we have
-            track = self.model.get_value(iter, 0)
-            self.playlist.remove(self.playlist.index(track))
-            self.model.remove(iter)
+            track = self.model.get_value(row, 0)
+            try:
+                self.playlist.remove(self.playlist.index(track))
+            except ValueError: 
+                # track has already been removed from the playlist
+                pass
+            self.model.remove(row)
+
+        gobject.idle_add(event.add_callback, self.on_remove_tracks, 
+            'tracks_removed', self.playlist)
+        self.emit('track-count-changed', len(self.playlist))
+        self.set_needs_save(True)
 
     def drag_data_delete(self, tv, context):
         """

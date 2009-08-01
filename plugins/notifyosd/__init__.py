@@ -20,6 +20,7 @@ import pynotify, cgi, gobject, logging
 import notifyosd_cover, notifyosdprefs
 from xl import event, settings
 from xl.nls import gettext as _
+import gtk.gdk
 
 logger = logging.getLogger(__name__)
 pynotify.init('Exaile')
@@ -79,7 +80,9 @@ class ExaileNotifyOsd(object):
                 self.cover = self.resumeicon
                 icon_allowed = True
             elif self.show_covers:
-                self.cover = notifyosd_cover.notifyosd_get_image_for_track(track, self.exaile)
+                resize = settings.get_option('plugin/notifyosd/resize', True)
+                self.cover = notifyosd_cover.notifyosd_get_image_for_track(
+                    track, self.exaile, resize=resize)
                 icon_allowed = True
         
         # Setup the summary and body for the notification
@@ -95,11 +98,15 @@ class ExaileNotifyOsd(object):
             self.body = ""
         
         if icon_allowed :
-            self.notify.update(self.summary, self.body, self.cover)
+            if not isinstance(self.cover, gtk.gdk.Pixbuf): 
+                self.notify.update(self.summary, self.body, self.cover)
+            else:
+                self.notify.update(self.summary, self.body)
+                self.notify.set_icon_from_pixbuf(self.cover)
         else :
             self.notify.update(self.summary, self.body)
         
-        if settings.get_option("plugin/notifyosd/show_when_focused", False) or \
+        if settings.get_option("plugin/notifyosd/show_when_focused", True) or \
                 not self.exaile.gui.main.window.is_active():
             self.notify.show()
         

@@ -21,8 +21,9 @@ from xl import xdg
 logger = logging.getLogger(__name__)
 
 DEFAULT_COVER = xdg.get_data_path('images/nocover.png')
+RESIZE_SIZE = 48
 
-def notifyosd_get_image_for_track(track, exaile):
+def notifyosd_get_image_for_track(track, exaile, resize=False):
     '''Get a path for a track
 
     '''
@@ -35,4 +36,22 @@ def notifyosd_get_image_for_track(track, exaile):
         logger.debug("Did not find cover, using DEFAULT_COVER")
         image = DEFAULT_COVER
     logger.debug("Using image %s" % repr(image))
-    return image
+
+    pixbuf = gtk.gdk.pixbuf_new_from_file(image)
+    if resize:
+        logger.debug("Resizing cover")
+        width, height = pixbuf.get_width(), pixbuf.get_height()
+        if width > height:
+            little, big = height, width
+        else:
+            little, big = width, height
+        scale = RESIZE_SIZE * 1.0 / big
+        big = RESIZE_SIZE
+        little = int(round(scale * little, 0))
+        if width > height:
+            height, width = little, big
+        else:
+            width, height = little, big
+        pixbuf = pixbuf.scale_simple(width, height, gtk.gdk.INTERP_BILINEAR)
+    logger.debug("Returning new cover pixbuf")
+    return pixbuf

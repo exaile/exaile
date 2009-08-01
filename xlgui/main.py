@@ -450,6 +450,7 @@ class MainWindow(object):
                     return
 
         pl = playlist.Playlist(self, self.queue, pl)
+        self._connect_playlist_events(pl)
 
         try:
             name = name % (nb.get_n_pages() + 1)
@@ -486,6 +487,30 @@ class MainWindow(object):
         
         return pl
 
+    def _connect_playlist_events(self, pl):
+        pl.connect('track-count-changed', lambda *e:
+            self.update_track_counts())
+        pl.connect('column-settings-changed', self._column_settings_changed)
+        pl.list.connect('key-press-event', self._on_pl_key_pressed)
+
+    def _on_pl_key_pressed(self, widget, event):
+        if event.keyval == gtk.keysyms.Left:
+            # Modifying current position
+            if not self.player.current: return
+            self.player.scroll(-10)
+            self.progress_bar.timer_update() # Needed to evade progressbar lag
+        elif event.keyval == gtk.keysyms.Right:
+            # Modifying current position
+            if not self.player.current: return
+            self.player.scroll(10)
+            self.progress_bar.timer_update() # Needed to evade progressbar lag
+
+        return False
+
+    def _column_settings_changed(self, *e):
+        for page in self.playlist_notebook:
+            page.update_col_settings()
+
     def _setup_hotkeys(self):
         """
             Sets up accelerators that haven't been set up in glade
@@ -499,6 +524,7 @@ class MainWindow(object):
             ('<Control>L', lambda *e: self.on_clear_playlist()),
             ('<Control>D', lambda *e: self.on_queue()),
             ('<Control><Alt>l', lambda *e: self.on_clear_queue()),
+            ('Left', lambda *e: self._on_left_pressed()),
         )
 
         self.accel_group = gtk.AccelGroup()

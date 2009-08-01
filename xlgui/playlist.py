@@ -45,6 +45,8 @@ class Playlist(gtk.VBox):
     __gsignals__ = {
         'playlist-content-changed': (gobject.SIGNAL_RUN_LAST, None, (bool,)),
         'customness-changed': (gobject.SIGNAL_RUN_LAST, None, (bool,)),
+        'track-count-changed': (gobject.SIGNAL_RUN_LAST, None, (int,)),
+        'column-settings-changed': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
     def __init__(self, main, queue, pl, _column_ids=[],
         _is_queue=False):
@@ -164,7 +166,7 @@ class Playlist(gtk.VBox):
             else:
                 queue_tracks.append(track)
 
-        self.main.update_track_counts()
+        self.emit('track-count-changed', len(self.playlist))
         self.list.queue_draw()
 
     def set_rating(self, widget, rating):
@@ -249,10 +251,7 @@ class Playlist(gtk.VBox):
                     {'column_id' : id, 'preference' : pref})
                 column_ids.remove(id)
         settings.set_option(pref, column_ids)
-
-        for i in range(0, self.main.playlist_notebook.get_n_pages()):
-            page = self.main.playlist_notebook.get_nth_page(i)
-            page.update_col_settings()
+        self.emit('column-settings-changed')
 
     def activate_cols_resizable(self, widget, event=None):
         """
@@ -265,9 +264,7 @@ class Playlist(gtk.VBox):
             resizable = True
 
         settings.set_option('gui/resizable_cols', resizable)
-        for i in range(0, self.main.playlist_notebook.get_n_pages()):
-            page = self.main.playlist_notebook.get_nth_page(i)
-            page.update_col_settings()
+        self.emit('column-settings-changed')
 
     def update_col_settings(self):
         """
@@ -304,7 +301,7 @@ class Playlist(gtk.VBox):
         """
         self._set_tracks(playlist.get_tracks())
         self.reorder_songs()
-        self.main.update_track_counts()
+        self.emit('track-count-changed', len(self.playlist))
         self.set_needs_save(True)
 
     def on_add_tracks(self, type, playlist, tracks, scroll=False):
@@ -313,8 +310,8 @@ class Playlist(gtk.VBox):
         """
         for track in tracks:
             self._append_track(track)
-        self.main.update_track_counts()
         
+        self.emit('track-count-changed', len(self.playlist))
         range = self.list.get_visible_range()
         offset = 0
         if range:
@@ -322,7 +319,7 @@ class Playlist(gtk.VBox):
         
         if tracks and scroll:
             try:
-                if offset > len(self.tracks):
+                if offset > len(self.playlist):
                     self.list.scroll_to_cell(self.playlist.index(tracks[-1]))
                 else:
                     self.list.scroll_to_cell(self.playlist.index(tracks[offset]))
@@ -341,7 +338,7 @@ class Playlist(gtk.VBox):
             self._append_track(track)
 
         self.list.set_model(self.model)
-        self.main.update_track_counts()
+        self.emit('track-count-changed', len(self.playlist))
 
         #Whenever we reset the model of the list
         #we need to mark the search column again
@@ -508,16 +505,6 @@ class Playlist(gtk.VBox):
     def key_pressed(self, widget, event):
         if event.keyval == gtk.keysyms.Delete:
             self.remove_selected_tracks()
-        elif event.keyval == gtk.keysyms.Left:
-            # Modifying current position
-            if not self.player.current: return
-            self.player.scroll(-10)
-            self.main.progress_bar.timer_update() # Needed to evade progressbar lag
-        elif event.keyval == gtk.keysyms.Right:
-            # Modifying current position
-            if not self.player.current: return
-            self.player.scroll(10)
-            self.main.progress_bar.timer_update() # Needed to evade progressbar lag
 
         return False
 
@@ -677,7 +664,7 @@ class Playlist(gtk.VBox):
             self.set_needs_save(True)
 
         gobject.idle_add(self.add_track_callbacks)
-        self.main.update_track_counts()
+        self.emit('track-count-changed', len(self.playlist))
 
         if curtrack is not None:
             index = self.playlist.index(curtrack)

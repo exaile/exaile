@@ -1031,10 +1031,13 @@ class ContextPanel(gobject.GObject):
 
     def __init__(self, parent):
         self.init__(parent, 'Context')
+        
+        cachedir = os.path.join(xdg.get_data_dirs()[0], 'context')
+        if not os.path.isdir(cachedir):
+            os.mkdir(cachedir)
 
         #TODO last.fm class
-        pylast.enable_caching(
-                os.path.join(xdg.get_data_dirs()[0], 'context', 'lastfm.cache')
+        pylast.enable_caching(os.path.join(cachedir, 'lastfm.cache'))
 
         self.controller = parent
         

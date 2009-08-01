@@ -87,7 +87,9 @@ class IPyConsole(gtk.Window):
         self.ipv = ipv
 
         # change display to emulate dark gnome-terminal
-        ipv.modify_font(pango.FontDescription(FONT))
+        console_font = settings.get_option('plugin/ipconsole/font', FONT)
+
+        ipv.modify_font(pango.FontDescription(console_font))
         ipv.set_wrap_mode(gtk.WRAP_CHAR)
         ipv.modify_base(gtk.STATE_NORMAL, gtk.gdk.color_parse('black'))
         ipv.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse('lavender'))
@@ -99,7 +101,6 @@ class IPyConsole(gtk.Window):
 #        ipv.IP.magic_colors('LightBG') # IPython color scheme
 
         opacity = settings.get_option('plugin/ipconsole/opacity', 80.0)
-        print "Opacity: %f" % (float(opacity) / 100.0)
 
         if opacity < 100: self.set_opacity(float(opacity) / 100.0)   # add a little transparency :)
         ipv.updateNamespace(namespace)      # expose exaile (passed in)
@@ -142,6 +143,10 @@ def on_setting_change(event, settings, option):
         value = settings.get_option(option, 80.0)
         value = float(value) / 100.0
         PLUGIN.set_opacity(value)
+
+    if option == 'plugin/ipconsole/font' and PLUGIN:
+        value = settings.get_option(option, FONT)
+        PLUGIN.ipv.modify_font(pango.FontDescription(value))
 
 def __enb(evt, exaile, nothing):
     gobject.idle_add(_enable, exaile)

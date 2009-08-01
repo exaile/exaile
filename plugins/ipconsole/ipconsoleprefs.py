@@ -25,3 +25,7 @@ glade = os.path.join(basedir, 'ipconsole_prefs.glade')
 class OpacityPreference(widgets.ScalePrefsItem):
     default = 80.0
     name = 'plugin/ipconsole/opacity'
+
+class FontPreference(widgets.FontButtonPrefsItem):
+    default = 'Luxi Mono 10'
+    name = 'plugin/ipconsole/font'

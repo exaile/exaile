@@ -80,9 +80,8 @@ class ExaileNotifyOsd(object):
                 self.cover = self.resumeicon
                 icon_allowed = True
             elif self.show_covers:
-                resize = settings.get_option('plugin/notifyosd/resize', True)
                 self.cover = notifyosd_cover.notifyosd_get_image_for_track(
-                    track, self.exaile, resize=resize)
+                    track, self.exaile)
                 icon_allowed = True
         
         # Setup the summary and body for the notification
@@ -98,11 +97,7 @@ class ExaileNotifyOsd(object):
             self.body = ""
         
         if icon_allowed :
-            if not isinstance(self.cover, gtk.gdk.Pixbuf): 
-                self.notify.update(self.summary, self.body, self.cover)
-            else:
-                self.notify.update(self.summary, self.body)
-                self.notify.set_icon_from_pixbuf(self.cover)
+            self.notify.update(self.summary, self.body, self.cover)
         else :
             self.notify.update(self.summary, self.body)
         

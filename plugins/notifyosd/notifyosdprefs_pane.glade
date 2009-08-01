@@ -79,16 +79,7 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkCheckButton" id="plugin/notifyosd/resize">
-                        <property name="label" translatable="yes">Scale Cover Images</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">False</property>
-                        <property name="draw_indicator">True</property>
-                      </widget>
-                      <packing>
-                        <property name="position">4</property>
-                      </packing>
+                      <placeholder/>
                     </child>
                   </widget>
                 </child>

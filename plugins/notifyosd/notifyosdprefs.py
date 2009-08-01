@@ -59,7 +59,3 @@ class BodyAlbum(widgets.PrefsItem):
 class ShowWhenFocused(widgets.CheckPrefsItem):
     default = True
     name = 'plugin/notifyosd/show_when_focused'
-
-class ResizeCovers(widgets.CheckPrefsItem):
-    default = True
-    name = 'plugin/notifyosd/resize'

@@ -161,12 +161,13 @@ def save_to_pls(playlist, path):
     handle.close()
 
 def import_from_pls(path, handle=None):
-    if not handle: handle = open(path, 'r')
+    if not handle: handle = urllib.urlopen(path)
 
     #PLS doesn't store a name, so assume the filename is the name
     name = os.path.split(path)[-1].replace(".pls","")
 
-    if handle.readline().strip() != '[playlist]':
+    line = handle.readline().strip()
+    if line != '[playlist]':
         return None # not a valid pls playlist
 
     linedict = {}
@@ -236,7 +237,7 @@ def save_to_asx(playlist, path):
     handle.close()
     
 def import_from_asx(path):
-    tree = ETree.ElementTree(file=open(path))
+    tree = ETree.ElementTree(file=urllib.urlopen(path))
     tracks = tree.findall("entry")
     name = tree.find("title").text.strip()
     pl = Playlist(name=name)
@@ -284,7 +285,7 @@ def save_to_xspf(playlist, path):
     
 def import_from_xspf(path):
     #TODO: support content resolution
-    tree = ETree.ElementTree(file=open(path))
+    tree = ETree.ElementTree(file=urllib.urlopen(path))
     ns = "{http://xspf.org/ns/0/}"
     tracks = tree.find("%strackList"%ns).findall("%strack"%ns)
     name = tree.find("%stitle"%ns).text.strip()

@@ -55,13 +55,13 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
         self._setup_tree()
         self._setup_widgets()
-        self._connect_events()
         self.playlist_image = gtk.gdk.pixbuf_new_from_file(
             xdg.get_data_path('images/playlist.png'))
 
         # menus
         self.playlist_menu = menu.RadioPanelPlaylistMenu()
         self.track_menu = menu.PlaylistsPanelTrackMenu()
+        self._connect_events()
 
         self.load_streams()
         RadioPanel._radiopanel = self
@@ -127,6 +127,29 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         """
             Connects events used in this panel
         """
+        self.track_menu.connect('remove-track', lambda *e:
+            self.remove_selected_tracks())
+
+        menu = self.playlist_menu
+        menu.connect('add-playlist', self._on_add_button_clicked)
+
+        menu.connect('append-items', lambda *e:
+            self.emit('append-items', self.get_selected_tracks()))
+        menu.connect('queue-items', lambda *e:
+            self.emit('queue-items', self.get_selected_tracks()))
+        menu.connect('open-playlist', lambda *e: 
+            self.open_selected_playlist())
+        menu.connect('export-playlist', lambda widget, path:
+            self.export_selected_playlist(path))
+        menu.connect('rename-playlist', lambda widget, name:
+            self.rename_selected_playlist(name))
+        menu.connect('remove-playlist', lambda *e:
+            self.remove_selected_playlist())
+
+
+        self.xml.signal_autoconnect({
+            'on_add_button_clicked': self._on_add_button_clicked,
+        })
         self.tree.connect('row-expanded', self.on_row_expand)
         self.tree.connect('row-collapsed', self.on_collapsed)
         self.tree.connect('row-activated', self.on_row_activated)
@@ -136,6 +159,44 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
                 self.manager)
         event.add_callback(self._remove_driver_cb, 'station_removed', 
                 self.manager)
+
+    def _on_add_button_clicked(self, *e):
+        dialog = commondialogs.MultiTextEntryDialog(self.parent,
+            _("Add Radio Station"))
+
+        dialog.add_field(_("Name:"))
+        dialog.add_field(_("URL:"))
+
+        result = dialog.run()
+        dialog.hide()
+
+        if result == gtk.RESPONSE_OK:
+            (name, uri) = dialog.get_values()
+            self._do_add_playlist(name, uri)
+    
+    @common.threaded
+    def _do_add_playlist(self, name, uri):
+        from xl import playlist, track
+        if playlist.is_valid_playlist(uri):
+            pl = playlist.import_playlist(uri)
+            pl.name = name
+        else:
+            pl = playlist.Playlist(name)
+            tracks = track.get_tracks_from_uri(uri)
+            tracks.sort(key=lambda track: track.sort_param(column), reverse=descending)
+            try:
+                pl.add_tracks(tracks)
+            # Catch empty directories
+            except IndexError:
+                pass
+
+        self._add_to_tree(pl)
+
+    @guiutil.idle_add()
+    def _add_to_tree(self, pl):
+        self.playlist_nodes[pl] = self.model.append(self.custom, 
+            [self.playlist_image, pl.name, pl])
+        self._load_playlist_nodes(pl)
 
     def _setup_tree(self):
         """

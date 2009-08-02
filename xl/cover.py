@@ -33,7 +33,7 @@ def get_cover_data(info):
     if isinstance(info, CoverData):
         return info.data
 
-    h = open(info, 'r')
+    h = open(info, 'rb')
     data = h.read()
     h.close()
 

@@ -53,11 +53,11 @@ uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
 	cd plugins && make uninstall && cd ..
 
-install: make-install-dirs install-target locale
+install: install-target locale
 
-install_no_locale: make-install-dirs install-target
+install_no_locale: install-target
 
-install-target:
+install-target: make-install-dirs
 	install -m 644 exaile.py $(EXAILELIBDIR)	
 	-install -m 644 xl/*.py[co] $(EXAILELIBDIR)/xl
 	install -m 644 xl/*.py $(EXAILELIBDIR)/xl

@@ -585,7 +585,12 @@ class CollectionPanel(panel.Panel):
         if iter_sep is not None:
             self.model.remove(iter_sep)
 
-        if depth == 0 and len(self.keyword.strip()) > 2:
+        if depth == 0 and \
+                len(values) <= settings.get_option(
+                        "gui/expand_maximum_results", 100) and \
+                len(self.keyword.strip()) >= \
+                settings.get_option("gui/expand_minimum_term_length", 3) and \
+                settings.get_option("gui/expand_enabled", True):
             
             # the search number is an id for expanding nodes. 
             # we set the id before we try expanding the nodes because

@@ -640,6 +640,7 @@ class Library(object):
         for k, tr in db.tracks.iteritems():
             tr = tr._track
             loc = tr.get_loc_for_io()
+            if not loc: continue
             try:
                 if not loc.startswith(location):
                     continue

@@ -47,6 +47,10 @@ device recognition/persistence:
             - best solution thus far: don't try to auto-detect, just poll
                 mtab and libmtp when the device manager is open and require
                 users to manually connect through the device manager
+        - gio.VolumeMonitor appears to work with gvfs, thunar-vfs and
+                pmount, but not manual mounts - this might be the most
+                system-independent way to go. will also integrate well with
+                our full migration to gio.
 
 transfer&syncing:
     drag and drop from collection to device or vv. should work perfectly

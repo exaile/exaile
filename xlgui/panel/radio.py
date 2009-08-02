@@ -183,7 +183,6 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         else:
             pl = playlist.Playlist(name)
             tracks = track.get_tracks_from_uri(uri)
-            tracks.sort(key=lambda track: track.sort_param(column), reverse=descending)
             try:
                 pl.add_tracks(tracks)
             # Catch empty directories

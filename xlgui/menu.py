@@ -241,25 +241,12 @@ class TrackSelectMenu(GenericTrackMenu):
             Appends the selected tracks to the current playlist
         """
         self.emit('append-items')
-#        if not selected:
-#            selected = self.widget.get_selected_tracks()
-
-#        pl = self.main.get_selected_playlist()
-#        if pl:
-#            pl.playlist.add_tracks(selected, add_duplicates=False)
 
     def on_queue(self, selected=None):
         """
             Called when the user clicks the "toggle queue" item
         """
         self.emit('queue-items')
-#        if not selected:
-#            selected = self.widget.get_selected_tracks()
-#        pl = self.main.get_selected_playlist()
-#        self.queue.add_tracks(selected, add_duplicates=False)
-#        if pl:
-#            pl.playlist.add_tracks(selected, add_duplicates=False)
-#            pl.list.queue_draw()
 
 class RatedTrackSelectMenu(TrackSelectMenu):
     """

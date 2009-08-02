@@ -648,7 +648,8 @@ class MenuRatingWidget(gtk.MenuItem):
         
         self.hbox = gtk.HBox(spacing=3)
         self.hbox.pack_start(gtk.Label(_("Rating:")), False, False)
-        self.image = gtk.image_new_from_pixbuf (self._get_rating_pixbuf(self._get_tracks()))
+        self.image = gtk.image_new_from_pixbuf(
+            self._get_rating_pixbuf(self._get_tracks()))
         self.hbox.pack_start(self.image, False, False, 12)
         
         self.add(self.hbox)
@@ -658,7 +659,8 @@ class MenuRatingWidget(gtk.MenuItem):
 
     def _update_rating(self, w, e):
         """
-            Updates the rating of the tracks for this widget, meant to be used with a click event
+            Updates the rating of the tracks for this widget, meant to be 
+            used with a click event
         """
         tracks = self._get_tracks()
         if tracks and tracks[0]:
@@ -673,7 +675,8 @@ class MenuRatingWidget(gtk.MenuItem):
                 r = -1
             
             if r >= 0:
-                if r == tracks[0].get_rating() and self._all_ratings_equal(tracks):
+                if r == tracks[0].get_rating() and \
+                    self._all_ratings_equal(tracks):
                     r = 0
                 
                 for track in tracks:
@@ -681,11 +684,15 @@ class MenuRatingWidget(gtk.MenuItem):
                 
                 event.log_event('rating_changed', self, r)
 
-
     def _all_ratings_equal(self, tracks = None):
         """
             Returns True if the rating of the tracks for this widget is equal
         """
+        # this method is currently disabled as it is *extremely* slow when
+        # selecting more than a few items in the collection panel.
+        # TODO: either fix this or remove this code
+        return False
+
         if not tracks:
             tracks = self._get_tracks()
             if not tracks:
@@ -705,9 +712,13 @@ class MenuRatingWidget(gtk.MenuItem):
 
     def _get_rating_pixbuf(self, tracks):
         """
-            Returns the pixbuf for the rating of the tracks if they're identical
-            If they're not, returns a pixbuf for the rating 0
+            Returns the pixbuf for the rating of the tracks if they're 
+            identical If they're not, returns a pixbuf for the rating 0
         """
+        # this method is currently disabled as it is *extremely* slow when
+        # selecting more than a few items in the collection panel.
+        # TODO: either fix this or remove this code
+        return rating.rating_images[0]
         if not tracks:
             tracks = self._get_tracks()
             if not tracks:
@@ -725,18 +736,24 @@ class MenuRatingWidget(gtk.MenuItem):
         else:
             return rating.rating_images[0]
             
-    def on_rating_change(self, type = None, object = None, data = None):
+    def on_rating_change(self, type=None, object=None, data=None):
         """
             Handles possible changes of track ratings
         """
-        self.image.set_from_pixbuf (self._get_rating_pixbuf (self._get_tracks()))
+        # this method is currently disabled as it is *extremely* slow when
+        # selecting more than a few items in the collection panel.
+        # TODO: either fix this or remove this code
+        return
+        self.image.set_from_pixbuf(
+            self._get_rating_pixbuf (self._get_tracks()))
         self.realize()
 
 def get_urls_for(items):
     """
         Returns the items' URLs
     """
-    return [urllib.quote(item.get_loc().encode(common.get_default_encoding()), '/:')
+    return [urllib.quote(item.get_loc().encode(
+        common.get_default_encoding()), '/:')
         for item in items]
 
 def finish(repeat=True):

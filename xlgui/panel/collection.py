@@ -45,7 +45,8 @@ class CollectionPanel(panel.Panel):
         ['artist', 'date', 'album', 'tracknumber', 'title'],
     )
 
-    def __init__(self, parent, collection, name=None):
+    def __init__(self, parent, collection, name=None, 
+        _show_collection_empty_message=False):
         """
             Initializes the collection panel
 
@@ -55,6 +56,7 @@ class CollectionPanel(panel.Panel):
         """
         panel.Panel.__init__(self, parent, name)
 
+        self._show_collection_empty_message = _show_collection_empty_message
         self.collection = collection
         self.use_alphabet = settings.get_option('gui/use_alphabet', True)
         self.vbox = self.xml.get_widget('CollectionPanel')
@@ -106,7 +108,8 @@ class CollectionPanel(panel.Panel):
         box.show_all()
 
     def _check_collection_empty(self, *e):
-        if self.collection.libraries and self.collection_empty_message:
+        if not self._show_collection_empty_message or \
+            (self.collection.libraries and self.collection_empty_message):
             self.collection_empty_message = False
             self.vbox.set_child_visible(True)
             self.message.set_child_visible(False)

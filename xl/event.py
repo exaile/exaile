@@ -38,6 +38,7 @@ from new import instancemethod
 from inspect import ismethod
 from xl import common
 from xl.nls import gettext as _
+import re
 
 # define these here so the interperter doesn't complain about them
 EVENT_MANAGER = None
@@ -368,10 +369,11 @@ class EventManager(object):
     """
         Manages all Events
     """
-    def __init__(self, use_logger=False):
+    def __init__(self, use_logger=False, logger_filter=None):
         self.callbacks = {}
         self.idle = IDLE_MANAGER
         self.use_logger = use_logger
+        self.logger_filter = logger_filter
         self.lock = threading.Lock()
 
     def emit(self, event):
@@ -397,10 +399,12 @@ class EventManager(object):
                     pass
 
         if self.use_logger:
-            logger.debug(_("Sent '%(type)s' event from "
-                "'%(object)s' with data '%(data)s'.") % 
-                    {'type' : event.type, 'object' : repr(event.object), 
-                    'data' : repr(event.data)})
+            if not self.logger_filter or re.search(self.logger_filter,
+                event.type):
+                logger.debug(_("Sent '%(type)s' event from "
+                    "'%(object)s' with data '%(data)s'.") % 
+                        {'type' : event.type, 'object' : repr(event.object), 
+                        'data' : repr(event.data)})
 
         # now call them
         for cb in callbacks:
@@ -413,11 +417,16 @@ class EventManager(object):
                     except ValueError:
                         pass
                 elif event.time >= cb.time:
+
                     if self.use_logger:
-                        logger.debug(_("Attempting to call %(function)s in response "
-                            "to %(event)s.") % {
-                                'function': cb.wfunction(),
-                                'event': event.type})
+                        if not self.logger_filter or \
+                            re.search(self.logger_filter,
+                            event.type):
+                            logger.debug(_("Attempting to call "
+                                "%(function)s in response "
+                                "to %(event)s.") % {
+                                    'function': cb.wfunction(),
+                                    'event': event.type})
                     cb.wfunction().__call__(event.type, event.object, 
                             event.data, *cb.args, **cb.kwargs)
             except:
@@ -462,9 +471,9 @@ class EventManager(object):
                 Callback(function, time.time(), args, kwargs))
 
         if self.use_logger:
-            logger.debug("Added callback %s for [%s, %s]" % 
-                    (function, type, object))
-        
+            if not self.logger_filter or re.search(self.logger_filter, type):
+                logger.debug("Added callback %s for [%s, %s]" % 
+                        (function, type, object))
     
     def remove_callback(self, function, type=None, object=None):
         """
@@ -498,8 +507,9 @@ class EventManager(object):
             self.callbacks[type][object].remove(cb)
 
         if self.use_logger:
-            logger.debug("Removed callback %s for [%s, %s]" % 
-                    (function, type, object))
+            if not self.logger_filter or re.search(self.logger_filter, type):
+                logger.debug("Removed callback %s for [%s, %s]" % 
+                        (function, type, object))
 
 
 class Waiter(threading.Thread):

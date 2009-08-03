@@ -42,6 +42,7 @@ class HAL(providers.ProviderHandler):
             hal_obj = self.bus.get_object('org.freedesktop.Hal', 
                 '/org/freedesktop/Hal/Manager')
             self.hal = dbus.Interface(hal_obj, 'org.freedesktop.Hal.Manager')
+            logger.info("HAL: Providers: %s" % repr(self.get_providers()))
             for p in self.get_providers():
                 try:
                     self.on_new_provider(p)
@@ -57,6 +58,7 @@ class HAL(providers.ProviderHandler):
                     "autodetection of devices will be disabled."))
 
     def on_new_provider(self, provider):
+        print provider, provider.get_udis(self)
         for udi in provider.get_udis(self):
             self.add_device(udi)
 
@@ -116,7 +118,6 @@ class HAL(providers.ProviderHandler):
                 "DeviceAdded")
         self.bus.add_signal_receiver(self.remove_device,
                 "DeviceRemoved")
-
 
 class Handler(object):
     name = 'base'

@@ -83,7 +83,7 @@ class Main(object):
         self.last_selected_panel = settings.get_option(
             'gui/last_selected_panel', None)
         self.panels['collection'] = collection.CollectionPanel(self.main.window,
-            exaile.collection)
+            exaile.collection, _show_collection_empty_message=True)
         self.panels['radio'] = radio.RadioPanel(self.main.window, exaile.collection, 
             exaile.radio, exaile.stations)
         self.panels['playlists'] = playlists.PlaylistsPanel(self.main.window, 
@@ -409,7 +409,7 @@ class Main(object):
         self.device_panels[device.get_name()] = panel
         gobject.idle_add(self.add_panel, *panel.get_panel())
         thread = collection.CollectionScanThread(self.main, 
-                device.get_collection(), panel )
+                device.get_collection(), panel)
         self.progress_manager.add_monitor(thread,
                 _("Scanning %s..."%device.name), 'gtk-refresh')
 

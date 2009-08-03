@@ -60,6 +60,9 @@ class Exaile(object):
         if self.options.DebugEvent:
             event.EVENT_MANAGER.use_logger = True
 
+        if self.options.EventFilter:
+            event.EVENT_MANAGER.logger_filter = self.options.EventFilter
+
         #set up logging
         self.setup_logging()
 
@@ -328,6 +331,9 @@ class Exaile(object):
         p.add_option("--eventdebug", dest="DebugEvent", 
             action="store_true", default=False, 
             help=_("Enable debugging of xl.event. Generates LOTS of output"))
+        p.add_option("--eventfilter", dest="EventFilter",
+            action='store', type='string', help=_("Filter event debug "
+            "output"))
         p.add_option("--quiet", dest="Quiet", action="store_true",
             default=False, help=_("Reduce level of output"))
         p.add_option('--startgui', dest='StartGui', action='store_true',

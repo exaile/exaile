@@ -37,8 +37,6 @@ class ReceptiveCollectionPanel(CollectionPanel):
         for l in locs:
             lib.add(l)
 
-
-
 class DevicePanel(panel.Panel):
     """
         generic panel for devices

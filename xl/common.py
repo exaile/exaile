@@ -305,7 +305,7 @@ def the_cutter(field):
             break
     return field
 
-def lstrip_special(field, the_cutter=False):
+def lstrip_special(field, cutter=False):
     """
         Strip special chars off the beginning of a field for sorting. If
         stripping the chars leaves nothing the original field is returned with
@@ -319,8 +319,9 @@ def lstrip_special(field, the_cutter=False):
         ret = stripped
     else:
         ret = lowered.lstrip()
-    if the_cutter:
+    if cutter:
         ret = the_cutter(ret)
+    
     return ret
 
 class VersionError(Exception):

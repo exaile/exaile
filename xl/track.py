@@ -367,7 +367,7 @@ class Track(object):
             return self.get_track()
         elif field == 'artist':
             try:
-                artist = lstrip_special(self['artist'][0], true)
+                artist = lstrip_special(self['artist'][0], True)
             except:
                 artist = u""
             return artist

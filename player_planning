@@ -15,6 +15,8 @@ targets for 0.3.1:
     file layout support
         - useful for main as well, so worth implementing
         - probably make it part of xl.collection.Library
+    migrate to gio.VolumeMonitor for device and mount detection, use HAL
+            only for extended info.
 
 future:
     UPnP (client and server)
@@ -51,6 +53,10 @@ device recognition/persistence:
                 pmount, but not manual mounts - this might be the most
                 system-independent way to go. will also integrate well with
                 our full migration to gio.
+            - this doesnt have all the rich meta-data of HAL, but we
+                    can grab uuids from gio and look them up in HAL to get
+                    any available extended data.
+            - does it handle audio CDs?
 
 transfer&syncing:
     drag and drop from collection to device or vv. should work perfectly

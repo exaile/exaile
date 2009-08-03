@@ -92,7 +92,7 @@ class CDTocParser(object):
 
 class CDPlaylist(playlist.Playlist):
     def __init__(self, name="Audio CD", device=None):
-        playlist.Playlist.__init__(self, name=name, kind='cd')
+        playlist.Playlist.__init__(self, name=name)
 
         if not device:
             self.device = "/dev/cdrom"

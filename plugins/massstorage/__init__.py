@@ -45,7 +45,7 @@ class MassStorageDevice(Device):
 
     def connect(self):
         self.mountpoints = [ str(x) for x in self._mountpoints if 
-                str(x) is not None and os.path.exists(unicode(x)) ]
+                str(x) is not "" and os.path.exists(unicode(x)) ]
         if self.mountpoints == []:
             raise IOError, "Device is not mounted."
         for mountpoint in self.mountpoints:
@@ -75,7 +75,7 @@ class HalMountpoint(object):
             dev = dbus.Interface(obj, "org.freedesktop.Hal.Device")
             if dev.GetProperty("volume.is_mounted") == True:
                 return str(dev.GetProperty("volume.mount_point"))
-        return None
+        return ""
 
 
 class MassStorageHandler(Handler):

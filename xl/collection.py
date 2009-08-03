@@ -712,6 +712,11 @@ class Library(object):
             Copies (or moves) a file into the library and adds it to the 
             collection
         """
+        if not loc.startswith("file://"):
+            return
+        loc = loc[7:]
+        print self.location
+
         newloc = os.path.join(self.location, os.path.basename(loc))
         if move:
             shutil.move(loc, newloc)

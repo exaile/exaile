@@ -19,6 +19,26 @@ import gtk
 from xlgui import panel
 from xlgui.panel.collection import CollectionPanel
 
+class ReceptiveCollectionPanel(CollectionPanel):
+    def drag_data_received(self, widget, context, x, y, data, info, stamp):
+        """
+            stubb
+        """
+        uris = data.get_uris()
+        tracks, playlists = self.tree.get_drag_data(uris)
+        tracks = [ t for t in tracks if not \
+                self.collection.loc_is_member(t.get_loc()) ]
+        locs = [ t['__loc'] for t in tracks ]
+
+        # FIXME:
+        lib = self.collection.get_libraries()[0]
+
+        # this _needs_ to be asynchronous
+        for l in locs:
+            lib.add(l)
+
+
+
 class DevicePanel(panel.Panel):
     """
         generic panel for devices
@@ -33,8 +53,8 @@ class DevicePanel(panel.Panel):
 
         self.notebook = self.xml.get_widget("device_notebook")
 
-        self.collectionpanel = CollectionPanel(parent, main,
-            collection=device.collection)
+        self.collectionpanel = ReceptiveCollectionPanel(parent,
+            collection=device.collection, name=name)
 
     def get_panel(self):
         return self.collectionpanel.get_panel()

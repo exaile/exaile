@@ -26,6 +26,7 @@ import dbus
 
 # iPod device class
 class iPod(Device):
+    class_autoconnect = True
     def __init__(self, volume):
         self.volume = volume
         self.name = self.volume.GetProperty("volume.label")
@@ -33,10 +34,10 @@ class iPod(Device):
             self.name = "Apple iPod Music Player"
         Device.__init__(self, self.name)
         self.db = None
-        self.connected  = volume.GetProperty("volume.is_mounted")
+        self._is_mounted = volume.GetProperty("volume.is_mounted")
         self.mountpoint = None
         self.collection = Collection("Master")
-        if self.connected:
+        if self._is_mounted:
             self.mountpoint = str(volume.GetProperty("volume.mount_point"))
             self.open_db()
             self.populate_collection()  

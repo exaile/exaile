@@ -31,7 +31,6 @@ CDROM_LEADOUT = 0xAA
 CDROM_MSF = 0x02
 CDROM_DATA_TRACK = 0x04
 
-
 def enable(exaile):
     global PROVIDER
     PROVIDER = CDHandler()
@@ -41,7 +40,6 @@ def disable(exaile):
     global PROVIDER
     providers.unregister("hal", PROVIDER)
     PROVIDER = None
-    
 
 class CDTocParser(object):
     #based on code from http://carey.geek.nz/code/python-cdrom/cdtoc.py
@@ -160,7 +158,6 @@ class CDPlaylist(playlist.Playlist):
 
         self.set_name(title[1].decode('iso-8859-15', 'replace'))
 
-
 class CDDevice(Device):
     """
         represents a CD
@@ -200,7 +197,6 @@ class CDHandler(Handler):
         cddev = CDDevice(dev=device)
 
         return cddev
-
 
 class CDImporter(object):
     def __init__(self, tracks):

@@ -99,6 +99,12 @@ class Main(object):
             self.panel_notebook.set_current_page(selected_panel_num)
         except KeyError:
             pass
+
+        # add the device panels
+        for device in self.exaile.devices.list_devices():
+            print device, device.connected
+            if device.connected:
+                self.add_device_panel(device)
        
         logger.info("Connecting panel events...")
         self.main._connect_panel_events()
@@ -402,10 +408,17 @@ class Main(object):
         # save open tabs
         self.main.save_current_tabs()
 
+    @guiutil.idle_add()
     def add_device_panel(self, type, obj, device):
         from xlgui.panel.device import DevicePanel
         panel = DevicePanel(self.main.window, self.main, 
             device, device.get_name())
+
+        sort = True
+        panel.connect('append-items', lambda panel, items, sort=sort:
+            self.main.on_append_items(items, sort=sort))
+        panel.connect('queue-items', lambda panel, items, sort=sort:
+            self.main.on_append_items(items, queue=True, sort=sort))
         self.device_panels[device.get_name()] = panel
         gobject.idle_add(self.add_panel, *panel.get_panel())
         thread = collection.CollectionScanThread(self.main, 

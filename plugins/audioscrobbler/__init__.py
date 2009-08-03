@@ -17,7 +17,7 @@ def enable(exaile):
     SCROBBLER = ExaileScrobbler(exaile)
     
     if exaile.loading:
-        event.add_callback(__enb, 'exaile_loaded')
+        event.add_callback(__enb, 'gui_loaded')
     else:
         __enb(None, exaile, None)
 

@@ -404,7 +404,8 @@ class Main(object):
 
     def add_device_panel(self, type, obj, device):
         from xlgui.panel.device import DevicePanel
-        panel = DevicePanel(self, device, device.get_name())
+        panel = DevicePanel(self.main.window, self.main, 
+            device, device.get_name())
         self.device_panels[device.get_name()] = panel
         gobject.idle_add(self.add_panel, *panel.get_panel())
         thread = collection.CollectionScanThread(self.main, 

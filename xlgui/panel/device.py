@@ -25,15 +25,16 @@ class DevicePanel(panel.Panel):
     """
     gladeinfo = ('device_panel.glade', 'DevicePanelWindow')
 
-    def __init__(self, device, name=None):
+    def __init__(self, parent, main, 
+        device, name=None):
 
         panel.Panel.__init__(self, name)
         self.device = device
 
         self.notebook = self.xml.get_widget("device_notebook")
 
-        self.collectionpanel = CollectionPanel(self, 
-                device.collection, name=self.name)
+        self.collectionpanel = CollectionPanel(parent, main,
+            collection=device.collection)
 
     def get_panel(self):
         return self.collectionpanel.get_panel()

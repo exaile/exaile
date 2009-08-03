@@ -44,6 +44,8 @@ class DeviceManager(object):
 
     def remove_device(self, device):
         try:
+            if device.connected:
+                device.disconnect()
             del self.devices[device.get_name()]
         except KeyError:
             pass

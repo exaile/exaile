@@ -14,7 +14,7 @@
 
 # Exaile plugin for iPod support, with autodetection
 
-import sys
+import sys, time
 from xl import common
 from xl.devices import Device
 from xl.collection import Collection
@@ -23,6 +23,11 @@ from xl import event, providers
 from xl.hal import Handler
 import gpod, gobject
 import dbus
+
+import logging
+logger = logging.getLogger(__name__)
+
+_MOUNT_TRIES = 5
 
 # iPod device class
 class iPod(Device):
@@ -68,6 +73,19 @@ class iPod(Device):
         """
         Connect (or in this case 'mount' the ipod)
         """
+        count = 0
+        while count < _MOUNT_TRIES:
+            is_mounted = self.volume.GetProperty("volume.is_mounted")
+            if is_mounted: break
+            logger.info("iPod not mounted yet, waiting 1 second...")
+            time.sleep(1)
+            count += 1
+
+        if not is_mounted:
+            logger.info("Waited %d seconds for a valid mount and could not "
+                "find one.  Not autoconnecting iPod plugin." % _MOUNT_TRIES)
+            return
+
         self.mountpoint = str(self.volume.GetProperty("volume.mount_point"))
         self.open_db()
         self.populate_collection()

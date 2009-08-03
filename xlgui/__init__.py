@@ -426,6 +426,7 @@ class Main(object):
         self.progress_manager.add_monitor(thread,
                 _("Scanning %s..."%device.name), 'gtk-refresh')
 
+    @guiutil.idle_add()
     def remove_device_panel(self, type, obj, device):
         try:
             self.remove_panel(

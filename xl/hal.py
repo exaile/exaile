@@ -58,7 +58,6 @@ class HAL(providers.ProviderHandler):
                     "autodetection of devices will be disabled."))
 
     def on_new_provider(self, provider):
-        print provider, provider.get_udis(self)
         for udi in provider.get_udis(self):
             self.add_device(udi)
 
@@ -107,6 +106,7 @@ class HAL(providers.ProviderHandler):
         self.hal_devices[device_udi] = dev
 
     def remove_device(self, device_udi):
+        logger.debug("Got request to remove %s" % device_udi)
         try:
             self.devicemanager.remove_device(self.hal_devices[device_udi])
             del self.hal_devices[device_udi]

@@ -649,13 +649,32 @@ class MenuRatingWidget(gtk.MenuItem):
         self.hbox = gtk.HBox(spacing=3)
         self.hbox.pack_start(gtk.Label(_("Rating:")), False, False)
         self.image = gtk.image_new_from_pixbuf(
-            self._get_rating_pixbuf(self._get_tracks()))
+            self._get_rating_pixbuf(0))
         self.hbox.pack_start(self.image, False, False, 12)
         
         self.add(self.hbox)
         
         self.connect('button-release-event', self._update_rating)
-        event.add_callback(self.on_rating_change, 'rating_changed')
+        self.connect('motion-notify-event', self._motion_notify)
+
+    def _motion_notify(self, w, e):
+        steps = settings.get_option('miscellaneous/rating_steps', 5)
+        (x, y) = e.get_coords()
+        try:
+            (u, v) =  self.translate_coordinates(self.image, int(x), int(y))
+        except ValueError: return
+
+        if -12 <= u < 0:
+            r = 0
+        elif 0 <= u < steps*12:
+            r = (u / 12) + 1
+        else:
+            r = -1
+
+        if r >= 0:
+            self.image.set_from_pixbuf(
+                self._get_rating_pixbuf(r))
+            self.queue_draw()
 
     def _update_rating(self, w, e):
         """
@@ -684,70 +703,12 @@ class MenuRatingWidget(gtk.MenuItem):
                 
                 event.log_event('rating_changed', self, r)
 
-    def _all_ratings_equal(self, tracks = None):
+    def _get_rating_pixbuf(self, num):
         """
-            Returns True if the rating of the tracks for this widget is equal
+            Returns the pixbuf for num
         """
-        # this method is currently disabled as it is *extremely* slow when
-        # selecting more than a few items in the collection panel.
-        # TODO: either fix this or remove this code
-        return False
-
-        if not tracks:
-            tracks = self._get_tracks()
-            if not tracks:
-                return False
-        
-        try:
-            val = tracks[0].get_rating()
-        except AttributeError:
-            return False
-        
-        for track in tracks:
-            if val != track.get_rating():
-                return False
-        
-        return True
-
-
-    def _get_rating_pixbuf(self, tracks):
-        """
-            Returns the pixbuf for the rating of the tracks if they're 
-            identical If they're not, returns a pixbuf for the rating 0
-        """
-        # this method is currently disabled as it is *extremely* slow when
-        # selecting more than a few items in the collection panel.
-        # TODO: either fix this or remove this code
-        return rating.rating_images[0]
-        if not tracks:
-            tracks = self._get_tracks()
-            if not tracks:
-                return rating.rating_images[0]
-        
-        if self._all_ratings_equal(tracks):
-            try:
-                return rating.rating_images[tracks[0].get_rating()]
-            except IndexError:
-                steps = settings.get_option('miscellaneous/rating_steps', 5)
-                idx = tracks[0].get_rating()
-                if idx > steps: idx = steps
-                elif idx < 0: idx = 0
-                return rating.rating_images[idx]
-        else:
-            return rating.rating_images[0]
+        return rating.rating_images[num]
             
-    def on_rating_change(self, type=None, object=None, data=None):
-        """
-            Handles possible changes of track ratings
-        """
-        # this method is currently disabled as it is *extremely* slow when
-        # selecting more than a few items in the collection panel.
-        # TODO: either fix this or remove this code
-        return
-        self.image.set_from_pixbuf(
-            self._get_rating_pixbuf (self._get_tracks()))
-        self.realize()
-
 def get_urls_for(items):
     """
         Returns the items' URLs

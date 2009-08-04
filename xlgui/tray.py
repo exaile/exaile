@@ -165,7 +165,6 @@ class TrayIcon(gobject.GObject):
         else:
             self.rating_item.set_sensitive(False)
             self.rm_item.set_sensitive(False)
-        self.rating_item.on_rating_change()
 
     def _update_shuffle(self, data):
         settings.set_option('playback/shuffle', self.check_shuffle.get_active())

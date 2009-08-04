@@ -142,9 +142,6 @@ class PlaylistMenu(GenericTrackMenu):
             self.playlist.get_selected_tracks)
         
         self.append_item(self.rating_item)
-        event.add_callback(self.rating_item.on_rating_change, 
-            'playback_track_start')
-        self.connect('enter-notify-event', self.rating_item.on_rating_change)
 
         self.add_playlist_menu = AddToPlaylistMenu(playlist, playlists)
         self.append_menu(_('Add to custom playlist'), 
@@ -260,8 +257,6 @@ class RatedTrackSelectMenu(TrackSelectMenu):
 
         TrackSelectMenu.__init__(self)
         
-        self.connect('enter-notify-event', self.rating_item.on_rating_change)
-
     def _create_menu(self):
         """
             Actually adds the menu items

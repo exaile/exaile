@@ -52,18 +52,25 @@ class ManagerDialog(object):
             self.xml.get_widget('btn_%s' % item).destroy()
 
         # object should really be devices.Device, but it doesnt work :/
-        self.model = gtk.ListStore(object, gtk.gdk.Pixbuf, str)
+        self.model = gtk.ListStore(object, gtk.gdk.Pixbuf, str, str)
         self.tree = self.xml.get_widget('tree_devices')
         self.tree.set_model(self.model)
 
         render = gtk.CellRendererPixbuf()
-        col = gtk.TreeViewColumn("Icon", render)
+        col = gtk.TreeViewColumn(_("Icon"), render)
         col.add_attribute(render, "pixbuf", 1)
         self.tree.append_column(col)
 
         render = gtk.CellRendererText()
-        col = gtk.TreeViewColumn("Information", render)
+        col = gtk.TreeViewColumn(_("Device"), render)
+        col.set_expand(True)
+        col.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
         col.add_attribute(render, "text", 2)
+        self.tree.append_column(col)
+
+        render = gtk.CellRendererText()
+        col = gtk.TreeViewColumn(_("Driver"), render)
+        col.add_attribute(render, "text", 3)
         self.tree.append_column(col)
 
         self.populate_tree()
@@ -73,7 +80,7 @@ class ManagerDialog(object):
     def populate_tree(self, *args):
         self.model.clear()
         for d in self.device_manager.list_devices():
-            self.model.append([d, None, d.get_name()])
+            self.model.append([d, None, d.get_name(), d.__class__.__name__])
 
     def _get_selected_devices(self):
         sel = self.tree.get_selection()

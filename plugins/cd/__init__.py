@@ -166,14 +166,17 @@ class CDDevice(Device):
 
     def __init__(self, dev="/dev/cdrom"):
         Device.__init__(self, dev)
+        self.name = "Audio Disc"
         self.dev = dev
 
     def connect(self):
         cdpl = CDPlaylist(device=self.dev)
         self.playlists.append(cdpl)
+        self.connected = True
 
     def disconnect(self):
         self.playlists = []
+        self.connected = False
 
 class CDHandler(Handler):
     name = "cd"

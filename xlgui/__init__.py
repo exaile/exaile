@@ -102,9 +102,8 @@ class Main(object):
 
         # add the device panels
         for device in self.exaile.devices.list_devices():
-            print device, device.connected
             if device.connected:
-                self.add_device_panel(device)
+                self.add_device_panel(None, None, device)
        
         logger.info("Connecting panel events...")
         self.main._connect_panel_events()

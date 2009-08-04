@@ -90,7 +90,7 @@ class CDTocParser(object):
         return lengths
 
 class CDPlaylist(playlist.Playlist):
-    def __init__(self, name=_("Audio CD"), device=None):
+    def __init__(self, name=_("Audio Disc"), device=None):
         playlist.Playlist.__init__(self, name=name)
 
         if not device:
@@ -168,7 +168,7 @@ class CDDevice(Device):
 
     def __init__(self, dev="/dev/cdrom"):
         Device.__init__(self, dev)
-        self.name = "Audio Disc"
+        self.name = _("Audio Disc")
         self.dev = dev
 
     def connect(self):

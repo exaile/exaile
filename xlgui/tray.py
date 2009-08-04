@@ -245,9 +245,11 @@ class TrayIcon(gobject.GObject):
             if event.direction == gtk.gdk.SCROLL_UP:
                 volume = self.player.get_volume()
                 self.player.set_volume(volume + self.VOLUME_SCROLL_AMOUNT)
+                return True
             elif event.direction == gtk.gdk.SCROLL_DOWN:
                 volume = self.player.get_volume()
                 self.player.set_volume(volume - self.VOLUME_SCROLL_AMOUNT)
+                return True
             elif event.direction == gtk.gdk.SCROLL_LEFT:
                 self.queue.prev()
             elif event.direction == gtk.gdk.SCROLL_RIGHT:

@@ -540,6 +540,10 @@ class MainWindow(object):
         """
         self.volume_slider = self.xml.get_widget('volume_slider')
         self.volume_slider.set_value(settings.get_option("player/volume", 1))
+        self.volume_slider.connect('scroll-event', guiutil.on_slider_scroll)
+        self.volume_slider.connect('key-press-event',
+            guiutil.on_slider_key_press)
+
         self.shuffle_toggle = self.xml.get_widget('shuffle_button')
         self.shuffle_toggle.set_active(settings.get_option('playback/shuffle', False))
         self.repeat_toggle = self.xml.get_widget('repeat_button')
@@ -578,6 +582,7 @@ class MainWindow(object):
         self.filter = guiutil.SearchEntry()
         self.filter.connect('activate', self.on_playlist_search)
         box.pack_start(self.filter.entry, True, True)
+
 
     def on_queue(self):
         """

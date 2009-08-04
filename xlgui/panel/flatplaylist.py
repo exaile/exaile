@@ -46,6 +46,8 @@ class FlatPlaylistPanel(panel.Panel):
             self.emit('append-items', self.get_selected_tracks()))
         self.menu.connect('queue-items', lambda *e:
             self.emit('queue-items', self.get_selected_tracks()))
+        self.tree.connect('row-activated', lambda *e:
+            self.emit('append-items', self.get_selected_tracks()))
 
     def _on_add_button_clicked(self, *e):
         self.emit('append-items', self.tracks)

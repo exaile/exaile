@@ -221,6 +221,22 @@
                         </child>
                       </widget>
                     </child>
+                    <child>
+                      <widget class="GtkImageMenuItem" id="clear_playlist_item">
+                        <property name="label" translatable="yes">Clear Playlist</property>
+                        <property name="visible">True</property>
+                        <property name="use_stock">False</property>
+                        <signal name="activate" handler="on_clear_playlist_item_activate"/>
+                        <accelerator key="l" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                        <child internal-child="image">
+                          <widget class="GtkImage" id="image9">
+                            <property name="visible">True</property>
+                            <property name="stock">gtk-clear</property>
+                            <property name="icon-size">1</property>
+                          </widget>
+                        </child>
+                      </widget>
+                    </child>
                   </widget>
                 </child>
               </widget>

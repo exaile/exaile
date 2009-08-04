@@ -521,7 +521,6 @@ class MainWindow(object):
             ('<Shift><Control>S', lambda *e: self.on_save_playlist_as()),
             ('<Control>F', lambda *e: self.on_search_collection_focus()),
             ('<Control>G', lambda *e: self.on_search_playlist_focus()),
-            ('<Control>L', lambda *e: self.on_clear_playlist()),
             ('<Control>D', lambda *e: self.on_queue()),
             ('<Control><Alt>l', lambda *e: self.on_clear_queue()),
             ('Left', lambda *e: self._on_left_pressed()),

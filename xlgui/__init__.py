@@ -141,7 +141,8 @@ class Main(object):
             'on_open_url_item_activate': self.open_url,
             'on_export_current_playlist_activate': self.export_current_playlist,
             'on_panel_notebook_switch_page': self.on_panel_switch,
-            'on_track_properties_activate':self.on_track_properties
+            'on_track_properties_activate':self.on_track_properties,
+            'on_clear_playlist_item_activate': self.main.on_clear_playlist,
         })
 
     def _on_quit_application(self, event, sender, data):

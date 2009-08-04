@@ -424,6 +424,10 @@ class Main(object):
             self.main.on_append_items(items, sort=sort))
         panel.connect('queue-items', lambda panel, items, sort=sort:
             self.main.on_append_items(items, queue=True, sort=sort))
+
+        # TODO: do not use device.get_name as the dict value here.  Two
+        # devices could have the same name ("Audio Disk" for example), and
+        # this would cause removing to possibly remove the wrong panel
         self.device_panels[device.get_name()] = panel
         gobject.idle_add(self.add_panel, *panel.get_panel())
         thread = collection.CollectionScanThread(self.main, 

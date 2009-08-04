@@ -286,6 +286,9 @@ try:
     from pyinotify import EventsCodes, ProcessEvent
 except ImportError:
     pyinotify = None
+except:
+    import traceback
+    traceback.print_exc()
 
 class INotifyEventProcessor(ProcessEvent):
     """

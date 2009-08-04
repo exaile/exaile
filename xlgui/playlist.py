@@ -676,6 +676,24 @@ class Playlist(gtk.VBox):
         event.add_callback(self.on_remove_tracks, 'tracks_removed',
             self.playlist)
 
+    def _remove_selected_nodes(self):
+        """
+            Simply removes the selected nodes from the tree.  Does NOT remove
+            tracks from the contained playlist
+        """
+        sel = self.list.get_selection()
+        (model, paths) = sel.get_selected_rows()
+        # Since we want to modify the model we make references to it
+        # This allows us to remove rows without it messing up
+        rows = []
+        for path in paths:
+            rows.append(gtk.TreeRowReference(model, path))
+        for row in rows:
+            iter = self.model.get_iter(row.get_path())
+            #Also update the playlist we have
+            track = self.model.get_value(iter, 0)
+            self.model.remove(iter)
+
     def remove_selected_tracks(self):
         self.remove_tracks(self.get_selected_tracks())
 
@@ -714,7 +732,7 @@ class Playlist(gtk.VBox):
             and we want to delete the source data
         """
         if context.drag_drop_succeeded():
-            self.remove_selected_tracks()
+            self._remove_selected_nodes()
 
     def drag_get_data(self, treeview, context, selection, target_id, etime):
         """

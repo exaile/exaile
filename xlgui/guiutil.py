@@ -745,10 +745,10 @@ def on_slider_key_press(widget, ev):
     """
     # Modify default HScale up/down behaviour.
     incr = widget.get_adjustment().page_size
-    if ev.keyval == gtk.keysyms.Down:
+    if ev.keyval in (gtk.keysyms.Down, gtk.keysyms.Page_Down):
         widget.set_value(widget.get_value() - incr)
         return True
-    elif ev.keyval == gtk.keysyms.Up:
+    elif ev.keyval in (gtk.keysyms.Up, gtk.keysyms.Page_Up):
         widget.set_value(widget.get_value() + incr)
         return True
     return False

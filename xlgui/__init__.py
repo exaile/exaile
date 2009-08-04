@@ -410,11 +410,14 @@ class Main(object):
     @guiutil.idle_add()
     def add_device_panel(self, type, obj, device):
         from xlgui.panel.device import DevicePanel, FlatPlaylistDevicePanel
+        import xlgui.panel
 
         paneltype = DevicePanel
         if hasattr(device, 'panel_type'):
             if device.panel_type == 'flatplaylist':
                 paneltype = FlatPlaylistDevicePanel
+            elif issubclass(device.panel_type, xlgui.panel.Panel):
+                paneltype = device.panel_type
 
         panel = paneltype(self.main.window, self.main, 
             device, device.get_name())

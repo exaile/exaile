@@ -1,6 +1,5 @@
-
 from xl.nls import gettext as _
-from xl import providers
+from xl import providers, event
 from xl.hal import Handler
 from xl.devices import Device
 import logging
@@ -36,6 +35,7 @@ def enable(exaile):
     global PROVIDER
     PROVIDER = CDHandler()
     providers.register("hal", PROVIDER)
+
 
 def disable(exaile):
     global PROVIDER
@@ -141,7 +141,6 @@ class CDPlaylist(playlist.Playlist):
         if status != 200:
             return
         
-        
         (status, info) = CDDB.read(info['category'], info['disc_id'])
         
         title = info['DTITLE'].split(" / ")
@@ -158,18 +157,38 @@ class CDPlaylist(playlist.Playlist):
                     info['DGENRE']
 
         self.set_name(title[1].decode('iso-8859-15', 'replace'))
+        event.log_event('cddb_info_retrieved', self, True)
 
 class CDDevice(Device):
     """
         represents a CD
     """
     class_autoconnect = True
-    panel_type = 'flatplaylist'
 
     def __init__(self, dev="/dev/cdrom"):
         Device.__init__(self, dev)
         self.name = _("Audio Disc")
         self.dev = dev
+
+    def _get_panel_type(self):
+        import sys
+        sys.path.append(os.path.dirname(__file__))
+        # exaile won't call this method unless the gui is running, so it's ok
+        # to import gui code here
+        try:
+            import _guipanel
+            return _guipanel.CDPanel 
+        except ImportError:
+            return 'flatplaylist'
+        except:
+            # something horrible went wrong
+            import traceback
+            traceback.print_exc()
+            return 'flatplaylist'
+        finally:
+            sys.path.pop()
+
+    panel_type = property(_get_panel_type)
 
     def connect(self):
         cdpl = CDPlaylist(device=self.dev)

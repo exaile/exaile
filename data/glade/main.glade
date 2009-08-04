@@ -491,7 +491,7 @@
                                 <property name="width_request">125</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
-                                <property name="adjustment">0.94999999999999996 0 1 0.050000000000000003 0.050000000000000003 0.050000000000000003</property>
+                                <property name="adjustment">0 0 1 0.029999999999999999 0 0.030000000000000027</property>
                                 <property name="draw_value">False</property>
                                 <signal name="value_changed" handler="on_volume_slider_value_changed"/>
                               </widget>

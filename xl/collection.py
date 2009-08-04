@@ -287,6 +287,7 @@ try:
 except ImportError:
     pyinotify = None
 except:
+    pyinotify = None
     import traceback
     traceback.print_exc()
 

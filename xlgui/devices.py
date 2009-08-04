@@ -47,6 +47,10 @@ class ManagerDialog(object):
             'on_btn_close_clicked': self.on_close,
             })
 
+        # TODO: make these actually work.  For now, they are hidden
+        for item in ('add', 'edit', 'remove'):
+            self.xml.get_widget('btn_%s' % item).destroy()
+
         # object should really be devices.Device, but it doesnt work :/
         self.model = gtk.ListStore(object, gtk.gdk.Pixbuf, str)
         self.tree = self.xml.get_widget('tree_devices')

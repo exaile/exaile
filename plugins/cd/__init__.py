@@ -12,6 +12,7 @@ import dbus, threading, os, struct
 from fcntl import ioctl
 from xl import playlist, track, common, transcoder
 from xl import settings
+import os.path
 
 try:
     import DiscID, CDDB
@@ -89,14 +90,14 @@ class CDTocParser(object):
         return lengths
 
 class CDPlaylist(playlist.Playlist):
-    def __init__(self, name="Audio CD", device=None):
+    def __init__(self, name=_("Audio CD"), device=None):
         playlist.Playlist.__init__(self, name=name)
 
         if not device:
             self.device = "/dev/cdrom"
         else:
             self.device = device
-
+        
         self.open_disc()
 
     def open_disc(self):
@@ -163,6 +164,7 @@ class CDDevice(Device):
         represents a CD
     """
     class_autoconnect = True
+    panel_type = 'flatplaylist'
 
     def __init__(self, dev="/dev/cdrom"):
         Device.__init__(self, dev)

@@ -61,12 +61,15 @@ class Device(object):
         must be subclassed for use
     """
     class_autoconnect = False
+    library_class = collection.Library
 
     def __init__(self, name):
         self.name = name
         self.collection = collection.Collection(name=self.name)
         self.playlists = []
         self._connected = False
+        self.transfer = None    # subclasses need to override this
+                                # if they want transferring
 
     def __get_connected(self):
         return self._connected

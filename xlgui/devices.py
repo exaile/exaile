@@ -16,9 +16,13 @@ from xl.nls import gettext as _
 import gtk, gtk.glade
 from xl import xdg, settings, event, devices
 from xlgui import collection
-import logging
+import logging, threading
 
 logger = logging.getLogger(__name__)
+
+
+class DeviceTransferThread(threading.Thread):
+    pass # TODO: implement this
 
 
 class ManagerDialog(object):

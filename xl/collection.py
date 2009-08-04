@@ -774,5 +774,62 @@ class Library(object):
         pass
 
 
+class TransferQueue(object):
+
+    def __init__(self, library):
+        self.library = library
+        self.queue = []
+        self.current_pos = -1
+        self.transferring = False
+        self._stop = False
+
+    def enqueue(self, tracks):
+        self.queue.extend(tracks)
+
+    def dequeue(self, tracks):
+        if self.transferring:
+            # FIXME: use a proper exception, and make this only error on
+            # tracks that have already been transferred
+            raise Exception, "Cannot remove tracks while transferring"
+
+        for t in tracks:
+            try:
+                self.queue.remove(t)
+            except ValueError:
+                pass
+
+    def transfer(self):
+        """
+            Tranfer the queued tracks to the library.
+
+            This is NOT asynchronous
+        """
+        self.transferring = True
+        self.current_pos += 1
+        try:
+            while self.current_pos + 1 < len(self.queue) and not self._stop:
+                track = self.queue[self.current_pos]
+                loc = track.get_loc()
+                self.library.add(loc)
+
+                # TODO: make this be based on filesize not count
+                progress = self.current_pos / float(len(self.queue))
+                event.log_event('track_transfer_progress', self, progress)
+
+                self.current_pos += 1
+        finally:
+            self.transferring = False
+            self.current_pos = -1
+            self._stop = False
+            event.log_event('track_transfer_progress', self, 1)
+
+    def cancel(self):
+        """
+            Cancel the current transfer
+        """
+        # TODO: make this stop mid-file as well?
+        self._stop = True
+
+
 # vim: et sts=4 sw=4
 

@@ -49,14 +49,17 @@ class MassStorageDevice(Device):
         if self.mountpoints == []:
             raise IOError, "Device is not mounted."
         for mountpoint in self.mountpoints:
-            library = collection.Library(mountpoint)
+            library = self.library_class(mountpoint)
             self.collection.add_library(library)
+        self.transfer = collection.TransferQueue(
+                self.collection.get_libraries()[0] )
         self.connected = True # set this here so the UI can react 
 
     def disconnect(self):
         self.collection = collection.Collection(name=self.name)
-        self.connected = False
         self.mountpoints = []
+        self.transfer = None
+        self.connected = False
 
 
 class HalMountpoint(object):

@@ -176,8 +176,8 @@ class CDDevice(Device):
         # exaile won't call this method unless the gui is running, so it's ok
         # to import gui code here
         try:
-            import _guipanel
-            return _guipanel.CDPanel 
+            import _cdguipanel
+            return _cdguipanel.CDPanel 
         except ImportError:
             return 'flatplaylist'
         except:

@@ -421,7 +421,7 @@ class Exaile(object):
 
         logger.info(_("Disabling plugins..."))
         for k, plugin in self.plugins.enabled_plugins.iteritems():
-            if hasattr(plugin 'teardown'):
+            if hasattr(plugin, 'teardown'):
                 try:
                     plugin.teardown(self)
                 except:

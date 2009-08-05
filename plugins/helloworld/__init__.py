@@ -10,4 +10,5 @@ def enable(exaile):
 def disable(exaile):
     print "Goodbye. :("
 
-
+def teardown(exaile):
+    print "Unhello, World!"

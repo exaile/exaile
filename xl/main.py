@@ -421,10 +421,11 @@ class Exaile(object):
 
         logger.info(_("Disabling plugins..."))
         for k, plugin in self.plugins.enabled_plugins.iteritems():
-            try:
-                plugin.disable(self)
-            except:
-                pass
+            if hasattr(plugin 'teardown'):
+                try:
+                    plugin.teardown(self)
+                except:
+                    pass
 
         # stop the various idle based threads so they don't freak out when the
         # program exits.  Silly Python.

@@ -52,6 +52,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         self.nodes = {}
         self.load_nodes = {}
         self.complete_reload = {}
+        self.loaded_nodes = []
 
         self._setup_tree()
         self._setup_widgets()
@@ -440,7 +441,11 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         if not info: return
         (model, paths) = info
         iter = self.model.get_iter(paths[0])
-        object = self.model.get_value(iter, 1)
+        object = self.model.get_value(iter, 2)
+        
+        try:
+            self.loaded_nodes.remove(self.nodes[object])
+        except ValueError: pass
 
         if isinstance(object, (xl.radio.RadioList, xl.radio.RadioStation)):
             self._clear_node(iter)
@@ -468,7 +473,8 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
 
         if isinstance(driver, xl.radio.RadioStation) or \
             isinstance(driver, xl.radio.RadioList):
-            self._load_station(iter, driver)        
+            if not self.nodes[driver] in self.loaded_nodes:
+                self._load_station(iter, driver)        
 
         if isinstance(driver, xl.radio.RadioStation):
             self.set_station_expanded_value(driver.name, True)
@@ -514,6 +520,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         """
             Called when an item is done loading.  Adds items to the tree
         """
+        self.loaded_nodes.append(self.nodes[object])
         for item in items:
             if isinstance(item, xl.radio.RadioList): 
                 node = self.model.append(self.nodes[object], [self.folder, item.name, item])
@@ -524,18 +531,22 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
                 self.model.append(self.nodes[object], [self.track, item.name,
                     item])
 
-        self.model.remove(self.load_nodes[object])
-        del self.load_nodes[object]
+        try:
+            self.model.remove(self.load_nodes[object])
+            del self.load_nodes[object]
+        except KeyError: pass
 
     def _clear_node(self, node):
         """
             Clears a node of all children
         """
+        remove = []
         iter = self.model.iter_children(node)
-        while True:
-            if not iter: break
-            self.model.remove(iter)
-            iter = self.model.iter_children(node)
+        while iter:
+            remove.append(iter)
+            iter = self.model.iter_next(iter)
+        for row in remove:
+            self.model.remove(row)
 
 def set_status(message, timeout=0):
     RadioPanel._radiopanel._set_status(message, timeout)

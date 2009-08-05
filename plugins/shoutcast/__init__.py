@@ -139,7 +139,7 @@ class ShoutcastRadioStation(RadioStation):
             Gets the subrlists for a rlist
         """
         from xlgui.panel import radio
-        if name in self.subs:
+        if name in self.subs and not no_cache:
             return self.subs[name]
 
         url = self.cat_url % {'genre': name}

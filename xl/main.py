@@ -229,7 +229,8 @@ class Exaile(object):
         """
         import xlgui
         from xl import settings
-        self.splash = xlgui.show_splash(show=settings.get_option('gui/use_splash', True))
+        self.splash = xlgui.show_splash(
+            show=settings.get_option('gui/use_splash', True))
 
     def setup_logging(self):
         console_format = "%(levelname)-8s: %(message)s"

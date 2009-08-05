@@ -1,11 +1,11 @@
 import os
 import traceback
 from xl import xdg, track, collection
-from xl import settings, common
+from xl import settings, common, migration
 from xl.playlist import PlaylistManager, Playlist
 from ConfigParser import SafeConfigParser
 import urlparse
-import olddb, oldexailelib
+import oldexailelib, olddb
 import logging
 
 logger = logging.getLogger(__name__)
@@ -52,6 +52,13 @@ def migration_needed():
         logger.debug("Found a newer version of the settings " \
             "file, no migration needed")
         return False
+
+    if not olddb.SQLITE_AVAIL:
+        raise migration.MigrationException("Sqlite not available.  "
+            "Cannot migrate 0.2.14 settings")
+
+    # if we've gotten this far, check for sqlite, but if it's not available,
+    # throw a migration exception
 
     # open up the old database, and make sure it's at least the version used
     # in 0.2.14
@@ -193,6 +200,10 @@ def migrate():
 
     oldsettings = SafeConfigParser()
     oldsettings.read(os.path.expanduser('~/.exaile/settings.ini'))
+
+    if not olddb.SQLITE_AVAIL:
+        raise migration.MigrationException("Sqlite is not available. "
+            "Unable to migrate 0.2.14 settings")
 
     # old database
     db = olddb.DBManager(os.path.expanduser('~/.exaile/music.db'), False) 

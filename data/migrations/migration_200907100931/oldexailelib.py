@@ -1,6 +1,5 @@
 import traceback, os
 import oldtrack
-from olddb import DBManager
 from xl import common
 
 def already_added(t, added):

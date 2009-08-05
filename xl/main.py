@@ -419,6 +419,13 @@ class Exaile(object):
         self.quitting = True
         logger.info(_("Exaile is shutting down..."))
 
+        logger.info(_("Disabling plugins..."))
+        for k, plugin in self.plugins.enabled_plugins.iteritems():
+            try:
+                plugin.disable(self)
+            except:
+                pass
+
         # stop the various idle based threads so they don't freak out when the
         # program exits.  Silly Python.
         event.IDLE_MANAGER.stop()

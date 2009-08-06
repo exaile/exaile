@@ -8,11 +8,16 @@ import httplib
 import urllib2
 import socket
 urlparse = urllib2.urlparse
+import logging
+logger = logging.getLogger(__name__)
 
 try:
     import StringIO
 except ImportError:
     import cStringIO as StringIO
+
+_PLUGINVERSION = None
+_USERAGENT = "Exaile Shoutcast Plugin/%s +http://www.exaile.org"
 
 def enable(exaile):
     if exaile.loading:
@@ -22,7 +27,12 @@ def enable(exaile):
 
 STATION = None
 def _enable(devicename, exaile, nothing):
-    global STATION
+    global STATION, _PLUGINVERSION, _USERAGENT
+
+    _PLUGINVERSION = exaile.plugins.get_plugin_info('shoutcast')['Version']
+    _USERAGENT = _USERAGENT % _PLUGINVERSION
+    logger.debug(_USERAGENT)
+
     STATION = ShoutcastRadioStation()
     exaile.radio.add_station(STATION)
 
@@ -96,7 +106,8 @@ class ShoutcastRadioStation(RadioStation):
             c = httplib.HTTPConnection(hostinfo.netloc,
                 timeout=20)
             try:
-                c.request('GET', hostinfo.path)
+                c.request('GET', hostinfo.path, headers={'User-Agent':
+                    _USERAGENT})
                 response = c.getresponse()
             except (socket.timeout, socket.error):
                 raise radio.RadioException(
@@ -148,7 +159,8 @@ class ShoutcastRadioStation(RadioStation):
         hostinfo = urlparse.urlparse(url)
         c = httplib.HTTPConnection(hostinfo.netloc, timeout=20)
         try:
-            c.request('GET', "%s?%s" % (hostinfo.path, hostinfo.query))
+            c.request('GET', "%s?%s" % (hostinfo.path, hostinfo.query),
+                headers={'User-Agent': _USERAGENT})
             response = c.getresponse()
         except (socket.timeout, socket.error):
             raise radio.RadioException(
@@ -195,7 +207,8 @@ class ShoutcastRadioStation(RadioStation):
         c = httplib.HTTPConnection(hostinfo.netloc, timeout=20)
         try:
             print "Reading %s" % url
-            c.request('GET', "%s?%s" % (hostinfo.path, hostinfo.query))
+            c.request('GET', "%s?%s" % (hostinfo.path, hostinfo.query),
+                headers={'User-Agent': _USERAGENT})
             response = c.getresponse()
         except (socket.timeout, socket.error):
             set_status(
@@ -227,7 +240,8 @@ class ShoutcastRadioStation(RadioStation):
         hostinfo = urlparse.urlparse(url)
         c = httplib.HTTPConnection(hostinfo.netloc, timeout=20)
         try:
-            c.request('GET', "%s?%s" % (hostinfo.path, hostinfo.query))
+            c.request('GET', "%s?%s" % (hostinfo.path, hostinfo.query),
+                headers={'User-Agent': _USERAGENT})
             response = c.getresponse()
         except (socket.timeout, socket.error):
             set_status(

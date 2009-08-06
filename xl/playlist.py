@@ -238,16 +238,31 @@ def save_to_asx(playlist, path):
     
 def import_from_asx(path):
     tree = ETree.ElementTree(file=urllib.urlopen(path))
-    tracks = tree.findall("entry")
-    name = tree.find("title").text.strip()
+    # bad hack to support non-lowercase elems. FIXME
+    trys = [lambda x: x, lambda x: x.upper(), lambda x: x[0].upper() + x[1:]]
+    name = _("Unknown")
+    tracks = []
+    for ty in trys:
+        try:
+            name = tree.find(ty("title")).text.strip()
+        except:
+            continue
+        break
+    for ty in trys:
+        tracks = tree.findall(ty("entry"))
+        if tracks != []:
+            break
     pl = Playlist(name=name)
     for t in tracks:
         tr = track.Track()
         loc = t.find("ref").get("href")
         tr.set_loc(loc)
-        tr['title'] = t.find("title").text.strip()
+        try:
+            tr['title'] = t.find("title").text.strip()
+        except:
+            pass
         tr.read_tags()
-        pl.add(tr)
+        pl.add(tr, ignore_missing_files=False)
     return pl
 
 XSPF_MAPPING = {

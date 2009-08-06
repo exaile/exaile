@@ -17,6 +17,7 @@ targets for 0.3.1:
         - probably make it part of xl.collection.Library
     migrate to gio.VolumeMonitor for device and mount detection, use HAL
             only for extended info.
+    support .is_audio_player
 
 future:
     UPnP (client and server)
@@ -56,6 +57,9 @@ device recognition/persistence:
             - this doesnt have all the rich meta-data of HAL, but we
                     can grab uuids from gio and look them up in HAL to get
                     any available extended data.
+                - perhaps more to a providers-based framework for metadata?
+                        this lets us move HAL to a plugin and easily support
+                        additional sources (like .is_audio_player)
             - does it handle audio CDs?
 
 transfer&syncing:
@@ -310,4 +314,46 @@ rockbox:
                 about it. clicking the warning would show additional
                 information and show how to disable it.
 
+
+.is_audio_player:
+    standard introduced by banshee for easily detecting msc devices that
+            are not in HAL or are missing metadata in HAL
+    docs here, but wiki is down:
+            http://wiki.banshee-project.org/Guide/DAPs/MassStorageDevices
+
+    list of keys found via googling:
+        name : 
+            The device name that will appear in the UI
+        cover_art_file_type : 
+            The type of image supported by the device, such as jpeg, png, 
+            tiff, ico or bmp.
+        cover_art_file_name : 
+            The filename expected by the device for the cover art image.
+        cover_art_size : 
+            The size of the cover art image, in pixels. The image
+            is a square, so it's only one number.
+        folder_depth : 
+            The maximum foler depth supported by the device. 
+            Do not set it if the device has no limitation.
+        audio_folders : 
+            The list of folders where music files are stored 
+            on the device. Banshee will copy tracks to the first folder 
+            in that list.
+        output_formats : 
+            The list of file types supported by the device, 
+            as MIME types.
+        playlist_format : 
+            The list of playlist formats supported by 
+            the device, as MIME types.
+        playlist_path : 
+            The folder containing playlists files on the device. If
+            not set, banshee will copy playlists to the same folder where 
+            it copies tracks. 
+
+    example:
+        audio_folders=music/
+        output_formats=application/ogg,audio/mpeg
+        cover_art_file_type=bmp
+        cover_art_file_name=cover.bmp
+        cover_art_size=100 
 

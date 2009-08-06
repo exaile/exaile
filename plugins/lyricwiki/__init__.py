@@ -1,6 +1,7 @@
 from xl.lyrics import LyricSearchMethod
 from xl.lyrics import LyricsNotFoundException
 from xl import event
+import re
 
 try:
     import xml.etree.cElementTree as cETree
@@ -42,6 +43,9 @@ class LyricWiki(LyricSearchMethod):
             raise LyricsNotFoundException
         if lyrics == "Not found":
             raise LyricsNotFoundException
+        html = urllib.urlopen(url).read()
+        lyrics = re.search("<div class='lyricbox' >(.*)", html).group(1)
+        lyrics = lyrics.replace("<br />", "\n")
         return (lyrics, "Lyric Wiki",url)
 
     def parse_xml(self, xml):

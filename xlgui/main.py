@@ -445,17 +445,25 @@ class MainWindow(object):
             for n in range(nb.get_n_pages()):
                 nth = nb.get_nth_page(n)
                 if nth.playlist.get_is_custom() and not nth.get_needs_save() \
-                    and nth.playlist.get_name() == pl.get_name():
+                        and nth.playlist.get_name() == pl.get_name():
                     nb.set_current_page(n)
                     return
 
         pl = playlist.Playlist(self, self.queue, pl)
         self._connect_playlist_events(pl)
 
+        # Get displayed names for all open playlists, then find a free "slot",
+        # e.g. "Playlist 3" if 1 and 2 already exist.
+        names = frozenset(nb.get_tab_label(nb.get_nth_page(i)).label.get_text()
+            for i in xrange(nb.get_n_pages()))
+        i = 1
         try:
-            name = name % (nb.get_n_pages() + 1)
+            while (name % i) in names:
+                i += 1
         except TypeError:
             pass
+        else:
+            name = name % i
         
         # make sure the name isn't too long
         if len(name) > 20:

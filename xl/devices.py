@@ -54,6 +54,9 @@ class DeviceManager(object):
     def list_devices(self):
         return self.devices.values()
 
+class TransferNotSupportedError(Exception):
+    pass
+
 class Device(object):
     """
         a device
@@ -120,6 +123,20 @@ class Device(object):
         """
         return self.playlists
 
+    def add_tracks(self, tracks):
+        """
+            Send tracks to the device
+        """
+        if not self.transfer:
+            raise TransferNotSupportedError, _("Device class does not "
+                    "support transfer.")
+        self.transfer.enqueue(tracks)
+
+    def start_transfer(self):
+        if not self.transfer:
+            raise TransferNotSupportedError, _("Device class does not "
+                    "support transfer.")
+        self.transfer.transfer()
 
 # vim: et sts=4 sw=4
 

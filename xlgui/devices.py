@@ -21,8 +21,6 @@ import logging, threading
 logger = logging.getLogger(__name__)
 
 
-class DeviceTransferThread(threading.Thread):
-    pass # TODO: implement this
 
 
 class ManagerDialog(object):

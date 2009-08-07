@@ -12,26 +12,60 @@
 # along with this program; if not, write to the free software
 # foundation, inc., 675 mass ave, cambridge, ma 02139, usa.
 
-
+import threading
+import gtk, gobject
 from xl.nls import gettext as _
-import gtk
-import gobject
+from xl import event
 
 from xlgui import panel
 from xlgui.panel.collection import CollectionPanel
 from xlgui.panel.flatplaylist import FlatPlaylistPanel
 
+
+class DeviceTransferThread(threading.Thread):
+    def __init__(self, device, main, panel):
+        threading.Thread.__init__(self)
+        self.setDaemon(True)
+
+        self.device = device
+        self.main = main
+        self.panel = panel
+
+    def stop_thread(self):
+        self.device.transfer.cancel()
+
+    def thread_complete(self):
+        """
+            Called when the thread has finished normally
+        """
+        gobject.idle_add(self.panel.load_tree)
+
+    def progress_update(self, type, transfer, progress):
+        event.log_event('progress_update', self, progress)
+
+    def run(self):
+        """
+            Runs the thread
+        """
+        event.add_callback(self.progress_update, 'track_transfer_progress',
+            self.device.transfer)
+        try:
+            self.device.start_transfer()
+        finally:
+            event.remove_callback(self.progress_update, 'track_transfer_progress',
+                self.device.transfer)
+
 class ReceptiveCollectionPanel(CollectionPanel):
     def drag_data_received(self, widget, context, x, y, data, info, stamp):
-        """
-            stubb
-        """
         uris = data.get_uris()
         tracks, playlists = self.tree.get_drag_data(uris)
         tracks = [ t for t in tracks if not \
                 self.collection.loc_is_member(t.get_loc()) ]
-        locs = [ t['__loc'] for t in tracks ]
 
+        self.add_tracks_func(tracks)
+
+    def add_tracks_func(self, tracks):
+        locs = [ t['__loc'] for t in tracks ]
         # FIXME:
         lib = self.collection.get_libraries()[0]
 
@@ -59,11 +93,13 @@ class DevicePanel(panel.Panel):
 
         panel.Panel.__init__(self, name)
         self.device = device
+        self.main = main
 
         self.notebook = self.xml.get_widget("device_notebook")
 
         self.collectionpanel = ReceptiveCollectionPanel(parent,
             collection=device.collection, name=name)
+        self.collectionpanel.add_tracks_func = self.add_tracks_func
 
         self.collectionpanel.connect('append-items',
             lambda *e: self.emit('append-items', *e[1:]))
@@ -71,6 +107,12 @@ class DevicePanel(panel.Panel):
             lambda *e: self.emit('queue-items', *e[1:]))
         self.collectionpanel.connect('collection-tree-loaded',
             lambda *e: self.emit('collection-tree-loaded'))
+
+    def add_tracks_func(self, tracks):
+        self.device.add_tracks(tracks)
+        thread = DeviceTransferThread(self.device, self.main, self)
+        self.main.controller.progress_manager.add_monitor(thread, 
+                _("Transferring to %s...")%self.name, 'gtk-go-up')
 
     def get_panel(self):
         return self.collectionpanel.get_panel()

@@ -813,7 +813,8 @@ class TransferQueue(object):
                 self.library.add(loc)
 
                 # TODO: make this be based on filesize not count
-                progress = self.current_pos / float(len(self.queue))
+                progress = self.current_pos * 100 / len(self.queue)
+                print progress
                 event.log_event('track_transfer_progress', self, progress)
 
                 self.current_pos += 1
@@ -821,7 +822,7 @@ class TransferQueue(object):
             self.transferring = False
             self.current_pos = -1
             self._stop = False
-            event.log_event('track_transfer_progress', self, 1)
+            event.log_event('track_transfer_progress', self, 100)
 
     def cancel(self):
         """

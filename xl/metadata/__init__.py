@@ -22,11 +22,11 @@ import urlparse
 
 import asf, flac, mod, mp3, mp4, mpc, ogg, sid, speex, tta, wav, wv
 
-# lossy:    aac (in m4a), mp2, mp3, musepack, speex, vorbis, wma
-# lossless: alac (in m4a), flac, tta, wav, wavpack
+# lossy:    aac (in m4a), ac3, mp2, mp3, musepack, speex, vorbis, wma
+# lossless: aiff, alac (in m4a), flac, tta, wav, wavpack
 # chip:     669, amf, dsm, far, it, med, mod, mtm, okt, s3m, spc, stm, ult, xm
-# other:    ac3, aiff, au, midi
-# tags not read:  real, shorten (can we fix these?)
+# other:    au
+# tags not read:  midi, real, shorten (can we fix these?)
 formats = {
         '669'   : mod.ModFormat,
         'ac3'   : None,

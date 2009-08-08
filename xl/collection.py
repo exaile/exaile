@@ -271,6 +271,12 @@ class Collection(trackdb.TrackDB):
         #TODO: make close() part of trackdb
         collections.remove(self)
 
+    def delete_tracks(self, tracks):
+        for tr in tracks:
+            for prefix, lib in self.libraries.iteritems():
+                if tr['__loc'].startswith('file://%s'%prefix):
+                    lib.delete(tr['__loc'])
+
 
 class ProcessEvent(object):
     """

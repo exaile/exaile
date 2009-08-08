@@ -83,6 +83,7 @@ class CollectionPanel(panel.Panel):
         self.menu.connect('queue-items', lambda *e:
             self.emit('queue-items', self.get_selected_tracks()))
         self.menu.connect('rating-set', self._on_set_rating)
+        self.menu.connect('delete-items', self._on_delete_items)
 
         self.load_tree()
 
@@ -92,6 +93,21 @@ class CollectionPanel(panel.Panel):
         """
         tracks = self.get_selected_tracks()
         rating.set_rating(tracks, new_rating)
+
+    def _on_delete_items(self, *args):
+        dialog = gtk.MessageDialog(type=gtk.MESSAGE_QUESTION,
+                buttons=gtk.BUTTONS_YES_NO,
+                message_format=_("This will permanantly delete the selected "
+                    "tracks from your disk, are you sure you wish to continue?")
+                )
+        res = dialog.run()
+        if res == gtk.RESPONSE_YES:
+            tracks = self.get_selected_tracks()
+            self.collection.delete_tracks(tracks)
+        
+        dialog.destroy()
+        gobject.idle_add(self.load_tree)
+
 
     def _setup_widgets(self):
         """

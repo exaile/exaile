@@ -265,9 +265,26 @@ class RatedTrackSelectMenu(TrackSelectMenu):
         gtk.Menu.append(self, self.rating_item)
         self.rating_item.show_all()
 
+class CollectionPanelMenu(RatedTrackSelectMenu):
+    __gsignals__ = {
+        'delete-items': (gobject.SIGNAL_RUN_LAST, None, ()),
+    }
+    def __init__(self, *args):
+        RatedTrackSelectMenu.__init__(self, *args)
+
+    def _create_menu(self):
+        RatedTrackSelectMenu._create_menu(self)
+        self.delete_item = self.append(_('Delete track'), 
+                lambda *e: self.on_delete_track(), 'gtk-delete')
+
+    def on_delete_track(self):
+        self.emit('delete-items')
+    
+
+
 # these are stubbs for now
 FilesPanelMenu = TrackSelectMenu
-CollectionPanelMenu = RatedTrackSelectMenu
+
 
 class PlaylistsPanelMenu(guiutil.Menu):
     """

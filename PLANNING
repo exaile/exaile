@@ -35,29 +35,15 @@ future releases:
 
 Things needed for beta 1 (0.2.999.1) release:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  * CD Burning
-    * part of cd plugin, takes a Playlist and burns it in order
-    * use external burners, include option for a custom external
-      burner command
-      * will migrate to libburn once python bindings become available
+  * CD Import
 
   * GUI
-    * Tag Editor
-      * I'm thinking this shouldn't be anything more than a simple editor
-            for the first release.  Something like rhythmbox has.  Even with
-            the "more featureful" editor in 0.2.14, I always ended up using
-            exfalso for anything more than a few tracks.
-        * +1 from me (Aren)
-    * right-click menus for side tabs, playlists
-    * playlist export
     * lyrics pane
-    * properties pane
 
   * Devices
-    * improve device manager with basic prefs, hal-less connections
-    * implement cd device panel (ie flat playlist vs collection)
-    * implement transfer to device
-    * mtp/ipod plugins
+    * improve device manager with hal-less connections
+    * mtp plugin? 
+    * ipod transfer support
 
 
 Final
@@ -69,4 +55,8 @@ Final
       severe techincal problems making them unresolvable)
   * Ubuntu
     * Get into Xubuntu Karmic as default for release! :D
+  * CD Burning
+    * use external burners, include option for a custom external
+      burner command
+      * will migrate to libburn once python bindings become available
 

@@ -308,6 +308,7 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
             Sets the label of the button
         """
         self.label.set_text(text)
+        self.set_tooltip_text(text)
 
     def set_arrow_direction(self, direction):
         """
@@ -319,11 +320,12 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
         """
             Updates the currently selected track
         """
-        try:
-            pos = self.playlist.playlist.index(track)
-        except ValueError:
-            return
-        self.playlist.playlist.set_current_pos(pos)
+        if playlist != self.playlist.playlist:
+            try:
+                pos = self.playlist.playlist.index(track)
+            except ValueError:
+                return
+            self.playlist.playlist.set_current_pos(pos)
 
     def on_playback_start(self, event, player, track):
         """
@@ -540,16 +542,12 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
         if active_iter is not None:
             track = model.get_value(iter, 0)
             active_track = model.get_value(active_iter, 0)
-            #ellipsize = pango.ELLIPSIZE_NONE
             weight = pango.WEIGHT_NORMAL
 
             if self.get_property('popup-shown'):
                 if track == active_track:
                     weight = pango.WEIGHT_BOLD
-            #else:
-            #    ellipsize = pango.ELLIPSIZE_END
 
-            #cell.set_property('ellipsize', ellipsize)
             cell.set_property('weight', weight)
 
     def on_change(self, *e):

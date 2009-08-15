@@ -1,36 +1,12 @@
 PREFIX ?= /usr/local
 PLUGINSDIR = /share/exaile/plugins/
 
-INSTALL_PLUGINS = alarmclock \
-		  amazoncovers \
-		  audioscrobbler \
-		  bookmarks \
-		  cd \
-		  desktopcover \
-		  gnomemmkeys \
-		  ipod \
-		  lastfmdynamic \
-		  lastfmcovers \
-		  lastfmradio \
-		  librivox \
-		  lyricsfly \
-		  lyricwiki \
-		  massstorage \
-		  moodbar \
-		  mpris \
-		  multialarmclock \
-		  notify \
-		  notifyosd \
-		  replaygain \
-		  screensaverpause \
-		  shoutcast \
-		  streamripper \
-		  tagcovers 
+INSTALL_PLUGINS = `python list.py`
 
-EXTRA_PLUGINS = ipconsole \
-	       	helloworld
+# EXTRA_PLUGINS = ipconsole \
+#                helloworld
 
-DIST_PLUGINS = $(INSTALL_PLUGINS) $(EXTRA_PLUGINS)
+DIST_PLUGINS = $(INSTALL_PLUGINS) #$(EXTRA_PLUGINS)
 
 all: compile
 

@@ -17,7 +17,7 @@
 
 import copy, gobject, gtk, pango
 from string import Template
-from xl import event
+from xl import event, settings
 from xl.track import Track
 from xl.nls import gettext as _
 from xlgui.playlist import Playlist
@@ -217,6 +217,8 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
     """
         Displays the current track title and
         the current playlist on activation
+        Also allows for drag and drop of files
+        to add them to the playlist
     """
     def __init__(self, main, queue, playlist, change_callback, format_callback=None):
         MMWidget.__init__(self, 'playlist_button')
@@ -267,6 +269,7 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
         event.add_callback(self.on_playlist_current_changed, 'playlist_current_changed')
         event.add_callback(self.on_playback_start, 'playback_player_start')
         event.add_callback(self.on_playback_end, 'playback_player_end')
+        event.add_callback(self.on_track_start, 'playback_track_start')
         event.add_callback(self.on_tracks_changed, 'tracks_added')
         event.add_callback(self.on_tracks_changed, 'tracks_removed')
         event.add_callback(self.on_tracks_changed, 'tracks_reordered')
@@ -338,6 +341,18 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
             Updates appearance on playback state change
         """
         self.set_label('')
+
+    def on_track_start(self, event, player, track):
+        """
+            Updates the cursor position
+        """
+        if track in self.playlist.playlist.ordered_tracks:
+            path = (self.playlist.playlist.index(track),)
+        
+            if settings.get_option('gui/ensure_visible', True):
+                self.playlist.list.scroll_to_cell(path)
+
+            gobject.idle_add(self.playlist.list.set_cursor, path)
 
     def on_tracks_changed(self, event, playlist, *args):
         """

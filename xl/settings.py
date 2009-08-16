@@ -85,6 +85,7 @@ class SettingsManager(RawConfigParser):
         event.timeout_add(30000, self._timeout_save)
 
     def _timeout_save(self):
+        logger.debug("Requesting save from timeout...")
         self.save()
         return True
 
@@ -201,6 +202,7 @@ class SettingsManager(RawConfigParser):
         if self._saving or not self._dirty: return
         self._saving = True
         
+        logger.debug("Saving settings...")
         f = open(self.loc + ".new", 'w')
         self.write(f)
         try:

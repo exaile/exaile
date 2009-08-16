@@ -87,8 +87,8 @@ class EventTimer(threading.Thread):
                 time.sleep(self.sleeptime)
                 if self._stopped: return
             try:
-                cancel = self.function(*self.args, **self.kwargs)
-                if cancel: return
+                nocancel = self.function(*self.args, **self.kwargs)
+                if not nocancel: return
             except Exception:
                 common.log_exception(logger)
 

@@ -82,7 +82,8 @@ class SettingsManager(RawConfigParser):
             raise VersionError(_('Settings version is newer than current.'))
 
         # save settings every 30 seconds
-        event.timeout_add(30000, self._timeout_save)
+        if loc is not None:
+            event.timeout_add(30000, self._timeout_save)
 
     def _timeout_save(self):
         logger.debug("Requesting save from timeout...")

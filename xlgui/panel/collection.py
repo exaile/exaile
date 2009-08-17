@@ -237,16 +237,18 @@ class CollectionPanel(panel.Panel):
         selection.set_mode(gtk.SELECTION_MULTIPLE)
         pb = gtk.CellRendererPixbuf()
         cell = gtk.CellRendererText()
-        if settings.get_option('gui/ellipsize_text_in_panels', False):
-            import pango
-            cell.set_property( 'ellipsize-set', True)
-            cell.set_property( 'ellipsize', pango.ELLIPSIZE_END)
         col = gtk.TreeViewColumn('Text')
         col.pack_start(pb, False)
         col.pack_start(cell, True)
         col.set_attributes(pb, pixbuf=0)
         col.set_attributes(cell, text=1)
         self.tree.append_column(col)
+
+        if settings.get_option('gui/ellipsize_text_in_panels', False):
+            import pango
+            cell.set_property('ellipsize-set', True)
+            cell.set_property('ellipsize', pango.ELLIPSIZE_END)
+            self.tree.set_tooltip_column(1)
 
         self.tree.set_row_separator_func(
             lambda m, i: m.get_value(i, 1) is None)

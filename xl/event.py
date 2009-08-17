@@ -56,10 +56,10 @@ _NONE = Nothing()
 
 class EventTimer(threading.Thread):
     """
-        Runs a function periodically.
+        Runs a function after a given amount of time, or periodically.
 
-        To terminate the timer, either return a True value from the function or
-        call `cancel`.
+        To run the function periodically, return a True value from it. If you
+        want to stop the periodic timer, call `cancel`  or return a False value.
 
         Set `sleeptime` if you want to set the wakeup interval (in sec). By
         default, either the interval time or `DEFAULT_SLEEPTIME` will be used,

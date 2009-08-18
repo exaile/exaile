@@ -37,6 +37,10 @@ class PassPreference(widgets.HashedPrefsItem):
     name = 'plugin/ascrobbler/password'
     type = 'md5'
 
-class UrlPreference(widgets.PrefsItem):
+class UrlPreference(widgets.ComboEntryPrefsItem):
     name = 'plugin/ascrobbler/url'
     default = 'http://post.audioscrobbler.com/'
+    preset_items = [
+        'http://post.audioscrobbler.com/',
+        'http://turtle.libre.fm/'
+        ]

@@ -115,7 +115,7 @@ class ShoutcastRadioStation(RadioStation):
 
             if response.status != 200:
                 raise radio.RadioException(
-                    _('Error connecting to shoutcast server.'))
+                    _('Error connecting to Shoutcast server.'))
 
             data = response.read()
             set_status(_('Idle.'))

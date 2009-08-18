@@ -600,7 +600,11 @@ class Library(object):
                     if not link_loc.startswith(os.sep):
                         link_loc = os.path.realpath(os.path.join(os.path.dirname(path), link_loc))
                     if link_loc.startswith(os.path.realpath(self.location)):
-                        logger.info(_("Ignoring symlink %s pointing to %s") % (path, link_loc))
+                        logger.info(_("Ignoring symlink %(path)s "
+                            "pointing to %(location)s") % {
+                                'path': path,
+                                'location': link_loc
+                            })
                         continue
 
                 fullpath = "file://" + path

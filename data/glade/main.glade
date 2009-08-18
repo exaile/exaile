@@ -293,7 +293,6 @@
                       <widget class="GtkImageMenuItem" id="track_properties_item">
                         <property name="label" translatable="yes">Track _properties</property>
                         <property name="visible">True</property>
-                        <property name="tooltip" translatable="yes">Properties dialog of the track selected in the playlist</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">False</property>
                         <signal name="activate" handler="on_track_properties_activate"/>

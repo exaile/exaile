@@ -27,7 +27,7 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
-            <property name="tooltip" translatable="yes">Protect against noise caused by over-amplification.</property>
+            <property name="tooltip" translatable="yes">Protect against noise caused by over-amplification</property>
             <property name="draw_indicator">True</property>
           </widget>
           <packing>
@@ -38,11 +38,11 @@
         <child>
           <widget class="GtkHBox" id="hbox1">
             <property name="visible">True</property>
-            <property name="tooltip" translatable="yes">Additional amplification to apply to all files.</property>
+            <property name="tooltip" translatable="yes">Additional amplification to apply to all files</property>
             <child>
               <widget class="GtkLabel" id="label2">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes" comments="This is an additional amplification applied to all files prior to correction.">Additional amplication (dB):</property>
+                <property name="label" translatable="yes" comments="This is an additional amplification applied to all files prior to correction.">Additional amplification (dB):</property>
               </widget>
               <packing>
                 <property name="expand">False</property>
@@ -74,7 +74,7 @@
         <child>
           <widget class="GtkHBox" id="hbox2">
             <property name="visible">True</property>
-            <property name="tooltip" translatable="yes">Fallback correction for files that lack Replaygain information.</property>
+            <property name="tooltip" translatable="yes">Fallback correction for files that lack Replaygain information</property>
             <child>
               <widget class="GtkLabel" id="label3">
                 <property name="visible">True</property>

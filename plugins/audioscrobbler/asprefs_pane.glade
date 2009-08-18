@@ -25,7 +25,7 @@
         </child>
         <child>
           <widget class="GtkCheckButton" id="plugin/ascrobbler/menu_check">
-            <property name="label" translatable="yes">Add an entry in the Tools menu to toggle Audioscrobbler</property>
+            <property name="label" translatable="yes">Show Menuitem to toggle Submission</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>

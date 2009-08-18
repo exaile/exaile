@@ -312,11 +312,11 @@ class DragTreeView(gtk.TreeView):
             # to the list
             new_playlist = playlist.import_playlist(loc)
             return ([], [new_playlist])
-        elif os.path.isdir(loc):
+        elif loc.startswith("file://") and os.path.isdir(loc[7:]):
             #They dropped a folder
             new_tracks = [] 
             new_playlist = []
-            for root, dirs, files in os.walk(loc):
+            for root, dirs, files in os.walk(loc[7:]):
                 files.sort()
                 for file in files:
                     full_path = os.path.join(root, file)

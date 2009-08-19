@@ -23,6 +23,7 @@ try:
 except IndexError:
     pass
 
+os.environ['XGETTEXT_ARGS'] = '--language=Python'
 os.chdir('po')
 os.system('intltool-update --pot --gettext-package=messages --verbose')
 

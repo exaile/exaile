@@ -23,7 +23,7 @@ glade = xdg.get_data_path('glade/osd_prefs_pane.glade')
 
 def page_enter(prefs):
     global OSD
-    OSD = osd.OSDWindow(draggable=True)
+    OSD = osd.OSDWindow(draggable=True, settings=prefs.settings)
     OSD.show(None, timeout=0)
 
 def page_leave(prefs):

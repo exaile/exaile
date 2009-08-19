@@ -263,7 +263,8 @@ class Main(object):
             tracks.sort(key=lambda track: track.sort_param(column), reverse=descending)
             try:
                 pl.playlist.add_tracks(tracks)
-                self.exaile.queue.play(tracks[0])
+                pl.playlist.set_current_pos(len(pl.playlist) - len(tracks))
+                self.exaile.queue.play()
             # Catch empty directories
             except IndexError:
                 pass

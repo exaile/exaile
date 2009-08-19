@@ -1,16 +1,17 @@
-# Arabic translation for exaile
-# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# Simplified Chinese translation for exaile
+# Copyright (c) 2009 Free Software Foundation, Inc.
 # This file is distributed under the same license as the exaile package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+# Aron Xu <aronxu@gnome.org>, 2009.
+# fujianwzh <fujianwzh@gmail.com>, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-07-19 18:07+0200\n"
-"PO-Revision-Date: 2009-07-28 22:10+0000\n"
-"Last-Translator: benihb <benohamid@gmail.com>\n"
-"Language-Team: Arabic <ar@li.org>\n"
+"PO-Revision-Date: 2009-08-04 12:52+0000\n"
+"Last-Translator: Aron Xu <aronxu@gnome.org>\n"
+"Language-Team: Simplified Chinese <i18n-zh@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,44 +20,44 @@ msgstr ""
 
 #: ../xl/player/pipe.py:198
 msgid "Automatic"
-msgstr "آليّاً"
+msgstr "自动"
 
 #: ../xl/player/pipe.py:203
 msgid "GNOME"
-msgstr "جنوم"
+msgstr "GNOME"
 
 #: ../xl/player/pipe.py:208
 msgid "ALSA"
-msgstr "ا ل اس ا"
+msgstr "ALSA"
 
 #: ../xl/player/pipe.py:213
 msgid "OSS"
-msgstr "او اس اس"
+msgstr "OSS"
 
 #: ../xl/player/pipe.py:218
 msgid "PulseAudio"
-msgstr "بليساوديو"
+msgstr "PulseAudio"
 
 #: ../xl/player/pipe.py:223
 msgid "JACK"
-msgstr "جاك"
+msgstr "JACK"
 
 #: ../xl/player/pipe.py:272
 #, python-format
 msgid "Could not set parameter %(parameter)s for %(sink)s"
-msgstr ""
+msgstr "无法为 %(sink)s 设定参数 %(parameter)s"
 
 #: ../xl/player/__init__.py:35
 msgid "Normal playback engine selected."
-msgstr "محرك محدد عادي لإعادة تشغيل"
+msgstr "已选择普通回放引擎"
 
 #: ../xl/player/__init__.py:39
 msgid "Unified playback engine selected."
-msgstr "محرك محدد احادي  لإعادة تشغيل"
+msgstr "已选择 Unified 回放引擎。"
 
 #: ../xl/player/engine_normal.py:101
 msgid "Buffering complete"
-msgstr "تم التفصيل"
+msgstr "缓冲完成"
 
 #. TODO: remove this before 0.3.0 since it is not needed for
 #. stable->stable upgrades
@@ -64,783 +65,781 @@ msgstr "تم التفصيل"
 #, python-format
 msgid ""
 "Exaile now uses absolute URI's, please delete/rename your %s directory"
-msgstr "مستعملي Exaile الان كامل URI ,من فضلك حذف/تسمية %s مستنداتك"
+msgstr "Exaile 现在使用绝对 URI，请删除/重命名您的 %s 目录"
 
 #: ../xl/player/engine_normal.py:186
 #: ../xl/player/engine_unified.py:373
 #, python-format
 msgid "File does not exist: %s"
-msgstr "الملف غير موجود: %s"
+msgstr "文件不存在：%s"
 
 #: ../xl/player/engine_normal.py:193 ../xl/player/engine_unified.py:381
 #: ../xlgui/main.py:915 ../xlgui/main.py:923
 #, python-format
 msgid "Playing %s"
-msgstr "جاري تشغيل %s"
+msgstr "现在播放 %s"
 
 #: ../xl/player/engine_normal.py:265
 msgid "Couldn't send seek event"
-msgstr "لا يمكن ارسال الطلب"
+msgstr "无法发送查找事件"
 
 #: ../xl/main.py:91
 #, python-format
 msgid "Loading Exaile %s..."
-msgstr "تحميل إكسايل... %s"
+msgstr "正在载入 Exaile %s..."
 
 #: ../xl/main.py:93
 msgid "Loading settings..."
-msgstr "تحميل إعدادات"
+msgstr "正在加载设置..."
 
 #: ../xl/main.py:115
 msgid "Failed to migrate from 0.2.14"
-msgstr "فشل في النزوح من 0.2.14"
+msgstr "从 0.2.14 迁移失败"
+
+#: ../xl/main.py:120
+msgid "Loading plugins..."
+msgstr "正在加载插件..."
 
 #: ../xl/main.py:124
 msgid "Safe mode enabled, not loading plugins."
-msgstr "وضع الامن مفعل,لا تحميل للكمليات"
+msgstr "安全模式启用，不载入插件。"
 
 #. Initialize the collection
 #: ../xl/main.py:128
 msgid "Loading collection..."
-msgstr "تحميل الزمرة"
+msgstr "正在载入音乐库..."
 
 #. Initalize device manager
 #: ../xl/main.py:159
 msgid "Loading devices..."
-msgstr "تحميل الأجهزة"
+msgstr "正在加载设备..."
 
 #: ../xl/main.py:189
 msgid "Loading interface..."
-msgstr "تحميل الواجهة"
+msgstr "正在载入界面..."
 
 #: ../xl/main.py:263
 msgid "Play the next track"
-msgstr "تشغيل المسار التالي"
+msgstr "播放下一音轨"
 
 #: ../xl/main.py:265
 msgid "Play the previous track"
-msgstr "تشغيل المسار السابق"
+msgstr "播放上一音轨"
 
 #: ../xl/main.py:267
 msgid "Stop playback"
-msgstr "إيقاف التشغيل"
+msgstr "停止回放"
 
 #: ../xl/main.py:269 ../xlgui/tray.py:91 ../xlgui/tray.py:192
 msgid "Play"
-msgstr "تشغيل"
+msgstr "播放"
 
 #: ../xl/main.py:271
 msgid "Toggle Play or Pause"
-msgstr "إرجاع التشغيل او تشغيل"
+msgstr "切换播放或暂停"
 
 #: ../xl/main.py:275
 msgid "Query player"
-msgstr "أستفسار المشغل"
+msgstr "询问播放器"
 
 #: ../xl/main.py:277
 msgid "Show a popup of the currently playing track"
-msgstr "إظهار الائحة على المسار المشغل حاليا"
+msgstr "显示当前播放音轨的弹出窗"
 
 #: ../xl/main.py:279
 msgid "Print the title of current track"
-msgstr "طباعة عنوان المسار الحالي"
+msgstr "打印当前音轨的标题"
 
 #: ../xl/main.py:281
 msgid "Print the album of current track"
-msgstr "طباعة الألبوم من المسار الحالي"
+msgstr "打印当前音轨的专辑名称"
 
 #: ../xl/main.py:283
 msgid "Print the artist of current track"
-msgstr "طباعة الفنان من المسار الحالي"
+msgstr "打印当前音轨的艺人"
 
 #: ../xl/main.py:285
 msgid "Print the length of current track"
-msgstr "طباعة الطول من المسار الحالي"
+msgstr "打印当前音轨的长度"
 
 #: ../xl/main.py:287
 msgid "Set rating for current song"
-msgstr "حدد التصنيف الحالي للأغنية"
+msgstr "为当前曲目评级"
 
 #: ../xl/main.py:289
 msgid "Get rating for current song"
-msgstr "الحصول على التصنيف الحالي للأغنية"
+msgstr "获取当前曲目评级情况"
 
 #: ../xl/main.py:292
 msgid "Print the position inside the current track as a percentage"
-msgstr "طباعة الموقف داخل المسار الحالي كنسبة مئوية"
+msgstr "打印当前音轨的进度百分比"
 
 #: ../xl/main.py:296
 msgid "Increases the volume by VOL%"
-msgstr "زد شدّة الصوت بVOL%"
+msgstr "增大音量至 VOL%"
 
 #: ../xl/main.py:298
 msgid "Decreases the volume by VOL%"
-msgstr "نقصان الصوت ب%"
+msgstr "减小音量至 VOL%"
 
 #: ../xl/main.py:300
 msgid "Print the current volume percentage"
-msgstr "طباعة النسبة المئوية للصوت الحالي"
+msgstr "打印当前音量百分比"
 
 #: ../xl/main.py:304
 msgid "Start new instance"
-msgstr "بداية نمودج جديد"
+msgstr "启动新的实例"
 
 #: ../xl/main.py:307
 msgid "Start Exaile minimized to tray, if possible"
-msgstr "بداية (اكسايل-Exaile) مدني في شريط المهام,إن امكن"
+msgstr "如果可能，启动 Exaile 时最小化到托盘"
 
 #: ../xl/main.py:309
 msgid ""
 "Start in safe mode - sometimes useful when you're running into problems"
-msgstr "البدء في الوضع الآمن -- من المفيد أحيانا اذا وقعت في مشاكل"
+msgstr "安全模式启动 - 当有运行问题时非常有用"
 
 #. development and debug options
 #: ../xl/main.py:313
 msgid "Set data directory"
-msgstr "عين ملف البيانات"
+msgstr "设置数据目录"
 
 #: ../xl/main.py:315
 msgid "Show debugging output"
-msgstr "إظهار التنقيح الناتج"
+msgstr "显示调试输出"
 
 #: ../xl/main.py:318
 msgid "Enable debugging of xl.event. Generates LOTS of output"
-msgstr "تفعيل التنقيح حذث.xl .يولد الكثير من الناتج"
+msgstr "启用 xl.event 调试。产生大量的输出"
 
 #: ../xl/main.py:320
 msgid "Reduce level of output"
-msgstr "خفض مستوى الانتاج"
+msgstr "降低输出水平"
 
 #: ../xl/main.py:324
 msgid "Disable D-Bus support"
-msgstr "تعطيل دعم (د-بيس/ D-Bus )"
+msgstr "禁用 D-Bus 支持"
 
 #: ../xl/main.py:326
 msgid "Disable HAL support."
-msgstr "تعطيل دعم (هال-HAL)"
+msgstr "禁用 HAL 支持"
 
 #. entire playlist
 #: ../xl/main.py:343
 msgid "Entire Library"
-msgstr "كامل المكتبة"
+msgstr "整个音乐库"
 
 #: ../xl/main.py:349
 #, python-format
 msgid "Random %d"
-msgstr "عشوائي %d"
+msgstr "随机 %d"
 
 #: ../xl/main.py:357
 #, python-format
 msgid "Rating > %d"
-msgstr "تصنيف > %d"
+msgstr "评级 > %d"
 
 #: ../xl/main.py:401
 msgid "Exaile is shutting down..."
-msgstr "(اكسايل-Exaile) سيتوقف"
+msgstr "Exaile 正在关闭..."
 
 #: ../xl/main.py:415
 msgid "Saving state..."
-msgstr "حالة الحفظ..."
+msgstr "正在保存状态..."
 
 #: ../xl/main.py:440
 msgid "Bye!"
-msgstr "وداعا!"
+msgstr "再见！"
 
 #: ../xl/cover.py:98
 #, python-format
 msgid "CoverDB: set cover %(cover)s for '%(album)s - %(artist)s'"
-msgstr ""
+msgstr "封面数据库：为 \"%(album)s - %(artist)s\" 选取封面 %(cover)s"
 
 #: ../xl/cover.py:119
 #: ../xl/cover.py:153
 #: ../xl/trackdb.py:232
 msgid "You did not specify a location to save the db"
-msgstr "انت لم تحدد مكان لحفظ قاعدة البيانات"
+msgstr "你未指定保存数据库的位置"
 
 #: ../xl/cover.py:245 ../xl/lyrics.py:75
 msgid "order must be a list or tuple"
-msgstr "الترتيب يجب ان يكون قائمة او نضد"
+msgstr "order 必须是一个列表或数组"
 
 #: ../xl/cover.py:394
 #, python-format
 msgid "Attempting to find covers for %s"
-msgstr "محاولة ايجاد غلاف ل%s"
+msgstr "正在尝试找到 %s 的封面"
 
 #: ../xl/cover.py:401
 #, python-format
 msgid "%s method doesn't support searching, skipping"
-msgstr "%s الطريقة لا تدعم البحث,تخطي"
+msgstr "%s 方式不支持搜索，跳过"
 
 #: ../xl/cover.py:406
 #, python-format
 msgid "Found covers from %s"
-msgstr "عثور على اغلفة من %s"
+msgstr "从 %s 找到封面"
 
 #: ../xl/metadata/_base.py:102
 #, python-format
 msgid ""
 "Could not import tag %(tag)s from file %(location)s because of possible "
 "conflict, please adjust your tags if you want to import this."
-msgstr ""
+msgstr "无法从文件 %(location)s 导入标签 %(tag)s，如果您仍想导入它们请调整您的标签以解决可能存在的冲突"
 
 #: ../xl/transcoder.py:45
 msgid ""
 "Vorbis is an open source, lossy audio codec with high quality output at a "
 "lower file size than MP3."
-msgstr ""
-"(فوربيس-Vorbis) مفتوح المصدرة,المرمز الصوتي (لوسي-lossy)  مع ناتج جودة عالية "
-"عند حجم ملف متدني بعد mp3"
+msgstr "Vorbis 是一个开放源码的、有损的音频编解码器，具备高品质的输出并且文件体积比 MP3 更小。"
 
 #: ../xl/transcoder.py:54
 msgid ""
 "Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
 "does not degrade audio quality."
-msgstr ""
-"المرمز الصوتي الضائع الحر (FLAC) انه مرمز مفتوح المصدر للضغط لكنه لا يتلف "
-"جودة الصوت"
+msgstr "FLAC 是一个开源的压缩编解码器，不会降低音质。"
 
 #: ../xl/transcoder.py:64
 msgid ""
 "Apple's proprietary lossy audio format that achieves better sound quality "
 "than MP3 at lower bitrates."
-msgstr ""
+msgstr "在低比特率的情况下，Apple 特有的音频格式比 MP3 格式的音质更好。"
 
 #: ../xl/transcoder.py:73
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. VBR gives "
 "higher quality than CBR, but may be incompatible with some players."
-msgstr ""
+msgstr "一个特有且旧的音频格式，但是也很流行。VBR 格式的音质比 CBR 格式更好，但它与某些播放软件不兼容。"
 
 #: ../xl/transcoder.py:82
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. CBR gives "
 "less quality than VBR, but is compatible with any player."
-msgstr ""
-"مملوك وقديم ,لكنه أكثر شعبية ,بنية الصوتي لوسي,CBR يعطيك نوعية أقل من VBR "
-",لكنه متوافق مع اي مشغل."
+msgstr "一个特有且旧的音频格式，但是也很流行。CBR 格式的音质不如 VBR 格式好，但它与所有播放软件兼容。"
 
 #: ../xl/transcoder.py:91
 msgid "A very fast Free lossless audio format with good compression."
-msgstr "سريع جدا نوع الصوت(lossless-لوسليس) مع ضغط جيد"
+msgstr "一种非常快速、自由、具备良好压缩率的无损音频格式。"
 
 #: ../xl/hal.py:50
 #, python-format
 msgid "Failed to load HAL devices for %s"
-msgstr "فشل تحميل اجهزة HAL ل%s"
+msgstr "为 %s 加载 HAL 设备失败"
 
 #: ../xl/hal.py:53
 msgid "Connected to HAL"
-msgstr "متصل ب HAL"
+msgstr "已连接至 HAL"
 
 #: ../xl/hal.py:56
 msgid "Failed to connect to HAL, autodetection of devices will be disabled."
-msgstr "فشل الاتصال بHAL ,الرصد التلقائي للاجهزة موقف"
+msgstr "连接 HAL 失败，自动检测设备将被禁用。"
 
 #: ../xl/hal.py:92
 #, python-format
 msgid "Found no HAL device handler for %s"
-msgstr "لا وجود لمقبض اجهزة (HAL-هال) لاجل %s"
+msgstr "找不到处理 %s 的 HAL 设备"
 
 #: ../xl/hal.py:97
 #, python-format
 msgid "Failed to create device for %s"
-msgstr "فشل في انشاء جهاز ل%s"
+msgstr "为 %s 创建设备失败"
 
 #: ../xl/hal.py:100
 #, python-format
 msgid "Found new %(handler)s device at %(device_udi)s"
-msgstr ""
+msgstr "在 %(device_udi)s 发现新的 %(handler)s 设备"
 
 #: ../xl/track.py:463
 msgid "  New song, fetching cover."
-msgstr "  أغنية جديدة, جلب الغلاف"
+msgstr "  新歌曲，正在获取封面。"
 
 #: ../xl/collection.py:158
 #, python-format
 msgid "File count: %d"
-msgstr "عدد الملفات: %d"
+msgstr "文件计数：%d"
 
 #: ../xl/collection.py:286
 #, python-format
 msgid "Watching directory: %s"
-msgstr "مراقبة المسار %s"
+msgstr "监视目录：%s"
 
 #: ../xl/collection.py:318
 #, python-format
 msgid "Location deleted: %s"
-msgstr "الموقع محذوف %s"
+msgstr "位置已删除： %s"
 
 #: ../xl/collection.py:329
 #, python-format
 msgid "Location modified: %s"
-msgstr "الموقع معدل %s"
+msgstr "位置已修改： %s"
 
 #: ../xl/collection.py:393
 msgid "PyInotify not installed or not supported.  "
-msgstr "PyInotify غير منصب او غير متوافق  "
+msgstr "PyInotify 未安装或不支持。  "
 
 #: ../xl/collection.py:394
 #, python-format
 msgid "Not watching library: %s"
-msgstr "عدم مشاهدة المكتبة :%s"
+msgstr "没有监视音乐库: %s"
 
 #. TODO: figure out why this happens
 #: ../xl/collection.py:496
 msgid "Encoding error, skipping compilation check"
-msgstr "خطاء الترمييز, تخطي فحص التجميع"
+msgstr "编码错误，跳过编辑检查"
 
 #: ../xl/collection.py:514
 #, python-format
 msgid "Compilation detected: %s"
-msgstr "اكتشاف مجموعة :%s"
+msgstr "编辑检查发现: %s"
 
 #: ../xl/collection.py:528
 #, python-format
 msgid "Scanning library: %s"
-msgstr "فحص المكتبة: %s"
+msgstr "正在扫描媒体库：%s"
 
 #: ../xl/settings.py:79
 msgid "Settings version is newer than current."
-msgstr "نسخة الاعدادات أحدث من الحالية."
+msgstr "设置的版本比当前版本更新。"
 
 #: ../xl/settings.py:161
 msgid "We don't know how to store that kind of setting: "
-msgstr "نحن لا نعرف كيفية تخزين هذا النوع من الاعدادات: "
+msgstr "Exaile 不知道如何存储这样的设置： "
 
 #: ../xl/settings.py:184
 msgid "An Unknown type of setting was found!"
-msgstr "نوع غير معروف من الإعدادات وجدت !"
+msgstr "发现未知类型的设置！"
 
 #: ../xl/providers.py:38
 #, python-format
 msgid "Provider %(provider)s registered for service %(service)s"
-msgstr ""
+msgstr "提供者 %(provider)s 已注册 %(service)s 服务"
 
 #: ../xl/providers.py:56
 #, python-format
 msgid "Provider %(provider)s unregistered from service %(service)s"
-msgstr ""
+msgstr "提供者 %(provider)s 未注册 %(service)s 服务"
 
 #: ../xl/plugins.py:73
 msgid "Plugin archive is not in the correct format"
-msgstr "حزمة الكمليات ليست في الصفة الصحيحة"
+msgstr "插件包格式错误"
 
 #: ../xl/plugins.py:80
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed"
-msgstr "الملحقة مع الاسم  %s منصبة بالفعل"
+msgstr "插件\"%s\"已安装"
 
 #: ../xl/plugins.py:85
 msgid "Plugin archive contains an unsafe path"
-msgstr "محتوى حزمة الملحقات في مسار حرج"
+msgstr "插件包包含不安全的路径"
 
 #: ../xl/plugins.py:106
 #, python-format
 msgid "Loaded plugin %s"
-msgstr "الملحقات محملة %s"
+msgstr "已加载 %s 插件"
 
 #: ../xl/plugins.py:109
 #, python-format
 msgid "Unable to enable plugin %s"
-msgstr "غير قادر على تفعيل الملحقات %s"
+msgstr "无法启用 %s 插件"
 
 #: ../xl/plugins.py:121
 #, python-format
 msgid "Unable to fully disable plugin %s"
-msgstr "غير قادر على تعطيل الملحقات كليا  %s"
+msgstr "无法完全关闭插件 %s"
 
 #: ../xl/playlist.py:371
 #, python-format
 msgid "Playlist %d"
-msgstr "قائمة التشغيل %d"
+msgstr "播放列表 %d"
 
 #: ../xl/playlist.py:606
 msgid "Ran out of tracks to shuffle"
-msgstr ""
+msgstr "随机播放音轨"
 
 #: ../xl/dynamic.py:46
 #, python-format
 msgid "Searching for %(limit)s tracks related to %(track)s"
-msgstr ""
+msgstr "正在搜索与 %(track)s 关联的 %(limit)s 首音轨"
 
 #: ../xl/dynamic.py:146
 #, python-format
 msgid "Added %s tracks."
-msgstr "مضافة %s  مسارات"
+msgstr "添加 %s 音轨。"
 
 #: ../xl/event.py:293
 msgid "Stopping IdleManager thread..."
-msgstr "توقيف خيط IdleManager"
+msgstr "正在停止 IdleManager 线程..."
 
 #: ../xl/event.py:384
 #, python-format
 msgid "Sent '%(type)s' event from '%(object)s' with data '%(data)s'."
-msgstr ""
+msgstr "从 '%(object)s' 发出 '%(type)s' 事件和 '%(data)s' 数据。"
 
 #: ../xl/xldbus.py:175
 msgid "Not playing."
-msgstr "غير مشتغل."
+msgstr "未播放。"
 
 #: ../xl/trackdb.py:175
 msgid "You did not specify a location to load the db from"
-msgstr "انت لم تحدد مكان لتحميل قاعدة البنات من"
+msgstr "您没有指定载入数据库的位置"
 
 #: ../xl/trackdb.py:187
 msgid "Failed to open music DB."
-msgstr "فشل فتح موسيقى (قاعدة البينات-DB )"
+msgstr "打开音乐数据库失败。"
 
 #: ../xl/trackdb.py:218
 #, python-format
 msgid "Saving %(name)s DB to %(location)s."
-msgstr ""
+msgstr "保存 %(name)s 数据库到 %(location)s。"
 
 #: ../xl/trackdb.py:245
 msgid "Failed to open music DB for write."
-msgstr "فشل فتح موسيقى (قاعدة البينات-DB ) للكتابة."
+msgstr "打开音乐数据库失败。"
 
 #: ../xl/trackdb.py:667
 msgid "bad search token"
-msgstr "علامة بحث سيئ"
+msgstr "错误的搜索指令"
 
 #: ../xlgui/main.py:36 ../xlgui/main.py:107 ../xlgui/main.py:799
 #: ../data/glade/main.glade.h:9 ../plugins/minimode/mmwidgets.py:326
 msgid "Not Playing"
-msgstr "غير مشغل"
+msgstr "未播放"
 
 #: ../xlgui/main.py:117
 #: ../plugins/minimode/mmwidgets.py:346
 msgid "Streaming..."
-msgstr "تدفق"
+msgstr "滚动..."
 
 #: ../xlgui/main.py:192
 msgid "Close tab"
-msgstr "غلق اللسان"
+msgstr "关闭标签"
 
 #: ../xlgui/main.py:224
 msgid "New playlist title:"
-msgstr "عنوان جديد لقائمة التشغيل"
+msgstr "新建的播放列表标题："
 
 #: ../xlgui/main.py:224 ../xlgui/menu.py:417
 msgid "Rename Playlist"
-msgstr "إعادة تسمية قائمة التشغيل"
+msgstr "重命名播放列表"
 
 #: ../xlgui/main.py:514
 msgid "Toggle: Stop after selected track"
-msgstr "متناوب:توقف بعد تحديد المسار"
+msgstr "锁定：选中音乐后停止"
 
 #: ../xlgui/main.py:539
 #, python-format
 msgid "%(playlist_count)d showing, %(collection_count)d in collection"
-msgstr ""
+msgstr "当前显示 %(playlist_count)d 首，音乐库中共 %(collection_count)d 首"
 
 #: ../xlgui/main.py:545
 #, python-format
 msgid " (%(queue_count)d queued)"
-msgstr ""
+msgstr " (%(queue_count)d 首已排队)"
 
 #: ../xlgui/main.py:668
 #, python-format
 msgid "Buffering: %d%%..."
-msgstr "فاصلة:%d%%..."
+msgstr "正在缓冲：%d%%..."
 
 #: ../xlgui/main.py:670
 msgid "Buffering: 100%..."
-msgstr "فاصلة:100%.."
+msgstr "正在缓冲:100%"
 
 #: ../xlgui/main.py:800 ../data/glade/main.glade.h:23
 msgid "Stopped"
-msgstr "موقف"
+msgstr "已停止"
 
 #: ../xlgui/main.py:872
 msgid ""
 "Exaile Music Player\n"
 "Not playing"
 msgstr ""
-"(Exaile-اكسايل) مشغل المسيقى \n"
-"غير مشتغل"
+"Exaile 音乐播放器\n"
+"未播放"
 
 #. TRANSLATORS: Window title
 #: ../xlgui/main.py:894
 #, python-format
 msgid "%(title)s (by %(artist)s)"
-msgstr ""
+msgstr "%(title)s - %(artist)s"
 
 #. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
 #: ../xlgui/main.py:904
 #, python-format
 msgid "by %s"
-msgstr "ب %s"
+msgstr "艺人：%s"
 
 #. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
 #: ../xlgui/main.py:906
 #, python-format
 msgid "from %s"
-msgstr "من %s"
+msgstr "- %s"
 
 #: ../xlgui/main.py:912
 #: ../xlgui/main.py:921
 #, python-format
 msgid "In pause: %s"
-msgstr "موقف :%s"
+msgstr "暂停：%s"
 
 #: ../xlgui/menu.py:53
 msgid "Toggle Queue"
-msgstr ""
+msgstr "切换队列"
 
 #: ../xlgui/menu.py:60
 msgid "Set Rating"
-msgstr "تعيين الصنف"
+msgstr "评级"
 
 #: ../xlgui/menu.py:111 ../xlgui/menu.py:313 ../xlgui/panel/playlists.py:308
 #: ../xlgui/panel/radio.py:282
 msgid "New Playlist"
-msgstr "قائمة تشغيل جديدة"
+msgstr "新建播放列表"
 
 #: ../xlgui/menu.py:155
 msgid "Add to custom playlist"
-msgstr "إضافة الى قائمة التشغيل الخاصة"
+msgstr "添加到自定义播放列表"
 
 #: ../xlgui/menu.py:156 ../xlgui/menu.py:456
 msgid "Remove"
-msgstr "حذف"
+msgstr "删除"
 
 #: ../xlgui/menu.py:169
 msgid "Playlist"
-msgstr "قائمة التشغيل"
+msgstr "播放列表"
 
 #: ../xlgui/menu.py:202 ../data/glade/main.glade.h:33
 msgid "_New Playlist"
-msgstr "_قائمة تشغيل جديدة"
+msgstr "新建播放列表(_N)"
 
 #: ../xlgui/menu.py:204
 msgid "_Rename Playlist"
-msgstr "_تسمية قائمة التشغيل"
+msgstr "重命名播放列表(_P)"
 
 #: ../xlgui/menu.py:205
 msgid "_Save As Custom Playlist"
-msgstr "_حفظ كقائمة تشغيل خاصة"
+msgstr "另存为自定义播放列表(_S)"
 
 #: ../xlgui/menu.py:206
 msgid "C_lear All Tracks"
-msgstr ""
+msgstr "清除所有音轨*_L("
 
 #: ../xlgui/menu.py:208
 msgid "_Close Playlist"
-msgstr "_غلق قائمة التشغيل"
+msgstr "关闭播放列表(_C)"
 
 #: ../xlgui/menu.py:228
 msgid "Append to Current"
-msgstr "إرفاق الى الحالي"
+msgstr "追加到当前播放列表"
 
 #: ../xlgui/menu.py:230
 msgid "Queue Items"
-msgstr ""
+msgstr "将项目加入队列"
 
 #: ../xlgui/menu.py:285
 #: ../xlgui/tray.py:135
 msgid "Rating:"
-msgstr "تصنيف:"
+msgstr "评级："
 
 #: ../xlgui/menu.py:310
 msgid "New Station"
-msgstr "محطة جديدة"
+msgstr "新电台"
 
 #: ../xlgui/menu.py:315
 msgid "New Smart Playlist"
-msgstr "قائمة تشغيل ناشطة جديدة"
+msgstr "新建智能播放列表"
 
 #: ../xlgui/menu.py:359
 msgid "Open"
-msgstr "فتح"
+msgstr "打开"
 
 #: ../xlgui/menu.py:362
 msgid "Rename"
-msgstr "تسمية"
+msgstr "重命名"
 
 #: ../xlgui/menu.py:364
 msgid "Edit"
-msgstr "تحرير"
+msgstr "编辑"
 
 #: ../xlgui/menu.py:367
 msgid "Export"
-msgstr "تصدير"
+msgstr "导出"
 
 #: ../xlgui/menu.py:370
 msgid "Delete Playlist"
-msgstr "احذف قائمة التشغيل"
+msgstr "删除播放列表"
 
 #: ../xlgui/menu.py:380
 msgid "Export as..."
-msgstr "تصدير ك.."
+msgstr "导出..."
 
 #: ../xlgui/menu.py:385 ../xlgui/__init__.py:129
 msgid "M3U Playlist"
-msgstr "قائمة تشغيل M3U"
+msgstr "M3U 播放列表"
 
 #: ../xlgui/menu.py:386 ../xlgui/__init__.py:130
 msgid "PLS Playlist"
-msgstr "قائمة تشغيل PLS"
+msgstr "PLS 播放列表"
 
 #: ../xlgui/menu.py:387 ../xlgui/__init__.py:131
 msgid "ASX Playlist"
-msgstr "قائمة تشغيل ASX"
+msgstr "ASX 播放列表"
 
 #: ../xlgui/menu.py:388 ../xlgui/__init__.py:132
 msgid "XSPF Playlist"
-msgstr "قائمة تشغيل XSPF"
+msgstr "XSPF 播放列表"
 
 #: ../xlgui/menu.py:403
 msgid "Are you sure you want to permanently delete the selected playlist?"
-msgstr "هل انت متأكد في إستمرارك حذف قائمة التشغيل المحددة"
+msgstr "您确定要永久性删除选中的播放列表？"
 
 #: ../xlgui/menu.py:416
 msgid "Enter the new name you want for your playlist"
-msgstr "ادخل الاسم المطلوب الجديد لقائمة تشغيلك"
+msgstr "输入播放列表的新名称"
 
 #: ../xlgui/cover.py:242
 msgid "No cover found"
-msgstr "لا يوجد غلاف"
+msgstr "未找到封面"
 
 #: ../xlgui/cover.py:265
 msgid "Saving cover database"
-msgstr "حفظ قاعدةبينات الاغلفة"
+msgstr "正在保存封面数据库"
 
 #: ../xlgui/cover.py:286
 #, python-format
 msgid "%d covers to fetch"
-msgstr "%d اغلفة لجلب"
+msgstr "取得 %d 个封面"
 
 #: ../xlgui/cover.py:291 ../xlgui/cover.py:310
 #: ../data/glade/covermanager.glade.h:2
 msgid "Start"
-msgstr "ابدأ"
+msgstr "开始"
 
 #: ../xlgui/cover.py:325
 msgid "Show Cover"
-msgstr "عرض الغلاف"
+msgstr "显示封面"
 
 #: ../xlgui/cover.py:326
 msgid "Fetch Cover"
-msgstr "جلب الغلاف"
+msgstr "获取封面"
 
 #: ../xlgui/cover.py:327
 msgid "Remove Cover"
-msgstr "حذف الغلاف"
+msgstr "删除封面"
 
 #: ../xlgui/cover.py:436 ../xlgui/cover.py:684
 msgid "No covers found"
-msgstr "لاوجود للاغلفة"
+msgstr "未找到封面"
 
 #: ../xlgui/cover.py:658
 msgid "Enter the search text"
-msgstr "ادخل نص البحث"
+msgstr "输入要搜索的内容"
 
 #: ../xlgui/osd.py:195
 #: ../xlgui/plcolumns.py:109
 #, python-format
 msgid "%(minutes)d:%(seconds)02d"
-msgstr ""
+msgstr "%(minutes)d:%(seconds)02d"
 
 #: ../xlgui/__init__.py:124
 msgid "Export current playlist..."
-msgstr "تصدير قائمة التشغيل الحالية.."
+msgstr "导出当前播放列表..."
 
 #: ../xlgui/__init__.py:147 ../xlgui/panel/playlists.py:860
 msgid "Invalid file extension, file not saved"
-msgstr "امتداد الملف لايصلح , الملف لم يحفظ"
+msgstr "无效的文件扩展名，文件未保存"
 
 #: ../xlgui/__init__.py:154
 msgid "Enter the URL to open"
-msgstr "إدخل العنوان لفتحه"
+msgstr "输入要打开的 URL"
 
 #: ../xlgui/__init__.py:155
 msgid "Open URL"
-msgstr "إفتح عنوان"
+msgstr "打开 URL"
 
 #: ../xlgui/__init__.py:169
 msgid "Choose a file to open"
-msgstr "اختيار ملف للفتح"
+msgstr "选择一个要打开的文件"
 
 #: ../xlgui/__init__.py:175
 msgid "Supported Files"
-msgstr "الملفات مدعومة"
+msgstr "支持的文件"
 
 #: ../xlgui/__init__.py:177
 msgid "Music Files"
-msgstr "ملفات موسيقى"
+msgstr "音乐文件"
 
 #: ../xlgui/__init__.py:179
 msgid "Playlist Files"
-msgstr "ملفات قائمة التشغيل"
+msgstr "播放列表文件"
 
 #: ../xlgui/__init__.py:181 ../xlgui/plugins.py:122
 msgid "All Files"
-msgstr "كل الملفات"
+msgstr "所有文件"
 
 #: ../xlgui/__init__.py:309
 msgid "Scanning collection..."
-msgstr "فحص المجموعة...."
+msgstr "正在扫描音乐库..."
 
 #: ../xlgui/__init__.py:382
 #, python-format
 msgid "Scanning %s..."
-msgstr "يفحص %s..."
+msgstr "正在扫描 %s..."
 
 #. TRANSLATORS: Title of the track number column
 #: ../xlgui/queue.py:73 ../xlgui/plcolumns.py:58
 msgid "#"
-msgstr "#"
+msgstr "序号"
 
 #: ../xlgui/queue.py:78 ../xlgui/plcolumns.py:79
 msgid "Title"
-msgstr "عنوان"
+msgstr "标题"
 
 #: ../xlgui/queue.py:86
 msgid "Tracks did not change, no need to update"
-msgstr "المسار لم يتغير ,لا يحتاج تحديث"
+msgstr "音轨未改变，不需要更新"
 
 #: ../xlgui/queue.py:138
 msgid "Gave an invalid number to remove"
-msgstr "قدم رقم غير صالح للحذف"
+msgstr "要删除的编号无效"
 
 #: ../xlgui/commondialogs.py:243
 msgid "Select File Type (By Extension)"
-msgstr "اختار نوع الملف (حسب الامتداد)"
+msgstr "选择文件类型 (按扩展名)"
 
 #: ../xlgui/commondialogs.py:251
 msgid "File Type"
-msgstr "نوع الملف"
+msgstr "文件类型"
 
 #: ../xlgui/commondialogs.py:254
 msgid "Extension"
-msgstr "الامتداد"
+msgstr "扩展名"
 
 #: ../xlgui/collection.py:140
 msgid "Add a directory"
-msgstr "اضافة مستند"
+msgstr "添加目录"
 
 #. our added path is a subdir of an existing path
 #: ../xlgui/collection.py:170
 msgid ""
 "Path is already in your collection, or is a subdirectory of another path in "
 "your collection"
-msgstr "المسار بالفعل موجود في المجموعة ,او في مسار فرعي اخر لمجموعتك"
+msgstr "路径已存在于您的音乐库，或者是音乐库中另一路径的子目录"
 
 #: ../xlgui/plcolumns.py:84 ../xlgui/panel/playlists.py:57
 msgid "Artist"
-msgstr "فنّان"
+msgstr "艺人"
 
 #: ../xlgui/plcolumns.py:89
 msgid "Composer"
-msgstr "المؤلف"
+msgstr "作曲"
 
 #: ../xlgui/plcolumns.py:94 ../xlgui/panel/playlists.py:67
 msgid "Album"
-msgstr "ألبوم"
+msgstr "专辑"
 
 #: ../xlgui/plcolumns.py:99 ../xlgui/panel/playlists.py:97
 msgid "Length"
-msgstr "طول"
+msgstr "时长"
 
 #. TRANSLATORS: Default track length
 #: ../xlgui/plcolumns.py:113
@@ -849,23 +848,23 @@ msgstr "0:00"
 
 #: ../xlgui/plcolumns.py:119
 msgid "Disc"
-msgstr "قرص"
+msgstr "盘片"
 
 #: ../xlgui/plcolumns.py:125 ../xlgui/panel/playlists.py:79
 msgid "Rating"
-msgstr "تصنيف"
+msgstr "评级"
 
 #: ../xlgui/plcolumns.py:148
 msgid "Date"
-msgstr "تاريخ"
+msgstr "日期"
 
 #: ../xlgui/plcolumns.py:153 ../xlgui/panel/playlists.py:73
 msgid "Genre"
-msgstr "نوع"
+msgstr "流派"
 
 #: ../xlgui/plcolumns.py:158
 msgid "Bitrate"
-msgstr "معدل البت"
+msgstr "比特率"
 
 #. (N_('Date Added'), [
 #. TRANSLATORS: Example: track has been added in the last 2 days
@@ -883,16 +882,16 @@ msgstr "معدل البت"
 #. ]),
 #: ../xlgui/plcolumns.py:171 ../xlgui/panel/playlists.py:115
 msgid "Location"
-msgstr "المكان"
+msgstr "位置"
 
 #. TRANSLATORS: Filename column in the file browser
 #: ../xlgui/plcolumns.py:176 ../xlgui/panel/files.py:89
 msgid "Filename"
-msgstr "إسم الملف"
+msgstr "文件名"
 
 #: ../xlgui/plcolumns.py:181
 msgid "Playcount"
-msgstr "عدد التشغيل"
+msgstr "播放计数"
 
 #: ../xlgui/plcolumns.py:189
 msgid "BPM"
@@ -900,242 +899,242 @@ msgstr "BPM"
 
 #: ../xlgui/plcolumns.py:215
 msgid "Track Number"
-msgstr "رقم المسار"
+msgstr "音轨编号"
 
 #: ../xlgui/plcolumns.py:217
 msgid "Disc Number"
-msgstr "رقم القرص"
+msgstr "盘片编号"
 
 #: ../xlgui/filtergui.py:51
 msgid "Name:"
-msgstr "الاسم:"
+msgstr "名称："
 
 #: ../xlgui/filtergui.py:65
 msgid "Match any of the criteria"
-msgstr "نسق اي معيير"
+msgstr "匹配任何标准"
 
 #: ../xlgui/filtergui.py:67
 msgid "Randomize results"
-msgstr "نتائج عشوائية"
+msgstr "随机结果"
 
 #: ../xlgui/filtergui.py:83
 msgid "Limit to: "
-msgstr "حدد الى: "
+msgstr "限定在： "
 
 #: ../xlgui/filtergui.py:93
 msgid " songs"
-msgstr " الاغاني"
+msgstr " 首"
 
 #: ../xlgui/plugins.py:76
 msgid "Plugin"
-msgstr "كمليات"
+msgstr "插件"
 
 #: ../xlgui/plugins.py:86 ../plugins/multialarmclock/alarmclk.glade.h:6
 msgid "Enabled"
-msgstr "ممكن"
+msgstr "已启用"
 
 #: ../xlgui/plugins.py:110
 msgid "Choose a plugin"
-msgstr "إختر كملية"
+msgstr "选择插件"
 
 #: ../xlgui/plugins.py:111
 msgid "Cancel"
-msgstr "إلغاﺀ"
+msgstr "取消"
 
 #: ../xlgui/plugins.py:111
 msgid "Choose"
-msgstr "إختر"
+msgstr "选择"
 
 #: ../xlgui/plugins.py:115
 msgid "Plugin Archives"
-msgstr "حزم الكمليات"
+msgstr "插件包"
 
 #: ../xlgui/plugins.py:146
 msgid "The selected plugin doesn't have any configuration options"
-msgstr "الكمليات المختارة ليس لها اي خيارات معدة"
+msgstr "已选中的插件没有配置选项"
 
 #: ../xlgui/plugins.py:194
 msgid "Could not enable plugin."
-msgstr "ﻻ يمكن تفعيل الملحق"
+msgstr "无法启用插件。"
 
 #: ../xlgui/plugins.py:199
 msgid "Could not disable plugin."
-msgstr "ﻻ يمكن تعطيل الملحق"
+msgstr "无法禁用插件。"
 
 #: ../xlgui/playlist.py:208
 #, python-format
 msgid "adding %(column_id)s column to %(preference)s"
-msgstr ""
+msgstr "正在添加 %(column_id)s 列到 %(preference)s"
 
 #: ../xlgui/playlist.py:213
 #, python-format
 msgid "removing %(column_id)s column from %(preference)s"
-msgstr ""
+msgstr "正在从 %(preference)s 删除 %(column_id)s 列"
 
 #: ../xlgui/playlist.py:966
 msgid "Confirm Close"
-msgstr "أكد الغلق"
+msgstr "确认关闭"
 
 #: ../xlgui/playlist.py:967
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
-msgstr "<b>حفظ التغيير الى  %s قبل الاغلاق?</b>"
+msgstr "<b>关闭前保存更改到 %s？</b>"
 
 #: ../xlgui/playlist.py:968
 msgid "Your changes will be lost if you don't save them"
-msgstr "تغيراتك ستهمل إذا لم تحفظها"
+msgstr "如果不保存，您的更改将丢失。"
 
 #: ../xlgui/playlist.py:970
 msgid "Close Without Saving"
-msgstr "غلق بدون حفظ"
+msgstr "不保存关闭"
 
 #: ../xlgui/playlist.py:971
 msgid "Save"
-msgstr "حفظ"
+msgstr "保存"
 
 #: ../xlgui/panel/playlists.py:27 ../xlgui/panel/playlists.py:39
 #: ../xlgui/panel/playlists.py:46
 msgid "seconds"
-msgstr "ثواني"
+msgstr "秒"
 
 #. TRANSLATORS: Logical AND used for smart playlists
 #: ../xlgui/panel/playlists.py:32
 msgid "and"
-msgstr "و"
+msgstr "和"
 
 #: ../xlgui/panel/playlists.py:36 ../xlgui/panel/playlists.py:39
 msgid "days"
-msgstr "ايام"
+msgstr "天"
 
 #: ../xlgui/panel/playlists.py:39
 msgid "minutes"
-msgstr "دقائق"
+msgstr "分"
 
 #: ../xlgui/panel/playlists.py:39
 msgid "hours"
-msgstr "ساعات"
+msgstr "小时"
 
 #: ../xlgui/panel/playlists.py:39
 msgid "weeks"
-msgstr "أسابيع"
+msgstr "星期"
 
 #. TRANSLATORS: True if haystack is equal to needle
 #: ../xlgui/panel/playlists.py:59 ../xlgui/panel/playlists.py:68
 #: ../xlgui/panel/playlists.py:74 ../xlgui/panel/playlists.py:116
 msgid "is"
-msgstr "هو"
+msgstr "是"
 
 #. TRANSLATORS: True if haystack is not equal to needle
 #: ../xlgui/panel/playlists.py:61 ../xlgui/panel/playlists.py:69
 #: ../xlgui/panel/playlists.py:75 ../xlgui/panel/playlists.py:117
 msgid "is not"
-msgstr "ليس"
+msgstr "不是"
 
 #. TRANSLATORS: True if haystack contains needle
 #: ../xlgui/panel/playlists.py:63 ../xlgui/panel/playlists.py:70
 #: ../xlgui/panel/playlists.py:76 ../xlgui/panel/playlists.py:118
 msgid "contains"
-msgstr "يحتوي"
+msgstr "包含"
 
 #. TRANSLATORS: True if haystack does not contain needle
 #: ../xlgui/panel/playlists.py:65 ../xlgui/panel/playlists.py:71
 #: ../xlgui/panel/playlists.py:77 ../xlgui/panel/playlists.py:119
 msgid "does not contain"
-msgstr "لا يحتوي"
+msgstr "不包含"
 
 #. TRANSLATORS: Example: rating >= 5
 #: ../xlgui/panel/playlists.py:81 ../xlgui/panel/playlists.py:86
 #: ../xlgui/panel/playlists.py:98
 msgid "at least"
-msgstr "على الأقل"
+msgstr "至少"
 
 #. TRANSLATORS: Example: rating <= 3
 #: ../xlgui/panel/playlists.py:83 ../xlgui/panel/playlists.py:87
 #: ../xlgui/panel/playlists.py:99
 msgid "at most"
-msgstr "على الأكثر"
+msgstr "至多"
 
 #: ../xlgui/panel/playlists.py:85
 msgid "Plays"
-msgstr "مشغلات"
+msgstr "播放"
 
 #: ../xlgui/panel/playlists.py:89
 msgid "Year"
-msgstr "سنة"
+msgstr "年份"
 
 #. TRANSLATORS: Example: year < 1999
 #: ../xlgui/panel/playlists.py:91
 msgid "before"
-msgstr "قبل"
+msgstr "早于"
 
 #. TRANSLATORS: Example: year > 2002
 #: ../xlgui/panel/playlists.py:93
 msgid "after"
-msgstr "بعد"
+msgstr "晚于"
 
 #. TRANSLATORS: Example: 1980 <= year <= 1987
 #: ../xlgui/panel/playlists.py:95
 msgid "between"
-msgstr "بين"
+msgstr "介于"
 
 #. name is already in use
 #: ../xlgui/panel/playlists.py:197 ../xlgui/panel/playlists.py:301
 #: ../xlgui/panel/playlists.py:314 ../xlgui/panel/playlists.py:535
 #: ../xlgui/panel/playlists.py:605
 msgid "The playlist name you specified already exists."
-msgstr "اسم قائمة التشغيل المحدد موجود حقا"
+msgstr "您指定的播放列表名称已存在。"
 
 #: ../xlgui/panel/playlists.py:307 ../xlgui/panel/radio.py:281
 msgid "Enter the name you want for your new playlist"
-msgstr "ادخل الاسم المراد لقائمة تشغيلك الجديدة"
+msgstr "输入新建播放列表的名称"
 
 #: ../xlgui/panel/playlists.py:318 ../xlgui/panel/playlists.py:529
 #: ../xlgui/panel/playlists.py:598
 msgid "You did not enter a name for your playlist"
-msgstr "انت لم تدخل اسم قائمة تشغيلك"
+msgstr "您未给播放列表输入名称"
 
 #: ../xlgui/panel/playlists.py:477
 msgid "Smart Playlists"
-msgstr "قائمة التشغيل ذكية"
+msgstr "智能播放列表"
 
 #: ../xlgui/panel/playlists.py:480
 msgid "Custom Playlists"
-msgstr "قائمة تشغيل مخصصة"
+msgstr "自定义播放列表"
 
 #: ../xlgui/panel/playlists.py:515
 msgid "Add Smart Playlist"
-msgstr "إضافة قائمة تشغيل ذكية"
+msgstr "添加智能播放列表"
 
 #: ../xlgui/panel/playlists.py:576
 msgid "Edit Smart Playlist"
-msgstr "تحرير قائمة التشغيل الذكية"
+msgstr "编辑智能播放列表"
 
 #: ../xlgui/panel/radio.py:90 ../xlgui/panel/radio.py:336
 #: ../xlgui/panel/radio.py:403
 msgid "Loading streams..."
-msgstr "شحن تيارات..."
+msgstr "正在载入流..."
 
 #: ../xlgui/panel/radio.py:160
 msgid "Saved Stations"
-msgstr "المحطات محفوظة"
+msgstr "已保存电台"
 
 #: ../xlgui/panel/radio.py:161
 msgid "Radio Streams"
-msgstr "تيارات الراديو"
+msgstr "电台流媒体"
 
 #: ../xlgui/panel/radio.py:190
 msgid "Refresh"
-msgstr "تحديث"
+msgstr "刷新"
 
 #. TRANSLATORS: Filesize column in the file browser
 #: ../xlgui/panel/files.py:114
 msgid "Size"
-msgstr "الحجم"
+msgstr "大小"
 
 #: ../xlgui/panel/files.py:307
 #, python-format
 msgid "%s KB"
-msgstr "%s ك/ب"
+msgstr "%s KB"
 
 #. TRANSLATORS : this replaces the title of a track when it's not known
 #: ../xlgui/panel/collection.py:274 ../xlgui/panel/collection.py:365
@@ -1143,65 +1142,65 @@ msgstr "%s ك/ب"
 #: ../plugins/notifyosd/__init__.py:57 ../plugins/notifyosd/__init__.py:66
 #: ../plugins/notify/__init__.py:27
 msgid "Unknown"
-msgstr "مجهول"
+msgstr "未知"
 
 #: ../xlgui/panel/collection.py:395
 msgid "Various Artists"
-msgstr "فنانين متنوعين"
+msgstr "多位艺人"
 
 #: ../xlgui/prefs/__init__.py:69 ../data/glade/preferences_dialog.glade.h:2
 msgid "Preferences"
-msgstr "التفضيلات"
+msgstr "首选项"
 
 #: ../xlgui/prefs/__init__.py:96
 msgid "Error loading preferences pane"
-msgstr "خطأ في تحميل لوحة التفضيلات"
+msgstr "载入面板首选项出错"
 
 #: ../xlgui/prefs/__init__.py:100
 msgid "Plugins"
-msgstr "كمليات"
+msgstr "插件"
 
 #: ../xlgui/tray.py:65
 msgid "Exaile Music Player"
-msgstr "مشغل الموسيقى إكسايل"
+msgstr "Exaile 音乐播放器"
 
 #: ../xlgui/tray.py:103 ../plugins/minimode/minimodeprefs.py:108
 msgid "Next"
-msgstr "التالي"
+msgstr "下一首"
 
 #: ../xlgui/tray.py:106 ../plugins/minimode/minimodeprefs.py:105
 msgid "Previous"
-msgstr "السابق"
+msgstr "上一首"
 
 #: ../xlgui/tray.py:110 ../plugins/minimode/minimodeprefs.py:107
 msgid "Stop"
-msgstr "قف"
+msgstr "停止"
 
 #: ../xlgui/tray.py:116
 #: ../data/glade/main.glade.h:21
 msgid "Shuffle playback order"
-msgstr "ضم ترتيب إعادة التشغيل"
+msgstr "打乱回放顺序"
 
 #: ../xlgui/tray.py:121
 #: ../data/glade/main.glade.h:17
 msgid "Repeat playlist"
-msgstr "كرر قائمة التشغيل"
+msgstr "循环播放列表"
 
 #: ../xlgui/tray.py:126
 msgid "Dynamically add similar tracks"
-msgstr "ديناميكي إضافة المسارات المماثلة"
+msgstr "自动添加相似音轨"
 
 #: ../xlgui/tray.py:144
 msgid "Remove current track from playlist"
-msgstr "إزالة المسار الحالي من قائمة التشغيل"
+msgstr "将当前音轨从播放列表中删除"
 
 #: ../xlgui/tray.py:148
 msgid "Quit"
-msgstr "إغلاق"
+msgstr "退出"
 
 #: ../xlgui/tray.py:196
 msgid "Pause"
-msgstr "وقف"
+msgstr "暂停"
 
 #: ../data/glade/device_manager.glade.h:1
 msgid "..."
@@ -1209,36 +1208,36 @@ msgstr "..."
 
 #: ../data/glade/device_manager.glade.h:2
 msgid "Add device"
-msgstr "إضافة جهاز"
+msgstr "添加设备"
 
 #: ../data/glade/device_manager.glade.h:3
 msgid "Custom: "
-msgstr "تخصيص : "
+msgstr "自定义： "
 
 #: ../data/glade/device_manager.glade.h:4
 msgid "Detected devices:"
-msgstr "الأجهزة المرصودة:"
+msgstr "检测到的设备："
 
 #: ../data/glade/device_manager.glade.h:5 ../data/glade/main.glade.h:6
 msgid "Device Manager"
-msgstr "مدير الأجهزة"
+msgstr "设备管理器"
 
 #: ../data/glade/device_manager.glade.h:6
 msgid "Type of device:"
-msgstr "نوع الجهاز :"
+msgstr "设备类型："
 
 #: ../data/glade/device_panel.glade.h:1
 #: ../data/glade/collection_panel.glade.h:8
 msgid "Collection"
-msgstr "مجموعة"
+msgstr "音乐库"
 
 #: ../data/glade/coverchooser.glade.h:1
 msgid "Cover Finder"
-msgstr "مستكشف الاغلفة"
+msgstr "专辑封面查找器"
 
 #: ../data/glade/coverchooser.glade.h:2
 msgid "New Search"
-msgstr "بحث جديد"
+msgstr "新建搜索"
 
 #: ../data/glade/about_dialog.glade.h:1
 msgid "&#xA9; 2009"
@@ -1246,7 +1245,7 @@ msgstr "&#xA9; 2009"
 
 #: ../data/glade/about_dialog.glade.h:2
 msgid "About Exaile"
-msgstr "عن (Exaile-إكسيال)"
+msgstr "关于 Exaile"
 
 #: ../data/glade/about_dialog.glade.h:3
 msgid ""
@@ -1266,21 +1265,14 @@ msgid ""
 "with this program; if not, write to the Free Software Foundation, Inc.,\n"
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 msgstr ""
-"حقوق المؤلف(c) ادام ويلسون <arolsen@gmail.com>\n"
-"هذا البرنامج من البرمجيات الحرة:يمكنك إعادة توزيعه و/او تعديل\n"
-"انه تحت رخصة فريق (جنو)الرخصة العمومية العامة من\n"
-"البرامج الحرة الاساسية:كما النسخة 2 من رخصة ,او\n"
-"(عند خياراتك)واي نسخة لاحقة\n"
+"版权所有 (C) 2008-2009 Adam Olsen <arolsen@gmail.com> \n"
 "\n"
-"هذا البرنامج وزع لأمل الافادة\n"
-"لكن بدون اي ضمنات:بدون حتي مفهوم ضمنيا من الضمان\n"
-"التجاري او الملاءمة لغرض معين.انظر \n"
-"(جنو)الرخصة العمومية العامة لتفاصيل اكثر\n"
+"本程序为自由软件；您可以在自由软件基金会所发布的 GNU 通用公共许可证 (GPL) 第二版或之后任意版本之下自由修改/重发布此软件。\n"
 "\n"
-"يجب عليك استلام نسخة من (جنو)الرخصة العمومية العامة مرفقة\n"
-"مع هذا البرنامج;إن لم تستلم, راسل مقر البرامج الحرة ,\n"
-"51 شارع  فرانكلين(Franklin),الطابق الخامس,بوسطن, ام 02110-1301  و م أ -"
-"الولايات المتحدة الامريكية\n"
+"分发此软件是希望它能够有一些用处，但是我们对它不做任何保证，无论是关于其适销性还是对特定用途的适用性。请查看 GNU 通用公共许可证以了解详情。\n"
+"您应当随此程序获得 GNU 通用公共许可证的一个副本；如果没有，请致函自由软件基金会：\n"
+"Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 
 #: ../data/glade/about_dialog.glade.h:19
 msgid ""
@@ -1288,18 +1280,24 @@ msgid ""
 "   <info@noctus.net>\n"
 "    Translation Manager"
 msgstr ""
-"ماتيس برودالا\n"
+"Mathias Brodala\n"
 "   <info@noctus.net>\n"
-"    مدير الترجمة"
+"    Translation Manager\n"
+"Aron Xu\n"
+"   <aronxu@gnome.org>\n"
+"   Simplified Chinese translator\n"
+"fujianwzh\n"
+"   <fujianwzh@gmail.com>\n"
+"   Simplified Chinese translator"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:1
 msgid "Always show tab bar"
-msgstr "عرض دائم عارضة تاب"
+msgstr "始终显示标签栏"
 
 #. TRANSLATORS: Keep the current track visible in playlist
 #: ../data/glade/appearance_prefs_pane.glade.h:3
 msgid "Jump to current song on track change"
-msgstr "قفز الى الاغنية الحالية عند تغيير المسار"
+msgstr "当音轨改变时跳转到当前曲目"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:4
 msgid ""
@@ -1308,22 +1306,22 @@ msgid ""
 "Top\n"
 "Bottom"
 msgstr ""
-"يسار\n"
-"يمين\n"
-"اعلى\n"
-"اسفل"
+"左\n"
+"右\n"
+"上\n"
+"下"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:8
 msgid "Show splash screen on startup"
-msgstr "أظهر شاشة الترحيب في بداية التشغيل"
+msgstr "启动时显示飞溅屏幕"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:9
 msgid "Show tray icon"
-msgstr "أظهر أيقونة الجانبية"
+msgstr "显示托盘图标"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:10
 msgid "Tab placement:"
-msgstr "وضعية تاب"
+msgstr "标签位置："
 
 #: ../data/glade/osd_window.glade.h:1
 msgid ""
@@ -1332,30 +1330,29 @@ msgid ""
 "OSD to appear"
 msgstr ""
 "<b>OSD</b>\n"
-"اسحب الى مكان الذي تريده\n"
-"سيظهر OSD"
+"拖动 OSD 到您希望的位置"
 
 #: ../data/glade/osd_window.glade.h:4
 msgid "Popup"
-msgstr "منبثقة"
+msgstr "弹出"
 
 #: ../data/glade/radio_panel.glade.h:1
 msgid "Radio"
-msgstr "راديو"
+msgstr "电台广播"
 
 #: ../data/glade/covermanager.glade.h:1
 msgid "Cover Manager"
-msgstr "مدير الغلاف"
+msgstr "封面管理器"
 
 #: ../data/glade/covermanager.glade.h:3
 msgid "_Close"
-msgstr "_إغلاق"
+msgstr "关闭(_C)"
 
 #: ../data/glade/osd_prefs_pane.glade.h:1
 msgid ""
 "<b>Move the On Screen Display window to the location you want it to "
 "appear</b>"
-msgstr "<b>حرك داخل شاشة العرض النافذة إلى مكان الذي اردت ظهورها فيه"
+msgstr "<b>移动屏幕上显示的窗口到指定位置</b>"
 
 #: ../data/glade/osd_prefs_pane.glade.h:2
 msgid ""
@@ -1363,121 +1360,121 @@ msgid ""
 "{artist}\n"
 "on {album} - {length}"
 msgstr ""
-"<b>{عنوان}</b>\n"
-"{فنان}\n"
-"في {البوم} - {طول}"
+"<b>{title}</b>\n"
+"艺人：{artist}\n"
+"专辑：{album} - {length}"
 
 #: ../data/glade/osd_prefs_pane.glade.h:5
 msgid "Background Color:"
-msgstr "لون الخلفية:"
+msgstr "背景色："
 
 #: ../data/glade/osd_prefs_pane.glade.h:6
 msgid "Display OSD when hovering over tray icon"
-msgstr "عرض OSD عند المرور فوق الرمز الجانبي"
+msgstr "鼠标在托盘图标悬停时显示 OSD"
 
 #: ../data/glade/osd_prefs_pane.glade.h:7
 msgid "Display a progressbar in the OSD"
-msgstr "عرض عارضة التقدم في OSD"
+msgstr "在 OSD 上显示进度条"
 
 #: ../data/glade/osd_prefs_pane.glade.h:8
 msgid "Opacity Level:"
-msgstr "مستوى الشفافية"
+msgstr "透明度："
 
 #: ../data/glade/osd_prefs_pane.glade.h:9
 msgid "Show OSD on track change"
-msgstr "عرض OSD عند تغيير المسار"
+msgstr "当音轨改变时显示 OSD"
 
 #: ../data/glade/osd_prefs_pane.glade.h:10
 msgid "Text Color"
-msgstr "لون النص"
+msgstr "文本颜色"
 
 #: ../data/glade/osd_prefs_pane.glade.h:11
 msgid "Text Font:"
-msgstr "خط النص:"
+msgstr "文本字体："
 
 #: ../data/glade/osd_prefs_pane.glade.h:12
 msgid "Window Height:"
-msgstr "إرتفاع النافذة"
+msgstr "窗口高度："
 
 #: ../data/glade/osd_prefs_pane.glade.h:13
 msgid "Window Width:"
-msgstr "عرض النافذة"
+msgstr "窗口宽度"
 
 #: ../data/glade/plugin_dialog.glade.h:1
 msgid "<b>No Plugin Selected</b>"
-msgstr "<b>لا كمليات مختارة</b>"
+msgstr "<b>没有选定插件</b>"
 
 #: ../data/glade/plugin_dialog.glade.h:2
 msgid "Authors:"
-msgstr "المؤلفون:"
+msgstr "作者："
 
 #: ../data/glade/plugin_dialog.glade.h:3
 msgid "Available Plugins"
-msgstr "الكمليات المتوفرة"
+msgstr "可用插件"
 
 #: ../data/glade/plugin_dialog.glade.h:4
 msgid "Description:"
-msgstr "الوصف"
+msgstr "描述："
 
 #: ../data/glade/plugin_dialog.glade.h:5
 msgid "Install"
-msgstr "نصب"
+msgstr "安装"
 
 #: ../data/glade/plugin_dialog.glade.h:6
 msgid "Install Updates"
-msgstr "تثبيت التحديثات"
+msgstr "安装更新"
 
 #: ../data/glade/plugin_dialog.glade.h:7
 msgid "Installed Plugins"
-msgstr "الكمليات المثبتة"
+msgstr "已安装插件"
 
 #: ../data/glade/plugin_dialog.glade.h:8
 msgid "Plugin Manager"
-msgstr "مدير الكمليات"
+msgstr "插件管理器"
 
 #: ../data/glade/plugin_dialog.glade.h:9
 msgid "Updates"
-msgstr "تحديثات"
+msgstr "更新"
 
 #: ../data/glade/plugin_dialog.glade.h:10
 msgid "Version:"
-msgstr "الإصدارة:"
+msgstr "版本："
 
 #: ../data/glade/queue_dialog.glade.h:1
 msgid "Close this dialog"
-msgstr "غلق هذه العلبة"
+msgstr "关闭此对话框"
 
 #: ../data/glade/queue_dialog.glade.h:2
 msgid "Move song down in queue"
-msgstr "حرك الاغنية اسفل في الترتيب"
+msgstr "在队列中下移歌曲"
 
 #: ../data/glade/queue_dialog.glade.h:3
 msgid "Move song to bottom of queue"
-msgstr "حرك الاغنية اسفل تحت الترتيب"
+msgstr "移动歌曲到队列尾部"
 
 #: ../data/glade/queue_dialog.glade.h:4
 msgid "Move song to top in queue"
-msgstr "حرك الاغنية اعلى فوق الترتيب"
+msgstr "移动歌曲到队列首部"
 
 #: ../data/glade/queue_dialog.glade.h:5
 msgid "Move song up in queue"
-msgstr "حرك الاغنية اعلى في الترتيب"
+msgstr "在队列中前移歌曲"
 
 #: ../data/glade/queue_dialog.glade.h:6
 msgid "Queue Manager - Exaile"
-msgstr "مدير الترتيب - Exaile"
+msgstr "队列管理器 - Exaile"
 
 #: ../data/glade/queue_dialog.glade.h:7
 msgid "Remove All"
-msgstr "إزالة الكل"
+msgstr "全部删除"
 
 #: ../data/glade/queue_dialog.glade.h:8
 msgid "Remove song from queue"
-msgstr "حذف الاغنية من الترتيب"
+msgstr "从队列中删除歌曲"
 
 #: ../data/glade/playback_prefs_pane.glade.h:1
 msgid "Audio Sink:  "
-msgstr "اختراق صوتي:  "
+msgstr "音频接收器：  "
 
 #: ../data/glade/playback_prefs_pane.glade.h:2
 msgid ""
@@ -1488,52 +1485,52 @@ msgid ""
 "PulseAudio\n"
 "JACK"
 msgstr ""
-"تلقائي \n"
-"جنوم\n"
-"ألسا\n"
-"أو أس أس\n"
-"بليسأوديو\n"
-"جاك"
+"自动\n"
+"GNOME\n"
+"ALSA\n"
+"OSS\n"
+"PulseAudio\n"
+"JACK"
 
 #: ../data/glade/playback_prefs_pane.glade.h:8
 msgid "Crossfade duration (ms):"
-msgstr "مدة سير التلاشي (م ث):"
+msgstr "匀滑转换持续时间(毫秒)："
 
 #: ../data/glade/playback_prefs_pane.glade.h:9
 msgid "Fade duration (ms):"
-msgstr "مدة التضاؤل(مث):"
+msgstr "淡入淡出持续时间(毫秒)："
 
 #: ../data/glade/playback_prefs_pane.glade.h:10
 msgid ""
 "Normal\n"
 "Unified (unstable)"
 msgstr ""
-"عادي\n"
-"موحد(غير مستقر)"
+"普通\n"
+"Unified(不稳定)"
 
 #: ../data/glade/playback_prefs_pane.glade.h:12
 msgid "Playback engine (requires restart): "
-msgstr ""
+msgstr "回放引擎(需要重新启动程序)： "
 
 #: ../data/glade/playback_prefs_pane.glade.h:13
 msgid "Resume playback in paused state"
-msgstr "إستئناف قائمة التشغيل عند حالة الوقف"
+msgstr "继续已暂停的播放"
 
 #: ../data/glade/playback_prefs_pane.glade.h:14
 msgid "Resume playback on start"
-msgstr "إستئناف قائمة التشغيل عند البداية"
+msgstr "启动时继续上次播放"
 
 #: ../data/glade/playback_prefs_pane.glade.h:15
 msgid "These options only affect the unified engine."
-msgstr "هؤلاء الخيارات تؤثر فقط عند عامل موحد"
+msgstr "这些选项只影响 unified 引擎。"
 
 #: ../data/glade/playback_prefs_pane.glade.h:16
 msgid "Use crossfading (EXPERIMENTAL)"
-msgstr "إستعمل التلاشي المتبادل(تجريبي)"
+msgstr "使用匀滑转换(实验性)"
 
 #: ../data/glade/playback_prefs_pane.glade.h:17
 msgid "Use fade transitions on user actions"
-msgstr "إستعمل التحويلات المتلاشية عند  اجراءات المستخدم"
+msgstr "用户操作时使用匀滑转换"
 
 #: ../data/glade/main.glade.h:1
 msgid " + "
@@ -1545,7 +1542,7 @@ msgstr " - "
 
 #: ../data/glade/main.glade.h:3
 msgid "0/0 tracks"
-msgstr "0/0مسار"
+msgstr "0/0 个音轨"
 
 #: ../data/glade/main.glade.h:4
 msgid "0:00 / 0:00"
@@ -1553,116 +1550,116 @@ msgstr "0:00 / 0:00"
 
 #: ../data/glade/main.glade.h:5
 msgid "Autosize"
-msgstr "حجم تلقائي"
+msgstr "自适应大小"
 
 #: ../data/glade/main.glade.h:7
 msgid "Dynamically add similar tracks to the playlist"
-msgstr "ديناميكي إضافة المسارات المماثلة إلى قائمة التشغيل"
+msgstr "动态添加相似音轨到播放列表"
 
 #: ../data/glade/main.glade.h:8 ../plugins/minimode/__init__.py:178
 msgid "Next Track"
-msgstr "المسار التالي"
+msgstr "下一音轨"
 
 #: ../data/glade/main.glade.h:10
 msgid "Open _URL"
-msgstr "إفتح عنوان"
+msgstr "打开 _URL"
 
 #: ../data/glade/main.glade.h:11
 msgid "Page 1"
-msgstr "صفحة 1"
+msgstr "第1页"
 
 #: ../data/glade/main.glade.h:12
 msgid "Pl_ugins"
-msgstr "المك_ملات"
+msgstr "插件(_U)"
 
 #: ../data/glade/main.glade.h:13 ../plugins/minimode/__init__.py:176
 msgid "Previous Track"
-msgstr "المسار السابق"
+msgstr "上一音轨"
 
 #: ../data/glade/main.glade.h:14
 msgid "Queue Manager"
-msgstr "مدير الصفوف"
+msgstr "队列管理器"
 
 #: ../data/glade/main.glade.h:15
 msgid "Randomize Playlist"
-msgstr "قائمة تشغيل عشوائية"
+msgstr "随机播放列表"
 
 #: ../data/glade/main.glade.h:16
 msgid "Randomize the order of the current playlist"
-msgstr "عشوائية  ترتيب قائمة التشغيل الحالية"
+msgstr "随机改变当前播放列表顺序"
 
 #: ../data/glade/main.glade.h:18
 msgid "Rescan Collection"
-msgstr "إعادة فحص المجموعة"
+msgstr "重新扫描音乐库"
 
 #: ../data/glade/main.glade.h:19
 msgid "Resizable"
-msgstr "قابل للتحجيم"
+msgstr "可变大小"
 
 #: ../data/glade/main.glade.h:20 ../data/glade/collection_panel.glade.h:9
 #: ../data/glade/files_panel.glade.h:6
 msgid "Search: "
-msgstr "بحث: "
+msgstr "搜索： "
 
 #: ../data/glade/main.glade.h:22 ../plugins/minimode/__init__.py:182
 msgid "Stop Playback"
-msgstr "إيقاف إعادة التشغيل"
+msgstr "停止回放"
 
 #: ../data/glade/main.glade.h:24
 msgid "Vol:"
-msgstr ""
+msgstr "音量："
 
 #: ../data/glade/main.glade.h:25
 msgid "_Collection Manager"
-msgstr "_مدير المجموعة"
+msgstr "音乐库管理器(_C)"
 
 #: ../data/glade/main.glade.h:26
 msgid "_Columns"
-msgstr "_أعمدة"
+msgstr "列(_C)"
 
 #: ../data/glade/main.glade.h:27
 msgid "_Cover Manager"
-msgstr "_مدير الاغلفة"
+msgstr "封面管理器(_C)"
 
 #: ../data/glade/main.glade.h:28
 msgid "_Edit"
-msgstr "_تحرير"
+msgstr "编辑(_E)"
 
 #: ../data/glade/main.glade.h:29
 msgid "_Export current playlist"
-msgstr "_تصدير قائمة التشغيل الحالية"
+msgstr "导出当前播放列表(_E)"
 
 #: ../data/glade/main.glade.h:30
 msgid "_File"
-msgstr "_ملف"
+msgstr "文件(_F)"
 
 #: ../data/glade/main.glade.h:31
 msgid "_Go to Playing Track"
-msgstr "_إذهب إلى الملف المشتغل"
+msgstr "转到当前播放音轨(_G)"
 
 #: ../data/glade/main.glade.h:32
 msgid "_Help"
-msgstr "_مساعدة"
+msgstr "帮助(_H)"
 
 #: ../data/glade/main.glade.h:34
 msgid "_Tools"
-msgstr "_ادوات"
+msgstr "工具(_T)"
 
 #: ../data/glade/main.glade.h:35
 msgid "_View"
-msgstr "_عرض"
+msgstr "查看(_V)"
 
 #: ../data/glade/collection_manager.glade.h:1
 msgid "Collection Manager"
-msgstr "مدير المجموعات"
+msgstr "音乐库管理"
 
 #: ../data/glade/playlists_panel.glade.h:1
 msgid "Playlists"
-msgstr "قوائم التشغيل"
+msgstr "播放列表"
 
 #: ../data/glade/general_prefs_pane.glade.h:1
 msgid "Open last playlists on startup"
-msgstr "إفتح أخر قائمة تشغيل عند بدأ البرنامج"
+msgstr "启动时打开最近的播放列表"
 
 #: ../data/glade/collection_panel.glade.h:1
 msgid ""
@@ -1674,148 +1671,144 @@ msgid ""
 "Year - Album\n"
 "Artist - Year - Album"
 msgstr ""
-"فنان \n"
-"ألبوم\n"
-"نوع-فنان\n"
-"نوع-ألبوم\n"
-"سنة-فنان\n"
-"سنة -ألبوم\n"
-"فنان-سنة-ألبوم"
+"艺人\n"
+"专辑\n"
+"流派 - 艺人\n"
+"流派 - 专辑\n"
+"年份 - 艺人\n"
+"年份 - 专辑\n"
+"艺人 - 年份 - 专辑"
 
 #: ../data/glade/cover_prefs_pane.glade.h:1
 msgid "(drag to reorder)"
-msgstr "سحب إلى التصنيف"
+msgstr "(拖动以调整顺序)"
 
 #: ../data/glade/cover_prefs_pane.glade.h:2
 msgid "Cover Search Order:"
-msgstr "ترتيب بحث الأغلفة"
+msgstr "封面搜索顺序："
 
 #: ../data/glade/preferences_dialog.glade.h:1
 msgid "<b>General</b>"
-msgstr "<b>عام</b>"
+msgstr "<b>常规</b>"
 
 #: ../data/glade/files_panel.glade.h:1
 msgid "Files"
-msgstr "الملفات"
+msgstr "文件"
 
 #: ../data/glade/files_panel.glade.h:2
 msgid "Home directory"
-msgstr "المجلد المنزلي"
+msgstr "主目录"
 
 #: ../data/glade/files_panel.glade.h:3
 msgid "Next visited directory"
-msgstr "مجلد الزيارة القادمة"
+msgstr "下一个已查看的目录"
 
 #: ../data/glade/files_panel.glade.h:4
 msgid "Previous visited directory"
-msgstr "مجلد الزيارة السابقة"
+msgstr "上一个已查看的目录"
 
 #: ../data/glade/files_panel.glade.h:5
 msgid "Refresh directory listing"
-msgstr "تجديد قائمة المجلدات"
+msgstr "刷新目录列表"
 
 #: ../data/glade/files_panel.glade.h:7
 msgid "Up one directory"
-msgstr "أعلى ملف واحد"
+msgstr "返回上级目录"
 
 #: ../plugins/multialarmclock/__init__.py:411
 msgid "Multi-Alarm Clock"
-msgstr "ساعة متعدد -الإنذار"
+msgstr "多点闹钟"
 
 #: ../plugins/bookmarks/__init__.py:278
 msgid "Bookmarks"
-msgstr "الحافظة"
+msgstr "书签"
 
 #: ../plugins/bookmarks/__init__.py:283
 msgid "Bookmark this track"
-msgstr "إحفظ هذا المسار"
+msgstr "将此音轨加入书签"
 
 #: ../plugins/bookmarks/__init__.py:288
 msgid "Delete bookmark"
-msgstr "حفظ الحافظة"
+msgstr "删除书签"
 
 #: ../plugins/bookmarks/__init__.py:293
 msgid "Clear bookmarks"
-msgstr "مسح الحافظة"
+msgstr "清空书签"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:48
 #: ../plugins/notify/notifyprefs.py:54
 #, python-format
 msgid "%(title)s"
-msgstr ""
+msgstr "%(title)s"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:52
 #: ../plugins/notify/notifyprefs.py:44
 #, python-format
 msgid "by %(artist)s"
-msgstr ""
+msgstr "艺人：%(artist)s"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:56
 #: ../plugins/notify/notifyprefs.py:49
 #, python-format
 msgid "from %(album)s"
-msgstr ""
+msgstr "专辑：%(album)s"
 
 #: ../plugins/desktopcover/prefs.py:22
 msgid "Desktop Cover"
-msgstr "غلاف سطح المكتب"
+msgstr "桌面封面"
 
 #: ../plugins/moodbar/__init__.py:138
 msgid "Searching for mood..."
-msgstr "بحث للطبع..."
+msgstr "正在搜索 mood..."
 
 #: ../plugins/moodbar/__init__.py:142
 msgid "Mood found."
-msgstr "إيجاد الطبع"
+msgstr "Mood 已找到。"
 
 #: ../plugins/moodbar/__init__.py:174
 msgid "Could not read moodbar."
-msgstr "لا يمكن قراءة عارضة الطباع"
+msgstr "无法读取 moodbar 。"
 
 #: ../plugins/moodbar/__init__.py:334
 msgid "Moodbar executable is not available."
-msgstr "شريط الازاحة التنفيذي غير متوفر,"
+msgstr "Moodbar 可执行程序不存在。"
 
 #: ../plugins/shoutcast/__init__.py:158
 msgid "Enter the search keywords"
-msgstr "أدخل مفتاح الكلمة الباحثة"
+msgstr "输入要搜索的关键字"
 
 #: ../plugins/shoutcast/__init__.py:159
 msgid "Shoutcast Search"
-msgstr ""
+msgstr "SHOUTcast 搜索"
 
 #: ../plugins/shoutcast/__init__.py:181
 msgid "Search Results"
-msgstr "نتائج البحث"
+msgstr "搜索结果"
 
 #: ../plugins/shoutcast/__init__.py:208
 msgid "Search"
-msgstr "البحث"
+msgstr "搜索"
 
 #: ../plugins/lastfmradio/__init__.py:140
 msgid "Personal"
-msgstr "شخصي"
+msgstr "私人的"
 
 #: ../plugins/lastfmradio/__init__.py:141
 msgid "Recommended"
-msgstr "مستحسن"
+msgstr "推荐的"
 
 #: ../plugins/lastfmradio/__init__.py:143
 msgid "Neighbourhood"
-msgstr "جواري"
-
-#: ../plugins/lastfmradio/__init__.py:145
-msgid "Loved Tracks"
-msgstr "المسارات المفضلة"
+msgstr "邻近的"
 
 #: ../plugins/lastfmradio/__init__.py:163
 msgid "LastFM Radio"
-msgstr "آخر أف أم أذاع"
+msgstr "LastFM 广播"
 
 #: ../plugins/lastfmradio/__init__.py:166
 #, python-format
 msgid "LastFM: %s"
-msgstr "آخر أف أم :%s"
+msgstr "LastFM：%s"
 
 #: ../plugins/notify/notifyprefs.py:39
 #, python-format
@@ -1823,230 +1816,230 @@ msgid ""
 "by %(artist)s\n"
 "from <i>%(album)s</i>"
 msgstr ""
+"艺人：%(artist)s\n"
+"专辑：<i>%(album)s</i>"
 
 #: ../plugins/ipconsole/__init__.py:72
 msgid "IPython Console - Exaile"
-msgstr ""
+msgstr "IPython 控制台 - Exaile"
 
 #: ../plugins/ipconsole/__init__.py:125
 msgid "Show IPython Console"
-msgstr ""
+msgstr "显示 IPython 控制台"
 
 #: ../plugins/minimode/__init__.py:77
 msgid "Mini Mode"
-msgstr "تنسيق مصغر"
+msgstr "迷你模式"
 
 #: ../plugins/minimode/__init__.py:184
 msgid "Restore Main Window"
-msgstr "إستعادة النافذة الرئيسية"
+msgstr "恢复主窗口"
 
 #: ../plugins/minimode/minimodeprefs.py:102
 msgid "Available controls"
-msgstr "الرقابة موفرة"
+msgstr "可用控制"
 
 #: ../plugins/minimode/minimodeprefs.py:103
 msgid "Selected controls"
-msgstr "الرقابة محددة"
+msgstr "已选中控制"
 
 #: ../plugins/minimode/minimodeprefs.py:106
 msgid "Play/Pause"
-msgstr "تشغيل/وقف"
+msgstr "播放/暂停"
 
 #: ../plugins/minimode/minimodeprefs.py:109
 msgid "Track selector"
-msgstr "محدد المسار"
+msgstr "音轨选取器"
 
 #: ../plugins/minimode/minimodeprefs.py:110
 msgid "Progress bar"
-msgstr "شريط التقدم"
+msgstr "进度条"
 
 #: ../plugins/minimode/minimodeprefs.py:113
 msgid "Restore"
-msgstr "إستعادة"
+msgstr "恢复"
 
 #: ../plugins/minimode/mmwidgets.py:127
 #: ../plugins/minimode/mmwidgets.py:141
 msgid "Start Playback"
-msgstr "بداية إعادة التشغيل"
+msgstr "开始回放"
 
 #: ../plugins/minimode/mmwidgets.py:145
 msgid "Continue Playback"
-msgstr "إكمال إعادة التشغيل"
+msgstr "继续回放"
 
 #: ../plugins/minimode/mmwidgets.py:148
 msgid "Pause Playback"
-msgstr "وقف إعادة التشغيل"
+msgstr "暂停回放"
 
 #. TRANSLATORS: String multiple tag values will be joined with
 #: ../plugins/minimode/mmwidgets.py:248
 msgid " & "
-msgstr " و "
+msgstr " & "
 
 #: ../plugins/minimode/mmwidgets.py:428
 msgid "Seeking:"
-msgstr ""
+msgstr "正在查找："
 
 #: ../plugins/streamripper/__init__.py:53
 msgid "Streamripper can only record streams."
-msgstr ""
+msgstr "媒体流提取程序只能记录流媒体。"
 
 #: ../plugins/streamripper/__init__.py:86
 msgid "Error executing streamripper"
-msgstr ""
+msgstr "提取流媒体时出错"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:1
 #: ../plugins/alarmclock/acprefs_pane.glade.h:1
 msgid "Alarm Days:"
-msgstr "إنذار يومي"
+msgstr "提醒日："
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:2
 msgid "Alarm Name:"
-msgstr "إسم الانذار :"
+msgstr "提醒名称："
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:3
 #: ../plugins/alarmclock/acprefs_pane.glade.h:2
 msgid "Alarm Time:"
-msgstr "وقت الإنذار:"
+msgstr "提醒时间："
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:4
 msgid "Alarm:"
-msgstr "إنذار"
+msgstr "提醒："
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:5
 msgid "Enable Fading"
-msgstr "تفعيل التلاشي"
+msgstr "启用渐变"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:7
 msgid "Fading:"
-msgstr "التلاشي:"
+msgstr "渐变："
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:8
 #: ../plugins/alarmclock/acprefs_pane.glade.h:3
 msgid "Friday"
-msgstr "الجمعة"
+msgstr "星期五"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:9
 #: ../plugins/alarmclock/acprefs_pane.glade.h:4
 msgid "Increment:"
-msgstr "التزايد"
+msgstr "增量："
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:10
 #: ../plugins/alarmclock/acprefs_pane.glade.h:5
 msgid "Maximum Volume:"
-msgstr "أعلى مستوى الصوت"
+msgstr "最大音量："
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:11
 #: ../plugins/alarmclock/acprefs_pane.glade.h:6
 msgid "Minimum Volume:"
-msgstr "أدنى مستوى الصوت"
+msgstr "最小音量："
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:12
 #: ../plugins/alarmclock/acprefs_pane.glade.h:7
 msgid "Monday"
-msgstr "الإثنين"
+msgstr "星期一"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:13
 msgid "Name - Time"
-msgstr "إسم-الزمن"
+msgstr "名称 - 时间"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:14
 msgid "Restart Playlist"
-msgstr "إعادة قائمة التشغيل"
+msgstr "重启动播放列表"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:15
 #: ../plugins/alarmclock/acprefs_pane.glade.h:8
 msgid "Saturday"
-msgstr "السبت"
+msgstr "星期六"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:16
 #: ../plugins/alarmclock/acprefs_pane.glade.h:9
 msgid "Sunday"
-msgstr "الأحد"
+msgstr "星期日"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:17
 #: ../plugins/alarmclock/acprefs_pane.glade.h:10
 msgid "Thursday"
-msgstr "الخميس"
+msgstr "星期四"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:18
 msgid "Time per Increment:"
-msgstr "وقت لكل خاطئ"
+msgstr "时间每次增量："
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:19
 #: ../plugins/alarmclock/acprefs_pane.glade.h:12
 msgid "Tuesday"
-msgstr "الثلاثاء"
+msgstr "星期二"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:20
 #: ../plugins/alarmclock/acprefs_pane.glade.h:14
 msgid "Wednesday"
-msgstr "الأربعاء"
+msgstr "星期三"
 
 #: ../plugins/alarmclock/acprefs_pane.glade.h:11
 msgid "Timer per Increment:"
-msgstr "المؤقت الكلي خاطئ"
+msgstr "定时器每次增量："
 
 #: ../plugins/alarmclock/acprefs_pane.glade.h:13
 msgid "Use Fading"
-msgstr "إستعمل تضاؤل"
+msgstr "使用渐变"
 
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:1
 msgid "Password:"
-msgstr "كلمة السر :"
+msgstr "密码："
 
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:2
 msgid "Submit tracks using Audioscrobbler"
-msgstr ""
+msgstr "使用 Audioscrobbler 提交音轨"
 
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:3
 msgid "URL:"
-msgstr "العنوان:"
+msgstr "URL:"
 
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:4
 msgid "Username:"
-msgstr "إسم المستخدم:"
+msgstr "用户名："
 
 #: ../plugins/bookmarks/bookmarks_pane.glade.h:1
 msgid "Use covers in the bookmarks menu (takes effect on next start)"
-msgstr "إستعمال الاغلفة في قائمة الحافظة (خد تأثير في البداية  القادمة)"
+msgstr "在书签菜单中显示封面(下次启动时生效)"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:1
 msgid "<b>Content</b>"
-msgstr "<b>محتوى</b>"
+msgstr "<b>内容</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:2
 msgid "<b>Display</b>"
-msgstr "<b>عرض</b>"
+msgstr "<b>显示</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:3
 msgid "<b>Icons</b>"
-msgstr "<b>أيقونات</b>"
+msgstr "<b>图标</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:4
 msgid "Album Line:"
-msgstr "خط ألبوم:"
+msgstr "专辑："
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:5
 msgid "Artist Line:"
-msgstr "خط الفنان :"
+msgstr "艺人："
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:6
 msgid "On Playback Start, Pause or Stop"
-msgstr ""
-"في إعادة التشغيل شغل,وقف أو توقف\r\n"
-"لا"
+msgstr "当回放开始、暂停或停止时"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:7
 msgid "On Track Change"
-msgstr "في المسار غير"
+msgstr "当音轨发生变更时"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:8
 msgid "On Tray Icon Hover"
-msgstr ""
+msgstr "托盘图标上悬停"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:9
 msgid "Summary:"
-msgstr "ملخص"
+msgstr "概览"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:11
 #, no-c-format
@@ -2055,38 +2048,40 @@ msgid ""
 "by their respective values. The title will be replaced by \"Unknown\" if it "
 "is empty."
 msgstr ""
+"\"%(title)s\"，\"%(artist)s\" 和 \"%(album)s\" 三个标签将被其相应值替代。如果标题为空则用 "
+"\"Unknown\" 替换。"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:12
 msgid "Use Album Covers As Icons"
-msgstr "إستعمل غلاف الالبوم كأيقونة"
+msgstr "使用专辑封面作为图标"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:13
 msgid "Use Media Icons For Pause, Stop and Resume"
-msgstr "إستعمل رمز الوسط للوقف ,توقف و استئناف"
+msgstr "为暂停、停止和恢复使用媒体图标"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:1
 msgid "Fallback correction level (dB):"
-msgstr "مستوى التصحيح الاحتياطي (dB):"
+msgstr "回落校正水平(dB)："
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:2
 msgid "Pre-amp (dB):"
-msgstr ""
+msgstr "前置放大器(dB)："
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:3
 msgid "Prefer per-album correction"
-msgstr ""
+msgstr "喜欢逐一专辑校正"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:4
 msgid "Use clipping protection"
-msgstr "استعمل محمي القصاصات"
+msgstr "使用裁剪保护"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:1
 msgid "<b>Body Message</b>"
-msgstr "<b>مضمون  الرسالة</b>"
+msgstr "<b>主体信息</b>"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:2
 msgid "Both artist and album"
-msgstr "كلا الفنان و الالبوم"
+msgstr "艺人和专辑"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:4
 #, no-c-format
@@ -2096,71 +2091,123 @@ msgid ""
 "their respective values. If the tag is not known, \"Unknown\" will be filled "
 "in its place"
 msgstr ""
+"信息将被显示于通知窗主体位置。任何情况下，\"%(title)s\", \"%(artist)s\", 和 \"%(album)s\" "
+"将被他们各自的值替换。如果标签未知，则用 \"Unknown\" 替代"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:5
 msgid "Only album"
-msgstr "ألأبوم فقط"
+msgstr "仅专辑"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:6
 msgid "Only artist"
-msgstr "الفنان فقط"
+msgstr "仅艺人"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:7
 msgid "Resize displayed covers"
-msgstr "تغيير حجم عارضة الغلاف"
+msgstr "缩放已显示的封面"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:8
 msgid "Summary"
-msgstr "الملخص"
+msgstr "概览"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:1
 msgid "<b>Position</b>"
-msgstr "<b> الوضعية</b>"
+msgstr "<b>位置</b>"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:2
 msgid "Always on top"
-msgstr "دائما في القمة"
+msgstr "前端显示"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:3
 msgid "Center horizontally"
-msgstr "الوسط الافقي"
+msgstr "水平居中"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:4
 msgid "Center vertically"
-msgstr "الوسط العمودي"
+msgstr "竖直居中"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:5
 msgid "Display window decorations"
-msgstr "عرض نافدة الديكور"
+msgstr "显示窗口装饰"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:6
 msgid "Horizontal:"
-msgstr "أفقي:"
+msgstr "水平："
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:7
 msgid "Mini mode button in main window"
-msgstr "نوع أزرار صغيرة في النافذة الرئيسية"
+msgstr "迷你模式下主窗口按钮"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:8
 msgid "Show in panel"
-msgstr "عرض في اللوحة"
+msgstr "在面版上显示"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:9
 msgid "Show on all desktops"
-msgstr "عرض الكل في سطح مكتب"
+msgstr "在所有桌面上显示"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:10
 msgid "Track selector title:"
-msgstr "عنوان محدد المسارات :"
+msgstr "音轨选择器标题："
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:11
 msgid "Vertical:"
-msgstr "عمودي:"
+msgstr "竖直："
 
 #: ../plugins/streamripper/streamripper.glade.h:1
 msgid "Relay Port:"
-msgstr "تعاقب المنفذ:"
+msgstr "中继端口："
 
 #: ../plugins/streamripper/streamripper.glade.h:2
 msgid "Save Location:"
-msgstr "حفظ الموقع:"
+msgstr "保存位置："
+
+#~ msgid ""
+#~ "Could not import tag %s from file %s because of possible conflict, please "
+#~ "adjust your tags if you want to import this."
+#~ msgstr "不能从文件 %2$s 导入标签 %1$s ，因为可能发生冲突，如果想导入请调整您的标签。"
+
+#~ msgid "Rating:   "
+#~ msgstr "评级：   "
+
+#~ msgid "_New playlist"
+#~ msgstr "新建播放列表(_N)"
+
+#~ msgid "_Rename playlist"
+#~ msgstr "重命名播放列表(_R)"
+
+#~ msgid "_Save as custom playlist"
+#~ msgstr "另存为自定义播放列表(_S)"
+
+#~ msgid "C_lear all tracks"
+#~ msgstr "清除全部音轨(_L)"
+
+#~ msgid "_Close playlist"
+#~ msgstr "关闭播放列表(_C)"
+
+#~ msgid "Start playback"
+#~ msgstr "开始回放"
+
+#~ msgid "Exaile"
+#~ msgstr "Exaile"
+
+#~ msgid "<b>Notifications content</b>"
+#~ msgstr "<b>通知内容</b>"
+
+#~ msgid "<b>Show notifications</b>"
+#~ msgstr "<b>显示通知</b>"
+
+#~ msgid "On playback pause or stop"
+#~ msgstr "当回放暂停或停止时"
+
+#~ msgid "On track change"
+#~ msgstr "当音轨发生改变时"
+
+#~ msgid "On tray icon hover (emulates a tooltip)"
+#~ msgstr "托盘图标上悬停（模拟工具提示）"
+
+#~ msgid "Use album covers as icons"
+#~ msgstr "使用专辑封面作为图标"
+
+#~ msgid "Use media icons for pause, stop and resume notifications"
+#~ msgstr "为暂停播放、停止播放和继续播放等通知使用媒体图标"

@@ -1,257 +1,387 @@
+# Korean translation for exaile
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the exaile package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-04-03 15:02-0500\n"
-"PO-Revision-Date: 2009-04-13 15:59+0000\n"
-"Last-Translator: jingajinga <Unknown>\n"
+"POT-Creation-Date: 2009-07-19 18:07+0200\n"
+"PO-Revision-Date: 2009-08-04 22:11+0000\n"
+"Last-Translator: Cedna <xlzsev@hotmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Launchpad-Export-Date: 2009-08-19 14:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-msgid " + "
-msgstr " + "
-
-msgid " - "
-msgstr " - "
-
-msgid " songs"
-msgstr " 노래"
-
-msgid "#"
-msgstr "#"
-
-msgid "%(title)s (by %(artist)s)"
-msgstr "%(title)s (, %(artist)s 의)"
-
-msgid "%d:%02d"
-msgstr "%d:%02d"
-
-msgid "%s KB"
-msgstr "%s KB"
-
-msgid "(c) 2008"
-msgstr "(c) 2008"
-
-msgid "(drag to reorder)"
-msgstr "(녹음기에 끌어넣기)"
-
-msgid "..."
-msgstr "..."
-
-msgid ""
-"0\n"
-"1\n"
-"2\n"
-"3\n"
-"4\n"
-"5"
+#: ../xl/player/pipe.py:198
+msgid "Automatic"
 msgstr ""
-"0\n"
-"1\n"
-"2\n"
-"3\n"
-"4\n"
-"5"
 
-msgid "0/0 tracks"
-msgstr "0/0 트랙"
+#: ../xl/player/pipe.py:203
+msgid "GNOME"
+msgstr "그놈"
 
-msgid "0:00"
-msgstr "0:00"
+#: ../xl/player/pipe.py:208
+msgid "ALSA"
+msgstr "ALSA"
 
-msgid "0:00 / 0:00"
-msgstr "0:00 / 0:00"
+#: ../xl/player/pipe.py:213
+msgid "OSS"
+msgstr "OSS"
 
-msgid "<b>General</b>"
-msgstr "<b>일반</b>"
+#: ../xl/player/pipe.py:218
+msgid "PulseAudio"
+msgstr "펄스 오디오"
 
-msgid ""
-"<b>Move the On Screen Display window to the location you want it to appear</"
-"b>"
-msgstr "<b>OSD 창을 보이기 원하는 위치에 이동</b>"
+#: ../xl/player/pipe.py:223
+msgid "JACK"
+msgstr "JACK"
 
-msgid "<b>No Plugin Selected</b>"
-msgstr "<b>선택된 플러그인 없음</b>"
-
-msgid ""
-"<b>OSD</b>\n"
-"Drag to the location you'd like the\n"
-"OSD to appear"
+#: ../xl/player/pipe.py:272
+#, python-format
+msgid "Could not set parameter %(parameter)s for %(sink)s"
 msgstr ""
-"<b>OSD</b>\n"
-"OSD 가 보일 원하는 위치에\n"
-"끌어놓으세요"
 
-msgid "<b>Save changes to %s before closing?</b>"
-msgstr "<b>닫기 전에 변경을 %s 에 저장 하시겠습니까?</b>"
+#: ../xl/player/__init__.py:35
+msgid "Normal playback engine selected."
+msgstr "기복 플레이 엔진이 선택되었습니다."
 
-msgid ""
-"<b>{title}</b>\n"
-"{artist}\n"
-"on {album} - {length}"
+#: ../xl/player/__init__.py:39
+msgid "Unified playback engine selected."
 msgstr ""
-"<b>{title}</b>\n"
-"{artist}\n"
-"{album} - {length}"
 
+#. TODO: remove this before 0.3.0 since it is not needed for
+#. stable->stable upgrades
+#: ../xl/player/engine_normal.py:154
+#, python-format
 msgid ""
-"A proprietary and older, but also popular, lossy audio format. CBR gives "
-"less quality than VBR, but is compatible with any player."
+"Exaile now uses absolute URI's, please delete/rename your %s directory"
 msgstr ""
-"독점적이고 오래되었지만, 인기있는 손실 오디오 포맷. CBR 은 VBR 보다 낮은 품질"
-"을 제공하지만 모든 재생기에 호환됩니다."
 
-msgid ""
-"A proprietary and older, but also popular, lossy audio format. VBR gives "
-"higher quality than CBR, but may be incompatible with some players."
+#: ../xl/player/engine_normal.py:186
+#: ../xl/player/engine_unified.py:373
+#, python-format
+msgid "File does not exist: %s"
+msgstr "%s 파일을 찾을 수 없습니다."
+
+#: ../xl/main.py:93
+msgid "Loading settings..."
 msgstr ""
-"독점적이고 오래되었지만, 인기있는 손실 오디오 포맷. VBR 은 CBR 보다 높은 품질"
-"을 제공하지만 일부 재생기에 호환되지 않습니다."
 
-msgid "A very fast Free lossless audio format with good compression."
-msgstr "압축률 좋은 매우 빠른 무료 무손실 오디오 포맷 입니다."
-
-msgid "ASX Playlist"
-msgstr "ASX 재생목록"
-
-msgid "About Exaile"
-msgstr "엑자일 정보"
-
-msgid "Add"
-msgstr "추가"
-
-msgid "Add Playlist"
-msgstr "재생목록 추가"
-
-msgid "Add Smart Playlist"
-msgstr "지능형 재생목록 추가"
-
-msgid "Add Station"
-msgstr "방송국 추가"
-
-msgid "Add a directory"
-msgstr "디렉터리 추가"
-
-msgid "Add device"
-msgstr "장치 추가"
-
-msgid "Add to Playlist"
-msgstr "재생목록에 추가"
-
-msgid "Alarm Clock"
-msgstr "알람 시계"
-
-msgid "Alarm Days:"
-msgstr "알람 일자:"
-
-msgid "Album"
-msgstr "앨범"
-
-msgid "Album Art"
-msgstr "앨범 아트"
-
-msgid "An Unknown type of setting was found!"
-msgstr "알수없는 형식의 설정 발견됨!"
-
-msgid "Append to Current"
-msgstr "현재에 추가"
-
-msgid ""
-"Apple's proprietary lossy audio format that achieves better sound quality "
-"than MP3 at lower bitrates."
+#: ../xl/main.py:115
+msgid "Failed to migrate from 0.2.14"
 msgstr ""
-"애플 소유의 낮은 비트레이트에서 MP3보다 좋은 사운드 품질을 보관하는 손실 오디"
-"오 포맷 입니다."
 
-msgid "Are you sure you want to permanently delete the selected playlist?"
-msgstr "선택된 재생목록을 영구적으로 삭제하시겠습니까?"
-
-msgid "Artist"
-msgstr "아티스트"
-
-msgid ""
-"Artist\n"
-"Album\n"
-"Genre - Artist\n"
-"Genre - Album\n"
-"Year - Artist\n"
-"Year - Album\n"
-"Artist - Year - Album"
+#: ../xl/main.py:292
+msgid "Print the position inside the current track as a percentage"
 msgstr ""
-"아티스트\n"
-"앨범\n"
-"장르 - 아티스트\n"
-"장르 - 앨범\n"
-"년도 - 아티스트\n"
-"년도 - 앨범\n"
-"아티스트 - 년도 - 앨범"
 
-msgid "Attempting to find covers for %s"
-msgstr "%s 커버를 찾기위해 시도하는 중"
+#: ../xl/main.py:296
+msgid "Increases the volume by VOL%"
+msgstr ""
 
-msgid "Authors:"
-msgstr "저자:"
+#: ../xl/main.py:298
+msgid "Decreases the volume by VOL%"
+msgstr ""
 
-msgid "Autosize"
-msgstr "자동크기"
+#: ../xl/main.py:300
+msgid "Print the current volume percentage"
+msgstr ""
 
-msgid "Available Plugins"
-msgstr "사용가능 플러그인"
+#: ../xl/cover.py:98
+#, python-format
+msgid "CoverDB: set cover %(cover)s for '%(album)s - %(artist)s'"
+msgstr ""
 
-msgid "Background Color:"
-msgstr "배경색:"
+#: ../xl/cover.py:245 ../xl/lyrics.py:75
+msgid "order must be a list or tuple"
+msgstr ""
 
-msgid "Bitrate"
-msgstr "비트레이트"
+#: ../xl/cover.py:401
+#, python-format
+msgid "%s method doesn't support searching, skipping"
+msgstr ""
 
-msgid "Buffering complete"
-msgstr "버퍼링 완료"
-
-msgid "Bye!"
-msgstr "잘 가세요!"
-
-msgid "Cancel"
-msgstr "취소"
-
-msgid "Choose a file"
-msgstr "파일 선택"
-
-msgid "Clear Playlist"
-msgstr "재생목록 지우기"
-
-msgid "Close Tab"
-msgstr "탭 닫기"
-
-msgid "Close Without Saving"
-msgstr "저장하지 않고 닫기"
-
-msgid "Collection"
-msgstr "컬렉션"
-
-msgid "Collection Manager"
-msgstr "컬렉션 관리자"
-
-msgid "Compilation detected: %s"
-msgstr "컴필레이션 발견됨 : %s"
-
-msgid "Composer"
-msgstr "작곡가"
-
-msgid "Configure"
-msgstr "설정"
-
-msgid "Confirm Close"
-msgstr "닫기 확인"
-
-msgid "Connected to HAL"
-msgstr "HAL 연결됨"
-
+#: ../xl/metadata/_base.py:102
+#, python-format
 msgid ""
-"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
+"Could not import tag %(tag)s from file %(location)s because of possible "
+"conflict, please adjust your tags if you want to import this."
+msgstr ""
+
+#: ../xl/hal.py:100
+#, python-format
+msgid "Found new %(handler)s device at %(device_udi)s"
+msgstr ""
+
+#: ../xl/track.py:463
+msgid "  New song, fetching cover."
+msgstr ""
+
+#. TODO: figure out why this happens
+#: ../xl/collection.py:496
+msgid "Encoding error, skipping compilation check"
+msgstr ""
+
+#: ../xl/settings.py:79
+msgid "Settings version is newer than current."
+msgstr ""
+
+#: ../xl/providers.py:38
+#, python-format
+msgid "Provider %(provider)s registered for service %(service)s"
+msgstr ""
+
+#: ../xl/providers.py:56
+#, python-format
+msgid "Provider %(provider)s unregistered from service %(service)s"
+msgstr ""
+
+#: ../xl/plugins.py:73
+msgid "Plugin archive is not in the correct format"
+msgstr ""
+
+#: ../xl/plugins.py:80
+#, python-format
+msgid "A plugin with the name \"%s\" is already installed"
+msgstr ""
+
+#: ../xl/playlist.py:371
+#, python-format
+msgid "Playlist %d"
+msgstr ""
+
+#: ../xl/dynamic.py:46
+#, python-format
+msgid "Searching for %(limit)s tracks related to %(track)s"
+msgstr ""
+
+#: ../xl/dynamic.py:146
+#, python-format
+msgid "Added %s tracks."
+msgstr ""
+
+#: ../xl/event.py:293
+msgid "Stopping IdleManager thread..."
+msgstr ""
+
+#: ../xl/event.py:384
+#, python-format
+msgid "Sent '%(type)s' event from '%(object)s' with data '%(data)s'."
+msgstr ""
+
+#: ../xl/xldbus.py:175
+msgid "Not playing."
+msgstr ""
+
+#: ../xl/trackdb.py:175
+msgid "You did not specify a location to load the db from"
+msgstr ""
+
+#: ../xl/trackdb.py:218
+#, python-format
+msgid "Saving %(name)s DB to %(location)s."
+msgstr ""
+
+#: ../xlgui/main.py:192
+msgid "Close tab"
+msgstr ""
+
+#: ../xlgui/main.py:224
+msgid "New playlist title:"
+msgstr ""
+
+#: ../xlgui/main.py:539
+#, python-format
+msgid "%(playlist_count)d showing, %(collection_count)d in collection"
+msgstr ""
+
+#: ../xlgui/main.py:545
+#, python-format
+msgid " (%(queue_count)d queued)"
+msgstr ""
+
+#: ../xlgui/main.py:668
+#, python-format
+msgid "Buffering: %d%%..."
+msgstr ""
+
+#: ../xlgui/main.py:670
+msgid "Buffering: 100%..."
+msgstr ""
+
+#: ../xlgui/main.py:872
+msgid ""
+"Exaile Music Player\n"
+"Not playing"
+msgstr ""
+
+#: ../xlgui/main.py:912
+#: ../xlgui/main.py:921
+#, python-format
+msgid "In pause: %s"
+msgstr ""
+
+#: ../xlgui/menu.py:155
+msgid "Add to custom playlist"
+msgstr ""
+
+#: ../xlgui/menu.py:169
+msgid "Playlist"
+msgstr ""
+
+#: ../xlgui/menu.py:202 ../data/glade/main.glade.h:33
+msgid "_New Playlist"
+msgstr ""
+
+#: ../xlgui/menu.py:204
+msgid "_Rename Playlist"
+msgstr ""
+
+#: ../xlgui/menu.py:205
+msgid "_Save As Custom Playlist"
+msgstr ""
+
+#: ../xlgui/menu.py:206
+msgid "C_lear All Tracks"
+msgstr ""
+
+#: ../xlgui/menu.py:208
+msgid "_Close Playlist"
+msgstr ""
+
+#: ../xlgui/menu.py:285
+#: ../xlgui/tray.py:135
+msgid "Rating:"
+msgstr ""
+
+#: ../xlgui/menu.py:310
+msgid "New Station"
+msgstr ""
+
+#: ../xlgui/menu.py:315
+msgid "New Smart Playlist"
+msgstr ""
+
+#: ../xlgui/menu.py:380
+msgid "Export as..."
+msgstr ""
+
+#: ../xlgui/cover.py:242
+msgid "No cover found"
+msgstr ""
+
+#: ../xlgui/cover.py:265
+msgid "Saving cover database"
+msgstr ""
+
+#: ../xlgui/cover.py:286
+#, python-format
+msgid "%d covers to fetch"
+msgstr ""
+
+#: ../xlgui/osd.py:195
+#: ../xlgui/plcolumns.py:109
+#, python-format
+msgid "%(minutes)d:%(seconds)02d"
+msgstr ""
+
+#: ../xlgui/__init__.py:124
+msgid "Export current playlist..."
+msgstr ""
+
+#: ../xlgui/__init__.py:154
+msgid "Enter the URL to open"
+msgstr ""
+
+#: ../xlgui/__init__.py:155
+msgid "Open URL"
+msgstr ""
+
+#: ../xlgui/__init__.py:169
+msgid "Choose a file to open"
+msgstr ""
+
+#: ../xlgui/__init__.py:175
+msgid "Supported Files"
+msgstr ""
+
+#: ../xlgui/__init__.py:177
+msgid "Music Files"
+msgstr ""
+
+#: ../xlgui/__init__.py:382
+#, python-format
+msgid "Scanning %s..."
+msgstr ""
+
+#: ../xlgui/queue.py:86
+msgid "Tracks did not change, no need to update"
+msgstr ""
+
+#: ../xlgui/queue.py:138
+msgid "Gave an invalid number to remove"
+msgstr ""
+
+#: ../xlgui/plugins.py:110
+msgid "Choose a plugin"
+msgstr ""
+
+#: ../xlgui/plugins.py:111
+msgid "Choose"
+msgstr ""
+
+#: ../xlgui/plugins.py:115
+msgid "Plugin Archives"
+msgstr ""
+
+#: ../xlgui/playlist.py:208
+#, python-format
+msgid "adding %(column_id)s column to %(preference)s"
+msgstr ""
+
+#: ../xlgui/playlist.py:213
+#, python-format
+msgid "removing %(column_id)s column from %(preference)s"
+msgstr ""
+
+#: ../xlgui/panel/playlists.py:85
+msgid "Plays"
+msgstr ""
+
+#: ../xlgui/prefs/__init__.py:96
+msgid "Error loading preferences pane"
+msgstr ""
+
+#: ../xlgui/tray.py:116
+#: ../data/glade/main.glade.h:21
+msgid "Shuffle playback order"
+msgstr ""
+
+#: ../xlgui/tray.py:121
+#: ../data/glade/main.glade.h:17
+msgid "Repeat playlist"
+msgstr ""
+
+#: ../xlgui/tray.py:126
+msgid "Dynamically add similar tracks"
+msgstr ""
+
+#: ../xlgui/tray.py:144
+msgid "Remove current track from playlist"
+msgstr ""
+
+#: ../data/glade/about_dialog.glade.h:1
+msgid "&#xA9; 2009"
+msgstr ""
+
+#: ../data/glade/about_dialog.glade.h:3
+msgid ""
+"Copyright (C) 2008-2009 Adam Olsen <arolsen@gmail.com> \n"
 "\n"
 "This program is free software; you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -267,738 +397,555 @@ msgid ""
 "with this program; if not, write to the Free Software Foundation, Inc.,\n"
 "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
 msgstr ""
-"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com>\n"
-"\n"
-"이 프로그램은 자유 소프트웨어입니다; 당신은 자유 소프트웨어 재단(FSF)에서\n"
-"공표한 GNU General Public License의 규정에 근거하여 이 프로그램을\n"
-"재배포하거나 또는 수정할 수 있습니다; GPL은 버전 2나 (옵션으로써)\n"
-"그 이후의 버전에 대한 라이센스를 따릅니다.\n"
-"\n"
-"이 프로그램은 유용하게 사용되었으면 하는 바람으로 배포되고 있지만,\n"
-"그 어떤 보증도 하지 않습니다; 그 어떤 묵시적인 상업적 보증 또는\n"
-"특정한 목적에 대한 보증도 포함하지 않습니다. 보다 자세한 사항은\n"
-"GNU General Public License를 참고하십시오.\n"
 
-msgid "Could not disable plugin."
-msgstr "플러그인 사용안함 할수없음"
-
-msgid "Could not enable plugin."
-msgstr "플러그인 사용할수 없음."
-
-msgid "Could not find playback sink %s, falling back to autoaudiosink"
-msgstr "재생 싱크 %s 찾지 못함, 자동오디오싱크로 대치됨"
-
-msgid "Could not set parameter %s for %s"
-msgstr "%s 매개변수를 %s 에 설정할수 없음"
-
-msgid "Couldn't send seek event"
-msgstr "찾기 이벤트 보낼수 없음"
-
-msgid "Cover Finder"
-msgstr "커버 검색기"
-
-msgid "Cover Search Order:"
-msgstr "표지 검색 정렬:"
-
-msgid "Custom Playlists"
-msgstr "사용자 지정 재생목록"
-
-msgid "Custom: "
-msgstr "사용자 지정: "
-
-msgid "Date"
-msgstr "날짜"
-
-msgid "Delete Playlist"
-msgstr "재생목록 삭제"
-
-msgid "Description:"
-msgstr "설명:"
-
-msgid "Detected devices:"
-msgstr "감지된 장치:"
-
-msgid "Device Manager"
-msgstr "장치 관리자"
-
-msgid "Disable D-Bus support"
-msgstr "D-bus 지원을 비활성화"
-
-msgid "Disable HAL support."
-msgstr "HAL 지원을 비활성화"
-
-msgid "Disc"
-msgstr "디스크"
-
-msgid "Disc Number"
-msgstr "디스크 번호"
-
-msgid "Display OSD when hovering over tray icon"
-msgstr "트레이 아이콘에 포인터를 올렸을 때 OSD를 표시"
-
-msgid "Display a progressbar in the OSD"
-msgstr "OSD 에 진행 표시줄 표시"
-
-msgid "Dynamic"
-msgstr "동적"
-
-msgid "Edit"
-msgstr "수정"
-
-msgid "Edit Smart Playlist"
-msgstr "지능형 재생목록 수정"
-
-msgid "Enable debugging of xl.event. Generates LOTS of output"
-msgstr "xl.event. 디버깅 활성화 하기. 많은 아웃풋을 생성"
-
-msgid "Enabled"
-msgstr "사용함"
-
-msgid "Enter the name you want for your new playlist"
-msgstr "원하는 새 재생목록의 이름을 입력하세요"
-
-msgid "Enter the new name you want for your playlist"
-msgstr "원하는 재생목록의 새 이름 입력"
-
-msgid "Enter the search text"
-msgstr "검색 문자 입력"
-
-msgid "Entire Library"
-msgstr "전체 라이브러리"
-
-msgid "Exaile"
-msgstr "엑자일"
-
-msgid "Exaile Music Player"
-msgstr "엑자일 음악 플레이어"
-
-msgid "Exaile is shutting down..."
-msgstr "엑자일 종료중..."
-
-msgid "Exaile: playing %s"
-msgstr "엑자일: %s 재생중"
-
-msgid "Export"
-msgstr "내보내기"
-
-msgid "Extension"
-msgstr "확장자"
-
-msgid "Failed to connect to HAL, autodetection of devices will be disabled."
-msgstr "HAL 연결 실패, 장치 자동감지 사용안하게 됨."
-
-msgid "Failed to create device for %s"
-msgstr "%s 용의 장치 생성 실패"
-
-msgid "Failed to enable equalizer"
-msgstr "이퀄라이저 사용 실패"
-
-msgid "Failed to enable replaygain"
-msgstr "리플레이 게인 사용 실패"
-
-msgid "Failed to load HAL devices for %s"
-msgstr "%s 용의 HAL 장치 읽기 실패"
-
-msgid "Failed to open music DB for write."
-msgstr "쓰기용 음악 DB 열기 실패."
-
-msgid "Failed to open music DB."
-msgstr "음악 DB 열기 실패."
-
-msgid "Fetch Cover"
-msgstr "표지 가져오기"
-
-msgid "File Type"
-msgstr "파일 형식"
-
-msgid "File count: %d"
-msgstr "파일 개수: %d"
-
-msgid "File does not exist: %s"
-msgstr "파일이 존재하지 않음: %s"
-
-msgid "Filename"
-msgstr "파일 이름"
-
-msgid "Files"
-msgstr "파일"
-
-msgid "Found covers from %s"
-msgstr "%s 로 부터 커버를 찾았습니다."
-
-msgid "Found new %s device at %s"
-msgstr "새로운 %s 장치 %s 에서 찾음"
-
-msgid "Found no HAL device handler for %s"
-msgstr "%s 용의 HAL 장치 처리기 찾지못함"
-
+#: ../data/glade/about_dialog.glade.h:19
 msgid ""
-"Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
-"does not degrade audio quality."
+"Mathias Brodala\n"
+"   <info@noctus.net>\n"
+"    Translation Manager"
 msgstr ""
-"무료 무손실 오디오 코덱(FLAC) 는 압축하지만 오디오 품질이 저하되지 않는 오픈"
-"소스 코덱 입니다."
 
-msgid "Friday"
-msgstr "금요일"
-
-msgid "Gapless enabled"
-msgstr "끊김없음 사용"
-
-msgid "Genre"
-msgstr "장르"
-
-msgid "Get rating for current song"
-msgstr "이 곡에 대한 등급 가져오기"
-
-msgid "Install"
-msgstr "설치"
-
-msgid "Install Updates"
-msgstr "업데이트 설치"
-
-msgid "Installed Plugins"
-msgstr "설치된 플러그인"
-
-msgid "Invalid file extension, file not saved"
-msgstr "잘못된 파일 확장자, 파일이 저장되지 않음"
-
-msgid "Jump to current song on track change"
-msgstr "트랙이 바뀔 때 현재 곡으로 건너뛰기"
-
-msgid "Length"
-msgstr "길이"
-
-msgid "Limit to: "
-msgstr "제한: "
-
-msgid "Loaded plugin %s"
-msgstr "읽어드린 플러그인 %s"
-
-msgid "Loading Exaile %s..."
-msgstr "엑자일 %s 읽는중..."
-
-msgid "Loading collection..."
-msgstr "컬렉션 읽는중..."
-
-msgid "Loading devices..."
-msgstr "장치 읽는중..."
-
-msgid "Loading interface..."
-msgstr "인터페이스 읽는중..."
-
-msgid "Loading plugins..."
-msgstr "플러그인 읽는중..."
-
-msgid "Loading settings"
-msgstr "설정 읽기"
-
-msgid "Loading streams..."
-msgstr "스트림 읽는중..."
-
-msgid "Location"
-msgstr "위치"
-
-msgid "Location deleted: %s"
-msgstr "삭제된 경로: %s"
-
-msgid "Location modified: %s"
-msgstr "수정된 경로: %s"
-
-msgid "M3U Playlist"
-msgstr "M3U 재생목록"
-
-msgid "Match any of the criteria"
-msgstr "어떤 기준에도 일치"
-
-msgid "Monday"
-msgstr "월요일"
-
-msgid "Name:"
-msgstr "이름:"
-
-msgid "New Playlist"
-msgstr "새 재생목록"
-
-msgid "New Search"
-msgstr "새 검색"
-
-msgid "Next"
-msgstr "다음"
-
-msgid "Next Track"
-msgstr "다음 트랙"
-
-msgid "No covers found"
-msgstr "표지 찾지 못함"
-
-msgid "Not Playing"
-msgstr "재생 중이지 않음"
-
-msgid "Not watching library: %s"
-msgstr "미시청 라이브러리: %s"
-
-msgid "Number of Plays"
-msgstr "재생 번호"
-
-msgid "Opacity Level:"
-msgstr "투명도"
-
-msgid "Open"
-msgstr "열기"
-
-msgid "Open _URL"
-msgstr "URL 열기(_U)"
-
-msgid "Open last playlists on startup"
-msgstr "시작시 마지막 재생목록 열기"
-
-msgid "PLS Playlist"
-msgstr "PLS 재생목록"
-
-msgid "Page 1"
-msgstr "1 페이지"
-
-msgid "Password:"
-msgstr "암호:"
-
-msgid ""
-"Path is already in your collection, or is a subdirectory of another path in "
-"your collection"
-msgstr "경로가 이미 컬렉션 있거나, 다른 컬렉션의 하위 디렉터리입니다"
-
-msgid "Pause"
-msgstr "일시정지"
-
-msgid "Pl_ugins"
-msgstr "플러그인(_u)"
-
-msgid "Play"
-msgstr "재생"
-
-msgid "Play the next track"
-msgstr "다음 트랙 재생"
-
-msgid "Play the previous track"
-msgstr "이전 트랙 재생"
-
-msgid "Playcount"
-msgstr "재생횟수"
-
-msgid "Playing %s"
-msgstr "%s 재생"
-
-msgid "Playlists"
-msgstr "재생목록"
-
-msgid "Plugin"
-msgstr "플러그인"
-
-msgid "Plugin archive contains an unsafe path"
-msgstr "플러그인 파일이 안전하지 않은 경로를 포함하고 있습니다."
-
-msgid "Plugins"
-msgstr "플러그인"
-
-msgid "Popup"
-msgstr "팝업"
-
-msgid "Preferences"
-msgstr "설정"
-
-msgid "Previous"
-msgstr "이전"
-
-msgid "Previous Track"
-msgstr "이전 트랙"
-
-msgid "Print the album of current track"
-msgstr "현재 트랙의 앨범을 출력"
-
-msgid "Print the artist of current track"
-msgstr "현재 트랙의 아티스트를 출력"
-
-msgid "Print the current volume"
-msgstr "현재 볼륨을 출력"
-
-msgid "Print the length of current track"
-msgstr "현재 트랙의 길이를 출력"
-
-msgid "Print the title of current track"
-msgstr "현재 트랙의 타이틀을  출력"
-
-msgid "PyInotify not installed or not supported.  "
-msgstr "PyInotify 가 설치되지 않았거나 지원하지 않음.  "
-
-msgid "Python Console - Exaile"
-msgstr "Python 콘솔 - Exaile"
-
-msgid "Query player"
-msgstr "플레이어 확인"
-
-msgid "Queue Items"
-msgstr "대기열 아이템"
-
-msgid "Quit"
-msgstr "종료"
-
-msgid "Radio"
-msgstr "라디오"
-
-msgid "Radio Streams"
-msgstr "라디오 스트림"
-
-msgid "Ran out of tracks to shuffle"
-msgstr "섞기에 트랙 부족"
-
-msgid "Random %d"
-msgstr "랜덤 %d"
-
-msgid "Randomize results"
-msgstr "무작위 결과"
-
-msgid "Rating"
-msgstr "평가"
-
-msgid "Rating > %d"
-msgstr "등급 > %d"
-
-msgid "Rating: "
-msgstr "등급: "
-
-msgid "Reduce level of output"
-msgstr "출력 레벨 감소"
-
-msgid "Refresh"
-msgstr "새로 고침"
-
-msgid "Remove"
-msgstr "제거"
-
-msgid "Remove Cover"
-msgstr "표지 제거"
-
-msgid "Rename"
-msgstr "이름 바꾸기"
-
-msgid "Rename Playlist"
-msgstr "재생목록 이름 바꾸기"
-
-msgid "Repeat"
-msgstr "반복"
-
-msgid "Resizable"
-msgstr "크기조절가능"
-
-msgid "Safe mode enabled, not loading plugins."
-msgstr "안전 모드 사용됨, 플러그인 읽지 않음."
-
-msgid "Saturday"
-msgstr "토요일"
-
-msgid "Save"
-msgstr "저장"
-
-msgid "Saved Stations"
-msgstr "저장된 방송국"
-
-msgid "Saving %s DB to %s."
-msgstr "%s DB 를 %s 에 저장."
-
-msgid "Saving state..."
-msgstr "상태 저장중..."
-
-msgid "Scanning collection..."
-msgstr "컬렉션 검색중..."
-
-msgid "Scanning library: %s"
-msgstr "라이브러리 검색: %s"
-
-msgid "Search: "
-msgstr "찾기: "
-
-msgid "Select File Type (By Extension)"
-msgstr "파일 형식 선택(확장자별)"
-
-msgid "Set Rating"
-msgstr "등급 설정"
-
-msgid "Set data directory"
-msgstr "데이타 디렉터리 설정"
-
-msgid "Set rating for current song"
-msgstr "이 곡에 대한 등급 매기기"
-
-msgid "Show Cover"
-msgstr "표지 보기"
-
-msgid "Show OSD on track change"
-msgstr "트랙이 바뀔 때 OSD 보기"
-
-msgid "Show a popup of the currently playing track"
-msgstr "재생중인 트랙을 보여줌"
-
-msgid "Show debugging output"
-msgstr "디버깅 출력 보기"
-
-msgid "Show splash screen on startup"
-msgstr "시작시 스플래시 화면 보기"
-
-msgid "Show tray icon"
-msgstr "트레이 아이콘 보기"
-
-msgid "Shuffle"
-msgstr "무작위"
-
-msgid "Size"
-msgstr "크기"
-
-msgid "Smart Playlists"
-msgstr "지능형 재생목록"
-
-msgid "Start"
-msgstr "시작"
-
-msgid "Start Exaile minimized to tray, if possible"
-msgstr "가능하다면, 트레이로 최소화 시켜 시작하기"
-
-msgid "Start in safe mode - sometimes useful when you're running into problems"
-msgstr "안전모드에서 시작 - 문제가 있을때 유용합니다"
-
-msgid "Start new instance"
-msgstr "새로운 인스턴스 시작"
-
-msgid "Stop"
-msgstr "중지"
-
-msgid "Stop Playback"
-msgstr "재생 중지"
-
-msgid "Stop playback"
-msgstr "재생 중지"
-
-msgid "Stopped"
-msgstr "중지됨"
-
-msgid "Streaming..."
-msgstr "스트리밍중..."
-
-msgid "Sunday"
-msgstr "일요일"
-
-msgid "Text Color"
-msgstr "글꼴색"
-
-msgid "Text Font:"
-msgstr "글꼴:"
-
-msgid "The playlist name you specified already exists."
-msgstr "지정한 재생목록 이름이 이미 존재합니다."
-
-msgid "The selected plugin doesn't have any configuration options"
-msgstr "선택된 플러그인은 구성 옵션을 가지고 있지 않습니다"
-
-msgid "Thursday"
-msgstr "목요일"
-
-msgid "Title"
-msgstr "제목"
-
-msgid "Toggle Play or Pause"
-msgstr "재생 또는 일시정지 토클"
-
-msgid "Toggle Queue"
-msgstr "대기열 토글"
-
-msgid "Toggle: Stop after selected track"
-msgstr "토글: 선택된 트랙후 중지"
-
-msgid "Track Number"
-msgstr "트랙 번호"
-
-msgid "Tuesday"
-msgstr "화요일"
-
-msgid "Type of device:"
-msgstr "장치 종류:"
-
-msgid "Unable to enable plugin %s"
-msgstr "사용할수 없는 플러그인 %s"
-
-msgid "Unable to fully disable plugin %s"
-msgstr "플러그인 %s 사용안함을 완전히 할수없음"
-
-msgid "Unknown"
-msgstr "알수없음"
-
-msgid "Updates"
-msgstr "업데이트"
-
-msgid "Use Fading"
-msgstr "페이딩 사용"
-
-msgid "Username:"
-msgstr "사용자 이름:"
-
-msgid "Using %s for playback"
-msgstr "재생에 %s 사용"
-
-msgid "Various Artists"
-msgstr "여러 아티스트"
-
-msgid "Version:"
-msgstr "버전:"
-
-msgid "Vol:"
-msgstr "볼륨:"
-
-msgid ""
-"Vorbis is an open source, lossy audio codec with high quality output at a "
-"lower file size than MP3."
+#: ../data/glade/appearance_prefs_pane.glade.h:1
+msgid "Always show tab bar"
 msgstr ""
-"Vorbis 는 MP3 보다 작은 파일 크기에서 높은 품질을 출력하는 오픈소스 손실 오디"
-"오 코덱 입니다."
 
-msgid "Watching directory: %s"
-msgstr "시청 디렉터리: %s"
+#: ../data/glade/appearance_prefs_pane.glade.h:4
+msgid ""
+"Left\n"
+"Right\n"
+"Top\n"
+"Bottom"
+msgstr ""
 
-msgid "We don't know how to store that kind of setting: "
-msgstr "이 종류의 설정은 어떻게 저장하는지 알수 없습니다: "
+#: ../data/glade/appearance_prefs_pane.glade.h:10
+msgid "Tab placement:"
+msgstr ""
 
-msgid "Wednesday"
-msgstr "수요일"
+#: ../data/glade/covermanager.glade.h:1
+msgid "Cover Manager"
+msgstr ""
 
-msgid "Window Height:"
-msgstr "창 높이:"
+#: ../data/glade/plugin_dialog.glade.h:8
+msgid "Plugin Manager"
+msgstr ""
 
-msgid "Window Width:"
-msgstr "창 너비:"
+#: ../data/glade/queue_dialog.glade.h:1
+msgid "Close this dialog"
+msgstr ""
 
-msgid "XSPF Playlist"
-msgstr "XSPF 재생목록"
+#: ../data/glade/queue_dialog.glade.h:2
+msgid "Move song down in queue"
+msgstr ""
 
-msgid "Year"
-msgstr "발매년도"
+#: ../data/glade/queue_dialog.glade.h:3
+msgid "Move song to bottom of queue"
+msgstr ""
 
-msgid "You did not enter a name for your playlist"
-msgstr "재생목록 이름을 입력하지 않았습니다"
+#: ../data/glade/queue_dialog.glade.h:4
+msgid "Move song to top in queue"
+msgstr ""
 
-msgid "You did not specify a location to save the db"
-msgstr "db를 저장할 위치를 정하지 않았습니다."
+#: ../data/glade/queue_dialog.glade.h:5
+msgid "Move song up in queue"
+msgstr ""
 
-msgid "You have entered an invalid option"
-msgstr "유효하지 않은 옵션"
+#: ../data/glade/queue_dialog.glade.h:6
+msgid "Queue Manager - Exaile"
+msgstr ""
 
-msgid "Your changes will be lost if you don't save them"
-msgstr "만약 저장하지 않으시면 당신의 변경을 잃게 됩니다"
+#: ../data/glade/queue_dialog.glade.h:7
+msgid "Remove All"
+msgstr ""
 
-msgid "_Album Art Manager"
-msgstr "앨범 아트 관리자(_A)"
+#: ../data/glade/queue_dialog.glade.h:8
+msgid "Remove song from queue"
+msgstr ""
 
-msgid "_Close"
-msgstr "닫기(_C)"
+#: ../data/glade/playback_prefs_pane.glade.h:1
+msgid "Audio Sink:  "
+msgstr ""
 
-msgid "_Collection Manager"
-msgstr "컬렉션 관리자(_C)"
+#: ../data/glade/playback_prefs_pane.glade.h:2
+msgid ""
+"Automatic\n"
+"GNOME\n"
+"ALSA\n"
+"OSS\n"
+"PulseAudio\n"
+"JACK"
+msgstr ""
 
-msgid "_Columns"
-msgstr "열(_C)"
+#: ../data/glade/playback_prefs_pane.glade.h:8
+msgid "Crossfade duration (ms):"
+msgstr ""
 
-msgid "_Edit"
-msgstr "편집(_E)"
+#: ../data/glade/playback_prefs_pane.glade.h:9
+msgid "Fade duration (ms):"
+msgstr ""
 
-msgid "_File"
-msgstr "파일(_F)"
+#: ../data/glade/playback_prefs_pane.glade.h:10
+msgid ""
+"Normal\n"
+"Unified (unstable)"
+msgstr ""
 
+#: ../data/glade/playback_prefs_pane.glade.h:12
+msgid "Playback engine (requires restart): "
+msgstr ""
+
+#: ../data/glade/playback_prefs_pane.glade.h:13
+msgid "Resume playback in paused state"
+msgstr ""
+
+#: ../data/glade/playback_prefs_pane.glade.h:14
+msgid "Resume playback on start"
+msgstr ""
+
+#: ../data/glade/playback_prefs_pane.glade.h:15
+msgid "These options only affect the unified engine."
+msgstr ""
+
+#: ../data/glade/playback_prefs_pane.glade.h:16
+msgid "Use crossfading (EXPERIMENTAL)"
+msgstr ""
+
+#: ../data/glade/playback_prefs_pane.glade.h:17
+msgid "Use fade transitions on user actions"
+msgstr ""
+
+#: ../data/glade/main.glade.h:7
+msgid "Dynamically add similar tracks to the playlist"
+msgstr ""
+
+#: ../data/glade/main.glade.h:14
+msgid "Queue Manager"
+msgstr ""
+
+#: ../data/glade/main.glade.h:15
+msgid "Randomize Playlist"
+msgstr ""
+
+#: ../data/glade/main.glade.h:16
+msgid "Randomize the order of the current playlist"
+msgstr ""
+
+#: ../data/glade/main.glade.h:18
+msgid "Rescan Collection"
+msgstr ""
+
+#: ../data/glade/main.glade.h:27
+msgid "_Cover Manager"
+msgstr ""
+
+#: ../data/glade/main.glade.h:29
+msgid "_Export current playlist"
+msgstr ""
+
+#: ../data/glade/main.glade.h:31
 msgid "_Go to Playing Track"
-msgstr "트랙 재생으로 가기(_G)"
+msgstr ""
 
-msgid "_Help"
-msgstr "도움말(_H)"
+#: ../data/glade/files_panel.glade.h:2
+msgid "Home directory"
+msgstr ""
 
-msgid "_Rescan Collection"
-msgstr "컬렉션 다시 읽기(_R)"
+#: ../data/glade/files_panel.glade.h:3
+msgid "Next visited directory"
+msgstr ""
 
-msgid "_Tools"
-msgstr "도구(_T)"
+#: ../data/glade/files_panel.glade.h:4
+msgid "Previous visited directory"
+msgstr ""
 
-msgid "_View"
-msgstr "보기(_V)"
+#: ../data/glade/files_panel.glade.h:5
+msgid "Refresh directory listing"
+msgstr ""
 
-msgid "after"
-msgstr "이후"
+#: ../data/glade/files_panel.glade.h:7
+msgid "Up one directory"
+msgstr ""
 
-msgid "and"
-msgstr "와(과)"
+#: ../plugins/multialarmclock/__init__.py:411
+msgid "Multi-Alarm Clock"
+msgstr ""
 
-msgid "at least"
-msgstr "최소"
+#: ../plugins/bookmarks/__init__.py:278
+msgid "Bookmarks"
+msgstr ""
 
-msgid "at most"
-msgstr "최대"
+#: ../plugins/bookmarks/__init__.py:283
+msgid "Bookmark this track"
+msgstr ""
 
-msgid "bad search token"
-msgstr "잘못된 검색 토큰"
+#: ../plugins/bookmarks/__init__.py:288
+msgid "Delete bookmark"
+msgstr ""
 
-msgid "before"
-msgstr "이전"
+#: ../plugins/bookmarks/__init__.py:293
+msgid "Clear bookmarks"
+msgstr ""
 
-msgid "between"
-msgstr "사이"
+#: ../plugins/notifyosd/notifyosdprefs.py:48
+#: ../plugins/notify/notifyprefs.py:54
+#, python-format
+msgid "%(title)s"
+msgstr ""
 
-msgid "by %s"
-msgstr ", %s 의"
+#: ../plugins/notifyosd/notifyosdprefs.py:52
+#: ../plugins/notify/notifyprefs.py:44
+#, python-format
+msgid "by %(artist)s"
+msgstr ""
 
-msgid "contains"
-msgstr "포함함"
+#: ../plugins/notifyosd/notifyosdprefs.py:56
+#: ../plugins/notify/notifyprefs.py:49
+#, python-format
+msgid "from %(album)s"
+msgstr ""
 
-msgid "days"
-msgstr "일"
+#: ../plugins/desktopcover/prefs.py:22
+msgid "Desktop Cover"
+msgstr ""
 
-msgid "does not contain"
-msgstr "포함하지 않음"
+#: ../plugins/moodbar/__init__.py:138
+msgid "Searching for mood..."
+msgstr ""
 
-msgid "from %s"
-msgstr ", %s 중"
+#: ../plugins/moodbar/__init__.py:142
+msgid "Mood found."
+msgstr ""
 
-msgid "gtk-add"
-msgstr "gtk-추가"
+#: ../plugins/moodbar/__init__.py:174
+msgid "Could not read moodbar."
+msgstr ""
 
-msgid "gtk-cancel"
-msgstr "gtk-취소"
+#: ../plugins/moodbar/__init__.py:334
+msgid "Moodbar executable is not available."
+msgstr ""
 
-msgid "gtk-close"
-msgstr "gtk-닫기"
+#: ../plugins/shoutcast/__init__.py:158
+msgid "Enter the search keywords"
+msgstr ""
 
-msgid "gtk-connect"
-msgstr "gtk-연결"
+#: ../plugins/shoutcast/__init__.py:159
+msgid "Shoutcast Search"
+msgstr ""
 
-msgid "gtk-disconnect"
-msgstr "gtk-연결해제"
+#: ../plugins/shoutcast/__init__.py:181
+msgid "Search Results"
+msgstr ""
 
-msgid "gtk-edit"
-msgstr "gtk-수정"
+#: ../plugins/lastfmradio/__init__.py:140
+msgid "Personal"
+msgstr ""
 
-msgid "gtk-ok"
-msgstr "gtk-확인"
+#: ../plugins/lastfmradio/__init__.py:141
+msgid "Recommended"
+msgstr ""
 
-msgid "gtk-remove"
-msgstr "gtk-제거"
+#: ../plugins/lastfmradio/__init__.py:143
+msgid "Neighbourhood"
+msgstr ""
 
-msgid "hours"
-msgstr "시간"
+#: ../plugins/lastfmradio/__init__.py:145
+msgid "Loved Tracks"
+msgstr ""
 
-msgid "is"
-msgstr "임"
+#: ../plugins/lastfmradio/__init__.py:163
+msgid "LastFM Radio"
+msgstr ""
 
-msgid "is not"
-msgstr "아님"
+#: ../plugins/lastfmradio/__init__.py:166
+#, python-format
+msgid "LastFM: %s"
+msgstr ""
 
-msgid "minutes"
-msgstr "분"
+#: ../plugins/notify/notifyprefs.py:39
+#, python-format
+msgid ""
+"by %(artist)s\n"
+"from <i>%(album)s</i>"
+msgstr ""
 
-msgid "seconds"
-msgstr "초"
+#: ../plugins/ipconsole/__init__.py:72
+msgid "IPython Console - Exaile"
+msgstr ""
 
-msgid "weeks"
-msgstr "주"
+#: ../plugins/ipconsole/__init__.py:125
+msgid "Show IPython Console"
+msgstr ""
+
+#: ../plugins/minimode/__init__.py:77
+msgid "Mini Mode"
+msgstr ""
+
+#: ../plugins/minimode/__init__.py:184
+msgid "Restore Main Window"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs.py:102
+msgid "Available controls"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs.py:103
+msgid "Selected controls"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs.py:106
+msgid "Play/Pause"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs.py:109
+msgid "Track selector"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs.py:110
+msgid "Progress bar"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs.py:113
+msgid "Restore"
+msgstr ""
+
+#: ../plugins/minimode/mmwidgets.py:127
+#: ../plugins/minimode/mmwidgets.py:141
+msgid "Start Playback"
+msgstr ""
+
+#: ../plugins/minimode/mmwidgets.py:145
+msgid "Continue Playback"
+msgstr ""
+
+#: ../plugins/minimode/mmwidgets.py:148
+msgid "Pause Playback"
+msgstr ""
+
+#. TRANSLATORS: String multiple tag values will be joined with
+#: ../plugins/minimode/mmwidgets.py:248
+msgid " & "
+msgstr ""
+
+#: ../plugins/minimode/mmwidgets.py:428
+msgid "Seeking:"
+msgstr ""
+
+#: ../plugins/streamripper/__init__.py:53
+msgid "Streamripper can only record streams."
+msgstr ""
+
+#: ../plugins/streamripper/__init__.py:86
+msgid "Error executing streamripper"
+msgstr ""
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:2
+msgid "Alarm Name:"
+msgstr ""
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:3
+#: ../plugins/alarmclock/acprefs_pane.glade.h:2
+msgid "Alarm Time:"
+msgstr ""
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:4
+msgid "Alarm:"
+msgstr ""
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:5
+msgid "Enable Fading"
+msgstr ""
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:7
+msgid "Fading:"
+msgstr ""
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:9
+#: ../plugins/alarmclock/acprefs_pane.glade.h:4
+msgid "Increment:"
+msgstr ""
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:10
+#: ../plugins/alarmclock/acprefs_pane.glade.h:5
+msgid "Maximum Volume:"
+msgstr ""
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:11
+#: ../plugins/alarmclock/acprefs_pane.glade.h:6
+msgid "Minimum Volume:"
+msgstr ""
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:13
+msgid "Name - Time"
+msgstr ""
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:14
+msgid "Restart Playlist"
+msgstr ""
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:18
+msgid "Time per Increment:"
+msgstr ""
+
+#: ../plugins/alarmclock/acprefs_pane.glade.h:11
+msgid "Timer per Increment:"
+msgstr ""
+
+#: ../plugins/audioscrobbler/asprefs_pane.glade.h:2
+msgid "Submit tracks using Audioscrobbler"
+msgstr ""
+
+#: ../plugins/audioscrobbler/asprefs_pane.glade.h:3
+msgid "URL:"
+msgstr ""
+
+#: ../plugins/bookmarks/bookmarks_pane.glade.h:1
+msgid "Use covers in the bookmarks menu (takes effect on next start)"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:1
+msgid "<b>Content</b>"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:2
+msgid "<b>Display</b>"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:3
+msgid "<b>Icons</b>"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:4
+msgid "Album Line:"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:5
+msgid "Artist Line:"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:6
+msgid "On Playback Start, Pause or Stop"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:7
+msgid "On Track Change"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:8
+msgid "On Tray Icon Hover"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:9
+msgid "Summary:"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:11
+#, no-c-format
+msgid ""
+"The tags \"%(title)s\", \"%(artist)s\", and \"%(album)s\" will be replaced "
+"by their respective values. The title will be replaced by \"Unknown\" if it "
+"is empty."
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:12
+msgid "Use Album Covers As Icons"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:13
+msgid "Use Media Icons For Pause, Stop and Resume"
+msgstr ""
+
+#: ../plugins/replaygain/replaygainprefs_pane.glade.h:1
+msgid "Fallback correction level (dB):"
+msgstr ""
+
+#: ../plugins/replaygain/replaygainprefs_pane.glade.h:2
+msgid "Pre-amp (dB):"
+msgstr ""
+
+#: ../plugins/replaygain/replaygainprefs_pane.glade.h:3
+msgid "Prefer per-album correction"
+msgstr ""
+
+#: ../plugins/replaygain/replaygainprefs_pane.glade.h:4
+msgid "Use clipping protection"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs_pane.glade.h:1
+msgid "<b>Body Message</b>"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs_pane.glade.h:2
+msgid "Both artist and album"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs_pane.glade.h:4
+#, no-c-format
+msgid ""
+"Message that should be displayed in the body of the notification. In each "
+"case, \"%(title)s\", \"%(artist)s\", and \"%(album)s\" will be replaced by "
+"their respective values. If the tag is not known, \"Unknown\" will be filled "
+"in its place"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs_pane.glade.h:5
+msgid "Only album"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs_pane.glade.h:6
+msgid "Only artist"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs_pane.glade.h:7
+msgid "Resize displayed covers"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs_pane.glade.h:8
+msgid "Summary"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:1
+msgid "<b>Position</b>"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:2
+msgid "Always on top"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:3
+msgid "Center horizontally"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:4
+msgid "Center vertically"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:5
+msgid "Display window decorations"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:6
+msgid "Horizontal:"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:7
+msgid "Mini mode button in main window"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:8
+msgid "Show in panel"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:9
+msgid "Show on all desktops"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:10
+msgid "Track selector title:"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:11
+msgid "Vertical:"
+msgstr ""
+
+#: ../plugins/streamripper/streamripper.glade.h:2
+msgid "Save Location:"
+msgstr ""

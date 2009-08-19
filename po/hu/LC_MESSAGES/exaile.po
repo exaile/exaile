@@ -1,208 +1,1341 @@
+# Hungarian translation for exaile
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the exaile package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: _exaile-hu\n"
-"Report-Msgid-Bugs-To: Avramucz Péter <muczyjoe@gmail.com>\n"
-"POT-Creation-Date: 2009-04-03 15:02-0500\n"
-"PO-Revision-Date: 2009-05-18 23:33+0000\n"
-"Last-Translator: Balázs Attila <battila9@freemail.hu>\n"
-"Language-Team: hungarian <lisovszki@gmail.com>\n"
+"Project-Id-Version: exaile\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-07-19 18:07+0200\n"
+"PO-Revision-Date: 2009-08-09 12:20+0000\n"
+"Last-Translator: Gergely Szarka <gszarka@invitel.hu>\n"
+"Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Launchpad-Export-Date: 2009-08-19 14:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
+#: ../xl/player/pipe.py:198
+msgid "Automatic"
+msgstr "Automatikus"
+
+#: ../xl/player/pipe.py:203
+msgid "GNOME"
+msgstr "GNOME"
+
+#: ../xl/player/pipe.py:208
+msgid "ALSA"
+msgstr "ALSA"
+
+#: ../xl/player/pipe.py:213
+msgid "OSS"
+msgstr "OSS"
+
+#: ../xl/player/pipe.py:218
+msgid "PulseAudio"
+msgstr "PulseAudio"
+
+#: ../xl/player/pipe.py:223
+msgid "JACK"
+msgstr "JACK"
+
+#: ../xl/player/pipe.py:272
+#, python-format
+msgid "Could not set parameter %(parameter)s for %(sink)s"
+msgstr ""
+
+#: ../xl/player/__init__.py:35
+msgid "Normal playback engine selected."
+msgstr ""
+
+#: ../xl/player/__init__.py:39
+msgid "Unified playback engine selected."
+msgstr ""
+
+#. TODO: remove this before 0.3.0 since it is not needed for
+#. stable->stable upgrades
+#: ../xl/player/engine_normal.py:154
+#, python-format
+msgid ""
+"Exaile now uses absolute URI's, please delete/rename your %s directory"
+msgstr ""
+
+#: ../xl/player/engine_normal.py:186
+#: ../xl/player/engine_unified.py:373
+#, python-format
+msgid "File does not exist: %s"
+msgstr "A fájl nem létezik: %s"
+
+#: ../xl/player/engine_normal.py:193 ../xl/player/engine_unified.py:381
+#: ../xlgui/main.py:915 ../xlgui/main.py:923
+#, python-format
+msgid "Playing %s"
+msgstr "%s lejátszása"
+
+#: ../xl/main.py:93
+msgid "Loading settings..."
+msgstr "Beállítások betöltése"
+
+#: ../xl/main.py:115
+msgid "Failed to migrate from 0.2.14"
+msgstr ""
+
+#: ../xl/main.py:120
+msgid "Loading plugins..."
+msgstr "Bővítmények betöltése..."
+
+#: ../xl/main.py:124
+msgid "Safe mode enabled, not loading plugins."
+msgstr "Biztonságos mód engedélyezve, nem tölt be bővítményeket."
+
+#. Initialize the collection
+#: ../xl/main.py:128
+msgid "Loading collection..."
+msgstr "Gyűjtemény betöltése"
+
+#. Initalize device manager
+#: ../xl/main.py:159
+msgid "Loading devices..."
+msgstr "Eszközök betöltése"
+
+#: ../xl/main.py:263
+msgid "Play the next track"
+msgstr "Következő szám lejátszása"
+
+#: ../xl/main.py:265
+msgid "Play the previous track"
+msgstr "Előző szám lejátszása"
+
+#: ../xl/main.py:267
+msgid "Stop playback"
+msgstr "Lejátszás leállítása"
+
+#: ../xl/main.py:269 ../xlgui/tray.py:91 ../xlgui/tray.py:192
+msgid "Play"
+msgstr "Lejátszás"
+
+#: ../xl/main.py:271
+msgid "Toggle Play or Pause"
+msgstr "Váltás lejátszás és megállítás között"
+
+#: ../xl/main.py:275
+msgid "Query player"
+msgstr "Lekérdezéses lejátszó"
+
+#: ../xl/main.py:287
+msgid "Set rating for current song"
+msgstr "A jelenlegi szám értékelése"
+
+#: ../xl/main.py:292
+msgid "Print the position inside the current track as a percentage"
+msgstr "A jelenlegi szám pozíciójának kiírása százalékban"
+
+#: ../xl/main.py:296
+msgid "Increases the volume by VOL%"
+msgstr ""
+
+#: ../xl/main.py:298
+msgid "Decreases the volume by VOL%"
+msgstr ""
+
+#: ../xl/main.py:300
+msgid "Print the current volume percentage"
+msgstr ""
+
+#: ../xl/main.py:309
+msgid ""
+"Start in safe mode - sometimes useful when you're running into problems"
+msgstr ""
+"Indítás csökkentett módban - néha hasznos, amikor problémákba ütközik"
+
+#. development and debug options
+#: ../xl/main.py:313
+msgid "Set data directory"
+msgstr "Adattár beállítása"
+
+#: ../xl/main.py:315
+msgid "Show debugging output"
+msgstr "Hibakeresési kimenet megjelenítése"
+
+#: ../xl/main.py:320
+msgid "Reduce level of output"
+msgstr "Kimeneti szint csökkentése"
+
+#: ../xl/main.py:324
+msgid "Disable D-Bus support"
+msgstr "D-Bus támogatás tiltása"
+
+#: ../xl/main.py:326
+msgid "Disable HAL support."
+msgstr "HAL támogatás tiltása."
+
+#. entire playlist
+#: ../xl/main.py:343
+msgid "Entire Library"
+msgstr "Teljes gyűjtemény"
+
+#: ../xl/main.py:349
+#, python-format
+msgid "Random %d"
+msgstr "Véletlenszerű %d"
+
+#: ../xl/main.py:357
+#, python-format
+msgid "Rating > %d"
+msgstr "Értékelés > %d"
+
+#: ../xl/main.py:415
+msgid "Saving state..."
+msgstr "Állás mentése..."
+
+#: ../xl/main.py:440
+msgid "Bye!"
+msgstr "Viszlát!"
+
+#: ../xl/cover.py:98
+#, python-format
+msgid "CoverDB: set cover %(cover)s for '%(album)s - %(artist)s'"
+msgstr ""
+
+#: ../xl/cover.py:119
+#: ../xl/cover.py:153
+#: ../xl/trackdb.py:232
+msgid "You did not specify a location to save the db"
+msgstr "Nem adtál meg helyet a db mentéséhez"
+
+#: ../xl/cover.py:245 ../xl/lyrics.py:75
+msgid "order must be a list or tuple"
+msgstr ""
+
+#: ../xl/cover.py:394
+#, python-format
+msgid "Attempting to find covers for %s"
+msgstr "Borító megtalálásának kényszerítése %s-hez"
+
+#: ../xl/cover.py:401
+#, python-format
+msgid "%s method doesn't support searching, skipping"
+msgstr ""
+
+#: ../xl/cover.py:406
+#, python-format
+msgid "Found covers from %s"
+msgstr "Talált borítók innen: %s"
+
+#: ../xl/metadata/_base.py:102
+#, python-format
+msgid ""
+"Could not import tag %(tag)s from file %(location)s because of possible "
+"conflict, please adjust your tags if you want to import this."
+msgstr ""
+
+#: ../xl/transcoder.py:45
+msgid ""
+"Vorbis is an open source, lossy audio codec with high quality output at a "
+"lower file size than MP3."
+msgstr ""
+"A Vorbis egy nyílt forráskódú, veszteséges hangkodek, jobb hangminőséggel és "
+"kissebb fájlmérettel, mint az MP3."
+
+#: ../xl/transcoder.py:54
+msgid ""
+"Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
+"does not degrade audio quality."
+msgstr ""
+"A Szabad Veszteségmentes Hangkodek (FLAC) egy nyílt forráskódú kodek, ami "
+"úgy tömörít, hogy a hangminőséget nem rontja."
+
+#: ../xl/transcoder.py:91
+msgid "A very fast Free lossless audio format with good compression."
+msgstr "Egy gyors és szabad, veszteségmentes audióformátum jó tömörítéssel."
+
+#: ../xl/hal.py:97
+#, python-format
+msgid "Failed to create device for %s"
+msgstr "Nem sikerült eszközt létrehozni ehhez: %s"
+
+#: ../xl/hal.py:100
+#, python-format
+msgid "Found new %(handler)s device at %(device_udi)s"
+msgstr ""
+
+#: ../xl/track.py:463
 msgid "  New song, fetching cover."
 msgstr "  Új szám, borító letöltése."
 
-msgid " + "
-msgstr " + "
+#: ../xl/collection.py:394
+#, python-format
+msgid "Not watching library: %s"
+msgstr "Mappa figyelmen kívül hagyása: %s"
 
-msgid " - "
-msgstr " - "
+#. TODO: figure out why this happens
+#: ../xl/collection.py:496
+msgid "Encoding error, skipping compilation check"
+msgstr ""
 
-msgid " : %d queued"
-msgstr " : %d sorbaállítva"
+#: ../xl/collection.py:514
+#, python-format
+msgid "Compilation detected: %s"
+msgstr "Válogatás felfedezve: %s"
 
-msgid " songs"
-msgstr " dalok"
+#: ../xl/settings.py:79
+msgid "Settings version is newer than current."
+msgstr ""
 
-msgid "#"
-msgstr "#"
+#: ../xl/settings.py:161
+msgid "We don't know how to store that kind of setting: "
+msgstr "Nem tudjuk hogy hogyan lehetne tárolni ezt a fajta beállítást: "
 
+#: ../xl/providers.py:38
+#, python-format
+msgid "Provider %(provider)s registered for service %(service)s"
+msgstr ""
+
+#: ../xl/providers.py:56
+#, python-format
+msgid "Provider %(provider)s unregistered from service %(service)s"
+msgstr ""
+
+#: ../xl/plugins.py:73
+msgid "Plugin archive is not in the correct format"
+msgstr ""
+
+#: ../xl/plugins.py:80
+#, python-format
+msgid "A plugin with the name \"%s\" is already installed"
+msgstr ""
+
+#: ../xl/plugins.py:106
+#, python-format
+msgid "Loaded plugin %s"
+msgstr "Bővítmény betöltve: %s"
+
+#: ../xl/playlist.py:371
+#, python-format
+msgid "Playlist %d"
+msgstr "Lejátszólista %d"
+
+#: ../xl/dynamic.py:46
+#, python-format
+msgid "Searching for %(limit)s tracks related to %(track)s"
+msgstr ""
+
+#: ../xl/dynamic.py:146
+#, python-format
+msgid "Added %s tracks."
+msgstr ""
+
+#: ../xl/event.py:293
+msgid "Stopping IdleManager thread..."
+msgstr ""
+
+#: ../xl/event.py:384
+#, python-format
+msgid "Sent '%(type)s' event from '%(object)s' with data '%(data)s'."
+msgstr ""
+
+#: ../xl/xldbus.py:175
+msgid "Not playing."
+msgstr "Nincs lejátszás"
+
+#: ../xl/trackdb.py:175
+msgid "You did not specify a location to load the db from"
+msgstr ""
+
+#: ../xl/trackdb.py:218
+#, python-format
+msgid "Saving %(name)s DB to %(location)s."
+msgstr ""
+
+#: ../xlgui/main.py:36 ../xlgui/main.py:107 ../xlgui/main.py:799
+#: ../data/glade/main.glade.h:9 ../plugins/minimode/mmwidgets.py:326
+msgid "Not Playing"
+msgstr "Nincs lejátszás"
+
+#: ../xlgui/main.py:192
+msgid "Close tab"
+msgstr "Lap bezárása"
+
+#: ../xlgui/main.py:224
+msgid "New playlist title:"
+msgstr "Új lejátszólista címe:"
+
+#: ../xlgui/main.py:224 ../xlgui/menu.py:417
+msgid "Rename Playlist"
+msgstr "Lejátszólista átnevezése"
+
+#: ../xlgui/main.py:539
+#, python-format
+msgid "%(playlist_count)d showing, %(collection_count)d in collection"
+msgstr ""
+
+#: ../xlgui/main.py:545
+#, python-format
+msgid " (%(queue_count)d queued)"
+msgstr " (%(queue_count)d sorbaállítva)"
+
+#: ../xlgui/main.py:668
+#, python-format
+msgid "Buffering: %d%%..."
+msgstr "Pufferelés: %d%%..."
+
+#: ../xlgui/main.py:670
+msgid "Buffering: 100%..."
+msgstr "Pufferelés: 100%"
+
+#: ../xlgui/main.py:800 ../data/glade/main.glade.h:23
+msgid "Stopped"
+msgstr "Megállítva"
+
+#: ../xlgui/main.py:872
+msgid ""
+"Exaile Music Player\n"
+"Not playing"
+msgstr ""
+"Exaile Music Player\n"
+"Nincs lejátszás"
+
+#. TRANSLATORS: Window title
+#: ../xlgui/main.py:894
+#, python-format
 msgid "%(title)s (by %(artist)s)"
-msgstr "%(title)s (Előadó: %(artist)s)"
+msgstr "%(title)s (tőle: %(artist)s)"
 
+#. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
+#: ../xlgui/main.py:904
+#, python-format
+msgid "by %s"
+msgstr "%s"
+
+#. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
+#: ../xlgui/main.py:906
+#, python-format
+msgid "from %s"
+msgstr "%s albumáról"
+
+#: ../xlgui/main.py:912
+#: ../xlgui/main.py:921
+#, python-format
+msgid "In pause: %s"
+msgstr ""
+
+#: ../xlgui/menu.py:53
+msgid "Toggle Queue"
+msgstr "Sor bekapcsolása"
+
+#: ../xlgui/menu.py:111 ../xlgui/menu.py:313 ../xlgui/panel/playlists.py:308
+#: ../xlgui/panel/radio.py:282
+msgid "New Playlist"
+msgstr "Új lejátszólista"
+
+#: ../xlgui/menu.py:155
+msgid "Add to custom playlist"
+msgstr ""
+
+#: ../xlgui/menu.py:156 ../xlgui/menu.py:456
+msgid "Remove"
+msgstr "Eltávolítás"
+
+#: ../xlgui/menu.py:169
+msgid "Playlist"
+msgstr "Lejátszólista"
+
+#: ../xlgui/menu.py:202 ../data/glade/main.glade.h:33
+msgid "_New Playlist"
+msgstr "_Új lejátszólista"
+
+#: ../xlgui/menu.py:204
+msgid "_Rename Playlist"
+msgstr ""
+
+#: ../xlgui/menu.py:205
+msgid "_Save As Custom Playlist"
+msgstr ""
+
+#: ../xlgui/menu.py:206
+msgid "C_lear All Tracks"
+msgstr ""
+
+#: ../xlgui/menu.py:208
+msgid "_Close Playlist"
+msgstr ""
+
+#: ../xlgui/menu.py:228
+msgid "Append to Current"
+msgstr "Hozzáadás a jelenlegihez"
+
+#: ../xlgui/menu.py:230
+msgid "Queue Items"
+msgstr "Elemek sorba rakása"
+
+#: ../xlgui/menu.py:285
+#: ../xlgui/tray.py:135
+msgid "Rating:"
+msgstr "Értékelés:"
+
+#: ../xlgui/menu.py:310
+msgid "New Station"
+msgstr ""
+
+#: ../xlgui/menu.py:315
+msgid "New Smart Playlist"
+msgstr ""
+
+#: ../xlgui/menu.py:359
+msgid "Open"
+msgstr "Megnyitás"
+
+#: ../xlgui/menu.py:362
+msgid "Rename"
+msgstr "Átnevezés"
+
+#: ../xlgui/menu.py:364
+msgid "Edit"
+msgstr "Szerkesztés"
+
+#: ../xlgui/menu.py:367
+msgid "Export"
+msgstr "Exportálás"
+
+#: ../xlgui/menu.py:370
+msgid "Delete Playlist"
+msgstr "Lejátszólista törlése"
+
+#: ../xlgui/menu.py:380
+msgid "Export as..."
+msgstr ""
+
+#: ../xlgui/menu.py:385 ../xlgui/__init__.py:129
+msgid "M3U Playlist"
+msgstr "M3U Lejátszólista"
+
+#: ../xlgui/menu.py:386 ../xlgui/__init__.py:130
+msgid "PLS Playlist"
+msgstr "PLS Lejátszólista"
+
+#: ../xlgui/menu.py:387 ../xlgui/__init__.py:131
+msgid "ASX Playlist"
+msgstr "ASX Lejátszólista"
+
+#: ../xlgui/menu.py:388 ../xlgui/__init__.py:132
+msgid "XSPF Playlist"
+msgstr "XSPF Lejátszólista"
+
+#: ../xlgui/menu.py:403
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr ""
+"Biztos, hogy véglegesen törölni akarja a kiválasztott lejátszólistákat?"
+
+#: ../xlgui/menu.py:416
+msgid "Enter the new name you want for your playlist"
+msgstr "Írja be a lejátszólista új nevét"
+
+#: ../xlgui/cover.py:242
+msgid "No cover found"
+msgstr "Borító nem található"
+
+#: ../xlgui/cover.py:286
+#, python-format
 msgid "%d covers to fetch"
 msgstr "%d borító letöltése"
 
-msgid "%d showing, %d in collection"
-msgstr "%d szám a listán, %d a gyűjteményben"
+#: ../xlgui/cover.py:291 ../xlgui/cover.py:310
+#: ../data/glade/covermanager.glade.h:2
+msgid "Start"
+msgstr "Indítás"
 
-msgid "%d:%02d"
-msgstr "%d.%02d"
+#: ../xlgui/cover.py:325
+msgid "Show Cover"
+msgstr "Borító megjelenítése"
 
-msgid "%s KB"
-msgstr "%s KB"
+#: ../xlgui/cover.py:326
+msgid "Fetch Cover"
+msgstr "Borító beszerzése"
 
-msgid "(c) 2008"
-msgstr "(c) 2008"
+#: ../xlgui/cover.py:327
+msgid "Remove Cover"
+msgstr "Borító eltávolítása"
 
-msgid "(drag to reorder)"
-msgstr "(húzd az újrarendezéshez)"
+#: ../xlgui/cover.py:658
+msgid "Enter the search text"
+msgstr "Írja be a keresendő szöveget"
 
-msgid "..."
-msgstr "..."
+#: ../xlgui/osd.py:195
+#: ../xlgui/plcolumns.py:109
+#, python-format
+msgid "%(minutes)d:%(seconds)02d"
+msgstr "%(minutes)d:%(seconds)02d"
 
-msgid ""
-"0\n"
-"1\n"
-"2\n"
-"3\n"
-"4\n"
-"5"
+#: ../xlgui/__init__.py:124
+msgid "Export current playlist..."
+msgstr "Jelenlegi lejátszólista exportálása"
+
+#: ../xlgui/__init__.py:155
+msgid "Open URL"
+msgstr "URL megnyitása"
+
+#: ../xlgui/__init__.py:169
+msgid "Choose a file to open"
+msgstr "Válassza ki a megnyitandó fájlt"
+
+#: ../xlgui/__init__.py:175
+msgid "Supported Files"
+msgstr "Támogatott fájlok"
+
+#: ../xlgui/__init__.py:177
+msgid "Music Files"
+msgstr "Zene fájlok"
+
+#: ../xlgui/__init__.py:179
+msgid "Playlist Files"
+msgstr "Lejátszólista fájlok"
+
+#: ../xlgui/__init__.py:181 ../xlgui/plugins.py:122
+msgid "All Files"
+msgstr "Minden fájl"
+
+#: ../xlgui/__init__.py:309
+msgid "Scanning collection..."
+msgstr "Gyűjtemény átvizsgálása"
+
+#: ../xlgui/__init__.py:382
+#, python-format
+msgid "Scanning %s..."
+msgstr "%s átnézése"
+
+#. TRANSLATORS: Title of the track number column
+#: ../xlgui/queue.py:73 ../xlgui/plcolumns.py:58
+msgid "#"
+msgstr "#"
+
+#: ../xlgui/queue.py:78 ../xlgui/plcolumns.py:79
+msgid "Title"
+msgstr "Cím"
+
+#: ../xlgui/queue.py:86
+msgid "Tracks did not change, no need to update"
 msgstr ""
-"0\n"
-"1\n"
-"2\n"
-"3\n"
-"4\n"
-"5"
 
-msgid "0/0 tracks"
-msgstr "0/0 szám"
+#: ../xlgui/queue.py:138
+msgid "Gave an invalid number to remove"
+msgstr ""
 
+#: ../xlgui/commondialogs.py:243
+msgid "Select File Type (By Extension)"
+msgstr "Válassza ki a fájl típusát (kiterjesztés szerint)"
+
+#: ../xlgui/commondialogs.py:251
+msgid "File Type"
+msgstr "Fájltípus"
+
+#: ../xlgui/commondialogs.py:254
+msgid "Extension"
+msgstr "Kiterjesztés"
+
+#. our added path is a subdir of an existing path
+#: ../xlgui/collection.py:170
+msgid ""
+"Path is already in your collection, or is a subdirectory of another path in "
+"your collection"
+msgstr ""
+"Az útvonal már a gyűjteményben van, vagy egy másik könyvtár alkönyvtára"
+
+#: ../xlgui/plcolumns.py:84 ../xlgui/panel/playlists.py:57
+msgid "Artist"
+msgstr "Előadó"
+
+#: ../xlgui/plcolumns.py:89
+msgid "Composer"
+msgstr "Szerző"
+
+#: ../xlgui/plcolumns.py:94 ../xlgui/panel/playlists.py:67
+msgid "Album"
+msgstr "Album"
+
+#: ../xlgui/plcolumns.py:99 ../xlgui/panel/playlists.py:97
+msgid "Length"
+msgstr "Hossz"
+
+#. TRANSLATORS: Default track length
+#: ../xlgui/plcolumns.py:113
 msgid "0:00"
 msgstr "0:00"
 
-msgid "0:00 / 0:00"
-msgstr "0:00 / 0:00"
+#: ../xlgui/plcolumns.py:119
+msgid "Disc"
+msgstr "Lemez"
 
-msgid "<b>General</b>"
-msgstr "<b>Általános</b>"
+#: ../xlgui/plcolumns.py:125 ../xlgui/panel/playlists.py:79
+msgid "Rating"
+msgstr "Értékelés"
 
-msgid ""
-"<b>Move the On Screen Display window to the location you want it to appear</"
-"b>"
+#: ../xlgui/plcolumns.py:148
+msgid "Date"
+msgstr "Dátum"
+
+#: ../xlgui/plcolumns.py:153 ../xlgui/panel/playlists.py:73
+msgid "Genre"
+msgstr "Műfaj"
+
+#: ../xlgui/plcolumns.py:158
+msgid "Bitrate"
+msgstr "Bitráta"
+
+#. TRANSLATORS: Filename column in the file browser
+#: ../xlgui/plcolumns.py:176 ../xlgui/panel/files.py:89
+msgid "Filename"
+msgstr "Fájlnév"
+
+#: ../xlgui/plcolumns.py:181
+msgid "Playcount"
+msgstr "Lejátszva"
+
+#: ../xlgui/plcolumns.py:189
+msgid "BPM"
+msgstr "BPM"
+
+#: ../xlgui/plcolumns.py:215
+msgid "Track Number"
+msgstr "Szám sorszáma"
+
+#: ../xlgui/plcolumns.py:217
+msgid "Disc Number"
+msgstr "Lemezszám"
+
+#: ../xlgui/filtergui.py:51
+msgid "Name:"
+msgstr "Név:"
+
+#: ../xlgui/plugins.py:76
+msgid "Plugin"
+msgstr "Bővítmény"
+
+#: ../xlgui/plugins.py:86 ../plugins/multialarmclock/alarmclk.glade.h:6
+msgid "Enabled"
+msgstr "Engedélyezve"
+
+#: ../xlgui/plugins.py:110
+msgid "Choose a plugin"
 msgstr ""
-"<b>Mozgasd az On Screen Display ablakot arra a helyre, ahol meg kívánod "
-"jeleníteni </b>"
 
-msgid "<b>No Plugin Selected</b>"
-msgstr "<b>Nincs kiválasztott bővítmény</b>"
+#: ../xlgui/plugins.py:111
+msgid "Cancel"
+msgstr "Mégsem"
 
+#: ../xlgui/plugins.py:111
+msgid "Choose"
+msgstr "Kiválaszt"
+
+#: ../xlgui/plugins.py:115
+msgid "Plugin Archives"
+msgstr ""
+
+#: ../xlgui/plugins.py:194
+msgid "Could not enable plugin."
+msgstr "Bővítmény betöltése sikertelen"
+
+#: ../xlgui/plugins.py:199
+msgid "Could not disable plugin."
+msgstr "Bővítmény kikapcsolása sikertelen"
+
+#: ../xlgui/playlist.py:208
+#, python-format
+msgid "adding %(column_id)s column to %(preference)s"
+msgstr ""
+
+#: ../xlgui/playlist.py:213
+#, python-format
+msgid "removing %(column_id)s column from %(preference)s"
+msgstr ""
+
+#: ../xlgui/playlist.py:966
+msgid "Confirm Close"
+msgstr "A bezárás megerősítése"
+
+#: ../xlgui/playlist.py:967
+#, python-format
+msgid "<b>Save changes to %s before closing?</b>"
+msgstr "<b>Elmenti %s változásait, mielőtt kilép?<b>"
+
+#: ../xlgui/playlist.py:968
+msgid "Your changes will be lost if you don't save them"
+msgstr "A változtatások elvesznek, ha nem menti őket"
+
+#: ../xlgui/playlist.py:971
+msgid "Save"
+msgstr "Mentés"
+
+#: ../xlgui/panel/playlists.py:27 ../xlgui/panel/playlists.py:39
+#: ../xlgui/panel/playlists.py:46
+msgid "seconds"
+msgstr "másodperc"
+
+#: ../xlgui/panel/playlists.py:36 ../xlgui/panel/playlists.py:39
+msgid "days"
+msgstr "nap"
+
+#: ../xlgui/panel/playlists.py:39
+msgid "minutes"
+msgstr "perc"
+
+#: ../xlgui/panel/playlists.py:39
+msgid "hours"
+msgstr "óra"
+
+#: ../xlgui/panel/playlists.py:39
+msgid "weeks"
+msgstr "hét"
+
+#. TRANSLATORS: True if haystack contains needle
+#: ../xlgui/panel/playlists.py:63 ../xlgui/panel/playlists.py:70
+#: ../xlgui/panel/playlists.py:76 ../xlgui/panel/playlists.py:118
+msgid "contains"
+msgstr "tartalmazza ezt:"
+
+#. TRANSLATORS: True if haystack does not contain needle
+#: ../xlgui/panel/playlists.py:65 ../xlgui/panel/playlists.py:71
+#: ../xlgui/panel/playlists.py:77 ../xlgui/panel/playlists.py:119
+msgid "does not contain"
+msgstr "nem tartalmazza ezt:"
+
+#. TRANSLATORS: Example: rating >= 5
+#: ../xlgui/panel/playlists.py:81 ../xlgui/panel/playlists.py:86
+#: ../xlgui/panel/playlists.py:98
+msgid "at least"
+msgstr "legalább"
+
+#. TRANSLATORS: Example: rating <= 3
+#: ../xlgui/panel/playlists.py:83 ../xlgui/panel/playlists.py:87
+#: ../xlgui/panel/playlists.py:99
+msgid "at most"
+msgstr "legfeljebb"
+
+#: ../xlgui/panel/playlists.py:85
+msgid "Plays"
+msgstr ""
+
+#: ../xlgui/panel/playlists.py:89
+msgid "Year"
+msgstr "Év"
+
+#. TRANSLATORS: Example: year < 1999
+#: ../xlgui/panel/playlists.py:91
+msgid "before"
+msgstr "előtt"
+
+#. TRANSLATORS: Example: year > 2002
+#: ../xlgui/panel/playlists.py:93
+msgid "after"
+msgstr "után"
+
+#. TRANSLATORS: Example: 1980 <= year <= 1987
+#: ../xlgui/panel/playlists.py:95
+msgid "between"
+msgstr "között"
+
+#: ../xlgui/panel/playlists.py:307 ../xlgui/panel/radio.py:281
+msgid "Enter the name you want for your new playlist"
+msgstr "Írja be az új lejátszólista nevét."
+
+#: ../xlgui/panel/playlists.py:318 ../xlgui/panel/playlists.py:529
+#: ../xlgui/panel/playlists.py:598
+msgid "You did not enter a name for your playlist"
+msgstr "Nem adta meg a lejátszólista nevét."
+
+#: ../xlgui/panel/playlists.py:477
+msgid "Smart Playlists"
+msgstr "Okos lejátszólisták"
+
+#: ../xlgui/panel/playlists.py:480
+msgid "Custom Playlists"
+msgstr "Saját lejátszólisták"
+
+#: ../xlgui/panel/playlists.py:515
+msgid "Add Smart Playlist"
+msgstr "Hozzáadás okos lejátszólistához"
+
+#: ../xlgui/panel/playlists.py:576
+msgid "Edit Smart Playlist"
+msgstr "Okos lejátszólisták szerkesztése"
+
+#: ../xlgui/panel/radio.py:90 ../xlgui/panel/radio.py:336
+#: ../xlgui/panel/radio.py:403
+msgid "Loading streams..."
+msgstr "Folyamok betöltése..."
+
+#: ../xlgui/panel/radio.py:161
+msgid "Radio Streams"
+msgstr "Rádióállomások"
+
+#: ../xlgui/panel/radio.py:190
+msgid "Refresh"
+msgstr "Frissítés"
+
+#. TRANSLATORS: Filesize column in the file browser
+#: ../xlgui/panel/files.py:114
+msgid "Size"
+msgstr "Méret"
+
+#: ../xlgui/panel/files.py:307
+#, python-format
+msgid "%s KB"
+msgstr "%s KB"
+
+#. TRANSLATORS : this replaces the title of a track when it's not known
+#: ../xlgui/panel/collection.py:274 ../xlgui/panel/collection.py:365
+#: ../xlgui/panel/collection.py:402 ../plugins/bookmarks/__init__.py:151
+#: ../plugins/notifyosd/__init__.py:57 ../plugins/notifyosd/__init__.py:66
+#: ../plugins/notify/__init__.py:27
+msgid "Unknown"
+msgstr "Ismeretlen"
+
+#: ../xlgui/panel/collection.py:395
+msgid "Various Artists"
+msgstr "Különböző előadók"
+
+#: ../xlgui/prefs/__init__.py:69 ../data/glade/preferences_dialog.glade.h:2
+msgid "Preferences"
+msgstr "Beállítások"
+
+#: ../xlgui/prefs/__init__.py:96
+msgid "Error loading preferences pane"
+msgstr ""
+
+#: ../xlgui/prefs/__init__.py:100
+msgid "Plugins"
+msgstr "Bővítmények"
+
+#: ../xlgui/tray.py:65
+msgid "Exaile Music Player"
+msgstr "Exaile zenelejátszó"
+
+#: ../xlgui/tray.py:103 ../plugins/minimode/minimodeprefs.py:108
+msgid "Next"
+msgstr "Következő"
+
+#: ../xlgui/tray.py:106 ../plugins/minimode/minimodeprefs.py:105
+msgid "Previous"
+msgstr "Előző"
+
+#: ../xlgui/tray.py:110 ../plugins/minimode/minimodeprefs.py:107
+msgid "Stop"
+msgstr "Megállítás"
+
+#: ../xlgui/tray.py:116
+#: ../data/glade/main.glade.h:21
+msgid "Shuffle playback order"
+msgstr ""
+
+#: ../xlgui/tray.py:121
+#: ../data/glade/main.glade.h:17
+msgid "Repeat playlist"
+msgstr ""
+
+#: ../xlgui/tray.py:126
+msgid "Dynamically add similar tracks"
+msgstr ""
+
+#: ../xlgui/tray.py:144
+msgid "Remove current track from playlist"
+msgstr ""
+
+#: ../xlgui/tray.py:148
+msgid "Quit"
+msgstr "Kilépés"
+
+#: ../xlgui/tray.py:196
+msgid "Pause"
+msgstr "Szünet"
+
+#: ../data/glade/device_manager.glade.h:1
+msgid "..."
+msgstr "..."
+
+#: ../data/glade/device_manager.glade.h:2
+msgid "Add device"
+msgstr "Eszköz hozzáadása"
+
+#: ../data/glade/device_manager.glade.h:4
+msgid "Detected devices:"
+msgstr "Felismert eszközök:"
+
+#: ../data/glade/device_manager.glade.h:5 ../data/glade/main.glade.h:6
+msgid "Device Manager"
+msgstr "Eszközkezelő"
+
+#: ../data/glade/device_panel.glade.h:1
+#: ../data/glade/collection_panel.glade.h:8
+msgid "Collection"
+msgstr "Gyűjtemény"
+
+#: ../data/glade/coverchooser.glade.h:2
+msgid "New Search"
+msgstr "Új keresés"
+
+#: ../data/glade/about_dialog.glade.h:1
+msgid "&#xA9; 2009"
+msgstr "&#xA9; 2009"
+
+#: ../data/glade/about_dialog.glade.h:3
+msgid ""
+"Copyright (C) 2008-2009 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+msgstr ""
+
+#: ../data/glade/about_dialog.glade.h:19
+msgid ""
+"Mathias Brodala\n"
+"   <info@noctus.net>\n"
+"    Translation Manager"
+msgstr ""
+
+#: ../data/glade/appearance_prefs_pane.glade.h:1
+msgid "Always show tab bar"
+msgstr ""
+
+#: ../data/glade/appearance_prefs_pane.glade.h:4
+msgid ""
+"Left\n"
+"Right\n"
+"Top\n"
+"Bottom"
+msgstr ""
+
+#: ../data/glade/appearance_prefs_pane.glade.h:8
+msgid "Show splash screen on startup"
+msgstr "Nyitóképernyő mutatása indításkor"
+
+#: ../data/glade/appearance_prefs_pane.glade.h:9
+msgid "Show tray icon"
+msgstr "Tálcaikon megjelenítése"
+
+#: ../data/glade/appearance_prefs_pane.glade.h:10
+msgid "Tab placement:"
+msgstr ""
+
+#: ../data/glade/osd_window.glade.h:1
 msgid ""
 "<b>OSD</b>\n"
 "Drag to the location you'd like the\n"
 "OSD to appear"
 msgstr ""
 "<b>OSD<b>\n"
-"Húzd oda, ahol szeretnéd,\n"
+"Húzza oda, ahol szeretné,\n"
 "hogy az OSD megjelenjen"
 
-msgid "<b>Save changes to %s before closing?</b>"
-msgstr "<b>Elmented a(z) %s változásait, mielőtt kilépsz?<b>"
+#: ../data/glade/osd_window.glade.h:4
+msgid "Popup"
+msgstr "Felbukkanó ablak"
 
+#: ../data/glade/radio_panel.glade.h:1
+msgid "Radio"
+msgstr "Rádió"
+
+#: ../data/glade/covermanager.glade.h:1
+msgid "Cover Manager"
+msgstr "Borítókezelő"
+
+#: ../data/glade/covermanager.glade.h:3
+msgid "_Close"
+msgstr "_Bezár"
+
+#: ../data/glade/osd_prefs_pane.glade.h:1
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to "
+"appear</b>"
+msgstr ""
+"<b>Mozgassa az On Screen Display ablakot arra a helyre, ahol meg kívánja "
+"jeleníteni </b>"
+
+#: ../data/glade/osd_prefs_pane.glade.h:2
 msgid ""
 "<b>{title}</b>\n"
 "{artist}\n"
 "on {album} - {length}"
 msgstr ""
-"<b>{title}</b>\n"
-"{artist}\n"
+"<b>{title}</b>}\n"
+"{artist}}\n"
 "album: {album} - {length}"
 
-msgid ""
-"A proprietary and older, but also popular, lossy audio format. CBR gives "
-"less quality than VBR, but is compatible with any player."
+#: ../data/glade/osd_prefs_pane.glade.h:5
+msgid "Background Color:"
+msgstr "Háttérszín:"
+
+#: ../data/glade/osd_prefs_pane.glade.h:9
+msgid "Show OSD on track change"
+msgstr "Mutassa az OSD-t számváltáskor"
+
+#: ../data/glade/osd_prefs_pane.glade.h:10
+msgid "Text Color"
+msgstr "Szöveg szín"
+
+#: ../data/glade/osd_prefs_pane.glade.h:11
+msgid "Text Font:"
+msgstr "Betűtípus:"
+
+#: ../data/glade/osd_prefs_pane.glade.h:12
+msgid "Window Height:"
+msgstr "Magasság:"
+
+#: ../data/glade/osd_prefs_pane.glade.h:13
+msgid "Window Width:"
+msgstr "Szélesség:"
+
+#: ../data/glade/plugin_dialog.glade.h:2
+msgid "Authors:"
+msgstr "Szerzők:"
+
+#: ../data/glade/plugin_dialog.glade.h:3
+msgid "Available Plugins"
+msgstr "Elérhető bővítmények"
+
+#: ../data/glade/plugin_dialog.glade.h:4
+msgid "Description:"
+msgstr "Leírás:"
+
+#: ../data/glade/plugin_dialog.glade.h:5
+msgid "Install"
+msgstr "Telepítés"
+
+#: ../data/glade/plugin_dialog.glade.h:6
+msgid "Install Updates"
+msgstr "Frissítések telepítése"
+
+#: ../data/glade/plugin_dialog.glade.h:7
+msgid "Installed Plugins"
+msgstr "Telepített bővímények"
+
+#: ../data/glade/plugin_dialog.glade.h:8
+msgid "Plugin Manager"
+msgstr "Bővítmény kezelő"
+
+#: ../data/glade/plugin_dialog.glade.h:9
+msgid "Updates"
+msgstr "Frissítések"
+
+#: ../data/glade/plugin_dialog.glade.h:10
+msgid "Version:"
+msgstr "Verzió:"
+
+#: ../data/glade/queue_dialog.glade.h:1
+msgid "Close this dialog"
+msgstr "A párbeszédablak bezárása"
+
+#: ../data/glade/queue_dialog.glade.h:2
+msgid "Move song down in queue"
 msgstr ""
-"Egy szabadalmaztatott és régi, ugyanakkor szintén népszerű hangformátum a "
-"CBR, ami rosszabb minőséggel bír a VBR-nél, de bármilyen lejátszóval "
-"kompatibilis."
 
-msgid ""
-"A proprietary and older, but also popular, lossy audio format. VBR gives "
-"higher quality than CBR, but may be incompatible with some players."
+#: ../data/glade/queue_dialog.glade.h:3
+msgid "Move song to bottom of queue"
 msgstr ""
-"Egy szabadalmaztatott és régi, ugyanakkor szintén népszerű hangformátum a "
-"VBR, ami jobb minőséggel bír a CBR-nél, de néhány lejátszó nem támogatja."
 
-msgid "A very fast Free lossless audio format with good compression."
-msgstr "Egy gyors és szabad, veszteségmentes hangformátum, jó tömörítéssel."
-
-msgid "ASX Playlist"
-msgstr "ASX lejátszólista"
-
-msgid "About Exaile"
-msgstr "Névjegy"
-
-msgid "Add"
-msgstr "Hozzáad"
-
-msgid "Add Playlist"
-msgstr "Lejátszólista hozzáadása"
-
-msgid "Add Smart Playlist"
-msgstr "Intelligens lejátszólista hozzáadása"
-
-msgid "Add Station"
-msgstr "Állomás hozzáadása"
-
-msgid "Add a directory"
-msgstr "Könyvtár hozzáadása"
-
-msgid "Add device"
-msgstr "Eszköz hozzáadása"
-
-msgid "Add to Playlist"
-msgstr "Hozzáadás a lejátszólistához"
-
-msgid "Alarm Clock"
-msgstr "Ébresztőóra"
-
-msgid "Alarm Days:"
-msgstr "Ébresztési napok"
-
-msgid "Alarm Name:"
-msgstr "Figyelmeztetés neve"
-
-msgid "Alarm Time :"
-msgstr "Figyelmeztetés ideje"
-
-msgid "Alarm Time:"
-msgstr "Figyelmeztetés ideje"
-
-msgid "Alarm:"
-msgstr "Figyelmeztetés"
-
-msgid "Album"
-msgstr "Album"
-
-msgid "Album Art"
-msgstr "Album borítók"
-
-msgid "All Files"
-msgstr "Minden fájl"
-
-msgid "An Unknown type of setting was found!"
-msgstr "Egy ismeretlen típusú beállítást észleltem!"
-
-msgid "Append to Current"
-msgstr "Hozzáfűzés a jelenlegihez"
-
-msgid ""
-"Apple's proprietary lossy audio format that achieves better sound quality "
-"than MP3 at lower bitrates."
+#: ../data/glade/queue_dialog.glade.h:4
+msgid "Move song to top in queue"
 msgstr ""
-"Apple, szabadalmaztatott hangformátum, ami jobb hangminőséget eredményez MP3 "
-"fájlok esetén."
 
-msgid "Are you sure you want to permanently delete the selected playlist?"
-msgstr "Biztos, hogy véglegesen törölni akarod a kiválasztott lejátszólistát?"
+#: ../data/glade/queue_dialog.glade.h:5
+msgid "Move song up in queue"
+msgstr ""
 
-msgid "Artist"
-msgstr "Előadó"
+#: ../data/glade/queue_dialog.glade.h:6
+msgid "Queue Manager - Exaile"
+msgstr ""
 
+#: ../data/glade/queue_dialog.glade.h:7
+msgid "Remove All"
+msgstr "Összes eltávolítása"
+
+#: ../data/glade/queue_dialog.glade.h:8
+msgid "Remove song from queue"
+msgstr ""
+
+#: ../data/glade/playback_prefs_pane.glade.h:1
+msgid "Audio Sink:  "
+msgstr ""
+
+#: ../data/glade/playback_prefs_pane.glade.h:2
+msgid ""
+"Automatic\n"
+"GNOME\n"
+"ALSA\n"
+"OSS\n"
+"PulseAudio\n"
+"JACK"
+msgstr ""
+"Automatic\n"
+"GNOME\n"
+"ALSA\n"
+"OSS\n"
+"PulseAudio\n"
+"JACK"
+
+#: ../data/glade/playback_prefs_pane.glade.h:8
+msgid "Crossfade duration (ms):"
+msgstr ""
+
+#: ../data/glade/playback_prefs_pane.glade.h:9
+msgid "Fade duration (ms):"
+msgstr ""
+
+#: ../data/glade/playback_prefs_pane.glade.h:10
+msgid ""
+"Normal\n"
+"Unified (unstable)"
+msgstr ""
+
+#: ../data/glade/playback_prefs_pane.glade.h:12
+msgid "Playback engine (requires restart): "
+msgstr ""
+
+#: ../data/glade/playback_prefs_pane.glade.h:13
+msgid "Resume playback in paused state"
+msgstr ""
+
+#: ../data/glade/playback_prefs_pane.glade.h:14
+msgid "Resume playback on start"
+msgstr "Lejátszás folytatása indításkor"
+
+#: ../data/glade/playback_prefs_pane.glade.h:15
+msgid "These options only affect the unified engine."
+msgstr ""
+
+#: ../data/glade/playback_prefs_pane.glade.h:16
+msgid "Use crossfading (EXPERIMENTAL)"
+msgstr ""
+
+#: ../data/glade/playback_prefs_pane.glade.h:17
+msgid "Use fade transitions on user actions"
+msgstr ""
+
+#: ../data/glade/main.glade.h:1
+msgid " + "
+msgstr " + "
+
+#: ../data/glade/main.glade.h:2
+msgid " - "
+msgstr " - "
+
+#: ../data/glade/main.glade.h:3
+msgid "0/0 tracks"
+msgstr "0/0 szám"
+
+#: ../data/glade/main.glade.h:4
+msgid "0:00 / 0:00"
+msgstr "0:00 / 0:00"
+
+#: ../data/glade/main.glade.h:5
+msgid "Autosize"
+msgstr "Automéretezés"
+
+#: ../data/glade/main.glade.h:7
+msgid "Dynamically add similar tracks to the playlist"
+msgstr ""
+
+#: ../data/glade/main.glade.h:8 ../plugins/minimode/__init__.py:178
+msgid "Next Track"
+msgstr "Következő szám"
+
+#: ../data/glade/main.glade.h:11
+msgid "Page 1"
+msgstr "1. oldal"
+
+#: ../data/glade/main.glade.h:12
+msgid "Pl_ugins"
+msgstr "Bő_vítmények"
+
+#: ../data/glade/main.glade.h:13 ../plugins/minimode/__init__.py:176
+msgid "Previous Track"
+msgstr "Előző szám"
+
+#: ../data/glade/main.glade.h:14
+msgid "Queue Manager"
+msgstr "Sorkezelő"
+
+#: ../data/glade/main.glade.h:15
+msgid "Randomize Playlist"
+msgstr ""
+
+#: ../data/glade/main.glade.h:16
+msgid "Randomize the order of the current playlist"
+msgstr ""
+
+#: ../data/glade/main.glade.h:18
+msgid "Rescan Collection"
+msgstr ""
+
+#: ../data/glade/main.glade.h:19
+msgid "Resizable"
+msgstr "Méretezhető"
+
+#: ../data/glade/main.glade.h:20 ../data/glade/collection_panel.glade.h:9
+#: ../data/glade/files_panel.glade.h:6
+msgid "Search: "
+msgstr "Keresés: "
+
+#: ../data/glade/main.glade.h:22 ../plugins/minimode/__init__.py:182
+msgid "Stop Playback"
+msgstr "Lejátszás vége"
+
+#: ../data/glade/main.glade.h:24
+msgid "Vol:"
+msgstr "Hangerő:"
+
+#: ../data/glade/main.glade.h:26
+msgid "_Columns"
+msgstr "_Oszlopok"
+
+#: ../data/glade/main.glade.h:27
+msgid "_Cover Manager"
+msgstr ""
+
+#: ../data/glade/main.glade.h:28
+msgid "_Edit"
+msgstr "S_zerkesztés"
+
+#: ../data/glade/main.glade.h:29
+msgid "_Export current playlist"
+msgstr ""
+
+#: ../data/glade/main.glade.h:30
+msgid "_File"
+msgstr "_Fájl"
+
+#: ../data/glade/main.glade.h:31
+msgid "_Go to Playing Track"
+msgstr "_Ugrás a most hallható számra"
+
+#: ../data/glade/main.glade.h:32
+msgid "_Help"
+msgstr "_Súgó"
+
+#: ../data/glade/main.glade.h:34
+msgid "_Tools"
+msgstr "_Eszközök"
+
+#: ../data/glade/main.glade.h:35
+msgid "_View"
+msgstr "_Nézet"
+
+#: ../data/glade/playlists_panel.glade.h:1
+msgid "Playlists"
+msgstr "Lejátszólisták"
+
+#: ../data/glade/collection_panel.glade.h:1
 msgid ""
 "Artist\n"
 "Album\n"
@@ -220,984 +1353,383 @@ msgstr ""
 "Év - Album\n"
 "Előadó - Év - Album"
 
-msgid "Attempting to find covers for %s"
-msgstr "Borító keresése %s-hez"
+#: ../data/glade/cover_prefs_pane.glade.h:1
+msgid "(drag to reorder)"
+msgstr "(húzza az újrarendezéshez)"
 
-msgid "Authors:"
-msgstr "A szerzők:"
-
-msgid "Autosize"
-msgstr "Automatikus méret"
-
-msgid "Available Plugins"
-msgstr "Elérhető bővítmények"
-
-msgid "BPM"
-msgstr "BPM"
-
-msgid "Background Color:"
-msgstr "Háttérszín:"
-
-msgid "Bitrate"
-msgstr "Bitráta"
-
-msgid "Bottom left"
-msgstr "Lent balra"
-
-msgid "Bottom right"
-msgstr "Lent jobbra"
-
-msgid "Buffering complete"
-msgstr "Pufferelés befejezve"
-
-msgid "Buffering: %d%%..."
-msgstr "Pufferelés: %d%%..."
-
-msgid "Buffering: 100%..."
-msgstr "Pufferelés: 100%..."
-
-msgid "Bye!"
-msgstr "Viszlát!"
-
-msgid "Cancel"
-msgstr "Mégsem"
-
-msgid "Choose a file"
-msgstr "Válassz egy fájlt"
-
-msgid "Choose a file to open"
-msgstr "Válaszd ki a megjelenítendő fájlt"
-
-msgid "Clear Playlist"
-msgstr "Lejátszólista törlése"
-
-msgid "Close Tab"
-msgstr "A lap bezárása"
-
-msgid "Close Without Saving"
-msgstr "Kilépés mentés nélkül"
-
-msgid "Collection"
-msgstr "Gyűjtemény"
-
-msgid "Collection Manager"
-msgstr "Gyűjteménykezelő"
-
-msgid "Compilation detected: %s"
-msgstr "Válogatást találtam: %s"
-
-msgid "Composer"
-msgstr "Zeneszerző"
-
-msgid "Configure"
-msgstr "Beállítás"
-
-msgid "Confirm Close"
-msgstr "Bezárás megerősítése"
-
-msgid "Connected to HAL"
-msgstr "Csatlakozva a HAL-hoz"
-
-msgid ""
-"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com> \n"
-"\n"
-"This program is free software; you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation; either version 2 of the License, or\n"
-"(at your option) any later version.\n"
-"\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-"\n"
-"You should have received a copy of the GNU General Public License along\n"
-"with this program; if not, write to the Free Software Foundation, Inc.,\n"
-"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
-msgstr ""
-"Copyright (C) 2007 Adam Olsen <arolsen@gmail.com>\n"
-"\n"
-"Ez egy szabad szoftver; terjeszthető illetve módosítható a GNU\n"
-"Általános Közreadási Feltételek dokumentumában leírtak szerint -- 2.\n"
-"vagy későbbi verzió --, melyet a Szabad Szoftver Alapítvány ad ki.\n"
-"  \n"
-"Ez a program abban a reményben kerül közreadásra, hogy hasznos lesz,\n"
-"de minden egyéb GARANCIA NÉLKÜL, az eladhatóságra vagy valamely célra\n"
-"való alkalmazhatóságra való származtatott garanciát is beleértve.\n"
-"További részletekért lásd a GNU Általános Közreadási Feltételek\n"
-"dokumentumát.\n"
-"  \n"
-"A programmal együtt kellett, hogy érkezzen egy példány a GNU    \n"
-"Általános Közreadási Feltételek dokumentumából is. Ha mégsem akkor\n"
-"ezt a Szabad Szoftver Alapítványnak küldött levélben jelezni kell.\n"
-"  \n"
-" A szabad szoftver alapítvány címe:\n"
-"Free Software Foundation, Inc., \n"
-"59 Temple Place, Suite 330, \n"
-"Boston, MA  02111-1307  USA.\n"
-
-msgid "Could not disable plugin."
-msgstr "A bővítményt nem lehet letiltani."
-
-msgid "Could not enable plugin."
-msgstr "A bővítményt nem lehet betölteni."
-
-msgid "Could not find playback sink %s, falling back to autoaudiosink"
-msgstr "Nem találom a %s lejátszósinket, visszaállok az automata hangsinkre"
-
-msgid "Could not set parameter %s for %s"
-msgstr "Nem lett megadva %s érték ennek: %s"
-
-msgid "Couldn't send seek event"
-msgstr "Nem lehet küldeni kerítő eseményt"
-
-msgid "Cover Finder"
-msgstr "Borító kereső"
-
+#: ../data/glade/cover_prefs_pane.glade.h:2
 msgid "Cover Search Order:"
-msgstr "Borító keresési sorrend:"
+msgstr "Borító keresési sorrend"
 
-msgid "Custom Playlists"
-msgstr "Saját lejátszólista"
+#: ../data/glade/preferences_dialog.glade.h:1
+msgid "<b>General</b>"
+msgstr "<b>Általános</b>"
 
-msgid "Custom: "
-msgstr "Egyéni: "
-
-msgid "Date"
-msgstr "Dátum"
-
-msgid "Decreases the volume by VOL"
-msgstr "Hangerő csökkentése"
-
-msgid "Delete"
-msgstr "Törlés"
-
-msgid "Delete Playlist"
-msgstr "Lejátszólista törlése"
-
-msgid "Description:"
-msgstr "Leírás:"
-
-msgid "Detected devices:"
-msgstr "Felismert eszközök:"
-
-msgid "Device Manager"
-msgstr "Eszközkezelő"
-
-msgid "Disable D-Bus support"
-msgstr "D-Bus támogatás letiltása"
-
-msgid "Disable HAL support."
-msgstr "HAL támogatás letiltása."
-
-msgid "Disc"
-msgstr "Korong"
-
-msgid "Disc Number"
-msgstr "Lemezszám"
-
-msgid "Display OSD when hovering over tray icon"
-msgstr "OSD mutatása ha az egér a tálcaikon fölé ér"
-
-msgid "Display a progressbar in the OSD"
-msgstr "Folyamatjelző megjelenítése az OSD-ben"
-
-msgid "Dynamic"
-msgstr "Dinamikus"
-
-msgid "Dynamic mode is enabled, but there are no dynamic providers!"
-msgstr "A dinamikus mód engedélyezett, de nincsenek dinamikus szolgáltatók!"
-
-msgid "Dynamic: %d tracks fetched"
-msgstr "Dinamikus: %d szám hozzáadva"
-
-msgid "Dynamic: attempting to get %d tracks"
-msgstr "Dinamikus: kísérlet %d hozzáféréséhez"
-
-msgid "Edit"
-msgstr "Szerkesztés"
-
-msgid "Edit Smart Playlist"
-msgstr "Intelligens lejátszólista szerkesztése"
-
-msgid "Enable Fading"
-msgstr "Áttűnés engedélyezése"
-
-msgid "Enable debugging of xl.event. Generates LOTS of output"
-msgstr ""
-"XL esemény hibakeresésének engedélyezése nagyméretű kivitel létrehozásával."
-
-msgid "Enabled"
-msgstr "Engedélyezve"
-
-msgid "Enter the URL to open"
-msgstr "Írd be a megnyitni kívánt URL-t"
-
-msgid "Enter the name you want for your new playlist"
-msgstr "Írjd be az új lejátszólista nevét."
-
-msgid "Enter the new name you want for your playlist"
-msgstr "Írjd be a lejátszólista új nevét"
-
-msgid "Enter the search keywords"
-msgstr "Keresési feltétel megadása"
-
-msgid "Enter the search text"
-msgstr "Írjd be a keresendő szöveget"
-
-msgid "Entire Library"
-msgstr "Egész gyűjtemény"
-
-msgid "Exaile"
-msgstr "Exaile"
-
-msgid "Exaile Music Player"
-msgstr "Exaile zenelejátszó"
-
-msgid "Exaile is shutting down..."
-msgstr "Az Exaile kilép..."
-
-msgid "Exaile: playing %s"
-msgstr "Exaile: %s lejátszása"
-
-msgid "Export"
-msgstr "Exportálás"
-
-msgid "Extension"
-msgstr "Kiterjesztés"
-
-msgid "Fading:"
-msgstr "Áttűnés"
-
-msgid "Failed to connect to HAL, autodetection of devices will be disabled."
-msgstr ""
-"Nem sikerült kapcsolódni a HAL-hoz, az eszközök automatikus felismerése "
-"tíltva lesz."
-
-msgid "Failed to create device for %s"
-msgstr "Nem bírtam létrehozni eszközt ennek: %s"
-
-msgid "Failed to enable equalizer"
-msgstr "Hangszínszabályzó engedélyezése sikertelen"
-
-msgid "Failed to enable replaygain"
-msgstr "Replaygain engedélyezése nem sikerült"
-
-msgid "Failed to load HAL devices for %s"
-msgstr "Nem sikerült betölteni a HAL eszközöket ehhez: %s"
-
-msgid "Failed to open music DB for write."
-msgstr "Zenei adatbázis megnyitása írásra sikertelen"
-
-msgid "Failed to open music DB."
-msgstr "Zenei adatbázis megnyitása sikertelen"
-
-msgid "Fetch Cover"
-msgstr "Borító keresése"
-
-msgid "File Type"
-msgstr "Fájltípus"
-
-msgid "File count: %d"
-msgstr "Fájlok száma: %d"
-
-msgid "File does not exist: %s"
-msgstr "Nincs ilyen fájl: %s"
-
-msgid "Filename"
-msgstr "Fájlnév"
-
+#: ../data/glade/files_panel.glade.h:1
 msgid "Files"
 msgstr "Fájlok"
 
-msgid "Found covers from %s"
-msgstr "Talált borítók: %s"
-
-msgid "Found new %s device at %s"
-msgstr "Új %s eszközt találtam itt: %s"
-
-msgid "Found no HAL device handler for %s"
-msgstr "Nem találtam HAL eszköz kezelőt ehhez: %s"
-
-msgid ""
-"Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
-"does not degrade audio quality."
-msgstr ""
-"A Free Lossless Audio Codec (FLAC), egy nyílt forráskódú tömörítő kodek, ami "
-"nem ront a hangminőségen."
-
-msgid "Friday"
-msgstr "Péntek"
-
-msgid "GST AUDIO CHANGED"
-msgstr "GST AUDIÓ MEGVÁLTOZOTT"
-
-msgid "Gapless enabled"
-msgstr "Hézagcsökkentés engedélyezve"
-
-msgid "Genre"
-msgstr "Műfaj"
-
-msgid "Get rating for current song"
-msgstr "Jelenlegi zeneszám értékelésének lekérdezése"
-
+#: ../data/glade/files_panel.glade.h:2
 msgid "Home directory"
-msgstr "Saját könyvtár"
+msgstr "Saját mappa"
 
-msgid "Increases the volume by VOL"
-msgstr "Hangerő növelése"
-
-msgid "Install"
-msgstr "Telepítés"
-
-msgid "Install Updates"
-msgstr "Frissítések telepítése"
-
-msgid "Installed Plugins"
-msgstr "Telepített bővítmények"
-
-msgid "Invalid file extension, file not saved"
-msgstr "Hibás fájlkiterjesztés, a fájl nincs mentve"
-
-msgid "Jump to current song on track change"
-msgstr "Ugrás a jelenlegi dalhoz számváltásnál"
-
-msgid "LastFM Radio"
-msgstr "LastFM Rádió"
-
-msgid "LastFM: %s"
-msgstr "LastFM: %s"
-
-msgid "Length"
-msgstr "Hossz"
-
-msgid "Limit to: "
-msgstr "Korlátozás: "
-
-msgid "Loaded plugin %s"
-msgstr "%s bővítmény betöltve"
-
-msgid "Loading Exaile %s..."
-msgstr "Exaile %s betöltése..."
-
-msgid "Loading collection..."
-msgstr "Gyűjtemény betöltése..."
-
-msgid "Loading devices..."
-msgstr "Eszközök betöltése..."
-
-msgid "Loading interface..."
-msgstr "Felület betöltése..."
-
-msgid "Loading plugins..."
-msgstr "Bővítmények betöltése..."
-
-msgid "Loading settings"
-msgstr "Beállítások betöltése"
-
-msgid "Loading streams..."
-msgstr "Adatfolyamok betöltése..."
-
-msgid "Location"
-msgstr "Hely"
-
-msgid "Location deleted: %s"
-msgstr "Hely törölve: %s"
-
-msgid "Location modified: %s"
-msgstr "Hely megváltoztatva: %s"
-
-msgid "Loved Tracks"
-msgstr "Kedvenc számok"
-
-msgid "M3U Playlist"
-msgstr "M3U lejátszólista"
-
-msgid "Match any of the criteria"
-msgstr "Bármely feltétel esetén"
-
-msgid "Maximum Volume:"
-msgstr "Maximum hangerő"
-
-msgid "Minimum Volume:"
-msgstr "Minimum hangerő"
-
-msgid "Minimum Volume:                "
-msgstr "Minimum hangerő                "
-
-msgid "Monday"
-msgstr "Hétfő"
-
-msgid "Music Files"
-msgstr "Hangfájlok"
-
-msgid "Name - Time"
-msgstr "Név - Idő"
-
-msgid "Name:"
-msgstr "Név:"
-
-msgid "Neighbourhood"
-msgstr "Szomszédos"
-
-msgid "New Playlist"
-msgstr "Új lejátszólista"
-
-msgid "New Search"
-msgstr "Új keresés"
-
-msgid "Next"
-msgstr "Következő"
-
-msgid "Next Track"
-msgstr "Következő szám"
-
-msgid "Next visited directory"
-msgstr "Következő látogatott könyvtár"
-
-msgid "No cover found"
-msgstr "Borító nem található"
-
-msgid "No covers found"
-msgstr "Nincs elérhető borító"
-
-msgid "Not Playing"
-msgstr "Megállítva"
-
-msgid "Not watching library: %s"
-msgstr "Nem ellenőrzött könyvtár: %s"
-
-msgid "Number of Plays"
-msgstr "Lejátszások száma"
-
-msgid "Ok"
-msgstr "OK"
-
-msgid "Opacity Level:"
-msgstr "Átlátszatlanság szintje:"
-
-msgid "Open"
-msgstr "Megnyitás"
-
-msgid "Open URL"
-msgstr "Az URL megnyitása"
-
-msgid "Open _URL"
-msgstr "_URL megnyitása"
-
-msgid "Open last playlists on startup"
-msgstr "A legutóbbi lejátszólisták megnyitása programinduláskor"
-
-msgid "PLS Playlist"
-msgstr "PLS lejátszólista"
-
-msgid "Page 1"
-msgstr "1. oldal"
-
-msgid "Password:"
-msgstr "Jelszó:"
-
-msgid ""
-"Path is already in your collection, or is a subdirectory of another path in "
-"your collection"
+#: ../plugins/multialarmclock/__init__.py:411
+msgid "Multi-Alarm Clock"
 msgstr ""
-"Az útvonal már a gyűjteményben van,, vagy egy másik könyvtár alkönyvtára"
 
-msgid "Pause"
-msgstr "Szünet"
-
-msgid "Personal"
-msgstr "Személyes"
-
-msgid "Pl_ugins"
-msgstr "Bő_vítmények"
-
-msgid "Play"
-msgstr "Lejátszás"
-
-msgid "Play the next track"
-msgstr "Következő szám lejátszása"
-
-msgid "Play the previous track"
-msgstr "Előző szám lejátszása"
-
-msgid "Playcount"
-msgstr "Lejátszások száma"
-
-msgid "Playing %s"
-msgstr "%s lejátszása"
-
-msgid "Playlist Files"
-msgstr "Lejátszólista-fájlok"
-
-msgid "Playlists"
-msgstr "Lejátszólisták"
-
-msgid "Plugin"
-msgstr "Bővítmény"
-
-msgid "Plugin archive contains an unsafe path"
-msgstr "A plugin nem biztonságos útvonalat tartalmaz"
-
-msgid "Plugins"
-msgstr "Bővítmények"
-
-msgid "Popup"
-msgstr "Felugró ablak"
-
-msgid "Preferences"
-msgstr "Beállítások"
-
-msgid "Previous"
-msgstr "Előző"
-
-msgid "Previous Track"
-msgstr "Előző szám"
-
-msgid "Previous visited directory"
-msgstr "Előző látogatott könyvtár"
-
-msgid "Print the album of current track"
-msgstr "A jelenlegi szám albumának kiírása"
-
-msgid "Print the artist of current track"
-msgstr "A jelenlegi szám előadójának kiírása"
-
-msgid "Print the current volume"
-msgstr "Aktuális hangerő kiírása"
-
-msgid "Print the length of current track"
-msgstr "A jelenlegi szám hosszának kiírása"
-
-msgid "Print the position inside the current track as a percentage"
-msgstr "Aktuális zeneszám jelenlegi pozíciójának megjelenítése százalékban"
-
-msgid "Print the title of current track"
-msgstr "A jelenlegi szám címének kiírása"
-
-msgid "Provider %s registered for service %s"
-msgstr "%s szolgáltató regisztrált %s szolgáltatásra"
-
-msgid "Provider %s unregistered from service %s"
-msgstr "%s szolgáltató leiratkozott %s szolgáltatásról"
-
-msgid "PyInotify not installed or not supported.  "
-msgstr "PyInotify nincs telepítve, vagy nem támogatott.  "
-
-msgid "Python Console - Exaile"
-msgstr "Python konzol - Exaile"
-
-msgid "Query player"
-msgstr "Lekérdezéses lejátszó"
-
-msgid "Queue Items"
-msgstr "Elemek sorba rendezése"
-
-msgid "Quit"
-msgstr "Kilépés"
-
-msgid "Radio"
-msgstr "Rádió"
-
-msgid "Radio Streams"
-msgstr "Rádió adók"
-
-msgid "Ran out of tracks to shuffle"
-msgstr "Nincs több szám a keveréshez"
-
-msgid "Random %d"
-msgstr "Véletlen %d"
-
-msgid "Randomize results"
-msgstr "Eredmények összekeverése"
-
-msgid "Rating"
-msgstr "Értékelés"
-
-msgid "Rating > %d"
-msgstr "Érték > %d"
-
-msgid "Rating: "
-msgstr "Értékelés: "
-
-msgid "Recommended"
-msgstr "Ajánlott"
-
-msgid "Reduce level of output"
-msgstr "Kimeneti jel csökkentése"
-
-msgid "Refresh"
-msgstr "Frissítés"
-
-msgid "Refresh directory listing"
-msgstr "Könyvtár lista frissítése"
-
-msgid "Relay Port:"
-msgstr "Relay Port:"
-
-msgid "Remove"
-msgstr "Eltávolítás"
-
-msgid "Remove Cover"
-msgstr "Borító törlése"
-
-msgid "Rename"
-msgstr "Átnevezés"
-
-msgid "Rename Playlist"
-msgstr "Lejátszólista átnevezése"
-
-msgid "Repeat"
-msgstr "Ismétlés"
-
-msgid "Resizable"
-msgstr "Átméretezhető"
-
-msgid "Restart Playlist"
-msgstr "Lejátszólista újraindítása"
-
-msgid "Resume playback on start"
-msgstr "Lejátszás folytatása indításkor"
-
-msgid "Safe mode enabled, not loading plugins."
-msgstr "Biztonságos mód bekapcsolva, bővítmények nem kerülnek betöltésre."
-
-msgid "Saturday"
-msgstr "Szombat"
-
-msgid "Save"
-msgstr "Mentés"
-
-msgid "Save Location:     "
-msgstr "Mentés helye     "
-
-msgid "Saved Stations"
-msgstr "Mentett Állomások"
-
-msgid "Saving %s DB to %s."
-msgstr "%s adatbázis mentése: %s"
-
-msgid "Saving cover database"
-msgstr "Borító adatbázis mentése"
-
-msgid "Saving state..."
-msgstr "Állapot mentése..."
-
-msgid "Scanning collection..."
-msgstr "Gyűjtemény átvizsgálása..."
-
-msgid "Scanning library: %s"
-msgstr "Könyvtár átnézése: %s"
-
-msgid "Search"
-msgstr "Keresés"
-
-msgid "Search Results"
-msgstr "Keresési Eredmények"
-
-msgid "Search: "
-msgstr "Keresés: "
-
-msgid "Select File Type (By Extension)"
-msgstr "Válaszd ki a fájl típusát (kiterjesztés szerint)"
-
-msgid "Set Rating"
-msgstr "Értékelés beállítása"
-
-msgid "Set data directory"
-msgstr "Adatkönyvtár beállítása"
-
-msgid "Set rating for current song"
-msgstr "Zeneszám értékelése"
-
+#: ../plugins/bookmarks/__init__.py:278
+msgid "Bookmarks"
+msgstr "Könyvjelzők"
+
+#: ../plugins/bookmarks/__init__.py:283
+msgid "Bookmark this track"
+msgstr ""
+
+#: ../plugins/bookmarks/__init__.py:288
+msgid "Delete bookmark"
+msgstr "Könyvjelző törlése"
+
+#: ../plugins/bookmarks/__init__.py:293
+msgid "Clear bookmarks"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs.py:48
+#: ../plugins/notify/notifyprefs.py:54
+#, python-format
+msgid "%(title)s"
+msgstr "%(title)s"
+
+#: ../plugins/notifyosd/notifyosdprefs.py:52
+#: ../plugins/notify/notifyprefs.py:44
+#, python-format
+msgid "by %(artist)s"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs.py:56
+#: ../plugins/notify/notifyprefs.py:49
+#, python-format
+msgid "from %(album)s"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.py:22
+msgid "Desktop Cover"
+msgstr ""
+
+#: ../plugins/moodbar/__init__.py:138
+msgid "Searching for mood..."
+msgstr ""
+
+#: ../plugins/moodbar/__init__.py:142
+msgid "Mood found."
+msgstr ""
+
+#: ../plugins/moodbar/__init__.py:174
+msgid "Could not read moodbar."
+msgstr ""
+
+#: ../plugins/moodbar/__init__.py:334
+msgid "Moodbar executable is not available."
+msgstr ""
+
+#: ../plugins/shoutcast/__init__.py:158
+msgid "Enter the search keywords"
+msgstr "Keresési feltétel megadása"
+
+#: ../plugins/shoutcast/__init__.py:159
 msgid "Shoutcast Search"
 msgstr "Shoutcast keresés"
 
-msgid "Show Cover"
-msgstr "Borító mutatása"
+#: ../plugins/shoutcast/__init__.py:181
+msgid "Search Results"
+msgstr "Keresési Eredmények"
 
-msgid "Show OSD on track change"
-msgstr "Mutasd az OSD-t számváltáskor"
+#: ../plugins/lastfmradio/__init__.py:166
+#, python-format
+msgid "LastFM: %s"
+msgstr "LastFM: %s"
 
-msgid "Show a popup of the currently playing track"
-msgstr "Üzenet megjelenítése az éppen lejátszott számról"
-
-msgid "Show debugging output"
-msgstr "Hibajelentés megjelenítése"
-
-msgid "Show splash screen on startup"
-msgstr "Nyitóképernyő mutatása indításkor"
-
-msgid "Show tray icon"
-msgstr "Rendszertálca ikon megjelenítése"
-
-msgid "Shuffle"
-msgstr "Kevert"
-
-msgid "Size"
-msgstr "Méret"
-
-msgid "Smart Playlists"
-msgstr "Intelligens lejátszólisták"
-
-msgid "Start"
-msgstr "Indítás"
-
-msgid "Start Exaile minimized to tray, if possible"
-msgstr "Tálcára minimalizálva induljon az Exaile, ha lehetséges"
-
-msgid "Start in safe mode - sometimes useful when you're running into problems"
-msgstr "Indítás csökkentett módban - hasznos, ha probléma merülne fel"
-
-msgid "Start new instance"
-msgstr "Új lejátszó indítása"
-
-msgid "Stop"
-msgstr "Leállítás"
-
-msgid "Stop Playback"
-msgstr "Lejátszás megállítása"
-
-msgid "Stop playback"
-msgstr "Lejátszás leállítása"
-
-msgid "Stopped"
-msgstr "Leállítva"
-
-msgid "Streaming..."
-msgstr "Betöltés..."
-
-msgid "Submit tracks to Last.FM"
-msgstr "Számok elküldése Last.FM-nek"
-
-msgid "Sunday"
-msgstr "Vasárnap"
-
-msgid "Supported Files"
-msgstr "Támogatott fájlok"
-
-msgid "Text Color"
-msgstr "Szövegszín"
-
-msgid "Text Font:"
-msgstr "Szöveg betűtípusa:"
-
-msgid "The playlist name you specified already exists."
-msgstr "A megadott lejátszólista már létezik."
-
-msgid "The selected plugin doesn't have any configuration options"
-msgstr "A kiválasztott bővítménynek nincsenek beállítási lehetőségei"
-
-msgid "Thursday"
-msgstr "Csütörtök"
-
-msgid "Title"
-msgstr "Cím"
-
-msgid "Toggle Play or Pause"
-msgstr "Váltás a lejátszás és a szüneteltetés között"
-
-msgid "Toggle Queue"
-msgstr "lejátszási-sorba illesztés"
-
-msgid "Toggle: Stop after selected track"
-msgstr "Váltás: Leállítás a kijelölt szám után"
-
-msgid "Top left"
-msgstr "Bal fent"
-
-msgid "Top right"
-msgstr "Fent jobbra"
-
-msgid "Track Number"
-msgstr "Zeneszám"
-
-msgid "Tuesday"
-msgstr "Kedd"
-
-msgid "Type of device:"
-msgstr "Eszköz típusa:"
-
-msgid "Unable to enable plugin %s"
-msgstr "%s bővítmény betöltése sikertelen"
-
-msgid "Unable to fully disable plugin %s"
-msgstr "%s bővítmény teljes kikapcsolása sikertelen"
-
-msgid "Unknown"
-msgstr "Ismeretlen"
-
-msgid "Up one directory"
-msgstr "Egy könyvtárral feljebb"
-
-msgid "Updates"
-msgstr "Frissítések"
-
-msgid "Use Fading"
-msgstr "Elhalványodás használata"
-
-msgid "Username:"
-msgstr "Felhasználónév:"
-
-msgid "Using %s for playback"
-msgstr "%s használata lejátszásra"
-
-msgid "Various Artists"
-msgstr "Különböző előadók"
-
-msgid "Version:"
-msgstr "Verzió:"
-
-msgid "Vol:"
-msgstr "Hangerő:"
-
+#: ../plugins/notify/notifyprefs.py:39
+#, python-format
 msgid ""
-"Vorbis is an open source, lossy audio codec with high quality output at a "
-"lower file size than MP3."
+"by %(artist)s\n"
+"from <i>%(album)s</i>"
 msgstr ""
-"A Vorbis, egy nyílt forráskódú hang kódek, kiváló minőségben adja vissza a "
-"kisméretű fájlok (mint az MP3) hangját ."
 
-msgid "Watching directory: %s"
-msgstr "Könyvtár figyelése: %s"
+#: ../plugins/ipconsole/__init__.py:72
+msgid "IPython Console - Exaile"
+msgstr ""
 
-msgid "We don't know how to store that kind of setting: "
-msgstr "Ezek a beállítások nem menthetők: "
+#: ../plugins/ipconsole/__init__.py:125
+msgid "Show IPython Console"
+msgstr ""
 
-msgid "Wednesday"
-msgstr "Szerda"
+#: ../plugins/minimode/__init__.py:77
+msgid "Mini Mode"
+msgstr ""
 
-msgid "Window Height:"
-msgstr "Ablak magasság:"
+#: ../plugins/minimode/__init__.py:184
+msgid "Restore Main Window"
+msgstr ""
 
-msgid "Window Width:"
-msgstr "Ablak szélesség:"
+#: ../plugins/minimode/minimodeprefs.py:102
+msgid "Available controls"
+msgstr ""
 
-msgid "XSPF Playlist"
-msgstr "XSPF lejátszólista"
+#: ../plugins/minimode/minimodeprefs.py:103
+msgid "Selected controls"
+msgstr ""
 
-msgid "Year"
-msgstr "Év"
+#: ../plugins/minimode/minimodeprefs.py:106
+msgid "Play/Pause"
+msgstr ""
 
-msgid "You did not enter a name for your playlist"
-msgstr "Nem adtad meg a lejátszólista nevét."
+#: ../plugins/minimode/minimodeprefs.py:109
+msgid "Track selector"
+msgstr ""
 
-msgid "You did not specify a location to save the db"
-msgstr "A db mentési helyen nincs kijelölve"
+#: ../plugins/minimode/minimodeprefs.py:110
+msgid "Progress bar"
+msgstr ""
 
-msgid "You have entered an invalid option"
-msgstr "Hibás beállítást vitt be"
+#: ../plugins/minimode/minimodeprefs.py:113
+msgid "Restore"
+msgstr ""
 
-msgid "Your changes will be lost if you don't save them"
-msgstr "A változtatások elvesznek, ha nem mented őket"
+#: ../plugins/minimode/mmwidgets.py:127
+#: ../plugins/minimode/mmwidgets.py:141
+msgid "Start Playback"
+msgstr ""
 
-msgid "_Album Art Manager"
-msgstr "_Album borító kezelő"
+#: ../plugins/minimode/mmwidgets.py:145
+msgid "Continue Playback"
+msgstr ""
 
-msgid "_Close"
-msgstr "_Bezárás"
+#: ../plugins/minimode/mmwidgets.py:148
+msgid "Pause Playback"
+msgstr ""
 
-msgid "_Collection Manager"
-msgstr "_Gyűjtemény kezelő"
+#. TRANSLATORS: String multiple tag values will be joined with
+#: ../plugins/minimode/mmwidgets.py:248
+msgid " & "
+msgstr ""
 
-msgid "_Columns"
-msgstr "_Oszlopok"
+#: ../plugins/minimode/mmwidgets.py:428
+msgid "Seeking:"
+msgstr ""
 
-msgid "_Edit"
-msgstr "_Szerkesztés"
+#: ../plugins/streamripper/__init__.py:53
+msgid "Streamripper can only record streams."
+msgstr ""
 
-msgid "_File"
-msgstr "_Fájl"
+#: ../plugins/streamripper/__init__.py:86
+msgid "Error executing streamripper"
+msgstr ""
 
-msgid "_Go to Playing Track"
-msgstr "_Ugrás a most hallható számra"
+#: ../plugins/multialarmclock/alarmclk.glade.h:2
+msgid "Alarm Name:"
+msgstr "Figyelmeztetés neve"
 
-msgid "_Help"
-msgstr "_Súgó"
+#: ../plugins/multialarmclock/alarmclk.glade.h:3
+#: ../plugins/alarmclock/acprefs_pane.glade.h:2
+msgid "Alarm Time:"
+msgstr "Figyelmeztetés ideje"
 
-msgid "_Rescan Collection"
-msgstr "_Gyűjtemény átvizsgálása"
+#: ../plugins/multialarmclock/alarmclk.glade.h:4
+msgid "Alarm:"
+msgstr "Figyelmeztetés"
 
-msgid "_Tools"
-msgstr "_Eszközök"
+#: ../plugins/multialarmclock/alarmclk.glade.h:5
+msgid "Enable Fading"
+msgstr "Áttűnés engedélyezése"
 
-msgid "_View"
-msgstr "_Nézet"
+#: ../plugins/multialarmclock/alarmclk.glade.h:7
+msgid "Fading:"
+msgstr "Áttűnés"
 
-msgid "after"
-msgstr "ez után:"
+#: ../plugins/multialarmclock/alarmclk.glade.h:9
+#: ../plugins/alarmclock/acprefs_pane.glade.h:4
+msgid "Increment:"
+msgstr ""
 
-msgid "and"
-msgstr "és"
+#: ../plugins/multialarmclock/alarmclk.glade.h:10
+#: ../plugins/alarmclock/acprefs_pane.glade.h:5
+msgid "Maximum Volume:"
+msgstr "Maximum hangerő"
 
-msgid "at least"
-msgstr "legalább"
+#: ../plugins/multialarmclock/alarmclk.glade.h:11
+#: ../plugins/alarmclock/acprefs_pane.glade.h:6
+msgid "Minimum Volume:"
+msgstr "Minimum hangerő"
 
-msgid "at most"
-msgstr "legfeljebb"
+#: ../plugins/multialarmclock/alarmclk.glade.h:14
+msgid "Restart Playlist"
+msgstr "Lejátszólista újraindítása"
 
-msgid "bad search token"
-msgstr "rossz keresési jelsor"
+#: ../plugins/multialarmclock/alarmclk.glade.h:18
+msgid "Time per Increment:"
+msgstr ""
 
-msgid "before"
-msgstr "ez előtt:"
+#: ../plugins/alarmclock/acprefs_pane.glade.h:11
+msgid "Timer per Increment:"
+msgstr ""
 
-msgid "between"
-msgstr "ezek közé esik:"
+#: ../plugins/audioscrobbler/asprefs_pane.glade.h:2
+msgid "Submit tracks using Audioscrobbler"
+msgstr ""
 
-msgid "by %s"
-msgstr "Előadó %s"
+#: ../plugins/audioscrobbler/asprefs_pane.glade.h:3
+msgid "URL:"
+msgstr ""
 
-msgid "contains"
-msgstr "tartalmazza"
+#: ../plugins/bookmarks/bookmarks_pane.glade.h:1
+msgid "Use covers in the bookmarks menu (takes effect on next start)"
+msgstr ""
 
-msgid "days"
-msgstr "nap"
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:1
+msgid "<b>Content</b>"
+msgstr ""
 
-msgid "does not contain"
-msgstr "nem tartalmazza"
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:2
+msgid "<b>Display</b>"
+msgstr ""
 
-msgid "from %s"
-msgstr "%s albumról"
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:3
+msgid "<b>Icons</b>"
+msgstr ""
 
-msgid "gtk-add"
-msgstr "gtk-add"
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:4
+msgid "Album Line:"
+msgstr ""
 
-msgid "gtk-cancel"
-msgstr "gtk-cancel"
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:5
+msgid "Artist Line:"
+msgstr ""
 
-msgid "gtk-close"
-msgstr "gtk-close"
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:6
+msgid "On Playback Start, Pause or Stop"
+msgstr ""
 
-msgid "gtk-connect"
-msgstr "gtk-connect"
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:7
+msgid "On Track Change"
+msgstr ""
 
-msgid "gtk-disconnect"
-msgstr "gtk-disconnect"
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:8
+msgid "On Tray Icon Hover"
+msgstr ""
 
-msgid "gtk-edit"
-msgstr "gtk-edit"
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:9
+msgid "Summary:"
+msgstr ""
 
-msgid "gtk-ok"
-msgstr "gtk-ok"
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:11
+#, no-c-format
+msgid ""
+"The tags \"%(title)s\", \"%(artist)s\", and \"%(album)s\" will be replaced "
+"by their respective values. The title will be replaced by \"Unknown\" if it "
+"is empty."
+msgstr ""
 
-msgid "gtk-remove"
-msgstr "gtk-remove"
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:12
+msgid "Use Album Covers As Icons"
+msgstr ""
 
-msgid "hours"
-msgstr "óra"
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:13
+msgid "Use Media Icons For Pause, Stop and Resume"
+msgstr ""
 
-msgid "is"
-msgstr "azonos"
+#: ../plugins/replaygain/replaygainprefs_pane.glade.h:1
+msgid "Fallback correction level (dB):"
+msgstr ""
 
-msgid "is not"
-msgstr "nem azonos"
+#: ../plugins/replaygain/replaygainprefs_pane.glade.h:2
+msgid "Pre-amp (dB):"
+msgstr ""
 
-msgid "minutes"
-msgstr "perc"
+#: ../plugins/replaygain/replaygainprefs_pane.glade.h:3
+msgid "Prefer per-album correction"
+msgstr ""
 
-msgid "seconds"
-msgstr "másodperc"
+#: ../plugins/replaygain/replaygainprefs_pane.glade.h:4
+msgid "Use clipping protection"
+msgstr ""
 
-msgid "weeks"
-msgstr "hét"
+#: ../plugins/notify/notifyprefs_pane.glade.h:1
+msgid "<b>Body Message</b>"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs_pane.glade.h:2
+msgid "Both artist and album"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs_pane.glade.h:4
+#, no-c-format
+msgid ""
+"Message that should be displayed in the body of the notification. In each "
+"case, \"%(title)s\", \"%(artist)s\", and \"%(album)s\" will be replaced by "
+"their respective values. If the tag is not known, \"Unknown\" will be filled "
+"in its place"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs_pane.glade.h:5
+msgid "Only album"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs_pane.glade.h:6
+msgid "Only artist"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs_pane.glade.h:7
+msgid "Resize displayed covers"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs_pane.glade.h:8
+msgid "Summary"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:1
+msgid "<b>Position</b>"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:2
+msgid "Always on top"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:3
+msgid "Center horizontally"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:4
+msgid "Center vertically"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:5
+msgid "Display window decorations"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:6
+msgid "Horizontal:"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:7
+msgid "Mini mode button in main window"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:8
+msgid "Show in panel"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:9
+msgid "Show on all desktops"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:10
+msgid "Track selector title:"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:11
+msgid "Vertical:"
+msgstr ""
+
+#: ../plugins/streamripper/streamripper.glade.h:2
+msgid "Save Location:"
+msgstr ""

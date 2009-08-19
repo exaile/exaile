@@ -115,7 +115,8 @@ Artist - Year - Album</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
-                    <signal name="clicked" handler="on_refresh_button_clicked"/>
+                    <signal name="button_press_event" handler="on_refresh_button_pressed"/>
+                    <signal name="key_press_event" handler="on_refresh_button_key_pressed"/>
                     <child>
                       <widget class="GtkImage" id="image1">
                         <property name="visible">True</property>

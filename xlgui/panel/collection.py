@@ -146,11 +146,33 @@ class CollectionPanel(panel.Panel):
         """
         self.xml.signal_autoconnect({
             'on_collection_combo_box_changed': lambda *e: self.load_tree(),
-            'on_refresh_button_clicked': lambda *e: self.load_tree(),
+            'on_refresh_button_pressed': self.on_refresh_button_pressed,
+            'on_refresh_button_key_pressed': self.on_refresh_button_key_pressed,
             'on_empty_collection_button_clicked': lambda *x: xlgui.controller().collection_manager()
         })
         self.tree.connect('key-release-event', self.on_key_released)
         event.add_callback(self.refresh_tags_in_tree, 'track_tags_changed')
+
+    def on_refresh_button_pressed(self, button, event):
+        """
+            Called on mouse activation of the refresh button
+        """
+        if event.state & gtk.gdk.SHIFT_MASK:
+            xlgui.controller().on_rescan_collection(None)
+        else:
+            self.load_tree()
+
+    def on_refresh_button_key_pressed(self, widget, event):
+        """
+            Called on key presses on the refresh button
+        """
+        keyname = gtk.gdk.keyval_name(event.keyval)
+        if keyname != 'Return': return True
+
+        if event.state & gtk.gdk.SHIFT_MASK:
+            xlgui.controller().on_rescan_collection(None)
+        else:
+            self.load_tree()
     
     def on_key_released(self, widget, event):
         """

@@ -95,6 +95,7 @@ install-target: make-install-dirs
 		&& cd ..
 
 locale:
+	cd po && find . -name "*.po" -exec ../tools/compilepo.sh {} \; && cd ..
 	for f in `find po -name exaile.mo` ; do \
 	  install -d -m 755 \
 	    `echo $$f | sed "s|^po|$(DESTDIR)$(PREFIX)/share/locale|" | \

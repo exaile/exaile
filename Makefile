@@ -1,6 +1,6 @@
 PREFIX ?= /usr/local
 LIBINSTALLDIR ?= /lib
-XDGCONFDIR ?= $(DESTDIR)/etc/xdg
+XDGCONFDIR ?= /etc/xdg
 
 EXAILELIBDIR = $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile
 EXAILESHAREDIR = $(DESTDIR)$(PREFIX)/share/exaile
@@ -33,7 +33,7 @@ make-install-dirs:
 	mkdir -p $(EXAILESHAREDIR)/data/glade
 	mkdir -p $(DESTDIR)$(PREFIX)/share/pixmaps
 	mkdir -p $(DESTDIR)$(PREFIX)/share/applications
-	mkdir -p $(XDGCONFDIR)/exaile
+	mkdir -p $(DESTDIR)$(XDGCONFDIR)/exaile
 
 uninstall:
 	rm -f  $(DESTDIR)$(PREFIX)/bin/exaile
@@ -48,7 +48,7 @@ uninstall:
 	rm -rf $(EXAILESHAREDIR)/data
 	rm -rf $(EXAILESHAREDIR)/data/images
 	rm -rf $(EXAILESHAREDIR)/data/glade
-	rm -rf $(XDGCONFDIR)/exaile
+	rm -rf $(DESTDIR)$(XDGCONFDIR)/exaile
 	rm -f $(DESTDIR)$(PREFIX)/share/applications/exaile.desktop
 	rm -f $(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
 	cd plugins && make uninstall && cd ..
@@ -83,7 +83,7 @@ install-target: make-install-dirs
 	install -m 644 data/glade/*.glade $(EXAILESHAREDIR)/data/glade
 	install -m 644 data/exaile.desktop \
 		$(DESTDIR)$(PREFIX)/share/applications/	
-	install -m 644 data/config/settings.ini $(XDGCONFDIR)/exaile
+	install -m 644 data/config/settings.ini $(DESTDIR)$(XDGCONFDIR)/exaile
 	# the printf here is for bsd compat, dont use echo!
 	cd $(DESTDIR)$(PREFIX)/bin && \
 	 printf "#!/bin/sh\n\

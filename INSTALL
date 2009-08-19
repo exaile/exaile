@@ -1,0 +1,40 @@
+To install:
+
+  $ make
+  # make install
+
+The "make" step is optional and only compiles the modules, translations, and the
+mmkeys extension.
+
+There is also an install_no_locale target if you wish to install without 
+translations.
+
+
+
+Environment variables that affect "make install":
+
+  LIBINSTALLDIR
+    The lib directory to be appended to PREFIX. 
+    Default: /lib
+  PREFIX
+    The installation prefix. 
+    Default: /usr/local
+    Note: If this default is changed, you may need to set the XDG_DATA_DIRS
+      environment variable to include the changed path. See [1].
+  XDGCONFDIR
+    The directory to install system-wide config files in, following xdg spec. 
+    Default: /etc/xdg 
+    Note: If this default is changed, you may need to set the XDG_CONFIG_DIRS 
+      environment variable to include the changed path. See [1].
+  DESTDIR
+    Destination directory to put the file structure under. Mainly of use for
+      packagers.
+    Default: not set (/)
+
+
+
+Additional Resources:
+[1] - XDG Base Directory Specification
+    http://standards.freedesktop.org/basedir-spec/basedir-spec-0.6.html
+
+

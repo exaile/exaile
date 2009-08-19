@@ -37,6 +37,7 @@ class PreferencesDialog(object):
 
     PAGES = (playlists_prefs, appearance_prefs, playback_prefs, 
         osd_prefs, cover_prefs)
+    PREFERENCES_DIALOG = None
 
     def __init__(self, parent, main):
         """
@@ -173,6 +174,7 @@ class PreferencesDialog(object):
             self.last_page.page_leave(self)
         self.window.hide()
         self.window.destroy()
+        PreferencesDialog.PREFERENCES_DIALOG = None
 
     def switch_pane(self, selection):
         """
@@ -244,4 +246,9 @@ class PreferencesDialog(object):
         """
             Runs the dialog
         """
-        self.window.show_all()
+        if PreferencesDialog.PREFERENCES_DIALOG:
+            self = PreferencesDialog.PREFERENCES_DIALOG
+            self.window.present()
+        else:
+            PreferencesDialog.PREFERENCES_DIALOG = self
+            self.window.show_all()

@@ -1,5 +1,5 @@
 """
-A pure-python library to assist sending data to AudioScrobbler (the LastFM
+A pure-python library to assist sending data to AudioScrobbler (the Last.fm
 backend)
 """
 import urllib, urllib2, logging

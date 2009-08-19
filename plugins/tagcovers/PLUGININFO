@@ -1,4 +1,4 @@
 Version='0.0.1'
 Authors=['Adam Olsen <arolsen@gmail.com>']
-Name=_('Tag Cover Search')
+Name=_('Tag Covers')
 Description=_('Searches track tags for covers')

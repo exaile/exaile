@@ -1,4 +1,4 @@
 Version='0.0.1'
 Authors=['Adam Olsen <arolsen@gmail.com>']
-Name=_('LastFM Cover Search')
-Description=_('Searches LastFM for covers')
+Name=_('Last.fm Covers')
+Description=_('Searches Last.fm for covers')

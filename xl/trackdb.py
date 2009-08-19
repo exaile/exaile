@@ -673,8 +673,8 @@ class TrackSearcher(object):
             # exact match in tag
             if "==" in token:
                 tag, content = token.split("==", 1)
-                if content[0] == "\"" and content[-1] == "\"":
-                    content = content[1:-1]
+                #if content[0] == "\"" and content[-1] == "\"":
+                #    content = content[1:-1]
                 #content = content.strip().strip('"')
                 if content == "__null__":
                     content = None

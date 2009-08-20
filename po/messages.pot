@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-20 02:44+0200\n"
+"POT-Creation-Date: 2009-08-20 10:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -919,12 +919,12 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: Title of the track number column
-#: ../xlgui/plcolumns.py:59 ../xlgui/panel/flatplaylist.py:69
+#: ../xlgui/plcolumns.py:59 ../xlgui/panel/flatplaylist.py:76
 msgid "#"
 msgstr ""
 
 #: ../xlgui/plcolumns.py:80 ../xlgui/panel/playlists.py:140
-#: ../xlgui/panel/flatplaylist.py:77 ../plugins/minimode/minimodeprefs.py:118
+#: ../xlgui/panel/flatplaylist.py:84 ../plugins/minimode/minimodeprefs.py:118
 msgid "Title"
 msgstr ""
 
@@ -1543,7 +1543,7 @@ msgid "Add Station"
 msgstr ""
 
 #: ../data/glade/radio_panel.glade.h:3
-#: ../data/glade/flatplaylist_panel.glade.h:2
+#: ../data/glade/flatplaylist_panel.glade.h:3
 msgid "Radio"
 msgstr ""
 
@@ -1764,7 +1764,7 @@ msgstr ""
 msgid "Re_scan Collection"
 msgstr ""
 
-#: ../data/glade/main.glade.h:16 ../data/glade/collection_panel.glade.h:11
+#: ../data/glade/main.glade.h:16 ../data/glade/collection_panel.glade.h:13
 #: ../data/glade/files_panel.glade.h:6
 msgid "Search: "
 msgstr ""
@@ -1852,6 +1852,10 @@ msgstr ""
 msgid "Append All"
 msgstr ""
 
+#: ../data/glade/flatplaylist_panel.glade.h:2
+msgid "Import"
+msgstr ""
+
 #: ../data/glade/general_prefs_pane.glade.h:1
 #: ../data/glade/playlists_prefs_pane.glade.h:1
 msgid "Open last playlists on startup"
@@ -1874,6 +1878,12 @@ msgid ""
 "Year - Artist\n"
 "Year - Album\n"
 "Artist - Year - Album"
+msgstr ""
+
+#: ../data/glade/collection_panel.glade.h:11
+msgid ""
+"Refresh collection view\n"
+"(Hold Shift key to rescan the collection)"
 msgstr ""
 
 #: ../data/glade/playlists_prefs_pane.glade.h:2
@@ -1921,6 +1931,15 @@ msgstr ""
 msgid "Multi-Alarm Clock"
 msgstr ""
 
+#: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
+msgid "Alarm Clock"
+msgstr ""
+
+#: ../plugins/audioscrobbler/asprefs.py:22
+#: ../plugins/audioscrobbler/PLUGININFO:3
+msgid "AudioScrobbler"
+msgstr ""
+
 #: ../plugins/audioscrobbler/__init__.py:98
 msgid "Enable audioscrobbling"
 msgstr ""
@@ -1959,7 +1978,12 @@ msgstr ""
 msgid "Audio Disc"
 msgstr ""
 
-#: ../plugins/bookmarks/__init__.py:278 ../plugins/bookmarks/PLUGININFO:3
+#: ../plugins/cd/_cdguipanel.py:56
+msgid "Importing CD..."
+msgstr ""
+
+#: ../plugins/bookmarks/__init__.py:278
+#: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
 msgid "Bookmarks"
 msgstr ""
 
@@ -1975,20 +1999,24 @@ msgstr ""
 msgid "Clear bookmarks"
 msgstr ""
 
-#: ../plugins/notifyosd/notifyosdprefs.py:48
-#: ../plugins/notify/notifyprefs.py:54
+#: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
+msgid "Notify-osd notifications"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs.py:47
+#: ../plugins/notify/notifyprefs.py:53
 #, python-format
 msgid "%(title)s"
 msgstr ""
 
-#: ../plugins/notifyosd/notifyosdprefs.py:52
-#: ../plugins/notify/notifyprefs.py:44
+#: ../plugins/notifyosd/notifyosdprefs.py:51
+#: ../plugins/notify/notifyprefs.py:43
 #, python-format
 msgid "by %(artist)s"
 msgstr ""
 
-#: ../plugins/notifyosd/notifyosdprefs.py:56
-#: ../plugins/notify/notifyprefs.py:49
+#: ../plugins/notifyosd/notifyosdprefs.py:55
+#: ../plugins/notify/notifyprefs.py:48
 #, python-format
 msgid "from %(album)s"
 msgstr ""
@@ -2011,6 +2039,11 @@ msgstr ""
 
 #: ../plugins/moodbar/__init__.py:334
 msgid "Moodbar executable is not available."
+msgstr ""
+
+#: ../plugins/replaygain/replaygainprefs.py:22
+#: ../plugins/replaygain/PLUGININFO:3
+msgid "ReplayGain"
 msgstr ""
 
 #: ../plugins/podcasts/__init__.py:55 ../plugins/podcasts/PLUGININFO:3
@@ -2082,7 +2115,11 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: ../plugins/notify/notifyprefs.py:39
+#: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
+msgid "Notify"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs.py:38
 #, python-format
 msgid ""
 "by %(artist)s\n"
@@ -2097,12 +2134,21 @@ msgstr ""
 msgid "Show IPython Console"
 msgstr ""
 
+#: ../plugins/ipconsole/ipconsoleprefs.py:22 ../plugins/ipconsole/PLUGININFO:3
+msgid "IPython Console"
+msgstr ""
+
 #: ../plugins/minimode/__init__.py:209
 msgid "Stop Playback"
 msgstr ""
 
 #: ../plugins/minimode/__init__.py:211
 msgid "Restore Main Window"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs.py:22 ../plugins/minimode/mmwidgets.py:32
+#: ../plugins/minimode/PLUGININFO:3
+msgid "Mini Mode"
 msgstr ""
 
 #: ../plugins/minimode/minimodeprefs.py:97
@@ -2177,10 +2223,6 @@ msgstr ""
 msgid "$title ($length)"
 msgstr ""
 
-#: ../plugins/minimode/mmwidgets.py:32 ../plugins/minimode/PLUGININFO:3
-msgid "Mini Mode"
-msgstr ""
-
 #: ../plugins/minimode/mmwidgets.py:151 ../plugins/minimode/mmwidgets.py:165
 msgid "Start Playback"
 msgstr ""
@@ -2199,6 +2241,10 @@ msgstr ""
 
 #: ../plugins/minimode/mmwidgets.py:813
 msgid " & "
+msgstr ""
+
+#: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
+msgid "Streamripper"
 msgstr ""
 
 #: ../plugins/streamripper/__init__.py:54
@@ -2390,19 +2436,19 @@ msgid "Additional amplification to apply to all files"
 msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:4
-msgid "Fallback correction for files that lack Replaygain information"
+msgid "Fallback correction for files that lack ReplayGain information"
 msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:6
 msgid "Fallback correction level (dB):"
 msgstr ""
 
-#: ../plugins/replaygain/replaygainprefs_pane.glade.h:8
-msgid "Prefer per-album correction"
+#: ../plugins/replaygain/replaygainprefs_pane.glade.h:7
+msgid "Prefer ReplayGain's per-album correction over per-track correction."
 msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:9
-msgid "Prefer replaygain's per-album correction over per-track correction."
+msgid "Prefer per-album correction"
 msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:10
@@ -2519,10 +2565,6 @@ msgid ""
 "your playlist"
 msgstr ""
 
-#: ../plugins/alarmclock/PLUGININFO:3
-msgid "Alarm Clock"
-msgstr ""
-
 #: ../plugins/alarmclock/PLUGININFO:4
 msgid ""
 "Plays music at a specific time.\n"
@@ -2530,10 +2572,6 @@ msgid ""
 "Note that when the specified time arrives, Exaile will just act like you "
 "pressed the play button, so be sure you have the music you want to hear in "
 "your playlist"
-msgstr ""
-
-#: ../plugins/audioscrobbler/PLUGININFO:3
-msgid "AudioScrobbler"
 msgstr ""
 
 #: ../plugins/audioscrobbler/PLUGININFO:4
@@ -2570,10 +2608,6 @@ msgstr ""
 
 #: ../plugins/lastfmcovers/PLUGININFO:4
 msgid "Searches Last.fm for covers"
-msgstr ""
-
-#: ../plugins/notifyosd/PLUGININFO:3
-msgid "Notify-osd notifications"
 msgstr ""
 
 #: ../plugins/notifyosd/PLUGININFO:4
@@ -2624,12 +2658,8 @@ msgstr ""
 msgid "A plugin for iPod support"
 msgstr ""
 
-#: ../plugins/replaygain/PLUGININFO:3
-msgid "Replaygain"
-msgstr ""
-
 #: ../plugins/replaygain/PLUGININFO:4
-msgid "Enables replaygain support"
+msgid "Enables ReplayGain support"
 msgstr ""
 
 #: ../plugins/podcasts/PLUGININFO:4
@@ -2688,10 +2718,6 @@ msgid ""
 "protocol"
 msgstr ""
 
-#: ../plugins/notify/PLUGININFO:3
-msgid "Notify"
-msgstr ""
-
 #: ../plugins/notify/PLUGININFO:4
 msgid "Pops up a notification when playback of a track starts"
 msgstr ""
@@ -2702,10 +2728,6 @@ msgstr ""
 
 #: ../plugins/librivox/PLUGININFO:4
 msgid "Browse and listen to audiobooks from Librivox.org."
-msgstr ""
-
-#: ../plugins/ipconsole/PLUGININFO:3
-msgid "IPythonConsole"
 msgstr ""
 
 #: ../plugins/ipconsole/PLUGININFO:4
@@ -2734,14 +2756,10 @@ msgid ""
 "Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2"
 msgstr ""
 
-#: ../plugins/streamripper/PLUGININFO:3
-msgid "Streamripper"
-msgstr ""
-
 #: ../plugins/streamripper/PLUGININFO:4
 msgid ""
-"Allows you to record streams with streamripper.  Requires the command line "
-"version of streamripper to be installed"
+"Allows you to record streams with streamripper.\n"
+"Depends: streamripper"
 msgstr ""
 
 #: ../plugins/lyricwiki/PLUGININFO:3

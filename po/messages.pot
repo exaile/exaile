@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-20 02:10+0200\n"
+"POT-Creation-Date: 2009-08-20 02:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -335,6 +335,11 @@ msgstr ""
 
 #: ../xl/transcoder.py:91
 msgid "A very fast Free lossless audio format with good compression."
+msgstr ""
+
+#: ../xl/hal.py:45
+#, python-format
+msgid "HAL Providers: %s"
 msgstr ""
 
 #: ../xl/hal.py:51
@@ -803,6 +808,32 @@ msgstr ""
 msgid "No track"
 msgstr ""
 
+#. ##
+#. Set up xl/event to work with the gtk event loop
+#: ../xlgui/__init__.py:28
+msgid "Setting up deferred idle manager function..."
+msgstr ""
+
+#: ../xlgui/__init__.py:76
+msgid "Loading main window..."
+msgstr ""
+
+#: ../xlgui/__init__.py:82
+msgid "Loading panels..."
+msgstr ""
+
+#: ../xlgui/__init__.py:108
+msgid "Connecting panel events..."
+msgstr ""
+
+#: ../xlgui/__init__.py:111
+msgid "Connecting main window events..."
+msgstr ""
+
+#: ../xlgui/__init__.py:123
+msgid "Done loading main window..."
+msgstr ""
+
 #: ../xlgui/__init__.py:160
 msgid "Export current playlist..."
 msgstr ""
@@ -1241,16 +1272,37 @@ msgstr ""
 msgid "Transferring to %s..."
 msgstr ""
 
+#: ../xlgui/prefs/cover_prefs.py:21
+msgid "Covers"
+msgstr ""
+
+#: ../xlgui/prefs/appearance_prefs.py:22
+msgid "Appearance"
+msgstr ""
+
+#: ../xlgui/prefs/playback_prefs.py:22
+msgid "Playback"
+msgstr ""
+
 #: ../xlgui/prefs/__init__.py:73 ../data/glade/preferences_dialog.glade.h:2
 msgid "Preferences"
 msgstr ""
 
-#: ../xlgui/prefs/__init__.py:84
+#: ../xlgui/prefs/__init__.py:84 ../xlgui/prefs/plugin_prefs.py:25
 msgid "Plugins"
 msgstr ""
 
 #: ../xlgui/prefs/__init__.py:111
 msgid "Error loading preferences pane"
+msgstr ""
+
+#: ../xlgui/prefs/playlists_prefs.py:22
+#: ../data/glade/playlists_panel.glade.h:1
+msgid "Playlists"
+msgstr ""
+
+#: ../xlgui/prefs/osd_prefs.py:22
+msgid "On Screen Display"
 msgstr ""
 
 #: ../xlgui/prefs/plugin_prefs.py:81
@@ -1796,10 +1848,6 @@ msgstr ""
 msgid "Collection Manager"
 msgstr ""
 
-#: ../data/glade/playlists_panel.glade.h:1
-msgid "Playlists"
-msgstr ""
-
 #: ../data/glade/flatplaylist_panel.glade.h:1
 msgid "Append All"
 msgstr ""
@@ -1875,6 +1923,36 @@ msgstr ""
 
 #: ../plugins/audioscrobbler/__init__.py:98
 msgid "Enable audioscrobbling"
+msgstr ""
+
+#: ../plugins/audioscrobbler/__init__.py:130
+msgid "Stopping AudioScrobbler submissions"
+msgstr ""
+
+#: ../plugins/audioscrobbler/__init__.py:142
+msgid "Attempting to connect to AudioScrobbler..."
+msgstr ""
+
+#: ../plugins/audioscrobbler/__init__.py:152
+msgid "Connected to AudioScrobbler"
+msgstr ""
+
+#: ../plugins/audioscrobbler/__init__.py:166
+msgid "Attempting to submit \"Now Playing\" information to AudioScrobbler..."
+msgstr ""
+
+#: ../plugins/audioscrobbler/_scrobbler.py:114
+#, python-format
+msgid "Logged in successfully to AudioScrobbler (%s)"
+msgstr ""
+
+#: ../plugins/audioscrobbler/_scrobbler.py:178
+msgid "Submitted \"Now Playing\" successfully to AudioScrobbler"
+msgstr ""
+
+#: ../plugins/audioscrobbler/_scrobbler.py:305
+#, python-format
+msgid "AudioScrobbler OK: %s"
 msgstr ""
 
 #: ../plugins/cd/__init__.py:93 ../plugins/cd/__init__.py:170

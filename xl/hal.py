@@ -42,7 +42,7 @@ class HAL(providers.ProviderHandler):
             hal_obj = self.bus.get_object('org.freedesktop.Hal', 
                 '/org/freedesktop/Hal/Manager')
             self.hal = dbus.Interface(hal_obj, 'org.freedesktop.Hal.Manager')
-            logger.info("HAL: Providers: %s" % repr(self.get_providers()))
+            logger.info(_("HAL Providers: %s") % repr(self.get_providers()))
             for p in self.get_providers():
                 try:
                     self.on_new_provider(p)

@@ -9,11 +9,11 @@
         <property name="border_width">3</property>
         <child>
           <widget class="GtkCheckButton" id="replaygain/album-mode">
-            <property name="label" translatable="yes" comments="Prefer to use replaygain's album correction instead of track correction if possible. If unchecked, track correction will be preferred instead.">Prefer per-album correction</property>
+            <property name="label" translatable="yes" comments="Prefer to use ReplayGain's album correction instead of track correction if possible. If unchecked, track correction will be preferred instead.">Prefer per-album correction</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
-            <property name="tooltip" translatable="yes">Prefer replaygain's per-album correction over per-track correction.</property>
+            <property name="tooltip" translatable="yes">Prefer ReplayGain's per-album correction over per-track correction.</property>
             <property name="draw_indicator">True</property>
           </widget>
           <packing>
@@ -74,12 +74,12 @@
         <child>
           <widget class="GtkHBox" id="hbox2">
             <property name="visible">True</property>
-            <property name="tooltip" translatable="yes">Fallback correction for files that lack Replaygain information</property>
+            <property name="tooltip" translatable="yes">Fallback correction for files that lack ReplayGain information</property>
             <child>
               <widget class="GtkLabel" id="label3">
                 <property name="visible">True</property>
                 <property name="ypad">2</property>
-                <property name="label" translatable="yes" comments="This is the fallback correction for files that don't contain replaygain information.">Fallback correction level (dB):</property>
+                <property name="label" translatable="yes" comments="This is the fallback correction for files that don't contain ReplayGain information.">Fallback correction level (dB):</property>
               </widget>
               <packing>
                 <property name="expand">False</property>

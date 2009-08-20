@@ -19,8 +19,7 @@ from xlgui.prefs import widgets
 from xl import xdg
 from xl.nls import gettext as _
 
-
-name = 'Notify'
+name = _('Notify')
 basedir = os.path.dirname(os.path.realpath(__file__))
 glade = os.path.join(basedir, "notifyprefs_pane.glade")
 

@@ -17,8 +17,9 @@
 import os
 from xlgui.prefs import widgets
 from xl import xdg
+from xl.nls import gettext as _
 
-name = 'Streamripper'
+name = _('Streamripper')
 basedir = os.path.dirname(os.path.realpath(__file__))
 glade = '%s/streamripper.glade' % basedir
 

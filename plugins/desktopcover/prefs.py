@@ -19,7 +19,7 @@ import gtk
 from xlgui.prefs import widgets
 from xl.nls import gettext as _
 
-name = _("Desktop Cover")
+name = _('Desktop Cover')
 _basedir = os.path.dirname(os.path.realpath(__file__))
 ui = os.path.join(_basedir, "prefs.ui")
 

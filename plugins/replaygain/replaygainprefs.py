@@ -17,8 +17,9 @@
 import os
 from xlgui.prefs import widgets
 from xl import xdg
+from xl.nls import gettext as _
 
-name = 'Replaygain'
+name = _('ReplayGain')
 basedir = os.path.dirname(os.path.realpath(__file__))
 glade = os.path.join(basedir, "replaygainprefs_pane.glade")
 

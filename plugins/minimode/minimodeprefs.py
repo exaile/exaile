@@ -19,7 +19,7 @@ from xlgui.prefs import widgets
 from xl import event, settings, xdg
 from xl.nls import gettext as _
 
-name = 'Mini Mode'
+name = _('Mini Mode')
 basedir = os.path.dirname(os.path.realpath(__file__))
 glade = os.path.join(basedir, "minimodeprefs_pane.glade")
 

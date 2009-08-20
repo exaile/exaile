@@ -16,9 +16,10 @@
 
 from xlgui.prefs import widgets
 from xl import xdg
+from xl.nls import gettext as _
 import os
 
-name = 'IPConsole'
+name = _('IPython Console')
 basedir = os.path.dirname(os.path.realpath(__file__))
 glade = os.path.join(basedir, 'ipconsole_prefs.glade')
 

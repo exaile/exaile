@@ -17,8 +17,9 @@
 import os
 from xlgui.prefs import widgets
 from xl import xdg
+from xl.nls import gettext as _
 
-name = 'Alarmclock'
+name = _('Alarm Clock')
 basedir = os.path.dirname(os.path.realpath(__file__))
 glade = os.path.join(basedir, "acprefs_pane.glade")
 

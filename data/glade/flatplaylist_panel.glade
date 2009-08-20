@@ -15,10 +15,12 @@
             <property name="visible">True</property>
             <child>
               <widget class="GtkButton" id="add_button">
+                <property name="width_request">36</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="tooltip" translatable="yes">Append All Tracks to Playlist</property>
+                <property name="relief">none</property>
                 <signal name="clicked" handler="on_add_button_clicked"/>
                 <child>
                   <widget class="GtkAlignment" id="alignment1">
@@ -41,15 +43,7 @@
                           </packing>
                         </child>
                         <child>
-                          <widget class="GtkLabel" id="label1">
-                            <property name="visible">True</property>
-                            <property name="use_underline">True</property>
-                          </widget>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">False</property>
-                            <property name="position">1</property>
-                          </packing>
+                          <placeholder/>
                         </child>
                       </widget>
                     </child>
@@ -66,10 +60,12 @@
                 <property name="visible">True</property>
                 <child>
                   <widget class="GtkButton" id="import_button">
+                    <property name="width_request">36</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="tooltip" translatable="yes">Import CD</property>
+                    <property name="relief">none</property>
                     <signal name="clicked" handler="on_import_button_clicked"/>
                     <child>
                       <widget class="GtkHBox" id="hbox3">
@@ -85,15 +81,7 @@
                           </packing>
                         </child>
                         <child>
-                          <widget class="GtkLabel" id="label2">
-                            <property name="visible">True</property>
-                            <property name="use_underline">True</property>
-                          </widget>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">False</property>
-                            <property name="position">1</property>
-                          </packing>
+                          <placeholder/>
                         </child>
                       </widget>
                     </child>

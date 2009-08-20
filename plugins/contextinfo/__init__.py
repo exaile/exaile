@@ -1030,7 +1030,7 @@ class ContextPanel(gobject.GObject):
     gladeinfo = (BASEDIR+'context.glade', 'ContextPanelWindow')
 
     def __init__(self, parent):
-        self.init__(parent, 'Context')
+        self.init__(parent, _('Context'))
         
         cachedir = os.path.join(xdg.get_data_dirs()[0], 'context')
         if not os.path.isdir(cachedir):

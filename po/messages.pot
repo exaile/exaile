@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-20 10:38+0200\n"
+"POT-Creation-Date: 2009-08-20 15:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2243,6 +2243,11 @@ msgstr ""
 msgid " & "
 msgstr ""
 
+#: ../plugins/contextinfo/__init__.py:1033
+#: ../plugins/contextinfo/context.glade.h:1
+msgid "Context"
+msgstr ""
+
 #: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
 msgstr ""
@@ -2542,10 +2547,6 @@ msgstr ""
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:10
 msgid "Vertical:"
-msgstr ""
-
-#: ../plugins/contextinfo/context.glade.h:1
-msgid "Context"
 msgstr ""
 
 #: ../plugins/streamripper/streamripper.glade.h:1

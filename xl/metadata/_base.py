@@ -176,6 +176,14 @@ class BaseFormat(object):
                 except:
                     pass
 
+            # tags starting with __ are internal and should not be written
+            for tag in tagdict.keys():
+                if tag.startswith("__"):
+                    try:
+                        del tagdict[tag]
+                    except:
+                        pass
+
             for tag in tagdict:
                 if tag in self.tag_mapping:
                     self._set_tag(raw, self.tag_mapping[tag], tagdict[tag])

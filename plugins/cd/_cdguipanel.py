@@ -4,9 +4,8 @@ from xlgui.panel import device
 from xl import event
 
 import imp, os
-mod = imp.find_module("importer", [os.path.dirname(__file__)])
-importer = imp.load_module("importer", *mod)
-del mod, imp, os
+importer = imp.load_source("importer", 
+        os.path.join(os.path.dirname(__file__), "importer.py"))
 
 import gobject
 import logging, threading

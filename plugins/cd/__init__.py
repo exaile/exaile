@@ -174,8 +174,8 @@ class CDDevice(Device):
     def _get_panel_type(self):
         import imp
         try:
-            mod = imp.find_module("_cdguipanel", [os.path.dirname(__file__)])
-            _cdguipanel = imp.load_module("_cdguipanel", *mod)
+            _cdguipanel = imp.load_source("_cdguipanel",
+                    os.path.join(os.path.dirname(__file__), "_cdguipanel.py"))
             return _cdguipanel.CDPanel
         except:
             common.log_exception(log=logger, message="Could not import cd gui panel")

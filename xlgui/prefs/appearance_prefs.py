@@ -16,9 +16,10 @@
 
 from xlgui.prefs import widgets
 from xl import xdg
+from xl.nls import gettext as _
 from xlgui import commondialogs
 
-name = "Appearance"
+name = _('Appearance')
 glade = xdg.get_data_path('glade/appearance_prefs_pane.glade')
 
 class SplashPreference(widgets.CheckPrefsItem):

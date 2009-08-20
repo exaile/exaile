@@ -16,9 +16,10 @@
 
 from xlgui.prefs import widgets
 from xl import xdg
+from xl.nls import gettext as _
 from xlgui import commondialogs
 
-name = "Playlists"
+name = _('Playlists')
 glade = xdg.get_data_path('glade/playlists_prefs_pane.glade')
 
 class OpenLastPreference(widgets.CheckPrefsItem):

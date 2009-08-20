@@ -22,7 +22,7 @@ from xlgui import commondialogs
 from xl import main
 from xl.nls import gettext as _
 
-name = "Plugins"
+name = _('Plugins')
 glade = xdg.get_data_path('glade/plugin_prefs_pane.glade')
 
 class PluginManager(object):

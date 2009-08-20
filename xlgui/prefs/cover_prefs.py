@@ -16,8 +16,9 @@
 
 from xlgui.prefs import widgets
 from xl import xdg
+from xl.nls import gettext as _
 
-name = 'Covers'
+name = _('Covers')
 glade = xdg.get_data_path('glade/cover_prefs_pane.glade')
 
 class CoverOrderPreference(widgets.OrderListPrefsItem):

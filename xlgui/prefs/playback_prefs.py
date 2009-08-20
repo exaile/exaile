@@ -16,9 +16,10 @@
 
 from xlgui.prefs import widgets
 from xl import xdg
+from xl.nls import gettext as _
 from xlgui import commondialogs
 
-name = "Playback"
+name = _('Playback')
 glade = xdg.get_data_path('glade/playback_prefs_pane.glade')
 
 class EnginePreference(widgets.ComboPrefsItem):

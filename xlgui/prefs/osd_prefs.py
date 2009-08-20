@@ -16,9 +16,10 @@
 
 from xlgui.prefs import widgets
 from xl import xdg
+from xl.nls import gettext as _
 from xlgui import osd
 
-name = 'OSD Preferences'
+name = _('On Screen Display')
 glade = xdg.get_data_path('glade/osd_prefs_pane.glade')
 
 def page_enter(prefs):

@@ -31,7 +31,7 @@
                 </child>
                 <child>
                   <widget class="GtkCheckButton" id="plugin/minimode/show_in_panel">
-                    <property name="label" translatable="yes">Show in panel</property>
+                    <property name="label" translatable="yes">Show in tasklist</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>

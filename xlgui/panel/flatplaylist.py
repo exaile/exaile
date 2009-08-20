@@ -35,6 +35,8 @@ class FlatPlaylistPanel(panel.Panel):
         self.model = gtk.ListStore(int, str, object)
         self.tracks = []
         self._setup_tree()
+        if not hasattr(self.parent, 'do_import'):
+            self.xml.get_widget("import_button").hide()
         self.menu = menu.TrackSelectMenu()
         self._connect_events()
 

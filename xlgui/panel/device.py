@@ -137,10 +137,11 @@ class FlatPlaylistDevicePanel(panel.Panel):
 
         panel.Panel.__init__(self, name)
         self.device = device
+        self.main = main
 
         self.notebook = self.xml.get_widget("device_notebook")
 
-        self.fppanel = FlatPlaylistPanel(parent, name)
+        self.fppanel = FlatPlaylistPanel(self, name)
 
         self.fppanel.connect('append-items',
             lambda *e: self.emit('append-items', *e[1:]))

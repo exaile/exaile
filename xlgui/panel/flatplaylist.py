@@ -41,6 +41,7 @@ class FlatPlaylistPanel(panel.Panel):
     def _connect_events(self):
         self.xml.signal_autoconnect({
             'on_add_button_clicked': self._on_add_button_clicked,
+            'on_import_button_clicked': self._on_import_button_clicked,
         })
         self.menu.connect('append-items', lambda *e:
             self.emit('append-items', self.get_selected_tracks()))
@@ -51,6 +52,12 @@ class FlatPlaylistPanel(panel.Panel):
 
     def _on_add_button_clicked(self, *e):
         self.emit('append-items', self.tracks)
+
+    def _on_import_button_clicked(self, *e):
+        tracks = self.get_selected_tracks()
+        if len(tracks) == 0: # nothing selected, do everything
+            tracks = self.tracks
+        self.parent.do_import(tracks)
 
     def _setup_tree(self):
         self.tree = guiutil.DragTreeView(self, False, True)

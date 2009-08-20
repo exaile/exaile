@@ -36,7 +36,7 @@ import gst
 
 FORMATS = {
         "Ogg Vorbis" : {
-            "default"   : 5,
+            "default"   : 0.5,
             "raw_steps" : (0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.10),
             "kbs_steps" : (64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 400),
             "command"   : "vorbisenc quality=%s ! oggmux",
@@ -128,6 +128,7 @@ class Transcoder(object):
         self.pipe = None
         self.bus = None
         self.running = False
+        self.__last_time = 0.0
 
         self.error_cb = None
         self.end_cb = None
@@ -176,6 +177,7 @@ class Transcoder(object):
     def stop(self):
         self.pipe.set_state(gst.STATE_NULL)
         self.running = False
+        self.__last_time = 0.0
         try:
             self.end_cb()
         except:
@@ -193,14 +195,15 @@ class Transcoder(object):
         self.stop()
         
     def get_time(self):
+        if not self.running:
+            return 0.0
         try:
             tim = self.pipe.query_position(gst.FORMAT_TIME)[0]
             tim = tim/gst.SECOND
+            self.__last_time = tim
             return tim
         except:
-            import traceback
-            print traceback.format_exc()
-            return 0.0
+            return self.__last_time
 
     def is_running(self):
         return self.running

@@ -9,7 +9,7 @@ PROVIDER = None
 
 import dbus, threading, os, struct
 from fcntl import ioctl
-from xl import playlist, track, common, transcoder
+from xl import playlist, track, common
 from xl import settings
 import os.path
 
@@ -222,92 +222,6 @@ class CDHandler(Handler):
 
         return cddev
 
-class CDImporter(object):
-    def __init__(self, tracks):
-        self.tracks = [ t for t in tracks if 
-                t.get_loc_for_io().startswith("cdda") ]
-        self.duration = float(sum( [ t['__length'] for t in self.tracks ] ))
-        self.transcoder = transcoder.Transcoder()
-        self.current = None
-        self.progress = 0.0
-
-        self.running = False
-
-        self.outpath = settings.get_option("cd_import/outpath", 
-                "%s/${artist}/${album}/${tracknumber} - ${title}" % \
-                os.getenv("HOME"))
-
-        self.format = settings.get_option("cd_import/format",
-                                "Ogg Vorbis")
-        self.quality = settings.get_option("cd_import/quality", -1)
-
-        self.cont = None
-
-    @common.threaded
-    def do_import(self):
-        self.running = True
-
-        self.cont = threading.Event()
-
-        self.transcoder.set_format(self.format)
-        if self.quality != -1:
-            self.transcoder.set_quality(self.quality)
-        self.transcoder.end_cb = self._end_cb
-
-        for tr in self.tracks:
-            self.cont.clear()
-            self.current = tr
-            loc = tr.get_loc_for_io()
-            track, device = loc[7:].split("#")
-            src = "cdparanoiasrc track=%s device=\"%s\""%(track, device)
-            self.transcoder.set_raw_input(src)
-            self.transcoder.set_output(self.get_output_location(tr))
-            self.transcoder.start_transcode()
-            self.cont.wait()
-            if not self.running:
-                break
-            tr.set_loc(self.get_output_location(tr))
-            tr.write_tags()
-            tr.read_tags() # make sure everything is reloaded nicely
-            try:
-                incr = tr['__length'] / self.duration
-                self.progress += incr
-            except:
-                pass
-        self.progress = 100.0
-
-    def _end_cb(self):
-        self.cont.set()
-
-    def get_output_location(self, tr):
-        parts = self.outpath.split(os.sep)
-        parts2 = []
-        replacedict = {}
-        for tag in common.VALID_TAGS:
-            replacedict["${%s}"%tag] = tag
-        for part in parts:
-            for k, v in replacedict.iteritems():
-                val = tr[v]
-                if type(val) in (list, tuple):
-                    val = u" & ".join(val) 
-                part = part.replace(k, str(val))
-            part = part.replace(os.sep, "") # strip os.sep
-            parts2.append(part)
-        dirpath = "/" + os.path.join(*parts2[:-1]) 
-        if not os.path.exists(dirpath):
-            os.makedirs(dirpath)
-        ext = transcoder.FORMATS[self.transcoder.dest_format]['extension']
-        path = "/" + os.path.join(*parts2) + "." + ext
-        return path
-
-    def stop(self):
-        self.running = False
-        self.transcoder.stop()
-
-    def get_progress(self):
-        incr = self.current['__length'] / self.duration
-        pos = self.transcoder.get_time()/float(self.current['__length'])
-        return self.progress + pos*incr
 
 # vim: et sts=4 sw=4
 

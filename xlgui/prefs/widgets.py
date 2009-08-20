@@ -214,27 +214,81 @@ class SelectionListPrefsItem(PrefsItem):
             widget.remove(child)
 
         PrefsItem.__init__(self, prefs, widget)
+        widget.set_homogeneous(False)
+        widget.set_spacing(6)
 
         text = gtk.CellRendererText()
         available_tree = gtk.TreeView(self.available_list)
+        available_tree.set_reorderable(True)
+        self.available_selection = available_tree.get_selection()
         available_col = gtk.TreeViewColumn(None, text, text=0)
         try:
             available_col.set_title(self.available_title)
         except AttributeError:
             pass
         available_tree.append_column(available_col)
-        available_tree.set_reorderable(True)
-        widget.pack_start(available_tree)
 
         selected_tree = gtk.TreeView(self.selected_list)
+        selected_tree.set_reorderable(True)
+        self.selected_selection = selected_tree.get_selection()
         selected_col = gtk.TreeViewColumn(None, text, text=0)
         try:
             selected_col.set_title(self.selected_title)
         except AttributeError:
             pass
         selected_tree.append_column(selected_col)
-        selected_tree.set_reorderable(True)
+
+        add_button = gtk.Button()
+        add_button.set_image(gtk.image_new_from_stock(
+            gtk.STOCK_GO_FORWARD, gtk.ICON_SIZE_BUTTON))
+        add_button.set_tooltip_text(_('Add item'))
+        add_button.set_sensitive(False)
+        remove_button = gtk.Button()
+        remove_button.set_image(gtk.image_new_from_stock(
+            gtk.STOCK_GO_BACK, gtk.ICON_SIZE_BUTTON))
+        remove_button.set_tooltip_text(_('Remove item'))
+        remove_button.set_sensitive(False)
+
+        control_box = gtk.VBox(spacing=3)
+        control_box.pack_start(add_button, expand=False)
+        control_box.pack_start(remove_button, expand=False)
+        control_panel = gtk.Alignment(xalign=0.5, yalign=0.5,
+            xscale=0.0, yscale=0.0)
+        control_panel.add(control_box)
+
+        up_button = gtk.Button()
+        up_button.set_image(gtk.image_new_from_stock(
+            gtk.STOCK_GO_UP, gtk.ICON_SIZE_BUTTON))
+        up_button.set_tooltip_text(_('Move selected item up'))
+        up_button.set_sensitive(False)
+        down_button = gtk.Button()
+        down_button.set_image(gtk.image_new_from_stock(
+            gtk.STOCK_GO_DOWN, gtk.ICON_SIZE_BUTTON))
+        down_button.set_tooltip_text(_('Move selected item down'))
+        down_button.set_sensitive(False)
+
+        move_box = gtk.VBox(spacing=3)
+        move_box.pack_start(up_button, expand=False)
+        move_box.pack_start(down_button, expand=False)
+        move_panel = gtk.Alignment(xalign=0.5, yalign=0.5, xscale=0.0, yscale=0.0)
+        move_panel.add(move_box)
+
+        widget.pack_start(available_tree)
+        widget.pack_start(control_panel, expand=False)
         widget.pack_start(selected_tree)
+        widget.pack_start(move_panel, expand=False)
+
+        add_button.connect('clicked', self.on_add_button_clicked)
+        remove_button.connect('clicked', self.on_remove_button_clicked)
+        up_button.connect('clicked', self.on_up_button_clicked)
+        down_button.connect('clicked', self.on_down_button_clicked)
+
+        self.available_selection.connect('changed',
+            self.on_available_selection_changed,
+            [add_button])
+        self.selected_selection.connect('changed',
+            self.on_selected_selection_changed,
+            [remove_button, up_button, down_button])
 
         # Allow to send rows to selected
         available_tree.enable_model_drag_source(
@@ -255,19 +309,118 @@ class SelectionListPrefsItem(PrefsItem):
             [('TREE_MODEL_ROW', gtk.TARGET_SAME_APP, 0)],
             gtk.gdk.ACTION_MOVE)
 
-        available_tree.connect('drag-data-received', self._drag_data_received)
-        selected_tree.connect('drag-data-received', self._drag_data_received)
+        available_tree.connect('drag-data-received', self.on_drag_data_received)
+        available_tree.connect('key-press-event', self.on_available_tree_key_pressed)
+        selected_tree.connect('drag-data-received', self.on_drag_data_received)
+        selected_tree.connect('key-press-event', self.on_selected_tree_key_pressed)
 
-        widget.set_homogeneous(True)
-        widget.set_spacing(6)
+        self.available_list.connect('row-inserted',
+            self.on_available_list_row_inserted, available_tree)
+        self.selected_list.connect('row-inserted',
+            self.on_selected_list_row_inserted, selected_tree)
 
-    def _drag_data_received(self, target_treeview, context, x, y, data, info, time):
+    def on_available_selection_changed(self, selection, buttons):
+        """
+            Enables buttons if there is at least one row selected
+        """
+        row_selected = (selection.count_selected_rows() > 0)
+
+        for button in buttons:
+            button.set_sensitive(row_selected)
+
+    def on_selected_selection_changed(self, selection, buttons):
+        """
+            Enables buttons if there is at least one row selected
+        """
+        row_selected = (selection.count_selected_rows() > 0)
+
+        for button in buttons:
+            button.set_sensitive(row_selected)
+
+    def on_add_button_clicked(self, button):
+        """
+            Moves the selected rows to
+            the list of selected items
+        """
+        available_list, paths = self.available_selection.get_selected_rows()
+        iter = available_list.get_iter(paths[0])
+        value = available_list.get_value(iter, 0)
+
+        available_list.remove(iter)
+        iter = None
+
+        self.selected_list.append([value])
+
+    def on_remove_button_clicked(self, button):
+        """
+            Moves the selected rows to
+            the list of available items
+        """
+        selected_list, paths = self.selected_selection.get_selected_rows()
+        iter = selected_list.get_iter(paths[0])
+        value = selected_list.get_value(iter, 0)
+
+        selected_list.remove(iter)
+        iter = None
+
+        self.available_list.append([value])
+
+    def on_up_button_clicked(self, button):
+        """
+            Moves the selected rows upwards
+        """
+        list, paths = self.selected_selection.get_selected_rows()
+        iter = list.get_iter(paths[0])
+        upper_iter = self.iter_prev(iter, list)
+
+        if upper_iter is None:
+            return
+
+        list.swap(upper_iter, iter)
+
+    def on_down_button_clicked(self, button):
+        """
+            Moves the selected rows downwards
+        """
+        list, paths = self.selected_selection.get_selected_rows()
+        iter = list.get_iter(paths[0])
+        lower_iter = list.iter_next(iter)
+
+        if lower_iter is None:
+            return
+
+        list.swap(iter, lower_iter)
+
+    def on_available_tree_key_pressed(self, tree, event):
+        """
+        """
+        if not event.state & gtk.gdk.MOD1_MASK: return
+
+        keyname = gtk.gdk.keyval_name(event.keyval)
+        if keyname == 'Right':
+            self.on_add_button_clicked(None)
+
+    def on_selected_tree_key_pressed(self, tree, event):
+        """
+        """
+        if not event.state & gtk.gdk.MOD1_MASK: return
+
+        keyname = gtk.gdk.keyval_name(event.keyval)
+        
+        if keyname == 'Left':
+            self.on_remove_button_clicked(None)
+        elif keyname == 'Up':
+            self.on_up_button_clicked(None)
+        elif keyname == 'Down':
+            self.on_down_button_clicked(None)
+
+    def on_drag_data_received(self, target_treeview, context, x, y, data, info, time):
         """
             Handles movement of rows
         """
         source_treeview = context.get_source_widget()
-        source_list, path = source_treeview.get_selection().get_selected_rows()
-        source_iter = source_list.get_iter(path[0])
+        source_list, paths = source_treeview.get_selection().get_selected_rows()
+        source_iter = source_list.get_iter(paths[0])
         source_value = source_list.get_value(source_iter, 0)
 
         if source_value in self.fixed_items.values():
@@ -289,6 +442,37 @@ class SelectionListPrefsItem(PrefsItem):
             else:
                 target_list.insert_after(target_iter, [source_value])
             target_iter = None
+
+    def on_available_list_row_inserted(self, list, path, iter, tree):
+        """
+            Selects moved rows and focuses tree
+        """
+        self.available_selection.select_path(path)
+        tree.grab_focus()
+
+    def on_selected_list_row_inserted(self, list, path, iter, tree):
+        """
+            Selects moved rows and focuses tree
+        """
+        self.selected_selection.select_path(path)
+        tree.grab_focus()
+
+    def iter_prev(self, iter, model):
+        """
+            Returns the previous iter
+            Taken from PyGtk FAQ 13.51
+        """
+        path = model.get_path(iter)
+        position = path[-1]
+
+        if position == 0:
+            return None
+
+        prev_path = list(path)[:-1]
+        prev_path.append(position - 1)
+        prev = model.get_iter(tuple(prev_path))
+
+        return prev
 
     def _set_value(self):
         """

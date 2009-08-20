@@ -19,6 +19,7 @@ try:
 except:
     CDDB_AVAIL=False
 
+
 class NoCddbError(Exception):
     pass
 
@@ -171,23 +172,15 @@ class CDDevice(Device):
         self.dev = dev
 
     def _get_panel_type(self):
-        import sys
-        sys.path.append(os.path.dirname(__file__))
-        # exaile won't call this method unless the gui is running, so it's ok
-        # to import gui code here
+        import imp
         try:
-            import _cdguipanel
-            return _cdguipanel.CDPanel 
-        except ImportError:
-            return 'flatplaylist'
+            mod = imp.find_module("_cdguipanel", [os.path.dirname(__file__)])
+            _cdguipanel = imp.load_module("_cdguipanel", *mod)
+            return _cdguipanel.CDPanel
         except:
-            # something horrible went wrong
-            import traceback
-            traceback.print_exc()
+            common.log_exception(log=logger, message="Could not import cd gui panel")
             return 'flatplaylist'
-        finally:
-            sys.path.pop()
-
+      
     panel_type = property(_get_panel_type)
 
     def connect(self):

@@ -2,7 +2,12 @@ from xl.nls import gettext as _
 
 from xlgui.panel import device
 from xl import event
-import importer
+
+import imp, os
+mod = imp.find_module("importer", [os.path.dirname(__file__)])
+importer = imp.load_module("importer", *mod)
+del mod, imp, os
+
 import gobject
 import logging, threading
 logger = logging.getLogger(__name__)

@@ -110,7 +110,7 @@ def import_from_m3u(path):
             pl.set_name(line[12:])
         elif line.startswith("#EXTINF:"):
             current = track.Track()
-            comma_separated = line[9:].split(",", 1)
+            comma_separated = line[8:].split(",", 1)
             title = comma_separated[-1]
             if len(comma_separated) > 1:
                 length = float(comma_separated[0])

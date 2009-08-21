@@ -128,6 +128,7 @@ class TrackTitleFormatPreference(widgets.ComboEntryPrefsItem):
         '$location': _('Location'),
         '$filename': _('Filename'),
         '$playcount': _('Play count'),
+        '$last_played': _('Last played'),
         '$bpm': _('BPM'),
     }
     preset_items = [

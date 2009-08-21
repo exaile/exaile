@@ -359,12 +359,12 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
             Updates the local playlist as well as the
             currently selected playlist in the main window
         """
+        tracks = playlist.get_tracks()
+
         if playlist == self.playlist.playlist:
-            tracks = self.playlist.playlist.get_tracks()
             self.main.get_selected_playlist()._set_tracks(tracks)
             self.main.get_selected_playlist().playlist._set_ordered_tracks(tracks)
         else:
-            tracks = playlist.get_tracks()
             self.playlist._set_tracks(tracks)
             self.playlist.playlist._set_ordered_tracks(tracks)
 
@@ -417,13 +417,6 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
             self.popup.hide()
             self.set_arrow_direction(gtk.ARROW_RIGHT)
 
-    def on_drag_data_received(self, togglebutton, context, x, y, selection, info, timestamp):
-        """
-            Appends tracks to the playlist if
-            dropped on the button itself
-        """
-        print selection.get_uris()
-
     def on_drag_leave(self, togglebutton, context, timestamp):
         """
             Prevents showing the playlist if the
@@ -439,13 +432,7 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
         """
         if self._drag_motion_id is None:
             self._drag_motion_id = gobject.timeout_add(500,
-                self.drag_motion_finish)
-
-    def drag_motion_finish(self):
-        """
-            Callback function for showing the playlist
-        """
-        self.set_active(True)
+                lambda: self.set_active(True))
 
 gobject.type_register(MMPlaylistButton)
 gobject.signal_new('track-changed', MMPlaylistButton,
@@ -786,7 +773,8 @@ class MMTrackFormatter(gobject.GObject):
             'bitrate': '__bitrate',
             'location': '__location',
             'filename': 'filename',
-            'playcount': 'playcount',
+            'playcount': '__playcount',
+            'last_played': '__last_played',
             'bpm': 'bpm',
         }
         self._formattings = {
@@ -794,6 +782,7 @@ class MMTrackFormatter(gobject.GObject):
             'length': self.__format_length,
             'rating': self.__format_rating,
             'bitrate': self.__format_bitrate,
+            'last_played': self.__format_last_played,
         }
         self._rating_steps = 5.0
 
@@ -884,4 +873,32 @@ class MMTrackFormatter(gobject.GObject):
 
         return '%d kbit/s' % (bitrate / 1000)
 
+    def __format_last_played(self, last_played):
+        """
+            Returns a properly formatted last play time
+        """
+        text = _('Never')
+
+        if last_played is not None:
+            import time
+            ct = time.time()
+            now = time.localtime(ct)
+            yday = time.localtime(ct - 86400)
+            ydaytime = time.mktime((yday.tm_year, yday.tm_mon, yday.tm_mday, \
+                0, 0, 0, yday.tm_wday, yday.tm_yday, yday.tm_isdst))
+            lptime = time.localtime(last_played)
+            if now.tm_year == lptime.tm_year and \
+               now.tm_mon == lptime.tm_mon and \
+               now.tm_mday == lptime.tm_mday:
+                text = _('Today')
+            elif ydaytime <= last_played:
+                text = _('Yesterday')
+            else:
+                text = _('%(year)d-%(month)02d-%(day)02d') % {
+                    'year' : lptime.tm_year ,
+                    'month' : lptime.tm_mon,
+                    'day' : lptime.tm_mday
+                }
+
+        return text
 

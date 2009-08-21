@@ -390,7 +390,5 @@ class MiniMode(gtk.Window):
             Updates window size on exposure
         """
         self.resize(*self.size_request())
-        #self.show_all()
-        #self.realize()
         self.queue_draw()
 

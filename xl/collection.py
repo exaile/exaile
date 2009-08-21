@@ -513,7 +513,7 @@ class Library(object):
             Counts the number of files present in this directory
         """
         count = 0
-        for folder in os.walk(self.location):
+        for folder in os.walk(self.location, followlinks=True):
             if self.collection:
                 if self.collection._scan_stopped: 
                     return
@@ -587,7 +587,8 @@ class Library(object):
         ccheck = {} # compilations dict
 
         count = 0
-        for basepath, dirnames, filenames in os.walk(self.location):
+        for basepath, dirnames, filenames in os.walk(self.location,
+                followlinks=True):
             for filename in filenames:
                 if self.collection:
                     if self.collection._scan_stopped: 

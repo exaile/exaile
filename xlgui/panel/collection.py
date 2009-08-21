@@ -157,6 +157,14 @@ class CollectionPanel(panel.Panel):
         """
             Called on mouse activation of the refresh button
         """
+        if event.button == 3:
+            menu = guiutil.Menu()
+            menu.append(_('Rescan Collection'),
+                xlgui.controller().on_rescan_collection,
+                'gtk-refresh')
+            menu.popup(None, None, None, event.button, event.time)
+            return
+
         if event.state & gtk.gdk.SHIFT_MASK:
             xlgui.controller().on_rescan_collection(None)
         else:

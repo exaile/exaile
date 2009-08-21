@@ -180,7 +180,7 @@ class FilenameColumn(Column):
 class PlayCountColumn(Column):
     size = 50
     display = _('Playcount')
-    id = 'playcount'
+    id = '__playcount'
 
     def set_properties(self, col, cellr):
         cellr.set_property('xalign', 1.0)

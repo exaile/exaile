@@ -55,6 +55,8 @@ class ExailePlayer(object):
         track['__playcount'] = i + 1
         track['__last_played'] = time.time()
 
+        event.log_event('track_tags_changed', self, [track])
+
     def _load_volume(self):
         """
             load volume from settings

@@ -19,9 +19,10 @@ try:
 except:
     CDDB_AVAIL=False
 
-
-class NoCddbError(Exception):
-    pass
+import cdprefs
+    
+def get_prefs_pane():
+    return cdprefs
 
 TOC_HEADER_FMT = 'BB'
 TOC_ENTRY_FMT = 'BBBix'

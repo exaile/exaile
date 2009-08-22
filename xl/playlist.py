@@ -630,7 +630,7 @@ class Playlist(object):
         if self.random_enabled:
             if self.current_pos != -1:
                 self.tracks_history.append(self.get_current())
-                if self.repeat_enabled and len(self.tracks_history) == \
+                if self.repeat_enabled and len(self.tracks_history) >= \
                         len(self.ordered_tracks):
                     self.tracks_history = []
             if len(self.ordered_tracks) == 1 and \
@@ -642,6 +642,9 @@ class Playlist(object):
                     if x not in self.tracks_history])
             except IndexError:
                 logger.debug(_('Ran out of tracks to shuffle'))
+                # clear this so we restart the shuffle cycle next time a 
+                # track is played
+                self.tracks_history = []
                 return None
             self.current_pos = self.ordered_tracks.index(next)            
         else:

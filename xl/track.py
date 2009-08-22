@@ -210,7 +210,7 @@ class Track(object):
 
         self._dirty = True
         if self._scan_valid:
-            event.log_event("track-tags-changed", self, tag)
+            event.log_event("track_tags_changed", self, tag)
         
     def __getitem__(self, tag):
         """

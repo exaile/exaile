@@ -117,20 +117,19 @@ class Playlist(gtk.VBox):
         result = dialog.run()
         dialog.hide()
 
-        if result == gtk.RESPONSE_OK:
-            event.log_event('track_tags_changed', self, [tracks[0]])
         return True
     
-    def refresh_changed_tracks(self, type, object, tracks):
-        if not tracks or tracks == [] or not settings.get_option('gui/sync_on_tag_change', True):
+    def refresh_changed_tracks(self, type, track, tag):
+        tracks = [track]
+        if not tracks or tracks == [] or not \
+            settings.get_option('gui/sync_on_tag_change', True):
             return
         it = self.model.get_iter_first()
         while it:
             cur = self.model.get_value(it, 0)
             for track in tracks:
                 if cur.get_loc() == track.get_loc():
-                    newtrack = self.exaile.collection.get_track_by_loc(cur.get_loc())
-                    self.update_iter(it, newtrack)
+                    self.update_iter(it, track)
                     tracks.remove(track)
             it = self.model.iter_next(it)
         self.list.queue_draw()

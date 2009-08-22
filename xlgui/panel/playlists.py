@@ -515,7 +515,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
                 menu.connect('edit-playlist', lambda *e:
                     self.edit_selected_smart_playlist())
 
-    def refresh_playlists(self, type, object, tracks):
+    def refresh_playlists(self, type, track, tag):
         if settings.get_option('gui/sync_on_tag_change', True):
             for pl in self.playlist_nodes:
                 self.update_playlist_node(pl)

@@ -404,11 +404,12 @@ class CollectionPanel(panel.Panel):
                 break
         return terms
         
-    def refresh_tags_in_tree(self, object, type, tracks):
+    def refresh_tags_in_tree(self, type, track, tag):
         """
             For now, basically calls load_tree.
         """
-        if settings.get_option('gui/sync_on_tag_change', True):
+        if settings.get_option('gui/sync_on_tag_change', True) and \
+            tag in self.order:
             self.load_tree()
 
     def load_tree(self):

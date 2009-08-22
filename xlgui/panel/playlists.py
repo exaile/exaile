@@ -122,17 +122,17 @@ CRITERIA = [
 ]
 
 _TRANS = {
-    'is': '==',
-    'is not': '!==',
-    'contains': '=',
-    'does not contain': '!=',
-    'at least': '>=',
-    'at most': '<=',
-    'before': '<',
-    'after': '>',
-    'between': '><',
-    'greater than': '>',
-    'less than': '<',
+    _('is'): '==',
+    _('is not'): '!==',
+    _('contains'): '=',
+    _('does not contain'): '!=',
+    _('at least'): '>=',
+    _('at most'): '<=',
+    _('before'): '<',
+    _('after'): '>',
+    _('between'): '><',
+    _('greater than'): '>',
+    _('less than'): '<',
 }
 
 _NMAP = {
@@ -144,6 +144,7 @@ _NMAP = {
     _('Plays'): '__playcount',
     _('Year'): 'date',
     _('Genre'): 'genre',
+    _('Location'): '__loc',
 }
 
 class TrackWrapper(object):

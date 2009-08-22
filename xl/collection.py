@@ -508,12 +508,21 @@ class Library(object):
 
             self.collection.remove(track)
 
+    def _walk(self, location):
+        """
+            Compatibility wrapper for Python 2.5
+        """
+        try:
+            return os.walk(self.location, followlinks=True)
+        except TypeError:
+            return os.walk(self.location)
+
     def _count_files(self):
         """
             Counts the number of files present in this directory
         """
         count = 0
-        for folder in os.walk(self.location, followlinks=True):
+        for folder in self._walk(self.location):
             if self.collection:
                 if self.collection._scan_stopped: 
                     return
@@ -587,8 +596,7 @@ class Library(object):
         ccheck = {} # compilations dict
 
         count = 0
-        for basepath, dirnames, filenames in os.walk(self.location,
-                followlinks=True):
+        for basepath, dirnames, filenames in self._walk(self.location):
             for filename in filenames:
                 if self.collection:
                     if self.collection._scan_stopped: 

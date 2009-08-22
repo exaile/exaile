@@ -19,7 +19,7 @@
 #    Otherwise, (without threaded functions) UI is non responsive, while
 #    fetching that info... 
 
-import gtk, gobject
+import gtk, gobject, os
 import librivoxsearch as LS
 import about_window as AW
 from xl import track, playlist, event, xdg, common, settings
@@ -84,7 +84,7 @@ class LVPanel():
         
     def __init__(self,exaile):
         
-        self.librivoxdir=xdg.plugins_dir+'/librivox'
+        self.librivoxdir= os.path.dirname(__file__)
         self.abicon = gtk.gdk.pixbuf_new_from_file(self.librivoxdir+'/ebook.png')
         self.clock_icon=gtk.gdk.pixbuf_new_from_file(self.librivoxdir+'/clock.png')
         self.chapter_icon=gtk.gdk.pixbuf_new_from_file(xdg.get_data_path('images/track.png'))

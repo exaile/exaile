@@ -6,6 +6,7 @@ import urllib, urllib2, logging
 from time import mktime
 from datetime import datetime, timedelta
 from hashlib import md5
+from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)
 
@@ -87,7 +88,6 @@ def login( user, password, hashpw=False, client=('exa', '0.3.0'),
    response = urllib2.urlopen(req)
    result = response.read()
    lines = result.split('\n')
-
 
    if lines[0] == 'BADAUTH':
       raise AuthError('Bad username/password')

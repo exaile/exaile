@@ -55,6 +55,7 @@ class CDImporter(object):
                 break
             tr2 = track.Track("file://"+outloc)
             tr2.tags.update(tags)
+            tr2.write_tags()
             try:
                 incr = tr['__length'] / self.duration
                 self.progress += incr

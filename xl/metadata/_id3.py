@@ -85,9 +85,11 @@ class ID3Format(BaseFormat):
     def _set_tag(self, raw, tag, data):
         if tag not in self.tag_mapping.itervalues():
             tag = "TXXX:" + tag
-        raw.delall(tag)
+        if raw.tags is not None:
+            raw.tags.delall(tag)
         frame = id3.Frames[tag](encoding=3, text=data)
-        raw.add(frame)
+        if raw.tags is not None:
+            raw.tags.add(frame)
 
 
 # vim: et sts=4 sw=4

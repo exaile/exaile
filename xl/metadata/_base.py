@@ -166,7 +166,10 @@ class BaseFormat(object):
             # add tags if it doesn't have them
             try:
                 raw.add_tags()
-            except (ValueError, NotImplementedError):
+            except:
+#            except (ValueError, NotImplementedError):
+                # FIXME: this is BAD to not tie specifically to an exception,
+                # but mutagen doesn't provide a base error class to catch
                 pass
 
             # info tags are not actually writable

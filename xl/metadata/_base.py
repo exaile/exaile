@@ -14,7 +14,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-import os
+import os, copy
 from xl import common
 import urlparse
 import urllib
@@ -23,7 +23,7 @@ import urllib2
 import logging
 logger = logging.getLogger(__name__)
 
-INFO_TAGS = ['__bitrate', '__length', 'lyrics']
+INFO_TAGS = ['__bitrate', '__length']
 
 class NotWritable(Exception):
     pass
@@ -159,6 +159,7 @@ class BaseFormat(object):
         raw[tag] = value
 
     def write_tags(self, tagdict):
+        tagdict = copy.deepcopy(tagdict)
         if not self.MutagenType:
             raise NotWritable
         else:

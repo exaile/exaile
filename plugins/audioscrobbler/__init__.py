@@ -155,7 +155,7 @@ class ExaileScrobbler(object):
     @common.threaded
     def initialize(self, username, password, server):
         try:
-            logger.info(_("Attempting to connect to AudioScrobbler: %s") %
+            logger.info(_("Attempting to connect to AudioScrobbler (%s)") %
                 server)
             scrobbler.login(username, password, hashpw=False, post_url=server)
         except:

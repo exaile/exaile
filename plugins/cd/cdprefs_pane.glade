@@ -13,7 +13,7 @@
             <child>
               <widget class="GtkLabel" id="label1">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes"> Import format: </property>
+                <property name="label" translatable="yes">Import format: </property>
               </widget>
               <packing>
                 <property name="expand">False</property>
@@ -50,7 +50,7 @@ WavPack</property>
             <child>
               <widget class="GtkLabel" id="label2">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes"> Import quality: </property>
+                <property name="label" translatable="yes">Import quality: </property>
               </widget>
               <packing>
                 <property name="expand">False</property>
@@ -82,7 +82,7 @@ WavPack</property>
             <child>
               <widget class="GtkLabel" id="label3">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes"> Import path: </property>
+                <property name="label" translatable="yes">Import path: </property>
               </widget>
               <packing>
                 <property name="expand">False</property>

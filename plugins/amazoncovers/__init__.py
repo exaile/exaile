@@ -75,8 +75,8 @@ class AmazonCoverSearch(CoverSearchMethod):
             'plugin/amazoncovers/secret_key', '')
 
         if not api_key or not secret_key:
-            logger.warning(_('Please enter your amazon api and secret '
-                'keys in the Amazon Covers Preferences'))
+            logger.warning(_('Please enter your Amazon API and secret '
+                'keys in the Amazon Covers preferences'))
 
         try:
             albums = ecs.search_covers(search, api_key, secret_key)

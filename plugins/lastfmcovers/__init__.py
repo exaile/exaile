@@ -24,6 +24,10 @@ class LastFMCoverSearch(CoverSearchMethod):
         re.IGNORECASE|re.DOTALL)
     url = "http://ws.audioscrobbler.com/1.0/album/%(artist)s/%(album)s/info.xml"
 
+    # List of SHA1 (hex) signatures of covers to be ignored. It can be 
+    # replaced by a [frozen]set if the number of elements becomes large.
+    black_list = ["57b2c37343f711c94e83a37bd91bc4d18d2ed9d5"]
+
     def find_covers(self, track, limit=-1):
         """
             Searches last.fm for album covers
@@ -50,6 +54,9 @@ class LastFMCoverSearch(CoverSearchMethod):
         h = urllib.urlopen(image)
         data = h.read()
         h.close()
+
+        if hashlib.sha1(data).hexdigest() in self.black_list:
+            raise NoCoverFoundException()
 
         covername = os.path.join(cache_dir, hashlib.md5(m.group(1)).hexdigest())
         covername += ".jpg"

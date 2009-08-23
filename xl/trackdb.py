@@ -185,7 +185,7 @@ class TrackDB(object):
         except common.VersionError:
             raise
         except:
-            logger.error(_("Failed to open music DB."))
+            logger.error("Failed to open music DB.")
             return
 
         for attr in self.pickle_attrs:
@@ -216,8 +216,8 @@ class TrackDB(object):
             :param location: the location to save the data to
             :type location: string
         """
-        logger.debug(_("Saving %(name)s DB to %(location)s." %
-            {'name' : self.name, 'location' : location or self.location}))
+        logger.debug("Saving %(name)s DB to %(location)s." %
+            {'name' : self.name, 'location' : location or self.location})
         if not self._dirty:
             for k, track in self.tracks.iteritems():
                 if track._track._dirty: 
@@ -243,7 +243,7 @@ class TrackDB(object):
                 if pdata['_dbversion'] > self._dbversion:
                     raise ValueError, "DB was created on a newer Exaile version."
         except:
-            logger.error(_("Failed to open music DB for write."))
+            logger.error("Failed to open music DB for write.")
             return
 
         for attr in self.pickle_attrs:
@@ -665,7 +665,7 @@ class TrackSearcher(object):
             elif subtoken == "(":
                 new_list = self.__do_search(token[1], current_list)
             else:
-                logger.warning(_("bad search token"))
+                logger.warning("Bad search token")
                 return current_list
 
         # normal token

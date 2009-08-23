@@ -69,7 +69,7 @@ def search_covers(search, api_key, secret_key):
     # check for an error message
     m = re.search(r'<Message>(.*)</Message>', data, re.DOTALL)
     if m:
-        logger.warning(_('Amazon Covers Search Error: %s') % m.group(1))
+        logger.warning('Amazon Covers Search Error: %s' % m.group(1))
         raise AmazonSearchError(m.group(1)) 
 
     # check for large images

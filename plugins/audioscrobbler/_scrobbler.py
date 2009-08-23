@@ -111,7 +111,7 @@ Consider using an NTP-client to keep you system time in sync.''')
       NOW_URL    = lines[2]
       POST_URL   = lines[3]
       HARD_FAILS = 0
-      logger.info(_("Logged in successfully to AudioScrobbler (%s)" % url))
+      logger.info("Logged in successfully to AudioScrobbler (%s)" % url)
 
    else:
       # some hard error
@@ -175,7 +175,7 @@ def now_playing( artist, track, album="", length="", trackno="", mbid="",
    result = response.read()
 
    if result.strip() == "OK":
-      logger.info(_("Submitted \"Now Playing\" successfully to AudioScrobbler"))
+      logger.info("Submitted \"Now Playing\" successfully to AudioScrobbler")
       return True
    elif result.strip() == "BADSESSION" :
       if inner_call is False:
@@ -184,7 +184,7 @@ def now_playing( artist, track, album="", length="", trackno="", mbid="",
       else:
          raise SessionError('Invalid session')
    else:
-      logger.warning("[AS]: Error submitting 'now playing'")
+      logger.warning("Error submitting \"Now Playing\"")
       return False
 
 def submit(artist, track, time, source='P', rating="", length="", album="",
@@ -302,7 +302,7 @@ you login?''')
 
    if lines[0] == "OK":
       SUBMIT_CACHE = SUBMIT_CACHE[MAX_SUBMIT:]
-      logger.info(_("AudioScrobbler OK: %s" % data))
+      logger.info("AudioScrobbler OK: %s" % data)
       return True
    elif lines[0] == "BADSESSION" :
       if inner_call is False:

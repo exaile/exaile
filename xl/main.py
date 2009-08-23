@@ -92,9 +92,9 @@ class Exaile(object):
         """
             Initializes Exaile
         """
-        logger.info(_("Loading Exaile %s...") % __version__)
+        logger.info("Loading Exaile %s..." % __version__)
 
-        logger.info(_("Loading settings..."))
+        logger.info("Loading settings...")
         try:
             from xl import settings
         except common.VersionError:
@@ -121,15 +121,15 @@ class Exaile(object):
         # Initialize plugin manager
         if not self.options.SafeMode:
             from xl import plugins
-            logger.info(_("Loading plugins..."))
+            logger.info("Loading plugins...")
             self.plugins = plugins.PluginsManager(self)
         else:
             from xl import plugins
-            logger.info(_("Safe mode enabled, not loading plugins."))
+            logger.info("Safe mode enabled, not loading plugins.")
             self.plugins = plugins.PluginsManager(self, load=False)
 
         # Initialize the collection
-        logger.info(_("Loading collection..."))
+        logger.info("Loading collection...")
         from xl import collection
         try:
             self.collection = collection.Collection("Collection",
@@ -160,7 +160,7 @@ class Exaile(object):
         self.dynamic = dynamic.DynamicManager(self.collection)
 
         # Initalize device manager
-        logger.info(_("Loading devices..."))
+        logger.info("Loading devices...")
         from xl import devices
         self.devices = devices.DeviceManager()
         event.log_event("device_manager_ready", self, None)
@@ -190,7 +190,7 @@ class Exaile(object):
         self.gui = None
         # Setup GUI
         if self.options.StartGui:
-            logger.info(_("Loading interface..."))
+            logger.info("Loading interface...")
 
             import xlgui
             self.gui = xlgui.Main(self)
@@ -417,9 +417,9 @@ class Exaile(object):
         if self.quitting: 
             return
         self.quitting = True
-        logger.info(_("Exaile is shutting down..."))
+        logger.info("Exaile is shutting down...")
 
-        logger.info(_("Disabling plugins..."))
+        logger.info("Disabling plugins...")
         for k, plugin in self.plugins.enabled_plugins.iteritems():
             if hasattr(plugin, 'teardown'):
                 try:
@@ -439,7 +439,7 @@ class Exaile(object):
         # below.
         event.log_event("quit_application", self, None, async=False)
 
-        logger.info(_("Saving state..."))
+        logger.info("Saving state...")
         self.plugins.save_enabled()
 
         if self.gui:
@@ -464,7 +464,7 @@ class Exaile(object):
 
         settings._SETTINGSMANAGER.save()
 
-        logger.info(_("Bye!"))
+        logger.info("Bye!")
         logging.shutdown()
         exit()
 

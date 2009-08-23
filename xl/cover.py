@@ -95,7 +95,7 @@ class CoverDB(object):
         if not type(cover) == str and not type(cover) == unicode:
             return
         if not os.path.isfile(cover): return
-        logger.info(_("CoverDB: set cover %(cover)s for '%(album)s - %(artist)s'") %
+        logger.info("CoverDB: set cover %(cover)s for '%(album)s - %(artist)s'" %
             {'cover' : cover, 'album' : album, 'artist' : artist})
         if not artist in self.artists:
             self.artists[artist] = common.idict()
@@ -393,19 +393,19 @@ class CoverManager(providers.ProviderHandler):
                 covers you want returned
         """
         covers = []
-        logger.info(_("Attempting to find covers for %s") % track)
+        logger.info("Attempting to find covers for %s" % track)
         for method in self.get_methods():
             try:
                 if not search:
                     c = method.find_covers(track, limit)
                 else:
                     if not hasattr(method, 'search_covers'):
-                        logger.info(_("%s method doesn't "
-                            "support searching, skipping") % method.name)
+                        logger.info("%s method doesn't "
+                            "support searching, skipping" % method.name)
                         continue
                     c = method.search_covers(track, limit)
 
-                logger.info(_("Found covers from %s") % method.name)
+                logger.info("Found covers from %s" % method.name)
                 covers.extend(c)
                 if limit != -1:
                     event.log_event('cover_found', self, (covers, method.type))

@@ -239,7 +239,7 @@ class CoverManager(object):
                 continue
             except:
                 traceback.print_exc()
-                logger.warning(_("No cover found"))
+                logger.warning("No cover found")
                 c = None
 
             if c:
@@ -262,7 +262,7 @@ class CoverManager(object):
             self.count += 1
 
             if self.count % 20 == 0:
-                logger.info(_("Saving cover database"))
+                logger.info("Saving cover database")
                 self.manager.save_cover_db()
 
         # we're done!
@@ -433,7 +433,7 @@ class CoverWidget(gtk.EventBox):
             cov = self.covers.get_cover(self.current_track,
                 update_track=True)
         except cover.NoCoverFoundException:
-            logger.warning(_("No covers found"))
+            logger.warning("No covers found")
             gobject.idle_add(self.image.set_image, xdg.get_data_path('images/nocover.png'))
             return
 

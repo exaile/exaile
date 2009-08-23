@@ -32,11 +32,11 @@ logger = logging.getLogger(__name__)
 def get_player():
     pname = settings.get_option("player/engine", "normal")
     if pname == "normal":
-        logger.debug(_("Normal playback engine selected."))
+        logger.debug("Normal playback engine selected.")
         from xl.player.engine_normal import NormalPlayer
         return NormalPlayer
     elif pname == "unified":
-        logger.debug(_("Unified playback engine selected."))
+        logger.debug("Unified playback engine selected.")
         from xl.player.engine_unified import UnifiedPlayer
         return UnifiedPlayer
     else:

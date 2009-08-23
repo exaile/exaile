@@ -241,12 +241,12 @@ class Playlist(gtk.VBox):
         column_ids = list(settings.get_option(pref, []))
         if item.get_active():
             if id not in column_ids:
-                logger.info(_("adding %(column_id)s column to %(preference)s") %
+                logger.info("Adding %(column_id)s column to %(preference)s" %
                     {'column_id' : id, 'preference' : pref})
                 column_ids.append(id)
         else:
             if col_struct.id in column_ids:
-                logger.info(_("removing %(column_id)s column from %(preference)s") %
+                logger.info("Removing %(column_id)s column from %(preference)s" %
                     {'column_id' : id, 'preference' : pref})
                 column_ids.remove(id)
         settings.set_option(pref, column_ids)

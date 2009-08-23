@@ -42,20 +42,19 @@ class HAL(providers.ProviderHandler):
             hal_obj = self.bus.get_object('org.freedesktop.Hal', 
                 '/org/freedesktop/Hal/Manager')
             self.hal = dbus.Interface(hal_obj, 'org.freedesktop.Hal.Manager')
-            logger.info(_("HAL Providers: %s") % repr(self.get_providers()))
+            logger.info("HAL Providers: %s" % repr(self.get_providers()))
             for p in self.get_providers():
                 try:
                     self.on_new_provider(p)
                 except:
-                    logger.warning(
-                            _("Failed to load HAL devices for %s")%p.name)
+                    logger.warning("Failed to load HAL devices for %s" % p.name)
                     common.log_exception(logger)
             self.setup_device_events()
-            logger.debug(_("Connected to HAL"))
+            logger.debug("Connected to HAL")
             event.log_event("hal_connected", self, None)
         except:
-            logger.warning(_("Failed to connect to HAL, " \
-                    "autodetection of devices will be disabled."))
+            logger.warning("Failed to connect to HAL, " \
+                    "autodetection of devices will be disabled.")
 
     def on_new_provider(self, provider):
         for udi in provider.get_udis(self):
@@ -85,20 +84,20 @@ class HAL(providers.ProviderHandler):
 
     def add_device(self, device_udi):
         if device_udi in self.hal_devices:
-            logger.warning("Device %s already in hal list, skipping."%device_udi)
+            logger.warning("Device %s already in hal list, skipping." % device_udi)
             return
 
         handler = self.get_handler(device_udi)
         if handler is None:
-            logger.debug(_("Found no HAL device handler for %s")%device_udi)
+            logger.debug("Found no HAL device handler for %s" % device_udi)
             return
         
         dev = handler.device_from_udi(self, device_udi)
         if not dev: 
-            logger.debug(_("Failed to create device for %s")%device_udi)
+            logger.debug("Failed to create device for %s" % device_udi)
             return
         
-        logger.debug(_("Found new %(handler)s device at %(device_udi)s") %
+        logger.debug("Found new %(handler)s device at %(device_udi)s" %
                 {'handler' : handler.name, 'device_udi' : device_udi})
         dev.autoconnect()
 

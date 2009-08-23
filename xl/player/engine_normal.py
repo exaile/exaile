@@ -98,7 +98,7 @@ class NormalPlayer(_base.ExailePlayer):
         elif message.type == gst.MESSAGE_BUFFERING:
             percent = message.parse_buffering()
             if not percent < 100:
-                logger.info(_('Buffering complete'))
+                logger.info('Buffering complete')
             if percent % 5 == 0:
                 event.log_event('playback_buffering', self, percent)
         return True
@@ -183,14 +183,14 @@ class NormalPlayer(_base.ExailePlayer):
         # make sure the file exists if this is supposed to be a local track
         if track.is_local():
             if not track.exists():
-                logger.error(_("File does not exist: %s") % 
+                logger.error("File does not exist: %s" % 
                     track.get_loc())
                 return False
        
         self._current = track
         
         uri = self._get_track_uri(track)
-        logger.info(_("Playing %s") % uri)
+        logger.info("Playing %s" % uri)
         self.reset_playtime_stamp()
 
         self.playbin.set_property("uri", uri)
@@ -262,7 +262,7 @@ class NormalPlayer(_base.ExailePlayer):
         if res:
             self.playbin.set_new_stream_time(0L)
         else:
-            logger.debug(_("Couldn't send seek event"))
+            logger.debug("Couldn't send seek event")
 
         self.last_seek_pos = value
 

@@ -192,7 +192,7 @@ class Collection(trackdb.TrackDB):
                 return
             self.file_count += library._count_files()
 
-        logger.info(_("File count: %d") % self.file_count)
+        logger.info("File count: %d" % self.file_count)
 
         scan_interval = self.file_count / len(self.libraries.values()) / 100
         if not scan_interval: 
@@ -334,7 +334,7 @@ class INotifyEventProcessor(ProcessEvent):
             self.mask, rec=True, auto_add=True)
 
         self.libraries.append((library, wdd))
-        logger.info(_("Watching directory: %s") % library.location)
+        logger.info("Watching directory: %s" % library.location)
         if not self.started:
             self.notifier.start()
             self.started = True
@@ -366,7 +366,7 @@ class INotifyEventProcessor(ProcessEvent):
             Called when a file is deleted
         """
         pathname = os.path.join(event.path, event.name)
-        logger.info(_("Location deleted: %s") % pathname)
+        logger.info("Location deleted: %s" % pathname)
         for (library, wdd) in self.libraries:
             if pathname.find(library.location) > -1:
                 library._remove_locations([pathname])         
@@ -377,7 +377,7 @@ class INotifyEventProcessor(ProcessEvent):
             Called when a file is changed
         """
         pathname = os.path.join(event.path, event.name)
-        logger.info(_("Location modified: %s") % pathname)
+        logger.info("Location modified: %s" % pathname)
         for (library, wdd) in self.libraries:
             if pathname.find(library.location) > -1:
                 library._scan_locations([pathname])         
@@ -441,8 +441,8 @@ class Library(object):
         try:
             self.set_realtime(realtime)
         except PyInotifyNotSupportedException:
-            logger.warning(_("PyInotify not installed or not supported.  ") +
-                _("Not watching library: %s") % location)
+            logger.warning("PyInotify not installed or not supported. " +
+                "Not watching library: %s" % location)
         except:
             common.log_exception()
 
@@ -554,7 +554,7 @@ class Library(object):
             album = metadata.j(tr['album'])
             artist = metadata.j(tr['artist'])
         except UnicodeDecodeError: #TODO: figure out why this happens
-            logger.warning(_("Encoding error, skipping compilation check"))
+            logger.warning("Encoding error, skipping compilation check")
             return
         if not basedir or not album or not artist: return
         album = album.lower()
@@ -573,7 +573,7 @@ class Library(object):
             artist in ccheck[basedir][album]:
             if not (basedir, album) in compilations:
                 compilations.append((basedir, album))
-            logger.info(_("Compilation detected: %s") % ((basedir, album),))
+            logger.info("Compilation detected: %s" % ((basedir, album),))
 
         ccheck[basedir][album].append(artist)
 
@@ -587,7 +587,7 @@ class Library(object):
 
         if self.scanning: return
 
-        logger.info(_("Scanning library: %s") % self.location)
+        logger.info("Scanning library: %s" % self.location)
         self.scanning = True
         formats = metadata.formats.keys()
         db = self.collection
@@ -609,8 +609,8 @@ class Library(object):
                     if not link_loc.startswith(os.sep):
                         link_loc = os.path.realpath(os.path.join(os.path.dirname(path), link_loc))
                     if link_loc.startswith(os.path.realpath(self.location)):
-                        logger.info(_("Ignoring symlink %(path)s "
-                            "pointing to %(location)s") % {
+                        logger.info("Ignoring symlink %(path)s "
+                            "pointing to %(location)s" % {
                                 'path': path,
                                 'location': link_loc
                             })

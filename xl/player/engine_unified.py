@@ -381,7 +381,7 @@ class AudioStream(gst.Bin):
             return False
         if track.is_local():
             if not track.exists():
-                logger.error(_("File does not exist: %s") %
+                logger.error("File does not exist: %s" %
                         track.get_loc())
                 return False
         
@@ -389,7 +389,7 @@ class AudioStream(gst.Bin):
 
         uri = track.get_loc_for_io()
 
-        logger.info(_("Playing %s") % uri)
+        logger.info("Playing %s" % uri)
         self.reset_playtime_stamp()
         
         self.dec.set_property("uri", uri)

@@ -35,7 +35,7 @@ class ProviderManager(object):
         if servicename not in self.services:
             self.services[servicename] = []
         self.services[servicename].append(provider)
-        logger.debug(_("Provider %(provider)s registered for service %(service)s") % \
+        logger.debug("Provider %(provider)s registered for service %(service)s" % \
                 {'provider' : provider.name, 'service' : servicename})
         event.log_event("%s_provider_added"%servicename, self, provider)
 
@@ -53,7 +53,7 @@ class ProviderManager(object):
         try:
             if provider in self.services[servicename]:
                 self.services[servicename].remove(provider)
-            logger.debug(_("Provider %(provider)s unregistered from service %(service)s") % \
+            logger.debug("Provider %(provider)s unregistered from service %(service)s" % \
                     {'provider' : provider.name, 'service' : servicename})
             event.log_event("%s_provider_removed"%servicename, self, provider)
         except KeyError:

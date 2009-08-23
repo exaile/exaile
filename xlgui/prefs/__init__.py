@@ -108,7 +108,7 @@ class PreferencesDialog(object):
                     try:
                         plugin_pages.append(plugin.get_prefs_pane())
                     except:
-                        logger.warning(_('Error loading preferences pane'))
+                        logger.warning('Error loading preferences pane')
                         traceback.print_exc()
 
         for page in plugin_pages:

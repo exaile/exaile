@@ -641,7 +641,7 @@ class Playlist(object):
                 next = random.choice([ x for x in self.ordered_tracks \
                     if x not in self.tracks_history])
             except IndexError:
-                logger.debug(_('Ran out of tracks to shuffle'))
+                logger.debug('Ran out of tracks to shuffle')
                 # clear this so we restart the shuffle cycle next time a 
                 # track is played
                 self.tracks_history = []

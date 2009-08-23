@@ -302,7 +302,7 @@ class IdleManager(threading.Thread):
             Stops the thread
         """
         self._stopped = True
-        logger.debug(_("Stopping IdleManager thread..."))
+        logger.debug("Stopping IdleManager thread...")
 
     def _call_function(self, func, args):
         """
@@ -401,8 +401,8 @@ class EventManager(object):
         if self.use_logger:
             if not self.logger_filter or re.search(self.logger_filter,
                 event.type):
-                logger.debug(_("Sent '%(type)s' event from "
-                    "'%(object)s' with data '%(data)s'.") % 
+                logger.debug("Sent '%(type)s' event from "
+                    "'%(object)s' with data '%(data)s'." % 
                         {'type' : event.type, 'object' : repr(event.object), 
                         'data' : repr(event.data)})
 
@@ -422,9 +422,9 @@ class EventManager(object):
                         if not self.logger_filter or \
                             re.search(self.logger_filter,
                             event.type):
-                            logger.debug(_("Attempting to call "
+                            logger.debug("Attempting to call "
                                 "%(function)s in response "
-                                "to %(event)s.") % {
+                                "to %(event)s." % {
                                     'function': cb.wfunction(),
                                     'event': event.type})
                     cb.wfunction().__call__(event.type, event.object, 

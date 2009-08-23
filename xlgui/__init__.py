@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 
 ###
 # Set up xl/event to work with the gtk event loop
-logger.info(_("Setting up deferred idle manager function..."))
+logger.info("Setting up deferred idle manager function...")
 event.IDLE_MANAGER._call_function = guiutil.idle_add()(
     event.IDLE_MANAGER._call_function)
 
@@ -73,13 +73,13 @@ class Main(object):
             self.icons.add_icon_name_from_directory(icon_name,
                 xdg.get_data_path('images'))
 
-        logger.info(_("Loading main window..."))
+        logger.info("Loading main window...")
         self.main = main.MainWindow(self, self.xml,
             exaile.collection, exaile.player, exaile.queue, exaile.covers)
         self.panel_notebook = self.xml.get_widget('panel_notebook')
         self.play_toolbar = self.xml.get_widget('play_toolbar')
 
-        logger.info(_("Loading panels..."))
+        logger.info("Loading panels...")
         self.last_selected_panel = settings.get_option(
             'gui/last_selected_panel', None)
         self.panels['collection'] = collection.CollectionPanel(self.main.window,
@@ -105,10 +105,10 @@ class Main(object):
             if device.connected:
                 self.add_device_panel(None, None, device)
        
-        logger.info(_("Connecting panel events..."))
+        logger.info("Connecting panel events...")
         self.main._connect_panel_events()
 
-        logger.info(_("Connecting main window events..."))
+        logger.info("Connecting main window events...")
         self._connect_events()
 
         if settings.get_option('gui/use_tray', False):
@@ -120,7 +120,7 @@ class Main(object):
         event.add_callback(self.add_device_panel, 'device_connected')
         event.add_callback(self.remove_device_panel, 'device_disconnected')
 
-        logger.info(_("Done loading main window..."))
+        logger.info("Done loading main window...")
         Main._main = self
 
     def _connect_events(self):

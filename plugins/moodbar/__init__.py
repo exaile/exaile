@@ -135,11 +135,11 @@ class ExModbar:
     def updateMod(self):
          self.updateplayerpos()
          if not self.haveMod:
-           logger.debug(_('Searching for mood...'))
+           logger.debug('Searching for mood...')
            modLoc=self.moodsDir+'/'+ self.playingTrack.replace('/','-')+".mood"
            modLoc=modLoc.replace("'",'')
            if self.readMod(modLoc):
-              logger.debug(_("Mood found."))
+              logger.debug("Mood found.")
               self.haveMod=True 
               self.modwidth=0
          self.modTimer = gobject.timeout_add(1000, self.updateMod)
@@ -171,7 +171,7 @@ class ExModbar:
              return retur 
           
        except: 
-          logger.debug(_('Could not read moodbar.'))
+          logger.debug('Could not read moodbar.')
           self.moodbar=''
           for i in range(3000):
               self.moodbar=self.moodbar+chr(0)

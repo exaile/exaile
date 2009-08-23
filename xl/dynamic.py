@@ -43,7 +43,7 @@ class DynamicManager(providers.ProviderHandler):
                 found, a random selection of those tracks is
                 returned.
         """
-        logger.debug(_(u"Searching for %(limit)s tracks related to %(track)s") % 
+        logger.debug(u"Searching for %(limit)s tracks related to %(track)s" % 
                 {'limit' : limit, 'track' : track})
         artists = self.find_similar_artists(track)
         if artists == []:
@@ -143,7 +143,7 @@ class DynamicManager(providers.ProviderHandler):
         if playlist.get_current_pos() != current_pos:
             return # we skipped in that 5 seconds, so ignore it
         playlist.add_tracks(tracks)
-        logger.debug(_("Added %s tracks.")%len(tracks))
+        logger.debug("Added %s tracks." % len(tracks))
 
 class DynamicSource(object):
     def __init__(self):

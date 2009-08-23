@@ -143,7 +143,7 @@ class ExaileScrobbler(object):
         """
             Stops submitting
         """
-        logger.info(_("Stopping AudioScrobbler submissions"))
+        logger.info("Stopping AudioScrobbler submissions")
         if self.use_menu:
             self.remove_menu()
         if self.connected:
@@ -155,8 +155,7 @@ class ExaileScrobbler(object):
     @common.threaded
     def initialize(self, username, password, server):
         try:
-            logger.info(_("Attempting to connect to AudioScrobbler (%s)") %
-                server)
+            logger.info("Attempting to connect to AudioScrobbler (%s)" % server)
             scrobbler.login(username, password, hashpw=False, post_url=server)
         except:
             
@@ -167,7 +166,7 @@ class ExaileScrobbler(object):
                 common.log_exception()
                 return
            
-        logger.info(_("Connected to AudioScrobbler"))
+        logger.info("Connected to AudioScrobbler")
 
         event.add_callback(self.on_play, 'playback_track_start')
         event.add_callback(self.on_stop, 'playback_track_end')
@@ -181,7 +180,7 @@ class ExaileScrobbler(object):
         if player.current != track: 
             return
 
-        logger.info(_("Attempting to submit \"Now Playing\" information to AudioScrobbler..."))
+        logger.info("Attempting to submit \"Now Playing\" information to AudioScrobbler...")
         scrobbler.now_playing(
             metadata.j(track['artist']), metadata.j(track['title']), 
             metadata.j(track['album']), 
@@ -243,3 +242,4 @@ class ExaileScrobbler(object):
             except:
                 common.log_exception()
                 logger.warning("AS: Failed to submit track")
+

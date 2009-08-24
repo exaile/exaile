@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Exaile music player 0.3.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-20 15:57+0200\n"
-"PO-Revision-Date: 2009-08-20 15:58+0100\n"
+"POT-Creation-Date: 2009-08-23 17:22+0200\n"
+"PO-Revision-Date: 2009-08-24 13:29+0100\n"
 "Last-Translator: Mathias Brodala <info@noctus.net>\n"
 "Language-Team: German <info@noctus.net>\n"
 "MIME-Version: 1.0\n"
@@ -314,23 +314,23 @@ msgstr "Tag %(tag)s konnte nicht aus %(location)s importiert werden: möglicher 
 msgid "Vorbis is an open source, lossy audio codec with high quality output at a lower file size than MP3."
 msgstr "Vorbis ist ein Open-Source, verlustbehafteter Audio-Codec mit hoher Qualität bei niedrigerer Dateigröße als MP3."
 
-#: ../xl/transcoder.py:54
+#: ../xl/transcoder.py:55
 msgid "Free Lossless Audio Codec (FLAC) is an open source codec that compresses but does not degrade audio quality."
 msgstr "Free Lossless Audio Codec (FLAC) ist ein Open-Source-Codec welcher verlustfrei komprimiert."
 
-#: ../xl/transcoder.py:64
+#: ../xl/transcoder.py:67
 msgid "Apple's proprietary lossy audio format that achieves better sound quality than MP3 at lower bitrates."
 msgstr "Apples proprietärer verlustbehaftetes Audio-Format erzielt bessere Klangqualität als MP3 bei niedrigeren Bitraten."
 
-#: ../xl/transcoder.py:73
+#: ../xl/transcoder.py:78
 msgid "A proprietary and older, but also popular, lossy audio format. VBR gives higher quality than CBR, but may be incompatible with some players."
 msgstr "Ein proprietäres und älteres aber zugleich beliebtes verlustbehaftetes Audio-Format. VBR ermöglicht höhere Qualität als CBR, kann aber zu Problemen mit einigen Playern führen."
 
-#: ../xl/transcoder.py:82
+#: ../xl/transcoder.py:89
 msgid "A proprietary and older, but also popular, lossy audio format. CBR gives less quality than VBR, but is compatible with any player."
 msgstr "Ein proprietäres und älteres aber zugleich beliebtes verlustbehaftetes Audio-Format. CBR bietet weniger Klangqualität als VBR, ist aber kompatibel mit jedem Player."
 
-#: ../xl/transcoder.py:91
+#: ../xl/transcoder.py:100
 msgid "A very fast Free lossless audio format with good compression."
 msgstr "Ein sehr schnelles freies und verlustfreies Audio-Format mit guter Kompression."
 
@@ -406,21 +406,21 @@ msgid "Not watching library: %s"
 msgstr "Nicht überwachte Bibliothek: %s"
 
 #. TODO: figure out why this happens
-#: ../xl/collection.py:548
+#: ../xl/collection.py:557
 msgid "Encoding error, skipping compilation check"
 msgstr "Kodierungsfehler, Test auf Compliation wird übersprungen"
 
-#: ../xl/collection.py:567
+#: ../xl/collection.py:576
 #, python-format
 msgid "Compilation detected: %s"
 msgstr "Compilation gefunden: %s"
 
-#: ../xl/collection.py:581
+#: ../xl/collection.py:590
 #, python-format
 msgid "Scanning library: %s"
 msgstr "Bibliothek einlesen: %s"
 
-#: ../xl/collection.py:603
+#: ../xl/collection.py:612
 #, python-format
 msgid "Ignoring symlink %(path)s pointing to %(location)s"
 msgstr "Symlink %(path)s, deutend auf %(location)s, wird ignoriert"
@@ -477,14 +477,14 @@ msgstr "Plugin %s konnte nicht vollständig deaktiviert werden"
 
 #. TRANSLATORS : this replaces the title of a track when it's not known
 #: ../xl/playlist.py:243
-#: ../xlgui/panel/collection.py:387
-#: ../xlgui/panel/collection.py:586
-#: ../xlgui/panel/collection.py:623
+#: ../xlgui/panel/collection.py:395
+#: ../xlgui/panel/collection.py:595
+#: ../xlgui/panel/collection.py:632
 #: ../plugins/bookmarks/__init__.py:151
 #: ../plugins/notifyosd/__init__.py:57
 #: ../plugins/notifyosd/__init__.py:68
 #: ../plugins/notify/__init__.py:27
-#: ../plugins/minimode/mmwidgets.py:824
+#: ../plugins/minimode/mmwidgets.py:820
 msgid "Unknown"
 msgstr "Unbekannt"
 
@@ -569,12 +569,12 @@ msgstr "0:00"
 #: ../xlgui/main.py:107
 #: ../xlgui/main.py:960
 #: ../data/glade/main.glade.h:9
-#: ../plugins/minimode/mmwidgets.py:636
+#: ../plugins/minimode/mmwidgets.py:630
 msgid "Not Playing"
 msgstr "Keine Wiedergabe"
 
 #: ../xlgui/main.py:117
-#: ../plugins/minimode/mmwidgets.py:656
+#: ../plugins/minimode/mmwidgets.py:650
 msgid "Streaming..."
 msgstr "Streamen …"
 
@@ -593,7 +593,7 @@ msgstr "Wiedergabeliste umbenennen"
 
 #: ../xlgui/main.py:262
 msgid "Custom playlist name:"
-msgstr "Name der benutzerdefinierten Wiedergabeliste:"
+msgstr "Name der eigenen Wiedergabeliste:"
 
 #: ../xlgui/main.py:262
 msgid "Save As..."
@@ -670,7 +670,7 @@ msgstr "Neue Wiedergabeliste"
 
 #: ../xlgui/menu.py:147
 msgid "Add to custom playlist"
-msgstr "Benutzerdefinierter Wiedergabeliste hinzufügen"
+msgstr "Eigener Wiedergabeliste hinzufügen"
 
 #: ../xlgui/menu.py:150
 #: ../xlgui/menu.py:454
@@ -696,7 +696,7 @@ msgstr "Wiedergabeliste umbenennen"
 
 #: ../xlgui/menu.py:205
 msgid "_Save As Custom Playlist"
-msgstr "Als benutzerdefinierte Wiedergabeliste speichern"
+msgstr "Als eigene Wiedergabeliste speichern"
 
 #: ../xlgui/menu.py:207
 msgid "_Save Changes To Playlist"
@@ -732,7 +732,7 @@ msgstr "Neuer Sender"
 
 #: ../xlgui/menu.py:313
 msgid "New Smart Playlist"
-msgstr "Neue intelligtente Wiedergabeliste"
+msgstr "Neue dynamische Wiedergabeliste"
 
 #: ../xlgui/menu.py:357
 msgid "Open"
@@ -779,7 +779,7 @@ msgid "XSPF Playlist"
 msgstr "XSPF-Wiedergabeliste"
 
 #: ../xlgui/menu.py:401
-#: ../xlgui/panel/playlists.py:965
+#: ../xlgui/panel/playlists.py:966
 msgid "Are you sure you want to permanently delete the selected playlist?"
 msgstr "Soll diese Wiedergabeliste unwiederbringlich entfernt werden?"
 
@@ -862,7 +862,7 @@ msgid "Export current playlist..."
 msgstr "Aktuelle Wiedergabeliste exportieren …"
 
 #: ../xlgui/__init__.py:183
-#: ../xlgui/panel/playlists.py:920
+#: ../xlgui/panel/playlists.py:921
 msgid "Invalid file extension, file not saved"
 msgstr "Ungültige Dateierweiterung, Datei nicht gespeichert"
 
@@ -943,13 +943,14 @@ msgstr "Dieser oder ein übergeordneter Pfad befindet sich bereits in der Biblio
 
 #. TRANSLATORS: Title of the track number column
 #: ../xlgui/plcolumns.py:59
-#: ../xlgui/panel/flatplaylist.py:76
+#: ../xlgui/panel/flatplaylist.py:78
 msgid "#"
-msgstr "Nr. "
+msgstr "Nr."
 
 #: ../xlgui/plcolumns.py:80
 #: ../xlgui/panel/playlists.py:140
-#: ../xlgui/panel/flatplaylist.py:84
+#: ../xlgui/panel/flatplaylist.py:86
+#: ../plugins/cd/cdprefs.py:84
 #: ../plugins/minimode/minimodeprefs.py:118
 msgid "Title"
 msgstr "Titel"
@@ -957,11 +958,13 @@ msgstr "Titel"
 #: ../xlgui/plcolumns.py:85
 #: ../xlgui/panel/playlists.py:55
 #: ../xlgui/panel/playlists.py:139
+#: ../plugins/cd/cdprefs.py:85
 #: ../plugins/minimode/minimodeprefs.py:119
 msgid "Artist"
 msgstr "Künstler"
 
 #: ../xlgui/plcolumns.py:90
+#: ../plugins/cd/cdprefs.py:86
 #: ../plugins/minimode/minimodeprefs.py:120
 msgid "Composer"
 msgstr "Komponist"
@@ -969,6 +972,7 @@ msgstr "Komponist"
 #: ../xlgui/plcolumns.py:95
 #: ../xlgui/panel/playlists.py:65
 #: ../xlgui/panel/playlists.py:141
+#: ../plugins/cd/cdprefs.py:87
 #: ../plugins/minimode/minimodeprefs.py:121
 msgid "Album"
 msgstr "Album"
@@ -976,6 +980,7 @@ msgstr "Album"
 #: ../xlgui/plcolumns.py:100
 #: ../xlgui/panel/playlists.py:97
 #: ../xlgui/panel/playlists.py:142
+#: ../plugins/cd/cdprefs.py:88
 #: ../plugins/minimode/minimodeprefs.py:122
 msgid "Length"
 msgstr "Länge"
@@ -987,11 +992,13 @@ msgstr "Disk"
 #: ../xlgui/plcolumns.py:126
 #: ../xlgui/panel/playlists.py:77
 #: ../xlgui/panel/playlists.py:143
+#: ../plugins/cd/cdprefs.py:90
 #: ../plugins/minimode/minimodeprefs.py:124
 msgid "Rating"
 msgstr "Bewertung"
 
 #: ../xlgui/plcolumns.py:149
+#: ../plugins/cd/cdprefs.py:91
 #: ../plugins/minimode/minimodeprefs.py:125
 msgid "Date"
 msgstr "Datum"
@@ -999,11 +1006,13 @@ msgstr "Datum"
 #: ../xlgui/plcolumns.py:154
 #: ../xlgui/panel/playlists.py:71
 #: ../xlgui/panel/playlists.py:146
+#: ../plugins/cd/cdprefs.py:92
 #: ../plugins/minimode/minimodeprefs.py:126
 msgid "Genre"
 msgstr "Genre"
 
 #: ../xlgui/plcolumns.py:159
+#: ../plugins/cd/cdprefs.py:93
 #: ../plugins/minimode/minimodeprefs.py:127
 msgid "Bitrate"
 msgstr "Bitrate"
@@ -1024,6 +1033,8 @@ msgstr "Bitrate"
 #. ]),
 #: ../xlgui/plcolumns.py:172
 #: ../xlgui/panel/playlists.py:116
+#: ../xlgui/panel/playlists.py:147
+#: ../plugins/cd/cdprefs.py:94
 #: ../plugins/minimode/minimodeprefs.py:128
 msgid "Location"
 msgstr "Ort"
@@ -1031,6 +1042,7 @@ msgstr "Ort"
 #. TRANSLATORS: Filename column in the file browser
 #: ../xlgui/plcolumns.py:177
 #: ../xlgui/panel/files.py:89
+#: ../plugins/cd/cdprefs.py:95
 #: ../plugins/minimode/minimodeprefs.py:129
 msgid "Filename"
 msgstr "Dateiname"
@@ -1040,28 +1052,34 @@ msgid "Playcount"
 msgstr "Wiedergabeanzahl"
 
 #: ../xlgui/plcolumns.py:190
-#: ../plugins/minimode/minimodeprefs.py:131
+#: ../plugins/cd/cdprefs.py:97
+#: ../plugins/minimode/minimodeprefs.py:132
 msgid "BPM"
 msgstr "BPM"
 
 #: ../xlgui/plcolumns.py:195
+#: ../plugins/minimode/minimodeprefs.py:131
 msgid "Last played"
 msgstr "Letzte Wiedergabe"
 
 #: ../xlgui/plcolumns.py:206
 #: ../xlgui/plcolumns.py:226
+#: ../plugins/minimode/mmwidgets.py:880
 msgid "Never"
 msgstr "Niemals"
 
 #: ../xlgui/plcolumns.py:218
+#: ../plugins/minimode/mmwidgets.py:893
 msgid "Today"
 msgstr "Heute"
 
 #: ../xlgui/plcolumns.py:220
+#: ../plugins/minimode/mmwidgets.py:895
 msgid "Yesterday"
 msgstr "Gestern"
 
 #: ../xlgui/plcolumns.py:222
+#: ../plugins/minimode/mmwidgets.py:897
 #, python-format
 msgid "%(year)d-%(month)02d-%(day)02d"
 msgstr "%(day)02d. %(month)02d. %(year)d"
@@ -1095,31 +1113,31 @@ msgstr "Begrenzen auf: "
 msgid " songs"
 msgstr " Stücke"
 
-#: ../xlgui/playlist.py:245
+#: ../xlgui/playlist.py:244
 #, python-format
 msgid "adding %(column_id)s column to %(preference)s"
 msgstr "Füge Spalte %(column_id)s der Einstellung %(preference)s zu"
 
-#: ../xlgui/playlist.py:250
+#: ../xlgui/playlist.py:249
 #, python-format
 msgid "removing %(column_id)s column from %(preference)s"
 msgstr "Entferne Spalte %(column_id)s aus Einstellung %(preference)s"
 
-#: ../xlgui/playlist.py:1061
+#: ../xlgui/playlist.py:1060
 #, python-format
 msgid "Close %s"
 msgstr "%s schließen"
 
-#: ../xlgui/playlist.py:1062
+#: ../xlgui/playlist.py:1061
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>Änderungen an %s vor dem Schließen speichern?</b>"
 
-#: ../xlgui/playlist.py:1063
+#: ../xlgui/playlist.py:1062
 msgid "Your changes will be lost if you don't save them"
 msgstr "Änderungen gehen ohne Sicherung verloren."
 
-#: ../xlgui/playlist.py:1065
+#: ../xlgui/playlist.py:1064
 msgid "Close Without Saving"
 msgstr "Schließen, ohne zu speichern"
 
@@ -1157,6 +1175,7 @@ msgstr "Wochen"
 #: ../xlgui/panel/playlists.py:72
 #: ../xlgui/panel/playlists.py:100
 #: ../xlgui/panel/playlists.py:117
+#: ../xlgui/panel/playlists.py:125
 msgid "is"
 msgstr "ist"
 
@@ -1165,6 +1184,7 @@ msgstr "ist"
 #: ../xlgui/panel/playlists.py:67
 #: ../xlgui/panel/playlists.py:73
 #: ../xlgui/panel/playlists.py:118
+#: ../xlgui/panel/playlists.py:126
 msgid "is not"
 msgstr "ist nicht"
 
@@ -1173,6 +1193,7 @@ msgstr "ist nicht"
 #: ../xlgui/panel/playlists.py:68
 #: ../xlgui/panel/playlists.py:74
 #: ../xlgui/panel/playlists.py:119
+#: ../xlgui/panel/playlists.py:127
 msgid "contains"
 msgstr "enthält"
 
@@ -1181,14 +1202,17 @@ msgstr "enthält"
 #: ../xlgui/panel/playlists.py:69
 #: ../xlgui/panel/playlists.py:75
 #: ../xlgui/panel/playlists.py:120
+#: ../xlgui/panel/playlists.py:128
 msgid "does not contain"
 msgstr "enthält nicht"
 
 #: ../xlgui/panel/playlists.py:78
+#: ../xlgui/panel/playlists.py:134
 msgid "greater than"
 msgstr "größer als"
 
 #: ../xlgui/panel/playlists.py:79
+#: ../xlgui/panel/playlists.py:135
 msgid "less than"
 msgstr "kleiner als"
 
@@ -1196,6 +1220,7 @@ msgstr "kleiner als"
 #: ../xlgui/panel/playlists.py:81
 #: ../xlgui/panel/playlists.py:86
 #: ../xlgui/panel/playlists.py:98
+#: ../xlgui/panel/playlists.py:129
 msgid "at least"
 msgstr "mindestens"
 
@@ -1203,6 +1228,7 @@ msgstr "mindestens"
 #: ../xlgui/panel/playlists.py:83
 #: ../xlgui/panel/playlists.py:87
 #: ../xlgui/panel/playlists.py:99
+#: ../xlgui/panel/playlists.py:130
 msgid "at most"
 msgstr "höchstens"
 
@@ -1218,57 +1244,60 @@ msgstr "Jahr"
 
 #. TRANSLATORS: Example: year < 1999
 #: ../xlgui/panel/playlists.py:91
+#: ../xlgui/panel/playlists.py:131
 msgid "before"
 msgstr "vor"
 
 #. TRANSLATORS: Example: year > 2002
 #: ../xlgui/panel/playlists.py:93
+#: ../xlgui/panel/playlists.py:132
 msgid "after"
 msgstr "nach"
 
 #. TRANSLATORS: Example: 1980 <= year <= 1987
 #: ../xlgui/panel/playlists.py:95
+#: ../xlgui/panel/playlists.py:133
 msgid "between"
 msgstr "zwischen"
 
 #. name is already in use
-#: ../xlgui/panel/playlists.py:211
-#: ../xlgui/panel/playlists.py:317
-#: ../xlgui/panel/playlists.py:355
-#: ../xlgui/panel/playlists.py:591
-#: ../xlgui/panel/playlists.py:665
+#: ../xlgui/panel/playlists.py:212
+#: ../xlgui/panel/playlists.py:318
+#: ../xlgui/panel/playlists.py:356
+#: ../xlgui/panel/playlists.py:592
+#: ../xlgui/panel/playlists.py:666
 msgid "The playlist name you entered is already in use."
 msgstr "Eine Wiedergabeliste mit dem angegebenen Namen existiert bereits."
 
-#: ../xlgui/panel/playlists.py:348
-msgid "New custom playlist name:"
-msgstr "Neuer Name für die benutzerdefinierte Wiedergabeliste:"
-
 #: ../xlgui/panel/playlists.py:349
+msgid "New custom playlist name:"
+msgstr "Neuer Name für die eigene Wiedergabeliste:"
+
+#: ../xlgui/panel/playlists.py:350
 msgid "Add To New Playlist..."
 msgstr "Zu neuer Wiedergabeliste hinzufügen …"
 
-#: ../xlgui/panel/playlists.py:359
-#: ../xlgui/panel/playlists.py:585
-#: ../xlgui/panel/playlists.py:658
+#: ../xlgui/panel/playlists.py:360
+#: ../xlgui/panel/playlists.py:586
+#: ../xlgui/panel/playlists.py:659
 msgid "You did not enter a name for your playlist"
 msgstr "Kein Name für die Wiedergabeliste eingegeben"
 
-#: ../xlgui/panel/playlists.py:533
+#: ../xlgui/panel/playlists.py:534
 msgid "Smart Playlists"
-msgstr "Intelligente Wiedergabelisten"
+msgstr "Dynamische Wiedergabelisten"
 
-#: ../xlgui/panel/playlists.py:536
+#: ../xlgui/panel/playlists.py:537
 msgid "Custom Playlists"
-msgstr "Benutzerdefinierte Wiedergabelisten"
+msgstr "Eigene Wiedergabelisten"
 
-#: ../xlgui/panel/playlists.py:571
+#: ../xlgui/panel/playlists.py:572
 msgid "Add Smart Playlist"
-msgstr "Intelligente Wiedergabeliste hinzufügen"
+msgstr "Dynamische Wiedergabeliste hinzufügen"
 
-#: ../xlgui/panel/playlists.py:636
+#: ../xlgui/panel/playlists.py:637
 msgid "Edit Smart Playlist"
-msgstr "Intelligente Wiedergabeliste bearbeiten"
+msgstr "Dynamische Wiedergabeliste bearbeiten"
 
 #: ../xlgui/panel/radio.py:96
 #: ../xlgui/panel/radio.py:453
@@ -1328,7 +1357,11 @@ msgstr "%s KB"
 msgid "This will permanantly delete the selected tracks from your disk, are you sure you wish to continue?"
 msgstr "Dies wird die gewählten Stücke endgültig löschen. Soll wirklich fortgefahren werden?"
 
-#: ../xlgui/panel/collection.py:616
+#: ../xlgui/panel/collection.py:162
+msgid "Rescan Collection"
+msgstr "Bibliothek neu einlesen"
+
+#: ../xlgui/panel/collection.py:625
 msgid "Various Artists"
 msgstr "Verschiedene Künstler"
 
@@ -1403,11 +1436,27 @@ msgstr "Plugin %s konnte nicht aktiviert werden"
 msgid "Could not disable plugin: %s"
 msgstr "Plugin %s konnte nicht deaktiviert werden"
 
-#: ../xlgui/prefs/widgets.py:380
+#: ../xlgui/prefs/widgets.py:244
+msgid "Add item"
+msgstr "Element hinzufügen"
+
+#: ../xlgui/prefs/widgets.py:249
+msgid "Remove item"
+msgstr "Element entfernen"
+
+#: ../xlgui/prefs/widgets.py:262
+msgid "Move selected item up"
+msgstr "Auswahl nach oben verschieben"
+
+#: ../xlgui/prefs/widgets.py:267
+msgid "Move selected item down"
+msgstr "Auswahl nach untern verschieben"
+
+#: ../xlgui/prefs/widgets.py:538
 msgid "Action"
 msgstr "Aktion"
 
-#: ../xlgui/prefs/widgets.py:388
+#: ../xlgui/prefs/widgets.py:546
 msgid "Shortcut"
 msgstr "Tastenkürzel"
 
@@ -1958,12 +2007,12 @@ msgid "Collection Manager"
 msgstr "Bibliotheksverwaltung"
 
 #: ../data/glade/flatplaylist_panel.glade.h:1
-msgid "Append All"
-msgstr "Alle anhängen"
+msgid "Append All Tracks to Playlist"
+msgstr "Alle Stücke der Wiedergabeliste hinzufügen"
 
 #: ../data/glade/flatplaylist_panel.glade.h:2
-msgid "Import"
-msgstr "Import"
+msgid "Import CD"
+msgstr "CD importieren"
 
 #: ../data/glade/general_prefs_pane.glade.h:1
 #: ../data/glade/playlists_prefs_pane.glade.h:1
@@ -2006,7 +2055,7 @@ msgstr ""
 
 #: ../data/glade/playlists_prefs_pane.glade.h:2
 msgid "Prompt for saving custom playlists on close"
-msgstr "Beim Schließen benutzerdefinierter Wiedergabeliste nachfragen"
+msgstr "Beim Schließen eigener Wiedergabelisten nachfragen"
 
 #: ../data/glade/cover_prefs_pane.glade.h:1
 msgid "(drag to reorder)"
@@ -2059,23 +2108,24 @@ msgstr "Weckuhr"
 msgid "AudioScrobbler"
 msgstr "AudioScrobbler"
 
-#: ../plugins/audioscrobbler/__init__.py:98
+#: ../plugins/audioscrobbler/__init__.py:114
 msgid "Enable audioscrobbling"
 msgstr "Audioscrobbler aktivieren"
 
-#: ../plugins/audioscrobbler/__init__.py:130
+#: ../plugins/audioscrobbler/__init__.py:146
 msgid "Stopping AudioScrobbler submissions"
 msgstr "AudioScrobbler-Übermittlung stoppen"
 
-#: ../plugins/audioscrobbler/__init__.py:142
-msgid "Attempting to connect to AudioScrobbler..."
-msgstr "Verbindungsaufbau zu AudioScrobbler ..."
+#: ../plugins/audioscrobbler/__init__.py:158
+#, python-format
+msgid "Attempting to connect to AudioScrobbler (%s)"
+msgstr "Verbindungsaufbau zu AudioScrobbler (%s)..."
 
-#: ../plugins/audioscrobbler/__init__.py:152
+#: ../plugins/audioscrobbler/__init__.py:170
 msgid "Connected to AudioScrobbler"
 msgstr "Mit AudioScrobbler verbunden"
 
-#: ../plugins/audioscrobbler/__init__.py:166
+#: ../plugins/audioscrobbler/__init__.py:184
 msgid "Attempting to submit \"Now Playing\" information to AudioScrobbler..."
 msgstr "Versuche, das gerade abgespielten Stückes wird an AudioScrobbler zu übermitteln ..."
 
@@ -2093,14 +2143,33 @@ msgstr "Das gerade abgespielten Stück erfolgreich an AudioScrobbler übermittel
 msgid "AudioScrobbler OK: %s"
 msgstr "AudioScrobbler OK: %s"
 
-#: ../plugins/cd/__init__.py:93
-#: ../plugins/cd/__init__.py:170
+#: ../plugins/cd/__init__.py:95
+#: ../plugins/cd/__init__.py:172
 msgid "Audio Disc"
 msgstr "Audio-CD"
 
-#: ../plugins/cd/_cdguipanel.py:56
+#: ../plugins/cd/_cdguipanel.py:60
 msgid "Importing CD..."
 msgstr "CD importieren …"
+
+#: ../plugins/cd/cdprefs.py:22
+msgid "CD"
+msgstr "CD"
+
+#: ../plugins/cd/cdprefs.py:83
+#: ../plugins/minimode/minimodeprefs.py:117
+msgid "Track number"
+msgstr "Stücknummer"
+
+#: ../plugins/cd/cdprefs.py:89
+#: ../plugins/minimode/minimodeprefs.py:123
+msgid "Disc number"
+msgstr "CD-Nummer"
+
+#: ../plugins/cd/cdprefs.py:96
+#: ../plugins/minimode/minimodeprefs.py:130
+msgid "Play count"
+msgstr "Wiedergabeanzahl"
 
 #: ../plugins/bookmarks/__init__.py:278
 #: ../plugins/bookmarks/bookmarksprefs.py:22
@@ -2142,6 +2211,20 @@ msgstr "von %(artist)s"
 #, python-format
 msgid "from %(album)s"
 msgstr "aus %(album)s"
+
+#: ../plugins/amazoncovers/amazonprefs.py:22
+#: ../plugins/amazoncovers/PLUGININFO:3
+msgid "Amazon Covers"
+msgstr "Amazon-Cover"
+
+#: ../plugins/amazoncovers/__init__.py:78
+msgid "Please enter your Amazon API and secret keys in the Amazon Covers preferences"
+msgstr "Bitte Amazon-API- und geheimen Schlüssel in den Amazon-Cover-Einstellungen eintragen."
+
+#: ../plugins/amazoncovers/_ecs.py:72
+#, python-format
+msgid "Amazon Covers Search Error: %s"
+msgstr "Amazon-Cover-Fehler: %s"
 
 #: ../plugins/desktopcover/prefs.py:22
 #: ../plugins/desktopcover/PLUGININFO:3
@@ -2330,31 +2413,19 @@ msgstr "Wiedergabeliste-Button"
 msgid "Restore"
 msgstr "Wiederherstellen"
 
-#: ../plugins/minimode/minimodeprefs.py:117
-msgid "Track number"
-msgstr "Stücknummer"
-
-#: ../plugins/minimode/minimodeprefs.py:123
-msgid "Disc number"
-msgstr "CD-Nummer"
-
-#: ../plugins/minimode/minimodeprefs.py:130
-msgid "Play count"
-msgstr "Wiedergabeanzahl"
-
 #. TRANSLATORS: Mini mode track selector title preset
-#: ../plugins/minimode/minimodeprefs.py:135
-#: ../plugins/minimode/minimodeprefs.py:141
+#: ../plugins/minimode/minimodeprefs.py:136
+#: ../plugins/minimode/minimodeprefs.py:142
 msgid "$tracknumber - $title"
 msgstr "$tracknumber - $title"
 
 #. TRANSLATORS: Mini mode track selector title preset
-#: ../plugins/minimode/minimodeprefs.py:137
+#: ../plugins/minimode/minimodeprefs.py:138
 msgid "$title by $artist"
 msgstr "$title von $artist"
 
 #. TRANSLATORS: Mini mode track selector title preset
-#: ../plugins/minimode/minimodeprefs.py:139
+#: ../plugins/minimode/minimodeprefs.py:140
 msgid "$title ($length)"
 msgstr "$title ($length)"
 
@@ -2371,11 +2442,11 @@ msgstr "Wiedergabe fortsetzen"
 msgid "Pause Playback"
 msgstr "Wiedergabe unterbrechen"
 
-#: ../plugins/minimode/mmwidgets.py:738
+#: ../plugins/minimode/mmwidgets.py:732
 msgid "Seeking: "
 msgstr "Spulen: "
 
-#: ../plugins/minimode/mmwidgets.py:813
+#: ../plugins/minimode/mmwidgets.py:809
 msgid " & "
 msgstr " & "
 
@@ -2509,6 +2580,18 @@ msgstr "Stücke mittels Audioscrobbler übermitteln"
 msgid "Username:"
 msgstr "Benutzername:"
 
+#: ../plugins/cd/cdprefs_pane.glade.h:1
+msgid "Import format: "
+msgstr "Importformat:"
+
+#: ../plugins/cd/cdprefs_pane.glade.h:2
+msgid "Import path: "
+msgstr "Zielverzeichnis:"
+
+#: ../plugins/cd/cdprefs_pane.glade.h:3
+msgid "Import quality: "
+msgstr "Importqualität:"
+
 #: ../plugins/bookmarks/bookmarks_pane.glade.h:1
 msgid "Use covers in the bookmarks menu (takes effect on next start)"
 msgstr "Cover im Lesezeichenmenü anzeigen (erfordert Neustart)"
@@ -2565,6 +2648,22 @@ msgstr "Mediensymbole für Benachrichtungen über Pause, Stopp und Wiederaufnahm
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:14
 msgid "When GUI is Focused"
 msgstr "Wenn das Hauptfenster fokussiert ist"
+
+#: ../plugins/amazoncovers/amazonprefs_pane.glade.h:1
+msgid "API Key:"
+msgstr "API-Schlüssel:"
+
+#: ../plugins/amazoncovers/amazonprefs_pane.glade.h:2
+msgid "Secret Key:"
+msgstr "Geheimer Schlüssel:"
+
+#: ../plugins/amazoncovers/amazonprefs_pane.glade.h:3
+msgid ""
+"To sign up for an Amazon AWS account and get \n"
+"this information visit http://aws.amazon.com/"
+msgstr ""
+"Um diese Informationen zu erhalten ist die Registierung eines \n"
+"Amazon AWS-Accounts auf http://aws.amazon.com/ erforderlich."
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:2
 msgid "Additional amplification (dB):"
@@ -2755,13 +2854,15 @@ msgstr ""
 "Benötigt: python-notify\n"
 "Empfiehlt: notify-osd"
 
-#: ../plugins/amazoncovers/PLUGININFO:3
-msgid "Amazon Covers"
-msgstr "Amazon-Cover"
-
 #: ../plugins/amazoncovers/PLUGININFO:4
-msgid "Searches Amazon for covers"
-msgstr "Bezieht Amazon bei der Suche nach Covern ein"
+msgid ""
+"Searches Amazon for covers\n"
+"\n"
+"To be able to use this plugin, an AWS API key and secret key are required."
+msgstr ""
+"Bezieht Amazon bei der Suche nach Covern ein\n"
+"\n"
+"Um dieses Plugin zu nutzen sind ein AWS-API-Schlüssel sowie ein geheimer Schlüssel erforderlich."
 
 #: ../plugins/desktopcover/PLUGININFO:4
 msgid "Displays the current album cover on the desktop"
@@ -2906,6 +3007,11 @@ msgstr "Lyrics Wiki"
 #: ../plugins/lyricwiki/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricwiki.org"
 msgstr "Holt Liedtexte von lyricwiki.org"
+
+#~ msgid "Append All"
+#~ msgstr "Alle anhängen"
+#~ msgid "Searches Amazon for covers"
+#~ msgstr "Bezieht Amazon bei der Suche nach Covern ein"
 
 #, fuzzy
 #~ msgid "IPConsole"

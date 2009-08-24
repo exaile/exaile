@@ -656,8 +656,9 @@ class MenuRatingWidget(gtk.MenuItem):
         
         self.connect('button-release-event', self._update_rating)
         self.connect('motion-notify-event', self._motion_notify)
+        self.connect('leave-notify-event', self._leave_notify)
 
-    def _motion_notify(self, w, e):
+    def _motion_notify(self, widget, e):
         steps = settings.get_option('miscellaneous/rating_steps', 5)
         (x, y) = e.get_coords()
         try:
@@ -676,10 +677,21 @@ class MenuRatingWidget(gtk.MenuItem):
                 self._get_rating_pixbuf(r))
             self.queue_draw()
 
-    def _update_rating(self, w, e):
+    def _leave_notify(self, widget, e):
         """
-            Updates the rating of the tracks for this widget, meant to be 
-            used with a click event
+            Resets the rating if the widget
+            is left without clicking
+        """
+        tracks = self._get_tracks()
+        if tracks and tracks[0]:
+            self.image.set_from_pixbuf(
+                self._get_rating_pixbuf(tracks[0].get_rating()))
+            self.queue_draw()
+
+    def _update_rating(self, widget, e):
+        """
+            Updates the rating of the tracks for this
+            widget, meant to be used with a click event
         """
         tracks = self._get_tracks()
         if tracks and tracks[0]:

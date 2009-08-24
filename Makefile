@@ -53,7 +53,7 @@ uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
 	cd plugins && make uninstall && cd ..
 
-install: install-target locale
+install: install-target locale install-locale
 
 install_no_locale: install-target
 
@@ -96,6 +96,8 @@ install-target: make-install-dirs
 
 locale:
 	cd po && find . -name "*.po" -exec ../tools/compilepo.sh {} \; && cd ..
+
+install-locale:
 	for f in `find po -name exaile.mo` ; do \
 	  install -d -m 755 \
 	    `echo $$f | sed "s|^po|$(DESTDIR)$(PREFIX)/share/locale|" | \
@@ -115,6 +117,7 @@ clean:
 	-find . -name "*.py[co]" -exec rm -f {} \;
 	find . -name "*.class" -exec rm -f {} \;
 	find . -name "*.bak" -exec rm -f {} \;
+	find po/* -depth -type d -exec rm -r {} \;
 	cd plugins && make clean && cd ..
 
 pot:

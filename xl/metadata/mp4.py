@@ -42,7 +42,7 @@ class MP4Format(BaseFormat):
             return ret
         else: return [t for t in f[name]]
     
-    def _set_tag(f, name, value):
+    def _set_tag(self, f, name, value):
         if type(value) is not list: value = [value]
         if name in ['trkn', 'disk']:
             try:

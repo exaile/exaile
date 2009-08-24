@@ -20,7 +20,7 @@ from xl import xdg
 from xl.nls import gettext as _
 
 name = _('Amazon Covers')
-basedir = os.path.dirname(os.path.relpath(__file__))
+basedir = os.path.dirname(os.path.realpath(__file__))
 glade = os.path.join(basedir, 'amazonprefs_pane.glade')
 
 class APIKeyPreference(widgets.PrefsItem):

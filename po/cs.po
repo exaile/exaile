@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-07-19 18:07+0200\n"
+"POT-Creation-Date: 2009-08-24 18:16+0200\n"
 "PO-Revision-Date: 2009-08-09 16:06+0000\n"
 "Last-Translator: Radek Šprta <Unknown>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-08-19 14:52+0000\n"
+"X-Launchpad-Export-Date: 2009-08-24 18:56+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 "X-Poedit-Country: CZECH REPUBLIC\n"
 "X-Poedit-Language: Czech\n"
@@ -43,23 +43,6 @@ msgstr "PulseAudio"
 msgid "JACK"
 msgstr "JACK"
 
-#: ../xl/player/pipe.py:272
-#, python-format
-msgid "Could not set parameter %(parameter)s for %(sink)s"
-msgstr "Nepodařilo se nastavit parametr %(parameter)s pro %(sink)s"
-
-#: ../xl/player/__init__.py:35
-msgid "Normal playback engine selected."
-msgstr ""
-
-#: ../xl/player/__init__.py:39
-msgid "Unified playback engine selected."
-msgstr ""
-
-#: ../xl/player/engine_normal.py:101
-msgid "Buffering complete"
-msgstr "Bufferování dokončeno"
-
 #. TODO: remove this before 0.3.0 since it is not needed for
 #. stable->stable upgrades
 #: ../xl/player/engine_normal.py:154
@@ -69,220 +52,156 @@ msgid ""
 msgstr ""
 "Exaile nyní používá absolutní adresy, smažte či přejmenujte prosím adresář %s"
 
-#: ../xl/player/engine_normal.py:186
-#: ../xl/player/engine_unified.py:373
-#, python-format
-msgid "File does not exist: %s"
-msgstr "Soubor neexistuje: %s"
-
-#: ../xl/player/engine_normal.py:193 ../xl/player/engine_unified.py:381
-#: ../xlgui/main.py:915 ../xlgui/main.py:923
-#, python-format
-msgid "Playing %s"
-msgstr "Přehrávám %s"
-
-#: ../xl/player/engine_normal.py:265
-msgid "Couldn't send seek event"
-msgstr ""
-
-#: ../xl/main.py:91
-#, python-format
-msgid "Loading Exaile %s..."
-msgstr "Načítám Exaile  %s..."
-
-#: ../xl/main.py:93
-msgid "Loading settings..."
-msgstr "Načítám nastavení..."
-
-#: ../xl/main.py:115
+#: ../xl/main.py:119
 msgid "Failed to migrate from 0.2.14"
 msgstr "Nezdařila se migrace z 0.2.14"
 
-#: ../xl/main.py:120
-msgid "Loading plugins..."
-msgstr "Načítám zásuvné moduly..."
-
-#: ../xl/main.py:124
-msgid "Safe mode enabled, not loading plugins."
-msgstr "Povolen bezpečný režim,  nenačítám zásuvné moduly."
-
-#. Initialize the collection
-#: ../xl/main.py:128
-msgid "Loading collection..."
-msgstr "Načítám kolekci..."
-
-#. Initalize device manager
-#: ../xl/main.py:159
-msgid "Loading devices..."
-msgstr "Načítám zařízení..."
-
-#: ../xl/main.py:189
-msgid "Loading interface..."
-msgstr "Načítám rozhraní..."
-
-#: ../xl/main.py:263
+#: ../xl/main.py:273
 msgid "Play the next track"
 msgstr "Přehrát další skladbu"
 
-#: ../xl/main.py:265
+#: ../xl/main.py:275
 msgid "Play the previous track"
 msgstr "Přehrát předcházející skladbu"
 
-#: ../xl/main.py:267
+#: ../xl/main.py:277
 msgid "Stop playback"
 msgstr "Zastavit přehrávání"
 
-#: ../xl/main.py:269 ../xlgui/tray.py:91 ../xlgui/tray.py:192
+#: ../xl/main.py:279
 msgid "Play"
 msgstr "Přehrát"
 
-#: ../xl/main.py:275
+#: ../xl/main.py:281
+msgid "Toggle Play or Pause"
+msgstr "Přepínač Hrát nebo pozastavit"
+
+#: ../xl/main.py:284
+msgid "Stop playback after current track"
+msgstr ""
+
+#: ../xl/main.py:288
 msgid "Query player"
 msgstr "Přehrávač"
 
-#: ../xl/main.py:277
+#: ../xl/main.py:290
 msgid "Show a popup of the currently playing track"
 msgstr "Zobrazit vyskakovací okno pro právě přehrávanou skladbu"
 
-#: ../xl/main.py:279
+#: ../xl/main.py:292
 msgid "Print the title of current track"
 msgstr "Zobrazit název aktuální skladby"
 
-#: ../xl/main.py:281
+#: ../xl/main.py:294
 msgid "Print the album of current track"
 msgstr "Zobrazit název alba aktuální skladby"
 
-#: ../xl/main.py:283
+#: ../xl/main.py:296
 msgid "Print the artist of current track"
 msgstr "Zobrazit interpreta aktuální skladby"
 
-#: ../xl/main.py:285
+#: ../xl/main.py:298
 msgid "Print the length of current track"
 msgstr "Zobrazit délku aktuální skladby"
 
-#: ../xl/main.py:287
+#: ../xl/main.py:300
 msgid "Set rating for current song"
 msgstr "Ohodnotit tuto skladbu"
 
-#: ../xl/main.py:289
+#: ../xl/main.py:302
 msgid "Get rating for current song"
 msgstr "Přidat hodnocení aktuální skladby"
 
-#: ../xl/main.py:292
-msgid "Print the position inside the current track as a percentage"
-msgstr "Zobrazit aktuální délku skladby v procentech"
+#: ../xl/main.py:305
+msgid "Print the position inside the current track as time"
+msgstr ""
 
-#: ../xl/main.py:296
+#: ../xl/main.py:308
+msgid "Print the progress inside the current track as percentage"
+msgstr ""
+
+#: ../xl/main.py:312
 msgid "Increases the volume by VOL%"
 msgstr "Zhlasit o VOL%"
 
-#: ../xl/main.py:298
+#: ../xl/main.py:314
 msgid "Decreases the volume by VOL%"
 msgstr "Ztišit o VOL%"
 
-#: ../xl/main.py:300
+#: ../xl/main.py:316
 msgid "Print the current volume percentage"
 msgstr "Zobrazit aktuální hlasitost v procentech"
 
-#: ../xl/main.py:304
+#: ../xl/main.py:320
 msgid "Start new instance"
 msgstr "Start nové instance"
 
-#: ../xl/main.py:307
-msgid "Start Exaile minimized to tray, if possible"
-msgstr "Spustit Exaile minimalizované to systémové lišty"
+#: ../xl/main.py:323
+msgid "Start minimized (to tray, if possible)"
+msgstr ""
 
-#: ../xl/main.py:309
+#: ../xl/main.py:325
 msgid ""
 "Start in safe mode - sometimes useful when you're running into problems"
 msgstr "Spustit v bezpečném režimu - uzitečné, pokud máte problémy s Exaile"
 
 #. development and debug options
-#: ../xl/main.py:313
+#: ../xl/main.py:329
 msgid "Set data directory"
 msgstr "Data"
 
-#: ../xl/main.py:315
+#: ../xl/main.py:331
 msgid "Show debugging output"
 msgstr "Zobrazit ladicí výstup"
 
-#: ../xl/main.py:318
+#: ../xl/main.py:334
 msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgstr "Povolit debugování xl.event. Generuje HODNĚ výstupu"
 
-#: ../xl/main.py:324
+#: ../xl/main.py:336
+msgid "Filter event debug output"
+msgstr ""
+
+#: ../xl/main.py:339
+msgid "Reduce level of output"
+msgstr "Snížit úroveň výstupu"
+
+#: ../xl/main.py:343
 msgid "Disable D-Bus support"
 msgstr "Zakázat podporu D-Bus"
 
-#: ../xl/main.py:326
+#: ../xl/main.py:345
 msgid "Disable HAL support."
 msgstr "Zakázat podporu HAL."
 
 #. entire playlist
-#: ../xl/main.py:343
+#: ../xl/main.py:362
 msgid "Entire Library"
 msgstr "Celá knihovna"
 
-#: ../xl/main.py:349
+#: ../xl/main.py:368
 #, python-format
 msgid "Random %d"
 msgstr "Náhodný %d"
 
-#: ../xl/main.py:357
+#: ../xl/main.py:376
 #, python-format
 msgid "Rating > %d"
 msgstr "Hodnocení > %d"
 
-#: ../xl/main.py:401
-msgid "Exaile is shutting down..."
-msgstr "Exaile se ukončuje..."
-
-#: ../xl/main.py:415
-msgid "Saving state..."
-msgstr "Ukládám stav..."
-
-#: ../xl/main.py:440
-msgid "Bye!"
-msgstr "Nashle!"
-
-#: ../xl/cover.py:98
-#, python-format
-msgid "CoverDB: set cover %(cover)s for '%(album)s - %(artist)s'"
+#: ../xl/main.py:473
+msgid ""
+"Exaile is not yet finished loading. Perhaps you should listen for the "
+"exaile_loaded signal?"
 msgstr ""
 
-#: ../xl/cover.py:119
-#: ../xl/cover.py:153
-#: ../xl/trackdb.py:232
+#: ../xl/cover.py:119 ../xl/cover.py:153 ../xl/trackdb.py:233
 msgid "You did not specify a location to save the db"
 msgstr "Neurčili jste místo uložení databáze"
 
 #: ../xl/cover.py:245 ../xl/lyrics.py:75
 msgid "order must be a list or tuple"
 msgstr ""
-
-#: ../xl/cover.py:394
-#, python-format
-msgid "Attempting to find covers for %s"
-msgstr "Zkouším nalézt obaly pro %s"
-
-#: ../xl/cover.py:401
-#, python-format
-msgid "%s method doesn't support searching, skipping"
-msgstr ""
-
-#: ../xl/cover.py:406
-#, python-format
-msgid "Found covers from %s"
-msgstr "Nalezeny obaly z %s"
-
-#: ../xl/metadata/_base.py:102
-#, python-format
-msgid ""
-"Could not import tag %(tag)s from file %(location)s because of possible "
-"conflict, please adjust your tags if you want to import this."
-msgstr ""
-"Nepodařilo se importovat štítky %(tag)s ze souboru %(location)s kvůli "
-"možnému konfliktu, upravte prosím svoje štítky, jestli je chcete importovat."
 
 #: ../xl/transcoder.py:45
 msgid ""
@@ -292,7 +211,15 @@ msgstr ""
 "Vorbis je otevřený, ztrátový zvukový kodek s vyšší kvalitou výstupu při "
 "menší velikosti než MP3."
 
-#: ../xl/transcoder.py:64
+#: ../xl/transcoder.py:55
+msgid ""
+"Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
+"does not degrade audio quality."
+msgstr ""
+"Free Lossless Audio Codec (FLAC) je open source kodek, který komprimuje, ale "
+"nesnižuje kvalitu zvuku."
+
+#: ../xl/transcoder.py:67
 msgid ""
 "Apple's proprietary lossy audio format that achieves better sound quality "
 "than MP3 at lower bitrates."
@@ -300,7 +227,7 @@ msgstr ""
 "Uzavřený formát Applu, který dosahuje lepší zvukovou kvalitu než MP3 při "
 "nízkých datavých tocích."
 
-#: ../xl/transcoder.py:73
+#: ../xl/transcoder.py:78
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. VBR gives "
 "higher quality than CBR, but may be incompatible with some players."
@@ -308,7 +235,7 @@ msgstr ""
 "Uzavřený a starší, ale populární, ztrátový zvukový formát. VBR podává vyšší "
 "kvalitu než CBR, ale může být nekompatibilní se staršími přehrávači."
 
-#: ../xl/transcoder.py:82
+#: ../xl/transcoder.py:89
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. CBR gives "
 "less quality than VBR, but is compatible with any player."
@@ -316,49 +243,28 @@ msgstr ""
 "Uzavřený a starší, ale populární, ztrátový zvukový formát. CBR podává nižší "
 "kvalitu než VBR, ale je kompatibilní se všemi přehrávači."
 
-#: ../xl/transcoder.py:91
+#: ../xl/transcoder.py:100
 msgid "A very fast Free lossless audio format with good compression."
 msgstr "Velmi rychlý bezeztrátový zvukový formát s dobrou kompresí."
 
-#: ../xl/hal.py:100
-#, python-format
-msgid "Found new %(handler)s device at %(device_udi)s"
-msgstr ""
-
-#: ../xl/track.py:463
+#: ../xl/track.py:474
 msgid "  New song, fetching cover."
 msgstr "  Nová skladba, hledám obal."
 
-#. TODO: figure out why this happens
-#: ../xl/collection.py:496
-msgid "Encoding error, skipping compilation check"
+#: ../xl/devices.py:131 ../xl/devices.py:137
+msgid "Device class does not support transfer."
 msgstr ""
 
-#: ../xl/collection.py:514
-#, python-format
-msgid "Compilation detected: %s"
-msgstr ""
-
-#: ../xl/settings.py:79
+#: ../xl/settings.py:82
 msgid "Settings version is newer than current."
 msgstr ""
 
-#: ../xl/settings.py:161
+#: ../xl/settings.py:167
 msgid "We don't know how to store that kind of setting: "
 msgstr ""
 
-#: ../xl/settings.py:184
+#: ../xl/settings.py:194
 msgid "An Unknown type of setting was found!"
-msgstr ""
-
-#: ../xl/providers.py:38
-#, python-format
-msgid "Provider %(provider)s registered for service %(service)s"
-msgstr ""
-
-#: ../xl/providers.py:56
-#, python-format
-msgid "Provider %(provider)s unregistered from service %(service)s"
 msgstr ""
 
 #: ../xl/plugins.py:73
@@ -374,104 +280,164 @@ msgstr "Zásuvný modul \"%s\" je již nainstalován"
 msgid "Plugin archive contains an unsafe path"
 msgstr ""
 
-#: ../xl/playlist.py:371
+#. TRANSLATORS : this replaces the title of a track when it's not known
+#: ../xl/playlist.py:243 ../xlgui/panel/collection.py:395
+#: ../xlgui/panel/collection.py:595 ../xlgui/panel/collection.py:632
+#: ../plugins/bookmarks/__init__.py:151 ../plugins/notifyosd/__init__.py:57
+#: ../plugins/notifyosd/__init__.py:68 ../plugins/notify/__init__.py:27
+#: ../plugins/minimode/mmwidgets.py:820
+msgid "Unknown"
+msgstr "Neznámé"
+
+#: ../xl/playlist.py:387
 #, python-format
 msgid "Playlist %d"
 msgstr "Seznam skladeb %d"
 
-#: ../xl/dynamic.py:46
-#, python-format
-msgid "Searching for %(limit)s tracks related to %(track)s"
-msgstr ""
-
-#: ../xl/dynamic.py:146
-#, python-format
-msgid "Added %s tracks."
-msgstr "Přidáno %s skladeb."
-
-#: ../xl/event.py:293
-msgid "Stopping IdleManager thread..."
-msgstr "Zastavuji vlákno IdleManageru..."
-
-#: ../xl/event.py:384
-#, python-format
-msgid "Sent '%(type)s' event from '%(object)s' with data '%(data)s'."
-msgstr ""
-
-#: ../xl/xldbus.py:175
+#: ../xl/xldbus.py:75 ../xl/xldbus.py:284
 msgid "Not playing."
 msgstr "Nepřehrává se."
 
-#: ../xl/trackdb.py:175
+#: ../xl/xldbus.py:289
+#, python-format
+msgid ""
+"status: %(status)s, title: %(title)s, artist: %(artist)s, album: %(album)s, "
+"length: %(length)s, position: %(progress)s%% [%(position)s]"
+msgstr ""
+
+#: ../xl/trackdb.py:176
 msgid "You did not specify a location to load the db from"
 msgstr ""
 
-#: ../xl/trackdb.py:218
+#: ../xlgui/properties.py:51 ../xlgui/osd.py:193 ../xlgui/plcolumns.py:110
 #, python-format
-msgid "Saving %(name)s DB to %(location)s."
-msgstr ""
+msgid "%(minutes)d:%(seconds)02d"
+msgstr "%(minutes)d:%(seconds)02d"
 
-#: ../xl/trackdb.py:667
-msgid "bad search token"
-msgstr ""
+#. TRANSLATORS: Default track length
+#: ../xlgui/properties.py:55 ../xlgui/plcolumns.py:114
+msgid "0:00"
+msgstr "0:00"
 
-#: ../xlgui/main.py:117
-#: ../plugins/minimode/mmwidgets.py:346
+#: ../xlgui/main.py:36 ../xlgui/main.py:107 ../xlgui/main.py:960
+#: ../data/glade/main.glade.h:9 ../plugins/minimode/mmwidgets.py:630
+msgid "Not Playing"
+msgstr "Nepřehrává se"
+
+#: ../xlgui/main.py:117 ../plugins/minimode/mmwidgets.py:650
 msgid "Streaming..."
 msgstr "Streamuji..."
 
-#: ../xlgui/main.py:192
+#: ../xlgui/main.py:198
 msgid "Close tab"
 msgstr "Zavřít panel"
 
-#: ../xlgui/main.py:224
+#: ../xlgui/main.py:254
 msgid "New playlist title:"
 msgstr "Název pro nový seznam skladeb:"
 
-#: ../xlgui/main.py:539
+#: ../xlgui/main.py:254 ../xlgui/menu.py:415
+msgid "Rename Playlist"
+msgstr "Přejmenovat playlist"
+
+#: ../xlgui/main.py:262
+msgid "Custom playlist name:"
+msgstr ""
+
+#: ../xlgui/main.py:262
+msgid "Save As..."
+msgstr ""
+
+#: ../xlgui/main.py:620
+msgid "Toggle: Stop after selected track"
+msgstr "Přepínač: Zastavit po vybrané skladbě"
+
+#: ../xlgui/main.py:645
 #, python-format
 msgid "%(playlist_count)d showing, %(collection_count)d in collection"
 msgstr ""
 
-#: ../xlgui/main.py:545
+#: ../xlgui/main.py:653
 #, python-format
 msgid " (%(queue_count)d queued)"
 msgstr " (%(queue_count)d ve frontě"
 
-#: ../xlgui/main.py:668
+#: ../xlgui/main.py:788
 #, python-format
 msgid "Buffering: %d%%..."
 msgstr ""
 
-#: ../xlgui/main.py:670
+#: ../xlgui/main.py:790
 msgid "Buffering: 100%..."
 msgstr ""
 
-#: ../xlgui/main.py:872
+#: ../xlgui/main.py:961 ../data/glade/main.glade.h:22
+msgid "Stopped"
+msgstr "Zastaveno"
+
+#: ../xlgui/main.py:1035
 msgid ""
 "Exaile Music Player\n"
 "Not playing"
 msgstr ""
 
-#: ../xlgui/main.py:912
-#: ../xlgui/main.py:921
+#. TRANSLATORS: Window title
+#: ../xlgui/main.py:1057
+#, python-format
+msgid "%(title)s (by %(artist)s)"
+msgstr "%(title)s (by %(artist)s)"
+
+#. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
+#: ../xlgui/main.py:1067
+#, python-format
+msgid "by %s"
+msgstr "by %s"
+
+#. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
+#: ../xlgui/main.py:1069
+#, python-format
+msgid "from %s"
+msgstr "z %s"
+
+#: ../xlgui/main.py:1080
 #, python-format
 msgid "In pause: %s"
 msgstr ""
 
-#: ../xlgui/menu.py:155
+#: ../xlgui/main.py:1082
+#, python-format
+msgid "Playing %s"
+msgstr "Přehrávám %s"
+
+#: ../xlgui/menu.py:43
+msgid "Toggle Queue"
+msgstr "Zařadit do fronty"
+
+#: ../xlgui/menu.py:89 ../xlgui/menu.py:311 ../xlgui/panel/radio.py:395
+msgid "New Playlist"
+msgstr "Nový playlist"
+
+#: ../xlgui/menu.py:147
 msgid "Add to custom playlist"
 msgstr "Přidat do vlastního seznamu skladeb"
 
-#: ../xlgui/menu.py:169
+#: ../xlgui/menu.py:150 ../xlgui/menu.py:454
+msgid "Remove"
+msgstr "Odstranit"
+
+#: ../xlgui/menu.py:153
+msgid "Properties"
+msgstr ""
+
+#: ../xlgui/menu.py:167
 msgid "Playlist"
 msgstr "Playlist"
 
-#: ../xlgui/menu.py:202 ../data/glade/main.glade.h:33
+#: ../xlgui/menu.py:201 ../data/glade/main.glade.h:34
 msgid "_New Playlist"
 msgstr "Nový _seznam skladeb"
 
-#: ../xlgui/menu.py:204
+#: ../xlgui/menu.py:203
 msgid "_Rename Playlist"
 msgstr "Přejmenovat seznam skladeb"
 
@@ -479,91 +445,664 @@ msgstr "Přejmenovat seznam skladeb"
 msgid "_Save As Custom Playlist"
 msgstr ""
 
-#: ../xlgui/menu.py:206
+#: ../xlgui/menu.py:207
+msgid "_Save Changes To Playlist"
+msgstr ""
+
+#: ../xlgui/menu.py:208
+msgid "_Save As..."
+msgstr ""
+
+#: ../xlgui/menu.py:209
 msgid "C_lear All Tracks"
 msgstr "S_mazat všechny skladby"
 
-#: ../xlgui/menu.py:208
+#: ../xlgui/menu.py:211
 msgid "_Close Playlist"
 msgstr "Zavřít seznam skladeb"
 
-#: ../xlgui/menu.py:285
-#: ../xlgui/tray.py:135
-msgid "Rating:"
-msgstr "Hodnocení:"
+#: ../xlgui/menu.py:231
+msgid "Append to Current"
+msgstr "Přidat do seznamu"
 
-#: ../xlgui/menu.py:310
+#: ../xlgui/menu.py:233
+msgid "Queue Items"
+msgstr "Zařadit položky"
+
+#: ../xlgui/menu.py:277
+msgid "Delete track"
+msgstr ""
+
+#: ../xlgui/menu.py:308
 msgid "New Station"
 msgstr "Nová stanice"
 
-#: ../xlgui/menu.py:315
+#: ../xlgui/menu.py:313
 msgid "New Smart Playlist"
 msgstr "Nový inteligentní seznam sladeb"
 
-#: ../xlgui/menu.py:380
+#: ../xlgui/menu.py:357
+msgid "Open"
+msgstr "Otevřít"
+
+#: ../xlgui/menu.py:360
+msgid "Rename"
+msgstr "Přejmenovat"
+
+#: ../xlgui/menu.py:362
+msgid "Edit"
+msgstr "Zobrazit"
+
+#: ../xlgui/menu.py:365
+msgid "Export"
+msgstr "Exportovat"
+
+#: ../xlgui/menu.py:368
+msgid "Delete Playlist"
+msgstr "Vymazat playlist"
+
+#: ../xlgui/menu.py:378
 msgid "Export as..."
 msgstr "Exportovat jako..."
 
-#: ../xlgui/osd.py:195
-#: ../xlgui/plcolumns.py:109
-#, python-format
-msgid "%(minutes)d:%(seconds)02d"
-msgstr "%(minutes)d:%(seconds)02d"
+#: ../xlgui/menu.py:383 ../xlgui/__init__.py:165
+msgid "M3U Playlist"
+msgstr "M3U seznam skladeb"
 
-#: ../xlgui/__init__.py:124
+#: ../xlgui/menu.py:384 ../xlgui/__init__.py:166
+msgid "PLS Playlist"
+msgstr "PLS seznam skladeb"
+
+#: ../xlgui/menu.py:385 ../xlgui/__init__.py:167
+msgid "ASX Playlist"
+msgstr "ASX seznam skladeb"
+
+#: ../xlgui/menu.py:386 ../xlgui/__init__.py:168
+msgid "XSPF Playlist"
+msgstr "XSPF seznam skladeb"
+
+#: ../xlgui/menu.py:401 ../xlgui/panel/playlists.py:966
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr "Jste si jisti, že chcete smazat vybraný playlist?"
+
+#: ../xlgui/menu.py:414
+msgid "Enter the new name you want for your playlist"
+msgstr "Zadejte nový název pro Váš seznam skladeb"
+
+#: ../xlgui/cover.py:286
+#, python-format
+msgid "%d covers to fetch"
+msgstr "%d obaly stáhnuty"
+
+#: ../xlgui/cover.py:291 ../xlgui/cover.py:310
+#: ../data/glade/covermanager.glade.h:2
+msgid "Start"
+msgstr "Start"
+
+#: ../xlgui/cover.py:325
+msgid "Show Cover"
+msgstr "Zobrazit obaly"
+
+#: ../xlgui/cover.py:326
+msgid "Fetch Cover"
+msgstr "Stáhnout obal"
+
+#: ../xlgui/cover.py:327
+msgid "Remove Cover"
+msgstr "Odebrat obal"
+
+#: ../xlgui/cover.py:658
+msgid "Enter the search text"
+msgstr "VLožte hledaný text"
+
+#: ../xlgui/cover.py:684
+msgid "No covers found"
+msgstr "Obaly nebyly nalezeny"
+
+#: ../xlgui/osd.py:207
+msgid "No track"
+msgstr ""
+
+#: ../xlgui/__init__.py:160
 msgid "Export current playlist..."
 msgstr "Exportovat do aktuálního seznamu skladeb..."
 
-#: ../xlgui/__init__.py:382
+#: ../xlgui/__init__.py:183 ../xlgui/panel/playlists.py:921
+msgid "Invalid file extension, file not saved"
+msgstr "Neplatná přípona, soubor neuložen"
+
+#: ../xlgui/__init__.py:190
+msgid "Enter the URL to open"
+msgstr "Zadejte URL pro otevření"
+
+#: ../xlgui/__init__.py:191
+msgid "Open URL"
+msgstr "Otevřít URL"
+
+#: ../xlgui/__init__.py:205
+msgid "Choose a file to open"
+msgstr "Vyberte soubor pro otevření"
+
+#: ../xlgui/__init__.py:211
+msgid "Supported Files"
+msgstr "Podporované soubory"
+
+#: ../xlgui/__init__.py:213
+msgid "Music Files"
+msgstr "Hudební soubory"
+
+#: ../xlgui/__init__.py:215
+msgid "Playlist Files"
+msgstr "Playlisty"
+
+#: ../xlgui/__init__.py:217 ../xlgui/prefs/plugin_prefs.py:134
+msgid "All Files"
+msgstr "Všechny soubory"
+
+#: ../xlgui/__init__.py:341
+msgid "Scanning collection..."
+msgstr "Prohledávám kolekci..."
+
+#: ../xlgui/__init__.py:438
 #, python-format
 msgid "Scanning %s..."
 msgstr "Prohledávám %s…"
 
-#: ../xlgui/queue.py:86
-msgid "Tracks did not change, no need to update"
+#: ../xlgui/guiutil.py:650
+msgid "Rating:"
+msgstr "Hodnocení:"
+
+#: ../xlgui/commondialogs.py:309
+msgid "Select File Type (By Extension)"
+msgstr "Vyberte typ souboru (podle přípony)"
+
+#: ../xlgui/commondialogs.py:317
+msgid "File Type"
+msgstr "Typ souboru"
+
+#: ../xlgui/commondialogs.py:320
+msgid "Extension"
+msgstr "Přípona"
+
+#: ../xlgui/devices.py:62
+msgid "Icon"
 msgstr ""
 
-#: ../xlgui/queue.py:138
-msgid "Gave an invalid number to remove"
+#: ../xlgui/devices.py:67
+msgid "Device"
 msgstr ""
 
-#: ../xlgui/plcolumns.py:158
+#: ../xlgui/devices.py:74
+msgid "Driver"
+msgstr ""
+
+#: ../xlgui/collection.py:140
+msgid "Add a directory"
+msgstr "Přidat složku"
+
+#. our added path is a subdir of an existing path
+#: ../xlgui/collection.py:170
+msgid ""
+"Path is already in your collection, or is a subdirectory of another path in "
+"your collection"
+msgstr ""
+
+#. TRANSLATORS: Title of the track number column
+#: ../xlgui/plcolumns.py:59 ../xlgui/panel/flatplaylist.py:78
+msgid "#"
+msgstr "#"
+
+#: ../xlgui/plcolumns.py:80 ../xlgui/panel/playlists.py:140
+#: ../xlgui/panel/flatplaylist.py:86 ../plugins/cd/cdprefs.py:84
+#: ../plugins/minimode/minimodeprefs.py:118
+msgid "Title"
+msgstr "Název"
+
+#: ../xlgui/plcolumns.py:85 ../xlgui/panel/playlists.py:55
+#: ../xlgui/panel/playlists.py:139 ../plugins/cd/cdprefs.py:85
+#: ../plugins/minimode/minimodeprefs.py:119
+msgid "Artist"
+msgstr "Umělec"
+
+#: ../xlgui/plcolumns.py:90 ../plugins/cd/cdprefs.py:86
+#: ../plugins/minimode/minimodeprefs.py:120
+msgid "Composer"
+msgstr "Skladatel"
+
+#: ../xlgui/plcolumns.py:95 ../xlgui/panel/playlists.py:65
+#: ../xlgui/panel/playlists.py:141 ../plugins/cd/cdprefs.py:87
+#: ../plugins/minimode/minimodeprefs.py:121
+msgid "Album"
+msgstr "Album"
+
+#: ../xlgui/plcolumns.py:100 ../xlgui/panel/playlists.py:97
+#: ../xlgui/panel/playlists.py:142 ../plugins/cd/cdprefs.py:88
+#: ../plugins/minimode/minimodeprefs.py:122
+msgid "Length"
+msgstr "Délka"
+
+#: ../xlgui/plcolumns.py:120
+msgid "Disc"
+msgstr "Disk"
+
+#: ../xlgui/plcolumns.py:126 ../xlgui/panel/playlists.py:77
+#: ../xlgui/panel/playlists.py:143 ../plugins/cd/cdprefs.py:90
+#: ../plugins/minimode/minimodeprefs.py:124
+msgid "Rating"
+msgstr "Hodnocení"
+
+#: ../xlgui/plcolumns.py:149 ../plugins/cd/cdprefs.py:91
+#: ../plugins/minimode/minimodeprefs.py:125
+msgid "Date"
+msgstr "Datum"
+
+#: ../xlgui/plcolumns.py:154 ../xlgui/panel/playlists.py:71
+#: ../xlgui/panel/playlists.py:146 ../plugins/cd/cdprefs.py:92
+#: ../plugins/minimode/minimodeprefs.py:126
+msgid "Genre"
+msgstr "Žánr"
+
+#: ../xlgui/plcolumns.py:159 ../plugins/cd/cdprefs.py:93
+#: ../plugins/minimode/minimodeprefs.py:127
 msgid "Bitrate"
 msgstr "Datový tok"
 
-#: ../xlgui/plugins.py:110
-msgid "Choose a plugin"
-msgstr "Vyberte zásuvný modul"
+#. (_('Date Added'), [
+#. TRANSLATORS: Example: track has been added in the last 2 days
+#. (_('in the last'), (SpinDateField,
+#. lambda x, i: day_calc(x, i, 'time_added'))),
+#. TRANSLATORS: Example: track has not been added in the last 5 hours
+#. (_('not in the last'), (SpinDateField,
+#. lambda x, i: day_calc(x, i, 'time_added', '<'))),
+#. ]),
+#. (_('Last Played'), [
+#. (_('in the last'), (SpinDateField,
+#. lambda x, i: day_calc(x, i, 'last_played'))),
+#. (_('not in the last'), (SpinDateField,
+#. lambda x, i: day_calc(x, i, 'last_played', '<'))),
+#. ]),
+#: ../xlgui/plcolumns.py:172 ../xlgui/panel/playlists.py:116
+#: ../xlgui/panel/playlists.py:147 ../plugins/cd/cdprefs.py:94
+#: ../plugins/minimode/minimodeprefs.py:128
+msgid "Location"
+msgstr "Umístění"
 
-#: ../xlgui/plugins.py:111
-msgid "Choose"
-msgstr "Vybrat"
+#. TRANSLATORS: Filename column in the file browser
+#: ../xlgui/plcolumns.py:177 ../xlgui/panel/files.py:89
+#: ../plugins/cd/cdprefs.py:95 ../plugins/minimode/minimodeprefs.py:129
+msgid "Filename"
+msgstr "Název souboru"
 
-#: ../xlgui/plugins.py:115
-msgid "Plugin Archives"
-msgstr "Modul Archiv"
+#: ../xlgui/plcolumns.py:182
+msgid "Playcount"
+msgstr "Počet přehrání"
 
-#: ../xlgui/playlist.py:208
-#, python-format
-msgid "adding %(column_id)s column to %(preference)s"
+#: ../xlgui/plcolumns.py:190 ../plugins/cd/cdprefs.py:97
+#: ../plugins/minimode/minimodeprefs.py:132
+msgid "BPM"
+msgstr "BPM"
+
+#: ../xlgui/plcolumns.py:195 ../plugins/minimode/minimodeprefs.py:131
+msgid "Last played"
 msgstr ""
 
-#: ../xlgui/playlist.py:213
-#, python-format
-msgid "removing %(column_id)s column from %(preference)s"
+#: ../xlgui/plcolumns.py:206 ../xlgui/plcolumns.py:226
+#: ../plugins/minimode/mmwidgets.py:880
+msgid "Never"
 msgstr ""
 
-#: ../xlgui/panel/playlists.py:85
+#: ../xlgui/plcolumns.py:218 ../plugins/minimode/mmwidgets.py:893
+msgid "Today"
+msgstr ""
+
+#: ../xlgui/plcolumns.py:220 ../plugins/minimode/mmwidgets.py:895
+msgid "Yesterday"
+msgstr ""
+
+#: ../xlgui/plcolumns.py:222 ../plugins/minimode/mmwidgets.py:897
+#, python-format
+msgid "%(year)d-%(month)02d-%(day)02d"
+msgstr ""
+
+#: ../xlgui/plcolumns.py:253
+msgid "Track Number"
+msgstr "Číslo skladby"
+
+#: ../xlgui/plcolumns.py:255
+msgid "Disc Number"
+msgstr "Číslo disku"
+
+#: ../xlgui/filtergui.py:51 ../xlgui/panel/radio.py:168
+msgid "Name:"
+msgstr "Název:"
+
+#: ../xlgui/filtergui.py:65
+msgid "Match any of the criteria"
+msgstr "Vyberte některé z těchto kriterií"
+
+#: ../xlgui/filtergui.py:67
+msgid "Randomize results"
+msgstr "Náhodné výsledky"
+
+#: ../xlgui/filtergui.py:83
+msgid "Limit to: "
+msgstr "Omezit na: "
+
+#: ../xlgui/filtergui.py:93
+msgid " songs"
+msgstr " skladby"
+
+#: ../xlgui/playlist.py:1060
+#, python-format
+msgid "Close %s"
+msgstr ""
+
+#: ../xlgui/playlist.py:1061
+#, python-format
+msgid "<b>Save changes to %s before closing?</b>"
+msgstr "<b>Uložit změny do %s před uzavřením?</b>"
+
+#: ../xlgui/playlist.py:1062
+msgid "Your changes will be lost if you don't save them"
+msgstr "Vaše změny budou ztraceny, pokud je neuložíte"
+
+#: ../xlgui/playlist.py:1064
+msgid "Close Without Saving"
+msgstr "Zavřít bez uložení"
+
+#: ../xlgui/panel/playlists.py:25 ../xlgui/panel/playlists.py:37
+#: ../xlgui/panel/playlists.py:44
+msgid "seconds"
+msgstr "vteřin"
+
+#. TRANSLATORS: Logical AND used for smart playlists
+#: ../xlgui/panel/playlists.py:30
+msgid "and"
+msgstr "a"
+
+#: ../xlgui/panel/playlists.py:34 ../xlgui/panel/playlists.py:37
+msgid "days"
+msgstr "dny"
+
+#: ../xlgui/panel/playlists.py:37
+msgid "minutes"
+msgstr "minuty"
+
+#: ../xlgui/panel/playlists.py:37
+msgid "hours"
+msgstr "hodiny"
+
+#: ../xlgui/panel/playlists.py:37
+msgid "weeks"
+msgstr "týdny"
+
+#. TRANSLATORS: True if haystack is equal to needle
+#: ../xlgui/panel/playlists.py:57 ../xlgui/panel/playlists.py:66
+#: ../xlgui/panel/playlists.py:72 ../xlgui/panel/playlists.py:100
+#: ../xlgui/panel/playlists.py:117 ../xlgui/panel/playlists.py:125
+msgid "is"
+msgstr "je"
+
+#. TRANSLATORS: True if haystack is not equal to needle
+#: ../xlgui/panel/playlists.py:59 ../xlgui/panel/playlists.py:67
+#: ../xlgui/panel/playlists.py:73 ../xlgui/panel/playlists.py:118
+#: ../xlgui/panel/playlists.py:126
+msgid "is not"
+msgstr "není"
+
+#. TRANSLATORS: True if haystack contains needle
+#: ../xlgui/panel/playlists.py:61 ../xlgui/panel/playlists.py:68
+#: ../xlgui/panel/playlists.py:74 ../xlgui/panel/playlists.py:119
+#: ../xlgui/panel/playlists.py:127
+msgid "contains"
+msgstr "obsahuje"
+
+#. TRANSLATORS: True if haystack does not contain needle
+#: ../xlgui/panel/playlists.py:63 ../xlgui/panel/playlists.py:69
+#: ../xlgui/panel/playlists.py:75 ../xlgui/panel/playlists.py:120
+#: ../xlgui/panel/playlists.py:128
+msgid "does not contain"
+msgstr "neobsahuje"
+
+#: ../xlgui/panel/playlists.py:78 ../xlgui/panel/playlists.py:134
+msgid "greater than"
+msgstr ""
+
+#: ../xlgui/panel/playlists.py:79 ../xlgui/panel/playlists.py:135
+msgid "less than"
+msgstr ""
+
+#. TRANSLATORS: Example: rating >= 5
+#: ../xlgui/panel/playlists.py:81 ../xlgui/panel/playlists.py:86
+#: ../xlgui/panel/playlists.py:98 ../xlgui/panel/playlists.py:129
+msgid "at least"
+msgstr "nejméně"
+
+#. TRANSLATORS: Example: rating <= 3
+#: ../xlgui/panel/playlists.py:83 ../xlgui/panel/playlists.py:87
+#: ../xlgui/panel/playlists.py:99 ../xlgui/panel/playlists.py:130
+msgid "at most"
+msgstr "nejvíce"
+
+#: ../xlgui/panel/playlists.py:85 ../xlgui/panel/playlists.py:144
 msgid "Plays"
 msgstr ""
 
-#: ../xlgui/tray.py:116
-#: ../data/glade/main.glade.h:21
+#: ../xlgui/panel/playlists.py:89 ../xlgui/panel/playlists.py:145
+msgid "Year"
+msgstr "Rok"
+
+#. TRANSLATORS: Example: year < 1999
+#: ../xlgui/panel/playlists.py:91 ../xlgui/panel/playlists.py:131
+msgid "before"
+msgstr "předtím"
+
+#. TRANSLATORS: Example: year > 2002
+#: ../xlgui/panel/playlists.py:93 ../xlgui/panel/playlists.py:132
+msgid "after"
+msgstr "potom"
+
+#. TRANSLATORS: Example: 1980 <= year <= 1987
+#: ../xlgui/panel/playlists.py:95 ../xlgui/panel/playlists.py:133
+msgid "between"
+msgstr "mezi"
+
+#. name is already in use
+#: ../xlgui/panel/playlists.py:212 ../xlgui/panel/playlists.py:318
+#: ../xlgui/panel/playlists.py:356 ../xlgui/panel/playlists.py:592
+#: ../xlgui/panel/playlists.py:666
+msgid "The playlist name you entered is already in use."
+msgstr ""
+
+#: ../xlgui/panel/playlists.py:349
+msgid "New custom playlist name:"
+msgstr ""
+
+#: ../xlgui/panel/playlists.py:350
+msgid "Add To New Playlist..."
+msgstr ""
+
+#: ../xlgui/panel/playlists.py:360 ../xlgui/panel/playlists.py:586
+#: ../xlgui/panel/playlists.py:659
+msgid "You did not enter a name for your playlist"
+msgstr ""
+
+#: ../xlgui/panel/playlists.py:534
+msgid "Smart Playlists"
+msgstr ""
+
+#: ../xlgui/panel/playlists.py:537
+msgid "Custom Playlists"
+msgstr "Vlastní playlist"
+
+#: ../xlgui/panel/playlists.py:572
+msgid "Add Smart Playlist"
+msgstr ""
+
+#: ../xlgui/panel/playlists.py:637
+msgid "Edit Smart Playlist"
+msgstr "Upravit inteligentní seznam skladeb"
+
+#: ../xlgui/panel/radio.py:96 ../xlgui/panel/radio.py:453
+#: ../xlgui/panel/radio.py:529
+msgid "Loading streams..."
+msgstr "Nahrávám streamy..."
+
+#: ../xlgui/panel/radio.py:125 ../data/glade/radio_panel.glade.h:2
+#: ../plugins/podcasts/__init__.py:89 ../plugins/podcasts/__init__.py:212
+#: ../plugins/podcasts/__init__.py:224 ../plugins/shoutcast/__init__.py:121
+#: ../plugins/shoutcast/__init__.py:174 ../plugins/shoutcast/__init__.py:224
+#: ../plugins/shoutcast/__init__.py:257 ../plugins/podcasts/podcasts.glade.h:2
+msgid "Idle."
+msgstr ""
+
+#: ../xlgui/panel/radio.py:166
+msgid "Add Radio Station"
+msgstr ""
+
+#: ../xlgui/panel/radio.py:169
+#: ../plugins/audioscrobbler/asprefs_pane.glade.h:4
+msgid "URL:"
+msgstr "URL:"
+
+#: ../xlgui/panel/radio.py:234
+msgid "Saved Stations"
+msgstr "Uložit stanici"
+
+#: ../xlgui/panel/radio.py:235
+msgid "Radio Streams"
+msgstr "Rádio streamy"
+
+#: ../xlgui/panel/radio.py:264
+msgid "Refresh"
+msgstr "Obnovit"
+
+#: ../xlgui/panel/radio.py:394
+msgid "Enter the name you want for your new playlist"
+msgstr "Název nového playlistu"
+
+#. TRANSLATORS: Filesize column in the file browser
+#: ../xlgui/panel/files.py:114
+msgid "Size"
+msgstr "Velikost"
+
+#: ../xlgui/panel/files.py:347
+#, python-format
+msgid "%s KB"
+msgstr "%s KB"
+
+#: ../xlgui/panel/collection.py:100
+msgid ""
+"This will permanantly delete the selected tracks from your disk, are you "
+"sure you wish to continue?"
+msgstr ""
+
+#: ../xlgui/panel/collection.py:162
+msgid "Rescan Collection"
+msgstr "Znovu prohledat"
+
+#: ../xlgui/panel/collection.py:625
+msgid "Various Artists"
+msgstr "Různí interpreti"
+
+#: ../xlgui/panel/device.py:115
+#, python-format
+msgid "Transferring to %s..."
+msgstr ""
+
+#: ../xlgui/prefs/cover_prefs.py:21
+msgid "Covers"
+msgstr ""
+
+#: ../xlgui/prefs/appearance_prefs.py:22
+msgid "Appearance"
+msgstr ""
+
+#: ../xlgui/prefs/playback_prefs.py:22
+msgid "Playback"
+msgstr ""
+
+#: ../xlgui/prefs/__init__.py:73 ../data/glade/preferences_dialog.glade.h:2
+msgid "Preferences"
+msgstr "Předvolby"
+
+#: ../xlgui/prefs/__init__.py:84 ../xlgui/prefs/plugin_prefs.py:25
+msgid "Plugins"
+msgstr "Moduly"
+
+#: ../xlgui/prefs/playlists_prefs.py:22
+#: ../data/glade/playlists_panel.glade.h:1
+msgid "Playlists"
+msgstr "Playlist"
+
+#: ../xlgui/prefs/osd_prefs.py:22
+msgid "On Screen Display"
+msgstr ""
+
+#: ../xlgui/prefs/plugin_prefs.py:81
+msgid "Plugin"
+msgstr "Zásuvný modul"
+
+#: ../xlgui/prefs/plugin_prefs.py:89
+msgid "Version"
+msgstr "Verze"
+
+#: ../xlgui/prefs/plugin_prefs.py:97
+#: ../plugins/multialarmclock/alarmclk.glade.h:6
+msgid "Enabled"
+msgstr "Povoleno"
+
+#: ../xlgui/prefs/plugin_prefs.py:119
+msgid "Choose a plugin"
+msgstr "Vyberte zásuvný modul"
+
+#: ../xlgui/prefs/plugin_prefs.py:127
+msgid "Plugin Archives"
+msgstr "Modul Archiv"
+
+#: ../xlgui/prefs/plugin_prefs.py:180
+#, python-format
+msgid "Could not enable plugin: %s"
+msgstr ""
+
+#: ../xlgui/prefs/plugin_prefs.py:187
+#, python-format
+msgid "Could not disable plugin: %s"
+msgstr ""
+
+#: ../xlgui/prefs/widgets.py:244
+msgid "Add item"
+msgstr ""
+
+#: ../xlgui/prefs/widgets.py:249
+msgid "Remove item"
+msgstr ""
+
+#: ../xlgui/prefs/widgets.py:262
+msgid "Move selected item up"
+msgstr ""
+
+#: ../xlgui/prefs/widgets.py:267
+msgid "Move selected item down"
+msgstr ""
+
+#: ../xlgui/prefs/widgets.py:538
+msgid "Action"
+msgstr ""
+
+#: ../xlgui/prefs/widgets.py:546
+msgid "Shortcut"
+msgstr ""
+
+#: ../xlgui/tray.py:73
+msgid "Exaile Music Player"
+msgstr "Hudební přehrávač Exaile"
+
+#: ../xlgui/tray.py:116 ../data/glade/main.glade.h:17
 msgid "Shuffle playback order"
 msgstr ""
 
-#: ../xlgui/tray.py:121
-#: ../data/glade/main.glade.h:17
+#: ../xlgui/tray.py:121 ../data/glade/main.glade.h:15
 msgid "Repeat playlist"
 msgstr ""
 
@@ -571,13 +1110,110 @@ msgstr ""
 msgid "Dynamically add similar tracks"
 msgstr "Dynamicky přidávat podobné skladby"
 
-#: ../xlgui/tray.py:144
+#: ../xlgui/tray.py:135
 msgid "Remove current track from playlist"
+msgstr ""
+
+#: ../data/glade/device_manager.glade.h:1
+msgid "..."
+msgstr "..."
+
+#: ../data/glade/device_manager.glade.h:2
+msgid "Add device"
+msgstr "Přidat zařízení"
+
+#: ../data/glade/device_manager.glade.h:3
+msgid "Custom: "
+msgstr "Vlastní: "
+
+#: ../data/glade/device_manager.glade.h:4
+msgid "Detected devices:"
+msgstr "Zjištěná zařízení:"
+
+#: ../data/glade/device_manager.glade.h:5
+msgid "Device Manager"
+msgstr "Správce zařízení"
+
+#: ../data/glade/device_manager.glade.h:6
+msgid "Type of device:"
+msgstr "Typ zařízení:"
+
+#: ../data/glade/device_panel.glade.h:1
+#: ../data/glade/collection_panel.glade.h:10
+msgid "Collection"
+msgstr "Kolekce"
+
+#: ../data/glade/coverchooser.glade.h:1
+msgid "Cover Finder"
+msgstr "Vyhledávač obalů"
+
+#: ../data/glade/coverchooser.glade.h:2
+msgid "New Search"
+msgstr "Nové hledání"
+
+#: ../data/glade/trackproperties_dialog.glade.h:1
+msgid "Album:"
+msgstr "Album:"
+
+#: ../data/glade/trackproperties_dialog.glade.h:2
+msgid "Artist:"
+msgstr "Umělec"
+
+#: ../data/glade/trackproperties_dialog.glade.h:3
+msgid "Basic"
+msgstr ""
+
+#: ../data/glade/trackproperties_dialog.glade.h:4
+msgid "Bitrate:"
+msgstr "Hodnocení:"
+
+#: ../data/glade/trackproperties_dialog.glade.h:5
+msgid "Date:"
+msgstr ""
+
+#: ../data/glade/trackproperties_dialog.glade.h:6
+msgid "Details"
+msgstr ""
+
+#: ../data/glade/trackproperties_dialog.glade.h:7
+msgid "File Size:"
+msgstr ""
+
+#: ../data/glade/trackproperties_dialog.glade.h:8
+msgid "Genre:"
+msgstr "Žánr:"
+
+#: ../data/glade/trackproperties_dialog.glade.h:9
+msgid "Length:"
+msgstr ""
+
+#: ../data/glade/trackproperties_dialog.glade.h:10
+msgid "Location:"
+msgstr "Umístění:"
+
+#: ../data/glade/trackproperties_dialog.glade.h:11
+msgid "Play Count:"
+msgstr ""
+
+#: ../data/glade/trackproperties_dialog.glade.h:12
+msgid "Title:"
+msgstr "Název:"
+
+#: ../data/glade/trackproperties_dialog.glade.h:13
+msgid "Track Number:"
+msgstr "Číslo skladby:"
+
+#: ../data/glade/trackproperties_dialog.glade.h:14
+msgid "Track Properties"
 msgstr ""
 
 #: ../data/glade/about_dialog.glade.h:1
 msgid "&#xA9; 2009"
 msgstr "&#xA9; 2009"
+
+#: ../data/glade/about_dialog.glade.h:2
+msgid "About Exaile"
+msgstr "O Exaile"
 
 #: ../data/glade/about_dialog.glade.h:3
 msgid ""
@@ -625,6 +1261,10 @@ msgstr ""
 msgid "Always show tab bar"
 msgstr ""
 
+#: ../data/glade/appearance_prefs_pane.glade.h:3
+msgid "Jump to current song on track change"
+msgstr "Přeskočit na vybranou skladbu"
+
 #: ../data/glade/appearance_prefs_pane.glade.h:4
 msgid ""
 "Left\n"
@@ -637,49 +1277,120 @@ msgstr ""
 "Nahoře\n"
 "Dole"
 
+#: ../data/glade/appearance_prefs_pane.glade.h:8
+msgid "Minimize to tray"
+msgstr ""
+
+#: ../data/glade/appearance_prefs_pane.glade.h:9
+msgid "Show splash screen on startup"
+msgstr "Splash screen při startu"
+
 #: ../data/glade/appearance_prefs_pane.glade.h:10
+msgid "Show tray icon"
+msgstr ""
+
+#: ../data/glade/appearance_prefs_pane.glade.h:11
 msgid "Tab placement:"
 msgstr ""
+
+#: ../data/glade/appearance_prefs_pane.glade.h:12
+msgid "Use alpha transparency (if supported)"
+msgstr ""
+
+#: ../data/glade/osd_window.glade.h:1
+msgid ""
+"<b>OSD</b>\n"
+"Drag to the location you'd like the\n"
+"OSD to appear"
+msgstr ""
+"<b>OSD</b>\n"
+"Přesuňte vyskakovací okno na místo, \n"
+"kde chcete, aby se objevovalo"
+
+#: ../data/glade/osd_window.glade.h:4
+msgid "Popup"
+msgstr "Kontextová nabídka"
+
+#: ../data/glade/radio_panel.glade.h:1
+msgid "Add Station"
+msgstr "Přidat stanici"
+
+#: ../data/glade/radio_panel.glade.h:3
+#: ../data/glade/flatplaylist_panel.glade.h:3
+msgid "Radio"
+msgstr "Rádio"
 
 #: ../data/glade/covermanager.glade.h:1
 msgid "Cover Manager"
 msgstr "Správce obalů"
 
-#: ../data/glade/plugin_dialog.glade.h:8
-msgid "Plugin Manager"
-msgstr "Správce zásuvných modulů"
+#: ../data/glade/covermanager.glade.h:3
+msgid "_Close"
+msgstr "_Zavřít"
+
+#: ../data/glade/osd_prefs_pane.glade.h:1
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to "
+"appear</b>"
+msgstr ""
+
+#: ../data/glade/osd_prefs_pane.glade.h:2
+msgid ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+msgstr ""
+"<b>{title}</b>\n"
+"{artist}\n"
+"on {album} - {length}"
+
+#: ../data/glade/osd_prefs_pane.glade.h:5
+msgid "Background Color:"
+msgstr "Barva pozadí"
+
+#: ../data/glade/osd_prefs_pane.glade.h:6
+msgid "Display OSD when hovering over tray icon"
+msgstr "Zobrazit OSD společně s tray ikonou"
+
+#: ../data/glade/osd_prefs_pane.glade.h:7
+msgid "Display a progressbar in the OSD"
+msgstr "Zobrazit processbar v OSD"
+
+#: ../data/glade/osd_prefs_pane.glade.h:8
+msgid "Opacity Level:"
+msgstr "Úroveň:"
+
+#: ../data/glade/osd_prefs_pane.glade.h:9
+msgid "Show OSD on track change"
+msgstr "Zobrazit OSD při změně skladby"
+
+#: ../data/glade/osd_prefs_pane.glade.h:10
+msgid "Text Color"
+msgstr "Barva textu"
+
+#: ../data/glade/osd_prefs_pane.glade.h:11
+msgid "Text Font:"
+msgstr "Font textu"
+
+#: ../data/glade/osd_prefs_pane.glade.h:12
+msgid "Window Height:"
+msgstr "Výška okna:"
+
+#: ../data/glade/osd_prefs_pane.glade.h:13
+msgid "Window Width:"
+msgstr "Šířka okna:"
 
 #: ../data/glade/queue_dialog.glade.h:1
 msgid "Close this dialog"
 msgstr "Zavřít dialog"
 
 #: ../data/glade/queue_dialog.glade.h:2
-msgid "Move song down in queue"
-msgstr "Posunout skladbu dolů"
+msgid "Queue Manager"
+msgstr "Správce fronty"
 
 #: ../data/glade/queue_dialog.glade.h:3
-msgid "Move song to bottom of queue"
-msgstr "Přesunout skladbu na konec"
-
-#: ../data/glade/queue_dialog.glade.h:4
-msgid "Move song to top in queue"
-msgstr "Přesunout skladbu na začátek"
-
-#: ../data/glade/queue_dialog.glade.h:5
-msgid "Move song up in queue"
-msgstr "Posunout skladbu nahoru"
-
-#: ../data/glade/queue_dialog.glade.h:6
-msgid "Queue Manager - Exaile"
-msgstr "Správce fronty - Exaile"
-
-#: ../data/glade/queue_dialog.glade.h:7
 msgid "Remove All"
 msgstr "Odstranit vše"
-
-#: ../data/glade/queue_dialog.glade.h:8
-msgid "Remove song from queue"
-msgstr "Odebrat skladbu z fronty"
 
 #: ../data/glade/playback_prefs_pane.glade.h:1
 msgid "Audio Sink:  "
@@ -739,41 +1450,262 @@ msgstr "Použití crossfadingu (EXPERIMENTÁLNÍ)"
 msgid "Use fade transitions on user actions"
 msgstr ""
 
+#: ../data/glade/plugin_prefs_pane.glade.h:1
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Není vybrán modul</b>"
+
+#: ../data/glade/plugin_prefs_pane.glade.h:2
+msgid "Authors:"
+msgstr "Autoři:"
+
+#: ../data/glade/plugin_prefs_pane.glade.h:3
+msgid "Available Plugins"
+msgstr "Zásuvné moduly"
+
+#: ../data/glade/plugin_prefs_pane.glade.h:4
+msgid "Description:"
+msgstr "Popis:"
+
+#: ../data/glade/plugin_prefs_pane.glade.h:5
+msgid "Install"
+msgstr "Instalovat"
+
+#: ../data/glade/plugin_prefs_pane.glade.h:6
+msgid "Install Updates"
+msgstr "Instalovat aktualizace"
+
+#: ../data/glade/plugin_prefs_pane.glade.h:7
+msgid "Install a third party plugin from a file"
+msgstr ""
+
+#: ../data/glade/plugin_prefs_pane.glade.h:8
+msgid "Install plugin file"
+msgstr ""
+
+#: ../data/glade/plugin_prefs_pane.glade.h:9
+msgid "Installed Plugins"
+msgstr "Instalované moduly"
+
+#: ../data/glade/plugin_prefs_pane.glade.h:10
+msgid "Updates"
+msgstr "Aktualizace"
+
+#: ../data/glade/plugin_prefs_pane.glade.h:11
+msgid "Version:"
+msgstr "Verze:"
+
+#: ../data/glade/main.glade.h:1
+msgid " + "
+msgstr " + "
+
+#: ../data/glade/main.glade.h:2
+msgid " - "
+msgstr " - "
+
+#: ../data/glade/main.glade.h:3
+msgid "0/0 tracks"
+msgstr "0/0 skladeb"
+
+#: ../data/glade/main.glade.h:4
+msgid "0:00 / 0:00"
+msgstr "0:00 / 0:00"
+
+#: ../data/glade/main.glade.h:5
+msgid "C_overs"
+msgstr ""
+
+#: ../data/glade/main.glade.h:6
+msgid "Clear Playlist"
+msgstr "Vymazat playlist"
+
 #: ../data/glade/main.glade.h:7
 msgid "Dynamically add similar tracks to the playlist"
 msgstr "Dynamicky přidávat podobné skladby do seznamu skladeb"
 
-#: ../data/glade/main.glade.h:14
-msgid "Queue Manager"
-msgstr "Správce fronty"
+#: ../data/glade/main.glade.h:8 ../plugins/minimode/__init__.py:205
+msgid "Next Track"
+msgstr "Další skladba"
 
-#: ../data/glade/main.glade.h:15
-msgid "Randomize Playlist"
-msgstr "Náhodný seznam skladeb"
+#: ../data/glade/main.glade.h:10
+msgid "Open _URL"
+msgstr "Otevřít U_RL"
 
-#: ../data/glade/main.glade.h:16
+#: ../data/glade/main.glade.h:11
+msgid "Page 1"
+msgstr "Strana 1"
+
+#: ../data/glade/main.glade.h:12 ../plugins/minimode/__init__.py:203
+msgid "Previous Track"
+msgstr "Předchozí skladba"
+
+#: ../data/glade/main.glade.h:13
 msgid "Randomize the order of the current playlist"
 msgstr "Náhodné pořadí aktuálního seznamu skladeb"
 
+#: ../data/glade/main.glade.h:14
+msgid "Re_scan Collection"
+msgstr ""
+
+#: ../data/glade/main.glade.h:16 ../data/glade/collection_panel.glade.h:13
+#: ../data/glade/files_panel.glade.h:6
+msgid "Search: "
+msgstr "Vyhledat: "
+
 #: ../data/glade/main.glade.h:18
-msgid "Rescan Collection"
-msgstr "Znovu prohledat"
+msgid "Start/Pause Playback"
+msgstr ""
+
+#: ../data/glade/main.glade.h:19
+msgid ""
+"Stop Playback\n"
+"\n"
+"Right Click for Stop After Track Feature"
+msgstr ""
+
+#: ../data/glade/main.glade.h:23
+msgid "Track _properties"
+msgstr ""
+
+#: ../data/glade/main.glade.h:24
+msgid "Vol:"
+msgstr "Zes."
+
+#: ../data/glade/main.glade.h:25
+msgid "_Autosize"
+msgstr ""
+
+#: ../data/glade/main.glade.h:26
+msgid "_Collection"
+msgstr ""
 
 #: ../data/glade/main.glade.h:27
-msgid "_Cover Manager"
-msgstr "S_právce obalů"
+msgid "_Columns"
+msgstr "_Sloupce"
+
+#: ../data/glade/main.glade.h:28
+msgid "_Device Manager"
+msgstr ""
 
 #: ../data/glade/main.glade.h:29
+msgid "_Edit"
+msgstr "Uprav_it"
+
+#: ../data/glade/main.glade.h:30
 msgid "_Export current playlist"
 msgstr "_Exportovat do aktuálního seznamu skladeb"
 
 #: ../data/glade/main.glade.h:31
+msgid "_File"
+msgstr "_Soubor"
+
+#: ../data/glade/main.glade.h:32
 msgid "_Go to Playing Track"
 msgstr "_Jdi na přehrávač skladeb"
+
+#: ../data/glade/main.glade.h:33
+msgid "_Help"
+msgstr ""
+
+#: ../data/glade/main.glade.h:35
+msgid "_Queue"
+msgstr ""
+
+#: ../data/glade/main.glade.h:36
+msgid "_Randomize Playlist"
+msgstr ""
+
+#: ../data/glade/main.glade.h:37
+msgid "_Resizable"
+msgstr ""
+
+#: ../data/glade/main.glade.h:38
+msgid "_Tools"
+msgstr "Nástro_je"
+
+#: ../data/glade/main.glade.h:39
+msgid "_View"
+msgstr "Zo_brazit"
+
+#: ../data/glade/collection_manager.glade.h:1
+msgid "Collection Manager"
+msgstr "Správce kolekce"
+
+#: ../data/glade/flatplaylist_panel.glade.h:1
+msgid "Append All Tracks to Playlist"
+msgstr ""
+
+#: ../data/glade/flatplaylist_panel.glade.h:2
+msgid "Import CD"
+msgstr "Import CD"
+
+#: ../data/glade/general_prefs_pane.glade.h:1
+#: ../data/glade/playlists_prefs_pane.glade.h:1
+msgid "Open last playlists on startup"
+msgstr "Otevřít poslední seznam skladeb při startu"
+
+#: ../data/glade/collection_panel.glade.h:1
+msgid "<b>Collection is empty.</b>"
+msgstr ""
+
+#: ../data/glade/collection_panel.glade.h:2
+msgid "Add Music"
+msgstr ""
+
+#: ../data/glade/collection_panel.glade.h:3
+msgid ""
+"Artist\n"
+"Album\n"
+"Genre - Artist\n"
+"Genre - Album\n"
+"Year - Artist\n"
+"Year - Album\n"
+"Artist - Year - Album"
+msgstr ""
+"Umělec\n"
+"Album\n"
+"Žánr - Umělec\n"
+"Žánr - Album\n"
+"Rok - Umělec\n"
+"Rok - Album\n"
+"Umělec - Rok - Album"
+
+#: ../data/glade/collection_panel.glade.h:11
+msgid ""
+"Refresh collection view\n"
+"(Hold Shift key to rescan the collection)"
+msgstr ""
+
+#: ../data/glade/playlists_prefs_pane.glade.h:2
+msgid "Prompt for saving custom playlists on close"
+msgstr ""
 
 #: ../data/glade/cover_prefs_pane.glade.h:1
 msgid "(drag to reorder)"
 msgstr "(tažením přeskupovat)"
+
+#: ../data/glade/cover_prefs_pane.glade.h:2
+msgid "Cover Search Order:"
+msgstr "Pořadí hledání obalů:"
+
+#: ../data/glade/preferences_dialog.glade.h:1
+msgid "<b>General</b>"
+msgstr "<b>Obecné</b>"
+
+#: ../data/glade/files_panel.glade.h:1
+msgid "Files"
+msgstr "Soubory"
+
+#: ../data/glade/files_panel.glade.h:2
+msgid "Home directory"
+msgstr "Domovská složka"
+
+#: ../data/glade/files_panel.glade.h:3
+msgid "Next visited directory"
+msgstr "Další navštívené složky"
+
+#: ../data/glade/files_panel.glade.h:4
+msgid "Previous visited directory"
+msgstr "Předchozí navštívené složky"
 
 #: ../data/glade/files_panel.glade.h:5
 msgid "Refresh directory listing"
@@ -783,94 +1715,179 @@ msgstr ""
 msgid "Up one directory"
 msgstr "O složku výše"
 
-#: ../plugins/multialarmclock/__init__.py:411
+#: ../plugins/multialarmclock/__init__.py:410
+#: ../plugins/multialarmclock/PLUGININFO:3
 msgid "Multi-Alarm Clock"
 msgstr ""
 
+#: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
+msgid "Alarm Clock"
+msgstr "Budík"
+
+#: ../plugins/audioscrobbler/asprefs.py:22
+#: ../plugins/audioscrobbler/PLUGININFO:3
+msgid "AudioScrobbler"
+msgstr ""
+
+#: ../plugins/audioscrobbler/__init__.py:114
+msgid "Enable audioscrobbling"
+msgstr ""
+
+#: ../plugins/cd/__init__.py:95 ../plugins/cd/__init__.py:172
+msgid "Audio Disc"
+msgstr "Audio disk"
+
+#: ../plugins/cd/_cdguipanel.py:60
+msgid "Importing CD..."
+msgstr ""
+
+#: ../plugins/cd/cdprefs.py:22
+msgid "CD"
+msgstr ""
+
+#: ../plugins/cd/cdprefs.py:83 ../plugins/minimode/minimodeprefs.py:117
+msgid "Track number"
+msgstr ""
+
+#: ../plugins/cd/cdprefs.py:89 ../plugins/minimode/minimodeprefs.py:123
+msgid "Disc number"
+msgstr ""
+
+#: ../plugins/cd/cdprefs.py:96 ../plugins/minimode/minimodeprefs.py:130
+msgid "Play count"
+msgstr ""
+
 #: ../plugins/bookmarks/__init__.py:278
+#: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
 msgid "Bookmarks"
 msgstr "Záložky"
 
-#: ../plugins/bookmarks/__init__.py:283
+#: ../plugins/bookmarks/__init__.py:286
 msgid "Bookmark this track"
 msgstr "Záložka této skladby"
 
-#: ../plugins/bookmarks/__init__.py:288
+#: ../plugins/bookmarks/__init__.py:291
 msgid "Delete bookmark"
 msgstr "Smazat záložku"
 
-#: ../plugins/bookmarks/__init__.py:293
+#: ../plugins/bookmarks/__init__.py:295
 msgid "Clear bookmarks"
 msgstr "Smazat záložky"
 
-#: ../plugins/notifyosd/notifyosdprefs.py:48
-#: ../plugins/notify/notifyprefs.py:54
+#: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
+msgid "Notify-osd notifications"
+msgstr ""
+
+#: ../plugins/notifyosd/notifyosdprefs.py:47
+#: ../plugins/notify/notifyprefs.py:53
 #, python-format
 msgid "%(title)s"
 msgstr "%(title)s"
 
-#: ../plugins/notifyosd/notifyosdprefs.py:52
-#: ../plugins/notify/notifyprefs.py:44
+#: ../plugins/notifyosd/notifyosdprefs.py:51
+#: ../plugins/notify/notifyprefs.py:43
 #, python-format
 msgid "by %(artist)s"
 msgstr "od %(artist)s"
 
-#: ../plugins/notifyosd/notifyosdprefs.py:56
-#: ../plugins/notify/notifyprefs.py:49
+#: ../plugins/notifyosd/notifyosdprefs.py:55
+#: ../plugins/notify/notifyprefs.py:48
 #, python-format
 msgid "from %(album)s"
 msgstr "z %(album)s"
 
-#: ../plugins/desktopcover/prefs.py:22
+#: ../plugins/amazoncovers/amazonprefs.py:22
+#: ../plugins/amazoncovers/PLUGININFO:3
+msgid "Amazon Covers"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.py:22 ../plugins/desktopcover/PLUGININFO:3
 msgid "Desktop Cover"
 msgstr "Obal na ploše"
-
-#: ../plugins/moodbar/__init__.py:138
-msgid "Searching for mood..."
-msgstr "Hledat podle nálady..."
-
-#: ../plugins/moodbar/__init__.py:142
-msgid "Mood found."
-msgstr "Nálada nalezena."
-
-#: ../plugins/moodbar/__init__.py:174
-msgid "Could not read moodbar."
-msgstr ""
 
 #: ../plugins/moodbar/__init__.py:334
 msgid "Moodbar executable is not available."
 msgstr ""
 
-#: ../plugins/shoutcast/__init__.py:158
+#: ../plugins/replaygain/replaygainprefs.py:22
+#: ../plugins/replaygain/PLUGININFO:3
+msgid "ReplayGain"
+msgstr ""
+
+#: ../plugins/podcasts/__init__.py:55 ../plugins/podcasts/PLUGININFO:3
+msgid "Podcasts"
+msgstr "Podcasty"
+
+#: ../plugins/podcasts/__init__.py:72
+msgid "Podcast"
+msgstr ""
+
+#: ../plugins/podcasts/__init__.py:81
+msgid "Refresh Podcast"
+msgstr ""
+
+#: ../plugins/podcasts/__init__.py:82
+msgid "Delete"
+msgstr ""
+
+#: ../plugins/podcasts/__init__.py:120
+msgid "Enter the URL of the podcast to add"
+msgstr ""
+
+#: ../plugins/podcasts/__init__.py:121
+msgid "Open Podcast"
+msgstr ""
+
+#: ../plugins/podcasts/__init__.py:154
+#, python-format
+msgid "Loading %s..."
+msgstr ""
+
+#: ../plugins/podcasts/__init__.py:183
+msgid "Error loading podcast."
+msgstr ""
+
+#: ../plugins/podcasts/__init__.py:199
+msgid "Loading Podcasts..."
+msgstr ""
+
+#: ../plugins/podcasts/__init__.py:230
+msgid "Could not save podcast file"
+msgstr ""
+
+#: ../plugins/shoutcast/__init__.py:104 ../plugins/shoutcast/__init__.py:158
+#: ../plugins/shoutcast/__init__.py:201 ../plugins/shoutcast/__init__.py:237
+msgid "Contacting Shoutcast server..."
+msgstr ""
+
+#: ../plugins/shoutcast/__init__.py:114 ../plugins/shoutcast/__init__.py:118
+#: ../plugins/shoutcast/__init__.py:167 ../plugins/shoutcast/__init__.py:171
+#: ../plugins/shoutcast/__init__.py:215 ../plugins/shoutcast/__init__.py:220
+#: ../plugins/shoutcast/__init__.py:248 ../plugins/shoutcast/__init__.py:253
+msgid "Error connecting to Shoutcast server."
+msgstr ""
+
+#: ../plugins/shoutcast/__init__.py:273
 msgid "Enter the search keywords"
 msgstr "Vložte hledané slovo"
 
-#: ../plugins/shoutcast/__init__.py:159
+#: ../plugins/shoutcast/__init__.py:274
 msgid "Shoutcast Search"
 msgstr ""
 
-#: ../plugins/shoutcast/__init__.py:181
+#: ../plugins/shoutcast/__init__.py:297
 msgid "Search Results"
 msgstr "Výsledek hledání"
 
-#: ../plugins/lastfmradio/__init__.py:143
-msgid "Neighbourhood"
-msgstr "Okolí počítače"
+#: ../plugins/shoutcast/__init__.py:330
+msgid "Search"
+msgstr "Vyhledat"
 
-#: ../plugins/lastfmradio/__init__.py:145
-msgid "Loved Tracks"
-msgstr "Oblíbené skladby"
+#: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
+msgid "Notify"
+msgstr ""
 
-#: ../plugins/lastfmradio/__init__.py:163
-msgid "LastFM Radio"
-msgstr "LastFM rádio"
-
-#: ../plugins/lastfmradio/__init__.py:166
-#, python-format
-msgid "LastFM: %s"
-msgstr "LastFM: %s"
-
-#: ../plugins/notify/notifyprefs.py:39
+#: ../plugins/notify/notifyprefs.py:38
 #, python-format
 msgid ""
 "by %(artist)s\n"
@@ -879,75 +1896,132 @@ msgstr ""
 "od %(artist)s\n"
 "z <i>%(album)s</i>"
 
-#: ../plugins/ipconsole/__init__.py:72
+#: ../plugins/ipconsole/__init__.py:77
 msgid "IPython Console - Exaile"
 msgstr "IPython konzole - Exaile"
 
-#: ../plugins/ipconsole/__init__.py:125
+#: ../plugins/ipconsole/__init__.py:134
 msgid "Show IPython Console"
 msgstr "Zobrazit Python konzoli"
 
-#: ../plugins/minimode/__init__.py:77
-msgid "Mini Mode"
-msgstr "Mini Mod"
+#: ../plugins/ipconsole/ipconsoleprefs.py:22 ../plugins/ipconsole/PLUGININFO:3
+msgid "IPython Console"
+msgstr ""
 
-#: ../plugins/minimode/__init__.py:184
+#: ../plugins/minimode/__init__.py:209
+msgid "Stop Playback"
+msgstr "Ukončit přehrávání"
+
+#: ../plugins/minimode/__init__.py:211
 msgid "Restore Main Window"
 msgstr "Obnovit hlavní okno"
 
-#: ../plugins/minimode/minimodeprefs.py:102
+#: ../plugins/minimode/minimodeprefs.py:22 ../plugins/minimode/mmwidgets.py:32
+#: ../plugins/minimode/PLUGININFO:3
+msgid "Mini Mode"
+msgstr "Mini Mod"
+
+#: ../plugins/minimode/minimodeprefs.py:97
 msgid "Available controls"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs.py:103
+#: ../plugins/minimode/minimodeprefs.py:98
 msgid "Selected controls"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs.py:106
+#: ../plugins/minimode/minimodeprefs.py:100
+msgid "Previous"
+msgstr "Předchozí"
+
+#: ../plugins/minimode/minimodeprefs.py:101
 msgid "Play/Pause"
 msgstr "Přehrát/Pozastavit"
 
-#: ../plugins/minimode/minimodeprefs.py:109
+#: ../plugins/minimode/minimodeprefs.py:102
+msgid "Stop"
+msgstr "Zastavit"
+
+#: ../plugins/minimode/minimodeprefs.py:103
+msgid "Next"
+msgstr "Další"
+
+#: ../plugins/minimode/minimodeprefs.py:104
 msgid "Track selector"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs.py:110
+#: ../plugins/minimode/minimodeprefs.py:105
 msgid "Progress bar"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs.py:113
+#: ../plugins/minimode/minimodeprefs.py:106
+msgid "Volume"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs.py:107
+msgid "Playlist button"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs.py:110
 msgid "Restore"
 msgstr "Obnovit"
 
-#: ../plugins/minimode/mmwidgets.py:127
-#: ../plugins/minimode/mmwidgets.py:141
+#. TRANSLATORS: Mini mode track selector title preset
+#: ../plugins/minimode/minimodeprefs.py:136
+#: ../plugins/minimode/minimodeprefs.py:142
+msgid "$tracknumber - $title"
+msgstr ""
+
+#. TRANSLATORS: Mini mode track selector title preset
+#: ../plugins/minimode/minimodeprefs.py:138
+msgid "$title by $artist"
+msgstr ""
+
+#. TRANSLATORS: Mini mode track selector title preset
+#: ../plugins/minimode/minimodeprefs.py:140
+msgid "$title ($length)"
+msgstr ""
+
+#: ../plugins/minimode/mmwidgets.py:151 ../plugins/minimode/mmwidgets.py:165
 msgid "Start Playback"
 msgstr "Zahájit přehrávání"
 
-#: ../plugins/minimode/mmwidgets.py:145
+#: ../plugins/minimode/mmwidgets.py:169
 msgid "Continue Playback"
 msgstr "Pokračovat v přehrávání"
 
-#: ../plugins/minimode/mmwidgets.py:148
+#: ../plugins/minimode/mmwidgets.py:172
 msgid "Pause Playback"
 msgstr "Pozastavit přehrávání"
 
-#. TRANSLATORS: String multiple tag values will be joined with
-#: ../plugins/minimode/mmwidgets.py:248
+#: ../plugins/minimode/mmwidgets.py:732
+msgid "Seeking: "
+msgstr ""
+
+#: ../plugins/minimode/mmwidgets.py:809
 msgid " & "
 msgstr " & "
 
-#: ../plugins/minimode/mmwidgets.py:428
-msgid "Seeking:"
+#: ../plugins/contextinfo/__init__.py:1033
+#: ../plugins/contextinfo/context.glade.h:1
+msgid "Context"
 msgstr ""
 
-#: ../plugins/streamripper/__init__.py:53
+#: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
+msgid "Streamripper"
+msgstr ""
+
+#: ../plugins/streamripper/__init__.py:54
 msgid "Streamripper can only record streams."
 msgstr ""
 
-#: ../plugins/streamripper/__init__.py:86
+#: ../plugins/streamripper/__init__.py:87
 msgid "Error executing streamripper"
 msgstr ""
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:1
+#: ../plugins/alarmclock/acprefs_pane.glade.h:1
+msgid "Alarm Days:"
+msgstr "Budík den:"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:2
 msgid "Alarm Name:"
@@ -970,6 +2044,11 @@ msgstr ""
 msgid "Fading:"
 msgstr "Přechod:"
 
+#: ../plugins/multialarmclock/alarmclk.glade.h:8
+#: ../plugins/alarmclock/acprefs_pane.glade.h:3
+msgid "Friday"
+msgstr "Pátek"
+
 #: ../plugins/multialarmclock/alarmclk.glade.h:9
 #: ../plugins/alarmclock/acprefs_pane.glade.h:4
 msgid "Increment:"
@@ -985,6 +2064,11 @@ msgstr "Maximální hlasitost:"
 msgid "Minimum Volume:"
 msgstr "Minimální hlasitost:"
 
+#: ../plugins/multialarmclock/alarmclk.glade.h:12
+#: ../plugins/alarmclock/acprefs_pane.glade.h:7
+msgid "Monday"
+msgstr "Pondělí"
+
 #: ../plugins/multialarmclock/alarmclk.glade.h:13
 msgid "Name - Time"
 msgstr ""
@@ -993,21 +2077,70 @@ msgstr ""
 msgid "Restart Playlist"
 msgstr ""
 
+#: ../plugins/multialarmclock/alarmclk.glade.h:15
+#: ../plugins/alarmclock/acprefs_pane.glade.h:8
+msgid "Saturday"
+msgstr "Sobota"
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:16
+#: ../plugins/alarmclock/acprefs_pane.glade.h:9
+msgid "Sunday"
+msgstr "Neděle"
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:17
+#: ../plugins/alarmclock/acprefs_pane.glade.h:10
+msgid "Thursday"
+msgstr "Čtvrtek"
+
 #: ../plugins/multialarmclock/alarmclk.glade.h:18
 msgid "Time per Increment:"
 msgstr ""
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:19
+#: ../plugins/alarmclock/acprefs_pane.glade.h:12
+msgid "Tuesday"
+msgstr "Úterý"
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:20
+#: ../plugins/alarmclock/acprefs_pane.glade.h:14
+msgid "Wednesday"
+msgstr "Středa"
 
 #: ../plugins/alarmclock/acprefs_pane.glade.h:11
 msgid "Timer per Increment:"
 msgstr ""
 
+#: ../plugins/alarmclock/acprefs_pane.glade.h:13
+msgid "Use Fading"
+msgstr "Použít přechod"
+
+#: ../plugins/audioscrobbler/asprefs_pane.glade.h:1
+msgid "Password:"
+msgstr "Heslo:"
+
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:2
+msgid "Show Menuitem to toggle Submission"
+msgstr ""
+
+#: ../plugins/audioscrobbler/asprefs_pane.glade.h:3
 msgid "Submit tracks using Audioscrobbler"
 msgstr "Odeslat skladby pomocí Audioscrobbleru"
 
-#: ../plugins/audioscrobbler/asprefs_pane.glade.h:3
-msgid "URL:"
-msgstr "URL:"
+#: ../plugins/audioscrobbler/asprefs_pane.glade.h:5
+msgid "Username:"
+msgstr "Uživatelské jméno"
+
+#: ../plugins/cd/cdprefs_pane.glade.h:1
+msgid "Import format: "
+msgstr ""
+
+#: ../plugins/cd/cdprefs_pane.glade.h:2
+msgid "Import path: "
+msgstr ""
+
+#: ../plugins/cd/cdprefs_pane.glade.h:3
+msgid "Import quality: "
+msgstr ""
 
 #: ../plugins/bookmarks/bookmarks_pane.glade.h:1
 msgid "Use covers in the bookmarks menu (takes effect on next start)"
@@ -1050,7 +2183,7 @@ msgid "Summary:"
 msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:11
-#, no-c-format
+#, python-format
 msgid ""
 "The tags \"%(title)s\", \"%(artist)s\", and \"%(album)s\" will be replaced "
 "by their respective values. The title will be replaced by \"Unknown\" if it "
@@ -1067,20 +2200,58 @@ msgstr ""
 msgid "Use Media Icons For Pause, Stop and Resume"
 msgstr ""
 
-#: ../plugins/replaygain/replaygainprefs_pane.glade.h:1
-msgid "Fallback correction level (dB):"
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:14
+msgid "When GUI is Focused"
+msgstr ""
+
+#: ../plugins/amazoncovers/amazonprefs_pane.glade.h:1
+msgid "API Key:"
+msgstr ""
+
+#: ../plugins/amazoncovers/amazonprefs_pane.glade.h:2
+msgid "Secret Key:"
+msgstr ""
+
+#: ../plugins/amazoncovers/amazonprefs_pane.glade.h:3
+msgid ""
+"To sign up for an Amazon AWS account and get \n"
+"this information visit http://aws.amazon.com/"
 msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:2
-msgid "Pre-amp (dB):"
+msgid "Additional amplification (dB):"
 msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:3
-msgid "Prefer per-album correction"
+msgid "Additional amplification to apply to all files"
 msgstr ""
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:4
+msgid "Fallback correction for files that lack ReplayGain information"
+msgstr ""
+
+#: ../plugins/replaygain/replaygainprefs_pane.glade.h:6
+msgid "Fallback correction level (dB):"
+msgstr ""
+
+#: ../plugins/replaygain/replaygainprefs_pane.glade.h:7
+msgid "Prefer ReplayGain's per-album correction over per-track correction."
+msgstr ""
+
+#: ../plugins/replaygain/replaygainprefs_pane.glade.h:9
+msgid "Prefer per-album correction"
+msgstr ""
+
+#: ../plugins/replaygain/replaygainprefs_pane.glade.h:10
+msgid "Protect against noise caused by over-amplification"
+msgstr ""
+
+#: ../plugins/replaygain/replaygainprefs_pane.glade.h:12
 msgid "Use clipping protection"
+msgstr ""
+
+#: ../plugins/podcasts/podcasts.glade.h:1
+msgid "Add Podcast"
 msgstr ""
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:1
@@ -1092,7 +2263,7 @@ msgid "Both artist and album"
 msgstr ""
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:4
-#, no-c-format
+#, python-format
 msgid ""
 "Message that should be displayed in the body of the notification. In each "
 "case, \"%(title)s\", \"%(artist)s\", and \"%(album)s\" will be replaced by "
@@ -1114,6 +2285,14 @@ msgstr ""
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:8
 msgid "Summary"
+msgstr ""
+
+#: ../plugins/ipconsole/ipconsole_prefs.glade.h:1
+msgid "Font:"
+msgstr ""
+
+#: ../plugins/ipconsole/ipconsole_prefs.glade.h:2
+msgid "Terminal Opacity:"
 msgstr ""
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:1
@@ -1141,22 +2320,18 @@ msgid "Horizontal:"
 msgstr "Horizontálně:"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:7
-msgid "Mini mode button in main window"
+msgid "Show in tasklist"
 msgstr ""
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:8
-msgid "Show in panel"
-msgstr ""
-
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:9
 msgid "Show on all desktops"
 msgstr "Zobrazit na všech pracovních plochách"
 
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:10
-msgid "Track selector title:"
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:9
+msgid "Track title format:"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:11
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:10
 msgid "Vertical:"
 msgstr "Vertikálně:"
 
@@ -1167,3 +2342,216 @@ msgstr "Port:"
 #: ../plugins/streamripper/streamripper.glade.h:2
 msgid "Save Location:"
 msgstr "Místo uložení:"
+
+#: ../plugins/multialarmclock/PLUGININFO:4
+msgid ""
+"Plays music at specific times and days.\n"
+"\n"
+"Note that when the specified time arrives, Exaile will just act like you "
+"pressed the play button, so be sure you have the music you want to hear in "
+"your playlist"
+msgstr ""
+
+#: ../plugins/alarmclock/PLUGININFO:4
+msgid ""
+"Plays music at a specific time.\n"
+"\n"
+"Note that when the specified time arrives, Exaile will just act like you "
+"pressed the play button, so be sure you have the music you want to hear in "
+"your playlist"
+msgstr ""
+
+#: ../plugins/audioscrobbler/PLUGININFO:4
+msgid ""
+"Submits listening information to Last.fm and similar services supporting "
+"AudioScrobbler"
+msgstr ""
+
+#: ../plugins/cd/PLUGININFO:3
+msgid "CD Playback"
+msgstr ""
+
+#: ../plugins/cd/PLUGININFO:4
+msgid ""
+"Adds support for playing audio CDs.\n"
+"Requires python-cddb to look up tags."
+msgstr ""
+
+#: ../plugins/mpris/PLUGININFO:3
+msgid "MPRIS"
+msgstr ""
+
+#: ../plugins/mpris/PLUGININFO:4
+msgid "Creates an MPRIS D-Bus object to control Exaile"
+msgstr ""
+
+#: ../plugins/bookmarks/PLUGININFO:4
+msgid "Allows saving/resuming bookmark positions in audio files."
+msgstr ""
+
+#: ../plugins/lastfmcovers/PLUGININFO:3
+msgid "Last.fm Covers"
+msgstr ""
+
+#: ../plugins/lastfmcovers/PLUGININFO:4
+msgid "Searches Last.fm for covers"
+msgstr ""
+
+#: ../plugins/notifyosd/PLUGININFO:4
+msgid ""
+"This plugins displays notification bubbles when a song is "
+"played/resumed/stopped, with either the song cover or a media icon to "
+"indicate the latest action.\n"
+"\n"
+"Depends: python-notify\n"
+"Recommends: notify-osd"
+msgstr ""
+
+#: ../plugins/amazoncovers/PLUGININFO:4
+msgid ""
+"Searches Amazon for covers\n"
+"\n"
+"To be able to use this plugin, an AWS API key and secret key are required."
+msgstr ""
+
+#: ../plugins/desktopcover/PLUGININFO:4
+msgid "Displays the current album cover on the desktop"
+msgstr ""
+
+#: ../plugins/lastfmdynamic/PLUGININFO:3
+msgid "Last.fm Dynamic Search"
+msgstr ""
+
+#: ../plugins/lastfmdynamic/PLUGININFO:4
+msgid "The Last.fm backend for dynamic playlists"
+msgstr ""
+
+#: ../plugins/moodbar/PLUGININFO:3
+msgid "Moodbar"
+msgstr ""
+
+#: ../plugins/moodbar/PLUGININFO:4
+msgid ""
+"Replaces the standard progress bar with a moodbar.\n"
+"Depends: moodbar"
+msgstr ""
+
+#: ../plugins/ipod/PLUGININFO:3
+msgid "iPod support"
+msgstr ""
+
+#: ../plugins/ipod/PLUGININFO:4
+msgid "A plugin for iPod support"
+msgstr ""
+
+#: ../plugins/replaygain/PLUGININFO:4
+msgid "Enables ReplayGain support"
+msgstr ""
+
+#: ../plugins/podcasts/PLUGININFO:4
+msgid "Adds Simple Podcast Support"
+msgstr ""
+
+#: ../plugins/screensaverpause/PLUGININFO:3
+msgid "Pause on Screensaver"
+msgstr ""
+
+#: ../plugins/screensaverpause/PLUGININFO:4
+msgid "Pauses/resumes playback on screensaver start/stop"
+msgstr ""
+
+#: ../plugins/shoutcast/PLUGININFO:3
+msgid "Shoutcast Radio"
+msgstr ""
+
+#: ../plugins/shoutcast/PLUGININFO:4
+msgid "Shoutcast Radio list"
+msgstr ""
+
+#: ../plugins/helloworld/PLUGININFO:3
+msgid "Hello World"
+msgstr ""
+
+#: ../plugins/helloworld/PLUGININFO:4
+msgid "A simple plugin for testing the basic plugin system"
+msgstr ""
+
+#: ../plugins/gnomemmkeys/PLUGININFO:3
+msgid "GNOME Multimedia Keys"
+msgstr ""
+
+#: ../plugins/gnomemmkeys/PLUGININFO:4
+msgid ""
+"Adds support for controlling Exaile via GNOME's multimedia key system. "
+"Compatible with GNOME >= 2.20.x"
+msgstr ""
+
+#: ../plugins/lyricsfly/PLUGININFO:3
+msgid "Lyrics Fly"
+msgstr ""
+
+#: ../plugins/lyricsfly/PLUGININFO:4
+msgid "Plugin to fetch lyrics from lyricsfly.com"
+msgstr ""
+
+#: ../plugins/massstorage/PLUGININFO:3
+msgid "USB Mass Storage Media Player Support"
+msgstr ""
+
+#: ../plugins/massstorage/PLUGININFO:4
+msgid ""
+"Support for accessing portable media players using the USB Mass Storage "
+"protocol"
+msgstr ""
+
+#: ../plugins/notify/PLUGININFO:4
+msgid "Pops up a notification when playback of a track starts"
+msgstr ""
+
+#: ../plugins/librivox/PLUGININFO:3
+msgid "Librivox"
+msgstr ""
+
+#: ../plugins/librivox/PLUGININFO:4
+msgid "Browse and listen to audiobooks from Librivox.org."
+msgstr ""
+
+#: ../plugins/ipconsole/PLUGININFO:4
+msgid "Provides an IPython console that can be used to manipulate Exaile."
+msgstr ""
+
+#: ../plugins/minimode/PLUGININFO:4
+msgid "Compact mode for Exaile with a configurable interface"
+msgstr ""
+
+#: ../plugins/tagcovers/PLUGININFO:3
+msgid "Tag Covers"
+msgstr ""
+
+#: ../plugins/tagcovers/PLUGININFO:4
+msgid "Searches track tags for covers"
+msgstr ""
+
+#: ../plugins/contextinfo/PLUGININFO:3
+msgid "Contextual Info"
+msgstr ""
+
+#: ../plugins/contextinfo/PLUGININFO:4
+msgid ""
+"Show various informations about the track currently playing.\n"
+"Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2"
+msgstr ""
+
+#: ../plugins/streamripper/PLUGININFO:4
+msgid ""
+"Allows you to record streams with streamripper.\n"
+"Depends: streamripper"
+msgstr ""
+
+#: ../plugins/lyricwiki/PLUGININFO:3
+msgid "Lyrics Wiki"
+msgstr ""
+
+#: ../plugins/lyricwiki/PLUGININFO:4
+msgid "Plugin to fetch lyrics from lyricwiki.org"
+msgstr ""

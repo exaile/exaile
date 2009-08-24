@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<glade-interface>
+  <!-- interface-requires gtk+ 2.16 -->
+  <!-- interface-naming-policy toplevel-contextual -->
+  <widget class="GtkWindow" id="prefs_window">
+    <child>
+      <widget class="GtkVBox" id="prefs_pane">
+        <property name="visible">True</property>
+        <property name="border_width">3</property>
+        <child>
+          <widget class="GtkHBox" id="box1">
+          <property name="visible">True</property>
+          <property name="border_width">0</property>
+          <child>
+            <widget class="GtkLabel" id="strip_list_label">
+              <property name="label" translatable="yes">Strip these words from the beginnng of the artist tag (space separated)</property>
+              <property name="receives_default">False</property>
+              <property name="wrap">True</property>
+            </widget>
+            <packing>
+              <property name="expand">False</property>
+              <property name="fill">False</property>
+              <property name="position">0</property>
+            </packing>
+          </child>
+          </widget>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkEntry" id="collection/strip_list">
+            <property name="receives_default">False</property>
+          </widget>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkButton" id="collection/strip_list_restore_button">
+            <property name="receives_default">False</property>
+            <property name="label" translatable="yes">Set to (locale-dependent) default</property>
+          </widget>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="pack_type">end</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+</glade-interface>

@@ -1,59 +1,1304 @@
+# Estonian translation for exaile
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the exaile package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-04-03 15:02-0500\n"
-"PO-Revision-Date: 2009-05-03 20:27+0000\n"
-"Last-Translator: Eraser <Unknown>\n"
+"POT-Creation-Date: 2009-08-24 18:16+0200\n"
+"PO-Revision-Date: 2009-08-24 18:52+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Estonian <et@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-05-23 04:12+0000\n"
+"X-Launchpad-Export-Date: 2009-08-24 18:56+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-msgid " songs"
-msgstr " laulud"
-
-msgid "#"
-msgstr "#"
-
-msgid "%s KB"
-msgstr "%s KB"
-
-msgid "(c) 2008"
-msgstr "(c) 2008"
-
-msgid "..."
-msgstr "..."
-
-msgid ""
-"0\n"
-"1\n"
-"2\n"
-"3\n"
-"4\n"
-"5"
+#: ../xl/player/pipe.py:198
+msgid "Automatic"
 msgstr ""
-"0\n"
-"1\n"
-"2\n"
-"3\n"
-"4\n"
-"5"
 
+#: ../xl/player/pipe.py:203
+msgid "GNOME"
+msgstr ""
+
+#: ../xl/player/pipe.py:208
+msgid "ALSA"
+msgstr ""
+
+#: ../xl/player/pipe.py:213
+msgid "OSS"
+msgstr ""
+
+#: ../xl/player/pipe.py:218
+msgid "PulseAudio"
+msgstr ""
+
+#: ../xl/player/pipe.py:223
+msgid "JACK"
+msgstr ""
+
+#. TODO: remove this before 0.3.0 since it is not needed for
+#. stable->stable upgrades
+#: ../xl/player/engine_normal.py:154
+#, python-format
+msgid ""
+"Exaile now uses absolute URI's, please delete/rename your %s directory"
+msgstr ""
+
+#: ../xl/main.py:119
+msgid "Failed to migrate from 0.2.14"
+msgstr ""
+
+#: ../xl/main.py:273
+msgid "Play the next track"
+msgstr "Esita järgmine lugu"
+
+#: ../xl/main.py:275
+msgid "Play the previous track"
+msgstr "Esita eelmist lugu"
+
+#: ../xl/main.py:277
+msgid "Stop playback"
+msgstr "Peata esitamine"
+
+#: ../xl/main.py:279
+msgid "Play"
+msgstr "Esita"
+
+#: ../xl/main.py:281
+msgid "Toggle Play or Pause"
+msgstr ""
+
+#: ../xl/main.py:284
+msgid "Stop playback after current track"
+msgstr ""
+
+#: ../xl/main.py:288
+msgid "Query player"
+msgstr ""
+
+#: ../xl/main.py:290
+msgid "Show a popup of the currently playing track"
+msgstr ""
+
+#: ../xl/main.py:292
+msgid "Print the title of current track"
+msgstr ""
+
+#: ../xl/main.py:294
+msgid "Print the album of current track"
+msgstr ""
+
+#: ../xl/main.py:296
+msgid "Print the artist of current track"
+msgstr ""
+
+#: ../xl/main.py:298
+msgid "Print the length of current track"
+msgstr ""
+
+#: ../xl/main.py:300
+msgid "Set rating for current song"
+msgstr ""
+
+#: ../xl/main.py:302
+msgid "Get rating for current song"
+msgstr ""
+
+#: ../xl/main.py:305
+msgid "Print the position inside the current track as time"
+msgstr ""
+
+#: ../xl/main.py:308
+msgid "Print the progress inside the current track as percentage"
+msgstr ""
+
+#: ../xl/main.py:312
+msgid "Increases the volume by VOL%"
+msgstr ""
+
+#: ../xl/main.py:314
+msgid "Decreases the volume by VOL%"
+msgstr ""
+
+#: ../xl/main.py:316
+msgid "Print the current volume percentage"
+msgstr ""
+
+#: ../xl/main.py:320
+msgid "Start new instance"
+msgstr ""
+
+#: ../xl/main.py:323
+msgid "Start minimized (to tray, if possible)"
+msgstr ""
+
+#: ../xl/main.py:325
+msgid ""
+"Start in safe mode - sometimes useful when you're running into problems"
+msgstr ""
+
+#. development and debug options
+#: ../xl/main.py:329
+msgid "Set data directory"
+msgstr "Määra andmete kataloog"
+
+#: ../xl/main.py:331
+msgid "Show debugging output"
+msgstr ""
+
+#: ../xl/main.py:334
+msgid "Enable debugging of xl.event. Generates LOTS of output"
+msgstr ""
+
+#: ../xl/main.py:336
+msgid "Filter event debug output"
+msgstr ""
+
+#: ../xl/main.py:339
+msgid "Reduce level of output"
+msgstr ""
+
+#: ../xl/main.py:343
+msgid "Disable D-Bus support"
+msgstr ""
+
+#: ../xl/main.py:345
+msgid "Disable HAL support."
+msgstr ""
+
+#. entire playlist
+#: ../xl/main.py:362
+msgid "Entire Library"
+msgstr ""
+
+#: ../xl/main.py:368
+#, python-format
+msgid "Random %d"
+msgstr ""
+
+#: ../xl/main.py:376
+#, python-format
+msgid "Rating > %d"
+msgstr ""
+
+#: ../xl/main.py:473
+msgid ""
+"Exaile is not yet finished loading. Perhaps you should listen for the "
+"exaile_loaded signal?"
+msgstr ""
+
+#: ../xl/cover.py:119 ../xl/cover.py:153 ../xl/trackdb.py:233
+msgid "You did not specify a location to save the db"
+msgstr ""
+
+#: ../xl/cover.py:245 ../xl/lyrics.py:75
+msgid "order must be a list or tuple"
+msgstr ""
+
+#: ../xl/transcoder.py:45
+msgid ""
+"Vorbis is an open source, lossy audio codec with high quality output at a "
+"lower file size than MP3."
+msgstr ""
+
+#: ../xl/transcoder.py:55
+msgid ""
+"Free Lossless Audio Codec (FLAC) is an open source codec that compresses but "
+"does not degrade audio quality."
+msgstr ""
+
+#: ../xl/transcoder.py:67
+msgid ""
+"Apple's proprietary lossy audio format that achieves better sound quality "
+"than MP3 at lower bitrates."
+msgstr ""
+
+#: ../xl/transcoder.py:78
+msgid ""
+"A proprietary and older, but also popular, lossy audio format. VBR gives "
+"higher quality than CBR, but may be incompatible with some players."
+msgstr ""
+
+#: ../xl/transcoder.py:89
+msgid ""
+"A proprietary and older, but also popular, lossy audio format. CBR gives "
+"less quality than VBR, but is compatible with any player."
+msgstr ""
+
+#: ../xl/transcoder.py:100
+msgid "A very fast Free lossless audio format with good compression."
+msgstr ""
+
+#: ../xl/track.py:474
+msgid "  New song, fetching cover."
+msgstr ""
+
+#: ../xl/devices.py:131 ../xl/devices.py:137
+msgid "Device class does not support transfer."
+msgstr ""
+
+#: ../xl/settings.py:82
+msgid "Settings version is newer than current."
+msgstr ""
+
+#: ../xl/settings.py:167
+msgid "We don't know how to store that kind of setting: "
+msgstr ""
+
+#: ../xl/settings.py:194
+msgid "An Unknown type of setting was found!"
+msgstr ""
+
+#: ../xl/plugins.py:73
+msgid "Plugin archive is not in the correct format"
+msgstr ""
+
+#: ../xl/plugins.py:80
+#, python-format
+msgid "A plugin with the name \"%s\" is already installed"
+msgstr ""
+
+#: ../xl/plugins.py:85
+msgid "Plugin archive contains an unsafe path"
+msgstr ""
+
+#. TRANSLATORS : this replaces the title of a track when it's not known
+#: ../xl/playlist.py:243 ../xlgui/panel/collection.py:395
+#: ../xlgui/panel/collection.py:595 ../xlgui/panel/collection.py:632
+#: ../plugins/bookmarks/__init__.py:151 ../plugins/notifyosd/__init__.py:57
+#: ../plugins/notifyosd/__init__.py:68 ../plugins/notify/__init__.py:27
+#: ../plugins/minimode/mmwidgets.py:820
+msgid "Unknown"
+msgstr ""
+
+#: ../xl/playlist.py:387
+#, python-format
+msgid "Playlist %d"
+msgstr ""
+
+#: ../xl/xldbus.py:75 ../xl/xldbus.py:284
+msgid "Not playing."
+msgstr ""
+
+#: ../xl/xldbus.py:289
+#, python-format
+msgid ""
+"status: %(status)s, title: %(title)s, artist: %(artist)s, album: %(album)s, "
+"length: %(length)s, position: %(progress)s%% [%(position)s]"
+msgstr ""
+
+#: ../xl/trackdb.py:176
+msgid "You did not specify a location to load the db from"
+msgstr ""
+
+#: ../xlgui/properties.py:51 ../xlgui/osd.py:193 ../xlgui/plcolumns.py:110
+#, python-format
+msgid "%(minutes)d:%(seconds)02d"
+msgstr ""
+
+#. TRANSLATORS: Default track length
+#: ../xlgui/properties.py:55 ../xlgui/plcolumns.py:114
 msgid "0:00"
 msgstr "0:00"
 
-msgid "0:00 / 0:00"
-msgstr "0:00 / 0:00"
+#: ../xlgui/main.py:36 ../xlgui/main.py:107 ../xlgui/main.py:960
+#: ../data/glade/main.glade.h:9 ../plugins/minimode/mmwidgets.py:630
+msgid "Not Playing"
+msgstr "Ei Mängi"
 
-msgid "<b>General</b>"
-msgstr "<b>Üldine</b>"
+#: ../xlgui/main.py:117 ../plugins/minimode/mmwidgets.py:650
+msgid "Streaming..."
+msgstr ""
 
-msgid "<b>No Plugin Selected</b>"
-msgstr "<b>Lisandit pole valitud</b>"
+#: ../xlgui/main.py:198
+msgid "Close tab"
+msgstr ""
 
+#: ../xlgui/main.py:254
+msgid "New playlist title:"
+msgstr ""
+
+#: ../xlgui/main.py:254 ../xlgui/menu.py:415
+msgid "Rename Playlist"
+msgstr ""
+
+#: ../xlgui/main.py:262
+msgid "Custom playlist name:"
+msgstr ""
+
+#: ../xlgui/main.py:262
+msgid "Save As..."
+msgstr ""
+
+#: ../xlgui/main.py:620
+msgid "Toggle: Stop after selected track"
+msgstr ""
+
+#: ../xlgui/main.py:645
+#, python-format
+msgid "%(playlist_count)d showing, %(collection_count)d in collection"
+msgstr ""
+
+#: ../xlgui/main.py:653
+#, python-format
+msgid " (%(queue_count)d queued)"
+msgstr ""
+
+#: ../xlgui/main.py:788
+#, python-format
+msgid "Buffering: %d%%..."
+msgstr ""
+
+#: ../xlgui/main.py:790
+msgid "Buffering: 100%..."
+msgstr ""
+
+#: ../xlgui/main.py:961 ../data/glade/main.glade.h:22
+msgid "Stopped"
+msgstr "Peatatud"
+
+#: ../xlgui/main.py:1035
+msgid ""
+"Exaile Music Player\n"
+"Not playing"
+msgstr ""
+
+#. TRANSLATORS: Window title
+#: ../xlgui/main.py:1057
+#, python-format
+msgid "%(title)s (by %(artist)s)"
+msgstr ""
+
+#. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
+#: ../xlgui/main.py:1067
+#, python-format
+msgid "by %s"
+msgstr ""
+
+#. TRANSLATORS: Part of the sentence: "(title) by (artist) from (album)"
+#: ../xlgui/main.py:1069
+#, python-format
+msgid "from %s"
+msgstr ""
+
+#: ../xlgui/main.py:1080
+#, python-format
+msgid "In pause: %s"
+msgstr ""
+
+#: ../xlgui/main.py:1082
+#, python-format
+msgid "Playing %s"
+msgstr ""
+
+#: ../xlgui/menu.py:43
+msgid "Toggle Queue"
+msgstr ""
+
+#: ../xlgui/menu.py:89 ../xlgui/menu.py:311 ../xlgui/panel/radio.py:395
+msgid "New Playlist"
+msgstr "Uus esitusnimekiri"
+
+#: ../xlgui/menu.py:147
+msgid "Add to custom playlist"
+msgstr ""
+
+#: ../xlgui/menu.py:150 ../xlgui/menu.py:454
+msgid "Remove"
+msgstr "Kustuta"
+
+#: ../xlgui/menu.py:153
+msgid "Properties"
+msgstr ""
+
+#: ../xlgui/menu.py:167
+msgid "Playlist"
+msgstr ""
+
+#: ../xlgui/menu.py:201 ../data/glade/main.glade.h:34
+msgid "_New Playlist"
+msgstr ""
+
+#: ../xlgui/menu.py:203
+msgid "_Rename Playlist"
+msgstr ""
+
+#: ../xlgui/menu.py:205
+msgid "_Save As Custom Playlist"
+msgstr ""
+
+#: ../xlgui/menu.py:207
+msgid "_Save Changes To Playlist"
+msgstr ""
+
+#: ../xlgui/menu.py:208
+msgid "_Save As..."
+msgstr ""
+
+#: ../xlgui/menu.py:209
+msgid "C_lear All Tracks"
+msgstr ""
+
+#: ../xlgui/menu.py:211
+msgid "_Close Playlist"
+msgstr ""
+
+#: ../xlgui/menu.py:231
+msgid "Append to Current"
+msgstr ""
+
+#: ../xlgui/menu.py:233
+msgid "Queue Items"
+msgstr ""
+
+#: ../xlgui/menu.py:277
+msgid "Delete track"
+msgstr ""
+
+#: ../xlgui/menu.py:308
+msgid "New Station"
+msgstr ""
+
+#: ../xlgui/menu.py:313
+msgid "New Smart Playlist"
+msgstr ""
+
+#: ../xlgui/menu.py:357
+msgid "Open"
+msgstr "Ava"
+
+#: ../xlgui/menu.py:360
+msgid "Rename"
+msgstr "Nimeta ümber"
+
+#: ../xlgui/menu.py:362
+msgid "Edit"
+msgstr "Muuda"
+
+#: ../xlgui/menu.py:365
+msgid "Export"
+msgstr "Ekspordi"
+
+#: ../xlgui/menu.py:368
+msgid "Delete Playlist"
+msgstr "Kustuta nimekiri"
+
+#: ../xlgui/menu.py:378
+msgid "Export as..."
+msgstr ""
+
+#: ../xlgui/menu.py:383 ../xlgui/__init__.py:165
+msgid "M3U Playlist"
+msgstr "M3U esitusnimekiri"
+
+#: ../xlgui/menu.py:384 ../xlgui/__init__.py:166
+msgid "PLS Playlist"
+msgstr "PLS esitusnimekiri"
+
+#: ../xlgui/menu.py:385 ../xlgui/__init__.py:167
+msgid "ASX Playlist"
+msgstr "ASX esitusnimekiri"
+
+#: ../xlgui/menu.py:386 ../xlgui/__init__.py:168
+msgid "XSPF Playlist"
+msgstr ""
+
+#: ../xlgui/menu.py:401 ../xlgui/panel/playlists.py:966
+msgid "Are you sure you want to permanently delete the selected playlist?"
+msgstr ""
+
+#: ../xlgui/menu.py:414
+msgid "Enter the new name you want for your playlist"
+msgstr ""
+
+#: ../xlgui/cover.py:286
+#, python-format
+msgid "%d covers to fetch"
+msgstr ""
+
+#: ../xlgui/cover.py:291 ../xlgui/cover.py:310
+#: ../data/glade/covermanager.glade.h:2
+msgid "Start"
+msgstr "Alusta"
+
+#: ../xlgui/cover.py:325
+msgid "Show Cover"
+msgstr "Näita kaanepilti"
+
+#: ../xlgui/cover.py:326
+msgid "Fetch Cover"
+msgstr ""
+
+#: ../xlgui/cover.py:327
+msgid "Remove Cover"
+msgstr "Eemalda kaanepilt"
+
+#: ../xlgui/cover.py:658
+msgid "Enter the search text"
+msgstr ""
+
+#: ../xlgui/cover.py:684
+msgid "No covers found"
+msgstr "Kaanepilti ei leitud"
+
+#: ../xlgui/osd.py:207
+msgid "No track"
+msgstr ""
+
+#: ../xlgui/__init__.py:160
+msgid "Export current playlist..."
+msgstr ""
+
+#: ../xlgui/__init__.py:183 ../xlgui/panel/playlists.py:921
+msgid "Invalid file extension, file not saved"
+msgstr ""
+
+#: ../xlgui/__init__.py:190
+msgid "Enter the URL to open"
+msgstr ""
+
+#: ../xlgui/__init__.py:191
+msgid "Open URL"
+msgstr "Ava URL"
+
+#: ../xlgui/__init__.py:205
+msgid "Choose a file to open"
+msgstr ""
+
+#: ../xlgui/__init__.py:211
+msgid "Supported Files"
+msgstr "Toetatud failid"
+
+#: ../xlgui/__init__.py:213
+msgid "Music Files"
+msgstr ""
+
+#: ../xlgui/__init__.py:215
+msgid "Playlist Files"
+msgstr ""
+
+#: ../xlgui/__init__.py:217 ../xlgui/prefs/plugin_prefs.py:134
+msgid "All Files"
+msgstr "Kõik failid"
+
+#: ../xlgui/__init__.py:341
+msgid "Scanning collection..."
+msgstr ""
+
+#: ../xlgui/__init__.py:438
+#, python-format
+msgid "Scanning %s..."
+msgstr ""
+
+#: ../xlgui/guiutil.py:650
+msgid "Rating:"
+msgstr ""
+
+#: ../xlgui/commondialogs.py:309
+msgid "Select File Type (By Extension)"
+msgstr ""
+
+#: ../xlgui/commondialogs.py:317
+msgid "File Type"
+msgstr "Faili tüüp"
+
+#: ../xlgui/commondialogs.py:320
+msgid "Extension"
+msgstr ""
+
+#: ../xlgui/devices.py:62
+msgid "Icon"
+msgstr ""
+
+#: ../xlgui/devices.py:67
+msgid "Device"
+msgstr ""
+
+#: ../xlgui/devices.py:74
+msgid "Driver"
+msgstr ""
+
+#: ../xlgui/collection.py:140
+msgid "Add a directory"
+msgstr "Lisa kaust"
+
+#. our added path is a subdir of an existing path
+#: ../xlgui/collection.py:170
+msgid ""
+"Path is already in your collection, or is a subdirectory of another path in "
+"your collection"
+msgstr ""
+
+#. TRANSLATORS: Title of the track number column
+#: ../xlgui/plcolumns.py:59 ../xlgui/panel/flatplaylist.py:78
+msgid "#"
+msgstr "#"
+
+#: ../xlgui/plcolumns.py:80 ../xlgui/panel/playlists.py:140
+#: ../xlgui/panel/flatplaylist.py:86 ../plugins/cd/cdprefs.py:84
+#: ../plugins/minimode/minimodeprefs.py:118
+msgid "Title"
+msgstr "Pealkiri"
+
+#: ../xlgui/plcolumns.py:85 ../xlgui/panel/playlists.py:55
+#: ../xlgui/panel/playlists.py:139 ../plugins/cd/cdprefs.py:85
+#: ../plugins/minimode/minimodeprefs.py:119
+msgid "Artist"
+msgstr "Esitaja"
+
+#: ../xlgui/plcolumns.py:90 ../plugins/cd/cdprefs.py:86
+#: ../plugins/minimode/minimodeprefs.py:120
+msgid "Composer"
+msgstr "Helilooja"
+
+#: ../xlgui/plcolumns.py:95 ../xlgui/panel/playlists.py:65
+#: ../xlgui/panel/playlists.py:141 ../plugins/cd/cdprefs.py:87
+#: ../plugins/minimode/minimodeprefs.py:121
+msgid "Album"
+msgstr "Album"
+
+#: ../xlgui/plcolumns.py:100 ../xlgui/panel/playlists.py:97
+#: ../xlgui/panel/playlists.py:142 ../plugins/cd/cdprefs.py:88
+#: ../plugins/minimode/minimodeprefs.py:122
+msgid "Length"
+msgstr "Pikkus"
+
+#: ../xlgui/plcolumns.py:120
+msgid "Disc"
+msgstr "Ketas"
+
+#: ../xlgui/plcolumns.py:126 ../xlgui/panel/playlists.py:77
+#: ../xlgui/panel/playlists.py:143 ../plugins/cd/cdprefs.py:90
+#: ../plugins/minimode/minimodeprefs.py:124
+msgid "Rating"
+msgstr "Hinnang"
+
+#: ../xlgui/plcolumns.py:149 ../plugins/cd/cdprefs.py:91
+#: ../plugins/minimode/minimodeprefs.py:125
+msgid "Date"
+msgstr "Kuupäev"
+
+#: ../xlgui/plcolumns.py:154 ../xlgui/panel/playlists.py:71
+#: ../xlgui/panel/playlists.py:146 ../plugins/cd/cdprefs.py:92
+#: ../plugins/minimode/minimodeprefs.py:126
+msgid "Genre"
+msgstr "Stiil"
+
+#: ../xlgui/plcolumns.py:159 ../plugins/cd/cdprefs.py:93
+#: ../plugins/minimode/minimodeprefs.py:127
+msgid "Bitrate"
+msgstr "Bitikiirus"
+
+#. (_('Date Added'), [
+#. TRANSLATORS: Example: track has been added in the last 2 days
+#. (_('in the last'), (SpinDateField,
+#. lambda x, i: day_calc(x, i, 'time_added'))),
+#. TRANSLATORS: Example: track has not been added in the last 5 hours
+#. (_('not in the last'), (SpinDateField,
+#. lambda x, i: day_calc(x, i, 'time_added', '<'))),
+#. ]),
+#. (_('Last Played'), [
+#. (_('in the last'), (SpinDateField,
+#. lambda x, i: day_calc(x, i, 'last_played'))),
+#. (_('not in the last'), (SpinDateField,
+#. lambda x, i: day_calc(x, i, 'last_played', '<'))),
+#. ]),
+#: ../xlgui/plcolumns.py:172 ../xlgui/panel/playlists.py:116
+#: ../xlgui/panel/playlists.py:147 ../plugins/cd/cdprefs.py:94
+#: ../plugins/minimode/minimodeprefs.py:128
+msgid "Location"
+msgstr "Asukoht"
+
+#. TRANSLATORS: Filename column in the file browser
+#: ../xlgui/plcolumns.py:177 ../xlgui/panel/files.py:89
+#: ../plugins/cd/cdprefs.py:95 ../plugins/minimode/minimodeprefs.py:129
+msgid "Filename"
+msgstr "Failinimi"
+
+#: ../xlgui/plcolumns.py:182
+msgid "Playcount"
+msgstr "Esitamiste arv"
+
+#: ../xlgui/plcolumns.py:190 ../plugins/cd/cdprefs.py:97
+#: ../plugins/minimode/minimodeprefs.py:132
+msgid "BPM"
+msgstr ""
+
+#: ../xlgui/plcolumns.py:195 ../plugins/minimode/minimodeprefs.py:131
+msgid "Last played"
+msgstr ""
+
+#: ../xlgui/plcolumns.py:206 ../xlgui/plcolumns.py:226
+#: ../plugins/minimode/mmwidgets.py:880
+msgid "Never"
+msgstr ""
+
+#: ../xlgui/plcolumns.py:218 ../plugins/minimode/mmwidgets.py:893
+msgid "Today"
+msgstr ""
+
+#: ../xlgui/plcolumns.py:220 ../plugins/minimode/mmwidgets.py:895
+msgid "Yesterday"
+msgstr ""
+
+#: ../xlgui/plcolumns.py:222 ../plugins/minimode/mmwidgets.py:897
+#, python-format
+msgid "%(year)d-%(month)02d-%(day)02d"
+msgstr ""
+
+#: ../xlgui/plcolumns.py:253
+msgid "Track Number"
+msgstr "Loo number"
+
+#: ../xlgui/plcolumns.py:255
+msgid "Disc Number"
+msgstr "Plaadi number"
+
+#: ../xlgui/filtergui.py:51 ../xlgui/panel/radio.py:168
+msgid "Name:"
+msgstr "Nimi:"
+
+#: ../xlgui/filtergui.py:65
+msgid "Match any of the criteria"
+msgstr ""
+
+#: ../xlgui/filtergui.py:67
+msgid "Randomize results"
+msgstr ""
+
+#: ../xlgui/filtergui.py:83
+msgid "Limit to: "
+msgstr ""
+
+#: ../xlgui/filtergui.py:93
+msgid " songs"
+msgstr " laulud"
+
+#: ../xlgui/playlist.py:1060
+#, python-format
+msgid "Close %s"
+msgstr ""
+
+#: ../xlgui/playlist.py:1061
+#, python-format
+msgid "<b>Save changes to %s before closing?</b>"
+msgstr ""
+
+#: ../xlgui/playlist.py:1062
+msgid "Your changes will be lost if you don't save them"
+msgstr ""
+
+#: ../xlgui/playlist.py:1064
+msgid "Close Without Saving"
+msgstr ""
+
+#: ../xlgui/panel/playlists.py:25 ../xlgui/panel/playlists.py:37
+#: ../xlgui/panel/playlists.py:44
+msgid "seconds"
+msgstr "sekundit"
+
+#. TRANSLATORS: Logical AND used for smart playlists
+#: ../xlgui/panel/playlists.py:30
+msgid "and"
+msgstr "ja"
+
+#: ../xlgui/panel/playlists.py:34 ../xlgui/panel/playlists.py:37
+msgid "days"
+msgstr "päeva"
+
+#: ../xlgui/panel/playlists.py:37
+msgid "minutes"
+msgstr "minutit"
+
+#: ../xlgui/panel/playlists.py:37
+msgid "hours"
+msgstr "tundi"
+
+#: ../xlgui/panel/playlists.py:37
+msgid "weeks"
+msgstr "nädalat"
+
+#. TRANSLATORS: True if haystack is equal to needle
+#: ../xlgui/panel/playlists.py:57 ../xlgui/panel/playlists.py:66
+#: ../xlgui/panel/playlists.py:72 ../xlgui/panel/playlists.py:100
+#: ../xlgui/panel/playlists.py:117 ../xlgui/panel/playlists.py:125
+msgid "is"
+msgstr "on"
+
+#. TRANSLATORS: True if haystack is not equal to needle
+#: ../xlgui/panel/playlists.py:59 ../xlgui/panel/playlists.py:67
+#: ../xlgui/panel/playlists.py:73 ../xlgui/panel/playlists.py:118
+#: ../xlgui/panel/playlists.py:126
+msgid "is not"
+msgstr "ei ole"
+
+#. TRANSLATORS: True if haystack contains needle
+#: ../xlgui/panel/playlists.py:61 ../xlgui/panel/playlists.py:68
+#: ../xlgui/panel/playlists.py:74 ../xlgui/panel/playlists.py:119
+#: ../xlgui/panel/playlists.py:127
+msgid "contains"
+msgstr "sisaldab"
+
+#. TRANSLATORS: True if haystack does not contain needle
+#: ../xlgui/panel/playlists.py:63 ../xlgui/panel/playlists.py:69
+#: ../xlgui/panel/playlists.py:75 ../xlgui/panel/playlists.py:120
+#: ../xlgui/panel/playlists.py:128
+msgid "does not contain"
+msgstr "ei sisalda"
+
+#: ../xlgui/panel/playlists.py:78 ../xlgui/panel/playlists.py:134
+msgid "greater than"
+msgstr ""
+
+#: ../xlgui/panel/playlists.py:79 ../xlgui/panel/playlists.py:135
+msgid "less than"
+msgstr ""
+
+#. TRANSLATORS: Example: rating >= 5
+#: ../xlgui/panel/playlists.py:81 ../xlgui/panel/playlists.py:86
+#: ../xlgui/panel/playlists.py:98 ../xlgui/panel/playlists.py:129
+msgid "at least"
+msgstr "vähemalt"
+
+#. TRANSLATORS: Example: rating <= 3
+#: ../xlgui/panel/playlists.py:83 ../xlgui/panel/playlists.py:87
+#: ../xlgui/panel/playlists.py:99 ../xlgui/panel/playlists.py:130
+msgid "at most"
+msgstr "mitte rohkem kui"
+
+#: ../xlgui/panel/playlists.py:85 ../xlgui/panel/playlists.py:144
+msgid "Plays"
+msgstr ""
+
+#: ../xlgui/panel/playlists.py:89 ../xlgui/panel/playlists.py:145
+msgid "Year"
+msgstr "Aasta"
+
+#. TRANSLATORS: Example: year < 1999
+#: ../xlgui/panel/playlists.py:91 ../xlgui/panel/playlists.py:131
+msgid "before"
+msgstr "enne"
+
+#. TRANSLATORS: Example: year > 2002
+#: ../xlgui/panel/playlists.py:93 ../xlgui/panel/playlists.py:132
+msgid "after"
+msgstr "pärast"
+
+#. TRANSLATORS: Example: 1980 <= year <= 1987
+#: ../xlgui/panel/playlists.py:95 ../xlgui/panel/playlists.py:133
+msgid "between"
+msgstr "vahemikus"
+
+#. name is already in use
+#: ../xlgui/panel/playlists.py:212 ../xlgui/panel/playlists.py:318
+#: ../xlgui/panel/playlists.py:356 ../xlgui/panel/playlists.py:592
+#: ../xlgui/panel/playlists.py:666
+msgid "The playlist name you entered is already in use."
+msgstr ""
+
+#: ../xlgui/panel/playlists.py:349
+msgid "New custom playlist name:"
+msgstr ""
+
+#: ../xlgui/panel/playlists.py:350
+msgid "Add To New Playlist..."
+msgstr ""
+
+#: ../xlgui/panel/playlists.py:360 ../xlgui/panel/playlists.py:586
+#: ../xlgui/panel/playlists.py:659
+msgid "You did not enter a name for your playlist"
+msgstr "Nimekirja nimi on puudu"
+
+#: ../xlgui/panel/playlists.py:534
+msgid "Smart Playlists"
+msgstr "Nutikad esitusnimekirjad"
+
+#: ../xlgui/panel/playlists.py:537
+msgid "Custom Playlists"
+msgstr ""
+
+#: ../xlgui/panel/playlists.py:572
+msgid "Add Smart Playlist"
+msgstr "Lisa nutikas nimekiri"
+
+#: ../xlgui/panel/playlists.py:637
+msgid "Edit Smart Playlist"
+msgstr ""
+
+#: ../xlgui/panel/radio.py:96 ../xlgui/panel/radio.py:453
+#: ../xlgui/panel/radio.py:529
+msgid "Loading streams..."
+msgstr "Voogud laadimine..."
+
+#: ../xlgui/panel/radio.py:125 ../data/glade/radio_panel.glade.h:2
+#: ../plugins/podcasts/__init__.py:89 ../plugins/podcasts/__init__.py:212
+#: ../plugins/podcasts/__init__.py:224 ../plugins/shoutcast/__init__.py:121
+#: ../plugins/shoutcast/__init__.py:174 ../plugins/shoutcast/__init__.py:224
+#: ../plugins/shoutcast/__init__.py:257 ../plugins/podcasts/podcasts.glade.h:2
+msgid "Idle."
+msgstr ""
+
+#: ../xlgui/panel/radio.py:166
+msgid "Add Radio Station"
+msgstr ""
+
+#: ../xlgui/panel/radio.py:169
+#: ../plugins/audioscrobbler/asprefs_pane.glade.h:4
+msgid "URL:"
+msgstr ""
+
+#: ../xlgui/panel/radio.py:234
+msgid "Saved Stations"
+msgstr "Salvestatud jaamad"
+
+#: ../xlgui/panel/radio.py:235
+msgid "Radio Streams"
+msgstr "Raadiovood"
+
+#: ../xlgui/panel/radio.py:264
+msgid "Refresh"
+msgstr "Värskenda"
+
+#: ../xlgui/panel/radio.py:394
+msgid "Enter the name you want for your new playlist"
+msgstr "Sisesta uue nimekirja nimi"
+
+#. TRANSLATORS: Filesize column in the file browser
+#: ../xlgui/panel/files.py:114
+msgid "Size"
+msgstr "Suurus"
+
+#: ../xlgui/panel/files.py:347
+#, python-format
+msgid "%s KB"
+msgstr "%s KB"
+
+#: ../xlgui/panel/collection.py:100
+msgid ""
+"This will permanantly delete the selected tracks from your disk, are you "
+"sure you wish to continue?"
+msgstr ""
+
+#: ../xlgui/panel/collection.py:162
+msgid "Rescan Collection"
+msgstr ""
+
+#: ../xlgui/panel/collection.py:625
+msgid "Various Artists"
+msgstr "Erinevad esitajad"
+
+#: ../xlgui/panel/device.py:115
+#, python-format
+msgid "Transferring to %s..."
+msgstr ""
+
+#: ../xlgui/prefs/cover_prefs.py:21
+msgid "Covers"
+msgstr ""
+
+#: ../xlgui/prefs/appearance_prefs.py:22
+msgid "Appearance"
+msgstr ""
+
+#: ../xlgui/prefs/playback_prefs.py:22
+msgid "Playback"
+msgstr ""
+
+#: ../xlgui/prefs/__init__.py:73 ../data/glade/preferences_dialog.glade.h:2
+msgid "Preferences"
+msgstr "Eelistused"
+
+#: ../xlgui/prefs/__init__.py:84 ../xlgui/prefs/plugin_prefs.py:25
+msgid "Plugins"
+msgstr "Pluginad"
+
+#: ../xlgui/prefs/playlists_prefs.py:22
+#: ../data/glade/playlists_panel.glade.h:1
+msgid "Playlists"
+msgstr "Lugude nimekirjad"
+
+#: ../xlgui/prefs/osd_prefs.py:22
+msgid "On Screen Display"
+msgstr ""
+
+#: ../xlgui/prefs/plugin_prefs.py:81
+msgid "Plugin"
+msgstr "Lisand"
+
+#: ../xlgui/prefs/plugin_prefs.py:89
+msgid "Version"
+msgstr ""
+
+#: ../xlgui/prefs/plugin_prefs.py:97
+#: ../plugins/multialarmclock/alarmclk.glade.h:6
+msgid "Enabled"
+msgstr "Lubatud"
+
+#: ../xlgui/prefs/plugin_prefs.py:119
+msgid "Choose a plugin"
+msgstr ""
+
+#: ../xlgui/prefs/plugin_prefs.py:127
+msgid "Plugin Archives"
+msgstr ""
+
+#: ../xlgui/prefs/plugin_prefs.py:180
+#, python-format
+msgid "Could not enable plugin: %s"
+msgstr ""
+
+#: ../xlgui/prefs/plugin_prefs.py:187
+#, python-format
+msgid "Could not disable plugin: %s"
+msgstr ""
+
+#: ../xlgui/prefs/widgets.py:244
+msgid "Add item"
+msgstr ""
+
+#: ../xlgui/prefs/widgets.py:249
+msgid "Remove item"
+msgstr ""
+
+#: ../xlgui/prefs/widgets.py:262
+msgid "Move selected item up"
+msgstr ""
+
+#: ../xlgui/prefs/widgets.py:267
+msgid "Move selected item down"
+msgstr ""
+
+#: ../xlgui/prefs/widgets.py:538
+msgid "Action"
+msgstr ""
+
+#: ../xlgui/prefs/widgets.py:546
+msgid "Shortcut"
+msgstr ""
+
+#: ../xlgui/tray.py:73
+msgid "Exaile Music Player"
+msgstr ""
+
+#: ../xlgui/tray.py:116 ../data/glade/main.glade.h:17
+msgid "Shuffle playback order"
+msgstr ""
+
+#: ../xlgui/tray.py:121 ../data/glade/main.glade.h:15
+msgid "Repeat playlist"
+msgstr ""
+
+#: ../xlgui/tray.py:126
+msgid "Dynamically add similar tracks"
+msgstr ""
+
+#: ../xlgui/tray.py:135
+msgid "Remove current track from playlist"
+msgstr ""
+
+#: ../data/glade/device_manager.glade.h:1
+msgid "..."
+msgstr "..."
+
+#: ../data/glade/device_manager.glade.h:2
+msgid "Add device"
+msgstr "Lisa seade"
+
+#: ../data/glade/device_manager.glade.h:3
+msgid "Custom: "
+msgstr ""
+
+#: ../data/glade/device_manager.glade.h:4
+msgid "Detected devices:"
+msgstr "Leitud seaded:"
+
+#: ../data/glade/device_manager.glade.h:5
+msgid "Device Manager"
+msgstr "Seadete haldamine"
+
+#: ../data/glade/device_manager.glade.h:6
+msgid "Type of device:"
+msgstr "Seadme tüüp:"
+
+#: ../data/glade/device_panel.glade.h:1
+#: ../data/glade/collection_panel.glade.h:10
+msgid "Collection"
+msgstr "Kogumik"
+
+#: ../data/glade/coverchooser.glade.h:1
+msgid "Cover Finder"
+msgstr ""
+
+#: ../data/glade/coverchooser.glade.h:2
+msgid "New Search"
+msgstr "Uus otsing"
+
+#: ../data/glade/trackproperties_dialog.glade.h:1
+msgid "Album:"
+msgstr ""
+
+#: ../data/glade/trackproperties_dialog.glade.h:2
+msgid "Artist:"
+msgstr ""
+
+#: ../data/glade/trackproperties_dialog.glade.h:3
+msgid "Basic"
+msgstr ""
+
+#: ../data/glade/trackproperties_dialog.glade.h:4
+msgid "Bitrate:"
+msgstr ""
+
+#: ../data/glade/trackproperties_dialog.glade.h:5
+msgid "Date:"
+msgstr ""
+
+#: ../data/glade/trackproperties_dialog.glade.h:6
+msgid "Details"
+msgstr ""
+
+#: ../data/glade/trackproperties_dialog.glade.h:7
+msgid "File Size:"
+msgstr ""
+
+#: ../data/glade/trackproperties_dialog.glade.h:8
+msgid "Genre:"
+msgstr ""
+
+#: ../data/glade/trackproperties_dialog.glade.h:9
+msgid "Length:"
+msgstr ""
+
+#: ../data/glade/trackproperties_dialog.glade.h:10
+msgid "Location:"
+msgstr ""
+
+#: ../data/glade/trackproperties_dialog.glade.h:11
+msgid "Play Count:"
+msgstr ""
+
+#: ../data/glade/trackproperties_dialog.glade.h:12
+msgid "Title:"
+msgstr ""
+
+#: ../data/glade/trackproperties_dialog.glade.h:13
+msgid "Track Number:"
+msgstr ""
+
+#: ../data/glade/trackproperties_dialog.glade.h:14
+msgid "Track Properties"
+msgstr ""
+
+#: ../data/glade/about_dialog.glade.h:1
+msgid "&#xA9; 2009"
+msgstr ""
+
+#: ../data/glade/about_dialog.glade.h:2
+msgid "About Exaile"
+msgstr ""
+
+#: ../data/glade/about_dialog.glade.h:3
+msgid ""
+"Copyright (C) 2008-2009 Adam Olsen <arolsen@gmail.com> \n"
+"\n"
+"This program is free software; you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation; either version 2 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License along\n"
+"with this program; if not, write to the Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n"
+msgstr ""
+
+#: ../data/glade/about_dialog.glade.h:19
+msgid ""
+"Mathias Brodala\n"
+"   <info@noctus.net>\n"
+"    Translation Manager"
+msgstr ""
+
+#: ../data/glade/appearance_prefs_pane.glade.h:1
+msgid "Always show tab bar"
+msgstr ""
+
+#: ../data/glade/appearance_prefs_pane.glade.h:3
+msgid "Jump to current song on track change"
+msgstr ""
+
+#: ../data/glade/appearance_prefs_pane.glade.h:4
+msgid ""
+"Left\n"
+"Right\n"
+"Top\n"
+"Bottom"
+msgstr ""
+
+#: ../data/glade/appearance_prefs_pane.glade.h:8
+msgid "Minimize to tray"
+msgstr ""
+
+#: ../data/glade/appearance_prefs_pane.glade.h:9
+msgid "Show splash screen on startup"
+msgstr ""
+
+#: ../data/glade/appearance_prefs_pane.glade.h:10
+msgid "Show tray icon"
+msgstr "Näita salve ikooni"
+
+#: ../data/glade/appearance_prefs_pane.glade.h:11
+msgid "Tab placement:"
+msgstr ""
+
+#: ../data/glade/appearance_prefs_pane.glade.h:12
+msgid "Use alpha transparency (if supported)"
+msgstr ""
+
+#: ../data/glade/osd_window.glade.h:1
+msgid ""
+"<b>OSD</b>\n"
+"Drag to the location you'd like the\n"
+"OSD to appear"
+msgstr ""
+
+#: ../data/glade/osd_window.glade.h:4
+msgid "Popup"
+msgstr ""
+
+#: ../data/glade/radio_panel.glade.h:1
+msgid "Add Station"
+msgstr "Lisa jaam"
+
+#: ../data/glade/radio_panel.glade.h:3
+#: ../data/glade/flatplaylist_panel.glade.h:3
+msgid "Radio"
+msgstr "Raadio"
+
+#: ../data/glade/covermanager.glade.h:1
+msgid "Cover Manager"
+msgstr ""
+
+#: ../data/glade/covermanager.glade.h:3
+msgid "_Close"
+msgstr "_Sulge"
+
+#: ../data/glade/osd_prefs_pane.glade.h:1
+msgid ""
+"<b>Move the On Screen Display window to the location you want it to "
+"appear</b>"
+msgstr ""
+
+#: ../data/glade/osd_prefs_pane.glade.h:2
 msgid ""
 "<b>{title}</b>\n"
 "{artist}\n"
@@ -63,48 +1308,308 @@ msgstr ""
 "{artist}\n"
 " {album} - {length}"
 
-msgid "ASX Playlist"
-msgstr "ASX esitusnimekiri"
+#: ../data/glade/osd_prefs_pane.glade.h:5
+msgid "Background Color:"
+msgstr "Taustavärv:"
 
-msgid "Add"
-msgstr "Lisamine"
+#: ../data/glade/osd_prefs_pane.glade.h:6
+msgid "Display OSD when hovering over tray icon"
+msgstr ""
 
-msgid "Add Playlist"
-msgstr "Lisa esitusnimekiri"
+#: ../data/glade/osd_prefs_pane.glade.h:7
+msgid "Display a progressbar in the OSD"
+msgstr ""
 
-msgid "Add Smart Playlist"
-msgstr "Lisa nutikas nimekiri"
+#: ../data/glade/osd_prefs_pane.glade.h:8
+msgid "Opacity Level:"
+msgstr "Läbipaistmatuse tase:"
 
-msgid "Add Station"
-msgstr "Lisa jaam"
+#: ../data/glade/osd_prefs_pane.glade.h:9
+msgid "Show OSD on track change"
+msgstr ""
 
-msgid "Add a directory"
-msgstr "Lisa kaust"
+#: ../data/glade/osd_prefs_pane.glade.h:10
+msgid "Text Color"
+msgstr "Teksti värv"
 
-msgid "Add device"
-msgstr "Lisa seade"
+#: ../data/glade/osd_prefs_pane.glade.h:11
+msgid "Text Font:"
+msgstr ""
 
-msgid "Alarm Clock"
-msgstr "Alarmkell"
+#: ../data/glade/osd_prefs_pane.glade.h:12
+msgid "Window Height:"
+msgstr "Akna kõrgus:"
 
-msgid "Alarm Days:"
-msgstr "Alarmi päevad:"
+#: ../data/glade/osd_prefs_pane.glade.h:13
+msgid "Window Width:"
+msgstr "Akna laius:"
 
-msgid "Alarm:"
-msgstr "Alarm:"
+#: ../data/glade/queue_dialog.glade.h:1
+msgid "Close this dialog"
+msgstr ""
 
-msgid "Album"
-msgstr "Album"
+#: ../data/glade/queue_dialog.glade.h:2
+msgid "Queue Manager"
+msgstr ""
 
-msgid "Album Art"
-msgstr "Plaadikaane kujundus"
+#: ../data/glade/queue_dialog.glade.h:3
+msgid "Remove All"
+msgstr ""
 
-msgid "All Files"
-msgstr "Kõik failid"
+#: ../data/glade/playback_prefs_pane.glade.h:1
+msgid "Audio Sink:  "
+msgstr ""
 
-msgid "Artist"
-msgstr "Esitaja"
+#: ../data/glade/playback_prefs_pane.glade.h:2
+msgid ""
+"Automatic\n"
+"GNOME\n"
+"ALSA\n"
+"OSS\n"
+"PulseAudio\n"
+"JACK"
+msgstr ""
 
+#: ../data/glade/playback_prefs_pane.glade.h:8
+msgid "Crossfade duration (ms):"
+msgstr ""
+
+#: ../data/glade/playback_prefs_pane.glade.h:9
+msgid "Fade duration (ms):"
+msgstr ""
+
+#: ../data/glade/playback_prefs_pane.glade.h:10
+msgid ""
+"Normal\n"
+"Unified (unstable)"
+msgstr ""
+
+#: ../data/glade/playback_prefs_pane.glade.h:12
+msgid "Playback engine (requires restart): "
+msgstr ""
+
+#: ../data/glade/playback_prefs_pane.glade.h:13
+msgid "Resume playback in paused state"
+msgstr ""
+
+#: ../data/glade/playback_prefs_pane.glade.h:14
+msgid "Resume playback on start"
+msgstr ""
+
+#: ../data/glade/playback_prefs_pane.glade.h:15
+msgid "These options only affect the unified engine."
+msgstr ""
+
+#: ../data/glade/playback_prefs_pane.glade.h:16
+msgid "Use crossfading (EXPERIMENTAL)"
+msgstr ""
+
+#: ../data/glade/playback_prefs_pane.glade.h:17
+msgid "Use fade transitions on user actions"
+msgstr ""
+
+#: ../data/glade/plugin_prefs_pane.glade.h:1
+msgid "<b>No Plugin Selected</b>"
+msgstr "<b>Lisandit pole valitud</b>"
+
+#: ../data/glade/plugin_prefs_pane.glade.h:2
+msgid "Authors:"
+msgstr "Autorid:"
+
+#: ../data/glade/plugin_prefs_pane.glade.h:3
+msgid "Available Plugins"
+msgstr "Saadavad lisandid"
+
+#: ../data/glade/plugin_prefs_pane.glade.h:4
+msgid "Description:"
+msgstr "Kirjeldus:"
+
+#: ../data/glade/plugin_prefs_pane.glade.h:5
+msgid "Install"
+msgstr "Paigalda"
+
+#: ../data/glade/plugin_prefs_pane.glade.h:6
+msgid "Install Updates"
+msgstr "Installeeri uuendused"
+
+#: ../data/glade/plugin_prefs_pane.glade.h:7
+msgid "Install a third party plugin from a file"
+msgstr ""
+
+#: ../data/glade/plugin_prefs_pane.glade.h:8
+msgid "Install plugin file"
+msgstr ""
+
+#: ../data/glade/plugin_prefs_pane.glade.h:9
+msgid "Installed Plugins"
+msgstr "Paigaltatud lisandid"
+
+#: ../data/glade/plugin_prefs_pane.glade.h:10
+msgid "Updates"
+msgstr "Uuendused"
+
+#: ../data/glade/plugin_prefs_pane.glade.h:11
+msgid "Version:"
+msgstr "Versioon:"
+
+#: ../data/glade/main.glade.h:1
+msgid " + "
+msgstr ""
+
+#: ../data/glade/main.glade.h:2
+msgid " - "
+msgstr ""
+
+#: ../data/glade/main.glade.h:3
+msgid "0/0 tracks"
+msgstr ""
+
+#: ../data/glade/main.glade.h:4
+msgid "0:00 / 0:00"
+msgstr "0:00 / 0:00"
+
+#: ../data/glade/main.glade.h:5
+msgid "C_overs"
+msgstr ""
+
+#: ../data/glade/main.glade.h:6
+msgid "Clear Playlist"
+msgstr ""
+
+#: ../data/glade/main.glade.h:7
+msgid "Dynamically add similar tracks to the playlist"
+msgstr ""
+
+#: ../data/glade/main.glade.h:8 ../plugins/minimode/__init__.py:205
+msgid "Next Track"
+msgstr "Järgmine rada"
+
+#: ../data/glade/main.glade.h:10
+msgid "Open _URL"
+msgstr "Ava _URL"
+
+#: ../data/glade/main.glade.h:11
+msgid "Page 1"
+msgstr ""
+
+#: ../data/glade/main.glade.h:12 ../plugins/minimode/__init__.py:203
+msgid "Previous Track"
+msgstr "Eelmine lugu"
+
+#: ../data/glade/main.glade.h:13
+msgid "Randomize the order of the current playlist"
+msgstr ""
+
+#: ../data/glade/main.glade.h:14
+msgid "Re_scan Collection"
+msgstr ""
+
+#: ../data/glade/main.glade.h:16 ../data/glade/collection_panel.glade.h:13
+#: ../data/glade/files_panel.glade.h:6
+msgid "Search: "
+msgstr "Otsi: "
+
+#: ../data/glade/main.glade.h:18
+msgid "Start/Pause Playback"
+msgstr ""
+
+#: ../data/glade/main.glade.h:19
+msgid ""
+"Stop Playback\n"
+"\n"
+"Right Click for Stop After Track Feature"
+msgstr ""
+
+#: ../data/glade/main.glade.h:23
+msgid "Track _properties"
+msgstr ""
+
+#: ../data/glade/main.glade.h:24
+msgid "Vol:"
+msgstr "Vol:"
+
+#: ../data/glade/main.glade.h:25
+msgid "_Autosize"
+msgstr ""
+
+#: ../data/glade/main.glade.h:26
+msgid "_Collection"
+msgstr ""
+
+#: ../data/glade/main.glade.h:27
+msgid "_Columns"
+msgstr "_Veerud"
+
+#: ../data/glade/main.glade.h:28
+msgid "_Device Manager"
+msgstr ""
+
+#: ../data/glade/main.glade.h:29
+msgid "_Edit"
+msgstr "_Muuda"
+
+#: ../data/glade/main.glade.h:30
+msgid "_Export current playlist"
+msgstr ""
+
+#: ../data/glade/main.glade.h:31
+msgid "_File"
+msgstr "_Fail"
+
+#: ../data/glade/main.glade.h:32
+msgid "_Go to Playing Track"
+msgstr ""
+
+#: ../data/glade/main.glade.h:33
+msgid "_Help"
+msgstr "_Abi"
+
+#: ../data/glade/main.glade.h:35
+msgid "_Queue"
+msgstr ""
+
+#: ../data/glade/main.glade.h:36
+msgid "_Randomize Playlist"
+msgstr ""
+
+#: ../data/glade/main.glade.h:37
+msgid "_Resizable"
+msgstr ""
+
+#: ../data/glade/main.glade.h:38
+msgid "_Tools"
+msgstr "_Tööriistad"
+
+#: ../data/glade/main.glade.h:39
+msgid "_View"
+msgstr "_Vaade"
+
+#: ../data/glade/collection_manager.glade.h:1
+msgid "Collection Manager"
+msgstr ""
+
+#: ../data/glade/flatplaylist_panel.glade.h:1
+msgid "Append All Tracks to Playlist"
+msgstr ""
+
+#: ../data/glade/flatplaylist_panel.glade.h:2
+msgid "Import CD"
+msgstr ""
+
+#: ../data/glade/general_prefs_pane.glade.h:1
+#: ../data/glade/playlists_prefs_pane.glade.h:1
+msgid "Open last playlists on startup"
+msgstr ""
+
+#: ../data/glade/collection_panel.glade.h:1
+msgid "<b>Collection is empty.</b>"
+msgstr ""
+
+#: ../data/glade/collection_panel.glade.h:2
+msgid "Add Music"
+msgstr ""
+
+#: ../data/glade/collection_panel.glade.h:3
 msgid ""
 "Artist\n"
 "Album\n"
@@ -122,440 +1627,885 @@ msgstr ""
 "Aasta - Album\n"
 "Esitaja - Aasta - Album"
 
-msgid "Authors:"
-msgstr "Autorid:"
+#: ../data/glade/collection_panel.glade.h:11
+msgid ""
+"Refresh collection view\n"
+"(Hold Shift key to rescan the collection)"
+msgstr ""
 
-msgid "Autosize"
-msgstr "Autosuurus"
+#: ../data/glade/playlists_prefs_pane.glade.h:2
+msgid "Prompt for saving custom playlists on close"
+msgstr ""
 
-msgid "Available Plugins"
-msgstr "Saadavad lisandid"
+#: ../data/glade/cover_prefs_pane.glade.h:1
+msgid "(drag to reorder)"
+msgstr ""
 
-msgid "Background Color:"
-msgstr "Taustavärv:"
+#: ../data/glade/cover_prefs_pane.glade.h:2
+msgid "Cover Search Order:"
+msgstr ""
 
-msgid "Bitrate"
-msgstr "Bitikiirus"
+#: ../data/glade/preferences_dialog.glade.h:1
+msgid "<b>General</b>"
+msgstr "<b>Üldine</b>"
 
-msgid "Bottom left"
-msgstr "All vasakul"
-
-msgid "Bottom right"
-msgstr "All paremal"
-
-msgid "Bye!"
-msgstr "Nägemist!"
-
-msgid "Cancel"
-msgstr "Tühista"
-
-msgid "Choose a file"
-msgstr "Vali fail"
-
-msgid "Clear Playlist"
-msgstr "Playlisti tühjendamine"
-
-msgid "Collection"
-msgstr "Kogumik"
-
-msgid "Composer"
-msgstr "Helilooja"
-
-msgid "Configure"
-msgstr "Seadistamine"
-
-msgid "Date"
-msgstr "Kuupäev"
-
-msgid "Delete"
-msgstr "Kustuta"
-
-msgid "Delete Playlist"
-msgstr "Kustuta nimekiri"
-
-msgid "Description:"
-msgstr "Kirjeldus:"
-
-msgid "Detected devices:"
-msgstr "Leitud seaded:"
-
-msgid "Device Manager"
-msgstr "Seadete haldamine"
-
-msgid "Disc"
-msgstr "Ketas"
-
-msgid "Disc Number"
-msgstr "Plaadi number"
-
-msgid "Dynamic"
-msgstr "Dünaamiline"
-
-msgid "Edit"
-msgstr "Muuda"
-
-msgid "Enabled"
-msgstr "Lubatud"
-
-msgid "Enter the name you want for your new playlist"
-msgstr "Sisesta uue nimekirja nimi"
-
-msgid "Exaile"
-msgstr "Exaile"
-
-msgid "Export"
-msgstr "Ekspordi"
-
-msgid "File Type"
-msgstr "Faili tüüp"
-
-msgid "Filename"
-msgstr "Failinimi"
-
+#: ../data/glade/files_panel.glade.h:1
 msgid "Files"
 msgstr "Faili"
 
-msgid "Friday"
-msgstr "Reede"
+#: ../data/glade/files_panel.glade.h:2
+msgid "Home directory"
+msgstr ""
 
-msgid "Genre"
-msgstr "Stiil"
+#: ../data/glade/files_panel.glade.h:3
+msgid "Next visited directory"
+msgstr ""
 
-msgid "Install"
-msgstr "Paigalda"
+#: ../data/glade/files_panel.glade.h:4
+msgid "Previous visited directory"
+msgstr ""
 
-msgid "Install Updates"
-msgstr "Installeeri uuendused"
+#: ../data/glade/files_panel.glade.h:5
+msgid "Refresh directory listing"
+msgstr ""
 
-msgid "Installed Plugins"
-msgstr "Paigaltatud lisandid"
+#: ../data/glade/files_panel.glade.h:7
+msgid "Up one directory"
+msgstr ""
 
-msgid "LastFM Radio"
-msgstr "LastFM Raadio"
+#: ../plugins/multialarmclock/__init__.py:410
+#: ../plugins/multialarmclock/PLUGININFO:3
+msgid "Multi-Alarm Clock"
+msgstr ""
 
-msgid "LastFM: %s"
-msgstr "LastFM: %s"
+#: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
+msgid "Alarm Clock"
+msgstr ""
 
-msgid "Length"
-msgstr "Pikkus"
+#: ../plugins/audioscrobbler/asprefs.py:22
+#: ../plugins/audioscrobbler/PLUGININFO:3
+msgid "AudioScrobbler"
+msgstr ""
 
-msgid "Loading devices..."
-msgstr "Seadmete laadimine..."
+#: ../plugins/audioscrobbler/__init__.py:114
+msgid "Enable audioscrobbling"
+msgstr ""
 
-msgid "Loading interface..."
-msgstr "Kasutajaliidese laadimine..."
+#: ../plugins/cd/__init__.py:95 ../plugins/cd/__init__.py:172
+msgid "Audio Disc"
+msgstr ""
 
-msgid "Loading plugins..."
-msgstr "Pluginate laadimine..."
+#: ../plugins/cd/_cdguipanel.py:60
+msgid "Importing CD..."
+msgstr ""
 
-msgid "Loading settings"
-msgstr "Seadete laadimine"
+#: ../plugins/cd/cdprefs.py:22
+msgid "CD"
+msgstr ""
 
-msgid "Loading streams..."
-msgstr "Voogud laadimine..."
+#: ../plugins/cd/cdprefs.py:83 ../plugins/minimode/minimodeprefs.py:117
+msgid "Track number"
+msgstr ""
 
-msgid "Location"
-msgstr "Asukoht"
+#: ../plugins/cd/cdprefs.py:89 ../plugins/minimode/minimodeprefs.py:123
+msgid "Disc number"
+msgstr ""
 
-msgid "M3U Playlist"
-msgstr "M3U esitusnimekiri"
+#: ../plugins/cd/cdprefs.py:96 ../plugins/minimode/minimodeprefs.py:130
+msgid "Play count"
+msgstr ""
 
-msgid "Monday"
-msgstr "Esmaspäev"
+#: ../plugins/bookmarks/__init__.py:278
+#: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
+msgid "Bookmarks"
+msgstr ""
 
-msgid "Name:"
-msgstr "Nimi:"
+#: ../plugins/bookmarks/__init__.py:286
+msgid "Bookmark this track"
+msgstr ""
 
-msgid "New Playlist"
-msgstr "Uus esitusnimekiri"
+#: ../plugins/bookmarks/__init__.py:291
+msgid "Delete bookmark"
+msgstr ""
 
-msgid "New Search"
-msgstr "Uus otsing"
+#: ../plugins/bookmarks/__init__.py:295
+msgid "Clear bookmarks"
+msgstr ""
 
-msgid "Next"
-msgstr "Järgmine"
+#: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
+msgid "Notify-osd notifications"
+msgstr ""
 
-msgid "Next Track"
-msgstr "Järgmine rada"
+#: ../plugins/notifyosd/notifyosdprefs.py:47
+#: ../plugins/notify/notifyprefs.py:53
+#, python-format
+msgid "%(title)s"
+msgstr ""
 
-msgid "No covers found"
-msgstr "Kaanepilti ei leitud"
+#: ../plugins/notifyosd/notifyosdprefs.py:51
+#: ../plugins/notify/notifyprefs.py:43
+#, python-format
+msgid "by %(artist)s"
+msgstr ""
 
-msgid "Not Playing"
-msgstr "Ei Mängi"
+#: ../plugins/notifyosd/notifyosdprefs.py:55
+#: ../plugins/notify/notifyprefs.py:48
+#, python-format
+msgid "from %(album)s"
+msgstr ""
 
-msgid "Number of Plays"
-msgstr "Mängimiste arv"
+#: ../plugins/amazoncovers/amazonprefs.py:22
+#: ../plugins/amazoncovers/PLUGININFO:3
+msgid "Amazon Covers"
+msgstr ""
 
-msgid "Ok"
-msgstr "Ok"
+#: ../plugins/desktopcover/prefs.py:22 ../plugins/desktopcover/PLUGININFO:3
+msgid "Desktop Cover"
+msgstr ""
 
-msgid "Opacity Level:"
-msgstr "Läbipaistmatuse tase:"
+#: ../plugins/moodbar/__init__.py:334
+msgid "Moodbar executable is not available."
+msgstr ""
 
-msgid "Open"
-msgstr "Ava"
+#: ../plugins/replaygain/replaygainprefs.py:22
+#: ../plugins/replaygain/PLUGININFO:3
+msgid "ReplayGain"
+msgstr ""
 
-msgid "Open URL"
-msgstr "Ava URL"
+#: ../plugins/podcasts/__init__.py:55 ../plugins/podcasts/PLUGININFO:3
+msgid "Podcasts"
+msgstr ""
 
-msgid "Open _URL"
-msgstr "Ava _URL"
+#: ../plugins/podcasts/__init__.py:72
+msgid "Podcast"
+msgstr ""
 
-msgid "PLS Playlist"
-msgstr "PLS esitusnimekiri"
+#: ../plugins/podcasts/__init__.py:81
+msgid "Refresh Podcast"
+msgstr ""
 
-msgid "Password:"
-msgstr "Parool:"
+#: ../plugins/podcasts/__init__.py:82
+msgid "Delete"
+msgstr ""
 
-msgid "Pause"
-msgstr "Paus"
+#: ../plugins/podcasts/__init__.py:120
+msgid "Enter the URL of the podcast to add"
+msgstr ""
 
-msgid "Pl_ugins"
-msgstr "Pl_uginad"
+#: ../plugins/podcasts/__init__.py:121
+msgid "Open Podcast"
+msgstr ""
 
-msgid "Play"
-msgstr "Esita"
+#: ../plugins/podcasts/__init__.py:154
+#, python-format
+msgid "Loading %s..."
+msgstr ""
 
-msgid "Play the next track"
-msgstr "Esita järgmine lugu"
+#: ../plugins/podcasts/__init__.py:183
+msgid "Error loading podcast."
+msgstr ""
 
-msgid "Play the previous track"
-msgstr "Esita eelmist lugu"
+#: ../plugins/podcasts/__init__.py:199
+msgid "Loading Podcasts..."
+msgstr ""
 
-msgid "Playcount"
-msgstr "Esitamiste arv"
+#: ../plugins/podcasts/__init__.py:230
+msgid "Could not save podcast file"
+msgstr ""
 
-msgid "Playlists"
-msgstr "Lugude nimekirjad"
+#: ../plugins/shoutcast/__init__.py:104 ../plugins/shoutcast/__init__.py:158
+#: ../plugins/shoutcast/__init__.py:201 ../plugins/shoutcast/__init__.py:237
+msgid "Contacting Shoutcast server..."
+msgstr ""
 
-msgid "Plugin"
-msgstr "Lisand"
+#: ../plugins/shoutcast/__init__.py:114 ../plugins/shoutcast/__init__.py:118
+#: ../plugins/shoutcast/__init__.py:167 ../plugins/shoutcast/__init__.py:171
+#: ../plugins/shoutcast/__init__.py:215 ../plugins/shoutcast/__init__.py:220
+#: ../plugins/shoutcast/__init__.py:248 ../plugins/shoutcast/__init__.py:253
+msgid "Error connecting to Shoutcast server."
+msgstr ""
 
-msgid "Plugins"
-msgstr "Pluginad"
+#: ../plugins/shoutcast/__init__.py:273
+msgid "Enter the search keywords"
+msgstr ""
 
-msgid "Preferences"
-msgstr "Eelistused"
+#: ../plugins/shoutcast/__init__.py:274
+msgid "Shoutcast Search"
+msgstr ""
 
-msgid "Previous"
-msgstr "Eelmine"
-
-msgid "Previous Track"
-msgstr "Eelmine lugu"
-
-msgid "Python Console - Exaile"
-msgstr "Pythoni konsool - Exaile"
-
-msgid "Quit"
-msgstr "Välju"
-
-msgid "Radio"
-msgstr "Raadio"
-
-msgid "Radio Streams"
-msgstr "Raadiovood"
-
-msgid "Rating"
-msgstr "Hinnang"
-
-msgid "Rating: "
-msgstr "Hinnang: "
-
-msgid "Refresh"
-msgstr "Värskenda"
-
-msgid "Remove"
-msgstr "Kustuta"
-
-msgid "Remove Cover"
-msgstr "Eemalda kaanepilt"
-
-msgid "Rename"
-msgstr "Nimeta ümber"
-
-msgid "Repeat"
-msgstr "Kordus"
-
-msgid "Resizable"
-msgstr "Muudetava suurusega"
-
-msgid "Saturday"
-msgstr "Laupäev"
-
-msgid "Save"
-msgstr "Salvesta"
-
-msgid "Saved Stations"
-msgstr "Salvestatud jaamad"
-
-msgid "Search"
-msgstr "Otsi"
-
+#: ../plugins/shoutcast/__init__.py:297
 msgid "Search Results"
 msgstr "Otsingu tulemused"
 
-msgid "Search: "
-msgstr "Otsi: "
+#: ../plugins/shoutcast/__init__.py:330
+msgid "Search"
+msgstr "Otsi"
 
-msgid "Set data directory"
-msgstr "Määra andmete kataloog"
+#: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
+msgid "Notify"
+msgstr ""
 
-msgid "Show Cover"
-msgstr "Näita kaanepilti"
+#: ../plugins/notify/notifyprefs.py:38
+#, python-format
+msgid ""
+"by %(artist)s\n"
+"from <i>%(album)s</i>"
+msgstr ""
 
-msgid "Show tray icon"
-msgstr "Näita salve ikooni"
+#: ../plugins/ipconsole/__init__.py:77
+msgid "IPython Console - Exaile"
+msgstr ""
 
-msgid "Shuffle"
-msgstr "Sega"
+#: ../plugins/ipconsole/__init__.py:134
+msgid "Show IPython Console"
+msgstr ""
 
-msgid "Size"
-msgstr "Suurus"
+#: ../plugins/ipconsole/ipconsoleprefs.py:22 ../plugins/ipconsole/PLUGININFO:3
+msgid "IPython Console"
+msgstr ""
 
-msgid "Smart Playlists"
-msgstr "Nutikad esitusnimekirjad"
-
-msgid "Start"
-msgstr "Alusta"
-
-msgid "Stop"
-msgstr "Peata"
-
+#: ../plugins/minimode/__init__.py:209
 msgid "Stop Playback"
 msgstr "Peata esitus"
 
-msgid "Stop playback"
-msgstr "Peata esitamine"
+#: ../plugins/minimode/__init__.py:211
+msgid "Restore Main Window"
+msgstr ""
 
-msgid "Stopped"
-msgstr "Peatatud"
+#: ../plugins/minimode/minimodeprefs.py:22 ../plugins/minimode/mmwidgets.py:32
+#: ../plugins/minimode/PLUGININFO:3
+msgid "Mini Mode"
+msgstr ""
 
+#: ../plugins/minimode/minimodeprefs.py:97
+msgid "Available controls"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs.py:98
+msgid "Selected controls"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs.py:100
+msgid "Previous"
+msgstr "Eelmine"
+
+#: ../plugins/minimode/minimodeprefs.py:101
+msgid "Play/Pause"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs.py:102
+msgid "Stop"
+msgstr "Peata"
+
+#: ../plugins/minimode/minimodeprefs.py:103
+msgid "Next"
+msgstr "Järgmine"
+
+#: ../plugins/minimode/minimodeprefs.py:104
+msgid "Track selector"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs.py:105
+msgid "Progress bar"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs.py:106
+msgid "Volume"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs.py:107
+msgid "Playlist button"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs.py:110
+msgid "Restore"
+msgstr ""
+
+#. TRANSLATORS: Mini mode track selector title preset
+#: ../plugins/minimode/minimodeprefs.py:136
+#: ../plugins/minimode/minimodeprefs.py:142
+msgid "$tracknumber - $title"
+msgstr ""
+
+#. TRANSLATORS: Mini mode track selector title preset
+#: ../plugins/minimode/minimodeprefs.py:138
+msgid "$title by $artist"
+msgstr ""
+
+#. TRANSLATORS: Mini mode track selector title preset
+#: ../plugins/minimode/minimodeprefs.py:140
+msgid "$title ($length)"
+msgstr ""
+
+#: ../plugins/minimode/mmwidgets.py:151 ../plugins/minimode/mmwidgets.py:165
+msgid "Start Playback"
+msgstr ""
+
+#: ../plugins/minimode/mmwidgets.py:169
+msgid "Continue Playback"
+msgstr ""
+
+#: ../plugins/minimode/mmwidgets.py:172
+msgid "Pause Playback"
+msgstr ""
+
+#: ../plugins/minimode/mmwidgets.py:732
+msgid "Seeking: "
+msgstr ""
+
+#: ../plugins/minimode/mmwidgets.py:809
+msgid " & "
+msgstr ""
+
+#: ../plugins/contextinfo/__init__.py:1033
+#: ../plugins/contextinfo/context.glade.h:1
+msgid "Context"
+msgstr ""
+
+#: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
+msgid "Streamripper"
+msgstr ""
+
+#: ../plugins/streamripper/__init__.py:54
+msgid "Streamripper can only record streams."
+msgstr ""
+
+#: ../plugins/streamripper/__init__.py:87
+msgid "Error executing streamripper"
+msgstr ""
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:1
+#: ../plugins/alarmclock/acprefs_pane.glade.h:1
+msgid "Alarm Days:"
+msgstr "Alarmi päevad:"
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:2
+msgid "Alarm Name:"
+msgstr ""
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:3
+#: ../plugins/alarmclock/acprefs_pane.glade.h:2
+msgid "Alarm Time:"
+msgstr ""
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:4
+msgid "Alarm:"
+msgstr "Alarm:"
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:5
+msgid "Enable Fading"
+msgstr ""
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:7
+msgid "Fading:"
+msgstr ""
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:8
+#: ../plugins/alarmclock/acprefs_pane.glade.h:3
+msgid "Friday"
+msgstr "Reede"
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:9
+#: ../plugins/alarmclock/acprefs_pane.glade.h:4
+msgid "Increment:"
+msgstr ""
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:10
+#: ../plugins/alarmclock/acprefs_pane.glade.h:5
+msgid "Maximum Volume:"
+msgstr ""
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:11
+#: ../plugins/alarmclock/acprefs_pane.glade.h:6
+msgid "Minimum Volume:"
+msgstr ""
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:12
+#: ../plugins/alarmclock/acprefs_pane.glade.h:7
+msgid "Monday"
+msgstr "Esmaspäev"
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:13
+msgid "Name - Time"
+msgstr ""
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:14
+msgid "Restart Playlist"
+msgstr ""
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:15
+#: ../plugins/alarmclock/acprefs_pane.glade.h:8
+msgid "Saturday"
+msgstr "Laupäev"
+
+#: ../plugins/multialarmclock/alarmclk.glade.h:16
+#: ../plugins/alarmclock/acprefs_pane.glade.h:9
 msgid "Sunday"
 msgstr "Pühapäev"
 
-msgid "Supported Files"
-msgstr "Toetatud failid"
-
-msgid "Text Color"
-msgstr "Teksti värv"
-
+#: ../plugins/multialarmclock/alarmclk.glade.h:17
+#: ../plugins/alarmclock/acprefs_pane.glade.h:10
 msgid "Thursday"
 msgstr "Neljapäev"
 
-msgid "Title"
-msgstr "Pealkiri"
+#: ../plugins/multialarmclock/alarmclk.glade.h:18
+msgid "Time per Increment:"
+msgstr ""
 
-msgid "Top left"
-msgstr "Üleval vasakul"
-
-msgid "Top right"
-msgstr "Üleval paremal"
-
-msgid "Track Number"
-msgstr "Loo number"
-
+#: ../plugins/multialarmclock/alarmclk.glade.h:19
+#: ../plugins/alarmclock/acprefs_pane.glade.h:12
 msgid "Tuesday"
 msgstr "Teisipäev"
 
-msgid "Type of device:"
-msgstr "Seadme tüüp:"
-
-msgid "Updates"
-msgstr "Uuendused"
-
-msgid "Use Fading"
-msgstr "Kasuta hajumist"
-
-msgid "Username:"
-msgstr "Kasutajanimi:"
-
-msgid "Various Artists"
-msgstr "Erinevad esitajad"
-
-msgid "Version:"
-msgstr "Versioon:"
-
-msgid "Vol:"
-msgstr "Vol:"
-
+#: ../plugins/multialarmclock/alarmclk.glade.h:20
+#: ../plugins/alarmclock/acprefs_pane.glade.h:14
 msgid "Wednesday"
 msgstr "Kolmapäev"
 
-msgid "Window Height:"
-msgstr "Akna kõrgus:"
+#: ../plugins/alarmclock/acprefs_pane.glade.h:11
+msgid "Timer per Increment:"
+msgstr ""
 
-msgid "Window Width:"
-msgstr "Akna laius:"
+#: ../plugins/alarmclock/acprefs_pane.glade.h:13
+msgid "Use Fading"
+msgstr "Kasuta hajumist"
 
-msgid "Year"
-msgstr "Aasta"
+#: ../plugins/audioscrobbler/asprefs_pane.glade.h:1
+msgid "Password:"
+msgstr "Parool:"
 
-msgid "You did not enter a name for your playlist"
-msgstr "Nimekirja nimi on puudu"
+#: ../plugins/audioscrobbler/asprefs_pane.glade.h:2
+msgid "Show Menuitem to toggle Submission"
+msgstr ""
 
-msgid "_Close"
-msgstr "_Sulge"
+#: ../plugins/audioscrobbler/asprefs_pane.glade.h:3
+msgid "Submit tracks using Audioscrobbler"
+msgstr ""
 
-msgid "_Columns"
-msgstr "_Veerud"
+#: ../plugins/audioscrobbler/asprefs_pane.glade.h:5
+msgid "Username:"
+msgstr "Kasutajanimi:"
 
-msgid "_Edit"
-msgstr "_Muuda"
+#: ../plugins/cd/cdprefs_pane.glade.h:1
+msgid "Import format: "
+msgstr ""
 
-msgid "_File"
-msgstr "_Fail"
+#: ../plugins/cd/cdprefs_pane.glade.h:2
+msgid "Import path: "
+msgstr ""
 
-msgid "_Help"
-msgstr "_Abi"
+#: ../plugins/cd/cdprefs_pane.glade.h:3
+msgid "Import quality: "
+msgstr ""
 
-msgid "_Tools"
-msgstr "_Tööriistad"
+#: ../plugins/bookmarks/bookmarks_pane.glade.h:1
+msgid "Use covers in the bookmarks menu (takes effect on next start)"
+msgstr ""
 
-msgid "_View"
-msgstr "_Vaade"
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:1
+msgid "<b>Content</b>"
+msgstr ""
 
-msgid "after"
-msgstr "pärast"
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:2
+msgid "<b>Display</b>"
+msgstr ""
 
-msgid "and"
-msgstr "ja"
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:3
+msgid "<b>Icons</b>"
+msgstr ""
 
-msgid "at least"
-msgstr "vähemalt"
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:4
+msgid "Album Line:"
+msgstr ""
 
-msgid "at most"
-msgstr "mitte rohkem kui"
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:5
+msgid "Artist Line:"
+msgstr ""
 
-msgid "before"
-msgstr "enne"
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:6
+msgid "On Playback Start, Pause or Stop"
+msgstr ""
 
-msgid "between"
-msgstr "vahemikus"
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:7
+msgid "On Track Change"
+msgstr ""
 
-msgid "contains"
-msgstr "sisaldab"
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:8
+msgid "On Tray Icon Hover"
+msgstr ""
 
-msgid "days"
-msgstr "päeva"
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:9
+msgid "Summary:"
+msgstr ""
 
-msgid "does not contain"
-msgstr "ei sisalda"
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:11
+#, python-format
+msgid ""
+"The tags \"%(title)s\", \"%(artist)s\", and \"%(album)s\" will be replaced "
+"by their respective values. The title will be replaced by \"Unknown\" if it "
+"is empty."
+msgstr ""
 
-msgid "hours"
-msgstr "tundi"
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:12
+msgid "Use Album Covers As Icons"
+msgstr ""
 
-msgid "is"
-msgstr "on"
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:13
+msgid "Use Media Icons For Pause, Stop and Resume"
+msgstr ""
 
-msgid "is not"
-msgstr "ei ole"
+#: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:14
+msgid "When GUI is Focused"
+msgstr ""
 
-msgid "minutes"
-msgstr "minutit"
+#: ../plugins/amazoncovers/amazonprefs_pane.glade.h:1
+msgid "API Key:"
+msgstr ""
 
-msgid "seconds"
-msgstr "sekundit"
+#: ../plugins/amazoncovers/amazonprefs_pane.glade.h:2
+msgid "Secret Key:"
+msgstr ""
 
-msgid "weeks"
-msgstr "nädalat"
+#: ../plugins/amazoncovers/amazonprefs_pane.glade.h:3
+msgid ""
+"To sign up for an Amazon AWS account and get \n"
+"this information visit http://aws.amazon.com/"
+msgstr ""
+
+#: ../plugins/replaygain/replaygainprefs_pane.glade.h:2
+msgid "Additional amplification (dB):"
+msgstr ""
+
+#: ../plugins/replaygain/replaygainprefs_pane.glade.h:3
+msgid "Additional amplification to apply to all files"
+msgstr ""
+
+#: ../plugins/replaygain/replaygainprefs_pane.glade.h:4
+msgid "Fallback correction for files that lack ReplayGain information"
+msgstr ""
+
+#: ../plugins/replaygain/replaygainprefs_pane.glade.h:6
+msgid "Fallback correction level (dB):"
+msgstr ""
+
+#: ../plugins/replaygain/replaygainprefs_pane.glade.h:7
+msgid "Prefer ReplayGain's per-album correction over per-track correction."
+msgstr ""
+
+#: ../plugins/replaygain/replaygainprefs_pane.glade.h:9
+msgid "Prefer per-album correction"
+msgstr ""
+
+#: ../plugins/replaygain/replaygainprefs_pane.glade.h:10
+msgid "Protect against noise caused by over-amplification"
+msgstr ""
+
+#: ../plugins/replaygain/replaygainprefs_pane.glade.h:12
+msgid "Use clipping protection"
+msgstr ""
+
+#: ../plugins/podcasts/podcasts.glade.h:1
+msgid "Add Podcast"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs_pane.glade.h:1
+msgid "<b>Body Message</b>"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs_pane.glade.h:2
+msgid "Both artist and album"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs_pane.glade.h:4
+#, python-format
+msgid ""
+"Message that should be displayed in the body of the notification. In each "
+"case, \"%(title)s\", \"%(artist)s\", and \"%(album)s\" will be replaced by "
+"their respective values. If the tag is not known, \"Unknown\" will be filled "
+"in its place"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs_pane.glade.h:5
+msgid "Only album"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs_pane.glade.h:6
+msgid "Only artist"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs_pane.glade.h:7
+msgid "Resize displayed covers"
+msgstr ""
+
+#: ../plugins/notify/notifyprefs_pane.glade.h:8
+msgid "Summary"
+msgstr ""
+
+#: ../plugins/ipconsole/ipconsole_prefs.glade.h:1
+msgid "Font:"
+msgstr ""
+
+#: ../plugins/ipconsole/ipconsole_prefs.glade.h:2
+msgid "Terminal Opacity:"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:1
+msgid "<b>Position</b>"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:2
+msgid "Always on top"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:3
+msgid "Center horizontally"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:4
+msgid "Center vertically"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:5
+msgid "Display window decorations"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:6
+msgid "Horizontal:"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:7
+msgid "Show in tasklist"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:8
+msgid "Show on all desktops"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:9
+msgid "Track title format:"
+msgstr ""
+
+#: ../plugins/minimode/minimodeprefs_pane.glade.h:10
+msgid "Vertical:"
+msgstr ""
+
+#: ../plugins/streamripper/streamripper.glade.h:1
+msgid "Relay Port:"
+msgstr ""
+
+#: ../plugins/streamripper/streamripper.glade.h:2
+msgid "Save Location:"
+msgstr ""
+
+#: ../plugins/multialarmclock/PLUGININFO:4
+msgid ""
+"Plays music at specific times and days.\n"
+"\n"
+"Note that when the specified time arrives, Exaile will just act like you "
+"pressed the play button, so be sure you have the music you want to hear in "
+"your playlist"
+msgstr ""
+
+#: ../plugins/alarmclock/PLUGININFO:4
+msgid ""
+"Plays music at a specific time.\n"
+"\n"
+"Note that when the specified time arrives, Exaile will just act like you "
+"pressed the play button, so be sure you have the music you want to hear in "
+"your playlist"
+msgstr ""
+
+#: ../plugins/audioscrobbler/PLUGININFO:4
+msgid ""
+"Submits listening information to Last.fm and similar services supporting "
+"AudioScrobbler"
+msgstr ""
+
+#: ../plugins/cd/PLUGININFO:3
+msgid "CD Playback"
+msgstr ""
+
+#: ../plugins/cd/PLUGININFO:4
+msgid ""
+"Adds support for playing audio CDs.\n"
+"Requires python-cddb to look up tags."
+msgstr ""
+
+#: ../plugins/mpris/PLUGININFO:3
+msgid "MPRIS"
+msgstr ""
+
+#: ../plugins/mpris/PLUGININFO:4
+msgid "Creates an MPRIS D-Bus object to control Exaile"
+msgstr ""
+
+#: ../plugins/bookmarks/PLUGININFO:4
+msgid "Allows saving/resuming bookmark positions in audio files."
+msgstr ""
+
+#: ../plugins/lastfmcovers/PLUGININFO:3
+msgid "Last.fm Covers"
+msgstr ""
+
+#: ../plugins/lastfmcovers/PLUGININFO:4
+msgid "Searches Last.fm for covers"
+msgstr ""
+
+#: ../plugins/notifyosd/PLUGININFO:4
+msgid ""
+"This plugins displays notification bubbles when a song is "
+"played/resumed/stopped, with either the song cover or a media icon to "
+"indicate the latest action.\n"
+"\n"
+"Depends: python-notify\n"
+"Recommends: notify-osd"
+msgstr ""
+
+#: ../plugins/amazoncovers/PLUGININFO:4
+msgid ""
+"Searches Amazon for covers\n"
+"\n"
+"To be able to use this plugin, an AWS API key and secret key are required."
+msgstr ""
+
+#: ../plugins/desktopcover/PLUGININFO:4
+msgid "Displays the current album cover on the desktop"
+msgstr ""
+
+#: ../plugins/lastfmdynamic/PLUGININFO:3
+msgid "Last.fm Dynamic Search"
+msgstr ""
+
+#: ../plugins/lastfmdynamic/PLUGININFO:4
+msgid "The Last.fm backend for dynamic playlists"
+msgstr ""
+
+#: ../plugins/moodbar/PLUGININFO:3
+msgid "Moodbar"
+msgstr ""
+
+#: ../plugins/moodbar/PLUGININFO:4
+msgid ""
+"Replaces the standard progress bar with a moodbar.\n"
+"Depends: moodbar"
+msgstr ""
+
+#: ../plugins/ipod/PLUGININFO:3
+msgid "iPod support"
+msgstr ""
+
+#: ../plugins/ipod/PLUGININFO:4
+msgid "A plugin for iPod support"
+msgstr ""
+
+#: ../plugins/replaygain/PLUGININFO:4
+msgid "Enables ReplayGain support"
+msgstr ""
+
+#: ../plugins/podcasts/PLUGININFO:4
+msgid "Adds Simple Podcast Support"
+msgstr ""
+
+#: ../plugins/screensaverpause/PLUGININFO:3
+msgid "Pause on Screensaver"
+msgstr ""
+
+#: ../plugins/screensaverpause/PLUGININFO:4
+msgid "Pauses/resumes playback on screensaver start/stop"
+msgstr ""
+
+#: ../plugins/shoutcast/PLUGININFO:3
+msgid "Shoutcast Radio"
+msgstr ""
+
+#: ../plugins/shoutcast/PLUGININFO:4
+msgid "Shoutcast Radio list"
+msgstr ""
+
+#: ../plugins/helloworld/PLUGININFO:3
+msgid "Hello World"
+msgstr ""
+
+#: ../plugins/helloworld/PLUGININFO:4
+msgid "A simple plugin for testing the basic plugin system"
+msgstr ""
+
+#: ../plugins/gnomemmkeys/PLUGININFO:3
+msgid "GNOME Multimedia Keys"
+msgstr ""
+
+#: ../plugins/gnomemmkeys/PLUGININFO:4
+msgid ""
+"Adds support for controlling Exaile via GNOME's multimedia key system. "
+"Compatible with GNOME >= 2.20.x"
+msgstr ""
+
+#: ../plugins/lyricsfly/PLUGININFO:3
+msgid "Lyrics Fly"
+msgstr ""
+
+#: ../plugins/lyricsfly/PLUGININFO:4
+msgid "Plugin to fetch lyrics from lyricsfly.com"
+msgstr ""
+
+#: ../plugins/massstorage/PLUGININFO:3
+msgid "USB Mass Storage Media Player Support"
+msgstr ""
+
+#: ../plugins/massstorage/PLUGININFO:4
+msgid ""
+"Support for accessing portable media players using the USB Mass Storage "
+"protocol"
+msgstr ""
+
+#: ../plugins/notify/PLUGININFO:4
+msgid "Pops up a notification when playback of a track starts"
+msgstr ""
+
+#: ../plugins/librivox/PLUGININFO:3
+msgid "Librivox"
+msgstr ""
+
+#: ../plugins/librivox/PLUGININFO:4
+msgid "Browse and listen to audiobooks from Librivox.org."
+msgstr ""
+
+#: ../plugins/ipconsole/PLUGININFO:4
+msgid "Provides an IPython console that can be used to manipulate Exaile."
+msgstr ""
+
+#: ../plugins/minimode/PLUGININFO:4
+msgid "Compact mode for Exaile with a configurable interface"
+msgstr ""
+
+#: ../plugins/tagcovers/PLUGININFO:3
+msgid "Tag Covers"
+msgstr ""
+
+#: ../plugins/tagcovers/PLUGININFO:4
+msgid "Searches track tags for covers"
+msgstr ""
+
+#: ../plugins/contextinfo/PLUGININFO:3
+msgid "Contextual Info"
+msgstr ""
+
+#: ../plugins/contextinfo/PLUGININFO:4
+msgid ""
+"Show various informations about the track currently playing.\n"
+"Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2"
+msgstr ""
+
+#: ../plugins/streamripper/PLUGININFO:4
+msgid ""
+"Allows you to record streams with streamripper.\n"
+"Depends: streamripper"
+msgstr ""
+
+#: ../plugins/lyricwiki/PLUGININFO:3
+msgid "Lyrics Wiki"
+msgstr ""
+
+#: ../plugins/lyricwiki/PLUGININFO:4
+msgid "Plugin to fetch lyrics from lyricwiki.org"
+msgstr ""

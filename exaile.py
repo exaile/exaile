@@ -46,7 +46,6 @@ if not os.path.exists(os.path.join(basedir, "exaile.py")):
         basedir = cwd
 sys.path.insert(0, basedir)
 
-
 def main():
     from xl import main
     global exaile

@@ -200,27 +200,27 @@ SINK_PRESETS = {
             "options"   : {},
             },
         "gconf" : {
-            "name"      : _("GNOME"),
+            "name"      : "GNOME",
             "elem"      : "gconfaudiosink",
             "options"   : {"profile": "music"},
         },
         "alsa"  : {
-            "name"      : _("ALSA"),
+            "name"      : "ALSA",
             "elem"      : "alsasink",
             "options"   : {},
             },
         "oss"   : {
-            "name"      : _("OSS"),
+            "name"      : "OSS",
             "elem"      : "osssink",
             "options"   : {},
             },
         "pulse" : {
-            "name"      : _("PulseAudio"),
+            "name"      : "PulseAudio",
             "elem"      : "pulsesink",
             "options"   : {},
             },
         "jack" : {
-            "name"      : _("JACK"),
+            "name"      : "JACK",
             "elem"      : "jackaudiosink",
             "options"   : {},
             }

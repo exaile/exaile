@@ -824,6 +824,7 @@ class MMTrackFormatter(gobject.GObject):
 
         for keyword, tagname in substitutions.iteritems():
             try:
+                #TRANSLATORS: String multiple tag values will be joined by
                 substitutions[keyword] = _(' & ').join(track[tagname])
             except TypeError:
                 substitutions[keyword] = track[tagname]

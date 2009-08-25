@@ -85,6 +85,8 @@ class MiniMode(gtk.Window):
         self.accel_group = gtk.AccelGroup()
         self.accel_group.connect_group(key, modifier,
             gtk.ACCEL_VISIBLE, self.on_accelerate)
+        self.menuitem.add_accelerator('activate', self.accel_group,
+            key, modifier, gtk.ACCEL_VISIBLE)
         self.exaile.gui.main.window.add_accel_group(self.accel_group)
         self.add_accel_group(self.accel_group)
 

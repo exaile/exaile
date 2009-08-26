@@ -29,9 +29,11 @@
 # stores settings
 
 
+from __future__ import with_statement
+
+import logging, os
 from ConfigParser import RawConfigParser, NoSectionError, NoOptionError
 
-import os, logging
 logger = logging.getLogger(__name__)
 
 from xl import event, xdg
@@ -79,9 +81,9 @@ class SettingsManager(RawConfigParser):
         
         if loc is not None:
             try:
-                if self.read(self.loc) == []:
-                    if self.read(self.loc + ".new") == []:
-                        self.read(self.loc + ".old")
+                self.read(self.loc) or \
+                    self.read(self.loc + ".new") or \
+                    self.read(self.loc + ".old")
             except:
                 pass
 
@@ -214,13 +216,14 @@ class SettingsManager(RawConfigParser):
         self._saving = True
         
         logger.debug("Saving settings...")
-        f = open(self.loc + ".new", 'w')
-        self.write(f)
-        try:
-            # make it readable by current user only, to protect private data
-            os.fchmod(f.fileno(), 384)
-        except:
-            pass # fail gracefully, eg if on windows
+        with open(self.loc + ".new", 'w') as f:
+            self.write(f)
+            try:
+                # make it readable by current user only, to protect private data
+                os.fchmod(f.fileno(), 384)
+            except:
+                pass # fail gracefully, eg if on windows
+            f.flush()
         try:
             os.rename(self.loc, self.loc + ".old")
         except:
@@ -230,7 +233,6 @@ class SettingsManager(RawConfigParser):
             os.remove(self.loc + ".old")
         except:
             pass
-        f.flush()
         
         self._saving = False
         self._dirty = False

@@ -62,6 +62,7 @@ class CollectionPanel(panel.Panel):
     orders = (
         ['artist', 'album', 'tracknumber', 'title'],
         ['album', 'tracknumber', 'title'],
+        ['album', 'artist', 'tracknumber', 'title'],
         ['genre', 'artist', 'album', 'tracknumber', 'title'],
         ['genre', 'album', 'artist', 'tracknumber', 'title'],
         ['date', 'artist', 'album', 'tracknumber', 'title'],

@@ -97,6 +97,7 @@
                     <property name="visible">True</property>
                     <property name="items" translatable="yes">Artist
 Album
+Album - Artist
 Genre - Artist
 Genre - Album
 Year - Artist

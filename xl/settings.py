@@ -13,15 +13,27 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#
+# The developers of the Exaile media player hereby grant permission 
+# for non-GPL compatible GStreamer and Exaile plugins to be used and 
+# distributed together with GStreamer and Exaile. This permission is 
+# above and beyond the permissions granted by the GPL license by which 
+# Exaile is covered. If you modify this code, you may extend this 
+# exception to your version of the code, but you are not obligated to 
+# do so. If you do not wish to do so, delete this exception statement 
+# from your version.
 
 # Settings
 #
 # stores settings
 
 
+from __future__ import with_statement
+
+import logging, os
 from ConfigParser import RawConfigParser, NoSectionError, NoOptionError
 
-import os, logging
 logger = logging.getLogger(__name__)
 
 from xl import event, xdg
@@ -69,9 +81,9 @@ class SettingsManager(RawConfigParser):
         
         if loc is not None:
             try:
-                if self.read(self.loc) == []:
-                    if self.read(self.loc + ".new") == []:
-                        self.read(self.loc + ".old")
+                self.read(self.loc) or \
+                    self.read(self.loc + ".new") or \
+                    self.read(self.loc + ".old")
             except:
                 pass
 
@@ -204,13 +216,14 @@ class SettingsManager(RawConfigParser):
         self._saving = True
         
         logger.debug("Saving settings...")
-        f = open(self.loc + ".new", 'w')
-        self.write(f)
-        try:
-            # make it readable by current user only, to protect private data
-            os.fchmod(f.fileno(), 384)
-        except:
-            pass # fail gracefully, eg if on windows
+        with open(self.loc + ".new", 'w') as f:
+            self.write(f)
+            try:
+                # make it readable by current user only, to protect private data
+                os.fchmod(f.fileno(), 384)
+            except:
+                pass # fail gracefully, eg if on windows
+            f.flush()
         try:
             os.rename(self.loc, self.loc + ".old")
         except:
@@ -220,7 +233,6 @@ class SettingsManager(RawConfigParser):
             os.remove(self.loc + ".old")
         except:
             pass
-        f.flush()
         
         self._saving = False
         self._dirty = False

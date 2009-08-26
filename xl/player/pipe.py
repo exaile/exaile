@@ -13,6 +13,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#
+# The developers of the Exaile media player hereby grant permission 
+# for non-GPL compatible GStreamer and Exaile plugins to be used and 
+# distributed together with GStreamer and Exaile. This permission is 
+# above and beyond the permissions granted by the GPL license by which 
+# Exaile is covered. If you modify this code, you may extend this 
+# exception to your version of the code, but you are not obligated to 
+# do so. If you do not wish to do so, delete this exception statement 
+# from your version.
 
 from xl.nls import gettext as _
 
@@ -200,27 +210,27 @@ SINK_PRESETS = {
             "options"   : {},
             },
         "gconf" : {
-            "name"      : _("GNOME"),
+            "name"      : "GNOME",
             "elem"      : "gconfaudiosink",
             "options"   : {"profile": "music"},
         },
         "alsa"  : {
-            "name"      : _("ALSA"),
+            "name"      : "ALSA",
             "elem"      : "alsasink",
             "options"   : {},
             },
         "oss"   : {
-            "name"      : _("OSS"),
+            "name"      : "OSS",
             "elem"      : "osssink",
             "options"   : {},
             },
         "pulse" : {
-            "name"      : _("PulseAudio"),
+            "name"      : "PulseAudio",
             "elem"      : "pulsesink",
             "options"   : {},
             },
         "jack" : {
-            "name"      : _("JACK"),
+            "name"      : "JACK",
             "elem"      : "jackaudiosink",
             "options"   : {},
             }

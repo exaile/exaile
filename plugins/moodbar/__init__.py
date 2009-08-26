@@ -15,17 +15,22 @@
 # along with this program; if not, write to the free software
 # foundation, inc., 675 mass ave, cambridge, ma 02139, usa.
 
-
-import cgi, gtk, gobject, os, os.path, subprocess
-from xl import event, xdg
+import moodbarprefs
+import cgi, gtk, gobject, os, os.path, subprocess, colorsys
+import inspect
+from xl import event, xdg, settings
 from xl.nls import gettext as _
+from xlgui.prefs import widgets
+from xl import common
+import moodbarprefs
 
 import logging
 logger = logging.getLogger(__name__)
 
 ExaileModbar = None
 
-class ExModbar:
+class ExModbar(object):
+
     #Setup and getting values------------------------------------------------
     
     def __init__(self):
@@ -42,11 +47,29 @@ class ExModbar:
          self.runed=False
          self.pid=0
          self.uptime=0
-
+         self.ivalue=0
+         self.qvalue=0
          self.moodsDir=os.path.join(xdg.get_cache_dir(), "moods")
          if not os.path.exists(self.moodsDir): 
              os.mkdir(self.moodsDir)
+             
+    def __inner_preference(klass):
+        """functionality copy from notyfication"""
+        def getter(self):
+            return settings.get_option(klass.name, klass.default or None)
 
+        def setter(self, val):
+            settings.set_option(klass.name, val)
+
+        return property(getter, setter)
+        
+    defaultstyle = __inner_preference(moodbarprefs.defaultstyle)
+    flat = __inner_preference(moodbarprefs.flat)
+    theme = __inner_preference(moodbarprefs.theme)
+    cursor = __inner_preference(moodbarprefs.cursor)
+
+    darkness = __inner_preference(moodbarprefs.darkness)
+    color = __inner_preference(moodbarprefs.color)	 
     def set_ex(self, ex):
          self.exaile=ex
 
@@ -86,6 +109,7 @@ class ExModbar:
               self.mod.connect("motion-notify-event", self.modSeekMotionNotify) 
               self.brush = self.mod.window.new_gc()
               
+          
               track = self.exaile.player.current
               
               self.lookformod(track)
@@ -97,7 +121,8 @@ class ExModbar:
     #playing ----------------------------------------------------------------
    
     def lookformod(self,track):
-         if not track or not track.is_local(): 
+         if not track or not (track.is_local() or track['__length']): 
+             self.haveMod=False			
              return
 
          self.playingTrack=str(track.get_loc())
@@ -135,11 +160,11 @@ class ExModbar:
     def updateMod(self):
          self.updateplayerpos()
          if not self.haveMod:
-           logger.debug('Searching for mood...')
+           logger.debug(_('Searching for mood...'))
            modLoc=self.moodsDir+'/'+ self.playingTrack.replace('/','-')+".mood"
            modLoc=modLoc.replace("'",'')
            if self.readMod(modLoc):
-              logger.debug("Mood found.")
+              logger.debug(_("Mood found."))
               self.haveMod=True 
               self.modwidth=0
          self.modTimer = gobject.timeout_add(1000, self.updateMod)
@@ -171,7 +196,7 @@ class ExModbar:
              return retur 
           
        except: 
-          logger.debug('Could not read moodbar.')
+          logger.debug(_('Could not read moodbar.'))
           self.moodbar=''
           for i in range(3000):
               self.moodbar=self.moodbar+chr(0)
@@ -181,100 +206,235 @@ class ExModbar:
     def genBuff(self):
         width=self.get_size()
         self.modwidth=width
-        b=''
+        darkmulti=(1-self.darkness/10)
+		  
+        #logger.info(darkmulti)
         hh=[0.2,0.4,0.7,0.8,0.9,1,1,0.98,0.93,0.85,0.80,0.80,0.80,
                 0.85,0.93,0.98,1,1,0.9,0.8,0.7,0.6,0.4,0.2]
         #hh=[0.5,0.55,0.6,0.65,0.7,1,0.95,0.92,0.88,0.84,0.80,0.80,
-                #0.80,0.84,0.88,0.92,0.95,1,0.7,0.65,0.6,0.55,0.5,0.45]
+        #0.80,0.84,0.88,0.92,0.95,1,0.7,0.65,0.6,0.55,0.5,0.45]
         #hh=[0.2,0.4,0.7,0.8,0.9,1,1,1,1,1,1,1,1,1,1,1,1,1,0.9,0.8,
-                # 0.7,0.6,0.4,0.2]
-        for h in range(24):
-             for x in range(width):
-                   for i in range(3):
-                         b=b+chr(int(ord(
-                             self.moodbar[int(x*1000/width)*3+i])*hh[h]))
+        # 0.7,0.6,0.4,0.2]
+        self.defaultstyle_old =self.defaultstyle
+        self.theme_old=self.theme
+        self.flat_old=self.flat
+        self.color_old =self.color
+        self.darkness_old =self.darkness
+        self.cursor_old=self.cursor     
+        gc = self.brush 
+        self.bgcolor = self.mod.style.bg[gtk.STATE_NORMAL]
+        redf=self.bgcolor.red/255
+        greenf=self.bgcolor.green/255
+        bluef=self.bgcolor.blue/255
+        colortheme=gtk.gdk.Color(self.color)
+        c1,self.ivalue,self.qvalue=colorsys.rgb_to_yiq(float(colortheme.red)/256/256, float(colortheme.green)/256/256, float(colortheme.blue)/256/256)
+        gc.foreground = self.bgcolor;
+        gc.line_width=1
+        self.pixmap = gtk.gdk.Pixmap(self.mod.window, width, 24)
+        self.pixmap2 = gtk.gdk.Pixmap(self.mod.window, width, 24)           
+        self.pixmap.draw_rectangle(gc, True, 0, 0, self.modwidth, 24)
+        self.pixmap2.draw_rectangle(gc, True, 0, 0, self.modwidth, 24)
+        if self.flat:
+             if self.theme:	
+                flatcolor1r=float(colortheme.red)/256/256
+                flatcolor1g=float(colortheme.green)/256/256
+                flatcolor1b=float(colortheme.blue)/256/256
+                flatcolor2r=darkmulti*float(colortheme.red)/256/256
+                flatcolor2g=darkmulti*float(colortheme.green)/256/256
+                flatcolor2b=darkmulti*float(colortheme.blue)/256/256
+             else:
+                flatcolor1r=flatcolor1g=flatcolor1b=0.5   
+                flatcolor2r=flatcolor2g=flatcolor2b=0.5*darkmulti 
+        #render ---------------------------------------------------------		     					             					 
+        for x in range(width):
+        #reading color
+           r=float(ord(self.moodbar[int(x*1000/width)*3]))/256
+           g=float(ord(self.moodbar[int(x*1000/width)*3+1]))/256
+           b=float(ord(self.moodbar[int(x*1000/width)*3+2]))/256        	  
+           if (self.theme or self.defaultstyle):
+		          c1,c2,c3=colorsys.rgb_to_yiq(r, g, b)
+					 
+           if (self.theme):		
+                c2=c2+self.ivalue
+                if c2>1: c2=1
+                if c2<-1: c2=-1
+                c3=c3+self.qvalue
+                if c3>1: c3=1
+                if c3<-1: c3=-1
+           if self.defaultstyle:			  		 		
+                r,g,b=colorsys.yiq_to_rgb(0.5,c2,c3)
+                waluelength=int(c1*24)					 	
+           else: 
+			    if self.theme:
+				    r,g,b=colorsys.yiq_to_rgb(c1,c2,c3)	
+           if not self.defaultstyle:
+                buff=''	  		
+                for h in range(24):
+                   buff=buff+chr(int(r*255*hh[h]+redf*(1-hh[h])))+chr(int(g*255*hh[h]+greenf*(1-hh[h])))+chr(int(b*255*hh[h]+bluef*(1-hh[h])))
+                self.pixmap.draw_rgb_image(gc, x, 0, 1, 24, 
+                         gtk.gdk.RGB_DITHER_NONE, buff, 3)
+                
+                if self.cursor:
+                   buff2=''		 
+                   for h in range(24*3):
+                         buff2=buff2+chr(int(ord(buff[h])*(darkmulti+(1-darkmulti)*(1-hh[int(h/3)]))))
+                					 
+                   self.pixmap2.draw_rgb_image(gc, x, 0, 1, 24, 
+                         gtk.gdk.RGB_DITHER_NONE, buff2, 3)
+                             
+           else:
+                if self.flat:
+                   gc.foreground = self.mod.get_colormap().alloc_color(
+                      int(flatcolor1r*0xFFFF), int(flatcolor1g*0xFFFF), int(flatcolor1b*0xFFFF)) 
+                else:  
+                   gc.foreground = self.mod.get_colormap().alloc_color(
+                      int(r*0xFFFF), int(g*0xFFFF), int(b*0xFFFF))                
+                self.pixmap.draw_line(gc, x, 13-waluelength, x, 12+waluelength) 
+					  
+                if self.cursor: 
+                  if self.flat:
+                     gc.foreground = self.mod.get_colormap().alloc_color(
+                        int(flatcolor2r*0xFFFF), int(flatcolor2g*0xFFFF), int(flatcolor2b*0xFFFF)) 
+                  else:  					 	 
+                     r,g,b=colorsys.yiq_to_rgb(0.5*darkmulti,c2,c3)
+                     gc.foreground = self.mod.get_colormap().alloc_color(
+                        int(r*0xFFFF), int(g*0xFFFF), int(b*0xFFFF))         
+                  self.pixmap2.draw_line(gc, x, 13-waluelength, x, 12+waluelength)                
+        
+        #if not self.defaultstyle:
+        #    self.pixmap2.draw_drawable(gc,self.pixmap, 0, 0, 0, 0, self.modwidth, 24)
+        #    gc.foreground = self.mod.get_colormap().alloc_color(
+        #                int(0xCCCC*darkmulti),  int(0xCCCC*darkmulti),  int(0xCCCC*darkmulti))				
+        #    gc.function=gtk.gdk.AND
+        #    self.pixmap2.draw_rectangle(gc, True, 0, 0, self.modwidth, 24)
+        #    gc.function=gtk.gdk.COPY
         return b
 
  
     #Drawing mood UI---------------------------------------------------------
   
     def drawMod(self,this,area):
-        
+         darkmulti=(1-self.darkness/10)       
          self.uptime+=1
-         gc = self.brush 
+         gc = self.brush
+         self.bgcolor = self.mod.style.bg[gtk.STATE_NORMAL]
+         redf=self.bgcolor.red
+         greenf=self.bgcolor.green
+         bluef=self.bgcolor.blue
+         #logger.info(greenf)
          this=self.mod
          gc.foreground = this.get_colormap().alloc_color(0x0000, 
                  0x0000, 0x0000)
          track = self.exaile.player.current
-         
+         if self.theme:	
+                flatcolor1r,flatcolor1g,flatcolor1b=colorsys.yiq_to_rgb(0.5,self.ivalue,self.qvalue)
+                flatcolor2r,flatcolor2g,flatcolor2b=colorsys.yiq_to_rgb(0.5*darkmulti,self.ivalue,self.qvalue)
+         else:
+                flatcolor1r=flatcolor1g=flatcolor1b=0.5   
+                flatcolor2r=flatcolor2g=flatcolor2b=0.5*darkmulti 
          try:
+         
             if not self.get_size()==self.modwidth: 
                   self.buff=self.genBuff()
+            if (not self.defaultstyle==self.defaultstyle_old or
+                 not self.theme==self.theme_old or
+                 not self.flat==self.flat_old or
+                 not self.color==self.color_old or
+                 not self.darkness==self.darkness_old or
+                 not self.cursor==self.cursor_old):
+                    self.buff=self.genBuff()		
             if (self.haveMod):
-                 this.window.draw_rgb_image(gc, 0, 0, self.modwidth, 24, 
-                         gtk.gdk.RGB_DITHER_NONE, self.buff, self.modwidth*3)
+                 this.window.draw_drawable(gc,self.pixmap, 0, 0, 0, 0, self.modwidth, 24)
+
             else:
-               
-               for i in range(5): 
-                   gc.foreground = this.get_colormap().alloc_color(0xAAAA*i/5,
-                              0xAAAA*i/5, 0xAAAA*i/5)
+              if not self.defaultstyle: 
+                for i in range(5): 
+                   gc.foreground = this.get_colormap().alloc_color(int(flatcolor1r*0xFFFF*i/5+redf*((5-float(i))/5)),
+                              int(flatcolor1g*0xFFFF*i/5+greenf*((5-float(i))/5)), int(flatcolor1b*0xFFFF*i/5+bluef*((5-float(i))/5)) )
                    this.window.draw_rectangle(gc, True, 0, 0+i, 
                            self.modwidth, 24-i*2)
 
-               if self.modTimer and track.is_local():    
-                   gc.foreground = this.get_colormap().alloc_color(0xBBBB, 
-                           0xBBBB, 0xBBBB)
+              if self.modTimer and track.is_local():    
+                   gc.foreground = this.get_colormap().alloc_color(flatcolor2r*0xFFFF, 
+                           flatcolor2g*0xFFFF, flatcolor2b*0xFFFF)
                    this.window.draw_rectangle(gc, True,  
                              (self.modwidth/10)*(self.uptime%10), 
                              5, self.modwidth/10, 14)
-               
+              if self.defaultstyle: 
+                   gc.foreground = this.get_colormap().alloc_color(flatcolor1r*0xFFFF, 
+                           flatcolor1g*0xFFFF, flatcolor1b*0xFFFF)
+                   this.window.draw_rectangle(gc, True,  
+                           0,12, self.modwidth, 2)				       
       
          except:
             for i in range(5):  
               gc.foreground = this.get_colormap().alloc_color(0xFFFF*i/5, 
                       0x0000, 0x0000)
               this.window.draw_rectangle(gc, True, 0, 0+i, 
-                      self.modwidth, 24-i*2)
+                     self.modwidth, 24-i*2)
             
-            if track and track.is_local(): 
-              self.lookformod(track)
+            #if track and track.is_local(): 
+            #self.lookformod(track)
             
             return False
-            
+           
          track = self.exaile.player.current
-         if not track or not track.is_local(): return
+         if not track or not (track.is_local() or track['__length']): return
 
          if self.modTimer:
-            gc.foreground = this.get_colormap().alloc_color(0xFFFF, 
-                    0xFFFF, 0xFFFF)
-            gc.line_width=2
-            this.window.draw_arc(gc, True, int(self.curpos*self.modwidth)-15, 
-                    -5, 30, 30,  60*64, 60*64)
-            gc.foreground = this.get_colormap().alloc_color(0x0000, 
+            if self.cursor:
+                if not self.haveMod:
+                   if not self.defaultstyle: 
+                      for i in range(5): 
+                          gc.foreground = this.get_colormap().alloc_color(flatcolor2r*0xFFFF*i/5+int(redf*((5-float(i))/5)),
+                              flatcolor2g*0xFFFF*i/5+int(greenf*((5-float(i))/5)), flatcolor2b*0xFFFF*i/5+int(bluef*((5-float(i))/5)) )
+                          this.window.draw_rectangle(gc, True, 0, 0+i, 
+                                 int(self.curpos*self.modwidth), 24-i*2) 
+                   else:
+                      gc.foreground = this.get_colormap().alloc_color(flatcolor2r*0xFFFF, 
+                           flatcolor2g*0xFFFF, flatcolor2b*0xFFFF)
+                      this.window.draw_rectangle(gc, True,  
+                           0,12, int(self.curpos*self.modwidth), 2)								  											 
+                else:						 
+                    this.window.draw_drawable(gc,self.pixmap2, 0, 0, 0, 0, int(self.curpos*self.modwidth), 24)			  
+			  
+			  
+            else:
+                gc.foreground  = self.bgcolor;
+                gc.line_width=2
+                this.window.draw_arc(gc, True, int(self.curpos*self.modwidth)-15, 
+                        -5, 30, 30,  60*64, 60*64)
+                gc.foreground = this.get_colormap().alloc_color(0x0000, 
                     0x0000, 0x0000)
-
-            this.window.draw_line(gc, int(self.curpos*self.modwidth), 10, 
+ 
+                this.window.draw_line(gc, int(self.curpos*self.modwidth), 10, 
                                       int(self.curpos*self.modwidth)-10, -5)
-            this.window.draw_line(gc, int(self.curpos*self.modwidth), 10, 
+                this.window.draw_line(gc, int(self.curpos*self.modwidth), 10, 
                                       int(self.curpos*self.modwidth)+10, -5)
    
             length = self.exaile.player.current.get_duration()
             seconds = self.exaile.player.get_time()
             remaining_seconds = length - seconds
             text = ("%d:%02d / %d:%02d" %
-               ( seconds // 60, seconds % 60, remaining_seconds // 60,
-               remaining_seconds % 60))
-   
+                ( seconds // 60, seconds % 60, remaining_seconds // 60,
+                remaining_seconds % 60))
+            gc.foreground = this.get_colormap().alloc_color(0x0000, 
+                    0x0000, 0x0000)    
             this.pangolayout.set_text(text)
-            this.window.draw_layout(gc, self.modwidth/2-50, 
-                    3, this.pangolayout)
-            this.window.draw_layout(gc, self.modwidth/2-52, 
-                    1, this.pangolayout)
+            
+            this.window.draw_layout(gc, int(self.modwidth/2)-35, 
+                     4, this.pangolayout)
+            this.window.draw_layout(gc, int(self.modwidth/2)-37, 
+                     2, this.pangolayout)
+            this.window.draw_layout(gc, int(self.modwidth/2)-35, 
+                     2, this.pangolayout)
+            this.window.draw_layout(gc, int(self.modwidth/2)-37, 
+                     4, this.pangolayout)
             gc.foreground = this.get_colormap().alloc_color(0xFFFF, 
-                    0xFFFF, 0xFFFF)
+                     0xFFFF, 0xFFFF)
 
-            this.window.draw_layout(gc, self.modwidth/2-51, 
-                    2, this.pangolayout)
+            this.window.draw_layout(gc, int(self.modwidth/2)-36, 
+                     3, this.pangolayout)
          
  
     #seeking-----------------------------------------------------------------
@@ -287,7 +447,7 @@ class ExModbar:
         global exaile1
         self.seeking = False
         track = self.exaile.player.current
-        if not track or not track.is_local(): return
+        if not track or not (track.is_local() or track['__length']): return
 
         mouse_x, mouse_y = event.get_coords()
         progress_loc = self.get_size()
@@ -306,7 +466,7 @@ class ExModbar:
     def modSeekMotionNotify(self,this,  event):
         if self.seeking:
             track = self.exaile.player.current
-            if not track or not track.is_local(): return
+            if not track or not (track.is_local() or track['__length']): return
 
             mouse_x, mouse_y = event.get_coords()
             progress_loc = self.get_size()
@@ -355,7 +515,8 @@ def disable(exaile):
     ExaileModbar.destroy()
     ExaileModbar = None
 
-
+def get_prefs_pane():
+    return moodbarprefs
 
 #have errors from time to time:
 #python: ../../src/xcb_lock.c:77: _XGetXCBBuffer: Assertion `((int) ((xcb_req) - (dpy->request)) >= 0)' failed.
@@ -365,7 +526,7 @@ def disable(exaile):
 #Xlib: sequence lost (0xe0000 > 0xd4add) in reply type 0x0!
 #python: ../../src/xcb_io.c:176: process_responses: Assertion `!(req && current_request && !(((long) (req->sequence) - (long) (current_request)) <= 0))' failed.
 
-
+#0.0.4 haven't errors
 
 
 

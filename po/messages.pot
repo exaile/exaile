@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-24 18:16+0200\n"
+"POT-Creation-Date: 2009-08-25 16:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,26 +18,6 @@ msgstr ""
 
 #: ../xl/player/pipe.py:198
 msgid "Automatic"
-msgstr ""
-
-#: ../xl/player/pipe.py:203
-msgid "GNOME"
-msgstr ""
-
-#: ../xl/player/pipe.py:208
-msgid "ALSA"
-msgstr ""
-
-#: ../xl/player/pipe.py:213
-msgid "OSS"
-msgstr ""
-
-#: ../xl/player/pipe.py:218
-msgid "PulseAudio"
-msgstr ""
-
-#: ../xl/player/pipe.py:223
-msgid "JACK"
 msgstr ""
 
 #. TODO: remove this before 0.3.0 since it is not needed for
@@ -269,7 +249,7 @@ msgstr ""
 #: ../xlgui/panel/collection.py:595 ../xlgui/panel/collection.py:632
 #: ../plugins/bookmarks/__init__.py:151 ../plugins/notifyosd/__init__.py:57
 #: ../plugins/notifyosd/__init__.py:68 ../plugins/notify/__init__.py:27
-#: ../plugins/minimode/mmwidgets.py:820
+#: ../plugins/minimode/mmwidgets.py:839
 msgid "Unknown"
 msgstr ""
 
@@ -304,11 +284,11 @@ msgid "0:00"
 msgstr ""
 
 #: ../xlgui/main.py:36 ../xlgui/main.py:107 ../xlgui/main.py:960
-#: ../data/glade/main.glade.h:9 ../plugins/minimode/mmwidgets.py:630
+#: ../data/glade/main.glade.h:9 ../plugins/minimode/mmwidgets.py:648
 msgid "Not Playing"
 msgstr ""
 
-#: ../xlgui/main.py:117 ../plugins/minimode/mmwidgets.py:650
+#: ../xlgui/main.py:117 ../plugins/minimode/mmwidgets.py:668
 msgid "Streaming..."
 msgstr ""
 
@@ -731,19 +711,19 @@ msgid "Last played"
 msgstr ""
 
 #: ../xlgui/plcolumns.py:206 ../xlgui/plcolumns.py:226
-#: ../plugins/minimode/mmwidgets.py:880
+#: ../plugins/minimode/mmwidgets.py:899
 msgid "Never"
 msgstr ""
 
-#: ../xlgui/plcolumns.py:218 ../plugins/minimode/mmwidgets.py:893
+#: ../xlgui/plcolumns.py:218 ../plugins/minimode/mmwidgets.py:912
 msgid "Today"
 msgstr ""
 
-#: ../xlgui/plcolumns.py:220 ../plugins/minimode/mmwidgets.py:895
+#: ../xlgui/plcolumns.py:220 ../plugins/minimode/mmwidgets.py:914
 msgid "Yesterday"
 msgstr ""
 
-#: ../xlgui/plcolumns.py:222 ../plugins/minimode/mmwidgets.py:897
+#: ../xlgui/plcolumns.py:222 ../plugins/minimode/mmwidgets.py:916
 #, python-format
 msgid "%(year)d-%(month)02d-%(day)02d"
 msgstr ""
@@ -1474,7 +1454,7 @@ msgstr ""
 msgid "Dynamically add similar tracks to the playlist"
 msgstr ""
 
-#: ../data/glade/main.glade.h:8 ../plugins/minimode/__init__.py:205
+#: ../data/glade/main.glade.h:8 ../plugins/minimode/__init__.py:207
 msgid "Next Track"
 msgstr ""
 
@@ -1486,7 +1466,7 @@ msgstr ""
 msgid "Page 1"
 msgstr ""
 
-#: ../data/glade/main.glade.h:12 ../plugins/minimode/__init__.py:203
+#: ../data/glade/main.glade.h:12 ../plugins/minimode/__init__.py:205
 msgid "Previous Track"
 msgstr ""
 
@@ -1851,11 +1831,11 @@ msgstr ""
 msgid "IPython Console"
 msgstr ""
 
-#: ../plugins/minimode/__init__.py:209
+#: ../plugins/minimode/__init__.py:211
 msgid "Stop Playback"
 msgstr ""
 
-#: ../plugins/minimode/__init__.py:211
+#: ../plugins/minimode/__init__.py:213
 msgid "Restore Main Window"
 msgstr ""
 
@@ -1936,11 +1916,12 @@ msgstr ""
 msgid "Pause Playback"
 msgstr ""
 
-#: ../plugins/minimode/mmwidgets.py:732
+#: ../plugins/minimode/mmwidgets.py:750
 msgid "Seeking: "
 msgstr ""
 
-#: ../plugins/minimode/mmwidgets.py:809
+#. TRANSLATORS: String multiple tag values will be joined by
+#: ../plugins/minimode/mmwidgets.py:828
 msgid " & "
 msgstr ""
 
@@ -2318,10 +2299,6 @@ msgid ""
 "Requires python-cddb to look up tags."
 msgstr ""
 
-#: ../plugins/mpris/PLUGININFO:3
-msgid "MPRIS"
-msgstr ""
-
 #: ../plugins/mpris/PLUGININFO:4
 msgid "Creates an MPRIS D-Bus object to control Exaile"
 msgstr ""
@@ -2425,6 +2402,14 @@ msgstr ""
 msgid ""
 "Adds support for controlling Exaile via GNOME's multimedia key system. "
 "Compatible with GNOME >= 2.20.x"
+msgstr ""
+
+#: ../plugins/xkeys/PLUGININFO:3
+msgid "XKeys"
+msgstr ""
+
+#: ../plugins/xkeys/PLUGININFO:4
+msgid "Global hotkeys using xlib (mmkeys.so)"
 msgstr ""
 
 #: ../plugins/lyricsfly/PLUGININFO:3

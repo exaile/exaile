@@ -244,6 +244,7 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
         self.popup.add(self.playlist)
 
         self._updating = False
+        self._drag_shown = False
         self._parent_configure_id = None
         self._parent_hide_id = None
         self._drag_motion_id = None
@@ -266,6 +267,8 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
             self.playlist.drag_data_received, self.playlist.list)
         self.connect('drag-leave', self.on_drag_leave)
         self.connect('drag-motion', self.on_drag_motion)
+        self.playlist.list.connect('drag-data-received',
+            self.on_playlist_drag_data_received)
         event.add_callback(self.on_playlist_current_changed, 'playlist_current_changed')
         event.add_callback(self.on_playback_start, 'playback_player_start')
         event.add_callback(self.on_playback_end, 'playback_player_end')
@@ -379,7 +382,6 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
             Makes sure to hide the popup
         """
         self.set_active(False)
-        self.popup.hide()
 
     def on_scroll(self, togglebutton, event):
         """
@@ -432,7 +434,23 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
         """
         if self._drag_motion_id is None:
             self._drag_motion_id = gobject.timeout_add(500,
-                lambda: self.set_active(True))
+                self.drag_motion_finish)
+
+    def drag_motion_finish(self):
+        """
+            Shows the playlist
+        """
+        self.set_active(True)
+        self._drag_shown = True
+
+    def on_playlist_drag_data_received(self, *e):
+        """
+            Hides the playlist if it has
+            been opened via drag events
+        """
+        if self._drag_shown:
+            self.set_active(False)
+            self._drag_shown = False
 
 gobject.type_register(MMPlaylistButton)
 gobject.signal_new('track-changed', MMPlaylistButton,
@@ -806,6 +824,7 @@ class MMTrackFormatter(gobject.GObject):
 
         for keyword, tagname in substitutions.iteritems():
             try:
+                #TRANSLATORS: String multiple tag values will be joined by
                 substitutions[keyword] = _(' & ').join(track[tagname])
             except TypeError:
                 substitutions[keyword] = track[tagname]

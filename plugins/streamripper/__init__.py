@@ -89,8 +89,8 @@ def toggle_record(widget=None, event=None):
                 return True
 
         STREAMRIPPER_PID = sub.pid
-        logger.info("Proxy location: http://localhost:%d" % port)
-        APP.player.playbin.set_property('uri', 'http://localhost:%d' % port)
+        logger.info("Proxy location: http://127.0.0.1:%d" % port)
+        APP.player.playbin.set_property('uri', 'http://127.0.0.1:%d' % port)
         time.sleep(1)
 
         APP.player.playbin.set_state(gst.STATE_PLAYING)

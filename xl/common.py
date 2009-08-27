@@ -60,6 +60,7 @@ def log_exception(log=logger, message="Exception caught!"):
 
 
 def to_unicode(x, default_encoding=None):
+    """Force getting a unicode string from any object."""
     if isinstance(x, unicode):
         return x
     elif default_encoding and isinstance(x, str):

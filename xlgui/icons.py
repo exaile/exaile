@@ -70,8 +70,12 @@ class IconManager(object):
         """
             Registers an icon name from a filename
         """
-        pixbuf = gtk.gdk.pixbuf_new_from_file(filename)
-        self.add_icon_name_from_pixbuf(icon_name, pixbuf, size)
+        try:
+            pixbuf = gtk.gdk.pixbuf_new_from_file(filename)
+            self.add_icon_name_from_pixbuf(icon_name, pixbuf, size)
+        except Exception:
+            # Happens if, e.g., librsvg is not installed (notably in Windows).
+            pass
 
     def add_icon_name_from_pixbuf(self, icon_name, pixbuf, size=None):
         """

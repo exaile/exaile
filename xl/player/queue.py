@@ -171,13 +171,12 @@ class PlayQueue(playlist.Playlist):
             vol = self.player._get_volume()
             self.player._set_volume(0)
             self.play()
-            
-            if not self.player.current:
-                return
 
-            self.player.seek(state['position'])
-            if state['state'] == 'paused' or \
-                    settings.get_option("player/resume_paused", False):
-                self.player.toggle_pause()
+            if self.player.current:
+                self.player.seek(state['position'])
+                if state['state'] == 'paused' or \
+                        settings.get_option("player/resume_paused", False):
+                    self.player.toggle_pause()
+                self.player._playtime_stamp = state['_playtime_stamp']
+
             self.player._set_volume(vol)
-            self.player._playtime_stamp = state['_playtime_stamp']

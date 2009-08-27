@@ -383,11 +383,19 @@ class Track(object):
             return artist
         elif field == '__length':
             return self.get_duration()
-        elif field in ['__last_played', '__date_added', '__playcount']:
+        elif field in ['__last_played', '__date_added', '__playcount', '__rating']:
             try:
                 return int(self[field])
             except:
                 return 0
+        # Note that location sorting was broken because of [0]. I suppose it is
+        # meant to return only the first occurence of the tag, but in the case
+        # of location, it was returning the first letter of the unique string.
+        elif field == '__loc':
+            try:
+                return lstrip_special(unicode(self[field]))
+            except:
+                return u""
         else: 
             try:
                 return lstrip_special(unicode(self[field][0]))

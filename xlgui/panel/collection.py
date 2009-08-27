@@ -199,7 +199,7 @@ class CollectionPanel(panel.Panel):
             Called on key presses on the refresh button
         """
         keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname != 'Return': return True
+        if keyname != 'Return': return False
 
         if event.state & gtk.gdk.SHIFT_MASK:
             xlgui.controller().on_rescan_collection(None)

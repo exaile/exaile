@@ -39,9 +39,8 @@
 import locale
 import gtk, gtk.glade, gobject
 from xlgui.prefs import widgets
-from xl import xdg
+from xl import main, plugins, xdg
 from xlgui import commondialogs
-from xl import main
 from xl.nls import gettext as _
 
 name = _('Plugins')
@@ -162,7 +161,7 @@ class PluginManager(object):
         if result == gtk.RESPONSE_OK:   
             try:
                 self.plugins.install_plugin(dialog.get_filename())
-            except plugs.InvalidPluginError, e:
+            except plugins.InvalidPluginError, e:
                 commondialogs.error(self.xml.get_widget('PreferencesDialog'), e.message)
                 return
                 

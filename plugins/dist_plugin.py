@@ -53,6 +53,8 @@ IGNORED_EXTENSIONS = options.extensions
 # don't add files with this exact name to the archive
 IGNORED_FILES = options.files
 
+_ = lambda x: x
+
 
 import sys, os, tarfile
 

@@ -77,32 +77,33 @@ def _migrate_old_tracks(oldsettings, db, ntdb):
     libraries = eval(oldsettings.get('DEFAULT', 'search_paths'))
 
     oldtracks = oldexailelib.load_tracks(db)
-    rating_steps = settings.get_option('miscellaneous/rating_steps', 5)
+    rating_steps = 5 # old dbs are hardcoded to 5 steps
 
     for library in libraries:
         ntdb.add_library(collection.Library(library))
 
     newtracks = []
     for oldtrack in oldtracks:
-        newtrack = track.Track()
+        if(os.path.isfile(oldtrack.loc)):
+            newtrack = track.Track()
 
-        if int(oldtrack._rating) > 0: 
-            newtrack['rating'] = float((100.0*oldtrack._rating)/rating_steps) 
+            if int(oldtrack._rating) > 0: 
+                newtrack['__rating'] = float((100.0*oldtrack._rating)/rating_steps)
+    
+            newtrack.set_loc(oldtrack.loc)
+            newtrack['filename'] = os.path.basename(oldtrack.loc)
 
-        newtrack.set_loc(oldtrack.loc)
+            #I have no clue how tio proerply handle time_added -> __date_added
+    
+            db_map = {'bitrate': '__bitrate', 'artist': 'artist', 'album': 'album', 'track': 'tracknumber', 'genre': 'genre', 'date': 'date',
+                'title': 'title', 'duration': '__length', 'playcount': '__playcount'}
 
-        for item in ('bitrate', 'artist', 'album', 'track', 'genre', 'date',
-            'track', 'title', 'duration'):
-            if item == 'duration':
-                newtrack['length'] = oldtrack._len
-            elif item == 'track':
-                newtrack['tracknumber'] = oldtrack.track
-            else:
-                newtrack[item] = getattr(oldtrack, item)
+            for item in db_map.keys():
+                newtrack[db_map[item]] = getattr(oldtrack, item)
 
-        newtrack._scan_valid = True
-        newtrack._dirty = True
-        newtracks.append(newtrack)
+            newtrack._scan_valid = True
+            newtrack._dirty = True
+            newtracks.append(newtrack)
 
     ntdb.add_tracks(newtracks)
     ntdb.save_to_location()

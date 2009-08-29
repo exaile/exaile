@@ -7,6 +7,7 @@ from ConfigParser import SafeConfigParser
 import urlparse
 import oldexailelib, olddb
 import logging
+import time
 
 logger = logging.getLogger(__name__)
 
@@ -84,26 +85,32 @@ def _migrate_old_tracks(oldsettings, db, ntdb):
 
     newtracks = []
     for oldtrack in oldtracks:
-        if(os.path.isfile(oldtrack.loc)):
-            newtrack = track.Track()
+        # we shouldn't be checking os.path.isfile() here, since if it is a radio link, it will not be migrated
+        newtrack = track.Track()
 
-            if int(oldtrack._rating) > 0: 
-                newtrack['__rating'] = float((100.0*oldtrack._rating)/rating_steps)
-    
-            newtrack.set_loc(oldtrack.loc)
-            newtrack['filename'] = os.path.basename(oldtrack.loc)
+        if int(oldtrack._rating) > 0: 
+            newtrack['__rating'] = float((100.0*oldtrack._rating)/rating_steps)
 
-            #I have no clue how tio proerply handle time_added -> __date_added
-    
-            db_map = {'bitrate': '__bitrate', 'artist': 'artist', 'album': 'album', 'track': 'tracknumber', 'genre': 'genre', 'date': 'date',
-                'title': 'title', 'duration': '__length', 'playcount': '__playcount'}
+        newtrack.set_loc(oldtrack.loc)
+        newtrack['filename'] = os.path.basename(oldtrack.loc)
 
-            for item in db_map.keys():
-                newtrack[db_map[item]] = getattr(oldtrack, item)
+        db_map = {'bitrate': '__bitrate', 'artist': 'artist', 'album': 'album', 'track': 'tracknumber', 'genre': 'genre', 'date': 'date',
+            'title': 'title', 'duration': '__length', 'playcount': '__playcount'}
 
-            newtrack._scan_valid = True
-            newtrack._dirty = True
-            newtracks.append(newtrack)
+        # Apparently, there is a bug in exaile 0.2.xx that dumps the time as hh:mm:YYYY, rather than hh:mm:ss. This is a workaround, that takes the seconds == 0, since this information is lost b/c of the bug
+        temp_time = oldtrack.time_added;
+
+        try:
+            newtrack['__date_added'] = time.mktime(time.strptime(temp_time[0:len(temp_time)-5],'%Y-%m-%d %H:%M'))
+        except ValueError:
+            pass
+
+        for item in db_map.keys():
+            newtrack[db_map[item]] = getattr(oldtrack, item)
+
+        newtrack._scan_valid = True
+        newtrack._dirty = True
+        newtracks.append(newtrack)
 
     ntdb.add_tracks(newtracks)
     ntdb.save_to_location()

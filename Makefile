@@ -74,9 +74,9 @@ install-target: make-install-dirs
 	install -m 644 data/images/48x48/exaile.png \
 		$(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
 	install -m 644 data/glade/*.glade $(EXAILESHAREDIR)/data/glade
-	install -m 644 data/migrations/*.py $(EXAILESHAREDIR)/migrations/
+	install -m 644 data/migrations/*.py $(EXAILESHAREDIR)/data/migrations/
 	install -m 644 data/migrations/migration_200907100931/*.py \
-	    	$(EXAILESHAREDIR)/migrations/migration_200907100931/
+	    	$(EXAILESHAREDIR)/data/migrations/migration_200907100931/
 	install -m 644 data/exaile.desktop \
 		$(DESTDIR)$(PREFIX)/share/applications/	
 	install -m 644 data/config/settings.ini $(DESTDIR)$(XDGCONFDIR)/exaile

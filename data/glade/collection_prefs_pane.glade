@@ -13,7 +13,7 @@
           <property name="border_width">0</property>
           <child>
             <widget class="GtkLabel" id="strip_list_label">
-              <property name="label" translatable="yes">Strip these words from the beginnng of the artist tag (space separated)</property>
+              <property name="label" translatable="yes">Strip these words from the beginnng of the artist tag (space separated):</property>
               <property name="receives_default">False</property>
               <property name="wrap">True</property>
             </widget>
@@ -41,14 +41,13 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkButton" id="collection/strip_list_restore_button">
+          <widget class="GtkLabel" id="collection/strip_list_label2">
+            <property name="label" translatable="yes">(Right click for reset to defaults)</property>
             <property name="receives_default">False</property>
-            <property name="label" translatable="yes">Set to (locale-dependent) default</property>
           </widget>
           <packing>
             <property name="expand">False</property>
             <property name="fill">False</property>
-            <property name="pack_type">end</property>
             <property name="position">2</property>
           </packing>
         </child>

@@ -22,9 +22,17 @@ from xlgui import commondialogs
 name = _('Collection')
 glade = xdg.get_data_path('glade/collection_prefs_pane.glade')
 
+
+def _get_default_strip_list():
+    return ["el", "l'", "la", "le", "les", "los", "the"]
+
 class CollectionStripArtistPreference(widgets.ListPrefsItem):
-    default = "the"
+    default = _get_default_strip_list()
     name = 'collection/strip_list'
+
+    def __init__(self, prefs, widget):
+        widgets.ListPrefsItem.__init__(self, prefs, widget)
+        self.widget.connect('populate-popup', self._populate_popup_cb)
 
     def _get_value(self):
         """
@@ -35,3 +43,17 @@ class CollectionStripArtistPreference(widgets.ListPrefsItem):
         values = [v.lower() for v in self.widget.get_text().split(' ') if v is not '']
         return values
 
+    def _populate_popup_cb(self, entry, menu):
+        import gtk
+        entry = gtk.MenuItem(_('Reset to defaults'))
+        entry.connect('activate', self._reset_to_defaults_cb)
+        entry.show()
+
+        sep = gtk.SeparatorMenuItem()
+        sep.show()
+
+        menu.attach(entry, 0, 1, 0, 1)
+        menu.attach(sep, 0, 1, 1, 2)
+
+    def _reset_to_defaults_cb(self, item):
+        self.widget.set_text(' '.join(_get_default_strip_list()))

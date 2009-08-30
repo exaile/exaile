@@ -210,6 +210,14 @@ class DbusManager(dbus.service.Object):
         player = self.exaile.player
         player.set_volume(player.get_volume() + value)
 
+    @dbus.service.method("org.exaile.Exaile", 'd')
+    def Seek(self, value):
+        """
+            Seeks to the given position in seconds
+        """
+        player = self.exaile.player
+        player.seek(value)
+
     @dbus.service.method("org.exaile.Exaile")
     def Prev(self):
         """

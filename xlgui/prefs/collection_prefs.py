@@ -25,3 +25,13 @@ glade = xdg.get_data_path('glade/collection_prefs_pane.glade')
 class CollectionStripArtistPreference(widgets.ListPrefsItem):
     default = "the"
     name = 'collection/strip_list'
+
+    def _get_value(self):
+        """
+            Get the value, overrides the base class function
+            because we don't need shlex parsing. We actually
+            want values like "l'" here.
+        """
+        values = [v.lower() for v in self.widget.get_text().split(' ') if v is not '']
+        return values
+

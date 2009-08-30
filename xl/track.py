@@ -46,7 +46,7 @@ def is_valid_track(loc):
         the file and determining
     """
     sections = loc.split('.');
-    return sections[-1] in metadata.formats
+    return sections[-1].lower() in metadata.formats
 
 def get_tracks_from_uri(uri):
     """

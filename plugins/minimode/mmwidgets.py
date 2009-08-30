@@ -914,7 +914,7 @@ class MMTrackFormatter(gobject.GObject):
                 text = _('Yesterday')
             else:
                 text = _('%(year)d-%(month)02d-%(day)02d') % {
-                    'year' : lptime.tm_year ,
+                    'year' : lptime.tm_year,
                     'month' : lptime.tm_mon,
                     'day' : lptime.tm_mday
                 }

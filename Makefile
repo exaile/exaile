@@ -31,6 +31,8 @@ make-install-dirs:
 	mkdir -p $(EXAILESHAREDIR)/data/images/48x48
 	mkdir -p $(EXAILESHAREDIR)/data/images/svg
 	mkdir -p $(EXAILESHAREDIR)/data/glade
+	mkdir -p $(EXAILESHAREDIR)/data/migrations
+	mkdir -p $(EXAILESHAREDIR)/data/migrations/migration_200907100931
 	mkdir -p $(DESTDIR)$(PREFIX)/share/pixmaps
 	mkdir -p $(DESTDIR)$(PREFIX)/share/applications
 	mkdir -p $(DESTDIR)$(XDGCONFDIR)/exaile
@@ -38,16 +40,7 @@ make-install-dirs:
 uninstall:
 	rm -f  $(DESTDIR)$(PREFIX)/bin/exaile
 	rm -rf $(EXAILELIBDIR)
-	rm -rf $(EXAILELIBDIR)/xl
-	rm -rf $(EXAILELIBDIR)/xl/metadata
-	rm -rf $(EXAILELIBDIR)/xl/player
-	rm -rf $(EXAILELIBDIR)/xlgui
-	rm -rf $(EXAILELIBDIR)/xlgui/panel
-	rm -rf $(EXAILELIBDIR)/xlgui/prefs
 	rm -rf $(EXAILESHAREDIR)
-	rm -rf $(EXAILESHAREDIR)/data
-	rm -rf $(EXAILESHAREDIR)/data/images
-	rm -rf $(EXAILESHAREDIR)/data/glade
 	rm -rf $(DESTDIR)$(XDGCONFDIR)/exaile
 	rm -f $(DESTDIR)$(PREFIX)/share/applications/exaile.desktop
 	rm -f $(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
@@ -81,6 +74,9 @@ install-target: make-install-dirs
 	install -m 644 data/images/48x48/exaile.png \
 		$(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
 	install -m 644 data/glade/*.glade $(EXAILESHAREDIR)/data/glade
+	install -m 644 data/migrations/*.py $(EXAILESHAREDIR)/data/migrations/
+	install -m 644 data/migrations/migration_200907100931/*.py \
+	    	$(EXAILESHAREDIR)/data/migrations/migration_200907100931/
 	install -m 644 data/exaile.desktop \
 		$(DESTDIR)$(PREFIX)/share/applications/	
 	install -m 644 data/config/settings.ini $(DESTDIR)$(XDGCONFDIR)/exaile

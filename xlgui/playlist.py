@@ -912,6 +912,23 @@ class Playlist(gtk.VBox):
         self.playlist.ordered_tracks = tracks
         index = self.playlist.index(curtrack)
         self.playlist.set_current_pos(index)
+    
+    def return_order_tags(self, newtag = None):
+        """
+            Returns a list of tags, which sorting will be used to sort tracks
+            If newtag isn't set, only returns the list, otherwise adds it to the
+            head of the list and saves it into the settings
+        """
+        tags = settings.get_option ('gui/tags_sorting_order',
+            ['artist', 'date', 'album', 'discnumber', 'tracknumber', 'title'])
+        
+        if newtag:
+            if newtag in tags:
+                tags.remove (newtag)
+            tags.insert (0, newtag)
+            settings.set_option ('gui/tags_sorting_order', tags)
+        
+        return tags
 
     def reorder_songs(self):
         """
@@ -920,7 +937,7 @@ class Playlist(gtk.VBox):
         attr, reverse = self.get_sort_by()
 
         songs = self.playlist.search(self.search_keyword,
-            (attr, 'artist', 'date', 'album', 'discnumber', 'tracknumber', 'title'))
+            tuple (self.return_order_tags (attr)))
 
         if reverse:
             songs.reverse()

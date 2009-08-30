@@ -7,6 +7,7 @@ from ConfigParser import SafeConfigParser
 import urlparse
 import oldexailelib, olddb
 import logging
+import time
 
 logger = logging.getLogger(__name__)
 
@@ -77,28 +78,37 @@ def _migrate_old_tracks(oldsettings, db, ntdb):
     libraries = eval(oldsettings.get('DEFAULT', 'search_paths'))
 
     oldtracks = oldexailelib.load_tracks(db)
-    rating_steps = settings.get_option('miscellaneous/rating_steps', 5)
+    rating_steps = 5 # old dbs are hardcoded to 5 steps
 
     for library in libraries:
         ntdb.add_library(collection.Library(library))
 
     newtracks = []
     for oldtrack in oldtracks:
+        # we shouldn't be checking os.path.isfile() here, since if it is a radio link, it will not be migrated
         newtrack = track.Track()
 
         if int(oldtrack._rating) > 0: 
-            newtrack['rating'] = float((100.0*oldtrack._rating)/rating_steps) 
+            newtrack['__rating'] = float((100.0*oldtrack._rating)/rating_steps)
 
         newtrack.set_loc(oldtrack.loc)
+        newtrack['filename'] = os.path.basename(oldtrack.loc)
 
-        for item in ('bitrate', 'artist', 'album', 'track', 'genre', 'date',
-            'track', 'title', 'duration'):
-            if item == 'duration':
-                newtrack['length'] = oldtrack._len
-            elif item == 'track':
-                newtrack['tracknumber'] = oldtrack.track
-            else:
-                newtrack[item] = getattr(oldtrack, item)
+        db_map = {'bitrate': '__bitrate', 'artist': 'artist', 'album': 'album', 'track': 'tracknumber', 'genre': 'genre', 'date': 'date',
+            'title': 'title', 'playcount': '__playcount'}
+
+        newtrack['__length'] = int(getattr(oldtrack, 'duration'))
+        
+        # Apparently, there is a bug in exaile 0.2.xx that dumps the time as hh:mm:YYYY, rather than hh:mm:ss. This is a workaround, that takes the seconds == 0, since this information is lost b/c of the bug
+        temp_time = oldtrack.time_added;
+
+        try:
+            newtrack['__date_added'] = time.mktime(time.strptime(temp_time[0:len(temp_time)-5],'%Y-%m-%d %H:%M'))
+        except ValueError:
+            pass
+
+        for item in db_map.keys():
+            newtrack[db_map[item]] = getattr(oldtrack, item)
 
         newtrack._scan_valid = True
         newtrack._dirty = True

@@ -95,8 +95,10 @@ def _migrate_old_tracks(oldsettings, db, ntdb):
         newtrack['filename'] = os.path.basename(oldtrack.loc)
 
         db_map = {'bitrate': '__bitrate', 'artist': 'artist', 'album': 'album', 'track': 'tracknumber', 'genre': 'genre', 'date': 'date',
-            'title': 'title', 'duration': '__length', 'playcount': '__playcount'}
+            'title': 'title', 'playcount': '__playcount'}
 
+        newtrack['__length'] = int(getattr(oldtrack, 'duration'))
+        
         # Apparently, there is a bug in exaile 0.2.xx that dumps the time as hh:mm:YYYY, rather than hh:mm:ss. This is a workaround, that takes the seconds == 0, since this information is lost b/c of the bug
         temp_time = oldtrack.time_added;
 

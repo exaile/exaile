@@ -198,7 +198,7 @@ class Track(object):
         """
         # handle values that aren't lists
         if not isinstance(values, list):
-            if tag in common.VALID_TAGS:
+            if not tag.startswith("__"):
                 values = [values]
 
         # for lists, filter out empty values and convert to unicode
@@ -228,6 +228,11 @@ class Track(object):
         """
         if tag == '__basedir':
             return [self.get_tag(tag)]
+        elif tag == '__playcount':
+            val = self.get_tag(tag)
+            if val is None:
+                val = 0
+            return val
         return self.get_tag(tag)
 
     def __setitem__(self, tag, values):

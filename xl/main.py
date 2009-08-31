@@ -117,12 +117,13 @@ class Exaile(object):
 
         firstrun = settings.get_option("general/first_run", True)
 
-        if firstrun:
+        if not self.options.DontImport and \
+                (firstrun or self.options.ForceImport):
             try:
                 sys.path.insert(0, xdg.get_data_path("migrations"))
                 import migration_200907100931 as migrator
                 del sys.path[0]
-                migrator.migrate()
+                migrator.migrate(force=self.options.ForceImport)
                 del migrator
             except:
                 common.log_exception(log=logger, 
@@ -334,6 +335,12 @@ class Exaile(object):
         p.add_option("--safemode", dest="SafeMode", action="store_true",
             default=False, help=_("Start in safe mode - sometimes useful "
             "when you're running into problems"))
+        p.add_option("--force-import", dest="ForceImport", 
+            action="store_true", default=False, help=_("Force import of "
+            "old data from 0.2.x. Overwrites current data."))
+        p.add_option("--dont-import", dest="DontImport", 
+            action="store_true", default=False, help=_("Do not import "
+            "old data from 0.2.x."))
 
         # development and debug options
         p.add_option("--datadir", dest="UseDataDir", help=_("Set data directory"))

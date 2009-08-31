@@ -74,9 +74,6 @@ class AmazonCoverSearch(CoverSearchMethod):
         secret_key = settings.get_option(
             'plugin/amazoncovers/secret_key', '')
 
-        print 'woot', str(api_key)
-        print 'woot', str(secret_key)
-
         if not api_key or not secret_key:
             logger.warning('Please enter your Amazon API and secret '
                 'keys in the Amazon Covers preferences')

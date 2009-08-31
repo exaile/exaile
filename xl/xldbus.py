@@ -279,10 +279,13 @@ class DbusManager(dbus.service.Object):
         progress = self.exaile.player.get_progress()
         if progress == -1:
             return ''
-        length = float(self.GetTrackAttr('__length'))
-        progress = length * progress
+        try:
+            length = float(self.GetTrackAttr('__length'))
+            progress = length * progress
 
-        return '%d:%02d' % (progress // 60, progress % 60)
+            return '%d:%02d' % (progress // 60, progress % 60)
+        except TypeError:
+            return ''
 
     @dbus.service.method("org.exaile.Exaile", None, "s")
     def GetVolume(self):

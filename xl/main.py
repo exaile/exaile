@@ -117,7 +117,7 @@ class Exaile(object):
 
         firstrun = settings.get_option("general/first_run", True)
 
-        if not self.options.DontImport and \
+        if not self.options.NoImport and \
                 (firstrun or self.options.ForceImport):
             try:
                 sys.path.insert(0, xdg.get_data_path("migrations"))
@@ -338,7 +338,7 @@ class Exaile(object):
         p.add_option("--force-import", dest="ForceImport", 
             action="store_true", default=False, help=_("Force import of "
             "old data from 0.2.x. Overwrites current data."))
-        p.add_option("--dont-import", dest="DontImport", 
+        p.add_option("--no-import", dest="NoImport", 
             action="store_true", default=False, help=_("Do not import "
             "old data from 0.2.x."))
 

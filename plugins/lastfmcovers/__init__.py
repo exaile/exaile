@@ -60,7 +60,7 @@ class LastFMCoverSearch(CoverSearchMethod):
 
         covername = os.path.join(cache_dir, hashlib.md5(m.group(1)).hexdigest())
         covername += ".jpg"
-        h = open(covername, 'w')
+        h = open(covername, 'wb')
         h.write(data)
         h.close()
 

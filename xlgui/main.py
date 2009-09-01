@@ -199,6 +199,9 @@ class NotebookTab(gtk.EventBox):
             self.label = gtk.Label("*" + title)
         else:
             self.label = gtk.Label(title)
+        self.label.set_max_width_chars(20)
+        self.label.set_ellipsize(pango.ELLIPSIZE_END)
+        self.label.set_tooltip_text(self.label.get_text())
         hbox.pack_start(self.label, False, False)
 
         self.menu = menu.PlaylistTabMenu(self, self.page.playlist.get_is_custom())
@@ -221,6 +224,7 @@ class NotebookTab(gtk.EventBox):
         return unicode(self.label.get_text(), 'utf-8')
     def set_title(self, title):
         self.label.set_text(title)
+        self.label.set_tooltip_text(self.label.get_text())
     title = property(get_title, set_title)
     
     def on_customness_change(self, custom):
@@ -476,10 +480,6 @@ class MainWindow(object):
             pass
         else:
             name = name % i
-        
-        # make sure the name isn't too long
-        if len(name) > 20:
-            name = name[:20] + "..."
 
         tab = NotebookTab(self, nb, name, pl)
         # We check if the current playlist is empty, to know if it should be replaced

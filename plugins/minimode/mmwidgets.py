@@ -660,10 +660,10 @@ class MMProgressBar(MMWidget, gtk.Alignment):
                 self.disable_timer()
                 fraction = self.bar.get_fraction()
             elif self.player.is_playing():
-                if track.is_local() and track['__length']:
+                if track['__length']:
                     self.enable_timer()
                     fraction = self.player.get_progress()
-                else:
+                elif not track.is_local():
                     self.disable_timer()
                     text = _('Streaming...')
 

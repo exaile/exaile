@@ -111,7 +111,7 @@ class HashedPrefsItem(PrefsItem):
 
     def change(self, *e):
         self._dirty = True
-        self.apply
+        self.apply()
 
     def apply(self, value=None):
         """

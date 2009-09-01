@@ -57,8 +57,10 @@ class PrefsItem(object):
         self.prefs = prefs
 
         self._set_value()
-        if hasattr(self, 'change'):
-            self._setup_change()
+        self._setup_change()
+
+    def change(self, *args):
+        self.apply()
 
     def _setup_change(self):
         """
@@ -109,6 +111,7 @@ class HashedPrefsItem(PrefsItem):
 
     def change(self, *e):
         self._dirty = True
+        self.apply
 
     def apply(self, value=None):
         """

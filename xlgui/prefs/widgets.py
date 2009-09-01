@@ -66,11 +66,9 @@ class PrefsItem(object):
         """
             Sets up the function to be called when this preference is changed
         """
-        try:
-            self.widget.connect('focus-out-event',
-                self.change, self.name, self._get_value())
-        except TypeError:
-            pass
+        self.widget.connect('focus-out-event',
+            self.change, self.name, self._get_value())
+
         try:
             self.widget.connect('activate',
                 lambda *e: self.change(self.widget, None, self.name,

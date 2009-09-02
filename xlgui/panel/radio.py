@@ -214,6 +214,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             except IndexError:
                 pass
 
+        self.playlist_manager.save_playlist(pl)
         self._add_to_tree(pl)
 
     @guiutil.idle_add()

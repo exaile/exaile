@@ -477,9 +477,6 @@ class Library(object):
         formats = metadata.formats.keys()
         db = self.collection
 
-        followedlinks = set() # use this to avoid infinite loops
-        followedlinks.add(gio.File(self.location).get_uri())
-
         totalcount = 0
         count = 0
 
@@ -488,7 +485,6 @@ class Library(object):
         queue = deque()
         queue.append(self.location)
 
-        # count+queue filenames 
         while len(queue) > 0:
             dirloc = queue.pop()
             dir = gio.File(dirloc)
@@ -502,21 +498,24 @@ class Library(object):
                     "standard::symlink-target,time::modified"):
                 type = fileinfo.get_file_type()
                 fil = dir.get_child_for_display_name(fileinfo.get_name())
-                path = fil.get_uri()
+                uri = fil.get_uri()
+                if fileinfo.get_is_symlink():
+                    target = fileinfo.get_symlink_target()
+                    if not "://" in target and not os.path.isabs(target):
+                        logger.warning("Relative symlinks are not "
+                                "supported, skipping %s."%uri)
+                        continue
+                    fil2 = gio.File(target)
+                    # already in the collection, we'll get it anyway
+                    if fil2.has_prefix(dir):
+                        continue
                 if type == gio.FILE_TYPE_DIRECTORY:
-                    if fileinfo.get_is_symlink():
-                        logger.warning("FIXME: no symlinks in gio yet")
-                        continue
-                        # needs to handle relative symlinks nicely
-                        # AND handle uri symlinks... ugh
-                    queue.append(path)
+                    queue.append(uri)
                 elif type == gio.FILE_TYPE_REGULAR:
-                    if fileinfo.get_is_symlink():
-                        logger.warning("FIXME: no symlinks in gio yet")
+                    path = fil.get_path()
+                    if not path:
+                        # not a locally-accessible file
                         continue
-
-                    # TODO: track-adding code should probably be its
-                    # own func
                     try:
                         trmtime = db.get_track_attr(path, '__modified')
                     except TypeError:

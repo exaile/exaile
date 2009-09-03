@@ -114,7 +114,8 @@ def check_exit(options, args):
             'Next', 
             'Prev', 
             'PlayPause',
-            'StopAfterCurrent'
+            'StopAfterCurrent',
+            'GuiToggleVisible'
             )
     for command in run_commands:
         if getattr(options, command):
@@ -155,7 +156,7 @@ class DbusManager(dbus.service.Object):
         self.bus = dbus.SessionBus()
         self.bus_name = dbus.service.BusName('org.exaile.Exaile',
             bus=self.bus)
-        dbus.service.Object.__init__(self, self.bus_name, "/org/exaile/Exaile")
+        dbus.service.Object.__init__(self, self.bus_name, '/org/exaile/Exaile')
 
     @dbus.service.method('org.exaile.Exaile', 's')
     def TestService(self, arg):
@@ -189,7 +190,7 @@ class DbusManager(dbus.service.Object):
             return unicode(value)
         return value
 
-    @dbus.service.method("org.exaile.Exaile", 'sv')
+    @dbus.service.method('org.exaile.Exaile', 'sv')
     def SetTrackAttr(self, attr, value):
         """
             Sets rating of a track
@@ -202,7 +203,7 @@ class DbusManager(dbus.service.Object):
         except TypeError:
             pass
 
-    @dbus.service.method("org.exaile.Exaile", 'i')
+    @dbus.service.method('org.exaile.Exaile', 'i')
     def ChangeVolume(self, value):
         """
             Changes volume by the specified amount (in percent, can be negative)
@@ -210,7 +211,7 @@ class DbusManager(dbus.service.Object):
         player = self.exaile.player
         player.set_volume(player.get_volume() + value)
 
-    @dbus.service.method("org.exaile.Exaile", 'd')
+    @dbus.service.method('org.exaile.Exaile', 'd')
     def Seek(self, value):
         """
             Seeks to the given position in seconds
@@ -218,42 +219,42 @@ class DbusManager(dbus.service.Object):
         player = self.exaile.player
         player.seek(value)
 
-    @dbus.service.method("org.exaile.Exaile")
+    @dbus.service.method('org.exaile.Exaile')
     def Prev(self):
         """
             Jumps to the previous track
         """
         self.exaile.queue.prev()
 
-    @dbus.service.method("org.exaile.Exaile")
+    @dbus.service.method('org.exaile.Exaile')
     def Stop(self):
         """
             Stops playback
         """
         self.exaile.player.stop()
 
-    @dbus.service.method("org.exaile.Exaile")
+    @dbus.service.method('org.exaile.Exaile')
     def Next(self):
         """
             Jumps to the next track
         """
         self.exaile.queue.next()
 
-    @dbus.service.method("org.exaile.Exaile")
+    @dbus.service.method('org.exaile.Exaile')
     def Play(self):
         """
             Starts playback
         """
         self.exaile.queue.play()
 
-    @dbus.service.method("org.exaile.Exaile")
+    @dbus.service.method('org.exaile.Exaile')
     def PlayPause(self):
         """
             Toggle Play or Pause
         """
         self.exaile.player.toggle_pause()
 
-    @dbus.service.method("org.exaile.Exaile")
+    @dbus.service.method('org.exaile.Exaile')
     def StopAfterCurrent(self):
         """
             Toggle stopping after current track
@@ -261,7 +262,7 @@ class DbusManager(dbus.service.Object):
         current_track = self.exaile.queue.get_current()
         self.exaile.queue.stop_track = current_track
 
-    @dbus.service.method("org.exaile.Exaile", None, "s")
+    @dbus.service.method('org.exaile.Exaile', None, 's')
     def CurrentProgress(self):
         """
             Returns the progress into the current track (in percent)
@@ -271,7 +272,7 @@ class DbusManager(dbus.service.Object):
             return ""
         return str(int(progress * 100))
 
-    @dbus.service.method("org.exaile.Exaile", None, "s")
+    @dbus.service.method('org.exaile.Exaile', None, 's')
     def CurrentPosition(self):
         """
             Returns the position inside the current track (as time)
@@ -287,14 +288,14 @@ class DbusManager(dbus.service.Object):
         except TypeError:
             return ''
 
-    @dbus.service.method("org.exaile.Exaile", None, "s")
+    @dbus.service.method('org.exaile.Exaile', None, 's')
     def GetVolume(self):
         """
             Returns the current volume level (in percent)
         """
         return str(self.exaile.player.get_volume())
 
-    @dbus.service.method("org.exaile.Exaile", None, "s")
+    @dbus.service.method('org.exaile.Exaile', None, 's')
     def Query(self):
         """
             Returns information about the currently playing track
@@ -321,21 +322,21 @@ class DbusManager(dbus.service.Object):
 
         return result
 
-    @dbus.service.method("org.exaile.Exaile", None, "s")
+    @dbus.service.method('org.exaile.Exaile', None, 's')
     def GetVersion(self):
         """
             Returns the version of Exaile
         """
         return self.exaile.get_version()
 
-    @dbus.service.method("org.exaile.Exaile", "s")
+    @dbus.service.method('org.exaile.Exaile', 's')
     def PlayFile(self, filename):
         """
             Plays the specified file
         """
         self.exaile.gui.open_uri(filename)
 
-    @dbus.service.method("org.exaile.Exaile", "as")
+    @dbus.service.method('org.exaile.Exaile', 'as')
     def Enqueue(self, filenames):
         """
             Adds the specified files to the current playlist
@@ -375,3 +376,10 @@ class DbusManager(dbus.service.Object):
                 self.exaile.queue.play()
             except IndexError:
                 pass
+
+    @dbus.service.method('org.exaile.Exaile')
+    def GuiToggleVisible(self):
+        """
+            Toggles visibility of the GUI, if possible
+        """
+        self.exaile.gui.main.toggle_visible()

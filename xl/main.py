@@ -275,91 +275,100 @@ class Exaile(object):
         """
             Get the options for exaile
         """
-        from optparse import OptionParser
+        from optparse import OptionParser, OptionGroup
         usage = "Usage: %prog [option...|uri]"
         p = OptionParser(usage=usage)
-        
-        # Playback options
-        p.add_option("-n", "--next", dest="Next", action="store_true",
+
+        group = OptionGroup(p, _('Playback options'))
+        group.add_option("-n", "--next", dest="Next", action="store_true",
             default=False, help=_("Play the next track"))
-        p.add_option("-p", "--prev", dest="Prev", action="store_true",
+        group.add_option("-p", "--prev", dest="Prev", action="store_true",
             default=False,   help=_("Play the previous track"))
-        p.add_option("-s", "--stop", dest="Stop", action="store_true",
+        group.add_option("-s", "--stop", dest="Stop", action="store_true",
             default=False, help=_("Stop playback"))
-        p.add_option("-a", "--play", dest="Play", action="store_true",
+        group.add_option("-a", "--play", dest="Play", action="store_true",
             default=False, help=_("Play"))
-        p.add_option("-t", "--play-pause", dest="PlayPause", 
+        group.add_option("-t", "--play-pause", dest="PlayPause", 
             action="store_true", default=False, help=_("Toggle Play or Pause"))
-        p.add_option("--stop-after-current", dest="StopAfterCurrent",
+        group.add_option("--stop-after-current", dest="StopAfterCurrent",
             action="store_true", default=False,
             help=_("Stop playback after current track"))
+        p.add_option_group(group)
 
-        # Current song options
-        p.add_option("-q", "--query", dest="Query", action="store_true",
+        group = OptionGroup(p, _('Track options'))
+        group.add_option("-q", "--query", dest="Query", action="store_true",
             default=False, help=_("Query player"))
-        p.add_option("--gui-query", dest="GuiQuery", action="store_true",
+        group.add_option("--gui-query", dest="GuiQuery", action="store_true",
             default=False, help=_("Show a popup of the currently playing track"))
-        p.add_option("--get-title", dest="GetTitle", action="store_true",
+        group.add_option("--get-title", dest="GetTitle", action="store_true",
             default=False, help=_("Print the title of current track"))
-        p.add_option("--get-album", dest="GetAlbum", action="store_true",
+        group.add_option("--get-album", dest="GetAlbum", action="store_true",
             default=False, help=_("Print the album of current track"))
-        p.add_option("--get-artist", dest="GetArtist", action="store_true",
+        group.add_option("--get-artist", dest="GetArtist", action="store_true",
             default=False, help=_("Print the artist of current track"))
-        p.add_option("--get-length", dest="GetLength", action="store_true",
+        group.add_option("--get-length", dest="GetLength", action="store_true",
             default=False, help=_("Print the length of current track"))
-        p.add_option('--set-rating', dest="SetRating", action='store',
+        group.add_option('--set-rating', dest="SetRating", action='store',
             type='int', metavar='RATING', help=_('Set rating for current song'))
-        p.add_option('--get-rating', dest='GetRating', action='store_true',
+        group.add_option('--get-rating', dest='GetRating', action='store_true',
             default=False, help=_('Get rating for current song'))
-        p.add_option("--current-position", dest="CurrentPosition", 
+        group.add_option("--current-position", dest="CurrentPosition", 
             action="store_true", default=False, 
             help=_("Print the position inside the current track as time"))
-        p.add_option("--current-progress", dest="CurrentProgress",
+        group.add_option("--current-progress", dest="CurrentProgress",
             action="store_true", default=False,
             help=_("Print the progress inside the current track as percentage"))
+        p.add_option_group(group)
 
-        # Volume options
-        p.add_option("-i", "--increase-vol", dest="IncreaseVolume", action="store", 
+        group = OptionGroup(p, _('Volume options'))
+        group.add_option("-i", "--increase-vol", dest="IncreaseVolume", action="store", 
             type="int", metavar="VOL", help=_("Increases the volume by VOL%"))
-        p.add_option("-l", "--decrease-vol", dest="DecreaseVolume", action="store",
+        group.add_option("-l", "--decrease-vol", dest="DecreaseVolume", action="store",
             type="int", metavar="VOL", help=_("Decreases the volume by VOL%"))
-        p.add_option("--get-volume", dest="GetVolume", action="store_true",
+        group.add_option("--get-volume", dest="GetVolume", action="store_true",
             default=False, help=_("Print the current volume percentage"))
+        p.add_option_group(group)
 
-        # Other options
-        p.add_option("--new", dest="NewInstance", action="store_true",
+        group = OptionGroup(p, _('Other options'))
+        group.add_option("--new", dest="NewInstance", action="store_true",
             default=False, help=_("Start new instance"))
-        p.add_option("--version", dest="ShowVersion", action="store_true")
-        p.add_option("--start-minimized", dest="StartMinimized", action="store_true",
+        group.add_option("--version", dest="ShowVersion", action="store_true")
+        group.add_option("--start-minimized", dest="StartMinimized", action="store_true",
             default=False, help=_("Start minimized (to tray, if possible)"))
-        p.add_option("--safemode", dest="SafeMode", action="store_true",
+        group.add_option("--toggle-visible", dest="GuiToggleVisible", action="store_true",
+            default=False, help=_("Toggle visibility of the GUI (if possible)"))
+        group.add_option("--safemode", dest="SafeMode", action="store_true",
             default=False, help=_("Start in safe mode - sometimes useful "
             "when you're running into problems"))
-        p.add_option("--force-import", dest="ForceImport", 
+        group.add_option("--force-import", dest="ForceImport", 
             action="store_true", default=False, help=_("Force import of "
             "old data from 0.2.x. Overwrites current data."))
-        p.add_option("--no-import", dest="NoImport", 
+        group.add_option("--no-import", dest="NoImport", 
             action="store_true", default=False, help=_("Do not import "
             "old data from 0.2.x."))
+        p.add_option_group(group)
 
         # development and debug options
-        p.add_option("--datadir", dest="UseDataDir", help=_("Set data directory"))
-        p.add_option("--debug", dest="Debug", action="store_true",
+        group = OptionGroup(p, _('Development/Debug options'))
+        group.add_option("--datadir", dest="UseDataDir", help=_("Set data directory"))
+        group.add_option("--debug", dest="Debug", action="store_true",
             default=False, help=_("Show debugging output"))
-        p.add_option("--eventdebug", dest="DebugEvent", 
+        group.add_option("--eventdebug", dest="DebugEvent", 
             action="store_true", default=False, 
             help=_("Enable debugging of xl.event. Generates LOTS of output"))
-        p.add_option("--eventfilter", dest="EventFilter",
+        group.add_option("--eventfilter", dest="EventFilter",
             action='store', type='string', help=_("Filter event debug "
             "output"))
-        p.add_option("--quiet", dest="Quiet", action="store_true",
+        group.add_option("--quiet", dest="Quiet", action="store_true",
             default=False, help=_("Reduce level of output"))
-        p.add_option('--startgui', dest='StartGui', action='store_true',
+        group.add_option('--startgui', dest='StartGui', action='store_true',
             default=False)
-        p.add_option('--no-dbus', dest='Dbus', action='store_false',
+        group.add_option('--no-dbus', dest='Dbus', action='store_false',
             default=True, help=_("Disable D-Bus support"))
-        p.add_option('--no-hal', dest='Hal', action='store_false',
+        group.add_option('--no-hal', dest='Hal', action='store_false',
             default=True, help=_("Disable HAL support."))
+        p.add_option_group(group)
+
         return p
 
     def version(self):

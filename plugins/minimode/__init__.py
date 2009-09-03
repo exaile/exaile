@@ -90,14 +90,12 @@ class MiniMode(gtk.Window):
         self.exaile.gui.main.window.add_accel_group(self.accel_group)
         self.add_accel_group(self.accel_group)
 
-        self._toggle_tray_id = None
         self._configure_id = None
+        self._main_visible_toggle_id = None
 
         self.connect('show', self.on_show)
-
-        if self.exaile.gui.tray_icon is not None:
-            self.toggle_tray_id = self.exaile.gui.tray_icon.connect(
-                'toggle-tray', self.on_toggle_tray)
+        self.exaile.gui.main.connect('main-visible-toggle',
+            self.on_main_visible_toggle)
 
         self.exaile.gui.xml.signal_connect('on_playlist_notebook_switch',
             self.on_playlist_notebook_switch)
@@ -110,9 +108,9 @@ class MiniMode(gtk.Window):
         if self._configure_id is not None:
             self.disconnect(self._configure_id)
             self._configure_id = None
-        if self._toggle_tray_id is not None:
-            self.disconnect(self._toggle_tray_id)
-            self._toggle_tray_id = None
+        if self._main_visible_toggle_id is not None:
+            self.disconnect(self._main_visible_toggle_id)
+            self._main_visible_toggle_id = None
 
         self.remove_accel_group(self.accel_group)
         self.exaile.gui.main.window.remove_accel_group(self.accel_group)
@@ -151,7 +149,7 @@ class MiniMode(gtk.Window):
                 self._configure_id = self.connect('configure-event',
                     self.on_configure)
 
-    def toggle_visibility(self):
+    def toggle_visible(self):
         """
             Toggles visibility of the mini mode window
         """
@@ -284,14 +282,14 @@ class MiniMode(gtk.Window):
         """
             Shows mini mode on activation of a menu item
         """
-        self.toggle_visibility()
+        self.toggle_visible()
         self._active = True
 
     def on_accelerate(self, accel_group, widget, key, modifier):
         """
             Toggles visibility on activation of a key combo
         """
-        self.toggle_visibility()
+        self.toggle_visible()
         self._active = not self._active
 
     def on_previous(self, button):
@@ -325,7 +323,7 @@ class MiniMode(gtk.Window):
         """
             Hides mini mode on button click
         """
-        self.toggle_visibility()
+        self.toggle_visible()
         self._active = False
 
     def on_playlist_notebook_switch(self, notebook, page, page_num):
@@ -367,7 +365,7 @@ class MiniMode(gtk.Window):
         """
         settings.set_option('player/volume', value)
 
-    def on_toggle_tray(self, trayicon):
+    def on_main_visible_toggle(self, main):
         """
             Handles tray icon toggles
         """

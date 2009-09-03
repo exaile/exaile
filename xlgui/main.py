@@ -313,10 +313,11 @@ class NotebookTab(gtk.EventBox):
         if not playlist: return
         playlist.playlist.clear()
 
-class MainWindow(object):
+class MainWindow(gobject.GObject):
     """
         Main Exaile Window
     """
+    __gsignals__ = {'main-visible-toggle': (gobject.SIGNAL_RUN_LAST, bool, ())}
     _mainwindow = None
     def __init__(self, controller, xml, collection, 
         player, queue, covers):
@@ -325,6 +326,8 @@ class MainWindow(object):
 
             @param controller: the main gui controller
         """
+        gobject.GObject.__init__(self)
+
         from xlgui import osd
         self.controller = controller
         self.covers = covers
@@ -1179,11 +1182,14 @@ class MainWindow(object):
         return True
 
     def toggle_visible(self):
-        w = self.window
-        if w.is_active(): # focused
-            w.hide()
-        else:
-            w.present()
+        """
+            Toggles visibility of the main window
+        """
+        toggle_handled = self.emit('main-visible-toggle')
+        if not toggle_handled and self.window.is_active(): # focused
+            self.window.hide()
+        elif not toggle_handled:
+            self.window.present()
 
     def configure_event(self, *e):
         """

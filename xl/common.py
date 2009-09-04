@@ -24,8 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
 
-import locale, logging, os, random, re, string, threading, time, traceback, \
-    urllib, urlparse
+import locale, logging, random, string, sys, threading, time, traceback
 from functools import wraps
 from xl.nls import gettext as _
 
@@ -300,7 +299,7 @@ def random_string(n):
         returns a random string of length n, comprised of ascii characters
     """
     s = ""
-    for x in range(n):
+    for i in xrange(n):
         s += random.choice(string.ascii_letters)
     return s
 
@@ -344,15 +343,6 @@ class VersionError(Exception):
 
     def __str__(self):
         return repr(self.message)
-
-# python<2.5 compatibility. Drop this when python2.4 isn't used so much anymore.
-try:
-    any = any
-except NameError:
-    def any(seq):
-        for e in seq:
-            if e: return True
-        return False
 
 # vim: et sts=4 sw=4
 

@@ -24,12 +24,11 @@
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
 
-from xl.nls import gettext as _
-import os.path, os
-import urllib, traceback
-from xl import common, providers, event, metadata, settings
-import logging
+import logging, os
 from copy import deepcopy
+from xl import common, providers, event, metadata, settings
+from xl.nls import gettext as _
+
 logger = logging.getLogger(__name__)
 
 try:
@@ -79,10 +78,10 @@ class CoverDB(object):
             @param artist: the artist
             @param album: the album
         """
-        if artist and artist in self.artists:
-            if album and album in self.artists[artist]:
-                item = self.artists[artist]
-                del self.artists[artist][album]
+        try:
+            del self.artists[artist][album]
+        except KeyError:
+            pass
 
     def get_cover(self, artist, album):
         """
@@ -479,20 +478,21 @@ class LocalCoverSearch(CoverSearchMethod):
 
         if not os.path.isdir(search_dir):
             raise NoCoverFoundException()
-        for file in os.listdir(search_dir):
-            if not os.path.isfile(os.path.join(search_dir, file)):
+        for filename in os.listdir(search_dir):
+            path = os.path.join(search_dir, filename)
+            if not os.path.isfile(path):
                 continue
 
             # check preferred names
-            if file.lower() in self.preferred_names:
-                covers.append(os.path.join(search_dir, file))
+            if filename.lower() in self.preferred_names:
+                covers.append(path)
                 if limit != -1 and len(covers) == limit:
                     return covers
 
             # check for other names
-            (pathinfo, ext) = os.path.splitext(file)
+            (pathinfo, ext) = os.path.splitext(filename)
             if ext.lower() in self.exts:
-                covers.append(os.path.join(search_dir, file))
+                covers.append(path)
                 if limit != -1 and len(covers) == limit:
                     return covers
 

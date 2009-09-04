@@ -35,7 +35,7 @@
 # also contains functions for saving and loading various playlist formats.
 
 from xl import trackdb, event, xdg, track, collection, settings
-import urllib, random, os, time, cgi
+import cgi, os, random, urllib
 from xl.nls import gettext as _
 
 try:
@@ -43,16 +43,8 @@ try:
 except:
     import pickle
 
-try:
-    import xml.etree.cElementTree as ETree
-except ImportError:
-    try:
-        import cElementTree as ETree
-    except ImportError:
-        import elementtree as ETree
-
-import urlparse
-import logging
+import logging, urlparse
+import xml.etree.cElementTree as ETree
 logger = logging.getLogger(__name__)
 
 class InvalidPlaylistTypeException(Exception):
@@ -61,7 +53,6 @@ class InvalidPlaylistTypeException(Exception):
 def encode_filename(name):
     """Converts name into a valid filename.
     """
-    import string
     # list of invalid chars that need to be encoded
     # Note: '%' is the prefix for encoded chars so blacklist it too
     blacklist = r'<>:"/\|?*%'
@@ -209,12 +200,12 @@ def import_from_pls(path, handle=None):
         else:
             tr['title'] = linedict["file%s"%n].split("/")[-1]
         if "__length%s"%n in linedict:
-            len = float(linedict["__length%s"%n])
+            length = float(linedict["__length%s"%n])
         else:
-            len = 0
-        if len < 1:
-            len = 0
-        tr['__length'] = len
+            length = 0
+        if length < 1:
+            length = 0
+        tr['__length'] = length
         if tr.get_type() == 'file': # FIXME
             tr.read_tags()
         pl.add(tr, ignore_missing_files=False)
@@ -727,21 +718,21 @@ class Playlist(object):
         """
         if not self.random_enabled:
             self.tracks_history = []
-        self.random_enabled = self.random_enabled == False
+        self.random_enabled = not self.random_enabled
         self._dirty = True
 
     def toggle_repeat(self):
         """
             toggle repeat playback
         """
-        self.repeat_enabled = self.repeat_enabled == False
+        self.repeat_enabled = not self.repeat_enabled
         self._dirty = True
 
     def toggle_dynamic(self):
         """
             toggle dynamic adding of similar tracks to the playlist
         """
-        self.dynamic_enabled = self.repeat_enabled == False
+        self.dynamic_enabled = not self.repeat_enabled
         self._dirty = True
 
     def set_random(self, value):

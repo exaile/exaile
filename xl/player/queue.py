@@ -25,14 +25,15 @@
 # from your version.
 
 
-from xl import playlist, settings, event, common
-import logging, time
-logger = logging.getLogger(__name__)
-
+import logging
 try:
     import cPickle as pickle
 except:
     import pickle
+
+from xl import playlist, settings, event, common
+
+logger = logging.getLogger(__name__)
 
 class PlayQueue(playlist.Playlist):
 

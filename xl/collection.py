@@ -40,7 +40,6 @@ from xl.settings import SettingsManager
 
 import os, time, os.path, shutil, logging
 import gobject
-import urllib
 import traceback
 
 logger = logging.getLogger(__name__)
@@ -279,7 +278,7 @@ class Collection(trackdb.TrackDB):
             closing network connections, etc.
         """
         #TODO: make close() part of trackdb
-        collections.remove(self)
+        COLLECTIONS.remove(self)
 
     def delete_tracks(self, tracks):
         for tr in tracks:
@@ -304,7 +303,6 @@ except ImportError:
     pyinotify = None
 except:
     pyinotify = None
-    import traceback
     traceback.print_exc()
 
 class INotifyEventProcessor(ProcessEvent):
@@ -500,7 +498,7 @@ class Library(object):
                     continue
 
             tr = track.Track(fullpath)
-            if tr._scan_valid == True:
+            if tr._scan_valid:
                 db.add(tr)
 
     def _remove_locations(self, locations):
@@ -599,7 +597,6 @@ class Library(object):
 
         logger.info("Scanning library: %s" % self.location)
         self.scanning = True
-        formats = metadata.formats.keys()
         db = self.collection
 
         compilations = []
@@ -644,7 +641,7 @@ class Library(object):
                     tr.read_tags()
                 else:
                     tr = track.Track(fullpath)
-                    if tr._scan_valid == True:
+                    if tr._scan_valid:
                         tr['__date_added'] = time.time()
                         db.add(tr)
 
@@ -756,7 +753,7 @@ class Library(object):
         else:
             shutil.copy(loc, newloc)
         tr = track.Track(newloc)
-        if tr._scan_valid == True:
+        if tr._scan_valid:
             self.collection.add(tr)
 
     def delete(self, loc):

@@ -46,7 +46,7 @@ locale.setlocale(locale.LC_ALL, '')
 from xl.nls import gettext as _
 
 from xl import common, xdg, event
-import os, sys, logging, logging.handlers, time
+import os, sys, logging, logging.handlers
 
 # initiate the logger. logger params are set later
 logger = logging.getLogger(__name__)
@@ -153,7 +153,7 @@ class Exaile(object):
         from xl import player
         from xl.player import queue
         self.player = player.get_player()()
-        self.queue = player.queue.PlayQueue(self.player, 
+        self.queue = queue.PlayQueue(self.player, 
                 location=os.path.join(xdg.get_data_dirs()[0], 'queue.state') )
         event.log_event("player_loaded", self, None)
 

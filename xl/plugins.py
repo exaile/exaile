@@ -27,7 +27,7 @@
 
 from xl.nls import gettext as _
 from xl import xdg, common, settings
-import os, sys, imp, inspect, urllib, tarfile, shutil, traceback
+import imp, inspect, os, shutil, sys, tarfile, traceback
 
 import logging
 logger = logging.getLogger(__name__)
@@ -59,8 +59,9 @@ class PluginsManager(object):
 
     def __findplugin(self, pluginname):
         for dir in self.plugindirs:
-            if os.path.exists(os.path.join(dir, pluginname)):
-                return os.path.join(dir, pluginname)
+            path = os.path.join(dir, pluginname)
+            if os.path.exists(path):
+                return path
         return None
 
     def load_plugin(self, pluginname, reload=False):

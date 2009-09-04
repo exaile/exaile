@@ -24,10 +24,10 @@
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
 
-from xl.nls import gettext as _
-import logging
-import dbus, dbus.service, gobject, sys, os
+import logging, os, sys, traceback
 from optparse import OptionParser
+import dbus, dbus.service, gobject
+from xl.nls import gettext as _
 
 logger = logging.getLogger(__name__)
 

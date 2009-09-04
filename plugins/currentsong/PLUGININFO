@@ -1,4 +1,4 @@
 Version='0.0.2'
-Authors=['Aly Hirani <alyhirani@gmail.com>', 'Jorge VillaseÃ±or <salinasv@gmail.com']
-Name=_('Current song')
-Description=_('Set the current playing song in the Pidgin im client using the tune status (only the supported prpl)')
+Authors=['Aly Hirani <alyhirani@gmail.com>', 'Jorge Villaseñor <salinasv@gmail.com']
+Name=_('Current Song')
+Description=_('Set the current playing song in the Pidgin IM client using the tune status (only the supported prpl)')

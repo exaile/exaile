@@ -18,6 +18,7 @@ import gobject, gtk, os
 import minimodeprefs, mmwidgets
 from xl import event, plugins, settings, xdg
 from xl.nls import gettext as _
+from xlgui.guiutil import get_workarea_size
 
 MINIMODE = None
 
@@ -61,6 +62,8 @@ class MiniMode(gtk.Window):
         self.exaile = exaile
         self._active = False
         self.defaults = self.exaile.plugins.get_plugin_default_preferences('minimode')
+        self.defaults['plugin/minimode/horizontal_position'] = 10
+        self.defaults['plugin/minimode/vertical_position'] = 10
 
         controlpref = minimodeprefs.SelectedControlsPreference
         self.available_controls = controlpref.available_items.keys() or []

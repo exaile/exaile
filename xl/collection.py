@@ -196,7 +196,7 @@ class Collection(trackdb.TrackDB):
 
         self.__count_files()
 
-        scan_interval = 100
+        scan_interval = 20
 
         for library in self.libraries.values():
             event.add_callback(self._progress_update, 'tracks_scanned',

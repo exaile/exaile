@@ -40,26 +40,25 @@ def is_valid_track(loc):
         possibly could be extended to actually opening
         the file and determining
     """
-    sections = loc.split('.');
-    return sections[-1].lower() in metadata.formats
+    extension = gio.File(loc).get_basename().split(".")[-1]
+    return extension.lower() in metadata.formats
 
 def get_tracks_from_uri(uri):
     """
         Returns all valid tracks located at uri
     """
     tracks = []
-    if urlparse.urlparse(uri).scheme == "":
-        uri = "file://" + uri
-    if uri.startswith("file://") and os.path.isdir(uri[7:]):
-        tracks = [
-                    Track(os.path.join(uri, file))
-                    for file in os.listdir(uri[7:])
-                    if is_valid_track(file)
-                 ]
+    gloc = gio.File(uri)
+    type = gloc.query_info("standard::type").get_file_type()
+    if type == gio.FILE_TYPE_DIRECTORY:
+        from xl.collection import Library
+        tracks = set()
+        lib = Library(uri)
+        lib.set_collection(tracks)
+        lib.rescan()
+        tracks = list(tracks)
     else:
         tracks = [Track(uri)]
-        tracks[0]['artist'] = tracks[0]['artist'] or uri
-        tracks[0]['title'] = tracks[0]['title'] or uri
     return tracks
 
 
@@ -75,33 +74,29 @@ class Track(object):
         """
         self.tags = {}
 
-        self._scan_valid = False
+        self._scan_valid = False # whether our last tag read attempt worked
+        self._scanning = False  # flag to avoid sending tag updates on mass
+                                # load
         self._dirty = False
         if _unpickles:
             self._unpickles(_unpickles)
-            self._scan_valid = True # allow tag event firing
         elif uri:
             self.set_loc(uri)
-            if self.read_tags():
-                self._scan_valid = True
+            self.read_tags()
 
     def set_loc(self, loc):
         """
             Sets the location. 
             
-            loc: the location [string]
+            loc: the location [string], as either a uri or a file path.
         """
-        split = urlparse.urlsplit(loc)
-        if split[0] == "":
-            loc = os.path.abspath(loc)
-            loc = urlparse.urlunsplit(('file', split[1], loc, '', ''))
-        self['__loc'] = loc
+        gloc = gio.File(loc)
+        self['__loc'] = gloc.get_uri()
        
-    def get_loc(self):
+    def get_loc_for_display(self):
         """
             Gets the location as unicode (might contain garbled characters) in
-            full absolute url form, i.e. "file:///home/foo/bar baz". If you are
-            trying to get the path for a local file, use local_file_name(..)
+            full absolute url form, i.e. "file:///home/foo/bar baz". 
 
             The value returned by this function may not be safe for IO
             operations.
@@ -118,34 +113,32 @@ class Track(object):
         """
             Returns if the file exists
         """
-        if self.is_local():
-            return os.path.exists(self.local_file_name())
-        else:
-            return  #FIXME: how to handle hanging on missing servers?
-
-            try:
-                urllib2.urlopen(self.get_loc_for_io())
-            except urllib2.URLError, urllib2.HTTPError:
-                return False
-            else:
-                return True
+        return gio.File(self.get_loc_for_io()).query_exists()
 
     def local_file_name(self):
         """
-            If the file is a local file, return a standard path to it, i.e.
-            "/home/foo/bar", If the file is not local, return None
+            If the file is accessible on the local filesystem, return a
+            standard path to it i.e. "/home/foo/bar". Otherwise, return None
+
+            If a path is returned, it is safe to use for IO operations.
         """
-        if not self.is_local():
-            return None
         return gio.File(self['__loc']).get_path()
 
     def get_loc_for_io(self):
         """
-            Gets the location in its original form. should always be correct.
+            Gets the location as a full uri. 
+            
+            Safe for IO operations via gio, not suitable for display to users
+            as it may be in non-utf-8 encodings.
 
             returns: the location [string]
         """
         return self['__loc']
+
+    def get_loc(self):
+        import warnings
+        warnings.warn("get_loc is deprecated!", DeprecationWarning)
+        return self.get_loc_for_io()
 
     def get_album_tuple(self):
         """
@@ -168,12 +161,6 @@ class Track(object):
         else:
             return (metadata.j(self['artist']), 
                 metadata.j(self['album']))
-
-    def get_type(self):
-        b = self['__loc'].find('://')
-        if b == -1: 
-            return 'file'
-        return self['__loc'][:b]
 
     def get_tag(self, tag):
         """
@@ -202,7 +189,7 @@ class Track(object):
 
         # for lists, filter out empty values and convert to unicode
         if isinstance(values, list):
-            values = [common.to_unicode(x, self['encoding']) for x in values
+            values = [common.to_unicode(x, self['__encoding']) for x in values
                 if x not in (None, '')]
             if append:
                 values = list(self.get_tag(tag)).extend(values)
@@ -218,7 +205,7 @@ class Track(object):
             self.tags[tag] = values
 
         self._dirty = True
-        if self._scan_valid:
+        if not self._scanning:
             event.log_event("track_tags_changed", self, tag)
         
     def __getitem__(self, tag):
@@ -247,12 +234,10 @@ class Track(object):
         """
             Writes tags to file
         """
-        if not self.is_local():
-            return False #not a local file
         try:
             f = metadata.get_format(self.get_loc_for_io())
             if f is None:
-                return False # nto a supported type
+                return False # not a supported type
             f.write_tags(self.tags)
             return f
         except:
@@ -263,12 +248,12 @@ class Track(object):
         """
             Reads tags from file
         """
-        if not self.is_local():
-            return False #not a local file
-
         try:
+            self._scanning = True
+            self._scan_valid = False
             f = metadata.get_format(self.get_loc_for_io())
             if f is None:
+                self._scanning = False
                 return False # nto a supported type
             ntags = f.read_all()
             for k,v in ntags.iteritems():
@@ -281,13 +266,18 @@ class Track(object):
             self['__modified'] = mtime
             self['__basedir'] = os.path.dirname(path)
             self._dirty = True
+            self._scan_valid = True
+            self._scanning = False
             return f
         except:
             common.log_exception()
+            self._scanning = False
             return False
 
     def is_local(self):
-        return urlparse.urlsplit(self.get_loc()).scheme == "file"
+        if self.local_file_name():
+            return True
+        return False
 
     def get_track(self):
         """

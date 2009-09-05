@@ -42,6 +42,7 @@ class BaseFormat(object):
     tag_mapping = {}
     others = True
     writable = False
+    ignore_tags = []
 
     def __init__(self, loc):
         self.loc = loc
@@ -101,11 +102,14 @@ class BaseFormat(object):
     def read_all(self):
         tags = []
         for t in self._get_keys():
+            if t in self.ignore_tags:
+                continue
             if t.startswith("__"):
-                logger.warning("Could not import tag %(tag)s from file %(location)s "
-                        "because of possible conflict, please adjust "
-                        "your tags if you want to import this." % {
-                            'tag': t, 'location': self.loc})
+                logger.warning("Could not import tag %(tag)s from file "
+                        "%(location)s because of possible conflict from "
+                        "leading __, please adjust your tag names if you "
+                        "want to import this tag." % \
+                                {'tag': t, 'location': self.loc})
                 continue
             tags.append(t)
         all = self.read_tags(tags)

@@ -38,6 +38,7 @@ except (ImportError, OSError):
 
 class ModFormat(BaseFormat):
     MutagenType = FileType #not actually used
+    ignore_tags = ["__length"]
 
     def load(self):
         if modplug:

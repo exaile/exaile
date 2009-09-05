@@ -438,7 +438,7 @@ class Library(object):
                 ccheck[basedir] = {}
 
             if not album in ccheck[basedir]:
-                ccheck[basedir][album] = []
+                ccheck[basedir][album] = deque()
         except TypeError:
             common.log_exception(log=logger)
             return
@@ -500,11 +500,8 @@ class Library(object):
             returns: the Track object, None if it could not be updated
         """
         uri = gloc.get_uri()
-        if not uri:
-            # not a locally-accessible file
-            # TODO: remove this when the rest of the code can handle
-            # non-local files
-            return None
+        if not uri: # we get segfaults if this check is removed
+            return None 
         mtime = gloc.query_info("time::modified").get_modification_time()
         trmtime = None
         try:
@@ -546,7 +543,7 @@ class Library(object):
 
         count = 0
         dirtracks = deque()
-        compilations = []
+        compilations = deque()
         ccheck = {}
         for fil in self._walk(libloc):
             count += 1

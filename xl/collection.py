@@ -38,10 +38,9 @@ from xl.nls import gettext as _
 from xl import trackdb, track, common, xdg, event, metadata, settings
 from xl.settings import SettingsManager
 
-import os, time, os.path, shutil, logging
+import os, time, os.path, shutil, logging, urllib
+from collections import deque
 import gobject, gio
-import urllib
-import traceback
 
 logger = logging.getLogger(__name__)
 
@@ -391,27 +390,16 @@ class Library(object):
 
             self.collection.remove(track)
 
-    def _walk(self, location):
-        """
-            Compatibility wrapper for Python 2.5
-        """
-        try:
-            return os.walk(self.location, followlinks=True)
-        except TypeError:
-            return os.walk(self.location)
-
     def _count_files(self):
         """
             Counts the number of files present in this directory
         """
-        return 0
-
         count = 0
-        for folder in self._walk(self.location):
+        for file in self._walk(gio.File(self.location)):
             if self.collection:
                 if self.collection._scan_stopped: 
                     return
-            count += len(folder[2])
+            count += 1
 
         return count
 
@@ -461,44 +449,30 @@ class Library(object):
 
         ccheck[basedir][album].append(artist)
 
-    def rescan(self, notify_interval=None):
+    def _walk(self, root):
         """
-            Rescan the associated folder and add the contained files
-            to the Collection
+            Walk through a gio directory, returning each file in turn.
+
+            Files are enumerated in the following order: first the directory,
+            then the files in that directory. Once one directory's files have
+            all been listed, it moves on to the next directory. Order of files
+            within a dir and order of dir traversal is not specified.
+
+            :root: A gio.File representing the directory to walk through
+            
+            returns a generator object that yields each gio.File in turn
         """
-        if self.collection is None:
-            return True
-
-        if self.scanning: 
-            return 
-
-        logger.info("Scanning library: %s" % self.location)
-        self.scanning = True
-        formats = metadata.formats.keys()
-        db = self.collection
-
-        totalcount = 0
-        count = 0
-
-        from collections import deque
-
         queue = deque()
-        queue.append(self.location)
+        queue.append(root)
 
         while len(queue) > 0:
-            dirloc = queue.pop()
-            dir = gio.File(dirloc)
-
-            dirtracks = deque()
-            compilations = []
-            ccheck = {}
-
+            dir = queue.pop()
+            yield dir
             for fileinfo in dir.enumerate_children("standard::type," 
                     "standard::is-symlink,standard::name," 
                     "standard::symlink-target,time::modified"):
-                type = fileinfo.get_file_type()
                 fil = dir.get_child_for_display_name(fileinfo.get_name())
-                uri = fil.get_uri()
+                # FIXME: recursive symlinks could cause an infinite loop
                 if fileinfo.get_is_symlink():
                     target = fileinfo.get_symlink_target()
                     if not "://" in target and not os.path.isabs(target):
@@ -507,62 +481,121 @@ class Library(object):
                     # already in the collection, we'll get it anyway
                     if fil2.has_prefix(dir):
                         continue
+                type = fileinfo.get_file_type()
                 if type == gio.FILE_TYPE_DIRECTORY:
-                    queue.append(uri)
+                    queue.append(fil)
                 elif type == gio.FILE_TYPE_REGULAR:
-                    path = fil.get_path()
-                    if not path:
-                        # not a locally-accessible file
-                        continue
-                    try:
-                        trmtime = db.get_track_attr(path, '__modified')
-                    except TypeError:
-                        pass
-                    except:
-                        common.log_exception(log=logger)
-                    else:
-                        mtime = fileinfo.get_modification_time()
-                        if mtime <= trmtime:
-                            continue
+                    yield fil
 
-                    tr = db.get_track_by_loc(path)
-                    if tr:
-                        tr.read_tags()
-                    else:
-                        tr = track.Track(path)
-                        if tr._scan_valid == True:
-                            tr['__date_added'] = time.time()
-                            db.add(tr)
-                    if dirtracks is not None:
-                        dirtracks.append(tr)
-                        # do this so that if we have, say, a 4000-song folder
-                        # we dont get bogged down trying to keep track of them
-                        # for compilation detection. Most albums have far fewer
-                        # than 100 tracks anyway, so it is unlikely that this
-                        # restriction will affect the heuristic's accuracy
-                        if len(dirtracks) > 100:
-                            logger.info("Too many files, skipping "
-                                    "compilation detection heuristic.")
-                            dirtracks = None
+    def update_track(self, gloc):
+        """
+            Rescan the track at a given location
 
-                    self._check_compilation(ccheck, compilations, tr)
+            :gloc: A gio.File representing the location
 
-            for (basedir, album) in compilations:
-                base = basedir.replace('"', '\\"')
-                alb = album.replace('"', '\\"')
-                items = [ tr for tr in dirtracks if \
-                        tr['__basedir'] == base and \
-                        # FIXME: this is ugly
-                        alb in u"".join(tr['album']) ]
-                for item in items:
-                    item['__compilation'] = (basedir, album)
+            returns: the Track object, None if it could not be updated
+        """
+        path = gloc.get_path()
+        if not path:
+            # not a locally-accessible file
+            # TODO: remove this when the rest of the code can handle
+            # non-local files
+            return None
+        try:
+            trmtime = self.collection.get_track_attr(path, '__modified')
+        except TypeError:
+            pass
+        except:
+            common.log_exception(log=logger)
+        else:
+            mtime = fileinfo.get_modification_time()
+            if mtime <= trmtime:
+                return None
+        tr = self.collection.get_track_by_loc(path)
+        if tr:
+            tr.read_tags()
+        else:
+            tr = track.Track(path)
+            if tr._scan_valid == True:
+                tr['__date_added'] = time.time()
+                self.collection.add(tr)
+        return tr
+
+    def rescan(self, notify_interval=None):
+        """
+            Rescan the associated folder and add the contained files
+            to the Collection
+        """
+        # TODO: use gio's cancellable support
+
+        if self.collection is None:
+            return True
+
+        if self.scanning: 
+            return 
+
+        logger.info("Scanning library: %s" % self.location)
+        self.scanning = True
+        db = self.collection
+
+        count = 0
+        dirtracks = deque()
+        compilations = []
+        ccheck = {}
+        for fil in self._walk(gio.File(self.location)):
+            count += 1
+            type = fil.query_file_type(flags=gio.FILE_QUERY_INFO_NONE, 
+                    cancellable=gio.Cancellable())
+            if type == gio.FILE_TYPE_DIRECTORY:
+                if dirtracks:
+                    for tr in dirtracks:
+                        self._check_compilation(ccheck, compilations, tr)
+                dirtracks = deque()
+            elif type == gio.FILE_TYPE_REGULAR:
+                tr = self.update_track(fil)
+                if not tr:
+                    continue
+
+                if dirtracks is not None:
+                    dirtracks.append(tr)
+                    # do this so that if we have, say, a 4000-song folder
+                    # we dont get bogged down trying to keep track of them
+                    # for compilation detection. Most albums have far fewer
+                    # than 100 tracks anyway, so it is unlikely that this
+                    # restriction will affect the heuristic's accuracy
+                    if len(dirtracks) > 100:
+                        logger.info("Too many files, skipping "
+                                "compilation detection heuristic.")
+                        dirtracks = None
+
+            if self.collection and self.collection._scan_stopped:
+                self.scanning = False
+                return
+
+            # progress update
+            if notify_interval is not None and count % notify_interval == 0:
+                event.log_event('tracks_scanned', self, count)
+
+        # final progress update
+        if notify_interval is not None:
+            event.log_event('tracks_scanned', self, count)        
+
+        for (basedir, album) in compilations:
+            base = basedir.replace('"', '\\"')
+            alb = album.replace('"', '\\"')
+            items = [ tr for tr in dirtracks if \
+                    tr['__basedir'] == base and \
+                    # FIXME: this is ugly
+                    alb in u"".join(tr['album']) ]
+            for item in items:
+                item['__compilation'] = (basedir, album)
 
         removals = deque()
         location = self.location
         if "://" not in location:
             location = u"file://" + location
 
-        for k, tr in db.tracks.iteritems():
+        for k, tr in self.collection.tracks.iteritems():
             tr = tr._track
             loc = tr.get_loc_for_io()
             if not loc: 
@@ -579,7 +612,7 @@ class Library(object):
        
         for tr in removals:
             logger.debug(u"Removing %s"%unicode(tr))
-            db.remove(tr)
+            self.collection.remove(tr)
 
     def is_realtime(self):
         """

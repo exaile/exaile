@@ -42,7 +42,6 @@ Events should be emitted AFTER the given event has taken place. Often the
 most appropriate spot is immediately before a return statement.
 """
 
-from xl.nls import gettext as _
 import threading, time, logging, traceback, weakref
 from new import instancemethod 
 from inspect import ismethod
@@ -111,23 +110,23 @@ def timeout_add(interval, function, *args, **kwargs):
 
     return timer    
 
-def log_event(type, object, data, async=True):
+def log_event(type, obj, data, async=True):
     """
         Sends an event.
 
         type: the 'type' or 'name' of the event. [string]
-        object: the object sending the event. [object]
+        obj: the object sending the event. [object]
         data: some data about the event, None if not required [object]
         async: whether or not to emit asyncronously. [bool]
     """
     global EVENT_MANAGER
-    e = Event(type, object, data, time.time())
+    e = Event(type, obj, data, time.time())
     if async and not _TESTING:
         EVENT_MANAGER.emit_async(e)
     else:
         EVENT_MANAGER.emit(e)
 
-def add_callback(function, type=None, object=None, *args, **kwargs):
+def add_callback(function, type=None, obj=None, *args, **kwargs):
     """
         Sets an Event callback
 
@@ -140,15 +139,15 @@ def add_callback(function, type=None, object=None, *args, **kwargs):
         @param type: the 'type' or 'name' of the event to listen for, eg 
                 "track_added",  "cover_changed". Defaults to any event if 
                 not specified. [string]
-        @param object: the object to listen to events from, eg exaile.collection, 
+        @param obj: the object to listen to events from, eg exaile.collection, 
                 exaile.cover_manager. Defaults to any object if not 
                 specified. [object]
         Any additional paramaters will be passed to the callback.
     """
     global EVENT_MANAGER
-    EVENT_MANAGER.add_callback(function, type, object, args, kwargs)
+    EVENT_MANAGER.add_callback(function, type, obj, args, kwargs)
 
-def remove_callback(function, type=None, object=None):
+def remove_callback(function, type=None, obj=None):
     """
         Removes a callback
 
@@ -156,7 +155,7 @@ def remove_callback(function, type=None, object=None):
         the callback
     """
     global EVENT_MANAGER
-    EVENT_MANAGER.remove_callback(function, type, object)
+    EVENT_MANAGER.remove_callback(function, type, obj)
 
 def idle_add(func, *args):
     """
@@ -198,14 +197,14 @@ class Event(object):
     """
         Represents an Event
     """
-    def __init__(self, type, object, data, time):
+    def __init__(self, type, obj, data, time):
         """
             type: the 'type' or 'name' for this Event [string]
-            object: the object emitting the Event [object]
+            obj: the object emitting the Event [object]
             data: some piece of data relevant to the Event [object]
         """
         self.type = type
-        self.object = object
+        self.object = obj
         self.data = data
         self.time = time
 
@@ -457,55 +456,57 @@ class EventManager(object):
         """
         self.idle.add(self.emit, event)
 
-    def add_callback(self, function, type, object, args, kwargs):
+    def add_callback(self, function, type, obj, args, kwargs):
         """
             Registers a callback.
             You should always specify at least one of type or object.
 
             @param function: The function to call [function]
-            @param type:     The 'type' or 'name' of event to listen for. Defaults
+            @param type: The 'type' or 'name' of event to listen for. Defaults
                 to any. [string]
-            @param object:   The object to listen to events from. Defaults
+            @param obj: The object to listen to events from. Defaults
                 to any. [string]
         """
         # add the specified categories if needed.
         if not self.callbacks.has_key(type):
             self.callbacks[type] = weakref.WeakKeyDictionary()
-        if object is None:
-            object = _NONE
-        if not self.callbacks[type].has_key(object):
-            self.callbacks[type][object] = []
+        if obj is None:
+            obj = _NONE
+        try:
+            callbacks = self.callbacks[type][obj]
+        except KeyError:
+            callbacks = self.callbacks[type][obj] = []
 
         # add the actual callback
-        self.callbacks[type][object].append(
-                Callback(function, time.time(), args, kwargs))
+        callbacks.append(Callback(function, time.time(), args, kwargs))
 
         if self.use_logger:
             if not self.logger_filter or re.search(self.logger_filter, type):
                 logger.debug("Added callback %s for [%s, %s]" % 
-                        (function, type, object))
+                        (function, type, obj))
     
-    def remove_callback(self, function, type=None, object=None):
+    def remove_callback(self, function, type=None, obj=None):
         """
             Unsets a callback
 
             The parameters must match those given when the callback was
             registered. (minus any additional args)
         """
-        self.idle.add(self._remove_callback, function, type, object)
+        self.idle.add(self._remove_callback, function, type, obj)
 
-    def _remove_callback(self, function, type, object):
+    def _remove_callback(self, function, type, obj):
         """
             Unsets a callback. 
 
             The parameters must match those given when the callback was
             registered.
         """
-        if object is None:
-            object = _NONE
+        if obj is None:
+            obj = _NONE
         remove = []
         try:
-            for cb in self.callbacks[type][object]:
+            callbacks = self.callbacks[type][obj]
+            for cb in callbacks:
                 if cb.wfunction() == function:
                     remove.append(cb)
         except KeyError:
@@ -514,12 +515,12 @@ class EventManager(object):
             return
 
         for cb in remove:
-            self.callbacks[type][object].remove(cb)
+            callbacks.remove(cb)
 
         if self.use_logger:
             if not self.logger_filter or re.search(self.logger_filter, type):
                 logger.debug("Removed callback %s for [%s, %s]" % 
-                        (function, type, object))
+                        (function, type, obj))
 
 
 class Waiter(threading.Thread):
@@ -550,7 +551,7 @@ class Waiter(threading.Thread):
 
     def _call_function(self):
         try:
-            self.func.__call__(*self.args, **self.kwargs)
+            self.function(*self.args, **self.kwargs)
         except:
             common.log_exception()
 

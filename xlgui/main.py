@@ -199,6 +199,9 @@ class NotebookTab(gtk.EventBox):
             self.label = gtk.Label("*" + title)
         else:
             self.label = gtk.Label(title)
+        self.label.set_max_width_chars(20)
+        self.label.set_ellipsize(pango.ELLIPSIZE_END)
+        self.label.set_tooltip_text(self.label.get_text())
         hbox.pack_start(self.label, False, False)
 
         self.menu = menu.PlaylistTabMenu(self, self.page.playlist.get_is_custom())
@@ -221,6 +224,7 @@ class NotebookTab(gtk.EventBox):
         return unicode(self.label.get_text(), 'utf-8')
     def set_title(self, title):
         self.label.set_text(title)
+        self.label.set_tooltip_text(self.label.get_text())
     title = property(get_title, set_title)
     
     def on_customness_change(self, custom):
@@ -309,10 +313,11 @@ class NotebookTab(gtk.EventBox):
         if not playlist: return
         playlist.playlist.clear()
 
-class MainWindow(object):
+class MainWindow(gobject.GObject):
     """
         Main Exaile Window
     """
+    __gsignals__ = {'main-visible-toggle': (gobject.SIGNAL_RUN_LAST, bool, ())}
     _mainwindow = None
     def __init__(self, controller, xml, collection, 
         player, queue, covers):
@@ -321,6 +326,8 @@ class MainWindow(object):
 
             @param controller: the main gui controller
         """
+        gobject.GObject.__init__(self)
+
         from xlgui import osd
         self.controller = controller
         self.covers = covers
@@ -476,10 +483,6 @@ class MainWindow(object):
             pass
         else:
             name = name % i
-        
-        # make sure the name isn't too long
-        if len(name) > 20:
-            name = name[:20] + "..."
 
         tab = NotebookTab(self, nb, name, pl)
         # We check if the current playlist is empty, to know if it should be replaced
@@ -1179,11 +1182,14 @@ class MainWindow(object):
         return True
 
     def toggle_visible(self):
-        w = self.window
-        if w.is_active(): # focused
-            w.hide()
-        else:
-            w.present()
+        """
+            Toggles visibility of the main window
+        """
+        toggle_handled = self.emit('main-visible-toggle')
+        if not toggle_handled and self.window.is_active(): # focused
+            self.window.hide()
+        elif not toggle_handled:
+            self.window.present()
 
     def configure_event(self, *e):
         """

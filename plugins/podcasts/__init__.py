@@ -174,7 +174,7 @@ class PodcastPanel(panel.Panel):
                 tracks.append(tr)
             
             pl.add_tracks(tracks)
-            self._set_status('Idle.')
+            self._set_status(_('Idle.'))
 
             self._open_podcast(pl, title)
             self.podcast_playlists.save_playlist(pl, overwrite=True)

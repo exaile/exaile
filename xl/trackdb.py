@@ -34,19 +34,16 @@ TrackDB
     fast, advanced method for searching a dictionary of tracks
 """
 
-from xl.nls import gettext as _
-from xl import common, track, event, xdg
-
+import logging, random, shelve, traceback
+from copy import deepcopy
 try:
     import cPickle as pickle
 except:
     import pickle
 
-import shelve
-import traceback
+from xl import common, track, event, xdg
+from xl.nls import gettext as _
 
-from copy import deepcopy
-import logging, random, time, os, time
 logger = logging.getLogger(__name__)
 
 #FIXME: make these user-customizable
@@ -68,7 +65,7 @@ def get_sort_tuple(fields, track):
         return x
     items = []
     if not type(fields) in (list, tuple):
-        items = [lower(track.sort_param(field))]
+        items = [lower(track.sort_param(fields))]
     else:
         items = [lower(track.sort_param(field)) for field in fields]
 
@@ -483,7 +480,7 @@ class TrackSearcher(object):
             elif in_quotes and c != "\"":
                 newsearch += c
             elif c == "\"":
-                in_quotes = in_quotes == False # toggle
+                in_quotes = not in_quotes # toggle
                 newsearch += c
             elif c in ["|", "!", "(", ")"]:
                 newsearch += " " + c + " "
@@ -527,7 +524,7 @@ class TrackSearcher(object):
                 etokens.append(tk)
                 counter += 1
             else:
-                if tokens[counter].strip() is not "":
+                if tokens[counter].strip() != "":
                     etokens.append(tokens[counter])
                 counter += 1
         tokens = etokens

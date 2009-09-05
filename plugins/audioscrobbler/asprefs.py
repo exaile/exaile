@@ -41,7 +41,7 @@ class PassPreference(widgets.HashedPrefsItem):
 class UrlPreference(widgets.ComboEntryPrefsItem):
     name = 'plugin/ascrobbler/url'
     default = 'http://post.audioscrobbler.com/'
-    preset_items = [
-        'http://post.audioscrobbler.com/',
-        'http://turtle.libre.fm/'
-        ]
+    preset_items = {
+        'http://post.audioscrobbler.com/': 'Last.fm',
+        'http://turtle.libre.fm/': 'Libre.fm'
+        }

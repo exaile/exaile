@@ -102,7 +102,7 @@ class Device(object):
         return self.name
 
     def autoconnect(self):
-        if self.class_autoconnect == True:
+        if self.class_autoconnect:
             self.connect()
 
     def is_connected(self):

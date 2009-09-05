@@ -87,21 +87,25 @@ def on_begin_action(type, player, track):
 def on_stop_action(type, player, track):
     client.setTune("", "", "")
 
+def on_pause_action(type, player, track):
+	if player.is_playing():
+		on_begin_action(type, player, track)
+	else:
+		on_stop_action(type, player, track)
+
 def enable(exaile):
     global client
     obj = dbus.SessionBus().get_object('im.pidgin.purple.PurpleService',
                                    '/im/pidgin/purple/PurpleObject')
     purple = dbus.Interface(obj, "im.pidgin.purple.PurpleInterface")
     client = Pidgin(purple)
-    event.add_callback(on_stop_action, 'playback_player_end')
-    event.add_callback(on_stop_action, 'playback_player_pause')
     event.add_callback(on_stop_action, 'quit_application')
-    event.add_callback(on_begin_action, 'playback_player_resume')
-    event.add_callback(on_begin_action, 'playback_player_start')
+    event.add_callback(on_stop_action, 'playback_player_end')
+    event.add_callback(on_begin_action, 'playback_track_start')
+    event.add_callback(on_pause_action, 'playback_toggle_pause')
 
 def disable(exaile):
-    event.remove_callback(on_stop_action, 'playback_player_end')
-    event.remove_callback(on_stop_action, 'playback_player_pause')
     event.remove_callback(on_stop_action, 'quit_application')
-    event.remove_callback(on_begin_action, 'playback_player_resume')
-    event.remove_callback(on_begin_action, 'playback_player_start')
+    event.remove_callback(on_stop_action, 'playback_player_end')
+    event.remove_callback(on_begin_action, 'playback_track_start')
+    event.remove_callback(on_pause_action, 'playback_toggle_pause')

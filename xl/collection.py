@@ -38,7 +38,7 @@ from xl.nls import gettext as _
 from xl import trackdb, track, common, xdg, event, metadata, settings
 from xl.settings import SettingsManager
 
-import os, time, os.path, shutil, logging, urllib
+import os, time, os.path, shutil, logging
 from collections import deque
 import gobject, gio
 
@@ -282,14 +282,13 @@ class Collection(trackdb.TrackDB):
             closing network connections, etc.
         """
         #TODO: make close() part of trackdb
-        collections.remove(self)
+        COLLECTIONS.remove(self)
 
     def delete_tracks(self, tracks):
         for tr in tracks:
             for prefix, lib in self.libraries.iteritems():
                 if tr['__loc'].startswith('file://%s'%prefix):
                     lib.delete(tr['__loc'])
-
 
 class Library(object):
     """
@@ -376,7 +375,7 @@ class Library(object):
                     continue
 
             tr = track.Track(fullpath)
-            if tr._scan_valid == True:
+            if tr._scan_valid:
                 db.add(tr)
 
     def _remove_locations(self, locations):
@@ -678,7 +677,7 @@ class Library(object):
         else:
             shutil.copy(loc, newloc)
         tr = track.Track(newloc)
-        if tr._scan_valid == True:
+        if tr._scan_valid:
             self.collection.add(tr)
 
     def delete(self, loc):

@@ -24,12 +24,12 @@
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
 
-import dbus, time
+import logging
+import dbus
 
 from xl import common, providers, event, devices, settings
 from xl.nls import gettext as _
 
-import logging
 logger = logging.getLogger(__name__)
 
 class HAL(providers.ProviderHandler):

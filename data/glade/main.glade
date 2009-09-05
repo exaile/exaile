@@ -766,43 +766,24 @@ Right Click for Stop After Track Feature</property>
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkVBox" id="vbox5">
-                        <property name="height_request">34</property>
+                      <widget class="GtkAlignment" id="alignment2">
                         <property name="visible">True</property>
-                        <property name="orientation">vertical</property>
-                        <child>
-                          <widget class="GtkLabel" id="label3">
-                            <property name="height_request">6</property>
-                            <property name="visible">True</property>
-                          </widget>
-                          <packing>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
+                        <property name="top_padding">6</property>
+                        <property name="bottom_padding">6</property>
+                        <property name="left_padding">3</property>
+                        <property name="right_padding">3</property>
                         <child>
                           <widget class="GtkProgressBar" id="playback_progressbar">
                             <property name="height_request">24</property>
                             <property name="visible">True</property>
                             <property name="events">GDK_BUTTON_MOTION_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_STRUCTURE_MASK</property>
+                            <property name="show_text">True</property>
                             <property name="pulse_step">0.10000000149</property>
                             <property name="text" translatable="yes">0:00 / 0:00</property>
                           </widget>
-                          <packing>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="GtkLabel" id="label4">
-                            <property name="height_request">6</property>
-                            <property name="visible">True</property>
-                          </widget>
-                          <packing>
-                            <property name="position">2</property>
-                          </packing>
                         </child>
                       </widget>
                       <packing>
-                        <property name="padding">4</property>
                         <property name="position">4</property>
                       </packing>
                     </child>

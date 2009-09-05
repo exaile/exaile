@@ -26,7 +26,7 @@
 
 from xl.nls import gettext as _
 from xl import xdg, common, event, providers, settings, metadata
-import os, time, urllib, random, logging
+import logging, os, random, time
 
 logger = logging.getLogger(__name__)
 

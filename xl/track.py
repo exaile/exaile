@@ -24,19 +24,13 @@
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
 
-from xl.nls import gettext as _
-import os, time, urlparse
+import logging, os, urllib2, urlparse
 from copy import deepcopy
-from urlparse import urlparse
-from xl import common
+import gio
+from xl.nls import gettext as _
+from xl import common, settings, event
 import xl.metadata as metadata
 from xl.common import lstrip_special
-import logging, traceback
-import urlparse
-import urllib
-import urllib2
-import gio
-from xl import settings, event
 logger = logging.getLogger(__name__)
 
 def is_valid_track(loc):
@@ -54,7 +48,8 @@ def get_tracks_from_uri(uri):
         Returns all valid tracks located at uri
     """
     tracks = []
-    uri = "file://" + uri if urlparse.urlparse(uri).scheme == "" else uri
+    if urlparse.urlparse(uri).scheme == "":
+        uri = "file://" + uri
     if uri.startswith("file://") and os.path.isdir(uri[7:]):
         tracks = [
                     Track(os.path.join(uri, file))
@@ -281,7 +276,6 @@ class Track(object):
                 
 
             # fill out file specific items
-            split = urlparse.urlsplit(self.get_loc_for_io())
             path = self.local_file_name()
             mtime = os.path.getmtime(path)
             self['__modified'] = mtime

@@ -101,6 +101,15 @@ def gtkrun(f):
 
     return wrapper
 
+def get_workarea_size():
+    """
+        Returns the height and width of the work area
+    """
+    rootwindow = gtk.gdk.get_default_root_window()
+    workarea = gtk.gdk.atom_intern('_NET_WORKAREA')
+
+    return rootwindow.property_get(workarea)[2][2:4] # W,H
+
 class ScalableImageWidget(gtk.Image):
     """
         Custom resizeable image widget

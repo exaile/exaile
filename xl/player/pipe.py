@@ -30,7 +30,7 @@ import pygst
 pygst.require('0.10')
 import gst
 
-import threading, logging, copy
+import copy, logging
 logger = logging.getLogger(__name__)
 
 from xl import event, common, settings

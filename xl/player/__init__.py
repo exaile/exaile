@@ -52,5 +52,6 @@ def get_player():
     else:
         logger.warning("Couldn't find specified playback engine, "
                 "falling back to normal.")
-        return GSTPlayer
+        from xl.player.engine_normal import NormalPlayer
+        return NormalPlayer
 

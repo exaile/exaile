@@ -24,13 +24,9 @@
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
 
-import os, copy
+import copy, logging, os, urllib2, urlparse
 from xl import common
-import urlparse
-import urllib
-import urllib2
 
-import logging
 logger = logging.getLogger(__name__)
 
 INFO_TAGS = ['__bitrate', '__length']

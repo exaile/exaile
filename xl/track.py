@@ -35,6 +35,7 @@ import logging, traceback
 import urlparse
 import urllib
 import urllib2
+import gio
 from xl import settings, event
 logger = logging.getLogger(__name__)
 
@@ -107,6 +108,9 @@ class Track(object):
             full absolute url form, i.e. "file:///home/foo/bar baz". If you are
             trying to get the path for a local file, use local_file_name(..)
 
+            The value returned by this function may not be safe for IO
+            operations.
+
             returns: the location [unicode]
         """
         try:
@@ -138,7 +142,7 @@ class Track(object):
         """
         if not self.is_local():
             return None
-        return common.local_file_from_url(self.get_loc_for_io())
+        return gio.File(self['__loc']).get_path()
 
     def get_loc_for_io(self):
         """

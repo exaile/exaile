@@ -126,8 +126,6 @@ class Collection(trackdb.TrackDB):
         if loc not in self.libraries:
             self.libraries[loc] = library
             library.set_collection(self)
-        else:
-            traceback.print_exc()
         self.serialize_libraries()
         self._dirty = True
 
@@ -194,18 +192,11 @@ class Collection(trackdb.TrackDB):
         self._scanning = True
         self._scan_stopped = False
 
-        self.file_count = 0
-        for library in self.libraries.values():
-            if self._scan_stopped: 
-                self._scanning = False
-                return
-            self.file_count += library._count_files()
+        self.file_count = -1 # negative means we dont know it yet
 
-        logger.info("File count: %d" % self.file_count)
+        self.__count_files()
 
-        scan_interval = self.file_count / len(self.libraries.values()) / 100
-        if not scan_interval: 
-            scan_interval = 1
+        scan_interval = 100
 
         for library in self.libraries.values():
             event.add_callback(self._progress_update, 'tracks_scanned',
@@ -220,13 +211,25 @@ class Collection(trackdb.TrackDB):
             try:
                 self.save_to_location()
             except AttributeError:
-                traceback.print_exc()
+                common.log_exception(log=logger)
 
         event.log_event('scan_progress_update', self, 100)
 
         self._running_total_count = 0
         self._running_count = 0
         self._scanning = False
+        self.file_count = -1
+
+    @common.threaded
+    def __count_files(self):
+        file_count = 0
+        for library in self.libraries.values():
+            if self._scan_stopped: 
+                self._scanning = False
+                return
+            file_count += library._count_files()
+        self.file_count = file_count
+        logger.debug("File count: %s"%self.file_count)
 
     def _progress_update(self, type, library, count):
         """
@@ -236,8 +239,9 @@ class Collection(trackdb.TrackDB):
         self._running_count = count
         count = count + self._running_total_count
 
-        if self.file_count == 0:
-            event.log_event('scan_progress_update', self, 100)
+        if self.file_count < 0:
+            event.log_event('scan_progress_update', self, 0)
+            return
 
         try:
             event.log_event('scan_progress_update', self,
@@ -384,8 +388,8 @@ class Library(object):
         for loc in locations:
             try:
                 track = self.collection.tracks[loc]
-            except KeyError:    
-                traceback.print_exc()
+            except KeyError:
+                common.log_exception(log=logger)
                 continue
 
             self.collection.remove(track)
@@ -398,7 +402,7 @@ class Library(object):
         for file in self._walk(gio.File(self.location)):
             if self.collection:
                 if self.collection._scan_stopped: 
-                    return
+                    break
             count += 1
 
         return count
@@ -437,7 +441,7 @@ class Library(object):
             if not album in ccheck[basedir]:
                 ccheck[basedir][album] = []
         except TypeError:
-            traceback.print_exc()
+            common.log_exception(log=logger)
             return
 
         if ccheck[basedir][album] and not \
@@ -495,30 +499,31 @@ class Library(object):
 
             returns: the Track object, None if it could not be updated
         """
-        path = gloc.get_path()
-        if not path:
+        uri = gloc.get_uri()
+        if not uri:
             # not a locally-accessible file
             # TODO: remove this when the rest of the code can handle
             # non-local files
             return None
+        mtime = gloc.query_info("time::modified").get_modification_time()
+        trmtime = None
         try:
-            trmtime = self.collection.get_track_attr(path, '__modified')
+            trmtime = self.collection.get_track_attr(uri, '__modified')
         except TypeError:
             pass
         except:
             common.log_exception(log=logger)
-        else:
-            mtime = fileinfo.get_modification_time()
-            if mtime <= trmtime:
-                return None
-        tr = self.collection.get_track_by_loc(path)
+        if trmtime is not None and mtime <= trmtime:
+            return None
+        tr = self.collection.get_track_by_loc(uri)
         if tr:
             tr.read_tags()
         else:
-            tr = track.Track(path)
+            tr = track.Track(uri)
             if tr._scan_valid == True:
                 tr['__date_added'] = time.time()
                 self.collection.add(tr)
+        tr['__modified'] = mtime
         return tr
 
     def rescan(self, notify_interval=None):
@@ -537,12 +542,13 @@ class Library(object):
         logger.info("Scanning library: %s" % self.location)
         self.scanning = True
         db = self.collection
+        libloc = gio.File(self.location)
 
         count = 0
         dirtracks = deque()
         compilations = []
         ccheck = {}
-        for fil in self._walk(gio.File(self.location)):
+        for fil in self._walk(libloc):
             count += 1
             type = fil.query_file_type(flags=gio.FILE_QUERY_INFO_NONE, 
                     cancellable=gio.Cancellable())
@@ -600,14 +606,15 @@ class Library(object):
             loc = tr.get_loc_for_io()
             if not loc: 
                 continue
+            gloc = gio.File(loc)
             try:
-                if not loc.startswith(location):
+                if not gloc.has_prefix(libloc):
                     continue
             except UnicodeDecodeError:
                 common.log_exception(log=logger)
                 continue
 
-            if not os.path.exists(loc.replace('file://', '')):
+            if not gloc.query_exists():
                 removals.append(tr)
        
         for tr in removals:
@@ -664,7 +671,6 @@ class Library(object):
         if not loc.startswith("file://"):
             return
         loc = loc[7:]
-        print self.location
 
         newloc = os.path.join(self.location, os.path.basename(loc))
         if move:
@@ -689,8 +695,7 @@ class Library(object):
             try:
                 os.unlink(path)
             except OSError: # file not found?
-                traceback.print_exc()
-                pass
+                common.log_exception(log=logger)
             except:
                 common.log_exception(logger)
 
@@ -759,7 +764,6 @@ class TransferQueue(object):
 
                 # TODO: make this be based on filesize not count
                 progress = self.current_pos * 100 / len(self.queue)
-                print progress
                 event.log_event('track_transfer_progress', self, progress)
 
                 self.current_pos += 1

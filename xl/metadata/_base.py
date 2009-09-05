@@ -59,22 +59,14 @@ class BaseFormat(object):
         """
             Loads the tags from the file.
         """
-        try:
-            self.url = urllib2.urlopen(self.loc)
-        except urllib2.URLError, urllib2.HTTPError:
-            logger.error("Couldn't open url to file %s" % self.loc)
-            raise NotReadable
-        loc = urlparse.urlsplit(self.loc)
-        if loc[0] == "file":
-            if self.MutagenType:
-                file_loc = common.local_file_from_url(self.loc)
-                try:
-                    self.mutagen = self.MutagenType(file_loc)
-                except:
-                    logger.error("Couldn't read tags from possibly corrupt " \
-                            "file %s" % file_loc)
-                    #common.log_exception(logger)
-                    raise NotReadable
+        if self.MutagenType:
+            try:
+                self.mutagen = self.MutagenType(self.loc)
+            except:
+                logger.error("Couldn't read tags from possibly corrupt " \
+                        "file %s" % file_loc)
+                common.log_exception(logger)
+                raise NotReadable
 
     def save(self):
         """

@@ -25,6 +25,7 @@
 # from your version.
 
 import os
+import gio
 
 # do this so formats can inherit from stuff in _base
 from _base import *
@@ -87,6 +88,9 @@ def get_format(loc):
         if no suitable object can be found, a default object that
         defines title from the filename is used instead.
     """
+    loc = gio.File(loc).get_path()
+    if not loc:
+        return None
     (path, ext) = os.path.splitext(loc.lower())
     ext = ext[1:] # remove the pesky .
     ext = ext.lower()

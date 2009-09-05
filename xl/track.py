@@ -24,17 +24,12 @@
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
 
-from xl.nls import gettext as _
-import os, time, urlparse
+import logging, os, urllib2, urlparse
 from copy import deepcopy
-from urlparse import urlparse
+from xl.nls import gettext as _
 from xl import common
 import xl.metadata as metadata
 from xl.common import lstrip_special
-import logging, traceback
-import urlparse
-import urllib
-import urllib2
 from xl import settings, event
 logger = logging.getLogger(__name__)
 
@@ -46,14 +41,15 @@ def is_valid_track(loc):
         the file and determining
     """
     sections = loc.split('.');
-    return sections[-1] in metadata.formats
+    return sections[-1].lower() in metadata.formats
 
 def get_tracks_from_uri(uri):
     """
         Returns all valid tracks located at uri
     """
     tracks = []
-    uri = "file://" + uri if urlparse.urlparse(uri).scheme == "" else uri
+    if urlparse.urlparse(uri).scheme == "":
+        uri = "file://" + uri
     if uri.startswith("file://") and os.path.isdir(uri[7:]):
         tracks = [
                     Track(os.path.join(uri, file))
@@ -198,7 +194,7 @@ class Track(object):
         """
         # handle values that aren't lists
         if not isinstance(values, list):
-            if tag in common.VALID_TAGS:
+            if not tag.startswith("__"):
                 values = [values]
 
         # for lists, filter out empty values and convert to unicode
@@ -228,6 +224,11 @@ class Track(object):
         """
         if tag == '__basedir':
             return [self.get_tag(tag)]
+        elif tag == '__playcount':
+            val = self.get_tag(tag)
+            if val is None:
+                val = 0
+            return val
         return self.get_tag(tag)
 
     def __setitem__(self, tag, values):
@@ -272,7 +273,6 @@ class Track(object):
                 
 
             # fill out file specific items
-            split = urlparse.urlsplit(self.get_loc_for_io())
             path = self.local_file_name()
             mtime = os.path.getmtime(path)
             self['__modified'] = mtime

@@ -57,18 +57,24 @@ class PrefsItem(object):
         self.prefs = prefs
 
         self._set_value()
-        if hasattr(self, 'change'):
-            self._setup_change()
+        self._setup_change()
+
+    def change(self, *args):
+        self.apply()
 
     def _setup_change(self):
         """
             Sets up the function to be called when this preference is changed
         """
         self.widget.connect('focus-out-event',
-            self.change, self.name, unicode(self.widget.get_text(), 'utf-8'))
-        self.widget.connect('activate',
-            lambda *e: self.change(self.widget, None, self.name,
-                unicode(self.widget.get_text(), 'utf-8')))
+            self.change, self.name, self._get_value())
+
+        try:
+            self.widget.connect('activate',
+                lambda *e: self.change(self.widget, None, self.name,
+                    self._get_value()))
+        except TypeError:
+            pass
 
     def _set_value(self):
         """ 
@@ -109,6 +115,7 @@ class HashedPrefsItem(PrefsItem):
 
     def change(self, *e):
         self._dirty = True
+        self.apply()
 
     def apply(self, value=None):
         """

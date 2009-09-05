@@ -67,7 +67,7 @@ class PreferencesDialog(object):
         self.last_child = None
         self.last_page = None
         self.parent = parent
-        self.settings = _SETTINGSMANAGER.clone()
+        self.settings = _SETTINGSMANAGER
         self.plugins = self.main.exaile.plugins.list_installed_plugins()
         self.fields = {} 
         self.panes = {}
@@ -85,7 +85,6 @@ class PreferencesDialog(object):
 
         self._connect_events()
 
-        self.label = xml.get_widget('prefs_frame_label')
         self.box = xml.get_widget('prefs_box')
 
         self.tree = xml.get_widget('prefs_tree')
@@ -204,8 +203,6 @@ class PreferencesDialog(object):
         if not iter: return
         page = self.model.get_value(iter, 1)
         if not page: return
-        self.label.set_markup("<b>%s</b>" %
-            page.name)
 
         if self.last_child:
             self.box.remove(self.last_child)

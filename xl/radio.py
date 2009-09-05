@@ -24,7 +24,6 @@
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
 
-import urllib, re
 from xl import playlist, track, event, providers
 
 class RadioManager(providers.ProviderHandler):

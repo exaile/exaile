@@ -85,6 +85,7 @@ class TrayIcon(gobject.GObject):
         self.player = main.controller.exaile.player
         self.queue = main.controller.exaile.queue
         self.window = main.window
+        self.main = main
         self._setup_menu()
 
         self.icon = gtk.StatusIcon()
@@ -229,12 +230,7 @@ class TrayIcon(gobject.GObject):
 
     def _button_pressed(self, icon, event):
         if event.button == 1:
-            toggle_handled = self.emit('toggle-tray')
-            if not toggle_handled and self.window.is_active():
-                self.window.hide()
-            elif not toggle_handled:
-                self.window.deiconify()
-                self.window.present()
+            self.main.toggle_visible()
         if event.button == 2:
             self._play_pause_clicked()
         if event.button == 3:
@@ -256,12 +252,7 @@ class TrayIcon(gobject.GObject):
             self.queue.play()
 
     def _activated(self, icon):
-        toggle_handled = self.emit('toggle-tray')
-        if not toggle_handled and self.window.is_active():
-            self.window.hide()
-        elif not toggle_handled:
-            self.window.deiconify()
-            self.window.present()
+        self.main.toggle_visible()
 
     def _query_tooltip(self, *e):
         if settings.get_option('osd/hover_tray', False):

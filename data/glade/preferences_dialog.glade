@@ -11,6 +11,7 @@
     <child internal-child="vbox">
       <widget class="GtkVBox" id="dialog-vbox11">
         <property name="visible">True</property>
+        <property name="orientation">vertical</property>
         <child>
           <widget class="GtkHPaned" id="hpaned1">
             <property name="visible">True</property>
@@ -37,34 +38,11 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkFrame" id="prefs_frame">
+              <widget class="GtkVBox" id="prefs_box">
                 <property name="visible">True</property>
-                <property name="label_xalign">0</property>
+                <property name="orientation">vertical</property>
                 <child>
-                  <widget class="GtkAlignment" id="alignment1">
-                    <property name="visible">True</property>
-                    <property name="yalign">0</property>
-                    <property name="top_padding">7</property>
-                    <property name="left_padding">5</property>
-                    <child>
-                      <widget class="GtkVBox" id="prefs_box">
-                        <property name="visible">True</property>
-                        <child>
-                          <placeholder/>
-                        </child>
-                      </widget>
-                    </child>
-                  </widget>
-                </child>
-                <child>
-                  <widget class="GtkLabel" id="prefs_frame_label">
-                    <property name="visible">True</property>
-                    <property name="label" translatable="yes">&lt;b&gt;General&lt;/b&gt;</property>
-                    <property name="use_markup">True</property>
-                  </widget>
-                  <packing>
-                    <property name="type">label_item</property>
-                  </packing>
+                  <placeholder/>
                 </child>
               </widget>
               <packing>
@@ -82,42 +60,8 @@
             <property name="visible">True</property>
             <property name="layout_style">end</property>
             <child>
-              <widget class="GtkButton" id="apply_button">
-                <property name="label">gtk-apply</property>
-                <property name="response_id">-10</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="can_default">True</property>
-                <property name="receives_default">False</property>
-                <property name="use_stock">True</property>
-                <signal name="clicked" handler="on_apply_button_clicked"/>
-              </widget>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <widget class="GtkButton" id="cancel_button">
-                <property name="label">gtk-cancel</property>
-                <property name="response_id">-6</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="can_default">True</property>
-                <property name="receives_default">False</property>
-                <property name="use_stock">True</property>
-                <signal name="clicked" handler="on_cancel_button_clicked"/>
-              </widget>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
               <widget class="GtkButton" id="ok_button">
-                <property name="label">gtk-ok</property>
+                <property name="label">gtk-close</property>
                 <property name="response_id">-5</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -129,7 +73,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
-                <property name="position">2</property>
+                <property name="position">0</property>
               </packing>
             </child>
           </widget>

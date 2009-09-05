@@ -1,17 +1,23 @@
-PREFIX ?= /usr/local
-LIBINSTALLDIR ?= /lib
-XDGCONFDIR ?= /etc/xdg
+PREFIX 		?= /usr/local
+LIBINSTALLDIR 	?= /lib
+XDGCONFDIR 	?= /etc/xdg
 
-EXAILELIBDIR = $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile
-EXAILESHAREDIR = $(DESTDIR)$(PREFIX)/share/exaile
+EXAILELIBDIR 	= $(DESTDIR)$(PREFIX)$(LIBINSTALLDIR)/exaile
+EXAILESHAREDIR 	= $(DESTDIR)$(PREFIX)/share/exaile
+EXAILECONFDIR 	= $(DESTDIR)$(XDGCONFDIR)/exaile
 
-all: compile
+all: compile locale
+	@echo "Ready to install..."
+
+# The no_locale stuff is by request of BSD people, please ensure
+# all methods that deal with locale stuff have a no_locale variant
+all_no_locale: compile
 	@echo "Ready to install..."
 
 compile:
 	python -m compileall -q xl xlgui
 	-python -O -m compileall -q xl xlgui
-	cd plugins && make && cd ..
+	make -C plugins compile
 
 make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
@@ -35,18 +41,18 @@ make-install-dirs:
 	mkdir -p $(EXAILESHAREDIR)/data/migrations/migration_200907100931
 	mkdir -p $(DESTDIR)$(PREFIX)/share/pixmaps
 	mkdir -p $(DESTDIR)$(PREFIX)/share/applications
-	mkdir -p $(DESTDIR)$(XDGCONFDIR)/exaile
+	mkdir -p $(EXAILECONFDIR)/exaile
 
 uninstall:
 	rm -f  $(DESTDIR)$(PREFIX)/bin/exaile
 	rm -rf $(EXAILELIBDIR)
 	rm -rf $(EXAILESHAREDIR)
-	rm -rf $(DESTDIR)$(XDGCONFDIR)/exaile
+	rm -rf $(EXAILECONFDIR)/exaile
 	rm -f $(DESTDIR)$(PREFIX)/share/applications/exaile.desktop
 	rm -f $(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
-	cd plugins && make uninstall && cd ..
+	make -C plugins uninstall
 
-install: install-target locale install-locale
+install: install-target install-locale
 
 install_no_locale: install-target
 
@@ -79,7 +85,7 @@ install-target: make-install-dirs
 	    	$(EXAILESHAREDIR)/data/migrations/migration_200907100931/
 	install -m 644 data/exaile.desktop \
 		$(DESTDIR)$(PREFIX)/share/applications/	
-	install -m 644 data/config/settings.ini $(DESTDIR)$(XDGCONFDIR)/exaile
+	install -m 644 data/config/settings.ini $(EXAILECONFDIR)/exaile
 	# the printf here is for bsd compat, dont use echo!
 	cd $(DESTDIR)$(PREFIX)/bin && \
 	 printf "#!/bin/sh\n\
@@ -87,8 +93,7 @@ install-target: make-install-dirs
 	 --datadir=$(PREFIX)/share/exaile/data --startgui \"\$$@\"" \
 	 > exaile && \
 	 chmod 755 exaile
-	cd plugins && make install DESTDIR=$(DESTDIR) PREFIX=$(PREFIX) \
-		&& cd ..
+	make -C plugins install
 
 locale:
 	cd po && find . -name "*.po" -exec ../tools/compilepo.sh {} \; && cd ..
@@ -102,19 +107,13 @@ install-locale:
 	    `echo $$f | sed "s|^po|$(DESTDIR)$(PREFIX)/share/locale|"` ; \
 	  done
 
-plugins_extra_install:
-	cd plugins && make extra_install DESTDIR=$(DESTDIR) PREFIX=$(PREFIX) \
-	    && cd ..
-
 plugins_dist:
-	cd plugins && make dist && cd ..
+	make -C plugins dist
 
 clean:
 	-find . -name "*.py[co]" -exec rm -f {} \;
-	find . -name "*.class" -exec rm -f {} \;
-	find . -name "*.bak" -exec rm -f {} \;
 	find po/* -depth -type d -exec rm -r {} \;
-	cd plugins && make clean && cd ..
+	make -C plugins clean
 
 pot:
 	@echo "[encoding: UTF-8]" > po/POTFILES.in
@@ -124,13 +123,11 @@ pot:
 	find plugins -name "*.py" >> po/POTFILES.in
 	find plugins -name "*.glade" >> po/POTFILES.in
 	find plugins -name PLUGININFO >> po/POTFILES.in
-	python tools/createpot.py
-
-translations:
-	python tools/createpot.py compile
+	cd po && XGETTEXT_ARGS="--language=Python" intltool-update \
+	    --pot --gettext-package=messages --verbose && cd ..
 
 potball:
-	tar --bzip2 --format=posix -cf exaile-po.tar.bz2 po/ \
+	tar --bzip2 --format=posix -cf build/exaile-po.tar.bz2 po/ \
 	    --transform s/po/./
 
 .PHONY: dist 

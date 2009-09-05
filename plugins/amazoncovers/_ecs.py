@@ -32,39 +32,42 @@ def generate_timestamp():
     ret = datetime.datetime.utcnow()
     return ret.isoformat() + 'Z'
 
-def generate_signature(key, params):
-
-    param_string = urllib.urlencode(params)
-    params = param_string.split('&')
-
-    params.sort()
-    param_string = '&'.join(params)
-
-    hm = hmac.new(str(key), 
-        "GET\nwebservices.amazon.com\n/onca/xml\n%s" %
-        param_string, hashlib.sha256)
-
-    h = urllib.quote(base64.b64encode(hm.digest())) 
-    return (param_string, h)
+# make a valid RESTful AWS query, that is signed, from a dictionary
+# http://docs.amazonwebservices.com/AWSECommerceService/latest/DG/index.html?RequestAuthenticationArticle.html
+# code by Robert Wallis: SmilingRob@gmail.com, your hourly software contractor
+def get_aws_query_string(aws_access_key_id, secret, query_dictionary):
+	query_dictionary["AWSAccessKeyId"] = aws_access_key_id
+	query_dictionary["Timestamp"] = generate_timestamp() 
+	query_pairs = map(
+		lambda (k,v):(k+"="+urllib.quote(v)),
+		query_dictionary.items()
+	)
+	 # The Amazon specs require a sorted list of arguments
+	query_pairs.sort()
+	query_string = "&".join(query_pairs)
+	hm = hmac.new(
+		secret,
+		"GET\nwebservices.amazon.com\n/onca/xml\n"+query_string,
+		hashlib.sha256
+	)
+	signature = urllib.quote(base64.b64encode(hm.digest()))
+	query_string = "https://webservices.amazon.com/onca/xml?%s&Signature=%s" % (query_string, signature)
+	return query_string
 
 def search_covers(search, api_key, secret_key):
-    ts = generate_timestamp()
-
     params = {
         'Operation': 'ItemSearch',
-        'Keywords': search,
+        'Keywords': str(search),
         'Version': '2009-01-06',
-        'Timestamp': ts,
-        'AWSAccessKeyId': api_key,
         'SearchIndex': 'Music',
         'Service': 'AWSECommerceService',
         'ResponseGroup': 'ItemAttributes,Images',
         }
 
-    (param_string, hmac) = generate_signature(secret_key, params)
-    data = urllib.urlopen(
-        'https://webservices.amazon.com/onca/xml?%s&Signature=%s'
-        % (param_string, hmac)).read()
+    query_string = get_aws_query_string(str(api_key).strip(),
+        str(secret_key).strip(), params)
+
+    data = urllib.urlopen(query_string).read()
 
     # check for an error message
     m = re.search(r'<Message>(.*)</Message>', data, re.DOTALL)

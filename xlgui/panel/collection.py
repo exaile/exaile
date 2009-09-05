@@ -618,13 +618,13 @@ class CollectionPanel(panel.Panel):
                     continue
                 else:
                     v = _("Unknown")
-    
+
             if depth == 0 and draw_seps:
                 check_val = v
                 if check_val.lower().startswith('the '):
                     check_val = check_val[4:]
                 char = check_val.lower()[0]
-                
+
                 if char.isdigit(): 
                     char = '0'
 

@@ -22,9 +22,19 @@ from xlgui import commondialogs
 name = _('Collection')
 glade = xdg.get_data_path('glade/collection_prefs_pane.glade')
 
-
 def _get_default_strip_list():
-    return ["el", "l'", "la", "le", "les", "los", "the"]
+    from locale import getlocale, getdefaultlocale
+    default_list = ["el", "l'", "la", "le", "les", "los", "the"]
+    try:
+        (loc, enc) = getlocale()
+        if loc is None:
+            (loc, enc) = getdefaultlocale()
+        #TRANSLATORS: Alter default_list to appropriate content
+        if loc == 'de_DE':
+            default_list.extend(["der", "die", "das"])
+    except:
+        pass
+    return default_list
 
 class CollectionStripArtistPreference(widgets.ListPrefsItem):
     default = _get_default_strip_list()
@@ -57,3 +67,5 @@ class CollectionStripArtistPreference(widgets.ListPrefsItem):
 
     def _reset_to_defaults_cb(self, item):
         self.widget.set_text(' '.join(_get_default_strip_list()))
+
+# vim:ts=4 et sw=4

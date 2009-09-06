@@ -88,7 +88,7 @@
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
                 <property name="receives_default">False</property>
-                <signal name="clicked" handler="cancel_button_clicked"/>
+                <signal name="clicked" handler="on_cancel_button_clicked"/>
                 <child>
                   <widget class="GtkAlignment" id="alignment7">
                     <property name="visible">True</property>
@@ -138,7 +138,7 @@
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
                 <property name="receives_default">False</property>
-                <signal name="clicked" handler="stop_button_clicked"/>
+                <signal name="clicked" handler="on_stop_button_clicked"/>
                 <child>
                   <widget class="GtkAlignment" id="alignment8">
                     <property name="visible">True</property>

@@ -1,7 +1,5 @@
 # Copyright (C) 2008-2009 Adam Olsen 
 #
-# Copyright (C) 2008-2009 Adam Olsen 
-#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
@@ -98,7 +96,7 @@ class CollectionPanel(panel.Panel):
         self._check_collection_empty()
         self._setup_images()
         self._connect_events()
-        
+
         event.add_callback(self._check_collection_empty, 'libraries_modified',
             collection)
 
@@ -129,7 +127,7 @@ class CollectionPanel(panel.Panel):
         if res == gtk.RESPONSE_YES:
             tracks = self.get_selected_tracks()
             self.collection.delete_tracks(tracks)
-        
+
         dialog.destroy()
         gobject.idle_add(self.load_tree)
 
@@ -156,7 +154,7 @@ class CollectionPanel(panel.Panel):
             self.message.set_child_visible(False)
             self.vbox.show_all()
             self.message.hide_all()
-        
+
         elif not self.collection.libraries and not self.collection_empty_message:
             self.collection_empty_message = True
             self.vbox.set_child_visible(False)
@@ -206,7 +204,7 @@ class CollectionPanel(panel.Panel):
             xlgui.controller().on_rescan_collection(None)
         else:
             self.load_tree()
-    
+
     def on_key_released(self, widget, event):
         """
             Called when a key is released in the tree
@@ -214,24 +212,24 @@ class CollectionPanel(panel.Panel):
         if event.keyval == gtk.keysyms.Menu:
             gtk.Menu.popup(self.menu, None, None, None, 0, event.time)
             return True
-        
+
         if event.keyval == gtk.keysyms.Left:
             (mods,paths) = self.tree.get_selection().get_selected_rows()
             for path in paths:
                 self.tree.collapse_row(path)
             return True
-        
+
         if event.keyval == gtk.keysyms.Right:
             (mods,paths) = self.tree.get_selection().get_selected_rows()
             for path in paths:
                 self.tree.expand_row(path, False)
             return True
-        
+
         if event.keyval == gtk.keysyms.Return:
             self.append_to_playlist()
             return True
         return False
-    
+
     def on_search(self, *e):
         """
             Searches tracks and reloads the tree
@@ -257,7 +255,7 @@ class CollectionPanel(panel.Panel):
             stubb
         """
         pass
-    
+
     def drag_data_delete(self, *e):
         """
             stub
@@ -320,7 +318,7 @@ class CollectionPanel(panel.Panel):
         self.load_subtree(iter)
         search = " ".join(self.get_node_search_terms(iter))
         return self.collection.search(search, tracks=self.tracks) 
-        
+
     def get_selected_tracks(self):
         """
             Finds all the selected tracks
@@ -333,9 +331,9 @@ class CollectionPanel(panel.Panel):
             iter = self.model.get_iter(path)
             newset = self._find_tracks(iter)
             tracks.append(newset)
-    
+
         if not tracks: return None
-        
+
         tracks = list(set(reduce(lambda x, y: list(x) + list(y), tracks)))
 
         return tracks
@@ -347,7 +345,7 @@ class CollectionPanel(panel.Panel):
         self.emit('append-items', self.get_selected_tracks())
 
     def button_press(self, widget, event):
-        """ 
+        """
             Called when the user clicks on the tree
         """
         selection = self.tree.get_selection()
@@ -380,7 +378,7 @@ class CollectionPanel(panel.Panel):
         """
             Returns a list of keywords that are associated with this node, and
             it's parent nodes
-            
+
             @param parent: the node
             @return: a list of keywords
         """
@@ -428,7 +426,7 @@ class CollectionPanel(panel.Panel):
             except IndexError:
                 break
         return terms
-        
+
     def refresh_tags_in_tree(self, type, track, tag):
         """
             For now, basically calls load_tree.
@@ -473,14 +471,14 @@ class CollectionPanel(panel.Panel):
             @param rest: the list of the nodes to expand after this one
         """
         iter = self.model.iter_children(parent)
-        
+
         while iter:
             if search_num != self._search_num: return
             value = self.model.get_value(iter, 1)
             if not value:
                 value = self.model.get_value(iter, 2)
             if value: value = unicode(value, 'utf-8')
-            
+
             if value == name:
                 self.tree.expand_row(self.model.get_path(iter), False)
                 parent = iter
@@ -492,7 +490,7 @@ class CollectionPanel(panel.Panel):
             item = rest.pop(0)
             gobject.idle_add(self._expand_node_by_name, search_num,
                 parent, item, rest)
-            
+
     def _expand_to(self, search_num, track, tmporder):
         """
             Expands to the specified track
@@ -536,7 +534,7 @@ class CollectionPanel(panel.Panel):
                 try:
                     value = metadata.j(track[item])
                     if not value: continue
-                    
+
                     if self.keyword.strip().lower() in value.lower():
                         self._expand_to( 
                             search_num, track, tmporder)
@@ -550,7 +548,7 @@ class CollectionPanel(panel.Panel):
     def load_subtree(self, parent):
         """
             Loads all the sub nodes for a specified node
-            
+
             @param node: the node
         """
         previously_loaded = False
@@ -620,9 +618,7 @@ class CollectionPanel(panel.Panel):
                     v = _("Unknown")
 
             if depth == 0 and draw_seps:
-                check_val = v
-                if check_val.lower().startswith('the '):
-                    check_val = check_val[4:]
+                check_val = common.the_cutter(v)
                 char = check_val.lower()[0]
 
                 if char.isdigit(): 
@@ -668,7 +664,7 @@ class CollectionPanel(panel.Panel):
                 len(self.keyword.strip()) >= \
                 settings.get_option("gui/expand_minimum_term_length", 3) and \
                 settings.get_option("gui/expand_enabled", True):
-            
+
             # the search number is an id for expanding nodes. 
             # we set the id before we try expanding the nodes because
             # expanding can happen in the background.  If the id changes, the

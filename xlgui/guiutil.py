@@ -735,10 +735,6 @@ class MenuRatingWidget(gtk.MenuItem):
                 r = -1
             
             if r >= 0:
-                if r == tracks[0].get_rating() and \
-                    self._all_ratings_equal(tracks):
-                    r = 0
-                
                 for track in tracks:
                     track.set_rating(r)
                 

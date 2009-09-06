@@ -599,15 +599,6 @@ class MainWindow(gobject.GObject):
         # Status bar
         self.statusbar = guiutil.Statusbar(self.builder)
 
-        status_bar = self.builder.get_object('status_bar')
-        children = status_bar.get_children()
-        for child in children:
-            if isinstance(child, gtk.Frame):
-                status_bar.set_child_packing(child, expand=False, fill=False,
-                    padding=0, pack_type=gtk.PACK_START)
-                #gtk.Container.remove(status_bar, child)
-                break
-
         # Search filter
         box = self.builder.get_object('playlist_search_entry_box')
         self.filter = guiutil.SearchEntry()

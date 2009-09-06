@@ -234,8 +234,7 @@ class PreferencesDialog(object):
         if hasattr(page, 'page_enter'):
             page.page_enter(self)
 
-        print 'Child: %s' % child
-                
+        child.reparent(self.box)
         self.box.pack_start(child, True, True)
         self.last_child = child
         self.box.show_all()

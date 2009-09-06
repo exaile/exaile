@@ -13,7 +13,6 @@ Essential:
 * mutagen (>= 1.10)
 * dbus-python
 * pygtk (>= 2.12)
-* python-glade2
 
 Translation:
 

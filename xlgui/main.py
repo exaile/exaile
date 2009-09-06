@@ -1205,6 +1205,7 @@ class MainWindow(gobject.GObject):
         if not toggle_handled and self.window.is_active(): # focused
             self.window.hide()
         elif not toggle_handled:
+            self.window.deiconify()
             self.window.present()
 
     def configure_event(self, *e):
@@ -1233,7 +1234,7 @@ class MainWindow(gobject.GObject):
 
         return False
 
-    def window_state_change_event(self, widget, event):
+    def window_state_change_event(self, window, event):
         """
             Saves the current maximized and fullscreen
             states and minimizes to tray if requested
@@ -1245,10 +1246,10 @@ class MainWindow(gobject.GObject):
             self._fullscreen = bool(event.new_window_state & gtk.gdk.WINDOW_STATE_FULLSCREEN)
 
         if settings.get_option('gui/minimize_to_tray', False) and \
-           self.controller.tray_icon is not None and \
-           event.changed_mask & gtk.gdk.WINDOW_STATE_ICONIFIED and \
-           event.new_window_state & gtk.gdk.WINDOW_STATE_ICONIFIED:
-            self.window.hide()
+            self.controller.tray_icon is not None:
+            data = window.window.property_get('_NET_WM_STATE')
+            if data is not None and '_NET_WM_STATE_HIDDEN' in data[2]:
+                window.hide()
 
         return False
 

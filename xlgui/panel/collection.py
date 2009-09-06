@@ -1,7 +1,5 @@
 # Copyright (C) 2008-2009 Adam Olsen 
 #
-# Copyright (C) 2008-2009 Adam Olsen 
-#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
@@ -58,7 +56,7 @@ class CollectionPanel(panel.Panel):
         'collection-tree-loaded': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
 
-    gladeinfo = ('collection_panel.glade', 'CollectionPanelWindow')
+    ui_info = ('collection_panel.ui', 'CollectionPanelWindow')
     orders = (
         ['artist', 'album', 'tracknumber', 'title'],
         ['album', 'tracknumber', 'title'],
@@ -83,10 +81,10 @@ class CollectionPanel(panel.Panel):
         self._show_collection_empty_message = _show_collection_empty_message
         self.collection = collection
         self.use_alphabet = settings.get_option('gui/use_alphabet', True)
-        self.vbox = self.xml.get_widget('CollectionPanel')
-        self.message = self.xml.get_widget('EmptyCollectionPanel')
-        self.filter = self.xml.get_widget('collection_search_entry')
-        self.choice = self.xml.get_widget('collection_combo_box')
+        self.vbox = self.builder.get_object('CollectionPanel')
+        self.message = self.builder.get_object('EmptyCollectionPanel')
+        self.filter = self.builder.get_object('collection_search_entry')
+        self.choice = self.builder.get_object('collection_combo_box')
         self.collection_empty_message = False
         self._search_num = 0
 
@@ -137,11 +135,11 @@ class CollectionPanel(panel.Panel):
         """
             Sets up the various widgets to be used in this panel
         """
-        self.choice = self.xml.get_widget('collection_combo_box')
+        self.choice = self.builder.get_object('collection_combo_box')
         active = settings.get_option('gui/collection_active_view', 0)
         self.choice.set_active(active)
 
-        box = self.xml.get_widget('collection_search_box')
+        box = self.builder.get_object('collection_search_box')
         self.filter = guiutil.SearchEntry()
         self.filter.connect('activate', self.on_search)
         box.pack_start(self.filter.entry, True, True)
@@ -168,7 +166,7 @@ class CollectionPanel(panel.Panel):
         """
             Uses signal_autoconnect to connect the various events
         """
-        self.xml.signal_autoconnect({
+        self.builder.connect_signals({
             'on_collection_combo_box_changed': lambda *e: self.load_tree(),
             'on_refresh_button_pressed': self.on_refresh_button_pressed,
             'on_refresh_button_key_pressed': self.on_refresh_button_key_pressed,
@@ -279,7 +277,7 @@ class CollectionPanel(panel.Panel):
         """
         self.tree = guiutil.DragTreeView(self)
         self.tree.set_headers_visible(False)
-        container = self.xml.get_widget('CollectionPanel')
+        container = self.builder.get_object('CollectionPanel')
         scroll = gtk.ScrolledWindow()
         scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         scroll.add(self.tree)

@@ -37,7 +37,7 @@
 # from your version.
 
 from xl.nls import gettext as _
-import gtk, gtk.glade
+import gtk
 from xl import xdg, settings, event, devices
 from xlgui import collection
 import logging, threading
@@ -56,15 +56,14 @@ class ManagerDialog(object):
         self.main = main
         self.parent = parent
         self.device_manager = self.main.exaile.devices
-        self.xml = gtk.glade.XML(
-                xdg.get_data_path('glade/device_manager.glade'), 
-                'device_manager', 'exaile')
-        self.window = self.xml.get_widget('device_manager')
+        self.builder = gtk.Builder()
+        self.builder.add_from_file(xdg.get_data_path('ui/device_manager.ui'))
+        self.window = self.builder.get_object('device_manager')
         self.window.set_transient_for(self.parent)
         self.window.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         self.window.connect('delete-event', self.on_close)
 
-        self.xml.signal_autoconnect({
+        self.builder.connect_signals({
             'on_btn_connect_clicked': self.on_connect,
             'on_btn_disconnect_clicked': self.on_disconnect,
             'on_btn_edit_clicked': self.on_edit,
@@ -75,11 +74,11 @@ class ManagerDialog(object):
 
         # TODO: make these actually work.  For now, they are hidden
         for item in ('add', 'edit', 'remove'):
-            self.xml.get_widget('btn_%s' % item).destroy()
+            self.builder.get_object('btn_%s' % item).destroy()
 
         # object should really be devices.Device, but it doesnt work :/
         self.model = gtk.ListStore(object, gtk.gdk.Pixbuf, str, str)
-        self.tree = self.xml.get_widget('tree_devices')
+        self.tree = self.builder.get_object('tree_devices')
         self.tree.set_model(self.model)
 
         render = gtk.CellRendererPixbuf()

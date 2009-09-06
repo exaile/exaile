@@ -31,7 +31,7 @@ from xl import event, transcoder
 
 name = _("CD")
 basedir = os.path.dirname(os.path.realpath(__file__))
-glade = os.path.join(basedir, "cdprefs_pane.glade")
+ui = os.path.join(basedir, "cdprefs_pane.ui")
 
 FORMAT_WIDGET = None
 

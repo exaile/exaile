@@ -1,7 +1,5 @@
 # Copyright (C) 2008-2009 Adam Olsen 
 #
-# Copyright (C) 2008-2009 Adam Olsen 
-#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
@@ -110,7 +108,7 @@ class DevicePanel(panel.Panel):
         'collection-tree-loaded': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
 
-    gladeinfo = ('device_panel.glade', 'DevicePanelWindow')
+    ui_info = ('device_panel.ui', 'DevicePanelWindow')
 
     def __init__(self, parent, main, 
         device, name=None):
@@ -119,7 +117,7 @@ class DevicePanel(panel.Panel):
         self.device = device
         self.main = main
 
-        self.notebook = self.xml.get_widget("device_notebook")
+        self.notebook = self.builder.get_object("device_notebook")
 
         self.collectionpanel = ReceptiveCollectionPanel(parent,
             collection=device.collection, name=name)
@@ -154,7 +152,7 @@ class FlatPlaylistDevicePanel(panel.Panel):
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
 
-    gladeinfo = ('device_panel.glade', 'DevicePanelWindow')
+    ui_info = ('device_panel.ui', 'DevicePanelWindow')
 
     def __init__(self, parent, main, 
         device, name=None):
@@ -163,7 +161,7 @@ class FlatPlaylistDevicePanel(panel.Panel):
         self.device = device
         self.main = main
 
-        self.notebook = self.xml.get_widget("device_notebook")
+        self.notebook = self.builder.get_object("device_notebook")
 
         self.fppanel = FlatPlaylistPanel(self, name)
 

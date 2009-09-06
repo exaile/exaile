@@ -74,20 +74,20 @@ class PreferencesDialog(object):
         self.builders = {}
         self.popup = None
 
-        self.xml = xml = gtk.glade.XML(
-            xdg.get_data_path('glade/preferences_dialog.glade'), 
-            'PreferencesDialog', 'exaile')
+        self.builder = gtk.Builder()
+        self.builder.add_from_file(
+            xdg.get_data_path('ui/preferences_dialog.ui'))
 
-        self.window = xml.get_widget('PreferencesDialog')
+        self.window = self.builder.get_object('PreferencesDialog')
         self.window.set_transient_for(parent)
         self.window.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
         self.window.connect('delete-event', lambda *e: self.cancel())
 
         self._connect_events()
 
-        self.box = xml.get_widget('prefs_box')
+        self.box = self.builder.get_object('prefs_box')
 
-        self.tree = xml.get_widget('prefs_tree')
+        self.tree = self.builder.get_object('prefs_tree')
         text = gtk.CellRendererText()
         col = gtk.TreeViewColumn(_('Preferences'), text, text=0)
         self.tree.append_column(col)
@@ -150,7 +150,7 @@ class PreferencesDialog(object):
         """
             Connects the various events to their handlers
         """
-        self.xml.signal_autoconnect({
+        self.builder.connect_signals({
             'on_cancel_button_clicked': lambda *e: self.cancel(),
             'on_apply_button_clicked': self.apply,
             'on_ok_button_clicked': self.ok,
@@ -221,6 +221,7 @@ class PreferencesDialog(object):
             else:
                 builder = gtk.glade.XML(page.glade, 'prefs_pane')
                 builder.get_object = builder.get_widget
+                builder.connect_signals = builder.signal_autoconnect
             child = builder.get_object('prefs_pane')
             init = getattr(page, 'init', None)
             if init: init(self, builder)
@@ -232,6 +233,8 @@ class PreferencesDialog(object):
 
         if hasattr(page, 'page_enter'):
             page.page_enter(self)
+
+        print 'Child: %s' % child
                 
         self.box.pack_start(child, True, True)
         self.last_child = child

@@ -1,7 +1,5 @@
 # Copyright (C) 2008-2009 Adam Olsen 
 #
-# Copyright (C) 2008-2009 Adam Olsen 
-#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
@@ -59,7 +57,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         'append-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
-    gladeinfo = ('radio_panel.glade', 'RadioPanelWindow')
+    ui_info = ('radio_panel.ui', 'RadioPanelWindow')
     _radiopanel = None
 
     def __init__(self, parent, collection, 
@@ -139,7 +137,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         """
             Sets up the various widgets required for this panel
         """
-        self.status = self.xml.get_widget('status_label')
+        self.status = self.builder.get_object('status_label')
 
     @guiutil.idle_add()
     def _set_status(self, message, timeout=0):
@@ -172,7 +170,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
             self.remove_selected_playlist())
 
 
-        self.xml.signal_autoconnect({
+        self.builder.connect_signals({
             'on_add_button_clicked': self._on_add_button_clicked,
         })
         self.tree.connect('row-expanded', self.on_row_expand)
@@ -227,7 +225,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         """
             Sets up the tree that displays the radio panel
         """
-        box = self.xml.get_widget('RadioPanel')
+        box = self.builder.get_object('RadioPanel')
         self.tree = guiutil.DragTreeView(self, True, True)
         self.tree.set_headers_visible(False)
 

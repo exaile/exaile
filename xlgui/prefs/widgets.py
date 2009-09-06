@@ -1,7 +1,5 @@
 # Copyright (C) 2008-2009 Adam Olsen 
 #
-# Copyright (C) 2008-2009 Adam Olsen 
-#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
@@ -47,7 +45,7 @@ class PrefsItem(object):
     def __init__(self, prefs, widget):
         """
             Initializes the preferences item
-            expects the name of the widget in the .glade file, the default for
+            expects the name of the widget in the designer file, the default for
             this setting, an optional function to be called when the value is
             changed, and an optional function to be called when this setting
             is applied

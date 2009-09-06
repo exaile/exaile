@@ -65,7 +65,7 @@ class PodcastPanel(panel.Panel):
 
     def _setup_widgets(self):
         self.model = gtk.ListStore(str, str)
-        self.tree = self.xml.get_widget('podcast_tree')
+        self.tree = self.builder.get_object('podcast_tree')
         self.tree.set_model(self.model)
 
         text = gtk.CellRendererText()
@@ -75,7 +75,7 @@ class PodcastPanel(panel.Panel):
         self.column.set_attributes(text, text=0)
         self.tree.append_column(self.column)
 
-        self.status = self.xml.get_widget('podcast_statusbar')
+        self.status = self.builder.get_object('podcast_statusbar')
 
         self.menu = guiutil.Menu()
         self.menu.append(_('Refresh Podcast'), self._on_refresh, 'gtk-refresh')
@@ -89,7 +89,7 @@ class PodcastPanel(panel.Panel):
             gobject.timeout_add(timeout, self._set_status, _('Idle.'), 0)
 
     def _connect_events(self):
-        self.xml.signal_autoconnect({
+        self.builder.connect_signals({
             'on_add_button_clicked': self.on_add_podcast,
         })
 

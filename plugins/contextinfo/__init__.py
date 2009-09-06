@@ -6,7 +6,6 @@ import Image
 import base64
 import gobject
 import gtk
-import gtk.glade
 import os
 import pylast
 import re
@@ -50,7 +49,7 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
     refresh_script = '''document.getElementById("%s").innerHTML="%s";onPageRefresh("%s");''';
     history_length = 6
     
-    def __init__(self, xml, theme):
+    def __init__(self, builder, theme):
         webkit.WebView.__init__(self)
         providers.ProviderHandler.__init__(self, "context_page")
         self.connect_events()
@@ -64,8 +63,8 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         self.history = []
         self.history_index = 0
         
-        self.xml = xml        
-        self.setup_dnd()        
+        self.builder = builder
+        self.setup_dnd()
         self.setup_buttons()
         
         self.drag_source_set(
@@ -108,28 +107,28 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         self.lyrics_button.set_sensitive(False)
         
     def setup_buttons(self):
-        self.prev_button = self.xml.get_widget('PrevButton')
+        self.prev_button = self.ui.get_object('PrevButton')
         self.prev_button.set_tooltip_text('Previous')
         self.prev_button.set_sensitive(False)
         self.prev_button.connect('clicked', self.on_prev_clicked)
         
-        self.next_button = self.xml.get_widget('NextButton')
+        self.next_button = self.ui.get_object('NextButton')
         self.next_button.set_tooltip_text('Next')
         self.next_button.set_sensitive(False)
         self.next_button.connect('clicked', self.on_next_clicked)
         
-        self.home_button = self.xml.get_widget('HomeButton')
+        self.home_button = self.ui.get_object('HomeButton')
         self.home_button.set_tooltip_text('Home')
         self.home_button.connect('clicked', self.on_home_clicked)
         
-        self.refresh_button = self.xml.get_widget('RefreshButton')
+        self.refresh_button = self.ui.get_object('RefreshButton')
         self.refresh_button.set_tooltip_text('Refresh')
         self.refresh_button.connect('clicked', self.on_refresh_page)
-        self.refresh_button_image = self.xml.get_widget('RefreshButtonImage')
+        self.refresh_button_image = self.ui.get_object('RefreshButtonImage')
         
         self.refresh_animation = gtk.gdk.PixbufAnimation(BASEDIR+'loader.gif')
         
-        self.lyrics_button = self.xml.get_widget('LyricsButton')
+        self.lyrics_button = self.ui.get_object('LyricsButton')
         self.lyrics_button.set_tooltip_text('Lyrics')
         self.lyrics_button.set_sensitive(False)
         self.lyrics_button.connect('clicked', self.on_lyrics)
@@ -1027,7 +1026,7 @@ class ContextPanel(gobject.GObject):
     """
         The contextual panel
     """
-    gladeinfo = (BASEDIR+'context.glade', 'ContextPanelWindow')
+    ui_info = (BASEDIR+'context.ui', 'ContextPanelWindow')
 
     def __init__(self, parent):
         self.init__(parent, _('Context'))
@@ -1043,7 +1042,7 @@ class ContextPanel(gobject.GObject):
         
         self.theme = ContextTheme(settings.get_option('context/theme', 'classic'))
         
-        self._browser = BrowserPage(self.xml, self.theme)
+        self._browser = BrowserPage(self.builder, self.theme)
         
         self.setup_widgets()
         
@@ -1056,7 +1055,8 @@ class ContextPanel(gobject.GObject):
         gobject.GObject.__init__(self)
         self.name = name
         self.parent = parent
-        self.xml = gtk.glade.XML(self.gladeinfo[0], self.gladeinfo[1], 'exaile')
+        self.ui = gtk.Builder()
+        self.ui.add_from_file(ui_info[0])
         self._child = None
         
     def setup_widgets(self):
@@ -1066,12 +1066,12 @@ class ContextPanel(gobject.GObject):
         self._scrolled_window.add(self._browser)
         self._scrolled_window.show_all()
         
-        frame = self.xml.get_widget('ContextFrame')
+        frame = self.ui.get_object('ContextFrame')
         frame.add(self._scrolled_window)
 
     def get_panel(self):
         if not self._child:
-            window = self.xml.get_widget(self.gladeinfo[1])
+            window = self.ui.get_object(self.ui_info[1])
             self._child = window.get_child()
             window.remove(self._child)
             if not self.name:

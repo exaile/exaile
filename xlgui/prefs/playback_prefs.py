@@ -1,7 +1,5 @@
 # Copyright (C) 2008-2009 Adam Olsen 
 #
-# Copyright (C) 2008-2009 Adam Olsen 
-#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
@@ -42,7 +40,7 @@ from xl.nls import gettext as _
 from xlgui import commondialogs
 
 name = _('Playback')
-glade = xdg.get_data_path('glade/playback_prefs_pane.glade')
+ui = xdg.get_data_path('ui/playback_prefs_pane.ui')
 
 class EnginePreference(widgets.ComboPrefsItem):
     default = "normal"

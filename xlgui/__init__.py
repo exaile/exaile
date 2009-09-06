@@ -1,7 +1,5 @@
 # Copyright (C) 2008-2009 Adam Olsen 
 #
-# Copyright (C) 2008-2009 Adam Olsen 
-#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
@@ -39,7 +37,7 @@
 __all__ = ['main', 'panel', 'playlist']
 
 from xl.nls import gettext as _
-import gtk, gtk.glade, gobject, logging, os, urlparse
+import gtk, gobject, logging, os, urlparse
 from xl import xdg, common, event, metadata, settings, playlist as _xpl
 
 from xlgui import commondialogs, cover 
@@ -78,9 +76,9 @@ class Main(object):
         self.first_removed = False
         self.tray_icon = None
         self.panels = {}
-        self.xml = gtk.glade.XML(xdg.get_data_path("glade/main.glade"),
-            'ExaileWindow', 'exaile')
-        self.progress_box = self.xml.get_widget('progress_box')
+        self.builder = gtk.Builder()
+        self.builder.add_from_file(xdg.get_data_path("ui/main.ui"))
+        self.progress_box = self.builder.get_object('progress_box')
         self.progress_manager = progress.ProgressManager(self.progress_box)
 
         self.icons = icons.IconManager()
@@ -98,10 +96,10 @@ class Main(object):
                 xdg.get_data_path('images'))
 
         logger.info("Loading main window...")
-        self.main = main.MainWindow(self, self.xml,
+        self.main = main.MainWindow(self, self.builder,
             exaile.collection, exaile.player, exaile.queue, exaile.covers)
-        self.panel_notebook = self.xml.get_widget('panel_notebook')
-        self.play_toolbar = self.xml.get_widget('play_toolbar')
+        self.panel_notebook = self.builder.get_object('panel_notebook')
+        self.play_toolbar = self.builder.get_object('play_toolbar')
 
         logger.info("Loading panels...")
         self.last_selected_panel = settings.get_option(
@@ -151,7 +149,8 @@ class Main(object):
         """
             Connects the various events to their handlers
         """
-        self.xml.signal_autoconnect({
+        """
+        self.builder.connect_signals({
             'on_about_item_activate': self.show_about_dialog,
             'on_scan_collection_item_activate': self.on_rescan_collection,
             'on_randomize_playlist_item_activate': self.on_randomize_playlist,
@@ -168,6 +167,8 @@ class Main(object):
             'on_track_properties_activate':self.on_track_properties,
             'on_clear_playlist_item_activate': self.main.on_clear_playlist,
         })
+        """
+        pass
 
     def _on_quit_application(self, event, sender, data):
         """
@@ -393,6 +394,7 @@ class Main(object):
 
             # the first tab in the panel is a stub that just stops libglade from
             # complaining
+            # TODO: Check if this is valid for GtkBuilder
             self.panel_notebook.remove_page(0)
 
     def remove_panel(self, child):
@@ -413,9 +415,9 @@ class Main(object):
             Displays the about dialog
         """
         import xl.main as xlmain
-        xml = gtk.glade.XML(xdg.get_data_path('glade/about_dialog.glade'),
-            'AboutDialog', 'exaile')
-        dialog = xml.get_widget('AboutDialog')
+        builder = gtk.Builder()
+        builder.add_from_file(xdg.get_data_path('ui/about_dialog.ui'))
+        dialog = builder.get_object('AboutDialog')
         logo = gtk.gdk.pixbuf_new_from_file(
             xdg.get_data_path('images/exailelogo.png'))
         dialog.set_logo(logo)
@@ -479,10 +481,10 @@ def show_splash(show=True):
     if not show: return
     image = gtk.Image()
     image.set_from_file(xdg.get_data_path("images/splash.png"))
-    xml = gtk.glade.XML(xdg.get_data_path("glade/splash.glade"), 'SplashScreen',
-        'exaile')
-    splash_screen = xml.get_widget('SplashScreen')
-    box = xml.get_widget('splash_box')
+    builder = gtk.Builder()
+    builder.add_from_file(xdg.get_data_path("ui/splash.ui"))
+    splash_screen = builder.get_object('SplashScreen')
+    box = builder.get_object('splash_box')
     box.pack_start(image, True, True)
     splash_screen.set_transient_for(None)
     splash_screen.show_all()

@@ -29,7 +29,7 @@ import pygtk, pygst
 pygtk.require('2.0')
 pygst.require('0.10')
 import gst, logging
-import gtk, gtk.glade, gobject, pango, datetime
+import gtk, gobject, pango, datetime
 from xl import xdg, event, track, common
 from xl import settings, trackdb
 import xl.playlist
@@ -319,7 +319,7 @@ class MainWindow(gobject.GObject):
     """
     __gsignals__ = {'main-visible-toggle': (gobject.SIGNAL_RUN_LAST, bool, ())}
     _mainwindow = None
-    def __init__(self, controller, xml, collection, 
+    def __init__(self, controller, builder, collection, 
         player, queue, covers):
         """
             Initializes the main window
@@ -344,10 +344,10 @@ class MainWindow(gobject.GObject):
             if rgbamap is not None:
                 gtk.widget_set_default_colormap(rgbamap)
 
-        self.xml = xml
-        self.window = self.xml.get_widget('ExaileWindow')
+        self.builder = builder
+        self.window = self.builder.get_object('ExaileWindow')
         self.window.set_title('Exaile')
-        self.playlist_notebook = self.xml.get_widget('playlist_notebook')
+        self.playlist_notebook = self.builder.get_object('playlist_notebook')
         self.playlist_notebook.remove_page(0)
         self.playlist_notebook.set_show_tabs(settings.get_option('gui/show_tabbar', True))
         map = {
@@ -358,7 +358,7 @@ class MainWindow(gobject.GObject):
         }
         self.playlist_notebook.set_tab_pos(map.get(
             settings.get_option('gui/tab_placement', 'top')))
-        self.splitter = self.xml.get_widget('splitter')
+        self.splitter = self.builder.get_object('splitter')
 
         self._setup_position()
         self._setup_widgets()
@@ -536,7 +536,7 @@ class MainWindow(gobject.GObject):
 
     def _setup_hotkeys(self):
         """
-            Sets up accelerators that haven't been set up in glade
+            Sets up accelerators that haven't been set up in UI designer
         """
         hotkeys = (
             ('<Control>W', lambda *e: self.close_playlist_tab()),
@@ -560,47 +560,47 @@ class MainWindow(gobject.GObject):
         """
             Sets up the various widgets
         """
-        self.volume_slider = self.xml.get_widget('volume_slider')
+        self.volume_slider = self.builder.get_object('volume_slider')
         self.volume_slider.set_value(settings.get_option("player/volume", 1))
         self.volume_slider.connect('scroll-event', guiutil.on_slider_scroll)
         self.volume_slider.connect('key-press-event',
             guiutil.on_slider_key_press)
 
-        self.shuffle_toggle = self.xml.get_widget('shuffle_button')
+        self.shuffle_toggle = self.builder.get_object('shuffle_button')
         self.shuffle_toggle.set_active(settings.get_option('playback/shuffle', False))
-        self.repeat_toggle = self.xml.get_widget('repeat_button')
+        self.repeat_toggle = self.builder.get_object('repeat_button')
         self.repeat_toggle.set_active(settings.get_option('playback/repeat', False))
-        self.dynamic_toggle = self.xml.get_widget('dynamic_button')
+        self.dynamic_toggle = self.builder.get_object('dynamic_button')
         self.dynamic_toggle.set_active(settings.get_option('playback/dynamic', False))
 
         # Cover box
-        self.cover_event_box = self.xml.get_widget('cover_event_box')
+        self.cover_event_box = self.builder.get_object('cover_event_box')
         self.cover = cover.CoverWidget(self, self.covers, self.player)
         self.cover_event_box.add(self.cover)
-        self.track_title_label = self.xml.get_widget('track_title_label')
+        self.track_title_label = self.builder.get_object('track_title_label')
         attr = pango.AttrList()
         attr.change(pango.AttrWeight(pango.WEIGHT_BOLD, 0, 800))
         attr.change(pango.AttrSize(12500, 0, 600))
         self.track_title_label.set_attributes(attr)
-        self.track_info_label = self.xml.get_widget('track_info_label')
+        self.track_info_label = self.builder.get_object('track_info_label')
 
         self.progress_bar = PlaybackProgressBar(
-            self.xml.get_widget('playback_progressbar'),
+            self.builder.get_object('playback_progressbar'),
             self.player)
 
         # Playback buttons
         for button in ('play', 'next', 'prev', 'stop'):
             setattr(self, '%s_button' % button,
-                self.xml.get_widget('%s_button' % button))
+                self.builder.get_object('%s_button' % button))
         
         self.stop_button.connect('button-press-event',
             self.on_stop_buttonpress)
-        self.status = guiutil.StatusBar(self.xml.get_widget('left_statuslabel'))
-        self.track_count_label = self.xml.get_widget('track_count_label')
-        self.queue_count_label = self.xml.get_widget('queue_count_label')
+        self.status = guiutil.StatusBar(self.builder.get_object('left_statuslabel'))
+        self.track_count_label = self.builder.get_object('track_count_label')
+        self.queue_count_label = self.builder.get_object('queue_count_label')
 
         # Search filter
-        box = self.xml.get_widget('playlist_search_entry_box')
+        box = self.builder.get_object('playlist_search_entry_box')
         self.filter = guiutil.SearchEntry()
         self.filter.connect('activate', self.on_playlist_search)
         box.pack_start(self.filter.entry, True, True)
@@ -675,7 +675,7 @@ class MainWindow(gobject.GObject):
             Connects the various events to their handlers
         """
         self.splitter.connect('notify::position', self.configure_event)
-        self.xml.signal_autoconnect({
+        self.builder.connect_signals({
             'on_configure_event':   self.configure_event,
             'on_window_state_event': self.window_state_change_event,
             'on_delete_event':      self.delete_event,
@@ -699,6 +699,22 @@ class MainWindow(gobject.GObject):
             'on_volume_slider_value_changed': self.on_volume_changed,
             'on_queue_count_event_box_button_press_event':
                 self.controller.queue_manager,
+            # Controller
+            'on_about_item_activate': self.controller.show_about_dialog,
+            'on_scan_collection_item_activate': self.controller.on_rescan_collection,
+            'on_randomize_playlist_item_activate': self.controller.on_randomize_playlist,
+            'on_collection_manager_item_activate': self.controller.collection_manager,
+            'on_goto_playing_track_activate': self.controller.on_goto_playing_track,
+            'on_queue_manager_item_activate': self.controller.queue_manager,
+            'on_preferences_item_activate': lambda *e: self.controller.show_preferences(),
+            'on_device_manager_item_activate': lambda *e: self.controller.show_devices(),
+            'on_cover_manager_item_activate': self.controller.show_cover_manager,
+            'on_open_item_activate': self.controller.open_dialog,
+            'on_open_url_item_activate': self.controller.open_url,
+            'on_export_current_playlist_activate': self.controller.export_current_playlist,
+            'on_panel_notebook_switch_page': self.controller.on_panel_switch,
+            'on_track_properties_activate':self.controller.on_track_properties,
+            'on_clear_playlist_item_activate': self.on_clear_playlist,
         })        
 
         event.add_callback(self.on_playback_end, 'playback_player_end',

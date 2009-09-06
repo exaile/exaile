@@ -1,7 +1,5 @@
 # Copyright (C) 2008-2009 Adam Olsen 
 #
-# Copyright (C) 2008-2009 Adam Olsen 
-#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
@@ -50,22 +48,22 @@ class FlatPlaylistPanel(panel.Panel):
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
 
-    gladeinfo = ('flatplaylist_panel.glade', 'FlatPlaylistPanelWindow')
+    ui_info = ('flatplaylist_panel.ui', 'FlatPlaylistPanelWindow')
 
     def __init__(self, parent, name=None):
         panel.Panel.__init__(self, parent, name)
 
-        self.box = self.xml.get_widget('FlatPlaylistPanel')
+        self.box = self.builder.get_object('FlatPlaylistPanel')
         self.model = gtk.ListStore(int, str, object)
         self.tracks = []
         self._setup_tree()
         if not hasattr(self.parent, 'do_import'):
-            self.xml.get_widget("import_button").hide()
+            self.builder.get_object("import_button").hide()
         self.menu = menu.TrackSelectMenu()
         self._connect_events()
 
     def _connect_events(self):
-        self.xml.signal_autoconnect({
+        self.builder.connect_signals({
             'on_add_button_clicked': self._on_add_button_clicked,
             'on_import_button_clicked': self._on_import_button_clicked,
         })

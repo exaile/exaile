@@ -1,7 +1,5 @@
 # Copyright (C) 2008-2009 Adam Olsen 
 #
-# Copyright (C) 2008-2009 Adam Olsen 
-#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
@@ -438,7 +436,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
     """
         The playlists panel
     """
-    gladeinfo = ('playlists_panel.glade', 'PlaylistsPanelWindow')
+    ui_info = ('playlists_panel.ui', 'PlaylistsPanelWindow')
 
     def __init__(self, parent, playlist_manager, 
         smart_manager, collection):
@@ -452,7 +450,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
         self.playlist_manager = playlist_manager
         self.smart_manager = smart_manager
         self.collection = collection
-        self.box = self.xml.get_widget('playlists_box')
+        self.box = self.builder.get_object('playlists_box')
         
         self.playlist_name_info = 500
         self.track_target = ("text/uri-list", 0, 0)

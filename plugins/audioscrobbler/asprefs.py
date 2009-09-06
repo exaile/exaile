@@ -21,7 +21,7 @@ from xl.nls import gettext as _
 
 name = _('AudioScrobbler')
 basedir = os.path.dirname(os.path.realpath(__file__))
-glade = os.path.join(basedir, "asprefs_pane.glade")
+ui = os.path.join(basedir, "asprefs_pane.ui")
 
 class SubmitPreference(widgets.CheckPrefsItem):
     default = True

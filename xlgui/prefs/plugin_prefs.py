@@ -1,7 +1,5 @@
 # Copyright (C) 2008-2009 Adam Olsen 
 #
-# Copyright (C) 2008-2009 Adam Olsen 
-#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
@@ -37,34 +35,34 @@
 # from your version.
 
 import locale
-import gtk, gtk.glade, gobject
+import gtk, gobject
 from xlgui.prefs import widgets
 from xl import main, plugins, xdg
 from xlgui import commondialogs
 from xl.nls import gettext as _
 
 name = _('Plugins')
-glade = xdg.get_data_path('glade/plugin_prefs_pane.glade')
+ui = xdg.get_data_path('ui/plugin_prefs_pane.ui')
 
 class PluginManager(object):
     """
         Gui to manage plugins
     """
-    def __init__(self, prefs, xml):
+    def __init__(self, prefs, builder):
         """
             Initializes the manager
         """
         self.prefs = prefs
-        self.xml = xml
+        self.builder = builder
         self.plugins = main.exaile().plugins
 
-        self.list = self.xml.get_widget('plugin_tree')
-        #self.configure_button = self.xml.get_widget('configure_button')
+        self.list = self.builder.get_object('plugin_tree')
+        #self.configure_button = self.builder.get_object('configure_button')
 
-        self.version_label = self.xml.get_widget('version_label')
-        self.author_label = self.xml.get_widget('author_label')
-        self.name_label = self.xml.get_widget('name_label')
-        self.description = self.xml.get_widget('description_view')
+        self.version_label = self.builder.get_object('version_label')
+        self.author_label = self.builder.get_object('author_label')
+        self.name_label = self.builder.get_object('name_label')
+        self.description = self.builder.get_object('description_view')
         self.model = gtk.ListStore(str, str, bool, object)
 
         self._connect_signals()
@@ -127,7 +125,7 @@ class PluginManager(object):
         """
             Connects signals
         """
-        self.xml.signal_autoconnect({
+        self.builder.connect_signals({
             'on_install_plugin_button_clicked': lambda *e:
                 self.choose_plugin_dialog(),
         })
@@ -162,7 +160,7 @@ class PluginManager(object):
             try:
                 self.plugins.install_plugin(dialog.get_filename())
             except plugins.InvalidPluginError, e:
-                commondialogs.error(self.xml.get_widget('PreferencesDialog'), e.message)
+                commondialogs.error(self.builder.get_object('PreferencesDialog'), e.message)
                 return
                 
             self._load_plugin_list()
@@ -198,14 +196,14 @@ class PluginManager(object):
             try:
                 self.plugins.enable_plugin(plugin)
             except Exception, e:
-                commondialogs.error(self.xml.get_widget('PreferencesDialog'), _('Could '
+                commondialogs.error(self.builder.get_object('PreferencesDialog'), _('Could '
                     'not enable plugin: %s') % str(e))
                 return
         else:
             try:
                 self.plugins.disable_plugin(plugin)
             except Exception, e:
-                commondialogs.error(self.xml.get_widget('PreferencesDialog'), _('Could '
+                commondialogs.error(self.builder.get_object('PreferencesDialog'), _('Could '
                     'not disable plugin: %s') % str(e))
                 return
 

@@ -1,7 +1,5 @@
 # Copyright (C) 2008-2009 Adam Olsen 
 #
-# Copyright (C) 2008-2009 Adam Olsen 
-#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
@@ -100,15 +98,15 @@ class CollectionManagerDialog(object):
         self.parent = parent
         self.main = main
         self.collection = collection
-        self.xml = gtk.glade.XML(xdg.get_data_path('glade/collection_manager.glade'), 
-            'CollectionManager', 'exaile')
-        self.dialog = self.xml.get_widget('CollectionManager')
-        self.list = commondialogs.ListBox(self.xml.get_widget('lm_list_box'))
+        self.builder = gtk.Builder()
+        self.builder.add_from_file(xdg.get_data_path('ui/collection_manager.ui'))
+        self.dialog = self.builder.get_object('CollectionManager')
+        self.list = commondialogs.ListBox(self.builder.get_object('lm_list_box'))
         self.add_list = []
         self.remove_list = []
         self.dialog.set_transient_for(self.parent)
 
-        self.xml.signal_autoconnect({
+        self.builder.connect_signals({
             'on_add_button_clicked': self.on_add,
             'on_remove_button_clicked': self.on_remove
         })

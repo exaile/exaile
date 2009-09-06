@@ -21,7 +21,7 @@ import os
 
 name = _('IPython Console')
 basedir = os.path.dirname(os.path.realpath(__file__))
-glade = os.path.join(basedir, 'ipconsole_prefs.glade')
+ui = os.path.join(basedir, 'ipconsole_prefs.ui')
 
 class OpacityPreference(widgets.ScalePrefsItem):
     default = 80.0

@@ -21,7 +21,7 @@ from xl.nls import gettext as _
 
 name = _('Alarm Clock')
 basedir = os.path.dirname(os.path.realpath(__file__))
-glade = os.path.join(basedir, "acprefs_pane.glade")
+ui = os.path.join(basedir, "acprefs_pane.ui")
 
 class HourPreference(widgets.SpinPrefsItem):
     default = 12

@@ -641,7 +641,7 @@ class Statusbar(object):
         self.queue_count_label = builder.get_object('queue_count_label')
 
         # Hide the native status label
-        status_bar = self.builder.get_object('status_bar')
+        status_bar = builder.get_object('status_bar')
         children = status_bar.get_children()
         for child in children:
             if isinstance(child, gtk.Frame):

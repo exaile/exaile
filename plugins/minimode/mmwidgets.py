@@ -21,7 +21,7 @@ from xl import event, settings
 from xl.track import Track
 from xl.nls import gettext as _
 from xlgui.playlist import Playlist
-from minimodeprefs import get_workarea_size
+from xlgui.guiutil import get_workarea_size
 
 class MMMenuItem(gtk.ImageMenuItem):
     """

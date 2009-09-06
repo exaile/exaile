@@ -48,8 +48,7 @@ def disable(exaile):
         PODCASTS = None
 
 class PodcastPanel(panel.Panel):
-    gladeinfo = ('file://' + os.path.join(BASEDIR, 'podcasts.glade'), 
-        'PodcastPanelWindow')
+    ui_info = ('file://' + os.path.join(BASEDIR, 'podcasts.ui'), 'PodcastPanelWindow')
 
     def __init__(self, parent):
         panel.Panel.__init__(self, parent, _('Podcasts'))

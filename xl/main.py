@@ -251,18 +251,34 @@ class Exaile(object):
             console_format += " (%(name)s)" # add module name in debug mode
         elif self.options.Quiet:
             loglevel = logging.WARNING
-        # logfile level should always be INFO or higher
+        # Logfile level should always be INFO or higher
         if self.options.Quiet:
             logfilelevel = logging.INFO
         else:
             logfilelevel = loglevel
 
-        # logging to terminal
+        # Logging to terminal
         logging.basicConfig(level=loglevel, format=console_format)
 
-        # logging to file. this also automatically rotates the logs
+        # Create log directory
+        logdir = os.path.join(xdg.get_data_dir(), 'logs')
+        if not os.path.exists(logdir):
+            os.makedirs(logdir)
+
+        # Try to migrate logs from old location
+        from glob import glob
+        logfiles = glob(os.path.join(xdg.get_config_dir(), 'exaile.log*'))
+        for logfile in logfiles:
+            try:
+                # Try to move to new location
+                os.rename(logfile, os.path.join(logdir, os.path.basename(logfile)))
+            except OSError:
+                # Give up and simply remove
+                os.remove(logfile)
+
+        # Logging to file; this also automatically rotates the logs
         logfile = logging.handlers.RotatingFileHandler(
-                os.path.join(xdg.get_config_dir(), "exaile.log"),
+                os.path.join(logdir, 'exaile.log'),
                 mode='a', backupCount=5)
         logfile.doRollover() # each session gets its own file
         logfile.setLevel(logfilelevel)

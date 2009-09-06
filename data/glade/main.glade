@@ -817,7 +817,7 @@ Right Click for Stop After Track Feature</property>
           </packing>
         </child>
         <child>
-          <widget class="GtkHBox" id="hbox9">
+          <widget class="GtkHBox" id="status_bar">
             <property name="visible">True</property>
             <child>
               <widget class="GtkLabel" id="left_statuslabel">

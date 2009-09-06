@@ -233,8 +233,8 @@ class CoverManager(object):
             Connects the various events
         """
         self.xml.signal_autoconnect({
-            'stop_button_clicked': self._toggle_find,
-            'cancel_button_clicked': self._on_destroy
+            'on_stop_button_clicked': self._toggle_find,
+            'on_cancel_button_clicked': self._on_destroy
         })
 
         self.window.connect('delete-event', self._on_destroy)

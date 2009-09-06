@@ -132,13 +132,10 @@ potball:
 
 .PHONY: dist 
 
-# TODO: embed version information
 dist:
 	mkdir -p dist
 	rm -rf dist/copy
 	bzr co --lightweight ./ dist/copy
-	tar --gzip --format=posix --owner 0 --group 0 \
-	    -cf dist/exaile-dist.tar.gz dist/copy \
-	    --exclude=dist/copy/.bzr* --transform s/dist\\/copy/exaile/
-
+	./tools/dist.sh
+	rm -rf dist/copy
 

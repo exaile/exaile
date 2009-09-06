@@ -137,7 +137,8 @@ dist:
 	mkdir -p dist
 	rm -rf dist/copy
 	bzr co --lightweight ./ dist/copy
-	tar --bzip2 --format=posix -cf dist/exaile-dist.tar.bz2 dist/copy \
+	tar --gzip --format=posix --owner 0 --group 0 \
+	    -cf dist/exaile-dist.tar.gz dist/copy \
 	    --exclude=dist/copy/.bzr* --transform s/dist\\/copy/exaile/
 
 

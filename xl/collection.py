@@ -50,7 +50,7 @@ COLLECTIONS = set()
 def get_collection_by_loc(loc):
     """
         gets the collection by a location.
-        
+
         :param loc: Location of the collection
         :return: collection at location or None
         :rtype: Collection
@@ -147,7 +147,7 @@ class Collection(trackdb.TrackDB):
             if v == library:
                 del self.libraries[k]
                 break
- 
+
         to_rem = []
         if not "://" in library.location:
             location = u"file://" + library.location
@@ -157,7 +157,7 @@ class Collection(trackdb.TrackDB):
             if tr.startswith(location):
                 to_rem.append(self.tracks[tr]._track)
         self.remove_tracks(to_rem)       
-       
+
         self.serialize_libraries()
         self._dirty = True
 
@@ -171,7 +171,7 @@ class Collection(trackdb.TrackDB):
             Stops the library scan
         """
         self._scan_stopped = True
-    
+
     def get_libraries(self):
         """
             Gets a list of all the Libraries associated with this 
@@ -324,7 +324,7 @@ class INotifyEventProcessor(ProcessEvent):
             self.mask = EventsCodes.IN_MOVED_TO|EventsCodes.IN_MOVED_FROM|\
                 EventsCodes.IN_CREATE|EventsCodes.IN_DELETE|\
                 EventsCodes.IN_CLOSE_WRITE
-            
+
         self.wm = pyinotify.WatchManager()
         self.notifier = pyinotify.ThreadedNotifier(self.wm, self)
         self.notifier.setDaemon(True)
@@ -552,8 +552,6 @@ class Library(object):
                 to this list
             :param tr: the track to check
         """
-        # TODO: make this optional, probably in the advanced configuration
-        # editor
         # check for compilations
         if not settings.get_option('collection/file_based_compilations', True):
             return 
@@ -679,7 +677,7 @@ class Library(object):
 
             if not os.path.exists(loc.replace('file://', '')):
                 removals.append(tr)
-       
+
         for tr in removals:
             logger.debug(u"Removing " + unicode(tr))
             db.remove(tr)
@@ -706,7 +704,7 @@ class Library(object):
         self.realtime = realtime
         if realtime and pyinotify:
             EVENT_PROCESSOR.add_library(self)
-        
+
         if not realtime and pyinotify:
             EVENT_PROCESSOR.remove_library(self)
 

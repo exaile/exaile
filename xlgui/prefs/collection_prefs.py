@@ -68,4 +68,8 @@ class CollectionStripArtistPreference(widgets.ListPrefsItem):
     def _reset_to_defaults_cb(self, item):
         self.widget.set_text(' '.join(_get_default_strip_list()))
 
+class FileBasedCompilationsPreference(widgets.CheckPrefsItem):
+    default = True
+    name = 'collection/file_based_compilations'
+
 # vim:ts=4 et sw=4

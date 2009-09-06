@@ -23,16 +23,6 @@
 # exception to your version of the code, but you are not obligated to 
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
-#
-#
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
-# from your version.
 
 import gtk, os.path, urllib, time
 import gtk.gdk, pango, gobject
@@ -638,32 +628,64 @@ class Menu(gtk.Menu):
         else:
             gtk.Menu.popup(self, *e)
 
-class StatusBar(object):
+class Statusbar(object):
     """
-        A basic statusbar to replace gtk.StatusBar
+        Convenient access to multiple status labels
     """
-    def __init__(self, label):
+    def __init__(self, builder):
         """
-            Initializes the bar
-            
-            @param label: the gtk.Label to use for setting status messages
+            Initialises the status bar
         """
-        self.label = label
+        self.status_label = builder.get_object('status_label')
+        self.track_count_label = builder.get_object('track_count_label')
+        self.queue_count_label = builder.get_object('queue_count_label')
 
-    def set_label(self, message, timeout=0):
-        """
-            Sets teh status label
-        """
-        self.label.set_label(message)
-        if timeout:
-            gobject.timeout_add(timeout, self.clear)
+        # Hide the native status label
+        status_bar = self.builder.get_object('status_bar')
+        children = status_bar.get_children()
+        for child in children:
+            if isinstance(child, gtk.Frame):
+                status_bar.set_child_packing(child, expand=False, fill=False,
+                    padding=0, pack_type=gtk.PACK_START)
+                break
 
-    def clear(self, *e):
+    def set_status(self, status, timeout=0):
         """
-            Clears the label
+            Sets the status message
         """
-        self.label.set_label('')
+        self.status_label.set_label(status)
 
+        if timeout > 0:
+            gobject.timeout_add(timeout, self.clear_status)
+
+    def clear_status(self):
+        """
+            Clears the status message
+        """
+        self.status_label.set_label('')
+
+    def set_track_count(self, playlist_count=0, collection_count=0):
+        """
+            Sets the track count
+        """
+        status = _("%(playlist_count)d showing, "
+            "%(collection_count)d in collection") % {
+            'playlist_count': playlist_count,
+            'collection_count': collection_count
+        }
+
+        self.track_count_label.set_label(status)
+
+    def set_queue_count(self, queue_count=0):
+        """
+            Sets the queue count
+        """
+        if queue_count > 0:
+            status = _("(%d queued)") % queue_count
+        else:
+            status = ''
+
+        self.queue_count_label.set_label(status)
 
 class MenuRatingWidget(gtk.MenuItem):
     """

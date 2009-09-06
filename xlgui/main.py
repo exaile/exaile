@@ -595,9 +595,18 @@ class MainWindow(gobject.GObject):
         
         self.stop_button.connect('button-press-event',
             self.on_stop_buttonpress)
-        self.status = guiutil.StatusBar(self.builder.get_object('left_statuslabel'))
-        self.track_count_label = self.builder.get_object('track_count_label')
-        self.queue_count_label = self.builder.get_object('queue_count_label')
+
+        # Status bar
+        self.statusbar = guiutil.Statusbar(self.builder)
+
+        status_bar = self.builder.get_object('status_bar')
+        children = status_bar.get_children()
+        for child in children:
+            if isinstance(child, gtk.Frame):
+                status_bar.set_child_packing(child, expand=False, fill=False,
+                    padding=0, pack_type=gtk.PACK_START)
+                #gtk.Container.remove(status_bar, child)
+                break
 
         # Search filter
         box = self.builder.get_object('playlist_search_entry_box')
@@ -657,18 +666,10 @@ class MainWindow(gobject.GObject):
         """
         if not self.get_selected_playlist(): return
 
-        message = _("%(playlist_count)d showing, %(collection_count)d in collection") \
-            % {'playlist_count' : len(self.get_selected_playlist().playlist), 
-                'collection_count' : self.collection.get_count()}
-        
-        self.track_count_label.set_label(message)
-
-        queuecount = len(self.queue)
-        if queuecount:
-            queuemessage = _(" (%(queue_count)d queued)") % {'queue_count' : queuecount}
-            self.queue_count_label.set_label(queuemessage)
-        else:
-            self.queue_count_label.set_label('')
+        self.statusbar.set_track_count(
+            len(self.get_selected_playlist().playlist),
+            self.collection.get_count())
+        self.statusbar.set_queue_count(len(self.queue))
 
     def _connect_events(self):
         """
@@ -697,8 +698,7 @@ class MainWindow(gobject.GObject):
             'on_new_playlist_item_activated': lambda *e:
                 self.add_playlist(),
             'on_volume_slider_value_changed': self.on_volume_changed,
-            'on_queue_count_event_box_button_press_event':
-                self.controller.queue_manager,
+            'on_queue_count_label_button_press_event': self.controller.queue_manager,
             # Controller
             'on_about_item_activate': self.controller.show_about_dialog,
             'on_scan_collection_item_activate': self.controller.on_rescan_collection,
@@ -816,9 +816,9 @@ class MainWindow(gobject.GObject):
             Called when a stream is buffering
         """
         if percent < 100:
-            self.status.set_label(_("Buffering: %d%%...") % percent, 1000)
+            self.statusbar.set_status(_("Buffering: %d%%...") % percent, 1000)
         else:
-            self.status.set_label(_("Buffering: 100%..."), 1000)
+            self.statusbar.set_status(_("Buffering: 100%..."), 1000)
 
     def on_tags_parsed(self, type, player, args):
         """

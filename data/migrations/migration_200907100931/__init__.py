@@ -203,10 +203,15 @@ def _migrate_playlists(db, newdb, playlists):
     playlists.save_order()
 
 def migrate(force=False):
-    if force or not migration_needed():
+    if not force and not migration_needed():
         logger.debug("Will not migrate and overwrite data.")
         return
     logger.info("Migrating data from 0.2.14....")
+
+    # allow force to overwrite the new db
+    newdbpath = os.path.join(xdg.get_data_dirs()[0], 'music.db')
+    if os.path.exists(newdbpath):
+        os.remove(newdbpath)
 
     oldsettings = SafeConfigParser()
     oldsettings.read(os.path.expanduser('~/.exaile/settings.ini'))

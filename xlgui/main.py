@@ -1196,6 +1196,11 @@ class MainWindow(gobject.GObject):
         """
             Called when the window is resized or moved
         """
+        pos = self.splitter.get_position()
+        if pos > 10 and pos != settings.get_option(
+                "gui/mainw_sash_pos", -1):
+            settings.set_option('gui/mainw_sash_pos', pos)
+            
         # Don't save window size if it is maximized or fullscreen.
         if settings.get_option('gui/mainw_maximized', False) or \
                 self._fullscreen:
@@ -1211,10 +1216,6 @@ class MainWindow(gobject.GObject):
                 key in ["x", "y"] ]:
             settings.set_option('gui/mainw_x', x)
             settings.set_option('gui/mainw_y', y)
-        pos = self.splitter.get_position()
-        if pos > 10 and pos != settings.get_option(
-                "gui/mainw_sash_pos", -1):
-            settings.set_option('gui/mainw_sash_pos', pos)
 
         return False
 

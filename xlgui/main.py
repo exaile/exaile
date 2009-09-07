@@ -611,15 +611,6 @@ class MainWindow(gobject.GObject):
                 self.playlist_notebook.get_current_page()]
         cur_page.menu.on_queue()
 
-    def on_playlist_search(self, *e):
-        """
-            Filters the currently selected playlist
-        """
-        pl = self.get_selected_playlist()
-        if pl:
-            #pl.search(unicode(self.filter.get_text(), 'utf-8'))
-            pl.search(unicode(self.playlist_search_entry.get_text(), 'utf-8'))
-
     def on_volume_changed(self, range):
         """
             Saves the preferred volume

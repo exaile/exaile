@@ -756,7 +756,7 @@ class TransferQueue(object):
         try:
             while self.current_pos + 1 < len(self.queue) and not self._stop:
                 track = self.queue[self.current_pos]
-                loc = track.get_loc()
+                loc = track.get_loc_for_io()
                 self.library.add(loc)
 
                 # TODO: make this be based on filesize not count

@@ -25,6 +25,7 @@
 # from your version.
 
 import logging, os
+import gio
 from copy import deepcopy
 from xl import common, providers, event, metadata, settings
 from xl.nls import gettext as _
@@ -43,10 +44,9 @@ class CoverData(object):
 def get_cover_data(info):
     if isinstance(info, CoverData):
         return info.data
-
-    h = open(info, 'rb')
-    data = h.read()
-    h.close()
+    
+    handle = gio.File(info).read()
+    data = handle.read()
 
     return data
 
@@ -472,27 +472,31 @@ class LocalCoverSearch(CoverSearchMethod):
     def find_covers(self, track, limit=-1):
         covers = []
         try:
-            search_dir = os.path.dirname(track.local_file_name())
+            search_dir = gio.File(track.get_loc_for_io()).get_parent()
         except AttributeError:
             raise NoCoverFoundException()
 
-        if not os.path.isdir(search_dir):
+        if not search_dir.query_file_type(flags=gio.FILE_QUERY_INFO_NONE,
+                cancellable=gio.Cancellable()) == gio.FILE_TYPE_DIRECTORY:
             raise NoCoverFoundException()
-        for filename in os.listdir(search_dir):
-            path = os.path.join(search_dir, filename)
-            if not os.path.isfile(path):
+        for fileinfo in search_dir.enumerate_children("standard::type"
+                ",standard::name"):
+            gloc = search_dir.get_child_for_display_name(fileinfo.get_name())
+            if not fileinfo.get_file_type() == gio.FILE_TYPE_REGULAR:
                 continue
+
+            filename = gloc.get_basename()
 
             # check preferred names
             if filename.lower() in self.preferred_names:
-                covers.append(path)
+                covers.append(gloc.get_uri())
                 if limit != -1 and len(covers) == limit:
                     return covers
 
             # check for other names
             (pathinfo, ext) = os.path.splitext(filename)
             if ext.lower() in self.exts:
-                covers.append(path)
+                covers.append(gloc.get_uri())
                 if limit != -1 and len(covers) == limit:
                     return covers
 

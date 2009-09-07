@@ -392,7 +392,7 @@ class AudioStream(gst.Bin):
         if track.is_local():
             if not track.exists():
                 logger.error("File does not exist: %s" %
-                        track.get_loc())
+                        track.get_loc_for_display())
                 return False
         
         self.track = track
@@ -414,7 +414,7 @@ class AudioStream(gst.Bin):
     def __notify_source(self, *args):
         # this is for handling multiple CD devices properly
         source = self.dec.get_property('source')
-        device = self.track.get_loc().split("#")[-1]
+        device = self.track.get_loc_for_io().split("#")[-1]
         source.set_property('device', device)
         self.dec.disconnect(self.notify_id)
 

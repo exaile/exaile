@@ -135,10 +135,8 @@ class Track(object):
         """
         return self['__loc']
 
-    def get_loc(self):
-        import warnings
-        warnings.warn("get_loc is deprecated!", DeprecationWarning)
-        return self.get_loc_for_io()
+    def get_type(self):
+        return gio.File(self.get_loc_for_io()).get_uri_scheme()
 
     def get_album_tuple(self):
         """
@@ -352,7 +350,8 @@ class Track(object):
             return self['__bitrate']
 
     def get_size(self):
-        return os.path.getsize(self.get_loc())
+        f = gio.File(self.get_loc_for_io())
+        return f.query_info("standard::size").get_size()
 
     def get_duration(self):
         """
@@ -455,7 +454,8 @@ def parse_stream_tags(track, tags):
         if key == '__bitrate': track['__bitrate'] = int(value[0]) / 1000
 
         # if there's a comment, but no album, set album to the comment
-        elif key == 'comment' and not track.get_loc().endswith('.mp3'): 
+        elif key == 'comment' and not \
+                track.get_loc_for_io().lower().endswith('.mp3'): 
             track['album'] = value
 
         elif key == 'album': track['album'] = value
@@ -474,8 +474,8 @@ def parse_stream_tags(track, tags):
                 newsong = True
 
             title_array = value[0].split(' - ', 1)
-            if len(title_array) == 1 or (track.get_loc().endswith(".mp3") and \
-                    not track.get_loc().endswith("lastfm.mp3")): # FIXME: HACK!
+            if len(title_array) == 1 or \
+                    track.get_loc_for_io().lower().endswith(".mp3"):
                 track['title'] = value
             else:
                 track['artist'] = [title_array[0]]

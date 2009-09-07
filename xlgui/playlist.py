@@ -140,7 +140,7 @@ class Playlist(gtk.VBox):
         while it:
             cur = self.model.get_value(it, 0)
             for track in tracks:
-                if cur.get_loc() == track.get_loc():
+                if cur.get_loc_for_io() == track.get_loc_for_io():
                     self.update_iter(it, track)
                     tracks.remove(track)
             it = self.model.iter_next(it)
@@ -426,7 +426,8 @@ class Playlist(gtk.VBox):
         while True:
             check = self.model.get_value(iter, 0)
             if not check: break
-            if check == song or check.get_loc() == song.get_loc():
+            if check == song or \
+                    check.get_loc_for_io() == song.get_loc_for_io():
                 self.update_iter(iter, song)
                 break
             iter = self.model.iter_next(iter)
@@ -753,7 +754,7 @@ class Playlist(gtk.VBox):
         
         tracks = self.get_selected_tracks()
         for track in tracks:
-            guiutil.DragTreeView.dragged_data[track.get_loc()] = track
+            guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
 
         locs = guiutil.get_urls_for(tracks)
         selection.set_uris(locs)
@@ -1018,7 +1019,7 @@ class Playlist(gtk.VBox):
         print banner
         tracks = self.playlist.get_tracks()
         for track in tracks:
-            print track.get_loc()
+            print track.get_loc_for_display()
         print '---Done printing playlist'
 
     def update_rating(self, w, e):

@@ -812,20 +812,6 @@ def finish(repeat=True):
         gtk.main_iteration()
         if not repeat: break
 
-def on_slider_scroll(widget, ev):
-    """
-        Called when the user scrolls their mouse wheel over the volume bar
-    """
-    incr = widget.get_adjustment().page_size
-    # Modify default HScale up/down behaviour.
-    if ev.direction == gtk.gdk.SCROLL_DOWN:
-        widget.set_value(widget.get_value() - incr)
-        return True
-    elif ev.direction == gtk.gdk.SCROLL_UP:
-        widget.set_value(widget.get_value() + incr)
-        return True
-    return False
-
 def on_slider_key_press(widget, ev):
     """
         Called when the user presses a key when the volume bar is focused

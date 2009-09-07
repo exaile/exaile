@@ -563,7 +563,6 @@ class MainWindow(gobject.GObject):
         volume = settings.get_option("player/volume", 1)
         self.volume_slider = self.builder.get_object('volume_slider')
         self.volume_slider.set_value(volume)
-        self.volume_slider.connect('scroll-event', guiutil.on_slider_scroll)
         self.volume_slider.connect('key-press-event',
             guiutil.on_slider_key_press)
 
@@ -615,11 +614,27 @@ class MainWindow(gobject.GObject):
                 self.playlist_notebook.get_current_page()]
         cur_page.menu.on_queue()
 
-    def on_volume_changed(self, range):
+    def on_volume_changed(self, widget):
         """
             Saves the preferred volume
         """
-        settings.set_option('player/volume', range.get_value())
+        settings.set_option('player/volume', widget.get_value())
+
+    def on_volume_slider_scroll_event(self, widget, event):
+        """
+            Changes the volume on scrolling
+        """
+        incr = self.volume_slider.get_adjustment().page_increment
+        value = self.volume_slider.get_value()
+
+        if event.direction == gtk.gdk.SCROLL_DOWN:
+            self.volume_slider.set_value(value - incr)
+            return True
+        elif event.direction == gtk.gdk.SCROLL_UP:
+            self.volume_slider.set_value(value + incr)
+            return True
+
+        return False
 
     def on_stop_buttonpress(self, widget, event):
         """
@@ -685,7 +700,9 @@ class MainWindow(gobject.GObject):
             'on_playlist_notebook_button_press': self.on_playlist_notebook_button_press,
             'on_new_playlist_item_activated': lambda *e:
                 self.add_playlist(),
+            'on_mute_button_scroll_event': self.on_volume_slider_scroll_event,
             'on_volume_slider_value_changed': self.on_volume_changed,
+            'on_volume_slider_scroll_event': self.on_volume_slider_scroll_event,
             'on_queue_count_label_button_press_event': self.controller.queue_manager,
             # Controller
             'on_about_item_activate': self.controller.show_about_dialog,

@@ -430,8 +430,10 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
+                                    <property name="events">GDK_STRUCTURE_MASK | GDK_SCROLL_MASK</property>
                                     <property name="relief">none</property>
                                     <property name="focus_on_click">False</property>
+                                    <signal name="scroll_event" handler="on_mute_button_scroll_event"/>
                                     <child>
                                       <object class="GtkImage" id="volume_image">
                                         <property name="visible">True</property>
@@ -451,6 +453,7 @@
                                     <property name="adjustment">volume_slider_adjustment</property>
                                     <property name="draw_value">False</property>
                                     <signal name="value_changed" handler="on_volume_slider_value_changed"/>
+                                    <signal name="scroll_event" handler="on_volume_slider_scroll_event"/>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -813,10 +816,12 @@ Right Click for Stop After Track Feature</property>
   <object class="GtkImage" id="image5">
     <property name="visible">True</property>
     <property name="stock">gtk-new</property>
+    <property name="icon-size">1</property>
   </object>
   <object class="GtkImage" id="image6">
     <property name="visible">True</property>
     <property name="stock">gtk-save-as</property>
+    <property name="icon-size">1</property>
   </object>
   <object class="GtkImage" id="image7">
     <property name="visible">True</property>
@@ -824,22 +829,27 @@ Right Click for Stop After Track Feature</property>
   <object class="GtkImage" id="image8">
     <property name="visible">True</property>
     <property name="stock">gtk-jump-to</property>
+    <property name="icon-size">1</property>
   </object>
   <object class="GtkImage" id="image9">
     <property name="visible">True</property>
     <property name="stock">gtk-clear</property>
+    <property name="icon-size">1</property>
   </object>
   <object class="GtkImage" id="image10">
     <property name="visible">True</property>
     <property name="stock">gtk-harddisk</property>
+    <property name="icon-size">1</property>
   </object>
   <object class="GtkImage" id="image11">
     <property name="visible">True</property>
     <property name="stock">gtk-refresh</property>
+    <property name="icon-size">1</property>
   </object>
   <object class="GtkImage" id="image12">
     <property name="visible">True</property>
     <property name="stock">gtk-properties</property>
+    <property name="icon-size">1</property>
   </object>
   <object class="GtkAdjustment" id="volume_slider_adjustment">
     <property name="upper">1</property>

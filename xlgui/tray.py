@@ -1,7 +1,5 @@
 # Copyright (C) 2008-2009 Adam Olsen 
 #
-# Copyright (C) 2008-2009 Adam Olsen 
-#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
@@ -25,16 +23,6 @@
 # exception to your version of the code, but you are not obligated to 
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
-#
-#
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
-# from your version.
 
 import gobject, gtk
 
@@ -42,99 +30,55 @@ from xl import xdg, event, settings
 from xl.nls import gettext as _
 from xlgui import guiutil
 
-try:
-    import egg.trayicon
-
-    class EggTrayIcon(egg.trayicon.TrayIcon):
-        """
-            Wrapper class to make EggTrayIcon behave like GtkStatusIcon
-        """
-
-        def __init__(self):
-            egg.trayicon.TrayIcon.__init__(self, 'Exaile')
-            self.tips = gtk.Tooltips()
-            self.image = gtk.Image()
-            self.add(self.image)
-            self.show_all()
-
-            self.add_events(gtk.gdk.BUTTON_PRESS_MASK | gtk.gdk.SCROLL_MASK)
-
-        def set_tooltip(self, tip):
-            self.tips.set_tip(self, tip)
-
-        def set_from_file(self, file):
-            self.image.set_from_file(file)
-
-        def set_from_stock(self, stock_id):
-            self.image.set_from_stock(stock_id, gtk.ICON_SIZE_MENU)
-
-        def set_from_icon_name(self, icon_name):
-            self.image.set_from_icon_name(icon_name, gtk.ICON_SIZE_MENU)
-except ImportError:
-    pass
-
-class TrayIcon(gobject.GObject):
+class TrayIcon(gtk.StatusIcon):
     VOLUME_SCROLL_AMOUNT = 5
 
-    __gsignals__ = {'toggle-tray': (gobject.SIGNAL_RUN_LAST, bool, ())}
-
     def __init__(self, main):
-        gobject.GObject.__init__(self)
+        gtk.StatusIcon.__init__(self)
 
         self.controller = main.controller
         self.player = main.controller.exaile.player
         self.queue = main.controller.exaile.queue
         self.window = main.window
         self.main = main
-        self._setup_menu()
 
-        self.icon = gtk.StatusIcon()
-        try:
-            # Available if PyGtk was built against GTK >= 2.15.0
-            self.icon.connect('button-press-event', self._button_pressed)
-            self.icon.connect('scroll-event', self._scrolled)
-            self.icon.connect('query-tooltip', self._query_tooltip)
-        except TypeError:
-            try:
-                self.icon = EggTrayIcon()
-                self.icon.connect('button-press-event', self._button_pressed)
-                self.icon.connect('scroll-event', self._scrolled)
-            except NameError:
-                self.icon.connect('activate', self._activated)
-                self.icon.connect('popup-menu', self._popup_menu)
-        if self.player.current is None:
-            self.icon.set_from_icon_name('exaile')
-        elif self.player.is_paused():
-            self.icon.set_from_icon_name('exaile-pause')
-        else:
-            self.icon.set_from_icon_name('exaile-play')
-        self.set_tooltip(_("Exaile Music Player"))
+        self.setup_menu()
+        self.update_icon()
 
-        event.add_callback(self._on_playback_change_state, 'playback_player_start')
-        event.add_callback(self._on_playback_change_state, 'playback_toggle_pause')
-        event.add_callback(self._on_playback_change_state, 'playback_player_end')
+        self.connect('button-press-event', self._button_pressed)
+        self.connect('scroll-event', self._scrolled)
+        self.connect('query-tooltip', self._query_tooltip)
+
+        event.add_callback(self.on_playback_change_state, 'playback_player_start')
+        event.add_callback(self.on_playback_change_state, 'playback_toggle_pause')
+        event.add_callback(self.on_playback_change_state, 'playback_player_end')
+        event.add_callback(self.on_setting_change, 'option_set')
         event.log_event('tray_icon_toggled', self, True)
-
-    def set_tooltip(self, tip):
-        """
-            Sets the tooltip for the tray icon
-        """
-        self.icon.set_tooltip(tip)
 
     def destroy(self):
         """
             Unhides the window and removes the tray icon
         """
-        self.emit('toggle-tray')
+        # FIXME: Allow other windows too
         if not self.window.get_property('visible'):
             self.window.deiconify()
             self.window.present()
         self.menu = None
-        self.icon = None
         event.log_event('tray_icon_toggled', self, False)
-        #FIXME shall all the other pointers be set to None too to avoid leaks ?
 
-    def _setup_menu(self):
+    def update_icon(self):
+        """
+            Updates the tray icon according to the playback state
+        """
+        if self.player.current is None:
+            self.set_from_icon_name('exaile')
+            self.set_tooltip(_("Exaile Music Player"))
+        elif player.is_paused():
+            self.set_from_icon_name('exaile-pause')
+        else:
+            self.set_from_icon_name('exaile-play')
+
+    def setup_menu(self):
         """
             Sets up the popup menu for the tray icon
         """
@@ -153,18 +97,18 @@ class TrayIcon(gobject.GObject):
 
         self.check_shuffle = gtk.CheckMenuItem(_("Shuffle playback order"))
         self.check_shuffle.set_active(settings.get_option('playback/shuffle', False))
-        self.check_shuffle.connect('toggled', self._update_shuffle)
+        self.check_shuffle.connect('toggled', self.set_mode_toggles)
         self.menu.append_item(self.check_shuffle)
         
         self.check_repeat = gtk.CheckMenuItem(_("Repeat playlist"))
         self.check_repeat.set_active(settings.get_option('playback/repeat', False))
-        self.check_repeat.connect('toggled', self._update_repeat)
+        self.check_repeat.connect('toggled', self.set_mode_toggles)
         self.menu.append_item(self.check_repeat)
         
-        self.check_dyna = gtk.CheckMenuItem(_("Dynamically add similar tracks"))
-        self.check_dyna.set_active(settings.get_option('playback/dynamic', False))
-        self.check_dyna.connect('toggled', self._update_dynamic)
-        self.menu.append_item(self.check_dyna)
+        self.check_dynamic = gtk.CheckMenuItem(_("Dynamically add similar tracks"))
+        self.check_dynamic.set_active(settings.get_option('playback/dynamic', False))
+        self.check_dynamic.connect('toggled', self.set_mode_toggles)
+        self.menu.append_item(self.check_dynamic)
 
         self.menu.append_separator()
 
@@ -179,14 +123,14 @@ class TrayIcon(gobject.GObject):
         self.menu.append(stock_id='gtk-quit',
             callback=lambda *e: self.controller.exaile.quit())
 
-        event.add_callback(self._update_menu, 'playback_track_start')
+        event.add_callback(self.update_menu, 'playback_track_start')
     
     def _get_current_track_list(self):
         l = []
         l.append(self.player.current)
         return l
     
-    def _update_menu(self, type=None, object=None, data=None):
+    def update_menu(self, type=None, object=None, data=None):
         track = self.player.current
         if not track or not self.player.is_playing():
             self.playpause.destroy()
@@ -204,29 +148,37 @@ class TrayIcon(gobject.GObject):
             self.rating_item.set_sensitive(False)
             self.rm_item.set_sensitive(False)
 
-    def _update_shuffle(self, data):
+    def set_mode_toggles(self, menuitem):
+        """
+            Updates Shuffle, Repeat and Dynamic states
+        """
         settings.set_option('playback/shuffle', self.check_shuffle.get_active())
-
-    def _update_repeat(self, data):
         settings.set_option('playback/repeat', self.check_repeat.get_active())
-
-    def _update_dynamic(self, data):
-        settings.set_option('playback/dynamic', self.check_dyna.get_active())
+        settings.set_option('playback/dynamic', self.check_dynamic.get_active())
 
     def _remove_current_song(self):
         _pl = self.controller.main.get_current_playlist ().playlist
         if _pl and self.player.current:
             _pl.remove (_pl.index (self.player.current))
-    
 
-    # Playback state event
-    def _on_playback_change_state(self, event, player, current):
-        if player.current is None:
-            self.icon.set_from_icon_name('exaile')
-        elif player.is_paused():
-            self.icon.set_from_icon_name('exaile-pause')
-        else:
-            self.icon.set_from_icon_name('exaile-play')
+    def on_playback_change_state(self, event, player, current):
+        """
+            Updates the tray icon on playback state change
+        """
+        self.update_icon()
+
+    def on_setting_change(self, event, object, option):
+        """
+            Updates the toggle states
+        """
+        if option == 'playback/shuffle':
+            self.check_shuffle.set_active(settings.get_option(option, False))
+        
+        if option == 'playback/repeat':
+            self.check_repeat.set_active(settings.get_option(option, False))
+
+        if option == 'playback/dynamic':
+            self.check_dynamic.set_active(settings.get_option(option, False))
 
     def _button_pressed(self, icon, event):
         if event.button == 1:
@@ -234,9 +186,9 @@ class TrayIcon(gobject.GObject):
         if event.button == 2:
             self._play_pause_clicked()
         if event.button == 3:
-            self._update_menu()
+            self.update_menu()
             self.menu.popup(None, None, None,
-                event.button, event.time, self.icon)
+                event.button, event.time, self)
     
     def _play_pause_clicked(self):
         if self.player.is_paused() or self.player.is_playing():
@@ -251,17 +203,9 @@ class TrayIcon(gobject.GObject):
                         pl.playlist.index(track))
             self.queue.play()
 
-    def _activated(self, icon):
-        self.main.toggle_visible()
-
     def _query_tooltip(self, *e):
         if settings.get_option('osd/hover_tray', False):
             self.controller.main.osd.show(self.player.current)
-
-    def _popup_menu(self, icon, button, time):
-        self._update_menu()
-        self.menu.popup(None, None, None,
-            button, time, icon)
 
     def _scrolled(self, icon, event):
         if event.state & gtk.gdk.SHIFT_MASK:

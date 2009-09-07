@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2009 Adam Olsen 
+re# Copyright (C) 2008-2009 Adam Olsen 
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -80,6 +80,7 @@ class CoverDB(object):
         """
         try:
             del self.artists[artist][album]
+            self._dirty = True
         except KeyError:
             pass
 

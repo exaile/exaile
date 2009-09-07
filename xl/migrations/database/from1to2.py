@@ -30,7 +30,10 @@ def migrate(db, pdata, oldversion, newversion):
     for k in (x for x in pdata.keys() if x.startswith("tracks-")):
         p = pdata[k]
         tags = p[0]
-        loc = tags['__loc']
+        try:
+            loc = tags['__loc']
+        except KeyError:
+            continue
         if not loc or not loc.startswith("file://"):
             continue
         loc = loc[7:]

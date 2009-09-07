@@ -24,6 +24,17 @@
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
 
+import imp, os
+from xl import common
 
 
-class MigrationException(Exception): pass
+def handle_migration(db, pdata, oldversion, newversion):
+    if oldversion == 1 and newversion == 2:
+        migrator = imp.load_source("from1to2", 
+                os.path.join(os.path.dirname(__file__), "from1to2.py"))
+        migrator.migrate(db, pdata, oldversion, newversion)
+    else:
+        raise common.VersionError, "Don't know how to handle upgrade from " \
+                "music database version %s to %s."%(oldversion, newversion)
+
+

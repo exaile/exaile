@@ -134,7 +134,7 @@ class TrackDB(object):
         self.pickle_attrs += ['tracks', 'name', '_key']
         self._saving = False
         self._key = 0
-        self._dbversion = 1
+        self._dbversion = 2
         self._deleted_keys = []
         if location:
             self.load_from_location()
@@ -189,10 +189,17 @@ class TrackDB(object):
                 if pdata['_dbversion'] > self._dbversion:
                     raise common.VersionError, \
                             "DB was created on a newer Exaile version."
+                elif pdata['_dbversion'] < self._dbversion:
+                    logger.debug("Upgrading DB....")
+                    import xl.migrations.database as dbmig
+                    dbmig.handle_migration(self, pdata, pdata['_dbversion'],
+                            self._dbversion)
+
         except common.VersionError:
             raise
         except:
             logger.error("Failed to open music DB.")
+            common.log_exception(log=logger)
             return
 
         for attr in self.pickle_attrs:

@@ -70,7 +70,7 @@ class TrackPropertiesDialog(gobject.GObject):
             if not value: value = ''
             field.set_text(value)
 
-        self.loc_entry.set_text(track.get_loc())
+        self.loc_entry.set_text(track.get_loc_for_display())
 
         try:
             seconds = track.get_duration()

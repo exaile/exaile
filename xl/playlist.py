@@ -81,7 +81,7 @@ def save_to_m3u(playlist, path):
         if leng < 1: 
             leng = -1
         handle.write("#EXTINF:%d,%s\n%s\n" % (leng,
-            track['title'], track.get_loc()))
+            track['title'], track.get_loc_for_io()))
 
     handle.close()
 
@@ -150,7 +150,7 @@ def save_to_pls(playlist, path):
     count = 1 
     
     for track in playlist:
-        handle.write("File%d=%s\n" % (count, track.get_loc()))
+        handle.write("File%d=%s\n" % (count, track.get_loc_for_io()))
         handle.write("Title%d=%s\n" % (count, track['title']))
         if track['__length'] < 1:
             handle.write("Length%d=%d\n\n" % (count, -1))
@@ -231,7 +231,7 @@ def save_to_asx(playlist, path):
     for track in playlist:
         handle.write("<entry>\n")
         handle.write("  <title>%s</title>\n" % track['title'])
-        handle.write("  <ref href=\"%s\" />\n" % track.get_loc())
+        handle.write("  <ref href=\"%s\" />\n" % track.get_loc_for_io())
         handle.write("</entry>\n")
     
     handle.write("</asx>")
@@ -291,7 +291,7 @@ def save_to_xspf(playlist, path):
             if track[tag] == u"":
                 continue
             handle.write("      <%s>%s</%s>\n" % (xs, track[tag],xs) )
-        url = track.get_loc()
+        url = track.get_loc_for_io()
         handle.write("      <location>%s</location>\n" % url)
         handle.write("    </track>\n")
     
@@ -698,7 +698,7 @@ class Playlist(object):
 
         search_db = {}
         for track in self.ordered_tracks:
-            search_db[track.get_loc()] = track
+            search_db[track.get_loc_for_io()] = track
         tracks = searcher.search(phrase, search_db)
         tracks = tracks.values()
 
@@ -785,7 +785,7 @@ class Playlist(object):
         else:
             f = open(location, "w")
         for tr in self:
-            buffer = tr.get_loc()
+            buffer = tr.get_loc_for_io()
             # write track metadata
             meta = {}
             items = ('artist', 'album', 'tracknumber', 'title', 'genre',

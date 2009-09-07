@@ -42,6 +42,7 @@ class BaseFormat(object):
     tag_mapping = {}
     others = True
     writable = False
+    ignore_tags = []
 
     def __init__(self, loc):
         self.loc = loc
@@ -55,22 +56,14 @@ class BaseFormat(object):
         """
             Loads the tags from the file.
         """
-        try:
-            self.url = urllib2.urlopen(self.loc)
-        except urllib2.URLError, urllib2.HTTPError:
-            logger.error("Couldn't open url to file %s" % self.loc)
-            raise NotReadable
-        loc = urlparse.urlsplit(self.loc)
-        if loc[0] == "file":
-            if self.MutagenType:
-                file_loc = common.local_file_from_url(self.loc)
-                try:
-                    self.mutagen = self.MutagenType(file_loc)
-                except:
-                    logger.error("Couldn't read tags from possibly corrupt " \
-                            "file %s" % file_loc)
-                    #common.log_exception(logger)
-                    raise NotReadable
+        if self.MutagenType:
+            try:
+                self.mutagen = self.MutagenType(self.loc)
+            except:
+                logger.error("Couldn't read tags from possibly corrupt " \
+                        "file %s" % file_loc)
+                common.log_exception(logger)
+                raise NotReadable
 
     def save(self):
         """
@@ -109,11 +102,14 @@ class BaseFormat(object):
     def read_all(self):
         tags = []
         for t in self._get_keys():
+            if t in self.ignore_tags:
+                continue
             if t.startswith("__"):
-                logger.warning("Could not import tag %(tag)s from file %(location)s "
-                        "because of possible conflict, please adjust "
-                        "your tags if you want to import this." % {
-                            'tag': t, 'location': self.loc})
+                logger.warning("Could not import tag %(tag)s from file "
+                        "%(location)s because of possible conflict from "
+                        "leading __, please adjust your tag names if you "
+                        "want to import this tag." % \
+                                {'tag': t, 'location': self.loc})
                 continue
             tags.append(t)
         all = self.read_tags(tags)

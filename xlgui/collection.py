@@ -38,7 +38,7 @@
 
 from xl.nls import gettext as _
 import logging, os, threading
-import gtk, gobject
+import gtk, gobject, gio
 from xl import event, xdg, collection
 from xlgui import commondialogs
 
@@ -166,36 +166,28 @@ class CollectionManagerDialog(object):
             (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
             gtk.STOCK_ADD, gtk.RESPONSE_OK))
         dialog.set_current_folder(xdg.get_last_dir())
+        dialog.set_local_only(False) # enable gio
         response = dialog.run()
         dialog.hide()
 
         if response == gtk.RESPONSE_OK:
-            path = dialog.get_filename()
-            tmp_items = self.get_items()
+            gloc = gio.File(dialog.get_uri())
+            items = [ (gio.File(i), i) for i in self.get_items() ]
 
-            # Append os.sep so /ab is not detected as descendant of /a.
-            sep = os.sep
-            if path.endswith(sep):
-                path_sep = path
+            removes = []
+            for gitem, item in items:
+                if gloc.has_prefix(gitem):
+                    commondialogs.error(self.parent, 
+                        _('Path is already in your collection, or is a '
+                        'subdirectory of another path in your collection'))
+                    break
+                elif gitem.has_prefix(gloc):
+                    removes.append(item)
             else:
-                path_sep = path + sep
-
-            # TODO: Copy the code from 0.2 to handle the opposite, e.g. adding
-            # /a after /a/b should add /a and remove /a/b.
-
-            for item in tmp_items:
-                if not item: continue
-                if item.endswith(sep):
-                    item_sep = item
-                else:
-                    item_sep = item + sep
-                if (path_sep.startswith(item_sep)):
-                    # our added path is a subdir of an existing path
-                    commondialogs.error(self.parent, _('Path is already '
-                        'in your collection, or is a subdirectory of '
-                        'another path in your collection'))
-                    return
-    
-            self.list.append(path)
-
+                self.list.append(gloc.get_uri())
+                for item in removes:
+                    try:
+                        self.list.remove(item)
+                    except:
+                        pass
         dialog.destroy()

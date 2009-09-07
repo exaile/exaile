@@ -301,7 +301,6 @@ class DragTreeView(gtk.TreeView):
         tracks = []
         playlists = []
         for loc in locs:
-            loc = urllib.unquote(loc)
             (found_tracks, found_playlist) = self._handle_unknown_drag_data(loc)
             tracks.extend(found_tracks)
             playlists.extend(found_playlist)
@@ -750,9 +749,7 @@ def get_urls_for(items):
     """
         Returns the items' URLs
     """
-    return [urllib.quote(item.get_loc().encode(
-        common.get_default_encoding()), '/:')
-        for item in items]
+    return [item.get_loc_for_io() for item in items]
 
 def finish(repeat=True):
     """

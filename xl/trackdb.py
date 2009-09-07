@@ -134,7 +134,7 @@ class TrackDB(object):
         self.pickle_attrs += ['tracks', 'name', '_key']
         self._saving = False
         self._key = 0
-        self._dbversion = 1
+        self._dbversion = 2
         self._deleted_keys = []
         if location:
             self.load_from_location()
@@ -189,10 +189,17 @@ class TrackDB(object):
                 if pdata['_dbversion'] > self._dbversion:
                     raise common.VersionError, \
                             "DB was created on a newer Exaile version."
+                elif pdata['_dbversion'] < self._dbversion:
+                    logger.info("Upgrading DB format....")
+                    import xl.migrations.database as dbmig
+                    dbmig.handle_migration(self, pdata, pdata['_dbversion'],
+                            self._dbversion)
+
         except common.VersionError:
             raise
         except:
             logger.error("Failed to open music DB.")
+            common.log_exception(log=logger)
             return
 
         for attr in self.pickle_attrs:
@@ -203,7 +210,7 @@ class TrackDB(object):
                             if x.startswith("tracks-")):
                         p = pdata[k]
                         tr = track.Track(_unpickles=p[0])
-                        data[tr.get_loc()] = TrackHolder(tr, p[1], **p[2])
+                        data[tr.get_loc_for_io()] = TrackHolder(tr, p[1], **p[2])
                     setattr(self, attr, data)
                 else:
                     setattr(self, attr, pdata[attr])
@@ -363,7 +370,7 @@ class TrackDB(object):
         elif type(tracks) == list:
             do_search = {}
             for track in tracks:
-                do_search[track.get_loc()] = track
+                do_search[track.get_loc_for_io()] = track
             tracks = do_search
         elif type(tracks) == dict:
             pass
@@ -430,9 +437,9 @@ class TrackDB(object):
     @common.synchronized
     def add_tracks(self, tracks):
         for tr in tracks:
-            self.tracks[tr.get_loc()] = TrackHolder(tr, self._key)
+            self.tracks[tr.get_loc_for_io()] = TrackHolder(tr, self._key)
             self._key += 1
-            event.log_event("track_added", self, tr.get_loc())
+            event.log_event("track_added", self, tr.get_loc_for_io())
         self._dirty = True 
 
     def remove(self, track):
@@ -447,9 +454,9 @@ class TrackDB(object):
     @common.synchronized            
     def remove_tracks(self, tracks):
         for tr in tracks:
-            self._deleted_keys.append(self.tracks[tr.get_loc()]._key)
-            del self.tracks[tr.get_loc()]
-            event.log_event("track_removed", self, tr.get_loc())
+            self._deleted_keys.append(self.tracks[tr.get_loc_for_io()]._key)
+            del self.tracks[tr.get_loc_for_io()]
+            event.log_event("track_removed", self, tr.get_loc_for_io())
         self._dirty = True
       
 

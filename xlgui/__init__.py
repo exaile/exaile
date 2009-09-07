@@ -230,6 +230,7 @@ class Main(object):
             self.main.window, buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
                 gtk.STOCK_OPEN, gtk.RESPONSE_OK))
         dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+        dialog.set_local_only(False) # enable gio
 
         supported_file_filter = gtk.FileFilter()
         supported_file_filter.set_name(_("Supported Files"))

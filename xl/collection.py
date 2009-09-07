@@ -39,8 +39,8 @@ from xl import trackdb, track, common, xdg, event, metadata, settings
 from xl.settings import SettingsManager
 
 import os, time, os.path, shutil, logging
-import gobject
-import traceback
+from collections import deque
+import gobject, gio
 
 logger = logging.getLogger(__name__)
 
@@ -126,8 +126,6 @@ class Collection(trackdb.TrackDB):
         if loc not in self.libraries:
             self.libraries[loc] = library
             library.set_collection(self)
-        else:
-            traceback.print_exc()
         self.serialize_libraries()
         self._dirty = True
 
@@ -194,18 +192,11 @@ class Collection(trackdb.TrackDB):
         self._scanning = True
         self._scan_stopped = False
 
-        self.file_count = 0
-        for library in self.libraries.values():
-            if self._scan_stopped: 
-                self._scanning = False
-                return
-            self.file_count += library._count_files()
+        self.file_count = -1 # negative means we dont know it yet
 
-        logger.info("File count: %d" % self.file_count)
+        self.__count_files()
 
-        scan_interval = self.file_count / len(self.libraries.values()) / 100
-        if not scan_interval: 
-            scan_interval = 1
+        scan_interval = 20
 
         for library in self.libraries.values():
             event.add_callback(self._progress_update, 'tracks_scanned',
@@ -220,13 +211,25 @@ class Collection(trackdb.TrackDB):
             try:
                 self.save_to_location()
             except AttributeError:
-                traceback.print_exc()
+                common.log_exception(log=logger)
 
         event.log_event('scan_progress_update', self, 100)
 
         self._running_total_count = 0
         self._running_count = 0
         self._scanning = False
+        self.file_count = -1
+
+    @common.threaded
+    def __count_files(self):
+        file_count = 0
+        for library in self.libraries.values():
+            if self._scan_stopped: 
+                self._scanning = False
+                return
+            file_count += library._count_files()
+        self.file_count = file_count
+        logger.debug("File count: %s"%self.file_count)
 
     def _progress_update(self, type, library, count):
         """
@@ -236,8 +239,9 @@ class Collection(trackdb.TrackDB):
         self._running_count = count
         count = count + self._running_total_count
 
-        if self.file_count == 0:
-            event.log_event('scan_progress_update', self, 100)
+        if self.file_count < 0:
+            event.log_event('scan_progress_update', self, 0)
+            return
 
         try:
             event.log_event('scan_progress_update', self,
@@ -285,133 +289,6 @@ class Collection(trackdb.TrackDB):
             for prefix, lib in self.libraries.iteritems():
                 if tr['__loc'].startswith('file://%s'%prefix):
                     lib.delete(tr['__loc'])
-
-
-class ProcessEvent(object):
-    """
-        Stub ProcessEvent.  This is here so that the
-        :class:`INotifyEventProcessor` declaration doesn't fail if
-        :mod:`pyinotify` doesn't import correctly
-    """
-    pass
-
-# attempt to import pyinotify
-try:
-    import pyinotify
-    from pyinotify import EventsCodes, ProcessEvent
-except ImportError:
-    pyinotify = None
-except:
-    pyinotify = None
-    traceback.print_exc()
-
-class INotifyEventProcessor(ProcessEvent):
-    """
-        Processes events from inotify
-    """
-    def __init__(self):
-        """
-            Initializes the Event Processor
-        """
-        self.libraries = []
-        try:
-            # pyinotify > 0.8
-            self.mask = pyinotify.IN_MOVED_TO|pyinotify.IN_MOVED_FROM|\
-                pyinotify.IN_CREATE|pyinotify.IN_DELETE|\
-                pyinotify.IN_CLOSE_WRITE
-        except AttributeError:
-            # pyinotify < 0.8
-            self.mask = EventsCodes.IN_MOVED_TO|EventsCodes.IN_MOVED_FROM|\
-                EventsCodes.IN_CREATE|EventsCodes.IN_DELETE|\
-                EventsCodes.IN_CLOSE_WRITE
-            
-        self.wm = pyinotify.WatchManager()
-        self.notifier = pyinotify.ThreadedNotifier(self.wm, self)
-        self.notifier.setDaemon(True)
-        self.started = False
-
-    def add_library(self, library):
-        """
-            Adds a library to be monitored by inotify.  If the ThreadedNotifier
-            hasn't been started already, it will be started
-
-            :param library:  the library to be watched
-            :type library: :class:`Library`
-        """
-        wdd = self.wm.add_watch(library.location,
-            self.mask, rec=True, auto_add=True)
-
-        self.libraries.append((library, wdd))
-        logger.info("Watching directory: %s" % library.location)
-        if not self.started:
-            self.notifier.start()
-            self.started = True
-
-    def remove_library(self, library):
-        """
-            Stops a library from being watched.  If after removing the
-            specified library there are no more libraries being watched, the
-            notifier thread is stopped
-
-            :param library: the library to remove
-            :type library: :class:`Library`
-        """
-        if not self.libraries: return
-        i = 0
-        for (l, wdd) in self.libraries:
-            if l == library:
-                self.wm.rm_watch(wdd[l.location], rec=True)        
-                break
-            i += 1
-
-
-        self.libraries.pop(i)
-        if not self.libraries:
-            self.notifier.stop()
-
-    def process_IN_DELETE(self, event):
-        """
-            Called when a file is deleted
-        """
-        pathname = os.path.join(event.path, event.name)
-        logger.info("Location deleted: %s" % pathname)
-        for (library, wdd) in self.libraries:
-            if pathname.find(library.location) > -1:
-                library._remove_locations([pathname])         
-                break
-
-    def process_IN_CLOSE_WRITE(self, event):
-        """
-            Called when a file is changed
-        """
-        pathname = os.path.join(event.path, event.name)
-        logger.info("Location modified: %s" % pathname)
-        for (library, wdd) in self.libraries:
-            if pathname.find(library.location) > -1:
-                library._scan_locations([pathname])         
-                break
-
-    def process_IN_MOVED_FROM(self, event):
-        """
-            Called when a file is created as the result of moving
-        """
-        self.process_IN_DELETE(event)
-
-    def process_IN_MOVED_TO(self, event):
-        """
-            Called when a file is removed as the result of moving
-        """
-        self.process_IN_CLOSE_WRITE(event)
-
-if pyinotify:
-    EVENT_PROCESSOR = INotifyEventProcessor()
-
-class PyInotifyNotSupportedException(Exception):
-    """
-        Thrown when set_realtime is called with True and pyinotify is not
-        installed or not supported
-    """
-    pass
 
 class Library(object):
     """
@@ -510,31 +387,22 @@ class Library(object):
         for loc in locations:
             try:
                 track = self.collection.tracks[loc]
-            except KeyError:    
-                traceback.print_exc()
+            except KeyError:
+                common.log_exception(log=logger)
                 continue
 
             self.collection.remove(track)
-
-    def _walk(self, location):
-        """
-            Compatibility wrapper for Python 2.5
-        """
-        try:
-            return os.walk(self.location, followlinks=True)
-        except TypeError:
-            return os.walk(self.location)
 
     def _count_files(self):
         """
             Counts the number of files present in this directory
         """
         count = 0
-        for folder in self._walk(self.location):
+        for file in self._walk(gio.File(self.location)):
             if self.collection:
                 if self.collection._scan_stopped: 
-                    return
-            count += len(folder[2])
+                    break
+            count += 1
 
         return count
 
@@ -552,8 +420,6 @@ class Library(object):
                 to this list
             :param tr: the track to check
         """
-        # TODO: make this optional, probably in the advanced configuration
-        # editor
         # check for compilations
         if not settings.get_option('collection/file_based_compilations', True):
             return 
@@ -572,120 +438,185 @@ class Library(object):
                 ccheck[basedir] = {}
 
             if not album in ccheck[basedir]:
-                ccheck[basedir][album] = []
+                ccheck[basedir][album] = deque()
         except TypeError:
-            traceback.print_exc()
+            common.log_exception(log=logger)
             return
 
         if ccheck[basedir][album] and not \
             artist in ccheck[basedir][album]:
             if not (basedir, album) in compilations:
                 compilations.append((basedir, album))
-            logger.info("Compilation detected: %s" % ((basedir, album),))
+                logger.info("Compilation %(album)s detected in %(dir)s" % 
+                        {'album':album, 'dir':basedir})
 
         ccheck[basedir][album].append(artist)
+
+    def _walk(self, root):
+        """
+            Walk through a gio directory, returning each file in turn.
+
+            Files are enumerated in the following order: first the directory,
+            then the files in that directory. Once one directory's files have
+            all been listed, it moves on to the next directory. Order of files
+            within a dir and order of dir traversal is not specified.
+
+            :root: A gio.File representing the directory to walk through
+            
+            returns a generator object that yields each gio.File in turn
+        """
+        queue = deque()
+        queue.append(root)
+
+        while len(queue) > 0:
+            dir = queue.pop()
+            yield dir
+            for fileinfo in dir.enumerate_children("standard::type," 
+                    "standard::is-symlink,standard::name," 
+                    "standard::symlink-target,time::modified"):
+                fil = dir.get_child_for_display_name(fileinfo.get_name())
+                # FIXME: recursive symlinks could cause an infinite loop
+                if fileinfo.get_is_symlink():
+                    target = fileinfo.get_symlink_target()
+                    if not "://" in target and not os.path.isabs(target):
+                        fil2 = fil.get_child_for_display_name(target)
+                    else:
+                        fil2 = gio.File(target)
+                    # already in the collection, we'll get it anyway
+                    if fil2.has_prefix(dir):
+                        continue
+                type = fileinfo.get_file_type()
+                if type == gio.FILE_TYPE_DIRECTORY:
+                    queue.append(fil)
+                elif type == gio.FILE_TYPE_REGULAR:
+                    yield fil
+
+    def update_track(self, gloc):
+        """
+            Rescan the track at a given location
+
+            :gloc: A gio.File representing the location
+
+            returns: the Track object, None if it could not be updated
+        """
+        uri = gloc.get_uri()
+        if not uri: # we get segfaults if this check is removed
+            return None 
+        mtime = gloc.query_info("time::modified").get_modification_time()
+        trmtime = None
+        try:
+            trmtime = self.collection.get_track_attr(uri, '__modified')
+        except TypeError:
+            pass
+        except:
+            common.log_exception(log=logger)
+        if trmtime is not None and mtime <= trmtime:
+            return None
+        tr = self.collection.get_track_by_loc(uri)
+        if tr:
+            tr.read_tags()
+        else:
+            tr = track.Track(uri)
+            if tr._scan_valid == True:
+                tr['__date_added'] = time.time()
+                self.collection.add(tr)
+        tr['__modified'] = mtime
+        return tr
 
     def rescan(self, notify_interval=None):
         """
             Rescan the associated folder and add the contained files
             to the Collection
         """
+        # TODO: use gio's cancellable support
+
         if self.collection is None:
             return True
 
-        if self.scanning: return
+        if self.scanning: 
+            return 
 
         logger.info("Scanning library: %s" % self.location)
         self.scanning = True
         db = self.collection
-
-        compilations = []
-        ccheck = {} # compilations dict
+        libloc = gio.File(self.location)
 
         count = 0
-        for basepath, dirnames, filenames in self._walk(self.location):
-            for filename in filenames:
-                if self.collection:
-                    if self.collection._scan_stopped: 
-                        self.scanning = False
-                        return False
-                count += 1
-                path = os.path.abspath(os.path.join(basepath, filename))
-                if os.path.islink(path):
-                    link_loc = os.readlink(path)
-                    if not link_loc.startswith(os.sep):
-                        link_loc = os.path.realpath(os.path.join(os.path.dirname(path), link_loc))
-                    if link_loc.startswith(os.path.realpath(self.location)):
-                        logger.info("Ignoring symlink %(path)s "
-                            "pointing to %(location)s" % {
-                                'path': path,
-                                'location': link_loc
-                            })
-                        continue
+        dirtracks = deque()
+        compilations = deque()
+        ccheck = {}
+        for fil in self._walk(libloc):
+            count += 1
+            type = fil.query_file_type(flags=gio.FILE_QUERY_INFO_NONE, 
+                    cancellable=gio.Cancellable())
+            if type == gio.FILE_TYPE_DIRECTORY:
+                if dirtracks:
+                    for tr in dirtracks:
+                        self._check_compilation(ccheck, compilations, tr)
+                dirtracks = deque()
+            elif type == gio.FILE_TYPE_REGULAR:
+                tr = self.update_track(fil)
+                if not tr:
+                    continue
 
-                fullpath = "file://" + path
+                if dirtracks is not None:
+                    dirtracks.append(tr)
+                    # do this so that if we have, say, a 4000-song folder
+                    # we dont get bogged down trying to keep track of them
+                    # for compilation detection. Most albums have far fewer
+                    # than 100 tracks anyway, so it is unlikely that this
+                    # restriction will affect the heuristic's accuracy
+                    if len(dirtracks) > 100:
+                        logger.info("Too many files, skipping "
+                                "compilation detection heuristic.")
+                        dirtracks = None
 
-                try:
-                    trmtime = db.get_track_attr(fullpath, '__modified')
-                except TypeError:
-                    pass
-                except:
-                    traceback.print_exc()
-                else:
-                    mtime = os.path.getmtime(path)
-                    if mtime == trmtime:
-                        continue
+            if self.collection and self.collection._scan_stopped:
+                self.scanning = False
+                return
 
-                tr = db.get_track_by_loc(fullpath)
-                if tr:
-                    tr.read_tags()
-                else:
-                    tr = track.Track(fullpath)
-                    if tr._scan_valid:
-                        tr['__date_added'] = time.time()
-                        db.add(tr)
+            # progress update
+            if notify_interval is not None and count % notify_interval == 0:
+                event.log_event('tracks_scanned', self, count)
 
-                self._check_compilation(ccheck, compilations, tr)
-
-                # notify scanned tracks
-                if notify_interval is not None:
-                    if count % notify_interval == 0:
-                        event.log_event('tracks_scanned', self, count)
+        # final progress update
+        if notify_interval is not None:
+            event.log_event('tracks_scanned', self, count)        
 
         for (basedir, album) in compilations:
             base = basedir.replace('"', '\\"')
             alb = album.replace('"', '\\"')
-            items = db.search('__basedir="%s" album="%s"' % (base, alb))
+            items = [ tr for tr in dirtracks if \
+                    tr['__basedir'] == base and \
+                    # FIXME: this is ugly
+                    alb in u"".join(tr['album']) ]
             for item in items:
                 item['__compilation'] = (basedir, album)
 
-        if notify_interval is not None:
-            event.log_event('tracks_scanned', self, count)
-
-        removals = []
+        removals = deque()
         location = self.location
         if "://" not in location:
             location = u"file://" + location
 
-        for k, tr in db.tracks.iteritems():
+        for k, tr in self.collection.tracks.iteritems():
             tr = tr._track
             loc = tr.get_loc_for_io()
-            if not loc: continue
+            if not loc: 
+                continue
+            gloc = gio.File(loc)
             try:
-                if not loc.startswith(location):
+                if not gloc.has_prefix(libloc):
                     continue
             except UnicodeDecodeError:
+                common.log_exception(log=logger)
                 continue
 
-            if not os.path.exists(loc.replace('file://', '')):
+            if not gloc.query_exists():
                 removals.append(tr)
        
         for tr in removals:
-            logger.debug(u"Removing " + unicode(tr))
-            db.remove(tr)
-
-        self.scanning = False
-        return True
+            logger.debug(u"Removing %s"%unicode(tr))
+            self.collection.remove(tr)
 
     def is_realtime(self):
         """
@@ -700,15 +631,7 @@ class Library(object):
             :raises PyInotifyNotSupportedException: The collection is not set
                 to realtime or :mod:`pyinotify` is not available
         """
-        if realtime and not pyinotify:
-            raise PyInotifyNotSupportedException()           
-
-        self.realtime = realtime
-        if realtime and pyinotify:
-            EVENT_PROCESSOR.add_library(self)
-        
-        if not realtime and pyinotify:
-            EVENT_PROCESSOR.remove_library(self)
+        pass # TODO: reimplement with gio.FileMonitor
 
     def get_rescan_interval(self):
         """
@@ -745,7 +668,6 @@ class Library(object):
         if not loc.startswith("file://"):
             return
         loc = loc[7:]
-        print self.location
 
         newloc = os.path.join(self.location, os.path.basename(loc))
         if move:
@@ -770,8 +692,7 @@ class Library(object):
             try:
                 os.unlink(path)
             except OSError: # file not found?
-                traceback.print_exc()
-                pass
+                common.log_exception(log=logger)
             except:
                 common.log_exception(logger)
 
@@ -835,12 +756,11 @@ class TransferQueue(object):
         try:
             while self.current_pos + 1 < len(self.queue) and not self._stop:
                 track = self.queue[self.current_pos]
-                loc = track.get_loc()
+                loc = track.get_loc_for_io()
                 self.library.add(loc)
 
                 # TODO: make this be based on filesize not count
                 progress = self.current_pos * 100 / len(self.queue)
-                print progress
                 event.log_event('track_transfer_progress', self, progress)
 
                 self.current_pos += 1

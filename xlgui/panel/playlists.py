@@ -183,7 +183,7 @@ class TrackWrapper(object):
         if text and self.track['artist']:
             text += " - " + ' / '.join(self.track['artist'])
         
-        if not text: return self.track.get_loc()
+        if not text: return self.track.get_loc_for_io()
         return text
 
 class BasePlaylistPanelMixin(gobject.GObject):
@@ -857,7 +857,7 @@ class PlaylistsPanel(panel.Panel, BasePlaylistPanelMixin):
             if not tracks: return
     
             for track in tracks:
-                guiutil.DragTreeView.dragged_data[track.get_loc()] = track
+                guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
             
             urls = guiutil.get_urls_for(tracks)
             selection_data.set_uris(urls)

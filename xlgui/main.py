@@ -560,8 +560,9 @@ class MainWindow(gobject.GObject):
         """
             Sets up the various widgets
         """
+        volume = settings.get_option("player/volume", 1)
         self.volume_slider = self.builder.get_object('volume_slider')
-        self.volume_slider.set_value(settings.get_option("player/volume", 1))
+        self.volume_slider.set_value(volume)
         self.volume_slider.connect('scroll-event', guiutil.on_slider_scroll)
         self.volume_slider.connect('key-press-event',
             guiutil.on_slider_key_press)
@@ -583,6 +584,9 @@ class MainWindow(gobject.GObject):
         attr.change(pango.AttrSize(12500, 0, 600))
         self.track_title_label.set_attributes(attr)
         self.track_info_label = self.builder.get_object('track_info_label')
+
+        self.mute_button = guiutil.MuteButton(self.builder.get_object('mute_button'))
+        self.mute_button.update_volume_icon(volume)
 
         self.progress_bar = PlaybackProgressBar(
             self.builder.get_object('playback_progressbar'),

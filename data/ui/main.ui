@@ -418,65 +418,51 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkHBox" id="hbox5">
+                          <object class="GtkAlignment" id="alignment4">
                             <property name="visible">True</property>
+                            <property name="xalign">1</property>
+                            <property name="xscale">0</property>
                             <child>
-                              <object class="GtkLabel" id="label12">
+                              <object class="GtkHBox" id="hbox5">
                                 <property name="visible">True</property>
+                                <child>
+                                  <object class="GtkToggleButton" id="mute_button">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="receives_default">True</property>
+                                    <property name="relief">none</property>
+                                    <property name="focus_on_click">False</property>
+                                    <child>
+                                      <object class="GtkImage" id="volume_image">
+                                        <property name="visible">True</property>
+                                        <property name="icon_name">audio-volume-muted</property>
+                                      </object>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkHScale" id="volume_slider">
+                                    <property name="width_request">125</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="adjustment">volume_slider_adjustment</property>
+                                    <property name="draw_value">False</property>
+                                    <signal name="value_changed" handler="on_volume_slider_value_changed"/>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
                               </object>
-                              <packing>
-                                <property name="position">0</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkLabel" id="label8">
-                                <property name="visible">True</property>
-                                <property name="label" translatable="yes">Vol:</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="position">1</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkLabel" id="label9">
-                                <property name="visible">True</property>
-                                <property name="label" translatable="yes"> - </property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="position">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkHScale" id="volume_slider">
-                                <property name="width_request">125</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="adjustment">volume_slider_adjustment</property>
-                                <property name="draw_value">False</property>
-                                <signal name="value_changed" handler="on_volume_slider_value_changed"/>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="position">3</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkLabel" id="label10">
-                                <property name="visible">True</property>
-                                <property name="label" translatable="yes"> + </property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="position">4</property>
-                              </packing>
                             </child>
                           </object>
                           <packing>
                             <property name="expand">False</property>
                             <property name="fill">False</property>
-                            <property name="pack_type">end</property>
                             <property name="position">2</property>
                           </packing>
                         </child>
@@ -533,6 +519,7 @@
                         <property name="receives_default">False</property>
                         <property name="tooltip_text" translatable="yes">Shuffle playback order</property>
                         <property name="relief">none</property>
+                        <property name="focus_on_click">False</property>
                         <signal name="toggled" handler="on_shuffle_button_toggled"/>
                         <child>
                           <object class="GtkImage" id="shuffle_button_image">
@@ -554,6 +541,7 @@
                         <property name="receives_default">False</property>
                         <property name="tooltip_text" translatable="yes">Repeat playlist</property>
                         <property name="relief">none</property>
+                        <property name="focus_on_click">False</property>
                         <signal name="toggled" handler="on_repeat_button_toggled"/>
                         <child>
                           <object class="GtkImage" id="repeat_button_image">
@@ -575,6 +563,7 @@
                         <property name="receives_default">False</property>
                         <property name="tooltip_text" translatable="yes">Dynamically add similar tracks to the playlist</property>
                         <property name="relief">none</property>
+                        <property name="focus_on_click">False</property>
                         <signal name="toggled" handler="on_dynamic_button_toggled"/>
                         <child>
                           <object class="GtkImage" id="dynamic_button_image">
@@ -641,6 +630,7 @@
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="tooltip_text" translatable="yes">Previous Track</property>
+                        <property name="focus_on_click">False</property>
                         <signal name="clicked" handler="on_prev_button_clicked"/>
                         <child>
                           <object class="GtkImage" id="image1">
@@ -660,6 +650,7 @@
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="tooltip_text" translatable="yes">Start/Pause Playback</property>
+                        <property name="focus_on_click">False</property>
                         <signal name="clicked" handler="on_play_button_clicked"/>
                         <child>
                           <object class="GtkImage" id="image3">
@@ -681,6 +672,7 @@
                         <property name="tooltip_text" translatable="yes">Stop Playback
 
 Right Click for Stop After Track Feature</property>
+                        <property name="focus_on_click">False</property>
                         <signal name="clicked" handler="on_stop_button_clicked"/>
                         <child>
                           <object class="GtkImage" id="image2">
@@ -700,6 +692,7 @@ Right Click for Stop After Track Feature</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="tooltip_text" translatable="yes">Next Track</property>
+                        <property name="focus_on_click">False</property>
                         <signal name="clicked" handler="on_next_button_clicked"/>
                         <child>
                           <object class="GtkImage" id="image4">

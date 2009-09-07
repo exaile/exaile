@@ -400,6 +400,59 @@ def get_icon(id, size=gtk.ICON_SIZE_BUTTON):
     
     return gtk.gdk.pixbuf_new_from_file(path)
 
+class MuteButton(object):
+    """
+        Allows for immediate muting of the volume and
+        indicates the current volume level via an icon
+    """
+    def __init__(self, button):
+        self.button = button
+        self.restore_volume = settings.get_option('player/volume', 1)
+        self.icon_names = ['low', 'medium', 'high']
+
+        self.button.connect('toggled', self.on_toggled)
+        event.add_callback(self.on_setting_change, 'player_option_set')
+
+    def update_volume_icon(self, volume):
+        """
+            Sets the volume level indicator
+        """
+        icon_name = 'audio-volume-muted'
+
+        if volume > 0:
+            i = int(round(volume * 2))
+            icon_name = 'audio-volume-%s' % self.icon_names[i]
+
+        self.button.child.set_from_icon_name(icon_name, gtk.ICON_SIZE_BUTTON)
+
+    def on_toggled(self, button):
+        """
+            Mutes or unmutes the volume
+        """
+        if button.get_active():
+            self.restore_volume = settings.get_option('player/volume', 1)
+            volume = 0
+        else:
+            volume = self.restore_volume
+
+        self.update_volume_icon(volume)
+
+        if self.restore_volume > 0:
+            settings.set_option('player/volume', volume)
+
+    def on_setting_change(self, event, sender, option):
+        """
+            Saves the restore volume and
+            changes the volume indicator
+        """
+        if option == 'player/volume':
+            volume = settings.get_option(option, 1)
+
+            if volume > 0:
+                self.button.set_active(False)
+
+            self.update_volume_icon(volume)
+
 BITMAP_CACHE = dict()
 def get_text_icon(widget, text, width, height, bgcolor='#456eac',   
     bordercolor=None):

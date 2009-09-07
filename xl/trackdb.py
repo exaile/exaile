@@ -190,7 +190,7 @@ class TrackDB(object):
                     raise common.VersionError, \
                             "DB was created on a newer Exaile version."
                 elif pdata['_dbversion'] < self._dbversion:
-                    logger.debug("Upgrading DB....")
+                    logger.info("Upgrading DB format....")
                     import xl.migrations.database as dbmig
                     dbmig.handle_migration(self, pdata, pdata['_dbversion'],
                             self._dbversion)

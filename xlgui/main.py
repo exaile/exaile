@@ -600,11 +600,8 @@ class MainWindow(gobject.GObject):
         self.statusbar = guiutil.Statusbar(self.builder)
 
         # Search filter
-        box = self.builder.get_object('playlist_search_entry_box')
-        self.filter = guiutil.SearchEntry()
-        self.filter.connect('activate', self.on_playlist_search)
-        box.pack_start(self.filter.entry, True, True)
-
+        self.filter = guiutil.SearchEntry(
+            self.builder.get_object('playlist_search_entry'))
 
     def on_queue(self):
         """
@@ -620,9 +617,13 @@ class MainWindow(gobject.GObject):
         """
         pl = self.get_selected_playlist()
         if pl:
-            pl.search(unicode(self.filter.get_text(), 'utf-8'))
+            #pl.search(unicode(self.filter.get_text(), 'utf-8'))
+            pl.search(unicode(self.playlist_search_entry.get_text(), 'utf-8'))
 
     def on_volume_changed(self, range):
+        """
+            Saves the preferred volume
+        """
         settings.set_option('player/volume', range.get_value())
 
     def on_stop_buttonpress(self, widget, event):
@@ -682,6 +683,7 @@ class MainWindow(gobject.GObject):
             'on_shuffle_button_toggled': self.set_mode_toggles,
             'on_repeat_button_toggled': self.set_mode_toggles,
             'on_dynamic_button_toggled': self.set_mode_toggles,
+            'on_playlist_search_entry_activate': self.on_playlist_search_entry_activate,
             'on_clear_playlist_button_clicked': self.on_clear_playlist,
             'on_playlist_notebook_switch':  self.on_playlist_notebook_switch,
             'on_playlist_notebook_remove': self.on_playlist_notebook_remove,
@@ -894,6 +896,14 @@ class MainWindow(gobject.GObject):
             Gives focus to the playlist search bar
         """
         self.filter.grab_focus()
+
+    def on_playlist_search_entry_activate(self, entry):
+        """
+            Starts searching the current playlist
+        """
+        playlist = self.get_selected_playlist()
+        if playlist:
+            playlist.search(unicode(entry.get_text(), 'utf-8'))
 
     def on_save_playlist(self, *e):
         """

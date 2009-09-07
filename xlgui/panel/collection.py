@@ -73,7 +73,6 @@ class CollectionPanel(panel.Panel):
         self.use_alphabet = settings.get_option('gui/use_alphabet', True)
         self.vbox = self.builder.get_object('CollectionPanel')
         self.message = self.builder.get_object('EmptyCollectionPanel')
-        self.filter = self.builder.get_object('collection_search_entry')
         self.choice = self.builder.get_object('collection_combo_box')
         self.collection_empty_message = False
         self._search_num = 0
@@ -129,11 +128,8 @@ class CollectionPanel(panel.Panel):
         active = settings.get_option('gui/collection_active_view', 0)
         self.choice.set_active(active)
 
-        box = self.builder.get_object('collection_search_box')
-        self.filter = guiutil.SearchEntry()
-        self.filter.connect('activate', self.on_search)
-        box.pack_start(self.filter.entry, True, True)
-        box.show_all()
+        self.filter = guiutil.SearchEntry(
+            self.builder.get_object('collection_search_entry'))
 
     def _check_collection_empty(self, *e):
         if not self._show_collection_empty_message or \
@@ -160,6 +156,7 @@ class CollectionPanel(panel.Panel):
             'on_collection_combo_box_changed': lambda *e: self.load_tree(),
             'on_refresh_button_pressed': self.on_refresh_button_pressed,
             'on_refresh_button_key_pressed': self.on_refresh_button_key_pressed,
+            'on_collection_search_entry_activate': self.on_collection_search_entry_activate,
             'on_empty_collection_button_clicked': lambda *x: xlgui.controller().collection_manager()
         })
         self.tree.connect('key-release-event', self.on_key_released)
@@ -219,11 +216,11 @@ class CollectionPanel(panel.Panel):
             return True
         return False
     
-    def on_search(self, *e):
+    def on_collection_search_entry_activate(self, entry):
         """
             Searches tracks and reloads the tree
         """
-        self.keyword = unicode(self.filter.get_text(), 'utf-8')
+        self.keyword = unicode(entry.get_text(), 'utf-8')
         self.start_count += 1
         self.load_tree()
 
@@ -649,12 +646,11 @@ class CollectionPanel(panel.Panel):
         if iter_sep is not None:
             self.model.remove(iter_sep)
 
-        if depth == 0 and \
-                len(values) <= settings.get_option(
-                        "gui/expand_maximum_results", 100) and \
-                len(self.keyword.strip()) >= \
-                settings.get_option("gui/expand_minimum_term_length", 3) and \
-                settings.get_option("gui/expand_enabled", True):
+        if depth == 0 and settings.get_option("gui/expand_enabled", True) and \
+            len(values) <= settings.get_option(
+                    "gui/expand_maximum_results", 100) and \
+            len(self.keyword.strip()) >= \
+            settings.get_option("gui/expand_minimum_term_length", 3):
             
             # the search number is an id for expanding nodes. 
             # we set the id before we try expanding the nodes because

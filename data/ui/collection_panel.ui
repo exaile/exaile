@@ -183,7 +183,19 @@
                   </packing>
                 </child>
                 <child>
-                  <placeholder/>
+                  <object class="GtkEntry" id="collection_search_entry">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="secondary_icon_stock">gtk-clear</property>
+                    <property name="secondary_icon_activatable">True</property>
+                    <property name="secondary_icon_sensitive">True</property>
+                    <property name="secondary_icon_tooltip_text">Clear Search Field</property>
+                    <signal name="activate" handler="on_collection_search_entry_activate"/>
+                  </object>
+                  <packing>
+                    <property name="position">1</property>
+                  </packing>
                 </child>
               </object>
               <packing>

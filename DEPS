@@ -38,10 +38,6 @@ Library realtime watching:
 
 * pyinotify
 
-Clear button on search fields:
-
-* sexy-python
-
 Dependency Priorities
 ---------------------
 

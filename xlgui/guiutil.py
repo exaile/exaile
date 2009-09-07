@@ -31,11 +31,6 @@ from xl.nls import gettext as _
 import threading
 from xlgui import rating
 
-try:
-    import sexy
-except ImportError:
-    sexy = None
-
 def _idle_callback(func, callback, *args, **kwargs):
     value = func(*args, **kwargs)
     if callback and callable(callback):
@@ -346,51 +341,21 @@ class DragTreeView(gtk.TreeView):
         else: #We don't know what they dropped
             return ([], [])
 
-class EntryWithClearButton(object):
-    """
-        A gtk.Entry with a clear icon
-    """
-    def __init__(self):
-        """
-            Initializes the entry
-        """
-        if sexy:
-            self.entry = sexy.IconEntry()
-            image = gtk.Image()
-            image.set_from_stock('gtk-clear', gtk.ICON_SIZE_SMALL_TOOLBAR)
-            self.entry.set_icon(sexy.ICON_ENTRY_SECONDARY, image)
-            self.entry.connect('icon-released', self.icon_released)
-        else:
-            self.entry = gtk.Entry()
-
-    def icon_released(self, *e):
-        """
-            Called when the user clicks the entry icon
-        """
-        self.entry.set_text('')
-
-    def __getattr__(self, attr):
-        """
-            If this object doesn't have the attribute, check the gtk.Entry for
-            it
-        """
-        if attr == 'entry': return self.entry
-        return getattr(self.entry, attr)
-
-class SearchEntry(EntryWithClearButton):
+class SearchEntry(object):
     """
         A gtk.Entry that emits the "activated" signal when something has
         changed after the specified timeout
     """
-    def __init__(self, timeout=500):
+    def __init__(self, entry, timeout=500):
         """
             Initializes the entry
         """
-        EntryWithClearButton.__init__(self)
-        self.timeout = 500
+        self.entry = entry
+        self.timeout = timeout
         self.change_id = None
 
         self.entry.connect('changed', self.on_entry_changed)
+        self.entry.connect('icon-press', self.on_entry_icon_press)
 
     def on_entry_changed(self, *e):
         """
@@ -402,11 +367,17 @@ class SearchEntry(EntryWithClearButton):
         self.change_id = gobject.timeout_add(self.timeout,
             self.entry_activate)
 
+    def on_entry_icon_press(self, entry, icon_pos, event):
+        """
+            Clears the entry
+        """
+        self.entry.set_text('')
+
     def entry_activate(self, *e):
         """
             Emit the activate signal
         """
-        self.entry.emit('activate')
+        self.entry.activate()
 
 def get_icon(id, size=gtk.ICON_SIZE_BUTTON):
     """

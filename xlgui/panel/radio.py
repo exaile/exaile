@@ -434,7 +434,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         if not tracks: return
 
         for track in tracks:
-            guiutil.DragTreeView.dragged_data[track.get_loc()] = track
+            guiutil.DragTreeView.dragged_data[track.get_loc_for_io()] = track
         
         urls = guiutil.get_urls_for(tracks)
         selection_data.set_uris(urls)

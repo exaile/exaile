@@ -107,7 +107,16 @@ class CoverManager(object):
         """
             Shows the currently selected cover
         """
-        cover = self.covers[self.get_selected_cover()]
+        
+        item = self._get_selected_item()
+        c = self.manager.coverdb.get_cover(item[0], item[1])
+        
+        # if there is no cover, use the nocover image from the selected widget
+        if c == None:
+            cover = self.covers[self.get_selected_cover()]
+        else:
+            cover = gtk.gdk.pixbuf_new_from_file(c)
+        
         window = CoverWindow(self.parent, cover)
         window.show_all()
 
@@ -149,8 +158,11 @@ class CoverManager(object):
 
     def remove_cover(self, *e):
         item = self._get_selected_item()
+        paths = self.icons.get_selected_items()
         self.manager.coverdb.remove_cover(item[0], item[1])
         self.covers[item] = self.nocover
+        if not paths: return
+        iter = self.model.get_iter(paths[0])
         self.model.set_value(iter, 1, self.nocover)
 
     def _find_initial(self):

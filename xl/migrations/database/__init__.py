@@ -24,41 +24,17 @@
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
 
-from xl.metadata import BaseFormat
-from mutagen import FileType
+import imp, os
+from xl import common
 
-import os
 
-try:
-    import ctypes
-    modplug = ctypes.cdll.LoadLibrary("libmodplug.so.0")
-    modplug.ModPlug_GetName.restype = ctypes.c_char_p
-except (ImportError, OSError):
-    modplug = None
+def handle_migration(db, pdata, oldversion, newversion):
+    if oldversion == 1 and newversion == 2:
+        migrator = imp.load_source("from1to2", 
+                os.path.join(os.path.dirname(__file__), "from1to2.py"))
+        migrator.migrate(db, pdata, oldversion, newversion)
+    else:
+        raise common.VersionError, "Don't know how to handle upgrade from " \
+                "music database version %s to %s."%(oldversion, newversion)
 
-class ModFormat(BaseFormat):
-    MutagenType = FileType #not actually used
-    ignore_tags = ["__length"]
-
-    def load(self):
-        if modplug:
-            data = open(self.loc, "rb").read()
-            f = modplug.ModPlug_Load(data, len(data))
-            if f:
-                name = modplug.ModPlug_GetName(f) or os.path.split(self.loc)[-1]
-                length = modplug.ModPlug_GetLength(f) / 1000.0 or -1
-                self.mutagen = {'title': name, '__length':length}
-        else:
-            self.mutagen = {'title':os.path.split(self.loc)[-1]}
-
-    def get_length(self):
-        try:
-            return self.mutagen['__length']
-        except:
-            return -1
-
-    def get_bitrate(self):
-        return -1
-
-# vim: et sts=4 sw=4
 

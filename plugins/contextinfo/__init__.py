@@ -955,7 +955,7 @@ class PlayingPage(ArtistPage):
         
     def _playcount(self):
         try:
-            self['playcount'] = self.track['playcount']
+            self['playcount'] = self.track['__playcount']
             if self['playcount'] == None:
                 self['playcount'] = 0
         except:

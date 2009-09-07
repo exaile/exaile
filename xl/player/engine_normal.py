@@ -189,7 +189,7 @@ class NormalPlayer(_base.ExailePlayer):
         if track.is_local():
             if not track.exists():
                 logger.error("File does not exist: %s" % 
-                    track.get_loc())
+                    track.get_loc_for_display())
                 return False
        
         self._current = track

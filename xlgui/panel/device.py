@@ -72,7 +72,7 @@ class ReceptiveCollectionPanel(CollectionPanel):
         uris = data.get_uris()
         tracks, playlists = self.tree.get_drag_data(uris)
         tracks = [ t for t in tracks if not \
-                self.collection.loc_is_member(t.get_loc()) ]
+                self.collection.loc_is_member(t.get_loc_for_io()) ]
 
         self.add_tracks_func(tracks)
 

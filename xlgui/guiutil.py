@@ -1,7 +1,5 @@
 # Copyright (C) 2008-2009 Adam Olsen 
 #
-# Copyright (C) 2008-2009 Adam Olsen 
-#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
@@ -736,10 +734,6 @@ class MenuRatingWidget(gtk.MenuItem):
                 r = -1
             
             if r >= 0:
-                if r == tracks[0].get_rating() and \
-                    self._all_ratings_equal(tracks):
-                    r = 0
-                
                 for track in tracks:
                     track.set_rating(r)
                 

@@ -86,6 +86,9 @@ def get_config_dir():
 def get_config_dirs():
     return config_dirs
 
+def get_data_dir():
+    return data_home
+
 def get_data_dirs():
     return data_dirs[:]
 

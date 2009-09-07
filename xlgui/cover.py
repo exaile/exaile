@@ -161,8 +161,11 @@ class CoverManager(object):
 
     def remove_cover(self, *e):
         item = self._get_selected_item()
+        paths = self.icons.get_selected_items()
         self.manager.coverdb.remove_cover(item[0], item[1])
         self.covers[item] = self.nocover
+        if not paths: return
+        iter = self.model.get_iter(paths[0])
         self.model.set_value(iter, 1, self.nocover)
 
     def _find_initial(self):
@@ -233,8 +236,8 @@ class CoverManager(object):
             Connects the various events
         """
         self.xml.signal_autoconnect({
-            'stop_button_clicked': self._toggle_find,
-            'cancel_button_clicked': self._on_destroy
+            'on_stop_button_clicked': self._toggle_find,
+            'on_cancel_button_clicked': self._on_destroy
         })
 
         self.window.connect('delete-event', self._on_destroy)

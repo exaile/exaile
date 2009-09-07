@@ -277,16 +277,8 @@ class DbusManager(dbus.service.Object):
         """
             Returns the position inside the current track (as time)
         """
-        progress = self.exaile.player.get_progress()
-        if progress == -1:
-            return ''
-        try:
-            length = float(self.GetTrackAttr('__length'))
-            progress = length * progress
-
-            return '%d:%02d' % (progress // 60, progress % 60)
-        except TypeError:
-            return ''
+        progress = self.exaile.player.get_time()
+        return '%d:%02d' % (progress // 60, progress % 60)
 
     @dbus.service.method('org.exaile.Exaile', None, 's')
     def GetVolume(self):

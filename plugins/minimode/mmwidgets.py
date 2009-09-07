@@ -18,10 +18,10 @@
 import copy, gobject, gtk, pango
 from string import Template
 from xl import event, settings
-from xl.track import Track
 from xl.nls import gettext as _
+from xl.track import Track
+from xlgui.guiutil import get_workarea_size
 from xlgui.playlist import Playlist
-from minimodeprefs import get_workarea_size
 
 class MMMenuItem(gtk.ImageMenuItem):
     """

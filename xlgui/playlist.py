@@ -844,6 +844,8 @@ class Playlist(gtk.VBox):
             col.set_reorderable(True)
             col.set_resizable(False)
             col.set_sort_indicator(False)
+            # hack to make sorting work right. does not sort.
+            col.set_sort_order(gtk.SORT_DESCENDING)
 
             if not resizable:
                 if column.id in ('title', 'artist', 'album', '__loc', 'genre'):

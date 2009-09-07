@@ -161,8 +161,11 @@ class CoverManager(object):
 
     def remove_cover(self, *e):
         item = self._get_selected_item()
+        paths = self.icons.get_selected_items()
         self.manager.coverdb.remove_cover(item[0], item[1])
         self.covers[item] = self.nocover
+        if not paths: return
+        iter = self.model.get_iter(paths[0])
         self.model.set_value(iter, 1, self.nocover)
 
     def _find_initial(self):

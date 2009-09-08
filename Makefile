@@ -25,6 +25,7 @@ make-install-dirs:
 	mkdir -p $(EXAILELIBDIR)/xl
 	mkdir -p $(EXAILELIBDIR)/xl/metadata
 	mkdir -p $(EXAILELIBDIR)/xl/player
+	mkdir -p $(EXAILELIBDIR)/xl/migrations
 	mkdir -p $(EXAILELIBDIR)/xlgui
 	mkdir -p $(EXAILELIBDIR)/xlgui/panel
 	mkdir -p $(EXAILELIBDIR)/xlgui/prefs
@@ -64,6 +65,8 @@ install-target: make-install-dirs
 	install -m 644 xl/metadata/*.py $(EXAILELIBDIR)/xl/metadata
 	-install -m 644 xl/player/*.py[co] $(EXAILELIBDIR)/xl/player
 	install -m 644 xl/player/*.py $(EXAILELIBDIR)/xl/player
+	-install -m 644 xl/migrations/*.py[co] $(EXAILELIBDIR)/xl/migrations
+	install -m 644 xl/migrations/*.py $(EXAILELIBDIR)/xl/migrations
 	-install -m 644 xlgui/*.py[co] $(EXAILELIBDIR)/xlgui
 	install -m 644 xlgui/*.py $(EXAILELIBDIR)/xlgui
 	-install -m 644 xlgui/panel/*.py[co] $(EXAILELIBDIR)/xlgui/panel

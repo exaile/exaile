@@ -111,7 +111,10 @@ class Track(object):
         self.__tracksdict[self['__loc']] = self
 
     def __unregister(self):
-        del self.__tracksdict[self['__loc']]
+        try:
+            del self.__tracksdict[self['__loc']]
+        except KeyError:
+            pass
 
     def set_loc(self, loc):
         """

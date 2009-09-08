@@ -66,6 +66,9 @@ class Track(object):
     """
         Represents a single track.
     """
+    # save a little memory this way
+    __slots__ = ["tags", "_scan_valid", "_scanning", "_dirty"]
+
     def __init__(self, uri=None, _unpickles=None):
         """
             loads and initializes the tag information

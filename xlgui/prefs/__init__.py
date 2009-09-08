@@ -205,18 +205,19 @@ class PreferencesDialog(object):
 
         child = self.panes.get(page)
         if not child:
-            import gtk
             if hasattr(page, 'ui'):
+                import gtk
                 builder = gtk.Builder()
                 builder.add_from_file(page.ui)
             else:
                 try:
+                    logger.warning('Please switch to gtk.Builder for preferences panes')
                     import gtk.glade
                     builder = gtk.glade.XML(page.glade, 'prefs_pane')
                     builder.get_object = builder.get_widget
                     builder.connect_signals = builder.signal_autoconnect
                 except NameError:
-                    logger.error('Importing Glade as fallback failed!')
+                    logger.error('Importing Glade as fallback failed')
                     return
 
             child = builder.get_object('prefs_pane')

@@ -80,7 +80,7 @@ class MiniMode(gtk.Window):
         self.exaile.gui.icons.add_stock_from_directory('exaile-minimode',
             os.path.join(basedir, 'icons'))
 
-        self.menuitem = mmwidgets.MMMenuItem(self.on_menuitem_activate)
+        self.menuitem = mmwidgets.MenuItem(self.on_menuitem_activate)
         self.exaile.gui.builder.get_object('view_menu').append(self.menuitem)
         self.menuitem.show()
 
@@ -198,26 +198,26 @@ class MiniMode(gtk.Window):
         """
             Sets up all available controls
         """
-        self.box = mmwidgets.MMBox(spacing=3)
+        self.box = mmwidgets.Box(spacing=3)
 
-        self.box.pack_start(mmwidgets.MMButton('previous',
+        self.box.pack_start(mmwidgets.Button('previous',
             'gtk-media-previous', _('Previous Track'), self.on_previous))
-        self.box.pack_start(mmwidgets.MMButton('next',
+        self.box.pack_start(mmwidgets.Button('next',
             'gtk-media-next', _('Next Track'), self.on_next))
-        self.box.pack_start(mmwidgets.MMPlayPauseButton(
+        self.box.pack_start(mmwidgets.PlayPauseButton(
             self.exaile.player, self.on_play_pause))
-        self.box.pack_start(mmwidgets.MMButton('stop',
+        self.box.pack_start(mmwidgets.Button('stop',
             'gtk-media-stop', _('Stop Playback'), self.on_stop))
-        self.box.pack_start(mmwidgets.MMButton('restore',
+        self.box.pack_start(mmwidgets.Button('restore',
             'gtk-fullscreen', _('Restore Main Window'), self.on_restore))
-        self.box.pack_start(mmwidgets.MMTrackSelector(
+        self.box.pack_start(mmwidgets.TrackSelector(
             self.exaile.queue,
             self.on_track_change, self.on_format_request))
-        self.box.pack_start(mmwidgets.MMProgressBar(
+        self.box.pack_start(mmwidgets.ProgressBar(
             self.exaile.player, self.on_track_seeked))
-        self.box.pack_start(mmwidgets.MMVolumeButton(
+        self.box.pack_start(mmwidgets.VolumeButton(
             self.exaile.player, self.on_volume_changed))
-        self.box.pack_start(mmwidgets.MMPlaylistButton(
+        self.box.pack_start(mmwidgets.PlaylistButton(
             self.exaile.gui.main, self.exaile.queue,
             self.exaile.queue.current_playlist,
             self.on_track_change, self.on_format_request))

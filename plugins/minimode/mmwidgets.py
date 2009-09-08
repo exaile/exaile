@@ -23,7 +23,7 @@ from xl.track import Track
 from xlgui.guiutil import get_workarea_size
 from xlgui.playlist import Playlist
 
-class MMMenuItem(gtk.ImageMenuItem):
+class MenuItem(gtk.ImageMenuItem):
     """
         Convenience wrapper, allows switching to mini mode
     """
@@ -50,7 +50,7 @@ class MMMenuItem(gtk.ImageMenuItem):
         self.image.destroy()
         gtk.ImageMenuItem.destroy(self)
 
-class MMBox(gtk.HBox):
+class Box(gtk.HBox):
     """
         Convenience wrapper around gtk.HBox, allows
         for simple access of contained widgets
@@ -64,9 +64,9 @@ class MMBox(gtk.HBox):
         """
             Inserts a child into this box
         """
-        if not isinstance(child, MMWidget):
+        if not isinstance(child, Widget):
             raise TypeError(
-                '%s is not instance of %s' % (child, MMWidget))
+                '%s is not instance of %s' % (child, Widget))
         gtk.HBox.pack_start(self, child, expand=False, fill=False)
 
     def __getitem__(self, id):
@@ -117,21 +117,29 @@ class MMBox(gtk.HBox):
         for widget in self.get_children():
             self.hide_child(widget.id)
 
-class MMWidget(gtk.Widget):
+class Widget(gtk.Widget):
     """
         Wrapper for gtk.Widget,
         allows for identification of widgets
     """
     def __init__(self, id):
         gtk.Widget.__init__(self)
-        self.id = id
+        self.__id = id
 
-class MMButton(MMWidget, gtk.Button):
+    def get_id(self):
+        """
+            Returns the ID of this widget
+        """
+        return self.__id
+
+    id = property(get_id)
+
+class Button(Widget, gtk.Button):
     """
         Convenience wrapper around gtk.Button
     """
     def __init__(self, id, stock_id, tooltip_text, callback):
-        MMWidget.__init__(self, id)
+        Widget.__init__(self, id)
         gtk.Button.__init__(self)
 
         self.image = gtk.image_new_from_stock(stock_id, gtk.ICON_SIZE_BUTTON)
@@ -141,13 +149,13 @@ class MMButton(MMWidget, gtk.Button):
 
         self.connect('clicked', callback)
 
-class MMPlayPauseButton(MMButton):
+class PlayPauseButton(Button):
     """
-        Special MMButton which automatically sets its
+        Special Button which automatically sets its
         appearance depending on the current playback state
     """
     def __init__(self, player, callback):
-        MMButton.__init__(self, 'play_pause', 'gtk-media-play',
+        Button.__init__(self, 'play_pause', 'gtk-media-play',
             _('Start Playback'), callback)
 
         self.player = player
@@ -180,12 +188,12 @@ class MMPlayPauseButton(MMButton):
         """
         self.update_state()
 
-class MMVolumeButton(MMWidget, gtk.VolumeButton):
+class VolumeButton(Widget, gtk.VolumeButton):
     """
         Wrapper class around gtk.VolumeButton
     """
     def __init__(self, player, callback):
-        MMWidget.__init__(self, 'volume')
+        Widget.__init__(self, 'volume')
         gtk.VolumeButton.__init__(self)
 
         self.player = player
@@ -213,7 +221,49 @@ class MMVolumeButton(MMWidget, gtk.VolumeButton):
         self.set_value(self.player.get_volume() / 100.0)
         self._updating = False
 
-class MMPlaylistButton(MMWidget, gtk.ToggleButton):
+class AttachedWindow(gtk.Window):
+    """
+        A window attachable to arbitrary widgets,
+        follows the movement of its parent
+    """
+    def __init__(self, parent, child):
+        gtk.Window.__init__(self, gtk.WINDOW_TOPLEVEL)
+
+        self.parent_widget = parent
+
+        self.set_decorated(False)
+        self.set_property('skip-taskbar-hint', True)
+        self.set_size_request(350, 400)
+        self.add(child)
+
+    def update_location(self):
+        """
+            Makes sure the window is
+            always fully visible
+        """
+        workarea_width, workarea_height = get_workarea_size() # 1280, 974
+        width, height = self.size_request() #  350, 400
+        parent_window_x, parent_window_y = self.parent_widget.get_window().get_origin()
+        parent_x, parent_y, parent_width, parent_height = self.parent_widget.get_allocation()
+        parent_x, parent_y = parent_window_x + parent_x, parent_window_y + parent_y
+
+        # E.g.       1280 - 1000    < 350
+        if workarea_width - parent_x < width:
+            #           1000 + 150          - 350 = 800
+            x = parent_x + parent_width - width # Aligned right
+        else:
+            x = parent_x # Aligned left
+
+        # E.g.         974 - 800     < 400
+        if workarea_height - parent_y < height:
+            #            800 - 400 = 400 
+            y = parent_y - height # Aligned top
+        else:
+            y = parent_y + parent_height # Aligned bottom
+
+        self.move(x, y)
+
+class PlaylistButton(Widget, gtk.ToggleButton):
     """
         Displays the current track title and
         the current playlist on activation
@@ -221,7 +271,7 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
         to add them to the playlist
     """
     def __init__(self, main, queue, playlist, change_callback, format_callback=None):
-        MMWidget.__init__(self, 'playlist_button')
+        Widget.__init__(self, 'playlist_button')
         gtk.ToggleButton.__init__(self, '')
 
         self.set_size_request(150, -1)
@@ -235,15 +285,10 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
         self.add(box)
 
         self.main = main
-        self.queue = queue
-        self.formatter = MMTrackFormatter()
-        self.popup = gtk.Window(gtk.WINDOW_TOPLEVEL)
-        self.popup.set_decorated(False)
-        self.popup.set_size_request(350, 400)
+        self.formatter = TrackFormatter()
         self.playlist = Playlist(main, queue, playlist)
-        self.popup.add(self.playlist)
+        self.popup = AttachedWindow(self, self.playlist)
 
-        self._updating = False
         self._drag_shown = False
         self._parent_configure_id = None
         self._parent_hide_id = None
@@ -276,32 +321,6 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
         event.add_callback(self.on_tracks_changed, 'tracks_added')
         event.add_callback(self.on_tracks_changed, 'tracks_removed')
         event.add_callback(self.on_tracks_changed, 'tracks_reordered')
-
-    def move_popup(self):
-        """
-            Makes sure the popup is always fully visible
-        """
-        workarea_width, workarea_height = get_workarea_size() # 1280, 974
-        popup_width, popup_height = self.popup.size_request() #  350, 400
-        buttonx, buttony, button_width, button_height = self.get_allocation()
-        parentx, parenty = self.get_window().get_origin()
-        buttonx, buttony = parentx + buttonx, parenty + buttony
-
-        # E.g.       1280 - 1000    < 350
-        if workarea_width - buttonx < popup_width:
-            #           1000 + 150          - 350 = 800
-            popupx = buttonx + button_width - popup_width # Aligned right
-        else:
-            popupx = buttonx # Aligned left
-
-        # E.g.         974 - 800     < 400
-        if workarea_height - buttony < popup_height:
-            #            800 - 400 = 400 
-            popupy = buttony - popup_height # Aligned top
-        else:
-            popupy = buttony + button_height # Aligned bottom
-
-        self.popup.move(popupx, popupy)
 
     def set_tracks(self, tracks):
         """
@@ -375,7 +394,7 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
         """
             Passes parent window movement to the popup
         """
-        self.move_popup()
+        self.popup.update_location()
 
     def on_parent_hide(self, parent):
         """
@@ -412,7 +431,7 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
                 'hide', self.on_parent_hide)
 
         if self.get_active():
-            self.move_popup()
+            self.popup.update_location()
             self.set_arrow_direction(gtk.ARROW_DOWN)
             self.popup.show()
         else:
@@ -452,23 +471,23 @@ class MMPlaylistButton(MMWidget, gtk.ToggleButton):
             self.set_active(False)
             self._drag_shown = False
 
-gobject.type_register(MMPlaylistButton)
-gobject.signal_new('track-changed', MMPlaylistButton,
+gobject.type_register(PlaylistButton)
+gobject.signal_new('track-changed', PlaylistButton,
     gobject.SIGNAL_RUN_FIRST, gobject.TYPE_NONE,
     (gobject.TYPE_PYOBJECT, ))
 
-class MMTrackSelector(MMWidget, gtk.ComboBox):
+class TrackSelector(Widget, gtk.ComboBox):
     """
         Control which updates its content automatically
         on playlist actions, track display is configurable
     """
     def __init__(self, queue, changed_callback, format_callback=None):
-        MMWidget.__init__(self, 'track_selector')
+        Widget.__init__(self, 'track_selector')
         gtk.ComboBox.__init__(self)
 
         self.queue = queue
         self.list = gtk.ListStore(gobject.TYPE_PYOBJECT, gobject.TYPE_STRING)
-        self.formatter = MMTrackFormatter()
+        self.formatter = TrackFormatter()
         self._updating = False
         #self._changed_callback = changed_callback
 
@@ -602,18 +621,18 @@ class MMTrackSelector(MMWidget, gtk.ComboBox):
         """
         self.update_track_list(playlist, tracks)
 
-gobject.type_register(MMTrackSelector)
-gobject.signal_new('track-changed', MMTrackSelector,
+gobject.type_register(TrackSelector)
+gobject.signal_new('track-changed', TrackSelector,
     gobject.SIGNAL_RUN_FIRST, gobject.TYPE_NONE,
     (gobject.TYPE_PYOBJECT, ))
 
-class MMProgressBar(MMWidget, gtk.Alignment):
+class ProgressBar(Widget, gtk.Alignment):
     """
         Wrapper class which updates itself
         based on the current track
     """
     def __init__(self, player, callback):
-        MMWidget.__init__(self, 'progress_bar')
+        Widget.__init__(self, 'progress_bar')
         gtk.Alignment.__init__(self)
         self.set_padding(3, 3, 0, 0)
 
@@ -753,18 +772,18 @@ class MMProgressBar(MMWidget, gtk.Alignment):
         self.bar.set_fraction(event.x / width)
         self.bar.set_text(text)
 
-gobject.type_register(MMProgressBar)
-gobject.signal_new('track-seeked', MMProgressBar,
+gobject.type_register(ProgressBar)
+gobject.signal_new('track-seeked', ProgressBar,
     gobject.SIGNAL_RUN_FIRST, gobject.TYPE_NONE,
     (gobject.TYPE_FLOAT, ))
 
-class MMTrackBar(MMTrackSelector, MMProgressBar):
+class TrackBar(TrackSelector, ProgressBar):
     """
         Track selector + progress bar = WIN
     """
     pass
 
-class MMTrackFormatter(gobject.GObject):
+class TrackFormatter(gobject.GObject):
     """
         Formats track titles based on a format string
     """

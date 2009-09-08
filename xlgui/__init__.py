@@ -295,11 +295,14 @@ class Main(object):
         """
             Allows plugins to be the last selected panel
         """
-        last_selected_panel = settings.get_option(
-            'gui/last_selected_panel', 'collection')
-        panel = self.panels[last_selected_panel]._child
-        panel_num = self.panel_notebook.page_num(panel)
-        self.panel_notebook.set_current_page(panel_num)
+        try:
+            last_selected_panel = settings.get_option(
+                'gui/last_selected_panel', 'collection')
+            panel = self.panels[last_selected_panel]._child
+            panel_num = self.panel_notebook.page_num(panel)
+            self.panel_notebook.set_current_page(panel_num)
+        except KeyError:
+            pass
 
     def on_goto_playing_track(self, *e):
         track = self.exaile.queue.get_current()

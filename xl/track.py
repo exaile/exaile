@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
 
-import logging, os, urllib2, urlparse
+import logging, os, urllib2, urlparse, weakref
 from copy import deepcopy
 import gio
 from xl.nls import gettext as _
@@ -66,6 +66,28 @@ class Track(object):
     """
         Represents a single track.
     """
+    # save a little memory this way
+    __slots__ = ["tags", "_scan_valid", "_scanning", 
+            "_dirty", "__weakref__"]
+    # this is used to enforce the one-track-per-uri rule
+    __tracksdict = weakref.WeakValueDictionary()
+
+    def __new__(cls, *args, **kwargs):
+        uri = None
+        if len(args) > 0:
+            uri = args[0]
+        elif kwargs.has_key("uri"):
+            uri = kwargs["uri"]
+        if uri is not None:
+            try:
+                tr = cls.__tracksdict[uri]
+            except KeyError:
+                tr = object.__new__(cls)
+                cls.__tracksdict[uri] = tr
+            return tr
+        else:
+            return object.__new__(cls)
+
     def __init__(self, uri=None, _unpickles=None):
         """
             loads and initializes the tag information
@@ -80,9 +102,19 @@ class Track(object):
         self._dirty = False
         if _unpickles:
             self._unpickles(_unpickles)
+            self.__register()
         elif uri:
-            self.set_loc(uri)
+            self.tags['__loc'] = gio.File(uri).get_uri()
             self.read_tags()
+
+    def __register(self):
+        self.__tracksdict[self['__loc']] = self
+
+    def __unregister(self):
+        try:
+            del self.__tracksdict[self['__loc']]
+        except KeyError:
+            pass
 
     def set_loc(self, loc):
         """
@@ -90,8 +122,10 @@ class Track(object):
             
             loc: the location [string], as either a uri or a file path.
         """
+        self.__unregister()
         gloc = gio.File(loc)
         self['__loc'] = gloc.get_uri()
+        self.__register()
        
     def get_loc_for_display(self):
         """

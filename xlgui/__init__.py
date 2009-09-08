@@ -92,8 +92,6 @@ class Main(object):
         self.play_toolbar = self.builder.get_object('play_toolbar')
 
         logger.info("Loading panels...")
-        self.last_selected_panel = settings.get_option(
-            'gui/last_selected_panel', None)
         self.panels['collection'] = collection.CollectionPanel(self.main.window,
             exaile.collection, _show_collection_empty_message=True)
         self.panels['radio'] = radio.RadioPanel(self.main.window, exaile.collection, 
@@ -104,13 +102,6 @@ class Main(object):
 
         for panel in ('collection', 'radio', 'playlists', 'files'):
             self.add_panel(*self.panels[panel].get_panel())
-
-        try:
-            selected_panel = self.panels[self.last_selected_panel]._child
-            selected_panel_num = self.panel_notebook.page_num(selected_panel)
-            self.panel_notebook.set_current_page(selected_panel_num)
-        except KeyError:
-            pass
 
         # add the device panels
         for device in self.exaile.devices.list_devices():
@@ -126,11 +117,10 @@ class Main(object):
         if settings.get_option('gui/use_tray', False):
             self.tray_icon = tray.TrayIcon(self.main)
 
-        event.add_callback(self._on_quit_application, 'quit_application')
-
         self.device_panels = {}
         event.add_callback(self.add_device_panel, 'device_connected')
         event.add_callback(self.remove_device_panel, 'device_disconnected')
+        event.add_callback(self.on_gui_loaded, 'gui_loaded')
 
         logger.info("Done loading main window...")
         Main._main = self
@@ -159,14 +149,6 @@ class Main(object):
         })
         """
         pass
-
-    def _on_quit_application(self, event, sender, data):
-        """
-            Updates settings affected by GUI interaction
-        """
-        if not self.last_selected_panel:
-            self.last_selected_panel = 0
-        settings.set_option('gui/last_selected_panel', self.last_selected_panel)
         
     def export_current_playlist(self, *e):
         pl = self.main.get_current_playlist ().playlist
@@ -337,6 +319,16 @@ class Main(object):
             coll.thaw_libraries()
             self.on_rescan_collection()
 
+    def on_gui_loaded(self, event, object, nothing):
+        """
+            Allows plugins to be the last selected panel
+        """
+        last_selected_panel = settings.get_option(
+            'gui/last_selected_panel', 'collection')
+        panel = self.panels[last_selected_panel]._child
+        panel_num = self.panel_notebook.page_num(panel)
+        self.panel_notebook.set_current_page(panel_num)
+
     def on_goto_playing_track(self, *e):
         track = self.exaile.queue.get_current()
         pl = self.main.get_current_playlist()
@@ -396,10 +388,17 @@ class Main(object):
         raise ValueError("No such panel")
 
     def on_panel_switch(self, notebook, page, pagenum):
+        """
+            Saves the currently selected panel
+        """
+        if self.exaile.loading:
+            return
+
         page = notebook.get_nth_page(pagenum)
         for id, panel in self.panels.items():
             if panel._child == page:
-                self.last_selected_panel = id
+                settings.set_option('gui/last_selected_panel', id)
+                return
 
     def show_about_dialog(self, *e):
         """

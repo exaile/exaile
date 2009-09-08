@@ -547,8 +547,7 @@ class Library(object):
         ccheck = {}
         for fil in self._walk(libloc):
             count += 1
-            type = fil.query_file_type(flags=gio.FILE_QUERY_INFO_NONE, 
-                    cancellable=gio.Cancellable())
+            type = fil.query_info("standard::type").get_file_type()
             if type == gio.FILE_TYPE_DIRECTORY:
                 if dirtracks:
                     for tr in dirtracks:

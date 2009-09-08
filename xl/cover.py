@@ -477,8 +477,8 @@ class LocalCoverSearch(CoverSearchMethod):
         except AttributeError:
             raise NoCoverFoundException()
 
-        if not search_dir.query_file_type(flags=gio.FILE_QUERY_INFO_NONE,
-                cancellable=gio.Cancellable()) == gio.FILE_TYPE_DIRECTORY:
+        if not search_dir.query_info("standard::type").get_file_type() == \
+                gio.FILE_TYPE_DIRECTORY:
             raise NoCoverFoundException()
         for fileinfo in search_dir.enumerate_children("standard::type"
                 ",standard::name"):

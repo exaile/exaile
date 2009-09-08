@@ -111,9 +111,6 @@ class Main(object):
         logger.info("Connecting panel events...")
         self.main._connect_panel_events()
 
-        logger.info("Connecting main window events...")
-        self._connect_events()
-
         if settings.get_option('gui/use_tray', False):
             self.tray_icon = tray.TrayIcon(self.main)
 
@@ -124,31 +121,6 @@ class Main(object):
 
         logger.info("Done loading main window...")
         Main._main = self
-
-    def _connect_events(self):
-        """
-            Connects the various events to their handlers
-        """
-        """
-        self.builder.connect_signals({
-            'on_about_item_activate': self.show_about_dialog,
-            'on_scan_collection_item_activate': self.on_rescan_collection,
-            'on_randomize_playlist_item_activate': self.on_randomize_playlist,
-            'on_collection_manager_item_activate': self.collection_manager,
-            'on_goto_playing_track_activate': self.on_goto_playing_track,
-            'on_queue_manager_item_activate': self.queue_manager,
-            'on_preferences_item_activate': lambda *e: self.show_preferences(),
-            'on_device_manager_item_activate': lambda *e: self.show_devices(),
-            'on_cover_manager_item_activate': self.show_cover_manager,
-            'on_open_item_activate': self.open_dialog,
-            'on_open_url_item_activate': self.open_url,
-            'on_export_current_playlist_activate': self.export_current_playlist,
-            'on_panel_notebook_switch_page': self.on_panel_switch,
-            'on_track_properties_activate':self.on_track_properties,
-            'on_clear_playlist_item_activate': self.main.on_clear_playlist,
-        })
-        """
-        pass
         
     def export_current_playlist(self, *e):
         pl = self.main.get_current_playlist ().playlist

@@ -363,6 +363,7 @@ class MainWindow(gobject.GObject):
         self._setup_position()
         self._setup_widgets()
         self._setup_hotkeys()
+        logger.info("Connecting main window events...")
         self._connect_events()
         self.osd = osd.OSDWindow(self.cover, self.covers, self.player)
         self.tab_manager = xl.playlist.PlaylistManager(

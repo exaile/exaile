@@ -1056,7 +1056,7 @@ class ContextPanel(gobject.GObject):
         self.name = name
         self.parent = parent
         self.ui = gtk.Builder()
-        self.ui.add_from_file(ui_info[0])
+        self.ui.add_from_file(self.ui_info[0])
         self._child = None
         
     def setup_widgets(self):

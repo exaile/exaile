@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Exaile music player 0.3.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-04 09:12+0200\n"
-"PO-Revision-Date: 2009-09-04 09:15+0100\n"
+"POT-Creation-Date: 2009-09-08 11:43+0200\n"
+"PO-Revision-Date: 2009-09-08 11:44+0100\n"
 "Last-Translator: Mathias Brodala <info@noctus.net>\n"
 "Language-Team: German <info@noctus.net>\n"
 "MIME-Version: 1.0\n"
@@ -25,188 +25,181 @@ msgstr ""
 msgid "Automatic"
 msgstr "Automatisch"
 
-#. TODO: remove this before 0.3.0 since it is not needed for
-#. stable->stable upgrades
-#: ../xl/player/engine_normal.py:164
-#, python-format
-msgid "Exaile now uses absolute URI's, please delete/rename your %s directory"
-msgstr "Exaile nutzt nun absolute URIs, bitte das %s-Verzeichnis löschen/umbenennen."
-
 #: ../xl/main.py:130
 msgid "Failed to migrate from 0.2.14"
 msgstr "Migration von 0.2.14 fehlgeschlagen"
 
-#: ../xl/main.py:282
+#: ../xl/main.py:298
 msgid "Playback options"
 msgstr "Wiedergabe-Optionen"
 
-#: ../xl/main.py:284
+#: ../xl/main.py:300
 msgid "Play the next track"
 msgstr "Nächstes Stück spielen"
 
-#: ../xl/main.py:286
+#: ../xl/main.py:302
 msgid "Play the previous track"
 msgstr "Vorheriges Stück spielen"
 
-#: ../xl/main.py:288
+#: ../xl/main.py:304
 msgid "Stop playback"
 msgstr "Wiedergabe beenden"
 
-#: ../xl/main.py:290
+#: ../xl/main.py:306
 msgid "Play"
 msgstr "Wiedergabe"
 
-#: ../xl/main.py:292
+#: ../xl/main.py:308
 msgid "Toggle Play or Pause"
 msgstr "Wiedergabe oder Pause"
 
-#: ../xl/main.py:295
+#: ../xl/main.py:311
 msgid "Stop playback after current track"
 msgstr "Wiedergabe nach dem aktuellen Stück beenden"
 
-#: ../xl/main.py:298
+#: ../xl/main.py:314
 msgid "Track options"
 msgstr "Stück-Optionen"
 
-#: ../xl/main.py:300
+#: ../xl/main.py:316
 msgid "Query player"
 msgstr "Abfrage"
 
-#: ../xl/main.py:302
+#: ../xl/main.py:318
 msgid "Show a popup of the currently playing track"
 msgstr "Grafische Abfrage mit Hilfe eines Dialogs"
 
-#: ../xl/main.py:304
+#: ../xl/main.py:320
 msgid "Print the title of current track"
 msgstr "Titel des aktuellen Stücks ausgeben"
 
-#: ../xl/main.py:306
+#: ../xl/main.py:322
 msgid "Print the album of current track"
 msgstr "Album des aktuellen Stücks ausgeben"
 
-#: ../xl/main.py:308
+#: ../xl/main.py:324
 msgid "Print the artist of current track"
 msgstr "Künstler des aktuellen Stücks ausgeben"
 
-#: ../xl/main.py:310
+#: ../xl/main.py:326
 msgid "Print the length of current track"
 msgstr "Länge des aktuellen Stücks ausgeben"
 
-#: ../xl/main.py:312
+#: ../xl/main.py:328
 msgid "Set rating for current song"
 msgstr "Bewertung für das aktuelle Stück festlegen"
 
-#: ../xl/main.py:314
+#: ../xl/main.py:330
 msgid "Get rating for current song"
 msgstr "Bewertung des aktuellen Stücks ausgeben"
 
-#: ../xl/main.py:317
+#: ../xl/main.py:333
 msgid "Print the position inside the current track as time"
 msgstr "Wiedergabeposition des aktuellen Stücks als Zeitpunkt ausgeben"
 
-#: ../xl/main.py:320
+#: ../xl/main.py:336
 msgid "Print the progress inside the current track as percentage"
 msgstr "Wiedergabefortschritt des aktuellen Stücks in Prozent ausgeben"
 
-#: ../xl/main.py:323
+#: ../xl/main.py:339
 msgid "Volume options"
 msgstr "Lautstärke-Optionen"
 
-#: ../xl/main.py:325
+#: ../xl/main.py:341
 msgid "Increases the volume by VOL%"
 msgstr "Erhöht die Lautstärke um VOL%"
 
-#: ../xl/main.py:327
+#: ../xl/main.py:343
 msgid "Decreases the volume by VOL%"
 msgstr "Verringert die Lautstärke um VOL%"
 
-#: ../xl/main.py:329
+#: ../xl/main.py:345
 msgid "Print the current volume percentage"
 msgstr "Aktuelle Lautstärke in Prozent ausgeben"
 
-#: ../xl/main.py:332
+#: ../xl/main.py:348
 msgid "Other options"
 msgstr "Andere Optionen"
 
-#: ../xl/main.py:334
+#: ../xl/main.py:350
 msgid "Start new instance"
 msgstr "Neue Instanz starten"
 
-#: ../xl/main.py:337
+#: ../xl/main.py:353
 msgid "Start minimized (to tray, if possible)"
 msgstr "Minimiert starten (im Benachrichtigungssymbol, wenn möglich)"
 
-#: ../xl/main.py:339
+#: ../xl/main.py:355
 msgid "Toggle visibility of the GUI (if possible)"
 msgstr "Sichtbarkeit der GUI wechseln (wenn möglich)"
 
-#: ../xl/main.py:341
+#: ../xl/main.py:357
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr "Im abgesicherten Modus starten (nützlich bei Problemen)"
 
-#: ../xl/main.py:344
+#: ../xl/main.py:360
 msgid "Force import of old data from 0.2.x. Overwrites current data."
 msgstr "Import alter Daten aus 0.2.x erzwingen; überschreibt aktuelle Daten."
 
-#: ../xl/main.py:347
+#: ../xl/main.py:363
 msgid "Do not import old data from 0.2.x."
 msgstr "Alte Daten aus 0.2.x nicht importieren."
 
 #. development and debug options
-#: ../xl/main.py:352
+#: ../xl/main.py:368
 msgid "Development/Debug options"
 msgstr "Entwicklungs-/Debug-Optionen"
 
-#: ../xl/main.py:353
+#: ../xl/main.py:369
 msgid "Set data directory"
 msgstr "Datenverzeichnis festlegen"
 
-#: ../xl/main.py:355
+#: ../xl/main.py:371
 msgid "Show debugging output"
 msgstr "Debugging-Informationen ausgeben"
 
-#: ../xl/main.py:358
+#: ../xl/main.py:374
 msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgstr "Aktiviere Debugging von xl.event; sorgt für ENORM viele Ausgaben"
 
-#: ../xl/main.py:360
+#: ../xl/main.py:376
 msgid "Filter event debug output"
 msgstr "Event-Debugging-Ausgabe filtern"
 
-#: ../xl/main.py:363
+#: ../xl/main.py:379
 msgid "Reduce level of output"
 msgstr "Verringert die Zahl der Ausgaben"
 
-#: ../xl/main.py:367
+#: ../xl/main.py:383
 msgid "Disable D-Bus support"
 msgstr "D-Bus-Unterstützung deaktivieren"
 
-#: ../xl/main.py:369
+#: ../xl/main.py:385
 msgid "Disable HAL support."
 msgstr "HAL-Unterstützung deaktivieren"
 
 #. entire playlist
-#: ../xl/main.py:388
+#: ../xl/main.py:404
 msgid "Entire Library"
 msgstr "Gesamte Bibliothek"
 
-#: ../xl/main.py:394
+#: ../xl/main.py:410
 #, python-format
 msgid "Random %d"
 msgstr "Zufällige %d"
 
-#: ../xl/main.py:402
+#: ../xl/main.py:418
 #, python-format
 msgid "Rating > %d"
 msgstr "Bewertung > %d"
 
-#: ../xl/main.py:499
+#: ../xl/main.py:515
 msgid "Exaile is not yet finished loading. Perhaps you should listen for the exaile_loaded signal?"
 msgstr "Exaile wurde noch nicht vollständig geladen. Vielleicht sollte auf das Signal „exaile_loaded“ gewartet werden?"
 
 #: ../xl/cover.py:131
 #: ../xl/cover.py:165
-#: ../xl/trackdb.py:243
+#: ../xl/trackdb.py:247
 msgid "You did not specify a location to save the db"
 msgstr "Es wurde kein Speicherort für die Datenbank angegeben"
 
@@ -239,7 +232,7 @@ msgstr "Ein proprietäres und älteres aber zugleich beliebtes verlustbehaftetes
 msgid "A very fast Free lossless audio format with good compression."
 msgstr "Ein sehr schnelles freies und verlustfreies Audio-Format mit guter Kompression."
 
-#: ../xl/track.py:497
+#: ../xl/track.py:519
 msgid "  New song, fetching cover."
 msgstr "  Neues Stück, rufe Cover ab."
 
@@ -260,21 +253,21 @@ msgstr "Folgende Einstellung konnte nicht gespeichert werden: "
 msgid "An Unknown type of setting was found!"
 msgstr "Unbekannter Einstellungs-Typ gefunden!"
 
-#: ../xl/plugins.py:83
+#: ../xl/plugins.py:84
 msgid "Plugin archive is not in the correct format"
 msgstr "Inkorrektes Format des Plugin-Archivs"
 
-#: ../xl/plugins.py:90
+#: ../xl/plugins.py:91
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed"
 msgstr "Ein Plugin namens „%s“ ist bereits installiert"
 
-#: ../xl/plugins.py:95
+#: ../xl/plugins.py:96
 msgid "Plugin archive contains an unsafe path"
 msgstr "Plugin-Archiv enthält einen unsicheren PFad"
 
 #. TRANSLATORS : this replaces the title of a track when it's not known
-#: ../xl/playlist.py:253
+#: ../xl/playlist.py:244
 #: ../xlgui/panel/collection.py:419
 #: ../xlgui/panel/collection.py:619
 #: ../xlgui/panel/collection.py:656
@@ -282,26 +275,26 @@ msgstr "Plugin-Archiv enthält einen unsicheren PFad"
 #: ../plugins/notifyosd/__init__.py:57
 #: ../plugins/notifyosd/__init__.py:68
 #: ../plugins/notify/__init__.py:27
-#: ../plugins/minimode/mmwidgets.py:868
+#: ../plugins/minimode/mmwidgets.py:839
 msgid "Unknown"
 msgstr "Unbekannt"
 
-#: ../xl/playlist.py:397
+#: ../xl/playlist.py:388
 #, python-format
 msgid "Playlist %d"
 msgstr "Wiedergabeliste %d"
 
 #: ../xl/xldbus.py:85
-#: ../xl/xldbus.py:306
+#: ../xl/xldbus.py:298
 msgid "Not playing."
 msgstr "Keine Wiedergabe."
 
-#: ../xl/xldbus.py:311
+#: ../xl/xldbus.py:303
 #, python-format
 msgid "status: %(status)s, title: %(title)s, artist: %(artist)s, album: %(album)s, length: %(length)s, position: %(progress)s%% [%(position)s]"
 msgstr "Status: %(status)s, Titel: %(title)s, Künstler: %(artist)s, Album: %(album)s, Länge: %(length)s, Position: %(progress)s%% [%(position)s]"
 
-#: ../xl/trackdb.py:186
+#: ../xl/trackdb.py:183
 msgid "You did not specify a location to load the db from"
 msgstr "Kein Ladeort für die Datenbank angegeben"
 
@@ -322,12 +315,12 @@ msgstr "0:00"
 #: ../xlgui/main.py:119
 #: ../xlgui/main.py:975
 #: ../data/glade/main.glade.h:9
-#: ../plugins/minimode/mmwidgets.py:677
+#: ../plugins/minimode/mmwidgets.py:648
 msgid "Not Playing"
 msgstr "Keine Wiedergabe"
 
 #: ../xlgui/main.py:129
-#: ../plugins/minimode/mmwidgets.py:697
+#: ../plugins/minimode/mmwidgets.py:668
 msgid "Streaming..."
 msgstr "Streamen …"
 
@@ -545,34 +538,34 @@ msgstr "Soll diese Wiedergabeliste unwiederbringlich entfernt werden?"
 msgid "Enter the new name you want for your playlist"
 msgstr "Neuen Namen für die Wiedergabeliste eingeben"
 
-#: ../xlgui/cover.py:308
+#: ../xlgui/cover.py:320
 #, python-format
 msgid "%d covers to fetch"
 msgstr "%d Cover zu holen"
 
-#: ../xlgui/cover.py:313
-#: ../xlgui/cover.py:332
+#: ../xlgui/cover.py:325
+#: ../xlgui/cover.py:344
 #: ../data/glade/covermanager.glade.h:2
 msgid "Start"
 msgstr "Starten"
 
-#: ../xlgui/cover.py:347
+#: ../xlgui/cover.py:359
 msgid "Show Cover"
 msgstr "Cover anzeigen"
 
-#: ../xlgui/cover.py:348
+#: ../xlgui/cover.py:360
 msgid "Fetch Cover"
 msgstr "Cover abrufen"
 
-#: ../xlgui/cover.py:349
+#: ../xlgui/cover.py:361
 msgid "Remove Cover"
 msgstr "Cover entfernen"
 
-#: ../xlgui/cover.py:680
+#: ../xlgui/cover.py:692
 msgid "Enter the search text"
 msgstr "Suchtext eingeben"
 
-#: ../xlgui/cover.py:706
+#: ../xlgui/cover.py:718
 msgid "No covers found"
 msgstr "Keine Cover gefunden"
 
@@ -601,33 +594,33 @@ msgstr "Adresse aufrufen"
 msgid "Choose a file to open"
 msgstr "Zu öffnende Datei auswählen"
 
-#: ../xlgui/__init__.py:235
+#: ../xlgui/__init__.py:236
 msgid "Supported Files"
 msgstr "Unterstützte Dateien"
 
-#: ../xlgui/__init__.py:237
+#: ../xlgui/__init__.py:238
 msgid "Music Files"
 msgstr "Musikdateien"
 
-#: ../xlgui/__init__.py:239
+#: ../xlgui/__init__.py:240
 msgid "Playlist Files"
 msgstr "Wiedergabelisten"
 
-#: ../xlgui/__init__.py:241
+#: ../xlgui/__init__.py:242
 #: ../xlgui/prefs/plugin_prefs.py:155
 msgid "All Files"
 msgstr "Alle Dateien"
 
-#: ../xlgui/__init__.py:365
+#: ../xlgui/__init__.py:366
 msgid "Scanning collection..."
 msgstr "Bibliothek einlesen …"
 
-#: ../xlgui/__init__.py:462
+#: ../xlgui/__init__.py:463
 #, python-format
 msgid "Scanning %s..."
 msgstr "%s einlesen …"
 
-#: ../xlgui/guiutil.py:672
+#: ../xlgui/guiutil.py:678
 msgid "Rating:"
 msgstr "Bewertung:"
 
@@ -659,8 +652,7 @@ msgstr "Treiber"
 msgid "Add a directory"
 msgstr "Verzeichnis hinzufügen"
 
-#. our added path is a subdir of an existing path
-#: ../xlgui/collection.py:194
+#: ../xlgui/collection.py:181
 msgid "Path is already in your collection, or is a subdirectory of another path in your collection"
 msgstr "Dieser oder ein übergeordneter Pfad befindet sich bereits in der Bibliothek"
 
@@ -787,22 +779,22 @@ msgstr "Letzte Wiedergabe"
 
 #: ../xlgui/plcolumns.py:218
 #: ../xlgui/plcolumns.py:238
-#: ../plugins/minimode/mmwidgets.py:928
+#: ../plugins/minimode/mmwidgets.py:899
 msgid "Never"
 msgstr "Niemals"
 
 #: ../xlgui/plcolumns.py:230
-#: ../plugins/minimode/mmwidgets.py:941
+#: ../plugins/minimode/mmwidgets.py:912
 msgid "Today"
 msgstr "Heute"
 
 #: ../xlgui/plcolumns.py:232
-#: ../plugins/minimode/mmwidgets.py:943
+#: ../plugins/minimode/mmwidgets.py:914
 msgid "Yesterday"
 msgstr "Gestern"
 
 #: ../xlgui/plcolumns.py:234
-#: ../plugins/minimode/mmwidgets.py:945
+#: ../plugins/minimode/mmwidgets.py:916
 #, python-format
 msgid "%(year)d-%(month)02d-%(day)02d"
 msgstr "%(day)02d. %(month)02d. %(year)d"
@@ -836,21 +828,21 @@ msgstr "Begrenzen auf: "
 msgid " songs"
 msgstr " Stücke"
 
-#: ../xlgui/playlist.py:1089
+#: ../xlgui/playlist.py:1092
 #, python-format
 msgid "Close %s"
 msgstr "%s schließen"
 
-#: ../xlgui/playlist.py:1090
+#: ../xlgui/playlist.py:1093
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr "<b>Änderungen an %s vor dem Schließen speichern?</b>"
 
-#: ../xlgui/playlist.py:1091
+#: ../xlgui/playlist.py:1094
 msgid "Your changes will be lost if you don't save them"
 msgstr "Änderungen gehen ohne Sicherung verloren."
 
-#: ../xlgui/playlist.py:1093
+#: ../xlgui/playlist.py:1096
 msgid "Close Without Saving"
 msgstr "Schließen, ohne zu speichern"
 
@@ -1021,6 +1013,7 @@ msgstr "Streams laden …"
 #: ../xlgui/panel/radio.py:149
 #: ../data/glade/radio_panel.glade.h:2
 #: ../plugins/podcasts/__init__.py:89
+#: ../plugins/podcasts/__init__.py:177
 #: ../plugins/podcasts/__init__.py:212
 #: ../plugins/podcasts/__init__.py:224
 #: ../plugins/shoutcast/__init__.py:121
@@ -1602,7 +1595,7 @@ msgid "Dynamically add similar tracks to the playlist"
 msgstr "Dynamisch ähnliche Stücke der Wiedergabeliste hinzufügen"
 
 #: ../data/glade/main.glade.h:8
-#: ../plugins/minimode/__init__.py:205
+#: ../plugins/minimode/__init__.py:208
 msgid "Next Track"
 msgstr "Nächstes Stück"
 
@@ -1615,7 +1608,7 @@ msgid "Page 1"
 msgstr "Seite 1"
 
 #: ../data/glade/main.glade.h:12
-#: ../plugins/minimode/__init__.py:203
+#: ../plugins/minimode/__init__.py:206
 msgid "Previous Track"
 msgstr "Vorheriges Stück"
 
@@ -2020,16 +2013,16 @@ msgstr "IPython-Konsole anzeigen"
 msgid "IPython Console"
 msgstr "IPython-Konsole"
 
-#: ../plugins/minimode/__init__.py:209
+#: ../plugins/minimode/__init__.py:212
 msgid "Stop Playback"
 msgstr "Wiedergabe beenden"
 
-#: ../plugins/minimode/__init__.py:211
+#: ../plugins/minimode/__init__.py:214
 msgid "Restore Main Window"
 msgstr "Hauptfenster wiederherstellen"
 
 #: ../plugins/minimode/minimodeprefs.py:22
-#: ../plugins/minimode/mmwidgets.py:31
+#: ../plugins/minimode/mmwidgets.py:32
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
 msgstr "Minimodus"
@@ -2094,25 +2087,25 @@ msgstr "$title von $artist"
 msgid "$title ($length)"
 msgstr "$title ($length)"
 
-#: ../plugins/minimode/mmwidgets.py:177
-#: ../plugins/minimode/mmwidgets.py:191
+#: ../plugins/minimode/mmwidgets.py:151
+#: ../plugins/minimode/mmwidgets.py:165
 msgid "Start Playback"
 msgstr "Wiedergabe starten"
 
-#: ../plugins/minimode/mmwidgets.py:195
+#: ../plugins/minimode/mmwidgets.py:169
 msgid "Continue Playback"
 msgstr "Wiedergabe fortsetzen"
 
-#: ../plugins/minimode/mmwidgets.py:198
+#: ../plugins/minimode/mmwidgets.py:172
 msgid "Pause Playback"
 msgstr "Wiedergabe unterbrechen"
 
-#: ../plugins/minimode/mmwidgets.py:779
+#: ../plugins/minimode/mmwidgets.py:750
 msgid "Seeking: "
 msgstr "Spulen: "
 
 #. TRANSLATORS: String multiple tag values will be joined by
-#: ../plugins/minimode/mmwidgets.py:857
+#: ../plugins/minimode/mmwidgets.py:828
 msgid " & "
 msgstr " & "
 
@@ -2450,7 +2443,7 @@ msgstr "Auf allen Desktops anzeigen"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:5
 msgid "Track title format:"
-msgstr "Format des Stücktitels"
+msgstr "Format des Stücktitels:"
 
 #: ../plugins/streamripper/streamripper.glade.h:1
 msgid "Relay Port:"
@@ -2481,12 +2474,12 @@ msgstr ""
 "Allerdings wird Exaile zu diesem Zeitpunkt nur die Wiedergabe starten, es sollten sich also die zu spielenden Stücke in der Wiedergabeliste befinden."
 
 #: ../plugins/currentsong/PLUGININFO:3
-msgid "Current song"
+msgid "Current Song"
 msgstr "Aktuelles Stück"
 
 #: ../plugins/currentsong/PLUGININFO:4
-msgid "Set the current playing song in the Pidgin im client using the tune status (only the supported prpl)"
-msgstr ""
+msgid "Sets the currently playing status in Pidgin for services that support it."
+msgstr "Legt den Status des aktuell abgespielten Stücks in Pidgin für unterstützte Dienste fest."
 
 #: ../plugins/audioscrobbler/PLUGININFO:4
 msgid "Submits listening information to Last.fm and similar services supporting AudioScrobbler"
@@ -2693,6 +2686,12 @@ msgstr "Lyrics Wiki"
 #: ../plugins/lyricwiki/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricwiki.org"
 msgstr "Holt Liedtexte von lyricwiki.org"
+
+#~ msgid ""
+#~ "Exaile now uses absolute URI's, please delete/rename your %s directory"
+#~ msgstr ""
+#~ "Exaile nutzt nun absolute URIs, bitte das %s-Verzeichnis löschen/"
+#~ "umbenennen."
 
 #, fuzzy
 #~ msgid "Last.fm"

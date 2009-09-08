@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-04 09:12+0200\n"
+"POT-Creation-Date: 2009-09-08 11:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,188 +20,181 @@ msgstr ""
 msgid "Automatic"
 msgstr ""
 
-#. TODO: remove this before 0.3.0 since it is not needed for
-#. stable->stable upgrades
-#: ../xl/player/engine_normal.py:164
-#, python-format
-msgid "Exaile now uses absolute URI's, please delete/rename your %s directory"
-msgstr ""
-
 #: ../xl/main.py:130
 msgid "Failed to migrate from 0.2.14"
 msgstr ""
 
-#: ../xl/main.py:282
+#: ../xl/main.py:298
 msgid "Playback options"
 msgstr ""
 
-#: ../xl/main.py:284
+#: ../xl/main.py:300
 msgid "Play the next track"
 msgstr ""
 
-#: ../xl/main.py:286
+#: ../xl/main.py:302
 msgid "Play the previous track"
 msgstr ""
 
-#: ../xl/main.py:288
+#: ../xl/main.py:304
 msgid "Stop playback"
 msgstr ""
 
-#: ../xl/main.py:290
+#: ../xl/main.py:306
 msgid "Play"
 msgstr ""
 
-#: ../xl/main.py:292
+#: ../xl/main.py:308
 msgid "Toggle Play or Pause"
 msgstr ""
 
-#: ../xl/main.py:295
+#: ../xl/main.py:311
 msgid "Stop playback after current track"
 msgstr ""
 
-#: ../xl/main.py:298
+#: ../xl/main.py:314
 msgid "Track options"
 msgstr ""
 
-#: ../xl/main.py:300
+#: ../xl/main.py:316
 msgid "Query player"
 msgstr ""
 
-#: ../xl/main.py:302
+#: ../xl/main.py:318
 msgid "Show a popup of the currently playing track"
 msgstr ""
 
-#: ../xl/main.py:304
+#: ../xl/main.py:320
 msgid "Print the title of current track"
 msgstr ""
 
-#: ../xl/main.py:306
+#: ../xl/main.py:322
 msgid "Print the album of current track"
 msgstr ""
 
-#: ../xl/main.py:308
+#: ../xl/main.py:324
 msgid "Print the artist of current track"
 msgstr ""
 
-#: ../xl/main.py:310
+#: ../xl/main.py:326
 msgid "Print the length of current track"
 msgstr ""
 
-#: ../xl/main.py:312
+#: ../xl/main.py:328
 msgid "Set rating for current song"
 msgstr ""
 
-#: ../xl/main.py:314
+#: ../xl/main.py:330
 msgid "Get rating for current song"
 msgstr ""
 
-#: ../xl/main.py:317
+#: ../xl/main.py:333
 msgid "Print the position inside the current track as time"
 msgstr ""
 
-#: ../xl/main.py:320
+#: ../xl/main.py:336
 msgid "Print the progress inside the current track as percentage"
 msgstr ""
 
-#: ../xl/main.py:323
+#: ../xl/main.py:339
 msgid "Volume options"
 msgstr ""
 
-#: ../xl/main.py:325
+#: ../xl/main.py:341
 msgid "Increases the volume by VOL%"
 msgstr ""
 
-#: ../xl/main.py:327
+#: ../xl/main.py:343
 msgid "Decreases the volume by VOL%"
 msgstr ""
 
-#: ../xl/main.py:329
+#: ../xl/main.py:345
 msgid "Print the current volume percentage"
 msgstr ""
 
-#: ../xl/main.py:332
+#: ../xl/main.py:348
 msgid "Other options"
 msgstr ""
 
-#: ../xl/main.py:334
+#: ../xl/main.py:350
 msgid "Start new instance"
 msgstr ""
 
-#: ../xl/main.py:337
+#: ../xl/main.py:353
 msgid "Start minimized (to tray, if possible)"
 msgstr ""
 
-#: ../xl/main.py:339
+#: ../xl/main.py:355
 msgid "Toggle visibility of the GUI (if possible)"
 msgstr ""
 
-#: ../xl/main.py:341
+#: ../xl/main.py:357
 msgid "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
 
-#: ../xl/main.py:344
+#: ../xl/main.py:360
 msgid "Force import of old data from 0.2.x. Overwrites current data."
 msgstr ""
 
-#: ../xl/main.py:347
+#: ../xl/main.py:363
 msgid "Do not import old data from 0.2.x."
 msgstr ""
 
 #. development and debug options
-#: ../xl/main.py:352
+#: ../xl/main.py:368
 msgid "Development/Debug options"
 msgstr ""
 
-#: ../xl/main.py:353
+#: ../xl/main.py:369
 msgid "Set data directory"
 msgstr ""
 
-#: ../xl/main.py:355
+#: ../xl/main.py:371
 msgid "Show debugging output"
 msgstr ""
 
-#: ../xl/main.py:358
+#: ../xl/main.py:374
 msgid "Enable debugging of xl.event. Generates LOTS of output"
 msgstr ""
 
-#: ../xl/main.py:360
+#: ../xl/main.py:376
 msgid "Filter event debug output"
 msgstr ""
 
-#: ../xl/main.py:363
+#: ../xl/main.py:379
 msgid "Reduce level of output"
 msgstr ""
 
-#: ../xl/main.py:367
+#: ../xl/main.py:383
 msgid "Disable D-Bus support"
 msgstr ""
 
-#: ../xl/main.py:369
+#: ../xl/main.py:385
 msgid "Disable HAL support."
 msgstr ""
 
 #. entire playlist
-#: ../xl/main.py:388
+#: ../xl/main.py:404
 msgid "Entire Library"
 msgstr ""
 
-#: ../xl/main.py:394
+#: ../xl/main.py:410
 #, python-format
 msgid "Random %d"
 msgstr ""
 
-#: ../xl/main.py:402
+#: ../xl/main.py:418
 #, python-format
 msgid "Rating > %d"
 msgstr ""
 
-#: ../xl/main.py:499
+#: ../xl/main.py:515
 msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
 msgstr ""
 
-#: ../xl/cover.py:131 ../xl/cover.py:165 ../xl/trackdb.py:243
+#: ../xl/cover.py:131 ../xl/cover.py:165 ../xl/trackdb.py:247
 msgid "You did not specify a location to save the db"
 msgstr ""
 
@@ -243,7 +236,7 @@ msgstr ""
 msgid "A very fast Free lossless audio format with good compression."
 msgstr ""
 
-#: ../xl/track.py:497
+#: ../xl/track.py:519
 msgid "  New song, fetching cover."
 msgstr ""
 
@@ -263,45 +256,45 @@ msgstr ""
 msgid "An Unknown type of setting was found!"
 msgstr ""
 
-#: ../xl/plugins.py:83
+#: ../xl/plugins.py:84
 msgid "Plugin archive is not in the correct format"
 msgstr ""
 
-#: ../xl/plugins.py:90
+#: ../xl/plugins.py:91
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed"
 msgstr ""
 
-#: ../xl/plugins.py:95
+#: ../xl/plugins.py:96
 msgid "Plugin archive contains an unsafe path"
 msgstr ""
 
 #. TRANSLATORS : this replaces the title of a track when it's not known
-#: ../xl/playlist.py:253 ../xlgui/panel/collection.py:419
+#: ../xl/playlist.py:244 ../xlgui/panel/collection.py:419
 #: ../xlgui/panel/collection.py:619 ../xlgui/panel/collection.py:656
 #: ../plugins/bookmarks/__init__.py:151 ../plugins/notifyosd/__init__.py:57
 #: ../plugins/notifyosd/__init__.py:68 ../plugins/notify/__init__.py:27
-#: ../plugins/minimode/mmwidgets.py:868
+#: ../plugins/minimode/mmwidgets.py:839
 msgid "Unknown"
 msgstr ""
 
-#: ../xl/playlist.py:397
+#: ../xl/playlist.py:388
 #, python-format
 msgid "Playlist %d"
 msgstr ""
 
-#: ../xl/xldbus.py:85 ../xl/xldbus.py:306
+#: ../xl/xldbus.py:85 ../xl/xldbus.py:298
 msgid "Not playing."
 msgstr ""
 
-#: ../xl/xldbus.py:311
+#: ../xl/xldbus.py:303
 #, python-format
 msgid ""
 "status: %(status)s, title: %(title)s, artist: %(artist)s, album: %(album)s, "
 "length: %(length)s, position: %(progress)s%% [%(position)s]"
 msgstr ""
 
-#: ../xl/trackdb.py:186
+#: ../xl/trackdb.py:183
 msgid "You did not specify a location to load the db from"
 msgstr ""
 
@@ -316,11 +309,11 @@ msgid "0:00"
 msgstr ""
 
 #: ../xlgui/main.py:48 ../xlgui/main.py:119 ../xlgui/main.py:975
-#: ../data/glade/main.glade.h:9 ../plugins/minimode/mmwidgets.py:677
+#: ../data/glade/main.glade.h:9 ../plugins/minimode/mmwidgets.py:648
 msgid "Not Playing"
 msgstr ""
 
-#: ../xlgui/main.py:129 ../plugins/minimode/mmwidgets.py:697
+#: ../xlgui/main.py:129 ../plugins/minimode/mmwidgets.py:668
 msgid "Streaming..."
 msgstr ""
 
@@ -525,33 +518,33 @@ msgstr ""
 msgid "Enter the new name you want for your playlist"
 msgstr ""
 
-#: ../xlgui/cover.py:308
+#: ../xlgui/cover.py:320
 #, python-format
 msgid "%d covers to fetch"
 msgstr ""
 
-#: ../xlgui/cover.py:313 ../xlgui/cover.py:332
+#: ../xlgui/cover.py:325 ../xlgui/cover.py:344
 #: ../data/glade/covermanager.glade.h:2
 msgid "Start"
 msgstr ""
 
-#: ../xlgui/cover.py:347
+#: ../xlgui/cover.py:359
 msgid "Show Cover"
 msgstr ""
 
-#: ../xlgui/cover.py:348
+#: ../xlgui/cover.py:360
 msgid "Fetch Cover"
 msgstr ""
 
-#: ../xlgui/cover.py:349
+#: ../xlgui/cover.py:361
 msgid "Remove Cover"
 msgstr ""
 
-#: ../xlgui/cover.py:680
+#: ../xlgui/cover.py:692
 msgid "Enter the search text"
 msgstr ""
 
-#: ../xlgui/cover.py:706
+#: ../xlgui/cover.py:718
 msgid "No covers found"
 msgstr ""
 
@@ -579,32 +572,32 @@ msgstr ""
 msgid "Choose a file to open"
 msgstr ""
 
-#: ../xlgui/__init__.py:235
+#: ../xlgui/__init__.py:236
 msgid "Supported Files"
 msgstr ""
 
-#: ../xlgui/__init__.py:237
+#: ../xlgui/__init__.py:238
 msgid "Music Files"
 msgstr ""
 
-#: ../xlgui/__init__.py:239
+#: ../xlgui/__init__.py:240
 msgid "Playlist Files"
 msgstr ""
 
-#: ../xlgui/__init__.py:241 ../xlgui/prefs/plugin_prefs.py:155
+#: ../xlgui/__init__.py:242 ../xlgui/prefs/plugin_prefs.py:155
 msgid "All Files"
 msgstr ""
 
-#: ../xlgui/__init__.py:365
+#: ../xlgui/__init__.py:366
 msgid "Scanning collection..."
 msgstr ""
 
-#: ../xlgui/__init__.py:462
+#: ../xlgui/__init__.py:463
 #, python-format
 msgid "Scanning %s..."
 msgstr ""
 
-#: ../xlgui/guiutil.py:672
+#: ../xlgui/guiutil.py:678
 msgid "Rating:"
 msgstr ""
 
@@ -636,8 +629,7 @@ msgstr ""
 msgid "Add a directory"
 msgstr ""
 
-#. our added path is a subdir of an existing path
-#: ../xlgui/collection.py:194
+#: ../xlgui/collection.py:181
 msgid ""
 "Path is already in your collection, or is a subdirectory of another path in "
 "your collection"
@@ -743,19 +735,19 @@ msgid "Last played"
 msgstr ""
 
 #: ../xlgui/plcolumns.py:218 ../xlgui/plcolumns.py:238
-#: ../plugins/minimode/mmwidgets.py:928
+#: ../plugins/minimode/mmwidgets.py:899
 msgid "Never"
 msgstr ""
 
-#: ../xlgui/plcolumns.py:230 ../plugins/minimode/mmwidgets.py:941
+#: ../xlgui/plcolumns.py:230 ../plugins/minimode/mmwidgets.py:912
 msgid "Today"
 msgstr ""
 
-#: ../xlgui/plcolumns.py:232 ../plugins/minimode/mmwidgets.py:943
+#: ../xlgui/plcolumns.py:232 ../plugins/minimode/mmwidgets.py:914
 msgid "Yesterday"
 msgstr ""
 
-#: ../xlgui/plcolumns.py:234 ../plugins/minimode/mmwidgets.py:945
+#: ../xlgui/plcolumns.py:234 ../plugins/minimode/mmwidgets.py:916
 #, python-format
 msgid "%(year)d-%(month)02d-%(day)02d"
 msgstr ""
@@ -788,21 +780,21 @@ msgstr ""
 msgid " songs"
 msgstr ""
 
-#: ../xlgui/playlist.py:1089
+#: ../xlgui/playlist.py:1092
 #, python-format
 msgid "Close %s"
 msgstr ""
 
-#: ../xlgui/playlist.py:1090
+#: ../xlgui/playlist.py:1093
 #, python-format
 msgid "<b>Save changes to %s before closing?</b>"
 msgstr ""
 
-#: ../xlgui/playlist.py:1091
+#: ../xlgui/playlist.py:1094
 msgid "Your changes will be lost if you don't save them"
 msgstr ""
 
-#: ../xlgui/playlist.py:1093
+#: ../xlgui/playlist.py:1096
 msgid "Close Without Saving"
 msgstr ""
 
@@ -945,10 +937,11 @@ msgid "Loading streams..."
 msgstr ""
 
 #: ../xlgui/panel/radio.py:149 ../data/glade/radio_panel.glade.h:2
-#: ../plugins/podcasts/__init__.py:89 ../plugins/podcasts/__init__.py:212
-#: ../plugins/podcasts/__init__.py:224 ../plugins/shoutcast/__init__.py:121
-#: ../plugins/shoutcast/__init__.py:174 ../plugins/shoutcast/__init__.py:224
-#: ../plugins/shoutcast/__init__.py:257 ../plugins/podcasts/podcasts.glade.h:2
+#: ../plugins/podcasts/__init__.py:89 ../plugins/podcasts/__init__.py:177
+#: ../plugins/podcasts/__init__.py:212 ../plugins/podcasts/__init__.py:224
+#: ../plugins/shoutcast/__init__.py:121 ../plugins/shoutcast/__init__.py:174
+#: ../plugins/shoutcast/__init__.py:224 ../plugins/shoutcast/__init__.py:257
+#: ../plugins/podcasts/podcasts.glade.h:2
 msgid "Idle."
 msgstr ""
 
@@ -1486,7 +1479,7 @@ msgstr ""
 msgid "Dynamically add similar tracks to the playlist"
 msgstr ""
 
-#: ../data/glade/main.glade.h:8 ../plugins/minimode/__init__.py:205
+#: ../data/glade/main.glade.h:8 ../plugins/minimode/__init__.py:208
 msgid "Next Track"
 msgstr ""
 
@@ -1498,7 +1491,7 @@ msgstr ""
 msgid "Page 1"
 msgstr ""
 
-#: ../data/glade/main.glade.h:12 ../plugins/minimode/__init__.py:203
+#: ../data/glade/main.glade.h:12 ../plugins/minimode/__init__.py:206
 msgid "Previous Track"
 msgstr ""
 
@@ -1871,15 +1864,15 @@ msgstr ""
 msgid "IPython Console"
 msgstr ""
 
-#: ../plugins/minimode/__init__.py:209
+#: ../plugins/minimode/__init__.py:212
 msgid "Stop Playback"
 msgstr ""
 
-#: ../plugins/minimode/__init__.py:211
+#: ../plugins/minimode/__init__.py:214
 msgid "Restore Main Window"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs.py:22 ../plugins/minimode/mmwidgets.py:31
+#: ../plugins/minimode/minimodeprefs.py:22 ../plugins/minimode/mmwidgets.py:32
 #: ../plugins/minimode/PLUGININFO:3
 msgid "Mini Mode"
 msgstr ""
@@ -1944,24 +1937,24 @@ msgstr ""
 msgid "$title ($length)"
 msgstr ""
 
-#: ../plugins/minimode/mmwidgets.py:177 ../plugins/minimode/mmwidgets.py:191
+#: ../plugins/minimode/mmwidgets.py:151 ../plugins/minimode/mmwidgets.py:165
 msgid "Start Playback"
 msgstr ""
 
-#: ../plugins/minimode/mmwidgets.py:195
+#: ../plugins/minimode/mmwidgets.py:169
 msgid "Continue Playback"
 msgstr ""
 
-#: ../plugins/minimode/mmwidgets.py:198
+#: ../plugins/minimode/mmwidgets.py:172
 msgid "Pause Playback"
 msgstr ""
 
-#: ../plugins/minimode/mmwidgets.py:779
+#: ../plugins/minimode/mmwidgets.py:750
 msgid "Seeking: "
 msgstr ""
 
 #. TRANSLATORS: String multiple tag values will be joined by
-#: ../plugins/minimode/mmwidgets.py:857
+#: ../plugins/minimode/mmwidgets.py:828
 msgid " & "
 msgstr ""
 
@@ -2332,13 +2325,12 @@ msgid ""
 msgstr ""
 
 #: ../plugins/currentsong/PLUGININFO:3
-msgid "Current song"
+msgid "Current Song"
 msgstr ""
 
 #: ../plugins/currentsong/PLUGININFO:4
 msgid ""
-"Set the current playing song in the Pidgin im client using the tune status "
-"(only the supported prpl)"
+"Sets the currently playing status in Pidgin for services that support it."
 msgstr ""
 
 #: ../plugins/audioscrobbler/PLUGININFO:4

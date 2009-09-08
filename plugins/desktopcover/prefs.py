@@ -15,7 +15,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-import gtk
 from xlgui.prefs import widgets
 from xl.nls import gettext as _
 

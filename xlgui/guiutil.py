@@ -24,7 +24,7 @@
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
 
-import gtk, os.path, urllib, time
+import gtk, os.path, time, urllib
 import gtk.gdk, pango, gobject
 from xl import xdg, track, playlist, common, settings, event
 from xl.nls import gettext as _

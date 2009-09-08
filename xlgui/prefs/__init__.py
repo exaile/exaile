@@ -29,7 +29,7 @@ from xl.nls import gettext as _
 import inspect
 import pygtk
 pygtk.require('2.0')
-import gtk, gtk.glade
+import gtk
 from xl import xdg
 from xl.settings import _SETTINGSMANAGER
 from xlgui.prefs.widgets import *
@@ -205,13 +205,20 @@ class PreferencesDialog(object):
 
         child = self.panes.get(page)
         if not child:
+            import gtk
             if hasattr(page, 'ui'):
                 builder = gtk.Builder()
                 builder.add_from_file(page.ui)
             else:
-                builder = gtk.glade.XML(page.glade, 'prefs_pane')
-                builder.get_object = builder.get_widget
-                builder.connect_signals = builder.signal_autoconnect
+                try:
+                    import gtk.glade
+                    builder = gtk.glade.XML(page.glade, 'prefs_pane')
+                    builder.get_object = builder.get_widget
+                    builder.connect_signals = builder.signal_autoconnect
+                except NameError:
+                    logger.error('Importing Glade as fallback failed!')
+                    return
+
             child = builder.get_object('prefs_pane')
             init = getattr(page, 'init', None)
             if init: init(self, builder)

@@ -278,8 +278,8 @@ def _enable(exaile):
     MENU_ITEM = gtk.ImageMenuItem(_('Bookmarks'))
     SEP = gtk.SeparatorMenuItem()
     
-    exaile.gui.xml.get_widget('tools_menu').append(SEP)
-    exaile.gui.xml.get_widget('tools_menu').append(MENU_ITEM)
+    exaile.gui.builder.get_object('tools_menu').append(SEP)
+    exaile.gui.builder.get_object('tools_menu').append(MENU_ITEM)
     
     menus = [guiutil.Menu(), guiutil.Menu()]
 

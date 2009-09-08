@@ -1,7 +1,5 @@
 # Copyright (C) 2008-2009 Adam Olsen 
 #
-# Copyright (C) 2008-2009 Adam Olsen 
-#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
@@ -15,16 +13,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#
-#
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
-# from your version.
 #
 #
 # The developers of the Exaile media player hereby grant permission 
@@ -58,7 +46,7 @@ class CollectionPanel(panel.Panel):
         'collection-tree-loaded': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
 
-    gladeinfo = ('collection_panel.glade', 'CollectionPanelWindow')
+    ui_info = ('collection_panel.ui', 'CollectionPanelWindow')
     orders = (
         ['artist', 'album', 'tracknumber', 'title'],
         ['album', 'tracknumber', 'title'],
@@ -83,10 +71,9 @@ class CollectionPanel(panel.Panel):
         self._show_collection_empty_message = _show_collection_empty_message
         self.collection = collection
         self.use_alphabet = settings.get_option('gui/use_alphabet', True)
-        self.vbox = self.xml.get_widget('CollectionPanel')
-        self.message = self.xml.get_widget('EmptyCollectionPanel')
-        self.filter = self.xml.get_widget('collection_search_entry')
-        self.choice = self.xml.get_widget('collection_combo_box')
+        self.vbox = self.builder.get_object('CollectionPanel')
+        self.message = self.builder.get_object('EmptyCollectionPanel')
+        self.choice = self.builder.get_object('collection_combo_box')
         self.collection_empty_message = False
         self._search_num = 0
 
@@ -137,15 +124,12 @@ class CollectionPanel(panel.Panel):
         """
             Sets up the various widgets to be used in this panel
         """
-        self.choice = self.xml.get_widget('collection_combo_box')
+        self.choice = self.builder.get_object('collection_combo_box')
         active = settings.get_option('gui/collection_active_view', 0)
         self.choice.set_active(active)
 
-        box = self.xml.get_widget('collection_search_box')
-        self.filter = guiutil.SearchEntry()
-        self.filter.connect('activate', self.on_search)
-        box.pack_start(self.filter.entry, True, True)
-        box.show_all()
+        self.filter = guiutil.SearchEntry(
+            self.builder.get_object('collection_search_entry'))
 
     def _check_collection_empty(self, *e):
         if not self._show_collection_empty_message or \
@@ -168,10 +152,11 @@ class CollectionPanel(panel.Panel):
         """
             Uses signal_autoconnect to connect the various events
         """
-        self.xml.signal_autoconnect({
+        self.builder.connect_signals({
             'on_collection_combo_box_changed': lambda *e: self.load_tree(),
             'on_refresh_button_pressed': self.on_refresh_button_pressed,
             'on_refresh_button_key_pressed': self.on_refresh_button_key_pressed,
+            'on_collection_search_entry_activate': self.on_collection_search_entry_activate,
             'on_empty_collection_button_clicked': lambda *x: xlgui.controller().collection_manager()
         })
         self.tree.connect('key-release-event', self.on_key_released)
@@ -231,11 +216,11 @@ class CollectionPanel(panel.Panel):
             return True
         return False
     
-    def on_search(self, *e):
+    def on_collection_search_entry_activate(self, entry):
         """
             Searches tracks and reloads the tree
         """
-        self.keyword = unicode(self.filter.get_text(), 'utf-8')
+        self.keyword = unicode(entry.get_text(), 'utf-8')
         self.start_count += 1
         self.load_tree()
 
@@ -279,7 +264,7 @@ class CollectionPanel(panel.Panel):
         """
         self.tree = guiutil.DragTreeView(self)
         self.tree.set_headers_visible(False)
-        container = self.xml.get_widget('CollectionPanel')
+        container = self.builder.get_object('CollectionPanel')
         scroll = gtk.ScrolledWindow()
         scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         scroll.add(self.tree)
@@ -661,12 +646,11 @@ class CollectionPanel(panel.Panel):
         if iter_sep is not None:
             self.model.remove(iter_sep)
 
-        if depth == 0 and \
-                len(values) <= settings.get_option(
-                        "gui/expand_maximum_results", 100) and \
-                len(self.keyword.strip()) >= \
-                settings.get_option("gui/expand_minimum_term_length", 3) and \
-                settings.get_option("gui/expand_enabled", True):
+        if depth == 0 and settings.get_option("gui/expand_enabled", True) and \
+            len(values) <= settings.get_option(
+                    "gui/expand_maximum_results", 100) and \
+            len(self.keyword.strip()) >= \
+            settings.get_option("gui/expand_minimum_term_length", 3):
             
             # the search number is an id for expanding nodes. 
             # we set the id before we try expanding the nodes because

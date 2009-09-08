@@ -26,7 +26,7 @@
 
 import pygtk
 pygtk.require('2.0')
-import gtk, gtk.glade, os.path
+import gtk, os.path
 from xl import xdg
 from xl.nls import gettext as _
 

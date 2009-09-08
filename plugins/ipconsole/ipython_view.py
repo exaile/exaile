@@ -25,7 +25,7 @@ from StringIO import StringIO
 try:
         import IPython
 except Exception,e:
-        raise "Error importing IPython (%s)" % str(e)
+        raise ImportError, "Error importing IPython (%s)" % str(e)
 
 #ansi_colors =  {'0;30': 'Black',
 #                '0;31': 'Red',

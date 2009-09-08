@@ -81,7 +81,7 @@ class MiniMode(gtk.Window):
             os.path.join(basedir, 'icons'))
 
         self.menuitem = mmwidgets.MMMenuItem(self.on_menuitem_activate)
-        self.exaile.gui.xml.get_widget('view_menu').append(self.menuitem)
+        self.exaile.gui.builder.get_object('view_menu').append(self.menuitem)
         self.menuitem.show()
 
         key, modifier = gtk.accelerator_parse('<Control><Alt>M')
@@ -100,8 +100,9 @@ class MiniMode(gtk.Window):
         self.exaile.gui.main.connect('main-visible-toggle',
             self.on_main_visible_toggle)
 
-        self.exaile.gui.xml.signal_connect('on_playlist_notebook_switch',
-            self.on_playlist_notebook_switch)
+        self.exaile.gui.builder.connect_signals({
+          'on_playlist_notebook_switch': self.on_playlist_notebook_switch
+        })
 
     def destroy(self):
         """
@@ -117,7 +118,7 @@ class MiniMode(gtk.Window):
 
         self.remove_accel_group(self.accel_group)
         self.exaile.gui.main.window.remove_accel_group(self.accel_group)
-        self.exaile.gui.xml.get_widget('view_menu').remove(self.menuitem)
+        self.exaile.gui.builder.get_object('view_menu').remove(self.menuitem)
 
         self._active = False
         self._hide()

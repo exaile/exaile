@@ -13,7 +13,7 @@ Essential:
 * mutagen (>= 1.10)
 * dbus-python
 * pygtk (>= 2.12)
-* python-glade2
+* gtk+2.0 (>= 2.16)
 
 Translation:
 
@@ -38,10 +38,6 @@ CD info:
 Library realtime watching:
 
 * pyinotify
-
-Clear button on search fields:
-
-* sexy-python
 
 Dependency Priorities
 ---------------------

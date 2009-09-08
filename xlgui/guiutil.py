@@ -23,16 +23,6 @@
 # exception to your version of the code, but you are not obligated to 
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
-#
-#
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
-# from your version.
 
 import gtk, os.path, urllib, time
 import gtk.gdk, pango, gobject
@@ -40,11 +30,6 @@ from xl import xdg, track, playlist, common, settings, event
 from xl.nls import gettext as _
 import threading
 from xlgui import rating
-
-try:
-    import sexy
-except ImportError:
-    sexy = None
 
 def _idle_callback(func, callback, *args, **kwargs):
     value = func(*args, **kwargs)
@@ -355,51 +340,24 @@ class DragTreeView(gtk.TreeView):
         else: #We don't know what they dropped
             return ([], [])
 
-class EntryWithClearButton(object):
-    """
-        A gtk.Entry with a clear icon
-    """
-    def __init__(self):
-        """
-            Initializes the entry
-        """
-        if sexy:
-            self.entry = sexy.IconEntry()
-            image = gtk.Image()
-            image.set_from_stock('gtk-clear', gtk.ICON_SIZE_SMALL_TOOLBAR)
-            self.entry.set_icon(sexy.ICON_ENTRY_SECONDARY, image)
-            self.entry.connect('icon-released', self.icon_released)
-        else:
-            self.entry = gtk.Entry()
-
-    def icon_released(self, *e):
-        """
-            Called when the user clicks the entry icon
-        """
-        self.entry.set_text('')
-
-    def __getattr__(self, attr):
-        """
-            If this object doesn't have the attribute, check the gtk.Entry for
-            it
-        """
-        if attr == 'entry': return self.entry
-        return getattr(self.entry, attr)
-
-class SearchEntry(EntryWithClearButton):
+class SearchEntry(object):
     """
         A gtk.Entry that emits the "activated" signal when something has
         changed after the specified timeout
     """
-    def __init__(self, timeout=500):
+    def __init__(self, entry=None, timeout=500):
         """
             Initializes the entry
         """
-        EntryWithClearButton.__init__(self)
-        self.timeout = 500
+        self.entry = entry
+        self.timeout = timeout
         self.change_id = None
 
+        if self.entry is None:
+            self.entry = gtk.Entry()
+
         self.entry.connect('changed', self.on_entry_changed)
+        self.entry.connect('icon-press', self.on_entry_icon_press)
 
     def on_entry_changed(self, *e):
         """
@@ -411,11 +369,24 @@ class SearchEntry(EntryWithClearButton):
         self.change_id = gobject.timeout_add(self.timeout,
             self.entry_activate)
 
+    def on_entry_icon_press(self, entry, icon_pos, event):
+        """
+            Clears the entry
+        """
+        self.entry.set_text('')
+
     def entry_activate(self, *e):
         """
             Emit the activate signal
         """
-        self.entry.emit('activate')
+        self.entry.activate()
+
+    def __getattr__(self, attr):
+        """
+            Tries to pass attribute requests
+            to the internal entry item
+        """
+        return getattr(self.entry, attr)
 
 def get_icon(id, size=gtk.ICON_SIZE_BUTTON):
     """
@@ -437,6 +408,59 @@ def get_icon(id, size=gtk.ICON_SIZE_BUTTON):
         path = xdg.get_data_path('images', 'track.png')
     
     return gtk.gdk.pixbuf_new_from_file(path)
+
+class MuteButton(object):
+    """
+        Allows for immediate muting of the volume and
+        indicates the current volume level via an icon
+    """
+    def __init__(self, button):
+        self.button = button
+        self.restore_volume = settings.get_option('player/volume', 1)
+        self.icon_names = ['low', 'medium', 'high']
+
+        self.button.connect('toggled', self.on_toggled)
+        event.add_callback(self.on_setting_change, 'player_option_set')
+
+    def update_volume_icon(self, volume):
+        """
+            Sets the volume level indicator
+        """
+        icon_name = 'audio-volume-muted'
+
+        if volume > 0:
+            i = int(round(volume * 2))
+            icon_name = 'audio-volume-%s' % self.icon_names[i]
+
+        self.button.child.set_from_icon_name(icon_name, gtk.ICON_SIZE_BUTTON)
+
+    def on_toggled(self, button):
+        """
+            Mutes or unmutes the volume
+        """
+        if button.get_active():
+            self.restore_volume = settings.get_option('player/volume', 1)
+            volume = 0
+        else:
+            volume = self.restore_volume
+
+        self.update_volume_icon(volume)
+
+        if self.restore_volume > 0:
+            settings.set_option('player/volume', volume)
+
+    def on_setting_change(self, event, sender, option):
+        """
+            Saves the restore volume and
+            changes the volume indicator
+        """
+        if option == 'player/volume':
+            volume = settings.get_option(option, 1)
+
+            if volume > 0:
+                self.button.set_active(False)
+
+            self.update_volume_icon(volume)
 
 BITMAP_CACHE = dict()
 def get_text_icon(widget, text, width, height, bgcolor='#456eac',   
@@ -637,32 +661,64 @@ class Menu(gtk.Menu):
         else:
             gtk.Menu.popup(self, *e)
 
-class StatusBar(object):
+class Statusbar(object):
     """
-        A basic statusbar to replace gtk.StatusBar
+        Convenient access to multiple status labels
     """
-    def __init__(self, label):
+    def __init__(self, builder):
         """
-            Initializes the bar
-            
-            @param label: the gtk.Label to use for setting status messages
+            Initialises the status bar
         """
-        self.label = label
+        self.status_label = builder.get_object('status_label')
+        self.track_count_label = builder.get_object('track_count_label')
+        self.queue_count_label = builder.get_object('queue_count_label')
 
-    def set_label(self, message, timeout=0):
-        """
-            Sets teh status label
-        """
-        self.label.set_label(message)
-        if timeout:
-            gobject.timeout_add(timeout, self.clear)
+        # Hide the native status label
+        status_bar = builder.get_object('status_bar')
+        children = status_bar.get_children()
+        for child in children:
+            if isinstance(child, gtk.Frame):
+                status_bar.set_child_packing(child, expand=False, fill=False,
+                    padding=0, pack_type=gtk.PACK_START)
+                break
 
-    def clear(self, *e):
+    def set_status(self, status, timeout=0):
         """
-            Clears the label
+            Sets the status message
         """
-        self.label.set_label('')
+        self.status_label.set_label(status)
 
+        if timeout > 0:
+            gobject.timeout_add(timeout, self.clear_status)
+
+    def clear_status(self):
+        """
+            Clears the status message
+        """
+        self.status_label.set_label('')
+
+    def set_track_count(self, playlist_count=0, collection_count=0):
+        """
+            Sets the track count
+        """
+        status = _("%(playlist_count)d showing, "
+            "%(collection_count)d in collection") % {
+            'playlist_count': playlist_count,
+            'collection_count': collection_count
+        }
+
+        self.track_count_label.set_label(status)
+
+    def set_queue_count(self, queue_count=0):
+        """
+            Sets the queue count
+        """
+        if queue_count > 0:
+            status = _("(%d queued)") % queue_count
+        else:
+            status = ''
+
+        self.queue_count_label.set_label(status)
 
 class MenuRatingWidget(gtk.MenuItem):
     """
@@ -758,20 +814,6 @@ def finish(repeat=True):
     while gtk.events_pending():
         gtk.main_iteration()
         if not repeat: break
-
-def on_slider_scroll(widget, ev):
-    """
-        Called when the user scrolls their mouse wheel over the volume bar
-    """
-    incr = widget.get_adjustment().page_size
-    # Modify default HScale up/down behaviour.
-    if ev.direction == gtk.gdk.SCROLL_DOWN:
-        widget.set_value(widget.get_value() - incr)
-        return True
-    elif ev.direction == gtk.gdk.SCROLL_UP:
-        widget.set_value(widget.get_value() + incr)
-        return True
-    return False
 
 def on_slider_key_press(widget, ev):
     """

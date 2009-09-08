@@ -98,7 +98,7 @@ class LVPanel():
         self.vbox.set_border_width(3)
         self.search_label=gtk.Label("LibriVox.org")
         self.vbox.pack_start(self.search_label, False, True, 4)        
-        self.entry=guiutil.EntryWithClearButton()
+        self.entry=guiutil.SearchEntry()
         self.entry.connect("activate", self.run_search)
         
         self.hbox=gtk.HBox()

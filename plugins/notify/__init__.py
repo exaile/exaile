@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 UNKNOWN_TEXT = _("Unknown")
 
 # This breaks stuff. if you want to enable it, set this to True and uncomment
-# the commented section in the glade file
+# the commented section in the UI designer file
 ATTACH_COVERS_OPTION_ALLOWED = False
 
 pynotify.init('exailenotify')

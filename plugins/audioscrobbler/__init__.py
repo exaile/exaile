@@ -41,7 +41,7 @@ def __enb(eventname, exaile, nothing):
     gobject.idle_add(_enable, exaile)
 
 def _enable(exaile):
-    SCROBBLER.exaile_menu = exaile.gui.xml.get_widget('tools_menu')
+    SCROBBLER.exaile_menu = exaile.gui.builder.get_object('tools_menu')
     SCROBBLER.get_options('','','plugin/ascrobbler/menu_check')
     
 def disable(exaile):

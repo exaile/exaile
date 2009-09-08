@@ -75,7 +75,7 @@ class Playlist(gtk.VBox):
         self.player = self.exaile.player
         self.queue = queue
         self.search_keyword = ''
-        self.xml = main.xml
+        self.builder = main.builder
         self._initial_column_ids = _column_ids
         self._is_queue = _is_queue
 
@@ -87,7 +87,7 @@ class Playlist(gtk.VBox):
 
         # see plcolumns.py for more information on the columns menu
         if not Playlist.menu_items:
-            plcolumns.setup_menu(self.xml.get_widget('columns_menu_menu'),
+            plcolumns.setup_menu(self.builder.get_object('columns_menu_menu'),
                 Playlist.menu_items)
 
         self._setup_tree()
@@ -192,9 +192,9 @@ class Playlist(gtk.VBox):
         """
             Sets up the column menus (IE, View->Column->Track, etc)
         """
-        self.resizable_cols = self.xml.get_widget('col_resizable_item')
+        self.resizable_cols = self.builder.get_object('col_resizable_item')
         self.not_resizable_cols = \
-            self.xml.get_widget('col_not_resizable_item')
+            self.builder.get_object('col_not_resizable_item')
         if not self.resizable_cols and not self.not_resizable_cols:
             return # potentially dangerous if someone breaks the gladefile...
         self.resizable_cols.set_active(
@@ -1010,7 +1010,7 @@ class Playlist(gtk.VBox):
     def press_header(self, widget, event):
         if event.button != 3:
             return False
-        menu = self.xml.get_widget('columns_menu_menu')
+        menu = self.builder.get_object('columns_menu_menu')
         menu.popup(None, None, None, event.button, event.time)
         return True
 

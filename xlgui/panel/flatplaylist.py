@@ -1,7 +1,5 @@
 # Copyright (C) 2008-2009 Adam Olsen 
 #
-# Copyright (C) 2008-2009 Adam Olsen 
-#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2, or (at your option)
@@ -15,16 +13,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#
-#
-# The developers of the Exaile media player hereby grant permission 
-# for non-GPL compatible GStreamer and Exaile plugins to be used and 
-# distributed together with GStreamer and Exaile. This permission is 
-# above and beyond the permissions granted by the GPL license by which 
-# Exaile is covered. If you modify this code, you may extend this 
-# exception to your version of the code, but you are not obligated to 
-# do so. If you do not wish to do so, delete this exception statement 
-# from your version.
 #
 #
 # The developers of the Exaile media player hereby grant permission 
@@ -50,22 +38,22 @@ class FlatPlaylistPanel(panel.Panel):
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
 
-    gladeinfo = ('flatplaylist_panel.glade', 'FlatPlaylistPanelWindow')
+    ui_info = ('flatplaylist_panel.ui', 'FlatPlaylistPanelWindow')
 
     def __init__(self, parent, name=None):
         panel.Panel.__init__(self, parent, name)
 
-        self.box = self.xml.get_widget('FlatPlaylistPanel')
+        self.box = self.builder.get_object('FlatPlaylistPanel')
         self.model = gtk.ListStore(int, str, object)
         self.tracks = []
         self._setup_tree()
         if not hasattr(self.parent, 'do_import'):
-            self.xml.get_widget("import_button").hide()
+            self.builder.get_object("import_button").hide()
         self.menu = menu.TrackSelectMenu()
         self._connect_events()
 
     def _connect_events(self):
-        self.xml.signal_autoconnect({
+        self.builder.connect_signals({
             'on_add_button_clicked': self._on_add_button_clicked,
             'on_import_button_clicked': self._on_import_button_clicked,
         })

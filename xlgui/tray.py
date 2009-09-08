@@ -73,7 +73,7 @@ class TrayIcon(gtk.StatusIcon):
         if self.player.current is None:
             self.set_from_icon_name('exaile')
             self.set_tooltip(_("Exaile Music Player"))
-        elif player.is_paused():
+        elif self.player.is_paused():
             self.set_from_icon_name('exaile-pause')
         else:
             self.set_from_icon_name('exaile-play')

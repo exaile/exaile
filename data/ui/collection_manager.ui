@@ -112,7 +112,6 @@
                 <property name="can_default">True</property>
                 <property name="receives_default">False</property>
                 <property name="use_stock">True</property>
-                <signal name="clicked" handler="on_cancel_button_clicked"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -128,7 +127,6 @@
                 <property name="can_default">True</property>
                 <property name="receives_default">False</property>
                 <property name="use_stock">True</property>
-                <signal name="clicked" handler="on_apply_button_clicked"/>
               </object>
               <packing>
                 <property name="expand">False</property>

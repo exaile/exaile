@@ -345,13 +345,16 @@ class SearchEntry(object):
         A gtk.Entry that emits the "activated" signal when something has
         changed after the specified timeout
     """
-    def __init__(self, entry, timeout=500):
+    def __init__(self, entry=None, timeout=500):
         """
             Initializes the entry
         """
         self.entry = entry
         self.timeout = timeout
         self.change_id = None
+
+        if self.entry is None:
+            self.entry = gtk.Entry()
 
         self.entry.connect('changed', self.on_entry_changed)
         self.entry.connect('icon-press', self.on_entry_icon_press)
@@ -377,6 +380,13 @@ class SearchEntry(object):
             Emit the activate signal
         """
         self.entry.activate()
+
+    def __getattr__(self, attr):
+        """
+            Tries to pass attribute requests
+            to the internal entry item
+        """
+        return getattr(self.entry, attr)
 
 def get_icon(id, size=gtk.ICON_SIZE_BUTTON):
     """

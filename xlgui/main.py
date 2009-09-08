@@ -601,7 +601,7 @@ class MainWindow(gobject.GObject):
             self.on_stop_buttonpress)
 
         # Status bar
-        self.statusbar = guiutil.Statusbar(self.builder)
+        self.statusbar = guiutil.Statusbar(self.builder.get_object('status_bar'))
 
         # Search filter
         self.filter = guiutil.SearchEntry(
@@ -704,7 +704,7 @@ class MainWindow(gobject.GObject):
             'on_mute_button_scroll_event': self.on_volume_slider_scroll_event,
             'on_volume_slider_value_changed': self.on_volume_changed,
             'on_volume_slider_scroll_event': self.on_volume_slider_scroll_event,
-            'on_queue_count_label_button_press_event': self.controller.queue_manager,
+            'on_queue_count_clicked': self.controller.queue_manager,
             # Controller
             'on_about_item_activate': self.controller.show_about_dialog,
             'on_scan_collection_item_activate': self.controller.on_rescan_collection,

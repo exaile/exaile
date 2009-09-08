@@ -665,28 +665,24 @@ class Statusbar(object):
     """
         Convenient access to multiple status labels
     """
-    def __init__(self, builder):
+    def __init__(self, status_bar):
         """
             Initialises the status bar
         """
-        self.status_label = builder.get_object('status_label')
-        self.track_count_label = builder.get_object('track_count_label')
-        self.queue_count_label = builder.get_object('queue_count_label')
-
-        # Hide the native status label
-        status_bar = builder.get_object('status_bar')
+        self.status_bar = status_bar
         children = status_bar.get_children()
-        for child in children:
-            if isinstance(child, gtk.Frame):
-                status_bar.set_child_packing(child, expand=False, fill=False,
-                    padding=0, pack_type=gtk.PACK_START)
-                break
+        # [0] is a frame containing the native label
+        self.track_count_label = children[1]
+        self.queue_count_button = children[2]
+
+        self.context_id = self.status_bar.get_context_id('status')
+        self.message_ids = []
 
     def set_status(self, status, timeout=0):
         """
             Sets the status message
         """
-        self.status_label.set_label(status)
+        self.messages_ids += [self.status_bar.push(self.context_id, status)]
 
         if timeout > 0:
             gobject.timeout_add(timeout, self.clear_status)
@@ -695,7 +691,11 @@ class Statusbar(object):
         """
             Clears the status message
         """
-        self.status_label.set_label('')
+        for message_id in self.messages_ids:
+            self.status_bar.remove(self.context_id, message_id)
+
+        del self.message_ids[:]
+        self.message_ids = []
 
     def set_track_count(self, playlist_count=0, collection_count=0):
         """
@@ -714,11 +714,12 @@ class Statusbar(object):
             Sets the queue count
         """
         if queue_count > 0:
-            status = _("(%d queued)") % queue_count
+            self.queue_count_button.set_label(_("(%d queued)") % queue_count)
+            self.queue_count_button.set_no_show_all(False)
+            self.queue_count_button.show_all()
         else:
-            status = ''
-
-        self.queue_count_label.set_label(status)
+            self.queue_count_button.hide_all()
+            self.queue_count_button.set_no_show_all(True)
 
 class MenuRatingWidget(gtk.MenuItem):
     """

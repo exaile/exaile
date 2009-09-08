@@ -767,48 +767,37 @@ Right Click for Stop After Track Feature</property>
           <object class="GtkStatusbar" id="status_bar">
             <property name="visible">True</property>
             <child>
-              <object class="GtkLabel" id="status_label">
-                <property name="visible">True</property>
-                <property name="xpad">3</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkLabel" id="track_count_label">
                 <property name="visible">True</property>
-                <property name="xalign">1</property>
                 <property name="label" translatable="yes">0/0 tracks</property>
               </object>
               <packing>
-                <property name="position">1</property>
+                <property name="expand">False</property>
+                <property name="position">2</property>
               </packing>
             </child>
             <child>
-              <object class="GtkAlignment" id="alignment3">
-                <property name="visible">True</property>
-                <property name="xalign">0</property>
-                <property name="xscale">0</property>
-                <property name="right_padding">12</property>
-                <child>
-                  <object class="GtkLabel" id="queue_count_label">
-                    <property name="visible">True</property>
-                    <property name="events">GDK_BUTTON_PRESS_MASK</property>
-                    <signal name="button_press_event" handler="on_queue_count_label_button_press_event"/>
-                  </object>
-                </child>
+              <object class="GtkButton" id="queue_count_button">
+                <property name="height_request">1</property>
+                <property name="can_focus">False</property>
+                <property name="receives_default">True</property>
+                <property name="no_show_all">True</property>
+                <property name="tooltip_text" translatable="yes">Click to view Queue</property>
+                <property name="relief">none</property>
+                <property name="focus_on_click">False</property>
+                <signal name="clicked" handler="on_queue_count_clicked"/>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
+                <property name="padding">3</property>
                 <property name="position">2</property>
               </packing>
             </child>
           </object>
           <packing>
             <property name="expand">False</property>
+            <property name="pack_type">end</property>
             <property name="position">3</property>
           </packing>
         </child>

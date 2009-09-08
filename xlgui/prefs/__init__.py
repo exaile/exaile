@@ -216,7 +216,7 @@ class PreferencesDialog(object):
                     builder = gtk.glade.XML(page.glade, 'prefs_pane')
                     builder.get_object = builder.get_widget
                     builder.connect_signals = builder.signal_autoconnect
-                except NameError:
+                except ImportError:
                     logger.error('Importing Glade as fallback failed')
                     return
 

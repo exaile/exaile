@@ -24,7 +24,8 @@
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
 
-import locale, logging, random, string, sys, threading, time, traceback, urlparse
+import locale, logging, random, string, sys, threading, time, traceback, \
+    unicodedata, urlparse
 from functools import wraps
 from xl.nls import gettext as _
 
@@ -333,6 +334,18 @@ def lstrip_special(field, cutter=False):
         ret = the_cutter(ret)
     
     return ret
+
+def normalize(field):
+    """
+        Normalizes a utf8 string into a fully developed form
+    """
+    return unicodedata.normalize('NFD', field)
+
+def strip_marks(field):
+    """
+        Removes non spacing marks from a string (that is accents, mainly)
+    """
+    return ''.join((c for c in normalize(field) if unicodedata.category(c) != 'Mn'))
 
 class VersionError(Exception):
     """

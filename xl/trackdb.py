@@ -34,7 +34,7 @@ TrackDB
     fast, advanced method for searching a dictionary of tracks
 """
 
-import logging, random, shelve, traceback
+import locale, logging, random, shelve, traceback
 from copy import deepcopy
 try:
     import cPickle as pickle
@@ -61,7 +61,7 @@ def get_sort_tuple(fields, track):
     """
     def lower(x):
         if type(x) == type(""):
-            return x.lower()
+            return locale.strxfrm(x)
         return x
     items = []
     if not type(fields) in (list, tuple):
@@ -297,12 +297,10 @@ class TrackDB(object):
             is primarily useful for the collection panel
         """
         def the_cmp(x, y):
-            if isinstance(x, basestring):
-                x = x.lower()
+            if isinstance(x, basestring) and isinstance(y, basestring):
                 x = common.the_cutter(x)
-            if isinstance(y, basestring):
-                y = y.lower()
                 y = common.the_cutter(y)
+                return locale.strcoll(x,y)
             return cmp(x, y)
 
         if sort_by == []:

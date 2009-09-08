@@ -24,17 +24,24 @@
 # do so. If you do not wish to do so, delete this exception statement 
 # from your version.
 
+import logging, traceback, urllib
+import gtk, gobject
+from xl import event, xdg, common, track, trackdb, metadata, settings
 from xl.nls import gettext as _
-import gtk, gobject, urllib, logging
-from xl import event, xdg, common, track, trackdb, metadata
-from xl import settings
 import xlgui
-import traceback
 from xlgui import panel, guiutil, menu, playlist, rating
 
 logger = logging.getLogger(__name__)
 
 TRACK_NUM = 300
+
+def first_meaningful_char(s):
+    for i in range(len(s)):
+        if s[i].isdigit():
+            return '0'
+        elif s[i].isalpha():
+            return s[i]
+    return '_'
 
 class CollectionPanel(panel.Panel):
     """
@@ -57,7 +64,7 @@ class CollectionPanel(panel.Panel):
         ['artist', 'date', 'album', 'tracknumber', 'title'],
     )
 
-    def __init__(self, parent, collection, name=None, 
+    def __init__(self, parent, collection, name=None,
         _show_collection_empty_message=False):
         """
             Initializes the collection panel
@@ -84,7 +91,7 @@ class CollectionPanel(panel.Panel):
         self._check_collection_empty()
         self._setup_images()
         self._connect_events()
-        
+
         event.add_callback(self._check_collection_empty, 'libraries_modified',
             collection)
 
@@ -115,7 +122,7 @@ class CollectionPanel(panel.Panel):
         if res == gtk.RESPONSE_YES:
             tracks = self.get_selected_tracks()
             self.collection.delete_tracks(tracks)
-        
+
         dialog.destroy()
         gobject.idle_add(self.load_tree)
 
@@ -139,7 +146,7 @@ class CollectionPanel(panel.Panel):
             self.message.set_child_visible(False)
             self.vbox.show_all()
             self.message.hide_all()
-        
+
         elif not self.collection.libraries and not self.collection_empty_message:
             self.collection_empty_message = True
             self.vbox.set_child_visible(False)
@@ -190,7 +197,7 @@ class CollectionPanel(panel.Panel):
             xlgui.controller().on_rescan_collection(None)
         else:
             self.load_tree()
-    
+
     def on_key_released(self, widget, event):
         """
             Called when a key is released in the tree
@@ -241,7 +248,7 @@ class CollectionPanel(panel.Panel):
             stubb
         """
         pass
-    
+
     def drag_data_delete(self, *e):
         """
             stub
@@ -303,8 +310,8 @@ class CollectionPanel(panel.Panel):
         """
         self.load_subtree(iter)
         search = " ".join(self.get_node_search_terms(iter))
-        return self.collection.search(search, tracks=self.tracks) 
-        
+        return self.collection.search(search, tracks=self.tracks)
+
     def get_selected_tracks(self):
         """
             Finds all the selected tracks
@@ -312,14 +319,14 @@ class CollectionPanel(panel.Panel):
 
         selection = self.tree.get_selection()
         (model, paths) = selection.get_selected_rows()
-        tracks = [] 
+        tracks = []
         for path in paths:
             iter = self.model.get_iter(path)
             newset = self._find_tracks(iter)
             tracks.append(newset)
-    
+
         if not tracks: return None
-        
+
         tracks = list(set(reduce(lambda x, y: list(x) + list(y), tracks)))
 
         return tracks
@@ -331,7 +338,7 @@ class CollectionPanel(panel.Panel):
         self.emit('append-items', self.get_selected_tracks())
 
     def button_press(self, widget, event):
-        """ 
+        """
             Called when the user clicks on the tree
         """
         selection = self.tree.get_selection()
@@ -364,7 +371,7 @@ class CollectionPanel(panel.Panel):
         """
             Returns a list of keywords that are associated with this node, and
             it's parent nodes
-            
+
             @param parent: the node
             @return: a list of keywords
         """
@@ -404,7 +411,7 @@ class CollectionPanel(panel.Panel):
                 if word == _("Unknown"):
                     word = "__null__"
 
-                if word.startswith('\a\a'): 
+                if word.startswith('\a\a'):
                     terms.append(word[2:])
                 else:
                     terms.append("%s==\"%s\""%(field, word))
@@ -412,7 +419,7 @@ class CollectionPanel(panel.Panel):
             except IndexError:
                 break
         return terms
-        
+
     def refresh_tags_in_tree(self, type, track, tag):
         """
             For now, basically calls load_tree.
@@ -437,7 +444,7 @@ class CollectionPanel(panel.Panel):
 
         # save the active view setting
         settings.set_option(
-                'gui/collection_active_view', 
+                'gui/collection_active_view',
                 self.choice.get_active())
 
         self.load_subtree(None)
@@ -457,14 +464,14 @@ class CollectionPanel(panel.Panel):
             @param rest: the list of the nodes to expand after this one
         """
         iter = self.model.iter_children(parent)
-        
+
         while iter:
             if search_num != self._search_num: return
             value = self.model.get_value(iter, 1)
             if not value:
                 value = self.model.get_value(iter, 2)
             if value: value = unicode(value, 'utf-8')
-            
+
             if value == name:
                 self.tree.expand_row(self.model.get_path(iter), False)
                 parent = iter
@@ -476,7 +483,7 @@ class CollectionPanel(panel.Panel):
             item = rest.pop(0)
             gobject.idle_add(self._expand_node_by_name, search_num,
                 parent, item, rest)
-            
+
     def _expand_to(self, search_num, track, tmporder):
         """
             Expands to the specified track
@@ -500,7 +507,7 @@ class CollectionPanel(panel.Panel):
         if tuple(expand) in self._expand_items: return
         self._expand_items.add(tuple(expand))
 
-        gobject.idle_add(self._expand_node_by_name, 
+        gobject.idle_add(self._expand_node_by_name,
             search_num, None, item, expand)
 
     def _expand_search_nodes(self, search_num):
@@ -520,12 +527,12 @@ class CollectionPanel(panel.Panel):
                 try:
                     value = metadata.j(track[item])
                     if not value: continue
-                    
+
                     if self.keyword.strip().lower() in value.lower():
-                        self._expand_to( 
+                        self._expand_to(
                             search_num, track, tmporder)
 
-                except (TypeError, KeyError):  
+                except (TypeError, KeyError):
                     traceback.print_exc()
                     continue
 
@@ -534,7 +541,7 @@ class CollectionPanel(panel.Panel):
     def load_subtree(self, parent):
         """
             Loads all the sub nodes for a specified node
-            
+
             @param node: the node
         """
         previously_loaded = False
@@ -574,9 +581,9 @@ class CollectionPanel(panel.Panel):
                 _search = "__compilation==__null__ " + search
             else:
                 _search = search
-            values = self.collection.list_tag(tag, 
-                    _search, 
-                    use_albumartist=False, ignore_the=True, sort=True, 
+            values = self.collection.list_tag(tag,
+                    _search,
+                    use_albumartist=False, ignore_the=True, sort=True,
                     sort_by=sort_by)
         except IndexError:
             return # at the bottom of the tree
@@ -602,14 +609,14 @@ class CollectionPanel(panel.Panel):
                     continue
                 else:
                     v = _("Unknown")
-    
+
             if depth == 0 and draw_seps:
-                check_val = v
-                if check_val.lower().startswith('the '):
-                    check_val = check_val[4:]
-                char = check_val.lower()[0]
-                
-                if char.isdigit(): 
+                check_val = common.the_cutter(common.lstrip_special(v))
+                check_val = common.strip_marks(check_val).lower()
+
+                char = first_meaningful_char(check_val)
+
+                if char.isdigit():
                     char = '0'
 
                 if first:
@@ -631,7 +638,7 @@ class CollectionPanel(panel.Panel):
                 tracks=self.tracks, sort_fields=sort_by)
             if tracks:
                 self.model.append(parent, [None, None, None])
-                iter = self.model.append(parent, [image, _('Various Artists'), 
+                iter = self.model.append(parent, [image, _('Various Artists'),
                     '! __compilation==__null__'])
                 self.model.append(iter, [None, None, None])
 

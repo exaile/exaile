@@ -86,8 +86,6 @@ class MiniMode(gtk.Window):
 
         key, modifier = gtk.accelerator_parse('<Control><Alt>M')
         self.accel_group = gtk.AccelGroup()
-        self.accel_group.connect_group(key, modifier,
-            gtk.ACCEL_VISIBLE, self.on_accelerate)
         self.menuitem.add_accelerator('activate', self.accel_group,
             key, modifier, gtk.ACCEL_VISIBLE)
         self.exaile.gui.main.window.add_accel_group(self.accel_group)
@@ -130,28 +128,27 @@ class MiniMode(gtk.Window):
         """
         if self._active:
             self.hide()
-            self.exaile.gui.main.window.show()
         else:
             if self._configure_id is not None:
                 self.disconnect(self._configure_id)
                 self._configure_id = None
             self.hide_all()
-            self.exaile.gui.main.window.show()
+
+        self.exaile.gui.main.window.show()
 
     def _show(self):
         """
             Shows the mini mode window, hides the main window
         """
-        if self._active:
-            self.exaile.gui.main.window.hide()
-            self.show_all()
-        else:
-            self.exaile.gui.main.window.hide()
+        self.exaile.gui.main.window.hide()
+
+        if not self._active:
             self.update_window()
-            self.show_all()
-            if self._configure_id is None:
-                self._configure_id = self.connect('configure-event',
-                    self.on_configure)
+
+        self.show_all()
+        if self._configure_id is None:
+            self._configure_id = self.connect('configure-event',
+                self.on_configure)
 
     def toggle_visible(self):
         """
@@ -250,23 +247,6 @@ class MiniMode(gtk.Window):
             except KeyError:
                 pass
 
-    def register_icons(self, stock_ids):
-        """
-            Registers stock icons
-        """
-        icon_factory = gtk.IconFactory()
-        icon_factory.add_default()
-        basedir = os.path.dirname(os.path.abspath(__file__))
-
-        for stock_id in stock_ids:
-            icon_set = gtk.IconSet()
-            for size in (32, 24, 22, 16):
-                icon_source = gtk.IconSource()
-                icon_source.set_filename(os.path.join(
-                    basedir, 'icons', str(size), stock_id + '.png'))
-                icon_set.add_source(icon_source)
-            icon_factory.add(stock_id, icon_set)
-
     def get_option(self, option):
         """
             Wrapper function, automatically inserts default values
@@ -288,13 +268,6 @@ class MiniMode(gtk.Window):
         """
         self.toggle_visible()
         self._active = True
-
-    def on_accelerate(self, accel_group, widget, key, modifier):
-        """
-            Toggles visibility on activation of a key combo
-        """
-        self.toggle_visible()
-        self._active = not self._active
 
     def on_previous(self, button):
         """

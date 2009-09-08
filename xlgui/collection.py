@@ -42,11 +42,15 @@ class CollectionScanThread(threading.Thread):
         
             @param colleciton: the collection to scan
         """
+        self.collection = collection
+        
+        if self.collection._scanning:
+            raise Exception("Collection is already being scanned")
+
         threading.Thread.__init__(self)
         self.setDaemon(True)
     
         self.main = main
-        self.collection = collection
         self.stopped = False
         self.panel = panel
 

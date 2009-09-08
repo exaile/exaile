@@ -30,7 +30,7 @@ from xl.nls import gettext as _
 from xlgui import commondialogs
 
 name = _('Appearance')
-ui = xdg.get_data_path('ui/appearance_prefs_pane.ui')
+ui = xdg.get_data_path('ui/appearance_prefs_pane.glade')
 
 class SplashPreference(widgets.CheckPrefsItem):
     default = True

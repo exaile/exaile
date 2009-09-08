@@ -30,7 +30,7 @@ from xl.nls import gettext as _
 from xlgui import osd
 
 name = _('On Screen Display')
-ui = xdg.get_data_path('ui/osd_prefs_pane.ui')
+ui = xdg.get_data_path('ui/osd_prefs_pane.glade')
 
 def page_enter(prefs):
     global OSD

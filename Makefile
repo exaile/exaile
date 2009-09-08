@@ -82,7 +82,7 @@ install-target: make-install-dirs
 	install -m 644 data/images/*.png $(EXAILESHAREDIR)/data/images
 	install -m 644 data/images/48x48/exaile.png \
 		$(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png
-	install -m 644 data/ui/*.ui $(EXAILESHAREDIR)/data/ui
+	install -m 644 data/ui/*.glade $(EXAILESHAREDIR)/data/ui
 	install -m 644 data/migrations/*.py $(EXAILESHAREDIR)/data/migrations/
 	install -m 644 data/migrations/migration_200907100931/*.py \
 	    	$(EXAILESHAREDIR)/data/migrations/migration_200907100931/
@@ -122,9 +122,9 @@ pot:
 	@echo "[encoding: UTF-8]" > po/POTFILES.in
 	find xl -name "*.py" >> po/POTFILES.in
 	find xlgui -name "*.py" >> po/POTFILES.in
-	find data/ui/ -name "*.ui" >> po/POTFILES.in
+	find data/ui/ -name "*.glade" >> po/POTFILES.in
 	find plugins -name "*.py" >> po/POTFILES.in
-	find plugins -name "*.ui" >> po/POTFILES.in
+	find plugins -name "*.glade" >> po/POTFILES.in
 	find plugins -name PLUGININFO >> po/POTFILES.in
 	cd po && XGETTEXT_ARGS="--language=Python" intltool-update \
 	    --pot --gettext-package=messages --verbose && cd ..

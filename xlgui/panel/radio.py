@@ -47,7 +47,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         'append-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
-    ui_info = ('radio_panel.ui', 'RadioPanelWindow')
+    ui_info = ('radio_panel.glade', 'RadioPanelWindow')
     _radiopanel = None
 
     def __init__(self, parent, collection, 

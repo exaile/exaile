@@ -89,7 +89,7 @@ class CollectionManagerDialog(object):
         self.main = main
         self.collection = collection
         self.builder = gtk.Builder()
-        self.builder.add_from_file(xdg.get_data_path('ui/collection_manager.ui'))
+        self.builder.add_from_file(xdg.get_data_path('ui/collection_manager.glade'))
         self.dialog = self.builder.get_object('CollectionManager')
         self.list = commondialogs.ListBox(self.builder.get_object('lm_list_box'))
         self.add_list = []

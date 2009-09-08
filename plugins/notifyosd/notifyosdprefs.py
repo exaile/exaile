@@ -21,7 +21,7 @@ from xl.nls import gettext as _
 
 name = _('Notify-osd notifications')
 basedir = os.path.dirname(os.path.realpath(__file__))
-ui = os.path.join(basedir, "notifyosdprefs_pane.ui")
+ui = os.path.join(basedir, "notifyosdprefs_pane.glade")
 
 class ShowCovers(widgets.CheckPrefsItem):
     default = True

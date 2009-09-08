@@ -38,7 +38,7 @@ class FlatPlaylistPanel(panel.Panel):
         'queue-items': (gobject.SIGNAL_RUN_LAST, None, (object,)),
     }
 
-    ui_info = ('flatplaylist_panel.ui', 'FlatPlaylistPanelWindow')
+    ui_info = ('flatplaylist_panel.glade', 'FlatPlaylistPanelWindow')
 
     def __init__(self, parent, name=None):
         panel.Panel.__init__(self, parent, name)

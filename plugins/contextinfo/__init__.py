@@ -1026,7 +1026,7 @@ class ContextPanel(gobject.GObject):
     """
         The contextual panel
     """
-    ui_info = (BASEDIR+'context.ui', 'ContextPanelWindow')
+    ui_info = (BASEDIR+'context.glade', 'ContextPanelWindow')
 
     def __init__(self, parent):
         self.init__(parent, _('Context'))

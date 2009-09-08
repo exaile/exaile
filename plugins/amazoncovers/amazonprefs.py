@@ -21,7 +21,7 @@ from xl.nls import gettext as _
 
 name = _('Amazon Covers')
 basedir = os.path.dirname(os.path.realpath(__file__))
-ui = os.path.join(basedir, 'amazonprefs_pane.ui')
+ui = os.path.join(basedir, 'amazonprefs_pane.glade')
 
 class APIKeyPreference(widgets.PrefsItem):
     default = ''

@@ -67,7 +67,7 @@ class Main(object):
         self.tray_icon = None
         self.panels = {}
         self.builder = gtk.Builder()
-        self.builder.add_from_file(xdg.get_data_path("ui/main.ui"))
+        self.builder.add_from_file(xdg.get_data_path("ui/main.glade"))
         self.progress_box = self.builder.get_object('progress_box')
         self.progress_manager = progress.ProgressManager(self.progress_box)
 
@@ -381,7 +381,7 @@ class Main(object):
         """
         import xl.main as xlmain
         builder = gtk.Builder()
-        builder.add_from_file(xdg.get_data_path('ui/about_dialog.ui'))
+        builder.add_from_file(xdg.get_data_path('ui/about_dialog.glade'))
         dialog = builder.get_object('AboutDialog')
         logo = gtk.gdk.pixbuf_new_from_file(
             xdg.get_data_path('images/exailelogo.png'))
@@ -447,7 +447,7 @@ def show_splash(show=True):
     image = gtk.Image()
     image.set_from_file(xdg.get_data_path("images/splash.png"))
     builder = gtk.Builder()
-    builder.add_from_file(xdg.get_data_path("ui/splash.ui"))
+    builder.add_from_file(xdg.get_data_path("ui/splash.glade"))
     splash_screen = builder.get_object('SplashScreen')
     box = builder.get_object('splash_box')
     box.pack_start(image, True, True)

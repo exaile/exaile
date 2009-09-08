@@ -55,7 +55,7 @@ class CoverManager(object):
         self._stopped = True
 
         self.builder = gtk.Builder()
-        self.builder.add_from_file(xdg.get_data_path('ui/covermanager.ui'))
+        self.builder.add_from_file(xdg.get_data_path('ui/covermanager.glade'))
 
         self.window = self.builder.get_object('CoverManager')
         self.window.set_transient_for(parent)
@@ -483,7 +483,7 @@ class CoverWindow(object):
     def __init__(self, parent, cover, title=''):
         """Initializes and shows the cover"""
         self.builder = gtk.Builder()
-        self.builder.add_from_file(xdg.get_data_path('ui/coverwindow.ui'))
+        self.builder.add_from_file(xdg.get_data_path('ui/coverwindow.glade'))
         self.builder.connect_signals(self)
         self.cover_window = self.builder.get_object('CoverWindow')
         self.layout = self.builder.get_object('layout')
@@ -637,7 +637,7 @@ class CoverChooser(gobject.GObject):
         self.manager = covers
         self.parent = parent
         self.builder = gtk.Builder()
-        self.builder.add_from_file(xdg.get_data_path('ui/coverchooser.ui'))
+        self.builder.add_from_file(xdg.get_data_path('ui/coverchooser.glade'))
         self.window = self.builder.get_object('CoverChooser')
         self.window.set_title("%s - %s" % 
             (

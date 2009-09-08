@@ -30,7 +30,7 @@ from xl.nls import gettext as _
 from xlgui import commondialogs
 
 name = _('Playback')
-ui = xdg.get_data_path('ui/playback_prefs_pane.ui')
+ui = xdg.get_data_path('ui/playback_prefs_pane.glade')
 
 class EnginePreference(widgets.ComboPrefsItem):
     default = "normal"

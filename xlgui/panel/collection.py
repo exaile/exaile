@@ -46,7 +46,7 @@ class CollectionPanel(panel.Panel):
         'collection-tree-loaded': (gobject.SIGNAL_RUN_LAST, None, ()),
     }
 
-    ui_info = ('collection_panel.ui', 'CollectionPanelWindow')
+    ui_info = ('collection_panel.glade', 'CollectionPanelWindow')
     orders = (
         ['artist', 'album', 'tracknumber', 'title'],
         ['album', 'tracknumber', 'title'],

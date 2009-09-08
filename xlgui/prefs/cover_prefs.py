@@ -29,7 +29,7 @@ from xl import xdg
 from xl.nls import gettext as _
 
 name = _('Covers')
-ui = xdg.get_data_path('ui/cover_prefs_pane.ui')
+ui = xdg.get_data_path('ui/cover_prefs_pane.glade')
 
 class CoverOrderPreference(widgets.OrderListPrefsItem):
     """

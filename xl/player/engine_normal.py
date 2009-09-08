@@ -155,15 +155,6 @@ class NormalPlayer(_base.ExailePlayer):
     def reset_playtime_stamp(self):
         self._playtime_stamp = int(time.time())
 
-    # TODO: make this part of the track object
-    def _get_track_uri(self, track):
-        uri = track.get_loc_for_io()
-        split = urlparse.urlsplit(uri)
-        path = common.local_file_from_url(uri).encode()
-        if track.is_local(): path = urllib.pathname2url(path)
-        uri = urlparse.urlunsplit(split[0:2] + (path, '', ''))
-        return uri
-
     def __notify_source(self, *args):
         # this is for handling multiple CD devices properly
         source = self.playbin.get_property('source')
@@ -185,16 +176,9 @@ class NormalPlayer(_base.ExailePlayer):
 
         playing = self.is_playing()
 
-        # make sure the file exists if this is supposed to be a local track
-        if track.is_local():
-            if not track.exists():
-                logger.error("File does not exist: %s" % 
-                    track.get_loc_for_display())
-                return False
-       
         self._current = track
         
-        uri = self._get_track_uri(track)
+        uri = track.get_loc_for_io()
         logger.info("Playing %s" % uri)
         self.reset_playtime_stamp()
 

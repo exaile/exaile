@@ -482,7 +482,7 @@ class LocalCoverSearch(CoverSearchMethod):
             raise NoCoverFoundException()
         for fileinfo in search_dir.enumerate_children("standard::type"
                 ",standard::name"):
-            gloc = search_dir.get_child_for_display_name(fileinfo.get_name())
+            gloc = search_dir.get_child(fileinfo.get_name())
             if not fileinfo.get_file_type() == gio.FILE_TYPE_REGULAR:
                 continue
 

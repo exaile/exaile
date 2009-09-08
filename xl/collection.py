@@ -474,12 +474,12 @@ class Library(object):
             for fileinfo in dir.enumerate_children("standard::type," 
                     "standard::is-symlink,standard::name," 
                     "standard::symlink-target,time::modified"):
-                fil = dir.get_child_for_display_name(fileinfo.get_name())
+                fil = dir.get_child(fileinfo.get_name())
                 # FIXME: recursive symlinks could cause an infinite loop
                 if fileinfo.get_is_symlink():
                     target = fileinfo.get_symlink_target()
                     if not "://" in target and not os.path.isabs(target):
-                        fil2 = fil.get_child_for_display_name(target)
+                        fil2 = fil.get_child(target)
                     else:
                         fil2 = gio.File(target)
                     # already in the collection, we'll get it anyway

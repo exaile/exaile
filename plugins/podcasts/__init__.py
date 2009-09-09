@@ -164,6 +164,7 @@ class PodcastPanel(panel.Panel):
             tracks = []
             for e in entries:
                 tr = track.Track()
+                tr._scanning = True
                 tr.set_loc(e['enclosures'][0].href)
                 date = e['updated_parsed']
                 tr['artist'] = title
@@ -171,6 +172,7 @@ class PodcastPanel(panel.Panel):
                 tr['date'] = "%d-%02d-%02d" % (date.tm_year, date.tm_mon,
                     date.tm_mday)
                 tracks.append(tr)
+                tr._scanning = False
             
             pl.add_tracks(tracks)
             self._set_status('')

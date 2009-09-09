@@ -191,7 +191,7 @@ class PlaylistMenu(GenericTrackMenu):
         """
         from xlgui import main
         if self.playlist_tab_menu:
-          pagecount = main.get_playlist_nb().get_n_pages()
+          pagecount = main.get_playlist_notebook().get_n_pages()
           if settings.get_option('gui/show_tabbar', True) or pagecount > 1:
               self.playlist_tab_menu.hide_all()
           else:

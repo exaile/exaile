@@ -134,7 +134,7 @@ class RadioPanel(panel.Panel, playlistpanel.BasePlaylistPanelMixin):
         self.status.set_text(message)
 
         if timeout:
-            gobject.timeout_add(timeout, self._set_status, _('Idle.'), 0)
+            gobject.timeout_add(timeout, self._set_status, '', 0)
 
     def _connect_events(self):
         """

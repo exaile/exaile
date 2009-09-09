@@ -85,7 +85,7 @@ class PodcastPanel(panel.Panel):
         self.status.set_text(message)
 
         if timeout:
-            gobject.timeout_add(timeout, self._set_status, _('Idle.'), 0)
+            gobject.timeout_add(timeout, self._set_status, '', 0)
 
     def _connect_events(self):
         self.builder.connect_signals({
@@ -173,7 +173,7 @@ class PodcastPanel(panel.Panel):
                 tracks.append(tr)
             
             pl.add_tracks(tracks)
-            self._set_status(_('Idle.'))
+            self._set_status('')
 
             self._open_podcast(pl, title)
             self.podcast_playlists.save_playlist(pl, overwrite=True)
@@ -208,7 +208,7 @@ class PodcastPanel(panel.Panel):
                 self.podcasts.append((title, url))
         except (IOError, OSError):
             logger.info('WARNING: could not open podcast file')
-            self._set_status(_('Idle.'))
+            self._set_status('')
             return
 
         self._done_loading_podcasts()
@@ -220,7 +220,7 @@ class PodcastPanel(panel.Panel):
         for (title, url) in self.podcasts:
             self.model.append([title, url])
 
-        self._set_status(_('Idle.'))
+        self._set_status('')
 
     def _save_podcasts(self):
         try:

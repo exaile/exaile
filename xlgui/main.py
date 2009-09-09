@@ -1262,7 +1262,7 @@ class MainWindow(gobject.GObject):
 
         return False
 
-def get_playlist_nb():
+def get_playlist_notebook():
     return MainWindow._mainwindow.playlist_notebook
 
 def get_selected_playlist():

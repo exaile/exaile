@@ -117,7 +117,7 @@ class ShoutcastRadioStation(RadioStation):
                     _('Error connecting to Shoutcast server.'))
 
             data = response.read()
-            set_status(_('Idle.'))
+            set_status('')
 
             self.data = data
             self._save_cache()
@@ -170,7 +170,7 @@ class ShoutcastRadioStation(RadioStation):
                 _('Error connecting to Shoutcast server.'))
 
         data = response.read()
-        set_status(_('Idle.'))
+        set_status('')
 
         rlists = []
         items = re.findall(r'<station name="([^"]*)" .*? id="(\d+)" br="(\d+)"', data)
@@ -220,7 +220,7 @@ class ShoutcastRadioStation(RadioStation):
             return None
 
         handle = StringIO.StringIO(response.read())
-        set_status(_('Idle.'))
+        set_status('')
 
         self.playlists[station_id] = playlist.import_from_pls(name + ".pls",
             handle)
@@ -253,7 +253,7 @@ class ShoutcastRadioStation(RadioStation):
             return
 
         data = response.read()
-        set_status(_('Idle.'))
+        set_status('')
         rlists = []
         items = re.findall(r'<station name="([^"]*)" .*? id="(\d+)"', data)
 

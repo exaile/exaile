@@ -678,7 +678,7 @@ class Statusbar(object):
         """
             Clears the status message
         """
-        for message_id in self.messages_ids:
+        for message_id in self.message_ids:
             self.status_bar.remove(self.context_id, message_id)
 
         del self.message_ids[:]

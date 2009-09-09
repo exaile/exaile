@@ -68,7 +68,7 @@ class Track(object):
     """
     # save a little memory this way
     __slots__ = ["tags", "_scan_valid", "_scanning", 
-            "_dirty", "__weakref__"]
+            "_dirty", "__weakref__", "__init"]
     # this is used to enforce the one-track-per-uri rule
     __tracksdict = weakref.WeakValueDictionary()
 
@@ -81,12 +81,16 @@ class Track(object):
         if uri is not None:
             try:
                 tr = cls.__tracksdict[uri]
+                tr.__init = False
             except KeyError:
                 tr = object.__new__(cls)
                 cls.__tracksdict[uri] = tr
+                tr.__init = True
             return tr
         else:
-            return object.__new__(cls)
+            tr = object.__new__(cls)
+            tr.__init = True
+            return tr
 
     def __init__(self, uri=None, _unpickles=None):
         """
@@ -94,6 +98,10 @@ class Track(object):
             
             uri: path to the track [string]
         """
+        # don't re-init if its a reused track. see __new__
+        if self.__init == False:
+            return
+
         self.tags = {}
 
         self._scan_valid = False # whether our last tag read attempt worked

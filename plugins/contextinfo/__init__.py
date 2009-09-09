@@ -107,28 +107,28 @@ class BrowserPage(webkit.WebView, providers.ProviderHandler):
         self.lyrics_button.set_sensitive(False)
         
     def setup_buttons(self):
-        self.prev_button = self.ui.get_object('PrevButton')
+        self.prev_button = self.builder.get_object('PrevButton')
         self.prev_button.set_tooltip_text('Previous')
         self.prev_button.set_sensitive(False)
         self.prev_button.connect('clicked', self.on_prev_clicked)
         
-        self.next_button = self.ui.get_object('NextButton')
+        self.next_button = self.builder.get_object('NextButton')
         self.next_button.set_tooltip_text('Next')
         self.next_button.set_sensitive(False)
         self.next_button.connect('clicked', self.on_next_clicked)
         
-        self.home_button = self.ui.get_object('HomeButton')
+        self.home_button = self.builder.get_object('HomeButton')
         self.home_button.set_tooltip_text('Home')
         self.home_button.connect('clicked', self.on_home_clicked)
         
-        self.refresh_button = self.ui.get_object('RefreshButton')
+        self.refresh_button = self.builder.get_object('RefreshButton')
         self.refresh_button.set_tooltip_text('Refresh')
         self.refresh_button.connect('clicked', self.on_refresh_page)
-        self.refresh_button_image = self.ui.get_object('RefreshButtonImage')
+        self.refresh_button_image = self.builder.get_object('RefreshButtonImage')
         
         self.refresh_animation = gtk.gdk.PixbufAnimation(BASEDIR+'loader.gif')
         
-        self.lyrics_button = self.ui.get_object('LyricsButton')
+        self.lyrics_button = self.builder.get_object('LyricsButton')
         self.lyrics_button.set_tooltip_text('Lyrics')
         self.lyrics_button.set_sensitive(False)
         self.lyrics_button.connect('clicked', self.on_lyrics)
@@ -1055,8 +1055,8 @@ class ContextPanel(gobject.GObject):
         gobject.GObject.__init__(self)
         self.name = name
         self.parent = parent
-        self.ui = gtk.Builder()
-        self.ui.add_from_file(self.ui_info[0])
+        self.builder = gtk.Builder()
+        self.builder.add_from_file(self.ui_info[0])
         self._child = None
         
     def setup_widgets(self):
@@ -1066,12 +1066,12 @@ class ContextPanel(gobject.GObject):
         self._scrolled_window.add(self._browser)
         self._scrolled_window.show_all()
         
-        frame = self.ui.get_object('ContextFrame')
+        frame = self.builder.get_object('ContextFrame')
         frame.add(self._scrolled_window)
 
     def get_panel(self):
         if not self._child:
-            window = self.ui.get_object(self.ui_info[1])
+            window = self.builder.get_object(self.ui_info[1])
             self._child = window.get_child()
             window.remove(self._child)
             if not self.name:

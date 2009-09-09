@@ -669,7 +669,7 @@ class Statusbar(object):
         """
             Sets the status message
         """
-        self.messages_ids += [self.status_bar.push(self.context_id, status)]
+        self.message_ids += [self.status_bar.push(self.context_id, status)]
 
         if timeout > 0:
             gobject.timeout_add(timeout, self.clear_status)

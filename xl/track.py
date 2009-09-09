@@ -51,12 +51,12 @@ def get_tracks_from_uri(uri):
     gloc = gio.File(uri)
     type = gloc.query_info("standard::type").get_file_type()
     if type == gio.FILE_TYPE_DIRECTORY:
-        from xl.collection import Library
-        tracks = set()
+        from xl.collection import Library, Collection
+        tracks = Collection('scanner')
         lib = Library(uri)
         lib.set_collection(tracks)
         lib.rescan()
-        tracks = list(tracks)
+        tracks = tracks.search("")
     else:
         tracks = [Track(uri)]
     return tracks

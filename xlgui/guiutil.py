@@ -25,7 +25,7 @@
 # from your version.
 
 import gtk, os.path, time, urllib
-import gtk.gdk, pango, gobject
+import gtk.gdk, pango, gobject, gio
 from xl import xdg, track, playlist, common, settings, event
 from xl.nls import gettext as _
 import threading
@@ -325,18 +325,9 @@ class DragTreeView(gtk.TreeView):
             # to the list
             new_playlist = playlist.import_playlist(loc)
             return ([], [new_playlist])
-        elif loc.startswith("file://") and os.path.isdir(loc[7:]):
-            #They dropped a folder
-            new_tracks = [] 
-            new_playlist = []
-            for root, dirs, files in os.walk(loc[7:]):
-                files.sort()
-                for file in files:
-                    full_path = os.path.join(root, file)
-                    (found_tracks, found_playlist) = self._handle_unknown_drag_data(full_path)
-                    new_tracks.extend(found_tracks)
-                    new_playlist.extend(found_playlist) 
-            return (new_tracks, new_playlist)
+        elif gio.File(loc).query_info("standard::type").get_file_type() == \
+                gio.FILE_TYPE_DIRECTORY:
+            return (track.get_tracks_from_uri(loc), [])
         else: #We don't know what they dropped
             return ([], [])
 

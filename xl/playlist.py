@@ -820,7 +820,7 @@ class Playlist(object):
             line = f.readline()
             if line == "EOF\n" or line == "":
                 break
-            locs.append(line.decode('utf-8').strip())
+            locs.append(line.strip())
         while True:
             line = f.readline()
             if line == "":
@@ -839,13 +839,7 @@ class Playlist(object):
                 (loc, meta) = loc.split('\t')
                
             tr = None
-            col = collection.get_collection_by_loc(loc)
-            if col:
-                tr = col.get_track_by_loc(loc)
-            if not tr:
-                tr = track.Track(uri=loc)
-                if tr.is_local() and not tr._scan_valid:
-                    tr = None
+            tr = track.Track(uri=loc)
 
             # readd meta
             if not tr: continue

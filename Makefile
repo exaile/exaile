@@ -36,7 +36,7 @@ make-install-dirs:
 	mkdir -p $(EXAILESHAREDIR)/data/images/24x24
 	mkdir -p $(EXAILESHAREDIR)/data/images/32x32
 	mkdir -p $(EXAILESHAREDIR)/data/images/48x48
-	mkdir -p $(EXAILESHAREDIR)/data/images/svg
+	mkdir -p $(EXAILESHAREDIR)/data/images/scalable
 	mkdir -p $(EXAILESHAREDIR)/data/ui
 	mkdir -p $(EXAILESHAREDIR)/data/migrations
 	mkdir -p $(EXAILESHAREDIR)/data/migrations/migration_200907100931
@@ -78,7 +78,7 @@ install-target: make-install-dirs
 	install -m 644 data/images/24x24/*.png $(EXAILESHAREDIR)/data/images/24x24
 	install -m 644 data/images/32x32/*.png $(EXAILESHAREDIR)/data/images/32x32
 	install -m 644 data/images/48x48/*.png $(EXAILESHAREDIR)/data/images/48x48
-	install -m 644 data/images/svg/*.svg $(EXAILESHAREDIR)/data/images/svg
+	install -m 644 data/images/scalable/*.svg $(EXAILESHAREDIR)/data/images/scalable
 	install -m 644 data/images/*.png $(EXAILESHAREDIR)/data/images
 	install -m 644 data/images/48x48/exaile.png \
 		$(DESTDIR)$(PREFIX)/share/pixmaps/exaile.png

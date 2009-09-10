@@ -37,21 +37,21 @@ class IconManager(object):
         self.icon_factory = gtk.IconFactory()
         self.icon_factory.add_default()
         # TODO: Make svg actually recognized
-        self._sizes = [16, 22, 24, 32, 48, 'svg']
+        self._sizes = [16, 22, 24, 32, 48, 'scalable']
 
     def add_icon_name_from_directory(self, icon_name, directory):
         """
             Registers an icon name from files found in a directory
         """
         for size in self._sizes:
-            try: # WxH/icon_name.png and svg/icon_name.svg
+            try: # WxH/icon_name.png and scalable/icon_name.svg
                 sizedir = '%dx%d' % (size, size)
             except TypeError:
                 sizedir = size
             filepath = os.path.join(directory, sizedir, icon_name)
             files = glob.glob('%s.*' % filepath)
             try:
-                icon_size = size if size != 'svg' else -1
+                icon_size = size if size != 'scalable' else -1
                 self.add_icon_name_from_file(icon_name, files[0], icon_size)
             except IndexError: # icon_nameW.png and icon_name.svg
                 try:
@@ -61,7 +61,7 @@ class IconManager(object):
                 filepath = os.path.join(directory, filename)
                 files = glob.glob('%s.*' % filepath)
                 try:
-                    icon_size = size if size != 'svg' else -1
+                    icon_size = size if size != 'scalable' else -1
                     self.add_icon_name_from_file(icon_name, files[0], icon_size)
                 except IndexError: # Give up
                     pass
@@ -95,7 +95,7 @@ class IconManager(object):
         self._sizes.reverse() # Prefer small over downscaled icons
 
         for size in self._sizes:
-            try: # WxH/stock_id.png and svg/stock_id.svg
+            try: # WxH/stock_id.png and scalable/stock_id.svg
                 sizedir = '%dx%d' % (size, size)
             except TypeError:
                 sizedir = size

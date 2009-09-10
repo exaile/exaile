@@ -259,8 +259,6 @@ class EqualizerPlugin:
 				s += "\n"
 				f.write(s)
 
-		print "EQPLUGIN: saved"
-
 	def load_presets(self):
 		
 		if os.path.exists(self.presets_path):
@@ -299,5 +297,3 @@ class EqualizerPlugin:
 			self.presets.append(["Soft", 0, 4.8, 1.6, 0, -2.4, 0, 4, 8, 9.6, 11.2, 12])
 			self.presets.append(["Soft Rock", 0, 4, 4, 2.4, 0, -4, -5.6, -3.2, 0, 2.4, 8.8])
 			self.presets.append(["Techno", 0, 8, 5.6, 0, -5.6, -4.8, 0, 8, 9.6, 9.6, 8.8])
-
-

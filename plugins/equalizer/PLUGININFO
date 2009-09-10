@@ -1,0 +1,4 @@
+Version='0.0.1'
+Authors=['Dave Aitken <dave.aitken@gmail.com>']
+Name=_('Equalizer')
+Description=_('Adds a 10-band equalizer to the Tools menu')

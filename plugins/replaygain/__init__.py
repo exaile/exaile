@@ -67,7 +67,7 @@ class ReplaygainVolume(ElementBin):
 
         # load settings
         for x in ("album-mode", "pre-amp", "fallback-gain"):
-            self._on_setting_change("reaplygain_option_set", None, 
+            self._on_setting_change("replaygain_option_set", None, 
                     "replaygain/%s"%x)
 
     def _on_setting_change(self, name, object, data):

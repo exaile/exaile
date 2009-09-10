@@ -13,6 +13,63 @@
         <property name="visible">True</property>
         <property name="orientation">vertical</property>
         <child>
+          <object class="GtkHBox" id="hbox2">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkComboBoxEntry" id="equalizer/combo-presets">
+                <property name="visible">True</property>
+                <signal name="changed" handler="on_equalizer/combo-presets_changed"/>
+              </object>
+              <packing>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="equalizer/add-preset">
+                <property name="label" translatable="yes">gtk-add</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
+                <property name="image_position">right</property>
+                <signal name="clicked" handler="on_equalizer/add-preset_clicked"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="equalizer/remove-preset">
+                <property name="label" translatable="yes">gtk-remove</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
+                <signal name="clicked" handler="on_equalizer/remove-preset_clicked"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="padding">5</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHSeparator" id="hseparator1">
+            <property name="visible">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkHBox" id="hbox1">
             <property name="visible">True</property>
             <child>
@@ -40,74 +97,12 @@
               </packing>
             </child>
             <child>
-              <object class="GtkHSeparator" id="hseparator2">
-                <property name="visible">True</property>
-              </object>
-              <packing>
-                <property name="position">2</property>
-              </packing>
+              <placeholder/>
             </child>
           </object>
           <packing>
             <property name="expand">False</property>
             <property name="padding">3</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkHBox" id="hbox2">
-            <property name="visible">True</property>
-            <child>
-              <object class="GtkComboBoxEntry" id="equalizer/combo-presets">
-                <property name="visible">True</property>
-                <signal name="changed" handler="on_equalizer/combo-presets_changed"/>
-              </object>
-              <packing>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="equalizer/add-preset">
-                <property name="label" translatable="yes">gtk-add</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
-                <property name="image_position">right</property>
-                <signal name="activate" handler="on_equalizer/add-preset_activate"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="equalizer/remove-preset">
-                <property name="label" translatable="yes">gtk-remove</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
-                <signal name="activate" handler="on_equalizer/remove-preset_activate"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="padding">5</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkHSeparator" id="hseparator1">
-            <property name="visible">True</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
             <property name="position">2</property>
           </packing>
         </child>

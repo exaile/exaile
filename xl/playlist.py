@@ -554,7 +554,7 @@ class Playlist(object):
 
         if end < self.current_pos:
             self.current_pos -= len(removed)
-        elif start <= self.current_pos <= end:
+        elif start <= self.current_pos < end:
             self.current_pos = start-1
 
         event.log_event('tracks_removed', self, (start, end, removed))

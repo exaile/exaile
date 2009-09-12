@@ -112,7 +112,8 @@ class TrayIcon(gtk.StatusIcon):
 
         self.menu.append_separator()
 
-        self.rating_item = guiutil.MenuRatingWidget(self._get_current_track_list)
+        self.rating_item = guiutil.MenuRatingWidget(self._get_current_track_list,
+            self._get_current_track_rating)
         self.menu.append_item(self.rating_item)
         self.rm_item = self.menu.append(label=_("Remove current track from playlist"),
             stock_id='gtk-remove',
@@ -129,9 +130,16 @@ class TrayIcon(gtk.StatusIcon):
         l = []
         l.append(self.player.current)
         return l
-    
+
+    def _get_current_track_rating(self):
+        if self.player.current:
+            return self.player.current.get_rating ()
+        else:
+            return 0
+
     def update_menu(self, type=None, object=None, data=None):
         track = self.player.current
+        self.rating_item.on_rating_change()
         if not track or not self.player.is_playing():
             self.playpause.destroy()
             self.playpause = self.menu.prepend(stock_id='gtk-media-play',

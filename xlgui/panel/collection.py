@@ -95,7 +95,9 @@ class CollectionPanel(panel.Panel):
         event.add_callback(self._check_collection_empty, 'libraries_modified',
             collection)
 
-        self.menu = menu.CollectionPanelMenu(self.get_selected_tracks)
+        self.menu = menu.CollectionPanelMenu(self.tree.get_selection(),
+            self.get_selected_tracks,
+            self.get_tracks_rating)
         self.menu.connect('append-items', lambda *e:
             self.emit('append-items', self.get_selected_tracks()))
         self.menu.connect('queue-items', lambda *e:
@@ -330,6 +332,50 @@ class CollectionPanel(panel.Panel):
         tracks = list(set(reduce(lambda x, y: list(x) + list(y), tracks)))
 
         return tracks
+
+    def get_tracks_rating(self):
+        """
+            Returns the rating of the selected tracks
+            Returns 0 if there is no selection, if tracks have different ratings
+            or if the selection is too big
+        """
+        rating = 0
+        selection = self.tree.get_selection()
+        (model, paths) = selection.get_selected_rows()
+        tracks_limit = settings.get_option('miscellaneous/rating_widget_tracks_limit', 100)
+        current_count = 0
+        
+        if paths and paths[0]:
+            iter = self.model.get_iter(paths[0])
+            newset = self._find_tracks(iter)
+            current_count += len (newset)
+            if current_count > tracks_limit:
+                return 0 # too many tracks
+            
+            if newset and newset[0]:
+                rating = newset[0].get_rating ()
+            
+            if rating == 0:
+                return 0 # if first song has 0 as a rating, we know the result
+            
+            for song in newset:
+                if song.get_rating() != rating:
+                    return 0 # different ratings
+        else:
+            return 0 # no tracks
+
+        for path in paths[1:]:
+            iter = self.model.get_iter(path)
+            newset = self._find_tracks(iter)
+            current_count += len (newset)
+            if current_count > tracks_limit:
+                return 0 # too many tracks
+            
+            for song in newset:
+                if song.get_rating() != rating:
+                    return 0 # different ratings
+
+        return rating # only one rating in the tracks, returning it
 
     def append_to_playlist(self, item=None, event=None):
         """

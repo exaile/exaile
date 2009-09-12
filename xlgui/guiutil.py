@@ -715,17 +715,28 @@ class Statusbar(object):
 class MenuRatingWidget(gtk.MenuItem):
     """
         A rating widget that can be used as a menu entry
+
+        @param: _get_tracks is a function that should return a list of tracks
+           linked to this widget.
+        
+        @param: _get_tracks_rating is a function that should return an int
+           representing the rating of the tracks which are meant to be linked to
+           this widget. Should return 0 if two tracks have a different rating or
+           if it contains over miscellaneous/rating_widget_tracks_limit tracks.
+           Default limit: 100
     """
 
-    def __init__(self, _get_tracks):
+    def __init__(self, _get_tracks, _get_tracks_rating):
         gtk.MenuItem.__init__(self)
         
         self._get_tracks = _get_tracks
+        self._get_tracks_rating = _get_tracks_rating
+        self._last_calculated_rating = self._get_tracks_rating()
         
         self.hbox = gtk.HBox(spacing=3)
         self.hbox.pack_start(gtk.Label(_("Rating:")), False, False)
         self.image = gtk.image_new_from_pixbuf(
-            self._get_rating_pixbuf(0))
+            self._get_rating_pixbuf(self._last_calculated_rating))
         self.hbox.pack_start(self.image, False, False, 12)
         
         self.add(self.hbox)
@@ -733,6 +744,9 @@ class MenuRatingWidget(gtk.MenuItem):
         self.connect('button-release-event', self._update_rating)
         self.connect('motion-notify-event', self._motion_notify)
         self.connect('leave-notify-event', self._leave_notify)
+
+        # This may be useful when rating is changed from outside of the GUI
+        event.add_callback(self.on_rating_change, 'rating_changed')
 
     def _motion_notify(self, widget, e):
         steps = settings.get_option('miscellaneous/rating_steps', 5)
@@ -758,17 +772,17 @@ class MenuRatingWidget(gtk.MenuItem):
             Resets the rating if the widget
             is left without clicking
         """
-        tracks = self._get_tracks()
-        if tracks and tracks[0]:
-            self.image.set_from_pixbuf(
-                self._get_rating_pixbuf(tracks[0].get_rating()))
-            self.queue_draw()
+        self.image.set_from_pixbuf(
+            self._get_rating_pixbuf(self._last_calculated_rating))
+        self.queue_draw()
 
     def _update_rating(self, widget, e):
         """
             Updates the rating of the tracks for this
             widget, meant to be used with a click event
         """
+        event.remove_callback(self.on_rating_change, 'rating_changed')
+        
         tracks = self._get_tracks()
         if tracks and tracks[0]:
             steps = settings.get_option('miscellaneous/rating_steps', 5)
@@ -782,16 +796,31 @@ class MenuRatingWidget(gtk.MenuItem):
                 r = -1
             
             if r >= 0:
+                if r == self._last_calculated_rating:
+                    r = 0
+
                 for track in tracks:
-                    track.set_rating(r)
-                
+                    track.set_rating (r)
+
                 event.log_event('rating_changed', self, r)
+                self._last_calculated_rating = r
+
+        event.add_callback(self.on_rating_change, 'rating_changed')
 
     def _get_rating_pixbuf(self, num):
         """
             Returns the pixbuf for num
         """
         return rating.rating_images[num]
+
+    def on_rating_change(self, type = None, object = None, data = None):
+        """
+            Handles possible changes of track ratings
+        """
+        self._last_calculated_rating = self._get_tracks_rating()
+        self.image.set_from_pixbuf(
+            self._get_rating_pixbuf(self._last_calculated_rating))
+        self.queue_draw ()
             
 def get_urls_for(items):
     """

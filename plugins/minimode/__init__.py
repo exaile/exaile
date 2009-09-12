@@ -73,7 +73,13 @@ class MiniMode(gtk.Window):
         self.set_title('Exaile')
         self.set_resizable(False)
 
-        self.setup_controls()
+        self.box = mmwidgets.WidgetBox(spacing=3)
+        self.add(self.box)
+        self.register_widgets()
+        controls = self.get_option('plugin/minimode/selected_controls')
+        controls += self.fixed_items
+        self.update_widgets(controls)
+
         self.update_position()
 
         basedir = os.path.dirname(os.path.abspath(__file__))
@@ -97,10 +103,6 @@ class MiniMode(gtk.Window):
         self.connect('show', self.on_show)
         self.exaile.gui.main.connect('main-visible-toggle',
             self.on_main_visible_toggle)
-
-        self.exaile.gui.builder.connect_signals({
-          'on_playlist_notebook_switch': self.on_playlist_notebook_switch
-        })
 
     def destroy(self):
         """
@@ -181,9 +183,11 @@ class MiniMode(gtk.Window):
             elif option == 'plugin/minimode/vertical_position':
                 self.update_position()
             elif option == 'plugin/minimode/selected_controls':
-                self.update_controls()
+                value += self.fixed_items
+                self.update_widgets(value)
             elif option == 'plugin/minimode/track_title_format':
-                self.box['track_selector'].update_track_list()
+                #self.box['track_selector'].update_track_list()
+                pass
     
     def update_position(self):
         """
@@ -194,57 +198,54 @@ class MiniMode(gtk.Window):
         y = self.get_option('plugin/minimode/vertical_position')
         self.move(int(x), int(y))
 
-    def setup_controls(self):
+    def register_widgets(self):
         """
-            Sets up all available controls
+            Registers all available widget types
         """
-        self.box = mmwidgets.Box(spacing=3)
+        widgets = {
+            'previous': (mmwidgets.Button,
+                ['gtk-media-previous', _('Previous Track'), self.on_previous]),
+            'next': (mmwidgets.Button,
+                ['gtk-media-next', _('Next Track'), self.on_next]),
+            'play_pause': (mmwidgets.PlayPauseButton,
+                [self.exaile.player, self.on_play_pause]),
+            'stop': (mmwidgets.Button,
+                ['gtk-media-stop', _('Stop Playback'), self.on_stop]),
+            'restore': (mmwidgets.Button,
+                ['gtk-fullscreen', _('Restore Main Window'), self.on_restore]),
+            'track_selector': (mmwidgets.TrackSelector,
+                [self.exaile.gui.main, self.exaile.queue,
+                 self.on_track_change, self.on_format_request]),
+            'progress_bar': (mmwidgets.ProgressBar,
+                [self.exaile.player, self.on_track_seeked]),
+            'volume': (mmwidgets.VolumeButton,
+                [self.exaile.player, self.on_volume_changed]),
+            'playlist_button': (mmwidgets.PlaylistButton,
+                [self.exaile.gui.main, self.exaile.queue,
+                 self.exaile.queue.current_playlist,
+                 self.on_track_change, self.on_format_request])
+        }
+        # TODO: PlaylistProgressBar
 
-        self.box.pack_start(mmwidgets.Button('previous',
-            'gtk-media-previous', _('Previous Track'), self.on_previous))
-        self.box.pack_start(mmwidgets.Button('next',
-            'gtk-media-next', _('Next Track'), self.on_next))
-        self.box.pack_start(mmwidgets.PlayPauseButton(
-            self.exaile.player, self.on_play_pause))
-        self.box.pack_start(mmwidgets.Button('stop',
-            'gtk-media-stop', _('Stop Playback'), self.on_stop))
-        self.box.pack_start(mmwidgets.Button('restore',
-            'gtk-fullscreen', _('Restore Main Window'), self.on_restore))
-        self.box.pack_start(mmwidgets.TrackSelector(
-            self.exaile.queue,
-            self.on_track_change, self.on_format_request))
-        self.box.pack_start(mmwidgets.ProgressBar(
-            self.exaile.player, self.on_track_seeked))
-        self.box.pack_start(mmwidgets.VolumeButton(
-            self.exaile.player, self.on_volume_changed))
-        self.box.pack_start(mmwidgets.PlaylistButton(
-            self.exaile.gui.main, self.exaile.queue,
-            self.exaile.queue.current_playlist,
-            self.on_track_change, self.on_format_request))
+        self.box.register_widgets(widgets)
 
-        # TODO: track_bar
-
-        self.update_controls()
-        self.add(self.box)
-
-    def update_controls(self):
+    def update_widgets(self, ids):
         """
-            Shows, hides and reorders controls
-            based on user setting
+            Adds and removes widgets
         """
-        self.box.hide_all_children()
-        selected_controls = self.get_option('plugin/minimode/selected_controls')
+        all_ids = self.box.get_id_iter()
 
-        for id in selected_controls:
+        for id in all_ids:
+            if id not in ids:
+                try:
+                    self.box.remove_widget(id)
+                except KeyError, e:
+                    pass
+
+        for id in ids:
             try:
-                self.box.show_child(id)
-            except KeyError:
-                pass
-
-        for id in self.fixed_items:
-            try:
-                self.box.show_child(id)
-            except KeyError:
+                self.box.add_widget(id)
+            except KeyError, e:
                 pass
 
     def get_option(self, option):
@@ -302,17 +303,6 @@ class MiniMode(gtk.Window):
         """
         self.toggle_visible()
         self._active = False
-
-    def on_playlist_notebook_switch(self, notebook, page, page_num):
-        """
-            Updates the track selector on playlist notebook switching
-        """
-        notebook_page = self.exaile.gui.main.get_selected_playlist()
-        if notebook_page is None:
-            return
-        playlist = notebook_page.playlist
-        self.box['track_selector'].update_track_list(playlist)
-        self.box['playlist_button'].set_tracks(playlist.get_tracks())
 
     def on_track_change(self, sender, track):
         """

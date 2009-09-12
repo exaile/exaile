@@ -19,7 +19,7 @@
 
 from __future__ import with_statement
 import gtk, time, gobject, thread, os
-from gettext import gettext as _
+from xl.nls import gettext as _
 from xl import event, xdg
 from xl import settings
 #import xl.plugins as plugins

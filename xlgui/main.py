@@ -272,6 +272,7 @@ class NotebookTab(gtk.EventBox):
         response = dialog.run()
         if response == gtk.RESPONSE_OK:
             self.title = dialog.get_value()
+            self.page.playlist.set_name(self.title)
 
     def do_save_custom(self, *args):
         dialog = commondialogs.TextEntryDialog(

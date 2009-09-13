@@ -414,12 +414,19 @@ class MuteButton(object):
             Sets the volume level indicator
         """
         icon_name = 'audio-volume-muted'
+        tooltip = _('Muted')
 
         if volume > 0:
             i = int(round(volume * 2))
             icon_name = 'audio-volume-%s' % self.icon_names[i]
+            #TRANSLATORS: Volume percentage
+            tooltip = '%d %%' % (volume * 100)
+
+        if volume == 1.0:
+            tooltip = _('Full Volume')
 
         self.button.child.set_from_icon_name(icon_name, gtk.ICON_SIZE_BUTTON)
+        self.button.set_tooltip_text(tooltip)
 
     def on_toggled(self, button):
         """

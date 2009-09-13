@@ -7,6 +7,7 @@
     <property name="window_position">center</property>
     <property name="default_width">480</property>
     <property name="default_height">260</property>
+    <property name="type_hint">utility</property>
     <signal name="destroy" handler="on_equalizer/main-window_destroy"/>
     <child>
       <object class="GtkVBox" id="vbox1">

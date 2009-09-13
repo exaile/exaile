@@ -420,7 +420,7 @@ class MuteButton(object):
             i = int(round(volume * 2))
             icon_name = 'audio-volume-%s' % self.icon_names[i]
             #TRANSLATORS: Volume percentage
-            tooltip = '%d %%' % (volume * 100)
+            tooltip = '%d%%' % (volume * 100)
 
         if volume == 1.0:
             tooltip = _('Full Volume')

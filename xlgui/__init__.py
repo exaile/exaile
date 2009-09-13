@@ -317,14 +317,12 @@ class Main(object):
         """
             Called when the user wishes to rescan the collection
         """
-        from xlgui import collection as guicol
-        try:
-            thread = guicol.CollectionScanThread(self, self.exaile.collection, 
+        if not self.exaile.collection._scanning:
+            from xlgui.collection import CollectionScanThread
+            thread = CollectionScanThread(self, self.exaile.collection, 
                     self.panels['collection'])
             self.progress_manager.add_monitor(thread,
                 _("Scanning collection..."), 'gtk-refresh')
-        except:
-            pass
 
     def on_randomize_playlist(self, *e):
         pl = self.main.get_selected_playlist()

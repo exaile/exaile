@@ -12,7 +12,7 @@ Essential:
 * gstreamer-plugins-good 0.10
 * mutagen (>= 1.10)
 * dbus-python
-* pygtk (>= 2.12)
+* pygtk (>= 2.16)
 * gtk+2.0 (>= 2.16)
 
 Translation:

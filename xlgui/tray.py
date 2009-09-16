@@ -195,7 +195,7 @@ class TrayIcon(gtk.StatusIcon):
             self._play_pause_clicked()
         if event.button == 3:
             self.update_menu()
-            self.menu.popup(None, None, None,
+            self.menu.popup(None, None, gtk.status_icon_position_menu,
                 event.button, event.time, self)
     
     def _play_pause_clicked(self):

@@ -552,7 +552,7 @@ class Playlist(object):
         self.ordered_tracks = self.ordered_tracks[:start] + \
                 self.ordered_tracks[end:]
 
-        if end < self.current_pos:
+        if end <= self.current_pos:
             self.current_pos -= len(removed)
         elif start <= self.current_pos < end:
             self.current_pos = start-1

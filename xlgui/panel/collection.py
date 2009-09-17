@@ -343,6 +343,7 @@ class CollectionPanel(panel.Panel):
         selection = self.tree.get_selection()
         (model, paths) = selection.get_selected_rows()
         tracks_limit = settings.get_option('miscellaneous/rating_widget_tracks_limit', 100)
+        if tracks_limit == 0: return 0
         current_count = 0
         
         if paths and paths[0]:
@@ -493,6 +494,8 @@ class CollectionPanel(panel.Panel):
                 'gui/collection_active_view',
                 self.choice.get_active())
 
+        self.tracks = []
+
         self.load_subtree(None)
 
         self.tree.set_model(self.model)
@@ -616,7 +619,7 @@ class CollectionPanel(panel.Panel):
 
         try:
             tag = self.order[depth]
-            self.tracks = self.collection.search(search)
+            self.tracks += self.collection.search(search)
             if previously_loaded:   # leave after setting self.tracks, so _find_tracks searches right branch
                 return
 

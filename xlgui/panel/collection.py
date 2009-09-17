@@ -619,7 +619,7 @@ class CollectionPanel(panel.Panel):
 
         try:
             tag = self.order[depth]
-            self.tracks += self.collection.search(search)
+            self.tracks.extend(self.collection.search(search))
             if previously_loaded:   # leave after setting self.tracks, so _find_tracks searches right branch
                 return
 

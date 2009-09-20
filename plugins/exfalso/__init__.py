@@ -32,7 +32,7 @@ class ExFalsoController:
         from quodlibet.qltk.exfalsowindow import ExFalsoWindow
 
         config.init(const.CONFIG)
-        self.instance = instance = ql.init()
+        self.instance = instance = ql.init(backend='nullbe')
         backend, library, player = instance
 
         self.window = window = ExFalsoWindow(library)
@@ -76,18 +76,21 @@ class ExFalsoController:
         ql.quit(self.instance)
         from quodlibet import config, const
         config.write(const.CONFIG)
+        config.quit()
 
 class ExFalsoTagger:
     def __init__(self, exaile):
         self.exaile = exaile
         self.exfalso = None
-    def destroy(self):
+    def destroy(self, *a):
         if self.exfalso:
             self.exfalso.cleanup()
+            self.exfalso = None
     def run(self, tracks):
         ef = self.exfalso
         if ef is None:
             ef = self.exfalso = ExFalsoController()
+            ef.window.connect('destroy', self.destroy)
         ef.window.present()
         ef.select(track.local_file_name() for track in tracks)
 

@@ -7,67 +7,45 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-08-24 18:16+0200\n"
-"PO-Revision-Date: 2009-08-24 18:52+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2009-09-08 17:57+0200\n"
+"PO-Revision-Date: 2009-09-17 20:19+0000\n"
+"Last-Translator: Miro Glavić <glavicmiro@gmail.com>\n"
 "Language-Team: Croatian <hr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-08-24 18:56+0000\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Launchpad-Export-Date: 2009-09-21 09:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
 msgid "Automatic"
-msgstr ""
-
-#: ../xl/player/pipe.py:203
-msgid "GNOME"
-msgstr ""
-
-#: ../xl/player/pipe.py:208
-msgid "ALSA"
-msgstr ""
-
-#: ../xl/player/pipe.py:213
-msgid "OSS"
-msgstr ""
-
-#: ../xl/player/pipe.py:218
-msgid "PulseAudio"
-msgstr ""
-
-#: ../xl/player/pipe.py:223
-msgid "JACK"
-msgstr ""
-
-#. TODO: remove this before 0.3.0 since it is not needed for
-#. stable->stable upgrades
-#: ../xl/player/engine_normal.py:154
-#, python-format
-msgid ""
-"Exaile now uses absolute URI's, please delete/rename your %s directory"
-msgstr ""
+msgstr "Automatski"
 
 #: ../xl/main.py:119
 msgid "Failed to migrate from 0.2.14"
-msgstr ""
+msgstr "Neuspjela migracija iz 0.2.14"
+
+#: ../xl/main.py:298
+msgid "Playback options"
+msgstr "Opcije reprodukcije"
 
 #: ../xl/main.py:273
 msgid "Play the next track"
-msgstr ""
+msgstr "Sviraj slijedeću pjesmu"
 
 #: ../xl/main.py:275
 msgid "Play the previous track"
-msgstr ""
+msgstr "Sviraj prethodnu pjesmu"
 
 #: ../xl/main.py:277
 msgid "Stop playback"
-msgstr ""
+msgstr "Zaustavi reprodukciju"
 
 #: ../xl/main.py:279
 msgid "Play"
-msgstr "Pusti"
+msgstr "Sviraj"
 
 #: ../xl/main.py:281
 msgid "Toggle Play or Pause"
@@ -75,6 +53,10 @@ msgstr ""
 
 #: ../xl/main.py:284
 msgid "Stop playback after current track"
+msgstr "Zaustavi reprodukciju nakon trenutne pjesme"
+
+#: ../xl/main.py:314
+msgid "Track options"
 msgstr ""
 
 #: ../xl/main.py:288
@@ -87,27 +69,27 @@ msgstr ""
 
 #: ../xl/main.py:292
 msgid "Print the title of current track"
-msgstr ""
+msgstr "Ispiši naslov trenutne pjesme"
 
 #: ../xl/main.py:294
 msgid "Print the album of current track"
-msgstr ""
+msgstr "Ispiši album trenutne pjesme"
 
 #: ../xl/main.py:296
 msgid "Print the artist of current track"
-msgstr ""
+msgstr "Ispiši izvođača trenutne pjesme"
 
 #: ../xl/main.py:298
 msgid "Print the length of current track"
-msgstr ""
+msgstr "Ispiši dužinu trenutne pjesme"
 
 #: ../xl/main.py:300
 msgid "Set rating for current song"
-msgstr ""
+msgstr "Postavi ocjene za trenutnu pjesmu"
 
 #: ../xl/main.py:302
 msgid "Get rating for current song"
-msgstr ""
+msgstr "Dobij ocjene za trenutnu pjesmu"
 
 #: ../xl/main.py:305
 msgid "Print the position inside the current track as time"
@@ -117,17 +99,25 @@ msgstr ""
 msgid "Print the progress inside the current track as percentage"
 msgstr ""
 
+#: ../xl/main.py:339
+msgid "Volume options"
+msgstr "Opcije jačine"
+
 #: ../xl/main.py:312
 msgid "Increases the volume by VOL%"
-msgstr ""
+msgstr "Pojačaj za VOL%"
 
 #: ../xl/main.py:314
 msgid "Decreases the volume by VOL%"
-msgstr ""
+msgstr "Utišaj za VOL%"
 
 #: ../xl/main.py:316
 msgid "Print the current volume percentage"
 msgstr ""
+
+#: ../xl/main.py:348
+msgid "Other options"
+msgstr "Druge opcije"
 
 #: ../xl/main.py:320
 msgid "Start new instance"
@@ -137,19 +127,36 @@ msgstr ""
 msgid "Start minimized (to tray, if possible)"
 msgstr ""
 
+#: ../xl/main.py:355
+msgid "Toggle visibility of the GUI (if possible)"
+msgstr ""
+
 #: ../xl/main.py:325
 msgid ""
 "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
 
+#: ../xl/main.py:360
+msgid "Force import of old data from 0.2.x. Overwrites current data."
+msgstr ""
+
+#: ../xl/main.py:363
+msgid "Do not import old data from 0.2.x."
+msgstr ""
+
+#. development and debug options
+#: ../xl/main.py:368
+msgid "Development/Debug options"
+msgstr ""
+
 #. development and debug options
 #: ../xl/main.py:329
 msgid "Set data directory"
-msgstr ""
+msgstr "Postavi direktorij podataka"
 
 #: ../xl/main.py:331
 msgid "Show debugging output"
-msgstr ""
+msgstr "Prikaži izlaz otklanjanja grešaka"
 
 #: ../xl/main.py:334
 msgid "Enable debugging of xl.event. Generates LOTS of output"
@@ -161,30 +168,30 @@ msgstr ""
 
 #: ../xl/main.py:339
 msgid "Reduce level of output"
-msgstr ""
+msgstr "Smanji razinu izlaza"
 
 #: ../xl/main.py:343
 msgid "Disable D-Bus support"
-msgstr ""
+msgstr "Onemogući D-Bus podršku"
 
 #: ../xl/main.py:345
 msgid "Disable HAL support."
-msgstr ""
+msgstr "Onemogući HAL podršku"
 
 #. entire playlist
 #: ../xl/main.py:362
 msgid "Entire Library"
-msgstr ""
+msgstr "Cjelokupna Biblioteka"
 
 #: ../xl/main.py:368
 #, python-format
 msgid "Random %d"
-msgstr ""
+msgstr "Slučajno %d"
 
 #: ../xl/main.py:376
 #, python-format
 msgid "Rating > %d"
-msgstr ""
+msgstr "Ocjena > %d"
 
 #: ../xl/main.py:473
 msgid ""
@@ -194,7 +201,7 @@ msgstr ""
 
 #: ../xl/cover.py:119 ../xl/cover.py:153 ../xl/trackdb.py:233
 msgid "You did not specify a location to save the db"
-msgstr ""
+msgstr "Niste specificirali lokaciju za spremanje db"
 
 #: ../xl/cover.py:245 ../xl/lyrics.py:75
 msgid "order must be a list or tuple"
@@ -229,12 +236,16 @@ msgid ""
 "A proprietary and older, but also popular, lossy audio format. VBR gives "
 "higher quality than CBR, but may be incompatible with some players."
 msgstr ""
+"Zaštićen i star, ali popularan audio format s degradacijom kvalitete. VBR je "
+"kvalitetniji od CBR-a, ali nije kompatibilan sa svim plejerima."
 
 #: ../xl/transcoder.py:89
 msgid ""
 "A proprietary and older, but also popular, lossy audio format. CBR gives "
 "less quality than VBR, but is compatible with any player."
 msgstr ""
+"Zaštićen i star, ali popularan audio format s degradacijom kvalitete. CBR je "
+"manje kvalitetan od VBR-a, ali je kompatibilan sa svim plejerima."
 
 #: ../xl/transcoder.py:100
 msgid "A very fast Free lossless audio format with good compression."
@@ -248,11 +259,11 @@ msgstr ""
 
 #: ../xl/devices.py:131 ../xl/devices.py:137
 msgid "Device class does not support transfer."
-msgstr ""
+msgstr "Klasa uređaja ne podržava transfer."
 
 #: ../xl/settings.py:82
 msgid "Settings version is newer than current."
-msgstr ""
+msgstr "Verzija postavki je novija od aktivne."
 
 #: ../xl/settings.py:167
 msgid "We don't know how to store that kind of setting: "
@@ -260,16 +271,16 @@ msgstr ""
 
 #: ../xl/settings.py:194
 msgid "An Unknown type of setting was found!"
-msgstr ""
+msgstr "Nepoznata vrsta postavki je pronađena!"
 
 #: ../xl/plugins.py:73
 msgid "Plugin archive is not in the correct format"
-msgstr ""
+msgstr "Arhiva priključka nije u ispravnom formatu"
 
 #: ../xl/plugins.py:80
 #, python-format
 msgid "A plugin with the name \"%s\" is already installed"
-msgstr ""
+msgstr "Priključak sa nazivom \"%s\" je već instaliran"
 
 #: ../xl/plugins.py:85
 msgid "Plugin archive contains an unsafe path"
@@ -287,11 +298,11 @@ msgstr "Nepoznato"
 #: ../xl/playlist.py:387
 #, python-format
 msgid "Playlist %d"
-msgstr ""
+msgstr "Lista igranja %d"
 
 #: ../xl/xldbus.py:75 ../xl/xldbus.py:284
 msgid "Not playing."
-msgstr ""
+msgstr "Ne svira."
 
 #: ../xl/xldbus.py:289
 #, python-format
@@ -299,10 +310,12 @@ msgid ""
 "status: %(status)s, title: %(title)s, artist: %(artist)s, album: %(album)s, "
 "length: %(length)s, position: %(progress)s%% [%(position)s]"
 msgstr ""
+"status: %(status)s, naslov: %(title)s, izvođač: %(artist)s, album: "
+"%(album)s, dužina: %(length)s, pozicija: %(progress)s%% [%(position)s]"
 
 #: ../xl/trackdb.py:176
 msgid "You did not specify a location to load the db from"
-msgstr ""
+msgstr "Niste specificirali lokaciju iz koje učitati db"
 
 #: ../xlgui/properties.py:51 ../xlgui/osd.py:193 ../xlgui/plcolumns.py:110
 #, python-format
@@ -325,11 +338,11 @@ msgstr ""
 
 #: ../xlgui/main.py:198
 msgid "Close tab"
-msgstr ""
+msgstr "Zatvori karticu"
 
 #: ../xlgui/main.py:254
 msgid "New playlist title:"
-msgstr ""
+msgstr "Naslov nove liste igranja:"
 
 #: ../xlgui/main.py:254 ../xlgui/menu.py:415
 msgid "Rename Playlist"
@@ -341,20 +354,10 @@ msgstr ""
 
 #: ../xlgui/main.py:262
 msgid "Save As..."
-msgstr ""
+msgstr "Spremi Kao..."
 
 #: ../xlgui/main.py:620
 msgid "Toggle: Stop after selected track"
-msgstr ""
-
-#: ../xlgui/main.py:645
-#, python-format
-msgid "%(playlist_count)d showing, %(collection_count)d in collection"
-msgstr ""
-
-#: ../xlgui/main.py:653
-#, python-format
-msgid " (%(queue_count)d queued)"
 msgstr ""
 
 #: ../xlgui/main.py:788
@@ -397,7 +400,7 @@ msgstr "s albuma %s"
 #: ../xlgui/main.py:1080
 #, python-format
 msgid "In pause: %s"
-msgstr ""
+msgstr "Pauziran: %s"
 
 #: ../xlgui/main.py:1082
 #, python-format
@@ -414,7 +417,7 @@ msgstr "Nova lista pjesama"
 
 #: ../xlgui/menu.py:147
 msgid "Add to custom playlist"
-msgstr ""
+msgstr "Dodaj u podešenu listu igranja"
 
 #: ../xlgui/menu.py:150 ../xlgui/menu.py:454
 msgid "Remove"
@@ -422,31 +425,31 @@ msgstr "Ukloni"
 
 #: ../xlgui/menu.py:153
 msgid "Properties"
-msgstr ""
+msgstr "Svojstva"
 
 #: ../xlgui/menu.py:167
 msgid "Playlist"
-msgstr ""
+msgstr "Lista igranja"
 
 #: ../xlgui/menu.py:201 ../data/glade/main.glade.h:34
 msgid "_New Playlist"
-msgstr ""
+msgstr "_Nova Lista Igranja"
 
 #: ../xlgui/menu.py:203
 msgid "_Rename Playlist"
-msgstr ""
+msgstr "_Preimenuj Listu Igranja"
 
 #: ../xlgui/menu.py:205
 msgid "_Save As Custom Playlist"
-msgstr ""
+msgstr "_Spremi Kao Podešenu Listu IgranjaS"
 
 #: ../xlgui/menu.py:207
 msgid "_Save Changes To Playlist"
-msgstr ""
+msgstr "_Spremi Promjene U Listu Igranja"
 
 #: ../xlgui/menu.py:208
 msgid "_Save As..."
-msgstr ""
+msgstr "_Spremi Kao..."
 
 #: ../xlgui/menu.py:209
 msgid "C_lear All Tracks"
@@ -454,7 +457,7 @@ msgstr ""
 
 #: ../xlgui/menu.py:211
 msgid "_Close Playlist"
-msgstr ""
+msgstr "_Zatvori Listu Igranja"
 
 #: ../xlgui/menu.py:231
 msgid "Append to Current"
@@ -466,11 +469,11 @@ msgstr "Stavi u red puštanja"
 
 #: ../xlgui/menu.py:277
 msgid "Delete track"
-msgstr ""
+msgstr "Obriši Pjesmu"
 
 #: ../xlgui/menu.py:308
 msgid "New Station"
-msgstr ""
+msgstr "Nova Stanica"
 
 #: ../xlgui/menu.py:313
 msgid "New Smart Playlist"
@@ -498,7 +501,7 @@ msgstr "Izbriši listu pjesama"
 
 #: ../xlgui/menu.py:378
 msgid "Export as..."
-msgstr ""
+msgstr "Izvezi kao..."
 
 #: ../xlgui/menu.py:383 ../xlgui/__init__.py:165
 msgid "M3U Playlist"
@@ -561,7 +564,7 @@ msgstr ""
 
 #: ../xlgui/__init__.py:160
 msgid "Export current playlist..."
-msgstr ""
+msgstr "Izvezi trenutnu listu igranja..."
 
 #: ../xlgui/__init__.py:183 ../xlgui/panel/playlists.py:921
 msgid "Invalid file extension, file not saved"
@@ -569,31 +572,31 @@ msgstr "Nepodržana ekstenzija, nije spremljeno."
 
 #: ../xlgui/__init__.py:190
 msgid "Enter the URL to open"
-msgstr ""
+msgstr "Unesite URL za otvoriti"
 
 #: ../xlgui/__init__.py:191
 msgid "Open URL"
-msgstr ""
+msgstr "Otvori URL"
 
 #: ../xlgui/__init__.py:205
 msgid "Choose a file to open"
-msgstr ""
+msgstr "Odaberi datoteku za otvoriti"
 
 #: ../xlgui/__init__.py:211
 msgid "Supported Files"
-msgstr ""
+msgstr "Podržane Datoteke"
 
 #: ../xlgui/__init__.py:213
 msgid "Music Files"
-msgstr ""
+msgstr "Glazbene Datoteke"
 
 #: ../xlgui/__init__.py:215
 msgid "Playlist Files"
-msgstr ""
+msgstr "Datoteke Liste Igranja"
 
 #: ../xlgui/__init__.py:217 ../xlgui/prefs/plugin_prefs.py:134
 msgid "All Files"
-msgstr ""
+msgstr "Sve Datoteke"
 
 #: ../xlgui/__init__.py:341
 msgid "Scanning collection..."
@@ -604,9 +607,19 @@ msgstr "Pretražujem zbirku..."
 msgid "Scanning %s..."
 msgstr ""
 
+#: ../xlgui/main.py:645
+#, python-format
+msgid "%(playlist_count)d showing, %(collection_count)d in collection"
+msgstr "%(playlist_count)d prikazuje, %(collection_count)d u kolekciji"
+
+#: ../xlgui/guiutil.py:717
+#, python-format
+msgid "(%d queued)"
+msgstr ""
+
 #: ../xlgui/guiutil.py:650
 msgid "Rating:"
-msgstr ""
+msgstr "Ocjena:"
 
 #: ../xlgui/commondialogs.py:309
 msgid "Select File Type (By Extension)"
@@ -622,15 +635,15 @@ msgstr "Ekstenzija"
 
 #: ../xlgui/devices.py:62
 msgid "Icon"
-msgstr ""
+msgstr "Ikona"
 
 #: ../xlgui/devices.py:67
 msgid "Device"
-msgstr ""
+msgstr "Uređaj"
 
 #: ../xlgui/devices.py:74
 msgid "Driver"
-msgstr ""
+msgstr "Upravljački program"
 
 #: ../xlgui/collection.py:140
 msgid "Add a directory"
@@ -702,7 +715,7 @@ msgstr "Žanr"
 #: ../xlgui/plcolumns.py:159 ../plugins/cd/cdprefs.py:93
 #: ../plugins/minimode/minimodeprefs.py:127
 msgid "Bitrate"
-msgstr ""
+msgstr "Protok bitova"
 
 #. (_('Date Added'), [
 #. TRANSLATORS: Example: track has been added in the last 2 days
@@ -737,7 +750,7 @@ msgstr "Broj puštanja"
 #: ../xlgui/plcolumns.py:190 ../plugins/cd/cdprefs.py:97
 #: ../plugins/minimode/minimodeprefs.py:132
 msgid "BPM"
-msgstr ""
+msgstr "BPM"
 
 #: ../xlgui/plcolumns.py:195 ../plugins/minimode/minimodeprefs.py:131
 msgid "Last played"
@@ -746,15 +759,15 @@ msgstr ""
 #: ../xlgui/plcolumns.py:206 ../xlgui/plcolumns.py:226
 #: ../plugins/minimode/mmwidgets.py:880
 msgid "Never"
-msgstr ""
+msgstr "Nikad"
 
 #: ../xlgui/plcolumns.py:218 ../plugins/minimode/mmwidgets.py:893
 msgid "Today"
-msgstr ""
+msgstr "Danas"
 
 #: ../xlgui/plcolumns.py:220 ../plugins/minimode/mmwidgets.py:895
 msgid "Yesterday"
-msgstr ""
+msgstr "Jučer"
 
 #: ../xlgui/plcolumns.py:222 ../plugins/minimode/mmwidgets.py:897
 #, python-format
@@ -792,7 +805,7 @@ msgstr " pjesme"
 #: ../xlgui/playlist.py:1060
 #, python-format
 msgid "Close %s"
-msgstr ""
+msgstr "Zatvori %s"
 
 #: ../xlgui/playlist.py:1061
 #, python-format
@@ -863,11 +876,11 @@ msgstr "ne sadrži"
 
 #: ../xlgui/panel/playlists.py:78 ../xlgui/panel/playlists.py:134
 msgid "greater than"
-msgstr ""
+msgstr "veće od"
 
 #: ../xlgui/panel/playlists.py:79 ../xlgui/panel/playlists.py:135
 msgid "less than"
-msgstr ""
+msgstr "manje od"
 
 #. TRANSLATORS: Example: rating >= 5
 #: ../xlgui/panel/playlists.py:81 ../xlgui/panel/playlists.py:86
@@ -883,7 +896,7 @@ msgstr "najviše"
 
 #: ../xlgui/panel/playlists.py:85 ../xlgui/panel/playlists.py:144
 msgid "Plays"
-msgstr ""
+msgstr "Svira"
 
 #: ../xlgui/panel/playlists.py:89 ../xlgui/panel/playlists.py:145
 msgid "Year"
@@ -909,15 +922,15 @@ msgstr "između"
 #: ../xlgui/panel/playlists.py:356 ../xlgui/panel/playlists.py:592
 #: ../xlgui/panel/playlists.py:666
 msgid "The playlist name you entered is already in use."
-msgstr ""
+msgstr "Naziv liste igranja koji ste unijeli je već u upotrebi."
 
 #: ../xlgui/panel/playlists.py:349
 msgid "New custom playlist name:"
-msgstr ""
+msgstr "Naziv nove podešene liste igranja:"
 
 #: ../xlgui/panel/playlists.py:350
 msgid "Add To New Playlist..."
-msgstr ""
+msgstr "Dodaj U Novu Listu Igranja..."
 
 #: ../xlgui/panel/playlists.py:360 ../xlgui/panel/playlists.py:586
 #: ../xlgui/panel/playlists.py:659
@@ -951,16 +964,16 @@ msgstr "Učitavam <i>streamove</i>..."
 #: ../plugins/shoutcast/__init__.py:174 ../plugins/shoutcast/__init__.py:224
 #: ../plugins/shoutcast/__init__.py:257 ../plugins/podcasts/podcasts.glade.h:2
 msgid "Idle."
-msgstr ""
+msgstr "Neaktivan"
 
 #: ../xlgui/panel/radio.py:166
 msgid "Add Radio Station"
-msgstr ""
+msgstr "Dodaj Radio Stanicu"
 
 #: ../xlgui/panel/radio.py:169
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:4
 msgid "URL:"
-msgstr ""
+msgstr "URL:"
 
 #: ../xlgui/panel/radio.py:234
 msgid "Saved Stations"
@@ -1005,19 +1018,19 @@ msgstr "Razni izvođači"
 #: ../xlgui/panel/device.py:115
 #, python-format
 msgid "Transferring to %s..."
-msgstr ""
+msgstr "Prijenos na %s..."
 
 #: ../xlgui/prefs/cover_prefs.py:21
 msgid "Covers"
-msgstr ""
+msgstr "Omoti"
 
 #: ../xlgui/prefs/appearance_prefs.py:22
 msgid "Appearance"
-msgstr ""
+msgstr "Izgled"
 
 #: ../xlgui/prefs/playback_prefs.py:22
 msgid "Playback"
-msgstr ""
+msgstr "Reprodukcija"
 
 #: ../xlgui/prefs/__init__.py:73 ../data/glade/preferences_dialog.glade.h:2
 msgid "Preferences"
@@ -1042,7 +1055,7 @@ msgstr "Dodatak"
 
 #: ../xlgui/prefs/plugin_prefs.py:89
 msgid "Version"
-msgstr ""
+msgstr "Inačica"
 
 #: ../xlgui/prefs/plugin_prefs.py:97
 #: ../plugins/multialarmclock/alarmclk.glade.h:6
@@ -1051,45 +1064,45 @@ msgstr "Uključeno"
 
 #: ../xlgui/prefs/plugin_prefs.py:119
 msgid "Choose a plugin"
-msgstr ""
+msgstr "Odaberi uređaj"
 
 #: ../xlgui/prefs/plugin_prefs.py:127
 msgid "Plugin Archives"
-msgstr ""
+msgstr "Arhiva Priključka"
 
 #: ../xlgui/prefs/plugin_prefs.py:180
 #, python-format
 msgid "Could not enable plugin: %s"
-msgstr ""
+msgstr "Nemoguće osposobiti priključak: %s"
 
 #: ../xlgui/prefs/plugin_prefs.py:187
 #, python-format
 msgid "Could not disable plugin: %s"
-msgstr ""
+msgstr "Nemoguće onesposobiti priključak: %s"
 
 #: ../xlgui/prefs/widgets.py:244
 msgid "Add item"
-msgstr ""
+msgstr "Dodaj stavku"
 
 #: ../xlgui/prefs/widgets.py:249
 msgid "Remove item"
-msgstr ""
+msgstr "Ukloni stavku"
 
 #: ../xlgui/prefs/widgets.py:262
 msgid "Move selected item up"
-msgstr ""
+msgstr "Pomakni odabranu stavku gore"
 
 #: ../xlgui/prefs/widgets.py:267
 msgid "Move selected item down"
-msgstr ""
+msgstr "Pomakni odabranu stavku dole"
 
 #: ../xlgui/prefs/widgets.py:538
 msgid "Action"
-msgstr ""
+msgstr "Akcija"
 
 #: ../xlgui/prefs/widgets.py:546
 msgid "Shortcut"
-msgstr ""
+msgstr "Prečica"
 
 #: ../xlgui/tray.py:73
 msgid "Exaile Music Player"
@@ -1101,7 +1114,7 @@ msgstr ""
 
 #: ../xlgui/tray.py:121 ../data/glade/main.glade.h:15
 msgid "Repeat playlist"
-msgstr ""
+msgstr "Ponovi listu igranja"
 
 #: ../xlgui/tray.py:126
 msgid "Dynamically add similar tracks"
@@ -1121,7 +1134,7 @@ msgstr "Dodaj uređaj"
 
 #: ../data/glade/device_manager.glade.h:3
 msgid "Custom: "
-msgstr ""
+msgstr "Podešeno: "
 
 #: ../data/glade/device_manager.glade.h:4
 msgid "Detected devices:"
@@ -1150,63 +1163,63 @@ msgstr "Nova pretraga"
 
 #: ../data/glade/trackproperties_dialog.glade.h:1
 msgid "Album:"
-msgstr ""
+msgstr "Album:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:2
 msgid "Artist:"
-msgstr ""
+msgstr "Izvođač:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:3
 msgid "Basic"
-msgstr ""
+msgstr "Osnovno"
 
 #: ../data/glade/trackproperties_dialog.glade.h:4
 msgid "Bitrate:"
-msgstr ""
+msgstr "Brzina prijenosa:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:5
 msgid "Date:"
-msgstr ""
+msgstr "Datum:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:6
 msgid "Details"
-msgstr ""
+msgstr "Detalji"
 
 #: ../data/glade/trackproperties_dialog.glade.h:7
 msgid "File Size:"
-msgstr ""
+msgstr "Veličina Datoteke:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:8
 msgid "Genre:"
-msgstr ""
+msgstr "Žanr:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:9
 msgid "Length:"
-msgstr ""
+msgstr "Dužina:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:10
 msgid "Location:"
-msgstr ""
+msgstr "Lokacija:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:11
 msgid "Play Count:"
-msgstr ""
+msgstr "Brojač:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:12
 msgid "Title:"
-msgstr ""
+msgstr "Naslov:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:13
 msgid "Track Number:"
-msgstr ""
+msgstr "Broj Pjesme:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:14
 msgid "Track Properties"
-msgstr ""
+msgstr "Svojstva Pjesme"
 
 #: ../data/glade/about_dialog.glade.h:1
 msgid "&#xA9; 2009"
-msgstr ""
+msgstr "&#xA9; 2009"
 
 #: ../data/glade/about_dialog.glade.h:2
 msgid "About Exaile"
@@ -1237,26 +1250,33 @@ msgid ""
 "   <info@noctus.net>\n"
 "    Translation Manager"
 msgstr ""
+"Mathias Brodala\n"
+"   <info@noctus.net>\n"
+"    Upravitelj Prevođenja"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:1
 msgid "Always show tab bar"
 msgstr ""
 
+#: ../data/ui/appearance_prefs_pane.glade.h:2
+msgid "Bottom"
+msgstr "Dno"
+
 #: ../data/glade/appearance_prefs_pane.glade.h:3
 msgid "Jump to current song on track change"
 msgstr "Označi trenutnu pjesmu nakon promjene"
 
-#: ../data/glade/appearance_prefs_pane.glade.h:4
-msgid ""
-"Left\n"
-"Right\n"
-"Top\n"
-"Bottom"
-msgstr ""
+#: ../data/ui/appearance_prefs_pane.glade.h:5
+msgid "Left"
+msgstr "Lijevo"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:8
 msgid "Minimize to tray"
 msgstr ""
+
+#: ../data/ui/appearance_prefs_pane.glade.h:7
+msgid "Right"
+msgstr "Desno"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:9
 msgid "Show splash screen on startup"
@@ -1269,6 +1289,10 @@ msgstr ""
 #: ../data/glade/appearance_prefs_pane.glade.h:11
 msgid "Tab placement:"
 msgstr ""
+
+#: ../data/ui/appearance_prefs_pane.glade.h:11
+msgid "Top"
+msgstr "Vrh"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:12
 msgid "Use alpha transparency (if supported)"
@@ -1285,7 +1309,7 @@ msgstr ""
 
 #: ../data/glade/osd_window.glade.h:4
 msgid "Popup"
-msgstr ""
+msgstr "Pop-up"
 
 #: ../data/glade/radio_panel.glade.h:1
 msgid "Add Station"
@@ -1298,7 +1322,7 @@ msgstr "Radio"
 
 #: ../data/glade/covermanager.glade.h:1
 msgid "Cover Manager"
-msgstr ""
+msgstr "Upravitelj Omota"
 
 #: ../data/glade/covermanager.glade.h:3
 msgid "_Close"
@@ -1309,16 +1333,6 @@ msgid ""
 "<b>Move the On Screen Display window to the location you want it to "
 "appear</b>"
 msgstr "<b>Pomaknite obavijest (OSD) na željeno mjesto.</b>"
-
-#: ../data/glade/osd_prefs_pane.glade.h:2
-msgid ""
-"<b>{title}</b>\n"
-"{artist}\n"
-"on {album} - {length}"
-msgstr ""
-"<b>{title}</b>\n"
-"{artist}\n"
-"album {album} - {length}"
 
 #: ../data/glade/osd_prefs_pane.glade.h:5
 msgid "Background Color:"
@@ -1358,7 +1372,7 @@ msgstr "Širina:"
 
 #: ../data/glade/queue_dialog.glade.h:1
 msgid "Close this dialog"
-msgstr ""
+msgstr "Zatvori ovaj dijalog"
 
 #: ../data/glade/queue_dialog.glade.h:2
 msgid "Queue Manager"
@@ -1366,21 +1380,15 @@ msgstr ""
 
 #: ../data/glade/queue_dialog.glade.h:3
 msgid "Remove All"
-msgstr ""
+msgstr "Ukloni Sve"
+
+#: ../xl/player/pipe.py:208
+msgid "ALSA"
+msgstr "ALSA"
 
 #: ../data/glade/playback_prefs_pane.glade.h:1
 msgid "Audio Sink:  "
-msgstr ""
-
-#: ../data/glade/playback_prefs_pane.glade.h:2
-msgid ""
-"Automatic\n"
-"GNOME\n"
-"ALSA\n"
-"OSS\n"
-"PulseAudio\n"
-"JACK"
-msgstr ""
+msgstr "Audio Sink:  "
 
 #: ../data/glade/playback_prefs_pane.glade.h:8
 msgid "Crossfade duration (ms):"
@@ -1390,15 +1398,29 @@ msgstr ""
 msgid "Fade duration (ms):"
 msgstr ""
 
-#: ../data/glade/playback_prefs_pane.glade.h:10
-msgid ""
-"Normal\n"
-"Unified (unstable)"
+#: ../xl/player/pipe.py:203
+msgid "GNOME"
+msgstr "GNOME"
+
+#: ../xl/player/pipe.py:223
+msgid "JACK"
 msgstr ""
+
+#: ../data/ui/playback_prefs_pane.glade.h:8
+msgid "Normal"
+msgstr "Normalno"
+
+#: ../xl/player/pipe.py:213
+msgid "OSS"
+msgstr "OSS"
 
 #: ../data/glade/playback_prefs_pane.glade.h:12
 msgid "Playback engine (requires restart): "
 msgstr ""
+
+#: ../xl/player/pipe.py:218
+msgid "PulseAudio"
+msgstr "PulseAudio"
 
 #: ../data/glade/playback_prefs_pane.glade.h:13
 msgid "Resume playback in paused state"
@@ -1410,6 +1432,10 @@ msgstr ""
 
 #: ../data/glade/playback_prefs_pane.glade.h:15
 msgid "These options only affect the unified engine."
+msgstr ""
+
+#: ../data/ui/playback_prefs_pane.glade.h:15
+msgid "Unified (unstable)"
 msgstr ""
 
 #: ../data/glade/playback_prefs_pane.glade.h:16
@@ -1450,7 +1476,7 @@ msgstr ""
 
 #: ../data/glade/plugin_prefs_pane.glade.h:8
 msgid "Install plugin file"
-msgstr ""
+msgstr "Instaliraj datoteku priključka"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:9
 msgid "Installed Plugins"
@@ -1464,14 +1490,6 @@ msgstr "Nadogradnja"
 msgid "Version:"
 msgstr "Verzija:"
 
-#: ../data/glade/main.glade.h:1
-msgid " + "
-msgstr " + "
-
-#: ../data/glade/main.glade.h:2
-msgid " - "
-msgstr " - "
-
 #: ../data/glade/main.glade.h:3
 msgid "0/0 tracks"
 msgstr "0/0 pjesama"
@@ -1482,10 +1500,14 @@ msgstr "0:00 / 0:00"
 
 #: ../data/glade/main.glade.h:5
 msgid "C_overs"
-msgstr ""
+msgstr "O_moti"
 
 #: ../data/glade/main.glade.h:6
 msgid "Clear Playlist"
+msgstr "Očisti Listu Igranja"
+
+#: ../data/ui/main.glade.h:5
+msgid "Click to view Queue"
 msgstr ""
 
 #: ../data/glade/main.glade.h:7
@@ -1498,7 +1520,7 @@ msgstr "Sljedeća pjesma"
 
 #: ../data/glade/main.glade.h:10
 msgid "Open _URL"
-msgstr ""
+msgstr "Otvori _URL"
 
 #: ../data/glade/main.glade.h:11
 msgid "Page 1"
@@ -1523,7 +1545,7 @@ msgstr "Traži: "
 
 #: ../data/glade/main.glade.h:18
 msgid "Start/Pause Playback"
-msgstr ""
+msgstr "Započni/Pauziraj Reprodukciju"
 
 #: ../data/glade/main.glade.h:19
 msgid ""
@@ -1536,17 +1558,13 @@ msgstr ""
 msgid "Track _properties"
 msgstr ""
 
-#: ../data/glade/main.glade.h:24
-msgid "Vol:"
-msgstr "Glasnoća"
-
 #: ../data/glade/main.glade.h:25
 msgid "_Autosize"
 msgstr ""
 
 #: ../data/glade/main.glade.h:26
 msgid "_Collection"
-msgstr ""
+msgstr "_Kolekcija"
 
 #: ../data/glade/main.glade.h:27
 msgid "_Columns"
@@ -1554,7 +1572,7 @@ msgstr "_Kolone"
 
 #: ../data/glade/main.glade.h:28
 msgid "_Device Manager"
-msgstr ""
+msgstr "Upravitelj _Uređaja"
 
 #: ../data/glade/main.glade.h:29
 msgid "_Edit"
@@ -1562,7 +1580,7 @@ msgstr "_Uredi"
 
 #: ../data/glade/main.glade.h:30
 msgid "_Export current playlist"
-msgstr ""
+msgstr "_Izvezi trenutnu listu igranja"
 
 #: ../data/glade/main.glade.h:31
 msgid "_File"
@@ -1570,7 +1588,7 @@ msgstr "_Datoteka"
 
 #: ../data/glade/main.glade.h:32
 msgid "_Go to Playing Track"
-msgstr ""
+msgstr "_Idi na Pjesmu Što Svira"
 
 #: ../data/glade/main.glade.h:33
 msgid "_Help"
@@ -1578,7 +1596,7 @@ msgstr "_Pomoć"
 
 #: ../data/glade/main.glade.h:35
 msgid "_Queue"
-msgstr ""
+msgstr "_Red"
 
 #: ../data/glade/main.glade.h:36
 msgid "_Randomize Playlist"
@@ -1606,7 +1624,7 @@ msgstr ""
 
 #: ../data/glade/flatplaylist_panel.glade.h:2
 msgid "Import CD"
-msgstr ""
+msgstr "Uvezi CD"
 
 #: ../data/glade/general_prefs_pane.glade.h:1
 #: ../data/glade/playlists_prefs_pane.glade.h:1
@@ -1615,35 +1633,37 @@ msgstr "Otvori zadnju listu pjesama pri pokretanju"
 
 #: ../data/glade/collection_panel.glade.h:1
 msgid "<b>Collection is empty.</b>"
-msgstr ""
+msgstr "<b>Kolekcija je prazna.</b>"
 
 #: ../data/glade/collection_panel.glade.h:2
 msgid "Add Music"
-msgstr ""
+msgstr "Dodaj Muziku"
 
-#: ../data/glade/collection_panel.glade.h:3
-msgid ""
-"Artist\n"
-"Album\n"
-"Genre - Artist\n"
-"Genre - Album\n"
-"Year - Artist\n"
-"Year - Album\n"
-"Artist - Year - Album"
-msgstr ""
-"Izvođač\n"
-"Album\n"
-"Žanr - Izvođač\n"
-"Žanr - Album\n"
-"Godina - Izvođač\n"
-"Godina - Album\n"
-"Izvođač - Godina - Album"
+#: ../data/ui/collection_panel.glade.h:5
+msgid "Artist - Year - Album"
+msgstr "Izvođač - Godina - Album"
+
+#: ../data/ui/collection_panel.glade.h:7
+msgid "Genre - Album"
+msgstr "Žanr - Album"
+
+#: ../data/ui/collection_panel.glade.h:8
+msgid "Genre - Artist"
+msgstr "Žanr - Izvođač"
 
 #: ../data/glade/collection_panel.glade.h:11
 msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
 msgstr ""
+
+#: ../data/ui/collection_panel.glade.h:12
+msgid "Year - Album"
+msgstr "Godina - Album"
+
+#: ../data/ui/collection_panel.glade.h:13
+msgid "Year - Artist"
+msgstr "Godina - Izvođač"
 
 #: ../data/glade/playlists_prefs_pane.glade.h:2
 msgid "Prompt for saving custom playlists on close"
@@ -1657,17 +1677,13 @@ msgstr "(vucite za mijenjanje redoslijeda)"
 msgid "Cover Search Order:"
 msgstr "Poredak pretraživanja slika albuma:"
 
-#: ../data/glade/preferences_dialog.glade.h:1
-msgid "<b>General</b>"
-msgstr "<b>Općenito</b>"
-
 #: ../data/glade/files_panel.glade.h:1
 msgid "Files"
 msgstr "Datoteke"
 
 #: ../data/glade/files_panel.glade.h:2
 msgid "Home directory"
-msgstr ""
+msgstr "Glavni Direktorij"
 
 #: ../data/glade/files_panel.glade.h:3
 msgid "Next visited directory"
@@ -1688,16 +1704,16 @@ msgstr ""
 #: ../plugins/multialarmclock/__init__.py:410
 #: ../plugins/multialarmclock/PLUGININFO:3
 msgid "Multi-Alarm Clock"
-msgstr ""
+msgstr "Više-alarmni Budilnik"
 
 #: ../plugins/alarmclock/acprefs.py:22 ../plugins/alarmclock/PLUGININFO:3
 msgid "Alarm Clock"
-msgstr ""
+msgstr "Budilnik"
 
 #: ../plugins/audioscrobbler/asprefs.py:22
 #: ../plugins/audioscrobbler/PLUGININFO:3
 msgid "AudioScrobbler"
-msgstr ""
+msgstr "AudioScrobbler"
 
 #: ../plugins/audioscrobbler/__init__.py:114
 msgid "Enable audioscrobbling"
@@ -1705,7 +1721,7 @@ msgstr ""
 
 #: ../plugins/cd/__init__.py:95 ../plugins/cd/__init__.py:172
 msgid "Audio Disc"
-msgstr ""
+msgstr "Audio Disk"
 
 #: ../plugins/cd/_cdguipanel.py:60
 msgid "Importing CD..."
@@ -1713,36 +1729,36 @@ msgstr ""
 
 #: ../plugins/cd/cdprefs.py:22
 msgid "CD"
-msgstr ""
+msgstr "CD"
 
 #: ../plugins/cd/cdprefs.py:83 ../plugins/minimode/minimodeprefs.py:117
 msgid "Track number"
-msgstr ""
+msgstr "Broj pjesme"
 
 #: ../plugins/cd/cdprefs.py:89 ../plugins/minimode/minimodeprefs.py:123
 msgid "Disc number"
-msgstr ""
+msgstr "Broj diska"
 
 #: ../plugins/cd/cdprefs.py:96 ../plugins/minimode/minimodeprefs.py:130
 msgid "Play count"
-msgstr ""
+msgstr "Brojač"
 
 #: ../plugins/bookmarks/__init__.py:278
 #: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
 msgid "Bookmarks"
-msgstr ""
+msgstr "Knjižne oznake"
 
 #: ../plugins/bookmarks/__init__.py:286
 msgid "Bookmark this track"
-msgstr ""
+msgstr "Zabilježi ovu pjesmu"
 
 #: ../plugins/bookmarks/__init__.py:291
 msgid "Delete bookmark"
-msgstr ""
+msgstr "Obriši oznaku"
 
 #: ../plugins/bookmarks/__init__.py:295
 msgid "Clear bookmarks"
-msgstr ""
+msgstr "Očisti oznake"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
@@ -1752,27 +1768,39 @@ msgstr ""
 #: ../plugins/notify/notifyprefs.py:53
 #, python-format
 msgid "%(title)s"
-msgstr ""
+msgstr "%(title)s"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:51
 #: ../plugins/notify/notifyprefs.py:43
 #, python-format
 msgid "by %(artist)s"
-msgstr ""
+msgstr "od %(artist)s"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:55
 #: ../plugins/notify/notifyprefs.py:48
 #, python-format
 msgid "from %(album)s"
-msgstr ""
+msgstr "sa %(album)s"
 
 #: ../plugins/amazoncovers/amazonprefs.py:22
 #: ../plugins/amazoncovers/PLUGININFO:3
 msgid "Amazon Covers"
-msgstr ""
+msgstr "Amazon Omoti"
 
 #: ../plugins/desktopcover/prefs.py:22 ../plugins/desktopcover/PLUGININFO:3
 msgid "Desktop Cover"
+msgstr "Omot Radne Površine"
+
+#: ../plugins/moodbar/__init__.py:163
+msgid "Searching for mood..."
+msgstr ""
+
+#: ../plugins/moodbar/__init__.py:167
+msgid "Mood found."
+msgstr ""
+
+#: ../plugins/moodbar/__init__.py:199
+msgid "Could not read moodbar."
 msgstr ""
 
 #: ../plugins/moodbar/__init__.py:334
@@ -1782,23 +1810,23 @@ msgstr ""
 #: ../plugins/replaygain/replaygainprefs.py:22
 #: ../plugins/replaygain/PLUGININFO:3
 msgid "ReplayGain"
-msgstr ""
+msgstr "Reprodukcioni/Doseg"
 
 #: ../plugins/podcasts/__init__.py:55 ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
-msgstr ""
+msgstr "Podcasti"
 
 #: ../plugins/podcasts/__init__.py:72
 msgid "Podcast"
-msgstr ""
+msgstr "Podcast"
 
 #: ../plugins/podcasts/__init__.py:81
 msgid "Refresh Podcast"
-msgstr ""
+msgstr "Osvježi Podcast"
 
 #: ../plugins/podcasts/__init__.py:82
 msgid "Delete"
-msgstr ""
+msgstr "Obriši"
 
 #: ../plugins/podcasts/__init__.py:120
 msgid "Enter the URL of the podcast to add"
@@ -1806,24 +1834,24 @@ msgstr ""
 
 #: ../plugins/podcasts/__init__.py:121
 msgid "Open Podcast"
-msgstr ""
+msgstr "Otvori Podcast"
 
 #: ../plugins/podcasts/__init__.py:154
 #, python-format
 msgid "Loading %s..."
-msgstr ""
+msgstr "Učitavanje %s..."
 
 #: ../plugins/podcasts/__init__.py:183
 msgid "Error loading podcast."
-msgstr ""
+msgstr "Greška učitavanja podcaasta."
 
 #: ../plugins/podcasts/__init__.py:199
 msgid "Loading Podcasts..."
-msgstr ""
+msgstr "Učitavanje Podcasta..."
 
 #: ../plugins/podcasts/__init__.py:230
 msgid "Could not save podcast file"
-msgstr ""
+msgstr "Nemoguće spremiti podcast datoteku"
 
 #: ../plugins/shoutcast/__init__.py:104 ../plugins/shoutcast/__init__.py:158
 #: ../plugins/shoutcast/__init__.py:201 ../plugins/shoutcast/__init__.py:237
@@ -1847,15 +1875,15 @@ msgstr ""
 
 #: ../plugins/shoutcast/__init__.py:297
 msgid "Search Results"
-msgstr ""
+msgstr "Rezultati Pretrage"
 
 #: ../plugins/shoutcast/__init__.py:330
 msgid "Search"
-msgstr ""
+msgstr "Pretraga"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
-msgstr ""
+msgstr "Obavijesti"
 
 #: ../plugins/notify/notifyprefs.py:38
 #, python-format
@@ -1863,6 +1891,8 @@ msgid ""
 "by %(artist)s\n"
 "from <i>%(album)s</i>"
 msgstr ""
+"od %(artist)s\n"
+"sa <i>%(album)s</i>"
 
 #: ../plugins/ipconsole/__init__.py:77
 msgid "IPython Console - Exaile"
@@ -1891,11 +1921,11 @@ msgstr ""
 
 #: ../plugins/minimode/minimodeprefs.py:97
 msgid "Available controls"
-msgstr ""
+msgstr "Raspoložive kontrole"
 
 #: ../plugins/minimode/minimodeprefs.py:98
 msgid "Selected controls"
-msgstr ""
+msgstr "Odabrane kontrole"
 
 #: ../plugins/minimode/minimodeprefs.py:100
 msgid "Previous"
@@ -1903,7 +1933,7 @@ msgstr "Nazad"
 
 #: ../plugins/minimode/minimodeprefs.py:101
 msgid "Play/Pause"
-msgstr ""
+msgstr "Sviraj/Pauziraj"
 
 #: ../plugins/minimode/minimodeprefs.py:102
 msgid "Stop"
@@ -1915,15 +1945,15 @@ msgstr "Dalje"
 
 #: ../plugins/minimode/minimodeprefs.py:104
 msgid "Track selector"
-msgstr ""
+msgstr "Odabirač pjesama"
 
 #: ../plugins/minimode/minimodeprefs.py:105
 msgid "Progress bar"
-msgstr ""
+msgstr "Traka progresa"
 
 #: ../plugins/minimode/minimodeprefs.py:106
 msgid "Volume"
-msgstr ""
+msgstr "Jačina zvuka"
 
 #: ../plugins/minimode/minimodeprefs.py:107
 msgid "Playlist button"
@@ -1931,7 +1961,7 @@ msgstr ""
 
 #: ../plugins/minimode/minimodeprefs.py:110
 msgid "Restore"
-msgstr ""
+msgstr "Obnovi"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimodeprefs.py:136
@@ -1951,15 +1981,15 @@ msgstr ""
 
 #: ../plugins/minimode/mmwidgets.py:151 ../plugins/minimode/mmwidgets.py:165
 msgid "Start Playback"
-msgstr ""
+msgstr "Počni Reprodukciju"
 
 #: ../plugins/minimode/mmwidgets.py:169
 msgid "Continue Playback"
-msgstr ""
+msgstr "Nastavi Reprodukciju"
 
 #: ../plugins/minimode/mmwidgets.py:172
 msgid "Pause Playback"
-msgstr ""
+msgstr "Pauziraj Reprodukciju"
 
 #: ../plugins/minimode/mmwidgets.py:732
 msgid "Seeking: "
@@ -1967,12 +1997,12 @@ msgstr ""
 
 #: ../plugins/minimode/mmwidgets.py:809
 msgid " & "
-msgstr ""
+msgstr " & "
 
 #: ../plugins/contextinfo/__init__.py:1033
 #: ../plugins/contextinfo/context.glade.h:1
 msgid "Context"
-msgstr ""
+msgstr "Kontekst"
 
 #: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
@@ -1989,20 +2019,20 @@ msgstr ""
 #: ../plugins/multialarmclock/alarmclk.glade.h:1
 #: ../plugins/alarmclock/acprefs_pane.glade.h:1
 msgid "Alarm Days:"
-msgstr ""
+msgstr "Dani Alarma:"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:2
 msgid "Alarm Name:"
-msgstr ""
+msgstr "Naziv Alarma:"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:3
 #: ../plugins/alarmclock/acprefs_pane.glade.h:2
 msgid "Alarm Time:"
-msgstr ""
+msgstr "Vrijeme Alarma:"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:4
 msgid "Alarm:"
-msgstr ""
+msgstr "Alarm:"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:5
 msgid "Enable Fading"
@@ -2015,31 +2045,31 @@ msgstr ""
 #: ../plugins/multialarmclock/alarmclk.glade.h:8
 #: ../plugins/alarmclock/acprefs_pane.glade.h:3
 msgid "Friday"
-msgstr ""
+msgstr "Petak"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:9
 #: ../plugins/alarmclock/acprefs_pane.glade.h:4
 msgid "Increment:"
-msgstr ""
+msgstr "Inkrement:"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:10
 #: ../plugins/alarmclock/acprefs_pane.glade.h:5
 msgid "Maximum Volume:"
-msgstr ""
+msgstr "Maksimalna Jačina:"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:11
 #: ../plugins/alarmclock/acprefs_pane.glade.h:6
 msgid "Minimum Volume:"
-msgstr ""
+msgstr "Minimalna Jačina:"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:12
 #: ../plugins/alarmclock/acprefs_pane.glade.h:7
 msgid "Monday"
-msgstr ""
+msgstr "Ponedjeljak"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:13
 msgid "Name - Time"
-msgstr ""
+msgstr "Ime - Vrijeme"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:14
 msgid "Restart Playlist"
@@ -2048,17 +2078,17 @@ msgstr ""
 #: ../plugins/multialarmclock/alarmclk.glade.h:15
 #: ../plugins/alarmclock/acprefs_pane.glade.h:8
 msgid "Saturday"
-msgstr ""
+msgstr "Subota"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:16
 #: ../plugins/alarmclock/acprefs_pane.glade.h:9
 msgid "Sunday"
-msgstr ""
+msgstr "Nedjelja"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:17
 #: ../plugins/alarmclock/acprefs_pane.glade.h:10
 msgid "Thursday"
-msgstr ""
+msgstr "Četvrtak"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:18
 msgid "Time per Increment:"
@@ -2067,12 +2097,12 @@ msgstr ""
 #: ../plugins/multialarmclock/alarmclk.glade.h:19
 #: ../plugins/alarmclock/acprefs_pane.glade.h:12
 msgid "Tuesday"
-msgstr ""
+msgstr "Utorak"
 
 #: ../plugins/multialarmclock/alarmclk.glade.h:20
 #: ../plugins/alarmclock/acprefs_pane.glade.h:14
 msgid "Wednesday"
-msgstr ""
+msgstr "Srijeda"
 
 #: ../plugins/alarmclock/acprefs_pane.glade.h:11
 msgid "Timer per Increment:"
@@ -2084,7 +2114,7 @@ msgstr ""
 
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:1
 msgid "Password:"
-msgstr ""
+msgstr "Lozinka:"
 
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:2
 msgid "Show Menuitem to toggle Submission"
@@ -2096,19 +2126,43 @@ msgstr ""
 
 #: ../plugins/audioscrobbler/asprefs_pane.glade.h:5
 msgid "Username:"
-msgstr ""
+msgstr "Korisničko ime:"
+
+#: ../plugins/cd/cdprefs_pane.glade.h:1
+msgid "AAC"
+msgstr "AAC"
+
+#: ../plugins/cd/cdprefs_pane.glade.h:2
+msgid "FLAC"
+msgstr "FLAC"
 
 #: ../plugins/cd/cdprefs_pane.glade.h:1
 msgid "Import format: "
-msgstr ""
+msgstr "Uvozni format: "
 
 #: ../plugins/cd/cdprefs_pane.glade.h:2
 msgid "Import path: "
-msgstr ""
+msgstr "Uvozni put: "
 
 #: ../plugins/cd/cdprefs_pane.glade.h:3
 msgid "Import quality: "
-msgstr ""
+msgstr "Uvozni kvalitet: "
+
+#: ../plugins/cd/cdprefs_pane.glade.h:6
+msgid "MP3 (CBR)"
+msgstr "MP3 (CBR)"
+
+#: ../plugins/cd/cdprefs_pane.glade.h:7
+msgid "MP3 (VBR)"
+msgstr "MP3 (VBR)"
+
+#: ../plugins/cd/cdprefs_pane.glade.h:8
+msgid "Ogg Vorbis"
+msgstr "Ogg Vorbis"
+
+#: ../plugins/cd/cdprefs_pane.glade.h:9
+msgid "WavPack"
+msgstr "WavPack"
 
 #: ../plugins/bookmarks/bookmarks_pane.glade.h:1
 msgid "Use covers in the bookmarks menu (takes effect on next start)"
@@ -2116,23 +2170,23 @@ msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:1
 msgid "<b>Content</b>"
-msgstr ""
+msgstr "<b>Sadržaj</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:2
 msgid "<b>Display</b>"
-msgstr ""
+msgstr "<b>Prikaz</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:3
 msgid "<b>Icons</b>"
-msgstr ""
+msgstr "<b>Ikone</b>"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:4
 msgid "Album Line:"
-msgstr ""
+msgstr "Linija Albuma:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:5
 msgid "Artist Line:"
-msgstr ""
+msgstr "Linija Izvođača:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:6
 msgid "On Playback Start, Pause or Stop"
@@ -2148,7 +2202,7 @@ msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:9
 msgid "Summary:"
-msgstr ""
+msgstr "Sažetak:"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:11
 #, python-format
@@ -2160,7 +2214,7 @@ msgstr ""
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:12
 msgid "Use Album Covers As Icons"
-msgstr ""
+msgstr "Upotrijebi Omote Albuma Kao Ikone"
 
 #: ../plugins/notifyosd/notifyosdprefs_pane.glade.h:13
 msgid "Use Media Icons For Pause, Stop and Resume"
@@ -2172,11 +2226,11 @@ msgstr ""
 
 #: ../plugins/amazoncovers/amazonprefs_pane.glade.h:1
 msgid "API Key:"
-msgstr ""
+msgstr "API Ključ:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.glade.h:2
 msgid "Secret Key:"
-msgstr ""
+msgstr "Tajni Ključ:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.glade.h:3
 msgid ""
@@ -2184,13 +2238,77 @@ msgid ""
 "this information visit http://aws.amazon.com/"
 msgstr ""
 
+#: ../plugins/desktopcover/prefs.glade.h:1
+msgid "Anchor:"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:2
+msgid "Bottom left"
+msgstr "Donji lijevi"
+
+#: ../plugins/desktopcover/prefs.glade.h:3
+msgid "Bottom right"
+msgstr "Donji desni"
+
+#: ../plugins/desktopcover/prefs.glade.h:4
+msgid "Size:"
+msgstr "Veličina:"
+
+#: ../plugins/desktopcover/prefs.glade.h:5
+msgid "Top left"
+msgstr "Gornji lijevo"
+
+#: ../plugins/desktopcover/prefs.glade.h:6
+msgid "Top right"
+msgstr "Gornji desno"
+
+#: ../plugins/desktopcover/prefs.glade.h:7
+msgid "X offset:"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:8
+msgid "Y offset:"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:9
+msgid "pixels"
+msgstr "pikseli"
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:1
+msgid "Base color"
+msgstr "Osnovna boja"
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:2
+msgid "Base color:"
+msgstr "Osnovna boja:"
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:3
+msgid "Darken played section instead of using cursor"
+msgstr ""
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:4
+msgid "Darkness level:"
+msgstr ""
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:5
+msgid "Show only waveform, not mood"
+msgstr ""
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:6
+msgid "Use color theme "
+msgstr "Upotrijebi temu boje "
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:7
+msgid "Use waveform style"
+msgstr ""
+
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:2
 msgid "Additional amplification (dB):"
-msgstr ""
+msgstr "Dodatno pojačanje (dB):"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:3
 msgid "Additional amplification to apply to all files"
-msgstr ""
+msgstr "Dodatno pojačanje za primijeniti na sve datoteke"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:4
 msgid "Fallback correction for files that lack ReplayGain information"
@@ -2218,15 +2336,15 @@ msgstr ""
 
 #: ../plugins/podcasts/podcasts.glade.h:1
 msgid "Add Podcast"
-msgstr ""
+msgstr "Dodaj Podcast"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:1
 msgid "<b>Body Message</b>"
-msgstr ""
+msgstr "<b>Tekst Poruke</b>"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:2
 msgid "Both artist and album"
-msgstr ""
+msgstr "I izvođač i album"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:4
 #, python-format
@@ -2239,50 +2357,34 @@ msgstr ""
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:5
 msgid "Only album"
-msgstr ""
+msgstr "Samo album"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:6
 msgid "Only artist"
-msgstr ""
+msgstr "Samo izvođač"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:7
 msgid "Resize displayed covers"
-msgstr ""
+msgstr "Promijeni veličinu prikazanih omota"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:8
 msgid "Summary"
-msgstr ""
+msgstr "Sažetak"
 
 #: ../plugins/ipconsole/ipconsole_prefs.glade.h:1
 msgid "Font:"
-msgstr ""
+msgstr "Pismo:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.glade.h:2
 msgid "Terminal Opacity:"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:1
-msgid "<b>Position</b>"
-msgstr ""
-
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:2
 msgid "Always on top"
-msgstr ""
-
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:3
-msgid "Center horizontally"
-msgstr ""
-
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:4
-msgid "Center vertically"
-msgstr ""
+msgstr "Uvijek na vrhu"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:5
 msgid "Display window decorations"
-msgstr ""
-
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:6
-msgid "Horizontal:"
 msgstr ""
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:7
@@ -2291,14 +2393,10 @@ msgstr ""
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:8
 msgid "Show on all desktops"
-msgstr ""
+msgstr "Prikaži na svim radnim površinama"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:9
 msgid "Track title format:"
-msgstr ""
-
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:10
-msgid "Vertical:"
 msgstr ""
 
 #: ../plugins/streamripper/streamripper.glade.h:1
@@ -2307,7 +2405,7 @@ msgstr ""
 
 #: ../plugins/streamripper/streamripper.glade.h:2
 msgid "Save Location:"
-msgstr ""
+msgstr "Spremi Lokaciju:"
 
 #: ../plugins/multialarmclock/PLUGININFO:4
 msgid ""
@@ -2327,6 +2425,15 @@ msgid ""
 "your playlist"
 msgstr ""
 
+#: ../plugins/currentsong/PLUGININFO:3
+msgid "Current Song"
+msgstr "Aktivna Pjesma"
+
+#: ../plugins/currentsong/PLUGININFO:4
+msgid ""
+"Sets the currently playing status in Pidgin for services that support it."
+msgstr ""
+
 #: ../plugins/audioscrobbler/PLUGININFO:4
 msgid ""
 "Submits listening information to Last.fm and similar services supporting "
@@ -2335,16 +2442,12 @@ msgstr ""
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
-msgstr ""
+msgstr "CD Reprodukcija"
 
 #: ../plugins/cd/PLUGININFO:4
 msgid ""
 "Adds support for playing audio CDs.\n"
 "Requires python-cddb to look up tags."
-msgstr ""
-
-#: ../plugins/mpris/PLUGININFO:3
-msgid "MPRIS"
 msgstr ""
 
 #: ../plugins/mpris/PLUGININFO:4
@@ -2357,11 +2460,11 @@ msgstr ""
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"
-msgstr ""
+msgstr "Last.fm Omoti"
 
 #: ../plugins/lastfmcovers/PLUGININFO:4
 msgid "Searches Last.fm for covers"
-msgstr ""
+msgstr "Pretraga omota na Last.fm"
 
 #: ../plugins/notifyosd/PLUGININFO:4
 msgid ""
@@ -2404,11 +2507,11 @@ msgstr ""
 
 #: ../plugins/ipod/PLUGININFO:3
 msgid "iPod support"
-msgstr ""
+msgstr "iPod podrška"
 
 #: ../plugins/ipod/PLUGININFO:4
 msgid "A plugin for iPod support"
-msgstr ""
+msgstr "Priključak za iPod podršku"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
@@ -2416,7 +2519,7 @@ msgstr ""
 
 #: ../plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
-msgstr ""
+msgstr "Dodaje Prostu Podcast Podršku"
 
 #: ../plugins/screensaverpause/PLUGININFO:3
 msgid "Pause on Screensaver"
@@ -2436,7 +2539,7 @@ msgstr ""
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
-msgstr ""
+msgstr "Zdravo Svijete"
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
@@ -2444,12 +2547,20 @@ msgstr ""
 
 #: ../plugins/gnomemmkeys/PLUGININFO:3
 msgid "GNOME Multimedia Keys"
-msgstr ""
+msgstr "GNOME Multimeija Ključevi"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:4
 msgid ""
 "Adds support for controlling Exaile via GNOME's multimedia key system. "
 "Compatible with GNOME >= 2.20.x"
+msgstr ""
+
+#: ../plugins/xkeys/PLUGININFO:3
+msgid "XKeys"
+msgstr "XKeys"
+
+#: ../plugins/xkeys/PLUGININFO:4
+msgid "Global hotkeys using xlib (mmkeys.so)"
 msgstr ""
 
 #: ../plugins/lyricsfly/PLUGININFO:3
@@ -2476,7 +2587,7 @@ msgstr ""
 
 #: ../plugins/librivox/PLUGININFO:3
 msgid "Librivox"
-msgstr ""
+msgstr "Librivox"
 
 #: ../plugins/librivox/PLUGININFO:4
 msgid "Browse and listen to audiobooks from Librivox.org."
@@ -2488,7 +2599,7 @@ msgstr ""
 
 #: ../plugins/minimode/PLUGININFO:4
 msgid "Compact mode for Exaile with a configurable interface"
-msgstr ""
+msgstr "Kompaktni mode za Exaile sa konfiguracionim sučeljem"
 
 #: ../plugins/tagcovers/PLUGININFO:3
 msgid "Tag Covers"
@@ -2500,12 +2611,13 @@ msgstr ""
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"
-msgstr ""
+msgstr "Kontekstualne Informacije"
 
 #: ../plugins/contextinfo/PLUGININFO:4
 msgid ""
 "Show various informations about the track currently playing.\n"
-"Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2"
+"Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. "
+"PIL)"
 msgstr ""
 
 #: ../plugins/streamripper/PLUGININFO:4
@@ -2521,3 +2633,41 @@ msgstr ""
 #: ../plugins/lyricwiki/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricwiki.org"
 msgstr ""
+
+#~ msgid "Vol:"
+#~ msgstr "Glasnoća"
+
+#~ msgid "<b>General</b>"
+#~ msgstr "<b>Općenito</b>"
+
+#~ msgid ""
+#~ "<b>{title}</b>\n"
+#~ "{artist}\n"
+#~ "on {album} - {length}"
+#~ msgstr ""
+#~ "<b>{title}</b>\n"
+#~ "{artist}\n"
+#~ "album {album} - {length}"
+
+#~ msgid ""
+#~ "Artist\n"
+#~ "Album\n"
+#~ "Genre - Artist\n"
+#~ "Genre - Album\n"
+#~ "Year - Artist\n"
+#~ "Year - Album\n"
+#~ "Artist - Year - Album"
+#~ msgstr ""
+#~ "Izvođač\n"
+#~ "Album\n"
+#~ "Žanr - Izvođač\n"
+#~ "Žanr - Album\n"
+#~ "Godina - Izvođač\n"
+#~ "Godina - Album\n"
+#~ "Izvođač - Godina - Album"
+
+#~ msgid " + "
+#~ msgstr " + "
+
+#~ msgid " - "
+#~ msgstr " - "

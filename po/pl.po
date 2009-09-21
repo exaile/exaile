@@ -7,52 +7,29 @@ msgid ""
 msgstr ""
 "Project-Id-Version: exaile\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-08-24 18:16+0200\n"
-"PO-Revision-Date: 2009-08-24 09:36+0000\n"
-"Last-Translator: Paweł \"PiKeyPL\" Kazimierowicz <pawkakaz@gmail.com>\n"
+"POT-Creation-Date: 2009-09-08 17:57+0200\n"
+"PO-Revision-Date: 2009-09-19 10:15+0000\n"
+"Last-Translator: imachine <Unknown>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-08-24 18:56+0000\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2;\n"
+"X-Launchpad-Export-Date: 2009-09-21 09:51+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../xl/player/pipe.py:198
 msgid "Automatic"
 msgstr "Automatycznie"
 
-#: ../xl/player/pipe.py:203
-msgid "GNOME"
-msgstr "GNOME"
-
-#: ../xl/player/pipe.py:208
-msgid "ALSA"
-msgstr "ALSA"
-
-#: ../xl/player/pipe.py:213
-msgid "OSS"
-msgstr "OSS"
-
-#: ../xl/player/pipe.py:218
-msgid "PulseAudio"
-msgstr "PulseAudio"
-
-#: ../xl/player/pipe.py:223
-msgid "JACK"
-msgstr "JACK"
-
-#. TODO: remove this before 0.3.0 since it is not needed for
-#. stable->stable upgrades
-#: ../xl/player/engine_normal.py:154
-#, python-format
-msgid ""
-"Exaile now uses absolute URI's, please delete/rename your %s directory"
-msgstr ""
-"Exaile używa teraz absolutnych URI, proszę usunąć/zmienić nazwę katalogu %s"
-
 #: ../xl/main.py:119
 msgid "Failed to migrate from 0.2.14"
 msgstr "Nie udało się zmigrować z wersji 0.2.14"
+
+#: ../xl/main.py:298
+msgid "Playback options"
+msgstr ""
 
 #: ../xl/main.py:273
 msgid "Play the next track"
@@ -76,7 +53,11 @@ msgstr "Odtwarzanie lub Pauza"
 
 #: ../xl/main.py:284
 msgid "Stop playback after current track"
-msgstr "Zatrzymaj odtwarzanie po bierzącej ścierzce."
+msgstr "Zatrzymaj odtwarzanie po bieżącym utworze"
+
+#: ../xl/main.py:314
+msgid "Track options"
+msgstr "Opcje utworu"
 
 #: ../xl/main.py:288
 msgid "Query player"
@@ -112,11 +93,15 @@ msgstr "Pobierz ocenę dla obecnego utworu"
 
 #: ../xl/main.py:305
 msgid "Print the position inside the current track as time"
-msgstr ""
+msgstr "Wyświetl pozycję w obecnym utworze jako czas"
 
 #: ../xl/main.py:308
 msgid "Print the progress inside the current track as percentage"
-msgstr ""
+msgstr "Wyświetl pozycję w obecnym utworze procentowo"
+
+#: ../xl/main.py:339
+msgid "Volume options"
+msgstr "Opcje głośności"
 
 #: ../xl/main.py:312
 msgid "Increases the volume by VOL%"
@@ -130,12 +115,20 @@ msgstr "Zmniejsza głośność o VOL%"
 msgid "Print the current volume percentage"
 msgstr "Wyświetl aktualną głośność procentowo"
 
+#: ../xl/main.py:348
+msgid "Other options"
+msgstr "Inne opcje"
+
 #: ../xl/main.py:320
 msgid "Start new instance"
-msgstr "Rozpocznij nową instancje"
+msgstr "Rozpocznij nową instancję"
 
 #: ../xl/main.py:323
 msgid "Start minimized (to tray, if possible)"
+msgstr "Startuj zminimalizowany (do obszaru powiadamiania, kiedy możliwe)"
+
+#: ../xl/main.py:355
+msgid "Toggle visibility of the GUI (if possible)"
 msgstr ""
 
 #: ../xl/main.py:325
@@ -143,6 +136,19 @@ msgid ""
 "Start in safe mode - sometimes useful when you're running into problems"
 msgstr ""
 "Uruchom w trybie awaryjnym - użyteczne kiedy występują problemy z programem"
+
+#: ../xl/main.py:360
+msgid "Force import of old data from 0.2.x. Overwrites current data."
+msgstr ""
+
+#: ../xl/main.py:363
+msgid "Do not import old data from 0.2.x."
+msgstr ""
+
+#. development and debug options
+#: ../xl/main.py:368
+msgid "Development/Debug options"
+msgstr ""
 
 #. development and debug options
 #: ../xl/main.py:329
@@ -193,6 +199,8 @@ msgid ""
 "Exaile is not yet finished loading. Perhaps you should listen for the "
 "exaile_loaded signal?"
 msgstr ""
+"Exaile jeszcze nie zakończył się ładować. Może powinieneś czekać na sygnał "
+"exaile_loaded?"
 
 #: ../xl/cover.py:119 ../xl/cover.py:153 ../xl/trackdb.py:233
 msgid "You did not specify a location to save the db"
@@ -356,16 +364,6 @@ msgstr "Zapisz jako..."
 msgid "Toggle: Stop after selected track"
 msgstr "Włącz/wyłącz: Zatrzymaj po zaznaczonym utworze"
 
-#: ../xlgui/main.py:645
-#, python-format
-msgid "%(playlist_count)d showing, %(collection_count)d in collection"
-msgstr "%(playlist_count)d pokazuje %(collection_count)d w kolekcji"
-
-#: ../xlgui/main.py:653
-#, python-format
-msgid " (%(queue_count)d queued)"
-msgstr " (%(queue_count)d w kolejce)"
-
 #: ../xlgui/main.py:788
 #, python-format
 msgid "Buffering: %d%%..."
@@ -453,7 +451,7 @@ msgstr "Zapisz jako własna lista odtwarzania"
 
 #: ../xlgui/menu.py:207
 msgid "_Save Changes To Playlist"
-msgstr ""
+msgstr "_Zapisz Zmiany w liście odtwarzania"
 
 #: ../xlgui/menu.py:208
 msgid "_Save As..."
@@ -568,7 +566,7 @@ msgstr "Nie znaleziono okładek"
 
 #: ../xlgui/osd.py:207
 msgid "No track"
-msgstr ""
+msgstr "Brak ścieżki"
 
 #: ../xlgui/__init__.py:160
 msgid "Export current playlist..."
@@ -614,6 +612,16 @@ msgstr "Przeszukiwanie kolekcji..."
 #, python-format
 msgid "Scanning %s..."
 msgstr "Skanowanie %s..."
+
+#: ../xlgui/main.py:645
+#, python-format
+msgid "%(playlist_count)d showing, %(collection_count)d in collection"
+msgstr "%(playlist_count)d pokazuje %(collection_count)d w kolekcji"
+
+#: ../xlgui/guiutil.py:717
+#, python-format
+msgid "(%d queued)"
+msgstr ""
 
 #: ../xlgui/guiutil.py:650
 msgid "Rating:"
@@ -771,7 +779,7 @@ msgstr "Wczoraj"
 #: ../xlgui/plcolumns.py:222 ../plugins/minimode/mmwidgets.py:897
 #, python-format
 msgid "%(year)d-%(month)02d-%(day)02d"
-msgstr ""
+msgstr "%(year)d-%(month)02d-%(day)02d"
 
 #: ../xlgui/plcolumns.py:253
 msgid "Track Number"
@@ -875,11 +883,11 @@ msgstr "nie zawiera"
 
 #: ../xlgui/panel/playlists.py:78 ../xlgui/panel/playlists.py:134
 msgid "greater than"
-msgstr ""
+msgstr "większy od"
 
 #: ../xlgui/panel/playlists.py:79 ../xlgui/panel/playlists.py:135
 msgid "less than"
-msgstr ""
+msgstr "mniejszy od"
 
 #. TRANSLATORS: Example: rating >= 5
 #: ../xlgui/panel/playlists.py:81 ../xlgui/panel/playlists.py:86
@@ -963,7 +971,7 @@ msgstr "Wczytywanie strumieni..."
 #: ../plugins/shoutcast/__init__.py:174 ../plugins/shoutcast/__init__.py:224
 #: ../plugins/shoutcast/__init__.py:257 ../plugins/podcasts/podcasts.glade.h:2
 msgid "Idle."
-msgstr ""
+msgstr "Brak zadań."
 
 #: ../xlgui/panel/radio.py:166
 msgid "Add Radio Station"
@@ -1004,7 +1012,7 @@ msgstr "%s KB"
 msgid ""
 "This will permanantly delete the selected tracks from your disk, are you "
 "sure you wish to continue?"
-msgstr ""
+msgstr "To trwale usunie zaznaczone ścieżki z Twojego dysku. Kontynuować?"
 
 #: ../xlgui/panel/collection.py:162
 msgid "Rescan Collection"
@@ -1017,7 +1025,7 @@ msgstr "Różni wykonawcy"
 #: ../xlgui/panel/device.py:115
 #, python-format
 msgid "Transferring to %s..."
-msgstr ""
+msgstr "Przesyłanie do %s..."
 
 #: ../xlgui/prefs/cover_prefs.py:21
 msgid "Covers"
@@ -1029,7 +1037,7 @@ msgstr "Wygląd"
 
 #: ../xlgui/prefs/playback_prefs.py:22
 msgid "Playback"
-msgstr ""
+msgstr "Odtwarzanie"
 
 #: ../xlgui/prefs/__init__.py:73 ../data/glade/preferences_dialog.glade.h:2
 msgid "Preferences"
@@ -1089,11 +1097,11 @@ msgstr "Usuń element"
 
 #: ../xlgui/prefs/widgets.py:262
 msgid "Move selected item up"
-msgstr ""
+msgstr "Przesunięcie wybranego elementu wyżej"
 
 #: ../xlgui/prefs/widgets.py:267
 msgid "Move selected item down"
-msgstr ""
+msgstr "Przesunięcie wybranego elementu niżej"
 
 #: ../xlgui/prefs/widgets.py:538
 msgid "Action"
@@ -1170,7 +1178,7 @@ msgstr "Artysta:"
 
 #: ../data/glade/trackproperties_dialog.glade.h:3
 msgid "Basic"
-msgstr ""
+msgstr "Podstawowy"
 
 #: ../data/glade/trackproperties_dialog.glade.h:4
 msgid "Bitrate:"
@@ -1272,24 +1280,24 @@ msgstr ""
 msgid "Always show tab bar"
 msgstr "Zawsze pokazuj pasek kart"
 
+#: ../data/ui/appearance_prefs_pane.glade.h:2
+msgid "Bottom"
+msgstr ""
+
 #: ../data/glade/appearance_prefs_pane.glade.h:3
 msgid "Jump to current song on track change"
 msgstr "Przejdź do bieżącej ścieżki po zmianie utworu."
 
-#: ../data/glade/appearance_prefs_pane.glade.h:4
-msgid ""
-"Left\n"
-"Right\n"
-"Top\n"
-"Bottom"
+#: ../data/ui/appearance_prefs_pane.glade.h:5
+msgid "Left"
 msgstr ""
-"Lewo\n"
-"Prawo\n"
-"Góra\n"
-"Dół"
 
 #: ../data/glade/appearance_prefs_pane.glade.h:8
 msgid "Minimize to tray"
+msgstr "Minimalizuj do zasobnika systemowego"
+
+#: ../data/ui/appearance_prefs_pane.glade.h:7
+msgid "Right"
 msgstr ""
 
 #: ../data/glade/appearance_prefs_pane.glade.h:9
@@ -1303,6 +1311,10 @@ msgstr "Pokaż ikonę w obszarze powiadamiania"
 #: ../data/glade/appearance_prefs_pane.glade.h:11
 msgid "Tab placement:"
 msgstr "Położenie kart"
+
+#: ../data/ui/appearance_prefs_pane.glade.h:11
+msgid "Top"
+msgstr ""
 
 #: ../data/glade/appearance_prefs_pane.glade.h:12
 msgid "Use alpha transparency (if supported)"
@@ -1344,16 +1356,6 @@ msgid ""
 "<b>Move the On Screen Display window to the location you want it to "
 "appear</b>"
 msgstr "<b>Przesuń okno OSD w miejsce w którym ma być wyświetlane</b>"
-
-#: ../data/glade/osd_prefs_pane.glade.h:2
-msgid ""
-"<b>{title}</b>\n"
-"{artist}\n"
-"on {album} - {length}"
-msgstr ""
-"<b>{title}</b>\n"
-"{artist}\n"
-"z {album} - {length}"
 
 #: ../data/glade/osd_prefs_pane.glade.h:5
 msgid "Background Color:"
@@ -1403,25 +1405,13 @@ msgstr "Menedżer kolejki"
 msgid "Remove All"
 msgstr "Usuń wszystkie"
 
+#: ../xl/player/pipe.py:208
+msgid "ALSA"
+msgstr "ALSA"
+
 #: ../data/glade/playback_prefs_pane.glade.h:1
 msgid "Audio Sink:  "
 msgstr "Wyjście Audio:  "
-
-#: ../data/glade/playback_prefs_pane.glade.h:2
-msgid ""
-"Automatic\n"
-"GNOME\n"
-"ALSA\n"
-"OSS\n"
-"PulseAudio\n"
-"JACK"
-msgstr ""
-"Automatycznie\n"
-"GNOME\n"
-"ALSA\n"
-"OSS\n"
-"PulseAudio\n"
-"JACK"
 
 #: ../data/glade/playback_prefs_pane.glade.h:8
 msgid "Crossfade duration (ms):"
@@ -1431,17 +1421,29 @@ msgstr "Czas przenikania (ms):"
 msgid "Fade duration (ms):"
 msgstr "Czas powolnego wyciszania (ms):"
 
-#: ../data/glade/playback_prefs_pane.glade.h:10
-msgid ""
-"Normal\n"
-"Unified (unstable)"
+#: ../xl/player/pipe.py:203
+msgid "GNOME"
+msgstr "GNOME"
+
+#: ../xl/player/pipe.py:223
+msgid "JACK"
+msgstr "JACK"
+
+#: ../data/ui/playback_prefs_pane.glade.h:8
+msgid "Normal"
 msgstr ""
-"Normalny\n"
-"Zunifikowany (niestabilny)"
+
+#: ../xl/player/pipe.py:213
+msgid "OSS"
+msgstr "OSS"
 
 #: ../data/glade/playback_prefs_pane.glade.h:12
 msgid "Playback engine (requires restart): "
 msgstr "Silnik odtwarzania (wymagany restart) "
+
+#: ../xl/player/pipe.py:218
+msgid "PulseAudio"
+msgstr "PulseAudio"
 
 #: ../data/glade/playback_prefs_pane.glade.h:13
 msgid "Resume playback in paused state"
@@ -1454,6 +1456,10 @@ msgstr "Rozpocznij odtwarzanie od początku"
 #: ../data/glade/playback_prefs_pane.glade.h:15
 msgid "These options only affect the unified engine."
 msgstr "Te opcje dotyczą tylko zunifikowanego silnika."
+
+#: ../data/ui/playback_prefs_pane.glade.h:15
+msgid "Unified (unstable)"
+msgstr ""
 
 #: ../data/glade/playback_prefs_pane.glade.h:16
 msgid "Use crossfading (EXPERIMENTAL)"
@@ -1489,11 +1495,11 @@ msgstr "Zainstaluj aktualizacje"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:7
 msgid "Install a third party plugin from a file"
-msgstr ""
+msgstr "Zainstaluj wtyczkę z innego źródła z pliku"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:8
 msgid "Install plugin file"
-msgstr ""
+msgstr "Zainstaluj wtyczkę z pliku"
 
 #: ../data/glade/plugin_prefs_pane.glade.h:9
 msgid "Installed Plugins"
@@ -1507,14 +1513,6 @@ msgstr "Aktualizacje"
 msgid "Version:"
 msgstr "Wersja:"
 
-#: ../data/glade/main.glade.h:1
-msgid " + "
-msgstr " + "
-
-#: ../data/glade/main.glade.h:2
-msgid " - "
-msgstr " - "
-
 #: ../data/glade/main.glade.h:3
 msgid "0/0 tracks"
 msgstr "0/0 ścieżek"
@@ -1525,11 +1523,15 @@ msgstr "0:00 / 0:00"
 
 #: ../data/glade/main.glade.h:5
 msgid "C_overs"
-msgstr ""
+msgstr "Okładki"
 
 #: ../data/glade/main.glade.h:6
 msgid "Clear Playlist"
 msgstr "Czyści listę odtwarzania"
+
+#: ../data/ui/main.glade.h:5
+msgid "Click to view Queue"
+msgstr ""
 
 #: ../data/glade/main.glade.h:7
 msgid "Dynamically add similar tracks to the playlist"
@@ -1557,7 +1559,7 @@ msgstr "Losuj kolejność odtwarzania obecnej listy odtwarzania"
 
 #: ../data/glade/main.glade.h:14
 msgid "Re_scan Collection"
-msgstr ""
+msgstr "Przeskanuj kolekcję"
 
 #: ../data/glade/main.glade.h:16 ../data/glade/collection_panel.glade.h:13
 #: ../data/glade/files_panel.glade.h:6
@@ -1566,7 +1568,7 @@ msgstr "Znajdź: "
 
 #: ../data/glade/main.glade.h:18
 msgid "Start/Pause Playback"
-msgstr ""
+msgstr "Rozpocznij/wstrzymaj odtwarzanie"
 
 #: ../data/glade/main.glade.h:19
 msgid ""
@@ -1574,18 +1576,17 @@ msgid ""
 "\n"
 "Right Click for Stop After Track Feature"
 msgstr ""
+"Zatrzymaj odtwarzanie\n"
+"\n"
+"Kliknij prawym przyciskiem by zatrzymać po zakończeniu utworu"
 
 #: ../data/glade/main.glade.h:23
 msgid "Track _properties"
-msgstr ""
-
-#: ../data/glade/main.glade.h:24
-msgid "Vol:"
-msgstr "Głośność:"
+msgstr "Właściwości ścieżki"
 
 #: ../data/glade/main.glade.h:25
 msgid "_Autosize"
-msgstr ""
+msgstr "Rozmiar automatyczny"
 
 #: ../data/glade/main.glade.h:26
 msgid "_Collection"
@@ -1625,11 +1626,11 @@ msgstr "_Kolejka"
 
 #: ../data/glade/main.glade.h:36
 msgid "_Randomize Playlist"
-msgstr ""
+msgstr "Wymieszaj listę odtwarzania"
 
 #: ../data/glade/main.glade.h:37
 msgid "_Resizable"
-msgstr ""
+msgstr "_Skalowalny"
 
 #: ../data/glade/main.glade.h:38
 msgid "_Tools"
@@ -1645,7 +1646,7 @@ msgstr "Menedżer kolekcji"
 
 #: ../data/glade/flatplaylist_panel.glade.h:1
 msgid "Append All Tracks to Playlist"
-msgstr ""
+msgstr "Dołącz wszystkie ścieżki do listy odtwarzania"
 
 #: ../data/glade/flatplaylist_panel.glade.h:2
 msgid "Import CD"
@@ -1664,33 +1665,37 @@ msgstr "<b>Kolekcja jest pusta.</b>"
 msgid "Add Music"
 msgstr "Dodaj muzykę"
 
-#: ../data/glade/collection_panel.glade.h:3
-msgid ""
-"Artist\n"
-"Album\n"
-"Genre - Artist\n"
-"Genre - Album\n"
-"Year - Artist\n"
-"Year - Album\n"
-"Artist - Year - Album"
+#: ../data/ui/collection_panel.glade.h:5
+msgid "Artist - Year - Album"
 msgstr ""
-"Wykonawca\n"
-"Album\n"
-"Gatunek - Wykonawca\n"
-"Gatunek - Album\n"
-"Rok - Wykonawca\n"
-"Rok - Album\n"
-"Wykonawca - Rok - Album"
+
+#: ../data/ui/collection_panel.glade.h:7
+msgid "Genre - Album"
+msgstr ""
+
+#: ../data/ui/collection_panel.glade.h:8
+msgid "Genre - Artist"
+msgstr ""
 
 #: ../data/glade/collection_panel.glade.h:11
 msgid ""
 "Refresh collection view\n"
 "(Hold Shift key to rescan the collection)"
 msgstr ""
+"Odśwież widok kolekcji\n"
+"(przytrzymaj klawisz shift, aby przeskanować ponownie kolekcję)"
+
+#: ../data/ui/collection_panel.glade.h:12
+msgid "Year - Album"
+msgstr ""
+
+#: ../data/ui/collection_panel.glade.h:13
+msgid "Year - Artist"
+msgstr ""
 
 #: ../data/glade/playlists_prefs_pane.glade.h:2
 msgid "Prompt for saving custom playlists on close"
-msgstr ""
+msgstr "Pytaj o zapis własnych list odtwarzania przy zamknięciu"
 
 #: ../data/glade/cover_prefs_pane.glade.h:1
 msgid "(drag to reorder)"
@@ -1699,10 +1704,6 @@ msgstr "(przeciągnij, aby zmienić kolejność)"
 #: ../data/glade/cover_prefs_pane.glade.h:2
 msgid "Cover Search Order:"
 msgstr "Kolejność szukania okładek:"
-
-#: ../data/glade/preferences_dialog.glade.h:1
-msgid "<b>General</b>"
-msgstr "<b>Ogólne</b>"
 
 #: ../data/glade/files_panel.glade.h:1
 msgid "Files"
@@ -1740,11 +1741,11 @@ msgstr "Budzik"
 #: ../plugins/audioscrobbler/asprefs.py:22
 #: ../plugins/audioscrobbler/PLUGININFO:3
 msgid "AudioScrobbler"
-msgstr ""
+msgstr "AudioScrobbler"
 
 #: ../plugins/audioscrobbler/__init__.py:114
 msgid "Enable audioscrobbling"
-msgstr ""
+msgstr "Włącz audioscrobbling"
 
 #: ../plugins/cd/__init__.py:95 ../plugins/cd/__init__.py:172
 msgid "Audio Disc"
@@ -1752,23 +1753,23 @@ msgstr "Płyta CD-Audio"
 
 #: ../plugins/cd/_cdguipanel.py:60
 msgid "Importing CD..."
-msgstr ""
+msgstr "Importowanie CD..."
 
 #: ../plugins/cd/cdprefs.py:22
 msgid "CD"
-msgstr ""
+msgstr "CD"
 
 #: ../plugins/cd/cdprefs.py:83 ../plugins/minimode/minimodeprefs.py:117
 msgid "Track number"
-msgstr ""
+msgstr "Numer ścieżki"
 
 #: ../plugins/cd/cdprefs.py:89 ../plugins/minimode/minimodeprefs.py:123
 msgid "Disc number"
-msgstr ""
+msgstr "Numer dysku"
 
 #: ../plugins/cd/cdprefs.py:96 ../plugins/minimode/minimodeprefs.py:130
 msgid "Play count"
-msgstr ""
+msgstr "Licznik odtworzeń"
 
 #: ../plugins/bookmarks/__init__.py:278
 #: ../plugins/bookmarks/bookmarksprefs.py:22 ../plugins/bookmarks/PLUGININFO:3
@@ -1789,7 +1790,7 @@ msgstr "Wyczyść zakładki"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:22 ../plugins/notifyosd/PLUGININFO:3
 msgid "Notify-osd notifications"
-msgstr ""
+msgstr "Powiadomienia Notify-osd"
 
 #: ../plugins/notifyosd/notifyosdprefs.py:47
 #: ../plugins/notify/notifyprefs.py:53
@@ -1812,11 +1813,23 @@ msgstr "z %(album)s"
 #: ../plugins/amazoncovers/amazonprefs.py:22
 #: ../plugins/amazoncovers/PLUGININFO:3
 msgid "Amazon Covers"
-msgstr ""
+msgstr "Okładki Amazon"
 
 #: ../plugins/desktopcover/prefs.py:22 ../plugins/desktopcover/PLUGININFO:3
 msgid "Desktop Cover"
 msgstr "Okładka na pulpicie"
+
+#: ../plugins/moodbar/__init__.py:163
+msgid "Searching for mood..."
+msgstr "Szukanie nastroju..."
+
+#: ../plugins/moodbar/__init__.py:167
+msgid "Mood found."
+msgstr "Znaleziono nastrój."
+
+#: ../plugins/moodbar/__init__.py:199
+msgid "Could not read moodbar."
+msgstr "Nie można odczytać paska nastroju."
 
 #: ../plugins/moodbar/__init__.py:334
 msgid "Moodbar executable is not available."
@@ -1825,7 +1838,7 @@ msgstr "Plik wykonywalny paska nastroju jest niedostępny."
 #: ../plugins/replaygain/replaygainprefs.py:22
 #: ../plugins/replaygain/PLUGININFO:3
 msgid "ReplayGain"
-msgstr ""
+msgstr "ReplayGain"
 
 #: ../plugins/podcasts/__init__.py:55 ../plugins/podcasts/PLUGININFO:3
 msgid "Podcasts"
@@ -1833,52 +1846,52 @@ msgstr "Podcasty"
 
 #: ../plugins/podcasts/__init__.py:72
 msgid "Podcast"
-msgstr ""
+msgstr "Podcast"
 
 #: ../plugins/podcasts/__init__.py:81
 msgid "Refresh Podcast"
-msgstr ""
+msgstr "Odśwież podcast"
 
 #: ../plugins/podcasts/__init__.py:82
 msgid "Delete"
-msgstr ""
+msgstr "Usuń"
 
 #: ../plugins/podcasts/__init__.py:120
 msgid "Enter the URL of the podcast to add"
-msgstr ""
+msgstr "Wprowadź URL do podcasta, aby dodać"
 
 #: ../plugins/podcasts/__init__.py:121
 msgid "Open Podcast"
-msgstr ""
+msgstr "Otwórz podcast"
 
 #: ../plugins/podcasts/__init__.py:154
 #, python-format
 msgid "Loading %s..."
-msgstr ""
+msgstr "Wczytywanie %s..."
 
 #: ../plugins/podcasts/__init__.py:183
 msgid "Error loading podcast."
-msgstr ""
+msgstr "Błąd wczytywania podcasta"
 
 #: ../plugins/podcasts/__init__.py:199
 msgid "Loading Podcasts..."
-msgstr ""
+msgstr "Ładowanie podcastów..."
 
 #: ../plugins/podcasts/__init__.py:230
 msgid "Could not save podcast file"
-msgstr ""
+msgstr "Nie można zapisać pliku podcasta"
 
 #: ../plugins/shoutcast/__init__.py:104 ../plugins/shoutcast/__init__.py:158
 #: ../plugins/shoutcast/__init__.py:201 ../plugins/shoutcast/__init__.py:237
 msgid "Contacting Shoutcast server..."
-msgstr ""
+msgstr "Łączenie z serwerem Shoutcast"
 
 #: ../plugins/shoutcast/__init__.py:114 ../plugins/shoutcast/__init__.py:118
 #: ../plugins/shoutcast/__init__.py:167 ../plugins/shoutcast/__init__.py:171
 #: ../plugins/shoutcast/__init__.py:215 ../plugins/shoutcast/__init__.py:220
 #: ../plugins/shoutcast/__init__.py:248 ../plugins/shoutcast/__init__.py:253
 msgid "Error connecting to Shoutcast server."
-msgstr ""
+msgstr "Błąd połączenia z serwerem Shoutcastów"
 
 #: ../plugins/shoutcast/__init__.py:273
 msgid "Enter the search keywords"
@@ -1898,7 +1911,7 @@ msgstr "Znajdź"
 
 #: ../plugins/notify/notifyprefs.py:22 ../plugins/notify/PLUGININFO:3
 msgid "Notify"
-msgstr ""
+msgstr "Powiadomienie"
 
 #: ../plugins/notify/notifyprefs.py:38
 #, python-format
@@ -1919,7 +1932,7 @@ msgstr "Pokaż konsolę IPython"
 
 #: ../plugins/ipconsole/ipconsoleprefs.py:22 ../plugins/ipconsole/PLUGININFO:3
 msgid "IPython Console"
-msgstr ""
+msgstr "Konsola IPython"
 
 #: ../plugins/minimode/__init__.py:209
 msgid "Stop Playback"
@@ -1968,11 +1981,11 @@ msgstr "Pasek postępu"
 
 #: ../plugins/minimode/minimodeprefs.py:106
 msgid "Volume"
-msgstr ""
+msgstr "Głośność"
 
 #: ../plugins/minimode/minimodeprefs.py:107
 msgid "Playlist button"
-msgstr ""
+msgstr "Przycisk listy odtwarzania"
 
 #: ../plugins/minimode/minimodeprefs.py:110
 msgid "Restore"
@@ -1982,17 +1995,17 @@ msgstr "Przywróć"
 #: ../plugins/minimode/minimodeprefs.py:136
 #: ../plugins/minimode/minimodeprefs.py:142
 msgid "$tracknumber - $title"
-msgstr ""
+msgstr "$tracknumber - $title"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimodeprefs.py:138
 msgid "$title by $artist"
-msgstr ""
+msgstr "$title przez $artist"
 
 #. TRANSLATORS: Mini mode track selector title preset
 #: ../plugins/minimode/minimodeprefs.py:140
 msgid "$title ($length)"
-msgstr ""
+msgstr "$title ($length)"
 
 #: ../plugins/minimode/mmwidgets.py:151 ../plugins/minimode/mmwidgets.py:165
 msgid "Start Playback"
@@ -2008,7 +2021,7 @@ msgstr "Wstrzymaj odtwarzanie"
 
 #: ../plugins/minimode/mmwidgets.py:732
 msgid "Seeking: "
-msgstr ""
+msgstr "Przewijanie: "
 
 #: ../plugins/minimode/mmwidgets.py:809
 msgid " & "
@@ -2017,11 +2030,11 @@ msgstr " & "
 #: ../plugins/contextinfo/__init__.py:1033
 #: ../plugins/contextinfo/context.glade.h:1
 msgid "Context"
-msgstr ""
+msgstr "Kontekst"
 
 #: ../plugins/streamripper/srprefs.py:22 ../plugins/streamripper/PLUGININFO:3
 msgid "Streamripper"
-msgstr ""
+msgstr "Zgrywanie strumieni"
 
 #: ../plugins/streamripper/__init__.py:54
 msgid "Streamripper can only record streams."
@@ -2144,15 +2157,39 @@ msgid "Username:"
 msgstr "Nazwa użytkownika:"
 
 #: ../plugins/cd/cdprefs_pane.glade.h:1
-msgid "Import format: "
+msgid "AAC"
 msgstr ""
 
 #: ../plugins/cd/cdprefs_pane.glade.h:2
-msgid "Import path: "
+msgid "FLAC"
 msgstr ""
+
+#: ../plugins/cd/cdprefs_pane.glade.h:1
+msgid "Import format: "
+msgstr "Format importu: "
+
+#: ../plugins/cd/cdprefs_pane.glade.h:2
+msgid "Import path: "
+msgstr "Ścieżka importu: "
 
 #: ../plugins/cd/cdprefs_pane.glade.h:3
 msgid "Import quality: "
+msgstr "Jakość importu: "
+
+#: ../plugins/cd/cdprefs_pane.glade.h:6
+msgid "MP3 (CBR)"
+msgstr ""
+
+#: ../plugins/cd/cdprefs_pane.glade.h:7
+msgid "MP3 (VBR)"
+msgstr ""
+
+#: ../plugins/cd/cdprefs_pane.glade.h:8
+msgid "Ogg Vorbis"
+msgstr ""
+
+#: ../plugins/cd/cdprefs_pane.glade.h:9
+msgid "WavPack"
 msgstr ""
 
 #: ../plugins/bookmarks/bookmarks_pane.glade.h:1
@@ -2219,11 +2256,11 @@ msgstr ""
 
 #: ../plugins/amazoncovers/amazonprefs_pane.glade.h:1
 msgid "API Key:"
-msgstr ""
+msgstr "Klucz API:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.glade.h:2
 msgid "Secret Key:"
-msgstr ""
+msgstr "Sekretny klucz:"
 
 #: ../plugins/amazoncovers/amazonprefs_pane.glade.h:3
 msgid ""
@@ -2231,13 +2268,77 @@ msgid ""
 "this information visit http://aws.amazon.com/"
 msgstr ""
 
+#: ../plugins/desktopcover/prefs.glade.h:1
+msgid "Anchor:"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:2
+msgid "Bottom left"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:3
+msgid "Bottom right"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:4
+msgid "Size:"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:5
+msgid "Top left"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:6
+msgid "Top right"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:7
+msgid "X offset:"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:8
+msgid "Y offset:"
+msgstr ""
+
+#: ../plugins/desktopcover/prefs.glade.h:9
+msgid "pixels"
+msgstr ""
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:1
+msgid "Base color"
+msgstr "Kolor podstawowy"
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:2
+msgid "Base color:"
+msgstr "Kolor podstawowy:"
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:3
+msgid "Darken played section instead of using cursor"
+msgstr ""
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:4
+msgid "Darkness level:"
+msgstr ""
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:5
+msgid "Show only waveform, not mood"
+msgstr ""
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:6
+msgid "Use color theme "
+msgstr ""
+
+#: ../plugins/moodbar/moodbarprefs_pane.glade.h:7
+msgid "Use waveform style"
+msgstr ""
+
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:2
 msgid "Additional amplification (dB):"
-msgstr ""
+msgstr "Dodatkowe wzmocnienie (dB):"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:3
 msgid "Additional amplification to apply to all files"
-msgstr ""
+msgstr "Dodatkowe wzmocnienie do zastosowania na wszystkich plikach"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:4
 msgid "Fallback correction for files that lack ReplayGain information"
@@ -2257,7 +2358,7 @@ msgstr "Preferuj korekcję na album"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:10
 msgid "Protect against noise caused by over-amplification"
-msgstr ""
+msgstr "Ochrona przed szumem spowodowanym nadmiernym wzmocnieniem"
 
 #: ../plugins/replaygain/replaygainprefs_pane.glade.h:12
 msgid "Use clipping protection"
@@ -2265,7 +2366,7 @@ msgstr ""
 
 #: ../plugins/podcasts/podcasts.glade.h:1
 msgid "Add Podcast"
-msgstr ""
+msgstr "Dodaj Podcast"
 
 #: ../plugins/notify/notifyprefs_pane.glade.h:1
 msgid "<b>Body Message</b>"
@@ -2306,35 +2407,19 @@ msgstr "Podsumowanie"
 
 #: ../plugins/ipconsole/ipconsole_prefs.glade.h:1
 msgid "Font:"
-msgstr ""
+msgstr "Czcionka:"
 
 #: ../plugins/ipconsole/ipconsole_prefs.glade.h:2
 msgid "Terminal Opacity:"
 msgstr ""
 
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:1
-msgid "<b>Position</b>"
-msgstr "<b>Pozycja</b>"
-
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:2
 msgid "Always on top"
 msgstr "Zawsze na wierzchu"
 
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:3
-msgid "Center horizontally"
-msgstr "Wyśrodkuj w poziomie"
-
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:4
-msgid "Center vertically"
-msgstr "Wyśrodkuj w pionie"
-
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:5
 msgid "Display window decorations"
 msgstr "Wyświetl dekoracje okna"
-
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:6
-msgid "Horizontal:"
-msgstr "Poziomo:"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:7
 msgid "Show in tasklist"
@@ -2346,11 +2431,7 @@ msgstr "Pokaż na wszystkich pulpitach"
 
 #: ../plugins/minimode/minimodeprefs_pane.glade.h:9
 msgid "Track title format:"
-msgstr ""
-
-#: ../plugins/minimode/minimodeprefs_pane.glade.h:10
-msgid "Vertical:"
-msgstr "Pionowo:"
+msgstr "Format tytułu ścieżki:"
 
 #: ../plugins/streamripper/streamripper.glade.h:1
 msgid "Relay Port:"
@@ -2378,25 +2459,34 @@ msgid ""
 "your playlist"
 msgstr ""
 
+#: ../plugins/currentsong/PLUGININFO:3
+msgid "Current Song"
+msgstr ""
+
+#: ../plugins/currentsong/PLUGININFO:4
+msgid ""
+"Sets the currently playing status in Pidgin for services that support it."
+msgstr ""
+
 #: ../plugins/audioscrobbler/PLUGININFO:4
 msgid ""
 "Submits listening information to Last.fm and similar services supporting "
 "AudioScrobbler"
 msgstr ""
+"Wysyła informacje o odsłuchanej muzyce do Last.fm i podobnych serwisów "
+"korzystających z AudioScrobbler."
 
 #: ../plugins/cd/PLUGININFO:3
 msgid "CD Playback"
-msgstr ""
+msgstr "Odtwarzanie CD"
 
 #: ../plugins/cd/PLUGININFO:4
 msgid ""
 "Adds support for playing audio CDs.\n"
 "Requires python-cddb to look up tags."
 msgstr ""
-
-#: ../plugins/mpris/PLUGININFO:3
-msgid "MPRIS"
-msgstr ""
+"Dodaj wsparcie dla odtwarzania audio CD.\n"
+"Wymaga python-cddb do wyszukiwania tagów."
 
 #: ../plugins/mpris/PLUGININFO:4
 msgid "Creates an MPRIS D-Bus object to control Exaile"
@@ -2408,11 +2498,11 @@ msgstr ""
 
 #: ../plugins/lastfmcovers/PLUGININFO:3
 msgid "Last.fm Covers"
-msgstr ""
+msgstr "Okładki z Last.fm"
 
 #: ../plugins/lastfmcovers/PLUGININFO:4
 msgid "Searches Last.fm for covers"
-msgstr ""
+msgstr "Wyszukuje okładki na Last.fm"
 
 #: ../plugins/notifyosd/PLUGININFO:4
 msgid ""
@@ -2429,7 +2519,7 @@ msgid ""
 "Searches Amazon for covers\n"
 "\n"
 "To be able to use this plugin, an AWS API key and secret key are required."
-msgstr ""
+msgstr "Wyszukuje okładki na Amazon"
 
 #: ../plugins/desktopcover/PLUGININFO:4
 msgid "Displays the current album cover on the desktop"
@@ -2445,21 +2535,23 @@ msgstr ""
 
 #: ../plugins/moodbar/PLUGININFO:3
 msgid "Moodbar"
-msgstr ""
+msgstr "Pasek nastroju"
 
 #: ../plugins/moodbar/PLUGININFO:4
 msgid ""
 "Replaces the standard progress bar with a moodbar.\n"
 "Depends: moodbar"
 msgstr ""
+"Zamienia standardowy pasek postępu na pasek nastroju\n"
+"Zależności: moodbar"
 
 #: ../plugins/ipod/PLUGININFO:3
 msgid "iPod support"
-msgstr ""
+msgstr "Obsługa iPod"
 
 #: ../plugins/ipod/PLUGININFO:4
 msgid "A plugin for iPod support"
-msgstr ""
+msgstr "Wtyczka do obsługi iPod"
 
 #: ../plugins/replaygain/PLUGININFO:4
 msgid "Enables ReplayGain support"
@@ -2467,7 +2559,7 @@ msgstr ""
 
 #: ../plugins/podcasts/PLUGININFO:4
 msgid "Adds Simple Podcast Support"
-msgstr ""
+msgstr "Dodaje prostą obsługę Podcastów"
 
 #: ../plugins/screensaverpause/PLUGININFO:3
 msgid "Pause on Screensaver"
@@ -2476,6 +2568,7 @@ msgstr ""
 #: ../plugins/screensaverpause/PLUGININFO:4
 msgid "Pauses/resumes playback on screensaver start/stop"
 msgstr ""
+"Wstrzymuje/kontynuuje odtwarzanie przy włączeniu/wyłączeniu wygaszacza ekranu"
 
 #: ../plugins/shoutcast/PLUGININFO:3
 msgid "Shoutcast Radio"
@@ -2487,11 +2580,11 @@ msgstr ""
 
 #: ../plugins/helloworld/PLUGININFO:3
 msgid "Hello World"
-msgstr ""
+msgstr "Hello World"
 
 #: ../plugins/helloworld/PLUGININFO:4
 msgid "A simple plugin for testing the basic plugin system"
-msgstr ""
+msgstr "Prosta wtyczka do testowania podstawowego systemu wtyczek"
 
 #: ../plugins/gnomemmkeys/PLUGININFO:3
 msgid "GNOME Multimedia Keys"
@@ -2503,13 +2596,21 @@ msgid ""
 "Compatible with GNOME >= 2.20.x"
 msgstr ""
 
+#: ../plugins/xkeys/PLUGININFO:3
+msgid "XKeys"
+msgstr ""
+
+#: ../plugins/xkeys/PLUGININFO:4
+msgid "Global hotkeys using xlib (mmkeys.so)"
+msgstr "Globalne skróty klawiszowe przy użyciu xlib (mmkeys.so)"
+
 #: ../plugins/lyricsfly/PLUGININFO:3
 msgid "Lyrics Fly"
-msgstr ""
+msgstr "Lyrics Fly"
 
 #: ../plugins/lyricsfly/PLUGININFO:4
 msgid "Plugin to fetch lyrics from lyricsfly.com"
-msgstr ""
+msgstr "Wtyczka do pobierania liryk z lyricsfly.com"
 
 #: ../plugins/massstorage/PLUGININFO:3
 msgid "USB Mass Storage Media Player Support"
@@ -2551,19 +2652,25 @@ msgstr ""
 
 #: ../plugins/contextinfo/PLUGININFO:3
 msgid "Contextual Info"
-msgstr ""
+msgstr "Informacja kontekstowa"
 
 #: ../plugins/contextinfo/PLUGININFO:4
 msgid ""
 "Show various informations about the track currently playing.\n"
-"Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2"
+"Depends: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. "
+"PIL)"
 msgstr ""
+"Pokaż dodatkowe informacje o aktualnie odtwarzanej ścieżce.\n"
+"Wymaga: libwebkit >= 1.0.1, python-webkit >= 1.1.2, python-imaging (a.k.a. "
+"PIL)"
 
 #: ../plugins/streamripper/PLUGININFO:4
 msgid ""
 "Allows you to record streams with streamripper.\n"
 "Depends: streamripper"
 msgstr ""
+"Pozwala na nagrywanie transmisji strumieniowych wykorzystując stremripper.\n"
+"Wymaga: streamripper"
 
 #: ../plugins/lyricwiki/PLUGININFO:3
 msgid "Lyrics Wiki"
@@ -2582,8 +2689,70 @@ msgstr ""
 #~ msgid "Number of Plays"
 #~ msgstr "Ilość odtworzeń"
 
+#~ msgid ""
+#~ "Left\n"
+#~ "Right\n"
+#~ "Top\n"
+#~ "Bottom"
+#~ msgstr ""
+#~ "Lewo\n"
+#~ "Prawo\n"
+#~ "Góra\n"
+#~ "Dół"
+
+#~ msgid ""
+#~ "Automatic\n"
+#~ "GNOME\n"
+#~ "ALSA\n"
+#~ "OSS\n"
+#~ "PulseAudio\n"
+#~ "JACK"
+#~ msgstr ""
+#~ "Automatycznie\n"
+#~ "GNOME\n"
+#~ "ALSA\n"
+#~ "OSS\n"
+#~ "PulseAudio\n"
+#~ "JACK"
+
+#, python-format
+#~ msgid ""
+#~ "Exaile now uses absolute URI's, please delete/rename your %s directory"
+#~ msgstr ""
+#~ "Exaile używa teraz absolutnych URI, proszę usunąć/zmienić nazwę katalogu %s"
+
 #~ msgid "Pause"
 #~ msgstr "Pauza"
+
+#~ msgid ""
+#~ "<b>{title}</b>\n"
+#~ "{artist}\n"
+#~ "on {album} - {length}"
+#~ msgstr ""
+#~ "<b>{title}</b>\n"
+#~ "{artist}\n"
+#~ "z {album} - {length}"
+
+#~ msgid ""
+#~ "Artist\n"
+#~ "Album\n"
+#~ "Genre - Artist\n"
+#~ "Genre - Album\n"
+#~ "Year - Artist\n"
+#~ "Year - Album\n"
+#~ "Artist - Year - Album"
+#~ msgstr ""
+#~ "Wykonawca\n"
+#~ "Album\n"
+#~ "Gatunek - Wykonawca\n"
+#~ "Gatunek - Album\n"
+#~ "Rok - Wykonawca\n"
+#~ "Rok - Album\n"
+#~ "Wykonawca - Rok - Album"
+
+#, python-format
+#~ msgid " (%(queue_count)d queued)"
+#~ msgstr " (%(queue_count)d w kolejce)"
 
 #~ msgid "Cancel"
 #~ msgstr "Anuluj"
@@ -2594,8 +2763,42 @@ msgstr ""
 #~ msgid "Quit"
 #~ msgstr "Zakończ"
 
+#~ msgid " + "
+#~ msgstr " + "
+
+#~ msgid "Vol:"
+#~ msgstr "Głośność:"
+
+#~ msgid " - "
+#~ msgstr " - "
+
+#~ msgid "<b>General</b>"
+#~ msgstr "<b>Ogólne</b>"
+
 #~ msgid "Personal"
 #~ msgstr "Osobiste"
 
 #~ msgid "Neighbourhood"
 #~ msgstr "Sąsiedzi"
+
+#~ msgid "<b>Position</b>"
+#~ msgstr "<b>Pozycja</b>"
+
+#~ msgid "Vertical:"
+#~ msgstr "Pionowo:"
+
+#~ msgid "Center vertically"
+#~ msgstr "Wyśrodkuj w pionie"
+
+#~ msgid "Horizontal:"
+#~ msgstr "Poziomo:"
+
+#~ msgid "Center horizontally"
+#~ msgstr "Wyśrodkuj w poziomie"
+
+#~ msgid ""
+#~ "Normal\n"
+#~ "Unified (unstable)"
+#~ msgstr ""
+#~ "Normalny\n"
+#~ "Zunifikowany (niestabilny)"
